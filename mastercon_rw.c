@@ -205,7 +205,6 @@ static int cursorInTarget(real_T *c, real_T *t)
     return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
 }
 
-static foo = 0;
 #define MDL_UPDATE
 static void mdlUpdate(SimStruct *S, int_T tid) 
 {
@@ -304,7 +303,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 target_list[i*2]   = VNI * work_area_width / 2.0;  /* x position */
                 target_list[i*2+1] = VNI * work_area_height / 2.0; /* y position */
             }
-            foo = VNI*work_area_width;
 
             /* and reset the counter */
             ssSetIWorkValue(S, 1, 0);
@@ -488,9 +486,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
     
     status[0] = state;
-    status[1] = foo; //ssGetIWorkValue(S, 2); // num rewards
-    status[2] = num_targets; //ssGetIWorkValue(S, 3); // num aborts
-    status[3] = target_index; //ssGetIWorkValue(S, 4); // num fails
+    status[1] = ssGetIWorkValue(S, 2); // num rewards
+    status[2] = ssGetIWorkValue(S, 3); // num aborts
+    status[3] = ssGetIWorkValue(S, 4); // num fails
     
     /* word (2) */
     if (new_state) {
