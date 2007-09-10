@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.731"
+    ComputedModelVersion    "1.735"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Sep 05 17:36:52 2007"
-  ModelVersionFormat	  "1.%<AutoIncrement:731>"
+  LastModifiedDate	  "Mon Sep 10 13:14:24 2007"
+  ModelVersionFormat	  "1.%<AutoIncrement:735>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -1153,6 +1153,7 @@ Model {
 	      Ports		      [2, 1]
 	      Position		      [545, 227, 575, 258]
 	      Inputs		      "+-"
+	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      OutScaling	      "2^-10"
@@ -1164,6 +1165,7 @@ Model {
 	      Ports		      [2, 1]
 	      Position		      [540, 397, 570, 428]
 	      Inputs		      "+-"
+	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      OutScaling	      "2^-10"
@@ -1387,6 +1389,7 @@ Model {
 	      Name		      "Add"
 	      Ports		      [2, 1]
 	      Position		      [670, 247, 700, 278]
+	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      OutScaling	      "2^-10"
@@ -1424,6 +1427,7 @@ Model {
 	      Name		      "Product"
 	      Ports		      [2, 1]
 	      Position		      [565, 212, 595, 243]
+	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -1433,6 +1437,7 @@ Model {
 	      Name		      "Product1"
 	      Ports		      [2, 1]
 	      Position		      [565, 287, 595, 318]
+	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -1442,6 +1447,7 @@ Model {
 	      Name		      "Product2"
 	      Ports		      [2, 1]
 	      Position		      [580, 427, 610, 458]
+	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -1451,6 +1457,7 @@ Model {
 	      Name		      "Product3"
 	      Ports		      [2, 1]
 	      Position		      [580, 487, 610, 518]
+	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -1461,6 +1468,7 @@ Model {
 	      Ports		      [2, 1]
 	      Position		      [690, 462, 720, 493]
 	      Inputs		      "+-"
+	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      OutScaling	      "2^-10"
@@ -1938,6 +1946,7 @@ Model {
 	  Name			  "Product"
 	  Ports			  [2, 1]
 	  Position		  [820, 337, 850, 368]
+	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -1947,6 +1956,7 @@ Model {
 	  Name			  "Product1"
 	  Ports			  [2, 1]
 	  Position		  [820, 432, 850, 463]
+	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -1956,6 +1966,7 @@ Model {
 	  Name			  "Product2"
 	  Ports			  [2, 1]
 	  Position		  [820, 517, 850, 548]
+	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -1965,6 +1976,7 @@ Model {
 	  Name			  "Product3"
 	  Ports			  [2, 1]
 	  Position		  [820, 612, 850, 643]
+	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -1977,6 +1989,7 @@ Model {
 	  ShowName		  off
 	  IconShape		  "round"
 	  Inputs		  "-+"
+	  CollapseMode		  "All dimensions"
 	}
 	Block {
 	  BlockType		  Sum
@@ -1986,6 +1999,7 @@ Model {
 	  ShowName		  off
 	  IconShape		  "round"
 	  Inputs		  "--"
+	  CollapseMode		  "All dimensions"
 	}
 	Block {
 	  BlockType		  Fcn
@@ -2181,7 +2195,7 @@ Model {
       BlockType		      Concatenate
       Name		      "Matrix\nConcatenation"
       Ports		      [2, 1]
-      Position		      [1030, 709, 1085, 751]
+      Position		      [1045, 709, 1100, 751]
       Mode		      "Multidimensional array"
     }
     Block {
@@ -2916,6 +2930,7 @@ Model {
 	      ShowName		      off
 	      IconShape		      "round"
 	      Inputs		      "-+"
+	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -3236,6 +3251,7 @@ Model {
 	  ShowName		  off
 	  IconShape		  "round"
 	  Inputs		  "-+"
+	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -3370,7 +3386,7 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "['%15.0f' '%15.0f' '%15.0f' '%15.0f']"
+      formatstr		      "['%3.0f' '%3.2f' '%1.0f' '%1.0f']"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"
@@ -3440,6 +3456,7 @@ Model {
 	  Name			  "Add"
 	  Ports			  [2, 1]
 	  Position		  [340, 272, 370, 303]
+	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  OutScaling		  "2^-10"
@@ -3450,6 +3467,7 @@ Model {
 	  Name			  "Add1"
 	  Ports			  [2, 1]
 	  Position		  [340, 377, 370, 408]
+	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  OutScaling		  "2^-10"
@@ -4043,6 +4061,7 @@ Model {
 	      Name		      "Product"
 	      Ports		      [2, 1]
 	      Position		      [645, 362, 675, 393]
+	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -4052,6 +4071,7 @@ Model {
 	      Name		      "Product1"
 	      Ports		      [2, 1]
 	      Position		      [670, 32, 700, 63]
+	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -4064,6 +4084,7 @@ Model {
 	      ShowName		      off
 	      IconShape		      "round"
 	      Inputs		      "|++"
+	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -4266,6 +4287,7 @@ Model {
 	      Name		      "Add"
 	      Ports		      [2, 1]
 	      Position		      [275, 402, 305, 433]
+	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      OutScaling	      "2^-10"
@@ -4276,6 +4298,7 @@ Model {
 	      Name		      "Add1"
 	      Ports		      [2, 1]
 	      Position		      [275, 472, 305, 503]
+	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      OutScaling	      "2^-10"
@@ -4449,6 +4472,7 @@ Model {
 		  Ports			  [2, 1]
 		  Position		  [210, 297, 240, 328]
 		  Inputs		  "+-"
+		  CollapseMode		  "All dimensions"
 		  InputSameDT		  off
 		  OutDataTypeMode	  "Inherit via internal rule"
 		  OutScaling		  "2^-10"
@@ -4751,6 +4775,7 @@ Model {
 	      ShowName		      off
 	      IconShape		      "round"
 	      Inputs		      "|++"
+	      CollapseMode	      "All dimensions"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -4760,6 +4785,7 @@ Model {
 	      ShowName		      off
 	      IconShape		      "round"
 	      Inputs		      "--"
+	      CollapseMode	      "All dimensions"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -4769,6 +4795,7 @@ Model {
 	      ShowName		      off
 	      IconShape		      "round"
 	      Inputs		      "-+"
+	      CollapseMode	      "All dimensions"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -4778,6 +4805,7 @@ Model {
 	      ShowName		      off
 	      IconShape		      "round"
 	      Inputs		      "|++"
+	      CollapseMode	      "All dimensions"
 	    }
 	    Block {
 	      BlockType		      Fcn
@@ -5010,6 +5038,7 @@ Model {
 	  ShowName		  off
 	  IconShape		  "round"
 	  Inputs		  "|++"
+	  CollapseMode		  "All dimensions"
 	}
 	Block {
 	  BlockType		  Sum
@@ -5019,6 +5048,7 @@ Model {
 	  ShowName		  off
 	  IconShape		  "round"
 	  Inputs		  "|++"
+	  CollapseMode		  "All dimensions"
 	}
 	Block {
 	  BlockType		  Constant
@@ -5247,7 +5277,7 @@ Model {
       BlockType		      Reference
       Name		      "Xpos1"
       Ports		      [1]
-      Position		      [1120, 710, 1190, 750]
+      Position		      [1135, 710, 1205, 750]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -5370,7 +5400,7 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "['%2.0f' '%2.2f' '%2.2f']"
+      formatstr		      "['%d' '%2.2f' '%2.2f']"
       grid		      on
       ylimits		      "[0,0]"
       nosamples		      "7"

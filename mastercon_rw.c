@@ -205,7 +205,7 @@ static int cursorInTarget(real_T *c, real_T *t)
     return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
 }
 
-
+static foo = 0;
 #define MDL_UPDATE
 static void mdlUpdate(SimStruct *S, int_T tid) 
 {
@@ -214,6 +214,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
      ****************/
     
     /* stupidly declare all variables at the begining of the function */
+    int i;
     int *IWorkVector; 
     int target_index;
     real_T *RWorkVector;
@@ -300,12 +301,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             /* initilize target positions */
             for (i=0; i<num_targets; i++) {
-                target_list[i*2]   = VNI * work_area_width;  /* x position */
-                target_list[i*2+1] = VNI * work_area_height; /* y position */
+                target_list[i*2]   = VNI * work_area_width / 2.0;  /* x position */
+                target_list[i*2+1] = VNI * work_area_height / 2.0; /* y position */
             }
+            foo = VNI*work_area_width;
 
             /* and reset the counter */
             ssSetIWorkValue(S, 1, 0);
+            
+            new_state = STATE_INITIAL_MOVEMENT;
 
             break;
         case STATE_INITIAL_MOVEMENT:
@@ -412,7 +416,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int_T *IWorkVector;
     real_T *RWorkVector;
     int_T target_index;
-    int_T *target_list;
+    real_T *target_list;
     real_T target_x, target_y;
     real_T tgt[4];
     
@@ -483,10 +487,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_FAIL && new_state)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
     
-    status[0] = IWorkVector[1]; //state;
-    status[1] = ssGetIWorkValue(S, 2); // num rewards
-    status[2] = ssGetIWorkValue(S, 3); // num aborts
-    status[3] = ssGetIWorkValue(S, 4); // num fails
+    status[0] = state;
+    status[1] = foo; //ssGetIWorkValue(S, 2); // num rewards
+    status[2] = num_targets; //ssGetIWorkValue(S, 3); // num aborts
+    status[3] = target_index; //ssGetIWorkValue(S, 4); // num fails
     
     /* word (2) */
     if (new_state) {
@@ -520,7 +524,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
          state == STATE_MOVEMENT || 
          state == STATE_TARGET_HOLD )
     {
-        /* center target on */
+        /* target on */
         target_pos[0] = 1;
         for (i=0; i<4; i++) {
             target_pos[i+1] = tgt[i];
@@ -528,7 +532,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     } 
     else 
     {
-        /* center target off */
+        /* target off */
         target_pos[0] = 0;
         for (i=0; i<4; i++) {
             target_pos[i+1] = 0;
