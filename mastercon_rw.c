@@ -29,7 +29,7 @@ static real_T work_area_width = 30.0; /* width of area in which to display tgts 
 static real_T work_area_height = 30.0; /* height of area in which to display tgts */
 #define param_work_area_height mxGetScalar(ssGetSFcnParam(S,3))
 
-static real_T target_hold; /* dwell time in state 2 */
+/* dwell time in state 2 */
 static real_T target_hold_l = .5;
 #define param_target_hold_l mxGetScalar(ssGetSFcnParam(S,4))
 static real_T target_hold_h = .5;
@@ -223,7 +223,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     InputRealPtrsType uPtrs;
     real_T cursor[2];
     real_T elapsed_timer_time;
-    int reset_block = 0;
             
     /******************
      * Initialization *
@@ -280,8 +279,34 @@ static void mdlUpdate(SimStruct *S, int_T tid)
              * Initilize the trial and then advance to CT_ON 
              */
             
-             /*** TODO: still need to do this state ***/
-             
+            /* Update parameters */
+            num_targets = param_num_targets;
+            target_size = param_target_size;
+
+            work_area_width = param_work_area_width;
+            work_area_height = param_work_area_height;
+           
+            target_hold_l = param_target_hold_l;
+            target_hold_h = param_target_hold_h;
+           
+            movement_time = param_movement_time;
+
+            initial_movement_time = param_initial_movement_time;
+           
+            abort_timeout   = param_intertrial;
+            failure_timeout = param_intertrial;
+            incomplete_timeout = param_intertrial;
+            reward_timeout  = param_intertrial;
+            
+            /* initilize target positions */
+            for (i=0; i<num_targets; i++) {
+                target_list[i*2]   = VNI * work_area_width;  /* x position */
+                target_list[i*2+1] = VNI * work_area_height; /* y position */
+            }
+
+            /* and reset the counter */
+            ssSetIWorkValue(S, 1, 0);
+
             break;
         case STATE_INITIAL_MOVEMENT:
             /* first target on */
