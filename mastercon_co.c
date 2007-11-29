@@ -50,6 +50,7 @@ static real_T outer_hold_h = 1.0;
 static real_T abort_timeout   = 1.0;    /* delay after abort */
 static real_T failure_timeout = 1.0;    /* delay after failure */
 static real_T incomplete_timeout = 1.0; /* delay after incomplete */
+static real_T center_bump_timeout  = 1.0; 
 static real_T reward_timeout  = 1.0;    /* delay after reward before starting next trial
                                          * This is NOT the reward pulse length */
 
@@ -88,6 +89,7 @@ static int idiot_mode;
 #define STATE_ABORT 65
 #define STATE_FAIL 70
 #define STATE_INCOMPLETE 74
+#define STATE_CENTER_HOLD_BUMP 66 /* 66 = ASCII(B) = Bump */
 
 #define TONE_GO 1
 #define TONE_REWARD 2
@@ -252,6 +254,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int target_index;
     int *target_list;
     int target;
+    int bump;
     real_T theta;
     real_T ct[4];
     real_T ot[4];
@@ -289,6 +292,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     } else {
         /* mode == MODE_BUMP */
         target = target_list[target_index*2];
+        bump = target_list[target_index*2+1];
     }
     
     /* get elapsed time since last timer reset */
@@ -354,6 +358,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             failure_timeout = param_intertrial;
             reward_timeout  = param_intertrial;
             incomplete_timeout = param_intertrial;
+            center_bump_timeout = param_intertrial;
             
             catch_trial_pct = param_catch_trial_pct;
             
@@ -471,7 +476,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             state_changed();
 
             /* for now, skip target -1 */
-            if (target == -1) {
+            if (target == -1 && bump == -1) {
                 new_state = STATE_PRETRIAL;
             }
 
@@ -490,9 +495,21 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_ABORT;
                 reset_timer(); /* abort timeout */
                 state_changed();
-            } else if (elapsed_timer_time > center_hold) {
+            } else if (elapsed_timer_time > center_hold && target != -1) {
                 new_state = STATE_CENTER_DELAY;
                 reset_timer(); /* delay timer */
+                state_changed();
+            } else if (elapsed_timer_time > center_hold && target == -1) {
+                new_state = STATE_CENTER_HOLD_BUMP;
+                reset_timer();
+                state_changed();
+            }
+            break;
+        case STATE_CENTER_HOLD_BUMP:
+            /* bump when holding in center, then sends back to pretrial */
+            if (elapsed_timer_time > center_bump_timeout) {
+                new_state = STATE_PRETRIAL;
+                reset_timer();
                 state_changed();
             }
             break;
@@ -695,7 +712,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             theta = PI/2 - bump*2*PI/num_targets;
             force_x = force_in[0] + cos(theta)*bump_magnitude;
             force_y = force_in[1] + sin(theta)*bump_magnitude;
-        } else if (bump != -1 && bump_duration_counter != -1 && state==STATE_MOVEMENT && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) > target_radius / 2) {
+        } else if ( bump != -1 && 
+                    bump_duration_counter != -1 && 
+                    ( (state==STATE_MOVEMENT && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) > target_radius / 2) || 
+                       state==STATE_CENTER_HOLD_BUMP
+                    )
+                  ) 
+        {
             /* initiating a new bump */
             bump_duration_counter = bump_duration;
             theta = PI/2 - bump*2*PI/num_targets;
@@ -732,6 +755,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_CENTER_DELAY:
                 word = WORD_OT_ON(target);
                 break;
+            case STATE_CENTER_HOLD_BUMP:
+                word = WORD_BUMP(bump);
+                break;
             case STATE_MOVEMENT:
                 word = WORD_GO_CUE;
                 break;
@@ -760,6 +786,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* target_pos (3) */
     if ( state == STATE_CT_ON || 
          state == STATE_CENTER_HOLD || 
+         state == STATE_CENTER_HOLD_BUMP ||
          state == STATE_CENTER_DELAY ||
          state == STATE_MOVEMENT ||
          state == STATE_OUTER_HOLD )
