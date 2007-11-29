@@ -414,7 +414,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                             tmp_tgts[j] = tmp_tgts[j+1];
                             tmp_tgts[j+1] = tmp;
                             
-                            
                             tmp = tmp_bump[j];
                             tmp_bump[j] = tmp_bump[j+1];
                             tmp_bump[j+1] = tmp;
