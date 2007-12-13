@@ -1,4 +1,4 @@
-/* mastercon_co.c
+/* mastercon_fc.c
  *
  * Master Control block for behavior: force choice task
  */
@@ -546,7 +546,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_INCOMPLETE;
                 reset_timer(); /* failure timeout */
                 state_changed();
-            } 
+            } /* TODO: add fail case */
             break;
         case STATE_ABORT:
             /* abort */
@@ -704,49 +704,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      * Calculate outputs
      ********************/
     
-    /* force (0) *
-    if (mode == MODE_BLOCK_CATCH) {
-        if (get_catch_trial() && (
-                state == STATE_CENTER_DELAY ||
-                state == STATE_MOVEMENT ||
-                state == STATE_OUTER_HOLD
-            )) 
-        {
-            force_x = 0;
-            force_y = 0;
-        } else {
-            force_x = force_in[0]; 
-            force_y = force_in[1]; 
-        }
-    } else {
-        /* mode == MODE_BUMP *
-        /* see if we are in a bump *
-        if (bump_duration_counter > 0) {
-            /* yes, so decrement the counter and maintain the bump *
-            bump_duration_counter--;
-            if (bump_duration_counter == 0)
-                bump_duration_counter = -1; // don't bump again
-            theta = PI/2 - bump*2*PI/num_trials_per_block;
-            force_x = force_in[0] + cos(theta)*bump_magnitude;
-            force_y = force_in[1] + sin(theta)*bump_magnitude;
-        } else if ( bump != -1 && 
-                    bump_duration_counter != -1 && 
-                    ( (state==STATE_MOVEMENT && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) > target_radius / 2) || 
-                       state==STATE_CENTER_HOLD_BUMP
-                    )
-                  ) 
-        {
-            /* initiating a new bump *
-            bump_duration_counter = bump_duration;
-            theta = PI/2 - bump*2*PI/num_trials_per_block;
-            force_x = force_in[0] + cos(theta)*bump_magnitude;
-            force_y = force_in[1] + sin(theta)*bump_magnitude;
-        } else {
-            force_x = force_in[0]; 
-            force_y = force_in[1];
-        }
-    } */
-    
+    /* force (0) */
+    force_x = force_in[0]; 
+    force_y = force_in[1];
+
     /* status (1) */
     if (state == STATE_REWARD && new_state)
         ssSetIWorkValue(S, 581, ssGetIWorkValue(S, 581)+1);
@@ -769,9 +730,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_CT_ON:
                 word = WORD_CT_ON;
                 break;
-            /*case STATE_CENTER_HOLD:
-                word = WORD_HOLD;
-                break;             CHECK! */
             case STATE_STIM:
                 word = WORD_STIM(gradation);
                 break;
@@ -793,42 +751,30 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     } 
     
     /* target_pos (3) */
+    
+    /* start assuming no targets will be drawn */
+    for (i = 0; i<10; i++)
+        target_pos[i] = 0;
+    
     if ( state == STATE_CT_ON || 
-         state == STATE_CENTER_HOLD)
+         state == STATE_CENTER_HOLD ||
+         state == STATE_STIM)
     {
         /* center target on */
-		target_pos[0] = 1;
+        target_pos[0] = 1;
         for (i=0; i<4; i++) {
-            target_pos[i+1] = ct[i];
+           target_pos[i+1] = ct[i];
         }
-    } 
-    else 
-    {
-        /* center target off */
-        target_pos[0] = 0;
-        for (i=0; i<4; i++) {
-            target_pos[i+1] = 0;
-        }
-    }
-    
-    if ( state == STATE_CENTER_HOLD ||
-         state == STATE_MOVEMENT)
-    {
+    } else if (state == STATE_MOVEMENT) {
         /* outer target on */
-		target_pos[0] = ot1_type;
+        target_pos[0] = ot1_type;
         for (i=0; i<4; i++) {
             target_pos[i+1] = ot1[i];
         }
-		target_pos[5] = ot2_type;
+        target_pos[5] = ot2_type;
         for (i=0; i<4; i++) {
             target_pos[i+6] = ot2[i];
         }
-    } 
-    else 
-    {
-        /* outer target off */
-		target_pos[0] = 0;
-        target_pos[5] = 0;
     }
         
     /* reward (4) */
@@ -840,7 +786,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* tone (5) */
     if (new_state) {
-        if (state == STATE_ABORT) {
+        if (state == STATE_ABORT || state == STATE_FAIL) {
             tone_cnt++;
             tone_id = TONE_ABORT;
         } else if (state == STATE_MOVEMENT) {
