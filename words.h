@@ -11,6 +11,8 @@
 #define WORD_TASK_CODE 0x01
 #elif TASK_RW
 #define WORD_TASK_CODE 0x02
+#elif TASK_FC
+#define WORD_TASK_CODE 0x03
 #endif
 
 /* trial start */
@@ -47,5 +49,8 @@
 
 /* bump initiated in direction d */
 #define WORD_BUMP(d) ( 0x50 | (d) )
+
+/* stimulation with gradation d*/
+#define WORD_STIM(g) ( 0x60 | (g) )
 
 #endif /* WORDS_CO_H */
