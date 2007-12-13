@@ -475,7 +475,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             new_state = STATE_CT_ON;
             state_changed();
 
-            /* for now, skip target -1 */
+            /* skip target -1, bump -1 */
             if (target == -1 && bump == -1) {
                 new_state = STATE_PRETRIAL;
             }

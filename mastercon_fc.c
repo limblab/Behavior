@@ -199,8 +199,8 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 0, 1);
     
     /* set both trial indices to indicate that we need to begin a new block */
-    ssSetIWorkValue(S, 1, NUM_TYPES_PER_BLOCK);
-    ssSetIWorkValue(S, 2, (int)num_gradations);
+    ssSetIWorkValue(S, 1, NUM_TYPES_PER_BLOCK-1);
+    ssSetIWorkValue(S, 2, (int)num_gradations-1);
     
     /* set the tone counter to zero */
     ssSetRWorkValue(S, 1, 0.0);
@@ -354,9 +354,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             center_hold_l = param_center_hold_l;
             center_hold_h = param_center_hold_h;
+            
             delay_l = param_delay_l;
             delay_h = param_delay_h;
+            
             movement = param_movement;
+            
             intertrial = param_intertrial;
 
             target_size = param_target_size;
@@ -779,7 +782,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     force_p = ssGetOutputPortRealSignal(S,0);
     force_p[0] = force_x;
     force_p[1] = force_y;
-    /*ssSetIWorkValue(S, 580, bump_duration_counter);*/
     
     status_p = ssGetOutputPortRealSignal(S,1);
     for (i=0; i<3; i++) 
