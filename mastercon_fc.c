@@ -244,13 +244,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int *IWorkVector; 
     int target_index;
     int *target_list;
-	int *gradation_list;
+    int *gradation_list;
     int target;
-       /*int bump;*/
-       /* real_T theta; */
     real_T ct[4];
-	real_T ot[4];
-	real_T ot_wrong[4];
+    real_T ot[4];
+    real_T ot_wrong[4];
     real_T ot1[4];     /* left outer target UL and LR coordinates */
     real_T ot2[4];     /* right outer target UL and LR coordinates */
     real_T ot1_type;   /* type of left outer target 0=invisible 1=red square 2=lightning bolt (?) */
@@ -284,10 +282,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     IWorkVector = ssGetIWork(S);
     target_index = IWorkVector[1];
     target_list = IWorkVector+2;
-	gradation_list = IWorkVector + num_trials_per_block + 2;
+    gradation_list = IWorkVector + num_trials_per_block + 2;
 
     target = target_list[target_index];
-	gradation = gradation_list[target_index];
+    gradation = gradation_list[target_index];
     
     /* get elapsed time since last timer reset */
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
@@ -309,54 +307,54 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     ot2[2] = target_distance + target_size/2; 
     ot2[3] = -target_size/2;   
 
-	ot1_type = 0;
-	ot2_type = 0;
+    ot1_type = 0;
+    ot2_type = 0;
 
     if (training_mode = MODE_TRAINING && target == 0) {  /* show left target */
-	ot[0] = ot1[0];
-	ot[1] = ot1[1];
-	ot[2] = ot1[2];
-	ot[3] = ot1[3];	
-	ot_wrong[0] = ot2[0];
-	ot_wrong[1] = ot2[1];
-	ot_wrong[2] = ot2[2];
-	ot_wrong[3] = ot2[3];	
-	ot1_type = 2; 
-	ot2_type = 0; 
+        ot[0] = ot1[0];
+        ot[1] = ot1[1];
+        ot[2] = ot1[2];
+        ot[3] = ot1[3];	
+        ot_wrong[0] = ot2[0];
+        ot_wrong[1] = ot2[1];
+        ot_wrong[2] = ot2[2];
+        ot_wrong[3] = ot2[3];	
+        ot1_type = 2; 
+        ot2_type = 0; 
 
     } else if (training_mode = MODE_TRAINING && target == 1) { /* show right target */
-	ot[0] = ot2[0];
-	ot[1] = ot2[1];
-	ot[2] = ot2[2];
-	ot[3] = ot2[3];
-	ot_wrong[0] = ot1[0];
-	ot_wrong[1] = ot1[1];
-	ot_wrong[2] = ot1[2];
-	ot_wrong[3] = ot1[3];	
-	ot1_type = 0;
-	ot2_type = 2;
+        ot[0] = ot2[0];
+        ot[1] = ot2[1];
+        ot[2] = ot2[2];
+        ot[3] = ot2[3];
+        ot_wrong[0] = ot1[0];
+        ot_wrong[1] = ot1[1];
+        ot_wrong[2] = ot1[2];
+        ot_wrong[3] = ot1[3];	
+        ot1_type = 0;
+        ot2_type = 2;
     } else if (training_mode = MODE_TESTING && target == 0) {   /* show both targets in testing mode */
-	ot[0] = ot1[0];
-	ot[1] = ot1[1];
-	ot[2] = ot1[2];
-	ot[3] = ot1[3];
-	ot_wrong[0] = ot2[0];
-	ot_wrong[1] = ot2[1];
-	ot_wrong[2] = ot2[2];
-	ot_wrong[3] = ot2[3];
-	ot1_type = 2;
-	ot2_type = 2;
+        ot[0] = ot1[0];
+        ot[1] = ot1[1];
+        ot[2] = ot1[2];
+        ot[3] = ot1[3];
+        ot_wrong[0] = ot2[0];
+        ot_wrong[1] = ot2[1];
+        ot_wrong[2] = ot2[2];
+        ot_wrong[3] = ot2[3];
+        ot1_type = 2;
+        ot2_type = 2;
     } else if (training_mode = MODE_TESTING && target == 1) { /* show both targets */
-	ot[0] = ot2[0];
-	ot[1] = ot2[1];
-	ot[2] = ot2[2];
-	ot[3] = ot2[3];
-	ot_wrong[0] = ot1[0];
-	ot_wrong[1] = ot1[1];
-	ot_wrong[2] = ot1[2];
-	ot_wrong[3] = ot1[3];	
-	ot1_type = 2;
-	ot2_type = 2;
+        ot[0] = ot2[0];
+        ot[1] = ot2[1];
+        ot[2] = ot2[2];
+        ot[3] = ot2[3];
+        ot_wrong[0] = ot1[0];
+        ot_wrong[1] = ot1[1];
+        ot_wrong[2] = ot1[2];
+        ot_wrong[3] = ot1[3];	
+        ot1_type = 2;
+        ot2_type = 2;
     }
   
     
@@ -392,25 +390,25 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 reset_block = 1;
             }
 
-			num_steps = param_num_steps;
-			pct_test_trials = param_pct_test_trials;
-			training_mode = param_training_mode;
-			num_trials_per_block = param_num_trials_per_block;
+            num_steps = param_num_steps;
+            pct_test_trials = param_pct_test_trials;
+            training_mode = param_training_mode;
+            num_trials_per_block = param_num_trials_per_block;
 
-			center_hold_l = param_center_hold_l;
-			center_hold_h = param_center_hold_h;
-			delay_l = param_delay_l;
-			delay_h = param_delay_h;
-			movement = param_movement;
-			intertrial = param_intertrial;
+            center_hold_l = param_center_hold_l;
+            center_hold_h = param_center_hold_h;
+            delay_l = param_delay_l;
+            delay_h = param_delay_h;
+            movement = param_movement;
+            intertrial = param_intertrial;
 
-			target_size = param_target_size;
-			target_distance = param_target_distance;
+            target_size = param_target_size;
+            target_distance = param_target_distance;
 
-			abort_timeout   = param_intertrial;    
-			failure_timeout = param_intertrial;
-			reward_timeout  = param_intertrial;   
-			incomplete_timeout = param_intertrial;
+            abort_timeout   = param_intertrial;    
+            failure_timeout = param_intertrial; 
+            reward_timeout  = param_intertrial;   
+            incomplete_timeout = param_intertrial;
             
             /* see if mode has changed.  If so we need a reset. */
             if (training_mode != param_training_mode) {
@@ -483,8 +481,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	            target_index++;
 	            /* and write it back */
 	            ssSetIWorkValue(S, 1, target_index);
-				target = target_list[target_index];
-				gradation = gradation_list[target_index];
+              target = target_list[target_index];
+              gradation = gradation_list[target_index];
 	        }
 		        
 	        /* In all cases, we need to decide on the random timer durations */
@@ -599,13 +597,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int_T *IWorkVector; 
     int_T target_index;
     int_T *target_list;
-	int_T *gradation_list;
+    int_T *gradation_list;
     int target;
-	int gradation;
+    int gradation;
     real_T ct[4];
     real_T ot[4];
-	real_T ot1[4];
-	real_T ot2[4];
+    real_T ot1[4];
+    real_T ot2[4];
     
     InputRealPtrsType uPtrs;
     real_T cursor[2];
@@ -634,10 +632,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     IWorkVector = ssGetIWork(S);
     target_index = IWorkVector[1];
     target_list = IWorkVector+2;  
-	gradation_list = IWorkVector+num_trials_per_block+2;  
+    gradation_list = IWorkVector+num_trials_per_block+2;  
     target = target_list[target_index];
 
-	training_mode = param_training_mode;
+    training_mode = param_training_mode;
     
     /* get current tone counter */
     tone_cnt = ssGetRWorkValue(S, 1);
