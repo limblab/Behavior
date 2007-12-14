@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.2810.21032">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.2904.31951">
   <ScreenWidth>30</ScreenWidth>
   <CenterOutMode>None</CenterOutMode>
   <Load>None</Load>
   <NumTargetsCO>8</NumTargetsCO>
-  <NumTargetsRW>6</NumTargetsRW>
+  <NumTargetsRW>8</NumTargetsRW>
   <IdiotMode>false</IdiotMode>
+  <TrainingMode>true</TrainingMode>
+  <NumGradations>0</NumGradations>
   <SerializedParameters>
     <dictionary>
       <item>
@@ -70,35 +72,35 @@
       </item>
       <item>
         <key>CHL</key>
-        <value>0</value>
+        <value>0.25</value>
       </item>
       <item>
         <key>CHH</key>
-        <value>0</value>
+        <value>0.5</value>
       </item>
       <item>
         <key>DL</key>
-        <value>0</value>
+        <value>0.5</value>
       </item>
       <item>
         <key>DH</key>
-        <value>0</value>
+        <value>1</value>
       </item>
       <item>
         <key>MT</key>
-        <value>0</value>
+        <value>1</value>
       </item>
       <item>
         <key>OHL</key>
-        <value>0</value>
+        <value>0.5</value>
       </item>
       <item>
         <key>OHH</key>
-        <value>0</value>
+        <value>1</value>
       </item>
       <item>
         <key>IT</key>
-        <value>0</value>
+        <value>1</value>
       </item>
       <item>
         <key>Bump Duration</key>
@@ -114,11 +116,11 @@
       </item>
       <item>
         <key>Target Radius</key>
-        <value>0</value>
+        <value>10</value>
       </item>
       <item>
         <key>Target Size</key>
-        <value>0</value>
+        <value>2.5</value>
       </item>
       <item>
         <key>RW Target Size</key>
@@ -151,6 +153,42 @@
       <item>
         <key>IRW IT</key>
         <value>2</value>
+      </item>
+      <item>
+        <key>Percent Test Trials</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>FC CHL</key>
+        <value>0.5</value>
+      </item>
+      <item>
+        <key>FC CHH</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>FC DL</key>
+        <value>0.5</value>
+      </item>
+      <item>
+        <key>FC DH</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>FC MT</key>
+        <value>10</value>
+      </item>
+      <item>
+        <key>FC IT</key>
+        <value>3</value>
+      </item>
+      <item>
+        <key>FC Target Size</key>
+        <value>3</value>
+      </item>
+      <item>
+        <key>FC Target Distance</key>
+        <value>10</value>
       </item>
     </dictionary>
   </SerializedParameters>
