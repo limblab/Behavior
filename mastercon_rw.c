@@ -425,7 +425,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* allocate holders for outputs */
     real_T force_x, force_y, word, reward, tone_cnt, tone_id;
     real_T target_pos[10];
-    real_T status[3];
+    real_T status[4];
     
     /* pointers to output buffers */
     real_T *force_p;
@@ -573,7 +573,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     force_p[1] = force_y;
     
     status_p = ssGetOutputPortRealSignal(S,1);
-    for (i=0; i<3; i++) 
+    for (i=0; i<4; i++) 
         status_p[i] = status[i];
     
     word_p = ssGetOutputPortRealSignal(S,2);

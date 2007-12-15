@@ -43,8 +43,8 @@ static real_T delay_h = 1.0; /* longest delay between stim & outer target illumi
 
 static real_T movement = 2.0; /* time limit for monkey to reach an outer target after illumination*/
 #define param_movement mxGetScalar(ssGetSFcnParam(S,7))
-static real_T intertrial = 1.0; /* time between trials*/
-#define param_intertrial mxGetScalar(ssGetSFcnParam(S,8))
+
+#define param_intertrial mxGetScalar(ssGetSFcnParam(S,8)) /* time between trials*/
 
 /* Dimensions parameters */
 static real_T target_size = 1.0; /*width of targets in cm*/
@@ -96,7 +96,6 @@ static void mdlCheckParameters(SimStruct *S)
     delay_l = param_delay_l;
     delay_h = param_delay_h;
     movement = param_movement;
-    intertrial = param_intertrial;
 
     target_size = param_target_size;
     target_distance = param_target_distance;
@@ -111,12 +110,12 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 12);                  
+    ssSetNumSFcnParams(S, 11);                  
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
     for (i=0; i<ssGetNumSFcnParams(S); i++)
-        ssSetSFcnParamTunable(S,i, 1);
+        ssSetSFcnParamTunable(S, i, 1);
     mdlCheckParameters(S);
     
     ssSetNumContStates(S, 0);
@@ -200,7 +199,8 @@ static void mdlInitializeConditions(SimStruct *S)
     
     /* set both trial indices to indicate that we need to begin a new block */
     ssSetIWorkValue(S, 1, NUM_TYPES_PER_BLOCK-1);
-    ssSetIWorkValue(S, 2, (int)num_gradations-1);
+    num_gradations = param_num_gradations;
+    ssSetIWorkValue(S, 2, (int)(num_gradations-1));
     
     /* set the tone counter to zero */
     ssSetRWorkValue(S, 1, 0.0);
@@ -249,8 +249,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T ct[4];
     real_T ot1[4];     /* left outer target UL and LR coordinates */
     real_T ot2[4];     /* right outer target UL and LR coordinates */
-    real_T ot1_type;   /* type of left outer target 0=invisible 1=red square 2=lightning bolt (?) */
-    real_T ot2_type;   /* type of right outer target 0=invisible 1=red square 2=lightning bolt (?) */
     real_T *ot;
     real_T *ot_wrong;
     
@@ -268,7 +266,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /******************
      * Initialization *
      ******************/
-    
+        
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
     int state = (int)state_r[0];
@@ -316,7 +314,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         ot_wrong = ot2;
         ot = ot1;
     }
-    
+  
     /*********************************
      * See if we have issued a reset *    no master reset implemented yet
      *********************************/
@@ -359,8 +357,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             delay_h = param_delay_h;
             
             movement = param_movement;
-            
-            intertrial = param_intertrial;
 
             target_size = param_target_size;
             target_distance = param_target_distance;
@@ -369,25 +365,25 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             failure_timeout = param_intertrial; 
             reward_timeout  = param_intertrial;   
             incomplete_timeout = param_intertrial;
-            
+           
             /* If we do not have our trials initialized => new trials block */
-            if (trial_type_index == NUM_TYPES_PER_BLOCK-1) {
+            if (trial_type_index == NUM_TYPES_PER_BLOCK-1 || reset_block) {
                 /* initilize our trial types */
-                for (i=0; i<NUM_TYPES_PER_BLOCK-1; i++) {
+                for (i=0; i<NUM_TYPES_PER_BLOCK; i++) {
                     tmp_sort[i] = rand();
                 }
                 
                 j = 0;
-                for (i=0; i < pct_test_trials / 0.1; i++) {
+                for (i=0; i < pct_test_trials * NUM_TYPES_PER_BLOCK; i++) {
                     tmp_trial_types[j++] = TRIAL_TYPE_TEST;
                 }
                 
-                for (i=0; i < (NUM_TYPES_PER_BLOCK - pct_test_trials / 0.1)/2; i++) {
+                for (i=0; i < (NUM_TYPES_PER_BLOCK - j)/2; i++) {
                     tmp_trial_types[j++] = TRIAL_TYPE_STIM;
                 }
                 
-                for (i=0; i < (NUM_TYPES_PER_BLOCK - pct_test_trials / 0.1)/2; i++) {
-                    tmp_trial_types[j++] = TRIAL_TYPE_NO_STIM;
+                for (i=j; i < NUM_TYPES_PER_BLOCK; i++) {
+                    tmp_trial_types[i] = TRIAL_TYPE_NO_STIM;
                 }
                 
                 /* sort trial types */
@@ -416,12 +412,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	            /* just advance the counter */
 	            trial_type_index++;
 	            /* and write it back */
-	            ssSetIWorkValue(S, 2, trial_type_index);
+	            ssSetIWorkValue(S, 1, trial_type_index);
                 trial_type = trial_type_list[trial_type_index];
 	        }
             
             /* If we do not have our gradations initialized => new gradations block */
-            if (gradation_index == num_gradations-1) {
+            if (gradation_index == num_gradations-1 || reset_block) {
                 /* initilize our gradations */
                 for (i=0; i<num_gradations-1; i++) {
                     tmp_gradations[i] = i+1;
@@ -457,7 +453,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	            ssSetIWorkValue(S, 2, gradation_index);
                 gradation = gradation_list[gradation_index];
 	        }
-		        
+
 	        /* In all cases, we need to decide on the random timer durations */
 	        if (center_hold_h == center_hold_l) {
 	            center_hold = center_hold_h;
@@ -563,7 +559,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     
     /* write back new state */
     state_r[0] = new_state;
-    
+
     UNUSED_ARG(tid);
 }
 
@@ -599,7 +595,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* allocate holders for outputs */
     real_T force_x, force_y, word, reward, tone_cnt, tone_id;
     real_T target_pos[10];
-    real_T status[3];
+    real_T status[4];
     
     /* pointers to output buffers */
     real_T *force_p;
@@ -682,11 +678,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_INCOMPLETE && new_state)
         ssSetIWorkValue(S, 62, ssGetIWorkValue(S, 62)+1);
     
-    status[0] = IWorkVector[1]; //state;
+    status[0] = state; //IWorkVector[1];
     status[1] = ssGetIWorkValue(S, 59); // num rewards
-    status[2] = ssGetIWorkValue(S, 60); // num fails
-    status[3] = ssGetIWorkValue(S, 61) + ssGetIWorkValue(S, 62); // num aborts and incompletes
-    
+    status[2] = trial_type_index; // num fails
+    //status[2] = ssGetIWorkValue(S, 60); // num fails
+    //status[3] = ssGetIWorkValue(S, 61) + ssGetIWorkValue(S, 62); // num aborts and incompletes
+    status[3] = trial_type;
+
     /* word (2) */
     if (new_state) {
         switch (state) {
@@ -767,8 +765,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             tone_cnt++;
             tone_id = TONE_ABORT;
         } else if (state == STATE_MOVEMENT) {
-            tone_cnt++;
-            tone_id = TONE_GO;
+            //tone_cnt++;
+            //tone_id = TONE_GO;
         } else if (state == STATE_REWARD) {
             tone_cnt++;
             tone_id = TONE_REWARD;
@@ -784,7 +782,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     force_p[1] = force_y;
     
     status_p = ssGetOutputPortRealSignal(S,1);
-    for (i=0; i<3; i++) 
+    for (i=0; i<4; i++) 
         status_p[i] = status[i];
     
     word_p = ssGetOutputPortRealSignal(S,2);
