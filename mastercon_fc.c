@@ -721,7 +721,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             default:
                 word = 0;
         }
-    } 
+	} else {
+		word = 0;
+	}
     
     /* target_pos (3) */
     
