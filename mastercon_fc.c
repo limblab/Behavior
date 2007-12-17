@@ -147,12 +147,12 @@ static void mdlInitializeSizes(SimStruct *S)
      *  tone: 2     ( 1: counter incemented for each new tone, 2: tone ID )
      */
     if (!ssSetNumOutputPorts(S, 6)) return;
-    ssSetOutputPortWidth(S, 0, 2);
-    ssSetOutputPortWidth(S, 1, 4);
-    ssSetOutputPortWidth(S, 2, 1);
-    ssSetOutputPortWidth(S, 3, 10);
-    ssSetOutputPortWidth(S, 4, 1);
-    ssSetOutputPortWidth(S, 5, 2);
+    ssSetOutputPortWidth(S, 0, 2);  /* force   */
+    ssSetOutputPortWidth(S, 1, 4);  /* status  */
+    ssSetOutputPortWidth(S, 2, 1);  /* word    */
+    ssSetOutputPortWidth(S, 3, 10); /* targets */
+    ssSetOutputPortWidth(S, 4, 1);  /* reward  */
+    ssSetOutputPortWidth(S, 5, 2);	/* tone    */
     
     ssSetNumSampleTimes(S, 1);
     
@@ -683,7 +683,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     status[2] = trial_type_index; // num fails
     //status[2] = ssGetIWorkValue(S, 60); // num fails
     //status[3] = ssGetIWorkValue(S, 61) + ssGetIWorkValue(S, 62); // num aborts and incompletes
-    status[3] = trial_type;
+    //status[3] = trial_type;
 
     /* word (2) */
     if (new_state) {
@@ -784,7 +784,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     force_p[1] = force_y;
     
     status_p = ssGetOutputPortRealSignal(S,1);
-    for (i=0; i<4; i++) 
+    for (i=0; i<3; i++) 
         status_p[i] = status[i];
     
     word_p = ssGetOutputPortRealSignal(S,2);
