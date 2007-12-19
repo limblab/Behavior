@@ -52,6 +52,12 @@ static real_T target_size = 1.0; /*width of targets in cm*/
 static real_T target_distance = 5.0; /*distance between ct and ot in cm*/
 #define param_target_distance mxGetScalar(ssGetSFcnParam(S,10))
 
+/* Reward on all test trials flag & threshold*/
+static real_T reward_on_all_test_trials = 0.0;    /* 0=reward on all test trials 1=reward based on reward_threshold*/
+#define param_reward_on_all_test_trials mxGetScalar(ssGetSFcnParam(S,11))
+static real_T reward_threshold = 1.0;             /* gradation step at which the threshold is applied */
+#define param_reward_threshold mxGetScalar(ssGetSFcnParam(S,12))
+
 static real_T abort_timeout   = 1.0;    /* delay after abort */
 static real_T failure_timeout = 1.0;    /* delay after failure */
 static real_T incomplete_timeout = 1.0; /* delay after incomplete */
@@ -59,7 +65,7 @@ static real_T center_bump_timeout  = 1.0;
 static real_T reward_timeout  = 1.0;    /* delay after reward before starting next trial
                                          * This is NOT the reward pulse length */
 
-/* #define param_master_reset mxGetScalar(ssGetSFcnParam(S,16))      no master reset implemented */   
+/* #define param_master_reset mxGetScalar(ssGetSFcnParam(S,16))      no master reset implemented yet */
 
 /* Trial types */
 #define TRIAL_TYPE_NO_STIM 0
@@ -104,13 +110,16 @@ static void mdlCheckParameters(SimStruct *S)
     failure_timeout = param_intertrial;
     reward_timeout  = param_intertrial;   
     incomplete_timeout = param_intertrial;
+    
+    reward_on_all_test_trials = param_reward_on_all_test_trials;
+    reward_threshold = param_reward_threshold;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 11);                  
+    ssSetNumSFcnParams(S, 13);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -310,9 +319,17 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     if (trial_type == TRIAL_TYPE_NO_STIM) {
         ot_wrong = ot1;
         ot = ot2;
-    } else {
+    } else if (trial_type == TRIAL_TYPE_STIM || (trial_type == TRIAL_TYPE_TEST && reward_on_all_test_trials)) {
         ot_wrong = ot2;
         ot = ot1;
+    } else if (trial_type == TRIAL_TYPE_TEST && reward_on_all_test_trials) {
+        if (gradation < reward_threshold) {
+          ot_wrong = ot1;
+          ot = ot2;
+        } else {
+          ot_wrong = ot2;
+          ot = ot1;
+        }
     }
   
     /*********************************
@@ -365,6 +382,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             failure_timeout = param_intertrial; 
             reward_timeout  = param_intertrial;   
             incomplete_timeout = param_intertrial;
+            
+            reward_on_all_test_trials = param_reward_on_all_test_trials;
+            reward_threshold = param_reward_threshold;
            
             /* If we do not have our trials initialized => new trials block */
             if (trial_type_index == NUM_TYPES_PER_BLOCK-1 || reset_block) {
@@ -440,8 +460,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 }
                 
                 /* write them back */
-                for (i=0; i<num_gradations; i++) {
-					gradation_list[i] = tmp_gradations[i];
+              for (i=0; i<num_gradations; i++) {
+					     gradation_list[i] = tmp_gradations[i];
 	            }
                 
 	            /* and reset the counter */
@@ -506,12 +526,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         case STATE_MOVEMENT:
             /* movement phase (go tone on entry) */
             if ( cursorInTarget(cursor, ot) || 
-                 (cursorInTarget(cursor, ot_wrong) && trial_type == TRIAL_TYPE_TEST) )
+                 (cursorInTarget(cursor, ot_wrong) && trial_type == TRIAL_TYPE_TEST && reward_on_all_test_trials) )
             {
                 new_state = STATE_REWARD;
                 reset_timer(); /* reward timeout */
                 state_changed();
-            } else if (cursorInTarget(cursor, ot_wrong) && trial_type != TRIAL_TYPE_TEST && !training_mode) {
+            } else if (cursorInTarget(cursor, ot_wrong) &&
+                  (!reward_on_all_test_trials || (reward_on_all_test_trials && trial_type != TRIAL_TYPE_TEST)) && !training_mode) {
                 new_state = STATE_FAIL;
                 reset_timer(); /* failure timeout */
                 state_changed();
