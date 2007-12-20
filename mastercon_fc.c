@@ -319,16 +319,16 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     if (trial_type == TRIAL_TYPE_NO_STIM) {
         ot_wrong = ot1;
         ot = ot2;
-    } else if (trial_type == TRIAL_TYPE_STIM || (trial_type == TRIAL_TYPE_TEST && reward_on_all_test_trials)) {
+    } else if (trial_type == TRIAL_TYPE_STIM) {
         ot_wrong = ot2;
         ot = ot1;
-    } else if (trial_type == TRIAL_TYPE_TEST && reward_on_all_test_trials) {
+    } else if (trial_type == TRIAL_TYPE_TEST) {
         if (gradation < reward_threshold) {
-          ot_wrong = ot1;
-          ot = ot2;
-        } else {
           ot_wrong = ot2;
           ot = ot1;
+        } else {
+          ot_wrong = ot1;
+          ot = ot2;
         }
     }
   
@@ -525,23 +525,32 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_MOVEMENT:
             /* movement phase (go tone on entry) */
-            if ( cursorInTarget(cursor, ot) || 
-                 (cursorInTarget(cursor, ot_wrong) && trial_type == TRIAL_TYPE_TEST && reward_on_all_test_trials) )
-            {
-                new_state = STATE_REWARD;
+			if (cursorInTarget(cursor, ot)) {
+
+				new_state = STATE_REWARD;
                 reset_timer(); /* reward timeout */
                 state_changed();
-            } else if (cursorInTarget(cursor, ot_wrong) &&
-                  (!reward_on_all_test_trials || (reward_on_all_test_trials && trial_type != TRIAL_TYPE_TEST)) && !training_mode) {
-                new_state = STATE_FAIL;
-                reset_timer(); /* failure timeout */
-                state_changed();
-            } else if (elapsed_timer_time > movement) {
-                new_state = STATE_INCOMPLETE;
+			
+			} else if (cursorInTarget(cursor, ot_wrong) {
+
+				if (reward_on_all_test_trials && trial_type != TRIAL_TYPE_TEST) {
+					new_state = STATE_REWARD;
+					reset_timer(); /* reward timeout */
+					state_changed();
+				} else {
+					new_state = STATE_INCOMPLETE;
+		            reset_timer(); /* incomplete timeout */
+			        state_changed();
+				}
+
+			} else if (elapsed_timer_time > movement) {
+
+				new_state = STATE_INCOMPLETE;
                 reset_timer(); /* incomplete timeout */
                 state_changed();
-            }
-            break;
+
+			}
+			break;
         case STATE_ABORT:
             /* abort */
             if (elapsed_timer_time > abort_timeout) {
