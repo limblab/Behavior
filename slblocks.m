@@ -48,7 +48,7 @@ function blkStruct = slblocks
 %   See also FINDBLIB, LIBBROWSE.
 
 %   Copyright 1990-2004 The MathWorks, Inc.
-%   $Revision: 1.1.1.1 $
+%   $Revision: 1.1.1.2 $
 
 %
 % Name of the subsystem which will show up in the Simulink Blocksets
