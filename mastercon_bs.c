@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include "simstruc.h"
 
-#define TASK_CO 1
+#define TASK_BS 1
 #include "words.h"
 
 #define PI (3.141592654)
@@ -627,12 +627,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int_T *IWorkVector; 
     int_T target_index;
     int_T *target_list;
-    int target;
-    int bump; /* direction of bump */
+    int bump; /* magnitude of bump */
     int bump_duration_counter;
-    real_T theta;
-    real_T ct[4];
-    real_T ot[4];
+    real_T target1[4];
+    real_T target2[4];
+	real_T *target_origin;
+	real_T *target_destination;
     
     InputRealPtrsType uPtrs;
     real_T cursor[2];
@@ -654,6 +654,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
     int state = (int)(state_r[0]);
+	int direction = (int)(state_r[1]);
     int new_state = ssGetIWorkValue(S, 0);
     ssSetIWorkValue(S, 0, 0); /* reset changed state each iteration */
 
@@ -669,23 +670,32 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         bump = target_list[target_index*2+1];
     }
 
-    bump_duration_counter = ssGetIWorkValue(S, 580);
+    bump_duration_counter = ssGetIWorkValue(S, 67);
     
     /* get current tone counter */
     tone_cnt = ssGetRWorkValue(S, 1);
     tone_id = ssGetRWorkValue(S, 2);
     
     /* get target bounds */
-    theta = PI/2 - target*2*PI/num_targets;
-    ct[0] = -target_size/2;
-    ct[1] = target_size/2;
-    ct[2] = target_size/2;
-    ct[3] = -target_size/2;
+    target1[0] = cos(target_angle)*target_radius-target_size/2;
+    target1[1] = sin(target_angle)*target_radius+target_size/2;
+    target1[2] = cos(target_angle)*target_radius+target_size/2;
+    target1[3] = sin(target_angle)*target_radius-target_size/2;
     
-    ot[0] = cos(theta)*target_radius-target_size/2;
-    ot[1] = sin(theta)*target_radius+target_size/2;
-    ot[2] = cos(theta)*target_radius+target_size/2;
-    ot[3] = sin(theta)*target_radius-target_size/2;
+    target2[0] = cos(target_angle+2*PI)*target_radius-target_size/2;
+    target2[1] = sin(target_angle+2*PI)*target_radius+target_size/2;
+    target2[2] = cos(target_angle+2*PI)*target_radius+target_size/2;
+    target2[3] = sin(target_angle+2*PI)*target_radius-target_size/2;
+
+	if (direction == 0) {
+		/* forward trial */
+		target_origin = target1;
+		target_destination = target2;
+	} else {
+		/* reverse trial */
+		target_origin = target2;
+		target_destination = target1;
+	}
     
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
@@ -702,48 +712,34 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      ********************/
     
     /* force (0) */
-    if (mode == MODE_BLOCK_CATCH) {
-        if (get_catch_trial() && (
-                state == STATE_CENTER_DELAY ||
-                state == STATE_MOVEMENT ||
-                state == STATE_OUTER_HOLD
-            )) 
-        {
-            force_x = 0;
-            force_y = 0;
-        } else {
-            force_x = force_in[0]; 
-            force_y = force_in[1]; 
-        }
+    /* see if we are in a bump */
+#if 0
+    if (bump_duration_counter > 0) {
+        /* yes, so decrement the counter and maintain the bump */
+        bump_duration_counter--;
+        if (bump_duration_counter == 0)
+            bump_duration_counter = -1; // don't bump again
+        theta = PI/2 - bump*2*PI/num_targets;
+        force_x = force_in[0] + cos(theta)*bump_magnitude;
+        force_y = force_in[1] + sin(theta)*bump_magnitude;
+    } else if ( bump != -1 && 
+                bump_duration_counter != -1 && 
+                ( (state==STATE_MOVEMENT && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) > target_radius / 2) || 
+                   state==STATE_CENTER_HOLD_BUMP
+                )
+              ) 
+    {
+        /* initiating a new bump */
+        bump_duration_counter = bump_duration;
+        theta = PI/2 - bump*2*PI/num_targets;
+        force_x = force_in[0] + cos(theta)*bump_magnitude;
+        force_y = force_in[1] + sin(theta)*bump_magnitude;
     } else {
-        /* mode == MODE_BUMP */
-        /* see if we are in a bump */
-        if (bump_duration_counter > 0) {
-            /* yes, so decrement the counter and maintain the bump */
-            bump_duration_counter--;
-            if (bump_duration_counter == 0)
-                bump_duration_counter = -1; // don't bump again
-            theta = PI/2 - bump*2*PI/num_targets;
-            force_x = force_in[0] + cos(theta)*bump_magnitude;
-            force_y = force_in[1] + sin(theta)*bump_magnitude;
-        } else if ( bump != -1 && 
-                    bump_duration_counter != -1 && 
-                    ( (state==STATE_MOVEMENT && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) > target_radius / 2) || 
-                       state==STATE_CENTER_HOLD_BUMP
-                    )
-                  ) 
-        {
-            /* initiating a new bump */
-            bump_duration_counter = bump_duration;
-            theta = PI/2 - bump*2*PI/num_targets;
-            force_x = force_in[0] + cos(theta)*bump_magnitude;
-            force_y = force_in[1] + sin(theta)*bump_magnitude;
-        } else {
-            force_x = force_in[0]; 
-            force_y = force_in[1];
-        }
-    }
-    
+#endif
+        force_x = force_in[0]; 
+        force_y = force_in[1];
+//    }
+
     /* status (1) */
     if (state == STATE_REWARD && new_state)
         ssSetIWorkValue(S, 581, ssGetIWorkValue(S, 581)+1);
@@ -753,24 +749,25 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 583, ssGetIWorkValue(S, 583)+1);
     
     status[0] = IWorkVector[1]; //state;
-    status[1] = ssGetIWorkValue(S, 581); // num rewards
-    status[2] = ssGetIWorkValue(S, 582); // num aborts
-    status[3] = ssGetIWorkValue(S, 583); // num fails
+    status[1] = ssGetIWorkValue(S, 68); // num rewards
+    status[2] = ssGetIWorkValue(S, 69); // num aborts
+    status[3] = ssGetIWorkValue(S, 70); // num fails
     
     /* word (2) */
     if (new_state) {
         switch (state) {
             case STATE_PRETRIAL:
-                word = WORD_START_TRIAL;
+				if (direction == 0) {
+					word = WORD_START_FORWARD_TRIAL;
+				} else {
+					word = WORD_START_REVERSE_TRIAL;
+				}
                 break;
-            case STATE_CT_ON:
-                word = WORD_CT_ON;
+            case STATE_ORIGIN_ON:
+                word = WORD_ORIGIN_TARGET_ON;
                 break;
-            case STATE_CENTER_DELAY:
-                word = WORD_OT_ON(target);
-                break;
-            case STATE_CENTER_HOLD_BUMP:
-                word = WORD_BUMP(bump);
+            case STATE_ORIGIN_DELAY:
+                word = WORD_DESTINATION_TARGET_ON;
                 break;
             case STATE_MOVEMENT:
                 word = WORD_GO_CUE;
@@ -791,24 +788,22 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         /* not a new state, but maybe we have a mid-state event */
         if (bump_duration_counter == bump_duration) {
             /* just started a bump */
-            word = WORD_BUMP(bump);
+//            word = WORD_BUMP(bump);
         } else {
             word = 0;
         }
     }
     
     /* target_pos (3) */
-    if ( state == STATE_CT_ON || 
-         state == STATE_CENTER_HOLD || 
-         state == STATE_CENTER_HOLD_BUMP ||
-         state == STATE_CENTER_DELAY ||
-         state == STATE_MOVEMENT ||
-         state == STATE_OUTER_HOLD )
-    {
-        /* center target on */
+	/* origin */
+    if ( state == STATE_ORIGIN_ON || 
+         state == STATE_ORIGIN_HOLD || 
+         state == STATE_ORIGIN_DELAY )
+	{
+        /* origin target on */
         target_pos[0] = 1;
         for (i=0; i<4; i++) {
-            target_pos[i+1] = ct[i];
+            target_pos[i+1] = target_origin[i];
         }
     } 
     else 
@@ -820,14 +815,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         }
     }
     
-    if ( state == STATE_CENTER_DELAY ||
+	/* destination */
+    if ( state == STATE_ORIGIN_DELAY ||
          state == STATE_MOVEMENT ||
-         state == STATE_OUTER_HOLD )
+         state == STATE_DEST_HOLD )
     {
         /* outer target on */
         target_pos[5] = 1;
         for (i=0; i<4; i++) {
-            target_pos[i+6] = ot[i];
+            target_pos[i+6] = destination_target[i];
         }
     } 
     else 

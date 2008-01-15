@@ -13,11 +13,15 @@
 #define WORD_TASK_CODE 0x02
 #elif TASK_FC
 #define WORD_TASK_CODE 0x03
+/* 0x04 and 0x05 are reserved for the bump-stim task. */
 #endif
 
 /* trial start */
 #define WORD_START_TRIAL_GENERIC 0x10
 #define WORD_START_TRIAL (WORD_START_TRIAL_GENERIC | WORD_TASK_CODE)
+
+#define WORD_START_FORWARD_TRIAL 0x14
+#define WORD_START_REVERSE_TRIAL 0x15
 
 /* trial complete */
 #define WORD_END_TRIAL 0x20
@@ -40,12 +44,14 @@
  
 /* center target on */
 #define WORD_CT_ON 0x30
+#define WORD_ORIGIN_TARGET_ON 0x30
 
 /* go cue */
 #define WORD_GO_CUE 0x31
 
 /* outer target (t) on */
 #define WORD_OT_ON(t) ( 0x40 | (t) )
+#define WORD_DESTINATION_TARGET_ON 0x40
 
 /* bump initiated in direction d */
 #define WORD_BUMP(d) ( 0x50 | (d) )
