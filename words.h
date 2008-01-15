@@ -53,6 +53,20 @@
 #define WORD_OT_ON(t) ( 0x40 | (t) )
 #define WORD_DESTINATION_TARGET_ON 0x40
 
+/* The meaning of d in the WORD_BUMP macro depends on context.
+ * In CO: d is the direction of the bump, where the direction is 
+ *		  equivalent to a target number and the bump is in the 
+ *        same direction as target d is from the origin.
+ *
+ * In BS: d is a 4-bit two's-complement value between -7 and 7 
+ *		  indicated the direction and magnitude of the bump.
+ *		  0 indicates no bump.  1 indicates a bump of bump_magnitude
+ *        in the direction target_direction + pi/2. 2 indicates a
+ *        bump_magnitude*2 bump in the direction target_direction + 
+ *        pi/2.  -1 indicates a bump of bump_magnitude in the direction
+ *        target_direction + 3*pi/2
+ */
+
 /* bump initiated in direction d */
 #define WORD_BUMP(d) ( 0x50 | (d) )
 
