@@ -23,7 +23,7 @@
 
 static real_T num_gradations = 16;  /* number of steps of stim intensity */
 #define param_num_gradations mxGetScalar(ssGetSFcnParam(S,0))
-static real_T pct_test_trials = 20; /* percent of test stim trials */
+static real_T pct_test_trials = .20; /* percent of test stim trials */
 #define param_pct_test_trials mxGetScalar(ssGetSFcnParam(S,1))
 static real_T training_mode = 0; /* true=show one outer target, false=show 2 */
 #define param_training_mode mxGetScalar(ssGetSFcnParam(S,2))
@@ -271,6 +271,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int tmp_gradations[16];
     int tmp_sort[NUM_TYPES_PER_BLOCK];
     int i, j, tmp;
+    int num_test, num_stim;
     
     /******************
      * Initialization *
@@ -393,16 +394,17 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     tmp_sort[i] = rand();
                 }
                 
-                j = 0;
-                for (i=0; i < pct_test_trials * NUM_TYPES_PER_BLOCK; i++) {
-                    tmp_trial_types[j++] = TRIAL_TYPE_TEST;
+                num_test = (int)floor(pct_test_trials * NUM_TYPES_PER_BLOCK / 2) * 2;
+                num_stim = (NUM_TYPES_PER_BLOCK - num_test) / 2;
+                for (i = 0; i < num_test; i++) {
+                    tmp_trial_types[i] = TRIAL_TYPE_TEST;
                 }
                 
-                for (i=0; i < (NUM_TYPES_PER_BLOCK - j)/2; i++) {
-                    tmp_trial_types[j++] = TRIAL_TYPE_STIM;
+                for (i = num_test; i < num_test + num_stim; i++) {
+                    tmp_trial_types[i] = TRIAL_TYPE_STIM;
                 }
                 
-                for (i=j; i < NUM_TYPES_PER_BLOCK; i++) {
+                for (i = num_test + num_stim; i < NUM_TYPES_PER_BLOCK; i++) {
                     tmp_trial_types[i] = TRIAL_TYPE_NO_STIM;
                 }
                 
@@ -433,46 +435,50 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	            trial_type_index++;
 	            /* and write it back */
 	            ssSetIWorkValue(S, 1, trial_type_index);
-                trial_type = trial_type_list[trial_type_index];
 	        }
             
-            /* If we do not have our gradations initialized => new gradations block */
-            if (gradation_index == num_gradations-1 || reset_block) {
-                /* initilize our gradations */
-                for (i=0; i<num_gradations-1; i++) {
-                    tmp_gradations[i] = i+1;
-                    tmp_sort[i] = rand();
-                }
-                
-                /* sort gradations */
-                for (i=0; i<num_gradations-1; i++) {
-                    for (j=0; j<num_gradations-1; j++) { 
-                        if (tmp_sort[j] < tmp_sort[j+1]) {
-                            tmp = tmp_sort[j];
-                            tmp_sort[j] = tmp_sort[j+1];
-                            tmp_sort[j+1] = tmp;
-                            
-                            tmp = tmp_gradations[j];
-                            tmp_gradations[j] = tmp_gradations[j+1];
-                            tmp_gradations[j+1] = tmp;
+            trial_type = trial_type_list[trial_type_index];
+            
+            if (trial_type == TRIAL_TYPE_TEST || reset_block) {
+                /* If we do not have our gradations initialized => new gradations block */
+                if (gradation_index == num_gradations-1 || reset_block) {
+                    /* initilize our gradations */
+                    for (i=0; i<num_gradations; i++) {
+                        tmp_gradations[i] = i+1;
+                        tmp_sort[i] = rand();
+                    }
+
+                    /* sort gradations */
+                    for (i=0; i<num_gradations-1; i++) {
+                        for (j=0; j<num_gradations-1; j++) { 
+                            if (tmp_sort[j] < tmp_sort[j+1]) {
+                                tmp = tmp_sort[j];
+                                tmp_sort[j] = tmp_sort[j+1];
+                                tmp_sort[j+1] = tmp;
+
+                                tmp = tmp_gradations[j];
+                                tmp_gradations[j] = tmp_gradations[j+1];
+                                tmp_gradations[j+1] = tmp;
+                            }
                         }
                     }
+
+                    /* write them back */
+                    for (i=0; i<num_gradations; i++) {
+                        gradation_list[i] = tmp_gradations[i];
+                    }
+
+                    /* and reset the counter */
+                    ssSetIWorkValue(S, 2, 0);
+                } else {
+                    /* just advance the counter */
+                    gradation_index++;
+                    /* and write it back */
+                    ssSetIWorkValue(S, 2, gradation_index);
                 }
-                
-                /* write them back */
-              for (i=0; i<num_gradations; i++) {
-					     gradation_list[i] = tmp_gradations[i];
-	            }
-                
-	            /* and reset the counter */
-	            ssSetIWorkValue(S, 2, 0);
-            } else {
-	            /* just advance the counter */
-	            gradation_index++;
-	            /* and write it back */
-	            ssSetIWorkValue(S, 2, gradation_index);
-                gradation = gradation_list[gradation_index];
-	        }
+            }
+
+            gradation = gradation_list[gradation_index];
 
 	        /* In all cases, we need to decide on the random timer durations */
 	        if (center_hold_h == center_hold_l) {
@@ -708,13 +714,17 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_INCOMPLETE && new_state)
         ssSetIWorkValue(S, 62, ssGetIWorkValue(S, 62)+1);
     
-    status[0] = state; //IWorkVector[1];
-    status[1] = ssGetIWorkValue(S, 59); // num rewards
-    status[2] = trial_type_index; // num fails
+    //status[0] = state; //IWorkVector[1];
+    //status[1] = ssGetIWorkValue(S, 59); // num rewards
+    //status[2] = trial_type_index; // num fails
     //status[2] = ssGetIWorkValue(S, 60); // num fails
     //status[3] = ssGetIWorkValue(S, 61) + ssGetIWorkValue(S, 62); // num aborts and incompletes
     //status[3] = trial_type;
-
+    status[0] = trial_type_index;
+    status[1] = trial_type;
+    status[2] = gradation_index;
+    status[3] = gradation;
+    
     /* word (2) */
     if (new_state) {
         switch (state) {
@@ -814,7 +824,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     force_p[1] = force_y;
     
     status_p = ssGetOutputPortRealSignal(S,1);
-    for (i=0; i<3; i++) 
+    for (i=0; i<4; i++) 
         status_p[i] = status[i];
     
     word_p = ssGetOutputPortRealSignal(S,2);
