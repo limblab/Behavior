@@ -1,6 +1,6 @@
 /* mastercon_co.c
  *
- * Master Control block for behavior: center-out task
+ * Master Control block for behavior: bump-stim task
  */
 
 #define S_FUNCTION_NAME mastercon_co
@@ -46,7 +46,7 @@ static real_T origin_hold_l = .5;
 static real_T origin_hold_h = 2.0;     
 #define param_origin_hold_h mxGetScalar(ssGetSFcnParam(S,5))
 
-static real_T origin_delay;     /* delay between outer target and go tone */
+static real_T origin_delay;     /* delay between destination target and go tone */
 static real_T origin_delay_l = 0.0;
 #define param_origin_delay_l mxGetScalar(ssGetSFcnParam(S,6))
 static real_T origin_delay_h = 0.0;
@@ -55,7 +55,7 @@ static real_T origin_delay_h = 0.0;
 static real_T movement_time = 10.0;  /* movement time */
 #define param_movement_time mxGetScalar(ssGetSFcnParam(S,8))
 
-static real_T destination_hold;      /* outer target hold time */
+static real_T destination_hold;      /* destination target hold time */
 static real_T destination_hold_l = 1.0;      
 #define param_destination_hold_l mxGetScalar(ssGetSFcnParam(S,9))
 static real_T destination_hold_h = 1.0; 
@@ -75,8 +75,8 @@ static real_T stim_trial_pct = 0.0; /* percent of trial in which we stimulate ra
 #define set_stim_trial(x) ssSetRWorkValue(S, 3, (x))
 #define get_stim_trial() ssGetRWorkValue(S, 3)
 
-#define param_max_bump_magnitude mxGetScalar(ssGetSFcnParam(S,13))
-static real_T max_bump_magnitude;
+#define param_bump_magnitude mxGetScalar(ssGetSFcnParam(S,13))
+static real_T bump_magnitude;
 
 #define param_bump_duration mxGetScalar(ssGetSFcnParam(S,14))
 static int bump_duration;
@@ -110,6 +110,8 @@ static int bump_steps;
 static void mdlCheckParameters(SimStruct *S)
 {
     bump_steps = param_bump_steps;
+    bump_magnitude = param_bump_magnitude;
+    bump_duration = param_bump_duration;
 
 	target_angle = param_target_angle;
 	target_radius = param_target_radius;
@@ -267,6 +269,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int *IWorkVector; 
     int trial_index;
     int *trial_list;
+    int num_trials;
     int bump;
     real_T theta;
     real_T target1[4];
@@ -279,7 +282,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int reset_block = 0;
         
     /* block initialization working variables */
-    int tmp_tgts[256];
+    int tmp_trial[256];
     int tmp_bump[256];
     int tmp_sort[256];
     int i, j, tmp;
@@ -355,150 +358,106 @@ static void mdlUpdate(SimStruct *S, int_T tid)
              */
             
             /* update parameters */
-            if (num_targets != param_num_targets) {
-                num_targets = param_num_targets;
-                reset_block = 1;
-            }
+
+            bump_steps = param_bump_steps;
+            bump_magnitude = param_bump_magnitude;
+            bump_duration = int(param_bump_duration);
+
+            target_angle = param_target_angle;
             target_radius = param_target_radius;
             target_size = param_target_size;
-    
-            center_hold_l = param_center_hold_l;
-            center_hold_h = param_center_hold_h;
 
-            center_delay_l = param_center_delay_l;
-            center_delay_h = param_center_delay_h;
+            origin_hold_l = param_origin_hold_l;
+            origin_hold_h = param_origin_hold_h;
+
+            origin_delay_l = param_origin_delay_l;
+            origin_delay_h = param_origin_delay_h;
 
             movement_time = param_movement_time;
 
-            outer_hold_l = param_outer_hold_l;
-            outer_hold_h = param_outer_hold_h;
+            destination_hold_l = param_destination_hold_l;
+            destination_hold_h = param_destination_hold_h;
 
             abort_timeout   = param_intertrial;    
             failure_timeout = param_intertrial;
-            reward_timeout  = param_intertrial;
+            reward_timeout  = param_intertrial;   
             incomplete_timeout = param_intertrial;
-            center_bump_timeout = param_intertrial;
-            
-            catch_trial_pct = param_catch_trial_pct;
-            
-            bump_magnitude = param_bump_magnitude;
-            bump_duration  = (int)param_bump_duration;
-            
-            idiot_mode = (int)param_idiot_mode;
-            
-            /* see if mode has changed.  If so we need a reset. */
-            if (mode != param_mode) {
-                reset_block = 1;
-                mode = param_mode;
-            }
-
-            /* if we do not have our targets initialized => new block */
-            if (mode == MODE_BLOCK_CATCH && (target_index == num_targets-1 || reset_block)) {
-                /* initialize the targets */
-                for (i=0; i<num_targets; i++) {
-                    tmp_tgts[i] = i;
+             
+            num_trials = 2 * (2 * bump_steps + 1);
+            /* if we do not have our trials initialized => new block */
+            if (trial_index == num_trials-1 || reset_block) {
+                /* initialize the trials */
+                for (i=0; i<num_trials/2-1; i++) {
+                    tmp_trial_1[i] = i - bump_steps;
                     tmp_sort[i] = rand();
                 }
-                for (i=0; i<num_targets-1; i++) {
-                    for (j=0; j<num_targets-1; j++) {
+                for (i=0; i<num_trials/2-1; i++) {
+                    for (j=0; j<num_trials/2-1; j++) {
                         if (tmp_sort[j] < tmp_sort[j+1]) {
-                            tmp = tmp_sort[j];
+                            tmp = tmp_sort_1[j];
                             tmp_sort[j] = tmp_sort[j+1];
                             tmp_sort[j+1] = tmp;
                             
-                            tmp = tmp_tgts[j];
-                            tmp_tgts[j] = tmp_tgts[j+1];
-                            tmp_tgts[j+1] = tmp;
+                            tmp = tmp_trial_1[j];
+                            tmp_trial_1[j] = tmp_trial_1[j+1];
+                            tmp_trial_1[j+1] = tmp;
+                        }
+                    }
+                }
+                for (i=0; i<num_trials/2-1; i++) {
+                    tmp_trial_2[i] = i - bump_steps;
+                    tmp_sort[i] = rand();
+                }
+                for (i=0; i<num_trials/2-1; i++) {
+                    for (j=0; j<num_trials/2-1; j++) {
+                        if (tmp_sort[j] < tmp_sort[j+1]) {
+                            tmp = tmp_sort_1[j];
+                            tmp_sort[j] = tmp_sort[j+1];
+                            tmp_sort[j+1] = tmp;
+                            
+                            tmp = tmp_trial_2[j];
+                            tmp_trial_2[j] = tmp_trial_2[j+1];
+                            tmp_trial_2[j+1] = tmp;
                         }
                     }
                 }
                 /* write them back */
-                for (i=0; i<num_targets; i++) {
-                    target_list[i] = tmp_tgts[i];
-                }
-                /* and reset the counter */
-                ssSetIWorkValue(S, 1, 0);
-            } else if (mode == MODE_BUMP && (target_index == (num_targets+1)*(num_targets+1)-1 || reset_block)) {
-                /* initilize the targets and bump directions */
-                for (i=0; i<num_targets+1; i++) {
-                    for (j=0; j<num_targets+1; j++) {
-                        tmp_tgts[i*((int)num_targets+1)+j] = i-1;
-                        tmp_bump[i*((int)num_targets+1)+j] = j-1;
-                        tmp_sort[i*((int)num_targets+1)+j] = rand();
-                    }
-                }
-                for (i=0; i<(num_targets+1)*(num_targets+1)-1; i++) {
-                    for (j=0; j<(num_targets+1)*(num_targets+1)-1; j++) {
-                        if (tmp_sort[j] < tmp_sort[j+1]) {
-                            tmp = tmp_sort[j];
-                            tmp_sort[j] = tmp_sort[j+1];
-                            tmp_sort[j+1] = tmp;
-                            
-                            tmp = tmp_tgts[j];
-                            tmp_tgts[j] = tmp_tgts[j+1];
-                            tmp_tgts[j+1] = tmp;
-                            
-                            tmp = tmp_bump[j];
-                            tmp_bump[j] = tmp_bump[j+1];
-                            tmp_bump[j+1] = tmp;
-                        }
-                    }
-                }
-                for (i=0; i<(num_targets+1)*(num_targets+1)-1; i++) {
-                    target_list[i*2]   = tmp_tgts[i];
-                    target_list[i*2+1] = tmp_bump[i];
+                for (i=0; i<num_trials/2-1; i++) {
+                    trial_list[2*i] = tmp_trial_1[i];
+                    trial_list[2*i+1] = tmp_trial_2[i];
                 }
                 /* and reset the counter */
                 ssSetIWorkValue(S, 1, 0);
             } else {
                 /* just advance the counter */
-                target_index++;
+                trial_index++;
                 /* and write it back */
-                ssSetIWorkValue(S, 1, target_index);
-                if (mode == MODE_BLOCK_CATCH) {
-                    target = target_list[target_index];
-                } else {
-                    /* mode == MODE_BUMP */
-                    target = target_list[target_index*2];
-                }
-            }
-            
+                ssSetIWorkValue(S, 1, trial_index);
+                trial = trial_list[trial_index];
+                         
             /* In all cases, we need to decide on the random timer durations */
-            if (center_hold_h == center_hold_l) {
-                center_hold = center_hold_h;
+            if (origin_hold_h == origin_hold_l) {
+                origin_hold = origin_hold_h;
             } else {
-                center_hold = center_hold_l + (center_hold_h - center_hold_l)*((double)rand())/((double)RAND_MAX);
+                origin_hold = origin_hold_l + (origin_hold_h - origin_hold_l)*((double)rand())/((double)RAND_MAX);
             }
-            if (center_delay_h == center_delay_l) {
-                center_delay = center_delay_h;
+            if (origin_delay_h == origin_delay_l) {
+                origin_delay = origin_delay_h;
             } else {
-                center_delay = center_delay_l + (center_delay_h - center_delay_l)*((double)rand())/((double)RAND_MAX);
+                origin_delay = origin_delay_l + (origin_delay_h - origin_delay_l)*((double)rand())/((double)RAND_MAX);
             }
-            if (outer_hold_h == outer_hold_l) {
-                outer_hold = outer_hold_h;
+            if (destination_hold_h == destination_hold_l) {
+                destination_hold = destination_hold_h;
             } else {
-                outer_hold = outer_hold_l + (outer_hold_h - outer_hold_l)*((double)rand())/((double)RAND_MAX);
+                destination_hold = destination_hold_l + (destination_hold_h - destination_hold_l)*((double)rand())/((double)RAND_MAX);
             }
-            
-            /* decide if this is a catch trial */
-            if (mode == MODE_BLOCK_CATCH && catch_trial_pct > 0) {
-                set_catch_trial( catch_trial_pct > (double)rand()/(double)RAND_MAX ? 1.0 : 0.0 );
-            } else {
-                set_catch_trial(0.0);
-            }
-            
+       
             /* clear the bump counter */
-            ssSetIWorkValue(S, 580, 0);
+            ssSetIWorkValue(S, 580, 0);                             // CHECK!!!
                             
             /* and advance */
-            new_state = STATE_CT_ON;
+            new_state = STATE_ORIGIN_ON;
             state_changed();
-
-            /* skip target -1, bump -1 */
-            if (target == -1 && bump == -1) {
-                new_state = STATE_PRETRIAL;
-            }
-
             break;
         case STATE_ORIGIN_ON:
             /* center target on */
@@ -521,7 +480,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             break;
         case STATE_ORIGIN_DELAY:
-            /* center delay (outer target on) */
+            /* center delay (destination target on) */
             if (!cursorInTarget(cursor, target_origin)) {
                 new_state = STATE_ABORT;
                 reset_timer(); /* abort timeout */
@@ -536,7 +495,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* movement phase (go tone on entry) */
             if (cursorInTarget(cursor, target_destination)) {
                 new_state = STATE_DEST_HOLD;
-                reset_timer(); /* outer hold timer */
+                reset_timer(); /* destination hold timer */
                 state_changed();
             } else if (elapsed_timer_time > movement_time) {
                 new_state = STATE_FAIL;
@@ -545,7 +504,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             break;
         case STATE_DEST_HOLD:
-            /* outer target hold phase */
+            /* destination target hold phase */
             if (!cursorInTarget(cursor, target_destination)) {
                 new_state = STATE_INCOMPLETE;
                 reset_timer(); /* failure timeout */
@@ -800,7 +759,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
          state == STATE_MOVEMENT ||
          state == STATE_DEST_HOLD )
     {
-        /* outer target on */
+        /* destination target on */
         target_pos[5] = 1;
         for (i=0; i<4; i++) {
             target_pos[i+6] = destination_target[i];
@@ -808,7 +767,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     } 
     else 
     {
-        /* outer target off */
+        /* destination target off */
         target_pos[5] = 0;
         for (i=0; i<4; i++) {
             target_pos[i+6] = 0;
