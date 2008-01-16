@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.744"
+    ComputedModelVersion    "1.747"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Dec 14 15:46:17 2007"
-  ModelVersionFormat	  "1.%<AutoIncrement:744>"
+  LastModifiedDate	  "Mon Dec 17 16:49:08 2007"
+  ModelVersionFormat	  "1.%<AutoIncrement:747>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -3386,7 +3386,7 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "['%3.0f' '%3.2f' '%1.0f' '%1.0f']"
+      formatstr		      "'%2.2f'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"
