@@ -1,9 +1,9 @@
-/* mastercon_co.c
+/* mastercon_bs.c
  *
  * Master Control block for behavior: bump-stim task
  */
 
-#define S_FUNCTION_NAME mastercon_co
+#define S_FUNCTION_NAME mastercon_bs
 #define S_FUNCTION_LEVEL 2
 
 #include <math.h>
@@ -79,7 +79,7 @@ static real_T stim_trial_pct = 0.0; /* percent of trial in which we stimulate ra
 static real_T bump_magnitude;
 
 #define param_bump_duration mxGetScalar(ssGetSFcnParam(S,14))
-static int bump_duration;
+static real_T bump_duration;
 
 #define param_bump_steps mxGetScalar(ssGetSFcnParam(S,15))
 static int bump_steps;
@@ -109,12 +109,13 @@ static int bump_steps;
 
 static void mdlCheckParameters(SimStruct *S)
 {
-    bump_steps = param_bump_steps;
+    bump_steps = (int)param_bump_steps;
     bump_magnitude = param_bump_magnitude;
     bump_duration = param_bump_duration;
+    stim_trial_pct = param_stim_trial_pct;
 
-	  target_angle = param_target_angle;
-	  target_radius = param_target_radius;
+    target_angle = param_target_angle;
+    target_radius = param_target_radius;
     target_size = param_target_size;
     
     origin_hold_l = param_origin_hold_l;
@@ -194,7 +195,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumIWork(S, 71);  /*    0: state_transition (true if state changed), 
                                  1: current trial index,
 		                         2: stim trial (1 for yes, 0 for no)
-                            [3-66]: trial presentation sequence (block/catch mode) 
+                            [3-66]: trial presentation sequence
                                 67: bump duration counter 
                                 68: successes
                                 69: failures
@@ -227,7 +228,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 0, 1);
     
     /* set target index to indicate that we need to begin a new block */
-    ssSetIWorkValue(S, 1, (int)num_targets-1);
+    ssSetIWorkValue(S, 1, (int)( 2*(bump_steps*2+1)-1));
     
     /* set the tone counter to zero */
     ssSetRWorkValue(S, 1, 0.0);
@@ -282,9 +283,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int reset_block = 0;
         
     /* block initialization working variables */
-    int tmp_trial[256];
+    int tmp_trial_1[256];
+    int tmp_trial_2[256];
     int tmp_bump[256];
-    int tmp_sort[256];
+    int tmp_sort_1[256];
+    int tmp_sort_2[256];
     int i, j, tmp;
     
     /******************
@@ -294,7 +297,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
     int state = (int)state_r[0];
-	  int direction = (int)state_r[1];
+    int direction = (int)state_r[1];
     int new_state = state;
     
     /* current cursor location */
@@ -311,10 +314,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     target1[2] = cos(target_angle)*target_radius+target_size/2;
     target1[3] = sin(target_angle)*target_radius-target_size/2;
     
-    target2[0] = cos(target_angle+2*PI)*target_radius-target_size/2;
-    target2[1] = sin(target_angle+2*PI)*target_radius+target_size/2;
-    target2[2] = cos(target_angle+2*PI)*target_radius+target_size/2;
-    target2[3] = sin(target_angle+2*PI)*target_radius-target_size/2;
+    target2[0] = cos(target_angle+PI)*target_radius-target_size/2;
+    target2[1] = sin(target_angle+PI)*target_radius+target_size/2;
+    target2[2] = cos(target_angle+PI)*target_radius+target_size/2;
+    target2[3] = sin(target_angle+PI)*target_radius-target_size/2;
 
 	if (direction == 0) {
 		/* forward trial */
@@ -359,12 +362,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             /* update parameters */
             if (bump_steps != param_bump_steps) {
-                bump_steps = param_bump_steps;
+                bump_steps = (int)param_bump_steps;
                 reset_block = 1;
             }
             
+            stim_trial_pct = param_stim_trial_pct;
+            
             bump_magnitude = param_bump_magnitude;
-            bump_duration = int(param_bump_duration);
+            bump_duration = (int)param_bump_duration;
 
             target_angle = param_target_angle;
             target_radius = param_target_radius;
@@ -387,19 +392,22 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             incomplete_timeout = param_intertrial;
              
             num_trials = 2 * (2 * bump_steps + 1);
-            /* if we do not have our trials initialized => new block */
-            if (trial_index >= num_trials-1 || reset_block) {
+            if (rand()<=stim_trial_pct) {
+                ssSetIWorkValue(S, 2, 1);
+                /* if we do not have our trials initialized => new block */
+            } else if (trial_index >= num_trials-1 || reset_block) {
                 /* initialize the trials */
+                ssSetIWorkValue(S, 2, 0);  /* not a stim trial */
                 for (i=0; i<num_trials/2; i++) {
                     tmp_trial_1[i] = i - bump_steps;
-                    tmp_sort[i] = rand();
+                    tmp_sort_1[i] = rand();
                 }
                 for (i=0; i<num_trials/2; i++) {
                     for (j=0; j<num_trials/2; j++) {
-                        if (tmp_sort[j] < tmp_sort[j+1]) {
+                        if (tmp_sort_1[j] < tmp_sort_1[j+1]) {
                             tmp = tmp_sort_1[j];
-                            tmp_sort[j] = tmp_sort[j+1];
-                            tmp_sort[j+1] = tmp;
+                            tmp_sort_1[j] = tmp_sort_1[j+1];
+                            tmp_sort_1[j+1] = tmp;
                             
                             tmp = tmp_trial_1[j];
                             tmp_trial_1[j] = tmp_trial_1[j+1];
@@ -409,14 +417,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 }
                 for (i=0; i<num_trials/2; i++) {
                     tmp_trial_2[i] = i - bump_steps;
-                    tmp_sort[i] = rand();
+                    tmp_sort_1[i] = rand();
                 }
                 for (i=0; i<num_trials/2; i++) {
                     for (j=0; j<num_trials/2; j++) {
-                        if (tmp_sort[j] < tmp_sort[j+1]) {
+                        if (tmp_sort_1[j] < tmp_sort_1[j+1]) {
                             tmp = tmp_sort_1[j];
-                            tmp_sort[j] = tmp_sort[j+1];
-                            tmp_sort[j+1] = tmp;
+                            tmp_sort_1[j] = tmp_sort_1[j+1];
+                            tmp_sort_1[j+1] = tmp;
                             
                             tmp = tmp_trial_2[j];
                             tmp_trial_2[j] = tmp_trial_2[j+1];
@@ -436,8 +444,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 trial_index++;
                 /* and write it back */
                 ssSetIWorkValue(S, 1, trial_index);
-                trial = trial_list[trial_index];
-                         
+                bump = trial_list[trial_index];
+                ssSetIWorkValue(S, 2, 0); /* not a stim trial */
+            }
+            
+            
+            
             /* In all cases, we need to decide on the random timer durations */
             if (origin_hold_h == origin_hold_l) {
                 origin_hold = origin_hold_h;
@@ -459,7 +471,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             ssSetIWorkValue(S, 67, 0); 
                             
             /* and advance */
-            state_r[1] = !state_r[1];
             new_state = STATE_ORIGIN_ON;
             state_changed();
             break;
@@ -543,6 +554,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         case STATE_REWARD:
             /* reward */
             if (elapsed_timer_time > reward_timeout) {
+                state_r[1] = !state_r[1];
                 new_state = STATE_PRETRIAL;
                 state_changed();
             }
@@ -568,8 +580,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      ********************/
     int i;
     int_T *IWorkVector; 
-    int_T target_index;
-    int_T *target_list;
+    int_T trial_index;
+    int_T *trial_list;
     int bump; /* magnitude of bump */
     int bump_duration_counter;
     real_T target1[4];
@@ -603,16 +615,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 
     /* current target number */
     IWorkVector = ssGetIWork(S);
-    target_index = IWorkVector[1];
-    target_list = IWorkVector+2;    
-    if (mode == MODE_BLOCK_CATCH) {
-        target = target_list[target_index];
-    } else {
-        /* mode == MODE_BUMP */
-        target = target_list[target_index*2];
-        bump = target_list[target_index*2+1];
-    }
-
+    trial_index = IWorkVector[1];
+    trial_list = IWorkVector+2;    
+    bump = trial_list[trial_index];
+    
     bump_duration_counter = ssGetIWorkValue(S, 67);
     
     /* get current tone counter */
@@ -625,10 +631,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     target1[2] = cos(target_angle)*target_radius+target_size/2;
     target1[3] = sin(target_angle)*target_radius-target_size/2;
     
-    target2[0] = cos(target_angle+2*PI)*target_radius-target_size/2;
-    target2[1] = sin(target_angle+2*PI)*target_radius+target_size/2;
-    target2[2] = cos(target_angle+2*PI)*target_radius+target_size/2;
-    target2[3] = sin(target_angle+2*PI)*target_radius-target_size/2;
+    target2[0] = cos(target_angle+PI)*target_radius-target_size/2;
+    target2[1] = sin(target_angle+PI)*target_radius+target_size/2;
+    target2[2] = cos(target_angle+PI)*target_radius+target_size/2;
+    target2[3] = sin(target_angle+PI)*target_radius-target_size/2;
 
 	if (direction == 0) {
 		/* forward trial */
@@ -766,7 +772,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         /* destination target on */
         target_pos[5] = 1;
         for (i=0; i<4; i++) {
-            target_pos[i+6] = destination_target[i];
+            target_pos[i+6] = target_destination[i];
         }
     } 
     else 
