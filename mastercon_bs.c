@@ -588,6 +588,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T target2[4];
 	real_T *target_origin;
 	real_T *target_destination;
+    real_T theta;
     
     InputRealPtrsType uPtrs;
     real_T cursor[2];
@@ -690,7 +691,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 
         force_x = force_in[0]; 
         force_y = force_in[1];
-//    }
+    }
 
     /* status (1) */
     if (state == STATE_REWARD && new_state)
