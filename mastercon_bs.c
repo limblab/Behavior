@@ -616,8 +616,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* current target number */
     IWorkVector = ssGetIWork(S);
     trial_index = IWorkVector[1];
-    trial_list = IWorkVector+2;    
-    bump = trial_list[trial_index];
+    trial_list = IWorkVector+2;
+    
+    if (ssGetIWorkValue(S,2) == 1){
+        bump = 0;
+    } else {
+        bump = trial_list[trial_index];
+    }
     
     bump_duration_counter = ssGetIWorkValue(S, 67);
     
@@ -662,29 +667,27 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* force (0) */
     /* see if we are in a bump */
-#if 0
+
     if (bump_duration_counter > 0) {
         /* yes, so decrement the counter and maintain the bump */
         bump_duration_counter--;
         if (bump_duration_counter == 0)
             bump_duration_counter = -1; // don't bump again
-        theta = PI/2 - bump*2*PI/num_targets;
-        force_x = force_in[0] + cos(theta)*bump_magnitude;
-        force_y = force_in[1] + sin(theta)*bump_magnitude;
-    } else if ( bump != -1 && 
-                bump_duration_counter != -1 && 
-                ( (state==STATE_MOVEMENT && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) > target_radius / 2) || 
-                   state==STATE_CENTER_HOLD_BUMP
-                )
+        theta = PI/2 + target_angle;
+        force_x = force_in[0] + cos(theta)*bump;
+        force_y = force_in[1] + sin(theta)*bump;
+    } else if ( bump_duration_counter != -1 && 
+                state==STATE_MOVEMENT && 
+                sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) > target_radius / 2
               ) 
     {
         /* initiating a new bump */
         bump_duration_counter = bump_duration;
-        theta = PI/2 - bump*2*PI/num_targets;
-        force_x = force_in[0] + cos(theta)*bump_magnitude;
-        force_y = force_in[1] + sin(theta)*bump_magnitude;
+        theta = PI/2 + target_angle;
+        force_x = force_in[0] + cos(theta)*bump;
+        force_y = force_in[1] + sin(theta)*bump;
     } else {
-#endif
+
         force_x = force_in[0]; 
         force_y = force_in[1];
 //    }
