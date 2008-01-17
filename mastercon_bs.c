@@ -275,19 +275,18 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T theta;
     real_T target1[4];
     real_T target2[4];
-	real_T *target_origin;
-	real_T *target_destination;
+    real_T *target_origin;
+    real_T *target_destination;
     InputRealPtrsType uPtrs;
     real_T cursor[2];
     real_T elapsed_timer_time;
     int reset_block = 0;
         
     /* block initialization working variables */
-    int tmp_trial_1[256];
-    int tmp_trial_2[256];
-    int tmp_bump[256];
-    int tmp_sort_1[256];
-    int tmp_sort_2[256];
+    int tmp_trial_1[15];
+    int tmp_trial_2[15];
+    int tmp_sort[15];
+    int tmp_bump[30];
     int i, j, tmp;
     
     /******************
@@ -363,6 +362,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* update parameters */
             if (bump_steps != param_bump_steps) {
                 bump_steps = (int)param_bump_steps;
+                bump_steps = ( bump_steps<=7 ? bump_steps | 7 ); /* limit bump_steps to 7 */
                 reset_block = 1;
             }
             
@@ -399,15 +399,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 /* initialize the trials */
                 ssSetIWorkValue(S, 2, 0);  /* not a stim trial */
                 for (i=0; i<num_trials/2; i++) {
-                    tmp_trial_1[i] = i - bump_steps;
-                    tmp_sort_1[i] = rand();
+                    tmp_trial[i] = i - bump_steps;
+                    tmp_sort[i] = rand();
                 }
                 for (i=0; i<num_trials/2; i++) {
                     for (j=0; j<num_trials/2; j++) {
-                        if (tmp_sort_1[j] < tmp_sort_1[j+1]) {
-                            tmp = tmp_sort_1[j];
-                            tmp_sort_1[j] = tmp_sort_1[j+1];
-                            tmp_sort_1[j+1] = tmp;
+                        if (tmp_sort[j] < tmp_sort[j+1]) {
+                            tmp = tmp_sort[j];
+                            tmp_sort[j] = tmp_sort[j+1];
+                            tmp_sort[j+1] = tmp;
                             
                             tmp = tmp_trial_1[j];
                             tmp_trial_1[j] = tmp_trial_1[j+1];
@@ -421,10 +421,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 }
                 for (i=0; i<num_trials/2; i++) {
                     for (j=0; j<num_trials/2; j++) {
-                        if (tmp_sort_1[j] < tmp_sort_1[j+1]) {
-                            tmp = tmp_sort_1[j];
-                            tmp_sort_1[j] = tmp_sort_1[j+1];
-                            tmp_sort_1[j+1] = tmp;
+                        if (tmp_sort_1[j] < tmp_sort[j+1]) {
+                            tmp = tmp_sort[j];
+                            tmp_sort[j] = tmp_sort[j+1];
+                            tmp_sort[j+1] = tmp;
                             
                             tmp = tmp_trial_2[j];
                             tmp_trial_2[j] = tmp_trial_2[j+1];
@@ -747,11 +747,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     /* target_pos (3) */
-	/* origin */
+    /* origin */
     if ( state == STATE_ORIGIN_ON || 
          state == STATE_ORIGIN_HOLD || 
          state == STATE_ORIGIN_DELAY )
-	{
+    {
         /* origin target on */
         target_pos[0] = 1;
         for (i=0; i<4; i++) {
