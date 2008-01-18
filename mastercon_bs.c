@@ -362,7 +362,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* update parameters */
             if (bump_steps != param_bump_steps) {
                 bump_steps = (int)param_bump_steps;
-                bump_steps = ( bump_steps<=7 ? bump_steps | 7 ); /* limit bump_steps to 7 */
+                bump_steps = ( bump_steps<=7 ? bump_steps : 7 ); /* limit bump_steps to 7 */
                 reset_block = 1;
             }
             
@@ -399,7 +399,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 /* initialize the trials */
                 ssSetIWorkValue(S, 2, 0);  /* not a stim trial */
                 for (i=0; i<num_trials/2; i++) {
-                    tmp_trial[i] = i - bump_steps;
+                    tmp_trial_1[i] = i - bump_steps;
                     tmp_sort[i] = rand();
                 }
                 for (i=0; i<num_trials/2; i++) {
@@ -417,11 +417,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 }
                 for (i=0; i<num_trials/2; i++) {
                     tmp_trial_2[i] = i - bump_steps;
-                    tmp_sort_1[i] = rand();
+                    tmp_sort[i] = rand();
                 }
                 for (i=0; i<num_trials/2; i++) {
                     for (j=0; j<num_trials/2; j++) {
-                        if (tmp_sort_1[j] < tmp_sort[j+1]) {
+                        if (tmp_sort[j] < tmp_sort[j+1]) {
                             tmp = tmp_sort[j];
                             tmp_sort[j] = tmp_sort[j+1];
                             tmp_sort[j+1] = tmp;
@@ -440,8 +440,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 /* and reset the counter */
                 ssSetIWorkValue(S, 1, 0);
             } else {
-                /* just advance the counter */
-                trial_index++;
                 /* and write it back */
                 ssSetIWorkValue(S, 1, trial_index);
                 bump = trial_list[trial_index];
@@ -526,6 +524,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 state_changed();
             } else if (elapsed_timer_time > destination_hold) {
                 new_state = STATE_REWARD;
+                if (!ssGetIWorkValue(S, 2)) 
+                    ssSetIWorkValue(S,1, ssGetIWorkValue(S,1)+1);
                 reset_timer(); /* reward (inter-trial) timeout */
                 state_changed();
             }
@@ -534,12 +534,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* abort */
             if (elapsed_timer_time > abort_timeout) {
                 new_state = STATE_PRETRIAL;
-                state_changed();
+                state_changed();                
             }
             break;
         case STATE_FAIL:
             /* failure */
-            if (elapsed_timer_time > failure_timeout) {
+            if (elapsed_timer_time > failure_timeout) {                
                 new_state = STATE_PRETRIAL;
                 state_changed();
             }
@@ -675,18 +675,19 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         if (bump_duration_counter == 0)
             bump_duration_counter = -1; // don't bump again
         theta = PI/2 + target_angle;
-        force_x = force_in[0] + cos(theta)*bump;
-        force_y = force_in[1] + sin(theta)*bump;
+        force_x = force_in[0] + cos(theta)*bump*bump_magnitude;
+        force_y = force_in[1] + sin(theta)*bump*bump_magnitude;
     } else if ( bump_duration_counter != -1 && 
                 state==STATE_MOVEMENT && 
-                sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) > target_radius / 2
+                ( ( direction == 0 && cos(-target_angle)*cursor[0] - sin( -target_angle)*cursor[1] <= 0) ||
+                  ( direction == 1 && cos(-target_angle)*cursor[0] - sin( -target_angle)*cursor[1] >= 0) )
               ) 
     {
         /* initiating a new bump */
-        bump_duration_counter = bump_duration;
+        bump_duration_counter = (int)bump_duration;
         theta = PI/2 + target_angle;
-        force_x = force_in[0] + cos(theta)*bump;
-        force_y = force_in[1] + sin(theta)*bump;
+        force_x = force_in[0] + cos(theta)*bump*bump_magnitude;
+        force_y = force_in[1] + sin(theta)*bump*bump_magnitude;
     } else {
 
         force_x = force_in[0]; 
@@ -702,7 +703,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 583, ssGetIWorkValue(S, 583)+1);
     
     status[0] = IWorkVector[1]; //state;
-    status[1] = ssGetIWorkValue(S, 68); // num rewards
+   /* status[1] = ssGetIWorkValue(S, 68); // num rewards */
+    status[1] = ssGetIWorkValue(S,1);
     status[2] = ssGetIWorkValue(S, 69); // num aborts
     status[3] = ssGetIWorkValue(S, 70); // num fails
     
@@ -816,7 +818,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     force_p = ssGetOutputPortRealSignal(S,0);
     force_p[0] = force_x;
     force_p[1] = force_y;
-    ssSetIWorkValue(S, 580, bump_duration_counter);
+    ssSetIWorkValue(S, 67, bump_duration_counter);
     
     status_p = ssGetOutputPortRealSignal(S,1);
     for (i=0; i<4; i++) 
