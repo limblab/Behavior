@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.2904.31951">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.2939.23862">
   <ScreenWidth>30</ScreenWidth>
   <CenterOutMode>None</CenterOutMode>
   <Load>None</Load>
@@ -7,7 +7,9 @@
   <NumTargetsRW>8</NumTargetsRW>
   <IdiotMode>false</IdiotMode>
   <TrainingMode>true</TrainingMode>
+  <RewardAllTestTrials>false</RewardAllTestTrials>
   <NumGradations>0</NumGradations>
+  <NumBumpSteps>0</NumBumpSteps>
   <SerializedParameters>
     <dictionary>
       <item>
@@ -189,6 +191,70 @@
       <item>
         <key>FC Target Distance</key>
         <value>10</value>
+      </item>
+      <item>
+        <key>FC Reward Threshold</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BS OHL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BS OHH</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BS DL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BS DH</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BS M</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BS DHL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BS DHH</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BS I</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BS Stim Trials Pct</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BS Bump Step Magnitude</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BS Bump Duration</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BS Target Angle</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BS Target Radius</key>
+        <value>5</value>
+      </item>
+      <item>
+        <key>BS Target Size</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BS Window Diameter</key>
+        <value>2</value>
       </item>
     </dictionary>
   </SerializedParameters>
