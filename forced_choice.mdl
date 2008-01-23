@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.747"
+    ComputedModelVersion    "1.748"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Dec 17 16:49:08 2007"
-  ModelVersionFormat	  "1.%<AutoIncrement:747>"
+  LastModifiedDate	  "Tue Jan 22 12:26:53 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:748>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -803,7 +803,7 @@ Model {
       Ports		      [2, 6]
       Position		      [660, 86, 885, 419]
       FunctionName	      "mastercon_fc"
-      Parameters	      "3 0 1 .5 1 .5 1 10 3 3 10"
+      Parameters	      "16 0.2 0 .5 1 .5 1 2 2 3 5 0 1"
       MaskDisplay	      "disp('Master Control\\nForced-Choice')\nport_la"
 "bel('input',1,'pos')\nport_label('input',2,'force')\nport_label('output',1,'f"
 "orce')\nport_label('output',2,'status')\nport_label('output',3,'word')\nport_"
