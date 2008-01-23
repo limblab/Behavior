@@ -537,7 +537,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 reset_timer(); /* reward timeout */
                 state_changed();
 			
-			} else if (cursorInTarget(cursor, ot_wrong) {
+			} else if (cursorInTarget(cursor, ot_wrong)) {
 
 				if (reward_on_all_test_trials && trial_type != TRIAL_TYPE_TEST) {
 					new_state = STATE_REWARD;
