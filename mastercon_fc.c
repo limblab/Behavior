@@ -544,7 +544,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 					reset_timer(); /* reward timeout */
 					state_changed();
 				} else {
-					new_state = STATE_INCOMPLETE;
+					new_state = STATE_FAIL;
 		            reset_timer(); /* incomplete timeout */
 			        state_changed();
 				}
