@@ -22,7 +22,7 @@
 static real_T num_targets = 8;      /* number of sequential targets */
 #define param_num_targets mxGetScalar(ssGetSFcnParam(S,0))
 static real_T target_size = 3.0;    /* width and height of actual targets in cm */
-#define target_size mxGetScalar(ssGetSFcnParam(S,1))
+#define param_target_size mxGetScalar(ssGetSFcnParam(S,1))
 static real_T target_tolerance = 0.0;   /* tolerance for hitting target in cm */
 #define param_target_tolerance mxGetScalar(ssGetSFcnParam(S,2))
 
@@ -97,7 +97,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 11); 
+    ssSetNumSFcnParams(S, 13); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -233,6 +233,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     InputRealPtrsType uPtrs;
     real_T cursor[2];
     real_T elapsed_timer_time;
+    real_T temp_distance;
+    real_T temp_angle;
             
     /******************
      * Initialization *
@@ -483,15 +485,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_id = ssGetRWorkValue(S, 2);
     
     /* get target bounds */
-    tgt[0] = target_x-target_size/2;
-    tgt[1] = target_y+target_size/2;
-    tgt[2] = target_x+target_size/2;
-    tgt[3] = target_y-target_size/2;    
+    tgt[0] = target_x-target_size/2 - target_tolerance/2;
+    tgt[1] = target_y+target_size/2 + target_tolerance/2;
+    tgt[2] = target_x+target_size/2 + target_tolerance/2;
+    tgt[3] = target_y-target_size/2 - target_tolerance/2;    
             
-    disp_tgt[0] = tgt[0] - target_tolerance/2;
-    disp_tgt[1] = tgt[1] + target_tolerance/2;
-    disp_tgt[2] = tgt[2] + target_tolerance/2;
-    disp_tgt[3] = tgt[3] - target_tolerance/2;
+    disp_tgt[0] = target_x-target_size/2;
+    disp_tgt[1] = target_y+target_size/2;
+    disp_tgt[2] = target_x+target_size/2;
+    disp_tgt[3] = target_y-target_size/2;
     
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
