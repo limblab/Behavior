@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.922"
+    ComputedModelVersion    "1.923"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jan 09 14:55:18 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:922>"
+  LastModifiedDate	  "Fri Feb 08 16:30:21 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:923>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -802,7 +802,7 @@ Model {
   }
   System {
     Name		    "random_walk"
-    Location		    [2, 82, 1261, 961]
+    Location		    [0, 50, 1280, 998]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -822,7 +822,7 @@ Model {
       Ports		      [2, 6]
       Position		      [660, 86, 885, 419]
       FunctionName	      "mastercon_rw"
-      Parameters	      "8 4 30 30 0 0 3 10 3 0"
+      Parameters	      "8 3 0 30 30 0.5 0.5 10 10 1 0 0 0"
       MaskDisplay	      "disp('Master Control\\nCenter-Out')\nport_label"
 "('input',1,'pos')\nport_label('input',2,'force')\nport_label('output',1,'forc"
 "e')\nport_label('output',2,'status')\nport_label('output',3,'word')\nport_lab"
@@ -844,7 +844,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"BoundingBox"
-	Location		[176, 152, 1103, 872]
+	Location		[174, 120, 1105, 892]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1912,7 +1912,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Force outside box"
-	Location		[2, 82, 1278, 961]
+	Location		[0, 50, 1280, 998]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
