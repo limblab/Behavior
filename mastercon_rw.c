@@ -21,34 +21,40 @@
  */
 static real_T num_targets = 8;      /* number of sequential targets */
 #define param_num_targets mxGetScalar(ssGetSFcnParam(S,0))
-static real_T target_size = 3.0;    /* width and height of targets in cm */
-#define param_target_size mxGetScalar(ssGetSFcnParam(S,1))
+static real_T target_size = 3.0;    /* width and height of actual targets in cm */
+#define target_size mxGetScalar(ssGetSFcnParam(S,1))
+static real_T target_tolerance = 0.0;   /* tolerance for hitting target in cm */
+#define param_target_tolerance mxGetScalar(ssGetSFcnParam(S,2))
 
 static real_T work_area_width = 30.0; /* width of area in which to display tgts */
-#define param_work_area_width mxGetScalar(ssGetSFcnParam(S,2))
+#define param_work_area_width mxGetScalar(ssGetSFcnParam(S,3))
 static real_T work_area_height = 30.0; /* height of area in which to display tgts */
-#define param_work_area_height mxGetScalar(ssGetSFcnParam(S,3))
+#define param_work_area_height mxGetScalar(ssGetSFcnParam(S,4))
 
 /* dwell time in state 2 */
 static real_T target_hold_l = .5;
-#define param_target_hold_l mxGetScalar(ssGetSFcnParam(S,4))
+#define param_target_hold_l mxGetScalar(ssGetSFcnParam(S,5))
 static real_T target_hold_h = .5;
-#define param_target_hold_h mxGetScalar(ssGetSFcnParam(S,5))
+#define param_target_hold_h mxGetScalar(ssGetSFcnParam(S,6))
 
 static real_T movement_time = 10.0;  /* movement time */
-#define param_movement_time mxGetScalar(ssGetSFcnParam(S,6))
+#define param_movement_time mxGetScalar(ssGetSFcnParam(S,7))
 
 static real_T initial_movement_time = 10.0;  /* movement time */
-#define param_initial_movement_time mxGetScalar(ssGetSFcnParam(S,7))
+#define param_initial_movement_time mxGetScalar(ssGetSFcnParam(S,8))
 
-#define param_intertrial mxGetScalar(ssGetSFcnParam(S,8))
+#define param_intertrial mxGetScalar(ssGetSFcnParam(S,9))
 static real_T abort_timeout   = 1.0;    /* delay after abort */
 static real_T failure_timeout = 1.0;    /* delay after failure */
 static real_T incomplete_timeout = 1.0; /* delay after incomplete */
 static real_T reward_timeout  = 1.0;    /* delay after reward before starting next trial
                                          * This is NOT the reward pulse length */
-
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,9))
+#define param_minimum_distance mxGetScalar(ssGetSFcnParam(S,10))
+static real_T minimum_distance = 0.0;   /* minumum x distance and y distance from current target to the next one in cm */
+#define param_maximum_distance mxGetScalar(ssGetSFcnParam(S,11))
+static real_T maximum_distance = 0.0;   /* maximum x distance and y distance from current target to the next one in cm  *
+                                         * set maximum_distance to zero for unconstrained target distance */
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,12))
 
 /*
  * State IDs
@@ -70,6 +76,7 @@ static void mdlCheckParameters(SimStruct *S)
 {
     num_targets = param_num_targets;
     target_size = param_target_size;
+    target_tolerance = param_target_tolerance;
     
     target_hold_l = param_target_hold_l;
     target_hold_h = param_target_hold_h;
@@ -81,13 +88,16 @@ static void mdlCheckParameters(SimStruct *S)
     failure_timeout = param_intertrial;
     reward_timeout  = param_intertrial;   
     incomplete_timeout = param_intertrial;
+    
+    minimum_distance = param_minimum_distance;
+    maximum_distance = param_maximum_distance;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 10); 
+    ssSetNumSFcnParams(S, 11); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -282,6 +292,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* Update parameters */
             num_targets = param_num_targets;
             target_size = param_target_size;
+            target_tolerance = param_target_tolerance;
 
             work_area_width = param_work_area_width;
             work_area_height = param_work_area_height;
@@ -297,13 +308,30 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             failure_timeout = param_intertrial;
             incomplete_timeout = param_intertrial;
             reward_timeout  = param_intertrial;
+                           
+            minimum_distance = param_minimum_distance;
+            maximum_distance = param_maximum_distance;
             
             /* initilize target positions */
-            for (i=0; i<num_targets; i++) {
-                target_list[i*2]   = VNI * work_area_width / 2.0;  /* x position */
-                target_list[i*2+1] = VNI * work_area_height / 2.0; /* y position */
+            if (maximum_distance==0){
+                for (i=0; i<num_targets; i++) {
+                    target_list[i*2]   = VNI * work_area_width / 2.0;  /* x position */
+                    target_list[i*2+1] = VNI * work_area_height / 2.0; /* y position */
+                }
+            } else {
+                target_list[0] = VNI * work_area_width / 2.0;  /* x position of first target*/
+                target_list[1] = VNI * work_area_height / 2.0; /* y position of first target*/
+                for (i=1; i<num_targets; i++){
+                    temp_distance = minimum_distance + UNI * (maximum_distance - minimum_distance);
+                    temp_angle = 2 * PI * UNI;
+                    target_list[i*2] = target_list[i*2-2] + temp_distance * cos(temp_angle);
+                    target_list[i*2+1] = target_list[i*2-1] + temp_distance * sin(temp_angle);
+                    if (target_list[i*2] < -work_area_width / 2.0 || target_list[i*2] > work_area_width / 2.0 ||
+                        target_list[i*2+1] < -work_area_height / 2.0 || target_list[i*2+1] > work_area_height / 2.0)
+                        i--;                    
+                }
             }
-
+            
             /* and reset the counter */
             ssSetIWorkValue(S, 1, 0);
             
@@ -417,6 +445,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *target_list;
     real_T target_x, target_y;
     real_T tgt[4];
+    real_T disp_tgt[4];
     
     InputRealPtrsType uPtrs;
     real_T cursor[2];
@@ -457,7 +486,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tgt[0] = target_x-target_size/2;
     tgt[1] = target_y+target_size/2;
     tgt[2] = target_x+target_size/2;
-    tgt[3] = target_y-target_size/2;
+    tgt[3] = target_y-target_size/2;    
+            
+    disp_tgt[0] = tgt[0] - target_tolerance/2;
+    disp_tgt[1] = tgt[1] + target_tolerance/2;
+    disp_tgt[2] = tgt[2] + target_tolerance/2;
+    disp_tgt[3] = tgt[3] - target_tolerance/2;
     
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
@@ -525,7 +559,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         /* target on */
         target_pos[0] = 1;
         for (i=0; i<4; i++) {
-            target_pos[i+1] = tgt[i];
+            target_pos[i+1] = disp_tgt[i];
         }
     } 
     else 
