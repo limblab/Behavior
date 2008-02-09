@@ -173,6 +173,7 @@ static void mdlInitializeSampleTimes(SimStruct *S)
 #define MDL_INITIALIZE_CONDITIONS
 static void mdlInitializeConditions(SimStruct *S)
 {
+    int i;
     real_T *x0;
     
     /* initialize state to zero */
@@ -188,6 +189,11 @@ static void mdlInitializeConditions(SimStruct *S)
     /* set the tone counter to zero */
     ssSetRWorkValue(S, 1, 0.0);
     ssSetRWorkValue(S, 2, 0.0);
+    
+    /* initialize targets at zero */
+    for (i = 4 ; i<512 ; i++){
+        ssSetRWorkValue(S, i, 0.0);
+    }
     
     /* set trial counters to zero */
     ssSetIWorkValue(S, 2, 0);
@@ -262,10 +268,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     target_y = target_list[2*target_index+1];
     
     /* get target bounds */
-    tgt[0] = target_x-target_size/2;
-    tgt[1] = target_y+target_size/2;
-    tgt[2] = target_x+target_size/2;
-    tgt[3] = target_y-target_size/2;
+    tgt[0] = target_x-target_size/2 - target_tolerance/2;
+    tgt[1] = target_y+target_size/2 + target_tolerance/2;
+    tgt[2] = target_x+target_size/2 + target_tolerance/2;
+    tgt[3] = target_y-target_size/2 - target_tolerance/2;
     
     /*********************************
      * See if we have issued a reset *
@@ -321,8 +327,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     target_list[i*2+1] = VNI * work_area_height / 2.0; /* y position */
                 }
             } else {
-                target_list[0] = VNI * work_area_width / 2.0;  /* x position of first target*/
-                target_list[1] = VNI * work_area_height / 2.0; /* y position of first target*/
+                target_list[0] = target_list[2*num_targets-2];  /* x position of first target*/
+                target_list[1] = target_list[2*num_targets-1]; /* y position of first target*/
                 for (i=1; i<num_targets; i++){
                     temp_distance = minimum_distance + UNI * (maximum_distance - minimum_distance);
                     temp_angle = 2 * PI * UNI;
@@ -493,7 +499,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     disp_tgt[0] = target_x-target_size/2;
     disp_tgt[1] = target_y+target_size/2;
     disp_tgt[2] = target_x+target_size/2;
-    disp_tgt[3] = target_y-target_size/2;
+    disp_tgt[3] = target_y-target_size/2; 
     
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
