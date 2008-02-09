@@ -327,8 +327,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     target_list[i*2+1] = VNI * work_area_height / 2.0; /* y position */
                 }
             } else {
-                target_list[0] = target_list[2*num_targets-2];  /* x position of first target*/
-                target_list[1] = target_list[2*num_targets-1]; /* y position of first target*/
+                temp_distance = minimum_distance + UNI * (maximum_distance - minimum_distance);
+                temp_angle = 2 * PI * UNI;
+                target_list[0] = target_list[2*target_index] + temp_distance * cos(temp_angle);  /* x position of first target*/
+                target_list[1] = target_list[2*target_index+1] + temp_distance * sin(temp_angle); /* y position of first target*/
                 for (i=1; i<num_targets; i++){
                     temp_distance = minimum_distance + UNI * (maximum_distance - minimum_distance);
                     temp_angle = 2 * PI * UNI;
