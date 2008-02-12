@@ -49,6 +49,9 @@
 /* go cue */
 #define WORD_GO_CUE 0x31
 
+/* catch trial go cue (random walk mode) */
+#define WORD_CATCH  0x32
+
 /* outer target (t) on */
 #define WORD_OT_ON(t) ( 0x40 | (t) )
 #define WORD_DESTINATION_TARGET_ON 0x40
