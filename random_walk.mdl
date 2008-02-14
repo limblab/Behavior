@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.929"
+    ComputedModelVersion    "1.938"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Feb 11 18:27:07 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:929>"
+  LastModifiedDate	  "Wed Feb 13 14:37:59 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:938>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -1313,6 +1313,78 @@ Model {
 	  Value			  "0"
 	}
 	Block {
+	  BlockType		  Reference
+	  Name			  "Scope (xPC) "
+	  Ports			  [1]
+	  Position		  [175, 325, 265, 385]
+	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
+	  SourceType		  "xpcscopeblock"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  scopeno		  "9"
+	  scopetype		  "Target"
+	  autostart		  on
+	  viewmode		  "Graphical redraw"
+	  formatstr		  "'%15.6f'"
+	  grid			  on
+	  ylimits		  "[0,0]"
+	  nosamples		  "250"
+	  noprepostsamples	  "0"
+	  interleave		  "1"
+	  triggermode		  "FreeRun"
+	  triggersignal		  "1"
+	  triggerlevel		  "0.0"
+	  triggerslope		  "Either"
+	  triggerscope		  "1"
+	  triggersample		  "0"
+	  filename		  "data.dat"
+	  mode			  "Lazy"
+	  writesize		  "512"
+	  autorestart		  off
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Scope (xPC) 1"
+	  Ports			  [1]
+	  Position		  [180, 505, 270, 565]
+	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
+	  SourceType		  "xpcscopeblock"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  scopeno		  "10"
+	  scopetype		  "Target"
+	  autostart		  on
+	  viewmode		  "Graphical redraw"
+	  formatstr		  "'%15.6f'"
+	  grid			  on
+	  ylimits		  "[0,0]"
+	  nosamples		  "250"
+	  noprepostsamples	  "0"
+	  interleave		  "1"
+	  triggermode		  "FreeRun"
+	  triggersignal		  "1"
+	  triggerlevel		  "0.0"
+	  triggerslope		  "Either"
+	  triggerscope		  "1"
+	  triggersample		  "0"
+	  filename		  "data.dat"
+	  mode			  "Lazy"
+	  writesize		  "512"
+	  autorestart		  off
+	}
+	Block {
 	  BlockType		  SubSystem
 	  Name			  "ViscLoadSubsystem"
 	  Ports			  [2, 1]
@@ -1596,78 +1668,6 @@ Model {
 	  }
 	}
 	Block {
-	  BlockType		  Reference
-	  Name			  "Ypos1"
-	  Ports			  [1]
-	  Position		  [200, 529, 270, 571]
-	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
-	  SourceType		  "xpcscopeblock"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
-	  scopeno		  "6"
-	  scopetype		  "Target"
-	  autostart		  on
-	  viewmode		  "Graphical rolling"
-	  formatstr		  "'%15.2f'"
-	  grid			  off
-	  ylimits		  "[-30 30]"
-	  nosamples		  "200"
-	  noprepostsamples	  "0"
-	  interleave		  "10"
-	  triggermode		  "FreeRun"
-	  triggersignal		  "1"
-	  triggerlevel		  "0.0"
-	  triggerslope		  "Either"
-	  triggerscope		  "1"
-	  triggersample		  "0"
-	  filename		  "data.dat"
-	  mode			  "Lazy"
-	  writesize		  "512"
-	  autorestart		  off
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Ypos4"
-	  Ports			  [1]
-	  Position		  [195, 349, 265, 391]
-	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
-	  SourceType		  "xpcscopeblock"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
-	  scopeno		  "8"
-	  scopetype		  "Target"
-	  autostart		  on
-	  viewmode		  "Graphical rolling"
-	  formatstr		  "'%15.2f'"
-	  grid			  on
-	  ylimits		  "[-30 30]"
-	  nosamples		  "200"
-	  noprepostsamples	  "0"
-	  interleave		  "10"
-	  triggermode		  "FreeRun"
-	  triggersignal		  "1"
-	  triggerlevel		  "0.0"
-	  triggerslope		  "Either"
-	  triggerscope		  "1"
-	  triggersample		  "0"
-	  filename		  "data.dat"
-	  mode			  "Lazy"
-	  writesize		  "512"
-	  autorestart		  off
-	}
-	Block {
 	  BlockType		  MultiPortSwitch
 	  Name			  "dynamicAngle\nSwitch"
 	  Ports			  [3, 1]
@@ -1760,14 +1760,9 @@ Model {
 	Line {
 	  SrcBlock		  "LorentzForce"
 	  SrcPort		  1
-	  Points		  [20, 0]
+	  Points		  [20, 0; 0, 20; 15, 0]
 	  Branch {
-	    Points		    [0, -60]
-	    DstBlock		    "Ypos4"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, 20; 35, 0]
+	    Points		    [20, 0]
 	    Branch {
 	      DstBlock		      "Mux2"
 	      DstPort		      1
@@ -1778,20 +1773,23 @@ Model {
 	      DstPort		      1
 	    }
 	  }
+	  Branch {
+	    DstBlock		    "Scope (xPC) "
+	    DstPort		    1
+	  }
 	}
 	Line {
 	  SrcBlock		  "LorentzForce"
 	  SrcPort		  2
-	  Points		  [30, 0]
+	  Points		  [30, 0; 0, -20; 15, 0]
 	  Branch {
-	    Points		    [0, 60]
-	    DstBlock		    "Ypos1"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, -20]
 	    DstBlock		    "Mux2"
 	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [-5, 0]
+	    DstBlock		    "Scope (xPC) 1"
+	    DstPort		    1
 	  }
 	}
 	Line {
@@ -1913,7 +1911,7 @@ Model {
       System {
 	Name			"Force Generator"
 	Location		[2, 82, 1278, 978]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2460,78 +2458,6 @@ Model {
 	  }
 	}
 	Block {
-	  BlockType		  Reference
-	  Name			  "Ypos1"
-	  Ports			  [1]
-	  Position		  [200, 529, 270, 571]
-	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
-	  SourceType		  "xpcscopeblock"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
-	  scopeno		  "10"
-	  scopetype		  "Target"
-	  autostart		  on
-	  viewmode		  "Graphical rolling"
-	  formatstr		  "'%15.2f'"
-	  grid			  off
-	  ylimits		  "[-30 30]"
-	  nosamples		  "200"
-	  noprepostsamples	  "0"
-	  interleave		  "10"
-	  triggermode		  "FreeRun"
-	  triggersignal		  "1"
-	  triggerlevel		  "0.0"
-	  triggerslope		  "Either"
-	  triggerscope		  "1"
-	  triggersample		  "0"
-	  filename		  "data.dat"
-	  mode			  "Lazy"
-	  writesize		  "512"
-	  autorestart		  off
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Ypos4"
-	  Ports			  [1]
-	  Position		  [195, 349, 265, 391]
-	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
-	  SourceType		  "xpcscopeblock"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
-	  scopeno		  "9"
-	  scopetype		  "Target"
-	  autostart		  on
-	  viewmode		  "Graphical rolling"
-	  formatstr		  "'%15.2f'"
-	  grid			  on
-	  ylimits		  "[-30 30]"
-	  nosamples		  "200"
-	  noprepostsamples	  "0"
-	  interleave		  "10"
-	  triggermode		  "FreeRun"
-	  triggersignal		  "1"
-	  triggerlevel		  "0.0"
-	  triggerslope		  "Either"
-	  triggerscope		  "1"
-	  triggersample		  "0"
-	  filename		  "data.dat"
-	  mode			  "Lazy"
-	  writesize		  "512"
-	  autorestart		  off
-	}
-	Block {
 	  BlockType		  MultiPortSwitch
 	  Name			  "dynamicAngle\nSwitch"
 	  Ports			  [3, 1]
@@ -2624,39 +2550,23 @@ Model {
 	Line {
 	  SrcBlock		  "LorentzForce"
 	  SrcPort		  1
-	  Points		  [20, 0]
+	  Points		  [20, 0; 0, 20; 35, 0]
 	  Branch {
-	    Points		    [0, -60]
-	    DstBlock		    "Ypos4"
+	    DstBlock		    "Mux2"
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, 20; 35, 0]
-	    Branch {
-	      DstBlock		      "Mux2"
-	      DstPort		      1
-	    }
-	    Branch {
-	      Points		      [0, -30; 140, 0; 0, -70]
-	      DstBlock		      "Gain"
-	      DstPort		      1
-	    }
+	    Points		    [0, -30; 140, 0; 0, -70]
+	    DstBlock		    "Gain"
+	    DstPort		    1
 	  }
 	}
 	Line {
 	  SrcBlock		  "LorentzForce"
 	  SrcPort		  2
-	  Points		  [30, 0]
-	  Branch {
-	    Points		    [0, 60]
-	    DstBlock		    "Ypos1"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, -20]
-	    DstBlock		    "Mux2"
-	    DstPort		    2
-	  }
+	  Points		  [30, 0; 0, -20]
+	  DstBlock		  "Mux2"
+	  DstPort		  2
 	}
 	Line {
 	  SrcBlock		  "Mux2"
@@ -2723,7 +2633,7 @@ Model {
       System {
 	Name			"Force outside box"
 	Location		[0, 82, 1280, 983]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -3288,9 +3198,9 @@ Model {
 	Block {
 	  BlockType		  Logic
 	  Name			  "Logical\nOperator"
-	  Ports			  [3, 1]
+	  Ports			  [4, 1]
 	  Position		  [285, 307, 315, 343]
-	  Inputs		  "3"
+	  Inputs		  "4"
 	  AllPortsSameDT	  off
 	  OutDataTypeMode	  "Boolean"
 	}
@@ -3306,7 +3216,7 @@ Model {
 	  BlockType		  Logic
 	  Name			  "Logical\nOperator3"
 	  Ports			  [2, 1]
-	  Position		  [690, 439, 720, 486]
+	  Position		  [690, 438, 720, 487]
 	  AllPortsSameDT	  off
 	  OutDataTypeMode	  "Boolean"
 	}
@@ -3332,7 +3242,7 @@ Model {
 	  BlockType		  Logic
 	  Name			  "Logical\nOperator6"
 	  Ports			  [1, 1]
-	  Position		  [615, 436, 645, 464]
+	  Position		  [620, 396, 650, 424]
 	  Operator		  "NOT"
 	  AllPortsSameDT	  off
 	  OutDataTypeMode	  "Boolean"
@@ -3365,6 +3275,11 @@ Model {
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "RecenterFlag"
+	  Position		  [195, 175, 225, 205]
 	}
 	Block {
 	  BlockType		  Reference
@@ -4092,9 +4007,9 @@ Model {
 	Line {
 	  SrcBlock		  "Compare\nTo Zero"
 	  SrcPort		  1
-	  Points		  [40, 0]
+	  Points		  [25, 0; 0, 70]
 	  DstBlock		  "Logical\nOperator"
-	  DstPort		  1
+	  DstPort		  2
 	}
 	Line {
 	  SrcBlock		  "Gain1"
@@ -4120,7 +4035,7 @@ Model {
 	    }
 	  }
 	  Branch {
-	    Points		    [0, 80; -110, 0]
+	    Points		    [0, 40; -105, 0]
 	    DstBlock		    "Logical\nOperator6"
 	    DstPort		    1
 	  }
@@ -4223,9 +4138,9 @@ Model {
 	    }
 	  }
 	  Branch {
-	    Points		    [0, -95]
+	    Points		    [0, -90]
 	    DstBlock		    "Logical\nOperator"
-	    DstPort		    3
+	    DstPort		    4
 	  }
 	}
 	Line {
@@ -4277,15 +4192,9 @@ Model {
 	  Labels		  [1, 0]
 	  SrcBlock		  "Logical\nOperator6"
 	  SrcPort		  1
+	  Points		  [20, 0]
 	  DstBlock		  "Logical\nOperator3"
 	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Logical\nOperator3"
-	  SrcPort		  1
-	  Points		  [10, 0; 0, 200; 485, 0; 0, -225]
-	  DstBlock		  "Switch"
-	  DstPort		  2
 	}
 	Line {
 	  SrcBlock		  "In Center"
@@ -4359,8 +4268,9 @@ Model {
 	Line {
 	  SrcBlock		  "Compare\nTo Zero1"
 	  SrcPort		  1
+	  Points		  [40, 0]
 	  DstBlock		  "Logical\nOperator"
-	  DstPort		  2
+	  DstPort		  3
 	}
 	Line {
 	  Labels		  [2, 0]
@@ -4399,6 +4309,20 @@ Model {
 	  Points		  [95, 0]
 	  DstBlock		  "Sum1"
 	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Logical\nOperator3"
+	  SrcPort		  1
+	  Points		  [0, 210; 500, 0; 0, -235]
+	  DstBlock		  "Switch"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "RecenterFlag"
+	  SrcPort		  1
+	  Points		  [40, 0]
+	  DstBlock		  "Logical\nOperator"
+	  DstPort		  1
 	}
       }
     }

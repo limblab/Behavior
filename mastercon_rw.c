@@ -263,6 +263,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     
     /* stupidly declare all variables at the begining of the function */
     int i;
+    int j;
     int *IWorkVector; 
     int target_index;
     real_T *RWorkVector;
@@ -358,24 +359,35 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             percent_catch_trials = param_percent_catch_trials;
             
             /* initilize target positions */
-            if (maximum_distance==0){
+            if (maximum_distance==0){     /* random positions */
                 for (i=0; i<num_targets; i++) {
                     target_list[i*2]   = UNI * (right_target_boundary - left_target_boundary) + left_target_boundary;  /* x position */
                     target_list[i*2+1] = UNI * (upper_target_boundary - lower_target_boundary) + lower_target_boundary; /* y position */
                 }
-            } else {
-                temp_distance = minimum_distance + UNI * (maximum_distance - minimum_distance);
-                temp_angle = 2 * PI * UNI;
-                target_list[0] = target_list[2*target_index] + temp_distance * cos(temp_angle);  /* x position of first target*/
-                target_list[1] = target_list[2*target_index+1] + temp_distance * sin(temp_angle); /* y position of first target*/
-                for (i=1; i<num_targets; i++){
+            } else {                      /* semi-random positions with min and max distances */
+                for (i=0; i<num_targets; i++){                
                     temp_distance = minimum_distance + UNI * (maximum_distance - minimum_distance);
                     temp_angle = 2 * PI * UNI;
-                    target_list[i*2] = target_list[i*2-2] + temp_distance * cos(temp_angle);
-                    target_list[i*2+1] = target_list[i*2-1] + temp_distance * sin(temp_angle);
-                    if (target_list[i*2] < right_target_boundary || target_list[i*2] > left_target_boundary ||
-                        target_list[i*2+1] < lower_target_boundary || target_list[i*2+1] > upper_target_boundary)
-                        i--;                    
+                    for(j=1; j<5; j++){
+                        if (i==0){
+                            target_list[i*2] = target_list[2*target_index] + temp_distance * cos(temp_angle);  /* x position of first target*/
+                            target_list[i*2+1] = target_list[2*target_index+1] + temp_distance * sin(temp_angle); /* y position of first target*/
+                        } else {
+                            target_list[i*2] = target_list[i*2-2] + temp_distance * cos(temp_angle);
+                            target_list[i*2+1] = target_list[i*2-1] + temp_distance * sin(temp_angle);
+                        }
+                        if(target_list[i*2] > left_target_boundary && target_list[i*2] < right_target_boundary &&
+                          target_list[i*2+1] > lower_target_boundary && target_list[i*2+1] < upper_target_boundary){
+                            break;
+                        }
+                        if(j==4){
+                            target_list[i*2] = ( right_target_boundary + left_target_boundary )/2; /* place target in center watchdog */
+                            target_list[i*2+1] = ( upper_target_boundary + lower_target_boundary )/2;
+                            break;
+                        }
+                        temp_angle = temp_angle + PI/2;
+                        temp_distance = minimum_distance;
+                    }
                 }
             }
             
