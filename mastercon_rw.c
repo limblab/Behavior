@@ -358,7 +358,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             percent_catch_trials = param_percent_catch_trials;
             
-            /* initilize target positions */
+            /* initialize target positions */
             if (maximum_distance==0){     /* random positions */
                 for (i=0; i<num_targets; i++) {
                     target_list[i*2]   = UNI * (right_target_boundary - left_target_boundary) + left_target_boundary;  /* x position */
