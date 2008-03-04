@@ -714,16 +714,16 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_INCOMPLETE && new_state)
         ssSetIWorkValue(S, 62, ssGetIWorkValue(S, 62)+1);
     
-    //status[0] = state; //IWorkVector[1];
-    //status[1] = ssGetIWorkValue(S, 59); // num rewards
+    status[0] = state; //IWorkVector[1];
+    status[1] = ssGetIWorkValue(S, 59); // num rewards
+    status[2] = ssGetIWorkValue(S, 60); // num fails
+    status[3] = ssGetIWorkValue(S, 61) + ssGetIWorkValue(S, 62); // num aborts and incompletes
     //status[2] = trial_type_index; // num fails
-    //status[2] = ssGetIWorkValue(S, 60); // num fails
-    //status[3] = ssGetIWorkValue(S, 61) + ssGetIWorkValue(S, 62); // num aborts and incompletes
     //status[3] = trial_type;
-    status[0] = trial_type_index;
-    status[1] = trial_type;
-    status[2] = gradation_index;
-    status[3] = gradation;
+    //status[0] = trial_type_index;
+    //status[1] = trial_type;
+    //status[2] = gradation_index;
+    //status[3] = gradation;
     
     /* word (2) */
     if (new_state) {

@@ -703,8 +703,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 583, ssGetIWorkValue(S, 583)+1);
     
     status[0] = IWorkVector[1]; //state;
-   /* status[1] = ssGetIWorkValue(S, 68); // num rewards */
-    status[1] = ssGetIWorkValue(S,1);
+    status[1] = ssGetIWorkValue(S, 68); // num rewards
     status[2] = ssGetIWorkValue(S, 69); // num aborts
     status[3] = ssGetIWorkValue(S, 70); // num fails
     
