@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.2979.20514">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.2984.35677">
   <ScreenWidth>35</ScreenWidth>
   <Cursor>0</Cursor>
   <RecenterCursor>false</RecenterCursor>
+  <UseTachs>false</UseTachs>
   <CenterOutMode>None</CenterOutMode>
   <Load>None</Load>
   <LoadCatch>None</LoadCatch>

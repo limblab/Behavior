@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1111"
+    ComputedModelVersion    "1.1113"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Mar 03 19:24:15 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:1111>"
+  LastModifiedDate	  "Mon Mar 03 19:42:13 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:1113>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -6334,7 +6334,7 @@ Model {
       System {
 	Name			"Velocity Calculation"
 	Location		[2, 82, 1278, 978]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -6349,26 +6349,21 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "Pos"
-	  Position		  [90, 108, 120, 122]
+	  Position		  [115, 388, 145, 402]
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Inport
 	  Name			  "J"
-	  Position		  [385, 418, 415, 432]
+	  Position		  [455, 113, 485, 127]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "BypassTachs"
-	  Position		  [490, 255, 520, 285]
 	}
 	Block {
 	  BlockType		  Demux
 	  Name			  "Demux"
 	  Ports			  [1, 2]
-	  Position		  [230, 54, 235, 176]
+	  Position		  [255, 334, 260, 456]
 	  BackgroundColor	  "black"
 	  ShowName		  off
 	  Outputs		  "2"
@@ -6378,7 +6373,7 @@ Model {
 	  BlockType		  Product
 	  Name			  "Matrix Multiply"
 	  Ports			  [2, 1]
-	  Position		  [445, 410, 500, 465]
+	  Position		  [515, 105, 570, 160]
 	  Multiplication	  "Matrix(*)"
 	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
@@ -6390,7 +6385,7 @@ Model {
 	  BlockType		  Mux
 	  Name			  "Mux1"
 	  Ports			  [2, 1]
-	  Position		  [395, 55, 400, 175]
+	  Position		  [420, 335, 425, 455]
 	  ShowName		  off
 	  Inputs		  "2"
 	  DisplayOption		  "bar"
@@ -6399,7 +6394,7 @@ Model {
 	  BlockType		  Mux
 	  Name			  "Mux2"
 	  Ports			  [2, 1]
-	  Position		  [355, 391, 360, 504]
+	  Position		  [425, 86, 430, 199]
 	  ShowName		  off
 	  Inputs		  "2"
 	  DisplayOption		  "bar"
@@ -6408,7 +6403,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "PCI-6025E AD"
 	  Ports			  [0, 2]
-	  Position		  [95, 392, 195, 503]
+	  Position		  [165, 87, 265, 198]
 	  SourceBlock		  "xpcnilib/A//D/PCI-6025E AD"
 	  SourceType		  "adnipci6025e"
 	  channel		  "[1 2]"
@@ -6421,7 +6416,7 @@ Model {
 	  BlockType		  SubSystem
 	  Name			  "Pos2VelX"
 	  Ports			  [1, 1]
-	  Position		  [280, 62, 345, 108]
+	  Position		  [305, 342, 370, 388]
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
@@ -6644,7 +6639,7 @@ Model {
 	  BlockType		  SubSystem
 	  Name			  "Pos2VelY"
 	  Ports			  [1, 1]
-	  Position		  [280, 122, 345, 168]
+	  Position		  [305, 402, 370, 448]
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
@@ -6874,7 +6869,7 @@ Model {
 	Block {
 	  BlockType		  Gain
 	  Name			  "TachGain1"
-	  Position		  [265, 405, 295, 435]
+	  Position		  [335, 100, 365, 130]
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -6882,10 +6877,15 @@ Model {
 	Block {
 	  BlockType		  Gain
 	  Name			  "TachGain2"
-	  Position		  [265, 460, 295, 490]
+	  Position		  [335, 155, 365, 185]
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "UseTachs"
+	  Position		  [490, 255, 520, 285]
 	}
 	Block {
 	  BlockType		  Outport
@@ -6925,7 +6925,7 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "BypassTachs"
+	  SrcBlock		  "UseTachs"
 	  SrcPort		  1
 	  DstBlock		  "Switch"
 	  DstPort		  2
@@ -6955,13 +6955,6 @@ Model {
 	  DstPort		  2
 	}
 	Line {
-	  SrcBlock		  "Matrix Multiply"
-	  SrcPort		  1
-	  Points		  [85, 0; 0, -160]
-	  DstBlock		  "Switch"
-	  DstPort		  3
-	}
-	Line {
 	  SrcBlock		  "J"
 	  SrcPort		  1
 	  DstBlock		  "Matrix Multiply"
@@ -6982,7 +6975,14 @@ Model {
 	Line {
 	  SrcBlock		  "Mux1"
 	  SrcPort		  1
-	  Points		  [190, 0; 0, 145]
+	  Points		  [205, 0; 0, -115]
+	  DstBlock		  "Switch"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Matrix Multiply"
+	  SrcPort		  1
+	  Points		  [60, 0; 0, 125]
 	  DstBlock		  "Switch"
 	  DstPort		  1
 	}
