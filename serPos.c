@@ -5,7 +5,6 @@
  * bit encoder signals one byte at a time.
  */
 
-
 #define S_FUNCTION_NAME serPos
 #define S_FUNCTION_LEVEL 2
 
@@ -54,7 +53,6 @@ static void mdlInitializeSampleTimes(SimStruct *S)
 }
 
 
-    /// HERE!!!
 static void mdlOutputs(SimStruct *S, int_T tid)
 {
     InputRealPtrsType uPtrs;

@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1113"
+    ComputedModelVersion    "1.1114"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "Selket"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Mar 03 19:42:13 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:1113>"
+  LastModifiedDate	  "Tue Mar 04 13:24:44 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:1114>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -836,11 +836,11 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_rw"
       Parameters	      "8 3 0 -10 10 -10 10 0 0 10 10 1 0 0 0 0"
-      MaskDisplay	      "disp('Master Control\\nCenter-Out')\nport_label"
-"('input',1,'pos')\nport_label('input',2,'force')\nport_label('input',3,'catch"
-" force')\nport_label('output',1,'force')\nport_label('output',2,'status')\npo"
-"rt_label('output',3,'word')\nport_label('output',4,'targets')\nport_label('ou"
-"tput',5,'reward')\nport_label('output',6,'tone')"
+      MaskDisplay	      "disp('Master Control\\nRandom Walk')\nport_labe"
+"l('input',1,'pos')\nport_label('input',2,'force')\nport_label('input',3,'catc"
+"h force')\nport_label('output',1,'force')\nport_label('output',2,'status')\np"
+"ort_label('output',3,'word')\nport_label('output',4,'targets')\nport_label('o"
+"utput',5,'reward')\nport_label('output',6,'tone')"
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"

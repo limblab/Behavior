@@ -136,15 +136,18 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumDiscStates(S, 1);
     
     /*
-     * Block has 2 input ports
+     * Block has 3 input ports
      *      input port 0: (position) of width 2 (x, y)
      *      input port 1: (force) of width 2 (x, y)
+     *      input port 2: (catch force) of width 2 (x, y)
      */
-    if (!ssSetNumInputPorts(S, 2)) return;
+    if (!ssSetNumInputPorts(S, 3)) return;
     ssSetInputPortWidth(S, 0, 2);
     ssSetInputPortWidth(S, 1, 2);
+    ssSetInputPortWidth(S, 2, 2);
     ssSetInputPortDirectFeedThrough(S, 0, 1);
     ssSetInputPortDirectFeedThrough(S, 1, 1);
+    ssSetInputPortDirectFeedThrough(S, 2, 1);
     
     /* 
      * Block has 6 output ports (force, status, word, targets, reward, tone) of widths:
@@ -623,6 +626,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     InputRealPtrsType uPtrs;
     real_T cursor[2];
     real_T force_in[2];
+    real_T catch_force_in[2];
     
     /* allocate holders for outputs */
     real_T force_x, force_y, word, reward, tone_cnt, tone_id;
@@ -683,6 +687,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     force_in[0] = *uPtrs[0];
     force_in[1] = *uPtrs[1];
     
+    /* input catch force */
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
+    catch_force_in[0] = *uPtrs[0];
+    catch_force_in[1] = *uPtrs[1];
+    
     /********************
      * Calculate outputs
      ********************/
@@ -695,8 +704,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                 state == STATE_OUTER_HOLD
             )) 
         {
-            force_x = 0;
-            force_y = 0;
+            force_x = catch_force_in[0];
+            force_y = catch_force_in[1];
         } else {
             force_x = force_in[0]; 
             force_y = force_in[1]; 

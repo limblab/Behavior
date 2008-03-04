@@ -155,12 +155,15 @@ static void mdlInitializeSizes(SimStruct *S)
      * Block has 2 input ports
      *      input port 0: (position) of width 2 (x, y)
      *      input port 1: (force) of width 2 (x, y)
+     *      input port 2: (catch force) of width 2 (x, y) NOT USED
      */
-    if (!ssSetNumInputPorts(S, 2)) return;
+    if (!ssSetNumInputPorts(S, 3)) return;
     ssSetInputPortWidth(S, 0, 2);
     ssSetInputPortWidth(S, 1, 2);
+    ssSetInputPortWidth(S, 2, 2);
     ssSetInputPortDirectFeedThrough(S, 0, 1);
     ssSetInputPortDirectFeedThrough(S, 1, 1);
+    ssSetInputPortDirectFeedThrough(S, 2, 1);
     
     /* 
      * Block has 6 output ports (force, status, word, targets, reward, tone) of widths:
