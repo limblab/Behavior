@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.2939.23862">
-  <ScreenWidth>30</ScreenWidth>
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.2979.20514">
+  <ScreenWidth>35</ScreenWidth>
+  <Cursor>0</Cursor>
+  <RecenterCursor>false</RecenterCursor>
   <CenterOutMode>None</CenterOutMode>
   <Load>None</Load>
+  <LoadCatch>None</LoadCatch>
   <NumTargetsCO>8</NumTargetsCO>
   <NumTargetsRW>8</NumTargetsRW>
   <IdiotMode>false</IdiotMode>
@@ -26,7 +29,7 @@
       </item>
       <item>
         <key>Y Offset</key>
-        <value>37</value>
+        <value>34</value>
       </item>
       <item>
         <key>Cursor Rotation</key>
@@ -34,11 +37,11 @@
       </item>
       <item>
         <key>Reward Pulse</key>
-        <value>0.25</value>
+        <value>0.35</value>
       </item>
       <item>
         <key>Visc Constant</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>Curl Angle</key>
@@ -70,6 +73,42 @@
       </item>
       <item>
         <key>Chaotic Load Gain</key>
+        <value>0.0005</value>
+      </item>
+      <item>
+        <key>Visc Constant Catch</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Curl Angle Catch</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Static X Force Catch</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Static Y Force Catch</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Chaotic Time Constatnt Catch</key>
+        <value>0.0001</value>
+      </item>
+      <item>
+        <key>Chaotic Time Constatnt1 Catch</key>
+        <value>0.0001</value>
+      </item>
+      <item>
+        <key>Chaotic Time Constatnt2 Catch</key>
+        <value>0.0001</value>
+      </item>
+      <item>
+        <key>Chaotic Time Constatnt3 Catch</key>
+        <value>0.0001</value>
+      </item>
+      <item>
+        <key>Chaotic Load Gain Catch</key>
         <value>0.0005</value>
       </item>
       <item>
@@ -129,12 +168,24 @@
         <value>3</value>
       </item>
       <item>
-        <key>Work Area Width</key>
-        <value>20</value>
+        <key>Target Tolerance</key>
+        <value>0</value>
       </item>
       <item>
-        <key>Work Area Height</key>
-        <value>20</value>
+        <key>Left Target Boundary</key>
+        <value>-15</value>
+      </item>
+      <item>
+        <key>Right Target Boundary</key>
+        <value>15</value>
+      </item>
+      <item>
+        <key>Upper Target Boundary</key>
+        <value>15</value>
+      </item>
+      <item>
+        <key>Lower Target Boundary</key>
+        <value>-15</value>
       </item>
       <item>
         <key>THL</key>
@@ -150,11 +201,23 @@
       </item>
       <item>
         <key>IMT</key>
-        <value>10</value>
+        <value>5</value>
       </item>
       <item>
         <key>IRW IT</key>
-        <value>2</value>
+        <value>1</value>
+      </item>
+      <item>
+        <key>Minimum Distance</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Maximum Distance</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>RW Percent Catch Trials</key>
+        <value>0</value>
       </item>
       <item>
         <key>Percent Test Trials</key>
@@ -162,31 +225,31 @@
       </item>
       <item>
         <key>FC CHL</key>
-        <value>0.5</value>
+        <value>0.25</value>
       </item>
       <item>
         <key>FC CHH</key>
-        <value>1</value>
+        <value>0.75</value>
       </item>
       <item>
         <key>FC DL</key>
-        <value>0.5</value>
+        <value>0.25</value>
       </item>
       <item>
         <key>FC DH</key>
-        <value>1</value>
+        <value>0.75</value>
       </item>
       <item>
         <key>FC MT</key>
-        <value>10</value>
+        <value>2</value>
       </item>
       <item>
         <key>FC IT</key>
-        <value>3</value>
+        <value>1</value>
       </item>
       <item>
         <key>FC Target Size</key>
-        <value>3</value>
+        <value>2.5</value>
       </item>
       <item>
         <key>FC Target Distance</key>
@@ -194,11 +257,11 @@
       </item>
       <item>
         <key>FC Reward Threshold</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>BS OHL</key>
-        <value>0</value>
+        <value>0.25</value>
       </item>
       <item>
         <key>BS OHH</key>
@@ -206,19 +269,19 @@
       </item>
       <item>
         <key>BS DL</key>
-        <value>0</value>
+        <value>0.5</value>
       </item>
       <item>
         <key>BS DH</key>
-        <value>1</value>
+        <value>1.5</value>
       </item>
       <item>
         <key>BS M</key>
-        <value>1</value>
+        <value>2</value>
       </item>
       <item>
         <key>BS DHL</key>
-        <value>0</value>
+        <value>1</value>
       </item>
       <item>
         <key>BS DHH</key>
@@ -234,11 +297,11 @@
       </item>
       <item>
         <key>BS Bump Step Magnitude</key>
-        <value>0</value>
+        <value>1</value>
       </item>
       <item>
         <key>BS Bump Duration</key>
-        <value>1</value>
+        <value>0.125</value>
       </item>
       <item>
         <key>BS Target Angle</key>
@@ -246,15 +309,15 @@
       </item>
       <item>
         <key>BS Target Radius</key>
-        <value>5</value>
+        <value>20</value>
       </item>
       <item>
         <key>BS Target Size</key>
-        <value>1</value>
+        <value>2.5</value>
       </item>
       <item>
         <key>BS Window Diameter</key>
-        <value>2</value>
+        <value>0</value>
       </item>
     </dictionary>
   </SerializedParameters>
