@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1114"
+    ComputedModelVersion    "1.1118"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Selket"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Mar 04 13:24:44 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:1114>"
+  LastModifiedDate	  "Tue Mar 04 16:50:00 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:1118>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -6870,6 +6870,7 @@ Model {
 	  BlockType		  Gain
 	  Name			  "TachGain1"
 	  Position		  [335, 100, 365, 130]
+	  Gain			  "1.29"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -6878,6 +6879,7 @@ Model {
 	  BlockType		  Gain
 	  Name			  "TachGain2"
 	  Position		  [335, 155, 365, 185]
+	  Gain			  "-1.29"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off

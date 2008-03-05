@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.2984.35677">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.2985.25439">
   <ScreenWidth>35</ScreenWidth>
   <Cursor>0</Cursor>
   <RecenterCursor>false</RecenterCursor>
@@ -174,19 +174,19 @@
       </item>
       <item>
         <key>Left Target Boundary</key>
-        <value>-15</value>
+        <value>-12.5</value>
       </item>
       <item>
         <key>Right Target Boundary</key>
-        <value>15</value>
+        <value>12.5</value>
       </item>
       <item>
         <key>Upper Target Boundary</key>
-        <value>15</value>
+        <value>12.5</value>
       </item>
       <item>
         <key>Lower Target Boundary</key>
-        <value>-15</value>
+        <value>-12.5</value>
       </item>
       <item>
         <key>THL</key>
