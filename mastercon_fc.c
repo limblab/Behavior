@@ -16,48 +16,47 @@
 #define PI (3.141592654)
 
 /*
- * Tunable parameters
- */ 
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,0))
- 
+ * Until we implement tunable parameters, these will act as defaults
+ */
+
 /* Stimulation parameters */
 
 static real_T num_gradations = 16;  /* number of steps of stim intensity */
-#define param_num_gradations mxGetScalar(ssGetSFcnParam(S,1))
+#define param_num_gradations mxGetScalar(ssGetSFcnParam(S,0))
 static real_T pct_test_trials = .20; /* percent of test stim trials */
-#define param_pct_test_trials mxGetScalar(ssGetSFcnParam(S,2))
+#define param_pct_test_trials mxGetScalar(ssGetSFcnParam(S,1))
 static real_T training_mode = 0; /* true=show one outer target, false=show 2 */
-#define param_training_mode mxGetScalar(ssGetSFcnParam(S,3))
+#define param_training_mode mxGetScalar(ssGetSFcnParam(S,2))
 
 /* Timing parameters */
 static real_T center_hold;
 static real_T center_hold_l = 0.5; /* shortest delay between entry of ct and stim */ 
-#define param_center_hold_l mxGetScalar(ssGetSFcnParam(S,4))
+#define param_center_hold_l mxGetScalar(ssGetSFcnParam(S,3))
 static real_T center_hold_h = 1.0; /* longest delay between entry of ct and stim */ 
-#define param_center_hold_h mxGetScalar(ssGetSFcnParam(S,5))
+#define param_center_hold_h mxGetScalar(ssGetSFcnParam(S,4))
 
 static real_T delay;
 static real_T delay_l = 0.5; /* shortest delay between stim & outer target illumination */ 
-#define param_delay_l mxGetScalar(ssGetSFcnParam(S,6))
+#define param_delay_l mxGetScalar(ssGetSFcnParam(S,5))
 static real_T delay_h = 1.0; /* longest delay between stim & outer target illuminatio */ 
-#define param_delay_h mxGetScalar(ssGetSFcnParam(S,7))
+#define param_delay_h mxGetScalar(ssGetSFcnParam(S,6))
 
 static real_T movement = 2.0; /* time limit for monkey to reach an outer target after illumination*/
-#define param_movement mxGetScalar(ssGetSFcnParam(S,8))
+#define param_movement mxGetScalar(ssGetSFcnParam(S,7))
 
-#define param_intertrial mxGetScalar(ssGetSFcnParam(S,9)) /* time between trials*/
+#define param_intertrial mxGetScalar(ssGetSFcnParam(S,8)) /* time between trials*/
 
 /* Dimensions parameters */
 static real_T target_size = 1.0; /*width of targets in cm*/
-#define param_target_size mxGetScalar(ssGetSFcnParam(S,10))
+#define param_target_size mxGetScalar(ssGetSFcnParam(S,9))
 static real_T target_distance = 5.0; /*distance between ct and ot in cm*/
-#define param_target_distance mxGetScalar(ssGetSFcnParam(S,11))
+#define param_target_distance mxGetScalar(ssGetSFcnParam(S,10))
 
 /* Reward on all test trials flag & threshold*/
 static real_T reward_on_all_test_trials = 0.0;    /* 0=reward on all test trials 1=reward based on reward_threshold*/
-#define param_reward_on_all_test_trials mxGetScalar(ssGetSFcnParam(S,12))
+#define param_reward_on_all_test_trials mxGetScalar(ssGetSFcnParam(S,11))
 static real_T reward_threshold = 1.0;             /* gradation step at which the threshold is applied */
-#define param_reward_threshold mxGetScalar(ssGetSFcnParam(S,13))
+#define param_reward_threshold mxGetScalar(ssGetSFcnParam(S,12))
 
 static real_T abort_timeout   = 1.0;    /* delay after abort */
 static real_T failure_timeout = 1.0;    /* delay after failure */
@@ -66,6 +65,7 @@ static real_T center_bump_timeout  = 1.0;
 static real_T reward_timeout  = 1.0;    /* delay after reward before starting next trial
                                          * This is NOT the reward pulse length */
 
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,13))
 
 /* Trial types */
 #define TRIAL_TYPE_NO_STIM 0

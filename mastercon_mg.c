@@ -19,28 +19,26 @@
 /*
  * Tunable parameters
  */
-
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,0))
- 
 static real_T num_targets = 8;      /* number of targets from which to select */
-#define param_num_targets mxGetScalar(ssGetSFcnParam(S,1))
+#define param_num_targets mxGetScalar(ssGetSFcnParam(S,0))
+
 
 static real_T touch_pad_hold_l = .5;
-#define param_touch_pad_hold_l mxGetScalar(ssGetSFcnParam(S,2))
+#define param_touch_pad_hold_l mxGetScalar(ssGetSFcnParam(S,1))
 static real_T touch_pad_hold_h = .5;
-#define param_touch_pad_hold_h mxGetScalar(ssGetSFcnParam(S,3))
+#define param_touch_pad_hold_h mxGetScalar(ssGetSFcnParam(S,2))
 
 static real_T touch_pad_delay_l = .5;
-#define param_touch_pad_delay_l mxGetScalar(ssGetSFcnParam(S,4))
+#define param_touch_pad_delay_l mxGetScalar(ssGetSFcnParam(S,3))
 static real_T touch_pad_delay_h = .5;
-#define param_touch_pad_delay_h mxGetScalar(ssGetSFcnParam(S,5))
+#define param_touch_pad_delay_h mxGetScalar(ssGetSFcnParam(S,4))
 
 static real_T reach_time = .5;
-#define param_reach_time mxGetScalar(ssGetSFcnParam(S,6))
+#define param_reach_time mxGetScalar(ssGetSFcnParam(S,5))
 static real_T target_hold_time = .5;
-#define param_target_hold_time mxGetScalar(ssGetSFcnParam(S,7))
+#define param_target_hold_time mxGetScalar(ssGetSFcnParam(S,6))
 
-#define param_intertrial mxGetScalar(ssGetSFcnParam(S,8))
+#define param_intertrial mxGetScalar(ssGetSFcnParam(S,7))
 static real_T abort_timeout   = 1.0;    /* delay after abort */
 static real_T failure_timeout = 1.0;    /* delay after failure */
 static real_T incomplete_timeout = 1.0; /* delay after incomplete */
@@ -48,14 +46,15 @@ static real_T reward_timeout  = 1.0;    /* delay after reward before starting ne
                                          * This is NOT the reward pulse length */
 
 #define real_T use_gadget_0 = 1.0;
-#define param_use_gadget_0 mxGetScalar(ssGetSFcnParam(S,9))
+#define param_use_gadget_0 mxGetScalar(ssGetSFcnParam(S,8))
 #define real_T use_gadget_1 = 1.0;
-#define param_use_gadget_1 mxGetScalar(ssGetSFcnParam(S,10))
+#define param_use_gadget_1 mxGetScalar(ssGetSFcnParam(S,9))
 #define real_T use_gadget_2 = 1.0;
-#define param_use_gadget_2 mxGetScalar(ssGetSFcnParam(S,11))
+#define param_use_gadget_2 mxGetScalar(ssGetSFcnParam(S,10))
 #define real_T use_gadget_3 = 1.0;
-#define param_use_gadget_3 mxGetScalar(ssGetSFcnParam(S,12))
+#define param_use_gadget_3 mxGetScalar(ssGetSFcnParam(S,11))
 
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,12))
 
 /*
  * State IDs

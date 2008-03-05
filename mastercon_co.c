@@ -16,40 +16,37 @@
 #define PI (3.141592654)
 
 /*
- * Tunable parameters
- */ 
- 
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,0))
-
+ * Until we implement tunable parameters, these will act as defaults
+ */
 static real_T num_targets = 8;      /* number of peripheral targets */
-#define param_num_targets mxGetScalar(ssGetSFcnParam(S,1))
+#define param_num_targets mxGetScalar(ssGetSFcnParam(S,0))
 static real_T target_radius = 15.0; /* radius of target circle in cm */
-#define param_target_radius mxGetScalar(ssGetSFcnParam(S,2))
+#define param_target_radius mxGetScalar(ssGetSFcnParam(S,1))
 static real_T target_size = 5.0;    /* width and height of targets in cm */
-#define param_target_size mxGetScalar(ssGetSFcnParam(S,3))
+#define param_target_size mxGetScalar(ssGetSFcnParam(S,2))
 
 static real_T center_hold;     /* dwell time in state 2 */
 static real_T center_hold_l = .5;     
-#define param_center_hold_l mxGetScalar(ssGetSFcnParam(S,4))
+#define param_center_hold_l mxGetScalar(ssGetSFcnParam(S,3))
 static real_T center_hold_h = 2.0;     
-#define param_center_hold_h mxGetScalar(ssGetSFcnParam(S,5))
+#define param_center_hold_h mxGetScalar(ssGetSFcnParam(S,4))
 
 static real_T center_delay;     /* delay between outer target and go tone */
 static real_T center_delay_l = 0.0;
-#define param_center_delay_l mxGetScalar(ssGetSFcnParam(S,6))
+#define param_center_delay_l mxGetScalar(ssGetSFcnParam(S,5))
 static real_T center_delay_h = 0.0;
-#define param_center_delay_h mxGetScalar(ssGetSFcnParam(S,7))
+#define param_center_delay_h mxGetScalar(ssGetSFcnParam(S,6))
 
 static real_T movement_time = 10.0;  /* movement time */
-#define param_movement_time mxGetScalar(ssGetSFcnParam(S,8))
+#define param_movement_time mxGetScalar(ssGetSFcnParam(S,7))
 
 static real_T outer_hold;      /* outer target hold time */
 static real_T outer_hold_l = 1.0;      
-#define param_outer_hold_l mxGetScalar(ssGetSFcnParam(S,9))
+#define param_outer_hold_l mxGetScalar(ssGetSFcnParam(S,8))
 static real_T outer_hold_h = 1.0; 
-#define param_outer_hold_h mxGetScalar(ssGetSFcnParam(S,10))
+#define param_outer_hold_h mxGetScalar(ssGetSFcnParam(S,9))
 
-#define param_intertrial mxGetScalar(ssGetSFcnParam(S,11))
+#define param_intertrial mxGetScalar(ssGetSFcnParam(S,10))
 static real_T abort_timeout   = 1.0;    /* delay after abort */
 static real_T failure_timeout = 1.0;    /* delay after failure */
 static real_T incomplete_timeout = 1.0; /* delay after incomplete */
@@ -57,26 +54,27 @@ static real_T center_bump_timeout  = 1.0;
 static real_T reward_timeout  = 1.0;    /* delay after reward before starting next trial
                                          * This is NOT the reward pulse length */
 
-#define param_catch_trial_pct mxGetScalar(ssGetSFcnParam(S,12))
+#define param_catch_trial_pct mxGetScalar(ssGetSFcnParam(S,11))
 static real_T catch_trial_pct = 0.0;    /* fraction of catch trials 
                                          * used only on non-bump mode */
 #define set_catch_trial(x) ssSetRWorkValue(S, 3, (x))
 #define get_catch_trial() ssGetRWorkValue(S, 3)
 
-#define param_mode mxGetScalar(ssGetSFcnParam(S,13))
+#define param_mode mxGetScalar(ssGetSFcnParam(S,12))
 static real_T mode;
 #define MODE_BLOCK_CATCH 1
 #define MODE_BUMP 2
 
-#define param_bump_magnitude mxGetScalar(ssGetSFcnParam(S,14))
+#define param_bump_magnitude mxGetScalar(ssGetSFcnParam(S,13))
 static real_T bump_magnitude;
 
-#define param_bump_duration mxGetScalar(ssGetSFcnParam(S,15))
+#define param_bump_duration mxGetScalar(ssGetSFcnParam(S,14))
 static int bump_duration;
 
-#define param_idiot_mode mxGetScalar(ssGetSFcnParam(S,16))
+#define param_idiot_mode mxGetScalar(ssGetSFcnParam(S,15))
 static int idiot_mode;
 
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,16))
 
 /*
  * State IDs
