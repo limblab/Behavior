@@ -54,6 +54,8 @@ static real_T use_gadget_2 = 1.0;
 static real_T use_gadget_3 = 1.0;
 #define param_use_gadget_3 mxGetScalar(ssGetSFcnParam(S,11))
 
+#define num_gadgets_in_use ( ( use_gadget_0 ? 1 : 0 ) + ( use_gadget_1 ? 1 : 0 ) + ( use_gadget_2 ? 1 : 0 ) + ( use_gadget_3 ? 1 : 0 ) )
+
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,12))
 
@@ -189,7 +191,7 @@ static void mdlInitializeSizes(SimStruct *S)
     
     ssSetOptions(S, SS_OPTION_EXCEPTION_FREE_CODE);
 }
-/// YOU ARE HERE!!!!
+
 static void mdlInitializeSampleTimes(SimStruct *S)
 {
     ssSetSampleTime(S, 0, INHERITED_SAMPLE_TIME);
@@ -210,15 +212,15 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 0, 1);
     
     /* set target index to indicate that we need to begin a new block */
-    ssSetIWorkValue(S, 1, (int)num_targets-1);
+    ssSetIWorkValue(S, 1, (int)num_targets*num_gadgets_in_use-1);
     
     /* set the tone counter to zero */
-    ssSetRWorkValue(S, 1, 0.0);
     ssSetRWorkValue(S, 2, 0.0);
+    ssSetRWorkValue(S, 3, 0.0);
     
     /* initialize targets at zero */
-    for (i = 4 ; i<512 ; i++){
-        ssSetRWorkValue(S, i, 0.0);
+    for (i = 5 ; i<133 ; i++){
+        ssSetIWorkValue(S, i, 0.0);
     }
     
     /* set trial counters to zero */
@@ -229,28 +231,9 @@ static void mdlInitializeConditions(SimStruct *S)
 
 /* macro for setting state changed */
 #define state_changed() (ssSetIWorkValue(S, 0, 1))
-/* macro for resetting timer */
+/* macros for resetting timer */
 #define reset_timer() (ssSetRWorkValue(S, 0, (real_T)ssGetT(S)))
-
-/* macro for assigning a random (if needed) time to the target hold time */
-#define set_random_hold_time() if (target_hold_l == target_hold_h) { ssSetRWorkValue(S, 3, target_hold_l);} \
-                               else {ssSetRWorkValue(S, 3, target_hold_l + UNI*(target_hold_h-target_hold_l));}
-
-/* setCatchFlag
- * If pct (percent of catch trials) is zero, catch trial flag is set to zero
- * If UNI <= pct, catch trial flag is set to one
- * If UNI > pct, catch trial flag is set to zero */
-static void setCatchFlag(SimStruct *S, real_T pct)
-{
-    if (pct == 0)
-        ssSetIWorkValue(S, 5, 0);
-    else {
-      if (UNI <= pct)
-          ssSetIWorkValue(S, 5, 1);
-      else 
-          ssSetIWorkValue(S, 5, 0);
-    }
-}
+#define reset_target_hold_timer() (ssSetRWorkValue(S, 1, (real_T)ssGetT(S)))
 
 /* cursorInTarget
  * returns true (1) if the cursor is in the target and false (0) otherwise
@@ -277,13 +260,18 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int target_index;
     real_T *RWorkVector;
     real_T *target_list;
-    real_T target_x, target_y;
+    real_T target_x, target_y, target_h, target_w;
     real_T tgt[4];
     InputRealPtrsType uPtrs;
     real_T cursor[2];
+    real_T touch_pad; // should be 0.0 if touch pad is not pressed, 1.0 if it is.
     real_T elapsed_timer_time;
+    real_T elapsed_target_hold_time;
     real_T temp_distance;
     real_T temp_angle;
+    
+    real_T touch_pad_hold_timeout;
+    real_T delay_timeout;
             
     /******************
      * Initialization *
@@ -295,31 +283,40 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int new_state = state;
     
     /* current cursor location */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
     cursor[0] = *uPtrs[0];
     cursor[1] = *uPtrs[1];
 
+    /* touch pad state */
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
+    touch_pad = *uPtrs[0];
+    
+    /* Current Target Location */
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
+    target_y = *uPtrs[0];
+    target_h = *uPtrs[1];
+    target_x = *uPtrs[2];
+    target_w = *uPtrs[3];
+
+    /* get target bounds */
+    tgt[0] = target_x - target_w / 2.0;
+    tgt[1] = target_y + target_h / 2.0;
+    tgt[2] = target_x + target_w / 2.0;
+    tgt[3] = target_y - target_h / 2.0;
+    
+    /* read current timeouts */
+    touch_pad_hold_timerout = ssGetRWorkValue(S, 4);
+    delay_timeout = ssGetRWorkValue(S, 5);
+    
     /* get elapsed time since last timer reset */
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
-    
-    /* current target position */
-    IWorkVector = ssGetIWork(S);
-    target_index = IWorkVector[1];
-    RWorkVector = ssGetRWork(S);
-    target_list = RWorkVector+4;
-    target_x = target_list[2*target_index];
-    target_y = target_list[2*target_index+1];
-    
-    /* get target bounds */
-    tgt[0] = target_x-target_size/2 - target_tolerance/2;
-    tgt[1] = target_y+target_size/2 + target_tolerance/2;
-    tgt[2] = target_x+target_size/2 + target_tolerance/2;
-    tgt[3] = target_y-target_size/2 - target_tolerance/2;
+    elapsed_target_hold_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 1);
     
     /*********************************
      * See if we have issued a reset *
      *********************************/
-    if (param_master_reset != 0) {
+    if (param_master_reset > master_reset) {
+        master_reset = param_master_reset;
         ssSetIWorkValue(S, 2, 0);
         ssSetIWorkValue(S, 3, 0);
         ssSetIWorkValue(S, 4, 0);
@@ -334,6 +331,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* execute one step of state machine */
     switch (state) {
         case STATE_PRETRIAL:
+          /// TODO!
             /* pretrial initilization */
             /* 
              * We should only be in this state for one cycle.
@@ -409,56 +407,23 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             new_state = STATE_INITIAL_MOVEMENT;
 
             break;
-        case STATE_INITIAL_MOVEMENT:
-            /* first target on */
-            if (cursorInTarget(cursor, tgt)) {
-                set_random_hold_time();
-                new_state = STATE_TARGET_HOLD;
-                reset_timer(); /* start target hold timer */
+        case STATE_TOUCH_PAD_ON:
+            if (touch_pad) {
+                new_state = STATE_TOUCH_PAD_HOLD;
                 state_changed();
-            } else if (elapsed_timer_time > initial_movement_time) {
-                new_state = STATE_INCOMPLETE;
-                reset_timer(); /* start incomplete timeout */
-                state_changed();
+                reset_timer();
             }
             break;
-        case STATE_MOVEMENT:
-            /* new target on */
-            if (cursorInTarget(cursor, tgt)) {
-                set_random_hold_time(); 
-                new_state = STATE_TARGET_HOLD;
-                reset_timer(); /* start target hold timer */
-                state_changed();
-            } else if (elapsed_timer_time > movement_time) {
-                new_state = STATE_FAIL;
-                reset_timer(); /* start incomplete timeout */
-                state_changed();
+        case STATE_TOUCH_PAD_HOLD:
+            if (elapsed_timer_time > touch_pad_hold_timeout) {
+              new_state = STATE_DELAY;
+              state_changed();
+              reset_timer();
+            } else if (!touch_pad) {
+              new_state = STATE_ABORT;
+              state_changed();
+              reset_timer();
             }
-            break;
-        case STATE_TARGET_HOLD:
-            /* dwell time in target */
-            if (!cursorInTarget(cursor, tgt)) {
-                new_state = STATE_ABORT;
-                reset_timer(); /* abort timeout */
-                state_changed();
-            } else if (elapsed_timer_time > ssGetRWorkValue(S,3)) {
-                /* next state depends on whether there are more targets */
-                if (target_index == (int)num_targets-1) {
-                  /* no more targets */
-                  new_state = STATE_REWARD;
-                  reset_timer(); /* reward timer */
-                  state_changed();
-                } else {
-                  /* more targets */
-                  target_index++;
-                  ssSetIWorkValue(S, 1, target_index);
-                  setCatchFlag(S, percent_catch_trials);  /* set flag randomly for next target */ 
-                  new_state = STATE_MOVEMENT;
-                  reset_timer(); /* movement timer */
-                  state_changed();                
-                }
-            }
-            break;
         case STATE_ABORT:
             /* abort */
             if (elapsed_timer_time > abort_timeout) {
@@ -469,13 +434,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         case STATE_FAIL:
             /* failure */
             if (elapsed_timer_time > failure_timeout) {
-                new_state = STATE_PRETRIAL;
-                state_changed();
-            }
-            break;
-        case STATE_INCOMPLETE:
-            /* incomplete */
-            if (elapsed_timer_time > incomplete_timeout) {
                 new_state = STATE_PRETRIAL;
                 state_changed();
             }

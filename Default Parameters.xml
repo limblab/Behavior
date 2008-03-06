@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.2985.25439">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.2987.20262">
   <ScreenWidth>35</ScreenWidth>
-  <Cursor>0</Cursor>
-  <RecenterCursor>false</RecenterCursor>
-  <UseTachs>false</UseTachs>
+  <Cursor>5</Cursor>
   <CenterOutMode>None</CenterOutMode>
   <Load>None</Load>
   <LoadCatch>None</LoadCatch>
-  <NumTargetsCO>8</NumTargetsCO>
-  <NumTargetsRW>8</NumTargetsRW>
-  <IdiotMode>false</IdiotMode>
-  <TrainingMode>true</TrainingMode>
-  <RewardAllTestTrials>false</RewardAllTestTrials>
-  <NumGradations>0</NumGradations>
-  <NumBumpSteps>0</NumBumpSteps>
   <SerializedParameters>
     <dictionary>
       <item>
@@ -39,6 +30,14 @@
       <item>
         <key>Reward Pulse</key>
         <value>0.35</value>
+      </item>
+      <item>
+        <key>Recenter Handle</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>Use Tachs</key>
+        <value>1</value>
       </item>
       <item>
         <key>Visc Constant</key>
@@ -157,12 +156,24 @@
         <value>0</value>
       </item>
       <item>
+        <key>CO Num Targets</key>
+        <value>3</value>
+      </item>
+      <item>
         <key>Target Radius</key>
         <value>10</value>
       </item>
       <item>
         <key>Target Size</key>
         <value>2.5</value>
+      </item>
+      <item>
+        <key>Idiot Mode</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>RW Num Targets</key>
+        <value>3</value>
       </item>
       <item>
         <key>RW Target Size</key>
@@ -221,6 +232,10 @@
         <value>0</value>
       </item>
       <item>
+        <key>FC Num Steps</key>
+        <value>3</value>
+      </item>
+      <item>
         <key>Percent Test Trials</key>
         <value>0</value>
       </item>
@@ -257,8 +272,20 @@
         <value>10</value>
       </item>
       <item>
+        <key>FC Training Mode</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>FC Reward All Test Trials</key>
+        <value>0</value>
+      </item>
+      <item>
         <key>FC Reward Threshold</key>
         <value>0</value>
+      </item>
+      <item>
+        <key>BS Num Steps</key>
+        <value>3</value>
       </item>
       <item>
         <key>BS OHL</key>
