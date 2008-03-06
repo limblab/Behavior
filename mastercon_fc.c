@@ -44,6 +44,7 @@ static real_T delay_h = 1.0; /* longest delay between stim & outer target illumi
 static real_T movement = 2.0; /* time limit for monkey to reach an outer target after illumination*/
 #define param_movement mxGetScalar(ssGetSFcnParam(S,7))
 
+static real_T master_reset = 0.0;
 #define param_intertrial mxGetScalar(ssGetSFcnParam(S,8)) /* time between trials*/
 
 /* Dimensions parameters */
@@ -337,17 +338,17 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     }
   
     /*********************************
-     * See if we have issued a reset *    no master reset implemented yet
+     * See if we have issued a reset *  
      *********************************/
-    /*
-    if (param_master_reset != 0) {
-        ssSetIWorkValue(S, 581, 0);
-        ssSetIWorkValue(S, 582, 0);
-        ssSetIWorkValue(S, 583, 0);
+    if (param_master_reset != master_reset) {
+        master_reset = param_master_reset;
+        ssSetIWorkValue(S, 59, 0);
+        ssSetIWorkValue(S, 60, 0);
+        ssSetIWorkValue(S, 61, 0);
+        ssSetIWorkValue(S, 62, 0);
         state_r[0] = STATE_PRETRIAL;
         return;
     }
-     */
     
     /************************
      * Calculate next state *

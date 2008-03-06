@@ -45,15 +45,16 @@ static real_T incomplete_timeout = 1.0; /* delay after incomplete */
 static real_T reward_timeout  = 1.0;    /* delay after reward before starting next trial
                                          * This is NOT the reward pulse length */
 
-#define real_T use_gadget_0 = 1.0;
+static real_T use_gadget_0 = 1.0;
 #define param_use_gadget_0 mxGetScalar(ssGetSFcnParam(S,8))
-#define real_T use_gadget_1 = 1.0;
+static real_T use_gadget_1 = 1.0;
 #define param_use_gadget_1 mxGetScalar(ssGetSFcnParam(S,9))
-#define real_T use_gadget_2 = 1.0;
+static real_T use_gadget_2 = 1.0;
 #define param_use_gadget_2 mxGetScalar(ssGetSFcnParam(S,10))
-#define real_T use_gadget_3 = 1.0;
+static real_T use_gadget_3 = 1.0;
 #define param_use_gadget_3 mxGetScalar(ssGetSFcnParam(S,11))
 
+static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,12))
 
 /*

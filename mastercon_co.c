@@ -74,6 +74,7 @@ static int bump_duration;
 #define param_idiot_mode mxGetScalar(ssGetSFcnParam(S,15))
 static int idiot_mode;
 
+static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,16))
 
 /*
@@ -312,18 +313,18 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     ot[1] = sin(theta)*target_radius+target_size/2;
     ot[2] = cos(theta)*target_radius+target_size/2;
     ot[3] = sin(theta)*target_radius-target_size/2;
-    
+     
     /*********************************
      * See if we have issued a reset *
      *********************************/
-    if (param_master_reset != 0) {
+    if (param_master_reset != master_reset) {
+        master_reset = param_master_reset;
         ssSetIWorkValue(S, 581, 0);
         ssSetIWorkValue(S, 582, 0);
         ssSetIWorkValue(S, 583, 0);
         state_r[0] = STATE_PRETRIAL;
         return;
     }
-     
     
     /************************
      * Calculate next state *

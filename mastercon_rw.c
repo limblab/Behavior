@@ -61,6 +61,7 @@ static real_T maximum_distance = 0.0;   /* maximum x distance and y distance fro
 #define param_percent_catch_trials mxGetScalar(ssGetSFcnParam(S,14))
 static real_T percent_catch_trials = 0.0;
 
+static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,15))
 
 /*
@@ -310,7 +311,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /*********************************
      * See if we have issued a reset *
      *********************************/
-    if (param_master_reset != 0) {
+    if (param_master_reset != master_reset) {
+        master_reset = param_master_reset;
         ssSetIWorkValue(S, 2, 0);
         ssSetIWorkValue(S, 3, 0);
         ssSetIWorkValue(S, 4, 0);
@@ -597,7 +599,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_FAIL && new_state)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
     
-    status[0] = state;
+    status[0] = param_master_reset; //state;
     status[1] = ssGetIWorkValue(S, 2); // num rewards
     status[2] = ssGetIWorkValue(S, 3); // num aborts
     status[3] = ssGetIWorkValue(S, 4); // num fails
