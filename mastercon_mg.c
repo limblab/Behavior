@@ -1,6 +1,6 @@
-/* mastercon_rw.c
- *
- * Master Control block for behavior: center-out task
+/* mastercon_mg.c
+ 
+ * Master Control block for behavior: multi-gadget
  */
 
 #define S_FUNCTION_NAME mastercon_rw
@@ -33,7 +33,7 @@ static real_T touch_pad_delay_l = .5;
 static real_T touch_pad_delay_h = .5;
 #define param_touch_pad_delay_h mxGetScalar(ssGetSFcnParam(S,4))
 
-static real_T reach_time = .5;
+static real_T reach_time = .5;          /* Time to reach AND hold target*/
 #define param_reach_time mxGetScalar(ssGetSFcnParam(S,5))
 static real_T target_hold_time = .5;
 #define param_target_hold_time mxGetScalar(ssGetSFcnParam(S,6))
@@ -56,6 +56,8 @@ static real_T use_gadget_3 = 1.0;
 
 #define num_gadgets_in_use ( ( use_gadget_0 ? 1 : 0 ) + ( use_gadget_1 ? 1 : 0 ) + ( use_gadget_2 ? 1 : 0 ) + ( use_gadget_3 ? 1 : 0 ) )
 
+//static real_T target_height
+
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,12))
 
@@ -76,39 +78,29 @@ static real_T master_reset = 0.0;
 #define TONE_REWARD 2
 #define TONE_ABORT 3
 
-/// TODO
+
 static void mdlCheckParameters(SimStruct *S)
 {
   num_targets = param_num_targets;
 
   touch_pad_hold_l = param_touch_pad_hold_l;
   touch_pad_hold_h = param_touch_pad_hold_h;
-/*
-static real_T touch_pad_delay_l = .5;
-#define param_touch_pad_delay_l mxGetScalar(ssGetSFcnParam(S,3))
-static real_T touch_pad_delay_h = .5;
-define param_touch_pad_delay_h mxGetScalar(ssGetSFcnParam(S,4))
 
-static real_T reach_time = .5;
-#define param_reach_time mxGetScalar(ssGetSFcnParam(S,5))
-static real_T target_hold_time = .5;
-#define param_target_hold_time mxGetScalar(ssGetSFcnParam(S,6))
+  touch_pad_delay_l = param_touch_pad_delay_l;
+  touch_pad_delay_h = param_touch_pad_delay_h;
+ 
+  reach_time = param_reach_time;
+  target_hold_time = param_target_hold_time;
+ 
+  abort_timeout   = param_intertrial;    
+  failure_timeout = param_intertrial;
+  reward_timeout  = param_intertrial;    
 
-#define param_intertrial mxGetScalar(ssGetSFcnParam(S,7))
-static real_T abort_timeout   = 1.0;    
-static real_T failure_timeout = 1.0;   
-static real_T incomplete_timeout = 1.0;
-static real_T reward_timeout  = 1.0;    
+  use_gadget_0 = param_use_gadget_0;
+  use_gadget_1 = param_use_gadget_1;
+  use_gadget_2 = param_use_gadget_2;
+  use_gadget_3 = param_use_gadget_3;
 
-#define real_T use_gadget_0 = 1.0;
-#define param_use_gadget_0 mxGetScalar(ssGetSFcnParam(S,8))
-#define real_T use_gadget_1 = 1.0;
-#define param_use_gadget_1 mxGetScalar(ssGetSFcnParam(S,9))
-#define real_T use_gadget_2 = 1.0;
-#define param_use_gadget_2 mxGetScalar(ssGetSFcnParam(S,10))
-#define real_T use_gadget_3 = 1.0;
-#define param_use_gadget_3 mxGetScalar(ssGetSFcnParam(S,11))
-*/
 }
 
 static void mdlInitializeSizes(SimStruct *S)
@@ -169,12 +161,14 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 6);    /* 0: time of last timer reset
+    ssSetNumRWork(S, 8);    /* 0: time of last timer reset
                                1: time of last target hold timer reset 
                                2: tone counter (incremented each time a tone is played)
                                3: tone id
                                4: current touch pad hold time
                                5: current delay hold time
+                               6: current reach time
+                               7: current target hold time
                            */
     ssSetNumPWork(S, 0);
     ssSetNumIWork(S, 133); /*  0: state_transition (true if state changed), 
@@ -272,7 +266,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     
     real_T touch_pad_hold_timeout;
     real_T delay_timeout;
-            
+    real_T reach_timeout;
+    real_T target_hold_timeout;
+    
+    
     /******************
      * Initialization *
      ******************/
@@ -305,8 +302,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     tgt[3] = target_y - target_h / 2.0;
     
     /* read current timeouts */
-    touch_pad_hold_timerout = ssGetRWorkValue(S, 4);
+    touch_pad_hold_timeout = ssGetRWorkValue(S, 4);
     delay_timeout = ssGetRWorkValue(S, 5);
+    reach_timeout = ssGetRWorkValue(S, 6);
+    target_hold_timeout = ssGetRWorkValue(S, 7);
     
     /* get elapsed time since last timer reset */
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
@@ -335,13 +334,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* pretrial initilization */
             /* 
              * We should only be in this state for one cycle.
-             * Initilize the trial and then advance to CT_ON 
+             * Initialize the trial and then advance to STATE_TOUCH_PAD_ON 
              */
             
             /* Update parameters */
-            num_targets = param_num_targets;
+
+ 
+/*          num_targets = param_num_targets;
             target_size = param_target_size;
-            target_tolerance = param_target_tolerance;
 
             left_target_boundary = param_left_target_boundary;
             right_target_boundary = param_right_target_boundary;
@@ -354,7 +354,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             movement_time = param_movement_time;
 
             initial_movement_time = param_initial_movement_time;
-           
+
             abort_timeout   = param_intertrial;
             failure_timeout = param_intertrial;
             incomplete_timeout = param_intertrial;
@@ -364,6 +364,34 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             maximum_distance = param_maximum_distance;
             
             percent_catch_trials = param_percent_catch_trials;
+  */          
+            
+            num_targets = param_num_targets;
+
+            touch_pad_hold_l = param_touch_pad_hold_l;
+            touch_pad_hold_h = param_touch_pad_hold_h;
+
+            touch_pad_delay_l = param_touch_pad_delay_l;
+            touch_pad_delay_h = param_touch_pad_delay_h;
+ 
+            reach_time = param_reach_time;
+            target_hold_time = param_target_hold_time;
+ 
+            abort_timeout   = param_intertrial;    
+            failure_timeout = param_intertrial;   
+            reward_timeout  = param_intertrial;    
+
+            use_gadget_0 = param_use_gadget_0;
+            use_gadget_1 = param_use_gadget_1;
+            use_gadget_2 = param_use_gadget_2;
+            use_gadget_3 = param_use_gadget_3;
+                     
+            // reach_timeout = 
+            // target_hold_timeout =
+            // delay_timeout =
+            // touchpad_hold_timeout = 
+            
+
             
             /* initialize target positions */
             if (maximum_distance==0){     /* random positions */
@@ -400,11 +428,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             /* and reset the counter */
             ssSetIWorkValue(S, 1, 0);
-            
-            /* set flag randomly for first target */ 
-            setCatchFlag(S, percent_catch_trials);
-            
-            new_state = STATE_INITIAL_MOVEMENT;
+                        
+            new_state = STATE_TOUCH_PAD_ON;
 
             break;
         case STATE_TOUCH_PAD_ON:
@@ -424,6 +449,39 @@ static void mdlUpdate(SimStruct *S, int_T tid)
               state_changed();
               reset_timer();
             }
+            break;
+        case STATE_DELAY:
+            if (elapsed_timer_time > delay_timeout {
+                new_state = STATE_REACH;
+                state_changed();
+                reset_timer();
+            } else if (!touch_pad) {
+                new_state = STATE_ABORT;
+                state_changed();
+                reset_timer();                
+            }
+            break;
+        case STATE_REACH:
+            if (elapsed_timer_time > reach_timeout {
+                new_state = STATE_FAIL;
+                state_changed();
+                reset_timer();
+            } else if (cursorInTarget) {
+                new_state = STATE_TARGET_HOLD;
+                state_changed();
+                reset_target_hold_timer();
+            }
+            break;
+        case STATE_TARGET_HOLD:
+            if (!cursorInTarget) {
+                new_state = STATE_REACH;
+                state_changed();
+            } else if (elapsed_target_hold_time > target_hold_timeout) {
+                new_state = STATE_REWARD;
+                state_changed();
+                reset_timer();
+            }
+            break;
         case STATE_ABORT:
             /* abort */
             if (elapsed_timer_time > abort_timeout) {
