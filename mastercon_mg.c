@@ -88,19 +88,19 @@ static void mdlCheckParameters(SimStruct *S)
 
   touch_pad_delay_l = param_touch_pad_delay_l;
   touch_pad_delay_h = param_touch_pad_delay_h;
- 
+
   reach_time = param_reach_time;
   target_hold_time = param_target_hold_time;
- 
-  abort_timeout   = param_intertrial;    
-  failure_timeout = param_intertrial;
-  reward_timeout  = param_intertrial;    
+
+  abort_timeout      = param_intertrial;
+  failure_timeout    = param_intertrial;
+  incomplete_timeout = param_intertrial;
+  reward_timeout     = param_intertrial;    
 
   use_gadget_0 = param_use_gadget_0;
   use_gadget_1 = param_use_gadget_1;
   use_gadget_2 = param_use_gadget_2;
   use_gadget_3 = param_use_gadget_3;
-
 }
 
 static void mdlInitializeSizes(SimStruct *S)
@@ -221,11 +221,14 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 2, 0);
     ssSetIWorkValue(S, 3, 0);
     ssSetIWorkValue(S, 4, 0);
+
+    /* set reset counter to zero */
+	  master_reset = 0.0;
 }
 
 /* macro for setting state changed */
 #define state_changed() (ssSetIWorkValue(S, 0, 1))
-/* macros for resetting timer */
+/* macros for resetting timers */
 #define reset_timer() (ssSetRWorkValue(S, 0, (real_T)ssGetT(S)))
 #define reset_target_hold_timer() (ssSetRWorkValue(S, 1, (real_T)ssGetT(S)))
 
