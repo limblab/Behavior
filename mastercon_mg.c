@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include "simstruc.h"
 
-#define TASK_RW 1
+#define TASK_MG 1
 #include "words.h"
 #include "random_macros.h"
 
@@ -69,7 +69,9 @@ static real_T master_reset = 0.0;
 #define STATE_TOUCH_PAD_HOLD 2
 #define STATE_DELAY 3
 #define STATE_REACH 4
-#define STATE_TARGET_HOLD 5 
+#define STATE_MOVEMENT 5
+#define STATE_TARGET_HOLD 6 
+#define STATE_CONTINUE_REACH 7
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
@@ -139,10 +141,10 @@ static void mdlInitializeSizes(SimStruct *S)
      *  touch pad LED:  1
      *  gadget LED:     1
      *  gadget select:  1
-     *  status:         4 ( 1: state, 2: rewards, 3:, aborts, 4: failures )
+     *  status:         4 ( 1: state, 2: rewards, 3: aborts 4: failures )
      *  tone:           2 ( 1: counter incemented for each new tone, 2: tone ID )     
      *  target: 10 ( target 1, 2: 
-     *                  on/off, 
+     *                  type, 
      *                  target UL corner x, 
      *                  target UL corner y,
      *                  target LR corner x, 
@@ -161,21 +163,19 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 8);    /* 0: time of last timer reset
+    ssSetNumRWork(S, 6);    /* 0: time of last timer reset
                                1: time of last target hold timer reset 
                                2: tone counter (incremented each time a tone is played)
                                3: tone id
                                4: current touch pad hold time
                                5: current delay hold time
-                               6: current reach time
-                               7: current target hold time
                            */
     ssSetNumPWork(S, 0);
     ssSetNumIWork(S, 133); /*  0: state_transition (true if state changed), 
                                1: current target index (in sequence),
                                2: successes
-                               3: failures
-                               4: aborts 
+                               3: aborts
+                               4: failures 
                          [5-132]: trial list (target, gadget...)
                           */
     
@@ -214,7 +214,7 @@ static void mdlInitializeConditions(SimStruct *S)
     
     /* initialize targets at zero */
     for (i = 5 ; i<133 ; i++){
-        ssSetIWorkValue(S, i, 0.0);
+        ssSetIWorkValue(S, i, 0);
     }
     
     /* set trial counters to zero */
@@ -252,11 +252,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     
     /* stupidly declare all variables at the begining of the function */
     int i;
-    int j;
+    int j;    
     int *IWorkVector; 
     int target_index;
-    real_T *RWorkVector;
-    real_T *target_list;
+    int target_id;
+    int gadget_id;
+    int *target_list;
     real_T target_x, target_y, target_h, target_w;
     real_T tgt[4];
     InputRealPtrsType uPtrs;
@@ -264,14 +265,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T touch_pad; // should be 0.0 if touch pad is not pressed, 1.0 if it is.
     real_T elapsed_timer_time;
     real_T elapsed_target_hold_time;
-    real_T temp_distance;
-    real_T temp_angle;
     
     real_T touch_pad_hold_timeout;
-    real_T delay_timeout;
-    real_T reach_timeout;
-    real_T target_hold_timeout;
+    real_T delay_timeout;    
     
+    int tmp_tgts[64];
+    int tmp_gdgt[64];
+    int tmp_i;
+    double tmp_sort[64];
+    double tmp_d;
     
     /******************
      * Initialization *
@@ -291,6 +293,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
     touch_pad = *uPtrs[0];
     
+    /* Current target/gadget index */
+    target_index = ssGetIWorkValue(S, 1);
+    target_id = ssGetIWorkValue(S, 5 + target_index*2);
+    gadget_id = ssGetIWorkValue(S, 6 + target_index*2);
+    IWorkVector = ssGetIWork(S);
+    target_list = IWorkVector+5;
+    
     /* Current Target Location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
     target_y = *uPtrs[0];
@@ -307,8 +316,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* read current timeouts */
     touch_pad_hold_timeout = ssGetRWorkValue(S, 4);
     delay_timeout = ssGetRWorkValue(S, 5);
-    reach_timeout = ssGetRWorkValue(S, 6);
-    target_hold_timeout = ssGetRWorkValue(S, 7);
     
     /* get elapsed time since last timer reset */
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
@@ -333,7 +340,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* execute one step of state machine */
     switch (state) {
         case STATE_PRETRIAL:
-          /// TODO!
             /* pretrial initilization */
             /* 
              * We should only be in this state for one cycle.
@@ -341,34 +347,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
              */
             
             /* Update parameters */
-
- 
-/*          num_targets = param_num_targets;
-            target_size = param_target_size;
-
-            left_target_boundary = param_left_target_boundary;
-            right_target_boundary = param_right_target_boundary;
-            upper_target_boundary = param_upper_target_boundary;
-            lower_target_boundary = param_lower_target_boundary;
-
-            target_hold_l = param_target_hold_l;
-            target_hold_h = param_target_hold_h;
-           
-            movement_time = param_movement_time;
-
-            initial_movement_time = param_initial_movement_time;
-
-            abort_timeout   = param_intertrial;
-            failure_timeout = param_intertrial;
-            incomplete_timeout = param_intertrial;
-            reward_timeout  = param_intertrial;
-                           
-            minimum_distance = param_minimum_distance;
-            maximum_distance = param_maximum_distance;
-            
-            percent_catch_trials = param_percent_catch_trials;
-  */          
-            
             num_targets = param_num_targets;
 
             touch_pad_hold_l = param_touch_pad_hold_l;
@@ -389,44 +367,72 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             use_gadget_2 = param_use_gadget_2;
             use_gadget_3 = param_use_gadget_3;
                      
-            // reach_timeout = 
-            // target_hold_timeout =
-            // delay_timeout =
-            // touchpad_hold_timeout = 
+            /* intialize timers*/
+            if (touch_pad_hold_l == touch_pad_hold_h) { 
+                ssSetRWorkValue(S, 4, touch_pad_hold_l);
+            } else {
+                ssSetRWorkValue(S, 4, touch_pad_hold_l + UNI*(touch_pad_hold_h-touch_pad_hold_l));
+            }
             
-
+            if (touch_pad_delay_l == touch_pad_delay_h) { 
+                ssSetRWorkValue(S, 5, touch_pad_delay_l);
+            } else {
+                ssSetRWorkValue(S, 5, touch_pad_delay_l + UNI*(touch_pad_delay_h-touch_pad_delay_l));
+            }
             
-            /* initialize target positions */
-            if (maximum_distance==0){     /* random positions */
+            /* get current target or reshuffle at end of block */
+            if (target_index >= num_targets*num_gadgets_in_use-1) { 
+                // reshuffle
+                j = 0;
+                /* set up lists loop */
                 for (i=0; i<num_targets; i++) {
-                    target_list[i*2]   = UNI * (right_target_boundary - left_target_boundary) + left_target_boundary;  /* x position */
-                    target_list[i*2+1] = UNI * (upper_target_boundary - lower_target_boundary) + lower_target_boundary; /* y position */
+                    if (use_gadget_0) {
+                        tmp_tgts[j] = i;
+                        tmp_sort[j] = rand();
+                        tmp_gdgt[j++] = 0;
+                    }
+                    if (use_gadget_1) {
+                        tmp_tgts[j] = i;
+                        tmp_sort[j] = rand();
+                        tmp_gdgt[j++] = 1;
+                    }
+                    if (use_gadget_2) {
+                        tmp_tgts[j] = i;
+                        tmp_sort[j] = rand();
+                        tmp_gdgt[j++] = 2;
+                    }
+                    if (use_gadget_3) {
+                        tmp_tgts[j] = i;
+                        tmp_sort[j] = rand();
+                        tmp_gdgt[j++] = 3;
+                    }                      
                 }
-            } else {                      /* semi-random positions with min and max distances */
-                for (i=0; i<num_targets; i++){                
-                    temp_distance = minimum_distance + UNI * (maximum_distance - minimum_distance);
-                    temp_angle = 2 * PI * UNI;
-                    for(j=1; j<5; j++){
-                        if (i==0){
-                            target_list[i*2] = target_list[2*target_index] + temp_distance * cos(temp_angle);  /* x position of first target*/
-                            target_list[i*2+1] = target_list[2*target_index+1] + temp_distance * sin(temp_angle); /* y position of first target*/
-                        } else {
-                            target_list[i*2] = target_list[i*2-2] + temp_distance * cos(temp_angle);
-                            target_list[i*2+1] = target_list[i*2-1] + temp_distance * sin(temp_angle);
+                /* shuffle lists loop */
+                for (i=0; i<num_targets*num_gadgets_in_use-1; i++) {
+                    for (j=0; j<num_targets*num_gadgets_in_use-1; j++) {
+                        if (tmp_sort[j] < tmp_sort[j+1]) {
+                            tmp_d = tmp_sort[j];
+                            tmp_sort[j] = tmp_sort[j+1];
+                            tmp_sort[j+1] = tmp_d;
+                            
+                            tmp_i = tmp_tgts[j];
+                            tmp_tgts[j] = tmp_tgts[j+1];
+                            tmp_tgts[j+1] = tmp_i;
+                                    
+                            tmp_i = tmp_gdgt[j];
+                            tmp_gdgt[j] = tmp_gdgt[j+1];
+                            tmp_gdgt[j+1] = tmp_i;
                         }
-                        if(target_list[i*2] > left_target_boundary && target_list[i*2] < right_target_boundary &&
-                          target_list[i*2+1] > lower_target_boundary && target_list[i*2+1] < upper_target_boundary){
-                            break;
-                        }
-                        if(j==4){
-                            target_list[i*2] = ( right_target_boundary + left_target_boundary )/2; /* place target in center watchdog */
-                            target_list[i*2+1] = ( upper_target_boundary + lower_target_boundary )/2;
-                            break;
-                        }
-                        temp_angle = temp_angle + PI/2;
-                        temp_distance = minimum_distance;
                     }
                 }
+                /* write lists back to work buffer loop */
+                for (i=0; i<num_targets*num_gadgets_in_use-1; i++) {
+                    target_list[i*2] = tmp_tgts[i];
+                    target_list[i*2+1] = tmp_gdgt[i];
+                }
+            } else {
+                // advance to next target
+                ssSetIWorkValue(S, 1, target_index++);
             }
             
             /* and reset the counter */
@@ -454,7 +460,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             break;
         case STATE_DELAY:
-            if (elapsed_timer_time > delay_timeout {
+            if (elapsed_timer_time > delay_timeout) {
                 new_state = STATE_REACH;
                 state_changed();
                 reset_timer();
@@ -465,24 +471,45 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             break;
         case STATE_REACH:
-            if (elapsed_timer_time > reach_timeout {
+            if (elapsed_timer_time > reach_time) {
                 new_state = STATE_FAIL;
                 state_changed();
                 reset_timer();
-            } else if (cursorInTarget) {
+            } else if (!touch_pad) {
+                new_state = STATE_MOVEMENT;
+                state_changed();
+            }
+            break;
+        case STATE_MOVEMENT:
+            if (elapsed_timer_time > reach_time) {
+                new_state = STATE_FAIL;
+                state_changed();
+                reset_timer();
+            } else if (cursorInTarget(cursor, tgt)) {
                 new_state = STATE_TARGET_HOLD;
                 state_changed();
                 reset_target_hold_timer();
             }
             break;
         case STATE_TARGET_HOLD:
-            if (!cursorInTarget) {
-                new_state = STATE_REACH;
+            if (!cursorInTarget(cursor, tgt)) {
+                new_state = STATE_CONTINUE_REACH;
                 state_changed();
-            } else if (elapsed_target_hold_time > target_hold_timeout) {
+            } else if (elapsed_target_hold_time > target_hold_time) {
                 new_state = STATE_REWARD;
                 state_changed();
                 reset_timer();
+            }
+            break;
+        case STATE_CONTINUE_REACH:
+            if (elapsed_timer_time > reach_time) {
+                new_state = STATE_FAIL;
+                state_changed();
+                reset_timer();
+            } else if (cursorInTarget(cursor, tgt)) {
+                new_state = STATE_TARGET_HOLD;
+                state_changed();
+                reset_target_hold_timer();
             }
             break;
         case STATE_ABORT:
@@ -522,130 +549,112 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     UNUSED_ARG(tid);
 }
 
-/*** HERE ***/
-
 static void mdlOutputs(SimStruct *S, int_T tid)
 {
     /********************
      *  Initialization
      ********************/
     int i;
-    int_T *IWorkVector;
+    int *IWorkVector; 
+    int target_index;
+    int target_id;
+    int gadget_id;
     real_T *RWorkVector;
-    int_T target_index;
-    int_T catch_trial_flag;
-    real_T *target_list;
-    real_T target_x, target_y;
+    int *target_list;
+    real_T target_x, target_y, target_h, target_w;
     real_T tgt[4];
-    real_T disp_tgt[4];
-    
     InputRealPtrsType uPtrs;
     real_T cursor[2];
-    real_T force_in[2];
-    real_T force_in_catch[2];
+    real_T touch_pad;
+    real_T tone_cnt, tone_id;
+    int new_state;
     
-    /* allocate holders for outputs */
-    real_T force_x, force_y, word, reward, tone_cnt, tone_id;
-    real_T target_pos[10];
+    /* holders for outputs */
+    real_T reward, word, touch_pad_led, gadget_led, gadget_select;
     real_T status[4];
+    real_T tone[2];
+    real_T target[10];
     
     /* pointers to output buffers */
-    real_T *force_p;
-    real_T *word_p;
-    real_T *target_p;
-    real_T *status_p;
     real_T *reward_p;
+    real_T *word_p;
+    real_T *touch_pad_led_p;
+    real_T *gadget_led_p;
+    real_T *gadget_select_p;
+    real_T *status_p;
     real_T *tone_p;
+    real_T *target_p;
+    
+    /******************
+     * Initialization *
+     ******************/
     
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
-    int state = (int)(state_r[0]);
-    int new_state = ssGetIWorkValue(S, 0);
-    ssSetIWorkValue(S, 0, 0); /* reset changed state each iteration */
-
-    /* target position */
+    int state = (int)state_r[0];
+    new_state = ssGetIWorkValue(S, 0);
+    
+    /* Current target/gadget index */
+    target_index = ssGetIWorkValue(S, 1);
+    target_id = ssGetIWorkValue(S, 5 + target_index*2);
+    gadget_id = ssGetIWorkValue(S, 6 + target_index*2);
     IWorkVector = ssGetIWork(S);
-    target_index = IWorkVector[1];
-    RWorkVector = ssGetRWork(S);
-    target_list = RWorkVector+4;
-    target_x = target_list[2*target_index];
-    target_y = target_list[2*target_index+1];
-    
-    /* catch trial flag */
-    catch_trial_flag = IWorkVector[5];
-    
-    /* get current tone counter */
-    tone_cnt = ssGetRWorkValue(S, 1);
-    tone_id = ssGetRWorkValue(S, 2);
-    
-    /* get target bounds */
-    tgt[0] = target_x-target_size/2 - target_tolerance/2;
-    tgt[1] = target_y+target_size/2 + target_tolerance/2;
-    tgt[2] = target_x+target_size/2 + target_tolerance/2;
-    tgt[3] = target_y-target_size/2 - target_tolerance/2;    
-            
-    disp_tgt[0] = target_x-target_size/2;
-    disp_tgt[1] = target_y+target_size/2;
-    disp_tgt[2] = target_x+target_size/2;
-    disp_tgt[3] = target_y-target_size/2; 
+    target_list = IWorkVector+5;
     
     /* current cursor location */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
     cursor[0] = *uPtrs[0];
     cursor[1] = *uPtrs[1];
+
+    /* touch pad state */
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
+    touch_pad = *uPtrs[0];
     
-    /* input force */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
-    force_in[0] = *uPtrs[0];
-    force_in[1] = *uPtrs[1];
-    
-    /* catch input force */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
-    force_in_catch[0] = *uPtrs[0];
-    force_in_catch[1] = *uPtrs[1];
+    /* Current Target Location */
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
+    target_y = *uPtrs[0];
+    target_h = *uPtrs[1];
+    target_x = *uPtrs[2];
+    target_w = *uPtrs[3];
+
+    /* get target bounds */
+    tgt[0] = target_x - target_w / 2.0;
+    tgt[1] = target_y + target_h / 2.0;
+    tgt[2] = target_x + target_w / 2.0;
+    tgt[3] = target_y - target_h / 2.0;
+
+    /* tone counters */
+    tone_cnt = ssGetRWorkValue(S, 2);
+    tone_id  = ssGetRWorkValue(S, 3);
     
     /********************
      * Calculate outputs
      ********************/
     
-    /* force (0) */
-    if (catch_trial_flag){
-        force_x = force_in_catch[0]; 
-        force_y = force_in_catch[1]; 
+    /* reward (0) */
+    if (new_state && state == STATE_REWARD) {
+        reward = 1.0;
     } else {
-        force_x = force_in[0]; 
-        force_y = force_in[1]; 
+        reward = 0.0;
     }
-  
-    /* status (1) */
-    if (state == STATE_REWARD && new_state)
-        ssSetIWorkValue(S, 2, ssGetIWorkValue(S, 2)+1);
-    if (state == STATE_ABORT && new_state)
-        ssSetIWorkValue(S, 3, ssGetIWorkValue(S, 3)+1);
-    if (state == STATE_FAIL && new_state)
-        ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
     
-    status[0] = state;
-    status[1] = ssGetIWorkValue(S, 2); // num rewards
-    status[2] = ssGetIWorkValue(S, 3); // num aborts
-    status[3] = ssGetIWorkValue(S, 4); // num fails
-    
-    /* word (2) */
+    /* word (1) */
     if (new_state) {
         switch (state) {
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
                 break;
-            case STATE_INITIAL_MOVEMENT:
-                if (catch_trial_flag) {
-                    word = WORD_CATCH;
-                }
+            case STATE_TOUCH_PAD_HOLD:
+                word = WORD_HAND_ON_TOUCH_PAD;
+                break;
+            case STATE_DELAY:
+                word = WORD_GADGET_ON(gadget_id);
+                break;
+            case STATE_REACH:
+                word = WORD_REACH(target_id);
+                break;
             case STATE_MOVEMENT:
-                if (catch_trial_flag) {
-                    word = WORD_CATCH;
-                } else {
-                    word = WORD_GO_CUE;
-                }
+                word = WORD_MOVEMENT_ONSET;
                 break;
             case STATE_REWARD:
                 word = WORD_REWARD;
@@ -657,52 +666,50 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                 word = WORD_FAIL;
                 break;
             default:
-                word = 0;
+                word = 0.0;
         }
     } else {
-        /* not a new state */
-        word = 0;
+        word = 0.0;
     }
     
-    /* target_pos (3) */
-    if ( state == STATE_INITIAL_MOVEMENT || 
-         state == STATE_MOVEMENT || 
-         state == STATE_TARGET_HOLD )
-    {
-        /* target on */
-        target_pos[0] = 1;
-        for (i=0; i<4; i++) {
-            target_pos[i+1] = disp_tgt[i];
-        }
-    } 
-    else 
-    {
-        /* target off */
-        target_pos[0] = 0;
-        for (i=0; i<4; i++) {
-            target_pos[i+1] = 0;
-        }
-    }
-    
-    /* we never need a second target */
-    target_pos[5] = 0;
-    for (i=0; i<4; i++) {
-        target_pos[i+6] = 0;
-    }
-        
-    /* reward (4) */
-    if (new_state && state==STATE_REWARD) {
-        reward = 1;
+    /* touch_pad_led (2) */
+    if (state == STATE_TOUCH_PAD_ON || state == STATE_DELAY) {
+        touch_pad_led = 1.0;
     } else {
-        reward = 0;
+        touch_pad_led = 0.0;
+    }
+
+    /* gadget_led (3) */
+    if (state == STATE_DELAY || state == STATE_REACH || state == STATE_MOVEMENT ||
+        state == STATE_TARGET_HOLD || state == STATE_CONTINUE_REACH) 
+    {
+        gadget_led = 1.0;
+    } else {
+        gadget_led = 0.0;
     }
     
-    /* tone (5) */
+    /* gadget_select (4) */
+    gadget_select = gadget_id;
+    
+    /* status (5) */
+    if (state == STATE_REWARD && new_state)
+        ssSetIWorkValue(S, 2, ssGetIWorkValue(S, 2)+1);
+    if (state == STATE_ABORT && new_state)
+        ssSetIWorkValue(S, 3, ssGetIWorkValue(S, 3)+1);
+    if (state == STATE_FAIL && new_state)
+        ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
+      
+    status[0] = state;
+    status[1] = ssGetIWorkValue(S,2); // num rewards
+    status[2] = ssGetIWorkValue(S,3); // num aborts
+    status[3] = ssGetIWorkValue(S,4); // num failures
+    
+    /* tone (6) */
     if (new_state) {
         if (state == STATE_ABORT) {
             tone_cnt++;
             tone_id = TONE_ABORT;
-        } else if (state == STATE_MOVEMENT) {
+        } else if (state == STATE_REACH) {
             tone_cnt++;
             tone_id = TONE_GO;
         } else if (state == STATE_REWARD) {
@@ -710,35 +717,64 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             tone_id = TONE_REWARD;
         }
     }
-        
-
+    
+    /* targets (7) */
+    for (i=0; i<4; i++) {
+        target[i+1] = tgt[i];
+    }
+    if ( state == STATE_DELAY || 
+         state == STATE_REACH || 
+         state == STATE_MOVEMENT || 
+         state == STATE_CONTINUE_REACH )
+    {
+        /* target red */
+        target[0] = 1;
+    } else if (state == STATE_TARGET_HOLD) {
+        /* target green */
+        target[0] = 3;
+    } else {
+        /* target off */
+        target[0] = 0;
+    }
+    
+    /* we never need a second target */
+    target[5] = 0;
+    for (i=0; i<4; i++) {
+        target[i+6] = 0;
+    }
+    
     /**********************************
      * Write outputs back to SimStruct
      **********************************/
-    force_p = ssGetOutputPortRealSignal(S,0);
-    force_p[0] = force_x;
-    force_p[1] = force_y;
+ 
+     reward_p = ssGetOutputPortRealSignal(S,0);
+     reward_p[0] = reward;
+     
+     word_p = ssGetOutputPortRealSignal(S,1);
+     word_p[0] = word;
+     
+     touch_pad_led_p = ssGetOutputPortRealSignal(S,2);
+     touch_pad_led_p[0] = touch_pad_led;
+     
+     gadget_led_p = ssGetOutputPortRealSignal(S,3);
+     gadget_led_p[0] = gadget_led;
+     
+     gadget_select_p = ssGetOutputPortRealSignal(S,4);
+     gadget_select_p[0] = gadget_select;
+     
+     status_p = ssGetOutputPortRealSignal(S,5);
+     for (i=0; i<4; i++) 
+         status_p[i] = status[i];
     
-    status_p = ssGetOutputPortRealSignal(S,1);
-    for (i=0; i<4; i++) 
-        status_p[i] = status[i];
-    
-    word_p = ssGetOutputPortRealSignal(S,2);
-    word_p[0] = word;
-    
-    target_p = ssGetOutputPortRealSignal(S,3);
-    for (i=0; i<10; i++) {
-        target_p[i] = target_pos[i];
-    }
-    
-    reward_p = ssGetOutputPortRealSignal(S,4);
-    reward_p[0] = reward;
-    
-    tone_p = ssGetOutputPortRealSignal(S,5);
-    tone_p[0] = tone_cnt;
-    tone_p[1] = tone_id;
-    ssSetRWorkValue(S, 1, tone_cnt);
-    ssSetRWorkValue(S, 2, tone_id);
+     tone_p = ssGetOutputPortRealSignal(S,6);
+     tone_p[0] = tone_cnt;
+     tone_p[1] = tone_id;
+     ssSetRWorkValue(S, 2, tone_cnt);
+     ssSetRWorkValue(S, 3, tone_id);
+     
+     target_p = ssGetOutputPortRealSignal(S,7);
+     for (i=0; i<10; i++) 
+         target_p[i] = target[i];
     
     UNUSED_ARG(tid);
 }

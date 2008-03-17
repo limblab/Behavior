@@ -1,6 +1,8 @@
 /* wordso.h
  *
- * defines word codes for center out and random walk tasks
+ * defines word codes for center out and random walk tasks.
+ *
+ * word 0 is reserved and has the meaning, "no word this cycle."
  */
  
 #ifndef WORDS_CO_H
@@ -14,6 +16,8 @@
 #elif TASK_FC
 #define WORD_TASK_CODE 0x03
 /* 0x04 and 0x05 are reserved for the bump-stim task. */
+#elif TASK_MG
+#define WORD_TASK_CODE 0x06
 #endif
 
 /* trial start */
@@ -45,6 +49,7 @@
 /* center target on */
 #define WORD_CT_ON 0x30
 #define WORD_ORIGIN_TARGET_ON 0x30
+#define WORD_HAND_ON_TOUCH_PAD 0x30
 
 /* go cue */
 #define WORD_GO_CUE 0x31
@@ -55,6 +60,7 @@
 /* outer target (t) on */
 #define WORD_OT_ON(t) ( 0x40 | (t) )
 #define WORD_DESTINATION_TARGET_ON 0x40
+#define WORD_GADGET_ON(g) ( 0x40 | (g) )
 
 /* The meaning of d in the WORD_BUMP macro depends on context.
  * In CO: d is the direction of the bump, where the direction is 
@@ -75,5 +81,9 @@
 
 /* stimulation with gradation d*/
 #define WORD_STIM(g) ( 0x60 | (g) )
+
+/* multi-gadget reach */
+#define WORD_REACH(t) ( 0x70 | (t) )
+#define WORD_MOVEMENT_ONSET 0x80
 
 #endif /* WORDS_CO_H */

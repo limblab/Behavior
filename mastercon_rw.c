@@ -217,6 +217,9 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 2, 0);
     ssSetIWorkValue(S, 3, 0);
     ssSetIWorkValue(S, 4, 0);
+
+    /* set reset counter to zero */
+	  master_reset = 0.0;
 }
 
 /* macro for setting state changed */
@@ -599,7 +602,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_FAIL && new_state)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
     
-    status[0] = param_master_reset; //state;
+    status[0] = state;
     status[1] = ssGetIWorkValue(S, 2); // num rewards
     status[2] = ssGetIWorkValue(S, 3); // num aborts
     status[3] = ssGetIWorkValue(S, 4); // num fails
