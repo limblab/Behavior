@@ -3,7 +3,7 @@
  * Master Control block for behavior: multi-gadget
  */
 
-#define S_FUNCTION_NAME mastercon_rw
+#define S_FUNCTION_NAME mastercon_mg
 #define S_FUNCTION_LEVEL 2
 
 #include <math.h>
@@ -21,7 +21,6 @@
  */
 static real_T num_targets = 8;      /* number of targets from which to select */
 #define param_num_targets mxGetScalar(ssGetSFcnParam(S,0))
-
 
 static real_T touch_pad_hold_l = .5;
 #define param_touch_pad_hold_l mxGetScalar(ssGetSFcnParam(S,1))
