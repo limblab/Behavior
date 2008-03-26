@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.23"
+    ComputedModelVersion    "1.24"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Selket"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Mar 24 18:34:35 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:23>"
+  LastModifiedDate	  "Wed Mar 26 18:51:00 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:24>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -88,7 +88,7 @@ Model {
   ExtModeSkipDownloadWhenConnect off
   ExtModeLogAll		  on
   ExtModeAutoUpdateStatusClock on
-  BufferReuse		  on
+  BufferReuse		  off
   ProdHWDeviceType	  "32-bit Generic"
   ShowModelReferenceBlockVersion off
   ShowModelReferenceBlockIO off
@@ -105,7 +105,7 @@ Model {
 	  $ObjectID		  2
 	  Version		  "1.2.0"
 	  StartTime		  "0.0"
-	  StopTime		  "10.0"
+	  StopTime		  "Inf"
 	  AbsTol		  "auto"
 	  FixedStep		  "auto"
 	  InitialStep		  "auto"
@@ -169,18 +169,18 @@ Model {
 	    PropName		    "DisabledProps"
 	  }
 	  Version		  "1.2.0"
-	  BlockReduction	  on
+	  BlockReduction	  off
 	  BooleanDataType	  on
 	  ConditionallyExecuteInputs on
 	  InlineParams		  off
 	  InlineInvariantSignals  off
-	  OptimizeBlockIOStorage  on
-	  BufferReuse		  on
+	  OptimizeBlockIOStorage  off
+	  BufferReuse		  off
 	  EnforceIntegerDowncast  on
-	  ExpressionFolding	  on
+	  ExpressionFolding	  off
 	  ExpressionDepthLimit	  2147483647
 	  FoldNonRolledExpr	  on
-	  LocalBlockOutputs	  on
+	  LocalBlockOutputs	  off
 	  RollThreshold		  5
 	  SystemCodeInlineAuto	  off
 	  StateBitsets		  off
@@ -305,11 +305,12 @@ Model {
 	    PropName		    "DisabledProps"
 	  }
 	  Version		  "1.2.0"
-	  SystemTargetFile	  "grt.tlc"
+	  SystemTargetFile	  "xpctarget.tlc"
 	  GenCodeOnly		  off
 	  MakeCommand		  "make_rtw"
 	  GenerateMakefile	  on
-	  TemplateMakefile	  "grt_default_tmf"
+	  TemplateMakefile	  "xpc_default_tmf"
+	  Description		  "xPC Target"
 	  GenerateReport	  off
 	  SaveLog		  off
 	  RTWVerbose		  on
@@ -320,6 +321,7 @@ Model {
 	  TLCAssert		  off
 	  ProcessScriptMode	  "Default"
 	  ConfigurationMode	  "Optimized"
+	  ProcessScript		  "xpctarget_make_rtw_hook"
 	  ConfigAtBuild		  off
 	  IncludeHyperlinkInReport off
 	  LaunchReport		  off
@@ -383,7 +385,7 @@ Model {
 	      InlinedPrmAccess	      "Literals"
 	      ReqsInCode	      off
 	    }
-	    Simulink.GRTTargetCC {
+	    xpctarget.xpcTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
 	      $ObjectID		      10
 	      Array {
@@ -436,16 +438,23 @@ Model {
 	      ParenthesesLevel	      "Nominal"
 	      PortableWordSizes	      off
 	      ModelStepFunctionPrototypeControlCompliant off
-	      ExtMode		      off
-	      ExtModeStaticAlloc      off
-	      ExtModeTesting	      off
-	      ExtModeStaticAllocSize  1000000
-	      ExtModeTransport	      0
-	      ExtModeMexFile	      "ext_comm"
-	      RTWCAPISignals	      off
-	      RTWCAPIParams	      off
-	      RTWCAPIStates	      off
-	      GenerateASAP2	      off
+	      RL32ModeModifier	      "Real-Time"
+	      ExtMode		      on
+	      ExtModeMexFile	      "ext_xpc"
+	      ExtModeIntrfLevel	      "Level2 - Open"
+	      ExtModeArmWhenConnect   off
+	      RL32LogTETModifier      on
+	      RL32LogBufSizeModifier  "100000"
+	      RL32IRQSourceModifier   "Timer"
+	      xPCIRQSourceBoard	      "None/Other"
+	      xPCIOIRQSlot	      "-1"
+	      xpcDblBuff	      off
+	      xpcObjCom		      off
+	      xPCGenerateASAP2	      off
+	      xPCGenerateXML	      off
+	      RL32ObjectName	      "tg"
+	      xPCisDownloadable	      on
+	      xPCisDefaultEnv	      on
 	    }
 	    PropName		    "Components"
 	  }
@@ -453,7 +462,7 @@ Model {
 	PropName		"Components"
       }
       Name		      "Configuration"
-      CurrentDlgPage	      "Solver"
+      CurrentDlgPage	      "Real-Time Workshop"
     }
     PropName		    "ConfigurationSets"
   }
@@ -683,7 +692,7 @@ Model {
   }
   System {
     Name		    "multi_gadget"
-    Location		    [2, 78, 1278, 974]
+    Location		    [2, 82, 1278, 978]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
