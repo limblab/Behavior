@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.24"
+    ComputedModelVersion    "1.29"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -42,10 +42,10 @@ Model {
   Creator		  "Selket"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Selket"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Mar 26 18:51:00 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:24>"
+  LastModifiedDate	  "Wed Mar 26 20:31:38 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:29>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -107,7 +107,7 @@ Model {
 	  StartTime		  "0.0"
 	  StopTime		  "Inf"
 	  AbsTol		  "auto"
-	  FixedStep		  "auto"
+	  FixedStep		  ".001"
 	  InitialStep		  "auto"
 	  MaxNumMinSteps	  "-1"
 	  MaxOrder		  5
@@ -119,9 +119,9 @@ Model {
 	  MinStep		  "auto"
 	  MaxConsecutiveMinStep	  "1"
 	  RelTol		  "1e-3"
-	  SolverMode		  "Auto"
-	  Solver		  "ode45"
-	  SolverName		  "ode45"
+	  SolverMode		  "SingleTasking"
+	  Solver		  "ode3"
+	  SolverName		  "ode3"
 	  ZeroCrossControl	  "UseLocalSettings"
 	  AlgebraicLoopSolver	  "TrustRegion"
 	  SolverResetMethod	  "Fast"
@@ -462,7 +462,7 @@ Model {
 	PropName		"Components"
       }
       Name		      "Configuration"
-      CurrentDlgPage	      "Real-Time Workshop"
+      CurrentDlgPage	      "Solver"
     }
     PropName		    "ConfigurationSets"
   }
@@ -692,7 +692,7 @@ Model {
   }
   System {
     Name		    "multi_gadget"
-    Location		    [2, 82, 1278, 978]
+    Location		    [0, 82, 1280, 1000]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -861,7 +861,7 @@ Model {
 	  scopetype		  "Target"
 	  autostart		  on
 	  viewmode		  "Numerical"
-	  formatstr		  "'%6.6f Raw 1,%6.6f Raw 2'"
+	  formatstr		  "' %6.6f Raw 1, %6.6f Raw 2'"
 	  grid			  on
 	  ylimits		  "[-10,10]"
 	  nosamples		  "10"
@@ -991,7 +991,7 @@ Model {
       System {
 	Name			"DeviceOutput"
 	Location		[2, 82, 1278, 978]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1024,6 +1024,15 @@ Model {
 	  IconDisplay		  "Port number"
 	}
 	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [3, 1]
+	  Position		  [480, 448, 485, 562]
+	  ShowName		  off
+	  Inputs		  "3"
+	  DisplayOption		  "bar"
+	}
+	Block {
 	  BlockType		  Reference
 	  Name			  "PCI-6025E DO"
 	  Ports			  [4]
@@ -1035,6 +1044,43 @@ Model {
 	  initValue		  "[0]"
 	  sampletime		  "0.001"
 	  slot			  "-1"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Status"
+	  Ports			  [1]
+	  Position		  [540, 484, 610, 526]
+	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
+	  SourceType		  "xpcscopeblock"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  scopeno		  "5"
+	  scopetype		  "Target"
+	  autostart		  on
+	  viewmode		  "Numerical"
+	  formatstr		  "'%6.0f TP_LED,%6.0f Gdt_LED,%6.0f Gdt_Selec"
+"t'"
+	  grid			  on
+	  ylimits		  "[-10,10]"
+	  nosamples		  "10"
+	  noprepostsamples	  "0"
+	  interleave		  "10"
+	  triggermode		  "FreeRun"
+	  triggersignal		  "1"
+	  triggerlevel		  "0.0"
+	  triggerslope		  "Either"
+	  triggerscope		  "1"
+	  triggersample		  "0"
+	  filename		  "data.dat"
+	  mode			  "Lazy"
+	  writesize		  "512"
+	  autorestart		  off
 	}
 	Block {
 	  BlockType		  Terminator
@@ -1077,20 +1123,44 @@ Model {
 	Line {
 	  SrcBlock		  "GadgetLED"
 	  SrcPort		  1
-	  DstBlock		  "PCI-6025E DO"
-	  DstPort		  3
+	  Points		  [10, 0]
+	  Branch {
+	    DstBlock		    "PCI-6025E DO"
+	    DstPort		    3
+	  }
+	  Branch {
+	    Points		    [0, 245]
+	    DstBlock		    "Mux"
+	    DstPort		    2
+	  }
 	}
 	Line {
 	  SrcBlock		  "TouchPadLED"
 	  SrcPort		  1
-	  DstBlock		  "PCI-6025E DO"
-	  DstPort		  4
+	  Points		  [50, 0]
+	  Branch {
+	    DstBlock		    "PCI-6025E DO"
+	    DstPort		    4
+	  }
+	  Branch {
+	    Points		    [0, 155]
+	    DstBlock		    "Mux"
+	    DstPort		    1
+	  }
 	}
 	Line {
 	  SrcBlock		  "GadgetSelect"
 	  SrcPort		  1
-	  DstBlock		  "ToBits"
-	  DstPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    DstBlock		    "ToBits"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 285]
+	    DstBlock		    "Mux"
+	    DstPort		    3
+	  }
 	}
 	Line {
 	  SrcBlock		  "ToBits"
@@ -1139,6 +1209,12 @@ Model {
 	  SrcBlock		  "ToBits"
 	  SrcPort		  8
 	  DstBlock		  "Terminator5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  "Status"
 	  DstPort		  1
 	}
       }
@@ -1575,7 +1651,7 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "'%6.6f X,%6.6f Y'"
+      formatstr		      "' %6.6f X, %6.6f Y'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"
@@ -1611,7 +1687,7 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "'%6.0 Touch Pad'"
+      formatstr		      "'%6.0f Touch Pad'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"

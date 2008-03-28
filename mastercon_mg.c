@@ -274,6 +274,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     double tmp_sort[64];
     double tmp_d;
     
+    int reshuffle;
+    
     /******************
      * Initialization *
      ******************/
@@ -282,6 +284,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T *state_r = ssGetRealDiscStates(S);
     int state = (int)state_r[0];
     int new_state = state;
+    ssSetIWorkValue(S, 0, 0); /* By default, clear the state-changed flag */
     
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
@@ -300,7 +303,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     target_list = IWorkVector+5;
     
     /* Current Target Location */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
     target_y = *uPtrs[0];
     target_h = *uPtrs[1];
     target_x = *uPtrs[2];
@@ -331,7 +334,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         state_r[0] = STATE_PRETRIAL;
         return;
     }
-     
+    
     /************************
      * Calculate next state *
      ************************/
@@ -346,8 +349,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
              */
             
             /* Update parameters */
-            num_targets = param_num_targets;
-
+            reshuffle = 0;
+            if (num_targets != param_num_targets) {
+                num_targets = param_num_targets;
+                reshuffle = 1;
+            }
+            
             touch_pad_hold_l = param_touch_pad_hold_l;
             touch_pad_hold_h = param_touch_pad_hold_h;
 
@@ -361,10 +368,22 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             failure_timeout = param_intertrial;   
             reward_timeout  = param_intertrial;    
 
-            use_gadget_0 = param_use_gadget_0;
-            use_gadget_1 = param_use_gadget_1;
-            use_gadget_2 = param_use_gadget_2;
-            use_gadget_3 = param_use_gadget_3;
+            if (use_gadget_0 != param_use_gadget_0) {
+                use_gadget_0 = param_use_gadget_0;
+                reshuffle = 1;
+            }
+            if (use_gadget_1 != param_use_gadget_1) {
+                use_gadget_1 = param_use_gadget_1;
+                reshuffle = 1;
+            }
+            if (use_gadget_2 != param_use_gadget_2) {
+                use_gadget_2 = param_use_gadget_2;
+                reshuffle = 1;
+            }
+            if (use_gadget_3 != param_use_gadget_3) {
+                use_gadget_3 = param_use_gadget_3;
+                reshuffle = 1;
+            }
                      
             /* intialize timers*/
             if (touch_pad_hold_l == touch_pad_hold_h) { 
@@ -380,7 +399,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             
             /* get current target or reshuffle at end of block */
-            if (target_index >= num_targets*num_gadgets_in_use-1) { 
+            if (reshuffle || target_index >= num_targets*num_gadgets_in_use-1) { 
                 // reshuffle
                 j = 0;
                 /* set up lists loop */
@@ -429,14 +448,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     target_list[i*2] = tmp_tgts[i];
                     target_list[i*2+1] = tmp_gdgt[i];
                 }
+                
+                /* and reset the counter */
+                ssSetIWorkValue(S, 1, 0);
             } else {
                 // advance to next target
                 ssSetIWorkValue(S, 1, target_index++);
             }
-            
-            /* and reset the counter */
-            ssSetIWorkValue(S, 1, 0);
-                        
+           
             new_state = STATE_TOUCH_PAD_ON;
 
             break;
@@ -610,7 +629,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     touch_pad = *uPtrs[0];
     
     /* Current Target Location */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
     target_y = *uPtrs[0];
     target_h = *uPtrs[1];
     target_x = *uPtrs[2];
@@ -672,7 +691,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     /* touch_pad_led (2) */
-    if (state == STATE_TOUCH_PAD_ON || state == STATE_DELAY) {
+    if (state == STATE_TOUCH_PAD_ON || state == STATE_TOUCH_PAD_HOLD || state == STATE_DELAY) {
         touch_pad_led = 1.0;
     } else {
         touch_pad_led = 0.0;
