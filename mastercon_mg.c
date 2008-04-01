@@ -244,11 +244,6 @@ static int cursorInTarget(real_T *c, real_T *t)
     return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
 }
 
-int pretrial_counter = 0;
-int reshuffle_counter = 0;
-int non_reshuffle_counter = 0;
-int target_select_counter = 0;
-
 #define MDL_UPDATE
 static void mdlUpdate(SimStruct *S, int_T tid) 
 {
