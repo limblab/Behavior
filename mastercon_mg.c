@@ -148,8 +148,9 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target UL corner y,
      *                  target LR corner x, 
      *                  target LR corner y)
+`    *  target select:  1
      */
-    if (!ssSetNumOutputPorts(S, 8)) return;
+    if (!ssSetNumOutputPorts(S, 9)) return;
     ssSetOutputPortWidth(S, 0, 1);
     ssSetOutputPortWidth(S, 1, 1);
     ssSetOutputPortWidth(S, 2, 1);
@@ -158,6 +159,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 5, 4);
     ssSetOutputPortWidth(S, 6, 2);
     ssSetOutputPortWidth(S, 7, 10);
+    ssSetOutputPortWidth(S, 8, 1);
     
     ssSetNumSampleTimes(S, 1);
     
@@ -206,7 +208,6 @@ static void mdlInitializeConditions(SimStruct *S)
     
     /* set target index to indicate that we need to begin a new block */
     ssSetIWorkValue(S, 1, (int)num_targets*num_gadgets_in_use-1);
-    //ssSetIWorkValue(S, 1, 2);
     
     /* set the tone counter to zero */
     ssSetRWorkValue(S, 2, 0.0);
@@ -246,6 +247,7 @@ static int cursorInTarget(real_T *c, real_T *t)
 int pretrial_counter = 0;
 int reshuffle_counter = 0;
 int non_reshuffle_counter = 0;
+int target_select_counter = 0;
 
 #define MDL_UPDATE
 static void mdlUpdate(SimStruct *S, int_T tid) 
@@ -451,7 +453,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     }
                 }
                 /* write lists back to work buffer loop */
-                for (i=0; i<num_targets*num_gadgets_in_use-1; i++) {
+                for (i=0; i<=num_targets*num_gadgets_in_use-1; i++) {
                     target_list[i*2] = tmp_tgts[i];
                     target_list[i*2+1] = tmp_gdgt[i];
                 }
@@ -598,7 +600,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int new_state;
     
     /* holders for outputs */
-    real_T reward, word, touch_pad_led, gadget_led, gadget_select;
+    real_T reward, word, touch_pad_led, gadget_led, gadget_select, target_select;
     real_T status[4];
     real_T tone[2];
     real_T target[10];
@@ -612,6 +614,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *status_p;
     real_T *tone_p;
     real_T *target_p;
+    real_T *target_select_p;
     
     /******************
      * Initialization *
@@ -628,7 +631,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     gadget_id = ssGetIWorkValue(S, 6 + target_index*2);
     IWorkVector = ssGetIWork(S);
     target_list = IWorkVector+5;
-    
+
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
     cursor[0] = *uPtrs[0];
@@ -727,10 +730,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_FAIL && new_state)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
       
-    status[0] = target_index;
-    status[1] = non_reshuffle_counter; //ssGetIWorkValue(S,2); // num rewards
-    status[2] = pretrial_counter; //ssGetIWorkValue(S,3); // num aborts
-    status[3] = reshuffle_counter; //ssGetIWorkValue(S,4); // num failures
+    status[0] = state;
+    status[1] = ssGetIWorkValue(S,2); // num rewards
+    status[2] = ssGetIWorkValue(S,3); // num aborts
+    status[3] = ssGetIWorkValue(S,4); // num failures
     
     /* tone (6) */
     if (new_state) {
@@ -771,6 +774,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         target[i+6] = 0;
     }
     
+    /* target_select (8) */
+    target_select = target_id;
+    
     /**********************************
      * Write outputs back to SimStruct
      **********************************/
@@ -803,6 +809,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      target_p = ssGetOutputPortRealSignal(S,7);
      for (i=0; i<10; i++) 
          target_p[i] = target[i];
+     
+     target_select_p = ssGetOutputPortRealSignal(S,8);
+     target_select_p[0] = target_select;
     
     UNUSED_ARG(tid);
 }
