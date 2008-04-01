@@ -134,7 +134,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetInputPortDirectFeedThrough(S, 2, 1);
     
     /* 
-     * Block has 8 output ports (reward, word, touch pad LED, gadget LED, gadget select, status, tone, target) of widths:
+     * Block has 9 output ports (reward, word, touch pad LED, gadget LED, gadget select, status, tone, target, target select) of widths:
      *  reward:         1
      *  word:           1
      *  touch pad LED:  1
@@ -206,6 +206,7 @@ static void mdlInitializeConditions(SimStruct *S)
     
     /* set target index to indicate that we need to begin a new block */
     ssSetIWorkValue(S, 1, (int)num_targets*num_gadgets_in_use-1);
+    //ssSetIWorkValue(S, 1, 2);
     
     /* set the tone counter to zero */
     ssSetRWorkValue(S, 2, 0.0);
@@ -222,7 +223,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 4, 0);
 
     /* set reset counter to zero */
-	  master_reset = 0.0;
+    master_reset = 0.0;
 }
 
 /* macro for setting state changed */
@@ -241,6 +242,10 @@ static int cursorInTarget(real_T *c, real_T *t)
 {
     return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
 }
+
+int pretrial_counter = 0;
+int reshuffle_counter = 0;
+int non_reshuffle_counter = 0;
 
 #define MDL_UPDATE
 static void mdlUpdate(SimStruct *S, int_T tid) 
@@ -342,6 +347,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* execute one step of state machine */
     switch (state) {
         case STATE_PRETRIAL:
+            pretrial_counter++;
             /* pretrial initilization */
             /* 
              * We should only be in this state for one cycle.
@@ -384,7 +390,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 use_gadget_3 = param_use_gadget_3;
                 reshuffle = 1;
             }
-                     
+            
             /* intialize timers*/
             if (touch_pad_hold_l == touch_pad_hold_h) { 
                 ssSetRWorkValue(S, 4, touch_pad_hold_l);
@@ -399,7 +405,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             
             /* get current target or reshuffle at end of block */
-            if (reshuffle || target_index >= num_targets*num_gadgets_in_use-1) { 
+             if (reshuffle || target_index >= num_targets*num_gadgets_in_use-1) { 
+                reshuffle_counter++;
                 // reshuffle
                 j = 0;
                 /* set up lists loop */
@@ -450,13 +457,16 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 }
                 
                 /* and reset the counter */
-                ssSetIWorkValue(S, 1, 0);
+                target_index = 0;
+                ssSetIWorkValue(S, 1, target_index);
             } else {
-                // advance to next target
-                ssSetIWorkValue(S, 1, target_index++);
-            }
+            //    advance to next target
+                non_reshuffle_counter++;
+                ssSetIWorkValue(S, 1, ++target_index);
+           }
            
             new_state = STATE_TOUCH_PAD_ON;
+            state_changed();
 
             break;
         case STATE_TOUCH_PAD_ON:
@@ -717,10 +727,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_FAIL && new_state)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
       
-    status[0] = state;
-    status[1] = ssGetIWorkValue(S,2); // num rewards
-    status[2] = ssGetIWorkValue(S,3); // num aborts
-    status[3] = ssGetIWorkValue(S,4); // num failures
+    status[0] = target_index;
+    status[1] = non_reshuffle_counter; //ssGetIWorkValue(S,2); // num rewards
+    status[2] = pretrial_counter; //ssGetIWorkValue(S,3); // num aborts
+    status[3] = reshuffle_counter; //ssGetIWorkValue(S,4); // num failures
     
     /* tone (6) */
     if (new_state) {
@@ -782,7 +792,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      
      status_p = ssGetOutputPortRealSignal(S,5);
      for (i=0; i<4; i++) 
-         status_p[i] = status[i];
+         status_p[i] = (real_T)status[i];
     
      tone_p = ssGetOutputPortRealSignal(S,6);
      tone_p[0] = tone_cnt;
