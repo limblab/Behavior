@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1123"
+    ComputedModelVersion    "1.1132"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Apr 01 19:39:16 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:1123>"
+  LastModifiedDate	  "Tue Apr 01 19:54:31 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:1132>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -814,7 +814,7 @@ Model {
   }
   System {
     Name		    "random_walk"
-    Location		    [2, 74, 998, 708]
+    Location		    [2, 70, 1006, 704]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1070,7 +1070,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Catch Force Generator"
-	Location		[2, 82, 1014, 752]
+	Location		[2, 82, 1278, 978]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1333,6 +1333,78 @@ Model {
 	  Name			  "Off"
 	  Position		  [75, 140, 105, 170]
 	  Value			  "0"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Scope (xPC) "
+	  Ports			  [1]
+	  Position		  [175, 325, 265, 385]
+	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
+	  SourceType		  "xpcscopeblock"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  scopeno		  "9"
+	  scopetype		  "Target"
+	  autostart		  on
+	  viewmode		  "Graphical redraw"
+	  formatstr		  "'%15.6f'"
+	  grid			  on
+	  ylimits		  "[0,0]"
+	  nosamples		  "250"
+	  noprepostsamples	  "0"
+	  interleave		  "1"
+	  triggermode		  "FreeRun"
+	  triggersignal		  "1"
+	  triggerlevel		  "0.0"
+	  triggerslope		  "Either"
+	  triggerscope		  "1"
+	  triggersample		  "0"
+	  filename		  "data.dat"
+	  mode			  "Lazy"
+	  writesize		  "512"
+	  autorestart		  off
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Scope (xPC) 1"
+	  Ports			  [1]
+	  Position		  [180, 505, 270, 565]
+	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
+	  SourceType		  "xpcscopeblock"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  scopeno		  "10"
+	  scopetype		  "Target"
+	  autostart		  on
+	  viewmode		  "Graphical redraw"
+	  formatstr		  "'%15.6f'"
+	  grid			  on
+	  ylimits		  "[0,0]"
+	  nosamples		  "250"
+	  noprepostsamples	  "0"
+	  interleave		  "1"
+	  triggermode		  "FreeRun"
+	  triggersignal		  "1"
+	  triggerlevel		  "0.0"
+	  triggerslope		  "Either"
+	  triggerscope		  "1"
+	  triggersample		  "0"
+	  filename		  "data.dat"
+	  mode			  "Lazy"
+	  writesize		  "512"
+	  autorestart		  off
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -1725,23 +1797,37 @@ Model {
 	Line {
 	  SrcBlock		  "LorentzForce"
 	  SrcPort		  1
-	  Points		  [20, 0; 0, 20; 35, 0]
+	  Points		  [20, 0; 0, 20; 15, 0]
 	  Branch {
-	    DstBlock		    "Mux2"
-	    DstPort		    1
+	    Points		    [20, 0]
+	    Branch {
+	      DstBlock		      "Mux2"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, -30; 140, 0; 0, -70]
+	      DstBlock		      "Gain"
+	      DstPort		      1
+	    }
 	  }
 	  Branch {
-	    Points		    [0, -30; 140, 0; 0, -70]
-	    DstBlock		    "Gain"
+	    DstBlock		    "Scope (xPC) "
 	    DstPort		    1
 	  }
 	}
 	Line {
 	  SrcBlock		  "LorentzForce"
 	  SrcPort		  2
-	  Points		  [30, 0; 0, -20]
-	  DstBlock		  "Mux2"
-	  DstPort		  2
+	  Points		  [30, 0; 0, -20; 15, 0]
+	  Branch {
+	    DstBlock		    "Mux2"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [-5, 0]
+	    DstBlock		    "Scope (xPC) 1"
+	    DstPort		    1
+	  }
 	}
 	Line {
 	  SrcBlock		  "Mux2"
@@ -1807,7 +1893,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Force Generator"
-	Location		[2, 82, 1014, 752]
+	Location		[2, 82, 1278, 978]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1858,7 +1944,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "LorentzForce"
-	    Location		    [2, 82, 1014, 752]
+	    Location		    [2, 82, 1270, 978]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -2535,9 +2621,8 @@ Model {
     Block {
       BlockType		      Concatenate
       Name		      "Matrix\nConcatenation1"
-      Ports		      [3, 1]
-      Position		      [950, 444, 1005, 486]
-      NumInputs		      "3"
+      Ports		      [2, 1]
+      Position		      [595, 479, 650, 521]
       Mode		      "Vector"
     }
     Block {
@@ -2551,8 +2636,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[2, 74, 1014, 708]
-	Open			on
+	Location		[2, 70, 1022, 704]
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2810,7 +2895,7 @@ Model {
 	  BlockType		  Mux
 	  Name			  "Mux"
 	  Ports			  [3, 1]
-	  Position		  [970, 49, 975, 141]
+	  Position		  [880, 79, 885, 171]
 	  ShowName		  off
 	  Inputs		  "3"
 	  DisplayOption		  "bar"
@@ -3201,7 +3286,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Xpos"
 	  Ports			  [1]
-	  Position		  [1045, 75, 1115, 115]
+	  Position		  [955, 105, 1025, 145]
 	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
 	  SourceType		  "xpcscopeblock"
 	  ShowPortLabels	  "FromPortIcon"
@@ -3212,7 +3297,7 @@ Model {
 	  RTWMemSecDataConstants  "Inherit from model"
 	  RTWMemSecDataInternal	  "Inherit from model"
 	  RTWMemSecDataParameters "Inherit from model"
-	  scopeno		  "4"
+	  scopeno		  "6"
 	  scopetype		  "Target"
 	  autostart		  on
 	  viewmode		  "Numerical"
@@ -3259,7 +3344,7 @@ Model {
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -180]
+	    Points		    [0, -150]
 	    DstBlock		    "Mux"
 	    DstPort		    2
 	  }
@@ -3278,7 +3363,7 @@ Model {
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -270]
+	    Points		    [0, -240]
 	    DstBlock		    "Mux"
 	    DstPort		    3
 	  }
@@ -3317,6 +3402,7 @@ Model {
 	  DstPort		  1
 	}
 	Line {
+	  Labels		  [1, 0]
 	  SrcBlock		  "Rate Transition2"
 	  SrcPort		  1
 	  DstBlock		  "PCI-6025E "
@@ -3338,13 +3424,13 @@ Model {
 	Line {
 	  SrcBlock		  "Switch2"
 	  SrcPort		  1
-	  Points		  [35, 0]
+	  Points		  [100, 0]
 	  Branch {
 	    DstBlock		    "Force/Torque Transform"
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -210]
+	    Points		    [0, -180]
 	    DstBlock		    "Mux"
 	    DstPort		    1
 	  }
@@ -5461,7 +5547,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"RewardSbs"
-	Location		[2, 82, 1014, 752]
+	Location		[2, 82, 1270, 978]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -6315,8 +6401,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Velocity Calculation"
-	Location		[2, 82, 1014, 752]
-	Open			on
+	Location		[2, 82, 1278, 978]
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -6983,7 +7069,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"WordSbs"
-	Location		[2, 82, 1014, 752]
+	Location		[0, 74, 1272, 1000]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -7003,84 +7089,17 @@ Model {
 	  IconDisplay		  "Port number"
 	}
 	Block {
-	  BlockType		  Reference
-	  Name			  "Port A"
-	  Ports			  [8]
-	  Position		  [645, 75, 775, 280]
-	  SourceBlock		  "xpcnilib/Digital\nOutput/PCI-6025E 8255 DO"
-	  SourceType		  "donipci6025e8255"
-	  channel		  "1:8"
-	  port			  "A"
-	  reset			  "[1]"
-	  initValue		  "[0]"
-	  chip			  "1"
-	  sampletime		  "-1"
-	  slot			  "-1"
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "ToBits"
-	  Ports			  [1, 8]
-	  Position		  [425, 80, 475, 275]
-	  SourceBlock		  "limblab/ToBits"
-	  SourceType		  ""
+	  BlockType		  Goto
+	  Name			  "Goto"
+	  Position		  [410, 164, 465, 196]
+	  GotoTag		  "Word"
+	  TagVisibility		  "global"
 	}
 	Line {
 	  SrcBlock		  "Word"
 	  SrcPort		  1
-	  DstBlock		  "ToBits"
+	  DstBlock		  "Goto"
 	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "ToBits"
-	  SrcPort		  1
-	  DstBlock		  "Port A"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "ToBits"
-	  SrcPort		  2
-	  DstBlock		  "Port A"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "ToBits"
-	  SrcPort		  3
-	  DstBlock		  "Port A"
-	  DstPort		  3
-	}
-	Line {
-	  SrcBlock		  "ToBits"
-	  SrcPort		  4
-	  DstBlock		  "Port A"
-	  DstPort		  4
-	}
-	Line {
-	  SrcBlock		  "ToBits"
-	  SrcPort		  5
-	  DstBlock		  "Port A"
-	  DstPort		  5
-	}
-	Line {
-	  SrcBlock		  "ToBits"
-	  SrcPort		  6
-	  DstBlock		  "Port A"
-	  DstPort		  6
-	}
-	Line {
-	  SrcBlock		  "ToBits"
-	  SrcPort		  7
-	  DstBlock		  "Port A"
-	  DstPort		  7
-	}
-	Line {
-	  SrcBlock		  "ToBits"
-	  SrcPort		  8
-	  DstBlock		  "Port A"
-	  DstPort		  8
-	}
-	Annotation {
-	  Position		  [724, 208]
 	}
       }
     }
@@ -7099,7 +7118,7 @@ Model {
       MaskIconUnits	      "autoscale"
       System {
 	Name			"XY Position Subsystem"
-	Location		[-2, 82, 1010, 736]
+	Location		[2, 74, 1014, 728]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -7116,7 +7135,7 @@ Model {
 	  BlockType		  SubSystem
 	  Name			  "Cursor Rotation"
 	  Ports			  [2, 2]
-	  Position		  [710, 135, 835, 235]
+	  Position		  [715, 330, 840, 430]
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
@@ -7345,8 +7364,8 @@ Model {
 	Block {
 	  BlockType		  SubSystem
 	  Name			  "For Iterator\nSubsystem"
-	  Ports			  [3]
-	  Position		  [530, 39, 630, 81]
+	  Ports			  [4]
+	  Position		  [535, 163, 650, 237]
 	  TreatAsAtomicUnit	  on
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
@@ -7358,8 +7377,8 @@ Model {
 	  MaskIconUnits		  "autoscale"
 	  System {
 	    Name		    "For Iterator\nSubsystem"
-	    Location		    [0, 82, 1012, 752]
-	    Open		    off
+	    Location		    [0, 82, 996, 752]
+	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -7392,6 +7411,13 @@ Model {
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
+	      BlockType		      Inport
+	      Name		      "Word"
+	      Position		      [400, 638, 430, 652]
+	      Port		      "4"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
 	      BlockType		      Sum
 	      Name		      "Add"
 	      Ports		      [2, 1]
@@ -7420,6 +7446,12 @@ Model {
 	      Value		      "32768"
 	    }
 	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant2"
+	      Position		      [395, 845, 425, 875]
+	      Value		      "0"
+	    }
+	    Block {
 	      BlockType		      ForIterator
 	      Name		      "For Iterator"
 	      Ports		      [0, 1]
@@ -7427,6 +7459,22 @@ Model {
 	      IterationLimit	      "4"
 	      IndexMode		      "Zero-based"
 	      IterationVariableDataType	"double"
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Port A"
+	      Ports		      [8]
+	      Position		      [855, 630, 985, 835]
+	      SourceBlock	      "xpcnilib/Digital\nOutput/PCI-6025E 8255"
+" DO"
+	      SourceType	      "donipci6025e8255"
+	      channel		      "1:8"
+	      port		      "A"
+	      reset		      "[1]"
+	      initValue		      "[0]"
+	      chip		      "1"
+	      sampletime	      "-1"
+	      slot		      "-1"
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -7453,10 +7501,26 @@ Model {
 	      SourceType	      ""
 	    }
 	    Block {
+	      BlockType		      Switch
+	      Name		      "Switch"
+	      Position		      [545, 696, 585, 774]
+	      Threshold		      "2"
+	      InputSameDT	      off
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
 	      BlockType		      Reference
 	      Name		      "ToBits"
 	      Ports		      [1, 8]
 	      Position		      [655, 310, 710, 525]
+	      SourceBlock	      "limblab/ToBits"
+	      SourceType	      ""
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "ToBits1"
+	      Ports		      [1, 8]
+	      Position		      [635, 635, 685, 830]
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      ""
 	    }
@@ -7472,7 +7536,7 @@ Model {
 	      MaskHideContents	      off
 	      System {
 		Name			"While Iterator\nSubsystem"
-		Location		[2, 82, 1014, 752]
+		Location		[2, 82, 1278, 978]
 		Open			off
 		ModelBrowserVisibility	off
 		ModelBrowserWidth	200
@@ -7516,7 +7580,7 @@ Model {
 		  RTWMemSecDataInternal	  "Inherit from model"
 		  RTWMemSecDataParameters "Inherit from model"
 		  relop			  "<="
-		  const			  "100"
+		  const			  "200"
 		  LogicOutDataTypeMode	  "boolean"
 		  ZeroCross		  on
 		}
@@ -7537,7 +7601,7 @@ Model {
 		  RTWMemSecDataInternal	  "Inherit from model"
 		  RTWMemSecDataParameters "Inherit from model"
 		  relop			  ">"
-		  const			  "50"
+		  const			  "100"
 		  LogicOutDataTypeMode	  "boolean"
 		  ZeroCross		  off
 		}
@@ -7711,9 +7775,16 @@ Model {
 	    Line {
 	      SrcBlock		      "For Iterator"
 	      SrcPort		      1
-	      Points		      [80, 0; 0, 140]
-	      DstBlock		      "SerialConverter"
-	      DstPort		      1
+	      Points		      [80, 0; 0, 140; 75, 0]
+	      Branch {
+		DstBlock		"SerialConverter"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 385]
+		DstBlock		"Switch"
+		DstPort			2
+	      }
 	    }
 	    Line {
 	      SrcBlock		      "Sh"
@@ -7808,23 +7879,102 @@ Model {
 	      DstBlock		      "While Iterator\nSubsystem"
 	      DstPort		      2
 	    }
+	    Line {
+	      SrcBlock		      "ToBits1"
+	      SrcPort		      1
+	      DstBlock		      "Port A"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "ToBits1"
+	      SrcPort		      2
+	      DstBlock		      "Port A"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "ToBits1"
+	      SrcPort		      3
+	      DstBlock		      "Port A"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "ToBits1"
+	      SrcPort		      4
+	      DstBlock		      "Port A"
+	      DstPort		      4
+	    }
+	    Line {
+	      SrcBlock		      "ToBits1"
+	      SrcPort		      5
+	      DstBlock		      "Port A"
+	      DstPort		      5
+	    }
+	    Line {
+	      SrcBlock		      "ToBits1"
+	      SrcPort		      6
+	      DstBlock		      "Port A"
+	      DstPort		      6
+	    }
+	    Line {
+	      SrcBlock		      "ToBits1"
+	      SrcPort		      7
+	      DstBlock		      "Port A"
+	      DstPort		      7
+	    }
+	    Line {
+	      SrcBlock		      "ToBits1"
+	      SrcPort		      8
+	      DstBlock		      "Port A"
+	      DstPort		      8
+	    }
+	    Line {
+	      SrcBlock		      "Constant2"
+	      SrcPort		      1
+	      Points		      [25, 0; 0, -100]
+	      DstBlock		      "Switch"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Word"
+	      SrcPort		      1
+	      Points		      [45, 0; 0, 65]
+	      DstBlock		      "Switch"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Switch"
+	      SrcPort		      1
+	      DstBlock		      "ToBits1"
+	      DstPort		      1
+	    }
 	    Annotation {
 	      Position		      [909, 448]
+	    }
+	    Annotation {
+	      Position		      [934, 763]
 	    }
 	  }
 	}
 	Block {
 	  BlockType		  From
 	  Name			  "From"
-	  Position		  [405, 85, 465, 115]
+	  Position		  [375, 240, 435, 270]
 	  CloseFcn		  "tagdialog Close"
 	  GotoTag		  "Reward"
 	  TagVisibility		  "global"
 	}
 	Block {
+	  BlockType		  From
+	  Name			  "From1"
+	  Position		  [375, 295, 435, 325]
+	  CloseFcn		  "tagdialog Close"
+	  GotoTag		  "Word"
+	  TagVisibility		  "global"
+	}
+	Block {
 	  BlockType		  Gain
 	  Name			  "Gain"
-	  Position		  [250, 171, 340, 219]
+	  Position		  [255, 366, 345, 414]
 	  Gain			  "3.490658e-4"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
@@ -7833,7 +7983,7 @@ Model {
 	Block {
 	  BlockType		  Gain
 	  Name			  "Gain1"
-	  Position		  [235, 301, 325, 349]
+	  Position		  [240, 496, 330, 544]
 	  Gain			  "-3.490658e-4"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
@@ -7843,7 +7993,7 @@ Model {
 	  BlockType		  SubSystem
 	  Name			  "Jacobian-Cartesian Transformation"
 	  Ports			  [2, 5]
-	  Position		  [500, 128, 580, 392]
+	  Position		  [505, 323, 585, 587]
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
@@ -7971,25 +8121,25 @@ Model {
 	      BlockType		      Fcn
 	      Name		      "cos(length of Elbow)"
 	      Position		      [210, 445, 270, 475]
-	      Expr		      "26.8*cos(u)"
+	      Expr		      "23.5*cos(u)"
 	    }
 	    Block {
 	      BlockType		      Fcn
 	      Name		      "cos(length of Shoulder)"
 	      Position		      [230, 225, 290, 255]
-	      Expr		      "25.0*sin(u)"
+	      Expr		      "24.0*sin(u)"
 	    }
 	    Block {
 	      BlockType		      Fcn
 	      Name		      "sin(length of Elbow)"
 	      Position		      [210, 375, 270, 405]
-	      Expr		      "26.8*sin(u)"
+	      Expr		      "23.5*sin(u)"
 	    }
 	    Block {
 	      BlockType		      Fcn
 	      Name		      "sin(length of Shoulder)"
 	      Position		      [230, 60, 290, 90]
-	      Expr		      "25.0*cos(u)"
+	      Expr		      "24.0*cos(u)"
 	    }
 	    Block {
 	      BlockType		      Constant
@@ -8229,7 +8379,7 @@ Model {
 	  BlockType		  Mux
 	  Name			  "Mux"
 	  Ports			  [2, 1]
-	  Position		  [655, 235, 660, 335]
+	  Position		  [660, 430, 665, 530]
 	  ShowName		  off
 	  Inputs		  "2"
 	  DisplayOption		  "bar"
@@ -8238,7 +8388,7 @@ Model {
 	  BlockType		  Mux
 	  Name			  "Mux1"
 	  Ports			  [2, 1]
-	  Position		  [905, 135, 910, 235]
+	  Position		  [910, 330, 915, 430]
 	  ShowName		  off
 	  Inputs		  "2"
 	  DisplayOption		  "bar"
@@ -8247,7 +8397,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "PCI-QUAD04 "
 	  Ports			  [0, 1]
-	  Position		  [55, 167, 165, 223]
+	  Position		  [60, 362, 170, 418]
 	  SourceBlock		  "xpcmeasurementcomputinglib/Incremental\nEnc"
 "oder/PCI-QUAD04 "
 	  SourceType		  "enccbcioquadcount"
@@ -8266,7 +8416,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "PCI-QUAD04 1"
 	  Ports			  [0, 1]
-	  Position		  [55, 297, 165, 353]
+	  Position		  [60, 492, 170, 548]
 	  SourceBlock		  "xpcmeasurementcomputinglib/Incremental\nEnc"
 "oder/PCI-QUAD04 "
 	  SourceType		  "enccbcioquadcount"
@@ -8285,7 +8435,7 @@ Model {
 	  BlockType		  Sum
 	  Name			  "Sum1"
 	  Ports			  [2, 1]
-	  Position		  [390, 315, 410, 335]
+	  Position		  [395, 510, 415, 530]
 	  ShowName		  off
 	  IconShape		  "round"
 	  Inputs		  "|++"
@@ -8295,7 +8445,7 @@ Model {
 	  BlockType		  Sum
 	  Name			  "Sum3"
 	  Ports			  [2, 1]
-	  Position		  [390, 185, 410, 205]
+	  Position		  [395, 380, 415, 400]
 	  ShowName		  off
 	  IconShape		  "round"
 	  Inputs		  "|++"
@@ -8304,26 +8454,26 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "elbowOffset"
-	  Position		  [315, 365, 385, 395]
+	  Position		  [320, 560, 390, 590]
 	  Value			  "0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "shoulderOffset"
-	  Position		  [320, 225, 385, 255]
+	  Position		  [325, 420, 390, 450]
 	  Value			  "0"
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "Pos"
-	  Position		  [985, 178, 1015, 192]
+	  Position		  [990, 373, 1020, 387]
 	  IconDisplay		  "Port number"
 	  BusOutputAsStruct	  off
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "RawPos"
-	  Position		  [740, 278, 770, 292]
+	  Position		  [745, 473, 775, 487]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
 	  BusOutputAsStruct	  off
@@ -8331,7 +8481,7 @@ Model {
 	Block {
 	  BlockType		  Outport
 	  Name			  "J"
-	  Position		  [740, 353, 770, 367]
+	  Position		  [745, 548, 775, 562]
 	  Port			  "3"
 	  IconDisplay		  "Port number"
 	  BusOutputAsStruct	  off
@@ -8339,29 +8489,29 @@ Model {
 	Line {
 	  SrcBlock		  "PCI-QUAD04 1"
 	  SrcPort		  1
-	  Points		  [0, 0; 20, 0]
+	  Points		  [20, 0]
+	  Branch {
+	    Points		    [0, -330]
+	    DstBlock		    "For Iterator\nSubsystem"
+	    DstPort		    2
+	  }
 	  Branch {
 	    DstBlock		    "Gain1"
 	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, -265]
-	    DstBlock		    "For Iterator\nSubsystem"
-	    DstPort		    2
 	  }
 	}
 	Line {
 	  SrcBlock		  "PCI-QUAD04 "
 	  SrcPort		  1
-	  Points		  [0, 0; 40, 0]
+	  Points		  [40, 0]
 	  Branch {
-	    DstBlock		    "Gain"
+	    Labels		    [1, 0]
+	    Points		    [0, -220]
+	    DstBlock		    "For Iterator\nSubsystem"
 	    DstPort		    1
 	  }
 	  Branch {
-	    Labels		    [1, 0]
-	    Points		    [0, -150]
-	    DstBlock		    "For Iterator\nSubsystem"
+	    DstBlock		    "Gain"
 	    DstPort		    1
 	  }
 	}
@@ -8442,7 +8592,7 @@ Model {
 	Line {
 	  SrcBlock		  "From"
 	  SrcPort		  1
-	  Points		  [20, 0; 0, -25]
+	  Points		  [35, 0; 0, -45]
 	  DstBlock		  "For Iterator\nSubsystem"
 	  DstPort		  3
 	}
@@ -8464,13 +8614,20 @@ Model {
 	  DstBlock		  "Pos"
 	  DstPort		  1
 	}
+	Line {
+	  SrcBlock		  "From1"
+	  SrcPort		  1
+	  Points		  [50, 0; 0, -80]
+	  DstBlock		  "For Iterator\nSubsystem"
+	  DstPort		  4
+	}
       }
     }
     Block {
       BlockType		      Reference
       Name		      "Xpos"
       Ports		      [1]
-      Position		      [1035, 445, 1105, 485]
+      Position		      [680, 480, 750, 520]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -8512,9 +8669,9 @@ Model {
 	DstPort			1
       }
       Branch {
-	Points			[0, -150]
+	Points			[0, -105]
 	Branch {
-	  Points		  [0, -100]
+	  Points		  [0, -145]
 	  Branch {
 	    DstBlock		    "Catch Force Generator"
 	    DstPort		    1
@@ -8546,9 +8703,9 @@ Model {
 	  DstPort		  1
 	}
 	Branch {
-	  Points		  [0, -150]
+	  Points		  [0, -110]
 	  Branch {
-	    Points		    [0, -305; 320, 0]
+	    Points		    [0, -345; 320, 0]
 	    Branch {
 	      DstBlock		      "Behavior RW"
 	      DstPort		      1
@@ -8608,16 +8765,9 @@ Model {
     Line {
       SrcBlock		      "Behavior RW"
       SrcPort		      1
-      Points		      [10, 0; 0, 365]
-      Branch {
-	Points			[0, 75]
-	DstBlock		"Motor Control"
-	DstPort			1
-      }
-      Branch {
-	DstBlock		"Matrix\nConcatenation1"
-	DstPort			3
-      }
+      Points		      [10, 0; 0, 440]
+      DstBlock		      "Motor Control"
+      DstPort		      1
     }
     Line {
       SrcBlock		      "Behavior RW"
