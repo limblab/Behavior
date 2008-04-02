@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1119"
+    ComputedModelVersion    "1.1123"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Mar 05 18:27:38 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:1119>"
+  LastModifiedDate	  "Tue Apr 01 19:39:16 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:1123>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -814,7 +814,7 @@ Model {
   }
   System {
     Name		    "random_walk"
-    Location		    [2, 82, 1261, 961]
+    Location		    [2, 74, 998, 708]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1070,7 +1070,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Catch Force Generator"
-	Location		[2, 82, 1278, 978]
+	Location		[2, 82, 1014, 752]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1333,78 +1333,6 @@ Model {
 	  Name			  "Off"
 	  Position		  [75, 140, 105, 170]
 	  Value			  "0"
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Scope (xPC) "
-	  Ports			  [1]
-	  Position		  [175, 325, 265, 385]
-	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
-	  SourceType		  "xpcscopeblock"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
-	  scopeno		  "9"
-	  scopetype		  "Target"
-	  autostart		  on
-	  viewmode		  "Graphical redraw"
-	  formatstr		  "'%15.6f'"
-	  grid			  on
-	  ylimits		  "[0,0]"
-	  nosamples		  "250"
-	  noprepostsamples	  "0"
-	  interleave		  "1"
-	  triggermode		  "FreeRun"
-	  triggersignal		  "1"
-	  triggerlevel		  "0.0"
-	  triggerslope		  "Either"
-	  triggerscope		  "1"
-	  triggersample		  "0"
-	  filename		  "data.dat"
-	  mode			  "Lazy"
-	  writesize		  "512"
-	  autorestart		  off
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Scope (xPC) 1"
-	  Ports			  [1]
-	  Position		  [180, 505, 270, 565]
-	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
-	  SourceType		  "xpcscopeblock"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
-	  scopeno		  "10"
-	  scopetype		  "Target"
-	  autostart		  on
-	  viewmode		  "Graphical redraw"
-	  formatstr		  "'%15.6f'"
-	  grid			  on
-	  ylimits		  "[0,0]"
-	  nosamples		  "250"
-	  noprepostsamples	  "0"
-	  interleave		  "1"
-	  triggermode		  "FreeRun"
-	  triggersignal		  "1"
-	  triggerlevel		  "0.0"
-	  triggerslope		  "Either"
-	  triggerscope		  "1"
-	  triggersample		  "0"
-	  filename		  "data.dat"
-	  mode			  "Lazy"
-	  writesize		  "512"
-	  autorestart		  off
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -1797,37 +1725,23 @@ Model {
 	Line {
 	  SrcBlock		  "LorentzForce"
 	  SrcPort		  1
-	  Points		  [20, 0; 0, 20; 15, 0]
+	  Points		  [20, 0; 0, 20; 35, 0]
 	  Branch {
-	    Points		    [20, 0]
-	    Branch {
-	      DstBlock		      "Mux2"
-	      DstPort		      1
-	    }
-	    Branch {
-	      Points		      [0, -30; 140, 0; 0, -70]
-	      DstBlock		      "Gain"
-	      DstPort		      1
-	    }
+	    DstBlock		    "Mux2"
+	    DstPort		    1
 	  }
 	  Branch {
-	    DstBlock		    "Scope (xPC) "
+	    Points		    [0, -30; 140, 0; 0, -70]
+	    DstBlock		    "Gain"
 	    DstPort		    1
 	  }
 	}
 	Line {
 	  SrcBlock		  "LorentzForce"
 	  SrcPort		  2
-	  Points		  [30, 0; 0, -20; 15, 0]
-	  Branch {
-	    DstBlock		    "Mux2"
-	    DstPort		    2
-	  }
-	  Branch {
-	    Points		    [-5, 0]
-	    DstBlock		    "Scope (xPC) 1"
-	    DstPort		    1
-	  }
+	  Points		  [30, 0; 0, -20]
+	  DstBlock		  "Mux2"
+	  DstPort		  2
 	}
 	Line {
 	  SrcBlock		  "Mux2"
@@ -1893,7 +1807,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Force Generator"
-	Location		[2, 82, 1278, 978]
+	Location		[2, 82, 1014, 752]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1944,7 +1858,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "LorentzForce"
-	    Location		    [2, 82, 1270, 978]
+	    Location		    [2, 82, 1014, 752]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -2637,8 +2551,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[-4, 82, 1276, 1000]
-	Open			off
+	Location		[2, 74, 1014, 708]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2891,6 +2805,15 @@ Model {
 	  Name			  "Memory"
 	  Position		  [555, 525, 585, 555]
 	  Orientation		  "left"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [3, 1]
+	  Position		  [970, 49, 975, 141]
+	  ShowName		  off
+	  Inputs		  "3"
+	  DisplayOption		  "bar"
 	}
 	Block {
 	  BlockType		  Mux
@@ -3275,6 +3198,42 @@ Model {
 	  ZeroCross		  off
 	}
 	Block {
+	  BlockType		  Reference
+	  Name			  "Xpos"
+	  Ports			  [1]
+	  Position		  [1045, 75, 1115, 115]
+	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
+	  SourceType		  "xpcscopeblock"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  scopeno		  "4"
+	  scopetype		  "Target"
+	  autostart		  on
+	  viewmode		  "Numerical"
+	  formatstr		  "'%15.2f Fx,%15.2f FyY,%15.2f T1,%15.2f T2'"
+	  grid			  on
+	  ylimits		  "[-10,10]"
+	  nosamples		  "10"
+	  noprepostsamples	  "0"
+	  interleave		  "10"
+	  triggermode		  "FreeRun"
+	  triggersignal		  "1"
+	  triggerlevel		  "0.0"
+	  triggerslope		  "Either"
+	  triggerscope		  "1"
+	  triggersample		  "0"
+	  filename		  "data.dat"
+	  mode			  "Lazy"
+	  writesize		  "512"
+	  autorestart		  off
+	}
+	Block {
 	  BlockType		  Constant
 	  Name			  "zeroX"
 	  Position		  [235, 140, 265, 170]
@@ -3299,6 +3258,11 @@ Model {
 	    DstBlock		    "Compare\nTo Constant"
 	    DstPort		    1
 	  }
+	  Branch {
+	    Points		    [0, -180]
+	    DstBlock		    "Mux"
+	    DstPort		    2
+	  }
 	}
 	Line {
 	  SrcBlock		  "MG1"
@@ -3312,6 +3276,11 @@ Model {
 	    Points		    [0, 175]
 	    DstBlock		    "Compare\nTo Constant1"
 	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -270]
+	    DstBlock		    "Mux"
+	    DstPort		    3
 	  }
 	}
 	Line {
@@ -3348,7 +3317,6 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  Labels		  [1, 0]
 	  SrcBlock		  "Rate Transition2"
 	  SrcPort		  1
 	  DstBlock		  "PCI-6025E "
@@ -3370,8 +3338,16 @@ Model {
 	Line {
 	  SrcBlock		  "Switch2"
 	  SrcPort		  1
-	  DstBlock		  "Force/Torque Transform"
-	  DstPort		  1
+	  Points		  [35, 0]
+	  Branch {
+	    DstBlock		    "Force/Torque Transform"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -210]
+	    DstBlock		    "Mux"
+	    DstPort		    1
+	  }
 	}
 	Line {
 	  SrcBlock		  "Schmidt"
@@ -3449,6 +3425,12 @@ Model {
 	  SrcBlock		  "Recenter/Arrest Force"
 	  SrcPort		  1
 	  DstBlock		  "Switch1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  "Xpos"
 	  DstPort		  1
 	}
       }
@@ -5479,7 +5461,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"RewardSbs"
-	Location		[2, 82, 1270, 978]
+	Location		[2, 82, 1014, 752]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -6333,7 +6315,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Velocity Calculation"
-	Location		[2, 82, 1278, 978]
+	Location		[2, 82, 1014, 752]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -7001,7 +6983,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"WordSbs"
-	Location		[2, 82, 1270, 978]
+	Location		[2, 82, 1014, 752]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -7033,7 +7015,7 @@ Model {
 	  initValue		  "[0]"
 	  chip			  "1"
 	  sampletime		  "-1"
-	  slot			  "[0 16]"
+	  slot			  "-1"
 	}
 	Block {
 	  BlockType		  Reference
@@ -7117,7 +7099,7 @@ Model {
       MaskIconUnits	      "autoscale"
       System {
 	Name			"XY Position Subsystem"
-	Location		[-2, 82, 1270, 1000]
+	Location		[-2, 82, 1010, 736]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -7376,7 +7358,7 @@ Model {
 	  MaskIconUnits		  "autoscale"
 	  System {
 	    Name		    "For Iterator\nSubsystem"
-	    Location		    [0, 82, 1280, 1000]
+	    Location		    [0, 82, 1012, 752]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -7460,7 +7442,7 @@ Model {
 	      initValue		      "[0]"
 	      chip		      "1"
 	      sampletime	      "-1"
-	      slot		      "[0 16]"
+	      slot		      "-1"
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -7490,7 +7472,7 @@ Model {
 	      MaskHideContents	      off
 	      System {
 		Name			"While Iterator\nSubsystem"
-		Location		[2, 82, 1278, 978]
+		Location		[2, 82, 1014, 752]
 		Open			off
 		ModelBrowserVisibility	off
 		ModelBrowserWidth	200
@@ -7582,7 +7564,7 @@ Model {
 		  reset			  "[1]"
 		  initValue		  "[0]"
 		  sampletime		  "-1"
-		  slot			  "[0 16]"
+		  slot			  "-1"
 		}
 		Block {
 		  BlockType		  Gain
