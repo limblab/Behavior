@@ -344,7 +344,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* execute one step of state machine */
     switch (state) {
         case STATE_PRETRIAL:
-            pretrial_counter++;
             /* pretrial initilization */
             /* 
              * We should only be in this state for one cycle.
@@ -403,7 +402,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             /* get current target or reshuffle at end of block */
              if (reshuffle || target_index >= num_targets*num_gadgets_in_use-1) { 
-                reshuffle_counter++;
                 // reshuffle
                 j = 0;
                 /* set up lists loop */
@@ -458,7 +456,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 ssSetIWorkValue(S, 1, target_index);
             } else {
             //    advance to next target
-                non_reshuffle_counter++;
                 ssSetIWorkValue(S, 1, ++target_index);
            }
            
