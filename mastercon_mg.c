@@ -55,7 +55,6 @@ static real_T use_gadget_3 = 1.0;
 
 #define num_gadgets_in_use ( ( use_gadget_0 ? 1 : 0 ) + ( use_gadget_1 ? 1 : 0 ) + ( use_gadget_2 ? 1 : 0 ) + ( use_gadget_3 ? 1 : 0 ) )
 
-//static real_T target_height
 
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,12))
@@ -135,20 +134,20 @@ static void mdlInitializeSizes(SimStruct *S)
     
     /* 
      * Block has 9 output ports (reward, word, touch pad LED, gadget LED, gadget select, status, tone, target, target select) of widths:
-     *  reward:         1
-     *  word:           1
-     *  touch pad LED:  1
-     *  gadget LED:     1
-     *  gadget select:  1
-     *  status:         4 ( 1: state, 2: rewards, 3: aborts 4: failures )
-     *  tone:           2 ( 1: counter incemented for each new tone, 2: tone ID )     
-     *  target: 10 ( target 1, 2: 
+     * 0: reward:         1
+     * 1: word:           1
+     * 2: touch pad LED:  1
+     * 3: gadget LED:     1
+     * 4: gadget select:  1
+     * 5: status:         4 ( 1: state, 2: rewards, 3: aborts 4: failures )
+     * 6: tone:           2 ( 1: counter incemented for each new tone, 2: tone ID )     
+     * 7: target: 10 ( target 1, 2: 
      *                  type, 
      *                  target UL corner x, 
      *                  target UL corner y,
      *                  target LR corner x, 
      *                  target LR corner y)
-`    *  target select:  1
+`    * 8: target select:  1
      */
     if (!ssSetNumOutputPorts(S, 9)) return;
     ssSetOutputPortWidth(S, 0, 1);
@@ -722,10 +721,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_FAIL && new_state)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
       
-    status[0] = state;
-    status[1] = ssGetIWorkValue(S,2); // num rewards
-    status[2] = ssGetIWorkValue(S,3); // num aborts
-    status[3] = ssGetIWorkValue(S,4); // num failures
+    status[0] = target_index;  //state;
+    status[1] = target_id;  //ssGetIWorkValue(S,2); // num rewards
+    status[2] = gadget_id;  //ssGetIWorkValue(S,3); // num aborts
+    status[3] = num_targets + num_gadgets_in_use;  //ssGetIWorkValue(S,4); // num failures
+    
     
     /* tone (6) */
     if (new_state) {
