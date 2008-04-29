@@ -18,6 +18,8 @@
 /* 0x04 and 0x05 are reserved for the bump-stim task. */
 #elif TASK_MG
 #define WORD_TASK_CODE 0x06
+#elif TASK_WF
+#define WORD_TASK_CODE 0x07
 #endif
 
 /* trial start */
