@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.55"
+    ComputedModelVersion    "1.56"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Apr 11 13:53:52 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:55>"
+  LastModifiedDate	  "Tue Apr 29 18:00:02 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:56>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -453,7 +453,7 @@ Model {
 	      xPCGenerateASAP2	      off
 	      xPCGenerateXML	      off
 	      RL32ObjectName	      "tg"
-	      xPCisDownloadable	      on
+	      xPCisDownloadable	      off
 	      xPCisDefaultEnv	      on
 	    }
 	    PropName		    "Components"
@@ -462,7 +462,7 @@ Model {
 	PropName		"Components"
       }
       Name		      "Configuration"
-      CurrentDlgPage	      "Solver"
+      CurrentDlgPage	      "Real-Time Workshop/xPC Target options"
     }
     PropName		    "ConfigurationSets"
   }
