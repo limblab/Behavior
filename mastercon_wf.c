@@ -37,17 +37,17 @@ static real_T incomplete_timeout = 1.0; /* delay after incomplete */
 static real_T reward_timeout  = 1.0;    /* delay after reward before starting next trial
                                          * This is NOT the reward pulse length */
 
-static real_T center_y = 1.0;
-#define param_center_y mxGetScalar(ssGetSFcnParam(S,5))
-static real_T center_h = 2.0;              
-#define param_center_h mxGetScalar(ssGetSFcnParam(S,6))
-static real_T center_x = 3.0;                                         
-#define param_center_x mxGetScalar(ssGetSFcnParam(S,7))
+static real_T center_y = 0;
+#define param_center_y 0.0
+static real_T center_x = 0;
+#define param_center_x 0.0  
+static real_T center_h = 2.0; 
+#define param_center_h mxGetScalar(ssGetSFcnParam(S,5))
 static real_T center_w = 4.0;
-#define param_center_w mxGetScalar(ssGetSFcnParam(S,8))                                         
+#define param_center_w mxGetScalar(ssGetSFcnParam(S,6))
                                          
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,9))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,7))
 
 /*
  * State IDs
@@ -89,7 +89,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 10); 
+    ssSetNumSFcnParams(S, 8); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
