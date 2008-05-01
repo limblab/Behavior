@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.67"
+    ComputedModelVersion    "1.68"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,9 +44,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Chris"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Apr 29 18:46:41 2008"
+  LastModifiedDate	  "Wed Apr 30 16:38:33 2008"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:67>"
+  ModelVersionFormat	  "1.%<AutoIncrement:68>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -703,7 +703,7 @@ Model {
   }
   System {
     Name		    "wrist_flexion"
-    Location		    [1498, 152, 2717, 842]
+    Location		    [109, 95, 1328, 785]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -724,7 +724,7 @@ Model {
       Position		      [555, 169, 715, 531]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_wf"
-      Parameters	      "8 5 .5 .5 1 2 2 2 2 0"
+      Parameters	      "8 5 .5 .5 1 2 2 0"
       MaskDisplay	      "disp('Master Control\\nWrist-Flexion')\nport_label('input',1,'cursor')\nport_label('input',2,'target list')\nport_label('output',1,'Reward')\nport_label('output',2,'Word')\nport_label('output',3,'Status')\nport_label('output',4,'Tone')\nport_label('output',5,'Targets')\nport_label('output',6,'Target Select')"
       MaskIconFrame	      on
       MaskIconOpaque	      on
