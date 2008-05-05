@@ -57,7 +57,7 @@ static real_T master_reset = 0.0;
 #define STATE_CENTER_HOLD 2
 #define STATE_MOVEMENT 3
 #define STATE_TARGET_HOLD 4 
-#define STATE_CONTINUE_REACH 5
+// #define STATE_CONTINUE_REACH 5
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
@@ -143,7 +143,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                4: time of last center hold timer reset
                            */
     ssSetNumPWork(S, 0);
-    ssSetNumIWork(S, 133); /*  0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 21); /*  0: state_transition (true if state changed), 
                                1: current target index (in sequence),
                                2: successes
                                3: aborts
@@ -429,25 +429,29 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_TARGET_HOLD:
             if (!cursorInTarget(cursor, tgt)) {
-                new_state = STATE_CONTINUE_REACH;
+                new_state = STATE_MOVEMENT;
                 state_changed();
             } else if (elapsed_target_hold_time > target_hold_time) {
                 new_state = STATE_REWARD;
                 state_changed();
                 reset_timer();
+            } else if (elapsed_timer_time > reach_time) {
+	            new_state = STATE_FAIL;
+	            state_changed();
+	            reset_timer();
             }
             break;
-        case STATE_CONTINUE_REACH:
-            if (elapsed_timer_time > reach_time) {
-                new_state = STATE_FAIL;
-                state_changed();
-                reset_timer();
-            } else if (cursorInTarget(cursor, tgt)) {
-                new_state = STATE_TARGET_HOLD;
-                state_changed();
-                reset_target_hold_timer();
-            }
-            break;
+//         case STATE_CONTINUE_REACH:
+//             if (elapsed_timer_time > reach_time) {
+//                 new_state = STATE_FAIL;
+//                 state_changed();
+//                 reset_timer();
+//             } else if (cursorInTarget(cursor, tgt)) {
+//                 new_state = STATE_TARGET_HOLD;
+//                 state_changed();
+//                 reset_target_hold_timer();
+//             }
+//             break;
         case STATE_ABORT:
             /* abort */
             if (elapsed_timer_time > abort_timeout) {
@@ -643,8 +647,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	    /* center green*/
 	    target[5] = 3;
 	}	    	    
-	if ( state == STATE_MOVEMENT || 
-         state == STATE_CONTINUE_REACH )
+	if ( state == STATE_MOVEMENT )
     {
         /* target red */
         target[0] = 1;
