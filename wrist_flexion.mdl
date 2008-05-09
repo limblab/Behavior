@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.73"
+    ComputedModelVersion    "1.74"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,9 +44,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Chris"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri May 09 15:38:52 2008"
+  LastModifiedDate	  "Fri May 09 17:59:33 2008"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:73>"
+  ModelVersionFormat	  "1.%<AutoIncrement:74>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -706,7 +706,7 @@ Model {
   }
   System {
     Name		    "wrist_flexion"
-    Location		    [428, 129, 1206, 712]
+    Location		    [444, 130, 1222, 713]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -745,7 +745,7 @@ Model {
       System {
 	Name			"CursorPos"
 	Location		[301, 197, 1138, 703]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -761,6 +761,7 @@ Model {
 	  BlockType		  Gain
 	  Name			  "AngleCal1"
 	  Position		  [295, 375, 325, 405]
+	  Gain			  "5"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  ParameterDataType	  "sfix(16)"
 	  ParameterScaling	  "2^0"
@@ -801,7 +802,7 @@ Model {
 	  scopetype		  "Target"
 	  autostart		  on
 	  viewmode		  "Numerical"
-	  formatstr		  "' %6.6f Raw 1, %6.6f Raw 2'"
+	  formatstr		  "' %6.6f Raw 1"
 	  grid			  on
 	  ylimits		  "[-10,10]"
 	  nosamples		  "10"
