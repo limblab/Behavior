@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.72"
+    ComputedModelVersion    "1.73"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,9 +44,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Chris"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon May 05 15:11:16 2008"
+  LastModifiedDate	  "Fri May 09 15:38:52 2008"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:72>"
+  ModelVersionFormat	  "1.%<AutoIncrement:73>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -607,6 +607,9 @@ Model {
       OutPortSampleTime	      "-1"
     }
     Block {
+      BlockType		      Reference
+    }
+    Block {
       BlockType		      SignalSpecification
       Dimensions	      "-1"
       SampleTime	      "-1"
@@ -741,7 +744,7 @@ Model {
       FunctionWithSeparateData off
       System {
 	Name			"CursorPos"
-	Location		[1592, 191, 2429, 697]
+	Location		[301, 197, 1138, 703]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1356,7 +1359,7 @@ Model {
       FunctionWithSeparateData off
       System {
 	Name			"UDPXmit"
-	Location		[326, 67, 1310, 785]
+	Location		[326, 82, 1310, 800]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1590,7 +1593,7 @@ Model {
 	  initValue		  "[0]"
 	  chip			  "1"
 	  sampletime		  "-1"
-	  slot			  "[0 16]"
+	  slot			  "[-1]"
 	}
 	Block {
 	  BlockType		  Reference
@@ -1598,7 +1601,7 @@ Model {
 	  Ports			  [1, 8]
 	  Position		  [425, 80, 475, 275]
 	  SourceBlock		  "limblab/ToBits"
-	  SourceType		  ""
+	  SourceType		  "Unknown"
 	}
 	Line {
 	  SrcBlock		  "Word"
