@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3023.23766">
-  <ScreenWidth>35</ScreenWidth>
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3050.28523">
+  <ScreenWidth>15</ScreenWidth>
+  <VerticalDisplacement>-5</VerticalDisplacement>
   <Cursor>5</Cursor>
   <CenterOutMode>None</CenterOutMode>
   <Load>None</Load>
@@ -33,11 +34,11 @@
       </item>
       <item>
         <key>Recenter Handle</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>Use Tachs</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>Visc Constant</key>
@@ -349,7 +350,7 @@
       </item>
       <item>
         <key>MGTargets</key>
-        <value>3</value>
+        <value>1.00000011920929</value>
       </item>
       <item>
         <key>MGTPL</key>
@@ -395,26 +396,54 @@
         <key>MG3</key>
         <value>0</value>
       </item>
+      <item>
+        <key>WFTargets</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>WFRT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFTH</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFCH</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFI</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFH</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFW</key>
+        <value>0</value>
+      </item>
     </dictionary>
   </SerializedParameters>
   <MultiGadgetTargetList>
     <MultiGadgetTarget>
       <x>0</x>
-      <y>0.5</y>
-      <h>0.2</h>
-      <w>2</w>
+      <y>3</y>
+      <h>1.5</h>
+      <w>4</w>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
-      <x>-1</x>
-      <y>2</y>
-      <h>0.5</h>
-      <w>0.5</w>
+      <x>0</x>
+      <y>4.5</y>
+      <h>1.5</h>
+      <w>4</w>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
-      <x>2</x>
-      <y>5</y>
-      <h>2</h>
-      <w>2</w>
+      <x>0</x>
+      <y>3</y>
+      <h>1.5</h>
+      <w>4</w>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
@@ -495,4 +524,102 @@
       <w>0</w>
     </MultiGadgetTarget>
   </MultiGadgetTargetList>
+  <FlextensionTargetList>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>3</y>
+      <h>3</h>
+      <w>3</w>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>3</y>
+      <h>3</h>
+      <w>3</w>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>3</y>
+      <h>3</h>
+      <w>3</w>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>0</x>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
+    </MultiGadgetTarget>
+  </FlextensionTargetList>
 </BehaviorParameters>

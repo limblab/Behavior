@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.56"
+    ComputedModelVersion    "1.57"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Apr 29 18:00:02 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:56>"
+  LastModifiedDate	  "Thu May 08 14:18:44 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:57>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -1034,7 +1034,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "PCI-6025E DO"
 	  Ports			  [4]
-	  Position		  [595, 124, 775, 341]
+	  Position		  [600, 124, 780, 341]
 	  SourceBlock		  "xpcnilib/Digital\nOutput/PCI-6025E DO"
 	  SourceType		  "donipcie6025"
 	  channel		  "[4 5 6 8]"
@@ -2023,7 +2023,7 @@ Model {
 	  initValue		  "[0]"
 	  chip			  "1"
 	  sampletime		  "-1"
-	  slot			  "[0 16]"
+	  slot			  "-1"
 	}
 	Block {
 	  BlockType		  Reference
