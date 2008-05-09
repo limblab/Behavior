@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.74"
+    ComputedModelVersion    "1.78"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,9 +44,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Chris"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri May 09 17:59:33 2008"
+  LastModifiedDate	  "Fri May 09 18:19:02 2008"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:74>"
+  ModelVersionFormat	  "1.%<AutoIncrement:78>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -582,6 +582,14 @@ Model {
       RTWStateStorageClass    "Auto"
     }
     Block {
+      BlockType		      Mux
+      Inputs		      "4"
+      DisplayOption	      "none"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      NonVirtualBus	      off
+    }
+    Block {
       BlockType		      Outport
       Port		      "1"
       UseBusObject	      off
@@ -605,9 +613,6 @@ Model {
       Deterministic	      on
       X0		      "0"
       OutPortSampleTime	      "-1"
-    }
-    Block {
-      BlockType		      Reference
     }
     Block {
       BlockType		      SignalSpecification
@@ -706,7 +711,7 @@ Model {
   }
   System {
     Name		    "wrist_flexion"
-    Location		    [444, 130, 1222, 713]
+    Location		    [293, 128, 1071, 711]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -771,6 +776,23 @@ Model {
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
+	  BlockType		  Constant
+	  Name			  "Constant"
+	  Position		  [290, 320, 320, 350]
+	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [2, 1]
+	  Position		  [395, 361, 400, 399]
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
 	  BlockType		  Reference
 	  Name			  "PCI-6025E AD"
 	  Ports			  [0, 1]
@@ -787,7 +809,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Status1"
 	  Ports			  [1]
-	  Position		  [285, 299, 355, 341]
+	  Position		  [270, 439, 340, 481]
 	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
 	  SourceType		  "xpcscopeblock"
 	  ShowPortLabels	  "FromPortIcon"
@@ -802,7 +824,7 @@ Model {
 	  scopetype		  "Target"
 	  autostart		  on
 	  viewmode		  "Numerical"
-	  formatstr		  "' %6.6f Raw 1"
+	  formatstr		  "' %6.6f Raw y Pos'"
 	  grid			  on
 	  ylimits		  "[-10,10]"
 	  nosamples		  "10"
@@ -822,7 +844,7 @@ Model {
 	Block {
 	  BlockType		  Outport
 	  Name			  "Pos"
-	  Position		  [420, 383, 450, 397]
+	  Position		  [435, 373, 465, 387]
 	  IconDisplay		  "Port number"
 	  OutDataType		  "sfix(16)"
 	  OutScaling		  "2^0"
@@ -836,13 +858,26 @@ Model {
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -70]
+	    Points		    [0, 70]
 	    DstBlock		    "Status1"
 	    DstPort		    1
 	  }
 	}
 	Line {
 	  SrcBlock		  "AngleCal1"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Constant"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, 35]
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux"
 	  SrcPort		  1
 	  DstBlock		  "Pos"
 	  DstPort		  1
@@ -1354,13 +1389,13 @@ Model {
       BlockType		      SubSystem
       Name		      "UDPXmit"
       Ports		      [3]
-      Position		      [540, 286, 650, 354]
+      Position		      [545, 286, 655, 354]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
       System {
 	Name			"UDPXmit"
-	Location		[326, 82, 1310, 800]
+	Location		[119, 254, 1039, 802]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1376,7 +1411,7 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "Pos"
-	  Position		  [305, 123, 335, 137]
+	  Position		  [340, 143, 370, 157]
 	  IconDisplay		  "Port number"
 	  OutDataType		  "sfix(16)"
 	  OutScaling		  "2^0"
@@ -1384,7 +1419,7 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "Tone"
-	  Position		  [300, 583, 330, 597]
+	  Position		  [335, 623, 365, 637]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
 	  OutDataType		  "sfix(16)"
@@ -1393,7 +1428,7 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "Tgts"
-	  Position		  [300, 343, 330, 357]
+	  Position		  [85, 383, 115, 397]
 	  Port			  "3"
 	  IconDisplay		  "Port number"
 	  OutDataType		  "sfix(16)"
@@ -1403,7 +1438,7 @@ Model {
 	  BlockType		  Demux
 	  Name			  "Demux"
 	  Ports			  [1, 10]
-	  Position		  [400, 142, 405, 558]
+	  Position		  [175, 182, 180, 598]
 	  BackgroundColor	  "black"
 	  ShowName		  off
 	  Outputs		  "10"
@@ -1411,9 +1446,19 @@ Model {
 	}
 	Block {
 	  BlockType		  Demux
+	  Name			  "Demux1"
+	  Ports			  [1, 2]
+	  Position		  [410, 109, 415, 191]
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Demux
 	  Name			  "Demux2"
 	  Ports			  [1, 2]
-	  Position		  [470, 549, 475, 631]
+	  Position		  [445, 589, 450, 671]
 	  BackgroundColor	  "black"
 	  ShowName		  off
 	  Outputs		  "2"
@@ -1422,23 +1467,23 @@ Model {
 	Block {
 	  BlockType		  Reference
 	  Name			  "Pack"
-	  Ports			  [13, 1]
-	  Position		  [565, 92, 675, 648]
+	  Ports			  [14, 1]
+	  Position		  [565, 96, 675, 684]
 	  SourceBlock		  "xpclib/UDP/Pack"
 	  SourceType		  "xpcany2byte"
-	  datatypes		  "{'double', 'double','double','double','double','double','double','double','double','double','double','double','double'}"
+	  datatypes		  "{'double', 'double','double','double','double','double','double','double','double','double','double','double','double','double'}"
 	  byteAlign		  "1"
 	}
 	Block {
 	  BlockType		  RateTransition
 	  Name			  "Rate Transition"
-	  Position		  [725, 349, 780, 391]
+	  Position		  [725, 369, 780, 411]
 	}
 	Block {
 	  BlockType		  Reference
 	  Name			  "Send"
 	  Ports			  [1]
-	  Position		  [825, 345, 905, 395]
+	  Position		  [825, 365, 905, 415]
 	  SourceBlock		  "xpclib/UDP/Send"
 	  SourceType		  "xpcudpbytesend"
 	  ipAddress		  "192.168.0.2"
@@ -1459,16 +1504,94 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Pos"
+	  SrcBlock		  "Demux"
+	  SrcPort		  10
+	  DstBlock		  "Pack"
+	  DstPort		  12
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  9
+	  DstBlock		  "Pack"
+	  DstPort		  11
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  8
+	  DstBlock		  "Pack"
+	  DstPort		  10
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  7
+	  DstBlock		  "Pack"
+	  DstPort		  9
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  6
+	  DstBlock		  "Pack"
+	  DstPort		  8
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  5
+	  DstBlock		  "Pack"
+	  DstPort		  7
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  4
+	  DstBlock		  "Pack"
+	  DstPort		  6
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  3
+	  DstBlock		  "Pack"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  DstBlock		  "Pack"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Demux1"
 	  SrcPort		  1
 	  DstBlock		  "Pack"
 	  DstPort		  1
 	}
 	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  DstBlock		  "Pack"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Pos"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  13
+	}
+	Line {
 	  SrcBlock		  "Demux2"
 	  SrcPort		  2
 	  DstBlock		  "Pack"
-	  DstPort		  13
+	  DstPort		  14
 	}
 	Line {
 	  SrcBlock		  "Tone"
@@ -1481,72 +1604,6 @@ Model {
 	  SrcPort		  1
 	  DstBlock		  "Demux"
 	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  1
-	  DstBlock		  "Pack"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  2
-	  DstBlock		  "Pack"
-	  DstPort		  3
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  3
-	  DstBlock		  "Pack"
-	  DstPort		  4
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  4
-	  DstBlock		  "Pack"
-	  DstPort		  5
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  5
-	  DstBlock		  "Pack"
-	  DstPort		  6
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  6
-	  DstBlock		  "Pack"
-	  DstPort		  7
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  7
-	  DstBlock		  "Pack"
-	  DstPort		  8
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  8
-	  DstBlock		  "Pack"
-	  DstPort		  9
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  9
-	  DstBlock		  "Pack"
-	  DstPort		  10
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  10
-	  DstBlock		  "Pack"
-	  DstPort		  11
-	}
-	Line {
-	  SrcBlock		  "Demux2"
-	  SrcPort		  1
-	  DstBlock		  "Pack"
-	  DstPort		  12
 	}
       }
     }
@@ -1561,7 +1618,7 @@ Model {
       System {
 	Name			"WordSbs"
 	Location		[195, 115, 1142, 932]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1602,7 +1659,7 @@ Model {
 	  Ports			  [1, 8]
 	  Position		  [425, 80, 475, 275]
 	  SourceBlock		  "limblab/ToBits"
-	  SourceType		  "Unknown"
+	  SourceType		  ""
 	}
 	Line {
 	  SrcBlock		  "Word"
@@ -1685,12 +1742,12 @@ Model {
 	DstPort			1
       }
       Branch {
-	Points			[0, 0; 0, 285; 510, 0; 0, -260; -145, 0; 0, 30]
-	DstBlock		"UDPXmit"
+	DstBlock		"Status1"
 	DstPort			1
       }
       Branch {
-	DstBlock		"Status1"
+	Points			[0, 285; 510, 0; 0, -260; -145, 0; 0, 30]
+	DstBlock		"UDPXmit"
 	DstPort			1
       }
     }
