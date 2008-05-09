@@ -106,7 +106,7 @@ static void mdlInitializeSizes(SimStruct *S)
      *      input port 1: (target) of width 4 (vertical displacement, height, horiz disp, width)
      */
     if (!ssSetNumInputPorts(S, 2)) return;
-    ssSetInputPortWidth(S, 0, 1); /* cursor position*/
+    ssSetInputPortWidth(S, 0, 2); /* cursor position*/
     ssSetInputPortWidth(S, 1, 4); /* target position */
     ssSetInputPortDirectFeedThrough(S, 0, 1);
     ssSetInputPortDirectFeedThrough(S, 1, 1);
@@ -213,12 +213,7 @@ static void mdlInitializeConditions(SimStruct *S)
  */
 static int cursorInTarget(real_T *c, real_T *t)
 {
-    return ( (c[0] > t[3]) && (c[0] < t[1]));
-}
-
-static int cursorInCenter(real_T *c, real_T *t)
-{
-    return ( (c[0] > t[3]) && (c[0] < t[1]));
+    return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
 }
 
 #define MDL_UPDATE
@@ -240,7 +235,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T tgt[4];
     real_T center[4];
     InputRealPtrsType uPtrs;
-    real_T cursor[1];
+    real_T cursor[2];
     real_T elapsed_timer_time;
     real_T elapsed_target_hold_time;
     real_T elapsed_center_hold_time;
@@ -266,6 +261,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
     cursor[0] = *uPtrs[0];
+    cursor[1] = *uPtrs[1];
 
     
     /* Current target */
@@ -390,14 +386,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             state_changed();
             break;
         case STATE_RECENTERING:
-            if (cursorInCenter(cursor, center)) {
+            if (cursorInTarget(cursor, center)) {
                 new_state = STATE_CENTER_HOLD;
                 state_changed();
                 reset_center_hold_timer();                
             }
             break;
         case STATE_CENTER_HOLD:
-        	if (!cursorInCenter(cursor, center)) {
+        	if (!cursorInTarget(cursor, center)) {
 	        	new_state = STATE_RECENTERING;
 	        	state_changed();
         	} else if ( elapsed_center_hold_time > center_hold_time) {
@@ -503,7 +499,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T tgt[4];
     real_T center[4];
     InputRealPtrsType uPtrs;
-    real_T cursor;
+    real_T cursor[2];
     real_T tone_cnt, tone_id;
     int new_state;
     
@@ -537,7 +533,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
-    cursor = *uPtrs[0];
+    cursor[0] = *uPtrs[0];
+    cursor[1] = *uPtrs[1];
 
     /* Current Target Location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
