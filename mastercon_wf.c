@@ -57,7 +57,6 @@ static real_T master_reset = 0.0;
 #define STATE_CENTER_HOLD 2
 #define STATE_MOVEMENT 3
 #define STATE_TARGET_HOLD 4 
-// #define STATE_CONTINUE_REACH 5
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
@@ -629,40 +628,38 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         target[i+1] = tgt[i];
 		target[i+6] = center[i];
     }
-
-    if (state == STATE_RECENTERING)
-    {
-	    /* target yellow */
-	    target[0] = 2;
-	    /* center red*/
-	    target[5] = 1;
-	}
-    if (state == STATE_CENTER_HOLD)
-    {
-	    /* target yellow */
-	    target[0] = 2;
-	    /* center green*/
-	    target[5] = 3;
-	}	    	    
-	if ( state == STATE_MOVEMENT )
-    {
-        /* target red */
-        target[0] = 1;
-        /* center off */
-        target[5] = 0;
+	
+    switch (state) {
+        case STATE_RECENTERING:
+    	    /* target yellow */
+		    target[0] = 2;
+		    /* center red*/
+		    target[5] = 1;
+            break;
+        case STATE_CENTER_HOLD:
+		    /* target yellow */
+		    target[0] = 2;
+		    /* center green*/
+		    target[5] = 3;
+            break;
+        case STATE_MOVEMENT:
+	        /* target red */
+	        target[0] = 1;
+	        /* center off */
+	        target[5] = 0;
+            break;
+        case STATE_TARGET_HOLD:
+	        /* target green */
+	        target[0] = 3;
+	        /* center off */
+	        target[5] = 0;
+            break;
+        default:
+            /* target and center off */
+	        target[0] = 0;
+	        target[5] = 0;
     }
-    if (state == STATE_TARGET_HOLD) {
-        /* target green */
-        target[0] = 3;
-        /* center off */
-        target[5] = 0;
-    } else {
-        /* target and center off */
-        target[0] = 0;
-        target[5] = 0;
-    }
-    
-    
+   
     /* target_select (5) */
     target_select = target_id;
     
