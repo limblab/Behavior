@@ -478,13 +478,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	                    target_list[i*2+1] = i;
 	                }
                 }
- */             
- 
- 			    /* initialize targets at zero */
-    			for (i = 5 ; i<133 ; i++){
-			        ssSetIWorkValue(S, i, 0);
-			    }
-                   
+ */                              
                 /* and reset the counter */
                 target_index = 0;
                 ssSetIWorkValue(S, 1, target_index);
