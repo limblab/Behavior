@@ -37,17 +37,17 @@ static real_T incomplete_timeout = 1.0; /* delay after incomplete */
 static real_T reward_timeout  = 1.0;    /* delay after reward before starting next trial
                                          * This is NOT the reward pulse length */
 
-static real_T center_y = 0;
-#define param_center_y 0.0
 static real_T center_x = 0;
-#define param_center_x 0.0  
+#define param_center_x mxGetScalar(ssGetSFcnParam(S,5))
+static real_T center_y = 0;
+#define param_center_y mxGetScalar(ssGetSFcnParam(S,6))  
 static real_T center_h = 2.0; 
-#define param_center_h mxGetScalar(ssGetSFcnParam(S,5))
+#define param_center_h mxGetScalar(ssGetSFcnParam(S,7))
 static real_T center_w = 4.0;
-#define param_center_w mxGetScalar(ssGetSFcnParam(S,6))
+#define param_center_w mxGetScalar(ssGetSFcnParam(S,8))
                                          
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,7))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,9))
 
 /*
  * State IDs
@@ -88,7 +88,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 8); 
+    ssSetNumSFcnParams(S, 10); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -230,7 +230,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int target_id;
     int *target_list;
     real_T target_x, target_y, target_h, target_w;
-    real_T center_x, center_y, center_h, center_w;
     real_T tgt[4];
     real_T center[4];
     InputRealPtrsType uPtrs;
@@ -631,13 +630,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	
     switch (state) {
         case STATE_RECENTERING:
-    	    /* target yellow */
+    	    /* target white */
 		    target[0] = 2;
 		    /* center red*/
 		    target[5] = 1;
             break;
         case STATE_CENTER_HOLD:
-		    /* target yellow */
+		    /* target white */
 		    target[0] = 2;
 		    /* center green*/
 		    target[5] = 3;
@@ -658,8 +657,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             /* target and center off */
 	        target[0] = 0;
 	        target[5] = 0;
-    }
-   
+    }   
+
+
+
     /* target_select (5) */
     target_select = target_id;
     

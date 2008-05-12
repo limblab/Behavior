@@ -350,12 +350,33 @@ static void mdlUpdate(SimStruct *S, int_T tid)
              */
             
             /* Update parameters */
+
+
             reshuffle = 0;
-            if (num_targets != param_num_targets) {
+ /*           if (num_targets != param_num_targets) {
                 num_targets = param_num_targets;
                 reshuffle = 1;
             }
-            
+ */         
+			
+			//
+			if (num_targets != param_num_targets   ||
+				use_gadget_0 != param_use_gadget_0 ||
+				use_gadget_1 != param_use_gadget_1 ||
+				use_gadget_2 != param_use_gadget_2 ||
+				use_gadget_3 != param_use_gadget_3 )
+			{
+                reshuffle = 1;
+            }
+         			
+			target_index = ssGetIWorkValue(S, 1);
+			num_targets = param_num_targets;
+			use_gadget_0 = param_use_gadget_0;
+            use_gadget_1 = param_use_gadget_1;
+            use_gadget_2 = param_use_gadget_2;
+            use_gadget_3 = param_use_gadget_3;
+			//
+
             touch_pad_hold_l = param_touch_pad_hold_l;
             touch_pad_hold_h = param_touch_pad_hold_h;
 
@@ -368,7 +389,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             abort_timeout   = param_intertrial;    
             failure_timeout = param_intertrial;   
             reward_timeout  = param_intertrial;    
-
+/*
             if (use_gadget_0 != param_use_gadget_0) {
                 use_gadget_0 = param_use_gadget_0;
                 reshuffle = 1;
@@ -385,7 +406,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 use_gadget_3 = param_use_gadget_3;
                 reshuffle = 1;
             }
-            
+ */           
             /* intialize timers*/
             if (touch_pad_hold_l == touch_pad_hold_h) { 
                 ssSetRWorkValue(S, 4, touch_pad_hold_l);
@@ -616,7 +637,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int state = (int)state_r[0];
     new_state = ssGetIWorkValue(S, 0);
     
-    /* Current target/gadget index */
+	/* Current target/gadget index */
     target_index = ssGetIWorkValue(S, 1);
     target_id = ssGetIWorkValue(S, 5 + target_index*2);
     gadget_id = ssGetIWorkValue(S, 6 + target_index*2);
