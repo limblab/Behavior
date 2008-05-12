@@ -468,19 +468,34 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 for (i=0; i<=num_targets*num_gadgets_in_use-1; i++) {
                     target_list[i*2] = tmp_tgts[i];
                     target_list[i*2+1] = tmp_gdgt[i];
+                    ssSetIWorkValue(S, i*2+5, target_list[i*2]);
+                    ssSetIWorkValue(S, i*2+6, target_list[i*2+1]);
                 }
-                
+/*				
+                for (i=0; i<=num_targets-1; i++) {
+	                for (j=0; j<=num_gadgets_in_use-1; j++) {
+	                    target_list[i*2] = i;
+	                    target_list[i*2+1] = i;
+	                }
+                }
+ */             
+ 
+ 			    /* initialize targets at zero */
+    			for (i = 5 ; i<133 ; i++){
+			        ssSetIWorkValue(S, i, 0);
+			    }
+                   
                 /* and reset the counter */
                 target_index = 0;
                 ssSetIWorkValue(S, 1, target_index);
-            } else {
+               
+                } else {
             //    advance to next target
                 ssSetIWorkValue(S, 1, ++target_index);
            }
            
             new_state = STATE_TOUCH_PAD_ON;
             state_changed();
-
             break;
         case STATE_TOUCH_PAD_ON:
             if (touch_pad) {
@@ -576,6 +591,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         default:
             new_state = STATE_PRETRIAL;
+            state_changed();
     }
     
     /***********
