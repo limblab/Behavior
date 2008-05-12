@@ -287,14 +287,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int new_state = state;
     ssSetIWorkValue(S, 0, 0); /* By default, clear the state-changed flag */
     
+    /* touch pad state */
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
+    touch_pad = *uPtrs[0];
+    
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
     cursor[0] = *uPtrs[0];
     cursor[1] = *uPtrs[1];
-
-    /* touch pad state */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
-    touch_pad = *uPtrs[0];
     
     /* Current target/gadget index */
     target_index = ssGetIWorkValue(S, 1);
@@ -369,7 +369,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 reshuffle = 1;
             }
          			
-			target_index = ssGetIWorkValue(S, 1);
 			num_targets = param_num_targets;
 			use_gadget_0 = param_use_gadget_0;
             use_gadget_1 = param_use_gadget_1;

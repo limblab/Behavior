@@ -260,9 +260,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
     cursor[0] = *uPtrs[0];
     cursor[1] = *uPtrs[1];
-
     
-    /* Current target */
+    /* Current target index*/
     target_index = ssGetIWorkValue(S, 1);
     target_id = ssGetIWorkValue(S, 5 + target_index);
 
@@ -400,16 +399,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	        	reset_timer();
         	}
         	break;
-//         case STATE_REACH:
-//             if (elapsed_timer_time > reach_time) {
-//                 new_state = STATE_FAIL;
-//                 state_changed();
-//                 reset_timer();
-//             } else if (!touch_pad) {
-//                 new_state = STATE_MOVEMENT;
-//                 state_changed();
-//             }
-//             break;
         case STATE_MOVEMENT:
             if (elapsed_timer_time > reach_time) {
                 new_state = STATE_FAIL;
@@ -435,17 +424,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	            reset_timer();
             }
             break;
-//         case STATE_CONTINUE_REACH:
-//             if (elapsed_timer_time > reach_time) {
-//                 new_state = STATE_FAIL;
-//                 state_changed();
-//                 reset_timer();
-//             } else if (cursorInTarget(cursor, tgt)) {
-//                 new_state = STATE_TARGET_HOLD;
-//                 state_changed();
-//                 reset_target_hold_timer();
-//             }
-//             break;
         case STATE_ABORT:
             /* abort */
             if (elapsed_timer_time > abort_timeout) {
