@@ -353,13 +353,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
 
             reshuffle = 0;
- /*           if (num_targets != param_num_targets) {
-                num_targets = param_num_targets;
-                reshuffle = 1;
-            }
- */         
-			
-			//
+       
 			if (num_targets != param_num_targets   ||
 				use_gadget_0 != param_use_gadget_0 ||
 				use_gadget_1 != param_use_gadget_1 ||
@@ -374,7 +368,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             use_gadget_1 = param_use_gadget_1;
             use_gadget_2 = param_use_gadget_2;
             use_gadget_3 = param_use_gadget_3;
-			//
+			
 
             touch_pad_hold_l = param_touch_pad_hold_l;
             touch_pad_hold_h = param_touch_pad_hold_h;
@@ -388,24 +382,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             abort_timeout   = param_intertrial;    
             failure_timeout = param_intertrial;   
             reward_timeout  = param_intertrial;    
-/*
-            if (use_gadget_0 != param_use_gadget_0) {
-                use_gadget_0 = param_use_gadget_0;
-                reshuffle = 1;
-            }
-            if (use_gadget_1 != param_use_gadget_1) {
-                use_gadget_1 = param_use_gadget_1;
-                reshuffle = 1;
-            }
-            if (use_gadget_2 != param_use_gadget_2) {
-                use_gadget_2 = param_use_gadget_2;
-                reshuffle = 1;
-            }
-            if (use_gadget_3 != param_use_gadget_3) {
-                use_gadget_3 = param_use_gadget_3;
-                reshuffle = 1;
-            }
- */           
+          
             /* intialize timers*/
             if (touch_pad_hold_l == touch_pad_hold_h) { 
                 ssSetRWorkValue(S, 4, touch_pad_hold_l);
@@ -418,7 +395,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             } else {
                 ssSetRWorkValue(S, 5, touch_pad_delay_l + UNI*(touch_pad_delay_h-touch_pad_delay_l));
             }
+
             
+
+
             /* get current target or reshuffle at end of block */
              if (reshuffle || target_index >= num_targets*num_gadgets_in_use-1) { 
                 // reshuffle
@@ -464,21 +444,29 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                         }
                     }
                 }
-                /* write lists back to work buffer loop */
+
+				/* write lists back to work buffer loop */
                 for (i=0; i<=num_targets*num_gadgets_in_use-1; i++) {
                     target_list[i*2] = tmp_tgts[i];
                     target_list[i*2+1] = tmp_gdgt[i];
                     ssSetIWorkValue(S, i*2+5, target_list[i*2]);
                     ssSetIWorkValue(S, i*2+6, target_list[i*2+1]);
                 }
-/*				
-                for (i=0; i<=num_targets-1; i++) {
+
+				/* sequential target-gadget list for testing */
+/*                for (i=0; i<=num_targets-1; i++) {
 	                for (j=0; j<=num_gadgets_in_use-1; j++) {
-	                    target_list[i*2] = i;
-	                    target_list[i*2+1] = i;
+	                    target_list[i*num_gadgets_in_use*2+2*j] = i;
+	                    target_list[i*num_gadgets_in_use*2+2*j+1] = j;
 	                }
                 }
- */                              
+                for (i=0; i<=num_targets*num_gadgets_in_use-1; i++) {
+                    ssSetIWorkValue(S, i*2+5, target_list[i*2]);
+                    ssSetIWorkValue(S, i*2+6, target_list[i*2+1]);
+                }
+*/
+
+                             
                 /* and reset the counter */
                 target_index = 0;
                 ssSetIWorkValue(S, 1, target_index);
@@ -751,10 +739,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_FAIL && new_state)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
       
-    status[0] = target_index;  //state;
-    status[1] = target_id;  //ssGetIWorkValue(S,2); // num rewards
-    status[2] = gadget_id;  //ssGetIWorkValue(S,3); // num aborts
-    status[3] = num_targets + num_gadgets_in_use;  //ssGetIWorkValue(S,4); // num failures
+    status[0] = state;
+    status[1] = ssGetIWorkValue(S,2); // num rewards
+    status[2] = ssGetIWorkValue(S,3); // num aborts
+    status[3] = ssGetIWorkValue(S,4); // num failures
     
     
     /* tone (6) */
@@ -798,6 +786,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* target_select (8) */
     target_select = target_id;
+
     
     /**********************************
      * Write outputs back to SimStruct

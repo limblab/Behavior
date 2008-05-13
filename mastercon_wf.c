@@ -57,6 +57,7 @@ static real_T master_reset = 0.0;
 #define STATE_CENTER_HOLD 2
 #define STATE_MOVEMENT 3
 #define STATE_TARGET_HOLD 4 
+#define STATE_CONTINUE_MOVEMENT 5
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
@@ -369,6 +370,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 /* write lists back to work buffer loop */
                 for (i=0; i<=num_targets-1; i++) {
                     target_list[i] = tmp_tgts[i];
+					ssSetIWorkValue(S, i+5, target_list[i]);
                 }
                 
                 /* and reset the counter */
@@ -412,7 +414,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_TARGET_HOLD:
             if (!cursorInTarget(cursor, tgt)) {
-                new_state = STATE_MOVEMENT;
+                new_state = STATE_CONTINUE_MOVEMENT;
                 state_changed();
             } else if (elapsed_target_hold_time > target_hold_time) {
                 new_state = STATE_REWARD;
@@ -422,6 +424,17 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	            new_state = STATE_FAIL;
 	            state_changed();
 	            reset_timer();
+            }
+            break;
+		case STATE_CONTINUE_MOVEMENT:
+            if (elapsed_timer_time > reach_time) {
+                new_state = STATE_FAIL;
+                state_changed();
+                reset_timer();
+            } else if (cursorInTarget(cursor, tgt)) {
+                new_state = STATE_TARGET_HOLD;
+                state_changed();
+                reset_target_hold_timer();
             }
             break;
         case STATE_ABORT:
@@ -620,6 +633,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		    target[5] = 3;
             break;
         case STATE_MOVEMENT:
+	        /* target red */
+	        target[0] = 1;
+	        /* center off */
+	        target[5] = 0;
+            break;
+        case STATE_CONTINUE_MOVEMENT:
 	        /* target red */
 	        target[0] = 1;
 	        /* center off */
