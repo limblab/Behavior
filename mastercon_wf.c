@@ -45,9 +45,12 @@ static real_T center_h = 2.0;
 #define param_center_h mxGetScalar(ssGetSFcnParam(S,7))
 static real_T center_w = 4.0;
 #define param_center_w mxGetScalar(ssGetSFcnParam(S,8))
+
+static real_T tgt_view_delay = 0;
+#define param_tgt_view_delay mxGetScalar(ssGetSFcnParam(S,9))
                                          
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,9))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,10))
 
 /*
  * State IDs
@@ -58,6 +61,7 @@ static real_T master_reset = 0.0;
 #define STATE_MOVEMENT 3
 #define STATE_TARGET_HOLD 4 
 #define STATE_CONTINUE_MOVEMENT 5
+#define STATE_CENTER_HOLD_WITH_TARGET 6
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
@@ -73,6 +77,7 @@ static void mdlCheckParameters(SimStruct *S)
 
   reach_time = param_reach_time;
   target_hold_time = param_target_hold_time;
+  tgt_view_delay = param_tgt_view_delay;
 
   center_y = param_center_y;
   center_h = param_center_h;
@@ -141,6 +146,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                2: tone counter (incremented each time a tone is played)
                                3: tone id
                                4: time of last center hold timer reset
+                               
                            */
     ssSetNumPWork(S, 0);
     ssSetNumIWork(S, 21); /*  0: state_transition (true if state changed), 
@@ -333,6 +339,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
                        
             reach_time = param_reach_time;
+            tgt_view_delay = param_tgt_view_delay;
             target_hold_time = param_target_hold_time;
 
             center_hold_time = param_center_hold_time; 
@@ -388,10 +395,24 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             if (cursorInTarget(cursor, center)) {
                 new_state = STATE_CENTER_HOLD;
                 state_changed();
-                reset_center_hold_timer();                
+                reset_center_hold_timer();
+                reset_timer();                
             }
             break;
         case STATE_CENTER_HOLD:
+        	if (!cursorInTarget(cursor, center)) {
+	        	new_state = STATE_RECENTERING;
+	        	state_changed();
+        	} else if ( elapsed_center_hold_time > center_hold_time) {
+	        	new_state = STATE_MOVEMENT;
+	        	state_changed();
+	        	reset_timer();
+        	} else if (elapsed_timer_time > tgt_view_delay) {
+	        	new_state = STATE_CENTER_HOLD_WITH_TARGET;
+	        	state_changed();
+        	}
+        	break;
+        case STATE_CENTER_HOLD_WITH_TARGET:
         	if (!cursorInTarget(cursor, center)) {
 	        	new_state = STATE_RECENTERING;
 	        	state_changed();
@@ -625,31 +646,37 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		    target[0] = 2;
 		    /* center red*/
 		    target[5] = 1;
-            break;
+        break;
         case STATE_CENTER_HOLD:
+		    /* target off */
+		    target[0] = 0;
+		    /* center green*/
+		    target[5] = 3;
+        break;
+        case STATE_CENTER_HOLD_WITH_TARGET:
 		    /* target white */
 		    target[0] = 2;
 		    /* center green*/
 		    target[5] = 3;
-            break;
+	    break;
         case STATE_MOVEMENT:
 	        /* target red */
 	        target[0] = 1;
 	        /* center off */
 	        target[5] = 0;
-            break;
+        break;
         case STATE_CONTINUE_MOVEMENT:
 	        /* target red */
 	        target[0] = 1;
 	        /* center off */
 	        target[5] = 0;
-            break;
+        break;
         case STATE_TARGET_HOLD:
 	        /* target green */
 	        target[0] = 3;
 	        /* center off */
 	        target[5] = 0;
-            break;
+        break;
         default:
             /* target and center off */
 	        target[0] = 0;
