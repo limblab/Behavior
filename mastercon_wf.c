@@ -94,7 +94,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 10); 
+    ssSetNumSFcnParams(S, 11); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -586,6 +586,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
                 break;
+			case STATE_CENTER_HOLD_WITH_TARGET:
+				word = WORD_OT_ON(target_id);
+				break;
             case STATE_MOVEMENT:
                 word = WORD_MOVEMENT_ONSET;
                 break;
@@ -642,8 +645,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	
     switch (state) {
         case STATE_RECENTERING:
-    	    /* target white */
-		    target[0] = 2;
+    	    /* target off */
+		    target[0] = 0;
 		    /* center red*/
 		    target[5] = 1;
         break;
