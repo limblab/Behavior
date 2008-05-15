@@ -797,9 +797,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if ( state == STATE_CT_ON || 
          state == STATE_CENTER_HOLD || 
          state == STATE_CENTER_HOLD_BUMP ||
-         state == STATE_CENTER_DELAY ||
-         state == STATE_MOVEMENT ||
-         state == STATE_OUTER_HOLD )
+         state == STATE_CENTER_DELAY )
     {
         /* center target on */
         target_pos[0] = 1;
