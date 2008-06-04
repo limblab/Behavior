@@ -48,9 +48,12 @@ static real_T center_w = 4.0;
 
 static real_T tgt_view_delay = 0;
 #define param_tgt_view_delay mxGetScalar(ssGetSFcnParam(S,9))
-                                         
+                           
+static real_T succeed_to_continue = 0;
+#define param_succeed_to_continue mxGetScalar(ssGetSFcnParam(S,10))
+              
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,10))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,11))
 
 /*
  * State IDs
@@ -87,14 +90,16 @@ static void mdlCheckParameters(SimStruct *S)
   abort_timeout      = param_intertrial;
   failure_timeout    = param_intertrial;
   incomplete_timeout = param_intertrial;
-  reward_timeout     = param_intertrial;    
+  reward_timeout     = param_intertrial;
+  
+  succeed_to_continue = param_succeed_to_continue;    
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 11); 
+    ssSetNumSFcnParams(S, 12); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -155,6 +160,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                3: aborts
                                4: failures 
                           [5-20]: target_id list
+                          	  21: success_flag
                           */
     
     /* we have no zero crossing detection or modes */
@@ -195,6 +201,9 @@ static void mdlInitializeConditions(SimStruct *S)
         ssSetIWorkValue(S, i, 0);
     }
     
+    /* initialize success_flag at zero */
+    ssSetIWorkValue(S, 21, 0);
+    
     /* set trial counters to zero */
     ssSetIWorkValue(S, 2, 0);
     ssSetIWorkValue(S, 3, 0);
@@ -210,6 +219,7 @@ static void mdlInitializeConditions(SimStruct *S)
 #define reset_timer() (ssSetRWorkValue(S, 0, (real_T)ssGetT(S)))
 #define reset_target_hold_timer() (ssSetRWorkValue(S, 1, (real_T)ssGetT(S)))
 #define reset_center_hold_timer() (ssSetRWorkValue(S, 4, (real_T)ssGetT(S)))
+#define success_flag() (ssSetIWorkValue(S, 21, 1))
 
 /* cursorInTarget---For a 1D task
  * returns true (1) if the cursor is in the target and false (0) otherwise
@@ -244,6 +254,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T elapsed_timer_time;
     real_T elapsed_target_hold_time;
     real_T elapsed_center_hold_time;
+    real_T success_flag;
     
     
     int tmp_tgts[64];
@@ -274,6 +285,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
     IWorkVector = ssGetIWork(S);
     target_list = IWorkVector+5;
+    
+    /* Success Flag */
+    success_flag = ssGetIWorkValue(S, 21);
     
     /* Current Target Location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
@@ -325,7 +339,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* execute one step of state machine */
     switch (state) {
         case STATE_PRETRIAL:
-            /* pretrial initilization */
+            /* pretrial initialization */
             /* 
              * We should only be in this state for one cycle.
              * Initialize the trial and then advance to STATE_RECENTERING 
@@ -347,8 +361,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             abort_timeout   = param_intertrial;    
             failure_timeout = param_intertrial;   
             reward_timeout  = param_intertrial;    
+            
+            succeed_to_continue = param_succeed_to_continue;
 
-           
             /* get current target or reshuffle at end of block */
              if (reshuffle || target_index >= num_targets-1) { 
                 // reshuffle
@@ -383,11 +398,17 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 /* and reset the counter */
                 target_index = 0;
                 ssSetIWorkValue(S, 1, target_index);
+                
+            } else if (succeed_to_continue) {
+	            //    advance to next target only if previous success
+                if (success_flag) ssSetIWorkValue(S, 1, ++target_index);
+                ssSetIWorkValue(S, 21, 0);	// reset success flag
+                
             } else {
-            //    advance to next target
-                ssSetIWorkValue(S, 1, ++target_index);
-           }
-           
+	            // advance to next target
+	            ssSetIWorkValue(S, 1, ++target_index);
+            }
+       			           
             new_state = STATE_RECENTERING;
             state_changed();
             break;
@@ -477,6 +498,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             if (elapsed_timer_time > reward_timeout) {
                 new_state = STATE_PRETRIAL;
                 state_changed();
+                success_flag();
             }
             break;
         default:
