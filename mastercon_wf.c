@@ -51,9 +51,12 @@ static real_T tgt_view_delay = 0;
                            
 static real_T succeed_to_continue = 0;
 #define param_succeed_to_continue mxGetScalar(ssGetSFcnParam(S,10))
-              
+
+static real_T multiple_targets = 0;
+#define param_multiple_targets mxGetScalar(ssGetSFcnParam(S,11))
+
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,11))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,12))
 
 /*
  * State IDs
@@ -92,14 +95,15 @@ static void mdlCheckParameters(SimStruct *S)
   incomplete_timeout = param_intertrial;
   reward_timeout     = param_intertrial;
   
-  succeed_to_continue = param_succeed_to_continue;    
+  succeed_to_continue = param_succeed_to_continue;
+  multiple_targets = param_multiple_targets;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 12); 
+    ssSetNumSFcnParams(S, 13); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -154,7 +158,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                
                            */
     ssSetNumPWork(S, 0);
-    ssSetNumIWork(S, 21); /*  0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 22); /*  0: state_transition (true if state changed), 
                                1: current target index (in sequence),
                                2: successes
                                3: aborts
@@ -402,14 +406,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             } else if (succeed_to_continue) {
 	            //    advance to next target only if previous success
                 if (success_flag) ssSetIWorkValue(S, 1, ++target_index);
-                ssSetIWorkValue(S, 21, 0);	// reset success flag
-                
             } else {
 	            // advance to next target
 	            ssSetIWorkValue(S, 1, ++target_index);
             }
        			           
             new_state = STATE_RECENTERING;
+			ssSetIWorkValue(S, 21, 0);	// reset success flag
             state_changed();
             break;
         case STATE_RECENTERING:
@@ -459,9 +462,18 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_CONTINUE_MOVEMENT;
                 state_changed();
             } else if (elapsed_target_hold_time > target_hold_time) {
-                new_state = STATE_REWARD;
-                state_changed();
-                reset_timer();
+				/*next state depends on whether there are more targets */
+				if (target_index == (int)num_targets-1 || multiple_targets == 0) {
+					new_state = STATE_REWARD;
+					state_changed();
+					reset_timer();
+				} else {
+					/* more targets*/
+					ssSetIWorkValue(S, 1, ++target_index);
+					new_state = STATE_MOVEMENT;
+					state_changed();
+					reset_timer();
+				}
             } else if (elapsed_timer_time > reach_time) {
 	            new_state = STATE_FAIL;
 	            state_changed();
