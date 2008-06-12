@@ -64,6 +64,7 @@ for i = 1:length(rtwfiles)
     filedate = dir(filename);
     filedate = filedate.datenum;
     
+    % Check if mdl file has been updated
     compname = strcat(rtwfiles(i), '.dlm');
     compname = compname{1};
     compdate = dir(compname);
@@ -75,7 +76,7 @@ for i = 1:length(rtwfiles)
     else 
         build = 1;
     end
-    
+        
     if (build)
         disp(['building: ' filename]);
         filename = rtwfiles(i);

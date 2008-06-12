@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1150"
+    ComputedModelVersion    "1.1152"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "Selket"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Apr 07 14:23:53 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:1150>"
+  LastModifiedDate	  "Thu Jun 12 14:32:46 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:1152>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -814,7 +814,7 @@ Model {
   }
   System {
     Name		    "random_walk"
-    Location		    [6, 74, 1274, 964]
+    Location		    [6, 82, 1274, 972]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -2550,8 +2550,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[4, 42, 1276, 1000]
-	Open			on
+	Location		[4, 82, 1276, 1000]
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -6308,7 +6308,7 @@ Model {
       System {
 	Name			"Velocity Calculation"
 	Location		[2, 82, 1270, 978]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -7112,7 +7112,7 @@ Model {
       System {
 	Name			"XY Position Subsystem"
 	Location		[54, 86, 1070, 808]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -7993,8 +7993,8 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Jacobian-Cartesian Transformation"
-	    Location		    [0, 74, 1268, 1000]
-	    Open		    off
+	    Location		    [0, 82, 1268, 1000]
+	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -8022,7 +8022,7 @@ Model {
 	    Block {
 	      BlockType		      Gain
 	      Name		      "Gain"
-	      Position		      [705, 143, 740, 187]
+	      Position		      [700, 53, 735, 97]
 	      Gain		      "-1"
 	      ParameterDataTypeMode   "Inherit via internal rule"
 	      OutDataTypeMode	      "Inherit via internal rule"
@@ -8045,6 +8045,18 @@ Model {
 	      ParameterDataTypeMode   "Inherit via internal rule"
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "L1"
+	      Position		      [185, 295, 215, 325]
+	      Value		      "24"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "L2"
+	      Position		      [150, 570, 180, 600]
+	      Value		      "23.5"
 	    }
 	    Block {
 	      BlockType		      Concatenate
@@ -8071,10 +8083,50 @@ Model {
 	      ConcatenateDimension    "2"
 	    }
 	    Block {
+	      BlockType		      Product
+	      Name		      "Product"
+	      Ports		      [2, 1]
+	      Position		      [285, 57, 315, 88]
+	      CollapseMode	      "All dimensions"
+	      InputSameDT	      off
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Product1"
+	      Ports		      [2, 1]
+	      Position		      [280, 222, 310, 253]
+	      CollapseMode	      "All dimensions"
+	      InputSameDT	      off
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Product2"
+	      Ports		      [2, 1]
+	      Position		      [300, 367, 330, 398]
+	      CollapseMode	      "All dimensions"
+	      InputSameDT	      off
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Product3"
+	      Ports		      [2, 1]
+	      Position		      [300, 492, 330, 523]
+	      CollapseMode	      "All dimensions"
+	      InputSameDT	      off
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
 	      BlockType		      Sum
 	      Name		      "Sum1"
 	      Ports		      [2, 1]
-	      Position		      [520, 275, 540, 295]
+	      Position		      [520, 295, 540, 315]
 	      ShowName		      off
 	      IconShape		      "round"
 	      Inputs		      "|++"
@@ -8094,7 +8146,7 @@ Model {
 	      BlockType		      Sum
 	      Name		      "Sum3"
 	      Ports		      [2, 1]
-	      Position		      [410, 275, 430, 295]
+	      Position		      [410, 295, 430, 315]
 	      ShowName		      off
 	      IconShape		      "round"
 	      Inputs		      "-+"
@@ -8111,33 +8163,35 @@ Model {
 	      CollapseMode	      "All dimensions"
 	    }
 	    Block {
-	      BlockType		      Fcn
-	      Name		      "cos(length of Elbow)"
-	      Position		      [210, 445, 270, 475]
-	      Expr		      "23.5*cos(u)"
+	      BlockType		      Trigonometry
+	      Name		      "Trigonometric\nFunction"
+	      Ports		      [1, 1]
+	      Position		      [190, 50, 220, 80]
+	      Operator		      "cos"
 	    }
 	    Block {
-	      BlockType		      Fcn
-	      Name		      "cos(length of Shoulder)"
-	      Position		      [230, 225, 290, 255]
-	      Expr		      "24.0*sin(u)"
+	      BlockType		      Trigonometry
+	      Name		      "Trigonometric\nFunction1"
+	      Ports		      [1, 1]
+	      Position		      [190, 215, 220, 245]
 	    }
 	    Block {
-	      BlockType		      Fcn
-	      Name		      "sin(length of Elbow)"
-	      Position		      [210, 375, 270, 405]
-	      Expr		      "23.5*sin(u)"
+	      BlockType		      Trigonometry
+	      Name		      "Trigonometric\nFunction2"
+	      Ports		      [1, 1]
+	      Position		      [205, 360, 235, 390]
 	    }
 	    Block {
-	      BlockType		      Fcn
-	      Name		      "sin(length of Shoulder)"
-	      Position		      [230, 60, 290, 90]
-	      Expr		      "24.0*cos(u)"
+	      BlockType		      Trigonometry
+	      Name		      "Trigonometric\nFunction3"
+	      Ports		      [1, 1]
+	      Position		      [205, 485, 235, 515]
+	      Operator		      "cos"
 	    }
 	    Block {
 	      BlockType		      Constant
 	      Name		      "xoffset"
-	      Position		      [455, 315, 485, 345]
+	      Position		      [455, 335, 485, 365]
 	      Value		      "-2"
 	    }
 	    Block {
@@ -8149,7 +8203,7 @@ Model {
 	    Block {
 	      BlockType		      Outport
 	      Name		      "X"
-	      Position		      [585, 278, 615, 292]
+	      Position		      [585, 298, 615, 312]
 	      IconDisplay	      "Port number"
 	      BusOutputAsStruct	      off
 	    }
@@ -8164,7 +8218,7 @@ Model {
 	    Block {
 	      BlockType		      Outport
 	      Name		      "RawX"
-	      Position		      [580, 218, 610, 232]
+	      Position		      [585, 263, 615, 277]
 	      Port		      "3"
 	      IconDisplay	      "Port number"
 	      BusOutputAsStruct	      off
@@ -8190,40 +8244,39 @@ Model {
 	      SrcPort		      1
 	      Points		      [70, 0]
 	      Branch {
-		Points			[0, -70]
-		DstBlock		"sin(length of Shoulder)"
+		Points			[0, 85]
+		DstBlock		"Trigonometric\nFunction1"
 		DstPort			1
 	      }
 	      Branch {
-		Points			[0, 95]
-		DstBlock		"cos(length of Shoulder)"
+		Points			[0, -80]
+		DstBlock		"Trigonometric\nFunction"
 		DstPort			1
 	      }
 	    }
 	    Line {
-	      SrcBlock		      "sin(length of Shoulder)"
+	      SrcBlock		      "Product"
 	      SrcPort		      1
-	      Points		      [75, 0]
+	      Points		      [50, 0]
 	      Branch {
 		DstBlock		"Sum2"
 		DstPort			1
 	      }
 	      Branch {
-		Points			[305, 0; 0, 90]
 		DstBlock		"Gain"
 		DstPort			1
 	      }
 	    }
 	    Line {
-	      SrcBlock		      "sin(length of Elbow)"
+	      SrcBlock		      "Product2"
 	      SrcPort		      1
-	      Points		      [95, 0]
+	      Points		      [35, 0]
 	      Branch {
 		DstBlock		"Sum2"
 		DstPort			2
 	      }
 	      Branch {
-		Points			[0, 25]
+		Points			[0, 30]
 		DstBlock		"Gain1"
 		DstPort			1
 	      }
@@ -8237,15 +8290,15 @@ Model {
 		DstPort			1
 	      }
 	      Branch {
-		Points			[0, -60]
+		Points			[0, -35]
 		DstBlock		"RawX"
 		DstPort			1
 	      }
 	    }
 	    Line {
-	      SrcBlock		      "cos(length of Shoulder)"
+	      SrcBlock		      "Product1"
 	      SrcPort		      1
-	      Points		      [125, 0]
+	      Points		      [105, 0]
 	      Branch {
 		DstBlock		"Sum3"
 		DstPort			1
@@ -8296,9 +8349,9 @@ Model {
 	      DstPort		      2
 	    }
 	    Line {
-	      SrcBlock		      "cos(length of Elbow)"
+	      SrcBlock		      "Product3"
 	      SrcPort		      1
-	      Points		      [145, 0; 0, 0]
+	      Points		      [85, 0; 0, -50]
 	      Branch {
 		DstBlock		"Sum3"
 		DstPort			2
@@ -8313,13 +8366,13 @@ Model {
 	      SrcPort		      1
 	      Points		      [55, 0]
 	      Branch {
-		Points			[0, -35]
-		DstBlock		"sin(length of Elbow)"
+		Points			[0, -50]
+		DstBlock		"Trigonometric\nFunction2"
 		DstPort			1
 	      }
 	      Branch {
-		Points			[0, 35]
-		DstBlock		"cos(length of Elbow)"
+		Points			[0, 75]
+		DstBlock		"Trigonometric\nFunction3"
 		DstPort			1
 	      }
 	    }
@@ -8346,6 +8399,7 @@ Model {
 	    Line {
 	      SrcBlock		      "Gain"
 	      SrcPort		      1
+	      Points		      [40, 0; 0, 90]
 	      DstBlock		      "Matrix\nConcatenate"
 	      DstPort		      1
 	    }
@@ -8361,9 +8415,62 @@ Model {
 	      DstBlock		      "Matrix\nConcatenate1"
 	      DstPort		      2
 	    }
+	    Line {
+	      SrcBlock		      "Trigonometric\nFunction"
+	      SrcPort		      1
+	      DstBlock		      "Product"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Trigonometric\nFunction3"
+	      SrcPort		      1
+	      DstBlock		      "Product3"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Trigonometric\nFunction2"
+	      SrcPort		      1
+	      DstBlock		      "Product2"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "L2"
+	      SrcPort		      1
+	      Points		      [90, 0; 0, -70]
+	      Branch {
+		Points			[0, -125]
+		DstBlock		"Product2"
+		DstPort			2
+	      }
+	      Branch {
+		DstBlock		"Product3"
+		DstPort			2
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Trigonometric\nFunction1"
+	      SrcPort		      1
+	      DstBlock		      "Product1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "L1"
+	      SrcPort		      1
+	      Points		      [25, 0; 0, -65]
+	      Branch {
+		Points			[0, -165]
+		DstBlock		"Product"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[5, 0]
+		DstBlock		"Product1"
+		DstPort			2
+	      }
+	    }
 	    Annotation {
 	      Name		      "By default X offset is zero and Y is 28"
-	      Position		      [539, 374]
+	      Position		      [539, 394]
 	    }
 	  }
 	}
