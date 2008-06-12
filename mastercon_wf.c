@@ -348,14 +348,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
              * We should only be in this state for one cycle.
              * Initialize the trial and then advance to STATE_RECENTERING 
              */
+
             
-            /* Update parameters */
-            reshuffle = 0;
-            if (num_targets != param_num_targets) {
-                num_targets = param_num_targets;
-                reshuffle = 1;
-            }
-                       
+            /* Update parameters */        
             reach_time = param_reach_time;
             tgt_view_delay = param_tgt_view_delay;
             target_hold_time = param_target_hold_time;
@@ -367,53 +362,86 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             reward_timeout  = param_intertrial;    
             
             succeed_to_continue = param_succeed_to_continue;
+            multiple_targets = param_multiple_targets;
+
+
+			/* To resuffle or not to reshuffle */           
+            reshuffle = 0;
+
+			//reshuffle if something has changed
+            if (num_targets != param_num_targets ||
+			succeed_to_continue != param_succeed_to_continue ||
+			multiple_targets != param_multiple_targets) {
+
+				num_targets = param_num_targets;
+				succeed_to_continue = param_succeed_to_continue;
+				multiple_targets = param_multiple_targets;
+                reshuffle = 1;
+            }
+
+			if (multiple_targets) {
+				//reshuffle every_new trial in this case
+				reshuffle = 1;
+			}
+
+			if (target_index == num_targets-1) {
+				if (succeed_to_continue && success_flag == 0) {
+					//we stay at the last target until success
+					//so no reshuffling unless previously
+					//set to 1 by previous conditions
+				} else {
+					reshuffle = 1;  // default if we reached last target in the list
+				}
+			}
+
 
             /* get current target or reshuffle at end of block */
-             if (reshuffle || target_index >= num_targets-1) { 
-                // reshuffle
-                j = 0;
-                /* set up lists loop */
-                for (i=0; i<num_targets; i++) {
-  	                tmp_tgts[j] = i;
-                    tmp_sort[j++] = rand();
-                }
-                
-                /* shuffle lists loop */
-                for (i=0; i<num_targets-1; i++) {
-                    for (j=0; j<num_targets-1; j++) {
-                        if (tmp_sort[j] < tmp_sort[j+1]) {
-                            tmp_d = tmp_sort[j];
-                            tmp_sort[j] = tmp_sort[j+1];
-                            tmp_sort[j+1] = tmp_d;
-                            
-                            tmp_i = tmp_tgts[j];
-                            tmp_tgts[j] = tmp_tgts[j+1];
-                            tmp_tgts[j+1] = tmp_i;
-                        }
-                    }
-                }
-                
-                /* write lists back to work buffer loop */
-                for (i=0; i<=num_targets-1; i++) {
-                    target_list[i] = tmp_tgts[i];
+			if (reshuffle) {
+				// reshuffle
+				j = 0;
+				/* set up lists loop */
+				for (i=0; i<num_targets; i++) {
+					tmp_tgts[j] = i;
+					tmp_sort[j++] = rand();
+				}
+				
+				/* shuffle lists loop */
+				for (i=0; i<num_targets-1; i++) {
+					for (j=0; j<num_targets-1; j++) {
+						if (tmp_sort[j] < tmp_sort[j+1]) {
+							tmp_d = tmp_sort[j];
+							tmp_sort[j] = tmp_sort[j+1];
+							tmp_sort[j+1] = tmp_d;
+							
+							tmp_i = tmp_tgts[j];
+							tmp_tgts[j] = tmp_tgts[j+1];
+							tmp_tgts[j+1] = tmp_i;
+						}
+					}
+				}
+				
+				/* write lists back to work buffer loop */
+				for (i=0; i<=num_targets-1; i++) {
+					target_list[i] = tmp_tgts[i];
 					ssSetIWorkValue(S, i+5, target_list[i]);
-                }
+				}
+				
+				/* and reset the counter */
+				target_index = 0;
+				ssSetIWorkValue(S, 1, target_index);
                 
-                /* and reset the counter */
-                target_index = 0;
-                ssSetIWorkValue(S, 1, target_index);
-                
-            } else if (succeed_to_continue) {
+			} else if (succeed_to_continue) {
 	            //    advance to next target only if previous success
                 if (success_flag) ssSetIWorkValue(S, 1, ++target_index);
-            } else {
-	            // advance to next target
+			} else {
+				// default : advance to next target
 	            ssSetIWorkValue(S, 1, ++target_index);
             }
-       			           
+
             new_state = STATE_RECENTERING;
 			ssSetIWorkValue(S, 21, 0);	// reset success flag
             state_changed();
+
             break;
         case STATE_RECENTERING:
             if (cursorInTarget(cursor, center)) {
@@ -462,6 +490,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_CONTINUE_MOVEMENT;
                 state_changed();
             } else if (elapsed_target_hold_time > target_hold_time) {
+				success_flag();
 				/*next state depends on whether there are more targets */
 				if (target_index == (int)num_targets-1 || multiple_targets == 0) {
 					new_state = STATE_REWARD;
