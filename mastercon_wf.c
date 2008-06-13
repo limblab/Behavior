@@ -116,7 +116,7 @@ static void mdlInitializeSizes(SimStruct *S)
     
     /*
      * Block has 2 input ports
-     *      input port 0: (position) of width 1 (vertical cursor displacement)
+     *      input port 0: (position) of width 2 (horizontal and vertical cursor displacement)
      *      input port 1: (target) of width 4 (vertical displacement, height, horiz disp, width)
      */
     if (!ssSetNumInputPorts(S, 2)) return;
@@ -225,9 +225,9 @@ static void mdlInitializeConditions(SimStruct *S)
 #define reset_center_hold_timer() (ssSetRWorkValue(S, 4, (real_T)ssGetT(S)))
 #define success_flag() (ssSetIWorkValue(S, 21, 1))
 
-/* cursorInTarget---For a 1D task
+/* cursorInTarget
  * returns true (1) if the cursor is in the target and false (0) otherwise
- * cursor is specified as y = c[0]
+ * cursor is specified as x, y = c[0], c[1]
  * target is specified by two corners: UL: x, y = t[0], t[1]
  *                                     LR: x, y = t[2], t[3]
  */

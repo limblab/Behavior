@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3078.32640">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3085.23983">
   <ScreenWidth>15</ScreenWidth>
   <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>2</Cursor>
@@ -438,11 +438,11 @@
       </item>
       <item>
         <key>WFStC</key>
-        <value>0</value>
+        <value>1</value>
       </item>
       <item>
         <key>WFMT</key>
-        <value>0</value>
+        <value>1</value>
       </item>
     </dictionary>
   </SerializedParameters>
@@ -546,28 +546,28 @@
   </MultiGadgetTargetList>
   <FlextensionTargetList>
     <MultiGadgetTarget>
-      <x>-3</x>
-      <y>0</y>
-      <h>3</h>
+      <x>2</x>
+      <y>8</y>
+      <h>1</h>
       <w>3</w>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
-      <x>3</x>
-      <y>0</y>
-      <h>3</h>
+      <x>2</x>
+      <y>8</y>
+      <h>1</h>
       <w>3</w>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
-      <x>-6</x>
-      <y>0</y>
-      <h>3</h>
-      <w>4</w>
+      <x>2</x>
+      <y>8</y>
+      <h>1</h>
+      <w>3</w>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
-      <x>6</x>
-      <y>0</y>
-      <h>3</h>
-      <w>4</w>
+      <x>2</x>
+      <y>8</y>
+      <h>1</h>
+      <w>3</w>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
