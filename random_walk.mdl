@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1152"
+    ComputedModelVersion    "1.1153"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Selket"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jun 12 14:32:46 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:1152>"
+  LastModifiedDate	  "Fri Jun 13 14:16:28 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:1153>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -6308,7 +6308,7 @@ Model {
       System {
 	Name			"Velocity Calculation"
 	Location		[2, 82, 1270, 978]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -6833,78 +6833,6 @@ Model {
 	  }
 	}
 	Block {
-	  BlockType		  Reference
-	  Name			  "Scope (xPC) "
-	  Ports			  [1]
-	  Position		  [410, 15, 500, 75]
-	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
-	  SourceType		  "xpcscopeblock"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
-	  scopeno		  "4"
-	  scopetype		  "Target"
-	  autostart		  on
-	  viewmode		  "Numerical"
-	  formatstr		  "'%15.6f'"
-	  grid			  on
-	  ylimits		  "[0,0]"
-	  nosamples		  "250"
-	  noprepostsamples	  "0"
-	  interleave		  "1"
-	  triggermode		  "FreeRun"
-	  triggersignal		  "1"
-	  triggerlevel		  "0.0"
-	  triggerslope		  "Either"
-	  triggerscope		  "1"
-	  triggersample		  "0"
-	  filename		  "data.dat"
-	  mode			  "Lazy"
-	  writesize		  "512"
-	  autorestart		  off
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Scope (xPC) 1"
-	  Ports			  [1]
-	  Position		  [400, 220, 490, 280]
-	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
-	  SourceType		  "xpcscopeblock"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
-	  scopeno		  "7"
-	  scopetype		  "Target"
-	  autostart		  on
-	  viewmode		  "Numerical"
-	  formatstr		  "'%15.6f'"
-	  grid			  on
-	  ylimits		  "[0,0]"
-	  nosamples		  "250"
-	  noprepostsamples	  "0"
-	  interleave		  "1"
-	  triggermode		  "FreeRun"
-	  triggersignal		  "1"
-	  triggerlevel		  "0.0"
-	  triggerslope		  "Either"
-	  triggerscope		  "1"
-	  triggersample		  "0"
-	  filename		  "data.dat"
-	  mode			  "Lazy"
-	  writesize		  "512"
-	  autorestart		  off
-	}
-	Block {
 	  BlockType		  Switch
 	  Name			  "Switch"
 	  Position		  [690, 255, 720, 285]
@@ -6993,29 +6921,14 @@ Model {
 	Line {
 	  SrcBlock		  "TachGain1"
 	  SrcPort		  1
-	  Points		  [15, 0]
-	  Branch {
-	    DstBlock		    "Mux2"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, -70]
-	    DstBlock		    "Scope (xPC) "
-	    DstPort		    1
-	  }
+	  DstBlock		  "Mux2"
+	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "TachGain2"
 	  SrcPort		  1
-	  Points		  [15, 0]
-	  Branch {
-	    DstBlock		    "Mux2"
-	    DstPort		    2
-	  }
-	  Branch {
-	    DstBlock		    "Scope (xPC) 1"
-	    DstPort		    1
-	  }
+	  DstBlock		  "Mux2"
+	  DstPort		  2
 	}
 	Line {
 	  SrcBlock		  "J"
@@ -7112,7 +7025,7 @@ Model {
       System {
 	Name			"XY Position Subsystem"
 	Location		[54, 86, 1070, 808]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -7994,7 +7907,7 @@ Model {
 	  System {
 	    Name		    "Jacobian-Cartesian Transformation"
 	    Location		    [0, 82, 1268, 1000]
-	    Open		    on
+	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"

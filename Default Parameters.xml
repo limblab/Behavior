@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3085.23983">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3086.23868">
   <ScreenWidth>15</ScreenWidth>
   <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>2</Cursor>
@@ -174,7 +174,7 @@
       </item>
       <item>
         <key>RW Num Targets</key>
-        <value>4</value>
+        <value>6</value>
       </item>
       <item>
         <key>RW Target Size</key>
@@ -186,19 +186,19 @@
       </item>
       <item>
         <key>Left Target Boundary</key>
-        <value>-11</value>
+        <value>-10</value>
       </item>
       <item>
         <key>Right Target Boundary</key>
-        <value>11</value>
+        <value>10</value>
       </item>
       <item>
         <key>Upper Target Boundary</key>
-        <value>9.75</value>
+        <value>10</value>
       </item>
       <item>
         <key>Lower Target Boundary</key>
-        <value>-12.25</value>
+        <value>-10</value>
       </item>
       <item>
         <key>THL</key>
