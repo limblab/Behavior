@@ -55,8 +55,11 @@ static real_T succeed_to_continue = 0;
 static real_T multiple_targets = 0;
 #define param_multiple_targets mxGetScalar(ssGetSFcnParam(S,11))
 
+static real_T oneD_only = 0;
+#define param_oneD_only mxGetScalar(ssGetSFcnParam(S,12))
+
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,12))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,13))
 
 /*
  * State IDs
@@ -97,13 +100,14 @@ static void mdlCheckParameters(SimStruct *S)
   
   succeed_to_continue = param_succeed_to_continue;
   multiple_targets = param_multiple_targets;
+  oneD_only = param_oneD_only;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 13); 
+    ssSetNumSFcnParams(S, 14); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -281,7 +285,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
     cursor[0] = *uPtrs[0];
-    cursor[1] = *uPtrs[1];
+    if (oneD_only > 0) {
+	    cursor[1] = 0.0;
+    } else {
+	    cursor[1] = *uPtrs[1];
+    }
     
     /* Current target index*/
     target_index = ssGetIWorkValue(S, 1);
@@ -607,7 +615,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
     cursor[0] = *uPtrs[0];
-    cursor[1] = *uPtrs[1];
+    if (oneD_only > 0) {
+	    cursor[1] = 0.0;
+    } else {
+	    cursor[1] = *uPtrs[1];
+    }
 
     /* Current Target Location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
