@@ -55,8 +55,14 @@ static real_T succeed_to_continue = 0;
 static real_T multiple_targets = 0;
 #define param_multiple_targets mxGetScalar(ssGetSFcnParam(S,11))
 
+static real_T MVC_routine = 0;
+#define param_MVC_routine mxGetScalar(ssGetSFcnParam(S,12))
+
+static real_T first_MVC_target = 0;
+#define param_first_MVC_target mxGetScalar(ssGetSFcnParam(S,13))
+
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,12))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,14))
 
 /*
  * State IDs
@@ -97,13 +103,15 @@ static void mdlCheckParameters(SimStruct *S)
   
   succeed_to_continue = param_succeed_to_continue;
   multiple_targets = param_multiple_targets;
+  MVC_routine = param_MVC_routine;
+  first_MVC_target = param_first_MVC_target;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 13); 
+    ssSetNumSFcnParams(S, 15); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -126,10 +134,10 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetInputPortDirectFeedThrough(S, 1, 1);
     
     /* 
-     * Block has 6 output ports (reward, word, touch pad LED, gadget LED, gadget select, status, tone, target, target select) of widths:
+     * Block has 7 output ports (reward, word, touch pad LED, gadget LED, gadget select, status, tone, target, target select, MVC Target) of widths:
      * 0: reward:         1
      * 1: word:           1
-     * 2: status:         4 ( 1: state, 2: rewards, 3: aborts 4: failures )
+     * 2: status:         4 ( 1: state, 2: rewards, 3: aborts, 4: failures )
      * 3: tone:           2 ( 1: counter incemented for each new tone, 2: tone ID )     
      * 4: target: 10 ( target 1, 2: 
      *                  type, 
@@ -138,23 +146,28 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target LR corner x, 
      *                  target LR corner y)
 `    * 5: target select:  1
+	 * 6: MVC Target:	  1  (1: X Pos_max)
      */
-    if (!ssSetNumOutputPorts(S, 6)) return;
+    if (!ssSetNumOutputPorts(S, 7)) return;
     ssSetOutputPortWidth(S, 0, 1);
     ssSetOutputPortWidth(S, 1, 1);
     ssSetOutputPortWidth(S, 2, 4);
     ssSetOutputPortWidth(S, 3, 2);
     ssSetOutputPortWidth(S, 4, 10);
     ssSetOutputPortWidth(S, 5, 1);
+    ssSetOutputPortWidth(S, 6, 1);
     
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 5);    /* 0: time of last timer reset
+    ssSetNumRWork(S, 7);    /* 0: time of last timer reset
                                1: time of last target hold timer reset 
                                2: tone counter (incremented each time a tone is played)
                                3: tone id
                                4: time of last center hold timer reset
+                               5: X value of the higher target reached (for MVC)
+                               6: X value of the current MVC target
+                               
                                
                            */
     ssSetNumPWork(S, 0);
@@ -200,19 +213,23 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetRWorkValue(S, 2, 0.0);
     ssSetRWorkValue(S, 3, 0.0);
     
+    /* set the mvc Target at 0 */
+    ssSetRWorkValue(S, 5, 0.0);
+    ssSetRWorkValue(S, 6, first_MVC_target);
+    
     /* initialize targets at zero */
     for (i = 5 ; i<21 ; i++){
         ssSetIWorkValue(S, i, 0);
     }
     
-    /* initialize success_flag at zero */
-    ssSetIWorkValue(S, 21, 0);
-    
     /* set trial counters to zero */
     ssSetIWorkValue(S, 2, 0);
     ssSetIWorkValue(S, 3, 0);
     ssSetIWorkValue(S, 4, 0);
-
+    
+    /* initialize success_flag at zero */
+    ssSetIWorkValue(S, 21, 0);
+    
     /* set reset counter to zero */
     master_reset = 0.0;
 }
@@ -235,6 +252,7 @@ static int cursorInTarget(real_T *c, real_T *t)
 {
     return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
 }
+
 
 #define MDL_UPDATE
 static void mdlUpdate(SimStruct *S, int_T tid) 
@@ -259,7 +277,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T elapsed_target_hold_time;
     real_T elapsed_center_hold_time;
     real_T success_flag;
-    
+    real_T current_MVC_target;
+  
     
     int tmp_tgts[64];
     int tmp_i;
@@ -299,6 +318,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     target_h = *uPtrs[1];
     target_x = *uPtrs[2];
     target_w = *uPtrs[3];
+    
+    /* if we are in MVC routine mode, we may want to override the first target x value */
+    current_MVC_target = ssGetRWorkValue(S, 5);
+    if (MVC_routine && target_id ==0) {
+		target_x = ssGetRWorkValue(S,6);
+    }
 
     /* get target bounds */
     tgt[0] = target_x - target_w / 2.0;
@@ -363,7 +388,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             succeed_to_continue = param_succeed_to_continue;
             multiple_targets = param_multiple_targets;
-
+            MVC_routine = param_MVC_routine;
 
 			/* To resuffle or not to reshuffle */           
             reshuffle = 0;
@@ -379,22 +404,34 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 reshuffle = 1;
             }
 
+            //reshuffle every_new trial in this case
 			if (multiple_targets) {
-				//reshuffle every_new trial in this case
 				reshuffle = 1;
 			}
 
+			// reshuffle by default if we reached the last target in the list, unless failure and idiot mode
 			if (target_index == num_targets-1) {
 				if (succeed_to_continue && success_flag == 0) {
 					//we stay at the last target until success
 					//so no reshuffling unless previously
 					//set to 1 by previous conditions
 				} else {
-					reshuffle = 1;  // default if we reached last target in the list
+					reshuffle = 1;  
 				}
 			}
-
-
+			
+			/* see if we have to update MVC_Target */
+			if (MVC_routine && target_id == 0){
+				if (target_x > current_MVC_target && success_flag) {
+					/* MVC Target reached! Increase it by 10% */					
+					ssSetRWorkValue(S,5, target_x);
+					ssSetRWorkValue(S, 6, target_x*1.1);
+				} else {
+					/* Failed to reach and hold MVC Target, decrease it by 5% */
+					ssSetRWorkValue(S, 6, target_x*0.95);
+				}
+			}
+			
             /* get current target or reshuffle at end of block */
 			if (reshuffle) {
 				// reshuffle
@@ -577,10 +614,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int new_state;
     
     /* holders for outputs */
-    real_T reward, word, target_select;
+    real_T reward, word, target_select, mvcTarget;
     real_T status[4];
     real_T target[10];
-    
+       
     /* pointers to output buffers */
     real_T *reward_p;
     real_T *word_p;
@@ -588,6 +625,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *tone_p;
     real_T *target_p;
     real_T *target_select_p;
+    real_T *mvcTarget_p;
     
     /******************
      * Initialization *
@@ -615,6 +653,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     target_h = *uPtrs[1];
     target_x = *uPtrs[2];
     target_w = *uPtrs[3];
+    /* if we are in MVC Routine, we may want to override the first target x value */
+    if (MVC_routine && target_id == 0) {
+	    target_x = ssGetRWorkValue(S,6);
+    }
 
     /* get target bounds */
     tgt[0] = target_x - target_w / 2.0;
@@ -751,8 +793,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 
 
 
-    /* target_select (5) */
-    target_select = target_id;
+     /* target_select (5) */
+     target_select = target_id;
+    
+     /* MVC Target (6) */
+     /* (higher target reached) */
+    mvcTarget = ssGetRWorkValue(S, 5);
+              
+    
     
     /**********************************
      * Write outputs back to SimStruct
@@ -780,7 +828,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      
      target_select_p = ssGetOutputPortRealSignal(S,5);
      target_select_p[0] = target_select;
-    
+     
+     mvcTarget_p = ssGetOutputPortRealSignal(S,6);
+     mvcTarget_p[0] = mvcTarget;
+     
     UNUSED_ARG(tid);
 }
 
