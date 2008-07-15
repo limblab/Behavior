@@ -61,8 +61,11 @@ static real_T MVC_routine = 0.0;
 static real_T first_MVC_target = 0.0;
 #define param_first_MVC_target mxGetScalar(ssGetSFcnParam(S,13))
 
+static real_T clear_MVC_tgt = 0.0;
+#define param_clear_MVC_tgt mxGetScalar(ssGetSFcnParam(S,14))
+
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,14))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,15))
 
 /*
  * State IDs
@@ -111,7 +114,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 15); 
+    ssSetNumSFcnParams(S, 16); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -231,6 +234,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 21, 0);
     
     /* set reset counter to zero */
+    clear_MVC_tgt = 0.0;
     master_reset = 0.0;
 }
 
@@ -359,11 +363,16 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 2, 0);
         ssSetIWorkValue(S, 3, 0);
         ssSetIWorkValue(S, 4, 0);
-		ssSetRWorkValue(S, 5, 0.0); //MVC target
         state_r[0] = STATE_PRETRIAL;
         return;
     }
     
+    /* See if we want to clear the value of the higher target reached */    
+    if (param_clear_MVC_tgt > clear_MVC_tgt) {
+	    clear_MVC_tgt = param_clear_MVC_tgt;
+		ssSetRWorkValue(S, 5, 0.0); //zero MVC target
+	}
+		    
     /************************
      * Calculate next state *
      ************************/
@@ -398,24 +407,34 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
 			} else {
 				/* see if we have to update MVC_Target */
-				if (MVC_routine && target_id == 0){
-					if (success_flag) {
-						/* MVC Target reached! Increase it by 15% */					
-						ssSetRWorkValue(S, 6, target_x*1.15);
-						if (target_x > higher_MVC_target) {
-							/* We have a new Max MVC!*/
-							ssSetRWorkValue(S, 5, target_x);					
-						}
-
-					} else {
-						/* Failed to reach and hold MVC Target, decrease it by 8% */
-						ssSetRWorkValue(S, 6, target_x*0.92);
+				if (success_flag) {
+					if (target_x > higher_MVC_target) {
+						/* We have a new Max MVC!*/
+						ssSetRWorkValue(S, 5, target_x);
+ 						/* MVC Target reached! Increase it by 15% */					
+ 						ssSetRWorkValue(S, 6, target_x*1.15);
 					}
+				}else if (MVC_routine && target_id ==0) {
+					/* Failed to reach and hold MVC Target, decrease it by 8% */
+					ssSetRWorkValue(S, 6, target_x*0.92);
 				}
+					
+// 				if (MVC_routine && target_id == 0){
+// 					if (success_flag) {
+// 						/* MVC Target reached! Increase it by 15% */					
+// 						ssSetRWorkValue(S, 6, target_x*1.15);
+// 						if (target_x > higher_MVC_target) {
+// 							/* We have a new Max MVC!*/
+// 							ssSetRWorkValue(S, 5, target_x);					
+// 						}
+
+// 					} else {
+// 						/* Failed to reach and hold MVC Target, decrease it by 8% */
+// 						ssSetRWorkValue(S, 6, target_x*0.92);
+// 					}
+//				}
 			}
 			
-
-
 			/* To resuffle or not to reshuffle */           
             reshuffle = 0;
 
@@ -863,4 +882,3 @@ static void mdlTerminate (SimStruct *S) { UNUSED_ARG(S); }
 #else
 #include "cg_sfun.h"     /* Code generation registration func */
 #endif
-
