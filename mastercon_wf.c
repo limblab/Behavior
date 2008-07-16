@@ -411,28 +411,16 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 					if (target_x > higher_MVC_target) {
 						/* We have a new Max MVC!*/
 						ssSetRWorkValue(S, 5, target_x);
- 						/* MVC Target reached! Increase it by 15% */					
+					}
+					if (MVC_routine && target_id == 0) {
+						/* MVC Target reached! Increase it by 15% */					
  						ssSetRWorkValue(S, 6, target_x*1.15);
 					}
-				}else if (MVC_routine && target_id ==0) {
+				} else if (MVC_routine && target_id ==0) {
 					/* Failed to reach and hold MVC Target, decrease it by 8% */
 					ssSetRWorkValue(S, 6, target_x*0.92);
 				}
 					
-// 				if (MVC_routine && target_id == 0){
-// 					if (success_flag) {
-// 						/* MVC Target reached! Increase it by 15% */					
-// 						ssSetRWorkValue(S, 6, target_x*1.15);
-// 						if (target_x > higher_MVC_target) {
-// 							/* We have a new Max MVC!*/
-// 							ssSetRWorkValue(S, 5, target_x);					
-// 						}
-
-// 					} else {
-// 						/* Failed to reach and hold MVC Target, decrease it by 8% */
-// 						ssSetRWorkValue(S, 6, target_x*0.92);
-// 					}
-//				}
 			}
 			
 			/* To resuffle or not to reshuffle */           
