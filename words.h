@@ -81,7 +81,7 @@
 /* bump initiated in direction d */
 #define WORD_BUMP(d) ( 0x50 | (0x0F & (d)) )
 
-/* stimulation with gradation d*/
+/* stimulation with gradation g */
 #define WORD_STIM(g) ( 0x60 | (g) )
 
 /* multi-gadget reach */
