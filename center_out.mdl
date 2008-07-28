@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1158"
+    ComputedModelVersion    "1.1160"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jul 07 17:36:04 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:1158>"
+  LastModifiedDate	  "Mon Jul 28 15:27:39 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:1160>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -831,8 +831,8 @@ Model {
     Block {
       BlockType		      "S-Function"
       Name		      "Behavior CO"
-      Ports		      [3, 6]
-      Position		      [660, 86, 885, 419]
+      Ports		      [3, 7]
+      Position		      [660, 88, 885, 422]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_co"
       Parameters	      "8 10 2.5 1 1 .5 1.5 .75 .25 1 1 10 1 .02 125 1 "
@@ -841,7 +841,8 @@ Model {
 "('input',1,'pos')\nport_label('input',2,'force')\nport_label('input',3,'catch"
 " force')\nport_label('output',1,'force')\nport_label('output',2,'status')\npo"
 "rt_label('output',3,'word')\nport_label('output',4,'targets')\nport_label('ou"
-"tput',5,'reward')\nport_label('output',6,'tone')"
+"tput',5,'reward')\nport_label('output',6,'tone')\nport_label('output',7,'vers"
+"ion')"
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
@@ -5447,7 +5448,7 @@ Model {
       BlockType		      SubSystem
       Name		      "RewardSbs"
       Ports		      [1]
-      Position		      [925, 314, 970, 356]
+      Position		      [930, 279, 975, 321]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -5817,7 +5818,7 @@ Model {
       BlockType		      Reference
       Name		      "Status"
       Ports		      [1]
-      Position		      [1020, 149, 1090, 191]
+      Position		      [1010, 144, 1080, 186]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -6967,9 +6968,111 @@ Model {
     }
     Block {
       BlockType		      SubSystem
+      Name		      "VersionDisplaySbs"
+      Ports		      [1]
+      Position		      [1080, 379, 1125, 421]
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"VersionDisplaySbs"
+	Location		[2, 82, 1270, 978]
+	Open			on
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "mex version"
+	  Position		  [305, 188, 335, 202]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant"
+	  Position		  [300, 240, 330, 270]
+	  Value			  "0"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [2, 1]
+	  Position		  [440, 165, 445, 285]
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Version"
+	  Ports			  [1]
+	  Position		  [525, 204, 595, 246]
+	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
+	  SourceType		  "xpcscopeblock"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  scopeno		  "7"
+	  scopetype		  "Target"
+	  autostart		  on
+	  viewmode		  "Numerical"
+	  formatstr		  "'%2.3f master_con version,%0.0f $Revision: "
+"$'"
+	  grid			  on
+	  ylimits		  "[-10,10]"
+	  nosamples		  "10"
+	  noprepostsamples	  "0"
+	  interleave		  "10"
+	  triggermode		  "FreeRun"
+	  triggersignal		  "1"
+	  triggerlevel		  "0.0"
+	  triggerslope		  "Either"
+	  triggerscope		  "1"
+	  triggersample		  "0"
+	  filename		  "data.dat"
+	  mode			  "Lazy"
+	  writesize		  "512"
+	  autorestart		  off
+	}
+	Line {
+	  SrcBlock		  "mex version"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "Version"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Constant"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
       Name		      "WordSbs"
       Ports		      [1]
-      Position		      [925, 204, 970, 246]
+      Position		      [935, 189, 980, 231]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -8753,11 +8856,12 @@ Model {
       SrcPort		      4
       Points		      [105, 0]
       Branch {
+	Points			[0, 25]
 	DstBlock		"Target Peek"
 	DstPort			1
       }
       Branch {
-	Points			[0, -50]
+	Points			[0, -25]
 	DstBlock		"UDPXmit"
 	DstPort			2
       }
@@ -8765,7 +8869,7 @@ Model {
     Line {
       SrcBlock		      "Behavior CO"
       SrcPort		      6
-      Points		      [370, 0; 0, -145]
+      Points		      [370, 0; 0, -100]
       DstBlock		      "UDPXmit"
       DstPort		      3
     }
@@ -8778,7 +8882,7 @@ Model {
     Line {
       SrcBlock		      "Behavior CO"
       SrcPort		      1
-      Points		      [10, 0; 0, 440]
+      Points		      [10, 0; 0, 435]
       DstBlock		      "Motor Control"
       DstPort		      1
     }

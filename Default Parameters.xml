@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3110.32837">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3054.25881">
   <ScreenWidth>20</ScreenWidth>
   <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>2</Cursor>
@@ -401,28 +401,20 @@
         <value>2</value>
       </item>
       <item>
-        <key>WFFMVCT</key>
-        <value>8</value>
-      </item>
-      <item>
         <key>WFRT</key>
-        <value>5</value>
+        <value>0</value>
       </item>
       <item>
         <key>WFTH</key>
-        <value>0.75</value>
+        <value>0</value>
       </item>
       <item>
         <key>WFCH</key>
-        <value>1.5</value>
+        <value>0</value>
       </item>
       <item>
         <key>WFI</key>
-        <value>1</value>
-      </item>
-      <item>
-        <key>WFTVD</key>
-        <value>1.5</value>
+        <value>0</value>
       </item>
       <item>
         <key>WFX</key>
@@ -434,26 +426,10 @@
       </item>
       <item>
         <key>WFH</key>
-        <value>4</value>
+        <value>0</value>
       </item>
       <item>
         <key>WFW</key>
-        <value>2</value>
-      </item>
-      <item>
-        <key>WFIM</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>WFMT</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>WF1D</key>
-        <value>1</value>
-      </item>
-      <item>
-        <key>WFMVC</key>
         <value>0</value>
       </item>
     </dictionary>
@@ -558,28 +534,28 @@
   </MultiGadgetTargetList>
   <FlextensionTargetList>
     <MultiGadgetTarget>
-      <x>8</x>
+      <x>0</x>
       <y>0</y>
-      <h>1</h>
-      <w>3</w>
+      <h>0</h>
+      <w>0</w>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
-      <x>5</x>
+      <x>0</x>
       <y>0</y>
-      <h>3</h>
-      <w>3</w>
+      <h>0</h>
+      <w>0</w>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
-      <x>-5</x>
+      <x>0</x>
       <y>0</y>
-      <h>6</h>
-      <w>3</w>
+      <h>0</h>
+      <w>0</w>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
-      <x>-8</x>
+      <x>0</x>
       <y>0</y>
-      <h>10</h>
-      <w>3</w>
+      <h>0</h>
+      <w>0</w>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>

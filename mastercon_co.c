@@ -1,13 +1,15 @@
 /* mastercon_co.c
  *
  * Master Control block for behavior: center-out task
+ *
+ * CVS Revision -- $Revision: 1.11 $
  */
-
 #define S_FUNCTION_NAME mastercon_co
 #define S_FUNCTION_LEVEL 2
 
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 #include "simstruc.h"
 
 #define TASK_CO 1
@@ -62,6 +64,7 @@ static real_T catch_trial_pct = 0.0;    /* fraction of catch trials
 
 #define param_mode mxGetScalar(ssGetSFcnParam(S,12))
 static real_T mode;
+#define MODE_NO_PERTURBATION 0
 #define MODE_BLOCK_CATCH 1
 #define MODE_BUMP 2
 
@@ -118,7 +121,7 @@ static void mdlCheckParameters(SimStruct *S)
     reward_timeout  = param_intertrial;   
     incomplete_timeout = param_intertrial;
     
-    idiot_mode = param_idiot_mode;
+    idiot_mode = (int)param_idiot_mode;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
@@ -163,14 +166,16 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target LR corner y)
      *  reward: 1
      *  tone: 2     ( 1: counter incemented for each new tone, 2: tone ID )
+     *  version: 1 ( the cvs revision of the current .c file )
      */
-    if (!ssSetNumOutputPorts(S, 6)) return;
+    if (!ssSetNumOutputPorts(S, 7)) return;
     ssSetOutputPortWidth(S, 0, 2);
     ssSetOutputPortWidth(S, 1, 4);
     ssSetOutputPortWidth(S, 2, 1);
     ssSetOutputPortWidth(S, 3, 10);
     ssSetOutputPortWidth(S, 4, 1);
     ssSetOutputPortWidth(S, 5, 2);
+    ssSetOutputPortWidth(S, 6, 1);
     
     ssSetNumSampleTimes(S, 1);
     
@@ -203,9 +208,12 @@ static void mdlInitializeSampleTimes(SimStruct *S)
     ssSetOffsetTime(S, 0, 0.0);
 }
 
+double cvs_file_version;
 #define MDL_INITIALIZE_CONDITIONS
 static void mdlInitializeConditions(SimStruct *S)
 {
+    char version_str[256];
+    char* version;
     real_T *x0;
     
     /* initialize state to zero */
@@ -228,6 +236,12 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 581, 0);
     ssSetIWorkValue(S, 582, 0);
     ssSetIWorkValue(S, 583, 0);
+    
+    /* set variable to file version for display on screen */
+    /* DO NOT change this version string by hand.  CVS will update it upon commit */
+    strcpy(version_str, "$Revision: 1.11 $");
+    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
+    cvs_file_version = atof(version);
 }
 
 /* macro for setting state changed */
@@ -785,7 +799,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         }
     } else {
         /* not a new state, but maybe we have a mid-state event */
-        if (bump_duration_counter == bump_duration) {
+        if (bump != -1 && mode == BUMP_MODE && bump_duration_counter == bump_duration) {
             /* just started a bump */
             word = WORD_BUMP(bump);
         } else {
@@ -804,9 +818,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         for (i=0; i<4; i++) {
             target_pos[i+1] = ct[i];
         }
-    } 
-    else 
-    {
+    } else  {
         /* center target off */
         target_pos[0] = 0;
         for (i=0; i<4; i++) {
@@ -823,9 +835,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         for (i=0; i<4; i++) {
             target_pos[i+6] = ot[i];
         }
-    } 
-    else 
-    {
+    }  else {
         /* outer target off */
         target_pos[5] = 0;
         for (i=0; i<4; i++) {
