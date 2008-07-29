@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3054.25881">
-  <ScreenWidth>20</ScreenWidth>
+  <ScreenWidth>30</ScreenWidth>
   <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>2</Cursor>
   <CenterOutMode>None</CenterOutMode>

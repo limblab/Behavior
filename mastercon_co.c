@@ -2,7 +2,7 @@
  *
  * Master Control block for behavior: center-out task
  *
- * CVS Revision -- $Revision: 1.11 $
+ * CVS Revision -- $Revision: 1.12 $
  */
 #define S_FUNCTION_NAME mastercon_co
 #define S_FUNCTION_LEVEL 2
@@ -80,6 +80,20 @@ static int idiot_mode;
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,16))
 
+static void updateVersion(SimStruct *S)
+{
+    /* set variable to file version for display on screen */
+    /* DO NOT change this version string by hand.  CVS will update it upon commit */
+    char version_str[256] = "$Revision: 1.12 $";
+    char* version;
+    
+    version_str[strlen(version_str)-1] = 0; // set last "$" to zero
+    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
+    //cvs_file_version = atof(version);
+    //cvs_file_version = 1.17;
+    ssSetRWorkValue(S, 4, atof(version));
+}
+
 /*
  * State IDs
  */
@@ -156,7 +170,7 @@ static void mdlInitializeSizes(SimStruct *S)
     /* 
      * Block has 6 output ports (force, status, word, targets, reward, tone) of widths:
      *  force: 2
-     *  status: 4 ( block counter, successes, aborts, failures )
+     *  status: 5 ( block counter, successes, aborts, failures, incompletes )
      *  word:  1 (8 bits)
      *  target: 10 ( target 1, 2: 
      *                  on/off, 
@@ -170,7 +184,7 @@ static void mdlInitializeSizes(SimStruct *S)
      */
     if (!ssSetNumOutputPorts(S, 7)) return;
     ssSetOutputPortWidth(S, 0, 2);
-    ssSetOutputPortWidth(S, 1, 4);
+    ssSetOutputPortWidth(S, 1, 5);
     ssSetOutputPortWidth(S, 2, 1);
     ssSetOutputPortWidth(S, 3, 10);
     ssSetOutputPortWidth(S, 4, 1);
@@ -180,20 +194,22 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 4);  /* 0: time of last timer reset 
+    ssSetNumRWork(S, 5);  /* 0: time of last timer reset 
                              1: tone counter (incremented each time a tone is played)
                              2: tone id
                              3: catch trial (1 for yes, 0 for no)
+                             4: mastercon version
                            */
     ssSetNumPWork(S, 0);
-    ssSetNumIWork(S, 584); /*    0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 585); /*    0: state_transition (true if state changed), 
                                  1: current target index,
                             [2-17]: target presentation sequence (block/catch mode) 
                            [2-579]: target presentation sequence (bump mode) 
                                580: bump duration counter 
                                581: successes
                                582: failures
-                               583: aborts */
+                               583: aborts 
+                               584: incompletes */
     
     /* we have no zero crossing detection or modes */
     ssSetNumModes(S, 0);
@@ -208,12 +224,9 @@ static void mdlInitializeSampleTimes(SimStruct *S)
     ssSetOffsetTime(S, 0, 0.0);
 }
 
-double cvs_file_version;
 #define MDL_INITIALIZE_CONDITIONS
 static void mdlInitializeConditions(SimStruct *S)
 {
-    char version_str[256];
-    char* version;
     real_T *x0;
     
     /* initialize state to zero */
@@ -236,12 +249,9 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 581, 0);
     ssSetIWorkValue(S, 582, 0);
     ssSetIWorkValue(S, 583, 0);
+    ssSetIWorkValue(S, 584, 0);
     
-    /* set variable to file version for display on screen */
-    /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    strcpy(version_str, "$Revision: 1.11 $");
-    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
-    cvs_file_version = atof(version);
+    updateVersion(S);
 }
 
 /* macro for setting state changed */
@@ -336,7 +346,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 581, 0);
         ssSetIWorkValue(S, 582, 0);
         ssSetIWorkValue(S, 583, 0);
+        ssSetIWorkValue(S, 584, 0);
         state_r[0] = STATE_PRETRIAL;
+        updateVersion(S);
         return;
     }
     
@@ -646,7 +658,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* allocate holders for outputs */
     real_T force_x, force_y, word, reward, tone_cnt, tone_id;
     real_T target_pos[10];
-    real_T status[4];
+    real_T status[5];
+    real_T version;
     
     /* pointers to output buffers */
     real_T *force_p;
@@ -655,6 +668,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *status_p;
     real_T *reward_p;
     real_T *tone_p;
+    real_T *version_p;
     
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
@@ -761,11 +775,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 582, ssGetIWorkValue(S, 582)+1);
     if (state == STATE_FAIL && new_state)
         ssSetIWorkValue(S, 583, ssGetIWorkValue(S, 583)+1);
+    if (state == STATE_INCOMPLETE && new_state)
+        ssSetIWorkValue(S, 584, ssGetIWorkValue(S, 584)+1);
+       
     
-    status[0] = IWorkVector[1]; //state;
+    status[0] = state;   //IWorkVector[1];
     status[1] = ssGetIWorkValue(S, 581); // num rewards
     status[2] = ssGetIWorkValue(S, 582); // num aborts
     status[3] = ssGetIWorkValue(S, 583); // num fails
+    status[4] = ssGetIWorkValue(S, 584); // num incompletes
     
     /* word (2) */
     if (new_state) {
@@ -799,7 +817,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         }
     } else {
         /* not a new state, but maybe we have a mid-state event */
-        if (bump != -1 && mode == BUMP_MODE && bump_duration_counter == bump_duration) {
+        if (bump != -1 && mode == MODE_BUMP && bump_duration_counter == bump_duration) {
             /* just started a bump */
             word = WORD_BUMP(bump);
         } else {
@@ -863,8 +881,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             tone_id = TONE_REWARD;
         }
     }
-        
-
+    
+    /* version (6) */
+    version = ssGetRWorkValue(S, 4);
+       
     /**********************************
      * Write outputs back to SimStruct
      **********************************/
@@ -874,7 +894,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     ssSetIWorkValue(S, 580, bump_duration_counter);
     
     status_p = ssGetOutputPortRealSignal(S,1);
-    for (i=0; i<4; i++) 
+    for (i=0; i<5; i++) 
         status_p[i] = status[i];
     
     word_p = ssGetOutputPortRealSignal(S,2);
@@ -893,6 +913,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_p[1] = tone_id;
     ssSetRWorkValue(S, 1, tone_cnt);
     ssSetRWorkValue(S, 2, tone_id);
+    
+    version_p = ssGetOutputPortRealSignal(S,6);
+    version_p[0] = (real_T)version;
     
     UNUSED_ARG(tid);
 }
