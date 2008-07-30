@@ -1,6 +1,8 @@
 /* mastercon_fc.c
  *
  * Master Control block for behavior: force choice task
+ *
+ * CVS Revision -- $Revision: 1.19 $
  */
 
 #define S_FUNCTION_NAME mastercon_fc
@@ -8,6 +10,7 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 #include "simstruc.h"
 
 #define TASK_FC 1
@@ -92,6 +95,18 @@ static real_T reward_timeout  = 1.0;    /* delay after reward before starting ne
 #define TONE_REWARD 2
 #define TONE_ABORT 3
 
+static void updateVersion(SimStruct *S)
+{
+    /* set variable to file version for display on screen */
+    /* DO NOT change this version string by hand.  CVS will update it upon commit */
+    char version_str[256] = "$Revision: 1.19 $";
+    char* version;
+    
+    version_str[strlen(version_str)-1] = 0; // set last "$" to zero
+    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
+    ssSetRWorkValue(S, 4, atof(version));
+}
+
 static void mdlCheckParameters(SimStruct *S)
 {
     num_gradations = param_num_gradations;
@@ -146,9 +161,9 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetInputPortDirectFeedThrough(S, 2, 1);
     
     /* 
-     * Block has 6 output ports (force, status, word, targets, reward, tone) of widths:
+     * Block has 7 output ports (force, status, word, targets, reward, tone) of widths:
      *  force: 2
-     *  status: 4 ( block counter, successes, aborts, failures )
+     *  status: 5 ( block counter, successes, aborts, failures, incompletes )
      *  word:  1 (8 bits)
      *  target: 10 ( target 1, 2: 
      *                  on/off, 
@@ -158,21 +173,24 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target LR corner y)
      *  reward: 1
      *  tone: 2     ( 1: counter incemented for each new tone, 2: tone ID )
+     *  version: 1 ( the cvs revision of the current .c file )
      */
-    if (!ssSetNumOutputPorts(S, 6)) return;
-    ssSetOutputPortWidth(S, 0, 2);  /* force   */
-    ssSetOutputPortWidth(S, 1, 4);  /* status  */
-    ssSetOutputPortWidth(S, 2, 1);  /* word    */
-    ssSetOutputPortWidth(S, 3, 10); /* targets */
-    ssSetOutputPortWidth(S, 4, 1);  /* reward  */
-    ssSetOutputPortWidth(S, 5, 2);	/* tone    */
+    if (!ssSetNumOutputPorts(S, 7)) return;
+    ssSetOutputPortWidth(S, 0, 2);   /* force   */
+    ssSetOutputPortWidth(S, 1, 5);   /* status  */
+    ssSetOutputPortWidth(S, 2, 1);   /* word    */
+    ssSetOutputPortWidth(S, 3, 10);  /* target  */
+    ssSetOutputPortWidth(S, 4, 1);   /* reward  */
+    ssSetOutputPortWidth(S, 5, 2);   /* tone    */
+    ssSetOutputPortWidth(S, 6, 1);   /* version */
     
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 3);  /* 0: time of last timer reset 
+    ssSetNumRWork(S, 4);  /* 0: time of last timer reset 
                              1: tone counter (incremented each time a tone is played)
                              2: tone id
+							 3: mastercon version
                            */
     ssSetNumPWork(S, 0);
     ssSetNumIWork(S, 63); /*     0: state_transition (true if state changed), 
@@ -223,6 +241,8 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 60, 0);
     ssSetIWorkValue(S, 61, 0);
     ssSetIWorkValue(S, 62, 0);
+
+	updateVersion(S);
 }
 
 /* macro for setting state changed */
@@ -347,6 +367,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 61, 0);
         ssSetIWorkValue(S, 62, 0);
         state_r[0] = STATE_PRETRIAL;
+		updateVersion(S);
         return;
     }
     
@@ -635,7 +656,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* allocate holders for outputs */
     real_T force_x, force_y, word, reward, tone_cnt, tone_id;
     real_T target_pos[10];
-    real_T status[4];
+    real_T status[5];
+	real_T version;
     
     /* pointers to output buffers */
     real_T *force_p;
@@ -644,6 +666,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *status_p;
     real_T *reward_p;
     real_T *tone_p;
+	real_T *version_p;
     
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
@@ -721,13 +744,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     status[0] = state; //IWorkVector[1];
     status[1] = ssGetIWorkValue(S, 59); // num rewards
     status[2] = ssGetIWorkValue(S, 60); // num fails
-    status[3] = ssGetIWorkValue(S, 61) + ssGetIWorkValue(S, 62); // num aborts and incompletes
-    //status[2] = trial_type_index; // num fails
-    //status[3] = trial_type;
-    //status[0] = trial_type_index;
-    //status[1] = trial_type;
-    //status[2] = gradation_index;
-    //status[3] = gradation;
+    status[3] = ssGetIWorkValue(S, 61); // num aborts
+	status[4] = ssGetIWorkValue(S, 62); // num incompletes
     
     /* word (2) */
     if (new_state) {
@@ -818,7 +836,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             tone_id = TONE_REWARD;
         }
     }
-        
+
+	/* version (6) */
+    version = ssGetRWorkValue(S, 4);        
 
     /**********************************
      * Write outputs back to SimStruct
@@ -828,7 +848,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     force_p[1] = force_y;
     
     status_p = ssGetOutputPortRealSignal(S,1);
-    for (i=0; i<4; i++) 
+    for (i=0; i<5; i++) 
         status_p[i] = status[i];
     
     word_p = ssGetOutputPortRealSignal(S,2);
@@ -847,6 +867,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_p[1] = tone_id;
     ssSetRWorkValue(S, 1, tone_cnt);
     ssSetRWorkValue(S, 2, tone_id);
+
+	version_p = ssGetOutputPortRealSignal(S, 5);
+	version_p[0] = version;
     
     UNUSED_ARG(tid);
 }

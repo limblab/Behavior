@@ -2,7 +2,7 @@
  *
  * Master Control block for behavior: center-out task
  *
- * CVS Revision -- $Revision: 1.12 $
+ * CVS Revision -- $Revision: 1.13 $
  */
 #define S_FUNCTION_NAME mastercon_co
 #define S_FUNCTION_LEVEL 2
@@ -84,13 +84,11 @@ static void updateVersion(SimStruct *S)
 {
     /* set variable to file version for display on screen */
     /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.12 $";
+    char version_str[256] = "$Revision: 1.13 $";
     char* version;
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
     version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
-    //cvs_file_version = atof(version);
-    //cvs_file_version = 1.17;
     ssSetRWorkValue(S, 4, atof(version));
 }
 
@@ -168,7 +166,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetInputPortDirectFeedThrough(S, 2, 1);
     
     /* 
-     * Block has 6 output ports (force, status, word, targets, reward, tone) of widths:
+     * Block has 7 output ports (force, status, word, targets, reward, tone) of widths:
      *  force: 2
      *  status: 5 ( block counter, successes, aborts, failures, incompletes )
      *  word:  1 (8 bits)
@@ -183,13 +181,13 @@ static void mdlInitializeSizes(SimStruct *S)
      *  version: 1 ( the cvs revision of the current .c file )
      */
     if (!ssSetNumOutputPorts(S, 7)) return;
-    ssSetOutputPortWidth(S, 0, 2);
-    ssSetOutputPortWidth(S, 1, 5);
-    ssSetOutputPortWidth(S, 2, 1);
-    ssSetOutputPortWidth(S, 3, 10);
-    ssSetOutputPortWidth(S, 4, 1);
-    ssSetOutputPortWidth(S, 5, 2);
-    ssSetOutputPortWidth(S, 6, 1);
+    ssSetOutputPortWidth(S, 0, 2);   /* force   */
+    ssSetOutputPortWidth(S, 1, 5);   /* status  */
+    ssSetOutputPortWidth(S, 2, 1);   /* word    */
+    ssSetOutputPortWidth(S, 3, 10);  /* target  */
+    ssSetOutputPortWidth(S, 4, 1);   /* reward  */
+    ssSetOutputPortWidth(S, 5, 2);   /* tone    */
+    ssSetOutputPortWidth(S, 6, 1);   /* version */
     
     ssSetNumSampleTimes(S, 1);
     
