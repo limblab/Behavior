@@ -88,12 +88,12 @@ static void updateVersion(SimStruct *S)
 {
     /* set variable to file version for display on screen */
     /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.17 $";
+    char version_str[256] = "$Revision: 1.18 $";
     char* version;
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
     version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
-    ssSetRWorkValue(S, 4, atof(version));
+    ssSetRWorkValue(S, 512, atof(version));
 }
 
 static void mdlCheckParameters(SimStruct *S)
@@ -741,7 +741,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     ssSetRWorkValue(S, 1, tone_cnt);
     ssSetRWorkValue(S, 2, tone_id);
 
-	version_p = ssGetOutputPortRealSignal(S,5);
+	version_p = ssGetOutputPortRealSignal(S,6);
 	version_p[0] = version;
     
     UNUSED_ARG(tid);

@@ -2,7 +2,7 @@
  *
  * Master Control block for behavior: bump-stim task
  *
- * CVS Revision -- $Revision: 1.17 $
+ * CVS Revision -- $Revision: 1.18 $
  */
 
 #define S_FUNCTION_NAME mastercon_bs
@@ -94,12 +94,12 @@ static void updateVersion(SimStruct *S)
 {
     /* set variable to file version for display on screen */
     /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.17 $";
+    char version_str[256] = "$Revision: 1.18 $";
     char* version;
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
     version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
-    ssSetRWorkValue(S, 4, atof(version));
+    ssSetRWorkValue(S, 3, atof(version));
 }
 
 /*
@@ -838,7 +838,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             tone_id = TONE_REWARD;
         }
     }
-        
+     
+    /* version (6) */
+    version = ssGetRWorkValue(S, 3);
 
     /**********************************
      * Write outputs back to SimStruct

@@ -4,7 +4,7 @@
   <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>2</Cursor>
   <CenterOutMode>None</CenterOutMode>
-  <Load>Viscous</Load>
+  <Load>None</Load>
   <LoadCatch>None</LoadCatch>
   <SerializedParameters>
     <dictionary>
@@ -182,7 +182,7 @@
       </item>
       <item>
         <key>Target Tolerance</key>
-        <value>-0.25</value>
+        <value>0</value>
       </item>
       <item>
         <key>Left Target Boundary</key>
@@ -210,11 +210,11 @@
       </item>
       <item>
         <key>RW MT</key>
-        <value>1.1</value>
+        <value>2</value>
       </item>
       <item>
         <key>IMT</key>
-        <value>1.2</value>
+        <value>3</value>
       </item>
       <item>
         <key>IRW IT</key>
