@@ -2,7 +2,7 @@
  *
  * Master Control block for behavior: center-out + uncertainty task
  *
- * CVS Revision -- $Revision: 1.2 $
+ * CVS Revision -- $Revision: 1.3 $
  */
 #define S_FUNCTION_NAME mastercon_uc
 #define S_FUNCTION_LEVEL 2
@@ -84,7 +84,7 @@ static void updateVersion(SimStruct *S)
 {
     /* set variable to file version for display on screen */
     /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.2 $";
+    char version_str[256] = "$Revision: 1.3 $";
     char* version;
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
@@ -252,6 +252,9 @@ static void mdlInitializeConditions(SimStruct *S)
     /* set catch trial to zero (init only) */
     ssSetRWorkValue(S, 3, 0.0);
     
+    /* set the displacement output counter to -1 */
+    ssSetIWorkValue(S, 19, -1);
+    
     /* set trial counters to zero */
     ssSetIWorkValue(S, 20, 0);
     ssSetIWorkValue(S, 21, 0);
@@ -351,6 +354,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
      *********************************/
     if (param_master_reset != master_reset) {
         master_reset = param_master_reset;
+        ssSetIWorkValue(S, 19, -1);
         ssSetIWorkValue(S, 20, 0);
         ssSetIWorkValue(S, 21, 0);
         ssSetIWorkValue(S, 22, 0);
@@ -498,7 +502,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* State to output displacement */
             // ihs: adjust this one to change precision on the displacement
             if (displacement_output_counter>5) {
-                ssSetIWorkValue(S, 19, 0);
+                ssSetIWorkValue(S, 19, -1);
                 new_state = STATE_CT_ON;
                 state_changed();
             } else {
@@ -630,6 +634,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int feedback;
     real_T displacement;
     int displacement_output_counter;
+    
+    float dispvalue;
+    float *dispvalue_p;
+    char *bytes;
 
     real_T theta;
     real_T ct[4];
@@ -664,14 +672,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* current target number */
     IWorkVector = ssGetIWork(S);
     target_index = IWorkVector[1];
-    target_list = IWorkVector+2;    
+    target_list = IWorkVector+2;
 
     target = target_list[target_index];
     
     feedback = ssGetIWorkValue(S, 18);
     displacement = ssGetRWorkValue(S, 5);
     displacement_output_counter = ssGetIWorkValue(S, 19);
-    
+       
     /* get current tone counter */
     tone_cnt = ssGetRWorkValue(S, 1);
     tone_id = ssGetRWorkValue(S, 2);
@@ -744,12 +752,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
                 break;
-            case STATE_OUTPUT_DISPLACEMENT:
-                // ihs: fix this to get the displacement_output_counter-th byte
-                word = displacement;
-                break;
             case STATE_CT_ON:
                 word = WORD_CT_ON;
+                break;
+            case STATE_OUTPUT_DISPLACEMENT:
+                word = WORD_FEEDBACK(feedback);
                 break;
             case STATE_CENTER_DELAY:
                 word = WORD_OT_ON(target);
@@ -771,12 +778,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         }
     } else {
         /* not a new state, but maybe we have a mid-state event */
-
-        // ihs: not quite sure...
-        word = WORD_FEEDBACK(feedback);
-//         } else {
-//             word = 0;
-//         }
+        if (STATE_OUTPUT_DISPLACEMENT) {
+            // ihs: outputs the displacement_output_counter-th byte
+            dispvalue = (float)displacement;
+            dispvalue_p = &dispvalue;
+            bytes = (char *)dispvalue_p;
+            word = bytes[displacement_output_counter];
+         } else {
+            word = 0;
+         }
     }
     
     /* target_pos (3) */
