@@ -1,13 +1,15 @@
-/* mastercon_co.c
+/* mastercon_uc.c
  *
- * Master Control block for behavior: center-out task
+ * Master Control block for behavior: center-out + uncertainty task
+ *
+ * CVS Revision -- $Revision: 1.2 $
  */
-
 #define S_FUNCTION_NAME mastercon_uc
 #define S_FUNCTION_LEVEL 2
 
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 #include "simstruc.h"
 
 #define TASK_UC 1
@@ -20,7 +22,7 @@
  */
 static real_T num_targets = 8;      /* number of peripheral targets */
 #define param_num_targets mxGetScalar(ssGetSFcnParam(S,0))
-static real_T target_radius = 15.0; /* radius of target circle in cm */
+static real_T target_radius = 10.0; /* radius of target circle in cm */
 #define param_target_radius mxGetScalar(ssGetSFcnParam(S,1))
 static real_T target_size = 5.0;    /* width and height of targets in cm */
 #define param_target_size mxGetScalar(ssGetSFcnParam(S,2))
@@ -41,41 +43,54 @@ static real_T movement_time = 10.0;  /* movement time */
 #define param_movement_time mxGetScalar(ssGetSFcnParam(S,7))
 
 static real_T outer_hold;      /* outer target hold time */
-static real_T outer_hold_l = 0.0;      
+static real_T outer_hold_l = 1.0;      
 #define param_outer_hold_l mxGetScalar(ssGetSFcnParam(S,8))
-static real_T outer_hold_h = 0.0; 
+static real_T outer_hold_h = 1.0; 
 #define param_outer_hold_h mxGetScalar(ssGetSFcnParam(S,9))
 
 #define param_intertrial mxGetScalar(ssGetSFcnParam(S,10))
 static real_T abort_timeout   = 1.0;    /* delay after abort */
 static real_T failure_timeout = 1.0;    /* delay after failure */
 static real_T incomplete_timeout = 1.0; /* delay after incomplete */
-static real_T center_bump_timeout  = 1.0; 
 static real_T reward_timeout  = 1.0;    /* delay after reward before starting next trial
                                          * This is NOT the reward pulse length */
 
 #define param_catch_trial_pct mxGetScalar(ssGetSFcnParam(S,11))
-static real_T catch_trial_pct = 0.0;    /* fraction of catch trials 
-                                         * used only on non-bump mode */
+static real_T catch_trial_pct = 0.0;    /* fraction of catch trials */
 #define set_catch_trial(x) ssSetRWorkValue(S, 3, (x))
 #define get_catch_trial() ssGetRWorkValue(S, 3)
 
-#define param_mode mxGetScalar(ssGetSFcnParam(S,12))
-static real_T mode;
-#define MODE_BLOCK_CATCH 1
-#define MODE_BUMP 2
-
-#define param_bump_magnitude mxGetScalar(ssGetSFcnParam(S,13))
-static real_T bump_magnitude;
-
-#define param_bump_duration mxGetScalar(ssGetSFcnParam(S,14))
-static int bump_duration;
-
-#define param_idiot_mode mxGetScalar(ssGetSFcnParam(S,15))
+#define param_idiot_mode mxGetScalar(ssGetSFcnParam(S,12))
 static int idiot_mode;
 
+#define param_vperturb_mu mxGetScalar(ssGetSFcnParam(S,13))
+static real_T vperturb_mu = 2.0;
+#define param_vperturb_sigma mxGetScalar(ssGetSFcnParam(S,14))
+static real_T vperturb_sigma = 2.0;
+#define param_vperturb_percent_vis mxGetScalar(ssGetSFcnParam(S,15))
+static real_T vperturb_percent_vis = 1.0;
+
+#define param_percent_no_feedback mxGetScalar(ssGetSFcnParam(S,16))
+static real_T percent_no_feedback = 0.0;
+#define param_percent_med_feedback mxGetScalar(ssGetSFcnParam(S,17))
+static real_T percent_med_feedback = 0.0;
+#define param_percent_big_feedback mxGetScalar(ssGetSFcnParam(S,18))
+static real_T percent_big_feedback = 0.0;
+
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,16))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,19))
+
+static void updateVersion(SimStruct *S)
+{
+    /* set variable to file version for display on screen */
+    /* DO NOT change this version string by hand.  CVS will update it upon commit */
+    char version_str[256] = "$Revision: 1.2 $";
+    char* version;
+    
+    version_str[strlen(version_str)-1] = 0; // set last "$" to zero
+    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
+    ssSetRWorkValue(S, 4, atof(version));
+}
 
 /*
  * State IDs
@@ -90,7 +105,7 @@ static real_T master_reset = 0.0;
 #define STATE_ABORT 65
 #define STATE_FAIL 70
 #define STATE_INCOMPLETE 74
-#define STATE_CENTER_HOLD_BUMP 66 /* 66 = ASCII(B) = Bump */
+#define STATE_OUTPUT_DISPLACEMENT 6
 
 #define TONE_GO 1
 #define TONE_REWARD 2
@@ -118,14 +133,22 @@ static void mdlCheckParameters(SimStruct *S)
     reward_timeout  = param_intertrial;   
     incomplete_timeout = param_intertrial;
     
-    idiot_mode = param_idiot_mode;
+    idiot_mode = (int)param_idiot_mode;
+    
+    vperturb_mu = param_vperturb_mu;
+    vperturb_sigma = param_vperturb_sigma;
+    vperturb_percent_vis = param_vperturb_percent_vis;
+    
+    percent_no_feedback = param_percent_no_feedback;
+    percent_med_feedback = param_percent_med_feedback;
+    percent_big_feedback = param_percent_big_feedback;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 17); 
+    ssSetNumSFcnParams(S, 20);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -153,7 +176,7 @@ static void mdlInitializeSizes(SimStruct *S)
     /* 
      * Block has 6 output ports (force, status, word, targets, reward, tone) of widths:
      *  force: 2
-     *  status: 4 ( block counter, successes, aborts, failures )
+     *  status: 5 ( block counter, successes, aborts, failures, incompletes )
      *  word:  1 (8 bits)
      *  target: 10 ( target 1, 2: 
      *                  on/off, 
@@ -163,32 +186,37 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target LR corner y)
      *  reward: 1
      *  tone: 2     ( 1: counter incemented for each new tone, 2: tone ID )
+     *  version: 1 ( the cvs revision of the current .c file )
      */
-    if (!ssSetNumOutputPorts(S, 6)) return;
+    if (!ssSetNumOutputPorts(S, 7)) return;
     ssSetOutputPortWidth(S, 0, 2);
-    ssSetOutputPortWidth(S, 1, 4);
+    ssSetOutputPortWidth(S, 1, 5);
     ssSetOutputPortWidth(S, 2, 1);
     ssSetOutputPortWidth(S, 3, 10);
     ssSetOutputPortWidth(S, 4, 1);
     ssSetOutputPortWidth(S, 5, 2);
+    ssSetOutputPortWidth(S, 6, 1);
     
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 4);  /* 0: time of last timer reset 
+    ssSetNumRWork(S, 6);  /* 0: time of last timer reset 
                              1: tone counter (incremented each time a tone is played)
                              2: tone id
                              3: catch trial (1 for yes, 0 for no)
+                             4: mastercon version
+                             5: displacement (vis_perturbation mode)
                            */
     ssSetNumPWork(S, 0);
-    ssSetNumIWork(S, 584); /*    0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 585); /*    0: state_transition (true if state changed), 
                                  1: current target index,
-                            [2-17]: target presentation sequence (block/catch mode) 
-                           [2-579]: target presentation sequence (bump mode) 
-                               580: bump duration counter 
-                               581: successes
-                               582: failures
-                               583: aborts */
+                            [2-17]: target presentation sequence (block/catch mode or vis_perturbation mode)
+                                18: feedback type (vis_perturbation mode)
+                                19: counter to output displacement
+                                20: successes
+                                21: failures
+                                22: aborts 
+                                23: incompletes */
     
     /* we have no zero crossing detection or modes */
     ssSetNumModes(S, 0);
@@ -225,9 +253,12 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetRWorkValue(S, 3, 0.0);
     
     /* set trial counters to zero */
-    ssSetIWorkValue(S, 581, 0);
-    ssSetIWorkValue(S, 582, 0);
-    ssSetIWorkValue(S, 583, 0);
+    ssSetIWorkValue(S, 20, 0);
+    ssSetIWorkValue(S, 21, 0);
+    ssSetIWorkValue(S, 22, 0);
+    ssSetIWorkValue(S, 23, 0);
+    
+    updateVersion(S);
 }
 
 /* macro for setting state changed */
@@ -258,7 +289,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int target_index;
     int *target_list;
     int target;
-    int bump;
+
+    int feedback;
+    real_T displacement;
+    int displacement_output_counter;
+    double x1, x2, w, rn; // params for drawing displacement and feedback
+    
     real_T theta;
     real_T ct[4];
     real_T ot[4];
@@ -269,7 +305,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         
     /* block initialization working variables */
     int tmp_tgts[256];
-    int tmp_bump[256];
     int tmp_sort[256];
     int i, j, tmp;
     
@@ -291,16 +326,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     IWorkVector = ssGetIWork(S);
     target_index = IWorkVector[1];
     target_list = IWorkVector+2;
-    if (mode == MODE_BLOCK_CATCH) {
-        target = target_list[target_index];
-    } else {
-        /* mode == MODE_BUMP */
-        target = target_list[target_index*2];
-        bump = target_list[target_index*2+1];
-    }
+ 
+    target = target_list[target_index];
     
     /* get elapsed time since last timer reset */
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
+    
+    displacement_output_counter = ssGetIWorkValue(S, 19);
     
     /* get target bounds */
     theta = PI/2 - target*2*PI/num_targets;
@@ -319,10 +351,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
      *********************************/
     if (param_master_reset != master_reset) {
         master_reset = param_master_reset;
-        ssSetIWorkValue(S, 581, 0);
-        ssSetIWorkValue(S, 582, 0);
-        ssSetIWorkValue(S, 583, 0);
+        ssSetIWorkValue(S, 20, 0);
+        ssSetIWorkValue(S, 21, 0);
+        ssSetIWorkValue(S, 22, 0);
+        ssSetIWorkValue(S, 23, 0);
         state_r[0] = STATE_PRETRIAL;
+        updateVersion(S);
         return;
     }
     
@@ -362,23 +396,22 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             failure_timeout = param_intertrial;
             reward_timeout  = param_intertrial;
             incomplete_timeout = param_intertrial;
-            center_bump_timeout = param_intertrial;
             
             catch_trial_pct = param_catch_trial_pct;
-            
-            bump_magnitude = param_bump_magnitude;
-            bump_duration  = (int)param_bump_duration;
-            
+                       
             idiot_mode = (int)param_idiot_mode;
             
-            /* see if mode has changed.  If so we need a reset. */
-            if (mode != param_mode) {
-                reset_block = 1;
-                mode = param_mode;
-            }
+            vperturb_mu = param_vperturb_mu;
+            vperturb_sigma = param_vperturb_sigma;
+            vperturb_percent_vis = param_vperturb_percent_vis;
+
+            percent_no_feedback = param_percent_no_feedback;
+            percent_med_feedback = param_percent_med_feedback;
+            percent_big_feedback = param_percent_big_feedback;
+            
 
             /* if we do not have our targets initialized => new block */
-            if (mode == MODE_BLOCK_CATCH && (target_index == num_targets-1 || reset_block)) {
+            if ((target_index == num_targets-1 || reset_block)) {
                 /* initialize the targets */
                 for (i=0; i<num_targets; i++) {
                     tmp_tgts[i] = i;
@@ -403,50 +436,35 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 }
                 /* and reset the counter */
                 ssSetIWorkValue(S, 1, 0);
-            } else if (mode == MODE_BUMP && (target_index == (num_targets+1)*(num_targets+1)-1 || reset_block)) {
-                /* initilize the targets and bump directions */
-                for (i=0; i<num_targets+1; i++) {
-                    for (j=0; j<num_targets+1; j++) {
-                        tmp_tgts[i*((int)num_targets+1)+j] = i-1;
-                        tmp_bump[i*((int)num_targets+1)+j] = j-1;
-                        tmp_sort[i*((int)num_targets+1)+j] = rand();
-                    }
-                }
-                for (i=0; i<(num_targets+1)*(num_targets+1)-1; i++) {
-                    for (j=0; j<(num_targets+1)*(num_targets+1)-1; j++) {
-                        if (tmp_sort[j] < tmp_sort[j+1]) {
-                            tmp = tmp_sort[j];
-                            tmp_sort[j] = tmp_sort[j+1];
-                            tmp_sort[j+1] = tmp;
-                            
-                            tmp = tmp_tgts[j];
-                            tmp_tgts[j] = tmp_tgts[j+1];
-                            tmp_tgts[j+1] = tmp;
-                            
-                            tmp = tmp_bump[j];
-                            tmp_bump[j] = tmp_bump[j+1];
-                            tmp_bump[j+1] = tmp;
-                        }
-                    }
-                }
-                for (i=0; i<(num_targets+1)*(num_targets+1)-1; i++) {
-                    target_list[i*2]   = tmp_tgts[i];
-                    target_list[i*2+1] = tmp_bump[i];
-                }
-                /* and reset the counter */
-                ssSetIWorkValue(S, 1, 0);
             } else {
                 /* just advance the counter */
                 target_index++;
                 /* and write it back */
                 ssSetIWorkValue(S, 1, target_index);
-                if (mode == MODE_BLOCK_CATCH) {
-                    target = target_list[target_index];
-                } else {
-                    /* mode == MODE_BUMP */
-                    target = target_list[target_index*2];
-                }
+
+                target = target_list[target_index];
             }
+          
+            // ihs: pick feedback type and displacement for this trial...
+            rn = ((double)rand())/((double)RAND_MAX);
+            if (rn < percent_no_feedback) {feedback = 0;}
+            else if (rn < percent_no_feedback+percent_big_feedback) {feedback = 1;}
+            else if (rn < percent_no_feedback+percent_big_feedback+percent_med_feedback) {feedback = 2;}
+            else {feedback = 3;}
+            ssSetIWorkValue(S, 18, feedback);
+
+            /* Polar form of the Box-Muller Transform (much faster) */
+            for (i=0; i<50; i++) {
+               if (w < 1.0) {
+                  x1 = 2.0 * ((double)rand())/((double)RAND_MAX) - 1.0;
+                  x2 = 2.0 * ((double)rand())/((double)RAND_MAX) - 1.0;
+                  w = x1 * x1 + x2 * x2;
+               }
+            }
+
+            w = sqrt( (-2.0 * log( w ) ) / w );
+            displacement = vperturb_mu + x1*w*vperturb_sigma;
+            ssSetRWorkValue(S, 5, displacement);
             
             /* In all cases, we need to decide on the random timer durations */
             if (center_hold_h == center_hold_l) {
@@ -464,26 +482,28 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             } else {
                 outer_hold = outer_hold_l + (outer_hold_h - outer_hold_l)*((double)rand())/((double)RAND_MAX);
             }
-            
-            /* decide if this is a catch trial */
-            if (mode == MODE_BLOCK_CATCH && catch_trial_pct > 0) {
-                set_catch_trial( catch_trial_pct > (double)rand()/(double)RAND_MAX ? 1.0 : 0.0 );
-            } else {
-                set_catch_trial(0.0);
-            }
-            
-            /* clear the bump counter */
-            ssSetIWorkValue(S, 580, 0);
-                            
+                                                 
             /* and advance */
-            new_state = STATE_CT_ON;
+            // ihs: new_state = STATE_CT_ON;
+            new_state = STATE_OUTPUT_DISPLACEMENT;
             state_changed();
 
-            /* skip target -1, bump -1 */
-            if (target == -1 && bump == -1) {
+            /* skip target -1 */
+            if (target == -1) {
                 new_state = STATE_PRETRIAL;
             }
 
+            break;
+        case STATE_OUTPUT_DISPLACEMENT:
+            /* State to output displacement */
+            // ihs: adjust this one to change precision on the displacement
+            if (displacement_output_counter>5) {
+                ssSetIWorkValue(S, 19, 0);
+                new_state = STATE_CT_ON;
+                state_changed();
+            } else {
+                ssSetIWorkValue(S, 19, displacement_output_counter+1);
+            }
             break;
         case STATE_CT_ON:
             /* center target on */
@@ -502,18 +522,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             } else if (elapsed_timer_time > center_hold && target != -1) {
                 new_state = STATE_CENTER_DELAY;
                 reset_timer(); /* delay timer */
-                state_changed();
-            } else if (elapsed_timer_time > center_hold && target == -1) {
-                new_state = STATE_CENTER_HOLD_BUMP;
-                reset_timer();
-                state_changed();
-            }
-            break;
-        case STATE_CENTER_HOLD_BUMP:
-            /* bump when holding in center, then sends back to pretrial */
-            if (elapsed_timer_time > center_bump_timeout) {
-                new_state = STATE_PRETRIAL;
-                reset_timer();
                 state_changed();
             }
             break;
@@ -618,8 +626,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int_T target_index;
     int_T *target_list;
     int target;
-    int bump; /* direction of bump */
-    int bump_duration_counter;
+    
+    int feedback;
+    real_T displacement;
+    int displacement_output_counter;
+
     real_T theta;
     real_T ct[4];
     real_T ot[4];
@@ -632,7 +643,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* allocate holders for outputs */
     real_T force_x, force_y, word, reward, tone_cnt, tone_id;
     real_T target_pos[10];
-    real_T status[4];
+    real_T status[5];
+    real_T version;
     
     /* pointers to output buffers */
     real_T *force_p;
@@ -641,6 +653,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *status_p;
     real_T *reward_p;
     real_T *tone_p;
+    real_T *version_p;
     
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
@@ -652,15 +665,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     IWorkVector = ssGetIWork(S);
     target_index = IWorkVector[1];
     target_list = IWorkVector+2;    
-    if (mode == MODE_BLOCK_CATCH) {
-        target = target_list[target_index];
-    } else {
-        /* mode == MODE_BUMP */
-        target = target_list[target_index*2];
-        bump = target_list[target_index*2+1];
-    }
 
-    bump_duration_counter = ssGetIWorkValue(S, 580);
+    target = target_list[target_index];
+    
+    feedback = ssGetIWorkValue(S, 18);
+    displacement = ssGetRWorkValue(S, 5);
+    displacement_output_counter = ssGetIWorkValue(S, 19);
     
     /* get current tone counter */
     tone_cnt = ssGetRWorkValue(S, 1);
@@ -698,60 +708,35 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      ********************/
     
     /* force (0) */
-    if (mode == MODE_BLOCK_CATCH) {
-        if (get_catch_trial() && (
-                state == STATE_CENTER_DELAY ||
-                state == STATE_MOVEMENT ||
-                state == STATE_OUTER_HOLD
-            )) 
-        {
-            force_x = catch_force_in[0];
-            force_y = catch_force_in[1];
-        } else {
-            force_x = force_in[0]; 
-            force_y = force_in[1]; 
-        }
+    if (get_catch_trial() && (
+            state == STATE_CENTER_DELAY ||
+            state == STATE_MOVEMENT ||
+            state == STATE_OUTER_HOLD
+        )) 
+    {
+        force_x = catch_force_in[0];
+        force_y = catch_force_in[1];
     } else {
-        /* mode == MODE_BUMP */
-        /* see if we are in a bump */
-        if (bump_duration_counter > 0) {
-            /* yes, so decrement the counter and maintain the bump */
-            bump_duration_counter--;
-            if (bump_duration_counter == 0)
-                bump_duration_counter = -1; // don't bump again
-            theta = PI/2 - bump*2*PI/num_targets;
-            force_x = force_in[0] + cos(theta)*bump_magnitude;
-            force_y = force_in[1] + sin(theta)*bump_magnitude;
-        } else if ( bump != -1 && 
-                    bump_duration_counter != -1 && 
-                    ( (state==STATE_MOVEMENT && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) > target_radius / 2) || 
-                       state==STATE_CENTER_HOLD_BUMP
-                    )
-                  ) 
-        {
-            /* initiating a new bump */
-            bump_duration_counter = bump_duration;
-            theta = PI/2 - bump*2*PI/num_targets;
-            force_x = force_in[0] + cos(theta)*bump_magnitude;
-            force_y = force_in[1] + sin(theta)*bump_magnitude;
-        } else {
-            force_x = force_in[0]; 
-            force_y = force_in[1];
-        }
+        force_x = force_in[0]; 
+        force_y = force_in[1]; 
     }
     
     /* status (1) */
     if (state == STATE_REWARD && new_state)
-        ssSetIWorkValue(S, 581, ssGetIWorkValue(S, 581)+1);
+        ssSetIWorkValue(S, 20, ssGetIWorkValue(S, 581)+1);
     if (state == STATE_ABORT && new_state)
-        ssSetIWorkValue(S, 582, ssGetIWorkValue(S, 582)+1);
+        ssSetIWorkValue(S, 21, ssGetIWorkValue(S, 582)+1);
     if (state == STATE_FAIL && new_state)
-        ssSetIWorkValue(S, 583, ssGetIWorkValue(S, 583)+1);
+        ssSetIWorkValue(S, 22, ssGetIWorkValue(S, 583)+1);
+    if (state == STATE_INCOMPLETE && new_state)
+        ssSetIWorkValue(S, 23, ssGetIWorkValue(S, 584)+1);
+       
     
-    status[0] = IWorkVector[1]; //state;
-    status[1] = ssGetIWorkValue(S, 581); // num rewards
-    status[2] = ssGetIWorkValue(S, 582); // num aborts
-    status[3] = ssGetIWorkValue(S, 583); // num fails
+    status[0] = state;   //IWorkVector[1];
+    status[1] = ssGetIWorkValue(S, 20); // num rewards
+    status[2] = ssGetIWorkValue(S, 21); // num aborts
+    status[3] = ssGetIWorkValue(S, 22); // num fails
+    status[4] = ssGetIWorkValue(S, 23); // num incompletes
     
     /* word (2) */
     if (new_state) {
@@ -759,14 +744,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
                 break;
+            case STATE_OUTPUT_DISPLACEMENT:
+                // ihs: fix this to get the displacement_output_counter-th byte
+                word = displacement;
+                break;
             case STATE_CT_ON:
                 word = WORD_CT_ON;
                 break;
             case STATE_CENTER_DELAY:
                 word = WORD_OT_ON(target);
-                break;
-            case STATE_CENTER_HOLD_BUMP:
-                word = WORD_BUMP(bump);
                 break;
             case STATE_MOVEMENT:
                 word = WORD_GO_CUE;
@@ -785,48 +771,48 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         }
     } else {
         /* not a new state, but maybe we have a mid-state event */
-        if (bump_duration_counter == bump_duration) {
-            /* just started a bump */
-            word = WORD_BUMP(bump);
-        } else {
-            word = 0;
-        }
+
+        // ihs: not quite sure...
+        word = WORD_FEEDBACK(feedback);
+//         } else {
+//             word = 0;
+//         }
     }
     
     /* target_pos (3) */
+    // ihs: I think this is right, but I'm still not sure about sprite-selection...
+    // Map T1 to the cursor...
+
+    // Just do an x-displacement for now, and always display it
+    target_pos[0] = 1;
+    // target_pos[0] = feedback; ???
+    target_pos[1] = cursor[0]-target_size/2+displacement;
+    target_pos[2] = cursor[1]+target_size/2;
+    target_pos[3] = cursor[0]+target_size/2+displacement;
+    target_pos[4] = cursor[1]-target_size/2;
+
+
+    // Make T2 switch between center and outer targets...
     if ( state == STATE_CT_ON || 
          state == STATE_CENTER_HOLD || 
-         state == STATE_CENTER_HOLD_BUMP ||
          state == STATE_CENTER_DELAY )
     {
-        /* center target on */
-        target_pos[0] = 1;
-        for (i=0; i<4; i++) {
-            target_pos[i+1] = ct[i];
-        }
-    } 
-    else 
-    {
-        /* center target off */
-        target_pos[0] = 0;
-        for (i=0; i<4; i++) {
-            target_pos[i+1] = 0;
-        }
-    }
-    
-    if ( state == STATE_CENTER_DELAY ||
-         state == STATE_MOVEMENT ||
-         state == STATE_OUTER_HOLD )
-    {
-        /* outer target on */
+        /* draw as center target */
         target_pos[5] = 1;
+        for (i=0; i<4; i++) {
+            target_pos[i+6] = ct[i];
+        }
+//         } else if (state == STATE_CENTER_DELAY) {
+//             /* pick a sprite with both center and outer targets? */
+    } else if ( state == STATE_MOVEMENT ||
+         state == STATE_OUTER_HOLD ) {
+        /* draw as outer target */
+        target_pos[5] = 0;
         for (i=0; i<4; i++) {
             target_pos[i+6] = ot[i];
         }
-    } 
-    else 
-    {
-        /* outer target off */
+    } else {
+        /* don't draw */
         target_pos[5] = 0;
         for (i=0; i<4; i++) {
             target_pos[i+6] = 0;
@@ -853,18 +839,19 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             tone_id = TONE_REWARD;
         }
     }
-        
-
+    
+    /* version (6) */
+    version = ssGetRWorkValue(S, 4);
+       
     /**********************************
      * Write outputs back to SimStruct
      **********************************/
     force_p = ssGetOutputPortRealSignal(S,0);
     force_p[0] = force_x;
     force_p[1] = force_y;
-    ssSetIWorkValue(S, 580, bump_duration_counter);
     
     status_p = ssGetOutputPortRealSignal(S,1);
-    for (i=0; i<4; i++) 
+    for (i=0; i<5; i++) 
         status_p[i] = status[i];
     
     word_p = ssGetOutputPortRealSignal(S,2);
@@ -883,6 +870,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_p[1] = tone_id;
     ssSetRWorkValue(S, 1, tone_cnt);
     ssSetRWorkValue(S, 2, tone_id);
+    
+    version_p = ssGetOutputPortRealSignal(S,6);
+    version_p[0] = (real_T)version;
     
     UNUSED_ARG(tid);
 }
