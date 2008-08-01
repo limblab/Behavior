@@ -20,6 +20,8 @@
 #define WORD_TASK_CODE 0x06
 #elif TASK_WF
 #define WORD_TASK_CODE 0x07
+#elif TASK_UC
+#define WORD_TASK_CODE 0x08
 #endif
 
 /* trial start */
@@ -80,6 +82,9 @@
 
 /* bump initiated in direction d */
 #define WORD_BUMP(d) ( 0x50 | (0x0F & (d)) )
+
+/* feedback */
+#define WORD_FEEDBACK(f) ( 0x60 | (0x0F & (f)) )
 
 /* stimulation with gradation g */
 #define WORD_STIM(g) ( 0x60 | (g) )
