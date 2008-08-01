@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1181"
+    ComputedModelVersion    "1.1182"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Aug 01 12:35:49 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:1181>"
+  LastModifiedDate	  "Fri Aug 01 14:13:02 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:1182>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -835,8 +835,8 @@ Model {
       Position		      [660, 88, 885, 422]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_uc"
-      Parameters	      "8 10 2.5 1 1 .5 1.5 .75 .25 1 1 10 3 .02 125 1 "
-"2 2 1 0 0 0 0"
+      Parameters	      "8 10 2.5 1 1 .5 1.5 .75 .25 1 1 10 1 2 2 1 0 0 "
+"0 0"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'force')\nport_label('input',3,'catch force')\npor"
 "t_label('output',1,'force')\nport_label('output',2,'status')\nport_label('out"
@@ -7039,7 +7039,7 @@ Model {
 	  scopetype		  "Target"
 	  autostart		  on
 	  viewmode		  "Numerical"
-	  formatstr		  "'%6.0f $Revision: 1.1 $,%6.2f mastercon ver"
+	  formatstr		  "'%6.0f $Revision: 1.2 $,%6.2f mastercon ver"
 "sion'"
 	  grid			  on
 	  ylimits		  "[-10,10]"
