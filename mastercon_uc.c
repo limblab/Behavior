@@ -2,7 +2,7 @@
  *
  * Master Control block for behavior: center-out + uncertainty task
  *
- * CVS Revision -- $Revision: 1.3 $
+ * CVS Revision -- $Revision: 1.4 $
  */
 #define S_FUNCTION_NAME mastercon_uc
 #define S_FUNCTION_LEVEL 2
@@ -61,7 +61,7 @@ static real_T catch_trial_pct = 0.0;    /* fraction of catch trials */
 #define get_catch_trial() ssGetRWorkValue(S, 3)
 
 #define param_idiot_mode mxGetScalar(ssGetSFcnParam(S,12))
-static int idiot_mode;
+static int idiot_mode = 0;
 
 #define param_vperturb_mu mxGetScalar(ssGetSFcnParam(S,13))
 static real_T vperturb_mu = 2.0;
@@ -69,22 +69,24 @@ static real_T vperturb_mu = 2.0;
 static real_T vperturb_sigma = 2.0;
 #define param_vperturb_percent_vis mxGetScalar(ssGetSFcnParam(S,15))
 static real_T vperturb_percent_vis = 1.0;
+#define param_visual_rotation mxGetScalar(ssGetSFcnParam(S,16))
+static int visual_rotation = 0;
 
-#define param_percent_no_feedback mxGetScalar(ssGetSFcnParam(S,16))
+#define param_percent_no_feedback mxGetScalar(ssGetSFcnParam(S,17))
 static real_T percent_no_feedback = 0.0;
-#define param_percent_med_feedback mxGetScalar(ssGetSFcnParam(S,17))
+#define param_percent_med_feedback mxGetScalar(ssGetSFcnParam(S,18))
 static real_T percent_med_feedback = 0.0;
-#define param_percent_big_feedback mxGetScalar(ssGetSFcnParam(S,18))
+#define param_percent_big_feedback mxGetScalar(ssGetSFcnParam(S,19))
 static real_T percent_big_feedback = 0.0;
 
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,19))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,20))
 
 static void updateVersion(SimStruct *S)
 {
     /* set variable to file version for display on screen */
     /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.3 $";
+    char version_str[256] = "$Revision: 1.4 $";
     char* version;
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
@@ -138,6 +140,7 @@ static void mdlCheckParameters(SimStruct *S)
     vperturb_mu = param_vperturb_mu;
     vperturb_sigma = param_vperturb_sigma;
     vperturb_percent_vis = param_vperturb_percent_vis;
+    visual_rotation = param_visual_rotation;
     
     percent_no_feedback = param_percent_no_feedback;
     percent_med_feedback = param_percent_med_feedback;
@@ -148,7 +151,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 20);
+    ssSetNumSFcnParams(S, 21);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -208,7 +211,7 @@ static void mdlInitializeSizes(SimStruct *S)
                              5: displacement (vis_perturbation mode)
                            */
     ssSetNumPWork(S, 0);
-    ssSetNumIWork(S, 585); /*    0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 24); /*    0: state_transition (true if state changed), 
                                  1: current target index,
                             [2-17]: target presentation sequence (block/catch mode or vis_perturbation mode)
                                 18: feedback type (vis_perturbation mode)
@@ -452,14 +455,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             // ihs: pick feedback type and displacement for this trial...
             rn = ((double)rand())/((double)RAND_MAX);
             if (rn < percent_no_feedback) {feedback = 0;}
-            else if (rn < percent_no_feedback+percent_big_feedback) {feedback = 1;}
-            else if (rn < percent_no_feedback+percent_big_feedback+percent_med_feedback) {feedback = 2;}
-            else {feedback = 3;}
+            else if (rn < percent_no_feedback+percent_big_feedback) {feedback = ceil(((double)rand())/((double)RAND_MAX)*5.0) + 4;}
+            else if (rn < percent_no_feedback+percent_big_feedback+percent_med_feedback) {feedback = ceil(((double)rand())/((double)RAND_MAX)*5.0) + 9;}
+            else {feedback = 4;}
             ssSetIWorkValue(S, 18, feedback);
 
             /* Polar form of the Box-Muller Transform (much faster) */
+            w = 1.0;
             for (i=0; i<50; i++) {
-               if (w < 1.0) {
+               if (w >= 1.0) {
                   x1 = 2.0 * ((double)rand())/((double)RAND_MAX) - 1.0;
                   x2 = 2.0 * ((double)rand())/((double)RAND_MAX) - 1.0;
                   w = x1 * x1 + x2 * x2;
@@ -790,17 +794,30 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     /* target_pos (3) */
-    // ihs: I think this is right, but I'm still not sure about sprite-selection...
     // Map T1 to the cursor...
 
-    // Just do an x-displacement for now, and always display it
+    /* Old code to just do x-displacement
     target_pos[0] = 1;
-    // target_pos[0] = feedback; ???
     target_pos[1] = cursor[0]-target_size/2+displacement;
     target_pos[2] = cursor[1]+target_size/2;
     target_pos[3] = cursor[0]+target_size/2+displacement;
     target_pos[4] = cursor[1]-target_size/2;
+     */
 
+    target_pos[0] = feedback;
+    if (visual_rotation) {
+        // Visual Rotation
+        target_pos[1] = (cos(displacement)*cursor[0] - sin(displacement)*cursor[1]) - target_size/2;
+        target_pos[2] = (sin(displacement)*cursor[0] + cos(displacement)*cursor[1]) + target_size/2 ;
+        target_pos[3] = (cos(displacement)*cursor[0] - sin(displacement)*cursor[1]) + target_size/2;
+        target_pos[4] = (sin(displacement)*cursor[0] + cos(displacement)*cursor[1]) - target_size/2;
+    } else {
+        // Perpendicular displacement
+        target_pos[1] = cursor[0]-target_size/2+displacement*sin(theta);
+        target_pos[2] = cursor[1]+target_size/2-displacement*cos(theta);
+        target_pos[3] = cursor[0]+target_size/2+displacement*sin(theta);
+        target_pos[4] = cursor[1]-target_size/2-displacement*cos(theta);
+    }
 
     // Make T2 switch between center and outer targets...
     if ( state == STATE_CT_ON || 
@@ -817,7 +834,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     } else if ( state == STATE_MOVEMENT ||
          state == STATE_OUTER_HOLD ) {
         /* draw as outer target */
-        target_pos[5] = 0;
+        target_pos[5] = 2;
         for (i=0; i<4; i++) {
             target_pos[i+6] = ot[i];
         }
