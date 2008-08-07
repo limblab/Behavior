@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3054.25881">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3141.29932">
   <ScreenWidth>30</ScreenWidth>
   <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>2</Cursor>
@@ -417,6 +417,10 @@
         <value>0</value>
       </item>
       <item>
+        <key>WFTVD</key>
+        <value>0</value>
+      </item>
+      <item>
         <key>WFX</key>
         <value>0</value>
       </item>
@@ -432,6 +436,18 @@
         <key>WFW</key>
         <value>0</value>
       </item>
+      <item>
+        <key>WFIM</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFMT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WF1D</key>
+        <value>0</value>
+      </item>
     </dictionary>
   </SerializedParameters>
   <MultiGadgetTargetList>
@@ -440,96 +456,128 @@
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
   </MultiGadgetTargetList>
   <FlextensionTargetList>
@@ -538,96 +586,128 @@
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>1</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>1</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>1</xVar>
+      <yVar>1</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
       <y>0</y>
       <h>0</h>
       <w>0</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
   </FlextensionTargetList>
 </BehaviorParameters>
