@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3141.29932">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3145.18952">
   <ScreenWidth>30</ScreenWidth>
   <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>2</Cursor>
@@ -402,23 +402,23 @@
       </item>
       <item>
         <key>WFRT</key>
-        <value>0</value>
+        <value>5</value>
       </item>
       <item>
         <key>WFTH</key>
-        <value>0</value>
+        <value>0.5</value>
       </item>
       <item>
         <key>WFCH</key>
-        <value>0</value>
+        <value>1</value>
       </item>
       <item>
         <key>WFI</key>
-        <value>0</value>
+        <value>1</value>
       </item>
       <item>
         <key>WFTVD</key>
-        <value>0</value>
+        <value>0.5</value>
       </item>
       <item>
         <key>WFX</key>
@@ -430,11 +430,11 @@
       </item>
       <item>
         <key>WFH</key>
-        <value>0</value>
+        <value>2</value>
       </item>
       <item>
         <key>WFW</key>
-        <value>0</value>
+        <value>2</value>
       </item>
       <item>
         <key>WFIM</key>
@@ -582,20 +582,20 @@
   </MultiGadgetTargetList>
   <FlextensionTargetList>
     <MultiGadgetTarget>
-      <x>0</x>
-      <y>0</y>
-      <h>0</h>
-      <w>0</w>
+      <x>2</x>
+      <y>2</y>
+      <h>2</h>
+      <w>2</w>
       <xVar>1</xVar>
       <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
-      <x>0</x>
-      <y>0</y>
-      <h>0</h>
-      <w>0</w>
-      <xVar>0</xVar>
-      <yVar>1</yVar>
+      <x>2</x>
+      <y>-2</y>
+      <h>2</h>
+      <w>2</w>
+      <xVar>1</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>

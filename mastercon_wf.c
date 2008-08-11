@@ -217,7 +217,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetRWorkValue(S, 3, 0.0);
     
     /* set the mvc Targets at 0 */
-    for (i=5; i<17; i++) {
+    for (i=5; i<29; i++) {
 	    ssSetRWorkValue(S, i, 0.0);
     }
     
@@ -355,8 +355,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	
 
 	if (tgt_xVar_enabled) {
-			if (current_MVC_targets[quadrant-1]!=0) { // we have xVar enabled and a current value for this quad x target
-				if (target_x != user_spec_MVC_targets[quadrant-1]) { //this quad x MVC target changed by user, we clear this current MVC target
+		if (current_MVC_targets[quadrant-1]!=0) { // we have xVar enabled and a current value for this quad x target
+			if (target_x != user_spec_MVC_targets[quadrant-1]) { //this quad x MVC target changed by user, we clear this current MVC target
 					current_MVC_targets[quadrant-1] = 0;
 			} else {
 				target_x = current_MVC_targets[quadrant-1]; //override the x value for the MVC target in this quad
@@ -370,17 +370,17 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 		}
 	}
 	if (tgt_yVar_enabled) {
-			if (current_MVC_targets[quadrant+3]!=0) { // we have yVar enabled and a current value for this quad y target
-				if (target_y != user_spec_MVC_targets[quadrant+3]) { //this quad y MVC target changed by user, we clear this current MVC target
-					current_MVC_targets[quadrant+3] = 0;
+		if (current_MVC_targets[quadrant+3]!=0) { // we have yVar enabled and a current value for this quad y target
+			if (target_y != user_spec_MVC_targets[quadrant+3]) { //this quad y MVC target changed by user, we clear this current MVC target
+				current_MVC_targets[quadrant+3] = 0;
 			} else {
 				target_y = current_MVC_targets[quadrant+3]; //override the y value for the MVC target in this quad
 			}
 		}
 		if (current_MVC_targets[quadrant+3] == 0) { //first occurence of this target, don't modify it
-			user_spec_MVC_targets[quadrant+3] = target_x;
+			user_spec_MVC_targets[quadrant+3] = target_y;
 			ssSetRWorkValue(S,8+quadrant,user_spec_MVC_targets[quadrant+3]);
-			current_MVC_targets[quadrant+3] = target_x; //set the current target to value provided by user
+			current_MVC_targets[quadrant+3] = target_y; //set the current target to value provided by user
 			ssSetRWorkValue(S,16+quadrant,current_MVC_targets[quadrant+3]);
 		}
 	}
@@ -428,7 +428,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* See if we want to clear the value of the higher target reached */    
     if (param_clear_MVC_tgts > clear_MVC_tgts) {
 	    clear_MVC_tgts = param_clear_MVC_tgts;
-	    for (i=5; i<17; i++) {
+	    for (i=5; i<29; i++) {
 		    ssSetRWorkValue(S, i, 0.0); //clear all MVC target buffers
 	    }
 	}
@@ -750,6 +750,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     target_h = *uPtrs[1];
     target_x = *uPtrs[2];
     target_w = *uPtrs[3];
+    tgt_xVar_enabled = *uPtrs[4];
+    tgt_yVar_enabled = *uPtrs[5];
 	
         /*MVC Targets variables*/
     for (i=0; i<8; i++) {
@@ -774,9 +776,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	
 
 	if (tgt_xVar_enabled) {
-			if (current_MVC_targets[quadrant-1]!=0) { // we have xVar enabled and a current value for this quad x target
-				if (target_x != user_spec_MVC_targets[quadrant-1]) { //this quad x MVC target changed by user, we clear this current MVC target
-					current_MVC_targets[quadrant-1] = 0;
+		if (current_MVC_targets[quadrant-1]!=0) { // we have xVar enabled and a current value for this quad x target
+			if (target_x != user_spec_MVC_targets[quadrant-1]) { //this quad x MVC target changed by user, we clear this current MVC target
+				current_MVC_targets[quadrant-1] = 0;
 			} else {
 				target_x = current_MVC_targets[quadrant-1]; //override the x value for the MVC target in this quad
 			}
@@ -789,17 +791,17 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		}
 	}
 	if (tgt_yVar_enabled) {
-			if (current_MVC_targets[quadrant+3]!=0) { // we have yVar enabled and a current value for this quad y target
-				if (target_y != user_spec_MVC_targets[quadrant+3]) { //this quad y MVC target changed by user, we clear this current MVC target
-					current_MVC_targets[quadrant+3] = 0;
+		if (current_MVC_targets[quadrant+3]!=0) { // we have yVar enabled and a current value for this quad y target
+			if (target_y != user_spec_MVC_targets[quadrant+3]) { //this quad y MVC target changed by user, we clear this current MVC target
+				current_MVC_targets[quadrant+3] = 0;
 			} else {
 				target_y = current_MVC_targets[quadrant+3]; //override the y value for the MVC target in this quad
 			}
 		}
 		if (current_MVC_targets[quadrant+3] == 0) { //first occurence of this target, don't modify it
-			user_spec_MVC_targets[quadrant+3] = target_x;
+			user_spec_MVC_targets[quadrant+3] = target_y;
 			ssSetRWorkValue(S,8+quadrant,user_spec_MVC_targets[quadrant+3]);
-			current_MVC_targets[quadrant+3] = target_x; //set the current target to value provided by user
+			current_MVC_targets[quadrant+3] = target_y; //set the current target to value provided by user
 			ssSetRWorkValue(S,16+quadrant,current_MVC_targets[quadrant+3]);
 		}
 	}
