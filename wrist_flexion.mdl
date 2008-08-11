@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.118"
+    ComputedModelVersion    "1.119"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,9 +44,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Christian"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Aug 07 15:43:02 2008"
+  LastModifiedDate	  "Fri Aug 08 19:41:04 2008"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:118>"
+  ModelVersionFormat	  "1.%<AutoIncrement:119>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -1463,7 +1463,7 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "' %6.4f MVC Target'"
+      formatstr		      "' %6.4f X quad 1 MVC,%6.4f Y quad 1 MVC,%6.4f X quad 2 MVC,%6.4f Y quad 2 MVC,%6.4f X quad 3 MVC,%6.4f Y quad 3 MVC,%6.4f X quad 4 MVC,%6.4f Y quad 4 MVC'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"

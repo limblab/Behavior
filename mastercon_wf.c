@@ -143,7 +143,7 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target LR corner x, 
      *                  target LR corner y)
 `    * 5: target select:  1
-	 * 6: MVC Target:	  4  (1: X min, 2: X max, 3: Y min, 4: Ymax)
+	 * 6: MVC Target:	  8  ( [Xmax quad 1, Ymax quad 1, Xmax quad 2,...,Ymax quad 4] )
 	 *
      */
     if (!ssSetNumOutputPorts(S, 7)) return;
@@ -153,28 +153,25 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 3, 2);
     ssSetOutputPortWidth(S, 4, 10);
     ssSetOutputPortWidth(S, 5, 1);
-    ssSetOutputPortWidth(S, 6, 4);
+    ssSetOutputPortWidth(S, 6, 8);
     
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 17);    /* 0: time of last timer reset
+    ssSetNumRWork(S, 29);   /* 0: time of last timer reset
                                1: time of last target hold timer reset 
                                2: tone counter (incremented each time a tone is played)
                                3: tone id
                                4: time of last center hold timer reset
-                               5: X value of the higher MVC target reached in -x direction
-                               6: X value of the current -x MVC target
-                               7: X value of the higher MVC target reached in +x direction
-                               8: X value of the current +x MVC target
-                               9: Y value of the higher MVC target reached in -y direction
-                               10: Y value of the current -y MVC target                               
-                               11: Y value of the higher MVC target reached in +y direction
-                               12: Y value of the current +y MVC target
-                               13: X Value of the -x user-specified MVC target
-                               14: X Value of the -x user-specified MVC target
-                               15: X Value of the -x user-specified MVC target
-                               16: X Value of the -x user-specified MVC target
+
+                                 // For Following MVC Target related buffers:	                               
+                                 // Quadrant 1 is +x and + y, including the +x and y = 0 axis
+                                 // Quadrant 2 is -x and +y, including the x = 0 and +y axis                                
+                                 // Quadrant 3 is -x and - y, including the -x and y = 0 axis
+                                 // Quadrant 4 is +x and -y, including the x = 0 and -y axis
+                               5-12: User specified MVC targets [x1 x2 x3 x4 y1 y2 y3 y4]
+                               13-20: Current MVC targets [x1 x2 x3 x4 y1 y2 y3 y4]
+                               21-28: higher MVC targets reached [x1 x2 x3 x4 y1 y2 y3 y4]
                             */
     ssSetNumPWork(S, 0);
     ssSetNumIWork(S, 21); /*   0: state_transition (true if state changed), 
@@ -278,6 +275,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int *target_list;
     int tgt_xVar_enabled;
     int tgt_yVar_enabled;
+    int quadrant;
     real_T target_x, target_y, target_h, target_w;
     real_T tgt[4];
     real_T center[4];
@@ -287,18 +285,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T elapsed_target_hold_time;
     real_T elapsed_center_hold_time;
     real_T success_flag;
-    real_T current_MVC_target_xl;
-	real_T higher_MVC_target_xl;
-    real_T current_MVC_target_xh;
-	real_T higher_MVC_target_xh;
-	real_T current_MVC_target_yl;
-	real_T higher_MVC_target_yl;
-	real_T current_MVC_target_yh;
-	real_T higher_MVC_target_yh;
-	real_T first_MVC_target_xl;
-	real_T first_MVC_target_xh;
-	real_T first_MVC_target_yl;
-	real_T first_MVC_target_yh;
+
+    //holders for MVC targets variables
+	real_T user_spec_MVC_targets[8];
+    real_T current_MVC_targets[8];
+    real_T higher_MVC_targets[8];
     
     int tmp_tgts[64];
     int tmp_i;
@@ -340,87 +331,64 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     target_w = *uPtrs[3];
     tgt_xVar_enabled = *uPtrs[4];
     tgt_yVar_enabled = *uPtrs[5];
+
+    /*MVC Targets variables*/
+    for (i=0; i<8; i++) {
+	    user_spec_MVC_targets[i]=ssGetRWorkValue(S,i+5);
+    	current_MVC_targets[i]=ssGetRWorkValue(S,i+13);
+    	higher_MVC_targets[i]=ssGetRWorkValue(S,i+21);
+	}  
     
-	higher_MVC_target_xl = ssGetRWorkValue(S, 5);
-    current_MVC_target_xl = ssGetRWorkValue(S, 6);
-	higher_MVC_target_xh = ssGetRWorkValue(S, 7);
-    current_MVC_target_xh = ssGetRWorkValue(S, 8);
-	higher_MVC_target_yl = ssGetRWorkValue(S, 9);
-    current_MVC_target_yl = ssGetRWorkValue(S, 10);
-	higher_MVC_target_yh = ssGetRWorkValue(S, 11);
-    current_MVC_target_yh = ssGetRWorkValue(S, 12);
-    first_MVC_target_xl = ssGetRWorkValue(S, 13);
-    first_MVC_target_xh = ssGetRWorkValue(S, 14);
-    first_MVC_target_yl = ssGetRWorkValue(S, 15);
-    first_MVC_target_yh = ssGetRWorkValue(S, 16);
-        
-    
+    /****************************************************************************/ 
     /* if we are in MVC routine mode, we may want to override the target values */
-    if (tgt_xVar_enabled) {
-	    if (target_x < 0) {
-		    if (current_MVC_target_xl != 0) { //we have xVar enabled and a current value for a low x target
-	    		if (target_x != first_MVC_target_xl) { // -x MVC target changed by user, we clear current MVC target
-	    			current_MVC_target_xl = 0;
-				} else {
-					target_x = current_MVC_target_xl; // override the x value with current low x MVC target
-				}
+    /****************************************************************************/ 
+    //first, in which quadrant is this target in ?    
+	if      (target_x > 0 && target_y >=0)  { quadrant = 1; }
+	else if (target_x <=0 && target_y > 0)  { quadrant = 2; }
+	else if (target_x < 0 && target_y <=0)  { quadrant = 3; }
+	else if (target_x >=0 && target_y < 0)  { quadrant = 4; }
+	else {
+		quadrant = 0; // x,y = 0,0 ... this should not happen, but in case skip next step by disabling MVC
+		tgt_xVar_enabled = 0;
+		tgt_yVar_enabled = 0;	
+	} 
+	
+
+	if (tgt_xVar_enabled) {
+			if (current_MVC_targets[quadrant-1]!=0) { // we have xVar enabled and a current value for this quad x target
+				if (target_x != user_spec_MVC_targets[quadrant-1]) { //this quad x MVC target changed by user, we clear this current MVC target
+					current_MVC_targets[quadrant-1] = 0;
+			} else {
+				target_x = current_MVC_targets[quadrant-1]; //override the x value for the MVC target in this quad
 			}
-	    	if (current_MVC_target_xl ==0) { //first occurence of this target, don't modify its value
-		    	first_MVC_target_xl = target_x;
-				ssSetRWorkValue(S,13,first_MVC_target_xl);
-		    	current_MVC_target_xl = target_x; //set the current target to value provided by user
-			    ssSetRWorkValue(S,6,current_MVC_target_xl);
-	   		}
-		} else if (target_x > 0) {
-			if (current_MVC_target_xh != 0) { //we have xVar enabled and a current value for a high x target
-	    		if (target_x != first_MVC_target_yl) { // +x MVC target changed by user, we clear current MVC target
-	    			current_MVC_target_xh = 0;
-				} else {
-					target_x = current_MVC_target_xh; // override the x value with current high x MVC target
-				}
-			}
-	    	if (current_MVC_target_xh ==0) { //first occurence of this target, don't modify its value
-		    	first_MVC_target_xh = target_x;
-				ssSetRWorkValue(S,14,first_MVC_target_xh);
-		    	current_MVC_target_xh = target_x; //set the current target to value provided by user
-			    ssSetRWorkValue(S,8,current_MVC_target_xl);
-	   		}
-		} else { // xVar is enabled but the specified x value is 0... leave it to 0 I guess...
+		}
+		if (current_MVC_targets[quadrant-1] == 0) { //first occurence of this target, don't modify it
+			user_spec_MVC_targets[quadrant-1] = target_x;
+			ssSetRWorkValue(S,4+quadrant,user_spec_MVC_targets[quadrant-1]);
+			current_MVC_targets[quadrant-1] = target_x; //set the current target to value provided by user
+			ssSetRWorkValue(S,12+quadrant,current_MVC_targets[quadrant-1]);
 		}
 	}
-    if (tgt_yVar_enabled) {
-	    if (target_y < 0) {
-		    if (current_MVC_target_yl != 0) { //we have yVar enabled and a current value for a low y target
-	    		if (target_y != first_MVC_target_yl) { // -y MVC target changed by user, we clear current MVC target
-	    			current_MVC_target_yl = 0;
-				} else {
-					target_y = current_MVC_target_yl; // override the y value with current low y MVC target
-				}
+	if (tgt_yVar_enabled) {
+			if (current_MVC_targets[quadrant+3]!=0) { // we have yVar enabled and a current value for this quad y target
+				if (target_y != user_spec_MVC_targets[quadrant+3]) { //this quad y MVC target changed by user, we clear this current MVC target
+					current_MVC_targets[quadrant+3] = 0;
+			} else {
+				target_y = current_MVC_targets[quadrant+3]; //override the y value for the MVC target in this quad
 			}
-	    	if (current_MVC_target_yl ==0) { //first occurence of this target, don't modify its value
-		    	first_MVC_target_yl = target_y;
-				ssSetRWorkValue(S,15,first_MVC_target_yl);
-		    	current_MVC_target_yl = target_y; //set the current target to value provided by user
-			    ssSetRWorkValue(S,10,current_MVC_target_yl);
-	   		}
-		} else if (target_y > 0) {
-			if (current_MVC_target_yh != 0) { //we have yVar enabled and a current value for a high y target
-	    		if (target_y != first_MVC_target_yl) { // +y MVC target changed by user, we clear current MVC target
-	    			current_MVC_target_yh = 0;
-				} else {
-					target_y = current_MVC_target_yh; // override the y value with current high y MVC target
-				}
-			}
-	    	if (current_MVC_target_yh ==0) { //first occurence of this target, don't modify its value
-		    	first_MVC_target_yh = target_y;
-				ssSetRWorkValue(S,16,first_MVC_target_yh);
-		    	current_MVC_target_yh = target_y; //set the current target to value provided by user
-			    ssSetRWorkValue(S,12,current_MVC_target_yl);
-	   		}
-		} else { // yVar is enabled but the specified y value is 0... leave it to 0 I guess...
+		}
+		if (current_MVC_targets[quadrant+3] == 0) { //first occurence of this target, don't modify it
+			user_spec_MVC_targets[quadrant+3] = target_x;
+			ssSetRWorkValue(S,8+quadrant,user_spec_MVC_targets[quadrant+3]);
+			current_MVC_targets[quadrant+3] = target_x; //set the current target to value provided by user
+			ssSetRWorkValue(S,16+quadrant,current_MVC_targets[quadrant+3]);
 		}
 	}
-	                                                            
+    /********************************/ 
+    /* End of MVC target overriding */
+    /********************************/ 
+
+    	                                                            
     /* get target bounds */
     tgt[0] = target_x - target_w / 2.0;
     tgt[1] = target_y + target_h / 2.0;
@@ -492,57 +460,31 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
 			/* see if we have to update MVC_Target */
 			if (success_flag) {
-				if (target_x < higher_MVC_target_xl) {
-					/* We have a new Max MVC!*/
-					ssSetRWorkValue(S, 5, target_x);
-					if (tgt_xVar_enabled) {
-						/* MVC Target reached! Increase it by 15% */					
-						ssSetRWorkValue(S, 6, target_x*1.15);
-					}
-				}
-				if (target_x > higher_MVC_target_xh) {
-					/* We have a new Max MVC!*/
-					ssSetRWorkValue(S, 7, target_x);
-					if (tgt_xVar_enabled) {
-						/* MVC Target reached! Increase it by 15% */					
-						ssSetRWorkValue(S, 8, target_x*1.15);
-					}
-				}
-				if (target_y < higher_MVC_target_yl) {
-					/* We have a new Max MVC!*/
-					ssSetRWorkValue(S, 9, target_y);
-					if (tgt_yVar_enabled) {
-						/* MVC Target reached! Increase it by 15% */					
-						ssSetRWorkValue(S, 10, target_y*1.15);
-					}
-				}
-				if (target_y > higher_MVC_target_yh) {
-					/* We have a new Max MVC!*/
-					ssSetRWorkValue(S, 11, target_y);
-					if (tgt_yVar_enabled) {
-						/* MVC Target reached! Increase it by 15% */					
-						ssSetRWorkValue(S, 12, target_y*1.15);
-					}
-				}
-			} else { // last trial was a failure
 				if (tgt_xVar_enabled) {
-					if (target_x < 0) {
-						/* Failed to reach and hold xl MVC Target, decrease it by 8% */
-						ssSetRWorkValue(S, 6, target_x*0.92);
-					} else {
-						/* Failed to reach and hold xh MVC Target, decrease it by 8% */
-						ssSetRWorkValue(S, 8, target_x*0.92);
-					}
+					/* MVC Target reached! Increase it by 15% */
+					ssSetRWorkValue(S, 12+quadrant,target_x*1.15);
 				}
 				if (tgt_yVar_enabled) {
-					if (target_y < 0) {
-						/* Failed to reach and hold yl MVC Target, decrease it by 8% */
-						ssSetRWorkValue(S, 10, target_x*0.92);
-					} else {
-						/* Failed to reach and hold yh MVC Target, decrease it by 8% */
-						ssSetRWorkValue(S, 12, target_x*0.92);
-					}
+					/* MVC Target reached! Increase it by 15% */
+					ssSetRWorkValue(S, 16+quadrant,target_y*1.15);
 				}
+				if ( target_x*target_x > higher_MVC_targets[quadrant-1]*higher_MVC_targets[quadrant-1]) {
+					/* We have a new Max MVC!*/
+					ssSetRWorkValue(S, 20+quadrant,target_x);
+				}
+				if (target_y*target_y > higher_MVC_targets[quadrant+3]*higher_MVC_targets[quadrant+3]) {
+					/* We have a new Max MVC!*/
+					ssSetRWorkValue(S, 24+quadrant,target_y);
+				}
+			} else { // last trial was not a success
+				if (tgt_xVar_enabled) {
+					/* Failed to reach and hold MVC Target, decrease x by 8% */
+					ssSetRWorkValue(S, 12+quadrant,target_x*0.92);
+				}
+				if (tgt_yVar_enabled) {
+					/* Failed to reach and hold MVC Target, decrease y by 8% */
+					ssSetRWorkValue(S, 16+quadrant,target_y*0.92);
+					}
 			}
 					
 		
@@ -750,7 +692,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int target_index;
     int target_id;
     int *target_list;
-    int MVC_routine_enable;
     real_T target_x, target_y, target_h, target_w;
     real_T tgt[4];
     real_T center[4];
@@ -761,22 +702,16 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     int tgt_xVar_enabled;
     int tgt_yVar_enabled;
-    real_T higher_MVC_target_xl;
-    real_T higher_MVC_target_xh;
-	real_T higher_MVC_target_yl;
-	real_T higher_MVC_target_yh;
-    real_T current_MVC_target_xl;
-    real_T current_MVC_target_xh;
-	real_T current_MVC_target_yl;
-	real_T current_MVC_target_yh;
-	real_T first_MVC_target_xl;
-	real_T first_MVC_target_xh;
-	real_T first_MVC_target_yl;
-	real_T first_MVC_target_yh;	
+    int quadrant;
+    
+    //holders for MVC targets variables
+	real_T user_spec_MVC_targets[8];
+    real_T current_MVC_targets[8];
+    real_T higher_MVC_targets[8];
     
     /* holders for outputs */
     real_T reward, word, target_select;
-    real_T higher_MVC_target[4];
+    //real_T higher_MVC_targets[8];
 	real_T status[4];
     real_T target[10];
        
@@ -816,85 +751,61 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     target_x = *uPtrs[2];
     target_w = *uPtrs[3];
 	
-    higher_MVC_target_xl = ssGetRWorkValue(S, 5);
-    higher_MVC_target_xh = ssGetRWorkValue(S, 7);
-    higher_MVC_target_yl = ssGetRWorkValue(S, 9);
-    higher_MVC_target_yh = ssGetRWorkValue(S, 11);
-    current_MVC_target_xl = ssGetRWorkValue(S, 6);
-    current_MVC_target_xh = ssGetRWorkValue(S, 8);
-    current_MVC_target_yl = ssGetRWorkValue(S, 10);
-    current_MVC_target_yh = ssGetRWorkValue(S, 12);
-    first_MVC_target_xl = ssGetRWorkValue(S, 13);
-    first_MVC_target_xh = ssGetRWorkValue(S, 14);
-    first_MVC_target_yl = ssGetRWorkValue(S, 15);
-    first_MVC_target_yh = ssGetRWorkValue(S, 16);
-        
+        /*MVC Targets variables*/
+    for (i=0; i<8; i++) {
+	    user_spec_MVC_targets[i]=ssGetRWorkValue(S,i+5);
+    	current_MVC_targets[i]=ssGetRWorkValue(S,i+13);
+    	higher_MVC_targets[i]=ssGetRWorkValue(S,i+21);
+	}  
     
+     /****************************************************************************/ 
     /* if we are in MVC routine mode, we may want to override the target values */
-    if (tgt_xVar_enabled) {
-	    if (target_x < 0) {
-		    if (current_MVC_target_xl != 0) { //we have xVar enabled and a current value for a low x target
-	    		if (target_x != first_MVC_target_xl) { // -x MVC target changed by user, we clear current MVC target
-	    			current_MVC_target_xl = 0;
-				} else {
-					target_x = current_MVC_target_xl; // override the x value with current low x MVC target
-				}
+    /****************************************************************************/ 
+    //first, in which quadrant is this target in ?    
+	if      (target_x > 0 && target_y >=0)  { quadrant = 1; }
+	else if (target_x <=0 && target_y > 0)  { quadrant = 2; }
+	else if (target_x < 0 && target_y <=0)  { quadrant = 3; }
+	else if (target_x >=0 && target_y < 0)  { quadrant = 4; }
+	else {
+		quadrant = 0; // x,y = 0,0 ... this should not happen, but in case skip next step by disabling MVC
+		tgt_xVar_enabled = 0;
+		tgt_yVar_enabled = 0;	
+	} 
+	
+
+	if (tgt_xVar_enabled) {
+			if (current_MVC_targets[quadrant-1]!=0) { // we have xVar enabled and a current value for this quad x target
+				if (target_x != user_spec_MVC_targets[quadrant-1]) { //this quad x MVC target changed by user, we clear this current MVC target
+					current_MVC_targets[quadrant-1] = 0;
+			} else {
+				target_x = current_MVC_targets[quadrant-1]; //override the x value for the MVC target in this quad
 			}
-	    	if (current_MVC_target_xl ==0) { //first occurence of this target, don't modify its value
-		    	first_MVC_target_xl = target_x;
-				ssSetRWorkValue(S,13,first_MVC_target_xl);
-		    	current_MVC_target_xl = target_x; //set the current target to value provided by user
-			    ssSetRWorkValue(S,6,current_MVC_target_xl);
-	   		}
-		} else if (target_x > 0) {
-			if (current_MVC_target_xh != 0) { //we have xVar enabled and a current value for a high x target
-	    		if (target_x != first_MVC_target_yl) { // +x MVC target changed by user, we clear current MVC target
-	    			current_MVC_target_xh = 0;
-				} else {
-					target_x = current_MVC_target_xh; // override the x value with current high x MVC target
-				}
-			}
-	    	if (current_MVC_target_xh ==0) { //first occurence of this target, don't modify its value
-		    	first_MVC_target_xh = target_x;
-				ssSetRWorkValue(S,14,first_MVC_target_xh);
-		    	current_MVC_target_xh = target_x; //set the current target to value provided by user
-			    ssSetRWorkValue(S,8,current_MVC_target_xl);
-	   		}
-		} else { // xVar is enabled but the specified x value is 0... leave it to 0 I guess...
+		}
+		if (current_MVC_targets[quadrant-1] == 0) { //first occurence of this target, don't modify it
+			user_spec_MVC_targets[quadrant-1] = target_x;
+			ssSetRWorkValue(S,4+quadrant,user_spec_MVC_targets[quadrant-1]);
+			current_MVC_targets[quadrant-1] = target_x; //set the current target to value provided by user
+			ssSetRWorkValue(S,12+quadrant,current_MVC_targets[quadrant-1]);
 		}
 	}
-    if (tgt_yVar_enabled) {
-	    if (target_y < 0) {
-		    if (current_MVC_target_yl != 0) { //we have yVar enabled and a current value for a low y target
-	    		if (target_y != first_MVC_target_yl) { // -y MVC target changed by user, we clear current MVC target
-	    			current_MVC_target_yl = 0;
-				} else {
-					target_y = current_MVC_target_yl; // override the y value with current low y MVC target
-				}
+	if (tgt_yVar_enabled) {
+			if (current_MVC_targets[quadrant+3]!=0) { // we have yVar enabled and a current value for this quad y target
+				if (target_y != user_spec_MVC_targets[quadrant+3]) { //this quad y MVC target changed by user, we clear this current MVC target
+					current_MVC_targets[quadrant+3] = 0;
+			} else {
+				target_y = current_MVC_targets[quadrant+3]; //override the y value for the MVC target in this quad
 			}
-	    	if (current_MVC_target_yl ==0) { //first occurence of this target, don't modify its value
-		    	first_MVC_target_yl = target_y;
-				ssSetRWorkValue(S,15,first_MVC_target_yl);
-		    	current_MVC_target_yl = target_y; //set the current target to value provided by user
-			    ssSetRWorkValue(S,10,current_MVC_target_yl);
-	   		}
-		} else if (target_y > 0) {
-			if (current_MVC_target_yh != 0) { //we have yVar enabled and a current value for a high y target
-	    		if (target_y != first_MVC_target_yl) { // +y MVC target changed by user, we clear current MVC target
-	    			current_MVC_target_yh = 0;
-				} else {
-					target_y = current_MVC_target_yh; // override the y value with current high y MVC target
-				}
-			}
-	    	if (current_MVC_target_yh ==0) { //first occurence of this target, don't modify its value
-		    	first_MVC_target_yh = target_y;
-				ssSetRWorkValue(S,16,first_MVC_target_yh);
-		    	current_MVC_target_yh = target_y; //set the current target to value provided by user
-			    ssSetRWorkValue(S,12,current_MVC_target_yl);
-	   		}
-		} else { // yVar is enabled but the specified y value is 0... leave it to 0 I guess...
+		}
+		if (current_MVC_targets[quadrant+3] == 0) { //first occurence of this target, don't modify it
+			user_spec_MVC_targets[quadrant+3] = target_x;
+			ssSetRWorkValue(S,8+quadrant,user_spec_MVC_targets[quadrant+3]);
+			current_MVC_targets[quadrant+3] = target_x; //set the current target to value provided by user
+			ssSetRWorkValue(S,16+quadrant,current_MVC_targets[quadrant+3]);
 		}
 	}
+    /********************************/ 
+    /* End of MVC target overriding */
+    /********************************/ 
 
     /* get target bounds */
     tgt[0] = target_x - target_w / 2.0;
@@ -1035,11 +946,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      target_select = target_id;
     
      /* MVC Target (6) */
-     higher_MVC_target[0] = higher_MVC_target_xl;
-	 higher_MVC_target[1] = higher_MVC_target_xh;
-     higher_MVC_target[2] = higher_MVC_target_yl;
-     higher_MVC_target[3] = higher_MVC_target_yh;
-    
+     // = higher_MVC_target[]
+	  
     /**********************************
      * Write outputs back to SimStruct
      **********************************/
@@ -1068,9 +976,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      target_select_p[0] = target_select;
      
      mvcTarget_p = ssGetOutputPortRealSignal(S,6);
-     for (i=0; i<4; i++)
-	     mvcTarget_p[i] = higher_MVC_target[i];
-     
+     for (i=0; i<4; i++) {
+	     mvcTarget_p[2*i]  = higher_MVC_targets[i];
+	     mvcTarget_p[2*i+1]= higher_MVC_targets[i+4];
+     }
+  	  
     UNUSED_ARG(tid);
 }
 
