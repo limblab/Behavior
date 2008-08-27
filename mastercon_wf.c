@@ -61,6 +61,27 @@ static real_T clear_MVC_tgts = 0.0;
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,13))
 
+static real_T catch_trials_pct = 0.0;
+#define param_catch_trials_pct mxGetScalar(ssGetSFcnParam(S,14))
+
+#define set_catch_trial(x) ssSetIWorkValue(S, 22, (x))
+#define get_catch_trial() ssGetIWorkValue(S, 22)
+
+
+
+static void updateVersion(SimStruct *S)
+{
+    /* set variable to file version for display on screen */
+    /* DO NOT change this version string by hand.  CVS will update it upon commit */
+    char version_str[256] = "$Revision: 1.24 $";
+    char* version;
+    
+    version_str[strlen(version_str)-1] = 0; // set last "$" to zero
+    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
+    ssSetRWorkValue(S, 29, atof(version));
+}
+
+
 /*
  * State IDs
  */
@@ -100,6 +121,7 @@ static void mdlCheckParameters(SimStruct *S)
   
   idiot_mode = param_idiot_mode;
   multiple_targets = param_multiple_targets;
+  catch_trials_pct = param_catch_trials_pct;
 
 }
 
@@ -107,7 +129,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 14); 
+    ssSetNumSFcnParams(S, 15); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -121,8 +143,7 @@ static void mdlInitializeSizes(SimStruct *S)
     /*
      * Block has 2 input ports
      *      input port 0: (position) of width 2 (horizontal and vertical cursor displacement)
-     *      input port 1: (target) of width 4 (vertical displacement, height, horiz disp, width)
-     *		input port 2: (mvc target) of widht 6 (vertical displacement, height, horiz disp, width, xVarEnable, yVarEnable)
+     *		input port 1: (target) of widht 6 (vertical displacement, height, horiz disp, width, xVarEnable, yVarEnable)
      */
     if (!ssSetNumInputPorts(S, 2)) return;
     ssSetInputPortWidth(S, 0, 2); /* cursor position*/
@@ -131,7 +152,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetInputPortDirectFeedThrough(S, 1, 1);
     
     /* 
-     * Block has 7 output ports (reward, word, touch pad LED, gadget LED, gadget select, status, tone, target, target select, MVC Target) of widths:
+     * Block has 8 output ports (reward, word, touch pad LED, gadget LED, gadget select, status, tone, target, target select, MVC Target) of widths:
      * 0: reward:         1
      * 1: word:           1
      * 2: status:         4 ( 1: state, 2: rewards, 3: aborts, 4: failures )
@@ -144,9 +165,10 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target LR corner y)
 `    * 5: target select:  1
 	 * 6: MVC Target:	  8  ( [Xmax quad 1, Ymax quad 1, Xmax quad 2,...,Ymax quad 4] )
+	 * 7: version
 	 *
      */
-    if (!ssSetNumOutputPorts(S, 7)) return;
+    if (!ssSetNumOutputPorts(S, 8)) return;
     ssSetOutputPortWidth(S, 0, 1);
     ssSetOutputPortWidth(S, 1, 1);
     ssSetOutputPortWidth(S, 2, 4);
@@ -154,11 +176,12 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 4, 10);
     ssSetOutputPortWidth(S, 5, 1);
     ssSetOutputPortWidth(S, 6, 8);
+    ssSetOutputPortWidth(S, 7, 1); /*version*/
     
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 29);   /* 0: time of last timer reset
+    ssSetNumRWork(S, 30);   /* 0: time of last timer reset
                                1: time of last target hold timer reset 
                                2: tone counter (incremented each time a tone is played)
                                3: tone id
@@ -172,15 +195,17 @@ static void mdlInitializeSizes(SimStruct *S)
                                5-12: User specified MVC targets [x1 x2 x3 x4 y1 y2 y3 y4]
                                13-20: Current MVC targets [x1 x2 x3 x4 y1 y2 y3 y4]
                                21-28: higher MVC targets reached [x1 x2 x3 x4 y1 y2 y3 y4]
+                               29: mastercon version
                             */
     ssSetNumPWork(S, 0);
-    ssSetNumIWork(S, 21); /*   0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 23); /*   0: state_transition (true if state changed), 
                                1: current target index (in sequence),
                                2: successes
                                3: aborts
                                4: failures 
                           [5-20]: target_id list
                           	  21: success_flag
+                          	  22: catch_trial_flag
                           */
     
     /* we have no zero crossing detection or modes */
@@ -231,12 +256,17 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 3, 0);
     ssSetIWorkValue(S, 4, 0);
     
+    /* set catch trial flag to zero */
+    ssSetIWorkValue(S,22,0);
+    
     /* initialize success flag at zero */
-        ssSetIWorkValue(S, 21, 0);
+    ssSetIWorkValue(S, 21, 0);
     
     /* set reset counter to zero */
     clear_MVC_tgts = 0.0;
     master_reset = 0.0;
+    
+    updateVersion(S);
 }
 
 /* macro for setting state changed */
@@ -457,8 +487,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             abort_timeout   = param_intertrial;    
             failure_timeout = param_intertrial;   
             reward_timeout  = param_intertrial;
+            
+            catch_trials_pct = param_catch_trials_pct;            
 
+            /***************************************/
 			/* see if we have to update MVC_Target */
+			/***************************************/
 			if (success_flag) {
 				if (tgt_xVar_enabled) {
 					/* MVC Target reached! Increase it by 15% */
@@ -517,7 +551,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 					reshuffle = 1;  
 				}
 			}
-			
 
             /* get current target or reshuffle at end of block */
 			if (reshuffle) {
@@ -562,6 +595,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	            ssSetIWorkValue(S, 1, ++target_index);
             }
 
+            /* decide if this is going to be a catch trial */
+            if (catch_trials_pct > 0) {
+                set_catch_trial( catch_trials_pct > (double)rand()/(double)RAND_MAX ? 1 : 0 );
+            } else {
+                set_catch_trial(0);
+            }
+            
+            
             new_state = STATE_RECENTERING;
 			ssSetIWorkValue(S, 21, 0);	// clear success_flag
             state_changed();
@@ -714,6 +755,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     //real_T higher_MVC_targets[8];
 	real_T status[4];
     real_T target[10];
+    real_T version;
        
     /* pointers to output buffers */
     real_T *reward_p;
@@ -723,6 +765,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *target_p;
     real_T *target_select_p;
     real_T *mvcTarget_p;
+    real_T *version_p;
     
     /******************
      * Initialization *
@@ -842,6 +885,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
                 break;
+            case STATE_RECENTERING:
+            	if (get_catch_trial()) {
+                    word = WORD_CATCH;
+                }
 			case STATE_CENTER_HOLD_WITH_TARGET:
 				word = WORD_OT_ON(target_id);
 				break;
@@ -949,6 +996,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
      /* MVC Target (6) */
      // = higher_MVC_target[]
+     
+     /* Version */
+     version = ssGetRWorkValue(S, 29);
 	  
     /**********************************
      * Write outputs back to SimStruct
@@ -982,7 +1032,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	     mvcTarget_p[2*i]  = higher_MVC_targets[i];
 	     mvcTarget_p[2*i+1]= higher_MVC_targets[i+4];
      }
-  	  
+
+     version_p = ssGetOutputPortRealSignal(S, 7);
+     version_p[0] = version;
+       	  
     UNUSED_ARG(tid);
 }
 

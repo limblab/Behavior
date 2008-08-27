@@ -58,7 +58,7 @@
 /* go cue */
 #define WORD_GO_CUE 0x31
 
-/* catch trial go cue (random walk mode) */
+/* catch trial go cue (random walk and wrist flexion modes) */
 #define WORD_CATCH  0x32
 
 /* outer target (t) on */
