@@ -773,16 +773,40 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     } else if (state == STATE_TARGET_HOLD) {
         /* target green */
         target[0] = 3;
-    } else {
-        /* target off */
-        target[0] = 0;
+    }  else {
+	    /* target off*/
+	    target [0] = 0;
     }
     
-    /* we never need a second target */
-    target[5] = 0;
-    for (i=0; i<4; i++) {
-        target[i+6] = 0;
-    }
+    /* we use the second target to indicate which of the gadget is in use */
+    /* this is because the monkey does not seem to see the leds  */
+    if ( state == STATE_DELAY || 
+         state == STATE_REACH || 
+         state == STATE_MOVEMENT || 
+         state == STATE_CONTINUE_REACH ||
+         state == STATE_TOUCH_PAD_HOLD ||
+         state == STATE_TARGET_HOLD)
+    {
+	    /*gadget indicator on */
+	    target[5] = 2; /*white*/
+	} else {
+		/* gadget indicator off */
+		target [5] = 0; /* off */
+	}
+	
+	
+	target[7] = 1.5; // Y upper left
+	target[9] = -1.5; // Y lower right
+		
+	if (gadget_id == 0) { // palmar grasp, on the left
+		target[6] = -11.5; // X upper left
+		target[8] = -8.5; // X lower right
+	} else if (gadget_id == 1) { //key grasp, on the right
+		target[6] = 8.5;
+		target[8] = 11.5;
+	} else { // another gadget, lets just turn off target for now
+		target[5] = 0;
+	}
     
     /* target_select (8) */
     target_select = target_id;
