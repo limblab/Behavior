@@ -77,7 +77,7 @@ static void updateVersion(SimStruct *S)
 {
     /* set variable to file version for display on screen */
     /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.25 $";
+    char version_str[256] = "$Revision: 1.26 $";
     char* version;
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
@@ -521,7 +521,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 				use_gadget_0 = param_use_gadget_0;
 	            use_gadget_1 = param_use_gadget_1;
 	            use_gadget_2 = param_use_gadget_2;
-	            use_gadget_3 = param_use_gadget_3;			
+	            use_gadget_3 = param_use_gadget_3;
+				idiot_mode = param_idiot_mode;
+				multiple_targets = param_multiple_targets;
                 reshuffle = 1;
             }
 
@@ -693,6 +695,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 				/*next state depends on whether there are more targets */
 				if (target_index == (int)num_targets-1 || multiple_targets == 0) {
 					new_state = STATE_REWARD;
+					state_changed();
+					reset_timer();
+				} else {
+					/* more targets*/
+					ssSetIWorkValue(S, 1, ++target_index);
+					new_state = STATE_REACH;
 					state_changed();
 					reset_timer();
 				}
@@ -1005,11 +1013,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	target[9] = -1.5; // Y lower right
 		
 	if (gadget_id == 0) { // palmar grasp, on the left
-		target[6] = -11.5; // X upper left
-		target[8] = -8.5; // X lower right
+		target[6] = -18; // X upper left
+		target[8] = -15; // X lower right
 	} else if (gadget_id == 1) { //key grasp, on the right
-		target[6] = 8.5;
-		target[8] = 11.5;
+		target[6] = 15;
+		target[8] = 18;
 	} else { // another gadget, lets just turn off target for now
 		target[5] = 0;
 	}
