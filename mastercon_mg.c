@@ -77,7 +77,7 @@ static void updateVersion(SimStruct *S)
 {
     /* set variable to file version for display on screen */
     /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.24 $";
+    char version_str[256] = "$Revision: 1.25 $";
     char* version;
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
@@ -255,7 +255,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetRWorkValue(S, 3, 0.0);
     
     /* set the mvc Targets at 0 */
-    for (i=5; i<29; i++) {
+    for (i=6; i<9; i++) {
 	    ssSetRWorkValue(S, i, 0.0);
     }    
     
@@ -268,12 +268,13 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 2, 0);
     ssSetIWorkValue(S, 3, 0);
     ssSetIWorkValue(S, 4, 0);
-
-    /* set catch trial flag to zero */
-    ssSetIWorkValue(S,133,0);
-    
+	
     /* initialize success flag at zero */
-    ssSetIWorkValue(S, 134, 0);
+    ssSetIWorkValue(S, 133, 0);
+    
+    /* set catch trial flag to zero */
+    ssSetIWorkValue(S,134,0);
+    
     
     /* set reset counter to zero */
     clear_MVC_tgts = 0.0;
@@ -287,7 +288,7 @@ static void mdlInitializeConditions(SimStruct *S)
 /* macros for resetting timers */
 #define reset_timer() (ssSetRWorkValue(S, 0, (real_T)ssGetT(S)))
 #define reset_target_hold_timer() (ssSetRWorkValue(S, 1, (real_T)ssGetT(S)))
-#define success_flag() (ssSetIWorkValue(S, 21, 1))
+#define success_flag() (ssSetIWorkValue(S, 133, 1))
 
 /* cursorInTarget
  * returns true (1) if the cursor is in the target and false (0) otherwise
