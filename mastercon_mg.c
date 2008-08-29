@@ -77,7 +77,7 @@ static void updateVersion(SimStruct *S)
 {
     /* set variable to file version for display on screen */
     /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.22 $";
+    char version_str[256] = "$Revision: 1.23 $";
     char* version;
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
@@ -209,7 +209,6 @@ static void mdlInitializeSizes(SimStruct *S)
                                7: Current MVC Target
                                8: higher MVC Target (Max Y Pos reached)
                                9: mastercon version
-                               
                                */
     ssSetNumPWork(S, 0);
     ssSetNumIWork(S, 135); /*  0: state_transition (true if state changed), 

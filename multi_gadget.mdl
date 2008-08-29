@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.68"
+    ComputedModelVersion    "1.71"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,9 +44,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Christian"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Aug 29 15:22:22 2008"
+  LastModifiedDate	  "Fri Aug 29 16:09:16 2008"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:68>"
+  ModelVersionFormat	  "1.%<AutoIncrement:71>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -729,7 +729,7 @@ Model {
   }
   System {
     Name		    "multi_gadget"
-    Location		    [1479, 96, 2698, 890]
+    Location		    [110, 82, 1329, 876]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -998,7 +998,7 @@ Model {
       FunctionWithSeparateData off
       System {
 	Name			"DeviceOutput"
-	Location		[-54, 112, 1222, 826]
+	Location		[73, 81, 1349, 795]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1038,15 +1038,6 @@ Model {
 	  OutScaling		  "2^0"
 	}
 	Block {
-	  BlockType		  Mux
-	  Name			  "Mux"
-	  Ports			  [3, 1]
-	  Position		  [595, 458, 600, 552]
-	  ShowName		  off
-	  Inputs		  "3"
-	  DisplayOption		  "bar"
-	}
-	Block {
 	  BlockType		  Reference
 	  Name			  "PCI-6025E DO"
 	  Ports			  [4]
@@ -1058,42 +1049,6 @@ Model {
 	  initValue		  "[0]"
 	  sampletime		  "0.001"
 	  slot			  "-1"
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Status"
-	  Ports			  [1]
-	  Position		  [655, 484, 725, 526]
-	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
-	  SourceType		  "xpcscopeblock"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
-	  scopeno		  "5"
-	  scopetype		  "Target"
-	  autostart		  on
-	  viewmode		  "Numerical"
-	  formatstr		  "'%6.0f TP_LED,%6.0f Gdt_LED,%6.0f Gdt_Select'"
-	  grid			  on
-	  ylimits		  "[-10,10]"
-	  nosamples		  "10"
-	  noprepostsamples	  "0"
-	  interleave		  "10"
-	  triggermode		  "FreeRun"
-	  triggersignal		  "1"
-	  triggerlevel		  "0.0"
-	  triggerslope		  "Either"
-	  triggerscope		  "1"
-	  triggersample		  "0"
-	  filename		  "data.dat"
-	  mode			  "Lazy"
-	  writesize		  "512"
-	  autorestart		  off
 	}
 	Block {
 	  BlockType		  Terminator
@@ -1136,44 +1091,20 @@ Model {
 	Line {
 	  SrcBlock		  "GadgetLED"
 	  SrcPort		  1
-	  Points		  [10, 0]
-	  Branch {
-	    DstBlock		    "PCI-6025E DO"
-	    DstPort		    3
-	  }
-	  Branch {
-	    Points		    [0, 245]
-	    DstBlock		    "Mux"
-	    DstPort		    2
-	  }
+	  DstBlock		  "PCI-6025E DO"
+	  DstPort		  3
 	}
 	Line {
 	  SrcBlock		  "TouchPadLED"
 	  SrcPort		  1
-	  Points		  [50, 0]
-	  Branch {
-	    DstBlock		    "PCI-6025E DO"
-	    DstPort		    4
-	  }
-	  Branch {
-	    Points		    [0, 160]
-	    DstBlock		    "Mux"
-	    DstPort		    1
-	  }
+	  DstBlock		  "PCI-6025E DO"
+	  DstPort		  4
 	}
 	Line {
 	  SrcBlock		  "GadgetSelect"
 	  SrcPort		  1
-	  Points		  [20, 0]
-	  Branch {
-	    DstBlock		    "ToBits"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, 280]
-	    DstBlock		    "Mux"
-	    DstPort		    3
-	  }
+	  DstBlock		  "ToBits"
+	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "ToBits"
@@ -1222,12 +1153,6 @@ Model {
 	  SrcBlock		  "ToBits"
 	  SrcPort		  8
 	  DstBlock		  "Terminator5"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Mux"
-	  SrcPort		  1
-	  DstBlock		  "Status"
 	  DstPort		  1
 	}
       }
@@ -1731,78 +1656,6 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "Status2"
-      Ports		      [1]
-      Position		      [425, 54, 495, 96]
-      SourceBlock	      "xpclib/Misc./Scope (xPC) "
-      SourceType	      "xpcscopeblock"
-      ShowPortLabels	      "FromPortIcon"
-      SystemSampleTime	      "-1"
-      FunctionWithSeparateData off
-      RTWMemSecFuncInitTerm   "Inherit from model"
-      RTWMemSecFuncExecute    "Inherit from model"
-      RTWMemSecDataConstants  "Inherit from model"
-      RTWMemSecDataInternal   "Inherit from model"
-      RTWMemSecDataParameters "Inherit from model"
-      scopeno		      "3"
-      scopetype		      "Target"
-      autostart		      on
-      viewmode		      "Numerical"
-      formatstr		      "'%6.0f Touch Pad'"
-      grid		      on
-      ylimits		      "[-10,10]"
-      nosamples		      "10"
-      noprepostsamples	      "0"
-      interleave	      "10"
-      triggermode	      "FreeRun"
-      triggersignal	      "1"
-      triggerlevel	      "0.0"
-      triggerslope	      "Either"
-      triggerscope	      "1"
-      triggersample	      "0"
-      filename		      "data.dat"
-      mode		      "Lazy"
-      writesize		      "512"
-      autorestart	      off
-    }
-    Block {
-      BlockType		      Reference
-      Name		      "Status3"
-      Ports		      [1]
-      Position		      [425, 529, 495, 571]
-      SourceBlock	      "xpclib/Misc./Scope (xPC) "
-      SourceType	      "xpcscopeblock"
-      ShowPortLabels	      "FromPortIcon"
-      SystemSampleTime	      "-1"
-      FunctionWithSeparateData off
-      RTWMemSecFuncInitTerm   "Inherit from model"
-      RTWMemSecFuncExecute    "Inherit from model"
-      RTWMemSecDataConstants  "Inherit from model"
-      RTWMemSecDataInternal   "Inherit from model"
-      RTWMemSecDataParameters "Inherit from model"
-      scopeno		      "8"
-      scopetype		      "Target"
-      autostart		      on
-      viewmode		      "Numerical"
-      formatstr		      "' %6.6f Tgt Select'"
-      grid		      on
-      ylimits		      "[-10,10]"
-      nosamples		      "10"
-      noprepostsamples	      "0"
-      interleave	      "10"
-      triggermode	      "FreeRun"
-      triggersignal	      "1"
-      triggerlevel	      "0.0"
-      triggerslope	      "Either"
-      triggerscope	      "1"
-      triggersample	      "0"
-      filename		      "data.dat"
-      mode		      "Lazy"
-      writesize		      "512"
-      autorestart	      off
-    }
-    Block {
-      BlockType		      Reference
       Name		      "TargetTable"
       Ports		      [1, 1]
       Position		      [425, 457, 480, 513]
@@ -2117,7 +1970,7 @@ Model {
 	  scopetype		  "Target"
 	  autostart		  on
 	  viewmode		  "Numerical"
-	  formatstr		  "'%6.0f $Revision: 1.15 $,%6.2f mastercon version'"
+	  formatstr		  "'%6.0f $Revision: 1.16 $,%6.2f mastercon version'"
 	  grid			  on
 	  ylimits		  "[-10,10]"
 	  nosamples		  "10"
@@ -2327,16 +2180,8 @@ Model {
     Line {
       SrcBlock		      "PCI-6025E DI"
       SrcPort		      1
-      Points		      [20, 0]
-      Branch {
-	DstBlock		"Behavior MG"
-	DstPort			1
-      }
-      Branch {
-	Points			[0, -70]
-	DstBlock		"Status2"
-	DstPort			1
-      }
+      DstBlock		      "Behavior MG"
+      DstPort		      1
     }
     Line {
       SrcBlock		      "TargetTable"
@@ -2353,6 +2198,7 @@ Model {
 	DstPort			2
       }
       Branch {
+	Labels			[1, 0]
 	Points			[0, 335]
 	Branch {
 	  Points		  [0, -285]
@@ -2377,16 +2223,9 @@ Model {
     Line {
       SrcBlock		      "Memory"
       SrcPort		      1
-      Points		      [-30, 0; 0, -60]
-      Branch {
-	Points			[0, -65]
-	DstBlock		"TargetTable"
-	DstPort			1
-      }
-      Branch {
-	DstBlock		"Status3"
-	DstPort			1
-      }
+      Points		      [-30, 0; 0, -125]
+      DstBlock		      "TargetTable"
+      DstPort		      1
     }
     Line {
       SrcBlock		      "Behavior MG"
