@@ -73,7 +73,7 @@ static void updateVersion(SimStruct *S)
 {
     /* set variable to file version for display on screen */
     /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.24 $";
+    char version_str[256] = "$Revision: 1.25 $";
     char* version;
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
@@ -152,7 +152,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetInputPortDirectFeedThrough(S, 1, 1);
     
     /* 
-     * Block has 8 output ports (reward, word, touch pad LED, gadget LED, gadget select, status, tone, target, target select, MVC Target) of widths:
+     * Block has 8 output ports (reward, word, status, tone, target, target select, MVC Target, version) of widths:
      * 0: reward:         1
      * 1: word:           1
      * 2: status:         4 ( 1: state, 2: rewards, 3: aborts, 4: failures )
@@ -709,6 +709,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         default:
             new_state = STATE_PRETRIAL;
+            state_changed();
     }
     
     /***********
@@ -752,7 +753,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* holders for outputs */
     real_T reward, word, target_select;
-    //real_T higher_MVC_targets[8];
 	real_T status[4];
     real_T target[10];
     real_T version;
