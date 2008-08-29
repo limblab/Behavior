@@ -77,7 +77,7 @@ static void updateVersion(SimStruct *S)
 {
     /* set variable to file version for display on screen */
     /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.23 $";
+    char version_str[256] = "$Revision: 1.24 $";
     char* version;
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
@@ -276,6 +276,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 134, 0);
     
     /* set reset counter to zero */
+    clear_MVC_tgts = 0.0;
     master_reset = 0.0;
     
     updateVersion(S);
@@ -429,6 +430,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         state_r[0] = STATE_PRETRIAL;
         return;
     }
+    
+    /* See if we want to clear the value of the higher target reached */    
+    if (param_clear_MVC_tgts > clear_MVC_tgts) {
+	    clear_MVC_tgts = param_clear_MVC_tgts;
+	    for (i=6; i<9; i++) {
+		    ssSetRWorkValue(S, i, 0.0); //clear all MVC target buffers
+	    }
+	}    
+    
     
     /************************
      * Calculate next state *
