@@ -73,7 +73,7 @@ static void updateVersion(SimStruct *S)
 {
     /* set variable to file version for display on screen */
     /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.25 $";
+    char version_str[256] = "$Revision: 1.26 $";
     char* version;
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
@@ -121,7 +121,7 @@ static void mdlCheckParameters(SimStruct *S)
   
   idiot_mode = param_idiot_mode;
   multiple_targets = param_multiple_targets;
-  catch_trials_pct = param_catch_trials_pct;
+  catch_trials_pct = param_catch_trials_pct/100;
 
 }
 
@@ -488,7 +488,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             failure_timeout = param_intertrial;   
             reward_timeout  = param_intertrial;
             
-            catch_trials_pct = param_catch_trials_pct;            
+            catch_trials_pct = param_catch_trials_pct/100;            
 
             /***************************************/
 			/* see if we have to update MVC_Target */
@@ -596,13 +596,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
 
             /* decide if this is going to be a catch trial */
-            if (catch_trials_pct > 0) {
-                set_catch_trial( catch_trials_pct > (double)rand()/(double)RAND_MAX ? 1 : 0 );
-            } else {
-                set_catch_trial(0);
-            }
-            
-            
+            set_catch_trial( catch_trials_pct > (double)rand()/(double)RAND_MAX ? 1 : 0 );
+                        
             new_state = STATE_RECENTERING;
 			ssSetIWorkValue(S, 21, 0);	// clear success_flag
             state_changed();
@@ -920,10 +915,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_FAIL && new_state)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
       
-    status[0] = state;
-    status[1] = ssGetIWorkValue(S,2); // num rewards
-    status[2] = ssGetIWorkValue(S,3); // num aborts
-    status[3] = ssGetIWorkValue(S,4); // num failures
+    status[0] = get_catch_trial;  // state;
+    status[1] = word;  // ssGetIWorkValue(S,2); // num rewards
+    status[2] = param_catch_trial_pct;  // ssGetIWorkValue(S,3); // num aborts
+    status[3] = (param_catch_trials_pct/100 > (double)rand()/(double)RAND_MAX ? 1 : 0 );  // ssGetIWorkValue(S,4); // num failures
     
     
     /* tone (3) */
@@ -966,20 +961,32 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		    target[5] = 3;
 	    break;
         case STATE_MOVEMENT:
-	        /* target red */
-	        target[0] = 1;
+	        if (get_catch_trial()) {
+		        target[0] = 2;
+	        } else {
+		        /* target red */
+	        	target[0] = 1;
+        	}
 	        /* center off */
 	        target[5] = 0;
         break;
         case STATE_CONTINUE_MOVEMENT:
-	        /* target red */
-	        target[0] = 1;
+	        if (get_catch_trial()) {
+		        target[0] = 2;
+	        } else {
+		        /* target red */
+	        	target[0] = 1;
+        	}
 	        /* center off */
 	        target[5] = 0;
         break;
         case STATE_TARGET_HOLD:
+        	if (get_catch_trial()) {
+		        target[0] = 2;
+	        } else {
 	        /* target green */
 	        target[0] = 3;
+        	}
 	        /* center off */
 	        target[5] = 0;
         break;
@@ -987,7 +994,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             /* target and center off */
 	        target[0] = 0;
 	        target[5] = 0;
-    }   
+    }
 
 
 
