@@ -91,7 +91,7 @@ static void updateVersion(SimStruct *S)
 {
     /* set variable to file version for display on screen */
     /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.19 $";
+    char version_str[256] = "$Revision: 1.20 $";
     char* version;
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
@@ -455,7 +455,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             break;
         case STATE_DATA_BLOCK:
-            if (datablock_counter++ >= datablock[0]) {
+            if (datablock_counter++ > datablock[0]) {
                new_state = STATE_INITIAL_MOVEMENT;
             }
             ssSetIWorkValue(S, 6, datablock_counter);
