@@ -19,6 +19,8 @@
 
 #define PI (3.141592654)
 
+typedef unsigned char byte;
+
 /*
  * Tunable parameters
  */
@@ -78,6 +80,7 @@ static real_T master_reset = 0.0;
 #define STATE_ABORT 65
 #define STATE_FAIL 70
 #define STATE_INCOMPLETE 74
+#define STATE_DATA_BLOCK 255
 
 #define TONE_GO 1
 #define TONE_REWARD 2
@@ -88,7 +91,7 @@ static void updateVersion(SimStruct *S)
 {
     /* set variable to file version for display on screen */
     /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.18 $";
+    char version_str[256] = "$Revision: 1.19 $";
     char* version;
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
@@ -177,22 +180,25 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 6, 1);   /* version */
     
     ssSetNumSampleTimes(S, 1);
-    
+
     /* work buffers */
     ssSetNumRWork(S, 513);  /* 0: time of last timer reset 
                                1: tone counter (incremented each time a tone is played)
                                2: tone id
                                3: current target hold time
                          [4-511]: positions of targets stored as (x, y)
-							 512: mastercon version
-                           */
-    ssSetNumPWork(S, 0);
-    ssSetNumIWork(S, 6); /*    0: state_transition (true if state changed), 
+                             512: mastercon version
+                             513: datablock counter */
+
+    ssSetNumIWork(S, 7); /*    0: state_transition (true if state changed), 
                                1: current target index (in sequence),
                                2: successes
                                3: failures
                                4: aborts 
-                               5: catch trial flag (true if catch trial) */
+                               5: catch trial flag (true if catch trial)
+			       6: databock counter */
+			      
+    ssSetNumPWork(S, 1); /*    0: Datablock array pointer  */
     
     /* we have no zero crossing detection or modes */
     ssSetNumModes(S, 0);
@@ -211,6 +217,7 @@ static void mdlInitializeSampleTimes(SimStruct *S)
 static void mdlInitializeConditions(SimStruct *S)
 {
     int i;
+    int* datablock;
     real_T *x0;
     
     /* initialize state to zero */
@@ -238,7 +245,12 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 4, 0);
 
     /* set reset counter to zero */
-	master_reset = 0.0;
+    master_reset = 0.0;
+    
+    /* setup datablock */
+    datablock = malloc(256);
+    ssSetPWorkValue(S, 0, datablock);
+    ssSetIWorkValue(S, 7, 0);
 
     updateVersion(S);
 }
@@ -300,7 +312,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T elapsed_timer_time;
     real_T temp_distance;
     real_T temp_angle;
-            
+    byte* datablock;
+    float* datablock_target_list;
+    int datablock_counter;
+    
     /******************
      * Initialization *
      ******************/
@@ -332,6 +347,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     tgt[2] = target_x+target_size/2 + target_tolerance/2;
     tgt[3] = target_y-target_size/2 - target_tolerance/2;
     
+    /* datablock pointers */
+    datablock_counter = ssGetIWorkValue(S, 6);
+    datablock = (byte *)ssGetPWorkValue(S, 0);
+    datablock_target_list = datablock + sizeof(byte);
+    
     /*********************************
      * See if we have issued a reset *
      *********************************/
@@ -341,7 +361,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 3, 0);
         ssSetIWorkValue(S, 4, 0);
         state_r[0] = STATE_PRETRIAL;
-		updateVersion(S);
+        updateVersion(S);
         return;
     }
      
@@ -359,7 +379,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
              */
             
             /* Update parameters */
-            num_targets = param_num_targets;
+            num_targets = ( param_num_targets > 31 ? 31 : param_num_targets );
             target_size = param_target_size;
             target_tolerance = param_target_tolerance;
 
@@ -418,14 +438,27 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 }
             }
             
-            /* and reset the counter */
-            ssSetIWorkValue(S, 1, 0);
+            /* Copy data into datablocks */
+            datablock[0] = num_targets * 2 * sizeof(float);
+            for (i = 0; i < num_targets * 2; i++) {
+                datablock_target_list[i] = ssGetRWorkValue(S, 4 + i);
+            }
+            
+            /* and reset the counters */
+            ssSetIWorkValue(S, 1, 0); // Target counter
+            ssSetIWorkValue(S, 6, 0); // Datablock counter
             
             /* set flag randomly for first target */ 
             setCatchFlag(S, percent_catch_trials);
             
-            new_state = STATE_INITIAL_MOVEMENT;
+            new_state = STATE_DATA_BLOCK;
 
+            break;
+        case STATE_DATA_BLOCK:
+            if (datablock_counter++ >= datablock[0]) {
+               new_state = STATE_INITIAL_MOVEMENT;
+            }
+            ssSetIWorkValue(S, 6, datablock_counter);
             break;
         case STATE_INITIAL_MOVEMENT:
             /* first target on */
@@ -521,8 +554,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     UNUSED_ARG(tid);
 }
 
-/*** HERE ***/
-
 static void mdlOutputs(SimStruct *S, int_T tid)
 {
     /********************
@@ -543,11 +574,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T force_in[2];
     real_T force_in_catch[2];
     
+    /* datablock */
+    byte* datablock;
+    int datablock_counter;
+    
     /* allocate holders for outputs */
     real_T force_x, force_y, word, reward, tone_cnt, tone_id;
     real_T target_pos[10];
     real_T status[4];
-	real_T version;
+    real_T version;
     
     /* pointers to output buffers */
     real_T *force_p;
@@ -556,7 +591,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *status_p;
     real_T *reward_p;
     real_T *tone_p;
-	real_T *version_p;
+    real_T *version_p;
     
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
@@ -605,6 +640,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     force_in_catch[0] = *uPtrs[0];
     force_in_catch[1] = *uPtrs[1];
     
+    /* datablock */
+    datablock_counter = ssGetIWorkValue(S, 6);
+    datablock = (byte *)ssGetPWorkValue(S, 0);
+    
     /********************
      * Calculate outputs
      ********************/
@@ -632,7 +671,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     status[3] = ssGetIWorkValue(S, 4); // num fails
     
     /* word (2) */
-    if (new_state) {
+    if (state == STATE_DATA_BLOCK) {
+        if (datablock_counter % 2 == 0) {
+            word = datablock[datablock_counter / 2] | 0xF0; // low order bits
+        } else {
+            word = datablock[datablock_counter / 2] >> 4 | 0xF0; // high order bits
+        }
+    } else if (new_state) {
         switch (state) {
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
@@ -754,3 +799,4 @@ static void mdlTerminate (SimStruct *S) { UNUSED_ARG(S); }
 #else
 #include "cg_sfun.h"     /* Code generation registration func */
 #endif
+
