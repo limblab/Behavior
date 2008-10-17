@@ -2,7 +2,7 @@
  *
  * Master Control block for behavior: center-out task
  *
- * CVS Revision -- $Revision: 1.21 $
+ * CVS Revision -- $Revision: 1.22 $
  */
  
 #define S_FUNCTION_NAME mastercon_rw
@@ -113,7 +113,7 @@ static void updateVersion(SimStruct *S)
 {
     /* set variable to file version for display on screen */
     /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.21 $";
+    char version_str[256] = "$Revision: 1.22 $";
     char* version;
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
@@ -209,8 +209,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                2: tone id
                                3: current target hold time
                          [4-511]: positions of targets stored as (x, y)
-                             512: mastercon version
-                             513: databurst counter */
+                             512: mastercon version */
 
     ssSetNumIWork(S, 7); /*    0: state_transition (true if state changed), 
                                1: current target index (in sequence),
@@ -218,7 +217,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                3: failures
                                4: aborts 
                                5: catch trial flag (true if catch trial)
-			       6: databock counter */
+                               6: databock counter */
 			      
     ssSetNumPWork(S, 1); /*    0: Databurst array pointer  */
     
@@ -272,7 +271,7 @@ static void mdlInitializeConditions(SimStruct *S)
     /* setup databurst */
     databurst = malloc(256);
     ssSetPWorkValue(S, 0, databurst);
-    ssSetIWorkValue(S, 7, 0);
+    ssSetIWorkValue(S, 6, 0);
 
     updateVersion(S);
 }
