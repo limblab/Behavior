@@ -1,8 +1,6 @@
-/* mastercon_fc.c
+/* $Id: $
  *
  * Master Control block for behavior: force choice task
- *
- * CVS Revision -- $Revision: 1.19 $
  */
 
 #define S_FUNCTION_NAME mastercon_fc

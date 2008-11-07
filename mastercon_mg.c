@@ -1,6 +1,7 @@
-/* mastercon_mg.c
- 
+/* $Id: $
+ *
  * Master Control block for behavior: multi-gadget
+ *
  */
 
 #define S_FUNCTION_NAME mastercon_mg

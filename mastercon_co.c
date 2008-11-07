@@ -1,8 +1,6 @@
-/* mastercon_co.c
+/* $Id: $
  *
  * Master Control block for behavior: center-out task 
- *
- * CVS Revision -- $Revision: 1.13 $
  */
 #define S_FUNCTION_NAME mastercon_co
 #define S_FUNCTION_LEVEL 2

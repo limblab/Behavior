@@ -1,8 +1,7 @@
-/* mastercon_uc.c
+/* $Id: $
  *
  * Master Control block for behavior: center-out + uncertainty task
  *
- * CVS Revision -- $Revision: 1.5 $
  */
 #define S_FUNCTION_NAME mastercon_uc
 #define S_FUNCTION_LEVEL 2

@@ -1,8 +1,6 @@
-/* mastercon_bs.c
+/* $Id: $
  * 
  * Master Control block for behavior: bump-stim task
- *
- * CVS Revision -- $Revision: 1.18 $
  */
 
 #define S_FUNCTION_NAME mastercon_bs

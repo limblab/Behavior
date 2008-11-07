@@ -1,4 +1,4 @@
-/* wordso.h
+/* $Id: $
  *
  * defines word codes for center out and random walk tasks.
  *
