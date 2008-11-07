@@ -1,5 +1,5 @@
 /* mastercon_bs.c
- *
+ * 
  * Master Control block for behavior: bump-stim task
  *
  * CVS Revision -- $Revision: 1.18 $
