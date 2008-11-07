@@ -50,7 +50,7 @@ function blkStruct = slblocks
 %   Copyright 1990-2004 The MathWorks, Inc.
 %   $Revision: 1.1.1.4 $
 
-% $Id: $
+% $Id$
 
 %
 % Name of the subsystem which will show up in the Simulink Blocksets

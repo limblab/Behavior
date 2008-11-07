@@ -1,4 +1,4 @@
-/*  $Id: $ */
+/*  $Id$ */
 #ifndef RANDOM_MACROS_H
 #define RANDOM_MACROS_H
 

@@ -1,4 +1,4 @@
-/* $Id: $
+/* $Id$
  *
  * Simulink S-Function block that converts an input byte (represented 
  * internaly as a double) and gives the eight bits as 1.0 or 0.0.

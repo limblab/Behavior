@@ -1,4 +1,4 @@
-/* $Id: $
+/* $Id$
  *
  * used to output the position data to TDT by cycling through the two 16
  * bit encoder signals one byte at a time.

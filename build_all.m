@@ -1,6 +1,6 @@
 % calls mex on all c files
 
-% $Id: $
+% $Id$
 
 T = {...
     {'random_walk.dlm', 'mastercon_rw.mexw32', 'serPos.mexw32', 'Byte2Bits.mexw32'}, ...

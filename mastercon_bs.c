@@ -1,4 +1,4 @@
-/* $Id: $
+/* $Id$
  * 
  * Master Control block for behavior: bump-stim task
  */
