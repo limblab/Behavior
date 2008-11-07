@@ -1,6 +1,6 @@
 /* mastercon_rw.c
  *
- * Master Control block for behavior: center-out task
+ * Master Control block for behavior: center-out task 
  *
  * CVS Revision -- $Revision: 1.22 $
  */
