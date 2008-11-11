@@ -1,5 +1,5 @@
-/* $Id$
- *
+/* mastercon_wf.c
+ 
  * Master Control block for behavior: wrist-flexion
  */
 
@@ -15,6 +15,38 @@
 #include "random_macros.h"
 
 #define PI (3.141592654)
+
+/* 
+ * Current Databurst version: 0
+ *
+ * Note that all databursts are encoded half a byte at a time as a word who's 
+ * high order bits are all 1 and who's low order bits represent the half byte to
+ * be transmitted.  Low order bits are transmitted first.  Thus to transmit the
+ * two bytes 0xCF 0x07, one would send 0xFF 0xFC 0xF7 0xF0.
+ *
+ * Databurst version descriptions
+ * ==============================
+ *
+ * Version 0 (0x00)
+ * ----------------
+ * byte 0: uchar => number of bytes to be transmitted
+ * byte 1: uchar => version number (in this case zero)
+ * bytes 2 to 2+ N*16: where N is the number of targets whose position are output.
+ *		contains 16 bytes per target representing four single precision floating point
+ *		numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
+ *		of the UL and LR corners of the target.
+ *
+ *		The position of only the current target is output at the begining of each trial
+ *		in normal behavior, but in multiple target mode, all the targets
+ *		are included in the databurst
+ *
+ *		In MVC mode, the current value of the MVC target is provided in the databurst
+ *
+ */
+
+#define DATABURST_VERSION 0x00 
+typedef unsigned char byte;
+
 
 /*
  * Tunable parameters
@@ -68,20 +100,6 @@ static real_T catch_trials_pct = 0.0;
 #define get_catch_trial() ssGetIWorkValue(S, 22)
 
 
-
-static void updateVersion(SimStruct *S)
-{
-    /* set variable to file version for display on screen */
-    /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.26 $";
-    char* version;
-    
-    version_str[strlen(version_str)-1] = 0; // set last "$" to zero
-    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
-    ssSetRWorkValue(S, 29, atof(version));
-}
-
-
 /*
  * State IDs
  */
@@ -95,11 +113,23 @@ static void updateVersion(SimStruct *S)
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
+#define STATE_DATA_BLOCK 255
 
 #define TONE_GO 1
 #define TONE_REWARD 2
 #define TONE_ABORT 3
 
+static void updateVersion(SimStruct *S)
+{
+    /* set variable to file version for display on screen */
+    /* DO NOT change this version string by hand.  CVS will update it upon commit */
+    char version_str[256] = "$Revision: 1.26 $";
+    char* version;
+    
+    version_str[strlen(version_str)-1] = 0; // set last "$" to zero
+    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
+    ssSetRWorkValue(S, 29, atof(version));
+}
 
 static void mdlCheckParameters(SimStruct *S)
 {
@@ -196,9 +226,11 @@ static void mdlInitializeSizes(SimStruct *S)
                                13-20: Current MVC targets [x1 x2 x3 x4 y1 y2 y3 y4]
                                21-28: higher MVC targets reached [x1 x2 x3 x4 y1 y2 y3 y4]
                                29: mastercon version
+
                             */
-    ssSetNumPWork(S, 0);
-    ssSetNumIWork(S, 23); /*   0: state_transition (true if state changed), 
+    ssSetNumPWork(S, 1);	/* 0: Databurst array pointer 
+    						*/
+    ssSetNumIWork(S, 24); /*   0: state_transition (true if state changed), 
                                1: current target index (in sequence),
                                2: successes
                                3: aborts
@@ -206,6 +238,7 @@ static void mdlInitializeSizes(SimStruct *S)
                           [5-20]: target_id list
                           	  21: success_flag
                           	  22: catch_trial_flag
+                          	  23: datablock counter
                           */
     
     /* we have no zero crossing detection or modes */
@@ -225,6 +258,7 @@ static void mdlInitializeSampleTimes(SimStruct *S)
 static void mdlInitializeConditions(SimStruct *S)
 {
     int i;
+    int* databurst;
     real_T *x0;
     
     /* initialize state to zero */
@@ -265,6 +299,11 @@ static void mdlInitializeConditions(SimStruct *S)
     /* set reset counter to zero */
     clear_MVC_tgts = 0.0;
     master_reset = 0.0;
+    
+    /* setup databurst */
+    databurst = malloc(256);
+    ssSetPWorkValue(S, 0, databurst);
+    ssSetIWorkValue(S, 23, 0);
     
     updateVersion(S);
 }
@@ -327,6 +366,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     double tmp_d;
     
     int reshuffle;
+    
+    byte* databurst;
+    float* databurst_target_list;
+    int databurst_counter;
     
     /******************
      * Initialization *
@@ -417,7 +460,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /********************************/ 
     /* End of MVC target overriding */
     /********************************/ 
-
     	                                                            
     /* get target bounds */
     tgt[0] = target_x - target_w / 2.0;
@@ -442,6 +484,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
     elapsed_target_hold_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 1);
     elapsed_center_hold_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 4);
+    
+    /* databurst pointers */
+    databurst_counter = ssGetIWorkValue(S, 23);
+    databurst = (byte *)ssGetPWorkValue(S, 0);
+    databurst_target_list = databurst + 2*sizeof(byte);
     
     /*********************************
      * See if we have issued a reset *
@@ -597,12 +644,39 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             /* decide if this is going to be a catch trial */
             set_catch_trial( catch_trials_pct > (double)rand()/(double)RAND_MAX ? 1 : 0 );
-                        
-            new_state = STATE_RECENTERING;
+
+            /* Copy data into databursts */
+            databurst[0] = 4 * sizeof(float) +2;			
+            databurst[1] = DATABURST_VERSION;
+            for (i = 0; i < 4; i++) {
+                databurst_target_list[i] = tgt[i];
+            }
+            
+            /* and reset the counter */
+            ssSetIWorkValue(S, 23, 0); // Databurst counter            
+            
+/*			if (multiple_targets) {
+	            databurst[0] = num_targets * 2 * sizeof(float) + 2;
+            	databurst[1] = DATABURST_VERSION;
+            	for (i = 0; i < num_targets * 2; i++) {
+                	databurst_target_list[i] = ssGetRWorkValue(S, 4 + i);
+           		}
+			} else {
+			}
+*/				
+                                    
+            new_state = STATE_DATA_BLOCK;
 			ssSetIWorkValue(S, 21, 0);	// clear success_flag
             state_changed();
 
             break;
+        case STATE_DATA_BLOCK:
+            if (databurst_counter++ > databurst[0]) {
+               new_state = STATE_RECENTERING;
+               state_changed();
+            }
+            ssSetIWorkValue(S, 23, databurst_counter);
+            break;           
         case STATE_RECENTERING:
             if (cursorInTarget(cursor, center)) {
                 new_state = STATE_CENTER_HOLD;
@@ -741,6 +815,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int tgt_yVar_enabled;
     int quadrant;
     
+    /* databurst */
+    byte* databurst;
+    int databurst_counter;
+    
     //holders for MVC targets variables
 	real_T user_spec_MVC_targets[8];
     real_T current_MVC_targets[8];
@@ -863,6 +941,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_cnt = ssGetRWorkValue(S, 2);
     tone_id  = ssGetRWorkValue(S, 3);
     
+    /* databurst */
+    databurst_counter = ssGetIWorkValue(S, 23);
+    databurst = (byte *)ssGetPWorkValue(S, 0);    
+    
     /********************
      * Calculate outputs
      ********************/
@@ -875,7 +957,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     /* word (1) */
-    if (new_state) {
+    if (state == STATE_DATA_BLOCK) {
+        if (databurst_counter % 2 == 0) {
+            word = databurst[databurst_counter / 2] | 0xF0; // low order bits
+        } else {
+            word = databurst[databurst_counter / 2] >> 4 | 0xF0; // high order bits
+        }
+	} else if (new_state) {
         switch (state) {
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
@@ -883,7 +971,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_RECENTERING:
             	if (get_catch_trial()) {
                     word = WORD_CATCH;
-                }
+                }break;
 			case STATE_CENTER_HOLD_WITH_TARGET:
 				word = WORD_OT_ON(target_id);
 				break;
@@ -915,10 +1003,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_FAIL && new_state)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
       
-    status[0] = get_catch_trial;  // state;
-    status[1] = word;  // ssGetIWorkValue(S,2); // num rewards
-    status[2] = param_catch_trial_pct;  // ssGetIWorkValue(S,3); // num aborts
-    status[3] = (param_catch_trials_pct/100 > (double)rand()/(double)RAND_MAX ? 1 : 0 );  // ssGetIWorkValue(S,4); // num failures
+    status[0] = state;
+    status[1] = ssGetIWorkValue(S,2); // num rewards
+    status[2] = ssGetIWorkValue(S,3); // num aborts
+    status[3] = ssGetIWorkValue(S,4); // num failures
     
     
     /* tone (3) */
