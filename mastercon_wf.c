@@ -106,14 +106,16 @@ static real_T catch_trials_pct = 0.0;
 #define STATE_PRETRIAL 0
 #define STATE_RECENTERING 1
 #define STATE_CENTER_HOLD 2
-#define STATE_MOVEMENT 3
-#define STATE_TARGET_HOLD 4 
-#define STATE_CONTINUE_MOVEMENT 5
-#define STATE_CENTER_HOLD_WITH_TARGET 6
+#define STATE_CATCH_WORD 3
+#define STATE_MOVEMENT 4
+#define STATE_TARGET_HOLD 5 
+#define STATE_CONTINUE_MOVEMENT 6
+#define STATE_CENTER_HOLD_WITH_TARGET 7
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
 #define STATE_DATA_BLOCK 255
+
 
 #define TONE_GO 1
 #define TONE_REWARD 2
@@ -708,6 +710,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	        	reset_timer();
         	}
         	break;
+        case STATE_CATCH_WORD: // we stay in this state only one cycle to output the catch trial word 
+            if (elapsed_timer_time > reach_time) {
+                new_state = STATE_FAIL;
+                reset_timer();
+            } else {
+	            new_state = STATE_MOVEMENT;
+            }
+        	state_changed();
+        	break;
         case STATE_MOVEMENT:
             if (elapsed_timer_time > reach_time) {
                 new_state = STATE_FAIL;
@@ -968,13 +979,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
                 break;
-            case STATE_RECENTERING:
+            case STATE_CATCH_WORD:
             	if (get_catch_trial()) {
                     word = WORD_CATCH;
                 }break;
-			case STATE_CENTER_HOLD_WITH_TARGET:
-				word = WORD_OT_ON(target_id);
-				break;
             case STATE_MOVEMENT:
                 word = WORD_MOVEMENT_ONSET;
                 break;
@@ -1048,33 +1056,27 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		    /* center green*/
 		    target[5] = 3;
 	    break;
-        case STATE_MOVEMENT:
-	        if (get_catch_trial()) {
-		        target[0] = 2;
-	        } else {
-		        /* target red */
-	        	target[0] = 1;
-        	}
+        case STATE_CATCH_WORD:
+	        /* target red */
+        	target[0] = 1;
+	        /* center off */
+	        target[5] = 0;
+        break;
+	    case STATE_MOVEMENT:
+	        /* target red */
+        	target[0] = 1;
 	        /* center off */
 	        target[5] = 0;
         break;
         case STATE_CONTINUE_MOVEMENT:
-	        if (get_catch_trial()) {
-		        target[0] = 2;
-	        } else {
-		        /* target red */
-	        	target[0] = 1;
-        	}
+	        /* target red */
+	       	target[0] = 1;
 	        /* center off */
 	        target[5] = 0;
         break;
         case STATE_TARGET_HOLD:
-        	if (get_catch_trial()) {
-		        target[0] = 2;
-	        } else {
 	        /* target green */
 	        target[0] = 3;
-        	}
 	        /* center off */
 	        target[5] = 0;
         break;
