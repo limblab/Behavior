@@ -131,6 +131,7 @@ static void mdlCheckParameters(SimStruct *S)
     target_angle = param_target_angle;
     target_radius = param_target_radius;
     target_size = param_target_size;
+    window_size = param_window_size;
     
     origin_hold_l = param_origin_hold_l;
     origin_hold_h = param_origin_hold_h;
@@ -264,7 +265,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 68, 0);
     ssSetIWorkValue(S, 69, 0);
     ssSetIWorkValue(S, 70, 0);
-	ssSetIWorkValue(S, 71, 0);
+    ssSetIWorkValue(S, 71, 0);
 
 	updateVersion(S);
 }
@@ -402,6 +403,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             target_angle = param_target_angle;
             target_radius = param_target_radius;
             target_size = param_target_size;
+            window_size = param_window_size;
 
             origin_hold_l = param_origin_hold_l;
             origin_hold_h = param_origin_hold_h;
@@ -843,8 +845,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     version = ssGetRWorkValue(S, 3);
     
     /* pos (7) */
-    if (1) {
-        /* for now, we just pass the value through */
+    if (sqrt(cursor[0]*cursor[0] + cursor[1]*cursor[1]) < window_size && state == STATE_MOVEMENT) {
+        /* we are inside blocking window => draw cursor off screen */
+        pos_x = 1E6;
+        pos_y = 1E6;
+    } else {
+        /* we are outside the blocking window */
         pos_x = cursor[0];
         pos_y = cursor[1];
     }

@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1186"
+    ComputedModelVersion    "1.1187"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Selket"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Nov 11 14:32:39 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:1186>"
+  LastModifiedDate	  "Tue Nov 11 14:54:02 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:1187>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -841,7 +841,8 @@ Model {
 "os')\nport_label('input',2,'force')\nport_label('input',3,'catch force')\npor"
 "t_label('output',1,'force')\nport_label('output',2,'status')\nport_label('out"
 "put',3,'word')\nport_label('output',4,'targets')\nport_label('output',5,'rewa"
-"rd')\nport_label('output',6,'tone')\nport_label('output',7,'version')"
+"rd')\nport_label('output',6,'tone')\nport_label('output',7,'version')\nport_l"
+"abel('output',8,'pos')"
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
