@@ -673,7 +673,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             break;
         case STATE_DATA_BLOCK:
-            if (databurst_counter++ > databurst[0]) {
+            if (databurst_counter++ >= databurst[0]) {
                new_state = STATE_RECENTERING;
                state_changed();
             }
