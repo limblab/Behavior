@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.78"
+    ComputedModelVersion    "1.79"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,9 +44,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Christian"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Oct 28 18:20:02 2008"
+  LastModifiedDate	  "Thu Nov 20 13:44:42 2008"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:78>"
+  ModelVersionFormat	  "1.%<AutoIncrement:79>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -709,7 +709,7 @@ Model {
   }
   System {
     Name		    "ball_drop"
-    Location		    [1586, 89, 2805, 883]
+    Location		    [110, 82, 1329, 876]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -747,10 +747,30 @@ Model {
 	ShowPageBoundaries	off
 	ZoomFactor		"100"
 	Block {
+	  BlockType		  Reference
+	  Name			  "Drop\nsignal"
+	  Ports			  [1, 1]
+	  Position		  [405, 410, 435, 440]
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
+	  SourceType		  "Compare To Constant"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  relop			  "<="
+	  const			  "3.0"
+	  LogicOutDataTypeMode	  "uint8"
+	  ZeroCross		  off
+	}
+	Block {
 	  BlockType		  Mux
 	  Name			  "Mux"
 	  Ports			  [2, 1]
-	  Position		  [355, 319, 360, 461]
+	  Position		  [605, 319, 610, 461]
 	  ShowName		  off
 	  Inputs		  "2"
 	  DisplayOption		  "bar"
@@ -759,7 +779,7 @@ Model {
 	  BlockType		  Mux
 	  Name			  "Mux1"
 	  Ports			  [2, 1]
-	  Position		  [330, 147, 335, 258]
+	  Position		  [440, 147, 445, 258]
 	  ShowName		  off
 	  Inputs		  "2"
 	  DisplayOption		  "bar"
@@ -779,9 +799,29 @@ Model {
 	}
 	Block {
 	  BlockType		  Reference
+	  Name			  "Pick up\nsignal"
+	  Ports			  [1, 1]
+	  Position		  [405, 340, 435, 370]
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
+	  SourceType		  "Compare To Constant"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  relop			  ">="
+	  const			  "3.0"
+	  LogicOutDataTypeMode	  "uint8"
+	  ZeroCross		  off
+	}
+	Block {
+	  BlockType		  Reference
 	  Name			  "ball sensors"
 	  Ports			  [1]
-	  Position		  [420, 184, 490, 226]
+	  Position		  [530, 184, 600, 226]
 	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
 	  SourceType		  "xpcscopeblock"
 	  ShowPortLabels	  "FromPortIcon"
@@ -816,7 +856,7 @@ Model {
 	Block {
 	  BlockType		  Outport
 	  Name			  "sensors"
-	  Position		  [400, 383, 430, 397]
+	  Position		  [650, 383, 680, 397]
 	  IconDisplay		  "Port number"
 	  OutDataType		  "sfix(16)"
 	  OutScaling		  "2^0"
@@ -831,7 +871,7 @@ Model {
 	    DstPort		    1
 	  }
 	  Branch {
-	    DstBlock		    "Mux"
+	    DstBlock		    "Pick up\nsignal"
 	    DstPort		    1
 	  }
 	}
@@ -845,8 +885,8 @@ Model {
 	    DstPort		    2
 	  }
 	  Branch {
-	    DstBlock		    "Mux"
-	    DstPort		    2
+	    DstBlock		    "Drop\nsignal"
+	    DstPort		    1
 	  }
 	}
 	Line {
@@ -860,6 +900,18 @@ Model {
 	  SrcPort		  1
 	  DstBlock		  "ball sensors"
 	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Pick up\nsignal"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Drop\nsignal"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  2
 	}
       }
     }
