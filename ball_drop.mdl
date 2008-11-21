@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.79"
+    ComputedModelVersion    "1.82"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,9 +44,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Christian"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Nov 20 13:44:42 2008"
+  LastModifiedDate	  "Fri Nov 21 07:35:35 2008"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:79>"
+  ModelVersionFormat	  "1.%<AutoIncrement:82>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -727,7 +727,7 @@ Model {
       BlockType		      SubSystem
       Name		      "Ball sensors"
       Ports		      [0, 1]
-      Position		      [280, 398, 380, 492]
+      Position		      [330, 398, 430, 492]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -1102,7 +1102,7 @@ Model {
       BlockType		      Reference
       Name		      "PCI-6025E DI"
       Ports		      [0, 1]
-      Position		      [400, 157, 505, 213]
+      Position		      [310, 157, 415, 213]
       SourceBlock	      "xpcnilib/Digital\nInput/PCI-6025E DI"
       SourceType	      "dinipcie6025"
       channel		      "[3]"
@@ -1520,7 +1520,7 @@ Model {
       BlockType		      Reference
       Name		      "Status1"
       Ports		      [1]
-      Position		      [450, 379, 520, 421]
+      Position		      [475, 349, 545, 391]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -1555,15 +1555,15 @@ Model {
     Block {
       BlockType		      SubSystem
       Name		      "UDPXmit"
-      Ports		      [3]
-      Position		      [880, 426, 990, 494]
+      Ports		      [2]
+      Position		      [880, 432, 990, 503]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
       System {
 	Name			"UDPXmit"
-	Location		[119, 254, 1039, 802]
-	Open			off
+	Location		[260, 176, 1253, 802]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1577,17 +1577,8 @@ Model {
 	ZoomFactor		"100"
 	Block {
 	  BlockType		  Inport
-	  Name			  "Pos"
-	  Position		  [340, 143, 370, 157]
-	  IconDisplay		  "Port number"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
-	}
-	Block {
-	  BlockType		  Inport
 	  Name			  "Tone"
 	  Position		  [335, 623, 365, 637]
-	  Port			  "2"
 	  IconDisplay		  "Port number"
 	  OutDataType		  "sfix(16)"
 	  OutScaling		  "2^0"
@@ -1595,8 +1586,8 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "Tgts"
-	  Position		  [85, 383, 115, 397]
-	  Port			  "3"
+	  Position		  [55, 383, 85, 397]
+	  Port			  "2"
 	  IconDisplay		  "Port number"
 	  OutDataType		  "sfix(16)"
 	  OutScaling		  "2^0"
@@ -1605,7 +1596,7 @@ Model {
 	  BlockType		  Demux
 	  Name			  "Demux"
 	  Ports			  [1, 10]
-	  Position		  [175, 182, 180, 598]
+	  Position		  [230, 182, 235, 598]
 	  BackgroundColor	  "black"
 	  ShowName		  off
 	  Outputs		  "10"
@@ -1613,19 +1604,9 @@ Model {
 	}
 	Block {
 	  BlockType		  Demux
-	  Name			  "Demux1"
-	  Ports			  [1, 2]
-	  Position		  [410, 109, 415, 191]
-	  BackgroundColor	  "black"
-	  ShowName		  off
-	  Outputs		  "2"
-	  DisplayOption		  "bar"
-	}
-	Block {
-	  BlockType		  Demux
 	  Name			  "Demux2"
 	  Ports			  [1, 2]
-	  Position		  [445, 589, 450, 671]
+	  Position		  [445, 587, 450, 673]
 	  BackgroundColor	  "black"
 	  ShowName		  off
 	  Outputs		  "2"
@@ -1638,8 +1619,16 @@ Model {
 	  Position		  [565, 96, 675, 684]
 	  SourceBlock		  "xpclib/UDP/Pack"
 	  SourceType		  "xpcany2byte"
-	  datatypes		  "{'double', 'double','double','double','double','double','double','double','double','double','double','double','double','double'}"
+	  datatypes		  "{'double','double','double','double','double','double','double','double','double','double','double','double','double','double'}"
 	  byteAlign		  "1"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Pos"
+	  Position		  [410, 135, 440, 165]
+	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  RateTransition
@@ -1653,7 +1642,7 @@ Model {
 	  Position		  [825, 365, 905, 415]
 	  SourceBlock		  "xpclib/UDP/Send"
 	  SourceType		  "xpcudpbytesend"
-	  ipAddress		  "192.168.0.2"
+	  ipAddress		  "192.168.0.1"
 	  ipPort		  "25000"
 	  localPort		  "-1"
 	  sampletime		  ".02"
@@ -1669,6 +1658,36 @@ Model {
 	  SrcPort		  1
 	  DstBlock		  "Rate Transition"
 	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  13
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  2
+	  DstBlock		  "Pack"
+	  DstPort		  14
+	}
+	Line {
+	  SrcBlock		  "Tone"
+	  SrcPort		  1
+	  DstBlock		  "Demux2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Tgts"
+	  SrcPort		  1
+	  DstBlock		  "Demux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  3
+	  DstBlock		  "Pack"
+	  DstPort		  5
 	}
 	Line {
 	  SrcBlock		  "Demux"
@@ -1714,12 +1733,6 @@ Model {
 	}
 	Line {
 	  SrcBlock		  "Demux"
-	  SrcPort		  3
-	  DstBlock		  "Pack"
-	  DstPort		  5
-	}
-	Line {
-	  SrcBlock		  "Demux"
 	  SrcPort		  2
 	  DstBlock		  "Pack"
 	  DstPort		  4
@@ -1731,46 +1744,19 @@ Model {
 	  DstPort		  3
 	}
 	Line {
-	  SrcBlock		  "Demux1"
-	  SrcPort		  1
-	  DstBlock		  "Pack"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Demux1"
-	  SrcPort		  2
-	  DstBlock		  "Pack"
-	  DstPort		  2
-	}
-	Line {
 	  SrcBlock		  "Pos"
 	  SrcPort		  1
-	  DstBlock		  "Demux1"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Demux2"
-	  SrcPort		  1
-	  DstBlock		  "Pack"
-	  DstPort		  13
-	}
-	Line {
-	  SrcBlock		  "Demux2"
-	  SrcPort		  2
-	  DstBlock		  "Pack"
-	  DstPort		  14
-	}
-	Line {
-	  SrcBlock		  "Tone"
-	  SrcPort		  1
-	  DstBlock		  "Demux2"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Tgts"
-	  SrcPort		  1
-	  DstBlock		  "Demux"
-	  DstPort		  1
+	  Points		  [50, 0]
+	  Branch {
+	    Points		    [0, -20]
+	    DstBlock		    "Pack"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 20]
+	    DstBlock		    "Pack"
+	    DstPort		    2
+	  }
 	}
       }
     }
@@ -2059,8 +2045,9 @@ Model {
     Line {
       SrcBlock		      "Behavior BD"
       SrcPort		      8
+      Points		      [50, 0]
       DstBlock		      "UDPXmit"
-      DstPort		      3
+      DstPort		      2
     }
     Line {
       SrcBlock		      "PCI-6025E DI"
@@ -2079,26 +2066,17 @@ Model {
       }
       Branch {
 	Labels			[1, 0]
-	Points			[0, 200]
-	Branch {
-	  Points		  [0, -245]
-	  DstBlock		  "Status1"
-	  DstPort		  1
-	}
-	Branch {
-	  Labels		  [3, 0]
-	  Points		  [600, 0; 0, -230; -145, 0; 0, 25]
-	  DstBlock		  "UDPXmit"
-	  DstPort		  1
-	}
+	Points			[0, -75]
+	DstBlock		"Status1"
+	DstPort			1
       }
     }
     Line {
       SrcBlock		      "Behavior BD"
       SrcPort		      7
-      Points		      [30, 0; 0, 35]
+      Points		      [30, 0; 0, 25]
       DstBlock		      "UDPXmit"
-      DstPort		      2
+      DstPort		      1
     }
     Line {
       SrcBlock		      "Behavior BD"

@@ -432,6 +432,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int i;
     InputRealPtrsType uPtrs;
     real_T touch_pad;
+    real_T pickup_sensor, drop_sensor;
     real_T tone_cnt, tone_id;
     int new_state;
 	int gadget_id;
@@ -464,13 +465,18 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int state = (int)state_r[0];
     new_state = ssGetIWorkValue(S, 0);
     
-	/* Current gadget index (always set to 3) */
+	/* Current gadget index (always set to 3 for BD device) */
     gadget_id = 3;
 
     /* touch pad state */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
     touch_pad = *uPtrs[0];
-    
+
+    /* ball sensors state */
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
+    pickup_sensor = *uPtrs[0];
+    drop_sensor = *uPtrs[1];   
+            
     /* tone counters */
     tone_cnt = ssGetRWorkValue(S, 1);
     tone_id  = ssGetRWorkValue(S, 2);
