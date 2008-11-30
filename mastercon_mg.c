@@ -1,7 +1,6 @@
-/* $Id$
- *
+/* mastercon_mg.c
+ 
  * Master Control block for behavior: multi-gadget
- *
  */
 
 #define S_FUNCTION_NAME mastercon_mg
@@ -992,37 +991,46 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	    /* target off*/
 	    target [0] = 0;
     }
-    
-    /* we use the second target to indicate which of the gadget is in use */
-    /* this is because the monkey does not seem to see the leds  */
-    if ( state == STATE_DELAY || 
-         state == STATE_REACH || 
-         state == STATE_MOVEMENT || 
-         state == STATE_CONTINUE_REACH ||
-         state == STATE_TOUCH_PAD_HOLD ||
-         state == STATE_TARGET_HOLD)
-    {
-	    /*gadget indicator on */
-	    target[5] = 2; /*white*/
-	} else {
-		/* gadget indicator off */
-		target [5] = 0; /* off */
+
+	/* we don't need a second target */
+	for (i=5; i<10; i++) {
+		target[i] = 0;
 	}
+
+////////////
+// Obsolete
+//			/* we use the second target to indicate which of the gadget is in use */
+//			/* this is because the monkey does not seem to see the leds  */
+//			if ( state == STATE_DELAY || 
+//				 state == STATE_REACH || 
+//				 state == STATE_MOVEMENT || 
+//				 state == STATE_CONTINUE_REACH ||
+//				 state == STATE_TOUCH_PAD_HOLD ||
+//				 state == STATE_TARGET_HOLD)
+//			{
+//				/*gadget indicator on */
+//				target[5] = 2; /*white*/
+//			} else {
+//				/* gadget indicator off */
+//				target [5] = 0; /* off */
+//			}
+//			
+//			
+//			target[7] = 1.5; // Y upper left
+//			target[9] = -1.5; // Y lower right
+//				
+//			if (gadget_id == 0) { // palmar grasp, on the left
+//				target[6] = -18; // X upper left
+//				target[8] = -15; // X lower right
+//			} else if (gadget_id == 1) { //key grasp, on the right
+//				target[6] = 15;
+//				target[8] = 18;
+//			} else { // another gadget, lets just turn off target for now
+//				target[5] = 0;
+//			}
+//
+/////////////
 	
-	
-	target[7] = 1.5; // Y upper left
-	target[9] = -1.5; // Y lower right
-		
-	if (gadget_id == 0) { // palmar grasp, on the left
-		target[6] = -18; // X upper left
-		target[8] = -15; // X lower right
-	} else if (gadget_id == 1) { //key grasp, on the right
-		target[6] = 15;
-		target[8] = 18;
-	} else { // another gadget, lets just turn off target for now
-		target[5] = 0;
-	}
-    
     /* target_select (8) */
     target_select = target_id;
     

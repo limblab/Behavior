@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3145.18952">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3246.25610">
   <ScreenWidth>30</ScreenWidth>
   <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>2</Cursor>
@@ -397,6 +397,50 @@
         <value>0</value>
       </item>
       <item>
+        <key>MGIM</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>MGMT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>MGCatchTrials</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BDTPL</key>
+        <value>0.2</value>
+      </item>
+      <item>
+        <key>BDTPH</key>
+        <value>0.2</value>
+      </item>
+      <item>
+        <key>BDDL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BDDH</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BDPT</key>
+        <value>5</value>
+      </item>
+      <item>
+        <key>BDDT</key>
+        <value>5</value>
+      </item>
+      <item>
+        <key>BDIT</key>
+        <value>2</value>
+      </item>
+      <item>
+        <key>BDCatchTrials</key>
+        <value>0</value>
+      </item>
+      <item>
         <key>WFTargets</key>
         <value>2</value>
       </item>
@@ -446,6 +490,10 @@
       </item>
       <item>
         <key>WF1D</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFCatchTrials</key>
         <value>0</value>
       </item>
     </dictionary>

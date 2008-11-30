@@ -22,6 +22,8 @@
 #define WORD_TASK_CODE 0x07
 #elif TASK_UC
 #define WORD_TASK_CODE 0x08
+#elif TASK_BD
+#define WORD_TASK_CODE 0x09
 #endif
 
 /* trial start */

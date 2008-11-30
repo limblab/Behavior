@@ -349,11 +349,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
               	new_state = STATE_DELAY;
 				state_changed();
 				reset_timer();
-				} else if (!touch_pad) {
-					new_state = STATE_ABORT;
-					state_changed();
-					reset_timer();
-				}
+			} else if (!touch_pad) {
+				new_state = STATE_ABORT;
+				state_changed();
+				reset_timer();
+			}
             break;
         case STATE_DELAY:
             if (elapsed_timer_time > delay_timeout) {
@@ -573,7 +573,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         if (state == STATE_ABORT) {
             tone_cnt++;
             tone_id = TONE_ABORT;
-        } else if (state == STATE_PICKUP || STATE_DROP) {
+        } else if (state == STATE_PICKUP || state == STATE_DROP) {
             tone_cnt++;
             tone_id = TONE_GO;
         } else if (state == STATE_REWARD) {
