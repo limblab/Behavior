@@ -2044,7 +2044,6 @@ Model {
     Line {
       SrcBlock		      "Behavior BD"
       SrcPort		      8
-      Points		      [50, 0]
       DstBlock		      "UDPXmit"
       DstPort		      2
     }

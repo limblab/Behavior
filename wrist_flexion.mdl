@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.123"
+    ComputedModelVersion    "1.125"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,9 +44,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Christian"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Aug 27 15:23:20 2008"
+  LastModifiedDate	  "Thu Dec 04 11:38:04 2008"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:123>"
+  ModelVersionFormat	  "1.%<AutoIncrement:125>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -743,7 +743,7 @@ Model {
   }
   System {
     Name		    "wrist_flexion"
-    Location		    [334, 96, 1317, 713]
+    Location		    [272, 139, 1255, 756]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -945,8 +945,8 @@ Model {
       FunctionWithSeparateData off
       System {
 	Name			"CursorPos"
-	Location		[95, 127, 1119, 778]
-	Open			off
+	Location		[118, 110, 1142, 761]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -959,39 +959,79 @@ Model {
 	ShowPageBoundaries	off
 	ZoomFactor		"100"
 	Block {
+	  BlockType		  Sum
+	  Name			  "Add"
+	  Ports			  [2, 1]
+	  Position		  [395, 367, 425, 398]
+	  CollapseMode		  "All dimensions"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^-10"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Add1"
+	  Ports			  [2, 1]
+	  Position		  [395, 442, 425, 473]
+	  CollapseMode		  "All dimensions"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^-10"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "GainX"
+	  Position		  [200, 375, 255, 405]
+	  Gain			  "15"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "GainY"
+	  Position		  [200, 435, 255, 465]
+	  Gain			  "15"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
 	  BlockType		  Mux
 	  Name			  "Mux"
 	  Ports			  [2, 1]
-	  Position		  [435, 359, 440, 481]
+	  Position		  [535, 348, 540, 497]
 	  ShowName		  off
 	  Inputs		  "2"
 	  DisplayOption		  "bar"
 	}
 	Block {
-	  BlockType		  Gain
-	  Name			  "NewtonCal1"
-	  Position		  [325, 375, 380, 405]
-	  Gain			  "15"
-	  ParameterDataTypeMode	  "Inherit via internal rule"
-	  ParameterDataType	  "sfix(16)"
-	  ParameterScaling	  "2^0"
-	  OutDataTypeMode	  "Inherit via internal rule"
+	  BlockType		  Constant
+	  Name			  "OffsetX"
+	  Position		  [315, 345, 345, 375]
+	  Value			  "0"
 	  OutDataType		  "sfix(16)"
 	  OutScaling		  "2^0"
-	  SaturateOnIntegerOverflow off
 	}
 	Block {
-	  BlockType		  Gain
-	  Name			  "NewtonCal2"
-	  Position		  [325, 435, 380, 465]
-	  Gain			  "15"
-	  ParameterDataTypeMode	  "Inherit via internal rule"
-	  ParameterDataType	  "sfix(16)"
-	  ParameterScaling	  "2^0"
-	  OutDataTypeMode	  "Inherit via internal rule"
+	  BlockType		  Constant
+	  Name			  "OffsetY"
+	  Position		  [315, 460, 345, 490]
+	  Value			  "0"
 	  OutDataType		  "sfix(16)"
 	  OutScaling		  "2^0"
-	  SaturateOnIntegerOverflow off
 	}
 	Block {
 	  BlockType		  Reference
@@ -1009,7 +1049,7 @@ Model {
 	Block {
 	  BlockType		  Outport
 	  Name			  "Pos"
-	  Position		  [505, 413, 535, 427]
+	  Position		  [600, 418, 630, 432]
 	  IconDisplay		  "Port number"
 	  OutDataType		  "sfix(16)"
 	  OutScaling		  "2^0"
@@ -1017,7 +1057,7 @@ Model {
 	Line {
 	  SrcBlock		  "PCI-6025E "
 	  SrcPort		  1
-	  DstBlock		  "NewtonCal1"
+	  DstBlock		  "GainX"
 	  DstPort		  1
 	}
 	Line {
@@ -1027,22 +1067,47 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "NewtonCal1"
-	  SrcPort		  1
-	  DstBlock		  "Mux"
-	  DstPort		  1
-	}
-	Line {
 	  SrcBlock		  "PCI-6025E "
 	  SrcPort		  2
-	  DstBlock		  "NewtonCal2"
+	  DstBlock		  "GainY"
 	  DstPort		  1
 	}
 	Line {
-	  Labels		  [1, 0]
-	  SrcBlock		  "NewtonCal2"
+	  SrcBlock		  "GainX"
+	  SrcPort		  1
+	  DstBlock		  "Add"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Add"
 	  SrcPort		  1
 	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "GainY"
+	  SrcPort		  1
+	  DstBlock		  "Add1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Add1"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "OffsetX"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, 15]
+	  DstBlock		  "Add"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "OffsetY"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, -10]
+	  DstBlock		  "Add1"
 	  DstPort		  2
 	}
       }
@@ -2043,7 +2108,7 @@ Model {
       }
       Branch {
 	Labels			[2, 0]
-	Points			[0, 290; 585, 0; 0, -320; -190, 0]
+	Points			[0, 290; 585, 0; 0, -300; -190, 0]
 	DstBlock		"UDPXmit"
 	DstPort			1
       }
