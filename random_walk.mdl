@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1189"
+    ComputedModelVersion    "1.1191"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Dec 15 17:40:52 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:1189>"
+  LastModifiedDate	  "Tue Dec 16 17:15:14 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:1191>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -3439,7 +3439,7 @@ Model {
       System {
 	Name			"Recentering Subsystem"
 	Location		[-4, 85, 1248, 962]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -3525,15 +3525,14 @@ Model {
 	Block {
 	  BlockType		  DataTypeConversion
 	  Name			  "Data Type Conversion1"
-	  Position		  [1335, 753, 1410, 787]
+	  Position		  [1380, 753, 1455, 787]
 	  RndMeth		  "Floor"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
 	  BlockType		  DataTypeConversion
 	  Name			  "Data Type Conversion2"
-	  Position		  [1395, 688, 1470, 722]
-	  NamePlacement		  "alternate"
+	  Position		  [1380, 688, 1455, 722]
 	  RndMeth		  "Floor"
 	  SaturateOnIntegerOverflow off
 	}
@@ -3551,7 +3550,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Falling Edge"
 	  Ports			  [1, 1]
-	  Position		  [1240, 745, 1300, 795]
+	  Position		  [1290, 745, 1350, 795]
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Detect F"
 "all\nNonpositive"
 	  SourceType		  "Detect Fall Nonpositive"
@@ -3569,7 +3568,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Falling Edge1"
 	  Ports			  [1, 1]
-	  Position		  [1305, 680, 1365, 730]
+	  Position		  [1290, 680, 1350, 730]
 	  NamePlacement		  "alternate"
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Detect F"
 "all\nNonpositive"
@@ -3630,20 +3629,19 @@ Model {
 	}
 	Block {
 	  BlockType		  Logic
-	  Name			  "InBox1"
-	  Ports			  [1, 1]
-	  Position		  [1630, 717, 1660, 753]
-	  Operator		  "NOT"
-	  AllPortsSameDT	  off
-	  OutDataTypeMode	  "Boolean"
-	  LogicDataType		  "double"
-	}
-	Block {
-	  BlockType		  Logic
 	  Name			  "Logical\nOperator"
 	  Ports			  [4, 1]
 	  Position		  [290, 217, 320, 253]
 	  Inputs		  "4"
+	  AllPortsSameDT	  off
+	  OutDataTypeMode	  "Boolean"
+	}
+	Block {
+	  BlockType		  Logic
+	  Name			  "Logical\nOperator1"
+	  Ports			  [2, 1]
+	  Position		  [1490, 653, 1525, 722]
+	  Operator		  "OR"
 	  AllPortsSameDT	  off
 	  OutDataTypeMode	  "Boolean"
 	}
@@ -3682,6 +3680,16 @@ Model {
 	  ShowName		  off
 	  Inputs		  "6"
 	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Logic
+	  Name			  "NOT"
+	  Ports			  [1, 1]
+	  Position		  [1385, 587, 1415, 623]
+	  Operator		  "NOT"
+	  AllPortsSameDT	  off
+	  OutDataTypeMode	  "Boolean"
+	  LogicDataType		  "double"
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -4156,7 +4164,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "S-R\nFlip-Flop"
 	  Ports			  [2, 2]
-	  Position		  [1500, 715, 1545, 790]
+	  Position		  [1570, 690, 1615, 770]
 	  SourceBlock		  "simulink_extras/Flip Flops/S-R\nFlip-Flop"
 	  SourceType		  "SRFlipFlop"
 	  ShowPortLabels	  "FromPortIcon"
@@ -4197,7 +4205,7 @@ Model {
 	  MaskIconOpaque	  on
 	  MaskIconRotate	  "none"
 	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "6"
+	  MaskValueString	  "4"
 	  System {
 	    Name		    "Schmidt1"
 	    Location		    [2, 82, 1270, 979]
@@ -4469,7 +4477,7 @@ Model {
 	  BlockType		  SubSystem
 	  Name			  "Schmidt2"
 	  Ports			  [1, 1]
-	  Position		  [575, 824, 675, 866]
+	  Position		  [575, 821, 735, 869]
 	  NamePlacement		  "alternate"
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
@@ -4493,7 +4501,7 @@ Model {
 	  MaskIconOpaque	  on
 	  MaskIconRotate	  "none"
 	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "7"
+	  MaskValueString	  "5"
 	  System {
 	    Name		    "Schmidt2"
 	    Location		    [2, 82, 1270, 979]
@@ -4765,7 +4773,7 @@ Model {
 	  BlockType		  SubSystem
 	  Name			  "Schmidt3"
 	  Ports			  [1, 1]
-	  Position		  [1145, 684, 1280, 726]
+	  Position		  [1130, 684, 1265, 726]
 	  NamePlacement		  "alternate"
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
@@ -5084,11 +5092,6 @@ Model {
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
-	  BlockType		  Terminator
-	  Name			  "Terminator"
-	  Position		  [1570, 760, 1590, 780]
-	}
-	Block {
 	  BlockType		  Reference
 	  Name			  "Timer"
 	  Ports			  [2, 1]
@@ -5136,7 +5139,7 @@ Model {
 	Block {
 	  BlockType		  Goto
 	  Name			  "ToSR"
-	  Position		  [1580, 675, 1620, 705]
+	  Position		  [1670, 695, 1710, 725]
 	  GotoTag		  "C"
 	  TagVisibility		  "local"
 	}
@@ -5306,21 +5309,6 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "No Movement"
-	  SrcPort		  1
-	  Points		  [35, 0]
-	  Branch {
-	    Points		    [0, 275]
-	    DstBlock		    "Start Moving"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, 0]
-	    DstBlock		    "ToOutsideBox1"
-	    DstPort		    1
-	  }
-	}
-	Line {
 	  SrcBlock		  "InBox"
 	  SrcPort		  1
 	  Points		  [15, 0; 0, -80]
@@ -5455,7 +5443,7 @@ Model {
 	Line {
 	  SrcBlock		  "Schmidt2"
 	  SrcPort		  1
-	  Points		  [535, 0]
+	  Points		  [475, 0]
 	  Branch {
 	    DstBlock		    "Logical\nOperator5"
 	    DstPort		    2
@@ -5469,27 +5457,13 @@ Model {
 	Line {
 	  SrcBlock		  "S-R\nFlip-Flop"
 	  SrcPort		  1
-	  Points		  [10, 0]
-	  Branch {
-	    Points		    [0, -45]
-	    DstBlock		    "ToSR"
-	    DstPort		    1
-	  }
-	  Branch {
-	    DstBlock		    "InBox1"
-	    DstPort		    1
-	  }
+	  DstBlock		  "ToSR"
+	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "S-R\nFlip-Flop"
 	  SrcPort		  2
-	  DstBlock		  "Terminator"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "InBox1"
-	  SrcPort		  1
-	  Points		  [15, 0; 0, 75]
+	  Points		  [35, 0; 0, 60]
 	  DstBlock		  "Logical\nOperator5"
 	  DstPort		  1
 	}
@@ -5502,6 +5476,7 @@ Model {
 	Line {
 	  SrcBlock		  "Data Type Conversion1"
 	  SrcPort		  1
+	  Points		  [85, 0; 0, -20]
 	  DstBlock		  "S-R\nFlip-Flop"
 	  DstPort		  2
 	}
@@ -5526,8 +5501,43 @@ Model {
 	Line {
 	  SrcBlock		  "Data Type Conversion2"
 	  SrcPort		  1
-	  Points		  [5, 0; 0, 30]
+	  DstBlock		  "Logical\nOperator1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Logical\nOperator1"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, 20]
 	  DstBlock		  "S-R\nFlip-Flop"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "No Movement"
+	  SrcPort		  1
+	  Points		  [35, 0]
+	  Branch {
+	    Points		    [0, 0]
+	    DstBlock		    "ToOutsideBox1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 175]
+	    Branch {
+	      Points		      [0, 100]
+	      DstBlock		      "Start Moving"
+	      DstPort		      1
+	    }
+	    Branch {
+	      DstBlock		      "NOT"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "NOT"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, 65]
+	  DstBlock		  "Logical\nOperator1"
 	  DstPort		  1
 	}
       }
