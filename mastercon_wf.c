@@ -968,13 +968,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     /* word (1) */
-    if (state == STATE_DATA_BLOCK) {
-        if (databurst_counter % 2 == 0) {
-            word = databurst[databurst_counter / 2] | 0xF0; // low order bits
-        } else {
-            word = databurst[databurst_counter / 2] >> 4 | 0xF0; // high order bits
-        }
-	} else if (new_state) {
+//     if (state == STATE_DATA_BLOCK) {
+//         if (databurst_counter % 2 == 0) {
+//             word = databurst[databurst_counter / 2] | 0xF0; // low order bits
+//         } else {
+//             word = databurst[databurst_counter / 2] >> 4 | 0xF0; // high order bits
+//         }
+// 	} else if (new_state) {
+    if (new_state) {
         switch (state) {
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
