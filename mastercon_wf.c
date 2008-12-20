@@ -27,7 +27,7 @@
  * Databurst version descriptions
  * ==============================
  *
- * Version 0 (0x00)
+ * Version 1 (0x01)
  * ----------------
  * byte 0: uchar => number of bytes to be transmitted
  * byte 1: uchar => version number (in this case zero)
@@ -44,7 +44,7 @@
  *
  */
 
-#define DATABURST_VERSION 0x00 
+#define DATABURST_VERSION 0x01 
 typedef unsigned char byte;
 
 
@@ -106,11 +106,10 @@ static real_T catch_trials_pct = 0.0;
 #define STATE_PRETRIAL 0
 #define STATE_RECENTERING 1
 #define STATE_CENTER_HOLD 2
-#define STATE_CATCH_WORD 3
-#define STATE_MOVEMENT 4
-#define STATE_TARGET_HOLD 5 
-#define STATE_CONTINUE_MOVEMENT 6
-#define STATE_CENTER_HOLD_WITH_TARGET 7
+#define STATE_MOVEMENT 3
+#define STATE_TARGET_HOLD 4 
+#define STATE_CONTINUE_MOVEMENT 5
+#define STATE_CENTER_HOLD_WITH_TARGET 6
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
@@ -125,7 +124,7 @@ static void updateVersion(SimStruct *S)
 {
     /* set variable to file version for display on screen */
     /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.26 $";
+    char version_str[256] = "$Revision: 1.31 $";
     char* version;
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
@@ -710,15 +709,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	        	reset_timer();
         	}
         	break;
-        case STATE_CATCH_WORD: // we stay in this state only one cycle to output the catch trial word 
-            if (elapsed_timer_time > reach_time) {
-                new_state = STATE_FAIL;
-                reset_timer();
-            } else {
-	            new_state = STATE_MOVEMENT;
-            }
-        	state_changed();
-        	break;
         case STATE_MOVEMENT:
             if (elapsed_timer_time > reach_time) {
                 new_state = STATE_FAIL;
@@ -744,7 +734,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 				} else {
 					/* more targets*/
 					ssSetIWorkValue(S, 1, ++target_index);
-					new_state = STATE_MOVEMENT;
+					new_state = STATE_CONTINUE_MOVEMENT;
 					state_changed();
 					reset_timer();
 				}
@@ -968,14 +958,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     /* word (1) */
-//     if (state == STATE_DATA_BLOCK) {
-//         if (databurst_counter % 2 == 0) {
-//             word = databurst[databurst_counter / 2] | 0xF0; // low order bits
-//         } else {
-//             word = databurst[databurst_counter / 2] >> 4 | 0xF0; // high order bits
-//         }
-// 	} else if (new_state) {
-    if (new_state) {
+     if (state == STATE_DATA_BLOCK) {
+         if (databurst_counter % 2 == 0) {
+             word = databurst[databurst_counter / 2] | 0xF0; // low order bits
+         } else {
+             word = databurst[databurst_counter / 2] >> 4 | 0xF0; // high order bits
+         }
+ 	} else if (new_state) {
         switch (state) {
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
@@ -985,7 +974,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                     word = WORD_CATCH;
                 }break;
             case STATE_MOVEMENT:
-                word = WORD_MOVEMENT_ONSET;
+                if (get_catch_trial()) {
+                    word = WORD_CATCH;
+                } else {
+                    word = WORD_MOVEMENT_ONSET;
+                }
                 break;
             case STATE_REWARD:
                 word = WORD_REWARD;
@@ -1057,12 +1050,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		    /* center green*/
 		    target[5] = 3;
 	    break;
-        case STATE_CATCH_WORD:
-	        /* target red */
-        	target[0] = 1;
-	        /* center off */
-	        target[5] = 0;
-        break;
 	    case STATE_MOVEMENT:
 	        /* target red */
         	target[0] = 1;
@@ -1086,7 +1073,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	        target[0] = 0;
 	        target[5] = 0;
     }
-
 
 
      /* target_select (5) */
