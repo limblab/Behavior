@@ -969,10 +969,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
                 break;
-            case STATE_CATCH_WORD:
-            	if (get_catch_trial()) {
-                    word = WORD_CATCH;
-                }break;
             case STATE_MOVEMENT:
                 if (get_catch_trial()) {
                     word = WORD_CATCH;
