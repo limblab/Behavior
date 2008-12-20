@@ -973,7 +973,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                 if (get_catch_trial()) {
                     word = WORD_CATCH;
                 } else {
-                    word = WORD_MOVEMENT_ONSET;
+                    word = WORD_GO_CUE;
                 }
                 break;
             case STATE_REWARD:
