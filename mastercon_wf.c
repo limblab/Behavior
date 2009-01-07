@@ -17,7 +17,7 @@
 #define PI (3.141592654)
 
 /* 
- * Current Databurst version: 0
+ * Current Databurst version: 1
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -30,7 +30,7 @@
  * Version 1 (0x01)
  * ----------------
  * byte 0: uchar => number of bytes to be transmitted
- * byte 1: uchar => version number (in this case zero)
+ * byte 1: uchar => version number (in this case one)
  * bytes 2 to 2+ N*16: where N is the number of targets whose position are output.
  *		contains 16 bytes per target representing four single precision floating point
  *		numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
@@ -647,13 +647,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             set_catch_trial( catch_trials_pct > (double)rand()/(double)RAND_MAX ? 1 : 0 );
 
             /* Copy data into databursts */
-            databurst[0] = 4 * sizeof(float) +2;			
+            databurst[0] = 4 * 2 * sizeof(float) + 2; /* 4 for (xl,yh,xh,yl), 2 because half a byte a time*/
+
             databurst[1] = DATABURST_VERSION;
             for (i = 0; i < 4; i++) {
                 databurst_target_list[i] = tgt[i];
             }
             
             /* and reset the counter */
+
             ssSetIWorkValue(S, 23, 0); // Databurst counter            
             
 /*			if (multiple_targets) {
@@ -958,13 +960,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     /* word (1) */
-     if (state == STATE_DATA_BLOCK) {
-         if (databurst_counter % 2 == 0) {
-             word = databurst[databurst_counter / 2] | 0xF0; // low order bits
-         } else {
-             word = databurst[databurst_counter / 2] >> 4 | 0xF0; // high order bits
-         }
- 	} else if (new_state) {
+    if (state == STATE_DATA_BLOCK) {
+        if (databurst_counter % 2 == 0) {
+            word = databurst[databurst_counter / 2] | 0xF0; // low order bits
+        } else {
+            word = (databurst[(databurst_counter-1) / 2] >> 4) | 0xF0; // high order bits
+        }
+	} else if (new_state) {
         switch (state) {
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
