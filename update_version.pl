@@ -1,11 +1,11 @@
-# $Id: $
+# $Id$
 # 
 # Automatically updates the version fields in words.h
 
 use strict;
 
 my $filename = "words.h";
-my $rev = substr('$Rev: $', 6, -1);
+my $rev = substr('$Rev$', 6, -1);
 
 open OLD_FILE, "<$filename";
 open NEW_FILE, ">new_$filename";
