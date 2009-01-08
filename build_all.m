@@ -1,7 +1,7 @@
 % calls mex on all c files
-
 % $Id$
 
+% define dependencies
 T = {...
     {'random_walk.dlm', 'mastercon_rw.mexw32', 'serPos.mexw32', 'Byte2Bits.mexw32'}, ...
     {'center_out.dlm', 'mastercon_co.mexw32', 'serPos.mexw32', 'Byte2Bits.mexw32'}, ...
@@ -12,5 +12,9 @@ T = {...
     {'wrist_flexion.dlm', 'mastercon_wf.mexw32', 'serPos.mexw32', 'Byte2Bits.mexw32'} ...
 };
 
+% update the version numbers in words.h
+perl('update_version.pl');
+
+% build the project
 build(T, 'all', true);
 

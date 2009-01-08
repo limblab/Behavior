@@ -655,7 +655,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T force_x, force_y, word, reward, tone_cnt, tone_id;
     real_T target_pos[10];
     real_T status[5];
-    real_T version;
+    real_T version[4];
     
     /* pointers to output buffers */
     real_T *force_p;
@@ -797,7 +797,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                 word = WORD_BUMP(bump);
                 break;
             case STATE_MOVEMENT:
-                word = WORD_GO_CUE;
+                if (MODE_BLOCK_CATCH && get_catch_trial()) {
+                    word = WORD_CATCH;
+                } else {
+                    word = WORD_GO_CUE;
+                }
                 break;
             case STATE_REWARD:
                 word = WORD_REWARD;
@@ -879,8 +883,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     /* version (6) */
-    version = ssGetRWorkValue(S, 4);
-       
+    version[0] = BEHAVIOR_VERSION_MAJOR;
+    version[1] = BEHAVIOR_VERSION_MINOR;
+    version[2] = BEHAVIOR_VERSION_MICRO;
+    version[3] = BEHAVIOR_VERSION_BUILD;   
+    
     /**********************************
      * Write outputs back to SimStruct
      **********************************/
@@ -911,7 +918,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     ssSetRWorkValue(S, 2, tone_id);
     
     version_p = ssGetOutputPortRealSignal(S,6);
-    version_p[0] = (real_T)version;
+    for (i=0; i<4; i++) {
+        version_p[i] = version[i];
+    }
     
     UNUSED_ARG(tid);
 }

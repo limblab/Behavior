@@ -8,6 +8,18 @@
 #ifndef WORDS_CO_H
 #define WORDS_CO_H
 
+/* 
+ * MAJROR and/or MINOR version numbers should be updated on every new behavior 
+ * release.
+ *
+ * MICRO and BUILD versions are set from update_version.pl, which is 
+ * called by the build script.  Do not update them by hand.
+ */
+#define BEHAVIOR_VERSION_MAJOR 1
+#define BEHAVIOR_VERSION_MINOR 4
+#define BEHAVIOR_VERSION_MICRO 0
+#define BEHAVIOR_VERSION_BUILD 9
+
 /* task specific setup */
 #if TASK_CO
 #define WORD_TASK_CODE 0x01
@@ -60,7 +72,7 @@
 /* go cue */
 #define WORD_GO_CUE 0x31
 
-/* catch trial go cue (random walk and wrist flexion modes) */
+/* catch trial go cue (random walk, center-out, and wrist flexion modes) */
 #define WORD_CATCH  0x32
 
 /* outer target (t) on */

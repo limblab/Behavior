@@ -8,7 +8,6 @@
 
 #include <math.h>
 #include <stdlib.h>
-#include <string.h>
 #include "simstruc.h"
 
 #define TASK_RW 1
@@ -37,8 +36,8 @@
  *
  */
 
-#define DATABURST_VERSION 0x00 
 typedef unsigned char byte;
+#define DATABURST_VERSION ((byte)0x00) 
 
 /*
  * Tunable parameters
@@ -106,18 +105,6 @@ static real_T master_reset = 0.0;
 #define TONE_ABORT 3
 
 #define PI (3.141592654)
-
-static void updateVersion(SimStruct *S)
-{
-    /* set variable to file version for display on screen */
-    /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.22 $";
-    char* version;
-    
-    version_str[strlen(version_str)-1] = 0; // set last "$" to zero
-    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
-    ssSetRWorkValue(S, 512, atof(version));
-}
 
 static void mdlCheckParameters(SimStruct *S)
 {
@@ -197,17 +184,16 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 3, 10);  /* target  */
     ssSetOutputPortWidth(S, 4, 1);   /* reward  */
     ssSetOutputPortWidth(S, 5, 2);   /* tone    */
-    ssSetOutputPortWidth(S, 6, 1);   /* version */
+    ssSetOutputPortWidth(S, 6, 4);   /* version */
     
     ssSetNumSampleTimes(S, 1);
 
     /* work buffers */
-    ssSetNumRWork(S, 513);  /* 0: time of last timer reset 
+    ssSetNumRWork(S, 512);  /* 0: time of last timer reset 
                                1: tone counter (incremented each time a tone is played)
                                2: tone id
                                3: current target hold time
-                         [4-511]: positions of targets stored as (x, y)
-                             512: mastercon version */
+                         [4-511]: positions of targets stored as (x, y) */
 
     ssSetNumIWork(S, 7); /*    0: state_transition (true if state changed), 
                                1: current target index (in sequence),
@@ -270,8 +256,6 @@ static void mdlInitializeConditions(SimStruct *S)
     databurst = malloc(256);
     ssSetPWorkValue(S, 0, databurst);
     ssSetIWorkValue(S, 6, 0);
-
-    updateVersion(S);
 }
 
 /* macro for setting state changed */
@@ -369,7 +353,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 6);
     databurst = (byte *)ssGetPWorkValue(S, 0);
-    databurst_target_list = databurst + 2*sizeof(byte);
+    databurst_target_list = (float *)(databurst + 2*sizeof(byte));
     
     /*********************************
      * See if we have issued a reset *
@@ -380,7 +364,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 3, 0);
         ssSetIWorkValue(S, 4, 0);
         state_r[0] = STATE_PRETRIAL;
-        updateVersion(S);
         return;
     }
      
@@ -458,10 +441,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             
             /* Copy data into databursts */
-            databurst[0] = num_targets * 2 * sizeof(float) + 2;
+            databurst[0] = (byte)(num_targets * 2 * sizeof(float) + 2);
             databurst[1] = DATABURST_VERSION;
             for (i = 0; i < num_targets * 2; i++) {
-                databurst_target_list[i] = ssGetRWorkValue(S, 4 + i);
+                databurst_target_list[i] = (float)ssGetRWorkValue(S, 4 + i);
             }
             
             /* and reset the counters */
@@ -602,7 +585,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T force_x, force_y, word, reward, tone_cnt, tone_id;
     real_T target_pos[10];
     real_T status[4];
-    real_T version;
+    real_T version[4];
     
     /* pointers to output buffers */
     real_T *force_p;
@@ -776,7 +759,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
         
 	/* version (6) */
-	version = ssGetRWorkValue(S, 512);
+	version[0] = BEHAVIOR_VERSION_MAJOR;
+	version[1] = BEHAVIOR_VERSION_MINOR;
+	version[2] = BEHAVIOR_VERSION_MICRO;
+	version[3] = BEHAVIOR_VERSION_BUILD;
 
     /**********************************
      * Write outputs back to SimStruct
@@ -806,8 +792,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     ssSetRWorkValue(S, 1, tone_cnt);
     ssSetRWorkValue(S, 2, tone_id);
 
-	version_p = ssGetOutputPortRealSignal(S,6);
-	version_p[0] = version;
+    version_p = ssGetOutputPortRealSignal(S,6);
+    for (i=0; i<4; i++) {
+        version_p[i] = version[i];
+    }
     
     UNUSED_ARG(tid);
 }
