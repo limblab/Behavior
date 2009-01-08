@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1196"
+    ComputedModelVersion    "1.1197"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Selket"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jan 08 17:01:13 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:1196>"
+  LastModifiedDate	  "Thu Jan 08 17:22:49 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:1197>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -814,7 +814,7 @@ Model {
   }
   System {
     Name		    "center_out"
-    Location		    [6, 82, 1274, 859]
+    Location		    [6, 82, 1258, 859]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -7084,8 +7084,8 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "'Major: %6.0f,Minor: %6.0f,Rev: %6.0f,Build: %6"
-".0f'"
+      formatstr		      "'%6.0f major,%6.0f minor,%6.0f revision,%6.0f b"
+"uild'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"
