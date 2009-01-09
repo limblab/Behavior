@@ -654,7 +654,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T force_in[2];
     
     /* allocate holders for outputs */
-    real_T force_x, force_y, word, reward, tone_cnt, tone_id;
+    real_T force_x, force_y, word, reward, tone_cnt, tone_id, pos_x, pos_y;
     real_T target_pos[10];
     real_T status[5];
     real_T version[4];
