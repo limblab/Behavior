@@ -7,8 +7,13 @@ use strict;
 my $filename = "words.h";
 my $rev = substr('$Rev$', 6, -1);
 
+my $dec_line = "#define __BUILD_UPDATED__ 1\n";
+
+#
+# Create new words.h with updated version number
+#################################################
 open OLD_FILE, "<$filename";
-open NEW_FILE, ">new_$filename";
+open NEW_FILE, ">_$filename";
 
 while (my $line = <OLD_FILE>) {
   chomp $line;
@@ -26,6 +31,21 @@ while (my $line = <OLD_FILE>) {
 close OLD_FILE;
 close NEW_FILE;
 
+#
+# At this point we have updated the counters and just need to prepend a 
+# a declaration to the file to prevent build errors
+
 unlink $filename;
-rename "new_$filename", $filename;
+open OLD_FILE, "<_$filename";
+open NEW_FILE, ">$filename";
+
+print NEW_FILE $dec_line;
+while (<OLD_FILE>) {
+  print NEW_FILE $_;
+}
+
+close OLD_FILE;
+close NEW_FILE;
+
+
 

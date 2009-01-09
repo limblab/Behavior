@@ -8,17 +8,23 @@
 #ifndef WORDS_CO_H
 #define WORDS_CO_H
 
+/*********** DO NOT EDIT IN THE REGION ***********************/
 /* 
  * MAJROR and/or MINOR version numbers should be updated on every new behavior 
  * release.
  *
  * MICRO and BUILD versions are set from update_version.pl, which is 
- * called by the build script.  Do not update them by hand.
+ * called by the build script.  Do not update them by hand, and do not edit 
  */
 #define BEHAVIOR_VERSION_MAJOR 1
 #define BEHAVIOR_VERSION_MINOR 4
 #define BEHAVIOR_VERSION_MICRO 200 
-#define BEHAVIOR_VERSION_BUILD 13
+#define BEHAVIOR_VERSION_BUILD 22
+
+#ifndef __BUILD_UPDATED__
+#error This project must be built from the build script. 
+#endif
+/************ END OF AUTOMATICALLY UPDATED REGION *************/
 
 /* task specific setup */
 #if TASK_CO
