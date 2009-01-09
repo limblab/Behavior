@@ -81,7 +81,7 @@ static real_T percent_med_feedback = 0.0;
 static real_T percent_big_feedback = 0.0;
 #define param_percent_big_feedback mxGetScalar(ssGetSFcnParam(S,21))
 
-static int show_endpoint_time = 10;
+static real_T show_endpoint_time = 10;
 #define param_show_endpoint_time mxGetScalar(ssGetSFcnParam(S,22))
 
 static real_T master_reset = 0.0;
@@ -184,8 +184,8 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetInputPortDirectFeedThrough(S, 1, 1);
     ssSetInputPortDirectFeedThrough(S, 2, 1);
     
-    /* 
-     * Block has 6 output ports (force, status, word, targets, reward, tone) of widths:
+     /* 
+     * Block has 8 output ports (force, status, word, targets, reward, tone, version, pos) of widths:
      *  force: 2
      *  status: 5 ( block counter, successes, aborts, failures, incompletes )
      *  word:  1 (8 bits)
@@ -198,15 +198,17 @@ static void mdlInitializeSizes(SimStruct *S)
      *  reward: 1
      *  tone: 2     ( 1: counter incemented for each new tone, 2: tone ID )
      *  version: 1 ( the cvs revision of the current .c file )
+     *  pos: 2 (x and y position of the cursor)
      */
-    if (!ssSetNumOutputPorts(S, 7)) return;
-    ssSetOutputPortWidth(S, 0, 2);
-    ssSetOutputPortWidth(S, 1, 5);
-    ssSetOutputPortWidth(S, 2, 1);
-    ssSetOutputPortWidth(S, 3, 10);
-    ssSetOutputPortWidth(S, 4, 1);
-    ssSetOutputPortWidth(S, 5, 2);
-    ssSetOutputPortWidth(S, 6, 1);
+    if (!ssSetNumOutputPorts(S, 8)) return;
+    ssSetOutputPortWidth(S, 0, 2);   /* force   */
+    ssSetOutputPortWidth(S, 1, 5);   /* status  */
+    ssSetOutputPortWidth(S, 2, 1);   /* word    */
+    ssSetOutputPortWidth(S, 3, 10);  /* target  */
+    ssSetOutputPortWidth(S, 4, 1);   /* reward  */
+    ssSetOutputPortWidth(S, 5, 2);   /* tone    */
+    ssSetOutputPortWidth(S, 6, 4);   /* version */
+    ssSetOutputPortWidth(S, 7, 2);   /* pos     */
     
     ssSetNumSampleTimes(S, 1);
     
@@ -752,7 +754,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T force_x, force_y, word, reward, tone_cnt, tone_id;
     real_T target_pos[10];
     real_T status[5];
-    real_T version;
+    real_T version[4];
     
     /* pointers to output buffers */
     real_T *force_p;
@@ -762,6 +764,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *reward_p;
     real_T *tone_p;
     real_T *version_p;
+    real_T *pos_p;
     
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
@@ -1033,8 +1036,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     /* version (6) */
-    version = ssGetRWorkValue(S, 4);
+    version[0] = BEHAVIOR_VERSION_MAJOR;
+    version[1] = BEHAVIOR_VERSION_MINOR;
+    version[2] = BEHAVIOR_VERSION_MICRO;
+    version[3] = BEHAVIOR_VERSION_BUILD;
        
+    /* pos (7) */
+    pos_x = cursor[0];
+    pos_y = cursor[1];
+    
     /**********************************
      * Write outputs back to SimStruct
      **********************************/
@@ -1064,8 +1074,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     ssSetRWorkValue(S, 2, tone_id);
     
     version_p = ssGetOutputPortRealSignal(S,6);
-    version_p[0] = (real_T)version;
+    for (i=0; i<4; i++) {
+        version_p[i] = version[i];
+    }
     
+    pos_p = ssGetOutputPortRealSignal(S,7);
+    pos_p[0] = pos_x;
+    pos_p[1] = pos_y;
+        
     UNUSED_ARG(tid);
 }
 
