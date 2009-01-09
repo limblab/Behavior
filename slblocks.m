@@ -56,7 +56,7 @@ function blkStruct = slblocks
 % Name of the subsystem which will show up in the Simulink Blocksets
 % and Toolboxes subsystem.
 %
-blkStruct.Name = ['Limblab'];
+blkStruct.Name = 'Limblab';
 
 %
 % The function that will be called when the user double-clicks on
