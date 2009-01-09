@@ -197,14 +197,14 @@ static void mdlInitializeSizes(SimStruct *S)
      *  pos: 2 (x and y position of the cursor)
      */
     if (!ssSetNumOutputPorts(S, 8)) return;
-    ssSetOutputPortWidth(S, 0, 2);
-    ssSetOutputPortWidth(S, 1, 4);
-    ssSetOutputPortWidth(S, 2, 1);
-    ssSetOutputPortWidth(S, 3, 10);
-    ssSetOutputPortWidth(S, 4, 1);
-    ssSetOutputPortWidth(S, 5, 2);
-    ssSetOutputPortWidth(S, 6, 1);
-    ssSetOutputPortWidth(S, 7, 2);
+    ssSetOutputPortWidth(S, 0, 2);   /* force   */
+    ssSetOutputPortWidth(S, 1, 5);   /* status  */
+    ssSetOutputPortWidth(S, 2, 1);   /* word    */
+    ssSetOutputPortWidth(S, 3, 10);  /* target  */
+    ssSetOutputPortWidth(S, 4, 1);   /* reward  */
+    ssSetOutputPortWidth(S, 5, 2);   /* tone    */
+    ssSetOutputPortWidth(S, 6, 4);   /* version */
+    ssSetOutputPortWidth(S, 7, 2);   /* pos     */
     
     ssSetNumSampleTimes(S, 1);
     
@@ -299,7 +299,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int *trial_list;
     int num_trials;
     int bump;
-    real_T theta;
     real_T target1[4];
     real_T target2[4];
     real_T *target_origin;
@@ -313,7 +312,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int tmp_trial_1[15];
     int tmp_trial_2[15];
     int tmp_sort[15];
-    int tmp_bump[30];
     int i, j, tmp;
     
     /******************
@@ -628,7 +626,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T force_x, force_y, word, reward, tone_cnt, tone_id, pos_x, pos_y;
     real_T target_pos[10];
     real_T status[5];
-    real_T version;
+    real_T version[4];
     
     /* pointers to output buffers */
     real_T *force_p;
@@ -840,9 +838,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             tone_id = TONE_REWARD;
         }
     }
-     
+    
     /* version (6) */
-    version = ssGetRWorkValue(S, 3);
+    version[0] = BEHAVIOR_VERSION_MAJOR;
+    version[1] = BEHAVIOR_VERSION_MINOR;
+    version[2] = BEHAVIOR_VERSION_MICRO;
+    version[3] = BEHAVIOR_VERSION_BUILD;
     
     /* pos (7) */
     if (sqrt(cursor[0]*cursor[0] + cursor[1]*cursor[1]) < window_size && state == STATE_MOVEMENT) {
@@ -883,9 +884,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_p[1] = tone_id;
     ssSetRWorkValue(S, 1, tone_cnt);
     ssSetRWorkValue(S, 2, tone_id);
-
+    
     version_p = ssGetOutputPortRealSignal(S,6);
-    version_p[0] = (real_T)version;
+    for (i=0; i<4; i++) {
+        version_p[i] = version[i];
+    }
     
     pos_p = ssGetOutputPortRealSignal(S,7);
     pos_p[0] = pos_x;

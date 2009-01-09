@@ -164,7 +164,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetInputPortDirectFeedThrough(S, 2, 1);
     
     /* 
-     * Block has 7 output ports (force, status, word, targets, reward, tone) of widths:
+     * Block has 8 output ports (force, status, word, targets, reward, tone, version, pos) of widths:
      *  force: 2
      *  status: 5 ( block counter, successes, aborts, failures, incompletes )
      *  word:  1 (8 bits)
@@ -177,8 +177,9 @@ static void mdlInitializeSizes(SimStruct *S)
      *  reward: 1
      *  tone: 2     ( 1: counter incemented for each new tone, 2: tone ID )
      *  version: 1 ( the cvs revision of the current .c file )
+     *  pos: 2 (x and y position of the cursor)
      */
-    if (!ssSetNumOutputPorts(S, 7)) return;
+    if (!ssSetNumOutputPorts(S, 8)) return;
     ssSetOutputPortWidth(S, 0, 2);   /* force   */
     ssSetOutputPortWidth(S, 1, 5);   /* status  */
     ssSetOutputPortWidth(S, 2, 1);   /* word    */
@@ -186,6 +187,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 4, 1);   /* reward  */
     ssSetOutputPortWidth(S, 5, 2);   /* tone    */
     ssSetOutputPortWidth(S, 6, 4);   /* version */
+    ssSetOutputPortWidth(S, 7, 2);   /* pos     */
     
     ssSetNumSampleTimes(S, 1);
     
@@ -652,7 +654,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T catch_force_in[2];
     
     /* allocate holders for outputs */
-    real_T force_x, force_y, word, reward, tone_cnt, tone_id;
+    real_T force_x, force_y, word, reward, tone_cnt, tone_id, pos_x, pos_y;
     real_T target_pos[10];
     real_T status[5];
     real_T version[4];
@@ -665,6 +667,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *reward_p;
     real_T *tone_p;
     real_T *version_p;
+    real_T *pos_p;
     
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
@@ -886,7 +889,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     version[0] = BEHAVIOR_VERSION_MAJOR;
     version[1] = BEHAVIOR_VERSION_MINOR;
     version[2] = BEHAVIOR_VERSION_MICRO;
-    version[3] = BEHAVIOR_VERSION_BUILD;   
+    version[3] = BEHAVIOR_VERSION_BUILD;
+    
+    /* pos (7) */
+    pos_x = cursor[0];
+    pos_y = cursor[1];
     
     /**********************************
      * Write outputs back to SimStruct
@@ -921,6 +928,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     for (i=0; i<4; i++) {
         version_p[i] = version[i];
     }
+    
+    pos_p = ssGetOutputPortRealSignal(S,7);
+    pos_p[0] = pos_x;
+    pos_p[1] = pos_y;
     
     UNUSED_ARG(tid);
 }

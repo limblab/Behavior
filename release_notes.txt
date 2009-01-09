@@ -1,0 +1,49 @@
+Releaes notes for target code.  Should be updated for each new major or minor 
+version.  Unfortunately, due to the cvs to svn transition, we do not have 
+records predating version 1.2.
+
+Version 1.2
+===========
+
+General
+  * Autodetect all NI cards.
+  * Various parameter tweeks for Lab 2.
+  * Automated build process.
+Center-Out
+  * Center target turns off durring movement.
+Wrist-Flexion
+  * Created wrist-flexion task.
+Uncertainty
+  * Created Uncertainty task.
+
+Version 1.3
+===========
+
+General
+  * Restructured the source tree to better utilize some features of SVN.
+  * Created databurst structure to output blocks of data at the beginning of a
+    trial.  See comments in mastercon_rw for details.
+Ball Drop
+  * Ball drop behavior added.
+Random Walk
+  * Outputs target position sequence through databurst.
+Multi-Gadget
+  * Added idiot mode.
+  * Added MVC routine.
+Wrist-Flexion
+  * Added catch trials.
+  * Isodirectional MVC targets.
+
+Version 1.4
+===========
+
+General
+  * Changes to build system to support SVN compatable version numbering.
+  * Changed version number display in all models.
+  * Fixed handle recentering routine and standardized robot model across 
+    behaviors.
+Uncertainty
+  * The uncertainty task has been removed from the active development tree and 
+    will not be included in future production releases.
+
+
