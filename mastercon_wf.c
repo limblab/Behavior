@@ -196,7 +196,7 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target LR corner y)
 `    * 5: target select:  1
 	 * 6: MVC Target:	  8  ( [Xmax quad 1, Ymax quad 1, Xmax quad 2,...,Ymax quad 4] )
-	 * 7: version
+	 * 7: version: 4
 	 *
      */
     if (!ssSetNumOutputPorts(S, 8)) return;
@@ -207,7 +207,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 4, 10);
     ssSetOutputPortWidth(S, 5, 1);
     ssSetOutputPortWidth(S, 6, 8);
-    ssSetOutputPortWidth(S, 7, 1); /*version*/
+    ssSetOutputPortWidth(S, 7, 4); /*version*/
     
     ssSetNumSampleTimes(S, 1);
     
@@ -831,7 +831,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T reward, word, target_select;
 	real_T status[4];
     real_T target[10];
-    real_T version;
+    real_T version[4];
        
     /* pointers to output buffers */
     real_T *reward_p;
@@ -1080,8 +1080,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      // = higher_MVC_target[]
      
      /* Version */
-     version = ssGetRWorkValue(S, 29);
-	  
+     version[0] = BEHAVIOR_VERSION_MAJOR;
+     version[1] = BEHAVIOR_VERSION_MINOR;
+     version[2] = BEHAVIOR_VERSION_MICRO;
+     version[3] = BEHAVIOR_VERSION_BUILD;
+    
     /**********************************
      * Write outputs back to SimStruct
      **********************************/
@@ -1116,7 +1119,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      }
 
      version_p = ssGetOutputPortRealSignal(S, 7);
-     version_p[0] = version;
+     for (i=0; i<4; i++) {
+         version_p[i] = version[i];
+     }
        	  
     UNUSED_ARG(tid);
 }

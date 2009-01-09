@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.89"
+    ComputedModelVersion    "1.90"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -42,10 +42,10 @@ Model {
   Creator		  "Selket"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "Selket"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Nov 27 18:32:18 2008"
-  ModelVersionFormat	  "1.%<AutoIncrement:89>"
+  LastModifiedDate	  "Fri Jan 09 16:24:23 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:90>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -592,21 +592,6 @@ Model {
       InitialOutput	      "[]"
     }
     Block {
-      BlockType		      Product
-      Inputs		      "2"
-      Multiplication	      "Element-wise(.*)"
-      CollapseMode	      "All dimensions"
-      CollapseDim	      "1"
-      InputSameDT	      on
-      OutDataTypeMode	      "Same as first input"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
-      LockScale		      off
-      RndMeth		      "Zero"
-      SaturateOnIntegerOverflow	on
-      SampleTime	      "-1"
-    }
-    Block {
       BlockType		      RateTransition
       Integrity		      on
       Deterministic	      on
@@ -707,7 +692,7 @@ Model {
   }
   System {
     Name		    "ball_drop"
-    Location		    [161, 94, 1149, 904]
+    Location		    [54, 104, 1042, 793]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1571,7 +1556,7 @@ Model {
       System {
 	Name			"UDPXmit"
 	Location		[190, 151, 1183, 777]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1765,131 +1750,41 @@ Model {
       }
     }
     Block {
-      BlockType		      SubSystem
-      Name		      "VersionDisplaySbs"
+      BlockType		      Reference
+      Name		      "Version Display"
       Ports		      [1]
-      Position		      [720, 488, 815, 532]
-      MinAlgLoopOccurrences   off
-      RTWSystemCode	      "Auto"
+      Position		      [720, 489, 790, 531]
+      SourceBlock	      "xpclib/Misc./Scope (xPC) "
+      SourceType	      "xpcscopeblock"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
       FunctionWithSeparateData off
-      MaskHideContents	      off
-      System {
-	Name			"VersionDisplaySbs"
-	Location		[308, 275, 823, 570]
-	Open			off
-	ModelBrowserVisibility	off
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Inport
-	  Name			  "mex version"
-	  Position		  [80, 133, 110, 147]
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant"
-	  Position		  [145, 70, 175, 100]
-	  Value			  "0"
-	}
-	Block {
-	  BlockType		  Mux
-	  Name			  "Mux"
-	  Ports			  [2, 1]
-	  Position		  [330, 86, 335, 124]
-	  ShowName		  off
-	  Inputs		  "2"
-	  DisplayOption		  "bar"
-	}
-	Block {
-	  BlockType		  Product
-	  Name			  "Product"
-	  Ports			  [2, 1]
-	  Position		  [235, 77, 265, 108]
-	  CollapseMode		  "All dimensions"
-	  InputSameDT		  off
-	  OutDataTypeMode	  "Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Status"
-	  Ports			  [1]
-	  Position		  [370, 84, 440, 126]
-	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
-	  SourceType		  "xpcscopeblock"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
-	  scopeno		  "6"
-	  scopetype		  "Target"
-	  autostart		  on
-	  viewmode		  "Numerical"
-	  formatstr		  "'%6.0f $Revision: 1.16 $,%6.2f mastercon ve"
-"rsion'"
-	  grid			  on
-	  ylimits		  "[-10,10]"
-	  nosamples		  "10"
-	  noprepostsamples	  "0"
-	  interleave		  "10"
-	  triggermode		  "FreeRun"
-	  triggersignal		  "1"
-	  triggerlevel		  "0.0"
-	  triggerslope		  "Either"
-	  triggerscope		  "1"
-	  triggersample		  "0"
-	  filename		  "data.dat"
-	  mode			  "Lazy"
-	  writesize		  "512"
-	  autorestart		  off
-	}
-	Line {
-	  SrcBlock		  "Constant"
-	  SrcPort		  1
-	  DstBlock		  "Product"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "mex version"
-	  SrcPort		  1
-	  Points		  [85, 0]
-	  Branch {
-	    Points		    [0, -40]
-	    DstBlock		    "Product"
-	    DstPort		    2
-	  }
-	  Branch {
-	    Points		    [105, 0; 0, -25]
-	    DstBlock		    "Mux"
-	    DstPort		    2
-	  }
-	}
-	Line {
-	  SrcBlock		  "Product"
-	  SrcPort		  1
-	  DstBlock		  "Mux"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Mux"
-	  SrcPort		  1
-	  DstBlock		  "Status"
-	  DstPort		  1
-	}
-      }
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      scopeno		      "3"
+      scopetype		      "Target"
+      autostart		      on
+      viewmode		      "Numerical"
+      formatstr		      "'%6.0f major,%6.0f minor,%6.0f revision,%6.0f b"
+"uild'"
+      grid		      on
+      ylimits		      "[-10,10]"
+      nosamples		      "10"
+      noprepostsamples	      "0"
+      interleave	      "10"
+      triggermode	      "FreeRun"
+      triggersignal	      "1"
+      triggerlevel	      "0.0"
+      triggerslope	      "Either"
+      triggerscope	      "1"
+      triggersample	      "0"
+      filename		      "data.dat"
+      mode		      "Lazy"
+      writesize		      "512"
+      autorestart	      off
     }
     Block {
       BlockType		      SubSystem
@@ -2079,7 +1974,7 @@ Model {
     Line {
       SrcBlock		      "Behavior BD"
       SrcPort		      9
-      DstBlock		      "VersionDisplaySbs"
+      DstBlock		      "Version Display"
       DstPort		      1
     }
   }

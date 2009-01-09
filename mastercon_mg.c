@@ -181,7 +181,7 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target LR corner y)
 `    * 8: target select:  1
 	 * 9: MVC Target: 3 (1: user_spec_MVC, 2: current_MVC, 3: higher MVC)
-	 * 10:version : 1
+	 * 10:version : 4
      */
     if (!ssSetNumOutputPorts(S, 11)) return;
     ssSetOutputPortWidth(S, 0, 1);
@@ -194,7 +194,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 7, 10);
     ssSetOutputPortWidth(S, 8, 1);
     ssSetOutputPortWidth(S, 9, 3);
-    ssSetOutputPortWidth(S, 10, 1);
+    ssSetOutputPortWidth(S, 10, 4);
     
     ssSetNumSampleTimes(S, 1);
     
@@ -792,7 +792,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T status[4];
     real_T tone[2];
     real_T target[10];
-    real_T version;
+    real_T version[4];
     
     /* pointers to output buffers */
     real_T *reward_p;
@@ -1038,7 +1038,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      // = higher_MVC_target    
 
      /* Version */
-     version = ssGetRWorkValue(S, 9);     
+     version[0] = BEHAVIOR_VERSION_MAJOR;
+     version[1] = BEHAVIOR_VERSION_MINOR;
+     version[2] = BEHAVIOR_VERSION_MICRO;
+     version[3] = BEHAVIOR_VERSION_BUILD;
     
     /**********************************
      * Write outputs back to SimStruct
@@ -1082,7 +1085,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      mvcTarget_p[2] = higher_MVC_target;
      
      version_p = ssGetOutputPortRealSignal(S, 10);
-     version_p[0] = version;     
+     for (i=0; i<4; i++) {
+        version_p[i] = version[i];
+     }
      
      UNUSED_ARG(tid);
 }

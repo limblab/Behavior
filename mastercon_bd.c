@@ -140,7 +140,7 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target UL corner y,
      *                  target LR corner x, 
      *                  target LR corner y)     
-	 * 8: version : 1
+	 * 8: version : 4
      */
     if (!ssSetNumOutputPorts(S, 9)) return;
     ssSetOutputPortWidth(S, 0, 1);
@@ -151,7 +151,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 5, 4);
     ssSetOutputPortWidth(S, 6, 2);
     ssSetOutputPortWidth(S, 7, 10);
-    ssSetOutputPortWidth(S, 8, 1);
+    ssSetOutputPortWidth(S, 8, 4);
         
     ssSetNumSampleTimes(S, 1);
     
@@ -443,7 +443,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T target[10];
     real_T status[4];
     real_T tone[2];
-    real_T version;
+    real_T version[4];
     
     /* pointers to output buffers */
     real_T *reward_p;
@@ -605,7 +605,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
 
      /* Version */
-     version = ssGetRWorkValue(S, 8);     
+    version[0] = BEHAVIOR_VERSION_MAJOR;
+    version[1] = BEHAVIOR_VERSION_MINOR;
+    version[2] = BEHAVIOR_VERSION_MICRO;
+    version[3] = BEHAVIOR_VERSION_BUILD;
     
     /**********************************
      * Write outputs back to SimStruct
@@ -640,8 +643,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      for (i=0; i<10; i++) 
          target_p[i] = target[i];
      
-     version_p = ssGetOutputPortRealSignal(S, 8);
-     version_p[0] = version;     
+     version_p = ssGetOutputPortRealSignal(S,8);
+     for (i=0; i<4; i++) {
+         version_p[i] = version[i];
+     }   
      
      UNUSED_ARG(tid);
 }
