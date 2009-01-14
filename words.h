@@ -17,7 +17,7 @@
  * called by the build script.  Do not update them by hand, and do not edit 
  */
 #define BEHAVIOR_VERSION_MAJOR 1
-#define BEHAVIOR_VERSION_MINOR 4
+#define BEHAVIOR_VERSION_MINOR 5
 #define BEHAVIOR_VERSION_MICRO 202 
 #define BEHAVIOR_VERSION_BUILD 34
 
