@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1210"
+    ComputedModelVersion    "1.1213"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "Selket"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jan 14 15:15:49 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:1210>"
+  LastModifiedDate	  "Wed Jan 14 16:56:43 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:1213>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -780,7 +780,7 @@ Model {
   }
   System {
     Name		    "center_out"
-    Location		    [56, 109, 979, 555]
+    Location		    [396, 252, 1319, 698]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -798,7 +798,7 @@ Model {
       BlockType		      "S-Function"
       Name		      "Behavior CO"
       Ports		      [3, 8]
-      Position		      [325, 51, 540, 274]
+      Position		      [330, 86, 545, 309]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_co"
       Parameters	      "8 10 2.5 1 1 .5 1.5 .75 .25 1 1 10 1 .02 125 1 "
@@ -817,8 +817,8 @@ Model {
     Block {
       BlockType		      Reference
       Name		      "BehaviorOutputSystem"
-      Ports		      [7]
-      Position		      [585, 87, 685, 263]
+      Ports		      [5]
+      Position		      [620, 168, 720, 302]
       SourceBlock	      "limblab/BehaviorOutputSystem"
       SourceType	      ""
       ShowPortLabels	      "FromPortIcon"
@@ -835,7 +835,7 @@ Model {
       BlockType		      SubSystem
       Name		      "Catch Force Generator"
       Ports		      [1, 1]
-      Position		      [225, 223, 280, 257]
+      Position		      [230, 258, 285, 292]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -1572,7 +1572,7 @@ Model {
       BlockType		      SubSystem
       Name		      "Force Generator"
       Ports		      [1, 1]
-      Position		      [225, 146, 285, 184]
+      Position		      [230, 181, 290, 219]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -2307,8 +2307,8 @@ Model {
     Block {
       BlockType		      Reference
       Name		      "RobotInputSystem"
-      Ports		      [0, 4]
-      Position		      [35, 290, 125, 370]
+      Ports		      [0, 5]
+      Position		      [40, 298, 135, 412]
       SourceBlock	      "limblab/RobotInputSystem"
       SourceType	      ""
       ShowPortLabels	      "FromPortIcon"
@@ -2329,7 +2329,7 @@ Model {
       BlockType		      Reference
       Name		      "RobotOutputSystem"
       Ports		      [5]
-      Position		      [770, 265, 865, 375]
+      Position		      [775, 300, 870, 410]
       SourceBlock	      "limblab/RobotOutputSystem"
       SourceType	      ""
       ShowPortLabels	      "FromPortIcon"
@@ -2360,64 +2360,59 @@ Model {
     }
     Line {
       SrcBlock		      "Behavior CO"
-      SrcPort		      6
-      DstBlock		      "BehaviorOutputSystem"
-      DstPort		      5
-    }
-    Line {
-      SrcBlock		      "Behavior CO"
-      SrcPort		      7
-      DstBlock		      "BehaviorOutputSystem"
-      DstPort		      6
-    }
-    Line {
-      SrcBlock		      "Behavior CO"
-      SrcPort		      8
-      DstBlock		      "BehaviorOutputSystem"
-      DstPort		      7
-    }
-    Line {
-      SrcBlock		      "Behavior CO"
-      SrcPort		      5
-      DstBlock		      "BehaviorOutputSystem"
-      DstPort		      4
+      SrcPort		      1
+      Points		      [180, 0; 0, 205]
+      DstBlock		      "RobotOutputSystem"
+      DstPort		      1
     }
     Line {
       SrcBlock		      "Behavior CO"
       SrcPort		      2
+      Points		      [55, 0]
       DstBlock		      "BehaviorOutputSystem"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Behavior CO"
-      SrcPort		      3
+      SrcPort		      4
+      Points		      [45, 0; 0, 25]
       DstBlock		      "BehaviorOutputSystem"
       DstPort		      2
     }
     Line {
       SrcBlock		      "Behavior CO"
-      SrcPort		      4
+      SrcPort		      6
       DstBlock		      "BehaviorOutputSystem"
       DstPort		      3
     }
     Line {
-      SrcBlock		      "RobotInputSystem"
-      SrcPort		      1
-      Points		      [25, 0]
-      Branch {
-	Points			[0, -210]
-	DstBlock		"Behavior CO"
-	DstPort			1
-      }
-      Branch {
-	DstBlock		"RobotOutputSystem"
-	DstPort			2
-      }
+      SrcBlock		      "Behavior CO"
+      SrcPort		      7
+      DstBlock		      "BehaviorOutputSystem"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "Behavior CO"
+      SrcPort		      8
+      DstBlock		      "BehaviorOutputSystem"
+      DstPort		      5
     }
     Line {
       SrcBlock		      "RobotInputSystem"
-      SrcPort		      2
-      Points		      [50, 0]
+      SrcPort		      5
+      DstBlock		      "RobotOutputSystem"
+      DstPort		      5
+    }
+    Line {
+      SrcBlock		      "RobotInputSystem"
+      SrcPort		      4
+      DstBlock		      "RobotOutputSystem"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "RobotInputSystem"
+      SrcPort		      3
+      Points		      [45, 0]
       Branch {
 	DstBlock		"RobotOutputSystem"
 	DstPort			3
@@ -2437,22 +2432,17 @@ Model {
     }
     Line {
       SrcBlock		      "RobotInputSystem"
-      SrcPort		      3
-      DstBlock		      "RobotOutputSystem"
-      DstPort		      4
-    }
-    Line {
-      SrcBlock		      "RobotInputSystem"
-      SrcPort		      4
-      DstBlock		      "RobotOutputSystem"
-      DstPort		      5
-    }
-    Line {
-      SrcBlock		      "Behavior CO"
-      SrcPort		      1
-      Points		      [180, 0; 0, 205]
-      DstBlock		      "RobotOutputSystem"
-      DstPort		      1
+      SrcPort		      2
+      Points		      [30, 0]
+      Branch {
+	DstBlock		"RobotOutputSystem"
+	DstPort			2
+      }
+      Branch {
+	Points			[0, -210]
+	DstBlock		"Behavior CO"
+	DstPort			1
+      }
     }
   }
 }

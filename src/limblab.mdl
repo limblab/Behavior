@@ -32,10 +32,10 @@ Library {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "Selket"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jan 14 15:15:30 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:51>"
+  LastModifiedDate	  "Wed Jan 14 16:29:38 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:66>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -379,7 +379,7 @@ Library {
   }
   System {
     Name		    "limblab"
-    Location		    [104, 115, 765, 660]
+    Location		    [206, 141, 1251, 841]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -396,8 +396,8 @@ Library {
     Block {
       BlockType		      SubSystem
       Name		      "BehaviorOutputSystem"
-      Ports		      [7]
-      Position		      [535, 42, 635, 218]
+      Ports		      [5]
+      Position		      [500, 65, 600, 205]
       TreatAsAtomicUnit	      on
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
@@ -411,9 +411,8 @@ Library {
       MaskToolTipString	      "on"
       MaskVariables	      "RewardPulse=@1;"
       MaskDisplay	      "port_label('input',1,'Status')\nport_label('inp"
-"ut',2,'Word')\nport_label('input',3,'Targets')\nport_label('input',4,'Reward'"
-")\nport_label('input',5,'Tone')\nport_label('input',6,'Version')\nport_label("
-"'input',7,'Position')\n"
+"ut',2,'Targets')\nport_label('input',3,'Tone')\nport_label('input',4,'Version"
+"')\nport_label('input',5,'Position')\n"
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
@@ -421,7 +420,7 @@ Library {
       MaskValueString	      "0"
       System {
 	Name			"BehaviorOutputSystem"
-	Location		[407, 129, 1272, 764]
+	Location		[59, 259, 485, 630]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -442,58 +441,689 @@ Library {
 	}
 	Block {
 	  BlockType		  Inport
-	  Name			  "Word"
-	  Position		  [50, 168, 80, 182]
+	  Name			  "Targets"
+	  Position		  [45, 208, 75, 222]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Inport
-	  Name			  "Targets"
-	  Position		  [245, 103, 275, 117]
-	  Port			  "3"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "Reward"
-	  Position		  [50, 228, 80, 242]
-	  Port			  "4"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
 	  Name			  "Tone"
-	  Position		  [245, 183, 275, 197]
-	  Port			  "5"
+	  Position		  [45, 288, 75, 302]
+	  Port			  "3"
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Inport
 	  Name			  "Version"
 	  Position		  [50, 48, 80, 62]
-	  Port			  "6"
+	  Port			  "4"
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Inport
 	  Name			  "Pos"
-	  Position		  [285, 198, 315, 212]
-	  Port			  "7"
+	  Position		  [85, 303, 115, 317]
+	  Port			  "5"
 	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "StatusScope"
+	  Ports			  [1]
+	  Position		  [125, 94, 195, 136]
+	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
+	  SourceType		  "xpcscopeblock"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData "off"
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  scopeno		  "2"
+	  scopetype		  "Target"
+	  autostart		  "on"
+	  viewmode		  "Numerical"
+	  formatstr		  "'%6.0f state,%6.0f rewards,%6.0f aborts,%6."
+"0f fails,%6.0f incompl'"
+	  grid			  "on"
+	  ylimits		  "[-10,10]"
+	  nosamples		  "10"
+	  noprepostsamples	  "0"
+	  interleave		  "10"
+	  triggermode		  "FreeRun"
+	  triggersignal		  "1"
+	  triggerlevel		  "0.0"
+	  triggerslope		  "Either"
+	  triggerscope		  "1"
+	  triggersample		  "0"
+	  filename		  "data.dat"
+	  mode			  "Lazy"
+	  writesize		  "512"
+	  autorestart		  "off"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Target Peek"
+	  Ports			  [1, 1]
+	  Position		  [150, 194, 250, 236]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Target Peek"
+	    Location		    [2, 82, 1278, 978]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "In"
+	      Position		      [70, 413, 100, 427]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Add"
+	      Ports		      [2, 1]
+	      Position		      [340, 272, 370, 303]
+	      CollapseMode	      "All dimensions"
+	      InputSameDT	      off
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutScaling	      "2^-10"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Add1"
+	      Ports		      [2, 1]
+	      Position		      [340, 377, 370, 408]
+	      CollapseMode	      "All dimensions"
+	      InputSameDT	      off
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutScaling	      "2^-10"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Demux
+	      Name		      "Demux"
+	      Ports		      [1, 10]
+	      Position		      [175, 212, 180, 628]
+	      BackgroundColor	      "black"
+	      ShowName		      off
+	      Outputs		      "10"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gain"
+	      Position		      [460, 275, 490, 305]
+	      Gain		      ".5"
+	      ParameterDataTypeMode   "Inherit via internal rule"
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gain1"
+	      Position		      [465, 380, 495, 410]
+	      Gain		      ".5"
+	      ParameterDataTypeMode   "Inherit via internal rule"
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [3, 1]
+	      Position		      [1005, 196, 1010, 434]
+	      ShowName		      off
+	      Inputs		      "3"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Terminator
+	      Name		      "Terminator"
+	      Position		      [235, 470, 255, 490]
+	    }
+	    Block {
+	      BlockType		      Terminator
+	      Name		      "Terminator1"
+	      Position		      [235, 510, 255, 530]
+	    }
+	    Block {
+	      BlockType		      Terminator
+	      Name		      "Terminator2"
+	      Position		      [235, 550, 255, 570]
+	    }
+	    Block {
+	      BlockType		      Terminator
+	      Name		      "Terminator3"
+	      Position		      [235, 590, 255, 610]
+	    }
+	    Block {
+	      BlockType		      Terminator
+	      Name		      "Terminator4"
+	      Position		      [235, 430, 255, 450]
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Out"
+	      Position		      [1090, 308, 1120, 322]
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Line {
+	      SrcBlock		      "In"
+	      SrcPort		      1
+	      DstBlock		      "Demux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Out"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      1
+	      Points		      [805, 0]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Add"
+	      SrcPort		      1
+	      DstBlock		      "Gain"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Add1"
+	      SrcPort		      1
+	      DstBlock		      "Gain1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gain1"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      7
+	      DstBlock		      "Terminator"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      8
+	      DstBlock		      "Terminator1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      9
+	      DstBlock		      "Terminator2"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      10
+	      DstBlock		      "Terminator3"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      2
+	      DstBlock		      "Add"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      4
+	      Points		      [70, 0; 0, -65]
+	      DstBlock		      "Add"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      3
+	      Points		      [95, 0; 0, 65]
+	      DstBlock		      "Add1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      5
+	      DstBlock		      "Add1"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      6
+	      DstBlock		      "Terminator4"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gain"
+	      SrcPort		      1
+	      Points		      [245, 0; 0, 25]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator"
+	  Position		  [290, 205, 310, 225]
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "UDPXmit"
+	  Ports			  [3]
+	  Position		  [145, 274, 245, 316]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "UDPXmit"
+	    Location		    [2, 82, 1278, 876]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Targets"
+	      Position		      [95, 383, 125, 397]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Tone"
+	      Position		      [370, 623, 400, 637]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Pos"
+	      Position		      [320, 143, 350, 157]
+	      Port		      "3"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Demux
+	      Name		      "Demux"
+	      Ports		      [1, 10]
+	      Position		      [175, 182, 180, 598]
+	      BackgroundColor	      "black"
+	      ShowName		      off
+	      Outputs		      "10"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Demux
+	      Name		      "Demux1"
+	      Ports		      [1, 2]
+	      Position		      [410, 109, 415, 191]
+	      BackgroundColor	      "black"
+	      ShowName		      off
+	      Outputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Demux
+	      Name		      "Demux2"
+	      Ports		      [1, 2]
+	      Position		      [445, 589, 450, 671]
+	      BackgroundColor	      "black"
+	      ShowName		      off
+	      Outputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Pack"
+	      Ports		      [14, 1]
+	      Position		      [565, 96, 675, 684]
+	      SourceBlock	      "xpclib/UDP/Pack"
+	      SourceType	      "xpcany2byte"
+	      datatypes		      "{'double', 'double','double','double','"
+"double','double','double','double','double','double','double','double','doubl"
+"e','double'}"
+	      byteAlign		      "1"
+	    }
+	    Block {
+	      BlockType		      RateTransition
+	      Name		      "Rate Transition"
+	      Position		      [725, 369, 780, 411]
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Send"
+	      Ports		      [1]
+	      Position		      [825, 365, 905, 415]
+	      SourceBlock	      "xpclib/UDP/Send"
+	      SourceType	      "xpcudpbytesend"
+	      ipAddress		      "192.168.0.2"
+	      ipPort		      "25000"
+	      localPort		      "-1"
+	      sampletime	      ".02"
+	    }
+	    Line {
+	      SrcBlock		      "Rate Transition"
+	      SrcPort		      1
+	      DstBlock		      "Send"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Pack"
+	      SrcPort		      1
+	      DstBlock		      "Rate Transition"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      10
+	      DstBlock		      "Pack"
+	      DstPort		      12
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      9
+	      DstBlock		      "Pack"
+	      DstPort		      11
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      8
+	      DstBlock		      "Pack"
+	      DstPort		      10
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      7
+	      DstBlock		      "Pack"
+	      DstPort		      9
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      6
+	      DstBlock		      "Pack"
+	      DstPort		      8
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      5
+	      DstBlock		      "Pack"
+	      DstPort		      7
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      4
+	      DstBlock		      "Pack"
+	      DstPort		      6
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      3
+	      DstBlock		      "Pack"
+	      DstPort		      5
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      2
+	      DstBlock		      "Pack"
+	      DstPort		      4
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      1
+	      DstBlock		      "Pack"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Demux1"
+	      SrcPort		      1
+	      DstBlock		      "Pack"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Demux1"
+	      SrcPort		      2
+	      DstBlock		      "Pack"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Demux2"
+	      SrcPort		      1
+	      DstBlock		      "Pack"
+	      DstPort		      13
+	    }
+	    Line {
+	      SrcBlock		      "Demux2"
+	      SrcPort		      2
+	      DstBlock		      "Pack"
+	      DstPort		      14
+	    }
+	    Line {
+	      SrcBlock		      "Tone"
+	      SrcPort		      1
+	      DstBlock		      "Demux2"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Targets"
+	      SrcPort		      1
+	      DstBlock		      "Demux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Pos"
+	      SrcPort		      1
+	      DstBlock		      "Demux1"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Version Display"
+	  Ports			  [1]
+	  Position		  [130, 34, 200, 76]
+	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
+	  SourceType		  "xpcscopeblock"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData "off"
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  scopeno		  "3"
+	  scopetype		  "Target"
+	  autostart		  "on"
+	  viewmode		  "Numerical"
+	  formatstr		  "'%6.0f major,%6.0f minor,%6.0f revision,%6."
+"0f build'"
+	  grid			  "on"
+	  ylimits		  "[-10,10]"
+	  nosamples		  "10"
+	  noprepostsamples	  "0"
+	  interleave		  "10"
+	  triggermode		  "FreeRun"
+	  triggersignal		  "1"
+	  triggerlevel		  "0.0"
+	  triggerslope		  "Either"
+	  triggerscope		  "1"
+	  triggersample		  "0"
+	  filename		  "data.dat"
+	  mode			  "Lazy"
+	  writesize		  "512"
+	  autorestart		  "off"
+	}
+	Line {
+	  SrcBlock		  "Status"
+	  SrcPort		  1
+	  DstBlock		  "StatusScope"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Targets"
+	  SrcPort		  1
+	  Points		  [25, 0]
+	  Branch {
+	    DstBlock		    "Target Peek"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 65]
+	    DstBlock		    "UDPXmit"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Target Peek"
+	  SrcPort		  1
+	  DstBlock		  "Terminator"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Version"
+	  SrcPort		  1
+	  DstBlock		  "Version Display"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Pos"
+	  SrcPort		  1
+	  DstBlock		  "UDPXmit"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Tone"
+	  SrcPort		  1
+	  DstBlock		  "UDPXmit"
+	  DstPort		  2
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "DigitalOutputSystem"
+      Ports		      [3]
+      Position		      [400, 261, 470, 339]
+      TreatAsAtomicUnit	      on
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      MaskDisplay	      "port_label('input',1,'Encoders')\nport_label('i"
+"nput',2,'Word')\nport_label('input',3,'Reward')\n"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"DigitalOutputSystem"
+	Location		[483, 141, 1020, 343]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "Enc"
+	  Position		  [205, 63, 235, 77]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Word"
+	  Position		  [265, 113, 295, 127]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Reward"
+	  Position		  [35, 93, 65, 107]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  Ports			  [1, 2]
+	  Position		  [280, 51, 285, 89]
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "For Iterator\nSubsystem"
+	  Ports			  [4]
+	  Position		  [330, 53, 445, 127]
+	  SourceBlock		  "limblab/RobotInputSystem/XY Position Subsys"
+"tem/For Iterator\nSubsystem"
+	  SourceType		  "Unknown"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData "off"
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
 	}
 	Block {
 	  BlockType		  SubSystem
 	  Name			  "RewardSbs"
-	  Ports			  [1]
-	  Position		  [125, 214, 170, 256]
+	  Ports			  [1, 1]
+	  Position		  [110, 79, 185, 121]
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
 	  MaskHideContents	  off
 	  System {
 	    Name		    "RewardSbs"
-	    Location		    [2, 82, 1270, 876]
+	    Location		    [268, 228, 957, 454]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -509,33 +1139,26 @@ Library {
 	    Block {
 	      BlockType		      Inport
 	      Name		      "Trig"
-	      Position		      [290, 178, 320, 192]
+	      Position		      [75, 98, 105, 112]
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
 	      BlockType		      DataTypeConversion
 	      Name		      "Data Type Conversion"
-	      Position		      [650, 168, 725, 202]
+	      Position		      [435, 88, 510, 122]
 	      RndMeth		      "Floor"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
-	      BlockType		      Goto
-	      Name		      "Goto"
-	      Position		      [780, 169, 835, 201]
-	      GotoTag		      "Reward"
-	      TagVisibility	      "global"
-	    }
-	    Block {
 	      BlockType		      Memory
 	      Name		      "Memory1"
-	      Position		      [555, 170, 585, 200]
+	      Position		      [340, 90, 370, 120]
 	    }
 	    Block {
 	      BlockType		      SubSystem
 	      Name		      "Schmidt1"
 	      Ports		      [1, 1]
-	      Position		      [405, 164, 505, 206]
+	      Position		      [190, 84, 290, 126]
 	      MinAlgLoopOccurrences   off
 	      RTWSystemCode	      "Auto"
 	      FunctionWithSeparateData off
@@ -827,6 +1450,13 @@ Library {
 		}
 	      }
 	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Pulse"
+	      Position		      [560, 98, 590, 112]
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
 	    Line {
 	      SrcBlock		      "Trig"
 	      SrcPort		      1
@@ -848,601 +1478,9 @@ Library {
 	    Line {
 	      SrcBlock		      "Data Type Conversion"
 	      SrcPort		      1
-	      DstBlock		      "Goto"
+	      DstBlock		      "Pulse"
 	      DstPort		      1
 	    }
-	  }
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "StatusScope"
-	  Ports			  [1]
-	  Position		  [125, 94, 195, 136]
-	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
-	  SourceType		  "xpcscopeblock"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData "off"
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
-	  scopeno		  "2"
-	  scopetype		  "Target"
-	  autostart		  "on"
-	  viewmode		  "Numerical"
-	  formatstr		  "'%6.0f state,%6.0f rewards,%6.0f aborts,%6."
-"0f fails,%6.0f incompl'"
-	  grid			  "on"
-	  ylimits		  "[-10,10]"
-	  nosamples		  "10"
-	  noprepostsamples	  "0"
-	  interleave		  "10"
-	  triggermode		  "FreeRun"
-	  triggersignal		  "1"
-	  triggerlevel		  "0.0"
-	  triggerslope		  "Either"
-	  triggerscope		  "1"
-	  triggersample		  "0"
-	  filename		  "data.dat"
-	  mode			  "Lazy"
-	  writesize		  "512"
-	  autorestart		  "off"
-	}
-	Block {
-	  BlockType		  SubSystem
-	  Name			  "Target Peek"
-	  Ports			  [1, 1]
-	  Position		  [350, 89, 450, 131]
-	  MinAlgLoopOccurrences	  off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  MaskHideContents	  off
-	  System {
-	    Name		    "Target Peek"
-	    Location		    [2, 82, 1278, 978]
-	    Open		    off
-	    ModelBrowserVisibility  off
-	    ModelBrowserWidth	    200
-	    ScreenColor		    "white"
-	    PaperOrientation	    "landscape"
-	    PaperPositionMode	    "auto"
-	    PaperType		    "usletter"
-	    PaperUnits		    "inches"
-	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
-	    TiledPageScale	    1
-	    ShowPageBoundaries	    off
-	    ZoomFactor		    "100"
-	    Block {
-	      BlockType		      Inport
-	      Name		      "In"
-	      Position		      [70, 413, 100, 427]
-	      IconDisplay	      "Port number"
-	    }
-	    Block {
-	      BlockType		      Sum
-	      Name		      "Add"
-	      Ports		      [2, 1]
-	      Position		      [340, 272, 370, 303]
-	      CollapseMode	      "All dimensions"
-	      InputSameDT	      off
-	      OutDataTypeMode	      "Inherit via internal rule"
-	      OutScaling	      "2^-10"
-	      SaturateOnIntegerOverflow	off
-	    }
-	    Block {
-	      BlockType		      Sum
-	      Name		      "Add1"
-	      Ports		      [2, 1]
-	      Position		      [340, 377, 370, 408]
-	      CollapseMode	      "All dimensions"
-	      InputSameDT	      off
-	      OutDataTypeMode	      "Inherit via internal rule"
-	      OutScaling	      "2^-10"
-	      SaturateOnIntegerOverflow	off
-	    }
-	    Block {
-	      BlockType		      Demux
-	      Name		      "Demux"
-	      Ports		      [1, 10]
-	      Position		      [175, 212, 180, 628]
-	      BackgroundColor	      "black"
-	      ShowName		      off
-	      Outputs		      "10"
-	      DisplayOption	      "bar"
-	    }
-	    Block {
-	      BlockType		      Gain
-	      Name		      "Gain"
-	      Position		      [460, 275, 490, 305]
-	      Gain		      ".5"
-	      ParameterDataTypeMode   "Inherit via internal rule"
-	      OutDataTypeMode	      "Inherit via internal rule"
-	      SaturateOnIntegerOverflow	off
-	    }
-	    Block {
-	      BlockType		      Gain
-	      Name		      "Gain1"
-	      Position		      [465, 380, 495, 410]
-	      Gain		      ".5"
-	      ParameterDataTypeMode   "Inherit via internal rule"
-	      OutDataTypeMode	      "Inherit via internal rule"
-	      SaturateOnIntegerOverflow	off
-	    }
-	    Block {
-	      BlockType		      Mux
-	      Name		      "Mux"
-	      Ports		      [3, 1]
-	      Position		      [1005, 196, 1010, 434]
-	      ShowName		      off
-	      Inputs		      "3"
-	      DisplayOption	      "bar"
-	    }
-	    Block {
-	      BlockType		      Terminator
-	      Name		      "Terminator"
-	      Position		      [235, 470, 255, 490]
-	    }
-	    Block {
-	      BlockType		      Terminator
-	      Name		      "Terminator1"
-	      Position		      [235, 510, 255, 530]
-	    }
-	    Block {
-	      BlockType		      Terminator
-	      Name		      "Terminator2"
-	      Position		      [235, 550, 255, 570]
-	    }
-	    Block {
-	      BlockType		      Terminator
-	      Name		      "Terminator3"
-	      Position		      [235, 590, 255, 610]
-	    }
-	    Block {
-	      BlockType		      Terminator
-	      Name		      "Terminator4"
-	      Position		      [235, 430, 255, 450]
-	    }
-	    Block {
-	      BlockType		      Outport
-	      Name		      "Out"
-	      Position		      [1090, 308, 1120, 322]
-	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
-	    }
-	    Line {
-	      SrcBlock		      "In"
-	      SrcPort		      1
-	      DstBlock		      "Demux"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Mux"
-	      SrcPort		      1
-	      DstBlock		      "Out"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      1
-	      Points		      [805, 0]
-	      DstBlock		      "Mux"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Add"
-	      SrcPort		      1
-	      DstBlock		      "Gain"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Add1"
-	      SrcPort		      1
-	      DstBlock		      "Gain1"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Gain1"
-	      SrcPort		      1
-	      DstBlock		      "Mux"
-	      DstPort		      3
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      7
-	      DstBlock		      "Terminator"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      8
-	      DstBlock		      "Terminator1"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      9
-	      DstBlock		      "Terminator2"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      10
-	      DstBlock		      "Terminator3"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      2
-	      DstBlock		      "Add"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      4
-	      Points		      [70, 0; 0, -65]
-	      DstBlock		      "Add"
-	      DstPort		      2
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      3
-	      Points		      [95, 0; 0, 65]
-	      DstBlock		      "Add1"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      5
-	      DstBlock		      "Add1"
-	      DstPort		      2
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      6
-	      DstBlock		      "Terminator4"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Gain"
-	      SrcPort		      1
-	      Points		      [245, 0; 0, 25]
-	      DstBlock		      "Mux"
-	      DstPort		      2
-	    }
-	  }
-	}
-	Block {
-	  BlockType		  Terminator
-	  Name			  "Terminator"
-	  Position		  [490, 100, 510, 120]
-	}
-	Block {
-	  BlockType		  SubSystem
-	  Name			  "UDPXmit"
-	  Ports			  [3]
-	  Position		  [345, 169, 445, 211]
-	  MinAlgLoopOccurrences	  off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  MaskHideContents	  off
-	  System {
-	    Name		    "UDPXmit"
-	    Location		    [2, 82, 1278, 876]
-	    Open		    off
-	    ModelBrowserVisibility  off
-	    ModelBrowserWidth	    200
-	    ScreenColor		    "white"
-	    PaperOrientation	    "landscape"
-	    PaperPositionMode	    "auto"
-	    PaperType		    "usletter"
-	    PaperUnits		    "inches"
-	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
-	    TiledPageScale	    1
-	    ShowPageBoundaries	    off
-	    ZoomFactor		    "100"
-	    Block {
-	      BlockType		      Inport
-	      Name		      "Targets"
-	      Position		      [95, 383, 125, 397]
-	      IconDisplay	      "Port number"
-	    }
-	    Block {
-	      BlockType		      Inport
-	      Name		      "Tone"
-	      Position		      [370, 623, 400, 637]
-	      Port		      "2"
-	      IconDisplay	      "Port number"
-	    }
-	    Block {
-	      BlockType		      Inport
-	      Name		      "Pos"
-	      Position		      [320, 143, 350, 157]
-	      Port		      "3"
-	      IconDisplay	      "Port number"
-	    }
-	    Block {
-	      BlockType		      Demux
-	      Name		      "Demux"
-	      Ports		      [1, 10]
-	      Position		      [175, 182, 180, 598]
-	      BackgroundColor	      "black"
-	      ShowName		      off
-	      Outputs		      "10"
-	      DisplayOption	      "bar"
-	    }
-	    Block {
-	      BlockType		      Demux
-	      Name		      "Demux1"
-	      Ports		      [1, 2]
-	      Position		      [410, 109, 415, 191]
-	      BackgroundColor	      "black"
-	      ShowName		      off
-	      Outputs		      "2"
-	      DisplayOption	      "bar"
-	    }
-	    Block {
-	      BlockType		      Demux
-	      Name		      "Demux2"
-	      Ports		      [1, 2]
-	      Position		      [445, 589, 450, 671]
-	      BackgroundColor	      "black"
-	      ShowName		      off
-	      Outputs		      "2"
-	      DisplayOption	      "bar"
-	    }
-	    Block {
-	      BlockType		      Reference
-	      Name		      "Pack"
-	      Ports		      [14, 1]
-	      Position		      [565, 96, 675, 684]
-	      SourceBlock	      "xpclib/UDP/Pack"
-	      SourceType	      "xpcany2byte"
-	      datatypes		      "{'double', 'double','double','double','"
-"double','double','double','double','double','double','double','double','doubl"
-"e','double'}"
-	      byteAlign		      "1"
-	    }
-	    Block {
-	      BlockType		      RateTransition
-	      Name		      "Rate Transition"
-	      Position		      [725, 369, 780, 411]
-	    }
-	    Block {
-	      BlockType		      Reference
-	      Name		      "Send"
-	      Ports		      [1]
-	      Position		      [825, 365, 905, 415]
-	      SourceBlock	      "xpclib/UDP/Send"
-	      SourceType	      "xpcudpbytesend"
-	      ipAddress		      "192.168.0.2"
-	      ipPort		      "25000"
-	      localPort		      "-1"
-	      sampletime	      ".02"
-	    }
-	    Line {
-	      SrcBlock		      "Rate Transition"
-	      SrcPort		      1
-	      DstBlock		      "Send"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Pack"
-	      SrcPort		      1
-	      DstBlock		      "Rate Transition"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      10
-	      DstBlock		      "Pack"
-	      DstPort		      12
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      9
-	      DstBlock		      "Pack"
-	      DstPort		      11
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      8
-	      DstBlock		      "Pack"
-	      DstPort		      10
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      7
-	      DstBlock		      "Pack"
-	      DstPort		      9
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      6
-	      DstBlock		      "Pack"
-	      DstPort		      8
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      5
-	      DstBlock		      "Pack"
-	      DstPort		      7
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      4
-	      DstBlock		      "Pack"
-	      DstPort		      6
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      3
-	      DstBlock		      "Pack"
-	      DstPort		      5
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      2
-	      DstBlock		      "Pack"
-	      DstPort		      4
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      1
-	      DstBlock		      "Pack"
-	      DstPort		      3
-	    }
-	    Line {
-	      SrcBlock		      "Demux1"
-	      SrcPort		      1
-	      DstBlock		      "Pack"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Demux1"
-	      SrcPort		      2
-	      DstBlock		      "Pack"
-	      DstPort		      2
-	    }
-	    Line {
-	      SrcBlock		      "Demux2"
-	      SrcPort		      1
-	      DstBlock		      "Pack"
-	      DstPort		      13
-	    }
-	    Line {
-	      SrcBlock		      "Demux2"
-	      SrcPort		      2
-	      DstBlock		      "Pack"
-	      DstPort		      14
-	    }
-	    Line {
-	      SrcBlock		      "Tone"
-	      SrcPort		      1
-	      DstBlock		      "Demux2"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Targets"
-	      SrcPort		      1
-	      DstBlock		      "Demux"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Pos"
-	      SrcPort		      1
-	      DstBlock		      "Demux1"
-	      DstPort		      1
-	    }
-	  }
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Version Display"
-	  Ports			  [1]
-	  Position		  [130, 34, 200, 76]
-	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
-	  SourceType		  "xpcscopeblock"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData "off"
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
-	  scopeno		  "3"
-	  scopetype		  "Target"
-	  autostart		  "on"
-	  viewmode		  "Numerical"
-	  formatstr		  "'%6.0f major,%6.0f minor,%6.0f revision,%6."
-"0f build'"
-	  grid			  "on"
-	  ylimits		  "[-10,10]"
-	  nosamples		  "10"
-	  noprepostsamples	  "0"
-	  interleave		  "10"
-	  triggermode		  "FreeRun"
-	  triggersignal		  "1"
-	  triggerlevel		  "0.0"
-	  triggerslope		  "Either"
-	  triggerscope		  "1"
-	  triggersample		  "0"
-	  filename		  "data.dat"
-	  mode			  "Lazy"
-	  writesize		  "512"
-	  autorestart		  "off"
-	}
-	Block {
-	  BlockType		  SubSystem
-	  Name			  "WordSbs"
-	  Ports			  [1]
-	  Position		  [125, 154, 170, 196]
-	  MinAlgLoopOccurrences	  off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  MaskHideContents	  off
-	  System {
-	    Name		    "WordSbs"
-	    Location		    [0, 82, 1272, 876]
-	    Open		    off
-	    ModelBrowserVisibility  off
-	    ModelBrowserWidth	    200
-	    ScreenColor		    "white"
-	    PaperOrientation	    "landscape"
-	    PaperPositionMode	    "auto"
-	    PaperType		    "usletter"
-	    PaperUnits		    "inches"
-	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
-	    TiledPageScale	    1
-	    ShowPageBoundaries	    off
-	    ZoomFactor		    "100"
-	    Block {
-	      BlockType		      Inport
-	      Name		      "Word"
-	      Position		      [290, 173, 320, 187]
-	      IconDisplay	      "Port number"
-	    }
-	    Block {
-	      BlockType		      Goto
-	      Name		      "Goto"
-	      Position		      [410, 164, 465, 196]
-	      GotoTag		      "Word"
-	      TagVisibility	      "global"
-	    }
-	    Line {
-	      SrcBlock		      "Word"
-	      SrcPort		      1
-	      DstBlock		      "Goto"
-	      DstPort		      1
-	    }
-	  }
-	}
-	Line {
-	  SrcBlock		  "Status"
-	  SrcPort		  1
-	  DstBlock		  "StatusScope"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Word"
-	  SrcPort		  1
-	  DstBlock		  "WordSbs"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Targets"
-	  SrcPort		  1
-	  Points		  [25, 0]
-	  Branch {
-	    DstBlock		    "Target Peek"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, 65]
-	    DstBlock		    "UDPXmit"
-	    DstPort		    1
 	  }
 	}
 	Line {
@@ -1452,28 +1490,34 @@ Library {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Target Peek"
+	  SrcBlock		  "Enc"
 	  SrcPort		  1
-	  DstBlock		  "Terminator"
+	  DstBlock		  "Demux"
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Version"
+	  SrcBlock		  "Demux"
 	  SrcPort		  1
-	  DstBlock		  "Version Display"
+	  DstBlock		  "For Iterator\nSubsystem"
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Pos"
-	  SrcPort		  1
-	  DstBlock		  "UDPXmit"
-	  DstPort		  3
-	}
-	Line {
-	  SrcBlock		  "Tone"
-	  SrcPort		  1
-	  DstBlock		  "UDPXmit"
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  DstBlock		  "For Iterator\nSubsystem"
 	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Word"
+	  SrcPort		  1
+	  DstBlock		  "For Iterator\nSubsystem"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "RewardSbs"
+	  SrcPort		  1
+	  DstBlock		  "For Iterator\nSubsystem"
+	  DstPort		  3
 	}
       }
     }
@@ -1481,7 +1525,7 @@ Library {
       BlockType		      SubSystem
       Name		      "Lorentz"
       Ports		      [0, 1]
-      Position		      [120, 89, 175, 151]
+      Position		      [165, 114, 220, 176]
       TreatAsAtomicUnit	      on
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
@@ -1948,7 +1992,7 @@ Library {
       BlockType		      SubSystem
       Name		      "ResetableSchmidt"
       Ports		      [2, 1]
-      Position		      [85, 354, 185, 396]
+      Position		      [25, 189, 125, 231]
       TreatAsAtomicUnit	      on
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
@@ -2279,8 +2323,8 @@ Library {
     Block {
       BlockType		      SubSystem
       Name		      "RobotInputSystem"
-      Ports		      [0, 4]
-      Position		      [385, 78, 465, 202]
+      Ports		      [0, 5]
+      Position		      [385, 28, 465, 152]
       TreatAsAtomicUnit	      on
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
@@ -2297,9 +2341,9 @@ Library {
       MaskVarAliasString      ",,,,"
       MaskVariables	      "ShOffset=@1;ElOffset=@2;XOffset=@3;YOffset=@4;A"
 "ng=@5;"
-      MaskDisplay	      "port_label('output',1,'Position')\nport_label('"
-"output',2,'Velocity')\nport_label('output',3,'Raw Position')\nport_label('out"
-"put',4,'Jacobian')"
+      MaskDisplay	      "port_label('output',1,'Encoder')\nport_label('o"
+"utput',2,'Position')\nport_label('output',3,'Velocity')\nport_label('output',"
+"4,'Raw Position')\nport_label('output',5,'Jacobian')\n"
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
@@ -2308,7 +2352,7 @@ Library {
       MaskTabNameString	      ",,,,"
       System {
 	Name			"RobotInputSystem"
-	Location		[71, 186, 798, 489]
+	Location		[337, 466, 1064, 769]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -3001,8 +3045,8 @@ Library {
 	Block {
 	  BlockType		  SubSystem
 	  Name			  "XY Position Subsystem"
-	  Ports			  [0, 3]
-	  Position		  [85, 107, 190, 203]
+	  Ports			  [0, 4]
+	  Position		  [85, 108, 190, 232]
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
@@ -3013,7 +3057,7 @@ Library {
 	  MaskIconUnits		  "autoscale"
 	  System {
 	    Name		    "XY Position Subsystem"
-	    Location		    [275, 93, 1291, 815]
+	    Location		    [350, 97, 1366, 819]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -3853,22 +3897,6 @@ Library {
 	      }
 	    }
 	    Block {
-	      BlockType		      From
-	      Name		      "From"
-	      Position		      [375, 240, 435, 270]
-	      CloseFcn		      "tagdialog Close"
-	      GotoTag		      "Reward"
-	      TagVisibility	      "global"
-	    }
-	    Block {
-	      BlockType		      From
-	      Name		      "From1"
-	      Position		      [375, 295, 435, 325]
-	      CloseFcn		      "tagdialog Close"
-	      GotoTag		      "Word"
-	      TagVisibility	      "global"
-	    }
-	    Block {
 	      BlockType		      Gain
 	      Name		      "Gain"
 	      Position		      [255, 366, 345, 414]
@@ -4399,6 +4427,15 @@ Library {
 	      DisplayOption	      "bar"
 	    }
 	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux2"
+	      Ports		      [2, 1]
+	      Position		      [210, 436, 215, 474]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
 	      BlockType		      Reference
 	      Name		      "PCI-QUAD04 "
 	      Ports		      [0, 1]
@@ -4491,32 +4528,39 @@ Library {
 	      IconDisplay	      "Port number"
 	      BusOutputAsStruct	      off
 	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Enc"
+	      Position		      [240, 448, 270, 462]
+	      Port		      "4"
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
 	    Line {
 	      SrcBlock		      "PCI-QUAD04 1"
 	      SrcPort		      1
-	      Points		      [20, 0]
-	      Branch {
-		Points			[0, -330]
-		DstBlock		"For Iterator\nSubsystem"
-		DstPort			2
-	      }
+	      Points		      [15, 0]
 	      Branch {
 		DstBlock		"Gain1"
 		DstPort			1
+	      }
+	      Branch {
+		Points			[0, -55]
+		DstBlock		"Mux2"
+		DstPort			2
 	      }
 	    }
 	    Line {
 	      SrcBlock		      "PCI-QUAD04 "
 	      SrcPort		      1
-	      Points		      [40, 0]
+	      Points		      [15, 0]
 	      Branch {
-		Labels			[1, 0]
-		Points			[0, -220]
-		DstBlock		"For Iterator\nSubsystem"
+		DstBlock		"Gain"
 		DstPort			1
 	      }
 	      Branch {
-		DstBlock		"Gain"
+		Points			[0, 55]
+		DstBlock		"Mux2"
 		DstPort			1
 	      }
 	    }
@@ -4595,13 +4639,6 @@ Library {
 	      DstPort		      2
 	    }
 	    Line {
-	      SrcBlock		      "From"
-	      SrcPort		      1
-	      Points		      [35, 0; 0, -45]
-	      DstBlock		      "For Iterator\nSubsystem"
-	      DstPort		      3
-	    }
-	    Line {
 	      SrcBlock		      "Jacobian-Cartesian Transformation"
 	      SrcPort		      5
 	      DstBlock		      "J"
@@ -4620,11 +4657,10 @@ Library {
 	      DstPort		      1
 	    }
 	    Line {
-	      SrcBlock		      "From1"
+	      SrcBlock		      "Mux2"
 	      SrcPort		      1
-	      Points		      [50, 0; 0, -80]
-	      DstBlock		      "For Iterator\nSubsystem"
-	      DstPort		      4
+	      DstBlock		      "Enc"
+	      DstPort		      1
 	    }
 	  }
 	}
@@ -4637,7 +4673,7 @@ Library {
 	  SourceType		  "xpcscopeblock"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData "off"
+	  FunctionWithSeparateData off
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -4645,11 +4681,11 @@ Library {
 	  RTWMemSecDataParameters "Inherit from model"
 	  scopeno		  "1"
 	  scopetype		  "Target"
-	  autostart		  "on"
+	  autostart		  on
 	  viewmode		  "Numerical"
 	  formatstr		  "'%15.2f X,%15.2f Y,%15.2f dX,%15.2f dY,%15."
 "2f Fx,%15.2f Fy'"
-	  grid			  "on"
+	  grid			  on
 	  ylimits		  "[-10,10]"
 	  nosamples		  "10"
 	  noprepostsamples	  "0"
@@ -4663,12 +4699,20 @@ Library {
 	  filename		  "data.dat"
 	  mode			  "Lazy"
 	  writesize		  "512"
-	  autorestart		  "off"
+	  autorestart		  off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Enc"
+	  Position		  [220, 208, 250, 222]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "Pos"
 	  Position		  [295, 73, 325, 87]
+	  Port			  "2"
 	  IconDisplay		  "Port number"
 	  BusOutputAsStruct	  off
 	}
@@ -4676,23 +4720,23 @@ Library {
 	  BlockType		  Outport
 	  Name			  "Vel"
 	  Position		  [470, 133, 500, 147]
-	  Port			  "2"
-	  IconDisplay		  "Port number"
-	  BusOutputAsStruct	  off
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "RawPos"
-	  Position		  [265, 253, 295, 267]
 	  Port			  "3"
 	  IconDisplay		  "Port number"
 	  BusOutputAsStruct	  off
 	}
 	Block {
 	  BlockType		  Outport
-	  Name			  "J"
-	  Position		  [300, 203, 330, 217]
+	  Name			  "RawPos"
+	  Position		  [220, 178, 250, 192]
 	  Port			  "4"
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "J"
+	  Position		  [320, 193, 350, 207]
+	  Port			  "5"
 	  IconDisplay		  "Port number"
 	  BusOutputAsStruct	  off
 	}
@@ -4740,23 +4784,28 @@ Library {
 	Line {
 	  SrcBlock		  "XY Position Subsystem"
 	  SrcPort		  3
-	  Points		  [25, 0; 0, 75]
 	  DstBlock		  "RawPos"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "XY Position Subsystem"
 	  SrcPort		  2
-	  Points		  [70, 0]
+	  Points		  [85, 0]
 	  Branch {
 	    DstBlock		    "Velocity Calculation"
 	    DstPort		    2
 	  }
 	  Branch {
-	    Points		    [0, 55]
+	    Points		    [0, 45]
 	    DstBlock		    "J"
 	    DstPort		    1
 	  }
+	}
+	Line {
+	  SrcBlock		  "XY Position Subsystem"
+	  SrcPort		  4
+	  DstBlock		  "Enc"
+	  DstPort		  1
 	}
       }
     }
@@ -4764,7 +4813,7 @@ Library {
       BlockType		      SubSystem
       Name		      "RobotOutputSystem"
       Ports		      [5]
-      Position		      [465, 385, 560, 495]
+      Position		      [505, 240, 600, 350]
       TreatAsAtomicUnit	      on
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
@@ -8119,7 +8168,7 @@ Library {
       BlockType		      SubSystem
       Name		      "Schmidt"
       Ports		      [1, 1]
-      Position		      [80, 244, 180, 286]
+      Position		      [20, 349, 120, 391]
       TreatAsAtomicUnit	      on
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
@@ -8414,7 +8463,7 @@ Library {
       BlockType		      "S-Function"
       Name		      "SerialConverter"
       Ports		      [3, 1]
-      Position		      [270, 296, 365, 424]
+      Position		      [25, 26, 120, 154]
       FunctionName	      "serPos"
       MaskDisplay	      "port_label('output', 1, 'Byte Out')\nport_label"
 "('input', 1, 'index')\nport_label('input', 2, 'sh')\nport_label('input', 3, '"
@@ -8428,7 +8477,7 @@ Library {
       BlockType		      SubSystem
       Name		      "Timer"
       Ports		      [2, 1]
-      Position		      [95, 455, 200, 510]
+      Position		      [20, 270, 125, 325]
       TreatAsAtomicUnit	      on
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
@@ -8774,7 +8823,7 @@ Library {
       BlockType		      "S-Function"
       Name		      "ToBits"
       Ports		      [1, 8]
-      Position		      [230, 52, 285, 228]
+      Position		      [165, 207, 220, 383]
       FunctionName	      "Byte2Bits"
       MaskDisplay	      "port_label('input', 1, 'u')\nport_label('output"
 "', 1, 'y0')\nport_label('output', 2, 'y1')\nport_label('output', 3, 'y2')\npo"
