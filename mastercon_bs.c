@@ -1,8 +1,6 @@
-/* mastercon_bs.c
+/* $Id$
  * 
  * Master Control block for behavior: bump-stim task
- *
- * CVS Revision -- $Revision: 1.18 $
  */
 
 #define S_FUNCTION_NAME mastercon_bs
@@ -133,6 +131,7 @@ static void mdlCheckParameters(SimStruct *S)
     target_angle = param_target_angle;
     target_radius = param_target_radius;
     target_size = param_target_size;
+    window_size = param_window_size;
     
     origin_hold_l = param_origin_hold_l;
     origin_hold_h = param_origin_hold_h;
@@ -182,7 +181,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetInputPortDirectFeedThrough(S, 2, 1);
     
     /* 
-     * Block has 7 output ports (force, status, word, targets, reward, tone) of widths:
+     * Block has 8 output ports (force, status, word, targets, reward, tone, version, pos) of widths:
      *  force: 2
      *  status: 5 ( block counter, successes, aborts, failures, incompletes )
      *  word:  1 (8 bits)
@@ -194,16 +193,18 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target LR corner y)
      *  reward: 1
      *  tone: 2     ( 1: counter incemented for each new tone, 2: tone ID )
-	 *  version: 1 ( the cvs revision of the current .c file )
+     *  version: 1 ( the cvs revision of the current .c file )
+     *  pos: 2 (x and y position of the cursor)
      */
-    if (!ssSetNumOutputPorts(S, 7)) return;
-    ssSetOutputPortWidth(S, 0, 2);
-    ssSetOutputPortWidth(S, 1, 4);
-    ssSetOutputPortWidth(S, 2, 1);
-    ssSetOutputPortWidth(S, 3, 10);
-    ssSetOutputPortWidth(S, 4, 1);
-    ssSetOutputPortWidth(S, 5, 2);
-	ssSetOutputPortWidth(S, 6, 1);
+    if (!ssSetNumOutputPorts(S, 8)) return;
+    ssSetOutputPortWidth(S, 0, 2);   /* force   */
+    ssSetOutputPortWidth(S, 1, 5);   /* status  */
+    ssSetOutputPortWidth(S, 2, 1);   /* word    */
+    ssSetOutputPortWidth(S, 3, 10);  /* target  */
+    ssSetOutputPortWidth(S, 4, 1);   /* reward  */
+    ssSetOutputPortWidth(S, 5, 2);   /* tone    */
+    ssSetOutputPortWidth(S, 6, 4);   /* version */
+    ssSetOutputPortWidth(S, 7, 2);   /* pos     */
     
     ssSetNumSampleTimes(S, 1);
     
@@ -264,7 +265,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 68, 0);
     ssSetIWorkValue(S, 69, 0);
     ssSetIWorkValue(S, 70, 0);
-	ssSetIWorkValue(S, 71, 0);
+    ssSetIWorkValue(S, 71, 0);
 
 	updateVersion(S);
 }
@@ -298,7 +299,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int *trial_list;
     int num_trials;
     int bump;
-    real_T theta;
     real_T target1[4];
     real_T target2[4];
     real_T *target_origin;
@@ -312,7 +312,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int tmp_trial_1[15];
     int tmp_trial_2[15];
     int tmp_sort[15];
-    int tmp_bump[30];
     int i, j, tmp;
     
     /******************
@@ -402,6 +401,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             target_angle = param_target_angle;
             target_radius = param_target_radius;
             target_size = param_target_size;
+            window_size = param_window_size;
 
             origin_hold_l = param_origin_hold_l;
             origin_hold_h = param_origin_hold_h;
@@ -614,8 +614,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int bump_duration_counter;
     real_T target1[4];
     real_T target2[4];
-	real_T *target_origin;
-	real_T *target_destination;
+    real_T *target_origin;
+    real_T *target_destination;
     real_T theta;
     
     InputRealPtrsType uPtrs;
@@ -623,10 +623,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T force_in[2];
     
     /* allocate holders for outputs */
-    real_T force_x, force_y, word, reward, tone_cnt, tone_id;
+    real_T force_x, force_y, word, reward, tone_cnt, tone_id, pos_x, pos_y;
     real_T target_pos[10];
     real_T status[5];
-	real_T version;
+    real_T version[4];
     
     /* pointers to output buffers */
     real_T *force_p;
@@ -635,12 +635,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *status_p;
     real_T *reward_p;
     real_T *tone_p;
-	real_T *version_p;
+    real_T *version_p;
+    real_T *pos_p;
     
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
     int state = (int)(state_r[0]);
-	int direction = (int)(state_r[1]);
+    int direction = (int)(state_r[1]);
     int new_state = ssGetIWorkValue(S, 0);
     ssSetIWorkValue(S, 0, 0); /* reset changed state each iteration */
 
@@ -672,15 +673,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     target2[2] = cos(target_angle+PI)*target_radius+target_size/2;
     target2[3] = sin(target_angle+PI)*target_radius-target_size/2;
 
-	if (direction == 0) {
-		/* forward trial */
-		target_origin = target1;
-		target_destination = target2;
-	} else {
-		/* reverse trial */
-		target_origin = target2;
-		target_destination = target1;
-	}
+    if (direction == 0) {
+        /* forward trial */
+        target_origin = target1;
+        target_destination = target2;
+    } else {
+        /* reverse trial */
+        target_origin = target2;
+        target_destination = target1;
+    }
     
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
@@ -719,7 +720,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         force_x = force_in[0] + cos(theta)*bump*bump_magnitude;
         force_y = force_in[1] + sin(theta)*bump*bump_magnitude;
     } else {
-
         force_x = force_in[0]; 
         force_y = force_in[1];
     }
@@ -731,14 +731,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 79, ssGetIWorkValue(S, 69) + 1);
     if (state == STATE_FAIL && new_state)
         ssSetIWorkValue(S, 70, ssGetIWorkValue(S, 70) + 1);
-	if (state == STATE_INCOMPLETE && new_state)
-		ssSetIWorkValue(S, 71, ssGetIWorkValue(S, 71) + 1);
+    if (state == STATE_INCOMPLETE && new_state)
+        ssSetIWorkValue(S, 71, ssGetIWorkValue(S, 71) + 1);
     
     status[0] = IWorkVector[1]; //state;
     status[1] = ssGetIWorkValue(S, 68); // num rewards
     status[2] = ssGetIWorkValue(S, 69); // num aborts
     status[3] = ssGetIWorkValue(S, 70); // num fails
-	status[4] = ssGetIWorkValue(S, 71); // num incompletes
+    status[4] = ssGetIWorkValue(S, 71); // num incompletes
     
     /* word (2) */
     if (new_state) {
@@ -838,9 +838,23 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             tone_id = TONE_REWARD;
         }
     }
-     
+    
     /* version (6) */
-    version = ssGetRWorkValue(S, 3);
+    version[0] = BEHAVIOR_VERSION_MAJOR;
+    version[1] = BEHAVIOR_VERSION_MINOR;
+    version[2] = BEHAVIOR_VERSION_MICRO;
+    version[3] = BEHAVIOR_VERSION_BUILD;
+    
+    /* pos (7) */
+    if (sqrt(cursor[0]*cursor[0] + cursor[1]*cursor[1]) < window_size && state == STATE_MOVEMENT) {
+        /* we are inside blocking window => draw cursor off screen */
+        pos_x = 1E6;
+        pos_y = 1E6;
+    } else {
+        /* we are outside the blocking window */
+        pos_x = cursor[0];
+        pos_y = cursor[1];
+    }
 
     /**********************************
      * Write outputs back to SimStruct
@@ -870,9 +884,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_p[1] = tone_id;
     ssSetRWorkValue(S, 1, tone_cnt);
     ssSetRWorkValue(S, 2, tone_id);
-
-	version_p = ssGetOutputPortRealSignal(S,6);
-	version_p[0] = (real_T)version;
+    
+    version_p = ssGetOutputPortRealSignal(S,6);
+    for (i=0; i<4; i++) {
+        version_p[i] = version[i];
+    }
+    
+    pos_p = ssGetOutputPortRealSignal(S,7);
+    pos_p[0] = pos_x;
+    pos_p[1] = pos_y;
     
     UNUSED_ARG(tid);
 }

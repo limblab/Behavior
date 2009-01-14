@@ -181,7 +181,7 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target LR corner y)
 `    * 8: target select:  1
 	 * 9: MVC Target: 3 (1: user_spec_MVC, 2: current_MVC, 3: higher MVC)
-	 * 10:version : 1
+	 * 10:version : 4
      */
     if (!ssSetNumOutputPorts(S, 11)) return;
     ssSetOutputPortWidth(S, 0, 1);
@@ -194,7 +194,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 7, 10);
     ssSetOutputPortWidth(S, 8, 1);
     ssSetOutputPortWidth(S, 9, 3);
-    ssSetOutputPortWidth(S, 10, 1);
+    ssSetOutputPortWidth(S, 10, 4);
     
     ssSetNumSampleTimes(S, 1);
     
@@ -792,7 +792,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T status[4];
     real_T tone[2];
     real_T target[10];
-    real_T version;
+    real_T version[4];
     
     /* pointers to output buffers */
     real_T *reward_p;
@@ -991,37 +991,46 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	    /* target off*/
 	    target [0] = 0;
     }
-    
-    /* we use the second target to indicate which of the gadget is in use */
-    /* this is because the monkey does not seem to see the leds  */
-    if ( state == STATE_DELAY || 
-         state == STATE_REACH || 
-         state == STATE_MOVEMENT || 
-         state == STATE_CONTINUE_REACH ||
-         state == STATE_TOUCH_PAD_HOLD ||
-         state == STATE_TARGET_HOLD)
-    {
-	    /*gadget indicator on */
-	    target[5] = 2; /*white*/
-	} else {
-		/* gadget indicator off */
-		target [5] = 0; /* off */
+
+	/* we don't need a second target */
+	for (i=5; i<10; i++) {
+		target[i] = 0;
 	}
+
+////////////
+// Obsolete
+//			/* we use the second target to indicate which of the gadget is in use */
+//			/* this is because the monkey does not seem to see the leds  */
+//			if ( state == STATE_DELAY || 
+//				 state == STATE_REACH || 
+//				 state == STATE_MOVEMENT || 
+//				 state == STATE_CONTINUE_REACH ||
+//				 state == STATE_TOUCH_PAD_HOLD ||
+//				 state == STATE_TARGET_HOLD)
+//			{
+//				/*gadget indicator on */
+//				target[5] = 2; /*white*/
+//			} else {
+//				/* gadget indicator off */
+//				target [5] = 0; /* off */
+//			}
+//			
+//			
+//			target[7] = 1.5; // Y upper left
+//			target[9] = -1.5; // Y lower right
+//				
+//			if (gadget_id == 0) { // palmar grasp, on the left
+//				target[6] = -18; // X upper left
+//				target[8] = -15; // X lower right
+//			} else if (gadget_id == 1) { //key grasp, on the right
+//				target[6] = 15;
+//				target[8] = 18;
+//			} else { // another gadget, lets just turn off target for now
+//				target[5] = 0;
+//			}
+//
+/////////////
 	
-	
-	target[7] = 1.5; // Y upper left
-	target[9] = -1.5; // Y lower right
-		
-	if (gadget_id == 0) { // palmar grasp, on the left
-		target[6] = -18; // X upper left
-		target[8] = -15; // X lower right
-	} else if (gadget_id == 1) { //key grasp, on the right
-		target[6] = 15;
-		target[8] = 18;
-	} else { // another gadget, lets just turn off target for now
-		target[5] = 0;
-	}
-    
     /* target_select (8) */
     target_select = target_id;
     
@@ -1029,7 +1038,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      // = higher_MVC_target    
 
      /* Version */
-     version = ssGetRWorkValue(S, 9);     
+     version[0] = BEHAVIOR_VERSION_MAJOR;
+     version[1] = BEHAVIOR_VERSION_MINOR;
+     version[2] = BEHAVIOR_VERSION_MICRO;
+     version[3] = BEHAVIOR_VERSION_BUILD;
     
     /**********************************
      * Write outputs back to SimStruct
@@ -1073,7 +1085,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      mvcTarget_p[2] = higher_MVC_target;
      
      version_p = ssGetOutputPortRealSignal(S, 10);
-     version_p[0] = version;     
+     for (i=0; i<4; i++) {
+        version_p[i] = version[i];
+     }
      
      UNUSED_ARG(tid);
 }

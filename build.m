@@ -24,6 +24,8 @@ function r = build(varargin)
 %                                    'serPos.mex32w', ...
 %                                    'Byte2Bits.mex32w'}};
 
+% $Id$
+
 %
 % Argument processing
 %

@@ -50,11 +50,13 @@ function blkStruct = slblocks
 %   Copyright 1990-2004 The MathWorks, Inc.
 %   $Revision: 1.1.1.4 $
 
+% $Id$
+
 %
 % Name of the subsystem which will show up in the Simulink Blocksets
 % and Toolboxes subsystem.
 %
-blkStruct.Name = ['Limblab'];
+blkStruct.Name = 'Limblab';
 
 %
 % The function that will be called when the user double-clicks on

@@ -1,12 +1,12 @@
 Model {
-  Name			  "wrist_flexion"
+  Name			  "ball_drop"
   Version		  6.6
   MdlSubVersion		  0
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.126"
+    ComputedModelVersion    "1.90"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Selket"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Jan 09 16:34:11 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:126>"
+  LastModifiedDate	  "Fri Jan 09 16:24:23 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:90>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -84,12 +84,12 @@ Model {
   ExtModeIncDirWhenArm	  off
   ExtModeAddSuffixToVar	  off
   ExtModeWriteAllDataToWs off
-  ExtModeArmWhenConnect	  off
+  ExtModeArmWhenConnect	  on
   ExtModeSkipDownloadWhenConnect off
   ExtModeLogAll		  on
   ExtModeAutoUpdateStatusClock on
   BufferReuse		  off
-  ProdHWDeviceType	  "32-bit Generic"
+  ProdHWDeviceType	  "32-bit xPC Target (Intel Pentium)"
   ShowModelReferenceBlockVersion off
   ShowModelReferenceBlockIO off
   Array {
@@ -120,8 +120,8 @@ Model {
 	  MaxConsecutiveMinStep	  "1"
 	  RelTol		  "1e-3"
 	  SolverMode		  "SingleTasking"
-	  Solver		  "ode3"
-	  SolverName		  "ode3"
+	  Solver		  "FixedStepDiscrete"
+	  SolverName		  "FixedStepDiscrete"
 	  ZeroCrossControl	  "UseLocalSettings"
 	  AlgebraicLoopSolver	  "TrustRegion"
 	  SolverResetMethod	  "Fast"
@@ -179,7 +179,7 @@ Model {
 	  EnforceIntegerDowncast  on
 	  ExpressionFolding	  off
 	  ExpressionDepthLimit	  2147483647
-	  FoldNonRolledExpr	  off
+	  FoldNonRolledExpr	  on
 	  LocalBlockOutputs	  off
 	  RollThreshold		  5
 	  SystemCodeInlineAuto	  off
@@ -219,7 +219,7 @@ Model {
 	  InheritedTsInSrcMsg	  "warning"
 	  DiscreteInheritContinuousMsg "warning"
 	  MultiTaskDSMMsg	  "error"
-	  MultiTaskCondExecSysMsg "none"
+	  MultiTaskCondExecSysMsg "error"
 	  MultiTaskRateTransMsg	  "error"
 	  SingleTaskRateTransMsg  "none"
 	  TasksWithSamePriorityMsg "warning"
@@ -257,7 +257,7 @@ Model {
 	  ModelReferenceSymbolNameMessage "warning"
 	  ModelReferenceExtraNoncontSigs "error"
 	  StateNameClashWarn	  "warning"
-	  StrictBusMsg		  "None"
+	  StrictBusMsg		  "Warning"
 	}
 	Simulink.HardwareCC {
 	  $ObjectID		  6
@@ -266,11 +266,11 @@ Model {
 	  ProdBitPerShort	  16
 	  ProdBitPerInt		  32
 	  ProdBitPerLong	  32
-	  ProdIntDivRoundTo	  "Undefined"
-	  ProdEndianess		  "Unspecified"
+	  ProdIntDivRoundTo	  "Zero"
+	  ProdEndianess		  "LittleEndian"
 	  ProdWordSize		  32
 	  ProdShiftRightIntArith  on
-	  ProdHWDeviceType	  "32-bit Generic"
+	  ProdHWDeviceType	  "32-bit xPC Target (Intel Pentium)"
 	  TargetBitPerChar	  8
 	  TargetBitPerShort	  16
 	  TargetBitPerInt	  32
@@ -300,9 +300,8 @@ Model {
 	  $ObjectID		  8
 	  Array {
 	    Type		    "Cell"
-	    Dimension		    2
+	    Dimension		    1
 	    Cell		    "IncludeHyperlinkInReport"
-	    Cell		    "GenerateTraceInfo"
 	    PropName		    "DisabledProps"
 	  }
 	  Version		  "1.2.0"
@@ -328,7 +327,7 @@ Model {
 	  LaunchReport		  off
 	  TargetLang		  "C"
 	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
-	  IncludeERTFirstTime	  on
+	  IncludeERTFirstTime	  off
 	  Array {
 	    Type		    "Handle"
 	    Dimension		    2
@@ -455,7 +454,12 @@ Model {
 	      xPCGenerateXML	      off
 	      RL32ObjectName	      "tg"
 	      xPCisDownloadable	      off
-	      xPCisDefaultEnv	      off
+	      xPCisDefaultEnv	      on
+	      CustomProperty {
+		DataType		"string"
+		Name			"CompOptLevelCompliant"
+		Value			"off"
+	      }
 	    }
 	    PropName		    "Components"
 	  }
@@ -463,7 +467,7 @@ Model {
 	PropName		"Components"
       }
       Name		      "Configuration"
-      CurrentDlgPage	      "Real-Time Workshop/xPC Target options"
+      CurrentDlgPage	      "Solver"
     }
     PropName		    "ConfigurationSets"
   }
@@ -522,22 +526,6 @@ Model {
       StatesWhenEnabling      "held"
       ShowOutputPort	      off
       ZeroCross		      on
-    }
-    Block {
-      BlockType		      Gain
-      Gain		      "1"
-      Multiplication	      "Element-wise(K.*u)"
-      ParameterDataTypeMode   "Same as input"
-      ParameterDataType	      "sfix(16)"
-      ParameterScalingMode    "Best Precision: Matrix-wise"
-      ParameterScaling	      "2^0"
-      OutDataTypeMode	      "Same as input"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
-      LockScale		      off
-      RndMeth		      "Floor"
-      SaturateOnIntegerOverflow	on
-      SampleTime	      "-1"
     }
     Block {
       BlockType		      Ground
@@ -680,6 +668,9 @@ Model {
       ZeroCross		      on
       SampleTime	      "-1"
     }
+    Block {
+      BlockType		      Terminator
+    }
   }
   AnnotationDefaults {
     HorizontalAlignment	    "center"
@@ -700,8 +691,8 @@ Model {
     FontAngle		    "normal"
   }
   System {
-    Name		    "wrist_flexion"
-    Location		    [272, 139, 1255, 756]
+    Name		    "ball_drop"
+    Location		    [54, 104, 1042, 793]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -717,16 +708,241 @@ Model {
     ReportName		    "simulink-default.rpt"
     Block {
       BlockType		      SubSystem
-      Name		      "1DOverride"
-      Ports		      [1, 1]
-      Position		      [125, 224, 170, 266]
+      Name		      "Ball sensors"
+      Ports		      [0, 1]
+      Position		      [70, 373, 170, 467]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
       MaskHideContents	      off
       System {
-	Name			"1DOverride"
-	Location		[0, 82, 1268, 876]
+	Name			"Ball sensors"
+	Location		[152, 233, 1219, 838]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant"
+	  Position		  [365, 270, 395, 300]
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant1"
+	  Position		  [345, 480, 375, 510]
+	  Value			  "0"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [2, 1]
+	  Position		  [440, 147, 445, 258]
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux2"
+	  Ports			  [2, 1]
+	  Position		  [700, 327, 705, 438]
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "PCI-6025E AD"
+	  Ports			  [0, 2]
+	  Position		  [100, 325, 215, 440]
+	  SourceBlock		  "xpcnilib/A//D/PCI-6025E AD"
+	  SourceType		  "adnipci6025e"
+	  channel		  "[9 10]"
+	  range			  "[-10]"
+	  coupling		  "[0]"
+	  sampletime		  "0.001"
+	  slot			  "-1"
+	}
+	Block {
+	  BlockType		  Switch
+	  Name			  "Switch"
+	  Position		  [465, 340, 495, 370]
+	  Threshold		  "2.5"
+	  InputSameDT		  off
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Switch
+	  Name			  "Switch1"
+	  Position		  [525, 395, 555, 425]
+	  Threshold		  "2.5"
+	  InputSameDT		  off
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "ball sensors"
+	  Ports			  [1]
+	  Position		  [530, 184, 600, 226]
+	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
+	  SourceType		  "xpcscopeblock"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  scopeno		  "4"
+	  scopetype		  "Target"
+	  autostart		  on
+	  viewmode		  "Numerical"
+	  formatstr		  "' %2.2f Pick up, %2.2f drop'"
+	  grid			  on
+	  ylimits		  "[-10,10]"
+	  nosamples		  "10"
+	  noprepostsamples	  "0"
+	  interleave		  "10"
+	  triggermode		  "FreeRun"
+	  triggersignal		  "1"
+	  triggerlevel		  "0.0"
+	  triggerslope		  "Either"
+	  triggerscope		  "1"
+	  triggersample		  "0"
+	  filename		  "data.dat"
+	  mode			  "Lazy"
+	  writesize		  "512"
+	  autorestart		  off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out1"
+	  Position		  [815, 378, 845, 392]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Line {
+	  SrcBlock		  "PCI-6025E AD"
+	  SrcPort		  1
+	  Points		  [10, 0]
+	  Branch {
+	    Points		    [0, -180]
+	    DstBlock		    "Mux1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Switch"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "PCI-6025E AD"
+	  SrcPort		  2
+	  Points		  [40, 0]
+	  Branch {
+	    Points		    [0, -180]
+	    DstBlock		    "Mux1"
+	    DstPort		    2
+	  }
+	  Branch {
+	    DstBlock		    "Switch1"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "ball sensors"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Constant"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, 60]
+	  Branch {
+	    DstBlock		    "Switch"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 75]
+	    DstBlock		    "Switch1"
+	    DstPort		    3
+	  }
+	}
+	Line {
+	  SrcBlock		  "Constant1"
+	  SrcPort		  1
+	  Points		  [70, 0; 0, -95]
+	  Branch {
+	    DstBlock		    "Switch"
+	    DstPort		    3
+	  }
+	  Branch {
+	    DstBlock		    "Switch1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Switch"
+	  SrcPort		  1
+	  DstBlock		  "Mux2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Switch1"
+	  SrcPort		  1
+	  DstBlock		  "Mux2"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux2"
+	  SrcPort		  1
+	  DstBlock		  "Out1"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      "S-Function"
+      Name		      "Behavior BD"
+      Ports		      [2, 9]
+      Position		      [395, 32, 650, 548]
+      BackgroundColor	      "lightBlue"
+      FunctionName	      "mastercon_bd"
+      Parameters	      "1 2 3 4 5 6 7 8 9"
+      MaskDisplay	      "disp('Master Control\\nBall-Drop')\nport_label("
+"'input',1,'touch pad')\nport_label('input',2,'ball sensors')\nport_label('out"
+"put',1,'Reward')\nport_label('output',2,'Word')\nport_label('output',3,'TP LE"
+"D')\nport_label('output',4,'Gadget LED')\nport_label('output',5,'Gadget Selec"
+"t')\nport_label('output',6,'Status')\nport_label('output',7,'Tone')\nport_lab"
+"el('output',8,'Targets')\nport_label('output',9,'Version')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "DeviceOutput"
+      Ports		      [3]
+      Position		      [720, 170, 820, 300]
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"DeviceOutput"
+	Location		[77, 107, 1353, 821]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -741,370 +957,160 @@ Model {
 	ZoomFactor		"100"
 	Block {
 	  BlockType		  Inport
-	  Name			  "Trig"
-	  Position		  [290, 178, 320, 192]
+	  Name			  "TouchPadLED"
+	  Position		  [475, 308, 505, 322]
 	  IconDisplay		  "Port number"
 	}
 	Block {
-	  BlockType		  Constant
-	  Name			  "Constant"
-	  Position		  [460, 180, 490, 210]
-	  Value			  "0"
-	}
-	Block {
-	  BlockType		  Demux
-	  Name			  "Demux"
-	  Ports			  [1, 2]
-	  Position		  [400, 166, 405, 204]
-	  BackgroundColor	  "black"
-	  ShowName		  off
-	  Outputs		  "2"
-	  DisplayOption		  "bar"
-	}
-	Block {
-	  BlockType		  Mux
-	  Name			  "Mux"
-	  Ports			  [2, 1]
-	  Position		  [810, 156, 815, 234]
-	  ShowName		  off
-	  Inputs		  "2"
-	  DisplayOption		  "bar"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "SetChan1To0"
-	  Position		  [505, 200, 535, 230]
-	  Value			  "0"
-	}
-	Block {
-	  BlockType		  Switch
-	  Name			  "Switch"
-	  Position		  [575, 200, 605, 230]
-	  Criteria		  "u2 > Threshold"
-	  InputSameDT		  off
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "Out1"
-	  Position		  [965, 188, 995, 202]
+	  BlockType		  Inport
+	  Name			  "GadgetLED"
+	  Position		  [475, 253, 505, 267]
+	  Port			  "2"
 	  IconDisplay		  "Port number"
-	  BusOutputAsStruct	  off
-	}
-	Line {
-	  SrcBlock		  "Trig"
-	  SrcPort		  1
-	  DstBlock		  "Demux"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Switch"
-	  SrcPort		  1
-	  DstBlock		  "Mux"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  1
-	  DstBlock		  "Mux"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Mux"
-	  SrcPort		  1
-	  DstBlock		  "Out1"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "SetChan1To0"
-	  SrcPort		  1
-	  DstBlock		  "Switch"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "Constant"
-	  SrcPort		  1
-	  Points		  [65, 0]
-	  DstBlock		  "Switch"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  2
-	  Points		  [30, 0; 0, 55; 120, 0]
-	  DstBlock		  "Switch"
-	  DstPort		  3
-	}
-      }
-    }
-    Block {
-      BlockType		      "S-Function"
-      Name		      "Behavior WF"
-      Ports		      [2, 8]
-      Position		      [400, 72, 565, 453]
-      BackgroundColor	      "lightBlue"
-      FunctionName	      "mastercon_wf"
-      Parameters	      "8 5 .5 .5 1 2 2 2 2 2 0 0 0 0 0"
-      MaskDisplay	      "disp('Master Control\\nWrist-Flexion')\nport_la"
-"bel('input',1,'cursor')\nport_label('input',2,'target list')\nport_label('out"
-"put',1,'Reward')\nport_label('output',2,'Word')\nport_label('output',3,'Statu"
-"s')\nport_label('output',4,'Tone')\nport_label('output',5,'Targets')\nport_la"
-"bel('output',6,'Target Select')\nport_label('output',7,'MVC Target')\nport_la"
-"bel('output',8,'version')"
-      MaskIconFrame	      on
-      MaskIconOpaque	      on
-      MaskIconRotate	      "none"
-      MaskIconUnits	      "autoscale"
-    }
-    Block {
-      BlockType		      Reference
-      Name		      "Cursor Pos"
-      Ports		      [1]
-      Position		      [295, 224, 365, 266]
-      SourceBlock	      "xpclib/Misc./Scope (xPC) "
-      SourceType	      "xpcscopeblock"
-      ShowPortLabels	      "FromPortIcon"
-      SystemSampleTime	      "-1"
-      FunctionWithSeparateData off
-      RTWMemSecFuncInitTerm   "Inherit from model"
-      RTWMemSecFuncExecute    "Inherit from model"
-      RTWMemSecDataConstants  "Inherit from model"
-      RTWMemSecDataInternal   "Inherit from model"
-      RTWMemSecDataParameters "Inherit from model"
-      scopeno		      "2"
-      scopetype		      "Target"
-      autostart		      on
-      viewmode		      "Numerical"
-      formatstr		      "' %6.6f X, %6.6f Y'"
-      grid		      on
-      ylimits		      "[-10,10]"
-      nosamples		      "10"
-      noprepostsamples	      "0"
-      interleave	      "10"
-      triggermode	      "FreeRun"
-      triggersignal	      "1"
-      triggerlevel	      "0.0"
-      triggerslope	      "Either"
-      triggerscope	      "1"
-      triggersample	      "0"
-      filename		      "data.dat"
-      mode		      "Lazy"
-      writesize		      "512"
-      autorestart	      off
-    }
-    Block {
-      BlockType		      SubSystem
-      Name		      "CursorPos"
-      Ports		      [0, 1]
-      Position		      [25, 219, 75, 271]
-      MinAlgLoopOccurrences   off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      MaskHideContents	      off
-      System {
-	Name			"CursorPos"
-	Location		[118, 110, 1142, 761]
-	Open			on
-	ModelBrowserVisibility	off
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Sum
-	  Name			  "Add"
-	  Ports			  [2, 1]
-	  Position		  [395, 367, 425, 398]
-	  CollapseMode		  "All dimensions"
-	  InputSameDT		  off
-	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutScaling		  "2^-10"
-	  SaturateOnIntegerOverflow off
 	}
 	Block {
-	  BlockType		  Sum
-	  Name			  "Add1"
-	  Ports			  [2, 1]
-	  Position		  [395, 442, 425, 473]
-	  CollapseMode		  "All dimensions"
-	  InputSameDT		  off
-	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutScaling		  "2^-10"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Gain
-	  Name			  "GainX"
-	  Position		  [200, 375, 255, 405]
-	  Gain			  "15"
-	  ParameterDataTypeMode	  "Inherit via internal rule"
-	  OutDataTypeMode	  "Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Gain
-	  Name			  "GainY"
-	  Position		  [200, 435, 255, 465]
-	  Gain			  "15"
-	  ParameterDataTypeMode	  "Inherit via internal rule"
-	  OutDataTypeMode	  "Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Mux
-	  Name			  "Mux"
-	  Ports			  [2, 1]
-	  Position		  [535, 348, 540, 497]
-	  ShowName		  off
-	  Inputs		  "2"
-	  DisplayOption		  "bar"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "OffsetX"
-	  Position		  [315, 345, 345, 375]
-	  Value			  "0"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "OffsetY"
-	  Position		  [315, 460, 345, 490]
-	  Value			  "0"
+	  BlockType		  Inport
+	  Name			  "GadgetSelect"
+	  Position		  [60, 248, 90, 262]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Reference
-	  Name			  "PCI-6025E "
-	  Ports			  [0, 2]
-	  Position		  [40, 362, 145, 478]
-	  SourceBlock		  "xpcnilib/A//D/PCI-6025E AD"
-	  SourceType		  "adnipci6025e"
-	  channel		  "[9 10]"
-	  range			  "[-10]"
-	  coupling		  "[0]"
+	  Name			  "PCI-6025E DO"
+	  Ports			  [4]
+	  Position		  [600, 124, 780, 341]
+	  SourceBlock		  "xpcnilib/Digital\nOutput/PCI-6025E DO"
+	  SourceType		  "donipcie6025"
+	  channel		  "[4 5 6 8]"
+	  reset			  "[1]"
+	  initValue		  "[0]"
 	  sampletime		  "0.001"
 	  slot			  "-1"
 	}
 	Block {
-	  BlockType		  Outport
-	  Name			  "Pos"
-	  Position		  [600, 418, 630, 432]
-	  IconDisplay		  "Port number"
-	  BusOutputAsStruct	  off
+	  BlockType		  Terminator
+	  Name			  "Terminator"
+	  Position		  [240, 200, 260, 220]
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator1"
+	  Position		  [290, 230, 310, 250]
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator2"
+	  Position		  [240, 260, 260, 280]
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator3"
+	  Position		  [290, 290, 310, 310]
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator4"
+	  Position		  [240, 320, 260, 340]
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator5"
+	  Position		  [290, 350, 310, 370]
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "ToBits"
+	  Ports			  [1, 8]
+	  Position		  [165, 129, 215, 381]
+	  SourceBlock		  "limblab/ToBits"
+	  SourceType		  ""
 	}
 	Line {
-	  SrcBlock		  "PCI-6025E "
+	  SrcBlock		  "GadgetLED"
 	  SrcPort		  1
-	  DstBlock		  "GainX"
+	  DstBlock		  "PCI-6025E DO"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "TouchPadLED"
+	  SrcPort		  1
+	  DstBlock		  "PCI-6025E DO"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "GadgetSelect"
+	  SrcPort		  1
+	  DstBlock		  "ToBits"
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Mux"
+	  SrcBlock		  "ToBits"
 	  SrcPort		  1
-	  DstBlock		  "Pos"
+	  DstBlock		  "PCI-6025E DO"
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "PCI-6025E "
+	  SrcBlock		  "ToBits"
 	  SrcPort		  2
-	  DstBlock		  "GainY"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "GainX"
-	  SrcPort		  1
-	  DstBlock		  "Add"
+	  Points		  [235, 0; 0, 25]
+	  DstBlock		  "PCI-6025E DO"
 	  DstPort		  2
 	}
 	Line {
-	  SrcBlock		  "Add"
-	  SrcPort		  1
-	  DstBlock		  "Mux"
+	  SrcBlock		  "ToBits"
+	  SrcPort		  4
+	  DstBlock		  "Terminator1"
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "GainY"
-	  SrcPort		  1
-	  DstBlock		  "Add1"
+	  SrcBlock		  "ToBits"
+	  SrcPort		  3
+	  DstBlock		  "Terminator"
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Add1"
-	  SrcPort		  1
-	  DstBlock		  "Mux"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "OffsetX"
-	  SrcPort		  1
-	  Points		  [15, 0; 0, 15]
-	  DstBlock		  "Add"
+	  SrcBlock		  "ToBits"
+	  SrcPort		  5
+	  DstBlock		  "Terminator2"
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "OffsetY"
-	  SrcPort		  1
-	  Points		  [15, 0; 0, -10]
-	  DstBlock		  "Add1"
-	  DstPort		  2
+	  SrcBlock		  "ToBits"
+	  SrcPort		  6
+	  DstBlock		  "Terminator3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "ToBits"
+	  SrcPort		  7
+	  DstBlock		  "Terminator4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "ToBits"
+	  SrcPort		  8
+	  DstBlock		  "Terminator5"
+	  DstPort		  1
 	}
       }
     }
     Block {
       BlockType		      Reference
-      Name		      "MVC Target"
-      Ports		      [1]
-      Position		      [590, 354, 660, 396]
-      SourceBlock	      "xpclib/Misc./Scope (xPC) "
-      SourceType	      "xpcscopeblock"
-      ShowPortLabels	      "FromPortIcon"
-      SystemSampleTime	      "-1"
-      FunctionWithSeparateData off
-      RTWMemSecFuncInitTerm   "Inherit from model"
-      RTWMemSecFuncExecute    "Inherit from model"
-      RTWMemSecDataConstants  "Inherit from model"
-      RTWMemSecDataInternal   "Inherit from model"
-      RTWMemSecDataParameters "Inherit from model"
-      scopeno		      "6"
-      scopetype		      "Target"
-      autostart		      on
-      viewmode		      "Numerical"
-      formatstr		      "' %6.4f X quad 1 MVC,%6.4f Y quad 1 MVC,%6.4f X"
-" quad 2 MVC,%6.4f Y quad 2 MVC,%6.4f X quad 3 MVC,%6.4f Y quad 3 MVC,%6.4f X "
-"quad 4 MVC,%6.4f Y quad 4 MVC'"
-      grid		      on
-      ylimits		      "[-10,10]"
-      nosamples		      "10"
-      noprepostsamples	      "0"
-      interleave	      "10"
-      triggermode	      "FreeRun"
-      triggersignal	      "1"
-      triggerlevel	      "0.0"
-      triggerslope	      "Either"
-      triggerscope	      "1"
-      triggersample	      "0"
-      filename		      "data.dat"
-      mode		      "Lazy"
-      writesize		      "512"
-      autorestart	      off
-    }
-    Block {
-      BlockType		      Memory
-      Name		      "Memory"
-      Position		      [325, 465, 355, 495]
-      Orientation	      "left"
-      InheritSampleTime	      on
+      Name		      "PCI-6025E DI"
+      Ports		      [0, 1]
+      Position		      [240, 132, 345, 188]
+      SourceBlock	      "xpcnilib/Digital\nInput/PCI-6025E DI"
+      SourceType	      "dinipcie6025"
+      channel		      "[3]"
+      sampletime	      "0.001"
+      slot		      "-1"
     }
     Block {
       BlockType		      SubSystem
       Name		      "RewardSbs"
       Ports		      [1]
-      Position		      [625, 84, 670, 126]
+      Position		      [720, 49, 765, 91]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -1469,7 +1475,7 @@ Model {
       BlockType		      Reference
       Name		      "Status"
       Ports		      [1]
-      Position		      [625, 174, 695, 216]
+      Position		      [720, 324, 790, 366]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -1503,17 +1509,53 @@ Model {
       autorestart	      off
     }
     Block {
+      BlockType		      Reference
+      Name		      "Status1"
+      Ports		      [1]
+      Position		      [285, 324, 355, 366]
+      SourceBlock	      "xpclib/Misc./Scope (xPC) "
+      SourceType	      "xpcscopeblock"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      scopeno		      "2"
+      scopetype		      "Target"
+      autostart		      on
+      viewmode		      "Numerical"
+      formatstr		      "' %6.6f X, %6.6f Y'"
+      grid		      on
+      ylimits		      "[-10,10]"
+      nosamples		      "10"
+      noprepostsamples	      "0"
+      interleave	      "10"
+      triggermode	      "FreeRun"
+      triggersignal	      "1"
+      triggerlevel	      "0.0"
+      triggerslope	      "Either"
+      triggerscope	      "1"
+      triggersample	      "0"
+      filename		      "data.dat"
+      mode		      "Lazy"
+      writesize		      "512"
+      autorestart	      off
+    }
+    Block {
       BlockType		      SubSystem
       Name		      "UDPXmit"
-      Ports		      [3]
-      Position		      [620, 231, 730, 299]
+      Ports		      [2]
+      Position		      [720, 392, 830, 463]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
       MaskHideContents	      off
       System {
 	Name			"UDPXmit"
-	Location		[119, 254, 1039, 802]
+	Location		[190, 151, 1183, 777]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1528,29 +1570,22 @@ Model {
 	ZoomFactor		"100"
 	Block {
 	  BlockType		  Inport
-	  Name			  "Pos"
-	  Position		  [340, 143, 370, 157]
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
 	  Name			  "Tone"
 	  Position		  [335, 623, 365, 637]
-	  Port			  "2"
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Inport
 	  Name			  "Tgts"
-	  Position		  [85, 383, 115, 397]
-	  Port			  "3"
+	  Position		  [55, 383, 85, 397]
+	  Port			  "2"
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Demux
 	  Name			  "Demux"
 	  Ports			  [1, 10]
-	  Position		  [175, 182, 180, 598]
+	  Position		  [230, 182, 235, 598]
 	  BackgroundColor	  "black"
 	  ShowName		  off
 	  Outputs		  "10"
@@ -1558,19 +1593,9 @@ Model {
 	}
 	Block {
 	  BlockType		  Demux
-	  Name			  "Demux1"
-	  Ports			  [1, 2]
-	  Position		  [410, 109, 415, 191]
-	  BackgroundColor	  "black"
-	  ShowName		  off
-	  Outputs		  "2"
-	  DisplayOption		  "bar"
-	}
-	Block {
-	  BlockType		  Demux
 	  Name			  "Demux2"
 	  Ports			  [1, 2]
-	  Position		  [445, 589, 450, 671]
+	  Position		  [445, 590, 450, 670]
 	  BackgroundColor	  "black"
 	  ShowName		  off
 	  Outputs		  "2"
@@ -1583,10 +1608,16 @@ Model {
 	  Position		  [565, 96, 675, 684]
 	  SourceBlock		  "xpclib/UDP/Pack"
 	  SourceType		  "xpcany2byte"
-	  datatypes		  "{'double', 'double','double','double','doub"
-"le','double','double','double','double','double','double','double','double','"
-"double'}"
+	  datatypes		  "{'double','double','double','double','doubl"
+"e','double','double','double','double','double','double','double','double','d"
+"ouble'}"
 	  byteAlign		  "1"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Pos"
+	  Position		  [410, 135, 440, 165]
+	  Value			  "0"
 	}
 	Block {
 	  BlockType		  RateTransition
@@ -1616,6 +1647,36 @@ Model {
 	  SrcPort		  1
 	  DstBlock		  "Rate Transition"
 	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  13
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  2
+	  DstBlock		  "Pack"
+	  DstPort		  14
+	}
+	Line {
+	  SrcBlock		  "Tone"
+	  SrcPort		  1
+	  DstBlock		  "Demux2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Tgts"
+	  SrcPort		  1
+	  DstBlock		  "Demux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  3
+	  DstBlock		  "Pack"
+	  DstPort		  5
 	}
 	Line {
 	  SrcBlock		  "Demux"
@@ -1661,12 +1722,6 @@ Model {
 	}
 	Line {
 	  SrcBlock		  "Demux"
-	  SrcPort		  3
-	  DstBlock		  "Pack"
-	  DstPort		  5
-	}
-	Line {
-	  SrcBlock		  "Demux"
 	  SrcPort		  2
 	  DstBlock		  "Pack"
 	  DstPort		  4
@@ -1678,46 +1733,19 @@ Model {
 	  DstPort		  3
 	}
 	Line {
-	  SrcBlock		  "Demux1"
-	  SrcPort		  1
-	  DstBlock		  "Pack"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Demux1"
-	  SrcPort		  2
-	  DstBlock		  "Pack"
-	  DstPort		  2
-	}
-	Line {
 	  SrcBlock		  "Pos"
 	  SrcPort		  1
-	  DstBlock		  "Demux1"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Demux2"
-	  SrcPort		  1
-	  DstBlock		  "Pack"
-	  DstPort		  13
-	}
-	Line {
-	  SrcBlock		  "Demux2"
-	  SrcPort		  2
-	  DstBlock		  "Pack"
-	  DstPort		  14
-	}
-	Line {
-	  SrcBlock		  "Tone"
-	  SrcPort		  1
-	  DstBlock		  "Demux2"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Tgts"
-	  SrcPort		  1
-	  DstBlock		  "Demux"
-	  DstPort		  1
+	  Points		  [50, 0]
+	  Branch {
+	    Points		    [0, -20]
+	    DstBlock		    "Pack"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 20]
+	    DstBlock		    "Pack"
+	    DstPort		    2
+	  }
 	}
       }
     }
@@ -1725,7 +1753,7 @@ Model {
       BlockType		      Reference
       Name		      "Version Display"
       Ports		      [1]
-      Position		      [625, 419, 695, 461]
+      Position		      [720, 489, 790, 531]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -1736,7 +1764,7 @@ Model {
       RTWMemSecDataConstants  "Inherit from model"
       RTWMemSecDataInternal   "Inherit from model"
       RTWMemSecDataParameters "Inherit from model"
-      scopeno		      "4"
+      scopeno		      "3"
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
@@ -1759,35 +1787,17 @@ Model {
       autorestart	      off
     }
     Block {
-      BlockType		      Reference
-      Name		      "WFTargetTable"
-      Ports		      [1, 1]
-      Position		      [315, 332, 370, 388]
-      SourceBlock	      "simulink/Lookup\nTables/Direct Lookup\nTable (n"
-"-D)"
-      SourceType	      "LookupNDDirect"
-      maskTabDims	      "2"
-      explicitNumDims	      "1"
-      outDims		      "Column"
-      tabIsInput	      off
-      mxTable		      "[5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5;5 5 5 5 5 5 5 "
-"5 5 5 5 5 5 5 5 5;5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5;5 5 5 5 5 5 5 5 5 5 5 5 5 5"
-" 5 5;0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]"
-      clipFlag		      "Warning"
-      samptime		      "-1"
-    }
-    Block {
       BlockType		      SubSystem
       Name		      "WordSbs"
       Ports		      [1]
-      Position		      [625, 129, 670, 171]
+      Position		      [720, 104, 765, 146]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
       MaskHideContents	      off
       System {
 	Name			"WordSbs"
-	Location		[195, 115, 1142, 909]
+	Location		[195, 115, 1142, 932]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1819,7 +1829,7 @@ Model {
 	  initValue		  "[0]"
 	  chip			  "1"
 	  sampletime		  "-1"
-	  slot			  "[-1]"
+	  slot			  "-1"
 	}
 	Block {
 	  BlockType		  Reference
@@ -1889,92 +1899,81 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "Behavior WF"
+      SrcBlock		      "Behavior BD"
       SrcPort		      2
       DstBlock		      "WordSbs"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Behavior WF"
+      SrcBlock		      "Behavior BD"
+      SrcPort		      3
+      Points		      [0, 10]
+      DstBlock		      "DeviceOutput"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Behavior BD"
+      SrcPort		      4
+      DstBlock		      "DeviceOutput"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Behavior BD"
+      SrcPort		      5
+      Points		      [0, -10]
+      DstBlock		      "DeviceOutput"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Behavior BD"
+      SrcPort		      6
+      DstBlock		      "Status"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Behavior BD"
       SrcPort		      1
       DstBlock		      "RewardSbs"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Memory"
-      SrcPort		      1
-      Points		      [-35, 0; 0, -120]
-      DstBlock		      "WFTargetTable"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "WFTargetTable"
-      SrcPort		      1
-      DstBlock		      "Behavior WF"
-      DstPort		      2
-    }
-    Line {
-      SrcBlock		      "Behavior WF"
-      SrcPort		      3
-      DstBlock		      "Status"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Behavior WF"
-      SrcPort		      4
-      Points		      [15, 0; 0, 25]
-      DstBlock		      "UDPXmit"
-      DstPort		      2
-    }
-    Line {
-      SrcBlock		      "Behavior WF"
-      SrcPort		      5
-      DstBlock		      "UDPXmit"
-      DstPort		      3
-    }
-    Line {
-      SrcBlock		      "CursorPos"
-      SrcPort		      1
-      DstBlock		      "1DOverride"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "1DOverride"
-      SrcPort		      1
-      Points		      [35, 0]
-      Branch {
-	DstBlock		"Cursor Pos"
-	DstPort			1
-      }
-      Branch {
-	Points			[0, -75]
-	DstBlock		"Behavior WF"
-	DstPort			1
-      }
-      Branch {
-	Labels			[2, 0]
-	Points			[0, 290; 585, 0; 0, -300; -190, 0]
-	DstBlock		"UDPXmit"
-	DstPort			1
-      }
-    }
-    Line {
-      SrcBlock		      "Behavior WF"
-      SrcPort		      6
-      Points		      [180, 0; 0, 150]
-      DstBlock		      "Memory"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Behavior WF"
-      SrcPort		      7
-      DstBlock		      "MVC Target"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Behavior WF"
+      SrcBlock		      "Behavior BD"
       SrcPort		      8
-      Points		      [20, 0; 0, 20]
+      DstBlock		      "UDPXmit"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "PCI-6025E DI"
+      SrcPort		      1
+      DstBlock		      "Behavior BD"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Ball sensors"
+      SrcPort		      1
+      Points		      [70, 0]
+      Branch {
+	Labels			[1, 0]
+	DstBlock		"Behavior BD"
+	DstPort			2
+      }
+      Branch {
+	Labels			[1, 0]
+	Points			[0, -75]
+	DstBlock		"Status1"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Behavior BD"
+      SrcPort		      7
+      Points		      [50, 0]
+      DstBlock		      "UDPXmit"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Behavior BD"
+      SrcPort		      9
       DstBlock		      "Version Display"
       DstPort		      1
     }

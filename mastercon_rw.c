@@ -1,8 +1,6 @@
-/* mastercon_rw.c
+/* $Id$
  *
  * Master Control block for behavior: center-out task 
- *
- * CVS Revision -- $Revision: 1.22 $
  */
  
 #define S_FUNCTION_NAME mastercon_rw
@@ -10,7 +8,6 @@
 
 #include <math.h>
 #include <stdlib.h>
-#include <string.h>
 #include "simstruc.h"
 
 #define TASK_RW 1
@@ -39,8 +36,8 @@
  *
  */
 
-#define DATABURST_VERSION 0x00 
 typedef unsigned char byte;
+#define DATABURST_VERSION ((byte)0x00) 
 
 /*
  * Tunable parameters
@@ -109,18 +106,6 @@ static real_T master_reset = 0.0;
 
 #define PI (3.141592654)
 
-static void updateVersion(SimStruct *S)
-{
-    /* set variable to file version for display on screen */
-    /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.22 $";
-    char* version;
-    
-    version_str[strlen(version_str)-1] = 0; // set last "$" to zero
-    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
-    ssSetRWorkValue(S, 512, atof(version));
-}
-
 static void mdlCheckParameters(SimStruct *S)
 {
     num_targets = param_num_targets;
@@ -178,7 +163,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetInputPortDirectFeedThrough(S, 2, 1);
     
     /* 
-     * Block has 7 output ports (force, status, word, targets, reward, tone) of widths:
+     * Block has 8 output ports (force, status, word, targets, reward, tone, version, pos) of widths:
      *  force: 2
      *  status: 5 ( block counter, successes, aborts, failures, incompletes )
      *  word:  1 (8 bits)
@@ -191,25 +176,26 @@ static void mdlInitializeSizes(SimStruct *S)
      *  reward: 1
      *  tone: 2     ( 1: counter incemented for each new tone, 2: tone ID )
      *  version: 1 ( the cvs revision of the current .c file )
+     *  pos: 2 (x and y position of the cursor)
      */
-    if (!ssSetNumOutputPorts(S, 7)) return;
+    if (!ssSetNumOutputPorts(S, 8)) return;
     ssSetOutputPortWidth(S, 0, 2);   /* force   */
     ssSetOutputPortWidth(S, 1, 5);   /* status  */
     ssSetOutputPortWidth(S, 2, 1);   /* word    */
     ssSetOutputPortWidth(S, 3, 10);  /* target  */
     ssSetOutputPortWidth(S, 4, 1);   /* reward  */
     ssSetOutputPortWidth(S, 5, 2);   /* tone    */
-    ssSetOutputPortWidth(S, 6, 1);   /* version */
+    ssSetOutputPortWidth(S, 6, 4);   /* version */
+    ssSetOutputPortWidth(S, 7, 2);   /* pos     */
     
     ssSetNumSampleTimes(S, 1);
 
     /* work buffers */
-    ssSetNumRWork(S, 513);  /* 0: time of last timer reset 
+    ssSetNumRWork(S, 512);  /* 0: time of last timer reset 
                                1: tone counter (incremented each time a tone is played)
                                2: tone id
                                3: current target hold time
-                         [4-511]: positions of targets stored as (x, y)
-                             512: mastercon version */
+                         [4-511]: positions of targets stored as (x, y) */
 
     ssSetNumIWork(S, 7); /*    0: state_transition (true if state changed), 
                                1: current target index (in sequence),
@@ -272,8 +258,6 @@ static void mdlInitializeConditions(SimStruct *S)
     databurst = malloc(256);
     ssSetPWorkValue(S, 0, databurst);
     ssSetIWorkValue(S, 6, 0);
-
-    updateVersion(S);
 }
 
 /* macro for setting state changed */
@@ -371,7 +355,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 6);
     databurst = (byte *)ssGetPWorkValue(S, 0);
-    databurst_target_list = databurst + 2*sizeof(byte);
+    databurst_target_list = (float *)(databurst + 2*sizeof(byte));
     
     /*********************************
      * See if we have issued a reset *
@@ -382,7 +366,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 3, 0);
         ssSetIWorkValue(S, 4, 0);
         state_r[0] = STATE_PRETRIAL;
-        updateVersion(S);
         return;
     }
      
@@ -460,10 +443,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             
             /* Copy data into databursts */
-            databurst[0] = num_targets * 2 * sizeof(float) + 2;
+            databurst[0] = (byte)(num_targets * 2 * sizeof(float) + 2);
             databurst[1] = DATABURST_VERSION;
             for (i = 0; i < num_targets * 2; i++) {
-                databurst_target_list[i] = ssGetRWorkValue(S, 4 + i);
+                databurst_target_list[i] = (float)ssGetRWorkValue(S, 4 + i);
             }
             
             /* and reset the counters */
@@ -601,10 +584,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int databurst_counter;
     
     /* allocate holders for outputs */
-    real_T force_x, force_y, word, reward, tone_cnt, tone_id;
+    real_T force_x, force_y, word, reward, tone_cnt, tone_id, pos_x, pos_y;
     real_T target_pos[10];
     real_T status[4];
-    real_T version;
+    real_T version[4];
     
     /* pointers to output buffers */
     real_T *force_p;
@@ -614,6 +597,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *reward_p;
     real_T *tone_p;
     real_T *version_p;
+    real_T *pos_p;
     
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
@@ -777,9 +761,16 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         }
     }
         
-	/* version (6) */
-	version = ssGetRWorkValue(S, 512);
+    /* version (6) */
+    version[0] = BEHAVIOR_VERSION_MAJOR;
+    version[1] = BEHAVIOR_VERSION_MINOR;
+    version[2] = BEHAVIOR_VERSION_MICRO;
+    version[3] = BEHAVIOR_VERSION_BUILD;
 
+    /* pos (7) */
+    pos_x = cursor[0];
+    pos_y = cursor[1];
+    
     /**********************************
      * Write outputs back to SimStruct
      **********************************/
@@ -808,8 +799,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     ssSetRWorkValue(S, 1, tone_cnt);
     ssSetRWorkValue(S, 2, tone_id);
 
-	version_p = ssGetOutputPortRealSignal(S,6);
-	version_p[0] = version;
+    version_p = ssGetOutputPortRealSignal(S,6);
+    for (i=0; i<4; i++) {
+        version_p[i] = version[i];
+    }
+        
+    pos_p = ssGetOutputPortRealSignal(S,7);
+    pos_p[0] = pos_x;
+    pos_p[1] = pos_y;
     
     UNUSED_ARG(tid);
 }

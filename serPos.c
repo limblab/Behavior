@@ -1,5 +1,4 @@
-/*
- * File: serPos.c
+/* $Id$
  *
  * used to output the position data to TDT by cycling through the two 16
  * bit encoder signals one byte at a time.
@@ -8,7 +7,7 @@
 #define S_FUNCTION_NAME serPos
 #define S_FUNCTION_LEVEL 2
 
-#include "simstruc.h"
+#include "simstruc.h" 
 
 static void mdlInitializeSizes(SimStruct *S)
 {
