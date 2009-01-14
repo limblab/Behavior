@@ -18,6 +18,7 @@ perl('update_version.pl');
 % build the project
 try
     build(T, 'all', true);
+    copyfile('*.dlm','../bin','f');
 catch
 end
 

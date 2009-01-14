@@ -10,7 +10,7 @@
 
 /*********** DO NOT EDIT IN THE REGION ***********************/
 /* 
- * MAJROR and/or MINOR version numbers should be updated on every new behavior 
+ * MAJOR and/or MINOR version numbers should be updated on every new behavior 
  * release.
  *
  * MICRO and BUILD versions are set from update_version.pl, which is 
@@ -19,7 +19,7 @@
 #define BEHAVIOR_VERSION_MAJOR 1
 #define BEHAVIOR_VERSION_MINOR 5
 #define BEHAVIOR_VERSION_MICRO 202 
-#define BEHAVIOR_VERSION_BUILD 34
+#define BEHAVIOR_VERSION_BUILD 35
 
 #ifndef __BUILD_UPDATED__
 #error This project must be built from the build script. 
