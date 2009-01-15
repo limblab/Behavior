@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1194"
+    ComputedModelVersion    "1.1204"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Selket"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jan 08 17:00:17 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:1194>"
+  LastModifiedDate	  "Thu Jan 15 15:18:47 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:1204>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -814,7 +814,7 @@ Model {
   }
   System {
     Name		    "random_walk"
-    Location		    [6, 82, 1274, 859]
+    Location		    [331, 132, 1273, 680]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -831,7 +831,7 @@ Model {
     Block {
       BlockType		      "S-Function"
       Name		      "Behavior RW"
-      Ports		      [3, 7]
+      Ports		      [3, 8]
       Position		      [660, 88, 885, 422]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_rw"
@@ -840,7 +840,8 @@ Model {
 "os')\nport_label('input',2,'force')\nport_label('input',3,'catch force')\npor"
 "t_label('output',1,'force')\nport_label('output',2,'status')\nport_label('out"
 "put',3,'word')\nport_label('output',4,'targets')\nport_label('output',5,'rewa"
-"rd')\nport_label('output',6,'tone')\nport_label('output',7,'version')"
+"rd')\nport_label('output',6,'tone')\nport_label('output',7,'version')\nport_l"
+"abel('output',8,'pos')"
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
@@ -3439,7 +3440,7 @@ Model {
       System {
 	Name			"Recentering Subsystem"
 	Location		[-4, 85, 1248, 862]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -5546,7 +5547,7 @@ Model {
       BlockType		      SubSystem
       Name		      "RewardSbs"
       Ports		      [1]
-      Position		      [930, 279, 975, 321]
+      Position		      [930, 254, 975, 296]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -5916,7 +5917,7 @@ Model {
       BlockType		      Reference
       Name		      "Status"
       Ports		      [1]
-      Position		      [1010, 144, 1080, 186]
+      Position		      [1010, 134, 1080, 176]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -5953,7 +5954,7 @@ Model {
       BlockType		      SubSystem
       Name		      "Target Peek"
       Ports		      [1, 1]
-      Position		      [1025, 259, 1125, 301]
+      Position		      [1025, 214, 1125, 256]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -6175,20 +6176,20 @@ Model {
     Block {
       BlockType		      Terminator
       Name		      "Terminator"
-      Position		      [1185, 270, 1205, 290]
+      Position		      [1165, 225, 1185, 245]
     }
     Block {
       BlockType		      SubSystem
       Name		      "UDPXmit"
       Ports		      [3]
-      Position		      [1305, 209, 1405, 251]
+      Position		      [1265, 294, 1365, 336]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
       MaskHideContents	      off
       System {
 	Name			"UDPXmit"
-	Location		[2, 82, 1278, 978]
+	Location		[2, 82, 1278, 876]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -6203,21 +6204,21 @@ Model {
 	ZoomFactor		"100"
 	Block {
 	  BlockType		  Inport
-	  Name			  "Pos"
-	  Position		  [340, 143, 370, 157]
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "Tgts"
+	  Name			  "Targets"
 	  Position		  [95, 383, 125, 397]
-	  Port			  "2"
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Inport
 	  Name			  "Tone"
-	  Position		  [295, 623, 325, 637]
+	  Position		  [370, 623, 400, 637]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Pos"
+	  Position		  [320, 143, 350, 157]
 	  Port			  "3"
 	  IconDisplay		  "Port number"
 	}
@@ -6365,24 +6366,6 @@ Model {
 	  DstPort		  2
 	}
 	Line {
-	  SrcBlock		  "Pos"
-	  SrcPort		  1
-	  DstBlock		  "Demux1"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Tgts"
-	  SrcPort		  1
-	  DstBlock		  "Demux"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Tone"
-	  SrcPort		  1
-	  DstBlock		  "Demux2"
-	  DstPort		  1
-	}
-	Line {
 	  SrcBlock		  "Demux2"
 	  SrcPort		  1
 	  DstBlock		  "Pack"
@@ -6393,6 +6376,24 @@ Model {
 	  SrcPort		  2
 	  DstBlock		  "Pack"
 	  DstPort		  14
+	}
+	Line {
+	  SrcBlock		  "Tone"
+	  SrcPort		  1
+	  DstBlock		  "Demux2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Targets"
+	  SrcPort		  1
+	  DstBlock		  "Demux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Pos"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
 	}
       }
     }
@@ -7068,7 +7069,7 @@ Model {
       BlockType		      Reference
       Name		      "Version Display"
       Ports		      [1]
-      Position		      [975, 369, 1045, 411]
+      Position		      [975, 334, 1045, 376]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -7083,8 +7084,8 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "'Major: %6.0f,Minor: %6.0f,Rev: %6.0f,Build: %6"
-".0f'"
+      formatstr		      "'%6.0f major,%6.0f minor,%6.0f revision,%6.0f b"
+"uild'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"
@@ -7105,7 +7106,7 @@ Model {
       BlockType		      SubSystem
       Name		      "WordSbs"
       Ports		      [1]
-      Position		      [935, 189, 980, 231]
+      Position		      [935, 174, 980, 216]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -8854,19 +8855,12 @@ Model {
 	Branch {
 	  Points		  [0, -110]
 	  Branch {
-	    Points		    [0, -345; 320, 0]
-	    Branch {
-	      DstBlock		      "Behavior RW"
-	      DstPort		      1
-	    }
-	    Branch {
-	      Points		      [0, -85; 595, 0; 0, 155]
-	      DstBlock		      "UDPXmit"
-	      DstPort		      1
-	    }
+	    DstBlock		    "Matrix\nConcatenation1"
+	    DstPort		    1
 	  }
 	  Branch {
-	    DstBlock		    "Matrix\nConcatenation1"
+	    Points		    [0, -345]
+	    DstBlock		    "Behavior RW"
 	    DstPort		    1
 	  }
 	}
@@ -8887,24 +8881,16 @@ Model {
     Line {
       SrcBlock		      "Behavior RW"
       SrcPort		      4
-      Points		      [105, 0]
+      Points		      [110, 0]
       Branch {
-	Points			[0, 25]
 	DstBlock		"Target Peek"
 	DstPort			1
       }
       Branch {
-	Points			[0, -25]
+	Points			[0, -35; 220, 0; 0, 100]
 	DstBlock		"UDPXmit"
-	DstPort			2
+	DstPort			1
       }
-    }
-    Line {
-      SrcBlock		      "Behavior RW"
-      SrcPort		      6
-      Points		      [370, 0; 0, -100]
-      DstBlock		      "UDPXmit"
-      DstPort		      3
     }
     Line {
       SrcBlock		      "Force Generator"
@@ -8915,7 +8901,7 @@ Model {
     Line {
       SrcBlock		      "Behavior RW"
       SrcPort		      1
-      Points		      [10, 0; 0, 435]
+      Points		      [10, 0; 0, 440]
       DstBlock		      "Motor Control"
       DstPort		      1
     }
@@ -8989,6 +8975,19 @@ Model {
       SrcPort		      7
       DstBlock		      "Version Display"
       DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Behavior RW"
+      SrcPort		      8
+      Points		      [330, 0; 0, -65]
+      DstBlock		      "UDPXmit"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Behavior RW"
+      SrcPort		      6
+      DstBlock		      "UDPXmit"
+      DstPort		      2
     }
   }
 }
