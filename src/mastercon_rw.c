@@ -59,33 +59,39 @@ static real_T lower_target_boundary = -15.0; /* lower boundary for target drawin
 #define param_lower_target_boundary mxGetScalar(ssGetSFcnParam(S,6))
 
 /* dwell time in state 2 */
-static real_T target_hold_l = .5;
+static real_T target_hold_l = 0;
 #define param_target_hold_l mxGetScalar(ssGetSFcnParam(S,7))
-static real_T target_hold_h = .5;
+static real_T target_hold_h = 0;
 #define param_target_hold_h mxGetScalar(ssGetSFcnParam(S,8))
 
+/* delay time between next target appearance and movement state */
+static real_T target_delay_l = 0;
+#define param_target_delay_l mxGetScalar(ssGetSFcnParam(S,9))
+static real_T target_delay_h = 0;
+#define param_target_delay_h mxGetScalar(ssGetSFcnParam(S,10))
+
 static real_T movement_time = 10.0;  /* movement time */
-#define param_movement_time mxGetScalar(ssGetSFcnParam(S,9))
+#define param_movement_time mxGetScalar(ssGetSFcnParam(S,11))
 
 static real_T initial_movement_time = 10.0;  /* movement time */
-#define param_initial_movement_time mxGetScalar(ssGetSFcnParam(S,10))
+#define param_initial_movement_time mxGetScalar(ssGetSFcnParam(S,12))
 
-#define param_intertrial mxGetScalar(ssGetSFcnParam(S,11))
+#define param_intertrial mxGetScalar(ssGetSFcnParam(S,13))
 static real_T abort_timeout   = 1.0;    /* delay after abort */
 static real_T failure_timeout = 1.0;    /* delay after failure */
 static real_T incomplete_timeout = 1.0; /* delay after incomplete */
 static real_T reward_timeout  = 1.0;    /* delay after reward before starting next trial
                                          * This is NOT the reward pulse length */
-#define param_minimum_distance mxGetScalar(ssGetSFcnParam(S,12))
+#define param_minimum_distance mxGetScalar(ssGetSFcnParam(S,14))
 static real_T minimum_distance = 0.0;   /* minumum x distance and y distance from current target to the next one in cm */
-#define param_maximum_distance mxGetScalar(ssGetSFcnParam(S,13))
+#define param_maximum_distance mxGetScalar(ssGetSFcnParam(S,15))
 static real_T maximum_distance = 0.0;   /* maximum x distance and y distance from current target to the next one in cm  *
                                          * set maximum_distance to zero for unconstrained target distance */
-#define param_percent_catch_trials mxGetScalar(ssGetSFcnParam(S,14))
+#define param_percent_catch_trials mxGetScalar(ssGetSFcnParam(S,16))
 static real_T percent_catch_trials = 0.0;
 
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,15))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,17))
 
 /*
  * State IDs
@@ -93,7 +99,8 @@ static real_T master_reset = 0.0;
 #define STATE_PRETRIAL 0
 #define STATE_INITIAL_MOVEMENT 1
 #define STATE_TARGET_HOLD 2
-#define STATE_MOVEMENT 3
+#define STATE_TARGET_DELAY 3
+#define STATE_MOVEMENT 4
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
@@ -119,7 +126,10 @@ static void mdlCheckParameters(SimStruct *S)
             
     target_hold_l = param_target_hold_l;
     target_hold_h = param_target_hold_h;
-
+    
+    target_delay_l = param_target_delay_l;
+    target_delay_h = param_target_delay_h;
+    
     movement_time = param_movement_time;
     initial_movement_time = param_initial_movement_time;
 
@@ -138,7 +148,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 16); 
+    ssSetNumSFcnParams(S, 18); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -195,7 +205,8 @@ static void mdlInitializeSizes(SimStruct *S)
                                1: tone counter (incremented each time a tone is played)
                                2: tone id
                                3: current target hold time
-                         [4-511]: positions of targets stored as (x, y) */
+                               4: current target delay time
+                         [6-511]: positions of targets stored as (x, y) */
 
     ssSetNumIWork(S, 7); /*    0: state_transition (true if state changed), 
                                1: current target index (in sequence),
@@ -287,7 +298,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetRWorkValue(S, 2, 0.0);
     
     /* initialize targets at zero */
-    for (i = 4 ; i<512 ; i++){
+    for (i = 6 ; i<512 ; i++){
         ssSetRWorkValue(S, i, 0.0);
     }
     
@@ -313,6 +324,10 @@ static void mdlInitializeConditions(SimStruct *S)
 /* macro for assigning a random (if needed) time to the target hold time */
 #define set_random_hold_time() if (target_hold_l == target_hold_h) { ssSetRWorkValue(S, 3, target_hold_l);} \
                                else {ssSetRWorkValue(S, 3, target_hold_l + UNI*(target_hold_h-target_hold_l));}
+
+/* similarly, macro for assigning random delay time */
+#define set_random_delay_time() if (target_delay_l == target_delay_h) { ssSetRWorkValue(S, 4, target_delay_l);} \
+                               else {ssSetRWorkValue(S, 4, target_delay_l + UNI*(target_delay_h-target_delay_l));}
 
 /* setCatchFlag
  * If pct (percent of catch trials) is zero, catch trial flag is set to zero
@@ -387,7 +402,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     IWorkVector = ssGetIWork(S);
     target_index = IWorkVector[1];
     RWorkVector = ssGetRWork(S);
-    target_list = RWorkVector+4;
+    target_list = RWorkVector+6;
     target_x = target_list[2*target_index];
     target_y = target_list[2*target_index+1];
     
@@ -439,7 +454,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             target_hold_l = param_target_hold_l;
             target_hold_h = param_target_hold_h;
-           
+            
+            target_delay_l = param_target_delay_l;
+            target_delay_h = param_target_delay_h;
+            
             movement_time = param_movement_time;
 
             initial_movement_time = param_initial_movement_time;
@@ -491,7 +509,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             databurst[0] = (byte)(num_targets * 2 * sizeof(float) + 2);
             databurst[1] = DATABURST_VERSION;
             for (i = 0; i < num_targets * 2; i++) {
-                databurst_target_list[i] = (float)ssGetRWorkValue(S, 4 + i);
+                databurst_target_list[i] = (float)ssGetRWorkValue(S, 6 + i);
             }
             
             /* and reset the counters */
@@ -506,7 +524,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_DATA_BLOCK:
             if (databurst_counter++ >= databurst[0]) {
-               new_state = STATE_INITIAL_MOVEMENT;
+                new_state = STATE_INITIAL_MOVEMENT;
+                reset_timer(); /* start timer for movement */
+                state_changed();
             }
             ssSetIWorkValue(S, 6, databurst_counter);
             break;
@@ -551,12 +571,27 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                   state_changed();
                 } else {
                   /* more targets */
-                  target_index++;
-                  ssSetIWorkValue(S, 1, target_index);
-                  setCatchFlag(S, percent_catch_trials);  /* set flag randomly for next target */ 
-                  new_state = STATE_MOVEMENT;
-                  reset_timer(); /* movement timer */
+                  set_random_delay_time();
+                  new_state = STATE_TARGET_DELAY;
+                  reset_timer(); /* delay timer */
                   state_changed();                
+                }
+            }
+            break;
+        case STATE_TARGET_DELAY:
+            if (!cursorInTarget(cursor, tgt)) {
+                new_state = STATE_ABORT;
+                reset_timer(); /* abort timeout */
+                state_changed();
+            } else {
+                if (elapsed_timer_time > ssGetRWorkValue(S,4)) {
+                    /* start movement to next target */
+                    target_index++;
+                    ssSetIWorkValue(S, 1, target_index);
+                    setCatchFlag(S, percent_catch_trials);  /* set flag randomly for next target */ 
+                    new_state = STATE_MOVEMENT;
+                    reset_timer(); /* movement timer */
+                    state_changed();
                 }
             }
             break;
@@ -616,8 +651,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int_T catch_trial_flag;
     real_T *target_list;
     real_T target_x, target_y;
+    real_T next_target_x, next_target_y;
     real_T tgt[4];
     real_T disp_tgt[4];
+    real_T next_tgt[4];
     
     InputRealPtrsType uPtrs;
     real_T cursor[2];
@@ -654,7 +691,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     IWorkVector = ssGetIWork(S);
     target_index = IWorkVector[1];
     RWorkVector = ssGetRWork(S);
-    target_list = RWorkVector+4;
+    target_list = RWorkVector+6;
     target_x = target_list[2*target_index];
     target_y = target_list[2*target_index+1];
     
@@ -670,11 +707,22 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tgt[1] = target_y+target_size/2 + target_tolerance/2;
     tgt[2] = target_x+target_size/2 + target_tolerance/2;
     tgt[3] = target_y-target_size/2 - target_tolerance/2;    
-            
+    
     disp_tgt[0] = target_x-target_size/2;
     disp_tgt[1] = target_y+target_size/2;
     disp_tgt[2] = target_x+target_size/2;
     disp_tgt[3] = target_y-target_size/2; 
+    
+    if (target_index < (int)num_targets) {
+        next_target_x = target_list[2*(target_index+1)];
+        next_target_y = target_list[2*(target_index+1)+1];
+        
+        /* Only care about the displayed target -- ignore tolerances */
+        next_tgt[0] = next_target_x-target_size/2;
+        next_tgt[1] = next_target_y+target_size/2;
+        next_tgt[2] = next_target_x+target_size/2;
+        next_tgt[3] = next_target_y-target_size/2;
+    }
     
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
@@ -764,7 +812,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* target_pos (3) */
     if ( state == STATE_INITIAL_MOVEMENT || 
          state == STATE_MOVEMENT || 
-         state == STATE_TARGET_HOLD )
+         state == STATE_TARGET_HOLD ||
+         state == STATE_TARGET_DELAY )
     {
         /* target on */
         target_pos[0] = 1;
@@ -779,11 +828,20 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         }
     }
     
-    /* we never need a second target */
-    target_pos[5] = 0;
-    for (i=0; i<4; i++) {
-        target_pos[i+6] = 0;
+    /* the upcoming target */
+    if ( state == STATE_TARGET_DELAY ) {
+        target_pos[5] = 1;
+        for (i=0; i<4; i++) {
+            target_pos[i+6] = next_tgt[i];
+        }
+    } else {
+        /* upcoming target is off */
+        target_pos[5] = 0;
+        for (i=0; i<4; i++) {
+            target_pos[i+6] = 0;
+        }
     }
+    
         
     /* reward (4) */
     if (new_state && state==STATE_REWARD) {
@@ -791,7 +849,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     } else {
         reward = 0;
     }
-    
+
     /* tone (5) */
     if (new_state) {
         if (state == STATE_ABORT) {
