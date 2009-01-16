@@ -1,0 +1,7 @@
+%implements "mastercon_rw" "C"
+
+%% Function: Outputs ==========================================
+%%
+%function Outputs(block, system) Output
+  %%
+%endfunction
