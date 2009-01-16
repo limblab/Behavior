@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3246.25610">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3303.29023">
   <ScreenWidth>30</ScreenWidth>
   <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>2</Cursor>
@@ -206,6 +206,14 @@
       </item>
       <item>
         <key>THH</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>TDL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>TDH</key>
         <value>0</value>
       </item>
       <item>
@@ -494,6 +502,22 @@
       </item>
       <item>
         <key>WFCatchTrials</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFGX</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFGY</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFOY</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFOX</key>
         <value>0</value>
       </item>
     </dictionary>

@@ -5,7 +5,7 @@
  *
  * word 0 is reserved and has the meaning, "no word this cycle."
  */
- 
+
 #ifndef WORDS_CO_H
 #define WORDS_CO_H
 
@@ -20,7 +20,7 @@
 #define BEHAVIOR_VERSION_MAJOR 1
 #define BEHAVIOR_VERSION_MINOR 5
 #define BEHAVIOR_VERSION_MICRO 224 
-#define BEHAVIOR_VERSION_BUILD 76
+#define BEHAVIOR_VERSION_BUILD 99
 
 #ifndef __BUILD_UPDATED__
 #error This project must be built from the build script. 

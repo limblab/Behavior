@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1205"
+    ComputedModelVersion    "1.1209"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,13 +46,13 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Jan 16 13:28:01 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:1205>"
+  LastModifiedDate	  "Fri Jan 16 15:54:52 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:1209>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
   Profile		  off
-  ParamWorkspaceSource	  "MATLABWorkspace"
+  ParamWorkspaceSource	  "ReferencedWorkspace"
   AccelSystemTargetFile	  "accel.tlc"
   AccelTemplateMakefile	  "accel_default_tmf"
   AccelMakeCommand	  "make_rtw"
@@ -174,7 +174,7 @@ Model {
 	  BlockReduction	  off
 	  BooleanDataType	  off
 	  ConditionallyExecuteInputs on
-	  InlineParams		  off
+	  InlineParams		  on
 	  InlineInvariantSignals  off
 	  OptimizeBlockIOStorage  off
 	  BufferReuse		  off
@@ -464,7 +464,7 @@ Model {
 	PropName		"Components"
       }
       Name		      "Configuration"
-      CurrentDlgPage	      "Real-Time Workshop/xPC Target options"
+      CurrentDlgPage	      "Optimization"
     }
     PropName		    "ConfigurationSets"
   }
@@ -814,7 +814,7 @@ Model {
   }
   System {
     Name		    "random_walk"
-    Location		    [331, 132, 1273, 680]
+    Location		    [177, 199, 1119, 747]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
