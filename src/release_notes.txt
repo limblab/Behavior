@@ -49,6 +49,9 @@ Uncertainty
 Version 1.5
 ===========
 
+General
+  * Fixed a bug with the build system that allowed the limblab library to shadow
+    itself when working on multiple branches.
 Ball Drop
   * Fixed a bug that caused the reward counter not to reset correctly.
 

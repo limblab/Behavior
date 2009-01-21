@@ -15,6 +15,11 @@ T = {...
 % update the version numbers in words.h
 perl('update_version.pl');
 
+try
+    close_system('limblab');
+catch
+end
+
 % build the project
 try
     build(T, 'all', true);
