@@ -46,4 +46,10 @@ Uncertainty
   * The uncertainty task has been removed from the active development tree and 
     will not be included in future production releases.
 
+Version 1.5
+===========
+
+Ball Drop
+  * Fixed a bug that caused the reward counter not to reset correctly.
+
 
