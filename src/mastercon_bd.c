@@ -276,9 +276,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
      *********************************/
     if (param_master_reset > master_reset) {
         master_reset = param_master_reset;
+        ssSetIWorkValue(S, 1, 0);
         ssSetIWorkValue(S, 2, 0);
         ssSetIWorkValue(S, 3, 0);
-        ssSetIWorkValue(S, 4, 0);
         state_r[0] = STATE_PRETRIAL;
         return;
     }
