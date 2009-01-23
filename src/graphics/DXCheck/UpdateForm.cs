@@ -13,7 +13,7 @@ using XPCAPICOMLib;
 using System.Reflection;
 using Microsoft.Win32;
 
-namespace DXCheck
+namespace BehaviorGraphics
 {
     public partial class UpdateForm : Form
     {

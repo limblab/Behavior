@@ -7,7 +7,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 
-namespace DXCheck
+namespace BehaviorGraphics
 {
     public class CursorDef
     {
@@ -30,7 +30,7 @@ namespace DXCheck
         public Texture GetTexture(Device device)
         {
             System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
-            System.IO.Stream s = a.GetManifestResourceStream("DXCheck.textures." + this.File );
+            System.IO.Stream s = a.GetManifestResourceStream("BehaviorGraphics.textures." + this.File);
             return TextureLoader.FromStream(device, s);
         }
 
@@ -71,7 +71,7 @@ namespace DXCheck
             CursorDefs cds = new CursorDefs();
 
             System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
-            Stream reader = a.GetManifestResourceStream("DXCheck.config.CursorDefs.xml");
+            Stream reader = a.GetManifestResourceStream("BehaviorGraphics.config.CursorDefs.xml");
             XmlSerializer s = new XmlSerializer(typeof(CursorDefs));
             cds = (CursorDefs)s.Deserialize(reader);
             reader.Close();

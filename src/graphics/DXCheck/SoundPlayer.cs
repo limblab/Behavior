@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.DirectX;
 using Microsoft.DirectX.DirectSound;
 
-namespace DXCheck
+namespace BehaviorGraphics
 {
     public class SoundPlayer
     {
@@ -25,13 +25,13 @@ namespace DXCheck
             System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
             System.IO.Stream s;
 
-            s = a.GetManifestResourceStream(String.Format("DXCheck.tones.abort{0}.wav",(int)theme));
+            s = a.GetManifestResourceStream(String.Format("BehaviorGraphics.tones.abort{0}.wav", (int)theme));
             abort = new SecondaryBuffer(s, d, device);
 
-            s = a.GetManifestResourceStream(String.Format("DXCheck.tones.go{0}.wav", (int)theme));
+            s = a.GetManifestResourceStream(String.Format("BehaviorGraphics.tones.go{0}.wav", (int)theme));
             go = new SecondaryBuffer(s, d, device);
 
-            s = a.GetManifestResourceStream(String.Format("DXCheck.tones.reward{0}.wav", (int)theme));
+            s = a.GetManifestResourceStream(String.Format("BehaviorGraphics.tones.reward{0}.wav", (int)theme));
             reward = new SecondaryBuffer(s, d, device);
         }
 

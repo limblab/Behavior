@@ -5,7 +5,7 @@ using System.Drawing;
 using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
 
-namespace DXCheck
+namespace BehaviorGraphics
 {
     public class TargetSprite
     {

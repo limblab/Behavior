@@ -1,4 +1,4 @@
-namespace DXCheck
+namespace BehaviorGraphics
 {
     partial class BoxConfig
     {

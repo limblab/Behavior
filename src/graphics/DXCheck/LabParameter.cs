@@ -7,7 +7,7 @@ using XPCAPICOMLib;
 using System.IO;
 
 
-namespace DXCheck
+namespace BehaviorGraphics
 {
     public class LabParam
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DXCheck
+namespace BehaviorGraphics
 {
     public struct Box
     {

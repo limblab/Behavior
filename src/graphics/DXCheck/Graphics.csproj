@@ -7,8 +7,8 @@
     <ProjectGuid>{EE5B33E7-DCA0-4801-B48F-128EA4D2B6A8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DXCheck</RootNamespace>
-    <AssemblyName>DXCheck</AssemblyName>
+    <RootNamespace>BehaviorGraphics</RootNamespace>
+    <AssemblyName>BehaviorGraphics</AssemblyName>
     <ApplicationIcon>Monkey.ico</ApplicationIcon>
     <FileUpgradeFlags>
     </FileUpgradeFlags>

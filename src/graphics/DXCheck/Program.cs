@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Net.Sockets;
 
-namespace DXCheck
+namespace BehaviorGraphics
 {
     static class Program
     {

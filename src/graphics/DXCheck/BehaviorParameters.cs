@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace DXCheck
+namespace BehaviorGraphics
 {
     [XmlRoot]
     public class BehaviorParameters

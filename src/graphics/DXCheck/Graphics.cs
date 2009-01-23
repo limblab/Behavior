@@ -13,7 +13,7 @@ using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
 using System.IO;
 
-namespace DXCheck
+namespace BehaviorGraphics
 {
     public partial class Graphics : Form
     {

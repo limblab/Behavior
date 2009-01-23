@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 using System.Xml.Schema;
 using System.IO;
 
-namespace DXCheck
+namespace BehaviorGraphics
 {
     public class DictionarySerializer : IXmlSerializable
     {
