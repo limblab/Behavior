@@ -33,7 +33,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -176,10 +176,23 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="bin\Debug\DXCheck.vshost.exe.manifest" />
     <None Include="config\Parameters.xsl" />
+    <None Include="obj\Release\DXCheck.csproj.ResolveComReference.cache" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\DXCheck.exe" />
+    <Content Include="bin\Debug\DXCheck.pdb" />
+    <Content Include="bin\Debug\DXCheck.vshost.exe" />
+    <Content Include="bin\Release\DXCheck.exe" />
+    <Content Include="bin\Release\DXCheck.pdb" />
+    <Content Include="obj\Release\DXCheck.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\Interop.XPCAPICOMLib.dll" />
+    <Content Include="obj\Release\TempPE\Properties.Resources.Designer.cs.dll" />
     <Content Include="xpcapiCOM.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -189,4 +202,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

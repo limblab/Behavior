@@ -29,8 +29,9 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.1.*")]
-[assembly: AssemblyFileVersion("1.1.*")]
+[assembly: AssemblyVersion("2.0.*")]
+[assembly: AssemblyFileVersion("2.0.*")]
 // Revision History:
 //      1.0 Original Working Version
 //      1.1 Version deployed 3/19/2008
+//      2.0 Version released post svn merge with target code

@@ -23,6 +23,7 @@ end
 % build the project
 try
     build(T, 'all', true);
+    copyfile('*.mdl', '../../bin', 'f');
 catch
     err = lasterror;
     disp(' ');
