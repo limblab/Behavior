@@ -46,8 +46,8 @@ static real_T master_reset = 0.0;
 static real_T catch_trials_pct = 0.0;
 #define param_catch_trials_pct mxGetScalar(ssGetSFcnParam(S,8))
 
-#define set_catch_trial(x) ssSetIWorkValue(S, 4, (x))
-#define get_catch_trial() ssGetIWorkValue(S, 4)
+#define set_catch_trial(x) ssSetIWorkValue(S, 5, (x))
+#define get_catch_trial() ssGetIWorkValue(S, 5)
 
 /*
  * State IDs
@@ -61,6 +61,7 @@ static real_T catch_trials_pct = 0.0;
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
+#define STATE_INCOMPLETE 74
 #define STATE_DATA_BLOCK 255
 
 #define TONE_GO 1
@@ -132,7 +133,7 @@ static void mdlInitializeSizes(SimStruct *S)
      * 2: touch pad LED:  1
      * 3: gadget LED:     1
      * 4: gadget select:  1 ( will always be set to gadget #3 (the last of [0-3]) )
-     * 5: status:         4 ( 1: state, 2: rewards, 3: aborts 4: failures )
+     * 5: status:         5 ( 1: state, 2: rewards, 3: aborts 4: failures, 5: incomplete )
      * 6: tone:           2 ( 1: counter incemented for each new tone, 2: tone ID )
      * 7: target: 10 ( target 1, 2: 
      *                  type, 
@@ -148,7 +149,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 2, 1);
     ssSetOutputPortWidth(S, 3, 1);
     ssSetOutputPortWidth(S, 4, 1);
-    ssSetOutputPortWidth(S, 5, 4);
+    ssSetOutputPortWidth(S, 5, 5);
     ssSetOutputPortWidth(S, 6, 2);
     ssSetOutputPortWidth(S, 7, 10);
     ssSetOutputPortWidth(S, 8, 4);
@@ -166,15 +167,15 @@ static void mdlInitializeSizes(SimStruct *S)
                             */
 
     ssSetNumPWork(S, 0);	/*
-    						*/
+                            */
     
     ssSetNumIWork(S, 6); 	/*
     						0: state_transition (true if state changed), 
                             1: successes
                             2: aborts
-                            3: failures 
-                            4: catch_trial_flag
-                            5: datablock counter
+                            3: failures
+                            4: incomplete
+                            5: catch_trial_flag
                           	*/
     
     /* we have no zero crossing detection or modes */
@@ -212,7 +213,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 3, 0);
 	
     /* set catch trial flag to zero */
-    ssSetIWorkValue(S,4,0);
+    ssSetIWorkValue(S,5,0);
     
     /* set reset counter to zero */
     master_reset = 0.0;
@@ -379,7 +380,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_DROP:
             if (elapsed_timer_time > drop_time) {
-                new_state = STATE_FAIL;
+                new_state = STATE_INCOMPLETE;
                 state_changed();
                 reset_timer();
             } else if (drop_sensor) {
@@ -396,12 +397,19 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             break;
         case STATE_FAIL:
-            /* failure */
+            /* failure - The Monkey did not even picked up the ball*/
             if (elapsed_timer_time > failure_timeout) {
                 new_state = STATE_PRETRIAL;
                 state_changed();
             }
             break;
+        case STATE_INCOMPLETE:
+            /* incomplete - the monkey picked up the ball but did not drop it in the tube*/
+            if (elapsed_timer_time > incomplete_timeout) {
+                new_state = STATE_INCOMPLETE;
+                state_changed();
+            }
+            break;  
         case STATE_REWARD:
             /* reward */
             if (elapsed_timer_time > reward_timeout) {
@@ -441,7 +449,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T reward, word, touch_pad_led, gadget_led, gadget_select;
     real_T tgt[4];
     real_T target[10];
-    real_T status[4];
+    real_T status[5];
     real_T tone[2];
     real_T version[4];
     
@@ -505,18 +513,18 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
                 break;
-            case STATE_TOUCH_PAD_ON:
-            	if (get_catch_trial()) {
-                    word = WORD_CATCH;
-                }
             case STATE_TOUCH_PAD_HOLD:
                 word = WORD_HAND_ON_TOUCH_PAD;
                 break;
-            case STATE_DELAY:
-                word = WORD_GADGET_ON(gadget_id);
-                break;
+//             case STATE_DELAY:
+//                 word = WORD_GADGET_ON(gadget_id);
+//                 break;
             case STATE_PICKUP:
-                word = WORD_GO_CUE;
+            	if (get_catch_trial()) {
+                    word = WORD_CATCH;
+                } else {
+                    word = WORD_GO_CUE;
+                }                
                 break;
             case STATE_DROP:
                 word = WORD_MOVEMENT_ONSET;
@@ -530,6 +538,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_FAIL:
                 word = WORD_FAIL;
                 break;
+            case STATE_INCOMPLETE:
+                word = WORD_INCOMPLETE;
+                break;    
             default:
                 word = 0.0;
         }
@@ -562,11 +573,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 2, ssGetIWorkValue(S, 2)+1);
     if (state == STATE_FAIL && new_state)
         ssSetIWorkValue(S, 3, ssGetIWorkValue(S, 3)+1);
+    if (state == STATE_INCOMPLETE)
+        ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
       
     status[0] = state;
     status[1] = ssGetIWorkValue(S,1); // num rewards
     status[2] = ssGetIWorkValue(S,2); // num aborts
     status[3] = ssGetIWorkValue(S,3); // num failures
+    status[4] = ssGetIworkValue(S,4); // num incomplete
     
     /* tone (6) */
     if (new_state) {
@@ -630,7 +644,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      gadget_select_p[0] = gadget_select;
      
      status_p = ssGetOutputPortRealSignal(S,5);
-     for (i=0; i<4; i++) 
+     for (i=0; i<5; i++) 
          status_p[i] = (real_T)status[i];
     
      tone_p = ssGetOutputPortRealSignal(S,6);
