@@ -1,0 +1,192 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EE5B33E7-DCA0-4801-B48F-128EA4D2B6A8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DXCheck</RootNamespace>
+    <AssemblyName>DXCheck</AssemblyName>
+    <ApplicationIcon>Monkey.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.DirectX, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.DirectX.Direct3D, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.DirectX.Direct3DX, Version=1.0.2911.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.DirectX.DirectSound, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BehaviorParameters.cs" />
+    <Compile Include="Box.cs" />
+    <Compile Include="BoxConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BoxConfig.Designer.cs">
+      <DependentUpon>BoxConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CursorDef.cs" />
+    <Compile Include="DictionarySerializer.cs" />
+    <Compile Include="GraphicsAboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GraphicsAboutBox.Designer.cs">
+      <DependentUpon>GraphicsAboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LabParameter.cs" />
+    <Compile Include="MultiGadgetTarget.cs" />
+    <Compile Include="Graphics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Graphics.Designer.cs">
+      <DependentUpon>Graphics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Graphics.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Graphics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EmbeddedResource Include="textures\bananas.tga" />
+    <EmbeddedResource Include="textures\Nautilus.tga" />
+    <EmbeddedResource Include="textures\yellow128.tga" />
+    <EmbeddedResource Include="textures\yellow16.tga" />
+    <EmbeddedResource Include="textures\yellow32.tga" />
+    <EmbeddedResource Include="textures\yellow64.tga" />
+    <EmbeddedResource Include="textures\face.tga" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SoundPlayer.cs" />
+    <Compile Include="TargetSprite.cs" />
+    <Compile Include="UpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateForm.Designer.cs">
+      <DependentUpon>UpdateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WhichLabForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WhichLabForm.Designer.cs">
+      <DependentUpon>WhichLabForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="tones\abort1.wav" />
+    <EmbeddedResource Include="tones\go1.wav" />
+    <EmbeddedResource Include="tones\reward1.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GraphicsAboutBox.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GraphicsAboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Monkey.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="XPCAPICOMLib">
+      <Guid>{191651DC-F223-4CD8-86A0-F7BB5B5FE35D}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BoxConfig.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>BoxConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="config\CursorDefs.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="tones\go2.wav" />
+    <EmbeddedResource Include="tones\reward2.wav" />
+    <EmbeddedResource Include="tones\abort2.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="tones\abort3.wav" />
+    <EmbeddedResource Include="tones\go3.wav" />
+    <EmbeddedResource Include="tones\reward3.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="config\LabConfigs.xml" />
+    <EmbeddedResource Include="UpdateForm.resx">
+      <DependentUpon>UpdateForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WhichLabForm.resx">
+      <DependentUpon>WhichLabForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config\Parameters.xsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="xpcapiCOM.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

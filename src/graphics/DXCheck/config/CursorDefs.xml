@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="Parameters.xsl"?>
+<CursorDefs>
+	<CursorDef>
+    <Name>Bananas</Name>
+    <File>bananas.tga</File>
+    <X>32</X>
+    <Y>20</Y>
+	</CursorDef>
+  <CursorDef>
+    <Name>Yellow 16</Name>
+    <File>yellow16.tga</File>
+    <X>8</X>
+    <Y>8</Y>
+  </CursorDef>
+  <CursorDef>
+    <Name>Yellow 32</Name>
+    <File>yellow32.tga</File>
+    <X>16</X>
+    <Y>16</Y>
+  </CursorDef>
+  <CursorDef>
+    <Name>Yellow 64</Name>
+    <File>yellow64.tga</File>
+    <X>32</X>
+    <Y>32</Y>
+  </CursorDef>
+  <CursorDef>
+    <Name>Yellow 128</Name>
+    <File>yellow128.tga</File>
+    <X>64</X>
+    <Y>64</Y>
+  </CursorDef>
+	<CursorDef>
+    <Name>Face</Name>
+    <File>face.tga</File>
+    <X>15</X>
+    <Y>15</Y>
+  </CursorDef>
+  <CursorDef>
+    <Name>Nautilus</Name>
+    <File>Nautilus.tga</File>
+    <X>100</X>
+    <Y>65</Y>
+  </CursorDef>
+</CursorDefs>
