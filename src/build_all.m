@@ -16,7 +16,7 @@ T = {...
 perl('update_version.pl');
 
 try
-    close_system('limblab');
+    close_system('limblab', 0);
 catch
 end
 
