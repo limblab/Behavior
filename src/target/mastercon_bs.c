@@ -85,13 +85,20 @@ static real_T bump_duration;
 #define param_bump_steps mxGetScalar(ssGetSFcnParam(S,15))
 static int bump_steps;
 
-#define param_angle_count mxGetScalar(ssGetSFcnParam(S,16))
-static int angle_count; /* Number of targets presented at a given angle
-                         * before randomly selecting another angle.  Set to
-                         * zero to maintain current angle indefinately. */
-
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,17))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,16))
+
+static void updateVersion(SimStruct *S)
+{
+    /* set variable to file version for display on screen */
+    /* DO NOT change this version string by hand.  CVS will update it upon commit */
+    char version_str[256] = "$Revision: 1.18 $";
+    char* version;
+    
+    version_str[strlen(version_str)-1] = 0; // set last "$" to zero
+    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
+    ssSetRWorkValue(S, 3, atof(version));
+}
 
 /*
  * State IDs
@@ -122,7 +129,6 @@ static void mdlCheckParameters(SimStruct *S)
     stim_trial_pct = param_stim_trial_pct;
 
     target_angle = param_target_angle;
-    angle_count = param_angle_count;
     target_radius = param_target_radius;
     target_size = param_target_size;
     window_size = param_window_size;
@@ -209,7 +215,7 @@ static void mdlInitializeSizes(SimStruct *S)
 							 3: mastercon version
                            */
     ssSetNumPWork(S, 0);
-    ssSetNumIWork(S, 73);  /*    0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 72);  /*    0: state_transition (true if state changed), 
                                  1: current trial index,
 		                         2: stim trial (1 for yes, 0 for no)
                             [3-66]: trial presentation sequence
@@ -217,8 +223,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                 68: successes
                                 69: failures
                                 70: aborts 
-								71: incompletes 
-                                72: trial angle counter */
+								71: incompletes */
     
     /* we have no zero crossing detection or modes */
     ssSetNumModes(S, 0);
@@ -261,9 +266,8 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 69, 0);
     ssSetIWorkValue(S, 70, 0);
     ssSetIWorkValue(S, 71, 0);
-    
-    /* set trial angle counter to zero */
-    ssSetIWorkValue(S, 72, 0);
+
+	updateVersion(S);
 }
 
 /* macro for setting state changed */
@@ -364,8 +368,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 69, 0);
         ssSetIWorkValue(S, 70, 0);
 		ssSetIWorkValue(S, 71, 0);
-        ssSetIWorkValue(S, 72, 0);        
         state_r[0] = STATE_PRETRIAL;
+		updateVersion(S);
         return;
     }
     
