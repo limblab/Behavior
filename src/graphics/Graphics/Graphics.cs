@@ -20,6 +20,10 @@ namespace BehaviorGraphics
         private double x, y;
         private bool connectionLost;
         private bool flashOn;
+        private bool fullScreen;
+
+        private int savedWidth = 800;
+        private int savedHeight = 600;
 
         private Device device;
         private Microsoft.DirectX.Direct3D.Font font;
@@ -57,6 +61,7 @@ namespace BehaviorGraphics
             x = 0; y = 0;
             connectionLost = false;
             flashOn = false;
+            fullScreen = false;
             this.scale = 30f;
 
             this.Box = new Box(-10, -10, 10, 10);
@@ -71,7 +76,7 @@ namespace BehaviorGraphics
             IPEndPoint sender = new IPEndPoint(IPAddress.Any, 25000);
             this.remote = (EndPoint)sender;
             server.Bind(remote);
-            
+
             // Sound
             sp = new SoundPlayer(this, SoundPlayer.SoundTheme.Theme1);
 
@@ -98,10 +103,28 @@ namespace BehaviorGraphics
             activeCursor = cursorDefs[cursorId];
         }
 
-        public void InitializeDevice() {
+        private PresentParameters GetPresentParams()
+        {
             PresentParameters presentParams = new PresentParameters();
-            presentParams.Windowed = true;
+            if (fullScreen) {
+                presentParams.Windowed = false;
+                presentParams.BackBufferHeight = device.DisplayMode.Height;
+                presentParams.BackBufferWidth = device.DisplayMode.Width;
+            } else {
+                presentParams.Windowed = true;
+                presentParams.BackBufferHeight = this.ClientRectangle.Height;
+                presentParams.BackBufferWidth = this.ClientRectangle.Width;
+            }
+
+            presentParams.BackBufferFormat = Manager.Adapters[0].CurrentDisplayMode.Format; 
             presentParams.SwapEffect = SwapEffect.Discard;
+
+            return presentParams;
+        }
+
+        public void InitializeDevice()
+        {
+            PresentParameters presentParams = GetPresentParams();
 
             device = new Device(0, DeviceType.Hardware, this, CreateFlags.SoftwareVertexProcessing, presentParams);
             device.DeviceReset += new EventHandler(OnDeviceReset);
@@ -112,7 +135,7 @@ namespace BehaviorGraphics
 
             System.Drawing.Font systemErrFont = new System.Drawing.Font("Arial", 48);
             errFont = new Microsoft.DirectX.Direct3D.Font(device, systemErrFont);
-            
+
             OnDeviceReset(null, EventArgs.Empty);
         }
 
@@ -131,9 +154,7 @@ namespace BehaviorGraphics
 
         private void OnDeviceLost(object sender, EventArgs e)
         {
-            PresentParameters presentParams = new PresentParameters();
-            presentParams.Windowed = true;
-            presentParams.SwapEffect = SwapEffect.Discard;
+            PresentParameters presentParams = GetPresentParams();
 
             try {
                 device.TestCooperativeLevel(); //let's check what the state of the device is, if we can reset the device or not.
@@ -154,15 +175,20 @@ namespace BehaviorGraphics
 
             device.Clear(ClearFlags.Target, Color.Black, 1.0f, 0);
             device.BeginScene();
-#if DEBUG            
+#if DEBUG
             string posStr = String.Format("X: {0:f}\nY: {1:f}", this.x, this.y);
             posStr = posStr + "\n" + String.Format("Tone Count: {0}\nTone ID: {1}", this.tone_cnt, this.tone_id);
             posStr = posStr + "\n" + String.Format("Cursor: {0}\n{1}", this.activeCursorIndex, this.activeCursor);
             font.DrawText(null, posStr, new System.Drawing.Point(10, 10), System.Drawing.Color.White);
 #endif
-            if (connectionLost && flashOn)
-            {
-                errFont.DrawText(null, "No Position Signal", new System.Drawing.Point(30, this.Height - 150), System.Drawing.Color.HotPink);
+            if (connectionLost && flashOn) {
+                System.Drawing.Point p;
+                if (fullScreen) {
+                    p = new System.Drawing.Point(30, device.DisplayMode.Height - 150);
+                } else {
+                    p = new System.Drawing.Point(30, this.Height - 150);
+                }
+                errFont.DrawText(null, "No Position Signal", p, System.Drawing.Color.HotPink);
             }
 
             // Draw targets
@@ -179,7 +205,7 @@ namespace BehaviorGraphics
             if (drawBox) {
                 refreshBox();
                 device.VertexFormat = CustomVertex.TransformedColored.Format;
-                
+
                 device.DrawUserPrimitives(PrimitiveType.LineStrip, 4, boxVertices);
             }
 
@@ -196,14 +222,23 @@ namespace BehaviorGraphics
         private Vector3 cm2screen(double x, double y)
         {
             float xpos, ypos;
+            int height, width;
             int dim;
 
             y = y + verticalDisplacement;
 
-            dim = (this.ClientRectangle.Height > this.ClientRectangle.Width ? this.ClientRectangle.Width : this.ClientRectangle.Height); // min of height and width
-            xpos = this.ClientRectangle.Width / 2 + (float)x * dim / scale;
-            ypos = this.ClientRectangle.Height / 2 - (float)y * dim / scale;
+            if (fullScreen) {
+                height = this.device.DisplayMode.Height;
+                width = this.device.DisplayMode.Width;
+            } else {
+                height = this.ClientRectangle.Height;
+                width = this.ClientRectangle.Width;
+            }
 
+            dim = (height > width ? width : height); // min of height and width
+            xpos = width / 2 + (float)x * dim / scale;
+            ypos = height / 2 - (float)y * dim / scale;
+            
             return new Vector3(xpos, ypos, 0);
         }
 
@@ -211,39 +246,32 @@ namespace BehaviorGraphics
         {
             byte[] data = new byte[1024];
 
-            try
-            {
+            try {
                 int recv = server.ReceiveFrom(data, ref remote);
                 x = BitConverter.ToDouble(data, 0);
                 y = BitConverter.ToDouble(data, 8);
 
                 t1.Type = (TargetSpriteType)(BitConverter.ToDouble(data, 16));
-                t1.UL = cm2screen((float)BitConverter.ToDouble(data, 3*8), (float)BitConverter.ToDouble(data, 4*8));
-                t1.LR = cm2screen((float)BitConverter.ToDouble(data, 5*8), (float)BitConverter.ToDouble(data, 6*8));
+                t1.UL = cm2screen((float)BitConverter.ToDouble(data, 3 * 8), (float)BitConverter.ToDouble(data, 4 * 8));
+                t1.LR = cm2screen((float)BitConverter.ToDouble(data, 5 * 8), (float)BitConverter.ToDouble(data, 6 * 8));
 
                 t2.Type = (TargetSpriteType)(BitConverter.ToDouble(data, 56));
                 t2.UL = cm2screen((float)BitConverter.ToDouble(data, 8 * 8), (float)BitConverter.ToDouble(data, 9 * 8));
                 t2.LR = cm2screen((float)BitConverter.ToDouble(data, 10 * 8), (float)BitConverter.ToDouble(data, 11 * 8));
 
-                tone_id  = BitConverter.ToDouble(data, 13 * 8);
+                tone_id = BitConverter.ToDouble(data, 13 * 8);
                 double new_tone_cnt = BitConverter.ToDouble(data, 12 * 8);
-                if (new_tone_cnt > tone_cnt || 
-                    (new_tone_cnt!=tone_cnt && new_tone_cnt == 1.0)/* target restart hack */ ) 
-                {
+                if (new_tone_cnt > tone_cnt ||
+                    (new_tone_cnt != tone_cnt && new_tone_cnt == 1.0)/* target restart hack */ ) {
                     tone_cnt = new_tone_cnt;
                     sp.Play((int)tone_id);
                 }
 
                 this.connectionLost = false;
-            }
-            catch (SocketException e)
-            {
-                if (e.ErrorCode == 10060)
-                {
+            } catch (SocketException e) {
+                if (e.ErrorCode == 10060) {
                     this.connectionLost = true;
-                }
-                else
-                {
+                } else {
                     //running = false;
                     FrameTimer.Enabled = false;
                     MessageBox.Show(e.ToString());
@@ -281,6 +309,20 @@ namespace BehaviorGraphics
                 sp.Play(SoundPlayer.SoundID.abort);
             }
 #endif
+            if (!fullScreen && e.Alt && e.KeyCode == Keys.Enter) {
+                /* Go to full screen mode */
+                fullScreen = true;
+                this.device.Reset(GetPresentParams());
+            }
+
+            if (fullScreen && e.KeyCode == Keys.Escape) {
+                /* exit full screen mode */
+                fullScreen = false;
+                this.device.Reset(GetPresentParams());
+                this.TopMost = false;
+                this.Size = new Size(800, 600);
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+            }
         }
 
         private void Graphics_Click(object sender, EventArgs e)
@@ -329,7 +371,8 @@ namespace BehaviorGraphics
         public bool KeepGraphicsRunning
         {
             get { return keepGraphicsRunning; }
-            set { 
+            set
+            {
                 keepGraphicsRunning = value;
                 this.FrameTimer.Enabled = keepGraphicsRunning;
             }
@@ -344,7 +387,7 @@ namespace BehaviorGraphics
         private void refreshBox()
         {
             Vector3 p;
-            
+
             p = cm2screen(box.Left, box.Top);
             boxVertices[0].Position = new Vector4(p.X, p.Y, 0.0f, 1.0f);
             boxVertices[0].Color = Color.White.ToArgb();
