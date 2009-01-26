@@ -54,6 +54,7 @@ namespace BehaviorGraphics
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Graphics";
             this.Text = "Graphics";
+            this.SizeChanged += new System.EventHandler(this.Graphics_SizeChanged);
             this.Click += new System.EventHandler(this.Graphics_Click);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.ResumeLayout(false);

@@ -50,7 +50,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(238, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "In which lab are you currently running DXCheck?";
+            this.label1.Text = "In which lab are you currently running BehaviorGraphics?";
             // 
             // textBox1
             // 

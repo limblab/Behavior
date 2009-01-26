@@ -109,7 +109,7 @@ namespace BehaviorGraphics
             LabList labList = new LabList();
 
             System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
-            Stream reader = a.GetManifestResourceStream("DXCheck.config.LabConfigs.xml");
+            Stream reader = a.GetManifestResourceStream("BehaviorGraphics.config.LabConfigs.xml");
             XmlSerializer s = new XmlSerializer(typeof(LabList));
             labList = (LabList)s.Deserialize(reader);
             reader.Close();

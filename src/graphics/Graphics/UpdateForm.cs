@@ -670,7 +670,7 @@ namespace BehaviorGraphics
             wlf.ShowDialog();
 
             // Save current lab in the registry
-            RegistryKey key = Registry.LocalMachine.CreateSubKey("Software\\DXCheck");
+            RegistryKey key = Registry.LocalMachine.CreateSubKey("Software\\Limblab\\BehaviorGraphics");
             key.SetValue("Lab", wlf.Lab.ToString());
 
             return wlf.Lab;
@@ -688,7 +688,7 @@ namespace BehaviorGraphics
             // Figure out which lab we are running in
             int lab;
             String keyString;
-            RegistryKey key = Registry.LocalMachine.OpenSubKey("Software\\DXCheck");
+            RegistryKey key = Registry.LocalMachine.OpenSubKey("Software\\Limblab\\BehaviorGraphics");
             try {
                 // Try to find lab from registry
                 keyString = (String)key.GetValue("Lab");
