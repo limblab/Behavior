@@ -309,7 +309,7 @@ namespace BehaviorGraphics
                 sp.Play(SoundPlayer.SoundID.abort);
             }
 #endif
-            if (!fullScreen && e.Alt && e.KeyCode == Keys.Enter) {
+            if (!fullScreen && e.KeyCode == Keys.F12) {
                 /* Go to full screen mode */
                 oldSize = this.Size;
                 oldLocation = this.Location;
