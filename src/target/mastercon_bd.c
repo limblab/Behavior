@@ -406,7 +406,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         case STATE_INCOMPLETE:
             /* incomplete - the monkey picked up the ball but did not drop it in the tube*/
             if (elapsed_timer_time > incomplete_timeout) {
-                new_state = STATE_INCOMPLETE;
+                new_state = STATE_PRETRIAL;
                 state_changed();
             }
             break;  
@@ -573,7 +573,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 2, ssGetIWorkValue(S, 2)+1);
     if (state == STATE_FAIL && new_state)
         ssSetIWorkValue(S, 3, ssGetIWorkValue(S, 3)+1);
-    if (state == STATE_INCOMPLETE)
+    if (state == STATE_INCOMPLETE && new_state)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
       
     status[0] = state;
