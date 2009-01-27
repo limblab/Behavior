@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.92"
+    ComputedModelVersion    "1.93"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Jan 27 15:43:01 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:92>"
+  LastModifiedDate	  "Tue Jan 27 15:48:38 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:93>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -1486,7 +1486,7 @@ Model {
       autostart		      on
       viewmode		      "Numerical"
       formatstr		      "'%6.0f State,%6.0f Rewards,%6.0f Aborts,%6.0f F"
-"ailures,%6.0 Incompletes'"
+"ailures,%6.0f Incompletes'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"
