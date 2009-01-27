@@ -580,7 +580,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     status[1] = ssGetIWorkValue(S,1); // num rewards
     status[2] = ssGetIWorkValue(S,2); // num aborts
     status[3] = ssGetIWorkValue(S,3); // num failures
-    status[4] = ssGetIworkValue(S,4); // num incomplete
+    status[4] = ssGetIWorkValue(S,4); // num incomplete
     
     /* tone (6) */
     if (new_state) {
