@@ -22,8 +22,8 @@ namespace BehaviorGraphics
         private bool flashOn;
         private bool fullScreen;
 
-        private int savedWidth = 800;
-        private int savedHeight = 600;
+        private Size oldSize;
+        private Point oldLocation;
 
         private Device device;
         private Microsoft.DirectX.Direct3D.Font font;
@@ -311,6 +311,8 @@ namespace BehaviorGraphics
 #endif
             if (!fullScreen && e.Alt && e.KeyCode == Keys.Enter) {
                 /* Go to full screen mode */
+                oldSize = this.Size;
+                oldLocation = this.Location;
                 fullScreen = true;
                 this.device.Reset(GetPresentParams());
             }
@@ -320,7 +322,8 @@ namespace BehaviorGraphics
                 fullScreen = false;
                 this.device.Reset(GetPresentParams());
                 this.TopMost = false;
-                this.Size = new Size(800, 600);
+                this.Size = oldSize;
+                this.Location = oldLocation;
                 this.FormBorderStyle = FormBorderStyle.Sizable;
             }
         }

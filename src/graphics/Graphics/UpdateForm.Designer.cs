@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -495,6 +495,8 @@ namespace BehaviorGraphics
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.label144 = new System.Windows.Forms.Label();
             this.label145 = new System.Windows.Forms.Label();
+            this.label156 = new System.Windows.Forms.Label();
+            this.textBoxBSNumTargetsSeq = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox27.SuspendLayout();
@@ -2605,6 +2607,8 @@ namespace BehaviorGraphics
             // 
             // groupBox26
             // 
+            this.groupBox26.Controls.Add(this.textBoxBSNumTargetsSeq);
+            this.groupBox26.Controls.Add(this.label156);
             this.groupBox26.Controls.Add(this.textBoxBSWindowDiameter);
             this.groupBox26.Controls.Add(this.label91);
             this.groupBox26.Controls.Add(this.textBoxBSTgtAngle);
@@ -2615,7 +2619,7 @@ namespace BehaviorGraphics
             this.groupBox26.Controls.Add(this.label94);
             this.groupBox26.Location = new System.Drawing.Point(223, 135);
             this.groupBox26.Name = "groupBox26";
-            this.groupBox26.Size = new System.Drawing.Size(262, 126);
+            this.groupBox26.Size = new System.Drawing.Size(262, 154);
             this.groupBox26.TabIndex = 100;
             this.groupBox26.TabStop = false;
             this.groupBox26.Text = "Targets";
@@ -2900,8 +2904,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -3433,8 +3437,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -3865,23 +3869,23 @@ namespace BehaviorGraphics
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(121, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(189, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(121, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(189, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.quitToolStripMenuItem.Text = "&Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
@@ -5287,6 +5291,24 @@ namespace BehaviorGraphics
             this.label145.TabIndex = 37;
             this.label145.Text = "Num Targets";
             // 
+            // label156
+            // 
+            this.label156.AutoSize = true;
+            this.label156.Location = new System.Drawing.Point(9, 130);
+            this.label156.Name = "label156";
+            this.label156.Size = new System.Drawing.Size(92, 13);
+            this.label156.TabIndex = 24;
+            this.label156.Text = "Sequence Length";
+            // 
+            // textBoxBSNumTargetsSeq
+            // 
+            this.textBoxBSNumTargetsSeq.Location = new System.Drawing.Point(156, 123);
+            this.textBoxBSNumTargetsSeq.Name = "textBoxBSNumTargetsSeq";
+            this.textBoxBSNumTargetsSeq.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBSNumTargetsSeq.TabIndex = 25;
+            this.toolTip1.SetToolTip(this.textBoxBSNumTargetsSeq, "Number of trials on which to use a given angle before randomly selecting a new on" +
+                    "e.\r\nSet to zero to use the requested \"Target Angle\" above.");
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -5896,5 +5918,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label154;
         private System.Windows.Forms.TextBox textBoxTDH;
         private System.Windows.Forms.TextBox textBoxTDL;
+        private System.Windows.Forms.TextBox textBoxBSNumTargetsSeq;
+        private System.Windows.Forms.Label label156;
     }
 }

@@ -13,14 +13,15 @@
 
 #define TASK_BS 1
 #include "words.h"
+#include "random_macros.h"
 
 #define PI (3.141592654)
 
 /*
  * Until we implement tunable parameters, these will act as defaults
  */
-static real_T target_angle = 0;      /* number of peripheral targets */
-#define param_target_angle mxGetScalar(ssGetSFcnParam(S,0))
+static real_T req_target_angle = 0; /* requested angle at which targets appear */
+#define param_req_target_angle mxGetScalar(ssGetSFcnParam(S,0))
 static real_T target_radius = 15.0; /* radius of target circle in cm */
 #define param_target_radius mxGetScalar(ssGetSFcnParam(S,1))
 static real_T target_size = 5.0;    /* width and height of targets in cm */
@@ -82,23 +83,14 @@ static real_T bump_magnitude;
 #define param_bump_duration mxGetScalar(ssGetSFcnParam(S,14))
 static real_T bump_duration;
 
-#define param_bump_steps mxGetScalar(ssGetSFcnParam(S,15))
+#define param_bump_steps ((int)(mxGetScalar(ssGetSFcnParam(S,15))))
 static int bump_steps;
 
-static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,16))
+#define param_num_targets_per_angle ((int)(mxGetScalar(ssGetSFcnParam(S,16))))
+static int num_targets_per_angle;
 
-static void updateVersion(SimStruct *S)
-{
-    /* set variable to file version for display on screen */
-    /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.18 $";
-    char* version;
-    
-    version_str[strlen(version_str)-1] = 0; // set last "$" to zero
-    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
-    ssSetRWorkValue(S, 3, atof(version));
-}
+static real_T master_reset = 0.0;
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,17))
 
 /*
  * State IDs
@@ -128,7 +120,8 @@ static void mdlCheckParameters(SimStruct *S)
     bump_duration = param_bump_duration;
     stim_trial_pct = param_stim_trial_pct;
 
-    target_angle = param_target_angle;
+    req_target_angle = param_req_target_angle;
+    num_targets_per_angle = param_num_targets_per_angle;
     target_radius = param_target_radius;
     target_size = param_target_size;
     window_size = param_window_size;
@@ -154,7 +147,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 17); 
+    ssSetNumSFcnParams(S, 18); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -212,10 +205,10 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumRWork(S, 4);  /* 0: time of last timer reset 
                              1: tone counter (incremented each time a tone is played)
                              2: tone id
-							 3: mastercon version
+                             3: target angle
                            */
     ssSetNumPWork(S, 0);
-    ssSetNumIWork(S, 72);  /*    0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 73);  /*    0: state_transition (true if state changed), 
                                  1: current trial index,
 		                         2: stim trial (1 for yes, 0 for no)
                             [3-66]: trial presentation sequence
@@ -223,7 +216,8 @@ static void mdlInitializeSizes(SimStruct *S)
                                 68: successes
                                 69: failures
                                 70: aborts 
-								71: incompletes */
+                                71: incompletes 
+                                72: counter for targets at a given angle */
     
     /* we have no zero crossing detection or modes */
     ssSetNumModes(S, 0);
@@ -241,12 +235,13 @@ static void mdlInitializeSampleTimes(SimStruct *S)
 #define MDL_INITIALIZE_CONDITIONS
 static void mdlInitializeConditions(SimStruct *S)
 {
+    int i;
     real_T *x0;
     
     /* initialize state to zero */
     x0 = ssGetRealDiscStates(S);
     x0[0] = 0.0; /* state-machine state */
-	x0[1] = 0.0; /* begin with forward trial */
+    x0[1] = 0.0; /* begin with forward trial */
     
     /* notify that we just entered this state */
     ssSetIWorkValue(S, 0, 1);
@@ -254,20 +249,15 @@ static void mdlInitializeConditions(SimStruct *S)
     /* set target index to indicate that we need to begin a new block */
     ssSetIWorkValue(S, 1, (int)( 2*(bump_steps*2+1)-1));
     
+    /* initilize the value of target angle to the parameter */
+    ssSetRWorkValue(S, 3, param_req_target_angle);
+    
     /* set the tone counter to zero */
     ssSetRWorkValue(S, 1, 0.0);
-    
-    /* set catch trial to zero (init only) */
-    ssSetRWorkValue(S, 3, 0.0);
-    
+        
     /* set trial counters to zero */
-    ssSetIWorkValue(S, 67, 0);
-    ssSetIWorkValue(S, 68, 0);
-    ssSetIWorkValue(S, 69, 0);
-    ssSetIWorkValue(S, 70, 0);
-    ssSetIWorkValue(S, 71, 0);
-
-	updateVersion(S);
+    for (i = 68; i<=72; i++)
+      ssSetIWorkValue(S, i, 0);
 }
 
 /* macro for setting state changed */
@@ -299,6 +289,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int *trial_list;
     int num_trials;
     int bump;
+    real_T target_angle;
     real_T target1[4];
     real_T target2[4];
     real_T *target_origin;
@@ -333,6 +324,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
     
     /* get target bounds */
+    if (num_targets_per_angle == 0) {
+      target_angle = req_target_angle;
+    } else {
+      target_angle = ssGetRWorkValue(S, 3);
+    }
+    
     target1[0] = cos(target_angle)*target_radius-target_size/2;
     target1[1] = sin(target_angle)*target_radius+target_size/2;
     target1[2] = cos(target_angle)*target_radius+target_size/2;
@@ -343,18 +340,18 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     target2[2] = cos(target_angle+PI)*target_radius+target_size/2;
     target2[3] = sin(target_angle+PI)*target_radius-target_size/2;
 
-	if (direction == 0) {
-		/* forward trial */
-		target_origin = target1;
-		target_destination = target2;
-	} else {
-		/* reverse trial */
-		target_origin = target2;
-		target_destination = target1;
-	}
+    if (direction == 0) {
+      /* forward trial */
+      target_origin = target1;
+      target_destination = target2;
+    } else {
+      /* reverse trial */
+      target_origin = target2;
+      target_destination = target1;
+    }
     
-	/* get bump */
-	IWorkVector = ssGetIWork(S);
+    /* get bump */
+    IWorkVector = ssGetIWork(S);
     trial_index = IWorkVector[1];
     trial_list = IWorkVector+2;
     bump = trial_list[trial_index];
@@ -363,14 +360,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
      * See if we have issued a reset *
      *********************************/
     if (param_master_reset != master_reset) {
-        master_reset = param_master_reset;
-        ssSetIWorkValue(S, 68, 0);
-        ssSetIWorkValue(S, 69, 0);
-        ssSetIWorkValue(S, 70, 0);
-		ssSetIWorkValue(S, 71, 0);
-        state_r[0] = STATE_PRETRIAL;
-		updateVersion(S);
-        return;
+      master_reset = param_master_reset;
+      for (i = 68; i<=72; i++)
+        ssSetIWorkValue(S, i, 0);
+      state_r[0] = STATE_PRETRIAL;
+      return;
     }
     
     /************************
@@ -398,7 +392,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             bump_magnitude = param_bump_magnitude;
             bump_duration = (int)param_bump_duration;
 
-            target_angle = param_target_angle;
+            req_target_angle = param_req_target_angle;
+            num_targets_per_angle = param_num_targets_per_angle;
             target_radius = param_target_radius;
             target_size = param_target_size;
             window_size = param_window_size;
@@ -474,7 +469,21 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 ssSetIWorkValue(S, 2, 0); /* not a stim trial */
             }
             
-            
+            /* choose the target angle based on the requested angle and counter */
+            if (num_targets_per_angle == 0) {
+              /* use requested angle */
+              ssSetRWorkValue(S, 3, req_target_angle);
+              ssSetIWorkValue(S, 73, 0);
+            } else {
+              /* increment counter */
+              ssSetIWorkValue(S, 73, ssGetIWorkValue(S, 73) + 1);
+              
+              /* see if we have run enough trials at this angle */
+              if (ssGetIWorkValue(S, 73) >= num_targets_per_angle) {
+                ssSetIWorkValue(S, 73, 0); /* reset counter */
+                ssSetRWorkValue(S, 3, UNI * 2.0 * PI); /* pick a new random value */
+              }
+            }
             
             /* In all cases, we need to decide on the random timer durations */
             if (origin_hold_h == origin_hold_l) {
@@ -612,6 +621,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int_T *trial_list;
     int bump; /* magnitude of bump */
     int bump_duration_counter;
+    real_T target_angle;
     real_T target1[4];
     real_T target2[4];
     real_T *target_origin;
@@ -663,6 +673,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_id = ssGetRWorkValue(S, 2);
     
     /* get target bounds */
+    if (num_targets_per_angle == 0) {
+      target_angle = req_target_angle;
+    } else {
+      target_angle = ssGetRWorkValue(S, 3);
+    }
+    
     target1[0] = cos(target_angle)*target_radius-target_size/2;
     target1[1] = sin(target_angle)*target_radius+target_size/2;
     target1[2] = cos(target_angle)*target_radius+target_size/2;
