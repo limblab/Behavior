@@ -93,7 +93,7 @@ namespace BehaviorGraphics
             reader.ReadStartElement("CursorDefs");
             while (reader.NodeType != XmlNodeType.EndElement) {
                 reader.ReadStartElement("CursorDef");
-               
+                
                 CursorDef cd = new CursorDef();
                 cd.Name = reader.ReadElementContentAsString("Name", "");
                 cd.File = reader.ReadElementContentAsString("File", "");
@@ -108,7 +108,7 @@ namespace BehaviorGraphics
 
         public void WriteXml(XmlWriter writer)
         {
-            throw new Exception("The method or operation is not implemented.");
+            throw new NotImplementedException();
         }
 
         #endregion

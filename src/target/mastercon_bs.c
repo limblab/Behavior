@@ -473,14 +473,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             if (num_targets_per_angle == 0) {
               /* use requested angle */
               ssSetRWorkValue(S, 3, req_target_angle);
-              ssSetIWorkValue(S, 73, 0);
+              ssSetIWorkValue(S, 72, 0);
             } else {
               /* increment counter */
-              ssSetIWorkValue(S, 73, ssGetIWorkValue(S, 73) + 1);
+              ssSetIWorkValue(S, 72, ssGetIWorkValue(S, 72) + 1);
               
               /* see if we have run enough trials at this angle */
-              if (ssGetIWorkValue(S, 73) >= num_targets_per_angle) {
-                ssSetIWorkValue(S, 73, 0); /* reset counter */
+              if (ssGetIWorkValue(S, 72) >= num_targets_per_angle) {
+                ssSetIWorkValue(S, 72, 0); /* reset counter */
                 ssSetRWorkValue(S, 3, UNI * 2.0 * PI); /* pick a new random value */
               }
             }
@@ -744,13 +744,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_REWARD && new_state)
         ssSetIWorkValue(S, 68, ssGetIWorkValue(S, 68) + 1);
     if (state == STATE_ABORT && new_state)
-        ssSetIWorkValue(S, 79, ssGetIWorkValue(S, 69) + 1);
+        ssSetIWorkValue(S, 69, ssGetIWorkValue(S, 69) + 1);
     if (state == STATE_FAIL && new_state)
         ssSetIWorkValue(S, 70, ssGetIWorkValue(S, 70) + 1);
     if (state == STATE_INCOMPLETE && new_state)
         ssSetIWorkValue(S, 71, ssGetIWorkValue(S, 71) + 1);
     
-    status[0] = IWorkVector[1]; //state;
+    status[0] = state; //state;
     status[1] = ssGetIWorkValue(S, 68); // num rewards
     status[2] = ssGetIWorkValue(S, 69); // num aborts
     status[3] = ssGetIWorkValue(S, 70); // num fails

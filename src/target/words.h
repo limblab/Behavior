@@ -16,10 +16,11 @@
  * MICRO and BUILD versions are set from update_version.pl, which is 
  * called by the build script.  Do not update them by hand, and do not edit 
  */
-#define BEHAVIOR_VERSION_MAJOR 1
-#define BEHAVIOR_VERSION_MINOR 5
+
+#define BEHAVIOR_VERSION_MAJOR 2
+#define BEHAVIOR_VERSION_MINOR 0
 #define BEHAVIOR_VERSION_MICRO 359 
-#define BEHAVIOR_VERSION_BUILD 129
+#define BEHAVIOR_VERSION_BUILD 134
 
 #ifndef __BUILD_UPDATED__
 #error This project must be built from the build script. 

@@ -246,7 +246,7 @@ namespace BehaviorGraphics
 
             // Bump-stim targets
             AddParamListItem("BS Target Angle", "P1", "Behavior BS", this.textBoxBSTgtAngle);
-            AddParamListItem("BS Target Num", "P16", "Behavior BS", this.textBoxBSNumTargetsSeq);
+            AddParamListItem("BS Target Num", "P17", "Behavior BS", this.textBoxBSNumTargetsSeq);
             AddParamListItem("BS Target Radius", "P2", "Behavior BS", this.textBoxBSTgtRadius);
             AddParamListItem("BS Target Size", "P3", "Behavior BS", this.textBoxBSTgtSize);
             AddParamListItem("BS Window Diameter", "P4", "Behavior BS", this.textBoxBSWindowDiameter);
@@ -742,7 +742,7 @@ namespace BehaviorGraphics
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior RW", "P18");
                 if (paramID < 0)
-                    paramID = target.GetParamIdx("Behavior BS", "P17");
+                    paramID = target.GetParamIdx("Behavior BS", "P18");
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior MG", "P13");
                 if (paramID < 0)

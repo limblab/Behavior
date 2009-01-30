@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1.3303.32372">
-  <ScreenWidth>30</ScreenWidth>
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.0.3317.26088">
+  <ScreenWidth>20</ScreenWidth>
   <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>2</Cursor>
   <SoundTheme>Theme1</SoundTheme>
@@ -343,11 +343,15 @@
       </item>
       <item>
         <key>BS Target Angle</key>
+        <value>1.5</value>
+      </item>
+      <item>
+        <key>BS Target Num</key>
         <value>0</value>
       </item>
       <item>
         <key>BS Target Radius</key>
-        <value>20</value>
+        <value>10</value>
       </item>
       <item>
         <key>BS Target Size</key>

@@ -330,7 +330,18 @@ namespace BehaviorGraphics
 
         private void Graphics_Click(object sender, EventArgs e)
         {
+            if (fullScreen) {
+                /* exit full screen mode */
+                fullScreen = false;
+                this.device.Reset(GetPresentParams());
+                this.TopMost = false;
+                this.Size = oldSize;
+                this.Location = oldLocation;
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+            }
+
             if (updateForm.Visible == false) {
+                /* show the update form */
                 if (!keepGraphicsRunning)
                     this.FrameTimer.Enabled = false;
                 updateForm.Show(this);

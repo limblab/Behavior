@@ -55,4 +55,29 @@ General
 Ball Drop
   * Fixed a bug that caused the reward counter not to reset correctly.
 
+Version 2.0
+===========
+
+General
+  * Merged the graphics and target code into a single repository to support 
+    simultanious releases.
+Graphics
+  * Changed the name of the application and source tree from DXCheck to 
+    BehaviorGraphics.
+  * Pressing [F12] will now enter true full screen mode, [ESC] exits.
+  * Added tabs for working versions or ball-drop and wrist-flexion tasks.
+  * Added controlls for delay parameter in random walk and target angle cycling
+    in bump-stim tasks (See: below).
+Ball Drop
+  * Fixed a bug that prevent correct display of the incompletes counter.
+Bump-Stim
+  * Added a parameter to allow the angle at which the targets are displayed to 
+    cycle through random values.  Set parameter to zero to use the requested
+    target angle.
+  * Upgraded to most recent .mdl version.
+Random Walk
+  * Added a delay parameter similar to the delay state in Center-Out that allows
+    the next target to be displayed before the go tone.
+Wrist-Flexion
+  * Fixed gain parameter
 
