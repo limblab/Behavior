@@ -720,7 +720,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         /* yes, so decrement the counter and maintain the bump */
         bump_duration_counter--;
         if (bump_duration_counter == 0)
-            bump_duration_counter = -1; // don't bump again
+            bump_duration_counter = -1; /* don't bump again */
         theta = PI/2 + target_angle;
         force_x = force_in[0] + cos(theta)*bump*bump_magnitude;
         force_y = force_in[1] + sin(theta)*bump*bump_magnitude;
@@ -750,11 +750,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_INCOMPLETE && new_state)
         ssSetIWorkValue(S, 71, ssGetIWorkValue(S, 71) + 1);
     
-    status[0] = state; //state;
-    status[1] = ssGetIWorkValue(S, 68); // num rewards
-    status[2] = ssGetIWorkValue(S, 69); // num aborts
-    status[3] = ssGetIWorkValue(S, 70); // num fails
-    status[4] = ssGetIWorkValue(S, 71); // num incompletes
+    status[0] = state;
+    status[1] = ssGetIWorkValue(S, 68); /* num rewards     */
+    status[2] = ssGetIWorkValue(S, 69); /* num aborts      */
+    status[3] = ssGetIWorkValue(S, 70); /* num fails       */
+    status[4] = ssGetIWorkValue(S, 71); /* num incompletes */
     
     /* word (2) */
     if (new_state) {

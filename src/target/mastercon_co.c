@@ -78,18 +78,6 @@ static int idiot_mode;
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,16))
 
-static void updateVersion(SimStruct *S)
-{
-    /* set variable to file version for display on screen */
-    /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.13 $";
-    char* version;
-    
-    version_str[strlen(version_str)-1] = 0; // set last "$" to zero
-    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
-    ssSetRWorkValue(S, 4, atof(version));
-}
-
 /*
  * State IDs
  */
@@ -247,9 +235,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 581, 0);
     ssSetIWorkValue(S, 582, 0);
     ssSetIWorkValue(S, 583, 0);
-    ssSetIWorkValue(S, 584, 0);
-    
-    updateVersion(S);
+    ssSetIWorkValue(S, 584, 0);    
 }
 
 /* macro for setting state changed */
@@ -346,7 +332,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 583, 0);
         ssSetIWorkValue(S, 584, 0);
         state_r[0] = STATE_PRETRIAL;
-        updateVersion(S);
         return;
     }
     
@@ -745,7 +730,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             /* yes, so decrement the counter and maintain the bump */
             bump_duration_counter--;
             if (bump_duration_counter == 0)
-                bump_duration_counter = -1; // don't bump again
+                bump_duration_counter = -1; /* don't bump again */
             theta = PI/2 - bump*2*PI/num_targets;
             force_x = force_in[0] + cos(theta)*bump_magnitude;
             force_y = force_in[1] + sin(theta)*bump_magnitude;
@@ -778,11 +763,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 584, ssGetIWorkValue(S, 584)+1);
        
     
-    status[0] = state;   //IWorkVector[1];
-    status[1] = ssGetIWorkValue(S, 581); // num rewards
-    status[2] = ssGetIWorkValue(S, 582); // num aborts
-    status[3] = ssGetIWorkValue(S, 583); // num fails
-    status[4] = ssGetIWorkValue(S, 584); // num incompletes
+    status[0] = state;
+    status[1] = ssGetIWorkValue(S, 581); /* num rewards     */
+    status[2] = ssGetIWorkValue(S, 582); /* num aborts      */
+    status[3] = ssGetIWorkValue(S, 583); /* num fails       */
+    status[4] = ssGetIWorkValue(S, 584); /* num incompletes */
     
     /* word (2) */
     if (new_state) {

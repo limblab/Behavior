@@ -93,18 +93,6 @@ static real_T reward_timeout  = 1.0;    /* delay after reward before starting ne
 #define TONE_REWARD 2
 #define TONE_ABORT 3
 
-static void updateVersion(SimStruct *S)
-{
-    /* set variable to file version for display on screen */
-    /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.19 $";
-    char* version;
-    
-    version_str[strlen(version_str)-1] = 0; // set last "$" to zero
-    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
-    ssSetRWorkValue(S, 4, atof(version));
-}
-
 static void mdlCheckParameters(SimStruct *S)
 {
     num_gradations = param_num_gradations;
@@ -241,8 +229,6 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 60, 0);
     ssSetIWorkValue(S, 61, 0);
     ssSetIWorkValue(S, 62, 0);
-
-	updateVersion(S);
 }
 
 /* macro for setting state changed */
@@ -367,7 +353,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 61, 0);
         ssSetIWorkValue(S, 62, 0);
         state_r[0] = STATE_PRETRIAL;
-		updateVersion(S);
         return;
     }
     
@@ -742,11 +727,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_INCOMPLETE && new_state)
         ssSetIWorkValue(S, 62, ssGetIWorkValue(S, 62)+1);
     
-    status[0] = state; //IWorkVector[1];
-    status[1] = ssGetIWorkValue(S, 59); // num rewards
-    status[2] = ssGetIWorkValue(S, 60); // num fails
-    status[3] = ssGetIWorkValue(S, 61); // num aborts
-    status[4] = ssGetIWorkValue(S, 62); // num incompletes
+    status[0] = state;
+    status[1] = ssGetIWorkValue(S, 59); /* num rewards     */
+    status[2] = ssGetIWorkValue(S, 60); /* num fails       */
+    status[3] = ssGetIWorkValue(S, 61); /* num aborts      */
+    status[4] = ssGetIWorkValue(S, 62); /* num incompletes */
     
     /* word (2) */
     if (new_state) {
@@ -830,8 +815,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             tone_cnt++;
             tone_id = TONE_ABORT;
         } else if (state == STATE_MOVEMENT) {
-            //tone_cnt++;
-            //tone_id = TONE_GO;
+            tone_cnt++;
+            tone_id = TONE_GO;
         } else if (state == STATE_REWARD) {
             tone_cnt++;
             tone_id = TONE_REWARD;
