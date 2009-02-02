@@ -428,12 +428,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             percent_catch_trials = param_percent_catch_trials;
             
             /* initialize target positions */
-            if (maximum_distance==0){     /* random positions */
-                for (i=0; i<num_targets; i++) {
-                    target_list[i*2]   = UNI * (right_target_boundary - left_target_boundary) + left_target_boundary;  /* x position */
-                    target_list[i*2+1] = UNI * (upper_target_boundary - lower_target_boundary) + lower_target_boundary; /* y position */
-                }
-            } else {                      /* semi-random positions with min and max distances */
+            if (maximum_distance > 0) {
+                /* Semi-random positions with min and max distances */
                 for (i=0; i<num_targets; i++){                
                     temp_distance = minimum_distance + UNI * (maximum_distance - minimum_distance);
                     temp_angle = 2 * PI * UNI;
@@ -458,8 +454,28 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                         temp_distance = minimum_distance;
                     }
                 }
+            } else if (minimum_distance > 0) {
+                /* Semi-random positions with an excluded zone around the previous target */
+                for (i=0; i<num_target; i++) {
+                    for (j=0; j<10; j++) {
+                        /* try ten times to get a target position outside of 
+                           minimum distance otherwise give up */
+                        target_list[i*2]   = UNI * (right_target_boundary - left_target_boundary) + left_target_boundary;   /* x position */
+                        target_list[i*2+1] = UNI * (upper_target_boundary - lower_target_boundary) + lower_target_boundary; /* y position */
+                        if (i==0 && sqrt((target_list[2*target_index]-target_list[i*2])^2 + (target_list[2*target_index+1]-target_list[i*2+1])^2)
+                          break;
+                        if (i>0 && sqrt((target_list[i*2]-target_list[i*2-2])^2 + (target_list[i*2-1]-target_list[i*2+2])^2))
+                          break;                          
+                    }
+                }
+            } else {
+                /* default condition (min=0; max=0) of random target positions */
+                for (i=0; i<num_targets; i++) {
+                    target_list[i*2]   = UNI * (right_target_boundary - left_target_boundary) + left_target_boundary;   /* x position */
+                    target_list[i*2+1] = UNI * (upper_target_boundary - lower_target_boundary) + lower_target_boundary; /* y position */
+                }
             }
-            
+
             /* Copy data into databursts */
             databurst[0] = (byte)(num_targets * 2 * sizeof(float) + 2);
             databurst[1] = DATABURST_VERSION;
@@ -468,8 +484,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             
             /* and reset the counters */
-            ssSetIWorkValue(S, 1, 0); // Target counter
-            ssSetIWorkValue(S, 6, 0); // Databurst counter
+            ssSetIWorkValue(S, 1, 0); /* Target counter    */
+            ssSetIWorkValue(S, 6, 0); /* Databurst counter */
             
             /* set flag randomly for first target */ 
             setCatchFlag(S, percent_catch_trials);
@@ -720,16 +736,16 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
     
     status[0] = state;
-    status[1] = ssGetIWorkValue(S, 2); // num rewards
-    status[2] = ssGetIWorkValue(S, 3); // num aborts
-    status[3] = ssGetIWorkValue(S, 4); // num fails
+    status[1] = ssGetIWorkValue(S, 2); /* num rewards */
+    status[2] = ssGetIWorkValue(S, 3); /* num aborts  */
+    status[3] = ssGetIWorkValue(S, 4); /* num fails   */
     
     /* word (2) */
     if (state == STATE_DATA_BLOCK) {
         if (databurst_counter % 2 == 0) {
-            word = databurst[databurst_counter / 2] | 0xF0; // low order bits
+            word = databurst[databurst_counter / 2] | 0xF0; /* low order bits */
         } else {
-            word = databurst[databurst_counter / 2] >> 4 | 0xF0; // high order bits
+            word = databurst[databurst_counter / 2] >> 4 | 0xF0; /* high order bits */
         }
     } else if (new_state) {
         switch (state) {
