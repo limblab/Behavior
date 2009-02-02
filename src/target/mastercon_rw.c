@@ -225,59 +225,6 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOptions(S, SS_OPTION_EXCEPTION_FREE_CODE);
 }
 
-#undef MDL_SET_WORK_WIDTHS
-#ifdef MDL_SET_WORK_WIDTHS
-static void mdlSetWorkWidths(SimStruct *S)
-{
-    const char_T *param_names[] = {
-        "NumTargets",
-        "TargetSize",
-        "TargetTolerance",
-        "LeftTargetBoundary",
-        "RightTargetBoundary",
-        "UpperTargetBoundary",
-        "LowerTargetBoundary",
-        "TargetHoldLow",
-        "TargetHoldHigh",
-        "TargetDelayLow",
-        "TargetDelayHigh",
-        "MovementTime",
-        "InitialMovementTime",
-        "IntertrialInterval",
-        "MinInterTargetDistance",
-        "MaxInterTargetDistance",
-        "PctCatchTrials",
-        "MasterReset"
-    };
-    ssRegAllTunableParamsAsRunTimeParams(S, param_names);
-}
-#endif
-
-#undef MDL_RTW
-#ifdef MDL_RTW
-static void mdlRTW (SimStruct *S)
-{
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"NumTargets","",mxGetPr(ssGetSFcnParam(S,0)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"TargetSize","",mxGetPr(ssGetSFcnParam(S,1)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"TargetTolerance",mxGetPr(ssGetSFcnParam(S,2)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"LeftTargetBoundary",mxGetPr(ssGetSFcnParam(S,3)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"RightTargetBoundary",mxGetPr(ssGetSFcnParam(S,4)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"UpperTargetBoundary",mxGetPr(ssGetSFcnParam(S,5)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"LowerTargetBoundary",mxGetPr(ssGetSFcnParam(S,6)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"TargetHoldLow",mxGetPr(ssGetSFcnParam(S,7)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"TargetHoldHigh",mxGetPr(ssGetSFcnParam(S,8)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"TargetDelayLow",mxGetPr(ssGetSFcnParam(S,9)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"TargetDelayHigh",mxGetPr(ssGetSFcnParam(S,10)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"MovementTime",mxGetPr(ssGetSFcnParam(S,11)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"InitialMovementTime",mxGetPr(ssGetSFcnParam(S,12)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"IntertrialInterval",mxGetPr(ssGetSFcnParam(S,13)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"MinInterTargetDistance",mxGetPr(ssGetSFcnParam(S,14)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"MaxInterTargetDistance",mxGetPr(ssGetSFcnParam(S,15)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"PctCatchTrials",mxGetPr(ssGetSFcnParam(S,16)),1);
-    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"MasterReset",mxGetPr(ssGetSFcnParam(S,17)),1);
-}
-#endif
-
 static void mdlInitializeSampleTimes(SimStruct *S)
 {
     ssSetSampleTime(S, 0, INHERITED_SAMPLE_TIME);
