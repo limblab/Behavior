@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.0.3317.26088">
-  <ScreenWidth>20</ScreenWidth>
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.0.3317.31095">
+  <ScreenWidth>40</ScreenWidth>
   <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>2</Cursor>
   <SoundTheme>Theme1</SoundTheme>
@@ -295,7 +295,7 @@
       </item>
       <item>
         <key>BS Num Steps</key>
-        <value>3</value>
+        <value>1</value>
       </item>
       <item>
         <key>BS OHL</key>
@@ -343,7 +343,7 @@
       </item>
       <item>
         <key>BS Target Angle</key>
-        <value>1.5</value>
+        <value>0.75</value>
       </item>
       <item>
         <key>BS Target Num</key>
@@ -351,7 +351,7 @@
       </item>
       <item>
         <key>BS Target Radius</key>
-        <value>10</value>
+        <value>15</value>
       </item>
       <item>
         <key>BS Target Size</key>
@@ -359,7 +359,7 @@
       </item>
       <item>
         <key>BS Window Diameter</key>
-        <value>0</value>
+        <value>10</value>
       </item>
       <item>
         <key>MGTargets</key>
