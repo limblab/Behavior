@@ -49,6 +49,8 @@ static real_T catch_trials_pct = 0.0;
 #define set_catch_trial(x) ssSetIWorkValue(S, 5, (x))
 #define get_catch_trial() ssGetIWorkValue(S, 5)
 
+static empty_rack_alarm_timeout = 3.0;
+
 /*
  * State IDs
  */
@@ -58,6 +60,8 @@ static real_T catch_trials_pct = 0.0;
 #define STATE_DELAY 3
 #define STATE_PICKUP 4
 #define STATE_DROP 5
+#define STATE_EMPTY_RACK 6
+
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
@@ -67,6 +71,7 @@ static real_T catch_trials_pct = 0.0;
 #define TONE_GO 1
 #define TONE_REWARD 2
 #define TONE_ABORT 3
+#define TONE_EMPTY_RACK 4
 
 
 static void updateVersion(SimStruct *S)
@@ -339,14 +344,18 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             state_changed();
             break;
         case STATE_TOUCH_PAD_ON:
-            if (touch_pad) {
+			if (touch_pad) {
                 new_state = STATE_TOUCH_PAD_HOLD;
                 state_changed();
                 reset_timer();
             }
             break;
         case STATE_TOUCH_PAD_HOLD:
-            if (elapsed_timer_time > touch_pad_hold_timeout) {
+			if (pickup_sensor) {
+				new_state = STATE_EMPTY_RACK;
+				reset_timer();
+				state_changed();
+			} else if (elapsed_timer_time > touch_pad_hold_timeout) {
               	new_state = STATE_DELAY;
 				state_changed();
 				reset_timer();
@@ -356,6 +365,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 				reset_timer();
 			}
             break;
+		case STATE_EMPTY_RACK:
+			if (elapsed_timer_time > empty_rack_alarm_timeout) {
+				new_state = STATE_ABORT;
+				state_changed();
+			}
+			break;
         case STATE_DELAY:
             if (elapsed_timer_time > delay_timeout) {
                 new_state = STATE_PICKUP;
@@ -593,7 +608,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         } else if (state == STATE_REWARD) {
             tone_cnt++;
             tone_id = TONE_REWARD;
-        }
+		} else if (state == STATE_EMPTY_RACK) {
+			tone_cnt++;
+			tone_id = TONE_EMPTY_RACK;
+		}
     }
     
     /* targets (7) */
