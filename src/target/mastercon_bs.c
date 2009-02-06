@@ -503,7 +503,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
        
             /* clear the bump counter */
-            ssSetIWorkValue(S, 67, 0); 
+            ssSetIWorkValue(S, 67, -1); 
                             
             /* and advance */
             new_state = STATE_ORIGIN_ON;
@@ -719,12 +719,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (bump_duration_counter > 0) {
         /* yes, so decrement the counter and maintain the bump */
         bump_duration_counter--;
-        if (bump_duration_counter == 0)
-            bump_duration_counter = -1; /* don't bump again */
         theta = PI/2 + target_angle;
         force_x = force_in[0] + cos(theta)*bump*bump_magnitude;
         force_y = force_in[1] + sin(theta)*bump*bump_magnitude;
-    } else if ( bump_duration_counter != -1 && 
+    } else if ( bump_duration_counter == -1 && 
                 state==STATE_MOVEMENT && 
                 ( ( direction == 0 && cos(-target_angle)*cursor[0] - sin( -target_angle)*cursor[1] <= 0) ||
                   ( direction == 1 && cos(-target_angle)*cursor[0] - sin( -target_angle)*cursor[1] >= 0) )
