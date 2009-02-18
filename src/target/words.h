@@ -67,6 +67,11 @@
 #define WORD_INCOMPLETE_END_CODE 0x03
 #define WORD_INCOMPLETE ( WORD_END_TRIAL | WORD_FAIL_END_CODE )
 
+#define WORD_EMPTY_RACK_END_CODE 0x24
+
+
+
+
 /* 
  * intra-trial events 
  */
@@ -112,6 +117,9 @@
 
 /* multi-gadget reach */
 #define WORD_REACH(t) ( 0x70 | (t) )
+
 #define WORD_MOVEMENT_ONSET 0x80
+
+#define WORD_PICKUP 0x90
 
 #endif /* WORDS_CO_H */

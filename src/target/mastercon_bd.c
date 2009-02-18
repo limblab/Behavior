@@ -40,6 +40,7 @@ static real_T failure_timeout = 1.0;    /* delay after failure */
 static real_T incomplete_timeout = 1.0; /* delay after incomplete */
 static real_T reward_timeout  = 1.0;    /* delay after reward before starting next trial
                                          * This is NOT the reward pulse length */
+                                         
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,7))
 
@@ -49,7 +50,7 @@ static real_T catch_trials_pct = 0.0;
 #define set_catch_trial(x) ssSetIWorkValue(S, 5, (x))
 #define get_catch_trial() ssGetIWorkValue(S, 5)
 
-static empty_rack_alarm_timeout = 3.0;
+static empty_rack_alarm_timeout = 5.0;
 
 /*
  * State IDs
@@ -102,7 +103,7 @@ static void mdlCheckParameters(SimStruct *S)
   incomplete_timeout = param_intertrial;
   reward_timeout     = param_intertrial;    
 
-  catch_trials_pct = param_catch_trials_pct;
+  catch_trials_pct = param_catch_trials_pct/100;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
@@ -317,7 +318,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			failure_timeout    = param_intertrial;
 			reward_timeout     = param_intertrial;    
 			
-			catch_trials_pct = param_catch_trials_pct;
+			catch_trials_pct = param_catch_trials_pct/100;
             
             /* intialize timers*/
             if (touch_pad_hold_l == touch_pad_hold_h) { 
@@ -366,9 +367,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			}
             break;
 		case STATE_EMPTY_RACK:
-			if (elapsed_timer_time > empty_rack_alarm_timeout) {
-				new_state = STATE_ABORT;
+    		if (elapsed_timer_time > empty_rack_alarm_timeout) {
+				new_state = STATE_PRETRIAL;
 				state_changed();
+				reset_timer();
 			}
 			break;
         case STATE_DELAY:
@@ -542,7 +544,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                 }                
                 break;
             case STATE_DROP:
-                word = WORD_MOVEMENT_ONSET;
+                word = WORD_PICKUP; // The monkey just picked up the ball, so we are in state STATE_DROP
                 break;
             case STATE_REWARD:
                 word = WORD_REWARD;
@@ -555,7 +557,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                 break;
             case STATE_INCOMPLETE:
                 word = WORD_INCOMPLETE;
-                break;    
+                break;
+            case STATE_EMPTY_RACK:
+                word = WORD_EMPTY_RACK_END_CODE;
+                break;
             default:
                 word = 0.0;
         }
