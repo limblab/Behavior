@@ -648,6 +648,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *version_p;
     real_T *pos_p;
     
+	int bump_started = 0;
+
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
     int state = (int)(state_r[0]);
@@ -724,11 +726,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         force_y = force_in[1] + sin(theta)*bump*bump_magnitude;
     } else if ( bump_duration_counter == -1 && 
                 state==STATE_MOVEMENT && 
-                ( ( direction == 0 && cos(-target_angle)*cursor[0] - sin( -target_angle)*cursor[1] <= 0) ||
-                  ( direction == 1 && cos(-target_angle)*cursor[0] - sin( -target_angle)*cursor[1] >= 0) )
+                ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= 0) ||
+                  ( direction == 1 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] >= 0) )
               ) 
     {
         /* initiating a new bump */
+        bump_started = 1;
         bump_duration_counter = (int)bump_duration;
         theta = PI/2 + target_angle;
         force_x = force_in[0] + cos(theta)*bump*bump_magnitude;
@@ -787,7 +790,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         }
     } else {
         /* not a new state, but maybe we have a mid-state event */
-        if (bump_duration_counter == bump_duration) {
+        if (bump_started) {
             /* just started a bump */
             word = WORD_BUMP(bump);
         } else {
