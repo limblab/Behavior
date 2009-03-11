@@ -81,3 +81,26 @@ Random Walk
 Wrist-Flexion
   * Fixed gain parameter
 
+Version 2.1
+===========
+
+General
+  * None
+Graphics
+  * Added /tones/somethingwrong.wav file and updated SoundPlayer to include an alert.
+Ball Drop
+  * Added a state in mastercon_bd.c to handle the situation when the device is empty.
+
+Version 2.2
+===========
+
+Words
+  * Added definition of WORD_PICKUP and WORD_EMPTY_RACK_END_CODE,
+    that are now used in BD task
+Graphics
+  * None
+Ball Drop
+  * Fixed a bug in the catch trial pct parameter
+    (value was from 0 to 100 instead of 0 to 1)
+  * Changed the states sequence a bit so when the rack is empty, it ends the loop
+    and go to pretrial instead of ending with abort state.
