@@ -489,7 +489,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 23);
     databurst = (byte *)ssGetPWorkValue(S, 0);
-    databurst_target_list = databurst + 2*sizeof(byte);
+    databurst_target_list = (float *)(databurst + 2*sizeof(byte));
     
     /*********************************
      * See if we have issued a reset *
@@ -647,18 +647,16 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             set_catch_trial( catch_trials_pct > (double)rand()/(double)RAND_MAX ? 1 : 0 );
 
             /* Copy data into databursts */
-            databurst[0] = 4 * 2 * sizeof(float) + 2; /* 4 for (xl,yh,xh,yl), 2 because half a byte a time*/
-
+            databurst[0] = (byte)(4 * 2 * sizeof(float) + 2); /* *4 for (xl,yh,xh,yl), *2 because half a byte a time*/
             databurst[1] = DATABURST_VERSION;
             for (i = 0; i < 4; i++) {
-                databurst_target_list[i] = tgt[i];
+                databurst_target_list[i] = (float) tgt[i];
             }
-            
             /* and reset the counter */
-
             ssSetIWorkValue(S, 23, 0); // Databurst counter            
             
-/*			if (multiple_targets) {
+/*			Databurst not implemented for multiple targets yet
+            if (multiple_targets) {
 	            databurst[0] = num_targets * 2 * sizeof(float) + 2;
             	databurst[1] = DATABURST_VERSION;
             	for (i = 0; i < num_targets * 2; i++) {
@@ -962,9 +960,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* word (1) */
     if (state == STATE_DATA_BLOCK) {
         if (databurst_counter % 2 == 0) {
-            word = databurst[databurst_counter / 2] | 0xF0; // low order bits
+            word = databurst[databurst_counter / 2] | 0xF0; /* low order bits */
         } else {
-            word = (databurst[(databurst_counter-1) / 2] >> 4) | 0xF0; // high order bits
+            word = databurst[databurst_counter / 2] >> 4 | 0xF0; /* high order bits */
+//             word = (databurst[(databurst_counter-1) / 2] >> 4) | 0xF0; // high order bits            
         }
 	} else if (new_state) {
         switch (state) {
