@@ -41,12 +41,10 @@
  *		are included in the databurst
  *
  *		In MVC mode, the current value of the MVC target is provided in the databurst
- *
  */
 
-#define DATABURST_VERSION 0x01 
 typedef unsigned char byte;
-
+#define DATABURST_VERSION ((byte)0x01) 
 
 /*
  * Tunable parameters
@@ -672,7 +670,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             break;
         case STATE_DATA_BLOCK:
-            if (databurst_counter >= 2*databurst[0]-1) {
+            if (databurst_counter >= 2*((byte)databurst[0])-1) {
                new_state = STATE_RECENTERING;
                state_changed();
             }
