@@ -645,8 +645,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             set_catch_trial( catch_trials_pct > (double)rand()/(double)RAND_MAX ? 1 : 0 );
 
             /* Copy target info into databursts */
-            databurst[0] = (byte)(4 * sizeof(float) + 2); /*  number of bytes = 4 * 4 floats: [xl,yh,xh,yl] + 2 databurst[0:1]  */
-            databurst[1] = (byte) DATABURST_VERSION;
+            databurst[0] = (byte)(4 * sizeof(float) + 2); /*  number of bytes = 4 * 4 floats: [xl,yh,xh,yl] + 2 databurst[0:1] = 18 bytes */
+            databurst[1] = DATABURST_VERSION;
             for (i = 0; i < 4; i++) {
                 databurst_target_list[i] = (float) tgt[i];
             }
@@ -1001,7 +1001,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
       
     status[0] = state;
-    status[1] = ssGetIWorkValue(S,2); // num rewards
+    status[1] = ssGetIWorkValue(S,23); // num rewards
     status[2] = ssGetIWorkValue(S,3); // num aborts
     status[3] = ssGetIWorkValue(S,4); // num failures
     
