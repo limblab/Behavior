@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.146"
+    ComputedModelVersion    "1.149"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 02 11:40:18 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:146>"
+  LastModifiedDate	  "Thu Apr 02 16:43:15 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:149>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -737,8 +737,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"1DOverride"
-	Location		[0, 82, 1012, 744]
-	Open			off
+	Location		[-2, 50, 1014, 764]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -915,7 +915,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"CursorPos"
-	Location		[-9, 85, 1003, 747]
+	Location		[2, 78, 1022, 714]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -932,7 +932,7 @@ Model {
 	  BlockType		  Sum
 	  Name			  "Add"
 	  Ports			  [2, 1]
-	  Position		  [290, 182, 320, 213]
+	  Position		  [195, 182, 225, 213]
 	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
@@ -943,7 +943,7 @@ Model {
 	  BlockType		  Sum
 	  Name			  "Add1"
 	  Ports			  [2, 1]
-	  Position		  [290, 322, 320, 353]
+	  Position		  [195, 322, 225, 353]
 	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
@@ -989,7 +989,7 @@ Model {
 	Block {
 	  BlockType		  Gain
 	  Name			  "GainX"
-	  Position		  [200, 190, 255, 220]
+	  Position		  [265, 185, 320, 215]
 	  Gain			  "15"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
@@ -998,7 +998,7 @@ Model {
 	Block {
 	  BlockType		  Gain
 	  Name			  "GainY"
-	  Position		  [200, 315, 255, 345]
+	  Position		  [265, 325, 320, 355]
 	  Gain			  "15"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
@@ -1016,13 +1016,15 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "OffsetX"
-	  Position		  [215, 145, 245, 175]
+	  Position		  [195, 135, 225, 165]
+	  Orientation		  "left"
 	  Value			  "0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "OffsetY"
-	  Position		  [210, 365, 240, 395]
+	  Position		  [195, 370, 225, 400]
+	  Orientation		  "left"
 	  Value			  "0"
 	}
 	Block {
@@ -1037,6 +1039,18 @@ Model {
 	  coupling		  "[0]"
 	  sampletime		  "0.001"
 	  slot			  "-1"
+	  Port {
+	    PortNumber		    1
+	    Name		    "RawX"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    2
+	    Name		    "RawY"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
 	}
 	Block {
 	  BlockType		  Switch
@@ -1057,67 +1071,45 @@ Model {
 	Block {
 	  BlockType		  Outport
 	  Name			  "Pos"
-	  Position		  [625, 238, 655, 252]
+	  Position		  [865, 238, 895, 252]
 	  IconDisplay		  "Port number"
 	  BusOutputAsStruct	  off
 	}
 	Line {
+	  Name			  "RawX"
+	  Labels		  [0, 0]
 	  SrcBlock		  "PCI-6025E "
 	  SrcPort		  1
-	  DstBlock		  "GainX"
-	  DstPort		  1
+	  DstBlock		  "Add"
+	  DstPort		  2
 	}
 	Line {
+	  Name			  "RawY"
+	  Labels		  [0, 0]
 	  SrcBlock		  "PCI-6025E "
 	  SrcPort		  2
-	  DstBlock		  "GainY"
+	  DstBlock		  "Add1"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "OffsetX"
 	  SrcPort		  1
-	  Points		  [10, 0; 0, 30]
+	  Points		  [-25, 0; 0, 40]
 	  DstBlock		  "Add"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "OffsetY"
 	  SrcPort		  1
-	  Points		  [15, 0; 0, -35]
+	  Points		  [-25, 0; 0, -40]
 	  DstBlock		  "Add1"
 	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "GainX"
-	  SrcPort		  1
-	  DstBlock		  "Add"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "GainY"
-	  SrcPort		  1
-	  DstBlock		  "Add1"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Mux"
-	  SrcPort		  1
-	  DstBlock		  "Pos"
-	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Add"
 	  SrcPort		  1
-	  Points		  [20, 0]
-	  Branch {
-	    Points		    [0, -50]
-	    DstBlock		    "FilterX"
-	    DstPort		    1
-	  }
-	  Branch {
-	    DstBlock		    "Switch1"
-	    DstPort		    3
-	  }
+	  DstBlock		  "GainX"
+	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "FilterX"
@@ -1128,16 +1120,8 @@ Model {
 	Line {
 	  SrcBlock		  "Add1"
 	  SrcPort		  1
-	  Points		  [20, 0]
-	  Branch {
-	    Points		    [0, -50]
-	    DstBlock		    "FilterY"
-	    DstPort		    1
-	  }
-	  Branch {
-	    DstBlock		    "Switch"
-	    DstPort		    3
-	  }
+	  DstBlock		  "GainY"
+	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "FilterY"
@@ -1170,6 +1154,40 @@ Model {
 	  SrcBlock		  "Switch1"
 	  SrcPort		  1
 	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "GainY"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    Points		    [0, -50]
+	    DstBlock		    "FilterY"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Switch"
+	    DstPort		    3
+	  }
+	}
+	Line {
+	  SrcBlock		  "GainX"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    Points		    [0, -50]
+	    DstBlock		    "FilterX"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Switch1"
+	    DstPort		    3
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  "Pos"
 	  DstPort		  1
 	}
       }
