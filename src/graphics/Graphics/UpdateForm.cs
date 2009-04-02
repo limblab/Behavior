@@ -329,6 +329,11 @@ namespace BehaviorGraphics
             AddParamListItem("WFGY", "Gain", "CursorPos/GainY", this.textBoxWFGY);
             AddParamListItem("WFOY", "Value", "CursorPos/OffsetX", this.textBoxWFOX);
             AddParamListItem("WFOX", "Value", "CursorPos/OffsetY", this.textBoxWFOY);
+
+            // Software Filter
+            AddParamListItem("WFFiltEnable", "Value", "CursorPos/EnablePosFilter", this.checkBoxWFFILT);
+            AddParamListItem("WFFiltFreqX", "B", "CursorPos/FilterX", this.textBoxWFFILT);
+            AddParamListItem("WFFiltFreqY", "B", "CursorPos/FilterY", this.textBoxWFFILT);
             #endregion
         }
 
@@ -1400,6 +1405,7 @@ namespace BehaviorGraphics
                 get { return p; }
             }
         }
+
     }
 
 }

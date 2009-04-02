@@ -151,7 +151,7 @@ static void mdlCheckParameters(SimStruct *S)
   idiot_mode = param_idiot_mode;
   multiple_targets = param_multiple_targets;
   catch_trials_pct = param_catch_trials_pct/100;
-
+  
 }
 
 static void mdlInitializeSizes(SimStruct *S)
@@ -534,8 +534,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             failure_timeout = param_intertrial;   
             reward_timeout  = param_intertrial;
             
-            catch_trials_pct = param_catch_trials_pct/100;            
-
+            catch_trials_pct = param_catch_trials_pct/100;   
+			
             /***************************************/
 			/* see if we have to update MVC_Target */
 			/***************************************/

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.0.3317.31095">
-  <ScreenWidth>40</ScreenWidth>
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.0.3379.19477">
+  <ScreenWidth>30</ScreenWidth>
   <VerticalDisplacement>0</VerticalDisplacement>
-  <Cursor>2</Cursor>
+  <Cursor>5</Cursor>
   <SoundTheme>Theme1</SoundTheme>
   <CenterOutMode>None</CenterOutMode>
   <Load>None</Load>
@@ -511,11 +511,11 @@
       </item>
       <item>
         <key>WFGX</key>
-        <value>0</value>
+        <value>40</value>
       </item>
       <item>
         <key>WFGY</key>
-        <value>0</value>
+        <value>60</value>
       </item>
       <item>
         <key>WFOY</key>
@@ -524,6 +524,18 @@
       <item>
         <key>WFOX</key>
         <value>0</value>
+      </item>
+      <item>
+        <key>WFFiltEnable</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFFiltFreqX</key>
+        <value>50</value>
+      </item>
+      <item>
+        <key>WFFiltFreqY</key>
+        <value>50</value>
       </item>
     </dictionary>
   </SerializedParameters>
@@ -659,34 +671,34 @@
   </MultiGadgetTargetList>
   <FlextensionTargetList>
     <MultiGadgetTarget>
-      <x>2</x>
-      <y>2</y>
+      <x>0</x>
+      <y>5</y>
       <h>2</h>
       <w>2</w>
-      <xVar>1</xVar>
-      <yVar>0</yVar>
-    </MultiGadgetTarget>
-    <MultiGadgetTarget>
-      <x>2</x>
-      <y>-2</y>
-      <h>2</h>
-      <w>2</w>
-      <xVar>1</xVar>
+      <xVar>0</xVar>
       <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
-      <y>0</y>
-      <h>0</h>
-      <w>0</w>
-      <xVar>1</xVar>
-      <yVar>1</yVar>
+      <y>-5</y>
+      <h>2</h>
+      <w>2</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
-      <x>0</x>
+      <x>5</x>
       <y>0</y>
-      <h>0</h>
-      <w>0</w>
+      <h>2</h>
+      <w>2</w>
+      <xVar>0</xVar>
+      <yVar>0</yVar>
+    </MultiGadgetTarget>
+    <MultiGadgetTarget>
+      <x>-5</x>
+      <y>0</y>
+      <h>2</h>
+      <w>2</w>
       <xVar>0</xVar>
       <yVar>0</yVar>
     </MultiGadgetTarget>
