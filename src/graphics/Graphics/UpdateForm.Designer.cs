@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -502,6 +502,7 @@ namespace BehaviorGraphics
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.label144 = new System.Windows.Forms.Label();
             this.label145 = new System.Windows.Forms.Label();
+            this.checkBoxWFIntegrate = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox27.SuspendLayout();
@@ -2927,8 +2928,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -3132,6 +3133,7 @@ namespace BehaviorGraphics
             // 
             // groupBox40
             // 
+            this.groupBox40.Controls.Add(this.checkBoxWFIntegrate);
             this.groupBox40.Controls.Add(this.textBoxWFRot);
             this.groupBox40.Controls.Add(this.label132);
             this.groupBox40.Controls.Add(this.label157);
@@ -3173,7 +3175,7 @@ namespace BehaviorGraphics
             // label157
             // 
             this.label157.AutoSize = true;
-            this.label157.Location = new System.Drawing.Point(6, 119);
+            this.label157.Location = new System.Drawing.Point(25, 124);
             this.label157.Name = "label157";
             this.label157.Size = new System.Drawing.Size(63, 13);
             this.label157.TabIndex = 24;
@@ -3181,16 +3183,16 @@ namespace BehaviorGraphics
             // 
             // textBoxWFFILT
             // 
-            this.textBoxWFFILT.Location = new System.Drawing.Point(79, 116);
+            this.textBoxWFFILT.Location = new System.Drawing.Point(94, 121);
             this.textBoxWFFILT.Name = "textBoxWFFILT";
-            this.textBoxWFFILT.Size = new System.Drawing.Size(42, 20);
+            this.textBoxWFFILT.Size = new System.Drawing.Size(43, 20);
             this.textBoxWFFILT.TabIndex = 18;
             this.textBoxWFFILT.Text = "50";
             // 
             // checkBoxWFFILT
             // 
             this.checkBoxWFFILT.AutoSize = true;
-            this.checkBoxWFFILT.Location = new System.Drawing.Point(6, 99);
+            this.checkBoxWFFILT.Location = new System.Drawing.Point(9, 99);
             this.checkBoxWFFILT.Name = "checkBoxWFFILT";
             this.checkBoxWFFILT.Size = new System.Drawing.Size(129, 17);
             this.checkBoxWFFILT.TabIndex = 17;
@@ -3201,7 +3203,7 @@ namespace BehaviorGraphics
             // 
             this.buttonWFAZ.Location = new System.Drawing.Point(45, 71);
             this.buttonWFAZ.Name = "buttonWFAZ";
-            this.buttonWFAZ.Size = new System.Drawing.Size(98, 22);
+            this.buttonWFAZ.Size = new System.Drawing.Size(92, 22);
             this.buttonWFAZ.TabIndex = 16;
             this.buttonWFAZ.Text = "Auto Zero";
             this.buttonWFAZ.UseVisualStyleBackColor = true;
@@ -3209,17 +3211,19 @@ namespace BehaviorGraphics
             // 
             // textBoxWFOY
             // 
-            this.textBoxWFOY.Location = new System.Drawing.Point(95, 48);
+            this.textBoxWFOY.Location = new System.Drawing.Point(94, 48);
             this.textBoxWFOY.Name = "textBoxWFOY";
-            this.textBoxWFOY.Size = new System.Drawing.Size(48, 20);
+            this.textBoxWFOY.Size = new System.Drawing.Size(43, 20);
             this.textBoxWFOY.TabIndex = 15;
+            this.textBoxWFOY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // textBoxWFOX
             // 
             this.textBoxWFOX.Location = new System.Drawing.Point(45, 48);
             this.textBoxWFOX.Name = "textBoxWFOX";
-            this.textBoxWFOX.Size = new System.Drawing.Size(48, 20);
+            this.textBoxWFOX.Size = new System.Drawing.Size(43, 20);
             this.textBoxWFOX.TabIndex = 14;
+            this.textBoxWFOX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label153
             // 
@@ -3232,16 +3236,17 @@ namespace BehaviorGraphics
             // 
             // textBoxWFGY
             // 
-            this.textBoxWFGY.Location = new System.Drawing.Point(95, 25);
+            this.textBoxWFGY.Location = new System.Drawing.Point(94, 25);
             this.textBoxWFGY.Name = "textBoxWFGY";
-            this.textBoxWFGY.Size = new System.Drawing.Size(48, 20);
+            this.textBoxWFGY.Size = new System.Drawing.Size(43, 20);
             this.textBoxWFGY.TabIndex = 13;
+            this.textBoxWFGY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label152
             // 
-            this.label152.Location = new System.Drawing.Point(95, 11);
+            this.label152.Location = new System.Drawing.Point(94, 11);
             this.label152.Name = "label152";
-            this.label152.Size = new System.Drawing.Size(48, 13);
+            this.label152.Size = new System.Drawing.Size(43, 13);
             this.label152.TabIndex = 16;
             this.label152.Text = "y";
             this.label152.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -3259,14 +3264,15 @@ namespace BehaviorGraphics
             // 
             this.textBoxWFGX.Location = new System.Drawing.Point(45, 25);
             this.textBoxWFGX.Name = "textBoxWFGX";
-            this.textBoxWFGX.Size = new System.Drawing.Size(48, 20);
+            this.textBoxWFGX.Size = new System.Drawing.Size(43, 20);
             this.textBoxWFGX.TabIndex = 12;
+            this.textBoxWFGX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label150
             // 
             this.label150.Location = new System.Drawing.Point(45, 11);
             this.label150.Name = "label150";
-            this.label150.Size = new System.Drawing.Size(48, 13);
+            this.label150.Size = new System.Drawing.Size(43, 13);
             this.label150.TabIndex = 13;
             this.label150.Text = "x";
             this.label150.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -3399,7 +3405,7 @@ namespace BehaviorGraphics
             this.groupBox35.Controls.Add(this.label130);
             this.groupBox35.Controls.Add(this.textBoxWFY);
             this.groupBox35.Controls.Add(this.textBoxWFX);
-            this.groupBox35.Location = new System.Drawing.Point(305, 9);
+            this.groupBox35.Location = new System.Drawing.Point(301, 9);
             this.groupBox35.Name = "groupBox35";
             this.groupBox35.Size = new System.Drawing.Size(196, 57);
             this.groupBox35.TabIndex = 42;
@@ -3502,13 +3508,13 @@ namespace BehaviorGraphics
             this.WFTargetGrid.Location = new System.Drawing.Point(29, 20);
             this.WFTargetGrid.Name = "WFTargetGrid";
             this.WFTargetGrid.RowHeadersVisible = false;
-            this.WFTargetGrid.Size = new System.Drawing.Size(306, 195);
+            this.WFTargetGrid.Size = new System.Drawing.Size(306, 199);
             this.WFTargetGrid.TabIndex = 29;
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -5361,6 +5367,16 @@ namespace BehaviorGraphics
             this.label145.TabIndex = 37;
             this.label145.Text = "Num Targets";
             // 
+            // checkBoxWFIntegrate
+            // 
+            this.checkBoxWFIntegrate.AutoSize = true;
+            this.checkBoxWFIntegrate.Location = new System.Drawing.Point(151, 51);
+            this.checkBoxWFIntegrate.Name = "checkBoxWFIntegrate";
+            this.checkBoxWFIntegrate.Size = new System.Drawing.Size(108, 17);
+            this.checkBoxWFIntegrate.TabIndex = 27;
+            this.checkBoxWFIntegrate.Text = "Integrate Position";
+            this.checkBoxWFIntegrate.UseVisualStyleBackColor = true;
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -5977,5 +5993,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label158;
         private System.Windows.Forms.TextBox textBoxWFRot;
         private System.Windows.Forms.Label label132;
+        private System.Windows.Forms.CheckBox checkBoxWFIntegrate;
     }
 }

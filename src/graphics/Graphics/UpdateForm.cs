@@ -337,6 +337,9 @@ namespace BehaviorGraphics
 
             // Rotation
             AddParamListItem("WFRotation", "Value", "CursorPos/Cursor Rotation/AngleOffset", this.textBoxWFRot);
+            
+            // Integration
+            AddParamListItem("WFIntegration", "Value", "CursorPos/EnableIntegrator", this.checkBoxWFIntegrate);
             #endregion
         }
 

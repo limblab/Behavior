@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.152"
+    ComputedModelVersion    "1.161"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 02 18:48:37 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:152>"
+  LastModifiedDate	  "Fri Apr 03 14:16:17 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:161>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -778,7 +778,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"1DOverride"
-	Location		[-2, 74, 1014, 788]
+	Location		[-2, 82, 1010, 744]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -956,7 +956,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"CursorPos"
-	Location		[2, 78, 1022, 714]
+	Location		[2, 82, 1014, 718]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -995,11 +995,15 @@ Model {
 	  BlockType		  SubSystem
 	  Name			  "Cursor Rotation"
 	  Ports			  [2, 2]
-	  Position		  [560, 215, 675, 330]
+	  Position		  [550, 215, 665, 330]
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
 	  MaskHideContents	  off
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskIconUnits		  "autoscale"
 	  System {
 	    Name		    "Cursor Rotation"
 	    Location		    [167, 247, 1125, 863]
@@ -1223,15 +1227,21 @@ Model {
 	}
 	Block {
 	  BlockType		  Constant
+	  Name			  "EnableIntegrator"
+	  Position		  [795, 260, 825, 290]
+	  Value			  "0"
+	}
+	Block {
+	  BlockType		  Constant
 	  Name			  "EnablePosFilter"
-	  Position		  [390, 255, 420, 285]
+	  Position		  [380, 255, 410, 285]
 	  Value			  "0"
 	}
 	Block {
 	  BlockType		  Reference
 	  Name			  "FilterX"
 	  Ports			  [1, 1]
-	  Position		  [370, 122, 435, 178]
+	  Position		  [360, 122, 425, 178]
 	  SourceBlock		  "dsparch4/Analog\nFilter Design"
 	  SourceType		  "Analog Filter Design"
 	  method		  "Butterworth"
@@ -1246,7 +1256,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "FilterY"
 	  Ports			  [1, 1]
-	  Position		  [370, 317, 435, 373]
+	  Position		  [360, 317, 425, 373]
 	  SourceBlock		  "dsparch4/Analog\nFilter Design"
 	  SourceType		  "Analog Filter Design"
 	  method		  "Butterworth"
@@ -1277,18 +1287,20 @@ Model {
 	}
 	Block {
 	  BlockType		  Integrator
-	  Name			  "Integrator1"
+	  Name			  "Integrator"
 	  Ports			  [2, 1]
-	  Position		  [760, 399, 825, 501]
+	  Position		  [785, 182, 845, 238]
 	  ExternalReset		  "rising"
 	  LimitOutput		  on
+	  UpperSaturationLimit	  "15"
+	  LowerSaturationLimit	  "-15"
 	  IgnoreLimit		  off
 	}
 	Block {
 	  BlockType		  Mux
 	  Name			  "Mux"
 	  Ports			  [2, 1]
-	  Position		  [820, 216, 825, 329]
+	  Position		  [690, 216, 695, 329]
 	  ShowName		  off
 	  Inputs		  "2"
 	  DisplayOption		  "bar"
@@ -1333,9 +1345,15 @@ Model {
 	  }
 	}
 	Block {
+	  BlockType		  Constant
+	  Name			  "ResetIntegrator"
+	  Position		  [735, 210, 765, 240]
+	  Value			  "0"
+	}
+	Block {
 	  BlockType		  Switch
 	  Name			  "Switch"
-	  Position		  [490, 333, 520, 407]
+	  Position		  [480, 333, 510, 407]
 	  Criteria		  "u2 ~= 0"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
@@ -1343,7 +1361,15 @@ Model {
 	Block {
 	  BlockType		  Switch
 	  Name			  "Switch1"
-	  Position		  [490, 138, 520, 212]
+	  Position		  [480, 138, 510, 212]
+	  Criteria		  "u2 ~= 0"
+	  InputSameDT		  off
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Switch
+	  Name			  "Switch2"
+	  Position		  [880, 224, 925, 326]
 	  Criteria		  "u2 ~= 0"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
@@ -1351,7 +1377,7 @@ Model {
 	Block {
 	  BlockType		  Outport
 	  Name			  "Pos"
-	  Position		  [865, 268, 895, 282]
+	  Position		  [945, 268, 975, 282]
 	  IconDisplay		  "Port number"
 	  BusOutputAsStruct	  off
 	}
@@ -1427,7 +1453,7 @@ Model {
 	Line {
 	  SrcBlock		  "GainY"
 	  SrcPort		  1
-	  Points		  [20, 0]
+	  Points		  [15, 0]
 	  Branch {
 	    Points		    [0, -50]
 	    DstBlock		    "FilterY"
@@ -1441,7 +1467,7 @@ Model {
 	Line {
 	  SrcBlock		  "GainX"
 	  SrcPort		  1
-	  Points		  [20, 0]
+	  Points		  [15, 0]
 	  Branch {
 	    Points		    [0, -50]
 	    DstBlock		    "FilterX"
@@ -1451,12 +1477,6 @@ Model {
 	    DstBlock		    "Switch1"
 	    DstPort		    3
 	  }
-	}
-	Line {
-	  SrcBlock		  "Mux"
-	  SrcPort		  1
-	  DstBlock		  "Pos"
-	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Switch1"
@@ -1482,6 +1502,46 @@ Model {
 	  SrcBlock		  "Cursor Rotation"
 	  SrcPort		  2
 	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "EnableIntegrator"
+	  SrcPort		  1
+	  DstBlock		  "Switch2"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  Points		  [10, 0]
+	  Branch {
+	    Points		    [0, 35]
+	    DstBlock		    "Switch2"
+	    DstPort		    3
+	  }
+	  Branch {
+	    Points		    [0, -80]
+	    DstBlock		    "Integrator"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Switch2"
+	  SrcPort		  1
+	  DstBlock		  "Pos"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Integrator"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, 30]
+	  DstBlock		  "Switch2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "ResetIntegrator"
+	  SrcPort		  1
+	  DstBlock		  "Integrator"
 	  DstPort		  2
 	}
       }
@@ -2218,7 +2278,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"WordSbs"
-	Location		[195, 115, 1142, 909]
+	Location		[-5, 123, 942, 785]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
