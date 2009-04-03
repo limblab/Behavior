@@ -343,6 +343,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             new_state = STATE_TOUCH_PAD_ON;
             reset_timer();      
             state_changed();
+            /* End of Pretrial State */
             break;
         case STATE_TOUCH_PAD_ON:
 			if (touch_pad) {
@@ -366,13 +367,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 				reset_timer();
 			}
             break;
-		case STATE_EMPTY_RACK:
-    		if (elapsed_timer_time > empty_rack_alarm_timeout) {
-				new_state = STATE_PRETRIAL;
-				state_changed();
-				reset_timer();
-			}
-			break;
         case STATE_DELAY:
             if (elapsed_timer_time > delay_timeout) {
                 new_state = STATE_PICKUP;
@@ -426,7 +420,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_PRETRIAL;
                 state_changed();
             }
-            break;  
+            break;
+        case STATE_EMPTY_RACK:
+            /* empty_rack - the monkey has his hand on touch pad but no ball detected in device */
+    		if (elapsed_timer_time > empty_rack_alarm_timeout) {
+				new_state = STATE_PRETRIAL;
+				state_changed();
+				reset_timer();
+			}
+			break;  
         case STATE_REWARD:
             /* reward */
             if (elapsed_timer_time > reward_timeout) {
