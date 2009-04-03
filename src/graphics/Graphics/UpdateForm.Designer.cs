@@ -271,6 +271,7 @@ namespace BehaviorGraphics
             this.label122 = new System.Windows.Forms.Label();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.groupBox40 = new System.Windows.Forms.GroupBox();
+            this.checkBoxWFIntegrate = new System.Windows.Forms.CheckBox();
             this.textBoxWFRot = new System.Windows.Forms.TextBox();
             this.label132 = new System.Windows.Forms.Label();
             this.label157 = new System.Windows.Forms.Label();
@@ -502,7 +503,10 @@ namespace BehaviorGraphics
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.label144 = new System.Windows.Forms.Label();
             this.label145 = new System.Windows.Forms.Label();
-            this.checkBoxWFIntegrate = new System.Windows.Forms.CheckBox();
+            this.label159 = new System.Windows.Forms.Label();
+            this.textBoxWFIntMin = new System.Windows.Forms.TextBox();
+            this.textBoxWFIntMax = new System.Windows.Forms.TextBox();
+            this.label160 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox27.SuspendLayout();
@@ -3133,6 +3137,10 @@ namespace BehaviorGraphics
             // 
             // groupBox40
             // 
+            this.groupBox40.Controls.Add(this.label160);
+            this.groupBox40.Controls.Add(this.textBoxWFIntMax);
+            this.groupBox40.Controls.Add(this.textBoxWFIntMin);
+            this.groupBox40.Controls.Add(this.label159);
             this.groupBox40.Controls.Add(this.checkBoxWFIntegrate);
             this.groupBox40.Controls.Add(this.textBoxWFRot);
             this.groupBox40.Controls.Add(this.label132);
@@ -3154,6 +3162,16 @@ namespace BehaviorGraphics
             this.groupBox40.TabIndex = 40;
             this.groupBox40.TabStop = false;
             this.groupBox40.Text = "Cursor Control";
+            // 
+            // checkBoxWFIntegrate
+            // 
+            this.checkBoxWFIntegrate.AutoSize = true;
+            this.checkBoxWFIntegrate.Location = new System.Drawing.Point(151, 51);
+            this.checkBoxWFIntegrate.Name = "checkBoxWFIntegrate";
+            this.checkBoxWFIntegrate.Size = new System.Drawing.Size(108, 17);
+            this.checkBoxWFIntegrate.TabIndex = 27;
+            this.checkBoxWFIntegrate.Text = "Integrate Position";
+            this.checkBoxWFIntegrate.UseVisualStyleBackColor = true;
             // 
             // textBoxWFRot
             // 
@@ -5367,15 +5385,39 @@ namespace BehaviorGraphics
             this.label145.TabIndex = 37;
             this.label145.Text = "Num Targets";
             // 
-            // checkBoxWFIntegrate
+            // label159
             // 
-            this.checkBoxWFIntegrate.AutoSize = true;
-            this.checkBoxWFIntegrate.Location = new System.Drawing.Point(151, 51);
-            this.checkBoxWFIntegrate.Name = "checkBoxWFIntegrate";
-            this.checkBoxWFIntegrate.Size = new System.Drawing.Size(108, 17);
-            this.checkBoxWFIntegrate.TabIndex = 27;
-            this.checkBoxWFIntegrate.Text = "Integrate Position";
-            this.checkBoxWFIntegrate.UseVisualStyleBackColor = true;
+            this.label159.AutoSize = true;
+            this.label159.Location = new System.Drawing.Point(159, 77);
+            this.label159.Name = "label159";
+            this.label159.Size = new System.Drawing.Size(24, 13);
+            this.label159.TabIndex = 28;
+            this.label159.Text = "Min";
+            // 
+            // textBoxWFIntMin
+            // 
+            this.textBoxWFIntMin.Location = new System.Drawing.Point(183, 74);
+            this.textBoxWFIntMin.Name = "textBoxWFIntMin";
+            this.textBoxWFIntMin.Size = new System.Drawing.Size(30, 20);
+            this.textBoxWFIntMin.TabIndex = 29;
+            this.textBoxWFIntMin.Text = "-10";
+            // 
+            // textBoxWFIntMax
+            // 
+            this.textBoxWFIntMax.Location = new System.Drawing.Point(242, 74);
+            this.textBoxWFIntMax.Name = "textBoxWFIntMax";
+            this.textBoxWFIntMax.Size = new System.Drawing.Size(30, 20);
+            this.textBoxWFIntMax.TabIndex = 30;
+            this.textBoxWFIntMax.Text = "10";
+            // 
+            // label160
+            // 
+            this.label160.AutoSize = true;
+            this.label160.Location = new System.Drawing.Point(213, 77);
+            this.label160.Name = "label160";
+            this.label160.Size = new System.Drawing.Size(27, 13);
+            this.label160.TabIndex = 31;
+            this.label160.Text = "Max";
             // 
             // UpdateForm
             // 
@@ -5994,5 +6036,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxWFRot;
         private System.Windows.Forms.Label label132;
         private System.Windows.Forms.CheckBox checkBoxWFIntegrate;
+        private System.Windows.Forms.TextBox textBoxWFIntMin;
+        private System.Windows.Forms.Label label159;
+        private System.Windows.Forms.Label label160;
+        private System.Windows.Forms.TextBox textBoxWFIntMax;
     }
 }
