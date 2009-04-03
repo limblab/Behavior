@@ -650,6 +650,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             for (i = 0; i < 4; i++) {
                 databurst_target_list[i] = (float) tgt[i];
             }
+            
             /* and reset the counter */
             ssSetIWorkValue(S, 23, 0); // Databurst counter            
             
@@ -670,11 +671,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             break;
         case STATE_DATA_BLOCK:
-            if (databurst_counter >= 2*((byte)databurst[0])-1) {
+            if (databurst_counter >= 2*((byte)databurst[0])-1) { 
                new_state = STATE_RECENTERING;
                state_changed();
             }
-//                 ssSetIWorkValue(S, 23, databurst_counter);
             break;           
         case STATE_RECENTERING:
             if (cursorInTarget(cursor, center)) {
@@ -957,12 +957,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* word (1) */
     if (state == STATE_DATA_BLOCK) {
-        if (databurst_counter++ % 2 == 0) {
+        if (databurst_counter % 2 == 0) {
             word = databurst[databurst_counter / 2] | 0xF0; /* low order bits */
         } else {
              word = (databurst[(databurst_counter-1) / 2] >> 4) | 0xF0; /* high order bits */
         }
-        ssSetIWorkValue(S, 23, databurst_counter);
+        ssSetIWorkValue(S, 23, databurst_counter+1);
 	} else if (new_state) {
         switch (state) {
             case STATE_PRETRIAL:
