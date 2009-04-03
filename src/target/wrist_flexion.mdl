@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.149"
+    ComputedModelVersion    "1.152"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 02 16:43:15 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:149>"
+  LastModifiedDate	  "Thu Apr 02 18:48:37 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:152>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -524,6 +524,11 @@ Model {
       ZeroCross		      on
     }
     Block {
+      BlockType		      Fcn
+      Expr		      "sin(u[1])"
+      SampleTime	      "-1"
+    }
+    Block {
       BlockType		      Gain
       Gain		      "1"
       Multiplication	      "Element-wise(K.*u)"
@@ -558,6 +563,21 @@ Model {
       LatchByDelayingOutsideSignal off
       LatchByCopyingInsideSignal off
       Interpolate	      on
+    }
+    Block {
+      BlockType		      Integrator
+      ExternalReset	      "none"
+      InitialConditionSource  "internal"
+      InitialCondition	      "0"
+      LimitOutput	      off
+      UpperSaturationLimit    "inf"
+      LowerSaturationLimit    "-inf"
+      ShowSaturationPort      off
+      ShowStatePort	      off
+      AbsoluteTolerance	      "auto"
+      IgnoreLimit	      off
+      ZeroCross		      on
+      ContinuousStateAttributes	"''"
     }
     Block {
       BlockType		      Logic
@@ -602,6 +622,21 @@ Model {
       SamplingMode	      "auto"
       OutputWhenDisabled      "held"
       InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      Product
+      Inputs		      "2"
+      Multiplication	      "Element-wise(.*)"
+      CollapseMode	      "All dimensions"
+      CollapseDim	      "1"
+      InputSameDT	      on
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      RndMeth		      "Zero"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
     }
     Block {
       BlockType		      RateTransition
@@ -691,6 +726,12 @@ Model {
       ZeroCross		      on
       SampleTime	      "-1"
     }
+    Block {
+      BlockType		      Trigonometry
+      Operator		      "sin"
+      OutputSignalType	      "auto"
+      SampleTime	      "-1"
+    }
   }
   AnnotationDefaults {
     HorizontalAlignment	    "center"
@@ -737,8 +778,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"1DOverride"
-	Location		[-2, 50, 1014, 764]
-	Open			on
+	Location		[-2, 74, 1014, 788]
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -916,7 +957,7 @@ Model {
       System {
 	Name			"CursorPos"
 	Location		[2, 78, 1022, 714]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -943,7 +984,7 @@ Model {
 	  BlockType		  Sum
 	  Name			  "Add1"
 	  Ports			  [2, 1]
-	  Position		  [195, 322, 225, 353]
+	  Position		  [195, 377, 225, 408]
 	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
@@ -951,16 +992,246 @@ Model {
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
+	  BlockType		  SubSystem
+	  Name			  "Cursor Rotation"
+	  Ports			  [2, 2]
+	  Position		  [560, 215, 675, 330]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Cursor Rotation"
+	    Location		    [167, 247, 1125, 863]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Xi"
+	      Position		      [105, 198, 135, 212]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Yi"
+	      Position		      [55, 183, 85, 197]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "AngleOffset"
+	      Position		      [375, 270, 405, 300]
+	      Value		      "0"
+	      SampleTime	      ".001"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [185, 96, 190, 134]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Product"
+	      Ports		      [2, 1]
+	      Position		      [645, 362, 675, 393]
+	      CollapseMode	      "All dimensions"
+	      InputSameDT	      off
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Product1"
+	      Ports		      [2, 1]
+	      Position		      [670, 32, 700, 63]
+	      CollapseMode	      "All dimensions"
+	      InputSameDT	      off
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      Ports		      [2, 1]
+	      Position		      [455, 190, 475, 210]
+	      ShowName		      off
+	      IconShape		      "round"
+	      Inputs		      "|++"
+	      CollapseMode	      "All dimensions"
+	      InputSameDT	      off
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Trigonometry
+	      Name		      "Trigonometric\nFunction"
+	      Ports		      [1, 1]
+	      Position		      [550, 370, 580, 400]
+	    }
+	    Block {
+	      BlockType		      Trigonometry
+	      Name		      "Trigonometric\nFunction1"
+	      Ports		      [2, 1]
+	      Position		      [335, 182, 365, 213]
+	      Operator		      "atan2"
+	    }
+	    Block {
+	      BlockType		      Trigonometry
+	      Name		      "Trigonometric\nFunction2"
+	      Ports		      [1, 1]
+	      Position		      [540, 25, 570, 55]
+	      Operator		      "cos"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "sqrt(u[1]*u[1] + u[2]*u[2])"
+	      Position		      [320, 100, 380, 130]
+	      Expr		      "sqrt(u[1]*u[1] + u[2]*u[2])"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Xo"
+	      Position		      [755, 43, 785, 57]
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Yo"
+	      Position		      [760, 373, 790, 387]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Line {
+	      SrcBlock		      "AngleOffset"
+	      SrcPort		      1
+	      Points		      [55, 0]
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Trigonometric\nFunction1"
+	      SrcPort		      1
+	      DstBlock		      "Sum"
+	      DstPort		      1
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Yi"
+	      SrcPort		      1
+	      Points		      [55, 0]
+	      Branch {
+		DstBlock		"Trigonometric\nFunction1"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, -85]
+		DstBlock		"Mux"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Xi"
+	      SrcPort		      1
+	      Points		      [25, 0]
+	      Branch {
+		DstBlock		"Trigonometric\nFunction1"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[0, -80]
+		DstBlock		"Mux"
+		DstPort			2
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "sqrt(u[1]*u[1] + u[2]*u[2])"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Trigonometric\nFunction"
+	      SrcPort		      1
+	      DstBlock		      "Product"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Product"
+	      SrcPort		      1
+	      DstBlock		      "Yo"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "sqrt(u[1]*u[1] + u[2]*u[2])"
+	      SrcPort		      1
+	      Points		      [245, 0]
+	      Branch {
+		DstBlock		"Product"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, -60]
+		DstBlock		"Product1"
+		DstPort			2
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      Points		      [25, 0]
+	      Branch {
+		Points			[0, 185]
+		DstBlock		"Trigonometric\nFunction"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, -160]
+		DstBlock		"Trigonometric\nFunction2"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Product1"
+	      SrcPort		      1
+	      DstBlock		      "Xo"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Trigonometric\nFunction2"
+	      SrcPort		      1
+	      DstBlock		      "Product1"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
 	  BlockType		  Constant
 	  Name			  "EnablePosFilter"
-	  Position		  [400, 210, 430, 240]
+	  Position		  [390, 255, 420, 285]
 	  Value			  "0"
 	}
 	Block {
 	  BlockType		  Reference
 	  Name			  "FilterX"
 	  Ports			  [1, 1]
-	  Position		  [380, 122, 445, 178]
+	  Position		  [370, 122, 435, 178]
 	  SourceBlock		  "dsparch4/Analog\nFilter Design"
 	  SourceType		  "Analog Filter Design"
 	  method		  "Butterworth"
@@ -975,7 +1246,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "FilterY"
 	  Ports			  [1, 1]
-	  Position		  [380, 262, 445, 318]
+	  Position		  [370, 317, 435, 373]
 	  SourceBlock		  "dsparch4/Analog\nFilter Design"
 	  SourceType		  "Analog Filter Design"
 	  method		  "Butterworth"
@@ -998,17 +1269,26 @@ Model {
 	Block {
 	  BlockType		  Gain
 	  Name			  "GainY"
-	  Position		  [265, 325, 320, 355]
+	  Position		  [265, 380, 320, 410]
 	  Gain			  "15"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator1"
+	  Ports			  [2, 1]
+	  Position		  [760, 399, 825, 501]
+	  ExternalReset		  "rising"
+	  LimitOutput		  on
+	  IgnoreLimit		  off
+	}
+	Block {
 	  BlockType		  Mux
 	  Name			  "Mux"
 	  Ports			  [2, 1]
-	  Position		  [585, 105, 590, 385]
+	  Position		  [820, 216, 825, 329]
 	  ShowName		  off
 	  Inputs		  "2"
 	  DisplayOption		  "bar"
@@ -1023,7 +1303,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "OffsetY"
-	  Position		  [195, 370, 225, 400]
+	  Position		  [195, 425, 225, 455]
 	  Orientation		  "left"
 	  Value			  "0"
 	}
@@ -1031,7 +1311,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "PCI-6025E "
 	  Ports			  [0, 2]
-	  Position		  [35, 144, 140, 391]
+	  Position		  [35, 117, 140, 473]
 	  SourceBlock		  "xpcnilib/A//D/PCI-6025E AD"
 	  SourceType		  "adnipci6025e"
 	  channel		  "[9 10]"
@@ -1055,7 +1335,7 @@ Model {
 	Block {
 	  BlockType		  Switch
 	  Name			  "Switch"
-	  Position		  [500, 278, 530, 352]
+	  Position		  [490, 333, 520, 407]
 	  Criteria		  "u2 ~= 0"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
@@ -1063,7 +1343,7 @@ Model {
 	Block {
 	  BlockType		  Switch
 	  Name			  "Switch1"
-	  Position		  [500, 138, 530, 212]
+	  Position		  [490, 138, 520, 212]
 	  Criteria		  "u2 ~= 0"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
@@ -1071,7 +1351,7 @@ Model {
 	Block {
 	  BlockType		  Outport
 	  Name			  "Pos"
-	  Position		  [865, 238, 895, 252]
+	  Position		  [865, 268, 895, 282]
 	  IconDisplay		  "Port number"
 	  BusOutputAsStruct	  off
 	}
@@ -1134,27 +1414,15 @@ Model {
 	  SrcPort		  1
 	  Points		  [30, 0]
 	  Branch {
-	    Points		    [0, 90]
+	    Points		    [0, 100]
 	    DstBlock		    "Switch"
 	    DstPort		    2
 	  }
 	  Branch {
-	    Points		    [0, -50]
+	    Points		    [0, -95]
 	    DstBlock		    "Switch1"
 	    DstPort		    2
 	  }
-	}
-	Line {
-	  SrcBlock		  "Switch"
-	  SrcPort		  1
-	  DstBlock		  "Mux"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "Switch1"
-	  SrcPort		  1
-	  DstBlock		  "Mux"
-	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "GainY"
@@ -1189,6 +1457,32 @@ Model {
 	  SrcPort		  1
 	  DstBlock		  "Pos"
 	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Switch1"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, 70]
+	  DstBlock		  "Cursor Rotation"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Cursor Rotation"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Switch"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, -70]
+	  DstBlock		  "Cursor Rotation"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Cursor Rotation"
+	  SrcPort		  2
+	  DstBlock		  "Mux"
+	  DstPort		  2
 	}
       }
     }

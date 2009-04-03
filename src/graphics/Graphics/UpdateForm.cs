@@ -334,6 +334,9 @@ namespace BehaviorGraphics
             AddParamListItem("WFFiltEnable", "Value", "CursorPos/EnablePosFilter", this.checkBoxWFFILT);
             AddParamListItem("WFFiltFreqX", "B", "CursorPos/FilterX", this.textBoxWFFILT);
             AddParamListItem("WFFiltFreqY", "B", "CursorPos/FilterY", this.textBoxWFFILT);
+
+            // Rotation
+            AddParamListItem("WFRotation", "Value", "CursorPos/Cursor Rotation/AngleOffset", this.textBoxWFRot);
             #endregion
         }
 
