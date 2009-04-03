@@ -496,41 +496,29 @@ namespace BehaviorGraphics
 
         private void buttonWFAZ_Click(object sender, EventArgs e)
         {
-            int XOffsetID, YOffsetID;
-            Array newParam = Array.CreateInstance(typeof(double), 1);
-
             if (!hasXpcTarget) {
                 MessageBox.Show("Not connected to XPC Target", "Not connected", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            DialogResult result = MessageBox.Show("This will automatically center the cursor by applying x and y offset values.\nAre you sure you want to procede?", "Auto center cursor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-            if (result == DialogResult.Yes) {
-                // Set offsets to zero
-                XOffsetID = target.GetParamIdx("CursorPos/OffsetX", "Value");
-                YOffsetID = target.GetParamIdx("CursorPos/OffsetY", "Value");
+            double RawXValue = 0;
+            double RawYValue = 0;
 
-                newParam.SetValue(0, 0);
-                target.SetParam(XOffsetID, ref newParam);
-                target.SetParam(YOffsetID, ref newParam);
+            // Get the signal IDs of the raw ADC value
+            int XOffsetID = target.GetSignalIdx("CursorPos/PCI-6025E /p1");
+            int YOffsetID = target.GetSignalIdx("CursorPos/PCI-6025E /p2");
 
-                System.Threading.Thread.Sleep(5);
-
-                // Read in position signal and update offsets
-                Graphics g = ((Graphics)this.Owner);
-                for (int i = 0; i < 3; i++) {
-                    g.UpdatePosition();
-                }
-
-                newParam.SetValue(g.X, 0);
-                target.SetParam(XOffsetID, ref newParam);
-                newParam.SetValue(g.Y, 0);
-                target.SetParam(YOffsetID, ref newParam);
-
-                // Update text boxes
-                textBoxWFOX.Text = String.Format("{0:f}", -g.X);
-                textBoxWFOY.Text = String.Format("{0:f}", -g.Y);
+            // Sample and average the signal value NUM_SAMPLES times
+            const int NUM_SAMPLES = 5;
+            for (int i = 0; i < NUM_SAMPLES; i++) {
+                RawXValue += target.GetSignal(XOffsetID) / NUM_SAMPLES;
+                RawYValue += target.GetSignal(YOffsetID) / NUM_SAMPLES;
+                System.Threading.Thread.Sleep(1); // sleep 1 ms for next xpc cycle
             }
+
+            // Update text boxes
+            textBoxWFOX.Text = String.Format("{0:f5}", -RawXValue);
+            textBoxWFOY.Text = String.Format("{0:f5}", -RawYValue);
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
