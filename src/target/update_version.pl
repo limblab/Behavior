@@ -17,6 +17,12 @@ open NEW_FILE, ">_$filename";
 
 while (my $line = <OLD_FILE>) {
   chomp $line;
+
+  # update the revision from words.h
+  if ($line =~ /\$Rev: (\d+) \$/ ) {
+    $rev = $1;
+  }
+
   if (substr($line, 0, 30) eq "#define BEHAVIOR_VERSION_MICRO") {
     $line = "#define BEHAVIOR_VERSION_MICRO $rev";
   }
