@@ -373,6 +373,30 @@ namespace BehaviorGraphics
             }
         }
 
+        /// <summary>
+        /// Updates the titlebar of the update form to include the currently loaded settings file
+        /// </summary>
+        private void UpdateTitlebarText(string filename)
+        {
+            string formname,abridgedFilename;
+            int lbracket = this.Text.IndexOf("[");
+            formname = (lbracket > 0) ? this.Text.Substring(0, lbracket - 1) : this.Text;
+            
+            // Abridge the filename to three path components.
+            string[] pathComponents = filename.Split(new char[] { '\\','/' });
+            if (pathComponents.Length > 3) {
+                abridgedFilename = String.Concat(
+                    pathComponents[0],"\\...\\",
+                    pathComponents[pathComponents.Length - 2], "\\",
+                    pathComponents[pathComponents.Length - 1]);
+            }
+            else {
+                abridgedFilename = filename;
+            }
+
+            this.Text = String.Concat(formname, " [", abridgedFilename, "]");
+        }
+
         #region Form Event Callbacks
         private void UpdateForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -623,7 +647,7 @@ namespace BehaviorGraphics
         {
             fileSaveAs();
         }
-
+        
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (filename != "") {
@@ -657,7 +681,7 @@ namespace BehaviorGraphics
 
                     BehaviorParameters2Form(bp);
                     filename = ofd.FileName;
-
+                    UpdateTitlebarText(filename);
                 } catch (Exception ex) {
                     MessageBox.Show("The file does not appear to be in the proper format.  "+ex.Message, "Error loading file", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 } finally {
@@ -773,6 +797,7 @@ namespace BehaviorGraphics
                 if (sfd.ShowDialog() == DialogResult.OK) {
                     filename = sfd.FileName;
                     fileSave();
+                    UpdateTitlebarText(filename);
                 }
             } catch (InvalidParameterException) {
                 MessageBox.Show("One or more parameters are invalid.  File has not been saved.", "Invalid Entry", MessageBoxButtons.OK, MessageBoxIcon.Error);
