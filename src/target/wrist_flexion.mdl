@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.166"
+    ComputedModelVersion    "1.173"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Apr 06 14:45:09 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:166>"
+  LastModifiedDate	  "Wed Apr 08 14:12:11 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:173>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -771,7 +771,7 @@ Model {
   }
   System {
     Name		    "wrist_flexion"
-    Location		    [53, 148, 1089, 858]
+    Location		    [56, 82, 1068, 736]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -2296,8 +2296,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"WordSbs"
-	Location		[81, 268, 1028, 930]
-	Open			off
+	Location		[58, 82, 1005, 682]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2312,13 +2312,13 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "Word"
-	  Position		  [335, 368, 365, 382]
+	  Position		  [335, 428, 365, 442]
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant"
-	  Position		  [335, 420, 365, 450]
+	  Position		  [335, 360, 365, 390]
 	  Value			  "0"
 	}
 	Block {
@@ -2349,9 +2349,10 @@ Model {
 	  BlockType		  Switch
 	  Name			  "Switch"
 	  Position		  [420, 360, 460, 450]
-	  Threshold		  "2"
+	  Threshold		  "1"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
+	  ZeroCross		  off
 	}
 	Block {
 	  BlockType		  Reference
@@ -2373,7 +2374,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "While Iterator\nSubsystem"
-	    Location		    [2, 82, 1270, 978]
+	    Location		    [-16, 91, 996, 753]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -2549,18 +2550,6 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Word"
-	  SrcPort		  1
-	  DstBlock		  "Switch"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Constant"
-	  SrcPort		  1
-	  DstBlock		  "Switch"
-	  DstPort		  3
-	}
-	Line {
 	  SrcBlock		  "For Iterator"
 	  SrcPort		  1
 	  DstBlock		  "Switch"
@@ -2571,6 +2560,18 @@ Model {
 	  SrcPort		  1
 	  DstBlock		  "While Iterator\nSubsystem"
 	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Constant"
+	  SrcPort		  1
+	  DstBlock		  "Switch"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Word"
+	  SrcPort		  1
+	  DstBlock		  "Switch"
+	  DstPort		  3
 	}
 	Annotation {
 	  Position		  [774, 433]

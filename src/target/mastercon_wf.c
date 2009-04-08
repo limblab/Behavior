@@ -645,10 +645,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             set_catch_trial( catch_trials_pct > (double)rand()/(double)RAND_MAX ? 1 : 0 );
 
             /* Copy target info into databursts */
-            databurst[0] = (byte)(4 * sizeof(float) + 2); /*  number of bytes = 4 * 4 floats: [xl,yh,xh,yl] + 2 databurst[0:1] = 18 bytes */
+            databurst[0] = (4 * sizeof(float) + 2); /*  number of bytes = 4 * 4 floats: [xl,yh,xh,yl] + 2 databurst[0:1] = 18 bytes */
             databurst[1] = DATABURST_VERSION;
             for (i = 0; i < 4; i++) {
-                databurst_target_list[i] = (float) tgt[i];
+                databurst_target_list[i] = tgt[i];
             }
             
             /* and reset the counter */
@@ -671,10 +671,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             break;
         case STATE_DATA_BLOCK:
-            if (databurst_counter >= 2*((byte)databurst[0])-1) { 
+            if (databurst_counter >= 2*(databurst[0])-1) { 
                new_state = STATE_RECENTERING;
                state_changed();
             }
+			ssSetIWorkValue(S, 23, databurst_counter+1);
             break;           
         case STATE_RECENTERING:
             if (cursorInTarget(cursor, center)) {
@@ -962,7 +963,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         } else {
              word = (databurst[(databurst_counter-1) / 2] >> 4) | 0xF0; /* high order bits */
         }
-        ssSetIWorkValue(S, 23, databurst_counter+1);
 	} else if (new_state) {
         switch (state) {
             case STATE_PRETRIAL:
