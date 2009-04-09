@@ -41,6 +41,8 @@ namespace BehaviorGraphics
             protocol = new xPCProtocol();
             target = new xPCTarget();
             currentBP = new BehaviorParameters();
+            bpWasModified = false;
+            formWasModified = false;
 
             if (protocol.Init() < 0) {
                 MessageBox.Show("Could not load API.\nMake sure xpcapi.dll is in the path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -431,9 +433,12 @@ namespace BehaviorGraphics
             if (e.CloseReason == CloseReason.UserClosing) {
                 e.Cancel = true;
                 ((Graphics)this.Owner).RestartTimer();
-            } else {
-                protocol.Term();
             }
+        }
+
+        private void UpdateForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            protocol.Term();
         }
 
         private void radioButtonBump_CheckedChanged(object sender, EventArgs e)
@@ -460,7 +465,7 @@ namespace BehaviorGraphics
             widget_ValueChanged(sender, e);
         }
 
-        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void quit(object sender, EventArgs e)
         {
             this.Owner.Close();
         }
@@ -916,7 +921,7 @@ namespace BehaviorGraphics
             }
         }
 
-        private void fileSave()
+        public void fileSave()
         {
             BehaviorParameters bp;
             XmlSerializer s;
@@ -1526,6 +1531,15 @@ namespace BehaviorGraphics
         }
         #endregion
 
+        public Boolean HasUnsavedModifications
+        {
+            get { return this.formWasModified || this.bpWasModified; }
+        }
+        public string Filename
+        {
+            get { return this.filename; }
+        }
+        
         public class InvalidParameterException : Exception
         {
             string p;

@@ -445,5 +445,18 @@ namespace BehaviorGraphics
             get { return this.y; }
         }
 
+        private void Graphics_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (updateForm.HasUnsavedModifications && (updateForm.Filename != String.Empty)) {
+                DialogResult result = MessageBox.Show(String.Concat("Save modifications to ", updateForm.Filename, "?"), "Save Modifications?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                if (result == DialogResult.Yes) {
+                    updateForm.fileSave();
+                }
+                else if (result == DialogResult.Cancel) {
+                    e.Cancel = true;
+                }
+            }
+        }
+
     }
 }

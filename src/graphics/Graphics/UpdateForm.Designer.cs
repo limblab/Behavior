@@ -4058,7 +4058,7 @@ namespace BehaviorGraphics
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             this.quitToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.quitToolStripMenuItem.Text = "&Quit";
-            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quit);
             // 
             // helpToolStripMenuItem
             // 
@@ -5481,6 +5481,7 @@ namespace BehaviorGraphics
             this.Text = "Update Target";
             this.Shown += new System.EventHandler(this.UpdateForm_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.UpdateForm_DragDrop);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UpdateForm_FormClosed);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.UpdateForm_DragEnter);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UpdateForm_FormClosing);
             this.tabControl.ResumeLayout(false);
