@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -2824,7 +2824,6 @@ namespace BehaviorGraphics
             this.textBoxMGCT.Name = "textBoxMGCT";
             this.textBoxMGCT.Size = new System.Drawing.Size(31, 20);
             this.textBoxMGCT.TabIndex = 43;
-            this.textBoxMGCT.Text = "0";
             this.textBoxMGCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip1.SetToolTip(this.textBoxMGCT, "Percentage of Catch Trials.");
             this.textBoxMGCT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -2952,8 +2951,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -3198,7 +3197,6 @@ namespace BehaviorGraphics
             this.textBoxWFIntMax.Name = "textBoxWFIntMax";
             this.textBoxWFIntMax.Size = new System.Drawing.Size(30, 20);
             this.textBoxWFIntMax.TabIndex = 30;
-            this.textBoxWFIntMax.Text = "10";
             this.textBoxWFIntMax.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBoxWFIntMin
@@ -3207,7 +3205,6 @@ namespace BehaviorGraphics
             this.textBoxWFIntMin.Name = "textBoxWFIntMin";
             this.textBoxWFIntMin.Size = new System.Drawing.Size(30, 20);
             this.textBoxWFIntMin.TabIndex = 29;
-            this.textBoxWFIntMin.Text = "-10";
             this.textBoxWFIntMin.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label159
@@ -3236,7 +3233,6 @@ namespace BehaviorGraphics
             this.textBoxWFRot.Name = "textBoxWFRot";
             this.textBoxWFRot.Size = new System.Drawing.Size(44, 20);
             this.textBoxWFRot.TabIndex = 26;
-            this.textBoxWFRot.Text = "0";
             this.textBoxWFRot.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label132
@@ -3263,7 +3259,6 @@ namespace BehaviorGraphics
             this.textBoxWFFILT.Name = "textBoxWFFILT";
             this.textBoxWFFILT.Size = new System.Drawing.Size(43, 20);
             this.textBoxWFFILT.TabIndex = 18;
-            this.textBoxWFFILT.Text = "50";
             this.textBoxWFFILT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // checkBoxWFFILT
@@ -3413,7 +3408,6 @@ namespace BehaviorGraphics
             this.textBoxWFCT.Name = "textBoxWFCT";
             this.textBoxWFCT.Size = new System.Drawing.Size(31, 20);
             this.textBoxWFCT.TabIndex = 20;
-            this.textBoxWFCT.Text = "0";
             this.textBoxWFCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip1.SetToolTip(this.textBoxWFCT, "Percentage of Catch Trials.");
             this.textBoxWFCT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -3554,7 +3548,6 @@ namespace BehaviorGraphics
             this.textBoxWFY.Name = "textBoxWFY";
             this.textBoxWFY.Size = new System.Drawing.Size(38, 20);
             this.textBoxWFY.TabIndex = 24;
-            this.textBoxWFY.Text = "0";
             this.textBoxWFY.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBoxWFX
@@ -3563,7 +3556,6 @@ namespace BehaviorGraphics
             this.textBoxWFX.Name = "textBoxWFX";
             this.textBoxWFX.Size = new System.Drawing.Size(38, 20);
             this.textBoxWFX.TabIndex = 26;
-            this.textBoxWFX.Text = "0";
             this.textBoxWFX.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // groupBox33
@@ -3600,8 +3592,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -3947,7 +3939,6 @@ namespace BehaviorGraphics
             this.textBoxBDCT.Name = "textBoxBDCT";
             this.textBoxBDCT.Size = new System.Drawing.Size(31, 20);
             this.textBoxBDCT.TabIndex = 43;
-            this.textBoxBDCT.Text = "0";
             this.textBoxBDCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip1.SetToolTip(this.textBoxBDCT, "Percentage of Catch Trials.");
             this.textBoxBDCT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
