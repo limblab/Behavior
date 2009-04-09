@@ -110,3 +110,26 @@ version 2.3
 
 Bump-Stim
   * Fixed a bug with how the bumps are delivered.
+
+version 2.4
+===========
+
+General
+  * Corrected word definition for WORD_INCOMPLETE:
+      Was: (WORD_END_TRIAL | WORD_FAIL_END_CODE)       => 0x20 | 0x02 => 0x22
+      Now: (WORD_END_TRIAL | WORD_INCOMPLETE_END_CODE) => 0x20 | 0x03 => 0x23
+Graphics
+  * The settings and model file dialogs now have independent most recent locations
+    (Load model will always default to the last model location and vice-versa)
+  * The titlebar now updates to reflect the currently loaded settings file.
+  * The titlebar now appends an asterisk to the filename to reflect unsaved modifications.
+  * It prompts to save your settings when closing if you have unsaved modifications.
+  * The mouse cursor now hides when in full screen mode.
+  * The wrist flexion tab has been updates to support the changes below:
+Wrist Flexion
+  * Databurst now functions properly
+  * New cursor options:
+      * Tuneable low pass filter
+      * Rotation at an arbitrary angle (in radians)
+      * Offsets are applied before gains, removed prompt on autozeroing routine
+      * Integration mode (Crystal Quest!)
