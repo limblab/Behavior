@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -676,6 +676,7 @@ namespace BehaviorGraphics
                     "y.\r\nWhen cleared (unchecked) the model will use filtered differentiation of the " +
                     "the position signal.");
             this.checkBoxUseTachs.UseVisualStyleBackColor = true;
+            this.checkBoxUseTachs.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // comboBoxCursor
             // 
@@ -685,6 +686,7 @@ namespace BehaviorGraphics
             this.comboBoxCursor.Size = new System.Drawing.Size(145, 21);
             this.comboBoxCursor.TabIndex = 16;
             this.toolTip1.SetToolTip(this.comboBoxCursor, "The cursor type to display");
+            this.comboBoxCursor.SelectedIndexChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // label114
             // 
@@ -707,6 +709,7 @@ namespace BehaviorGraphics
                     "monkey throw the handle it will be returned to the workspace origin after a dela" +
                     "y.");
             this.checkBoxRecenter.UseVisualStyleBackColor = true;
+            this.checkBoxRecenter.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // groupBox27
             // 
@@ -1322,6 +1325,7 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.checkBoxCHB, "When checked, this option will, on some trials, bump the handle during the center" +
                     " hold period.");
             this.checkBoxCHB.UseVisualStyleBackColor = true;
+            this.checkBoxCHB.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // radioButtonCatch
             // 
@@ -1394,6 +1398,7 @@ namespace BehaviorGraphics
             0,
             0,
             0});
+            this.numericUpDownNumTgts.ValueChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // label20
             // 
@@ -1416,6 +1421,7 @@ namespace BehaviorGraphics
                     "the monkey reaches it successfully.  When not activated, advances\r\nto the next t" +
                     "arget irrespective of result.");
             this.checkBoxIdiot.UseVisualStyleBackColor = true;
+            this.checkBoxIdiot.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // textBoxTgtRadius
             // 
@@ -1848,6 +1854,7 @@ namespace BehaviorGraphics
             0,
             0,
             0});
+            this.numericUpDownRWTgts.ValueChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // textBoxRWTgtSize
             // 
@@ -2105,6 +2112,7 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.checkBoxFCTrainingMode, "Sets training mode:\r\n\r\nWhen on, only the correct target is illuminated.\r\nWhen off" +
                     ", both outer targets are illuminated.");
             this.checkBoxFCTrainingMode.UseVisualStyleBackColor = true;
+            this.checkBoxFCTrainingMode.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // label42
             // 
@@ -2133,6 +2141,7 @@ namespace BehaviorGraphics
             0,
             0,
             0});
+            this.numericUpDownFCStimSteps.ValueChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // groupBox10
             // 
@@ -2452,6 +2461,7 @@ namespace BehaviorGraphics
             0,
             0,
             0});
+            this.numericUpDownBSBumpSteps.ValueChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // groupBox28
             // 
@@ -2642,6 +2652,7 @@ namespace BehaviorGraphics
             this.textBoxBSNumTargetsSeq.TabIndex = 25;
             this.toolTip1.SetToolTip(this.textBoxBSNumTargetsSeq, "Number of trials on which to use a given angle before randomly selecting a new on" +
                     "e.\r\nSet to zero to use the requested \"Target Angle\" above.");
+            this.textBoxBSNumTargetsSeq.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label156
             // 
@@ -2777,6 +2788,7 @@ namespace BehaviorGraphics
             0,
             0,
             0});
+            this.numericUpDownMGTargets.ValueChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // label136
             // 
@@ -2815,6 +2827,7 @@ namespace BehaviorGraphics
             this.textBoxMGCT.Text = "0";
             this.textBoxMGCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip1.SetToolTip(this.textBoxMGCT, "Percentage of Catch Trials.");
+            this.textBoxMGCT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // checkBoxMGMT
             // 
@@ -2825,6 +2838,7 @@ namespace BehaviorGraphics
             this.checkBoxMGMT.TabIndex = 39;
             this.checkBoxMGMT.Text = "Multiple Targets";
             this.checkBoxMGMT.UseVisualStyleBackColor = true;
+            this.checkBoxMGMT.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // checkBoxMGIM
             // 
@@ -2835,6 +2849,7 @@ namespace BehaviorGraphics
             this.checkBoxMGIM.TabIndex = 38;
             this.checkBoxMGIM.Text = "Idiot Mode";
             this.checkBoxMGIM.UseVisualStyleBackColor = true;
+            this.checkBoxMGIM.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // label137
             // 
@@ -2869,6 +2884,7 @@ namespace BehaviorGraphics
             this.checkBoxMG3.TabStop = false;
             this.checkBoxMG3.Text = "Gadget 4";
             this.checkBoxMG3.UseVisualStyleBackColor = true;
+            this.checkBoxMG3.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // checkBoxMG0
             // 
@@ -2879,6 +2895,7 @@ namespace BehaviorGraphics
             this.checkBoxMG0.TabIndex = 17;
             this.checkBoxMG0.Text = "Gadget 1";
             this.checkBoxMG0.UseVisualStyleBackColor = true;
+            this.checkBoxMG0.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // checkBoxMG2
             // 
@@ -2889,6 +2906,7 @@ namespace BehaviorGraphics
             this.checkBoxMG2.TabIndex = 19;
             this.checkBoxMG2.Text = "Gadget 3";
             this.checkBoxMG2.UseVisualStyleBackColor = true;
+            this.checkBoxMG2.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // checkBoxMG1
             // 
@@ -2899,6 +2917,7 @@ namespace BehaviorGraphics
             this.checkBoxMG1.TabIndex = 18;
             this.checkBoxMG1.Text = "Gadget 2";
             this.checkBoxMG1.UseVisualStyleBackColor = true;
+            this.checkBoxMG1.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // groupBoxMGTargets
             // 
@@ -2929,11 +2948,12 @@ namespace BehaviorGraphics
             this.MGTargetGrid.RowHeadersVisible = false;
             this.MGTargetGrid.Size = new System.Drawing.Size(306, 162);
             this.MGTargetGrid.TabIndex = 35;
+            this.MGTargetGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.table_CellValueChanged);
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -3179,6 +3199,7 @@ namespace BehaviorGraphics
             this.textBoxWFIntMax.Size = new System.Drawing.Size(30, 20);
             this.textBoxWFIntMax.TabIndex = 30;
             this.textBoxWFIntMax.Text = "10";
+            this.textBoxWFIntMax.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBoxWFIntMin
             // 
@@ -3187,6 +3208,7 @@ namespace BehaviorGraphics
             this.textBoxWFIntMin.Size = new System.Drawing.Size(30, 20);
             this.textBoxWFIntMin.TabIndex = 29;
             this.textBoxWFIntMin.Text = "-10";
+            this.textBoxWFIntMin.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label159
             // 
@@ -3206,6 +3228,7 @@ namespace BehaviorGraphics
             this.checkBoxWFIntegrate.TabIndex = 27;
             this.checkBoxWFIntegrate.Text = "Integrate Position";
             this.checkBoxWFIntegrate.UseVisualStyleBackColor = true;
+            this.checkBoxWFIntegrate.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // textBoxWFRot
             // 
@@ -3214,6 +3237,7 @@ namespace BehaviorGraphics
             this.textBoxWFRot.Size = new System.Drawing.Size(44, 20);
             this.textBoxWFRot.TabIndex = 26;
             this.textBoxWFRot.Text = "0";
+            this.textBoxWFRot.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label132
             // 
@@ -3240,6 +3264,7 @@ namespace BehaviorGraphics
             this.textBoxWFFILT.Size = new System.Drawing.Size(43, 20);
             this.textBoxWFFILT.TabIndex = 18;
             this.textBoxWFFILT.Text = "50";
+            this.textBoxWFFILT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // checkBoxWFFILT
             // 
@@ -3250,6 +3275,7 @@ namespace BehaviorGraphics
             this.checkBoxWFFILT.TabIndex = 17;
             this.checkBoxWFFILT.Text = "Enable Software Filter";
             this.checkBoxWFFILT.UseVisualStyleBackColor = true;
+            this.checkBoxWFFILT.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // buttonWFAZ
             // 
@@ -3268,6 +3294,7 @@ namespace BehaviorGraphics
             this.textBoxWFOY.Size = new System.Drawing.Size(43, 20);
             this.textBoxWFOY.TabIndex = 15;
             this.textBoxWFOY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBoxWFOY.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBoxWFOX
             // 
@@ -3276,6 +3303,7 @@ namespace BehaviorGraphics
             this.textBoxWFOX.Size = new System.Drawing.Size(43, 20);
             this.textBoxWFOX.TabIndex = 14;
             this.textBoxWFOX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBoxWFOX.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label153
             // 
@@ -3293,6 +3321,7 @@ namespace BehaviorGraphics
             this.textBoxWFGY.Size = new System.Drawing.Size(43, 20);
             this.textBoxWFGY.TabIndex = 13;
             this.textBoxWFGY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBoxWFGY.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label152
             // 
@@ -3319,6 +3348,7 @@ namespace BehaviorGraphics
             this.textBoxWFGX.Size = new System.Drawing.Size(43, 20);
             this.textBoxWFGX.TabIndex = 12;
             this.textBoxWFGX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBoxWFGX.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label150
             // 
@@ -3375,6 +3405,7 @@ namespace BehaviorGraphics
             this.checkBoxWF1D.TabIndex = 22;
             this.checkBoxWF1D.Text = "1D only";
             this.checkBoxWF1D.UseVisualStyleBackColor = false;
+            this.checkBoxWF1D.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // textBoxWFCT
             // 
@@ -3396,6 +3427,7 @@ namespace BehaviorGraphics
             this.checkBoxWFMT.TabIndex = 23;
             this.checkBoxWFMT.Text = "Multiple Targets";
             this.checkBoxWFMT.UseVisualStyleBackColor = true;
+            this.checkBoxWFMT.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // numericUpDownWFTargets
             // 
@@ -3418,6 +3450,7 @@ namespace BehaviorGraphics
             0,
             0,
             0});
+            this.numericUpDownWFTargets.ValueChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // checkBoxWFIM
             // 
@@ -3428,6 +3461,7 @@ namespace BehaviorGraphics
             this.checkBoxWFIM.TabIndex = 21;
             this.checkBoxWFIM.Text = "Idiot Mode";
             this.checkBoxWFIM.UseVisualStyleBackColor = true;
+            this.checkBoxWFIM.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // label134
             // 
@@ -3562,11 +3596,12 @@ namespace BehaviorGraphics
             this.WFTargetGrid.RowHeadersVisible = false;
             this.WFTargetGrid.Size = new System.Drawing.Size(306, 199);
             this.WFTargetGrid.TabIndex = 29;
+            this.WFTargetGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.table_CellValueChanged);
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -3771,6 +3806,7 @@ namespace BehaviorGraphics
             this.textBoxBDI.Name = "textBoxBDI";
             this.textBoxBDI.Size = new System.Drawing.Size(100, 20);
             this.textBoxBDI.TabIndex = 15;
+            this.textBoxBDI.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label138
             // 
@@ -3787,6 +3823,7 @@ namespace BehaviorGraphics
             this.textBoxBDDT.Name = "textBoxBDDT";
             this.textBoxBDDT.Size = new System.Drawing.Size(100, 20);
             this.textBoxBDDT.TabIndex = 11;
+            this.textBoxBDDT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label139
             // 
@@ -3803,6 +3840,7 @@ namespace BehaviorGraphics
             this.textBoxBDPT.Name = "textBoxBDPT";
             this.textBoxBDPT.Size = new System.Drawing.Size(100, 20);
             this.textBoxBDPT.TabIndex = 9;
+            this.textBoxBDPT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label140
             // 
@@ -3819,6 +3857,7 @@ namespace BehaviorGraphics
             this.textBoxBDDH.Name = "textBoxBDDH";
             this.textBoxBDDH.Size = new System.Drawing.Size(100, 20);
             this.textBoxBDDH.TabIndex = 7;
+            this.textBoxBDDH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label141
             // 
@@ -3835,6 +3874,7 @@ namespace BehaviorGraphics
             this.textBoxBDDL.Name = "textBoxBDDL";
             this.textBoxBDDL.Size = new System.Drawing.Size(100, 20);
             this.textBoxBDDL.TabIndex = 5;
+            this.textBoxBDDL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label142
             // 
@@ -3851,6 +3891,7 @@ namespace BehaviorGraphics
             this.textBoxBDTPH.Name = "textBoxBDTPH";
             this.textBoxBDTPH.Size = new System.Drawing.Size(100, 20);
             this.textBoxBDTPH.TabIndex = 3;
+            this.textBoxBDTPH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label148
             // 
@@ -3868,6 +3909,7 @@ namespace BehaviorGraphics
             this.textBoxBDTPL.Size = new System.Drawing.Size(100, 20);
             this.textBoxBDTPL.TabIndex = 1;
             this.toolTip1.SetToolTip(this.textBoxBDTPL, resources.GetString("textBoxBDTPL.ToolTip"));
+            this.textBoxBDTPL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label149
             // 
@@ -3908,6 +3950,7 @@ namespace BehaviorGraphics
             this.textBoxBDCT.Text = "0";
             this.textBoxBDCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip1.SetToolTip(this.textBoxBDCT, "Percentage of Catch Trials.");
+            this.textBoxBDCT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label147
             // 

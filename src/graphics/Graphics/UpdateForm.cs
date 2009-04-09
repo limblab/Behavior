@@ -17,6 +17,9 @@ namespace BehaviorGraphics
 {
     public partial class UpdateForm : Form
     {
+        private BehaviorParameters currentBP;
+        private bool formWasModified;
+        private bool bpWasModified;
         private xPCTarget target;
         private xPCProtocol protocol;
         private bool hasXpcTarget = false;
@@ -37,6 +40,7 @@ namespace BehaviorGraphics
         {
             protocol = new xPCProtocol();
             target = new xPCTarget();
+            currentBP = new BehaviorParameters();
 
             if (protocol.Init() < 0) {
                 MessageBox.Show("Could not load API.\nMake sure xpcapi.dll is in the path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -387,7 +391,7 @@ namespace BehaviorGraphics
             formname = (lbracket > 0) ? this.Text.Substring(0, lbracket - 1) : this.Text;
             
             // Abridge the filename to three path components.
-            string[] pathComponents = filename.Split(new char[] { '\\','/' });
+            string[] pathComponents = filename.Split(new char[] { Path.DirectorySeparatorChar });
             if (pathComponents.Length > 3) {
                 abridgedFilename = String.Concat(
                     pathComponents[0],"\\...\\",
@@ -399,6 +403,25 @@ namespace BehaviorGraphics
             }
 
             this.Text = String.Concat(formname, " [", abridgedFilename, "]");
+        }
+
+        /// <summary>
+        /// Updates the asterisk behind the currently loaded filename to reflect changes (or lack thereof)
+        /// </summary>
+        private void UpdateTitlebarFileModifiedFlag(bool hasChanges)
+        {
+            if (hasChanges) {
+                /* search for the asterisk. If none exists, add one */
+                if (this.Text.EndsWith("]") && !this.Text.EndsWith("*]")) {
+                    this.Text = String.Concat(this.Text.Substring(0, this.Text.Length - 1), "*]");
+                }
+            }
+            else /* (!hasChanges) */ {
+                /* search for the asterisk. If it's there, remove it */
+                if (this.Text.EndsWith("*]")) {
+                    this.Text = String.Concat(this.Text.Substring(0, this.Text.Length - 2), "]");
+                }
+            }
         }
 
         #region Form Event Callbacks
@@ -417,18 +440,24 @@ namespace BehaviorGraphics
         {
             bumpGroup.Enabled = true;
             catchGroup.Enabled = false;
+
+            widget_ValueChanged(sender, e);
         }
 
         private void radioButtonCatch_CheckedChanged(object sender, EventArgs e)
         {
             bumpGroup.Enabled = false;
             catchGroup.Enabled = true;
+
+            widget_ValueChanged(sender, e);
         }
 
         private void radioButtonNoBump_CheckedChanged(object sender, EventArgs e)
         {
             bumpGroup.Enabled = false;
             catchGroup.Enabled = false;
+
+            widget_ValueChanged(sender, e);
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -467,6 +496,8 @@ namespace BehaviorGraphics
 
             labelTimeConst.Enabled = (load == "Chaotic" || load == "Rotating Curl");
             textBoxTimeConst.Enabled = (load == "Chaotic" || load == "Rotating Curl");
+
+            widget_ValueChanged(sender, e);
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -500,6 +531,8 @@ namespace BehaviorGraphics
 
             labelTimeConstCatch.Enabled = (catchLoad == "Chaotic" || catchLoad == "Rotating Curl");
             textBoxTimeConstCatch.Enabled = (catchLoad == "Chaotic" || catchLoad == "Rotating Curl");
+
+            widget_ValueChanged(sender, e);
         }
 
         private void buttonclear_Click(object sender, EventArgs e)
@@ -553,10 +586,16 @@ namespace BehaviorGraphics
             // Update text boxes
             textBoxWFOX.Text = String.Format("{0:f5}", -RawXValue);
             textBoxWFOY.Text = String.Format("{0:f5}", -RawYValue);
+
+            widget_ValueChanged(sender, e);
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
+            // revert the changes
+            BehaviorParameters2Form(this.currentBP);
+            this.formWasModified = false;
+            UpdateTitlebarFileModifiedFlag(this.formWasModified || this.bpWasModified);
             this.Close();
         }
 
@@ -564,6 +603,9 @@ namespace BehaviorGraphics
         {
             try {
                 Form2Target();
+                this.currentBP = Form2BehaviorParameters();
+                this.bpWasModified = this.bpWasModified || this.formWasModified;
+                UpdateTitlebarFileModifiedFlag(this.bpWasModified);
                 this.Close();
             } catch (InvalidParameterException) {
                 MessageBox.Show("One or more parameters are invalid. Model not updated.", "Invalid Entry", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -591,11 +633,25 @@ namespace BehaviorGraphics
                     tb.BackColor = SystemColors.Window;
                 }
             }
+            widget_ValueChanged(sender, e);
+        }
+
+        private void widget_ValueChanged(object sender, EventArgs e)
+        {
+            this.formWasModified = true;
+            UpdateTitlebarFileModifiedFlag(true);
+        }
+
+        private void table_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            widget_ValueChanged(sender, null);
         }
 
         private void checkBoxFCRAT_CheckedChanged(object sender, EventArgs e)
         {
             textBoxFCRewardThreshold.Enabled = !checkBoxFCRAT.Checked;
+
+            widget_ValueChanged(sender, e);
         }
 
         private void UpdateForm_Shown(object sender, EventArgs e)
@@ -702,9 +758,14 @@ namespace BehaviorGraphics
                     catch { };
 
                     UpdateTitlebarText(filename);
+                    this.currentBP = bp;
+                    this.formWasModified = false;
+                    this.bpWasModified = false;
 
                 } catch (Exception ex) {
-                    MessageBox.Show("The file does not appear to be in the proper format.  "+ex.Message, "Error loading file", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("The file does not appear to be in the proper format. The parameters may have been partially updated."+ex.Message, "Error loading file", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    this.formWasModified = true;
+                    UpdateTitlebarFileModifiedFlag(true);
                 } finally {
                     reader.Close();
                 }
@@ -865,6 +926,11 @@ namespace BehaviorGraphics
                 bp = Form2BehaviorParameters();
                 s = new XmlSerializer(typeof(BehaviorParameters));
                 s.Serialize(writer, bp);
+
+                UpdateTitlebarText(filename);
+                this.currentBP = bp;
+                this.formWasModified = false;
+                this.bpWasModified = false;
             } catch (InvalidParameterException) {
                 MessageBox.Show("One or more parameters are invalid. File not saved.", "Invalid Entry", MessageBoxButtons.OK, MessageBoxIcon.Error);
             } catch (IOException) {
