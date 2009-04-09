@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.0.3379.19477">
-  <ScreenWidth>30</ScreenWidth>
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.4.3385.39865">
+  <ScreenWidth>23</ScreenWidth>
   <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>5</Cursor>
   <SoundTheme>Theme1</SoundTheme>
@@ -537,6 +537,22 @@
         <key>WFFiltFreqY</key>
         <value>50</value>
       </item>
+      <item>
+        <key>WFRotation</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFIntegration</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFIntegratMax</key>
+        <value>10</value>
+      </item>
+      <item>
+        <key>WFIntegratMin</key>
+        <value>-10</value>
+      </item>
     </dictionary>
   </SerializedParameters>
   <MultiGadgetTargetList>
@@ -687,18 +703,18 @@
       <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
-      <x>5</x>
+      <x>0</x>
       <y>0</y>
-      <h>2</h>
-      <w>2</w>
+      <h>0</h>
+      <w>0</w>
       <xVar>0</xVar>
       <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
-      <x>-5</x>
+      <x>0</x>
       <y>0</y>
-      <h>2</h>
-      <w>2</w>
+      <h>0</h>
+      <w>0</w>
       <xVar>0</xVar>
       <yVar>0</yVar>
     </MultiGadgetTarget>
