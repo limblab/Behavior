@@ -314,12 +314,14 @@ namespace BehaviorGraphics
                 oldSize = this.Size;
                 oldLocation = this.Location;
                 fullScreen = true;
+                Cursor.Hide();
                 this.device.Reset(GetPresentParams());
             }
 
             if (fullScreen && e.KeyCode == Keys.Escape) {
                 /* exit full screen mode */
                 fullScreen = false;
+                Cursor.Show();
                 this.device.Reset(GetPresentParams());
                 this.TopMost = false;
                 this.Size = oldSize;
@@ -333,6 +335,7 @@ namespace BehaviorGraphics
             if (fullScreen) {
                 /* exit full screen mode */
                 fullScreen = false;
+                Cursor.Show();
                 this.device.Reset(GetPresentParams());
                 this.TopMost = false;
                 this.Size = oldSize;
