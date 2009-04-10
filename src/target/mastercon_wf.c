@@ -1001,7 +1001,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
       
     status[0] = state;
-    status[1] = ssGetIWorkValue(S,23); // num rewards
+    status[1] = ssGetIWorkValue(S,2); // num rewards
     status[2] = ssGetIWorkValue(S,3); // num aborts
     status[3] = ssGetIWorkValue(S,4); // num failures
     
