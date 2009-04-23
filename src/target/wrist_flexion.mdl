@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.195"
+    ComputedModelVersion    "1.200"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 23 01:57:31 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:195>"
+  LastModifiedDate	  "Thu Apr 23 15:26:41 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:200>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -771,7 +771,7 @@ Model {
   }
   System {
     Name		    "wrist_flexion"
-    Location		    [56, 82, 1068, 736]
+    Location		    [108, 190, 1120, 844]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -914,7 +914,7 @@ Model {
       Position		      [445, 38, 610, 582]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_wf"
-      Parameters	      "8 5 .5 .5 1 2 2 2 2 2 0 0 0 0 0 0 0 0.7854"
+      Parameters	      "8 5 .5 .5 1 2 2 2 2 2 0 0 0 0 0 0 0 0.7854 0"
       MaskDisplay	      "disp('Master Control\\nWrist-Flexion')\nport_la"
 "bel('input',1,'cursor')\nport_label('input',2,'target list')\nport_label('out"
 "put',1,'Reward')\nport_label('output',2,'Word')\nport_label('output',3,'Statu"
@@ -930,7 +930,7 @@ Model {
       BlockType		      Reference
       Name		      "Cursor Pos"
       Ports		      [1]
-      Position		      [905, 219, 975, 261]
+      Position		      [905, 229, 975, 271]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -945,8 +945,8 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "' %6.6f X   , %6.6f Y   , (Rotated %6.4f rad)  "
-"'"
+      formatstr		      "' X: %4.6f   , Y: %4.6f   , (Rotated %6.2f degr"
+"ees)  '"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"
@@ -1640,10 +1640,19 @@ Model {
       BlockType		      Mux
       Name		      "Mux"
       Ports		      [2, 1]
-      Position		      [855, 221, 860, 259]
+      Position		      [875, 213, 880, 282]
       ShowName		      off
       Inputs		      "2"
       DisplayOption	      "bar"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "Rad2Deg"
+      Position		      [825, 251, 850, 279]
+      Gain		      "57.29578"
+      ParameterDataTypeMode   "Inherit via internal rule"
+      OutDataTypeMode	      "Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      SubSystem
@@ -2333,7 +2342,7 @@ Model {
       System {
 	Name			"WordSbs"
 	Location		[58, 82, 1005, 682]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2714,9 +2723,9 @@ Model {
 	DstPort			1
       }
       Branch {
-	Points			[0, -300]
-	DstBlock		"Mux"
-	DstPort			2
+	Points			[0, -285]
+	DstBlock		"Rad2Deg"
+	DstPort			1
       }
     }
     Line {
@@ -2734,6 +2743,12 @@ Model {
       SrcPort		      1
       DstBlock		      "Cursor Pos"
       DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Rad2Deg"
+      SrcPort		      1
+      DstBlock		      "Mux"
+      DstPort		      2
     }
   }
 }

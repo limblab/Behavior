@@ -41,10 +41,26 @@
  *		are included in the databurst
  *
  *		In MVC mode, the current value of the MVC target is provided in the databurst
+ *
+ * Version 2 (0x02)
+ * ----------------
+ * byte 0: uchar => number of bytes to be transmitted
+ * byte 1: uchar => version number (in this case one)
+ * bytes 2 to 6: float => Cursor rotation value
+ * bytes 6 to 6+ N*16: where N is the number of targets whose position are output.
+ *		contains 16 bytes per target representing four single precision floating point
+ *		numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
+ *		of the UL and LR corners of the target.
+ *
+ *		The position of only the current target is output at the begining of each trial
+ *		in normal behavior, but in multiple target mode, all the targets
+ *		are included in the databurst
+ *
+ *		In MVC mode, the current value of the MVC target is provided in the databurst
  */
 
 typedef unsigned char byte;
-#define DATABURST_VERSION ((byte)0x01) 
+#define DATABURST_VERSION ((byte)0x02) 
 
 /*
  * Tunable parameters
@@ -102,6 +118,9 @@ static real_T rotation_increment = 0.0;
 
 static real_T rotation_max = 0.785398163; /* ( PI / 4 ) == 90 deg */
 #define param_rotation_max mxGetScalar(ssGetSFcnParam(S,17))
+
+static real_T master_update = 0.0;
+#define param_master_update mxGetScalar(ssGetSFcnParam(S,18))
 
 #define set_catch_trial(x) ssSetIWorkValue(S, 22, (x))
 #define get_catch_trial() ssGetIWorkValue(S, 22)
@@ -170,7 +189,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 18); 
+    ssSetNumSFcnParams(S, 19); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -239,7 +258,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                13-20: Current MVC targets [x1 x2 x3 x4 y1 y2 y3 y4]
                                21-28: higher MVC targets reached [x1 x2 x3 x4 y1 y2 y3 y4]
                                29: mastercon version
-                               30: Time of last master reset
+                               30: Time of last update
 
                             */
     ssSetNumPWork(S, 1);	/* 0: Databurst array pointer 
@@ -388,6 +407,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     
     byte* databurst;
     float* databurst_target_list;
+    float* databurst_rotation;
     int databurst_counter;
     
     /******************
@@ -507,7 +527,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 23);
     databurst = (byte *)ssGetPWorkValue(S, 0);
-    databurst_target_list = (float *)(databurst + 2*sizeof(byte));
+    databurst_rotation    = (float *)(databurst + 2*sizeof(byte));
+    databurst_target_list = (float *)(databurst + 2*sizeof(byte) + sizeof(float));
     
     /*********************************
      * See if we have issued a reset *
@@ -517,7 +538,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 2, 0);
         ssSetIWorkValue(S, 3, 0);
         ssSetIWorkValue(S, 4, 0);
-        ssSetRWorkValue(S, 30, ssGetT(S));
         state_r[0] = STATE_PRETRIAL;
         return;
     }
@@ -561,16 +581,22 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             failure_timeout = param_intertrial;   
             reward_timeout  = param_intertrial;
             
-            catch_trials_pct = param_catch_trials_pct/100;   
-			rotation           = param_rotation * PI / 180.0;
+            catch_trials_pct = param_catch_trials_pct/100;
+            
+            /* Only update these values if we've explicitly issued an update */
+            if ( param_master_update > master_update ) {
+                master_update = param_master_update;
+                rotation = param_rotation * PI / 180.0;
+                ssSetRWorkValue(S, 30, ssGetT(S));
+            }
             rotation_increment = param_rotation_increment * PI / 180.0;
             rotation_max       = param_rotation_max * PI / 180.0;
             
             /* Check for the rotation flag and rotate the cursor by that amount */
             if (ssGetIWorkValue(S, 24) == 1) {
                 rotation += rotation_increment;
-                if ( rotation_max > 0 && rotation > rotation_max ||
-                     rotation_max < 0 && rotation < rotation_max )
+                if ( (rotation_max > 0 && rotation > rotation_max) ||
+                     (rotation_max < 0 && rotation < rotation_max) )
                     rotation = rotation_max;
                 ssSetIWorkValue(S, 24, 0);
             }
@@ -684,8 +710,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             set_catch_trial( catch_trials_pct > (double)rand()/(double)RAND_MAX ? 1 : 0 );
 
             /* Copy target info into databursts */
-            databurst[0] = (4 * sizeof(float) + 2); /*  number of bytes = 4 * 4 floats: [xl,yh,xh,yl] + 2 databurst[0:1] = 18 bytes */
+            databurst[0] = (4 * sizeof(float) + sizeof(float) + 2); /*  number of bytes = 4 * 4 floats: [xl,yh,xh,yl] + 2 databurst[0:1] = 18 bytes */
             databurst[1] = DATABURST_VERSION;
+            databurst_rotation[0] = rotation * 180.0 / PI;
             for (i = 0; i < 4; i++) {
                 databurst_target_list[i] = tgt[i];
             }

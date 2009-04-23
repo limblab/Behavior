@@ -1518,7 +1518,16 @@ namespace BehaviorGraphics
                     wfTargets.SetValue(bp.WFTargets[i].yVar_enable, 6 * i + 5);
                 }
                 target.SetParam(paramID, ref wfTargets);
+            }
 
+            /* WF master update */
+            paramID = target.GetParamIdx("Behavior WF", "P19");
+            if (paramID >= 0) {
+                double[] oldParam;
+                Array newParam = Array.CreateInstance(typeof(double), 1);
+                oldParam = (double[])target.GetParam(paramID);
+                newParam.SetValue(oldParam[0] + 1.0, 0);
+                target.SetParam(paramID, ref newParam);
             }
 
             done += 1;
