@@ -94,6 +94,15 @@ static real_T master_reset = 0.0;
 static real_T catch_trials_pct = 0.0;
 #define param_catch_trials_pct mxGetScalar(ssGetSFcnParam(S,14))
 
+static real_T rotation = 0.0;
+#define param_rotation mxGetScalar(ssGetSFcnParam(S,15))
+
+static real_T rotation_increment = 0.0;
+#define param_rotation_increment mxGetScalar(ssGetSFcnParam(S,16))
+
+static real_T rotation_max = 0.785398163; /* ( PI / 4 ) == 90 deg */
+#define param_rotation_max mxGetScalar(ssGetSFcnParam(S,17))
+
 #define set_catch_trial(x) ssSetIWorkValue(S, 22, (x))
 #define get_catch_trial() ssGetIWorkValue(S, 22)
 
@@ -152,13 +161,16 @@ static void mdlCheckParameters(SimStruct *S)
   multiple_targets = param_multiple_targets;
   catch_trials_pct = param_catch_trials_pct/100;
   
+  rotation           = param_rotation * PI / 180.0;
+  rotation_increment = param_rotation_increment * PI / 180.0;
+  rotation_max       = param_rotation_max * PI / 180.0;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 15); 
+    ssSetNumSFcnParams(S, 18); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -181,7 +193,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetInputPortDirectFeedThrough(S, 1, 1);
     
     /* 
-     * Block has 8 output ports (reward, word, status, tone, target, target select, MVC Target, version) of widths:
+     * Block has 9 output ports (reward, word, status, tone, target, target select, MVC Target, version, rotation) of widths:
      * 0: reward:         1
      * 1: word:           1
      * 2: status:         4 ( 1: state, 2: rewards, 3: aborts, 4: failures )
@@ -195,9 +207,10 @@ static void mdlInitializeSizes(SimStruct *S)
 `    * 5: target select:  1
 	 * 6: MVC Target:	  8  ( [Xmax quad 1, Ymax quad 1, Xmax quad 2,...,Ymax quad 4] )
 	 * 7: version: 4
+     * 8: rotation: 1
 	 *
      */
-    if (!ssSetNumOutputPorts(S, 8)) return;
+    if (!ssSetNumOutputPorts(S, 9)) return;
     ssSetOutputPortWidth(S, 0, 1);
     ssSetOutputPortWidth(S, 1, 1);
     ssSetOutputPortWidth(S, 2, 4);
@@ -206,11 +219,12 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 5, 1);
     ssSetOutputPortWidth(S, 6, 8);
     ssSetOutputPortWidth(S, 7, 4); /*version*/
+    ssSetOutputPortWidth(S, 8, 1);
     
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 30);   /* 0: time of last timer reset
+    ssSetNumRWork(S, 31);   /* 0: time of last timer reset
                                1: time of last target hold timer reset 
                                2: tone counter (incremented each time a tone is played)
                                3: tone id
@@ -225,11 +239,12 @@ static void mdlInitializeSizes(SimStruct *S)
                                13-20: Current MVC targets [x1 x2 x3 x4 y1 y2 y3 y4]
                                21-28: higher MVC targets reached [x1 x2 x3 x4 y1 y2 y3 y4]
                                29: mastercon version
+                               30: Time of last master reset
 
                             */
     ssSetNumPWork(S, 1);	/* 0: Databurst array pointer 
     						*/
-    ssSetNumIWork(S, 24); /*   0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 25); /*   0: state_transition (true if state changed), 
                                1: current target index (in sequence),
                                2: successes
                                3: aborts
@@ -238,6 +253,7 @@ static void mdlInitializeSizes(SimStruct *S)
                           	  21: success_flag
                           	  22: catch_trial_flag
                           	  23: datablock counter
+                              24: increment_rotation_flag
                           */
     
     /* we have no zero crossing detection or modes */
@@ -278,6 +294,7 @@ static void mdlInitializeConditions(SimStruct *S)
     for (i=5; i<29; i++) {
 	    ssSetRWorkValue(S, i, 0.0);
     }
+    ssSetRWorkValue(S,30,0.0);
     
     /* initialize targets id lists at zero */
     for (i = 5 ; i<21 ; i++){
@@ -303,6 +320,9 @@ static void mdlInitializeConditions(SimStruct *S)
     databurst = malloc(256);
     ssSetPWorkValue(S, 0, databurst);
     ssSetIWorkValue(S, 23, 0);
+    
+    /* set the increment_rotation_flag to 0 */
+    ssSetIWorkValue(S, 24, 0);
     
     updateVersion(S);
 }
@@ -497,6 +517,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 2, 0);
         ssSetIWorkValue(S, 3, 0);
         ssSetIWorkValue(S, 4, 0);
+        ssSetRWorkValue(S, 30, ssGetT(S));
         state_r[0] = STATE_PRETRIAL;
         return;
     }
@@ -508,6 +529,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 		    ssSetRWorkValue(S, i, 0.0); //clear all MVC target buffers
 	    }
 	}
+    
+    /* See if we should increment the rotation */
+    if ( (((unsigned long int)((ssGetT(S)-ssGetRWorkValue(S,30)) * 1000)) % (60*1000)) == 0 ) {
+        /* We're in a once-a-minute cycle; set the flag to increment the rotation */
+        ssSetIWorkValue(S, 24, 1);
+    }
 		    
     /************************
      * Calculate next state *
@@ -535,7 +562,19 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             reward_timeout  = param_intertrial;
             
             catch_trials_pct = param_catch_trials_pct/100;   
-			
+			rotation           = param_rotation * PI / 180.0;
+            rotation_increment = param_rotation_increment * PI / 180.0;
+            rotation_max       = param_rotation_max * PI / 180.0;
+            
+            /* Check for the rotation flag and rotate the cursor by that amount */
+            if (ssGetIWorkValue(S, 24) == 1) {
+                rotation += rotation_increment;
+                if ( rotation_max > 0 && rotation > rotation_max ||
+                     rotation_max < 0 && rotation < rotation_max )
+                    rotation = rotation_max;
+                ssSetIWorkValue(S, 24, 0);
+            }
+            
             /***************************************/
 			/* see if we have to update MVC_Target */
 			/***************************************/
@@ -653,18 +692,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             /* and reset the counter */
             ssSetIWorkValue(S, 23, 0); // Databurst counter            
-            
-/*			Databurst not implemented for multiple targets yet
-            if (multiple_targets) {
-	            databurst[0] = num_targets * 2 * sizeof(float) + 2;
-            	databurst[1] = DATABURST_VERSION;
-            	for (i = 0; i < num_targets * 2; i++) {
-                	databurst_target_list[i] = ssGetRWorkValue(S, 4 + i);
-           		}
-			} else {
-			}
-*/				
-                                    
+                        
             new_state = STATE_DATA_BLOCK;
 			ssSetIWorkValue(S, 21, 0);	// clear success_flag
             state_changed();
@@ -839,6 +867,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *target_select_p;
     real_T *mvcTarget_p;
     real_T *version_p;
+    real_T *rotation_p;
     
     /******************
      * Initialization *
@@ -1114,11 +1143,17 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	     mvcTarget_p[2*i]  = higher_MVC_targets[i];
 	     mvcTarget_p[2*i+1]= higher_MVC_targets[i+4];
      }
-
+     //mvcTarget_p[0] = ssGetRWorkValue(S,30);
+     //mvcTarget_p[1] = ssGetT(S);
+     //mvcTarget_p[2] = (real_T)(((unsigned long int)((ssGetT(S)-ssGetRWorkValue(S,30)) * 1000)) % (60*1000));
+     
      version_p = ssGetOutputPortRealSignal(S, 7);
      for (i=0; i<4; i++) {
          version_p[i] = version[i];
      }
+     
+     rotation_p = ssGetOutputPortRealSignal(S,8);
+     rotation_p[0] = rotation;
        	  
     UNUSED_ARG(tid);
 }

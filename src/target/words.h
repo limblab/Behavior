@@ -1,3 +1,4 @@
+#define __BUILD_UPDATED__ 1
 /* $Id$
  *
  * defines word codes for center out and random walk tasks.
@@ -21,8 +22,8 @@
 
 #define BEHAVIOR_VERSION_MAJOR 2
 #define BEHAVIOR_VERSION_MINOR 4
-#define BEHAVIOR_VERSION_MICRO 421
-#define BEHAVIOR_VERSION_BUILD 231
+#define BEHAVIOR_VERSION_MICRO 424
+#define BEHAVIOR_VERSION_BUILD 278
 
 #ifndef __BUILD_UPDATED__
 #error This project must be built from the build script. 

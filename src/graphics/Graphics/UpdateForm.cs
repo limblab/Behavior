@@ -334,6 +334,11 @@ namespace BehaviorGraphics
             // param 13 = clear_MVC_Targets
             // param 14 = master_reset
 
+            // Rotation
+            AddParamListItem("WFRotation", "P16", "Behavior WF", this.textBoxWFRot);
+            AddParamListItem("WFRotationInc", "P17", "Behavior WF", this.textBoxWFRotInc);
+            AddParamListItem("WFRotationMax", "P18", "Behavior WF", this.textBoxWFRotMax);
+
             //Cursor Overload
             AddParamListItem("WFGX", "Gain", "CursorPos/GainX", this.textBoxWFGX);
             AddParamListItem("WFGY", "Gain", "CursorPos/GainY", this.textBoxWFGY);
@@ -344,9 +349,6 @@ namespace BehaviorGraphics
             AddParamListItem("WFFiltEnable", "Value", "CursorPos/EnablePosFilter", this.checkBoxWFFILT);
             AddParamListItem("WFFiltFreqX", "B", "CursorPos/FilterX", this.textBoxWFFILT);
             AddParamListItem("WFFiltFreqY", "B", "CursorPos/FilterY", this.textBoxWFFILT);
-
-            // Rotation
-            AddParamListItem("WFRotation", "Value", "CursorPos/Cursor Rotation/AngleOffset", this.textBoxWFRot);
             
             // Integration
             AddParamListItem("WFIntegration", "Value", "CursorPos/EnableIntegrator", this.checkBoxWFIntegrate);
