@@ -313,6 +313,7 @@ static void mdlInitializeConditions(SimStruct *S)
     for (i=5; i<29; i++) {
 	    ssSetRWorkValue(S, i, 0.0);
     }
+    /* set the initial last update time to 0 */
     ssSetRWorkValue(S,30,0.0);
     
     /* initialize targets id lists at zero */
@@ -342,7 +343,6 @@ static void mdlInitializeConditions(SimStruct *S)
     
     /* set the increment_rotation_flag to 0 */
     ssSetIWorkValue(S, 24, 0);
-    
     updateVersion(S);
 }
 
@@ -551,7 +551,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	}
     
     /* See if we should increment the rotation */
-    if ( (((unsigned long int)((ssGetT(S)-ssGetRWorkValue(S,30)) * 1000)) % (60*1000)) == 0 ) {
+    if ( ((((unsigned long int)((ssGetT(S)-ssGetRWorkValue(S,30)) * 1000)) % (60*1000)) == 0) &&
+         ( ssGetT(S)-ssGetRWorkValue(S,30) != 0.0 ) ) {
         /* We're in a once-a-minute cycle; set the flag to increment the rotation */
         ssSetIWorkValue(S, 24, 1);
     }
@@ -593,12 +594,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             rotation_max       = param_rotation_max * PI / 180.0;
             
             /* Check for the rotation flag and rotate the cursor by that amount */
-            if (ssGetIWorkValue(S, 24) == 1) {
+            if ( ssGetIWorkValue(S, 24) ) {
                 rotation += rotation_increment;
-                if ( (rotation_max > 0 && rotation > rotation_max) ||
-                     (rotation_max < 0 && rotation < rotation_max) )
+                if ( (rotation_increment < 0 && rotation < rotation_max) ||
+                     (rotation_increment > 0 && rotation > rotation_max) )
                     rotation = rotation_max;
-                ssSetIWorkValue(S, 24, 0);
+                ssSetIWorkValue(S, 24, 0); /* and unflag */
             }
             
             /***************************************/
@@ -836,6 +837,30 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             state_changed();
     }
     
+    
+    /* Stuff that happens on state boundaries */
+    if (ssGetIWorkValue(S, 0)) {
+        /* increment the status counters */
+        if (new_state == STATE_REWARD)
+            ssSetIWorkValue(S, 2, ssGetIWorkValue(S, 2)+1);
+        else if (new_state == STATE_ABORT)
+            ssSetIWorkValue(S, 3, ssGetIWorkValue(S, 3)+1);
+        else if (new_state == STATE_FAIL)
+            ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
+        
+        /* update the tone */
+        if (new_state == STATE_ABORT) {
+            ssSetRWorkValue(S, 2, ssGetRWorkValue(S, 2)+1); /* tone_cnt */
+            ssSetRWorkValue(S, 3, TONE_ABORT); /* tone_id  */
+        } else if (new_state == STATE_MOVEMENT) {
+            ssSetRWorkValue(S, 2, ssGetRWorkValue(S, 2)+1); /* tone_cnt */
+            ssSetRWorkValue(S, 3, TONE_GO); /* tone_id  */
+        } else if (new_state == STATE_REWARD) {
+            ssSetRWorkValue(S, 2, ssGetRWorkValue(S, 2)+1); /* tone_cnt */
+            ssSetRWorkValue(S, 3, TONE_REWARD); /* tone_id  */
+        }
+    }
+    
     /***********
      * Cleanup *
      ***********/
@@ -992,10 +1017,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     center[1] = center_y + center_h / 2.0;
     center[2] = center_x + center_w / 2.0;
     center[3] = center_y - center_h / 2.0;    
-
-    /* tone counters */
-    tone_cnt = ssGetRWorkValue(S, 2);
-    tone_id  = ssGetRWorkValue(S, 3);
     
     /* databurst */
     databurst_counter = ssGetIWorkValue(S, 23);
@@ -1047,34 +1068,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         word = 0.0;
     }
     
-    
     /* status (2) */
-    if (state == STATE_REWARD && new_state)
-        ssSetIWorkValue(S, 2, ssGetIWorkValue(S, 2)+1);
-    if (state == STATE_ABORT && new_state)
-        ssSetIWorkValue(S, 3, ssGetIWorkValue(S, 3)+1);
-    if (state == STATE_FAIL && new_state)
-        ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
-      
     status[0] = state;
     status[1] = ssGetIWorkValue(S,2); // num rewards
     status[2] = ssGetIWorkValue(S,3); // num aborts
     status[3] = ssGetIWorkValue(S,4); // num failures
     
-    
-    /* tone (3) */
-    if (new_state) {
-        if (state == STATE_ABORT) {
-            tone_cnt++;
-            tone_id = TONE_ABORT;
-        } else if (state == STATE_MOVEMENT) {
-            tone_cnt++;
-            tone_id = TONE_GO;
-        } else if (state == STATE_REWARD) {
-            tone_cnt++;
-            tone_id = TONE_REWARD;
-        }
-    }
+    /* tones (3) */
+    tone_cnt = ssGetRWorkValue(S, 2);
+    tone_id  = ssGetRWorkValue(S, 3);
     
     /* targets (4) */
     for (i=0; i<4; i++) {
@@ -1155,8 +1157,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      tone_p = ssGetOutputPortRealSignal(S,3);
      tone_p[0] = tone_cnt;
      tone_p[1] = tone_id;
-     ssSetRWorkValue(S, 2, tone_cnt);
-     ssSetRWorkValue(S, 3, tone_id);
      
      target_p = ssGetOutputPortRealSignal(S,4);
      for (i=0; i<10; i++) 

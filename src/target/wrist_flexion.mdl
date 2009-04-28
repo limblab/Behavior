@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.200"
+    ComputedModelVersion    "1.204"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 23 15:26:41 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:200>"
+  LastModifiedDate	  "Tue Apr 28 12:39:37 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:204>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -789,7 +789,7 @@ Model {
       BlockType		      SubSystem
       Name		      "1DOverride"
       Ports		      [1, 1]
-      Position		      [190, 314, 235, 356]
+      Position		      [260, 314, 305, 356]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -967,7 +967,7 @@ Model {
       BlockType		      SubSystem
       Name		      "CursorPos"
       Ports		      [1, 1]
-      Position		      [100, 296, 165, 374]
+      Position		      [170, 296, 235, 374]
       ShowPortLabels	      "none"
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
@@ -1582,7 +1582,7 @@ Model {
       BlockType		      Reference
       Name		      "MVC Target"
       Ports		      [1]
-      Position		      [665, 408, 755, 452]
+      Position		      [660, 408, 750, 452]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -1619,14 +1619,14 @@ Model {
     Block {
       BlockType		      Memory
       Name		      "Memory"
-      Position		      [365, 585, 395, 615]
+      Position		      [370, 585, 400, 615]
       Orientation	      "left"
       InheritSampleTime	      on
     }
     Block {
       BlockType		      Memory
       Name		      "Memory1"
-      Position		      [180, 585, 210, 615]
+      Position		      [190, 430, 220, 460]
       Orientation	      "left"
       InheritSampleTime	      on
       Port {
@@ -2060,7 +2060,7 @@ Model {
       BlockType		      SubSystem
       Name		      "UDPXmit"
       Ports		      [3]
-      Position		      [660, 238, 755, 322]
+      Position		      [660, 238, 750, 322]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -2279,7 +2279,7 @@ Model {
       BlockType		      Reference
       Name		      "Version Display"
       Ports		      [1]
-      Position		      [665, 469, 755, 511]
+      Position		      [660, 469, 750, 511]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -2638,7 +2638,7 @@ Model {
     Line {
       SrcBlock		      "Memory"
       SrcPort		      1
-      Points		      [-35, 0; 0, -155]
+      Points		      [-40, 0; 0, -155]
       DstBlock		      "WFTargetTable"
       DstPort		      1
     }
@@ -2701,7 +2701,7 @@ Model {
 	DstPort			1
       }
       Branch {
-	Points			[0, -160; 555, 0; 0, 215]
+	Points			[0, -160; 485, 0; 0, 215]
 	Branch {
 	  Points		  [-170, 0; 0, 20]
 	  DstBlock		  "UDPXmit"
@@ -2718,7 +2718,7 @@ Model {
       SrcPort		      9
       Points		      [190, 0]
       Branch {
-	Points			[0, 85; -530, 0; 0, -35]
+	Points			[0, 85; -530, 0; 0, -190]
 	DstBlock		"Memory1"
 	DstPort			1
       }
@@ -2733,7 +2733,7 @@ Model {
       Labels		      [3, 0]
       SrcBlock		      "Memory1"
       SrcPort		      1
-      Points		      [-140, 0; 0, -265]
+      Points		      [-80, 0; 0, -110]
       DstBlock		      "CursorPos"
       DstPort		      1
     }
