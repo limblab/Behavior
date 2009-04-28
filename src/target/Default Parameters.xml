@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.4.3385.39865">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.5.3405.32325">
   <ScreenWidth>23</ScreenWidth>
   <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>5</Cursor>
@@ -510,6 +510,18 @@
         <value>0</value>
       </item>
       <item>
+        <key>WFRotation</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFRotationInc</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFRotationMax</key>
+        <value>0</value>
+      </item>
+      <item>
         <key>WFGX</key>
         <value>40</value>
       </item>
@@ -536,10 +548,6 @@
       <item>
         <key>WFFiltFreqY</key>
         <value>50</value>
-      </item>
-      <item>
-        <key>WFRotation</key>
-        <value>0</value>
       </item>
       <item>
         <key>WFIntegration</key>
