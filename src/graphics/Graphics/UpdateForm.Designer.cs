@@ -271,6 +271,13 @@ namespace BehaviorGraphics
             this.label122 = new System.Windows.Forms.Label();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.groupBox40 = new System.Windows.Forms.GroupBox();
+            this.label165 = new System.Windows.Forms.Label();
+            this.textBoxWFRotMax = new System.Windows.Forms.TextBox();
+            this.label164 = new System.Windows.Forms.Label();
+            this.label163 = new System.Windows.Forms.Label();
+            this.textBoxWFRotInc = new System.Windows.Forms.TextBox();
+            this.label162 = new System.Windows.Forms.Label();
+            this.label161 = new System.Windows.Forms.Label();
             this.label160 = new System.Windows.Forms.Label();
             this.textBoxWFIntMax = new System.Windows.Forms.TextBox();
             this.textBoxWFIntMin = new System.Windows.Forms.TextBox();
@@ -507,13 +514,6 @@ namespace BehaviorGraphics
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.label144 = new System.Windows.Forms.Label();
             this.label145 = new System.Windows.Forms.Label();
-            this.label161 = new System.Windows.Forms.Label();
-            this.label162 = new System.Windows.Forms.Label();
-            this.textBoxWFRotInc = new System.Windows.Forms.TextBox();
-            this.label163 = new System.Windows.Forms.Label();
-            this.label164 = new System.Windows.Forms.Label();
-            this.textBoxWFRotMax = new System.Windows.Forms.TextBox();
-            this.label165 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox27.SuspendLayout();
@@ -3196,6 +3196,67 @@ namespace BehaviorGraphics
             this.groupBox40.TabStop = false;
             this.groupBox40.Text = "Cursor Control";
             // 
+            // label165
+            // 
+            this.label165.AutoSize = true;
+            this.label165.Location = new System.Drawing.Point(246, 76);
+            this.label165.Name = "label165";
+            this.label165.Size = new System.Drawing.Size(11, 13);
+            this.label165.TabIndex = 38;
+            this.label165.Text = "°";
+            // 
+            // textBoxWFRotMax
+            // 
+            this.textBoxWFRotMax.Location = new System.Drawing.Point(217, 73);
+            this.textBoxWFRotMax.Name = "textBoxWFRotMax";
+            this.textBoxWFRotMax.Size = new System.Drawing.Size(29, 20);
+            this.textBoxWFRotMax.TabIndex = 37;
+            this.textBoxWFRotMax.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label164
+            // 
+            this.label164.AutoSize = true;
+            this.label164.Location = new System.Drawing.Point(148, 76);
+            this.label164.Name = "label164";
+            this.label164.Size = new System.Drawing.Size(70, 13);
+            this.label164.TabIndex = 36;
+            this.label164.Text = "Max Rotation";
+            // 
+            // label163
+            // 
+            this.label163.AutoSize = true;
+            this.label163.Location = new System.Drawing.Point(246, 51);
+            this.label163.Name = "label163";
+            this.label163.Size = new System.Drawing.Size(32, 13);
+            this.label163.TabIndex = 35;
+            this.label163.Text = "°/min";
+            // 
+            // textBoxWFRotInc
+            // 
+            this.textBoxWFRotInc.Location = new System.Drawing.Point(217, 48);
+            this.textBoxWFRotInc.Name = "textBoxWFRotInc";
+            this.textBoxWFRotInc.Size = new System.Drawing.Size(29, 20);
+            this.textBoxWFRotInc.TabIndex = 34;
+            this.textBoxWFRotInc.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label162
+            // 
+            this.label162.AutoSize = true;
+            this.label162.Location = new System.Drawing.Point(246, 28);
+            this.label162.Name = "label162";
+            this.label162.Size = new System.Drawing.Size(11, 13);
+            this.label162.TabIndex = 33;
+            this.label162.Text = "°";
+            // 
+            // label161
+            // 
+            this.label161.AutoSize = true;
+            this.label161.Location = new System.Drawing.Point(148, 51);
+            this.label161.Name = "label161";
+            this.label161.Size = new System.Drawing.Size(54, 13);
+            this.label161.TabIndex = 32;
+            this.label161.Text = "Increment";
+            // 
             // label160
             // 
             this.label160.AutoSize = true;
@@ -5466,65 +5527,6 @@ namespace BehaviorGraphics
             this.label145.Size = new System.Drawing.Size(68, 13);
             this.label145.TabIndex = 37;
             this.label145.Text = "Num Targets";
-            // 
-            // label161
-            // 
-            this.label161.AutoSize = true;
-            this.label161.Location = new System.Drawing.Point(148, 51);
-            this.label161.Name = "label161";
-            this.label161.Size = new System.Drawing.Size(54, 13);
-            this.label161.TabIndex = 32;
-            this.label161.Text = "Increment";
-            // 
-            // label162
-            // 
-            this.label162.AutoSize = true;
-            this.label162.Location = new System.Drawing.Point(246, 28);
-            this.label162.Name = "label162";
-            this.label162.Size = new System.Drawing.Size(11, 13);
-            this.label162.TabIndex = 33;
-            this.label162.Text = "°";
-            // 
-            // textBoxWFRotInc
-            // 
-            this.textBoxWFRotInc.Location = new System.Drawing.Point(217, 48);
-            this.textBoxWFRotInc.Name = "textBoxWFRotInc";
-            this.textBoxWFRotInc.Size = new System.Drawing.Size(29, 20);
-            this.textBoxWFRotInc.TabIndex = 34;
-            // 
-            // label163
-            // 
-            this.label163.AutoSize = true;
-            this.label163.Location = new System.Drawing.Point(246, 51);
-            this.label163.Name = "label163";
-            this.label163.Size = new System.Drawing.Size(32, 13);
-            this.label163.TabIndex = 35;
-            this.label163.Text = "°/min";
-            // 
-            // label164
-            // 
-            this.label164.AutoSize = true;
-            this.label164.Location = new System.Drawing.Point(148, 76);
-            this.label164.Name = "label164";
-            this.label164.Size = new System.Drawing.Size(70, 13);
-            this.label164.TabIndex = 36;
-            this.label164.Text = "Max Rotation";
-            // 
-            // textBoxWFRotMax
-            // 
-            this.textBoxWFRotMax.Location = new System.Drawing.Point(217, 73);
-            this.textBoxWFRotMax.Name = "textBoxWFRotMax";
-            this.textBoxWFRotMax.Size = new System.Drawing.Size(29, 20);
-            this.textBoxWFRotMax.TabIndex = 37;
-            // 
-            // label165
-            // 
-            this.label165.AutoSize = true;
-            this.label165.Location = new System.Drawing.Point(246, 76);
-            this.label165.Name = "label165";
-            this.label165.Size = new System.Drawing.Size(11, 13);
-            this.label165.TabIndex = 38;
-            this.label165.Text = "°";
             // 
             // UpdateForm
             // 
