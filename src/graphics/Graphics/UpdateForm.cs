@@ -347,8 +347,6 @@ namespace BehaviorGraphics
 
             // Software Filter
             AddParamListItem("WFFiltEnable", "Value", "CursorPos/EnablePosFilter", this.checkBoxWFFILT);
-            AddParamListItem("WFFiltFreqX", "B", "CursorPos/FilterX", this.textBoxWFFILT);
-            AddParamListItem("WFFiltFreqY", "B", "CursorPos/FilterY", this.textBoxWFFILT);
             
             // Integration
             AddParamListItem("WFIntegration", "Value", "CursorPos/EnableIntegrator", this.checkBoxWFIntegrate);

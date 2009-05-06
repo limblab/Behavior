@@ -285,8 +285,6 @@ namespace BehaviorGraphics
             this.checkBoxWFIntegrate = new System.Windows.Forms.CheckBox();
             this.textBoxWFRot = new System.Windows.Forms.TextBox();
             this.label132 = new System.Windows.Forms.Label();
-            this.label157 = new System.Windows.Forms.Label();
-            this.textBoxWFFILT = new System.Windows.Forms.TextBox();
             this.checkBoxWFFILT = new System.Windows.Forms.CheckBox();
             this.buttonWFAZ = new System.Windows.Forms.Button();
             this.textBoxWFOY = new System.Windows.Forms.TextBox();
@@ -3177,8 +3175,6 @@ namespace BehaviorGraphics
             this.groupBox40.Controls.Add(this.checkBoxWFIntegrate);
             this.groupBox40.Controls.Add(this.textBoxWFRot);
             this.groupBox40.Controls.Add(this.label132);
-            this.groupBox40.Controls.Add(this.label157);
-            this.groupBox40.Controls.Add(this.textBoxWFFILT);
             this.groupBox40.Controls.Add(this.checkBoxWFFILT);
             this.groupBox40.Controls.Add(this.buttonWFAZ);
             this.groupBox40.Controls.Add(this.textBoxWFOY);
@@ -3319,27 +3315,10 @@ namespace BehaviorGraphics
             this.label132.TabIndex = 25;
             this.label132.Text = "Rotate";
             // 
-            // label157
-            // 
-            this.label157.AutoSize = true;
-            this.label157.Location = new System.Drawing.Point(25, 124);
-            this.label157.Name = "label157";
-            this.label157.Size = new System.Drawing.Size(63, 13);
-            this.label157.TabIndex = 24;
-            this.label157.Text = "Filter Corner";
-            // 
-            // textBoxWFFILT
-            // 
-            this.textBoxWFFILT.Location = new System.Drawing.Point(94, 121);
-            this.textBoxWFFILT.Name = "textBoxWFFILT";
-            this.textBoxWFFILT.Size = new System.Drawing.Size(43, 20);
-            this.textBoxWFFILT.TabIndex = 18;
-            this.textBoxWFFILT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
             // checkBoxWFFILT
             // 
             this.checkBoxWFFILT.AutoSize = true;
-            this.checkBoxWFFILT.Location = new System.Drawing.Point(9, 99);
+            this.checkBoxWFFILT.Location = new System.Drawing.Point(6, 124);
             this.checkBoxWFFILT.Name = "checkBoxWFFILT";
             this.checkBoxWFFILT.Size = new System.Drawing.Size(129, 17);
             this.checkBoxWFFILT.TabIndex = 17;
@@ -6139,8 +6118,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxBSNumTargetsSeq;
         private System.Windows.Forms.Label label156;
         private System.Windows.Forms.CheckBox checkBoxWFFILT;
-        private System.Windows.Forms.Label label157;
-        private System.Windows.Forms.TextBox textBoxWFFILT;
         private System.Windows.Forms.Label label131;
         private System.Windows.Forms.Label label158;
         private System.Windows.Forms.TextBox textBoxWFRot;
