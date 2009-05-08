@@ -78,6 +78,9 @@ static int idiot_mode;
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,16))
 
+static int delay_bumps = 0.0;
+#define param_delay_bumps mxGetScalar(ssGetSFcnParam(S,17))
+
 /*
  * State IDs
  */
@@ -120,13 +123,15 @@ static void mdlCheckParameters(SimStruct *S)
     incomplete_timeout = param_intertrial;
     
     idiot_mode = (int)param_idiot_mode;
+    
+    delay_bumps = (int)param_delay_bumps;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 17); 
+    ssSetNumSFcnParams(S, 18); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -379,6 +384,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             bump_duration  = (int)param_bump_duration;
             
             idiot_mode = (int)param_idiot_mode;
+            
+            delay_bumps = (int)param_delay_bumps;
             
             /* see if mode has changed.  If so we need a reset. */
             if (mode != param_mode) {
@@ -736,12 +743,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             force_y = force_in[1] + sin(theta)*bump_magnitude;
         } else if ( bump != -1 && 
                     bump_duration_counter != -1 && 
-                    ( (state==STATE_MOVEMENT && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) > target_radius / 2) || 
-                       state==STATE_CENTER_HOLD_BUMP
+                    ( 
+                      (state==STATE_MOVEMENT && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) > target_radius / 2) || 
+                      (state==STATE_MOVEMENT && delay_bumps)
+                      (state==STATE_CENTER_HOLD_BUMP) ||
                     )
                   ) 
         {
-            /* initiating a new bump */
+            /* initiating a new mid-movement bump */
             bump_duration_counter = bump_duration;
             theta = PI/2 - bump*2*PI/num_targets;
             force_x = force_in[0] + cos(theta)*bump_magnitude;
@@ -805,7 +814,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         }
     } else {
         /* not a new state, but maybe we have a mid-state event */
-        if (bump != -1 && mode == MODE_BUMP && bump_duration_counter == bump_duration) {
+        if (bump != -1 && mode == MODE_BUMP && bump_duration_counter == bump_duration - 1) {
             /* just started a bump */
             word = WORD_BUMP(bump);
         } else {

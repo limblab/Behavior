@@ -167,6 +167,7 @@ namespace BehaviorGraphics
             AddParamListItem("Bump Duration", "P15", "Behavior CO", this.textBoxBumpDuration);
             AddParamListItem("Bump Amplitude", "P14", "Behavior CO", this.textBoxBumpMag);
             AddParamListItem("Catch Trials Pct", "P12", "Behavior CO", this.textBoxCatchPct);
+            AddParamListItem("Delay Bumps", "P18", "Behavior CO", this.checkBoxDelayBumps);
 
             // Center-Out targets
             AddParamListItem("CO Num Targets", "P1", "Behavior CO", this.numericUpDownNumTgts);
