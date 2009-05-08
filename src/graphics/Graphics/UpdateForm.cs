@@ -371,6 +371,7 @@ namespace BehaviorGraphics
         }
         #endregion
 
+        #region Status Helper Functions
         /// <summary>
         /// Updates the status label in the taskbar to the current status of the target
         /// </summary>
@@ -422,6 +423,7 @@ namespace BehaviorGraphics
                 }
             }
         }
+        #endregion
 
         #region Form Event Callbacks
         private void UpdateForm_FormClosing(object sender, FormClosingEventArgs e)
