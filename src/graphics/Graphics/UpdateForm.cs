@@ -347,12 +347,12 @@ namespace BehaviorGraphics
 
             // Software Filter
             AddParamListItem("WFFiltEnable", "Value", "CursorPos/EnablePosFilter", this.checkBoxWFFILT);
-            
+
             // Integration
             AddParamListItem("WFIntegration", "Value", "CursorPos/EnableIntegrator", this.checkBoxWFIntegrate);
             AddParamListItem("WFIntegratMax", "UpperSaturationLimit", "CursorPos/Integrator", this.textBoxWFIntMax);
             AddParamListItem("WFIntegratMin", "LowerSaturationLimit", "CursorPos/Integrator", this.textBoxWFIntMin);
-            
+
             #endregion
         }
 
@@ -388,19 +388,17 @@ namespace BehaviorGraphics
         /// </summary>
         private void UpdateTitlebarText(string filename)
         {
-            string formname,abridgedFilename;
-            int lbracket = this.Text.IndexOf("[");
-            formname = (lbracket > 0) ? this.Text.Substring(0, lbracket - 1) : this.Text;
-            
+            string abridgedFilename;
+            string formname = "Update Target";
+
             // Abridge the filename to three path components.
             string[] pathComponents = filename.Split(new char[] { Path.DirectorySeparatorChar });
             if (pathComponents.Length > 3) {
                 abridgedFilename = String.Concat(
-                    pathComponents[0],"\\...\\",
+                    pathComponents[0], "\\...\\",
                     pathComponents[pathComponents.Length - 2], "\\",
                     pathComponents[pathComponents.Length - 1]);
-            }
-            else {
+            } else {
                 abridgedFilename = filename;
             }
 
@@ -417,8 +415,7 @@ namespace BehaviorGraphics
                 if (this.Text.EndsWith("]") && !this.Text.EndsWith("*]")) {
                     this.Text = String.Concat(this.Text.Substring(0, this.Text.Length - 1), "*]");
                 }
-            }
-            else /* (!hasChanges) */ {
+            } else /* (!hasChanges) */ {
                 /* search for the asterisk. If it's there, remove it */
                 if (this.Text.EndsWith("*]")) {
                     this.Text = String.Concat(this.Text.Substring(0, this.Text.Length - 2), "]");
@@ -712,7 +709,7 @@ namespace BehaviorGraphics
         {
             fileSaveAs();
         }
-        
+
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (filename != "") {
@@ -736,8 +733,7 @@ namespace BehaviorGraphics
                 // Try to grab the last used Behavior Parameters directory
                 RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_KEY_PATH);
                 ofd.InitialDirectory = (String)key.GetValue(REG_KEY_BPDIR);
-            }
-            catch { };
+            } catch { };
 
             if (ofd.ShowDialog() == DialogResult.OK) {
                 reader = new StreamReader(ofd.FileName);
@@ -759,8 +755,7 @@ namespace BehaviorGraphics
                         // Try to save the last used Behavior Parameters directory
                         RegistryKey key = Registry.CurrentUser.CreateSubKey(REG_KEY_PATH);
                         key.SetValue(REG_KEY_BPDIR, Path.GetDirectoryName(ofd.FileName));
-                    }
-                    catch { };
+                    } catch { };
 
                     UpdateTitlebarText(filename);
                     this.currentBP = bp;
@@ -768,7 +763,7 @@ namespace BehaviorGraphics
                     this.bpWasModified = false;
 
                 } catch (Exception ex) {
-                    MessageBox.Show("The file does not appear to be in the proper format. The parameters may have been partially updated."+ex.Message, "Error loading file", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("The file does not appear to be in the proper format. The parameters may have been partially updated." + ex.Message, "Error loading file", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     this.formWasModified = true;
                     UpdateTitlebarFileModifiedFlag(true);
                 } finally {
@@ -826,8 +821,7 @@ namespace BehaviorGraphics
                 // Try to grab the last used Model directory
                 RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_KEY_PATH);
                 ofd.InitialDirectory = (String)key.GetValue(REG_KEY_MODELDIR);
-            }
-            catch { };
+            } catch { };
 
             if (ofd.ShowDialog() == DialogResult.OK) {
                 path = Path.GetDirectoryName(ofd.FileName);
@@ -837,8 +831,7 @@ namespace BehaviorGraphics
                     // Try to save the last used Model directory
                     RegistryKey key = Registry.CurrentUser.CreateSubKey(REG_KEY_PATH);
                     key.SetValue(REG_KEY_MODELDIR, Path.GetDirectoryName(ofd.FileName));
-                }
-                catch { };
+                } catch { };
 
                 target.LoadApp(path, file);
                 target.StartApp();
@@ -898,8 +891,7 @@ namespace BehaviorGraphics
                 // Try to grab the last used Behavior Parameters directory
                 RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_KEY_PATH);
                 sfd.InitialDirectory = (String)key.GetValue(REG_KEY_BPDIR);
-            }
-            catch (Exception) { };
+            } catch (Exception) { };
 
             sfd.Filter = "XML Parameter files|*.xml";
             try {
@@ -911,8 +903,7 @@ namespace BehaviorGraphics
                         // Try to save the last used Behavior Parameters directory
                         RegistryKey key = Registry.CurrentUser.CreateSubKey(REG_KEY_PATH);
                         key.SetValue(REG_KEY_BPDIR, Path.GetDirectoryName(sfd.FileName));
-                    }
-                    catch (Exception) { };
+                    } catch (Exception) { };
 
                     UpdateTitlebarText(filename);
                 }
@@ -1548,7 +1539,7 @@ namespace BehaviorGraphics
         {
             get { return this.filename; }
         }
-        
+
         public class InvalidParameterException : Exception
         {
             string p;
