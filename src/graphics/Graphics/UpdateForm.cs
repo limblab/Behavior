@@ -1341,10 +1341,17 @@ namespace BehaviorGraphics
             for (int i = 0; i < MGTargetGrid.RowCount; i++) {
                 DataGridViewCellCollection cells = MGTargetGrid.Rows[i].Cells;
                 MultiGadgetTarget mgt = bp.MGTargets[i];
-                cells[1].Value = (mgt.TgtYPos == 0.0 ? null : mgt.TgtYPos.ToString());
-                cells[2].Value = (mgt.TgtHeight == 0.0 ? null : mgt.TgtHeight.ToString());
-                cells[3].Value = (mgt.TgtXPos == 0.0 ? null : mgt.TgtXPos.ToString());
-                cells[4].Value = (mgt.TgtWidth == 0.0 ? null : mgt.TgtWidth.ToString());
+                if (mgt.TgtHeight == 0 && mgt.TgtWidth == 0) {
+                    cells[1].Value = null;
+                    cells[2].Value = null;
+                    cells[3].Value = null;
+                    cells[4].Value = null;
+                } else {
+                    cells[1].Value = mgt.TgtYPos.ToString();
+                    cells[2].Value = mgt.TgtHeight.ToString();
+                    cells[3].Value = mgt.TgtXPos.ToString();
+                    cells[4].Value = mgt.TgtWidth.ToString();
+                }
                 cells[5].Value = mgt.yVar_enable;
             }
 
@@ -1352,10 +1359,17 @@ namespace BehaviorGraphics
             for (int i = 0; i < WFTargetGrid.RowCount; i++) {
                 DataGridViewCellCollection cells = WFTargetGrid.Rows[i].Cells;
                 MultiGadgetTarget wft = bp.WFTargets[i];
-                cells[1].Value = (wft.TgtYPos == 0.0 ? null : wft.TgtYPos.ToString());
-                cells[2].Value = (wft.TgtHeight == 0.0 ? null : wft.TgtHeight.ToString());
-                cells[3].Value = (wft.TgtXPos == 0.0 ? null : wft.TgtXPos.ToString());
-                cells[4].Value = (wft.TgtWidth == 0.0 ? null : wft.TgtWidth.ToString());
+                if (wft.TgtHeight == 0 && wft.TgtWidth == 0) {
+                    cells[1].Value = null;
+                    cells[2].Value = null;
+                    cells[3].Value = null;
+                    cells[4].Value = null;
+                } else {
+                    cells[1].Value = wft.TgtYPos.ToString();
+                    cells[2].Value = wft.TgtHeight.ToString();
+                    cells[3].Value = wft.TgtXPos.ToString();
+                    cells[4].Value = wft.TgtWidth.ToString();
+                }
                 cells[5].Value = wft.xVar_enable;
                 cells[6].Value = wft.yVar_enable;
             }
