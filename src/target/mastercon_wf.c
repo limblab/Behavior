@@ -155,18 +155,6 @@ static real_T master_update = 0.0;
 #define TONE_REWARD 2
 #define TONE_ABORT 3
 
-static void updateVersion(SimStruct *S)
-{
-    /* set variable to file version for display on screen */
-    /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.31 $";
-    char* version;
-    
-    version_str[strlen(version_str)-1] = 0; // set last "$" to zero
-    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
-    ssSetRWorkValue(S, 29, atof(version));
-}
-
 static void mdlCheckParameters(SimStruct *S)
 {
   num_targets = param_num_targets;
@@ -259,7 +247,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                1: time of last target hold timer reset 
                                2: tone counter (incremented each time a tone is played)
                                3: tone id
-                               4: time of last center hold timer reset
+                               4: UNUSED
 
                                  // For Following MVC Target related buffers:	                               
                                  // Quadrant 1 is +x and + y, including the +x and y = 0 axis
@@ -271,8 +259,8 @@ static void mdlInitializeSizes(SimStruct *S)
                                21-28: higher MVC targets reached [x1 x2 x3 x4 y1 y2 y3 y4]
                                29: mastercon version
                                30: Time of last update
-                               31: The variable center hold time
-							   32: The variable delay time
+                               31: The randomized center hold time
+							   32: The randomized delay time
                             */
     ssSetNumPWork(S, 1);	/* 0: Databurst array pointer 
     						*/
@@ -356,7 +344,6 @@ static void mdlInitializeConditions(SimStruct *S)
     
     /* set the increment_rotation_flag to 0 */
     ssSetIWorkValue(S, 24, 0);
-    updateVersion(S);
 }
 
 /* macro for setting state changed */
@@ -364,7 +351,7 @@ static void mdlInitializeConditions(SimStruct *S)
 /* macros for resetting timers */
 #define reset_timer() (ssSetRWorkValue(S, 0, (real_T)ssGetT(S)))
 #define reset_target_hold_timer() (ssSetRWorkValue(S, 1, (real_T)ssGetT(S)))
-#define reset_center_hold_timer() (ssSetRWorkValue(S, 4, (real_T)ssGetT(S)))
+
 #define success_flag() (ssSetIWorkValue(S, 21, 1))
 /* Macro for assigning random center hold time */
 #define set_random_hold_time() if (center_hold_time_l == center_hold_time_h) { ssSetRWorkValue(S, 31, center_hold_time_l);} \
@@ -409,7 +396,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T cursor[2];
     real_T elapsed_timer_time;
     real_T elapsed_target_hold_time;
-    real_T elapsed_center_hold_time;
     real_T success_flag;
 
     //holders for MVC targets variables
@@ -541,8 +527,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* get elapsed time since last timer reset */
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
     elapsed_target_hold_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 1);
-    elapsed_center_hold_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 4);
-    
+
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 23);
     databurst = (byte *)ssGetPWorkValue(S, 0);
