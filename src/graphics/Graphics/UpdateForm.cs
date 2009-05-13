@@ -317,9 +317,11 @@ namespace BehaviorGraphics
             //Timing
             AddParamListItem("WFRT", "P2", "Behavior WF", this.textBoxWFRT);
             AddParamListItem("WFTH", "P3", "Behavior WF", this.textBoxWFTH);
-            AddParamListItem("WFCH", "P4", "Behavior WF", this.textBoxWFCH);
+            AddParamListItem("WFCHL", "P4", "Behavior WF", this.textBoxWFCHL);
+            AddParamListItem("WFCHH", "P20", "Behavior WF", this.textBoxWFCHH);
             AddParamListItem("WFI", "P5", "Behavior WF", this.textBoxWFI);
-            AddParamListItem("WFTVD", "P10", "Behavior WF", this.textBoxWFTVD);
+            AddParamListItem("WFCDL", "P10", "Behavior WF", this.textBoxWFCDL);
+            AddParamListItem("WFCDH", "P21", "Behavior WF", this.textBoxWFCDH);
 
             //Center
             AddParamListItem("WFX", "P6", "Behavior WF", this.textBoxWFX);
@@ -330,7 +332,6 @@ namespace BehaviorGraphics
             //Options
             AddParamListItem("WFIM", "P11", "Behavior WF", this.checkBoxWFIM);
             AddParamListItem("WFMT", "P12", "Behavior WF", this.checkBoxWFMT);
-            AddParamListItem("WF1D", "Value", "1DOverride/SetChan1To0", this.checkBoxWF1D);
             AddParamListItem("WFCatchTrials", "P15", "Behavior WF", this.textBoxWFCT);
             // param 13 = clear_MVC_Targets
             // param 14 = master_reset
@@ -339,12 +340,13 @@ namespace BehaviorGraphics
             AddParamListItem("WFRotation", "P16", "Behavior WF", this.textBoxWFRot);
             AddParamListItem("WFRotationInc", "P17", "Behavior WF", this.textBoxWFRotInc);
             AddParamListItem("WFRotationMax", "P18", "Behavior WF", this.textBoxWFRotMax);
+            // param 19 = update_count
 
             //Cursor Overload
             AddParamListItem("WFGX", "Gain", "CursorPos/GainX", this.textBoxWFGX);
             AddParamListItem("WFGY", "Gain", "CursorPos/GainY", this.textBoxWFGY);
-            AddParamListItem("WFOY", "Value", "CursorPos/OffsetX", this.textBoxWFOX);
-            AddParamListItem("WFOX", "Value", "CursorPos/OffsetY", this.textBoxWFOY);
+            AddParamListItem("WFOffsetX", "Value", "CursorPos/OffsetX", this.textBoxWFOX);
+            AddParamListItem("WFOffsetY", "Value", "CursorPos/OffsetY", this.textBoxWFOY);
 
             // Software Filter
             AddParamListItem("WFFiltEnable", "Value", "CursorPos/EnablePosFilter", this.checkBoxWFFILT);
@@ -1331,7 +1333,7 @@ namespace BehaviorGraphics
                         CheckBox cb = (CheckBox)paramControls[key];
                         cb.Checked = (bp.Parameters[key] > 0);
                     }
-                } catch (IndexOutOfRangeException) {
+                } catch (KeyNotFoundException) {
                 }
             }
 
@@ -1560,6 +1562,22 @@ namespace BehaviorGraphics
             {
                 get { return p; }
             }
+        }
+
+        private void checkBoxWFIntegrate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!checkBoxWFIntegrate.Checked) {
+                textBoxWFIntMin.Hide();
+                textBoxWFIntMax.Hide();
+                labelWFIntMin.Hide();
+                labelWFIntMax.Hide();
+            } else {
+                textBoxWFIntMin.Show();
+                textBoxWFIntMax.Show();
+                labelWFIntMin.Show();
+                labelWFIntMax.Show();
+            }
+            widget_ValueChanged(sender, e);
         }
 
     }

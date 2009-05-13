@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.231"
+    ComputedModelVersion    "1.237"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue May 05 20:59:46 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:231>"
+  LastModifiedDate	  "Tue May 12 20:08:52 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:237>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -771,7 +771,7 @@ Model {
   }
   System {
     Name		    "wrist_flexion"
-    Location		    [4, 82, 1016, 744]
+    Location		    [6, 82, 1001, 710]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -786,135 +786,14 @@ Model {
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
     Block {
-      BlockType		      SubSystem
-      Name		      "1DOverride"
-      Ports		      [1, 1]
-      Position		      [260, 314, 305, 356]
-      MinAlgLoopOccurrences   off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      MaskHideContents	      off
-      System {
-	Name			"1DOverride"
-	Location		[-2, 82, 1010, 744]
-	Open			off
-	ModelBrowserVisibility	off
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Inport
-	  Name			  "Trig"
-	  Position		  [290, 178, 320, 192]
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant"
-	  Position		  [460, 180, 490, 210]
-	  Value			  "0"
-	}
-	Block {
-	  BlockType		  Demux
-	  Name			  "Demux"
-	  Ports			  [1, 2]
-	  Position		  [400, 166, 405, 204]
-	  BackgroundColor	  "black"
-	  ShowName		  off
-	  Outputs		  "2"
-	  DisplayOption		  "bar"
-	}
-	Block {
-	  BlockType		  Mux
-	  Name			  "Mux"
-	  Ports			  [2, 1]
-	  Position		  [810, 156, 815, 234]
-	  ShowName		  off
-	  Inputs		  "2"
-	  DisplayOption		  "bar"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "SetChan1To0"
-	  Position		  [505, 200, 535, 230]
-	  Value			  "0"
-	}
-	Block {
-	  BlockType		  Switch
-	  Name			  "Switch"
-	  Position		  [575, 200, 605, 230]
-	  Criteria		  "u2 > Threshold"
-	  InputSameDT		  off
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "Out1"
-	  Position		  [965, 188, 995, 202]
-	  IconDisplay		  "Port number"
-	  BusOutputAsStruct	  off
-	}
-	Line {
-	  SrcBlock		  "Trig"
-	  SrcPort		  1
-	  DstBlock		  "Demux"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Switch"
-	  SrcPort		  1
-	  DstBlock		  "Mux"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  1
-	  DstBlock		  "Mux"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Mux"
-	  SrcPort		  1
-	  DstBlock		  "Out1"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "SetChan1To0"
-	  SrcPort		  1
-	  DstBlock		  "Switch"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "Constant"
-	  SrcPort		  1
-	  Points		  [65, 0]
-	  DstBlock		  "Switch"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  2
-	  Points		  [30, 0; 0, 55; 120, 0]
-	  DstBlock		  "Switch"
-	  DstPort		  3
-	}
-      }
-    }
-    Block {
       BlockType		      "S-Function"
       Name		      "Behavior WF"
       Ports		      [2, 9]
       Position		      [445, 38, 610, 582]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_wf"
-      Parameters	      "8 5 .5 .5 1 2 2 2 2 2 0 0 0 0 0 0 0 0.7854 0"
+      Parameters	      "8 5 .5 .5 1 2 2 2 2 2 0 0 0 0 0 0 0 0.7854 0 .5"
+" 0"
       MaskDisplay	      "disp('Master Control\\nWrist-Flexion')\nport_la"
 "bel('input',1,'cursor')\nport_label('input',2,'target list')\nport_label('out"
 "put',1,'Reward')\nport_label('output',2,'Word')\nport_label('output',3,'Statu"
@@ -967,7 +846,7 @@ Model {
       BlockType		      SubSystem
       Name		      "CursorPos"
       Ports		      [1, 1]
-      Position		      [170, 296, 235, 374]
+      Position		      [225, 296, 290, 374]
       ShowPortLabels	      "none"
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
@@ -975,8 +854,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"CursorPos"
-	Location		[6, 82, 1018, 710]
-	Open			on
+	Location		[4, 82, 1020, 762]
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1253,7 +1132,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "EnableIntegrator"
-	  Position		  [825, 260, 855, 290]
+	  Position		  [825, 225, 855, 255]
 	  Value			  "0"
 	}
 	Block {
@@ -1284,7 +1163,7 @@ Model {
 	  BlockType		  Integrator
 	  Name			  "Integrator"
 	  Ports			  [2, 1]
-	  Position		  [815, 182, 875, 238]
+	  Position		  [815, 147, 875, 203]
 	  ExternalReset		  "rising"
 	  LimitOutput		  on
 	  UpperSaturationLimit	  "15"
@@ -1372,7 +1251,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "ResetIntegrator"
-	  Position		  [765, 210, 795, 240]
+	  Position		  [765, 175, 795, 205]
 	  Value			  "0"
 	}
 	Block {
@@ -1394,7 +1273,7 @@ Model {
 	Block {
 	  BlockType		  Switch
 	  Name			  "Switch2"
-	  Position		  [910, 224, 955, 326]
+	  Position		  [910, 189, 955, 291]
 	  Criteria		  "u2 ~= 0"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
@@ -1402,7 +1281,7 @@ Model {
 	Block {
 	  BlockType		  Outport
 	  Name			  "Pos"
-	  Position		  [975, 268, 1005, 282]
+	  Position		  [975, 233, 1005, 247]
 	  IconDisplay		  "Port number"
 	  BusOutputAsStruct	  off
 	}
@@ -1540,12 +1419,12 @@ Model {
 	  SrcPort		  1
 	  Points		  [10, 0]
 	  Branch {
-	    Points		    [0, 35]
+	    Points		    [0, 0]
 	    DstBlock		    "Switch2"
 	    DstPort		    3
 	  }
 	  Branch {
-	    Points		    [0, -80]
+	    Points		    [0, -115]
 	    DstBlock		    "Integrator"
 	    DstPort		    1
 	  }
@@ -1626,7 +1505,7 @@ Model {
     Block {
       BlockType		      Memory
       Name		      "Memory1"
-      Position		      [190, 430, 220, 460]
+      Position		      [200, 430, 230, 460]
       Orientation	      "left"
       InheritSampleTime	      on
       Port {
@@ -2328,7 +2207,7 @@ Model {
       BlockType		      SubSystem
       Name		      "WordSbs"
       Ports		      [3]
-      Position		      [660, 98, 750, 152]
+      Position		      [660, 103, 750, 157]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -2926,7 +2805,7 @@ Model {
     Line {
       SrcBlock		      "Behavior WF"
       SrcPort		      2
-      Points		      [10, 0; 0, -25]
+      Points		      [10, 0; 0, -20]
       DstBlock		      "WordSbs"
       DstPort		      1
     }
@@ -2971,8 +2850,31 @@ Model {
     Line {
       SrcBlock		      "CursorPos"
       SrcPort		      1
-      DstBlock		      "1DOverride"
-      DstPort		      1
+      Points		      [30, 0; 0, -160]
+      Branch {
+	DstBlock		"Behavior WF"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, -160; 485, 0; 0, 215]
+	Branch {
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [-175, 0]
+	  Branch {
+	    Points		    [0, 20]
+	    DstBlock		    "UDPXmit"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -100]
+	    DstBlock		    "WordSbs"
+	    DstPort		    2
+	  }
+	}
+      }
     }
     Line {
       SrcBlock		      "Behavior WF"
@@ -2994,35 +2896,6 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "1DOverride"
-      SrcPort		      1
-      Points		      [15, 0; 0, -160]
-      Branch {
-	DstBlock		"Behavior WF"
-	DstPort			1
-      }
-      Branch {
-	Points			[0, -160; 485, 0; 0, 215]
-	Branch {
-	  DstBlock		  "Mux"
-	  DstPort		  1
-	}
-	Branch {
-	  Points		  [-175, 0]
-	  Branch {
-	    Points		    [0, 20]
-	    DstBlock		    "UDPXmit"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, -105]
-	    DstBlock		    "WordSbs"
-	    DstPort		    2
-	  }
-	}
-      }
-    }
-    Line {
       SrcBlock		      "Behavior WF"
       SrcPort		      9
       Points		      [190, 0]
@@ -3042,7 +2915,7 @@ Model {
       Labels		      [3, 0]
       SrcBlock		      "Memory1"
       SrcPort		      1
-      Points		      [-80, 0; 0, -110]
+      Points		      [-30, 0; 0, -110]
       DstBlock		      "CursorPos"
       DstPort		      1
     }

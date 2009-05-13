@@ -73,8 +73,11 @@ static real_T reach_time = 5.0;          /* Time to reach AND hold target*/
 static real_T target_hold_time = .5;
 #define param_target_hold_time mxGetScalar(ssGetSFcnParam(S,2))
 
-static real_T center_hold_time = .5;			/* delay before movement */
-#define param_center_hold_time mxGetScalar(ssGetSFcnParam(S,3))
+static real_T center_hold_time_l = .5;			/* delay before movement */
+#define param_center_hold_time_l mxGetScalar(ssGetSFcnParam(S,3))
+
+static real_T center_hold_time_h = .5;
+#define param_center_hold_time_h mxGetScalar(ssGetSFcnParam(S,19))
 
 #define param_intertrial mxGetScalar(ssGetSFcnParam(S,4))
 static real_T abort_timeout   = 1.0;    /* delay after abort */
@@ -92,9 +95,12 @@ static real_T center_h = 2.0;
 static real_T center_w = 4.0;
 #define param_center_w mxGetScalar(ssGetSFcnParam(S,8))
 
-static real_T tgt_view_delay = 0.0;
-#define param_tgt_view_delay mxGetScalar(ssGetSFcnParam(S,9))
-                           
+static real_T center_delay_time_l = 0.0;
+#define param_center_delay_time_l mxGetScalar(ssGetSFcnParam(S,9))
+
+static real_T center_delay_time_h = 0.0;
+#define param_center_delay_time_h mxGetScalar(ssGetSFcnParam(S,20))
+
 static real_T idiot_mode = 0.0;
 #define param_idiot_mode mxGetScalar(ssGetSFcnParam(S,10))
 
@@ -122,6 +128,9 @@ static real_T rotation_max = 0.785398163; /* ( PI / 4 ) == 90 deg */
 static real_T master_update = 0.0;
 #define param_master_update mxGetScalar(ssGetSFcnParam(S,18))
 
+/* Param(S,19) is center_hold_time_h -- see above */
+/* Param(S,20) is center_delay_time_h -- see above */
+
 #define set_catch_trial(x) ssSetIWorkValue(S, 22, (x))
 #define get_catch_trial() ssGetIWorkValue(S, 22)
 
@@ -129,17 +138,17 @@ static real_T master_update = 0.0;
 /*
  * State IDs
  */
-#define STATE_PRETRIAL 0
-#define STATE_RECENTERING 1
-#define STATE_CENTER_HOLD 2
-#define STATE_MOVEMENT 3
-#define STATE_TARGET_HOLD 4 
+#define STATE_PRETRIAL          0
+#define STATE_RECENTERING       1
+#define STATE_CENTER_HOLD       2
+#define STATE_MOVEMENT          3
+#define STATE_TARGET_HOLD       4
 #define STATE_CONTINUE_MOVEMENT 5
-#define STATE_CENTER_HOLD_WITH_TARGET 6
-#define STATE_REWARD 82
-#define STATE_ABORT 65
-#define STATE_FAIL 70
-#define STATE_DATA_BLOCK 255
+#define STATE_DELAY             6
+#define STATE_REWARD            82
+#define STATE_ABORT             65
+#define STATE_FAIL              70
+#define STATE_DATA_BLOCK        255
 
 
 #define TONE_GO 1
@@ -164,7 +173,10 @@ static void mdlCheckParameters(SimStruct *S)
   
   reach_time = param_reach_time;
   target_hold_time = param_target_hold_time;
-  tgt_view_delay = param_tgt_view_delay;
+  center_hold_time_l  = param_center_hold_time_l;
+  center_hold_time_h  = param_center_hold_time_h;
+  center_delay_time_l = param_center_delay_time_l;
+  center_delay_time_h = param_center_delay_time_h;
 
   center_y = param_center_y;
   center_h = param_center_h;
@@ -189,7 +201,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 19); 
+    ssSetNumSFcnParams(S, 21); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -243,7 +255,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 31);   /* 0: time of last timer reset
+    ssSetNumRWork(S, 33);   /* 0: time of last timer reset
                                1: time of last target hold timer reset 
                                2: tone counter (incremented each time a tone is played)
                                3: tone id
@@ -259,7 +271,8 @@ static void mdlInitializeSizes(SimStruct *S)
                                21-28: higher MVC targets reached [x1 x2 x3 x4 y1 y2 y3 y4]
                                29: mastercon version
                                30: Time of last update
-
+                               31: The variable center hold time
+							   32: The variable delay time
                             */
     ssSetNumPWork(S, 1);	/* 0: Databurst array pointer 
     						*/
@@ -353,6 +366,12 @@ static void mdlInitializeConditions(SimStruct *S)
 #define reset_target_hold_timer() (ssSetRWorkValue(S, 1, (real_T)ssGetT(S)))
 #define reset_center_hold_timer() (ssSetRWorkValue(S, 4, (real_T)ssGetT(S)))
 #define success_flag() (ssSetIWorkValue(S, 21, 1))
+/* Macro for assigning random center hold time */
+#define set_random_hold_time() if (center_hold_time_l == center_hold_time_h) { ssSetRWorkValue(S, 31, center_hold_time_l);} \
+                               else {ssSetRWorkValue(S, 31, center_hold_time_l + UNI*(center_hold_time_h-center_hold_time_l));}
+/* Macro for assigning random delay time */
+#define set_random_delay_time() if (center_delay_time_l == center_delay_time_h) { ssSetRWorkValue(S, 32, center_delay_time_l);} \
+                               else {ssSetRWorkValue(S, 32, center_delay_time_l + UNI*(center_delay_time_h-center_delay_time_l));}
 
 /* cursorInTarget
  * returns true (1) if the cursor is in the target and false (0) otherwise
@@ -572,11 +591,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             
             /* Update parameters */        
+            center_hold_time_l = param_center_hold_time_l;
+            center_hold_time_h = param_center_hold_time_h;
+            center_delay_time_l = param_center_delay_time_l;
+            center_delay_time_h = param_center_delay_time_h;
             reach_time = param_reach_time;
-            tgt_view_delay = param_tgt_view_delay;
             target_hold_time = param_target_hold_time;
-
-            center_hold_time = param_center_hold_time; 
             
             abort_timeout   = param_intertrial;    
             failure_timeout = param_intertrial;   
@@ -737,7 +757,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             if (cursorInTarget(cursor, center)) {
                 new_state = STATE_CENTER_HOLD;
                 state_changed();
-                reset_center_hold_timer();
+                set_random_hold_time();
                 reset_timer();                
             }
             break;
@@ -745,20 +765,19 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         	if (!cursorInTarget(cursor, center)) {
 	        	new_state = STATE_RECENTERING;
 	        	state_changed();
-        	} else if ( elapsed_center_hold_time > center_hold_time) {
-	        	new_state = STATE_MOVEMENT;
+        	} else if ( elapsed_timer_time > ssGetRWorkValue(S,31) ) {
+	        	new_state = (center_delay_time_h > 0) ? STATE_DELAY : STATE_MOVEMENT;
+				set_random_delay_time();
 	        	state_changed();
 	        	reset_timer();
-        	} else if (elapsed_timer_time > tgt_view_delay) {
-	        	new_state = STATE_CENTER_HOLD_WITH_TARGET;
-	        	state_changed();
         	}
         	break;
-        case STATE_CENTER_HOLD_WITH_TARGET:
+        case STATE_DELAY:
         	if (!cursorInTarget(cursor, center)) {
 	        	new_state = STATE_RECENTERING;
 	        	state_changed();
-        	} else if ( elapsed_center_hold_time > center_hold_time) {
+				reset_timer();
+        	} else if ( elapsed_timer_time > ssGetRWorkValue(S,32) ) {
 	        	new_state = STATE_MOVEMENT;
 	        	state_changed();
 	        	reset_timer();
@@ -789,14 +808,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 				} else {
 					/* more targets*/
 					ssSetIWorkValue(S, 1, ++target_index);
-					new_state = STATE_CONTINUE_MOVEMENT;
+					new_state = STATE_MOVEMENT;
 					state_changed();
 					reset_timer();
 				}
-            } else if (elapsed_timer_time > reach_time) {
-	            new_state = STATE_FAIL;
-	            state_changed();
-	            reset_timer();
             }
             break;
 		case STATE_CONTINUE_MOVEMENT:
@@ -1097,7 +1112,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		    /* center green*/
 		    target[5] = 3;
         break;
-        case STATE_CENTER_HOLD_WITH_TARGET:
+        case STATE_DELAY:
 		    /* target white */
 		    target[0] = 2;
 		    /* center green*/
