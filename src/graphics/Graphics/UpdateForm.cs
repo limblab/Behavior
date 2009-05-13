@@ -756,11 +756,13 @@ namespace BehaviorGraphics
                     BehaviorParameters2Form(bp);
                     filename = ofd.FileName;
 
+#if !DEBUG
                     try {
                         // Try to save the last used Behavior Parameters directory
                         RegistryKey key = Registry.CurrentUser.CreateSubKey(REG_KEY_PATH);
                         key.SetValue(REG_KEY_BPDIR, Path.GetDirectoryName(ofd.FileName));
                     } catch { };
+#endif
 
                     UpdateTitlebarText(filename);
                     this.currentBP = bp;
@@ -832,11 +834,13 @@ namespace BehaviorGraphics
                 path = Path.GetDirectoryName(ofd.FileName);
                 file = Path.GetFileNameWithoutExtension(ofd.FileName);
 
+#if !DEBUG
                 try {
                     // Try to save the last used Model directory
                     RegistryKey key = Registry.CurrentUser.CreateSubKey(REG_KEY_PATH);
                     key.SetValue(REG_KEY_MODELDIR, Path.GetDirectoryName(ofd.FileName));
                 } catch { };
+#endif
 
                 target.LoadApp(path, file);
                 target.StartApp();
@@ -904,11 +908,13 @@ namespace BehaviorGraphics
                     filename = sfd.FileName;
                     fileSave();
 
+#if !DEBUG
                     try {
                         // Try to save the last used Behavior Parameters directory
                         RegistryKey key = Registry.CurrentUser.CreateSubKey(REG_KEY_PATH);
                         key.SetValue(REG_KEY_BPDIR, Path.GetDirectoryName(sfd.FileName));
                     } catch (Exception) { };
+#endif
 
                     UpdateTitlebarText(filename);
                 }
