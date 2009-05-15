@@ -774,7 +774,6 @@ namespace BehaviorGraphics
             WhichLabForm wlf = new WhichLabForm();
             wlf.ShowDialog();
 
-            RegistryHelper.Lab = wlf.Lab;
             return wlf.Lab;
         }
 
@@ -791,7 +790,7 @@ namespace BehaviorGraphics
             int lab;
             try {
                 lab = RegistryHelper.Lab;
-            } catch (RegistryHelper.KeyNotFoundException) {
+            } catch (RegistryHelper.RegistryHelperException) {
                 lab = updateLab();
             }
 

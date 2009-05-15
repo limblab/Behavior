@@ -28,6 +28,7 @@ namespace BehaviorGraphics
 
                 foreach (LabSpecification ls in ll) {
                     if (ls.Lab == lab) {
+                        RegistryHelper.Lab = lab;
                         this.Close();
                         return;
                     }
@@ -41,6 +42,14 @@ namespace BehaviorGraphics
         public int Lab
         {
             get { return lab; }
+        }
+
+        private void WhichLabForm_Shown(object sender, EventArgs e) {
+            try {
+                textBox1.Text = RegistryHelper.Lab.ToString();
+            } catch (RegistryHelper.RegistryHelperException) {
+                textBox1.Text = "";
+            }
         }
     }
 }

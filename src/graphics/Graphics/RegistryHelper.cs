@@ -70,17 +70,15 @@ namespace BehaviorGraphics {
                     String keyString = (String)key.GetValue(REG_KEY_LAB);
                     return int.Parse(keyString);
                 } catch (Exception) {
-                    throw new KeyNotFoundException();
+                    throw new RegistryHelperException();
                 }
             }
             set {
-                RegistryKey key = Registry.CurrentUser.CreateSubKey(REG_KEY_PATH);
+                RegistryKey key = Registry.LocalMachine.CreateSubKey(REG_KEY_PATH);
                 key.SetValue(REG_KEY_LAB, value);
             }
         }
 
-        public class KeyNotFoundException : Exception {
-
-        }
+        public class RegistryHelperException : Exception { }
     }
 }
