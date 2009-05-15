@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using XPCAPICOMLib;
 using System.Reflection;
-using Microsoft.Win32;
 
 namespace BehaviorGraphics
 {
@@ -733,12 +732,7 @@ namespace BehaviorGraphics
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "XML Parameter files|*.xml";
             ofd.Multiselect = false;
-
-            try {
-                // Try to grab the last used Behavior Parameters directory
-                RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_KEY_PATH);
-                ofd.InitialDirectory = (String)key.GetValue(REG_KEY_BPDIR);
-            } catch { };
+            ofd.InitialDirectory = RegistryHelper.BPDir;
 
             if (ofd.ShowDialog() == DialogResult.OK) {
                 reader = new StreamReader(ofd.FileName);
@@ -756,13 +750,8 @@ namespace BehaviorGraphics
                     BehaviorParameters2Form(bp);
                     filename = ofd.FileName;
 
-#if !DEBUG
-                    try {
-                        // Try to save the last used Behavior Parameters directory
-                        RegistryKey key = Registry.CurrentUser.CreateSubKey(REG_KEY_PATH);
-                        key.SetValue(REG_KEY_BPDIR, Path.GetDirectoryName(ofd.FileName));
-                    } catch { };
-#endif
+                    // Save file path
+                    RegistryHelper.BPDir = Path.GetDirectoryName(ofd.FileName);
 
                     UpdateTitlebarText(filename);
                     this.currentBP = bp;
@@ -785,10 +774,7 @@ namespace BehaviorGraphics
             WhichLabForm wlf = new WhichLabForm();
             wlf.ShowDialog();
 
-            // Save current lab in the registry
-            RegistryKey key = Registry.LocalMachine.CreateSubKey(REG_KEY_PATH);
-            key.SetValue("Lab", wlf.Lab.ToString());
-
+            RegistryHelper.Lab = wlf.Lab;
             return wlf.Lab;
         }
 
@@ -804,11 +790,8 @@ namespace BehaviorGraphics
             // Figure out which lab we are running in
             int lab;
             try {
-                // Try to find lab from registry
-                RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_KEY_PATH);
-                String keyString = (String)key.GetValue("Lab");
-                lab = int.Parse(keyString);
-            } catch (Exception) {
+                lab = RegistryHelper.Lab;
+            } catch (RegistryHelper.KeyNotFoundException) {
                 lab = updateLab();
             }
 
@@ -823,24 +806,12 @@ namespace BehaviorGraphics
 
             ofd.Filter = "XPC model files|*.dlm";
             ofd.Multiselect = false;
-
-            try {
-                // Try to grab the last used Model directory
-                RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_KEY_PATH);
-                ofd.InitialDirectory = (String)key.GetValue(REG_KEY_MODELDIR);
-            } catch { };
+            ofd.InitialDirectory = RegistryHelper.MdlDir;
 
             if (ofd.ShowDialog() == DialogResult.OK) {
+                RegistryHelper.MdlDir = Path.GetDirectoryName(ofd.FileName);
                 path = Path.GetDirectoryName(ofd.FileName);
                 file = Path.GetFileNameWithoutExtension(ofd.FileName);
-
-#if !DEBUG
-                try {
-                    // Try to save the last used Model directory
-                    RegistryKey key = Registry.CurrentUser.CreateSubKey(REG_KEY_PATH);
-                    key.SetValue(REG_KEY_MODELDIR, Path.GetDirectoryName(ofd.FileName));
-                } catch { };
-#endif
 
                 target.LoadApp(path, file);
                 target.StartApp();
@@ -895,26 +866,15 @@ namespace BehaviorGraphics
         private void fileSaveAs()
         {
             SaveFileDialog sfd = new SaveFileDialog();
-
-            try {
-                // Try to grab the last used Behavior Parameters directory
-                RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_KEY_PATH);
-                sfd.InitialDirectory = (String)key.GetValue(REG_KEY_BPDIR);
-            } catch (Exception) { };
-
+            sfd.InitialDirectory = RegistryHelper.BPDir;
             sfd.Filter = "XML Parameter files|*.xml";
+
             try {
                 if (sfd.ShowDialog() == DialogResult.OK) {
+                    RegistryHelper.BPDir = Path.GetDirectoryName(sfd.FileName);
+
                     filename = sfd.FileName;
                     fileSave();
-
-#if !DEBUG
-                    try {
-                        // Try to save the last used Behavior Parameters directory
-                        RegistryKey key = Registry.CurrentUser.CreateSubKey(REG_KEY_PATH);
-                        key.SetValue(REG_KEY_BPDIR, Path.GetDirectoryName(sfd.FileName));
-                    } catch (Exception) { };
-#endif
 
                     UpdateTitlebarText(filename);
                 }
