@@ -146,3 +146,17 @@ Wrist Flexion
   * Implemented incremental cursor rotation
   * Databursts now at version 2: Rotation value added to the spec
   * Corrected the state and tone counters that were incrementing in triples
+  
+version 2.6
+===========
+
+General
+  * Various bug fixes and internal code refractoring not visible to the user
+Graphics
+  * All textboxes should now update properly when edited.
+  * Model and parameter file search paths are now seved seperately for devel and
+    production versions. 
+Center-Out
+  * There is now an option to deliver bumps during the delay period.
+Wrist Flexion
+  * Cursor position is now output via the strobed digital outputs like the encoders.
