@@ -78,7 +78,7 @@ static int idiot_mode;
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,16))
 
-static int delay_bumps = 0.0;
+static int delay_bumps = 0;
 #define param_delay_bumps mxGetScalar(ssGetSFcnParam(S,17))
 
 /*
@@ -745,8 +745,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                     bump_duration_counter != -1 && 
                     ( 
                       (state==STATE_MOVEMENT && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) > target_radius / 2) || 
-                      (state==STATE_MOVEMENT && delay_bumps)
-                      (state==STATE_CENTER_HOLD_BUMP) ||
+                      (state==STATE_MOVEMENT && delay_bumps) ||
+                      (state==STATE_CENTER_HOLD_BUMP) 
                     )
                   ) 
         {
