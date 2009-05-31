@@ -160,3 +160,9 @@ Center-Out
   * There is now an option to deliver bumps during the delay period.
 Wrist Flexion
   * Cursor position is now output via the strobed digital outputs like the encoders.
+
+version 2.7
+===========
+
+General
+  * Fixed a versioning error that caused 2.6 to fail to compile under certain circumstances.

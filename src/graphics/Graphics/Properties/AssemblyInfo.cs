@@ -29,11 +29,13 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("2.5.*")]
-[assembly: AssemblyFileVersion("2.5.*")]
+[assembly: AssemblyVersion("2.7.*")]
+[assembly: AssemblyFileVersion("2.7.*")]
 // Revision History:
 //      1.0 Original Working Version
 //      1.1 Version deployed 3/19/2008
 //      2.0 Version released post svn merge with target code
 //      2.4 Version deployed 4/08/2009. Versions 2.1, 2.2, and 2.3 were never properly identified
 //      2.5 Version deployed 4/28/2009. 
+//      2.6 Skipped
+//      2.7 Version deployed 6/1/2009.
