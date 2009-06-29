@@ -29,8 +29,8 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("2.7.*")]
-[assembly: AssemblyFileVersion("2.7.*")]
+[assembly: AssemblyVersion("2.8.*")]
+[assembly: AssemblyFileVersion("2.8.*")]
 // Revision History:
 //      1.0 Original Working Version
 //      1.1 Version deployed 3/19/2008
@@ -38,4 +38,5 @@ using System.Runtime.InteropServices;
 //      2.4 Version deployed 4/08/2009. Versions 2.1, 2.2, and 2.3 were never properly identified
 //      2.5 Version deployed 4/28/2009. 
 //      2.6 Skipped
-//      2.7 Version deployed 6/1/2009.
+//      2.7 Version deployed 6/1/2009, but tagged as 2.6 & deployed with v2.6 models.
+//      2.7 Deployed again 6/29/2009, properly tagged as 2.7.
