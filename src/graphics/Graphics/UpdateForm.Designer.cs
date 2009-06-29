@@ -35,6 +35,14 @@ namespace BehaviorGraphics
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageGen = new System.Windows.Forms.TabPage();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.label45 = new System.Windows.Forms.Label();
+            this.textBoxJackpotChance = new System.Windows.Forms.TextBox();
+            this.textBoxRewardPL = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.textBoxRewardJackpot = new System.Windows.Forms.TextBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
             this.textBoxVerticalDisplacement = new System.Windows.Forms.TextBox();
             this.label123 = new System.Windows.Forms.Label();
             this.checkBoxUseTachs = new System.Windows.Forms.CheckBox();
@@ -75,8 +83,6 @@ namespace BehaviorGraphics
             this.labelViscConst = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.comboBoxLoad = new System.Windows.Forms.ComboBox();
-            this.textBoxRewardPL = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.textBoxCursorRotation = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -398,6 +404,7 @@ namespace BehaviorGraphics
             this.label145 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
+            this.groupBox13.SuspendLayout();
             this.groupBox27.SuspendLayout();
             this.groupBox29.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -493,6 +500,7 @@ namespace BehaviorGraphics
             // 
             // tabPageGen
             // 
+            this.tabPageGen.Controls.Add(this.groupBox13);
             this.tabPageGen.Controls.Add(this.textBoxVerticalDisplacement);
             this.tabPageGen.Controls.Add(this.label123);
             this.tabPageGen.Controls.Add(this.checkBoxUseTachs);
@@ -503,8 +511,6 @@ namespace BehaviorGraphics
             this.tabPageGen.Controls.Add(this.textBoxScreenWidth);
             this.tabPageGen.Controls.Add(this.label22);
             this.tabPageGen.Controls.Add(this.groupBox5);
-            this.tabPageGen.Controls.Add(this.textBoxRewardPL);
-            this.tabPageGen.Controls.Add(this.label18);
             this.tabPageGen.Controls.Add(this.groupBox4);
             this.tabPageGen.Location = new System.Drawing.Point(4, 22);
             this.tabPageGen.Name = "tabPageGen";
@@ -515,9 +521,84 @@ namespace BehaviorGraphics
             this.tabPageGen.UseVisualStyleBackColor = true;
             this.tabPageGen.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tabPageGen_MouseDoubleClick);
             // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.label45);
+            this.groupBox13.Controls.Add(this.textBoxJackpotChance);
+            this.groupBox13.Controls.Add(this.textBoxRewardPL);
+            this.groupBox13.Controls.Add(this.label18);
+            this.groupBox13.Controls.Add(this.textBoxRewardJackpot);
+            this.groupBox13.Controls.Add(this.label41);
+            this.groupBox13.Controls.Add(this.label44);
+            this.groupBox13.Location = new System.Drawing.Point(6, 147);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(222, 67);
+            this.groupBox13.TabIndex = 28;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "Reward";
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(206, 41);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(15, 13);
+            this.label45.TabIndex = 28;
+            this.label45.Text = "%";
+            // 
+            // textBoxJackpotChance
+            // 
+            this.textBoxJackpotChance.Location = new System.Drawing.Point(174, 38);
+            this.textBoxJackpotChance.Name = "textBoxJackpotChance";
+            this.textBoxJackpotChance.Size = new System.Drawing.Size(32, 20);
+            this.textBoxJackpotChance.TabIndex = 27;
+            // 
+            // textBoxRewardPL
+            // 
+            this.textBoxRewardPL.Location = new System.Drawing.Point(85, 13);
+            this.textBoxRewardPL.Name = "textBoxRewardPL";
+            this.textBoxRewardPL.Size = new System.Drawing.Size(33, 20);
+            this.textBoxRewardPL.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.textBoxRewardPL, "Duration of reward pulse (s)");
+            this.textBoxRewardPL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 16);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(73, 13);
+            this.label18.TabIndex = 12;
+            this.label18.Text = "Regular Pulse";
+            // 
+            // textBoxRewardJackpot
+            // 
+            this.textBoxRewardJackpot.Location = new System.Drawing.Point(85, 38);
+            this.textBoxRewardJackpot.Name = "textBoxRewardJackpot";
+            this.textBoxRewardJackpot.Size = new System.Drawing.Size(33, 20);
+            this.textBoxRewardJackpot.TabIndex = 26;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(124, 41);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(44, 13);
+            this.label41.TabIndex = 24;
+            this.label41.Text = "Chance";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(6, 41);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(74, 13);
+            this.label44.TabIndex = 25;
+            this.label44.Text = "Jackpot Pulse";
+            // 
             // textBoxVerticalDisplacement
             // 
-            this.textBoxVerticalDisplacement.Location = new System.Drawing.Point(122, 216);
+            this.textBoxVerticalDisplacement.Location = new System.Drawing.Point(122, 245);
             this.textBoxVerticalDisplacement.Name = "textBoxVerticalDisplacement";
             this.textBoxVerticalDisplacement.Size = new System.Drawing.Size(100, 20);
             this.textBoxVerticalDisplacement.TabIndex = 15;
@@ -526,7 +607,7 @@ namespace BehaviorGraphics
             // label123
             // 
             this.label123.AutoSize = true;
-            this.label123.Location = new System.Drawing.Point(8, 219);
+            this.label123.Location = new System.Drawing.Point(8, 248);
             this.label123.Name = "label123";
             this.label123.Size = new System.Drawing.Size(109, 13);
             this.label123.TabIndex = 23;
@@ -549,7 +630,7 @@ namespace BehaviorGraphics
             // comboBoxCursor
             // 
             this.comboBoxCursor.FormattingEnabled = true;
-            this.comboBoxCursor.Location = new System.Drawing.Point(83, 244);
+            this.comboBoxCursor.Location = new System.Drawing.Point(284, 269);
             this.comboBoxCursor.Name = "comboBoxCursor";
             this.comboBoxCursor.Size = new System.Drawing.Size(145, 21);
             this.comboBoxCursor.TabIndex = 16;
@@ -559,7 +640,7 @@ namespace BehaviorGraphics
             // label114
             // 
             this.label114.AutoSize = true;
-            this.label114.Location = new System.Drawing.Point(8, 245);
+            this.label114.Location = new System.Drawing.Point(241, 272);
             this.label114.Name = "label114";
             this.label114.Size = new System.Drawing.Size(37, 13);
             this.label114.TabIndex = 20;
@@ -594,7 +675,7 @@ namespace BehaviorGraphics
             this.groupBox27.Controls.Add(this.comboBoxLoadCatch);
             this.groupBox27.Location = new System.Drawing.Point(234, 138);
             this.groupBox27.Name = "groupBox27";
-            this.groupBox27.Size = new System.Drawing.Size(421, 127);
+            this.groupBox27.Size = new System.Drawing.Size(427, 127);
             this.groupBox27.TabIndex = 18;
             this.groupBox27.TabStop = false;
             this.groupBox27.Text = "Catch Load";
@@ -748,7 +829,7 @@ namespace BehaviorGraphics
             // 
             // textBoxScreenWidth
             // 
-            this.textBoxScreenWidth.Location = new System.Drawing.Point(122, 190);
+            this.textBoxScreenWidth.Location = new System.Drawing.Point(122, 221);
             this.textBoxScreenWidth.Name = "textBoxScreenWidth";
             this.textBoxScreenWidth.Size = new System.Drawing.Size(100, 20);
             this.textBoxScreenWidth.TabIndex = 14;
@@ -759,7 +840,7 @@ namespace BehaviorGraphics
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(6, 192);
+            this.label22.Location = new System.Drawing.Point(8, 224);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(64, 13);
             this.label22.TabIndex = 15;
@@ -778,9 +859,9 @@ namespace BehaviorGraphics
             this.groupBox5.Controls.Add(this.labelViscConst);
             this.groupBox5.Controls.Add(this.label19);
             this.groupBox5.Controls.Add(this.comboBoxLoad);
-            this.groupBox5.Location = new System.Drawing.Point(240, 7);
+            this.groupBox5.Location = new System.Drawing.Point(234, 6);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(421, 125);
+            this.groupBox5.Size = new System.Drawing.Size(427, 125);
             this.groupBox5.TabIndex = 18;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Load";
@@ -932,24 +1013,6 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.comboBoxLoad, "Selects the type of load to apply to the handle.");
             this.comboBoxLoad.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // textBoxRewardPL
-            // 
-            this.textBoxRewardPL.Location = new System.Drawing.Point(122, 165);
-            this.textBoxRewardPL.Name = "textBoxRewardPL";
-            this.textBoxRewardPL.Size = new System.Drawing.Size(100, 20);
-            this.textBoxRewardPL.TabIndex = 13;
-            this.toolTip1.SetToolTip(this.textBoxRewardPL, "Duration of reward pulse (s)");
-            this.textBoxRewardPL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(8, 168);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(73, 13);
-            this.label18.TabIndex = 12;
-            this.label18.Text = "Reward Pulse";
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.textBoxCursorRotation);
@@ -964,14 +1027,14 @@ namespace BehaviorGraphics
             this.groupBox4.Controls.Add(this.label13);
             this.groupBox4.Location = new System.Drawing.Point(6, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(222, 153);
+            this.groupBox4.Size = new System.Drawing.Size(222, 135);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Position Offsets";
             // 
             // textBoxCursorRotation
             // 
-            this.textBoxCursorRotation.Location = new System.Drawing.Point(116, 123);
+            this.textBoxCursorRotation.Location = new System.Drawing.Point(116, 107);
             this.textBoxCursorRotation.Name = "textBoxCursorRotation";
             this.textBoxCursorRotation.Size = new System.Drawing.Size(100, 20);
             this.textBoxCursorRotation.TabIndex = 11;
@@ -981,7 +1044,7 @@ namespace BehaviorGraphics
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 126);
+            this.label17.Location = new System.Drawing.Point(6, 110);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(47, 13);
             this.label17.TabIndex = 10;
@@ -989,7 +1052,7 @@ namespace BehaviorGraphics
             // 
             // textBoxYOffset
             // 
-            this.textBoxYOffset.Location = new System.Drawing.Point(116, 97);
+            this.textBoxYOffset.Location = new System.Drawing.Point(116, 84);
             this.textBoxYOffset.Name = "textBoxYOffset";
             this.textBoxYOffset.Size = new System.Drawing.Size(100, 20);
             this.textBoxYOffset.TabIndex = 9;
@@ -999,7 +1062,7 @@ namespace BehaviorGraphics
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 100);
+            this.label16.Location = new System.Drawing.Point(6, 87);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(45, 13);
             this.label16.TabIndex = 8;
@@ -1007,7 +1070,7 @@ namespace BehaviorGraphics
             // 
             // textBoxXOffset
             // 
-            this.textBoxXOffset.Location = new System.Drawing.Point(116, 71);
+            this.textBoxXOffset.Location = new System.Drawing.Point(116, 61);
             this.textBoxXOffset.Name = "textBoxXOffset";
             this.textBoxXOffset.Size = new System.Drawing.Size(100, 20);
             this.textBoxXOffset.TabIndex = 7;
@@ -1017,7 +1080,7 @@ namespace BehaviorGraphics
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 74);
+            this.label15.Location = new System.Drawing.Point(6, 64);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(45, 13);
             this.label15.TabIndex = 6;
@@ -1025,7 +1088,7 @@ namespace BehaviorGraphics
             // 
             // textBoxShOffset
             // 
-            this.textBoxShOffset.Location = new System.Drawing.Point(116, 45);
+            this.textBoxShOffset.Location = new System.Drawing.Point(116, 38);
             this.textBoxShOffset.Name = "textBoxShOffset";
             this.textBoxShOffset.Size = new System.Drawing.Size(100, 20);
             this.textBoxShOffset.TabIndex = 5;
@@ -1035,7 +1098,7 @@ namespace BehaviorGraphics
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 48);
+            this.label14.Location = new System.Drawing.Point(6, 41);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(80, 13);
             this.label14.TabIndex = 4;
@@ -1043,7 +1106,7 @@ namespace BehaviorGraphics
             // 
             // textBoxElOffset
             // 
-            this.textBoxElOffset.Location = new System.Drawing.Point(116, 19);
+            this.textBoxElOffset.Location = new System.Drawing.Point(116, 15);
             this.textBoxElOffset.Name = "textBoxElOffset";
             this.textBoxElOffset.Size = new System.Drawing.Size(100, 20);
             this.textBoxElOffset.TabIndex = 3;
@@ -1053,7 +1116,7 @@ namespace BehaviorGraphics
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 22);
+            this.label13.Location = new System.Drawing.Point(6, 18);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(67, 13);
             this.label13.TabIndex = 2;
@@ -4265,6 +4328,8 @@ namespace BehaviorGraphics
             this.tabControl.ResumeLayout(false);
             this.tabPageGen.ResumeLayout(false);
             this.tabPageGen.PerformLayout();
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
             this.groupBox27.ResumeLayout(false);
             this.groupBox27.PerformLayout();
             this.groupBox29.ResumeLayout(false);
@@ -4718,5 +4783,11 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label166;
         private System.Windows.Forms.TextBox textBoxWFCHH;
         private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.TextBox textBoxJackpotChance;
+        private System.Windows.Forms.TextBox textBoxRewardJackpot;
+        private System.Windows.Forms.Label label45;
     }
 }

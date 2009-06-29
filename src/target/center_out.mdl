@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1200"
+    ComputedModelVersion    "1.1201"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri May 08 16:34:27 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:1200>"
+  LastModifiedDate	  "Mon Jun 29 11:19:45 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:1201>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -773,10 +773,28 @@ Model {
       BlockType		      Terminator
     }
     Block {
+      BlockType		      TriggerPort
+      TriggerType	      "rising"
+      StatesWhenEnabling      "inherit"
+      ShowOutputPort	      off
+      OutputDataType	      "auto"
+      SampleTimeType	      "triggered"
+      SampleTime	      "1"
+      ZeroCross		      on
+    }
+    Block {
       BlockType		      Trigonometry
       Operator		      "sin"
       OutputSignalType	      "auto"
       SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      UniformRandomNumber
+      Minimum		      "-1"
+      Maximum		      "1"
+      Seed		      "0"
+      SampleTime	      "-1"
+      VectorParams1D	      on
     }
     Block {
       BlockType		      UnitDelay
@@ -814,7 +832,7 @@ Model {
   }
   System {
     Name		    "center_out"
-    Location		    [7, 80, 1259, 843]
+    Location		    [7, 82, 1002, 727]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -2533,6 +2551,13 @@ Model {
 	  DstPort		  3
 	}
       }
+    }
+    Block {
+      BlockType		      Goto
+      Name		      "Goto"
+      Position		      [1000, 267, 1045, 283]
+      GotoTag		      "Reward"
+      TagVisibility	      "global"
     }
     Block {
       BlockType		      Concatenate
@@ -5547,15 +5572,15 @@ Model {
     Block {
       BlockType		      SubSystem
       Name		      "RewardSbs"
-      Ports		      [1]
-      Position		      [930, 254, 975, 296]
+      Ports		      [1, 1]
+      Position		      [915, 260, 975, 290]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
       MaskHideContents	      off
       System {
 	Name			"RewardSbs"
-	Location		[2, 82, 1270, 978]
+	Location		[14, 142, 886, 404]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -5571,59 +5596,73 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "Trig"
-	  Position		  [290, 178, 320, 192]
+	  Position		  [30, 38, 60, 52]
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  DataTypeConversion
 	  Name			  "Data Type Conversion"
-	  Position		  [650, 168, 725, 202]
+	  Position		  [685, 83, 760, 117]
 	  RndMeth		  "Floor"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
-	  BlockType		  Goto
-	  Name			  "Goto"
-	  Position		  [780, 169, 835, 201]
-	  GotoTag		  "Reward"
-	  TagVisibility		  "global"
+	  BlockType		  Constant
+	  Name			  "JackpotChance"
+	  Position		  [65, 175, 95, 205]
+	  Value			  "0"
 	}
 	Block {
-	  BlockType		  Memory
-	  Name			  "Memory1"
-	  Position		  [555, 170, 585, 200]
+	  BlockType		  RelationalOperator
+	  Name			  "Relational\nOperator"
+	  Position		  [160, 137, 190, 168]
+	  Operator		  ">"
+	  InputSameDT		  off
+	  LogicOutDataTypeMode	  "Boolean"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "RewardJackpot"
+	  Position		  [160, 205, 190, 235]
+	  Value			  "0.60"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "RewardTime"
+	  Position		  [160, 80, 190, 110]
+	  Value			  "0.30"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Sample\nand Hold"
+	  Ports			  [1, 1, 0, 1]
+	  Position		  [365, 133, 440, 177]
+	  SourceBlock		  "dspsigops/Sample\nand Hold"
+	  SourceType		  "Sample and Hold"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  trig			  "Rising edge"
+	  initCond		  "0"
+	  latchinput		  off
 	}
 	Block {
 	  BlockType		  SubSystem
-	  Name			  "Schmidt1"
-	  Ports			  [1, 1]
-	  Position		  [405, 164, 505, 206]
+	  Name			  "Schmidt"
+	  Ports			  [2, 1]
+	  Position		  [525, 70, 635, 130]
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
 	  MaskHideContents	  off
-	  MaskType		  "Schmidt Trigger"
-	  MaskDescription	  "Creates an output pulse of the specified ti"
-"me in seconds when trig goes high"
-	  MaskHelp		  "Creates an output pulse of the specified ti"
-"me in seconds when trig goes high"
-	  MaskPromptString	  "Time"
-	  MaskStyleString	  "edit"
-	  MaskTunableValueString  "on"
-	  MaskEnableString	  "on"
-	  MaskVisibilityString	  "on"
-	  MaskToolTipString	  "on"
-	  MaskVariables		  "Time=@1;"
-	  MaskDisplay		  "port_label('output',1,'out')\nport_label('i"
-"nput',1,'trig')\nfprintf('t = %.2f',Time)"
-	  MaskIconFrame		  on
-	  MaskIconOpaque	  on
-	  MaskIconRotate	  "none"
-	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  ".3"
 	  System {
-	    Name		    "Schmidt1"
-	    Location		    [2, 82, 1270, 979]
+	    Name		    "Schmidt"
+	    Location		    [26, 85, 629, 391]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -5638,24 +5677,38 @@ Model {
 	    ZoomFactor		    "100"
 	    Block {
 	      BlockType		      Inport
-	      Name		      "In1"
-	      Position		      [210, 118, 240, 132]
+	      Name		      "Trigger"
+	      Position		      [85, 58, 115, 72]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Duration"
+	      Position		      [85, 233, 115, 247]
+	      Port		      "2"
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
 	      BlockType		      Clock
 	      Name		      "Clock"
-	      Position		      [240, 180, 280, 220]
+	      Position		      [140, 110, 180, 150]
 	      Decimation	      "1"
 	    }
 	    Block {
+	      BlockType		      RelationalOperator
+	      Name		      "Relational\nOperator"
+	      Position		      [420, 167, 450, 198]
+	      Operator		      "<"
+	      InputSameDT	      off
+	      LogicOutDataTypeMode    "Boolean"
+	    }
+	    Block {
 	      BlockType		      Reference
-	      Name		      "Compare\nTo Zero"
-	      Ports		      [1, 1]
-	      Position		      [750, 175, 780, 205]
-	      SourceBlock	      "simulink/Logic and Bit\nOperations/Comp"
-"are\nTo Zero"
-	      SourceType	      "Compare To Zero"
+	      Name		      "Sample\nand Hold"
+	      Ports		      [1, 1, 0, 1]
+	      Position		      [240, 108, 315, 152]
+	      SourceBlock	      "dspsigops/Sample\nand Hold"
+	      SourceType	      "Sample and Hold"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
 	      FunctionWithSeparateData off
@@ -5664,111 +5717,15 @@ Model {
 	      RTWMemSecDataConstants  "Inherit from model"
 	      RTWMemSecDataInternal   "Inherit from model"
 	      RTWMemSecDataParameters "Inherit from model"
-	      relop		      ">"
-	      LogicOutDataTypeMode    "uint8"
-	      ZeroCross		      off
-	    }
-	    Block {
-	      BlockType		      SubSystem
-	      Name		      "Enabled\nSubsystem"
-	      Ports		      [1, 1, 1]
-	      Position		      [360, 179, 460, 221]
-	      TreatAsAtomicUnit	      on
-	      MinAlgLoopOccurrences   off
-	      RTWSystemCode	      "Auto"
-	      FunctionWithSeparateData off
-	      MaskHideContents	      off
-	      System {
-		Name			"Enabled\nSubsystem"
-		Location		[421, 301, 919, 601]
-		Open			off
-		ModelBrowserVisibility	off
-		ModelBrowserWidth	200
-		ScreenColor		"white"
-		PaperOrientation	"landscape"
-		PaperPositionMode	"auto"
-		PaperType		"usletter"
-		PaperUnits		"inches"
-		TiledPaperMargins	"[0.500000, 0.500000, 0.500000, 0.5000"
-"00]"
-		TiledPageScale		1
-		ShowPageBoundaries	off
-		ZoomFactor		"100"
-		Block {
-		  BlockType		  Inport
-		  Name			  "In1"
-		  Position		  [110, 103, 140, 117]
-		  IconDisplay		  "Port number"
-		}
-		Block {
-		  BlockType		  EnablePort
-		  Name			  "Enable"
-		  Ports			  []
-		  Position		  [235, 20, 255, 40]
-		}
-		Block {
-		  BlockType		  Outport
-		  Name			  "Out1"
-		  Position		  [360, 103, 390, 117]
-		  IconDisplay		  "Port number"
-		  BusOutputAsStruct	  off
-		}
-		Line {
-		  SrcBlock		  "In1"
-		  SrcPort		  1
-		  DstBlock		  "Out1"
-		  DstPort		  1
-		}
-	      }
-	    }
-	    Block {
-	      BlockType		      Logic
-	      Name		      "Logical\nOperator"
-	      Ports		      [2, 1]
-	      Position		      [860, 217, 890, 248]
-	      Operator		      "XOR"
-	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
-	      SampleTime	      ".001"
-	    }
-	    Block {
-	      BlockType		      Logic
-	      Name		      "Logical\nOperator1"
-	      Ports		      [1, 1]
-	      Position		      [350, 104, 380, 136]
-	      Operator		      "NOT"
-	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
-	    }
-	    Block {
-	      BlockType		      Logic
-	      Name		      "Logical\nOperator2"
-	      Ports		      [2, 1]
-	      Position		      [280, 102, 310, 133]
-	      Operator		      "OR"
-	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
-	      SampleTime	      ".001"
-	    }
-	    Block {
-	      BlockType		      Memory
-	      Name		      "Memory"
-	      Position		      [575, 30, 605, 60]
-	      Orientation	      "left"
-	    }
-	    Block {
-	      BlockType		      RelationalOperator
-	      Name		      "Relational\nOperator"
-	      Position		      [750, 252, 780, 283]
-	      Operator		      ">"
-	      InputSameDT	      off
-	      LogicOutDataTypeMode    "Boolean"
+	      trig		      "Rising edge"
+	      initCond		      "-1000"
+	      latchinput	      off
 	    }
 	    Block {
 	      BlockType		      Sum
 	      Name		      "Sum"
 	      Ports		      [2, 1]
-	      Position		      [495, 250, 515, 270]
+	      Position		      [330, 165, 350, 185]
 	      ShowName		      off
 	      IconShape		      "round"
 	      Inputs		      "-+"
@@ -5778,139 +5735,156 @@ Model {
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
-	      BlockType		      Constant
-	      Name		      "Time"
-	      Position		      [605, 275, 635, 305]
-	      Value		      "Time"
-	    }
-	    Block {
 	      BlockType		      Outport
-	      Name		      "Out1"
-	      Position		      [1065, 228, 1095, 242]
+	      Name		      "Output"
+	      Position		      [495, 178, 525, 192]
 	      IconDisplay	      "Port number"
 	      BusOutputAsStruct	      off
 	    }
 	    Line {
 	      SrcBlock		      "Clock"
 	      SrcPort		      1
-	      Points		      [0, 0; 40, 0]
+	      Points		      [15, 0]
 	      Branch {
-		DstBlock		"Enabled\nSubsystem"
-		DstPort			1
-	      }
-	      Branch {
-		Points			[0, 100; 180, 0]
+		Points			[0, 85; 140, 0]
 		DstBlock		"Sum"
 		DstPort			2
 	      }
+	      Branch {
+		DstBlock		"Sample\nand Hold"
+		DstPort			1
+	      }
 	    }
 	    Line {
-	      SrcBlock		      "Enabled\nSubsystem"
+	      SrcBlock		      "Sample\nand Hold"
 	      SrcPort		      1
-	      Points		      [40, 0]
+	      Points		      [20, 0]
 	      DstBlock		      "Sum"
 	      DstPort		      1
 	    }
 	    Line {
 	      SrcBlock		      "Sum"
 	      SrcPort		      1
-	      Points		      [115, 0]
-	      Branch {
-		Points			[0, -70]
-		DstBlock		"Compare\nTo Zero"
-		DstPort			1
-	      }
-	      Branch {
-		DstBlock		"Relational\nOperator"
-		DstPort			1
-	      }
+	      DstBlock		      "Relational\nOperator"
+	      DstPort		      1
 	    }
 	    Line {
-	      SrcBlock		      "Time"
+	      SrcBlock		      "Duration"
 	      SrcPort		      1
-	      Points		      [70, 0; 0, -15]
+	      Points		      [265, 0; 0, -50]
 	      DstBlock		      "Relational\nOperator"
 	      DstPort		      2
 	    }
 	    Line {
-	      SrcBlock		      "Compare\nTo Zero"
-	      SrcPort		      1
-	      Points		      [30, 0; 0, 35]
-	      DstBlock		      "Logical\nOperator"
-	      DstPort		      1
-	    }
-	    Line {
 	      SrcBlock		      "Relational\nOperator"
 	      SrcPort		      1
-	      Points		      [30, 0; 0, -30]
-	      DstBlock		      "Logical\nOperator"
-	      DstPort		      2
-	    }
-	    Line {
-	      SrcBlock		      "Logical\nOperator1"
-	      SrcPort		      1
-	      Points		      [25, 0]
-	      DstBlock		      "Enabled\nSubsystem"
-	      DstPort		      enable
-	    }
-	    Line {
-	      SrcBlock		      "Logical\nOperator"
-	      SrcPort		      1
-	      Points		      [95, 0]
-	      Branch {
-		DstBlock		"Out1"
-		DstPort			1
-	      }
-	      Branch {
-		Points			[0, -190]
-		DstBlock		"Memory"
-		DstPort			1
-	      }
-	    }
-	    Line {
-	      SrcBlock		      "In1"
-	      SrcPort		      1
-	      DstBlock		      "Logical\nOperator2"
-	      DstPort		      2
-	    }
-	    Line {
-	      SrcBlock		      "Logical\nOperator2"
-	      SrcPort		      1
-	      DstBlock		      "Logical\nOperator1"
+	      DstBlock		      "Output"
 	      DstPort		      1
 	    }
 	    Line {
-	      SrcBlock		      "Memory"
+	      SrcBlock		      "Trigger"
 	      SrcPort		      1
-	      Points		      [-320, 0; 0, 65]
-	      DstBlock		      "Logical\nOperator2"
-	      DstPort		      1
+	      Points		      [155, 0]
+	      DstBlock		      "Sample\nand Hold"
+	      DstPort		      trigger
 	    }
 	  }
+	}
+	Block {
+	  BlockType		  Switch
+	  Name			  "Switch"
+	  Position		  [275, 120, 310, 190]
+	  Criteria		  "u2 > Threshold"
+	  InputSameDT		  off
+	  SaturateOnIntegerOverflow off
+	  ZeroCross		  off
+	}
+	Block {
+	  BlockType		  UniformRandomNumber
+	  Name			  "Uniform Random\nNumber"
+	  Position		  [65, 99, 95, 131]
+	  Minimum		  "0"
+	  Maximum		  "100"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out"
+	  Position		  [815, 93, 845, 107]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
 	}
 	Line {
 	  SrcBlock		  "Trig"
 	  SrcPort		  1
-	  DstBlock		  "Schmidt1"
-	  DstPort		  1
+	  Points		  [335, 0]
+	  Branch {
+	    Points		    [75, 0; 0, 40]
+	    DstBlock		    "Schmidt"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Sample\nand Hold"
+	    DstPort		    trigger
+	  }
 	}
 	Line {
-	  SrcBlock		  "Schmidt1"
+	  SrcBlock		  "Data Type Conversion"
 	  SrcPort		  1
-	  DstBlock		  "Memory1"
+	  DstBlock		  "Out"
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Memory1"
+	  SrcBlock		  "Schmidt"
 	  SrcPort		  1
 	  DstBlock		  "Data Type Conversion"
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Data Type Conversion"
+	  SrcBlock		  "Sample\nand Hold"
 	  SrcPort		  1
-	  DstBlock		  "Goto"
+	  Points		  [30, 0; 0, -40]
+	  DstBlock		  "Schmidt"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "RewardTime"
+	  SrcPort		  1
+	  Points		  [35, 0; 0, 35]
+	  DstBlock		  "Switch"
 	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "RewardJackpot"
+	  SrcPort		  1
+	  Points		  [35, 0; 0, -40]
+	  DstBlock		  "Switch"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Switch"
+	  SrcPort		  1
+	  DstBlock		  "Sample\nand Hold"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Uniform Random\nNumber"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, 30]
+	  DstBlock		  "Relational\nOperator"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Relational\nOperator"
+	  SrcPort		  1
+	  DstBlock		  "Switch"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "JackpotChance"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, -30]
+	  DstBlock		  "Relational\nOperator"
+	  DstPort		  2
 	}
       }
     }
@@ -8989,6 +8963,12 @@ Model {
       SrcPort		      6
       DstBlock		      "UDPXmit"
       DstPort		      2
+    }
+    Line {
+      SrcBlock		      "RewardSbs"
+      SrcPort		      1
+      DstBlock		      "Goto"
+      DstPort		      1
     }
   }
 }

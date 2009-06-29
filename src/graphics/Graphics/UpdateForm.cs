@@ -120,7 +120,9 @@ namespace BehaviorGraphics
             AddParamListItem("X Offset", "Value", "XY Position Subsystem/Jacobian-Cartesian Transformation/xoffset", this.textBoxXOffset);
             AddParamListItem("Y Offset", "Value", "XY Position Subsystem/Jacobian-Cartesian Transformation/yoffset", this.textBoxYOffset);
             AddParamListItem("Cursor Rotation", "Value", "XY Position Subsystem/Cursor Rotation/AngleOffset", this.textBoxCursorRotation);
-            AddParamListItem("Reward Pulse", "Value", "RewardSbs/Schmidt1/Time", this.textBoxRewardPL);
+            AddParamListItem("Reward Pulse", "Value", "RewardSbs/RewardTime", this.textBoxRewardPL);
+            AddParamListItem("Reward Jackpot", "Value", "RewardSbs/RewardJackpot", this.textBoxRewardJackpot);
+            AddParamListItem("Reward Jackpot Chance", "Value", "RewardSbs/JackpotChance", this.textBoxJackpotChance);
             AddParamListItem("Recenter Handle", "Value", "Recentering Subsystem/RecenterFlag", this.checkBoxRecenter);
             AddParamListItem("Use Tachs", "Value", "Velocity Calculation/UseTachs", this.checkBoxUseTachs);
 
