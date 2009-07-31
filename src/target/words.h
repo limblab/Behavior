@@ -22,8 +22,8 @@
 
 #define BEHAVIOR_VERSION_MAJOR 2
 #define BEHAVIOR_VERSION_MINOR 8
-#define BEHAVIOR_VERSION_MICRO 454
-#define BEHAVIOR_VERSION_BUILD 414
+#define BEHAVIOR_VERSION_MICRO 458
+#define BEHAVIOR_VERSION_BUILD 416
 
 #ifndef __BUILD_UPDATED__
 #error This project must be built from the build script. 

@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.73"
+    ComputedModelVersion    "1.74"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jun 29 11:21:16 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:73>"
+  LastModifiedDate	  "Fri Jul 31 14:06:29 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:74>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -533,10 +533,6 @@ Model {
       SampleTime	      "-1"
     }
     Block {
-      BlockType		      Goto
-      IconDisplay	      "Tag"
-    }
-    Block {
       BlockType		      Inport
       Port		      "1"
       UseBusObject	      off
@@ -695,7 +691,7 @@ Model {
   }
   System {
     Name		    "multi_gadget"
-    Location		    [-2, 62, 993, 707]
+    Location		    [-2, 82, 993, 727]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1116,13 +1112,6 @@ Model {
       }
     }
     Block {
-      BlockType		      Goto
-      Name		      "Goto"
-      Position		      [960, 83, 1005, 97]
-      GotoTag		      "Reward"
-      TagVisibility	      "global"
-    }
-    Block {
       BlockType		      Reference
       Name		      "MVC Target"
       Ports		      [1]
@@ -1178,10 +1167,23 @@ Model {
       slot		      "-1"
     }
     Block {
+      BlockType		      Reference
+      Name		      "PCI-6025E DO"
+      Ports		      [1]
+      Position		      [970, 49, 1090, 91]
+      SourceBlock	      "xpcnilib/Digital\nOutput/PCI-6025E DO"
+      SourceType	      "donipcie6025"
+      channel		      "[2]"
+      reset		      "[1]"
+      initValue		      "[0]"
+      sampletime	      "0.001"
+      slot		      "-1"
+    }
+    Block {
       BlockType		      SubSystem
       Name		      "RewardSbs"
       Ports		      [1, 1]
-      Position		      [880, 76, 935, 104]
+      Position		      [875, 56, 930, 84]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -1989,6 +1991,7 @@ Model {
     Line {
       SrcBlock		      "Behavior MG"
       SrcPort		      1
+      Points		      [30, 0; 0, -20]
       DstBlock		      "RewardSbs"
       DstPort		      1
     }
@@ -2070,7 +2073,7 @@ Model {
     Line {
       SrcBlock		      "RewardSbs"
       SrcPort		      1
-      DstBlock		      "Goto"
+      DstBlock		      "PCI-6025E DO"
       DstPort		      1
     }
   }
