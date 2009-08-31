@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.326"
+    ComputedModelVersion    "1.327"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Aug 31 16:40:36 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:326>"
+  LastModifiedDate	  "Mon Aug 31 17:05:21 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:327>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -646,6 +646,14 @@ Model {
       SampleTime	      "-1"
     }
     Block {
+      BlockType		      Saturate
+      UpperLimit	      "0.5"
+      LowerLimit	      "-0.5"
+      LinearizeAsGain	      on
+      ZeroCross		      on
+      SampleTime	      "-1"
+    }
+    Block {
       BlockType		      "S-Function"
       FunctionName	      "system"
       SFunctionModules	      "''"
@@ -845,7 +853,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"CursorPos"
-	Location		[3, 87, 1025, 568]
+	Location		[3, 87, 1015, 568]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1540,7 +1548,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "NeuralControlPct"
-	  Position		  [215, 190, 245, 220]
+	  Position		  [155, 190, 185, 220]
 	  Value			  "0"
 	}
 	Block {
@@ -1599,6 +1607,13 @@ Model {
 	  Name			  "ResetIntegrator"
 	  Position		  [980, 95, 1010, 125]
 	  Value			  "0"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation"
+	  Position		  [225, 190, 255, 220]
+	  UpperLimit		  "100"
+	  LowerLimit		  "0"
 	}
 	Block {
 	  BlockType		  Sum
@@ -1905,8 +1920,8 @@ Model {
 	Line {
 	  SrcBlock		  "NeuralControlPct"
 	  SrcPort		  1
-	  DstBlock		  "Neural Control Subsystem"
-	  DstPort		  3
+	  DstBlock		  "Saturation"
+	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Demux"
@@ -1914,6 +1929,12 @@ Model {
 	  Points		  [20, 0; 0, -55]
 	  DstBlock		  "Neural Control Subsystem"
 	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Saturation"
+	  SrcPort		  1
+	  DstBlock		  "Neural Control Subsystem"
+	  DstPort		  3
 	}
       }
     }
