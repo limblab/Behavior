@@ -332,7 +332,7 @@ namespace BehaviorGraphics
 
             //Options
             AddParamListItem("WFIM", "P11", "Behavior WF", this.checkBoxWFIM);
-            AddParamListItem("WFMT", "P12", "Behavior WF", this.checkBoxWFMT);
+            // AddParamListItem("WFMT", "P12", "Behavior WF", this.checkBoxWFMT);
             AddParamListItem("WFCatchTrials", "P15", "Behavior WF", this.textBoxWFCT);
             // param 13 = clear_MVC_Targets
             // param 14 = master_reset
@@ -356,6 +356,9 @@ namespace BehaviorGraphics
             AddParamListItem("WFIntegration", "Value", "CursorPos/EnableIntegrator", this.checkBoxWFIntegrate);
             AddParamListItem("WFIntegratMax", "UpperSaturationLimit", "CursorPos/Integrator", this.textBoxWFIntMax);
             AddParamListItem("WFIntegratMin", "LowerSaturationLimit", "CursorPos/Integrator", this.textBoxWFIntMin);
+
+            // Neural Control
+            AddParamListItem("WFNeuralControl", "Value", "CursorPos/NeuralControlPct", this.textBoxWFNC);
 
             #endregion
         }
