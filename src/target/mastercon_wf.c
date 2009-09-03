@@ -17,7 +17,7 @@
 #define PI (3.141592654)
 
 /* 
- * Current Databurst version: 1
+ * Current Databurst version: 3
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -57,10 +57,18 @@
  *		are included in the databurst
  *
  *		In MVC mode, the current value of the MVC target is provided in the databurst
+ *
+ *      NOTICE: Version 2 was bugged, and output the target of the _previous_
+ *      trial.
+ *
+ * Version 3 (0x03)
+ * ----------------
+ * Exactly the same structure as version 2.  Fixes the bug that caused the 
+ * output target position to be delayed by one trial.
  */
 
 typedef unsigned char byte;
-#define DATABURST_VERSION ((byte)0x02) 
+#define DATABURST_VERSION ((byte)0x03) 
 
 /*
  * Tunable parameters
@@ -203,11 +211,11 @@ static void mdlInitializeSizes(SimStruct *S)
     /*
      * Block has 2 input ports
      *      input port 0: (position) of width 2 (horizontal and vertical cursor displacement)
-     *		input port 1: (target) of widht 6 (vertical displacement, height, horiz disp, width, xVarEnable, yVarEnable)
+     *		input port 1: (target) of width 6*16 (vertical displacement, height, horiz disp, width, xVarEnable, yVarEnable)*16
      */
     if (!ssSetNumInputPorts(S, 2)) return;
     ssSetInputPortWidth(S, 0, 2); /* cursor position*/
-    ssSetInputPortWidth(S, 1, 6); /* target position */
+    ssSetInputPortWidth(S, 1, 6*16); /* target position _table_ (stacked) */
     ssSetInputPortDirectFeedThrough(S, 0, 1);
     ssSetInputPortDirectFeedThrough(S, 1, 1);
     
@@ -223,22 +231,20 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target UL corner y,
      *                  target LR corner x, 
      *                  target LR corner y)
-`    * 5: target select:  1
-	 * 6: MVC Target:	  8  ( [Xmax quad 1, Ymax quad 1, Xmax quad 2,...,Ymax quad 4] )
-	 * 7: version: 4
-     * 8: rotation: 1
+`    * 5: MVC Target:	  8  ( [Xmax quad 1, Ymax quad 1, Xmax quad 2,...,Ymax quad 4] )
+	 * 6: version: 4
+     * 7: rotation: 1
 	 *
      */
-    if (!ssSetNumOutputPorts(S, 9)) return;
+    if (!ssSetNumOutputPorts(S, 8)) return;
     ssSetOutputPortWidth(S, 0, 1);
     ssSetOutputPortWidth(S, 1, 1);
     ssSetOutputPortWidth(S, 2, 4);
     ssSetOutputPortWidth(S, 3, 2);
     ssSetOutputPortWidth(S, 4, 10);
-    ssSetOutputPortWidth(S, 5, 1);
-    ssSetOutputPortWidth(S, 6, 8);
-    ssSetOutputPortWidth(S, 7, 4); /*version*/
-    ssSetOutputPortWidth(S, 8, 1);
+    ssSetOutputPortWidth(S, 5, 8);
+    ssSetOutputPortWidth(S, 6, 4); /*version*/
+    ssSetOutputPortWidth(S, 7, 1);
     
     ssSetNumSampleTimes(S, 1);
     
@@ -442,12 +448,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     
     /* Current Target Location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
-    target_y = *uPtrs[0];
-    target_h = *uPtrs[1];
-    target_x = *uPtrs[2];
-    target_w = *uPtrs[3];
-    tgt_xVar_enabled = *uPtrs[4];
-    tgt_yVar_enabled = *uPtrs[5];
+    target_y = *uPtrs[0*(target_index+1)];
+    target_h = *uPtrs[1*(target_index+1)];
+    target_x = *uPtrs[2*(target_index+1)];
+    target_w = *uPtrs[3*(target_index+1)];
+    tgt_xVar_enabled = *uPtrs[4*(target_index+1)];
+    tgt_yVar_enabled = *uPtrs[5*(target_index+1)];
 
     /*MVC Targets variables*/
     for (i=0; i<8; i++) {
@@ -943,12 +949,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 
     /* Current Target Location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
-    target_y = *uPtrs[0];
-    target_h = *uPtrs[1];
-    target_x = *uPtrs[2];
-    target_w = *uPtrs[3];
-    tgt_xVar_enabled = *uPtrs[4];
-    tgt_yVar_enabled = *uPtrs[5];
+    target_y = *uPtrs[0*(target_index+1)];
+    target_h = *uPtrs[1*(target_index+1)];
+    target_x = *uPtrs[2*(target_index+1)];
+    target_w = *uPtrs[3*(target_index+1)];
+    tgt_xVar_enabled = *uPtrs[4*(target_index+1)];
+    tgt_yVar_enabled = *uPtrs[5*(target_index+1)];
 	
         /*MVC Targets variables*/
     for (i=0; i<8; i++) {
@@ -1162,10 +1168,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      for (i=0; i<10; i++) 
          target_p[i] = target[i];
      
-     target_select_p = ssGetOutputPortRealSignal(S,5);
-     target_select_p[0] = target_select;
-     
-     mvcTarget_p = ssGetOutputPortRealSignal(S,6);
+     mvcTarget_p = ssGetOutputPortRealSignal(S,5);
      for (i=0; i<4; i++) {
 	     mvcTarget_p[2*i]  = higher_MVC_targets[i];
 	     mvcTarget_p[2*i+1]= higher_MVC_targets[i+4];
@@ -1174,12 +1177,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      //mvcTarget_p[1] = ssGetT(S);
      //mvcTarget_p[2] = (real_T)(((unsigned long int)((ssGetT(S)-ssGetRWorkValue(S,30)) * 1000)) % (60*1000));
      
-     version_p = ssGetOutputPortRealSignal(S, 7);
+     version_p = ssGetOutputPortRealSignal(S, 6);
      for (i=0; i<4; i++) {
          version_p[i] = version[i];
      }
      
-     rotation_p = ssGetOutputPortRealSignal(S,8);
+     rotation_p = ssGetOutputPortRealSignal(S,7);
      rotation_p[0] = rotation;
        	  
     UNUSED_ARG(tid);
