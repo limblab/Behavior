@@ -651,14 +651,17 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	            ssSetIWorkValue(S, 1, ++target_index);
             }
 			
+			/* Update the current target_id based on our new target_index */
+			target_id = ssGetIWorkValue(S, 5 + target_index);
+
 			/* Grab the (newly) selected target from the target table */
 		    uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
-		    target_y = *uPtrs[0+(target_index*6)];
-		    target_h = *uPtrs[1+(target_index*6)];
-		    target_x = *uPtrs[2+(target_index*6)];
-		    target_w = *uPtrs[3+(target_index*6)];
-		    tgt_xVar_enabled = (int)*uPtrs[4+(target_index*6)];
-		    tgt_yVar_enabled = (int)*uPtrs[5+(target_index*6)];
+		    target_y = *uPtrs[0+(target_id*6)];
+		    target_h = *uPtrs[1+(target_id*6)];
+		    target_x = *uPtrs[2+(target_id*6)];
+		    target_w = *uPtrs[3+(target_id*6)];
+		    tgt_xVar_enabled = (int)*uPtrs[4+(target_id*6)];
+		    tgt_yVar_enabled = (int)*uPtrs[5+(target_id*6)];
 			/* update the quadrant */
 			quadrant = getQuad(target_x, target_y);
 			if (quadrant == 0) {
