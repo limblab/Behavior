@@ -322,7 +322,7 @@ namespace BehaviorGraphics
             AddParamListItem("WFCHH", "P20", "Behavior WF", this.textBoxWFCHH);
             AddParamListItem("WFI", "P5", "Behavior WF", this.textBoxWFI);
             AddParamListItem("WFCDL", "P10", "Behavior WF", this.textBoxWFCDL);
-            AddParamListItem("WFCDH", "P21", "Behavior WF", this.textBoxWFCDH);
+            AddParamListItem("WFCDH", "P11", "Behavior WF", this.textBoxWFCDH);
 
             //Center
             AddParamListItem("WFX", "P6", "Behavior WF", this.textBoxWFX);
@@ -331,11 +331,10 @@ namespace BehaviorGraphics
             AddParamListItem("WFW", "P9", "Behavior WF", this.textBoxWFW);
 
             //Options
-            AddParamListItem("WFIM", "P11", "Behavior WF", this.checkBoxWFIM);
-            // AddParamListItem("WFMT", "P12", "Behavior WF", this.checkBoxWFMT);
-            AddParamListItem("WFCatchTrials", "P15", "Behavior WF", this.textBoxWFCT);
+            AddParamListItem("WFIM", "P12", "Behavior WF", this.checkBoxWFIM);
             // param 13 = clear_MVC_Targets
             // param 14 = master_reset
+            AddParamListItem("WFCatchTrials", "P15", "Behavior WF", this.textBoxWFCT);
 
             // Rotation
             AddParamListItem("WFRotation", "P16", "Behavior WF", this.textBoxWFRot);
