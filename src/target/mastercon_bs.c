@@ -868,7 +868,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     version[3] = BEHAVIOR_VERSION_BUILD;
     
     /* pos (7) */
-    if (sqrt(cursor[0]*cursor[0] + cursor[1]*cursor[1]) < window_size && state == STATE_MOVEMENT) {
+    if (abs(cursor[0]*cos(target_angle) + cursor[1]*sin(target_angle)) < window_size && state == STATE_MOVEMENT) {
         /* we are inside blocking window => draw cursor off screen */
         pos_x = 1E6;
         pos_y = 1E6;
