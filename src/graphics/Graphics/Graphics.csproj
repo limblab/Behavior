@@ -191,6 +191,7 @@
     <Content Include="obj\Release\Interop.XPCAPICOMLib.dll" />
     <Content Include="obj\Release\TempPE\Properties.Resources.Designer.cs.dll" />
     <EmbeddedResource Include="tones\somethingwrong.wav" />
+    <EmbeddedResource Include="tones\mask.wav" />
     <Content Include="xpcapiCOM.dll" />
   </ItemGroup>
   <ItemGroup>

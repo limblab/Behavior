@@ -308,6 +308,12 @@ namespace BehaviorGraphics
             if (e.KeyCode == Keys.E) {
                 sp.Play(SoundPlayer.SoundID.abort);
             }
+            if (e.KeyCode == Keys.R) {
+                sp.Play(SoundPlayer.SoundID.empty_rack);
+            }
+            if (e.KeyCode == Keys.T) {
+                sp.Play(SoundPlayer.SoundID.mask);
+            }
 #endif
             if (!fullScreen && e.KeyCode == Keys.F12) {
                 /* Go to full screen mode */

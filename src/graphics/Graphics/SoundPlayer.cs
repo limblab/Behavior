@@ -11,7 +11,7 @@ namespace BehaviorGraphics
         private Device device;
         private SoundPlayer.SoundTheme theme;
 
-        private SecondaryBuffer abort, go, reward, empty_rack;
+        private SecondaryBuffer abort, go, reward, empty_rack, mask;
 
         public SoundPlayer(System.Windows.Forms.Control owner, SoundPlayer.SoundTheme theme)
         {
@@ -36,6 +36,9 @@ namespace BehaviorGraphics
 
             s = a.GetManifestResourceStream(String.Format("BehaviorGraphics.tones.somethingwrong.wav"));
             empty_rack = new SecondaryBuffer(s, d, device);
+
+            s = a.GetManifestResourceStream(String.Format("BehaviorGraphics.tones.mask.wav"));
+            mask = new SecondaryBuffer(s, d, device);
         }
 
         public void Play(SoundID id) {
@@ -49,6 +52,8 @@ namespace BehaviorGraphics
                 reward.Play(0, flags);
             } else if (id == SoundID.empty_rack) {
                 empty_rack.Play(0, flags);
+            } else if (id == SoundID.mask) {
+                mask.Play(0, flags);
             }
         }
 
@@ -67,6 +72,9 @@ namespace BehaviorGraphics
                 case 4:
                     Play(SoundID.empty_rack);
                     break;
+                case 5:
+                    Play(SoundID.mask);
+                    break;
             }
 
         }
@@ -81,7 +89,8 @@ namespace BehaviorGraphics
             abort,
             go,
             reward,
-            empty_rack
+            empty_rack,
+            mask
         }
 
         public enum SoundTheme
