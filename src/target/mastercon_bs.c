@@ -109,6 +109,7 @@ static real_T master_reset = 0.0;
 #define TONE_GO 1
 #define TONE_REWARD 2
 #define TONE_ABORT 3
+#define TONE_MASK 5
 
 #define DIRECTION_FORWARD 0
 #define DIRECTION_REVERSE 1
@@ -854,6 +855,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             tone_cnt++;
             tone_id = TONE_REWARD;
         }
+    }
+    if (bump_started) {
+      tone_cnt++;
+      tone_id = TONE_MASK;
     }
     
     /* version (6) */
