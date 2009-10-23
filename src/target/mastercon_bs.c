@@ -209,7 +209,7 @@ static void mdlInitializeSizes(SimStruct *S)
                              3: target angle
                            */
     ssSetNumPWork(S, 0);
-    ssSetNumIWork(S, 73);  /*    0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 74);  /*    0: state_transition (true if state changed), 
                                  1: current trial index,
 		                         2: stim trial (1 for yes, 0 for no)
                             [3-66]: trial presentation sequence
@@ -218,7 +218,8 @@ static void mdlInitializeSizes(SimStruct *S)
                                 69: failures
                                 70: aborts 
                                 71: incompletes 
-                                72: counter for targets at a given angle */
+                                72: counter for targets at a given angle 
+                                73: stimulation flag 0=not stimulating -1=stim started 1=stimulate */
     
     /* we have no zero crossing detection or modes */
     ssSetNumModes(S, 0);
@@ -416,8 +417,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             incomplete_timeout = param_intertrial;
              
             num_trials = 2 * (2 * bump_steps + 1);
+            ssSetIWorkValue(S, 73, 0);
             if (rand()<=stim_trial_pct) {
                 ssSetIWorkValue(S, 2, 1);
+                ssSetIWorkValue(S, 73, 1);
                 /* if we do not have our trials initialized => new block */
             } else if (trial_index >= num_trials-1 || reset_block) {
                 /* initialize the trials */
@@ -622,6 +625,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int_T *trial_list;
     int bump; /* magnitude of bump */
     int bump_duration_counter;
+    int stim;
     real_T target_angle;
     real_T target1[4];
     real_T target2[4];
@@ -669,6 +673,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         bump = trial_list[trial_index];
     }
     
+    stim = ssGetIWorkValue(S, 73);
     bump_duration_counter = ssGetIWorkValue(S, 67);
     
     /* get current tone counter */
@@ -725,7 +730,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         theta = PI/2 + target_angle;
         force_x = force_in[0] + cos(theta)*bump*bump_magnitude;
         force_y = force_in[1] + sin(theta)*bump*bump_magnitude;
-    } else if ( bump_duration_counter == -1 && 
+    } else if ( bump_duration_counter == -1 && bump && stim == 0 &&
                 state==STATE_MOVEMENT && 
                 ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= 0) ||
                   ( direction == 1 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] >= 0) )
@@ -753,10 +758,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 71, ssGetIWorkValue(S, 71) + 1);
     
     status[0] = state;
-    status[1] = ssGetIWorkValue(S, 68); /* num rewards     */
-    status[2] = ssGetIWorkValue(S, 69); /* num aborts      */
-    status[3] = ssGetIWorkValue(S, 70); /* num fails       */
-    status[4] = ssGetIWorkValue(S, 71); /* num incompletes */
+    status[1] = bump;//ssGetIWorkValue(S, 68); /* num rewards     */
+    status[2] = stim; //ssGetIWorkValue(S, 69); /* num aborts      */
+    status[3] = 100*stim_trial_pct; //ssGetIWorkValue(S, 70); /* num fails       */
+    status[4] = bump_duration_counter; //ssGetIWorkValue(S, 71); /* num incompletes */
     
     /* word (2) */
     if (new_state) {
@@ -789,7 +794,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             default:
                 word = 0;
         }
-    } else {
+    } else if ( stim == 1 &&
+                state==STATE_MOVEMENT && 
+                ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= 0) ||
+                  ( direction == 1 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] >= 0) )
+              ) {
+		/* stim */
+		word = WORD_STIM(0);
+		ssSetIWorkValue(S, 73, -1);
+	} else {
         /* not a new state, but maybe we have a mid-state event */
         if (bump_started) {
             /* just started a bump */
