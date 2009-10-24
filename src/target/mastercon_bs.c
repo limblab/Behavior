@@ -54,7 +54,7 @@ static real_T origin_delay_l = 0.0;
 static real_T origin_delay_h = 0.0;
 #define param_origin_delay_h mxGetScalar(ssGetSFcnParam(S,7))
 
-static real_T movement_time = 10.0;  /* movement time */
+static real_T movement_time = 5.0;  /* movement time */
 #define param_movement_time mxGetScalar(ssGetSFcnParam(S,8))
 
 static real_T destination_hold;      /* destination target hold time */
@@ -67,30 +67,32 @@ static real_T destination_hold_h = 1.0;
 static real_T abort_timeout   = 1.0;    /* delay after abort */
 static real_T failure_timeout = 1.0;    /* delay after failure */
 static real_T incomplete_timeout = 1.0; /* delay after incomplete */
-static real_T center_bump_timeout  = 1.0; 
 static real_T reward_timeout  = 1.0;    /* delay after reward before starting next trial
                                          * This is NOT the reward pulse length */
 
 #define param_stim_trial_pct mxGetScalar(ssGetSFcnParam(S,12))
-static real_T stim_trial_pct = 0.0; /* percent of trial in which we stimulate rather than bump */
+static real_T stim_trial_pct = 0.0; /* percent of trials in which we stimulate */
 
-#define set_stim_trial(x) ssSetRWorkValue(S, 3, (x))
-#define get_stim_trial() ssGetRWorkValue(S, 3)
+#define param_bump_trial_pct mxGetScalar(ssGetSFcnParam(S,13))
+static real_T bump_trial_pct = 0.0; /* percent of trials in which we bump */
 
-#define param_bump_magnitude mxGetScalar(ssGetSFcnParam(S,13))
+#define param_bump_magnitude mxGetScalar(ssGetSFcnParam(S,14))
 static real_T bump_magnitude;
 
-#define param_bump_duration mxGetScalar(ssGetSFcnParam(S,14))
+#define param_bump_duration mxGetScalar(ssGetSFcnParam(S,15))
 static real_T bump_duration;
 
-#define param_bump_steps ((int)(mxGetScalar(ssGetSFcnParam(S,15))))
+#define param_bump_steps ((int)(mxGetScalar(ssGetSFcnParam(S,16))))
 static int bump_steps;
 
-#define param_num_targets_per_angle ((int)(mxGetScalar(ssGetSFcnParam(S,16))))
+#define param_stim_steps ((int)(msGestScalar(ssGetSFcnParams(S,17))))
+static int stim_steps;
+
+#define param_num_targets_per_angle ((int)(mxGetScalar(ssGetSFcnParam(S,18))))
 static int num_targets_per_angle;
 
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,17))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,19))
 
 /*
  * State IDs
@@ -117,9 +119,11 @@ static real_T master_reset = 0.0;
 static void mdlCheckParameters(SimStruct *S)
 {
     bump_steps = (int)param_bump_steps;
+    stim_steps = (int)param_bump_steps;
     bump_magnitude = param_bump_magnitude;
     bump_duration = param_bump_duration;
     stim_trial_pct = param_stim_trial_pct;
+    bump_trial_pct = param_bump_trial_pct;
 
     req_target_angle = param_req_target_angle;
     num_targets_per_angle = param_num_targets_per_angle;
@@ -148,7 +152,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 18); 
+    ssSetNumSFcnParams(S, 20); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -209,17 +213,19 @@ static void mdlInitializeSizes(SimStruct *S)
                              3: target angle
                            */
     ssSetNumPWork(S, 0);
-    ssSetNumIWork(S, 74);  /*    0: state_transition (true if state changed), 
-                                 1: current trial index,
-		                         2: stim trial (1 for yes, 0 for no)
-                            [3-66]: trial presentation sequence
-                                67: bump duration counter 
+    ssSetNumIWork(S, 73);  /*    0: state_transition (true if state changed), 
+                                 1: current bump index,
+                                 2: current stim index,
+		                         3: bump trial (1 for yes, 0 for no)
+                                 4: stimulation flag 0=not stimulating -1=stim started 1=stimulate
+                            [5-21]: bump presentation sequence
+                           [22-38]: stim presentation sequence
+                                67: bump duration counter
                                 68: successes
                                 69: failures
                                 70: aborts 
                                 71: incompletes 
-                                72: counter for targets at a given angle 
-                                73: stimulation flag 0=not stimulating -1=stim started 1=stimulate */
+                                72: counter for targets at a given angle */
     
     /* we have no zero crossing detection or modes */
     ssSetNumModes(S, 0);
@@ -248,8 +254,9 @@ static void mdlInitializeConditions(SimStruct *S)
     /* notify that we just entered this state */
     ssSetIWorkValue(S, 0, 1);
     
-    /* set target index to indicate that we need to begin a new block */
-    ssSetIWorkValue(S, 1, (int)( 2*(bump_steps*2+1)-1));
+    /* set stim and bump indicese to force a reset of the condition blocks */
+    ssSetIWorkValue(S, 1, -1);
+    ssSetIWorkValue(S, 2, -1);
     
     /* initilize the value of target angle to the parameter */
     ssSetRWorkValue(S, 3, param_req_target_angle);
@@ -299,11 +306,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     InputRealPtrsType uPtrs;
     real_T cursor[2];
     real_T elapsed_timer_time;
-    int reset_block = 0;
+    int reset_stim_block = 0;
+    int reset_bump_block = 0;
+    double tmp_rand_value;
         
     /* block initialization working variables */
-    int tmp_trial_1[15];
-    int tmp_trial_2[15];
+    int tmp_trial[15];
     int tmp_sort[15];
     int i, j, tmp;
     
@@ -383,13 +391,17 @@ static void mdlUpdate(SimStruct *S, int_T tid)
              */
             
             /* update parameters */
-            if (bump_steps != param_bump_steps) {
+            if (bump_steps != param_bump_steps || stim_steps != param_stim_steps) {
                 bump_steps = (int)param_bump_steps;
                 bump_steps = ( bump_steps<=7 ? bump_steps : 7 ); /* limit bump_steps to 7 */
-                reset_block = 1;
+                stim_steps = (int)param_stim_steps;
+                stim_steps = ( stim_steps<=7 ? stim_steps : 7 ); /* limit stim_steps to 7 */
+                reset_stim_block = 1;
+                reset_bump_block = 1;
             }
             
             stim_trial_pct = param_stim_trial_pct;
+            bump_trial_pct = param_bump_trial_pct;
             
             bump_magnitude = param_bump_magnitude;
             bump_duration = (int)param_bump_duration;
@@ -415,64 +427,87 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             failure_timeout = param_intertrial;
             reward_timeout  = param_intertrial;   
             incomplete_timeout = param_intertrial;
-             
-            num_trials = 2 * (2 * bump_steps + 1);
-            ssSetIWorkValue(S, 73, 0);
-            if (rand()<=stim_trial_pct) {
-                ssSetIWorkValue(S, 2, 1);
-                ssSetIWorkValue(S, 73, 1);
-                /* if we do not have our trials initialized => new block */
-            } else if (trial_index >= num_trials-1 || reset_block) {
-                /* initialize the trials */
-                ssSetIWorkValue(S, 2, 0);  /* not a stim trial */
-                for (i=0; i<num_trials/2; i++) {
-                    tmp_trial_1[i] = i - bump_steps;
-                    tmp_sort[i] = rand();
+            
+            /* Determine if this is a bump, stim, or simple trial */
+            tmp_rand_value = UNI;
+            if (tmp_rand_value <= stim_trial_pct) {
+                /* this is a stim trial */
+                ssSetIWorkValue(S, 3, 0);
+                ssSetIWorkValue(S, 4, 0);
+                                
+                ssSetIWorkValue(S, 2, ssGetIWorkValue(S, 2) - 1);
+                if (ssGetIWorkValue(S, 2) < 0) {
+                    reset_bump_block = 1;
                 }
-                for (i=0; i<num_trials/2; i++) {
-                    for (j=0; j<num_trials/2; j++) {
-                        if (tmp_sort[j] < tmp_sort[j+1]) {
-                            tmp = tmp_sort[j];
-                            tmp_sort[j] = tmp_sort[j+1];
-                            tmp_sort[j+1] = tmp;
-                            
-                            tmp = tmp_trial_1[j];
-                            tmp_trial_1[j] = tmp_trial_1[j+1];
-                            tmp_trial_1[j+1] = tmp;
-                        }
-                    }
+            } else if (tmp_rand_value <= stim_trial_pct + bump_trial_pct) {
+                /* this is a bump trial */
+                ssSetIWorkValue(S, 3, 0);
+                ssSetIWorkValue(S, 4, 0);
+                                
+                ssSetIWorkValue(S, 1, ssGetIWorkValue(S, 1) - 1);
+                if (ssGetIWorkValue(S, 1) < 0) {
+                    reset_stim_block = 1;
                 }
-                for (i=0; i<num_trials/2; i++) {
-                    tmp_trial_2[i] = i - bump_steps;
-                    tmp_sort[i] = rand();
-                }
-                for (i=0; i<num_trials/2; i++) {
-                    for (j=0; j<num_trials/2; j++) {
-                        if (tmp_sort[j] < tmp_sort[j+1]) {
-                            tmp = tmp_sort[j];
-                            tmp_sort[j] = tmp_sort[j+1];
-                            tmp_sort[j+1] = tmp;
-                            
-                            tmp = tmp_trial_2[j];
-                            tmp_trial_2[j] = tmp_trial_2[j+1];
-                            tmp_trial_2[j+1] = tmp;
-                        }
-                    }
-                }
-                /* write them back */
-                for (i=0; i<num_trials/2; i++) {
-                    trial_list[2*i] = tmp_trial_1[i];
-                    trial_list[2*i+1] = tmp_trial_2[i];
-                }
-                /* and reset the counter */
-                ssSetIWorkValue(S, 1, 0);
             } else {
-                /* and write it back */
-                ssSetIWorkValue(S, 1, trial_index);
-                bump = trial_list[trial_index];
-                ssSetIWorkValue(S, 2, 0); /* not a stim trial */
+                /* this is a simple (no bump or stim) trial */
+                ssSetIWorkValue(S, 3, 0);
+                ssSetIWorkValue(S, 4, 0);
             }
             
+            /* reset stim block */
+            if (reset_stim_block) {
+                ssSetIWorkValue(S, 2, stim_steps-1);
+                for (i=0; i<stim_steps; i++) {
+                    tmp_trial[i] = i;
+                    tmp_sort[i] = KISS;
+                }
+                
+                for (i=0; i<stim_steps; i++) {
+                    for (j=0; j<stim_steps-1; j++) {
+                        if (tmp_sort[i] < tmp_sort[j]) {
+                            tmp = tmp_sort[j];
+                            tmp_sort[j] = tmp_sort[j+1];
+                            tmp_sort[j+1] = tmp;
+                            
+                            tmp = tmp_trial[j];
+                            tmp_trial[j] = tmp_trial[j+1];
+                            tmp_trial[j+1] = tmp;
+                        }
+                    }
+                }
+                
+                for (i=0; i<stim_steps; i++) {
+                    ssSetIWorkValue(S, 22+i, tmp_trial[i]);
+                }
+            }
+            
+            /* reset bump block */
+            if (reset_bump_block) {
+                ssSetIWorkValue(S, 1, bump_steps-1);
+                for (i=0; i<bump_steps; i++) {
+                    tmp_trial[i] = i;
+                    tmp_sort[i] = KISS;
+                }
+                
+                for (i=0; i<bump_steps; i++) {
+                    for (j=0; j<bump_steps-1; j++) {
+                        if (tmp_sort[i] < tmp_sort[j]) {
+                            tmp = tmp_sort[j];
+                            tmp_sort[j] = tmp_sort[j+1];
+                            tmp_sort[j+1] = tmp;
+                            
+                            tmp = tmp_trial[j];
+                            tmp_trial[j] = tmp_trial[j+1];
+                            tmp_trial[j+1] = tmp;
+                        }
+                    }
+                }
+                
+                for (i=0; i<bump_steps; i++) {
+                    ssSetIWorkValue(S, 5+i, tmp_trial[i]);
+                }
+            }
+                        
             /* choose the target angle based on the requested angle and counter */
             if (num_targets_per_angle == 0) {
               /* use requested angle */

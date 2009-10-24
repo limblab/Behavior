@@ -253,12 +253,15 @@ namespace BehaviorGraphics
 
             // Bump-stim bump
             AddParamListItem("BS Stim Trials Pct", "P13", "Behavior BS", this.textBoxBSPctStimTrials);
-            AddParamListItem("BS Bump Step Magnitude", "P14", "Behavior BS", this.textBoxBSBumpStepMag);
-            AddParamListItem("BS Bump Duration", "P15", "Behavior BS", this.textBoxBSBumpDur);
+            AddParamListItem("BS Bump Trials Pct", "P14", "Behavior BS", this.textBoxBSPctBumpTrials);
+            AddParamListItem("BS Bump Step Magnitude", "P15", "Behavior BS", this.textBoxBSBumpStepMag);
+            AddParamListItem("BS Bump Duration", "P16", "Behavior BS", this.textBoxBSBumpDur);
+            AddParamListItem("BS Num Bump Steps", "P17", "Behavior BS", this.numericUpDownBSBumpSteps);
+            AddParamListItem("BS Num Stim Steps", "P18", "Behavior BS", this.numericUpDownBSStimSteps);
 
             // Bump-stim targets
             AddParamListItem("BS Target Angle", "P1", "Behavior BS", this.textBoxBSTgtAngle);
-            AddParamListItem("BS Target Num", "P17", "Behavior BS", this.textBoxBSNumTargetsSeq);
+            AddParamListItem("BS Target Num", "P19", "Behavior BS", this.textBoxBSNumTargetsSeq);
             AddParamListItem("BS Target Radius", "P2", "Behavior BS", this.textBoxBSTgtRadius);
             AddParamListItem("BS Target Size", "P3", "Behavior BS", this.textBoxBSTgtSize);
             AddParamListItem("BS Window Diameter", "P4", "Behavior BS", this.textBoxBSWindowDiameter);
@@ -846,7 +849,7 @@ namespace BehaviorGraphics
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior RW", "P18");
                 if (paramID < 0)
-                    paramID = target.GetParamIdx("Behavior BS", "P18");
+                    paramID = target.GetParamIdx("Behavior BS", "P20");
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior MG", "P13");
                 if (paramID < 0)
