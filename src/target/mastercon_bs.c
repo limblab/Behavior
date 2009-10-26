@@ -85,7 +85,7 @@ static real_T bump_duration;
 #define param_bump_steps ((int)(mxGetScalar(ssGetSFcnParam(S,16))))
 static int bump_steps;
 
-#define param_stim_steps ((int)(msGestScalar(ssGetSFcnParams(S,17))))
+#define param_stim_steps ((int)(mxGetScalar(ssGetSFcnParam(S,17))))
 static int stim_steps;
 
 #define param_num_targets_per_angle ((int)(mxGetScalar(ssGetSFcnParam(S,18))))
@@ -293,11 +293,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
      ********************/
     
     /* stupidly declare all variables at the begining of the function */
-    int *IWorkVector; 
-    int trial_index;
-    int *trial_list;
-    int num_trials;
-    int bump;
     real_T target_angle;
     real_T target1[4];
     real_T target2[4];
@@ -360,12 +355,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
       target_destination = target1;
     }
     
-    /* get bump */
-    IWorkVector = ssGetIWork(S);
-    trial_index = IWorkVector[1];
-    trial_list = IWorkVector+2;
-    bump = trial_list[trial_index];
-
     /*********************************
      * See if we have issued a reset *
      *********************************/
@@ -656,11 +645,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      ********************/
     int i;
     int_T *IWorkVector; 
-    int_T trial_index;
-    int_T *trial_list;
-    int bump; /* magnitude of bump */
-    int bump_duration_counter;
-    int stim;
     real_T target_angle;
     real_T target1[4];
     real_T target2[4];
@@ -688,8 +672,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *version_p;
     real_T *pos_p;
     
+    /* stim and bump */
 	int bump_started = 0;
-
+    int bump_duration_counter;
+    int bump, bump_mag, stim, stim_id;
+    
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
     int state = (int)(state_r[0]);
@@ -697,18 +684,27 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int new_state = ssGetIWorkValue(S, 0);
     ssSetIWorkValue(S, 0, 0); /* reset changed state each iteration */
 
-    /* current target number */
+    /* work vector pointer */
     IWorkVector = ssGetIWork(S);
-    trial_index = IWorkVector[1];
-    trial_list = IWorkVector+2;
-    
-    if (ssGetIWorkValue(S,2) == 1){
-        bump = 0;
+
+    /* get stim */
+    if (ssGetIWorkValue(S,4) == 1) {
+        stim = 1;
+        stim_id = ssGetIWorkValue(S, 22+ssGetIWorkValue(S,2));
     } else {
-        bump = trial_list[trial_index];
+        stim = 0;
+        stim_id = 0;
+    }
+
+    /* get bump */
+    if (ssGetIWorkValue(S,3) == 1) {
+        bump = 1;
+        bump_mag = ssGetIWorkValue(S, 5+ssGetIWorkValue(S,1));
+    } else {
+        bump = 0;
+        bump_mag = 0;
     }
     
-    stim = ssGetIWorkValue(S, 73);
     bump_duration_counter = ssGetIWorkValue(S, 67);
     
     /* get current tone counter */
@@ -765,7 +761,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         theta = PI/2 + target_angle;
         force_x = force_in[0] + cos(theta)*bump*bump_magnitude;
         force_y = force_in[1] + sin(theta)*bump*bump_magnitude;
-    } else if ( bump_duration_counter == -1 && bump && stim == 0 &&
+    } else if ( bump_duration_counter == -1 && bump &&
                 state==STATE_MOVEMENT && 
                 ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= 0) ||
                   ( direction == 1 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] >= 0) )
@@ -835,17 +831,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                   ( direction == 1 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] >= 0) )
               ) {
 		/* stim */
-		word = WORD_STIM(0);
-		ssSetIWorkValue(S, 73, -1);
-	} else {
-        /* not a new state, but maybe we have a mid-state event */
-        if (bump_started) {
-            /* just started a bump */
-            word = WORD_BUMP(bump);
-        } else {
-            word = 0;
-        }
+		word = WORD_STIM(stim_id);
+		ssSetIWorkValue(S, 4, -1);
+	} else if (bump_started) {
+        /* just started a bump */
+        word = WORD_BUMP(bump);
+    } else {
+        word = 0;
     }
+   
     
     /* target_pos (3) */
     /* origin */
