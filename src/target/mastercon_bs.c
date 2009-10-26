@@ -121,7 +121,7 @@ static real_T master_reset = 0.0;
 static void mdlCheckParameters(SimStruct *S)
 {
     bump_steps = (int)param_bump_steps;
-    stim_steps = (int)param_bump_steps;
+    stim_steps = (int)param_stim_steps;
     bump_magnitude = param_bump_magnitude;
     bump_duration = param_bump_duration;
     stim_trial_pct = param_stim_trial_pct;
@@ -428,7 +428,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                                 
                 ssSetIWorkValue(S, 2, ssGetIWorkValue(S, 2) - 1);
                 if (ssGetIWorkValue(S, 2) < 0) {
-                    reset_bump_block = 1;
+                    reset_stim_block = 1;
                 }
             } else if (tmp_rand_value <= stim_trial_pct + bump_trial_pct) {
                 /* this is a bump trial */
@@ -437,7 +437,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                                 
                 ssSetIWorkValue(S, 1, ssGetIWorkValue(S, 1) - 1);
                 if (ssGetIWorkValue(S, 1) < 0) {
-                    reset_stim_block = 1;
+                    reset_bump_block = 1;
                 }
             } else {
                 /* this is a simple (no bump or stim) trial */
@@ -761,8 +761,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         /* yes, so decrement the counter and maintain the bump */
         bump_duration_counter--;
         theta = PI/2 + target_angle;
-        force_x = force_in[0] + cos(theta)*bump*bump_magnitude;
-        force_y = force_in[1] + sin(theta)*bump*bump_magnitude;
+        force_x = force_in[0] + cos(theta)*bump_mag*bump_magnitude;
+        force_y = force_in[1] + sin(theta)*bump_mag*bump_magnitude;
     } else if ( bump_duration_counter == -1 && bump &&
                 state==STATE_MOVEMENT && 
                 ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= 0) ||
@@ -773,8 +773,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         bump_started = 1;
         bump_duration_counter = (int)bump_duration;
         theta = PI/2 + target_angle;
-        force_x = force_in[0] + cos(theta)*bump*bump_magnitude;
-        force_y = force_in[1] + sin(theta)*bump*bump_magnitude;
+        force_x = force_in[0] + cos(theta)*bump_mag*bump_magnitude;
+        force_y = force_in[1] + sin(theta)*bump_mag*bump_magnitude;
     } else {
         force_x = force_in[0]; 
         force_y = force_in[1];
@@ -837,7 +837,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		ssSetIWorkValue(S, 4, -1);
 	} else if (bump_started) {
         /* just started a bump */
-        word = WORD_BUMP(bump);
+        word = WORD_BUMP(bump_mag);
     } else {
         word = 0;
     }
