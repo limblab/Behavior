@@ -3,6 +3,8 @@
  * Master Control block for behavior: bump-stim task
  */
 
+static int last_word = 0; /*** HACK ***/
+
 #define S_FUNCTION_NAME mastercon_bs
 #define S_FUNCTION_LEVEL 2
 
@@ -422,7 +424,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             if (tmp_rand_value <= stim_trial_pct) {
                 /* this is a stim trial */
                 ssSetIWorkValue(S, 3, 0);
-                ssSetIWorkValue(S, 4, 0);
+                ssSetIWorkValue(S, 4, 1);
                                 
                 ssSetIWorkValue(S, 2, ssGetIWorkValue(S, 2) - 1);
                 if (ssGetIWorkValue(S, 2) < 0) {
@@ -430,7 +432,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 }
             } else if (tmp_rand_value <= stim_trial_pct + bump_trial_pct) {
                 /* this is a bump trial */
-                ssSetIWorkValue(S, 3, 0);
+                ssSetIWorkValue(S, 3, 1);
                 ssSetIWorkValue(S, 4, 0);
                                 
                 ssSetIWorkValue(S, 1, ssGetIWorkValue(S, 1) - 1);
@@ -791,7 +793,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     status[0] = state;
     status[1] = bump;//ssGetIWorkValue(S, 68); /* num rewards     */
     status[2] = stim; //ssGetIWorkValue(S, 69); /* num aborts      */
-    status[3] = 100*stim_trial_pct; //ssGetIWorkValue(S, 70); /* num fails       */
+    status[3] = last_word; //ssGetIWorkValue(S, 70); /* num fails       */
     status[4] = bump_duration_counter; //ssGetIWorkValue(S, 71); /* num incompletes */
     
     /* word (2) */
@@ -839,7 +841,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     } else {
         word = 0;
     }
-   
+    
+    if (word != 0) last_word = word; /*** HACK ***/
     
     /* target_pos (3) */
     /* origin */

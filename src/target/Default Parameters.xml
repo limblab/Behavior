@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.7.3467.26428">
-  <ScreenWidth>23</ScreenWidth>
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.3586.19911">
+  <ScreenWidth>30</ScreenWidth>
   <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>5</Cursor>
   <SoundTheme>Theme1</SoundTheme>
@@ -307,7 +307,7 @@
       </item>
       <item>
         <key>BS Num Steps</key>
-        <value>1</value>
+        <value>4</value>
       </item>
       <item>
         <key>BS OHL</key>
@@ -327,7 +327,7 @@
       </item>
       <item>
         <key>BS M</key>
-        <value>2</value>
+        <value>5</value>
       </item>
       <item>
         <key>BS DHL</key>
@@ -343,6 +343,10 @@
       </item>
       <item>
         <key>BS Stim Trials Pct</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BS Bump Trials Pct</key>
         <value>0</value>
       </item>
       <item>
@@ -354,6 +358,14 @@
         <value>0.125</value>
       </item>
       <item>
+        <key>BS Num Bump Steps</key>
+        <value>4</value>
+      </item>
+      <item>
+        <key>BS Num Stim Steps</key>
+        <value>4</value>
+      </item>
+      <item>
         <key>BS Target Angle</key>
         <value>0.75</value>
       </item>
@@ -363,7 +375,7 @@
       </item>
       <item>
         <key>BS Target Radius</key>
-        <value>15</value>
+        <value>10</value>
       </item>
       <item>
         <key>BS Target Size</key>
@@ -371,7 +383,7 @@
       </item>
       <item>
         <key>BS Window Diameter</key>
-        <value>10</value>
+        <value>0</value>
       </item>
       <item>
         <key>MGTargets</key>
@@ -518,10 +530,6 @@
         <value>0</value>
       </item>
       <item>
-        <key>WFMT</key>
-        <value>0</value>
-      </item>
-      <item>
         <key>WFCatchTrials</key>
         <value>0</value>
       </item>
@@ -547,11 +555,11 @@
       </item>
       <item>
         <key>WFOffsetX</key>
-        <value>0.00488</value>
+        <value>0</value>
       </item>
       <item>
         <key>WFOffsetY</key>
-        <value>-4.94043</value>
+        <value>0</value>
       </item>
       <item>
         <key>WFFiltEnable</key>
@@ -567,6 +575,10 @@
       </item>
       <item>
         <key>WFIntegratMin</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFNeuralControl</key>
         <value>0</value>
       </item>
     </dictionary>

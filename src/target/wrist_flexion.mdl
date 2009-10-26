@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.343"
+    ComputedModelVersion    "1.345"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Sep 03 15:37:18 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:343>"
+  LastModifiedDate	  "Thu Sep 24 18:03:01 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:345>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -1171,7 +1171,7 @@ Model {
 	  method		  "Butterworth"
 	  filttype		  "Lowpass"
 	  N			  "8"
-	  Wlo			  "30"
+	  Wlo			  "10"
 	  Whi			  "80"
 	  Rp			  "2"
 	  Rs			  "40"
@@ -1186,7 +1186,7 @@ Model {
 	  method		  "Butterworth"
 	  filttype		  "Lowpass"
 	  N			  "8"
-	  Wlo			  "30"
+	  Wlo			  "10"
 	  Whi			  "80"
 	  Rp			  "2"
 	  Rs			  "40"
