@@ -287,6 +287,7 @@ static void mdlInitializeConditions(SimStruct *S)
 {
     int i;
     real_T *x0;
+    int *databurst;
     
     /* initialize state to zero */
     x0 = ssGetRealDiscStates(S);
@@ -309,6 +310,11 @@ static void mdlInitializeConditions(SimStruct *S)
     /* set trial counters to zero */
     for (i = 68; i<=72; i++)
       ssSetIWorkValue(S, i, 0);
+        
+    /* setup databurst */
+    databurst = malloc(256);
+    ssSetPWorkValue(S, 0, databurst);
+    ssSetIWorkValue(S, 74, 0);
 }
 
 /* macro for setting state changed */
@@ -603,7 +609,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             state_changed();
             break;
         case STATE_DATA_BLOCK:            
-            if (databurst_counter++ >= databurst[0]) {
+            if (databurst_counter++ >= databurst[0]*2) {
                 new_state = STATE_ORIGIN_ON;
                 reset_timer(); /* start timer for movement */
                 state_changed();
@@ -888,10 +894,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 71, ssGetIWorkValue(S, 71) + 1);
     
     status[0] = state;
-    status[1] = bump;//ssGetIWorkValue(S, 68); /* num rewards     */
-    status[2] = stim; //ssGetIWorkValue(S, 69); /* num aborts      */
-    status[3] = last_word; //ssGetIWorkValue(S, 70); /* num fails       */
-    status[4] = bump_duration_counter; //ssGetIWorkValue(S, 71); /* num incompletes */
+    status[1] = ssGetIWorkValue(S, 68); /* num rewards     */
+    status[2] = ssGetIWorkValue(S, 69); /* num aborts      */
+    status[3] = ssGetIWorkValue(S, 70); /* num fails       */
+    status[4] = ssGetIWorkValue(S, 71); /* num incompletes */
     
     /* word (2) */
     if (state == STATE_DATA_BLOCK) {
