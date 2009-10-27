@@ -215,7 +215,7 @@ static void mdlInitializeSizes(SimStruct *S)
                              3: target angle
                            */
     ssSetNumPWork(S, 0);
-    ssSetNumIWork(S, 73);  /*    0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 74);  /*    0: state_transition (true if state changed), 
                                  1: current bump index,
                                  2: current stim index,
 		                         3: bump trial (1 for yes, 0 for no)
@@ -227,7 +227,8 @@ static void mdlInitializeSizes(SimStruct *S)
                                 69: failures
                                 70: aborts 
                                 71: incompletes 
-                                72: counter for targets at a given angle */
+                                72: counter for targets at a given angle 
+                                73: masking noise flag 0=not played -1=started playing 1=start playing*/
     
     /* we have no zero crossing detection or modes */
     ssSetNumModes(S, 0);
@@ -498,6 +499,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     ssSetIWorkValue(S, 5+i, tmp_trial[i]);
                 }
             }
+            
+            /* reset masking noise */
+            ssSetIWorkValue(S, 73, 0);
                         
             /* choose the target angle based on the requested angle and counter */
             if (num_targets_per_angle == 0) {
@@ -676,6 +680,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* stim and bump */
 	int bump_started = 0;
+    int mask = 0;
     int bump_duration_counter;
     int bump, bump_mag, stim, stim_id;
     
@@ -705,6 +710,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     } else {
         bump = 0;
         bump_mag = 0;
+    }
+    
+    /* get masking noise */
+    if (ssGetIWorkValue(S,73) == 1) {
+        mask = -1;
+    } else {
+        mask = 0;
     }
     
     bump_duration_counter = ssGetIWorkValue(S, 67);
@@ -761,8 +773,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         /* yes, so decrement the counter and maintain the bump */
         bump_duration_counter--;
         theta = PI/2 + target_angle;
-        force_x = force_in[0] + cos(theta)*bump_mag*bump_magnitude;
-        force_y = force_in[1] + sin(theta)*bump_mag*bump_magnitude;
+        force_x = force_in[0] + cos(theta)*(1+bump_mag)*bump_magnitude;
+        force_y = force_in[1] + sin(theta)*(1+bump_mag)*bump_magnitude;
     } else if ( bump_duration_counter == -1 && bump &&
                 state==STATE_MOVEMENT && 
                 ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= 0) ||
@@ -773,8 +785,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         bump_started = 1;
         bump_duration_counter = (int)bump_duration;
         theta = PI/2 + target_angle;
-        force_x = force_in[0] + cos(theta)*bump_mag*bump_magnitude;
-        force_y = force_in[1] + sin(theta)*bump_mag*bump_magnitude;
+        force_x = force_in[0] + cos(theta)*(1+bump_mag)*bump_magnitude;
+        force_y = force_in[1] + sin(theta)*(1+bump_mag)*bump_magnitude;
     } else {
         force_x = force_in[0]; 
         force_y = force_in[1];
@@ -842,6 +854,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         word = 0;
     }
     
+    if ( mask == 0 && state==STATE_MOVEMENT &&
+                 ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= 0) ||
+                  ( direction == 1 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] >= 0))
+                   ) {
+          ssSetIWorkValue(S, 73, 1);
+          tone_cnt++;
+          tone_id = TONE_MASK;
+    }
+                        
     if (word != 0) last_word = word; /*** HACK ***/
     
     /* target_pos (3) */
@@ -901,10 +922,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             tone_id = TONE_REWARD;
         }
     }
-    if (bump_started) {
+    /*if (bump_started) {
       tone_cnt++;
       tone_id = TONE_MASK;
-    }
+    }*/
     
     /* version (6) */
     version[0] = BEHAVIOR_VERSION_MAJOR;
