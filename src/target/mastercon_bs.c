@@ -122,6 +122,13 @@ static int num_targets_per_angle;
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,19))
 
+#define param_num_target_locations ( ( \
+    (int)(mxGetScalar(ssGetSFcnParam(S,20))) <= 0 ? 0 : ( \
+        ((int)(mxGetScalar(ssGetSFcnParam(S,20))) % 2 == 0) ? \
+            (int)(mxGetScalar(ssGetSFcnParam(S,20))) : \
+            (int)(mxGetScalar(ssGetSFcnParam(S,20)))*2 )))
+static int num_target_locations;
+
 /*
  * State IDs
  */
@@ -159,6 +166,8 @@ static void mdlCheckParameters(SimStruct *S)
     target_radius = param_target_radius;
     target_size = param_target_size;
     window_size = param_window_size;
+    
+    num_target_locations = param_num_target_locations;
     
     origin_hold_l = param_origin_hold_l;
     origin_hold_h = param_origin_hold_h;
@@ -441,6 +450,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             req_target_angle = param_req_target_angle;
             num_targets_per_angle = param_num_targets_per_angle;
+            num_target_locations = param_num_target_locations;
             target_radius = param_target_radius;
             target_size = param_target_size;
             window_size = param_window_size;
@@ -556,7 +566,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
               /* see if we have run enough trials at this angle */
               if (ssGetIWorkValue(S, 72) >= num_targets_per_angle) {
                 ssSetIWorkValue(S, 72, 0); /* reset counter */
-                ssSetRWorkValue(S, 3, UNI * 2.0 * PI); /* pick a new random value */
+
+                /* see if we have continuous or discrete target locations */
+                if (num_target_locations == 0) {
+                    ssSetRWorkValue(S, 3, UNI * 2.0 * PI); /* pick a new random value */
+                } else {
+                    tmp_rand_value = (int)(UNI*num_target_locations);
+                    ssSetRWorkValue(S, 3, 2.0 * PI * tmp_rand_value / num_target_locations + req_target_angle);
+                }
               }
             }
             

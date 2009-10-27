@@ -265,6 +265,7 @@ namespace BehaviorGraphics
             AddParamListItem("BS Target Radius", "P2", "Behavior BS", this.textBoxBSTgtRadius);
             AddParamListItem("BS Target Size", "P3", "Behavior BS", this.textBoxBSTgtSize);
             AddParamListItem("BS Window Diameter", "P4", "Behavior BS", this.textBoxBSWindowDiameter);
+            AddParamListItem("BS Num Target Positions", "P21", "Behavior BS", this.textBoxBSNumAngles);
             #endregion
 
             #region Multi-Gadget
