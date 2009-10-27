@@ -190,7 +190,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 20); 
+    ssSetNumSFcnParams(S, 21); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -893,12 +893,22 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_INCOMPLETE && new_state)
         ssSetIWorkValue(S, 71, ssGetIWorkValue(S, 71) + 1);
     
+#if 0
+    status[0] = state;
+    status[1] = theta; //ssGetIWorkValue(S, 68); /* num rewards     */
+    status[2] = (real_T)num_target_locations; //ssGetIWorkValue(S, 69); /* num aborts      */
+    status[3] = param_num_target_locations; //ssGetIWorkValue(S, 70); /* num fails       */
+    status[4] = req_target_angle; //ssGetIWorkValue(S, 71); /* num incompletes */
+#endif
+
+    
     status[0] = state;
     status[1] = ssGetIWorkValue(S, 68); /* num rewards     */
     status[2] = ssGetIWorkValue(S, 69); /* num aborts      */
     status[3] = ssGetIWorkValue(S, 70); /* num fails       */
     status[4] = ssGetIWorkValue(S, 71); /* num incompletes */
     
+
     /* word (2) */
     if (state == STATE_DATA_BLOCK) {
         if (databurst_counter % 2 == 0) {

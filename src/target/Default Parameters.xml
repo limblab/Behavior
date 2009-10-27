@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.3586.19911">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.3587.30450">
   <ScreenWidth>30</ScreenWidth>
   <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>5</Cursor>
@@ -307,7 +307,7 @@
       </item>
       <item>
         <key>BS Num Steps</key>
-        <value>4</value>
+        <value>1</value>
       </item>
       <item>
         <key>BS OHL</key>
@@ -343,7 +343,7 @@
       </item>
       <item>
         <key>BS Stim Trials Pct</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>BS Bump Trials Pct</key>
@@ -351,7 +351,7 @@
       </item>
       <item>
         <key>BS Bump Step Magnitude</key>
-        <value>1</value>
+        <value>0.05</value>
       </item>
       <item>
         <key>BS Bump Duration</key>
@@ -359,31 +359,35 @@
       </item>
       <item>
         <key>BS Num Bump Steps</key>
-        <value>4</value>
+        <value>1</value>
       </item>
       <item>
         <key>BS Num Stim Steps</key>
-        <value>4</value>
+        <value>1</value>
       </item>
       <item>
         <key>BS Target Angle</key>
-        <value>0.75</value>
-      </item>
-      <item>
-        <key>BS Target Num</key>
         <value>0</value>
       </item>
       <item>
+        <key>BS Target Num</key>
+        <value>3</value>
+      </item>
+      <item>
         <key>BS Target Radius</key>
-        <value>10</value>
+        <value>8</value>
       </item>
       <item>
         <key>BS Target Size</key>
-        <value>2.5</value>
+        <value>3</value>
       </item>
       <item>
         <key>BS Window Diameter</key>
         <value>0</value>
+      </item>
+      <item>
+        <key>BS Num Target Positions</key>
+        <value>2</value>
       </item>
       <item>
         <key>MGTargets</key>
