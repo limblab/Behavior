@@ -19,6 +19,32 @@ static int last_word = 0; /*** HACK ***/
 
 #define PI (3.141592654)
 
+/* 
+ * Current Databurst version: 0
+ *
+ * Note that all databursts are encoded half a byte at a time as a word who's 
+ * high order bits are all 1 and who's low order bits represent the half byte to
+ * be transmitted.  Low order bits are transmitted first.  Thus to transmit the
+ * two bytes 0xCF 0x07, one would send 0xFF 0xFC 0xF7 0xF0.
+ *
+ * Databurst version descriptions
+ * ==============================
+ *
+ * Version 0 (0x00)
+ * ----------------
+ * byte 0: uchar => number of bytes to be transmitted
+ * byte 1: uchar => version number (in this case zero)
+ * bytes 2-5: float => origin target x position (cm)
+ * bytes 6-9: float => origin target y position (cm)
+ * bytes 10-13: float => destination target x position (cm)
+ * bytes 14-17: float => destination target y position (cm)
+ *
+ */
+
+typedef unsigned char byte;
+#define DATABURST_VERSION ((byte)0x00) 
+
+
 /*
  * Until we implement tunable parameters, these will act as defaults
  */
@@ -109,6 +135,7 @@ static real_T master_reset = 0.0;
 #define STATE_ABORT 65
 #define STATE_FAIL 70
 #define STATE_INCOMPLETE 74
+#define STATE_DATA_BLOCK 255
 
 #define TONE_GO 1
 #define TONE_REWARD 2
@@ -214,8 +241,9 @@ static void mdlInitializeSizes(SimStruct *S)
                              2: tone id
                              3: target angle
                            */
-    ssSetNumPWork(S, 0);
-    ssSetNumIWork(S, 74);  /*    0: state_transition (true if state changed), 
+    ssSetNumPWork(S, 1);  /* 0: pointer to databurst array
+                           */
+    ssSetNumIWork(S, 75);  /*    0: state_transition (true if state changed), 
                                  1: current bump index,
                                  2: current stim index,
 		                         3: bump trial (1 for yes, 0 for no)
@@ -228,7 +256,9 @@ static void mdlInitializeSizes(SimStruct *S)
                                 70: aborts 
                                 71: incompletes 
                                 72: counter for targets at a given angle 
-                                73: masking noise flag 0=not played -1=started playing 1=start playing*/
+                                73: masking noise flag 0=not played -1=started playing 1=start playing
+                                74: databurst counter
+                            */
     
     /* we have no zero crossing detection or modes */
     ssSetNumModes(S, 0);
@@ -308,6 +338,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int reset_bump_block = 0;
     double tmp_rand_value;
         
+    /* databurst variables */
+    byte* databurst;
+    float* databurst_target_list;
+    int databurst_counter;
+    float databurst_target_offset;
+    
     /* block initialization working variables */
     int tmp_trial[15];
     int tmp_sort[15];
@@ -357,6 +393,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
       target_origin = target2;
       target_destination = target1;
     }
+    
+    /* databurst pointers */
+    databurst_counter = ssGetIWorkValue(S, 74);
+    databurst = (byte *)ssGetPWorkValue(S, 0);
+    databurst_target_list = (float *)(databurst + 2*sizeof(byte));
     
     /*********************************
      * See if we have issued a reset *
@@ -536,12 +577,32 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 destination_hold = destination_hold_l + (destination_hold_h - destination_hold_l)*((double)rand())/((double)RAND_MAX);
             }
        
-            /* clear the bump counter */
-            ssSetIWorkValue(S, 67, -1); 
+            /* clear the counters */
+            ssSetIWorkValue(S, 67, -1);  /* bump counter */
+            ssSetIWorkValue(S, 74, 0); /* Databurst counter */
                             
             /* and advance */
-            new_state = STATE_ORIGIN_ON;
+            new_state = STATE_DATA_BLOCK;
             state_changed();
+            break;
+        case STATE_DATA_BLOCK:            
+            if (databurst_counter++ >= databurst[0]) {
+                new_state = STATE_ORIGIN_ON;
+                reset_timer(); /* start timer for movement */
+                state_changed();
+            }
+            
+            /* adjust targets for forward or reverse trial */
+            databurst_target_offset = ( direction==0 ? 0 : PI );
+            
+            databurst[0] = (byte)18;
+            databurst[1] = DATABURST_VERSION;
+            databurst_target_list[0] = cos(target_angle+databurst_target_offset)*target_radius;
+            databurst_target_list[1] = sin(target_angle+databurst_target_offset)*target_radius;
+            databurst_target_list[2] = cos(target_angle+databurst_target_offset+PI)*target_radius;
+            databurst_target_list[3] = sin(target_angle+databurst_target_offset+PI)*target_radius;
+            
+            ssSetIWorkValue(S, 74, databurst_counter);
             break;
         case STATE_ORIGIN_ON:
             /* center target on */
@@ -658,6 +719,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *target_destination;
     real_T theta;
     
+    int databurst_counter;
+    byte* databurst;
+    
     InputRealPtrsType uPtrs;
     real_T cursor[2];
     real_T force_in[2];
@@ -693,7 +757,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 
     /* work vector pointer */
     IWorkVector = ssGetIWork(S);
-
+    
+    /* databurst */
+    databurst_counter = ssGetIWorkValue(S, 74);
+    databurst = (byte *)ssGetPWorkValue(S, 0);
+    
     /* get stim */
     if (ssGetIWorkValue(S,4) == 1) {
         stim = 1;
@@ -809,7 +877,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     status[4] = bump_duration_counter; //ssGetIWorkValue(S, 71); /* num incompletes */
     
     /* word (2) */
-    if (new_state) {
+    if (state == STATE_DATA_BLOCK) {
+        if (databurst_counter % 2 == 0) {
+            word = databurst[databurst_counter / 2] | 0xF0; // low order bits
+        } else {
+            word = databurst[databurst_counter / 2] >> 4 | 0xF0; // high order bits
+        }
+    } else if (new_state) {
         switch (state) {
             case STATE_PRETRIAL:
 				if (direction == 0) {
