@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using XPCAPICOMLib;
 using System.Reflection;
+using AngleBox;
 
 namespace BehaviorGraphics
 {
@@ -119,7 +120,7 @@ namespace BehaviorGraphics
             AddParamListItem("Shoulder Offset", "Value", "XY Position Subsystem/shoulderOffset", this.textBoxShOffset);
             AddParamListItem("X Offset", "Value", "XY Position Subsystem/Jacobian-Cartesian Transformation/xoffset", this.textBoxXOffset);
             AddParamListItem("Y Offset", "Value", "XY Position Subsystem/Jacobian-Cartesian Transformation/yoffset", this.textBoxYOffset);
-            AddParamListItem("Cursor Rotation", "Value", "XY Position Subsystem/Cursor Rotation/AngleOffset", this.textBoxCursorRotation);
+            AddParamListItem("Cursor Rotation", "Value", "XY Position Subsystem/Cursor Rotation/AngleOffset", this.angleEntryBoxCursorRotation);
             AddParamListItem("Reward Pulse", "Value", "RewardSbs/RewardTime", this.textBoxRewardPL);
             AddParamListItem("Reward Jackpot", "Value", "RewardSbs/RewardJackpot", this.textBoxRewardJackpot);
             AddParamListItem("Reward Jackpot Chance", "Value", "RewardSbs/JackpotChance", this.textBoxJackpotChance);
@@ -128,7 +129,7 @@ namespace BehaviorGraphics
 
             // Load
             AddParamListItem("Visc Constant", "Gain", "Force Generator/ViscLoadSubsystem/Gain", this.textBoxVisc);
-            AddParamListItem("Curl Angle", "Value", "Force Generator/visAngle", this.textBoxCurlAngle);
+            AddParamListItem("Curl Angle", "Value", "Force Generator/visAngle", this.angleEntryBoxCurlAngle);
             AddParamListItem("Static X Force", "Value", "Force Generator/staticX", this.textBoxLoadX);
             AddParamListItem("Static Y Force", "Value", "Force Generator/staticY", this.textBoxLoadY);
             AddParamListItem("Chaotic Time Constatnt", "Value", "Force Generator/LorentzForce/Lorentz/timescale", this.textBoxTimeConst);
@@ -139,7 +140,7 @@ namespace BehaviorGraphics
 
             // Catch load
             AddParamListItem("Visc Constant Catch", "Gain", "Catch Force Generator/ViscLoadSubsystem/Gain", this.textBoxViscCatch);
-            AddParamListItem("Curl Angle Catch", "Value", "Catch Force Generator/visAngle", this.textBoxCurlAngleCatch);
+            AddParamListItem("Curl Angle Catch", "Value", "Catch Force Generator/visAngle", this.angleEntryBoxCurlAngleCatch);
             AddParamListItem("Static X Force Catch", "Value", "Catch Force Generator/staticX", this.textBoxLoadXCatch);
             AddParamListItem("Static Y Force Catch", "Value", "Catch Force Generator/staticY", this.textBoxLoadYCatch);
             AddParamListItem("Chaotic Time Constatnt Catch", "Value", "Catch Force Generator/LorentzForce/Lorentz/timescale", this.textBoxTimeConstCatch);
@@ -1021,6 +1022,9 @@ namespace BehaviorGraphics
                     } else if (paramControls[key].GetType() == typeof(CheckBox)) {
                         CheckBox cb = (CheckBox)paramControls[key];
                         cb.Checked = (param[0] > 0);
+                    } else if (paramControls[key].GetType() == typeof(AngleEntryBox)) {
+                        AngleEntryBox ab = (AngleEntryBox)paramControls[key];
+                        ab.Value = Double.Parse(param[0].ToString());
                     }
                 }
 
@@ -1206,6 +1210,9 @@ namespace BehaviorGraphics
                 } else if (paramControls[key].GetType() == typeof(CheckBox)) {
                     CheckBox cb = (CheckBox)paramControls[key];
                     paramValue = (cb.Checked ? 1.0 : 0.0);
+                } else if (paramControls[key].GetType() == typeof(AngleEntryBox)) {
+                    AngleEntryBox ab = (AngleEntryBox)paramControls[key];
+                    paramValue = ab.Value;
                 } else {
                     paramValue = 0;
                 }
@@ -1305,6 +1312,9 @@ namespace BehaviorGraphics
                     } else if (paramControls[key].GetType() == typeof(CheckBox)) {
                         CheckBox cb = (CheckBox)paramControls[key];
                         cb.Checked = (bp.Parameters[key] > 0);
+                    } else if (paramControls[key].GetType() == typeof(AngleEntryBox)) {
+                        AngleEntryBox ab = (AngleEntryBox)paramControls[key];
+                        ab.Value = bp.Parameters[key];
                     }
                 } catch (KeyNotFoundException) {
                 }

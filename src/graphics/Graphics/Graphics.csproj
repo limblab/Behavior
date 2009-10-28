@@ -195,6 +195,12 @@
     <Content Include="xpcapiCOM.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AngleBox\AngleBox.csproj">
+      <Project>{0C4A0A29-B897-4532-817E-29C6925E846E}</Project>
+      <Name>AngleBox</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
