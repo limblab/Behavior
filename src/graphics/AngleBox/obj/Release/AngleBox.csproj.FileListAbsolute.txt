@@ -1,0 +1,7 @@
+C:\Documents and Settings\Selket\Desktop\Behavior\trunk\src\graphics\AngleBox\bin\Release\AngleBox.dll
+C:\Documents and Settings\Selket\Desktop\Behavior\trunk\src\graphics\AngleBox\bin\Release\AngleBox.pdb
+C:\Documents and Settings\Selket\Desktop\Behavior\trunk\src\graphics\AngleBox\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Selket\Desktop\Behavior\trunk\src\graphics\AngleBox\obj\Release\AngleBox.csproj.GenerateResource.Cache
+C:\Documents and Settings\Selket\Desktop\Behavior\trunk\src\graphics\AngleBox\obj\Release\AngleBox.dll
+C:\Documents and Settings\Selket\Desktop\Behavior\trunk\src\graphics\AngleBox\obj\Release\AngleBox.pdb
+C:\Documents and Settings\Selket\Desktop\Behavior\trunk\src\graphics\AngleBox\obj\Release\AngleBox.AngleEntryBox.resources
