@@ -532,14 +532,25 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             /* reset bump block */
             if (reset_bump_block) {
-                ssSetIWorkValue(S, 1, bump_steps-1);
+				/* All bumps are given a magnitude and a sign in the last 4 bits of the word:
+				 * 0001 is magnitude 1
+				 * 0010 is magnitude 2
+				 * 1001 is magnitude -1
+				 * 1011 is magnitude -3, etc.
+				 */
+                ssSetIWorkValue(S, 1, 2*bump_steps-1);
                 for (i=0; i<bump_steps; i++) {
-                    tmp_trial[i] = i;
+                    tmp_trial[i] = i+1;
+                    tmp_sort[i] = KISS;
+                }
+
+				for (i=bump_steps+1; i<bump_steps*2; i++) {
+                    tmp_trial[i] = i+1+0x08; 
                     tmp_sort[i] = KISS;
                 }
                 
-                for (i=0; i<bump_steps; i++) {
-                    for (j=0; j<bump_steps-1; j++) {
+                for (i=0; i<bump_steps*2; i++) {
+                    for (j=0; j<(2*bump_steps)-1; j++) {
                         if (tmp_sort[i] < tmp_sort[j]) {
                             tmp = tmp_sort[j];
                             tmp_sort[j] = tmp_sort[j+1];
@@ -552,7 +563,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     }
                 }
                 
-                for (i=0; i<bump_steps; i++) {
+                for (i=0; i<bump_steps*2; i++) {
                     ssSetIWorkValue(S, 5+i, tmp_trial[i]);
                 }
             }
@@ -769,7 +780,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	int bump_started = 0;
     int mask = 0;
     int bump_duration_counter;
-    int bump, bump_mag, stim, stim_id;
+    int bump, bump_mag, stim, stim_id, bump_direction;
     
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
@@ -798,6 +809,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (ssGetIWorkValue(S,3) == 1) {
         bump = 1;
         bump_mag = ssGetIWorkValue(S, 5+ssGetIWorkValue(S,1));
+		bump_direction = ( 0x08 & bump_mag ? 1 : -1 );
+		bump_mag = bump_mag | 0x07;
     } else {
         bump = 0;
         bump_mag = 0;
@@ -864,8 +877,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         /* yes, so decrement the counter and maintain the bump */
         bump_duration_counter--;
         theta = PI/2 + target_angle;
-        force_x = force_in[0] + cos(theta)*(1+bump_mag)*bump_magnitude;
-        force_y = force_in[1] + sin(theta)*(1+bump_mag)*bump_magnitude;
+        force_x = force_in[0] + cos(theta)*(1+bump_mag)*bump_magnitude*bump_direction;
+        force_y = force_in[1] + sin(theta)*(1+bump_mag)*bump_magnitude*bump_direction;
     } else if ( bump_duration_counter == -1 && bump &&
                 state==STATE_MOVEMENT && 
                 ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= 0) ||
@@ -876,8 +889,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         bump_started = 1;
         bump_duration_counter = (int)bump_duration;
         theta = PI/2 + target_angle;
-        force_x = force_in[0] + cos(theta)*(1+bump_mag)*bump_magnitude;
-        force_y = force_in[1] + sin(theta)*(1+bump_mag)*bump_magnitude;
+        force_x = force_in[0] + cos(theta)*(1+bump_mag)*bump_magnitude*bump_direction;
+        force_y = force_in[1] + sin(theta)*(1+bump_mag)*bump_magnitude*bump_direction;
     } else {
         force_x = force_in[0]; 
         force_y = force_in[1];
