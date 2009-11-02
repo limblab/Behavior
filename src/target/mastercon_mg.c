@@ -16,12 +16,68 @@
 
 #define PI (3.141592654)
 
+/* 
+ * Current Databurst version: 3
+ *
+ * Note that all databursts are encoded half a byte at a time as a word who's 
+ * high order bits are all 1 and who's low order bits represent the half byte to
+ * be transmitted.  Low order bits are transmitted first.  Thus to transmit the
+ * two bytes 0xCF 0x07, one would send 0xFF 0xFC 0xF7 0xF0.
+ *
+ * Databurst version descriptions
+ * ==============================
+ *
+ * Version 1 (0x01)
+ * ----------------
+ * byte 0: uchar => number of bytes to be transmitted
+ * byte 1: uchar => version number (in this case one)
+ * bytes 2 to 2+ N*16: where N is the number of targets whose position are output.
+ *		contains 16 bytes per target representing four single precision floating point
+ *		numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
+ *		of the UL and LR corners of the target.
+ *
+ *		The position of only the current target is output at the begining of each trial
+ *		in normal behavior, but in multiple target mode, all the targets
+ *		are included in the databurst
+ *
+ *		In MVC mode, the current value of the MVC target is provided in the databurst
+ *
+ * Version 2 (0x02)
+ * ----------------
+ * byte 0: uchar => number of bytes to be transmitted
+ * byte 1: uchar => version number (in this case one)
+ * bytes 2 to 6: float => Cursor rotation value
+ * bytes 6 to 6+ N*16: where N is the number of targets whose position are output.
+ *		contains 16 bytes per target representing four single precision floating point
+ *		numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
+ *		of the UL and LR corners of the target.
+ *
+ *		The position of only the current target is output at the begining of each trial
+ *		in normal behavior, but in multiple target mode, all the targets
+ *		are included in the databurst
+ *
+ *		In MVC mode, the current value of the MVC target is provided in the databurst
+ *
+ *      NOTICE: Version 2 was bugged, and output the target of the _previous_
+ *      trial.
+ *
+ * Version 3 (0x03)
+ * ----------------
+ * Almost exactly the same specification as version 2.  Fixes the bug that 
+ * caused the output target position to be delayed by one trial, and removes
+ * the possibility of multiple targets (although they were in the spec, 
+ * multiple targets were never output in the databurst).
+ */
+
+typedef unsigned char byte;
+#define DATABURST_VERSION ((byte)0x03) 
+
 /*
  * Tunable parameters
  */
-static real_T num_targets = 8;      /* number of targets from which to select */
-#define param_num_targets mxGetScalar(ssGetSFcnParam(S,0))
-
+static real_T num_targets = 8;      /* total number of targets from which to select */
+#define param_num_targets mxGetScalar(ssGetSFcnParam(S,0)) 
+ 
 static real_T touch_pad_hold_l = .5;
 #define param_touch_pad_hold_l mxGetScalar(ssGetSFcnParam(S,1))
 static real_T touch_pad_hold_h = .5;
@@ -70,41 +126,32 @@ static real_T clear_MVC_tgts = 0.0;
 static real_T catch_trials_pct = 0.0;
 #define param_catch_trials_pct mxGetScalar(ssGetSFcnParam(S,16))
 
+// static real_T master_update = 0.0;
+// #define param_master_update mxGetScalar(ssGetSFcnParam(S,17))
+
 #define set_catch_trial(x) ssSetIWorkValue(S, 134, (x))
 #define get_catch_trial() ssGetIWorkValue(S, 134)
-
-static void updateVersion(SimStruct *S)
-{
-    /* set variable to file version for display on screen */
-    /* DO NOT change this version string by hand.  CVS will update it upon commit */
-    char version_str[256] = "$Revision: 1.26 $";
-    char* version;
-    
-    version_str[strlen(version_str)-1] = 0; // set last "$" to zero
-    version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
-    ssSetRWorkValue(S, 9, atof(version));
-}
 
 
 /*
  * State IDs
  */
-#define STATE_PRETRIAL 0
-#define STATE_TOUCH_PAD_ON 1
-#define STATE_TOUCH_PAD_HOLD 2
-#define STATE_DELAY 3
-#define STATE_REACH 4
-#define STATE_MOVEMENT 5
-#define STATE_TARGET_HOLD 6 
-#define STATE_CONTINUE_REACH 7
-#define STATE_REWARD 82
-#define STATE_ABORT 65
-#define STATE_FAIL 70
+#define STATE_PRETRIAL          0
+#define STATE_TOUCH_PAD_ON      1
+#define STATE_TOUCH_PAD_HOLD    2
+#define STATE_DELAY             3
+#define STATE_REACH             4
+#define STATE_MOVEMENT          5
+#define STATE_TARGET_HOLD       6  
+#define STATE_CONTINUE_REACH    7
+#define STATE_REWARD            82
+#define STATE_ABORT             65
+#define STATE_FAIL              70
+#define STATE_DATA_BLOCK        255
 
 #define TONE_GO 1
 #define TONE_REWARD 2
 #define TONE_ABORT 3
-
 
 static void mdlCheckParameters(SimStruct *S)
 {
@@ -132,13 +179,12 @@ static void mdlCheckParameters(SimStruct *S)
   idiot_mode = param_idiot_mode;
   multiple_targets = param_multiple_targets;
   catch_trials_pct = param_catch_trials_pct;
-    
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
-    
+
     ssSetNumSFcnParams(S, 17); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
@@ -159,13 +205,13 @@ static void mdlInitializeSizes(SimStruct *S)
     if (!ssSetNumInputPorts(S, 3)) return;
     ssSetInputPortWidth(S, 0, 1); /* touch pad */
     ssSetInputPortWidth(S, 1, 2); /* cursor position */
-    ssSetInputPortWidth(S, 2, 5); /* target position */
+    ssSetInputPortWidth(S, 2, 5*16); /* target position */
     ssSetInputPortDirectFeedThrough(S, 0, 1);
     ssSetInputPortDirectFeedThrough(S, 1, 1);
     ssSetInputPortDirectFeedThrough(S, 2, 1);
     
     /* 
-     * Block has 11 output ports (reward, word, touch pad LED, gadget LED, gadget select, status, tone, target, target select, MVC Target, version) of widths:
+     * Block has 10 output ports (reward, word, touch pad LED, gadget LED, gadget select, status, tone, target, MVC Target, version) of widths:
      * 0: reward:         1
      * 1: word:           1
      * 2: touch pad LED:  1
@@ -179,11 +225,10 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target UL corner y,
      *                  target LR corner x, 
      *                  target LR corner y)
-`    * 8: target select:  1
-	 * 9: MVC Target: 3 (1: user_spec_MVC, 2: current_MVC, 3: higher MVC)
-	 * 10:version : 4
+	 * 8: MVC Target: 3 (1: user_spec_MVC, 2: current_MVC, 3: higher MVC)
+	 * 9:version : 4
      */
-    if (!ssSetNumOutputPorts(S, 11)) return;
+    if (!ssSetNumOutputPorts(S, 10)) return;
     ssSetOutputPortWidth(S, 0, 1);
     ssSetOutputPortWidth(S, 1, 1);
     ssSetOutputPortWidth(S, 2, 1);
@@ -192,25 +237,30 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 5, 4);
     ssSetOutputPortWidth(S, 6, 2);
     ssSetOutputPortWidth(S, 7, 10);
-    ssSetOutputPortWidth(S, 8, 1);
-    ssSetOutputPortWidth(S, 9, 3);
-    ssSetOutputPortWidth(S, 10, 4);
+    ssSetOutputPortWidth(S, 8, 3);
+    ssSetOutputPortWidth(S, 9, 4);
     
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 10);   /* 0: time of last timer reset
+    ssSetNumRWork(S, 37);  /*  0: time of last timer reset
                                1: time of last target hold timer reset 
                                2: tone counter (incremented each time a tone is played)
                                3: tone id
                                4: current touch pad hold time
                                5: current delay hold time
-                               6: User specified MVC targets
-                               7: Current MVC Target
-                               8: higher MVC Target (Max Y Pos reached)
-                               9: mastercon version
-                               */
-    ssSetNumPWork(S, 0);
+                                 // About Following MVC Target related buffers:
+                                 // 1-4 subscripts refers to corresponding gadget number
+                                 // i.e. one MVC target per gadget
+                               6-13: User specified MVC targets [x1 x2 x3 x4 y1 y2 y3 y4]
+                               14-21: Current MVC targets [x1 x2 x3 x4 y1 y2 y3 y4]
+                               22-29: higher MVC targets reached [x1 x2 x3 x4 y1 y2 y3 y4]
+                               30: mastercon version
+                               31: Time of last update
+							   32-36: The current target: [target_y, target_h, target_x, target_w, tgt_yVar_enabled]
+                           */
+    ssSetNumPWork(S, 1);   /*  0: Databurst array pointer
+                           */ 
     ssSetNumIWork(S, 135); /*  0: state_transition (true if state changed), 
                                1: current target index (in sequence),
                                2: successes
@@ -219,6 +269,7 @@ static void mdlInitializeSizes(SimStruct *S)
                          [5-132]: trial list (target, gadget...)
                              133: success_flag
                              134: catch_trial_flag
+                             135: datablock counter
                           */
     
     /* we have no zero crossing detection or modes */
@@ -238,6 +289,7 @@ static void mdlInitializeSampleTimes(SimStruct *S)
 static void mdlInitializeConditions(SimStruct *S)
 {
     int i;
+    int* databurst;
     real_T *x0;
     
     /* initialize state to zero */
@@ -248,18 +300,20 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 0, 1);
     
     /* set target index to indicate that we need to begin a new block */
-    ssSetIWorkValue(S, 1, (int)num_targets*num_gadgets_in_use-1);
+    ssSetIWorkValue(S, 1, (int)num_targets-1);
     
     /* set the tone counter to zero */
     ssSetRWorkValue(S, 2, 0.0);
     ssSetRWorkValue(S, 3, 0.0);
     
     /* set the mvc Targets at 0 */
-    for (i=6; i<9; i++) {
+    for (i=6; i<30; i++) {
 	    ssSetRWorkValue(S, i, 0.0);
-    }    
+    }
+    /* set the initial last update time to 0 */
+    ssSetRWorkValue(S,31,0.0);
     
-    /* initialize targets at zero */
+    /* initialize targets id lists at zero */
     for (i = 5 ; i<133 ; i++){
         ssSetIWorkValue(S, i, 0);
     }
@@ -268,19 +322,22 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 2, 0);
     ssSetIWorkValue(S, 3, 0);
     ssSetIWorkValue(S, 4, 0);
-	
+    
     /* initialize success flag at zero */
     ssSetIWorkValue(S, 133, 0);
     
     /* set catch trial flag to zero */
     ssSetIWorkValue(S,134,0);
     
-    
     /* set reset counter to zero */
     clear_MVC_tgts = 0.0;
     master_reset = 0.0;
     
-    updateVersion(S);
+    /* setup databurst */
+    databurst = malloc(256);
+    ssSetPWorkValue(S, 0, databurst);
+    ssSetIWorkValue(S, 135, 0);
+    
 }
 
 /* macro for setting state changed */
@@ -288,18 +345,18 @@ static void mdlInitializeConditions(SimStruct *S)
 /* macros for resetting timers */
 #define reset_timer() (ssSetRWorkValue(S, 0, (real_T)ssGetT(S)))
 #define reset_target_hold_timer() (ssSetRWorkValue(S, 1, (real_T)ssGetT(S)))
+
 #define success_flag() (ssSetIWorkValue(S, 133, 1))
+/* Macro for assigning random center hold time */
 
 /* cursorInTarget
  * returns true (1) if the cursor is in the target and false (0) otherwise
- * cursor is specified as x,y = c[0], c[1]
+ * cursor is specified as x, y = c[0], c[1]
  * target is specified by two corners: UL: x, y = t[0], t[1]
  *                                     LR: x, y = t[2], t[3]
  */
-static int cursorInTarget(real_T *c, real_T *t)
-{
-    return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
-}
+#define cursorInTarget(c, t) ( ((c)[0] > (t)[0]) && ((c)[1] < (t)[1]) && ((c)[0] < (t)[2]) && ((c)[1] > (t)[3]) )
+
 
 #define MDL_UPDATE
 static void mdlUpdate(SimStruct *S, int_T tid) 
@@ -309,12 +366,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
      ****************/
     
     /* stupidly declare all variables at the begining of the function */
-    int i;
-    int j;    
+    int i, j;    
     int *IWorkVector; 
     int target_index;
-    int target_id;
-    int gadget_id;
+    int target_id, gadget_id;
     int *target_list;
     int tgt_yVar_enabled;
     real_T target_x, target_y, target_h, target_w;
@@ -324,24 +379,27 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T touch_pad; // should be 0.0 if touch pad is not pressed, 1.0 if it is.
     real_T elapsed_timer_time;
     real_T elapsed_target_hold_time;
-    
     real_T touch_pad_hold_timeout;
-    real_T delay_timeout;
+    real_T delay_timeout;    
     real_T success_flag;
-    
-    //holders for MVC targets variables
-	real_T user_spec_MVC_target;
-    real_T current_MVC_target;
-    real_T higher_MVC_target;
+
+    //holders for MVC targets variables (y_values only)
+	real_T user_spec_MVC_targets[4];
+    real_T current_MVC_targets[4];
+    real_T higher_MVC_targets[4];
     
     int tmp_tgts[64];
     int tmp_gdgt[64];
     int tmp_i;
     double tmp_sort[64];
     double tmp_d;
+        
+    byte* databurst;
+    float* databurst_target_list;
+    int databurst_counter;
     
-    int reshuffle;
-    
+	int reshuffle = 0;
+	
     /******************
      * Initialization *
      ******************/
@@ -356,11 +414,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
     touch_pad = *uPtrs[0];
     
-    /* Success Flag */
-    success_flag = ssGetIWorkValue(S, 133);
-    
     /* current cursor location */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
     cursor[0] = *uPtrs[0];
     cursor[1] = *uPtrs[1];
     
@@ -371,54 +426,37 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     IWorkVector = ssGetIWork(S);
     target_list = IWorkVector+5;
     
-    /* Current Target Location */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
-    target_y = *uPtrs[0];
-    target_h = *uPtrs[1];
-    target_x = *uPtrs[2];
-    target_w = *uPtrs[3];
-    tgt_yVar_enabled = *uPtrs[4];
-
-    /*MVC Target variables*/
-    user_spec_MVC_target=ssGetRWorkValue(S,6);
-	current_MVC_target=ssGetRWorkValue(S,7);
-	higher_MVC_target=ssGetRWorkValue(S,8);
+    /* Success Flag */
+    success_flag = ssGetIWorkValue(S, 133);
     
-	/****************************************************************************/ 
-    /* if we are in MVC routine mode, we may want to override the target values */
-    /****************************************************************************/ 
-	if (tgt_yVar_enabled) {
-		if (current_MVC_target!=0) { // we have yVar enabled and a current value for this target
-			if (target_y != user_spec_MVC_target) { //MVC target changed by user, we clear current MVC target
-				current_MVC_target = 0;
-			} else {
-				target_y = current_MVC_target; //override the y value for the MVC target
-			}
-		}
-		if (current_MVC_target == 0) { //first occurence of this target, don't modify it
-			user_spec_MVC_target = target_y;
-			ssSetRWorkValue(S,6,user_spec_MVC_target);
-			current_MVC_target = target_y; //set the current target to value provided by user
-			ssSetRWorkValue(S,7,current_MVC_target);
-		}
-	}
-	/********************************/ 
-    /* End of MVC target overriding */
-    /********************************/ 
-        	
-    /* get target bounds */
-    tgt[0] = target_x - target_w / 2.0;
-    tgt[1] = target_y + target_h / 2.0;
-    tgt[2] = target_x + target_w / 2.0;
-    tgt[3] = target_y - target_h / 2.0;
+    /* Get the Current Target Location */
+	target_y = ssGetRWorkValue(S,32);
+    target_h = ssGetRWorkValue(S,33);
+    target_x = ssGetRWorkValue(S,34);
+    target_w = ssGetRWorkValue(S,35);
+    tgt_yVar_enabled = (int)ssGetRWorkValue(S,36);
     
-    /* read current timeouts */
-    touch_pad_hold_timeout = ssGetRWorkValue(S, 4);
-    delay_timeout = ssGetRWorkValue(S, 5);
-    
+	/* Define the target corners */
+	tgt[0] = target_x - target_w / 2.0;
+	tgt[1] = target_y + target_h / 2.0;
+	tgt[2] = target_x + target_w / 2.0;
+	tgt[3] = target_y - target_h / 2.0;
+	
+    /*MVC Targets variables*/
+    for (i=0; i<4; i++) {
+	    user_spec_MVC_targets[i]= ssGetRWorkValue(S,i+10);
+    	current_MVC_targets[i]  = ssGetRWorkValue(S,i+18);
+    	higher_MVC_targets[i]   = ssGetRWorkValue(S,i+26);
+	}  
+              
     /* get elapsed time since last timer reset */
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
     elapsed_target_hold_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 1);
+
+    /* Setup the databurst pointers */
+    databurst_counter = ssGetIWorkValue(S, 23);
+    databurst = (byte *)ssGetPWorkValue(S, 0);
+    databurst_target_list = (float *)(databurst + 2*sizeof(byte));
     
     /*********************************
      * See if we have issued a reset *
@@ -435,12 +473,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* See if we want to clear the value of the higher target reached */    
     if (param_clear_MVC_tgts > clear_MVC_tgts) {
 	    clear_MVC_tgts = param_clear_MVC_tgts;
-	    for (i=6; i<9; i++) {
+	    for (i=6; i<30; i++) {
 		    ssSetRWorkValue(S, i, 0.0); //clear all MVC target buffers
 	    }
-	}    
+	}
     
-    
+	
+		    
     /************************
      * Calculate next state *
      ************************/
@@ -448,43 +487,37 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* execute one step of state machine */
     switch (state) {
         case STATE_PRETRIAL:
-            /* pretrial initilization */
-            /* 
-             * We should only be in this state for one cycle.
-             * Initialize the trial and then advance to STATE_TOUCH_PAD_ON 
-             */
-            
-            /* Update parameters */
+            /* Initialize the trial and then advance to STATE_DATA_BLOCK */
 
-
+            /* Update parameters */        
             touch_pad_hold_l = param_touch_pad_hold_l;
             touch_pad_hold_h = param_touch_pad_hold_h;
 
             touch_pad_delay_l = param_touch_pad_delay_l;
             touch_pad_delay_h = param_touch_pad_delay_h;
- 
+
             reach_time = param_reach_time;
             target_hold_time = param_target_hold_time;
- 
+            
             abort_timeout   = param_intertrial;    
             failure_timeout = param_intertrial;   
-            reward_timeout  = param_intertrial;    
-          
-            /* intialize timers*/
-            if (touch_pad_hold_l == touch_pad_hold_h) { 
-                ssSetRWorkValue(S, 4, touch_pad_hold_l);
-            } else {
-                ssSetRWorkValue(S, 4, touch_pad_hold_l + UNI*(touch_pad_hold_h-touch_pad_hold_l));
-            }
+            reward_timeout  = param_intertrial;
             
-            if (touch_pad_delay_l == touch_pad_delay_h) { 
-                ssSetRWorkValue(S, 5, touch_pad_delay_l);
-            } else {
-                ssSetRWorkValue(S, 5, touch_pad_delay_l + UNI*(touch_pad_delay_h-touch_pad_delay_l));
-            }
+            catch_trials_pct = param_catch_trials_pct/100;
 
-                       
-            catch_trials_pct = param_catch_trials_pct;            
+            num_targets = param_num_targets;
+			idiot_mode = param_idiot_mode;
+			
+            /* Only update these values if we've explicitly issued an update */
+//             if ( param_master_update > master_update ) {
+//                 master_update = param_master_update;
+//                 ssSetRWorkValue(S, 30, ssGetT(S));
+// 				reshuffle = 1;
+//             }
+
+            
+			/* decide if this is going to be a catch trial */
+            set_catch_trial( catch_trials_pct > (double)rand()/(double)RAND_MAX ? 1 : 0 );
 
             /***************************************/
 			/* see if we have to update MVC_Target */
@@ -492,22 +525,20 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			if (success_flag) {
 				if (tgt_yVar_enabled) {
 					/* MVC Target reached! Increase it by 15% */
-					ssSetRWorkValue(S, 7, target_y*1.15); //increase current_MVC_target
+					ssSetRWorkValue(S, 18+gadget_id,target_y*1.15);
 				}
-				if (target_y > higher_MVC_target) {
+				if (target_y > higher_MVC_targets[gadget_id]) {
 					/* We have a new Max MVC!*/
-					ssSetRWorkValue(S, 8,target_y); //update higher_MVC_target
+					ssSetRWorkValue(S, 26+gadget_id,target_y);
 				}
 			} else { // last trial was not a success
 				if (tgt_yVar_enabled) {
 					/* Failed to reach and hold MVC Target, decrease y by 8% */
-					ssSetRWorkValue(S, 7, target_y*0.92); // decrease current_MVC_target
-					}
+					ssSetRWorkValue(S, 18+gadget_id,target_y*0.92);
+				}
 			}
-			
+		
 			/* To resuffle or not to reshuffle */       			
-            reshuffle = 0;
- 
 			//reshuffle if something has changed
 			if (num_targets != param_num_targets   ||
 				use_gadget_0 != param_use_gadget_0 ||
@@ -531,20 +562,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			if (multiple_targets) {
 				reshuffle = 1;
 			}
-
+		
 			// reshuffle by default if we reached the last target in the list, unless failure and idiot mode
-			if (target_index == num_targets-1) {
-				if (idiot_mode && success_flag == 0) {
-					//we stay at the last target until success
-					//so no reshuffling unless previously
-					//set to 1 by previous conditions
-				} else {
-					reshuffle = 1;  
-				}
-			}                        
-            
-            
-            /* get current target or reshuffle at end of block */
+			if (target_index == (num_targets*num_gadgets_in_use-1) && !(idiot_mode && success_flag == 0)) {
+				reshuffle = 1;  
+			}
+
+            /* reshuffle target-gadget list*/
              if (reshuffle) { 
                 // reshuffle
                 j = 0;
@@ -610,32 +634,86 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     ssSetIWorkValue(S, i*2+6, target_list[i*2+1]);
                 }
 */
-
-                             
-                /* and reset the counter */
-                target_index = 0;
-                ssSetIWorkValue(S, 1, target_index);
-               
-            } else if (idiot_mode) {
-	            // advance to next target only if previous success
+				
+				/* and reset the counter */
+				target_index = 0;
+				ssSetIWorkValue(S, 1, target_index);
+                
+			} else if (idiot_mode) {
+	            //    advance to next target only if previous success
                 if (success_flag) ssSetIWorkValue(S, 1, ++target_index);
 			} else {
 				// default : advance to next target
 	            ssSetIWorkValue(S, 1, ++target_index);
             }
+			
+			/* Update the current target_id based on our new target_index */
+			target_id = ssGetIWorkValue(S, 5 + target_index*2);
+			gadget_id = ssGetIWorkValue(S, 6 + target_index*2);
 
-            /* decide if this is going to be a catch trial */
-            if (catch_trials_pct > 0) {
-                set_catch_trial( catch_trials_pct > (double)rand()/(double)RAND_MAX ? 1 : 0 );
-            } else {
-                set_catch_trial(0);
+			/* Grab the (newly) selected target from the target table */
+		    uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
+		    target_y = *uPtrs[0+(target_id*5)];
+		    target_h = *uPtrs[1+(target_id*5)];
+		    target_x = *uPtrs[2+(target_id*5)];
+		    target_w = *uPtrs[3+(target_id*5)];
+		    tgt_yVar_enabled = (int)*uPtrs[4+(target_id*5)];
+		    
+			/****************************************************************************/ 
+		    /* if we are in MVC routine mode, we may want to override the target values */
+		    /****************************************************************************/ 
+			if (tgt_yVar_enabled) {
+				if (current_MVC_targets[gadget_id]!=0) { // we have yVar enabled and a current y target value for this gadget
+					if (target_y != user_spec_MVC_targets[gadget_id]) { //this gadget MVC target changed by user, we clear this current MVC target
+						current_MVC_targets[gadget_id] = 0;
+					} else {
+						target_y = current_MVC_targets[gadget_id]; //override the y value for this gadget's MVC target
+					}
+				}
+				if (current_MVC_targets[gadget_id] == 0) { //first occurence of this target, don't modify it
+					user_spec_MVC_targets[gadget_id] = target_y;
+					ssSetRWorkValue(S,10+gadget_id,user_spec_MVC_targets[gadget_id]);
+					current_MVC_targets[gadget_id] = target_y; //set the current target to value provided by user
+					ssSetRWorkValue(S,18+gadget_id,current_MVC_targets[gadget_id]);
+				}
+			}
+		    /********************************/ 
+		    /* End of MVC target overriding */
+		    /********************************/ 
+		    
+			/* Write the target back to the RWork vector */
+			ssSetRWorkValue(S,32,target_y);
+			ssSetRWorkValue(S,33,target_h);
+			ssSetRWorkValue(S,34,target_x);
+			ssSetRWorkValue(S,35,target_w);
+			ssSetRWorkValue(S,36,tgt_yVar_enabled);
+			/* Update the target bounds */
+		    tgt[0] = target_x - target_w / 2.0;
+		    tgt[1] = target_y + target_h / 2.0;
+		    tgt[2] = target_x + target_w / 2.0;
+		    tgt[3] = target_y - target_h / 2.0;
+			
+            /* Copy target info into databursts */
+            databurst[0] = (4 * sizeof(float) + 2); /*  number of bytes = 4 * 4 floats: [xl,yh,xh,yl] + 2 databurst[0:1] = 18 bytes */
+            databurst[1] = DATABURST_VERSION;
+            for (i = 0; i < 4; i++) {
+                databurst_target_list[i] = (float)tgt[i];
             }
-           
-            new_state = STATE_TOUCH_PAD_ON;
-			ssSetIWorkValue(S, 133, 0);	// clear success_flag            
+            /* and reset the databurst counter */
+            ssSetIWorkValue(S, 135, 0);
+                        
+            new_state = STATE_DATA_BLOCK;
+			ssSetIWorkValue(S, 133, 0);	// clear success_flag
             state_changed();
+
             break;
-            
+        case STATE_DATA_BLOCK:
+            if (databurst_counter >= 2*(databurst[0])-1) { 
+               new_state = STATE_TOUCH_PAD_ON;
+               state_changed();
+            }
+			ssSetIWorkValue(S, 135, databurst_counter+1);
+            break;           
         case STATE_TOUCH_PAD_ON:
             if (touch_pad) {
                 new_state = STATE_TOUCH_PAD_HOLD;
@@ -691,23 +769,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_CONTINUE_REACH;
                 state_changed();
             } else if (elapsed_target_hold_time > target_hold_time) {
-                success_flag();
-				/*next state depends on whether there are more targets */
-				if (target_index == (int)num_targets-1 || multiple_targets == 0) {
-					new_state = STATE_REWARD;
-					state_changed();
-					reset_timer();
-				} else {
-					/* more targets*/
-					ssSetIWorkValue(S, 1, ++target_index);
-					new_state = STATE_REACH;
-					state_changed();
-					reset_timer();
-				}
-			} else if (elapsed_timer_time > reach_time) {
-	            new_state = STATE_FAIL;
-	            state_changed();
-	            reset_timer();
+				success_flag();
+				new_state = STATE_REWARD;
+				state_changed();
+				reset_timer();
+				// do not timeout if the cursor is in the target...
+// 			} else if (elapsed_timer_time > reach_time) {
+// 	            new_state = STATE_FAIL;
+// 	            state_changed();
+// 	            reset_timer();
             }
             break;
         case STATE_CONTINUE_REACH:
@@ -740,12 +810,36 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             if (elapsed_timer_time > reward_timeout) {
                 new_state = STATE_PRETRIAL;
                 state_changed();
-                success_flag();                
+                success_flag();
             }
             break;
         default:
             new_state = STATE_PRETRIAL;
             state_changed();
+    }
+    
+    
+    /* Stuff that happens on state boundaries */
+    if (ssGetIWorkValue(S, 0)) {
+        /* increment the status counters */
+        if (new_state == STATE_REWARD)
+            ssSetIWorkValue(S, 2, ssGetIWorkValue(S, 2)+1);
+        else if (new_state == STATE_ABORT)
+            ssSetIWorkValue(S, 3, ssGetIWorkValue(S, 3)+1);
+        else if (new_state == STATE_FAIL)
+            ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
+        
+        /* update the tone */
+        if (new_state == STATE_ABORT) {
+            ssSetRWorkValue(S, 2, ssGetRWorkValue(S, 2)+1); /* tone_cnt */
+            ssSetRWorkValue(S, 3, TONE_ABORT); /* tone_id  */
+        } else if (new_state == STATE_REACH) {
+            ssSetRWorkValue(S, 2, ssGetRWorkValue(S, 2)+1); /* tone_cnt */
+            ssSetRWorkValue(S, 3, TONE_GO); /* tone_id  */
+        } else if (new_state == STATE_REWARD) {
+            ssSetRWorkValue(S, 2, ssGetRWorkValue(S, 2)+1); /* tone_cnt */
+            ssSetRWorkValue(S, 3, TONE_REWARD); /* tone_id  */
+        }
     }
     
     /***********
@@ -763,47 +857,36 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 static void mdlOutputs(SimStruct *S, int_T tid)
 {
     /********************
-     *  Initialization
+     *  declaration
      ********************/
     int i;
-    int *IWorkVector; 
     int target_index;
     int target_id;
     int gadget_id;
-    real_T *RWorkVector;
-    int *target_list;
     real_T target_x, target_y, target_h, target_w;
     real_T tgt[4];
-    InputRealPtrsType uPtrs;
-    real_T cursor[2];
-    real_T touch_pad;
     real_T tone_cnt, tone_id;
     int new_state;
-    
-    int tgt_yVar_enabled;
-    
-    //holders for MVC targets variables
-	real_T user_spec_MVC_target;
-    real_T current_MVC_target;
-    real_T higher_MVC_target;
+    byte* databurst;
+    int databurst_counter;
+    real_T higher_MVC_targets[4];
     
     /* holders for outputs */
-    real_T reward, word, touch_pad_led, gadget_led, gadget_select, target_select;
-    real_T status[4];
-    real_T tone[2];
+    real_T reward, word, touch_pad_led, gadget_led, gadget_select;
+	real_T status[4];
+    real_T tone[2];	
     real_T target[10];
     real_T version[4];
-    
+       
     /* pointers to output buffers */
     real_T *reward_p;
     real_T *word_p;
     real_T *touch_pad_led_p;
     real_T *gadget_led_p;
-    real_T *gadget_select_p;
+    real_T *gadget_select_p;    
     real_T *status_p;
     real_T *tone_p;
     real_T *target_p;
-    real_T *target_select_p;
     real_T *mvcTarget_p;
     real_T *version_p;
     
@@ -820,62 +903,27 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     target_index = ssGetIWorkValue(S, 1);
     target_id = ssGetIWorkValue(S, 5 + target_index*2);
     gadget_id = ssGetIWorkValue(S, 6 + target_index*2);
-    IWorkVector = ssGetIWork(S);
-    target_list = IWorkVector+5;
-
-    /* current cursor location */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
-    cursor[0] = *uPtrs[0];
-    cursor[1] = *uPtrs[1];
-
-    /* touch pad state */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
-    touch_pad = *uPtrs[0];
     
-    /* Current Target Location */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
-    target_y = *uPtrs[0];
-    target_h = *uPtrs[1];
-    target_x = *uPtrs[2];
-    target_w = *uPtrs[3];
-    tgt_yVar_enabled = *uPtrs[4];   
+    /* Get the Current Target Location */
+	target_y = ssGetRWorkValue(S,32);
+    target_h = ssGetRWorkValue(S,33);
+    target_x = ssGetRWorkValue(S,34);
+    target_w = ssGetRWorkValue(S,35);
     
-    /*MVC Target variables*/
-    user_spec_MVC_target=ssGetRWorkValue(S,6);
-	current_MVC_target=ssGetRWorkValue(S,7);
-	higher_MVC_target=ssGetRWorkValue(S,8);
+	/* And define the target bounds */
+	tgt[0] = target_x - target_w / 2.0;
+	tgt[1] = target_y + target_h / 2.0;
+	tgt[2] = target_x + target_w / 2.0;
+	tgt[3] = target_y - target_h / 2.0;  
     
-	/****************************************************************************/ 
-    /* if we are in MVC routine mode, we may want to override the target values */
-    /****************************************************************************/ 
-	if (tgt_yVar_enabled) {
-		if (current_MVC_target!=0) { // we have yVar enabled and a current value for this target
-			if (target_y != user_spec_MVC_target) { //MVC target changed by user, we clear current MVC target
-				current_MVC_target = 0;
-			} else {
-				target_y = current_MVC_target; //override the y value for the MVC target
-			}
-		}
-		if (current_MVC_target == 0) { //first occurence of this target, don't modify it
-			user_spec_MVC_target = target_y;
-			ssSetRWorkValue(S,6,user_spec_MVC_target);
-			current_MVC_target = target_y; //set the current target to value provided by user
-			ssSetRWorkValue(S,7,current_MVC_target);
-		}
-	}
-	/********************************/ 
-    /* End of MVC target overriding */
-    /********************************/  
+	/*MVC Targets variables*/
+    for (i=0; i<4; i++) {
+    	higher_MVC_targets[i]=ssGetRWorkValue(S,i+26);
+	}  
 
-    /* get target bounds */
-    tgt[0] = target_x - target_w / 2.0;
-    tgt[1] = target_y + target_h / 2.0;
-    tgt[2] = target_x + target_w / 2.0;
-    tgt[3] = target_y - target_h / 2.0;
-
-    /* tone counters */
-    tone_cnt = ssGetRWorkValue(S, 2);
-    tone_id  = ssGetRWorkValue(S, 3);
+    /* databurst */
+    databurst_counter = ssGetIWorkValue(S, 135);
+    databurst = (byte *)ssGetPWorkValue(S, 0);    
     
     /********************
      * Calculate outputs
@@ -889,27 +937,33 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     /* word (1) */
-    if (new_state) {
+    if (state == STATE_DATA_BLOCK) {
+        if (databurst_counter % 2 == 0) {
+            word = databurst[databurst_counter / 2] | 0xF0; /* low order bits */
+        } else {
+             word = (databurst[(databurst_counter-1) / 2] >> 4) | 0xF0; /* high order bits */
+        }
+	} else if (new_state) {
         switch (state) {
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
                 break;
-            case STATE_TOUCH_PAD_ON:
-            	if (get_catch_trial()) {
-                    word = WORD_CATCH;
-                }
             case STATE_TOUCH_PAD_HOLD:
                 word = WORD_HAND_ON_TOUCH_PAD;
                 break;
             case STATE_DELAY:
                 word = WORD_GADGET_ON(gadget_id);
-                break;
+                break;                
             case STATE_REACH:
-                word = WORD_REACH(target_id);
+                if (get_catch_trial()) {
+                    word = WORD_CATCH;
+                } else {
+                    word = WORD_GO_CUE;
+                }
                 break;
             case STATE_MOVEMENT:
-                word = WORD_MOVEMENT_ONSET;
-                break;
+                word = WORD_REACH(target_id);
+                break;                
             case STATE_REWARD:
                 word = WORD_REWARD;
                 break;
@@ -925,14 +979,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     } else {
         word = 0.0;
     }
-    
+
     /* touch_pad_led (2) */
     if (state == STATE_TOUCH_PAD_ON || state == STATE_TOUCH_PAD_HOLD || state == STATE_DELAY) {
         touch_pad_led = 1.0;
     } else {
         touch_pad_led = 0.0;
     }
-
+    
     /* gadget_led (3) */
     if (state == STATE_DELAY || state == STATE_REACH || state == STATE_MOVEMENT ||
         state == STATE_TARGET_HOLD || state == STATE_CONTINUE_REACH) 
@@ -944,34 +998,16 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* gadget_select (4) */
     gadget_select = gadget_id;
-    
+        
     /* status (5) */
-    if (state == STATE_REWARD && new_state)
-        ssSetIWorkValue(S, 2, ssGetIWorkValue(S, 2)+1);
-    if (state == STATE_ABORT && new_state)
-        ssSetIWorkValue(S, 3, ssGetIWorkValue(S, 3)+1);
-    if (state == STATE_FAIL && new_state)
-        ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
-      
     status[0] = state;
     status[1] = ssGetIWorkValue(S,2); // num rewards
     status[2] = ssGetIWorkValue(S,3); // num aborts
     status[3] = ssGetIWorkValue(S,4); // num failures
     
-    
-    /* tone (6) */
-    if (new_state) {
-        if (state == STATE_ABORT) {
-            tone_cnt++;
-            tone_id = TONE_ABORT;
-        } else if (state == STATE_REACH) {
-            tone_cnt++;
-            tone_id = TONE_GO;
-        } else if (state == STATE_REWARD) {
-            tone_cnt++;
-            tone_id = TONE_REWARD;
-        }
-    }
+    /* tones (6) */
+    tone_cnt = ssGetRWorkValue(S, 2);
+    tone_id  = ssGetRWorkValue(S, 3);
     
     /* targets (7) */
     for (i=0; i<4; i++) {
@@ -996,48 +1032,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	for (i=5; i<10; i++) {
 		target[i] = 0;
 	}
-
-////////////
-// Obsolete
-//			/* we use the second target to indicate which of the gadget is in use */
-//			/* this is because the monkey does not seem to see the leds  */
-//			if ( state == STATE_DELAY || 
-//				 state == STATE_REACH || 
-//				 state == STATE_MOVEMENT || 
-//				 state == STATE_CONTINUE_REACH ||
-//				 state == STATE_TOUCH_PAD_HOLD ||
-//				 state == STATE_TARGET_HOLD)
-//			{
-//				/*gadget indicator on */
-//				target[5] = 2; /*white*/
-//			} else {
-//				/* gadget indicator off */
-//				target [5] = 0; /* off */
-//			}
-//			
-//			
-//			target[7] = 1.5; // Y upper left
-//			target[9] = -1.5; // Y lower right
-//				
-//			if (gadget_id == 0) { // palmar grasp, on the left
-//				target[6] = -18; // X upper left
-//				target[8] = -15; // X lower right
-//			} else if (gadget_id == 1) { //key grasp, on the right
-//				target[6] = 15;
-//				target[8] = 18;
-//			} else { // another gadget, lets just turn off target for now
-//				target[5] = 0;
-//			}
-//
-/////////////
 	
-    /* target_select (8) */
-    target_select = target_id;
-    
-     /* MVC Target (6) */
+	 /* MVC Target (8) */
      // = higher_MVC_target    
 
-     /* Version */
+     /* Version (9) */
      version[0] = BEHAVIOR_VERSION_MAJOR;
      version[1] = BEHAVIOR_VERSION_MINOR;
      version[2] = BEHAVIOR_VERSION_MICRO;
@@ -1060,8 +1059,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      gadget_led_p[0] = gadget_led;
      
      gadget_select_p = ssGetOutputPortRealSignal(S,4);
-     gadget_select_p[0] = gadget_select;
-     
+     gadget_select_p[0] = gadget_select;     
+          
      status_p = ssGetOutputPortRealSignal(S,5);
      for (i=0; i<4; i++) 
          status_p[i] = (real_T)status[i];
@@ -1069,27 +1068,22 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      tone_p = ssGetOutputPortRealSignal(S,6);
      tone_p[0] = tone_cnt;
      tone_p[1] = tone_id;
-     ssSetRWorkValue(S, 2, tone_cnt);
-     ssSetRWorkValue(S, 3, tone_id);
      
      target_p = ssGetOutputPortRealSignal(S,7);
      for (i=0; i<10; i++) 
          target_p[i] = target[i];
      
-     target_select_p = ssGetOutputPortRealSignal(S,8);
-     target_select_p[0] = target_select;
-     
-     mvcTarget_p = ssGetOutputPortRealSignal(S,9);
-     mvcTarget_p[0] = user_spec_MVC_target;
-     mvcTarget_p[1] = current_MVC_target;
-     mvcTarget_p[2] = higher_MVC_target;
-     
-     version_p = ssGetOutputPortRealSignal(S, 10);
+     mvcTarget_p = ssGetOutputPortRealSignal(S,8);
      for (i=0; i<4; i++) {
-        version_p[i] = version[i];
+	     mvcTarget_p[i]  = higher_MVC_targets[i];
      }
      
-     UNUSED_ARG(tid);
+     version_p = ssGetOutputPortRealSignal(S, 9);
+     for (i=0; i<4; i++) {
+         version_p[i] = version[i];
+     }
+       	  
+    UNUSED_ARG(tid);
 }
 
 static void mdlTerminate (SimStruct *S) { UNUSED_ARG(S); }
