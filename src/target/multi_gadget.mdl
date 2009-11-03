@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.78"
+    ComputedModelVersion    "1.79"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,9 +44,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Christian"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Oct 29 17:13:37 2009"
+  LastModifiedDate	  "Mon Nov 02 21:32:31 2009"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:78>"
+  ModelVersionFormat	  "1.%<AutoIncrement:79>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -729,7 +729,7 @@ Model {
   }
   System {
     Name		    "multi_gadget"
-    Location		    [203, 130, 1361, 867]
+    Location		    [128, 84, 1286, 821]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1643,7 +1643,7 @@ Model {
       FunctionWithSeparateData off
       System {
 	Name			"UDPXmit"
-	Location		[119, 254, 1039, 802]
+	Location		[328, 145, 1248, 693]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1894,15 +1894,15 @@ Model {
     Block {
       BlockType		      SubSystem
       Name		      "WordSbs"
-      Ports		      [2]
-      Position		      [915, 79, 960, 121]
+      Ports		      [3]
+      Position		      [1015, 81, 1150, 139]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
       System {
 	Name			"WordSbs"
-	Location		[470, 118, 1417, 912]
-	Open			off
+	Location		[1797, 102, 2744, 896]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1917,7 +1917,7 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "Reward"
-	  Position		  [145, 373, 175, 387]
+	  Position		  [105, 63, 135, 77]
 	  IconDisplay		  "Port number"
 	  OutDataType		  "sfix(16)"
 	  OutScaling		  "2^0"
@@ -1925,25 +1925,76 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "Word"
-	  Position		  [260, 203, 290, 217]
+	  Position		  [365, 488, 395, 502]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
 	  OutDataType		  "sfix(16)"
 	  OutScaling		  "2^0"
 	}
 	Block {
+	  BlockType		  Inport
+	  Name			  "Pos"
+	  Position		  [45, 243, 75, 257]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Add2"
+	  Ports			  [2, 1]
+	  Position		  [275, 207, 305, 238]
+	  CollapseMode		  "All dimensions"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^-10"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Add3"
+	  Ports			  [2, 1]
+	  Position		  [275, 277, 305, 308]
+	  CollapseMode		  "All dimensions"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^-10"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
 	  BlockType		  Constant
 	  Name			  "Constant"
-	  Position		  [265, 135, 295, 165]
+	  Position		  [370, 420, 400, 450]
 	  Value			  "0"
 	  OutDataType		  "sfix(16)"
 	  OutScaling		  "2^0"
 	}
 	Block {
+	  BlockType		  Constant
+	  Name			  "Constant2"
+	  Position		  [160, 344, 215, 376]
+	  Value			  "32768"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  Ports			  [1, 2]
+	  Position		  [195, 179, 200, 321]
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
 	  BlockType		  ForIterator
 	  Name			  "For Iterator"
 	  Ports			  [0, 1]
-	  Position		  [115, 145, 215, 215]
+	  Position		  [220, 430, 320, 500]
 	  IterationLimit	  "4"
 	  IndexMode		  "Zero-based"
 	  IterationVariableDataType "double"
@@ -1952,7 +2003,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Port A"
 	  Ports			  [8]
-	  Position		  [645, 75, 775, 280]
+	  Position		  [680, 360, 810, 565]
 	  SourceBlock		  "xpcnilib/Digital\nOutput/PCI-6025E 8255 DO"
 	  SourceType		  "donipci6025e8255"
 	  channel		  "1:8"
@@ -1964,9 +2015,32 @@ Model {
 	  slot			  "-1"
 	}
 	Block {
+	  BlockType		  Reference
+	  Name			  "Port B"
+	  Ports			  [8]
+	  Position		  [680, 120, 810, 325]
+	  SourceBlock		  "xpcnilib/Digital\nOutput/PCI-6025E 8255 DO"
+	  SourceType		  "donipci6025e8255"
+	  channel		  "1:8"
+	  port			  "B"
+	  reset			  "[1]"
+	  initValue		  "[0]"
+	  chip			  "1"
+	  sampletime		  "-1"
+	  slot			  "-1"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "SerialConverter"
+	  Ports			  [3, 1]
+	  Position		  [405, 120, 505, 330]
+	  SourceBlock		  "limblab/SerialConverter"
+	  SourceType		  ""
+	}
+	Block {
 	  BlockType		  Switch
 	  Name			  "Switch"
-	  Position		  [320, 135, 360, 225]
+	  Position		  [425, 420, 465, 510]
 	  Threshold		  "1"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
@@ -1976,7 +2050,15 @@ Model {
 	  BlockType		  Reference
 	  Name			  "ToBits"
 	  Ports			  [1, 8]
-	  Position		  [425, 80, 475, 275]
+	  Position		  [530, 365, 580, 560]
+	  SourceBlock		  "limblab/ToBits"
+	  SourceType		  ""
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "ToBits1"
+	  Ports			  [1, 8]
+	  Position		  [530, 115, 585, 330]
 	  SourceBlock		  "limblab/ToBits"
 	  SourceType		  ""
 	}
@@ -1984,7 +2066,7 @@ Model {
 	  BlockType		  SubSystem
 	  Name			  "While Iterator\nSubsystem"
 	  Ports			  [2]
-	  Position		  [195, 322, 440, 398]
+	  Position		  [155, 12, 400, 88]
 	  TreatAsAtomicUnit	  on
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
@@ -2214,10 +2296,23 @@ Model {
 	  }
 	}
 	Block {
+	  BlockType		  Gain
+	  Name			  "toThousandths"
+	  Position		  [105, 234, 150, 266]
+	  Gain			  "1000"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
 	  BlockType		  Reference
 	  Name			  "xPC Target\n Time "
 	  Ports			  [0, 1]
-	  Position		  [85, 325, 145, 355]
+	  Position		  [45, 15, 105, 45]
 	  SourceBlock		  "xpclib/Misc./xPC Target\n Time "
 	  SourceType		  "xpctime"
 	  ts			  "-1"
@@ -2273,8 +2368,16 @@ Model {
 	Line {
 	  SrcBlock		  "For Iterator"
 	  SrcPort		  1
-	  DstBlock		  "Switch"
-	  DstPort		  2
+	  Points		  [15, 0]
+	  Branch {
+	    DstBlock		    "Switch"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [0, -310]
+	    DstBlock		    "SerialConverter"
+	    DstPort		    1
+	  }
 	}
 	Line {
 	  SrcBlock		  "Constant"
@@ -2306,15 +2409,119 @@ Model {
 	  DstBlock		  "While Iterator\nSubsystem"
 	  DstPort		  2
 	}
+	Line {
+	  SrcBlock		  "Constant2"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, -60]
+	  Branch {
+	    Points		    [0, -70]
+	    DstBlock		    "Add2"
+	    DstPort		    2
+	  }
+	  Branch {
+	    DstBlock		    "Add3"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "ToBits1"
+	  SrcPort		  8
+	  DstBlock		  "Port B"
+	  DstPort		  8
+	}
+	Line {
+	  SrcBlock		  "ToBits1"
+	  SrcPort		  7
+	  DstBlock		  "Port B"
+	  DstPort		  7
+	}
+	Line {
+	  SrcBlock		  "ToBits1"
+	  SrcPort		  6
+	  DstBlock		  "Port B"
+	  DstPort		  6
+	}
+	Line {
+	  SrcBlock		  "ToBits1"
+	  SrcPort		  5
+	  DstBlock		  "Port B"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "ToBits1"
+	  SrcPort		  1
+	  DstBlock		  "Port B"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "ToBits1"
+	  SrcPort		  2
+	  DstBlock		  "Port B"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "ToBits1"
+	  SrcPort		  3
+	  DstBlock		  "Port B"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "ToBits1"
+	  SrcPort		  4
+	  DstBlock		  "Port B"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "SerialConverter"
+	  SrcPort		  1
+	  DstBlock		  "ToBits1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Add2"
+	  SrcPort		  1
+	  DstBlock		  "SerialConverter"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Add3"
+	  SrcPort		  1
+	  DstBlock		  "SerialConverter"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Pos"
+	  SrcPort		  1
+	  DstBlock		  "toThousandths"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  DstBlock		  "Add2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  DstBlock		  "Add3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "toThousandths"
+	  SrcPort		  1
+	  DstBlock		  "Demux"
+	  DstPort		  1
+	}
 	Annotation {
-	  Position		  [724, 208]
+	  Position		  [829, 493]
 	}
       }
     }
     Line {
       SrcBlock		      "Behavior MG"
       SrcPort		      2
-      Points		      [85, 0]
+      Points		      [105, 0; 0, -30]
       DstBlock		      "WordSbs"
       DstPort		      2
     }
@@ -2385,10 +2592,18 @@ Model {
 	  DstPort		  1
 	}
 	Branch {
-	  Labels		  [3, 0]
-	  Points		  [695, 0; 0, -270; -145, 0]
-	  DstBlock		  "UDPXmit"
-	  DstPort		  1
+	  Points		  [695, 0; 0, -270; 0, 0]
+	  Branch {
+	    Labels		    [1, 0]
+	    Points		    [-145, 0]
+	    DstBlock		    "UDPXmit"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 0]
+	    DstBlock		    "WordSbs"
+	    DstPort		    3
+	  }
 	}
       }
     }
