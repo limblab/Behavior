@@ -225,7 +225,7 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target UL corner y,
      *                  target LR corner x, 
      *                  target LR corner y)
-	 * 8: MVC Target: 3 (1: user_spec_MVC, 2: current_MVC, 3: higher MVC)
+	 * 8: MVC Target: 4 (MVC gadgets 1 to 4)
 	 * 9:version : 4
      */
     if (!ssSetNumOutputPorts(S, 10)) return;
@@ -237,7 +237,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 5, 4);
     ssSetOutputPortWidth(S, 6, 2);
     ssSetOutputPortWidth(S, 7, 10);
-    ssSetOutputPortWidth(S, 8, 3);
+    ssSetOutputPortWidth(S, 8, 4);
     ssSetOutputPortWidth(S, 9, 4);
     
     ssSetNumSampleTimes(S, 1);
@@ -415,7 +415,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     touch_pad = *uPtrs[0];
     
     /* current cursor location */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
     cursor[0] = *uPtrs[0];
     cursor[1] = *uPtrs[1];
     
@@ -453,8 +453,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
     elapsed_target_hold_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 1);
 
+    /* read current timeouts */
+    touch_pad_hold_timeout = ssGetRWorkValue(S, 4);
+    delay_timeout = ssGetRWorkValue(S, 5);
+
     /* Setup the databurst pointers */
-    databurst_counter = ssGetIWorkValue(S, 23);
+    databurst_counter = ssGetIWorkValue(S, 135);
     databurst = (byte *)ssGetPWorkValue(S, 0);
     databurst_target_list = (float *)(databurst + 2*sizeof(byte));
     
@@ -477,9 +481,21 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 		    ssSetRWorkValue(S, i, 0.0); //clear all MVC target buffers
 	    }
 	}
+    /* Update parameters */        
+    touch_pad_hold_l = param_touch_pad_hold_l;
+    touch_pad_hold_h = param_touch_pad_hold_h;
+    touch_pad_delay_l = param_touch_pad_delay_l;
+    touch_pad_delay_h = param_touch_pad_delay_h;
+    reach_time = param_reach_time;
+    target_hold_time = param_target_hold_time;
+    abort_timeout   = param_intertrial;    
+    failure_timeout = param_intertrial;   
+    catch_trials_pct = param_catch_trials_pct/100;
+    num_targets = param_num_targets;
+    idiot_mode = param_idiot_mode;
     
-	
-		    
+    
+    
     /************************
      * Calculate next state *
      ************************/
@@ -489,25 +505,18 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         case STATE_PRETRIAL:
             /* Initialize the trial and then advance to STATE_DATA_BLOCK */
 
-            /* Update parameters */        
-            touch_pad_hold_l = param_touch_pad_hold_l;
-            touch_pad_hold_h = param_touch_pad_hold_h;
+			/* intialize timers*/
+            if (touch_pad_hold_l == touch_pad_hold_h) { 
+                ssSetRWorkValue(S, 4, touch_pad_hold_l);
+            } else {
+                ssSetRWorkValue(S, 4, touch_pad_hold_l + UNI*(touch_pad_hold_h-touch_pad_hold_l));
+            }
+            if (touch_pad_delay_l == touch_pad_delay_h) { 
+                ssSetRWorkValue(S, 5, touch_pad_delay_l);
+            } else {
+                ssSetRWorkValue(S, 5, touch_pad_delay_l + UNI*(touch_pad_delay_h-touch_pad_delay_l));
+            }
 
-            touch_pad_delay_l = param_touch_pad_delay_l;
-            touch_pad_delay_h = param_touch_pad_delay_h;
-
-            reach_time = param_reach_time;
-            target_hold_time = param_target_hold_time;
-            
-            abort_timeout   = param_intertrial;    
-            failure_timeout = param_intertrial;   
-            reward_timeout  = param_intertrial;
-            
-            catch_trials_pct = param_catch_trials_pct/100;
-
-            num_targets = param_num_targets;
-			idiot_mode = param_idiot_mode;
-			
             /* Only update these values if we've explicitly issued an update */
 //             if ( param_master_update > master_update ) {
 //                 master_update = param_master_update;
