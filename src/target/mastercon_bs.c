@@ -110,10 +110,10 @@ static real_T bump_magnitude;
 #define param_bump_duration mxGetScalar(ssGetSFcnParam(S,15))
 static real_T bump_duration;
 
-#define param_bump_steps ((int)(mxGetScalar(ssGetSFcnParam(S,16))))
+#define param_bump_steps ((int)(mxGetScalar(ssGetSFcnParam(S,16))) <= 7 ? (int)(mxGetScalar(ssGetSFcnParam(S,16))) : 7)
 static int bump_steps;
 
-#define param_stim_steps ((int)(mxGetScalar(ssGetSFcnParam(S,17))))
+#define param_stim_steps ((int)(mxGetScalar(ssGetSFcnParam(S,17))) <= 7 ? (int)(mxGetScalar(ssGetSFcnParam(S,17))) : 7)
 static int stim_steps;
 
 #define param_num_targets_per_angle ((int)(mxGetScalar(ssGetSFcnParam(S,18))))
@@ -440,10 +440,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             /* update parameters */
             if (bump_steps != param_bump_steps || stim_steps != param_stim_steps) {
-                bump_steps = (int)param_bump_steps;
-                bump_steps = ( bump_steps<=7 ? bump_steps : 7 ); /* limit bump_steps to 7 */
-                stim_steps = (int)param_stim_steps;
-                stim_steps = ( stim_steps<=7 ? stim_steps : 7 ); /* limit stim_steps to 7 */
+                bump_steps = param_bump_steps;
+                stim_steps = param_stim_steps;
                 reset_stim_block = 1;
                 reset_bump_block = 1;
             }
@@ -545,7 +543,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 }
 
 				for (i=bump_steps; i<bump_steps*2; i++) {
-                    tmp_trial[i] = (i+1) | 0x08; 
+                    tmp_trial[i] = (i-bump_steps+1) | 0x08; 
                     tmp_sort[i] = KISS;
                 }
                 
@@ -690,8 +688,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 state_changed();
             } else if (elapsed_timer_time > destination_hold) {
                 new_state = STATE_REWARD;
+#if 0
                 if (!ssGetIWorkValue(S, 2)) 
                     ssSetIWorkValue(S,1, ssGetIWorkValue(S,1)+1);
+#endif
                 reset_timer(); /* reward (inter-trial) timeout */
                 state_changed();
             }
@@ -733,6 +733,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
      * Cleanup *
      ***********/
     
+	KISS; /* burn a number off the LCG */
+
     /* write back new state */
     state_r[0] = new_state;
     
@@ -907,11 +909,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 71, ssGetIWorkValue(S, 71) + 1);
     
 #if 1
-    status[0] = state;
-    status[1] = theta; //ssGetIWorkValue(S, 68); /* num rewards     */
-    status[2] = (real_T)num_target_locations; //ssGetIWorkValue(S, 69); /* num aborts      */
-    status[3] = param_num_target_locations; //ssGetIWorkValue(S, 70); /* num fails       */
-    status[4] = req_target_angle; //ssGetIWorkValue(S, 71); /* num incompletes */
+    status[0] = ssGetIWorkValue(S,1);
+    status[1] = bump; //ssGetIWorkValue(S, 68); /* num rewards     */
+    status[2] = bump_mag; //ssGetIWorkValue(S, 69); /* num aborts      */
+    status[3] = bump_direction; //ssGetIWorkValue(S, 70); /* num fails       */
+    status[4] = ssGetIWorkValue(S, 5+ssGetIWorkValue(S,1)); //ssGetIWorkValue(S, 71); /* num incompletes */
 #else
     
     status[0] = state;
