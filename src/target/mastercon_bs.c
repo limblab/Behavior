@@ -544,8 +544,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     tmp_sort[i] = KISS;
                 }
 
-				for (i=bump_steps+1; i<bump_steps*2; i++) {
-                    tmp_trial[i] = i+1+0x08; 
+				for (i=bump_steps; i<bump_steps*2; i++) {
+                    tmp_trial[i] = (i+1) | 0x08; 
                     tmp_sort[i] = KISS;
                 }
                 
@@ -809,8 +809,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (ssGetIWorkValue(S,3) == 1) {
         bump = 1;
         bump_mag = ssGetIWorkValue(S, 5+ssGetIWorkValue(S,1));
-		bump_direction = ( 0x08 & bump_mag ? 1 : -1 );
-		bump_mag = bump_mag | 0x07;
+		bump_direction = ( 0x08 & bump_mag ? -1 : 1 );
+		bump_mag = bump_mag & 0x07;
     } else {
         bump = 0;
         bump_mag = 0;
@@ -877,8 +877,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         /* yes, so decrement the counter and maintain the bump */
         bump_duration_counter--;
         theta = PI/2 + target_angle;
-        force_x = force_in[0] + cos(theta)*(1+bump_mag)*bump_magnitude*bump_direction;
-        force_y = force_in[1] + sin(theta)*(1+bump_mag)*bump_magnitude*bump_direction;
+        force_x = force_in[0] + cos(theta)*bump_mag*bump_magnitude*bump_direction;
+        force_y = force_in[1] + sin(theta)*bump_mag*bump_magnitude*bump_direction;
     } else if ( bump_duration_counter == -1 && bump &&
                 state==STATE_MOVEMENT && 
                 ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= 0) ||
@@ -889,8 +889,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         bump_started = 1;
         bump_duration_counter = (int)bump_duration;
         theta = PI/2 + target_angle;
-        force_x = force_in[0] + cos(theta)*(1+bump_mag)*bump_magnitude*bump_direction;
-        force_y = force_in[1] + sin(theta)*(1+bump_mag)*bump_magnitude*bump_direction;
+        force_x = force_in[0] + cos(theta)*bump_mag*bump_magnitude*bump_direction;
+        force_y = force_in[1] + sin(theta)*bump_mag*bump_magnitude*bump_direction;
     } else {
         force_x = force_in[0]; 
         force_y = force_in[1];
@@ -906,21 +906,20 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_INCOMPLETE && new_state)
         ssSetIWorkValue(S, 71, ssGetIWorkValue(S, 71) + 1);
     
-#if 0
+#if 1
     status[0] = state;
     status[1] = theta; //ssGetIWorkValue(S, 68); /* num rewards     */
     status[2] = (real_T)num_target_locations; //ssGetIWorkValue(S, 69); /* num aborts      */
     status[3] = param_num_target_locations; //ssGetIWorkValue(S, 70); /* num fails       */
     status[4] = req_target_angle; //ssGetIWorkValue(S, 71); /* num incompletes */
-#endif
-
+#else
     
     status[0] = state;
     status[1] = ssGetIWorkValue(S, 68); /* num rewards     */
     status[2] = ssGetIWorkValue(S, 69); /* num aborts      */
     status[3] = ssGetIWorkValue(S, 70); /* num fails       */
     status[4] = ssGetIWorkValue(S, 71); /* num incompletes */
-    
+#endif
 
     /* word (2) */
     if (state == STATE_DATA_BLOCK) {
