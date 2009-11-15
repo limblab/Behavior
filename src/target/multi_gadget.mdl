@@ -1,12 +1,12 @@
 Model {
-  Name			  "multi_gadget"
-  Version		  7.0
+  Name			  "multi_gadget2"
+  Version		  6.6
   MdlSubVersion		  0
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.79"
+    ComputedModelVersion    "1.82"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -42,11 +42,10 @@ Model {
   Creator		  "Selket"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Christian"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Nov 02 21:32:31 2009"
-  RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:79>"
+  LastModifiedDate	  "Sun Nov 15 17:52:48 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:82>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -55,6 +54,7 @@ Model {
   AccelSystemTargetFile	  "accel.tlc"
   AccelTemplateMakefile	  "accel_default_tmf"
   AccelMakeCommand	  "make_rtw"
+  AccelVerboseBuild	  off
   TryForcingSFcnDF	  off
   RecordCoverage	  off
   CovPath		  "/"
@@ -89,6 +89,7 @@ Model {
   ExtModeLogAll		  on
   ExtModeAutoUpdateStatusClock on
   BufferReuse		  off
+  ProdHWDeviceType	  "32-bit Generic"
   ShowModelReferenceBlockVersion off
   ShowModelReferenceBlockIO off
   Array {
@@ -96,13 +97,13 @@ Model {
     Dimension		    1
     Simulink.ConfigSet {
       $ObjectID		      1
-      Version		      "1.3.0"
+      Version		      "1.2.0"
       Array {
 	Type			"Handle"
 	Dimension		7
 	Simulink.SolverCC {
 	  $ObjectID		  2
-	  Version		  "1.3.0"
+	  Version		  "1.2.0"
 	  StartTime		  "0.0"
 	  StopTime		  "Inf"
 	  AbsTol		  "auto"
@@ -131,7 +132,7 @@ Model {
 	}
 	Simulink.DataIOCC {
 	  $ObjectID		  3
-	  Version		  "1.3.0"
+	  Version		  "1.2.0"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
 	  FinalStateName	  "xFinal"
@@ -167,7 +168,7 @@ Model {
 	    Cell		    "NoFixptDivByZeroProtection"
 	    PropName		    "DisabledProps"
 	  }
-	  Version		  "1.3.0"
+	  Version		  "1.2.0"
 	  BlockReduction	  off
 	  BooleanDataType	  on
 	  ConditionallyExecuteInputs on
@@ -193,24 +194,19 @@ Model {
 	  OptimizeModelRefInitCode off
 	  LifeSpan		  "inf"
 	  BufferReusableBoundary  on
-	  SimCompilerOptimization "Off"
-	  AccelVerboseBuild	  off
 	}
 	Simulink.DebuggingCC {
 	  $ObjectID		  5
-	  Version		  "1.3.0"
+	  Version		  "1.2.0"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
 	  ArrayBoundsChecking	  "none"
 	  SignalInfNanChecking	  "none"
-	  SignalRangeChecking	  "none"
 	  ReadBeforeWriteMsg	  "UseLocalSettings"
 	  WriteAfterWriteMsg	  "UseLocalSettings"
 	  WriteAfterReadMsg	  "UseLocalSettings"
 	  AlgebraicLoopMsg	  "warning"
 	  ArtificialAlgebraicLoopMsg "warning"
-	  SaveWithDisabledLinksMsg "warning"
-	  SaveWithParameterizedLinksMsg	"none"
 	  CheckSSInitialOutputMsg on
 	  CheckExecutionContextPreStartOutputMsg off
 	  CheckExecutionContextRuntimeOutputMsg	off
@@ -262,11 +258,10 @@ Model {
 	  ModelReferenceExtraNoncontSigs "error"
 	  StateNameClashWarn	  "warning"
 	  StrictBusMsg		  "Warning"
-	  LoggingUnavailableSignals "error"
 	}
 	Simulink.HardwareCC {
 	  $ObjectID		  6
-	  Version		  "1.3.0"
+	  Version		  "1.2.0"
 	  ProdBitPerChar	  8
 	  ProdBitPerShort	  16
 	  ProdBitPerInt		  32
@@ -293,7 +288,7 @@ Model {
 	}
 	Simulink.ModelReferenceCC {
 	  $ObjectID		  7
-	  Version		  "1.3.0"
+	  Version		  "1.2.0"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
 	  CheckModelReferenceTargetMessage "error"
 	  ModelReferenceNumInstancesAllowed "Multi"
@@ -309,7 +304,7 @@ Model {
 	    Cell		    "IncludeHyperlinkInReport"
 	    PropName		    "DisabledProps"
 	  }
-	  Version		  "1.3.0"
+	  Version		  "1.2.0"
 	  SystemTargetFile	  "xpctarget.tlc"
 	  GenCodeOnly		  off
 	  MakeCommand		  "make_rtw"
@@ -333,8 +328,6 @@ Model {
 	  TargetLang		  "C"
 	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
 	  IncludeERTFirstTime	  off
-	  GenerateTraceInfo	  off
-	  RTWCompilerOptimization "Off"
 	  Array {
 	    Type		    "Handle"
 	    Dimension		    2
@@ -361,7 +354,7 @@ Model {
 		Cell			"CustomSymbolStrMacro"
 		PropName		"DisabledProps"
 	      }
-	      Version		      "1.3.0"
+	      Version		      "1.2.0"
 	      ForceParamTrailComments off
 	      GenerateComments	      on
 	      IgnoreCustomStorageClasses on
@@ -374,6 +367,7 @@ Model {
 	      SimulinkDataObjDesc     off
 	      SFDataObjDesc	      off
 	      IncDataTypeInIds	      off
+	      PrefixModelToSubsysFcnNames on
 	      MangleLength	      1
 	      CustomSymbolStrGlobalVar "$R$N$M"
 	      CustomSymbolStrType     "$N$R$M"
@@ -403,7 +397,8 @@ Model {
 		Cell			"ERTCustomFileBanners"
 		Cell			"GenerateSampleERTMain"
 		Cell			"GenerateTestInterfaces"
-		Cell			"ModelStepFunctionPrototypeControlCompliant"
+		Cell			"ModelStepFunctionPrototypeControlComp"
+"liant"
 		Cell			"MultiInstanceERTCode"
 		Cell			"PurelyIntegerCode"
 		Cell			"SupportNonFinite"
@@ -414,7 +409,7 @@ Model {
 		Cell			"PortableWordSizes"
 		PropName		"DisabledProps"
 	      }
-	      Version		      "1.3.0"
+	      Version		      "1.2.0"
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
 	      TargetLibSuffix	      ""
 	      TargetPreCompLibLocation ""
@@ -425,7 +420,6 @@ Model {
 	      GenerateTestInterfaces  off
 	      IsPILTarget	      off
 	      ModelReferenceCompliant on
-	      CompOptLevelCompliant   off
 	      IncludeMdlTerminateFcn  on
 	      CombineOutputUpdateFcns off
 	      SuppressErrorStatus     off
@@ -494,12 +488,22 @@ Model {
       DisplayTime	      off
     }
     Block {
+      BlockType		      Constant
+      Value		      "1"
+      VectorParams1D	      on
+      SamplingMode	      "Sample based"
+      OutDataTypeMode	      "Inherit from 'Constant value'"
+      OutDataType	      "sfix(16)"
+      ConRadixGroup	      "Use specified scaling"
+      OutScaling	      "2^0"
+      SampleTime	      "inf"
+      FramePeriod	      "inf"
+    }
+    Block {
       BlockType		      DataTypeConversion
-      OutMin		      "[]"
-      OutMax		      "[]"
       OutDataTypeMode	      "Inherit via back propagation"
-      OutDataType	      "fixdt(1,16,0)"
-      OutScaling	      "[]"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
       LockScale		      off
       ConvertRealWorld	      "Real World Value (RWV)"
       RndMeth		      "Zero"
@@ -526,17 +530,13 @@ Model {
       BlockType		      Gain
       Gain		      "1"
       Multiplication	      "Element-wise(K.*u)"
-      ParamMin		      "[]"
-      ParamMax		      "[]"
       ParameterDataTypeMode   "Same as input"
-      ParameterDataType	      "fixdt(1,16,0)"
+      ParameterDataType	      "sfix(16)"
       ParameterScalingMode    "Best Precision: Matrix-wise"
-      ParameterScaling	      "[]"
-      OutMin		      "[]"
-      OutMax		      "[]"
+      ParameterScaling	      "2^0"
       OutDataTypeMode	      "Same as input"
-      OutDataType	      "fixdt(1,16,0)"
-      OutScaling	      "[]"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
       LockScale		      off
       RndMeth		      "Floor"
       SaturateOnIntegerOverflow	on
@@ -550,11 +550,9 @@ Model {
       BusOutputAsStruct	      off
       PortDimensions	      "-1"
       SampleTime	      "-1"
-      OutMin		      "[]"
-      OutMax		      "[]"
       DataType		      "auto"
-      OutDataType	      "fixdt(1,16,0)"
-      OutScaling	      "[]"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
       SignalType	      "auto"
       SamplingMode	      "auto"
       LatchByDelayingOutsideSignal off
@@ -577,11 +575,9 @@ Model {
       BusOutputAsStruct	      off
       PortDimensions	      "-1"
       SampleTime	      "-1"
-      OutMin		      "[]"
-      OutMax		      "[]"
       DataType		      "auto"
-      OutDataType	      "fixdt(1,16,0)"
-      OutScaling	      "[]"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
       SignalType	      "auto"
       SamplingMode	      "auto"
       OutputWhenDisabled      "held"
@@ -593,6 +589,21 @@ Model {
       Deterministic	      on
       X0		      "0"
       OutPortSampleTime	      "-1"
+    }
+    Block {
+      BlockType		      RelationalOperator
+      Operator		      ">="
+      InputSameDT	      on
+      LogicOutDataTypeMode    "Logical (see Configuration Parameters: Optimiza"
+"tion)"
+      LogicDataType	      "uint(8)"
+      ZeroCross		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Reshape
+      OutputDimensionality    "1-D array"
+      OutputDimensions	      "[1,1]"
     }
     Block {
       BlockType		      "S-Function"
@@ -625,11 +636,9 @@ Model {
       CollapseMode	      "All dimensions"
       CollapseDim	      "1"
       InputSameDT	      on
-      OutMin		      "[]"
-      OutMax		      "[]"
       OutDataTypeMode	      "Same as first input"
-      OutDataType	      "fixdt(1,16,0)"
-      OutScaling	      "[]"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
       LockScale		      off
       RndMeth		      "Floor"
       SaturateOnIntegerOverflow	on
@@ -640,12 +649,7 @@ Model {
       Criteria		      "u2 >= Threshold"
       Threshold		      "0"
       InputSameDT	      on
-      OutMin		      "[]"
-      OutMax		      "[]"
       OutDataTypeMode	      "Inherit via internal rule"
-      OutDataType	      "fixdt(1,16,0)"
-      OutScaling	      "[]"
-      LockScale		      off
       RndMeth		      "Floor"
       SaturateOnIntegerOverflow	on
       ZeroCross		      on
@@ -653,14 +657,6 @@ Model {
     }
     Block {
       BlockType		      Terminator
-    }
-    Block {
-      BlockType		      UniformRandomNumber
-      Minimum		      "-1"
-      Maximum		      "1"
-      Seed		      "0"
-      SampleTime	      "-1"
-      VectorParams1D	      on
     }
     Block {
       BlockType		      TriggerPort
@@ -673,40 +669,20 @@ Model {
       ZeroCross		      on
     }
     Block {
+      BlockType		      UniformRandomNumber
+      Minimum		      "-1"
+      Maximum		      "1"
+      Seed		      "0"
+      SampleTime	      "-1"
+      VectorParams1D	      on
+    }
+    Block {
       BlockType		      WhileIterator
       MaxIters		      "5"
       WhileBlockType	      "while"
       ResetStates	      "held"
       ShowIterationPort	      off
       OutputDataType	      "int32"
-    }
-    Block {
-      BlockType		      Reshape
-      OutputDimensionality    "1-D array"
-      OutputDimensions	      "[1,1]"
-    }
-    Block {
-      BlockType		      Constant
-      Value		      "1"
-      VectorParams1D	      on
-      SamplingMode	      "Sample based"
-      OutMin		      "[]"
-      OutMax		      "[]"
-      OutDataTypeMode	      "Inherit from 'Constant value'"
-      OutDataType	      "fixdt(1,16,0)"
-      ConRadixGroup	      "Use specified scaling"
-      OutScaling	      "[]"
-      SampleTime	      "inf"
-      FramePeriod	      "inf"
-    }
-    Block {
-      BlockType		      RelationalOperator
-      Operator		      ">="
-      InputSameDT	      on
-      LogicOutDataTypeMode    "Logical (see Configuration Parameters: Optimization)"
-      LogicDataType	      "uint(8)"
-      ZeroCross		      on
-      SampleTime	      "-1"
     }
   }
   AnnotationDefaults {
@@ -728,8 +704,8 @@ Model {
     FontAngle		    "normal"
   }
   System {
-    Name		    "multi_gadget"
-    Location		    [128, 84, 1286, 821]
+    Name		    "multi_gadget2"
+    Location		    [31, 99, 1026, 744]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -751,7 +727,13 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_mg"
       Parameters	      "3 .25 .25 0.5 0.5 5 0.5 1 1 1 0 0 0 0 0 0 0"
-      MaskDisplay	      "disp('Master Control\\nMulti-Gadget')\nport_label('input',1,'touch pad')\nport_label('input',2,'cursor')\nport_label('input',3,'target list')\nport_label('output',1,'Reward')\nport_label('output',2,'Word')\nport_label('output',3,'TP LED')\nport_label('output',4,'Gadget LED')\nport_label('output',5,'Gadget Select')\nport_label('output',6,'Status')\nport_label('output',7,'Tone')\nport_label('output',8,'Targets')\nport_label('output',9,'MVC Target')\nport_label('output',10,'Version')"
+      MaskDisplay	      "disp('Master Control\\nMulti-Gadget')\nport_lab"
+"el('input',1,'touch pad')\nport_label('input',2,'cursor')\nport_label('input'"
+",3,'target list')\nport_label('output',1,'Reward')\nport_label('output',2,'Wo"
+"rd')\nport_label('output',3,'TP LED')\nport_label('output',4,'Gadget LED')\np"
+"ort_label('output',5,'Gadget Select')\nport_label('output',6,'Status')\nport_"
+"label('output',7,'Tone')\nport_label('output',8,'Targets')\nport_label('outpu"
+"t',9,'MVC Target')\nport_label('output',10,'Version')"
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
@@ -765,6 +747,7 @@ Model {
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
+      MaskHideContents	      off
       System {
 	Name			"CursorPos"
 	Location		[2, 82, 1278, 876]
@@ -788,7 +771,6 @@ Model {
 	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutDataType		  "sfix(16)"
 	  OutScaling		  "2^-10"
 	  SaturateOnIntegerOverflow off
 	}
@@ -801,7 +783,6 @@ Model {
 	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutDataType		  "sfix(16)"
 	  OutScaling		  "2^-10"
 	  SaturateOnIntegerOverflow off
 	}
@@ -829,11 +810,7 @@ Model {
 	  Position		  [295, 339, 345, 371]
 	  Gain			  "12"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
-	  ParameterDataType	  "sfix(16)"
-	  ParameterScaling	  "2^0"
 	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
@@ -842,11 +819,7 @@ Model {
 	  Position		  [295, 409, 345, 441]
 	  Gain			  "12"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
-	  ParameterDataType	  "sfix(16)"
-	  ParameterScaling	  "2^0"
 	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
@@ -903,8 +876,7 @@ Model {
 	  Name			  "Pos"
 	  Position		  [830, 388, 860, 402]
 	  IconDisplay		  "Port number"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
+	  BusOutputAsStruct	  off
 	}
 	Line {
 	  SrcBlock		  "PCI-6025E AD"
@@ -992,10 +964,11 @@ Model {
       BlockType		      SubSystem
       Name		      "DeviceOutput"
       Ports		      [3]
-      Position		      [860, 170, 960, 300]
+      Position		      [860, 175, 960, 305]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
+      MaskHideContents	      off
       System {
 	Name			"DeviceOutput"
 	Location		[73, 82, 1349, 796]
@@ -1016,8 +989,6 @@ Model {
 	  Name			  "TouchPadLED"
 	  Position		  [475, 308, 505, 322]
 	  IconDisplay		  "Port number"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Inport
@@ -1025,8 +996,6 @@ Model {
 	  Position		  [475, 253, 505, 267]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Inport
@@ -1034,8 +1003,6 @@ Model {
 	  Position		  [60, 248, 90, 262]
 	  Port			  "3"
 	  IconDisplay		  "Port number"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Reference
@@ -1161,7 +1128,7 @@ Model {
       BlockType		      Reference
       Name		      "MVC Target"
       Ports		      [1]
-      Position		      [915, 469, 985, 511]
+      Position		      [910, 469, 980, 511]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -1176,7 +1143,8 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "' Gadget 1: %6.4f, Gadget 2: %6.4f, Gadget 3: %6.4f, Gadget 4: %6.4f'"
+      formatstr		      "' Gadget 1: %6.4f, Gadget 2: %6.4f, Gadget 3: %"
+"6.4f, Gadget 4: %6.4f'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"
@@ -1218,6 +1186,7 @@ Model {
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
+      MaskHideContents	      off
       System {
 	Name			"RewardSbs"
 	Location		[14, 142, 886, 404]
@@ -1238,15 +1207,11 @@ Model {
 	  Name			  "Trig"
 	  Position		  [30, 38, 60, 52]
 	  IconDisplay		  "Port number"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  DataTypeConversion
 	  Name			  "Data Type Conversion"
 	  Position		  [685, 83, 760, 117]
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	  RndMeth		  "Floor"
 	  SaturateOnIntegerOverflow off
 	}
@@ -1255,8 +1220,6 @@ Model {
 	  Name			  "JackpotChance"
 	  Position		  [65, 175, 95, 205]
 	  Value			  "0"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  RelationalOperator
@@ -1264,23 +1227,19 @@ Model {
 	  Position		  [160, 137, 190, 168]
 	  Operator		  ">"
 	  InputSameDT		  off
-	  LogicOutDataTypeMode	  "boolean"
+	  LogicOutDataTypeMode	  "Boolean"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "RewardJackpot"
 	  Position		  [160, 205, 190, 235]
 	  Value			  "0.60"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "RewardTime"
 	  Position		  [160, 80, 190, 110]
 	  Value			  "0.30"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Reference
@@ -1309,6 +1268,7 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
+	  MaskHideContents	  off
 	  System {
 	    Name		    "Schmidt"
 	    Location		    [26, 85, 629, 391]
@@ -1329,8 +1289,6 @@ Model {
 	      Name		      "Trigger"
 	      Position		      [85, 58, 115, 72]
 	      IconDisplay	      "Port number"
-	      OutDataType	      "sfix(16)"
-	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Inport
@@ -1338,8 +1296,6 @@ Model {
 	      Position		      [85, 233, 115, 247]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
-	      OutDataType	      "sfix(16)"
-	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Clock
@@ -1353,7 +1309,7 @@ Model {
 	      Position		      [420, 167, 450, 198]
 	      Operator		      "<"
 	      InputSameDT	      off
-	      LogicOutDataTypeMode    "boolean"
+	      LogicOutDataTypeMode    "Boolean"
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -1385,8 +1341,6 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
-	      OutDataType	      "sfix(16)"
-	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -1394,8 +1348,7 @@ Model {
 	      Name		      "Output"
 	      Position		      [495, 178, 525, 192]
 	      IconDisplay	      "Port number"
-	      OutDataType	      "sfix(16)"
-	      OutScaling	      "2^0"
+	      BusOutputAsStruct	      off
 	    }
 	    Line {
 	      SrcBlock		      "Clock"
@@ -1468,8 +1421,7 @@ Model {
 	  Name			  "Out"
 	  Position		  [815, 93, 845, 107]
 	  IconDisplay		  "Port number"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
+	  BusOutputAsStruct	  off
 	}
 	Line {
 	  SrcBlock		  "Trig"
@@ -1565,7 +1517,8 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "'%6.0f State,%6.0f Rewards,%6.0f Aborts,%6.0f Failures'"
+      formatstr		      "'%6.0f State,%6.0f Rewards,%6.0f Aborts,%6.0f F"
+"ailures'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"
@@ -1623,13 +1576,16 @@ Model {
       Name		      "TargetTable"
       Ports		      [0, 1]
       Position		      [365, 457, 420, 513]
-      SourceBlock	      "simulink/Lookup\nTables/Direct Lookup\nTable (n-D)"
+      SourceBlock	      "simulink/Lookup\nTables/Direct Lookup\nTable (n"
+"-D)"
       SourceType	      "LookupNDDirect"
       maskTabDims	      "2"
       explicitNumDims	      "1"
       outDims		      "2-D Matrix"
       tabIsInput	      off
-      mxTable		      "[5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5;5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5;5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5;5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5;5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5]"
+      mxTable		      "[5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5;5 5 5 5 5 5 5 "
+"5 5 5 5 5 5 5 5 5;5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5;5 5 5 5 5 5 5 5 5 5 5 5 5 5"
+" 5 5;5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5]"
       clipFlag		      "Warning"
       samptime		      "-1"
     }
@@ -1641,6 +1597,7 @@ Model {
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
+      MaskHideContents	      off
       System {
 	Name			"UDPXmit"
 	Location		[328, 145, 1248, 693]
@@ -1661,8 +1618,6 @@ Model {
 	  Name			  "Pos"
 	  Position		  [340, 143, 370, 157]
 	  IconDisplay		  "Port number"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Inport
@@ -1670,8 +1625,6 @@ Model {
 	  Position		  [335, 623, 365, 637]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Inport
@@ -1679,8 +1632,6 @@ Model {
 	  Position		  [85, 383, 115, 397]
 	  Port			  "3"
 	  IconDisplay		  "Port number"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Demux
@@ -1719,7 +1670,9 @@ Model {
 	  Position		  [565, 96, 675, 684]
 	  SourceBlock		  "xpclib/UDP/Pack"
 	  SourceType		  "xpcany2byte"
-	  datatypes		  "{'double', 'double','double','double','double','double','double','double','double','double','double','double','double','double'}"
+	  datatypes		  "{'double', 'double','double','double','doub"
+"le','double','double','double','double','double','double','double','double','"
+"double'}"
 	  byteAlign		  "1"
 	}
 	Block {
@@ -1874,7 +1827,8 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "'%6.0f major,%6.0f minor,%6.0f revision,%6.0f build'"
+      formatstr		      "'%6.0f major,%6.0f minor,%6.0f revision,%6.0f b"
+"uild'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"
@@ -1899,10 +1853,11 @@ Model {
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
+      MaskHideContents	      off
       System {
 	Name			"WordSbs"
-	Location		[1797, 102, 2744, 896]
-	Open			on
+	Location		[38, 82, 985, 744]
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1919,8 +1874,6 @@ Model {
 	  Name			  "Reward"
 	  Position		  [105, 63, 135, 77]
 	  IconDisplay		  "Port number"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Inport
@@ -1928,8 +1881,6 @@ Model {
 	  Position		  [365, 488, 395, 502]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Inport
@@ -1937,8 +1888,6 @@ Model {
 	  Position		  [45, 243, 75, 257]
 	  Port			  "3"
 	  IconDisplay		  "Port number"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Sum
@@ -1948,7 +1897,6 @@ Model {
 	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutDataType		  "sfix(16)"
 	  OutScaling		  "2^-10"
 	  SaturateOnIntegerOverflow off
 	}
@@ -1960,7 +1908,6 @@ Model {
 	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutDataType		  "sfix(16)"
 	  OutScaling		  "2^-10"
 	  SaturateOnIntegerOverflow off
 	}
@@ -1969,16 +1916,12 @@ Model {
 	  Name			  "Constant"
 	  Position		  [370, 420, 400, 450]
 	  Value			  "0"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant2"
 	  Position		  [160, 344, 215, 376]
 	  Value			  "32768"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Demux
@@ -2071,6 +2014,7 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
+	  MaskHideContents	  off
 	  System {
 	    Name		    "While Iterator\nSubsystem"
 	    Location		    [-16, 91, 996, 753]
@@ -2091,8 +2035,6 @@ Model {
 	      Name		      "Start Time"
 	      Position		      [80, 348, 110, 362]
 	      IconDisplay	      "Port number"
-	      OutDataType	      "sfix(16)"
-	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Inport
@@ -2100,15 +2042,14 @@ Model {
 	      Position		      [80, 453, 110, 467]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
-	      OutDataType	      "sfix(16)"
-	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Reference
 	      Name		      "Compare\nTo Constant"
 	      Ports		      [1, 1]
 	      Position		      [410, 145, 440, 175]
-	      SourceBlock	      "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
+	      SourceBlock	      "simulink/Logic and Bit\nOperations/Comp"
+"are\nTo Constant"
 	      SourceType	      "Compare To Constant"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
@@ -2128,7 +2069,8 @@ Model {
 	      Name		      "Compare\nTo Constant1"
 	      Ports		      [1, 1]
 	      Position		      [415, 300, 445, 330]
-	      SourceBlock	      "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
+	      SourceBlock	      "simulink/Logic and Bit\nOperations/Comp"
+"are\nTo Constant"
 	      SourceType	      "Compare To Constant"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
@@ -2162,27 +2104,19 @@ Model {
 	      Position		      [300, 299, 355, 331]
 	      Gain		      ".838"
 	      ParameterDataTypeMode   "Inherit via internal rule"
-	      ParameterDataType	      "sfix(16)"
-	      ParameterScaling	      "2^0"
 	      OutDataTypeMode	      "Inherit via internal rule"
-	      OutDataType	      "sfix(16)"
-	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
 	      BlockType		      Constant
 	      Name		      "StobeHi"
 	      Position		      [500, 270, 530, 300]
-	      OutDataType	      "sfix(16)"
-	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Constant
 	      Name		      "StrobeLow"
 	      Position		      [500, 330, 530, 360]
 	      Value		      "0"
-	      OutDataType	      "sfix(16)"
-	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -2193,7 +2127,6 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
-	      OutDataType	      "sfix(16)"
 	      OutScaling	      "2^-10"
 	      SaturateOnIntegerOverflow	off
 	    }
@@ -2301,11 +2234,7 @@ Model {
 	  Position		  [105, 234, 150, 266]
 	  Gain			  "1000"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
-	  ParameterDataType	  "sfix(16)"
-	  ParameterScaling	  "2^0"
 	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutDataType		  "sfix(16)"
-	  OutScaling		  "2^0"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
@@ -2528,13 +2457,13 @@ Model {
     Line {
       SrcBlock		      "Behavior MG"
       SrcPort		      3
+      Points		      [30, 0]
       DstBlock		      "DeviceOutput"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Behavior MG"
       SrcPort		      4
-      Points		      [30, 0]
       DstBlock		      "DeviceOutput"
       DstPort		      2
     }

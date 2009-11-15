@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.3587.30408">
-  <ScreenWidth>50</ScreenWidth>
-  <VerticalDisplacement>-22</VerticalDisplacement>
+  <ScreenWidth>60</ScreenWidth>
+  <VerticalDisplacement>-15</VerticalDisplacement>
   <Cursor>5</Cursor>
   <SoundTheme>Theme1</SoundTheme>
   <CenterOutMode>None</CenterOutMode>
@@ -391,7 +391,7 @@
       </item>
       <item>
         <key>MGTargets</key>
-        <value>1</value>
+        <value>3</value>
       </item>
       <item>
         <key>MGTPL</key>
@@ -427,7 +427,7 @@
       </item>
       <item>
         <key>MG1</key>
-        <value>0</value>
+        <value>1</value>
       </item>
       <item>
         <key>MG2</key>
@@ -606,11 +606,11 @@
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
-      <y>0</y>
-      <h>0</h>
-      <w>0</w>
+      <y>30</y>
+      <h>10</h>
+      <w>10</w>
       <xVar>0</xVar>
-      <yVar>0</yVar>
+      <yVar>1</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>

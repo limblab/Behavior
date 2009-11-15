@@ -489,7 +489,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     reach_time = param_reach_time;
     target_hold_time = param_target_hold_time;
     abort_timeout   = param_intertrial;    
-    failure_timeout = param_intertrial;   
+    failure_timeout = param_intertrial;
+	reward_timeout = param_intertrial;
+
     catch_trials_pct = param_catch_trials_pct/100;
     num_targets = param_num_targets;
     idiot_mode = param_idiot_mode;
