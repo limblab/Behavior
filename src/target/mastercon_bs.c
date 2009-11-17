@@ -119,6 +119,10 @@ static int stim_steps;
 #define param_num_targets_per_angle ((int)(mxGetScalar(ssGetSFcnParam(S,18))))
 static int num_targets_per_angle;
 
+
+#define param_displacement_gain mxGetScalar(ssGetSFcnParam(S,21))
+static real_T displacement_gain;
+
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,19))
 
@@ -160,6 +164,7 @@ static void mdlCheckParameters(SimStruct *S)
     bump_duration = param_bump_duration;
     stim_trial_pct = param_stim_trial_pct;
     bump_trial_pct = param_bump_trial_pct;
+    displacement_gain = param_displacement_gain;
 
     req_target_angle = param_req_target_angle;
     num_targets_per_angle = param_num_targets_per_angle;
@@ -190,7 +195,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 21); 
+    ssSetNumSFcnParams(S, 22); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -245,10 +250,12 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 4);  /* 0: time of last timer reset 
+    ssSetNumRWork(S, 6);  /* 0: time of last timer reset 
                              1: tone counter (incremented each time a tone is played)
                              2: tone id
                              3: target angle
+                             4: fixed x position
+                             5: fixed y position
                            */
     ssSetNumPWork(S, 1);  /* 0: pointer to databurst array
                            */
@@ -306,6 +313,10 @@ static void mdlInitializeConditions(SimStruct *S)
     
     /* set the tone counter to zero */
     ssSetRWorkValue(S, 1, 0.0);
+    
+    /* give arbitrary value to fixed position */
+    ssSetRWorkValue(S, 4, 0.0);
+    ssSetRWorkValue(S, 5, 0.0);
         
     /* set trial counters to zero */
     for (i = 68; i<=72; i++)
@@ -783,6 +794,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int mask = 0;
     int bump_duration_counter;
     int bump, bump_mag, stim, stim_id, bump_direction;
+    real_T pos_x_fixed, pos_y_fixed;
     
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
@@ -863,6 +875,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     cursor[0] = *uPtrs[0];
     cursor[1] = *uPtrs[1];
     
+    pos_x_fixed = ssGetRWorkValue(S,4);
+    pos_y_fixed = ssGetRWorkValue(S,5);
+    
     /* input force */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
     force_in[0] = *uPtrs[0];
@@ -908,7 +923,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_INCOMPLETE && new_state)
         ssSetIWorkValue(S, 71, ssGetIWorkValue(S, 71) + 1);
     
-#if 1
+#if 0
     status[0] = ssGetIWorkValue(S,1);
     status[1] = bump; //ssGetIWorkValue(S, 68); /* num rewards     */
     status[2] = bump_mag; //ssGetIWorkValue(S, 69); /* num aborts      */
@@ -976,9 +991,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     if ( mask == 0 && state==STATE_MOVEMENT &&
-                 ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= 0) ||
-                  ( direction == 1 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] >= 0))
-                   ) {
+         ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= 0) ||
+          ( direction == 1 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] >= 0))
+           ) {
           ssSetIWorkValue(S, 73, 1);
           tone_cnt++;
           tone_id = TONE_MASK;
@@ -1043,10 +1058,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             tone_id = TONE_REWARD;
         }
     }
-    /*if (bump_started) {
-      tone_cnt++;
-      tone_id = TONE_MASK;
-    }*/
     
     /* version (6) */
     version[0] = BEHAVIOR_VERSION_MAJOR;
@@ -1055,16 +1066,28 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     version[3] = BEHAVIOR_VERSION_BUILD;
     
     /* pos (7) */
+    if (new_state & bump & ( STATE_ABORT | STATE_REWARD | STATE_FAIL)) {
+        pos_x_fixed = cursor[0] + cos( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;
+        pos_y_fixed = cursor[1] + sin( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;
+    } else {
+        pos_x_fixed = cursor[0];     
+        pos_y_fixed = cursor[1];
+    }
+    
     if (abs(cursor[0]*cos(target_angle) + cursor[1]*sin(target_angle)) < window_size && state == STATE_MOVEMENT) {
         /* we are inside blocking window => draw cursor off screen */
         pos_x = 1E6;
         pos_y = 1E6;
+    } else if ( state == STATE_ABORT | STATE_REWARD | STATE_FAIL) {
+        /* we finished the trial and hold the cursor at the goal target */
+        pos_x = pos_x_fixed;
+        pos_y = pos_y_fixed;
     } else {
         /* we are outside the blocking window */
         pos_x = cursor[0];
         pos_y = cursor[1];
     }
-
+    
     /**********************************
      * Write outputs back to SimStruct
      **********************************/
@@ -1102,6 +1125,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     pos_p = ssGetOutputPortRealSignal(S,7);
     pos_p[0] = pos_x;
     pos_p[1] = pos_y;
+    
+    ssSetRWorkValue(S,4,pos_x_fixed);
+    ssSetRWorkValue(S,4,pos_y_fixed);
     
     UNUSED_ARG(tid);
 }
