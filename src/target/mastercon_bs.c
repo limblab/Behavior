@@ -681,10 +681,17 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_MOVEMENT:
             /* movement phase (go tone on entry) */
-            if (cursorInTarget(cursor, target_destination)) {
-                new_state = STATE_DEST_HOLD;
-                reset_timer(); /* destination hold timer */
-                state_changed();
+            if ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= -target_radius) ||
+                  ( direction == 1 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] >= target_radius) ) {
+                   if (abs( cursor[0] * cos ( target_angle + PI/2 ) + cursor[1] * sin ( target_angle + PI/2 )) <=  target_size/2 ) {
+                       new_state = STATE_REWARD;
+                       reset_timer();
+                       state_changed();
+                   } else {
+                       new_state = STATE_FAIL;
+                       reset_timer();
+                       state_changed();
+                   }
             } else if (elapsed_timer_time > movement_time) {
                 new_state = STATE_FAIL;
                 reset_timer(); /* failure timeout */
@@ -1066,15 +1073,18 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     version[3] = BEHAVIOR_VERSION_BUILD;
     
     /* pos (7) */
-    if (new_state & bump & ( STATE_ABORT | STATE_REWARD | STATE_FAIL)) {
-        pos_x_fixed = cursor[0] + cos( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;
-        pos_y_fixed = cursor[1] + sin( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;
+    if (bump) {        
+        pos_x_fixed = target_radius*cos(target_angle + PI*direction) + sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])*cos(PI/2+target_angle-atan(cursor[1]/cursor[0]))*cos(PI/2+target_angle);
+        pos_y_fixed = target_radius*sin(target_angle + PI*direction) + sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])*cos(PI/2+target_angle-atan(cursor[1]/cursor[0]))*sin(PI/2+target_angle);
+       
+        pos_x_fixed = pos_x_fixed + cos( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;
+        pos_y_fixed = pos_y_fixed + sin( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;
     } else {
-        pos_x_fixed = cursor[0];     
-        pos_y_fixed = cursor[1];
+        pos_x_fixed = target_radius*cos(target_angle + PI*direction) + sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])*cos(PI/2+target_angle-atan(cursor[1]/cursor[0]))*cos(PI/2+target_angle);
+        pos_y_fixed = target_radius*sin(target_angle + PI*direction) + sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])*cos(PI/2+target_angle-atan(cursor[1]/cursor[0]))*sin(PI/2+target_angle);
     }
     
-    if (abs(cursor[0]*cos(target_angle) + cursor[1]*sin(target_angle)) < window_size && state == STATE_MOVEMENT) {
+    if ( state == STATE_MOVEMENT && abs(cursor[0]*cos(target_angle) + cursor[1]*sin(target_angle)) < window_size) {
         /* we are inside blocking window => draw cursor off screen */
         pos_x = 1E6;
         pos_y = 1E6;
@@ -1082,6 +1092,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         /* we finished the trial and hold the cursor at the goal target */
         pos_x = pos_x_fixed;
         pos_y = pos_y_fixed;
+    } else if ( state == STATE_MOVEMENT && bump &&
+        ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= 0) ||
+          ( direction == 1 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] >= 0))) {
+            pos_x = cursor[0] + cos( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;
+            pos_y = cursor[1] + sin( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;    
     } else {
         /* we are outside the blocking window */
         pos_x = cursor[0];
@@ -1127,7 +1142,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     pos_p[1] = pos_y;
     
     ssSetRWorkValue(S,4,pos_x_fixed);
-    ssSetRWorkValue(S,4,pos_y_fixed);
+    ssSetRWorkValue(S,5,pos_y_fixed);
     
     UNUSED_ARG(tid);
 }
