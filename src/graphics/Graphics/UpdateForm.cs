@@ -259,6 +259,7 @@ namespace BehaviorGraphics
             AddParamListItem("BS Bump Duration", "P16", "Behavior BS", this.textBoxBSBumpDur);
             AddParamListItem("BS Num Bump Steps", "P17", "Behavior BS", this.numericUpDownBSBumpSteps);
             AddParamListItem("BS Num Stim Steps", "P18", "Behavior BS", this.numericUpDownBSStimSteps);
+            AddParamListItem("BS Cur Displacement", "P22", "Behavior BS", this.textBoxBSCurDisp);
 
             // Bump-stim targets
             AddParamListItem("BS Target Angle", "P1", "Behavior BS", this.textBoxBSTgtAngle);
@@ -499,7 +500,7 @@ namespace BehaviorGraphics
             textBoxVisc.Enabled = ((load == "Viscous") || (load == "Curl") || (load == "Rotating Curl"));
 
             labelCurlAngle.Enabled = (load == "Curl");
-            textBoxCurlAngle.Enabled = (load == "Curl");
+            angleEntryBoxCurlAngleCatch.Enabled = (load == "Curl");
 
             labelStaticX.Enabled = load.Equals("Static");
             labelStaticY.Enabled = (load == "Static");
@@ -534,7 +535,7 @@ namespace BehaviorGraphics
             textBoxViscCatch.Enabled = ((catchLoad == "Viscous") || (catchLoad == "Curl") || (catchLoad == "Rotating Curl"));
 
             labelCurlAngleCatch.Enabled = (catchLoad == "Curl");
-            textBoxCurlAngleCatch.Enabled = (catchLoad == "Curl");
+            angleEntryBoxCurlAngleCatch.Enabled = (catchLoad == "Curl");
 
             labelStaticXCatch.Enabled = catchLoad.Equals("Static");
             labelStaticYCatch.Enabled = (catchLoad == "Static");
@@ -1085,7 +1086,7 @@ namespace BehaviorGraphics
                             rot_visc = 0;
                         }
                         try {
-                            visc_angle = Double.Parse(this.textBoxCurlAngle.Text);
+                            visc_angle = Double.Parse(this.angleEntryBoxCurlAngle.Text);
                         } catch (FormatException) {
                             visc_angle = 0.0;
                         }
@@ -1125,7 +1126,7 @@ namespace BehaviorGraphics
                             catch_rot_visc = 0;
                         }
                         try {
-                            catch_visc_angle = Double.Parse(this.textBoxCurlAngleCatch.Text);
+                            catch_visc_angle = Double.Parse(this.angleEntryBoxCurlAngleCatch.Text);
                         } catch (FormatException) {
                             catch_visc_angle = 0.0;
                         }

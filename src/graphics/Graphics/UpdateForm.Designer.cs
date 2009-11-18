@@ -50,6 +50,7 @@ namespace BehaviorGraphics
             this.label114 = new System.Windows.Forms.Label();
             this.checkBoxRecenter = new System.Windows.Forms.CheckBox();
             this.groupBox27 = new System.Windows.Forms.GroupBox();
+            this.angleEntryBoxCurlAngleCatch = new AngleBox.AngleEntryBox();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
             this.textBoxTimeConstCatch = new System.Windows.Forms.TextBox();
             this.labelChaoticGainCatch = new System.Windows.Forms.Label();
@@ -67,6 +68,7 @@ namespace BehaviorGraphics
             this.textBoxScreenWidth = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.angleEntryBoxCurlAngle = new AngleBox.AngleEntryBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.textBoxTimeConst = new System.Windows.Forms.TextBox();
             this.labelChaoticGain = new System.Windows.Forms.Label();
@@ -82,6 +84,7 @@ namespace BehaviorGraphics
             this.label19 = new System.Windows.Forms.Label();
             this.comboBoxLoad = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.angleEntryBoxCursorRotation = new AngleBox.AngleEntryBox();
             this.label17 = new System.Windows.Forms.Label();
             this.textBoxYOffset = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -199,6 +202,8 @@ namespace BehaviorGraphics
             this.label43 = new System.Windows.Forms.Label();
             this.tabPageBS = new System.Windows.Forms.TabPage();
             this.groupBox25 = new System.Windows.Forms.GroupBox();
+            this.label51 = new System.Windows.Forms.Label();
+            this.textBoxBSCurDisp = new System.Windows.Forms.TextBox();
             this.angleBox1 = new AngleBox.AngleEntryBox();
             this.label49 = new System.Windows.Forms.Label();
             this.numericUpDownBSStimSteps = new System.Windows.Forms.NumericUpDown();
@@ -408,9 +413,6 @@ namespace BehaviorGraphics
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.label144 = new System.Windows.Forms.Label();
             this.label145 = new System.Windows.Forms.Label();
-            this.angleEntryBoxCursorRotation = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxCurlAngle = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxCurlAngleCatch = new AngleBox.AngleEntryBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -690,6 +692,15 @@ namespace BehaviorGraphics
             this.groupBox27.TabStop = false;
             this.groupBox27.Text = "Catch Load";
             // 
+            // angleEntryBoxCurlAngleCatch
+            // 
+            this.angleEntryBoxCurlAngleCatch.Location = new System.Drawing.Point(106, 73);
+            this.angleEntryBoxCurlAngleCatch.Name = "angleEntryBoxCurlAngleCatch";
+            this.angleEntryBoxCurlAngleCatch.Size = new System.Drawing.Size(100, 21);
+            this.angleEntryBoxCurlAngleCatch.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngleCatch, "Angle relative to the direction of movement at which to apply coriolis forces.");
+            this.angleEntryBoxCurlAngleCatch.Value = 0;
+            // 
             // groupBox29
             // 
             this.groupBox29.Controls.Add(this.textBoxTimeConstCatch);
@@ -867,6 +878,15 @@ namespace BehaviorGraphics
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Load";
             // 
+            // angleEntryBoxCurlAngle
+            // 
+            this.angleEntryBoxCurlAngle.Location = new System.Drawing.Point(106, 73);
+            this.angleEntryBoxCurlAngle.Name = "angleEntryBoxCurlAngle";
+            this.angleEntryBoxCurlAngle.Size = new System.Drawing.Size(100, 21);
+            this.angleEntryBoxCurlAngle.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngle, "Angle relative to the direction of movement at which to apply coriolis forces.");
+            this.angleEntryBoxCurlAngle.Value = 0;
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.textBoxTimeConst);
@@ -1023,6 +1043,15 @@ namespace BehaviorGraphics
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Position Offsets";
+            // 
+            // angleEntryBoxCursorRotation
+            // 
+            this.angleEntryBoxCursorRotation.Location = new System.Drawing.Point(116, 108);
+            this.angleEntryBoxCursorRotation.Name = "angleEntryBoxCursorRotation";
+            this.angleEntryBoxCursorRotation.Size = new System.Drawing.Size(99, 21);
+            this.angleEntryBoxCursorRotation.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCursorRotation, "Rotation of workspace relative to handle.");
+            this.angleEntryBoxCursorRotation.Value = 0;
             // 
             // label17
             // 
@@ -2288,6 +2317,8 @@ namespace BehaviorGraphics
             // 
             // groupBox25
             // 
+            this.groupBox25.Controls.Add(this.label51);
+            this.groupBox25.Controls.Add(this.textBoxBSCurDisp);
             this.groupBox25.Controls.Add(this.angleBox1);
             this.groupBox25.Controls.Add(this.label49);
             this.groupBox25.Controls.Add(this.numericUpDownBSStimSteps);
@@ -2307,6 +2338,25 @@ namespace BehaviorGraphics
             this.groupBox25.TabIndex = 33;
             this.groupBox25.TabStop = false;
             this.groupBox25.Text = "Bumps";
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(9, 126);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(125, 13);
+            this.label51.TabIndex = 41;
+            this.label51.Text = "Cursor displacement gain";
+            this.toolTip1.SetToolTip(this.label51, "Percent of trials on which to give an intermediate \"test\" stimulus.");
+            // 
+            // textBoxBSCurDisp
+            // 
+            this.textBoxBSCurDisp.Location = new System.Drawing.Point(140, 119);
+            this.textBoxBSCurDisp.Name = "textBoxBSCurDisp";
+            this.textBoxBSCurDisp.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBSCurDisp.TabIndex = 40;
+            this.toolTip1.SetToolTip(this.textBoxBSCurDisp, "Cursor displacement gain (cm/bump step)");
+            this.textBoxBSCurDisp.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // angleBox1
             // 
@@ -2357,7 +2407,7 @@ namespace BehaviorGraphics
             // textBoxBSPctBumpTrials
             // 
             this.textBoxBSPctBumpTrials.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBoxBSPctBumpTrials.Location = new System.Drawing.Point(124, 45);
+            this.textBoxBSPctBumpTrials.Location = new System.Drawing.Point(140, 44);
             this.textBoxBSPctBumpTrials.Name = "textBoxBSPctBumpTrials";
             this.textBoxBSPctBumpTrials.Size = new System.Drawing.Size(100, 20);
             this.textBoxBSPctBumpTrials.TabIndex = 36;
@@ -2376,7 +2426,7 @@ namespace BehaviorGraphics
             // 
             // textBoxBSBumpDur
             // 
-            this.textBoxBSBumpDur.Location = new System.Drawing.Point(124, 97);
+            this.textBoxBSBumpDur.Location = new System.Drawing.Point(140, 93);
             this.textBoxBSBumpDur.Name = "textBoxBSBumpDur";
             this.textBoxBSBumpDur.Size = new System.Drawing.Size(100, 20);
             this.textBoxBSBumpDur.TabIndex = 33;
@@ -2395,7 +2445,7 @@ namespace BehaviorGraphics
             // 
             // textBoxBSBumpStepMag
             // 
-            this.textBoxBSBumpStepMag.Location = new System.Drawing.Point(124, 71);
+            this.textBoxBSBumpStepMag.Location = new System.Drawing.Point(140, 67);
             this.textBoxBSBumpStepMag.Name = "textBoxBSBumpStepMag";
             this.textBoxBSBumpStepMag.Size = new System.Drawing.Size(100, 20);
             this.textBoxBSBumpStepMag.TabIndex = 31;
@@ -2435,7 +2485,7 @@ namespace BehaviorGraphics
             // 
             // numericUpDownBSBumpSteps
             // 
-            this.numericUpDownBSBumpSteps.Location = new System.Drawing.Point(156, 19);
+            this.numericUpDownBSBumpSteps.Location = new System.Drawing.Point(172, 21);
             this.numericUpDownBSBumpSteps.Maximum = new decimal(new int[] {
             7,
             0,
@@ -2678,7 +2728,7 @@ namespace BehaviorGraphics
             this.textBoxBSWindowDiameter.Name = "textBoxBSWindowDiameter";
             this.textBoxBSWindowDiameter.Size = new System.Drawing.Size(100, 20);
             this.textBoxBSWindowDiameter.TabIndex = 23;
-            this.toolTip1.SetToolTip(this.textBoxBSWindowDiameter, "Diameter of circle in center of workspace in which the cursor is not displayed.");
+            this.toolTip1.SetToolTip(this.textBoxBSWindowDiameter, "Distance from the origin of workspace in which the cursor is not displayed.");
             this.textBoxBSWindowDiameter.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label91
@@ -2686,9 +2736,9 @@ namespace BehaviorGraphics
             this.label91.AutoSize = true;
             this.label91.Location = new System.Drawing.Point(190, 59);
             this.label91.Name = "label91";
-            this.label91.Size = new System.Drawing.Size(130, 13);
+            this.label91.Size = new System.Drawing.Size(118, 13);
             this.label91.TabIndex = 22;
-            this.label91.Text = "Blocking window diameter";
+            this.label91.Text = "Blocking window radius";
             // 
             // textBoxBSTgtAngle
             // 
@@ -4385,33 +4435,6 @@ namespace BehaviorGraphics
             this.label145.TabIndex = 37;
             this.label145.Text = "Num Targets";
             // 
-            // angleEntryBoxCursorRotation
-            // 
-            this.angleEntryBoxCursorRotation.Location = new System.Drawing.Point(116, 108);
-            this.angleEntryBoxCursorRotation.Name = "angleEntryBoxCursorRotation";
-            this.angleEntryBoxCursorRotation.Size = new System.Drawing.Size(99, 21);
-            this.angleEntryBoxCursorRotation.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCursorRotation, "Rotation of workspace relative to handle.");
-            this.angleEntryBoxCursorRotation.Value = 0;
-            // 
-            // angleEntryBoxCurlAngle
-            // 
-            this.angleEntryBoxCurlAngle.Location = new System.Drawing.Point(106, 73);
-            this.angleEntryBoxCurlAngle.Name = "angleEntryBoxCurlAngle";
-            this.angleEntryBoxCurlAngle.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngle.TabIndex = 26;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngle, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngle.Value = 0;
-            // 
-            // angleEntryBoxCurlAngleCatch
-            // 
-            this.angleEntryBoxCurlAngleCatch.Location = new System.Drawing.Point(106, 73);
-            this.angleEntryBoxCurlAngleCatch.Name = "angleEntryBoxCurlAngleCatch";
-            this.angleEntryBoxCurlAngleCatch.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngleCatch.TabIndex = 33;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngleCatch, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngleCatch.Value = 0;
-            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -4904,6 +4927,8 @@ namespace BehaviorGraphics
         private System.Windows.Forms.NumericUpDown numericUpDownBSStimSteps;
         private System.Windows.Forms.Label label50;
         private System.Windows.Forms.TextBox textBoxBSNumAngles;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.TextBox textBoxBSCurDisp;
         private AngleBox.AngleEntryBox angleBox1;
         private AngleBox.AngleEntryBox angleEntryBoxCursorRotation;
         private AngleBox.AngleEntryBox angleEntryBoxCurlAngleCatch;
