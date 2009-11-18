@@ -82,7 +82,7 @@ static real_T origin_delay_l = 0.0;
 static real_T origin_delay_h = 0.0;
 #define param_origin_delay_h mxGetScalar(ssGetSFcnParam(S,7))
 
-static real_T movement_time = 5.0;  /* movement time */
+static real_T movement_time = 1.0;  /* movement time */
 #define param_movement_time mxGetScalar(ssGetSFcnParam(S,8))
 
 static real_T destination_hold;      /* destination target hold time */
@@ -141,7 +141,6 @@ static int num_target_locations;
 #define STATE_ORIGIN_HOLD 2
 #define STATE_ORIGIN_DELAY 3
 #define STATE_MOVEMENT 4
-#define STATE_DEST_HOLD 5
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
@@ -360,6 +359,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     InputRealPtrsType uPtrs;
     real_T cursor[2];
     real_T elapsed_timer_time;
+    int bump, bump_mag, bump_direction;
     int reset_stim_block = 0;
     int reset_bump_block = 0;
     double tmp_rand_value;
@@ -469,6 +469,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             target_radius = param_target_radius;
             target_size = param_target_size;
             window_size = param_window_size;
+            displacement_gain = param_displacement_gain;
 
             origin_hold_l = param_origin_hold_l;
             origin_hold_h = param_origin_hold_h;
@@ -680,10 +681,20 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             break;
         case STATE_MOVEMENT:
+            /* get bump magnitude, direction */
+            if (ssGetIWorkValue(S,3) == 1) {
+                bump = 1;
+                bump_mag = ssGetIWorkValue(S, 5+ssGetIWorkValue(S,1));
+                bump_direction = ( 0x08 & bump_mag ? -1 : 1 );
+                bump_mag = bump_mag & 0x07;
+            } else {
+                bump = 0;
+                bump_mag = 0;
+            }
             /* movement phase (go tone on entry) */
             if ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= -target_radius) ||
-                  ( direction == 1 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] >= target_radius) ) {
-                   if (abs( cursor[0] * cos ( target_angle + PI/2 ) + cursor[1] * sin ( target_angle + PI/2 )) <=  target_size/2 ) {
+                  ( direction == 1 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] >= target_radius) ) {                       
+                   if (abs((cursor[0] + cos( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction*bump)*cos(target_angle + PI/2)*target_size/2 + (cursor[1]+sin( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction*bump)*sin(target_angle + PI/2 )*target_size/2) <=  target_size/2 ) {
                        new_state = STATE_REWARD;
                        reset_timer();
                        state_changed();
@@ -693,27 +704,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                        state_changed();
                    }
             } else if (elapsed_timer_time > movement_time) {
-                new_state = STATE_FAIL;
-                reset_timer(); /* failure timeout */
-                state_changed();
-            }
-            break;
-        case STATE_DEST_HOLD:
-            /* destination target hold phase */
-            if (!cursorInTarget(cursor, target_destination)) {
                 new_state = STATE_INCOMPLETE;
                 reset_timer(); /* failure timeout */
                 state_changed();
-            } else if (elapsed_timer_time > destination_hold) {
-                new_state = STATE_REWARD;
-#if 0
-                if (!ssGetIWorkValue(S, 2)) 
-                    ssSetIWorkValue(S,1, ssGetIWorkValue(S,1)+1);
-#endif
-                reset_timer(); /* reward (inter-trial) timeout */
-                state_changed();
             }
-            break;
+            break;        
         case STATE_ABORT:
             /* abort */
             if (elapsed_timer_time > abort_timeout) {
@@ -767,10 +762,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int i;
     int_T *IWorkVector; 
     real_T target_angle;
-    real_T target1[4];
-    real_T target2[4];
-    real_T *target_origin;
-    real_T *target_destination;
+    real_T target_origin[4];
+    real_T target_destination[4];
     real_T theta;
     
     int databurst_counter;
@@ -856,25 +849,31 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     } else {
       target_angle = ssGetRWorkValue(S, 3);
     }
-    
-    target1[0] = cos(target_angle)*target_radius-target_size/2;
-    target1[1] = sin(target_angle)*target_radius+target_size/2;
-    target1[2] = cos(target_angle)*target_radius+target_size/2;
-    target1[3] = sin(target_angle)*target_radius-target_size/2;
-    
-    target2[0] = cos(target_angle+PI)*target_radius-target_size/2;
-    target2[1] = sin(target_angle+PI)*target_radius+target_size/2;
-    target2[2] = cos(target_angle+PI)*target_radius+target_size/2;
-    target2[3] = sin(target_angle+PI)*target_radius-target_size/2;
-
+      
     if (direction == 0) {
         /* forward trial */
-        target_origin = target1;
-        target_destination = target2;
+        target_origin[0] = cos(target_angle)*target_radius-target_size/2;
+        target_origin[1] = sin(target_angle)*target_radius+target_size/2;
+        target_origin[2] = cos(target_angle)*target_radius+target_size/2;
+        target_origin[3] = sin(target_angle)*target_radius-target_size/2;
+        
+        target_destination[0] = cos(target_angle+PI)*target_radius-target_size*sin(target_angle+PI)/2;
+        target_destination[1] = sin(target_angle+PI)*target_radius+target_size*cos(target_angle+PI)/2;
+        target_destination[2] = cos(target_angle+PI)*target_radius+target_size*sin(target_angle+PI)/2;
+        target_destination[3] = sin(target_angle+PI)*target_radius-target_size*cos(target_angle+PI)/2;
+
     } else {
         /* reverse trial */
-        target_origin = target2;
-        target_destination = target1;
+        target_origin[0] = cos(target_angle+PI)*target_radius-target_size/2;
+        target_origin[1] = sin(target_angle+PI)*target_radius+target_size/2;
+        target_origin[2] = cos(target_angle+PI)*target_radius+target_size/2;
+        target_origin[3] = sin(target_angle+PI)*target_radius-target_size/2;
+
+        target_destination[0] = cos(target_angle)*target_radius-target_size*sin(target_angle)/2;
+        target_destination[1] = sin(target_angle)*target_radius+target_size*cos(target_angle)/2;
+        target_destination[2] = cos(target_angle)*target_radius+target_size*sin(target_angle)/2;
+        target_destination[3] = sin(target_angle)*target_radius-target_size*cos(target_angle)/2;
+
     }
     
     /* current cursor location */
@@ -1030,10 +1029,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	/* destination */
     if ( state == STATE_ORIGIN_DELAY ||
          state == STATE_MOVEMENT ||
-         state == STATE_DEST_HOLD )
+         state == STATE_REWARD ||
+         state == STATE_FAIL)
     {
         /* destination target on */
-        target_pos[5] = 1;
+        target_pos[5] = 4;
         for (i=0; i<4; i++) {
             target_pos[i+6] = target_destination[i];
         }
@@ -1054,7 +1054,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* tone (5) */
     if (new_state) {
-        if (state == STATE_ABORT) {
+        if (state == STATE_ABORT || state == STATE_FAIL) {
             tone_cnt++;
             tone_id = TONE_ABORT;
         } else if (state == STATE_MOVEMENT) {
@@ -1073,23 +1073,21 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     version[3] = BEHAVIOR_VERSION_BUILD;
     
     /* pos (7) */
-    if (bump) {        
-        pos_x_fixed = target_radius*cos(target_angle + PI*direction) + sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])*cos(PI/2+target_angle-atan(cursor[1]/cursor[0]))*cos(PI/2+target_angle);
-        pos_y_fixed = target_radius*sin(target_angle + PI*direction) + sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])*cos(PI/2+target_angle-atan(cursor[1]/cursor[0]))*sin(PI/2+target_angle);
-       
-        pos_x_fixed = pos_x_fixed + cos( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;
-        pos_y_fixed = pos_y_fixed + sin( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;
-    } else {
-        pos_x_fixed = target_radius*cos(target_angle + PI*direction) + sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])*cos(PI/2+target_angle-atan(cursor[1]/cursor[0]))*cos(PI/2+target_angle);
-        pos_y_fixed = target_radius*sin(target_angle + PI*direction) + sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])*cos(PI/2+target_angle-atan(cursor[1]/cursor[0]))*sin(PI/2+target_angle);
-    }
-    
     if ( state == STATE_MOVEMENT && abs(cursor[0]*cos(target_angle) + cursor[1]*sin(target_angle)) < window_size) {
         /* we are inside blocking window => draw cursor off screen */
         pos_x = 1E6;
         pos_y = 1E6;
-    } else if ( state == STATE_ABORT | STATE_REWARD | STATE_FAIL) {
+    } else if ( state == STATE_REWARD || state == STATE_FAIL) {
         /* we finished the trial and hold the cursor at the goal target */
+        if (new_state) {
+            if (bump) {
+                pos_x_fixed = cursor[0] + cos( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;
+                pos_y_fixed = cursor[1] + sin( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;
+            } else {
+                pos_x_fixed = cursor[0];
+                pos_y_fixed = cursor[1];
+            }
+        }
         pos_x = pos_x_fixed;
         pos_y = pos_y_fixed;
     } else if ( state == STATE_MOVEMENT && bump &&
