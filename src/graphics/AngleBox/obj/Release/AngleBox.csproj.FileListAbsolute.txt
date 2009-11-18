@@ -12,3 +12,10 @@ C:\Documents and Settings\Matthew Burns\Desktop\ricardo_graphics_tmp\src\graphic
 C:\Documents and Settings\Matthew Burns\Desktop\ricardo_graphics_tmp\src\graphics\AngleBox\obj\Release\AngleBox.csproj.GenerateResource.Cache
 C:\Documents and Settings\Matthew Burns\Desktop\ricardo_graphics_tmp\src\graphics\AngleBox\obj\Release\AngleBox.dll
 C:\Documents and Settings\Matthew Burns\Desktop\ricardo_graphics_tmp\src\graphics\AngleBox\obj\Release\AngleBox.pdb
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\Behavior\src\graphics\AngleBox\bin\Release\AngleBox.dll
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\Behavior\src\graphics\AngleBox\bin\Release\AngleBox.pdb
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\Behavior\src\graphics\AngleBox\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\Behavior\src\graphics\AngleBox\obj\Release\AngleBox.AngleEntryBox.resources
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\Behavior\src\graphics\AngleBox\obj\Release\AngleBox.csproj.GenerateResource.Cache
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\Behavior\src\graphics\AngleBox\obj\Release\AngleBox.dll
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\Behavior\src\graphics\AngleBox\obj\Release\AngleBox.pdb
