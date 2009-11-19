@@ -116,13 +116,13 @@ namespace BehaviorGraphics
                     /* Goal */
                     vertices = new CustomVertex.TransformedColored[4];
                     vertices[0].Position = new Vector4(ul.X + p.X, ul.Y + p.Y, 0f, 1f);
-                    vertices[0].Color = Color.White.ToArgb();
+                    vertices[0].Color = Color.Red.ToArgb();
                     vertices[1].Position = new Vector4(lr.X + p.X, lr.Y + p.Y, 0f, 1f);
-                    vertices[1].Color = Color.White.ToArgb();
+                    vertices[1].Color = Color.Red.ToArgb();
                     vertices[2].Position = new Vector4(lr.X, lr.Y, 0f, 1f);
-                    vertices[2].Color = Color.White.ToArgb();
+                    vertices[2].Color = Color.Red.ToArgb();
                     vertices[3].Position = new Vector4(ul.X, ul.Y, 0f, 1f);
-                    vertices[3].Color = Color.White.ToArgb();
+                    vertices[3].Color = Color.Red.ToArgb();
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
