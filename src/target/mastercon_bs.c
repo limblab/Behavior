@@ -360,6 +360,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T cursor[2];
     real_T elapsed_timer_time;
     int bump, bump_mag, bump_direction;
+    int stim, stim_mag, stim_direction;
+    real_T cursor_displacement_x, cursor_displacement_y;
     int reset_stim_block = 0;
     int reset_bump_block = 0;
     double tmp_rand_value;
@@ -682,19 +684,38 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_MOVEMENT:
             /* get bump magnitude, direction */
+            
+            cursor_displacement_x = 0;
+            cursor_displacement_y = 0;
             if (ssGetIWorkValue(S,3) == 1) {
                 bump = 1;
                 bump_mag = ssGetIWorkValue(S, 5+ssGetIWorkValue(S,1));
                 bump_direction = ( 0x08 & bump_mag ? -1 : 1 );
                 bump_mag = bump_mag & 0x07;
+                cursor_displacement_x = cos( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction;
+                cursor_displacement_y = sin( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction;
             } else {
                 bump = 0;
                 bump_mag = 0;
             }
+            
+            /* get stim magnitude, direction */
+            if (ssGetIWorkValue(S,4) == -1) {
+                stim = 1;
+                stim_mag = ssGetIWorkValue(S, 22+ssGetIWorkValue(S,2));
+                stim_direction = ( 0x08 & stim_mag ? -1 : 1 );
+                stim_mag = stim_mag & 0x07;
+                cursor_displacement_x = cos( PI/2 + target_angle )* displacement_gain * stim_mag * stim_direction;
+                cursor_displacement_y = sin( PI/2 + target_angle )* displacement_gain * stim_mag * stim_direction;
+            } else {
+                stim = 0;
+                stim_mag = 0;
+            }
+                          
             /* movement phase (go tone on entry) */
             if ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= -target_radius) ||
                   ( direction == 1 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] >= target_radius) ) {                       
-                   if (abs((cursor[0] + cos( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction*bump)*cos(target_angle + PI/2)*target_size/2 + (cursor[1]+sin( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction*bump)*sin(target_angle + PI/2 )*target_size/2) <=  target_size/2 ) {
+                   if (abs((cursor[0] + cursor_displacement_x)*cos(target_angle + PI/2)*target_size/2 + (cursor[1]+cursor_displacement_y)*sin(target_angle + PI/2 )*target_size/2) <=  target_size/2 ) {
                        new_state = STATE_REWARD;
                        reset_timer();
                        state_changed();
@@ -793,8 +814,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	int bump_started = 0;
     int mask = 0;
     int bump_duration_counter;
-    int bump, bump_mag, stim, stim_id, bump_direction;
+    int bump, bump_mag, bump_direction;
+    int stim, stim_id, stim_mag, stim_direction;
     real_T pos_x_fixed, pos_y_fixed;
+    real_T cursor_displacement_x, cursor_displacement_y;
     
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
@@ -811,12 +834,16 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     databurst = (byte *)ssGetPWorkValue(S, 0);
     
     /* get stim */
-    if (ssGetIWorkValue(S,4) == 1) {
+    if (ssGetIWorkValue(S,4) != 0) {
         stim = 1;
         stim_id = ssGetIWorkValue(S, 22+ssGetIWorkValue(S,2));
+        stim_mag = stim_id;
+		stim_direction = ( 0x08 & stim_mag ? -1 : 1 );
     } else {
         stim = 0;
         stim_id = 0;
+        stim_mag = 0;
+		stim_direction = 0;
     }
 
     /* get bump */
@@ -930,11 +957,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, 71, ssGetIWorkValue(S, 71) + 1);
     
 #if 0
-    status[0] = ssGetIWorkValue(S,1);
-    status[1] = bump; //ssGetIWorkValue(S, 68); /* num rewards     */
-    status[2] = bump_mag; //ssGetIWorkValue(S, 69); /* num aborts      */
-    status[3] = bump_direction; //ssGetIWorkValue(S, 70); /* num fails       */
-    status[4] = ssGetIWorkValue(S, 5+ssGetIWorkValue(S,1)); //ssGetIWorkValue(S, 71); /* num incompletes */
+    status[0] = ssGetIWorkValue(S,4);
+    status[1] = stim; //ssGetIWorkValue(S, 68); /* num rewards     */
+    status[2] = stim_mag; //ssGetIWorkValue(S, 69); /* num aborts      */
+    status[3] = stim_direction; //ssGetIWorkValue(S, 70); /* num fails       */
+    status[4] = ssGetIWorkValue(S, 22+ssGetIWorkValue(S,2)); //ssGetIWorkValue(S, 71); /* num incompletes */
 #else
     
     status[0] = state;
@@ -1072,6 +1099,17 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     version[2] = BEHAVIOR_VERSION_MICRO;
     version[3] = BEHAVIOR_VERSION_BUILD;
     
+    if (bump) {
+        cursor_displacement_x = cos( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction;
+        cursor_displacement_y = sin( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction;
+    } else if (stim != 0) { 
+        cursor_displacement_x = cos( PI/2 + target_angle )* displacement_gain * stim_mag * stim_direction;
+        cursor_displacement_y = sin( PI/2 + target_angle )* displacement_gain * stim_mag * stim_direction;
+    } else {
+        cursor_displacement_x = 0;
+        cursor_displacement_y = 0;
+    }
+            
     /* pos (7) */
     if ( state == STATE_MOVEMENT && abs(cursor[0]*cos(target_angle) + cursor[1]*sin(target_angle)) < window_size) {
         /* we are inside blocking window => draw cursor off screen */
@@ -1080,21 +1118,16 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     } else if ( state == STATE_REWARD || state == STATE_FAIL) {
         /* we finished the trial and hold the cursor at the goal target */
         if (new_state) {
-            if (bump) {
-                pos_x_fixed = cursor[0] + cos( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;
-                pos_y_fixed = cursor[1] + sin( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;
-            } else {
-                pos_x_fixed = cursor[0];
-                pos_y_fixed = cursor[1];
-            }
+            pos_x_fixed = cursor[0] + cursor_displacement_x;
+            pos_y_fixed = cursor[1] + cursor_displacement_y;
         }
         pos_x = pos_x_fixed;
         pos_y = pos_y_fixed;
-    } else if ( state == STATE_MOVEMENT && bump &&
+    } else if ( state == STATE_MOVEMENT &&
         ( ( direction == 0 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] <= 0) ||
           ( direction == 1 && cos( -target_angle )*cursor[0] - sin( -target_angle )*cursor[1] >= 0))) {
-            pos_x = cursor[0] + cos( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;
-            pos_y = cursor[1] + sin( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction ;    
+            pos_x = cursor[0] + cursor_displacement_x;
+            pos_y = cursor[1] + cursor_displacement_y;
     } else {
         /* we are outside the blocking window */
         pos_x = cursor[0];
