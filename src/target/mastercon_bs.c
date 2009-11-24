@@ -119,9 +119,11 @@ static int stim_steps;
 #define param_num_targets_per_angle ((int)(mxGetScalar(ssGetSFcnParam(S,18))))
 static int num_targets_per_angle;
 
+#define param_bump_displacement_gain mxGetScalar(ssGetSFcnParam(S,21))
+static real_T bump_displacement_gain;
 
-#define param_displacement_gain mxGetScalar(ssGetSFcnParam(S,21))
-static real_T displacement_gain;
+#define param_stim_displacement_gain mxGetScalar(ssGetSFcnParam(S,22))
+static real_T stim_displacement_gain;
 
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,19))
@@ -163,7 +165,8 @@ static void mdlCheckParameters(SimStruct *S)
     bump_duration = param_bump_duration;
     stim_trial_pct = param_stim_trial_pct;
     bump_trial_pct = param_bump_trial_pct;
-    displacement_gain = param_displacement_gain;
+    bump_displacement_gain = param_bump_displacement_gain;
+    stim_displacement_gain = param_stim_displacement_gain;
 
     req_target_angle = param_req_target_angle;
     num_targets_per_angle = param_num_targets_per_angle;
@@ -471,7 +474,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             target_radius = param_target_radius;
             target_size = param_target_size;
             window_size = param_window_size;
-            displacement_gain = param_displacement_gain;
+            bump_displacement_gain = param_bump_displacement_gain;
+            stim_displacement_gain = param_stim_displacement_gain;
 
             origin_hold_l = param_origin_hold_l;
             origin_hold_h = param_origin_hold_h;
@@ -692,8 +696,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 bump_mag = ssGetIWorkValue(S, 5+ssGetIWorkValue(S,1));
                 bump_direction = ( 0x08 & bump_mag ? -1 : 1 );
                 bump_mag = bump_mag & 0x07;
-                cursor_displacement_x = (cos( PI/2 + target_angle )* displacement_gain * (real_T)bump_mag * (real_T)bump_direction);
-                cursor_displacement_y = (sin( PI/2 + target_angle )* displacement_gain * (real_T)bump_mag * (real_T)bump_direction);
+                cursor_displacement_x = (cos( PI/2 + target_angle )* bump_displacement_gain * bump_mag * bump_direction);
+                cursor_displacement_y = (sin( PI/2 + target_angle )* bump_displacement_gain * bump_mag * bump_direction);
             } else {
                 bump = 0;
                 bump_mag = 0;
@@ -702,11 +706,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* get stim magnitude, direction */
             if (ssGetIWorkValue(S,4) == -1) {
                 stim = 1;
-                stim_mag = ssGetIWorkValue(S, 22+ssGetIWorkValue(S,2));
-                stim_direction = ( 0x08 & stim_mag ? -1 : 1 );
-                stim_mag = stim_mag & 0x07;
-                cursor_displacement_x = (cos( PI/2 + target_angle )* displacement_gain * (real_T)stim_mag * (real_T)stim_direction);
-                cursor_displacement_y = (sin( PI/2 + target_angle )* displacement_gain * (real_T)stim_mag * (real_T)stim_direction);
+                /* stim_mag = ssGetIWorkValue(S, 22+ssGetIWorkValue(S,2)); */
+                cursor_displacement_x = (cos( PI/2 + target_angle )* stim_displacement_gain;
+                cursor_displacement_y = (sin( PI/2 + target_angle )* stim_displacement_gain;
             } else {
                 stim = 0;
                 stim_mag = 0;
@@ -837,14 +839,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* get stim */
     if (ssGetIWorkValue(S,4) != 0) {
         stim = 1;
-        stim_id = ssGetIWorkValue(S, 22+ssGetIWorkValue(S,2));
-        stim_mag = stim_id;
-		stim_direction = ( 0x08 & stim_mag ? -1 : 1 );
+        stim_id = ssGetIWorkValue(S, 22+ssGetIWorkValue(S,2));        
     } else {
         stim = 0;
         stim_id = 0;
-        stim_mag = 0;
-		stim_direction = 0;
     }
 
     /* get bump */
@@ -1101,11 +1099,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     version[3] = BEHAVIOR_VERSION_BUILD;
     
     if (bump) {
-        cursor_displacement_x = cos( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction;
-        cursor_displacement_y = sin( PI/2 + target_angle )* displacement_gain * bump_mag * bump_direction;
+        cursor_displacement_x = cos( PI/2 + target_angle )* bump_displacement_gain * bump_mag * bump_direction;
+        cursor_displacement_y = sin( PI/2 + target_angle )* bump_displacement_gain * bump_mag * bump_direction;
     } else if (stim != 0) { 
-        cursor_displacement_x = cos( PI/2 + target_angle )* displacement_gain * stim_mag * stim_direction;
-        cursor_displacement_y = sin( PI/2 + target_angle )* displacement_gain * stim_mag * stim_direction;
+        cursor_displacement_x = cos( PI/2 + target_angle )* stim_displacement_gain;
+        cursor_displacement_y = sin( PI/2 + target_angle )* stim_displacement_gain;
     } else {
         cursor_displacement_x = 0.0;
         cursor_displacement_y = 0.0;
