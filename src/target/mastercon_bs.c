@@ -197,7 +197,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 22); 
+    ssSetNumSFcnParams(S, 23); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -837,9 +837,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     databurst = (byte *)ssGetPWorkValue(S, 0);
     
     /* get stim */
-    if (ssGetIWorkValue(S,4) != 0) {
+    if (ssGetIWorkValue(S,4) == 1) {
         stim = 1;
         stim_id = ssGetIWorkValue(S, 22+ssGetIWorkValue(S,2));        
+    } else if (ssGetIWorkValue(S,4) == -1) {
+        stim = -1;
+        stim_id = 0;
     } else {
         stim = 0;
         stim_id = 0;
