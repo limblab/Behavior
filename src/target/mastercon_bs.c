@@ -707,8 +707,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             if (ssGetIWorkValue(S,4) == -1) {
                 stim = 1;
                 /* stim_mag = ssGetIWorkValue(S, 22+ssGetIWorkValue(S,2)); */
-                cursor_displacement_x = (cos( PI/2 + target_angle )* stim_displacement_gain;
-                cursor_displacement_y = (sin( PI/2 + target_angle )* stim_displacement_gain;
+                cursor_displacement_x = cos( PI/2 + target_angle )* stim_displacement_gain;
+                cursor_displacement_y = sin( PI/2 + target_angle )* stim_displacement_gain;
             } else {
                 stim = 0;
                 stim_mag = 0;
@@ -1017,7 +1017,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		ssSetIWorkValue(S, 4, -1);
 	} else if (bump_started) {
         /* just started a bump */
-        word = WORD_BUMP(bump_mag);
+        word = WORD_BUMP(ssGetIWorkValue(S, 5+ssGetIWorkValue(S,1)));
     } else {
         word = 0;
     }
