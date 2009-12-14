@@ -203,8 +203,7 @@ namespace BehaviorGraphics
             this.tabPageBS = new System.Windows.Forms.TabPage();
             this.groupBox25 = new System.Windows.Forms.GroupBox();
             this.label51 = new System.Windows.Forms.Label();
-            this.textBoxBSCurDisp = new System.Windows.Forms.TextBox();
-            this.angleBox1 = new AngleBox.AngleEntryBox();
+            this.textBoxBSBumpDisp = new System.Windows.Forms.TextBox();
             this.label49 = new System.Windows.Forms.Label();
             this.numericUpDownBSStimSteps = new System.Windows.Forms.NumericUpDown();
             this.label48 = new System.Windows.Forms.Label();
@@ -413,6 +412,8 @@ namespace BehaviorGraphics
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.label144 = new System.Windows.Forms.Label();
             this.label145 = new System.Windows.Forms.Label();
+            this.label52 = new System.Windows.Forms.Label();
+            this.textBoxBSStimDisp = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -2317,9 +2318,10 @@ namespace BehaviorGraphics
             // 
             // groupBox25
             // 
+            this.groupBox25.Controls.Add(this.label52);
+            this.groupBox25.Controls.Add(this.textBoxBSStimDisp);
             this.groupBox25.Controls.Add(this.label51);
-            this.groupBox25.Controls.Add(this.textBoxBSCurDisp);
-            this.groupBox25.Controls.Add(this.angleBox1);
+            this.groupBox25.Controls.Add(this.textBoxBSBumpDisp);
             this.groupBox25.Controls.Add(this.label49);
             this.groupBox25.Controls.Add(this.numericUpDownBSStimSteps);
             this.groupBox25.Controls.Add(this.label48);
@@ -2344,32 +2346,24 @@ namespace BehaviorGraphics
             this.label51.AutoSize = true;
             this.label51.Location = new System.Drawing.Point(9, 126);
             this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(125, 13);
+            this.label51.Size = new System.Drawing.Size(122, 13);
             this.label51.TabIndex = 41;
-            this.label51.Text = "Cursor displacement gain";
-            this.toolTip1.SetToolTip(this.label51, "Percent of trials on which to give an intermediate \"test\" stimulus.");
+            this.label51.Text = "Bump displacement gain";
+            this.toolTip1.SetToolTip(this.label51, "Cursor displacement gain (cm/bump step)");
             // 
-            // textBoxBSCurDisp
+            // textBoxBSBumpDisp
             // 
-            this.textBoxBSCurDisp.Location = new System.Drawing.Point(140, 119);
-            this.textBoxBSCurDisp.Name = "textBoxBSCurDisp";
-            this.textBoxBSCurDisp.Size = new System.Drawing.Size(100, 20);
-            this.textBoxBSCurDisp.TabIndex = 40;
-            this.toolTip1.SetToolTip(this.textBoxBSCurDisp, "Cursor displacement gain (cm/bump step)");
-            this.textBoxBSCurDisp.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // angleBox1
-            // 
-            this.angleBox1.Location = new System.Drawing.Point(249, 71);
-            this.angleBox1.Name = "angleBox1";
-            this.angleBox1.Size = new System.Drawing.Size(129, 21);
-            this.angleBox1.TabIndex = 40;
-            this.angleBox1.Value = 0;
+            this.textBoxBSBumpDisp.Location = new System.Drawing.Point(144, 119);
+            this.textBoxBSBumpDisp.Name = "textBoxBSBumpDisp";
+            this.textBoxBSBumpDisp.Size = new System.Drawing.Size(68, 20);
+            this.textBoxBSBumpDisp.TabIndex = 40;
+            this.toolTip1.SetToolTip(this.textBoxBSBumpDisp, "Cursor displacement gain (cm/bump step)");
+            this.textBoxBSBumpDisp.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(246, 22);
+            this.label49.Location = new System.Drawing.Point(234, 28);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(82, 13);
             this.label49.TabIndex = 39;
@@ -2407,9 +2401,9 @@ namespace BehaviorGraphics
             // textBoxBSPctBumpTrials
             // 
             this.textBoxBSPctBumpTrials.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBoxBSPctBumpTrials.Location = new System.Drawing.Point(140, 44);
+            this.textBoxBSPctBumpTrials.Location = new System.Drawing.Point(144, 44);
             this.textBoxBSPctBumpTrials.Name = "textBoxBSPctBumpTrials";
-            this.textBoxBSPctBumpTrials.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBSPctBumpTrials.Size = new System.Drawing.Size(68, 20);
             this.textBoxBSPctBumpTrials.TabIndex = 36;
             this.toolTip1.SetToolTip(this.textBoxBSPctBumpTrials, "Percent of trials on which to deliver a stimulation rather than a bump.");
             this.textBoxBSPctBumpTrials.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -2426,9 +2420,9 @@ namespace BehaviorGraphics
             // 
             // textBoxBSBumpDur
             // 
-            this.textBoxBSBumpDur.Location = new System.Drawing.Point(140, 93);
+            this.textBoxBSBumpDur.Location = new System.Drawing.Point(144, 93);
             this.textBoxBSBumpDur.Name = "textBoxBSBumpDur";
-            this.textBoxBSBumpDur.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBSBumpDur.Size = new System.Drawing.Size(68, 20);
             this.textBoxBSBumpDur.TabIndex = 33;
             this.toolTip1.SetToolTip(this.textBoxBSBumpDur, "Durration of bump (ms)");
             this.textBoxBSBumpDur.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -2445,9 +2439,9 @@ namespace BehaviorGraphics
             // 
             // textBoxBSBumpStepMag
             // 
-            this.textBoxBSBumpStepMag.Location = new System.Drawing.Point(140, 67);
+            this.textBoxBSBumpStepMag.Location = new System.Drawing.Point(144, 67);
             this.textBoxBSBumpStepMag.Name = "textBoxBSBumpStepMag";
-            this.textBoxBSBumpStepMag.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBSBumpStepMag.Size = new System.Drawing.Size(68, 20);
             this.textBoxBSBumpStepMag.TabIndex = 31;
             this.toolTip1.SetToolTip(this.textBoxBSBumpStepMag, "The magnitude of the unit 1 bump.  All bump magnitudes are an integer multiple of" +
                     " this.");
@@ -2466,7 +2460,7 @@ namespace BehaviorGraphics
             // label101
             // 
             this.label101.AutoSize = true;
-            this.label101.Location = new System.Drawing.Point(246, 48);
+            this.label101.Location = new System.Drawing.Point(234, 47);
             this.label101.Name = "label101";
             this.label101.Size = new System.Drawing.Size(74, 13);
             this.label101.TabIndex = 28;
@@ -2475,9 +2469,9 @@ namespace BehaviorGraphics
             // 
             // textBoxBSPctStimTrials
             // 
-            this.textBoxBSPctStimTrials.Location = new System.Drawing.Point(326, 45);
+            this.textBoxBSPctStimTrials.Location = new System.Drawing.Point(358, 45);
             this.textBoxBSPctStimTrials.Name = "textBoxBSPctStimTrials";
-            this.textBoxBSPctStimTrials.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBSPctStimTrials.Size = new System.Drawing.Size(68, 20);
             this.textBoxBSPctStimTrials.TabIndex = 35;
             this.toolTip1.SetToolTip(this.textBoxBSPctStimTrials, "Percent of trials (0.0-1.0) on which to deliver a stimulation rather than a bump." +
                     "");
@@ -2485,7 +2479,7 @@ namespace BehaviorGraphics
             // 
             // numericUpDownBSBumpSteps
             // 
-            this.numericUpDownBSBumpSteps.Location = new System.Drawing.Point(172, 21);
+            this.numericUpDownBSBumpSteps.Location = new System.Drawing.Point(144, 21);
             this.numericUpDownBSBumpSteps.Maximum = new decimal(new int[] {
             7,
             0,
@@ -4435,6 +4429,24 @@ namespace BehaviorGraphics
             this.label145.TabIndex = 37;
             this.label145.Text = "Num Targets";
             // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(234, 126);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(124, 13);
+            this.label52.TabIndex = 43;
+            this.label52.Text = "Stim cursor displacement";
+            this.toolTip1.SetToolTip(this.label52, "Cursor displacement when stimulating (cm)");
+            // 
+            // textBoxBSStimDisp
+            // 
+            this.textBoxBSStimDisp.Location = new System.Drawing.Point(358, 119);
+            this.textBoxBSStimDisp.Name = "textBoxBSStimDisp";
+            this.textBoxBSStimDisp.Size = new System.Drawing.Size(68, 20);
+            this.textBoxBSStimDisp.TabIndex = 42;
+            this.toolTip1.SetToolTip(this.textBoxBSStimDisp, "Cursor displacement when stimulating (cm)");
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -4928,10 +4940,11 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label50;
         private System.Windows.Forms.TextBox textBoxBSNumAngles;
         private System.Windows.Forms.Label label51;
-        private System.Windows.Forms.TextBox textBoxBSCurDisp;
-        private AngleBox.AngleEntryBox angleBox1;
+        private System.Windows.Forms.TextBox textBoxBSBumpDisp;
         private AngleBox.AngleEntryBox angleEntryBoxCursorRotation;
         private AngleBox.AngleEntryBox angleEntryBoxCurlAngleCatch;
         private AngleBox.AngleEntryBox angleEntryBoxCurlAngle;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.TextBox textBoxBSStimDisp;
     }
 }

@@ -259,7 +259,8 @@ namespace BehaviorGraphics
             AddParamListItem("BS Bump Duration", "P16", "Behavior BS", this.textBoxBSBumpDur);
             AddParamListItem("BS Num Bump Steps", "P17", "Behavior BS", this.numericUpDownBSBumpSteps);
             AddParamListItem("BS Num Stim Steps", "P18", "Behavior BS", this.numericUpDownBSStimSteps);
-            AddParamListItem("BS Cur Displacement", "P22", "Behavior BS", this.textBoxBSCurDisp);
+            AddParamListItem("BS Bump Displacement", "P22", "Behavior BS", this.textBoxBSBumpDisp);
+            AddParamListItem("BS Stim Displacement", "P23", "Behavior BS", this.textBoxBSStimDisp);
 
             // Bump-stim targets
             AddParamListItem("BS Target Angle", "P1", "Behavior BS", this.textBoxBSTgtAngle);
