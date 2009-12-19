@@ -117,12 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="StimNo.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Angle.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <data name="label81.ToolTip" xml:space="preserve">
+    <value>Number of gradations of test stimulation.
+
+When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
+This setting determines the number of intensity levels between on and off.</value>
+  </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>236, 17</value>
   </metadata>
@@ -209,18 +209,9 @@ Set equal to Touch Pad High for non-random hold time.</value>
     <value>Lower bound on random touch pad hold time -- the amount of time the monkey must keep its hand on the touch pad before the gadget LED is illuminated.
 Set equal to Touch Pad High for non-random hold time.</value>
   </data>
-  <data name="label77.ToolTip" xml:space="preserve">
-    <value>Number of gradations of test stimulation.
-
-When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
-This setting determines the number of intensity levels between on and off.</value>
-  </data>
-  <data name="label81.ToolTip" xml:space="preserve">
-    <value>Number of gradations of test stimulation.
-
-When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
-This setting determines the number of intensity levels between on and off.</value>
-  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>236, 17</value>
+  </metadata>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

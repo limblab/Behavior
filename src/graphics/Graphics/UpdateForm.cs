@@ -367,6 +367,30 @@ namespace BehaviorGraphics
             AddParamListItem("WFNeuralControl", "Value", "CursorPos/NeuralControlPct", this.textBoxWFNC);
 
             #endregion
+            #region Bump-choice
+            /* 
+             * Bump-choice Parameters 
+             */
+            // Bump-choice targets
+            AddParamListItem("BC Target Radius", "P1", "Behavior BC", this.textBoxBCTgtRadius);
+            AddParamListItem("BC Target Size", "P2", "Behavior BC", this.textBoxBCTgtSize);
+            AddParamListItem("BC Window Diameter", "P3", "Behavior BC", this.textBoxBCWindowDiameter);
+
+            // Bump-choice bump
+            AddParamListItem("BC Num Bump Steps", "P4", "Behavior BC", this.numericUpDownBCBumpSteps);
+            AddParamListItem("BC Bump Magnitude Min", "P5", "Behavior BC", this.textBoxBCBumpMagMin);
+            AddParamListItem("BC Bump Magnitude Max", "P6", "Behavior BC", this.textBoxBCBumpMagMax);
+            AddParamListItem("BC Bump Duration", "P7", "Behavior BC", this.textBoxBCBumpDur);
+
+            // Bump-choice timing
+            AddParamListItem("BC OHL", "P8", "Behavior BC", this.textBoxBCOHL);
+            AddParamListItem("BC OHH", "P9", "Behavior BC", this.textBoxBCOHH);
+            AddParamListItem("BC M", "P10", "Behavior BC", this.textBoxBCM);
+            AddParamListItem("BC I", "P11", "Behavior BC", this.textBoxBCI);
+
+            // Training trials
+            AddParamListItem("BC Pct Training Trials", "P12", "Behavior BC", this.textBoxBCPctTraining);                                   
+            #endregion
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
@@ -1578,6 +1602,7 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
+
 
 
     }
