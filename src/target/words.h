@@ -23,7 +23,7 @@
 #define BEHAVIOR_VERSION_MAJOR 2
 #define BEHAVIOR_VERSION_MINOR 8
 #define BEHAVIOR_VERSION_MICRO 491
-#define BEHAVIOR_VERSION_BUILD 624
+#define BEHAVIOR_VERSION_BUILD 689
 
 
 
@@ -48,6 +48,8 @@
 #define WORD_TASK_CODE 0x08
 #elif TASK_BD
 #define WORD_TASK_CODE 0x09
+#elif TASK_BC
+#define WORD_TASK_CODE 0x0A
 #endif
 
 /* trial start */

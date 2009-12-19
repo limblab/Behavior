@@ -13,9 +13,10 @@
 
 #define TASK_BC 1
 #include "words.h"
+#include "random_macros.h"
 
 #define PI (3.141592654)
-
+#define ROUND2INT(val) ((int)((val) + 0.5))
 /* 
  * Current Databurst version: 1
  *
@@ -54,13 +55,13 @@ static real_T window_size = 5.0;   /* diameter of blocking circle */
 
 /* Bump parameters */
 #define param_bump_steps ((int)(mxGetScalar(ssGetSFcnParam(S,3))) <= 7 ? (int)(mxGetScalar(ssGetSFcnParam(S,3))) : 7)
-static int bump_steps = 1;
+static int bump_steps = 7;
 #define param_bump_magnitude_min mxGetScalar(ssGetSFcnParam(S,4))
-static real_T bump_magnitude_min = 0;
+static real_T bump_magnitude_min = 0.0;
 #define param_bump_magnitude_max mxGetScalar(ssGetSFcnParam(S,5))
-static real_T bump_magnitude_max = 0.1;
+static real_T bump_magnitude_max = 0.05;
 #define param_bump_duration mxGetScalar(ssGetSFcnParam(S,6))
-static real_T bump_duration = 0.125;
+static real_T bump_duration = 125;
 
 /* Timing parameters */
 static real_T center_hold;
@@ -68,7 +69,7 @@ static real_T center_hold_l = 0.5; /* shortest delay between entry of ct and bum
 #define param_center_hold_l mxGetScalar(ssGetSFcnParam(S,7))
 static real_T center_hold_h = 1.0; /* longest delay between entry of ct and bump/stim */ 
 #define param_center_hold_h mxGetScalar(ssGetSFcnParam(S,8))
-static real_T movement_time = 1.0;  /* movement time */
+static real_T movement_time = 10;  /* movement time */
 #define param_movement_time mxGetScalar(ssGetSFcnParam(S,9))
 #define param_intertrial mxGetScalar(ssGetSFcnParam(S,10)) /* time between trials*/
 static real_T abort_timeout   = 1.0;    /* delay after abort */
@@ -88,7 +89,7 @@ static real_T master_reset = 0.0;
  * State IDs
  */
 #define STATE_PRETRIAL 0
-#define STATE_CT_ON 1
+#define STATE_ORIGIN_ON 1
 #define STATE_CENTER_HOLD 2
 #define STATE_BUMP_STIM 3
 #define STATE_MOVEMENT 4
@@ -109,7 +110,7 @@ static void mdlCheckParameters(SimStruct *S)
     target_size = param_target_size;
     window_size = param_window_size;
     
-    bump_steps = param_bump_steps;
+    bump_steps = (int)param_bump_steps;
     bump_magnitude_min = param_bump_magnitude_min;
     bump_magnitude_max = param_bump_magnitude_max;
     bump_duration = param_bump_duration;
@@ -194,7 +195,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumPWork(S, 1);   /* 0: pointer to databurst array
                             */
     
-    ssSetNumIWork(S, 8);     /* 0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 9);     /* 0: state_transition (true if state changed), 
                                 1: successes
                                 2: failures
                                 3: aborts
@@ -274,8 +275,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int *IWorkVector; 
     
     real_T ct[4];
-    real_T rt1[4];     /* reward target UL and LR coordinates */
-    real_T ft2[4];     /* fail target UL and LR coordinates */
+    real_T rt[4];     /* reward target UL and LR coordinates */
+    real_T ft[4];     /* fail target UL and LR coordinates */
     
     InputRealPtrsType uPtrs;
     real_T cursor[2];
@@ -283,10 +284,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int reset_block = 0;
     
     /* get trial parameters */
-    real_T target_direction = ssGetRWorkValue(S,4);
-    int bump_step = ssGetIWorkValue(S,5);
-    int training_mode = ssGetIWorkValue(S,6);
-    
+    real_T bump_magnitude;
+    int bump_step;
+    int training_mode;
+    real_T target_direction;
+        
     /* databurst variables */
     byte* databurst;
     float* db_angle;
@@ -310,7 +312,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
     /* get IWorkVector */
     IWorkVector = ssGetIWork(S);
-        
+    bump_step = ssGetIWorkValue(S,5);
+    training_mode = ssGetIWorkValue(S,6);
+    target_direction = ssGetRWorkValue(S,4);
+    bump_magnitude = ssGetRWorkValue(S,5);
+            
     /* get elapsed time since last timer reset */
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
         
@@ -390,12 +396,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             /* give a random direction to next target */ 
             target_direction = 2*PI*UNI;
+            ssSetRWorkValue(S,4,target_direction);
                        
             /* get a random bump step */
-            bump_step = (int)(round(UNI*bump_steps));
+            bump_step = ROUND2INT(UNI*bump_steps);
             ssSetIWorkValue(S,5,bump_step);
             
-            bump_magnitude = bump_magnitude_min + float(bump_step)*(bump_magnitude_max-bump_magnitude_min)/(float)bump_steps;
+            bump_magnitude = bump_magnitude_min + ((float)bump_step)*(bump_magnitude_max-bump_magnitude_min)/((float)bump_steps);
             ssSetRWorkValue(S,5,bump_magnitude);
             
             /* In all cases, we need to decide on the random timer durations */
@@ -406,7 +413,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	        }
 	                        
 	        /* and advance */
-	        new_state = STATE_CT_ON;
+	        new_state = STATE_ORIGIN_ON;
 	        state_changed();
             break;
         case STATE_DATA_BLOCK:            
@@ -417,13 +424,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }                        
             databurst[0] = (byte)11;
             databurst[1] = DATABURST_VERSION;
-            db_training = training_mode;
-            db_angle = target_direction;
-            db_bump_mag = bump_magnitude;
+            db_training[0] = (byte)training_mode;
+            db_angle[0] = (float)target_direction;
+            db_bump_mag[0] = (float)bump_magnitude;
             
             ssSetIWorkValue(S, 7, databurst_counter);
             break;
-        case STATE_CT_ON:
+        case STATE_ORIGIN_ON:
             /* center target on */
             if (cursorInTarget(cursor, ct)) {
                 new_state = STATE_CENTER_HOLD;
@@ -438,7 +445,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 reset_timer(); /* abort timeout */
                 state_changed();
             } else if (elapsed_timer_time > center_hold) {
-                new_state = STATE_BUMPSTIM;
+                new_state = STATE_BUMP_STIM;
                 reset_timer(); /* delay timer */
                 state_changed();
             } 
@@ -453,7 +460,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_FAIL;
                 reset_timer(); /* abort timeout */
                 state_changed();
-            } else if (elapsed_timer_time > abort_timeout) {
+            } else if (elapsed_timer_time > bump_duration) {
                 new_state = STATE_MOVEMENT;
                 reset_timer(); /* movement timer */
                 state_changed();
@@ -471,7 +478,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 reset_timer(); /* incomplete timeout */
                 state_changed();
 				
-			} else if (elapsed_timer_time > movement) {
+			} else if (elapsed_timer_time > movement_time) {
 				new_state = STATE_INCOMPLETE;
                 reset_timer(); /* incomplete timeout */
                 state_changed();
@@ -537,6 +544,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T ft[4];     /* right outer target UL and LR coordinates */
     real_T rt_type;   /* type of left outer target 0=invisible 1=red square 2=lightning bolt (?) */
     real_T ft_type;   /* type of right outer target 0=invisible 1=red square 2=lightning bolt (?) */
+    real_T target_direction;
+    
+    /* get trial type */
+    int training_mode;
+    int bump_duration_counter;
+    real_T bump_magnitude;
+    int bump_step;
     
     int databurst_counter;
     byte* databurst;
@@ -568,15 +582,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     ssSetIWorkValue(S, 0, 0); /* reset changed state each iteration */
 
     /* current trial type */
-    IWorkVector = ssGetIWork(S);
-    int training_mode = ssGetIWorkValue(S,6);
-   
-    /* target direction */
-    real_T target_direction = ssGetRWorkValue(S,4);
-    
+    target_direction = ssGetRWorkValue(S,4);
+    training_mode = ssGetIWorkValue(S,6);
+            
     /* bump parameters */
-    real_T bump_magnitude = ssGetRWorkValue(S,5);
-    int bump_duration_counter = ssGetIWorkValue(S, 8);
+    bump_magnitude = ssGetRWorkValue(S,5);
+    bump_duration_counter = ssGetIWorkValue(S, 8);
+    bump_step = ssGetIWorkValue(S, 5);
    
     /* get current tone counter */
     tone_cnt = ssGetRWorkValue(S, 1);
@@ -621,14 +633,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (bump_duration_counter > 0) {
         /* yes, so decrement the counter and maintain the bump */
         bump_duration_counter--;
-        force_x = force_in[0] + cos(target_angle)*bump_magnitude;
-        force_y = force_in[1] + sin(target_angle)*bump_magnitude;
+        force_x = force_in[0] + cos(target_direction)*bump_magnitude;
+        force_y = force_in[1] + sin(target_direction)*bump_magnitude;
     } else if ( state == STATE_BUMP_STIM && new_state ) 
     {
         /* initiating a new bump */
         bump_duration_counter = (int)bump_duration;
-        force_x = force_in[0] + cos(target_angle)*bump_magnitude;
-        force_y = force_in[1] + sin(target_angle)*bump_magnitude;
+        force_x = force_in[0] + cos(target_direction)*bump_magnitude;
+        force_y = force_in[1] + sin(target_direction)*bump_magnitude;
     } else {
         force_x = force_in[0]; 
         force_y = force_in[1];
@@ -656,7 +668,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
                 break;
-            case STATE_CT_ON:
+            case STATE_ORIGIN_ON:
                 word = WORD_CT_ON;
                 break;
             case STATE_BUMP_STIM:
@@ -689,7 +701,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     for (i = 0; i<10; i++)
         target_pos[i] = 0;
     
-    if ( state == STATE_CT_ON || 
+    if ( state == STATE_ORIGIN_ON || 
          state == STATE_CENTER_HOLD)
     {
         /* center target on */
@@ -724,9 +736,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         if (state == STATE_ABORT || state == STATE_FAIL) {
             tone_cnt++;
             tone_id = TONE_ABORT;
-        } else if (state == STATE_MOVEMENT) {
+        } else if (state == STATE_BUMP_STIM) {
             tone_cnt++;
-            tone_id = TONE_GO;
+            tone_id = TONE_GO; 
         } else if (state == STATE_REWARD) {
             tone_cnt++;
             tone_id = TONE_REWARD;
@@ -740,7 +752,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     version[3] = BEHAVIOR_VERSION_BUILD;
 
     /* pos (7) */
-    if ( state == STATE_MOVEMENT && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) < window_size) {
+    if ( (state == STATE_BUMP_STIM || state == STATE_MOVEMENT) && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) < window_size) {
         /* we are inside blocking window => draw cursor off screen */
         pos_x = 1E6;
         pos_y = 1E6;
@@ -778,7 +790,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_p[1] = tone_id;
     ssSetRWorkValue(S, 1, tone_cnt);
     ssSetRWorkValue(S, 2, tone_id);
-
+    
     version_p = ssGetOutputPortRealSignal(S,6);
     for (i=0; i<4; i++) {
         version_p[i] = version[i];
