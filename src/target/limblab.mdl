@@ -34,8 +34,8 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Dec 29 14:18:57 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:19>"
+  LastModifiedDate	  "Tue Dec 29 16:30:50 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:40>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -270,7 +270,7 @@ Library {
   }
   System {
     Name		    "limblab"
-    Location		    [396, 263, 1057, 808]
+    Location		    [131, 101, 792, 646]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1369,6 +1369,196 @@ Library {
       }
     }
     Block {
+      BlockType		      SubSystem
+      Name		      "SendPacketToGraphics"
+      Ports		      [4]
+      Position		      [495, 148, 585, 247]
+      Permissions	      "NoReadOrWrite"
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"SendPacketToGraphics"
+	Location		[45, 82, 672, 531]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "Tone"
+	  Position		  [100, 163, 130, 177]
+	  IconDisplay		  "Port number"
+	  PortDimensions	  "[2]"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Position"
+	  Position		  [100, 253, 130, 267]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  PortDimensions	  "[2]"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "TargetCount"
+	  Position		  [100, 318, 130, 332]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  PortDimensions	  "[1]"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "TargetList"
+	  Position		  [100, 363, 130, 377]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  Ports			  [1, 2]
+	  Position		  [185, 124, 190, 211]
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux1"
+	  Ports			  [1, 2]
+	  Position		  [185, 214, 190, 301]
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "NaN upper bytes"
+	  Position		  [60, 87, 165, 113]
+	  Value			  "hex2dec('fff80000')"
+	  OutDataTypeMode	  "uint32"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Pack"
+	  Ports			  [8, 1]
+	  Position		  [245, 24, 350, 401]
+	  SourceBlock		  "xpclib/UDP/Pack"
+	  SourceType		  "xpcany2byte"
+	  datatypes		  "{'uint32','uint32', 'double','double','doub"
+"le','double','double','double'}"
+	  byteAlign		  "1"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Packet Spec"
+	  Position		  [105, 40, 135, 70]
+	  OutDataTypeMode	  "uint32"
+	}
+	Block {
+	  BlockType		  RateTransition
+	  Name			  "Rate Transition"
+	  Position		  [410, 194, 465, 236]
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Send"
+	  Ports			  [1]
+	  Position		  [510, 190, 590, 240]
+	  SourceBlock		  "xpclib/UDP/Send"
+	  SourceType		  "xpcudpbytesend"
+	  ipAddress		  "192.168.0.2"
+	  ipPort		  "25000"
+	  localPort		  "-1"
+	  sampletime		  ".02"
+	}
+	Line {
+	  SrcBlock		  "Rate Transition"
+	  SrcPort		  1
+	  DstBlock		  "Send"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Pack"
+	  SrcPort		  1
+	  DstBlock		  "Rate Transition"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Tone"
+	  SrcPort		  1
+	  DstBlock		  "Demux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Position"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  DstBlock		  "Pack"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  DstBlock		  "Pack"
+	  DstPort		  6
+	}
+	Line {
+	  SrcBlock		  "TargetCount"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  7
+	}
+	Line {
+	  SrcBlock		  "TargetList"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  8
+	}
+	Line {
+	  SrcBlock		  "NaN upper bytes"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Packet Spec"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
       BlockType		      "S-Function"
       Name		      "SerialConverter"
       Ports		      [3, 1]
@@ -1741,185 +1931,6 @@ Library {
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
       MaskIconUnits	      "autoscale"
-    }
-    Block {
-      BlockType		      SubSystem
-      Name		      "UDPXmit"
-      Ports		      [4]
-      Position		      [505, 148, 595, 247]
-      MinAlgLoopOccurrences   off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      MaskHideContents	      off
-      MaskDisplay	      "port_label('input', 1, 'Tone')\nport_label('inp"
-"ut', 2, 'Position')\nport_label('input', 3, 'TargetCount')\nport_label('input"
-"', 4, 'TargetList')"
-      MaskIconFrame	      on
-      MaskIconOpaque	      on
-      MaskIconRotate	      "none"
-      MaskIconUnits	      "autoscale"
-      System {
-	Name			"UDPXmit"
-	Location		[2, 82, 1270, 876]
-	Open			off
-	ModelBrowserVisibility	off
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Inport
-	  Name			  "Tone"
-	  Position		  [395, 303, 425, 317]
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "Position"
-	  Position		  [395, 413, 425, 427]
-	  Port			  "2"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "TargetCount"
-	  Position		  [395, 493, 425, 507]
-	  Port			  "3"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "TargetList"
-	  Position		  [395, 548, 425, 562]
-	  Port			  "4"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Demux
-	  Name			  "Demux"
-	  Ports			  [1, 2]
-	  Position		  [500, 253, 505, 362]
-	  BackgroundColor	  "black"
-	  ShowName		  off
-	  Outputs		  "2"
-	  DisplayOption		  "bar"
-	}
-	Block {
-	  BlockType		  Demux
-	  Name			  "Demux1"
-	  Ports			  [1, 2]
-	  Position		  [465, 363, 470, 472]
-	  BackgroundColor	  "black"
-	  ShowName		  off
-	  Outputs		  "2"
-	  DisplayOption		  "bar"
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Pack"
-	  Ports			  [7, 1]
-	  Position		  [560, 202, 665, 578]
-	  SourceBlock		  "xpclib/UDP/Pack"
-	  SourceType		  "xpcany2byte"
-	  datatypes		  "{'double', 'double','double','double','doub"
-"le','double','double'}"
-	  byteAlign		  "1"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Packet Spec"
-	  Position		  [395, 210, 425, 240]
-	}
-	Block {
-	  BlockType		  RateTransition
-	  Name			  "Rate Transition"
-	  Position		  [725, 369, 780, 411]
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Send"
-	  Ports			  [1]
-	  Position		  [825, 365, 905, 415]
-	  SourceBlock		  "xpclib/UDP/Send"
-	  SourceType		  "xpcudpbytesend"
-	  ipAddress		  "192.168.0.2"
-	  ipPort		  "25000"
-	  localPort		  "-1"
-	  sampletime		  ".02"
-	}
-	Line {
-	  SrcBlock		  "Rate Transition"
-	  SrcPort		  1
-	  DstBlock		  "Send"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Pack"
-	  SrcPort		  1
-	  DstBlock		  "Rate Transition"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Packet Spec"
-	  SrcPort		  1
-	  DstBlock		  "Pack"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  1
-	  DstBlock		  "Pack"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  2
-	  DstBlock		  "Pack"
-	  DstPort		  3
-	}
-	Line {
-	  SrcBlock		  "Tone"
-	  SrcPort		  1
-	  DstBlock		  "Demux"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Demux1"
-	  SrcPort		  1
-	  DstBlock		  "Pack"
-	  DstPort		  4
-	}
-	Line {
-	  SrcBlock		  "Demux1"
-	  SrcPort		  2
-	  DstBlock		  "Pack"
-	  DstPort		  5
-	}
-	Line {
-	  SrcBlock		  "Position"
-	  SrcPort		  1
-	  DstBlock		  "Demux1"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "TargetCount"
-	  SrcPort		  1
-	  DstBlock		  "Pack"
-	  DstPort		  6
-	}
-	Line {
-	  SrcBlock		  "TargetList"
-	  SrcPort		  1
-	  DstBlock		  "Pack"
-	  DstPort		  7
-	}
-      }
     }
   }
 }
