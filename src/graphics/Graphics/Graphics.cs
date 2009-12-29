@@ -248,19 +248,54 @@ namespace BehaviorGraphics
 
             try {
                 int recv = server.ReceiveFrom(data, ref remote);
-                x = BitConverter.ToDouble(data, 0);
-                y = BitConverter.ToDouble(data, 8);
+                /* Determine which transmission protocol is in use */
+                int packet_spec = -1;
+                if (!Double.IsNaN(BitConverter.ToDouble(data, 0))) {
+                    /* This is the old protocol */
+                    packet_spec = 0;
+                } else {
+                    packet_spec = BitConverter.ToInt32(data, 0);
+                }
 
-                t1.Type = (TargetSpriteType)(BitConverter.ToDouble(data, 16));
-                t1.UL = cm2screen((float)BitConverter.ToDouble(data, 3 * 8), (float)BitConverter.ToDouble(data, 4 * 8));
-                t1.LR = cm2screen((float)BitConverter.ToDouble(data, 5 * 8), (float)BitConverter.ToDouble(data, 6 * 8));
+                double new_tone_cnt, target_count;
+                switch (packet_spec) {
+                    case 0:
+                        x = BitConverter.ToDouble(data, 0);
+                        y = BitConverter.ToDouble(data, 8);
 
-                t2.Type = (TargetSpriteType)(BitConverter.ToDouble(data, 56));
-                t2.UL = cm2screen((float)BitConverter.ToDouble(data, 8 * 8), (float)BitConverter.ToDouble(data, 9 * 8));
-                t2.LR = cm2screen((float)BitConverter.ToDouble(data, 10 * 8), (float)BitConverter.ToDouble(data, 11 * 8));
+                        t1.Type = (TargetSpriteType)(BitConverter.ToDouble(data, 16));
+                        t1.UL = cm2screen((float)BitConverter.ToDouble(data, 3 * 8), (float)BitConverter.ToDouble(data, 4 * 8));
+                        t1.LR = cm2screen((float)BitConverter.ToDouble(data, 5 * 8), (float)BitConverter.ToDouble(data, 6 * 8));
 
-                tone_id = BitConverter.ToDouble(data, 13 * 8);
-                double new_tone_cnt = BitConverter.ToDouble(data, 12 * 8);
+                        t2.Type = (TargetSpriteType)(BitConverter.ToDouble(data, 56));
+                        t2.UL = cm2screen((float)BitConverter.ToDouble(data, 8 * 8), (float)BitConverter.ToDouble(data, 9 * 8));
+                        t2.LR = cm2screen((float)BitConverter.ToDouble(data, 10 * 8), (float)BitConverter.ToDouble(data, 11 * 8));
+
+                        tone_id = BitConverter.ToDouble(data, 13 * 8);
+                        new_tone_cnt = BitConverter.ToDouble(data, 12 * 8);
+                        break;
+                    case 1:
+                        int pos = 1;
+                        new_tone_cnt = BitConverter.ToDouble(data, (pos++) * 8);
+                        tone_id = BitConverter.ToDouble(data, (pos++) * 8);
+
+                        x = BitConverter.ToDouble(data, (pos++) * 8);
+                        y = BitConverter.ToDouble(data, (pos++) * 8);
+
+                        target_count = BitConverter.ToDouble(data, (pos++) * 8);
+                        t1.Type = (TargetSpriteType)(BitConverter.ToDouble(data, (pos++) * 8));
+                        t1.UL = cm2screen((float)BitConverter.ToDouble(data, (pos++) * 8), (float)BitConverter.ToDouble(data, (pos++) * 8));
+                        t1.LR = cm2screen((float)BitConverter.ToDouble(data, (pos++) * 8), (float)BitConverter.ToDouble(data, (pos++) * 8));
+
+                        t2.Type = (TargetSpriteType)(BitConverter.ToDouble(data, (pos++) * 8));
+                        t2.UL = cm2screen((float)BitConverter.ToDouble(data, (pos++) * 8), (float)BitConverter.ToDouble(data, (pos++) * 8));
+                        t2.LR = cm2screen((float)BitConverter.ToDouble(data, (pos++) * 8), (float)BitConverter.ToDouble(data, (pos++) * 8));
+
+                        break;
+                    default:
+                        throw new System.Exception("Unknown xPC Model Communication Packet Spec.");
+                }
+
                 if (new_tone_cnt > tone_cnt ||
                     (new_tone_cnt != tone_cnt && new_tone_cnt == 1.0)/* target restart hack */ ) {
                     tone_cnt = new_tone_cnt;
