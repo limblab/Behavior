@@ -34,8 +34,8 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Dec 29 16:30:50 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:40>"
+  LastModifiedDate	  "Wed Dec 30 14:37:43 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:45>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -1372,8 +1372,7 @@ Library {
       BlockType		      SubSystem
       Name		      "SendPacketToGraphics"
       Ports		      [4]
-      Position		      [495, 148, 585, 247]
-      Permissions	      "NoReadOrWrite"
+      Position		      [495, 152, 585, 253]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -1454,11 +1453,11 @@ Library {
 	  BlockType		  Reference
 	  Name			  "Pack"
 	  Ports			  [8, 1]
-	  Position		  [245, 24, 350, 401]
+	  Position		  [250, 37, 360, 388]
 	  SourceBlock		  "xpclib/UDP/Pack"
 	  SourceType		  "xpcany2byte"
-	  datatypes		  "{'uint32','uint32', 'double','double','doub"
-"le','double','double','double'}"
+	  datatypes		  "{'uint32','uint32','double','double','doubl"
+"e','double','double','double'}"
 	  byteAlign		  "1"
 	}
 	Block {
@@ -1509,28 +1508,10 @@ Library {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Demux"
+	  SrcBlock		  "TargetList"
 	  SrcPort		  1
 	  DstBlock		  "Pack"
-	  DstPort		  3
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  2
-	  DstBlock		  "Pack"
-	  DstPort		  4
-	}
-	Line {
-	  SrcBlock		  "Demux1"
-	  SrcPort		  1
-	  DstBlock		  "Pack"
-	  DstPort		  5
-	}
-	Line {
-	  SrcBlock		  "Demux1"
-	  SrcPort		  2
-	  DstBlock		  "Pack"
-	  DstPort		  6
+	  DstPort		  8
 	}
 	Line {
 	  SrcBlock		  "TargetCount"
@@ -1539,10 +1520,28 @@ Library {
 	  DstPort		  7
 	}
 	Line {
-	  SrcBlock		  "TargetList"
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  DstBlock		  "Pack"
+	  DstPort		  6
+	}
+	Line {
+	  SrcBlock		  "Demux1"
 	  SrcPort		  1
 	  DstBlock		  "Pack"
-	  DstPort		  8
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  DstBlock		  "Pack"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  3
 	}
 	Line {
 	  SrcBlock		  "NaN upper bytes"
@@ -1555,6 +1554,24 @@ Library {
 	  SrcPort		  1
 	  DstBlock		  "Pack"
 	  DstPort		  1
+	}
+	Annotation {
+	  Name			  "This subsystem packs the information\nto be"
+" sent to the Graphics Client.  The\nPacket Spec tells the Graphics Client\nho"
+"w to parse the information.  The\noriginal specification didn't send a versio"
+"n\nnumber; it simply sent 16 doubles.  To\ndifferentiate the two, I ensure th"
+"e first\ndouble is NaN.  The packet spec is then\nparsed from inside the NaN'"
+"s payload."
+	  Position		  [388, 105]
+	  HorizontalAlignment	  "left"
+	}
+	Annotation {
+	  Name			  "The UDP sends its packets every other cycle"
+"\nto a specific IP address and port.  It is not\nbroadcast.  \n\nThe TargetLi"
+"st is a stacked array\nof 5 doubles repeated TargetCount times:\nThe TargetTy"
+"pe, the upperleft X,Y position\nand the lower right X, Y position."
+	  Position		  [390, 332]
+	  HorizontalAlignment	  "left"
 	}
       }
     }
