@@ -34,8 +34,8 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Dec 30 14:37:43 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:45>"
+  LastModifiedDate	  "Wed Dec 30 14:59:04 2009"
+  ModelVersionFormat	  "1.%<AutoIncrement:46>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -1373,6 +1373,7 @@ Library {
       Name		      "SendPacketToGraphics"
       Ports		      [4]
       Position		      [495, 152, 585, 253]
+      Permissions	      "NoReadOrWrite"
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
