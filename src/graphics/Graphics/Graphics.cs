@@ -43,7 +43,8 @@ namespace BehaviorGraphics
 
         private float scale;
 
-        TargetSprite t1, t2;
+        private int target_count = 2;
+        private TargetSprite[] t;
 
         // Box variables
         private Box box;
@@ -86,8 +87,11 @@ namespace BehaviorGraphics
             // Graphics
             InitializeDevice();
             SetCursor(5);
-            t1 = new TargetSprite(device);
-            t2 = new TargetSprite(device);
+
+            t = new TargetSprite[16];
+            for (int i = 0; i < t.Length; i++) {
+                t[i] = new TargetSprite(device);
+            }
 
             this.keepGraphicsRunning = false;
 
@@ -192,8 +196,9 @@ namespace BehaviorGraphics
             }
 
             // Draw targets
-            t1.Draw();
-            t2.Draw();
+            for (int i = 0; i < target_count; i++) {
+                t[i].Draw();
+            }
 
             // Draw yellow circle
             cursor = new Sprite(device);
@@ -251,25 +256,35 @@ namespace BehaviorGraphics
                 /* Determine which transmission protocol is in use */
                 int packet_spec = -1;
                 if (!Double.IsNaN(BitConverter.ToDouble(data, 0))) {
-                    /* This is the old protocol */
+                    /* This is the old protocol; it does *not* send a spec number
+                     * in its packet.  The first element of the packet is the X 
+                     * cursor position, as a double.  Therefore, if xPC sent us
+                     * a valid double, we're using the old packet spec. */
                     packet_spec = 0;
                 } else {
+                    /* On the newer packet specs, the upper 32 bits of the first 
+                     * 64 are structured such that when parsed as a double, it's
+                     * a NaN. The lower 32 bits are part of the NaN's payload,
+                     * and ignored.  However, when these lower 32 bits are parsed
+                     * as an integer, they yield the packet spec version. Since
+                     * both systems are little-endian, the lower 32 bits are first. */
                     packet_spec = BitConverter.ToInt32(data, 0);
                 }
 
-                double new_tone_cnt, target_count;
+                double new_tone_cnt;
                 switch (packet_spec) {
                     case 0:
                         x = BitConverter.ToDouble(data, 0);
                         y = BitConverter.ToDouble(data, 8);
 
-                        t1.Type = (TargetSpriteType)(BitConverter.ToDouble(data, 16));
-                        t1.UL = cm2screen((float)BitConverter.ToDouble(data, 3 * 8), (float)BitConverter.ToDouble(data, 4 * 8));
-                        t1.LR = cm2screen((float)BitConverter.ToDouble(data, 5 * 8), (float)BitConverter.ToDouble(data, 6 * 8));
+                        target_count = 2;
+                        t[0].Type = (TargetSpriteType)(BitConverter.ToDouble(data, 16));
+                        t[0].UL = cm2screen((float)BitConverter.ToDouble(data, 3 * 8), (float)BitConverter.ToDouble(data, 4 * 8));
+                        t[0].LR = cm2screen((float)BitConverter.ToDouble(data, 5 * 8), (float)BitConverter.ToDouble(data, 6 * 8));
 
-                        t2.Type = (TargetSpriteType)(BitConverter.ToDouble(data, 56));
-                        t2.UL = cm2screen((float)BitConverter.ToDouble(data, 8 * 8), (float)BitConverter.ToDouble(data, 9 * 8));
-                        t2.LR = cm2screen((float)BitConverter.ToDouble(data, 10 * 8), (float)BitConverter.ToDouble(data, 11 * 8));
+                        t[1].Type = (TargetSpriteType)(BitConverter.ToDouble(data, 56));
+                        t[1].UL = cm2screen((float)BitConverter.ToDouble(data, 8 * 8), (float)BitConverter.ToDouble(data, 9 * 8));
+                        t[1].LR = cm2screen((float)BitConverter.ToDouble(data, 10 * 8), (float)BitConverter.ToDouble(data, 11 * 8));
 
                         tone_id = BitConverter.ToDouble(data, 13 * 8);
                         new_tone_cnt = BitConverter.ToDouble(data, 12 * 8);
@@ -282,14 +297,16 @@ namespace BehaviorGraphics
                         x = BitConverter.ToDouble(data, (pos++) * 8);
                         y = BitConverter.ToDouble(data, (pos++) * 8);
 
-                        target_count = BitConverter.ToDouble(data, (pos++) * 8);
-                        t1.Type = (TargetSpriteType)(BitConverter.ToDouble(data, (pos++) * 8));
-                        t1.UL = cm2screen((float)BitConverter.ToDouble(data, (pos++) * 8), (float)BitConverter.ToDouble(data, (pos++) * 8));
-                        t1.LR = cm2screen((float)BitConverter.ToDouble(data, (pos++) * 8), (float)BitConverter.ToDouble(data, (pos++) * 8));
+                        target_count = (int)BitConverter.ToDouble(data, (pos++) * 8);
+                        target_count = Math.Max(target_count, t.Length);
 
-                        t2.Type = (TargetSpriteType)(BitConverter.ToDouble(data, (pos++) * 8));
-                        t2.UL = cm2screen((float)BitConverter.ToDouble(data, (pos++) * 8), (float)BitConverter.ToDouble(data, (pos++) * 8));
-                        t2.LR = cm2screen((float)BitConverter.ToDouble(data, (pos++) * 8), (float)BitConverter.ToDouble(data, (pos++) * 8));
+                        for (int i = 0; i < target_count; i++) {
+                            t[i].Type = (TargetSpriteType)(BitConverter.ToDouble(data, (pos++) * 8));
+                            t[i].UL = cm2screen((float)BitConverter.ToDouble(data, (pos++) * 8),
+                                                (float)BitConverter.ToDouble(data, (pos++) * 8));
+                            t[i].LR = cm2screen((float)BitConverter.ToDouble(data, (pos++) * 8),
+                                                (float)BitConverter.ToDouble(data, (pos++) * 8));
+                        }
 
                         break;
                     default:
