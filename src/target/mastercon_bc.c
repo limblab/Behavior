@@ -393,6 +393,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             /* decide it if it a training trial */
             training_mode = (UNI<pct_training_trials) ? 1 : 0;
+            ssSetIWorkValue(S,6,training_mode);
             
             /* give a random direction to next target */ 
             target_direction = 2*PI*UNI;
