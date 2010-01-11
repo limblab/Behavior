@@ -703,15 +703,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     for (i = 0; i<15; i++)
         target_pos[i] = 0;
     
-    if ( state == STATE_ORIGIN_ON || 
-         state == STATE_CENTER_HOLD)
+    if ( state == STATE_ORIGIN_ON)
     {
         /* center target on */
         target_pos[0] = 2;
         for (i=0; i<4; i++) {
            target_pos[i+1] = ct[i];
         }
-    } else if (state == STATE_MOVEMENT  ||
+    } else if (state == STATE_CENTER_HOLD || 
+         state == STATE_MOVEMENT  ||
          state == STATE_BUMP_STIM) {
         /* center target on */
         target_pos[0] = 2;
