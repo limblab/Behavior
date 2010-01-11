@@ -161,7 +161,7 @@ static void mdlInitializeSizes(SimStruct *S)
      *  force: 2
      *  status: 5 ( block counter, successes, aborts, failures, incompletes )
      *  word:  1 (8 bits)
-     *  target: 10 ( target 1, 2: 
+     *  target: 15 ( target 1, 2, 3: 
      *                  on/off, 
      *                  target UL corner x, 
      *                  target UL corner y,
@@ -176,7 +176,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 0, 2);   /* force   */
     ssSetOutputPortWidth(S, 1, 5);   /* status  */
     ssSetOutputPortWidth(S, 2, 1);   /* word    */
-    ssSetOutputPortWidth(S, 3, 10);  /* target  */
+    ssSetOutputPortWidth(S, 3, 15);  /* target  */
     ssSetOutputPortWidth(S, 4, 1);   /* reward  */
     ssSetOutputPortWidth(S, 5, 2);   /* tone    */
     ssSetOutputPortWidth(S, 6, 4);   /* version */
@@ -543,6 +543,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T ct[4];
     real_T rt[4];     /* left outer target UL and LR coordinates */
     real_T ft[4];     /* right outer target UL and LR coordinates */
+    real_T ct_type;   /* type of center target 0=invisible 1=red square 2=lightning bolt (?) */
     real_T rt_type;   /* type of left outer target 0=invisible 1=red square 2=lightning bolt (?) */
     real_T ft_type;   /* type of right outer target 0=invisible 1=red square 2=lightning bolt (?) */
     real_T target_direction;
@@ -562,7 +563,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* allocate holders for outputs */
     real_T force_x, force_y, word, reward, tone_cnt, tone_id, pos_x, pos_y;
-    real_T target_pos[10];
+    real_T target_pos[15];
     real_T status[5];
     real_T version[4];
     
@@ -699,7 +700,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* target_pos (3) */    
     /* start assuming no targets will be drawn */
-    for (i = 0; i<10; i++)
+    for (i = 0; i<15; i++)
         target_pos[i] = 0;
     
     if ( state == STATE_ORIGIN_ON || 
@@ -712,15 +713,20 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         }
     } else if (state == STATE_MOVEMENT  ||
          state == STATE_BUMP_STIM) {
-        /* outer target on */
+        /* center target on */
         target_pos[0] = 2;
         for (i=0; i<4; i++) {
-            target_pos[i+1] = rt[i];
+           target_pos[i+1] = ct[i];
+        }
+        /* outer target on */
+        target_pos[5] = 2;
+        for (i=0; i<4; i++) {
+            target_pos[i+6] = rt[i];
         }
         if (!training_mode) {
-            target_pos[5] = 2;
+            target_pos[10] = 2;
             for (i=0; i<4; i++) {
-                target_pos[i+6] = ft[i];
+                target_pos[i+11] = ft[i];
             }
         }
     }
@@ -779,7 +785,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     word_p[0] = word;
     
     target_p = ssGetOutputPortRealSignal(S,3);
-    for (i=0; i<10; i++) {
+    for (i=0; i<15; i++) {
         target_p[i] = target_pos[i];
     }
     
