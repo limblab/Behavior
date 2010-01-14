@@ -326,15 +326,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     ct[2] = target_size/2;
     ct[3] = -target_size/2;
        
-    rt[0] = target_radius*cos(target_direction) - target_size/2; /* reward target */
-    rt[1] = target_radius*sin(target_direction) + target_size/2;
-    rt[2] = target_radius*cos(target_direction) + target_size/2;
-    rt[3] = target_radius*sin(target_direction) - target_size/2;
+    rt[0] = target_radius*cos(target_direction+PI) - target_size/2; /* reward target */
+    rt[1] = target_radius*sin(target_direction+PI) + target_size/2;
+    rt[2] = target_radius*cos(target_direction+PI) + target_size/2;
+    rt[3] = target_radius*sin(target_direction+PI) - target_size/2;
 
-    ft[0] = target_radius*cos(target_direction+PI) - target_size/2; /* fail target */
-    ft[1] = target_radius*sin(target_direction+PI) + target_size/2;
-    ft[2] = target_radius*cos(target_direction+PI) + target_size/2; 
-    ft[3] = target_radius*sin(target_direction+PI) - target_size/2;   
+    ft[0] = target_radius*cos(target_direction) - target_size/2; /* fail target */
+    ft[1] = target_radius*sin(target_direction) + target_size/2;
+    ft[2] = target_radius*cos(target_direction) + target_size/2; 
+    ft[3] = target_radius*sin(target_direction) - target_size/2;   
     
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 7);
@@ -602,15 +602,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     ct[2] = target_size/2;
     ct[3] = -target_size/2;
 
-    rt[0] = target_radius*cos(target_direction) - target_size/2; /* reward target */
-    rt[1] = target_radius*sin(target_direction) + target_size/2;
-    rt[2] = target_radius*cos(target_direction) + target_size/2;
-    rt[3] = target_radius*sin(target_direction) - target_size/2;
+    rt[0] = target_radius*cos(target_direction+PI) - target_size/2; /* reward target */
+    rt[1] = target_radius*sin(target_direction+PI) + target_size/2;
+    rt[2] = target_radius*cos(target_direction+PI) + target_size/2;
+    rt[3] = target_radius*sin(target_direction+PI) - target_size/2;
 
-    ft[0] = target_radius*cos(target_direction+PI) - target_size/2; /* fail target */
-    ft[1] = target_radius*sin(target_direction+PI) + target_size/2;
-    ft[2] = target_radius*cos(target_direction+PI) + target_size/2; 
-    ft[3] = target_radius*sin(target_direction+PI) - target_size/2;   
+    ft[0] = target_radius*cos(target_direction) - target_size/2; /* fail target */
+    ft[1] = target_radius*sin(target_direction) + target_size/2;
+    ft[2] = target_radius*cos(target_direction) + target_size/2; 
+    ft[3] = target_radius*sin(target_direction) - target_size/2;   
         
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
