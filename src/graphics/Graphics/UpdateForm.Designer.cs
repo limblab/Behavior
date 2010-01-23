@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -378,9 +378,10 @@ namespace BehaviorGraphics
             this.textBoxBDCT = new System.Windows.Forms.TextBox();
             this.label147 = new System.Windows.Forms.Label();
             this.tabPageBC = new System.Windows.Forms.TabPage();
-            this.groupBox20 = new System.Windows.Forms.GroupBox();
-            this.label78 = new System.Windows.Forms.Label();
-            this.textBoxBCPctTraining = new System.Windows.Forms.TextBox();
+            this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.BCStimGrid = new System.Windows.Forms.DataGridView();
+            this.StimCodeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
             this.textBoxBCWindowDiameter = new System.Windows.Forms.TextBox();
             this.label77 = new System.Windows.Forms.Label();
@@ -389,7 +390,11 @@ namespace BehaviorGraphics
             this.textBoxBCTgtSize = new System.Windows.Forms.TextBox();
             this.label85 = new System.Windows.Forms.Label();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.label87 = new System.Windows.Forms.Label();
+            this.textBoxBCPctStimTrials = new System.Windows.Forms.TextBox();
+            this.label78 = new System.Windows.Forms.Label();
             this.label75 = new System.Windows.Forms.Label();
+            this.textBoxBCPctTraining = new System.Windows.Forms.TextBox();
             this.textBoxBCBumpMagMin = new System.Windows.Forms.TextBox();
             this.label79 = new System.Windows.Forms.Label();
             this.textBoxBCBumpDur = new System.Windows.Forms.TextBox();
@@ -541,7 +546,8 @@ namespace BehaviorGraphics
             this.groupBox38.SuspendLayout();
             this.groupBox39.SuspendLayout();
             this.tabPageBC.SuspendLayout();
-            this.groupBox20.SuspendLayout();
+            this.groupBox21.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BCStimGrid)).BeginInit();
             this.groupBox19.SuspendLayout();
             this.groupBox17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBCBumpSteps)).BeginInit();
@@ -3110,8 +3116,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -3818,8 +3824,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -4218,7 +4224,7 @@ namespace BehaviorGraphics
             // 
             // tabPageBC
             // 
-            this.tabPageBC.Controls.Add(this.groupBox20);
+            this.tabPageBC.Controls.Add(this.groupBox21);
             this.tabPageBC.Controls.Add(this.groupBox19);
             this.tabPageBC.Controls.Add(this.groupBox17);
             this.tabPageBC.Controls.Add(this.groupBox18);
@@ -4230,35 +4236,47 @@ namespace BehaviorGraphics
             this.tabPageBC.Text = "Bump-choice";
             this.tabPageBC.UseVisualStyleBackColor = true;
             // 
-            // groupBox20
+            // groupBox21
             // 
-            this.groupBox20.Controls.Add(this.label78);
-            this.groupBox20.Controls.Add(this.textBoxBCPctTraining);
-            this.groupBox20.Location = new System.Drawing.Point(441, 6);
-            this.groupBox20.Name = "groupBox20";
-            this.groupBox20.Size = new System.Drawing.Size(216, 147);
-            this.groupBox20.TabIndex = 104;
-            this.groupBox20.TabStop = false;
-            this.groupBox20.Text = "General";
+            this.groupBox21.Controls.Add(this.BCStimGrid);
+            this.groupBox21.Location = new System.Drawing.Point(460, 4);
+            this.groupBox21.Name = "groupBox21";
+            this.groupBox21.Size = new System.Drawing.Size(197, 252);
+            this.groupBox21.TabIndex = 105;
+            this.groupBox21.TabStop = false;
+            this.groupBox21.Text = "Stimulation table";
             // 
-            // label78
+            // BCStimGrid
             // 
-            this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(6, 24);
-            this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(105, 13);
-            this.label78.TabIndex = 32;
-            this.label78.Text = "Percent training trials";
-            this.toolTip1.SetToolTip(this.label78, "Percent of trials on which to give an intermediate \"test\" stimulus.");
+            this.BCStimGrid.AllowUserToAddRows = false;
+            this.BCStimGrid.AllowUserToDeleteRows = false;
+            this.BCStimGrid.AllowUserToResizeColumns = false;
+            this.BCStimGrid.AllowUserToResizeRows = false;
+            this.BCStimGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.BCStimGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.StimCodeColumn,
+            this.PDColumn});
+            this.BCStimGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BCStimGrid.Location = new System.Drawing.Point(3, 16);
+            this.BCStimGrid.Name = "BCStimGrid";
+            this.BCStimGrid.RowHeadersVisible = false;
+            this.BCStimGrid.Size = new System.Drawing.Size(191, 233);
+            this.BCStimGrid.TabIndex = 0;
             // 
-            // textBoxBCPctTraining
+            // StimCodeColumn
             // 
-            this.textBoxBCPctTraining.Location = new System.Drawing.Point(123, 20);
-            this.textBoxBCPctTraining.Name = "textBoxBCPctTraining";
-            this.textBoxBCPctTraining.Size = new System.Drawing.Size(68, 20);
-            this.textBoxBCPctTraining.TabIndex = 33;
-            this.toolTip1.SetToolTip(this.textBoxBCPctTraining, "Durration of bump (ms)");
-            this.textBoxBCPctTraining.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.StimCodeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.StimCodeColumn.HeaderText = "Stim code";
+            this.StimCodeColumn.Name = "StimCodeColumn";
+            this.StimCodeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // PDColumn
+            // 
+            this.PDColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PDColumn.HeaderText = "PD";
+            this.PDColumn.Name = "PDColumn";
+            this.PDColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.PDColumn.ToolTipText = "Preferred direction at stim code";
             // 
             // groupBox19
             // 
@@ -4268,18 +4286,18 @@ namespace BehaviorGraphics
             this.groupBox19.Controls.Add(this.label84);
             this.groupBox19.Controls.Add(this.textBoxBCTgtSize);
             this.groupBox19.Controls.Add(this.label85);
-            this.groupBox19.Location = new System.Drawing.Point(3, 157);
+            this.groupBox19.Location = new System.Drawing.Point(3, 128);
             this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(434, 121);
+            this.groupBox19.Size = new System.Drawing.Size(207, 121);
             this.groupBox19.TabIndex = 103;
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "Targets";
             // 
             // textBoxBCWindowDiameter
             // 
-            this.textBoxBCWindowDiameter.Location = new System.Drawing.Point(320, 26);
+            this.textBoxBCWindowDiameter.Location = new System.Drawing.Point(128, 78);
             this.textBoxBCWindowDiameter.Name = "textBoxBCWindowDiameter";
-            this.textBoxBCWindowDiameter.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBCWindowDiameter.Size = new System.Drawing.Size(56, 20);
             this.textBoxBCWindowDiameter.TabIndex = 23;
             this.toolTip1.SetToolTip(this.textBoxBCWindowDiameter, "Distance from the origin of workspace in which the cursor is not displayed.");
             this.textBoxBCWindowDiameter.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -4287,7 +4305,7 @@ namespace BehaviorGraphics
             // label77
             // 
             this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(196, 33);
+            this.label77.Location = new System.Drawing.Point(4, 81);
             this.label77.Name = "label77";
             this.label77.Size = new System.Drawing.Size(118, 13);
             this.label77.TabIndex = 22;
@@ -4331,7 +4349,11 @@ namespace BehaviorGraphics
             // 
             // groupBox17
             // 
+            this.groupBox17.Controls.Add(this.label87);
+            this.groupBox17.Controls.Add(this.textBoxBCPctStimTrials);
+            this.groupBox17.Controls.Add(this.label78);
             this.groupBox17.Controls.Add(this.label75);
+            this.groupBox17.Controls.Add(this.textBoxBCPctTraining);
             this.groupBox17.Controls.Add(this.textBoxBCBumpMagMin);
             this.groupBox17.Controls.Add(this.label79);
             this.groupBox17.Controls.Add(this.textBoxBCBumpDur);
@@ -4339,26 +4361,63 @@ namespace BehaviorGraphics
             this.groupBox17.Controls.Add(this.textBoxBCBumpMagMax);
             this.groupBox17.Controls.Add(this.label81);
             this.groupBox17.Controls.Add(this.numericUpDownBCBumpSteps);
-            this.groupBox17.Location = new System.Drawing.Point(216, 4);
+            this.groupBox17.Location = new System.Drawing.Point(219, 4);
             this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(216, 147);
+            this.groupBox17.Size = new System.Drawing.Size(216, 245);
             this.groupBox17.TabIndex = 102;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Bumps and stims";
             // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Location = new System.Drawing.Point(6, 148);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(89, 13);
+            this.label87.TabIndex = 40;
+            this.label87.Text = "Percent stim trials";
+            this.toolTip1.SetToolTip(this.label87, "Percentage of trials on which a stim code is sent to TDT");
+            // 
+            // textBoxBCPctStimTrials
+            // 
+            this.textBoxBCPctStimTrials.Location = new System.Drawing.Point(123, 144);
+            this.textBoxBCPctStimTrials.Name = "textBoxBCPctStimTrials";
+            this.textBoxBCPctStimTrials.Size = new System.Drawing.Size(68, 20);
+            this.textBoxBCPctStimTrials.TabIndex = 41;
+            this.toolTip1.SetToolTip(this.textBoxBCPctStimTrials, "Durration of bump (ms)");
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(6, 21);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(105, 13);
+            this.label78.TabIndex = 32;
+            this.label78.Text = "Percent training trials";
+            this.toolTip1.SetToolTip(this.label78, "Percent of trials on  which a single outer target is presented.");
+            // 
             // label75
             // 
             this.label75.AutoSize = true;
-            this.label75.Location = new System.Drawing.Point(9, 54);
+            this.label75.Location = new System.Drawing.Point(6, 76);
             this.label75.Name = "label75";
             this.label75.Size = new System.Drawing.Size(105, 13);
             this.label75.TabIndex = 38;
             this.label75.Text = "Bump magnitude min";
             this.toolTip1.SetToolTip(this.label75, "Percent of trials on which to give an intermediate \"test\" stimulus.");
             // 
+            // textBoxBCPctTraining
+            // 
+            this.textBoxBCPctTraining.Location = new System.Drawing.Point(123, 17);
+            this.textBoxBCPctTraining.Name = "textBoxBCPctTraining";
+            this.textBoxBCPctTraining.Size = new System.Drawing.Size(68, 20);
+            this.textBoxBCPctTraining.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.textBoxBCPctTraining, "Durration of bump (ms)");
+            this.textBoxBCPctTraining.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
             // textBoxBCBumpMagMin
             // 
-            this.textBoxBCBumpMagMin.Location = new System.Drawing.Point(126, 47);
+            this.textBoxBCBumpMagMin.Location = new System.Drawing.Point(123, 69);
             this.textBoxBCBumpMagMin.Name = "textBoxBCBumpMagMin";
             this.textBoxBCBumpMagMin.Size = new System.Drawing.Size(68, 20);
             this.textBoxBCBumpMagMin.TabIndex = 39;
@@ -4369,7 +4428,7 @@ namespace BehaviorGraphics
             // label79
             // 
             this.label79.AutoSize = true;
-            this.label79.Location = new System.Drawing.Point(9, 100);
+            this.label79.Location = new System.Drawing.Point(6, 122);
             this.label79.Name = "label79";
             this.label79.Size = new System.Drawing.Size(75, 13);
             this.label79.TabIndex = 32;
@@ -4378,7 +4437,7 @@ namespace BehaviorGraphics
             // 
             // textBoxBCBumpDur
             // 
-            this.textBoxBCBumpDur.Location = new System.Drawing.Point(126, 96);
+            this.textBoxBCBumpDur.Location = new System.Drawing.Point(123, 118);
             this.textBoxBCBumpDur.Name = "textBoxBCBumpDur";
             this.textBoxBCBumpDur.Size = new System.Drawing.Size(68, 20);
             this.textBoxBCBumpDur.TabIndex = 33;
@@ -4388,7 +4447,7 @@ namespace BehaviorGraphics
             // label80
             // 
             this.label80.AutoSize = true;
-            this.label80.Location = new System.Drawing.Point(9, 77);
+            this.label80.Location = new System.Drawing.Point(6, 99);
             this.label80.Name = "label80";
             this.label80.Size = new System.Drawing.Size(108, 13);
             this.label80.TabIndex = 30;
@@ -4397,7 +4456,7 @@ namespace BehaviorGraphics
             // 
             // textBoxBCBumpMagMax
             // 
-            this.textBoxBCBumpMagMax.Location = new System.Drawing.Point(126, 70);
+            this.textBoxBCBumpMagMax.Location = new System.Drawing.Point(123, 92);
             this.textBoxBCBumpMagMax.Name = "textBoxBCBumpMagMax";
             this.textBoxBCBumpMagMax.Size = new System.Drawing.Size(68, 20);
             this.textBoxBCBumpMagMax.TabIndex = 31;
@@ -4408,7 +4467,7 @@ namespace BehaviorGraphics
             // label81
             // 
             this.label81.AutoSize = true;
-            this.label81.Location = new System.Drawing.Point(9, 28);
+            this.label81.Location = new System.Drawing.Point(6, 50);
             this.label81.Name = "label81";
             this.label81.Size = new System.Drawing.Size(89, 13);
             this.label81.TabIndex = 27;
@@ -4417,7 +4476,7 @@ namespace BehaviorGraphics
             // 
             // numericUpDownBCBumpSteps
             // 
-            this.numericUpDownBCBumpSteps.Location = new System.Drawing.Point(126, 21);
+            this.numericUpDownBCBumpSteps.Location = new System.Drawing.Point(123, 43);
             this.numericUpDownBCBumpSteps.Maximum = new decimal(new int[] {
             7,
             0,
@@ -4446,7 +4505,7 @@ namespace BehaviorGraphics
             this.groupBox18.Controls.Add(this.label90);
             this.groupBox18.Location = new System.Drawing.Point(3, 3);
             this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(207, 148);
+            this.groupBox18.Size = new System.Drawing.Size(207, 119);
             this.groupBox18.TabIndex = 101;
             this.groupBox18.TabStop = false;
             this.groupBox18.Text = "Timing";
@@ -5415,8 +5474,8 @@ namespace BehaviorGraphics
             this.groupBox39.ResumeLayout(false);
             this.groupBox39.PerformLayout();
             this.tabPageBC.ResumeLayout(false);
-            this.groupBox20.ResumeLayout(false);
-            this.groupBox20.PerformLayout();
+            this.groupBox21.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BCStimGrid)).EndInit();
             this.groupBox19.ResumeLayout(false);
             this.groupBox19.PerformLayout();
             this.groupBox17.ResumeLayout(false);
@@ -5900,8 +5959,13 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label85;
         private System.Windows.Forms.Label label75;
         private System.Windows.Forms.TextBox textBoxBCBumpMagMin;
-        private System.Windows.Forms.GroupBox groupBox20;
+        private System.Windows.Forms.GroupBox groupBox21;
         private System.Windows.Forms.Label label78;
         private System.Windows.Forms.TextBox textBoxBCPctTraining;
+        private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.TextBox textBoxBCPctStimTrials;
+        private System.Windows.Forms.DataGridView BCStimGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StimCodeColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PDColumn;
     }
 }

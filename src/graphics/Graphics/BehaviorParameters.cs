@@ -26,6 +26,9 @@ namespace BehaviorGraphics
         // Flextension specific elements
         private List<MultiGadgetTarget> wfTargets;
 
+        // Bump choice specific elements
+        private List<BumpChoiceStim> bcStim;
+
         // center-out specific elements
         private CenterOutMode com;
 
@@ -41,6 +44,9 @@ namespace BehaviorGraphics
             wfTargets = new List<MultiGadgetTarget>();
             for (int i = 0; i < 16; i++)
                 wfTargets.Add(new MultiGadgetTarget());
+            bcStim = new List<BumpChoiceStim>();
+            for (int i = 0; i < 16; i++)
+                bcStim.Add(new BumpChoiceStim());
         }
 
         [XmlIgnore]
@@ -161,12 +167,40 @@ namespace BehaviorGraphics
                 }
             }
         }
-
+        
         [XmlIgnore]
         public List<MultiGadgetTarget> WFTargets
         {
             get { return wfTargets; }
             set { wfTargets = value; }
+        }
+
+        [XmlArray("BumpChoiceStimList")]
+        public BumpChoiceStim[] BCSList
+        {
+            get
+            {
+                BumpChoiceStim[] bcsl = new BumpChoiceStim[bcStim.Count];
+                bcStim.CopyTo(bcsl);
+                return bcsl;
+            }
+            set
+            {
+                if (value == null) return;
+                BumpChoiceStim[] bcsl = (BumpChoiceStim[])value;
+                bcStim.Clear();
+                foreach (BumpChoiceStim bcs in bcsl)
+                {
+                    bcStim.Add(bcs);
+                }
+            }
+        }
+
+        [XmlIgnore]
+        public List<BumpChoiceStim> BCStims
+        {
+            get { return bcStim; }
+            set { bcStim = value; }
         }
 
         #endregion
