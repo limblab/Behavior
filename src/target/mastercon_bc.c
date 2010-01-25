@@ -45,33 +45,36 @@ typedef unsigned char byte;
  * Until we implement tunable parameters, these will act as defaults
  */
 
+static real_T master_reset = 0.0;
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,0))
+
 /* Target parameters */
 static real_T target_radius = 10.0; /* radius of target circle in cm */
-#define param_target_radius mxGetScalar(ssGetSFcnParam(S,0))
+#define param_target_radius mxGetScalar(ssGetSFcnParam(S,1))
 static real_T target_size = 3.0;    /* width and height of targets in cm */
-#define param_target_size mxGetScalar(ssGetSFcnParam(S,1))
+#define param_target_size mxGetScalar(ssGetSFcnParam(S,2))
 static real_T window_size = 5.0;   /* diameter of blocking circle */
-#define param_window_size mxGetScalar(ssGetSFcnParam(S,2))
+#define param_window_size mxGetScalar(ssGetSFcnParam(S,3))
 
 /* Bump parameters */
-#define param_bump_steps ((int)(mxGetScalar(ssGetSFcnParam(S,3))) <= 7 ? (int)(mxGetScalar(ssGetSFcnParam(S,3))) : 7)
+#define param_bump_steps ((int)(mxGetScalar(ssGetSFcnParam(S,4))) <= 7 ? (int)(mxGetScalar(ssGetSFcnParam(S,4))) : 7)
 static int bump_steps = 7;
-#define param_bump_magnitude_min mxGetScalar(ssGetSFcnParam(S,4))
+#define param_bump_magnitude_min mxGetScalar(ssGetSFcnParam(S,5))
 static real_T bump_magnitude_min = 0.0;
-#define param_bump_magnitude_max mxGetScalar(ssGetSFcnParam(S,5))
+#define param_bump_magnitude_max mxGetScalar(ssGetSFcnParam(S,6))
 static real_T bump_magnitude_max = 0.05;
-#define param_bump_duration mxGetScalar(ssGetSFcnParam(S,6))
+#define param_bump_duration mxGetScalar(ssGetSFcnParam(S,7))
 static real_T bump_duration = 125;
 
 /* Timing parameters */
 static real_T center_hold;
 static real_T center_hold_l = 0.5; /* shortest delay between entry of ct and bump/stim */ 
-#define param_center_hold_l mxGetScalar(ssGetSFcnParam(S,7))
+#define param_center_hold_l mxGetScalar(ssGetSFcnParam(S,8))
 static real_T center_hold_h = 1.0; /* longest delay between entry of ct and bump/stim */ 
-#define param_center_hold_h mxGetScalar(ssGetSFcnParam(S,8))
+#define param_center_hold_h mxGetScalar(ssGetSFcnParam(S,9))
 static real_T movement_time = 10;  /* movement time */
-#define param_movement_time mxGetScalar(ssGetSFcnParam(S,9))
-#define param_intertrial mxGetScalar(ssGetSFcnParam(S,10)) /* time between trials*/
+#define param_movement_time mxGetScalar(ssGetSFcnParam(S,10))
+#define param_intertrial mxGetScalar(ssGetSFcnParam(S,11)) /* time between trials*/
 static real_T abort_timeout   = 1.0;    /* delay after abort */
 static real_T failure_timeout = 1.0;    /* delay after failure */
 static real_T incomplete_timeout = 1.0; /* delay after incomplete */
@@ -81,9 +84,47 @@ static real_T reward_timeout  = 1.0;    /* delay after reward before starting ne
 
 /* General parameters */
 static real_T pct_training_trials = 0.0; /* true=show one outer target, false=show 2 */
-#define param_pct_training_trials mxGetScalar(ssGetSFcnParam(S,11))
-static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,12))
+#define param_pct_training_trials mxGetScalar(ssGetSFcnParam(S,12))
+
+/* Stimulation parameters */
+static real_T pct_stim_trials = 0.0; /* percentage of trials to stimulate */
+#define param_pct_stim_trials mxGetScalar(ssGetSFcnParam(S,13))
+
+
+
+/*static int stim_code_1 = -1;   * list of stimulation codes to send to TDT *
+#define param_stim_code_1 mxGetScalar(ssGetSFcnParam(S,14))
+static int stim_code_2 = -1; 
+#define param_stim_code_2 mxGetScalar(ssGetSFcnParam(S,15))
+static int stim_code_3 = -1; 
+#define param_stim_code_3 mxGetScalar(ssGetSFcnParam(S,16))
+static int stim_code_4 = -1; 
+#define param_stim_code_4 mxGetScalar(ssGetSFcnParam(S,17))
+static int stim_code_5 = -1; 
+#define param_stim_code_5 mxGetScalar(ssGetSFcnParam(S,18))
+static int stim_code_6 = -1; 
+#define param_stim_code_6 mxGetScalar(ssGetSFcnParam(S,19))
+static int stim_code_7 = -1; 
+#define param_stim_code_7 mxGetScalar(ssGetSFcnParam(S,20))
+static int stim_code_8 = -1; 
+#define param_stim_code_8 mxGetScalar(ssGetSFcnParam(S,21))
+
+static real_T pd_1 = 0.0;   list of preferred directions of each stim code *
+#define param_pd_1 mxGetScalar(ssGetSFcnParam(S,22))
+static real_T pd_2 = 0.0;
+#define param_pd_2 mxGetScalar(ssGetSFcnParam(S,23))
+static real_T pd_3 = 0.0;
+#define param_pd_3 mxGetScalar(ssGetSFcnParam(S,24))
+static real_T pd_4 = 0.0;
+#define param_pd_4 mxGetScalar(ssGetSFcnParam(S,25))
+static real_T pd_5 = 0.0;
+#define param_pd_5 mxGetScalar(ssGetSFcnParam(S,26))
+static real_T pd_6 = 0.0;
+#define param_pd_6 mxGetScalar(ssGetSFcnParam(S,27))
+static real_T pd_7 = 0.0;
+#define param_pd_7 mxGetScalar(ssGetSFcnParam(S,28))
+static real_T pd_8 = 0.0;
+#define param_pd_8 mxGetScalar(ssGetSFcnParam(S,29))   */
 
 /*
  * State IDs
@@ -148,13 +189,15 @@ static void mdlInitializeSizes(SimStruct *S)
      *      input port 1: (force) of width 2 (x, y)
      *      input port 2: (catch force) of width 2 (x,y) NOT USED
      */
-    if (!ssSetNumInputPorts(S, 3)) return;
+    if (!ssSetNumInputPorts(S, 4)) return;
     ssSetInputPortWidth(S, 0, 2);
     ssSetInputPortWidth(S, 1, 2);
     ssSetInputPortWidth(S, 2, 2);
+    ssSetInputPortWidth(S, 3, 32);
     ssSetInputPortDirectFeedThrough(S, 0, 1);
     ssSetInputPortDirectFeedThrough(S, 1, 1);
     ssSetInputPortDirectFeedThrough(S, 2, 1);
+    ssSetInputPortDirectFeedThrough(S, 3, 1);
     
     /* 
      * Block has 8 output ports (force, status, word, targets, reward, tone, version, pos) of widths:

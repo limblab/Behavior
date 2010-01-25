@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1230"
+    ComputedModelVersion    "1.1231"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "ricardo"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jan 11 17:15:07 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:1230>"
+  LastModifiedDate	  "Mon Jan 25 11:31:44 2010"
+  ModelVersionFormat	  "1.%<AutoIncrement:1231>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -692,6 +692,9 @@ Model {
       OutPortSampleTime	      "-1"
     }
     Block {
+      BlockType		      Reference
+    }
+    Block {
       BlockType		      RelationalOperator
       Operator		      ">="
       InputSameDT	      on
@@ -700,6 +703,11 @@ Model {
       LogicDataType	      "uint(8)"
       ZeroCross		      on
       SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Reshape
+      OutputDimensionality    "1-D array"
+      OutputDimensions	      "[1,1]"
     }
     Block {
       BlockType		      Saturate
@@ -829,7 +837,7 @@ Model {
   }
   System {
     Name		    "bump_choice"
-    Location		    [2, 74, 1270, 964]
+    Location		    [2, 82, 1270, 972]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -5572,6 +5580,12 @@ Model {
       }
     }
     Block {
+      BlockType		      Reshape
+      Name		      "Reshape"
+      Position		      [370, 403, 400, 427]
+      OutputDimensionality    "Column vector (2-D)"
+    }
+    Block {
       BlockType		      SubSystem
       Name		      "RewardSbs"
       Ports		      [1, 1]
@@ -6647,6 +6661,23 @@ Model {
       mode		      "Lazy"
       writesize		      "512"
       autorestart	      off
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "WFTargetTable"
+      Ports		      [0, 1]
+      Position		      [285, 382, 350, 448]
+      SourceBlock	      "simulink/Lookup\nTables/Direct Lookup\nTable (n"
+"-D)"
+      SourceType	      "LookupNDDirect"
+      maskTabDims	      "2"
+      explicitNumDims	      "1"
+      outDims		      "2-D Matrix"
+      tabIsInput	      off
+      mxTable		      "[-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -"
+"1; -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1]"
+      clipFlag		      "Warning"
+      samptime		      "0.001"
     }
     Block {
       BlockType		      SubSystem
@@ -8358,26 +8389,27 @@ Model {
     Line {
       SrcBlock		      "Velocity Calculation"
       SrcPort		      1
-      Points		      [35, 0]
+      Points		      [5, 0]
       Branch {
 	DstBlock		"Recentering Subsystem"
 	DstPort			1
       }
       Branch {
-	Points			[0, -105]
+	Points			[0, -110]
 	Branch {
-	  Points		  [0, -145]
+	  Points		  [0, -140; 30, 0]
 	  Branch {
 	    DstBlock		    "Catch Force Generator"
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -110]
+	    Points		    [-30, 0; 0, -110]
 	    DstBlock		    "Force Generator"
 	    DstPort		    1
 	  }
 	}
 	Branch {
+	  Points		  [115, 0]
 	  DstBlock		  "Matrix\nConcatenation1"
 	  DstPort		  2
 	}
@@ -8532,6 +8564,12 @@ Model {
       Points		      [285, 0; 0, -55]
       DstBlock		      "SendPacketToGraphics1"
       DstPort		      3
+    }
+    Line {
+      SrcBlock		      "WFTargetTable"
+      SrcPort		      1
+      DstBlock		      "Reshape"
+      DstPort		      1
     }
   }
 }
