@@ -91,7 +91,6 @@ static real_T pct_stim_trials = 0.0; /* percentage of trials to stimulate */
 #define param_pct_stim_trials mxGetScalar(ssGetSFcnParam(S,13))
 
 
-
 /*static int stim_code_1 = -1;   * list of stimulation codes to send to TDT *
 #define param_stim_code_1 mxGetScalar(ssGetSFcnParam(S,14))
 static int stim_code_2 = -1; 
@@ -157,6 +156,7 @@ static void mdlCheckParameters(SimStruct *S)
     bump_duration = param_bump_duration;
     
     pct_training_trials = param_pct_training_trials;
+    pct_stim_trials = param_pct_stim_trials;
     
     center_hold_l = param_center_hold_l;
     center_hold_h = param_center_hold_h;
@@ -172,7 +172,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 13);
+    ssSetNumSFcnParams(S, 14);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -184,7 +184,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumDiscStates(S, 1);
     
     /*
-     * Block has 2 input ports
+     * Block has 4 input ports
      *      input port 0: (position) of width 2 (x, y)
      *      input port 1: (force) of width 2 (x, y)
      *      input port 2: (catch force) of width 2 (x,y) NOT USED
@@ -317,6 +317,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* stupidly declare all variables at the begining of the function */
     int *IWorkVector; 
     
+    int i;
+    
     real_T ct[4];
     real_T rt[4];     /* reward target UL and LR coordinates */
     real_T ft[4];     /* fail target UL and LR coordinates */
@@ -331,6 +333,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int bump_step;
     int training_mode;
     real_T target_direction;
+    
+    /* stimulation parameters */
+    int stim_codes[16];
+    real_T pref_dir[16];
+    int num_stim_codes;
+    int stim_trial;
         
     /* databurst variables */
     byte* databurst;
@@ -359,6 +367,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     training_mode = ssGetIWorkValue(S,6);
     target_direction = ssGetRWorkValue(S,4);
     bump_magnitude = ssGetRWorkValue(S,5);
+    
+    /* get stimulation parameters */
+    uPtrs = ssGetInputPortRealSignalPtrs(S,3);
+    for (i=0 ; i<16 ; i++) { 
+        stim_codes[i] = *uPtrs[2*i];
+        pref_dir[i] = *uPtrs[2*i+1];
+    }
             
     /* get elapsed time since last timer reset */
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
@@ -448,6 +463,42 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             bump_magnitude = bump_magnitude_min + ((float)bump_step)*(bump_magnitude_max-bump_magnitude_min)/((float)bump_steps);
             ssSetRWorkValue(S,5,bump_magnitude);
+            
+            /* decide if it is a stim trial */
+            stim_trial = (UNI<pct_stim_trials ? 1 : 0);
+            num_stim_codes = 0;
+            for (i = 0; i < 16; i++)
+                if (stim_codes[i*2] != -1)
+                    num_stim_codes++;
+
+            /* check if stimulation block needs to be reinitialized */
+            if (stim_index == num_stim_codes) {
+                /* block randomization of stims */
+                for (i=0; i<48; i++) {
+                    for (j=0; j<num_stim_codes; j++) {
+                        tmp_sort[i*num_stim_codes+j] = UNI;
+                        stim_code_list[i*num_stim_codes+j] = j;
+                    }
+                }
+                for (i=0; i<num_stim_codes*5-1; i++) {
+                    for (j=0; j<num_stim_codes*5-1; j++) { 
+                        if (tmp_sort[j] < tmp_sort[j+1]) {
+                            tmp = tmp_sort[j];
+                            tmp_sort[j] = tmp_sort[j+1];
+                            tmp_sort[j+1] = tmp;
+                            
+                            tmp = stim_code_list[j];
+                            stim_code_list[j] = stim_code_list[j+1];
+                            stim_code_list[j+1] = tmp;
+                        }
+                    }
+                }
+                /* write them back */
+                for (i=0; i<num_stim_codes*5; i++) {
+					stim_code_list[i] = stim_code_list[i];
+	            }
+                
+            }
             
             /* In all cases, we need to decide on the random timer durations */
 	        if (center_hold_h == center_hold_l) {

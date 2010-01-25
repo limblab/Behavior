@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1231"
+    ComputedModelVersion    "1.1232"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "ricardo"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jan 25 11:31:44 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:1231>"
+  LastModifiedDate	  "Mon Jan 25 11:43:53 2010"
+  ModelVersionFormat	  "1.%<AutoIncrement:1232>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -692,9 +692,6 @@ Model {
       OutPortSampleTime	      "-1"
     }
     Block {
-      BlockType		      Reference
-    }
-    Block {
       BlockType		      RelationalOperator
       Operator		      ">="
       InputSameDT	      on
@@ -852,19 +849,36 @@ Model {
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
     Block {
+      BlockType		      Reference
+      Name		      "BCStimTable"
+      Ports		      [0, 1]
+      Position		      [510, 352, 575, 418]
+      SourceBlock	      "simulink/Lookup\nTables/Direct Lookup\nTable (n"
+"-D)"
+      SourceType	      "LookupNDDirect"
+      maskTabDims	      "2"
+      explicitNumDims	      "1"
+      outDims		      "2-D Matrix"
+      tabIsInput	      off
+      mxTable		      "[-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -"
+"1; -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1]"
+      clipFlag		      "Warning"
+      samptime		      "0.001"
+    }
+    Block {
       BlockType		      "S-Function"
       Name		      "Behavior BC"
-      Ports		      [3, 8]
+      Ports		      [4, 8]
       Position		      [660, 88, 885, 422]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_bc"
       Parameters	      "10 3 5 7 0.0 0.05 125 0.5 2 10 1 0 0"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'force')\nport_label('input',3,'catch force')\npor"
-"t_label('output',1,'force')\nport_label('output',2,'status')\nport_label('out"
-"put',3,'word')\nport_label('output',4,'targets')\nport_label('output',5,'rewa"
-"rd')\nport_label('output',6,'tone')\nport_label('output',7,'version')\nport_l"
-"abel('output',8,'pos')"
+"t_label('input',4','stim table')\nport_label('output',1,'force')\nport_label("
+"'output',2,'status')\nport_label('output',3,'word')\nport_label('output',4,'t"
+"argets')\nport_label('output',5,'reward')\nport_label('output',6,'tone')\npor"
+"t_label('output',7,'version')\nport_label('output',8,'pos')"
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
@@ -1087,7 +1101,7 @@ Model {
       BlockType		      SubSystem
       Name		      "Catch Force Generator"
       Ports		      [1, 1]
-      Position		      [545, 334, 605, 396]
+      Position		      [545, 269, 605, 331]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -1830,7 +1844,7 @@ Model {
       BlockType		      SubSystem
       Name		      "Force Generator"
       Ports		      [1, 1]
-      Position		      [545, 224, 605, 286]
+      Position		      [545, 184, 605, 246]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -5582,7 +5596,7 @@ Model {
     Block {
       BlockType		      Reshape
       Name		      "Reshape"
-      Position		      [370, 403, 400, 427]
+      Position		      [595, 373, 625, 397]
       OutputDimensionality    "Column vector (2-D)"
     }
     Block {
@@ -6661,23 +6675,6 @@ Model {
       mode		      "Lazy"
       writesize		      "512"
       autorestart	      off
-    }
-    Block {
-      BlockType		      Reference
-      Name		      "WFTargetTable"
-      Ports		      [0, 1]
-      Position		      [285, 382, 350, 448]
-      SourceBlock	      "simulink/Lookup\nTables/Direct Lookup\nTable (n"
-"-D)"
-      SourceType	      "LookupNDDirect"
-      maskTabDims	      "2"
-      explicitNumDims	      "1"
-      outDims		      "2-D Matrix"
-      tabIsInput	      off
-      mxTable		      "[-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -"
-"1; -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1]"
-      clipFlag		      "Warning"
-      samptime		      "0.001"
     }
     Block {
       BlockType		      SubSystem
@@ -8397,21 +8394,22 @@ Model {
       Branch {
 	Points			[0, -110]
 	Branch {
-	  Points		  [0, -140; 30, 0]
+	  Points		  [115, 0]
+	  DstBlock		  "Matrix\nConcatenation1"
+	  DstPort		  2
+	}
+	Branch {
+	  Points		  [0, -205; 30, 0]
 	  Branch {
+	    Points		    [0, 0]
 	    DstBlock		    "Catch Force Generator"
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [-30, 0; 0, -110]
+	    Points		    [-30, 0; 0, -85]
 	    DstBlock		    "Force Generator"
 	    DstPort		    1
 	  }
-	}
-	Branch {
-	  Points		  [115, 0]
-	  DstBlock		  "Matrix\nConcatenation1"
-	  DstPort		  2
 	}
       }
     }
@@ -8436,7 +8434,7 @@ Model {
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -345]
+	    Points		    [0, -360]
 	    DstBlock		    "Behavior BC"
 	    DstPort		    1
 	  }
@@ -8566,10 +8564,16 @@ Model {
       DstPort		      3
     }
     Line {
-      SrcBlock		      "WFTargetTable"
+      SrcBlock		      "BCStimTable"
       SrcPort		      1
       DstBlock		      "Reshape"
       DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Reshape"
+      SrcPort		      1
+      DstBlock		      "Behavior BC"
+      DstPort		      4
     }
   }
 }
