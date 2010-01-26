@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1232"
+    ComputedModelVersion    "1.1236"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jan 25 11:43:53 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:1232>"
+  LastModifiedDate	  "Tue Jan 26 15:57:02 2010"
+  ModelVersionFormat	  "1.%<AutoIncrement:1236>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -692,6 +692,9 @@ Model {
       OutPortSampleTime	      "-1"
     }
     Block {
+      BlockType		      Reference
+    }
+    Block {
       BlockType		      RelationalOperator
       Operator		      ">="
       InputSameDT	      on
@@ -834,7 +837,7 @@ Model {
   }
   System {
     Name		    "bump_choice"
-    Location		    [2, 82, 1270, 972]
+    Location		    [2, 74, 1270, 964]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -852,7 +855,7 @@ Model {
       BlockType		      Reference
       Name		      "BCStimTable"
       Ports		      [0, 1]
-      Position		      [510, 352, 575, 418]
+      Position		      [520, 342, 585, 408]
       SourceBlock	      "simulink/Lookup\nTables/Direct Lookup\nTable (n"
 "-D)"
       SourceType	      "LookupNDDirect"
@@ -861,7 +864,7 @@ Model {
       outDims		      "2-D Matrix"
       tabIsInput	      off
       mxTable		      "[-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -"
-"1; -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1]"
+"1;-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1]"
       clipFlag		      "Warning"
       samptime		      "0.001"
     }
@@ -869,16 +872,16 @@ Model {
       BlockType		      "S-Function"
       Name		      "Behavior BC"
       Ports		      [4, 8]
-      Position		      [660, 88, 885, 422]
+      Position		      [660, 78, 885, 412]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_bc"
-      Parameters	      "10 3 5 7 0.0 0.05 125 0.5 2 10 1 0 0"
+      Parameters	      "0 10 3 5 7 0.0 0.05 125 0.5 2 10 1 0 0"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'force')\nport_label('input',3,'catch force')\npor"
-"t_label('input',4','stim table')\nport_label('output',1,'force')\nport_label("
-"'output',2,'status')\nport_label('output',3,'word')\nport_label('output',4,'t"
-"argets')\nport_label('output',5,'reward')\nport_label('output',6,'tone')\npor"
-"t_label('output',7,'version')\nport_label('output',8,'pos')"
+"t_label('input',4,'stim table')\nport_label('output',1,'force')\nport_label('"
+"output',2,'status')\nport_label('output',3,'word')\nport_label('output',4,'ta"
+"rgets')\nport_label('output',5,'reward')\nport_label('output',6,'tone')\nport"
+"_label('output',7,'version')\nport_label('output',8,'pos')"
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
@@ -1101,7 +1104,7 @@ Model {
       BlockType		      SubSystem
       Name		      "Catch Force Generator"
       Ports		      [1, 1]
-      Position		      [545, 269, 605, 331]
+      Position		      [545, 259, 605, 321]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -1844,7 +1847,7 @@ Model {
       BlockType		      SubSystem
       Name		      "Force Generator"
       Ports		      [1, 1]
-      Position		      [545, 184, 605, 246]
+      Position		      [545, 174, 605, 236]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -5596,7 +5599,7 @@ Model {
     Block {
       BlockType		      Reshape
       Name		      "Reshape"
-      Position		      [595, 373, 625, 397]
+      Position		      [605, 363, 635, 387]
       OutputDimensionality    "Column vector (2-D)"
     }
     Block {
@@ -8386,30 +8389,28 @@ Model {
     Line {
       SrcBlock		      "Velocity Calculation"
       SrcPort		      1
-      Points		      [5, 0]
+      Points		      [35, 0]
       Branch {
 	DstBlock		"Recentering Subsystem"
 	DstPort			1
       }
       Branch {
-	Points			[0, -110]
+	Points			[0, -105]
 	Branch {
-	  Points		  [115, 0]
-	  DstBlock		  "Matrix\nConcatenation1"
-	  DstPort		  2
-	}
-	Branch {
-	  Points		  [0, -205; 30, 0]
+	  Points		  [0, -220]
 	  Branch {
-	    Points		    [0, 0]
 	    DstBlock		    "Catch Force Generator"
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [-30, 0; 0, -85]
+	    Points		    [0, -85]
 	    DstBlock		    "Force Generator"
 	    DstPort		    1
 	  }
+	}
+	Branch {
+	  DstBlock		  "Matrix\nConcatenation1"
+	  DstPort		  2
 	}
       }
     }
@@ -8434,7 +8435,7 @@ Model {
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -360]
+	    Points		    [0, -370]
 	    DstBlock		    "Behavior BC"
 	    DstPort		    1
 	  }
@@ -8444,12 +8445,14 @@ Model {
     Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      2
+      Points		      [0, 10]
       DstBlock		      "Status"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      3
+      Points		      [0, 10]
       DstBlock		      "WordSbs"
       DstPort		      1
     }
@@ -8462,13 +8465,14 @@ Model {
     Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      1
-      Points		      [10, 0; 0, 440]
+      Points		      [10, 0; 0, 450]
       DstBlock		      "Motor Control"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      5
+      Points		      [0, 10]
       DstBlock		      "RewardSbs"
       DstPort		      1
     }
@@ -8528,6 +8532,7 @@ Model {
     Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      7
+      Points		      [0, 10]
       DstBlock		      "Version Display"
       DstPort		      1
     }
@@ -8546,20 +8551,21 @@ Model {
     Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      4
-      Points		      [280, 0; 0, 55]
+      Points		      [280, 0; 0, 65]
       DstBlock		      "SendPacketToGraphics1"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      6
+      Points		      [0, 10]
       DstBlock		      "SendPacketToGraphics1"
       DstPort		      2
     }
     Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      8
-      Points		      [285, 0; 0, -55]
+      Points		      [285, 0; 0, -45]
       DstBlock		      "SendPacketToGraphics1"
       DstPort		      3
     }
