@@ -149,7 +149,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumDiscStates(S, 1);
     
     /*
-     * Block has 4 input ports
+     * Block has 2 input ports
      *      input port 0: (position) of width 2 (x, y)
      *      input port 1: (force) of width 2 (x, y)
      *      input port 2: (catch force) of width 2 (x,y) NOT USED
@@ -193,18 +193,17 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 54);  /* 0: time of last timer reset 
+    ssSetNumRWork(S, 6);  /* 0: time of last timer reset 
                              1: tone counter (incremented each time a tone is played)
                              2: tone id
 							 3: mastercon version
                              4: target direction
-                             5: bump magnitude    
-                             6-53: pref dir list                     
+                             5: bump magnitude                           
                            */
     ssSetNumPWork(S, 1);   /* 0: pointer to databurst array
                             */
     
-    ssSetNumIWork(S, 48);     /* 0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 27);     /* 0: state_transition (true if state changed), 
                                 1: successes
                                 2: failures
                                 3: aborts
@@ -215,7 +214,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                 8: bump duration counter
                                 9: stim trial
                                 10: stim index
-                                11-58: stim list
+                                11-26: stim list
                              */
     
     /* we have no zero crossing detection or modes */
@@ -258,8 +257,8 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetPWorkValue(S, 0, databurst);
     ssSetIWorkValue(S, 7, 0);
     
-    /* set stim index to 49 so that it gets reset in pretrial*/
-    ssSetIWorkValue(S,10,49);
+    /* set stim index to 16 so that it gets reset in pretrial*/
+    ssSetIWorkValue(S,10,16);    
 }
 
 /* macro for setting state changed */
@@ -286,10 +285,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
      ********************/
     
     /* stupidly declare all variables at the begining of the function */
-    int *IWorkVector; 
-    int *RWorkVector;
-    
     int i;
+    int j;
     
     real_T ct[4];
     real_T rt[4];     /* reward target UL and LR coordinates */
@@ -307,15 +304,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T target_direction;
     
     /* stimulation parameters */
-    real_T stim_codes[16];
+    int stim_index;
+    int stim_codes[16];
     real_T pref_dir[16];
     int num_stim_codes;
     int stim_trial;
-    real_T tmp_sort[48];
-    real_T tmp_real;
+    int tmp_sort[16];
     int tmp;
-    int stim_code_list_tmp[48];
-    real_T pref_dir_list_tmp[48];    
+    int stim_code_list_tmp[16];
         
     /* databurst variables */
     byte* databurst;
@@ -339,21 +335,20 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     cursor[1] = *uPtrs[1];
 
     /* get IWorkVector */
-    IWorkVector = ssGetIWork(S);
-    RWorkVector = ssGetRWork(S);
+    target_direction = ssGetRWorkValue(S,4);
     bump_step = ssGetIWorkValue(S,5);
     training_mode = ssGetIWorkValue(S,6);
-    target_direction = ssGetRWorkValue(S,4);
-    bump_magnitude = ssGetRWorkValue(S,5);
-    stim_index = ssGetIWorkValue(S,10);
+    bump_magnitude = ssGetRWorkValue(S,5);    
+    stim_trial = ssGetIWorkValue(S,9);
+    stim_index = ssGetIWorkValue(S,10);    
     
     /* get stimulation parameters */
     uPtrs = ssGetInputPortRealSignalPtrs(S,3);
     for (i=0 ; i<16 ; i++) { 
-        stim_codes[i] = *uPtrs[2*i];
-        pref_dir[i] = *uPtrs[2*i+1];
-    }
-            
+        stim_codes[i] = *uPtrs[i];
+        pref_dir[i] = *uPtrs[i+16];
+    } 
+                
     /* get elapsed time since last timer reset */
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
         
@@ -418,6 +413,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             bump_duration = param_bump_duration;
 
             pct_training_trials = param_pct_training_trials;
+            pct_stim_trials = param_pct_stim_trials;
 
             center_hold_l = param_center_hold_l;
             center_hold_h = param_center_hold_h;
@@ -432,8 +428,58 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             training_mode = (UNI<pct_training_trials) ? 1 : 0;
             ssSetIWorkValue(S,6,training_mode);
             
-            /* give a random direction to next target */ 
-            target_direction = 2*PI*UNI;
+            /* check how many valid stim codes there are */                       
+            num_stim_codes = 0;
+            for (i=0 ; i<16 ; i++) { 
+                if (stim_codes[i] != -1) {
+                    num_stim_codes++;
+                } else {
+                    break;
+                }
+            }
+
+            /* check if stimulation block needs to be reinitialized */
+            if ( stim_index >= num_stim_codes ) {
+                /* reset stim index */
+                ssSetIWorkValue(S,10,0);
+                /* block randomization of stims */
+                for (i=0; i<num_stim_codes; i++) {                    
+                    tmp_sort[i] = rand();
+                    stim_code_list_tmp[i] = i;                    
+                }
+                
+                for (i=0; i<num_stim_codes-1; i++) {
+                    for (j=0; j<num_stim_codes-1; j++) { 
+                        if (tmp_sort[j] < tmp_sort[j+1]) {   
+                            tmp = tmp_sort[j];
+                            tmp_sort[j] = tmp_sort[j+1];
+                            tmp_sort[j+1] = tmp;
+                            
+                            tmp = stim_code_list_tmp[j];
+                            stim_code_list_tmp[j] = stim_code_list_tmp[j+1];
+                            stim_code_list_tmp[j+1] = tmp;
+                        }
+                    }
+                }
+                /* write them back */
+                for (i=0; i<num_stim_codes; i++) {
+                    ssSetIWorkValue(S,11+i,stim_code_list_tmp[i]);                    
+	            }                                
+            }
+                  
+            
+            /* decide if it is a stim trial */
+            stim_trial = (UNI<pct_stim_trials ? 1 : 0);
+            ssSetIWorkValue(S,9,stim_trial);           
+            if (stim_trial){
+                stim_index++;                
+                ssSetIWorkValue(S,10,stim_index);
+                target_direction = ssGetRWorkValue(S,6+stim_index);
+            } else {
+                /* give a random direction to next target */ 
+                target_direction = 2*PI*UNI;                
+            }
+                       
             ssSetRWorkValue(S,4,target_direction);
                        
             /* get a random bump step */
@@ -442,63 +488,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             bump_magnitude = bump_magnitude_min + ((float)bump_step)*(bump_magnitude_max-bump_magnitude_min)/((float)bump_steps);
             ssSetRWorkValue(S,5,bump_magnitude);
-            
-            /* decide if it is a stim trial */
-            stim_trial = (UNI<pct_stim_trials ? 1 : 0);
-            if (stim_trial){
-                stim_index++;
-                ssSetIWorkValue(S,9,1);
-                ssSetIWorkValue(S,10,stim_index);
-            } else {
-                ssSetIWorkValue(S,9,0);
-            }
-            
-            num_stim_codes = 0;
-            while (i<16) { 
-                if (stim_codes[i*2] != -1) {
-                    num_stim_codes++;
-                } else {
-                    break;
-                }
-            }
-
-            /* check if stimulation block needs to be reinitialized */
-            if (stim_index > 48) {
-                /* reset stim index */
-                ssSetIWorkValue(S,10,0);
-                /* block randomization of stims */
-                i = 0;
-                while (i<48) {
-                    for (j=0; j<num_stim_codes; j++) {
-                        tmp_sort[i] = UNI;
-                        stim_code_list_tmp[i] = stim_codes[j];
-                        pref_dir_list_tmp[i] = pref_dir[j];
-                        i++;
-                    }
-                }
-                for (i=0; i<48-1; i++) {
-                    for (j=0; j<48-1; j++) { 
-                        if (tmp_sort[j] < tmp_sort[j+1]) {
-                            tmp_real = tmp_sort[j];
-                            tmp_sort[j] = tmp_sort[j+1];
-                            tmp_sort[j+1] = tmp_real;
-                            
-                            tmp = stim_code_list_tmp[j];
-                            stim_code_list_tmp[j] = stim_code_list_tmp[j+1];
-                            stim_code_list_tmp[j+1] = tmp;
-                            
-                            tmp_real = pref_dir_list_tmp[j];
-                            pref_dir_list_tmp[j] = pref_dir_list_tmp[j+1];
-                            pref_dir_list_tmp[j+1] = tmp_real;
-                        }
-                    }
-                }
-                /* write them back */
-                for (i=0; i<48; i++) {
-                    ssSetIWorkValue(S,11+i,stim_code_list_tmp[i]);
-                    ssSetRWorkValue(S,6+i,pref_dir_list_tmp[i]);
-	            }                                
-            }
             
             /* In all cases, we need to decide on the random timer durations */
 	        if (center_hold_h == center_hold_l) {
@@ -631,9 +620,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      *  Initialization
      ********************/
     int i;
-    
-    int_T *IWorkVector; 
-    
+        
     real_T ct[4];
     real_T rt[4];     /* left outer target UL and LR coordinates */
     real_T ft[4];     /* right outer target UL and LR coordinates */
@@ -648,7 +635,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int bump_duration_counter;
     real_T bump_magnitude;
     int bump_step;
-    int stim_trial;
+    
+    int stim_codes[16];
+    real_T pref_dirs[16];
     int stim_index;
     int stim_code;
     real_T pref_dir;
@@ -691,11 +680,18 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     bump_duration_counter = ssGetIWorkValue(S, 8);
     bump_step = ssGetIWorkValue(S, 5);
     
+    /* get stimulation parameters */
+    uPtrs = ssGetInputPortRealSignalPtrs(S,3);
+    for (i=0 ; i<16 ; i++) { 
+        stim_codes[i] = *uPtrs[i];
+        pref_dirs[i] = *uPtrs[i+16];
+    }
+    
     /* stim parameters */
     stim_trial = ssGetIWorkValue(S,9);
     stim_index = ssGetIWorkValue(S,10);
-    stim_code = ssGetIWorkValue(S,11+stim_index);
-    pref_dir = ssGetRWorkValue(S,6+stim_index);
+    stim_code = stim_codes[ssGetIWorkValue(S,11+stim_index)];
+    pref_dir = pref_dirs[ssGetIWorkValue(S,11+stim_index)];
    
     /* get current tone counter */
     tone_cnt = ssGetRWorkValue(S, 1);
@@ -742,14 +738,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             bump_duration_counter--;
             force_x = force_in[0] + cos(target_direction)*bump_magnitude;
             force_y = force_in[1] + sin(target_direction)*bump_magnitude;
-        } else if ( state == STATE_BUMP_STIM && new_state ) {
+        } else if ( state == STATE_BUMP_STIM && new_state ) 
+        {
             /* initiating a new bump */
             bump_duration_counter = (int)bump_duration;
             force_x = force_in[0] + cos(target_direction)*bump_magnitude;
             force_y = force_in[1] + sin(target_direction)*bump_magnitude;
         } else {
-        force_x = force_in[0]; 
-        force_y = force_in[1];
+            force_x = force_in[0]; 
+            force_y = force_in[1];
         }
     } else {
         force_x = force_in[0]; 
@@ -787,7 +784,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                 } else {
                     word = WORD_BUMP(bump_step);
                 }
-                break;
             case STATE_MOVEMENT:
                 word = WORD_GO_CUE;
                 break;
