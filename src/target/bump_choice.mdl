@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1236"
+    ComputedModelVersion    "1.1238"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Jan 26 15:57:02 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:1236>"
+  LastModifiedDate	  "Wed Jan 27 13:20:10 2010"
+  ModelVersionFormat	  "1.%<AutoIncrement:1238>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -2582,7 +2582,7 @@ Model {
     Block {
       BlockType		      Goto
       Name		      "Goto"
-      Position		      [995, 264, 1040, 286]
+      Position		      [995, 254, 1040, 276]
       GotoTag		      "Reward"
       TagVisibility	      "global"
     }
@@ -5606,7 +5606,7 @@ Model {
       BlockType		      SubSystem
       Name		      "RewardSbs"
       Ports		      [1, 1]
-      Position		      [920, 257, 970, 293]
+      Position		      [925, 247, 975, 283]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -5941,7 +5941,7 @@ Model {
       BlockType		      Reference
       Name		      "Status"
       Ports		      [1]
-      Position		      [1010, 134, 1080, 176]
+      Position		      [1010, 124, 1080, 166]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -6646,7 +6646,7 @@ Model {
       BlockType		      Reference
       Name		      "Version Display"
       Ports		      [1]
-      Position		      [975, 334, 1045, 376]
+      Position		      [970, 324, 1040, 366]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -6683,14 +6683,14 @@ Model {
       BlockType		      SubSystem
       Name		      "WordSbs"
       Ports		      [1]
-      Position		      [935, 174, 980, 216]
+      Position		      [935, 164, 980, 206]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
       MaskHideContents	      off
       System {
 	Name			"WordSbs"
-	Location		[0, 74, 1272, 1000]
+	Location		[0, 74, 1268, 1000]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -8445,14 +8445,12 @@ Model {
     Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      2
-      Points		      [0, 10]
       DstBlock		      "Status"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      3
-      Points		      [0, 10]
       DstBlock		      "WordSbs"
       DstPort		      1
     }
@@ -8472,7 +8470,6 @@ Model {
     Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      5
-      Points		      [0, 10]
       DstBlock		      "RewardSbs"
       DstPort		      1
     }
@@ -8532,7 +8529,6 @@ Model {
     Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      7
-      Points		      [0, 10]
       DstBlock		      "Version Display"
       DstPort		      1
     }

@@ -1027,7 +1027,7 @@ namespace BehaviorGraphics
          */
         private void Target2Form()
         {
-            float total = paramNames.Keys.Count + 4;
+            float total = paramNames.Keys.Count + 6;
             float done = 0f;
             int paramID;
             double[] param;
@@ -1059,7 +1059,7 @@ namespace BehaviorGraphics
                         tb.Text = param[0].ToString();
                     } else if (paramControls[key].GetType() == typeof(NumericUpDown)) {
                         NumericUpDown nud = (NumericUpDown)paramControls[key];
-                        nud.Value = (decimal)param[0];
+                        nud.Value = (int)param[0];
                     } else if (paramControls[key].GetType() == typeof(CheckBox)) {
                         CheckBox cb = (CheckBox)paramControls[key];
                         cb.Checked = (param[0] > 0);
@@ -1230,9 +1230,9 @@ namespace BehaviorGraphics
                 param = (double[])target.GetParam(paramID);
                 for (int row = 0; row < 16; row++)
                 {
-                    double d = param[row];
+                    double d = param[row*2];
                     BCStimGrid.Rows[row].Cells[0].Value = d.ToString();
-                    d = param[row + 16];
+                    d = param[row*2+1];
                     BCStimGrid.Rows[row].Cells[1].Value = d.ToString();
                 }
             }

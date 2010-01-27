@@ -203,7 +203,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumPWork(S, 1);   /* 0: pointer to databurst array
                             */
     
-    ssSetNumIWork(S, 27);     /* 0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 28);     /* 0: state_transition (true if state changed), 
                                 1: successes
                                 2: failures
                                 3: aborts
@@ -215,6 +215,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                 9: stim trial
                                 10: stim index
                                 11-26: stim list
+                                27: debugging info
                              */
     
     /* we have no zero crossing detection or modes */
@@ -259,6 +260,8 @@ static void mdlInitializeConditions(SimStruct *S)
     
     /* set stim index to 16 so that it gets reset in pretrial*/
     ssSetIWorkValue(S,10,16);    
+    
+    ssSetIWorkValue(S,27,-1);
 }
 
 /* macro for setting state changed */
@@ -306,7 +309,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* stimulation parameters */
     int stim_index;
     int stim_codes[16];
-    real_T pref_dir[16];
+    real_T pref_dirs[16];
     int num_stim_codes;
     int stim_trial;
     int tmp_sort[16];
@@ -345,9 +348,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* get stimulation parameters */
     uPtrs = ssGetInputPortRealSignalPtrs(S,3);
     for (i=0 ; i<16 ; i++) { 
-        stim_codes[i] = *uPtrs[i];
-        pref_dir[i] = *uPtrs[i+16];
-    } 
+        stim_codes[i] = (int)*uPtrs[2*i];
+        pref_dirs[i] = *uPtrs[2*i+1];
+    }
                 
     /* get elapsed time since last timer reset */
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
@@ -424,10 +427,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             reward_timeout  = param_intertrial;   
             incomplete_timeout = param_intertrial;
             
-            /* decide it if it a training trial */
+            /* decide if it is a training trial */
             training_mode = (UNI<pct_training_trials) ? 1 : 0;
             ssSetIWorkValue(S,6,training_mode);
             
+            /* decide if it is a stim trial */
+            stim_trial = (UNI<pct_stim_trials ? 1 : 0);
+            ssSetIWorkValue(S,9,stim_trial);
+                                    
             /* check how many valid stim codes there are */                       
             num_stim_codes = 0;
             for (i=0 ; i<16 ; i++) { 
@@ -437,15 +444,16 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     break;
                 }
             }
-
+                        
             /* check if stimulation block needs to be reinitialized */
-            if ( stim_index >= num_stim_codes ) {
+            if ( stim_index >= num_stim_codes-1 ) {
                 /* reset stim index */
-                ssSetIWorkValue(S,10,0);
+                stim_index = -1;
+                ssSetIWorkValue(S,10,stim_index);
                 /* block randomization of stims */
                 for (i=0; i<num_stim_codes; i++) {                    
                     tmp_sort[i] = rand();
-                    stim_code_list_tmp[i] = i;                    
+                    stim_code_list_tmp[i] = i; /*stim_codes[i];*/
                 }
                 
                 for (i=0; i<num_stim_codes-1; i++) {
@@ -463,25 +471,20 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 }
                 /* write them back */
                 for (i=0; i<num_stim_codes; i++) {
-                    ssSetIWorkValue(S,11+i,stim_code_list_tmp[i]);                    
+                    ssSetIWorkValue(S,11+i,stim_code_list_tmp[i]);
 	            }                                
-            }
-                  
+            }         
             
-            /* decide if it is a stim trial */
-            stim_trial = (UNI<pct_stim_trials ? 1 : 0);
-            ssSetIWorkValue(S,9,stim_trial);           
-            if (stim_trial){
-                stim_index++;                
+            if (stim_trial){ 
+                stim_index++;
+                target_direction = pref_dirs[ssGetIWorkValue(S,11+stim_index)];
                 ssSetIWorkValue(S,10,stim_index);
-                target_direction = ssGetRWorkValue(S,6+stim_index);
             } else {
                 /* give a random direction to next target */ 
                 target_direction = 2*PI*UNI;                
-            }
-                       
+            }                       
             ssSetRWorkValue(S,4,target_direction);
-                       
+                                                                 
             /* get a random bump step */
             bump_step = ROUND2INT(UNI*bump_steps);
             ssSetIWorkValue(S,5,bump_step);
@@ -683,8 +686,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* get stimulation parameters */
     uPtrs = ssGetInputPortRealSignalPtrs(S,3);
     for (i=0 ; i<16 ; i++) { 
-        stim_codes[i] = *uPtrs[i];
-        pref_dirs[i] = *uPtrs[i+16];
+        stim_codes[i] = *uPtrs[2*i];
+        pref_dirs[i] = *uPtrs[2*i+1];
     }
     
     /* stim parameters */
@@ -763,12 +766,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_INCOMPLETE && new_state)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
     
+    /*
     status[0] = state;
-    status[1] = ssGetIWorkValue(S, 1); /* num rewards     */
-    status[2] = ssGetIWorkValue(S, 2); /* num fails       */
-    status[3] = ssGetIWorkValue(S, 3); /* num aborts      */
+    status[1] = ssGetIWorkValue(S, 1); /* num rewards     /
+    status[2] = ssGetIWorkValue(S, 2); /* num fails       /
+    status[3] = ssGetIWorkValue(S, 3); /* num aborts      /
     status[4] = ssGetIWorkValue(S, 4); /* num incompletes */
-    
+       
+       
     /* word (2) */
     if (new_state) {
         switch (state) {
@@ -778,9 +783,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_ORIGIN_ON:
                 word = WORD_CT_ON;
                 break;
-            case STATE_BUMP_STIM:
+            case STATE_BUMP_STIM:                
                 if (stim_trial) {
-                    word = WORD_STIM(stim_code);
+                    word = WORD_STIM(stim_code);   
+                    /* toggle debugging var */
+                    ssSetIWorkValue(S,27,-ssGetIWorkValue(S,27));
                 } else {
                     word = WORD_BUMP(bump_step);
                 }
@@ -805,6 +812,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     } else {
         word = 0;
     }
+    
+    status[0] = WORD_STIM(stim_code); /* num_stim_codes */
+    status[1] = ssGetIWorkValue(S,27); 
+    status[2] = 0;
+    status[3] = 0;
+    status[4] = 0;
     
     /* target_pos (3) */    
     /* start assuming no targets will be drawn */
