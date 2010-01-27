@@ -1447,7 +1447,7 @@ namespace BehaviorGraphics
 
         private void BehaviorParameters2Target(BehaviorParameters bp)
         {
-            float total = paramNames.Keys.Count + 4;
+            float total = paramNames.Keys.Count + 6;
             float done = 0f;
             int paramID;
             Array param = Array.CreateInstance(typeof(double), 1);
