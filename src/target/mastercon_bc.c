@@ -90,6 +90,10 @@ static real_T pct_training_trials = 0.0; /* true=show one outer target, false=sh
 static real_T pct_stim_trials = 0.0; /* percentage of trials to stimulate */
 #define param_pct_stim_trials mxGetScalar(ssGetSFcnParam(S,13))
 
+/* Update counter */
+static real_T master_update = 0.0;
+#define param_master_update mxGetScalar(ssGetSFcnParam(S,14))
+
 /*
  * State IDs
  */
@@ -137,7 +141,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 14);
+    ssSetNumSFcnParams(S, 15);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -193,12 +197,13 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 6);  /* 0: time of last timer reset 
+    ssSetNumRWork(S, 7);  /* 0: time of last timer reset 
                              1: tone counter (incremented each time a tone is played)
                              2: tone id
 							 3: mastercon version
                              4: target direction
-                             5: bump magnitude                           
+                             5: bump magnitude   
+                             6: master update counter                        
                            */
     ssSetNumPWork(S, 1);   /* 0: pointer to databurst array
                             */
@@ -262,6 +267,9 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S,10,16);    
     
     ssSetIWorkValue(S,27,-1);
+    
+    /* set the initial last update time to 0 */
+    ssSetRWorkValue(S,6,0.0);    
 }
 
 /* macro for setting state changed */
@@ -343,7 +351,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     training_mode = ssGetIWorkValue(S,6);
     bump_magnitude = ssGetRWorkValue(S,5);    
     stim_trial = ssGetIWorkValue(S,9);
-    stim_index = ssGetIWorkValue(S,10);    
+    stim_index = ssGetIWorkValue(S,10); 
+    
+    if ( param_master_update > master_update ) {
+        master_update = param_master_update;
+        ssSetRWorkValue(S, 6, (real_T)ssGetT(S));
+        stim_index = 16;
+    }
     
     /* get stimulation parameters */
     uPtrs = ssGetInputPortRealSignalPtrs(S,3);
@@ -547,7 +561,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_FAIL;
                 reset_timer(); /* abort timeout */
                 state_changed();
-            } else if (elapsed_timer_time > bump_duration) {
+            } else if (elapsed_timer_time > bump_duration/1000) {
                 new_state = STATE_MOVEMENT;
                 reset_timer(); /* movement timer */
                 state_changed();
@@ -783,15 +797,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_ORIGIN_ON:
                 word = WORD_CT_ON;
                 break;
-            case STATE_BUMP_STIM:                
-                if (stim_trial) {
-                    word = WORD_STIM(stim_code);   
-                    /* toggle debugging var */
-                    ssSetIWorkValue(S,27,-ssGetIWorkValue(S,27));
-                } else {
-                    word = WORD_BUMP(bump_step);
-                }
+            case STATE_BUMP_STIM:
+                word = (stim_trial ? WORD_STIM(stim_code) : WORD_BUMP(bump_step)); 
+                break;
             case STATE_MOVEMENT:
+                /* toggle debugging var */
+                ssSetIWorkValue(S,27,ssGetIWorkValue(S,27)+1);
                 word = WORD_GO_CUE;
                 break;
             case STATE_REWARD:
@@ -809,14 +820,16 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             default:
                 word = 0;
         }
+
     } else {
         word = 0;
     }
     
-    status[0] = WORD_STIM(stim_code); /* num_stim_codes */
-    status[1] = ssGetIWorkValue(S,27); 
-    status[2] = 0;
-    status[3] = 0;
+    
+    status[0] = state;
+    status[1] = WORD_STIM(stim_code); /* num_stim_codes */
+    status[2] = ssGetIWorkValue(S,27); 
+    status[3] = stim_code;
     status[4] = 0;
     
     /* target_pos (3) */    

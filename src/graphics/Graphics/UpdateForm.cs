@@ -1592,6 +1592,7 @@ namespace BehaviorGraphics
 
             /* WF master update */
             paramID = target.GetParamIdx("Behavior WF", "P19");
+            if (paramID < 0) target.GetParamIdx("Behavior BC", "P15");
             if (paramID >= 0) {
                 double[] oldParam;
                 Array newParam = Array.CreateInstance(typeof(double), 1);
