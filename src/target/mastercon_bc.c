@@ -780,11 +780,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_INCOMPLETE && new_state)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
     
-    /*
+    
     status[0] = state;
-    status[1] = ssGetIWorkValue(S, 1); /* num rewards     /
-    status[2] = ssGetIWorkValue(S, 2); /* num fails       /
-    status[3] = ssGetIWorkValue(S, 3); /* num aborts      /
+    status[1] = ssGetIWorkValue(S, 1); /* num rewards     */
+    status[2] = ssGetIWorkValue(S, 2); /* num fails       */
+    status[3] = ssGetIWorkValue(S, 3); /* num aborts      */
     status[4] = ssGetIWorkValue(S, 4); /* num incompletes */
        
        
@@ -801,8 +801,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                 word = (stim_trial ? WORD_STIM(stim_code) : WORD_BUMP(bump_step)); 
                 break;
             case STATE_MOVEMENT:
-                /* toggle debugging var */
-                ssSetIWorkValue(S,27,ssGetIWorkValue(S,27)+1);
+                /* toggle debugging var 
+                ssSetIWorkValue(S,27,ssGetIWorkValue(S,27)+1); */
                 word = WORD_GO_CUE;
                 break;
             case STATE_REWARD:
@@ -824,14 +824,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     } else {
         word = 0;
     }
-    
-    
-    status[0] = state;
-    status[1] = WORD_STIM(stim_code); /* num_stim_codes */
-    status[2] = ssGetIWorkValue(S,27); 
-    status[3] = stim_code;
-    status[4] = 0;
-    
+       
     /* target_pos (3) */    
     /* start assuming no targets will be drawn */
     for (i = 0; i<15; i++)
