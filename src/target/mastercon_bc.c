@@ -774,9 +774,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if (state == STATE_REWARD && new_state)
         ssSetIWorkValue(S,1, ssGetIWorkValue(S, 1)+1);
     if (state == STATE_FAIL && new_state)
-        ssSetIWorkValue(S, 2, ssGetIWorkValue(S, 2)+1);
-    if (state == STATE_ABORT && new_state)
         ssSetIWorkValue(S, 3, ssGetIWorkValue(S, 3)+1);
+    if (state == STATE_ABORT && new_state)
+        ssSetIWorkValue(S, 2, ssGetIWorkValue(S, 2)+1);
     if (state == STATE_INCOMPLETE && new_state)
         ssSetIWorkValue(S, 4, ssGetIWorkValue(S, 4)+1);
     
