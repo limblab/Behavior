@@ -513,8 +513,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	            center_hold = center_hold_l + (center_hold_h - center_hold_l)*UNI;
 	        }
 	                        
+            /* clear the counters */
+            ssSetIWorkValue(S, 7, 0); /* Databurst counter */
+            
 	        /* and advance */
-	        new_state = STATE_ORIGIN_ON;
+	        new_state = STATE_DATA_BLOCK;
 	        state_changed();
             break;
         case STATE_DATA_BLOCK:            
@@ -789,7 +792,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
        
        
     /* word (2) */
-    if (new_state) {
+    if (state == STATE_DATA_BLOCK) {
+        if (databurst_counter % 2 == 0) {
+            word = databurst[databurst_counter / 2] | 0xF0; // low order bits
+        } else {
+            word = databurst[databurst_counter / 2] >> 4 | 0xF0; // high order bits
+        }
+    } else if (new_state) {
         switch (state) {
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
