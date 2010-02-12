@@ -16,7 +16,7 @@
 #include "random_macros.h"
 
 #define PI (3.141592654)
-#define ROUND2INT(val) ((int)((val) + 0.5))
+
 /* 
  * Current Databurst version: 1
  *
@@ -500,10 +500,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             ssSetRWorkValue(S,4,target_direction);
                                                                  
             /* get a random bump step */
-            bump_step = ROUND2INT(UNI*bump_steps);
+            bump_step = (int)(UNI*bump_steps);
             ssSetIWorkValue(S,5,bump_step);
             
-            bump_magnitude = bump_magnitude_min + ((float)bump_step)*(bump_magnitude_max-bump_magnitude_min)/((float)bump_steps);
+            bump_magnitude = bump_magnitude_min + ((float)bump_step)*(bump_magnitude_max-bump_magnitude_min)/((float)bump_steps-1);
             ssSetRWorkValue(S,5,bump_magnitude);
             
             /* In all cases, we need to decide on the random timer durations */
