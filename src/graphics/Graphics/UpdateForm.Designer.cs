@@ -495,6 +495,8 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
+            this.textBoxBCIF = new System.Windows.Forms.TextBox();
+            this.label76 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -4286,7 +4288,7 @@ namespace BehaviorGraphics
             this.groupBox19.Controls.Add(this.label84);
             this.groupBox19.Controls.Add(this.textBoxBCTgtSize);
             this.groupBox19.Controls.Add(this.label85);
-            this.groupBox19.Location = new System.Drawing.Point(3, 128);
+            this.groupBox19.Location = new System.Drawing.Point(3, 148);
             this.groupBox19.Name = "groupBox19";
             this.groupBox19.Size = new System.Drawing.Size(207, 121);
             this.groupBox19.TabIndex = 103;
@@ -4495,6 +4497,8 @@ namespace BehaviorGraphics
             // 
             // groupBox18
             // 
+            this.groupBox18.Controls.Add(this.textBoxBCIF);
+            this.groupBox18.Controls.Add(this.label76);
             this.groupBox18.Controls.Add(this.textBoxBCI);
             this.groupBox18.Controls.Add(this.label83);
             this.groupBox18.Controls.Add(this.textBoxBCM);
@@ -4505,7 +4509,7 @@ namespace BehaviorGraphics
             this.groupBox18.Controls.Add(this.label90);
             this.groupBox18.Location = new System.Drawing.Point(3, 3);
             this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(207, 119);
+            this.groupBox18.Size = new System.Drawing.Size(207, 139);
             this.groupBox18.TabIndex = 101;
             this.groupBox18.TabStop = false;
             this.groupBox18.Text = "Timing";
@@ -5369,6 +5373,22 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
+            // textBoxBCIF
+            // 
+            this.textBoxBCIF.Location = new System.Drawing.Point(101, 112);
+            this.textBoxBCIF.Name = "textBoxBCIF";
+            this.textBoxBCIF.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBCIF.TabIndex = 17;
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Location = new System.Drawing.Point(9, 119);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(45, 13);
+            this.label76.TabIndex = 16;
+            this.label76.Text = "Fail wait";
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -5967,5 +5987,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.DataGridView BCStimGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn StimCodeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn PDColumn;
+        private System.Windows.Forms.TextBox textBoxBCIF;
+        private System.Windows.Forms.Label label76;
     }
 }

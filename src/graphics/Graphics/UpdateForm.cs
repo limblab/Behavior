@@ -396,12 +396,13 @@ namespace BehaviorGraphics
             AddParamListItem("BC OHH", "P10", "Behavior BC", this.textBoxBCOHH);
             AddParamListItem("BC M", "P11", "Behavior BC", this.textBoxBCM);
             AddParamListItem("BC I", "P12", "Behavior BC", this.textBoxBCI);
+            AddParamListItem("BC IF", "P13", "Behavior BC", this.textBoxBCIF);
 
             // Training trials
-            AddParamListItem("BC Pct Training Trials", "P13", "Behavior BC", this.textBoxBCPctTraining);  
+            AddParamListItem("BC Pct Training Trials", "P14", "Behavior BC", this.textBoxBCPctTraining);  
    
             // Stimulation parameters
-            AddParamListItem("BC Pct Stimulation Trials", "P14", "Behavior BC", this.textBoxBCPctStimTrials);
+            AddParamListItem("BC Pct Stimulation Trials", "P15", "Behavior BC", this.textBoxBCPctStimTrials);
             
             #endregion
         }

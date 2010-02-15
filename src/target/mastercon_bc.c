@@ -76,23 +76,25 @@ static real_T movement_time = 10;  /* movement time */
 #define param_movement_time mxGetScalar(ssGetSFcnParam(S,10))
 #define param_intertrial mxGetScalar(ssGetSFcnParam(S,11)) /* time between trials*/
 static real_T abort_timeout   = 1.0;    /* delay after abort */
-static real_T failure_timeout = 1.0;    /* delay after failure */
 static real_T incomplete_timeout = 1.0; /* delay after incomplete */
 static real_T center_bump_timeout  = 1.0; 
 static real_T reward_timeout  = 1.0;    /* delay after reward before starting next trial
                                          * This is NOT the reward pulse length */
 
+static real_T failure_timeout = 1.0;    /* delay after failure */
+#define param_fail_intertrial mxGetScalar(ssGetSFcnParam(S,12)) /* time between trials*/
+
 /* General parameters */
 static real_T pct_training_trials = 0.0; /* true=show one outer target, false=show 2 */
-#define param_pct_training_trials mxGetScalar(ssGetSFcnParam(S,12))
+#define param_pct_training_trials mxGetScalar(ssGetSFcnParam(S,13))
 
 /* Stimulation parameters */
 static real_T pct_stim_trials = 0.0; /* percentage of trials to stimulate */
-#define param_pct_stim_trials mxGetScalar(ssGetSFcnParam(S,13))
+#define param_pct_stim_trials mxGetScalar(ssGetSFcnParam(S,14))
 
 /* Update counter */
 static real_T master_update = 0.0;
-#define param_master_update mxGetScalar(ssGetSFcnParam(S,14))
+#define param_master_update mxGetScalar(ssGetSFcnParam(S,15))
 
 /*
  * State IDs
@@ -132,7 +134,7 @@ static void mdlCheckParameters(SimStruct *S)
     movement_time = param_movement_time;
 
     abort_timeout   = param_intertrial;    
-    failure_timeout = param_intertrial;
+    failure_timeout = param_fail_intertrial;
     reward_timeout  = param_intertrial;   
     incomplete_timeout = param_intertrial;
 }
@@ -141,7 +143,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 15);
+    ssSetNumSFcnParams(S, 16);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -437,7 +439,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             movement_time = param_movement_time;
 
             abort_timeout   = param_intertrial;    
-            failure_timeout = param_intertrial;
+            failure_timeout = param_fail_intertrial;
             reward_timeout  = param_intertrial;   
             incomplete_timeout = param_intertrial;
             
@@ -556,7 +558,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_BUMP_STIM:
             /* stimulation */            
-            if(cursorInTarget(cursor, rt)) {
+            if (cursorInTarget(cursor, rt)) {
                 new_state = STATE_REWARD;
                 reset_timer(); /* abort timeout */
                 state_changed();
@@ -575,8 +577,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			if (cursorInTarget(cursor, rt)) {
 				new_state = STATE_REWARD;
                 reset_timer(); /* reward timeout */
-                state_changed();
-			
+                state_changed();			
 			} else if (cursorInTarget(cursor, ft)) {			
                 new_state = STATE_FAIL;
                 reset_timer(); /* incomplete timeout */
@@ -598,7 +599,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_FAIL:
             /* failure */
-            if (elapsed_timer_time > failure_timeout) {
+            if (bump_magnitude == 0 && !stim_trial && elapsed_timer_time > abort_timeout) {
+                new_state = STATE_PRETRIAL;
+                state_changed();
+            } else if (elapsed_timer_time > failure_timeout) {
                 new_state = STATE_PRETRIAL;
                 state_changed();
             }
