@@ -177,7 +177,7 @@ static void mdlInitializeSizes(SimStruct *S)
     
     ssSetNumIWork(S, 6); 	/*
     						0: state_transition (true if state changed), 
-                            1: successes
+                            1: rewards
                             2: aborts
                             3: failures
                             4: incomplete
@@ -217,6 +217,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 1, 0);
     ssSetIWorkValue(S, 2, 0);
     ssSetIWorkValue(S, 3, 0);
+    ssSetIWorkValue(S, 4, 0);
 	
     /* set catch trial flag to zero */
     ssSetIWorkValue(S,5,0);
@@ -283,9 +284,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
      *********************************/
     if (param_master_reset > master_reset) {
         master_reset = param_master_reset;
-        ssSetIWorkValue(S, 1, 0);
-        ssSetIWorkValue(S, 2, 0);
-        ssSetIWorkValue(S, 3, 0);
+        ssSetIWorkValue(S, 1, 0); //rewards
+        ssSetIWorkValue(S, 2, 0); //abort
+        ssSetIWorkValue(S, 3, 0); //failures
+        ssSetIWorkValue(S, 4, 0); //incompletes
         state_r[0] = STATE_PRETRIAL;
         return;
     }
