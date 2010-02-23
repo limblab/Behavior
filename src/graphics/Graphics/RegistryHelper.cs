@@ -75,7 +75,7 @@ namespace BehaviorGraphics {
             }
             set {
                 RegistryKey key = Registry.LocalMachine.CreateSubKey(REG_KEY_PATH);
-                key.SetValue(REG_KEY_LAB, value);
+                key.SetValue(REG_KEY_LAB, value.ToString());
             }
         }
 
