@@ -158,15 +158,13 @@ namespace BehaviorGraphics
 
         private void OnDeviceLost(object sender, EventArgs e)
         {
-            PresentParameters presentParams = GetPresentParams();
-
             try {
                 device.TestCooperativeLevel(); //let's check what the state of the device is, if we can reset the device or not.
             } catch (DeviceLostException) {
                 //We don't do anything, the device is still in a state that we cannot reset it.
             } catch (DeviceNotResetException) { //The device can be reset
                 try {
-                    device.Reset(presentParams); //Reset the device.
+                    device.Reset(GetPresentParams()); //Reset the device.
                 } catch (DeviceLostException) {
                     //We don't do anything, the device is still in a state that we cannot reset it.
                 }
@@ -518,6 +516,5 @@ namespace BehaviorGraphics
                 }
             }
         }
-
     }
 }

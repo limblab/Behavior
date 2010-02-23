@@ -52,6 +52,7 @@ namespace BehaviorGraphics
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(541, 360);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Graphics";
             this.Text = "Graphics";
             this.Click += new System.EventHandler(this.Graphics_Click);
