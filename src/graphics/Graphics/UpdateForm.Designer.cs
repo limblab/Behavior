@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -403,6 +403,8 @@ namespace BehaviorGraphics
             this.label81 = new System.Windows.Forms.Label();
             this.numericUpDownBCBumpSteps = new System.Windows.Forms.NumericUpDown();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
+            this.textBoxBCIF = new System.Windows.Forms.TextBox();
+            this.label76 = new System.Windows.Forms.Label();
             this.textBoxBCI = new System.Windows.Forms.TextBox();
             this.label83 = new System.Windows.Forms.Label();
             this.textBoxBCM = new System.Windows.Forms.TextBox();
@@ -495,8 +497,6 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.textBoxBCIF = new System.Windows.Forms.TextBox();
-            this.label76 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -571,7 +571,7 @@ namespace BehaviorGraphics
             this.cancelButton.Location = new System.Drawing.Point(515, 354);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 1;
+            this.cancelButton.TabIndex = 98;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
@@ -582,7 +582,7 @@ namespace BehaviorGraphics
             this.okButton.Location = new System.Drawing.Point(596, 354);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
-            this.okButton.TabIndex = 0;
+            this.okButton.TabIndex = 99;
             this.okButton.Text = "Ok";
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
@@ -605,7 +605,7 @@ namespace BehaviorGraphics
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(675, 321);
-            this.tabControl.TabIndex = 2;
+            this.tabControl.TabIndex = 0;
             // 
             // tabPageGen
             // 
@@ -642,7 +642,7 @@ namespace BehaviorGraphics
             this.groupBox13.Location = new System.Drawing.Point(6, 147);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(222, 67);
-            this.groupBox13.TabIndex = 28;
+            this.groupBox13.TabIndex = 12;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "Reward";
             // 
@@ -660,14 +660,15 @@ namespace BehaviorGraphics
             this.textBoxJackpotChance.Location = new System.Drawing.Point(173, 38);
             this.textBoxJackpotChance.Name = "textBoxJackpotChance";
             this.textBoxJackpotChance.Size = new System.Drawing.Size(32, 20);
-            this.textBoxJackpotChance.TabIndex = 27;
+            this.textBoxJackpotChance.TabIndex = 3;
+            this.textBoxJackpotChance.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBoxRewardPL
             // 
             this.textBoxRewardPL.Location = new System.Drawing.Point(85, 13);
             this.textBoxRewardPL.Name = "textBoxRewardPL";
             this.textBoxRewardPL.Size = new System.Drawing.Size(33, 20);
-            this.textBoxRewardPL.TabIndex = 13;
+            this.textBoxRewardPL.TabIndex = 1;
             this.toolTip1.SetToolTip(this.textBoxRewardPL, "Duration of reward pulse (s)");
             this.textBoxRewardPL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -685,7 +686,8 @@ namespace BehaviorGraphics
             this.textBoxRewardJackpot.Location = new System.Drawing.Point(85, 38);
             this.textBoxRewardJackpot.Name = "textBoxRewardJackpot";
             this.textBoxRewardJackpot.Size = new System.Drawing.Size(33, 20);
-            this.textBoxRewardJackpot.TabIndex = 26;
+            this.textBoxRewardJackpot.TabIndex = 2;
+            this.textBoxRewardJackpot.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label41
             // 
@@ -710,7 +712,7 @@ namespace BehaviorGraphics
             this.textBoxVerticalDisplacement.Location = new System.Drawing.Point(122, 245);
             this.textBoxVerticalDisplacement.Name = "textBoxVerticalDisplacement";
             this.textBoxVerticalDisplacement.Size = new System.Drawing.Size(100, 20);
-            this.textBoxVerticalDisplacement.TabIndex = 15;
+            this.textBoxVerticalDisplacement.TabIndex = 16;
             this.textBoxVerticalDisplacement.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label123
@@ -728,7 +730,7 @@ namespace BehaviorGraphics
             this.checkBoxUseTachs.Location = new System.Drawing.Point(150, 271);
             this.checkBoxUseTachs.Name = "checkBoxUseTachs";
             this.checkBoxUseTachs.Size = new System.Drawing.Size(78, 17);
-            this.checkBoxUseTachs.TabIndex = 21;
+            this.checkBoxUseTachs.TabIndex = 18;
             this.checkBoxUseTachs.Text = "Use Tachs";
             this.toolTip1.SetToolTip(this.checkBoxUseTachs, "When set (checked) the model will use the tachometers to calculate handle velocit" +
                     "y.\r\nWhen cleared (unchecked) the model will use filtered differentiation of the " +
@@ -742,7 +744,7 @@ namespace BehaviorGraphics
             this.comboBoxCursor.Location = new System.Drawing.Point(284, 269);
             this.comboBoxCursor.Name = "comboBoxCursor";
             this.comboBoxCursor.Size = new System.Drawing.Size(145, 21);
-            this.comboBoxCursor.TabIndex = 16;
+            this.comboBoxCursor.TabIndex = 22;
             this.toolTip1.SetToolTip(this.comboBoxCursor, "The cursor type to display");
             this.comboBoxCursor.SelectedIndexChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
@@ -785,7 +787,7 @@ namespace BehaviorGraphics
             this.groupBox27.Location = new System.Drawing.Point(234, 138);
             this.groupBox27.Name = "groupBox27";
             this.groupBox27.Size = new System.Drawing.Size(427, 127);
-            this.groupBox27.TabIndex = 18;
+            this.groupBox27.TabIndex = 21;
             this.groupBox27.TabStop = false;
             this.groupBox27.Text = "Catch Load";
             // 
@@ -794,7 +796,7 @@ namespace BehaviorGraphics
             this.angleEntryBoxCurlAngleCatch.Location = new System.Drawing.Point(106, 73);
             this.angleEntryBoxCurlAngleCatch.Name = "angleEntryBoxCurlAngleCatch";
             this.angleEntryBoxCurlAngleCatch.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngleCatch.TabIndex = 33;
+            this.angleEntryBoxCurlAngleCatch.TabIndex = 3;
             this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngleCatch, "Angle relative to the direction of movement at which to apply coriolis forces.");
             this.angleEntryBoxCurlAngleCatch.Value = 0;
             // 
@@ -807,7 +809,7 @@ namespace BehaviorGraphics
             this.groupBox29.Location = new System.Drawing.Point(212, 11);
             this.groupBox29.Name = "groupBox29";
             this.groupBox29.Size = new System.Drawing.Size(200, 75);
-            this.groupBox29.TabIndex = 24;
+            this.groupBox29.TabIndex = 6;
             this.groupBox29.TabStop = false;
             this.groupBox29.Text = "Chaotic Load";
             // 
@@ -816,7 +818,7 @@ namespace BehaviorGraphics
             this.textBoxTimeConstCatch.Location = new System.Drawing.Point(94, 19);
             this.textBoxTimeConstCatch.Name = "textBoxTimeConstCatch";
             this.textBoxTimeConstCatch.Size = new System.Drawing.Size(100, 20);
-            this.textBoxTimeConstCatch.TabIndex = 30;
+            this.textBoxTimeConstCatch.TabIndex = 1;
             this.toolTip1.SetToolTip(this.textBoxTimeConstCatch, "Time constant (smaller is slower) for the chaotic drifting force.");
             this.textBoxTimeConstCatch.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -834,7 +836,7 @@ namespace BehaviorGraphics
             this.textBoxChaoticGainCatch.Location = new System.Drawing.Point(94, 45);
             this.textBoxChaoticGainCatch.Name = "textBoxChaoticGainCatch";
             this.textBoxChaoticGainCatch.Size = new System.Drawing.Size(100, 20);
-            this.textBoxChaoticGainCatch.TabIndex = 31;
+            this.textBoxChaoticGainCatch.TabIndex = 2;
             this.toolTip1.SetToolTip(this.textBoxChaoticGainCatch, "Amplitude of chaotic drifting force.");
             this.textBoxChaoticGainCatch.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -852,7 +854,7 @@ namespace BehaviorGraphics
             this.textBoxLoadYCatch.Location = new System.Drawing.Point(312, 99);
             this.textBoxLoadYCatch.Name = "textBoxLoadYCatch";
             this.textBoxLoadYCatch.Size = new System.Drawing.Size(100, 20);
-            this.textBoxLoadYCatch.TabIndex = 32;
+            this.textBoxLoadYCatch.TabIndex = 5;
             this.toolTip1.SetToolTip(this.textBoxLoadYCatch, "Y component of force for static force loads");
             this.textBoxLoadYCatch.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -870,7 +872,7 @@ namespace BehaviorGraphics
             this.textBoxLoadXCatch.Location = new System.Drawing.Point(106, 99);
             this.textBoxLoadXCatch.Name = "textBoxLoadXCatch";
             this.textBoxLoadXCatch.Size = new System.Drawing.Size(100, 20);
-            this.textBoxLoadXCatch.TabIndex = 29;
+            this.textBoxLoadXCatch.TabIndex = 4;
             this.toolTip1.SetToolTip(this.textBoxLoadXCatch, "X component of force for static force loads");
             this.textBoxLoadXCatch.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -897,7 +899,7 @@ namespace BehaviorGraphics
             this.textBoxViscCatch.Location = new System.Drawing.Point(106, 47);
             this.textBoxViscCatch.Name = "textBoxViscCatch";
             this.textBoxViscCatch.Size = new System.Drawing.Size(100, 20);
-            this.textBoxViscCatch.TabIndex = 27;
+            this.textBoxViscCatch.TabIndex = 2;
             this.toolTip1.SetToolTip(this.textBoxViscCatch, "Coeficient of viscosity for viscus and coriolis forces.");
             this.textBoxViscCatch.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -932,7 +934,7 @@ namespace BehaviorGraphics
             this.comboBoxLoadCatch.Location = new System.Drawing.Point(70, 17);
             this.comboBoxLoadCatch.Name = "comboBoxLoadCatch";
             this.comboBoxLoadCatch.Size = new System.Drawing.Size(136, 21);
-            this.comboBoxLoadCatch.TabIndex = 26;
+            this.comboBoxLoadCatch.TabIndex = 1;
             this.toolTip1.SetToolTip(this.comboBoxLoadCatch, "Selects the type of alternate load to apply to the handle during catch trials.");
             this.comboBoxLoadCatch.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
@@ -941,7 +943,7 @@ namespace BehaviorGraphics
             this.textBoxScreenWidth.Location = new System.Drawing.Point(122, 221);
             this.textBoxScreenWidth.Name = "textBoxScreenWidth";
             this.textBoxScreenWidth.Size = new System.Drawing.Size(100, 20);
-            this.textBoxScreenWidth.TabIndex = 14;
+            this.textBoxScreenWidth.TabIndex = 15;
             this.toolTip1.SetToolTip(this.textBoxScreenWidth, "Sets the size of the workspace to be drawn on the screen.\r\nThis value should be s" +
                     "et to the length of the smaller window dimension in cm.");
             this.textBoxScreenWidth.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -971,7 +973,7 @@ namespace BehaviorGraphics
             this.groupBox5.Location = new System.Drawing.Point(234, 6);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(427, 125);
-            this.groupBox5.TabIndex = 18;
+            this.groupBox5.TabIndex = 20;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Load";
             // 
@@ -980,7 +982,7 @@ namespace BehaviorGraphics
             this.angleEntryBoxCurlAngle.Location = new System.Drawing.Point(106, 73);
             this.angleEntryBoxCurlAngle.Name = "angleEntryBoxCurlAngle";
             this.angleEntryBoxCurlAngle.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngle.TabIndex = 26;
+            this.angleEntryBoxCurlAngle.TabIndex = 3;
             this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngle, "Angle relative to the direction of movement at which to apply coriolis forces.");
             this.angleEntryBoxCurlAngle.Value = 0;
             // 
@@ -993,7 +995,7 @@ namespace BehaviorGraphics
             this.groupBox6.Location = new System.Drawing.Point(212, 11);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(200, 75);
-            this.groupBox6.TabIndex = 24;
+            this.groupBox6.TabIndex = 6;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Chaotic Load";
             // 
@@ -1002,7 +1004,7 @@ namespace BehaviorGraphics
             this.textBoxTimeConst.Location = new System.Drawing.Point(94, 19);
             this.textBoxTimeConst.Name = "textBoxTimeConst";
             this.textBoxTimeConst.Size = new System.Drawing.Size(100, 20);
-            this.textBoxTimeConst.TabIndex = 23;
+            this.textBoxTimeConst.TabIndex = 1;
             this.toolTip1.SetToolTip(this.textBoxTimeConst, "Time constant (smaller is slower) for the chaotic drifting force.");
             this.textBoxTimeConst.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -1020,7 +1022,7 @@ namespace BehaviorGraphics
             this.textBoxChaoticGain.Location = new System.Drawing.Point(94, 45);
             this.textBoxChaoticGain.Name = "textBoxChaoticGain";
             this.textBoxChaoticGain.Size = new System.Drawing.Size(100, 20);
-            this.textBoxChaoticGain.TabIndex = 24;
+            this.textBoxChaoticGain.TabIndex = 2;
             this.toolTip1.SetToolTip(this.textBoxChaoticGain, "Amplitude of chaotic drifting force.");
             this.textBoxChaoticGain.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -1038,7 +1040,7 @@ namespace BehaviorGraphics
             this.textBoxLoadY.Location = new System.Drawing.Point(312, 99);
             this.textBoxLoadY.Name = "textBoxLoadY";
             this.textBoxLoadY.Size = new System.Drawing.Size(100, 20);
-            this.textBoxLoadY.TabIndex = 25;
+            this.textBoxLoadY.TabIndex = 5;
             this.toolTip1.SetToolTip(this.textBoxLoadY, "Y component of force for static force loads");
             this.textBoxLoadY.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -1056,7 +1058,7 @@ namespace BehaviorGraphics
             this.textBoxLoadX.Location = new System.Drawing.Point(106, 99);
             this.textBoxLoadX.Name = "textBoxLoadX";
             this.textBoxLoadX.Size = new System.Drawing.Size(100, 20);
-            this.textBoxLoadX.TabIndex = 22;
+            this.textBoxLoadX.TabIndex = 4;
             this.toolTip1.SetToolTip(this.textBoxLoadX, "X component of force for static force loads");
             this.textBoxLoadX.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -1083,7 +1085,7 @@ namespace BehaviorGraphics
             this.textBoxVisc.Location = new System.Drawing.Point(106, 47);
             this.textBoxVisc.Name = "textBoxVisc";
             this.textBoxVisc.Size = new System.Drawing.Size(100, 20);
-            this.textBoxVisc.TabIndex = 20;
+            this.textBoxVisc.TabIndex = 2;
             this.toolTip1.SetToolTip(this.textBoxVisc, "Coeficient of viscosity for viscus and coriolis forces.");
             this.textBoxVisc.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -1118,7 +1120,7 @@ namespace BehaviorGraphics
             this.comboBoxLoad.Location = new System.Drawing.Point(70, 17);
             this.comboBoxLoad.Name = "comboBoxLoad";
             this.comboBoxLoad.Size = new System.Drawing.Size(136, 21);
-            this.comboBoxLoad.TabIndex = 19;
+            this.comboBoxLoad.TabIndex = 1;
             this.toolTip1.SetToolTip(this.comboBoxLoad, "Selects the type of load to apply to the handle.");
             this.comboBoxLoad.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -1137,7 +1139,7 @@ namespace BehaviorGraphics
             this.groupBox4.Location = new System.Drawing.Point(6, 6);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(222, 135);
-            this.groupBox4.TabIndex = 0;
+            this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Position Offsets";
             // 
@@ -1146,7 +1148,7 @@ namespace BehaviorGraphics
             this.angleEntryBoxCursorRotation.Location = new System.Drawing.Point(116, 108);
             this.angleEntryBoxCursorRotation.Name = "angleEntryBoxCursorRotation";
             this.angleEntryBoxCursorRotation.Size = new System.Drawing.Size(99, 21);
-            this.angleEntryBoxCursorRotation.TabIndex = 11;
+            this.angleEntryBoxCursorRotation.TabIndex = 5;
             this.toolTip1.SetToolTip(this.angleEntryBoxCursorRotation, "Rotation of workspace relative to handle.");
             this.angleEntryBoxCursorRotation.Value = 0;
             // 
@@ -1164,7 +1166,7 @@ namespace BehaviorGraphics
             this.textBoxYOffset.Location = new System.Drawing.Point(116, 84);
             this.textBoxYOffset.Name = "textBoxYOffset";
             this.textBoxYOffset.Size = new System.Drawing.Size(100, 20);
-            this.textBoxYOffset.TabIndex = 9;
+            this.textBoxYOffset.TabIndex = 4;
             this.toolTip1.SetToolTip(this.textBoxYOffset, "Y offset for handle position zero (cm)");
             this.textBoxYOffset.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -1182,7 +1184,7 @@ namespace BehaviorGraphics
             this.textBoxXOffset.Location = new System.Drawing.Point(116, 61);
             this.textBoxXOffset.Name = "textBoxXOffset";
             this.textBoxXOffset.Size = new System.Drawing.Size(100, 20);
-            this.textBoxXOffset.TabIndex = 7;
+            this.textBoxXOffset.TabIndex = 3;
             this.toolTip1.SetToolTip(this.textBoxXOffset, "X offset for handle position zero (cm)");
             this.textBoxXOffset.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -1200,7 +1202,7 @@ namespace BehaviorGraphics
             this.textBoxShOffset.Location = new System.Drawing.Point(116, 38);
             this.textBoxShOffset.Name = "textBoxShOffset";
             this.textBoxShOffset.Size = new System.Drawing.Size(100, 20);
-            this.textBoxShOffset.TabIndex = 5;
+            this.textBoxShOffset.TabIndex = 2;
             this.toolTip1.SetToolTip(this.textBoxShOffset, "Offset of the shoulder encoder.\r\nLab dependent");
             this.textBoxShOffset.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -1218,7 +1220,7 @@ namespace BehaviorGraphics
             this.textBoxElOffset.Location = new System.Drawing.Point(116, 15);
             this.textBoxElOffset.Name = "textBoxElOffset";
             this.textBoxElOffset.Size = new System.Drawing.Size(100, 20);
-            this.textBoxElOffset.TabIndex = 3;
+            this.textBoxElOffset.TabIndex = 1;
             this.toolTip1.SetToolTip(this.textBoxElOffset, "Offset of the elbow encoder.\r\nLab dependent");
             this.textBoxElOffset.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -1254,7 +1256,7 @@ namespace BehaviorGraphics
             this.groupBox3.Location = new System.Drawing.Point(220, 81);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(441, 175);
-            this.groupBox3.TabIndex = 10;
+            this.groupBox3.TabIndex = 23;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Perturbations";
             // 
@@ -1280,7 +1282,7 @@ namespace BehaviorGraphics
             this.catchGroup.Location = new System.Drawing.Point(6, 73);
             this.catchGroup.Name = "catchGroup";
             this.catchGroup.Size = new System.Drawing.Size(201, 96);
-            this.catchGroup.TabIndex = 5;
+            this.catchGroup.TabIndex = 11;
             this.catchGroup.TabStop = false;
             this.catchGroup.Text = "Block / Catch";
             // 
@@ -1289,7 +1291,7 @@ namespace BehaviorGraphics
             this.textBoxCatchPct.Location = new System.Drawing.Point(93, 19);
             this.textBoxCatchPct.Name = "textBoxCatchPct";
             this.textBoxCatchPct.Size = new System.Drawing.Size(100, 20);
-            this.textBoxCatchPct.TabIndex = 6;
+            this.textBoxCatchPct.TabIndex = 1;
             this.toolTip1.SetToolTip(this.textBoxCatchPct, "Percent of trials (as a fraction) that should be catch trials.\r\nUse \".20\" to make" +
                     " 20% of the trials catch trials.");
             this.textBoxCatchPct.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -1315,7 +1317,7 @@ namespace BehaviorGraphics
             this.bumpGroup.Location = new System.Drawing.Point(215, 42);
             this.bumpGroup.Name = "bumpGroup";
             this.bumpGroup.Size = new System.Drawing.Size(220, 127);
-            this.bumpGroup.TabIndex = 4;
+            this.bumpGroup.TabIndex = 21;
             this.bumpGroup.TabStop = false;
             this.bumpGroup.Text = "Bumps";
             // 
@@ -1325,7 +1327,7 @@ namespace BehaviorGraphics
             this.checkBoxDelayBumps.Location = new System.Drawing.Point(9, 42);
             this.checkBoxDelayBumps.Name = "checkBoxDelayBumps";
             this.checkBoxDelayBumps.Size = new System.Drawing.Size(143, 17);
-            this.checkBoxDelayBumps.TabIndex = 8;
+            this.checkBoxDelayBumps.TabIndex = 3;
             this.checkBoxDelayBumps.Text = "Use Delay Period Bumps";
             this.toolTip1.SetToolTip(this.checkBoxDelayBumps, "When checked, bumps will occure at the end of the delay period rather than mid re" +
                     "ach.");
@@ -1373,7 +1375,7 @@ namespace BehaviorGraphics
             this.checkBoxCHB.Location = new System.Drawing.Point(9, 19);
             this.checkBoxCHB.Name = "checkBoxCHB";
             this.checkBoxCHB.Size = new System.Drawing.Size(139, 17);
-            this.checkBoxCHB.TabIndex = 3;
+            this.checkBoxCHB.TabIndex = 1;
             this.checkBoxCHB.Text = "Use Center Hold Bumps";
             this.toolTip1.SetToolTip(this.checkBoxCHB, "When checked, this option will, on some trials, bump the handle during the center" +
                     " hold period.");
@@ -1416,7 +1418,7 @@ namespace BehaviorGraphics
             this.groupBox2.Location = new System.Drawing.Point(220, 6);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(441, 69);
-            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabIndex = 21;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Global";
             // 
@@ -1425,7 +1427,7 @@ namespace BehaviorGraphics
             this.textBoxTgtSize.Location = new System.Drawing.Point(326, 39);
             this.textBoxTgtSize.Name = "textBoxTgtSize";
             this.textBoxTgtSize.Size = new System.Drawing.Size(100, 20);
-            this.textBoxTgtSize.TabIndex = 19;
+            this.textBoxTgtSize.TabIndex = 7;
             this.toolTip1.SetToolTip(this.textBoxTgtSize, "Size of targets in cm.");
             this.textBoxTgtSize.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -1444,7 +1446,7 @@ namespace BehaviorGraphics
             0});
             this.numericUpDownNumTgts.Name = "numericUpDownNumTgts";
             this.numericUpDownNumTgts.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDownNumTgts.TabIndex = 3;
+            this.numericUpDownNumTgts.TabIndex = 1;
             this.toolTip1.SetToolTip(this.numericUpDownNumTgts, "Number of outer targets (max 16)");
             this.numericUpDownNumTgts.Value = new decimal(new int[] {
             8,
@@ -1468,7 +1470,7 @@ namespace BehaviorGraphics
             this.checkBoxIdiot.Location = new System.Drawing.Point(116, 32);
             this.checkBoxIdiot.Name = "checkBoxIdiot";
             this.checkBoxIdiot.Size = new System.Drawing.Size(76, 17);
-            this.checkBoxIdiot.TabIndex = 5;
+            this.checkBoxIdiot.TabIndex = 3;
             this.checkBoxIdiot.Text = "Idiot Mode";
             this.toolTip1.SetToolTip(this.checkBoxIdiot, "When activated (checked), idiot mode continues to present the same target\r\nuntil " +
                     "the monkey reaches it successfully.  When not activated, advances\r\nto the next t" +
@@ -1481,7 +1483,7 @@ namespace BehaviorGraphics
             this.textBoxTgtRadius.Location = new System.Drawing.Point(326, 13);
             this.textBoxTgtRadius.Name = "textBoxTgtRadius";
             this.textBoxTgtRadius.Size = new System.Drawing.Size(100, 20);
-            this.textBoxTgtRadius.TabIndex = 17;
+            this.textBoxTgtRadius.TabIndex = 5;
             this.toolTip1.SetToolTip(this.textBoxTgtRadius, "Radius of the circle on which the outer targets are presented (cm).  ");
             this.textBoxTgtRadius.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -1524,7 +1526,7 @@ namespace BehaviorGraphics
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(207, 250);
-            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Timing";
             // 
@@ -1708,7 +1710,7 @@ namespace BehaviorGraphics
             this.groupBox30.Location = new System.Drawing.Point(8, 211);
             this.groupBox30.Name = "groupBox30";
             this.groupBox30.Size = new System.Drawing.Size(477, 67);
-            this.groupBox30.TabIndex = 28;
+            this.groupBox30.TabIndex = 31;
             this.groupBox30.TabStop = false;
             this.groupBox30.Text = "Workspace";
             // 
@@ -1717,7 +1719,7 @@ namespace BehaviorGraphics
             this.textBoxRWLeftTgtBound.Location = new System.Drawing.Point(123, 13);
             this.textBoxRWLeftTgtBound.Name = "textBoxRWLeftTgtBound";
             this.textBoxRWLeftTgtBound.Size = new System.Drawing.Size(100, 20);
-            this.textBoxRWLeftTgtBound.TabIndex = 27;
+            this.textBoxRWLeftTgtBound.TabIndex = 11;
             this.toolTip1.SetToolTip(this.textBoxRWLeftTgtBound, "Left workspace boundry. Use negative values to set the to the left of the origin." +
                     "\r\nDefines the workspace in which targets can be presented in cartesian coordinat" +
                     "es (cm) about the origin.\r\n");
@@ -1728,7 +1730,7 @@ namespace BehaviorGraphics
             this.textBoxRWRightTgtBound.Location = new System.Drawing.Point(123, 39);
             this.textBoxRWRightTgtBound.Name = "textBoxRWRightTgtBound";
             this.textBoxRWRightTgtBound.Size = new System.Drawing.Size(100, 20);
-            this.textBoxRWRightTgtBound.TabIndex = 29;
+            this.textBoxRWRightTgtBound.TabIndex = 13;
             this.toolTip1.SetToolTip(this.textBoxRWRightTgtBound, "Right  workspace boundry. Use negative values to set the to the left of the origi" +
                     "n.\r\nDefines the workspace in which targets can be presented in cartesian coordin" +
                     "ates (cm) about the origin.\r\n");
@@ -1739,7 +1741,7 @@ namespace BehaviorGraphics
             this.textBoxRWLowerTgtBound.Location = new System.Drawing.Point(368, 39);
             this.textBoxRWLowerTgtBound.Name = "textBoxRWLowerTgtBound";
             this.textBoxRWLowerTgtBound.Size = new System.Drawing.Size(100, 20);
-            this.textBoxRWLowerTgtBound.TabIndex = 33;
+            this.textBoxRWLowerTgtBound.TabIndex = 23;
             this.toolTip1.SetToolTip(this.textBoxRWLowerTgtBound, resources.GetString("textBoxRWLowerTgtBound.ToolTip"));
             this.textBoxRWLowerTgtBound.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -1775,7 +1777,7 @@ namespace BehaviorGraphics
             this.textBoxRWUpperTgtBound.Location = new System.Drawing.Point(368, 13);
             this.textBoxRWUpperTgtBound.Name = "textBoxRWUpperTgtBound";
             this.textBoxRWUpperTgtBound.Size = new System.Drawing.Size(100, 20);
-            this.textBoxRWUpperTgtBound.TabIndex = 31;
+            this.textBoxRWUpperTgtBound.TabIndex = 21;
             this.toolTip1.SetToolTip(this.textBoxRWUpperTgtBound, resources.GetString("textBoxRWUpperTgtBound.ToolTip"));
             this.textBoxRWUpperTgtBound.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -1805,7 +1807,7 @@ namespace BehaviorGraphics
             this.groupBox8.Location = new System.Drawing.Point(245, 7);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(240, 198);
-            this.groupBox8.TabIndex = 6;
+            this.groupBox8.TabIndex = 21;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Targets";
             // 
@@ -1814,7 +1816,7 @@ namespace BehaviorGraphics
             this.textBoxRWPctCatchTrials.Location = new System.Drawing.Point(131, 169);
             this.textBoxRWPctCatchTrials.Name = "textBoxRWPctCatchTrials";
             this.textBoxRWPctCatchTrials.Size = new System.Drawing.Size(100, 20);
-            this.textBoxRWPctCatchTrials.TabIndex = 25;
+            this.textBoxRWPctCatchTrials.TabIndex = 11;
             this.toolTip1.SetToolTip(this.textBoxRWPctCatchTrials, "Fraction of reaches on which to use the catch-trial load.  Use \".05\" to make 5% o" +
                     "f reaches catch reaches.");
             this.textBoxRWPctCatchTrials.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -1833,7 +1835,7 @@ namespace BehaviorGraphics
             this.textBoxRWMaxDistance.Location = new System.Drawing.Point(131, 143);
             this.textBoxRWMaxDistance.Name = "textBoxRWMaxDistance";
             this.textBoxRWMaxDistance.Size = new System.Drawing.Size(100, 20);
-            this.textBoxRWMaxDistance.TabIndex = 23;
+            this.textBoxRWMaxDistance.TabIndex = 9;
             this.toolTip1.SetToolTip(this.textBoxRWMaxDistance, "Maximum distance (cm) between successive targets.\r\nSet to zero to disable this fe" +
                     "ature and distribute targets uniformly and independenly throughout the workspace" +
                     ".");
@@ -1844,7 +1846,7 @@ namespace BehaviorGraphics
             this.textBoxRWTgtTol.Location = new System.Drawing.Point(131, 65);
             this.textBoxRWTgtTol.Name = "textBoxRWTgtTol";
             this.textBoxRWTgtTol.Size = new System.Drawing.Size(100, 20);
-            this.textBoxRWTgtTol.TabIndex = 19;
+            this.textBoxRWTgtTol.TabIndex = 5;
             this.toolTip1.SetToolTip(this.textBoxRWTgtTol, resources.GetString("textBoxRWTgtTol.ToolTip"));
             this.textBoxRWTgtTol.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -1853,7 +1855,7 @@ namespace BehaviorGraphics
             this.textBoxRWMinDistance.Location = new System.Drawing.Point(131, 117);
             this.textBoxRWMinDistance.Name = "textBoxRWMinDistance";
             this.textBoxRWMinDistance.Size = new System.Drawing.Size(100, 20);
-            this.textBoxRWMinDistance.TabIndex = 21;
+            this.textBoxRWMinDistance.TabIndex = 7;
             this.toolTip1.SetToolTip(this.textBoxRWMinDistance, "Minumum distance (cm) between successive targets.\r\nIgnored when Maximum Distance " +
                     "is set to zero.");
             this.textBoxRWMinDistance.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -1900,7 +1902,7 @@ namespace BehaviorGraphics
             0});
             this.numericUpDownRWTgts.Name = "numericUpDownRWTgts";
             this.numericUpDownRWTgts.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDownRWTgts.TabIndex = 15;
+            this.numericUpDownRWTgts.TabIndex = 1;
             this.toolTip1.SetToolTip(this.numericUpDownRWTgts, "Number of targets that must be hit in succession before a reward is delivered.");
             this.numericUpDownRWTgts.Value = new decimal(new int[] {
             8,
@@ -1914,7 +1916,7 @@ namespace BehaviorGraphics
             this.textBoxRWTgtSize.Location = new System.Drawing.Point(131, 39);
             this.textBoxRWTgtSize.Name = "textBoxRWTgtSize";
             this.textBoxRWTgtSize.Size = new System.Drawing.Size(100, 20);
-            this.textBoxRWTgtSize.TabIndex = 17;
+            this.textBoxRWTgtSize.TabIndex = 3;
             this.toolTip1.SetToolTip(this.textBoxRWTgtSize, "Size of targets (cm).");
             this.textBoxRWTgtSize.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -1955,7 +1957,7 @@ namespace BehaviorGraphics
             this.groupBox7.Location = new System.Drawing.Point(8, 7);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(231, 198);
-            this.groupBox7.TabIndex = 1;
+            this.groupBox7.TabIndex = 11;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Timing";
             // 
@@ -2119,7 +2121,7 @@ namespace BehaviorGraphics
             this.groupBox11.Location = new System.Drawing.Point(221, 94);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(218, 81);
-            this.groupBox11.TabIndex = 23;
+            this.groupBox11.TabIndex = 27;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Test trial reward behavior";
             // 
@@ -2129,7 +2131,7 @@ namespace BehaviorGraphics
             this.checkBoxFCRAT.Location = new System.Drawing.Point(12, 22);
             this.checkBoxFCRAT.Name = "checkBoxFCRAT";
             this.checkBoxFCRAT.Size = new System.Drawing.Size(120, 17);
-            this.checkBoxFCRAT.TabIndex = 19;
+            this.checkBoxFCRAT.TabIndex = 1;
             this.checkBoxFCRAT.Text = "Reward all test trials";
             this.toolTip1.SetToolTip(this.checkBoxFCRAT, "When checked the monkey will be rewarded on test trials for movements to either t" +
                     "arget.");
@@ -2141,7 +2143,7 @@ namespace BehaviorGraphics
             this.textBoxFCRewardThreshold.Location = new System.Drawing.Point(109, 45);
             this.textBoxFCRewardThreshold.Name = "textBoxFCRewardThreshold";
             this.textBoxFCRewardThreshold.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFCRewardThreshold.TabIndex = 23;
+            this.textBoxFCRewardThreshold.TabIndex = 3;
             this.toolTip1.SetToolTip(this.textBoxFCRewardThreshold, "The stimulus level on which the monkey should move to the stim target.");
             this.textBoxFCRewardThreshold.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -2160,7 +2162,7 @@ namespace BehaviorGraphics
             this.checkBoxFCTrainingMode.Location = new System.Drawing.Point(232, 71);
             this.checkBoxFCTrainingMode.Name = "checkBoxFCTrainingMode";
             this.checkBoxFCTrainingMode.Size = new System.Drawing.Size(94, 17);
-            this.checkBoxFCTrainingMode.TabIndex = 22;
+            this.checkBoxFCTrainingMode.TabIndex = 25;
             this.checkBoxFCTrainingMode.Text = "Training Mode";
             this.toolTip1.SetToolTip(this.checkBoxFCTrainingMode, "Sets training mode:\r\n\r\nWhen on, only the correct target is illuminated.\r\nWhen off" +
                     ", both outer targets are illuminated.");
@@ -2187,7 +2189,7 @@ namespace BehaviorGraphics
             0});
             this.numericUpDownFCStimSteps.Name = "numericUpDownFCStimSteps";
             this.numericUpDownFCStimSteps.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDownFCStimSteps.TabIndex = 3;
+            this.numericUpDownFCStimSteps.TabIndex = 21;
             this.toolTip1.SetToolTip(this.numericUpDownFCStimSteps, resources.GetString("numericUpDownFCStimSteps.ToolTip"));
             this.numericUpDownFCStimSteps.Value = new decimal(new int[] {
             8,
@@ -2205,7 +2207,7 @@ namespace BehaviorGraphics
             this.groupBox10.Location = new System.Drawing.Point(8, 181);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(207, 81);
-            this.groupBox10.TabIndex = 2;
+            this.groupBox10.TabIndex = 13;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Targets";
             // 
@@ -2214,7 +2216,7 @@ namespace BehaviorGraphics
             this.textBoxFCTgtDist.Location = new System.Drawing.Point(101, 45);
             this.textBoxFCTgtDist.Name = "textBoxFCTgtDist";
             this.textBoxFCTgtDist.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFCTgtDist.TabIndex = 19;
+            this.textBoxFCTgtDist.TabIndex = 3;
             this.toolTip1.SetToolTip(this.textBoxFCTgtDist, "Distance between center target and outer targets.");
             this.textBoxFCTgtDist.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -2232,7 +2234,7 @@ namespace BehaviorGraphics
             this.textBoxFCTgtSize.Location = new System.Drawing.Point(101, 19);
             this.textBoxFCTgtSize.Name = "textBoxFCTgtSize";
             this.textBoxFCTgtSize.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFCTgtSize.TabIndex = 17;
+            this.textBoxFCTgtSize.TabIndex = 1;
             this.toolTip1.SetToolTip(this.textBoxFCTgtSize, "Size of targets (cm).");
             this.textBoxFCTgtSize.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -2250,7 +2252,7 @@ namespace BehaviorGraphics
             this.textBoxFCPctTestTrials.Location = new System.Drawing.Point(359, 43);
             this.textBoxFCPctTestTrials.Name = "textBoxFCPctTestTrials";
             this.textBoxFCPctTestTrials.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFCPctTestTrials.TabIndex = 17;
+            this.textBoxFCPctTestTrials.TabIndex = 23;
             this.toolTip1.SetToolTip(this.textBoxFCPctTestTrials, "Percent of trials on which to give an intermediate \"test\" stimulus.\r\n\r\nValue shou" +
                     "ld be in range 0.0 to 1.0");
             this.textBoxFCPctTestTrials.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -2272,7 +2274,7 @@ namespace BehaviorGraphics
             this.groupBox9.Location = new System.Drawing.Point(8, 6);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(207, 173);
-            this.groupBox9.TabIndex = 1;
+            this.groupBox9.TabIndex = 11;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Timing";
             // 
@@ -2281,7 +2283,7 @@ namespace BehaviorGraphics
             this.textBoxFCI.Location = new System.Drawing.Point(99, 143);
             this.textBoxFCI.Name = "textBoxFCI";
             this.textBoxFCI.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFCI.TabIndex = 15;
+            this.textBoxFCI.TabIndex = 11;
             this.toolTip1.SetToolTip(this.textBoxFCI, "Time between completion of one trial and the initiation of the next.");
             this.textBoxFCI.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -2433,7 +2435,7 @@ namespace BehaviorGraphics
             this.groupBox25.Location = new System.Drawing.Point(223, 6);
             this.groupBox25.Name = "groupBox25";
             this.groupBox25.Size = new System.Drawing.Size(434, 156);
-            this.groupBox25.TabIndex = 33;
+            this.groupBox25.TabIndex = 21;
             this.groupBox25.TabStop = false;
             this.groupBox25.Text = "Bumps";
             // 
@@ -2452,8 +2454,9 @@ namespace BehaviorGraphics
             this.textBoxBSStimDisp.Location = new System.Drawing.Point(358, 119);
             this.textBoxBSStimDisp.Name = "textBoxBSStimDisp";
             this.textBoxBSStimDisp.Size = new System.Drawing.Size(68, 20);
-            this.textBoxBSStimDisp.TabIndex = 42;
+            this.textBoxBSStimDisp.TabIndex = 25;
             this.toolTip1.SetToolTip(this.textBoxBSStimDisp, "Cursor displacement when stimulating (cm)");
+            this.textBoxBSStimDisp.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label51
             // 
@@ -2470,7 +2473,7 @@ namespace BehaviorGraphics
             this.textBoxBSBumpDisp.Location = new System.Drawing.Point(144, 119);
             this.textBoxBSBumpDisp.Name = "textBoxBSBumpDisp";
             this.textBoxBSBumpDisp.Size = new System.Drawing.Size(68, 20);
-            this.textBoxBSBumpDisp.TabIndex = 40;
+            this.textBoxBSBumpDisp.TabIndex = 19;
             this.toolTip1.SetToolTip(this.textBoxBSBumpDisp, "Cursor displacement gain (cm/bump step)");
             this.textBoxBSBumpDisp.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -2494,7 +2497,7 @@ namespace BehaviorGraphics
             0});
             this.numericUpDownBSStimSteps.Name = "numericUpDownBSStimSteps";
             this.numericUpDownBSStimSteps.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDownBSStimSteps.TabIndex = 38;
+            this.numericUpDownBSStimSteps.TabIndex = 21;
             this.toolTip1.SetToolTip(this.numericUpDownBSStimSteps, "Number of gradations of stimulation magnitude.");
             this.numericUpDownBSStimSteps.Value = new decimal(new int[] {
             7,
@@ -2518,7 +2521,7 @@ namespace BehaviorGraphics
             this.textBoxBSPctBumpTrials.Location = new System.Drawing.Point(144, 44);
             this.textBoxBSPctBumpTrials.Name = "textBoxBSPctBumpTrials";
             this.textBoxBSPctBumpTrials.Size = new System.Drawing.Size(68, 20);
-            this.textBoxBSPctBumpTrials.TabIndex = 36;
+            this.textBoxBSPctBumpTrials.TabIndex = 13;
             this.toolTip1.SetToolTip(this.textBoxBSPctBumpTrials, "Percent of trials on which to deliver a stimulation rather than a bump.");
             this.textBoxBSPctBumpTrials.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -2537,7 +2540,7 @@ namespace BehaviorGraphics
             this.textBoxBSBumpDur.Location = new System.Drawing.Point(144, 93);
             this.textBoxBSBumpDur.Name = "textBoxBSBumpDur";
             this.textBoxBSBumpDur.Size = new System.Drawing.Size(68, 20);
-            this.textBoxBSBumpDur.TabIndex = 33;
+            this.textBoxBSBumpDur.TabIndex = 17;
             this.toolTip1.SetToolTip(this.textBoxBSBumpDur, "Durration of bump (ms)");
             this.textBoxBSBumpDur.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -2556,7 +2559,7 @@ namespace BehaviorGraphics
             this.textBoxBSBumpStepMag.Location = new System.Drawing.Point(144, 67);
             this.textBoxBSBumpStepMag.Name = "textBoxBSBumpStepMag";
             this.textBoxBSBumpStepMag.Size = new System.Drawing.Size(68, 20);
-            this.textBoxBSBumpStepMag.TabIndex = 31;
+            this.textBoxBSBumpStepMag.TabIndex = 15;
             this.toolTip1.SetToolTip(this.textBoxBSBumpStepMag, "The magnitude of the unit 1 bump.  All bump magnitudes are an integer multiple of" +
                     " this.");
             this.textBoxBSBumpStepMag.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -2586,7 +2589,7 @@ namespace BehaviorGraphics
             this.textBoxBSPctStimTrials.Location = new System.Drawing.Point(358, 45);
             this.textBoxBSPctStimTrials.Name = "textBoxBSPctStimTrials";
             this.textBoxBSPctStimTrials.Size = new System.Drawing.Size(68, 20);
-            this.textBoxBSPctStimTrials.TabIndex = 35;
+            this.textBoxBSPctStimTrials.TabIndex = 23;
             this.toolTip1.SetToolTip(this.textBoxBSPctStimTrials, "Percent of trials (0.0-1.0) on which to deliver a stimulation rather than a bump." +
                     "");
             this.textBoxBSPctStimTrials.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -2601,7 +2604,7 @@ namespace BehaviorGraphics
             0});
             this.numericUpDownBSBumpSteps.Name = "numericUpDownBSBumpSteps";
             this.numericUpDownBSBumpSteps.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDownBSBumpSteps.TabIndex = 26;
+            this.numericUpDownBSBumpSteps.TabIndex = 11;
             this.toolTip1.SetToolTip(this.numericUpDownBSBumpSteps, "Number of gradations of bump magnitude.");
             this.numericUpDownBSBumpSteps.Value = new decimal(new int[] {
             7,
@@ -2631,7 +2634,7 @@ namespace BehaviorGraphics
             this.groupBox28.Location = new System.Drawing.Point(8, 6);
             this.groupBox28.Name = "groupBox28";
             this.groupBox28.Size = new System.Drawing.Size(207, 255);
-            this.groupBox28.TabIndex = 32;
+            this.groupBox28.TabIndex = 11;
             this.groupBox28.TabStop = false;
             this.groupBox28.Text = "Timing";
             // 
@@ -2789,7 +2792,7 @@ namespace BehaviorGraphics
             this.groupBox26.Location = new System.Drawing.Point(223, 168);
             this.groupBox26.Name = "groupBox26";
             this.groupBox26.Size = new System.Drawing.Size(434, 121);
-            this.groupBox26.TabIndex = 100;
+            this.groupBox26.TabIndex = 23;
             this.groupBox26.TabStop = false;
             this.groupBox26.Text = "Targets";
             // 
@@ -2807,7 +2810,7 @@ namespace BehaviorGraphics
             this.textBoxBSNumAngles.Location = new System.Drawing.Point(326, 26);
             this.textBoxBSNumAngles.Name = "textBoxBSNumAngles";
             this.textBoxBSNumAngles.Size = new System.Drawing.Size(100, 20);
-            this.textBoxBSNumAngles.TabIndex = 26;
+            this.textBoxBSNumAngles.TabIndex = 11;
             this.toolTip1.SetToolTip(this.textBoxBSNumAngles, "Number of possible target locations\r\nSet to 0 for continuous random distribution");
             this.textBoxBSNumAngles.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -2816,7 +2819,7 @@ namespace BehaviorGraphics
             this.textBoxBSNumTargetsSeq.Location = new System.Drawing.Point(326, 78);
             this.textBoxBSNumTargetsSeq.Name = "textBoxBSNumTargetsSeq";
             this.textBoxBSNumTargetsSeq.Size = new System.Drawing.Size(100, 20);
-            this.textBoxBSNumTargetsSeq.TabIndex = 25;
+            this.textBoxBSNumTargetsSeq.TabIndex = 15;
             this.toolTip1.SetToolTip(this.textBoxBSNumTargetsSeq, "Number of trials on which to use a given angle before randomly selecting a new on" +
                     "e.\r\nSet to zero to use the requested \"Target Angle\" above.");
             this.textBoxBSNumTargetsSeq.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -2835,7 +2838,7 @@ namespace BehaviorGraphics
             this.textBoxBSWindowDiameter.Location = new System.Drawing.Point(326, 52);
             this.textBoxBSWindowDiameter.Name = "textBoxBSWindowDiameter";
             this.textBoxBSWindowDiameter.Size = new System.Drawing.Size(100, 20);
-            this.textBoxBSWindowDiameter.TabIndex = 23;
+            this.textBoxBSWindowDiameter.TabIndex = 13;
             this.toolTip1.SetToolTip(this.textBoxBSWindowDiameter, "Distance from the origin of workspace in which the cursor is not displayed.");
             this.textBoxBSWindowDiameter.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -2853,7 +2856,7 @@ namespace BehaviorGraphics
             this.textBoxBSTgtAngle.Location = new System.Drawing.Point(84, 78);
             this.textBoxBSTgtAngle.Name = "textBoxBSTgtAngle";
             this.textBoxBSTgtAngle.Size = new System.Drawing.Size(100, 20);
-            this.textBoxBSTgtAngle.TabIndex = 21;
+            this.textBoxBSTgtAngle.TabIndex = 5;
             this.toolTip1.SetToolTip(this.textBoxBSTgtAngle, "Angle of line segment connecting the two targets with respect to horizontal (deg)" +
                     ".");
             this.textBoxBSTgtAngle.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -2872,7 +2875,7 @@ namespace BehaviorGraphics
             this.textBoxBSTgtRadius.Location = new System.Drawing.Point(84, 52);
             this.textBoxBSTgtRadius.Name = "textBoxBSTgtRadius";
             this.textBoxBSTgtRadius.Size = new System.Drawing.Size(100, 20);
-            this.textBoxBSTgtRadius.TabIndex = 19;
+            this.textBoxBSTgtRadius.TabIndex = 3;
             this.toolTip1.SetToolTip(this.textBoxBSTgtRadius, "Radius of circle on which to draw targets (cm)");
             this.textBoxBSTgtRadius.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -2890,7 +2893,7 @@ namespace BehaviorGraphics
             this.textBoxBSTgtSize.Location = new System.Drawing.Point(84, 26);
             this.textBoxBSTgtSize.Name = "textBoxBSTgtSize";
             this.textBoxBSTgtSize.Size = new System.Drawing.Size(100, 20);
-            this.textBoxBSTgtSize.TabIndex = 17;
+            this.textBoxBSTgtSize.TabIndex = 1;
             this.toolTip1.SetToolTip(this.textBoxBSTgtSize, "Size of targets (cm)");
             this.textBoxBSTgtSize.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -2930,7 +2933,7 @@ namespace BehaviorGraphics
             this.groupBox32.Location = new System.Drawing.Point(226, 9);
             this.groupBox32.Name = "groupBox32";
             this.groupBox32.Size = new System.Drawing.Size(360, 71);
-            this.groupBox32.TabIndex = 42;
+            this.groupBox32.TabIndex = 21;
             this.groupBox32.TabStop = false;
             this.groupBox32.Text = "Options";
             // 
@@ -2949,7 +2952,7 @@ namespace BehaviorGraphics
             0});
             this.numericUpDownMGTargets.Name = "numericUpDownMGTargets";
             this.numericUpDownMGTargets.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDownMGTargets.TabIndex = 16;
+            this.numericUpDownMGTargets.TabIndex = 1;
             this.numericUpDownMGTargets.Value = new decimal(new int[] {
             1,
             0,
@@ -2980,7 +2983,7 @@ namespace BehaviorGraphics
             this.buttonMGclear.Location = new System.Drawing.Point(242, 40);
             this.buttonMGclear.Name = "buttonMGclear";
             this.buttonMGclear.Size = new System.Drawing.Size(99, 21);
-            this.buttonMGclear.TabIndex = 42;
+            this.buttonMGclear.TabIndex = 9;
             this.buttonMGclear.Text = "Clear MVC Tgt";
             this.buttonMGclear.UseVisualStyleBackColor = true;
             this.buttonMGclear.Click += new System.EventHandler(this.buttonclear_Click);
@@ -2990,7 +2993,7 @@ namespace BehaviorGraphics
             this.textBoxMGCT.Location = new System.Drawing.Point(86, 39);
             this.textBoxMGCT.Name = "textBoxMGCT";
             this.textBoxMGCT.Size = new System.Drawing.Size(31, 20);
-            this.textBoxMGCT.TabIndex = 43;
+            this.textBoxMGCT.TabIndex = 3;
             this.textBoxMGCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip1.SetToolTip(this.textBoxMGCT, "Percentage of Catch Trials.");
             this.textBoxMGCT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -3001,7 +3004,7 @@ namespace BehaviorGraphics
             this.checkBoxMGMT.Location = new System.Drawing.Point(242, 19);
             this.checkBoxMGMT.Name = "checkBoxMGMT";
             this.checkBoxMGMT.Size = new System.Drawing.Size(101, 17);
-            this.checkBoxMGMT.TabIndex = 39;
+            this.checkBoxMGMT.TabIndex = 7;
             this.checkBoxMGMT.Text = "Multiple Targets";
             this.checkBoxMGMT.UseVisualStyleBackColor = true;
             this.checkBoxMGMT.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
@@ -3012,7 +3015,7 @@ namespace BehaviorGraphics
             this.checkBoxMGIM.Location = new System.Drawing.Point(161, 19);
             this.checkBoxMGIM.Name = "checkBoxMGIM";
             this.checkBoxMGIM.Size = new System.Drawing.Size(76, 17);
-            this.checkBoxMGIM.TabIndex = 38;
+            this.checkBoxMGIM.TabIndex = 5;
             this.checkBoxMGIM.Text = "Idiot Mode";
             this.checkBoxMGIM.UseVisualStyleBackColor = true;
             this.checkBoxMGIM.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
@@ -3035,7 +3038,7 @@ namespace BehaviorGraphics
             this.groupBox37.Location = new System.Drawing.Point(15, 207);
             this.groupBox37.Name = "groupBox37";
             this.groupBox37.Size = new System.Drawing.Size(205, 62);
-            this.groupBox37.TabIndex = 37;
+            this.groupBox37.TabIndex = 13;
             this.groupBox37.TabStop = false;
             this.groupBox37.Text = "Gadgets";
             // 
@@ -3046,7 +3049,7 @@ namespace BehaviorGraphics
             this.checkBoxMG3.Location = new System.Drawing.Point(112, 38);
             this.checkBoxMG3.Name = "checkBoxMG3";
             this.checkBoxMG3.Size = new System.Drawing.Size(70, 17);
-            this.checkBoxMG3.TabIndex = 5;
+            this.checkBoxMG3.TabIndex = 4;
             this.checkBoxMG3.TabStop = false;
             this.checkBoxMG3.Text = "Gadget 4";
             this.checkBoxMG3.UseVisualStyleBackColor = true;
@@ -3058,7 +3061,7 @@ namespace BehaviorGraphics
             this.checkBoxMG0.Location = new System.Drawing.Point(22, 18);
             this.checkBoxMG0.Name = "checkBoxMG0";
             this.checkBoxMG0.Size = new System.Drawing.Size(70, 17);
-            this.checkBoxMG0.TabIndex = 17;
+            this.checkBoxMG0.TabIndex = 1;
             this.checkBoxMG0.Text = "Gadget 1";
             this.checkBoxMG0.UseVisualStyleBackColor = true;
             this.checkBoxMG0.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
@@ -3069,7 +3072,7 @@ namespace BehaviorGraphics
             this.checkBoxMG2.Location = new System.Drawing.Point(112, 18);
             this.checkBoxMG2.Name = "checkBoxMG2";
             this.checkBoxMG2.Size = new System.Drawing.Size(70, 17);
-            this.checkBoxMG2.TabIndex = 19;
+            this.checkBoxMG2.TabIndex = 3;
             this.checkBoxMG2.Text = "Gadget 3";
             this.checkBoxMG2.UseVisualStyleBackColor = true;
             this.checkBoxMG2.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
@@ -3080,7 +3083,7 @@ namespace BehaviorGraphics
             this.checkBoxMG1.Location = new System.Drawing.Point(22, 38);
             this.checkBoxMG1.Name = "checkBoxMG1";
             this.checkBoxMG1.Size = new System.Drawing.Size(70, 17);
-            this.checkBoxMG1.TabIndex = 18;
+            this.checkBoxMG1.TabIndex = 2;
             this.checkBoxMG1.Text = "Gadget 2";
             this.checkBoxMG1.UseVisualStyleBackColor = true;
             this.checkBoxMG1.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
@@ -3091,7 +3094,7 @@ namespace BehaviorGraphics
             this.groupBoxMGTargets.Location = new System.Drawing.Point(226, 84);
             this.groupBoxMGTargets.Name = "groupBoxMGTargets";
             this.groupBoxMGTargets.Size = new System.Drawing.Size(360, 185);
-            this.groupBoxMGTargets.TabIndex = 36;
+            this.groupBoxMGTargets.TabIndex = 23;
             this.groupBoxMGTargets.TabStop = false;
             this.groupBoxMGTargets.Text = "Targets";
             // 
@@ -3113,13 +3116,13 @@ namespace BehaviorGraphics
             this.MGTargetGrid.Name = "MGTargetGrid";
             this.MGTargetGrid.RowHeadersVisible = false;
             this.MGTargetGrid.Size = new System.Drawing.Size(306, 162);
-            this.MGTargetGrid.TabIndex = 35;
+            this.MGTargetGrid.TabIndex = 1;
             this.MGTargetGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.table_CellValueChanged);
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle21;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -3181,7 +3184,7 @@ namespace BehaviorGraphics
             this.groupBox31.Location = new System.Drawing.Point(15, 9);
             this.groupBox31.Name = "groupBox31";
             this.groupBox31.Size = new System.Drawing.Size(207, 192);
-            this.groupBox31.TabIndex = 33;
+            this.groupBox31.TabIndex = 11;
             this.groupBox31.TabStop = false;
             this.groupBox31.Text = "Timing";
             // 
@@ -3190,7 +3193,7 @@ namespace BehaviorGraphics
             this.textBoxMGI.Location = new System.Drawing.Point(99, 163);
             this.textBoxMGI.Name = "textBoxMGI";
             this.textBoxMGI.Size = new System.Drawing.Size(100, 20);
-            this.textBoxMGI.TabIndex = 15;
+            this.textBoxMGI.TabIndex = 13;
             this.textBoxMGI.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label115
@@ -3336,7 +3339,7 @@ namespace BehaviorGraphics
             this.groupBox12.Location = new System.Drawing.Point(15, 202);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(163, 93);
-            this.groupBox12.TabIndex = 11;
+            this.groupBox12.TabIndex = 13;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Cursor Rotation";
             // 
@@ -3363,7 +3366,7 @@ namespace BehaviorGraphics
             this.textBoxWFRotMax.Location = new System.Drawing.Point(100, 68);
             this.textBoxWFRotMax.Name = "textBoxWFRotMax";
             this.textBoxWFRotMax.Size = new System.Drawing.Size(29, 20);
-            this.textBoxWFRotMax.TabIndex = 3;
+            this.textBoxWFRotMax.TabIndex = 5;
             this.textBoxWFRotMax.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBoxWFRot
@@ -3415,7 +3418,7 @@ namespace BehaviorGraphics
             this.textBoxWFRotInc.Location = new System.Drawing.Point(100, 42);
             this.textBoxWFRotInc.Name = "textBoxWFRotInc";
             this.textBoxWFRotInc.Size = new System.Drawing.Size(29, 20);
-            this.textBoxWFRotInc.TabIndex = 2;
+            this.textBoxWFRotInc.TabIndex = 3;
             this.textBoxWFRotInc.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // groupBox40
@@ -3441,7 +3444,7 @@ namespace BehaviorGraphics
             this.groupBox40.Location = new System.Drawing.Point(184, 95);
             this.groupBox40.Name = "groupBox40";
             this.groupBox40.Size = new System.Drawing.Size(146, 200);
-            this.groupBox40.TabIndex = 13;
+            this.groupBox40.TabIndex = 23;
             this.groupBox40.TabStop = false;
             this.groupBox40.Text = "Cursor Control";
             // 
@@ -3459,7 +3462,7 @@ namespace BehaviorGraphics
             this.textBoxWFNC.Location = new System.Drawing.Point(94, 122);
             this.textBoxWFNC.Name = "textBoxWFNC";
             this.textBoxWFNC.Size = new System.Drawing.Size(25, 20);
-            this.textBoxWFNC.TabIndex = 33;
+            this.textBoxWFNC.TabIndex = 13;
             this.textBoxWFNC.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label46
@@ -3486,7 +3489,7 @@ namespace BehaviorGraphics
             this.textBoxWFIntMax.Location = new System.Drawing.Point(101, 175);
             this.textBoxWFIntMax.Name = "textBoxWFIntMax";
             this.textBoxWFIntMax.Size = new System.Drawing.Size(30, 20);
-            this.textBoxWFIntMax.TabIndex = 17;
+            this.textBoxWFIntMax.TabIndex = 19;
             this.textBoxWFIntMax.Visible = false;
             this.textBoxWFIntMax.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -3495,7 +3498,7 @@ namespace BehaviorGraphics
             this.textBoxWFIntMin.Location = new System.Drawing.Point(42, 175);
             this.textBoxWFIntMin.Name = "textBoxWFIntMin";
             this.textBoxWFIntMin.Size = new System.Drawing.Size(30, 20);
-            this.textBoxWFIntMin.TabIndex = 16;
+            this.textBoxWFIntMin.TabIndex = 17;
             this.textBoxWFIntMin.Visible = false;
             this.textBoxWFIntMin.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -3526,7 +3529,7 @@ namespace BehaviorGraphics
             this.checkBoxWFFILT.Location = new System.Drawing.Point(6, 99);
             this.checkBoxWFFILT.Name = "checkBoxWFFILT";
             this.checkBoxWFFILT.Size = new System.Drawing.Size(129, 17);
-            this.checkBoxWFFILT.TabIndex = 10;
+            this.checkBoxWFFILT.TabIndex = 11;
             this.checkBoxWFFILT.Text = "Enable Software Filter";
             this.checkBoxWFFILT.UseVisualStyleBackColor = true;
             this.checkBoxWFFILT.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
@@ -3618,7 +3621,7 @@ namespace BehaviorGraphics
             this.buttonWFclear.Location = new System.Drawing.Point(532, 32);
             this.buttonWFclear.Name = "buttonWFclear";
             this.buttonWFclear.Size = new System.Drawing.Size(114, 21);
-            this.buttonWFclear.TabIndex = 15;
+            this.buttonWFclear.TabIndex = 33;
             this.buttonWFclear.Text = "Clear MVC Targets";
             this.buttonWFclear.UseVisualStyleBackColor = true;
             this.buttonWFclear.Click += new System.EventHandler(this.buttonclear_Click);
@@ -3634,7 +3637,7 @@ namespace BehaviorGraphics
             this.groupBox36.Location = new System.Drawing.Point(184, 9);
             this.groupBox36.Name = "groupBox36";
             this.groupBox36.Size = new System.Drawing.Size(146, 83);
-            this.groupBox36.TabIndex = 12;
+            this.groupBox36.TabIndex = 21;
             this.groupBox36.TabStop = false;
             this.groupBox36.Text = "Options";
             // 
@@ -3652,7 +3655,7 @@ namespace BehaviorGraphics
             this.textBoxWFCT.Location = new System.Drawing.Point(94, 39);
             this.textBoxWFCT.Name = "textBoxWFCT";
             this.textBoxWFCT.Size = new System.Drawing.Size(25, 20);
-            this.textBoxWFCT.TabIndex = 2;
+            this.textBoxWFCT.TabIndex = 3;
             this.textBoxWFCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip1.SetToolTip(this.textBoxWFCT, "Percentage of Catch Trials.");
             this.textBoxWFCT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -3686,7 +3689,7 @@ namespace BehaviorGraphics
             this.checkBoxWFIM.Location = new System.Drawing.Point(6, 63);
             this.checkBoxWFIM.Name = "checkBoxWFIM";
             this.checkBoxWFIM.Size = new System.Drawing.Size(76, 17);
-            this.checkBoxWFIM.TabIndex = 3;
+            this.checkBoxWFIM.TabIndex = 5;
             this.checkBoxWFIM.Text = "Idiot Mode";
             this.checkBoxWFIM.UseVisualStyleBackColor = true;
             this.checkBoxWFIM.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
@@ -3722,7 +3725,7 @@ namespace BehaviorGraphics
             this.groupBox35.Location = new System.Drawing.Point(336, 9);
             this.groupBox35.Name = "groupBox35";
             this.groupBox35.Size = new System.Drawing.Size(182, 59);
-            this.groupBox35.TabIndex = 14;
+            this.groupBox35.TabIndex = 31;
             this.groupBox35.TabStop = false;
             this.groupBox35.Text = "Center Target";
             // 
@@ -3798,7 +3801,7 @@ namespace BehaviorGraphics
             this.groupBox33.Location = new System.Drawing.Point(336, 72);
             this.groupBox33.Name = "groupBox33";
             this.groupBox33.Size = new System.Drawing.Size(318, 223);
-            this.groupBox33.TabIndex = 16;
+            this.groupBox33.TabIndex = 35;
             this.groupBox33.TabStop = false;
             this.groupBox33.Text = "Targets";
             // 
@@ -3826,8 +3829,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle22;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -3903,7 +3906,7 @@ namespace BehaviorGraphics
             this.groupBox34.Location = new System.Drawing.Point(15, 9);
             this.groupBox34.Name = "groupBox34";
             this.groupBox34.Size = new System.Drawing.Size(163, 187);
-            this.groupBox34.TabIndex = 10;
+            this.groupBox34.TabIndex = 11;
             this.groupBox34.TabStop = false;
             this.groupBox34.Text = "Timing";
             // 
@@ -3921,7 +3924,7 @@ namespace BehaviorGraphics
             this.textBoxWFCHH.Location = new System.Drawing.Point(100, 39);
             this.textBoxWFCHH.Name = "textBoxWFCHH";
             this.textBoxWFCHH.Size = new System.Drawing.Size(57, 20);
-            this.textBoxWFCHH.TabIndex = 8;
+            this.textBoxWFCHH.TabIndex = 3;
             this.textBoxWFCHH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBoxWFCDH
@@ -3929,7 +3932,7 @@ namespace BehaviorGraphics
             this.textBoxWFCDH.Location = new System.Drawing.Point(100, 87);
             this.textBoxWFCDH.Name = "textBoxWFCDH";
             this.textBoxWFCDH.Size = new System.Drawing.Size(57, 20);
-            this.textBoxWFCDH.TabIndex = 10;
+            this.textBoxWFCDH.TabIndex = 7;
             this.textBoxWFCDH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label157
@@ -3946,7 +3949,7 @@ namespace BehaviorGraphics
             this.textBoxWFCDL.Location = new System.Drawing.Point(100, 63);
             this.textBoxWFCDL.Name = "textBoxWFCDL";
             this.textBoxWFCDL.Size = new System.Drawing.Size(57, 20);
-            this.textBoxWFCDL.TabIndex = 9;
+            this.textBoxWFCDL.TabIndex = 5;
             this.toolTip1.SetToolTip(this.textBoxWFCDL, "Time between the cursor enters the center target and the appearance of the white " +
                     "target (indicating the future target).\r\nSet >= to Center Hold time to disable wh" +
                     "ite target.");
@@ -3983,7 +3986,7 @@ namespace BehaviorGraphics
             this.textBoxWFTH.Location = new System.Drawing.Point(100, 135);
             this.textBoxWFTH.Name = "textBoxWFTH";
             this.textBoxWFTH.Size = new System.Drawing.Size(57, 20);
-            this.textBoxWFTH.TabIndex = 12;
+            this.textBoxWFTH.TabIndex = 11;
             this.textBoxWFTH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label126
@@ -4000,7 +4003,7 @@ namespace BehaviorGraphics
             this.textBoxWFRT.Location = new System.Drawing.Point(100, 111);
             this.textBoxWFRT.Name = "textBoxWFRT";
             this.textBoxWFRT.Size = new System.Drawing.Size(57, 20);
-            this.textBoxWFRT.TabIndex = 11;
+            this.textBoxWFRT.TabIndex = 9;
             this.textBoxWFRT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label127
@@ -4017,7 +4020,7 @@ namespace BehaviorGraphics
             this.textBoxWFCHL.Location = new System.Drawing.Point(100, 15);
             this.textBoxWFCHL.Name = "textBoxWFCHL";
             this.textBoxWFCHL.Size = new System.Drawing.Size(57, 20);
-            this.textBoxWFCHL.TabIndex = 7;
+            this.textBoxWFCHL.TabIndex = 1;
             this.textBoxWFCHL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label128
@@ -4060,7 +4063,7 @@ namespace BehaviorGraphics
             this.groupBox38.Location = new System.Drawing.Point(16, 9);
             this.groupBox38.Name = "groupBox38";
             this.groupBox38.Size = new System.Drawing.Size(205, 192);
-            this.groupBox38.TabIndex = 43;
+            this.groupBox38.TabIndex = 11;
             this.groupBox38.TabStop = false;
             this.groupBox38.Text = "Timing";
             // 
@@ -4192,7 +4195,7 @@ namespace BehaviorGraphics
             this.groupBox39.Location = new System.Drawing.Point(226, 9);
             this.groupBox39.Name = "groupBox39";
             this.groupBox39.Size = new System.Drawing.Size(360, 71);
-            this.groupBox39.TabIndex = 42;
+            this.groupBox39.TabIndex = 21;
             this.groupBox39.TabStop = false;
             this.groupBox39.Text = "Options";
             // 
@@ -4210,7 +4213,7 @@ namespace BehaviorGraphics
             this.textBoxBDCT.Location = new System.Drawing.Point(86, 39);
             this.textBoxBDCT.Name = "textBoxBDCT";
             this.textBoxBDCT.Size = new System.Drawing.Size(31, 20);
-            this.textBoxBDCT.TabIndex = 43;
+            this.textBoxBDCT.TabIndex = 1;
             this.textBoxBDCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip1.SetToolTip(this.textBoxBDCT, "Percentage of Catch Trials.");
             this.textBoxBDCT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -4244,7 +4247,7 @@ namespace BehaviorGraphics
             this.groupBox21.Location = new System.Drawing.Point(460, 4);
             this.groupBox21.Name = "groupBox21";
             this.groupBox21.Size = new System.Drawing.Size(197, 252);
-            this.groupBox21.TabIndex = 105;
+            this.groupBox21.TabIndex = 31;
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "Stimulation table";
             // 
@@ -4291,7 +4294,7 @@ namespace BehaviorGraphics
             this.groupBox19.Location = new System.Drawing.Point(3, 148);
             this.groupBox19.Name = "groupBox19";
             this.groupBox19.Size = new System.Drawing.Size(207, 121);
-            this.groupBox19.TabIndex = 103;
+            this.groupBox19.TabIndex = 13;
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "Targets";
             // 
@@ -4300,7 +4303,7 @@ namespace BehaviorGraphics
             this.textBoxBCWindowDiameter.Location = new System.Drawing.Point(128, 78);
             this.textBoxBCWindowDiameter.Name = "textBoxBCWindowDiameter";
             this.textBoxBCWindowDiameter.Size = new System.Drawing.Size(56, 20);
-            this.textBoxBCWindowDiameter.TabIndex = 23;
+            this.textBoxBCWindowDiameter.TabIndex = 5;
             this.toolTip1.SetToolTip(this.textBoxBCWindowDiameter, "Distance from the origin of workspace in which the cursor is not displayed.");
             this.textBoxBCWindowDiameter.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -4318,7 +4321,7 @@ namespace BehaviorGraphics
             this.textBoxBCTgtRadius.Location = new System.Drawing.Point(84, 52);
             this.textBoxBCTgtRadius.Name = "textBoxBCTgtRadius";
             this.textBoxBCTgtRadius.Size = new System.Drawing.Size(100, 20);
-            this.textBoxBCTgtRadius.TabIndex = 19;
+            this.textBoxBCTgtRadius.TabIndex = 3;
             this.toolTip1.SetToolTip(this.textBoxBCTgtRadius, "Radius of circle on which to draw targets (cm)");
             this.textBoxBCTgtRadius.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -4336,7 +4339,7 @@ namespace BehaviorGraphics
             this.textBoxBCTgtSize.Location = new System.Drawing.Point(84, 26);
             this.textBoxBCTgtSize.Name = "textBoxBCTgtSize";
             this.textBoxBCTgtSize.Size = new System.Drawing.Size(100, 20);
-            this.textBoxBCTgtSize.TabIndex = 17;
+            this.textBoxBCTgtSize.TabIndex = 1;
             this.toolTip1.SetToolTip(this.textBoxBCTgtSize, "Size of targets (cm)");
             this.textBoxBCTgtSize.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -4366,7 +4369,7 @@ namespace BehaviorGraphics
             this.groupBox17.Location = new System.Drawing.Point(219, 4);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(216, 245);
-            this.groupBox17.TabIndex = 102;
+            this.groupBox17.TabIndex = 21;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Bumps and stims";
             // 
@@ -4385,8 +4388,9 @@ namespace BehaviorGraphics
             this.textBoxBCPctStimTrials.Location = new System.Drawing.Point(123, 144);
             this.textBoxBCPctStimTrials.Name = "textBoxBCPctStimTrials";
             this.textBoxBCPctStimTrials.Size = new System.Drawing.Size(68, 20);
-            this.textBoxBCPctStimTrials.TabIndex = 41;
+            this.textBoxBCPctStimTrials.TabIndex = 11;
             this.toolTip1.SetToolTip(this.textBoxBCPctStimTrials, "Durration of bump (ms)");
+            this.textBoxBCPctStimTrials.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label78
             // 
@@ -4413,7 +4417,7 @@ namespace BehaviorGraphics
             this.textBoxBCPctTraining.Location = new System.Drawing.Point(123, 17);
             this.textBoxBCPctTraining.Name = "textBoxBCPctTraining";
             this.textBoxBCPctTraining.Size = new System.Drawing.Size(68, 20);
-            this.textBoxBCPctTraining.TabIndex = 33;
+            this.textBoxBCPctTraining.TabIndex = 1;
             this.toolTip1.SetToolTip(this.textBoxBCPctTraining, "Durration of bump (ms)");
             this.textBoxBCPctTraining.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -4422,7 +4426,7 @@ namespace BehaviorGraphics
             this.textBoxBCBumpMagMin.Location = new System.Drawing.Point(123, 69);
             this.textBoxBCBumpMagMin.Name = "textBoxBCBumpMagMin";
             this.textBoxBCBumpMagMin.Size = new System.Drawing.Size(68, 20);
-            this.textBoxBCBumpMagMin.TabIndex = 39;
+            this.textBoxBCBumpMagMin.TabIndex = 5;
             this.toolTip1.SetToolTip(this.textBoxBCBumpMagMin, "The magnitude of the unit 1 bump.  All bump magnitudes are an integer multiple of" +
                     " this.");
             this.textBoxBCBumpMagMin.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -4442,7 +4446,7 @@ namespace BehaviorGraphics
             this.textBoxBCBumpDur.Location = new System.Drawing.Point(123, 118);
             this.textBoxBCBumpDur.Name = "textBoxBCBumpDur";
             this.textBoxBCBumpDur.Size = new System.Drawing.Size(68, 20);
-            this.textBoxBCBumpDur.TabIndex = 33;
+            this.textBoxBCBumpDur.TabIndex = 9;
             this.toolTip1.SetToolTip(this.textBoxBCBumpDur, "Durration of bump (ms)");
             this.textBoxBCBumpDur.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -4461,7 +4465,7 @@ namespace BehaviorGraphics
             this.textBoxBCBumpMagMax.Location = new System.Drawing.Point(123, 92);
             this.textBoxBCBumpMagMax.Name = "textBoxBCBumpMagMax";
             this.textBoxBCBumpMagMax.Size = new System.Drawing.Size(68, 20);
-            this.textBoxBCBumpMagMax.TabIndex = 31;
+            this.textBoxBCBumpMagMax.TabIndex = 7;
             this.toolTip1.SetToolTip(this.textBoxBCBumpMagMax, "The magnitude of the unit 1 bump.  All bump magnitudes are an integer multiple of" +
                     " this.");
             this.textBoxBCBumpMagMax.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -4486,7 +4490,7 @@ namespace BehaviorGraphics
             0});
             this.numericUpDownBCBumpSteps.Name = "numericUpDownBCBumpSteps";
             this.numericUpDownBCBumpSteps.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDownBCBumpSteps.TabIndex = 26;
+            this.numericUpDownBCBumpSteps.TabIndex = 3;
             this.toolTip1.SetToolTip(this.numericUpDownBCBumpSteps, "Number of gradations of bump magnitude.");
             this.numericUpDownBCBumpSteps.Value = new decimal(new int[] {
             7,
@@ -4510,16 +4514,33 @@ namespace BehaviorGraphics
             this.groupBox18.Location = new System.Drawing.Point(3, 3);
             this.groupBox18.Name = "groupBox18";
             this.groupBox18.Size = new System.Drawing.Size(207, 139);
-            this.groupBox18.TabIndex = 101;
+            this.groupBox18.TabIndex = 11;
             this.groupBox18.TabStop = false;
             this.groupBox18.Text = "Timing";
+            // 
+            // textBoxBCIF
+            // 
+            this.textBoxBCIF.Location = new System.Drawing.Point(101, 112);
+            this.textBoxBCIF.Name = "textBoxBCIF";
+            this.textBoxBCIF.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBCIF.TabIndex = 9;
+            this.textBoxBCIF.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Location = new System.Drawing.Point(9, 119);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(45, 13);
+            this.label76.TabIndex = 16;
+            this.label76.Text = "Fail wait";
             // 
             // textBoxBCI
             // 
             this.textBoxBCI.Location = new System.Drawing.Point(101, 88);
             this.textBoxBCI.Name = "textBoxBCI";
             this.textBoxBCI.Size = new System.Drawing.Size(100, 20);
-            this.textBoxBCI.TabIndex = 15;
+            this.textBoxBCI.TabIndex = 7;
             this.textBoxBCI.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label83
@@ -4536,7 +4557,7 @@ namespace BehaviorGraphics
             this.textBoxBCM.Location = new System.Drawing.Point(101, 62);
             this.textBoxBCM.Name = "textBoxBCM";
             this.textBoxBCM.Size = new System.Drawing.Size(100, 20);
-            this.textBoxBCM.TabIndex = 9;
+            this.textBoxBCM.TabIndex = 5;
             this.textBoxBCM.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label86
@@ -4807,7 +4828,7 @@ namespace BehaviorGraphics
             this.buttonRefresh.Location = new System.Drawing.Point(4, 354);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 23);
-            this.buttonRefresh.TabIndex = 5;
+            this.buttonRefresh.TabIndex = 97;
             this.buttonRefresh.Text = "Refresh";
             this.toolTip1.SetToolTip(this.buttonRefresh, "Get current parameter values from target machine.");
             this.buttonRefresh.UseVisualStyleBackColor = true;
@@ -5372,22 +5393,6 @@ namespace BehaviorGraphics
             this.label74.Size = new System.Drawing.Size(61, 13);
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
-            // 
-            // textBoxBCIF
-            // 
-            this.textBoxBCIF.Location = new System.Drawing.Point(101, 112);
-            this.textBoxBCIF.Name = "textBoxBCIF";
-            this.textBoxBCIF.Size = new System.Drawing.Size(100, 20);
-            this.textBoxBCIF.TabIndex = 17;
-            // 
-            // label76
-            // 
-            this.label76.AutoSize = true;
-            this.label76.Location = new System.Drawing.Point(9, 119);
-            this.label76.Name = "label76";
-            this.label76.Size = new System.Drawing.Size(45, 13);
-            this.label76.TabIndex = 16;
-            this.label76.Text = "Fail wait";
             // 
             // UpdateForm
             // 
