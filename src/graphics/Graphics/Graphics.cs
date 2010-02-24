@@ -311,8 +311,9 @@ namespace BehaviorGraphics
                         throw new System.Exception("Unknown xPC Model Communication Packet Spec.");
                 }
 
-                if (new_tone_cnt > tone_cnt ||
-                    (new_tone_cnt != tone_cnt && new_tone_cnt == 1.0)/* target restart hack */ ) {
+                /* Play a new tone if it's counter is larger, or reset the counter
+                 * if it is smaller. */
+                if (new_tone_cnt > tone_cnt || new_tone_cnt < tone_cnt - 1.0) {
                     tone_cnt = new_tone_cnt;
                     sp.Play((int)tone_id);
                 }
