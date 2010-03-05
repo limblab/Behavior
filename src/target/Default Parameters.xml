@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.3587.30408">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.3715.33431">
   <ScreenWidth>60</ScreenWidth>
+  <MGGains>
+    <double>5</double>
+    <double>5</double>
+    <double>5</double>
+    <double>20</double>
+  </MGGains>
   <VerticalDisplacement>-15</VerticalDisplacement>
   <Cursor>5</Cursor>
   <SoundTheme>Theme1</SoundTheme>
@@ -366,6 +372,14 @@
         <value>1</value>
       </item>
       <item>
+        <key>BS Bump Displacement</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BS Stim Displacement</key>
+        <value>1</value>
+      </item>
+      <item>
         <key>BS Target Angle</key>
         <value>0</value>
       </item>
@@ -584,6 +598,62 @@
       <item>
         <key>WFNeuralControl</key>
         <value>0</value>
+      </item>
+      <item>
+        <key>BC Target Radius</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BC Target Size</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BC Window Diameter</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BC Num Bump Steps</key>
+        <value>7</value>
+      </item>
+      <item>
+        <key>BC Bump Magnitude Min</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BC Bump Magnitude Max</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BC Bump Duration</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BC OHL</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BC OHH</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BC M</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BC I</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BC IF</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BC Pct Training Trials</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BC Pct Stimulation Trials</key>
+        <value>1</value>
       </item>
     </dictionary>
   </SerializedParameters>
@@ -847,4 +917,70 @@
       <yVar>0</yVar>
     </MultiGadgetTarget>
   </FlextensionTargetList>
+  <BumpChoiceStimList>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+  </BumpChoiceStimList>
 </BehaviorParameters>

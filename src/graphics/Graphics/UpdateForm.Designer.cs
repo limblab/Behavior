@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -497,6 +497,10 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
+            this.MGGain0 = new System.Windows.Forms.TextBox();
+            this.MGGain1 = new System.Windows.Forms.TextBox();
+            this.MGGain3 = new System.Windows.Forms.TextBox();
+            this.MGGain2 = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -2930,7 +2934,7 @@ namespace BehaviorGraphics
             this.groupBox32.Controls.Add(this.checkBoxMGMT);
             this.groupBox32.Controls.Add(this.checkBoxMGIM);
             this.groupBox32.Controls.Add(this.label137);
-            this.groupBox32.Location = new System.Drawing.Point(226, 9);
+            this.groupBox32.Location = new System.Drawing.Point(227, 9);
             this.groupBox32.Name = "groupBox32";
             this.groupBox32.Size = new System.Drawing.Size(360, 71);
             this.groupBox32.TabIndex = 21;
@@ -3031,6 +3035,10 @@ namespace BehaviorGraphics
             // 
             // groupBox37
             // 
+            this.groupBox37.Controls.Add(this.MGGain3);
+            this.groupBox37.Controls.Add(this.MGGain2);
+            this.groupBox37.Controls.Add(this.MGGain1);
+            this.groupBox37.Controls.Add(this.MGGain0);
             this.groupBox37.Controls.Add(this.checkBoxMG3);
             this.groupBox37.Controls.Add(this.checkBoxMG0);
             this.groupBox37.Controls.Add(this.checkBoxMG2);
@@ -3040,58 +3048,56 @@ namespace BehaviorGraphics
             this.groupBox37.Size = new System.Drawing.Size(205, 62);
             this.groupBox37.TabIndex = 13;
             this.groupBox37.TabStop = false;
-            this.groupBox37.Text = "Gadgets";
+            this.groupBox37.Text = "Gadgets Enable and Gains";
             // 
             // checkBoxMG3
             // 
             this.checkBoxMG3.AutoSize = true;
-            this.checkBoxMG3.Enabled = false;
-            this.checkBoxMG3.Location = new System.Drawing.Point(112, 38);
+            this.checkBoxMG3.Location = new System.Drawing.Point(114, 41);
             this.checkBoxMG3.Name = "checkBoxMG3";
-            this.checkBoxMG3.Size = new System.Drawing.Size(70, 17);
+            this.checkBoxMG3.Size = new System.Drawing.Size(32, 17);
             this.checkBoxMG3.TabIndex = 4;
-            this.checkBoxMG3.TabStop = false;
-            this.checkBoxMG3.Text = "Gadget 4";
+            this.checkBoxMG3.Text = "4";
             this.checkBoxMG3.UseVisualStyleBackColor = true;
             this.checkBoxMG3.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // checkBoxMG0
             // 
             this.checkBoxMG0.AutoSize = true;
-            this.checkBoxMG0.Location = new System.Drawing.Point(22, 18);
+            this.checkBoxMG0.Location = new System.Drawing.Point(13, 16);
             this.checkBoxMG0.Name = "checkBoxMG0";
-            this.checkBoxMG0.Size = new System.Drawing.Size(70, 17);
-            this.checkBoxMG0.TabIndex = 1;
-            this.checkBoxMG0.Text = "Gadget 1";
+            this.checkBoxMG0.Size = new System.Drawing.Size(32, 17);
+            this.checkBoxMG0.TabIndex = 2;
+            this.checkBoxMG0.Text = "1";
             this.checkBoxMG0.UseVisualStyleBackColor = true;
             this.checkBoxMG0.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // checkBoxMG2
             // 
             this.checkBoxMG2.AutoSize = true;
-            this.checkBoxMG2.Location = new System.Drawing.Point(112, 18);
+            this.checkBoxMG2.Location = new System.Drawing.Point(114, 17);
             this.checkBoxMG2.Name = "checkBoxMG2";
-            this.checkBoxMG2.Size = new System.Drawing.Size(70, 17);
+            this.checkBoxMG2.Size = new System.Drawing.Size(32, 17);
             this.checkBoxMG2.TabIndex = 3;
-            this.checkBoxMG2.Text = "Gadget 3";
+            this.checkBoxMG2.Text = "3";
             this.checkBoxMG2.UseVisualStyleBackColor = true;
             this.checkBoxMG2.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // checkBoxMG1
             // 
             this.checkBoxMG1.AutoSize = true;
-            this.checkBoxMG1.Location = new System.Drawing.Point(22, 38);
+            this.checkBoxMG1.Location = new System.Drawing.Point(13, 41);
             this.checkBoxMG1.Name = "checkBoxMG1";
-            this.checkBoxMG1.Size = new System.Drawing.Size(70, 17);
+            this.checkBoxMG1.Size = new System.Drawing.Size(32, 17);
             this.checkBoxMG1.TabIndex = 2;
-            this.checkBoxMG1.Text = "Gadget 2";
+            this.checkBoxMG1.Text = "2";
             this.checkBoxMG1.UseVisualStyleBackColor = true;
             this.checkBoxMG1.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // groupBoxMGTargets
             // 
             this.groupBoxMGTargets.Controls.Add(this.MGTargetGrid);
-            this.groupBoxMGTargets.Location = new System.Drawing.Point(226, 84);
+            this.groupBoxMGTargets.Location = new System.Drawing.Point(227, 84);
             this.groupBoxMGTargets.Name = "groupBoxMGTargets";
             this.groupBoxMGTargets.Size = new System.Drawing.Size(360, 185);
             this.groupBoxMGTargets.TabIndex = 23;
@@ -3121,8 +3127,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -3193,7 +3199,7 @@ namespace BehaviorGraphics
             this.textBoxMGI.Location = new System.Drawing.Point(99, 163);
             this.textBoxMGI.Name = "textBoxMGI";
             this.textBoxMGI.Size = new System.Drawing.Size(100, 20);
-            this.textBoxMGI.TabIndex = 13;
+            this.textBoxMGI.TabIndex = 7;
             this.textBoxMGI.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label115
@@ -3210,7 +3216,7 @@ namespace BehaviorGraphics
             this.textBoxMGTH.Location = new System.Drawing.Point(99, 139);
             this.textBoxMGTH.Name = "textBoxMGTH";
             this.textBoxMGTH.Size = new System.Drawing.Size(100, 20);
-            this.textBoxMGTH.TabIndex = 11;
+            this.textBoxMGTH.TabIndex = 6;
             this.textBoxMGTH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label117
@@ -3227,7 +3233,7 @@ namespace BehaviorGraphics
             this.textBoxMGRT.Location = new System.Drawing.Point(99, 115);
             this.textBoxMGRT.Name = "textBoxMGRT";
             this.textBoxMGRT.Size = new System.Drawing.Size(100, 20);
-            this.textBoxMGRT.TabIndex = 9;
+            this.textBoxMGRT.TabIndex = 5;
             this.textBoxMGRT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label118
@@ -3244,7 +3250,7 @@ namespace BehaviorGraphics
             this.textBoxMGDH.Location = new System.Drawing.Point(99, 91);
             this.textBoxMGDH.Name = "textBoxMGDH";
             this.textBoxMGDH.Size = new System.Drawing.Size(100, 20);
-            this.textBoxMGDH.TabIndex = 7;
+            this.textBoxMGDH.TabIndex = 4;
             this.textBoxMGDH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label119
@@ -3261,7 +3267,7 @@ namespace BehaviorGraphics
             this.textBoxMGDL.Location = new System.Drawing.Point(99, 67);
             this.textBoxMGDL.Name = "textBoxMGDL";
             this.textBoxMGDL.Size = new System.Drawing.Size(100, 20);
-            this.textBoxMGDL.TabIndex = 5;
+            this.textBoxMGDL.TabIndex = 3;
             this.textBoxMGDL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label120
@@ -3278,7 +3284,7 @@ namespace BehaviorGraphics
             this.textBoxMGTPH.Location = new System.Drawing.Point(99, 43);
             this.textBoxMGTPH.Name = "textBoxMGTPH";
             this.textBoxMGTPH.Size = new System.Drawing.Size(100, 20);
-            this.textBoxMGTPH.TabIndex = 3;
+            this.textBoxMGTPH.TabIndex = 2;
             this.textBoxMGTPH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label121
@@ -3829,8 +3835,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -5394,6 +5400,46 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
+            // MGGain0
+            // 
+            this.MGGain0.Location = new System.Drawing.Point(48, 15);
+            this.MGGain0.Name = "MGGain0";
+            this.MGGain0.Size = new System.Drawing.Size(43, 20);
+            this.MGGain0.TabIndex = 2;
+            this.MGGain0.Text = "1";
+            this.MGGain0.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip1.SetToolTip(this.MGGain0, "Percentage of Catch Trials.");
+            // 
+            // MGGain1
+            // 
+            this.MGGain1.Location = new System.Drawing.Point(48, 40);
+            this.MGGain1.Name = "MGGain1";
+            this.MGGain1.Size = new System.Drawing.Size(43, 20);
+            this.MGGain1.TabIndex = 46;
+            this.MGGain1.Text = "1";
+            this.MGGain1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip1.SetToolTip(this.MGGain1, "Percentage of Catch Trials.");
+            // 
+            // MGGain3
+            // 
+            this.MGGain3.Location = new System.Drawing.Point(149, 40);
+            this.MGGain3.Name = "MGGain3";
+            this.MGGain3.Size = new System.Drawing.Size(43, 20);
+            this.MGGain3.TabIndex = 48;
+            this.MGGain3.Text = "1";
+            this.MGGain3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip1.SetToolTip(this.MGGain3, "Percentage of Catch Trials.");
+            // 
+            // MGGain2
+            // 
+            this.MGGain2.Location = new System.Drawing.Point(149, 15);
+            this.MGGain2.Name = "MGGain2";
+            this.MGGain2.Size = new System.Drawing.Size(43, 20);
+            this.MGGain2.TabIndex = 47;
+            this.MGGain2.Text = "1";
+            this.MGGain2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip1.SetToolTip(this.MGGain2, "Percentage of Catch Trials.");
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -5411,6 +5457,7 @@ namespace BehaviorGraphics
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "UpdateForm";
             this.Text = "Update Target";
+            this.Load += new System.EventHandler(this.UpdateForm_Load);
             this.Shown += new System.EventHandler(this.UpdateForm_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.UpdateForm_DragDrop);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UpdateForm_FormClosed);
@@ -5994,5 +6041,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.DataGridViewTextBoxColumn PDColumn;
         private System.Windows.Forms.TextBox textBoxBCIF;
         private System.Windows.Forms.Label label76;
+        private System.Windows.Forms.TextBox MGGain1;
+        private System.Windows.Forms.TextBox MGGain0;
+        private System.Windows.Forms.TextBox MGGain3;
+        private System.Windows.Forms.TextBox MGGain2;
     }
 }

@@ -305,6 +305,18 @@ namespace BehaviorGraphics
             //param 16 = clear_MVC_tgts
             AddParamListItem("MGCatchTrials", "P17", "Behavior MG", this.textBoxMGCT);
 
+            //Gadget Gains
+            //MGGains = new double[4];
+            //double[] MGGains = {Double.Parse(this.MGGain0.Text),
+            //                    Double.Parse(this.MGGain1.Text),
+            //                    Double.Parse(this.MGGain2.Text),
+            //                    Double.Parse(this.MGGain3.Text)};
+            //AddParamListItem("MGGains", "table", "CursorPos/GadgetGains", MGGains);
+            //AddParamListItem("MGGain0", "table(1)","CursorPos/GadgetGains", this.MGGain0);
+            //AddParamListItem("MGGain1", "table(2)","CursorPos/GadgetGains", this.MGGain1);
+            //AddParamListItem("MGGain2", "table(3)","CursorPos/GadgetGains", this.MGGain2);
+            //AddParamListItem("MGGain3", "table(4)","CursorPos/GadgetGains", this.MGGain3);
+
 
             #endregion
 
@@ -421,6 +433,7 @@ namespace BehaviorGraphics
             AddParamListItem(short_name, name, block, null);
         }
         #endregion
+
 
         #region Status Helper Functions
         /// <summary>
@@ -1200,6 +1213,17 @@ namespace BehaviorGraphics
                     }
                 }
             }
+            
+            //MG-Gains
+            paramID = target.GetParamIdx("CursorPos/GadgetGain", "table");
+            if (paramID != -1) {
+                param = (double[])target.GetParam(paramID);
+                MGGain0.Text = param[0].ToString();
+                MGGain1.Text = param[1].ToString();
+                MGGain2.Text = param[2].ToString();
+                MGGain3.Text = param[3].ToString();
+            }
+
 
             done += 1f;
             this.toolStripProgressBar1.Value = (int)(100f * done / total);
@@ -1306,6 +1330,13 @@ namespace BehaviorGraphics
                 bp.MGTargets[i] = mgt;
             }
 
+            //MG-Gains
+            double[] mgg = {Double.Parse(this.MGGain0.Text),
+                                Double.Parse(this.MGGain1.Text),
+                                Double.Parse(this.MGGain2.Text),
+                                Double.Parse(this.MGGain3.Text)};
+            bp.MGGains = mgg;
+     
             // WF-TargetList
             for (int i = 0; i < WFTargetGrid.Rows.Count; i++) {
                 DataGridViewCellCollection cells = WFTargetGrid.Rows[i].Cells;
@@ -1408,6 +1439,12 @@ namespace BehaviorGraphics
                 }
                 cells[5].Value = mgt.yVar_enable;
             }
+
+            //MultiGadget Gain
+            this.MGGain0.Text = bp.MGGains[0].ToString();
+            this.MGGain1.Text = bp.MGGains[1].ToString();
+            this.MGGain2.Text = bp.MGGains[2].ToString();
+            this.MGGain3.Text = bp.MGGains[3].ToString();
 
             // Wrist Flexion Target Parameters
             for (int i = 0; i < WFTargetGrid.RowCount; i++) {
@@ -1572,6 +1609,19 @@ namespace BehaviorGraphics
             done += 1;
             this.toolStripProgressBar1.Value = (int)(100f * done / total);
 
+            /*
+             * MG Gains
+             */
+            paramID = target.GetParamIdx("CursorPos/GadgetGain", "table");
+            if (paramID >= 0)
+            {
+                Array mgGains = Array.CreateInstance(typeof(double), 4);
+                mgGains=bp.MGGains;
+                target.SetParam(paramID, ref mgGains);
+            }
+
+            done += 1;
+            this.toolStripProgressBar1.Value = (int)(100f * done / total);
 
             /*
             * WF Targets 
@@ -1672,6 +1722,11 @@ namespace BehaviorGraphics
                 labelWFIntMax.Show();
             }
             widget_ValueChanged(sender, e);
+        }
+
+        private void UpdateForm_Load(object sender, EventArgs e)
+        {
+
         }
 
        

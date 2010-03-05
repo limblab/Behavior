@@ -22,6 +22,7 @@ namespace BehaviorGraphics
 
         // Multi-Gadget specific elements
         private List<MultiGadgetTarget> mgTargets;
+        private double[] mgGains = new double[4];
 
         // Flextension specific elements
         private List<MultiGadgetTarget> wfTargets;
@@ -63,6 +64,15 @@ namespace BehaviorGraphics
             get { return this.screenWidth; }
         }
 
+        [XmlArray]
+        public double[] MGGains
+        {
+            set 
+            {this.mgGains = value;
+            }
+            get { return this.mgGains; }
+
+        } 
         [XmlElement]
         public float VerticalDisplacement
         {
