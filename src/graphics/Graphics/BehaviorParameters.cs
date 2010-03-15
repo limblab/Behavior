@@ -23,6 +23,7 @@ namespace BehaviorGraphics
         // Multi-Gadget specific elements
         private List<MultiGadgetTarget> mgTargets;
         private double[] mgGains = new double[4];
+        private int bdCatchBlock;
 
         // Flextension specific elements
         private List<MultiGadgetTarget> wfTargets;
@@ -67,12 +68,18 @@ namespace BehaviorGraphics
         [XmlArray]
         public double[] MGGains
         {
-            set 
-            {this.mgGains = value;
-            }
+            set {this.mgGains = value; }
             get { return this.mgGains; }
 
-        } 
+        }
+
+        [XmlElement]
+        public int BD_Catch_Block
+        {
+            set { this.bdCatchBlock = value; }
+            get { return this.bdCatchBlock; }
+        }
+
         [XmlElement]
         public float VerticalDisplacement
         {
@@ -242,6 +249,16 @@ namespace BehaviorGraphics
             Viscous = 3,
         }
 
+        public enum BD_Catch_List
+        {
+            None  = 0,
+            pct5  = 20,
+            pct10 = 10,
+            pct14 = 7,
+            pct20 = 5,
+            pct25 = 4,
+            pct33 = 3,
+        }
 
 }
 

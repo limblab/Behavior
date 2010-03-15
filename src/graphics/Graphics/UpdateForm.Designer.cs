@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -259,6 +259,10 @@ namespace BehaviorGraphics
             this.checkBoxMGIM = new System.Windows.Forms.CheckBox();
             this.label137 = new System.Windows.Forms.Label();
             this.groupBox37 = new System.Windows.Forms.GroupBox();
+            this.MGGain3 = new System.Windows.Forms.TextBox();
+            this.MGGain2 = new System.Windows.Forms.TextBox();
+            this.MGGain1 = new System.Windows.Forms.TextBox();
+            this.MGGain0 = new System.Windows.Forms.TextBox();
             this.checkBoxMG3 = new System.Windows.Forms.CheckBox();
             this.checkBoxMG0 = new System.Windows.Forms.CheckBox();
             this.checkBoxMG2 = new System.Windows.Forms.CheckBox();
@@ -374,8 +378,6 @@ namespace BehaviorGraphics
             this.textBoxBDTPL = new System.Windows.Forms.TextBox();
             this.label149 = new System.Windows.Forms.Label();
             this.groupBox39 = new System.Windows.Forms.GroupBox();
-            this.label146 = new System.Windows.Forms.Label();
-            this.textBoxBDCT = new System.Windows.Forms.TextBox();
             this.label147 = new System.Windows.Forms.Label();
             this.tabPageBC = new System.Windows.Forms.TabPage();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
@@ -497,10 +499,7 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.MGGain0 = new System.Windows.Forms.TextBox();
-            this.MGGain1 = new System.Windows.Forms.TextBox();
-            this.MGGain3 = new System.Windows.Forms.TextBox();
-            this.MGGain2 = new System.Windows.Forms.TextBox();
+            this.comboBoxBDCT = new System.Windows.Forms.ComboBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -3050,6 +3049,46 @@ namespace BehaviorGraphics
             this.groupBox37.TabStop = false;
             this.groupBox37.Text = "Gadgets Enable and Gains";
             // 
+            // MGGain3
+            // 
+            this.MGGain3.Location = new System.Drawing.Point(149, 40);
+            this.MGGain3.Name = "MGGain3";
+            this.MGGain3.Size = new System.Drawing.Size(43, 20);
+            this.MGGain3.TabIndex = 48;
+            this.MGGain3.Text = "1";
+            this.MGGain3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip1.SetToolTip(this.MGGain3, "Percentage of Catch Trials.");
+            // 
+            // MGGain2
+            // 
+            this.MGGain2.Location = new System.Drawing.Point(149, 15);
+            this.MGGain2.Name = "MGGain2";
+            this.MGGain2.Size = new System.Drawing.Size(43, 20);
+            this.MGGain2.TabIndex = 47;
+            this.MGGain2.Text = "1";
+            this.MGGain2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip1.SetToolTip(this.MGGain2, "Percentage of Catch Trials.");
+            // 
+            // MGGain1
+            // 
+            this.MGGain1.Location = new System.Drawing.Point(48, 40);
+            this.MGGain1.Name = "MGGain1";
+            this.MGGain1.Size = new System.Drawing.Size(43, 20);
+            this.MGGain1.TabIndex = 46;
+            this.MGGain1.Text = "1";
+            this.MGGain1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip1.SetToolTip(this.MGGain1, "Percentage of Catch Trials.");
+            // 
+            // MGGain0
+            // 
+            this.MGGain0.Location = new System.Drawing.Point(48, 15);
+            this.MGGain0.Name = "MGGain0";
+            this.MGGain0.Size = new System.Drawing.Size(43, 20);
+            this.MGGain0.TabIndex = 2;
+            this.MGGain0.Text = "1";
+            this.MGGain0.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolTip1.SetToolTip(this.MGGain0, "Percentage of Catch Trials.");
+            // 
             // checkBoxMG3
             // 
             this.checkBoxMG3.AutoSize = true;
@@ -3127,8 +3166,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -3835,8 +3874,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -4195,8 +4234,7 @@ namespace BehaviorGraphics
             // 
             // groupBox39
             // 
-            this.groupBox39.Controls.Add(this.label146);
-            this.groupBox39.Controls.Add(this.textBoxBDCT);
+            this.groupBox39.Controls.Add(this.comboBoxBDCT);
             this.groupBox39.Controls.Add(this.label147);
             this.groupBox39.Location = new System.Drawing.Point(226, 9);
             this.groupBox39.Name = "groupBox39";
@@ -4205,29 +4243,10 @@ namespace BehaviorGraphics
             this.groupBox39.TabStop = false;
             this.groupBox39.Text = "Options";
             // 
-            // label146
-            // 
-            this.label146.AutoSize = true;
-            this.label146.Location = new System.Drawing.Point(123, 43);
-            this.label146.Name = "label146";
-            this.label146.Size = new System.Drawing.Size(15, 13);
-            this.label146.TabIndex = 44;
-            this.label146.Text = "%";
-            // 
-            // textBoxBDCT
-            // 
-            this.textBoxBDCT.Location = new System.Drawing.Point(86, 39);
-            this.textBoxBDCT.Name = "textBoxBDCT";
-            this.textBoxBDCT.Size = new System.Drawing.Size(31, 20);
-            this.textBoxBDCT.TabIndex = 1;
-            this.textBoxBDCT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.textBoxBDCT, "Percentage of Catch Trials.");
-            this.textBoxBDCT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
             // label147
             // 
             this.label147.AutoSize = true;
-            this.label147.Location = new System.Drawing.Point(83, 20);
+            this.label147.Location = new System.Drawing.Point(51, 20);
             this.label147.Name = "label147";
             this.label147.Size = new System.Drawing.Size(63, 13);
             this.label147.TabIndex = 42;
@@ -5400,45 +5419,21 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // MGGain0
+            // comboBoxBDCT
             // 
-            this.MGGain0.Location = new System.Drawing.Point(48, 15);
-            this.MGGain0.Name = "MGGain0";
-            this.MGGain0.Size = new System.Drawing.Size(43, 20);
-            this.MGGain0.TabIndex = 2;
-            this.MGGain0.Text = "1";
-            this.MGGain0.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.MGGain0, "Percentage of Catch Trials.");
-            // 
-            // MGGain1
-            // 
-            this.MGGain1.Location = new System.Drawing.Point(48, 40);
-            this.MGGain1.Name = "MGGain1";
-            this.MGGain1.Size = new System.Drawing.Size(43, 20);
-            this.MGGain1.TabIndex = 46;
-            this.MGGain1.Text = "1";
-            this.MGGain1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.MGGain1, "Percentage of Catch Trials.");
-            // 
-            // MGGain3
-            // 
-            this.MGGain3.Location = new System.Drawing.Point(149, 40);
-            this.MGGain3.Name = "MGGain3";
-            this.MGGain3.Size = new System.Drawing.Size(43, 20);
-            this.MGGain3.TabIndex = 48;
-            this.MGGain3.Text = "1";
-            this.MGGain3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.MGGain3, "Percentage of Catch Trials.");
-            // 
-            // MGGain2
-            // 
-            this.MGGain2.Location = new System.Drawing.Point(149, 15);
-            this.MGGain2.Name = "MGGain2";
-            this.MGGain2.Size = new System.Drawing.Size(43, 20);
-            this.MGGain2.TabIndex = 47;
-            this.MGGain2.Text = "1";
-            this.MGGain2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.toolTip1.SetToolTip(this.MGGain2, "Percentage of Catch Trials.");
+            this.comboBoxBDCT.FormattingEnabled = true;
+            this.comboBoxBDCT.Items.AddRange(new object[] {
+            "None",
+            "1/20 (5%)",
+            "1/10 (10%)",
+            "1/7   (14%)",
+            "1/5   (20%)",
+            "1/4   (25%)",
+            "1/3   (33%)"});
+            this.comboBoxBDCT.Location = new System.Drawing.Point(41, 38);
+            this.comboBoxBDCT.Name = "comboBoxBDCT";
+            this.comboBoxBDCT.Size = new System.Drawing.Size(80, 21);
+            this.comboBoxBDCT.TabIndex = 45;
             // 
             // UpdateForm
             // 
@@ -5870,8 +5865,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.DataGridViewCheckBoxColumn y_varMG;
         private System.Windows.Forms.TabPage tabPageBD;
         private System.Windows.Forms.GroupBox groupBox39;
-        private System.Windows.Forms.Label label146;
-        private System.Windows.Forms.TextBox textBoxBDCT;
         private System.Windows.Forms.Label label147;
         private System.Windows.Forms.Label label143;
         private System.Windows.Forms.Button button1;
@@ -6045,5 +6038,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox MGGain0;
         private System.Windows.Forms.TextBox MGGain3;
         private System.Windows.Forms.TextBox MGGain2;
+        private System.Windows.Forms.ComboBox comboBoxBDCT;
     }
 }

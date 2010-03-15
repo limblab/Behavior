@@ -333,7 +333,8 @@ namespace BehaviorGraphics
 
             // Options
             //param 8 = master_reset
-            AddParamListItem("BDCatchTrials", "P9", "Behavior BD", this.textBoxBDCT);
+            // now catch trial is a comboBox
+            //AddParamListItem("BDCatchTrials", "P9", "Behavior BD", this.textBoxBDCT);
 
 
             #endregion
@@ -1087,6 +1088,41 @@ namespace BehaviorGraphics
                 this.toolStripProgressBar1.Value = (int)(100f * done / total);
             }
 
+            #region BD_Catch
+            paramID = target.GetParamIdx("Behavior BD", "P9");
+            if (paramID >= 0)
+            {
+                param = (double[])target.GetParam(paramID);
+                switch ((BD_Catch_List)param[0])
+                {
+                    case BD_Catch_List.None:
+                        this.comboBoxBDCT.SelectedIndex = 0;
+                        break;
+                    case BD_Catch_List.pct5:
+                        this.comboBoxBDCT.SelectedIndex = 1;
+                        break;
+                    case BD_Catch_List.pct10:
+                        this.comboBoxBDCT.SelectedIndex = 2;
+                        break;
+                    case BD_Catch_List.pct14:
+                        this.comboBoxBDCT.SelectedIndex = 3;
+                        break;
+                    case BD_Catch_List.pct20:
+                        this.comboBoxBDCT.SelectedIndex = 4;
+                        break;
+                    case BD_Catch_List.pct25:
+                        this.comboBoxBDCT.SelectedIndex = 5;
+                        break;
+                    case BD_Catch_List.pct33:
+                        this.comboBoxBDCT.SelectedIndex = 6;
+                        break;
+                    default:
+                        this.comboBoxBDCT.SelectedIndex = 7;
+                        break;
+                }
+            }
+            #endregion
+            
             // Bump / Catch
             paramID = target.GetParamIdx("Behavior CO", "P13");
             if (paramID >= 0) {
@@ -1318,6 +1354,36 @@ namespace BehaviorGraphics
                 bp.Parameters["Catch Trials Pct"] = 0;
             }
 
+            #region BD_Catch
+            switch ((BD_Catch_List)this.comboBoxBDCT.SelectedIndex)
+            {   //set length of block of trials based on catch %
+                case BD_Catch_List.None:
+                    bp.BD_Catch_Block = (int)BD_Catch_List.None;
+                    break;
+                case BD_Catch_List.pct5:
+                    bp.BD_Catch_Block = (int)BD_Catch_List.pct5;
+                    break;
+                case BD_Catch_List.pct10:
+                    bp.BD_Catch_Block = (int)BD_Catch_List.pct10;
+                    break;
+                case BD_Catch_List.pct14:
+                    bp.BD_Catch_Block = (int)BD_Catch_List.pct14;
+                    break;
+                case BD_Catch_List.pct20:
+                    bp.BD_Catch_Block = (int)BD_Catch_List.pct20;
+                    break;
+                case BD_Catch_List.pct25:
+                    bp.BD_Catch_Block = (int)BD_Catch_List.pct25;
+                    break;
+                case BD_Catch_List.pct33:
+                    bp.BD_Catch_Block = (int)BD_Catch_List.pct33;
+                    break;
+                default:
+                    bp.BD_Catch_Block = (int)BD_Catch_List.None;
+                    break;
+            }
+            #endregion
+
             // MG-TargetList
             for (int i = 0; i < MGTargetGrid.Rows.Count; i++) {
                 DataGridViewCellCollection cells = MGTargetGrid.Rows[i].Cells;
@@ -1397,11 +1463,41 @@ namespace BehaviorGraphics
                 this.radioButtonNoBump.Checked = true;
             }
 
+            #region BD_Catch
+            switch ((BD_Catch_List)bp.BD_Catch_Block)
+            {   //length of block of trials based on catch %
+                case BD_Catch_List.None:
+                    this.comboBoxBDCT.SelectedIndex = 0;
+                    break;
+                case BD_Catch_List.pct5:
+                    this.comboBoxBDCT.SelectedIndex = 1;
+                    break;
+                case BD_Catch_List.pct10:
+                    this.comboBoxBDCT.SelectedIndex = 2;
+                    break;
+                case BD_Catch_List.pct14:
+                    this.comboBoxBDCT.SelectedIndex = 3;
+                    break;
+                case BD_Catch_List.pct20:
+                    this.comboBoxBDCT.SelectedIndex = 4;
+                    break;
+                case BD_Catch_List.pct25:
+                    this.comboBoxBDCT.SelectedIndex = 5;
+                    break;
+                case BD_Catch_List.pct33:
+                    this.comboBoxBDCT.SelectedIndex = 6;
+                    break;
+                default:
+                    this.comboBoxBDCT.SelectedIndex = 0;
+                    break;
+            }
+            #endregion
+
             // Host Parameters
             this.textBoxScreenWidth.Text = bp.ScreenWidth.ToString();
             this.textBoxVerticalDisplacement.Text = bp.VerticalDisplacement.ToString();
             this.comboBoxCursor.SelectedIndex = bp.Cursor;
-
+            
             // Dictionary params
             foreach (string key in bp.Parameters.Keys) {
                 try {
@@ -1620,8 +1716,13 @@ namespace BehaviorGraphics
                 target.SetParam(paramID, ref mgGains);
             }
 
-            done += 1;
-            this.toolStripProgressBar1.Value = (int)(100f * done / total);
+            paramID = target.GetParamIdx("Behavior BD", "P9");
+            if (paramID > 0)
+            {
+                param.SetValue((double)bp.BD_Catch_Block,0);
+                target.SetParam(paramID, ref param);
+             
+            }
 
             /*
             * WF Targets 

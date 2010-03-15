@@ -481,22 +481,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 		    ssSetRWorkValue(S, i, 0.0); //clear all MVC target buffers
 	    }
 	}
-    /* Update parameters */        
-    touch_pad_hold_l = param_touch_pad_hold_l;
-    touch_pad_hold_h = param_touch_pad_hold_h;
-    touch_pad_delay_l = param_touch_pad_delay_l;
-    touch_pad_delay_h = param_touch_pad_delay_h;
-    reach_time = param_reach_time;
-    target_hold_time = param_target_hold_time;
-    abort_timeout   = param_intertrial;    
-    failure_timeout = param_intertrial;
-	reward_timeout = param_intertrial;
-
-    catch_trials_pct = param_catch_trials_pct/100;
-    num_targets = param_num_targets;
-    idiot_mode = param_idiot_mode;
-    
-    
+     
     
     /************************
      * Calculate next state *
@@ -506,6 +491,21 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     switch (state) {
         case STATE_PRETRIAL:
             /* Initialize the trial and then advance to STATE_DATA_BLOCK */
+            
+                /* Update parameters */        
+            touch_pad_hold_l = param_touch_pad_hold_l;
+            touch_pad_hold_h = param_touch_pad_hold_h;
+            touch_pad_delay_l = param_touch_pad_delay_l;
+            touch_pad_delay_h = param_touch_pad_delay_h;
+            reach_time = param_reach_time;
+            target_hold_time = param_target_hold_time;
+            abort_timeout   = param_intertrial;    
+            failure_timeout = param_intertrial;
+        	reward_timeout = param_intertrial;
+        
+            catch_trials_pct = param_catch_trials_pct/100;
+            idiot_mode = param_idiot_mode;
+            
 
 			/* intialize timers*/
             if (touch_pad_hold_l == touch_pad_hold_h) { 

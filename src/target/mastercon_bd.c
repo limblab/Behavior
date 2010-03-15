@@ -44,8 +44,8 @@ static real_T reward_timeout  = 1.0;    /* delay after reward before starting ne
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,7))
 
-static real_T catch_trials_pct = 0.0;
-#define param_catch_trials_pct mxGetScalar(ssGetSFcnParam(S,8))
+static real_T catch_block_max = 0.0;
+#define param_catch_block_max mxGetScalar(ssGetSFcnParam(S,8))
 
 #define set_catch_trial(x) ssSetIWorkValue(S, 5, (x))
 #define get_catch_trial() ssGetIWorkValue(S, 5)
@@ -103,7 +103,7 @@ static void mdlCheckParameters(SimStruct *S)
   incomplete_timeout = param_intertrial;
   reward_timeout     = param_intertrial;    
 
-  catch_trials_pct = param_catch_trials_pct/100;
+  catch_block_max = param_catch_block_max;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
@@ -163,7 +163,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 10);   /* 
+    ssSetNumRWork(S, 6);   /* 
     						0: time of last timer reset
                             1: tone counter (incremented each time a tone is played)
                             2: tone id
@@ -175,13 +175,15 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumPWork(S, 0);	/*
                             */
     
-    ssSetNumIWork(S, 6); 	/*
+    ssSetNumIWork(S, 8); 	/*
     						0: state_transition (true if state changed), 
                             1: rewards
                             2: aborts
                             3: failures
                             4: incomplete
                             5: catch_trial_flag
+                            6: catch_block_counter
+                            7: catch_index
                           	*/
     
     /* we have no zero crossing detection or modes */
@@ -219,8 +221,10 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 3, 0);
     ssSetIWorkValue(S, 4, 0);
 	
-    /* set catch trial flag to zero */
-    ssSetIWorkValue(S,5,0);
+    /* set catch trial flag & block counter to zero */
+    ssSetIWorkValue(S,5,0); //catch_trial_flag
+    ssSetIWorkValue(S,6,100); //catch_block_counter
+    ssSetIWorkValue(S,7,0); //catch_index
     
     /* set reset counter to zero */
     master_reset = 0.0;
@@ -251,6 +255,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T pickup_sensor;
     real_T drop_sensor;
 
+    int catch_block_counter;
+    int catch_index;
         
     /******************
      * Initialization *
@@ -277,6 +283,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     
     /* get elapsed time since last timer reset */
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
+    
+    /* catch trial block counter and index*/
+    catch_block_counter = ssGetIWorkValue(S,6);
+    catch_index = ssGetIWorkValue(S,7);
     
 
     /*********************************
@@ -319,8 +329,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			abort_timeout      = param_intertrial;
 			failure_timeout    = param_intertrial;
 			reward_timeout     = param_intertrial;    
-			
-			catch_trials_pct = param_catch_trials_pct/100;
+
             
             /* intialize timers*/
             if (touch_pad_hold_l == touch_pad_hold_h) { 
@@ -335,13 +344,28 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 ssSetRWorkValue(S, 4, touch_pad_delay_l + UNI*(touch_pad_delay_h-touch_pad_delay_l));
             }
             
-            /* decide if this is going to be a catch trial */
-            if (catch_trials_pct > 0) {
-                set_catch_trial( catch_trials_pct > (double)rand()/(double)RAND_MAX ? 1 : 0 );
+            /* Catch trials: one catch per block of catch_block_max trials.
+                catch_block_max is set in graphics, using the drop-down menu
+                to choose between 0% and 33%, with steps of 1/N
+                So catch_block_max is el of: [3,4,5,7,10,20]*/
+            // 1 - increment trial counter
+            catch_block_counter +=1;
+            ssSetIWorkValue(S,6,catch_block_counter);
+            // 2 - is this the catch trial?
+            if (catch_block_counter == catch_index) {
+                set_catch_trial(1);
             } else {
                 set_catch_trial(0);
             }
-            
+            // 3- Reset the catch block if needed
+            if (catch_block_max != param_catch_block_max || catch_block_counter >= catch_block_max) {
+                catch_block_max =  param_catch_block_max;
+                catch_block_counter = 0;
+                catch_index = (int)(UNI*(catch_block_max+1));
+                ssSetIWorkValue(S,7,catch_index);
+                ssSetIWorkValue(S,6,catch_block_counter);
+			}
+			
             new_state = STATE_TOUCH_PAD_ON;
             reset_timer();      
             state_changed();
@@ -406,6 +430,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* abort */
             if (elapsed_timer_time > abort_timeout) {
                 new_state = STATE_PRETRIAL;
+                //don't count for a trial in catch_block
+                ssSetIWorkValue(S,6,catch_block_counter-1);
                 state_changed();
             }
             break;
@@ -413,6 +439,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* failure - The Monkey did not even picked up the ball*/
             if (elapsed_timer_time > failure_timeout) {
                 new_state = STATE_PRETRIAL;
+                //don't count for a trial in catch_block
+                ssSetIWorkValue(S,6,catch_block_counter-1);                
                 state_changed();
             }
             break;
@@ -427,6 +455,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* empty_rack - the monkey has his hand on touch pad but no ball detected in device */
     		if (elapsed_timer_time > empty_rack_alarm_timeout) {
 				new_state = STATE_PRETRIAL;
+                //don't count for a trial in catch_block
+                ssSetIWorkValue(S,6,catch_block_counter-1);				
 				state_changed();
 				reset_timer();
 			}
