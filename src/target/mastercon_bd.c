@@ -84,7 +84,7 @@ static void updateVersion(SimStruct *S)
     
     version_str[strlen(version_str)-1] = 0; // set last "$" to zero
     version = version_str + 11 * sizeof(char); // Skip over "$Revision: "
-    ssSetRWorkValue(S, 9, atof(version));
+    ssSetRWorkValue(S, 5, atof(version));
 }
 
 static void mdlCheckParameters(SimStruct *S)
@@ -328,6 +328,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			
 			abort_timeout      = param_intertrial;
 			failure_timeout    = param_intertrial;
+			failure_timeout    = param_intertrial;
 			reward_timeout     = param_intertrial;    
 
             
@@ -347,24 +348,27 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* Catch trials: one catch per block of catch_block_max trials.
                 catch_block_max is set in graphics, using the drop-down menu
                 to choose between 0% and 33%, with steps of 1/N
-                So catch_block_max is el of: [3,4,5,7,10,20]*/
-            // 1 - increment trial counter
+                So catch_block_max is el of: [0(No catch),3,4,5,7,10,20]*/
+
+			// 1 - increment trial counter
             catch_block_counter +=1;
             ssSetIWorkValue(S,6,catch_block_counter);
-            // 2 - is this the catch trial?
-            if (catch_block_counter == catch_index) {
+
+            // 2- Reset the catch block if needed
+            if (catch_block_max != param_catch_block_max || catch_block_counter >= catch_block_max) {
+                catch_block_max =  param_catch_block_max;
+                catch_block_counter = 0;
+                catch_index = (int)(UNI*(catch_block_max));
+                ssSetIWorkValue(S,7,catch_index);
+                ssSetIWorkValue(S,6,catch_block_counter);
+			}
+
+            // 3 - is this the catch trial?
+            if (catch_block_counter == catch_index && catch_block_max!=0) {
                 set_catch_trial(1);
             } else {
                 set_catch_trial(0);
             }
-            // 3- Reset the catch block if needed
-            if (catch_block_max != param_catch_block_max || catch_block_counter >= catch_block_max) {
-                catch_block_max =  param_catch_block_max;
-                catch_block_counter = 0;
-                catch_index = (int)(UNI*(catch_block_max+1));
-                ssSetIWorkValue(S,7,catch_index);
-                ssSetIWorkValue(S,6,catch_block_counter);
-			}
 			
             new_state = STATE_TOUCH_PAD_ON;
             reset_timer();      

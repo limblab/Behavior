@@ -1355,27 +1355,27 @@ namespace BehaviorGraphics
             }
 
             #region BD_Catch
-            switch ((BD_Catch_List)this.comboBoxBDCT.SelectedIndex)
+            switch ((BD_Catch_Index)this.comboBoxBDCT.SelectedIndex)
             {   //set length of block of trials based on catch %
-                case BD_Catch_List.None:
+                case BD_Catch_Index.None:
                     bp.BD_Catch_Block = (int)BD_Catch_List.None;
                     break;
-                case BD_Catch_List.pct5:
+                case BD_Catch_Index.pct5:
                     bp.BD_Catch_Block = (int)BD_Catch_List.pct5;
                     break;
-                case BD_Catch_List.pct10:
+                case BD_Catch_Index.pct10:
                     bp.BD_Catch_Block = (int)BD_Catch_List.pct10;
                     break;
-                case BD_Catch_List.pct14:
+                case BD_Catch_Index.pct14:
                     bp.BD_Catch_Block = (int)BD_Catch_List.pct14;
                     break;
-                case BD_Catch_List.pct20:
+                case BD_Catch_Index.pct20:
                     bp.BD_Catch_Block = (int)BD_Catch_List.pct20;
                     break;
-                case BD_Catch_List.pct25:
+                case BD_Catch_Index.pct25:
                     bp.BD_Catch_Block = (int)BD_Catch_List.pct25;
                     break;
-                case BD_Catch_List.pct33:
+                case BD_Catch_Index.pct33:
                     bp.BD_Catch_Block = (int)BD_Catch_List.pct33;
                     break;
                 default:
@@ -1666,6 +1666,14 @@ namespace BehaviorGraphics
             done += 1f;
             this.toolStripProgressBar1.Value = (int)(100f * done / total);
 
+            paramID = target.GetParamIdx("Behavior BD", "P9");
+            if (paramID > 0)
+            {
+                param.SetValue((double)bp.BD_Catch_Block, 0);
+                target.SetParam(paramID, ref param);
+
+            }
+
             /*
              * Dictionary params
              */
@@ -1714,14 +1722,6 @@ namespace BehaviorGraphics
                 Array mgGains = Array.CreateInstance(typeof(double), 4);
                 mgGains=bp.MGGains;
                 target.SetParam(paramID, ref mgGains);
-            }
-
-            paramID = target.GetParamIdx("Behavior BD", "P9");
-            if (paramID > 0)
-            {
-                param.SetValue((double)bp.BD_Catch_Block,0);
-                target.SetParam(paramID, ref param);
-             
             }
 
             /*

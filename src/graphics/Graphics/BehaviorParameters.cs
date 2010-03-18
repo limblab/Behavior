@@ -259,6 +259,16 @@ namespace BehaviorGraphics
             pct25 = 4,
             pct33 = 3,
         }
+        public enum BD_Catch_Index
+        {
+            None = 0,
+            pct5 = 1,
+            pct10 = 2,
+            pct14 = 3,
+            pct20 = 4,
+            pct25 = 5,
+            pct33 = 6,
+        }
 
 }
 
