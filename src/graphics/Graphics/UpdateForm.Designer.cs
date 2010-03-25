@@ -35,6 +35,7 @@ namespace BehaviorGraphics
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageGen = new System.Windows.Forms.TabPage();
+            this.checkBoxUseNeuralControl = new System.Windows.Forms.CheckBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.label45 = new System.Windows.Forms.Label();
             this.textBoxJackpotChance = new System.Windows.Forms.TextBox();
@@ -50,7 +51,6 @@ namespace BehaviorGraphics
             this.label114 = new System.Windows.Forms.Label();
             this.checkBoxRecenter = new System.Windows.Forms.CheckBox();
             this.groupBox27 = new System.Windows.Forms.GroupBox();
-            this.angleEntryBoxCurlAngleCatch = new AngleBox.AngleEntryBox();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
             this.textBoxTimeConstCatch = new System.Windows.Forms.TextBox();
             this.labelChaoticGainCatch = new System.Windows.Forms.Label();
@@ -68,7 +68,6 @@ namespace BehaviorGraphics
             this.textBoxScreenWidth = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.angleEntryBoxCurlAngle = new AngleBox.AngleEntryBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.textBoxTimeConst = new System.Windows.Forms.TextBox();
             this.labelChaoticGain = new System.Windows.Forms.Label();
@@ -84,7 +83,6 @@ namespace BehaviorGraphics
             this.label19 = new System.Windows.Forms.Label();
             this.comboBoxLoad = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.angleEntryBoxCursorRotation = new AngleBox.AngleEntryBox();
             this.label17 = new System.Windows.Forms.Label();
             this.textBoxYOffset = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -500,7 +498,9 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.checkBoxUseNeuralControl = new System.Windows.Forms.CheckBox();
+            this.angleEntryBoxCurlAngleCatch = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxCurlAngle = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxCursorRotation = new AngleBox.AngleEntryBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -634,6 +634,16 @@ namespace BehaviorGraphics
             this.tabPageGen.Text = "General";
             this.tabPageGen.UseVisualStyleBackColor = true;
             this.tabPageGen.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tabPageGen_MouseDoubleClick);
+            // 
+            // checkBoxUseNeuralControl
+            // 
+            this.checkBoxUseNeuralControl.AutoSize = true;
+            this.checkBoxUseNeuralControl.Location = new System.Drawing.Point(234, 272);
+            this.checkBoxUseNeuralControl.Name = "checkBoxUseNeuralControl";
+            this.checkBoxUseNeuralControl.Size = new System.Drawing.Size(186, 17);
+            this.checkBoxUseNeuralControl.TabIndex = 19;
+            this.checkBoxUseNeuralControl.Text = "Neural Cursor Control (Robot only)";
+            this.checkBoxUseNeuralControl.UseVisualStyleBackColor = true;
             // 
             // groupBox13
             // 
@@ -795,15 +805,6 @@ namespace BehaviorGraphics
             this.groupBox27.TabIndex = 21;
             this.groupBox27.TabStop = false;
             this.groupBox27.Text = "Catch Load";
-            // 
-            // angleEntryBoxCurlAngleCatch
-            // 
-            this.angleEntryBoxCurlAngleCatch.Location = new System.Drawing.Point(106, 73);
-            this.angleEntryBoxCurlAngleCatch.Name = "angleEntryBoxCurlAngleCatch";
-            this.angleEntryBoxCurlAngleCatch.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngleCatch.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngleCatch, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngleCatch.Value = 0;
             // 
             // groupBox29
             // 
@@ -982,15 +983,6 @@ namespace BehaviorGraphics
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Load";
             // 
-            // angleEntryBoxCurlAngle
-            // 
-            this.angleEntryBoxCurlAngle.Location = new System.Drawing.Point(106, 73);
-            this.angleEntryBoxCurlAngle.Name = "angleEntryBoxCurlAngle";
-            this.angleEntryBoxCurlAngle.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngle.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngle, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngle.Value = 0;
-            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.textBoxTimeConst);
@@ -1147,15 +1139,6 @@ namespace BehaviorGraphics
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Position Offsets";
-            // 
-            // angleEntryBoxCursorRotation
-            // 
-            this.angleEntryBoxCursorRotation.Location = new System.Drawing.Point(116, 108);
-            this.angleEntryBoxCursorRotation.Name = "angleEntryBoxCursorRotation";
-            this.angleEntryBoxCursorRotation.Size = new System.Drawing.Size(99, 21);
-            this.angleEntryBoxCursorRotation.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCursorRotation, "Rotation of workspace relative to handle.");
-            this.angleEntryBoxCursorRotation.Value = 0;
             // 
             // label17
             // 
@@ -5437,15 +5420,32 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // checkBoxUseNeuralControl
+            // angleEntryBoxCurlAngleCatch
             // 
-            this.checkBoxUseNeuralControl.AutoSize = true;
-            this.checkBoxUseNeuralControl.Location = new System.Drawing.Point(234, 272);
-            this.checkBoxUseNeuralControl.Name = "checkBoxUseNeuralControl";
-            this.checkBoxUseNeuralControl.Size = new System.Drawing.Size(126, 17);
-            this.checkBoxUseNeuralControl.TabIndex = 19;
-            this.checkBoxUseNeuralControl.Text = "Neural Cursor Control";
-            this.checkBoxUseNeuralControl.UseVisualStyleBackColor = true;
+            this.angleEntryBoxCurlAngleCatch.Location = new System.Drawing.Point(106, 73);
+            this.angleEntryBoxCurlAngleCatch.Name = "angleEntryBoxCurlAngleCatch";
+            this.angleEntryBoxCurlAngleCatch.Size = new System.Drawing.Size(100, 21);
+            this.angleEntryBoxCurlAngleCatch.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngleCatch, "Angle relative to the direction of movement at which to apply coriolis forces.");
+            this.angleEntryBoxCurlAngleCatch.Value = 0;
+            // 
+            // angleEntryBoxCurlAngle
+            // 
+            this.angleEntryBoxCurlAngle.Location = new System.Drawing.Point(106, 73);
+            this.angleEntryBoxCurlAngle.Name = "angleEntryBoxCurlAngle";
+            this.angleEntryBoxCurlAngle.Size = new System.Drawing.Size(100, 21);
+            this.angleEntryBoxCurlAngle.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngle, "Angle relative to the direction of movement at which to apply coriolis forces.");
+            this.angleEntryBoxCurlAngle.Value = 0;
+            // 
+            // angleEntryBoxCursorRotation
+            // 
+            this.angleEntryBoxCursorRotation.Location = new System.Drawing.Point(116, 108);
+            this.angleEntryBoxCursorRotation.Name = "angleEntryBoxCursorRotation";
+            this.angleEntryBoxCursorRotation.Size = new System.Drawing.Size(99, 21);
+            this.angleEntryBoxCursorRotation.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCursorRotation, "Rotation of workspace relative to handle.");
+            this.angleEntryBoxCursorRotation.Value = 0;
             // 
             // UpdateForm
             // 
