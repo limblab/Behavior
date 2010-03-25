@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -378,6 +378,7 @@ namespace BehaviorGraphics
             this.textBoxBDTPL = new System.Windows.Forms.TextBox();
             this.label149 = new System.Windows.Forms.Label();
             this.groupBox39 = new System.Windows.Forms.GroupBox();
+            this.comboBoxBDCT = new System.Windows.Forms.ComboBox();
             this.label147 = new System.Windows.Forms.Label();
             this.tabPageBC = new System.Windows.Forms.TabPage();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
@@ -499,7 +500,7 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.comboBoxBDCT = new System.Windows.Forms.ComboBox();
+            this.checkBoxUseNeuralControl = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -612,6 +613,7 @@ namespace BehaviorGraphics
             // 
             // tabPageGen
             // 
+            this.tabPageGen.Controls.Add(this.checkBoxUseNeuralControl);
             this.tabPageGen.Controls.Add(this.groupBox13);
             this.tabPageGen.Controls.Add(this.textBoxVerticalDisplacement);
             this.tabPageGen.Controls.Add(this.label123);
@@ -730,7 +732,7 @@ namespace BehaviorGraphics
             // checkBoxUseTachs
             // 
             this.checkBoxUseTachs.AutoSize = true;
-            this.checkBoxUseTachs.Location = new System.Drawing.Point(150, 271);
+            this.checkBoxUseTachs.Location = new System.Drawing.Point(144, 272);
             this.checkBoxUseTachs.Name = "checkBoxUseTachs";
             this.checkBoxUseTachs.Size = new System.Drawing.Size(78, 17);
             this.checkBoxUseTachs.TabIndex = 18;
@@ -744,7 +746,7 @@ namespace BehaviorGraphics
             // comboBoxCursor
             // 
             this.comboBoxCursor.FormattingEnabled = true;
-            this.comboBoxCursor.Location = new System.Drawing.Point(284, 269);
+            this.comboBoxCursor.Location = new System.Drawing.Point(516, 270);
             this.comboBoxCursor.Name = "comboBoxCursor";
             this.comboBoxCursor.Size = new System.Drawing.Size(145, 21);
             this.comboBoxCursor.TabIndex = 22;
@@ -754,7 +756,7 @@ namespace BehaviorGraphics
             // label114
             // 
             this.label114.AutoSize = true;
-            this.label114.Location = new System.Drawing.Point(241, 272);
+            this.label114.Location = new System.Drawing.Point(473, 273);
             this.label114.Name = "label114";
             this.label114.Size = new System.Drawing.Size(37, 13);
             this.label114.TabIndex = 20;
@@ -763,7 +765,7 @@ namespace BehaviorGraphics
             // checkBoxRecenter
             // 
             this.checkBoxRecenter.AutoSize = true;
-            this.checkBoxRecenter.Location = new System.Drawing.Point(11, 271);
+            this.checkBoxRecenter.Location = new System.Drawing.Point(8, 272);
             this.checkBoxRecenter.Name = "checkBoxRecenter";
             this.checkBoxRecenter.Size = new System.Drawing.Size(105, 17);
             this.checkBoxRecenter.TabIndex = 17;
@@ -1423,7 +1425,7 @@ namespace BehaviorGraphics
             this.groupBox2.Size = new System.Drawing.Size(441, 69);
             this.groupBox2.TabIndex = 21;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Global";
+            this.groupBox2.Text = "Targets";
             // 
             // textBoxTgtSize
             // 
@@ -1545,7 +1547,7 @@ namespace BehaviorGraphics
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(7, 202);
+            this.label8.Location = new System.Drawing.Point(6, 198);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(44, 13);
             this.label8.TabIndex = 14;
@@ -1565,7 +1567,7 @@ namespace BehaviorGraphics
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 176);
+            this.label7.Location = new System.Drawing.Point(6, 172);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(83, 13);
             this.label7.TabIndex = 12;
@@ -1585,7 +1587,7 @@ namespace BehaviorGraphics
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 150);
+            this.label6.Location = new System.Drawing.Point(6, 146);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(81, 13);
             this.label6.TabIndex = 10;
@@ -1604,7 +1606,7 @@ namespace BehaviorGraphics
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 124);
+            this.label5.Location = new System.Drawing.Point(6, 120);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(57, 13);
             this.label5.TabIndex = 8;
@@ -1624,7 +1626,7 @@ namespace BehaviorGraphics
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 98);
+            this.label4.Location = new System.Drawing.Point(6, 94);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 13);
             this.label4.TabIndex = 6;
@@ -1644,7 +1646,7 @@ namespace BehaviorGraphics
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 72);
+            this.label3.Location = new System.Drawing.Point(6, 68);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 13);
             this.label3.TabIndex = 4;
@@ -1663,7 +1665,7 @@ namespace BehaviorGraphics
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 46);
+            this.label2.Location = new System.Drawing.Point(6, 42);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 13);
             this.label2.TabIndex = 2;
@@ -1681,7 +1683,7 @@ namespace BehaviorGraphics
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 20);
+            this.label1.Location = new System.Drawing.Point(6, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(86, 13);
             this.label1.TabIndex = 0;
@@ -3166,8 +3168,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -3874,8 +3876,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -4242,6 +4244,22 @@ namespace BehaviorGraphics
             this.groupBox39.TabIndex = 21;
             this.groupBox39.TabStop = false;
             this.groupBox39.Text = "Options";
+            // 
+            // comboBoxBDCT
+            // 
+            this.comboBoxBDCT.FormattingEnabled = true;
+            this.comboBoxBDCT.Items.AddRange(new object[] {
+            "None",
+            "1/20 (5%)",
+            "1/10 (10%)",
+            "1/7   (14%)",
+            "1/5   (20%)",
+            "1/4   (25%)",
+            "1/3   (33%)"});
+            this.comboBoxBDCT.Location = new System.Drawing.Point(41, 38);
+            this.comboBoxBDCT.Name = "comboBoxBDCT";
+            this.comboBoxBDCT.Size = new System.Drawing.Size(80, 21);
+            this.comboBoxBDCT.TabIndex = 45;
             // 
             // label147
             // 
@@ -5419,21 +5437,15 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // comboBoxBDCT
+            // checkBoxUseNeuralControl
             // 
-            this.comboBoxBDCT.FormattingEnabled = true;
-            this.comboBoxBDCT.Items.AddRange(new object[] {
-            "None",
-            "1/20 (5%)",
-            "1/10 (10%)",
-            "1/7   (14%)",
-            "1/5   (20%)",
-            "1/4   (25%)",
-            "1/3   (33%)"});
-            this.comboBoxBDCT.Location = new System.Drawing.Point(41, 38);
-            this.comboBoxBDCT.Name = "comboBoxBDCT";
-            this.comboBoxBDCT.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxBDCT.TabIndex = 45;
+            this.checkBoxUseNeuralControl.AutoSize = true;
+            this.checkBoxUseNeuralControl.Location = new System.Drawing.Point(234, 272);
+            this.checkBoxUseNeuralControl.Name = "checkBoxUseNeuralControl";
+            this.checkBoxUseNeuralControl.Size = new System.Drawing.Size(126, 17);
+            this.checkBoxUseNeuralControl.TabIndex = 19;
+            this.checkBoxUseNeuralControl.Text = "Neural Cursor Control";
+            this.checkBoxUseNeuralControl.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -6039,5 +6051,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox MGGain3;
         private System.Windows.Forms.TextBox MGGain2;
         private System.Windows.Forms.ComboBox comboBoxBDCT;
+        private System.Windows.Forms.CheckBox checkBoxUseNeuralControl;
     }
 }

@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1211"
+    ComputedModelVersion    "1.1223"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "Matt Bauman"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jun 29 11:22:39 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:1211>"
+  LastModifiedDate	  "Thu Mar 25 12:36:51 2010"
+  ModelVersionFormat	  "1.%<AutoIncrement:1223>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -832,7 +832,7 @@ Model {
   }
   System {
     Name		    "random_walk"
-    Location		    [15, 107, 957, 655]
+    Location		    [2, 70, 1422, 852]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -869,7 +869,7 @@ Model {
       BlockType		      SubSystem
       Name		      "BoundingBox"
       Ports		      [1, 1]
-      Position		      [425, 713, 515, 777]
+      Position		      [550, 678, 640, 742]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -2568,15 +2568,15 @@ Model {
     Block {
       BlockType		      SubSystem
       Name		      "Motor Control"
-      Ports		      [4]
-      Position		      [1090, 514, 1280, 821]
+      Ports		      [5]
+      Position		      [1095, 529, 1285, 871]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[4, 82, 1276, 1000]
+	Location		[4, 82, 1276, 884]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2617,10 +2617,17 @@ Model {
 	  IconDisplay		  "Port number"
 	}
 	Block {
+	  BlockType		  Inport
+	  Name			  "Inhibit Motors"
+	  Position		  [875, 328, 905, 342]
+	  Port			  "5"
+	  IconDisplay		  "Port number"
+	}
+	Block {
 	  BlockType		  Reference
 	  Name			  "Compare\nTo Constant"
 	  Ports			  [1, 1]
-	  Position		  [760, 490, 790, 520]
+	  Position		  [735, 490, 765, 520]
 	  Orientation		  "left"
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
 "\nTo Constant"
@@ -2642,7 +2649,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Compare\nTo Constant1"
 	  Ports			  [1, 1]
-	  Position		  [760, 555, 790, 585]
+	  Position		  [735, 555, 765, 585]
 	  Orientation		  "left"
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
 "\nTo Constant"
@@ -2661,6 +2668,28 @@ Model {
 	  ZeroCross		  off
 	}
 	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  Ports			  [1, 2]
+	  Position		  [800, 521, 805, 554]
+	  Orientation		  "left"
+	  BackgroundColor	  "black"
+	  NamePlacement		  "alternate"
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux1"
+	  Ports			  [1, 2]
+	  Position		  [1050, 276, 1055, 394]
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
 	  BlockType		  SubSystem
 	  Name			  "Force/Torque Transform"
 	  Ports			  [2, 2]
@@ -2672,7 +2701,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Force/Torque Transform"
-	    Location		    [2, 82, 1270, 978]
+	    Location		    [2, 82, 1270, 884]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -2811,7 +2840,7 @@ Model {
 	  BlockType		  Logic
 	  Name			  "Logical\nOperator1"
 	  Ports			  [2, 1]
-	  Position		  [655, 522, 685, 553]
+	  Position		  [650, 522, 680, 553]
 	  Orientation		  "left"
 	  Operator		  "OR"
 	  AllPortsSameDT	  off
@@ -2820,7 +2849,7 @@ Model {
 	Block {
 	  BlockType		  Gain
 	  Name			  "MG1"
-	  Position		  [725, 259, 790, 291]
+	  Position		  [725, 259, 775, 291]
 	  Gain			  "-1"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
@@ -2829,7 +2858,7 @@ Model {
 	Block {
 	  BlockType		  Gain
 	  Name			  "MG2"
-	  Position		  [725, 380, 795, 410]
+	  Position		  [725, 380, 775, 410]
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -2844,23 +2873,23 @@ Model {
 	Block {
 	  BlockType		  Memory
 	  Name			  "Memory"
-	  Position		  [555, 525, 585, 555]
+	  Position		  [575, 525, 605, 555]
 	  Orientation		  "left"
 	}
 	Block {
 	  BlockType		  Mux
 	  Name			  "Mux"
-	  Ports			  [3, 1]
-	  Position		  [880, 79, 885, 171]
+	  Ports			  [2, 1]
+	  Position		  [880, 76, 885, 169]
 	  ShowName		  off
-	  Inputs		  "3"
+	  Inputs		  "2"
 	  DisplayOption		  "bar"
 	}
 	Block {
 	  BlockType		  Mux
-	  Name			  "Mux2"
+	  Name			  "Mux1"
 	  Ports			  [2, 1]
-	  Position		  [305, 161, 310, 199]
+	  Position		  [820, 275, 825, 395]
 	  ShowName		  off
 	  Inputs		  "2"
 	  DisplayOption		  "bar"
@@ -2869,7 +2898,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "PCI-6025E "
 	  Ports			  [2]
-	  Position		  [1010, 214, 1125, 456]
+	  Position		  [1110, 273, 1215, 397]
 	  SourceBlock		  "xpcnilib/D//A/PCI-6025E DA"
 	  SourceType		  "danipci6025e"
 	  channel		  "[1 2]"
@@ -2893,7 +2922,7 @@ Model {
 	  RTWMemSecDataConstants  "Inherit from model"
 	  RTWMemSecDataInternal	  "Inherit from model"
 	  RTWMemSecDataParameters "Inherit from model"
-	  scopeno		  "2"
+	  scopeno		  "4"
 	  scopetype		  "Target"
 	  autostart		  on
 	  viewmode		  "Numerical"
@@ -3229,6 +3258,15 @@ Model {
 	  ZeroCross		  off
 	}
 	Block {
+	  BlockType		  Switch
+	  Name			  "Switch3"
+	  Position		  [965, 298, 995, 372]
+	  Criteria		  "u2 ~= 0"
+	  InputSameDT		  off
+	  SaturateOnIntegerOverflow off
+	  ZeroCross		  off
+	}
+	Block {
 	  BlockType		  Reference
 	  Name			  "Xpos"
 	  Ports			  [1]
@@ -3243,7 +3281,7 @@ Model {
 	  RTWMemSecDataConstants  "Inherit from model"
 	  RTWMemSecDataInternal	  "Inherit from model"
 	  RTWMemSecDataParameters "Inherit from model"
-	  scopeno		  "6"
+	  scopeno		  "2"
 	  scopetype		  "Target"
 	  autostart		  on
 	  viewmode		  "Numerical"
@@ -3266,53 +3304,15 @@ Model {
 	}
 	Block {
 	  BlockType		  Constant
-	  Name			  "zeroX"
-	  Position		  [235, 140, 265, 170]
-	  Value			  "0"
+	  Name			  "zero1"
+	  Position		  [305, 241, 335, 259]
+	  Value			  "[0 0]"
 	}
 	Block {
 	  BlockType		  Constant
-	  Name			  "zeroY"
-	  Position		  [235, 190, 265, 220]
-	  Value			  "0"
-	}
-	Line {
-	  SrcBlock		  "MG1"
-	  SrcPort		  1
-	  Points		  [15, 0]
-	  Branch {
-	    Points		    [0, 230]
-	    DstBlock		    "Compare\nTo Constant"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, -150]
-	    DstBlock		    "Mux"
-	    DstPort		    2
-	  }
-	  Branch {
-	    DstBlock		    "PCI-6025E "
-	    DstPort		    1
-	  }
-	}
-	Line {
-	  SrcBlock		  "MG2"
-	  SrcPort		  1
-	  Points		  [25, 0]
-	  Branch {
-	    Points		    [0, 175]
-	    DstBlock		    "Compare\nTo Constant1"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, -240]
-	    DstBlock		    "Mux"
-	    DstPort		    3
-	  }
-	  Branch {
-	    DstBlock		    "PCI-6025E "
-	    DstPort		    2
-	  }
+	  Name			  "zero2"
+	  Position		  [910, 301, 940, 319]
+	  Value			  "[0 0]"
 	}
 	Line {
 	  SrcBlock		  "Force/Torque Transform"
@@ -3327,23 +3327,8 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "zeroX"
+	  SrcBlock		  "zero1"
 	  SrcPort		  1
-	  Points		  [10, 0; 0, 15]
-	  DstBlock		  "Mux2"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "zeroY"
-	  SrcPort		  1
-	  Points		  [10, 0; 0, -15]
-	  DstBlock		  "Mux2"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "Mux2"
-	  SrcPort		  1
-	  Points		  [15, 0; 0, 70]
 	  DstBlock		  "Switch2"
 	  DstPort		  1
 	}
@@ -3362,7 +3347,7 @@ Model {
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -180]
+	    Points		    [0, -175]
 	    DstBlock		    "Mux"
 	    DstPort		    1
 	  }
@@ -3451,13 +3436,119 @@ Model {
 	  DstBlock		  "Xpos"
 	  DstPort		  1
 	}
+	Line {
+	  SrcBlock		  "Inhibit Motors"
+	  SrcPort		  1
+	  DstBlock		  "Switch3"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "zero2"
+	  SrcPort		  1
+	  DstBlock		  "Switch3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "MG1"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, 30]
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "MG2"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, -30]
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    Points		    [0, -190]
+	    DstBlock		    "Mux"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [0, 25]
+	    Branch {
+	      Points		      [0, 180]
+	      DstBlock		      "Demux"
+	      DstPort		      1
+	    }
+	    Branch {
+	      DstBlock		      "Switch3"
+	      DstPort		      3
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  Points		  [-10, 0; 0, 25]
+	  DstBlock		  "Compare\nTo Constant1"
+	  DstPort		  1
+	}
+	Line {
+	  Labels		  [2, 0]
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  Points		  [-10, 0; 0, -25]
+	  DstBlock		  "Compare\nTo Constant"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Switch3"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  DstBlock		  "PCI-6025E "
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  1
+	  DstBlock		  "PCI-6025E "
+	  DstPort		  1
+	}
       }
+    }
+    Block {
+      BlockType		      Switch
+      Name		      "Neural Override"
+      Position		      [410, 91, 455, 199]
+      Criteria		      "u2 ~= 0"
+      InputSameDT	      off
+      SaturateOnIntegerOverflow	off
+      ZeroCross		      off
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Neural Position Subsystem"
+      Ports		      [0, 2]
+      Position		      [165, 31, 280, 109]
+      SourceBlock	      "limblab/Neural Position Subsystem"
+      SourceType	      "Neural Position Subsystem"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "[0.01 0]"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
     }
     Block {
       BlockType		      SubSystem
       Name		      "Recentering Subsystem"
       Ports		      [3, 2]
-      Position		      [715, 588, 835, 742]
+      Position		      [750, 596, 870, 734]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -6153,10 +6244,17 @@ Model {
       Position		      [1165, 225, 1185, 245]
     }
     Block {
+      BlockType		      Terminator
+      Name		      "Terminator1"
+      Position		      [340, 80, 360, 100]
+      NamePlacement	      "alternate"
+      ShowName		      off
+    }
+    Block {
       BlockType		      SubSystem
       Name		      "UDPXmit"
       Ports		      [3]
-      Position		      [1265, 294, 1365, 336]
+      Position		      [1265, 278, 1325, 352]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -6372,10 +6470,16 @@ Model {
       }
     }
     Block {
+      BlockType		      Constant
+      Name		      "Use Neural Control"
+      Position		      [170, 130, 200, 160]
+      Value		      "0"
+    }
+    Block {
       BlockType		      SubSystem
       Name		      "Velocity Calculation"
       Ports		      [2, 1]
-      Position		      [345, 585, 455, 645]
+      Position		      [390, 590, 500, 650]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -7125,7 +7229,7 @@ Model {
       BlockType		      SubSystem
       Name		      "XY Position Subsystem"
       Ports		      [0, 3]
-      Position		      [70, 627, 195, 863]
+      Position		      [70, 641, 200, 779]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -8018,7 +8122,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Jacobian-Cartesian Transformation"
-	    Location		    [0, 82, 1268, 1000]
+	    Location		    [0, 82, 1268, 884]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -8787,13 +8891,13 @@ Model {
     Line {
       SrcBlock		      "Velocity Calculation"
       SrcPort		      1
-      Points		      [35, 0]
+      Points		      [15, 0]
       Branch {
 	DstBlock		"Recentering Subsystem"
 	DstPort			1
       }
       Branch {
-	Points			[0, -105]
+	Points			[0, -110]
 	Branch {
 	  Points		  [0, -145]
 	  Branch {
@@ -8815,27 +8919,27 @@ Model {
     Line {
       SrcBlock		      "XY Position Subsystem"
       SrcPort		      1
-      Points		      [50, 0]
+      Points		      [45, 0]
       Branch {
 	DstBlock		"Recentering Subsystem"
 	DstPort			2
       }
       Branch {
-	Points			[0, -65]
+	Points			[0, -60]
 	Branch {
 	  DstBlock		  "Velocity Calculation"
 	  DstPort		  1
 	}
 	Branch {
-	  Points		  [0, -110]
+	  Points		  [0, -115]
 	  Branch {
 	    DstBlock		    "Matrix\nConcatenation1"
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -345]
-	    DstBlock		    "Behavior RW"
-	    DstPort		    1
+	    Points		    [0, -310]
+	    DstBlock		    "Neural Override"
+	    DstPort		    3
 	  }
 	}
       }
@@ -8861,7 +8965,7 @@ Model {
 	DstPort			1
       }
       Branch {
-	Points			[0, -35; 220, 0; 0, 100]
+	Points			[0, -35; 220, 0; 0, 90]
 	DstBlock		"UDPXmit"
 	DstPort			1
       }
@@ -8875,7 +8979,7 @@ Model {
     Line {
       SrcBlock		      "Behavior RW"
       SrcPort		      1
-      Points		      [10, 0; 0, 440]
+      Points		      [460, 0; 0, 380; -325, 0; 0, 65]
       DstBlock		      "Motor Control"
       DstPort		      1
     }
@@ -8888,7 +8992,6 @@ Model {
     Line {
       SrcBlock		      "BoundingBox"
       SrcPort		      1
-      Points		      [105, 0; 0, -30]
       DstBlock		      "Recentering Subsystem"
       DstPort		      3
     }
@@ -8902,14 +9005,14 @@ Model {
       Labels		      [0, 0]
       SrcBlock		      "XY Position Subsystem"
       SrcPort		      3
-      Points		      [95, 0]
+      Points		      [90, 0]
       Branch {
-	Points			[0, -195]
+	Points			[0, -120]
 	DstBlock		"Velocity Calculation"
 	DstPort			2
       }
       Branch {
-	Points			[590, 0; 0, -45]
+	Points			[0, 15]
 	DstBlock		"Motor Control"
 	DstPort			4
       }
@@ -8939,12 +9042,6 @@ Model {
       DstPort		      2
     }
     Line {
-      SrcBlock		      "Target Peek"
-      SrcPort		      1
-      DstBlock		      "Terminator"
-      DstPort		      1
-    }
-    Line {
       SrcBlock		      "Behavior RW"
       SrcPort		      7
       DstBlock		      "Version Display"
@@ -8953,7 +9050,7 @@ Model {
     Line {
       SrcBlock		      "Behavior RW"
       SrcPort		      8
-      Points		      [330, 0; 0, -65]
+      Points		      [330, 0; 0, -55]
       DstBlock		      "UDPXmit"
       DstPort		      3
     }
@@ -8967,6 +9064,45 @@ Model {
       SrcBlock		      "RewardSbs"
       SrcPort		      1
       DstBlock		      "Goto"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Use Neural Control"
+      SrcPort		      1
+      Points		      [30, 0]
+      Branch {
+	DstBlock		"Neural Override"
+	DstPort			2
+      }
+      Branch {
+	Points			[0, 35; -180, 0; 0, 660]
+	DstBlock		"Motor Control"
+	DstPort			5
+      }
+    }
+    Line {
+      SrcBlock		      "Neural Position Subsystem"
+      SrcPort		      1
+      Points		      [90, 0; 0, 60]
+      DstBlock		      "Neural Override"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Neural Position Subsystem"
+      SrcPort		      2
+      DstBlock		      "Terminator1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Neural Override"
+      SrcPort		      1
+      DstBlock		      "Behavior RW"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Target Peek"
+      SrcPort		      1
+      DstBlock		      "Terminator"
       DstPort		      1
     }
     Annotation {
