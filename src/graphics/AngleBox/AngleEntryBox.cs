@@ -23,10 +23,10 @@ namespace AngleBox {
         public void UpdateText() {
             if (mode == AngleMode.Radians) {
                 button1.Text = "Rad";
-                textBox1.Text = String.Format("{0:#.##}", angle);
+                textBox1.Text = String.Format("{0:0.##}", angle);
             } else {
                 button1.Text = "Deg";
-                textBox1.Text = String.Format("{0:#.#}", angle * 360 / 2 / Math.PI);
+                textBox1.Text = String.Format("{0:0.#}", angle * 360 / 2 / Math.PI);
             }
         }
 
