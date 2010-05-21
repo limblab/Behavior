@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.104"
+    ComputedModelVersion    "1.116"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -42,10 +42,10 @@ Model {
   Creator		  "Selket"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Matt Bauman"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri May 21 17:37:53 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:104>"
+  LastModifiedDate	  "Fri May 21 18:24:39 2010"
+  ModelVersionFormat	  "1.%<AutoIncrement:116>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -707,7 +707,7 @@ Model {
   }
   System {
     Name		    "ball_drop"
-    Location		    [2, 70, 1438, 852]
+    Location		    [2, 82, 1014, 744]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1759,15 +1759,15 @@ Model {
       BlockType		      SubSystem
       Name		      "WordSbs"
       Ports		      [2]
-      Position		      [855, 41, 995, 154]
+      Position		      [840, 44, 965, 151]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
       MaskHideContents	      off
       System {
 	Name			"WordSbs"
-	Location		[195, 115, 1142, 917]
-	Open			off
+	Location		[40, 94, 987, 756]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1782,27 +1782,27 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "Reward"
-	  Position		  [480, 123, 510, 137]
+	  Position		  [465, 348, 495, 362]
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Inport
 	  Name			  "Word"
-	  Position		  [250, 318, 280, 332]
+	  Position		  [290, 158, 320, 172]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant"
-	  Position		  [250, 360, 280, 390]
+	  Position		  [295, 106, 320, 124]
 	  Value			  "0"
 	}
 	Block {
 	  BlockType		  Reference
 	  Name			  "Detect\nChange"
 	  Ports			  [1, 1]
-	  Position		  [370, 150, 430, 180]
+	  Position		  [365, 380, 425, 410]
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Detect\n"
 "Change"
 	  SourceType		  "Detect Change"
@@ -1820,7 +1820,7 @@ Model {
 	  BlockType		  ForIterator
 	  Name			  "For Iterator"
 	  Ports			  [0, 1]
-	  Position		  [30, 329, 175, 371]
+	  Position		  [60, 119, 205, 161]
 	  IterationLimit	  "4"
 	  IndexMode		  "Zero-based"
 	  IterationVariableDataType "double"
@@ -1829,7 +1829,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Port A"
 	  Ports			  [8]
-	  Position		  [565, 245, 695, 450]
+	  Position		  [595, 35, 725, 240]
 	  SourceBlock		  "xpcnilib/Digital\nOutput/PCI-6025E 8255 DO"
 	  SourceType		  "donipci6025e8255"
 	  channel		  "1:8"
@@ -1844,7 +1844,7 @@ Model {
 	  BlockType		  SubSystem
 	  Name			  "Strobe / Reward\nDelay Subsystem"
 	  Ports			  [3]
-	  Position		  [535, 73, 740, 187]
+	  Position		  [520, 297, 725, 413]
 	  TreatAsAtomicUnit	  on
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
@@ -1852,7 +1852,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Strobe / Reward\nDelay Subsystem"
-	    Location		    [2, 82, 1278, 884]
+	    Location		    [2, 82, 1014, 727]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1881,7 +1881,7 @@ Model {
 	    Block {
 	      BlockType		      Inport
 	      Name		      "Word Changed"
-	      Position		      [720, 223, 750, 237]
+	      Position		      [605, 223, 635, 237]
 	      Port		      "3"
 	      IconDisplay	      "Port number"
 	    }
@@ -1932,6 +1932,13 @@ Model {
 	      Name		      "Constant1"
 	      Position		      [725, 375, 755, 405]
 	      Value		      "0"
+	    }
+	    Block {
+	      BlockType		      DataTypeConversion
+	      Name		      "Data Type Conversion"
+	      Position		      [675, 212, 740, 248]
+	      RndMeth		      "Floor"
+	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -2039,13 +2046,6 @@ Model {
 	      DstPort		      2
 	    }
 	    Line {
-	      SrcBlock		      "Word Changed"
-	      SrcPort		      1
-	      Points		      [20, 0; 0, 60]
-	      DstBlock		      "Switch"
-	      DstPort		      1
-	    }
-	    Line {
 	      SrcBlock		      "Constant1"
 	      SrcPort		      1
 	      Points		      [15, 0; 0, -50]
@@ -2065,12 +2065,25 @@ Model {
 	      DstBlock		      "PCI-6025E "
 	      DstPort		      2
 	    }
+	    Line {
+	      SrcBlock		      "Word Changed"
+	      SrcPort		      1
+	      DstBlock		      "Data Type Conversion"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Data Type Conversion"
+	      SrcPort		      1
+	      Points		      [30, 0; 0, 60]
+	      DstBlock		      "Switch"
+	      DstPort		      1
+	    }
 	  }
 	}
 	Block {
 	  BlockType		  Switch
 	  Name			  "Switch"
-	  Position		  [360, 311, 400, 389]
+	  Position		  [390, 101, 430, 179]
 	  Threshold		  "2"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
@@ -2079,7 +2092,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "ToBits"
 	  Ports			  [1, 8]
-	  Position		  [460, 250, 510, 445]
+	  Position		  [490, 40, 540, 235]
 	  SourceBlock		  "limblab/ToBits"
 	  SourceType		  ""
 	}
@@ -2087,24 +2100,16 @@ Model {
 	  BlockType		  Reference
 	  Name			  "xPC Target\n Time "
 	  Ports			  [0, 1]
-	  Position		  [370, 80, 430, 110]
+	  Position		  [365, 300, 425, 330]
 	  SourceBlock		  "xpclib/Misc./xPC Target\n Time "
 	  SourceType		  "xpctime"
 	  ts			  "-1"
 	}
 	Line {
-	  SrcBlock		  "Word"
+	  SrcBlock		  "Constant"
 	  SrcPort		  1
-	  Points		  [20, 0]
-	  Branch {
-	    DstBlock		    "Switch"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, -160]
-	    DstBlock		    "Detect\nChange"
-	    DstPort		    1
-	  }
+	  DstBlock		  "Switch"
+	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "ToBits"
@@ -2155,10 +2160,18 @@ Model {
 	  DstPort		  8
 	}
 	Line {
-	  SrcBlock		  "Constant"
+	  SrcBlock		  "Word"
 	  SrcPort		  1
-	  DstBlock		  "Switch"
-	  DstPort		  3
+	  Points		  [10, 0]
+	  Branch {
+	    DstBlock		    "Switch"
+	    DstPort		    3
+	  }
+	  Branch {
+	    Points		    [0, 230]
+	    DstBlock		    "Detect\nChange"
+	    DstPort		    1
+	  }
 	}
 	Line {
 	  SrcBlock		  "For Iterator"
