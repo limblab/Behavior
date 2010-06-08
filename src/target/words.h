@@ -50,6 +50,8 @@
 #define WORD_TASK_CODE 0x09
 #elif TASK_BC
 #define WORD_TASK_CODE 0x0A
+#elif TASK_VS
+#define WORD_TASK_CODE 0x0B
 #endif
 
 /* trial start */
@@ -125,6 +127,7 @@
 /* multi-gadget reach */
 #define WORD_REACH(t) ( 0x70 | (t) )
 
+/* also used for VS */
 #define WORD_MOVEMENT_ONSET 0x80
 
 #define WORD_PICKUP 0x90
