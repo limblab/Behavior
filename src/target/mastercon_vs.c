@@ -2,23 +2,25 @@
  *
  * Master Control block for behavior: center-out task 
  */
-#define S_FUNCTION_NAME mastercon_co
+#define S_FUNCTION_NAME mastercon_vs
 #define S_FUNCTION_LEVEL 2
 
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 #include "simstruc.h"
+#include "random_macros.h"
 
 #define TASK_VS 1
 #include "words.h"
+
 
 #define PI (3.141592654)
 
 /*
  * Until we implement tunable parameters, these will act as defaults
  */
-static int num_targets = 8;      /* number of peripheral targets */
+static int num_targets = 6;      /* number of peripheral targets */
 #define param_num_targets ((int)mxGetScalar(ssGetSFcnParam(S,0)))
 static real_T target_radius = 15.0; /* radius of target circle in cm */
 #define param_target_radius mxGetScalar(ssGetSFcnParam(S,1))
@@ -238,7 +240,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
      ********************/
     
     /* stupidly declare all variables at the begining of the function */
-    int *IWorkVector; 
     int target;
     real_T ct[4];
     real_T ot[4];
@@ -412,7 +413,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 in_dt = 0;
 
                 for (i = 0; i < num_targets-1; i++) {
-                    if (cursorInTarget(cursor, dt[i]) {
+                    if (cursorInTarget(cursor, dt[i])) {
                         in_dt = 1;
                     }
                 }
@@ -476,8 +477,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T ct[4];
     real_T ot[4];
     real_T dt[7][4];
-    InputRealPtrsType uPtrs;
-    real_T cursor[2];
     real_T elapsed_timer_time;
     real_T theta;
     real_T center_hold, outer_hold;
@@ -648,7 +647,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         target_pos[8] = ot[2];
         target_pos[9] = ot[3];
         
-        for (i=0; i>num_targets-1; 1++){
+        for (i=0; i < num_targets-1; i++){
             target_pos[i*5 + 10] = 1;
             target_pos[i*5 + 11] = dt[i][0];
             target_pos[i*5 + 12] = dt[i][1];
@@ -694,7 +693,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     force_p = ssGetOutputPortRealSignal(S,0);
     force_p[0] = force_x;
     force_p[1] = force_y;
-    ssSetIWorkValue(S, 580, bump_duration_counter);
     
     status_p = ssGetOutputPortRealSignal(S,1);
     for (i=0; i<5; i++) 
@@ -704,7 +702,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     word_p[0] = word;
     
     target_p = ssGetOutputPortRealSignal(S,3);
-    for (i=0; i<10; i++) {
+    for (i=0; i<45; i++) {
         target_p[i] = target_pos[i];
     }
     
