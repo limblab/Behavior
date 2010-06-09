@@ -293,10 +293,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     
     for (i = 1; i < num_targets; i++) {
         theta = PI/2 - ((target+i) % num_targets)*2*PI/num_targets;
-        dt[ (target+i) % num_targets ][0] = cos(theta)*target_radius-target_size/2;
-        dt[ (target+i) % num_targets ][1] = sin(theta)*target_radius+target_size/2;
-        dt[ (target+i) % num_targets ][2] = cos(theta)*target_radius+target_size/2;
-        dt[ (target+i) % num_targets ][3] = sin(theta)*target_radius-target_size/2;
+        dt[ i-1 ][0] = cos(theta)*target_radius-target_size/2;
+        dt[ i-1 ][1] = sin(theta)*target_radius+target_size/2;
+        dt[ i-1 ][2] = cos(theta)*target_radius+target_size/2;
+        dt[ i-1 ][3] = sin(theta)*target_radius-target_size/2;
     }
      
     /*********************************
@@ -557,10 +557,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     for (i = 1; i < num_targets; i++) {
         theta = PI/2 - ((target+i) % num_targets)*2*PI/num_targets;
-        dt[ (target+i) % num_targets ][0] = cos(theta)*target_radius-target_size/2;
-        dt[ (target+i) % num_targets ][1] = sin(theta)*target_radius+target_size/2;
-        dt[ (target+i) % num_targets ][2] = cos(theta)*target_radius+target_size/2;
-        dt[ (target+i) % num_targets ][3] = sin(theta)*target_radius-target_size/2;
+        dt[ i-1 ][0] = cos(theta)*target_radius-target_size/2;
+        dt[ i-1 ][1] = sin(theta)*target_radius+target_size/2;
+        dt[ i-1 ][2] = cos(theta)*target_radius+target_size/2;
+        dt[ i-1 ][3] = sin(theta)*target_radius-target_size/2;
     }
     
     /* current cursor location */
