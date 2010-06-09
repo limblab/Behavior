@@ -419,6 +419,29 @@ namespace BehaviorGraphics
             AddParamListItem("BC Pct Stimulation Trials", "P15", "Behavior BC", this.textBoxBCPctStimTrials);
             
             #endregion
+
+            #region Visual Search
+            /* 
+             * Visual Search Parameters 
+             */
+
+            // Visual Search timing
+            AddParamListItem("VSCHL", "P5", "Behavior VS", this.textBoxVSCHL);
+            AddParamListItem("VSCHH", "P6", "Behavior VS", this.textBoxVSCHH);
+            AddParamListItem("VSST", "P7", "Behavior VS", this.textBoxVSST);
+            AddParamListItem("VSRT", "P8", "Behavior VS", this.textBoxVSRT);
+            AddParamListItem("VSOHL", "P9", "Behavior VS", this.textBoxVSOHL);
+            AddParamListItem("VSOHH", "P10", "Behavior VS", this.textBoxVSOHH);
+            AddParamListItem("VSRTO", "P14", "Behavior VS", this.textBoxVSRTO);
+            AddParamListItem("VSFTO", "P12", "Behavior VS", this.textBoxVSFTO);
+            AddParamListItem("VSITO", "P13", "Behavior VS", this.textBoxVSITO);
+            AddParamListItem("VSATO", "P11", "Behavior VS", this.textBoxVSATO);
+
+            // Visual Search targets
+            AddParamListItem("VS Num Targets", "P1", "Behavior VS", this.numericUpDownVSNumTarg);
+            AddParamListItem("VSTR", "P2", "Behavior VS", this.textBoxVSTR);
+            AddParamListItem("VSTS", "P3", "Behavior VS", this.textBoxVSTS);
+            #endregion
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
@@ -435,7 +458,6 @@ namespace BehaviorGraphics
             AddParamListItem(short_name, name, block, null);
         }
         #endregion
-
 
         #region Status Helper Functions
         /// <summary>
