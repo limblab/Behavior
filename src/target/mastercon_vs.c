@@ -408,7 +408,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_INCOMPLETE;
                 reset_timer();
                 state_changed();
-            } else if( cursorInTarget(cursor, ot)) {
+            } else if( cursorInTarget(cursor, ot) ) {
                 new_state = STATE_OUTER_HOLD;
                 reset_timer();
                 state_changed();
@@ -416,7 +416,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* check if we are in any of the distractor targets */
                 in_dt = 0;
 
-                for (i = 0; i < num_targets; i++) {
+                for (i = 0; i < num_targets-1; i++) {
                     if (cursorInTarget(cursor, dt[i])) {
                         in_dt = 1;
                     }
@@ -641,10 +641,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* target_pos (3) */
     
-
     for(i=0; i<45; i++){
         target_pos[i] = 0;
     }
+
     /* center target */  
     if (state == STATE_CT_ON ||
         state == STATE_CENTER_HOLD ||
@@ -667,7 +667,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         target_pos[8] = ot[2];
         target_pos[9] = ot[3];
         
-        for (i=0; i < num_targets; i++){
+        for (i=0; i < num_targets-1; i++){
             target_pos[i*5 + 10] = 1;
             target_pos[i*5 + 11] = dt[i][0];
             target_pos[i*5 + 12] = dt[i][1];
