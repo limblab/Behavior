@@ -208,6 +208,7 @@ static void mdlInitializeConditions(SimStruct *S)
     
     /* set the tone counter to zero */
     ssSetRWorkValue(S, 1, 0.0);
+    ssSetRWorkValue(S, 2, 0.0);
     
     /* set trial counters to zero */
     ssSetIWorkValue(S, 4, 0);
@@ -259,6 +260,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T *state_r = ssGetRealDiscStates(S);
     int state = (int)state_r[0];
     int new_state = state;
+    
+    /* default state changed to zero */
+    ssSetIWorkValue(S, 0, 0);
     
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
@@ -404,7 +408,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_INCOMPLETE;
                 reset_timer();
                 state_changed();
-            } else if( cursorInTarget(cursor, ct)) {
+            } else if( cursorInTarget(cursor, ot)) {
                 new_state = STATE_OUTER_HOLD;
                 reset_timer();
                 state_changed();
@@ -412,7 +416,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* check if we are in any of the distractor targets */
                 in_dt = 0;
 
-                for (i = 0; i < num_targets-1; i++) {
+                for (i = 0; i < num_targets; i++) {
                     if (cursorInTarget(cursor, dt[i])) {
                         in_dt = 1;
                     }
@@ -425,6 +429,18 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 }
             }
             break;
+        case STATE_OUTER_HOLD:
+             if (elapsed_timer_time > outer_hold) {
+                new_state = STATE_REWARD;
+                reset_timer();
+                state_changed();
+             } else if (!cursorInTarget(cursor, ot)) {
+                new_state = STATE_INCOMPLETE;
+                reset_timer();
+                state_changed();
+             }
+             break;
+    
         case STATE_ABORT:
             /* abort */
             if (elapsed_timer_time > abort_timeout) {
@@ -510,7 +526,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
     int state = (int)state_r[0];
-    int new_state = state;
+    int new_state = ssGetIWorkValue(S, 0);
     
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
@@ -561,6 +577,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
     catch_force_in[0] = *uPtrs[0];
     catch_force_in[1] = *uPtrs[1];
+    
+    /* current tone values */
+    tone_cnt = ssGetRWorkValue(S, 1);
+    tone_id = ssGetRWorkValue(S, 2);
     
     /********************
      * Calculate outputs
@@ -647,7 +667,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         target_pos[8] = ot[2];
         target_pos[9] = ot[3];
         
-        for (i=0; i < num_targets-1; i++){
+        for (i=0; i < num_targets; i++){
             target_pos[i*5 + 10] = 1;
             target_pos[i*5 + 11] = dt[i][0];
             target_pos[i*5 + 12] = dt[i][1];
