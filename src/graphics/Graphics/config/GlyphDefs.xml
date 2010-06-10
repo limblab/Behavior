@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<GlyphDefs>
+  <GlyphDef>
+    <Name>Colors</Name>
+    <NumGlyphs>4</NumGlyphs>
+    <FilePrefix>colors</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>Planet Symbols</Name>
+    <NumGlyphs>10</NumGlyphs>
+    <FilePrefix>planets</FilePrefix>
+  </GlyphDef>
+</GlyphDefs>
