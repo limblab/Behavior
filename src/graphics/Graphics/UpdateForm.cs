@@ -751,6 +751,10 @@ namespace BehaviorGraphics
             foreach (CursorDef cd in ((Graphics)this.Owner).CursorDefs) {
                 this.comboBoxCursor.Items.Add(cd.Name);
             }
+
+            foreach (GlyphDef gd in ((Graphics)this.Owner).GlyphDefs) {
+                this.comboBoxGlyphSelect.Items.Add(gd.Name);
+            }
         }
 
         private void UpdateForm_DragDrop(object sender, DragEventArgs e)
@@ -939,6 +943,8 @@ namespace BehaviorGraphics
                     paramID = target.GetParamIdx("Behavior BD", "P8");
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior BC", "P1");
+                if (paramID < 0)
+                    paramID = target.GetParamIdx("Behavior VS", "P15");
 
 
                 /* send the flag */
@@ -1326,7 +1332,6 @@ namespace BehaviorGraphics
 
         }
 
-
         private BehaviorParameters Form2BehaviorParameters()
         {
             // Init
@@ -1449,6 +1454,8 @@ namespace BehaviorGraphics
                 bp.BCStims[i] = bcs;
             }
 
+            // GlyphSet
+            bp.GlyphSet = this.comboBoxGlyphSelect.SelectedIndex;
 
             // Host Parameters
             try {
@@ -1520,6 +1527,7 @@ namespace BehaviorGraphics
             this.textBoxScreenWidth.Text = bp.ScreenWidth.ToString();
             this.textBoxVerticalDisplacement.Text = bp.VerticalDisplacement.ToString();
             this.comboBoxCursor.SelectedIndex = bp.Cursor;
+            this.comboBoxGlyphSelect.SelectedIndex = bp.GlyphSet;
             
             // Dictionary params
             foreach (string key in bp.Parameters.Keys) {
@@ -1616,6 +1624,7 @@ namespace BehaviorGraphics
             owner.ScreenScale = (float)bp.ScreenWidth;
             owner.VerticalDisplacement = bp.VerticalDisplacement;
             owner.SetCursor(this.comboBoxCursor.SelectedIndex);
+            owner.SetGlyphSet(this.comboBoxGlyphSelect.SelectedIndex);
 
             // Stop executing here if we don't have a connection to the target
             if (!hasXpcTarget) return;

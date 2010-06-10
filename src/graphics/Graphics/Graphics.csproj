@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{EE5B33E7-DCA0-4801-B48F-128EA4D2B6A8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -65,6 +65,7 @@
     <Compile Include="BumpChoiceStim.cs" />
     <Compile Include="CursorDef.cs" />
     <Compile Include="DictionarySerializer.cs" />
+    <Compile Include="GlyphDef.cs" />
     <Compile Include="GraphicsAboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +181,20 @@
   <ItemGroup>
     <None Include="bin\Debug\DXCheck.vshost.exe.manifest" />
     <None Include="config\Parameters.xsl" />
+    <EmbeddedResource Include="glyphs\colors1.tga" />
+    <EmbeddedResource Include="glyphs\colors2.tga" />
+    <EmbeddedResource Include="glyphs\colors3.tga" />
+    <EmbeddedResource Include="glyphs\colors4.tga" />
+    <EmbeddedResource Include="glyphs\planets1.tga" />
+    <EmbeddedResource Include="glyphs\planets10.tga" />
+    <EmbeddedResource Include="glyphs\planets2.tga" />
+    <EmbeddedResource Include="glyphs\planets3.tga" />
+    <EmbeddedResource Include="glyphs\planets4.tga" />
+    <EmbeddedResource Include="glyphs\planets5.tga" />
+    <EmbeddedResource Include="glyphs\planets6.tga" />
+    <EmbeddedResource Include="glyphs\planets7.tga" />
+    <EmbeddedResource Include="glyphs\planets8.tga" />
+    <EmbeddedResource Include="glyphs\planets9.tga" />
     <None Include="obj\Release\DXCheck.csproj.ResolveComReference.cache" />
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +203,7 @@
     <Content Include="bin\Debug\DXCheck.vshost.exe" />
     <Content Include="bin\Release\DXCheck.exe" />
     <Content Include="bin\Release\DXCheck.pdb" />
+    <EmbeddedResource Include="config\GlyphDefs.xml" />
     <Content Include="obj\Release\DXCheck.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Release\Interop.XPCAPICOMLib.dll" />
     <Content Include="obj\Release\TempPE\Properties.Resources.Designer.cs.dll" />

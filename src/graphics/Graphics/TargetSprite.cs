@@ -11,6 +11,7 @@ namespace BehaviorGraphics
     {
         private Vector3 ul, lr;
         private TargetSpriteType type;
+        private List<Texture> glyphTextures;
         Device device;
 
         public TargetSprite(Device device)
@@ -18,6 +19,15 @@ namespace BehaviorGraphics
             ul = new Vector3(0, 0, 0);
             lr = new Vector3(0, 0, 0);
             type = 0;
+            glyphTextures = new List<Texture>();
+            this.device = device;
+        }
+
+        public TargetSprite(Device device, List<Texture> glyphTextures) {
+            ul = new Vector3(0, 0, 0);
+            lr = new Vector3(0, 0, 0);
+            type = 0;
+            this.glyphTextures = glyphTextures;
             this.device = device;
         }
         
@@ -130,7 +140,37 @@ namespace BehaviorGraphics
 
                     break;
                 default:
-                    // do nothing
+
+                    // See if we are one of the glyph types
+                    if ((int)this.type >= 16 && (int)this.type <= 31) {
+                        int glyphID = ((int)this.type - 16);
+                        Texture txtr = glyphTextures[glyphID];
+                        //Sprite s = new Sprite(device);
+                        //s.Begin(SpriteFlags.AlphaBlend);
+                        //s.Draw(txtr, Rectangle.Empty, activeCursor.Center, cm2screen(this.x, this.y), Color.White);
+                        //s.End();
+
+                        CustomVertex.TransformedTextured[] txtVert = 
+                            new CustomVertex.TransformedTextured[4];
+                        txtVert[0].Position = new Vector4(ul.X + p.X, ul.Y + p.Y, 0f, 1f);
+                        txtVert[0].Tu = 0;
+                        txtVert[0].Tv = 0;
+                        txtVert[1].Position = new Vector4(lr.X + p.X, lr.Y + p.Y, 0f, 1f);
+                        txtVert[0].Tu = 1;
+                        txtVert[0].Tv = 0;
+                        txtVert[2].Position = new Vector4(lr.X, lr.Y, 0f, 1f);
+                        txtVert[0].Tu = 0;
+                        txtVert[0].Tv = 1;
+                        txtVert[3].Position = new Vector4(ul.X, ul.Y, 0f, 1f);
+                        txtVert[0].Tu = 1;
+                        txtVert[0].Tv = 1;
+                        device.VertexFormat = CustomVertex.TransformedTextured.Format;
+                        device.SetTexture(0, txtr);
+                        device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, txtVert);
+                    }
+                    // Otherwise do nothing
+
+
                     /* example sprite code.  This is not needed because target type 1 is drawn with polygons
                         Sprite s = new Sprite(device);
                         s.Begin(SpriteFlags.None);
@@ -159,6 +199,22 @@ namespace BehaviorGraphics
         RedTarget = 1,
         FCTarget = 2,
         GreenTarget = 3,
-        WallColisionTarget = 4
+        WallColisionTarget = 4,
+        Glyph0 = 16,
+        Glyph1 = 17,
+        Glyph2 = 18,
+        Glyph3 = 19,
+        Glyph4 = 20,
+        Glyph5 = 21,
+        Glyph6 = 22,
+        Glyph7 = 23,
+        Glyph8 = 24,
+        Glyph9 = 25,
+        Glyph10 = 26,
+        Glyph11 = 27,
+        Glyph12 = 28,
+        Glyph13 = 29,
+        Glyph14 = 30,
+        Glyph15 = 31,
     }
 }

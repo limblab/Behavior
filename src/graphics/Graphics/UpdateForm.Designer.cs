@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -417,6 +417,35 @@ namespace BehaviorGraphics
             this.label89 = new System.Windows.Forms.Label();
             this.textBoxBCOHL = new System.Windows.Forms.TextBox();
             this.label90 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox22 = new System.Windows.Forms.GroupBox();
+            this.textBoxVSTS = new System.Windows.Forms.TextBox();
+            this.numericUpDownVSNumTarg = new System.Windows.Forms.NumericUpDown();
+            this.label172 = new System.Windows.Forms.Label();
+            this.textBoxVSTR = new System.Windows.Forms.TextBox();
+            this.label173 = new System.Windows.Forms.Label();
+            this.label174 = new System.Windows.Forms.Label();
+            this.groupBox20 = new System.Windows.Forms.GroupBox();
+            this.textBoxVSATO = new System.Windows.Forms.TextBox();
+            this.label171 = new System.Windows.Forms.Label();
+            this.textBoxVSITO = new System.Windows.Forms.TextBox();
+            this.label170 = new System.Windows.Forms.Label();
+            this.textBoxVSFTO = new System.Windows.Forms.TextBox();
+            this.label82 = new System.Windows.Forms.Label();
+            this.textBoxVSRTO = new System.Windows.Forms.TextBox();
+            this.label88 = new System.Windows.Forms.Label();
+            this.textBoxVSOHH = new System.Windows.Forms.TextBox();
+            this.label146 = new System.Windows.Forms.Label();
+            this.textBoxVSOHL = new System.Windows.Forms.TextBox();
+            this.label159 = new System.Windows.Forms.Label();
+            this.textBoxVSRT = new System.Windows.Forms.TextBox();
+            this.label160 = new System.Windows.Forms.Label();
+            this.textBoxVSST = new System.Windows.Forms.TextBox();
+            this.label167 = new System.Windows.Forms.Label();
+            this.textBoxVSCHH = new System.Windows.Forms.TextBox();
+            this.label168 = new System.Windows.Forms.Label();
+            this.textBoxVSCHL = new System.Windows.Forms.TextBox();
+            this.label169 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelMdl = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -501,35 +530,8 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.textBoxVSFTO = new System.Windows.Forms.TextBox();
-            this.label82 = new System.Windows.Forms.Label();
-            this.textBoxVSRTO = new System.Windows.Forms.TextBox();
-            this.label88 = new System.Windows.Forms.Label();
-            this.groupBox20 = new System.Windows.Forms.GroupBox();
-            this.textBoxVSOHH = new System.Windows.Forms.TextBox();
-            this.label146 = new System.Windows.Forms.Label();
-            this.textBoxVSOHL = new System.Windows.Forms.TextBox();
-            this.label159 = new System.Windows.Forms.Label();
-            this.textBoxVSRT = new System.Windows.Forms.TextBox();
-            this.label160 = new System.Windows.Forms.Label();
-            this.textBoxVSST = new System.Windows.Forms.TextBox();
-            this.label167 = new System.Windows.Forms.Label();
-            this.textBoxVSCHH = new System.Windows.Forms.TextBox();
-            this.label168 = new System.Windows.Forms.Label();
-            this.textBoxVSCHL = new System.Windows.Forms.TextBox();
-            this.label169 = new System.Windows.Forms.Label();
-            this.textBoxVSITO = new System.Windows.Forms.TextBox();
-            this.label170 = new System.Windows.Forms.Label();
-            this.textBoxVSATO = new System.Windows.Forms.TextBox();
-            this.label171 = new System.Windows.Forms.Label();
-            this.textBoxVSTS = new System.Windows.Forms.TextBox();
-            this.numericUpDownVSNumTarg = new System.Windows.Forms.NumericUpDown();
-            this.label172 = new System.Windows.Forms.Label();
-            this.groupBox22 = new System.Windows.Forms.GroupBox();
-            this.textBoxVSTR = new System.Windows.Forms.TextBox();
-            this.label173 = new System.Windows.Forms.Label();
-            this.label174 = new System.Windows.Forms.Label();
+            this.label175 = new System.Windows.Forms.Label();
+            this.comboBoxGlyphSelect = new System.Windows.Forms.ComboBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -587,6 +589,10 @@ namespace BehaviorGraphics
             this.groupBox17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBCBumpSteps)).BeginInit();
             this.groupBox18.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.groupBox22.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVSNumTarg)).BeginInit();
+            this.groupBox20.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -595,17 +601,13 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.groupBox20.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVSNumTarg)).BeginInit();
-            this.groupBox22.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(515, 354);
+            this.cancelButton.Location = new System.Drawing.Point(515, 377);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 98;
@@ -616,7 +618,7 @@ namespace BehaviorGraphics
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(596, 354);
+            this.okButton.Location = new System.Drawing.Point(596, 377);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 99;
@@ -640,9 +642,10 @@ namespace BehaviorGraphics
             this.tabControl.Controls.Add(this.tabPageBC);
             this.tabControl.Controls.Add(this.tabPage1);
             this.tabControl.Location = new System.Drawing.Point(0, 27);
+            this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(675, 321);
+            this.tabControl.Size = new System.Drawing.Size(675, 344);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageGen
@@ -660,10 +663,10 @@ namespace BehaviorGraphics
             this.tabPageGen.Controls.Add(this.label22);
             this.tabPageGen.Controls.Add(this.groupBox5);
             this.tabPageGen.Controls.Add(this.groupBox4);
-            this.tabPageGen.Location = new System.Drawing.Point(4, 22);
+            this.tabPageGen.Location = new System.Drawing.Point(4, 40);
             this.tabPageGen.Name = "tabPageGen";
             this.tabPageGen.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGen.Size = new System.Drawing.Size(667, 295);
+            this.tabPageGen.Size = new System.Drawing.Size(667, 300);
             this.tabPageGen.TabIndex = 0;
             this.tabPageGen.Text = "General";
             this.tabPageGen.UseVisualStyleBackColor = true;
@@ -1287,10 +1290,10 @@ namespace BehaviorGraphics
             this.tabPageCO.Controls.Add(this.groupBox3);
             this.tabPageCO.Controls.Add(this.groupBox2);
             this.tabPageCO.Controls.Add(this.groupBox1);
-            this.tabPageCO.Location = new System.Drawing.Point(4, 22);
+            this.tabPageCO.Location = new System.Drawing.Point(4, 40);
             this.tabPageCO.Name = "tabPageCO";
             this.tabPageCO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCO.Size = new System.Drawing.Size(667, 295);
+            this.tabPageCO.Size = new System.Drawing.Size(667, 300);
             this.tabPageCO.TabIndex = 1;
             this.tabPageCO.Text = "Center-Out";
             this.tabPageCO.UseVisualStyleBackColor = true;
@@ -1738,10 +1741,10 @@ namespace BehaviorGraphics
             this.tabPageRW.Controls.Add(this.groupBox30);
             this.tabPageRW.Controls.Add(this.groupBox8);
             this.tabPageRW.Controls.Add(this.groupBox7);
-            this.tabPageRW.Location = new System.Drawing.Point(4, 22);
+            this.tabPageRW.Location = new System.Drawing.Point(4, 40);
             this.tabPageRW.Name = "tabPageRW";
             this.tabPageRW.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRW.Size = new System.Drawing.Size(667, 295);
+            this.tabPageRW.Size = new System.Drawing.Size(667, 300);
             this.tabPageRW.TabIndex = 2;
             this.tabPageRW.Text = "Random Walk";
             this.tabPageRW.UseVisualStyleBackColor = true;
@@ -2154,10 +2157,10 @@ namespace BehaviorGraphics
             this.tabPageFC.Controls.Add(this.textBoxFCPctTestTrials);
             this.tabPageFC.Controls.Add(this.groupBox9);
             this.tabPageFC.Controls.Add(this.label43);
-            this.tabPageFC.Location = new System.Drawing.Point(4, 22);
+            this.tabPageFC.Location = new System.Drawing.Point(4, 40);
             this.tabPageFC.Name = "tabPageFC";
             this.tabPageFC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFC.Size = new System.Drawing.Size(667, 295);
+            this.tabPageFC.Size = new System.Drawing.Size(667, 300);
             this.tabPageFC.TabIndex = 3;
             this.tabPageFC.Text = "Forced Choice";
             this.tabPageFC.UseVisualStyleBackColor = true;
@@ -2455,10 +2458,10 @@ namespace BehaviorGraphics
             this.tabPageBS.Controls.Add(this.groupBox25);
             this.tabPageBS.Controls.Add(this.groupBox28);
             this.tabPageBS.Controls.Add(this.groupBox26);
-            this.tabPageBS.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBS.Location = new System.Drawing.Point(4, 40);
             this.tabPageBS.Name = "tabPageBS";
             this.tabPageBS.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBS.Size = new System.Drawing.Size(667, 295);
+            this.tabPageBS.Size = new System.Drawing.Size(667, 300);
             this.tabPageBS.TabIndex = 4;
             this.tabPageBS.Text = "Bump-stim";
             this.tabPageBS.UseVisualStyleBackColor = true;
@@ -3212,8 +3215,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -3920,8 +3923,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -4691,13 +4694,328 @@ namespace BehaviorGraphics
             this.label90.TabIndex = 0;
             this.label90.Text = "Origin Hold Low";
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.comboBoxGlyphSelect);
+            this.tabPage1.Controls.Add(this.label175);
+            this.tabPage1.Controls.Add(this.groupBox22);
+            this.tabPage1.Controls.Add(this.groupBox20);
+            this.tabPage1.Location = new System.Drawing.Point(4, 40);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(667, 300);
+            this.tabPage1.TabIndex = 9;
+            this.tabPage1.Text = "Visual Search";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox22
+            // 
+            this.groupBox22.Controls.Add(this.textBoxVSTS);
+            this.groupBox22.Controls.Add(this.numericUpDownVSNumTarg);
+            this.groupBox22.Controls.Add(this.label172);
+            this.groupBox22.Controls.Add(this.textBoxVSTR);
+            this.groupBox22.Controls.Add(this.label173);
+            this.groupBox22.Controls.Add(this.label174);
+            this.groupBox22.Location = new System.Drawing.Point(219, 11);
+            this.groupBox22.Name = "groupBox22";
+            this.groupBox22.Size = new System.Drawing.Size(334, 69);
+            this.groupBox22.TabIndex = 22;
+            this.groupBox22.TabStop = false;
+            this.groupBox22.Text = "Targets";
+            // 
+            // textBoxVSTS
+            // 
+            this.textBoxVSTS.Location = new System.Drawing.Point(215, 39);
+            this.textBoxVSTS.Name = "textBoxVSTS";
+            this.textBoxVSTS.Size = new System.Drawing.Size(100, 20);
+            this.textBoxVSTS.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.textBoxVSTS, "Size of targets in cm.");
+            this.textBoxVSTS.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // numericUpDownVSNumTarg
+            // 
+            this.numericUpDownVSNumTarg.Location = new System.Drawing.Point(13, 32);
+            this.numericUpDownVSNumTarg.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.numericUpDownVSNumTarg.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownVSNumTarg.Name = "numericUpDownVSNumTarg";
+            this.numericUpDownVSNumTarg.Size = new System.Drawing.Size(68, 20);
+            this.numericUpDownVSNumTarg.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.numericUpDownVSNumTarg, "Number of outer targets (max 16)");
+            this.numericUpDownVSNumTarg.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
+            // label172
+            // 
+            this.label172.AutoSize = true;
+            this.label172.Location = new System.Drawing.Point(115, 39);
+            this.label172.Name = "label172";
+            this.label172.Size = new System.Drawing.Size(61, 13);
+            this.label172.TabIndex = 18;
+            this.label172.Text = "Target Size";
+            // 
+            // textBoxVSTR
+            // 
+            this.textBoxVSTR.Location = new System.Drawing.Point(215, 16);
+            this.textBoxVSTR.Name = "textBoxVSTR";
+            this.textBoxVSTR.Size = new System.Drawing.Size(100, 20);
+            this.textBoxVSTR.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.textBoxVSTR, "Radius of the circle on which the outer targets are presented (cm).  ");
+            this.textBoxVSTR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label173
+            // 
+            this.label173.AutoSize = true;
+            this.label173.Location = new System.Drawing.Point(13, 16);
+            this.label173.Name = "label173";
+            this.label173.Size = new System.Drawing.Size(68, 13);
+            this.label173.TabIndex = 4;
+            this.label173.Text = "Num Targets";
+            // 
+            // label174
+            // 
+            this.label174.AutoSize = true;
+            this.label174.Location = new System.Drawing.Point(115, 20);
+            this.label174.Name = "label174";
+            this.label174.Size = new System.Drawing.Size(74, 13);
+            this.label174.TabIndex = 16;
+            this.label174.Text = "Target Radius";
+            // 
+            // groupBox20
+            // 
+            this.groupBox20.Controls.Add(this.textBoxVSATO);
+            this.groupBox20.Controls.Add(this.label171);
+            this.groupBox20.Controls.Add(this.textBoxVSITO);
+            this.groupBox20.Controls.Add(this.label170);
+            this.groupBox20.Controls.Add(this.textBoxVSFTO);
+            this.groupBox20.Controls.Add(this.label82);
+            this.groupBox20.Controls.Add(this.textBoxVSRTO);
+            this.groupBox20.Controls.Add(this.label88);
+            this.groupBox20.Controls.Add(this.textBoxVSOHH);
+            this.groupBox20.Controls.Add(this.label146);
+            this.groupBox20.Controls.Add(this.textBoxVSOHL);
+            this.groupBox20.Controls.Add(this.label159);
+            this.groupBox20.Controls.Add(this.textBoxVSRT);
+            this.groupBox20.Controls.Add(this.label160);
+            this.groupBox20.Controls.Add(this.textBoxVSST);
+            this.groupBox20.Controls.Add(this.label167);
+            this.groupBox20.Controls.Add(this.textBoxVSCHH);
+            this.groupBox20.Controls.Add(this.label168);
+            this.groupBox20.Controls.Add(this.textBoxVSCHL);
+            this.groupBox20.Controls.Add(this.label169);
+            this.groupBox20.Location = new System.Drawing.Point(6, 6);
+            this.groupBox20.Name = "groupBox20";
+            this.groupBox20.Size = new System.Drawing.Size(207, 283);
+            this.groupBox20.TabIndex = 12;
+            this.groupBox20.TabStop = false;
+            this.groupBox20.Text = "Timing";
+            // 
+            // textBoxVSATO
+            // 
+            this.textBoxVSATO.Location = new System.Drawing.Point(99, 247);
+            this.textBoxVSATO.Name = "textBoxVSATO";
+            this.textBoxVSATO.Size = new System.Drawing.Size(100, 20);
+            this.textBoxVSATO.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.textBoxVSATO, "Time between completion of one trial and the initiation of the next.");
+            this.textBoxVSATO.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label171
+            // 
+            this.label171.AutoSize = true;
+            this.label171.Location = new System.Drawing.Point(6, 250);
+            this.label171.Name = "label171";
+            this.label171.Size = new System.Drawing.Size(73, 13);
+            this.label171.TabIndex = 18;
+            this.label171.Text = "Abort Timeout";
+            // 
+            // textBoxVSITO
+            // 
+            this.textBoxVSITO.Location = new System.Drawing.Point(99, 221);
+            this.textBoxVSITO.Name = "textBoxVSITO";
+            this.textBoxVSITO.Size = new System.Drawing.Size(100, 20);
+            this.textBoxVSITO.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.textBoxVSITO, "Time between completion of one trial and the initiation of the next.");
+            this.textBoxVSITO.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label170
+            // 
+            this.label170.AutoSize = true;
+            this.label170.Location = new System.Drawing.Point(6, 224);
+            this.label170.Name = "label170";
+            this.label170.Size = new System.Drawing.Size(88, 13);
+            this.label170.TabIndex = 16;
+            this.label170.Text = "Incompl. Timeout";
+            // 
+            // textBoxVSFTO
+            // 
+            this.textBoxVSFTO.Location = new System.Drawing.Point(99, 195);
+            this.textBoxVSFTO.Name = "textBoxVSFTO";
+            this.textBoxVSFTO.Size = new System.Drawing.Size(100, 20);
+            this.textBoxVSFTO.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.textBoxVSFTO, "Time between completion of one trial and the initiation of the next.");
+            this.textBoxVSFTO.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Location = new System.Drawing.Point(6, 198);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(64, 13);
+            this.label82.TabIndex = 14;
+            this.label82.Text = "Fail Timeout";
+            // 
+            // textBoxVSRTO
+            // 
+            this.textBoxVSRTO.Location = new System.Drawing.Point(99, 169);
+            this.textBoxVSRTO.Name = "textBoxVSRTO";
+            this.textBoxVSRTO.Size = new System.Drawing.Size(100, 20);
+            this.textBoxVSRTO.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.textBoxVSRTO, "Upper bound on random outer hold time.  Outer hold time is the time between when " +
+                    "the cursor enters the outer target and the reward is given.\r\nSet equal to Outer " +
+                    "Hold Low for non-random hold time.");
+            this.textBoxVSRTO.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label88
+            // 
+            this.label88.AutoSize = true;
+            this.label88.Location = new System.Drawing.Point(6, 172);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(85, 13);
+            this.label88.TabIndex = 12;
+            this.label88.Text = "Reward Timeout";
+            // 
+            // textBoxVSOHH
+            // 
+            this.textBoxVSOHH.Location = new System.Drawing.Point(99, 143);
+            this.textBoxVSOHH.Name = "textBoxVSOHH";
+            this.textBoxVSOHH.Size = new System.Drawing.Size(100, 20);
+            this.textBoxVSOHH.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.textBoxVSOHH, "Lower bound on random outer hold time.  Outer hold time is the time between when " +
+                    "the cursor enters the outer target and the reward is given.\r\nSet equal to Outer " +
+                    "Hold High for non-random hold time.");
+            this.textBoxVSOHH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label146
+            // 
+            this.label146.AutoSize = true;
+            this.label146.Location = new System.Drawing.Point(6, 146);
+            this.label146.Name = "label146";
+            this.label146.Size = new System.Drawing.Size(83, 13);
+            this.label146.TabIndex = 10;
+            this.label146.Text = "Outer Hold High";
+            // 
+            // textBoxVSOHL
+            // 
+            this.textBoxVSOHL.Location = new System.Drawing.Point(99, 117);
+            this.textBoxVSOHL.Name = "textBoxVSOHL";
+            this.textBoxVSOHL.Size = new System.Drawing.Size(100, 20);
+            this.textBoxVSOHL.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.textBoxVSOHL, "Movement time.  Amount of time monkey has to reach the outer target after recievi" +
+                    "ng the go cue.");
+            this.textBoxVSOHL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label159
+            // 
+            this.label159.AutoSize = true;
+            this.label159.Location = new System.Drawing.Point(6, 120);
+            this.label159.Name = "label159";
+            this.label159.Size = new System.Drawing.Size(81, 13);
+            this.label159.TabIndex = 8;
+            this.label159.Text = "Outer Hold Low";
+            // 
+            // textBoxVSRT
+            // 
+            this.textBoxVSRT.Location = new System.Drawing.Point(99, 91);
+            this.textBoxVSRT.Name = "textBoxVSRT";
+            this.textBoxVSRT.Size = new System.Drawing.Size(100, 20);
+            this.textBoxVSRT.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.textBoxVSRT, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
+                    "lay time.");
+            this.textBoxVSRT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label160
+            // 
+            this.label160.AutoSize = true;
+            this.label160.Location = new System.Drawing.Point(6, 94);
+            this.label160.Name = "label160";
+            this.label160.Size = new System.Drawing.Size(65, 13);
+            this.label160.TabIndex = 6;
+            this.label160.Text = "Reach Time";
+            // 
+            // textBoxVSST
+            // 
+            this.textBoxVSST.Location = new System.Drawing.Point(99, 65);
+            this.textBoxVSST.Name = "textBoxVSST";
+            this.textBoxVSST.Size = new System.Drawing.Size(100, 20);
+            this.textBoxVSST.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.textBoxVSST, "Lower bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay High for non-random d" +
+                    "elay time.");
+            this.textBoxVSST.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label167
+            // 
+            this.label167.AutoSize = true;
+            this.label167.Location = new System.Drawing.Point(6, 68);
+            this.label167.Name = "label167";
+            this.label167.Size = new System.Drawing.Size(67, 13);
+            this.label167.TabIndex = 4;
+            this.label167.Text = "Search Time";
+            // 
+            // textBoxVSCHH
+            // 
+            this.textBoxVSCHH.Location = new System.Drawing.Point(99, 39);
+            this.textBoxVSCHH.Name = "textBoxVSCHH";
+            this.textBoxVSCHH.Size = new System.Drawing.Size(100, 20);
+            this.textBoxVSCHH.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.textBoxVSCHH, resources.GetString("textBoxVSCHH.ToolTip"));
+            this.textBoxVSCHH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label168
+            // 
+            this.label168.AutoSize = true;
+            this.label168.Location = new System.Drawing.Point(6, 42);
+            this.label168.Name = "label168";
+            this.label168.Size = new System.Drawing.Size(88, 13);
+            this.label168.TabIndex = 2;
+            this.label168.Text = "Center Hold High";
+            // 
+            // textBoxVSCHL
+            // 
+            this.textBoxVSCHL.Location = new System.Drawing.Point(99, 13);
+            this.textBoxVSCHL.Name = "textBoxVSCHL";
+            this.textBoxVSCHL.Size = new System.Drawing.Size(100, 20);
+            this.textBoxVSCHL.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.textBoxVSCHL, resources.GetString("textBoxVSCHL.ToolTip"));
+            this.textBoxVSCHL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label169
+            // 
+            this.label169.AutoSize = true;
+            this.label169.Location = new System.Drawing.Point(6, 16);
+            this.label169.Name = "label169";
+            this.label169.Size = new System.Drawing.Size(86, 13);
+            this.label169.TabIndex = 0;
+            this.label169.Text = "Center Hold Low";
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelMdl,
             this.toolStripProgressBar1});
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 380);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 403);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(673, 22);
             this.statusStrip1.TabIndex = 3;
@@ -4746,7 +5064,7 @@ namespace BehaviorGraphics
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -4754,7 +5072,7 @@ namespace BehaviorGraphics
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -4763,30 +5081,30 @@ namespace BehaviorGraphics
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
                         | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(189, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(189, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.quitToolStripMenuItem.Text = "&Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quit);
             // 
@@ -4802,7 +5120,7 @@ namespace BehaviorGraphics
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -4822,21 +5140,21 @@ namespace BehaviorGraphics
             // boxToolStripMenuItem
             // 
             this.boxToolStripMenuItem.Name = "boxToolStripMenuItem";
-            this.boxToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.boxToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.boxToolStripMenuItem.Text = "&Box";
             this.boxToolStripMenuItem.Click += new System.EventHandler(this.boxToolStripMenuItem_Click);
             // 
             // boxSettingsToolStripMenuItem
             // 
             this.boxSettingsToolStripMenuItem.Name = "boxSettingsToolStripMenuItem";
-            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.boxSettingsToolStripMenuItem.Text = "Box &Settings...";
             this.boxSettingsToolStripMenuItem.Click += new System.EventHandler(this.boxSettingsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(181, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(192, 6);
             // 
             // soundThemeToolStripMenuItem
             // 
@@ -4845,7 +5163,7 @@ namespace BehaviorGraphics
             this.theme2ToolStripMenuItem,
             this.theme3ToolStripMenuItem});
             this.soundThemeToolStripMenuItem.Name = "soundThemeToolStripMenuItem";
-            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.soundThemeToolStripMenuItem.Text = "Sound &Theme";
             // 
             // theme1ToolStripMenuItem
@@ -4853,35 +5171,35 @@ namespace BehaviorGraphics
             this.theme1ToolStripMenuItem.Checked = true;
             this.theme1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.theme1ToolStripMenuItem.Name = "theme1ToolStripMenuItem";
-            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.theme1ToolStripMenuItem.Text = "Theme 1";
             this.theme1ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme2ToolStripMenuItem
             // 
             this.theme2ToolStripMenuItem.Name = "theme2ToolStripMenuItem";
-            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.theme2ToolStripMenuItem.Text = "Theme 2";
             this.theme2ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme3ToolStripMenuItem
             // 
             this.theme3ToolStripMenuItem.Name = "theme3ToolStripMenuItem";
-            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.theme3ToolStripMenuItem.Text = "Theme 3";
             this.theme3ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // setLabToolStripMenuItem
             // 
             this.setLabToolStripMenuItem.Name = "setLabToolStripMenuItem";
-            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.setLabToolStripMenuItem.Text = "Set &Lab...";
             this.setLabToolStripMenuItem.Click += new System.EventHandler(this.setLabToolStripMenuItem_Click);
             // 
             // keepGraphicsRunningToolStripMenuItem
             // 
             this.keepGraphicsRunningToolStripMenuItem.Name = "keepGraphicsRunningToolStripMenuItem";
-            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.keepGraphicsRunningToolStripMenuItem.Text = "&Keep Graphics Running";
             this.keepGraphicsRunningToolStripMenuItem.Click += new System.EventHandler(this.keepGraphicsRunningToolStripMenuItem_Click);
             // 
@@ -4898,7 +5216,7 @@ namespace BehaviorGraphics
             // 
             this.loadModelToolStripMenuItem.Name = "loadModelToolStripMenuItem";
             this.loadModelToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.loadModelToolStripMenuItem.Text = "&Load Model";
             this.loadModelToolStripMenuItem.Click += new System.EventHandler(this.loadModelToolStripMenuItem_Click);
             // 
@@ -4906,13 +5224,13 @@ namespace BehaviorGraphics
             // 
             this.resetCountersToolStripMenuItem.Name = "resetCountersToolStripMenuItem";
             this.resetCountersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.resetCountersToolStripMenuItem.Text = "&Reset Counters";
             this.resetCountersToolStripMenuItem.Click += new System.EventHandler(this.resetCountersToolStripMenuItem_Click);
             // 
             // buttonRefresh
             // 
-            this.buttonRefresh.Location = new System.Drawing.Point(4, 354);
+            this.buttonRefresh.Location = new System.Drawing.Point(4, 377);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 23);
             this.buttonRefresh.TabIndex = 97;
@@ -5481,318 +5799,22 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // tabPage1
+            // label175
             // 
-            this.tabPage1.Controls.Add(this.groupBox22);
-            this.tabPage1.Controls.Add(this.groupBox20);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(667, 295);
-            this.tabPage1.TabIndex = 9;
-            this.tabPage1.Text = "Visual Search";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.label175.AutoSize = true;
+            this.label175.Location = new System.Drawing.Point(221, 90);
+            this.label175.Name = "label175";
+            this.label175.Size = new System.Drawing.Size(53, 13);
+            this.label175.TabIndex = 23;
+            this.label175.Text = "Glyph Set";
             // 
-            // textBoxVSFTO
+            // comboBoxGlyphSelect
             // 
-            this.textBoxVSFTO.Location = new System.Drawing.Point(99, 195);
-            this.textBoxVSFTO.Name = "textBoxVSFTO";
-            this.textBoxVSFTO.Size = new System.Drawing.Size(100, 20);
-            this.textBoxVSFTO.TabIndex = 15;
-            this.toolTip1.SetToolTip(this.textBoxVSFTO, "Time between completion of one trial and the initiation of the next.");
-            this.textBoxVSFTO.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label82
-            // 
-            this.label82.AutoSize = true;
-            this.label82.Location = new System.Drawing.Point(6, 198);
-            this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(64, 13);
-            this.label82.TabIndex = 14;
-            this.label82.Text = "Fail Timeout";
-            // 
-            // textBoxVSRTO
-            // 
-            this.textBoxVSRTO.Location = new System.Drawing.Point(99, 169);
-            this.textBoxVSRTO.Name = "textBoxVSRTO";
-            this.textBoxVSRTO.Size = new System.Drawing.Size(100, 20);
-            this.textBoxVSRTO.TabIndex = 13;
-            this.toolTip1.SetToolTip(this.textBoxVSRTO, "Upper bound on random outer hold time.  Outer hold time is the time between when " +
-                    "the cursor enters the outer target and the reward is given.\r\nSet equal to Outer " +
-                    "Hold Low for non-random hold time.");
-            this.textBoxVSRTO.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label88
-            // 
-            this.label88.AutoSize = true;
-            this.label88.Location = new System.Drawing.Point(6, 172);
-            this.label88.Name = "label88";
-            this.label88.Size = new System.Drawing.Size(85, 13);
-            this.label88.TabIndex = 12;
-            this.label88.Text = "Reward Timeout";
-            // 
-            // groupBox20
-            // 
-            this.groupBox20.Controls.Add(this.textBoxVSATO);
-            this.groupBox20.Controls.Add(this.label171);
-            this.groupBox20.Controls.Add(this.textBoxVSITO);
-            this.groupBox20.Controls.Add(this.label170);
-            this.groupBox20.Controls.Add(this.textBoxVSFTO);
-            this.groupBox20.Controls.Add(this.label82);
-            this.groupBox20.Controls.Add(this.textBoxVSRTO);
-            this.groupBox20.Controls.Add(this.label88);
-            this.groupBox20.Controls.Add(this.textBoxVSOHH);
-            this.groupBox20.Controls.Add(this.label146);
-            this.groupBox20.Controls.Add(this.textBoxVSOHL);
-            this.groupBox20.Controls.Add(this.label159);
-            this.groupBox20.Controls.Add(this.textBoxVSRT);
-            this.groupBox20.Controls.Add(this.label160);
-            this.groupBox20.Controls.Add(this.textBoxVSST);
-            this.groupBox20.Controls.Add(this.label167);
-            this.groupBox20.Controls.Add(this.textBoxVSCHH);
-            this.groupBox20.Controls.Add(this.label168);
-            this.groupBox20.Controls.Add(this.textBoxVSCHL);
-            this.groupBox20.Controls.Add(this.label169);
-            this.groupBox20.Location = new System.Drawing.Point(6, 6);
-            this.groupBox20.Name = "groupBox20";
-            this.groupBox20.Size = new System.Drawing.Size(207, 283);
-            this.groupBox20.TabIndex = 12;
-            this.groupBox20.TabStop = false;
-            this.groupBox20.Text = "Timing";
-            // 
-            // textBoxVSOHH
-            // 
-            this.textBoxVSOHH.Location = new System.Drawing.Point(99, 143);
-            this.textBoxVSOHH.Name = "textBoxVSOHH";
-            this.textBoxVSOHH.Size = new System.Drawing.Size(100, 20);
-            this.textBoxVSOHH.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.textBoxVSOHH, "Lower bound on random outer hold time.  Outer hold time is the time between when " +
-                    "the cursor enters the outer target and the reward is given.\r\nSet equal to Outer " +
-                    "Hold High for non-random hold time.");
-            this.textBoxVSOHH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label146
-            // 
-            this.label146.AutoSize = true;
-            this.label146.Location = new System.Drawing.Point(6, 146);
-            this.label146.Name = "label146";
-            this.label146.Size = new System.Drawing.Size(83, 13);
-            this.label146.TabIndex = 10;
-            this.label146.Text = "Outer Hold High";
-            // 
-            // textBoxVSOHL
-            // 
-            this.textBoxVSOHL.Location = new System.Drawing.Point(99, 117);
-            this.textBoxVSOHL.Name = "textBoxVSOHL";
-            this.textBoxVSOHL.Size = new System.Drawing.Size(100, 20);
-            this.textBoxVSOHL.TabIndex = 9;
-            this.toolTip1.SetToolTip(this.textBoxVSOHL, "Movement time.  Amount of time monkey has to reach the outer target after recievi" +
-                    "ng the go cue.");
-            this.textBoxVSOHL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label159
-            // 
-            this.label159.AutoSize = true;
-            this.label159.Location = new System.Drawing.Point(6, 120);
-            this.label159.Name = "label159";
-            this.label159.Size = new System.Drawing.Size(81, 13);
-            this.label159.TabIndex = 8;
-            this.label159.Text = "Outer Hold Low";
-            // 
-            // textBoxVSRT
-            // 
-            this.textBoxVSRT.Location = new System.Drawing.Point(99, 91);
-            this.textBoxVSRT.Name = "textBoxVSRT";
-            this.textBoxVSRT.Size = new System.Drawing.Size(100, 20);
-            this.textBoxVSRT.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.textBoxVSRT, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
-                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
-                    "lay time.");
-            this.textBoxVSRT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label160
-            // 
-            this.label160.AutoSize = true;
-            this.label160.Location = new System.Drawing.Point(6, 94);
-            this.label160.Name = "label160";
-            this.label160.Size = new System.Drawing.Size(65, 13);
-            this.label160.TabIndex = 6;
-            this.label160.Text = "Reach Time";
-            // 
-            // textBoxVSST
-            // 
-            this.textBoxVSST.Location = new System.Drawing.Point(99, 65);
-            this.textBoxVSST.Name = "textBoxVSST";
-            this.textBoxVSST.Size = new System.Drawing.Size(100, 20);
-            this.textBoxVSST.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.textBoxVSST, "Lower bound on random delay time.  Delay is the time between when the outer targe" +
-                    "t appears and the go cue is presented.\r\nSet equal to Delay High for non-random d" +
-                    "elay time.");
-            this.textBoxVSST.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label167
-            // 
-            this.label167.AutoSize = true;
-            this.label167.Location = new System.Drawing.Point(6, 68);
-            this.label167.Name = "label167";
-            this.label167.Size = new System.Drawing.Size(67, 13);
-            this.label167.TabIndex = 4;
-            this.label167.Text = "Search Time";
-            // 
-            // textBoxVSCHH
-            // 
-            this.textBoxVSCHH.Location = new System.Drawing.Point(99, 39);
-            this.textBoxVSCHH.Name = "textBoxVSCHH";
-            this.textBoxVSCHH.Size = new System.Drawing.Size(100, 20);
-            this.textBoxVSCHH.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.textBoxVSCHH, resources.GetString("textBoxVSCHH.ToolTip"));
-            this.textBoxVSCHH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label168
-            // 
-            this.label168.AutoSize = true;
-            this.label168.Location = new System.Drawing.Point(6, 42);
-            this.label168.Name = "label168";
-            this.label168.Size = new System.Drawing.Size(88, 13);
-            this.label168.TabIndex = 2;
-            this.label168.Text = "Center Hold High";
-            // 
-            // textBoxVSCHL
-            // 
-            this.textBoxVSCHL.Location = new System.Drawing.Point(99, 13);
-            this.textBoxVSCHL.Name = "textBoxVSCHL";
-            this.textBoxVSCHL.Size = new System.Drawing.Size(100, 20);
-            this.textBoxVSCHL.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.textBoxVSCHL, resources.GetString("textBoxVSCHL.ToolTip"));
-            this.textBoxVSCHL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label169
-            // 
-            this.label169.AutoSize = true;
-            this.label169.Location = new System.Drawing.Point(6, 16);
-            this.label169.Name = "label169";
-            this.label169.Size = new System.Drawing.Size(86, 13);
-            this.label169.TabIndex = 0;
-            this.label169.Text = "Center Hold Low";
-            // 
-            // textBoxVSITO
-            // 
-            this.textBoxVSITO.Location = new System.Drawing.Point(99, 221);
-            this.textBoxVSITO.Name = "textBoxVSITO";
-            this.textBoxVSITO.Size = new System.Drawing.Size(100, 20);
-            this.textBoxVSITO.TabIndex = 17;
-            this.toolTip1.SetToolTip(this.textBoxVSITO, "Time between completion of one trial and the initiation of the next.");
-            this.textBoxVSITO.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label170
-            // 
-            this.label170.AutoSize = true;
-            this.label170.Location = new System.Drawing.Point(6, 224);
-            this.label170.Name = "label170";
-            this.label170.Size = new System.Drawing.Size(88, 13);
-            this.label170.TabIndex = 16;
-            this.label170.Text = "Incompl. Timeout";
-            // 
-            // textBoxVSATO
-            // 
-            this.textBoxVSATO.Location = new System.Drawing.Point(99, 247);
-            this.textBoxVSATO.Name = "textBoxVSATO";
-            this.textBoxVSATO.Size = new System.Drawing.Size(100, 20);
-            this.textBoxVSATO.TabIndex = 19;
-            this.toolTip1.SetToolTip(this.textBoxVSATO, "Time between completion of one trial and the initiation of the next.");
-            this.textBoxVSATO.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label171
-            // 
-            this.label171.AutoSize = true;
-            this.label171.Location = new System.Drawing.Point(6, 250);
-            this.label171.Name = "label171";
-            this.label171.Size = new System.Drawing.Size(73, 13);
-            this.label171.TabIndex = 18;
-            this.label171.Text = "Abort Timeout";
-            // 
-            // textBoxVSTS
-            // 
-            this.textBoxVSTS.Location = new System.Drawing.Point(215, 39);
-            this.textBoxVSTS.Name = "textBoxVSTS";
-            this.textBoxVSTS.Size = new System.Drawing.Size(100, 20);
-            this.textBoxVSTS.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.textBoxVSTS, "Size of targets in cm.");
-            this.textBoxVSTS.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // numericUpDownVSNumTarg
-            // 
-            this.numericUpDownVSNumTarg.Location = new System.Drawing.Point(13, 32);
-            this.numericUpDownVSNumTarg.Maximum = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            this.numericUpDownVSNumTarg.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownVSNumTarg.Name = "numericUpDownVSNumTarg";
-            this.numericUpDownVSNumTarg.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDownVSNumTarg.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.numericUpDownVSNumTarg, "Number of outer targets (max 16)");
-            this.numericUpDownVSNumTarg.Value = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            // 
-            // label172
-            // 
-            this.label172.AutoSize = true;
-            this.label172.Location = new System.Drawing.Point(115, 39);
-            this.label172.Name = "label172";
-            this.label172.Size = new System.Drawing.Size(61, 13);
-            this.label172.TabIndex = 18;
-            this.label172.Text = "Target Size";
-            // 
-            // groupBox22
-            // 
-            this.groupBox22.Controls.Add(this.textBoxVSTS);
-            this.groupBox22.Controls.Add(this.numericUpDownVSNumTarg);
-            this.groupBox22.Controls.Add(this.label172);
-            this.groupBox22.Controls.Add(this.textBoxVSTR);
-            this.groupBox22.Controls.Add(this.label173);
-            this.groupBox22.Controls.Add(this.label174);
-            this.groupBox22.Location = new System.Drawing.Point(243, 113);
-            this.groupBox22.Name = "groupBox22";
-            this.groupBox22.Size = new System.Drawing.Size(334, 69);
-            this.groupBox22.TabIndex = 22;
-            this.groupBox22.TabStop = false;
-            this.groupBox22.Text = "Targets";
-            // 
-            // textBoxVSTR
-            // 
-            this.textBoxVSTR.Location = new System.Drawing.Point(215, 16);
-            this.textBoxVSTR.Name = "textBoxVSTR";
-            this.textBoxVSTR.Size = new System.Drawing.Size(100, 20);
-            this.textBoxVSTR.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.textBoxVSTR, "Radius of the circle on which the outer targets are presented (cm).  ");
-            this.textBoxVSTR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label173
-            // 
-            this.label173.AutoSize = true;
-            this.label173.Location = new System.Drawing.Point(13, 16);
-            this.label173.Name = "label173";
-            this.label173.Size = new System.Drawing.Size(68, 13);
-            this.label173.TabIndex = 4;
-            this.label173.Text = "Num Targets";
-            // 
-            // label174
-            // 
-            this.label174.AutoSize = true;
-            this.label174.Location = new System.Drawing.Point(115, 20);
-            this.label174.Name = "label174";
-            this.label174.Size = new System.Drawing.Size(74, 13);
-            this.label174.TabIndex = 16;
-            this.label174.Text = "Target Radius";
+            this.comboBoxGlyphSelect.FormattingEnabled = true;
+            this.comboBoxGlyphSelect.Location = new System.Drawing.Point(280, 87);
+            this.comboBoxGlyphSelect.Name = "comboBoxGlyphSelect";
+            this.comboBoxGlyphSelect.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxGlyphSelect.TabIndex = 24;
             // 
             // UpdateForm
             // 
@@ -5801,7 +5823,7 @@ namespace BehaviorGraphics
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(673, 402);
+            this.ClientSize = new System.Drawing.Size(673, 425);
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -5909,6 +5931,13 @@ namespace BehaviorGraphics
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBCBumpSteps)).EndInit();
             this.groupBox18.ResumeLayout(false);
             this.groupBox18.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.groupBox22.ResumeLayout(false);
+            this.groupBox22.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVSNumTarg)).EndInit();
+            this.groupBox20.ResumeLayout(false);
+            this.groupBox20.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -5922,12 +5951,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
-            this.groupBox20.ResumeLayout(false);
-            this.groupBox20.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVSNumTarg)).EndInit();
-            this.groupBox22.ResumeLayout(false);
-            this.groupBox22.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -6434,5 +6457,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxVSTR;
         private System.Windows.Forms.Label label173;
         private System.Windows.Forms.Label label174;
+        private System.Windows.Forms.ComboBox comboBoxGlyphSelect;
+        private System.Windows.Forms.Label label175;
     }
 }

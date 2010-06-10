@@ -35,6 +35,11 @@ namespace BehaviorGraphics
         private CursorDef activeCursor;     // Currently active cursor def
         private int activeCursorIndex = 0;
 
+        private GlyphDefs glyphDefs;
+        private GlyphDef activeGlyphDef;
+        private List<Texture> activeGlyphTextures;
+        private int activeGlyphIndex;
+
         private SoundPlayer sp;
         private double tone_id, tone_cnt;
 
@@ -84,6 +89,9 @@ namespace BehaviorGraphics
             // Load Cursor Definitions
             cursorDefs = CursorDefs.FromXML();
 
+            // Load Texture Definitions
+            glyphDefs = GlyphDefs.FromXML();
+
             // Graphics
             InitializeDevice();
             SetCursor(5);
@@ -105,6 +113,17 @@ namespace BehaviorGraphics
             activeCursorIndex = cursorId;
             activeCursorTexture = cursorTextures[cursorId];
             activeCursor = cursorDefs[cursorId];
+        }
+
+        public void SetGlyphSet(int glyphSetId) {
+            activeGlyphIndex = glyphSetId;
+            activeGlyphDef = GlyphDefs[activeGlyphIndex];
+            activeGlyphTextures = activeGlyphDef.GetTextures(device);
+
+            t = new TargetSprite[16];
+            for (int i = 0; i < t.Length; i++) {
+                t[i] = new TargetSprite(device, activeGlyphTextures);
+            }
         }
 
         private PresentParameters GetPresentParams()
@@ -422,6 +441,10 @@ namespace BehaviorGraphics
         public CursorDefs CursorDefs
         {
             get { return cursorDefs; }
+        }
+
+        public GlyphDefs GlyphDefs {
+            get { return glyphDefs; }
         }
 
         public CursorDef ActiveCursor

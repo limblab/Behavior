@@ -15,6 +15,7 @@ namespace BehaviorGraphics
         private Dictionary<string, double> parameters;
         private double screenWidth;
         private int cursor;
+        private int glyphSet;
         private SoundPlayer.SoundTheme soundTheme;
         private LoadType lt;
         private LoadType lt2;
@@ -92,6 +93,12 @@ namespace BehaviorGraphics
         {
             set { this.cursor = value; }
             get { return this.cursor; }
+        }
+
+        [XmlElement]
+        public int GlyphSet {
+            set { this.glyphSet = value; }
+            get { return this.glyphSet; }
         }
 
         [XmlElement]
