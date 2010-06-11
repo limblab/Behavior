@@ -12,23 +12,41 @@ namespace BehaviorGraphics
         private Vector3 ul, lr;
         private TargetSpriteType type;
         private List<Texture> glyphTextures;
+        private Texture errorTexture;
+        Material material;
         Device device;
 
         public TargetSprite(Device device)
+        {
+            this.device = device;
+            Setup();
+
+            glyphTextures = new List<Texture>();
+            glyphTextures.Add(errorTexture);            
+        }
+
+        public TargetSprite(Device device, List<Texture> glyphTextures) {
+            this.device = device;
+            Setup();
+
+            this.glyphTextures = glyphTextures;
+        }
+
+        private void Setup()
         {
             ul = new Vector3(0, 0, 0);
             lr = new Vector3(0, 0, 0);
             type = 0;
             glyphTextures = new List<Texture>();
-            this.device = device;
-        }
 
-        public TargetSprite(Device device, List<Texture> glyphTextures) {
-            ul = new Vector3(0, 0, 0);
-            lr = new Vector3(0, 0, 0);
-            type = 0;
-            this.glyphTextures = glyphTextures;
-            this.device = device;
+            material = new Material();
+            material.Diffuse = Color.White;
+            material.Specular = Color.LightGray;
+            material.SpecularSharpness = 15.0f;
+
+            System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
+            System.IO.Stream s = a.GetManifestResourceStream("BehaviorGraphics.glyphs.error.tga");
+            errorTexture = TextureLoader.FromStream(device, s);
         }
         
         public Vector3 UL
@@ -47,6 +65,7 @@ namespace BehaviorGraphics
         public void Draw()
         {
             CustomVertex.TransformedColored[] vertices;
+            Texture texture;
             Vector4 p = new Vector4();
             Vector4 d = new Vector4();
             Vector3 d3 = new Vector3();
@@ -144,28 +163,29 @@ namespace BehaviorGraphics
                     // See if we are one of the glyph types
                     if ((int)this.type >= 16 && (int)this.type <= 31) {
                         int glyphID = ((int)this.type - 16);
-                        Texture txtr = glyphTextures[glyphID];
-                        //Sprite s = new Sprite(device);
-                        //s.Begin(SpriteFlags.AlphaBlend);
-                        //s.Draw(txtr, Rectangle.Empty, activeCursor.Center, cm2screen(this.x, this.y), Color.White);
-                        //s.End();
+                        try {
+                            texture = glyphTextures[glyphID];
+                        } catch (ArgumentOutOfRangeException) {
+                            texture = errorTexture;
+                        }
 
                         CustomVertex.TransformedTextured[] txtVert = 
                             new CustomVertex.TransformedTextured[4];
-                        txtVert[0].Position = new Vector4(ul.X + p.X, ul.Y + p.Y, 0f, 1f);
+                        txtVert[0].Position = new Vector4(ul.X, ul.Y, 0f, 1f);
                         txtVert[0].Tu = 0;
                         txtVert[0].Tv = 0;
-                        txtVert[1].Position = new Vector4(lr.X + p.X, lr.Y + p.Y, 0f, 1f);
-                        txtVert[0].Tu = 1;
-                        txtVert[0].Tv = 0;
+                        txtVert[1].Position = new Vector4(ul.X, lr.Y, 0f, 1f);
+                        txtVert[1].Tu = 0;
+                        txtVert[1].Tv = 1;
                         txtVert[2].Position = new Vector4(lr.X, lr.Y, 0f, 1f);
-                        txtVert[0].Tu = 0;
-                        txtVert[0].Tv = 1;
-                        txtVert[3].Position = new Vector4(ul.X, ul.Y, 0f, 1f);
-                        txtVert[0].Tu = 1;
-                        txtVert[0].Tv = 1;
+                        txtVert[2].Tu = 1;
+                        txtVert[2].Tv = 1;
+                        txtVert[3].Position = new Vector4(lr.X, ul.Y, 0f, 1f);
+                        txtVert[3].Tu = 1;
+                        txtVert[3].Tv = 0;
                         device.VertexFormat = CustomVertex.TransformedTextured.Format;
-                        device.SetTexture(0, txtr);
+                        device.SetTexture(0, texture);
+                        device.Material = material;
                         device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, txtVert);
                     }
                     // Otherwise do nothing
@@ -181,6 +201,8 @@ namespace BehaviorGraphics
 
                     break;
             }
+
+            device.SetTexture(0, null);
         }
 
         public void SetPosition(float left, float top, float right, float bottom)

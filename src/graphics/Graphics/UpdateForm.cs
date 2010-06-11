@@ -1625,6 +1625,11 @@ namespace BehaviorGraphics
             owner.VerticalDisplacement = bp.VerticalDisplacement;
             owner.SetCursor(this.comboBoxCursor.SelectedIndex);
             owner.SetGlyphSet(this.comboBoxGlyphSelect.SelectedIndex);
+            paramID = target.GetParamIdx("Behavior VS", "P4");
+            if (paramID >= 0) {
+                param.SetValue((double)((Graphics)this.Owner).ActiveGlyphDef.NumGlyphs, 0);
+                target.SetParam(paramID, ref param);
+            }
 
             // Stop executing here if we don't have a connection to the target
             if (!hasXpcTarget) return;

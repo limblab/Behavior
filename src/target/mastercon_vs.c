@@ -351,7 +351,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             ssSetIWorkValue(S, 2, (int)(UNI * num_glyphs));
             i = (int)(UNI * (num_glyphs - 1));
             ssSetIWorkValue(S, 3, ( i<ssGetIWorkValue(S,2) ? i : i + 1 ) );
-            
+                        
             /* Decide on the random timer durations */
             if (center_hold_h == center_hold_l) {
                 center_hold = center_hold_h;
@@ -661,14 +661,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         state == STATE_REACH ||
         state == STATE_OUTER_HOLD)
     {
-        target_pos[5] = 3;
+        target_pos[5] = ssGetIWorkValue(S, 2)+16;
         target_pos[6] = ot[0];
         target_pos[7] = ot[1];
         target_pos[8] = ot[2];
         target_pos[9] = ot[3];
         
         for (i=0; i < num_targets-1; i++){
-            target_pos[i*5 + 10] = 1;
+            target_pos[i*5 + 10] = ssGetIWorkValue(S, 3)+16;
             target_pos[i*5 + 11] = dt[i][0];
             target_pos[i*5 + 12] = dt[i][1];
             target_pos[i*5 + 13] = dt[i][2];

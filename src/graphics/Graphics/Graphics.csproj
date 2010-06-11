@@ -195,6 +195,7 @@
     <EmbeddedResource Include="glyphs\planets7.tga" />
     <EmbeddedResource Include="glyphs\planets8.tga" />
     <EmbeddedResource Include="glyphs\planets9.tga" />
+    <EmbeddedResource Include="glyphs\error.tga" />
     <None Include="obj\Release\DXCheck.csproj.ResolveComReference.cache" />
   </ItemGroup>
   <ItemGroup>

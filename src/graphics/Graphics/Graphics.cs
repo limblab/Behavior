@@ -443,13 +443,19 @@ namespace BehaviorGraphics
             get { return cursorDefs; }
         }
 
-        public GlyphDefs GlyphDefs {
-            get { return glyphDefs; }
-        }
-
         public CursorDef ActiveCursor
         {
             get { return activeCursor; }
+        }
+
+        public GlyphDefs GlyphDefs
+        {
+            get { return glyphDefs; }
+        }
+
+        public GlyphDef ActiveGlyphDef
+        {
+            get { return glyphDefs[activeGlyphIndex]; }
         }
 
         public Box Box
