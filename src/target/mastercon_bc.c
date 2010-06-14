@@ -314,7 +314,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T bump_magnitude;
     int bump_step;
     int training_mode;
-    real_T target_direction;
+    real_T bump_direction;
     
     /* stimulation parameters */
     int stim_index;
@@ -348,7 +348,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     cursor[1] = *uPtrs[1];
 
     /* get IWorkVector */
-    target_direction = ssGetRWorkValue(S,4);
+    bump_direction = ssGetRWorkValue(S,4);
     bump_step = ssGetIWorkValue(S,5);
     training_mode = ssGetIWorkValue(S,6);
     bump_magnitude = ssGetRWorkValue(S,5);    
@@ -377,15 +377,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     ct[2] = target_size/2;
     ct[3] = -target_size/2;
        
-    rt[0] = target_radius*cos(target_direction+PI) - target_size/2; /* reward target */
-    rt[1] = target_radius*sin(target_direction+PI) + target_size/2;
-    rt[2] = target_radius*cos(target_direction+PI) + target_size/2;
-    rt[3] = target_radius*sin(target_direction+PI) - target_size/2;
+    rt[0] = target_radius*cos(bump_direction+PI) - target_size/2; /* reward target */
+    rt[1] = target_radius*sin(bump_direction+PI) + target_size/2;
+    rt[2] = target_radius*cos(bump_direction+PI) + target_size/2;
+    rt[3] = target_radius*sin(bump_direction+PI) - target_size/2;
 
-    ft[0] = target_radius*cos(target_direction) - target_size/2; /* fail target */
-    ft[1] = target_radius*sin(target_direction) + target_size/2;
-    ft[2] = target_radius*cos(target_direction) + target_size/2; 
-    ft[3] = target_radius*sin(target_direction) - target_size/2;   
+    ft[0] = target_radius*cos(bump_direction) - target_size/2; /* fail target */
+    ft[1] = target_radius*sin(bump_direction) + target_size/2;
+    ft[2] = target_radius*cos(bump_direction) + target_size/2; 
+    ft[3] = target_radius*sin(bump_direction) - target_size/2;   
     
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 7);
@@ -493,13 +493,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             if (stim_trial){ 
                 stim_index++;
-                target_direction = pref_dirs[ssGetIWorkValue(S,11+stim_index)];
+                bump_direction = pref_dirs[ssGetIWorkValue(S,11+stim_index)];
                 ssSetIWorkValue(S,10,stim_index);
             } else {
                 /* give a random direction to next target */ 
-                target_direction = 2*PI*UNI;                
+                bump_direction = 2*PI*UNI;                
             }                       
-            ssSetRWorkValue(S,4,target_direction);
+            ssSetRWorkValue(S,4,bump_direction);
                                                                  
             /* get a random bump step */
             bump_step = (int)(UNI*bump_steps);
@@ -531,7 +531,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             databurst[0] = (byte)11;
             databurst[1] = DATABURST_VERSION;
             db_training[0] = (byte)training_mode;
-            db_angle[0] = (float)target_direction;
+            db_angle[0] = (float)bump_direction;
             db_bump_mag[0] = (float)bump_magnitude;
             
             ssSetIWorkValue(S, 7, databurst_counter);
@@ -651,7 +651,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T ct_type;   /* type of center target 0=invisible 1=red square 2=lightning bolt (?) */
     real_T rt_type;   /* type of left outer target 0=invisible 1=red square 2=lightning bolt (?) */
     real_T ft_type;   /* type of right outer target 0=invisible 1=red square 2=lightning bolt (?) */
-    real_T target_direction;
+    real_T bump_direction;
     
     /* get trial type */
     int training_mode;
@@ -696,7 +696,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     ssSetIWorkValue(S, 0, 0); /* reset changed state each iteration */
 
     /* current trial type */
-    target_direction = ssGetRWorkValue(S,4);
+    bump_direction = ssGetRWorkValue(S,4);
     training_mode = ssGetIWorkValue(S,6);
             
     /* bump parameters */
@@ -727,15 +727,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     ct[2] = target_size/2;
     ct[3] = -target_size/2;
 
-    rt[0] = target_radius*cos(target_direction+PI) - target_size/2; /* reward target */
-    rt[1] = target_radius*sin(target_direction+PI) + target_size/2;
-    rt[2] = target_radius*cos(target_direction+PI) + target_size/2;
-    rt[3] = target_radius*sin(target_direction+PI) - target_size/2;
+    rt[0] = target_radius*cos(bump_direction+PI) - target_size/2; /* reward target */
+    rt[1] = target_radius*sin(bump_direction+PI) + target_size/2;
+    rt[2] = target_radius*cos(bump_direction+PI) + target_size/2;
+    rt[3] = target_radius*sin(bump_direction+PI) - target_size/2;
 
-    ft[0] = target_radius*cos(target_direction) - target_size/2; /* fail target */
-    ft[1] = target_radius*sin(target_direction) + target_size/2;
-    ft[2] = target_radius*cos(target_direction) + target_size/2; 
-    ft[3] = target_radius*sin(target_direction) - target_size/2;   
+    ft[0] = target_radius*cos(bump_direction) - target_size/2; /* fail target */
+    ft[1] = target_radius*sin(bump_direction) + target_size/2;
+    ft[2] = target_radius*cos(bump_direction) + target_size/2; 
+    ft[3] = target_radius*sin(bump_direction) - target_size/2;   
         
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
@@ -760,14 +760,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         if (bump_duration_counter > 0) {
             /* yes, so decrement the counter and maintain the bump */
             bump_duration_counter--;
-            force_x = force_in[0] + cos(target_direction)*bump_magnitude;
-            force_y = force_in[1] + sin(target_direction)*bump_magnitude;
+            force_x = force_in[0] + cos(bump_direction)*bump_magnitude;
+            force_y = force_in[1] + sin(bump_direction)*bump_magnitude;
         } else if ( state == STATE_BUMP_STIM && new_state ) 
         {
             /* initiating a new bump */
             bump_duration_counter = (int)bump_duration;
-            force_x = force_in[0] + cos(target_direction)*bump_magnitude;
-            force_y = force_in[1] + sin(target_direction)*bump_magnitude;
+            force_x = force_in[0] + cos(bump_direction)*bump_magnitude;
+            force_y = force_in[1] + sin(bump_direction)*bump_magnitude;
         } else {
             force_x = force_in[0]; 
             force_y = force_in[1];
