@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1240"
+    ComputedModelVersion    "1.1246"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "Matt Bauman"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Feb 15 12:23:47 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:1240>"
+  LastModifiedDate	  "Tue Jun 15 14:28:25 2010"
+  ModelVersionFormat	  "1.%<AutoIncrement:1246>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -837,7 +837,7 @@ Model {
   }
   System {
     Name		    "bump_choice"
-    Location		    [2, 74, 1270, 964]
+    Location		    [2, 74, 1270, 860]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -855,7 +855,7 @@ Model {
       BlockType		      Reference
       Name		      "BCStimTable"
       Ports		      [0, 1]
-      Position		      [520, 342, 585, 408]
+      Position		      [525, 378, 585, 442]
       SourceBlock	      "simulink/Lookup\nTables/Direct Lookup\nTable (n"
 "-D)"
       SourceType	      "LookupNDDirect"
@@ -871,17 +871,18 @@ Model {
     Block {
       BlockType		      "S-Function"
       Name		      "Behavior BC"
-      Ports		      [4, 8]
-      Position		      [660, 78, 885, 412]
+      Ports		      [5, 8]
+      Position		      [655, 54, 885, 446]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_bc"
       Parameters	      "0 10 3 5 7 0.0 0.05 125 0.5 2 10 1 2 0 0 0"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
-"os')\nport_label('input',2,'force')\nport_label('input',3,'catch force')\npor"
-"t_label('input',4,'stim table')\nport_label('output',1,'force')\nport_label('"
-"output',2,'status')\nport_label('output',3,'word')\nport_label('output',4,'ta"
-"rgets')\nport_label('output',5,'reward')\nport_label('output',6,'tone')\nport"
-"_label('output',7,'version')\nport_label('output',8,'pos')"
+"os')\nport_label('input',2,'pos offsets')\nport_label('input',3,'force')\npor"
+"t_label('input',4,'catch force')\nport_label('input',5,'stim table')\nport_la"
+"bel('output',1,'force')\nport_label('output',2,'status')\nport_label('output'"
+",3,'word')\nport_label('output',4,'targets')\nport_label('output',5,'reward')"
+"\nport_label('output',6,'tone')\nport_label('output',7,'version')\nport_label"
+"('output',8,'pos')"
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
@@ -1104,7 +1105,7 @@ Model {
       BlockType		      SubSystem
       Name		      "Catch Force Generator"
       Ports		      [1, 1]
-      Position		      [545, 259, 605, 321]
+      Position		      [525, 299, 585, 361]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -1840,14 +1841,14 @@ Model {
     Block {
       BlockType		      Constant
       Name		      "Constant"
-      Position		      [1190, 350, 1220, 380]
+      Position		      [1190, 360, 1220, 390]
       Value		      "3"
     }
     Block {
       BlockType		      SubSystem
       Name		      "Force Generator"
       Ports		      [1, 1]
-      Position		      [545, 174, 605, 236]
+      Position		      [525, 219, 585, 281]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -2580,9 +2581,16 @@ Model {
       }
     }
     Block {
+      BlockType		      From
+      Name		      "From"
+      Position		      [530, 155, 580, 185]
+      CloseFcn		      "tagdialog Close"
+      GotoTag		      "Offsets"
+    }
+    Block {
       BlockType		      Goto
       Name		      "Goto"
-      Position		      [995, 254, 1040, 276]
+      Position		      [995, 264, 1040, 286]
       GotoTag		      "Reward"
       TagVisibility	      "global"
     }
@@ -2604,7 +2612,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[4, 82, 1276, 1000]
+	Location		[4, 82, 1276, 884]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2973,7 +2981,7 @@ Model {
 	  MaskValueString	  "10"
 	  System {
 	    Name		    "Schmidt"
-	    Location		    [2, 82, 1270, 979]
+	    Location		    [2, 82, 1270, 884]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -5599,14 +5607,14 @@ Model {
     Block {
       BlockType		      Reshape
       Name		      "Reshape"
-      Position		      [605, 363, 635, 387]
+      Position		      [605, 398, 635, 422]
       OutputDimensionality    "Column vector (2-D)"
     }
     Block {
       BlockType		      SubSystem
       Name		      "RewardSbs"
       Ports		      [1, 1]
-      Position		      [925, 247, 975, 283]
+      Position		      [925, 257, 975, 293]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -5838,6 +5846,7 @@ Model {
 	  Position		  [65, 99, 95, 131]
 	  Minimum		  "0"
 	  Maximum		  "100"
+	  SampleTime		  "0.001"
 	}
 	Block {
 	  BlockType		  Outport
@@ -5925,7 +5934,7 @@ Model {
       BlockType		      Reference
       Name		      "SendPacketToGraphics1"
       Ports		      [4]
-      Position		      [1255, 277, 1345, 378]
+      Position		      [1255, 287, 1345, 388]
       SourceBlock	      "limblab/SendPacketToGraphics"
       SourceType	      "SubSystem"
       ShowPortLabels	      "FromPortIcon"
@@ -5941,7 +5950,7 @@ Model {
       BlockType		      Reference
       Name		      "Status"
       Ports		      [1]
-      Position		      [1010, 124, 1080, 166]
+      Position		      [1010, 104, 1080, 146]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -6646,7 +6655,7 @@ Model {
       BlockType		      Reference
       Name		      "Version Display"
       Ports		      [1]
-      Position		      [970, 324, 1040, 366]
+      Position		      [970, 354, 1040, 396]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -6683,7 +6692,7 @@ Model {
       BlockType		      SubSystem
       Name		      "WordSbs"
       Ports		      [1]
-      Position		      [935, 164, 980, 206]
+      Position		      [935, 154, 980, 196]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -6739,7 +6748,7 @@ Model {
       MaskIconUnits	      "autoscale"
       System {
 	Name			"XY Position Subsystem"
-	Location		[54, 86, 1070, 808]
+	Location		[54, 86, 1069, 792]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -7621,7 +7630,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Jacobian-Cartesian Transformation"
-	    Location		    [0, 82, 1268, 1000]
+	    Location		    [0, 83, 1268, 884]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -7675,6 +7684,13 @@ Model {
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
+	      BlockType		      Goto
+	      Name		      "Goto"
+	      Position		      [715, 282, 770, 308]
+	      GotoTag		      "Offsets"
+	      TagVisibility	      "global"
+	    }
+	    Block {
 	      BlockType		      Constant
 	      Name		      "L1"
 	      Position		      [185, 295, 215, 325]
@@ -7709,6 +7725,15 @@ Model {
 	      Position		      [955, 279, 995, 366]
 	      Mode		      "Multidimensional array"
 	      ConcatenateDimension    "2"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [680, 276, 685, 314]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
 	    }
 	    Block {
 	      BlockType		      Product
@@ -7824,7 +7849,7 @@ Model {
 	    Block {
 	      BlockType		      Constant
 	      Name		      "yoffset"
-	      Position		      [400, 155, 430, 185]
+	      Position		      [400, 160, 430, 190]
 	      Value		      "32"
 	    }
 	    Block {
@@ -7966,14 +7991,29 @@ Model {
 	      SrcBlock		      "xoffset"
 	      SrcPort		      1
 	      Points		      [40, 0]
-	      DstBlock		      "Sum1"
-	      DstPort		      2
+	      Branch {
+		DstBlock		"Sum1"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[100, 0; 0, -65]
+		DstBlock		"Mux"
+		DstPort			1
+	      }
 	    }
 	    Line {
 	      SrcBlock		      "yoffset"
 	      SrcPort		      1
-	      DstBlock		      "Sum4"
-	      DstPort		      2
+	      Points		      [35, 0]
+	      Branch {
+		DstBlock		"Sum4"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[170, 0; 0, 130]
+		DstBlock		"Mux"
+		DstPort			2
+	      }
 	    }
 	    Line {
 	      SrcBlock		      "Product3"
@@ -8094,6 +8134,12 @@ Model {
 		DstBlock		"Product1"
 		DstPort			2
 	      }
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Goto"
+	      DstPort		      1
 	    }
 	    Annotation {
 	      Name		      "By default X offset is zero and Y is 28"
@@ -8397,13 +8443,13 @@ Model {
       Branch {
 	Points			[0, -105]
 	Branch {
-	  Points		  [0, -220]
+	  Points		  [0, -180]
 	  Branch {
 	    DstBlock		    "Catch Force Generator"
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -85]
+	    Points		    [0, -80]
 	    DstBlock		    "Force Generator"
 	    DstPort		    1
 	  }
@@ -8435,7 +8481,7 @@ Model {
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -370]
+	    Points		    [0, -400]
 	    DstBlock		    "Behavior BC"
 	    DstPort		    1
 	  }
@@ -8455,15 +8501,9 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Force Generator"
-      SrcPort		      1
-      DstBlock		      "Behavior BC"
-      DstPort		      2
-    }
-    Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      1
-      Points		      [10, 0; 0, 450]
+      Points		      [10, 0; 0, 480]
       DstBlock		      "Motor Control"
       DstPort		      1
     }
@@ -8478,12 +8518,6 @@ Model {
       SrcPort		      1
       Points		      [105, 0; 0, -30]
       DstBlock		      "Recentering Subsystem"
-      DstPort		      3
-    }
-    Line {
-      SrcBlock		      "Catch Force Generator"
-      SrcPort		      1
-      DstBlock		      "Behavior BC"
       DstPort		      3
     }
     Line {
@@ -8547,21 +8581,20 @@ Model {
     Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      4
-      Points		      [280, 0; 0, 65]
+      Points		      [280, 0; 0, 75]
       DstBlock		      "SendPacketToGraphics1"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      6
-      Points		      [0, 10]
       DstBlock		      "SendPacketToGraphics1"
       DstPort		      2
     }
     Line {
       SrcBlock		      "Behavior BC"
       SrcPort		      8
-      Points		      [285, 0; 0, -45]
+      Points		      [285, 0; 0, -75]
       DstBlock		      "SendPacketToGraphics1"
       DstPort		      3
     }
@@ -8575,7 +8608,25 @@ Model {
       SrcBlock		      "Reshape"
       SrcPort		      1
       DstBlock		      "Behavior BC"
+      DstPort		      5
+    }
+    Line {
+      SrcBlock		      "Catch Force Generator"
+      SrcPort		      1
+      DstBlock		      "Behavior BC"
       DstPort		      4
+    }
+    Line {
+      SrcBlock		      "Force Generator"
+      SrcPort		      1
+      DstBlock		      "Behavior BC"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "From"
+      SrcPort		      1
+      DstBlock		      "Behavior BC"
+      DstPort		      2
     }
   }
 }

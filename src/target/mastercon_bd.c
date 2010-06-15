@@ -14,6 +14,31 @@
 #include "words.h"
 #include "random_macros.h"
 
+/* 
+ * Current Databurst version: 0
+ *
+ * Note that all databursts are encoded half a byte at a time as a word who's 
+ * high order bits are all 1 and who's low order bits represent the half byte to
+ * be transmitted.  Low order bits are transmitted first.  Thus to transmit the
+ * two bytes 0xCF 0x07, one would send 0xFF 0xFC 0xF7 0xF0.
+ *
+ * Databurst version descriptions
+ * ==============================
+ *
+ * Version 0 (0x00)
+ * ----------------
+
+ * byte   0: uchar => number of bytes to be transmitted
+ * byte   1: uchar => databurst version number (in this case one)
+ * byte   2: uchar => model version major
+ * byte   3: uchar => model version minor
+ * bytes  4 to  5: short => model version micro
+ */
+
+typedef unsigned char byte;
+#define DATABURST_VERSION (0x00) 
+
+
 /*
  * Tunable parameters
  */
@@ -175,7 +200,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumPWork(S, 0);	/*
                             */
     
-    ssSetNumIWork(S, 8); 	/*
+    ssSetNumIWork(S, 9); 	/*
     						0: state_transition (true if state changed), 
                             1: rewards
                             2: aborts
@@ -184,7 +209,10 @@ static void mdlInitializeSizes(SimStruct *S)
                             5: catch_trial_flag
                             6: catch_block_counter
                             7: catch_index
+							8: databurst counter
                           	*/
+    
+	ssSetNumPWork(S, 1); /*    0: Databurst array pointer  */
     
     /* we have no zero crossing detection or modes */
     ssSetNumModes(S, 0);
@@ -203,7 +231,8 @@ static void mdlInitializeSampleTimes(SimStruct *S)
 static void mdlInitializeConditions(SimStruct *S)
 {
     real_T *x0;
-    
+    byte *databurst;
+
     /* initialize state to zero */
     x0 = ssGetRealDiscStates(S);
     *x0 = 0.0;
@@ -228,6 +257,11 @@ static void mdlInitializeConditions(SimStruct *S)
     
     /* set reset counter to zero */
     master_reset = 0.0;
+
+	/* setup databurst */
+    databurst = malloc(256);
+    ssSetPWorkValue(S, 0, databurst);
+    ssSetIWorkValue(S, 8, 0);
     
     updateVersion(S);
 }
@@ -257,6 +291,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
     int catch_block_counter;
     int catch_index;
+
+	int databurst_counter;
+	byte *databurst;
         
     /******************
      * Initialization *
@@ -288,6 +325,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     catch_block_counter = ssGetIWorkValue(S,6);
     catch_index = ssGetIWorkValue(S,7);
     
+	databurst = ssGetPWorkValue(S,0);
+	databurst_counter = ssGetIWorkValue(S, 8);
 
     /*********************************
      * See if we have issued a reset *
@@ -370,11 +409,27 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 set_catch_trial(0);
             }
 			
-            new_state = STATE_TOUCH_PAD_ON;
-            reset_timer();      
+			/* Setup the databurst */
+			databurst[0] = 6+1+4*sizeof(float);
+            databurst[1] = DATABURST_VERSION;
+			databurst[2] = BEHAVIOR_VERSION_MAJOR;
+			databurst[3] = BEHAVIOR_VERSION_MINOR;
+			databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
+			databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
+			
+			ssSetIWorkValue(S, 8, 0); /* reset the databurst_counter */
+
+            new_state = STATE_DATA_BLOCK;
             state_changed();
             /* End of Pretrial State */
             break;
+		case STATE_DATA_BLOCK:
+			if (databurst_counter > 2*(databurst[0]-1)) { 
+                new_state = STATE_TOUCH_PAD_ON;
+                state_changed();
+            }
+			ssSetIWorkValue(S, 8, databurst_counter+1);
+			break;
         case STATE_TOUCH_PAD_ON:
 			if (touch_pad) {
                 new_state = STATE_TOUCH_PAD_HOLD;
@@ -519,6 +574,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *tone_p;
     real_T *version_p;
     
+	int databurst_counter;
+	byte *databurst;
+
     /******************
      * Initialization *
      ******************/
@@ -550,7 +608,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tgt[2]= 5.0;
     tgt[3]= -5.0;
     
-    
+    /* databurst */
+    databurst_counter = ssGetIWorkValue(S, 8);
+    databurst = (byte *)ssGetPWorkValue(S, 0);
+
     /********************
      * Calculate outputs
      ********************/
@@ -563,7 +624,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     /* word (1) */
-	if (new_state) {
+	if (state == STATE_DATA_BLOCK) {
+        if (databurst_counter % 2 == 0) {
+            word = databurst[databurst_counter / 2] | 0xF0; // low order bits
+        } else {
+            word = databurst[databurst_counter / 2] >> 4 | 0xF0; // high order bits
+        }
+    } else if (new_state) {
         switch (state) {
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;

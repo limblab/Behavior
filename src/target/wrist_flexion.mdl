@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.345"
+    ComputedModelVersion    "1.348"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -42,10 +42,10 @@ Model {
   Creator		  "Selket"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "Matt Bauman"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Sep 24 18:03:01 2009"
-  ModelVersionFormat	  "1.%<AutoIncrement:345>"
+  LastModifiedDate	  "Tue Jun 15 14:05:48 2010"
+  ModelVersionFormat	  "1.%<AutoIncrement:348>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -792,18 +792,18 @@ Model {
     Block {
       BlockType		      "S-Function"
       Name		      "Behavior WF"
-      Ports		      [2, 8]
-      Position		      [445, 39, 610, 521]
+      Ports		      [3, 8]
+      Position		      [410, 39, 610, 521]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_wf"
       Parameters	      "8 5 .5 .5 1 2 2 2 2 2 0 0 0 0 0 0 0 0.7854 0 .5"
 " 0"
       MaskDisplay	      "disp('Master Control\\nWrist-Flexion')\nport_la"
-"bel('input',1,'cursor')\nport_label('input',2,'target list')\nport_label('out"
-"put',1,'Reward')\nport_label('output',2,'Word')\nport_label('output',3,'Statu"
-"s')\nport_label('output',4,'Tone')\nport_label('output',5,'Targets')\nport_la"
-"bel('output',6,'MVC Target')\nport_label('output',7,'version')\nport_label('o"
-"utput',8,'rotation')"
+"bel('input',1,'cursor')\nport_label('input',2,'cursor offset')\nport_label('i"
+"nput',3,'target list')\nport_label('output',1,'Reward')\nport_label('output',"
+"2,'Word')\nport_label('output',3,'Status')\nport_label('output',4,'Tone')\npo"
+"rt_label('output',5,'Targets')\nport_label('output',6,'MVC Target')\nport_lab"
+"el('output',7,'version')\nport_label('output',8,'rotation')"
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
@@ -849,8 +849,8 @@ Model {
     Block {
       BlockType		      SubSystem
       Name		      "CursorPos"
-      Ports		      [1, 1]
-      Position		      [275, 127, 340, 193]
+      Ports		      [1, 2]
+      Position		      [275, 104, 340, 171]
       ShowPortLabels	      "none"
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
@@ -1196,6 +1196,15 @@ Model {
 	  Name			  "Mux"
 	  Ports			  [2, 1]
 	  Position		  [935, 136, 940, 249]
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [2, 1]
+	  Position		  [495, 221, 500, 259]
 	  ShowName		  off
 	  Inputs		  "2"
 	  DisplayOption		  "bar"
@@ -1559,15 +1568,17 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "OffsetX"
-	  Position		  [430, 150, 460, 180]
+	  Position		  [430, 180, 460, 210]
 	  Orientation		  "up"
+	  NamePlacement		  "alternate"
 	  Value			  "0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "OffsetY"
-	  Position		  [430, 345, 460, 375]
+	  Position		  [430, 370, 460, 400]
 	  Orientation		  "up"
+	  NamePlacement		  "alternate"
 	  Value			  "0"
 	}
 	Block {
@@ -1699,6 +1710,14 @@ Model {
 	  BlockType		  Outport
 	  Name			  "Pos"
 	  Position		  [1190, 153, 1220, 167]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Offsets"
+	  Position		  [525, 233, 555, 247]
+	  Port			  "2"
 	  IconDisplay		  "Port number"
 	  BusOutputAsStruct	  off
 	}
@@ -1869,14 +1888,30 @@ Model {
 	Line {
 	  SrcBlock		  "OffsetX"
 	  SrcPort		  1
-	  DstBlock		  "Sum1"
-	  DstPort		  2
+	  Points		  [0, -20]
+	  Branch {
+	    DstBlock		    "Sum1"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [25, 0; 0, 75]
+	    DstBlock		    "Mux1"
+	    DstPort		    1
+	  }
 	}
 	Line {
 	  SrcBlock		  "OffsetY"
 	  SrcPort		  1
-	  DstBlock		  "Sum2"
-	  DstPort		  2
+	  Points		  [0, -15]
+	  Branch {
+	    DstBlock		    "Sum2"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [25, 0; 0, -100]
+	    DstBlock		    "Mux1"
+	    DstPort		    2
+	  }
 	}
 	Line {
 	  SrcBlock		  "Neural Control Subsystem"
@@ -1940,6 +1975,12 @@ Model {
 	  SrcPort		  1
 	  DstBlock		  "Neural Control Subsystem"
 	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "Offsets"
+	  DstPort		  1
 	}
       }
     }
@@ -2014,7 +2055,7 @@ Model {
     Block {
       BlockType		      Reshape
       Name		      "Reshape"
-      Position		      [395, 388, 425, 412]
+      Position		      [365, 428, 395, 452]
       OutputDimensionality    "Column vector (2-D)"
     }
     Block {
@@ -2634,7 +2675,7 @@ Model {
       BlockType		      Reference
       Name		      "WFTargetTable"
       Ports		      [0, 1]
-      Position		      [285, 367, 350, 433]
+      Position		      [255, 407, 320, 473]
       SourceBlock	      "simulink/Lookup\nTables/Direct Lookup\nTable (n"
 "-D)"
       SourceType	      "LookupNDDirect"
@@ -3288,7 +3329,7 @@ Model {
 	DstPort			1
       }
       Branch {
-	Points			[0, -135; 440, 0; 0, 205]
+	Points			[0, -135; 440, 0; 0, 245]
 	Branch {
 	  DstBlock		  "Mux"
 	  DstPort		  1
@@ -3341,16 +3382,10 @@ Model {
       }
       Branch {
 	Labels			[4, 0]
-	Points			[0, 60; -595, 0; 0, -390]
+	Points			[0, 60; -595, 0; 0, -410]
 	DstBlock		"CursorPos"
 	DstPort			1
       }
-    }
-    Line {
-      SrcBlock		      "Reshape"
-      SrcPort		      1
-      DstBlock		      "Behavior WF"
-      DstPort		      2
     }
     Line {
       SrcBlock		      "WFTargetTable"
@@ -3375,6 +3410,19 @@ Model {
       SrcPort		      6
       DstBlock		      "MVC Target"
       DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Reshape"
+      SrcPort		      1
+      DstBlock		      "Behavior WF"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "CursorPos"
+      SrcPort		      2
+      Points		      [25, 0; 0, 125]
+      DstBlock		      "Behavior WF"
+      DstPort		      2
     }
   }
 }

@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1223"
+    ComputedModelVersion    "1.1227"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Matt Bauman"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Mar 25 12:36:51 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:1223>"
+  LastModifiedDate	  "Tue Jun 15 14:30:32 2010"
+  ModelVersionFormat	  "1.%<AutoIncrement:1227>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -832,7 +832,7 @@ Model {
   }
   System {
     Name		    "random_walk"
-    Location		    [2, 70, 1422, 852]
+    Location		    [2, 74, 1414, 856]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -849,7 +849,7 @@ Model {
     Block {
       BlockType		      "S-Function"
       Name		      "Behavior RW"
-      Ports		      [3, 8]
+      Ports		      [4, 8]
       Position		      [660, 88, 885, 422]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_rw"
@@ -1082,7 +1082,7 @@ Model {
       BlockType		      SubSystem
       Name		      "Catch Force Generator"
       Ports		      [1, 1]
-      Position		      [545, 334, 605, 396]
+      Position		      [545, 354, 605, 416]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -1819,7 +1819,7 @@ Model {
       BlockType		      SubSystem
       Name		      "Force Generator"
       Ports		      [1, 1]
-      Position		      [545, 224, 605, 286]
+      Position		      [545, 269, 605, 331]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -2550,6 +2550,13 @@ Model {
 	  DstPort		  3
 	}
       }
+    }
+    Block {
+      BlockType		      From
+      Name		      "From"
+      Position		      [550, 201, 605, 229]
+      CloseFcn		      "tagdialog Close"
+      GotoTag		      "Offsets"
     }
     Block {
       BlockType		      Goto
@@ -3522,7 +3529,7 @@ Model {
     Block {
       BlockType		      Switch
       Name		      "Neural Override"
-      Position		      [410, 91, 455, 199]
+      Position		      [410, 76, 455, 184]
       Criteria		      "u2 ~= 0"
       InputSameDT	      off
       SaturateOnIntegerOverflow	off
@@ -5895,6 +5902,7 @@ Model {
 	  Position		  [65, 99, 95, 131]
 	  Minimum		  "0"
 	  Maximum		  "100"
+	  SampleTime		  "0.001"
 	}
 	Block {
 	  BlockType		  Outport
@@ -8176,6 +8184,13 @@ Model {
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
+	      BlockType		      Goto
+	      Name		      "Goto"
+	      Position		      [710, 285, 750, 315]
+	      GotoTag		      "Offsets"
+	      TagVisibility	      "global"
+	    }
+	    Block {
 	      BlockType		      Constant
 	      Name		      "L1"
 	      Position		      [185, 295, 215, 325]
@@ -8210,6 +8225,15 @@ Model {
 	      Position		      [955, 279, 995, 366]
 	      Mode		      "Multidimensional array"
 	      ConcatenateDimension    "2"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [680, 281, 685, 319]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
 	    }
 	    Block {
 	      BlockType		      Product
@@ -8326,7 +8350,7 @@ Model {
 	    Block {
 	      BlockType		      Constant
 	      Name		      "yoffset"
-	      Position		      [400, 155, 430, 185]
+	      Position		      [400, 160, 430, 190]
 	      Value		      "37"
 	    }
 	    Block {
@@ -8468,14 +8492,29 @@ Model {
 	      SrcBlock		      "xoffset"
 	      SrcPort		      1
 	      Points		      [40, 0]
-	      DstBlock		      "Sum1"
-	      DstPort		      2
+	      Branch {
+		DstBlock		"Sum1"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[110, 0; 0, -60]
+		DstBlock		"Mux"
+		DstPort			1
+	      }
 	    }
 	    Line {
 	      SrcBlock		      "yoffset"
 	      SrcPort		      1
-	      DstBlock		      "Sum4"
-	      DstPort		      2
+	      Points		      [35, 0]
+	      Branch {
+		DstBlock		"Sum4"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[185, 0; 0, 135]
+		DstBlock		"Mux"
+		DstPort			2
+	      }
 	    }
 	    Line {
 	      SrcBlock		      "Product3"
@@ -8596,6 +8635,12 @@ Model {
 		DstBlock		"Product1"
 		DstPort			2
 	      }
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Goto"
+	      DstPort		      1
 	    }
 	    Annotation {
 	      Name		      "By default X offset is zero and Y is 28"
@@ -8899,13 +8944,13 @@ Model {
       Branch {
 	Points			[0, -110]
 	Branch {
-	  Points		  [0, -145]
+	  Points		  [0, -125]
 	  Branch {
 	    DstBlock		    "Catch Force Generator"
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -110]
+	    Points		    [0, -85]
 	    DstBlock		    "Force Generator"
 	    DstPort		    1
 	  }
@@ -8937,7 +8982,7 @@ Model {
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -310]
+	    Points		    [0, -325]
 	    DstBlock		    "Neural Override"
 	    DstPort		    3
 	  }
@@ -8971,12 +9016,6 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "Force Generator"
-      SrcPort		      1
-      DstBlock		      "Behavior RW"
-      DstPort		      2
-    }
-    Line {
       SrcBlock		      "Behavior RW"
       SrcPort		      1
       Points		      [460, 0; 0, 380; -325, 0; 0, 65]
@@ -8993,12 +9032,6 @@ Model {
       SrcBlock		      "BoundingBox"
       SrcPort		      1
       DstBlock		      "Recentering Subsystem"
-      DstPort		      3
-    }
-    Line {
-      SrcBlock		      "Catch Force Generator"
-      SrcPort		      1
-      DstBlock		      "Behavior RW"
       DstPort		      3
     }
     Line {
@@ -9071,6 +9104,7 @@ Model {
       SrcPort		      1
       Points		      [30, 0]
       Branch {
+	Points			[0, -15]
 	DstBlock		"Neural Override"
 	DstPort			2
       }
@@ -9083,7 +9117,7 @@ Model {
     Line {
       SrcBlock		      "Neural Position Subsystem"
       SrcPort		      1
-      Points		      [90, 0; 0, 60]
+      Points		      [90, 0; 0, 45]
       DstBlock		      "Neural Override"
       DstPort		      1
     }
@@ -9104,6 +9138,24 @@ Model {
       SrcPort		      1
       DstBlock		      "Terminator"
       DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Force Generator"
+      SrcPort		      1
+      DstBlock		      "Behavior RW"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Catch Force Generator"
+      SrcPort		      1
+      DstBlock		      "Behavior RW"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "From"
+      SrcPort		      1
+      DstBlock		      "Behavior RW"
+      DstPort		      2
     }
     Annotation {
       Position		      [954, 296]

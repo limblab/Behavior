@@ -36,10 +36,22 @@
  * bytes 3-6: float => target angle (rad)
  * bytes 7-10: float => bump magnitude (bump units?)
  *
+ * Version 1 (0x01)
+ * ----------------
+ * byte   0: uchar => number of bytes to be transmitted
+ * byte   1: uchar => databurst version number (in this case one)
+ * byte   2: uchar => model version major
+ * byte   3: uchar => model version minor
+ * bytes  4 to  5: short => model version micro
+ * byte   6: uchar => training trial (1 if training, 0 if not)
+ * bytes  7 to 10: float => x offset
+ * bytes 11 to 14: float => y offset
+ * bytes 15 to 18: float => target angle (rad)
+ * bytes 19 to 22: float => bump magnitude (bump units?)
  */
 
 typedef unsigned char byte;
-#define DATABURST_VERSION ((byte)0x00) 
+#define DATABURST_VERSION (0x01) 
 
 /*
  * Until we implement tunable parameters, these will act as defaults
@@ -155,20 +167,24 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumDiscStates(S, 1);
     
     /*
-     * Block has 2 input ports
+     * Block has 5 input ports
      *      input port 0: (position) of width 2 (x, y)
-     *      input port 1: (force) of width 2 (x, y)
-     *      input port 2: (catch force) of width 2 (x,y) NOT USED
+	 *      input port 1: (position offsets) of width 2 (x, y)
+     *      input port 2: (force) of width 2 (x, y)
+     *      input port 3: (catch force) of width 2 (x,y) NOT USED
+	 *      input port 4: (stim table) of width 32
      */
-    if (!ssSetNumInputPorts(S, 4)) return;
+    if (!ssSetNumInputPorts(S, 5)) return;
     ssSetInputPortWidth(S, 0, 2);
     ssSetInputPortWidth(S, 1, 2);
     ssSetInputPortWidth(S, 2, 2);
-    ssSetInputPortWidth(S, 3, 32);
+	ssSetInputPortWidth(S, 3, 2);
+    ssSetInputPortWidth(S, 4, 32);
     ssSetInputPortDirectFeedThrough(S, 0, 1);
     ssSetInputPortDirectFeedThrough(S, 1, 1);
     ssSetInputPortDirectFeedThrough(S, 2, 1);
     ssSetInputPortDirectFeedThrough(S, 3, 1);
+    ssSetInputPortDirectFeedThrough(S, 4, 1);
     
     /* 
      * Block has 8 output ports (force, status, word, targets, reward, tone, version, pos) of widths:
@@ -327,10 +343,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int stim_code_list_tmp[16];
         
     /* databurst variables */
-    byte* databurst;
-    float* db_angle;
-    float* db_bump_mag;
-    byte* db_training;
+    byte *databurst;
+	float *databurst_offsets;
+    float *databurst_angle;
+    float *databurst_bump_mag;
     int databurst_counter;
             
     /******************
@@ -362,7 +378,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     }
     
     /* get stimulation parameters */
-    uPtrs = ssGetInputPortRealSignalPtrs(S,3);
+    uPtrs = ssGetInputPortRealSignalPtrs(S,4);
     for (i=0 ; i<16 ; i++) { 
         stim_codes[i] = (int)*uPtrs[2*i];
         pref_dirs[i] = *uPtrs[2*i+1];
@@ -389,10 +405,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 7);
-    databurst = (byte *)ssGetPWorkValue(S, 0);
-    db_training = (byte *)(databurst + 2*sizeof(byte));
-    db_angle = (float *)(databurst + 3*sizeof(byte));
-    db_bump_mag = (float *)(databurst + 3*sizeof(byte) + sizeof(float));
+    databurst = ssGetPWorkValue(S, 0);
+	databurst_offsets  = (float *)(databurst + 7);
+    databurst_angle    = databurst_offsets + 2;
+    databurst_bump_mag = databurst_angle + 1;
     
     /*********************************
      * See if we have issued a reset *  
@@ -514,8 +530,23 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	        } else {
 	            center_hold = center_hold_l + (center_hold_h - center_hold_l)*UNI;
 	        }
-	                        
-            /* clear the counters */
+	        
+			/* Setup the databurst */
+			databurst[0] = 6+1+4*sizeof(float);
+            databurst[1] = DATABURST_VERSION;
+			databurst[2] = BEHAVIOR_VERSION_MAJOR;
+			databurst[3] = BEHAVIOR_VERSION_MINOR;
+			databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
+			databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
+            databurst[6] = training_mode;
+			/* The offsets used in the calculation of the cursor location */
+			uPtrs = ssGetInputPortRealSignalPtrs(S, 1); 
+			databurst_offsets[0] = *uPtrs[0];
+			databurst_offsets[1] = *uPtrs[1];
+            databurst_angle[0] = bump_direction;
+            databurst_bump_mag[0] = bump_magnitude;
+            
+			/* clear the counters */
             ssSetIWorkValue(S, 7, 0); /* Databurst counter */
             
 	        /* and advance */
@@ -523,18 +554,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	        state_changed();
             break;
         case STATE_DATA_BLOCK:            
-            if (databurst_counter++ >= databurst[0]*2) {
+            if (databurst_counter > 2*(databurst[0]-1)) { 
                 new_state = STATE_ORIGIN_ON;
                 reset_timer(); /* start timer for movement */
                 state_changed();
             }                        
-            databurst[0] = (byte)11;
-            databurst[1] = DATABURST_VERSION;
-            db_training[0] = (byte)training_mode;
-            db_angle[0] = (float)bump_direction;
-            db_bump_mag[0] = (float)bump_magnitude;
             
-            ssSetIWorkValue(S, 7, databurst_counter);
+            ssSetIWorkValue(S, 7, databurst_counter+1);
             break;
         case STATE_ORIGIN_ON:
             /* center target on */
@@ -705,7 +731,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     bump_step = ssGetIWorkValue(S, 5);
     
     /* get stimulation parameters */
-    uPtrs = ssGetInputPortRealSignalPtrs(S,3);
+    uPtrs = ssGetInputPortRealSignalPtrs(S,4);
     for (i=0 ; i<16 ; i++) { 
         stim_codes[i] = *uPtrs[2*i];
         pref_dirs[i] = *uPtrs[2*i+1];
@@ -743,7 +769,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     cursor[1] = *uPtrs[1];
     
     /* input force */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
     force_in[0] = *uPtrs[0];
     force_in[1] = *uPtrs[1];
     

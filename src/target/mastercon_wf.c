@@ -17,7 +17,7 @@
 #define PI (3.141592654)
 
 /* 
- * Current Databurst version: 3
+ * Current Databurst version: 4
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -45,7 +45,7 @@
  * Version 2 (0x02)
  * ----------------
  * byte 0: uchar => number of bytes to be transmitted
- * byte 1: uchar => version number (in this case one)
+ * byte 1: uchar => version number (in this case two)
  * bytes 2 to 6: float => Cursor rotation value
  * bytes 6 to 6+ N*16: where N is the number of targets whose position are output.
  *		contains 16 bytes per target representing four single precision floating point
@@ -67,10 +67,29 @@
  * caused the output target position to be delayed by one trial, and removes
  * the possibility of multiple targets (although they were in the spec, 
  * multiple targets were never output in the databurst).
+ * 
+ * Version 4 (0x04)
+ * ----------------
+ * byte   0: uchar => number of bytes to be transmitted
+ * byte   1: uchar => databurst version number (in this case four)
+ * byte   2: uchar => model version major
+ * byte   3: uchar => model version minor
+ * bytes  4 to  5: short => model version micro
+ * bytes  6 to  9: float => x offset
+ * bytes 10 to 13: float => y offset
+ * bytes 14 to 17: float => Cursor rotation value
+ * bytes 18 to 33: 16 bytes per target representing four single precision floating point
+ *		numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
+ *		of the UL and LR corners of the target.
+ *
+ *		The position of only the current target is output at the begining of each trial
+ *		in normal behavior.
+ *
+ *		In MVC mode, the current value of the MVC target is provided in the databurst
  */
 
 typedef unsigned char byte;
-#define DATABURST_VERSION ((byte)0x03) 
+#define DATABURST_VERSION (0x04) 
 
 /*
  * Tunable parameters
@@ -206,15 +225,18 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumDiscStates(S, 1);
     
     /*
-     * Block has 2 input ports
+     * Block has 3 input ports
      *      input port 0: (position) of width 2 (horizontal and vertical cursor displacement)
+	 *      input port 1: (position offsets) of width 2 (x, y)
      *		input port 1: (target) of width 6*16 (vertical displacement, height, horiz disp, width, xVarEnable, yVarEnable)*16
      */
-    if (!ssSetNumInputPorts(S, 2)) return;
+    if (!ssSetNumInputPorts(S, 3)) return;
     ssSetInputPortWidth(S, 0, 2); /* cursor position*/
-    ssSetInputPortWidth(S, 1, 6*16); /* target position _table_ (stacked) */
+    ssSetInputPortWidth(S, 1, 2); /* cursor position*/
+    ssSetInputPortWidth(S, 2, 6*16); /* target position _table_ (stacked) */
     ssSetInputPortDirectFeedThrough(S, 0, 1);
     ssSetInputPortDirectFeedThrough(S, 1, 1);
+    ssSetInputPortDirectFeedThrough(S, 2, 1);
     
     /* 
      * Block has 9 output ports (reward, word, status, tone, target, target select, MVC Target, version, rotation) of widths:
@@ -416,9 +438,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     double tmp_sort[64];
     double tmp_d;
         
-    byte* databurst;
-    float* databurst_target_list;
-    float* databurst_rotation;
+    byte *databurst;
+    float *databurst_rotation;
+	float *databurst_offsets;
+    float *databurst_target_list;
     int databurst_counter;
     
 	int reshuffle = 0;
@@ -487,9 +510,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
     /* Setup the databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 23);
-    databurst = (byte *)ssGetPWorkValue(S, 0);
-    databurst_rotation    = (float *)(databurst + 2*sizeof(byte));
-    databurst_target_list = (float *)(databurst + 2*sizeof(byte) + sizeof(float));
+    databurst = ssGetPWorkValue(S, 0);
+	databurst_offsets     = (float *)(databurst + 6);
+    databurst_rotation    = databurst_offsets + 2;
+    databurst_target_list = databurst_rotation + 1;
     
     /*********************************
      * See if we have issued a reset *
@@ -655,7 +679,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			target_id = ssGetIWorkValue(S, 5 + target_index);
 
 			/* Grab the (newly) selected target from the target table */
-		    uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
+		    uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
 		    target_y = *uPtrs[0+(target_id*6)];
 		    target_h = *uPtrs[1+(target_id*6)];
 		    target_x = *uPtrs[2+(target_id*6)];
@@ -721,8 +745,16 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 		    tgt[3] = target_y - target_h / 2.0;
 			
             /* Copy target info into databursts */
-            databurst[0] = (4 * sizeof(float) + sizeof(float) + 2); /*  number of bytes = 4 * 4 floats: [xl,yh,xh,yl] + 2 databurst[0:1] = 18 bytes */
+            databurst[0] = 6 + 3*sizeof(float) + 4*sizeof(float);
             databurst[1] = DATABURST_VERSION;
+			databurst[2] = BEHAVIOR_VERSION_MAJOR;
+			databurst[3] = BEHAVIOR_VERSION_MINOR;
+			databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
+			databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
+			/* The offsets used in the calculation of the cursor location */
+			uPtrs = ssGetInputPortRealSignalPtrs(S, 1); 
+			databurst_offsets[0] = *uPtrs[0];
+			databurst_offsets[1] = *uPtrs[1];
             databurst_rotation[0] = (float)(rotation * 180.0 / PI);
             for (i = 0; i < 4; i++) {
                 databurst_target_list[i] = (float)tgt[i];
@@ -736,7 +768,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             break;
         case STATE_DATA_BLOCK:
-            if (databurst_counter >= 2*(databurst[0])-1) { 
+            if (databurst_counter > 2*(databurst[0]-1)) { 
                new_state = STATE_RECENTERING;
                state_changed();
             }

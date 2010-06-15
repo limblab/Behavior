@@ -17,7 +17,7 @@
 #define PI (3.141592654)
 
 /* 
- * Current Databurst version: 3
+ * Current Databurst version: 4
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -46,8 +46,7 @@
  * ----------------
  * byte 0: uchar => number of bytes to be transmitted
  * byte 1: uchar => version number (in this case one)
- * bytes 2 to 6: float => Cursor rotation value
- * bytes 6 to 6+ N*16: where N is the number of targets whose position are output.
+ * bytes 2 to 2+ N*16: where N is the number of targets whose position are output.
  *		contains 16 bytes per target representing four single precision floating point
  *		numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
  *		of the UL and LR corners of the target.
@@ -67,10 +66,28 @@
  * caused the output target position to be delayed by one trial, and removes
  * the possibility of multiple targets (although they were in the spec, 
  * multiple targets were never output in the databurst).
+ *
+ * Version 4 (0x04)
+ * ----------------
+ * byte   0: uchar => number of bytes to be transmitted
+ * byte   1: uchar => databurst version number (in this case four)
+ * byte   2: uchar => model version major
+ * byte   3: uchar => model version minor
+ * bytes  4 to  5: short => model version micro
+ * bytes  6 to  9: float => x offset
+ * bytes 10 to 13: float => y offset
+ * bytes 14 to 29: 16 bytes per target representing four single precision floating point
+ *		numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
+ *		of the UL and LR corners of the target.
+ *
+ *		The position of only the current target is output at the begining of each trial
+ *		in normal behavior.
+ *
+ *		In MVC mode, the current value of the MVC target is provided in the databurst
  */
 
 typedef unsigned char byte;
-#define DATABURST_VERSION ((byte)0x03) 
+#define DATABURST_VERSION ((byte)0x04) 
 
 /*
  * Tunable parameters
@@ -394,8 +411,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     double tmp_sort[64];
     double tmp_d;
         
-    byte* databurst;
-    float* databurst_target_list;
+    byte *databurst;
+	float *databurst_offsets;
+    float *databurst_target_list;
     int databurst_counter;
     
 	int reshuffle = 0;
@@ -459,8 +477,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
     /* Setup the databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 135);
-    databurst = (byte *)ssGetPWorkValue(S, 0);
-    databurst_target_list = (float *)(databurst + 2*sizeof(byte));
+    databurst = ssGetPWorkValue(S, 0);
+	databurst_offsets = (float *)(databurst + 6);
+    databurst_target_list = databurst_offsets + 2;
     
     /*********************************
      * See if we have issued a reset *
@@ -705,11 +724,18 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 		    tgt[3] = target_y - target_h / 2.0;
 			
             /* Copy target info into databursts */
-            databurst[0] = (4 * sizeof(float) + 2); /*  number of bytes = 4 * 4 floats: [xl,yh,xh,yl] + 2 databurst[0:1] = 18 bytes */
+            databurst[0] = 6 + 2*sizeof(float) + 4*sizeof(float);
             databurst[1] = DATABURST_VERSION;
+			databurst[2] = BEHAVIOR_VERSION_MAJOR;
+			databurst[3] = BEHAVIOR_VERSION_MINOR;
+			databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
+			databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
+			databurst_offsets[0] = 0.0f;
+			databurst_offsets[1] = 0.0f;
             for (i = 0; i < 4; i++) {
                 databurst_target_list[i] = (float)tgt[i];
             }
+
             /* and reset the databurst counter */
             ssSetIWorkValue(S, 135, 0);
                         
@@ -719,7 +745,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             break;
         case STATE_DATA_BLOCK:
-            if (databurst_counter >= 2*(databurst[0])-1) { 
+            if (databurst_counter > 2*(databurst[0]-1)) { 
                new_state = STATE_TOUCH_PAD_ON;
                state_changed();
             }

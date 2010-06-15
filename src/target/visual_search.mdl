@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1227"
+    ComputedModelVersion    "1.1230"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "Matt Bauman"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jun 10 18:10:49 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:1227>"
+  LastModifiedDate	  "Tue Jun 15 14:30:44 2010"
+  ModelVersionFormat	  "1.%<AutoIncrement:1230>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -852,7 +852,7 @@ Model {
     Block {
       BlockType		      "S-Function"
       Name		      "Behavior VS"
-      Ports		      [3, 8]
+      Ports		      [4, 8]
       Position		      [660, 88, 885, 422]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_vs"
@@ -1085,7 +1085,7 @@ Model {
       BlockType		      SubSystem
       Name		      "Catch Force Generator"
       Ports		      [1, 1]
-      Position		      [545, 334, 605, 396]
+      Position		      [545, 354, 605, 416]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -1822,7 +1822,7 @@ Model {
       BlockType		      SubSystem
       Name		      "Force Generator"
       Ports		      [1, 1]
-      Position		      [545, 224, 605, 286]
+      Position		      [545, 269, 605, 331]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -2553,6 +2553,13 @@ Model {
 	  DstPort		  3
 	}
       }
+    }
+    Block {
+      BlockType		      From
+      Name		      "From"
+      Position		      [550, 201, 600, 229]
+      CloseFcn		      "tagdialog Close"
+      GotoTag		      "Offsets"
     }
     Block {
       BlockType		      Goto
@@ -5674,7 +5681,7 @@ Model {
       System {
 	Name			"RewardSbs"
 	Location		[14, 142, 886, 404]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -5898,6 +5905,7 @@ Model {
 	  Position		  [65, 99, 95, 131]
 	  Minimum		  "0"
 	  Maximum		  "100"
+	  SampleTime		  "0.001"
 	}
 	Block {
 	  BlockType		  Outport
@@ -7047,7 +7055,7 @@ Model {
       System {
 	Name			"XY Position Subsystem"
 	Location		[54, 86, 1070, 808]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -7929,7 +7937,7 @@ Model {
 	  System {
 	    Name		    "Jacobian-Cartesian Transformation"
 	    Location		    [0, 82, 1268, 884]
-	    Open		    off
+	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -7982,6 +7990,13 @@ Model {
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
+	      BlockType		      Goto
+	      Name		      "Goto"
+	      Position		      [755, 305, 795, 335]
+	      GotoTag		      "Offsets"
+	      TagVisibility	      "global"
+	    }
+	    Block {
 	      BlockType		      Constant
 	      Name		      "L1"
 	      Position		      [185, 295, 215, 325]
@@ -8016,6 +8031,15 @@ Model {
 	      Position		      [955, 279, 995, 366]
 	      Mode		      "Multidimensional array"
 	      ConcatenateDimension    "2"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1]
+	      Position		      [695, 301, 700, 339]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
 	    }
 	    Block {
 	      BlockType		      Product
@@ -8132,7 +8156,7 @@ Model {
 	    Block {
 	      BlockType		      Constant
 	      Name		      "yoffset"
-	      Position		      [400, 155, 430, 185]
+	      Position		      [400, 160, 430, 190]
 	      Value		      "37"
 	    }
 	    Block {
@@ -8274,14 +8298,29 @@ Model {
 	      SrcBlock		      "xoffset"
 	      SrcPort		      1
 	      Points		      [40, 0]
-	      DstBlock		      "Sum1"
-	      DstPort		      2
+	      Branch {
+		DstBlock		"Sum1"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[110, 0; 0, -40]
+		DstBlock		"Mux"
+		DstPort			1
+	      }
 	    }
 	    Line {
 	      SrcBlock		      "yoffset"
 	      SrcPort		      1
-	      DstBlock		      "Sum4"
-	      DstPort		      2
+	      Points		      [35, 0]
+	      Branch {
+		DstBlock		"Sum4"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[190, 0; 0, 155]
+		DstBlock		"Mux"
+		DstPort			2
+	      }
 	    }
 	    Line {
 	      SrcBlock		      "Product3"
@@ -8402,6 +8441,12 @@ Model {
 		DstBlock		"Product1"
 		DstPort			2
 	      }
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Goto"
+	      DstPort		      1
 	    }
 	    Annotation {
 	      Name		      "By default X offset is zero and Y is 28"
@@ -8705,13 +8750,13 @@ Model {
       Branch {
 	Points			[0, -110]
 	Branch {
-	  Points		  [0, -145]
+	  Points		  [0, -125]
 	  Branch {
 	    DstBlock		    "Catch Force Generator"
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -110]
+	    Points		    [0, -85]
 	    DstBlock		    "Force Generator"
 	    DstPort		    1
 	  }
@@ -8777,12 +8822,6 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "Force Generator"
-      SrcPort		      1
-      DstBlock		      "Behavior VS"
-      DstPort		      2
-    }
-    Line {
       SrcBlock		      "Behavior VS"
       SrcPort		      1
       Points		      [460, 0; 0, 380; -325, 0; 0, 65]
@@ -8799,12 +8838,6 @@ Model {
       SrcBlock		      "BoundingBox"
       SrcPort		      1
       DstBlock		      "Recentering Subsystem"
-      DstPort		      3
-    }
-    Line {
-      SrcBlock		      "Catch Force Generator"
-      SrcPort		      1
-      DstBlock		      "Behavior VS"
       DstPort		      3
     }
     Line {
@@ -8902,6 +8935,7 @@ Model {
     Line {
       SrcBlock		      "Neural Override"
       SrcPort		      1
+      Points		      [185, 0]
       DstBlock		      "Behavior VS"
       DstPort		      1
     }
@@ -8916,6 +8950,24 @@ Model {
       SrcPort		      1
       DstBlock		      "SendPacketToGraphics"
       DstPort		      4
+    }
+    Line {
+      SrcBlock		      "Catch Force Generator"
+      SrcPort		      1
+      DstBlock		      "Behavior VS"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "Force Generator"
+      SrcPort		      1
+      DstBlock		      "Behavior VS"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "From"
+      SrcPort		      1
+      DstBlock		      "Behavior VS"
+      DstPort		      2
     }
     Annotation {
       Position		      [954, 296]

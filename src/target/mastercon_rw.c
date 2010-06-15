@@ -15,7 +15,7 @@
 #include "random_macros.h"
 
 /* 
- * Current Databurst version: 0
+ * Current Databurst version: 1
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -34,10 +34,24 @@
  *      little-endian format represnting the x and y position of the center of 
  *      the target.
  *
+ * Version 1 (0x01)
+ * ----------------
+ * byte   0: uchar => number of bytes to be transmitted
+ * byte   1: uchar => databurst version number (in this case four)
+ * byte   2: uchar => model version major
+ * byte   3: uchar => model version minor
+ * bytes  4 to  5: short => model version micro
+ * bytes  6 to  9: float => x offset
+ * bytes 10 to 13: float => y offset
+ * bytes 14 to 17: float => target_size - target_tolerance
+ * bytes 18 to 18+N*8: where N is the number of targets, contains 8 bytes per 
+ *      target representing two single-precision floating point numbers in 
+ *      little-endian format represnting the x and y position of the center of 
+ *      the target.
  */
 
 typedef unsigned char byte;
-#define DATABURST_VERSION ((byte)0x00) 
+#define DATABURST_VERSION ((byte)0x01) 
 
 /*
  * Tunable parameters
@@ -160,17 +174,21 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumDiscStates(S, 1);
     
     /*
-     * Block has 2 input ports
+     * Block has 4 input ports
      *      input port 0: (position) of width 2 (x, y)
-     *      input port 1: (force) of width 2 (x, y)
+	 *      input port 1: (position offset) of width 2 (x, y)
+     *      input port 2: (force) of width 2 (x, y)
+     *      input port 3: (catch force) of width 2 (x, y)
      */
-    if (!ssSetNumInputPorts(S, 3)) return;
+    if (!ssSetNumInputPorts(S, 4)) return;
     ssSetInputPortWidth(S, 0, 2); /* x & y position */
-    ssSetInputPortWidth(S, 1, 2); /* main force */
-    ssSetInputPortWidth(S, 2, 2); /* catch trial force */
+    ssSetInputPortWidth(S, 1, 2); /* x & y position offsets */
+    ssSetInputPortWidth(S, 2, 2); /* main force */
+    ssSetInputPortWidth(S, 3, 2); /* catch trial force */
     ssSetInputPortDirectFeedThrough(S, 0, 1);
     ssSetInputPortDirectFeedThrough(S, 1, 1);
     ssSetInputPortDirectFeedThrough(S, 2, 1);
+    ssSetInputPortDirectFeedThrough(S, 3, 1);
     
     /* 
      * Block has 8 output ports (force, status, word, targets, reward, tone, version, pos) of widths:
@@ -385,8 +403,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T elapsed_timer_time;
     real_T temp_distance;
     real_T temp_angle;
-    byte* databurst;
-    float* databurst_target_list;
+    byte *databurst;
+	float *databurst_offsets;
+	float *databurst_target_size;
+    float *databurst_target_list;
     int databurst_counter;
     
     /******************
@@ -422,8 +442,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 6);
-    databurst = (byte *)ssGetPWorkValue(S, 0);
-    databurst_target_list = (float *)(databurst + 2*sizeof(byte));
+    databurst = ssGetPWorkValue(S, 0);
+	databurst_offsets = (float *)(databurst + 6);
+	databurst_target_size = databurst_offsets + 2;
+    databurst_target_list = databurst_target_size + 1;
     
     /*********************************
      * See if we have issued a reset *
@@ -514,8 +536,17 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             
             /* Copy data into databursts */
-            databurst[0] = (byte)(num_targets * 2 * sizeof(float) + 2);
+            databurst[0] = 6 + 3*sizeof(float) + 2*num_targets*sizeof(float);
             databurst[1] = DATABURST_VERSION;
+			databurst[2] = BEHAVIOR_VERSION_MAJOR;
+			databurst[3] = BEHAVIOR_VERSION_MINOR;
+			databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
+			databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
+			/* The offsets used in the calculation of the cursor location */
+			uPtrs = ssGetInputPortRealSignalPtrs(S, 1); 
+			databurst_offsets[0] = *uPtrs[0];
+			databurst_offsets[1] = *uPtrs[1];
+			databurst_target_size[0] = target_size - target_tolerance;
             for (i = 0; i < num_targets * 2; i++) {
                 databurst_target_list[i] = (float)ssGetRWorkValue(S, 6 + i);
             }
@@ -738,12 +769,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     cursor[1] = *uPtrs[1];
     
     /* input force */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
     force_in[0] = *uPtrs[0];
     force_in[1] = *uPtrs[1];
     
     /* catch input force */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 3);
     force_in_catch[0] = *uPtrs[0];
     force_in_catch[1] = *uPtrs[1];
     
