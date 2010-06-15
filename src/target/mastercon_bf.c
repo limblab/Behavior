@@ -315,10 +315,10 @@ static int cursorInTarget(real_T *c, real_T *t)
 static int cursorInArc(real_T *c, real_T *a)
 {
     /* a[0] = arc center angle(rad), a[1] = arc length(rad) */
-    if ( (a[0]+a[1]/2+pi % 2*pi)-pi ) > ( (a[0]-a[1]/2+pi % 2*pi)-pi ) {
-        return ( (a[0]+a[1]/2+pi % 2*pi)-pi > atan2(c[1],c[0])) && (a[0]-a[1]/2+pi % 2*pi)-pi < atan2(c[1],c[0])
+    if ( fmod(a[0]+a[1]/2+PI,2*PI) -PI >  fmod(a[0]-a[1]/2+PI,2*PI)-PI ) {
+        return ( fmod(a[0]+a[1]/2+PI,2*PI)-PI > atan2(c[1],c[0]) && fmod(a[0]-a[1]/2+PI,2*PI)-PI < atan2(c[1],c[0]) );
     } else {
-        return ( (a[0]+a[1]/2+pi % 2*pi)-pi > atan2(c[1],c[0])) || (a[0]-a[1]/2+pi % 2*pi)-pi < atan2(c[1],c[0])
+        return ( fmod(a[0]+a[1]/2+PI,2*PI)-PI > atan2(c[1],c[0]) || fmod(a[0]-a[1]/2+PI,2*PI)-PI < atan2(c[1],c[0]) );
     }    
 }
 
@@ -361,7 +361,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     byte *databurst;
 	float *databurst_offsets;
     float *databurst_angle;
-    float *databurst_bump_mag
+    float *databurst_bump_mag;
     int databurst_counter;
             
     /******************
@@ -759,10 +759,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_id = ssGetRWorkValue(S, 2);
     
     /* get target bounds */
-    ct[0] = -target_size/2;
-    ct[1] = target_size/2;
-    ct[2] = target_size/2;
-    ct[3] = -target_size/2;
+    ct[0] = -center_target_size/2;
+    ct[1] = center_target_size/2;
+    ct[2] = center_target_size/2;
+    ct[3] = -center_target_size/2;
     
     ra[0] = arc_radius*cos(bump_direction+PI-arc_length/2);
     ra[1] = arc_radius*sin(bump_direction+PI-arc_length/2);
