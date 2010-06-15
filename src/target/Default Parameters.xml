@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.3729.21896">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.3818.25858">
   <ScreenWidth>60</ScreenWidth>
   <MGGains>
     <double>60</double>
@@ -10,6 +10,7 @@
   <BD_Catch_Block>4</BD_Catch_Block>
   <VerticalDisplacement>-25</VerticalDisplacement>
   <Cursor>5</Cursor>
+  <GlyphSet>0</GlyphSet>
   <SoundTheme>Theme3</SoundTheme>
   <CenterOutMode>None</CenterOutMode>
   <Load>None</Load>
@@ -54,6 +55,10 @@
       </item>
       <item>
         <key>Use Tachs</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Use Neural Control</key>
         <value>0</value>
       </item>
       <item>
@@ -651,6 +656,58 @@
       <item>
         <key>BC Pct Stimulation Trials</key>
         <value>1</value>
+      </item>
+      <item>
+        <key>VSCHL</key>
+        <value>0.25</value>
+      </item>
+      <item>
+        <key>VSCHH</key>
+        <value>0.5</value>
+      </item>
+      <item>
+        <key>VSST</key>
+        <value>2</value>
+      </item>
+      <item>
+        <key>VSRT</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>VSOHL</key>
+        <value>0.5</value>
+      </item>
+      <item>
+        <key>VSOHH</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>VSRTO</key>
+        <value>0.5</value>
+      </item>
+      <item>
+        <key>VSFTO</key>
+        <value>5</value>
+      </item>
+      <item>
+        <key>VSITO</key>
+        <value>5</value>
+      </item>
+      <item>
+        <key>VSATO</key>
+        <value>5</value>
+      </item>
+      <item>
+        <key>VS Num Targets</key>
+        <value>8</value>
+      </item>
+      <item>
+        <key>VSTR</key>
+        <value>10</value>
+      </item>
+      <item>
+        <key>VSTS</key>
+        <value>3</value>
       </item>
     </dictionary>
   </SerializedParameters>
