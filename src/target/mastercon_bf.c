@@ -894,12 +894,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
            target_pos[i+1] = ct[i];
         }
         /* outer target on */
-        target_pos[5] = 5;
+        target_pos[5] = 4;  /* should be 5 when target is implemented*/
         for (i=0; i<4; i++) {
             target_pos[i+6] = ra[i];
         }
         if (!training_mode) {
-            target_pos[10] = 6;
+            target_pos[10] = 1; /* should be 6 when target is implemented*/
             for (i=0; i<4; i++) {
                 target_pos[i+11] = fa[i];
             }
@@ -912,12 +912,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
            target_pos[i+1] = ct[i];
         }
         /* outer target on */
-        target_pos[5] = 5;
+        target_pos[5] = 4;     /* should be 5 when target is implemented*/
         for (i=0; i<4; i++) {
             target_pos[i+6] = ra[i];
         }
         if (!training_mode) {
-            target_pos[10] = 6;
+            target_pos[10] = 1;   /* should be 6 when target is implemented*/
             for (i=0; i<4; i++) {
                 target_pos[i+11] = fa[i];
             }
