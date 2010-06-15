@@ -219,7 +219,7 @@ static void mdlInitializeSizes(SimStruct *S)
                              1: tone counter (incremented each time a tone is played)
                              2: tone id
 							 3: mastercon version
-                             4: target direction
+                             4: bump direction
                              5: bump magnitude   
                              6: master update counter                        
                            */
