@@ -742,7 +742,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     bump_step = ssGetIWorkValue(S, 5);
     
     /* get stimulation parameters */
-    uPtrs = ssGetInputPortRealSignalPtrs(S,3);
+    uPtrs = ssGetInputPortRealSignalPtrs(S,4);
     for (i=0 ; i<16 ; i++) { 
         stim_codes[i] = *uPtrs[2*i];
         pref_dirs[i] = *uPtrs[2*i+1];
@@ -780,7 +780,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     cursor[1] = *uPtrs[1];
     
     /* input force */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 1);
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
     force_in[0] = *uPtrs[0];
     force_in[1] = *uPtrs[1];
     
@@ -894,20 +894,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
            target_pos[i+1] = ct[i];
         }
         /* outer target on */
-        target_pos[5] = 5;  /* should be 5 when target is implemented*/
+        target_pos[5] =5; 
         for (i=0; i<4; i++) {
             target_pos[i+6] = ra[i];
         }
-        if (training_mode) {
-            target_pos[10] = 6; 
-            for (i=0; i<4; i++) {
-                target_pos[i+11] = fa[i];
-            }
-        } else {        
-            target_pos[10] = 5; /* should be 6 when target is implemented*/
-            for (i=0; i<4; i++) {
-                target_pos[i+11] = fa[i];
-            }
+        if (!training_mode) {      
+            target_pos[10] = 5; 
+        }        
+        for (i=0; i<4; i++) {
+            target_pos[i+11] = fa[i];
         }
     } else if ( state == STATE_MOVEMENT  ||
          state == STATE_BUMP_STIM) {
@@ -917,20 +912,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
            target_pos[i+1] = ct[i];
         }
         /* outer target on */
-        target_pos[5] = 5;     /* should be 5 when target is implemented*/
+        target_pos[5] = 5;    
         for (i=0; i<4; i++) {
             target_pos[i+6] = ra[i];
         }
-        if (training_mode) {
-            target_pos[10] = 6; 
-            for (i=0; i<4; i++) {
-                target_pos[i+11] = fa[i];
-            }
-        } else {        
-            target_pos[10] = 5; /* should be 6 when target is implemented*/
-            for (i=0; i<4; i++) {
-                target_pos[i+11] = fa[i];
-            }
+        if (!training_mode) {                   
+            target_pos[10] = 5; 
+        }
+        for (i=0; i<4; i++) {
+            target_pos[i+11] = fa[i];
         }
     }
         
