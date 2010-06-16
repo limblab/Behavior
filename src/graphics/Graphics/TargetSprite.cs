@@ -74,14 +74,7 @@ namespace BehaviorGraphics
                 case TargetSpriteType.RedTarget:
                     /* Red square target */
                     vertices = new CustomVertex.TransformedColored[4];
-                    vertices[0].Position = new Vector4(ul.X, ul.Y, 0f, 1f);
-                    vertices[0].Color = Color.Red.ToArgb();
-                    vertices[1].Position = new Vector4(ul.X, lr.Y, 0f, 1f);
-                    vertices[1].Color = Color.Red.ToArgb();
-                    vertices[2].Position = new Vector4(lr.X, lr.Y, 0f, 1f);
-                    vertices[2].Color = Color.Red.ToArgb();
-                    vertices[3].Position = new Vector4(lr.X, ul.Y, 0f, 1f);
-                    vertices[3].Color = Color.Red.ToArgb();
+                    getSquareVertices(ul, lr, Color.Red, ref vertices);
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
@@ -90,14 +83,7 @@ namespace BehaviorGraphics
                 case TargetSpriteType.FCTarget:
                     /* White square target */
                     vertices = new CustomVertex.TransformedColored[4];
-                    vertices[0].Position = new Vector4(ul.X, ul.Y, 0f, 1f);
-                    vertices[0].Color = Color.White.ToArgb();
-                    vertices[1].Position = new Vector4(ul.X, lr.Y, 0f, 1f);
-                    vertices[1].Color = Color.White.ToArgb();
-                    vertices[2].Position = new Vector4(lr.X, lr.Y, 0f, 1f);
-                    vertices[2].Color = Color.White.ToArgb();
-                    vertices[3].Position = new Vector4(lr.X, ul.Y, 0f, 1f);
-                    vertices[3].Color = Color.White.ToArgb();
+                    getSquareVertices(ul, lr, Color.White, ref vertices);
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
@@ -107,14 +93,7 @@ namespace BehaviorGraphics
                 case TargetSpriteType.GreenTarget:
                     /* White square target */
                     vertices = new CustomVertex.TransformedColored[4];
-                    vertices[0].Position = new Vector4(ul.X, ul.Y, 0f, 1f);
-                    vertices[0].Color = Color.Green.ToArgb();
-                    vertices[1].Position = new Vector4(ul.X, lr.Y, 0f, 1f);
-                    vertices[1].Color = Color.Green.ToArgb();
-                    vertices[2].Position = new Vector4(lr.X, lr.Y, 0f, 1f);
-                    vertices[2].Color = Color.Green.ToArgb();
-                    vertices[3].Position = new Vector4(lr.X, ul.Y, 0f, 1f);
-                    vertices[3].Color = Color.Green.ToArgb();
+                    getSquareVertices(ul, lr, Color.Green, ref vertices);
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
@@ -159,7 +138,8 @@ namespace BehaviorGraphics
 
                 case TargetSpriteType.RedArc:
                     /* Red square target */
-                    vertices = getArcVertices(ul, lr, Color.Red);
+                    vertices = new CustomVertex.TransformedColored[200];
+                    getArcVertices(ul, lr, Color.Red, ref vertices);
                    
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 100, vertices);
@@ -167,8 +147,9 @@ namespace BehaviorGraphics
                     break;
 
                 case TargetSpriteType.WhiteArc:
-                    /* Red square target */
-                    vertices = getArcVertices(ul, lr, Color.White);
+                    /* White arc target */
+                    vertices = new CustomVertex.TransformedColored[200];
+                    getArcVertices(ul, lr, Color.White, ref vertices);
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 100, vertices);
@@ -222,25 +203,47 @@ namespace BehaviorGraphics
             device.SetTexture(0, null);
         }
 
-        private CustomVertex.TransformedColored[] getArcVertices(Vector3 innerStart, Vector3 outerStop, Color c)
+        private void getSquareVertices(Vector3 ul, Vector3 lr, Color c, ref CustomVertex.TransformedColored[] vertices)
         {
-            CustomVertex.TransformedColored[] vertices = new CustomVertex.TransformedColored[200];
-            float start = (float)Math.Atan2((double)innerStart.Y, (double)innerStart.X);
-            float length = (float)Math.Atan2((double)outerStop.Y, (double)outerStop.X) - start;
-            float inner = (float)Math.Sqrt( (double)(innerStart.X*innerStart.X + innerStart.Y*innerStart.Y) );
-            float outer = (float)Math.Sqrt((double)(outerStop.X * outerStop.X + outerStop.Y * outerStop.Y)); ;
+            vertices[0].Position = new Vector4(ul.X, ul.Y, 0f, 1f);
+            vertices[0].Color = c.ToArgb();
+            vertices[1].Position = new Vector4(ul.X, lr.Y, 0f, 1f);
+            vertices[1].Color = c.ToArgb();
+            vertices[2].Position = new Vector4(lr.X, lr.Y, 0f, 1f);
+            vertices[2].Color = c.ToArgb();
+            vertices[3].Position = new Vector4(lr.X, ul.Y, 0f, 1f);
+            vertices[3].Color = c.ToArgb();            
+        }
 
-            for (int i = 0; i < 100; i++) {
-                double theta = start + i / 100 * length;
-
-                vertices[2 * i].Position = new Vector4(inner*(float)Math.Cos(theta), inner*(float)Math.Sin(theta), 0f, 1f);
-                vertices[2 * i].Color = c.ToArgb();
-                                
-                vertices[2 * i + 1].Position = new Vector4(outer * (float)Math.Cos(theta), outer * (float)Math.Sin(theta), 0f, 1f);
-                vertices[2 * i + 1].Color = c.ToArgb();
+        private void getArcVertices(Vector3 innerStart, Vector3 outerStop, Color c, ref CustomVertex.TransformedColored[] vertices)
+        {
+            float start_angle = (float)Math.Atan2((double)innerStart.Y - device.Viewport.Height / 2, (double)innerStart.X - device.Viewport.Width / 2);
+            float end_angle = (float)Math.Atan2((double)outerStop.Y - device.Viewport.Height / 2, (double)outerStop.X - device.Viewport.Width / 2);
+            
+            if (end_angle > start_angle ) {
+                start_angle = start_angle + (float)6.2832;
             }
 
-            return vertices;
+            float length =  2*(end_angle - start_angle);
+
+            float inner = (float)Math.Sqrt((double)((innerStart.X - device.Viewport.Width / 2) * (innerStart.X - device.Viewport.Width / 2) + (innerStart.Y - device.Viewport.Height / 2) * (innerStart.Y - device.Viewport.Height / 2)));
+            float outer = (float)Math.Sqrt((double)((outerStop.X - device.Viewport.Width / 2) * (outerStop.X - device.Viewport.Width / 2) + (outerStop.Y - device.Viewport.Height / 2) * (outerStop.Y - device.Viewport.Height / 2)));
+
+            for (int i = 0; i < 100; i++) {
+                double theta = start_angle + (double)i / 100.0 * length;
+
+                vertices[2 * i].Position = new Vector4(
+                    inner*(float)Math.Cos(theta) + device.Viewport.Width/2, 
+                    inner*(float)Math.Sin(theta) + device.Viewport.Height/2, 
+                    0f, 1f);
+                vertices[2 * i].Color = c.ToArgb();
+                                
+                vertices[2 * i + 1].Position = new Vector4(
+                    outer * (float)Math.Cos(theta) + device.Viewport.Width/2, 
+                    outer * (float)Math.Sin(theta) + device.Viewport.Height/2, 
+                    0f, 1f);
+                vertices[2 * i + 1].Color = c.ToArgb();
+            }
         }
 
         public void SetPosition(float left, float top, float right, float bottom)
