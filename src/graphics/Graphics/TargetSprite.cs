@@ -85,7 +85,6 @@ namespace BehaviorGraphics
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
-
                     break;
 
                 case TargetSpriteType.FCTarget:
@@ -156,8 +155,26 @@ namespace BehaviorGraphics
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
 
+                    break;
+
+                case TargetSpriteType.RedArc:
+                    /* Red square target */
+                    vertices = getArcVertices(ul, lr, Color.Red);
+                   
+                    device.VertexFormat = CustomVertex.TransformedColored.Format;
+                    device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 100, vertices);
 
                     break;
+
+                case TargetSpriteType.WhiteArc:
+                    /* Red square target */
+                    vertices = getArcVertices(ul, lr, Color.White);
+
+                    device.VertexFormat = CustomVertex.TransformedColored.Format;
+                    device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 100, vertices);
+
+                    break;
+
                 default:
 
                     // See if we are one of the glyph types
@@ -205,6 +222,27 @@ namespace BehaviorGraphics
             device.SetTexture(0, null);
         }
 
+        private CustomVertex.TransformedColored[] getArcVertices(Vector3 innerStart, Vector3 outerStop, Color c)
+        {
+            CustomVertex.TransformedColored[] vertices = new CustomVertex.TransformedColored[200];
+            float start = (float)Math.Atan2((double)innerStart.Y, (double)innerStart.X);
+            float length = (float)Math.Atan2((double)outerStop.Y, (double)outerStop.X) - start;
+            float inner = (float)Math.Sqrt( (double)(innerStart.X*innerStart.X + innerStart.Y*innerStart.Y) );
+            float outer = (float)Math.Sqrt((double)(outerStop.X * outerStop.X + outerStop.Y * outerStop.Y)); ;
+
+            for (int i = 0; i < 100; i++) {
+                double theta = start + i / 100 * length;
+
+                vertices[2 * i].Position = new Vector4(inner*(float)Math.Cos(theta), inner*(float)Math.Sin(theta), 0f, 1f);
+                vertices[2 * i].Color = c.ToArgb();
+                                
+                vertices[2 * i + 1].Position = new Vector4(outer * (float)Math.Cos(theta), outer * (float)Math.Sin(theta), 0f, 1f);
+                vertices[2 * i + 1].Color = c.ToArgb();
+            }
+
+            return vertices;
+        }
+
         public void SetPosition(float left, float top, float right, float bottom)
         {
             ul.X = left;
@@ -222,6 +260,8 @@ namespace BehaviorGraphics
         FCTarget = 2,
         GreenTarget = 3,
         WallColisionTarget = 4,
+        RedArc = 5,
+        WhiteArc = 6,
         Glyph0 = 16,
         Glyph1 = 17,
         Glyph2 = 18,

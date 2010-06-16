@@ -769,10 +769,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     ra[2] = (arc_radius + arc_thickness)*cos(bump_direction+PI+arc_length/2);
     ra[3] = (arc_radius + arc_thickness)*sin(bump_direction+PI+arc_length/2);
     
-    fa[0] = arc_radius;
-    fa[1] = 0;
-    fa[2] = arc_radius + arc_thickness;
-    fa[3] = 0;     
+    fa[0] = arc_radius*cos(bump_direction+PI+arc_length/2);
+    fa[1] = arc_radius*sin(bump_direction+PI+arc_length/2);
+    fa[2] = (arc_radius + arc_thickness)*cos(bump_direction+PI-arc_length/2);
+    fa[3] = (arc_radius + arc_thickness)*sin(bump_direction+PI-arc_length/2);     
         
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
@@ -894,12 +894,17 @@ static void mdlOutputs(SimStruct *S, int_T tid)
            target_pos[i+1] = ct[i];
         }
         /* outer target on */
-        target_pos[5] = 4;  /* should be 5 when target is implemented*/
+        target_pos[5] = 5;  /* should be 5 when target is implemented*/
         for (i=0; i<4; i++) {
             target_pos[i+6] = ra[i];
         }
-        if (!training_mode) {
-            target_pos[10] = 1; /* should be 6 when target is implemented*/
+        if (training_mode) {
+            target_pos[10] = 6; 
+            for (i=0; i<4; i++) {
+                target_pos[i+11] = fa[i];
+            }
+        } else {        
+            target_pos[10] = 5; /* should be 6 when target is implemented*/
             for (i=0; i<4; i++) {
                 target_pos[i+11] = fa[i];
             }
@@ -912,12 +917,17 @@ static void mdlOutputs(SimStruct *S, int_T tid)
            target_pos[i+1] = ct[i];
         }
         /* outer target on */
-        target_pos[5] = 4;     /* should be 5 when target is implemented*/
+        target_pos[5] = 5;     /* should be 5 when target is implemented*/
         for (i=0; i<4; i++) {
             target_pos[i+6] = ra[i];
         }
-        if (!training_mode) {
-            target_pos[10] = 1;   /* should be 6 when target is implemented*/
+        if (training_mode) {
+            target_pos[10] = 6; 
+            for (i=0; i<4; i++) {
+                target_pos[i+11] = fa[i];
+            }
+        } else {        
+            target_pos[10] = 5; /* should be 6 when target is implemented*/
             for (i=0; i<4; i++) {
                 target_pos[i+11] = fa[i];
             }
