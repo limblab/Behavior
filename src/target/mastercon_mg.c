@@ -69,14 +69,12 @@
  *
  * Version 4 (0x04)
  * ----------------
- * byte   0: uchar => number of bytes to be transmitted
- * byte   1: uchar => databurst version number (in this case four)
- * byte   2: uchar => model version major
- * byte   3: uchar => model version minor
- * bytes  4 to  5: short => model version micro
- * bytes  6 to  9: float => x offset
- * bytes 10 to 13: float => y offset
- * bytes 14 to 29: 16 bytes per target representing four single precision floating point
+ * byte  0: uchar => number of bytes to be transmitted
+ * byte  1: uchar => databurst version number (in this case four)
+ * byte  2: uchar => model version major
+ * byte  3: uchar => model version minor
+ * bytes 4 to  5: short => model version micro
+ * bytes 6 to 21: 16 bytes per target representing four single precision floating point
  *		numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
  *		of the UL and LR corners of the target.
  *
@@ -412,7 +410,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     double tmp_d;
         
     byte *databurst;
-	float *databurst_offsets;
     float *databurst_target_list;
     int databurst_counter;
     
@@ -478,8 +475,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* Setup the databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 135);
     databurst = ssGetPWorkValue(S, 0);
-	databurst_offsets = (float *)(databurst + 6);
-    databurst_target_list = databurst_offsets + 2;
+    databurst_target_list = (float *)(databurst + 6);
     
     /*********************************
      * See if we have issued a reset *
@@ -724,14 +720,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 		    tgt[3] = target_y - target_h / 2.0;
 			
             /* Copy target info into databursts */
-            databurst[0] = 6 + 2*sizeof(float) + 4*sizeof(float);
+            databurst[0] = 6 + 4*sizeof(float);
             databurst[1] = DATABURST_VERSION;
 			databurst[2] = BEHAVIOR_VERSION_MAJOR;
 			databurst[3] = BEHAVIOR_VERSION_MINOR;
 			databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
 			databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
-			databurst_offsets[0] = 0.0f;
-			databurst_offsets[1] = 0.0f;
             for (i = 0; i < 4; i++) {
                 databurst_target_list[i] = (float)tgt[i];
             }
