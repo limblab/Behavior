@@ -62,6 +62,9 @@ namespace BehaviorGraphics
 
         private UpdateForm updateForm;
 
+        private double lastFrameTime = Environment.TickCount;
+        private double interFrameInterval = 10; // in ms
+      
         public Graphics()
         {
             x = 0; y = 0;
@@ -197,9 +200,16 @@ namespace BehaviorGraphics
             device.Clear(ClearFlags.Target, Color.Black, 1.0f, 0);
             device.BeginScene();
 #if DEBUG
+            // Calculate frame rate
+            double lastInterframeInterval = (double)Environment.TickCount - lastFrameTime;
+            interFrameInterval = (9.0 * interFrameInterval + lastInterframeInterval) / 10.0;
+            lastFrameTime = (double)Environment.TickCount;
+
+            // display on screen
             string posStr = String.Format("X: {0:f}\nY: {1:f}", this.x, this.y);
             posStr = posStr + "\n" + String.Format("Tone Count: {0}\nTone ID: {1}", this.tone_cnt, this.tone_id);
             posStr = posStr + "\n" + String.Format("Cursor: {0}\n{1}", this.activeCursorIndex, this.activeCursor);
+            posStr = posStr + "\n" + String.Format("FPS: {0:f}", 1000.0 / interFrameInterval);
             font.DrawText(null, posStr, new System.Drawing.Point(10, 10), System.Drawing.Color.White);
 #endif
             if (connectionLost && flashOn) {

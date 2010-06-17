@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -454,6 +454,10 @@ namespace BehaviorGraphics
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox24 = new System.Windows.Forms.GroupBox();
+            this.textBoxBFAL = new System.Windows.Forms.TextBox();
+            this.label191 = new System.Windows.Forms.Label();
+            this.textBoxBFAT = new System.Windows.Forms.TextBox();
+            this.label190 = new System.Windows.Forms.Label();
             this.textBoxBFWindowRadius = new System.Windows.Forms.TextBox();
             this.label176 = new System.Windows.Forms.Label();
             this.textBoxBFArcRadius = new System.Windows.Forms.TextBox();
@@ -568,10 +572,6 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.textBoxBFAT = new System.Windows.Forms.TextBox();
-            this.label190 = new System.Windows.Forms.Label();
-            this.textBoxBFAL = new System.Windows.Forms.TextBox();
-            this.label191 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -654,7 +654,7 @@ namespace BehaviorGraphics
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(541, 355);
+            this.cancelButton.Location = new System.Drawing.Point(513, 376);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 98;
@@ -665,7 +665,7 @@ namespace BehaviorGraphics
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(622, 355);
+            this.okButton.Location = new System.Drawing.Point(594, 376);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 99;
@@ -693,7 +693,7 @@ namespace BehaviorGraphics
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(701, 322);
+            this.tabControl.Size = new System.Drawing.Size(673, 343);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageGen
@@ -714,7 +714,7 @@ namespace BehaviorGraphics
             this.tabPageGen.Location = new System.Drawing.Point(4, 40);
             this.tabPageGen.Name = "tabPageGen";
             this.tabPageGen.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGen.Size = new System.Drawing.Size(693, 278);
+            this.tabPageGen.Size = new System.Drawing.Size(665, 299);
             this.tabPageGen.TabIndex = 0;
             this.tabPageGen.Text = "General";
             this.tabPageGen.UseVisualStyleBackColor = true;
@@ -3263,8 +3263,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -3971,8 +3971,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -5149,6 +5149,40 @@ namespace BehaviorGraphics
             this.groupBox24.TabStop = false;
             this.groupBox24.Text = "Targets";
             // 
+            // textBoxBFAL
+            // 
+            this.textBoxBFAL.Location = new System.Drawing.Point(128, 35);
+            this.textBoxBFAL.Name = "textBoxBFAL";
+            this.textBoxBFAL.Size = new System.Drawing.Size(56, 20);
+            this.textBoxBFAL.TabIndex = 25;
+            this.toolTip1.SetToolTip(this.textBoxBFAL, "Size of targets (cm)");
+            // 
+            // label191
+            // 
+            this.label191.AutoSize = true;
+            this.label191.Location = new System.Drawing.Point(6, 42);
+            this.label191.Name = "label191";
+            this.label191.Size = new System.Drawing.Size(79, 13);
+            this.label191.TabIndex = 26;
+            this.label191.Text = "Arc length (rad)";
+            // 
+            // textBoxBFAT
+            // 
+            this.textBoxBFAT.Location = new System.Drawing.Point(128, 63);
+            this.textBoxBFAT.Name = "textBoxBFAT";
+            this.textBoxBFAT.Size = new System.Drawing.Size(56, 20);
+            this.textBoxBFAT.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.textBoxBFAT, "Size of targets (cm)");
+            // 
+            // label190
+            // 
+            this.label190.AutoSize = true;
+            this.label190.Location = new System.Drawing.Point(6, 66);
+            this.label190.Name = "label190";
+            this.label190.Size = new System.Drawing.Size(71, 13);
+            this.label190.TabIndex = 24;
+            this.label190.Text = "Arc thickness";
+            // 
             // textBoxBFWindowRadius
             // 
             this.textBoxBFWindowRadius.Location = new System.Drawing.Point(128, 114);
@@ -5447,9 +5481,10 @@ namespace BehaviorGraphics
             this.toolStripStatusLabelMdl,
             this.toolStripProgressBar1});
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 381);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 402);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(699, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(671, 22);
+            this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -5474,7 +5509,7 @@ namespace BehaviorGraphics
             this.modelToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(699, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(671, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -5663,7 +5698,7 @@ namespace BehaviorGraphics
             // buttonRefresh
             // 
             this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRefresh.Location = new System.Drawing.Point(12, 355);
+            this.buttonRefresh.Location = new System.Drawing.Point(12, 376);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 23);
             this.buttonRefresh.TabIndex = 97;
@@ -6232,40 +6267,6 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // textBoxBFAT
-            // 
-            this.textBoxBFAT.Location = new System.Drawing.Point(128, 63);
-            this.textBoxBFAT.Name = "textBoxBFAT";
-            this.textBoxBFAT.Size = new System.Drawing.Size(56, 20);
-            this.textBoxBFAT.TabIndex = 23;
-            this.toolTip1.SetToolTip(this.textBoxBFAT, "Size of targets (cm)");
-            // 
-            // label190
-            // 
-            this.label190.AutoSize = true;
-            this.label190.Location = new System.Drawing.Point(6, 66);
-            this.label190.Name = "label190";
-            this.label190.Size = new System.Drawing.Size(71, 13);
-            this.label190.TabIndex = 24;
-            this.label190.Text = "Arc thickness";
-            // 
-            // textBoxBFAL
-            // 
-            this.textBoxBFAL.Location = new System.Drawing.Point(128, 35);
-            this.textBoxBFAL.Name = "textBoxBFAL";
-            this.textBoxBFAL.Size = new System.Drawing.Size(56, 20);
-            this.textBoxBFAL.TabIndex = 25;
-            this.toolTip1.SetToolTip(this.textBoxBFAL, "Size of targets (cm)");
-            // 
-            // label191
-            // 
-            this.label191.AutoSize = true;
-            this.label191.Location = new System.Drawing.Point(6, 42);
-            this.label191.Name = "label191";
-            this.label191.Size = new System.Drawing.Size(79, 13);
-            this.label191.TabIndex = 26;
-            this.label191.Text = "Arc length (rad)";
-            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -6273,7 +6274,7 @@ namespace BehaviorGraphics
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(699, 403);
+            this.ClientSize = new System.Drawing.Size(671, 424);
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);

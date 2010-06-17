@@ -67,6 +67,7 @@ namespace AngleBox {
             }
         }
 
+
         private enum AngleMode { Degrees, Radians }
     }
 }
