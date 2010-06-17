@@ -113,7 +113,7 @@ static void mdlCheckParameters(SimStruct *S)
     target_radius = param_target_radius;
     target_size = param_target_size;
 
-	num_glyphs = param_num_glyphs;
+    num_glyphs = param_num_glyphs;
     center_hold_l = param_center_hold_l;
     center_hold_h = param_center_hold_h;
 
@@ -211,7 +211,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                  7: incompletes 
 								 8: databurst_counter */
     
-	ssSetNumPWork(S, 1); /*    0: Databurst array pointer  */
+    ssSetNumPWork(S, 1); /*    0: Databurst array pointer  */
 
     /* we have no zero crossing detection or modes */
     ssSetNumModes(S, 0);
@@ -290,9 +290,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T center_hold, outer_hold;
     int i, in_dt;
 
-	int databurst_counter;
-	byte *databurst;
-	float *databurst_offsets;
+    int databurst_counter;
+    byte *databurst;
+    float *databurst_offsets;
+    byte *databurst_target;
+    byte *databurst_correct_glyph;
+    byte *databurst_distractor_glyph;
        
     /******************
      * Initialization *
@@ -341,9 +344,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         dt[ i-1 ][3] = sin(theta)*target_radius-target_size/2;
     }
     
-	databurst = ssGetPWorkValue(S,0);
-	databurst_offsets = (float *)(databurst + 6);
-	databurst_counter = ssGetIWorkValue(S, 8);
+    databurst = ssGetPWorkValue(S,0);
+    databurst_offsets = (float *)(databurst + 6);
+    databurst_target = (byte *)(databurst_offsets + 2);
+    databurst_correct_glyph = databurst_target + 1;
+    databurst_distractor_glyph = databurst_correct_glyph + 1;
+    databurst_counter = ssGetIWorkValue(S, 8);
      
     /*********************************
      * See if we have issued a reset *
@@ -414,33 +420,37 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             ssSetRWorkValue(S, 4, outer_hold);
             
 			
-			/* Setup the databurst */
-			databurst[0] = 6+2*sizeof(float);
+            /* Setup the databurst */
+            databurst[0] = 6+2*sizeof(float)+3*sizeof(byte);
             databurst[1] = DATABURST_VERSION;
-			databurst[2] = BEHAVIOR_VERSION_MAJOR;
-			databurst[3] = BEHAVIOR_VERSION_MINOR;
-			databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
-			databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
-			/* The offsets used in the calculation of the cursor location */
-			uPtrs = ssGetInputPortRealSignalPtrs(S, 1); 
-			databurst_offsets[0] = *uPtrs[0];
-			databurst_offsets[1] = *uPtrs[1];
-			
-			ssSetIWorkValue(S, 8, 0); /* reset the databurst_counter */
+            databurst[2] = BEHAVIOR_VERSION_MAJOR;
+            databurst[3] = BEHAVIOR_VERSION_MINOR;
+            databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
+            databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
+            /* The offsets used in the calculation of the cursor location */
+            uPtrs = ssGetInputPortRealSignalPtrs(S, 1); 
+            databurst_offsets[0] = *uPtrs[0];
+            databurst_offsets[1] = *uPtrs[1];
+            databurst_target[0] = ssGetIWorkValue(S, 1);
+            databurst_correct_glyph[0] = ssGetIWorkValue(S, 2);
+            databurst_distractor_glyph[0] = ssGetIWorkValue(S, 3);
+            
+            ssSetIWorkValue(S, 8, 0); /* reset the databurst_counter */
 
             /* and advance */
             new_state = STATE_DATA_BLOCK;
             state_changed();
 
             break;
-		case STATE_DATA_BLOCK:
-			if (databurst_counter > 2*(databurst[0]-1)) { 
+        case STATE_DATA_BLOCK:
+            if (databurst_counter > 2*(databurst[0]-1)) { 
                 new_state = STATE_CT_ON;
                 reset_timer(); /* start timer for movement */
                 state_changed();
             }
-			ssSetIWorkValue(S, 8, databurst_counter+1);
-			break;
+            ssSetIWorkValue(S, 8, databurst_counter+1);
+            
+            break;
         case STATE_CT_ON:
             /* center target on */
             if (cursorInTarget(cursor, ct)) {
