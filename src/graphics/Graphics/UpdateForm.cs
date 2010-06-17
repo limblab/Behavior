@@ -111,6 +111,13 @@ namespace BehaviorGraphics
                 BCStimGrid.Rows[i].Cells[1].Value = -1;
             }
 
+            // Setup BFStimTable
+            BFStimGrid.Rows.Add(16);
+            for (int i = 0; i < 16; i++) {
+                BFStimGrid.Rows[i].Cells[0].Value = -1;
+                BFStimGrid.Rows[i].Cells[1].Value = -1;
+            }
+
             SetupParamLists();
         }
         #endregion
@@ -441,6 +448,38 @@ namespace BehaviorGraphics
             AddParamListItem("VS Num Targets", "P1", "Behavior VS", this.numericUpDownVSNumTarg);
             AddParamListItem("VSTR", "P2", "Behavior VS", this.textBoxVSTR);
             AddParamListItem("VSTS", "P3", "Behavior VS", this.textBoxVSTS);
+            #endregion
+
+            #region Bump-follow
+            /* 
+             * Bump-follow Parameters 
+             */
+            // Bump-follow targets
+            AddParamListItem("BF Arc Radius", "P2", "Behavior BF", this.textBoxBFArcRadius);
+            AddParamListItem("BF Arc Thickness", "P3", "Behavior BF", this.textBoxBFAT);
+            AddParamListItem("BF Arc Length", "P4", "Behavior BF", this.textBoxBFAL);
+            AddParamListItem("BF Target Size", "P5", "Behavior BF", this.textBoxBFTgtSize);
+            AddParamListItem("BF Window Diameter", "P6", "Behavior BF", this.textBoxBFWindowRadius);
+
+            // Bump-choice bump
+            AddParamListItem("BF Num Bump Steps", "P7", "Behavior BF", this.numericUpDownBFBumpSteps);
+            AddParamListItem("BF Bump Magnitude Min", "P8", "Behavior BF", this.textBoxBFBumpMagMin);
+            AddParamListItem("BF Bump Magnitude Max", "P9", "Behavior BF", this.textBoxBFBumpMagMax);
+            AddParamListItem("BF Bump Duration", "P10", "Behavior BF", this.textBoxBFBumpDur);
+
+            // Bump-choice timing
+            AddParamListItem("BF OHL", "P11", "Behavior BF", this.textBoxBFOHL);
+            AddParamListItem("BF OHH", "P12", "Behavior BF", this.textBoxBFOHH);
+            AddParamListItem("BF M", "P13", "Behavior BF", this.textBoxBFM);
+            AddParamListItem("BF I", "P14", "Behavior BF", this.textBoxBFI);
+            AddParamListItem("BF IF", "P15", "Behavior BF", this.textBoxBFIF);
+
+            // Training trials
+            AddParamListItem("BF Pct Training Trials", "P16", "Behavior BF", this.textBoxBFPctTraining);
+
+            // Stimulation parameters
+            AddParamListItem("BF Pct Stimulation Trials", "P17", "Behavior BF", this.textBoxBFPctStimTrials);
+
             #endregion
         }
 
@@ -945,6 +984,8 @@ namespace BehaviorGraphics
                     paramID = target.GetParamIdx("Behavior BC", "P1");
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior VS", "P15");
+                if (paramID < 0)
+                    paramID = target.GetParamIdx("Behavior BF", "P1");
 
 
                 /* send the flag */
@@ -1071,7 +1112,7 @@ namespace BehaviorGraphics
          */
         private void Target2Form()
         {
-            float total = paramNames.Keys.Count + 6;
+            float total = paramNames.Keys.Count + 7;
             float done = 0f;
             int paramID;
             double[] param;
@@ -1330,6 +1371,21 @@ namespace BehaviorGraphics
             done += 1f;
             this.toolStripProgressBar1.Value = (int)(100f * done / total);
 
+            // Bump follow stimulation table
+            paramID = target.GetParamIdx("BFStimTable", "table");
+            if (paramID != -1) {
+                param = (double[])target.GetParam(paramID);
+                for (int row = 0; row < 16; row++) {
+                    double d = param[row * 2];
+                    BFStimGrid.Rows[row].Cells[0].Value = d.ToString();
+                    d = param[row * 2 + 1];
+                    BFStimGrid.Rows[row].Cells[1].Value = d.ToString();
+                }
+            }
+
+            done += 1f;
+            this.toolStripProgressBar1.Value = (int)(100f * done / total);
+
         }
 
         private BehaviorParameters Form2BehaviorParameters()
@@ -1452,6 +1508,15 @@ namespace BehaviorGraphics
                 bcs.StimCodeVar = Int16.Parse(cells[0].Value.ToString());
                 bcs.PDVar = Double.Parse(cells[1].Value.ToString());
                 bp.BCStims[i] = bcs;
+            }
+
+            // BFStimGrid
+            for (int i = 0; i < BFStimGrid.Rows.Count; i++) {
+                DataGridViewCellCollection cells = BFStimGrid.Rows[i].Cells;
+                BumpChoiceStim bfs = new BumpChoiceStim();
+                bfs.StimCodeVar = Int16.Parse(cells[0].Value.ToString());
+                bfs.PDVar = Double.Parse(cells[1].Value.ToString());
+                bp.BCStims[i] = bfs;
             }
 
             // GlyphSet
@@ -1601,6 +1666,14 @@ namespace BehaviorGraphics
                 cells[1].Value = bcs.PDVar.ToString();
             }
 
+            // Bump follow stim list parameters
+            for (int i = 0; i < BFStimGrid.RowCount; i++) {
+                DataGridViewCellCollection cells = BFStimGrid.Rows[i].Cells;
+                BumpChoiceStim bfs = bp.BCStims[i];
+                cells[0].Value = bfs.StimCodeVar.ToString();
+                cells[1].Value = bfs.PDVar.ToString();
+            }
+
             /* Sound theme menu item selection */
             if (!Enum.IsDefined(typeof(SoundPlayer.SoundTheme), bp.SoundTheme))
                 bp.SoundTheme = SoundPlayer.SoundTheme.Theme1;
@@ -1612,7 +1685,7 @@ namespace BehaviorGraphics
 
         private void BehaviorParameters2Target(BehaviorParameters bp)
         {
-            float total = paramNames.Keys.Count + 6;
+            float total = paramNames.Keys.Count + 7;
             float done = 0f;
             int paramID;
             Array param = Array.CreateInstance(typeof(double), 1);
@@ -1809,6 +1882,20 @@ namespace BehaviorGraphics
             done += 1;
             this.toolStripProgressBar1.Value = (int)(100f * done / total);
 
+            /* Bump choice stims */
+            paramID = target.GetParamIdx("BFStimTable", "table");
+            if (paramID >= 0) {
+                Array bfStims = Array.CreateInstance(typeof(double), 32);
+                for (int i = 0; i < bp.BCStims.Count; i++) {
+                    bfStims.SetValue(bp.BCStims[i].StimCodeVar, 2 * i);
+                    bfStims.SetValue(bp.BCStims[i].PDVar, 2 * i + 1);
+                }
+                target.SetParam(paramID, ref bfStims);
+            }
+
+            done += 1;
+            this.toolStripProgressBar1.Value = (int)(100f * done / total);
+
 
         }
 
@@ -1861,13 +1948,8 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
-
-        private void UpdateForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-       
+        
+      
     }
 
 }
