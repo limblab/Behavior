@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.352"
+    ComputedModelVersion    "1.357"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jun 30 13:02:46 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:352>"
+  LastModifiedDate	  "Wed Jun 30 15:35:55 2010"
+  ModelVersionFormat	  "1.%<AutoIncrement:357>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -775,7 +775,7 @@ Model {
   }
   System {
     Name		    "wrist_movement"
-    Location		    [4, 86, 1002, 822]
+    Location		    [4, 86, 1002, 748]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -858,7 +858,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"CursorPos"
-	Location		[2, 86, 1270, 976]
+	Location		[2, 86, 1014, 731]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1135,7 +1135,8 @@ Model {
 	Block {
 	  BlockType		  Gain
 	  Name			  "Gain 3"
-	  Position		  [145, 87, 180, 123]
+	  Position		  [150, 86, 210, 124]
+	  Gain			  "0.01"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -1143,7 +1144,8 @@ Model {
 	Block {
 	  BlockType		  Gain
 	  Name			  "Gain 4"
-	  Position		  [145, 168, 180, 202]
+	  Position		  [145, 168, 215, 202]
+	  Gain			  "0.01"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -1584,7 +1586,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "OffsetX"
-	  Position		  [400, 30, 430, 60]
+	  Position		  [365, 55, 395, 85]
 	  Orientation		  "up"
 	  NamePlacement		  "alternate"
 	  Value			  "0"
@@ -1624,7 +1626,7 @@ Model {
 	  SourceBlock		  "xpcmeasurementcomputinglib/Incremental\nEnc"
 "oder/PCI-QUAD04 "
 	  SourceType		  "enccbcioquadcount"
-	  channel		  "2"
+	  channel		  "4"
 	  resetmode		  on
 	  polarity		  "Positive Index"
 	  mode			  "Normal"
@@ -1917,29 +1919,30 @@ Model {
 	Line {
 	  SrcBlock		  "OffsetX"
 	  SrcPort		  1
-	  Points		  [25, 0; 0, 0]
+	  Points		  [45, 0; 0, 165]
 	  Branch {
-	    Points		    [0, 185]
-	    DstBlock		    "Sum1"
-	    DstPort		    2
-	  }
-	  Branch {
-	    Points		    [0, 245]
+	    Labels		    [1, 0]
+	    Points		    [0, 55]
 	    DstBlock		    "Mux1"
 	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [45, 0]
+	    DstBlock		    "Sum1"
+	    DstPort		    2
 	  }
 	}
 	Line {
 	  SrcBlock		  "OffsetY"
 	  SrcPort		  1
-	  Points		  [0, -190]
+	  Points		  [0, -35]
 	  Branch {
-	    Points		    [0, 135]
+	    Points		    [30, 0]
 	    DstBlock		    "Sum2"
 	    DstPort		    2
 	  }
 	  Branch {
-	    Points		    [0, 20]
+	    Points		    [0, -135]
 	    DstBlock		    "Mux1"
 	    DstPort		    2
 	  }
@@ -2018,7 +2021,7 @@ Model {
 	Line {
 	  SrcBlock		  "Gain 3"
 	  SrcPort		  1
-	  Points		  [90, 0; 0, 30]
+	  Points		  [60, 0; 0, 30]
 	  DstBlock		  "Neural Control Subsystem"
 	  DstPort		  1
 	}
