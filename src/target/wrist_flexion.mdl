@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.348"
+    ComputedModelVersion    "1.349"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -42,10 +42,10 @@ Model {
   Creator		  "Selket"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Matt Bauman"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Jun 15 14:05:48 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:348>"
+  LastModifiedDate	  "Thu Jul 01 16:28:07 2010"
+  ModelVersionFormat	  "1.%<AutoIncrement:349>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -775,7 +775,7 @@ Model {
   }
   System {
     Name		    "wrist_flexion"
-    Location		    [6, 82, 1000, 679]
+    Location		    [6, 86, 1000, 683]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -858,8 +858,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"CursorPos"
-	Location		[3, 87, 1015, 568]
-	Open			off
+	Location		[44, 256, 1037, 737]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -874,14 +874,14 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "Rotation"
-	  Position		  [630, 438, 660, 452]
+	  Position		  [745, 593, 775, 607]
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  SubSystem
 	  Name			  "Cursor Rotation"
 	  Ports			  [3, 2]
-	  Position		  [795, 133, 910, 247]
+	  Position		  [910, 288, 1025, 402]
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
@@ -1115,27 +1115,51 @@ Model {
 	  BlockType		  Demux
 	  Name			  "Demux"
 	  Ports			  [1, 4]
-	  Position		  [195, 266, 200, 359]
+	  Position		  [310, 411, 315, 504]
 	  BackgroundColor	  "black"
 	  ShowName		  off
 	  DisplayOption		  "bar"
 	}
 	Block {
 	  BlockType		  Constant
+	  Name			  "EnableEncoders"
+	  Position		  [225, 232, 245, 248]
+	  Value			  "0"
+	}
+	Block {
+	  BlockType		  Constant
 	  Name			  "EnableIntegrator"
-	  Position		  [1040, 145, 1070, 175]
+	  Position		  [1155, 300, 1185, 330]
 	  Value			  "0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "EnablePosFilter"
-	  Position		  [605, 175, 635, 205]
+	  Position		  [720, 330, 750, 360]
 	  Value			  "0"
 	}
 	Block {
 	  BlockType		  Gain
+	  Name			  "Gain 3"
+	  Position		  [140, 20, 185, 60]
+	  Gain			  "0.01"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Gain 4"
+	  Position		  [140, 107, 185, 143]
+	  Gain			  "0.01"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
 	  Name			  "GainX"
-	  Position		  [490, 105, 545, 135]
+	  Position		  [605, 260, 660, 290]
 	  Gain			  "15"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
@@ -1144,7 +1168,7 @@ Model {
 	Block {
 	  BlockType		  Gain
 	  Name			  "GainY"
-	  Position		  [490, 300, 545, 330]
+	  Position		  [605, 455, 660, 485]
 	  Gain			  "15"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
@@ -1154,7 +1178,7 @@ Model {
 	  BlockType		  Integrator
 	  Name			  "Integrator"
 	  Ports			  [2, 1]
-	  Position		  [1030, 67, 1090, 123]
+	  Position		  [1145, 222, 1205, 278]
 	  ExternalReset		  "rising"
 	  LimitOutput		  on
 	  UpperSaturationLimit	  "15"
@@ -1165,7 +1189,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "LowPassFilterX"
 	  Ports			  [1, 1]
-	  Position		  [585, 42, 650, 98]
+	  Position		  [700, 197, 765, 253]
 	  SourceBlock		  "dsparch4/Analog\nFilter Design"
 	  SourceType		  "Analog Filter Design"
 	  method		  "Butterworth"
@@ -1180,7 +1204,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "LowPassFilterY"
 	  Ports			  [1, 1]
-	  Position		  [585, 237, 650, 293]
+	  Position		  [700, 392, 765, 448]
 	  SourceBlock		  "dsparch4/Analog\nFilter Design"
 	  SourceType		  "Analog Filter Design"
 	  method		  "Butterworth"
@@ -1195,7 +1219,7 @@ Model {
 	  BlockType		  Mux
 	  Name			  "Mux"
 	  Ports			  [2, 1]
-	  Position		  [935, 136, 940, 249]
+	  Position		  [1050, 291, 1055, 404]
 	  ShowName		  off
 	  Inputs		  "2"
 	  DisplayOption		  "bar"
@@ -1204,7 +1228,7 @@ Model {
 	  BlockType		  Mux
 	  Name			  "Mux1"
 	  Ports			  [2, 1]
-	  Position		  [495, 221, 500, 259]
+	  Position		  [610, 376, 615, 414]
 	  ShowName		  off
 	  Inputs		  "2"
 	  DisplayOption		  "bar"
@@ -1213,7 +1237,7 @@ Model {
 	  BlockType		  SubSystem
 	  Name			  "Neural Control Subsystem"
 	  Ports			  [6, 2]
-	  Position		  [280, 104, 385, 346]
+	  Position		  [395, 175, 500, 570]
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
@@ -1562,13 +1586,13 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "NeuralControlPct"
-	  Position		  [155, 190, 185, 220]
+	  Position		  [260, 340, 290, 370]
 	  Value			  "0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "OffsetX"
-	  Position		  [430, 180, 460, 210]
+	  Position		  [545, 335, 575, 365]
 	  Orientation		  "up"
 	  NamePlacement		  "alternate"
 	  Value			  "0"
@@ -1576,7 +1600,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "OffsetY"
-	  Position		  [430, 370, 460, 400]
+	  Position		  [545, 525, 575, 555]
 	  Orientation		  "up"
 	  NamePlacement		  "alternate"
 	  Value			  "0"
@@ -1585,7 +1609,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "PCI-6025E "
 	  Ports			  [0, 2]
-	  Position		  [20, 104, 110, 186]
+	  Position		  [15, 177, 125, 348]
 	  SourceBlock		  "xpcnilib/A//D/PCI-6025E AD"
 	  SourceType		  "adnipci6025e"
 	  channel		  "[9 10]"
@@ -1608,9 +1632,47 @@ Model {
 	}
 	Block {
 	  BlockType		  Reference
+	  Name			  "PCI-QUAD04 3"
+	  Ports			  [0, 1]
+	  Position		  [15, 12, 125, 68]
+	  SourceBlock		  "xpcmeasurementcomputinglib/Incremental\nEnc"
+"oder/PCI-QUAD04 "
+	  SourceType		  "enccbcioquadcount"
+	  channel		  "3"
+	  resetmode		  on
+	  polarity		  "Positive Index"
+	  mode			  "Normal"
+	  limit			  "0"
+	  range			  "-2^23...+2^23-1"
+	  speed			  "1x"
+	  prescale		  "0"
+	  ts			  "0.001"
+	  convbaseaddr		  "-1"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "PCI-QUAD04 4"
+	  Ports			  [0, 1]
+	  Position		  [15, 95, 125, 155]
+	  SourceBlock		  "xpcmeasurementcomputinglib/Incremental\nEnc"
+"oder/PCI-QUAD04 "
+	  SourceType		  "enccbcioquadcount"
+	  channel		  "4"
+	  resetmode		  on
+	  polarity		  "Positive Index"
+	  mode			  "Normal"
+	  limit			  "0"
+	  range			  "-2^23...+2^23-1"
+	  speed			  "1x"
+	  prescale		  "0"
+	  ts			  "0.001"
+	  convbaseaddr		  "-1"
+	}
+	Block {
+	  BlockType		  Reference
 	  Name			  "Receive"
 	  Ports			  [0, 2]
-	  Position		  [20, 293, 110, 377]
+	  Position		  [135, 438, 225, 522]
 	  SourceBlock		  "xpclib/UDP/Receive"
 	  SourceType		  "xpcudpbytereceive"
 	  ipAddress		  "0.0.0.0"
@@ -1621,13 +1683,13 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "ResetIntegrator"
-	  Position		  [980, 95, 1010, 125]
+	  Position		  [1095, 250, 1125, 280]
 	  Value			  "0"
 	}
 	Block {
 	  BlockType		  Saturate
 	  Name			  "Saturation"
-	  Position		  [225, 190, 255, 220]
+	  Position		  [330, 340, 360, 370]
 	  UpperLimit		  "100"
 	  LowerLimit		  "0"
 	}
@@ -1635,7 +1697,7 @@ Model {
 	  BlockType		  Sum
 	  Name			  "Sum1"
 	  Ports			  [2, 1]
-	  Position		  [435, 110, 455, 130]
+	  Position		  [550, 265, 570, 285]
 	  ShowName		  off
 	  IconShape		  "round"
 	  Inputs		  "|++"
@@ -1648,7 +1710,7 @@ Model {
 	  BlockType		  Sum
 	  Name			  "Sum2"
 	  Ports			  [2, 1]
-	  Position		  [435, 305, 455, 325]
+	  Position		  [550, 460, 570, 480]
 	  ShowName		  off
 	  IconShape		  "round"
 	  Inputs		  "|++"
@@ -1660,7 +1722,7 @@ Model {
 	Block {
 	  BlockType		  Switch
 	  Name			  "Switch"
-	  Position		  [705, 253, 735, 327]
+	  Position		  [820, 408, 850, 482]
 	  Criteria		  "u2 ~= 0"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
@@ -1668,7 +1730,7 @@ Model {
 	Block {
 	  BlockType		  Switch
 	  Name			  "Switch1"
-	  Position		  [705, 58, 735, 132]
+	  Position		  [820, 213, 850, 287]
 	  Criteria		  "u2 ~= 0"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
@@ -1676,7 +1738,23 @@ Model {
 	Block {
 	  BlockType		  Switch
 	  Name			  "Switch2"
-	  Position		  [1125, 109, 1170, 211]
+	  Position		  [1240, 264, 1285, 366]
+	  Criteria		  "u2 ~= 0"
+	  InputSameDT		  off
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Switch
+	  Name			  "Switch3"
+	  Position		  [310, 170, 360, 230]
+	  Criteria		  "u2 ~= 0"
+	  InputSameDT		  off
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Switch
+	  Name			  "Switch4"
+	  Position		  [310, 254, 360, 316]
 	  Criteria		  "u2 ~= 0"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
@@ -1684,13 +1762,13 @@ Model {
 	Block {
 	  BlockType		  Terminator
 	  Name			  "Terminator"
-	  Position		  [140, 345, 160, 365]
+	  Position		  [255, 490, 275, 510]
 	  ShowName		  off
 	}
 	Block {
 	  BlockType		  Terminator
 	  Name			  "Terminator1"
-	  Position		  [160, 235, 180, 255]
+	  Position		  [275, 395, 295, 415]
 	  Orientation		  "left"
 	  ShowName		  off
 	}
@@ -1698,7 +1776,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Unpack"
 	  Ports			  [1, 1]
-	  Position		  [130, 304, 175, 326]
+	  Position		  [245, 449, 290, 471]
 	  ShowName		  off
 	  SourceBlock		  "xpclib/UDP/Unpack"
 	  SourceType		  "xpcbyte2any"
@@ -1709,14 +1787,14 @@ Model {
 	Block {
 	  BlockType		  Outport
 	  Name			  "Pos"
-	  Position		  [1190, 153, 1220, 167]
+	  Position		  [1305, 308, 1335, 322]
 	  IconDisplay		  "Port number"
 	  BusOutputAsStruct	  off
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "Offsets"
-	  Position		  [525, 233, 555, 247]
+	  Position		  [640, 388, 670, 402]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
 	  BusOutputAsStruct	  off
@@ -1881,7 +1959,7 @@ Model {
 	Line {
 	  SrcBlock		  "Demux"
 	  SrcPort		  1
-	  Points		  [10, 0; 0, -30]
+	  Points		  [10, 0; 0, -15]
 	  DstBlock		  "Terminator1"
 	  DstPort		  1
 	}
@@ -1916,44 +1994,25 @@ Model {
 	Line {
 	  SrcBlock		  "Neural Control Subsystem"
 	  SrcPort		  1
-	  Points		  [15, 0; 0, -45]
 	  DstBlock		  "Sum1"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Neural Control Subsystem"
 	  SrcPort		  2
-	  Points		  [15, 0; 0, 30]
 	  DstBlock		  "Sum2"
 	  DstPort		  1
 	}
 	Line {
-	  Name			  "RawX"
-	  Labels		  [0, 0]
-	  SrcBlock		  "PCI-6025E "
-	  SrcPort		  1
-	  DstBlock		  "Neural Control Subsystem"
-	  DstPort		  1
-	}
-	Line {
-	  Name			  "RawY"
-	  Labels		  [0, 0]
-	  SrcBlock		  "PCI-6025E "
-	  SrcPort		  2
-	  DstBlock		  "Neural Control Subsystem"
-	  DstPort		  2
-	}
-	Line {
 	  SrcBlock		  "Demux"
 	  SrcPort		  3
-	  Points		  [35, 0; 0, -40]
 	  DstBlock		  "Neural Control Subsystem"
 	  DstPort		  5
 	}
 	Line {
 	  SrcBlock		  "Demux"
 	  SrcPort		  4
-	  Points		  [50, 0; 0, -25]
+	  Points		  [0, 40]
 	  DstBlock		  "Neural Control Subsystem"
 	  DstPort		  6
 	}
@@ -1966,13 +2025,14 @@ Model {
 	Line {
 	  SrcBlock		  "Demux"
 	  SrcPort		  2
-	  Points		  [20, 0; 0, -55]
+	  Points		  [0, -40]
 	  DstBlock		  "Neural Control Subsystem"
 	  DstPort		  4
 	}
 	Line {
 	  SrcBlock		  "Saturation"
 	  SrcPort		  1
+	  Points		  [15, 0]
 	  DstBlock		  "Neural Control Subsystem"
 	  DstPort		  3
 	}
@@ -1980,6 +2040,77 @@ Model {
 	  SrcBlock		  "Mux1"
 	  SrcPort		  1
 	  DstBlock		  "Offsets"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "PCI-QUAD04 4"
+	  SrcPort		  1
+	  DstBlock		  "Gain 4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "PCI-QUAD04 3"
+	  SrcPort		  1
+	  DstBlock		  "Gain 3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Switch4"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  DstBlock		  "Neural Control Subsystem"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Switch3"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  DstBlock		  "Neural Control Subsystem"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "EnableEncoders"
+	  SrcPort		  1
+	  Points		  [30, 0]
+	  Branch {
+	    Points		    [0, -40]
+	    DstBlock		    "Switch3"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [0, 45]
+	    DstBlock		    "Switch4"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  Name			  "RawX"
+	  Labels		  [0, 0]
+	  SrcBlock		  "PCI-6025E "
+	  SrcPort		  1
+	  DstBlock		  "Switch3"
+	  DstPort		  3
+	}
+	Line {
+	  Name			  "RawY"
+	  Labels		  [0, 0]
+	  SrcBlock		  "PCI-6025E "
+	  SrcPort		  2
+	  DstBlock		  "Switch4"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Gain 4"
+	  SrcPort		  1
+	  Points		  [0, 140]
+	  DstBlock		  "Switch4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Gain 3"
+	  SrcPort		  1
+	  Points		  [5, 0; 0, 140]
+	  DstBlock		  "Switch3"
 	  DstPort		  1
 	}
       }
