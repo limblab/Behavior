@@ -371,6 +371,9 @@ namespace BehaviorGraphics
             // param 13 = clear_MVC_Targets
             // param 14 = master_reset
             AddParamListItem("WFCatchTrials", "P15", "Behavior WF", this.textBoxWFCT);
+            
+            //Input Type
+            AddParamListItem("EncodersOn", "Value", "CursorPos/EnableEncoders", this.checkBoxWFEncodersOn);
 
             // Rotation
             AddParamListItem("WFRotation", "P16", "Behavior WF", this.textBoxWFRot);

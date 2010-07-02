@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -302,6 +302,7 @@ namespace BehaviorGraphics
             this.label163 = new System.Windows.Forms.Label();
             this.label162 = new System.Windows.Forms.Label();
             this.textBoxWFRotInc = new System.Windows.Forms.TextBox();
+            this.buttonWFclear = new System.Windows.Forms.Button();
             this.groupBox40 = new System.Windows.Forms.GroupBox();
             this.label47 = new System.Windows.Forms.Label();
             this.textBoxWFNC = new System.Windows.Forms.TextBox();
@@ -321,7 +322,6 @@ namespace BehaviorGraphics
             this.label151 = new System.Windows.Forms.Label();
             this.textBoxWFGX = new System.Windows.Forms.TextBox();
             this.label150 = new System.Windows.Forms.Label();
-            this.buttonWFclear = new System.Windows.Forms.Button();
             this.groupBox36 = new System.Windows.Forms.GroupBox();
             this.label135 = new System.Windows.Forms.Label();
             this.textBoxWFCT = new System.Windows.Forms.TextBox();
@@ -572,6 +572,11 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
+            this.checkBoxWFEncodersOn = new System.Windows.Forms.CheckBox();
+            this.label193 = new System.Windows.Forms.Label();
+            this.groupBox43 = new System.Windows.Forms.GroupBox();
+            this.label192 = new System.Windows.Forms.Label();
+            this.label194 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -648,6 +653,7 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
+            this.groupBox43.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -1341,7 +1347,7 @@ namespace BehaviorGraphics
             this.tabPageCO.Location = new System.Drawing.Point(4, 40);
             this.tabPageCO.Name = "tabPageCO";
             this.tabPageCO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCO.Size = new System.Drawing.Size(693, 278);
+            this.tabPageCO.Size = new System.Drawing.Size(665, 299);
             this.tabPageCO.TabIndex = 1;
             this.tabPageCO.Text = "Center-Out";
             this.tabPageCO.UseVisualStyleBackColor = true;
@@ -1792,7 +1798,7 @@ namespace BehaviorGraphics
             this.tabPageRW.Location = new System.Drawing.Point(4, 40);
             this.tabPageRW.Name = "tabPageRW";
             this.tabPageRW.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRW.Size = new System.Drawing.Size(693, 278);
+            this.tabPageRW.Size = new System.Drawing.Size(665, 299);
             this.tabPageRW.TabIndex = 2;
             this.tabPageRW.Text = "Random Walk";
             this.tabPageRW.UseVisualStyleBackColor = true;
@@ -2208,7 +2214,7 @@ namespace BehaviorGraphics
             this.tabPageFC.Location = new System.Drawing.Point(4, 40);
             this.tabPageFC.Name = "tabPageFC";
             this.tabPageFC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFC.Size = new System.Drawing.Size(693, 278);
+            this.tabPageFC.Size = new System.Drawing.Size(665, 299);
             this.tabPageFC.TabIndex = 3;
             this.tabPageFC.Text = "Forced Choice";
             this.tabPageFC.UseVisualStyleBackColor = true;
@@ -2509,7 +2515,7 @@ namespace BehaviorGraphics
             this.tabPageBS.Location = new System.Drawing.Point(4, 40);
             this.tabPageBS.Name = "tabPageBS";
             this.tabPageBS.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBS.Size = new System.Drawing.Size(693, 278);
+            this.tabPageBS.Size = new System.Drawing.Size(665, 299);
             this.tabPageBS.TabIndex = 4;
             this.tabPageBS.Text = "Bump-stim";
             this.tabPageBS.UseVisualStyleBackColor = true;
@@ -3015,7 +3021,7 @@ namespace BehaviorGraphics
             this.tabPageMG.Location = new System.Drawing.Point(4, 40);
             this.tabPageMG.Name = "tabPageMG";
             this.tabPageMG.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMG.Size = new System.Drawing.Size(693, 278);
+            this.tabPageMG.Size = new System.Drawing.Size(665, 299);
             this.tabPageMG.TabIndex = 5;
             this.tabPageMG.Text = "Multi-Gadget";
             this.tabPageMG.UseVisualStyleBackColor = true;
@@ -3263,8 +3269,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -3452,9 +3458,10 @@ namespace BehaviorGraphics
             // 
             // tabPageWF
             // 
+            this.tabPageWF.Controls.Add(this.groupBox43);
             this.tabPageWF.Controls.Add(this.groupBox12);
-            this.tabPageWF.Controls.Add(this.groupBox40);
             this.tabPageWF.Controls.Add(this.buttonWFclear);
+            this.tabPageWF.Controls.Add(this.groupBox40);
             this.tabPageWF.Controls.Add(this.groupBox36);
             this.tabPageWF.Controls.Add(this.groupBox35);
             this.tabPageWF.Controls.Add(this.groupBox33);
@@ -3462,7 +3469,7 @@ namespace BehaviorGraphics
             this.tabPageWF.Location = new System.Drawing.Point(4, 40);
             this.tabPageWF.Name = "tabPageWF";
             this.tabPageWF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageWF.Size = new System.Drawing.Size(693, 278);
+            this.tabPageWF.Size = new System.Drawing.Size(665, 299);
             this.tabPageWF.TabIndex = 6;
             this.tabPageWF.Text = "Wrist Flexion";
             this.tabPageWF.UseVisualStyleBackColor = true;
@@ -3562,6 +3569,16 @@ namespace BehaviorGraphics
             this.textBoxWFRotInc.Size = new System.Drawing.Size(29, 20);
             this.textBoxWFRotInc.TabIndex = 3;
             this.textBoxWFRotInc.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // buttonWFclear
+            // 
+            this.buttonWFclear.Location = new System.Drawing.Point(490, 76);
+            this.buttonWFclear.Name = "buttonWFclear";
+            this.buttonWFclear.Size = new System.Drawing.Size(114, 21);
+            this.buttonWFclear.TabIndex = 33;
+            this.buttonWFclear.Text = "Clear MVC Targets";
+            this.buttonWFclear.UseVisualStyleBackColor = true;
+            this.buttonWFclear.Click += new System.EventHandler(this.buttonclear_Click);
             // 
             // groupBox40
             // 
@@ -3758,16 +3775,6 @@ namespace BehaviorGraphics
             this.label150.Text = "x";
             this.label150.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // buttonWFclear
-            // 
-            this.buttonWFclear.Location = new System.Drawing.Point(532, 32);
-            this.buttonWFclear.Name = "buttonWFclear";
-            this.buttonWFclear.Size = new System.Drawing.Size(114, 21);
-            this.buttonWFclear.TabIndex = 33;
-            this.buttonWFclear.Text = "Clear MVC Targets";
-            this.buttonWFclear.UseVisualStyleBackColor = true;
-            this.buttonWFclear.Click += new System.EventHandler(this.buttonclear_Click);
-            // 
             // groupBox36
             // 
             this.groupBox36.Controls.Add(this.label135);
@@ -3864,16 +3871,16 @@ namespace BehaviorGraphics
             this.groupBox35.Controls.Add(this.label130);
             this.groupBox35.Controls.Add(this.textBoxWFY);
             this.groupBox35.Controls.Add(this.textBoxWFX);
-            this.groupBox35.Location = new System.Drawing.Point(336, 9);
+            this.groupBox35.Location = new System.Drawing.Point(443, 9);
             this.groupBox35.Name = "groupBox35";
-            this.groupBox35.Size = new System.Drawing.Size(182, 59);
+            this.groupBox35.Size = new System.Drawing.Size(205, 59);
             this.groupBox35.TabIndex = 31;
             this.groupBox35.TabStop = false;
             this.groupBox35.Text = "Center Target";
             // 
             // label131
             // 
-            this.label131.Location = new System.Drawing.Point(6, 18);
+            this.label131.Location = new System.Drawing.Point(15, 19);
             this.label131.Name = "label131";
             this.label131.Size = new System.Drawing.Size(38, 12);
             this.label131.TabIndex = 18;
@@ -3882,7 +3889,7 @@ namespace BehaviorGraphics
             // 
             // label158
             // 
-            this.label158.Location = new System.Drawing.Point(94, 18);
+            this.label158.Location = new System.Drawing.Point(103, 18);
             this.label158.Name = "label158";
             this.label158.Size = new System.Drawing.Size(38, 13);
             this.label158.TabIndex = 17;
@@ -3891,7 +3898,7 @@ namespace BehaviorGraphics
             // 
             // textBoxWFH
             // 
-            this.textBoxWFH.Location = new System.Drawing.Point(50, 33);
+            this.textBoxWFH.Location = new System.Drawing.Point(59, 34);
             this.textBoxWFH.Name = "textBoxWFH";
             this.textBoxWFH.Size = new System.Drawing.Size(38, 20);
             this.textBoxWFH.TabIndex = 2;
@@ -3899,7 +3906,7 @@ namespace BehaviorGraphics
             // 
             // label129
             // 
-            this.label129.Location = new System.Drawing.Point(50, 18);
+            this.label129.Location = new System.Drawing.Point(59, 19);
             this.label129.Name = "label129";
             this.label129.Size = new System.Drawing.Size(38, 13);
             this.label129.TabIndex = 14;
@@ -3907,7 +3914,7 @@ namespace BehaviorGraphics
             // 
             // textBoxWFW
             // 
-            this.textBoxWFW.Location = new System.Drawing.Point(138, 33);
+            this.textBoxWFW.Location = new System.Drawing.Point(147, 33);
             this.textBoxWFW.Name = "textBoxWFW";
             this.textBoxWFW.Size = new System.Drawing.Size(38, 20);
             this.textBoxWFW.TabIndex = 4;
@@ -3915,7 +3922,7 @@ namespace BehaviorGraphics
             // 
             // label130
             // 
-            this.label130.Location = new System.Drawing.Point(138, 18);
+            this.label130.Location = new System.Drawing.Point(147, 18);
             this.label130.Name = "label130";
             this.label130.Size = new System.Drawing.Size(38, 13);
             this.label130.TabIndex = 10;
@@ -3923,7 +3930,7 @@ namespace BehaviorGraphics
             // 
             // textBoxWFY
             // 
-            this.textBoxWFY.Location = new System.Drawing.Point(6, 33);
+            this.textBoxWFY.Location = new System.Drawing.Point(15, 34);
             this.textBoxWFY.Name = "textBoxWFY";
             this.textBoxWFY.Size = new System.Drawing.Size(38, 20);
             this.textBoxWFY.TabIndex = 1;
@@ -3931,7 +3938,7 @@ namespace BehaviorGraphics
             // 
             // textBoxWFX
             // 
-            this.textBoxWFX.Location = new System.Drawing.Point(94, 33);
+            this.textBoxWFX.Location = new System.Drawing.Point(103, 33);
             this.textBoxWFX.Name = "textBoxWFX";
             this.textBoxWFX.Size = new System.Drawing.Size(38, 20);
             this.textBoxWFX.TabIndex = 3;
@@ -3940,9 +3947,9 @@ namespace BehaviorGraphics
             // groupBox33
             // 
             this.groupBox33.Controls.Add(this.WFTargetGrid);
-            this.groupBox33.Location = new System.Drawing.Point(336, 72);
+            this.groupBox33.Location = new System.Drawing.Point(336, 95);
             this.groupBox33.Name = "groupBox33";
-            this.groupBox33.Size = new System.Drawing.Size(318, 223);
+            this.groupBox33.Size = new System.Drawing.Size(318, 200);
             this.groupBox33.TabIndex = 35;
             this.groupBox33.TabStop = false;
             this.groupBox33.Text = "Targets";
@@ -3971,8 +3978,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -4181,7 +4188,7 @@ namespace BehaviorGraphics
             this.tabPageBD.Location = new System.Drawing.Point(4, 40);
             this.tabPageBD.Name = "tabPageBD";
             this.tabPageBD.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBD.Size = new System.Drawing.Size(693, 278);
+            this.tabPageBD.Size = new System.Drawing.Size(665, 299);
             this.tabPageBD.TabIndex = 7;
             this.tabPageBD.Text = "Ball Drop";
             this.tabPageBD.UseVisualStyleBackColor = true;
@@ -4374,7 +4381,7 @@ namespace BehaviorGraphics
             this.tabPageBC.Location = new System.Drawing.Point(4, 40);
             this.tabPageBC.Name = "tabPageBC";
             this.tabPageBC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBC.Size = new System.Drawing.Size(693, 278);
+            this.tabPageBC.Size = new System.Drawing.Size(665, 299);
             this.tabPageBC.TabIndex = 8;
             this.tabPageBC.Text = "Bump-choice";
             this.tabPageBC.UseVisualStyleBackColor = true;
@@ -4751,7 +4758,7 @@ namespace BehaviorGraphics
             this.tabPage1.Location = new System.Drawing.Point(4, 40);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(693, 278);
+            this.tabPage1.Size = new System.Drawing.Size(665, 299);
             this.tabPage1.TabIndex = 9;
             this.tabPage1.Text = "Visual Search";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -5083,7 +5090,7 @@ namespace BehaviorGraphics
             this.tabPageBF.Location = new System.Drawing.Point(4, 40);
             this.tabPageBF.Name = "tabPageBF";
             this.tabPageBF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBF.Size = new System.Drawing.Size(693, 278);
+            this.tabPageBF.Size = new System.Drawing.Size(665, 299);
             this.tabPageBF.TabIndex = 10;
             this.tabPageBF.Text = "Bump-follow";
             this.tabPageBF.UseVisualStyleBackColor = true;
@@ -5531,7 +5538,7 @@ namespace BehaviorGraphics
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -5539,7 +5546,7 @@ namespace BehaviorGraphics
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -5548,30 +5555,30 @@ namespace BehaviorGraphics
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
                         | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(189, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(189, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.quitToolStripMenuItem.Text = "&Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quit);
             // 
@@ -5587,7 +5594,7 @@ namespace BehaviorGraphics
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -5607,21 +5614,21 @@ namespace BehaviorGraphics
             // boxToolStripMenuItem
             // 
             this.boxToolStripMenuItem.Name = "boxToolStripMenuItem";
-            this.boxToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.boxToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.boxToolStripMenuItem.Text = "&Box";
             this.boxToolStripMenuItem.Click += new System.EventHandler(this.boxToolStripMenuItem_Click);
             // 
             // boxSettingsToolStripMenuItem
             // 
             this.boxSettingsToolStripMenuItem.Name = "boxSettingsToolStripMenuItem";
-            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.boxSettingsToolStripMenuItem.Text = "Box &Settings...";
             this.boxSettingsToolStripMenuItem.Click += new System.EventHandler(this.boxSettingsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(192, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(181, 6);
             // 
             // soundThemeToolStripMenuItem
             // 
@@ -5630,7 +5637,7 @@ namespace BehaviorGraphics
             this.theme2ToolStripMenuItem,
             this.theme3ToolStripMenuItem});
             this.soundThemeToolStripMenuItem.Name = "soundThemeToolStripMenuItem";
-            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.soundThemeToolStripMenuItem.Text = "Sound &Theme";
             // 
             // theme1ToolStripMenuItem
@@ -5638,35 +5645,35 @@ namespace BehaviorGraphics
             this.theme1ToolStripMenuItem.Checked = true;
             this.theme1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.theme1ToolStripMenuItem.Name = "theme1ToolStripMenuItem";
-            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.theme1ToolStripMenuItem.Text = "Theme 1";
             this.theme1ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme2ToolStripMenuItem
             // 
             this.theme2ToolStripMenuItem.Name = "theme2ToolStripMenuItem";
-            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.theme2ToolStripMenuItem.Text = "Theme 2";
             this.theme2ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme3ToolStripMenuItem
             // 
             this.theme3ToolStripMenuItem.Name = "theme3ToolStripMenuItem";
-            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.theme3ToolStripMenuItem.Text = "Theme 3";
             this.theme3ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // setLabToolStripMenuItem
             // 
             this.setLabToolStripMenuItem.Name = "setLabToolStripMenuItem";
-            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.setLabToolStripMenuItem.Text = "Set &Lab...";
             this.setLabToolStripMenuItem.Click += new System.EventHandler(this.setLabToolStripMenuItem_Click);
             // 
             // keepGraphicsRunningToolStripMenuItem
             // 
             this.keepGraphicsRunningToolStripMenuItem.Name = "keepGraphicsRunningToolStripMenuItem";
-            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.keepGraphicsRunningToolStripMenuItem.Text = "&Keep Graphics Running";
             this.keepGraphicsRunningToolStripMenuItem.Click += new System.EventHandler(this.keepGraphicsRunningToolStripMenuItem_Click);
             // 
@@ -5683,7 +5690,7 @@ namespace BehaviorGraphics
             // 
             this.loadModelToolStripMenuItem.Name = "loadModelToolStripMenuItem";
             this.loadModelToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.loadModelToolStripMenuItem.Text = "&Load Model";
             this.loadModelToolStripMenuItem.Click += new System.EventHandler(this.loadModelToolStripMenuItem_Click);
             // 
@@ -5691,7 +5698,7 @@ namespace BehaviorGraphics
             // 
             this.resetCountersToolStripMenuItem.Name = "resetCountersToolStripMenuItem";
             this.resetCountersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.resetCountersToolStripMenuItem.Text = "&Reset Counters";
             this.resetCountersToolStripMenuItem.Click += new System.EventHandler(this.resetCountersToolStripMenuItem_Click);
             // 
@@ -6267,6 +6274,56 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
+            // checkBoxWFEncodersOn
+            // 
+            this.checkBoxWFEncodersOn.AutoSize = true;
+            this.checkBoxWFEncodersOn.Location = new System.Drawing.Point(11, 19);
+            this.checkBoxWFEncodersOn.Name = "checkBoxWFEncodersOn";
+            this.checkBoxWFEncodersOn.Size = new System.Drawing.Size(71, 17);
+            this.checkBoxWFEncodersOn.TabIndex = 47;
+            this.checkBoxWFEncodersOn.Text = "Encoders";
+            this.checkBoxWFEncodersOn.UseVisualStyleBackColor = true;
+            // 
+            // label193
+            // 
+            this.label193.AutoSize = true;
+            this.label193.Location = new System.Drawing.Point(0, 41);
+            this.label193.Name = "label193";
+            this.label193.Size = new System.Drawing.Size(89, 13);
+            this.label193.TabIndex = 48;
+            this.label193.Text = "If \"Encoders\" not";
+            // 
+            // groupBox43
+            // 
+            this.groupBox43.Controls.Add(this.label194);
+            this.groupBox43.Controls.Add(this.label192);
+            this.groupBox43.Controls.Add(this.label193);
+            this.groupBox43.Controls.Add(this.checkBoxWFEncodersOn);
+            this.groupBox43.Location = new System.Drawing.Point(336, 9);
+            this.groupBox43.Name = "groupBox43";
+            this.groupBox43.Size = new System.Drawing.Size(101, 83);
+            this.groupBox43.TabIndex = 36;
+            this.groupBox43.TabStop = false;
+            this.groupBox43.Text = "Input Type";
+            // 
+            // label192
+            // 
+            this.label192.AutoSize = true;
+            this.label192.Location = new System.Drawing.Point(-1, 54);
+            this.label192.Name = "label192";
+            this.label192.Size = new System.Drawing.Size(99, 13);
+            this.label192.TabIndex = 49;
+            this.label192.Text = "checked, default to";
+            // 
+            // label194
+            // 
+            this.label194.AutoSize = true;
+            this.label194.Location = new System.Drawing.Point(-1, 67);
+            this.label194.Name = "label194";
+            this.label194.Size = new System.Drawing.Size(68, 13);
+            this.label194.TabIndex = 50;
+            this.label194.Text = "analog input.";
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -6411,6 +6468,8 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
+            this.groupBox43.ResumeLayout(false);
+            this.groupBox43.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -6959,5 +7018,10 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label191;
         private System.Windows.Forms.TextBox textBoxBFAT;
         private System.Windows.Forms.Label label190;
+        private System.Windows.Forms.Label label193;
+        private System.Windows.Forms.CheckBox checkBoxWFEncodersOn;
+        private System.Windows.Forms.GroupBox groupBox43;
+        private System.Windows.Forms.Label label194;
+        private System.Windows.Forms.Label label192;
     }
 }
