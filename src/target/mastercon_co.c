@@ -392,7 +392,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
     databurst = ssGetPWorkValue(S,0);
     databurst_offsets = (float *)(databurst + 6);
-    databurst_target_list = databurst_offsets + 1;
+    databurst_target_list = databurst_offsets + 2;
     databurst_counter = ssGetIWorkValue(S, 585);
      
     /*********************************
