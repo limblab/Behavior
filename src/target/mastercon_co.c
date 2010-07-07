@@ -47,8 +47,7 @@
  * bytes  4 to  5: short => model version micro
  * bytes  6 to  9: float => x offset
  * bytes 10 to 13: float => y offset
- * bytes 14 to 17: float => Cursor rotation value
- * bytes 18 to 33: 16 bytes per target representing four single precision floating point
+ * bytes 14 to 29: 16 bytes per target representing four single precision floating point
  *      numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
  *      of the UL and LR corners of the target.
  *
