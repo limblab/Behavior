@@ -32,15 +32,15 @@
  * byte 0: uchar => number of bytes to be transmitted
  * byte 1: uchar => version number (in this case one)
  * bytes 2 to 2+ N*16: where N is the number of targets whose position are output.
- *		contains 16 bytes per target representing four single precision floating point
- *		numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
- *		of the UL and LR corners of the target.
+ *      contains 16 bytes per target representing four single precision floating point
+ *      numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
+ *      of the UL and LR corners of the target.
  *
- *		The position of only the current target is output at the begining of each trial
- *		in normal behavior, but in multiple target mode, all the targets
- *		are included in the databurst
+ *      The position of only the current target is output at the begining of each trial
+ *      in normal behavior, but in multiple target mode, all the targets
+ *      are included in the databurst
  *
- *		In MVC mode, the current value of the MVC target is provided in the databurst
+ *      In MVC mode, the current value of the MVC target is provided in the databurst
  *
  * Version 2 (0x02)
  * ----------------
@@ -48,15 +48,15 @@
  * byte 1: uchar => version number (in this case two)
  * bytes 2 to 6: float => Cursor rotation value
  * bytes 6 to 6+ N*16: where N is the number of targets whose position are output.
- *		contains 16 bytes per target representing four single precision floating point
- *		numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
- *		of the UL and LR corners of the target.
+ *      contains 16 bytes per target representing four single precision floating point
+ *      numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
+ *      of the UL and LR corners of the target.
  *
- *		The position of only the current target is output at the begining of each trial
- *		in normal behavior, but in multiple target mode, all the targets
- *		are included in the databurst
+ *      The position of only the current target is output at the begining of each trial
+ *      in normal behavior, but in multiple target mode, all the targets
+ *      are included in the databurst
  *
- *		In MVC mode, the current value of the MVC target is provided in the databurst
+ *      In MVC mode, the current value of the MVC target is provided in the databurst
  *
  *      NOTICE: Version 2 was bugged, and output the target of the _previous_
  *      trial.
@@ -79,13 +79,13 @@
  * bytes 10 to 13: float => y offset
  * bytes 14 to 17: float => Cursor rotation value
  * bytes 18 to 33: 16 bytes per target representing four single precision floating point
- *		numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
- *		of the UL and LR corners of the target.
+ *      numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
+ *      of the UL and LR corners of the target.
  *
- *		The position of only the current target is output at the begining of each trial
- *		in normal behavior.
+ *      The position of only the current target is output at the begining of each trial
+ *      in normal behavior.
  *
- *		In MVC mode, the current value of the MVC target is provided in the databurst
+ *      In MVC mode, the current value of the MVC target is provided in the databurst
  */
 
 typedef unsigned char byte;
@@ -102,7 +102,7 @@ static real_T reach_time = 5.0;          /* Time to reach AND hold target*/
 static real_T target_hold_time = .5;
 #define param_target_hold_time mxGetScalar(ssGetSFcnParam(S,2))
 
-static real_T center_hold_time_l = .5;			/* delay before movement */
+static real_T center_hold_time_l = .5;          /* delay before movement */
 #define param_center_hold_time_l mxGetScalar(ssGetSFcnParam(S,3))
 
 static real_T center_hold_time_h = .5;
@@ -227,8 +227,8 @@ static void mdlInitializeSizes(SimStruct *S)
     /*
      * Block has 3 input ports
      *      input port 0: (position) of width 2 (horizontal and vertical cursor displacement)
-	 *      input port 1: (position offsets) of width 2 (x, y)
-     *		input port 1: (target) of width 6*16 (vertical displacement, height, horiz disp, width, xVarEnable, yVarEnable)*16
+     *      input port 1: (position offsets) of width 2 (x, y)
+     *      input port 1: (target) of width 6*16 (vertical displacement, height, horiz disp, width, xVarEnable, yVarEnable)*16
      */
     if (!ssSetNumInputPorts(S, 3)) return;
     ssSetInputPortWidth(S, 0, 2); /* cursor position*/
@@ -250,10 +250,10 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target UL corner y,
      *                  target LR corner x, 
      *                  target LR corner y)
-`    * 5: MVC Target:	  8  ( [Xmax quad 1, Ymax quad 1, Xmax quad 2,...,Ymax quad 4] )
-	 * 6: version: 4
+`    * 5: MVC Target:     8  ( [Xmax quad 1, Ymax quad 1, Xmax quad 2,...,Ymax quad 4] )
+     * 6: version: 4
      * 7: rotation: 1
-	 *
+     *
      */
     if (!ssSetNumOutputPorts(S, 8)) return;
     ssSetOutputPortWidth(S, 0, 1);
@@ -274,7 +274,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                3: tone id
                                4: UNUSED
 
-                                 // For Following MVC Target related buffers:	                               
+                                 // For Following MVC Target related buffers:                                  
                                  // Quadrant 1 is +x and + y, including the +x and y = 0 axis
                                  // Quadrant 2 is -x and +y, including the x = 0 and +y axis                                
                                  // Quadrant 3 is -x and - y, including the -x and y = 0 axis
@@ -285,20 +285,20 @@ static void mdlInitializeSizes(SimStruct *S)
                                29: mastercon version
                                30: Time of last update
                                31: The randomized center hold time
-							   32: The randomized delay time
-							   33-38: The current target: [target_y, target_h, target_x, target_w, tgt_xVar_enabled, tgt_yVar_enabled]
+                               32: The randomized delay time
+                               33-38: The current target: [target_y, target_h, target_x, target_w, tgt_xVar_enabled, tgt_yVar_enabled]
                             */
-    ssSetNumPWork(S, 1);	/* 0: Databurst array pointer 
-    						*/
+    ssSetNumPWork(S, 1);    /* 0: Databurst array pointer 
+                            */
     ssSetNumIWork(S, 25); /*   0: state_transition (true if state changed), 
                                1: current target index (in sequence),
                                2: successes
                                3: aborts
                                4: failures 
                           [5-20]: target_id list
-                          	  21: success_flag
-                          	  22: catch_trial_flag
-                          	  23: datablock counter
+                              21: success_flag
+                              22: catch_trial_flag
+                              23: datablock counter
                               24: increment_rotation_flag
                           */
     
@@ -338,7 +338,7 @@ static void mdlInitializeConditions(SimStruct *S)
     
     /* set the mvc Targets at 0 */
     for (i=5; i<29; i++) {
-	    ssSetRWorkValue(S, i, 0.0);
+        ssSetRWorkValue(S, i, 0.0);
     }
     /* set the initial last update time to 0 */
     ssSetRWorkValue(S,30,0.0);
@@ -396,11 +396,11 @@ static void mdlInitializeConditions(SimStruct *S)
 
 /* getQuad: simply returns the quadrant that a point is in. */
 static int getQuad(real_T x, real_T y) {
-	if      (x> 0 && y>=0)    { return 1; }
-	else if (x<=0 && y> 0)    { return 2; }
-	else if (x< 0 && y<=0)    { return 3; }
-	else if (x>=0 && y< 0)    { return 4; }
-	else /* (x==0 && y==0) */ { return 0; }
+    if      (x> 0 && y>=0)    { return 1; }
+    else if (x<=0 && y> 0)    { return 2; }
+    else if (x< 0 && y<=0)    { return 3; }
+    else if (x>=0 && y< 0)    { return 4; }
+    else /* (x==0 && y==0) */ { return 0; }
 }
 
 #define MDL_UPDATE
@@ -429,7 +429,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T success_flag;
 
     //holders for MVC targets variables
-	real_T user_spec_MVC_targets[8];
+    real_T user_spec_MVC_targets[8];
     real_T current_MVC_targets[8];
     real_T higher_MVC_targets[8];
     
@@ -440,12 +440,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         
     byte *databurst;
     float *databurst_rotation;
-	float *databurst_offsets;
+    float *databurst_offsets;
     float *databurst_target_list;
     int databurst_counter;
     
-	int reshuffle = 0;
-	
+    int reshuffle = 0;
+    
     /******************
      * Initialization *
      ******************/
@@ -472,34 +472,34 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     success_flag = ssGetIWorkValue(S, 21);
     
     /* Get the Current Target Location */
-	target_y = ssGetRWorkValue(S,33);
+    target_y = ssGetRWorkValue(S,33);
     target_h = ssGetRWorkValue(S,34);
     target_x = ssGetRWorkValue(S,35);
     target_w = ssGetRWorkValue(S,36);
-	tgt_xVar_enabled = (int)ssGetRWorkValue(S,37);
+    tgt_xVar_enabled = (int)ssGetRWorkValue(S,37);
     tgt_yVar_enabled = (int)ssGetRWorkValue(S,38);
-	/* Define the target corners */
-	tgt[0] = target_x - target_w / 2.0;
-	tgt[1] = target_y + target_h / 2.0;
-	tgt[2] = target_x + target_w / 2.0;
-	tgt[3] = target_y - target_h / 2.0;
-	/* And define the quadrant */
-	quadrant = getQuad(target_x, target_y);
-	if (quadrant == 0) {
-		/* (x,y) = (0,0); Turn off the MVC routines */
-		tgt_xVar_enabled = 0;
-		tgt_yVar_enabled = 0;	
-	} 
-	
+    /* Define the target corners */
+    tgt[0] = target_x - target_w / 2.0;
+    tgt[1] = target_y + target_h / 2.0;
+    tgt[2] = target_x + target_w / 2.0;
+    tgt[3] = target_y - target_h / 2.0;
+    /* And define the quadrant */
+    quadrant = getQuad(target_x, target_y);
+    if (quadrant == 0) {
+        /* (x,y) = (0,0); Turn off the MVC routines */
+        tgt_xVar_enabled = 0;
+        tgt_yVar_enabled = 0;   
+    } 
+    
     /*MVC Targets variables*/
     for (i=0; i<8; i++) {
-	    user_spec_MVC_targets[i]= ssGetRWorkValue(S,i+5);
-    	current_MVC_targets[i]  = ssGetRWorkValue(S,i+13);
-    	higher_MVC_targets[i]   = ssGetRWorkValue(S,i+21);
-	}  
+        user_spec_MVC_targets[i]= ssGetRWorkValue(S,i+5);
+        current_MVC_targets[i]  = ssGetRWorkValue(S,i+13);
+        higher_MVC_targets[i]   = ssGetRWorkValue(S,i+21);
+    }  
         
     /* get center bounds */
-   	center[0] = center_x - center_w / 2.0;
+    center[0] = center_x - center_w / 2.0;
     center[1] = center_y + center_h / 2.0;
     center[2] = center_x + center_w / 2.0;
     center[3] = center_y - center_h / 2.0;
@@ -511,7 +511,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* Setup the databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 23);
     databurst = ssGetPWorkValue(S, 0);
-	databurst_offsets     = (float *)(databurst + 6);
+    databurst_offsets     = (float *)(databurst + 6);
     databurst_rotation    = databurst_offsets + 2;
     databurst_target_list = databurst_rotation + 1;
     
@@ -529,11 +529,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     
     /* See if we want to clear the value of the higher target reached */    
     if (param_clear_MVC_tgts > clear_MVC_tgts) {
-	    clear_MVC_tgts = param_clear_MVC_tgts;
-	    for (i=5; i<29; i++) {
-		    ssSetRWorkValue(S, i, 0.0); //clear all MVC target buffers
-	    }
-	}
+        clear_MVC_tgts = param_clear_MVC_tgts;
+        for (i=5; i<29; i++) {
+            ssSetRWorkValue(S, i, 0.0); //clear all MVC target buffers
+        }
+    }
     
     /* See if we should increment the rotation; only do it on the very first
      * cycle of each minute. Since we run at 1kHz, that's every 60000 cycles. */
@@ -542,7 +542,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         /* We're in a once-a-minute cycle; set the flag to increment the rotation on the next trial */
         ssSetIWorkValue(S, 24, 1);
     }
-		    
+            
     /************************
      * Calculate next state *
      ************************/
@@ -557,10 +557,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             center_hold_time_h = param_center_hold_time_h;
             center_delay_time_l = param_center_delay_time_l;
             center_delay_time_h = param_center_delay_time_h;
-		    center_y = param_center_y;
-		    center_h = param_center_h;
-		    center_x = param_center_x;
-			center_w = param_center_w;
+            center_y = param_center_y;
+            center_h = param_center_h;
+            center_x = param_center_x;
+            center_w = param_center_w;
             reach_time = param_reach_time;
             target_hold_time = param_target_hold_time;
             
@@ -571,14 +571,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             catch_trials_pct = param_catch_trials_pct/100;
 
             num_targets = param_num_targets;
-			idiot_mode = param_idiot_mode;
-			
+            idiot_mode = param_idiot_mode;
+            
             /* Only update these values if we've explicitly issued an update */
             if ( param_master_update > master_update ) {
                 master_update = param_master_update;
                 rotation = param_rotation * PI / 180.0;
                 ssSetRWorkValue(S, 30, ssGetT(S));
-				reshuffle = 1;
+                reshuffle = 1;
             }
             rotation_increment = param_rotation_increment * PI / 180.0;
             rotation_max       = param_rotation_max * PI / 180.0;
@@ -592,169 +592,169 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 ssSetIWorkValue(S, 24, 0); /* and unflag */
             }
             
-			/* decide if this is going to be a catch trial */
+            /* decide if this is going to be a catch trial */
             set_catch_trial( catch_trials_pct > (double)rand()/(double)RAND_MAX ? 1 : 0 );
 
             /***************************************/
-			/* see if we have to update MVC_Target */
-			/***************************************/
-			if (success_flag) {
-				if (tgt_xVar_enabled) {
-					/* MVC Target reached! Increase it by 15% */
-					ssSetRWorkValue(S, 12+quadrant,target_x*1.15);
-				}
-				if (tgt_yVar_enabled) {
-					/* MVC Target reached! Increase it by 15% */
-					ssSetRWorkValue(S, 16+quadrant,target_y*1.15);
-				}
-				if ( target_x*target_x > higher_MVC_targets[quadrant-1]*higher_MVC_targets[quadrant-1]) {
-					/* We have a new Max MVC!*/
-					ssSetRWorkValue(S, 20+quadrant,target_x);
-				}
-				if (target_y*target_y > higher_MVC_targets[quadrant+3]*higher_MVC_targets[quadrant+3]) {
-					/* We have a new Max MVC!*/
-					ssSetRWorkValue(S, 24+quadrant,target_y);
-				}
-			} else { // last trial was not a success
-				if (tgt_xVar_enabled) {
-					/* Failed to reach and hold MVC Target, decrease x by 8% */
-					ssSetRWorkValue(S, 12+quadrant,target_x*0.92);
-				}
-				if (tgt_yVar_enabled) {
-					/* Failed to reach and hold MVC Target, decrease y by 8% */
-					ssSetRWorkValue(S, 16+quadrant,target_y*0.92);
-				}
-			}
-					
-		
-			// reshuffle by default if we reached the last target in the list, unless failure and idiot mode
-			if (target_index == num_targets-1 && !(idiot_mode && success_flag == 0)) {
-				reshuffle = 1;  
-			}
+            /* see if we have to update MVC_Target */
+            /***************************************/
+            if (success_flag) {
+                if (tgt_xVar_enabled) {
+                    /* MVC Target reached! Increase it by 15% */
+                    ssSetRWorkValue(S, 12+quadrant,target_x*1.15);
+                }
+                if (tgt_yVar_enabled) {
+                    /* MVC Target reached! Increase it by 15% */
+                    ssSetRWorkValue(S, 16+quadrant,target_y*1.15);
+                }
+                if ( target_x*target_x > higher_MVC_targets[quadrant-1]*higher_MVC_targets[quadrant-1]) {
+                    /* We have a new Max MVC!*/
+                    ssSetRWorkValue(S, 20+quadrant,target_x);
+                }
+                if (target_y*target_y > higher_MVC_targets[quadrant+3]*higher_MVC_targets[quadrant+3]) {
+                    /* We have a new Max MVC!*/
+                    ssSetRWorkValue(S, 24+quadrant,target_y);
+                }
+            } else { // last trial was not a success
+                if (tgt_xVar_enabled) {
+                    /* Failed to reach and hold MVC Target, decrease x by 8% */
+                    ssSetRWorkValue(S, 12+quadrant,target_x*0.92);
+                }
+                if (tgt_yVar_enabled) {
+                    /* Failed to reach and hold MVC Target, decrease y by 8% */
+                    ssSetRWorkValue(S, 16+quadrant,target_y*0.92);
+                }
+            }
+                    
+        
+            // reshuffle by default if we reached the last target in the list, unless failure and idiot mode
+            if (target_index == num_targets-1 && !(idiot_mode && success_flag == 0)) {
+                reshuffle = 1;  
+            }
 
             /* Reshuffle the targets! */
-			if (reshuffle) {
-				// reshuffle
-				j = 0;
-				/* set up lists loop */
-				for (i=0; i<num_targets; i++) {
-					tmp_tgts[j] = i;
-					tmp_sort[j++] = rand();
-				}
-				
-				/* shuffle lists loop */
-				for (i=0; i<num_targets-1; i++) {
-					for (j=0; j<num_targets-1; j++) {
-						if (tmp_sort[j] < tmp_sort[j+1]) {
-							tmp_d = tmp_sort[j];
-							tmp_sort[j] = tmp_sort[j+1];
-							tmp_sort[j+1] = tmp_d;
-							
-							tmp_i = tmp_tgts[j];
-							tmp_tgts[j] = tmp_tgts[j+1];
-							tmp_tgts[j+1] = tmp_i;
-						}
-					}
-				}
-				
-				/* write lists back to work buffer loop */
-				for (i=0; i<=num_targets-1; i++) {
-					target_list[i] = tmp_tgts[i];
-					ssSetIWorkValue(S, i+5, target_list[i]);
-				}
-				
-				/* and reset the counter */
-				target_index = 0;
-				ssSetIWorkValue(S, 1, target_index);
+            if (reshuffle) {
+                // reshuffle
+                j = 0;
+                /* set up lists loop */
+                for (i=0; i<num_targets; i++) {
+                    tmp_tgts[j] = i;
+                    tmp_sort[j++] = rand();
+                }
                 
-			} else if (idiot_mode) {
-	            //    advance to next target only if previous success
+                /* shuffle lists loop */
+                for (i=0; i<num_targets-1; i++) {
+                    for (j=0; j<num_targets-1; j++) {
+                        if (tmp_sort[j] < tmp_sort[j+1]) {
+                            tmp_d = tmp_sort[j];
+                            tmp_sort[j] = tmp_sort[j+1];
+                            tmp_sort[j+1] = tmp_d;
+                            
+                            tmp_i = tmp_tgts[j];
+                            tmp_tgts[j] = tmp_tgts[j+1];
+                            tmp_tgts[j+1] = tmp_i;
+                        }
+                    }
+                }
+                
+                /* write lists back to work buffer loop */
+                for (i=0; i<=num_targets-1; i++) {
+                    target_list[i] = tmp_tgts[i];
+                    ssSetIWorkValue(S, i+5, target_list[i]);
+                }
+                
+                /* and reset the counter */
+                target_index = 0;
+                ssSetIWorkValue(S, 1, target_index);
+                
+            } else if (idiot_mode) {
+                //    advance to next target only if previous success
                 if (success_flag) ssSetIWorkValue(S, 1, ++target_index);
-			} else {
-				// default : advance to next target
-	            ssSetIWorkValue(S, 1, ++target_index);
+            } else {
+                // default : advance to next target
+                ssSetIWorkValue(S, 1, ++target_index);
             }
-			
-			/* Update the current target_id based on our new target_index */
-			target_id = ssGetIWorkValue(S, 5 + target_index);
+            
+            /* Update the current target_id based on our new target_index */
+            target_id = ssGetIWorkValue(S, 5 + target_index);
 
-			/* Grab the (newly) selected target from the target table */
-		    uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
-		    target_y = *uPtrs[0+(target_id*6)];
-		    target_h = *uPtrs[1+(target_id*6)];
-		    target_x = *uPtrs[2+(target_id*6)];
-		    target_w = *uPtrs[3+(target_id*6)];
-		    tgt_xVar_enabled = (int)*uPtrs[4+(target_id*6)];
-		    tgt_yVar_enabled = (int)*uPtrs[5+(target_id*6)];
-			/* update the quadrant */
-			quadrant = getQuad(target_x, target_y);
-			if (quadrant == 0) {
-				/* (x,y) = (0,0); Turn off the MVC routines */
-				tgt_xVar_enabled = 0;
-				tgt_yVar_enabled = 0;	
-			} 
-		    
-			/****************************************************************************/ 
-		    /* if we are in MVC routine mode, we may want to override the target values */
-		    /****************************************************************************/ 
-			if (tgt_xVar_enabled) {
-				if (current_MVC_targets[quadrant-1]!=0) { // we have xVar enabled and a current value for this quad x target
-					if (target_x != user_spec_MVC_targets[quadrant-1]) { //this quad x MVC target changed by user, we clear this current MVC target
-							current_MVC_targets[quadrant-1] = 0;
-					} else {
-						target_x = current_MVC_targets[quadrant-1]; //override the x value for the MVC target in this quad
-					}
-				}
-				if (current_MVC_targets[quadrant-1] == 0) { //first occurence of this target, don't modify it
-					user_spec_MVC_targets[quadrant-1] = target_x;
-					ssSetRWorkValue(S,4+quadrant,user_spec_MVC_targets[quadrant-1]);
-					current_MVC_targets[quadrant-1] = target_x; //set the current target to value provided by user
-					ssSetRWorkValue(S,12+quadrant,current_MVC_targets[quadrant-1]);
-				}
-			}
-			if (tgt_yVar_enabled) {
-				if (current_MVC_targets[quadrant+3]!=0) { // we have yVar enabled and a current value for this quad y target
-					if (target_y != user_spec_MVC_targets[quadrant+3]) { //this quad y MVC target changed by user, we clear this current MVC target
-						current_MVC_targets[quadrant+3] = 0;
-					} else {
-						target_y = current_MVC_targets[quadrant+3]; //override the y value for the MVC target in this quad
-					}
-				}
-				if (current_MVC_targets[quadrant+3] == 0) { //first occurence of this target, don't modify it
-					user_spec_MVC_targets[quadrant+3] = target_y;
-					ssSetRWorkValue(S,8+quadrant,user_spec_MVC_targets[quadrant+3]);
-					current_MVC_targets[quadrant+3] = target_y; //set the current target to value provided by user
-					ssSetRWorkValue(S,16+quadrant,current_MVC_targets[quadrant+3]);
-				}
-			}
-		    /********************************/ 
-		    /* End of MVC target overriding */
-		    /********************************/ 
-		    
-			/* Write the target back to the RWork vector */
-			ssSetRWorkValue(S,33,target_y);
-			ssSetRWorkValue(S,34,target_h);
-			ssSetRWorkValue(S,35,target_x);
-			ssSetRWorkValue(S,36,target_w);
-			ssSetRWorkValue(S,37,tgt_xVar_enabled);
-			ssSetRWorkValue(S,38,tgt_yVar_enabled);
-			/* Update the target bounds */
-		    tgt[0] = target_x - target_w / 2.0;
-		    tgt[1] = target_y + target_h / 2.0;
-		    tgt[2] = target_x + target_w / 2.0;
-		    tgt[3] = target_y - target_h / 2.0;
-			
+            /* Grab the (newly) selected target from the target table */
+            uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
+            target_y = *uPtrs[0+(target_id*6)];
+            target_h = *uPtrs[1+(target_id*6)];
+            target_x = *uPtrs[2+(target_id*6)];
+            target_w = *uPtrs[3+(target_id*6)];
+            tgt_xVar_enabled = (int)*uPtrs[4+(target_id*6)];
+            tgt_yVar_enabled = (int)*uPtrs[5+(target_id*6)];
+            /* update the quadrant */
+            quadrant = getQuad(target_x, target_y);
+            if (quadrant == 0) {
+                /* (x,y) = (0,0); Turn off the MVC routines */
+                tgt_xVar_enabled = 0;
+                tgt_yVar_enabled = 0;   
+            } 
+            
+            /****************************************************************************/ 
+            /* if we are in MVC routine mode, we may want to override the target values */
+            /****************************************************************************/ 
+            if (tgt_xVar_enabled) {
+                if (current_MVC_targets[quadrant-1]!=0) { // we have xVar enabled and a current value for this quad x target
+                    if (target_x != user_spec_MVC_targets[quadrant-1]) { //this quad x MVC target changed by user, we clear this current MVC target
+                            current_MVC_targets[quadrant-1] = 0;
+                    } else {
+                        target_x = current_MVC_targets[quadrant-1]; //override the x value for the MVC target in this quad
+                    }
+                }
+                if (current_MVC_targets[quadrant-1] == 0) { //first occurence of this target, don't modify it
+                    user_spec_MVC_targets[quadrant-1] = target_x;
+                    ssSetRWorkValue(S,4+quadrant,user_spec_MVC_targets[quadrant-1]);
+                    current_MVC_targets[quadrant-1] = target_x; //set the current target to value provided by user
+                    ssSetRWorkValue(S,12+quadrant,current_MVC_targets[quadrant-1]);
+                }
+            }
+            if (tgt_yVar_enabled) {
+                if (current_MVC_targets[quadrant+3]!=0) { // we have yVar enabled and a current value for this quad y target
+                    if (target_y != user_spec_MVC_targets[quadrant+3]) { //this quad y MVC target changed by user, we clear this current MVC target
+                        current_MVC_targets[quadrant+3] = 0;
+                    } else {
+                        target_y = current_MVC_targets[quadrant+3]; //override the y value for the MVC target in this quad
+                    }
+                }
+                if (current_MVC_targets[quadrant+3] == 0) { //first occurence of this target, don't modify it
+                    user_spec_MVC_targets[quadrant+3] = target_y;
+                    ssSetRWorkValue(S,8+quadrant,user_spec_MVC_targets[quadrant+3]);
+                    current_MVC_targets[quadrant+3] = target_y; //set the current target to value provided by user
+                    ssSetRWorkValue(S,16+quadrant,current_MVC_targets[quadrant+3]);
+                }
+            }
+            /********************************/ 
+            /* End of MVC target overriding */
+            /********************************/ 
+            
+            /* Write the target back to the RWork vector */
+            ssSetRWorkValue(S,33,target_y);
+            ssSetRWorkValue(S,34,target_h);
+            ssSetRWorkValue(S,35,target_x);
+            ssSetRWorkValue(S,36,target_w);
+            ssSetRWorkValue(S,37,tgt_xVar_enabled);
+            ssSetRWorkValue(S,38,tgt_yVar_enabled);
+            /* Update the target bounds */
+            tgt[0] = target_x - target_w / 2.0;
+            tgt[1] = target_y + target_h / 2.0;
+            tgt[2] = target_x + target_w / 2.0;
+            tgt[3] = target_y - target_h / 2.0;
+            
             /* Copy target info into databursts */
             databurst[0] = 6 + 3*sizeof(float) + 4*sizeof(float);
             databurst[1] = DATABURST_VERSION;
-			databurst[2] = BEHAVIOR_VERSION_MAJOR;
-			databurst[3] = BEHAVIOR_VERSION_MINOR;
-			databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
-			databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
-			/* The offsets used in the calculation of the cursor location */
-			uPtrs = ssGetInputPortRealSignalPtrs(S, 1); 
-			databurst_offsets[0] = *uPtrs[0];
-			databurst_offsets[1] = *uPtrs[1];
+            databurst[2] = BEHAVIOR_VERSION_MAJOR;
+            databurst[3] = BEHAVIOR_VERSION_MINOR;
+            databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
+            databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
+            /* The offsets used in the calculation of the cursor location */
+            uPtrs = ssGetInputPortRealSignalPtrs(S, 1); 
+            databurst_offsets[0] = *uPtrs[0];
+            databurst_offsets[1] = *uPtrs[1];
             databurst_rotation[0] = (float)(rotation * 180.0 / PI);
             for (i = 0; i < 4; i++) {
                 databurst_target_list[i] = (float)tgt[i];
@@ -763,7 +763,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             ssSetIWorkValue(S, 23, 0);
                         
             new_state = STATE_DATA_BLOCK;
-			ssSetIWorkValue(S, 21, 0);	// clear success_flag
+            ssSetIWorkValue(S, 21, 0);  // clear success_flag
             state_changed();
 
             break;
@@ -772,7 +772,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                new_state = STATE_RECENTERING;
                state_changed();
             }
-			ssSetIWorkValue(S, 23, databurst_counter+1);
+            ssSetIWorkValue(S, 23, databurst_counter+1);
             break;           
         case STATE_RECENTERING:
             if (cursorInTarget(cursor, center)) {
@@ -783,27 +783,27 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             break;
         case STATE_CENTER_HOLD:
-        	if (!cursorInTarget(cursor, center)) {
-	        	new_state = STATE_RECENTERING;
-	        	state_changed();
-        	} else if ( elapsed_timer_time > ssGetRWorkValue(S,31) ) {
-	        	new_state = (center_delay_time_h > 0) ? STATE_DELAY : STATE_MOVEMENT;
-				set_random_delay_time();
-	        	state_changed();
-	        	reset_timer();
-        	}
-        	break;
+            if (!cursorInTarget(cursor, center)) {
+                new_state = STATE_RECENTERING;
+                state_changed();
+            } else if ( elapsed_timer_time > ssGetRWorkValue(S,31) ) {
+                new_state = (center_delay_time_h > 0) ? STATE_DELAY : STATE_MOVEMENT;
+                set_random_delay_time();
+                state_changed();
+                reset_timer();
+            }
+            break;
         case STATE_DELAY:
-        	if (!cursorInTarget(cursor, center)) {
-	        	new_state = STATE_RECENTERING;
-	        	state_changed();
-				reset_timer();
-        	} else if ( elapsed_timer_time > ssGetRWorkValue(S,32) ) {
-	        	new_state = STATE_MOVEMENT;
-	        	state_changed();
-	        	reset_timer();
-        	}
-        	break;
+            if (!cursorInTarget(cursor, center)) {
+                new_state = STATE_RECENTERING;
+                state_changed();
+                reset_timer();
+            } else if ( elapsed_timer_time > ssGetRWorkValue(S,32) ) {
+                new_state = STATE_MOVEMENT;
+                state_changed();
+                reset_timer();
+            }
+            break;
         case STATE_MOVEMENT:
             if (elapsed_timer_time > reach_time) {
                 new_state = STATE_FAIL;
@@ -820,13 +820,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_CONTINUE_MOVEMENT;
                 state_changed();
             } else if (elapsed_target_hold_time > target_hold_time) {
-				success_flag();
-				new_state = STATE_REWARD;
-				state_changed();
-				reset_timer();
+                success_flag();
+                new_state = STATE_REWARD;
+                state_changed();
+                reset_timer();
             }
             break;
-		case STATE_CONTINUE_MOVEMENT:
+        case STATE_CONTINUE_MOVEMENT:
             if (elapsed_timer_time > reach_time) {
                 new_state = STATE_FAIL;
                 state_changed();
@@ -917,7 +917,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* holders for outputs */
     real_T reward, word;
-	real_T status[4];
+    real_T status[4];
     real_T target[10];
     real_T version[4];
        
@@ -942,26 +942,26 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     new_state = ssGetIWorkValue(S, 0);
     
     /* Get the Current Target Location */
-	target_y = ssGetRWorkValue(S,33);
+    target_y = ssGetRWorkValue(S,33);
     target_h = ssGetRWorkValue(S,34);
     target_x = ssGetRWorkValue(S,35);
     target_w = ssGetRWorkValue(S,36);
-	/* And define the target bounds */
-	tgt[0] = target_x - target_w / 2.0;
-	tgt[1] = target_y + target_h / 2.0;
-	tgt[2] = target_x + target_w / 2.0;
-	tgt[3] = target_y - target_h / 2.0;
+    /* And define the target bounds */
+    tgt[0] = target_x - target_w / 2.0;
+    tgt[1] = target_y + target_h / 2.0;
+    tgt[2] = target_x + target_w / 2.0;
+    tgt[3] = target_y - target_h / 2.0;
     
     /* get center bounds */
-   	center[0] = center_x - center_w / 2.0;
+    center[0] = center_x - center_w / 2.0;
     center[1] = center_y + center_h / 2.0;
     center[2] = center_x + center_w / 2.0;
     center[3] = center_y - center_h / 2.0;    
     
-	/*MVC Targets variables*/
+    /*MVC Targets variables*/
     for (i=0; i<8; i++) {
-    	higher_MVC_targets[i]=ssGetRWorkValue(S,i+21);
-	}  
+        higher_MVC_targets[i]=ssGetRWorkValue(S,i+21);
+    }  
 
     /* databurst */
     databurst_counter = ssGetIWorkValue(S, 23);
@@ -985,10 +985,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         } else {
              word = (databurst[(databurst_counter-1) / 2] >> 4) | 0xF0; /* high order bits */
         }
-	} else if (new_state) {
+    } else if (new_state) {
         switch (state) {
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
+                break;
+            case STATE_RECENTERING:
+                word = WORD_CT_ON;
                 break;
             case STATE_MOVEMENT:
                 if (get_catch_trial()) {
@@ -1026,50 +1029,50 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* targets (4) */
     for (i=0; i<4; i++) {
         target[i+1] = tgt[i];
-		target[i+6] = center[i];
+        target[i+6] = center[i];
     }
-	
+    
     switch (state) {
         case STATE_RECENTERING:
-    	    /* target off */
-		    target[0] = 0;
-		    /* center red*/
-		    target[5] = 1;
+            /* target off */
+            target[0] = 0;
+            /* center red*/
+            target[5] = 1;
         break;
         case STATE_CENTER_HOLD:
-		    /* target off */
-		    target[0] = 0;
-		    /* center green*/
-		    target[5] = 3;
+            /* target off */
+            target[0] = 0;
+            /* center green*/
+            target[5] = 3;
         break;
         case STATE_DELAY:
-		    /* target white */
-		    target[0] = 2;
-		    /* center green*/
-		    target[5] = 3;
-	    break;
-	    case STATE_MOVEMENT:
-	        /* target red */
-        	target[0] = 1;
-	        /* center off */
-	        target[5] = 0;
+            /* target white */
+            target[0] = 2;
+            /* center green*/
+            target[5] = 3;
+        break;
+        case STATE_MOVEMENT:
+            /* target red */
+            target[0] = 1;
+            /* center off */
+            target[5] = 0;
         break;
         case STATE_CONTINUE_MOVEMENT:
-	        /* target red */
-	       	target[0] = 1;
-	        /* center off */
-	        target[5] = 0;
+            /* target red */
+            target[0] = 1;
+            /* center off */
+            target[5] = 0;
         break;
         case STATE_TARGET_HOLD:
-	        /* target green */
-	        target[0] = 3;
-	        /* center off */
-	        target[5] = 0;
+            /* target green */
+            target[0] = 3;
+            /* center off */
+            target[5] = 0;
         break;
         default:
             /* target and center off */
-	        target[0] = 0;
-	        target[5] = 0;
+            target[0] = 0;
+            target[5] = 0;
     }
 
      /* Version */
@@ -1102,8 +1105,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      
      mvcTarget_p = ssGetOutputPortRealSignal(S,5);
      for (i=0; i<4; i++) {
-	     mvcTarget_p[2*i]  = higher_MVC_targets[i];
-	     mvcTarget_p[2*i+1]= higher_MVC_targets[i+4];
+         mvcTarget_p[2*i]  = higher_MVC_targets[i];
+         mvcTarget_p[2*i+1]= higher_MVC_targets[i+4];
      }
      
      version_p = ssGetOutputPortRealSignal(S, 6);
@@ -1113,7 +1116,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      
      rotation_p = ssGetOutputPortRealSignal(S,7);
      rotation_p[0] = rotation;
-       	  
+          
     UNUSED_ARG(tid);
 }
 
