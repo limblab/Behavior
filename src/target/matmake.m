@@ -1,6 +1,37 @@
 function matmake(varargin)
-%MATMAKE Summary of this function goes here
-%   Detailed explanation goes here
+%MATMAKE A minimal subset of GNU make, implemented for MATLAB.
+%   GNU Make "is a tool which controls the generation of executables and 
+%   other non-source files of a program from the program's source files.
+%   Make gets its knowledge of how to build your program from a file called
+%   the makefile, which lists each of the non-source files and how to 
+%   compute it from other files." For details see: www.gnu.org/software/make
+%
+%   Only a minimal subset of GNU Make features are implemented. Notably:
+%   - Makefile parsing (looks for Matmakefile by default)
+%       - Immediate assignments (var := value)
+%       - Variable expansion via ${var} or $(var)
+%       - The basic make 'rule' syntax (target : dependencies, followed by
+%         tabbed MATLAB commands)
+%       - Wildcards in targets (*.x : common.h)
+%       - Pattern rules (%.x : %.y)
+%       - Auto variables in rule commands:
+%           - $@ = the target
+%           - $< = first dependency
+%           - $^ = all dependencies (with duplicates removed)
+%           - $+ = all dependencies (in the exact order they are listed)
+%           - $* = the pattern matched by '%' in a pattern rule
+%   - Implicit rules
+%       - %.mexext is automatically built with 'mex' from %.c or %.cpp
+%       - %.dlm is automatically built with rtwbuild('%')
+%       - %.o/%.obj is automatically build with 'mex' from %.c or %.cpp
+%
+%   When called without any arguments, MATMAKE searches the current working
+%   directory for a file named 'Matmakefile' and builds the first target
+%   listed. With one argument, it builds that target from any rules listed
+%   in 'Matmakefile' (if it exists in the current working directory) or the
+%   implicit rules. The optional second argument may be used to specify a
+%   Matmakefile in another directory or saved as a different name.
+
 
 %% Argument parsing and setup
 
@@ -73,12 +104,9 @@ function result = make(target, state)
             error('matmake: Multiple commands found to build target %s',target);
         elseif (~isempty(target_rules(i).commands))
             cmds = target_rules(i).commands;
-            % Concatenate the dependencies on the front
-            deps = [target_rules(i).deps, deps]; %#ok<AGROW>
-        else
-            % Concatenate the dependencies on the back
-            deps = [deps, target_rules(i).deps]; %#ok<AGROW>
         end
+        % Concatenate the dependencies on the back
+        deps = {deps{:}, target_rules(i).deps{:}};
     end
     
     if (isempty(cmds))
@@ -88,9 +116,10 @@ function result = make(target, state)
         for i=1:length(matching_implicit_rules)
             deps_exist = false;
             for j = 1:length(matching_implicit_rules(i).deps)
-                deps_exist = deps_exist | ~isempty(matching_implicit_rules(i).deps{j}); %#ok<AGROW>
+                deps_exist = deps_exist | ~isempty(matching_implicit_rules(i).deps{j});
             end
             if (deps_exist)
+                deps = {deps{:}, matching_implicit_rules(i).deps{:}};
                 cmds = matching_implicit_rules(i).commands;
                 break;
             end
@@ -109,20 +138,25 @@ function result = make(target, state)
         return;
     end
     
-    newest_dependent_timestamp = inf;
-    for i=1:length(deps)
-        % Recursively make all the dependents
-        status = make(deps{i}, state);
-        if (status == -1)
-            error('matmake: No rule to build %s as required by %s', deps{i}, target);
+    
+    if (isempty(deps))
+        newest_dependent_timestamp = inf;
+    else
+        newest_dependent_timestamp = 0;
+        for i=1:length(deps)
+            % Recursively make all the dependents
+            status = make(deps{i}, state);
+            if (status == -1)
+                error('matmake: No rule to build %s as required by %s', deps{i}, target);
+            end
+
+            % Ensure the dependent exists and check its timestamp
+            file = dir(deps{i});
+            if (isempty(file))
+                error('matmake: File %s not found as required by %s', deps{i}, target);
+            end
+            newest_dependent_timestamp = max(newest_dependent_timestamp, file.datenum);
         end
-        
-        % Ensure the dependent exists and check its timestamp
-        file = dir(deps{i});
-        if (isempty(file))
-            error('matmake: File %s not found as required by %s', deps{i}, target);
-        end
-        newest_dependent_timestamp = max(newest_dependent_timestamp, file.datenum);
     end
     
     target_timestamp = -1;
