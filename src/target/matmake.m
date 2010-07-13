@@ -109,7 +109,7 @@ function result = make(target, state)
         return;
     end
     
-    newest_dependent_timestamp = 0;
+    newest_dependent_timestamp = inf;
     for i=1:length(deps)
         % Recursively make all the dependents
         status = make(deps{i}, state);

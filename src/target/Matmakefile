@@ -9,6 +9,10 @@ OTHER_MODELS := ball_drop.dlm multi_gadget.dlm wrist_flexion.dlm
 
 all: ${ROBOT_MODELS} ${ISO_MODELS} ${LAB4_MODELS} ${OTHER_MODELS}
 
+# mastercon_*.mexw32 : words.h
+# words.h :
+#     perl('update_version.pl')
+
 robot_%.dlm : robot_%.mdl mastercon_%.mexw32 serPos.mexw32 Byte2Bits.mexw32
 robot_%.mdl : mastercon_%.c robot.mdl
     disp('replace_mastercon(''robot.mdl'', ''mastercon_$*.c'')')
@@ -27,4 +31,7 @@ wrist_flexion.dlm : mastercon_wf.mexw32 Byte2Bits.mexw32
 
 
 clean:
-    rmdir('*_xpc_rtw')
+    try; rmdir('slprj', 's'); catch; end;
+    try; rmdir('*_xpc_rtw', 's'); catch; end;
+    try; delete('*.dlm'); catch; end;
+    try; delete(['*.' mexext]); catch; end;
