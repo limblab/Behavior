@@ -1,0 +1,30 @@
+# A sample matlab make file
+
+ROBOT_MODELS := robot_bc.dlm robot_bf.dlm robot_bs.dlm robot_co.dlm robot_fc.dlm robot_rw.dlm robot_vs.dlm
+ISO_MODELS   :=   iso_bc.dlm   iso_bf.dlm   iso_bs.dlm   iso_co.dlm   iso_fc.dlm   iso_rw.dlm   iso_vs.dlm
+LAB4_MODELS  :=  lab4_bc.dlm  lab4_bf.dlm  lab4_bs.dlm  lab4_co.dlm  lab4_fc.dlm  lab4_rw.dlm  lab4_vs.dlm
+
+OTHER_MODELS := ball_drop.dlm multi_gadget.dlm wrist_flexion.dlm
+
+
+all: ${ROBOT_MODELS} ${ISO_MODELS} ${LAB4_MODELS} ${OTHER_MODELS}
+
+robot_%.dlm : robot_%.mdl mastercon_%.mexw32 serPos.mexw32 Byte2Bits.mexw32
+robot_%.mdl : mastercon_%.c robot.mdl
+    disp('replace_mastercon(''robot.mdl'', ''mastercon_$*.c'')')
+
+iso_%.dlm : iso_%.mdl mastercon_%.mexw32 serPos.mexw32 Byte2Bits.mexw32
+iso_%.mdl : mastercon_%.c iso.mdl
+    disp('replace_mastercon(''iso.mdl'', ''mastercon_$*.c'')')
+
+lab4_%.dlm : lab4_%.mdl mastercon_%.mexw32 serPos.mexw32 Byte2Bits.mexw32
+lab4_%.mdl : mastercon_%.c lab4.mdl
+    disp('replace_mastercon(''lab4.mdl'', ''mastercon_$*.c'')')
+
+ball_drop.dlm : mastercon_bd.mexw32 Byte2Bits.mexw32
+multi_gadget.dlm : mastercon_mg.mexw32 serPos.mexw32 Byte2Bits.mexw32
+wrist_flexion.dlm : mastercon_wf.mexw32 Byte2Bits.mexw32
+
+
+clean:
+    rmdir('*_xpc_rtw')

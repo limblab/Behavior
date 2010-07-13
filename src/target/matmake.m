@@ -1,4 +1,4 @@
-function [ result ] = matmake(varargin)
+function matmake(varargin)
 %MATMAKE Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -6,7 +6,7 @@ function [ result ] = matmake(varargin)
 
 if (nargin == 0)
     state = read_matmakefile('Matmakefile');
-    target = state.rules(1).target;
+    target = state.rules(1).target{1};
 elseif (nargin == 1)
     target = varargin{1};
     state = read_matmakefile('Matmakefile');
@@ -16,6 +16,36 @@ elseif (nargin == 2)
 else
     error 'matmake: Wrong number of input arguments';
 end
+
+%% Implicit rules... TODO: do this better.
+idx = 1;
+state.implicitrules(idx).target   = {['%.' mexext]};
+state.implicitrules(1).deps     = {'%.c'};
+state.implicitrules(1).commands = {'mex ${CFLAGS} $<'};
+idx = idx+1;
+state.implicitrules(idx).target   = {['%.' mexext]};
+state.implicitrules(idx).deps     = {'%.cpp'};
+state.implicitrules(idx).commands = {'mex ${CPPFLAGS} ${CFLAGS} $<'};
+idx = idx+1;
+state.implicitrules(idx).target   = {'%.o'};
+state.implicitrules(idx).deps     = {'%.c'};
+state.implicitrules(idx).commands = {'mex -c ${CFLAGS} $<'};
+idx = idx+1;
+state.implicitrules(idx).target   = {'%.o'};
+state.implicitrules(idx).deps     = {'%.cpp'};
+state.implicitrules(idx).commands = {'mex -c ${CPPFLAGS} ${CFLAGS} $<'};
+idx = idx+1;
+state.implicitrules(idx).target   = {'%.obj'};
+state.implicitrules(idx).deps     = {'%.c'};
+state.implicitrules(idx).commands = {'mex -c ${CFLAGS} $<'};
+idx = idx+1;
+state.implicitrules(idx).target   = {'%.obj'};
+state.implicitrules(idx).deps     = {'%.cpp'};
+state.implicitrules(idx).commands = {'mex -c ${CPPFLAGS} ${CFLAGS} $<'};
+idx = idx+1;
+state.implicitrules(idx).target   = {'%.dlm'};
+state.implicitrules(idx).deps     = {'%.mdl'};
+state.implicitrules(idx).commands = {'rtwbuild(''$*'')'};
 
 %% Make the target
 result = make(target, state);
@@ -31,40 +61,66 @@ end %function
 
 %% Private functions %%
 
-function success = make(target, state)
+function result = make(target, state)
     % see if we have a rule to make the target
-    target_rules = find_matching_rules(target, state);
-    if (isempty(target_rules))
+    target_rules = find_matching_rules(target, state.rules);
+    
+    cmds = {};
+    deps = {};
+    
+    for i=1:length(target_rules)
+        if (~isempty(cmds) && ~isempty(target_rules(i).commands))
+            error('matmake: Multiple commands found to build target %s',target);
+        elseif (~isempty(target_rules(i).commands))
+            cmds = target_rules(i).commands;
+            % Concatenate the dependencies on the front
+            deps = [target_rules(i).deps, deps]; %#ok<AGROW>
+        else
+            % Concatenate the dependencies on the back
+            deps = [deps, target_rules(i).deps]; %#ok<AGROW>
+        end
+    end
+    
+    if (isempty(cmds))
+        % We didn't find any explicit commands to make this target; try
+        % the implicit rules
+        matching_implicit_rules = find_matching_rules(target, state.implicitrules);
+        for i=1:length(matching_implicit_rules)
+            deps_exist = false;
+            for j = 1:length(matching_implicit_rules(i).deps)
+                deps_exist = deps_exist | ~isempty(matching_implicit_rules(i).deps{j}); %#ok<AGROW>
+            end
+            if (deps_exist)
+                cmds = matching_implicit_rules(i).commands;
+                break;
+            end
+        end
+    end
+    
+    % TODO: This should be better (elsewhere?)
+    if (isempty(cmds) && isempty(deps))
         % We don't know how to make it; ensure it exists:
         file = dir(target);
         if (isempty(file))
-            success = false;
+            result = -1;
         else
-            success = true;
+            result = 0;
         end
         return;
     end
     
-    if(length(target_rules) == 1)
-        target_rule = target_rules;
-    else
-        % TODO: coalesce multiple rules; ensure only one non-implicit command
-        % set and merge deps.
-        error('matmake: Multiple rules for one target not yet supported'); %TODO
-    end
-    
     newest_dependent_timestamp = 0;
-    for i=1:length(target_rule.deps)
+    for i=1:length(deps)
         % Recursively make all the dependents
-        status = make(target_rule.deps{i}, state);
-        if (~status)
-            error('matmake: No rule to build %s as required by %s', target_rule.deps{i}, target);
+        status = make(deps{i}, state);
+        if (status == -1)
+            error('matmake: No rule to build %s as required by %s', deps{i}, target);
         end
         
         % Ensure the dependent exists and check its timestamp
-        file = dir(target_rule.deps{i});
+        file = dir(deps{i});
         if (isempty(file))
-            error('matmake: File %s not found as required by %s', target_rule.deps{i}, target);
+            error('matmake: File %s not found as required by %s', deps{i}, target);
         end
         newest_dependent_timestamp = max(newest_dependent_timestamp, file.datenum);
     end
@@ -77,13 +133,15 @@ function success = make(target, state)
     
     
     if (target_timestamp < newest_dependent_timestamp)
-        for i = 1:length(target_rule.commands)
-            disp(target_rule.commands{i});
-            eval(target_rule.commands{i});
+        for i = 1:length(cmds)
+            cmd = expand_vars(cmds{i}, state.vars);
+            disp(cmd);
+            eval(cmd);
         end
+        result = 1;
+    else
+        result = 0;
     end
-    
-    success = true;
 end
 
 function state = read_matmakefile(path)
@@ -112,11 +170,11 @@ function state = read_matmakefile(path)
         line = strip_comments(line);
         
         % Check for a : that's missing the =
-        rule = regexp(line, '^\s*(\S+)\s*:(?!=)(.*)$', 'tokens', 'once');
+        rule = regexp(line, '^\s*(\S.*):(?!=)(.*)$', 'tokens', 'once');
         if (length(rule) >= 1)
             loc = length(state.rules)+1;
-            state.rules(loc).target = expand_vars(rule(1), state.vars);
-            state.rules(loc).deps = strread(expand_vars(rule(2), state.vars),'%s');
+            state.rules(loc).target = strread(expand_vars(rule(1), state.vars), '%s');
+            state.rules(loc).deps   = strread(expand_vars(rule(2), state.vars), '%s');
             
             % And check the next line for a rule
             line = fgetl(fid);
@@ -145,6 +203,11 @@ function out = strip_comments(str)
 end
 
 function out = expand_vars(value, vars)
+    if (isempty(value))
+        out = value;
+        return;
+    end
+
     if (iscell(value))
         value = value{1};
     end
@@ -171,13 +234,18 @@ end
 function out = expand_auto_vars(cmds, ruleset, pattern)
     all_deps = strcat(ruleset.deps, {' '});
     all_deps = all_deps{:};
+    if (isempty(ruleset.deps))
+        first_dep = ruleset.deps;
+    else
+        first_dep = ruleset.deps{1};
+    end
     
     unique_deps = str_unique(ruleset.deps);
-    cmds = regexprep(cmds, '(\$@|\$\{@\}|\$\(@\))', ruleset.target);
-    cmds = regexprep(cmds, '(\$<|\$\{<\}|\$\(<\))', ruleset.deps{1});
-    cmds = regexprep(cmds, '(\$^|\$\{^\}|\$\(^\))', unique_deps);
-    cmds = regexprep(cmds, '(\$+|\$\{+\}|\$\(+\))', all_deps);
-    cmds = regexprep(cmds, '(\$*|\$\{*\}|\$\(*\))', pattern);
+    cmds = regexprep(cmds, '(\$\@|\$\{\@\}|\$\(\@\))', ruleset.target);
+    cmds = regexprep(cmds, '(\$<|\$\{<\}|\$\(<\))', first_dep);
+    cmds = regexprep(cmds, '(\$\^|\$\{\^\}|\$\(\^\))', unique_deps);
+    cmds = regexprep(cmds, '(\$\+|\$\{\+\}|\$\(\+\))', all_deps);
+    cmds = regexprep(cmds, '(\$\*|\$\{\*\}|\$\(\*\))', pattern);
     
     out = cmds;
 end
@@ -187,32 +255,34 @@ function out = str_unique(cell_arry)
     out = cellstr(char(unique(out, 'rows')));
 end
 
-function out = find_matching_rules(target, state)
+function out = find_matching_rules(target, ruleset)
     out = [];
     target = strtrim(target);
-    for i=1:length(state.rules)
-        regex = regexptranslate('escape', state.rules(i).target);
+    for i=1:length(ruleset)
+        regex = cell(size(ruleset(i).target));
+        for j = 1:length(regex)
+            regex{j} = regexptranslate('wildcard', ruleset(i).target{j});
+        end
         regex = strcat('^', regex, '$');
-        is_implicit = false;
-        matched = false;
-        pattern = [];
-        if (strfind(regex, '%'))
-            is_implicit = true;
-            regex = strrep(regex, '%', '(\S+)');
+        match_idx = 0;
+        pattern = '';
+        if (strfind(regex{1}, '%'))
+            % Percent matching only supported on single targets.
+            regex = strrep(regex{1}, '%', '(\S+)');
             result = regexp(target, regex, 'tokens', 'once');
             if (~isempty(result))
-                matched = true;
+                match_idx = 1;
                 pattern = result{1};
             end
         else
-            matched = regexp(target, regex, 'once');
+            result = regexp(target, regex, 'once');
+            match_idx = find(~cellfun(@isempty, result),1,'first');
         end
-        if (matched)
+        if (match_idx > 0)
             loc = length(out) + 1;
-            out(loc).implicit = is_implicit;                               %#ok<AGROW>
-            out(loc).target = strrep(state.rules(i).target, '%', pattern); %#ok<AGROW>
-            out(loc).deps = strrep(state.rules(i).deps, '%', pattern);     %#ok<AGROW>
-            out(loc).commands = expand_auto_vars(state.rules(i).commands, out(loc), pattern); %#ok<AGROW>
+            out(loc).target = target;                                      %#ok<AGROW>
+            out(loc).deps = strrep(ruleset(i).deps, '%', pattern);         %#ok<AGROW>
+            out(loc).commands = expand_auto_vars(ruleset(i).commands, out(loc), pattern); %#ok<AGROW>
         end
     end
 end
