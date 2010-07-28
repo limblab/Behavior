@@ -19,8 +19,7 @@ block_name = strcat( sfun, bhvr_code ); %name of the new s-block
 bhvr_code  = lower(strtrim( bhvr_code )); %remove leading space from code, make lowercase
 new_name   = strcat(model_name,'_',bhvr_code,'.mdl'); %intermediate .mdl file: 'model_xx.mdl', which is what is built into the target .dlm
 
-%first make sure we're going to make a model that matches the intended
-%target
+%make sure we're going to make a model that matches the intended target
 if regexp( remove_extension(new_name), remove_extension(target) )
 
     open_system(model_branch);
