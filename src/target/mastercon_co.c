@@ -915,6 +915,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_FAIL:
                 word = WORD_FAIL;
                 break;
+            case STATE_INCOMPLETE:
+                word = WORD_INCOMPLETE;
+                break;
             default:
                 word = 0;
         }
