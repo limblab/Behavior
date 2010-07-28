@@ -1,0 +1,137 @@
+<HTML>
+<HEAD>
+<TITLE>RTW Report - Nonvirtual subsystems in center_out</TITLE>
+</HEAD>
+<BODY BGCOLOR=#ffffff LINK="0033CC" VLINK="#666666">
+<FONT SIZE=+4 COLOR=#000066> Nonvirtual subsystems in center_out</B></FONT>
+<P CLASS="margin">
+<A NAME="codemap"><FONT SIZE=+2 COLOR=#000066> <B CLASS="midprod"> 
+ Code Mapping </B></FONT></A>
+ <P CLASS="margin">  
+The following table:
+<ul>
+
+<li> provides a mapping from the non-virtual subsystems in the model to
+functions or Reused functions in the generated code and 
+
+<li> notes exceptions that caused some non-virtual subsystems to not reuse code
+even though they were assigned a Reuse Setting ('RTW System Code' entry 
+on the Subsystem Block Dialog) of 'Auto' or 'Reused Function'.
+
+</ul>
+<BR>
+   <TABLE BORDER="1" CELLPADDING="5" CELLSPACING="1">
+     <B><TR></B><TD><B>Subsystem</B><TD><B>Reuse Setting</B><TD><B>Reuse Outcome</B><TD><B>Outcome Diagnostic</TR></B>
+     <TR><TD><a href="matlab: rtwprivate rtwctags_hilite center_out/Motor#-SP-#Control/Schmidt/Enabled#-SP-#Subsystem;"><FONT COLOR=blue><I>&lt;S35&gt;</I></FONT></a><TD>Auto<TD><A HREF="center_out_c.html#fcn_center_out_EnabledSubsystem" TARGET="rtwreport_document_frame">Reusable Function(S35)</A><TD><FONT COLOR="green">normal</FONT></TR>
+     <TR><TD><a href="matlab: rtwprivate rtwctags_hilite center_out/Recentering#-SP-#Subsystem/Schmidt1/Enabled#-SP-#Subsystem;"><FONT COLOR=blue><I>&lt;S54&gt;</I></FONT></a><TD>Auto<TD><A HREF="center_out_c.html#fcn_center_out_EnabledSubsystem" TARGET="rtwreport_document_frame">Reusable Function(S35)</A><TD><FONT COLOR="green">normal</FONT></TR>
+     <TR><TD><a href="matlab: rtwprivate rtwctags_hilite center_out/Recentering#-SP-#Subsystem/Schmidt2/Enabled#-SP-#Subsystem;"><FONT COLOR=blue><I>&lt;S56&gt;</I></FONT></a><TD>Auto<TD><A HREF="center_out_c.html#fcn_center_out_EnabledSubsystem" TARGET="rtwreport_document_frame">Reusable Function(S35)</A><TD><FONT COLOR="green">normal</FONT></TR>
+     <TR><TD><a href="matlab: rtwprivate rtwctags_hilite center_out/Recentering#-SP-#Subsystem/Schmidt3/Enabled#-SP-#Subsystem;"><FONT COLOR=blue><I>&lt;S58&gt;</I></FONT></a><TD>Auto<TD><A HREF="center_out_c.html#fcn_center_out_EnabledSubsystem" TARGET="rtwreport_document_frame">Reusable Function(S35)</A><TD><FONT COLOR="green">normal</FONT></TR>
+     <TR><TD><a href="matlab: rtwprivate rtwctags_hilite center_out/Recentering#-SP-#Subsystem/Timer/Enabled#-SP-#Subsystem;"><FONT COLOR=blue><I>&lt;S62&gt;</I></FONT></a><TD>Auto<TD><A HREF="center_out_c.html#fcn_center_out_EnabledSubsystem" TARGET="rtwreport_document_frame">Reusable Function(S35)</A><TD><FONT COLOR="green">normal</FONT></TR>
+     <TR><TD><a href="matlab: rtwprivate rtwctags_hilite center_out/RewardSbs/Sample#-SP-#and#-SP-#Hold;"><FONT COLOR=blue><I>&lt;S64&gt;</I></FONT></a><TD>Auto<TD><A HREF="center_out_c.html#fcn_center_out_SampleandHold" TARGET="rtwreport_document_frame">Reusable Function(S64)</A><TD><FONT COLOR="green">normal</FONT></TR>
+     <TR><TD><a href="matlab: rtwprivate rtwctags_hilite center_out/RewardSbs/Schmidt/Sample#-SP-#and#-SP-#Hold;"><FONT COLOR=blue><I>&lt;S66&gt;</I></FONT></a><TD>Auto<TD><A HREF="center_out_c.html#fcn_center_out_SampleandHold" TARGET="rtwreport_document_frame">Reusable Function(S64)</A><TD><FONT COLOR="green">normal</FONT></TR>
+     <TR><TD><a href="matlab: rtwprivate rtwctags_hilite center_out/Motor#-SP-#Control/Force//Torque#-SP-#Transform;"><FONT COLOR=blue><I>&lt;S29&gt;</I></FONT></a><TD>Auto<TD>Inline<TD><FONT COLOR="green">normal</FONT></TR>
+     <TR><TD><a href="matlab: rtwprivate rtwctags_hilite center_out/XY#-SP-#Position#-SP-#Subsystem/For#-SP-#Iterator#-NL-#Subsystem/While#-SP-#Iterator#-SP-#Subsystem;"><FONT COLOR=blue><I>&lt;S72&gt;</I></FONT></a><TD>Auto<TD>Inline<TD><A HREF="center_out_subsystems.html#S72blker"TARGET="rtwreport_document_frame"><FONT COLOR="red">[exceptions]</FONT></A></TR>
+     <TR><TD><a href="matlab: rtwprivate rtwctags_hilite center_out/XY#-SP-#Position#-SP-#Subsystem/For#-SP-#Iterator#-SP-#Subsystem;"><FONT COLOR=blue><I>&lt;S70&gt;</I></FONT></a><TD>Auto<TD>Inline<TD><A HREF="center_out_subsystems.html#S70blker"TARGET="rtwreport_document_frame"><FONT COLOR="red">[exceptions]</FONT></A></TR>
+   </TABLE>
+<BR>
+<BR>
+<A NAME="codeexcepts"><FONT SIZE=+2 COLOR=#000066> <B CLASS="midprod"> 
+ Code Reuse Exceptions</B></FONT></A>
+ <P CLASS="margin">  
+
+The following section provides details on each exception that caused
+a non-virtual subsystem with a Reuse Setting of 
+<ul>
+
+<li> 'Auto' to become an inlined code segment, 
+
+<li> 'Auto' to become a non-reusable function without arguments, or
+
+<li> 'Reused Function' to become a non-reusable function without arguments.
+
+</ul>
+
+<B>Note</B>: This section does not report graphically identical non-virtual
+subsystems marked as 'Auto' that were not reused due to differences in their
+functional properties (such as dimensions, datatypes, work vectors, parameters,
+etc.).  You may identify reasons for non-reuse in such cases by
+inspecting the differences in the functional attributes of the
+subsystems in the model or in the inlined generated code.
+
+<BR>
+<BR>
+     <A NAME="S72blker"><B>Contents of <a href="matlab: rtwprivate rtwctags_hilite center_out/XY#-SP-#Position#-SP-#Subsystem/For#-SP-#Iterator#-NL-#Subsystem/While#-SP-#Iterator#-SP-#Subsystem;"><FONT COLOR=blue><I>&lt;S72&gt;</I></FONT></a> not reusable because:</B><BR>
+
+     <ul>
+
+     <li>The following block contains an S-Function that does not conform to Code Reuse restrictions. The S-Function block (a) should have a TLC implementation and (b) should set the option 'SS_OPTION_WORKS_WITH_CODE_REUSE'. [<a href="matlab: rtwprivate rtwctags_hilite center_out/XY#-SP-#Position#-SP-#Subsystem/For#-SP-#Iterator#-NL-#Subsystem/While#-SP-#Iterator#-NL-#Subsystem/PCI-6025E#-SP-#;"><FONT COLOR=blue><I>center_out/XY Position Subsystem/For Iterator
+Subsystem/While Iterator
+Subsystem/PCI-6025E </I></FONT></a>]</li>
+     </ul>
+
+     <ul>
+
+     <li>The following block contains an S-Function that does not conform to Code Reuse restrictions. The S-Function block (a) should have a TLC implementation and (b) should set the option 'SS_OPTION_WORKS_WITH_CODE_REUSE'. [<a href="matlab: rtwprivate rtwctags_hilite center_out/XY#-SP-#Position#-SP-#Subsystem/For#-SP-#Iterator#-NL-#Subsystem/While#-SP-#Iterator#-NL-#Subsystem/xPC#-SP-#Target#-NL-##-SP-#Time#-SP-#;"><FONT COLOR=blue><I>center_out/XY Position Subsystem/For Iterator
+Subsystem/While Iterator
+Subsystem/xPC Target
+ Time </I></FONT></a>]</li>
+     </ul>
+
+     <A NAME="S70blker"><B>Contents of <a href="matlab: rtwprivate rtwctags_hilite center_out/XY#-SP-#Position#-SP-#Subsystem/For#-SP-#Iterator#-SP-#Subsystem;"><FONT COLOR=blue><I>&lt;S70&gt;</I></FONT></a> not reusable because:</B><BR>
+
+     <ul>
+
+     <li>The following block contains an S-Function that does not conform to Code Reuse restrictions. The S-Function block (a) should have a TLC implementation and (b) should set the option 'SS_OPTION_WORKS_WITH_CODE_REUSE'. [<a href="matlab: rtwprivate rtwctags_hilite center_out/XY#-SP-#Position#-SP-#Subsystem/For#-SP-#Iterator#-NL-#Subsystem/Port#-SP-#A;"><FONT COLOR=blue><I>center_out/XY Position Subsystem/For Iterator
+Subsystem/Port A</I></FONT></a>]</li>
+     </ul>
+
+     <ul>
+
+     <li>The following block contains an S-Function that does not conform to Code Reuse restrictions. The S-Function block (a) should have a TLC implementation and (b) should set the option 'SS_OPTION_WORKS_WITH_CODE_REUSE'. [<a href="matlab: rtwprivate rtwctags_hilite center_out/XY#-SP-#Position#-SP-#Subsystem/For#-SP-#Iterator#-NL-#Subsystem/Port#-SP-#B;"><FONT COLOR=blue><I>center_out/XY Position Subsystem/For Iterator
+Subsystem/Port B</I></FONT></a>]</li>
+     </ul>
+
+     <ul>
+
+     <li>The following block contains an S-Function that does not conform to Code Reuse restrictions. The S-Function block (a) should have a TLC implementation and (b) should set the option 'SS_OPTION_WORKS_WITH_CODE_REUSE'. [<a href="matlab: rtwprivate rtwctags_hilite center_out/XY#-SP-#Position#-SP-#Subsystem/For#-SP-#Iterator#-NL-#Subsystem/SerialConverter;"><FONT COLOR=blue><I>center_out/XY Position Subsystem/For Iterator
+Subsystem/SerialConverter</I></FONT></a>]</li>
+     </ul>
+
+     <ul>
+
+     <li>The following block contains an S-Function that does not conform to Code Reuse restrictions. The S-Function block (a) should have a TLC implementation and (b) should set the option 'SS_OPTION_WORKS_WITH_CODE_REUSE'. [<a href="matlab: rtwprivate rtwctags_hilite center_out/XY#-SP-#Position#-SP-#Subsystem/For#-SP-#Iterator#-NL-#Subsystem/ToBits;"><FONT COLOR=blue><I>center_out/XY Position Subsystem/For Iterator
+Subsystem/ToBits</I></FONT></a>]</li>
+     </ul>
+
+     <ul>
+
+     <li>The following block contains an S-Function that does not conform to Code Reuse restrictions. The S-Function block (a) should have a TLC implementation and (b) should set the option 'SS_OPTION_WORKS_WITH_CODE_REUSE'. [<a href="matlab: rtwprivate rtwctags_hilite center_out/XY#-SP-#Position#-SP-#Subsystem/For#-SP-#Iterator#-NL-#Subsystem/ToBits1;"><FONT COLOR=blue><I>center_out/XY Position Subsystem/For Iterator
+Subsystem/ToBits1</I></FONT></a>]</li>
+     </ul>
+
+     <ul>
+
+     <li>The following block contains an S-Function that does not conform to Code Reuse restrictions. The S-Function block (a) should have a TLC implementation and (b) should set the option 'SS_OPTION_WORKS_WITH_CODE_REUSE'. [<a href="matlab: rtwprivate rtwctags_hilite center_out/XY#-SP-#Position#-SP-#Subsystem/For#-SP-#Iterator#-NL-#Subsystem/xPC#-SP-#Target#-NL-##-SP-#Time#-SP-#;"><FONT COLOR=blue><I>center_out/XY Position Subsystem/For Iterator
+Subsystem/xPC Target
+ Time </I></FONT></a>]</li>
+     </ul>
+
+     <ul>
+
+     <li>The following block contains an S-Function that does not conform to Code Reuse restrictions. The S-Function block (a) should have a TLC implementation and (b) should set the option 'SS_OPTION_WORKS_WITH_CODE_REUSE'. [<a href="matlab: rtwprivate rtwctags_hilite center_out/XY#-SP-#Position#-SP-#Subsystem/For#-SP-#Iterator#-NL-#Subsystem/While#-SP-#Iterator#-NL-#Subsystem/PCI-6025E#-SP-#;"><FONT COLOR=blue><I>center_out/XY Position Subsystem/For Iterator
+Subsystem/While Iterator
+Subsystem/PCI-6025E </I></FONT></a>]</li>
+     </ul>
+
+     <ul>
+
+     <li>The following block contains an S-Function that does not conform to Code Reuse restrictions. The S-Function block (a) should have a TLC implementation and (b) should set the option 'SS_OPTION_WORKS_WITH_CODE_REUSE'. [<a href="matlab: rtwprivate rtwctags_hilite center_out/XY#-SP-#Position#-SP-#Subsystem/For#-SP-#Iterator#-NL-#Subsystem/While#-SP-#Iterator#-NL-#Subsystem/xPC#-SP-#Target#-NL-##-SP-#Time#-SP-#;"><FONT COLOR=blue><I>center_out/XY Position Subsystem/For Iterator
+Subsystem/While Iterator
+Subsystem/xPC Target
+ Time </I></FONT></a>]</li>
+     </ul>
+
+
+ </BODY>
+</HTML>
+

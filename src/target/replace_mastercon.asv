@@ -24,11 +24,11 @@ new_name   = strcat(model_name,'_',bhvr_code,'.mdl'); %intermediate .mdl file na
 if regexp( remove_extension(new_name), remove_extension(target) )
 
     open_system(model_branch);
-    handle = get_param(sblock,'Handle');                %handle of the Master Control block, **not** the whole .mdl
+    handle = get_param(sblock,'Handle');
     set_param(handle, 'FunctionName', mastercon_xx);    %change S-Function/master control .c file
     set_param(handle, 'Parameters', param_list);        %change to corresponding list of parameters
-    set_param(handle, 'Name', block_name);              %change name of Master Control block to 'Behavior [XX]'
-    save_system(model_branch, new_name);                %'Save As...'
+    set_param(handle, 'Name', block_name);
+    save_system(model_branch, new_name); %'Save As...'
     close_system(new_name);
    
 else
@@ -49,12 +49,12 @@ function nom_sans_fin = remove_extension(filename)
         if (length(dot) > 1)
             sprintf('Warning: model name "%s" in incorrect format',filename)
             return;
-            %Are there better ways of handling this? assume the last dot
+            %are there better ways of handling this? pretend the last dot
             %precedes the extension? or the first dot? whichever way is
-            %better, this **shouldn't** be an issue, assuming all file
-            %names are correctly entered in 'Matmakefile'
+            %better, this shouldn't be an issue (all file names in use come
+            %from 'Matmakefile')
         end
-        nom_sans_fin = filename(1:dot-1); %stops right before the period
+        nom_sans_fin = filename(1:dot-1);
     else
         nom_sans_fin = filename; %simply returns input if no periods are found
     end

@@ -1,0 +1,292 @@
+function r = build(varargin)
+% BUILD     Builds the specified files acording to the dependency tree
+%   BUILD(T) builds the entire dependency tree specified in T
+%   BUILD(T, F) builds file F and all dependencies in the dependency tree T
+%   BUILD(T, F, DEBUG) same as above but prints out debugging information
+%       when DEBUG is set to TRUE.
+%   R = BUILD(T) returns the result of the build: R = 1: built
+%                                                 R = 0: not built
+%
+%   The BUILD function recognises the following file types:
+%       .mex32w     Looks for the coresponding .c file and compiles it
+%       .dlm        Looks for the coresponding .mdl file and builds it
+%
+%   Dependency tree format:
+%       Each entry in the cell array represents a build rule.  It points to 
+%       a cell array of strings.  The first entry is the filename of the
+%       current rule target.  Subsequent entries list the dependencies.
+%       
+%       Example:
+%           T = {{'random_walk.dlm', 'mastercon_rw.mex32w', ... 
+%                                    'serPos.mex32w', 
+%                                    'Byte2Bits.mex32w'}, ...
+%                {'center_out.dlm',  'mastercon_co.mex32w', ...
+%                                    'serPos.mex32w', ...
+%                                    'Byte2Bits.mex32w'}};
+
+% $Id: build.m 359 2009-01-23 21:00:54Z matt $
+
+%
+% Argument processing
+%
+
+if (nargin < 1 || nargin >3)
+    error('Invalid number of arguments.');
+end
+
+tree = varargin(1);
+tree = tree{1};
+
+if (nargin > 1) 
+    target = varargin{2};
+else 
+    target = 'all';
+end
+
+if (nargin > 2)
+    debug = varargin{3};
+else
+    debug = 0;
+end
+
+%
+% Recursive build
+%
+
+dbprint(sprintf('building %s', target))
+must_build = 0;
+
+if strcmp(target, 'all')
+    % build each of the behaviors
+    for i = 1:length(tree)
+        local_target = tree{i}{1};
+        dbprint(sprintf('--- Building Target: %s ---', local_target));
+        build(tree, local_target, debug);
+    end
+else
+    %
+    % We are building for a particular target
+    %
+    
+    % see if the rule exists
+    rule_index = -1;
+    for i = 1:length(tree)
+        if (iscell(tree{1}))
+            if (strcmp(tree{i}{1}, target))
+                rule_index = i;
+            end
+        else
+            if (strcmp(tree{i}, target))
+                rule_index = i;
+            end
+        end
+    end
+    
+    if (rule_index ~= -1)
+        % we have a rule for the particular target
+        
+        % build all dependencies
+        for i = 2:length(tree{rule_index})
+            dbprint(['entering next level for ' tree{rule_index}{i}]);
+            must_build = must_build + build(tree, tree{rule_index}{i}, debug);
+            dbprint(['done with ' tree{rule_index}{i}]);
+            dbprint('');
+        end
+        
+        % finally, build the target with the auto rule
+        r = do_build(tree{rule_index}{1}, tree{rule_index}{2}, must_build);
+    else 
+        % If there is no rule, just make one up
+        r = do_build(target, false);
+    end
+    
+end % strcmp(target, 'all')
+
+
+
+%%%%%%%%%%%%% Begin Internal Functions %%%%%%%%%%%%%%%%%
+
+function r = do_build(target, mastercon_xx, force)
+    if (regexp(target, '\.mexw32$'))
+        r = do_build_mex(target, force);
+    elseif (regexp(target, '\.dlm$'))
+        r = do_build_dlm(target, mastercon_xx, force);
+    else 
+        error(['Have no rule for target: ' target]);
+    end
+end
+
+
+function r = do_build_mex(target, force)
+    r = 0;
+    
+    compname = target;
+    compdate = dir(compname);
+        
+    filename = regexp(compname, '^(\w*)\.mexw32$', 'tokens');
+    filename = filename{1};
+    filename = strcat(filename{1}, '.c');
+    filedate = dir(filename);
+    filedate = filedate.datenum;
+    
+    if (~isempty(compdate))
+        compdate = compdate.datenum;
+        if (filedate > compdate)
+            r = 1;
+        end 
+    else 
+        r = 1;
+    end
+    
+    if (r || force)
+        dbprint(['  building: ' target]);
+        mex(filename);
+    else
+        dbprint(['  skipped:  ' target]);
+    end
+end
+
+
+function r = do_build_dlm(target, mastercon_xx, force)
+%MODIFYING THIS FUNCTION TO STREAMLINE FILE TREE of .mdl's and c-files
+%What we want to do:
+%trim extension from target
+%trim and store two letter code/preceding underscore
+%IF starts_with (model_branch)
+%
+%[where 'model_branch' is 'robot'/'iso'/'lab4'] - basically if it's a robot
+%task
+%
+%   look at last two letters before '.dlm'
+%   pull up 'model_branch.mdl'
+%   in 'model_branch/Behavior XX', change: FunctionName ('mastercon_xx'), Name ('Behavior xx'), Parameters (parameter list in string format)
+%   remove the two letter code from 'filename' after it no longer has a '.dlm' extension
+%   use that to know which '.mdl' to build from
+%
+%To know which 'mastercon_xx.c' file to swap into the s-function block:
+%   
+%   pass the '.mex' target file that is built from said '.c' file
+
+    
+    r = 0;
+    
+    compname = target;
+    compdate = dir(compname);
+    
+    filename = regexp(compname, '^(\w*)\.dlm$', 'tokens');
+    filename = filename{1};
+    buildname = filename{1}; %returns 'model_branch_xx' (ex: 'robot_co', etc.) w/o an extension
+    
+    %IDENTIFIES ROBOT TASKS VS NON-ROBOT TASKS
+    %assumes the .dlm/.mdl name will end in '_xx' for only robot tasks
+    %(uses the last underscore as an identifier for robot tasks)
+    name_len = length(buildname);
+    if strcmp( buildname(name_len - 2), '_' )
+        
+        %initializing for string manipulation
+        code_len   = length('_xx');  %generic behavior code
+        branch_len = name_len - code_len; %length of only the model branch part of the name
+        
+        model_name = buildname(1:branch_len); %pulls only which model branch is needed (ignores behavior code)
+        sfun       = '/Behavior XX'; %s-function block name
+        sblock     = strcat(model_name,sfun); %outputs 'model_name/Behavior XX' where 'model_name' is 'robot', etc.
+        
+        %define which 'mastercon_xx.c' file will be the s-function for this
+        %.dlm (copied from the 'do_build_mex' function)
+        mc_name = regexp(mastercon_xx, '^(\w*)\.mexw32$', 'tokens');
+        mc_name = mc_name{1};
+        mc_name = strcat(mc_name{1}, '.c');
+        
+        %initialize parameters that will be changed within simulink model
+        %before building the .dlm.
+        bhvr_code  = upper( mc_name(11:12) ); %pulls out the two-letter behavior code
+        block_name = sblock(2:end-2); %removes 'XX' from end, ignores starting forward slash
+        block_name = strcat(block_name, bhvr_code); %puts behavior code for this .dlm on end
+        param_list = get_param_list(bhvr_code);
+        
+        open(model_name);
+        handle = get_param(sblock,'Handle');
+        set_param(handle, 'FunctionName', mc_name);
+        set_param(handle, 'Parameters', param_list);
+        set_param(handle, 'Name', block_name);
+        
+        %this section copied from below
+        filedate = dir( strcat(model_name,'.mdl') );
+        filedate = filedate.datenum;
+        
+        if (~isempty(compdate))
+            compdate = compdate.datenum;
+            if (filedate > compdate)
+                r = 1;
+            end
+        else
+            r = 1;
+        end
+        
+        if (r || force)
+            dbprint(['  building: ' target]);
+            rtwbuild(buildname);
+        else
+            dbprint(['  skipped: ' target]);
+        end
+        
+        %reset s-function info and close
+        set_param( handle, 'Name', sfun(2:end) );
+        save_system(model_name);
+        close_system(model_name);
+       
+    else %for non-robot tasks (ball drop, etc.)
+        filename = strcat(filename{1}, '.mdl');
+        filedate = dir(filename);
+        filedate = filedate.datenum;
+
+        if (~isempty(compdate))
+            compdate = compdate.datenum;
+            if (filedate > compdate)
+                r = 1;
+            end 
+        else 
+            r = 1;
+        end
+
+        if (r || force)
+            dbprint(['  building: ' target]);
+            rtwbuild(buildname);
+        else
+            dbprint(['  skipped:  ' target]);
+        end
+        
+    end
+end
+
+function dbprint(str)
+    if (debug)
+        disp(str)
+    end
+end
+
+function param_list = get_param_list(bhvr_code)
+    %run through behaviors, return appropriate set of parameters listed as
+    %a string (necessary for 'set_param' function above)
+    if strcmp(bhvr_code,'bc')           %BUMP-CHOICE
+        param_list = '0 10 3 5 7 0.0 0.05 125 0.5 2 10 1 2 0 0 0';
+    elseif strcmpi(bhvr_code,'bf')      %BUMP-FOLLOW
+        param_list = '0 10 3 1 2 5 7 0.0 0.05 125 0.5 2 10 1 2 0 0 0';
+    elseif strcmpi(bhvr_code,'bs')      %BUMP-STIM
+        param_list = '8 10 2.5 1 1 .5 1.5 .75 .25 1 1 2 1 .02 125 1 1 0 0 0 0 0 0';
+    elseif strcmpi(bhvr_code,'co')      %CENTER-OUT
+        param_list = '8 10 2.5 1 1 .5 1.5 .75 .25 1 1 10 1 .02 125 1 0 0';
+    elseif strcmpi(bhvr_code,'fc')      %FORCED CHOICE
+        param_list = '16 0.2 0 .5 1 .5 1 2 2 3 5 0 1';
+    elseif strcmpi(bhvr_code,'rw')      %RANDOM WALK
+        param_list = '8 3 0 -10 10 -10 10 0 0 0 0 10 10 1 0 0 0 0';
+    elseif strcmpi(bhvr_code,'vs')      %VISUAL SEARCH
+        param_list = '6 12 2.5 4 .5 1 10 2 0 0 1 1 1 1 0';
+    end
+end
+
+%%%%%%%%%%%%%% End Internal Functions %%%%%%%%%%%%%%%%%%
+
+
+end % end of build() [mis-indented]
+

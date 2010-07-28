@@ -1,0 +1,4247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+	<SubSystem>
+		<Name>BoundingBox</Name>
+		<block>
+			<blkName>XHighLimit</blkName>
+			<xpcblkName>BoundingBox/XHighLimit</xpcblkName>
+			<SLblockPath>center_out/BoundingBox/XHighLimit</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>XLowLimit</blkName>
+			<xpcblkName>BoundingBox/XLowLimit</xpcblkName>
+			<SLblockPath>center_out/BoundingBox/XLowLimit</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>YHighLimit</blkName>
+			<xpcblkName>BoundingBox/YHighLimit</xpcblkName>
+			<SLblockPath>center_out/BoundingBox/YHighLimit</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>YLowLimit</blkName>
+			<xpcblkName>BoundingBox/YLowLimit</xpcblkName>
+			<SLblockPath>center_out/BoundingBox/YLowLimit</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<signal>
+			<sigName>Logical
+Operator</sigName>
+			<xpcsigName>BoundingBox/Logical Operator</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Relational
+Operator</sigName>
+			<xpcsigName>BoundingBox/Relational Operator</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Relational
+Operator1</sigName>
+			<xpcsigName>BoundingBox/Relational Operator1</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Relational
+Operator2</sigName>
+			<xpcsigName>BoundingBox/Relational Operator2</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Relational
+Operator3</sigName>
+			<xpcsigName>BoundingBox/Relational Operator3</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+	</SubSystem>
+	<SubSystem>
+		<Name>Catch Force Generator</Name>
+		<SubSystem>
+			<Name>LorentzForce</Name>
+			<SubSystem>
+				<Name>Lorentz</Name>
+				<block>
+					<blkName>beta</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz/beta</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz/beta</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>rho</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz/rho</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz/rho</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>sigma</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz/sigma</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz/sigma</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>timescale</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz/timescale</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz/timescale</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>x</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz/x</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz/x</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>y</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz/y</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz/y</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>z</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz/z</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz/z</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<signal>
+					<sigName>dX</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/dX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dY</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/dY</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dZ</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/dZ</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product1</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/product1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product2</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/product2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product3</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/product3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product4</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/product4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add1</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/Add1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add2</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/Add2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add3</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/Add3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add4</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/Add4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/AddX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX1</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/AddX1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX2</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/AddX2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>x</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/x</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>y</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/y</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>z</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz/z</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<SubSystem>
+				<Name>Lorentz1</Name>
+				<block>
+					<blkName>beta</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz1/beta</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz1/beta</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>rho</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz1/rho</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz1/rho</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>sigma</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz1/sigma</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz1/sigma</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>timescale</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz1/timescale</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz1/timescale</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>x</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz1/x</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz1/x</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>y</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz1/y</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz1/y</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>z</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz1/z</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz1/z</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<signal>
+					<sigName>dX</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/dX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dY</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/dY</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dZ</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/dZ</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product1</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/product1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product2</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/product2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product3</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/product3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product4</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/product4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add1</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/Add1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add2</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/Add2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add3</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/Add3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add4</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/Add4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/AddX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX1</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/AddX1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX2</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/AddX2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>x</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/x</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>y</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/y</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>z</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz1/z</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<SubSystem>
+				<Name>Lorentz2</Name>
+				<block>
+					<blkName>beta</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz2/beta</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz2/beta</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>rho</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz2/rho</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz2/rho</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>sigma</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz2/sigma</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz2/sigma</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>timescale</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz2/timescale</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz2/timescale</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>x</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz2/x</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz2/x</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>y</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz2/y</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz2/y</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>z</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz2/z</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz2/z</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<signal>
+					<sigName>dX</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/dX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dY</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/dY</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dZ</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/dZ</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product1</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/product1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product2</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/product2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product3</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/product3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product4</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/product4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add1</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/Add1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add2</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/Add2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add3</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/Add3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add4</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/Add4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/AddX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX1</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/AddX1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX2</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/AddX2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>x</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/x</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>y</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/y</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>z</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz2/z</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<SubSystem>
+				<Name>Lorentz3</Name>
+				<block>
+					<blkName>beta</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz3/beta</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz3/beta</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>rho</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz3/rho</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz3/rho</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>sigma</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz3/sigma</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz3/sigma</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>timescale</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz3/timescale</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz3/timescale</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>x</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz3/x</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz3/x</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>y</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz3/y</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz3/y</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>z</blkName>
+					<xpcblkName>Catch Force Generator/LorentzForce/Lorentz3/z</xpcblkName>
+					<SLblockPath>center_out/Catch Force Generator/LorentzForce/Lorentz3/z</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<signal>
+					<sigName>dX</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/dX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dY</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/dY</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dZ</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/dZ</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product1</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/product1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product2</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/product2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product3</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/product3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product4</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/product4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add1</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/Add1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add2</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/Add2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add3</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/Add3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add4</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/Add4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/AddX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX1</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/AddX1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX2</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/AddX2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>x</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/x</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>y</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/y</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>z</sigName>
+					<xpcsigName>Catch Force Generator/LorentzForce/Lorentz3/z</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<signal>
+				<sigName>Add</sigName>
+				<xpcsigName>Catch Force Generator/LorentzForce/Add</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Add1</sigName>
+				<xpcsigName>Catch Force Generator/LorentzForce/Add1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>ViscLoadSubsystem</Name>
+			<block>
+				<blkName>Gain</blkName>
+				<xpcblkName>Catch Force Generator/ViscLoadSubsystem/Gain</xpcblkName>
+				<SLblockPath>center_out/Catch Force Generator/ViscLoadSubsystem/Gain</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>Gain</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Inverter</blkName>
+				<xpcblkName>Catch Force Generator/ViscLoadSubsystem/Inverter</xpcblkName>
+				<SLblockPath>center_out/Catch Force Generator/ViscLoadSubsystem/Inverter</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>Gain</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>Gain</sigName>
+				<xpcsigName>Catch Force Generator/ViscLoadSubsystem/Gain</xpcsigName>
+				<sigWidth>2</sigWidth>
+				<sigDim>[2,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Inverter</sigName>
+				<xpcsigName>Catch Force Generator/ViscLoadSubsystem/Inverter</xpcsigName>
+				<sigWidth>2</sigWidth>
+				<sigDim>[2,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product</sigName>
+				<xpcsigName>Catch Force Generator/ViscLoadSubsystem/Product</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product1</sigName>
+				<xpcsigName>Catch Force Generator/ViscLoadSubsystem/Product1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product2</sigName>
+				<xpcsigName>Catch Force Generator/ViscLoadSubsystem/Product2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product3</sigName>
+				<xpcsigName>Catch Force Generator/ViscLoadSubsystem/Product3</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Add</sigName>
+				<xpcsigName>Catch Force Generator/ViscLoadSubsystem/Add</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Subtract</sigName>
+				<xpcsigName>Catch Force Generator/ViscLoadSubsystem/Subtract</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>cos</sigName>
+				<xpcsigName>Catch Force Generator/ViscLoadSubsystem/cos</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>sin</sigName>
+				<xpcsigName>Catch Force Generator/ViscLoadSubsystem/sin</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<block>
+			<blkName>DynamicAngle</blkName>
+			<xpcblkName>Catch Force Generator/DynamicAngle</xpcblkName>
+			<SLblockPath>center_out/Catch Force Generator/DynamicAngle</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>Load</blkName>
+			<xpcblkName>Catch Force Generator/Load</xpcblkName>
+			<SLblockPath>center_out/Catch Force Generator/Load</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>Off</blkName>
+			<xpcblkName>Catch Force Generator/Off</xpcblkName>
+			<SLblockPath>center_out/Catch Force Generator/Off</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>staticX</blkName>
+			<xpcblkName>Catch Force Generator/staticX</xpcblkName>
+			<SLblockPath>center_out/Catch Force Generator/staticX</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>staticY</blkName>
+			<xpcblkName>Catch Force Generator/staticY</xpcblkName>
+			<SLblockPath>center_out/Catch Force Generator/staticY</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>visAngle</blkName>
+			<xpcblkName>Catch Force Generator/visAngle</xpcblkName>
+			<SLblockPath>center_out/Catch Force Generator/visAngle</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>Gain</blkName>
+			<xpcblkName>Catch Force Generator/Gain</xpcblkName>
+			<SLblockPath>center_out/Catch Force Generator/Gain</SLblockPath>
+			<isSrc>[0 1 1]</isSrc>
+			<parameter>
+				<paramName>Gain</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>LorentzForceGain</blkName>
+			<xpcblkName>Catch Force Generator/LorentzForceGain</xpcblkName>
+			<SLblockPath>center_out/Catch Force Generator/LorentzForceGain</SLblockPath>
+			<isSrc>[0 1 1]</isSrc>
+			<parameter>
+				<paramName>Gain</paramName>
+			</parameter>
+		</block>
+		<signal>
+			<sigName>Gain</sigName>
+			<xpcsigName>Catch Force Generator/Gain</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>LorentzForceGain</sigName>
+			<xpcsigName>Catch Force Generator/LorentzForceGain</xpcsigName>
+			<sigWidth>2</sigWidth>
+			<sigDim>[2,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>DynamicAngle
+Switch</sigName>
+			<xpcsigName>Catch Force Generator/DynamicAngle Switch</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>LoadSelect
+Switch</sigName>
+			<xpcsigName>Catch Force Generator/LoadSelect Switch</xpcsigName>
+			<sigWidth>2</sigWidth>
+			<sigDim>[2,1]</sigDim>
+		</signal>
+	</SubSystem>
+	<SubSystem>
+		<Name>Force Generator</Name>
+		<SubSystem>
+			<Name>LorentzForce</Name>
+			<SubSystem>
+				<Name>Lorentz</Name>
+				<block>
+					<blkName>beta</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz/beta</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz/beta</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>rho</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz/rho</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz/rho</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>sigma</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz/sigma</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz/sigma</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>timescale</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz/timescale</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz/timescale</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>x</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz/x</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz/x</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>y</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz/y</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz/y</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>z</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz/z</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz/z</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<signal>
+					<sigName>dX</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/dX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dY</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/dY</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dZ</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/dZ</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product1</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/product1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product2</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/product2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product3</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/product3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product4</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/product4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add1</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/Add1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add2</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/Add2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add3</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/Add3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add4</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/Add4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/AddX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX1</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/AddX1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX2</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/AddX2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>x</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/x</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>y</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/y</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>z</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz/z</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<SubSystem>
+				<Name>Lorentz1</Name>
+				<block>
+					<blkName>beta</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz1/beta</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz1/beta</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>rho</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz1/rho</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz1/rho</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>sigma</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz1/sigma</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz1/sigma</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>timescale</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz1/timescale</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz1/timescale</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>x</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz1/x</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz1/x</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>y</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz1/y</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz1/y</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>z</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz1/z</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz1/z</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<signal>
+					<sigName>dX</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/dX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dY</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/dY</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dZ</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/dZ</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product1</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/product1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product2</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/product2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product3</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/product3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product4</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/product4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add1</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/Add1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add2</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/Add2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add3</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/Add3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add4</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/Add4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/AddX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX1</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/AddX1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX2</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/AddX2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>x</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/x</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>y</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/y</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>z</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz1/z</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<SubSystem>
+				<Name>Lorentz2</Name>
+				<block>
+					<blkName>beta</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz2/beta</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz2/beta</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>rho</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz2/rho</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz2/rho</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>sigma</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz2/sigma</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz2/sigma</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>timescale</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz2/timescale</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz2/timescale</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>x</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz2/x</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz2/x</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>y</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz2/y</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz2/y</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>z</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz2/z</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz2/z</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<signal>
+					<sigName>dX</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/dX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dY</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/dY</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dZ</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/dZ</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product1</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/product1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product2</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/product2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product3</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/product3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product4</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/product4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add1</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/Add1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add2</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/Add2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add3</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/Add3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add4</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/Add4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/AddX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX1</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/AddX1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX2</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/AddX2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>x</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/x</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>y</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/y</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>z</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz2/z</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<SubSystem>
+				<Name>Lorentz3</Name>
+				<block>
+					<blkName>beta</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz3/beta</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz3/beta</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>rho</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz3/rho</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz3/rho</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>sigma</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz3/sigma</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz3/sigma</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>timescale</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz3/timescale</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz3/timescale</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>x</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz3/x</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz3/x</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>y</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz3/y</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz3/y</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>z</blkName>
+					<xpcblkName>Force Generator/LorentzForce/Lorentz3/z</xpcblkName>
+					<SLblockPath>center_out/Force Generator/LorentzForce/Lorentz3/z</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<signal>
+					<sigName>dX</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/dX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dY</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/dY</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>dZ</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/dZ</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product1</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/product1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product2</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/product2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product3</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/product3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>product4</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/product4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add1</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/Add1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add2</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/Add2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add3</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/Add3</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Add4</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/Add4</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/AddX</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX1</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/AddX1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>AddX2</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/AddX2</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>x</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/x</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>y</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/y</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>z</sigName>
+					<xpcsigName>Force Generator/LorentzForce/Lorentz3/z</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<signal>
+				<sigName>Add</sigName>
+				<xpcsigName>Force Generator/LorentzForce/Add</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Add1</sigName>
+				<xpcsigName>Force Generator/LorentzForce/Add1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>ViscLoadSubsystem</Name>
+			<block>
+				<blkName>Gain</blkName>
+				<xpcblkName>Force Generator/ViscLoadSubsystem/Gain</xpcblkName>
+				<SLblockPath>center_out/Force Generator/ViscLoadSubsystem/Gain</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>Gain</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Inverter</blkName>
+				<xpcblkName>Force Generator/ViscLoadSubsystem/Inverter</xpcblkName>
+				<SLblockPath>center_out/Force Generator/ViscLoadSubsystem/Inverter</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>Gain</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>Gain</sigName>
+				<xpcsigName>Force Generator/ViscLoadSubsystem/Gain</xpcsigName>
+				<sigWidth>2</sigWidth>
+				<sigDim>[2,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Inverter</sigName>
+				<xpcsigName>Force Generator/ViscLoadSubsystem/Inverter</xpcsigName>
+				<sigWidth>2</sigWidth>
+				<sigDim>[2,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product</sigName>
+				<xpcsigName>Force Generator/ViscLoadSubsystem/Product</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product1</sigName>
+				<xpcsigName>Force Generator/ViscLoadSubsystem/Product1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product2</sigName>
+				<xpcsigName>Force Generator/ViscLoadSubsystem/Product2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product3</sigName>
+				<xpcsigName>Force Generator/ViscLoadSubsystem/Product3</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Add</sigName>
+				<xpcsigName>Force Generator/ViscLoadSubsystem/Add</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Subtract</sigName>
+				<xpcsigName>Force Generator/ViscLoadSubsystem/Subtract</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>cos</sigName>
+				<xpcsigName>Force Generator/ViscLoadSubsystem/cos</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>sin</sigName>
+				<xpcsigName>Force Generator/ViscLoadSubsystem/sin</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<block>
+			<blkName>DynamicAngle</blkName>
+			<xpcblkName>Force Generator/DynamicAngle</xpcblkName>
+			<SLblockPath>center_out/Force Generator/DynamicAngle</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>Load</blkName>
+			<xpcblkName>Force Generator/Load</xpcblkName>
+			<SLblockPath>center_out/Force Generator/Load</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>Off</blkName>
+			<xpcblkName>Force Generator/Off</xpcblkName>
+			<SLblockPath>center_out/Force Generator/Off</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>staticX</blkName>
+			<xpcblkName>Force Generator/staticX</xpcblkName>
+			<SLblockPath>center_out/Force Generator/staticX</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>staticY</blkName>
+			<xpcblkName>Force Generator/staticY</xpcblkName>
+			<SLblockPath>center_out/Force Generator/staticY</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>visAngle</blkName>
+			<xpcblkName>Force Generator/visAngle</xpcblkName>
+			<SLblockPath>center_out/Force Generator/visAngle</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>Gain</blkName>
+			<xpcblkName>Force Generator/Gain</xpcblkName>
+			<SLblockPath>center_out/Force Generator/Gain</SLblockPath>
+			<isSrc>[0 1 1]</isSrc>
+			<parameter>
+				<paramName>Gain</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>LorentzForceGain</blkName>
+			<xpcblkName>Force Generator/LorentzForceGain</xpcblkName>
+			<SLblockPath>center_out/Force Generator/LorentzForceGain</SLblockPath>
+			<isSrc>[0 1 1]</isSrc>
+			<parameter>
+				<paramName>Gain</paramName>
+			</parameter>
+		</block>
+		<signal>
+			<sigName>Gain</sigName>
+			<xpcsigName>Force Generator/Gain</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>LorentzForceGain</sigName>
+			<xpcsigName>Force Generator/LorentzForceGain</xpcsigName>
+			<sigWidth>2</sigWidth>
+			<sigDim>[2,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Multiport
+Switch</sigName>
+			<xpcsigName>Force Generator/Multiport Switch</xpcsigName>
+			<sigWidth>2</sigWidth>
+			<sigDim>[2,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>dynamicAngle
+Switch</sigName>
+			<xpcsigName>Force Generator/dynamicAngle Switch</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+	</SubSystem>
+	<SubSystem>
+		<Name>Motor Control</Name>
+		<SubSystem>
+			<Name>Compare
+To Constant</Name>
+			<block>
+				<blkName>Constant</blkName>
+				<xpcblkName>Motor Control/Compare To Constant/Constant</xpcblkName>
+				<SLblockPath>center_out/Motor Control/Compare To Constant/Constant</SLblockPath>
+				<isSrc>[1 0 1]</isSrc>
+				<parameter>
+					<paramName>Value</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>Compare</sigName>
+				<xpcsigName>Motor Control/Compare To Constant/Compare</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Compare
+To Constant1</Name>
+			<block>
+				<blkName>Constant</blkName>
+				<xpcblkName>Motor Control/Compare To Constant1/Constant</xpcblkName>
+				<SLblockPath>center_out/Motor Control/Compare To Constant1/Constant</SLblockPath>
+				<isSrc>[1 0 1]</isSrc>
+				<parameter>
+					<paramName>Value</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>Compare</sigName>
+				<xpcsigName>Motor Control/Compare To Constant1/Compare</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Force//Torque Transform</Name>
+			<SubSystem>
+				<Name>Transpose</Name>
+				<signal>
+					<sigName>Math
+Function</sigName>
+					<xpcsigName>Motor Control/Force//Torque Transform/Transpose/Math Function</xpcsigName>
+					<sigWidth>4</sigWidth>
+					<sigDim>[2,2]</sigDim>
+				</signal>
+			</SubSystem>
+			<block>
+				<blkName>Gain</blkName>
+				<xpcblkName>Motor Control/Force//Torque Transform/Gain</xpcblkName>
+				<SLblockPath>center_out/Motor Control/Force//Torque Transform/Gain</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>Gain</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>Gain</sigName>
+				<xpcsigName>Motor Control/Force//Torque Transform/Gain</xpcsigName>
+				<sigWidth>2</sigWidth>
+				<sigDim>[2,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Matrix Multiply</sigName>
+				<xpcsigName>Motor Control/Force//Torque Transform/Matrix Multiply</xpcsigName>
+				<sigWidth>2</sigWidth>
+				<sigDim>[2,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Recenter//ServoKill</Name>
+		</SubSystem>
+		<SubSystem>
+			<Name>Schmidt</Name>
+			<SubSystem>
+				<Name>Compare
+To Zero</Name>
+				<signal>
+					<sigName>Compare</sigName>
+					<xpcsigName>Motor Control/Schmidt/Compare To Zero/Compare</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<SubSystem>
+				<Name>Enabled
+Subsystem</Name>
+				<signal>
+					<sigName>In1</sigName>
+					<xpcsigName>Motor Control/Schmidt/Enabled Subsystem/In1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<block>
+				<blkName>Time</blkName>
+				<xpcblkName>Motor Control/Schmidt/Time</xpcblkName>
+				<SLblockPath>center_out/Motor Control/Schmidt/Time</SLblockPath>
+				<isSrc>[1 0 1]</isSrc>
+				<parameter>
+					<paramName>Value</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Memory</blkName>
+				<xpcblkName>Motor Control/Schmidt/Memory</xpcblkName>
+				<SLblockPath>center_out/Motor Control/Schmidt/Memory</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>X0</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>Clock</sigName>
+				<xpcsigName>Motor Control/Schmidt/Clock</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator</sigName>
+				<xpcsigName>Motor Control/Schmidt/Logical Operator</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator1</sigName>
+				<xpcsigName>Motor Control/Schmidt/Logical Operator1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator2</sigName>
+				<xpcsigName>Motor Control/Schmidt/Logical Operator2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Memory</sigName>
+				<xpcsigName>Motor Control/Schmidt/Memory</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Relational
+Operator</sigName>
+				<xpcsigName>Motor Control/Schmidt/Relational Operator</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Sum</sigName>
+				<xpcsigName>Motor Control/Schmidt/Sum</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Xpos</Name>
+		</SubSystem>
+		<block>
+			<blkName>zeroX</blkName>
+			<xpcblkName>Motor Control/zeroX</xpcblkName>
+			<SLblockPath>center_out/Motor Control/zeroX</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>zeroY</blkName>
+			<xpcblkName>Motor Control/zeroY</xpcblkName>
+			<SLblockPath>center_out/Motor Control/zeroY</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>MG1</blkName>
+			<xpcblkName>Motor Control/MG1</xpcblkName>
+			<SLblockPath>center_out/Motor Control/MG1</SLblockPath>
+			<isSrc>[0 1 1]</isSrc>
+			<parameter>
+				<paramName>Gain</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>MG2</blkName>
+			<xpcblkName>Motor Control/MG2</xpcblkName>
+			<SLblockPath>center_out/Motor Control/MG2</SLblockPath>
+			<isSrc>[0 1 1]</isSrc>
+			<parameter>
+				<paramName>Gain</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>Memory</blkName>
+			<xpcblkName>Motor Control/Memory</xpcblkName>
+			<SLblockPath>center_out/Motor Control/Memory</SLblockPath>
+			<isSrc>[0 1 1]</isSrc>
+			<parameter>
+				<paramName>X0</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>PCI-6025E </blkName>
+			<xpcblkName>Motor Control/PCI-6025E </xpcblkName>
+			<SLblockPath>center_out/Motor Control/PCI-6025E </SLblockPath>
+			<isSrc>[0 2 0]</isSrc>
+			<parameter>
+				<paramName>P1</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P2</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P3</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P4</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P5</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P6</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P7</paramName>
+			</parameter>
+		</block>
+		<signal>
+			<sigName>Matrix
+Concatenation</sigName>
+			<xpcsigName>Motor Control/Matrix Concatenation</xpcsigName>
+			<sigWidth>2</sigWidth>
+			<sigDim>[2,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>MG1</sigName>
+			<xpcsigName>Motor Control/MG1</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>MG2</sigName>
+			<xpcsigName>Motor Control/MG2</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Logical
+Operator1</sigName>
+			<xpcsigName>Motor Control/Logical Operator1</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Memory</sigName>
+			<xpcsigName>Motor Control/Memory</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Switch1</sigName>
+			<xpcsigName>Motor Control/Switch1</xpcsigName>
+			<sigWidth>2</sigWidth>
+			<sigDim>[2,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Switch2</sigName>
+			<xpcsigName>Motor Control/Switch2</xpcsigName>
+			<sigWidth>2</sigWidth>
+			<sigDim>[2,1]</sigDim>
+		</signal>
+	</SubSystem>
+	<SubSystem>
+		<Name>Recentering Subsystem</Name>
+		<SubSystem>
+			<Name>Compare
+To Zero</Name>
+			<signal>
+				<sigName>Compare</sigName>
+				<xpcsigName>Recentering Subsystem/Compare To Zero/Compare</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Compare
+To Zero1</Name>
+			<signal>
+				<sigName>Compare</sigName>
+				<xpcsigName>Recentering Subsystem/Compare To Zero1/Compare</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Falling Edge</Name>
+			<SubSystem>
+				<Name>Nonpositive</Name>
+				<signal>
+					<sigName>Compare</sigName>
+					<xpcsigName>Recentering Subsystem/Falling Edge/Nonpositive/Compare</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<block>
+				<blkName>Delay Input1</blkName>
+				<xpcblkName>Recentering Subsystem/Falling Edge/Delay Input1</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/Falling Edge/Delay Input1</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>X0</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>FixPt
+Relational
+Operator</sigName>
+				<xpcsigName>Recentering Subsystem/Falling Edge/FixPt Relational Operator</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Delay Input1</sigName>
+				<xpcsigName>Recentering Subsystem/Falling Edge/Delay Input1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Falling Edge1</Name>
+			<SubSystem>
+				<Name>Nonpositive</Name>
+				<signal>
+					<sigName>Compare</sigName>
+					<xpcsigName>Recentering Subsystem/Falling Edge1/Nonpositive/Compare</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<block>
+				<blkName>Delay Input1</blkName>
+				<xpcblkName>Recentering Subsystem/Falling Edge1/Delay Input1</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/Falling Edge1/Delay Input1</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>X0</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>FixPt
+Relational
+Operator</sigName>
+				<xpcsigName>Recentering Subsystem/Falling Edge1/FixPt Relational Operator</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Delay Input1</sigName>
+				<xpcsigName>Recentering Subsystem/Falling Edge1/Delay Input1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>No Movement</Name>
+			<SubSystem>
+				<Name>Compare
+To Constant2</Name>
+				<block>
+					<blkName>Constant</blkName>
+					<xpcblkName>Recentering Subsystem/No Movement/Compare To Constant2/Constant</xpcblkName>
+					<SLblockPath>center_out/Recentering Subsystem/No Movement/Compare To Constant2/Constant</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<signal>
+					<sigName>Compare</sigName>
+					<xpcsigName>Recentering Subsystem/No Movement/Compare To Constant2/Compare</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<SubSystem>
+				<Name>Compare
+To Constant3</Name>
+				<block>
+					<blkName>Constant</blkName>
+					<xpcblkName>Recentering Subsystem/No Movement/Compare To Constant3/Constant</xpcblkName>
+					<SLblockPath>center_out/Recentering Subsystem/No Movement/Compare To Constant3/Constant</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<signal>
+					<sigName>Compare</sigName>
+					<xpcsigName>Recentering Subsystem/No Movement/Compare To Constant3/Compare</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<signal>
+				<sigName>Abs2</sigName>
+				<xpcsigName>Recentering Subsystem/No Movement/Abs2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Abs3</sigName>
+				<xpcsigName>Recentering Subsystem/No Movement/Abs3</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator1</sigName>
+				<xpcsigName>Recentering Subsystem/No Movement/Logical Operator1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>PD Controller</Name>
+			<block>
+				<blkName>Gain1</blkName>
+				<xpcblkName>Recentering Subsystem/PD Controller/Gain1</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/PD Controller/Gain1</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>Gain</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Gain2</blkName>
+				<xpcblkName>Recentering Subsystem/PD Controller/Gain2</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/PD Controller/Gain2</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>Gain</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Gain3</blkName>
+				<xpcblkName>Recentering Subsystem/PD Controller/Gain3</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/PD Controller/Gain3</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>Gain</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Gain4</blkName>
+				<xpcblkName>Recentering Subsystem/PD Controller/Gain4</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/PD Controller/Gain4</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>Gain</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Saturation</blkName>
+				<xpcblkName>Recentering Subsystem/PD Controller/Saturation</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/PD Controller/Saturation</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>UpperLimit</paramName>
+				</parameter>
+				<parameter>
+					<paramName>LowerLimit</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Saturation1</blkName>
+				<xpcblkName>Recentering Subsystem/PD Controller/Saturation1</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/PD Controller/Saturation1</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>UpperLimit</paramName>
+				</parameter>
+				<parameter>
+					<paramName>LowerLimit</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>Gain1</sigName>
+				<xpcsigName>Recentering Subsystem/PD Controller/Gain1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Gain2</sigName>
+				<xpcsigName>Recentering Subsystem/PD Controller/Gain2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Gain3</sigName>
+				<xpcsigName>Recentering Subsystem/PD Controller/Gain3</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Gain4</sigName>
+				<xpcsigName>Recentering Subsystem/PD Controller/Gain4</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product</sigName>
+				<xpcsigName>Recentering Subsystem/PD Controller/Product</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product1</sigName>
+				<xpcsigName>Recentering Subsystem/PD Controller/Product1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Saturation</sigName>
+				<xpcsigName>Recentering Subsystem/PD Controller/Saturation</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Saturation1</sigName>
+				<xpcsigName>Recentering Subsystem/PD Controller/Saturation1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Add</sigName>
+				<xpcsigName>Recentering Subsystem/PD Controller/Add</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Add1</sigName>
+				<xpcsigName>Recentering Subsystem/PD Controller/Add1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>S-R
+Flip-Flop</Name>
+			<block>
+				<blkName>Logic</blkName>
+				<xpcblkName>Recentering Subsystem/S-R Flip-Flop/Logic</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/S-R Flip-Flop/Logic</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>TruthTable</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Memory</blkName>
+				<xpcblkName>Recentering Subsystem/S-R Flip-Flop/Memory</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/S-R Flip-Flop/Memory</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>X0</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>Logic</sigName>
+				<xpcsigName>Recentering Subsystem/S-R Flip-Flop/Logic</xpcsigName>
+				<sigWidth>2</sigWidth>
+				<sigDim>[2,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Memory</sigName>
+				<xpcsigName>Recentering Subsystem/S-R Flip-Flop/Memory</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Schmidt1</Name>
+			<SubSystem>
+				<Name>Compare
+To Zero</Name>
+				<signal>
+					<sigName>Compare</sigName>
+					<xpcsigName>Recentering Subsystem/Schmidt1/Compare To Zero/Compare</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<SubSystem>
+				<Name>Enabled
+Subsystem</Name>
+				<signal>
+					<sigName>In1</sigName>
+					<xpcsigName>Recentering Subsystem/Schmidt1/Enabled Subsystem/In1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<block>
+				<blkName>Time</blkName>
+				<xpcblkName>Recentering Subsystem/Schmidt1/Time</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/Schmidt1/Time</SLblockPath>
+				<isSrc>[1 0 1]</isSrc>
+				<parameter>
+					<paramName>Value</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Memory</blkName>
+				<xpcblkName>Recentering Subsystem/Schmidt1/Memory</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/Schmidt1/Memory</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>X0</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>Clock</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt1/Clock</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt1/Logical Operator</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator1</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt1/Logical Operator1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator2</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt1/Logical Operator2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Memory</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt1/Memory</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Relational
+Operator</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt1/Relational Operator</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Sum</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt1/Sum</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Schmidt2</Name>
+			<SubSystem>
+				<Name>Compare
+To Zero</Name>
+				<signal>
+					<sigName>Compare</sigName>
+					<xpcsigName>Recentering Subsystem/Schmidt2/Compare To Zero/Compare</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<SubSystem>
+				<Name>Enabled
+Subsystem</Name>
+				<signal>
+					<sigName>In1</sigName>
+					<xpcsigName>Recentering Subsystem/Schmidt2/Enabled Subsystem/In1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<block>
+				<blkName>Time</blkName>
+				<xpcblkName>Recentering Subsystem/Schmidt2/Time</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/Schmidt2/Time</SLblockPath>
+				<isSrc>[1 0 1]</isSrc>
+				<parameter>
+					<paramName>Value</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Memory</blkName>
+				<xpcblkName>Recentering Subsystem/Schmidt2/Memory</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/Schmidt2/Memory</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>X0</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>Clock</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt2/Clock</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt2/Logical Operator</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator1</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt2/Logical Operator1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator2</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt2/Logical Operator2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Memory</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt2/Memory</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Relational
+Operator</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt2/Relational Operator</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Sum</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt2/Sum</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Schmidt3</Name>
+			<SubSystem>
+				<Name>Compare
+To Zero</Name>
+				<signal>
+					<sigName>Compare</sigName>
+					<xpcsigName>Recentering Subsystem/Schmidt3/Compare To Zero/Compare</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<SubSystem>
+				<Name>Enabled
+Subsystem</Name>
+				<signal>
+					<sigName>In1</sigName>
+					<xpcsigName>Recentering Subsystem/Schmidt3/Enabled Subsystem/In1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<block>
+				<blkName>Time</blkName>
+				<xpcblkName>Recentering Subsystem/Schmidt3/Time</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/Schmidt3/Time</SLblockPath>
+				<isSrc>[1 0 1]</isSrc>
+				<parameter>
+					<paramName>Value</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Memory</blkName>
+				<xpcblkName>Recentering Subsystem/Schmidt3/Memory</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/Schmidt3/Memory</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>X0</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>Clock</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt3/Clock</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt3/Logical Operator</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator1</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt3/Logical Operator1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator2</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt3/Logical Operator2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Memory</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt3/Memory</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Relational
+Operator</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt3/Relational Operator</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Sum</sigName>
+				<xpcsigName>Recentering Subsystem/Schmidt3/Sum</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Start Moving</Name>
+			<SubSystem>
+				<Name>Nonpositive</Name>
+				<signal>
+					<sigName>Compare</sigName>
+					<xpcsigName>Recentering Subsystem/Start Moving/Nonpositive/Compare</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<block>
+				<blkName>Delay Input1</blkName>
+				<xpcblkName>Recentering Subsystem/Start Moving/Delay Input1</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/Start Moving/Delay Input1</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>X0</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>FixPt
+Relational
+Operator</sigName>
+				<xpcsigName>Recentering Subsystem/Start Moving/FixPt Relational Operator</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Delay Input1</sigName>
+				<xpcsigName>Recentering Subsystem/Start Moving/Delay Input1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Timer</Name>
+			<SubSystem>
+				<Name>Compare
+To Zero</Name>
+				<signal>
+					<sigName>Compare</sigName>
+					<xpcsigName>Recentering Subsystem/Timer/Compare To Zero/Compare</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<SubSystem>
+				<Name>Detect Fall
+Nonpositive</Name>
+				<SubSystem>
+					<Name>Nonpositive</Name>
+					<signal>
+						<sigName>Compare</sigName>
+						<xpcsigName>Recentering Subsystem/Timer/Detect Fall Nonpositive/Nonpositive/Compare</xpcsigName>
+						<sigWidth>1</sigWidth>
+						<sigDim>[1,1]</sigDim>
+					</signal>
+				</SubSystem>
+				<block>
+					<blkName>Delay Input1</blkName>
+					<xpcblkName>Recentering Subsystem/Timer/Detect Fall Nonpositive/Delay Input1</xpcblkName>
+					<SLblockPath>center_out/Recentering Subsystem/Timer/Detect Fall Nonpositive/Delay Input1</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>X0</paramName>
+					</parameter>
+				</block>
+				<signal>
+					<sigName>FixPt
+Relational
+Operator</sigName>
+					<xpcsigName>Recentering Subsystem/Timer/Detect Fall Nonpositive/FixPt Relational Operator</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Delay Input1</sigName>
+					<xpcsigName>Recentering Subsystem/Timer/Detect Fall Nonpositive/Delay Input1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<SubSystem>
+				<Name>Enabled
+Subsystem</Name>
+				<signal>
+					<sigName>In1</sigName>
+					<xpcsigName>Recentering Subsystem/Timer/Enabled Subsystem/In1</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<block>
+				<blkName>Time</blkName>
+				<xpcblkName>Recentering Subsystem/Timer/Time</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/Timer/Time</SLblockPath>
+				<isSrc>[1 0 1]</isSrc>
+				<parameter>
+					<paramName>Value</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Memory</blkName>
+				<xpcblkName>Recentering Subsystem/Timer/Memory</xpcblkName>
+				<SLblockPath>center_out/Recentering Subsystem/Timer/Memory</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>X0</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>Clock</sigName>
+				<xpcsigName>Recentering Subsystem/Timer/Clock</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator</sigName>
+				<xpcsigName>Recentering Subsystem/Timer/Logical Operator</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator1</sigName>
+				<xpcsigName>Recentering Subsystem/Timer/Logical Operator1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator2</sigName>
+				<xpcsigName>Recentering Subsystem/Timer/Logical Operator2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator3</sigName>
+				<xpcsigName>Recentering Subsystem/Timer/Logical Operator3</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator4</sigName>
+				<xpcsigName>Recentering Subsystem/Timer/Logical Operator4</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Logical
+Operator5</sigName>
+				<xpcsigName>Recentering Subsystem/Timer/Logical Operator5</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Memory</sigName>
+				<xpcsigName>Recentering Subsystem/Timer/Memory</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Relational
+Operator</sigName>
+				<xpcsigName>Recentering Subsystem/Timer/Relational Operator</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Sum</sigName>
+				<xpcsigName>Recentering Subsystem/Timer/Sum</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Xpos1</Name>
+		</SubSystem>
+		<block>
+			<blkName>RecenterFlag</blkName>
+			<xpcblkName>Recentering Subsystem/RecenterFlag</xpcblkName>
+			<SLblockPath>center_out/Recentering Subsystem/RecenterFlag</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>Bounding Box Viscosity</blkName>
+			<xpcblkName>Recentering Subsystem/Bounding Box Viscosity</xpcblkName>
+			<SLblockPath>center_out/Recentering Subsystem/Bounding Box Viscosity</SLblockPath>
+			<isSrc>[0 1 1]</isSrc>
+			<parameter>
+				<paramName>Gain</paramName>
+			</parameter>
+		</block>
+		<signal>
+			<sigName>Data Type Conversion1</sigName>
+			<xpcsigName>Recentering Subsystem/Data Type Conversion1</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Data Type Conversion2</sigName>
+			<xpcsigName>Recentering Subsystem/Data Type Conversion2</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Bounding Box Viscosity</sigName>
+			<xpcsigName>Recentering Subsystem/Bounding Box Viscosity</xpcsigName>
+			<sigWidth>2</sigWidth>
+			<sigDim>[2,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>InBox</sigName>
+			<xpcsigName>Recentering Subsystem/InBox</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Logical
+Operator</sigName>
+			<xpcsigName>Recentering Subsystem/Logical Operator</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Logical
+Operator1</sigName>
+			<xpcsigName>Recentering Subsystem/Logical Operator1</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Logical
+Operator3</sigName>
+			<xpcsigName>Recentering Subsystem/Logical Operator3</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Logical
+Operator5</sigName>
+			<xpcsigName>Recentering Subsystem/Logical Operator5</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Logical
+Operator6</sigName>
+			<xpcsigName>Recentering Subsystem/Logical Operator6</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>NOT</sigName>
+			<xpcsigName>Recentering Subsystem/NOT</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Switch</sigName>
+			<xpcsigName>Recentering Subsystem/Switch</xpcsigName>
+			<sigWidth>2</sigWidth>
+			<sigDim>[2,1]</sigDim>
+		</signal>
+	</SubSystem>
+	<SubSystem>
+		<Name>RewardSbs</Name>
+		<SubSystem>
+			<Name>Sample
+and Hold</Name>
+			<signal>
+				<sigName>In</sigName>
+				<xpcsigName>RewardSbs/Sample and Hold/In</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Schmidt</Name>
+			<SubSystem>
+				<Name>Sample
+and Hold</Name>
+				<signal>
+					<sigName>In</sigName>
+					<xpcsigName>RewardSbs/Schmidt/Sample and Hold/In</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<signal>
+				<sigName>Clock</sigName>
+				<xpcsigName>RewardSbs/Schmidt/Clock</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Relational
+Operator</sigName>
+				<xpcsigName>RewardSbs/Schmidt/Relational Operator</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Sum</sigName>
+				<xpcsigName>RewardSbs/Schmidt/Sum</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<block>
+			<blkName>JackpotChance</blkName>
+			<xpcblkName>RewardSbs/JackpotChance</xpcblkName>
+			<SLblockPath>center_out/RewardSbs/JackpotChance</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>RewardJackpot</blkName>
+			<xpcblkName>RewardSbs/RewardJackpot</xpcblkName>
+			<SLblockPath>center_out/RewardSbs/RewardJackpot</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>RewardTime</blkName>
+			<xpcblkName>RewardSbs/RewardTime</xpcblkName>
+			<SLblockPath>center_out/RewardSbs/RewardTime</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>Uniform Random
+Number</blkName>
+			<xpcblkName>RewardSbs/Uniform Random Number</xpcblkName>
+			<SLblockPath>center_out/RewardSbs/Uniform Random Number</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Minimum</paramName>
+			</parameter>
+			<parameter>
+				<paramName>Maximum</paramName>
+			</parameter>
+			<parameter>
+				<paramName>Seed</paramName>
+			</parameter>
+		</block>
+		<signal>
+			<sigName>Data Type Conversion</sigName>
+			<xpcsigName>RewardSbs/Data Type Conversion</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Relational
+Operator</sigName>
+			<xpcsigName>RewardSbs/Relational Operator</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Switch</sigName>
+			<xpcsigName>RewardSbs/Switch</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Uniform Random
+Number</sigName>
+			<xpcsigName>RewardSbs/Uniform Random Number</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+	</SubSystem>
+	<SubSystem>
+		<Name>Status</Name>
+	</SubSystem>
+	<SubSystem>
+		<Name>Target Peek</Name>
+		<block>
+			<blkName>Gain</blkName>
+			<xpcblkName>Target Peek/Gain</xpcblkName>
+			<SLblockPath>center_out/Target Peek/Gain</SLblockPath>
+			<isSrc>[0 1 1]</isSrc>
+			<parameter>
+				<paramName>Gain</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>Gain1</blkName>
+			<xpcblkName>Target Peek/Gain1</xpcblkName>
+			<SLblockPath>center_out/Target Peek/Gain1</SLblockPath>
+			<isSrc>[0 1 1]</isSrc>
+			<parameter>
+				<paramName>Gain</paramName>
+			</parameter>
+		</block>
+		<signal>
+			<sigName>Gain</sigName>
+			<xpcsigName>Target Peek/Gain</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Gain1</sigName>
+			<xpcsigName>Target Peek/Gain1</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Add</sigName>
+			<xpcsigName>Target Peek/Add</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Add1</sigName>
+			<xpcsigName>Target Peek/Add1</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+	</SubSystem>
+	<SubSystem>
+		<Name>UDPXmit</Name>
+		<block>
+			<blkName>Send</blkName>
+			<xpcblkName>UDPXmit/Send</xpcblkName>
+			<SLblockPath>center_out/UDPXmit/Send</SLblockPath>
+			<isSrc>[0 1 0]</isSrc>
+			<parameter>
+				<paramName>P1</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P2</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P3</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P4</paramName>
+			</parameter>
+		</block>
+		<signal>
+			<sigName>Rate Transition</sigName>
+			<xpcsigName>UDPXmit/Rate Transition</xpcsigName>
+			<sigWidth>112</sigWidth>
+			<sigDim>[112,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Pack</sigName>
+			<xpcsigName>UDPXmit/Pack</xpcsigName>
+			<sigWidth>112</sigWidth>
+			<sigDim>[112,1]</sigDim>
+		</signal>
+	</SubSystem>
+	<SubSystem>
+		<Name>Velocity Calculation</Name>
+		<SubSystem>
+			<Name>Pos2VelX</Name>
+			<block>
+				<blkName>dG</blkName>
+				<xpcblkName>Velocity Calculation/Pos2VelX/dG</xpcblkName>
+				<SLblockPath>center_out/Velocity Calculation/Pos2VelX/dG</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>Gain</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Digital Filter</blkName>
+				<xpcblkName>Velocity Calculation/Pos2VelX/Digital Filter</xpcblkName>
+				<SLblockPath>center_out/Velocity Calculation/Pos2VelX/Digital Filter</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>ICRTP</paramName>
+				</parameter>
+				<parameter>
+					<paramName>RTP1COEFF</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Digital Filter2</blkName>
+				<xpcblkName>Velocity Calculation/Pos2VelX/Digital Filter2</xpcblkName>
+				<SLblockPath>center_out/Velocity Calculation/Pos2VelX/Digital Filter2</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>ICRTP</paramName>
+				</parameter>
+				<parameter>
+					<paramName>RTP1COEFF</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>Derivative</sigName>
+				<xpcsigName>Velocity Calculation/Pos2VelX/Derivative</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>dG</sigName>
+				<xpcsigName>Velocity Calculation/Pos2VelX/dG</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Digital Filter</sigName>
+				<xpcsigName>Velocity Calculation/Pos2VelX/Digital Filter</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Digital Filter2</sigName>
+				<xpcsigName>Velocity Calculation/Pos2VelX/Digital Filter2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Pos2VelY</Name>
+			<block>
+				<blkName>dG</blkName>
+				<xpcblkName>Velocity Calculation/Pos2VelY/dG</xpcblkName>
+				<SLblockPath>center_out/Velocity Calculation/Pos2VelY/dG</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>Gain</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Digital Filter</blkName>
+				<xpcblkName>Velocity Calculation/Pos2VelY/Digital Filter</xpcblkName>
+				<SLblockPath>center_out/Velocity Calculation/Pos2VelY/Digital Filter</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>ICRTP</paramName>
+				</parameter>
+				<parameter>
+					<paramName>RTP1COEFF</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Digital Filter2</blkName>
+				<xpcblkName>Velocity Calculation/Pos2VelY/Digital Filter2</xpcblkName>
+				<SLblockPath>center_out/Velocity Calculation/Pos2VelY/Digital Filter2</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>ICRTP</paramName>
+				</parameter>
+				<parameter>
+					<paramName>RTP1COEFF</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>Derivative</sigName>
+				<xpcsigName>Velocity Calculation/Pos2VelY/Derivative</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>dG</sigName>
+				<xpcsigName>Velocity Calculation/Pos2VelY/dG</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Digital Filter</sigName>
+				<xpcsigName>Velocity Calculation/Pos2VelY/Digital Filter</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Digital Filter2</sigName>
+				<xpcsigName>Velocity Calculation/Pos2VelY/Digital Filter2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<block>
+			<blkName>UseTachs</blkName>
+			<xpcblkName>Velocity Calculation/UseTachs</xpcblkName>
+			<SLblockPath>center_out/Velocity Calculation/UseTachs</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>TachGain1</blkName>
+			<xpcblkName>Velocity Calculation/TachGain1</xpcblkName>
+			<SLblockPath>center_out/Velocity Calculation/TachGain1</SLblockPath>
+			<isSrc>[0 1 1]</isSrc>
+			<parameter>
+				<paramName>Gain</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>TachGain2</blkName>
+			<xpcblkName>Velocity Calculation/TachGain2</xpcblkName>
+			<SLblockPath>center_out/Velocity Calculation/TachGain2</SLblockPath>
+			<isSrc>[0 1 1]</isSrc>
+			<parameter>
+				<paramName>Gain</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>PCI-6025E AD</blkName>
+			<xpcblkName>Velocity Calculation/PCI-6025E AD</xpcblkName>
+			<SLblockPath>center_out/Velocity Calculation/PCI-6025E AD</SLblockPath>
+			<isSrc>[1 0 2]</isSrc>
+			<parameter>
+				<paramName>P1</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P2</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P3</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P4</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P5</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P6</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>Switch</blkName>
+			<xpcblkName>Velocity Calculation/Switch</xpcblkName>
+			<SLblockPath>center_out/Velocity Calculation/Switch</SLblockPath>
+			<isSrc>[0 3 1]</isSrc>
+			<parameter>
+				<paramName>Threshold</paramName>
+			</parameter>
+		</block>
+		<signal>
+			<sigName>TachGain1</sigName>
+			<xpcsigName>Velocity Calculation/TachGain1</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>TachGain2</sigName>
+			<xpcsigName>Velocity Calculation/TachGain2</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Matrix Multiply</sigName>
+			<xpcsigName>Velocity Calculation/Matrix Multiply</xpcsigName>
+			<sigWidth>2</sigWidth>
+			<sigDim>[2,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>PCI-6025E AD/p1</sigName>
+			<xpcsigName>Velocity Calculation/PCI-6025E AD/p1</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>PCI-6025E AD/p2</sigName>
+			<xpcsigName>Velocity Calculation/PCI-6025E AD/p2</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Switch</sigName>
+			<xpcsigName>Velocity Calculation/Switch</xpcsigName>
+			<sigWidth>2</sigWidth>
+			<sigDim>[2,1]</sigDim>
+		</signal>
+	</SubSystem>
+	<SubSystem>
+		<Name>Version Display</Name>
+	</SubSystem>
+	<SubSystem>
+		<Name>WordSbs</Name>
+	</SubSystem>
+	<SubSystem>
+		<Name>XY Position Subsystem</Name>
+		<SubSystem>
+			<Name>Cursor Rotation</Name>
+			<block>
+				<blkName>AngleOffset</blkName>
+				<xpcblkName>XY Position Subsystem/Cursor Rotation/AngleOffset</xpcblkName>
+				<SLblockPath>center_out/XY Position Subsystem/Cursor Rotation/AngleOffset</SLblockPath>
+				<isSrc>[1 0 1]</isSrc>
+				<parameter>
+					<paramName>Value</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>sqrt(u[1]*u[1] + u[2]*u[2])</sigName>
+				<xpcsigName>XY Position Subsystem/Cursor Rotation/sqrt(u[1]*u[1] + u[2]*u[2])</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product</sigName>
+				<xpcsigName>XY Position Subsystem/Cursor Rotation/Product</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product1</sigName>
+				<xpcsigName>XY Position Subsystem/Cursor Rotation/Product1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Sum</sigName>
+				<xpcsigName>XY Position Subsystem/Cursor Rotation/Sum</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Trigonometric
+Function</sigName>
+				<xpcsigName>XY Position Subsystem/Cursor Rotation/Trigonometric Function</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Trigonometric
+Function1</sigName>
+				<xpcsigName>XY Position Subsystem/Cursor Rotation/Trigonometric Function1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Trigonometric
+Function2</sigName>
+				<xpcsigName>XY Position Subsystem/Cursor Rotation/Trigonometric Function2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>For Iterator
+Subsystem</Name>
+			<SubSystem>
+				<Name>While Iterator
+Subsystem</Name>
+				<SubSystem>
+					<Name>Compare
+To Constant</Name>
+					<block>
+						<blkName>Constant</blkName>
+						<xpcblkName>XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/Compare To Constant/Constant</xpcblkName>
+						<SLblockPath>center_out/XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/Compare To Constant/Constant</SLblockPath>
+						<isSrc>[1 0 1]</isSrc>
+						<parameter>
+							<paramName>Value</paramName>
+						</parameter>
+					</block>
+					<signal>
+						<sigName>Compare</sigName>
+						<xpcsigName>XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/Compare To Constant/Compare</xpcsigName>
+						<sigWidth>1</sigWidth>
+						<sigDim>[1,1]</sigDim>
+					</signal>
+				</SubSystem>
+				<SubSystem>
+					<Name>Compare
+To Constant1</Name>
+					<block>
+						<blkName>Constant</blkName>
+						<xpcblkName>XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/Compare To Constant1/Constant</xpcblkName>
+						<SLblockPath>center_out/XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/Compare To Constant1/Constant</SLblockPath>
+						<isSrc>[1 0 1]</isSrc>
+						<parameter>
+							<paramName>Value</paramName>
+						</parameter>
+					</block>
+					<signal>
+						<sigName>Compare</sigName>
+						<xpcsigName>XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/Compare To Constant1/Compare</xpcsigName>
+						<sigWidth>1</sigWidth>
+						<sigDim>[1,1]</sigDim>
+					</signal>
+				</SubSystem>
+				<block>
+					<blkName>Constant</blkName>
+					<xpcblkName>XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/Constant</xpcblkName>
+					<SLblockPath>center_out/XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/Constant</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>Constant1</blkName>
+					<xpcblkName>XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/Constant1</xpcblkName>
+					<SLblockPath>center_out/XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/Constant1</SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>Value</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>ScaleTouSec</blkName>
+					<xpcblkName>XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/ScaleTouSec</xpcblkName>
+					<SLblockPath>center_out/XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/ScaleTouSec</SLblockPath>
+					<isSrc>[0 1 1]</isSrc>
+					<parameter>
+						<paramName>Gain</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>PCI-6025E </blkName>
+					<xpcblkName>XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/PCI-6025E </xpcblkName>
+					<SLblockPath>center_out/XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/PCI-6025E </SLblockPath>
+					<isSrc>[0 2 0]</isSrc>
+					<parameter>
+						<paramName>P1</paramName>
+					</parameter>
+					<parameter>
+						<paramName>P2</paramName>
+					</parameter>
+					<parameter>
+						<paramName>P3</paramName>
+					</parameter>
+					<parameter>
+						<paramName>P4</paramName>
+					</parameter>
+					<parameter>
+						<paramName>P5</paramName>
+					</parameter>
+					<parameter>
+						<paramName>P6</paramName>
+					</parameter>
+					<parameter>
+						<paramName>P7</paramName>
+					</parameter>
+				</block>
+				<block>
+					<blkName>xPC Target
+ Time </blkName>
+					<xpcblkName>XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/xPC Target  Time </xpcblkName>
+					<SLblockPath>center_out/XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/xPC Target  Time </SLblockPath>
+					<isSrc>[1 0 1]</isSrc>
+					<parameter>
+						<paramName>P1</paramName>
+					</parameter>
+					<parameter>
+						<paramName>P2</paramName>
+					</parameter>
+				</block>
+				<signal>
+					<sigName>ScaleTouSec</sigName>
+					<xpcsigName>XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/ScaleTouSec</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>xPC Target
+ Time </sigName>
+					<xpcsigName>XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/xPC Target  Time </xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Subtract</sigName>
+					<xpcsigName>XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/Subtract</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+				<signal>
+					<sigName>Switch</sigName>
+					<xpcsigName>XY Position Subsystem/For Iterator Subsystem/While Iterator Subsystem/Switch</xpcsigName>
+					<sigWidth>1</sigWidth>
+					<sigDim>[1,1]</sigDim>
+				</signal>
+			</SubSystem>
+			<block>
+				<blkName>Constant</blkName>
+				<xpcblkName>XY Position Subsystem/For Iterator Subsystem/Constant</xpcblkName>
+				<SLblockPath>center_out/XY Position Subsystem/For Iterator Subsystem/Constant</SLblockPath>
+				<isSrc>[1 0 1]</isSrc>
+				<parameter>
+					<paramName>Value</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Constant2</blkName>
+				<xpcblkName>XY Position Subsystem/For Iterator Subsystem/Constant2</xpcblkName>
+				<SLblockPath>center_out/XY Position Subsystem/For Iterator Subsystem/Constant2</SLblockPath>
+				<isSrc>[1 0 1]</isSrc>
+				<parameter>
+					<paramName>Value</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Port A</blkName>
+				<xpcblkName>XY Position Subsystem/For Iterator Subsystem/Port A</xpcblkName>
+				<SLblockPath>center_out/XY Position Subsystem/For Iterator Subsystem/Port A</SLblockPath>
+				<isSrc>[0 8 0]</isSrc>
+				<parameter>
+					<paramName>P1</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P2</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P3</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P4</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P5</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P6</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P7</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P8</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P9</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Port B</blkName>
+				<xpcblkName>XY Position Subsystem/For Iterator Subsystem/Port B</xpcblkName>
+				<SLblockPath>center_out/XY Position Subsystem/For Iterator Subsystem/Port B</SLblockPath>
+				<isSrc>[0 8 0]</isSrc>
+				<parameter>
+					<paramName>P1</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P2</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P3</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P4</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P5</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P6</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P7</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P8</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P9</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>xPC Target
+ Time </blkName>
+				<xpcblkName>XY Position Subsystem/For Iterator Subsystem/xPC Target  Time </xpcblkName>
+				<SLblockPath>center_out/XY Position Subsystem/For Iterator Subsystem/xPC Target  Time </SLblockPath>
+				<isSrc>[1 0 1]</isSrc>
+				<parameter>
+					<paramName>P1</paramName>
+				</parameter>
+				<parameter>
+					<paramName>P2</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Switch</blkName>
+				<xpcblkName>XY Position Subsystem/For Iterator Subsystem/Switch</xpcblkName>
+				<SLblockPath>center_out/XY Position Subsystem/For Iterator Subsystem/Switch</SLblockPath>
+				<isSrc>[0 3 1]</isSrc>
+				<parameter>
+					<paramName>Threshold</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>For Iterator</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/For Iterator</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>SerialConverter</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/SerialConverter</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits/p1</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits/p1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits/p2</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits/p2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits/p3</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits/p3</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits/p4</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits/p4</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits/p5</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits/p5</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits/p6</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits/p6</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits/p7</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits/p7</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits/p8</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits/p8</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits1/p1</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits1/p1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits1/p2</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits1/p2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits1/p3</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits1/p3</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits1/p4</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits1/p4</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits1/p5</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits1/p5</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits1/p6</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits1/p6</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits1/p7</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits1/p7</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>ToBits1/p8</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/ToBits1/p8</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>xPC Target
+ Time </sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/xPC Target  Time </xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Add</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/Add</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Add1</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/Add1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Switch</sigName>
+				<xpcsigName>XY Position Subsystem/For Iterator Subsystem/Switch</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<SubSystem>
+			<Name>Jacobian-Cartesian Transformation</Name>
+			<block>
+				<blkName>L1</blkName>
+				<xpcblkName>XY Position Subsystem/Jacobian-Cartesian Transformation/L1</xpcblkName>
+				<SLblockPath>center_out/XY Position Subsystem/Jacobian-Cartesian Transformation/L1</SLblockPath>
+				<isSrc>[1 0 1]</isSrc>
+				<parameter>
+					<paramName>Value</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>L2</blkName>
+				<xpcblkName>XY Position Subsystem/Jacobian-Cartesian Transformation/L2</xpcblkName>
+				<SLblockPath>center_out/XY Position Subsystem/Jacobian-Cartesian Transformation/L2</SLblockPath>
+				<isSrc>[1 0 1]</isSrc>
+				<parameter>
+					<paramName>Value</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>xoffset</blkName>
+				<xpcblkName>XY Position Subsystem/Jacobian-Cartesian Transformation/xoffset</xpcblkName>
+				<SLblockPath>center_out/XY Position Subsystem/Jacobian-Cartesian Transformation/xoffset</SLblockPath>
+				<isSrc>[1 0 1]</isSrc>
+				<parameter>
+					<paramName>Value</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>yoffset</blkName>
+				<xpcblkName>XY Position Subsystem/Jacobian-Cartesian Transformation/yoffset</xpcblkName>
+				<SLblockPath>center_out/XY Position Subsystem/Jacobian-Cartesian Transformation/yoffset</SLblockPath>
+				<isSrc>[1 0 1]</isSrc>
+				<parameter>
+					<paramName>Value</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Gain</blkName>
+				<xpcblkName>XY Position Subsystem/Jacobian-Cartesian Transformation/Gain</xpcblkName>
+				<SLblockPath>center_out/XY Position Subsystem/Jacobian-Cartesian Transformation/Gain</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>Gain</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Gain1</blkName>
+				<xpcblkName>XY Position Subsystem/Jacobian-Cartesian Transformation/Gain1</xpcblkName>
+				<SLblockPath>center_out/XY Position Subsystem/Jacobian-Cartesian Transformation/Gain1</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>Gain</paramName>
+				</parameter>
+			</block>
+			<block>
+				<blkName>Gain2</blkName>
+				<xpcblkName>XY Position Subsystem/Jacobian-Cartesian Transformation/Gain2</xpcblkName>
+				<SLblockPath>center_out/XY Position Subsystem/Jacobian-Cartesian Transformation/Gain2</SLblockPath>
+				<isSrc>[0 1 1]</isSrc>
+				<parameter>
+					<paramName>Gain</paramName>
+				</parameter>
+			</block>
+			<signal>
+				<sigName>Matrix
+Concatenate</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Matrix Concatenate</xpcsigName>
+				<sigWidth>4</sigWidth>
+				<sigDim>[2,2]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Matrix
+Concatenate1</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Matrix Concatenate1</xpcsigName>
+				<sigWidth>4</sigWidth>
+				<sigDim>[2,2]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Matrix
+Concatenate2</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Matrix Concatenate2</xpcsigName>
+				<sigWidth>4</sigWidth>
+				<sigDim>[2,2]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Gain</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Gain</xpcsigName>
+				<sigWidth>4</sigWidth>
+				<sigDim>[2,2]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Gain1</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Gain1</xpcsigName>
+				<sigWidth>4</sigWidth>
+				<sigDim>[2,2]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Gain2</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Gain2</xpcsigName>
+				<sigWidth>4</sigWidth>
+				<sigDim>[2,2]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Product</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product1</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Product1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product2</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Product2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Product3</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Product3</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Sum1</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Sum1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Sum2</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Sum2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Sum3</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Sum3</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Sum4</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Sum4</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Trigonometric
+Function</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Trigonometric Function</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Trigonometric
+Function1</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Trigonometric Function1</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Trigonometric
+Function2</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Trigonometric Function2</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+			<signal>
+				<sigName>Trigonometric
+Function3</sigName>
+				<xpcsigName>XY Position Subsystem/Jacobian-Cartesian Transformation/Trigonometric Function3</xpcsigName>
+				<sigWidth>1</sigWidth>
+				<sigDim>[1,1]</sigDim>
+			</signal>
+		</SubSystem>
+		<block>
+			<blkName>elbowOffset</blkName>
+			<xpcblkName>XY Position Subsystem/elbowOffset</xpcblkName>
+			<SLblockPath>center_out/XY Position Subsystem/elbowOffset</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>shoulderOffset</blkName>
+			<xpcblkName>XY Position Subsystem/shoulderOffset</xpcblkName>
+			<SLblockPath>center_out/XY Position Subsystem/shoulderOffset</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>Value</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>Gain</blkName>
+			<xpcblkName>XY Position Subsystem/Gain</xpcblkName>
+			<SLblockPath>center_out/XY Position Subsystem/Gain</SLblockPath>
+			<isSrc>[0 1 1]</isSrc>
+			<parameter>
+				<paramName>Gain</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>Gain1</blkName>
+			<xpcblkName>XY Position Subsystem/Gain1</xpcblkName>
+			<SLblockPath>center_out/XY Position Subsystem/Gain1</SLblockPath>
+			<isSrc>[0 1 1]</isSrc>
+			<parameter>
+				<paramName>Gain</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>PCI-QUAD04 </blkName>
+			<xpcblkName>XY Position Subsystem/PCI-QUAD04 </xpcblkName>
+			<SLblockPath>center_out/XY Position Subsystem/PCI-QUAD04 </SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>P1</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P2</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P3</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P4</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P5</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P6</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P7</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P8</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P9</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P10</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P11</paramName>
+			</parameter>
+		</block>
+		<block>
+			<blkName>PCI-QUAD04 1</blkName>
+			<xpcblkName>XY Position Subsystem/PCI-QUAD04 1</xpcblkName>
+			<SLblockPath>center_out/XY Position Subsystem/PCI-QUAD04 1</SLblockPath>
+			<isSrc>[1 0 1]</isSrc>
+			<parameter>
+				<paramName>P1</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P2</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P3</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P4</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P5</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P6</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P7</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P8</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P9</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P10</paramName>
+			</parameter>
+			<parameter>
+				<paramName>P11</paramName>
+			</parameter>
+		</block>
+		<signal>
+			<sigName>Gain</sigName>
+			<xpcsigName>XY Position Subsystem/Gain</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Gain1</sigName>
+			<xpcsigName>XY Position Subsystem/Gain1</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>PCI-QUAD04 </sigName>
+			<xpcsigName>XY Position Subsystem/PCI-QUAD04 </xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>PCI-QUAD04 1</sigName>
+			<xpcsigName>XY Position Subsystem/PCI-QUAD04 1</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Sum1</sigName>
+			<xpcsigName>XY Position Subsystem/Sum1</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+		<signal>
+			<sigName>Sum3</sigName>
+			<xpcsigName>XY Position Subsystem/Sum3</xpcsigName>
+			<sigWidth>1</sigWidth>
+			<sigDim>[1,1]</sigDim>
+		</signal>
+	</SubSystem>
+	<SubSystem>
+		<Name>Xpos</Name>
+	</SubSystem>
+	<block>
+		<blkName>Behavior CO</blkName>
+		<xpcblkName>Behavior CO</xpcblkName>
+		<SLblockPath>center_out/Behavior CO</SLblockPath>
+		<isSrc>[0 3 8]</isSrc>
+		<parameter>
+			<paramName>P1</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P2</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P3</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P4</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P5</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P6</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P7</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P8</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P9</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P10</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P11</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P12</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P13</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P14</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P15</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P16</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P17</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P18</paramName>
+		</parameter>
+	</block>
+	<signal>
+		<sigName>Matrix
+Concatenation1</sigName>
+		<xpcsigName>Matrix Concatenation1</xpcsigName>
+		<sigWidth>4</sigWidth>
+		<sigDim>[4,1]</sigDim>
+	</signal>
+	<signal>
+		<sigName>Behavior CO/p1</sigName>
+		<xpcsigName>Behavior CO/p1</xpcsigName>
+		<sigWidth>2</sigWidth>
+		<sigDim>[2,1]</sigDim>
+	</signal>
+	<signal>
+		<sigName>Behavior CO/p2</sigName>
+		<xpcsigName>Behavior CO/p2</xpcsigName>
+		<sigWidth>5</sigWidth>
+		<sigDim>[5,1]</sigDim>
+	</signal>
+	<signal>
+		<sigName>Behavior CO/p3</sigName>
+		<xpcsigName>Behavior CO/p3</xpcsigName>
+		<sigWidth>1</sigWidth>
+		<sigDim>[1,1]</sigDim>
+	</signal>
+	<signal>
+		<sigName>Behavior CO/p4</sigName>
+		<xpcsigName>Behavior CO/p4</xpcsigName>
+		<sigWidth>10</sigWidth>
+		<sigDim>[10,1]</sigDim>
+	</signal>
+	<signal>
+		<sigName>Behavior CO/p5</sigName>
+		<xpcsigName>Behavior CO/p5</xpcsigName>
+		<sigWidth>1</sigWidth>
+		<sigDim>[1,1]</sigDim>
+	</signal>
+	<signal>
+		<sigName>Behavior CO/p6</sigName>
+		<xpcsigName>Behavior CO/p6</xpcsigName>
+		<sigWidth>2</sigWidth>
+		<sigDim>[2,1]</sigDim>
+	</signal>
+	<signal>
+		<sigName>Behavior CO/p7</sigName>
+		<xpcsigName>Behavior CO/p7</xpcsigName>
+		<sigWidth>4</sigWidth>
+		<sigDim>[4,1]</sigDim>
+	</signal>
+	<signal>
+		<sigName>Behavior CO/p8</sigName>
+		<xpcsigName>Behavior CO/p8</xpcsigName>
+		<sigWidth>2</sigWidth>
+		<sigDim>[2,1]</sigDim>
+	</signal>
+</Root>

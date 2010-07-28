@@ -1,0 +1,986 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+        <SubSystem>
+    <Name>CursorPos</Name>
+        <SubSystem>
+    <Name>Status1</Name>
+    
+    
+
+    </SubSystem>
+
+    
+
+            <block>
+            <blkName>NewtonCal1</blkName>
+            <xpcblkName>CursorPos/NewtonCal1</xpcblkName>
+            <SLblockPath>multi_gadget/CursorPos/NewtonCal1</SLblockPath>
+            <isSrc>[0 1 1]</isSrc>
+          <parameter>
+          <paramName>Gain</paramName>
+          </parameter>
+          </block>
+
+            <block>
+            <blkName>NewtonCal2</blkName>
+            <xpcblkName>CursorPos/NewtonCal2</xpcblkName>
+            <SLblockPath>multi_gadget/CursorPos/NewtonCal2</SLblockPath>
+            <isSrc>[0 1 1]</isSrc>
+          <parameter>
+          <paramName>Gain</paramName>
+          </parameter>
+          </block>
+
+            <block>
+            <blkName>PCI-6025E AD</blkName>
+            <xpcblkName>CursorPos/PCI-6025E AD</xpcblkName>
+            <SLblockPath>multi_gadget/CursorPos/PCI-6025E AD</SLblockPath>
+            <isSrc>[1 0 2]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P2</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P3</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P4</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P5</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P6</paramName>
+          </parameter>
+          </block>
+
+
+              <signal>
+              <sigName>NewtonCal1</sigName>
+              <xpcsigName>CursorPos/NewtonCal1</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>NewtonCal2</sigName>
+              <xpcsigName>CursorPos/NewtonCal2</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>PCI-6025E AD/p1</sigName>
+              <xpcsigName>CursorPos/PCI-6025E AD/p1</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>PCI-6025E AD/p2</sigName>
+              <xpcsigName>CursorPos/PCI-6025E AD/p2</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Add</sigName>
+              <xpcsigName>CursorPos/Add</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Add1</sigName>
+              <xpcsigName>CursorPos/Add1</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+
+    </SubSystem>
+    <SubSystem>
+    <Name>DeviceOutput</Name>
+    
+    
+            <block>
+            <blkName>PCI-6025E DO</blkName>
+            <xpcblkName>DeviceOutput/PCI-6025E DO</xpcblkName>
+            <SLblockPath>multi_gadget/DeviceOutput/PCI-6025E DO</SLblockPath>
+            <isSrc>[0 4 0]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P2</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P3</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P4</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P5</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P6</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P7</paramName>
+          </parameter>
+          </block>
+
+              <signal>
+              <sigName>ToBits/p1</sigName>
+              <xpcsigName>DeviceOutput/ToBits/p1</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits/p2</sigName>
+              <xpcsigName>DeviceOutput/ToBits/p2</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits/p3</sigName>
+              <xpcsigName>DeviceOutput/ToBits/p3</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits/p4</sigName>
+              <xpcsigName>DeviceOutput/ToBits/p4</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits/p5</sigName>
+              <xpcsigName>DeviceOutput/ToBits/p5</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits/p6</sigName>
+              <xpcsigName>DeviceOutput/ToBits/p6</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits/p7</sigName>
+              <xpcsigName>DeviceOutput/ToBits/p7</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits/p8</sigName>
+              <xpcsigName>DeviceOutput/ToBits/p8</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+
+    </SubSystem>
+    <SubSystem>
+    <Name>MVC Target</Name>
+    
+    
+
+    </SubSystem>
+    <SubSystem>
+    <Name>RewardSbs</Name>
+        <SubSystem>
+    <Name>Sample
+and Hold</Name>
+    
+    
+              <signal>
+              <sigName>In</sigName>
+              <xpcsigName>RewardSbs/Sample and Hold/In</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+
+    </SubSystem>
+    <SubSystem>
+    <Name>Schmidt</Name>
+        <SubSystem>
+    <Name>Sample
+and Hold</Name>
+    
+    
+              <signal>
+              <sigName>In</sigName>
+              <xpcsigName>RewardSbs/Schmidt/Sample and Hold/In</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+
+    </SubSystem>
+
+    
+
+
+
+              <signal>
+              <sigName>Clock</sigName>
+              <xpcsigName>RewardSbs/Schmidt/Clock</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Relational
+Operator</sigName>
+              <xpcsigName>RewardSbs/Schmidt/Relational Operator</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Sum</sigName>
+              <xpcsigName>RewardSbs/Schmidt/Sum</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+
+    </SubSystem>
+
+    
+
+
+            <block>
+            <blkName>JackpotChance</blkName>
+            <xpcblkName>RewardSbs/JackpotChance</xpcblkName>
+            <SLblockPath>multi_gadget/RewardSbs/JackpotChance</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          </parameter>
+          </block>
+
+            <block>
+            <blkName>RewardJackpot</blkName>
+            <xpcblkName>RewardSbs/RewardJackpot</xpcblkName>
+            <SLblockPath>multi_gadget/RewardSbs/RewardJackpot</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          </parameter>
+          </block>
+
+            <block>
+            <blkName>RewardTime</blkName>
+            <xpcblkName>RewardSbs/RewardTime</xpcblkName>
+            <SLblockPath>multi_gadget/RewardSbs/RewardTime</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          </parameter>
+          </block>
+
+
+
+
+            <block>
+            <blkName>Uniform Random
+Number</blkName>
+            <xpcblkName>RewardSbs/Uniform Random Number</xpcblkName>
+            <SLblockPath>multi_gadget/RewardSbs/Uniform Random Number</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Minimum</paramName>
+          </parameter>
+          <parameter>
+          <paramName>Maximum</paramName>
+          </parameter>
+          <parameter>
+          <paramName>Seed</paramName>
+          </parameter>
+          </block>
+              <signal>
+              <sigName>Data Type Conversion</sigName>
+              <xpcsigName>RewardSbs/Data Type Conversion</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Relational
+Operator</sigName>
+              <xpcsigName>RewardSbs/Relational Operator</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Switch</sigName>
+              <xpcsigName>RewardSbs/Switch</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Uniform Random
+Number</sigName>
+              <xpcsigName>RewardSbs/Uniform Random Number</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+
+    </SubSystem>
+    <SubSystem>
+    <Name>Status</Name>
+    
+    
+
+    </SubSystem>
+    <SubSystem>
+    <Name>Status1</Name>
+    
+    
+
+    </SubSystem>
+    <SubSystem>
+    <Name>UDPXmit</Name>
+    
+    
+
+
+            <block>
+            <blkName>Send</blkName>
+            <xpcblkName>UDPXmit/Send</xpcblkName>
+            <SLblockPath>multi_gadget/UDPXmit/Send</SLblockPath>
+            <isSrc>[0 1 0]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P2</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P3</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P4</paramName>
+          </parameter>
+          </block>
+              <signal>
+              <sigName>Rate Transition</sigName>
+              <xpcsigName>UDPXmit/Rate Transition</xpcsigName>
+              <sigWidth>112</sigWidth>
+              <sigDim>[112,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Pack</sigName>
+              <xpcsigName>UDPXmit/Pack</xpcsigName>
+              <sigWidth>112</sigWidth>
+              <sigDim>[112,1]</sigDim>
+            </signal>
+
+    </SubSystem>
+    <SubSystem>
+    <Name>Version Display</Name>
+    
+    
+
+    </SubSystem>
+    <SubSystem>
+    <Name>WordSbs</Name>
+        <SubSystem>
+    <Name>While Iterator
+Subsystem</Name>
+        <SubSystem>
+    <Name>Compare
+To Constant</Name>
+    
+    
+            <block>
+            <blkName>Constant</blkName>
+            <xpcblkName>WordSbs/While Iterator Subsystem/Compare To Constant/Constant</xpcblkName>
+            <SLblockPath>multi_gadget/WordSbs/While Iterator Subsystem/Compare To Constant/Constant</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          </parameter>
+          </block>
+
+              <signal>
+              <sigName>Compare</sigName>
+              <xpcsigName>WordSbs/While Iterator Subsystem/Compare To Constant/Compare</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+
+    </SubSystem>
+    <SubSystem>
+    <Name>Compare
+To Constant1</Name>
+    
+    
+            <block>
+            <blkName>Constant</blkName>
+            <xpcblkName>WordSbs/While Iterator Subsystem/Compare To Constant1/Constant</xpcblkName>
+            <SLblockPath>multi_gadget/WordSbs/While Iterator Subsystem/Compare To Constant1/Constant</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          </parameter>
+          </block>
+
+              <signal>
+              <sigName>Compare</sigName>
+              <xpcsigName>WordSbs/While Iterator Subsystem/Compare To Constant1/Compare</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+
+    </SubSystem>
+
+    
+
+
+            <block>
+            <blkName>StobeHi</blkName>
+            <xpcblkName>WordSbs/While Iterator Subsystem/StobeHi</xpcblkName>
+            <SLblockPath>multi_gadget/WordSbs/While Iterator Subsystem/StobeHi</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          </parameter>
+          </block>
+
+            <block>
+            <blkName>StrobeLow</blkName>
+            <xpcblkName>WordSbs/While Iterator Subsystem/StrobeLow</xpcblkName>
+            <SLblockPath>multi_gadget/WordSbs/While Iterator Subsystem/StrobeLow</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          </parameter>
+          </block>
+
+            <block>
+            <blkName>ScaleTouSec</blkName>
+            <xpcblkName>WordSbs/While Iterator Subsystem/ScaleTouSec</xpcblkName>
+            <SLblockPath>multi_gadget/WordSbs/While Iterator Subsystem/ScaleTouSec</SLblockPath>
+            <isSrc>[0 1 1]</isSrc>
+          <parameter>
+          <paramName>Gain</paramName>
+          </parameter>
+          </block>
+
+            <block>
+            <blkName>PCI-6025E </blkName>
+            <xpcblkName>WordSbs/While Iterator Subsystem/PCI-6025E </xpcblkName>
+            <SLblockPath>multi_gadget/WordSbs/While Iterator Subsystem/PCI-6025E </SLblockPath>
+            <isSrc>[0 2 0]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P2</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P3</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P4</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P5</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P6</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P7</paramName>
+          </parameter>
+          </block>
+
+            <block>
+            <blkName>xPC Target
+ Time </blkName>
+            <xpcblkName>WordSbs/While Iterator Subsystem/xPC Target  Time </xpcblkName>
+            <SLblockPath>multi_gadget/WordSbs/While Iterator Subsystem/xPC Target  Time </SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P2</paramName>
+          </parameter>
+          </block>
+
+
+
+              <signal>
+              <sigName>ScaleTouSec</sigName>
+              <xpcsigName>WordSbs/While Iterator Subsystem/ScaleTouSec</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>xPC Target
+ Time </sigName>
+              <xpcsigName>WordSbs/While Iterator Subsystem/xPC Target  Time </xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Subtract</sigName>
+              <xpcsigName>WordSbs/While Iterator Subsystem/Subtract</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Switch</sigName>
+              <xpcsigName>WordSbs/While Iterator Subsystem/Switch</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+
+    </SubSystem>
+
+    
+
+            <block>
+            <blkName>Constant</blkName>
+            <xpcblkName>WordSbs/Constant</xpcblkName>
+            <SLblockPath>multi_gadget/WordSbs/Constant</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          </parameter>
+          </block>
+
+            <block>
+            <blkName>Constant2</blkName>
+            <xpcblkName>WordSbs/Constant2</xpcblkName>
+            <SLblockPath>multi_gadget/WordSbs/Constant2</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          </parameter>
+          </block>
+
+
+            <block>
+            <blkName>toThousandths</blkName>
+            <xpcblkName>WordSbs/toThousandths</xpcblkName>
+            <SLblockPath>multi_gadget/WordSbs/toThousandths</SLblockPath>
+            <isSrc>[0 1 1]</isSrc>
+          <parameter>
+          <paramName>Gain</paramName>
+          </parameter>
+          </block>
+
+            <block>
+            <blkName>Port A</blkName>
+            <xpcblkName>WordSbs/Port A</xpcblkName>
+            <SLblockPath>multi_gadget/WordSbs/Port A</SLblockPath>
+            <isSrc>[0 8 0]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P2</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P3</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P4</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P5</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P6</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P7</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P8</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P9</paramName>
+          </parameter>
+          </block>
+
+            <block>
+            <blkName>Port B</blkName>
+            <xpcblkName>WordSbs/Port B</xpcblkName>
+            <SLblockPath>multi_gadget/WordSbs/Port B</SLblockPath>
+            <isSrc>[0 8 0]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P2</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P3</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P4</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P5</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P6</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P7</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P8</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P9</paramName>
+          </parameter>
+          </block>
+
+
+
+
+            <block>
+            <blkName>xPC Target
+ Time </blkName>
+            <xpcblkName>WordSbs/xPC Target  Time </xpcblkName>
+            <SLblockPath>multi_gadget/WordSbs/xPC Target  Time </SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P2</paramName>
+          </parameter>
+          </block>
+
+
+
+            <block>
+            <blkName>Switch</blkName>
+            <xpcblkName>WordSbs/Switch</xpcblkName>
+            <SLblockPath>multi_gadget/WordSbs/Switch</SLblockPath>
+            <isSrc>[0 3 1]</isSrc>
+          <parameter>
+          <paramName>Threshold</paramName>
+          </parameter>
+          </block>
+              <signal>
+              <sigName>For Iterator</sigName>
+              <xpcsigName>WordSbs/For Iterator</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>toThousandths</sigName>
+              <xpcsigName>WordSbs/toThousandths</xpcsigName>
+              <sigWidth>2</sigWidth>
+              <sigDim>[2,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>SerialConverter</sigName>
+              <xpcsigName>WordSbs/SerialConverter</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits/p1</sigName>
+              <xpcsigName>WordSbs/ToBits/p1</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits/p2</sigName>
+              <xpcsigName>WordSbs/ToBits/p2</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits/p3</sigName>
+              <xpcsigName>WordSbs/ToBits/p3</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits/p4</sigName>
+              <xpcsigName>WordSbs/ToBits/p4</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits/p5</sigName>
+              <xpcsigName>WordSbs/ToBits/p5</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits/p6</sigName>
+              <xpcsigName>WordSbs/ToBits/p6</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits/p7</sigName>
+              <xpcsigName>WordSbs/ToBits/p7</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits/p8</sigName>
+              <xpcsigName>WordSbs/ToBits/p8</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits1/p1</sigName>
+              <xpcsigName>WordSbs/ToBits1/p1</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits1/p2</sigName>
+              <xpcsigName>WordSbs/ToBits1/p2</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits1/p3</sigName>
+              <xpcsigName>WordSbs/ToBits1/p3</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits1/p4</sigName>
+              <xpcsigName>WordSbs/ToBits1/p4</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits1/p5</sigName>
+              <xpcsigName>WordSbs/ToBits1/p5</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits1/p6</sigName>
+              <xpcsigName>WordSbs/ToBits1/p6</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits1/p7</sigName>
+              <xpcsigName>WordSbs/ToBits1/p7</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>ToBits1/p8</sigName>
+              <xpcsigName>WordSbs/ToBits1/p8</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>xPC Target
+ Time </sigName>
+              <xpcsigName>WordSbs/xPC Target  Time </xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Add2</sigName>
+              <xpcsigName>WordSbs/Add2</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Add3</sigName>
+              <xpcsigName>WordSbs/Add3</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Switch</sigName>
+              <xpcsigName>WordSbs/Switch</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+
+    </SubSystem>
+
+    
+
+
+
+
+
+
+
+
+
+
+            <block>
+            <blkName>Behavior MG</blkName>
+            <xpcblkName>Behavior MG</xpcblkName>
+            <SLblockPath>multi_gadget/Behavior MG</SLblockPath>
+            <isSrc>[0 3 10]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P2</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P3</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P4</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P5</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P6</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P7</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P8</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P9</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P10</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P11</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P12</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P13</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P14</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P15</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P16</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P17</paramName>
+          </parameter>
+          </block>
+
+            <block>
+            <blkName>PCI-6025E DI</blkName>
+            <xpcblkName>PCI-6025E DI</xpcblkName>
+            <SLblockPath>multi_gadget/PCI-6025E DI</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P2</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P3</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P4</paramName>
+          </parameter>
+          <parameter>
+          <paramName>P5</paramName>
+          </parameter>
+          </block>
+
+            <block>
+            <blkName>TargetTable</blkName>
+            <xpcblkName>TargetTable</xpcblkName>
+            <SLblockPath>multi_gadget/TargetTable</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>table</paramName>
+          </parameter>
+          </block>
+              <signal>
+              <sigName>Reshape</sigName>
+              <xpcsigName>Reshape</xpcsigName>
+              <sigWidth>80</sigWidth>
+              <sigDim>[80,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Behavior MG/p1</sigName>
+              <xpcsigName>Behavior MG/p1</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Behavior MG/p2</sigName>
+              <xpcsigName>Behavior MG/p2</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Behavior MG/p3</sigName>
+              <xpcsigName>Behavior MG/p3</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Behavior MG/p4</sigName>
+              <xpcsigName>Behavior MG/p4</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Behavior MG/p5</sigName>
+              <xpcsigName>Behavior MG/p5</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Behavior MG/p6</sigName>
+              <xpcsigName>Behavior MG/p6</xpcsigName>
+              <sigWidth>4</sigWidth>
+              <sigDim>[4,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Behavior MG/p7</sigName>
+              <xpcsigName>Behavior MG/p7</xpcsigName>
+              <sigWidth>2</sigWidth>
+              <sigDim>[2,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Behavior MG/p8</sigName>
+              <xpcsigName>Behavior MG/p8</xpcsigName>
+              <sigWidth>10</sigWidth>
+              <sigDim>[10,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Behavior MG/p9</sigName>
+              <xpcsigName>Behavior MG/p9</xpcsigName>
+              <sigWidth>4</sigWidth>
+              <sigDim>[4,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>Behavior MG/p10</sigName>
+              <xpcsigName>Behavior MG/p10</xpcsigName>
+              <sigWidth>4</sigWidth>
+              <sigDim>[4,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>PCI-6025E DI</sigName>
+              <xpcsigName>PCI-6025E DI</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1,1]</sigDim>
+            </signal>
+              <signal>
+              <sigName>TargetTable</sigName>
+              <xpcsigName>TargetTable</xpcsigName>
+              <sigWidth>80</sigWidth>
+              <sigDim>[5,16]</sigDim>
+            </signal>
+
+</Root>
