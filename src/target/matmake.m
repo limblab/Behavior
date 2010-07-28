@@ -51,8 +51,8 @@ end
 %% Implicit rules... TODO: do this better.
 idx = 1;
 state.implicitrules(idx).target   = {['%.' mexext]};
-state.implicitrules(1).deps     = {'%.c'};
-state.implicitrules(1).commands = {'mex ${CFLAGS} $<'};
+state.implicitrules(idx).deps     = {'%.c'};
+state.implicitrules(idx).commands = {'mex ${CFLAGS} $<'};
 idx = idx+1;
 state.implicitrules(idx).target   = {['%.' mexext]};
 state.implicitrules(idx).deps     = {'%.cpp'};

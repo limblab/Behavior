@@ -6,27 +6,34 @@ LAB4_MODELS  :=  lab4_bc.dlm  lab4_bf.dlm  lab4_bs.dlm  lab4_co.dlm  lab4_fc.dlm
 
 OTHER_MODELS := ball_drop.dlm multi_gadget.dlm wrist_flexion.dlm
 
+# Included the two letter behavior codes at end for use in 'replace_mastercon.m'
+PARAM_LIST_bc := '0 10 3 5 7 0.0 0.05 125 0.5 2 10 1 2 0 0 0 BC';
+PARAM_LIST_bf := '0 10 3 1 2 5 7 0.0 0.05 125 0.5 2 10 1 2 0 0 0 BF';
+PARAM_LIST_bs := '8 10 2.5 1 1 .5 1.5 .75 .25 1 1 2 1 .02 125 1 1 0 0 0 0 0 0 BS';
+PARAM_LIST_co := '8 10 2.5 1 1 .5 1.5 .75 .25 1 1 10 1 .02 125 1 0 0 CO';
+PARAM_LIST_fc := '16 0.2 0 .5 1 .5 1 2 2 3 5 0 1 FC';
+PARAM_LIST_rw := '8 3 0 -10 10 -10 10 0 0 0 0 10 10 1 0 0 0 0 RW';
+PARAM_LIST_vs := '6 12 2.5 4 .5 1 10 2 0 0 1 1 1 1 0 VS';
 
-all: ${ROBOT_MODELS} ${ISO_MODELS} ${LAB4_MODELS} ${OTHER_MODELS}
+all: words.h ${ROBOT_MODELS} ${ISO_MODELS} ${LAB4_MODELS} ${OTHER_MODELS}
 
-# mastercon_*.mexw32 : words.h
-# words.h :
-#     perl('update_version.pl')
+words.h :
+     perl('update_version.pl')
 
 robot_%.dlm : robot_%.mdl mastercon_%.mexw32 serPos.mexw32 Byte2Bits.mexw32
 robot_%.mdl : mastercon_%.c robot.mdl
-    disp('replace_mastercon(''robot.mdl'', ''mastercon_$*.c'')')
+    replace_mastercon('$@', 'robot.mdl', 'mastercon_$*.c', ${PARAM_LIST_$*})
 
 iso_%.dlm : iso_%.mdl mastercon_%.mexw32 serPos.mexw32 Byte2Bits.mexw32
 iso_%.mdl : mastercon_%.c iso.mdl
-    disp('replace_mastercon(''iso.mdl'', ''mastercon_$*.c'')')
+    replace_mastercon('$@', 'iso.mdl', 'mastercon_$*.c', ${PARAM_LIST_$*})
 
 lab4_%.dlm : lab4_%.mdl mastercon_%.mexw32 serPos.mexw32 Byte2Bits.mexw32
 lab4_%.mdl : mastercon_%.c lab4.mdl
-    disp('replace_mastercon(''lab4.mdl'', ''mastercon_$*.c'')')
+    replace_mastercon('$@', 'lab4.mdl', 'mastercon_$*.c', ${PARAM_LIST_$*})
 
-ball_drop.dlm : mastercon_bd.mexw32 Byte2Bits.mexw32
-multi_gadget.dlm : mastercon_mg.mexw32 serPos.mexw32 Byte2Bits.mexw32
+ball_drop.dlm :     mastercon_bd.mexw32 Byte2Bits.mexw32
+multi_gadget.dlm :  mastercon_mg.mexw32 serPos.mexw32 Byte2Bits.mexw32
 wrist_flexion.dlm : mastercon_wf.mexw32 Byte2Bits.mexw32
 
 
