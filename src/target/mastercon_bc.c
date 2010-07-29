@@ -48,6 +48,7 @@
  * bytes 11 to 14: float => y offset
  * bytes 15 to 18: float => target angle (rad)
  * bytes 19 to 22: float => bump magnitude (bump units?)
+ * byte 23: uchar => newsome mode? ( 0 if normal, 1 if newsome )
  */
 
 typedef unsigned char byte;
@@ -108,6 +109,10 @@ static real_T pct_stim_trials = 0.0; /* percentage of trials to stimulate */
 static real_T master_update = 0.0;
 #define param_master_update mxGetScalar(ssGetSFcnParam(S,15))
 
+/* Newsome mode */
+static int newsome_mode = 0;
+#define param_newsome_mode mxGetScalar(ssGetSFcnParam(S,16))
+
 /*
  * State IDs
  */
@@ -149,13 +154,15 @@ static void mdlCheckParameters(SimStruct *S)
     failure_timeout = param_fail_intertrial;
     reward_timeout  = param_intertrial;   
     incomplete_timeout = param_intertrial;
+    
+    newsome_mode = param_newsome_mode;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 16);
+    ssSetNumSFcnParams(S, 17);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -347,6 +354,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	float *databurst_offsets;
     float *databurst_angle;
     float *databurst_bump_mag;
+    float *databurst_newsome;
     int databurst_counter;
             
     /******************
@@ -409,6 +417,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	databurst_offsets  = (float *)(databurst + 7);
     databurst_angle    = databurst_offsets + 2;
     databurst_bump_mag = databurst_angle + 1;
+    databurst_newsome = databurst_bump_mag + 1;
     
     /*********************************
      * See if we have issued a reset *  
@@ -459,6 +468,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             reward_timeout  = param_intertrial;   
             incomplete_timeout = param_intertrial;
             
+            newsome_mode = param_newsome_mode;
+            
             /* decide if it is a training trial */
             training_mode = (UNI<pct_training_trials) ? 1 : 0;
             ssSetIWorkValue(S,6,training_mode);
@@ -466,7 +477,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* decide if it is a stim trial */
             stim_trial = (UNI<pct_stim_trials ? 1 : 0);
             ssSetIWorkValue(S,9,stim_trial);
-                                    
+                                   
             /* check how many valid stim codes there are */                       
             num_stim_codes = 0;
             for (i=0 ; i<16 ; i++) { 
@@ -475,8 +486,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 } else {
                     break;
                 }
-            }
-                        
+            }                        
             /* check if stimulation block needs to be reinitialized */
             if ( stim_index >= num_stim_codes-1 ) {
                 /* reset stim index */
@@ -487,14 +497,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     tmp_sort[i] = rand();
                     stim_code_list_tmp[i] = i; /*stim_codes[i];*/
                 }
-                
+
                 for (i=0; i<num_stim_codes-1; i++) {
                     for (j=0; j<num_stim_codes-1; j++) { 
                         if (tmp_sort[j] < tmp_sort[j+1]) {   
                             tmp = tmp_sort[j];
                             tmp_sort[j] = tmp_sort[j+1];
                             tmp_sort[j+1] = tmp;
-                            
+
                             tmp = stim_code_list_tmp[j];
                             stim_code_list_tmp[j] = stim_code_list_tmp[j+1];
                             stim_code_list_tmp[j+1] = tmp;
@@ -504,17 +514,22 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 /* write them back */
                 for (i=0; i<num_stim_codes; i++) {
                     ssSetIWorkValue(S,11+i,stim_code_list_tmp[i]);
-	            }                                
+                }                                
             }         
-            
+
             if (stim_trial){ 
                 stim_index++;
                 bump_direction = pref_dirs[ssGetIWorkValue(S,11+stim_index)];
                 ssSetIWorkValue(S,10,stim_index);
             } else {
                 /* give a random direction to next target */ 
-                bump_direction = 2*PI*UNI;                
-            }                       
+                if (newsome_mode){
+                    bump_direction = pref_dirs[ssGetIWorkValue(S,11)];
+                } else {
+                    bump_direction = 2*PI*UNI;                
+                }
+            }               
+
             ssSetRWorkValue(S,4,bump_direction);
                                                                  
             /* get a random bump step */
@@ -532,7 +547,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	        }
 	        
 			/* Setup the databurst */
-			databurst[0] = 6+1+4*sizeof(float);
+			databurst[0] = 6+1+4*sizeof(float)+1;
             databurst[1] = DATABURST_VERSION;
 			databurst[2] = BEHAVIOR_VERSION_MAJOR;
 			databurst[3] = BEHAVIOR_VERSION_MINOR;
@@ -545,6 +560,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			databurst_offsets[1] = *uPtrs[1];
             databurst_angle[0] = bump_direction;
             databurst_bump_mag[0] = bump_magnitude;
+            databurst_newsome[0] = newsome_mode;
             
 			/* clear the counters */
             ssSetIWorkValue(S, 7, 0); /* Databurst counter */
@@ -782,14 +798,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      ********************/
     
     /* force (0) */
-    if (!stim_trial) {
+    if (newsome_mode) {
         if (bump_duration_counter > 0) {
             /* yes, so decrement the counter and maintain the bump */
             bump_duration_counter--;
             force_x = force_in[0] + cos(bump_direction)*bump_magnitude;
             force_y = force_in[1] + sin(bump_direction)*bump_magnitude;
-        } else if ( state == STATE_BUMP_STIM && new_state ) 
-        {
+        } else if ( state == STATE_BUMP_STIM && new_state ) {
             /* initiating a new bump */
             bump_duration_counter = (int)bump_duration;
             force_x = force_in[0] + cos(bump_direction)*bump_magnitude;
@@ -797,10 +812,27 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         } else {
             force_x = force_in[0]; 
             force_y = force_in[1];
-        }
+        }        
     } else {
-        force_x = force_in[0]; 
-        force_y = force_in[1];
+        if (!stim_trial) {
+            if (bump_duration_counter > 0) {
+                /* yes, so decrement the counter and maintain the bump */
+                bump_duration_counter--;
+                force_x = force_in[0] + cos(bump_direction)*bump_magnitude;
+                force_y = force_in[1] + sin(bump_direction)*bump_magnitude;
+            } else if ( state == STATE_BUMP_STIM && new_state ) {
+                /* initiating a new bump */
+                bump_duration_counter = (int)bump_duration;
+                force_x = force_in[0] + cos(bump_direction)*bump_magnitude;
+                force_y = force_in[1] + sin(bump_direction)*bump_magnitude;
+            } else {
+                force_x = force_in[0]; 
+                force_y = force_in[1];
+            }
+        } else {
+            force_x = force_in[0]; 
+            force_y = force_in[1];
+        }
     }
     
     /* status (1) */

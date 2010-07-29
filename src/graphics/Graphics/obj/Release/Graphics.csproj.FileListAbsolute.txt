@@ -12,3 +12,17 @@ C:\Documents and Settings\David\Desktop\Behavior\trunk\src\graphics\Graphics\obj
 C:\Documents and Settings\David\Desktop\Behavior\trunk\src\graphics\Graphics\obj\Release\Graphics.csproj.GenerateResource.Cache
 C:\Documents and Settings\David\Desktop\Behavior\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.exe
 C:\Documents and Settings\David\Desktop\Behavior\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.pdb
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Release\Interop.XPCAPICOMLib.dll
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Release\Graphics.csproj.ResolveComReference.cache
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.exe
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.pdb
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\bin\BehaviorGraphics.exe
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\bin\BehaviorGraphics.pdb
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Release\ResolveAssemblyReference.cache
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.Graphics.resources
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.Properties.Resources.resources
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.GraphicsAboutBox.resources
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.BoxConfig.resources
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.UpdateForm.resources
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.WhichLabForm.resources
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Release\Graphics.csproj.GenerateResource.Cache

@@ -15,3 +15,20 @@ C:\Documents and Settings\David\Desktop\Behavior\trunk\src\graphics\Graphics\obj
 C:\Documents and Settings\David\Desktop\Behavior\trunk\src\graphics\Graphics\obj\Debug\Graphics.csproj.GenerateResource.Cache
 C:\Documents and Settings\David\Desktop\Behavior\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.exe
 C:\Documents and Settings\David\Desktop\Behavior\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.pdb
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\bin\Debug\BehaviorGraphics.exe
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\bin\Debug\BehaviorGraphics.pdb
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\bin\Debug\AngleBox.dll
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\bin\Debug\AngleBox.pdb
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\bin\Debug\Interop.XPCAPICOMLib.dll
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\ResolveAssemblyReference.cache
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\Interop.XPCAPICOMLib.dll
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\Graphics.csproj.ResolveComReference.cache
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.Graphics.resources
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.Properties.Resources.resources
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.GraphicsAboutBox.resources
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.BoxConfig.resources
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.UpdateForm.resources
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.WhichLabForm.resources
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\Graphics.csproj.GenerateResource.Cache
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.exe
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.pdb

@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -292,6 +292,11 @@ namespace BehaviorGraphics
             this.textBoxMGTPL = new System.Windows.Forms.TextBox();
             this.label122 = new System.Windows.Forms.Label();
             this.tabPageWF = new System.Windows.Forms.TabPage();
+            this.groupBox43 = new System.Windows.Forms.GroupBox();
+            this.label194 = new System.Windows.Forms.Label();
+            this.label192 = new System.Windows.Forms.Label();
+            this.label193 = new System.Windows.Forms.Label();
+            this.checkBoxWFEncodersOn = new System.Windows.Forms.CheckBox();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.label165 = new System.Windows.Forms.Label();
             this.label132 = new System.Windows.Forms.Label();
@@ -572,11 +577,7 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.checkBoxWFEncodersOn = new System.Windows.Forms.CheckBox();
-            this.label193 = new System.Windows.Forms.Label();
-            this.groupBox43 = new System.Windows.Forms.GroupBox();
-            this.label192 = new System.Windows.Forms.Label();
-            this.label194 = new System.Windows.Forms.Label();
+            this.checkBoxBCNewsome = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -616,6 +617,7 @@ namespace BehaviorGraphics
             ((System.ComponentModel.ISupportInitialize)(this.MGTargetGrid)).BeginInit();
             this.groupBox31.SuspendLayout();
             this.tabPageWF.SuspendLayout();
+            this.groupBox43.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox40.SuspendLayout();
             this.groupBox36.SuspendLayout();
@@ -653,14 +655,13 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBox43.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(513, 376);
+            this.cancelButton.Location = new System.Drawing.Point(534, 376);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 98;
@@ -671,7 +672,7 @@ namespace BehaviorGraphics
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(594, 376);
+            this.okButton.Location = new System.Drawing.Point(615, 376);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 99;
@@ -699,7 +700,7 @@ namespace BehaviorGraphics
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(673, 343);
+            this.tabControl.Size = new System.Drawing.Size(694, 343);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageGen
@@ -720,7 +721,7 @@ namespace BehaviorGraphics
             this.tabPageGen.Location = new System.Drawing.Point(4, 40);
             this.tabPageGen.Name = "tabPageGen";
             this.tabPageGen.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGen.Size = new System.Drawing.Size(665, 299);
+            this.tabPageGen.Size = new System.Drawing.Size(686, 299);
             this.tabPageGen.TabIndex = 0;
             this.tabPageGen.Text = "General";
             this.tabPageGen.UseVisualStyleBackColor = true;
@@ -1347,7 +1348,7 @@ namespace BehaviorGraphics
             this.tabPageCO.Location = new System.Drawing.Point(4, 40);
             this.tabPageCO.Name = "tabPageCO";
             this.tabPageCO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCO.Size = new System.Drawing.Size(665, 299);
+            this.tabPageCO.Size = new System.Drawing.Size(686, 299);
             this.tabPageCO.TabIndex = 1;
             this.tabPageCO.Text = "Center-Out";
             this.tabPageCO.UseVisualStyleBackColor = true;
@@ -1798,7 +1799,7 @@ namespace BehaviorGraphics
             this.tabPageRW.Location = new System.Drawing.Point(4, 40);
             this.tabPageRW.Name = "tabPageRW";
             this.tabPageRW.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRW.Size = new System.Drawing.Size(665, 299);
+            this.tabPageRW.Size = new System.Drawing.Size(686, 299);
             this.tabPageRW.TabIndex = 2;
             this.tabPageRW.Text = "Random Walk";
             this.tabPageRW.UseVisualStyleBackColor = true;
@@ -2214,7 +2215,7 @@ namespace BehaviorGraphics
             this.tabPageFC.Location = new System.Drawing.Point(4, 40);
             this.tabPageFC.Name = "tabPageFC";
             this.tabPageFC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFC.Size = new System.Drawing.Size(665, 299);
+            this.tabPageFC.Size = new System.Drawing.Size(686, 299);
             this.tabPageFC.TabIndex = 3;
             this.tabPageFC.Text = "Forced Choice";
             this.tabPageFC.UseVisualStyleBackColor = true;
@@ -2512,10 +2513,10 @@ namespace BehaviorGraphics
             this.tabPageBS.Controls.Add(this.groupBox25);
             this.tabPageBS.Controls.Add(this.groupBox28);
             this.tabPageBS.Controls.Add(this.groupBox26);
-            this.tabPageBS.Location = new System.Drawing.Point(4, 40);
+            this.tabPageBS.Location = new System.Drawing.Point(4, 22);
             this.tabPageBS.Name = "tabPageBS";
             this.tabPageBS.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBS.Size = new System.Drawing.Size(665, 299);
+            this.tabPageBS.Size = new System.Drawing.Size(691, 317);
             this.tabPageBS.TabIndex = 4;
             this.tabPageBS.Text = "Bump-stim";
             this.tabPageBS.UseVisualStyleBackColor = true;
@@ -3021,7 +3022,7 @@ namespace BehaviorGraphics
             this.tabPageMG.Location = new System.Drawing.Point(4, 40);
             this.tabPageMG.Name = "tabPageMG";
             this.tabPageMG.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMG.Size = new System.Drawing.Size(665, 299);
+            this.tabPageMG.Size = new System.Drawing.Size(686, 299);
             this.tabPageMG.TabIndex = 5;
             this.tabPageMG.Text = "Multi-Gadget";
             this.tabPageMG.UseVisualStyleBackColor = true;
@@ -3269,8 +3270,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle7;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -3469,10 +3470,60 @@ namespace BehaviorGraphics
             this.tabPageWF.Location = new System.Drawing.Point(4, 40);
             this.tabPageWF.Name = "tabPageWF";
             this.tabPageWF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageWF.Size = new System.Drawing.Size(665, 299);
+            this.tabPageWF.Size = new System.Drawing.Size(686, 299);
             this.tabPageWF.TabIndex = 6;
             this.tabPageWF.Text = "Wrist Flexion";
             this.tabPageWF.UseVisualStyleBackColor = true;
+            // 
+            // groupBox43
+            // 
+            this.groupBox43.Controls.Add(this.label194);
+            this.groupBox43.Controls.Add(this.label192);
+            this.groupBox43.Controls.Add(this.label193);
+            this.groupBox43.Controls.Add(this.checkBoxWFEncodersOn);
+            this.groupBox43.Location = new System.Drawing.Point(336, 9);
+            this.groupBox43.Name = "groupBox43";
+            this.groupBox43.Size = new System.Drawing.Size(101, 83);
+            this.groupBox43.TabIndex = 36;
+            this.groupBox43.TabStop = false;
+            this.groupBox43.Text = "Input Type";
+            // 
+            // label194
+            // 
+            this.label194.AutoSize = true;
+            this.label194.Location = new System.Drawing.Point(-1, 67);
+            this.label194.Name = "label194";
+            this.label194.Size = new System.Drawing.Size(68, 13);
+            this.label194.TabIndex = 50;
+            this.label194.Text = "analog input.";
+            // 
+            // label192
+            // 
+            this.label192.AutoSize = true;
+            this.label192.Location = new System.Drawing.Point(-1, 54);
+            this.label192.Name = "label192";
+            this.label192.Size = new System.Drawing.Size(99, 13);
+            this.label192.TabIndex = 49;
+            this.label192.Text = "checked, default to";
+            // 
+            // label193
+            // 
+            this.label193.AutoSize = true;
+            this.label193.Location = new System.Drawing.Point(0, 41);
+            this.label193.Name = "label193";
+            this.label193.Size = new System.Drawing.Size(89, 13);
+            this.label193.TabIndex = 48;
+            this.label193.Text = "If \"Encoders\" not";
+            // 
+            // checkBoxWFEncodersOn
+            // 
+            this.checkBoxWFEncodersOn.AutoSize = true;
+            this.checkBoxWFEncodersOn.Location = new System.Drawing.Point(11, 19);
+            this.checkBoxWFEncodersOn.Name = "checkBoxWFEncodersOn";
+            this.checkBoxWFEncodersOn.Size = new System.Drawing.Size(71, 17);
+            this.checkBoxWFEncodersOn.TabIndex = 47;
+            this.checkBoxWFEncodersOn.Text = "Encoders";
+            this.checkBoxWFEncodersOn.UseVisualStyleBackColor = true;
             // 
             // groupBox12
             // 
@@ -3978,8 +4029,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle8;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -4188,7 +4239,7 @@ namespace BehaviorGraphics
             this.tabPageBD.Location = new System.Drawing.Point(4, 40);
             this.tabPageBD.Name = "tabPageBD";
             this.tabPageBD.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBD.Size = new System.Drawing.Size(665, 299);
+            this.tabPageBD.Size = new System.Drawing.Size(686, 299);
             this.tabPageBD.TabIndex = 7;
             this.tabPageBD.Text = "Ball Drop";
             this.tabPageBD.UseVisualStyleBackColor = true;
@@ -4381,7 +4432,7 @@ namespace BehaviorGraphics
             this.tabPageBC.Location = new System.Drawing.Point(4, 40);
             this.tabPageBC.Name = "tabPageBC";
             this.tabPageBC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBC.Size = new System.Drawing.Size(665, 299);
+            this.tabPageBC.Size = new System.Drawing.Size(686, 299);
             this.tabPageBC.TabIndex = 8;
             this.tabPageBC.Text = "Bump-choice";
             this.tabPageBC.UseVisualStyleBackColor = true;
@@ -4499,6 +4550,7 @@ namespace BehaviorGraphics
             // 
             // groupBox17
             // 
+            this.groupBox17.Controls.Add(this.checkBoxBCNewsome);
             this.groupBox17.Controls.Add(this.label87);
             this.groupBox17.Controls.Add(this.textBoxBCPctStimTrials);
             this.groupBox17.Controls.Add(this.label78);
@@ -4755,10 +4807,10 @@ namespace BehaviorGraphics
             this.tabPage1.Controls.Add(this.label175);
             this.tabPage1.Controls.Add(this.groupBox22);
             this.tabPage1.Controls.Add(this.groupBox20);
-            this.tabPage1.Location = new System.Drawing.Point(4, 40);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(665, 299);
+            this.tabPage1.Size = new System.Drawing.Size(691, 317);
             this.tabPage1.TabIndex = 9;
             this.tabPage1.Text = "Visual Search";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -5090,7 +5142,7 @@ namespace BehaviorGraphics
             this.tabPageBF.Location = new System.Drawing.Point(4, 40);
             this.tabPageBF.Name = "tabPageBF";
             this.tabPageBF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBF.Size = new System.Drawing.Size(665, 299);
+            this.tabPageBF.Size = new System.Drawing.Size(686, 299);
             this.tabPageBF.TabIndex = 10;
             this.tabPageBF.Text = "Bump-follow";
             this.tabPageBF.UseVisualStyleBackColor = true;
@@ -5163,6 +5215,7 @@ namespace BehaviorGraphics
             this.textBoxBFAL.Size = new System.Drawing.Size(56, 20);
             this.textBoxBFAL.TabIndex = 25;
             this.toolTip1.SetToolTip(this.textBoxBFAL, "Size of targets (cm)");
+            this.textBoxBFAL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label191
             // 
@@ -5180,6 +5233,7 @@ namespace BehaviorGraphics
             this.textBoxBFAT.Size = new System.Drawing.Size(56, 20);
             this.textBoxBFAT.TabIndex = 23;
             this.toolTip1.SetToolTip(this.textBoxBFAT, "Size of targets (cm)");
+            this.textBoxBFAT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label190
             // 
@@ -5197,6 +5251,7 @@ namespace BehaviorGraphics
             this.textBoxBFWindowRadius.Size = new System.Drawing.Size(56, 20);
             this.textBoxBFWindowRadius.TabIndex = 5;
             this.toolTip1.SetToolTip(this.textBoxBFWindowRadius, "Distance from the origin of workspace in which the cursor is not displayed.");
+            this.textBoxBFWindowRadius.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label176
             // 
@@ -5214,6 +5269,7 @@ namespace BehaviorGraphics
             this.textBoxBFArcRadius.Size = new System.Drawing.Size(56, 20);
             this.textBoxBFArcRadius.TabIndex = 3;
             this.toolTip1.SetToolTip(this.textBoxBFArcRadius, "Radius of circle on which to draw targets (cm)");
+            this.textBoxBFArcRadius.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label177
             // 
@@ -5231,6 +5287,7 @@ namespace BehaviorGraphics
             this.textBoxBFTgtSize.Size = new System.Drawing.Size(56, 20);
             this.textBoxBFTgtSize.TabIndex = 1;
             this.toolTip1.SetToolTip(this.textBoxBFTgtSize, "Size of targets (cm)");
+            this.textBoxBFTgtSize.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label178
             // 
@@ -5279,6 +5336,7 @@ namespace BehaviorGraphics
             this.textBoxBFPctStimTrials.Size = new System.Drawing.Size(68, 20);
             this.textBoxBFPctStimTrials.TabIndex = 11;
             this.toolTip1.SetToolTip(this.textBoxBFPctStimTrials, "Durration of bump (ms)");
+            this.textBoxBFPctStimTrials.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label180
             // 
@@ -5307,6 +5365,7 @@ namespace BehaviorGraphics
             this.textBoxBFPctTraining.Size = new System.Drawing.Size(68, 20);
             this.textBoxBFPctTraining.TabIndex = 1;
             this.toolTip1.SetToolTip(this.textBoxBFPctTraining, "Durration of bump (ms)");
+            this.textBoxBFPctTraining.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBoxBFBumpMagMin
             // 
@@ -5316,6 +5375,7 @@ namespace BehaviorGraphics
             this.textBoxBFBumpMagMin.TabIndex = 5;
             this.toolTip1.SetToolTip(this.textBoxBFBumpMagMin, "The magnitude of the unit 1 bump.  All bump magnitudes are an integer multiple of" +
                     " this.");
+            this.textBoxBFBumpMagMin.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label182
             // 
@@ -5334,6 +5394,7 @@ namespace BehaviorGraphics
             this.textBoxBFBumpDur.Size = new System.Drawing.Size(68, 20);
             this.textBoxBFBumpDur.TabIndex = 9;
             this.toolTip1.SetToolTip(this.textBoxBFBumpDur, "Durration of bump (ms)");
+            this.textBoxBFBumpDur.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label183
             // 
@@ -5353,6 +5414,7 @@ namespace BehaviorGraphics
             this.textBoxBFBumpMagMax.TabIndex = 7;
             this.toolTip1.SetToolTip(this.textBoxBFBumpMagMax, "The magnitude of the unit 1 bump.  All bump magnitudes are an integer multiple of" +
                     " this.");
+            this.textBoxBFBumpMagMax.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label184
             // 
@@ -5407,6 +5469,7 @@ namespace BehaviorGraphics
             this.textBoxBFIF.Name = "textBoxBFIF";
             this.textBoxBFIF.Size = new System.Drawing.Size(100, 20);
             this.textBoxBFIF.TabIndex = 9;
+            this.textBoxBFIF.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label185
             // 
@@ -5423,6 +5486,7 @@ namespace BehaviorGraphics
             this.textBoxBFI.Name = "textBoxBFI";
             this.textBoxBFI.Size = new System.Drawing.Size(100, 20);
             this.textBoxBFI.TabIndex = 7;
+            this.textBoxBFI.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label186
             // 
@@ -5439,6 +5503,7 @@ namespace BehaviorGraphics
             this.textBoxBFM.Name = "textBoxBFM";
             this.textBoxBFM.Size = new System.Drawing.Size(100, 20);
             this.textBoxBFM.TabIndex = 5;
+            this.textBoxBFM.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label187
             // 
@@ -5455,6 +5520,7 @@ namespace BehaviorGraphics
             this.textBoxBFOHH.Name = "textBoxBFOHH";
             this.textBoxBFOHH.Size = new System.Drawing.Size(100, 20);
             this.textBoxBFOHH.TabIndex = 3;
+            this.textBoxBFOHH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label188
             // 
@@ -5472,6 +5538,7 @@ namespace BehaviorGraphics
             this.textBoxBFOHL.Size = new System.Drawing.Size(100, 20);
             this.textBoxBFOHL.TabIndex = 1;
             this.toolTip1.SetToolTip(this.textBoxBFOHL, "This is a tool tip\r\n");
+            this.textBoxBFOHL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label189
             // 
@@ -5490,7 +5557,7 @@ namespace BehaviorGraphics
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.statusStrip1.Location = new System.Drawing.Point(0, 402);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(671, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(692, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
@@ -5516,7 +5583,7 @@ namespace BehaviorGraphics
             this.modelToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(671, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(692, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -5538,7 +5605,7 @@ namespace BehaviorGraphics
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -5546,7 +5613,7 @@ namespace BehaviorGraphics
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -5555,30 +5622,30 @@ namespace BehaviorGraphics
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
                         | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(189, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(189, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.quitToolStripMenuItem.Text = "&Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quit);
             // 
@@ -5594,7 +5661,7 @@ namespace BehaviorGraphics
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -5614,21 +5681,21 @@ namespace BehaviorGraphics
             // boxToolStripMenuItem
             // 
             this.boxToolStripMenuItem.Name = "boxToolStripMenuItem";
-            this.boxToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.boxToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.boxToolStripMenuItem.Text = "&Box";
             this.boxToolStripMenuItem.Click += new System.EventHandler(this.boxToolStripMenuItem_Click);
             // 
             // boxSettingsToolStripMenuItem
             // 
             this.boxSettingsToolStripMenuItem.Name = "boxSettingsToolStripMenuItem";
-            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.boxSettingsToolStripMenuItem.Text = "Box &Settings...";
             this.boxSettingsToolStripMenuItem.Click += new System.EventHandler(this.boxSettingsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(181, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(192, 6);
             // 
             // soundThemeToolStripMenuItem
             // 
@@ -5637,7 +5704,7 @@ namespace BehaviorGraphics
             this.theme2ToolStripMenuItem,
             this.theme3ToolStripMenuItem});
             this.soundThemeToolStripMenuItem.Name = "soundThemeToolStripMenuItem";
-            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.soundThemeToolStripMenuItem.Text = "Sound &Theme";
             // 
             // theme1ToolStripMenuItem
@@ -5645,35 +5712,35 @@ namespace BehaviorGraphics
             this.theme1ToolStripMenuItem.Checked = true;
             this.theme1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.theme1ToolStripMenuItem.Name = "theme1ToolStripMenuItem";
-            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.theme1ToolStripMenuItem.Text = "Theme 1";
             this.theme1ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme2ToolStripMenuItem
             // 
             this.theme2ToolStripMenuItem.Name = "theme2ToolStripMenuItem";
-            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.theme2ToolStripMenuItem.Text = "Theme 2";
             this.theme2ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme3ToolStripMenuItem
             // 
             this.theme3ToolStripMenuItem.Name = "theme3ToolStripMenuItem";
-            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.theme3ToolStripMenuItem.Text = "Theme 3";
             this.theme3ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // setLabToolStripMenuItem
             // 
             this.setLabToolStripMenuItem.Name = "setLabToolStripMenuItem";
-            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.setLabToolStripMenuItem.Text = "Set &Lab...";
             this.setLabToolStripMenuItem.Click += new System.EventHandler(this.setLabToolStripMenuItem_Click);
             // 
             // keepGraphicsRunningToolStripMenuItem
             // 
             this.keepGraphicsRunningToolStripMenuItem.Name = "keepGraphicsRunningToolStripMenuItem";
-            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.keepGraphicsRunningToolStripMenuItem.Text = "&Keep Graphics Running";
             this.keepGraphicsRunningToolStripMenuItem.Click += new System.EventHandler(this.keepGraphicsRunningToolStripMenuItem_Click);
             // 
@@ -5690,7 +5757,7 @@ namespace BehaviorGraphics
             // 
             this.loadModelToolStripMenuItem.Name = "loadModelToolStripMenuItem";
             this.loadModelToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.loadModelToolStripMenuItem.Text = "&Load Model";
             this.loadModelToolStripMenuItem.Click += new System.EventHandler(this.loadModelToolStripMenuItem_Click);
             // 
@@ -5698,7 +5765,7 @@ namespace BehaviorGraphics
             // 
             this.resetCountersToolStripMenuItem.Name = "resetCountersToolStripMenuItem";
             this.resetCountersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.resetCountersToolStripMenuItem.Text = "&Reset Counters";
             this.resetCountersToolStripMenuItem.Click += new System.EventHandler(this.resetCountersToolStripMenuItem_Click);
             // 
@@ -6274,55 +6341,16 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // checkBoxWFEncodersOn
+            // checkBoxBCNewsome
             // 
-            this.checkBoxWFEncodersOn.AutoSize = true;
-            this.checkBoxWFEncodersOn.Location = new System.Drawing.Point(11, 19);
-            this.checkBoxWFEncodersOn.Name = "checkBoxWFEncodersOn";
-            this.checkBoxWFEncodersOn.Size = new System.Drawing.Size(71, 17);
-            this.checkBoxWFEncodersOn.TabIndex = 47;
-            this.checkBoxWFEncodersOn.Text = "Encoders";
-            this.checkBoxWFEncodersOn.UseVisualStyleBackColor = true;
-            // 
-            // label193
-            // 
-            this.label193.AutoSize = true;
-            this.label193.Location = new System.Drawing.Point(0, 41);
-            this.label193.Name = "label193";
-            this.label193.Size = new System.Drawing.Size(89, 13);
-            this.label193.TabIndex = 48;
-            this.label193.Text = "If \"Encoders\" not";
-            // 
-            // groupBox43
-            // 
-            this.groupBox43.Controls.Add(this.label194);
-            this.groupBox43.Controls.Add(this.label192);
-            this.groupBox43.Controls.Add(this.label193);
-            this.groupBox43.Controls.Add(this.checkBoxWFEncodersOn);
-            this.groupBox43.Location = new System.Drawing.Point(336, 9);
-            this.groupBox43.Name = "groupBox43";
-            this.groupBox43.Size = new System.Drawing.Size(101, 83);
-            this.groupBox43.TabIndex = 36;
-            this.groupBox43.TabStop = false;
-            this.groupBox43.Text = "Input Type";
-            // 
-            // label192
-            // 
-            this.label192.AutoSize = true;
-            this.label192.Location = new System.Drawing.Point(-1, 54);
-            this.label192.Name = "label192";
-            this.label192.Size = new System.Drawing.Size(99, 13);
-            this.label192.TabIndex = 49;
-            this.label192.Text = "checked, default to";
-            // 
-            // label194
-            // 
-            this.label194.AutoSize = true;
-            this.label194.Location = new System.Drawing.Point(-1, 67);
-            this.label194.Name = "label194";
-            this.label194.Size = new System.Drawing.Size(68, 13);
-            this.label194.TabIndex = 50;
-            this.label194.Text = "analog input.";
+            this.checkBoxBCNewsome.AutoSize = true;
+            this.checkBoxBCNewsome.Location = new System.Drawing.Point(89, 221);
+            this.checkBoxBCNewsome.Name = "checkBoxBCNewsome";
+            this.checkBoxBCNewsome.Size = new System.Drawing.Size(102, 17);
+            this.checkBoxBCNewsome.TabIndex = 41;
+            this.checkBoxBCNewsome.Text = "Newsome mode";
+            this.checkBoxBCNewsome.UseVisualStyleBackColor = true;
+            this.checkBoxBCNewsome.CheckedChanged += new System.EventHandler(this.NewsomeMode_Checked);
             // 
             // UpdateForm
             // 
@@ -6331,7 +6359,7 @@ namespace BehaviorGraphics
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(671, 424);
+            this.ClientSize = new System.Drawing.Size(692, 424);
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -6410,6 +6438,8 @@ namespace BehaviorGraphics
             this.groupBox31.ResumeLayout(false);
             this.groupBox31.PerformLayout();
             this.tabPageWF.ResumeLayout(false);
+            this.groupBox43.ResumeLayout(false);
+            this.groupBox43.PerformLayout();
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
             this.groupBox40.ResumeLayout(false);
@@ -6468,8 +6498,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBox43.ResumeLayout(false);
-            this.groupBox43.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -7023,5 +7051,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.GroupBox groupBox43;
         private System.Windows.Forms.Label label194;
         private System.Windows.Forms.Label label192;
+        private System.Windows.Forms.CheckBox checkBoxBCNewsome;
     }
 }

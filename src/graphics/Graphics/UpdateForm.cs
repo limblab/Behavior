@@ -427,7 +427,9 @@ namespace BehaviorGraphics
    
             // Stimulation parameters
             AddParamListItem("BC Pct Stimulation Trials", "P15", "Behavior BC", this.textBoxBCPctStimTrials);
-            
+                        
+            // Newsome mode
+            AddParamListItem("BC Newsome Mode", "P17", "Behavior BC", this.checkBoxBCNewsome);
             #endregion
 
             #region Visual Search
@@ -838,6 +840,23 @@ namespace BehaviorGraphics
                 }
             }
         }
+
+        private void NewsomeMode_Checked(object sender, EventArgs e)
+        {
+            if (checkBoxBCNewsome.Checked) {
+                BCStimGrid.RowCount = 1;
+                BCStimGrid[0, 0].Value = 0;
+                BCStimGrid[1, 0].Value = null;
+            }
+            else {
+                BCStimGrid.RowCount = 16;
+                for (int i = 0; i < 15; i++) {
+                    BCStimGrid[0, i].Value = -1;
+                    BCStimGrid[1, i].Value = -1;
+                }
+            }
+        }
+
         #endregion
 
         #region MenuCallbacks
