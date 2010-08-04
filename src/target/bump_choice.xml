@@ -4112,10 +4112,19 @@ Function3</sigName>
 		</parameter>
 	</block>
 	<block>
+		<blkName>BCStimTable</blkName>
+		<xpcblkName>BCStimTable</xpcblkName>
+		<SLblockPath>bump_choice/BCStimTable</SLblockPath>
+		<isSrc>[1 0 1]</isSrc>
+		<parameter>
+			<paramName>table</paramName>
+		</parameter>
+	</block>
+	<block>
 		<blkName>Behavior BC</blkName>
 		<xpcblkName>Behavior BC</xpcblkName>
 		<SLblockPath>bump_choice/Behavior BC</SLblockPath>
-		<isSrc>[0 3 8]</isSrc>
+		<isSrc>[0 5 8]</isSrc>
 		<parameter>
 			<paramName>P1</paramName>
 		</parameter>
@@ -4155,6 +4164,18 @@ Function3</sigName>
 		<parameter>
 			<paramName>P13</paramName>
 		</parameter>
+		<parameter>
+			<paramName>P14</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P15</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P16</paramName>
+		</parameter>
+		<parameter>
+			<paramName>P17</paramName>
+		</parameter>
 	</block>
 	<signal>
 		<sigName>Matrix
@@ -4162,6 +4183,18 @@ Concatenation1</sigName>
 		<xpcsigName>Matrix Concatenation1</xpcsigName>
 		<sigWidth>4</sigWidth>
 		<sigDim>[4,1]</sigDim>
+	</signal>
+	<signal>
+		<sigName>Reshape</sigName>
+		<xpcsigName>Reshape</xpcsigName>
+		<sigWidth>32</sigWidth>
+		<sigDim>[32,1]</sigDim>
+	</signal>
+	<signal>
+		<sigName>BCStimTable</sigName>
+		<xpcsigName>BCStimTable</xpcsigName>
+		<sigWidth>32</sigWidth>
+		<sigDim>[2,16]</sigDim>
 	</signal>
 	<signal>
 		<sigName>Behavior BC/p1</sigName>

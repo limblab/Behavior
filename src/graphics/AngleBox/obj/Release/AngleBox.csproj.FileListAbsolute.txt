@@ -12,3 +12,10 @@ D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\AngleBox\obj\Release\An
 D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\AngleBox\obj\Release\AngleBox.csproj.GenerateResource.Cache
 D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\AngleBox\obj\Release\AngleBox.dll
 D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\AngleBox\obj\Release\AngleBox.pdb
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\AngleBox\bin\Release\AngleBox.dll
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\AngleBox\bin\Release\AngleBox.pdb
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\AngleBox\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\AngleBox\obj\Release\AngleBox.AngleEntryBox.resources
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\AngleBox\obj\Release\AngleBox.csproj.GenerateResource.Cache
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\AngleBox\obj\Release\AngleBox.dll
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\AngleBox\obj\Release\AngleBox.pdb

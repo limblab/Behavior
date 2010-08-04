@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "bump_choice.mdl".
  *
- * Model Version              : 1.1230
- * Real-Time Workshop version : 6.6.1  (R2007a+)  13-Mar-2007
- * C source code generated on : Thu Jan 21 16:43:36 2010
+ * Model Version              : 1.1247
+ * Real-Time Workshop version : 6.6  (R2007a)  01-Feb-2007
+ * C source code generated on : Wed Aug 04 10:30:55 2010
  */
 
 #include "bump_choice.h"
@@ -292,82 +292,112 @@ Parameters_bump_choice bump_choice_P = {
   0.1,                                 /* x_X0_a : '<S19>/x'
                                         */
 
+  /*  BCStimTable_table : '<Root>/BCStimTable'
+   */
+  { -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0,
+    -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0,
+    -1.0, -1.0, -1.0, -1.0, -1.0, -1.0 },
+
   /*  BehaviorBC_P1_Size : '<Root>/Behavior BC'
    */
   { 1.0, 1.0 },
-  10.0,                                /* BehaviorBC_P1 : '<Root>/Behavior BC'
+  0.0,                                 /* BehaviorBC_P1 : '<Root>/Behavior BC'
                                         */
 
   /*  BehaviorBC_P2_Size : '<Root>/Behavior BC'
    */
   { 1.0, 1.0 },
-  3.0,                                 /* BehaviorBC_P2 : '<Root>/Behavior BC'
+  10.0,                                /* BehaviorBC_P2 : '<Root>/Behavior BC'
                                         */
 
   /*  BehaviorBC_P3_Size : '<Root>/Behavior BC'
    */
   { 1.0, 1.0 },
-  5.0,                                 /* BehaviorBC_P3 : '<Root>/Behavior BC'
+  3.0,                                 /* BehaviorBC_P3 : '<Root>/Behavior BC'
                                         */
 
   /*  BehaviorBC_P4_Size : '<Root>/Behavior BC'
    */
   { 1.0, 1.0 },
-  7.0,                                 /* BehaviorBC_P4 : '<Root>/Behavior BC'
+  5.0,                                 /* BehaviorBC_P4 : '<Root>/Behavior BC'
                                         */
 
   /*  BehaviorBC_P5_Size : '<Root>/Behavior BC'
    */
   { 1.0, 1.0 },
-  0.0,                                 /* BehaviorBC_P5 : '<Root>/Behavior BC'
+  7.0,                                 /* BehaviorBC_P5 : '<Root>/Behavior BC'
                                         */
 
   /*  BehaviorBC_P6_Size : '<Root>/Behavior BC'
    */
   { 1.0, 1.0 },
-  0.05,                                /* BehaviorBC_P6 : '<Root>/Behavior BC'
+  0.0,                                 /* BehaviorBC_P6 : '<Root>/Behavior BC'
                                         */
 
   /*  BehaviorBC_P7_Size : '<Root>/Behavior BC'
    */
   { 1.0, 1.0 },
-  125.0,                               /* BehaviorBC_P7 : '<Root>/Behavior BC'
+  0.05,                                /* BehaviorBC_P7 : '<Root>/Behavior BC'
                                         */
 
   /*  BehaviorBC_P8_Size : '<Root>/Behavior BC'
    */
   { 1.0, 1.0 },
-  0.5,                                 /* BehaviorBC_P8 : '<Root>/Behavior BC'
+  125.0,                               /* BehaviorBC_P8 : '<Root>/Behavior BC'
                                         */
 
   /*  BehaviorBC_P9_Size : '<Root>/Behavior BC'
    */
   { 1.0, 1.0 },
-  2.0,                                 /* BehaviorBC_P9 : '<Root>/Behavior BC'
+  0.5,                                 /* BehaviorBC_P9 : '<Root>/Behavior BC'
                                         */
 
   /*  BehaviorBC_P10_Size : '<Root>/Behavior BC'
    */
   { 1.0, 1.0 },
-  10.0,                                /* BehaviorBC_P10 : '<Root>/Behavior BC'
+  2.0,                                 /* BehaviorBC_P10 : '<Root>/Behavior BC'
                                         */
 
   /*  BehaviorBC_P11_Size : '<Root>/Behavior BC'
    */
   { 1.0, 1.0 },
-  1.0,                                 /* BehaviorBC_P11 : '<Root>/Behavior BC'
+  10.0,                                /* BehaviorBC_P11 : '<Root>/Behavior BC'
                                         */
 
   /*  BehaviorBC_P12_Size : '<Root>/Behavior BC'
    */
   { 1.0, 1.0 },
-  0.0,                                 /* BehaviorBC_P12 : '<Root>/Behavior BC'
+  1.0,                                 /* BehaviorBC_P12 : '<Root>/Behavior BC'
                                         */
 
   /*  BehaviorBC_P13_Size : '<Root>/Behavior BC'
    */
   { 1.0, 1.0 },
-  0.0,                                 /* BehaviorBC_P13 : '<Root>/Behavior BC'
+  2.0,                                 /* BehaviorBC_P13 : '<Root>/Behavior BC'
+                                        */
+
+  /*  BehaviorBC_P14_Size : '<Root>/Behavior BC'
+   */
+  { 1.0, 1.0 },
+  0.0,                                 /* BehaviorBC_P14 : '<Root>/Behavior BC'
+                                        */
+
+  /*  BehaviorBC_P15_Size : '<Root>/Behavior BC'
+   */
+  { 1.0, 1.0 },
+  0.0,                                 /* BehaviorBC_P15 : '<Root>/Behavior BC'
+                                        */
+
+  /*  BehaviorBC_P16_Size : '<Root>/Behavior BC'
+   */
+  { 1.0, 1.0 },
+  0.0,                                 /* BehaviorBC_P16 : '<Root>/Behavior BC'
+                                        */
+
+  /*  BehaviorBC_P17_Size : '<Root>/Behavior BC'
+   */
+  { 1.0, 1.0 },
+  0.0,                                 /* BehaviorBC_P17 : '<Root>/Behavior BC'
                                         */
   -1.0,                                /* MG1_Gain : '<S4>/MG1'
                                         */

@@ -846,11 +846,11 @@ namespace BehaviorGraphics
             if (checkBoxBCNewsome.Checked) {
                 BCStimGrid.RowCount = 1;
                 BCStimGrid[0, 0].Value = 0;
-                BCStimGrid[1, 0].Value = null;
+                BCStimGrid[1, 0].Value = 0;
             }
             else {
                 BCStimGrid.RowCount = 16;
-                for (int i = 0; i < 15; i++) {
+                for (int i = 0; i < 16; i++) {
                     BCStimGrid[0, i].Value = -1;
                     BCStimGrid[1, i].Value = -1;
                 }
@@ -1538,7 +1538,7 @@ namespace BehaviorGraphics
                 BumpChoiceStim bfs = new BumpChoiceStim();
                 bfs.StimCodeVar = Int16.Parse(cells[0].Value.ToString());
                 bfs.PDVar = Double.Parse(cells[1].Value.ToString());
-                bp.BCStims[i] = bfs;
+                bp.BFStims[i] = bfs;
             }
 
             // GlyphSet
@@ -1691,7 +1691,7 @@ namespace BehaviorGraphics
             // Bump follow stim list parameters
             for (int i = 0; i < BFStimGrid.RowCount; i++) {
                 DataGridViewCellCollection cells = BFStimGrid.Rows[i].Cells;
-                BumpChoiceStim bfs = bp.BCStims[i];
+                BumpChoiceStim bfs = bp.BFStims[i];
                 cells[0].Value = bfs.StimCodeVar.ToString();
                 cells[1].Value = bfs.PDVar.ToString();
             }
@@ -1904,13 +1904,13 @@ namespace BehaviorGraphics
             done += 1;
             this.toolStripProgressBar1.Value = (int)(100f * done / total);
 
-            /* Bump choice stims */
+            /* Bump follow stims */
             paramID = target.GetParamIdx("BFStimTable", "table");
             if (paramID >= 0) {
                 Array bfStims = Array.CreateInstance(typeof(double), 32);
-                for (int i = 0; i < bp.BCStims.Count; i++) {
-                    bfStims.SetValue(bp.BCStims[i].StimCodeVar, 2 * i);
-                    bfStims.SetValue(bp.BCStims[i].PDVar, 2 * i + 1);
+                for (int i = 0; i < bp.BFStims.Count; i++) {
+                    bfStims.SetValue(bp.BFStims[i].StimCodeVar, 2 * i);
+                    bfStims.SetValue(bp.BFStims[i].PDVar, 2 * i + 1);
                 }
                 target.SetParam(paramID, ref bfStims);
             }

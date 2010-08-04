@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "bump_choice.mdl".
  *
- * Model Version              : 1.1230
- * Real-Time Workshop version : 6.6.1  (R2007a+)  13-Mar-2007
- * C source code generated on : Thu Jan 21 16:43:36 2010
+ * Model Version              : 1.1247
+ * Real-Time Workshop version : 6.6  (R2007a)  01-Feb-2007
+ * C source code generated on : Wed Aug 04 10:30:55 2010
  *
  */
 

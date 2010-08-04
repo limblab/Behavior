@@ -63,10 +63,10 @@ SYS_TARGET_FILE = xpctarget.tlc
 MODEL           = bump_choice
 MODULES         = bump_choice_capi.c bump_choice_data.c rt_atan2.c rt_logging.c rt_logging_mmi.c rt_matrx.c rt_nonfinite.c rt_printf.c rtw_modelmap_utils.c 
 MAKEFILE        = bump_choice.mk
-MATLAB_ROOT     = C:\Program Files\MATLAB\R2007a
-ALT_MATLAB_ROOT = C:\PROGRA~1\MATLAB\R2007a
-MATLAB_BIN      = C:\Program Files\MATLAB\R2007a\bin
-ALT_MATLAB_BIN  = C:\PROGRA~1\MATLAB\R2007a\bin
+MATLAB_ROOT     = C:\MATLAB\R2007a
+ALT_MATLAB_ROOT = C:\MATLAB\R2007a
+MATLAB_BIN      = C:\MATLAB\R2007a\bin
+ALT_MATLAB_BIN  = C:\MATLAB\R2007a\bin
 S_FUNCTIONS     = xpctimeinfo.c donipcie.c Byte2Bits.c dopci8255.c serPos.c enccbcioquadcount.c adnipcie.c mastercon_bc.c danipcie.c xpcudpbytesend.c
 S_FUNCTIONS_LIB = 
 NUMST           = 3
@@ -111,8 +111,8 @@ MATLAB_INCLUDES = $(MATLAB_INCLUDES);$(MATLAB_ROOT)\rtw\c\libsrc
 MATLAB_INCLUDES = $(MATLAB_INCLUDES);$(MATLAB_ROOT)\rtw\c\src\ext_mode\common
 
 # Additional file include paths
-MATLAB_INCLUDES = $(MATLAB_INCLUDES);C:\DOCUME~1\David\Desktop\Behavior\trunk\src\target\BUMP_C~1
-MATLAB_INCLUDES = $(MATLAB_INCLUDES);C:\DOCUME~1\David\Desktop\Behavior\trunk\src\target
+MATLAB_INCLUDES = $(MATLAB_INCLUDES);C:\DOCUME~1\MATTHE~1\Desktop\RICARD~3\trunk\src\target\BUMP_C~1
+MATLAB_INCLUDES = $(MATLAB_INCLUDES);C:\DOCUME~1\MATTHE~1\Desktop\RICARD~3\trunk\src\target
 MATLAB_INCLUDES = $(MATLAB_INCLUDES);$(MATLAB_ROOT)\rtw\c\libsrc
 MATLAB_INCLUDES = $(MATLAB_INCLUDES);$(MATLAB_ROOT)\toolbox\dspblks\include
 

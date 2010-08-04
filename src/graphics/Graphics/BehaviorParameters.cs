@@ -32,6 +32,9 @@ namespace BehaviorGraphics
         // Bump choice specific elements
         private List<BumpChoiceStim> bcStim;
 
+        // Bump follow specific elements
+        private List<BumpChoiceStim> bfStim;
+        
         // center-out specific elements
         private CenterOutMode com;
 
@@ -50,6 +53,10 @@ namespace BehaviorGraphics
             bcStim = new List<BumpChoiceStim>();
             for (int i = 0; i < 16; i++)
                 bcStim.Add(new BumpChoiceStim());
+
+            bfStim = new List<BumpChoiceStim>();
+            for (int i = 0; i < 16; i++)
+                bfStim.Add(new BumpChoiceStim());
         }
 
         [XmlIgnore]
@@ -225,6 +232,33 @@ namespace BehaviorGraphics
         {
             get { return bcStim; }
             set { bcStim = value; }
+        }
+
+        [XmlArray("BumpFollowStimList")]
+        public BumpChoiceStim[] BFSList
+        {
+            get
+            {
+                BumpChoiceStim[] bfsl = new BumpChoiceStim[bfStim.Count];
+                bfStim.CopyTo(bfsl);
+                return bfsl;
+            }
+            set
+            {
+                if (value == null) return;
+                BumpChoiceStim[] bfsl = (BumpChoiceStim[])value;
+                bfStim.Clear();
+                foreach (BumpChoiceStim bfs in bfsl) {
+                    bfStim.Add(bfs);
+                }
+            }
+        }
+
+        [XmlIgnore]
+        public List<BumpChoiceStim> BFStims
+        {
+            get { return bfStim; }
+            set { bfStim = value; }
         }
 
         #endregion

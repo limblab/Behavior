@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "bump_choice.mdl".
  *
- * Model Version              : 1.1230
- * Real-Time Workshop version : 6.6.1  (R2007a+)  13-Mar-2007
- * C source code generated on : Thu Jan 21 16:43:36 2010
+ * Model Version              : 1.1247
+ * Real-Time Workshop version : 6.6  (R2007a)  01-Feb-2007
+ * C source code generated on : Wed Aug 04 10:30:55 2010
  */
 
 #include "rt_logging_mmi.h"
@@ -1115,6 +1115,23 @@ void bump_choice_output(int_T tid)
         bump_choice_B.LoadSelectSwitch[0] = bump_choice_B.Gain_f[0];
         bump_choice_B.LoadSelectSwitch[1] = bump_choice_B.Gain_f[1];
         break;
+      }
+    }
+
+    /* S-Function (sfun_nddirectlook) Block: '<Root>/BCStimTable'
+     */
+
+    /* LookupNDDirect: '<Root>/BCStimTable' */
+    /* 2-dimensional Direct Look-Up returning a 2-D Matrix */
+    (void) memcpy((void *)bump_choice_B.BCStimTable,(void *)
+                  &bump_choice_P.BCStimTable_table[0],
+                  sizeof(real_T)*32U);
+
+    {
+      int32_T i;
+      for (i = 0; i < 32; i++) {
+        /* Reshape: '<Root>/Reshape' */
+        bump_choice_B.Reshape[i] = bump_choice_B.BCStimTable[i];
       }
     }
 
@@ -2795,10 +2812,10 @@ void bump_choice_initialize(boolean_T firstTime)
   }
 
   /* external mode info */
-  bump_choice_rtM->Sizes.checksums[0] = (2013274219U);
-  bump_choice_rtM->Sizes.checksums[1] = (2855417463U);
-  bump_choice_rtM->Sizes.checksums[2] = (3058639876U);
-  bump_choice_rtM->Sizes.checksums[3] = (2880828891U);
+  bump_choice_rtM->Sizes.checksums[0] = (285797927U);
+  bump_choice_rtM->Sizes.checksums[1] = (3164372520U);
+  bump_choice_rtM->Sizes.checksums[2] = (2927048213U);
+  bump_choice_rtM->Sizes.checksums[3] = (3476318370U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;
@@ -2867,7 +2884,7 @@ void bump_choice_initialize(boolean_T firstTime)
     int_T i;
     void *pVoidBlockIORegion;
     pVoidBlockIORegion = (void *)(&bump_choice_B.Clock);
-    for (i = 0; i < 242; i++) {
+    for (i = 0; i < 306; i++) {
       ((real_T*)pVoidBlockIORegion)[i] = 0.0;
     }
 
@@ -2897,7 +2914,7 @@ void bump_choice_initialize(boolean_T firstTime)
     int_T i;
     real_T *dwork_ptr = (real_T *) &bump_choice_DWork.DigitalFilter2_FILT_STATES
       [0];
-    for (i = 0; i < 154; i++) {
+    for (i = 0; i < 155; i++) {
       dwork_ptr[i] = 0.0;
     }
   }
@@ -4396,7 +4413,7 @@ void bump_choice_initialize(boolean_T firstTime)
 
       /* inputs */
       {
-        _ssSetNumInputPorts(rts, 3);
+        _ssSetNumInputPorts(rts, 5);
         ssSetPortInfoForInputs(rts,
           &bump_choice_rtM->NonInlinedSFcns.Sfcn11.inputPortInfo[0]);
 
@@ -4415,8 +4432,8 @@ void bump_choice_initialize(boolean_T firstTime)
         {
           real_T const **sfcnUPtrs = (real_T const **)
             &bump_choice_rtM->NonInlinedSFcns.Sfcn11.UPtrs1;
-          sfcnUPtrs[0] = bump_choice_B.MultiportSwitch;
-          sfcnUPtrs[1] = &bump_choice_B.MultiportSwitch[1];
+          sfcnUPtrs[0] = &bump_choice_P.xoffset_Value;
+          sfcnUPtrs[1] = &bump_choice_P.yoffset_Value;
           ssSetInputPortSignalPtrs(rts, 1, (InputPtrsType)&sfcnUPtrs[0]);
           _ssSetInputPortNumDimensions(rts, 1, 1);
           ssSetInputPortWidth(rts, 1, 2);
@@ -4426,11 +4443,40 @@ void bump_choice_initialize(boolean_T firstTime)
         {
           real_T const **sfcnUPtrs = (real_T const **)
             &bump_choice_rtM->NonInlinedSFcns.Sfcn11.UPtrs2;
-          sfcnUPtrs[0] = bump_choice_B.LoadSelectSwitch;
-          sfcnUPtrs[1] = &bump_choice_B.LoadSelectSwitch[1];
+          sfcnUPtrs[0] = bump_choice_B.MultiportSwitch;
+          sfcnUPtrs[1] = &bump_choice_B.MultiportSwitch[1];
           ssSetInputPortSignalPtrs(rts, 2, (InputPtrsType)&sfcnUPtrs[0]);
           _ssSetInputPortNumDimensions(rts, 2, 1);
           ssSetInputPortWidth(rts, 2, 2);
+        }
+
+        /* port 3 */
+        {
+          real_T const **sfcnUPtrs = (real_T const **)
+            &bump_choice_rtM->NonInlinedSFcns.Sfcn11.UPtrs3;
+          sfcnUPtrs[0] = bump_choice_B.LoadSelectSwitch;
+          sfcnUPtrs[1] = &bump_choice_B.LoadSelectSwitch[1];
+          ssSetInputPortSignalPtrs(rts, 3, (InputPtrsType)&sfcnUPtrs[0]);
+          _ssSetInputPortNumDimensions(rts, 3, 1);
+          ssSetInputPortWidth(rts, 3, 2);
+        }
+
+        /* port 4 */
+        {
+          real_T const **sfcnUPtrs = (real_T const **)
+            &bump_choice_rtM->NonInlinedSFcns.Sfcn11.UPtrs4;
+
+          {
+            int_T i1;
+            const real_T *u4 = bump_choice_B.Reshape;
+            for (i1=0; i1 < 32; i1++) {
+              sfcnUPtrs[i1] = &u4[i1];
+            }
+          }
+
+          ssSetInputPortSignalPtrs(rts, 4, (InputPtrsType)&sfcnUPtrs[0]);
+          _ssSetInputPortNumDimensions(rts, 4, 1);
+          ssSetInputPortWidth(rts, 4, 32);
         }
       }
 
@@ -4512,7 +4558,7 @@ void bump_choice_initialize(boolean_T firstTime)
       {
         mxArray **sfcnParams = (mxArray **)
           &bump_choice_rtM->NonInlinedSFcns.Sfcn11.params;
-        ssSetSFcnParamsCount(rts, 13);
+        ssSetSFcnParamsCount(rts, 17);
         ssSetSFcnParamsPtr(rts, &sfcnParams[0]);
         ssSetSFcnParam(rts, 0, (mxArray*)&bump_choice_P.BehaviorBC_P1_Size[0]);
         ssSetSFcnParam(rts, 1, (mxArray*)&bump_choice_P.BehaviorBC_P2_Size[0]);
@@ -4527,6 +4573,10 @@ void bump_choice_initialize(boolean_T firstTime)
         ssSetSFcnParam(rts, 10, (mxArray*)&bump_choice_P.BehaviorBC_P11_Size[0]);
         ssSetSFcnParam(rts, 11, (mxArray*)&bump_choice_P.BehaviorBC_P12_Size[0]);
         ssSetSFcnParam(rts, 12, (mxArray*)&bump_choice_P.BehaviorBC_P13_Size[0]);
+        ssSetSFcnParam(rts, 13, (mxArray*)&bump_choice_P.BehaviorBC_P14_Size[0]);
+        ssSetSFcnParam(rts, 14, (mxArray*)&bump_choice_P.BehaviorBC_P15_Size[0]);
+        ssSetSFcnParam(rts, 15, (mxArray*)&bump_choice_P.BehaviorBC_P16_Size[0]);
+        ssSetSFcnParam(rts, 16, (mxArray*)&bump_choice_P.BehaviorBC_P17_Size[0]);
       }
 
       /* work vectors */
@@ -4541,13 +4591,13 @@ void bump_choice_initialize(boolean_T firstTime)
         _ssSetNumDWork(rts, 4);
 
         /* RWORK */
-        ssSetDWorkWidth(rts, 0, 6);
+        ssSetDWorkWidth(rts, 0, 7);
         ssSetDWorkDataType(rts, 0,SS_DOUBLE);
         ssSetDWorkComplexSignal(rts, 0, 0);
         ssSetDWork(rts, 0, &bump_choice_DWork.BehaviorBC_RWORK[0]);
 
         /* IWORK */
-        ssSetDWorkWidth(rts, 1, 9);
+        ssSetDWorkWidth(rts, 1, 28);
         ssSetDWorkDataType(rts, 1,SS_INTEGER);
         ssSetDWorkComplexSignal(rts, 1, 0);
         ssSetDWork(rts, 1, &bump_choice_DWork.BehaviorBC_IWORK[0]);
@@ -4583,6 +4633,8 @@ void bump_choice_initialize(boolean_T firstTime)
       _ssSetInputPortConnected(rts, 0, 1);
       _ssSetInputPortConnected(rts, 1, 1);
       _ssSetInputPortConnected(rts, 2, 1);
+      _ssSetInputPortConnected(rts, 3, 1);
+      _ssSetInputPortConnected(rts, 4, 1);
       _ssSetOutputPortConnected(rts, 0, 1);
       _ssSetOutputPortConnected(rts, 1, 1);
       _ssSetOutputPortConnected(rts, 2, 1);
@@ -4604,6 +4656,8 @@ void bump_choice_initialize(boolean_T firstTime)
       ssSetInputPortBufferDstPort(rts, 0, -1);
       ssSetInputPortBufferDstPort(rts, 1, -1);
       ssSetInputPortBufferDstPort(rts, 2, -1);
+      ssSetInputPortBufferDstPort(rts, 3, -1);
+      ssSetInputPortBufferDstPort(rts, 4, -1);
     }
 
     /* Level2 S-Function Block: bump_choice/<S4>/PCI-6025E  (danipcie) */
@@ -4963,9 +5017,9 @@ void MdlInitializeSizes(void)
   bump_choice_rtM->Sizes.numU = (0);   /* Number of model inputs */
   bump_choice_rtM->Sizes.sysDirFeedThru = (0);/* The model is not direct feedthrough */
   bump_choice_rtM->Sizes.numSampTimes = (3);/* Number of sample times */
-  bump_choice_rtM->Sizes.numBlocks = (479);/* Number of blocks */
-  bump_choice_rtM->Sizes.numBlockIO = (371);/* Number of block outputs */
-  bump_choice_rtM->Sizes.numBlockPrms = (521);/* Sum of parameter "widths" */
+  bump_choice_rtM->Sizes.numBlocks = (481);/* Number of blocks */
+  bump_choice_rtM->Sizes.numBlockIO = (373);/* Number of block outputs */
+  bump_choice_rtM->Sizes.numBlockPrms = (565);/* Sum of parameter "widths" */
 }
 
 void MdlInitializeSampleTimes(void)

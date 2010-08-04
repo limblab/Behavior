@@ -10,16 +10,16 @@
 <BODY BGCOLOR="#eeeeee" TEXT=#1122aa>
 <P>
 <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="6" WIDTH="100%" HEIGHT="100%"><TR><TD WIDTH="100%" VALIGN="top" BGCOLOR="#ffffff">
-<H4>File: <A HREF="file:///C:\Documents and Settings\David\Desktop\Behavior\trunk\src\target\bump_choice_xpc_rtw\bump_choice_dt.h" TARGET="rtwreport_document_frame">C:\Documents and Settings\David\Desktop\Behavior\trunk\src\target\bump_choice_xpc_rtw\bump_choice_dt.h</A></H4>
+<H4>File: <A HREF="file:///C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\target\bump_choice_xpc_rtw\bump_choice_dt.h" TARGET="rtwreport_document_frame">C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\target\bump_choice_xpc_rtw\bump_choice_dt.h</A></H4>
 <PRE>
 <SPAN class="LineNumber">    1   </SPAN><SPAN class="Comment">/*
 <SPAN class="LineNumber">    2   </SPAN> * bump_choice_dt.h
 <SPAN class="LineNumber">    3   </SPAN> *
 <SPAN class="LineNumber">    4   </SPAN> * Real-Time Workshop code generation for Simulink model &quot;bump_choice.mdl&quot;.
 <SPAN class="LineNumber">    5   </SPAN> *
-<SPAN class="LineNumber">    6   </SPAN> * Model Version              : 1.1230
-<SPAN class="LineNumber">    7   </SPAN> * Real-Time Workshop version : 6.6.1  (R2007a+)  13-Mar-2007
-<SPAN class="LineNumber">    8   </SPAN> * C source code generated on : Thu Jan 21 16:43:36 2010
+<SPAN class="LineNumber">    6   </SPAN> * Model Version              : 1.1247
+<SPAN class="LineNumber">    7   </SPAN> * Real-Time Workshop version : 6.6  (R2007a)  01-Feb-2007
+<SPAN class="LineNumber">    8   </SPAN> * C source code generated on : Wed Aug 04 10:30:55 2010
 <SPAN class="LineNumber">    9   </SPAN> */</SPAN>
 <SPAN class="LineNumber">   10   </SPAN>
 <SPAN class="LineNumber">   11   </SPAN><FONT COLOR=#992211>#</FONT><SPAN class="PreProcessor">include</SPAN> <FONT COLOR=#992211>&quot;ext_types.h&quot;</FONT>
@@ -62,7 +62,7 @@
 <SPAN class="LineNumber">   48   </SPAN>
 <SPAN class="LineNumber">   49   </SPAN><SPAN class="Comment">/* data type transitions for block I/O structure */</SPAN>
 <SPAN class="LineNumber">   50   </SPAN><SPAN class="Datatype">static</SPAN> DataTypeTransition <A NAME=var_rtBTransitions>rtBTransitions</A>[] = <B>{</B>
-<SPAN class="LineNumber">   51   </SPAN>  <B>{</B> (char_T *)(&amp;bump_choice_B.Clock), 0, 0, 332 <B>}</B>,
+<SPAN class="LineNumber">   51   </SPAN>  <B>{</B> (char_T *)(&amp;bump_choice_B.Clock), 0, 0, 396 <B>}</B>,
 <SPAN class="LineNumber">   52   </SPAN>
 <SPAN class="LineNumber">   53   </SPAN>  <B>{</B> (char_T *)(&amp;bump_choice_B.Compare), 3, 0, 359 <B>}</B>,
 <SPAN class="LineNumber">   54   </SPAN>
@@ -82,13 +82,13 @@
 <SPAN class="LineNumber">   68   </SPAN>
 <SPAN class="LineNumber">   69   </SPAN>  <B>{</B> (char_T *)(&amp;bump_choice_B.EnabledSubsystem.In1), 0, 0, 1 <B>}</B>,
 <SPAN class="LineNumber">   70   </SPAN>
-<SPAN class="LineNumber">   71   </SPAN>  <B>{</B> (char_T *)(&amp;bump_choice_DWork.DigitalFilter2_FILT_STATES[0]), 0, 0, 148 <B>}</B>,
+<SPAN class="LineNumber">   71   </SPAN>  <B>{</B> (char_T *)(&amp;bump_choice_DWork.DigitalFilter2_FILT_STATES[0]), 0, 0, 149 <B>}</B>,
 <SPAN class="LineNumber">   72   </SPAN>
 <SPAN class="LineNumber">   73   </SPAN>  <B>{</B> (char_T *)(&amp;bump_choice_DWork.BehaviorBC_PWORK), 11, 0, 2 <B>}</B>,
 <SPAN class="LineNumber">   74   </SPAN>
 <SPAN class="LineNumber">   75   </SPAN>  <B>{</B> (char_T *)(&amp;bump_choice_DWork.DigitalFilter2_CIRCBUFFIDX), 6, 0, 4 <B>}</B>,
 <SPAN class="LineNumber">   76   </SPAN>
-<SPAN class="LineNumber">   77   </SPAN>  <B>{</B> (char_T *)(&amp;bump_choice_DWork.PCIQUAD04_IWORK), 10, 0, 95 <B>}</B>,
+<SPAN class="LineNumber">   77   </SPAN>  <B>{</B> (char_T *)(&amp;bump_choice_DWork.PCIQUAD04_IWORK), 10, 0, 114 <B>}</B>,
 <SPAN class="LineNumber">   78   </SPAN>
 <SPAN class="LineNumber">   79   </SPAN>  <B>{</B> (char_T *)(&amp;bump_choice_DWork.DelayInput1_DSTATE), 3, 0, 4 <B>}</B>,
 <SPAN class="LineNumber">   80   </SPAN>
@@ -143,7 +143,7 @@
 <SPAN class="LineNumber">  129   </SPAN>
 <SPAN class="LineNumber">  130   </SPAN><SPAN class="Comment">/* data type transitions for Parameters structure */</SPAN>
 <SPAN class="LineNumber">  131   </SPAN><SPAN class="Datatype">static</SPAN> DataTypeTransition <A NAME=var_rtPTransitions>rtPTransitions</A>[] = <B>{</B>
-<SPAN class="LineNumber">  132   </SPAN>  <B>{</B> (char_T *)(&amp;bump_choice_P.Time_Value), 0, 0, 490 <B>}</B>,
+<SPAN class="LineNumber">  132   </SPAN>  <B>{</B> (char_T *)(&amp;bump_choice_P.Time_Value), 0, 0, 534 <B>}</B>,
 <SPAN class="LineNumber">  133   </SPAN>
 <SPAN class="LineNumber">  134   </SPAN>  <B>{</B> (char_T *)(&amp;bump_choice_P.PacketSpec_Value), 7, 0, 2 <B>}</B>,
 <SPAN class="LineNumber">  135   </SPAN>

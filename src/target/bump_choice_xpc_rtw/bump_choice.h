@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "bump_choice.mdl".
  *
- * Model Version              : 1.1230
- * Real-Time Workshop version : 6.6.1  (R2007a+)  13-Mar-2007
- * C source code generated on : Thu Jan 21 16:43:36 2010
+ * Model Version              : 1.1247
+ * Real-Time Workshop version : 6.6  (R2007a)  01-Feb-2007
+ * C source code generated on : Wed Aug 04 10:30:55 2010
  */
 #ifndef _RTW_HEADER_bump_choice_h_
 #define _RTW_HEADER_bump_choice_h_
@@ -870,6 +870,8 @@ typedef struct {
   real_T x_j;                          /* '<S18>/x' */
   real_T x_h;                          /* '<S19>/x' */
   real_T LoadSelectSwitch[2];          /* '<S2>/LoadSelect Switch' */
+  real_T BCStimTable[32];              /* '<Root>/BCStimTable' */
+  real_T Reshape[32];                  /* '<Root>/Reshape' */
   real_T BehaviorBC_o1[2];             /* '<Root>/Behavior BC' */
   real_T BehaviorBC_o2[5];             /* '<Root>/Behavior BC' */
   real_T BehaviorBC_o3;                /* '<Root>/Behavior BC' */
@@ -1228,7 +1230,7 @@ typedef struct {
     real_T LastUAtTimeB;
   } Derivative_RWORK_e;                /* '<S67>/Derivative' */
 
-  real_T BehaviorBC_RWORK[6];          /* '<Root>/Behavior BC' */
+  real_T BehaviorBC_RWORK[7];          /* '<Root>/Behavior BC' */
   real_T PCI6025E_RWORK[6];            /* '<S4>/PCI-6025E ' */
   struct {
     real_T NextOutput;
@@ -1243,7 +1245,7 @@ typedef struct {
   int_T PCIQUAD04_IWORK;               /* '<S12>/PCI-QUAD04 ' */
   int_T PCIQUAD041_IWORK;              /* '<S12>/PCI-QUAD04 1' */
   int_T PCI6025EAD_IWORK[66];          /* '<S9>/PCI-6025E AD' */
-  int_T BehaviorBC_IWORK[9];           /* '<Root>/Behavior BC' */
+  int_T BehaviorBC_IWORK[28];          /* '<Root>/Behavior BC' */
   int_T PCI6025E_IWORK[2];             /* '<S4>/PCI-6025E ' */
   struct {
     int_T AcquireOK;
@@ -1632,82 +1634,109 @@ struct Parameters_bump_choice {
   real_T x_X0_a;                       /* Expression: .1
                                         * '<S19>/x'
                                         */
+  real_T BCStimTable_table[32];        /* Expression: mxTable
+                                        * '<Root>/BCStimTable'
+                                        */
   real_T BehaviorBC_P1_Size[2];        /* Computed Parameter: P1Size
                                         * '<Root>/Behavior BC'
                                         */
-  real_T BehaviorBC_P1;                /* Expression: 10
+  real_T BehaviorBC_P1;                /* Expression: 0
                                         * '<Root>/Behavior BC'
                                         */
   real_T BehaviorBC_P2_Size[2];        /* Computed Parameter: P2Size
                                         * '<Root>/Behavior BC'
                                         */
-  real_T BehaviorBC_P2;                /* Expression: 3
+  real_T BehaviorBC_P2;                /* Expression: 10
                                         * '<Root>/Behavior BC'
                                         */
   real_T BehaviorBC_P3_Size[2];        /* Computed Parameter: P3Size
                                         * '<Root>/Behavior BC'
                                         */
-  real_T BehaviorBC_P3;                /* Expression: 5
+  real_T BehaviorBC_P3;                /* Expression: 3
                                         * '<Root>/Behavior BC'
                                         */
   real_T BehaviorBC_P4_Size[2];        /* Computed Parameter: P4Size
                                         * '<Root>/Behavior BC'
                                         */
-  real_T BehaviorBC_P4;                /* Expression: 7
+  real_T BehaviorBC_P4;                /* Expression: 5
                                         * '<Root>/Behavior BC'
                                         */
   real_T BehaviorBC_P5_Size[2];        /* Computed Parameter: P5Size
                                         * '<Root>/Behavior BC'
                                         */
-  real_T BehaviorBC_P5;                /* Expression: 0.0
+  real_T BehaviorBC_P5;                /* Expression: 7
                                         * '<Root>/Behavior BC'
                                         */
   real_T BehaviorBC_P6_Size[2];        /* Computed Parameter: P6Size
                                         * '<Root>/Behavior BC'
                                         */
-  real_T BehaviorBC_P6;                /* Expression: 0.05
+  real_T BehaviorBC_P6;                /* Expression: 0.0
                                         * '<Root>/Behavior BC'
                                         */
   real_T BehaviorBC_P7_Size[2];        /* Computed Parameter: P7Size
                                         * '<Root>/Behavior BC'
                                         */
-  real_T BehaviorBC_P7;                /* Expression: 125
+  real_T BehaviorBC_P7;                /* Expression: 0.05
                                         * '<Root>/Behavior BC'
                                         */
   real_T BehaviorBC_P8_Size[2];        /* Computed Parameter: P8Size
                                         * '<Root>/Behavior BC'
                                         */
-  real_T BehaviorBC_P8;                /* Expression: 0.5
+  real_T BehaviorBC_P8;                /* Expression: 125
                                         * '<Root>/Behavior BC'
                                         */
   real_T BehaviorBC_P9_Size[2];        /* Computed Parameter: P9Size
                                         * '<Root>/Behavior BC'
                                         */
-  real_T BehaviorBC_P9;                /* Expression: 2
+  real_T BehaviorBC_P9;                /* Expression: 0.5
                                         * '<Root>/Behavior BC'
                                         */
   real_T BehaviorBC_P10_Size[2];       /* Computed Parameter: P10Size
                                         * '<Root>/Behavior BC'
                                         */
-  real_T BehaviorBC_P10;               /* Expression: 10
+  real_T BehaviorBC_P10;               /* Expression: 2
                                         * '<Root>/Behavior BC'
                                         */
   real_T BehaviorBC_P11_Size[2];       /* Computed Parameter: P11Size
                                         * '<Root>/Behavior BC'
                                         */
-  real_T BehaviorBC_P11;               /* Expression: 1
+  real_T BehaviorBC_P11;               /* Expression: 10
                                         * '<Root>/Behavior BC'
                                         */
   real_T BehaviorBC_P12_Size[2];       /* Computed Parameter: P12Size
                                         * '<Root>/Behavior BC'
                                         */
-  real_T BehaviorBC_P12;               /* Expression: 0
+  real_T BehaviorBC_P12;               /* Expression: 1
                                         * '<Root>/Behavior BC'
                                         */
   real_T BehaviorBC_P13_Size[2];       /* Computed Parameter: P13Size
                                         * '<Root>/Behavior BC'
                                         */
-  real_T BehaviorBC_P13;               /* Expression: 0
+  real_T BehaviorBC_P13;               /* Expression: 2
+                                        * '<Root>/Behavior BC'
+                                        */
+  real_T BehaviorBC_P14_Size[2];       /* Computed Parameter: P14Size
+                                        * '<Root>/Behavior BC'
+                                        */
+  real_T BehaviorBC_P14;               /* Expression: 0
+                                        * '<Root>/Behavior BC'
+                                        */
+  real_T BehaviorBC_P15_Size[2];       /* Computed Parameter: P15Size
+                                        * '<Root>/Behavior BC'
+                                        */
+  real_T BehaviorBC_P15;               /* Expression: 0
+                                        * '<Root>/Behavior BC'
+                                        */
+  real_T BehaviorBC_P16_Size[2];       /* Computed Parameter: P16Size
+                                        * '<Root>/Behavior BC'
+                                        */
+  real_T BehaviorBC_P16;               /* Expression: 0
+                                        * '<Root>/Behavior BC'
+                                        */
+  real_T BehaviorBC_P17_Size[2];       /* Computed Parameter: P17Size
+                                        * '<Root>/Behavior BC'
+                                        */
+  real_T BehaviorBC_P17;               /* Expression: 0
                                         * '<Root>/Behavior BC'
                                         */
   real_T MG1_Gain;                     /* Expression: -1
@@ -2446,13 +2475,15 @@ struct rtModel_bump_choice {
       time_T sfcnPeriod[1];
       time_T sfcnOffset[1];
       int_T sfcnTsMap[1];
-      struct _ssPortInputs inputPortInfo[3];
+      struct _ssPortInputs inputPortInfo[5];
       real_T const *UPtrs0[2];
       real_T const *UPtrs1[2];
       real_T const *UPtrs2[2];
+      real_T const *UPtrs3[2];
+      real_T const *UPtrs4[32];
       struct _ssPortOutputs outputPortInfo[8];
-      uint_T attribs[13];
-      mxArray *params[13];
+      uint_T attribs[17];
+      mxArray *params[17];
       struct _ssDWorkRecord dWork[4];
     } Sfcn11;
 

@@ -478,57 +478,65 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             stim_trial = (UNI<pct_stim_trials ? 1 : 0);
             ssSetIWorkValue(S,9,stim_trial);
                                    
-            /* check how many valid stim codes there are */                       
-            num_stim_codes = 0;
-            for (i=0 ; i<16 ; i++) { 
-                if (stim_codes[i] != -1) {
-                    num_stim_codes++;
-                } else {
-                    break;
-                }
-            }                        
-            /* check if stimulation block needs to be reinitialized */
-            if ( stim_index >= num_stim_codes-1 ) {
-                /* reset stim index */
-                stim_index = -1;
+            /* check how many valid stim codes there are */
+            if (newsome_mode) {
+                stim_index = 0;
                 ssSetIWorkValue(S,10,stim_index);
-                /* block randomization of stims */
-                for (i=0; i<num_stim_codes; i++) {                    
-                    tmp_sort[i] = rand();
-                    stim_code_list_tmp[i] = i; /*stim_codes[i];*/
-                }
-
-                for (i=0; i<num_stim_codes-1; i++) {
-                    for (j=0; j<num_stim_codes-1; j++) { 
-                        if (tmp_sort[j] < tmp_sort[j+1]) {   
-                            tmp = tmp_sort[j];
-                            tmp_sort[j] = tmp_sort[j+1];
-                            tmp_sort[j+1] = tmp;
-
-                            tmp = stim_code_list_tmp[j];
-                            stim_code_list_tmp[j] = stim_code_list_tmp[j+1];
-                            stim_code_list_tmp[j+1] = tmp;
-                        }
-                    }
-                }
-                /* write them back */
-                for (i=0; i<num_stim_codes; i++) {
-                    ssSetIWorkValue(S,11+i,stim_code_list_tmp[i]);
-                }                                
-            }         
-
-            if (stim_trial){ 
-                stim_index++;
-                bump_direction = pref_dirs[ssGetIWorkValue(S,11+stim_index)];
-                ssSetIWorkValue(S,10,stim_index);
-            } else {
-                /* give a random direction to next target */ 
-                if (newsome_mode){
+                if (UNI > 0.5){
                     bump_direction = pref_dirs[ssGetIWorkValue(S,11)];
                 } else {
-                    bump_direction = 2*PI*UNI;                
-                }
-            }               
+                    bump_direction = pref_dirs[ssGetIWorkValue(S,11)] + PI;
+                }                
+                
+            } else {            
+                num_stim_codes = 0;
+                for (i=0 ; i<16 ; i++) { 
+                    if (stim_codes[i] != -1) {
+                        num_stim_codes++;
+                    } else {
+                        break;
+                    }
+                }          
+            
+                /* check if stimulation block needs to be reinitialized */
+                if ( stim_index >= num_stim_codes-1 ) {
+                    /* reset stim index */
+                    stim_index = -1;
+                    ssSetIWorkValue(S,10,stim_index);
+                    /* block randomization of stims */
+                    for (i=0; i<num_stim_codes; i++) {                    
+                        tmp_sort[i] = rand();
+                        stim_code_list_tmp[i] = i; /*stim_codes[i];*/
+                    }
+
+                    for (i=0; i<num_stim_codes-1; i++) {
+                        for (j=0; j<num_stim_codes-1; j++) { 
+                            if (tmp_sort[j] < tmp_sort[j+1]) {   
+                                tmp = tmp_sort[j];
+                                tmp_sort[j] = tmp_sort[j+1];
+                                tmp_sort[j+1] = tmp;
+
+                                tmp = stim_code_list_tmp[j];
+                                stim_code_list_tmp[j] = stim_code_list_tmp[j+1];
+                                stim_code_list_tmp[j+1] = tmp;
+                            }
+                        }
+                    }
+                    /* write them back */
+                    for (i=0; i<num_stim_codes; i++) {
+                        ssSetIWorkValue(S,11+i,stim_code_list_tmp[i]);
+                    }                                
+                }         
+
+                if (stim_trial){ 
+                    stim_index++;
+                    bump_direction = pref_dirs[ssGetIWorkValue(S,11+stim_index)];
+                    ssSetIWorkValue(S,10,stim_index);
+                } else {
+                    /* give a random direction to next target */                 
+                    bump_direction = 2*PI*UNI;
+                }               
+            }
 
             ssSetRWorkValue(S,4,bump_direction);
                                                                  

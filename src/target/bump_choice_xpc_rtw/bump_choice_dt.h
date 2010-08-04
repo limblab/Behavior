@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "bump_choice.mdl".
  *
- * Model Version              : 1.1230
- * Real-Time Workshop version : 6.6.1  (R2007a+)  13-Mar-2007
- * C source code generated on : Thu Jan 21 16:43:36 2010
+ * Model Version              : 1.1247
+ * Real-Time Workshop version : 6.6  (R2007a)  01-Feb-2007
+ * C source code generated on : Wed Aug 04 10:30:55 2010
  */
 
 #include "ext_types.h"
@@ -48,7 +48,7 @@ static const char_T * rtDataTypeNames[] = {
 
 /* data type transitions for block I/O structure */
 static DataTypeTransition rtBTransitions[] = {
-  { (char_T *)(&bump_choice_B.Clock), 0, 0, 332 },
+  { (char_T *)(&bump_choice_B.Clock), 0, 0, 396 },
 
   { (char_T *)(&bump_choice_B.Compare), 3, 0, 359 },
 
@@ -68,13 +68,13 @@ static DataTypeTransition rtBTransitions[] = {
 
   { (char_T *)(&bump_choice_B.EnabledSubsystem.In1), 0, 0, 1 },
 
-  { (char_T *)(&bump_choice_DWork.DigitalFilter2_FILT_STATES[0]), 0, 0, 148 },
+  { (char_T *)(&bump_choice_DWork.DigitalFilter2_FILT_STATES[0]), 0, 0, 149 },
 
   { (char_T *)(&bump_choice_DWork.BehaviorBC_PWORK), 11, 0, 2 },
 
   { (char_T *)(&bump_choice_DWork.DigitalFilter2_CIRCBUFFIDX), 6, 0, 4 },
 
-  { (char_T *)(&bump_choice_DWork.PCIQUAD04_IWORK), 10, 0, 95 },
+  { (char_T *)(&bump_choice_DWork.PCIQUAD04_IWORK), 10, 0, 114 },
 
   { (char_T *)(&bump_choice_DWork.DelayInput1_DSTATE), 3, 0, 4 },
 
@@ -129,7 +129,7 @@ static DataTypeTransitionTable rtBTransTable = {
 
 /* data type transitions for Parameters structure */
 static DataTypeTransition rtPTransitions[] = {
-  { (char_T *)(&bump_choice_P.Time_Value), 0, 0, 490 },
+  { (char_T *)(&bump_choice_P.Time_Value), 0, 0, 534 },
 
   { (char_T *)(&bump_choice_P.PacketSpec_Value), 7, 0, 2 },
 

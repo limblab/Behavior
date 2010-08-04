@@ -3,8 +3,8 @@
  *
  * Definitions required by Real-Time Workshop generated code.
  *
- * Real-Time Workshop version: 6.6.1
- * Generated on: 2010-01-21 16:43:40
+ * Real-Time Workshop version: 6.6
+ * Generated on: 2010-08-04 10:31:08
  */
 
 #ifndef __RTWTYPES_H__
