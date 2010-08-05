@@ -478,7 +478,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             stim_trial = (UNI<pct_stim_trials ? 1 : 0);
             ssSetIWorkValue(S,9,stim_trial);
                                    
-            /* check how many valid stim codes there are */
+            /* Pick bump direction and stim code */
             if (newsome_mode) {
                 stim_index = 0;
                 ssSetIWorkValue(S,10,stim_index);
@@ -488,7 +488,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     bump_direction = pref_dirs[ssGetIWorkValue(S,11)] + PI;
                 }                
                 
-            } else {            
+            } else {         
+                /* check how many valid stim codes there are */
                 num_stim_codes = 0;
                 for (i=0 ; i<16 ; i++) { 
                     if (stim_codes[i] != -1) {
