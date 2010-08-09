@@ -10,4 +10,9 @@
     <NumGlyphs>10</NumGlyphs>
     <FilePrefix>planets</FilePrefix>
   </GlyphDef>
+  <GlyphDef>
+    <Name>Gabor Training</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>gabora</FilePrefix>
+  </GlyphDef>
 </GlyphDefs>
