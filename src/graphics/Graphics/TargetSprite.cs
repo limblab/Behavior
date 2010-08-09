@@ -80,7 +80,7 @@ namespace BehaviorGraphics
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
                     break;
 
-                case TargetSpriteType.FCTarget:
+                case TargetSpriteType.WhiteTarget:
                     /* White square target */
                     vertices = new CustomVertex.TransformedColored[4];
                     getSquareVertices(ul, lr, Color.White, ref vertices);
@@ -260,7 +260,7 @@ namespace BehaviorGraphics
     {
         None = 0,
         RedTarget = 1,
-        FCTarget = 2,
+        WhiteTarget = 2,
         GreenTarget = 3,
         WallColisionTarget = 4,
         RedArc = 5,
@@ -281,5 +281,7 @@ namespace BehaviorGraphics
         Glyph13 = 29,
         Glyph14 = 30,
         Glyph15 = 31,
+        Glyph16 = 32,
+        Glyph17 = 33,
     }
 }
