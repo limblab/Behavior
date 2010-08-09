@@ -6,7 +6,7 @@ LAB4_MODELS  :=  lab4_bc.dlm  lab4_bf.dlm  lab4_bs.dlm  lab4_co.dlm  lab4_fc.dlm
 
 OTHER_MODELS := ball_drop.dlm multi_gadget.dlm wrist_flexion.dlm
 
-# Included the two letter behavior codes at end for use in 'replace_mastercon.m'
+# Includes the two letter behavior codes at end for use in 'replace_mastercon.m'
 PARAM_LIST_bc := '0 10 3 5 7 0.0 0.05 125 0.5 2 10 1 2 0 0 0 BC';
 PARAM_LIST_bf := '0 10 3 1 2 5 7 0.0 0.05 125 0.5 2 10 1 2 0 0 0 BF';
 PARAM_LIST_bs := '8 10 2.5 1 1 .5 1.5 .75 .25 1 1 2 1 .02 125 1 1 0 0 0 0 0 0 BS';
