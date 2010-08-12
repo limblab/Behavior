@@ -846,7 +846,7 @@ namespace BehaviorGraphics
             if (checkBoxBCNewsome.Checked) {
                 BCStimGrid.RowCount = 1;
                 BCStimGrid[0, 0].Value = 0;
-                BCStimGrid[1, 0].Value = 0;
+                BCStimGrid[1, 0].Value = 0;                
             }
             else {
                 BCStimGrid.RowCount = 16;
@@ -1381,6 +1381,7 @@ namespace BehaviorGraphics
             if (paramID != -1)
             {
                 param = (double[])target.GetParam(paramID);
+                BCStimGrid.RowCount = 16;
                 for (int row = 0; row < 16; row++)
                 {
                     double d = param[row*2];
@@ -1388,6 +1389,9 @@ namespace BehaviorGraphics
                     d = param[row*2+1];
                     BCStimGrid.Rows[row].Cells[1].Value = d.ToString();
                 }
+                if (checkBoxBCNewsome.Checked)
+                    BCStimGrid.RowCount = 1;
+
             }
 
             done += 1f;
