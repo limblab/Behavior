@@ -67,7 +67,7 @@ MATLAB_ROOT     = C:\Program Files\MATLAB\R2007a
 ALT_MATLAB_ROOT = C:\PROGRA~1\MATLAB\R2007a
 MATLAB_BIN      = C:\Program Files\MATLAB\R2007a\bin
 ALT_MATLAB_BIN  = C:\PROGRA~1\MATLAB\R2007a\bin
-S_FUNCTIONS     = dinipcie.c adnipcie.c mastercon_bd.c Byte2Bits.c donipcie.c xpcudpbytesend.c dopci8255.c
+S_FUNCTIONS     = xpctimeinfo.c donipcie.c Byte2Bits.c dopci8255.c dinipcie.c adnipcie.c mastercon_bd.c xpcudpbytesend.c
 S_FUNCTIONS_LIB = 
 NUMST           = 3
 TID01EQ         = 1
@@ -111,8 +111,8 @@ MATLAB_INCLUDES = $(MATLAB_INCLUDES);$(MATLAB_ROOT)\rtw\c\libsrc
 MATLAB_INCLUDES = $(MATLAB_INCLUDES);$(MATLAB_ROOT)\rtw\c\src\ext_mode\common
 
 # Additional file include paths
-MATLAB_INCLUDES = $(MATLAB_INCLUDES);C:\DOCUME~1\David\Desktop\Behavior\trunk\src\target\BALL_D~1
-MATLAB_INCLUDES = $(MATLAB_INCLUDES);C:\DOCUME~1\David\Desktop\Behavior\trunk\src\target
+MATLAB_INCLUDES = $(MATLAB_INCLUDES);C:\DOCUME~1\limblab\Desktop\Behavior\src\target\BALL_D~1
+MATLAB_INCLUDES = $(MATLAB_INCLUDES);C:\DOCUME~1\limblab\Desktop\Behavior\src\target
 MATLAB_INCLUDES = $(MATLAB_INCLUDES);$(MATLAB_ROOT)\rtw\c\libsrc
 
 

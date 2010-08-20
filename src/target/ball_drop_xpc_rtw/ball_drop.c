@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "ball_drop.mdl".
  *
- * Model Version              : 1.95
- * Real-Time Workshop version : 6.6.1  (R2007a+)  13-Mar-2007
- * C source code generated on : Thu Jan 21 14:00:48 2010
+ * Model Version              : 1.117
+ * Real-Time Workshop version : 6.6  (R2007a)  01-Feb-2007
+ * C source code generated on : Thu Aug 19 16:14:26 2010
  */
 
 #include "rt_logging_mmi.h"
@@ -93,13 +93,13 @@ void ball_drop_output(int_T tid)
   {                                    /* Sample time: [0.001s, 0.0s] */
     /* Level2 S-Function Block: '<Root>/PCI-6025E DI' (dinipcie) */
     {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[0];
+      SimStruct *rts = ball_drop_rtM->childSfunctions[5];
       sfcnOutputs(rts, 1);
     }
 
     /* Level2 S-Function Block: '<S1>/PCI-6025E AD' (adnipcie) */
     {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[1];
+      SimStruct *rts = ball_drop_rtM->childSfunctions[6];
       sfcnOutputs(rts, 1);
     }
 
@@ -125,84 +125,19 @@ void ball_drop_output(int_T tid)
 
     /* Level2 S-Function Block: '<Root>/Behavior BD' (mastercon_bd) */
     {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[2];
+      SimStruct *rts = ball_drop_rtM->childSfunctions[7];
       sfcnOutputs(rts, 1);
     }
 
     /* Level2 S-Function Block: '<S2>/ToBits' (Byte2Bits) */
     {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[3];
+      SimStruct *rts = ball_drop_rtM->childSfunctions[8];
       sfcnOutputs(rts, 1);
     }
 
     /* Level2 S-Function Block: '<S2>/PCI-6025E DO' (donipcie) */
     {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[4];
-      sfcnOutputs(rts, 1);
-    }
-  }
-
-  /* Clock Block: '<S11>/Clock'
-   */
-  ball_drop_B.Clock = ball_drop_rtM->Timing.t[0];
-
-  {                                    /* Sample time: [0.001s, 0.0s] */
-    /* SignalConversion: '<S11>/HiddenBuf_InsertedFor_Sample and Hold_at_inport_1' */
-    ball_drop_B.HiddenBuf_InsertedFor_Sampleand = ball_drop_B.BehaviorBD_o1;
-  }
-
-  /* SubSystem Block: '<S11>/Sample and Hold'
-   */
-  ball_drop_SampleandHold(ball_drop_B.HiddenBuf_InsertedFor_Sampleand,
-    ball_drop_B.Clock, &ball_drop_B.SampleandHold,
-    &ball_drop_DWork.SampleandHold, &ball_drop_PrevZCSigState.SampleandHold);
-
-  /* Sum: '<S11>/Sum' */
-  ball_drop_B.Sum = ball_drop_B.Clock - ball_drop_B.SampleandHold.In;
-
-  {                                    /* Sample time: [0.001s, 0.0s] */
-    /* UniformRandomNumber Block: '<S3>/Uniform Random Number'
-     */
-    ball_drop_B.UniformRandomNumber =
-      ball_drop_DWork.UniformRandomNumber_RWORK.NextOutput;
-
-    /* RelationalOperator: '<S3>/Relational Operator' incorporates:
-     *  Constant: '<S3>/JackpotChance'
-     */
-    ball_drop_B.RelationalOperator = (ball_drop_B.UniformRandomNumber >
-      ball_drop_P.JackpotChance_Value);
-
-    /* Switch: '<S3>/Switch' incorporates:
-     *  Constant: '<S3>/RewardJackpot'
-     *  Constant: '<S3>/RewardTime'
-     */
-    if (ball_drop_B.RelationalOperator) {
-      ball_drop_B.Switch_h = ball_drop_P.RewardTime_Value;
-    } else {
-      ball_drop_B.Switch_h = ball_drop_P.RewardJackpot_Value;
-    }
-
-    /* SignalConversion: '<S3>/HiddenBuf_InsertedFor_Sample and Hold_at_inport_1' */
-    ball_drop_B.HiddenBuf_InsertedFor_Samplea_c = ball_drop_B.BehaviorBD_o1;
-  }
-
-  /* SubSystem Block: '<S3>/Sample and Hold'
-   */
-  ball_drop_SampleandHold(ball_drop_B.HiddenBuf_InsertedFor_Samplea_c,
-    ball_drop_B.Switch_h, &ball_drop_B.SampleandHold_i,
-    &ball_drop_DWork.SampleandHold_i, &ball_drop_PrevZCSigState.SampleandHold_i);
-
-  /* RelationalOperator: '<S11>/Relational Operator' */
-  ball_drop_B.RelationalOperator_c = (ball_drop_B.Sum <
-    ball_drop_B.SampleandHold_i.In);
-
-  /* DataTypeConversion: '<S3>/Data Type Conversion' */
-  ball_drop_B.DataTypeConversion = (real_T)ball_drop_B.RelationalOperator_c;
-
-  {                                    /* Sample time: [0.001s, 0.0s] */
-    /* Level2 S-Function Block: '<Root>/PCI-6025E DO' (donipcie) */
-    {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[5];
+      SimStruct *rts = ball_drop_rtM->childSfunctions[9];
       sfcnOutputs(rts, 1);
     }
 
@@ -257,7 +192,7 @@ void ball_drop_output(int_T tid)
   if (ball_drop_rtM->Timing.TaskCounters.TID[2] == 0) {/* Sample time: [0.02s, 0.0s] */
     /* Level2 S-Function Block: '<S6>/Send' (xpcudpbytesend) */
     {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[6];
+      SimStruct *rts = ball_drop_rtM->childSfunctions[10];
       sfcnOutputs(rts, 2);
     }
   }
@@ -266,20 +201,158 @@ void ball_drop_output(int_T tid)
     /* ok to acquire for <S7>/S-Function */
     ball_drop_DWork.SFunction_IWORK_j.AcquireOK = 1;
 
-    /* Level2 S-Function Block: '<S8>/ToBits' (Byte2Bits) */
-    {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[7];
-      sfcnOutputs(rts, 1);
-    }
-
-    /* Level2 S-Function Block: '<S8>/Port A' (dopci8255) */
-    {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[8];
-      sfcnOutputs(rts, 1);
-    }
-
     /* ok to acquire for <S9>/S-Function */
     ball_drop_DWork.SFunction_IWORK_i.AcquireOK = 1;
+  }
+
+  /* Clock Block: '<S11>/Clock'
+   */
+  ball_drop_B.Clock = ball_drop_rtM->Timing.t[0];
+
+  {                                    /* Sample time: [0.001s, 0.0s] */
+    /* SignalConversion: '<S11>/HiddenBuf_InsertedFor_Sample and Hold_at_inport_1' */
+    ball_drop_B.HiddenBuf_InsertedFor_Sampleand = ball_drop_B.BehaviorBD_o1;
+  }
+
+  /* SubSystem Block: '<S11>/Sample and Hold'
+   */
+  ball_drop_SampleandHold(ball_drop_B.HiddenBuf_InsertedFor_Sampleand,
+    ball_drop_B.Clock, &ball_drop_B.SampleandHold,
+    &ball_drop_DWork.SampleandHold, &ball_drop_PrevZCSigState.SampleandHold);
+
+  /* Sum: '<S11>/Sum' */
+  ball_drop_B.Sum = ball_drop_B.Clock - ball_drop_B.SampleandHold.In;
+
+  {                                    /* Sample time: [0.001s, 0.0s] */
+    /* UniformRandomNumber Block: '<S3>/Uniform Random Number'
+     */
+    ball_drop_B.UniformRandomNumber =
+      ball_drop_DWork.UniformRandomNumber_RWORK.NextOutput;
+
+    /* RelationalOperator: '<S3>/Relational Operator' incorporates:
+     *  Constant: '<S3>/JackpotChance'
+     */
+    ball_drop_B.RelationalOperator = (ball_drop_B.UniformRandomNumber >
+      ball_drop_P.JackpotChance_Value);
+
+    /* Switch: '<S3>/Switch' incorporates:
+     *  Constant: '<S3>/RewardJackpot'
+     *  Constant: '<S3>/RewardTime'
+     */
+    if (ball_drop_B.RelationalOperator) {
+      ball_drop_B.Switch_h = ball_drop_P.RewardTime_Value;
+    } else {
+      ball_drop_B.Switch_h = ball_drop_P.RewardJackpot_Value;
+    }
+
+    /* SignalConversion: '<S3>/HiddenBuf_InsertedFor_Sample and Hold_at_inport_1' */
+    ball_drop_B.HiddenBuf_InsertedFor_Samplea_c = ball_drop_B.BehaviorBD_o1;
+  }
+
+  /* SubSystem Block: '<S3>/Sample and Hold'
+   */
+  ball_drop_SampleandHold(ball_drop_B.HiddenBuf_InsertedFor_Samplea_c,
+    ball_drop_B.Switch_h, &ball_drop_B.SampleandHold_i,
+    &ball_drop_DWork.SampleandHold_i, &ball_drop_PrevZCSigState.SampleandHold_i);
+
+  {
+    int32_T s8_iter;
+
+    /* RelationalOperator: '<S11>/Relational Operator' */
+    ball_drop_B.RelationalOperator_c = (ball_drop_B.Sum <
+      ball_drop_B.SampleandHold_i.In);
+
+    /* DataTypeConversion: '<S3>/Data Type Conversion' */
+    ball_drop_B.DataTypeConversion = (real_T)ball_drop_B.RelationalOperator_c;
+    for (s8_iter = 0; s8_iter < 4; s8_iter++) {
+      ball_drop_B.ForIterator = (real_T)s8_iter;
+
+      /* Output and update for iterator system: '<Root>/WordSbs' */
+
+      /* Switch: '<S8>/Switch' incorporates:
+       *  Constant: '<S8>/Constant'
+       */
+      if (ball_drop_B.ForIterator >= ball_drop_P.Switch_Threshold_j) {
+        ball_drop_B.Switch_e = ball_drop_P.Constant_Value_f;
+      } else {
+        ball_drop_B.Switch_e = ball_drop_B.BehaviorBD_o2;
+      }
+
+      /* Level2 S-Function Block: '<S8>/ToBits' (Byte2Bits) */
+      {
+        SimStruct *rts = ball_drop_rtM->childSfunctions[2];
+        sfcnOutputs(rts, 1);
+      }
+
+      /* Level2 S-Function Block: '<S8>/Port A' (dopci8255) */
+      {
+        SimStruct *rts = ball_drop_rtM->childSfunctions[3];
+        sfcnOutputs(rts, 1);
+      }
+
+      /* Level2 S-Function Block: '<S8>/xPC Target  Time ' (xpctimeinfo) */
+      {
+        SimStruct *rts = ball_drop_rtM->childSfunctions[4];
+        sfcnOutputs(rts, 1);
+      }
+
+      /* UnitDelay: '<S13>/Delay Input1' */
+      ball_drop_B.Uk1 = ball_drop_DWork.DelayInput1_DSTATE;
+      do {
+        /* Output and update for iterator system: '<S8>/Strobe // Reward Delay Subsystem' */
+
+        /* Level2 S-Function Block: '<S14>/xPC Target  Time ' (xpctimeinfo) */
+        {
+          SimStruct *rts = ball_drop_rtM->childSfunctions[0];
+          sfcnOutputs(rts, 1);
+        }
+
+        /* Sum: '<S14>/Subtract' */
+        ball_drop_B.Subtract = ball_drop_B.xPCTargetTime_f -
+          ball_drop_B.xPCTargetTime;
+
+        /* Gain: '<S14>/ScaleTouSec' */
+        ball_drop_B.ScaleTouSec = ball_drop_P.ScaleTouSec_Gain *
+          ball_drop_B.Subtract;
+
+        /* RelationalOperator: '<S16>/Compare' incorporates:
+         *  Constant: '<S16>/Constant'
+         */
+        ball_drop_B.Compare = (ball_drop_B.ScaleTouSec >
+          ball_drop_P.Constant_Value_n);
+
+        /* Switch: '<S14>/Switch' incorporates:
+         *  Constant: '<S14>/Constant1'
+         */
+        if (ball_drop_B.Compare) {
+          /* RelationalOperator: '<S13>/FixPt Relational Operator' */
+          ball_drop_B.FixPtRelationalOperator = (ball_drop_B.BehaviorBD_o2 !=
+            ball_drop_B.Uk1);
+
+          /* DataTypeConversion: '<S14>/Data Type Conversion' */
+          ball_drop_B.DataTypeConversion_g = (real_T)
+            ball_drop_B.FixPtRelationalOperator;
+          ball_drop_B.Switch_g = ball_drop_B.DataTypeConversion_g;
+        } else {
+          ball_drop_B.Switch_g = ball_drop_P.Constant1_Value_h;
+        }
+
+        /* Level2 S-Function Block: '<S14>/PCI-6025E ' (donipcie) */
+        {
+          SimStruct *rts = ball_drop_rtM->childSfunctions[1];
+          sfcnOutputs(rts, 1);
+        }
+
+        /* RelationalOperator: '<S15>/Compare' incorporates:
+         *  Constant: '<S15>/Constant'
+         */
+        ball_drop_B.Compare_f = (ball_drop_B.ScaleTouSec <=
+          ball_drop_P.Constant_Value_a);
+      } while (ball_drop_B.Compare_f);
+
+      /* Update for UnitDelay: '<S13>/Delay Input1' */
+      ball_drop_DWork.DelayInput1_DSTATE = ball_drop_B.BehaviorBD_o2;
+    }
   }
 
   UNUSED_PARAMETER(tid);
@@ -291,7 +364,7 @@ void ball_drop_update(int_T tid)
   {                                    /* Sample time: [0.001s, 0.0s] */
     /* Level2 S-Function Block: '<Root>/Behavior BD' (mastercon_bd) */
     {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[2];
+      SimStruct *rts = ball_drop_rtM->childSfunctions[7];
       sfcnUpdate(rts, 1);
       if (ssGetErrorStatus(rts) != NULL)
         return;
@@ -417,15 +490,15 @@ void ball_drop_initialize(boolean_T firstTime)
   }
 
   /* external mode info */
-  ball_drop_rtM->Sizes.checksums[0] = (3348203731U);
-  ball_drop_rtM->Sizes.checksums[1] = (2436526730U);
-  ball_drop_rtM->Sizes.checksums[2] = (2958427952U);
-  ball_drop_rtM->Sizes.checksums[3] = (3764359373U);
+  ball_drop_rtM->Sizes.checksums[0] = (3333319913U);
+  ball_drop_rtM->Sizes.checksums[1] = (1643193060U);
+  ball_drop_rtM->Sizes.checksums[2] = (1574781285U);
+  ball_drop_rtM->Sizes.checksums[3] = (2099261527U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;
     static RTWExtModeInfo rt_ExtModeInfo;
-    static const sysRanDType *systemRan[5];
+    static const sysRanDType *systemRan[10];
     ball_drop_rtM->extModeInfo = (&rt_ExtModeInfo);
     rteiSetSubSystemActiveVectorAddresses(&rt_ExtModeInfo, systemRan);
     systemRan[0] = &rtAlwaysEnabled;
@@ -435,6 +508,11 @@ void ball_drop_initialize(boolean_T firstTime)
       &ball_drop_DWork.SampleandHold_i.SampleandHold_SubsysRanBC;
     systemRan[4] = (sysRanDType *)
       &ball_drop_DWork.SampleandHold.SampleandHold_SubsysRanBC;
+    systemRan[5] = &rtAlwaysEnabled;
+    systemRan[6] = &rtAlwaysEnabled;
+    systemRan[7] = &rtAlwaysEnabled;
+    systemRan[8] = &rtAlwaysEnabled;
+    systemRan[9] = &rtAlwaysEnabled;
     rteiSetModelMappingInfoPtr(&rt_ExtModeInfo,
       &ball_drop_rtM->SpecialInfo.mappingInfo);
     rteiSetChecksumsPtr(&rt_ExtModeInfo, ball_drop_rtM->Sizes.checksums);
@@ -455,7 +533,12 @@ void ball_drop_initialize(boolean_T firstTime)
     int_T i;
     void *pVoidBlockIORegion;
     pVoidBlockIORegion = (void *)(&ball_drop_B.PCI6025EDI);
-    for (i = 0; i < 54; i++) {
+    for (i = 0; i < 46; i++) {
+      ((real_T*)pVoidBlockIORegion)[i] = 0.0;
+    }
+
+    pVoidBlockIORegion = (void *)(&ball_drop_B.ForIterator);
+    for (i = 0; i < 17; i++) {
       ((real_T*)pVoidBlockIORegion)[i] = 0.0;
     }
 
@@ -474,7 +557,7 @@ void ball_drop_initialize(boolean_T firstTime)
   {
     int_T i;
     real_T *dwork_ptr = (real_T *) &ball_drop_DWork.BehaviorBD_DSTATE;
-    for (i = 0; i < 76; i++) {
+    for (i = 0; i < 73; i++) {
       dwork_ptr[i] = 0.0;
     }
   }
@@ -526,24 +609,24 @@ void ball_drop_initialize(boolean_T firstTime)
     rtssSetSolverInfoPtr(sfcnInfo, &ball_drop_rtM->solverInfoPtr);
   }
 
-  ball_drop_rtM->Sizes.numSFcns = (9);
+  ball_drop_rtM->Sizes.numSFcns = (11);
 
   /* register each child */
   {
     (void) memset((void *)&ball_drop_rtM->NonInlinedSFcns.childSFunctions[0],0,
-                  9*sizeof(SimStruct));
+                  11*sizeof(SimStruct));
     ball_drop_rtM->childSfunctions =
       (&ball_drop_rtM->NonInlinedSFcns.childSFunctionPtrs[0]);
 
     {
       int_T i;
-      for (i = 0; i < 9; i++) {
+      for (i = 0; i < 11; i++) {
         ball_drop_rtM->childSfunctions[i] =
           (&ball_drop_rtM->NonInlinedSFcns.childSFunctions[i]);
       }
     }
 
-    /* Level2 S-Function Block: ball_drop/<Root>/PCI-6025E DI (dinipcie) */
+    /* Level2 S-Function Block: ball_drop/<S14>/xPC Target  Time  (xpctimeinfo) */
     {
       SimStruct *rts = ball_drop_rtM->childSfunctions[0];
 
@@ -580,13 +663,14 @@ void ball_drop_initialize(boolean_T firstTime)
         {
           _ssSetOutputPortNumDimensions(rts, 0, 1);
           ssSetOutputPortWidth(rts, 0, 1);
-          ssSetOutputPortSignal(rts, 0, ((real_T *) &ball_drop_B.PCI6025EDI));
+          ssSetOutputPortSignal(rts, 0, ((real_T *) &ball_drop_B.xPCTargetTime_f));
         }
       }
 
       /* path info */
-      ssSetModelName(rts, "PCI-6025E DI");
-      ssSetPath(rts, "ball_drop/PCI-6025E DI");
+      ssSetModelName(rts, "xPC Target\n Time ");
+      ssSetPath(rts,
+                "ball_drop/WordSbs/Strobe // Reward Delay Subsystem/xPC Target  Time ");
       ssSetRTModel(rts,ball_drop_rtM);
       ssSetParentSS(rts, NULL);
       ssSetRootSS(rts, rts);
@@ -596,33 +680,14 @@ void ball_drop_initialize(boolean_T firstTime)
       {
         mxArray **sfcnParams = (mxArray **)
           &ball_drop_rtM->NonInlinedSFcns.Sfcn0.params;
-        ssSetSFcnParamsCount(rts, 5);
+        ssSetSFcnParamsCount(rts, 2);
         ssSetSFcnParamsPtr(rts, &sfcnParams[0]);
-        ssSetSFcnParam(rts, 0, (mxArray*)&ball_drop_P.PCI6025EDI_P1_Size[0]);
-        ssSetSFcnParam(rts, 1, (mxArray*)&ball_drop_P.PCI6025EDI_P2_Size[0]);
-        ssSetSFcnParam(rts, 2, (mxArray*)&ball_drop_P.PCI6025EDI_P3_Size[0]);
-        ssSetSFcnParam(rts, 3, (mxArray*)&ball_drop_P.PCI6025EDI_P4_Size[0]);
-        ssSetSFcnParam(rts, 4, (mxArray*)&ball_drop_P.PCI6025EDI_P5_Size[0]);
-      }
-
-      /* work vectors */
-      ssSetIWork(rts, (int_T *) &ball_drop_DWork.PCI6025EDI_IWORK[0]);
-
-      {
-        struct _ssDWorkRecord *dWorkRecord = (struct _ssDWorkRecord *)
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn0.dWork;
-        ssSetSFcnDWork(rts, dWorkRecord);
-        _ssSetNumDWork(rts, 1);
-
-        /* IWORK */
-        ssSetDWorkWidth(rts, 0, 3);
-        ssSetDWorkDataType(rts, 0,SS_INTEGER);
-        ssSetDWorkComplexSignal(rts, 0, 0);
-        ssSetDWork(rts, 0, &ball_drop_DWork.PCI6025EDI_IWORK[0]);
+        ssSetSFcnParam(rts, 0, (mxArray*)&ball_drop_P.xPCTargetTime_P1_Size[0]);
+        ssSetSFcnParam(rts, 1, (mxArray*)&ball_drop_P.xPCTargetTime_P2_Size[0]);
       }
 
       /* registration */
-      dinipcie(rts);
+      xpctimeinfo(rts);
       sfcnInitializeSizes(rts);
       sfcnInitializeSampleTimes(rts);
 
@@ -641,7 +706,7 @@ void ball_drop_initialize(boolean_T firstTime)
       /* Update the BufferDstPort flags for each input port */
     }
 
-    /* Level2 S-Function Block: ball_drop/<S1>/PCI-6025E AD (adnipcie) */
+    /* Level2 S-Function Block: ball_drop/<S14>/PCI-6025E  (donipcie) */
     {
       SimStruct *rts = ball_drop_rtM->childSfunctions[1];
 
@@ -668,30 +733,37 @@ void ball_drop_initialize(boolean_T firstTime)
         ssSetModelMethods2(rts, &ball_drop_rtM->NonInlinedSFcns.methods2[1]);
       }
 
-      /* outputs */
+      /* inputs */
       {
-        ssSetPortInfoForOutputs(rts,
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn1.outputPortInfo[0]);
-        _ssSetNumOutputPorts(rts, 2);
+        _ssSetNumInputPorts(rts, 2);
+        ssSetPortInfoForInputs(rts,
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn1.inputPortInfo[0]);
 
         /* port 0 */
         {
-          _ssSetOutputPortNumDimensions(rts, 0, 1);
-          ssSetOutputPortWidth(rts, 0, 1);
-          ssSetOutputPortSignal(rts, 0, ((real_T *) &ball_drop_B.PCI6025EAD_o1));
+          real_T const **sfcnUPtrs = (real_T const **)
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn1.UPtrs0;
+          sfcnUPtrs[0] = &ball_drop_B.Switch_g;
+          ssSetInputPortSignalPtrs(rts, 0, (InputPtrsType)&sfcnUPtrs[0]);
+          _ssSetInputPortNumDimensions(rts, 0, 1);
+          ssSetInputPortWidth(rts, 0, 1);
         }
 
         /* port 1 */
         {
-          _ssSetOutputPortNumDimensions(rts, 1, 1);
-          ssSetOutputPortWidth(rts, 1, 1);
-          ssSetOutputPortSignal(rts, 1, ((real_T *) &ball_drop_B.PCI6025EAD_o2));
+          real_T const **sfcnUPtrs = (real_T const **)
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn1.UPtrs1;
+          sfcnUPtrs[0] = &ball_drop_B.DataTypeConversion;
+          ssSetInputPortSignalPtrs(rts, 1, (InputPtrsType)&sfcnUPtrs[0]);
+          _ssSetInputPortNumDimensions(rts, 1, 1);
+          ssSetInputPortWidth(rts, 1, 1);
         }
       }
 
       /* path info */
-      ssSetModelName(rts, "PCI-6025E AD");
-      ssSetPath(rts, "ball_drop/Ball sensors/PCI-6025E AD");
+      ssSetModelName(rts, "PCI-6025E ");
+      ssSetPath(rts,
+                "ball_drop/WordSbs/Strobe // Reward Delay Subsystem/PCI-6025E ");
       ssSetRTModel(rts,ball_drop_rtM);
       ssSetParentSS(rts, NULL);
       ssSetRootSS(rts, rts);
@@ -701,41 +773,35 @@ void ball_drop_initialize(boolean_T firstTime)
       {
         mxArray **sfcnParams = (mxArray **)
           &ball_drop_rtM->NonInlinedSFcns.Sfcn1.params;
-        ssSetSFcnParamsCount(rts, 6);
+        ssSetSFcnParamsCount(rts, 7);
         ssSetSFcnParamsPtr(rts, &sfcnParams[0]);
-        ssSetSFcnParam(rts, 0, (mxArray*)&ball_drop_P.PCI6025EAD_P1_Size[0]);
-        ssSetSFcnParam(rts, 1, (mxArray*)&ball_drop_P.PCI6025EAD_P2_Size[0]);
-        ssSetSFcnParam(rts, 2, (mxArray*)&ball_drop_P.PCI6025EAD_P3_Size[0]);
-        ssSetSFcnParam(rts, 3, (mxArray*)&ball_drop_P.PCI6025EAD_P4_Size[0]);
-        ssSetSFcnParam(rts, 4, (mxArray*)&ball_drop_P.PCI6025EAD_P5_Size[0]);
-        ssSetSFcnParam(rts, 5, (mxArray*)&ball_drop_P.PCI6025EAD_P6_Size[0]);
+        ssSetSFcnParam(rts, 0, (mxArray*)&ball_drop_P.PCI6025E_P1_Size[0]);
+        ssSetSFcnParam(rts, 1, (mxArray*)&ball_drop_P.PCI6025E_P2_Size[0]);
+        ssSetSFcnParam(rts, 2, (mxArray*)&ball_drop_P.PCI6025E_P3_Size[0]);
+        ssSetSFcnParam(rts, 3, (mxArray*)&ball_drop_P.PCI6025E_P4_Size[0]);
+        ssSetSFcnParam(rts, 4, (mxArray*)&ball_drop_P.PCI6025E_P5_Size[0]);
+        ssSetSFcnParam(rts, 5, (mxArray*)&ball_drop_P.PCI6025E_P6_Size[0]);
+        ssSetSFcnParam(rts, 6, (mxArray*)&ball_drop_P.PCI6025E_P7_Size[0]);
       }
 
       /* work vectors */
-      ssSetRWork(rts, (real_T *) &ball_drop_DWork.PCI6025EAD_RWORK[0]);
-      ssSetIWork(rts, (int_T *) &ball_drop_DWork.PCI6025EAD_IWORK[0]);
+      ssSetIWork(rts, (int_T *) &ball_drop_DWork.PCI6025E_IWORK[0]);
 
       {
         struct _ssDWorkRecord *dWorkRecord = (struct _ssDWorkRecord *)
           &ball_drop_rtM->NonInlinedSFcns.Sfcn1.dWork;
         ssSetSFcnDWork(rts, dWorkRecord);
-        _ssSetNumDWork(rts, 2);
-
-        /* RWORK */
-        ssSetDWorkWidth(rts, 0, 64);
-        ssSetDWorkDataType(rts, 0,SS_DOUBLE);
-        ssSetDWorkComplexSignal(rts, 0, 0);
-        ssSetDWork(rts, 0, &ball_drop_DWork.PCI6025EAD_RWORK[0]);
+        _ssSetNumDWork(rts, 1);
 
         /* IWORK */
-        ssSetDWorkWidth(rts, 1, 66);
-        ssSetDWorkDataType(rts, 1,SS_INTEGER);
-        ssSetDWorkComplexSignal(rts, 1, 0);
-        ssSetDWork(rts, 1, &ball_drop_DWork.PCI6025EAD_IWORK[0]);
+        ssSetDWorkWidth(rts, 0, 3);
+        ssSetDWorkDataType(rts, 0,SS_INTEGER);
+        ssSetDWorkComplexSignal(rts, 0, 0);
+        ssSetDWork(rts, 0, &ball_drop_DWork.PCI6025E_IWORK[0]);
       }
 
       /* registration */
-      adnipcie(rts);
+      donipcie(rts);
       sfcnInitializeSizes(rts);
       sfcnInitializeSampleTimes(rts);
 
@@ -748,15 +814,15 @@ void ball_drop_initialize(boolean_T firstTime)
       ssSetNumNonsampledZCs(rts, 0);
 
       /* Update connectivity flags for each port */
-      _ssSetOutputPortConnected(rts, 0, 1);
-      _ssSetOutputPortConnected(rts, 1, 1);
-      _ssSetOutputPortBeingMerged(rts, 0, 0);
-      _ssSetOutputPortBeingMerged(rts, 1, 0);
+      _ssSetInputPortConnected(rts, 0, 1);
+      _ssSetInputPortConnected(rts, 1, 1);
 
       /* Update the BufferDstPort flags for each input port */
+      ssSetInputPortBufferDstPort(rts, 0, -1);
+      ssSetInputPortBufferDstPort(rts, 1, -1);
     }
 
-    /* Level2 S-Function Block: ball_drop/<Root>/Behavior BD (mastercon_bd) */
+    /* Level2 S-Function Block: ball_drop/<S8>/ToBits (Byte2Bits) */
     {
       SimStruct *rts = ball_drop_rtM->childSfunctions[2];
 
@@ -785,7 +851,7 @@ void ball_drop_initialize(boolean_T firstTime)
 
       /* inputs */
       {
-        _ssSetNumInputPorts(rts, 2);
+        _ssSetNumInputPorts(rts, 1);
         ssSetPortInfoForInputs(rts,
           &ball_drop_rtM->NonInlinedSFcns.Sfcn2.inputPortInfo[0]);
 
@@ -793,21 +859,10 @@ void ball_drop_initialize(boolean_T firstTime)
         {
           real_T const **sfcnUPtrs = (real_T const **)
             &ball_drop_rtM->NonInlinedSFcns.Sfcn2.UPtrs0;
-          sfcnUPtrs[0] = &ball_drop_B.PCI6025EDI;
+          sfcnUPtrs[0] = &ball_drop_B.Switch_e;
           ssSetInputPortSignalPtrs(rts, 0, (InputPtrsType)&sfcnUPtrs[0]);
           _ssSetInputPortNumDimensions(rts, 0, 1);
           ssSetInputPortWidth(rts, 0, 1);
-        }
-
-        /* port 1 */
-        {
-          real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn2.UPtrs1;
-          sfcnUPtrs[0] = &ball_drop_B.Switch;
-          sfcnUPtrs[1] = &ball_drop_B.Switch1;
-          ssSetInputPortSignalPtrs(rts, 1, (InputPtrsType)&sfcnUPtrs[0]);
-          _ssSetInputPortNumDimensions(rts, 1, 1);
-          ssSetInputPortWidth(rts, 1, 2);
         }
       }
 
@@ -815,720 +870,6 @@ void ball_drop_initialize(boolean_T firstTime)
       {
         ssSetPortInfoForOutputs(rts,
           &ball_drop_rtM->NonInlinedSFcns.Sfcn2.outputPortInfo[0]);
-        _ssSetNumOutputPorts(rts, 9);
-
-        /* port 0 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 0, 1);
-          ssSetOutputPortWidth(rts, 0, 1);
-          ssSetOutputPortSignal(rts, 0, ((real_T *) &ball_drop_B.BehaviorBD_o1));
-        }
-
-        /* port 1 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 1, 1);
-          ssSetOutputPortWidth(rts, 1, 1);
-          ssSetOutputPortSignal(rts, 1, ((real_T *) &ball_drop_B.BehaviorBD_o2));
-        }
-
-        /* port 2 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 2, 1);
-          ssSetOutputPortWidth(rts, 2, 1);
-          ssSetOutputPortSignal(rts, 2, ((real_T *) &ball_drop_B.BehaviorBD_o3));
-        }
-
-        /* port 3 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 3, 1);
-          ssSetOutputPortWidth(rts, 3, 1);
-          ssSetOutputPortSignal(rts, 3, ((real_T *) &ball_drop_B.BehaviorBD_o4));
-        }
-
-        /* port 4 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 4, 1);
-          ssSetOutputPortWidth(rts, 4, 1);
-          ssSetOutputPortSignal(rts, 4, ((real_T *) &ball_drop_B.BehaviorBD_o5));
-        }
-
-        /* port 5 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 5, 1);
-          ssSetOutputPortWidth(rts, 5, 5);
-          ssSetOutputPortSignal(rts, 5, ((real_T *) ball_drop_B.BehaviorBD_o6));
-        }
-
-        /* port 6 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 6, 1);
-          ssSetOutputPortWidth(rts, 6, 2);
-          ssSetOutputPortSignal(rts, 6, ((real_T *) ball_drop_B.BehaviorBD_o7));
-        }
-
-        /* port 7 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 7, 1);
-          ssSetOutputPortWidth(rts, 7, 10);
-          ssSetOutputPortSignal(rts, 7, ((real_T *) ball_drop_B.BehaviorBD_o8));
-        }
-
-        /* port 8 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 8, 1);
-          ssSetOutputPortWidth(rts, 8, 4);
-          ssSetOutputPortSignal(rts, 8, ((real_T *) ball_drop_B.BehaviorBD_o9));
-        }
-      }
-
-      /* states */
-      ssSetDiscStates(rts, (real_T *) &ball_drop_DWork.BehaviorBD_DSTATE);
-
-      /* path info */
-      ssSetModelName(rts, "Behavior BD");
-      ssSetPath(rts, "ball_drop/Behavior BD");
-      ssSetRTModel(rts,ball_drop_rtM);
-      ssSetParentSS(rts, NULL);
-      ssSetRootSS(rts, rts);
-      ssSetVersion(rts, SIMSTRUCT_VERSION_LEVEL2);
-
-      /* parameters */
-      {
-        mxArray **sfcnParams = (mxArray **)
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn2.params;
-        ssSetSFcnParamsCount(rts, 9);
-        ssSetSFcnParamsPtr(rts, &sfcnParams[0]);
-        ssSetSFcnParam(rts, 0, (mxArray*)&ball_drop_P.BehaviorBD_P1_Size[0]);
-        ssSetSFcnParam(rts, 1, (mxArray*)&ball_drop_P.BehaviorBD_P2_Size[0]);
-        ssSetSFcnParam(rts, 2, (mxArray*)&ball_drop_P.BehaviorBD_P3_Size[0]);
-        ssSetSFcnParam(rts, 3, (mxArray*)&ball_drop_P.BehaviorBD_P4_Size[0]);
-        ssSetSFcnParam(rts, 4, (mxArray*)&ball_drop_P.BehaviorBD_P5_Size[0]);
-        ssSetSFcnParam(rts, 5, (mxArray*)&ball_drop_P.BehaviorBD_P6_Size[0]);
-        ssSetSFcnParam(rts, 6, (mxArray*)&ball_drop_P.BehaviorBD_P7_Size[0]);
-        ssSetSFcnParam(rts, 7, (mxArray*)&ball_drop_P.BehaviorBD_P8_Size[0]);
-        ssSetSFcnParam(rts, 8, (mxArray*)&ball_drop_P.BehaviorBD_P9_Size[0]);
-      }
-
-      /* work vectors */
-      ssSetRWork(rts, (real_T *) &ball_drop_DWork.BehaviorBD_RWORK[0]);
-      ssSetIWork(rts, (int_T *) &ball_drop_DWork.BehaviorBD_IWORK[0]);
-
-      {
-        struct _ssDWorkRecord *dWorkRecord = (struct _ssDWorkRecord *)
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn2.dWork;
-        ssSetSFcnDWork(rts, dWorkRecord);
-        _ssSetNumDWork(rts, 3);
-
-        /* RWORK */
-        ssSetDWorkWidth(rts, 0, 10);
-        ssSetDWorkDataType(rts, 0,SS_DOUBLE);
-        ssSetDWorkComplexSignal(rts, 0, 0);
-        ssSetDWork(rts, 0, &ball_drop_DWork.BehaviorBD_RWORK[0]);
-
-        /* IWORK */
-        ssSetDWorkWidth(rts, 1, 6);
-        ssSetDWorkDataType(rts, 1,SS_INTEGER);
-        ssSetDWorkComplexSignal(rts, 1, 0);
-        ssSetDWork(rts, 1, &ball_drop_DWork.BehaviorBD_IWORK[0]);
-
-        /* DSTATE */
-        ssSetDWorkWidth(rts, 2, 1);
-        ssSetDWorkDataType(rts, 2,SS_DOUBLE);
-        ssSetDWorkComplexSignal(rts, 2, 0);
-        ssSetDWorkUsedAsDState(rts, 2, 1);
-        ssSetDWork(rts, 2, &ball_drop_DWork.BehaviorBD_DSTATE);
-      }
-
-      /* registration */
-      mastercon_bd(rts);
-      sfcnInitializeSizes(rts);
-      sfcnInitializeSampleTimes(rts);
-
-      /* adjust sample time */
-      ssSetSampleTime(rts, 0, 0.001);
-      ssSetOffsetTime(rts, 0, 0.0);
-      sfcnTsMap[0] = 1;
-
-      /* set compiled values of dynamic vector attributes */
-      ssSetNumNonsampledZCs(rts, 0);
-
-      /* Update connectivity flags for each port */
-      _ssSetInputPortConnected(rts, 0, 1);
-      _ssSetInputPortConnected(rts, 1, 1);
-      _ssSetOutputPortConnected(rts, 0, 1);
-      _ssSetOutputPortConnected(rts, 1, 1);
-      _ssSetOutputPortConnected(rts, 2, 1);
-      _ssSetOutputPortConnected(rts, 3, 1);
-      _ssSetOutputPortConnected(rts, 4, 1);
-      _ssSetOutputPortConnected(rts, 5, 1);
-      _ssSetOutputPortConnected(rts, 6, 1);
-      _ssSetOutputPortConnected(rts, 7, 1);
-      _ssSetOutputPortConnected(rts, 8, 1);
-      _ssSetOutputPortBeingMerged(rts, 0, 0);
-      _ssSetOutputPortBeingMerged(rts, 1, 0);
-      _ssSetOutputPortBeingMerged(rts, 2, 0);
-      _ssSetOutputPortBeingMerged(rts, 3, 0);
-      _ssSetOutputPortBeingMerged(rts, 4, 0);
-      _ssSetOutputPortBeingMerged(rts, 5, 0);
-      _ssSetOutputPortBeingMerged(rts, 6, 0);
-      _ssSetOutputPortBeingMerged(rts, 7, 0);
-      _ssSetOutputPortBeingMerged(rts, 8, 0);
-
-      /* Update the BufferDstPort flags for each input port */
-      ssSetInputPortBufferDstPort(rts, 0, -1);
-      ssSetInputPortBufferDstPort(rts, 1, -1);
-    }
-
-    /* Level2 S-Function Block: ball_drop/<S2>/ToBits (Byte2Bits) */
-    {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[3];
-
-      /* timing info */
-      time_T *sfcnPeriod = ball_drop_rtM->NonInlinedSFcns.Sfcn3.sfcnPeriod;
-      time_T *sfcnOffset = ball_drop_rtM->NonInlinedSFcns.Sfcn3.sfcnOffset;
-      int_T *sfcnTsMap = ball_drop_rtM->NonInlinedSFcns.Sfcn3.sfcnTsMap;
-      (void) memset((void*)sfcnPeriod,0,
-                    sizeof(time_T)*1);
-      (void) memset((void*)sfcnOffset,0,
-                    sizeof(time_T)*1);
-      ssSetSampleTimePtr(rts, &sfcnPeriod[0]);
-      ssSetOffsetTimePtr(rts, &sfcnOffset[0]);
-      ssSetSampleTimeTaskIDPtr(rts, sfcnTsMap);
-
-      /* Set up the mdlInfo pointer */
-      {
-        ssSetBlkInfo2Ptr(rts, &ball_drop_rtM->NonInlinedSFcns.blkInfo2[3]);
-        ssSetRTWSfcnInfo(rts, ball_drop_rtM->sfcnInfo);
-      }
-
-      /* Allocate memory of model methods 2 */
-      {
-        ssSetModelMethods2(rts, &ball_drop_rtM->NonInlinedSFcns.methods2[3]);
-      }
-
-      /* inputs */
-      {
-        _ssSetNumInputPorts(rts, 1);
-        ssSetPortInfoForInputs(rts,
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn3.inputPortInfo[0]);
-
-        /* port 0 */
-        {
-          real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn3.UPtrs0;
-          sfcnUPtrs[0] = &ball_drop_B.BehaviorBD_o5;
-          ssSetInputPortSignalPtrs(rts, 0, (InputPtrsType)&sfcnUPtrs[0]);
-          _ssSetInputPortNumDimensions(rts, 0, 1);
-          ssSetInputPortWidth(rts, 0, 1);
-        }
-      }
-
-      /* outputs */
-      {
-        ssSetPortInfoForOutputs(rts,
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn3.outputPortInfo[0]);
-        _ssSetNumOutputPorts(rts, 8);
-
-        /* port 0 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 0, 1);
-          ssSetOutputPortWidth(rts, 0, 1);
-          ssSetOutputPortSignal(rts, 0, ((real_T *) &ball_drop_B.ToBits_o1));
-        }
-
-        /* port 1 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 1, 1);
-          ssSetOutputPortWidth(rts, 1, 1);
-          ssSetOutputPortSignal(rts, 1, ((real_T *) &ball_drop_B.ToBits_o2));
-        }
-
-        /* port 2 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 2, 1);
-          ssSetOutputPortWidth(rts, 2, 1);
-          ssSetOutputPortSignal(rts, 2, ((real_T *) &ball_drop_B.ToBits_o3));
-        }
-
-        /* port 3 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 3, 1);
-          ssSetOutputPortWidth(rts, 3, 1);
-          ssSetOutputPortSignal(rts, 3, ((real_T *) &ball_drop_B.ToBits_o4));
-        }
-
-        /* port 4 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 4, 1);
-          ssSetOutputPortWidth(rts, 4, 1);
-          ssSetOutputPortSignal(rts, 4, ((real_T *) &ball_drop_B.ToBits_o5));
-        }
-
-        /* port 5 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 5, 1);
-          ssSetOutputPortWidth(rts, 5, 1);
-          ssSetOutputPortSignal(rts, 5, ((real_T *) &ball_drop_B.ToBits_o6));
-        }
-
-        /* port 6 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 6, 1);
-          ssSetOutputPortWidth(rts, 6, 1);
-          ssSetOutputPortSignal(rts, 6, ((real_T *) &ball_drop_B.ToBits_o7));
-        }
-
-        /* port 7 */
-        {
-          _ssSetOutputPortNumDimensions(rts, 7, 1);
-          ssSetOutputPortWidth(rts, 7, 1);
-          ssSetOutputPortSignal(rts, 7, ((real_T *) &ball_drop_B.ToBits_o8));
-        }
-      }
-
-      /* path info */
-      ssSetModelName(rts, "ToBits");
-      ssSetPath(rts, "ball_drop/DeviceOutput/ToBits");
-      ssSetRTModel(rts,ball_drop_rtM);
-      ssSetParentSS(rts, NULL);
-      ssSetRootSS(rts, rts);
-      ssSetVersion(rts, SIMSTRUCT_VERSION_LEVEL2);
-
-      /* registration */
-      Byte2Bits(rts);
-      sfcnInitializeSizes(rts);
-      sfcnInitializeSampleTimes(rts);
-
-      /* adjust sample time */
-      ssSetSampleTime(rts, 0, 0.001);
-      ssSetOffsetTime(rts, 0, 0.0);
-      sfcnTsMap[0] = 1;
-
-      /* set compiled values of dynamic vector attributes */
-      ssSetNumNonsampledZCs(rts, 0);
-
-      /* Update connectivity flags for each port */
-      _ssSetInputPortConnected(rts, 0, 1);
-      _ssSetOutputPortConnected(rts, 0, 1);
-      _ssSetOutputPortConnected(rts, 1, 1);
-      _ssSetOutputPortConnected(rts, 2, 0);
-      _ssSetOutputPortConnected(rts, 3, 0);
-      _ssSetOutputPortConnected(rts, 4, 0);
-      _ssSetOutputPortConnected(rts, 5, 0);
-      _ssSetOutputPortConnected(rts, 6, 0);
-      _ssSetOutputPortConnected(rts, 7, 0);
-      _ssSetOutputPortBeingMerged(rts, 0, 0);
-      _ssSetOutputPortBeingMerged(rts, 1, 0);
-      _ssSetOutputPortBeingMerged(rts, 2, 0);
-      _ssSetOutputPortBeingMerged(rts, 3, 0);
-      _ssSetOutputPortBeingMerged(rts, 4, 0);
-      _ssSetOutputPortBeingMerged(rts, 5, 0);
-      _ssSetOutputPortBeingMerged(rts, 6, 0);
-      _ssSetOutputPortBeingMerged(rts, 7, 0);
-
-      /* Update the BufferDstPort flags for each input port */
-      ssSetInputPortBufferDstPort(rts, 0, -1);
-    }
-
-    /* Level2 S-Function Block: ball_drop/<S2>/PCI-6025E DO (donipcie) */
-    {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[4];
-
-      /* timing info */
-      time_T *sfcnPeriod = ball_drop_rtM->NonInlinedSFcns.Sfcn4.sfcnPeriod;
-      time_T *sfcnOffset = ball_drop_rtM->NonInlinedSFcns.Sfcn4.sfcnOffset;
-      int_T *sfcnTsMap = ball_drop_rtM->NonInlinedSFcns.Sfcn4.sfcnTsMap;
-      (void) memset((void*)sfcnPeriod,0,
-                    sizeof(time_T)*1);
-      (void) memset((void*)sfcnOffset,0,
-                    sizeof(time_T)*1);
-      ssSetSampleTimePtr(rts, &sfcnPeriod[0]);
-      ssSetOffsetTimePtr(rts, &sfcnOffset[0]);
-      ssSetSampleTimeTaskIDPtr(rts, sfcnTsMap);
-
-      /* Set up the mdlInfo pointer */
-      {
-        ssSetBlkInfo2Ptr(rts, &ball_drop_rtM->NonInlinedSFcns.blkInfo2[4]);
-        ssSetRTWSfcnInfo(rts, ball_drop_rtM->sfcnInfo);
-      }
-
-      /* Allocate memory of model methods 2 */
-      {
-        ssSetModelMethods2(rts, &ball_drop_rtM->NonInlinedSFcns.methods2[4]);
-      }
-
-      /* inputs */
-      {
-        _ssSetNumInputPorts(rts, 4);
-        ssSetPortInfoForInputs(rts,
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn4.inputPortInfo[0]);
-
-        /* port 0 */
-        {
-          real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn4.UPtrs0;
-          sfcnUPtrs[0] = &ball_drop_B.ToBits_o1;
-          ssSetInputPortSignalPtrs(rts, 0, (InputPtrsType)&sfcnUPtrs[0]);
-          _ssSetInputPortNumDimensions(rts, 0, 1);
-          ssSetInputPortWidth(rts, 0, 1);
-        }
-
-        /* port 1 */
-        {
-          real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn4.UPtrs1;
-          sfcnUPtrs[0] = &ball_drop_B.ToBits_o2;
-          ssSetInputPortSignalPtrs(rts, 1, (InputPtrsType)&sfcnUPtrs[0]);
-          _ssSetInputPortNumDimensions(rts, 1, 1);
-          ssSetInputPortWidth(rts, 1, 1);
-        }
-
-        /* port 2 */
-        {
-          real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn4.UPtrs2;
-          sfcnUPtrs[0] = &ball_drop_B.BehaviorBD_o4;
-          ssSetInputPortSignalPtrs(rts, 2, (InputPtrsType)&sfcnUPtrs[0]);
-          _ssSetInputPortNumDimensions(rts, 2, 1);
-          ssSetInputPortWidth(rts, 2, 1);
-        }
-
-        /* port 3 */
-        {
-          real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn4.UPtrs3;
-          sfcnUPtrs[0] = &ball_drop_B.BehaviorBD_o3;
-          ssSetInputPortSignalPtrs(rts, 3, (InputPtrsType)&sfcnUPtrs[0]);
-          _ssSetInputPortNumDimensions(rts, 3, 1);
-          ssSetInputPortWidth(rts, 3, 1);
-        }
-      }
-
-      /* path info */
-      ssSetModelName(rts, "PCI-6025E DO");
-      ssSetPath(rts, "ball_drop/DeviceOutput/PCI-6025E DO");
-      ssSetRTModel(rts,ball_drop_rtM);
-      ssSetParentSS(rts, NULL);
-      ssSetRootSS(rts, rts);
-      ssSetVersion(rts, SIMSTRUCT_VERSION_LEVEL2);
-
-      /* parameters */
-      {
-        mxArray **sfcnParams = (mxArray **)
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn4.params;
-        ssSetSFcnParamsCount(rts, 7);
-        ssSetSFcnParamsPtr(rts, &sfcnParams[0]);
-        ssSetSFcnParam(rts, 0, (mxArray*)&ball_drop_P.PCI6025EDO_P1_Size[0]);
-        ssSetSFcnParam(rts, 1, (mxArray*)&ball_drop_P.PCI6025EDO_P2_Size[0]);
-        ssSetSFcnParam(rts, 2, (mxArray*)&ball_drop_P.PCI6025EDO_P3_Size[0]);
-        ssSetSFcnParam(rts, 3, (mxArray*)&ball_drop_P.PCI6025EDO_P4_Size[0]);
-        ssSetSFcnParam(rts, 4, (mxArray*)&ball_drop_P.PCI6025EDO_P5_Size[0]);
-        ssSetSFcnParam(rts, 5, (mxArray*)&ball_drop_P.PCI6025EDO_P6_Size[0]);
-        ssSetSFcnParam(rts, 6, (mxArray*)&ball_drop_P.PCI6025EDO_P7_Size[0]);
-      }
-
-      /* work vectors */
-      ssSetIWork(rts, (int_T *) &ball_drop_DWork.PCI6025EDO_IWORK[0]);
-
-      {
-        struct _ssDWorkRecord *dWorkRecord = (struct _ssDWorkRecord *)
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn4.dWork;
-        ssSetSFcnDWork(rts, dWorkRecord);
-        _ssSetNumDWork(rts, 1);
-
-        /* IWORK */
-        ssSetDWorkWidth(rts, 0, 3);
-        ssSetDWorkDataType(rts, 0,SS_INTEGER);
-        ssSetDWorkComplexSignal(rts, 0, 0);
-        ssSetDWork(rts, 0, &ball_drop_DWork.PCI6025EDO_IWORK[0]);
-      }
-
-      /* registration */
-      donipcie(rts);
-      sfcnInitializeSizes(rts);
-      sfcnInitializeSampleTimes(rts);
-
-      /* adjust sample time */
-      ssSetSampleTime(rts, 0, 0.001);
-      ssSetOffsetTime(rts, 0, 0.0);
-      sfcnTsMap[0] = 1;
-
-      /* set compiled values of dynamic vector attributes */
-      ssSetNumNonsampledZCs(rts, 0);
-
-      /* Update connectivity flags for each port */
-      _ssSetInputPortConnected(rts, 0, 1);
-      _ssSetInputPortConnected(rts, 1, 1);
-      _ssSetInputPortConnected(rts, 2, 1);
-      _ssSetInputPortConnected(rts, 3, 1);
-
-      /* Update the BufferDstPort flags for each input port */
-      ssSetInputPortBufferDstPort(rts, 0, -1);
-      ssSetInputPortBufferDstPort(rts, 1, -1);
-      ssSetInputPortBufferDstPort(rts, 2, -1);
-      ssSetInputPortBufferDstPort(rts, 3, -1);
-    }
-
-    /* Level2 S-Function Block: ball_drop/<Root>/PCI-6025E DO (donipcie) */
-    {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[5];
-
-      /* timing info */
-      time_T *sfcnPeriod = ball_drop_rtM->NonInlinedSFcns.Sfcn5.sfcnPeriod;
-      time_T *sfcnOffset = ball_drop_rtM->NonInlinedSFcns.Sfcn5.sfcnOffset;
-      int_T *sfcnTsMap = ball_drop_rtM->NonInlinedSFcns.Sfcn5.sfcnTsMap;
-      (void) memset((void*)sfcnPeriod,0,
-                    sizeof(time_T)*1);
-      (void) memset((void*)sfcnOffset,0,
-                    sizeof(time_T)*1);
-      ssSetSampleTimePtr(rts, &sfcnPeriod[0]);
-      ssSetOffsetTimePtr(rts, &sfcnOffset[0]);
-      ssSetSampleTimeTaskIDPtr(rts, sfcnTsMap);
-
-      /* Set up the mdlInfo pointer */
-      {
-        ssSetBlkInfo2Ptr(rts, &ball_drop_rtM->NonInlinedSFcns.blkInfo2[5]);
-        ssSetRTWSfcnInfo(rts, ball_drop_rtM->sfcnInfo);
-      }
-
-      /* Allocate memory of model methods 2 */
-      {
-        ssSetModelMethods2(rts, &ball_drop_rtM->NonInlinedSFcns.methods2[5]);
-      }
-
-      /* inputs */
-      {
-        _ssSetNumInputPorts(rts, 1);
-        ssSetPortInfoForInputs(rts,
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn5.inputPortInfo[0]);
-
-        /* port 0 */
-        {
-          real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn5.UPtrs0;
-          sfcnUPtrs[0] = &ball_drop_B.DataTypeConversion;
-          ssSetInputPortSignalPtrs(rts, 0, (InputPtrsType)&sfcnUPtrs[0]);
-          _ssSetInputPortNumDimensions(rts, 0, 1);
-          ssSetInputPortWidth(rts, 0, 1);
-        }
-      }
-
-      /* path info */
-      ssSetModelName(rts, "PCI-6025E DO");
-      ssSetPath(rts, "ball_drop/PCI-6025E DO");
-      ssSetRTModel(rts,ball_drop_rtM);
-      ssSetParentSS(rts, NULL);
-      ssSetRootSS(rts, rts);
-      ssSetVersion(rts, SIMSTRUCT_VERSION_LEVEL2);
-
-      /* parameters */
-      {
-        mxArray **sfcnParams = (mxArray **)
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn5.params;
-        ssSetSFcnParamsCount(rts, 7);
-        ssSetSFcnParamsPtr(rts, &sfcnParams[0]);
-        ssSetSFcnParam(rts, 0, (mxArray*)&ball_drop_P.PCI6025EDO_P1_Size_h[0]);
-        ssSetSFcnParam(rts, 1, (mxArray*)&ball_drop_P.PCI6025EDO_P2_Size_f[0]);
-        ssSetSFcnParam(rts, 2, (mxArray*)&ball_drop_P.PCI6025EDO_P3_Size_n[0]);
-        ssSetSFcnParam(rts, 3, (mxArray*)&ball_drop_P.PCI6025EDO_P4_Size_j[0]);
-        ssSetSFcnParam(rts, 4, (mxArray*)&ball_drop_P.PCI6025EDO_P5_Size_p[0]);
-        ssSetSFcnParam(rts, 5, (mxArray*)&ball_drop_P.PCI6025EDO_P6_Size_n[0]);
-        ssSetSFcnParam(rts, 6, (mxArray*)&ball_drop_P.PCI6025EDO_P7_Size_p[0]);
-      }
-
-      /* work vectors */
-      ssSetIWork(rts, (int_T *) &ball_drop_DWork.PCI6025EDO_IWORK_a[0]);
-
-      {
-        struct _ssDWorkRecord *dWorkRecord = (struct _ssDWorkRecord *)
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn5.dWork;
-        ssSetSFcnDWork(rts, dWorkRecord);
-        _ssSetNumDWork(rts, 1);
-
-        /* IWORK */
-        ssSetDWorkWidth(rts, 0, 3);
-        ssSetDWorkDataType(rts, 0,SS_INTEGER);
-        ssSetDWorkComplexSignal(rts, 0, 0);
-        ssSetDWork(rts, 0, &ball_drop_DWork.PCI6025EDO_IWORK_a[0]);
-      }
-
-      /* registration */
-      donipcie(rts);
-      sfcnInitializeSizes(rts);
-      sfcnInitializeSampleTimes(rts);
-
-      /* adjust sample time */
-      ssSetSampleTime(rts, 0, 0.001);
-      ssSetOffsetTime(rts, 0, 0.0);
-      sfcnTsMap[0] = 1;
-
-      /* set compiled values of dynamic vector attributes */
-      ssSetNumNonsampledZCs(rts, 0);
-
-      /* Update connectivity flags for each port */
-      _ssSetInputPortConnected(rts, 0, 1);
-
-      /* Update the BufferDstPort flags for each input port */
-      ssSetInputPortBufferDstPort(rts, 0, -1);
-    }
-
-    /* Level2 S-Function Block: ball_drop/<S6>/Send (xpcudpbytesend) */
-    {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[6];
-
-      /* timing info */
-      time_T *sfcnPeriod = ball_drop_rtM->NonInlinedSFcns.Sfcn6.sfcnPeriod;
-      time_T *sfcnOffset = ball_drop_rtM->NonInlinedSFcns.Sfcn6.sfcnOffset;
-      int_T *sfcnTsMap = ball_drop_rtM->NonInlinedSFcns.Sfcn6.sfcnTsMap;
-      (void) memset((void*)sfcnPeriod,0,
-                    sizeof(time_T)*1);
-      (void) memset((void*)sfcnOffset,0,
-                    sizeof(time_T)*1);
-      ssSetSampleTimePtr(rts, &sfcnPeriod[0]);
-      ssSetOffsetTimePtr(rts, &sfcnOffset[0]);
-      ssSetSampleTimeTaskIDPtr(rts, sfcnTsMap);
-
-      /* Set up the mdlInfo pointer */
-      {
-        ssSetBlkInfo2Ptr(rts, &ball_drop_rtM->NonInlinedSFcns.blkInfo2[6]);
-        ssSetRTWSfcnInfo(rts, ball_drop_rtM->sfcnInfo);
-      }
-
-      /* Allocate memory of model methods 2 */
-      {
-        ssSetModelMethods2(rts, &ball_drop_rtM->NonInlinedSFcns.methods2[6]);
-      }
-
-      /* inputs */
-      {
-        _ssSetNumInputPorts(rts, 1);
-        ssSetPortInfoForInputs(rts,
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn6.inputPortInfo[0]);
-
-        /* port 0 */
-        {
-          ssSetInputPortRequiredContiguous(rts, 0, 1);
-          ssSetInputPortSignal(rts, 0, ball_drop_B.RateTransition);
-          _ssSetInputPortNumDimensions(rts, 0, 1);
-          ssSetInputPortWidth(rts, 0, 112);
-        }
-      }
-
-      /* path info */
-      ssSetModelName(rts, "Send");
-      ssSetPath(rts, "ball_drop/UDPXmit/Send");
-      ssSetRTModel(rts,ball_drop_rtM);
-      ssSetParentSS(rts, NULL);
-      ssSetRootSS(rts, rts);
-      ssSetVersion(rts, SIMSTRUCT_VERSION_LEVEL2);
-
-      /* parameters */
-      {
-        mxArray **sfcnParams = (mxArray **)
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn6.params;
-        ssSetSFcnParamsCount(rts, 4);
-        ssSetSFcnParamsPtr(rts, &sfcnParams[0]);
-        ssSetSFcnParam(rts, 0, (mxArray*)&ball_drop_P.Send_P1_Size[0]);
-        ssSetSFcnParam(rts, 1, (mxArray*)&ball_drop_P.Send_P2_Size[0]);
-        ssSetSFcnParam(rts, 2, (mxArray*)&ball_drop_P.Send_P3_Size[0]);
-        ssSetSFcnParam(rts, 3, (mxArray*)&ball_drop_P.Send_P4_Size[0]);
-      }
-
-      /* work vectors */
-      ssSetIWork(rts, (int_T *) &ball_drop_DWork.Send_IWORK[0]);
-      ssSetPWork(rts, (void **) &ball_drop_DWork.Send_PWORK);
-
-      {
-        struct _ssDWorkRecord *dWorkRecord = (struct _ssDWorkRecord *)
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn6.dWork;
-        ssSetSFcnDWork(rts, dWorkRecord);
-        _ssSetNumDWork(rts, 2);
-
-        /* IWORK */
-        ssSetDWorkWidth(rts, 0, 2);
-        ssSetDWorkDataType(rts, 0,SS_INTEGER);
-        ssSetDWorkComplexSignal(rts, 0, 0);
-        ssSetDWork(rts, 0, &ball_drop_DWork.Send_IWORK[0]);
-
-        /* PWORK */
-        ssSetDWorkWidth(rts, 1, 1);
-        ssSetDWorkDataType(rts, 1,SS_POINTER);
-        ssSetDWorkComplexSignal(rts, 1, 0);
-        ssSetDWork(rts, 1, &ball_drop_DWork.Send_PWORK);
-      }
-
-      /* registration */
-      xpcudpbytesend(rts);
-      sfcnInitializeSizes(rts);
-      sfcnInitializeSampleTimes(rts);
-
-      /* adjust sample time */
-      ssSetSampleTime(rts, 0, 0.02);
-      ssSetOffsetTime(rts, 0, 0.0);
-      sfcnTsMap[0] = 2;
-
-      /* set compiled values of dynamic vector attributes */
-      ssSetInputPortWidth(rts, 0, 112);
-      ssSetInputPortDataType(rts, 0, SS_UINT8);
-      ssSetInputPortComplexSignal(rts, 0, 0);
-      ssSetInputPortFrameData(rts, 0, 0);
-      ssSetNumNonsampledZCs(rts, 0);
-
-      /* Update connectivity flags for each port */
-      _ssSetInputPortConnected(rts, 0, 1);
-
-      /* Update the BufferDstPort flags for each input port */
-      ssSetInputPortBufferDstPort(rts, 0, -1);
-    }
-
-    /* Level2 S-Function Block: ball_drop/<S8>/ToBits (Byte2Bits) */
-    {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[7];
-
-      /* timing info */
-      time_T *sfcnPeriod = ball_drop_rtM->NonInlinedSFcns.Sfcn7.sfcnPeriod;
-      time_T *sfcnOffset = ball_drop_rtM->NonInlinedSFcns.Sfcn7.sfcnOffset;
-      int_T *sfcnTsMap = ball_drop_rtM->NonInlinedSFcns.Sfcn7.sfcnTsMap;
-      (void) memset((void*)sfcnPeriod,0,
-                    sizeof(time_T)*1);
-      (void) memset((void*)sfcnOffset,0,
-                    sizeof(time_T)*1);
-      ssSetSampleTimePtr(rts, &sfcnPeriod[0]);
-      ssSetOffsetTimePtr(rts, &sfcnOffset[0]);
-      ssSetSampleTimeTaskIDPtr(rts, sfcnTsMap);
-
-      /* Set up the mdlInfo pointer */
-      {
-        ssSetBlkInfo2Ptr(rts, &ball_drop_rtM->NonInlinedSFcns.blkInfo2[7]);
-        ssSetRTWSfcnInfo(rts, ball_drop_rtM->sfcnInfo);
-      }
-
-      /* Allocate memory of model methods 2 */
-      {
-        ssSetModelMethods2(rts, &ball_drop_rtM->NonInlinedSFcns.methods2[7]);
-      }
-
-      /* inputs */
-      {
-        _ssSetNumInputPorts(rts, 1);
-        ssSetPortInfoForInputs(rts,
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn7.inputPortInfo[0]);
-
-        /* port 0 */
-        {
-          real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn7.UPtrs0;
-          sfcnUPtrs[0] = &ball_drop_B.BehaviorBD_o2;
-          ssSetInputPortSignalPtrs(rts, 0, (InputPtrsType)&sfcnUPtrs[0]);
-          _ssSetInputPortNumDimensions(rts, 0, 1);
-          ssSetInputPortWidth(rts, 0, 1);
-        }
-      }
-
-      /* outputs */
-      {
-        ssSetPortInfoForOutputs(rts,
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn7.outputPortInfo[0]);
         _ssSetNumOutputPorts(rts, 8);
 
         /* port 0 */
@@ -1634,12 +975,12 @@ void ball_drop_initialize(boolean_T firstTime)
 
     /* Level2 S-Function Block: ball_drop/<S8>/Port A (dopci8255) */
     {
-      SimStruct *rts = ball_drop_rtM->childSfunctions[8];
+      SimStruct *rts = ball_drop_rtM->childSfunctions[3];
 
       /* timing info */
-      time_T *sfcnPeriod = ball_drop_rtM->NonInlinedSFcns.Sfcn8.sfcnPeriod;
-      time_T *sfcnOffset = ball_drop_rtM->NonInlinedSFcns.Sfcn8.sfcnOffset;
-      int_T *sfcnTsMap = ball_drop_rtM->NonInlinedSFcns.Sfcn8.sfcnTsMap;
+      time_T *sfcnPeriod = ball_drop_rtM->NonInlinedSFcns.Sfcn3.sfcnPeriod;
+      time_T *sfcnOffset = ball_drop_rtM->NonInlinedSFcns.Sfcn3.sfcnOffset;
+      int_T *sfcnTsMap = ball_drop_rtM->NonInlinedSFcns.Sfcn3.sfcnTsMap;
       (void) memset((void*)sfcnPeriod,0,
                     sizeof(time_T)*1);
       (void) memset((void*)sfcnOffset,0,
@@ -1650,25 +991,25 @@ void ball_drop_initialize(boolean_T firstTime)
 
       /* Set up the mdlInfo pointer */
       {
-        ssSetBlkInfo2Ptr(rts, &ball_drop_rtM->NonInlinedSFcns.blkInfo2[8]);
+        ssSetBlkInfo2Ptr(rts, &ball_drop_rtM->NonInlinedSFcns.blkInfo2[3]);
         ssSetRTWSfcnInfo(rts, ball_drop_rtM->sfcnInfo);
       }
 
       /* Allocate memory of model methods 2 */
       {
-        ssSetModelMethods2(rts, &ball_drop_rtM->NonInlinedSFcns.methods2[8]);
+        ssSetModelMethods2(rts, &ball_drop_rtM->NonInlinedSFcns.methods2[3]);
       }
 
       /* inputs */
       {
         _ssSetNumInputPorts(rts, 8);
         ssSetPortInfoForInputs(rts,
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn8.inputPortInfo[0]);
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn3.inputPortInfo[0]);
 
         /* port 0 */
         {
           real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn8.UPtrs0;
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn3.UPtrs0;
           sfcnUPtrs[0] = &ball_drop_B.ToBits_o1_i;
           ssSetInputPortSignalPtrs(rts, 0, (InputPtrsType)&sfcnUPtrs[0]);
           _ssSetInputPortNumDimensions(rts, 0, 1);
@@ -1678,7 +1019,7 @@ void ball_drop_initialize(boolean_T firstTime)
         /* port 1 */
         {
           real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn8.UPtrs1;
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn3.UPtrs1;
           sfcnUPtrs[0] = &ball_drop_B.ToBits_o2_h;
           ssSetInputPortSignalPtrs(rts, 1, (InputPtrsType)&sfcnUPtrs[0]);
           _ssSetInputPortNumDimensions(rts, 1, 1);
@@ -1688,7 +1029,7 @@ void ball_drop_initialize(boolean_T firstTime)
         /* port 2 */
         {
           real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn8.UPtrs2;
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn3.UPtrs2;
           sfcnUPtrs[0] = &ball_drop_B.ToBits_o3_d;
           ssSetInputPortSignalPtrs(rts, 2, (InputPtrsType)&sfcnUPtrs[0]);
           _ssSetInputPortNumDimensions(rts, 2, 1);
@@ -1698,7 +1039,7 @@ void ball_drop_initialize(boolean_T firstTime)
         /* port 3 */
         {
           real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn8.UPtrs3;
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn3.UPtrs3;
           sfcnUPtrs[0] = &ball_drop_B.ToBits_o4_j;
           ssSetInputPortSignalPtrs(rts, 3, (InputPtrsType)&sfcnUPtrs[0]);
           _ssSetInputPortNumDimensions(rts, 3, 1);
@@ -1708,7 +1049,7 @@ void ball_drop_initialize(boolean_T firstTime)
         /* port 4 */
         {
           real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn8.UPtrs4;
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn3.UPtrs4;
           sfcnUPtrs[0] = &ball_drop_B.ToBits_o5_g;
           ssSetInputPortSignalPtrs(rts, 4, (InputPtrsType)&sfcnUPtrs[0]);
           _ssSetInputPortNumDimensions(rts, 4, 1);
@@ -1718,7 +1059,7 @@ void ball_drop_initialize(boolean_T firstTime)
         /* port 5 */
         {
           real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn8.UPtrs5;
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn3.UPtrs5;
           sfcnUPtrs[0] = &ball_drop_B.ToBits_o6_i;
           ssSetInputPortSignalPtrs(rts, 5, (InputPtrsType)&sfcnUPtrs[0]);
           _ssSetInputPortNumDimensions(rts, 5, 1);
@@ -1728,7 +1069,7 @@ void ball_drop_initialize(boolean_T firstTime)
         /* port 6 */
         {
           real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn8.UPtrs6;
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn3.UPtrs6;
           sfcnUPtrs[0] = &ball_drop_B.ToBits_o7_p;
           ssSetInputPortSignalPtrs(rts, 6, (InputPtrsType)&sfcnUPtrs[0]);
           _ssSetInputPortNumDimensions(rts, 6, 1);
@@ -1738,7 +1079,7 @@ void ball_drop_initialize(boolean_T firstTime)
         /* port 7 */
         {
           real_T const **sfcnUPtrs = (real_T const **)
-            &ball_drop_rtM->NonInlinedSFcns.Sfcn8.UPtrs7;
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn3.UPtrs7;
           sfcnUPtrs[0] = &ball_drop_B.ToBits_o8_h;
           ssSetInputPortSignalPtrs(rts, 7, (InputPtrsType)&sfcnUPtrs[0]);
           _ssSetInputPortNumDimensions(rts, 7, 1);
@@ -1757,7 +1098,7 @@ void ball_drop_initialize(boolean_T firstTime)
       /* parameters */
       {
         mxArray **sfcnParams = (mxArray **)
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn8.params;
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn3.params;
         ssSetSFcnParamsCount(rts, 9);
         ssSetSFcnParamsPtr(rts, &sfcnParams[0]);
         ssSetSFcnParam(rts, 0, (mxArray*)&ball_drop_P.PortA_P1_Size[0]);
@@ -1776,7 +1117,7 @@ void ball_drop_initialize(boolean_T firstTime)
 
       {
         struct _ssDWorkRecord *dWorkRecord = (struct _ssDWorkRecord *)
-          &ball_drop_rtM->NonInlinedSFcns.Sfcn8.dWork;
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn3.dWork;
         ssSetSFcnDWork(rts, dWorkRecord);
         _ssSetNumDWork(rts, 1);
 
@@ -1820,6 +1161,927 @@ void ball_drop_initialize(boolean_T firstTime)
       ssSetInputPortBufferDstPort(rts, 6, -1);
       ssSetInputPortBufferDstPort(rts, 7, -1);
     }
+
+    /* Level2 S-Function Block: ball_drop/<S8>/xPC Target  Time  (xpctimeinfo) */
+    {
+      SimStruct *rts = ball_drop_rtM->childSfunctions[4];
+
+      /* timing info */
+      time_T *sfcnPeriod = ball_drop_rtM->NonInlinedSFcns.Sfcn4.sfcnPeriod;
+      time_T *sfcnOffset = ball_drop_rtM->NonInlinedSFcns.Sfcn4.sfcnOffset;
+      int_T *sfcnTsMap = ball_drop_rtM->NonInlinedSFcns.Sfcn4.sfcnTsMap;
+      (void) memset((void*)sfcnPeriod,0,
+                    sizeof(time_T)*1);
+      (void) memset((void*)sfcnOffset,0,
+                    sizeof(time_T)*1);
+      ssSetSampleTimePtr(rts, &sfcnPeriod[0]);
+      ssSetOffsetTimePtr(rts, &sfcnOffset[0]);
+      ssSetSampleTimeTaskIDPtr(rts, sfcnTsMap);
+
+      /* Set up the mdlInfo pointer */
+      {
+        ssSetBlkInfo2Ptr(rts, &ball_drop_rtM->NonInlinedSFcns.blkInfo2[4]);
+        ssSetRTWSfcnInfo(rts, ball_drop_rtM->sfcnInfo);
+      }
+
+      /* Allocate memory of model methods 2 */
+      {
+        ssSetModelMethods2(rts, &ball_drop_rtM->NonInlinedSFcns.methods2[4]);
+      }
+
+      /* outputs */
+      {
+        ssSetPortInfoForOutputs(rts,
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn4.outputPortInfo[0]);
+        _ssSetNumOutputPorts(rts, 1);
+
+        /* port 0 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 0, 1);
+          ssSetOutputPortWidth(rts, 0, 1);
+          ssSetOutputPortSignal(rts, 0, ((real_T *) &ball_drop_B.xPCTargetTime));
+        }
+      }
+
+      /* path info */
+      ssSetModelName(rts, "xPC Target\n Time ");
+      ssSetPath(rts, "ball_drop/WordSbs/xPC Target  Time ");
+      ssSetRTModel(rts,ball_drop_rtM);
+      ssSetParentSS(rts, NULL);
+      ssSetRootSS(rts, rts);
+      ssSetVersion(rts, SIMSTRUCT_VERSION_LEVEL2);
+
+      /* parameters */
+      {
+        mxArray **sfcnParams = (mxArray **)
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn4.params;
+        ssSetSFcnParamsCount(rts, 2);
+        ssSetSFcnParamsPtr(rts, &sfcnParams[0]);
+        ssSetSFcnParam(rts, 0, (mxArray*)&ball_drop_P.xPCTargetTime_P1_Size_a[0]);
+        ssSetSFcnParam(rts, 1, (mxArray*)&ball_drop_P.xPCTargetTime_P2_Size_c[0]);
+      }
+
+      /* registration */
+      xpctimeinfo(rts);
+      sfcnInitializeSizes(rts);
+      sfcnInitializeSampleTimes(rts);
+
+      /* adjust sample time */
+      ssSetSampleTime(rts, 0, 0.001);
+      ssSetOffsetTime(rts, 0, 0.0);
+      sfcnTsMap[0] = 1;
+
+      /* set compiled values of dynamic vector attributes */
+      ssSetNumNonsampledZCs(rts, 0);
+
+      /* Update connectivity flags for each port */
+      _ssSetOutputPortConnected(rts, 0, 1);
+      _ssSetOutputPortBeingMerged(rts, 0, 0);
+
+      /* Update the BufferDstPort flags for each input port */
+    }
+
+    /* Level2 S-Function Block: ball_drop/<Root>/PCI-6025E DI (dinipcie) */
+    {
+      SimStruct *rts = ball_drop_rtM->childSfunctions[5];
+
+      /* timing info */
+      time_T *sfcnPeriod = ball_drop_rtM->NonInlinedSFcns.Sfcn5.sfcnPeriod;
+      time_T *sfcnOffset = ball_drop_rtM->NonInlinedSFcns.Sfcn5.sfcnOffset;
+      int_T *sfcnTsMap = ball_drop_rtM->NonInlinedSFcns.Sfcn5.sfcnTsMap;
+      (void) memset((void*)sfcnPeriod,0,
+                    sizeof(time_T)*1);
+      (void) memset((void*)sfcnOffset,0,
+                    sizeof(time_T)*1);
+      ssSetSampleTimePtr(rts, &sfcnPeriod[0]);
+      ssSetOffsetTimePtr(rts, &sfcnOffset[0]);
+      ssSetSampleTimeTaskIDPtr(rts, sfcnTsMap);
+
+      /* Set up the mdlInfo pointer */
+      {
+        ssSetBlkInfo2Ptr(rts, &ball_drop_rtM->NonInlinedSFcns.blkInfo2[5]);
+        ssSetRTWSfcnInfo(rts, ball_drop_rtM->sfcnInfo);
+      }
+
+      /* Allocate memory of model methods 2 */
+      {
+        ssSetModelMethods2(rts, &ball_drop_rtM->NonInlinedSFcns.methods2[5]);
+      }
+
+      /* outputs */
+      {
+        ssSetPortInfoForOutputs(rts,
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn5.outputPortInfo[0]);
+        _ssSetNumOutputPorts(rts, 1);
+
+        /* port 0 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 0, 1);
+          ssSetOutputPortWidth(rts, 0, 1);
+          ssSetOutputPortSignal(rts, 0, ((real_T *) &ball_drop_B.PCI6025EDI));
+        }
+      }
+
+      /* path info */
+      ssSetModelName(rts, "PCI-6025E DI");
+      ssSetPath(rts, "ball_drop/PCI-6025E DI");
+      ssSetRTModel(rts,ball_drop_rtM);
+      ssSetParentSS(rts, NULL);
+      ssSetRootSS(rts, rts);
+      ssSetVersion(rts, SIMSTRUCT_VERSION_LEVEL2);
+
+      /* parameters */
+      {
+        mxArray **sfcnParams = (mxArray **)
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn5.params;
+        ssSetSFcnParamsCount(rts, 5);
+        ssSetSFcnParamsPtr(rts, &sfcnParams[0]);
+        ssSetSFcnParam(rts, 0, (mxArray*)&ball_drop_P.PCI6025EDI_P1_Size[0]);
+        ssSetSFcnParam(rts, 1, (mxArray*)&ball_drop_P.PCI6025EDI_P2_Size[0]);
+        ssSetSFcnParam(rts, 2, (mxArray*)&ball_drop_P.PCI6025EDI_P3_Size[0]);
+        ssSetSFcnParam(rts, 3, (mxArray*)&ball_drop_P.PCI6025EDI_P4_Size[0]);
+        ssSetSFcnParam(rts, 4, (mxArray*)&ball_drop_P.PCI6025EDI_P5_Size[0]);
+      }
+
+      /* work vectors */
+      ssSetIWork(rts, (int_T *) &ball_drop_DWork.PCI6025EDI_IWORK[0]);
+
+      {
+        struct _ssDWorkRecord *dWorkRecord = (struct _ssDWorkRecord *)
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn5.dWork;
+        ssSetSFcnDWork(rts, dWorkRecord);
+        _ssSetNumDWork(rts, 1);
+
+        /* IWORK */
+        ssSetDWorkWidth(rts, 0, 3);
+        ssSetDWorkDataType(rts, 0,SS_INTEGER);
+        ssSetDWorkComplexSignal(rts, 0, 0);
+        ssSetDWork(rts, 0, &ball_drop_DWork.PCI6025EDI_IWORK[0]);
+      }
+
+      /* registration */
+      dinipcie(rts);
+      sfcnInitializeSizes(rts);
+      sfcnInitializeSampleTimes(rts);
+
+      /* adjust sample time */
+      ssSetSampleTime(rts, 0, 0.001);
+      ssSetOffsetTime(rts, 0, 0.0);
+      sfcnTsMap[0] = 1;
+
+      /* set compiled values of dynamic vector attributes */
+      ssSetNumNonsampledZCs(rts, 0);
+
+      /* Update connectivity flags for each port */
+      _ssSetOutputPortConnected(rts, 0, 1);
+      _ssSetOutputPortBeingMerged(rts, 0, 0);
+
+      /* Update the BufferDstPort flags for each input port */
+    }
+
+    /* Level2 S-Function Block: ball_drop/<S1>/PCI-6025E AD (adnipcie) */
+    {
+      SimStruct *rts = ball_drop_rtM->childSfunctions[6];
+
+      /* timing info */
+      time_T *sfcnPeriod = ball_drop_rtM->NonInlinedSFcns.Sfcn6.sfcnPeriod;
+      time_T *sfcnOffset = ball_drop_rtM->NonInlinedSFcns.Sfcn6.sfcnOffset;
+      int_T *sfcnTsMap = ball_drop_rtM->NonInlinedSFcns.Sfcn6.sfcnTsMap;
+      (void) memset((void*)sfcnPeriod,0,
+                    sizeof(time_T)*1);
+      (void) memset((void*)sfcnOffset,0,
+                    sizeof(time_T)*1);
+      ssSetSampleTimePtr(rts, &sfcnPeriod[0]);
+      ssSetOffsetTimePtr(rts, &sfcnOffset[0]);
+      ssSetSampleTimeTaskIDPtr(rts, sfcnTsMap);
+
+      /* Set up the mdlInfo pointer */
+      {
+        ssSetBlkInfo2Ptr(rts, &ball_drop_rtM->NonInlinedSFcns.blkInfo2[6]);
+        ssSetRTWSfcnInfo(rts, ball_drop_rtM->sfcnInfo);
+      }
+
+      /* Allocate memory of model methods 2 */
+      {
+        ssSetModelMethods2(rts, &ball_drop_rtM->NonInlinedSFcns.methods2[6]);
+      }
+
+      /* outputs */
+      {
+        ssSetPortInfoForOutputs(rts,
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn6.outputPortInfo[0]);
+        _ssSetNumOutputPorts(rts, 2);
+
+        /* port 0 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 0, 1);
+          ssSetOutputPortWidth(rts, 0, 1);
+          ssSetOutputPortSignal(rts, 0, ((real_T *) &ball_drop_B.PCI6025EAD_o1));
+        }
+
+        /* port 1 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 1, 1);
+          ssSetOutputPortWidth(rts, 1, 1);
+          ssSetOutputPortSignal(rts, 1, ((real_T *) &ball_drop_B.PCI6025EAD_o2));
+        }
+      }
+
+      /* path info */
+      ssSetModelName(rts, "PCI-6025E AD");
+      ssSetPath(rts, "ball_drop/Ball sensors/PCI-6025E AD");
+      ssSetRTModel(rts,ball_drop_rtM);
+      ssSetParentSS(rts, NULL);
+      ssSetRootSS(rts, rts);
+      ssSetVersion(rts, SIMSTRUCT_VERSION_LEVEL2);
+
+      /* parameters */
+      {
+        mxArray **sfcnParams = (mxArray **)
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn6.params;
+        ssSetSFcnParamsCount(rts, 6);
+        ssSetSFcnParamsPtr(rts, &sfcnParams[0]);
+        ssSetSFcnParam(rts, 0, (mxArray*)&ball_drop_P.PCI6025EAD_P1_Size[0]);
+        ssSetSFcnParam(rts, 1, (mxArray*)&ball_drop_P.PCI6025EAD_P2_Size[0]);
+        ssSetSFcnParam(rts, 2, (mxArray*)&ball_drop_P.PCI6025EAD_P3_Size[0]);
+        ssSetSFcnParam(rts, 3, (mxArray*)&ball_drop_P.PCI6025EAD_P4_Size[0]);
+        ssSetSFcnParam(rts, 4, (mxArray*)&ball_drop_P.PCI6025EAD_P5_Size[0]);
+        ssSetSFcnParam(rts, 5, (mxArray*)&ball_drop_P.PCI6025EAD_P6_Size[0]);
+      }
+
+      /* work vectors */
+      ssSetRWork(rts, (real_T *) &ball_drop_DWork.PCI6025EAD_RWORK[0]);
+      ssSetIWork(rts, (int_T *) &ball_drop_DWork.PCI6025EAD_IWORK[0]);
+
+      {
+        struct _ssDWorkRecord *dWorkRecord = (struct _ssDWorkRecord *)
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn6.dWork;
+        ssSetSFcnDWork(rts, dWorkRecord);
+        _ssSetNumDWork(rts, 2);
+
+        /* RWORK */
+        ssSetDWorkWidth(rts, 0, 64);
+        ssSetDWorkDataType(rts, 0,SS_DOUBLE);
+        ssSetDWorkComplexSignal(rts, 0, 0);
+        ssSetDWork(rts, 0, &ball_drop_DWork.PCI6025EAD_RWORK[0]);
+
+        /* IWORK */
+        ssSetDWorkWidth(rts, 1, 66);
+        ssSetDWorkDataType(rts, 1,SS_INTEGER);
+        ssSetDWorkComplexSignal(rts, 1, 0);
+        ssSetDWork(rts, 1, &ball_drop_DWork.PCI6025EAD_IWORK[0]);
+      }
+
+      /* registration */
+      adnipcie(rts);
+      sfcnInitializeSizes(rts);
+      sfcnInitializeSampleTimes(rts);
+
+      /* adjust sample time */
+      ssSetSampleTime(rts, 0, 0.001);
+      ssSetOffsetTime(rts, 0, 0.0);
+      sfcnTsMap[0] = 1;
+
+      /* set compiled values of dynamic vector attributes */
+      ssSetNumNonsampledZCs(rts, 0);
+
+      /* Update connectivity flags for each port */
+      _ssSetOutputPortConnected(rts, 0, 1);
+      _ssSetOutputPortConnected(rts, 1, 1);
+      _ssSetOutputPortBeingMerged(rts, 0, 0);
+      _ssSetOutputPortBeingMerged(rts, 1, 0);
+
+      /* Update the BufferDstPort flags for each input port */
+    }
+
+    /* Level2 S-Function Block: ball_drop/<Root>/Behavior BD (mastercon_bd) */
+    {
+      SimStruct *rts = ball_drop_rtM->childSfunctions[7];
+
+      /* timing info */
+      time_T *sfcnPeriod = ball_drop_rtM->NonInlinedSFcns.Sfcn7.sfcnPeriod;
+      time_T *sfcnOffset = ball_drop_rtM->NonInlinedSFcns.Sfcn7.sfcnOffset;
+      int_T *sfcnTsMap = ball_drop_rtM->NonInlinedSFcns.Sfcn7.sfcnTsMap;
+      (void) memset((void*)sfcnPeriod,0,
+                    sizeof(time_T)*1);
+      (void) memset((void*)sfcnOffset,0,
+                    sizeof(time_T)*1);
+      ssSetSampleTimePtr(rts, &sfcnPeriod[0]);
+      ssSetOffsetTimePtr(rts, &sfcnOffset[0]);
+      ssSetSampleTimeTaskIDPtr(rts, sfcnTsMap);
+
+      /* Set up the mdlInfo pointer */
+      {
+        ssSetBlkInfo2Ptr(rts, &ball_drop_rtM->NonInlinedSFcns.blkInfo2[7]);
+        ssSetRTWSfcnInfo(rts, ball_drop_rtM->sfcnInfo);
+      }
+
+      /* Allocate memory of model methods 2 */
+      {
+        ssSetModelMethods2(rts, &ball_drop_rtM->NonInlinedSFcns.methods2[7]);
+      }
+
+      /* inputs */
+      {
+        _ssSetNumInputPorts(rts, 2);
+        ssSetPortInfoForInputs(rts,
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn7.inputPortInfo[0]);
+
+        /* port 0 */
+        {
+          real_T const **sfcnUPtrs = (real_T const **)
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn7.UPtrs0;
+          sfcnUPtrs[0] = &ball_drop_B.PCI6025EDI;
+          ssSetInputPortSignalPtrs(rts, 0, (InputPtrsType)&sfcnUPtrs[0]);
+          _ssSetInputPortNumDimensions(rts, 0, 1);
+          ssSetInputPortWidth(rts, 0, 1);
+        }
+
+        /* port 1 */
+        {
+          real_T const **sfcnUPtrs = (real_T const **)
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn7.UPtrs1;
+          sfcnUPtrs[0] = &ball_drop_B.Switch;
+          sfcnUPtrs[1] = &ball_drop_B.Switch1;
+          ssSetInputPortSignalPtrs(rts, 1, (InputPtrsType)&sfcnUPtrs[0]);
+          _ssSetInputPortNumDimensions(rts, 1, 1);
+          ssSetInputPortWidth(rts, 1, 2);
+        }
+      }
+
+      /* outputs */
+      {
+        ssSetPortInfoForOutputs(rts,
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn7.outputPortInfo[0]);
+        _ssSetNumOutputPorts(rts, 9);
+
+        /* port 0 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 0, 1);
+          ssSetOutputPortWidth(rts, 0, 1);
+          ssSetOutputPortSignal(rts, 0, ((real_T *) &ball_drop_B.BehaviorBD_o1));
+        }
+
+        /* port 1 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 1, 1);
+          ssSetOutputPortWidth(rts, 1, 1);
+          ssSetOutputPortSignal(rts, 1, ((real_T *) &ball_drop_B.BehaviorBD_o2));
+        }
+
+        /* port 2 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 2, 1);
+          ssSetOutputPortWidth(rts, 2, 1);
+          ssSetOutputPortSignal(rts, 2, ((real_T *) &ball_drop_B.BehaviorBD_o3));
+        }
+
+        /* port 3 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 3, 1);
+          ssSetOutputPortWidth(rts, 3, 1);
+          ssSetOutputPortSignal(rts, 3, ((real_T *) &ball_drop_B.BehaviorBD_o4));
+        }
+
+        /* port 4 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 4, 1);
+          ssSetOutputPortWidth(rts, 4, 1);
+          ssSetOutputPortSignal(rts, 4, ((real_T *) &ball_drop_B.BehaviorBD_o5));
+        }
+
+        /* port 5 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 5, 1);
+          ssSetOutputPortWidth(rts, 5, 5);
+          ssSetOutputPortSignal(rts, 5, ((real_T *) ball_drop_B.BehaviorBD_o6));
+        }
+
+        /* port 6 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 6, 1);
+          ssSetOutputPortWidth(rts, 6, 2);
+          ssSetOutputPortSignal(rts, 6, ((real_T *) ball_drop_B.BehaviorBD_o7));
+        }
+
+        /* port 7 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 7, 1);
+          ssSetOutputPortWidth(rts, 7, 10);
+          ssSetOutputPortSignal(rts, 7, ((real_T *) ball_drop_B.BehaviorBD_o8));
+        }
+
+        /* port 8 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 8, 1);
+          ssSetOutputPortWidth(rts, 8, 4);
+          ssSetOutputPortSignal(rts, 8, ((real_T *) ball_drop_B.BehaviorBD_o9));
+        }
+      }
+
+      /* states */
+      ssSetDiscStates(rts, (real_T *) &ball_drop_DWork.BehaviorBD_DSTATE);
+
+      /* path info */
+      ssSetModelName(rts, "Behavior BD");
+      ssSetPath(rts, "ball_drop/Behavior BD");
+      ssSetRTModel(rts,ball_drop_rtM);
+      ssSetParentSS(rts, NULL);
+      ssSetRootSS(rts, rts);
+      ssSetVersion(rts, SIMSTRUCT_VERSION_LEVEL2);
+
+      /* parameters */
+      {
+        mxArray **sfcnParams = (mxArray **)
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn7.params;
+        ssSetSFcnParamsCount(rts, 9);
+        ssSetSFcnParamsPtr(rts, &sfcnParams[0]);
+        ssSetSFcnParam(rts, 0, (mxArray*)&ball_drop_P.BehaviorBD_P1_Size[0]);
+        ssSetSFcnParam(rts, 1, (mxArray*)&ball_drop_P.BehaviorBD_P2_Size[0]);
+        ssSetSFcnParam(rts, 2, (mxArray*)&ball_drop_P.BehaviorBD_P3_Size[0]);
+        ssSetSFcnParam(rts, 3, (mxArray*)&ball_drop_P.BehaviorBD_P4_Size[0]);
+        ssSetSFcnParam(rts, 4, (mxArray*)&ball_drop_P.BehaviorBD_P5_Size[0]);
+        ssSetSFcnParam(rts, 5, (mxArray*)&ball_drop_P.BehaviorBD_P6_Size[0]);
+        ssSetSFcnParam(rts, 6, (mxArray*)&ball_drop_P.BehaviorBD_P7_Size[0]);
+        ssSetSFcnParam(rts, 7, (mxArray*)&ball_drop_P.BehaviorBD_P8_Size[0]);
+        ssSetSFcnParam(rts, 8, (mxArray*)&ball_drop_P.BehaviorBD_P9_Size[0]);
+      }
+
+      /* work vectors */
+      ssSetRWork(rts, (real_T *) &ball_drop_DWork.BehaviorBD_RWORK[0]);
+      ssSetIWork(rts, (int_T *) &ball_drop_DWork.BehaviorBD_IWORK[0]);
+      ssSetPWork(rts, (void **) &ball_drop_DWork.BehaviorBD_PWORK);
+
+      {
+        struct _ssDWorkRecord *dWorkRecord = (struct _ssDWorkRecord *)
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn7.dWork;
+        ssSetSFcnDWork(rts, dWorkRecord);
+        _ssSetNumDWork(rts, 4);
+
+        /* RWORK */
+        ssSetDWorkWidth(rts, 0, 6);
+        ssSetDWorkDataType(rts, 0,SS_DOUBLE);
+        ssSetDWorkComplexSignal(rts, 0, 0);
+        ssSetDWork(rts, 0, &ball_drop_DWork.BehaviorBD_RWORK[0]);
+
+        /* IWORK */
+        ssSetDWorkWidth(rts, 1, 9);
+        ssSetDWorkDataType(rts, 1,SS_INTEGER);
+        ssSetDWorkComplexSignal(rts, 1, 0);
+        ssSetDWork(rts, 1, &ball_drop_DWork.BehaviorBD_IWORK[0]);
+
+        /* PWORK */
+        ssSetDWorkWidth(rts, 2, 1);
+        ssSetDWorkDataType(rts, 2,SS_POINTER);
+        ssSetDWorkComplexSignal(rts, 2, 0);
+        ssSetDWork(rts, 2, &ball_drop_DWork.BehaviorBD_PWORK);
+
+        /* DSTATE */
+        ssSetDWorkWidth(rts, 3, 1);
+        ssSetDWorkDataType(rts, 3,SS_DOUBLE);
+        ssSetDWorkComplexSignal(rts, 3, 0);
+        ssSetDWorkUsedAsDState(rts, 3, 1);
+        ssSetDWork(rts, 3, &ball_drop_DWork.BehaviorBD_DSTATE);
+      }
+
+      /* registration */
+      mastercon_bd(rts);
+      sfcnInitializeSizes(rts);
+      sfcnInitializeSampleTimes(rts);
+
+      /* adjust sample time */
+      ssSetSampleTime(rts, 0, 0.001);
+      ssSetOffsetTime(rts, 0, 0.0);
+      sfcnTsMap[0] = 1;
+
+      /* set compiled values of dynamic vector attributes */
+      ssSetNumNonsampledZCs(rts, 0);
+
+      /* Update connectivity flags for each port */
+      _ssSetInputPortConnected(rts, 0, 1);
+      _ssSetInputPortConnected(rts, 1, 1);
+      _ssSetOutputPortConnected(rts, 0, 1);
+      _ssSetOutputPortConnected(rts, 1, 1);
+      _ssSetOutputPortConnected(rts, 2, 1);
+      _ssSetOutputPortConnected(rts, 3, 1);
+      _ssSetOutputPortConnected(rts, 4, 1);
+      _ssSetOutputPortConnected(rts, 5, 1);
+      _ssSetOutputPortConnected(rts, 6, 1);
+      _ssSetOutputPortConnected(rts, 7, 1);
+      _ssSetOutputPortConnected(rts, 8, 1);
+      _ssSetOutputPortBeingMerged(rts, 0, 0);
+      _ssSetOutputPortBeingMerged(rts, 1, 0);
+      _ssSetOutputPortBeingMerged(rts, 2, 0);
+      _ssSetOutputPortBeingMerged(rts, 3, 0);
+      _ssSetOutputPortBeingMerged(rts, 4, 0);
+      _ssSetOutputPortBeingMerged(rts, 5, 0);
+      _ssSetOutputPortBeingMerged(rts, 6, 0);
+      _ssSetOutputPortBeingMerged(rts, 7, 0);
+      _ssSetOutputPortBeingMerged(rts, 8, 0);
+
+      /* Update the BufferDstPort flags for each input port */
+      ssSetInputPortBufferDstPort(rts, 0, -1);
+      ssSetInputPortBufferDstPort(rts, 1, -1);
+    }
+
+    /* Level2 S-Function Block: ball_drop/<S2>/ToBits (Byte2Bits) */
+    {
+      SimStruct *rts = ball_drop_rtM->childSfunctions[8];
+
+      /* timing info */
+      time_T *sfcnPeriod = ball_drop_rtM->NonInlinedSFcns.Sfcn8.sfcnPeriod;
+      time_T *sfcnOffset = ball_drop_rtM->NonInlinedSFcns.Sfcn8.sfcnOffset;
+      int_T *sfcnTsMap = ball_drop_rtM->NonInlinedSFcns.Sfcn8.sfcnTsMap;
+      (void) memset((void*)sfcnPeriod,0,
+                    sizeof(time_T)*1);
+      (void) memset((void*)sfcnOffset,0,
+                    sizeof(time_T)*1);
+      ssSetSampleTimePtr(rts, &sfcnPeriod[0]);
+      ssSetOffsetTimePtr(rts, &sfcnOffset[0]);
+      ssSetSampleTimeTaskIDPtr(rts, sfcnTsMap);
+
+      /* Set up the mdlInfo pointer */
+      {
+        ssSetBlkInfo2Ptr(rts, &ball_drop_rtM->NonInlinedSFcns.blkInfo2[8]);
+        ssSetRTWSfcnInfo(rts, ball_drop_rtM->sfcnInfo);
+      }
+
+      /* Allocate memory of model methods 2 */
+      {
+        ssSetModelMethods2(rts, &ball_drop_rtM->NonInlinedSFcns.methods2[8]);
+      }
+
+      /* inputs */
+      {
+        _ssSetNumInputPorts(rts, 1);
+        ssSetPortInfoForInputs(rts,
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn8.inputPortInfo[0]);
+
+        /* port 0 */
+        {
+          real_T const **sfcnUPtrs = (real_T const **)
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn8.UPtrs0;
+          sfcnUPtrs[0] = &ball_drop_B.BehaviorBD_o5;
+          ssSetInputPortSignalPtrs(rts, 0, (InputPtrsType)&sfcnUPtrs[0]);
+          _ssSetInputPortNumDimensions(rts, 0, 1);
+          ssSetInputPortWidth(rts, 0, 1);
+        }
+      }
+
+      /* outputs */
+      {
+        ssSetPortInfoForOutputs(rts,
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn8.outputPortInfo[0]);
+        _ssSetNumOutputPorts(rts, 8);
+
+        /* port 0 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 0, 1);
+          ssSetOutputPortWidth(rts, 0, 1);
+          ssSetOutputPortSignal(rts, 0, ((real_T *) &ball_drop_B.ToBits_o1));
+        }
+
+        /* port 1 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 1, 1);
+          ssSetOutputPortWidth(rts, 1, 1);
+          ssSetOutputPortSignal(rts, 1, ((real_T *) &ball_drop_B.ToBits_o2));
+        }
+
+        /* port 2 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 2, 1);
+          ssSetOutputPortWidth(rts, 2, 1);
+          ssSetOutputPortSignal(rts, 2, ((real_T *) &ball_drop_B.ToBits_o3));
+        }
+
+        /* port 3 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 3, 1);
+          ssSetOutputPortWidth(rts, 3, 1);
+          ssSetOutputPortSignal(rts, 3, ((real_T *) &ball_drop_B.ToBits_o4));
+        }
+
+        /* port 4 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 4, 1);
+          ssSetOutputPortWidth(rts, 4, 1);
+          ssSetOutputPortSignal(rts, 4, ((real_T *) &ball_drop_B.ToBits_o5));
+        }
+
+        /* port 5 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 5, 1);
+          ssSetOutputPortWidth(rts, 5, 1);
+          ssSetOutputPortSignal(rts, 5, ((real_T *) &ball_drop_B.ToBits_o6));
+        }
+
+        /* port 6 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 6, 1);
+          ssSetOutputPortWidth(rts, 6, 1);
+          ssSetOutputPortSignal(rts, 6, ((real_T *) &ball_drop_B.ToBits_o7));
+        }
+
+        /* port 7 */
+        {
+          _ssSetOutputPortNumDimensions(rts, 7, 1);
+          ssSetOutputPortWidth(rts, 7, 1);
+          ssSetOutputPortSignal(rts, 7, ((real_T *) &ball_drop_B.ToBits_o8));
+        }
+      }
+
+      /* path info */
+      ssSetModelName(rts, "ToBits");
+      ssSetPath(rts, "ball_drop/DeviceOutput/ToBits");
+      ssSetRTModel(rts,ball_drop_rtM);
+      ssSetParentSS(rts, NULL);
+      ssSetRootSS(rts, rts);
+      ssSetVersion(rts, SIMSTRUCT_VERSION_LEVEL2);
+
+      /* registration */
+      Byte2Bits(rts);
+      sfcnInitializeSizes(rts);
+      sfcnInitializeSampleTimes(rts);
+
+      /* adjust sample time */
+      ssSetSampleTime(rts, 0, 0.001);
+      ssSetOffsetTime(rts, 0, 0.0);
+      sfcnTsMap[0] = 1;
+
+      /* set compiled values of dynamic vector attributes */
+      ssSetNumNonsampledZCs(rts, 0);
+
+      /* Update connectivity flags for each port */
+      _ssSetInputPortConnected(rts, 0, 1);
+      _ssSetOutputPortConnected(rts, 0, 1);
+      _ssSetOutputPortConnected(rts, 1, 1);
+      _ssSetOutputPortConnected(rts, 2, 0);
+      _ssSetOutputPortConnected(rts, 3, 0);
+      _ssSetOutputPortConnected(rts, 4, 0);
+      _ssSetOutputPortConnected(rts, 5, 0);
+      _ssSetOutputPortConnected(rts, 6, 0);
+      _ssSetOutputPortConnected(rts, 7, 0);
+      _ssSetOutputPortBeingMerged(rts, 0, 0);
+      _ssSetOutputPortBeingMerged(rts, 1, 0);
+      _ssSetOutputPortBeingMerged(rts, 2, 0);
+      _ssSetOutputPortBeingMerged(rts, 3, 0);
+      _ssSetOutputPortBeingMerged(rts, 4, 0);
+      _ssSetOutputPortBeingMerged(rts, 5, 0);
+      _ssSetOutputPortBeingMerged(rts, 6, 0);
+      _ssSetOutputPortBeingMerged(rts, 7, 0);
+
+      /* Update the BufferDstPort flags for each input port */
+      ssSetInputPortBufferDstPort(rts, 0, -1);
+    }
+
+    /* Level2 S-Function Block: ball_drop/<S2>/PCI-6025E DO (donipcie) */
+    {
+      SimStruct *rts = ball_drop_rtM->childSfunctions[9];
+
+      /* timing info */
+      time_T *sfcnPeriod = ball_drop_rtM->NonInlinedSFcns.Sfcn9.sfcnPeriod;
+      time_T *sfcnOffset = ball_drop_rtM->NonInlinedSFcns.Sfcn9.sfcnOffset;
+      int_T *sfcnTsMap = ball_drop_rtM->NonInlinedSFcns.Sfcn9.sfcnTsMap;
+      (void) memset((void*)sfcnPeriod,0,
+                    sizeof(time_T)*1);
+      (void) memset((void*)sfcnOffset,0,
+                    sizeof(time_T)*1);
+      ssSetSampleTimePtr(rts, &sfcnPeriod[0]);
+      ssSetOffsetTimePtr(rts, &sfcnOffset[0]);
+      ssSetSampleTimeTaskIDPtr(rts, sfcnTsMap);
+
+      /* Set up the mdlInfo pointer */
+      {
+        ssSetBlkInfo2Ptr(rts, &ball_drop_rtM->NonInlinedSFcns.blkInfo2[9]);
+        ssSetRTWSfcnInfo(rts, ball_drop_rtM->sfcnInfo);
+      }
+
+      /* Allocate memory of model methods 2 */
+      {
+        ssSetModelMethods2(rts, &ball_drop_rtM->NonInlinedSFcns.methods2[9]);
+      }
+
+      /* inputs */
+      {
+        _ssSetNumInputPorts(rts, 4);
+        ssSetPortInfoForInputs(rts,
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn9.inputPortInfo[0]);
+
+        /* port 0 */
+        {
+          real_T const **sfcnUPtrs = (real_T const **)
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn9.UPtrs0;
+          sfcnUPtrs[0] = &ball_drop_B.ToBits_o1;
+          ssSetInputPortSignalPtrs(rts, 0, (InputPtrsType)&sfcnUPtrs[0]);
+          _ssSetInputPortNumDimensions(rts, 0, 1);
+          ssSetInputPortWidth(rts, 0, 1);
+        }
+
+        /* port 1 */
+        {
+          real_T const **sfcnUPtrs = (real_T const **)
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn9.UPtrs1;
+          sfcnUPtrs[0] = &ball_drop_B.ToBits_o2;
+          ssSetInputPortSignalPtrs(rts, 1, (InputPtrsType)&sfcnUPtrs[0]);
+          _ssSetInputPortNumDimensions(rts, 1, 1);
+          ssSetInputPortWidth(rts, 1, 1);
+        }
+
+        /* port 2 */
+        {
+          real_T const **sfcnUPtrs = (real_T const **)
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn9.UPtrs2;
+          sfcnUPtrs[0] = &ball_drop_B.BehaviorBD_o4;
+          ssSetInputPortSignalPtrs(rts, 2, (InputPtrsType)&sfcnUPtrs[0]);
+          _ssSetInputPortNumDimensions(rts, 2, 1);
+          ssSetInputPortWidth(rts, 2, 1);
+        }
+
+        /* port 3 */
+        {
+          real_T const **sfcnUPtrs = (real_T const **)
+            &ball_drop_rtM->NonInlinedSFcns.Sfcn9.UPtrs3;
+          sfcnUPtrs[0] = &ball_drop_B.BehaviorBD_o3;
+          ssSetInputPortSignalPtrs(rts, 3, (InputPtrsType)&sfcnUPtrs[0]);
+          _ssSetInputPortNumDimensions(rts, 3, 1);
+          ssSetInputPortWidth(rts, 3, 1);
+        }
+      }
+
+      /* path info */
+      ssSetModelName(rts, "PCI-6025E DO");
+      ssSetPath(rts, "ball_drop/DeviceOutput/PCI-6025E DO");
+      ssSetRTModel(rts,ball_drop_rtM);
+      ssSetParentSS(rts, NULL);
+      ssSetRootSS(rts, rts);
+      ssSetVersion(rts, SIMSTRUCT_VERSION_LEVEL2);
+
+      /* parameters */
+      {
+        mxArray **sfcnParams = (mxArray **)
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn9.params;
+        ssSetSFcnParamsCount(rts, 7);
+        ssSetSFcnParamsPtr(rts, &sfcnParams[0]);
+        ssSetSFcnParam(rts, 0, (mxArray*)&ball_drop_P.PCI6025EDO_P1_Size[0]);
+        ssSetSFcnParam(rts, 1, (mxArray*)&ball_drop_P.PCI6025EDO_P2_Size[0]);
+        ssSetSFcnParam(rts, 2, (mxArray*)&ball_drop_P.PCI6025EDO_P3_Size[0]);
+        ssSetSFcnParam(rts, 3, (mxArray*)&ball_drop_P.PCI6025EDO_P4_Size[0]);
+        ssSetSFcnParam(rts, 4, (mxArray*)&ball_drop_P.PCI6025EDO_P5_Size[0]);
+        ssSetSFcnParam(rts, 5, (mxArray*)&ball_drop_P.PCI6025EDO_P6_Size[0]);
+        ssSetSFcnParam(rts, 6, (mxArray*)&ball_drop_P.PCI6025EDO_P7_Size[0]);
+      }
+
+      /* work vectors */
+      ssSetIWork(rts, (int_T *) &ball_drop_DWork.PCI6025EDO_IWORK[0]);
+
+      {
+        struct _ssDWorkRecord *dWorkRecord = (struct _ssDWorkRecord *)
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn9.dWork;
+        ssSetSFcnDWork(rts, dWorkRecord);
+        _ssSetNumDWork(rts, 1);
+
+        /* IWORK */
+        ssSetDWorkWidth(rts, 0, 3);
+        ssSetDWorkDataType(rts, 0,SS_INTEGER);
+        ssSetDWorkComplexSignal(rts, 0, 0);
+        ssSetDWork(rts, 0, &ball_drop_DWork.PCI6025EDO_IWORK[0]);
+      }
+
+      /* registration */
+      donipcie(rts);
+      sfcnInitializeSizes(rts);
+      sfcnInitializeSampleTimes(rts);
+
+      /* adjust sample time */
+      ssSetSampleTime(rts, 0, 0.001);
+      ssSetOffsetTime(rts, 0, 0.0);
+      sfcnTsMap[0] = 1;
+
+      /* set compiled values of dynamic vector attributes */
+      ssSetNumNonsampledZCs(rts, 0);
+
+      /* Update connectivity flags for each port */
+      _ssSetInputPortConnected(rts, 0, 1);
+      _ssSetInputPortConnected(rts, 1, 1);
+      _ssSetInputPortConnected(rts, 2, 1);
+      _ssSetInputPortConnected(rts, 3, 1);
+
+      /* Update the BufferDstPort flags for each input port */
+      ssSetInputPortBufferDstPort(rts, 0, -1);
+      ssSetInputPortBufferDstPort(rts, 1, -1);
+      ssSetInputPortBufferDstPort(rts, 2, -1);
+      ssSetInputPortBufferDstPort(rts, 3, -1);
+    }
+
+    /* Level2 S-Function Block: ball_drop/<S6>/Send (xpcudpbytesend) */
+    {
+      SimStruct *rts = ball_drop_rtM->childSfunctions[10];
+
+      /* timing info */
+      time_T *sfcnPeriod = ball_drop_rtM->NonInlinedSFcns.Sfcn10.sfcnPeriod;
+      time_T *sfcnOffset = ball_drop_rtM->NonInlinedSFcns.Sfcn10.sfcnOffset;
+      int_T *sfcnTsMap = ball_drop_rtM->NonInlinedSFcns.Sfcn10.sfcnTsMap;
+      (void) memset((void*)sfcnPeriod,0,
+                    sizeof(time_T)*1);
+      (void) memset((void*)sfcnOffset,0,
+                    sizeof(time_T)*1);
+      ssSetSampleTimePtr(rts, &sfcnPeriod[0]);
+      ssSetOffsetTimePtr(rts, &sfcnOffset[0]);
+      ssSetSampleTimeTaskIDPtr(rts, sfcnTsMap);
+
+      /* Set up the mdlInfo pointer */
+      {
+        ssSetBlkInfo2Ptr(rts, &ball_drop_rtM->NonInlinedSFcns.blkInfo2[10]);
+        ssSetRTWSfcnInfo(rts, ball_drop_rtM->sfcnInfo);
+      }
+
+      /* Allocate memory of model methods 2 */
+      {
+        ssSetModelMethods2(rts, &ball_drop_rtM->NonInlinedSFcns.methods2[10]);
+      }
+
+      /* inputs */
+      {
+        _ssSetNumInputPorts(rts, 1);
+        ssSetPortInfoForInputs(rts,
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn10.inputPortInfo[0]);
+
+        /* port 0 */
+        {
+          ssSetInputPortRequiredContiguous(rts, 0, 1);
+          ssSetInputPortSignal(rts, 0, ball_drop_B.RateTransition);
+          _ssSetInputPortNumDimensions(rts, 0, 1);
+          ssSetInputPortWidth(rts, 0, 112);
+        }
+      }
+
+      /* path info */
+      ssSetModelName(rts, "Send");
+      ssSetPath(rts, "ball_drop/UDPXmit/Send");
+      ssSetRTModel(rts,ball_drop_rtM);
+      ssSetParentSS(rts, NULL);
+      ssSetRootSS(rts, rts);
+      ssSetVersion(rts, SIMSTRUCT_VERSION_LEVEL2);
+
+      /* parameters */
+      {
+        mxArray **sfcnParams = (mxArray **)
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn10.params;
+        ssSetSFcnParamsCount(rts, 4);
+        ssSetSFcnParamsPtr(rts, &sfcnParams[0]);
+        ssSetSFcnParam(rts, 0, (mxArray*)&ball_drop_P.Send_P1_Size[0]);
+        ssSetSFcnParam(rts, 1, (mxArray*)&ball_drop_P.Send_P2_Size[0]);
+        ssSetSFcnParam(rts, 2, (mxArray*)&ball_drop_P.Send_P3_Size[0]);
+        ssSetSFcnParam(rts, 3, (mxArray*)&ball_drop_P.Send_P4_Size[0]);
+      }
+
+      /* work vectors */
+      ssSetIWork(rts, (int_T *) &ball_drop_DWork.Send_IWORK[0]);
+      ssSetPWork(rts, (void **) &ball_drop_DWork.Send_PWORK);
+
+      {
+        struct _ssDWorkRecord *dWorkRecord = (struct _ssDWorkRecord *)
+          &ball_drop_rtM->NonInlinedSFcns.Sfcn10.dWork;
+        ssSetSFcnDWork(rts, dWorkRecord);
+        _ssSetNumDWork(rts, 2);
+
+        /* IWORK */
+        ssSetDWorkWidth(rts, 0, 2);
+        ssSetDWorkDataType(rts, 0,SS_INTEGER);
+        ssSetDWorkComplexSignal(rts, 0, 0);
+        ssSetDWork(rts, 0, &ball_drop_DWork.Send_IWORK[0]);
+
+        /* PWORK */
+        ssSetDWorkWidth(rts, 1, 1);
+        ssSetDWorkDataType(rts, 1,SS_POINTER);
+        ssSetDWorkComplexSignal(rts, 1, 0);
+        ssSetDWork(rts, 1, &ball_drop_DWork.Send_PWORK);
+      }
+
+      /* registration */
+      xpcudpbytesend(rts);
+      sfcnInitializeSizes(rts);
+      sfcnInitializeSampleTimes(rts);
+
+      /* adjust sample time */
+      ssSetSampleTime(rts, 0, 0.02);
+      ssSetOffsetTime(rts, 0, 0.0);
+      sfcnTsMap[0] = 2;
+
+      /* set compiled values of dynamic vector attributes */
+      ssSetInputPortWidth(rts, 0, 112);
+      ssSetInputPortDataType(rts, 0, SS_UINT8);
+      ssSetInputPortComplexSignal(rts, 0, 0);
+      ssSetInputPortFrameData(rts, 0, 0);
+      ssSetNumNonsampledZCs(rts, 0);
+
+      /* Update connectivity flags for each port */
+      _ssSetInputPortConnected(rts, 0, 1);
+
+      /* Update the BufferDstPort flags for each input port */
+      ssSetInputPortBufferDstPort(rts, 0, -1);
+    }
   }
 
   ball_drop_PrevZCSigState.SampleandHold.SampleandHold_ZCE = UNINITIALIZED_ZCSIG;
@@ -1832,55 +2094,71 @@ void ball_drop_terminate(void)
 {
   /* Level2 S-Function Block: '<Root>/PCI-6025E DI' (dinipcie) */
   {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[0];
+    SimStruct *rts = ball_drop_rtM->childSfunctions[5];
     sfcnTerminate(rts);
   }
 
   /* Level2 S-Function Block: '<S1>/PCI-6025E AD' (adnipcie) */
   {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[1];
+    SimStruct *rts = ball_drop_rtM->childSfunctions[6];
     sfcnTerminate(rts);
   }
 
   /* Level2 S-Function Block: '<Root>/Behavior BD' (mastercon_bd) */
   {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[2];
+    SimStruct *rts = ball_drop_rtM->childSfunctions[7];
     sfcnTerminate(rts);
   }
 
   /* Level2 S-Function Block: '<S2>/ToBits' (Byte2Bits) */
   {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[3];
+    SimStruct *rts = ball_drop_rtM->childSfunctions[8];
     sfcnTerminate(rts);
   }
 
   /* Level2 S-Function Block: '<S2>/PCI-6025E DO' (donipcie) */
   {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[4];
-    sfcnTerminate(rts);
-  }
-
-  /* Level2 S-Function Block: '<Root>/PCI-6025E DO' (donipcie) */
-  {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[5];
+    SimStruct *rts = ball_drop_rtM->childSfunctions[9];
     sfcnTerminate(rts);
   }
 
   /* Level2 S-Function Block: '<S6>/Send' (xpcudpbytesend) */
   {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[6];
+    SimStruct *rts = ball_drop_rtM->childSfunctions[10];
     sfcnTerminate(rts);
   }
 
+  /* Terminate for iterator system: '<Root>/WordSbs' */
+
   /* Level2 S-Function Block: '<S8>/ToBits' (Byte2Bits) */
   {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[7];
+    SimStruct *rts = ball_drop_rtM->childSfunctions[2];
     sfcnTerminate(rts);
   }
 
   /* Level2 S-Function Block: '<S8>/Port A' (dopci8255) */
   {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[8];
+    SimStruct *rts = ball_drop_rtM->childSfunctions[3];
+    sfcnTerminate(rts);
+  }
+
+  /* Level2 S-Function Block: '<S8>/xPC Target  Time ' (xpctimeinfo) */
+  {
+    SimStruct *rts = ball_drop_rtM->childSfunctions[4];
+    sfcnTerminate(rts);
+  }
+
+  /* Terminate for iterator system: '<S8>/Strobe // Reward Delay Subsystem' */
+
+  /* Level2 S-Function Block: '<S14>/xPC Target  Time ' (xpctimeinfo) */
+  {
+    SimStruct *rts = ball_drop_rtM->childSfunctions[0];
+    sfcnTerminate(rts);
+  }
+
+  /* Level2 S-Function Block: '<S14>/PCI-6025E ' (donipcie) */
+  {
+    SimStruct *rts = ball_drop_rtM->childSfunctions[1];
     sfcnTerminate(rts);
   }
 
@@ -1908,9 +2186,9 @@ void MdlInitializeSizes(void)
   ball_drop_rtM->Sizes.numU = (0);     /* Number of model inputs */
   ball_drop_rtM->Sizes.sysDirFeedThru = (0);/* The model is not direct feedthrough */
   ball_drop_rtM->Sizes.numSampTimes = (3);/* Number of sample times */
-  ball_drop_rtM->Sizes.numBlocks = (37);/* Number of blocks */
-  ball_drop_rtM->Sizes.numBlockIO = (43);/* Number of block outputs */
-  ball_drop_rtM->Sizes.numBlockPrms = (197);/* Sum of parameter "widths" */
+  ball_drop_rtM->Sizes.numBlocks = (59);/* Number of blocks */
+  ball_drop_rtM->Sizes.numBlockIO = (55);/* Number of block outputs */
+  ball_drop_rtM->Sizes.numBlockPrms = (219);/* Sum of parameter "widths" */
 }
 
 void MdlInitializeSampleTimes(void)
@@ -1921,7 +2199,7 @@ void MdlInitialize(void)
 {
   /* Level2 S-Function Block: '<Root>/Behavior BD' (mastercon_bd) */
   {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[2];
+    SimStruct *rts = ball_drop_rtM->childSfunctions[7];
     sfcnInitializeConditions(rts);
     if (ssGetErrorStatus(rts) != NULL)
       return;
@@ -1932,7 +2210,7 @@ void MdlStart(void)
 {
   /* Level2 S-Function Block: '<Root>/PCI-6025E DI' (dinipcie) */
   {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[0];
+    SimStruct *rts = ball_drop_rtM->childSfunctions[5];
     sfcnStart(rts);
     if (ssGetErrorStatus(rts) != NULL)
       return;
@@ -1940,7 +2218,7 @@ void MdlStart(void)
 
   /* Level2 S-Function Block: '<S1>/PCI-6025E AD' (adnipcie) */
   {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[1];
+    SimStruct *rts = ball_drop_rtM->childSfunctions[6];
     sfcnStart(rts);
     if (ssGetErrorStatus(rts) != NULL)
       return;
@@ -1948,45 +2226,7 @@ void MdlStart(void)
 
   /* Level2 S-Function Block: '<S2>/PCI-6025E DO' (donipcie) */
   {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[4];
-    sfcnStart(rts);
-    if (ssGetErrorStatus(rts) != NULL)
-      return;
-  }
-
-  /*trigger Subsystem Block: '<S11>/Sample and Hold' */
-  ball_drop_SampleandHold_Start(&ball_drop_B.SampleandHold,
-    (rtP_SampleandHold_ball_drop *) &ball_drop_P.SampleandHold);
-
-  /* UniformRandomNumber Block: '<S3>/Uniform Random Number' */
-  {
-    uint32_T *RandSeed = (uint32_T *)
-      &ball_drop_DWork.UniformRandomNumber_IWORK.RandSeed;
-    uint32_T r, t;
-    *RandSeed = (uint32_T)ball_drop_P.UniformRandomNumber_Seed;
-    r = *RandSeed >> 16;
-    t = *RandSeed & RT_BIT16;
-    *RandSeed = ((*RandSeed - (r << 16) - t) << 16) + t + r;
-    if (*RandSeed < 1) {
-      *RandSeed = SEED0;
-    }
-
-    if (*RandSeed > MAXSEED) {
-      *RandSeed = MAXSEED;
-    }
-
-    ball_drop_DWork.UniformRandomNumber_RWORK.NextOutput
-      = rt_Urand(RandSeed++) * (ball_drop_P.UniformRandomNumber_Max -
-      ball_drop_P.UniformRandomNumber_Min) + ball_drop_P.UniformRandomNumber_Min;
-  }
-
-  /*trigger Subsystem Block: '<S3>/Sample and Hold' */
-  ball_drop_SampleandHold_Start(&ball_drop_B.SampleandHold_i,
-    (rtP_SampleandHold_ball_drop *) &ball_drop_P.SampleandHold_i);
-
-  /* Level2 S-Function Block: '<Root>/PCI-6025E DO' (donipcie) */
-  {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[5];
+    SimStruct *rts = ball_drop_rtM->childSfunctions[9];
     sfcnStart(rts);
     if (ssGetErrorStatus(rts) != NULL)
       return;
@@ -2069,7 +2309,7 @@ void MdlStart(void)
 
   /* Level2 S-Function Block: '<S6>/Send' (xpcudpbytesend) */
   {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[6];
+    SimStruct *rts = ball_drop_rtM->childSfunctions[10];
     sfcnStart(rts);
     if (ssGetErrorStatus(rts) != NULL)
       return;
@@ -2114,14 +2354,6 @@ void MdlStart(void)
     }
   }
 
-  /* Level2 S-Function Block: '<S8>/Port A' (dopci8255) */
-  {
-    SimStruct *rts = ball_drop_rtM->childSfunctions[8];
-    sfcnStart(rts);
-    if (ssGetErrorStatus(rts) != NULL)
-      return;
-  }
-
   /* S-Function Block: <S9>/S-Function (scblock) */
   {
     int i;
@@ -2155,6 +2387,60 @@ void MdlStart(void)
     }
   }
 
+  /*trigger Subsystem Block: '<S11>/Sample and Hold' */
+  ball_drop_SampleandHold_Start(&ball_drop_B.SampleandHold,
+    (rtP_SampleandHold_ball_drop *) &ball_drop_P.SampleandHold);
+
+  /* UniformRandomNumber Block: '<S3>/Uniform Random Number' */
+  {
+    uint32_T *RandSeed = (uint32_T *)
+      &ball_drop_DWork.UniformRandomNumber_IWORK.RandSeed;
+    uint32_T r, t;
+    *RandSeed = (uint32_T)ball_drop_P.UniformRandomNumber_Seed;
+    r = *RandSeed >> 16;
+    t = *RandSeed & RT_BIT16;
+    *RandSeed = ((*RandSeed - (r << 16) - t) << 16) + t + r;
+    if (*RandSeed < 1) {
+      *RandSeed = SEED0;
+    }
+
+    if (*RandSeed > MAXSEED) {
+      *RandSeed = MAXSEED;
+    }
+
+    ball_drop_DWork.UniformRandomNumber_RWORK.NextOutput
+      = rt_Urand(RandSeed++) * (ball_drop_P.UniformRandomNumber_Max -
+      ball_drop_P.UniformRandomNumber_Min) + ball_drop_P.UniformRandomNumber_Min;
+  }
+
+  /*trigger Subsystem Block: '<S3>/Sample and Hold' */
+  ball_drop_SampleandHold_Start(&ball_drop_B.SampleandHold_i,
+    (rtP_SampleandHold_ball_drop *) &ball_drop_P.SampleandHold_i);
+
+  /* Start for iterator system: '<Root>/WordSbs' */
+
+  /* Level2 S-Function Block: '<S8>/Port A' (dopci8255) */
+  {
+    SimStruct *rts = ball_drop_rtM->childSfunctions[3];
+    sfcnStart(rts);
+    if (ssGetErrorStatus(rts) != NULL)
+      return;
+  }
+
+  /* Start for iterator system: '<S8>/Strobe // Reward Delay Subsystem' */
+
+  /* Level2 S-Function Block: '<S14>/PCI-6025E ' (donipcie) */
+  {
+    SimStruct *rts = ball_drop_rtM->childSfunctions[1];
+    sfcnStart(rts);
+    if (ssGetErrorStatus(rts) != NULL)
+      return;
+  }
+
+  /* Initial conditions for iterator system: '<Root>/WordSbs' */
+
+  /* InitializeConditions for UnitDelay: '<S13>/Delay Input1' */
+  ball_drop_DWork.DelayInput1_DSTATE = ball_drop_P.DelayInput1_X0;
   ball_drop_DWork.SampleandHold_i.SampleandHold_SubsysRanBC =
     SUBSYS_RAN_BC_DISABLE;
   ball_drop_DWork.SampleandHold.SampleandHold_SubsysRanBC =

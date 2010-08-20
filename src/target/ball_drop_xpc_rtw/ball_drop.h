@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "ball_drop.mdl".
  *
- * Model Version              : 1.95
- * Real-Time Workshop version : 6.6.1  (R2007a+)  13-Mar-2007
- * C source code generated on : Thu Jan 21 14:00:48 2010
+ * Model Version              : 1.117
+ * Real-Time Workshop version : 6.6  (R2007a)  01-Feb-2007
+ * C source code generated on : Thu Aug 19 16:14:26 2010
  */
 #ifndef _RTW_HEADER_ball_drop_h_
 #define _RTW_HEADER_ball_drop_h_
@@ -822,6 +822,8 @@ typedef struct {
   real_T Switch_h;                     /* '<S3>/Switch' */
   real_T HiddenBuf_InsertedFor_Samplea_c;/* 'synthesized block' */
   real_T DataTypeConversion;           /* '<S3>/Data Type Conversion' */
+  real_T ForIterator;                  /* '<S8>/For Iterator' */
+  real_T Switch_e;                     /* '<S8>/Switch' */
   real_T ToBits_o1_i;                  /* '<S8>/ToBits' */
   real_T ToBits_o2_h;                  /* '<S8>/ToBits' */
   real_T ToBits_o3_d;                  /* '<S8>/ToBits' */
@@ -830,10 +832,20 @@ typedef struct {
   real_T ToBits_o6_i;                  /* '<S8>/ToBits' */
   real_T ToBits_o7_p;                  /* '<S8>/ToBits' */
   real_T ToBits_o8_h;                  /* '<S8>/ToBits' */
+  real_T xPCTargetTime;                /* '<S8>/xPC Target  Time ' */
+  real_T Uk1;                          /* '<S13>/Delay Input1' */
+  real_T xPCTargetTime_f;              /* '<S14>/xPC Target  Time ' */
+  real_T Subtract;                     /* '<S14>/Subtract' */
+  real_T ScaleTouSec;                  /* '<S14>/ScaleTouSec' */
+  real_T Switch_g;                     /* '<S14>/Switch' */
+  real_T DataTypeConversion_g;         /* '<S14>/Data Type Conversion' */
   uint8_T Pack[112];                   /* '<S6>/Pack' */
   uint8_T RateTransition[112];         /* '<S6>/Rate Transition' */
+  uint8_T FixPtRelationalOperator;     /* '<S13>/FixPt Relational Operator' */
   boolean_T RelationalOperator;        /* '<S3>/Relational Operator' */
   boolean_T RelationalOperator_c;      /* '<S11>/Relational Operator' */
+  boolean_T Compare;                   /* '<S16>/Compare' */
+  boolean_T Compare_f;                 /* '<S15>/Compare' */
   rtB_SampleandHold_ball_drop SampleandHold;/* '<S11>/Sample and Hold' */
   rtB_SampleandHold_ball_drop SampleandHold_i;/* '<S3>/Sample and Hold' */
 } BlockIO_ball_drop;
@@ -841,22 +853,19 @@ typedef struct {
 /* Block states (auto storage) for system '<Root>' */
 typedef struct {
   real_T BehaviorBD_DSTATE;            /* '<Root>/Behavior BD' */
+  real_T DelayInput1_DSTATE;           /* '<S13>/Delay Input1' */
   real_T PCI6025EAD_RWORK[64];         /* '<S1>/PCI-6025E AD' */
-  real_T BehaviorBD_RWORK[10];         /* '<Root>/Behavior BD' */
+  real_T BehaviorBD_RWORK[6];          /* '<Root>/Behavior BD' */
   struct {
     real_T NextOutput;
   } UniformRandomNumber_RWORK;         /* '<S3>/Uniform Random Number' */
 
+  void *BehaviorBD_PWORK;              /* '<Root>/Behavior BD' */
   void *Send_PWORK;                    /* '<S6>/Send' */
   int_T PCI6025EDI_IWORK[3];           /* '<Root>/PCI-6025E DI' */
   int_T PCI6025EAD_IWORK[66];          /* '<S1>/PCI-6025E AD' */
-  int_T BehaviorBD_IWORK[6];           /* '<Root>/Behavior BD' */
+  int_T BehaviorBD_IWORK[9];           /* '<Root>/Behavior BD' */
   int_T PCI6025EDO_IWORK[3];           /* '<S2>/PCI-6025E DO' */
-  struct {
-    int_T RandSeed;
-  } UniformRandomNumber_IWORK;         /* '<S3>/Uniform Random Number' */
-
-  int_T PCI6025EDO_IWORK_a[3];         /* '<Root>/PCI-6025E DO' */
   struct {
     int_T AcquireOK;
   } SFunction_IWORK;                   /* '<S4>/S-Function' */
@@ -870,11 +879,16 @@ typedef struct {
     int_T AcquireOK;
   } SFunction_IWORK_j;                 /* '<S7>/S-Function' */
 
-  int_T PortA_IWORK[2];                /* '<S8>/Port A' */
   struct {
     int_T AcquireOK;
   } SFunction_IWORK_i;                 /* '<S9>/S-Function' */
 
+  struct {
+    int_T RandSeed;
+  } UniformRandomNumber_IWORK;         /* '<S3>/Uniform Random Number' */
+
+  int_T PortA_IWORK[2];                /* '<S8>/Port A' */
+  int_T PCI6025E_IWORK[3];             /* '<S14>/PCI-6025E ' */
   rtDW_SampleandHold_ball_drop SampleandHold;/* '<S11>/Sample and Hold' */
   rtDW_SampleandHold_ball_drop SampleandHold_i;/* '<S3>/Sample and Hold' */
 } D_Work_ball_drop;
@@ -1082,60 +1096,6 @@ struct Parameters_ball_drop {
   real_T PCI6025EDO_P7;                /* Expression: boardType
                                         * '<S2>/PCI-6025E DO'
                                         */
-  real_T UniformRandomNumber_Min;      /* Expression: 0
-                                        * '<S3>/Uniform Random Number'
-                                        */
-  real_T UniformRandomNumber_Max;      /* Expression: 100
-                                        * '<S3>/Uniform Random Number'
-                                        */
-  real_T UniformRandomNumber_Seed;     /* Expression: 0
-                                        * '<S3>/Uniform Random Number'
-                                        */
-  real_T JackpotChance_Value;          /* Expression: 0
-                                        * '<S3>/JackpotChance'
-                                        */
-  real_T PCI6025EDO_P1_Size_h[2];      /* Computed Parameter: P1Size
-                                        * '<Root>/PCI-6025E DO'
-                                        */
-  real_T PCI6025EDO_P1_h;              /* Expression: channel
-                                        * '<Root>/PCI-6025E DO'
-                                        */
-  real_T PCI6025EDO_P2_Size_f[2];      /* Computed Parameter: P2Size
-                                        * '<Root>/PCI-6025E DO'
-                                        */
-  real_T PCI6025EDO_P2_i;              /* Expression: reset
-                                        * '<Root>/PCI-6025E DO'
-                                        */
-  real_T PCI6025EDO_P3_Size_n[2];      /* Computed Parameter: P3Size
-                                        * '<Root>/PCI-6025E DO'
-                                        */
-  real_T PCI6025EDO_P3_b;              /* Expression: initValue
-                                        * '<Root>/PCI-6025E DO'
-                                        */
-  real_T PCI6025EDO_P4_Size_j[2];      /* Computed Parameter: P4Size
-                                        * '<Root>/PCI-6025E DO'
-                                        */
-  real_T PCI6025EDO_P4_c;              /* Expression: sampletime
-                                        * '<Root>/PCI-6025E DO'
-                                        */
-  real_T PCI6025EDO_P5_Size_p[2];      /* Computed Parameter: P5Size
-                                        * '<Root>/PCI-6025E DO'
-                                        */
-  real_T PCI6025EDO_P5_k;              /* Expression: slot
-                                        * '<Root>/PCI-6025E DO'
-                                        */
-  real_T PCI6025EDO_P6_Size_n[2];      /* Computed Parameter: P6Size
-                                        * '<Root>/PCI-6025E DO'
-                                        */
-  real_T PCI6025EDO_P6_k;              /* Expression: control
-                                        * '<Root>/PCI-6025E DO'
-                                        */
-  real_T PCI6025EDO_P7_Size_p[2];      /* Computed Parameter: P7Size
-                                        * '<Root>/PCI-6025E DO'
-                                        */
-  real_T PCI6025EDO_P7_c;              /* Expression: boardType
-                                        * '<Root>/PCI-6025E DO'
-                                        */
   real_T Pos_Value;                    /* Expression: 0
                                         * '<S6>/Pos'
                                         */
@@ -1162,6 +1122,96 @@ struct Parameters_ball_drop {
                                         */
   real_T Send_P4;                      /* Expression: sampletime
                                         * '<S6>/Send'
+                                        */
+  real_T UniformRandomNumber_Min;      /* Expression: 0
+                                        * '<S3>/Uniform Random Number'
+                                        */
+  real_T UniformRandomNumber_Max;      /* Expression: 100
+                                        * '<S3>/Uniform Random Number'
+                                        */
+  real_T UniformRandomNumber_Seed;     /* Expression: 0
+                                        * '<S3>/Uniform Random Number'
+                                        */
+  real_T JackpotChance_Value;          /* Expression: 0
+                                        * '<S3>/JackpotChance'
+                                        */
+  real_T RewardJackpot_Value;          /* Expression: 0.60
+                                        * '<S3>/RewardJackpot'
+                                        */
+  real_T RewardTime_Value;             /* Expression: 0.30
+                                        * '<S3>/RewardTime'
+                                        */
+  real_T Constant_Value_f;             /* Expression: 0
+                                        * '<S8>/Constant'
+                                        */
+  real_T Constant1_Value_h;            /* Expression: 0
+                                        * '<S14>/Constant1'
+                                        */
+  real_T xPCTargetTime_P1_Size[2];     /* Computed Parameter: P1Size
+                                        * '<S14>/xPC Target  Time '
+                                        */
+  real_T xPCTargetTime_P1;             /* Expression: func
+                                        * '<S14>/xPC Target  Time '
+                                        */
+  real_T xPCTargetTime_P2_Size[2];     /* Computed Parameter: P2Size
+                                        * '<S14>/xPC Target  Time '
+                                        */
+  real_T xPCTargetTime_P2;             /* Expression: ts
+                                        * '<S14>/xPC Target  Time '
+                                        */
+  real_T ScaleTouSec_Gain;             /* Expression: .838
+                                        * '<S14>/ScaleTouSec'
+                                        */
+  real_T Constant_Value_n;             /* Expression: const
+                                        * '<S16>/Constant'
+                                        */
+  real_T PCI6025E_P1_Size[2];          /* Computed Parameter: P1Size
+                                        * '<S14>/PCI-6025E '
+                                        */
+  real_T PCI6025E_P1[2];               /* Expression: channel
+                                        * '<S14>/PCI-6025E '
+                                        */
+  real_T PCI6025E_P2_Size[2];          /* Computed Parameter: P2Size
+                                        * '<S14>/PCI-6025E '
+                                        */
+  real_T PCI6025E_P2[2];               /* Expression: reset
+                                        * '<S14>/PCI-6025E '
+                                        */
+  real_T PCI6025E_P3_Size[2];          /* Computed Parameter: P3Size
+                                        * '<S14>/PCI-6025E '
+                                        */
+  real_T PCI6025E_P3[2];               /* Expression: initValue
+                                        * '<S14>/PCI-6025E '
+                                        */
+  real_T PCI6025E_P4_Size[2];          /* Computed Parameter: P4Size
+                                        * '<S14>/PCI-6025E '
+                                        */
+  real_T PCI6025E_P4;                  /* Expression: sampletime
+                                        * '<S14>/PCI-6025E '
+                                        */
+  real_T PCI6025E_P5_Size[2];          /* Computed Parameter: P5Size
+                                        * '<S14>/PCI-6025E '
+                                        */
+  real_T PCI6025E_P5;                  /* Expression: slot
+                                        * '<S14>/PCI-6025E '
+                                        */
+  real_T PCI6025E_P6_Size[2];          /* Computed Parameter: P6Size
+                                        * '<S14>/PCI-6025E '
+                                        */
+  real_T PCI6025E_P6;                  /* Expression: control
+                                        * '<S14>/PCI-6025E '
+                                        */
+  real_T PCI6025E_P7_Size[2];          /* Computed Parameter: P7Size
+                                        * '<S14>/PCI-6025E '
+                                        */
+  real_T PCI6025E_P7;                  /* Expression: boardType
+                                        * '<S14>/PCI-6025E '
+                                        */
+  real_T Constant_Value_a;             /* Expression: const
+                                        * '<S15>/Constant'
+                                        */
+  real_T Switch_Threshold_j;           /* Expression: 2
+                                        * '<S8>/Switch'
                                         */
   real_T PortA_P1_Size[2];             /* Computed Parameter: P1Size
                                         * '<S8>/Port A'
@@ -1217,11 +1267,20 @@ struct Parameters_ball_drop {
   real_T PortA_P9;                     /* Expression: boardType
                                         * '<S8>/Port A'
                                         */
-  real_T RewardJackpot_Value;          /* Expression: 0.60
-                                        * '<S3>/RewardJackpot'
+  real_T xPCTargetTime_P1_Size_a[2];   /* Computed Parameter: P1Size
+                                        * '<S8>/xPC Target  Time '
                                         */
-  real_T RewardTime_Value;             /* Expression: 0.30
-                                        * '<S3>/RewardTime'
+  real_T xPCTargetTime_P1_f;           /* Expression: func
+                                        * '<S8>/xPC Target  Time '
+                                        */
+  real_T xPCTargetTime_P2_Size_c[2];   /* Computed Parameter: P2Size
+                                        * '<S8>/xPC Target  Time '
+                                        */
+  real_T xPCTargetTime_P2_c;           /* Expression: ts
+                                        * '<S8>/xPC Target  Time '
+                                        */
+  real_T DelayInput1_X0;               /* Expression: vinit
+                                        * '<S13>/Delay Input1'
                                         */
   rtP_SampleandHold_ball_drop SampleandHold;/* '<S3>/Sample and Hold' */
   rtP_SampleandHold_ball_drop SampleandHold_i;/* '<S3>/Sample and Hold' */
@@ -1247,29 +1306,18 @@ struct rtModel_ball_drop {
    */
   struct {
     RTWSfcnInfo sfcnInfo;
-    SimStruct childSFunctions[9];
-    SimStruct *childSFunctionPtrs[9];
-    struct _ssBlkInfo2 blkInfo2[9];
-    struct _ssSFcnModelMethods2 methods2[9];
+    SimStruct childSFunctions[11];
+    SimStruct *childSFunctionPtrs[11];
+    struct _ssBlkInfo2 blkInfo2[11];
+    struct _ssSFcnModelMethods2 methods2[11];
     struct {
       time_T sfcnPeriod[1];
       time_T sfcnOffset[1];
       int_T sfcnTsMap[1];
       struct _ssPortOutputs outputPortInfo[1];
-      uint_T attribs[5];
-      mxArray *params[5];
-      struct _ssDWorkRecord dWork[1];
+      uint_T attribs[2];
+      mxArray *params[2];
     } Sfcn0;
-
-    struct {
-      time_T sfcnPeriod[1];
-      time_T sfcnOffset[1];
-      int_T sfcnTsMap[1];
-      struct _ssPortOutputs outputPortInfo[2];
-      uint_T attribs[6];
-      mxArray *params[6];
-      struct _ssDWorkRecord dWork[2];
-    } Sfcn1;
 
     struct {
       time_T sfcnPeriod[1];
@@ -1277,56 +1325,11 @@ struct rtModel_ball_drop {
       int_T sfcnTsMap[1];
       struct _ssPortInputs inputPortInfo[2];
       real_T const *UPtrs0[1];
-      real_T const *UPtrs1[2];
-      struct _ssPortOutputs outputPortInfo[9];
-      uint_T attribs[9];
-      mxArray *params[9];
-      struct _ssDWorkRecord dWork[3];
-    } Sfcn2;
-
-    struct {
-      time_T sfcnPeriod[1];
-      time_T sfcnOffset[1];
-      int_T sfcnTsMap[1];
-      struct _ssPortInputs inputPortInfo[1];
-      real_T const *UPtrs0[1];
-      struct _ssPortOutputs outputPortInfo[8];
-    } Sfcn3;
-
-    struct {
-      time_T sfcnPeriod[1];
-      time_T sfcnOffset[1];
-      int_T sfcnTsMap[1];
-      struct _ssPortInputs inputPortInfo[4];
-      real_T const *UPtrs0[1];
       real_T const *UPtrs1[1];
-      real_T const *UPtrs2[1];
-      real_T const *UPtrs3[1];
       uint_T attribs[7];
       mxArray *params[7];
       struct _ssDWorkRecord dWork[1];
-    } Sfcn4;
-
-    struct {
-      time_T sfcnPeriod[1];
-      time_T sfcnOffset[1];
-      int_T sfcnTsMap[1];
-      struct _ssPortInputs inputPortInfo[1];
-      real_T const *UPtrs0[1];
-      uint_T attribs[7];
-      mxArray *params[7];
-      struct _ssDWorkRecord dWork[1];
-    } Sfcn5;
-
-    struct {
-      time_T sfcnPeriod[1];
-      time_T sfcnOffset[1];
-      int_T sfcnTsMap[1];
-      struct _ssPortInputs inputPortInfo[1];
-      uint_T attribs[4];
-      mxArray *params[4];
-      struct _ssDWorkRecord dWork[2];
-    } Sfcn6;
+    } Sfcn1;
 
     struct {
       time_T sfcnPeriod[1];
@@ -1335,7 +1338,7 @@ struct rtModel_ball_drop {
       struct _ssPortInputs inputPortInfo[1];
       real_T const *UPtrs0[1];
       struct _ssPortOutputs outputPortInfo[8];
-    } Sfcn7;
+    } Sfcn2;
 
     struct {
       time_T sfcnPeriod[1];
@@ -1353,7 +1356,82 @@ struct rtModel_ball_drop {
       uint_T attribs[9];
       mxArray *params[9];
       struct _ssDWorkRecord dWork[1];
+    } Sfcn3;
+
+    struct {
+      time_T sfcnPeriod[1];
+      time_T sfcnOffset[1];
+      int_T sfcnTsMap[1];
+      struct _ssPortOutputs outputPortInfo[1];
+      uint_T attribs[2];
+      mxArray *params[2];
+    } Sfcn4;
+
+    struct {
+      time_T sfcnPeriod[1];
+      time_T sfcnOffset[1];
+      int_T sfcnTsMap[1];
+      struct _ssPortOutputs outputPortInfo[1];
+      uint_T attribs[5];
+      mxArray *params[5];
+      struct _ssDWorkRecord dWork[1];
+    } Sfcn5;
+
+    struct {
+      time_T sfcnPeriod[1];
+      time_T sfcnOffset[1];
+      int_T sfcnTsMap[1];
+      struct _ssPortOutputs outputPortInfo[2];
+      uint_T attribs[6];
+      mxArray *params[6];
+      struct _ssDWorkRecord dWork[2];
+    } Sfcn6;
+
+    struct {
+      time_T sfcnPeriod[1];
+      time_T sfcnOffset[1];
+      int_T sfcnTsMap[1];
+      struct _ssPortInputs inputPortInfo[2];
+      real_T const *UPtrs0[1];
+      real_T const *UPtrs1[2];
+      struct _ssPortOutputs outputPortInfo[9];
+      uint_T attribs[9];
+      mxArray *params[9];
+      struct _ssDWorkRecord dWork[4];
+    } Sfcn7;
+
+    struct {
+      time_T sfcnPeriod[1];
+      time_T sfcnOffset[1];
+      int_T sfcnTsMap[1];
+      struct _ssPortInputs inputPortInfo[1];
+      real_T const *UPtrs0[1];
+      struct _ssPortOutputs outputPortInfo[8];
     } Sfcn8;
+
+    struct {
+      time_T sfcnPeriod[1];
+      time_T sfcnOffset[1];
+      int_T sfcnTsMap[1];
+      struct _ssPortInputs inputPortInfo[4];
+      real_T const *UPtrs0[1];
+      real_T const *UPtrs1[1];
+      real_T const *UPtrs2[1];
+      real_T const *UPtrs3[1];
+      uint_T attribs[7];
+      mxArray *params[7];
+      struct _ssDWorkRecord dWork[1];
+    } Sfcn9;
+
+    struct {
+      time_T sfcnPeriod[1];
+      time_T sfcnOffset[1];
+      int_T sfcnTsMap[1];
+      struct _ssPortInputs inputPortInfo[1];
+      uint_T attribs[4];
+      mxArray *params[4];
+      struct _ssDWorkRecord dWork[2];
+    } Sfcn10;
   } NonInlinedSFcns;
 
   /*
@@ -1523,5 +1601,9 @@ extern rtModel_ball_drop *ball_drop_rtM;
  * '<S10>'  : ball_drop/RewardSbs/Sample and Hold
  * '<S11>'  : ball_drop/RewardSbs/Schmidt
  * '<S12>'  : ball_drop/RewardSbs/Schmidt/Sample and Hold
+ * '<S13>'  : ball_drop/WordSbs/Detect Change
+ * '<S14>'  : ball_drop/WordSbs/Strobe // Reward Delay Subsystem
+ * '<S15>'  : ball_drop/WordSbs/Strobe // Reward Delay Subsystem/Compare To Constant
+ * '<S16>'  : ball_drop/WordSbs/Strobe // Reward Delay Subsystem/Compare To Constant1
  */
 #endif                                 /* _RTW_HEADER_ball_drop_h_ */

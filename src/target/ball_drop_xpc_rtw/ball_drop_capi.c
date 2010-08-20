@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "ball_drop.mdl".
  *
- * Model Version              : 1.95
- * Real-Time Workshop version : 6.6.1  (R2007a+)  13-Mar-2007
- * C source code generated on : Thu Jan 21 14:00:48 2010
+ * Model Version              : 1.117
+ * Real-Time Workshop version : 6.6  (R2007a)  01-Feb-2007
+ * C source code generated on : Thu Aug 19 16:14:26 2010
  */
 
 #include "ball_drop.h"
@@ -101,44 +101,82 @@ static const rtwCAPI_Signals rtBlockSignals[] = {
   { 27, 0, "UDPXmit/Pack",
     "", 0, 2, 5, 0, 0 },
 
-  { 28, 0, "WordSbs/ToBits/p1",
-    "", 0, 0, 0, 0, 0 },
-
-  { 29, 0, "WordSbs/ToBits/p2",
-    "", 1, 0, 0, 0, 0 },
-
-  { 30, 0, "WordSbs/ToBits/p3",
-    "", 2, 0, 0, 0, 0 },
-
-  { 31, 0, "WordSbs/ToBits/p4",
-    "", 3, 0, 0, 0, 0 },
-
-  { 32, 0, "WordSbs/ToBits/p5",
-    "", 4, 0, 0, 0, 0 },
-
-  { 33, 0, "WordSbs/ToBits/p6",
-    "", 5, 0, 0, 0, 0 },
-
-  { 34, 0, "WordSbs/ToBits/p7",
-    "", 6, 0, 0, 0, 0 },
-
-  { 35, 0, "WordSbs/ToBits/p8",
-    "", 7, 0, 0, 0, 0 },
-
-  { 36, 3, "RewardSbs/Sample and Hold/In",
+  { 28, 9, "WordSbs/For Iterator",
     "", 0, 0, 0, 0, 3 },
 
-  { 37, 0, "RewardSbs/Schmidt/Clock",
+  { 29, 9, "WordSbs/ToBits/p1",
+    "", 0, 0, 0, 0, 3 },
+
+  { 30, 9, "WordSbs/ToBits/p2",
+    "", 1, 0, 0, 0, 3 },
+
+  { 31, 9, "WordSbs/ToBits/p3",
+    "", 2, 0, 0, 0, 3 },
+
+  { 32, 9, "WordSbs/ToBits/p4",
+    "", 3, 0, 0, 0, 3 },
+
+  { 33, 9, "WordSbs/ToBits/p5",
+    "", 4, 0, 0, 0, 3 },
+
+  { 34, 9, "WordSbs/ToBits/p6",
+    "", 5, 0, 0, 0, 3 },
+
+  { 35, 9, "WordSbs/ToBits/p7",
+    "", 6, 0, 0, 0, 3 },
+
+  { 36, 9, "WordSbs/ToBits/p8",
+    "", 7, 0, 0, 0, 3 },
+
+  { 37, 9, "WordSbs/xPC Target  Time ",
+    "", 0, 0, 0, 0, 3 },
+
+  { 38, 9, "WordSbs/Switch",
+    "", 0, 0, 0, 0, 3 },
+
+  { 39, 3, "RewardSbs/Sample and Hold/In",
+    "", 0, 0, 0, 0, 3 },
+
+  { 40, 0, "RewardSbs/Schmidt/Clock",
     "", 0, 0, 0, 0, 1 },
 
-  { 38, 0, "RewardSbs/Schmidt/Relational Operator",
+  { 41, 0, "RewardSbs/Schmidt/Relational Operator",
     "", 0, 1, 0, 0, 1 },
 
-  { 39, 0, "RewardSbs/Schmidt/Sum",
+  { 42, 0, "RewardSbs/Schmidt/Sum",
     "", 0, 0, 0, 0, 1 },
 
-  { 40, 4, "RewardSbs/Schmidt/Sample and Hold/In",
+  { 43, 7, "WordSbs/Detect Change/FixPt Relational Operator",
+    "", 0, 2, 0, 0, 3 },
+
+  { 44, 9, "WordSbs/Detect Change/Delay Input1",
+    "U(k-1)", 0, 0, 0, 0, 3 },
+
+  { 45, 7, "WordSbs/Strobe // Reward Delay Subsystem/Data Type Conversion",
     "", 0, 0, 0, 0, 3 },
+
+  { 46, 8, "WordSbs/Strobe // Reward Delay Subsystem/ScaleTouSec",
+    "", 0, 0, 0, 0, 3 },
+
+  { 47, 8, "WordSbs/Strobe // Reward Delay Subsystem/xPC Target  Time ",
+    "", 0, 0, 0, 0, 3 },
+
+  { 48, 8, "WordSbs/Strobe // Reward Delay Subsystem/Subtract",
+    "", 0, 0, 0, 0, 3 },
+
+  { 49, 8, "WordSbs/Strobe // Reward Delay Subsystem/Switch",
+    "", 0, 0, 0, 0, 3 },
+
+  { 50, 4, "RewardSbs/Schmidt/Sample and Hold/In",
+    "", 0, 0, 0, 0, 3 },
+
+  { 51, 8,
+    "WordSbs/Strobe // Reward Delay Subsystem/Compare To Constant/Compare",
+    "", 0, 1, 0, 0, 3 },
+
+  { 52, 8,
+    "WordSbs/Strobe // Reward Delay Subsystem/Compare To Constant1/Compare",
+    "", 0, 1, 0, 0, 3 },
 
   {
     0, 0, NULL, NULL, 0, 0, 0, 0, 0
@@ -150,179 +188,213 @@ static const rtwCAPI_BlockParameters rtBlockParameters[] = {
   /* addrMapIndex, blockPath,
    * paramName, dataTypeIndex, dimIndex, fixPtIdx
    */
-  { 41, "Behavior BD",
+  { 53, "Behavior BD",
     "P1", 0, 0, 0 },
 
-  { 42, "Behavior BD",
+  { 54, "Behavior BD",
     "P2", 0, 0, 0 },
 
-  { 43, "Behavior BD",
+  { 55, "Behavior BD",
     "P3", 0, 0, 0 },
 
-  { 44, "Behavior BD",
+  { 56, "Behavior BD",
     "P4", 0, 0, 0 },
 
-  { 45, "Behavior BD",
+  { 57, "Behavior BD",
     "P5", 0, 0, 0 },
 
-  { 46, "Behavior BD",
+  { 58, "Behavior BD",
     "P6", 0, 0, 0 },
 
-  { 47, "Behavior BD",
+  { 59, "Behavior BD",
     "P7", 0, 0, 0 },
 
-  { 48, "Behavior BD",
+  { 60, "Behavior BD",
     "P8", 0, 0, 0 },
 
-  { 49, "Behavior BD",
+  { 61, "Behavior BD",
     "P9", 0, 0, 0 },
 
-  { 50, "PCI-6025E DI",
+  { 62, "PCI-6025E DI",
     "P1", 0, 0, 0 },
 
-  { 51, "PCI-6025E DI",
+  { 63, "PCI-6025E DI",
     "P2", 0, 0, 0 },
 
-  { 52, "PCI-6025E DI",
+  { 64, "PCI-6025E DI",
     "P3", 0, 0, 0 },
 
-  { 53, "PCI-6025E DI",
+  { 65, "PCI-6025E DI",
     "P4", 0, 0, 0 },
 
-  { 54, "PCI-6025E DI",
+  { 66, "PCI-6025E DI",
     "P5", 0, 0, 0 },
 
-  { 55, "PCI-6025E DO",
-    "P1", 0, 0, 0 },
-
-  { 56, "PCI-6025E DO",
-    "P2", 0, 0, 0 },
-
-  { 57, "PCI-6025E DO",
-    "P3", 0, 0, 0 },
-
-  { 58, "PCI-6025E DO",
-    "P4", 0, 0, 0 },
-
-  { 59, "PCI-6025E DO",
-    "P5", 0, 0, 0 },
-
-  { 60, "PCI-6025E DO",
-    "P6", 0, 0, 0 },
-
-  { 61, "PCI-6025E DO",
-    "P7", 0, 0, 0 },
-
-  { 62, "Ball sensors/Constant",
+  { 67, "Ball sensors/Constant",
     "Value", 0, 0, 0 },
 
-  { 63, "Ball sensors/Constant1",
+  { 68, "Ball sensors/Constant1",
     "Value", 0, 0, 0 },
-
-  { 64, "Ball sensors/PCI-6025E AD",
-    "P1", 0, 6, 0 },
-
-  { 65, "Ball sensors/PCI-6025E AD",
-    "P2", 0, 6, 0 },
-
-  { 66, "Ball sensors/PCI-6025E AD",
-    "P3", 0, 6, 0 },
-
-  { 67, "Ball sensors/PCI-6025E AD",
-    "P4", 0, 0, 0 },
-
-  { 68, "Ball sensors/PCI-6025E AD",
-    "P5", 0, 0, 0 },
 
   { 69, "Ball sensors/PCI-6025E AD",
-    "P6", 0, 0, 0 },
+    "P1", 0, 6, 0 },
 
-  { 70, "Ball sensors/Switch",
-    "Threshold", 0, 0, 0 },
+  { 70, "Ball sensors/PCI-6025E AD",
+    "P2", 0, 6, 0 },
 
-  { 71, "Ball sensors/Switch1",
-    "Threshold", 0, 0, 0 },
+  { 71, "Ball sensors/PCI-6025E AD",
+    "P3", 0, 6, 0 },
 
-  { 72, "DeviceOutput/PCI-6025E DO",
-    "P1", 0, 7, 0 },
-
-  { 73, "DeviceOutput/PCI-6025E DO",
-    "P2", 0, 7, 0 },
-
-  { 74, "DeviceOutput/PCI-6025E DO",
-    "P3", 0, 7, 0 },
-
-  { 75, "DeviceOutput/PCI-6025E DO",
+  { 72, "Ball sensors/PCI-6025E AD",
     "P4", 0, 0, 0 },
 
-  { 76, "DeviceOutput/PCI-6025E DO",
+  { 73, "Ball sensors/PCI-6025E AD",
     "P5", 0, 0, 0 },
+
+  { 74, "Ball sensors/PCI-6025E AD",
+    "P6", 0, 0, 0 },
+
+  { 75, "Ball sensors/Switch",
+    "Threshold", 0, 0, 0 },
+
+  { 76, "Ball sensors/Switch1",
+    "Threshold", 0, 0, 0 },
 
   { 77, "DeviceOutput/PCI-6025E DO",
-    "P6", 0, 0, 0 },
+    "P1", 0, 7, 0 },
 
   { 78, "DeviceOutput/PCI-6025E DO",
-    "P7", 0, 0, 0 },
+    "P2", 0, 7, 0 },
 
-  { 79, "RewardSbs/JackpotChance",
-    "Value", 0, 0, 0 },
+  { 79, "DeviceOutput/PCI-6025E DO",
+    "P3", 0, 7, 0 },
 
-  { 80, "RewardSbs/RewardJackpot",
-    "Value", 0, 0, 0 },
-
-  { 81, "RewardSbs/RewardTime",
-    "Value", 0, 0, 0 },
-
-  { 82, "RewardSbs/Uniform Random Number",
-    "Minimum", 0, 0, 0 },
-
-  { 83, "RewardSbs/Uniform Random Number",
-    "Maximum", 0, 0, 0 },
-
-  { 84, "RewardSbs/Uniform Random Number",
-    "Seed", 0, 0, 0 },
-
-  { 85, "UDPXmit/Pos",
-    "Value", 0, 0, 0 },
-
-  { 86, "UDPXmit/Send",
-    "P1", 0, 8, 0 },
-
-  { 87, "UDPXmit/Send",
-    "P2", 0, 0, 0 },
-
-  { 88, "UDPXmit/Send",
-    "P3", 0, 0, 0 },
-
-  { 89, "UDPXmit/Send",
+  { 80, "DeviceOutput/PCI-6025E DO",
     "P4", 0, 0, 0 },
 
-  { 90, "WordSbs/Port A",
-    "P1", 0, 9, 0 },
-
-  { 91, "WordSbs/Port A",
-    "P2", 0, 0, 0 },
-
-  { 92, "WordSbs/Port A",
-    "P3", 0, 9, 0 },
-
-  { 93, "WordSbs/Port A",
-    "P4", 0, 9, 0 },
-
-  { 94, "WordSbs/Port A",
+  { 81, "DeviceOutput/PCI-6025E DO",
     "P5", 0, 0, 0 },
 
-  { 95, "WordSbs/Port A",
+  { 82, "DeviceOutput/PCI-6025E DO",
     "P6", 0, 0, 0 },
 
-  { 96, "WordSbs/Port A",
+  { 83, "DeviceOutput/PCI-6025E DO",
     "P7", 0, 0, 0 },
 
+  { 84, "RewardSbs/JackpotChance",
+    "Value", 0, 0, 0 },
+
+  { 85, "RewardSbs/RewardJackpot",
+    "Value", 0, 0, 0 },
+
+  { 86, "RewardSbs/RewardTime",
+    "Value", 0, 0, 0 },
+
+  { 87, "RewardSbs/Uniform Random Number",
+    "Minimum", 0, 0, 0 },
+
+  { 88, "RewardSbs/Uniform Random Number",
+    "Maximum", 0, 0, 0 },
+
+  { 89, "RewardSbs/Uniform Random Number",
+    "Seed", 0, 0, 0 },
+
+  { 90, "UDPXmit/Pos",
+    "Value", 0, 0, 0 },
+
+  { 91, "UDPXmit/Send",
+    "P1", 0, 8, 0 },
+
+  { 92, "UDPXmit/Send",
+    "P2", 0, 0, 0 },
+
+  { 93, "UDPXmit/Send",
+    "P3", 0, 0, 0 },
+
+  { 94, "UDPXmit/Send",
+    "P4", 0, 0, 0 },
+
+  { 95, "WordSbs/Constant",
+    "Value", 0, 0, 0 },
+
+  { 96, "WordSbs/Port A",
+    "P1", 0, 9, 0 },
+
   { 97, "WordSbs/Port A",
-    "P8", 0, 0, 0 },
+    "P2", 0, 0, 0 },
 
   { 98, "WordSbs/Port A",
+    "P3", 0, 9, 0 },
+
+  { 99, "WordSbs/Port A",
+    "P4", 0, 9, 0 },
+
+  { 100, "WordSbs/Port A",
+    "P5", 0, 0, 0 },
+
+  { 101, "WordSbs/Port A",
+    "P6", 0, 0, 0 },
+
+  { 102, "WordSbs/Port A",
+    "P7", 0, 0, 0 },
+
+  { 103, "WordSbs/Port A",
+    "P8", 0, 0, 0 },
+
+  { 104, "WordSbs/Port A",
     "P9", 0, 0, 0 },
+
+  { 105, "WordSbs/xPC Target  Time ",
+    "P1", 0, 0, 0 },
+
+  { 106, "WordSbs/xPC Target  Time ",
+    "P2", 0, 0, 0 },
+
+  { 107, "WordSbs/Switch",
+    "Threshold", 0, 0, 0 },
+
+  { 108, "WordSbs/Detect Change/Delay Input1",
+    "X0", 0, 0, 0 },
+
+  { 109, "WordSbs/Strobe // Reward Delay Subsystem/Constant1",
+    "Value", 0, 0, 0 },
+
+  { 110, "WordSbs/Strobe // Reward Delay Subsystem/ScaleTouSec",
+    "Gain", 0, 0, 0 },
+
+  { 111, "WordSbs/Strobe // Reward Delay Subsystem/PCI-6025E ",
+    "P1", 0, 6, 0 },
+
+  { 112, "WordSbs/Strobe // Reward Delay Subsystem/PCI-6025E ",
+    "P2", 0, 6, 0 },
+
+  { 113, "WordSbs/Strobe // Reward Delay Subsystem/PCI-6025E ",
+    "P3", 0, 6, 0 },
+
+  { 114, "WordSbs/Strobe // Reward Delay Subsystem/PCI-6025E ",
+    "P4", 0, 0, 0 },
+
+  { 115, "WordSbs/Strobe // Reward Delay Subsystem/PCI-6025E ",
+    "P5", 0, 0, 0 },
+
+  { 116, "WordSbs/Strobe // Reward Delay Subsystem/PCI-6025E ",
+    "P6", 0, 0, 0 },
+
+  { 117, "WordSbs/Strobe // Reward Delay Subsystem/PCI-6025E ",
+    "P7", 0, 0, 0 },
+
+  { 118, "WordSbs/Strobe // Reward Delay Subsystem/xPC Target  Time ",
+    "P1", 0, 0, 0 },
+
+  { 119, "WordSbs/Strobe // Reward Delay Subsystem/xPC Target  Time ",
+    "P2", 0, 0, 0 },
+
+  { 120, "WordSbs/Strobe // Reward Delay Subsystem/Compare To Constant/Constant",
+    "Value", 0, 0, 0 },
+
+  { 121,
+    "WordSbs/Strobe // Reward Delay Subsystem/Compare To Constant1/Constant",
+    "Value", 0, 0, 0 },
 
   {
     0, NULL, NULL, 0, 0, 0
@@ -365,77 +437,100 @@ static void* rtDataAddrMap[] = {
   &ball_drop_B.UniformRandomNumber,    /* 25: Signal */
   &ball_drop_B.RateTransition[0],      /* 26: Signal */
   &ball_drop_B.Pack[0],                /* 27: Signal */
-  &ball_drop_B.ToBits_o1_i,            /* 28: Signal */
-  &ball_drop_B.ToBits_o2_h,            /* 29: Signal */
-  &ball_drop_B.ToBits_o3_d,            /* 30: Signal */
-  &ball_drop_B.ToBits_o4_j,            /* 31: Signal */
-  &ball_drop_B.ToBits_o5_g,            /* 32: Signal */
-  &ball_drop_B.ToBits_o6_i,            /* 33: Signal */
-  &ball_drop_B.ToBits_o7_p,            /* 34: Signal */
-  &ball_drop_B.ToBits_o8_h,            /* 35: Signal */
-  &ball_drop_B.SampleandHold_i.In,     /* 36: Signal */
-  &ball_drop_B.Clock,                  /* 37: Signal */
-  &ball_drop_B.RelationalOperator_c,   /* 38: Signal */
-  &ball_drop_B.Sum,                    /* 39: Signal */
-  &ball_drop_B.SampleandHold.In,       /* 40: Signal */
-  &ball_drop_P.BehaviorBD_P1,          /* 41: Block Parameter */
-  &ball_drop_P.BehaviorBD_P2,          /* 42: Block Parameter */
-  &ball_drop_P.BehaviorBD_P3,          /* 43: Block Parameter */
-  &ball_drop_P.BehaviorBD_P4,          /* 44: Block Parameter */
-  &ball_drop_P.BehaviorBD_P5,          /* 45: Block Parameter */
-  &ball_drop_P.BehaviorBD_P6,          /* 46: Block Parameter */
-  &ball_drop_P.BehaviorBD_P7,          /* 47: Block Parameter */
-  &ball_drop_P.BehaviorBD_P8,          /* 48: Block Parameter */
-  &ball_drop_P.BehaviorBD_P9,          /* 49: Block Parameter */
-  &ball_drop_P.PCI6025EDI_P1,          /* 50: Block Parameter */
-  &ball_drop_P.PCI6025EDI_P2,          /* 51: Block Parameter */
-  &ball_drop_P.PCI6025EDI_P3,          /* 52: Block Parameter */
-  &ball_drop_P.PCI6025EDI_P4,          /* 53: Block Parameter */
-  &ball_drop_P.PCI6025EDI_P5,          /* 54: Block Parameter */
-  &ball_drop_P.PCI6025EDO_P1_h,        /* 55: Block Parameter */
-  &ball_drop_P.PCI6025EDO_P2_i,        /* 56: Block Parameter */
-  &ball_drop_P.PCI6025EDO_P3_b,        /* 57: Block Parameter */
-  &ball_drop_P.PCI6025EDO_P4_c,        /* 58: Block Parameter */
-  &ball_drop_P.PCI6025EDO_P5_k,        /* 59: Block Parameter */
-  &ball_drop_P.PCI6025EDO_P6_k,        /* 60: Block Parameter */
-  &ball_drop_P.PCI6025EDO_P7_c,        /* 61: Block Parameter */
-  &ball_drop_P.Constant_Value,         /* 62: Block Parameter */
-  &ball_drop_P.Constant1_Value,        /* 63: Block Parameter */
-  &ball_drop_P.PCI6025EAD_P1[0],       /* 64: Block Parameter */
-  &ball_drop_P.PCI6025EAD_P2[0],       /* 65: Block Parameter */
-  &ball_drop_P.PCI6025EAD_P3[0],       /* 66: Block Parameter */
-  &ball_drop_P.PCI6025EAD_P4,          /* 67: Block Parameter */
-  &ball_drop_P.PCI6025EAD_P5,          /* 68: Block Parameter */
-  &ball_drop_P.PCI6025EAD_P6,          /* 69: Block Parameter */
-  &ball_drop_P.Switch_Threshold,       /* 70: Block Parameter */
-  &ball_drop_P.Switch1_Threshold,      /* 71: Block Parameter */
-  &ball_drop_P.PCI6025EDO_P1[0],       /* 72: Block Parameter */
-  &ball_drop_P.PCI6025EDO_P2[0],       /* 73: Block Parameter */
-  &ball_drop_P.PCI6025EDO_P3[0],       /* 74: Block Parameter */
-  &ball_drop_P.PCI6025EDO_P4,          /* 75: Block Parameter */
-  &ball_drop_P.PCI6025EDO_P5,          /* 76: Block Parameter */
-  &ball_drop_P.PCI6025EDO_P6,          /* 77: Block Parameter */
-  &ball_drop_P.PCI6025EDO_P7,          /* 78: Block Parameter */
-  &ball_drop_P.JackpotChance_Value,    /* 79: Block Parameter */
-  &ball_drop_P.RewardJackpot_Value,    /* 80: Block Parameter */
-  &ball_drop_P.RewardTime_Value,       /* 81: Block Parameter */
-  &ball_drop_P.UniformRandomNumber_Min,/* 82: Block Parameter */
-  &ball_drop_P.UniformRandomNumber_Max,/* 83: Block Parameter */
-  &ball_drop_P.UniformRandomNumber_Seed,/* 84: Block Parameter */
-  &ball_drop_P.Pos_Value,              /* 85: Block Parameter */
-  &ball_drop_P.Send_P1[0],             /* 86: Block Parameter */
-  &ball_drop_P.Send_P2,                /* 87: Block Parameter */
-  &ball_drop_P.Send_P3,                /* 88: Block Parameter */
-  &ball_drop_P.Send_P4,                /* 89: Block Parameter */
-  &ball_drop_P.PortA_P1[0],            /* 90: Block Parameter */
-  &ball_drop_P.PortA_P2,               /* 91: Block Parameter */
-  &ball_drop_P.PortA_P3[0],            /* 92: Block Parameter */
-  &ball_drop_P.PortA_P4[0],            /* 93: Block Parameter */
-  &ball_drop_P.PortA_P5,               /* 94: Block Parameter */
-  &ball_drop_P.PortA_P6,               /* 95: Block Parameter */
-  &ball_drop_P.PortA_P7,               /* 96: Block Parameter */
-  &ball_drop_P.PortA_P8,               /* 97: Block Parameter */
-  &ball_drop_P.PortA_P9                /* 98: Block Parameter */
+  &ball_drop_B.ForIterator,            /* 28: Signal */
+  &ball_drop_B.ToBits_o1_i,            /* 29: Signal */
+  &ball_drop_B.ToBits_o2_h,            /* 30: Signal */
+  &ball_drop_B.ToBits_o3_d,            /* 31: Signal */
+  &ball_drop_B.ToBits_o4_j,            /* 32: Signal */
+  &ball_drop_B.ToBits_o5_g,            /* 33: Signal */
+  &ball_drop_B.ToBits_o6_i,            /* 34: Signal */
+  &ball_drop_B.ToBits_o7_p,            /* 35: Signal */
+  &ball_drop_B.ToBits_o8_h,            /* 36: Signal */
+  &ball_drop_B.xPCTargetTime,          /* 37: Signal */
+  &ball_drop_B.Switch_e,               /* 38: Signal */
+  &ball_drop_B.SampleandHold_i.In,     /* 39: Signal */
+  &ball_drop_B.Clock,                  /* 40: Signal */
+  &ball_drop_B.RelationalOperator_c,   /* 41: Signal */
+  &ball_drop_B.Sum,                    /* 42: Signal */
+  &ball_drop_B.FixPtRelationalOperator,/* 43: Signal */
+  &ball_drop_B.Uk1,                    /* 44: Signal */
+  &ball_drop_B.DataTypeConversion_g,   /* 45: Signal */
+  &ball_drop_B.ScaleTouSec,            /* 46: Signal */
+  &ball_drop_B.xPCTargetTime_f,        /* 47: Signal */
+  &ball_drop_B.Subtract,               /* 48: Signal */
+  &ball_drop_B.Switch_g,               /* 49: Signal */
+  &ball_drop_B.SampleandHold.In,       /* 50: Signal */
+  &ball_drop_B.Compare_f,              /* 51: Signal */
+  &ball_drop_B.Compare,                /* 52: Signal */
+  &ball_drop_P.BehaviorBD_P1,          /* 53: Block Parameter */
+  &ball_drop_P.BehaviorBD_P2,          /* 54: Block Parameter */
+  &ball_drop_P.BehaviorBD_P3,          /* 55: Block Parameter */
+  &ball_drop_P.BehaviorBD_P4,          /* 56: Block Parameter */
+  &ball_drop_P.BehaviorBD_P5,          /* 57: Block Parameter */
+  &ball_drop_P.BehaviorBD_P6,          /* 58: Block Parameter */
+  &ball_drop_P.BehaviorBD_P7,          /* 59: Block Parameter */
+  &ball_drop_P.BehaviorBD_P8,          /* 60: Block Parameter */
+  &ball_drop_P.BehaviorBD_P9,          /* 61: Block Parameter */
+  &ball_drop_P.PCI6025EDI_P1,          /* 62: Block Parameter */
+  &ball_drop_P.PCI6025EDI_P2,          /* 63: Block Parameter */
+  &ball_drop_P.PCI6025EDI_P3,          /* 64: Block Parameter */
+  &ball_drop_P.PCI6025EDI_P4,          /* 65: Block Parameter */
+  &ball_drop_P.PCI6025EDI_P5,          /* 66: Block Parameter */
+  &ball_drop_P.Constant_Value,         /* 67: Block Parameter */
+  &ball_drop_P.Constant1_Value,        /* 68: Block Parameter */
+  &ball_drop_P.PCI6025EAD_P1[0],       /* 69: Block Parameter */
+  &ball_drop_P.PCI6025EAD_P2[0],       /* 70: Block Parameter */
+  &ball_drop_P.PCI6025EAD_P3[0],       /* 71: Block Parameter */
+  &ball_drop_P.PCI6025EAD_P4,          /* 72: Block Parameter */
+  &ball_drop_P.PCI6025EAD_P5,          /* 73: Block Parameter */
+  &ball_drop_P.PCI6025EAD_P6,          /* 74: Block Parameter */
+  &ball_drop_P.Switch_Threshold,       /* 75: Block Parameter */
+  &ball_drop_P.Switch1_Threshold,      /* 76: Block Parameter */
+  &ball_drop_P.PCI6025EDO_P1[0],       /* 77: Block Parameter */
+  &ball_drop_P.PCI6025EDO_P2[0],       /* 78: Block Parameter */
+  &ball_drop_P.PCI6025EDO_P3[0],       /* 79: Block Parameter */
+  &ball_drop_P.PCI6025EDO_P4,          /* 80: Block Parameter */
+  &ball_drop_P.PCI6025EDO_P5,          /* 81: Block Parameter */
+  &ball_drop_P.PCI6025EDO_P6,          /* 82: Block Parameter */
+  &ball_drop_P.PCI6025EDO_P7,          /* 83: Block Parameter */
+  &ball_drop_P.JackpotChance_Value,    /* 84: Block Parameter */
+  &ball_drop_P.RewardJackpot_Value,    /* 85: Block Parameter */
+  &ball_drop_P.RewardTime_Value,       /* 86: Block Parameter */
+  &ball_drop_P.UniformRandomNumber_Min,/* 87: Block Parameter */
+  &ball_drop_P.UniformRandomNumber_Max,/* 88: Block Parameter */
+  &ball_drop_P.UniformRandomNumber_Seed,/* 89: Block Parameter */
+  &ball_drop_P.Pos_Value,              /* 90: Block Parameter */
+  &ball_drop_P.Send_P1[0],             /* 91: Block Parameter */
+  &ball_drop_P.Send_P2,                /* 92: Block Parameter */
+  &ball_drop_P.Send_P3,                /* 93: Block Parameter */
+  &ball_drop_P.Send_P4,                /* 94: Block Parameter */
+  &ball_drop_P.Constant_Value_f,       /* 95: Block Parameter */
+  &ball_drop_P.PortA_P1[0],            /* 96: Block Parameter */
+  &ball_drop_P.PortA_P2,               /* 97: Block Parameter */
+  &ball_drop_P.PortA_P3[0],            /* 98: Block Parameter */
+  &ball_drop_P.PortA_P4[0],            /* 99: Block Parameter */
+  &ball_drop_P.PortA_P5,               /* 100: Block Parameter */
+  &ball_drop_P.PortA_P6,               /* 101: Block Parameter */
+  &ball_drop_P.PortA_P7,               /* 102: Block Parameter */
+  &ball_drop_P.PortA_P8,               /* 103: Block Parameter */
+  &ball_drop_P.PortA_P9,               /* 104: Block Parameter */
+  &ball_drop_P.xPCTargetTime_P1_f,     /* 105: Block Parameter */
+  &ball_drop_P.xPCTargetTime_P2_c,     /* 106: Block Parameter */
+  &ball_drop_P.Switch_Threshold_j,     /* 107: Block Parameter */
+  &ball_drop_P.DelayInput1_X0,         /* 108: Block Parameter */
+  &ball_drop_P.Constant1_Value_h,      /* 109: Block Parameter */
+  &ball_drop_P.ScaleTouSec_Gain,       /* 110: Block Parameter */
+  &ball_drop_P.PCI6025E_P1[0],         /* 111: Block Parameter */
+  &ball_drop_P.PCI6025E_P2[0],         /* 112: Block Parameter */
+  &ball_drop_P.PCI6025E_P3[0],         /* 113: Block Parameter */
+  &ball_drop_P.PCI6025E_P4,            /* 114: Block Parameter */
+  &ball_drop_P.PCI6025E_P5,            /* 115: Block Parameter */
+  &ball_drop_P.PCI6025E_P6,            /* 116: Block Parameter */
+  &ball_drop_P.PCI6025E_P7,            /* 117: Block Parameter */
+  &ball_drop_P.xPCTargetTime_P1,       /* 118: Block Parameter */
+  &ball_drop_P.xPCTargetTime_P2,       /* 119: Block Parameter */
+  &ball_drop_P.Constant_Value_a,       /* 120: Block Parameter */
+  &ball_drop_P.Constant_Value_n        /* 121: Block Parameter */
 };
 
 /* Data Type Map - use dataTypeMapIndex to access this structure */
@@ -544,9 +639,9 @@ static rtwCAPI_ModelMappingStaticInfo mmiStatic = {
    *          elementMap, sampleTimeMap, dimensionArray},
    * TargetType: targetType
    */
-  { rtBlockSignals, 41 },
+  { rtBlockSignals, 53 },
 
-  { rtBlockParameters, 58,
+  { rtBlockParameters, 69,
     rtModelParameters, 0 },
 
   { NULL, 0 },

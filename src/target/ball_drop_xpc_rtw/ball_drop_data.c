@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "ball_drop.mdl".
  *
- * Model Version              : 1.95
- * Real-Time Workshop version : 6.6.1  (R2007a+)  13-Mar-2007
- * C source code generated on : Thu Jan 21 14:00:48 2010
+ * Model Version              : 1.117
+ * Real-Time Workshop version : 6.6  (R2007a)  01-Feb-2007
+ * C source code generated on : Thu Aug 19 16:14:26 2010
  */
 
 #include "ball_drop.h"
@@ -34,7 +34,7 @@ Parameters_ball_drop ball_drop_P = {
   /*  PCI6025EDI_P4_Size : '<Root>/PCI-6025E DI'
    */
   { 1.0, 1.0 },
-  186.0,                               /* PCI6025EDI_P4 : '<Root>/PCI-6025E DI'
+  187.0,                               /* PCI6025EDI_P4 : '<Root>/PCI-6025E DI'
                                         */
 
   /*  PCI6025EDI_P5_Size : '<Root>/PCI-6025E DI'
@@ -186,63 +186,13 @@ Parameters_ball_drop ball_drop_P = {
   /*  PCI6025EDO_P6_Size : '<S2>/PCI-6025E DO'
    */
   { 1.0, 1.0 },
-  186.0,                               /* PCI6025EDO_P6 : '<S2>/PCI-6025E DO'
+  187.0,                               /* PCI6025EDO_P6 : '<S2>/PCI-6025E DO'
                                         */
 
   /*  PCI6025EDO_P7_Size : '<S2>/PCI-6025E DO'
    */
   { 1.0, 1.0 },
   3.0,                                 /* PCI6025EDO_P7 : '<S2>/PCI-6025E DO'
-                                        */
-  0.0,                                 /* UniformRandomNumber_Min : '<S3>/Uniform Random Number'
-                                        */
-  100.0,                               /* UniformRandomNumber_Max : '<S3>/Uniform Random Number'
-                                        */
-  0.0,                                 /* UniformRandomNumber_Seed : '<S3>/Uniform Random Number'
-                                        */
-  0.0,                                 /* JackpotChance_Value : '<S3>/JackpotChance'
-                                        */
-
-  /*  PCI6025EDO_P1_Size_h : '<Root>/PCI-6025E DO'
-   */
-  { 1.0, 1.0 },
-  2.0,                                 /* PCI6025EDO_P1_h : '<Root>/PCI-6025E DO'
-                                        */
-
-  /*  PCI6025EDO_P2_Size_f : '<Root>/PCI-6025E DO'
-   */
-  { 1.0, 1.0 },
-  1.0,                                 /* PCI6025EDO_P2_i : '<Root>/PCI-6025E DO'
-                                        */
-
-  /*  PCI6025EDO_P3_Size_n : '<Root>/PCI-6025E DO'
-   */
-  { 1.0, 1.0 },
-  0.0,                                 /* PCI6025EDO_P3_b : '<Root>/PCI-6025E DO'
-                                        */
-
-  /*  PCI6025EDO_P4_Size_j : '<Root>/PCI-6025E DO'
-   */
-  { 1.0, 1.0 },
-  0.001,                               /* PCI6025EDO_P4_c : '<Root>/PCI-6025E DO'
-                                        */
-
-  /*  PCI6025EDO_P5_Size_p : '<Root>/PCI-6025E DO'
-   */
-  { 1.0, 1.0 },
-  -1.0,                                /* PCI6025EDO_P5_k : '<Root>/PCI-6025E DO'
-                                        */
-
-  /*  PCI6025EDO_P6_Size_n : '<Root>/PCI-6025E DO'
-   */
-  { 1.0, 1.0 },
-  186.0,                               /* PCI6025EDO_P6_k : '<Root>/PCI-6025E DO'
-                                        */
-
-  /*  PCI6025EDO_P7_Size_p : '<Root>/PCI-6025E DO'
-   */
-  { 1.0, 1.0 },
-  3.0,                                 /* PCI6025EDO_P7_c : '<Root>/PCI-6025E DO'
                                         */
   0.0,                                 /* Pos_Value : '<S6>/Pos'
                                         */
@@ -271,6 +221,90 @@ Parameters_ball_drop ball_drop_P = {
    */
   { 1.0, 1.0 },
   0.02,                                /* Send_P4 : '<S6>/Send'
+                                        */
+  0.0,                                 /* UniformRandomNumber_Min : '<S3>/Uniform Random Number'
+                                        */
+  100.0,                               /* UniformRandomNumber_Max : '<S3>/Uniform Random Number'
+                                        */
+  0.0,                                 /* UniformRandomNumber_Seed : '<S3>/Uniform Random Number'
+                                        */
+  0.0,                                 /* JackpotChance_Value : '<S3>/JackpotChance'
+                                        */
+  0.6,                                 /* RewardJackpot_Value : '<S3>/RewardJackpot'
+                                        */
+  0.3,                                 /* RewardTime_Value : '<S3>/RewardTime'
+                                        */
+  0.0,                                 /* Constant_Value_f : '<S8>/Constant'
+                                        */
+  0.0,                                 /* Constant1_Value_h : '<S14>/Constant1'
+                                        */
+
+  /*  xPCTargetTime_P1_Size : '<S14>/xPC Target  Time '
+   */
+  { 1.0, 1.0 },
+  2.0,                                 /* xPCTargetTime_P1 : '<S14>/xPC Target  Time '
+                                        */
+
+  /*  xPCTargetTime_P2_Size : '<S14>/xPC Target  Time '
+   */
+  { 1.0, 1.0 },
+  -1.0,                                /* xPCTargetTime_P2 : '<S14>/xPC Target  Time '
+                                        */
+  0.838,                               /* ScaleTouSec_Gain : '<S14>/ScaleTouSec'
+                                        */
+  100.0,                               /* Constant_Value_n : '<S16>/Constant'
+                                        */
+
+  /*  PCI6025E_P1_Size : '<S14>/PCI-6025E '
+   */
+  { 1.0, 2.0 },
+
+  /*  PCI6025E_P1 : '<S14>/PCI-6025E '
+   */
+  { 1.0, 2.0 },
+
+  /*  PCI6025E_P2_Size : '<S14>/PCI-6025E '
+   */
+  { 1.0, 2.0 },
+
+  /*  PCI6025E_P2 : '<S14>/PCI-6025E '
+   */
+  { 1.0, 1.0 },
+
+  /*  PCI6025E_P3_Size : '<S14>/PCI-6025E '
+   */
+  { 1.0, 2.0 },
+
+  /*  PCI6025E_P3 : '<S14>/PCI-6025E '
+   */
+  { 0.0, 0.0 },
+
+  /*  PCI6025E_P4_Size : '<S14>/PCI-6025E '
+   */
+  { 1.0, 1.0 },
+  -1.0,                                /* PCI6025E_P4 : '<S14>/PCI-6025E '
+                                        */
+
+  /*  PCI6025E_P5_Size : '<S14>/PCI-6025E '
+   */
+  { 1.0, 1.0 },
+  -1.0,                                /* PCI6025E_P5 : '<S14>/PCI-6025E '
+                                        */
+
+  /*  PCI6025E_P6_Size : '<S14>/PCI-6025E '
+   */
+  { 1.0, 1.0 },
+  187.0,                               /* PCI6025E_P6 : '<S14>/PCI-6025E '
+                                        */
+
+  /*  PCI6025E_P7_Size : '<S14>/PCI-6025E '
+   */
+  { 1.0, 1.0 },
+  3.0,                                 /* PCI6025E_P7 : '<S14>/PCI-6025E '
+                                        */
+  200.0,                               /* Constant_Value_a : '<S15>/Constant'
+                                        */
+  2.0,                                 /* Switch_Threshold_j : '<S8>/Switch'
                                         */
 
   /*  PortA_P1_Size : '<S8>/Port A'
@@ -332,9 +366,19 @@ Parameters_ball_drop ball_drop_P = {
   { 1.0, 1.0 },
   15.0,                                /* PortA_P9 : '<S8>/Port A'
                                         */
-  0.6,                                 /* RewardJackpot_Value : '<S3>/RewardJackpot'
+
+  /*  xPCTargetTime_P1_Size_a : '<S8>/xPC Target  Time '
+   */
+  { 1.0, 1.0 },
+  2.0,                                 /* xPCTargetTime_P1_f : '<S8>/xPC Target  Time '
                                         */
-  0.3,                                 /* RewardTime_Value : '<S3>/RewardTime'
+
+  /*  xPCTargetTime_P2_Size_c : '<S8>/xPC Target  Time '
+   */
+  { 1.0, 1.0 },
+  -1.0,                                /* xPCTargetTime_P2_c : '<S8>/xPC Target  Time '
+                                        */
+  0.0,                                 /* DelayInput1_X0 : '<S13>/Delay Input1'
                                         */
 
   /* Start of '<S11>/Sample and Hold' */

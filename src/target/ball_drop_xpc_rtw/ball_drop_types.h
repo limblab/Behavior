@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "ball_drop.mdl".
  *
- * Model Version              : 1.95
- * Real-Time Workshop version : 6.6.1  (R2007a+)  13-Mar-2007
- * C source code generated on : Thu Jan 21 14:00:48 2010
+ * Model Version              : 1.117
+ * Real-Time Workshop version : 6.6  (R2007a)  01-Feb-2007
+ * C source code generated on : Thu Aug 19 16:14:26 2010
  */
 #ifndef _RTW_HEADER_ball_drop_types_h_
 #define _RTW_HEADER_ball_drop_types_h_

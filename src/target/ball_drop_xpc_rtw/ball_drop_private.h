@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "ball_drop.mdl".
  *
- * Model Version              : 1.95
- * Real-Time Workshop version : 6.6.1  (R2007a+)  13-Mar-2007
- * C source code generated on : Thu Jan 21 14:00:48 2010
+ * Model Version              : 1.117
+ * Real-Time Workshop version : 6.6  (R2007a)  01-Feb-2007
+ * C source code generated on : Thu Aug 19 16:14:26 2010
  */
 #ifndef _RTW_HEADER_ball_drop_private_h_
 #define _RTW_HEADER_ball_drop_private_h_
@@ -42,13 +42,14 @@
 # endif
 #endif
 
+extern void xpctimeinfo(SimStruct *rts);
+extern void donipcie(SimStruct *rts);
+extern void Byte2Bits(SimStruct *rts);
+extern void dopci8255(SimStruct *rts);
 extern void dinipcie(SimStruct *rts);
 extern void adnipcie(SimStruct *rts);
 extern void mastercon_bd(SimStruct *rts);
-extern void Byte2Bits(SimStruct *rts);
-extern void donipcie(SimStruct *rts);
 extern void xpcudpbytesend(SimStruct *rts);
-extern void dopci8255(SimStruct *rts);
 void ball_drop_SampleandHold_Start(rtB_SampleandHold_ball_drop *localB,
   rtP_SampleandHold_ball_drop *localP);
 void ball_drop_SampleandHold(real_T rtu_0, real_T rtu_1,

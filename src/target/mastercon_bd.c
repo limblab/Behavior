@@ -447,7 +447,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 				state_changed();
 				reset_timer();
 			} else if (!touch_pad) {
-				new_state = STATE_ABORT;
+				new_state = STATE_TOUCH_PAD_ON;
 				state_changed();
 				reset_timer();
 			}

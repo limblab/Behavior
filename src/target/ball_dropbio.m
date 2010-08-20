@@ -197,97 +197,181 @@ bio(28).dim=[112,1];
 bio(28).sigWidth=112;
 bio(28).sigAddress='&ball_drop_B.Pack[0]';
 
-bio(29).blkName='WordSbs/ToBits/p1';
+bio(29).blkName='WordSbs/For Iterator';
 bio(29).sigName='';
 bio(29).portIdx=0;
 bio(29).dim=[1,1];
 bio(29).sigWidth=1;
-bio(29).sigAddress='&ball_drop_B.ToBits_o1_i';
+bio(29).sigAddress='&ball_drop_B.ForIterator';
 
-bio(30).blkName='WordSbs/ToBits/p2';
+bio(30).blkName='WordSbs/ToBits/p1';
 bio(30).sigName='';
-bio(30).portIdx=1;
+bio(30).portIdx=0;
 bio(30).dim=[1,1];
 bio(30).sigWidth=1;
-bio(30).sigAddress='&ball_drop_B.ToBits_o2_h';
+bio(30).sigAddress='&ball_drop_B.ToBits_o1_i';
 
-bio(31).blkName='WordSbs/ToBits/p3';
+bio(31).blkName='WordSbs/ToBits/p2';
 bio(31).sigName='';
-bio(31).portIdx=2;
+bio(31).portIdx=1;
 bio(31).dim=[1,1];
 bio(31).sigWidth=1;
-bio(31).sigAddress='&ball_drop_B.ToBits_o3_d';
+bio(31).sigAddress='&ball_drop_B.ToBits_o2_h';
 
-bio(32).blkName='WordSbs/ToBits/p4';
+bio(32).blkName='WordSbs/ToBits/p3';
 bio(32).sigName='';
-bio(32).portIdx=3;
+bio(32).portIdx=2;
 bio(32).dim=[1,1];
 bio(32).sigWidth=1;
-bio(32).sigAddress='&ball_drop_B.ToBits_o4_j';
+bio(32).sigAddress='&ball_drop_B.ToBits_o3_d';
 
-bio(33).blkName='WordSbs/ToBits/p5';
+bio(33).blkName='WordSbs/ToBits/p4';
 bio(33).sigName='';
-bio(33).portIdx=4;
+bio(33).portIdx=3;
 bio(33).dim=[1,1];
 bio(33).sigWidth=1;
-bio(33).sigAddress='&ball_drop_B.ToBits_o5_g';
+bio(33).sigAddress='&ball_drop_B.ToBits_o4_j';
 
-bio(34).blkName='WordSbs/ToBits/p6';
+bio(34).blkName='WordSbs/ToBits/p5';
 bio(34).sigName='';
-bio(34).portIdx=5;
+bio(34).portIdx=4;
 bio(34).dim=[1,1];
 bio(34).sigWidth=1;
-bio(34).sigAddress='&ball_drop_B.ToBits_o6_i';
+bio(34).sigAddress='&ball_drop_B.ToBits_o5_g';
 
-bio(35).blkName='WordSbs/ToBits/p7';
+bio(35).blkName='WordSbs/ToBits/p6';
 bio(35).sigName='';
-bio(35).portIdx=6;
+bio(35).portIdx=5;
 bio(35).dim=[1,1];
 bio(35).sigWidth=1;
-bio(35).sigAddress='&ball_drop_B.ToBits_o7_p';
+bio(35).sigAddress='&ball_drop_B.ToBits_o6_i';
 
-bio(36).blkName='WordSbs/ToBits/p8';
+bio(36).blkName='WordSbs/ToBits/p7';
 bio(36).sigName='';
-bio(36).portIdx=7;
+bio(36).portIdx=6;
 bio(36).dim=[1,1];
 bio(36).sigWidth=1;
-bio(36).sigAddress='&ball_drop_B.ToBits_o8_h';
+bio(36).sigAddress='&ball_drop_B.ToBits_o7_p';
 
-bio(37).blkName='RewardSbs/Sample and Hold/In';
+bio(37).blkName='WordSbs/ToBits/p8';
 bio(37).sigName='';
-bio(37).portIdx=0;
+bio(37).portIdx=7;
 bio(37).dim=[1,1];
 bio(37).sigWidth=1;
-bio(37).sigAddress='&ball_drop_B.SampleandHold_i.In';
+bio(37).sigAddress='&ball_drop_B.ToBits_o8_h';
 
-bio(38).blkName='RewardSbs/Schmidt/Clock';
+bio(38).blkName='WordSbs/xPC Target  Time ';
 bio(38).sigName='';
 bio(38).portIdx=0;
 bio(38).dim=[1,1];
 bio(38).sigWidth=1;
-bio(38).sigAddress='&ball_drop_B.Clock';
+bio(38).sigAddress='&ball_drop_B.xPCTargetTime';
 
-bio(39).blkName='RewardSbs/Schmidt/Relational Operator';
+bio(39).blkName='WordSbs/Switch';
 bio(39).sigName='';
 bio(39).portIdx=0;
 bio(39).dim=[1,1];
 bio(39).sigWidth=1;
-bio(39).sigAddress='&ball_drop_B.RelationalOperator_c';
+bio(39).sigAddress='&ball_drop_B.Switch_e';
 
-bio(40).blkName='RewardSbs/Schmidt/Sum';
+bio(40).blkName='RewardSbs/Sample and Hold/In';
 bio(40).sigName='';
 bio(40).portIdx=0;
 bio(40).dim=[1,1];
 bio(40).sigWidth=1;
-bio(40).sigAddress='&ball_drop_B.Sum';
+bio(40).sigAddress='&ball_drop_B.SampleandHold_i.In';
 
-bio(41).blkName='RewardSbs/Schmidt/Sample and Hold/In';
+bio(41).blkName='RewardSbs/Schmidt/Clock';
 bio(41).sigName='';
 bio(41).portIdx=0;
 bio(41).dim=[1,1];
 bio(41).sigWidth=1;
-bio(41).sigAddress='&ball_drop_B.SampleandHold.In';
+bio(41).sigAddress='&ball_drop_B.Clock';
+
+bio(42).blkName='RewardSbs/Schmidt/Relational Operator';
+bio(42).sigName='';
+bio(42).portIdx=0;
+bio(42).dim=[1,1];
+bio(42).sigWidth=1;
+bio(42).sigAddress='&ball_drop_B.RelationalOperator_c';
+
+bio(43).blkName='RewardSbs/Schmidt/Sum';
+bio(43).sigName='';
+bio(43).portIdx=0;
+bio(43).dim=[1,1];
+bio(43).sigWidth=1;
+bio(43).sigAddress='&ball_drop_B.Sum';
+
+bio(44).blkName='WordSbs/Detect Change/FixPt Relational Operator';
+bio(44).sigName='';
+bio(44).portIdx=0;
+bio(44).dim=[1,1];
+bio(44).sigWidth=1;
+bio(44).sigAddress='&ball_drop_B.FixPtRelationalOperator';
+
+bio(45).blkName='WordSbs/Detect Change/Delay Input1';
+bio(45).sigName='U(k-1)';
+bio(45).portIdx=0;
+bio(45).dim=[1,1];
+bio(45).sigWidth=1;
+bio(45).sigAddress='&ball_drop_B.Uk1';
+
+bio(46).blkName='WordSbs/Strobe // Reward Delay Subsystem/Data Type Conversion';
+bio(46).sigName='';
+bio(46).portIdx=0;
+bio(46).dim=[1,1];
+bio(46).sigWidth=1;
+bio(46).sigAddress='&ball_drop_B.DataTypeConversion_g';
+
+bio(47).blkName='WordSbs/Strobe // Reward Delay Subsystem/ScaleTouSec';
+bio(47).sigName='';
+bio(47).portIdx=0;
+bio(47).dim=[1,1];
+bio(47).sigWidth=1;
+bio(47).sigAddress='&ball_drop_B.ScaleTouSec';
+
+bio(48).blkName='WordSbs/Strobe // Reward Delay Subsystem/xPC Target  Time ';
+bio(48).sigName='';
+bio(48).portIdx=0;
+bio(48).dim=[1,1];
+bio(48).sigWidth=1;
+bio(48).sigAddress='&ball_drop_B.xPCTargetTime_f';
+
+bio(49).blkName='WordSbs/Strobe // Reward Delay Subsystem/Subtract';
+bio(49).sigName='';
+bio(49).portIdx=0;
+bio(49).dim=[1,1];
+bio(49).sigWidth=1;
+bio(49).sigAddress='&ball_drop_B.Subtract';
+
+bio(50).blkName='WordSbs/Strobe // Reward Delay Subsystem/Switch';
+bio(50).sigName='';
+bio(50).portIdx=0;
+bio(50).dim=[1,1];
+bio(50).sigWidth=1;
+bio(50).sigAddress='&ball_drop_B.Switch_g';
+
+bio(51).blkName='RewardSbs/Schmidt/Sample and Hold/In';
+bio(51).sigName='';
+bio(51).portIdx=0;
+bio(51).dim=[1,1];
+bio(51).sigWidth=1;
+bio(51).sigAddress='&ball_drop_B.SampleandHold.In';
+
+bio(52).blkName='WordSbs/Strobe // Reward Delay Subsystem/Compare To Constant/Compare';
+bio(52).sigName='';
+bio(52).portIdx=0;
+bio(52).dim=[1,1];
+bio(52).sigWidth=1;
+bio(52).sigAddress='&ball_drop_B.Compare_f';
+
+bio(53).blkName='WordSbs/Strobe // Reward Delay Subsystem/Compare To Constant1/Compare';
+bio(53).sigName='';
+bio(53).portIdx=0;
+bio(53).dim=[1,1];
+bio(53).sigWidth=1;
+bio(53).sigAddress='&ball_drop_B.Compare';
 
 function len = getlenBIO
-len = 41;
+len = 53;
 
