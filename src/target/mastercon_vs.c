@@ -1,6 +1,6 @@
-/* $Id: mastercon_co.c 446 2009-05-31 21:38:42Z brian $
+/* $Id: mastercon_vs.c 446 2009-05-31 21:38:42Z brian $
  *
- * Master Control block for behavior: center-out task 
+ * Master Control block for behavior: visual search task 
  */
 #define S_FUNCTION_NAME mastercon_vs
 #define S_FUNCTION_LEVEL 2
@@ -28,7 +28,7 @@
  *
  * Version 0 (0x00)
  * ----------------
-
+ *
  * byte   0: uchar => number of bytes to be transmitted
  * byte   1: uchar => databurst version number (in this case one)
  * byte   2: uchar => model version major
@@ -36,6 +36,9 @@
  * bytes  4 to  5: short => model version micro
  * bytes  6 to  9: float => x offset
  * bytes 10 to 13: float => y offset
+ * byte  14: => target ID (0 - num_targets-1)
+ * byte  15: => correct glyph ID (0 - size(glyph_set))
+ * byte  16: => distractor glyph ID (0 - size(glyph_set))
  */
 
 typedef unsigned char byte;
