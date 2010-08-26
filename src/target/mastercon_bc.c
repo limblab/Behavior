@@ -33,7 +33,7 @@
  * byte 0: uchar => number of bytes to be transmitted (in this case 11)
  * byte 1: uchar => version number (in this case zero)
  * byte 2: uchar => training trial (1 if training, 0 if not)
- * bytes 3-6: float => target angle (rad)
+ * bytes 3-6: float => bump angle (rad)
  * bytes 7-10: float => bump magnitude (bump units?)
  *
  * Version 1 (0x01)
@@ -46,7 +46,7 @@
  * byte   6: uchar => training trial (1 if training, 0 if not)
  * bytes  7 to 10: float => x offset
  * bytes 11 to 14: float => y offset
- * bytes 15 to 18: float => target angle (rad)
+ * bytes 15 to 18: float => bump angle (rad)
  * bytes 19 to 22: float => bump magnitude (bump units?)
  * byte 23: uchar => newsome mode? ( 0 if normal, 1 if newsome )
  */
