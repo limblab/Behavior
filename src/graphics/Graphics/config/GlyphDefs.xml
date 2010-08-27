@@ -11,8 +11,43 @@
     <FilePrefix>planets</FilePrefix>
   </GlyphDef>
   <GlyphDef>
-    <Name>Gabor Training</Name>
+    <Name>Training Wavelets 1</Name>
     <NumGlyphs>2</NumGlyphs>
-    <FilePrefix>gabora</FilePrefix>
+    <FilePrefix>waveleta</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>Training Wavelets 2</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>waveletb</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>Training Wavelets 3</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>waveletc</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>wavelet freq=3</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>waveletd</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>wavelet freq=5</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>wavelete</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>wavelet freq=10</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>waveletf</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>wavelet freq=15</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>waveletg</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>wavelet freq=20</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>waveleth</FilePrefix>
   </GlyphDef>
 </GlyphDefs>

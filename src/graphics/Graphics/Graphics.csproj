@@ -196,6 +196,22 @@
     <EmbeddedResource Include="glyphs\planets8.tga" />
     <EmbeddedResource Include="glyphs\planets9.tga" />
     <EmbeddedResource Include="glyphs\error.tga" />
+    <EmbeddedResource Include="glyphs\waveleta1.tga" />
+    <EmbeddedResource Include="glyphs\waveleta2.tga" />
+    <EmbeddedResource Include="glyphs\waveletb1.tga" />
+    <EmbeddedResource Include="glyphs\waveletb2.tga" />
+    <EmbeddedResource Include="glyphs\waveletc1.tga" />
+    <EmbeddedResource Include="glyphs\waveletc2.tga" />
+    <EmbeddedResource Include="glyphs\waveletd1.tga" />
+    <EmbeddedResource Include="glyphs\waveletd2.tga" />
+    <EmbeddedResource Include="glyphs\wavelete1.tga" />
+    <EmbeddedResource Include="glyphs\wavelete2.tga" />
+    <EmbeddedResource Include="glyphs\waveletf1.tga" />
+    <EmbeddedResource Include="glyphs\waveletf2.tga" />
+    <EmbeddedResource Include="glyphs\waveletg1.tga" />
+    <EmbeddedResource Include="glyphs\waveletg2.tga" />
+    <EmbeddedResource Include="glyphs\waveleth1.tga" />
+    <EmbeddedResource Include="glyphs\waveleth2.tga" />
     <None Include="obj\Release\DXCheck.csproj.ResolveComReference.cache" />
   </ItemGroup>
   <ItemGroup>
