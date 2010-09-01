@@ -45,7 +45,7 @@
  *
  */
 
-typedef real_T[4] target;
+typedef real_T target[4];
 typedef unsigned char byte;
 #define DATABURST_VERSION (0x00) 
 
@@ -287,7 +287,7 @@ static void mdlInitializeConditions(SimStruct *S)
  * target is specified by two corners: UL: x, y = t[0], t[1]
  *                                     LR: x, y = t[2], t[3]
  */
-static int cursorInTarget(real_T *c, real_T *t)
+static int cursorInTarget(real_T *c, target t)
 {
     return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
 }
@@ -302,15 +302,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* stupidly declare all variables at the begining of the function */
     int target_idx;
     int starting_targ;
-    int *target_type[17];          /*values 0-30ish to determine type/appearance*/    
-    target *target_location[17]; /*contains 4-value arrays of coordinates for each target*/
+    int *target_type;          /*values 0-30ish to determine type/appearance*/    
+    target *target_location; /*contains 4-value arrays of coordinates for each target*/
     
     InputRealPtrsType uPtrs;
     real_T cursor[2];
     real_T elapsed_timer_time;
     real_T theta;
     real_T center_hold, outer_hold;
-    int i, j;
+    int i;
 
     int databurst_counter;
     byte *databurst;
@@ -347,10 +347,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* get target index */
     target_idx=ssGetIWorkValue(S, 1);
     
-    /* get target types and locations*/
-    target_type=(int *)ssGetPWorkValue(S,1);
-    target_location=(target *)ssGetPWorkValue(S,2);
-
+    /* get pointers to target types and locations*/
+    target_type=ssGetPWorkValue(S,1); //(int *)
+    target_location=ssGetPWorkValue(S,2); //(target *)
     
     databurst = ssGetPWorkValue(S,0);
     databurst_offsets = (float *)(databurst + 6);
@@ -404,7 +403,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             failure_timeout = param_failure_timeout;
             reward_timeout  = param_reward_timeout;   
             incomplete_timeout = param_incomplete_timeout;
-                
+            
             /* Set target locations */
             target_location[0][0]= -target_size/2;
             target_location[0][1]=  target_size/2;
@@ -421,10 +420,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             /* Set target types */
             starting_targ = (int)(UNI * num_targets);                    //change to num_positions
-            ssSetIWorkValue(S, 1,  (int)((UNI * (num_targets ) + starting_targ) % num_targets));//change last one to num_positions
+            ssSetIWorkValue(S, 1,  ((int)(UNI * (num_targets ) + starting_targ) % num_targets));//change last one to num_positions
             
             target_type[0]=2;                     /*set center target type */
-            target_type[1:16]=0;
+            for (i=1; i<17; i++){
+                target_type[i]=0;
+            }
             for (i=0; i<num_targets; i++){
                 target_type[(starting_targ+i) % num_targets + 1]=17;     //change to num_positions
             }
@@ -460,7 +461,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             databurst_offsets[1] = *uPtrs[1];
             /* The target location */
             for (i = 0; i < 4; i++) {
-                databurst_target_list[i] = (float)target_location[target+1][i];
+                databurst_target_list[i] = (float)target_location[target_idx+1][i];
             }
             /* reset counter */
             ssSetIWorkValue(S, 6, 0); /* reset the databurst_counter */
@@ -481,7 +482,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_CT_ON:
             /* center target on */
-            if (cursorInTarget(cursor, target_locations[0])) {
+            if (cursorInTarget(cursor, target_location[0])) {
                 new_state = STATE_CENTER_HOLD;
                 reset_timer(); /* start center hold timer */
                 state_changed();
@@ -489,7 +490,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_CENTER_HOLD:
             /* center hold */
-            if (!cursorInTarget(cursor, target_locations[0])) {
+            if (!cursorInTarget(cursor, target_location[0])) {
                 new_state = STATE_ABORT;
                 reset_timer(); /* abort timeout */
                 state_changed();
@@ -505,7 +506,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_INCOMPLETE;
                 reset_timer();
                 state_changed();
-             } else if (!cursorInTarget(cursor, target_locations[0])) {
+             } else if (!cursorInTarget(cursor, target_location[0])) {
                 new_state = STATE_REACH;
                 reset_timer();
                 state_changed();
@@ -519,7 +520,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 state_changed();   
             }else{
                 for (i=1; i<17; i++){                           
-                    if (cursorInTarget(cursor, target_locations[i])){
+                    if (cursorInTarget(cursor, target_location[i])){
                         if (target_type[i] == 16){       /*in correct target*/
                             new_state = STATE_OUTER_HOLD;
                             reset_timer();
@@ -544,7 +545,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     new_state = STATE_REWARD;
                     reset_timer();
                     state_changed();
-                }else if (!cursorInTarget(cursor, target_locations[target_idx+1])) {
+                }else if (!cursorInTarget(cursor, target_location[target_idx+1])) {
                     new_state = STATE_INCOMPLETE;
                     reset_timer();
                     state_changed();
@@ -582,7 +583,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         default:
             new_state = STATE_PRETRIAL;
     }
-    
+    }
+
     /***********
      * Cleanup *
      ***********/
@@ -600,11 +602,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      ********************/
     int *IWorkVector; 
     int target_idx;
-    int target_type[17];
-    target target_location[17];
+    int *target_type;
+    target *target_location;
     real_T elapsed_timer_time;
     real_T theta;
     real_T center_hold, outer_hold;
+    int i,j;
     
     InputRealPtrsType uPtrs;
     real_T cursor[2];
@@ -658,6 +661,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* get target types and locations*/
     target_type=(int *)ssGetPWorkValue(S,1);
     target_location=(target *)ssGetPWorkValue(S,2);
+    
+    /* get pointers to target types and locations*/
+    //target_type=ssGetPWorkValue(S,1); //(int *)
+    //target_location=ssGetPWorkValue(S,2); //(target *)
    
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
