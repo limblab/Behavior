@@ -429,7 +429,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             for (i=0; i<num_targets; i++){
                 target_type[(starting_targ+i) % num_targets + 1]=17;     //change to num_positions
             }
-            target_type[ssGetIWorkValue(S,1)]=16; /*set correct target type */
+            target_type[ssGetIWorkValue(S,1)+1]=16; /*set correct target type */
             
             
             /* Decide on the random timer durations */
@@ -749,24 +749,45 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                 break;
             default:
                 word = 0;
-        }
-    } 
+        }    
+    } else {
+        /*not a new state*/
+        word = 0; 
+    }
+    
     
     /* target_pos (3) */
     for(i=0; i<85; i++){
         target_pos[i] = 0;
     }
-    j=0;
-    for (i=0; i<17; i++){
-        if (target_type[i] != 0){
-            target_pos[j]  =target_type[i];
-            target_pos[j+1]=target_location[i][0];
-            target_pos[j+2]=target_location[i][1];
-            target_pos[j+3]=target_location[i][2];
-            target_pos[j+4]=target_location[i][3]; 
-            j=j+5;
-        }
-    } 
+    /* center  target on */
+    if ( state == STATE_CT_ON ||
+         state == STATE_CENTER_HOLD ||
+         state == STATE_OT_ON ) 
+    {
+            target_pos[0]  =target_type[0];
+            target_pos[1]=target_location[0][0];
+            target_pos[2]=target_location[0][1];
+            target_pos[3]=target_location[0][2];
+            target_pos[4]=target_location[0][3]; 
+    }
+    /* outer targets on */
+    if ( state == STATE_OT_ON ||
+         state == STATE_REACH ||
+         state == STATE_OUTER_HOLD ) 
+    {
+        j=1;
+        for (i=1; i<17; i++){
+            if (target_type[i] != 0){
+                target_pos[j]  =target_type[i];
+                target_pos[j+1]=target_location[i][0];
+                target_pos[j+2]=target_location[i][1];
+                target_pos[j+3]=target_location[i][2];
+                target_pos[j+4]=target_location[i][3]; 
+                j=j+5;
+            }
+        } 
+    }
     
     /* reward (4) */
     if (new_state && state==STATE_REWARD) {
