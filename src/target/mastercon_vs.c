@@ -322,7 +322,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int databurst_counter;
     byte *databurst;
     float *databurst_offsets;
-    float *databurst_target_idx;
+    int *databurst_target_idx;
     
 
        
@@ -470,7 +470,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             databurst_offsets[0] = *uPtrs[0];
             databurst_offsets[1] = *uPtrs[1];
             /* The target location */
-            databurst_target_idx = ssGetIWorkValue(S, 6);
+            databurst_target_idx[0] = ssGetIWorkValue(S, 6);
             /* reset counter */
             ssSetIWorkValue(S, 5, 0); /* reset the databurst_counter */
 
@@ -774,6 +774,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             target_pos[2]=target_location[0][1];
             target_pos[3]=target_location[0][2];
             target_pos[4]=target_location[0][3]; 
+			
     }
     /* outer targets on */
     if ( state == STATE_OT_ON ||
