@@ -29,12 +29,14 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageGen = new System.Windows.Forms.TabPage();
+            this.label195 = new System.Windows.Forms.Label();
+            this.textBoxGoToneVolume = new System.Windows.Forms.TextBox();
             this.checkBoxUseNeuralControl = new System.Windows.Forms.CheckBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.label45 = new System.Windows.Forms.Label();
@@ -51,7 +53,6 @@ namespace BehaviorGraphics
             this.label114 = new System.Windows.Forms.Label();
             this.checkBoxRecenter = new System.Windows.Forms.CheckBox();
             this.groupBox27 = new System.Windows.Forms.GroupBox();
-            this.angleEntryBoxCurlAngleCatch = new AngleBox.AngleEntryBox();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
             this.textBoxTimeConstCatch = new System.Windows.Forms.TextBox();
             this.labelChaoticGainCatch = new System.Windows.Forms.Label();
@@ -69,7 +70,6 @@ namespace BehaviorGraphics
             this.textBoxScreenWidth = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.angleEntryBoxCurlAngle = new AngleBox.AngleEntryBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.textBoxTimeConst = new System.Windows.Forms.TextBox();
             this.labelChaoticGain = new System.Windows.Forms.Label();
@@ -85,7 +85,6 @@ namespace BehaviorGraphics
             this.label19 = new System.Windows.Forms.Label();
             this.comboBoxLoad = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.angleEntryBoxCursorRotation = new AngleBox.AngleEntryBox();
             this.label17 = new System.Windows.Forms.Label();
             this.textBoxYOffset = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -399,6 +398,7 @@ namespace BehaviorGraphics
             this.textBoxBCTgtSize = new System.Windows.Forms.TextBox();
             this.label85 = new System.Windows.Forms.Label();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.checkBoxBCNewsome = new System.Windows.Forms.CheckBox();
             this.label87 = new System.Windows.Forms.Label();
             this.textBoxBCPctStimTrials = new System.Windows.Forms.TextBox();
             this.label78 = new System.Windows.Forms.Label();
@@ -577,7 +577,10 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.checkBoxBCNewsome = new System.Windows.Forms.CheckBox();
+            this.angleEntryBoxCurlAngleCatch = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxCurlAngle = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxCursorRotation = new AngleBox.AngleEntryBox();
+            this.checkBoxBCCenterTargetOff = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -661,7 +664,7 @@ namespace BehaviorGraphics
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(534, 376);
+            this.cancelButton.Location = new System.Drawing.Point(534, 406);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 98;
@@ -672,7 +675,7 @@ namespace BehaviorGraphics
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(615, 376);
+            this.okButton.Location = new System.Drawing.Point(615, 406);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 99;
@@ -700,11 +703,13 @@ namespace BehaviorGraphics
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(694, 343);
+            this.tabControl.Size = new System.Drawing.Size(694, 373);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageGen
             // 
+            this.tabPageGen.Controls.Add(this.label195);
+            this.tabPageGen.Controls.Add(this.textBoxGoToneVolume);
             this.tabPageGen.Controls.Add(this.checkBoxUseNeuralControl);
             this.tabPageGen.Controls.Add(this.groupBox13);
             this.tabPageGen.Controls.Add(this.textBoxVerticalDisplacement);
@@ -721,11 +726,27 @@ namespace BehaviorGraphics
             this.tabPageGen.Location = new System.Drawing.Point(4, 40);
             this.tabPageGen.Name = "tabPageGen";
             this.tabPageGen.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGen.Size = new System.Drawing.Size(686, 299);
+            this.tabPageGen.Size = new System.Drawing.Size(686, 329);
             this.tabPageGen.TabIndex = 0;
             this.tabPageGen.Text = "General";
             this.tabPageGen.UseVisualStyleBackColor = true;
             this.tabPageGen.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tabPageGen_MouseDoubleClick);
+            // 
+            // label195
+            // 
+            this.label195.AutoSize = true;
+            this.label195.Location = new System.Drawing.Point(8, 306);
+            this.label195.Name = "label195";
+            this.label195.Size = new System.Drawing.Size(82, 13);
+            this.label195.TabIndex = 25;
+            this.label195.Text = "Go tone volume";
+            // 
+            // textBoxGoToneVolume
+            // 
+            this.textBoxGoToneVolume.Location = new System.Drawing.Point(121, 303);
+            this.textBoxGoToneVolume.Name = "textBoxGoToneVolume";
+            this.textBoxGoToneVolume.Size = new System.Drawing.Size(100, 20);
+            this.textBoxGoToneVolume.TabIndex = 24;
             // 
             // checkBoxUseNeuralControl
             // 
@@ -897,15 +918,6 @@ namespace BehaviorGraphics
             this.groupBox27.TabIndex = 21;
             this.groupBox27.TabStop = false;
             this.groupBox27.Text = "Catch Load";
-            // 
-            // angleEntryBoxCurlAngleCatch
-            // 
-            this.angleEntryBoxCurlAngleCatch.Location = new System.Drawing.Point(106, 73);
-            this.angleEntryBoxCurlAngleCatch.Name = "angleEntryBoxCurlAngleCatch";
-            this.angleEntryBoxCurlAngleCatch.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngleCatch.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngleCatch, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngleCatch.Value = 0;
             // 
             // groupBox29
             // 
@@ -1084,15 +1096,6 @@ namespace BehaviorGraphics
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Load";
             // 
-            // angleEntryBoxCurlAngle
-            // 
-            this.angleEntryBoxCurlAngle.Location = new System.Drawing.Point(106, 73);
-            this.angleEntryBoxCurlAngle.Name = "angleEntryBoxCurlAngle";
-            this.angleEntryBoxCurlAngle.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngle.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngle, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngle.Value = 0;
-            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.textBoxTimeConst);
@@ -1250,15 +1253,6 @@ namespace BehaviorGraphics
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Position Offsets";
             // 
-            // angleEntryBoxCursorRotation
-            // 
-            this.angleEntryBoxCursorRotation.Location = new System.Drawing.Point(116, 108);
-            this.angleEntryBoxCursorRotation.Name = "angleEntryBoxCursorRotation";
-            this.angleEntryBoxCursorRotation.Size = new System.Drawing.Size(99, 21);
-            this.angleEntryBoxCursorRotation.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCursorRotation, "Rotation of workspace relative to handle.");
-            this.angleEntryBoxCursorRotation.Value = 0;
-            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -1348,7 +1342,7 @@ namespace BehaviorGraphics
             this.tabPageCO.Location = new System.Drawing.Point(4, 40);
             this.tabPageCO.Name = "tabPageCO";
             this.tabPageCO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCO.Size = new System.Drawing.Size(686, 299);
+            this.tabPageCO.Size = new System.Drawing.Size(686, 329);
             this.tabPageCO.TabIndex = 1;
             this.tabPageCO.Text = "Center-Out";
             this.tabPageCO.UseVisualStyleBackColor = true;
@@ -1799,7 +1793,7 @@ namespace BehaviorGraphics
             this.tabPageRW.Location = new System.Drawing.Point(4, 40);
             this.tabPageRW.Name = "tabPageRW";
             this.tabPageRW.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRW.Size = new System.Drawing.Size(686, 299);
+            this.tabPageRW.Size = new System.Drawing.Size(686, 329);
             this.tabPageRW.TabIndex = 2;
             this.tabPageRW.Text = "Random Walk";
             this.tabPageRW.UseVisualStyleBackColor = true;
@@ -2215,7 +2209,7 @@ namespace BehaviorGraphics
             this.tabPageFC.Location = new System.Drawing.Point(4, 40);
             this.tabPageFC.Name = "tabPageFC";
             this.tabPageFC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFC.Size = new System.Drawing.Size(686, 299);
+            this.tabPageFC.Size = new System.Drawing.Size(686, 329);
             this.tabPageFC.TabIndex = 3;
             this.tabPageFC.Text = "Forced Choice";
             this.tabPageFC.UseVisualStyleBackColor = true;
@@ -2513,10 +2507,10 @@ namespace BehaviorGraphics
             this.tabPageBS.Controls.Add(this.groupBox25);
             this.tabPageBS.Controls.Add(this.groupBox28);
             this.tabPageBS.Controls.Add(this.groupBox26);
-            this.tabPageBS.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBS.Location = new System.Drawing.Point(4, 40);
             this.tabPageBS.Name = "tabPageBS";
             this.tabPageBS.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBS.Size = new System.Drawing.Size(691, 317);
+            this.tabPageBS.Size = new System.Drawing.Size(686, 329);
             this.tabPageBS.TabIndex = 4;
             this.tabPageBS.Text = "Bump-stim";
             this.tabPageBS.UseVisualStyleBackColor = true;
@@ -3022,7 +3016,7 @@ namespace BehaviorGraphics
             this.tabPageMG.Location = new System.Drawing.Point(4, 40);
             this.tabPageMG.Name = "tabPageMG";
             this.tabPageMG.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMG.Size = new System.Drawing.Size(686, 299);
+            this.tabPageMG.Size = new System.Drawing.Size(686, 329);
             this.tabPageMG.TabIndex = 5;
             this.tabPageMG.Text = "Multi-Gadget";
             this.tabPageMG.UseVisualStyleBackColor = true;
@@ -3270,8 +3264,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -3470,7 +3464,7 @@ namespace BehaviorGraphics
             this.tabPageWF.Location = new System.Drawing.Point(4, 40);
             this.tabPageWF.Name = "tabPageWF";
             this.tabPageWF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageWF.Size = new System.Drawing.Size(686, 299);
+            this.tabPageWF.Size = new System.Drawing.Size(686, 329);
             this.tabPageWF.TabIndex = 6;
             this.tabPageWF.Text = "Wrist Flexion";
             this.tabPageWF.UseVisualStyleBackColor = true;
@@ -4029,8 +4023,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -4239,7 +4233,7 @@ namespace BehaviorGraphics
             this.tabPageBD.Location = new System.Drawing.Point(4, 40);
             this.tabPageBD.Name = "tabPageBD";
             this.tabPageBD.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBD.Size = new System.Drawing.Size(686, 299);
+            this.tabPageBD.Size = new System.Drawing.Size(686, 329);
             this.tabPageBD.TabIndex = 7;
             this.tabPageBD.Text = "Ball Drop";
             this.tabPageBD.UseVisualStyleBackColor = true;
@@ -4432,7 +4426,7 @@ namespace BehaviorGraphics
             this.tabPageBC.Location = new System.Drawing.Point(4, 40);
             this.tabPageBC.Name = "tabPageBC";
             this.tabPageBC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBC.Size = new System.Drawing.Size(686, 299);
+            this.tabPageBC.Size = new System.Drawing.Size(686, 329);
             this.tabPageBC.TabIndex = 8;
             this.tabPageBC.Text = "Bump-choice";
             this.tabPageBC.UseVisualStyleBackColor = true;
@@ -4481,6 +4475,7 @@ namespace BehaviorGraphics
             // 
             // groupBox19
             // 
+            this.groupBox19.Controls.Add(this.checkBoxBCCenterTargetOff);
             this.groupBox19.Controls.Add(this.textBoxBCWindowDiameter);
             this.groupBox19.Controls.Add(this.label77);
             this.groupBox19.Controls.Add(this.textBoxBCTgtRadius);
@@ -4489,7 +4484,7 @@ namespace BehaviorGraphics
             this.groupBox19.Controls.Add(this.label85);
             this.groupBox19.Location = new System.Drawing.Point(3, 148);
             this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(207, 121);
+            this.groupBox19.Size = new System.Drawing.Size(207, 131);
             this.groupBox19.TabIndex = 13;
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "Targets";
@@ -4569,6 +4564,17 @@ namespace BehaviorGraphics
             this.groupBox17.TabIndex = 21;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Bumps and stims";
+            // 
+            // checkBoxBCNewsome
+            // 
+            this.checkBoxBCNewsome.AutoSize = true;
+            this.checkBoxBCNewsome.Location = new System.Drawing.Point(89, 221);
+            this.checkBoxBCNewsome.Name = "checkBoxBCNewsome";
+            this.checkBoxBCNewsome.Size = new System.Drawing.Size(102, 17);
+            this.checkBoxBCNewsome.TabIndex = 41;
+            this.checkBoxBCNewsome.Text = "Newsome mode";
+            this.checkBoxBCNewsome.UseVisualStyleBackColor = true;
+            this.checkBoxBCNewsome.CheckedChanged += new System.EventHandler(this.NewsomeMode_Checked);
             // 
             // label87
             // 
@@ -4807,10 +4813,10 @@ namespace BehaviorGraphics
             this.tabPage1.Controls.Add(this.label175);
             this.tabPage1.Controls.Add(this.groupBox22);
             this.tabPage1.Controls.Add(this.groupBox20);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 40);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(691, 317);
+            this.tabPage1.Size = new System.Drawing.Size(686, 329);
             this.tabPage1.TabIndex = 9;
             this.tabPage1.Text = "Visual Search";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -5142,7 +5148,7 @@ namespace BehaviorGraphics
             this.tabPageBF.Location = new System.Drawing.Point(4, 40);
             this.tabPageBF.Name = "tabPageBF";
             this.tabPageBF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBF.Size = new System.Drawing.Size(686, 299);
+            this.tabPageBF.Size = new System.Drawing.Size(686, 329);
             this.tabPageBF.TabIndex = 10;
             this.tabPageBF.Text = "Bump-follow";
             this.tabPageBF.UseVisualStyleBackColor = true;
@@ -5555,7 +5561,7 @@ namespace BehaviorGraphics
             this.toolStripStatusLabelMdl,
             this.toolStripProgressBar1});
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 402);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 432);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(692, 22);
             this.statusStrip1.SizingGrip = false;
@@ -5772,7 +5778,7 @@ namespace BehaviorGraphics
             // buttonRefresh
             // 
             this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRefresh.Location = new System.Drawing.Point(12, 376);
+            this.buttonRefresh.Location = new System.Drawing.Point(12, 406);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 23);
             this.buttonRefresh.TabIndex = 97;
@@ -6341,16 +6347,42 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // checkBoxBCNewsome
+            // angleEntryBoxCurlAngleCatch
             // 
-            this.checkBoxBCNewsome.AutoSize = true;
-            this.checkBoxBCNewsome.Location = new System.Drawing.Point(89, 221);
-            this.checkBoxBCNewsome.Name = "checkBoxBCNewsome";
-            this.checkBoxBCNewsome.Size = new System.Drawing.Size(102, 17);
-            this.checkBoxBCNewsome.TabIndex = 41;
-            this.checkBoxBCNewsome.Text = "Newsome mode";
-            this.checkBoxBCNewsome.UseVisualStyleBackColor = true;
-            this.checkBoxBCNewsome.CheckedChanged += new System.EventHandler(this.NewsomeMode_Checked);
+            this.angleEntryBoxCurlAngleCatch.Location = new System.Drawing.Point(106, 73);
+            this.angleEntryBoxCurlAngleCatch.Name = "angleEntryBoxCurlAngleCatch";
+            this.angleEntryBoxCurlAngleCatch.Size = new System.Drawing.Size(100, 21);
+            this.angleEntryBoxCurlAngleCatch.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngleCatch, "Angle relative to the direction of movement at which to apply coriolis forces.");
+            this.angleEntryBoxCurlAngleCatch.Value = 0;
+            // 
+            // angleEntryBoxCurlAngle
+            // 
+            this.angleEntryBoxCurlAngle.Location = new System.Drawing.Point(106, 73);
+            this.angleEntryBoxCurlAngle.Name = "angleEntryBoxCurlAngle";
+            this.angleEntryBoxCurlAngle.Size = new System.Drawing.Size(100, 21);
+            this.angleEntryBoxCurlAngle.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngle, "Angle relative to the direction of movement at which to apply coriolis forces.");
+            this.angleEntryBoxCurlAngle.Value = 0;
+            // 
+            // angleEntryBoxCursorRotation
+            // 
+            this.angleEntryBoxCursorRotation.Location = new System.Drawing.Point(116, 108);
+            this.angleEntryBoxCursorRotation.Name = "angleEntryBoxCursorRotation";
+            this.angleEntryBoxCursorRotation.Size = new System.Drawing.Size(99, 21);
+            this.angleEntryBoxCursorRotation.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCursorRotation, "Rotation of workspace relative to handle.");
+            this.angleEntryBoxCursorRotation.Value = 0;
+            // 
+            // checkBoxBCCenterTargetOff
+            // 
+            this.checkBoxBCCenterTargetOff.AutoSize = true;
+            this.checkBoxBCCenterTargetOff.Location = new System.Drawing.Point(28, 108);
+            this.checkBoxBCCenterTargetOff.Name = "checkBoxBCCenterTargetOff";
+            this.checkBoxBCCenterTargetOff.Size = new System.Drawing.Size(153, 17);
+            this.checkBoxBCCenterTargetOff.TabIndex = 42;
+            this.checkBoxBCCenterTargetOff.Text = "Center target off on go cue";
+            this.checkBoxBCCenterTargetOff.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -6359,7 +6391,7 @@ namespace BehaviorGraphics
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(692, 424);
+            this.ClientSize = new System.Drawing.Size(692, 454);
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -7052,5 +7084,8 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label194;
         private System.Windows.Forms.Label label192;
         private System.Windows.Forms.CheckBox checkBoxBCNewsome;
+        private System.Windows.Forms.Label label195;
+        private System.Windows.Forms.TextBox textBoxGoToneVolume;
+        private System.Windows.Forms.CheckBox checkBoxBCCenterTargetOff;
     }
 }

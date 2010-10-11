@@ -10,6 +10,7 @@ namespace BehaviorGraphics
     {
         private Device device;
         private SoundPlayer.SoundTheme theme;
+        private int goToneVolume;
 
         private SecondaryBuffer abort, go, reward, empty_rack, mask;
 
@@ -47,6 +48,7 @@ namespace BehaviorGraphics
             if (id == SoundID.abort) {
                 abort.Play(0, flags);
             } else if (id == SoundID.go) {
+                go.Volume = this.goToneVolume;
                 go.Play(0, flags);
             } else if (id == SoundID.reward) {
                 reward.Play(0, flags);
@@ -82,6 +84,12 @@ namespace BehaviorGraphics
         public SoundPlayer.SoundTheme Theme
         {
             get { return this.theme; }
+        }
+
+        public int GoToneVolume
+        {
+            get { return goToneVolume; }
+            set { goToneVolume = value; }
         }
 
         public enum SoundID

@@ -32,3 +32,7 @@ C:\Documents and Settings\Matthew Burns\Desktop\becca_tmp\trunk\src\graphics\Gra
 C:\Documents and Settings\Matthew Burns\Desktop\becca_tmp\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.UpdateForm.resources
 C:\Documents and Settings\Matthew Burns\Desktop\becca_tmp\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.WhichLabForm.resources
 C:\Documents and Settings\Matthew Burns\Desktop\becca_tmp\trunk\src\graphics\Graphics\obj\Debug\Graphics.csproj.GenerateResource.Cache
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\Interop.XPCAPICOMLib.dll
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\Graphics.csproj.ResolveComReference.cache
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.exe
+D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.pdb

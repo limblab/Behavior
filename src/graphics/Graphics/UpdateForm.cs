@@ -142,6 +142,7 @@ namespace BehaviorGraphics
             AddParamListItem("Recenter Handle", "Value", "Recentering Subsystem/RecenterFlag", this.checkBoxRecenter);
             AddParamListItem("Use Tachs", "Value", "Velocity Calculation/UseTachs", this.checkBoxUseTachs);
             AddParamListItem("Use Neural Control", "Value", "Use Neural Control", this.checkBoxUseNeuralControl);
+            AddParamListItem("Go Tone Volume", "Value", "Go Tone Volume", this.textBoxGoToneVolume);
 
             // Load
             AddParamListItem("Visc Constant", "Gain", "Force Generator/ViscLoadSubsystem/Gain", this.textBoxVisc);
@@ -430,6 +431,9 @@ namespace BehaviorGraphics
                         
             // Newsome mode
             AddParamListItem("BC Newsome Mode", "P17", "Behavior BC", this.checkBoxBCNewsome);
+
+            // Center target off on go cue
+            AddParamListItem("BC Center Target Off", "P18", "Behavior BC", this.checkBoxBCCenterTargetOff);
             #endregion
 
             #region Visual Search
@@ -1974,7 +1978,8 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
-        
+
+       
       
     }
 
