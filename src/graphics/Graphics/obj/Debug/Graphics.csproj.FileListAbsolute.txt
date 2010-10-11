@@ -36,3 +36,20 @@ D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\Inte
 D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\Graphics.csproj.ResolveComReference.cache
 D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.exe
 D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.pdb
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Debug\Interop.XPCAPICOMLib.dll
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Debug\Graphics.csproj.ResolveComReference.cache
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.exe
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.pdb
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\bin\Debug\BehaviorGraphics.exe
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\bin\Debug\BehaviorGraphics.pdb
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\bin\Debug\AngleBox.dll
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\bin\Debug\AngleBox.pdb
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\bin\Debug\Interop.XPCAPICOMLib.dll
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.Graphics.resources
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.Properties.Resources.resources
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.GraphicsAboutBox.resources
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.BoxConfig.resources
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.UpdateForm.resources
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.WhichLabForm.resources
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Debug\Graphics.csproj.GenerateResource.Cache

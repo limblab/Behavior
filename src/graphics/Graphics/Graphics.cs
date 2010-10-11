@@ -468,6 +468,12 @@ namespace BehaviorGraphics
             get { return glyphDefs[activeGlyphIndex]; }
         }
 
+        public SoundPlayer SoundPlayer
+        {
+            get { return this.sp; }
+            set { this.sp = SoundPlayer; }
+        }
+
         public Box Box
         {
             get

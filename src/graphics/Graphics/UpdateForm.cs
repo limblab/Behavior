@@ -142,7 +142,6 @@ namespace BehaviorGraphics
             AddParamListItem("Recenter Handle", "Value", "Recentering Subsystem/RecenterFlag", this.checkBoxRecenter);
             AddParamListItem("Use Tachs", "Value", "Velocity Calculation/UseTachs", this.checkBoxUseTachs);
             AddParamListItem("Use Neural Control", "Value", "Use Neural Control", this.checkBoxUseNeuralControl);
-            AddParamListItem("Go Tone Volume", "Value", "Go Tone Volume", this.textBoxGoToneVolume);
 
             // Load
             AddParamListItem("Visc Constant", "Gain", "Force Generator/ViscLoadSubsystem/Gain", this.textBoxVisc);
@@ -1570,6 +1569,7 @@ namespace BehaviorGraphics
             bp.Cursor = this.comboBoxCursor.SelectedIndex;
 
             bp.SoundTheme = ((Graphics)this.Owner).SoundTheme;
+            bp.GoToneVolume = Int32.Parse(this.textBoxGoToneVolume.Text);
 
             if (error) throw new InvalidParameterException();
             return bp;
@@ -1711,6 +1711,7 @@ namespace BehaviorGraphics
             theme2ToolStripMenuItem.Checked = (bp.SoundTheme == SoundPlayer.SoundTheme.Theme2);
             theme3ToolStripMenuItem.Checked = (bp.SoundTheme == SoundPlayer.SoundTheme.Theme3);
             ((Graphics)this.Owner).SoundTheme = bp.SoundTheme;
+            this.textBoxGoToneVolume.Text = bp.GoToneVolume.ToString();
         }
 
         private void BehaviorParameters2Target(BehaviorParameters bp)
@@ -1728,6 +1729,8 @@ namespace BehaviorGraphics
             owner.VerticalDisplacement = bp.VerticalDisplacement;
             owner.SetCursor(this.comboBoxCursor.SelectedIndex);
             owner.SetGlyphSet(this.comboBoxGlyphSelect.SelectedIndex);
+            owner.SoundPlayer.GoToneVolume = bp.GoToneVolume;
+
             paramID = target.GetParamIdx("Behavior VS", "P4");
             if (paramID >= 0) {
                 param.SetValue((double)((Graphics)this.Owner).ActiveGlyphDef.NumGlyphs, 0);

@@ -21,7 +21,7 @@ namespace BehaviorGraphics
             device.SetCooperativeLevel(owner, CooperativeLevel.Priority);
 
             BufferDescription d = new BufferDescription();
-            d.ControlVolume = true;
+            d.ControlVolume = true;            
 
             System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
             System.IO.Stream s;

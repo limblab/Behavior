@@ -20,6 +20,7 @@ namespace BehaviorGraphics
         private LoadType lt;
         private LoadType lt2;
         private float verticalDisplacement;
+        private int goToneVolume;
 
         // Multi-Gadget specific elements
         private List<MultiGadgetTarget> mgTargets;
@@ -71,6 +72,13 @@ namespace BehaviorGraphics
         {
             set { this.screenWidth = value; }
             get { return this.screenWidth; }
+        }
+
+        [XmlElement]
+        public int GoToneVolume
+        {
+            get { return this.goToneVolume; }
+            set { this.goToneVolume = value; }
         }
 
         [XmlArray]

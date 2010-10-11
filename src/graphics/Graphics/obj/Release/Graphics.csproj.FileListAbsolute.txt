@@ -40,3 +40,17 @@ D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Release\Be
 D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.pdb
 D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\bin\BehaviorGraphics.exe
 D:\Ricardo\Miller Lab\Matlab\Behavior\trunk\bin\BehaviorGraphics.pdb
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\bin\BehaviorGraphics.exe
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\bin\BehaviorGraphics.pdb
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Release\Interop.XPCAPICOMLib.dll
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Release\Graphics.csproj.ResolveComReference.cache
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.Graphics.resources
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.Properties.Resources.resources
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.GraphicsAboutBox.resources
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.BoxConfig.resources
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.UpdateForm.resources
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.WhichLabForm.resources
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Release\Graphics.csproj.GenerateResource.Cache
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.exe
+C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Release\BehaviorGraphics.pdb
