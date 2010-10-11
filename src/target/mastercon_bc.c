@@ -113,6 +113,10 @@ static real_T master_update = 0.0;
 static int newsome_mode = 0;
 #define param_newsome_mode mxGetScalar(ssGetSFcnParam(S,16))
 
+/* Center target off on go cue */
+static int center_target_off = 1.0;   /* turn off center target on go cue */
+#define param_center_target_off mxGetScalar(ssGetSFcnParam(S,17))
+
 /*
  * State IDs
  */
@@ -156,13 +160,14 @@ static void mdlCheckParameters(SimStruct *S)
     incomplete_timeout = param_intertrial;
     
     newsome_mode = param_newsome_mode;
+    center_target_off = param_center_target_off;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 17);
+    ssSetNumSFcnParams(S, 18);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -469,6 +474,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             incomplete_timeout = param_intertrial;
             
             newsome_mode = param_newsome_mode;
+            center_target_off = param_center_target_off;
             
             /* decide if it is a training trial */
             training_mode = (UNI<pct_training_trials) ? 1 : 0;
@@ -936,8 +942,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         }
     } else if ( state == STATE_MOVEMENT  ||
          state == STATE_BUMP_STIM) {
-        /* center target off */
-        target_pos[0] = 0;
+        
+        if (center_target_off) {
+            /* center target off */
+            target_pos[0] = 0;
+        } else {
+            target_pos[0] = 2;
+        }
         for (i=0; i<4; i++) {
            target_pos[i+1] = ct[i];
         }
