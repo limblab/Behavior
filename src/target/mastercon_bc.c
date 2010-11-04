@@ -977,7 +977,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         if (state == STATE_ABORT || state == STATE_FAIL) {
             tone_cnt++;
             tone_id = TONE_ABORT;
-        } else if (state == STATE_BUMP_STIM) {
+        } else if (state == STATE_MOVEMENT) {
             tone_cnt++;
             tone_id = TONE_GO; 
         } else if (state == STATE_REWARD) {
