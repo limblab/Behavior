@@ -923,26 +923,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         for (i=0; i<4; i++) {
            target_pos[i+1] = ct[i];
         }
-    } else if (state ==  STATE_CENTER_HOLD) {
+    } else if (state ==  STATE_CENTER_HOLD  ||
+         state == STATE_BUMP_STIM) {
         /* center target on */
         target_pos[0] = 2;
         for (i=0; i<4; i++) {
            target_pos[i+1] = ct[i];
         }
-        /* outer target on */
-        target_pos[5] = 2;
-        for (i=0; i<4; i++) {
-            target_pos[i+6] = rt[i];
-        }
-        if (!training_mode) {
-            target_pos[10] = 2;
-            for (i=0; i<4; i++) {
-                target_pos[i+11] = ft[i];
-            }
-        }
-    } else if ( state == STATE_MOVEMENT  ||
-         state == STATE_BUMP_STIM) {
-        
+    } else if ( state == STATE_MOVEMENT) {        
         if (center_target_off) {
             /* center target off */
             target_pos[0] = 0;
