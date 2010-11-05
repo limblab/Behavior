@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -53,6 +53,7 @@ namespace BehaviorGraphics
             this.label114 = new System.Windows.Forms.Label();
             this.checkBoxRecenter = new System.Windows.Forms.CheckBox();
             this.groupBox27 = new System.Windows.Forms.GroupBox();
+            this.angleEntryBoxCurlAngleCatch = new AngleBox.AngleEntryBox();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
             this.textBoxTimeConstCatch = new System.Windows.Forms.TextBox();
             this.labelChaoticGainCatch = new System.Windows.Forms.Label();
@@ -70,6 +71,7 @@ namespace BehaviorGraphics
             this.textBoxScreenWidth = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.angleEntryBoxCurlAngle = new AngleBox.AngleEntryBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.textBoxTimeConst = new System.Windows.Forms.TextBox();
             this.labelChaoticGain = new System.Windows.Forms.Label();
@@ -85,6 +87,7 @@ namespace BehaviorGraphics
             this.label19 = new System.Windows.Forms.Label();
             this.comboBoxLoad = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.angleEntryBoxCursorRotation = new AngleBox.AngleEntryBox();
             this.label17 = new System.Windows.Forms.Label();
             this.textBoxYOffset = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -391,6 +394,7 @@ namespace BehaviorGraphics
             this.StimCodeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
+            this.checkBoxBCCenterTargetOff = new System.Windows.Forms.CheckBox();
             this.textBoxBCWindowDiameter = new System.Windows.Forms.TextBox();
             this.label77 = new System.Windows.Forms.Label();
             this.textBoxBCTgtRadius = new System.Windows.Forms.TextBox();
@@ -577,10 +581,6 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.angleEntryBoxCurlAngleCatch = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxCurlAngle = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxCursorRotation = new AngleBox.AngleEntryBox();
-            this.checkBoxBCCenterTargetOff = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -737,9 +737,9 @@ namespace BehaviorGraphics
             this.label195.AutoSize = true;
             this.label195.Location = new System.Drawing.Point(8, 306);
             this.label195.Name = "label195";
-            this.label195.Size = new System.Drawing.Size(82, 13);
+            this.label195.Size = new System.Drawing.Size(101, 13);
             this.label195.TabIndex = 25;
-            this.label195.Text = "Go tone volume";
+            this.label195.Text = "Go tone attenuation";
             // 
             // textBoxGoToneVolume
             // 
@@ -747,6 +747,7 @@ namespace BehaviorGraphics
             this.textBoxGoToneVolume.Name = "textBoxGoToneVolume";
             this.textBoxGoToneVolume.Size = new System.Drawing.Size(100, 20);
             this.textBoxGoToneVolume.TabIndex = 24;
+            this.toolTip1.SetToolTip(this.textBoxGoToneVolume, "Negative integers attenuate go tone, zero keeps full volume");
             // 
             // checkBoxUseNeuralControl
             // 
@@ -918,6 +919,15 @@ namespace BehaviorGraphics
             this.groupBox27.TabIndex = 21;
             this.groupBox27.TabStop = false;
             this.groupBox27.Text = "Catch Load";
+            // 
+            // angleEntryBoxCurlAngleCatch
+            // 
+            this.angleEntryBoxCurlAngleCatch.Location = new System.Drawing.Point(106, 73);
+            this.angleEntryBoxCurlAngleCatch.Name = "angleEntryBoxCurlAngleCatch";
+            this.angleEntryBoxCurlAngleCatch.Size = new System.Drawing.Size(100, 21);
+            this.angleEntryBoxCurlAngleCatch.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngleCatch, "Angle relative to the direction of movement at which to apply coriolis forces.");
+            this.angleEntryBoxCurlAngleCatch.Value = 0;
             // 
             // groupBox29
             // 
@@ -1096,6 +1106,15 @@ namespace BehaviorGraphics
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Load";
             // 
+            // angleEntryBoxCurlAngle
+            // 
+            this.angleEntryBoxCurlAngle.Location = new System.Drawing.Point(106, 73);
+            this.angleEntryBoxCurlAngle.Name = "angleEntryBoxCurlAngle";
+            this.angleEntryBoxCurlAngle.Size = new System.Drawing.Size(100, 21);
+            this.angleEntryBoxCurlAngle.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngle, "Angle relative to the direction of movement at which to apply coriolis forces.");
+            this.angleEntryBoxCurlAngle.Value = 0;
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.textBoxTimeConst);
@@ -1252,6 +1271,15 @@ namespace BehaviorGraphics
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Position Offsets";
+            // 
+            // angleEntryBoxCursorRotation
+            // 
+            this.angleEntryBoxCursorRotation.Location = new System.Drawing.Point(116, 108);
+            this.angleEntryBoxCursorRotation.Name = "angleEntryBoxCursorRotation";
+            this.angleEntryBoxCursorRotation.Size = new System.Drawing.Size(99, 21);
+            this.angleEntryBoxCursorRotation.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCursorRotation, "Rotation of workspace relative to handle.");
+            this.angleEntryBoxCursorRotation.Value = 0;
             // 
             // label17
             // 
@@ -3264,8 +3292,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4023,8 +4051,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -4488,6 +4516,16 @@ namespace BehaviorGraphics
             this.groupBox19.TabIndex = 13;
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "Targets";
+            // 
+            // checkBoxBCCenterTargetOff
+            // 
+            this.checkBoxBCCenterTargetOff.AutoSize = true;
+            this.checkBoxBCCenterTargetOff.Location = new System.Drawing.Point(28, 108);
+            this.checkBoxBCCenterTargetOff.Name = "checkBoxBCCenterTargetOff";
+            this.checkBoxBCCenterTargetOff.Size = new System.Drawing.Size(153, 17);
+            this.checkBoxBCCenterTargetOff.TabIndex = 42;
+            this.checkBoxBCCenterTargetOff.Text = "Center target off on go cue";
+            this.checkBoxBCCenterTargetOff.UseVisualStyleBackColor = true;
             // 
             // textBoxBCWindowDiameter
             // 
@@ -6346,43 +6384,6 @@ namespace BehaviorGraphics
             this.label74.Size = new System.Drawing.Size(61, 13);
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
-            // 
-            // angleEntryBoxCurlAngleCatch
-            // 
-            this.angleEntryBoxCurlAngleCatch.Location = new System.Drawing.Point(106, 73);
-            this.angleEntryBoxCurlAngleCatch.Name = "angleEntryBoxCurlAngleCatch";
-            this.angleEntryBoxCurlAngleCatch.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngleCatch.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngleCatch, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngleCatch.Value = 0;
-            // 
-            // angleEntryBoxCurlAngle
-            // 
-            this.angleEntryBoxCurlAngle.Location = new System.Drawing.Point(106, 73);
-            this.angleEntryBoxCurlAngle.Name = "angleEntryBoxCurlAngle";
-            this.angleEntryBoxCurlAngle.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngle.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngle, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngle.Value = 0;
-            // 
-            // angleEntryBoxCursorRotation
-            // 
-            this.angleEntryBoxCursorRotation.Location = new System.Drawing.Point(116, 108);
-            this.angleEntryBoxCursorRotation.Name = "angleEntryBoxCursorRotation";
-            this.angleEntryBoxCursorRotation.Size = new System.Drawing.Size(99, 21);
-            this.angleEntryBoxCursorRotation.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCursorRotation, "Rotation of workspace relative to handle.");
-            this.angleEntryBoxCursorRotation.Value = 0;
-            // 
-            // checkBoxBCCenterTargetOff
-            // 
-            this.checkBoxBCCenterTargetOff.AutoSize = true;
-            this.checkBoxBCCenterTargetOff.Location = new System.Drawing.Point(28, 108);
-            this.checkBoxBCCenterTargetOff.Name = "checkBoxBCCenterTargetOff";
-            this.checkBoxBCCenterTargetOff.Size = new System.Drawing.Size(153, 17);
-            this.checkBoxBCCenterTargetOff.TabIndex = 42;
-            this.checkBoxBCCenterTargetOff.Text = "Center target off on go cue";
-            this.checkBoxBCCenterTargetOff.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
