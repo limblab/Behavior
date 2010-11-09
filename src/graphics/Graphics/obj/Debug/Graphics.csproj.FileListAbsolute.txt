@@ -53,3 +53,7 @@ C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\gr
 C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.UpdateForm.resources
 C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Debug\BehaviorGraphics.WhichLabForm.resources
 C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\Graphics\obj\Debug\Graphics.csproj.GenerateResource.Cache
+C:\Users\system administrator\Desktop\Behavior\src\graphics\Graphics\obj\Debug\Interop.XPCAPICOMLib.dll
+C:\Users\system administrator\Desktop\Behavior\src\graphics\Graphics\obj\Debug\Graphics.csproj.ResolveComReference.cache
+C:\Users\system administrator\Desktop\Behavior\src\graphics\Graphics\obj\Debug\BehaviorGraphics.exe
+C:\Users\system administrator\Desktop\Behavior\src\graphics\Graphics\obj\Debug\BehaviorGraphics.pdb
