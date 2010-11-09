@@ -1,0 +1,7 @@
+C:\Users\system administrator\Desktop\Behavior\src\graphics\AngleBox\bin\x86\Debug\AngleBox.dll
+C:\Users\system administrator\Desktop\Behavior\src\graphics\AngleBox\bin\x86\Debug\AngleBox.pdb
+C:\Users\system administrator\Desktop\Behavior\src\graphics\AngleBox\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\system administrator\Desktop\Behavior\src\graphics\AngleBox\obj\x86\Debug\AngleBox.AngleEntryBox.resources
+C:\Users\system administrator\Desktop\Behavior\src\graphics\AngleBox\obj\x86\Debug\AngleBox.csproj.GenerateResource.Cache
+C:\Users\system administrator\Desktop\Behavior\src\graphics\AngleBox\obj\x86\Debug\AngleBox.dll
+C:\Users\system administrator\Desktop\Behavior\src\graphics\AngleBox\obj\x86\Debug\AngleBox.pdb
