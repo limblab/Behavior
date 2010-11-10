@@ -66,7 +66,7 @@ namespace BehaviorGraphics {
         public static int Lab {
             get {
                 try {
-                    RegistryKey key = Registry.LocalMachine.OpenSubKey(REG_KEY_PATH);
+                    RegistryKey key = Registry.CurrentUser.OpenSubKey(REG_KEY_PATH);
                     String keyString = (String)key.GetValue(REG_KEY_LAB);
                     return int.Parse(keyString);
                 } catch (Exception) {
@@ -74,7 +74,7 @@ namespace BehaviorGraphics {
                 }
             }
             set {
-                RegistryKey key = Registry.LocalMachine.CreateSubKey(REG_KEY_PATH);
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(REG_KEY_PATH);
                 key.SetValue(REG_KEY_LAB, value.ToString());
             }
         }

@@ -197,7 +197,7 @@ namespace BehaviorGraphics
         {
             Sprite cursor;
 
-            device.Clear(ClearFlags.Target, Color.Black, 1.0f, 0);
+            device.Clear(ClearFlags.Target, System.Drawing.Color.Black, 1.0f, 0);
             device.BeginScene();
 #if DEBUG
             // Calculate frame rate

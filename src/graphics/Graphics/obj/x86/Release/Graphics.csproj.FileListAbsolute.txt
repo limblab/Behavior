@@ -15,3 +15,5 @@ C:\Users\system administrator\Desktop\Behavior\src\graphics\Graphics\obj\x86\Rel
 C:\Users\system administrator\Desktop\Behavior\src\graphics\Graphics\obj\x86\Release\Graphics.csproj.GenerateResource.Cache
 C:\Users\system administrator\Desktop\Behavior\src\graphics\Graphics\obj\x86\Release\BehaviorGraphics.exe
 C:\Users\system administrator\Desktop\Behavior\src\graphics\Graphics\obj\x86\Release\BehaviorGraphics.pdb
+C:\Users\system administrator\Desktop\Behavior\src\graphics\Graphics\bin\x86\Release\xpcapi.dll
+C:\Users\system administrator\Desktop\Behavior\src\graphics\Graphics\bin\x86\Release\xpcapiCOM.dll

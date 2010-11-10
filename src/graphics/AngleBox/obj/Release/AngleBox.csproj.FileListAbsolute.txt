@@ -26,3 +26,10 @@ C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\gr
 C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\AngleBox\obj\Release\AngleBox.csproj.GenerateResource.Cache
 C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\AngleBox\obj\Release\AngleBox.dll
 C:\Documents and Settings\Matthew Burns\Desktop\ricardo_working_dir\trunk\src\graphics\AngleBox\obj\Release\AngleBox.pdb
+C:\Users\system administrator\Desktop\Behavior\src\graphics\AngleBox\bin\Release\AngleBox.dll
+C:\Users\system administrator\Desktop\Behavior\src\graphics\AngleBox\bin\Release\AngleBox.pdb
+C:\Users\system administrator\Desktop\Behavior\src\graphics\AngleBox\obj\Release\ResolveAssemblyReference.cache
+C:\Users\system administrator\Desktop\Behavior\src\graphics\AngleBox\obj\Release\AngleBox.AngleEntryBox.resources
+C:\Users\system administrator\Desktop\Behavior\src\graphics\AngleBox\obj\Release\AngleBox.csproj.GenerateResource.Cache
+C:\Users\system administrator\Desktop\Behavior\src\graphics\AngleBox\obj\Release\AngleBox.dll
+C:\Users\system administrator\Desktop\Behavior\src\graphics\AngleBox\obj\Release\AngleBox.pdb

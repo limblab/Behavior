@@ -34,9 +34,8 @@ namespace BehaviorGraphics
                     }
                 }
             } catch (Exception) {
-            }
-
-            MessageBox.Show("Please enter a valid lab number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please enter a valid lab number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }            
         }
 
         public int Lab
