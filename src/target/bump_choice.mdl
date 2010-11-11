@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1248"
+    ComputedModelVersion    "1.1249"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "ricardo"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Oct 11 14:45:42 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:1248>"
+  LastModifiedDate	  "Thu Nov 11 10:56:38 2010"
+  ModelVersionFormat	  "1.%<AutoIncrement:1249>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -837,7 +837,7 @@ Model {
   }
   System {
     Name		    "bump_choice"
-    Location		    [2, 82, 1254, 868]
+    Location		    [2, 82, 989, 722]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -2593,6 +2593,14 @@ Model {
       Position		      [995, 264, 1040, 286]
       GotoTag		      "Reward"
       TagVisibility	      "global"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Intel Chipset\nDisable SMI"
+      Ports		      []
+      Position		      [75, 115, 165, 166]
+      SourceBlock	      "IntelSMIlibR2007b/Intel Chipset\nDisable SMI"
+      SourceType	      "ICH5SMI"
     }
     Block {
       BlockType		      Concatenate
