@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{EE5B33E7-DCA0-4801-B48F-128EA4D2B6A8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -221,6 +221,33 @@
     <EmbeddedResource Include="glyphs\waveletg2.tga" />
     <EmbeddedResource Include="glyphs\waveleth1.tga" />
     <EmbeddedResource Include="glyphs\waveleth2.tga" />
+    <EmbeddedResource Include="glyphs\Copy of planets8.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFa1.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFa2.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFb1.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFb2.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFc1.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFc2.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFd1.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFd2.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFe1.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFe2.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFa1.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFa2.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFb1.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFb2.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFc1.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFc2.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFd1.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFd2.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFe1.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFe2.tga" />
+    <EmbeddedResource Include="glyphs\blackHFa1.tga" />
+    <EmbeddedResource Include="glyphs\blackHFa2.tga" />
+    <EmbeddedResource Include="glyphs\blackHFb1.tga" />
+    <EmbeddedResource Include="glyphs\blackHFb2.tga" />
+    <EmbeddedResource Include="glyphs\blackHFc1.tga" />
+    <EmbeddedResource Include="glyphs\blackHFc2.tga" />
     <None Include="obj\Release\DXCheck.csproj.ResolveComReference.cache" />
   </ItemGroup>
   <ItemGroup>
