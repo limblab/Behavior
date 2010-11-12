@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1224"
+    ComputedModelVersion    "1.1225"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Matt Bauman"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Jun 15 14:28:56 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:1224>"
+  LastModifiedDate	  "Fri Nov 12 12:45:13 2010"
+  ModelVersionFormat	  "1.%<AutoIncrement:1225>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -2565,6 +2565,14 @@ Model {
       Position		      [995, 264, 1040, 286]
       GotoTag		      "Reward"
       TagVisibility	      "global"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Intel Chipset\nDisable SMI"
+      Ports		      []
+      Position		      [50, 50, 140, 101]
+      SourceBlock	      "IntelSMIlibR2007b/Intel Chipset\nDisable SMI"
+      SourceType	      "ICH5SMI"
     }
     Block {
       BlockType		      Concatenate

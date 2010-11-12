@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.349"
+    ComputedModelVersion    "1.350"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jul 01 16:28:07 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:349>"
+  LastModifiedDate	  "Fri Nov 12 12:50:48 2010"
+  ModelVersionFormat	  "1.%<AutoIncrement:350>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -775,7 +775,7 @@ Model {
   }
   System {
     Name		    "wrist_flexion"
-    Location		    [6, 86, 1000, 683]
+    Location		    [2, 70, 1278, 976]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -793,7 +793,7 @@ Model {
       BlockType		      "S-Function"
       Name		      "Behavior WF"
       Ports		      [3, 8]
-      Position		      [410, 39, 610, 521]
+      Position		      [415, 94, 615, 576]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_wf"
       Parameters	      "8 5 .5 .5 1 2 2 2 2 2 0 0 0 0 0 0 0 0.7854 0 .5"
@@ -813,7 +813,7 @@ Model {
       BlockType		      Reference
       Name		      "Cursor Pos"
       Ports		      [1]
-      Position		      [905, 229, 975, 271]
+      Position		      [910, 284, 980, 326]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -850,7 +850,7 @@ Model {
       BlockType		      SubSystem
       Name		      "CursorPos"
       Ports		      [1, 2]
-      Position		      [275, 104, 340, 171]
+      Position		      [280, 159, 345, 226]
       ShowPortLabels	      "none"
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
@@ -2117,9 +2117,17 @@ Model {
     }
     Block {
       BlockType		      Reference
+      Name		      "Intel Chipset\nDisable SMI"
+      Ports		      []
+      Position		      [35, 30, 125, 81]
+      SourceBlock	      "IntelSMIlibR2007b/Intel Chipset\nDisable SMI"
+      SourceType	      "ICH5SMI"
+    }
+    Block {
+      BlockType		      Reference
       Name		      "MVC Target"
       Ports		      [1]
-      Position		      [660, 348, 750, 392]
+      Position		      [665, 403, 755, 447]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -2156,7 +2164,7 @@ Model {
     Block {
       BlockType		      Memory
       Name		      "Memory"
-      Position		      [660, 475, 690, 505]
+      Position		      [665, 530, 695, 560]
       InheritSampleTime	      on
       Port {
 	PortNumber		1
@@ -2169,7 +2177,7 @@ Model {
       BlockType		      Mux
       Name		      "Mux"
       Ports		      [2, 1]
-      Position		      [875, 213, 880, 282]
+      Position		      [880, 268, 885, 337]
       ShowName		      off
       Inputs		      "2"
       DisplayOption	      "bar"
@@ -2177,7 +2185,7 @@ Model {
     Block {
       BlockType		      Gain
       Name		      "Rad2Deg"
-      Position		      [825, 251, 850, 279]
+      Position		      [830, 306, 855, 334]
       Gain		      "57.29578"
       ParameterDataTypeMode   "Inherit via internal rule"
       OutDataTypeMode	      "Inherit via internal rule"
@@ -2186,14 +2194,14 @@ Model {
     Block {
       BlockType		      Reshape
       Name		      "Reshape"
-      Position		      [365, 428, 395, 452]
+      Position		      [370, 483, 400, 507]
       OutputDimensionality    "Column vector (2-D)"
     }
     Block {
       BlockType		      SubSystem
       Name		      "RewardSbs"
       Ports		      [1, 1]
-      Position		      [660, 56, 750, 84]
+      Position		      [665, 111, 755, 139]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -2513,7 +2521,7 @@ Model {
       BlockType		      Reference
       Name		      "Status"
       Ports		      [1]
-      Position		      [660, 175, 750, 205]
+      Position		      [665, 230, 755, 260]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -2550,7 +2558,7 @@ Model {
       BlockType		      SubSystem
       Name		      "UDPXmit"
       Ports		      [3]
-      Position		      [660, 238, 750, 322]
+      Position		      [665, 293, 755, 377]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -2769,7 +2777,7 @@ Model {
       BlockType		      Reference
       Name		      "Version Display"
       Ports		      [1]
-      Position		      [660, 409, 750, 451]
+      Position		      [665, 464, 755, 506]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -2806,7 +2814,7 @@ Model {
       BlockType		      Reference
       Name		      "WFTargetTable"
       Ports		      [0, 1]
-      Position		      [255, 407, 320, 473]
+      Position		      [260, 462, 325, 528]
       SourceBlock	      "simulink/Lookup\nTables/Direct Lookup\nTable (n"
 "-D)"
       SourceType	      "LookupNDDirect"
@@ -2824,7 +2832,7 @@ Model {
       BlockType		      SubSystem
       Name		      "WordSbs"
       Ports		      [3]
-      Position		      [660, 103, 750, 157]
+      Position		      [665, 158, 755, 212]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
