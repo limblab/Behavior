@@ -262,7 +262,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 4, 0);
     
     /* set target types */
-    ssSetIWorkValue(S, 7, 2);   /* white target             */
+    ssSetIWorkValue(S, 7, 16);  /* center target appearance= same as correct target */
     ssSetIWorkValue(S, 8, 16);  /* correct gabor wavelet    */
     ssSetIWorkValue(S, 9, 17);  /* distractor gabor wavelet */
 
