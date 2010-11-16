@@ -1,12 +1,12 @@
 Model {
   Name			  "bump_choice"
-  Version		  6.6
+  Version		  7.0
   MdlSubVersion		  0
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1249"
+    ComputedModelVersion    "1.1250"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,16 +38,16 @@ Model {
   StatusBar		  on
   BrowserShowLibraryLinks off
   BrowserLookUnderMasks	  off
-  CloseFcn		  "rtwprivate ssgencode ModelCloseRequest rwalk_multi_"
-"local_v1"
+  CloseFcn		  "rtwprivate ssgencode ModelCloseRequest rwalk_multi_local_v1"
   Created		  "Wed Jul 23 09:41:05 2003"
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "ricardo"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Nov 11 10:56:38 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:1249>"
+  LastModifiedDate	  "Tue Nov 16 14:00:16 2010"
+  RTWModifiedTimeStamp	  0
+  ModelVersionFormat	  "1.%<AutoIncrement:1250>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -56,7 +56,6 @@ Model {
   AccelSystemTargetFile	  "accel.tlc"
   AccelTemplateMakefile	  "accel_default_tmf"
   AccelMakeCommand	  "make_rtw"
-  AccelVerboseBuild	  off
   TryForcingSFcnDF	  off
   RecordCoverage	  off
   CovPath		  "/"
@@ -91,7 +90,6 @@ Model {
   ExtModeLogAll		  on
   ExtModeAutoUpdateStatusClock on
   BufferReuse		  off
-  ProdHWDeviceType	  "32-bit Generic"
   ShowModelReferenceBlockVersion off
   ShowModelReferenceBlockIO off
   Array {
@@ -99,13 +97,13 @@ Model {
     Dimension		    1
     Simulink.ConfigSet {
       $ObjectID		      1
-      Version		      "1.2.0"
+      Version		      "1.3.0"
       Array {
 	Type			"Handle"
 	Dimension		7
 	Simulink.SolverCC {
 	  $ObjectID		  2
-	  Version		  "1.2.0"
+	  Version		  "1.3.0"
 	  StartTime		  "0.0"
 	  StopTime		  "Inf"
 	  AbsTol		  "auto"
@@ -134,7 +132,7 @@ Model {
 	}
 	Simulink.DataIOCC {
 	  $ObjectID		  3
-	  Version		  "1.2.0"
+	  Version		  "1.3.0"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
 	  FinalStateName	  "xFinal"
@@ -170,7 +168,7 @@ Model {
 	    Cell		    "NoFixptDivByZeroProtection"
 	    PropName		    "DisabledProps"
 	  }
-	  Version		  "1.2.0"
+	  Version		  "1.3.0"
 	  BlockReduction	  off
 	  BooleanDataType	  off
 	  ConditionallyExecuteInputs on
@@ -196,19 +194,24 @@ Model {
 	  OptimizeModelRefInitCode off
 	  LifeSpan		  "inf"
 	  BufferReusableBoundary  on
+	  SimCompilerOptimization "Off"
+	  AccelVerboseBuild	  off
 	}
 	Simulink.DebuggingCC {
 	  $ObjectID		  5
-	  Version		  "1.2.0"
+	  Version		  "1.3.0"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
 	  ArrayBoundsChecking	  "none"
 	  SignalInfNanChecking	  "none"
+	  SignalRangeChecking	  "none"
 	  ReadBeforeWriteMsg	  "UseLocalSettings"
 	  WriteAfterWriteMsg	  "UseLocalSettings"
 	  WriteAfterReadMsg	  "UseLocalSettings"
 	  AlgebraicLoopMsg	  "warning"
 	  ArtificialAlgebraicLoopMsg "warning"
+	  SaveWithDisabledLinksMsg "warning"
+	  SaveWithParameterizedLinksMsg	"none"
 	  CheckSSInitialOutputMsg on
 	  CheckExecutionContextPreStartOutputMsg off
 	  CheckExecutionContextRuntimeOutputMsg	off
@@ -260,10 +263,11 @@ Model {
 	  ModelReferenceExtraNoncontSigs "error"
 	  StateNameClashWarn	  "warning"
 	  StrictBusMsg		  "None"
+	  LoggingUnavailableSignals "error"
 	}
 	Simulink.HardwareCC {
 	  $ObjectID		  6
-	  Version		  "1.2.0"
+	  Version		  "1.3.0"
 	  ProdBitPerChar	  8
 	  ProdBitPerShort	  16
 	  ProdBitPerInt		  32
@@ -290,7 +294,7 @@ Model {
 	}
 	Simulink.ModelReferenceCC {
 	  $ObjectID		  7
-	  Version		  "1.2.0"
+	  Version		  "1.3.0"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
 	  CheckModelReferenceTargetMessage "error"
 	  ModelReferenceNumInstancesAllowed "Multi"
@@ -306,7 +310,7 @@ Model {
 	    Cell		    "IncludeHyperlinkInReport"
 	    PropName		    "DisabledProps"
 	  }
-	  Version		  "1.2.0"
+	  Version		  "1.3.0"
 	  SystemTargetFile	  "xpctarget.tlc"
 	  GenCodeOnly		  off
 	  MakeCommand		  "make_rtw"
@@ -330,6 +334,8 @@ Model {
 	  TargetLang		  "C"
 	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
 	  IncludeERTFirstTime	  on
+	  GenerateTraceInfo	  off
+	  RTWCompilerOptimization "Off"
 	  Array {
 	    Type		    "Handle"
 	    Dimension		    2
@@ -356,7 +362,7 @@ Model {
 		Cell			"CustomSymbolStrMacro"
 		PropName		"DisabledProps"
 	      }
-	      Version		      "1.2.0"
+	      Version		      "1.3.0"
 	      ForceParamTrailComments off
 	      GenerateComments	      on
 	      IgnoreCustomStorageClasses on
@@ -369,7 +375,6 @@ Model {
 	      SimulinkDataObjDesc     off
 	      SFDataObjDesc	      off
 	      IncDataTypeInIds	      off
-	      PrefixModelToSubsysFcnNames on
 	      MangleLength	      1
 	      CustomSymbolStrGlobalVar "$R$N$M"
 	      CustomSymbolStrType     "$N$R$M"
@@ -406,12 +411,11 @@ Model {
 		Cell			"SupportContinuousTime"
 		Cell			"SupportNonInlinedSFcns"
 		Cell			"GenerateTestInterfaces"
-		Cell			"ModelStepFunctionPrototypeControlComp"
-"liant"
+		Cell			"ModelStepFunctionPrototypeControlCompliant"
 		Cell			"PortableWordSizes"
 		PropName		"DisabledProps"
 	      }
-	      Version		      "1.2.0"
+	      Version		      "1.3.0"
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
 	      TargetLibSuffix	      ""
 	      TargetPreCompLibLocation ""
@@ -422,6 +426,7 @@ Model {
 	      GenerateTestInterfaces  off
 	      IsPILTarget	      off
 	      ModelReferenceCompliant on
+	      CompOptLevelCompliant   off
 	      IncludeMdlTerminateFcn  on
 	      CombineOutputUpdateFcns off
 	      SuppressErrorStatus     off
@@ -486,12 +491,6 @@ Model {
   }
   BlockParameterDefaults {
     Block {
-      BlockType		      Abs
-      SaturateOnIntegerOverflow	on
-      ZeroCross		      on
-      SampleTime	      "-1"
-    }
-    Block {
       BlockType		      Clock
       DisplayTime	      off
     }
@@ -501,27 +500,12 @@ Model {
       SampleTime	      "-1"
     }
     Block {
-      BlockType		      Concatenate
-      NumInputs		      "2"
-      ConcatenateDimension    "1"
-    }
-    Block {
-      BlockType		      Constant
-      Value		      "1"
-      VectorParams1D	      on
-      SamplingMode	      "Sample based"
-      OutDataTypeMode	      "Inherit from 'Constant value'"
-      OutDataType	      "sfix(16)"
-      ConRadixGroup	      "Use specified scaling"
-      OutScaling	      "2^0"
-      SampleTime	      "inf"
-      FramePeriod	      "inf"
-    }
-    Block {
       BlockType		      DataTypeConversion
+      OutMin		      "[]"
+      OutMax		      "[]"
       OutDataTypeMode	      "Inherit via back propagation"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
       LockScale		      off
       ConvertRealWorld	      "Real World Value (RWV)"
       RndMeth		      "Zero"
@@ -567,13 +551,17 @@ Model {
       BlockType		      Gain
       Gain		      "1"
       Multiplication	      "Element-wise(K.*u)"
+      ParamMin		      "[]"
+      ParamMax		      "[]"
       ParameterDataTypeMode   "Same as input"
-      ParameterDataType	      "sfix(16)"
+      ParameterDataType	      "fixdt(1,16,0)"
       ParameterScalingMode    "Best Precision: Matrix-wise"
-      ParameterScaling	      "2^0"
+      ParameterScaling	      "[]"
+      OutMin		      "[]"
+      OutMax		      "[]"
       OutDataTypeMode	      "Same as input"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
       LockScale		      off
       RndMeth		      "Floor"
       SaturateOnIntegerOverflow	on
@@ -594,9 +582,11 @@ Model {
       BusOutputAsStruct	      off
       PortDimensions	      "-1"
       SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
       DataType		      "auto"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
       SignalType	      "auto"
       SamplingMode	      "auto"
       LatchByDelayingOutsideSignal off
@@ -609,8 +599,7 @@ Model {
       Inputs		      "2"
       IconShape		      "rectangular"
       AllPortsSameDT	      on
-      OutDataTypeMode	      "Logical (see Configuration Parameters: Optimiza"
-"tion)"
+      OutDataTypeMode	      "Logical (see Configuration Parameters: Optimization)"
       LogicDataType	      "uint(8)"
       SampleTime	      "-1"
     }
@@ -619,9 +608,11 @@ Model {
       Operator		      "exp"
       OutputSignalType	      "auto"
       SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
       OutDataTypeMode	      "Same as first input"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
       LockScale		      off
       RndMeth		      "Floor"
       SaturateOnIntegerOverflow	on
@@ -640,7 +631,12 @@ Model {
       Inputs		      "4"
       zeroidx		      off
       InputSameDT	      on
+      OutMin		      "[]"
+      OutMax		      "[]"
       OutDataTypeMode	      "Inherit via internal rule"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      LockScale		      off
       RndMeth		      "Floor"
       SaturateOnIntegerOverflow	on
       SampleTime	      "-1"
@@ -661,9 +657,11 @@ Model {
       BusOutputAsStruct	      off
       PortDimensions	      "-1"
       SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
       DataType		      "auto"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
       SignalType	      "auto"
       SamplingMode	      "auto"
       OutputWhenDisabled      "held"
@@ -676,9 +674,11 @@ Model {
       CollapseMode	      "All dimensions"
       CollapseDim	      "1"
       InputSameDT	      on
+      OutMin		      "[]"
+      OutMax		      "[]"
       OutDataTypeMode	      "Same as first input"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
       LockScale		      off
       RndMeth		      "Zero"
       SaturateOnIntegerOverflow	on
@@ -695,43 +695,22 @@ Model {
       BlockType		      Reference
     }
     Block {
-      BlockType		      RelationalOperator
-      Operator		      ">="
-      InputSameDT	      on
-      LogicOutDataTypeMode    "Logical (see Configuration Parameters: Optimiza"
-"tion)"
-      LogicDataType	      "uint(8)"
-      ZeroCross		      on
+      BlockType		      SignalSpecification
+      Dimensions	      "-1"
       SampleTime	      "-1"
-    }
-    Block {
-      BlockType		      Reshape
-      OutputDimensionality    "1-D array"
-      OutputDimensions	      "[1,1]"
-    }
-    Block {
-      BlockType		      Saturate
-      UpperLimit	      "0.5"
-      LowerLimit	      "-0.5"
-      LinearizeAsGain	      on
-      ZeroCross		      on
-      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      DataType		      "auto"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
     }
     Block {
       BlockType		      "S-Function"
       FunctionName	      "system"
       SFunctionModules	      "''"
       PortCounts	      "[]"
-    }
-    Block {
-      BlockType		      SignalSpecification
-      Dimensions	      "-1"
-      SampleTime	      "-1"
-      DataType		      "auto"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
-      SignalType	      "auto"
-      SamplingMode	      "auto"
     }
     Block {
       BlockType		      SubSystem
@@ -758,9 +737,11 @@ Model {
       CollapseMode	      "All dimensions"
       CollapseDim	      "1"
       InputSameDT	      on
+      OutMin		      "[]"
+      OutMax		      "[]"
       OutDataTypeMode	      "Same as first input"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
       LockScale		      off
       RndMeth		      "Floor"
       SaturateOnIntegerOverflow	on
@@ -771,11 +752,24 @@ Model {
       Criteria		      "u2 >= Threshold"
       Threshold		      "0"
       InputSameDT	      on
+      OutMin		      "[]"
+      OutMax		      "[]"
       OutDataTypeMode	      "Inherit via internal rule"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      LockScale		      off
       RndMeth		      "Floor"
       SaturateOnIntegerOverflow	on
       ZeroCross		      on
       SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      UniformRandomNumber
+      Minimum		      "-1"
+      Maximum		      "1"
+      Seed		      "0"
+      SampleTime	      "-1"
+      VectorParams1D	      on
     }
     Block {
       BlockType		      TriggerPort
@@ -786,20 +780,6 @@ Model {
       SampleTimeType	      "triggered"
       SampleTime	      "1"
       ZeroCross		      on
-    }
-    Block {
-      BlockType		      Trigonometry
-      Operator		      "sin"
-      OutputSignalType	      "auto"
-      SampleTime	      "-1"
-    }
-    Block {
-      BlockType		      UniformRandomNumber
-      Minimum		      "-1"
-      Maximum		      "1"
-      Seed		      "0"
-      SampleTime	      "-1"
-      VectorParams1D	      on
     }
     Block {
       BlockType		      UnitDelay
@@ -815,6 +795,72 @@ Model {
       ResetStates	      "held"
       ShowIterationPort	      off
       OutputDataType	      "int32"
+    }
+    Block {
+      BlockType		      Concatenate
+      NumInputs		      "2"
+      ConcatenateDimension    "1"
+    }
+    Block {
+      BlockType		      Reshape
+      OutputDimensionality    "1-D array"
+      OutputDimensions	      "[1,1]"
+    }
+    Block {
+      BlockType		      Abs
+      ZeroCross		      on
+      SampleTime	      "-1"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Same as input"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+    }
+    Block {
+      BlockType		      Constant
+      Value		      "1"
+      VectorParams1D	      on
+      SamplingMode	      "Sample based"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Inherit from 'Constant value'"
+      OutDataType	      "fixdt(1,16,0)"
+      ConRadixGroup	      "Use specified scaling"
+      OutScaling	      "[]"
+      SampleTime	      "inf"
+      FramePeriod	      "inf"
+    }
+    Block {
+      BlockType		      RelationalOperator
+      Operator		      ">="
+      InputSameDT	      on
+      LogicOutDataTypeMode    "Logical (see Configuration Parameters: Optimization)"
+      LogicDataType	      "uint(8)"
+      ZeroCross		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Saturate
+      UpperLimit	      "0.5"
+      LowerLimit	      "-0.5"
+      LinearizeAsGain	      on
+      ZeroCross		      on
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Same as input"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      LockScale		      off
+      RndMeth		      "Floor"
+    }
+    Block {
+      BlockType		      Trigonometry
+      Operator		      "sin"
+      OutputSignalType	      "auto"
+      SampleTime	      "-1"
     }
   }
   AnnotationDefaults {
@@ -837,7 +883,7 @@ Model {
   }
   System {
     Name		    "bump_choice"
-    Location		    [2, 82, 989, 722]
+    Location		    [166, 217, 1153, 857]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -856,15 +902,13 @@ Model {
       Name		      "BCStimTable"
       Ports		      [0, 1]
       Position		      [525, 378, 585, 442]
-      SourceBlock	      "simulink/Lookup\nTables/Direct Lookup\nTable (n"
-"-D)"
+      SourceBlock	      "simulink/Lookup\nTables/Direct Lookup\nTable (n-D)"
       SourceType	      "LookupNDDirect"
       maskTabDims	      "2"
       explicitNumDims	      "1"
       outDims		      "2-D Matrix"
       tabIsInput	      off
-      mxTable		      "[-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -"
-"1;-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1]"
+      mxTable		      "[-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1;-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1]"
       clipFlag		      "Warning"
       samptime		      "0.001"
     }
@@ -875,14 +919,8 @@ Model {
       Position		      [655, 54, 885, 446]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_bc"
-      Parameters	      "0 10 3 5 7 0.0 0.05 125 0.5 2 10 1 2 0 0 0 0 1"
-      MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
-"os')\nport_label('input',2,'pos offsets')\nport_label('input',3,'force')\npor"
-"t_label('input',4,'catch force')\nport_label('input',5,'stim table')\nport_la"
-"bel('output',1,'force')\nport_label('output',2,'status')\nport_label('output'"
-",3,'word')\nport_label('output',4,'targets')\nport_label('output',5,'reward')"
-"\nport_label('output',6,'tone')\nport_label('output',7,'version')\nport_label"
-"('output',8,'pos')"
+      Parameters	      "0 0 10 3 5 7 0.0 0.05 125 0.5 1 10 1 2 2 0 0 0 0 1"
+      MaskDisplay	      "disp('Master Control')\nport_label('input',1,'pos')\nport_label('input',2,'pos offsets')\nport_label('input',3,'force')\nport_label('input',4,'catch force')\nport_label('input',5,'stim table')\nport_label('output',1,'force')\nport_label('output',2,'status')\nport_label('output',3,'word')\nport_label('output',4,'targets')\nport_label('output',5,'reward')\nport_label('output',6,'tone')\nport_label('output',7,'version')\nport_label('output',8,'pos')"
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
@@ -896,7 +934,6 @@ Model {
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
-      MaskHideContents	      off
       System {
 	Name			"BoundingBox"
 	Location		[172, 88, 1107, 912]
@@ -917,6 +954,8 @@ Model {
 	  Name			  "RawPos"
 	  Position		  [110, 333, 140, 347]
 	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Demux
@@ -936,7 +975,7 @@ Model {
 	  Operator		  "OR"
 	  Inputs		  "4"
 	  AllPortsSameDT	  off
-	  OutDataTypeMode	  "Boolean"
+	  OutDataTypeMode	  "boolean"
 	}
 	Block {
 	  BlockType		  RelationalOperator
@@ -944,7 +983,7 @@ Model {
 	  Position		  [390, 227, 420, 258]
 	  Operator		  "<"
 	  InputSameDT		  off
-	  LogicOutDataTypeMode	  "Boolean"
+	  LogicOutDataTypeMode	  "boolean"
 	}
 	Block {
 	  BlockType		  RelationalOperator
@@ -952,7 +991,7 @@ Model {
 	  Position		  [390, 292, 420, 323]
 	  Operator		  ">"
 	  InputSameDT		  off
-	  LogicOutDataTypeMode	  "Boolean"
+	  LogicOutDataTypeMode	  "boolean"
 	}
 	Block {
 	  BlockType		  RelationalOperator
@@ -960,7 +999,7 @@ Model {
 	  Position		  [390, 357, 420, 388]
 	  Operator		  "<"
 	  InputSameDT		  off
-	  LogicOutDataTypeMode	  "Boolean"
+	  LogicOutDataTypeMode	  "boolean"
 	}
 	Block {
 	  BlockType		  RelationalOperator
@@ -968,38 +1007,47 @@ Model {
 	  Position		  [390, 422, 420, 453]
 	  Operator		  ">"
 	  InputSameDT		  off
-	  LogicOutDataTypeMode	  "Boolean"
+	  LogicOutDataTypeMode	  "boolean"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "XHighLimit"
 	  Position		  [295, 315, 325, 345]
 	  Value			  "25"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "XLowLimit"
 	  Position		  [295, 250, 325, 280]
 	  Value			  "-30"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "YHighLimit"
 	  Position		  [295, 380, 325, 410]
 	  Value			  "-46"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "YLowLimit"
 	  Position		  [295, 445, 325, 475]
 	  Value			  "-22"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "Out"
 	  Position		  [725, 338, 755, 352]
 	  IconDisplay		  "Port number"
-	  BusOutputAsStruct	  off
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Line {
 	  SrcBlock		  "XLowLimit"
@@ -1095,8 +1143,7 @@ Model {
 	  }
 	}
 	Annotation {
-	  Name			  "1: if [X Y] is outside\nbounding box\n0: ot"
-"herwise"
+	  Name			  "1: if [X Y] is outside\nbounding box\n0: otherwise"
 	  Position		  [820, 347]
 	}
       }
@@ -1109,7 +1156,6 @@ Model {
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
-      MaskHideContents	      off
       System {
 	Name			"Catch Force Generator"
 	Location		[2, 82, 1270, 978]
@@ -1130,12 +1176,16 @@ Model {
 	  Name			  "Vel"
 	  Position		  [595, 233, 625, 247]
 	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "DynamicAngle"
 	  Position		  [425, 265, 455, 295]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  MultiPortSwitch
@@ -1153,7 +1203,11 @@ Model {
 	  Position		  [425, 333, 480, 367]
 	  Gain			  "0.0367"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
 	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
@@ -1161,6 +1215,8 @@ Model {
 	  Name			  "Load"
 	  Position		  [400, 70, 430, 100]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  MultiPortSwitch
@@ -1179,7 +1235,6 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  System {
 	    Name		    "LorentzForce"
 	    Location		    [2, 82, 1270, 978]
@@ -1204,6 +1259,7 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
 	      OutScaling	      "2^-10"
 	      SaturateOnIntegerOverflow	off
 	    }
@@ -1216,6 +1272,7 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
 	      OutScaling	      "2^-10"
 	      SaturateOnIntegerOverflow	off
 	    }
@@ -1292,7 +1349,8 @@ Model {
 	      Name		      "X"
 	      Position		      [720, 238, 750, 252]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -1300,7 +1358,8 @@ Model {
 	      Position		      [725, 408, 755, 422]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "Lorentz"
@@ -1350,7 +1409,11 @@ Model {
 	  Position		  [275, 443, 330, 477]
 	  Gain			  ".0005"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
 	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
@@ -1385,6 +1448,8 @@ Model {
 	  Name			  "Off"
 	  Position		  [75, 140, 105, 170]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -1394,7 +1459,6 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  System {
 	    Name		    "ViscLoadSubsystem"
 	    Location		    [2, 82, 1278, 978]
@@ -1415,6 +1479,8 @@ Model {
 	      Name		      "Vel"
 	      Position		      [260, 313, 290, 327]
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Inport
@@ -1422,6 +1488,8 @@ Model {
 	      Position		      [280, 443, 310, 457]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -1431,6 +1499,7 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
 	      OutScaling	      "2^-10"
 	      SaturateOnIntegerOverflow	off
 	    }
@@ -1449,7 +1518,11 @@ Model {
 	      Name		      "Gain"
 	      Position		      [815, 355, 845, 385]
 	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -1458,7 +1531,11 @@ Model {
 	      Position		      [335, 305, 365, 335]
 	      Gain		      "-1"
 	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -1478,6 +1555,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -1488,6 +1567,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -1498,6 +1579,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -1508,6 +1591,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -1519,6 +1604,7 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
 	      OutScaling	      "2^-10"
 	      SaturateOnIntegerOverflow	off
 	    }
@@ -1540,7 +1626,8 @@ Model {
 	      Name		      "LoadOut"
 	      Position		      [890, 363, 920, 377]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "Mux"
@@ -1689,25 +1776,32 @@ Model {
 	  Name			  "staticX"
 	  Position		  [80, 205, 110, 235]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "staticY"
 	  Position		  [80, 265, 110, 295]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "visAngle"
 	  Position		  [490, 300, 520, 330]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "Out"
 	  Position		  [890, 168, 920, 182]
 	  IconDisplay		  "Port number"
-	  BusOutputAsStruct	  off
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Line {
 	  SrcBlock		  "Off"
@@ -1843,6 +1937,8 @@ Model {
       Name		      "Constant"
       Position		      [1190, 360, 1220, 390]
       Value		      "3"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
     }
     Block {
       BlockType		      SubSystem
@@ -1852,7 +1948,6 @@ Model {
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
-      MaskHideContents	      off
       System {
 	Name			"Force Generator"
 	Location		[2, 82, 1278, 978]
@@ -1873,12 +1968,16 @@ Model {
 	  Name			  "Vel"
 	  Position		  [595, 233, 625, 247]
 	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "DynamicAngle"
 	  Position		  [430, 265, 460, 295]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Gain
@@ -1886,7 +1985,11 @@ Model {
 	  Position		  [425, 333, 480, 367]
 	  Gain			  "0.0367"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
 	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
@@ -1894,6 +1997,8 @@ Model {
 	  Name			  "Load"
 	  Position		  [400, 70, 430, 100]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -1903,7 +2008,6 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  System {
 	    Name		    "LorentzForce"
 	    Location		    [2, 82, 1270, 978]
@@ -1928,6 +2032,7 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
 	      OutScaling	      "2^-10"
 	      SaturateOnIntegerOverflow	off
 	    }
@@ -1940,6 +2045,7 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
 	      OutScaling	      "2^-10"
 	      SaturateOnIntegerOverflow	off
 	    }
@@ -2016,7 +2122,8 @@ Model {
 	      Name		      "X"
 	      Position		      [720, 238, 750, 252]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -2024,7 +2131,8 @@ Model {
 	      Position		      [725, 408, 755, 422]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "Lorentz"
@@ -2074,7 +2182,11 @@ Model {
 	  Position		  [290, 448, 345, 482]
 	  Gain			  ".0005"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
 	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
@@ -2118,6 +2230,8 @@ Model {
 	  Name			  "Off"
 	  Position		  [75, 140, 105, 170]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -2127,7 +2241,6 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  System {
 	    Name		    "ViscLoadSubsystem"
 	    Location		    [2, 82, 1278, 978]
@@ -2148,6 +2261,8 @@ Model {
 	      Name		      "Vel"
 	      Position		      [245, 313, 275, 327]
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Inport
@@ -2155,6 +2270,8 @@ Model {
 	      Position		      [280, 443, 310, 457]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -2164,6 +2281,7 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
 	      OutScaling	      "2^-10"
 	      SaturateOnIntegerOverflow	off
 	    }
@@ -2182,7 +2300,11 @@ Model {
 	      Name		      "Gain"
 	      Position		      [815, 355, 845, 385]
 	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -2191,7 +2313,11 @@ Model {
 	      Position		      [325, 305, 355, 335]
 	      Gain		      "-1"
 	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -2211,6 +2337,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -2221,6 +2349,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -2231,6 +2361,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -2241,6 +2373,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -2252,6 +2386,7 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
 	      OutScaling	      "2^-10"
 	      SaturateOnIntegerOverflow	off
 	    }
@@ -2273,7 +2408,8 @@ Model {
 	      Name		      "LoadOut"
 	      Position		      [890, 363, 920, 377]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "Mux"
@@ -2432,25 +2568,32 @@ Model {
 	  Name			  "staticX"
 	  Position		  [80, 205, 110, 235]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "staticY"
 	  Position		  [80, 265, 110, 295]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "visAngle"
 	  Position		  [490, 300, 520, 330]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "Out"
 	  Position		  [890, 168, 920, 182]
 	  IconDisplay		  "Port number"
-	  BusOutputAsStruct	  off
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Line {
 	  SrcBlock		  "Off"
@@ -2617,7 +2760,6 @@ Model {
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
-      MaskHideContents	      off
       System {
 	Name			"Motor Control"
 	Location		[4, 82, 1276, 884]
@@ -2638,6 +2780,8 @@ Model {
 	  Name			  "DefaultForce"
 	  Position		  [90, 318, 120, 332]
 	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Inport
@@ -2645,6 +2789,8 @@ Model {
 	  Position		  [90, 268, 120, 282]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Inport
@@ -2652,6 +2798,8 @@ Model {
 	  Position		  [160, 293, 190, 307]
 	  Port			  "3"
 	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Inport
@@ -2659,6 +2807,8 @@ Model {
 	  Position		  [430, 388, 460, 402]
 	  Port			  "4"
 	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Reference
@@ -2666,8 +2816,7 @@ Model {
 	  Ports			  [1, 1]
 	  Position		  [760, 490, 790, 520]
 	  Orientation		  "left"
-	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
-"\nTo Constant"
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
 	  SourceType		  "Compare To Constant"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
@@ -2688,8 +2837,7 @@ Model {
 	  Ports			  [1, 1]
 	  Position		  [760, 555, 790, 585]
 	  Orientation		  "left"
-	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
-"\nTo Constant"
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
 	  SourceType		  "Compare To Constant"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
@@ -2713,7 +2861,6 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  System {
 	    Name		    "Force/Torque Transform"
 	    Location		    [2, 82, 1270, 978]
@@ -2734,6 +2881,8 @@ Model {
 	      Name		      "F"
 	      Position		      [180, 313, 210, 327]
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Inport
@@ -2741,6 +2890,8 @@ Model {
 	      Position		      [125, 173, 155, 187]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Demux
@@ -2758,7 +2909,11 @@ Model {
 	      Position		      [280, 305, 310, 335]
 	      Gain		      "-1"
 	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -2770,6 +2925,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      RndMeth		      "Floor"
 	      SaturateOnIntegerOverflow	off
 	    }
@@ -2796,7 +2953,8 @@ Model {
 	      Name		      "T1"
 	      Position		      [580, 163, 610, 177]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -2804,7 +2962,8 @@ Model {
 	      Position		      [580, 203, 610, 217]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "J"
@@ -2859,7 +3018,7 @@ Model {
 	  Orientation		  "left"
 	  Operator		  "OR"
 	  AllPortsSameDT	  off
-	  OutDataTypeMode	  "Boolean"
+	  OutDataTypeMode	  "boolean"
 	}
 	Block {
 	  BlockType		  Gain
@@ -2867,7 +3026,11 @@ Model {
 	  Position		  [725, 259, 790, 291]
 	  Gain			  "-1"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
 	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
@@ -2875,7 +3038,11 @@ Model {
 	  Name			  "MG2"
 	  Position		  [725, 380, 795, 410]
 	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
 	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
@@ -2967,12 +3134,9 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  MaskType		  "Schmidt Trigger"
-	  MaskDescription	  "Creates an output pulse of the specified ti"
-"me in seconds when trig goes high"
-	  MaskHelp		  "Creates an output pulse of the specified ti"
-"me in seconds when trig goes high"
+	  MaskDescription	  "Creates an output pulse of the specified time in seconds when trig goes high"
+	  MaskHelp		  "Creates an output pulse of the specified time in seconds when trig goes high"
 	  MaskPromptString	  "Time"
 	  MaskStyleString	  "edit"
 	  MaskTunableValueString  "on"
@@ -2980,8 +3144,7 @@ Model {
 	  MaskVisibilityString	  "on"
 	  MaskToolTipString	  "on"
 	  MaskVariables		  "Time=@1;"
-	  MaskDisplay		  "port_label('output',1,'out')\nport_label('i"
-"nput',1,'trig')\nfprintf('t = %d',Time)"
+	  MaskDisplay		  "port_label('output',1,'out')\nport_label('input',1,'trig')\nfprintf('t = %d',Time)"
 	  MaskIconFrame		  on
 	  MaskIconOpaque	  on
 	  MaskIconRotate	  "none"
@@ -3007,6 +3170,8 @@ Model {
 	      Name		      "In1"
 	      Position		      [210, 118, 240, 132]
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Clock
@@ -3019,8 +3184,7 @@ Model {
 	      Name		      "Compare\nTo Zero"
 	      Ports		      [1, 1]
 	      Position		      [750, 175, 780, 205]
-	      SourceBlock	      "simulink/Logic and Bit\nOperations/Comp"
-"are\nTo Zero"
+	      SourceBlock	      "simulink/Logic and Bit\nOperations/Compare\nTo Zero"
 	      SourceType	      "Compare To Zero"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
@@ -3043,7 +3207,6 @@ Model {
 	      MinAlgLoopOccurrences   off
 	      RTWSystemCode	      "Auto"
 	      FunctionWithSeparateData off
-	      MaskHideContents	      off
 	      System {
 		Name			"Enabled\nSubsystem"
 		Location		[421, 301, 919, 601]
@@ -3055,8 +3218,7 @@ Model {
 		PaperPositionMode	"auto"
 		PaperType		"usletter"
 		PaperUnits		"inches"
-		TiledPaperMargins	"[0.500000, 0.500000, 0.500000, 0.5000"
-"00]"
+		TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 		TiledPageScale		1
 		ShowPageBoundaries	off
 		ZoomFactor		"100"
@@ -3065,6 +3227,8 @@ Model {
 		  Name			  "In1"
 		  Position		  [110, 103, 140, 117]
 		  IconDisplay		  "Port number"
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
 		}
 		Block {
 		  BlockType		  EnablePort
@@ -3077,7 +3241,8 @@ Model {
 		  Name			  "Out1"
 		  Position		  [360, 103, 390, 117]
 		  IconDisplay		  "Port number"
-		  BusOutputAsStruct	  off
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
 		}
 		Line {
 		  SrcBlock		  "In1"
@@ -3094,7 +3259,7 @@ Model {
 	      Position		      [860, 217, 890, 248]
 	      Operator		      "XOR"
 	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
+	      OutDataTypeMode	      "boolean"
 	      SampleTime	      ".001"
 	    }
 	    Block {
@@ -3104,7 +3269,7 @@ Model {
 	      Position		      [350, 104, 380, 136]
 	      Operator		      "NOT"
 	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
+	      OutDataTypeMode	      "boolean"
 	    }
 	    Block {
 	      BlockType		      Logic
@@ -3113,7 +3278,7 @@ Model {
 	      Position		      [280, 102, 310, 133]
 	      Operator		      "OR"
 	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
+	      OutDataTypeMode	      "boolean"
 	      SampleTime	      ".001"
 	    }
 	    Block {
@@ -3128,7 +3293,7 @@ Model {
 	      Position		      [750, 252, 780, 283]
 	      Operator		      ">"
 	      InputSameDT	      off
-	      LogicOutDataTypeMode    "Boolean"
+	      LogicOutDataTypeMode    "boolean"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -3141,6 +3306,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -3148,13 +3315,16 @@ Model {
 	      Name		      "Time"
 	      Position		      [605, 275, 635, 305]
 	      Value		      "Time"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Outport
 	      Name		      "Out1"
 	      Position		      [1065, 228, 1095, 242]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "Clock"
@@ -3313,12 +3483,16 @@ Model {
 	  Name			  "zeroX"
 	  Position		  [235, 140, 265, 170]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "zeroY"
 	  Position		  [235, 190, 265, 220]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Line {
 	  SrcBlock		  "MG1"
@@ -3505,7 +3679,6 @@ Model {
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
-      MaskHideContents	      off
       System {
 	Name			"Recentering Subsystem"
 	Location		[-4, 85, 1248, 862]
@@ -3526,6 +3699,8 @@ Model {
 	  Name			  "Vel"
 	  Position		  [25, 203, 55, 217]
 	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Inport
@@ -3533,6 +3708,8 @@ Model {
 	  Position		  [775, 288, 805, 302]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Inport
@@ -3541,6 +3718,8 @@ Model {
 	  NamePlacement		  "alternate"
 	  Port			  "3"
 	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Gain
@@ -3549,7 +3728,11 @@ Model {
 	  NamePlacement		  "alternate"
 	  Gain			  "-0.0001"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
 	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
@@ -3557,8 +3740,7 @@ Model {
 	  Name			  "Compare\nTo Zero"
 	  Ports			  [1, 1]
 	  Position		  [195, 165, 225, 195]
-	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
-"\nTo Zero"
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Zero"
 	  SourceType		  "Compare To Zero"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
@@ -3577,8 +3759,7 @@ Model {
 	  Name			  "Compare\nTo Zero1"
 	  Ports			  [1, 1]
 	  Position		  [195, 225, 225, 255]
-	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
-"\nTo Zero"
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Zero"
 	  SourceType		  "Compare To Zero"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
@@ -3596,6 +3777,8 @@ Model {
 	  BlockType		  DataTypeConversion
 	  Name			  "Data Type Conversion1"
 	  Position		  [1380, 753, 1455, 787]
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	  RndMeth		  "Floor"
 	  SaturateOnIntegerOverflow off
 	}
@@ -3603,6 +3786,8 @@ Model {
 	  BlockType		  DataTypeConversion
 	  Name			  "Data Type Conversion2"
 	  Position		  [1380, 688, 1455, 722]
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	  RndMeth		  "Floor"
 	  SaturateOnIntegerOverflow off
 	}
@@ -3621,8 +3806,7 @@ Model {
 	  Name			  "Falling Edge"
 	  Ports			  [1, 1]
 	  Position		  [1290, 745, 1350, 795]
-	  SourceBlock		  "simulink/Logic and Bit\nOperations/Detect F"
-"all\nNonpositive"
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Detect Fall\nNonpositive"
 	  SourceType		  "Detect Fall Nonpositive"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
@@ -3640,8 +3824,7 @@ Model {
 	  Ports			  [1, 1]
 	  Position		  [1290, 680, 1350, 730]
 	  NamePlacement		  "alternate"
-	  SourceBlock		  "simulink/Logic and Bit\nOperations/Detect F"
-"all\nNonpositive"
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Detect Fall\nNonpositive"
 	  SourceType		  "Detect Fall Nonpositive"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
@@ -3695,7 +3878,7 @@ Model {
 	  Position		  [290, 322, 320, 358]
 	  Operator		  "NOT"
 	  AllPortsSameDT	  off
-	  OutDataTypeMode	  "Boolean"
+	  OutDataTypeMode	  "boolean"
 	}
 	Block {
 	  BlockType		  Logic
@@ -3704,7 +3887,7 @@ Model {
 	  Position		  [290, 217, 320, 253]
 	  Inputs		  "4"
 	  AllPortsSameDT	  off
-	  OutDataTypeMode	  "Boolean"
+	  OutDataTypeMode	  "boolean"
 	}
 	Block {
 	  BlockType		  Logic
@@ -3713,7 +3896,7 @@ Model {
 	  Position		  [1490, 653, 1525, 722]
 	  Operator		  "OR"
 	  AllPortsSameDT	  off
-	  OutDataTypeMode	  "Boolean"
+	  OutDataTypeMode	  "boolean"
 	}
 	Block {
 	  BlockType		  Logic
@@ -3721,7 +3904,7 @@ Model {
 	  Ports			  [2, 1]
 	  Position		  [825, 508, 855, 557]
 	  AllPortsSameDT	  off
-	  OutDataTypeMode	  "Boolean"
+	  OutDataTypeMode	  "boolean"
 	}
 	Block {
 	  BlockType		  Logic
@@ -3731,7 +3914,7 @@ Model {
 	  Operator		  "OR"
 	  Inputs		  "3"
 	  AllPortsSameDT	  off
-	  OutDataTypeMode	  "Boolean"
+	  OutDataTypeMode	  "boolean"
 	}
 	Block {
 	  BlockType		  Logic
@@ -3740,7 +3923,7 @@ Model {
 	  Position		  [740, 486, 770, 514]
 	  Operator		  "NOT"
 	  AllPortsSameDT	  off
-	  OutDataTypeMode	  "Boolean"
+	  OutDataTypeMode	  "boolean"
 	}
 	Block {
 	  BlockType		  Mux
@@ -3758,7 +3941,7 @@ Model {
 	  Position		  [1385, 587, 1415, 623]
 	  Operator		  "NOT"
 	  AllPortsSameDT	  off
-	  OutDataTypeMode	  "Boolean"
+	  OutDataTypeMode	  "boolean"
 	  LogicDataType		  "double"
 	}
 	Block {
@@ -3769,7 +3952,6 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  System {
 	    Name		    "No Movement"
 	    Location		    [311, 246, 1184, 732]
@@ -3790,6 +3972,8 @@ Model {
 	      Name		      "Vel"
 	      Position		      [50, 173, 80, 187]
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Abs
@@ -3808,8 +3992,7 @@ Model {
 	      Name		      "Compare\nTo Constant2"
 	      Ports		      [1, 1]
 	      Position		      [310, 130, 360, 160]
-	      SourceBlock	      "simulink/Logic and Bit\nOperations/Comp"
-"are\nTo Constant"
+	      SourceBlock	      "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
 	      SourceType	      "Compare To Constant"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
@@ -3829,8 +4012,7 @@ Model {
 	      Name		      "Compare\nTo Constant3"
 	      Ports		      [1, 1]
 	      Position		      [310, 203, 365, 237]
-	      SourceBlock	      "simulink/Logic and Bit\nOperations/Comp"
-"are\nTo Constant"
+	      SourceBlock	      "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
 	      SourceType	      "Compare To Constant"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
@@ -3861,7 +4043,7 @@ Model {
 	      Ports		      [2, 1]
 	      Position		      [435, 159, 470, 201]
 	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
+	      OutDataTypeMode	      "boolean"
 	      LogicDataType	      "double"
 	    }
 	    Block {
@@ -3869,7 +4051,8 @@ Model {
 	      Name		      "NotMoving"
 	      Position		      [525, 173, 555, 187]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "Abs2"
@@ -3933,7 +4116,6 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  System {
 	    Name		    "PD Controller"
 	    Location		    [299, 190, 1169, 887]
@@ -3954,6 +4136,8 @@ Model {
 	      Name		      "Vel"
 	      Position		      [15, 313, 45, 327]
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Inport
@@ -3961,6 +4145,8 @@ Model {
 	      Position		      [230, 203, 260, 217]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Inport
@@ -3968,6 +4154,8 @@ Model {
 	      Position		      [120, 203, 150, 217]
 	      Port		      "3"
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -3977,6 +4165,7 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
 	      OutScaling	      "2^-10"
 	      SaturateOnIntegerOverflow	off
 	    }
@@ -3988,6 +4177,7 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
 	      OutScaling	      "2^-10"
 	      SaturateOnIntegerOverflow	off
 	    }
@@ -4018,7 +4208,11 @@ Model {
 	      NamePlacement	      "alternate"
 	      Gain		      "-.001"
 	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -4028,7 +4222,11 @@ Model {
 	      NamePlacement	      "alternate"
 	      Gain		      "-.001"
 	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -4038,7 +4236,11 @@ Model {
 	      NamePlacement	      "alternate"
 	      Gain		      "-.0002"
 	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -4048,7 +4250,11 @@ Model {
 	      NamePlacement	      "alternate"
 	      Gain		      "-.0002"
 	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -4068,6 +4274,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -4078,6 +4286,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -4099,7 +4309,8 @@ Model {
 	      Name		      "Force"
 	      Position		      [640, 208, 670, 222]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "Switch"
@@ -4229,6 +4440,8 @@ Model {
 	  BlockType		  Constant
 	  Name			  "RecenterFlag"
 	  Position		  [200, 115, 230, 145]
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Reference
@@ -4256,12 +4469,9 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  MaskType		  "Schmidt Trigger"
-	  MaskDescription	  "Creates an output pulse of the specified ti"
-"me in seconds when trig goes high"
-	  MaskHelp		  "Creates an output pulse of the specified ti"
-"me in seconds when trig goes high"
+	  MaskDescription	  "Creates an output pulse of the specified time in seconds when trig goes high"
+	  MaskHelp		  "Creates an output pulse of the specified time in seconds when trig goes high"
 	  MaskPromptString	  "Time"
 	  MaskStyleString	  "edit"
 	  MaskTunableValueString  "on"
@@ -4269,8 +4479,7 @@ Model {
 	  MaskVisibilityString	  "on"
 	  MaskToolTipString	  "on"
 	  MaskVariables		  "Time=@1;"
-	  MaskDisplay		  "port_label('output',1,'out')\nport_label('i"
-"nput',1,'trig')\nfprintf('t = %d',Time)"
+	  MaskDisplay		  "port_label('output',1,'out')\nport_label('input',1,'trig')\nfprintf('t = %d',Time)"
 	  MaskIconFrame		  on
 	  MaskIconOpaque	  on
 	  MaskIconRotate	  "none"
@@ -4296,6 +4505,8 @@ Model {
 	      Name		      "In1"
 	      Position		      [210, 118, 240, 132]
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Clock
@@ -4308,8 +4519,7 @@ Model {
 	      Name		      "Compare\nTo Zero"
 	      Ports		      [1, 1]
 	      Position		      [750, 175, 780, 205]
-	      SourceBlock	      "simulink/Logic and Bit\nOperations/Comp"
-"are\nTo Zero"
+	      SourceBlock	      "simulink/Logic and Bit\nOperations/Compare\nTo Zero"
 	      SourceType	      "Compare To Zero"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
@@ -4332,7 +4542,6 @@ Model {
 	      MinAlgLoopOccurrences   off
 	      RTWSystemCode	      "Auto"
 	      FunctionWithSeparateData off
-	      MaskHideContents	      off
 	      System {
 		Name			"Enabled\nSubsystem"
 		Location		[421, 301, 919, 601]
@@ -4344,8 +4553,7 @@ Model {
 		PaperPositionMode	"auto"
 		PaperType		"usletter"
 		PaperUnits		"inches"
-		TiledPaperMargins	"[0.500000, 0.500000, 0.500000, 0.5000"
-"00]"
+		TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 		TiledPageScale		1
 		ShowPageBoundaries	off
 		ZoomFactor		"100"
@@ -4354,6 +4562,8 @@ Model {
 		  Name			  "In1"
 		  Position		  [110, 103, 140, 117]
 		  IconDisplay		  "Port number"
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
 		}
 		Block {
 		  BlockType		  EnablePort
@@ -4366,7 +4576,8 @@ Model {
 		  Name			  "Out1"
 		  Position		  [360, 103, 390, 117]
 		  IconDisplay		  "Port number"
-		  BusOutputAsStruct	  off
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
 		}
 		Line {
 		  SrcBlock		  "In1"
@@ -4383,7 +4594,7 @@ Model {
 	      Position		      [860, 217, 890, 248]
 	      Operator		      "XOR"
 	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
+	      OutDataTypeMode	      "boolean"
 	      SampleTime	      ".001"
 	    }
 	    Block {
@@ -4393,7 +4604,7 @@ Model {
 	      Position		      [350, 104, 380, 136]
 	      Operator		      "NOT"
 	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
+	      OutDataTypeMode	      "boolean"
 	    }
 	    Block {
 	      BlockType		      Logic
@@ -4402,7 +4613,7 @@ Model {
 	      Position		      [280, 102, 310, 133]
 	      Operator		      "OR"
 	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
+	      OutDataTypeMode	      "boolean"
 	      SampleTime	      ".001"
 	    }
 	    Block {
@@ -4417,7 +4628,7 @@ Model {
 	      Position		      [750, 252, 780, 283]
 	      Operator		      ">"
 	      InputSameDT	      off
-	      LogicOutDataTypeMode    "Boolean"
+	      LogicOutDataTypeMode    "boolean"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -4430,6 +4641,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -4437,13 +4650,16 @@ Model {
 	      Name		      "Time"
 	      Position		      [605, 275, 635, 305]
 	      Value		      "Time"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Outport
 	      Name		      "Out1"
 	      Position		      [1065, 228, 1095, 242]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "Clock"
@@ -4552,12 +4768,9 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  MaskType		  "Schmidt Trigger"
-	  MaskDescription	  "Creates an output pulse of the specified ti"
-"me in seconds when trig goes high"
-	  MaskHelp		  "Creates an output pulse of the specified ti"
-"me in seconds when trig goes high"
+	  MaskDescription	  "Creates an output pulse of the specified time in seconds when trig goes high"
+	  MaskHelp		  "Creates an output pulse of the specified time in seconds when trig goes high"
 	  MaskPromptString	  "Time"
 	  MaskStyleString	  "edit"
 	  MaskTunableValueString  "on"
@@ -4565,8 +4778,7 @@ Model {
 	  MaskVisibilityString	  "on"
 	  MaskToolTipString	  "on"
 	  MaskVariables		  "Time=@1;"
-	  MaskDisplay		  "port_label('output',1,'out')\nport_label('i"
-"nput',1,'trig')\nfprintf('t = %d',Time)"
+	  MaskDisplay		  "port_label('output',1,'out')\nport_label('input',1,'trig')\nfprintf('t = %d',Time)"
 	  MaskIconFrame		  on
 	  MaskIconOpaque	  on
 	  MaskIconRotate	  "none"
@@ -4592,6 +4804,8 @@ Model {
 	      Name		      "In1"
 	      Position		      [210, 118, 240, 132]
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Clock
@@ -4604,8 +4818,7 @@ Model {
 	      Name		      "Compare\nTo Zero"
 	      Ports		      [1, 1]
 	      Position		      [750, 175, 780, 205]
-	      SourceBlock	      "simulink/Logic and Bit\nOperations/Comp"
-"are\nTo Zero"
+	      SourceBlock	      "simulink/Logic and Bit\nOperations/Compare\nTo Zero"
 	      SourceType	      "Compare To Zero"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
@@ -4628,7 +4841,6 @@ Model {
 	      MinAlgLoopOccurrences   off
 	      RTWSystemCode	      "Auto"
 	      FunctionWithSeparateData off
-	      MaskHideContents	      off
 	      System {
 		Name			"Enabled\nSubsystem"
 		Location		[421, 301, 919, 601]
@@ -4640,8 +4852,7 @@ Model {
 		PaperPositionMode	"auto"
 		PaperType		"usletter"
 		PaperUnits		"inches"
-		TiledPaperMargins	"[0.500000, 0.500000, 0.500000, 0.5000"
-"00]"
+		TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 		TiledPageScale		1
 		ShowPageBoundaries	off
 		ZoomFactor		"100"
@@ -4650,6 +4861,8 @@ Model {
 		  Name			  "In1"
 		  Position		  [110, 103, 140, 117]
 		  IconDisplay		  "Port number"
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
 		}
 		Block {
 		  BlockType		  EnablePort
@@ -4662,7 +4875,8 @@ Model {
 		  Name			  "Out1"
 		  Position		  [360, 103, 390, 117]
 		  IconDisplay		  "Port number"
-		  BusOutputAsStruct	  off
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
 		}
 		Line {
 		  SrcBlock		  "In1"
@@ -4679,7 +4893,7 @@ Model {
 	      Position		      [860, 217, 890, 248]
 	      Operator		      "XOR"
 	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
+	      OutDataTypeMode	      "boolean"
 	      SampleTime	      ".001"
 	    }
 	    Block {
@@ -4689,7 +4903,7 @@ Model {
 	      Position		      [350, 104, 380, 136]
 	      Operator		      "NOT"
 	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
+	      OutDataTypeMode	      "boolean"
 	    }
 	    Block {
 	      BlockType		      Logic
@@ -4698,7 +4912,7 @@ Model {
 	      Position		      [280, 102, 310, 133]
 	      Operator		      "OR"
 	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
+	      OutDataTypeMode	      "boolean"
 	      SampleTime	      ".001"
 	    }
 	    Block {
@@ -4713,7 +4927,7 @@ Model {
 	      Position		      [750, 252, 780, 283]
 	      Operator		      ">"
 	      InputSameDT	      off
-	      LogicOutDataTypeMode    "Boolean"
+	      LogicOutDataTypeMode    "boolean"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -4726,6 +4940,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -4733,13 +4949,16 @@ Model {
 	      Name		      "Time"
 	      Position		      [605, 275, 635, 305]
 	      Value		      "Time"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Outport
 	      Name		      "Out1"
 	      Position		      [1065, 228, 1095, 242]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "Clock"
@@ -4848,12 +5067,9 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  MaskType		  "Schmidt Trigger"
-	  MaskDescription	  "Creates an output pulse of the specified ti"
-"me in seconds when trig goes high"
-	  MaskHelp		  "Creates an output pulse of the specified ti"
-"me in seconds when trig goes high"
+	  MaskDescription	  "Creates an output pulse of the specified time in seconds when trig goes high"
+	  MaskHelp		  "Creates an output pulse of the specified time in seconds when trig goes high"
 	  MaskPromptString	  "Time"
 	  MaskStyleString	  "edit"
 	  MaskTunableValueString  "on"
@@ -4861,8 +5077,7 @@ Model {
 	  MaskVisibilityString	  "on"
 	  MaskToolTipString	  "on"
 	  MaskVariables		  "Time=@1;"
-	  MaskDisplay		  "port_label('output',1,'out')\nport_label('i"
-"nput',1,'trig')\nfprintf('t = %d',Time)"
+	  MaskDisplay		  "port_label('output',1,'out')\nport_label('input',1,'trig')\nfprintf('t = %d',Time)"
 	  MaskIconFrame		  on
 	  MaskIconOpaque	  on
 	  MaskIconRotate	  "none"
@@ -4888,6 +5103,8 @@ Model {
 	      Name		      "In1"
 	      Position		      [210, 118, 240, 132]
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Clock
@@ -4900,8 +5117,7 @@ Model {
 	      Name		      "Compare\nTo Zero"
 	      Ports		      [1, 1]
 	      Position		      [750, 175, 780, 205]
-	      SourceBlock	      "simulink/Logic and Bit\nOperations/Comp"
-"are\nTo Zero"
+	      SourceBlock	      "simulink/Logic and Bit\nOperations/Compare\nTo Zero"
 	      SourceType	      "Compare To Zero"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
@@ -4924,7 +5140,6 @@ Model {
 	      MinAlgLoopOccurrences   off
 	      RTWSystemCode	      "Auto"
 	      FunctionWithSeparateData off
-	      MaskHideContents	      off
 	      System {
 		Name			"Enabled\nSubsystem"
 		Location		[421, 301, 919, 601]
@@ -4936,8 +5151,7 @@ Model {
 		PaperPositionMode	"auto"
 		PaperType		"usletter"
 		PaperUnits		"inches"
-		TiledPaperMargins	"[0.500000, 0.500000, 0.500000, 0.5000"
-"00]"
+		TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 		TiledPageScale		1
 		ShowPageBoundaries	off
 		ZoomFactor		"100"
@@ -4946,6 +5160,8 @@ Model {
 		  Name			  "In1"
 		  Position		  [110, 103, 140, 117]
 		  IconDisplay		  "Port number"
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
 		}
 		Block {
 		  BlockType		  EnablePort
@@ -4958,7 +5174,8 @@ Model {
 		  Name			  "Out1"
 		  Position		  [360, 103, 390, 117]
 		  IconDisplay		  "Port number"
-		  BusOutputAsStruct	  off
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
 		}
 		Line {
 		  SrcBlock		  "In1"
@@ -4975,7 +5192,7 @@ Model {
 	      Position		      [860, 217, 890, 248]
 	      Operator		      "XOR"
 	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
+	      OutDataTypeMode	      "boolean"
 	      SampleTime	      ".001"
 	    }
 	    Block {
@@ -4985,7 +5202,7 @@ Model {
 	      Position		      [350, 104, 380, 136]
 	      Operator		      "NOT"
 	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
+	      OutDataTypeMode	      "boolean"
 	    }
 	    Block {
 	      BlockType		      Logic
@@ -4994,7 +5211,7 @@ Model {
 	      Position		      [280, 102, 310, 133]
 	      Operator		      "OR"
 	      AllPortsSameDT	      off
-	      OutDataTypeMode	      "Boolean"
+	      OutDataTypeMode	      "boolean"
 	      SampleTime	      ".001"
 	    }
 	    Block {
@@ -5009,7 +5226,7 @@ Model {
 	      Position		      [750, 252, 780, 283]
 	      Operator		      ">"
 	      InputSameDT	      off
-	      LogicOutDataTypeMode    "Boolean"
+	      LogicOutDataTypeMode    "boolean"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -5022,6 +5239,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -5029,13 +5248,16 @@ Model {
 	      Name		      "Time"
 	      Position		      [605, 275, 635, 305]
 	      Value		      "Time"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Outport
 	      Name		      "Out1"
 	      Position		      [1065, 228, 1095, 242]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "Clock"
@@ -5140,8 +5362,7 @@ Model {
 	  Name			  "Start Moving"
 	  Ports			  [1, 1]
 	  Position		  [1045, 680, 1105, 730]
-	  SourceBlock		  "simulink/Logic and Bit\nOperations/Detect F"
-"all\nNonpositive"
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Detect Fall\nNonpositive"
 	  SourceType		  "Detect Fall Nonpositive"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
@@ -5232,8 +5453,7 @@ Model {
 	  scopetype		  "Target"
 	  autostart		  on
 	  viewmode		  "Numerical"
-	  formatstr		  "'%2.0f OutsideBox,%2.0f Activate,%2.0f SR,%"
-"2.0f OD On,%2.0f no movement,%2.0f claimed' "
+	  formatstr		  "'%2.0f OutsideBox,%2.0f Activate,%2.0f SR,%2.0f OD On,%2.0f no movement,%2.0f claimed' "
 	  grid			  on
 	  ylimits		  "[-10,10]"
 	  nosamples		  "10"
@@ -5255,7 +5475,8 @@ Model {
 	  Name			  "Forces"
 	  Position		  [1325, 528, 1355, 542]
 	  IconDisplay		  "Port number"
-	  BusOutputAsStruct	  off
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Outport
@@ -5263,7 +5484,8 @@ Model {
 	  Position		  [1825, 838, 1860, 852]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
-	  BusOutputAsStruct	  off
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Line {
 	  SrcBlock		  "Demux"
@@ -5626,7 +5848,6 @@ Model {
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
-      MaskHideContents	      off
       System {
 	Name			"RewardSbs"
 	Location		[14, 142, 886, 404]
@@ -5647,11 +5868,15 @@ Model {
 	  Name			  "Trig"
 	  Position		  [30, 38, 60, 52]
 	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  DataTypeConversion
 	  Name			  "Data Type Conversion"
 	  Position		  [685, 83, 760, 117]
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	  RndMeth		  "Floor"
 	  SaturateOnIntegerOverflow off
 	}
@@ -5660,6 +5885,8 @@ Model {
 	  Name			  "JackpotChance"
 	  Position		  [65, 175, 95, 205]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  RelationalOperator
@@ -5667,19 +5894,23 @@ Model {
 	  Position		  [160, 137, 190, 168]
 	  Operator		  ">"
 	  InputSameDT		  off
-	  LogicOutDataTypeMode	  "Boolean"
+	  LogicOutDataTypeMode	  "boolean"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "RewardJackpot"
 	  Position		  [160, 205, 190, 235]
 	  Value			  "0.60"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "RewardTime"
 	  Position		  [160, 80, 190, 110]
 	  Value			  "0.30"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Reference
@@ -5708,7 +5939,6 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  System {
 	    Name		    "Schmidt"
 	    Location		    [26, 85, 629, 391]
@@ -5729,6 +5959,8 @@ Model {
 	      Name		      "Trigger"
 	      Position		      [85, 58, 115, 72]
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Inport
@@ -5736,6 +5968,8 @@ Model {
 	      Position		      [85, 233, 115, 247]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Clock
@@ -5749,7 +5983,7 @@ Model {
 	      Position		      [420, 167, 450, 198]
 	      Operator		      "<"
 	      InputSameDT	      off
-	      LogicOutDataTypeMode    "Boolean"
+	      LogicOutDataTypeMode    "boolean"
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -5781,6 +6015,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -5788,7 +6024,8 @@ Model {
 	      Name		      "Output"
 	      Position		      [495, 178, 525, 192]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "Clock"
@@ -5861,7 +6098,8 @@ Model {
 	  Name			  "Out"
 	  Position		  [815, 93, 845, 107]
 	  IconDisplay		  "Port number"
-	  BusOutputAsStruct	  off
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Line {
 	  SrcBlock		  "Trig"
@@ -5973,8 +6211,7 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "'%6.0f state,%6.0f rewards,%6.0f aborts,%6.0f f"
-"ails,%6.0f incompl'"
+      formatstr		      "'%6.0f state,%6.0f rewards,%6.0f aborts,%6.0f fails,%6.0f incompl'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"
@@ -5999,7 +6236,6 @@ Model {
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
-      MaskHideContents	      off
       System {
 	Name			"Velocity Calculation"
 	Location		[2, 82, 1270, 978]
@@ -6020,6 +6256,8 @@ Model {
 	  Name			  "Pos"
 	  Position		  [115, 388, 145, 402]
 	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Inport
@@ -6027,6 +6265,8 @@ Model {
 	  Position		  [455, 113, 485, 127]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Demux
@@ -6047,6 +6287,8 @@ Model {
 	  CollapseMode		  "All dimensions"
 	  InputSameDT		  off
 	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	  RndMeth		  "Floor"
 	  SaturateOnIntegerOverflow off
 	}
@@ -6089,7 +6331,6 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  System {
 	    Name		    "Pos2VelX"
 	    Location		    [246, 403, 839, 703]
@@ -6110,6 +6351,8 @@ Model {
 	      Name		      "In"
 	      Position		      [35, 113, 65, 127]
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Derivative
@@ -6130,8 +6373,7 @@ Model {
 	      AllPoleFiltStruct	      "Direct form"
 	      FIRFiltStruct	      "Direct form"
 	      CoeffSource	      "Specify via dialog"
-	      NumCoeffs		      "[0.0144    0.0304    0.0724    0.1245  "
-"  0.1668    0.1830    0.1668    0.1245    0.0724    0.0304    0.0144]"
+	      NumCoeffs		      "[0.0144    0.0304    0.0724    0.1245    0.1668    0.1830    0.1668    0.1245    0.0724    0.0304    0.0144]"
 	      DenCoeffs		      "[1 0.1]"
 	      BiQuadCoeffs	      "[1 0.3 0.4 1 0.1 0.2]"
 	      LatticeCoeffs	      "[0.2 0.4]"
@@ -6200,8 +6442,7 @@ Model {
 	      AllPoleFiltStruct	      "Direct form"
 	      FIRFiltStruct	      "Direct form"
 	      CoeffSource	      "Specify via dialog"
-	      NumCoeffs		      "[0.0144    0.0304    0.0724    0.1245  "
-"  0.1668    0.1830    0.1668    0.1245    0.0724    0.0304    0.0144]"
+	      NumCoeffs		      "[0.0144    0.0304    0.0724    0.1245    0.1668    0.1830    0.1668    0.1245    0.0724    0.0304    0.0144]"
 	      DenCoeffs		      "[1 0.1]"
 	      BiQuadCoeffs	      "[1 0.3 0.4 1 0.1 0.2]"
 	      LatticeCoeffs	      "[0.2 0.4]"
@@ -6261,7 +6502,11 @@ Model {
 	      Name		      "dG"
 	      Position		      [295, 104, 360, 136]
 	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	      SampleTime	      ".001"
 	    }
@@ -6270,7 +6515,8 @@ Model {
 	      Name		      "Out"
 	      Position		      [530, 113, 560, 127]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "Derivative"
@@ -6312,7 +6558,6 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  System {
 	    Name		    "Pos2VelY"
 	    Location		    [433, 403, 1026, 703]
@@ -6333,6 +6578,8 @@ Model {
 	      Name		      "In"
 	      Position		      [35, 113, 65, 127]
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Derivative
@@ -6353,8 +6600,7 @@ Model {
 	      AllPoleFiltStruct	      "Direct form"
 	      FIRFiltStruct	      "Direct form"
 	      CoeffSource	      "Specify via dialog"
-	      NumCoeffs		      "[0.0144    0.0304    0.0724    0.1245  "
-"  0.1668    0.1830    0.1668    0.1245    0.0724    0.0304    0.0144]"
+	      NumCoeffs		      "[0.0144    0.0304    0.0724    0.1245    0.1668    0.1830    0.1668    0.1245    0.0724    0.0304    0.0144]"
 	      DenCoeffs		      "[1 0.1]"
 	      BiQuadCoeffs	      "[1 0.3 0.4 1 0.1 0.2]"
 	      LatticeCoeffs	      "[0.2 0.4]"
@@ -6423,8 +6669,7 @@ Model {
 	      AllPoleFiltStruct	      "Direct form"
 	      FIRFiltStruct	      "Direct form"
 	      CoeffSource	      "Specify via dialog"
-	      NumCoeffs		      "[0.0144    0.0304    0.0724    0.1245  "
-"  0.1668    0.1830    0.1668    0.1245    0.0724    0.0304    0.0144]"
+	      NumCoeffs		      "[0.0144    0.0304    0.0724    0.1245    0.1668    0.1830    0.1668    0.1245    0.0724    0.0304    0.0144]"
 	      DenCoeffs		      "[1 0.1]"
 	      BiQuadCoeffs	      "[1 0.3 0.4 1 0.1 0.2]"
 	      LatticeCoeffs	      "[0.2 0.4]"
@@ -6484,7 +6729,11 @@ Model {
 	      Name		      "dG"
 	      Position		      [295, 104, 360, 136]
 	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	      SampleTime	      ".001"
 	    }
@@ -6493,7 +6742,8 @@ Model {
 	      Name		      "Out"
 	      Position		      [530, 113, 560, 127]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "Derivative"
@@ -6541,7 +6791,11 @@ Model {
 	  Position		  [335, 100, 365, 130]
 	  Gain			  "1.29"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
 	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
@@ -6550,20 +6804,27 @@ Model {
 	  Position		  [335, 155, 365, 185]
 	  Gain			  "1.29"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
 	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "UseTachs"
 	  Position		  [490, 255, 520, 285]
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "Vel"
 	  Position		  [795, 263, 825, 277]
 	  IconDisplay		  "Port number"
-	  BusOutputAsStruct	  off
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Line {
 	  SrcBlock		  "Pos2VelX"
@@ -6678,8 +6939,7 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "'%6.0f major,%6.0f minor,%6.0f revision,%6.0f b"
-"uild'"
+      formatstr		      "'%6.0f major,%6.0f minor,%6.0f revision,%6.0f build'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"
@@ -6704,7 +6964,6 @@ Model {
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
-      MaskHideContents	      off
       System {
 	Name			"WordSbs"
 	Location		[0, 74, 1268, 1000]
@@ -6725,6 +6984,8 @@ Model {
 	  Name			  "Word"
 	  Position		  [290, 173, 320, 187]
 	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Goto
@@ -6749,7 +7010,6 @@ Model {
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
-      MaskHideContents	      off
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
@@ -6777,7 +7037,6 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  System {
 	    Name		    "Cursor Rotation"
 	    Location		    [167, 247, 1125, 863]
@@ -6798,6 +7057,8 @@ Model {
 	      Name		      "Xi"
 	      Position		      [105, 198, 135, 212]
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Inport
@@ -6805,12 +7066,16 @@ Model {
 	      Position		      [55, 183, 85, 197]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Constant
 	      Name		      "AngleOffset"
 	      Position		      [375, 270, 405, 300]
 	      Value		      "0"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SampleTime	      ".001"
 	    }
 	    Block {
@@ -6830,6 +7095,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -6840,6 +7107,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -6853,6 +7122,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -6886,7 +7157,8 @@ Model {
 	      Name		      "Xo"
 	      Position		      [755, 43, 785, 57]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -6894,7 +7166,8 @@ Model {
 	      Position		      [760, 373, 790, 387]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "AngleOffset"
@@ -7008,7 +7281,6 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  MaskIconFrame		  on
 	  MaskIconOpaque	  on
 	  MaskIconRotate	  "none"
@@ -7033,6 +7305,8 @@ Model {
 	      Name		      "Sh"
 	      Position		      [165, 403, 195, 417]
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Inport
@@ -7040,6 +7314,8 @@ Model {
 	      Position		      [165, 473, 195, 487]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Inport
@@ -7047,6 +7323,8 @@ Model {
 	      Position		      [325, 188, 355, 202]
 	      Port		      "3"
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Inport
@@ -7054,6 +7332,8 @@ Model {
 	      Position		      [400, 638, 430, 652]
 	      Port		      "4"
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -7063,6 +7343,7 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
 	      OutScaling	      "2^-10"
 	      SaturateOnIntegerOverflow	off
 	    }
@@ -7074,6 +7355,7 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
 	      OutScaling	      "2^-10"
 	      SaturateOnIntegerOverflow	off
 	    }
@@ -7082,12 +7364,16 @@ Model {
 	      Name		      "Constant"
 	      Position		      [160, 539, 215, 571]
 	      Value		      "32768"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Constant
 	      Name		      "Constant2"
 	      Position		      [395, 845, 425, 875]
 	      Value		      "0"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      ForIterator
@@ -7103,8 +7389,7 @@ Model {
 	      Name		      "Port A"
 	      Ports		      [8]
 	      Position		      [855, 630, 985, 835]
-	      SourceBlock	      "xpcnilib/Digital\nOutput/PCI-6025E 8255"
-" DO"
+	      SourceBlock	      "xpcnilib/Digital\nOutput/PCI-6025E 8255 DO"
 	      SourceType	      "donipci6025e8255"
 	      channel		      "1:8"
 	      port		      "A"
@@ -7119,8 +7404,7 @@ Model {
 	      Name		      "Port B"
 	      Ports		      [8]
 	      Position		      [830, 315, 960, 520]
-	      SourceBlock	      "xpcnilib/Digital\nOutput/PCI-6025E 8255"
-" DO"
+	      SourceBlock	      "xpcnilib/Digital\nOutput/PCI-6025E 8255 DO"
 	      SourceType	      "donipci6025e8255"
 	      channel		      "1:8"
 	      port		      "B"
@@ -7171,7 +7455,6 @@ Model {
 	      MinAlgLoopOccurrences   off
 	      RTWSystemCode	      "Auto"
 	      FunctionWithSeparateData off
-	      MaskHideContents	      off
 	      System {
 		Name			"While Iterator\nSubsystem"
 		Location		[2, 82, 1278, 978]
@@ -7183,8 +7466,7 @@ Model {
 		PaperPositionMode	"auto"
 		PaperType		"usletter"
 		PaperUnits		"inches"
-		TiledPaperMargins	"[0.500000, 0.500000, 0.500000, 0.5000"
-"00]"
+		TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 		TiledPageScale		1
 		ShowPageBoundaries	off
 		ZoomFactor		"100"
@@ -7193,6 +7475,8 @@ Model {
 		  Name			  "Start Time"
 		  Position		  [80, 348, 110, 362]
 		  IconDisplay		  "Port number"
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
 		}
 		Block {
 		  BlockType		  Inport
@@ -7200,14 +7484,15 @@ Model {
 		  Position		  [705, 403, 735, 417]
 		  Port			  "2"
 		  IconDisplay		  "Port number"
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
 		}
 		Block {
 		  BlockType		  Reference
 		  Name			  "Compare\nTo Constant"
 		  Ports			  [1, 1]
 		  Position		  [510, 85, 540, 115]
-		  SourceBlock		  "simulink/Logic and Bit\nOperations/"
-"Compare\nTo Constant"
+		  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
 		  SourceType		  "Compare To Constant"
 		  ShowPortLabels	  "FromPortIcon"
 		  SystemSampleTime	  "-1"
@@ -7227,8 +7512,7 @@ Model {
 		  Name			  "Compare\nTo Constant1"
 		  Ports			  [1, 1]
 		  Position		  [510, 300, 540, 330]
-		  SourceBlock		  "simulink/Logic and Bit\nOperations/"
-"Compare\nTo Constant"
+		  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
 		  SourceType		  "Compare To Constant"
 		  ShowPortLabels	  "FromPortIcon"
 		  SystemSampleTime	  "-1"
@@ -7247,20 +7531,23 @@ Model {
 		  BlockType		  Constant
 		  Name			  "Constant"
 		  Position		  [505, 215, 535, 245]
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
 		}
 		Block {
 		  BlockType		  Constant
 		  Name			  "Constant1"
 		  Position		  [505, 430, 535, 460]
 		  Value			  "0"
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
 		}
 		Block {
 		  BlockType		  Reference
 		  Name			  "PCI-6025E "
 		  Ports			  [2]
 		  Position		  [800, 302, 905, 358]
-		  SourceBlock		  "xpcnilib/Digital\nOutput/PCI-6025E "
-"DO"
+		  SourceBlock		  "xpcnilib/Digital\nOutput/PCI-6025E DO"
 		  SourceType		  "donipcie6025"
 		  channel		  "[1 2]"
 		  reset			  "[1]"
@@ -7274,7 +7561,11 @@ Model {
 		  Position		  [300, 299, 355, 331]
 		  Gain			  ".838"
 		  ParameterDataTypeMode	  "Inherit via internal rule"
+		  ParameterDataType	  "sfix(16)"
+		  ParameterScaling	  "2^0"
 		  OutDataTypeMode	  "Inherit via internal rule"
+		  OutDataType		  "sfix(16)"
+		  OutScaling		  "2^0"
 		  SaturateOnIntegerOverflow off
 		}
 		Block {
@@ -7286,6 +7577,7 @@ Model {
 		  CollapseMode		  "All dimensions"
 		  InputSameDT		  off
 		  OutDataTypeMode	  "Inherit via internal rule"
+		  OutDataType		  "sfix(16)"
 		  OutScaling		  "2^-10"
 		  SaturateOnIntegerOverflow off
 		}
@@ -7615,7 +7907,11 @@ Model {
 	  Position		  [255, 366, 345, 414]
 	  Gain			  "3.490658e-4"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
 	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
@@ -7624,7 +7920,11 @@ Model {
 	  Position		  [240, 496, 330, 544]
 	  Gain			  "-3.490658e-4"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
 	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
@@ -7635,7 +7935,6 @@ Model {
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
-	  MaskHideContents	  off
 	  System {
 	    Name		    "Jacobian-Cartesian Transformation"
 	    Location		    [0, 83, 1268, 884]
@@ -7656,6 +7955,8 @@ Model {
 	      Name		      "Th1"
 	      Position		      [45, 138, 75, 152]
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Inport
@@ -7663,6 +7964,8 @@ Model {
 	      Position		      [45, 418, 75, 432]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Gain
@@ -7670,7 +7973,11 @@ Model {
 	      Position		      [700, 53, 735, 97]
 	      Gain		      "-1"
 	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -7679,7 +7986,11 @@ Model {
 	      Position		      [740, 393, 775, 437]
 	      Gain		      "-1"
 	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -7688,7 +7999,11 @@ Model {
 	      Position		      [695, 438, 730, 482]
 	      Gain		      "-1"
 	      ParameterDataTypeMode   "Inherit via internal rule"
+	      ParameterDataType	      "sfix(16)"
+	      ParameterScaling	      "2^0"
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -7703,12 +8018,16 @@ Model {
 	      Name		      "L1"
 	      Position		      [185, 295, 215, 325]
 	      Value		      "24"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Constant
 	      Name		      "L2"
 	      Position		      [150, 570, 180, 600]
 	      Value		      "23.5"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Concatenate
@@ -7751,6 +8070,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -7761,6 +8082,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -7771,6 +8094,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -7781,6 +8106,8 @@ Model {
 	      CollapseMode	      "All dimensions"
 	      InputSameDT	      off
 	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
@@ -7792,6 +8119,8 @@ Model {
 	      IconShape		      "round"
 	      Inputs		      "|++"
 	      CollapseMode	      "All dimensions"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -7802,6 +8131,8 @@ Model {
 	      IconShape		      "round"
 	      Inputs		      "--"
 	      CollapseMode	      "All dimensions"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -7812,6 +8143,8 @@ Model {
 	      IconShape		      "round"
 	      Inputs		      "-+"
 	      CollapseMode	      "All dimensions"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -7822,6 +8155,8 @@ Model {
 	      IconShape		      "round"
 	      Inputs		      "|++"
 	      CollapseMode	      "All dimensions"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Trigonometry
@@ -7853,19 +8188,24 @@ Model {
 	      BlockType		      Constant
 	      Name		      "xoffset"
 	      Position		      [455, 335, 485, 365]
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Constant
 	      Name		      "yoffset"
 	      Position		      [400, 160, 430, 190]
 	      Value		      "32"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Outport
 	      Name		      "X"
 	      Position		      [585, 298, 615, 312]
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -7873,7 +8213,8 @@ Model {
 	      Position		      [550, 138, 580, 152]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -7881,7 +8222,8 @@ Model {
 	      Position		      [585, 263, 615, 277]
 	      Port		      "3"
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -7889,7 +8231,8 @@ Model {
 	      Position		      [550, 93, 580, 107]
 	      Port		      "4"
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -7897,7 +8240,8 @@ Model {
 	      Position		      [1030, 318, 1060, 332]
 	      Port		      "5"
 	      IconDisplay	      "Port number"
-	      BusOutputAsStruct	      off
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
 	    }
 	    Line {
 	      SrcBlock		      "Th1"
@@ -8178,8 +8522,7 @@ Model {
 	  Name			  "PCI-QUAD04 "
 	  Ports			  [0, 1]
 	  Position		  [60, 362, 170, 418]
-	  SourceBlock		  "xpcmeasurementcomputinglib/Incremental\nEnc"
-"oder/PCI-QUAD04 "
+	  SourceBlock		  "xpcmeasurementcomputinglib/Incremental\nEncoder/PCI-QUAD04 "
 	  SourceType		  "enccbcioquadcount"
 	  channel		  "1"
 	  resetmode		  on
@@ -8197,8 +8540,7 @@ Model {
 	  Name			  "PCI-QUAD04 1"
 	  Ports			  [0, 1]
 	  Position		  [60, 492, 170, 548]
-	  SourceBlock		  "xpcmeasurementcomputinglib/Incremental\nEnc"
-"oder/PCI-QUAD04 "
+	  SourceBlock		  "xpcmeasurementcomputinglib/Incremental\nEncoder/PCI-QUAD04 "
 	  SourceType		  "enccbcioquadcount"
 	  channel		  "2"
 	  resetmode		  on
@@ -8220,6 +8562,8 @@ Model {
 	  IconShape		  "round"
 	  Inputs		  "|++"
 	  CollapseMode		  "All dimensions"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Sum
@@ -8230,25 +8574,32 @@ Model {
 	  IconShape		  "round"
 	  Inputs		  "|++"
 	  CollapseMode		  "All dimensions"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "elbowOffset"
 	  Position		  [320, 560, 390, 590]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "shoulderOffset"
 	  Position		  [325, 420, 390, 450]
 	  Value			  "0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "Pos"
 	  Position		  [990, 373, 1020, 387]
 	  IconDisplay		  "Port number"
-	  BusOutputAsStruct	  off
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Outport
@@ -8256,7 +8607,8 @@ Model {
 	  Position		  [745, 473, 775, 487]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
-	  BusOutputAsStruct	  off
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Outport
@@ -8264,7 +8616,8 @@ Model {
 	  Position		  [745, 548, 775, 562]
 	  Port			  "3"
 	  IconDisplay		  "Port number"
-	  BusOutputAsStruct	  off
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
 	}
 	Line {
 	  SrcBlock		  "PCI-QUAD04 1"
@@ -8422,8 +8775,7 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "'%15.2f X,%15.2f Y,%15.2f dX,%15.2f dY,%15.2f F"
-"x,%15.2f Fy'"
+      formatstr		      "'%15.2f X,%15.2f Y,%15.2f dX,%15.2f dY,%15.2f Fx,%15.2f Fy'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"
@@ -8642,58 +8994,49 @@ MatData {
   NumRecords		  4
   DataRecord {
     Tag			    DataTag3
-    Data		    "  %)30     .    ,     8    (    !          %    "
-"\"     $    \"     0         0  ( 6UT   "
+    Data		    "  %)30     .    ,     8    (    !          %    \"     $    \"     0         0  ( 6UT   "
   }
   DataRecord {
     Tag			    DataTag2
-    Data		    "  %)30     .    ,     8    (    !          %    "
-"\"     $    \"     0         0  ( 6UT   "
+    Data		    "  %)30     .    ,     8    (    !          %    \"     $    \"     0         0  ( 6UT   "
   }
   DataRecord {
     Tag			    DataTag1
-    Data		    "  %)30     .    ,     8    (    !          %    "
-"\"     $    \"     0         0  ( 6UT   "
+    Data		    "  %)30     .    ,     8    (    !          %    \"     $    \"     0         0  ( 6UT   "
   }
   DataRecord {
     Tag			    DataTag0
-    Data		    "  %)30     .    ,     8    (    !          %    "
-"\"     $    \"     0         0  ( 6UT   "
+    Data		    "  %)30     .    ,     8    (    !          %    \"     $    \"     0         0  ( 6UT   "
   }
 }
-
 # Finite State Machines
 #
-#    Stateflow Version 6.6 (R2007a) dated Jan 30 2007, 03:33:34
+#    Stateflow Version 6.7 (R2007b) dated Aug  7 2007, 16:48:14
 #
 #
+
 
 Stateflow {
-
-	machine {
-		id                   		1
-		name                 		"bump_choice"
-		created              		"29-Sep-2006 15:42:48"
-		isLibrary            		0
-		firstTarget          		2
-		sfVersion            		66014000
-	}
-
-	target {
-		id                        		2
-		name                      		"sfun"
-		description               		"Default Simulink S-Function Target."
-		machine                   		1
-		linkNode                  		[1 0 3]
-	}
-
-	target {
-		id                        		3
-		name                      		"rtw"
-		codeFlags                 		" comments=1 statebitsets=1 databitsets=1 emitlogicalops=1 el"
-						"seifdetection=1 constantfolding=1 redundantloadelimination=0"
-						" preservenames=0 preservenameswithparent=0 exportcharts=0"
-		machine                   		1
-		linkNode                  		[1 2 0]
-	}
+  machine {
+    id			    1
+    name		    "bump_choice"
+    created		    "29-Sep-2006 15:42:48"
+    isLibrary		    0
+    firstTarget		    2
+    sfVersion		    67014000.000001
+  }
+  target {
+    id			    2
+    name		    "sfun"
+    description		    "Default Simulink S-Function Target."
+    machine		    1
+    linkNode		    [1 0 3]
+  }
+  target {
+    id			    3
+    name		    "rtw"
+    codeFlags		    " comments=1 statebitsets=1 databitsets=1 emitlogicalops=1 elseifdetection=1 constantfolding=1 redundantloadelimination=0 preservenames=0 preservenameswithparent=0 exportcharts=0"
+    machine		    1
+    linkNode		    [1 2 0]
+  }
 }
