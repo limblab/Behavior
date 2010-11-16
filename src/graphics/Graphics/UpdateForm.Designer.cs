@@ -53,7 +53,6 @@ namespace BehaviorGraphics
             this.label114 = new System.Windows.Forms.Label();
             this.checkBoxRecenter = new System.Windows.Forms.CheckBox();
             this.groupBox27 = new System.Windows.Forms.GroupBox();
-            this.angleEntryBoxCurlAngleCatch = new AngleBox.AngleEntryBox();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
             this.textBoxTimeConstCatch = new System.Windows.Forms.TextBox();
             this.labelChaoticGainCatch = new System.Windows.Forms.Label();
@@ -71,7 +70,6 @@ namespace BehaviorGraphics
             this.textBoxScreenWidth = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.angleEntryBoxCurlAngle = new AngleBox.AngleEntryBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.textBoxTimeConst = new System.Windows.Forms.TextBox();
             this.labelChaoticGain = new System.Windows.Forms.Label();
@@ -87,7 +85,6 @@ namespace BehaviorGraphics
             this.label19 = new System.Windows.Forms.Label();
             this.comboBoxLoad = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.angleEntryBoxCursorRotation = new AngleBox.AngleEntryBox();
             this.label17 = new System.Windows.Forms.Label();
             this.textBoxYOffset = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -418,7 +415,7 @@ namespace BehaviorGraphics
             this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.textBoxBCIF = new System.Windows.Forms.TextBox();
             this.label76 = new System.Windows.Forms.Label();
-            this.textBoxBCI = new System.Windows.Forms.TextBox();
+            this.textBoxBCIR = new System.Windows.Forms.TextBox();
             this.label83 = new System.Windows.Forms.Label();
             this.textBoxBCM = new System.Windows.Forms.TextBox();
             this.label86 = new System.Windows.Forms.Label();
@@ -581,6 +578,12 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
+            this.angleEntryBoxCurlAngleCatch = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxCurlAngle = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxCursorRotation = new AngleBox.AngleEntryBox();
+            this.textBoxBCIA = new System.Windows.Forms.TextBox();
+            this.label196 = new System.Windows.Forms.Label();
+            this.checkBoxBCOuterTargetOn = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -920,15 +923,6 @@ namespace BehaviorGraphics
             this.groupBox27.TabStop = false;
             this.groupBox27.Text = "Catch Load";
             // 
-            // angleEntryBoxCurlAngleCatch
-            // 
-            this.angleEntryBoxCurlAngleCatch.Location = new System.Drawing.Point(106, 73);
-            this.angleEntryBoxCurlAngleCatch.Name = "angleEntryBoxCurlAngleCatch";
-            this.angleEntryBoxCurlAngleCatch.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngleCatch.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngleCatch, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngleCatch.Value = 0;
-            // 
             // groupBox29
             // 
             this.groupBox29.Controls.Add(this.textBoxTimeConstCatch);
@@ -1106,15 +1100,6 @@ namespace BehaviorGraphics
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Load";
             // 
-            // angleEntryBoxCurlAngle
-            // 
-            this.angleEntryBoxCurlAngle.Location = new System.Drawing.Point(106, 73);
-            this.angleEntryBoxCurlAngle.Name = "angleEntryBoxCurlAngle";
-            this.angleEntryBoxCurlAngle.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngle.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngle, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngle.Value = 0;
-            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.textBoxTimeConst);
@@ -1271,15 +1256,6 @@ namespace BehaviorGraphics
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Position Offsets";
-            // 
-            // angleEntryBoxCursorRotation
-            // 
-            this.angleEntryBoxCursorRotation.Location = new System.Drawing.Point(116, 108);
-            this.angleEntryBoxCursorRotation.Name = "angleEntryBoxCursorRotation";
-            this.angleEntryBoxCursorRotation.Size = new System.Drawing.Size(99, 21);
-            this.angleEntryBoxCursorRotation.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCursorRotation, "Rotation of workspace relative to handle.");
-            this.angleEntryBoxCursorRotation.Value = 0;
             // 
             // label17
             // 
@@ -4503,6 +4479,7 @@ namespace BehaviorGraphics
             // 
             // groupBox19
             // 
+            this.groupBox19.Controls.Add(this.checkBoxBCOuterTargetOn);
             this.groupBox19.Controls.Add(this.checkBoxBCCenterTargetOff);
             this.groupBox19.Controls.Add(this.textBoxBCWindowDiameter);
             this.groupBox19.Controls.Add(this.label77);
@@ -4510,9 +4487,9 @@ namespace BehaviorGraphics
             this.groupBox19.Controls.Add(this.label84);
             this.groupBox19.Controls.Add(this.textBoxBCTgtSize);
             this.groupBox19.Controls.Add(this.label85);
-            this.groupBox19.Location = new System.Drawing.Point(3, 148);
+            this.groupBox19.Location = new System.Drawing.Point(3, 178);
             this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(207, 131);
+            this.groupBox19.Size = new System.Drawing.Size(207, 145);
             this.groupBox19.TabIndex = 13;
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "Targets";
@@ -4520,7 +4497,7 @@ namespace BehaviorGraphics
             // checkBoxBCCenterTargetOff
             // 
             this.checkBoxBCCenterTargetOff.AutoSize = true;
-            this.checkBoxBCCenterTargetOff.Location = new System.Drawing.Point(28, 108);
+            this.checkBoxBCCenterTargetOff.Location = new System.Drawing.Point(5, 105);
             this.checkBoxBCCenterTargetOff.Name = "checkBoxBCCenterTargetOff";
             this.checkBoxBCCenterTargetOff.Size = new System.Drawing.Size(153, 17);
             this.checkBoxBCCenterTargetOff.TabIndex = 42;
@@ -4742,9 +4719,11 @@ namespace BehaviorGraphics
             // 
             // groupBox18
             // 
+            this.groupBox18.Controls.Add(this.textBoxBCIA);
+            this.groupBox18.Controls.Add(this.label196);
             this.groupBox18.Controls.Add(this.textBoxBCIF);
             this.groupBox18.Controls.Add(this.label76);
-            this.groupBox18.Controls.Add(this.textBoxBCI);
+            this.groupBox18.Controls.Add(this.textBoxBCIR);
             this.groupBox18.Controls.Add(this.label83);
             this.groupBox18.Controls.Add(this.textBoxBCM);
             this.groupBox18.Controls.Add(this.label86);
@@ -4754,7 +4733,7 @@ namespace BehaviorGraphics
             this.groupBox18.Controls.Add(this.label90);
             this.groupBox18.Location = new System.Drawing.Point(3, 3);
             this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(207, 139);
+            this.groupBox18.Size = new System.Drawing.Size(207, 169);
             this.groupBox18.TabIndex = 11;
             this.groupBox18.TabStop = false;
             this.groupBox18.Text = "Timing";
@@ -4776,22 +4755,22 @@ namespace BehaviorGraphics
             this.label76.TabIndex = 16;
             this.label76.Text = "Fail wait";
             // 
-            // textBoxBCI
+            // textBoxBCIR
             // 
-            this.textBoxBCI.Location = new System.Drawing.Point(101, 88);
-            this.textBoxBCI.Name = "textBoxBCI";
-            this.textBoxBCI.Size = new System.Drawing.Size(100, 20);
-            this.textBoxBCI.TabIndex = 7;
-            this.textBoxBCI.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.textBoxBCIR.Location = new System.Drawing.Point(101, 88);
+            this.textBoxBCIR.Name = "textBoxBCIR";
+            this.textBoxBCIR.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBCIR.TabIndex = 7;
+            this.textBoxBCIR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label83
             // 
             this.label83.AutoSize = true;
             this.label83.Location = new System.Drawing.Point(9, 95);
             this.label83.Name = "label83";
-            this.label83.Size = new System.Drawing.Size(44, 13);
+            this.label83.Size = new System.Drawing.Size(66, 13);
             this.label83.TabIndex = 14;
-            this.label83.Text = "Intertrial";
+            this.label83.Text = "Reward wait";
             // 
             // textBoxBCM
             // 
@@ -6385,6 +6364,59 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
+            // angleEntryBoxCurlAngleCatch
+            // 
+            this.angleEntryBoxCurlAngleCatch.Location = new System.Drawing.Point(106, 73);
+            this.angleEntryBoxCurlAngleCatch.Name = "angleEntryBoxCurlAngleCatch";
+            this.angleEntryBoxCurlAngleCatch.Size = new System.Drawing.Size(100, 21);
+            this.angleEntryBoxCurlAngleCatch.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngleCatch, "Angle relative to the direction of movement at which to apply coriolis forces.");
+            this.angleEntryBoxCurlAngleCatch.Value = 0;
+            // 
+            // angleEntryBoxCurlAngle
+            // 
+            this.angleEntryBoxCurlAngle.Location = new System.Drawing.Point(106, 73);
+            this.angleEntryBoxCurlAngle.Name = "angleEntryBoxCurlAngle";
+            this.angleEntryBoxCurlAngle.Size = new System.Drawing.Size(100, 21);
+            this.angleEntryBoxCurlAngle.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngle, "Angle relative to the direction of movement at which to apply coriolis forces.");
+            this.angleEntryBoxCurlAngle.Value = 0;
+            // 
+            // angleEntryBoxCursorRotation
+            // 
+            this.angleEntryBoxCursorRotation.Location = new System.Drawing.Point(116, 108);
+            this.angleEntryBoxCursorRotation.Name = "angleEntryBoxCursorRotation";
+            this.angleEntryBoxCursorRotation.Size = new System.Drawing.Size(99, 21);
+            this.angleEntryBoxCursorRotation.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCursorRotation, "Rotation of workspace relative to handle.");
+            this.angleEntryBoxCursorRotation.Value = 0;
+            // 
+            // textBoxBCIA
+            // 
+            this.textBoxBCIA.Location = new System.Drawing.Point(101, 138);
+            this.textBoxBCIA.Name = "textBoxBCIA";
+            this.textBoxBCIA.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBCIA.TabIndex = 17;
+            // 
+            // label196
+            // 
+            this.label196.AutoSize = true;
+            this.label196.Location = new System.Drawing.Point(9, 145);
+            this.label196.Name = "label196";
+            this.label196.Size = new System.Drawing.Size(54, 13);
+            this.label196.TabIndex = 18;
+            this.label196.Text = "Abort wait";
+            // 
+            // checkBoxBCOuterTargetOn
+            // 
+            this.checkBoxBCOuterTargetOn.AutoSize = true;
+            this.checkBoxBCOuterTargetOn.Location = new System.Drawing.Point(5, 128);
+            this.checkBoxBCOuterTargetOn.Name = "checkBoxBCOuterTargetOn";
+            this.checkBoxBCOuterTargetOn.Size = new System.Drawing.Size(195, 17);
+            this.checkBoxBCOuterTargetOn.TabIndex = 43;
+            this.checkBoxBCOuterTargetOn.Text = "Outer target(s) on when \"on center\"";
+            this.checkBoxBCOuterTargetOn.UseVisualStyleBackColor = true;
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -6928,7 +6960,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label81;
         private System.Windows.Forms.NumericUpDown numericUpDownBCBumpSteps;
         private System.Windows.Forms.GroupBox groupBox18;
-        private System.Windows.Forms.TextBox textBoxBCI;
+        private System.Windows.Forms.TextBox textBoxBCIR;
         private System.Windows.Forms.Label label83;
         private System.Windows.Forms.TextBox textBoxBCM;
         private System.Windows.Forms.Label label86;
@@ -7088,5 +7120,8 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label195;
         private System.Windows.Forms.TextBox textBoxGoToneVolume;
         private System.Windows.Forms.CheckBox checkBoxBCCenterTargetOff;
+        private System.Windows.Forms.TextBox textBoxBCIA;
+        private System.Windows.Forms.Label label196;
+        private System.Windows.Forms.CheckBox checkBoxBCOuterTargetOn;
     }
 }

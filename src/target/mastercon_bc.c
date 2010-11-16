@@ -61,61 +61,65 @@ typedef unsigned char byte;
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,0))
 
+/* Update counter */
+static real_T master_update = 0.0;
+#define param_master_update mxGetScalar(ssGetSFcnParam(S,1))
+
 /* Target parameters */
 static real_T target_radius = 10.0; /* radius of target circle in cm */
-#define param_target_radius mxGetScalar(ssGetSFcnParam(S,1))
+#define param_target_radius mxGetScalar(ssGetSFcnParam(S,2))
 static real_T target_size = 3.0;    /* width and height of targets in cm */
-#define param_target_size mxGetScalar(ssGetSFcnParam(S,2))
+#define param_target_size mxGetScalar(ssGetSFcnParam(S,3))
 static real_T window_size = 5.0;   /* diameter of blocking circle */
-#define param_window_size mxGetScalar(ssGetSFcnParam(S,3))
+#define param_window_size mxGetScalar(ssGetSFcnParam(S,4))
 
 /* Bump parameters */
-#define param_bump_steps ((int)(mxGetScalar(ssGetSFcnParam(S,4))) <= 7 ? (int)(mxGetScalar(ssGetSFcnParam(S,4))) : 7)
+#define param_bump_steps ((int)(mxGetScalar(ssGetSFcnParam(S,5))) <= 7 ? (int)(mxGetScalar(ssGetSFcnParam(S,5))) : 7)
 static int bump_steps = 7;
-#define param_bump_magnitude_min mxGetScalar(ssGetSFcnParam(S,5))
+#define param_bump_magnitude_min mxGetScalar(ssGetSFcnParam(S,6))
 static real_T bump_magnitude_min = 0.0;
-#define param_bump_magnitude_max mxGetScalar(ssGetSFcnParam(S,6))
+#define param_bump_magnitude_max mxGetScalar(ssGetSFcnParam(S,7))
 static real_T bump_magnitude_max = 0.05;
-#define param_bump_duration mxGetScalar(ssGetSFcnParam(S,7))
+#define param_bump_duration mxGetScalar(ssGetSFcnParam(S,8))
 static real_T bump_duration = 125;
 
 /* Timing parameters */
 static real_T center_hold;
 static real_T center_hold_l = 0.5; /* shortest delay between entry of ct and bump/stim */ 
-#define param_center_hold_l mxGetScalar(ssGetSFcnParam(S,8))
+#define param_center_hold_l mxGetScalar(ssGetSFcnParam(S,9))
 static real_T center_hold_h = 1.0; /* longest delay between entry of ct and bump/stim */ 
-#define param_center_hold_h mxGetScalar(ssGetSFcnParam(S,9))
+#define param_center_hold_h mxGetScalar(ssGetSFcnParam(S,10))
 static real_T movement_time = 10;  /* movement time */
-#define param_movement_time mxGetScalar(ssGetSFcnParam(S,10))
-#define param_intertrial mxGetScalar(ssGetSFcnParam(S,11)) /* time between trials*/
-static real_T abort_timeout   = 1.0;    /* delay after abort */
+#define param_movement_time mxGetScalar(ssGetSFcnParam(S,11))
+
+#define param_intertrial mxGetScalar(ssGetSFcnParam(S,12)) /* time between trials*/
 static real_T incomplete_timeout = 1.0; /* delay after incomplete */
 static real_T center_bump_timeout  = 1.0; 
 static real_T reward_timeout  = 1.0;    /* delay after reward before starting next trial
                                          * This is NOT the reward pulse length */
 
 static real_T failure_timeout = 1.0;    /* delay after failure */
-#define param_fail_intertrial mxGetScalar(ssGetSFcnParam(S,12)) /* time between trials*/
+#define param_fail_intertrial mxGetScalar(ssGetSFcnParam(S,13)) /* time between trials*/
+static real_T abort_timeout = 1.0;     /* delay after abort */
+#define param_abort_intertrial mxGetScalar(ssGetSFcnParam(S,14)) /* time between trials*/
 
 /* General parameters */
 static real_T pct_training_trials = 0.0; /* true=show one outer target, false=show 2 */
-#define param_pct_training_trials mxGetScalar(ssGetSFcnParam(S,13))
+#define param_pct_training_trials mxGetScalar(ssGetSFcnParam(S,15))
 
 /* Stimulation parameters */
 static real_T pct_stim_trials = 0.0; /* percentage of trials to stimulate */
-#define param_pct_stim_trials mxGetScalar(ssGetSFcnParam(S,14))
-
-/* Update counter */
-static real_T master_update = 0.0;
-#define param_master_update mxGetScalar(ssGetSFcnParam(S,15))
+#define param_pct_stim_trials mxGetScalar(ssGetSFcnParam(S,16))
 
 /* Newsome mode */
 static int newsome_mode = 0;
-#define param_newsome_mode mxGetScalar(ssGetSFcnParam(S,16))
+#define param_newsome_mode mxGetScalar(ssGetSFcnParam(S,17))
 
 /* Center target off on go cue */
 static int center_target_off = 1.0;   /* turn off center target on go cue */
-#define param_center_target_off mxGetScalar(ssGetSFcnParam(S,17))
+#define param_center_target_off mxGetScalar(ssGetSFcnParam(S,18))
+static int outer_target_on = 1.0;   /* turn on outer target(s) when "in center target" */
+#define param_outer_target_on mxGetScalar(ssGetSFcnParam(S,19))
 
 /*
  * State IDs
@@ -154,20 +158,21 @@ static void mdlCheckParameters(SimStruct *S)
     center_hold_h = param_center_hold_h;
     movement_time = param_movement_time;
 
-    abort_timeout   = param_intertrial;    
+    abort_timeout   = param_abort_intertrial;    
     failure_timeout = param_fail_intertrial;
     reward_timeout  = param_intertrial;   
     incomplete_timeout = param_intertrial;
     
     newsome_mode = param_newsome_mode;
     center_target_off = param_center_target_off;
+    outer_target_on = param_outer_target_on;    
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 18);
+    ssSetNumSFcnParams(S, 20);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -468,13 +473,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             center_hold_h = param_center_hold_h;
             movement_time = param_movement_time;
 
-            abort_timeout   = param_intertrial;    
+            abort_timeout   = param_abort_intertrial;    
             failure_timeout = param_fail_intertrial;
             reward_timeout  = param_intertrial;   
             incomplete_timeout = param_intertrial;
             
             newsome_mode = param_newsome_mode;
             center_target_off = param_center_target_off;
+            outer_target_on = param_outer_target_on;
             
             /* decide if it is a training trial */
             training_mode = (UNI<pct_training_trials) ? 1 : 0;
@@ -927,9 +933,26 @@ static void mdlOutputs(SimStruct *S, int_T tid)
          state == STATE_BUMP_STIM) {
         /* center target on */
         target_pos[0] = 2;
+        
+        if (outer_target_on) {
+            /* center target off */
+            target_pos[5] = 2;
+            if (!training_mode) {
+                target_pos[10] = 2;
+            } else {
+                target_pos[10] = 0;
+            }
+        } else {
+            target_pos[5] = 0;
+            target_pos[10] = 0;
+        }  
+        
         for (i=0; i<4; i++) {
-           target_pos[i+1] = ct[i];
-        }
+            target_pos[i+1] = ct[i];
+            target_pos[i+6] = rt[i];
+            target_pos[i+11] = ft[i];
+        }        
+        
     } else if ( state == STATE_MOVEMENT) {        
         if (center_target_off) {
             /* center target off */

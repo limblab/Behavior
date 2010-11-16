@@ -405,34 +405,39 @@ namespace BehaviorGraphics
              * Bump-choice Parameters 
              */
             // Bump-choice targets
-            AddParamListItem("BC Target Radius", "P2", "Behavior BC", this.textBoxBCTgtRadius);
-            AddParamListItem("BC Target Size", "P3", "Behavior BC", this.textBoxBCTgtSize);
-            AddParamListItem("BC Window Diameter", "P4", "Behavior BC", this.textBoxBCWindowDiameter);
+            AddParamListItem("BC Target Radius", "P3", "Behavior BC", this.textBoxBCTgtRadius);
+            AddParamListItem("BC Target Size", "P4", "Behavior BC", this.textBoxBCTgtSize);
+            AddParamListItem("BC Window Diameter", "P5", "Behavior BC", this.textBoxBCWindowDiameter);
 
             // Bump-choice bump
-            AddParamListItem("BC Num Bump Steps", "P5", "Behavior BC", this.numericUpDownBCBumpSteps);
-            AddParamListItem("BC Bump Magnitude Min", "P6", "Behavior BC", this.textBoxBCBumpMagMin);
-            AddParamListItem("BC Bump Magnitude Max", "P7", "Behavior BC", this.textBoxBCBumpMagMax);
-            AddParamListItem("BC Bump Duration", "P8", "Behavior BC", this.textBoxBCBumpDur);
+            AddParamListItem("BC Num Bump Steps", "P6", "Behavior BC", this.numericUpDownBCBumpSteps);
+            AddParamListItem("BC Bump Magnitude Min", "P7", "Behavior BC", this.textBoxBCBumpMagMin);
+            AddParamListItem("BC Bump Magnitude Max", "P8", "Behavior BC", this.textBoxBCBumpMagMax);
+            AddParamListItem("BC Bump Duration", "P9", "Behavior BC", this.textBoxBCBumpDur);
 
             // Bump-choice timing
-            AddParamListItem("BC OHL", "P9", "Behavior BC", this.textBoxBCOHL);
-            AddParamListItem("BC OHH", "P10", "Behavior BC", this.textBoxBCOHH);
-            AddParamListItem("BC M", "P11", "Behavior BC", this.textBoxBCM);
-            AddParamListItem("BC I", "P12", "Behavior BC", this.textBoxBCI);
-            AddParamListItem("BC IF", "P13", "Behavior BC", this.textBoxBCIF);
+            AddParamListItem("BC OHL", "P10", "Behavior BC", this.textBoxBCOHL);
+            AddParamListItem("BC OHH", "P11", "Behavior BC", this.textBoxBCOHH);
+            AddParamListItem("BC M", "P12", "Behavior BC", this.textBoxBCM);
+            AddParamListItem("BC IR", "P13", "Behavior BC", this.textBoxBCIR);
+            AddParamListItem("BC IF", "P14", "Behavior BC", this.textBoxBCIF);
+            AddParamListItem("BC IF", "P15", "Behavior BC", this.textBoxBCIF);
 
             // Training trials
-            AddParamListItem("BC Pct Training Trials", "P14", "Behavior BC", this.textBoxBCPctTraining);  
+            AddParamListItem("BC Pct Training Trials", "P16", "Behavior BC", this.textBoxBCPctTraining);  
    
             // Stimulation parameters
-            AddParamListItem("BC Pct Stimulation Trials", "P15", "Behavior BC", this.textBoxBCPctStimTrials);
+            AddParamListItem("BC Pct Stimulation Trials", "P17", "Behavior BC", this.textBoxBCPctStimTrials);
                         
             // Newsome mode
-            AddParamListItem("BC Newsome Mode", "P17", "Behavior BC", this.checkBoxBCNewsome);
+            AddParamListItem("BC Newsome Mode", "P18", "Behavior BC", this.checkBoxBCNewsome);
 
             // Center target off on go cue
-            AddParamListItem("BC Center Target Off", "P18", "Behavior BC", this.checkBoxBCCenterTargetOff);
+            AddParamListItem("BC Center Target Off", "P19", "Behavior BC", this.checkBoxBCCenterTargetOff);
+
+            // Outer target(s) on on center hold
+            AddParamListItem("BC Outer Target On", "P20", "Behavior BC", this.checkBoxBCOuterTargetOn);
+
             #endregion
 
             #region Visual Search
