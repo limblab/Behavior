@@ -935,13 +935,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         target_pos[0] = 2;
         
         if (outer_target_on) {
-            /* center target off */
-            target_pos[5] = 2;
-            if (!training_mode) {
-                target_pos[10] = 2;
-            } else {
-                target_pos[10] = 0;
-            }
+            /* outer target(s) on */
+            target_pos[5] = 2;            
+            target_pos[10] = 2;            
         } else {
             target_pos[5] = 0;
             target_pos[10] = 0;

@@ -421,7 +421,7 @@ namespace BehaviorGraphics
             AddParamListItem("BC M", "P12", "Behavior BC", this.textBoxBCM);
             AddParamListItem("BC IR", "P13", "Behavior BC", this.textBoxBCIR);
             AddParamListItem("BC IF", "P14", "Behavior BC", this.textBoxBCIF);
-            AddParamListItem("BC IF", "P15", "Behavior BC", this.textBoxBCIF);
+            AddParamListItem("BC IA", "P15", "Behavior BC", this.textBoxBCIA);
 
             // Training trials
             AddParamListItem("BC Pct Training Trials", "P16", "Behavior BC", this.textBoxBCPctTraining);  
@@ -1985,7 +1985,7 @@ namespace BehaviorGraphics
                 labelWFIntMax.Show();
             }
             widget_ValueChanged(sender, e);
-        }
+        }    
 
        
       
