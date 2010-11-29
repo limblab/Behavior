@@ -733,11 +733,17 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_CT_ON:
                 word = WORD_CT_ON;
                 break;
+            case STATE_CENTER_HOLD:
+                word = WORD_CENTER_TARGET_HOLD;
+                break;
             case STATE_OT_ON:
                 word = WORD_OT_ON(target_idx);
                 break;
             case STATE_REACH:
                 word = WORD_MOVEMENT_ONSET;
+                break;
+            case STATE_OUTER_HOLD:
+                word = WORD_OUTER_TARGET_HOLD;
                 break;
             case STATE_REWARD:
                 word = WORD_REWARD;

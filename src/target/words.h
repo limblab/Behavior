@@ -135,4 +135,8 @@
 
 #define WORD_PICKUP 0x90
 
+#define WORD_CENTER_TARGET_HOLD 0xA0
+#define WORD_TARGET_HOLD 0xA0
+#define WORD_OUTER_TARGET_HOLD 0xA1
+
 #endif /* WORDS_CO_H */
