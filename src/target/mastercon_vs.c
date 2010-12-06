@@ -327,9 +327,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int databurst_counter;
     byte *databurst;
     float *databurst_offsets;
+    int *databurst_num_targets;
+    float *databurst_target_radius;
     int *databurst_target_idx;
+    float *databurst_target_size;
+    float *databurst_target_position;
     
-
        
     /******************
      * Initialization *
@@ -370,10 +373,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     databurst = ssGetPWorkValue(S,0);
     databurst_offsets = (float *)(databurst + 6);
     databurst_num_targets = (int *)(databurst_offsets + 2);
-    databurst_target_radius = (int *)(databurst_num_targets + 1);
+    databurst_target_radius = (float *)(databurst_num_targets + 1);
     databurst_target_idx = (int *)(databurst_target_radius + 1);
     databurst_target_size = (float *)(databurst_target_idx + 1);
-    databurst_target_position_ = (float *)(databurst_target_size + 1);
+    databurst_target_position = (float *)(databurst_target_size + 1);
     databurst_counter = ssGetIWorkValue(S, 5);
      
     /*********************************
