@@ -129,22 +129,22 @@ static real_T pct_stim_trials = 0.0; /* percentage of trials to stimulate */
 
 /* Newsome mode */
 static int bump_and_stim = 0;
-#define param_bump_and_stim mxGetScalar(ssGetSFcnParam(S,17))
+#define param_bump_and_stim (int)mxGetScalar(ssGetSFcnParam(S,17))
 
 /* Center target off on go cue */
-static int center_target_off = 1.0;   /* turn off center target on go cue */
-#define param_center_target_off mxGetScalar(ssGetSFcnParam(S,18))
-static int outer_target_on = 1.0;   /* turn on outer target(s) when "in center target" */
-#define param_outer_target_on mxGetScalar(ssGetSFcnParam(S,19))
+static int center_target_off = 1;   /* turn off center target on go cue */
+#define param_center_target_off (int)mxGetScalar(ssGetSFcnParam(S,18))
+static int outer_target_on = 1;   /* turn on outer target(s) when "in center target" */
+#define param_outer_target_on (int)mxGetScalar(ssGetSFcnParam(S,19))
 
 static int go_tone_on_bump = 0;  /* Play go tone at beginning of bump/stim */
-#define param_go_tone_on_bump mxGetScalar(ssGetSFcnParam(S,20))
+#define param_go_tone_on_bump (int)mxGetScalar(ssGetSFcnParam(S,20))
 
 static int target_directions_stim_table = 0; /* Get target directions from stim table */
-#define param_target_directions_stim_table mxGetScalar(ssGetSFcnParam(S,21))
+#define param_target_directions_stim_table (int)mxGetScalar(ssGetSFcnParam(S,21))
 
 static int num_outer_targets = 1; /* Number of outer targets to show */
-#define param_num_outer_targets mxGetScalar(ssGetSFcnParam(S,22))
+#define param_num_outer_targets (int)mxGetScalar(ssGetSFcnParam(S,22))
 
 /*
  * State IDs
@@ -366,6 +366,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T ct[4];
     real_T rt[4];     /* reward target UL and LR coordinates */
     real_T ft[32];     /* fail target UL and LR coordinates */
+    real_T ft_temp[4];
     
     InputRealPtrsType uPtrs;
     real_T cursor[2];
@@ -395,6 +396,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     float *databurst_angle;
     float *databurst_bump_mag;
     float *databurst_newsome;
+    int *databurst_num_targets;
+    float *databurst_target_size;
     int databurst_counter;
             
     /******************
@@ -446,11 +449,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     rt[2] = target_radius*cos(bump_direction+PI) + target_size/2;
     rt[3] = target_radius*sin(bump_direction+PI) - target_size/2;
 
-    for (i=0;i<num_param_num_targets){
-        ft[4*i] = target_radius*cos(bump_direction) - target_size/2; /* fail target */
-        ft[4*i+1] = target_radius*sin(bump_direction) + target_size/2;
-        ft[4*i+2] = target_radius*cos(bump_direction) + target_size/2; 
-        ft[4*i+3] = target_radius*sin(bump_direction) - target_size/2;   
+    for (i=0 ; i<param_num_outer_targets-1; i++){
+        ft[4*i] = target_radius*cos(bump_direction+PI+(1+i)*2*PI/num_outer_targets) - target_size/2; /* fail target */
+        ft[4*i+1] = target_radius*sin(bump_direction+PI+(1+i)*2*PI/num_outer_targets) + target_size/2;
+        ft[4*i+2] = target_radius*cos(bump_direction+PI+(1+i)*2*PI/num_outer_targets) + target_size/2; 
+        ft[4*i+3] = target_radius*sin(bump_direction+PI+(1+i)*2*PI/num_outer_targets) - target_size/2;   
     }
     
     /* databurst pointers */
@@ -460,8 +463,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     databurst_angle    = databurst_offsets + 2;
     databurst_bump_mag = databurst_angle + 1;
     databurst_newsome = databurst_bump_mag + 1;
-    databurst_num_targets = databurst_newsome + 1;
-    databurst_target_size = databurst_num_targets + 1;
+    databurst_num_targets = (int *)(databurst_newsome + 1);
+    databurst_target_size = (float *)(databurst_num_targets + 1);
     
     /*********************************
      * See if we have issued a reset *  
@@ -574,7 +577,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 ssSetIWorkValue(S,10,stim_index);
             } else {
                 /* give a random direction to next target */
-                if (target_direction_stim_table){
+                if (target_directions_stim_table){
                     bump_direction = pref_dirs[(int)floor(UNI*num_stim_codes)];
                 } else {
                     bump_direction = 2*PI*UNI;
@@ -656,7 +659,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* cursor in fail targets */
             cursor_in_fail_targets = 0;
             for (i=0 ; i<num_outer_targets ; i++){
-                if (cursorInTarget(cursor, ft[4*i])){
+                ft_temp[0] = ft[4*i];
+                ft_temp[1] = ft[4*i+1];
+                ft_temp[2] = ft[4*i+2];
+                ft_temp[3] = ft[4*i+3];
+                if (cursorInTarget(cursor, ft_temp)){
                     cursor_in_fail_targets = 1;
                 }
             } 
@@ -679,7 +686,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* cursor in fail targets */
             cursor_in_fail_targets = 0;
             for (i=0 ; i<num_outer_targets ; i++){
-                if (cursorInTarget(cursor, ft[4*i])){
+                ft_temp[0] = ft[4*i];
+                ft_temp[1] = ft[4*i+1];
+                ft_temp[2] = ft[4*i+2];
+                ft_temp[3] = ft[4*i+3];
+                if (cursorInTarget(cursor, ft_temp)){
                     cursor_in_fail_targets = 1;
                 }
             } 
@@ -841,7 +852,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     rt[2] = target_radius*cos(bump_direction+PI) + target_size/2;
     rt[3] = target_radius*sin(bump_direction+PI) - target_size/2;
 
-    for (i=0 ; i<num_outer_targets-2 ; i++) {
+    for (i=0 ; i<num_outer_targets-1 ; i++) {
         ft[i*4] = target_radius*cos(bump_direction+PI+(1+i)*2*PI/num_outer_targets) - target_size/2; /* fail target */
         ft[i*4+1] = target_radius*sin(bump_direction+PI+(1+i)*2*PI/num_outer_targets) + target_size/2;
         ft[i*4+2] = target_radius*cos(bump_direction+PI+(1+i)*2*PI/num_outer_targets) + target_size/2; 
