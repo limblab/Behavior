@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -394,6 +394,9 @@ namespace BehaviorGraphics
             this.StimCodeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
+            this.label197 = new System.Windows.Forms.Label();
+            this.numericUpDownBCNumOuterTargets = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxBCTargetDirectionsStim = new System.Windows.Forms.CheckBox();
             this.checkBoxBCOuterTargetOn = new System.Windows.Forms.CheckBox();
             this.checkBoxBCCenterTargetOff = new System.Windows.Forms.CheckBox();
             this.textBoxBCWindowDiameter = new System.Windows.Forms.TextBox();
@@ -403,7 +406,7 @@ namespace BehaviorGraphics
             this.textBoxBCTgtSize = new System.Windows.Forms.TextBox();
             this.label85 = new System.Windows.Forms.Label();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.checkBoxBCNewsome = new System.Windows.Forms.CheckBox();
+            this.checkBoxBCBumpAndStim = new System.Windows.Forms.CheckBox();
             this.label87 = new System.Windows.Forms.Label();
             this.textBoxBCPctStimTrials = new System.Windows.Forms.TextBox();
             this.label78 = new System.Windows.Forms.Label();
@@ -584,6 +587,7 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
+            this.checkBoxBCGoToneOnBump = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -639,6 +643,7 @@ namespace BehaviorGraphics
             this.groupBox21.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BCStimGrid)).BeginInit();
             this.groupBox19.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBCNumOuterTargets)).BeginInit();
             this.groupBox17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBCBumpSteps)).BeginInit();
             this.groupBox18.SuspendLayout();
@@ -3295,8 +3300,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4054,8 +4059,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -4506,6 +4511,9 @@ namespace BehaviorGraphics
             // 
             // groupBox19
             // 
+            this.groupBox19.Controls.Add(this.label197);
+            this.groupBox19.Controls.Add(this.numericUpDownBCNumOuterTargets);
+            this.groupBox19.Controls.Add(this.checkBoxBCTargetDirectionsStim);
             this.groupBox19.Controls.Add(this.checkBoxBCOuterTargetOn);
             this.groupBox19.Controls.Add(this.checkBoxBCCenterTargetOff);
             this.groupBox19.Controls.Add(this.textBoxBCWindowDiameter);
@@ -4514,27 +4522,70 @@ namespace BehaviorGraphics
             this.groupBox19.Controls.Add(this.label84);
             this.groupBox19.Controls.Add(this.textBoxBCTgtSize);
             this.groupBox19.Controls.Add(this.label85);
-            this.groupBox19.Location = new System.Drawing.Point(3, 178);
+            this.groupBox19.Location = new System.Drawing.Point(3, 215);
             this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(207, 145);
+            this.groupBox19.Size = new System.Drawing.Size(432, 109);
             this.groupBox19.TabIndex = 13;
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "Targets";
             // 
+            // label197
+            // 
+            this.label197.AutoSize = true;
+            this.label197.Location = new System.Drawing.Point(220, 88);
+            this.label197.Name = "label197";
+            this.label197.Size = new System.Drawing.Size(91, 13);
+            this.label197.TabIndex = 42;
+            this.label197.Text = "Num outer targets";
+            this.toolTip1.SetToolTip(this.label197, resources.GetString("label197.ToolTip"));
+            // 
+            // numericUpDownBCNumOuterTargets
+            // 
+            this.numericUpDownBCNumOuterTargets.Location = new System.Drawing.Point(339, 83);
+            this.numericUpDownBCNumOuterTargets.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.numericUpDownBCNumOuterTargets.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownBCNumOuterTargets.Name = "numericUpDownBCNumOuterTargets";
+            this.numericUpDownBCNumOuterTargets.Size = new System.Drawing.Size(68, 20);
+            this.numericUpDownBCNumOuterTargets.TabIndex = 45;
+            this.numericUpDownBCNumOuterTargets.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // checkBoxBCTargetDirectionsStim
+            // 
+            this.checkBoxBCTargetDirectionsStim.AutoSize = true;
+            this.checkBoxBCTargetDirectionsStim.Location = new System.Drawing.Point(224, 60);
+            this.checkBoxBCTargetDirectionsStim.Name = "checkBoxBCTargetDirectionsStim";
+            this.checkBoxBCTargetDirectionsStim.Size = new System.Drawing.Size(175, 17);
+            this.checkBoxBCTargetDirectionsStim.TabIndex = 44;
+            this.checkBoxBCTargetDirectionsStim.Text = "Target directions from stim table";
+            this.toolTip1.SetToolTip(this.checkBoxBCTargetDirectionsStim, "If checked, target locations will be taken only from stim table");
+            this.checkBoxBCTargetDirectionsStim.UseVisualStyleBackColor = true;
+            // 
             // checkBoxBCOuterTargetOn
             // 
             this.checkBoxBCOuterTargetOn.AutoSize = true;
-            this.checkBoxBCOuterTargetOn.Location = new System.Drawing.Point(5, 120);
+            this.checkBoxBCOuterTargetOn.Location = new System.Drawing.Point(224, 37);
             this.checkBoxBCOuterTargetOn.Name = "checkBoxBCOuterTargetOn";
-            this.checkBoxBCOuterTargetOn.Size = new System.Drawing.Size(190, 17);
+            this.checkBoxBCOuterTargetOn.Size = new System.Drawing.Size(196, 17);
             this.checkBoxBCOuterTargetOn.TabIndex = 43;
-            this.checkBoxBCOuterTargetOn.Text = "Outer targets on during center hold";
+            this.checkBoxBCOuterTargetOn.Text = "Outer target(s) on during center hold";
             this.checkBoxBCOuterTargetOn.UseVisualStyleBackColor = true;
             // 
             // checkBoxBCCenterTargetOff
             // 
             this.checkBoxBCCenterTargetOff.AutoSize = true;
-            this.checkBoxBCCenterTargetOff.Location = new System.Drawing.Point(5, 97);
+            this.checkBoxBCCenterTargetOff.Location = new System.Drawing.Point(224, 14);
             this.checkBoxBCCenterTargetOff.Name = "checkBoxBCCenterTargetOff";
             this.checkBoxBCCenterTargetOff.Size = new System.Drawing.Size(153, 17);
             this.checkBoxBCCenterTargetOff.TabIndex = 42;
@@ -4543,7 +4594,7 @@ namespace BehaviorGraphics
             // 
             // textBoxBCWindowDiameter
             // 
-            this.textBoxBCWindowDiameter.Location = new System.Drawing.Point(128, 70);
+            this.textBoxBCWindowDiameter.Location = new System.Drawing.Point(127, 64);
             this.textBoxBCWindowDiameter.Name = "textBoxBCWindowDiameter";
             this.textBoxBCWindowDiameter.Size = new System.Drawing.Size(56, 20);
             this.textBoxBCWindowDiameter.TabIndex = 5;
@@ -4553,7 +4604,7 @@ namespace BehaviorGraphics
             // label77
             // 
             this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(4, 73);
+            this.label77.Location = new System.Drawing.Point(3, 67);
             this.label77.Name = "label77";
             this.label77.Size = new System.Drawing.Size(118, 13);
             this.label77.TabIndex = 22;
@@ -4561,7 +4612,7 @@ namespace BehaviorGraphics
             // 
             // textBoxBCTgtRadius
             // 
-            this.textBoxBCTgtRadius.Location = new System.Drawing.Point(84, 44);
+            this.textBoxBCTgtRadius.Location = new System.Drawing.Point(83, 38);
             this.textBoxBCTgtRadius.Name = "textBoxBCTgtRadius";
             this.textBoxBCTgtRadius.Size = new System.Drawing.Size(100, 20);
             this.textBoxBCTgtRadius.TabIndex = 3;
@@ -4571,7 +4622,7 @@ namespace BehaviorGraphics
             // label84
             // 
             this.label84.AutoSize = true;
-            this.label84.Location = new System.Drawing.Point(4, 51);
+            this.label84.Location = new System.Drawing.Point(3, 45);
             this.label84.Name = "label84";
             this.label84.Size = new System.Drawing.Size(74, 13);
             this.label84.TabIndex = 18;
@@ -4579,7 +4630,7 @@ namespace BehaviorGraphics
             // 
             // textBoxBCTgtSize
             // 
-            this.textBoxBCTgtSize.Location = new System.Drawing.Point(84, 18);
+            this.textBoxBCTgtSize.Location = new System.Drawing.Point(83, 12);
             this.textBoxBCTgtSize.Name = "textBoxBCTgtSize";
             this.textBoxBCTgtSize.Size = new System.Drawing.Size(100, 20);
             this.textBoxBCTgtSize.TabIndex = 1;
@@ -4589,7 +4640,7 @@ namespace BehaviorGraphics
             // label85
             // 
             this.label85.AutoSize = true;
-            this.label85.Location = new System.Drawing.Point(4, 25);
+            this.label85.Location = new System.Drawing.Point(3, 19);
             this.label85.Name = "label85";
             this.label85.Size = new System.Drawing.Size(61, 13);
             this.label85.TabIndex = 16;
@@ -4597,7 +4648,8 @@ namespace BehaviorGraphics
             // 
             // groupBox17
             // 
-            this.groupBox17.Controls.Add(this.checkBoxBCNewsome);
+            this.groupBox17.Controls.Add(this.checkBoxBCGoToneOnBump);
+            this.groupBox17.Controls.Add(this.checkBoxBCBumpAndStim);
             this.groupBox17.Controls.Add(this.label87);
             this.groupBox17.Controls.Add(this.textBoxBCPctStimTrials);
             this.groupBox17.Controls.Add(this.label78);
@@ -4610,23 +4662,23 @@ namespace BehaviorGraphics
             this.groupBox17.Controls.Add(this.textBoxBCBumpMagMax);
             this.groupBox17.Controls.Add(this.label81);
             this.groupBox17.Controls.Add(this.numericUpDownBCBumpSteps);
-            this.groupBox17.Location = new System.Drawing.Point(219, 4);
+            this.groupBox17.Location = new System.Drawing.Point(219, 1);
             this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(216, 245);
+            this.groupBox17.Size = new System.Drawing.Size(216, 208);
             this.groupBox17.TabIndex = 21;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Bumps and stims";
             // 
-            // checkBoxBCNewsome
+            // checkBoxBCBumpAndStim
             // 
-            this.checkBoxBCNewsome.AutoSize = true;
-            this.checkBoxBCNewsome.Location = new System.Drawing.Point(89, 221);
-            this.checkBoxBCNewsome.Name = "checkBoxBCNewsome";
-            this.checkBoxBCNewsome.Size = new System.Drawing.Size(102, 17);
-            this.checkBoxBCNewsome.TabIndex = 41;
-            this.checkBoxBCNewsome.Text = "Newsome mode";
-            this.checkBoxBCNewsome.UseVisualStyleBackColor = true;
-            this.checkBoxBCNewsome.CheckedChanged += new System.EventHandler(this.NewsomeMode_Checked);
+            this.checkBoxBCBumpAndStim.AutoSize = true;
+            this.checkBoxBCBumpAndStim.Location = new System.Drawing.Point(9, 173);
+            this.checkBoxBCBumpAndStim.Name = "checkBoxBCBumpAndStim";
+            this.checkBoxBCBumpAndStim.Size = new System.Drawing.Size(100, 17);
+            this.checkBoxBCBumpAndStim.TabIndex = 41;
+            this.checkBoxBCBumpAndStim.Text = "Bump AND stim";
+            this.toolTip1.SetToolTip(this.checkBoxBCBumpAndStim, "If checked, a bump and stim will be given");
+            this.checkBoxBCBumpAndStim.UseVisualStyleBackColor = true;
             // 
             // label87
             // 
@@ -6417,6 +6469,17 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
+            // checkBoxBCGoToneOnBump
+            // 
+            this.checkBoxBCGoToneOnBump.AutoSize = true;
+            this.checkBoxBCGoToneOnBump.Location = new System.Drawing.Point(9, 191);
+            this.checkBoxBCGoToneOnBump.Name = "checkBoxBCGoToneOnBump";
+            this.checkBoxBCGoToneOnBump.Size = new System.Drawing.Size(131, 17);
+            this.checkBoxBCGoToneOnBump.TabIndex = 42;
+            this.checkBoxBCGoToneOnBump.Text = "Go tone on bump/stim";
+            this.toolTip1.SetToolTip(this.checkBoxBCGoToneOnBump, "If checked, go tone is given at the beginning of bump/stim");
+            this.checkBoxBCGoToneOnBump.UseVisualStyleBackColor = true;
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -6528,6 +6591,7 @@ namespace BehaviorGraphics
             ((System.ComponentModel.ISupportInitialize)(this.BCStimGrid)).EndInit();
             this.groupBox19.ResumeLayout(false);
             this.groupBox19.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBCNumOuterTargets)).EndInit();
             this.groupBox17.ResumeLayout(false);
             this.groupBox17.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBCBumpSteps)).EndInit();
@@ -7116,12 +7180,16 @@ namespace BehaviorGraphics
         private System.Windows.Forms.GroupBox groupBox43;
         private System.Windows.Forms.Label label194;
         private System.Windows.Forms.Label label192;
-        private System.Windows.Forms.CheckBox checkBoxBCNewsome;
         private System.Windows.Forms.Label label195;
         private System.Windows.Forms.TextBox textBoxGoToneVolume;
         private System.Windows.Forms.CheckBox checkBoxBCCenterTargetOff;
         private System.Windows.Forms.TextBox textBoxBCIA;
         private System.Windows.Forms.Label label196;
         private System.Windows.Forms.CheckBox checkBoxBCOuterTargetOn;
+        private System.Windows.Forms.CheckBox checkBoxBCBumpAndStim;
+        private System.Windows.Forms.CheckBox checkBoxBCTargetDirectionsStim;
+        private System.Windows.Forms.Label label197;
+        private System.Windows.Forms.NumericUpDown numericUpDownBCNumOuterTargets;
+        private System.Windows.Forms.CheckBox checkBoxBCGoToneOnBump;
     }
 }

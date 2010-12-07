@@ -49,10 +49,26 @@
  * bytes 15 to 18: float => bump angle (rad)
  * bytes 19 to 22: float => bump magnitude (bump units?)
  * byte 23: uchar => newsome mode? ( 0 if normal, 1 if newsome )
+ * 
+ * Version 2 (0x02)
+ * ----------------
+ * byte   0: uchar => number of bytes to be transmitted
+ * byte   1: uchar => databurst version number (in this case one)
+ * byte   2: uchar => model version major
+ * byte   3: uchar => model version minor
+ * bytes  4 to  5: short => model version micro
+ * byte   6: uchar => training trial (1 if training, 0 if not)
+ * bytes  7 to 10: float => x offset
+ * bytes 11 to 14: float => y offset
+ * bytes 15 to 18: float => bump angle (rad)
+ * bytes 19 to 22: float => bump magnitude (bump units?)
+ * byte 23: uchar => bump and stim? ( 0 if bump or stim, 1 if bump and stim )
+ * byte 24: int => number of outer targets
+ * bytes 25 to 28: float => target size
  */
 
 typedef unsigned char byte;
-#define DATABURST_VERSION (0x01) 
+#define DATABURST_VERSION (0x02) 
 
 /*
  * Until we implement tunable parameters, these will act as defaults
@@ -112,14 +128,23 @@ static real_T pct_stim_trials = 0.0; /* percentage of trials to stimulate */
 #define param_pct_stim_trials mxGetScalar(ssGetSFcnParam(S,16))
 
 /* Newsome mode */
-static int newsome_mode = 0;
-#define param_newsome_mode mxGetScalar(ssGetSFcnParam(S,17))
+static int bump_and_stim = 0;
+#define param_bump_and_stim mxGetScalar(ssGetSFcnParam(S,17))
 
 /* Center target off on go cue */
 static int center_target_off = 1.0;   /* turn off center target on go cue */
 #define param_center_target_off mxGetScalar(ssGetSFcnParam(S,18))
 static int outer_target_on = 1.0;   /* turn on outer target(s) when "in center target" */
 #define param_outer_target_on mxGetScalar(ssGetSFcnParam(S,19))
+
+static int go_tone_on_bump = 0;  /* Play go tone at beginning of bump/stim */
+#define param_go_tone_on_bump mxGetScalar(ssGetSFcnParam(S,20))
+
+static int target_directions_stim_table = 0; /* Get target directions from stim table */
+#define param_target_directions_stim_table mxGetScalar(ssGetSFcnParam(S,21))
+
+static int num_outer_targets = 1; /* Number of outer targets to show */
+#define param_num_outer_targets mxGetScalar(ssGetSFcnParam(S,22))
 
 /*
  * State IDs
@@ -163,16 +188,20 @@ static void mdlCheckParameters(SimStruct *S)
     reward_timeout  = param_intertrial;   
     incomplete_timeout = param_intertrial;
     
-    newsome_mode = param_newsome_mode;
+    bump_and_stim = param_bump_and_stim;
     center_target_off = param_center_target_off;
     outer_target_on = param_outer_target_on;    
+    
+    go_tone_on_bump = param_go_tone_on_bump;
+    target_directions_stim_table = param_target_directions_stim_table;
+    num_outer_targets = param_num_outer_targets;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 20);
+    ssSetNumSFcnParams(S, 23);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -223,7 +252,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 0, 2);   /* force   */
     ssSetOutputPortWidth(S, 1, 5);   /* status  */
     ssSetOutputPortWidth(S, 2, 1);   /* word    */
-    ssSetOutputPortWidth(S, 3, 15);  /* target  */
+    ssSetOutputPortWidth(S, 3, 45);  /* target  */
     ssSetOutputPortWidth(S, 4, 1);   /* reward  */
     ssSetOutputPortWidth(S, 5, 2);   /* tone    */
     ssSetOutputPortWidth(S, 6, 4);   /* version */
@@ -336,12 +365,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     
     real_T ct[4];
     real_T rt[4];     /* reward target UL and LR coordinates */
-    real_T ft[4];     /* fail target UL and LR coordinates */
+    real_T ft[32];     /* fail target UL and LR coordinates */
     
     InputRealPtrsType uPtrs;
     real_T cursor[2];
     real_T elapsed_timer_time;
     int reset_block = 0;
+    int cursor_in_fail_targets;
     
     /* get trial parameters */
     real_T bump_magnitude;
@@ -416,10 +446,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     rt[2] = target_radius*cos(bump_direction+PI) + target_size/2;
     rt[3] = target_radius*sin(bump_direction+PI) - target_size/2;
 
-    ft[0] = target_radius*cos(bump_direction) - target_size/2; /* fail target */
-    ft[1] = target_radius*sin(bump_direction) + target_size/2;
-    ft[2] = target_radius*cos(bump_direction) + target_size/2; 
-    ft[3] = target_radius*sin(bump_direction) - target_size/2;   
+    for (i=0;i<num_param_num_targets){
+        ft[4*i] = target_radius*cos(bump_direction) - target_size/2; /* fail target */
+        ft[4*i+1] = target_radius*sin(bump_direction) + target_size/2;
+        ft[4*i+2] = target_radius*cos(bump_direction) + target_size/2; 
+        ft[4*i+3] = target_radius*sin(bump_direction) - target_size/2;   
+    }
     
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 7);
@@ -428,6 +460,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     databurst_angle    = databurst_offsets + 2;
     databurst_bump_mag = databurst_angle + 1;
     databurst_newsome = databurst_bump_mag + 1;
+    databurst_num_targets = databurst_newsome + 1;
+    databurst_target_size = databurst_num_targets + 1;
     
     /*********************************
      * See if we have issued a reset *  
@@ -478,9 +512,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             reward_timeout  = param_intertrial;   
             incomplete_timeout = param_intertrial;
             
-            newsome_mode = param_newsome_mode;
+            bump_and_stim = param_bump_and_stim;
             center_target_off = param_center_target_off;
             outer_target_on = param_outer_target_on;
+            
+            go_tone_on_bump = param_go_tone_on_bump;
+            target_directions_stim_table = param_target_directions_stim_table;
+            num_outer_targets = param_num_outer_targets;
             
             /* decide if it is a training trial */
             training_mode = (UNI<pct_training_trials) ? 1 : 0;
@@ -488,69 +526,61 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             /* decide if it is a stim trial */
             stim_trial = (UNI<pct_stim_trials ? 1 : 0);
-            ssSetIWorkValue(S,9,stim_trial);
-                                   
-            /* Pick bump direction and stim code */
-            if (newsome_mode) {
-                stim_index = 0;
-                ssSetIWorkValue(S,10,stim_index);
-                if (UNI > 0.5){
-                    bump_direction = pref_dirs[ssGetIWorkValue(S,11)];
+            ssSetIWorkValue(S,9,stim_trial);                 
+
+            /* check how many valid stim codes there are */
+            num_stim_codes = 0;
+            for (i=0 ; i<16 ; i++) { 
+                if (stim_codes[i] != -1) {
+                    num_stim_codes++;
                 } else {
-                    bump_direction = pref_dirs[ssGetIWorkValue(S,11)] + PI;
-                }                
-                
-            } else {         
-                /* check how many valid stim codes there are */
-                num_stim_codes = 0;
-                for (i=0 ; i<16 ; i++) { 
-                    if (stim_codes[i] != -1) {
-                        num_stim_codes++;
-                    } else {
-                        break;
-                    }
-                }          
+                    break;
+                }
+            }          
             
-                /* check if stimulation block needs to be reinitialized */
-                if ( stim_index >= num_stim_codes-1 ) {
-                    /* reset stim index */
-                    stim_index = -1;
-                    ssSetIWorkValue(S,10,stim_index);
-                    /* block randomization of stims */
-                    for (i=0; i<num_stim_codes; i++) {                    
-                        tmp_sort[i] = rand();
-                        stim_code_list_tmp[i] = i; /*stim_codes[i];*/
-                    }
+            /* check if stimulation block needs to be reinitialized */
+            if ( stim_index >= num_stim_codes-1 ) {
+                /* reset stim index */
+                stim_index = -1;
+                ssSetIWorkValue(S,10,stim_index);
+                /* block randomization of stims */
+                for (i=0; i<num_stim_codes; i++) {                    
+                    tmp_sort[i] = rand();
+                    stim_code_list_tmp[i] = i; /*stim_codes[i];*/
+                }
 
-                    for (i=0; i<num_stim_codes-1; i++) {
-                        for (j=0; j<num_stim_codes-1; j++) { 
-                            if (tmp_sort[j] < tmp_sort[j+1]) {   
-                                tmp = tmp_sort[j];
-                                tmp_sort[j] = tmp_sort[j+1];
-                                tmp_sort[j+1] = tmp;
+                for (i=0; i<num_stim_codes-1; i++) {
+                    for (j=0; j<num_stim_codes-1; j++) { 
+                        if (tmp_sort[j] < tmp_sort[j+1]) {   
+                            tmp = tmp_sort[j];
+                            tmp_sort[j] = tmp_sort[j+1];
+                            tmp_sort[j+1] = tmp;
 
-                                tmp = stim_code_list_tmp[j];
-                                stim_code_list_tmp[j] = stim_code_list_tmp[j+1];
-                                stim_code_list_tmp[j+1] = tmp;
-                            }
+                            tmp = stim_code_list_tmp[j];
+                            stim_code_list_tmp[j] = stim_code_list_tmp[j+1];
+                            stim_code_list_tmp[j+1] = tmp;
                         }
                     }
-                    /* write them back */
-                    for (i=0; i<num_stim_codes; i++) {
-                        ssSetIWorkValue(S,11+i,stim_code_list_tmp[i]);
-                    }                                
-                }         
+                }
+                /* write them back */
+                for (i=0; i<num_stim_codes; i++) {
+                    ssSetIWorkValue(S,11+i,stim_code_list_tmp[i]);
+                }                                
+            }         
 
-                if (stim_trial){ 
-                    stim_index++;
-                    bump_direction = pref_dirs[ssGetIWorkValue(S,11+stim_index)];
-                    ssSetIWorkValue(S,10,stim_index);
+            if (stim_trial){ 
+                stim_index++;
+                bump_direction = pref_dirs[ssGetIWorkValue(S,11+stim_index)];
+                ssSetIWorkValue(S,10,stim_index);
+            } else {
+                /* give a random direction to next target */
+                if (target_direction_stim_table){
+                    bump_direction = pref_dirs[(int)floor(UNI*num_stim_codes)];
                 } else {
-                    /* give a random direction to next target */                 
                     bump_direction = 2*PI*UNI;
-                }               
-            }
-
+                }
+            }               
+            
             ssSetRWorkValue(S,4,bump_direction);
                                                                  
             /* get a random bump step */
@@ -568,7 +598,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	        }
 	        
 			/* Setup the databurst */
-			databurst[0] = 6+1+4*sizeof(float)+1;
+			databurst[0] = 6+1+4*sizeof(float)+2 + sizeof(float);
             databurst[1] = DATABURST_VERSION;
 			databurst[2] = BEHAVIOR_VERSION_MAJOR;
 			databurst[3] = BEHAVIOR_VERSION_MINOR;
@@ -581,7 +611,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			databurst_offsets[1] = *uPtrs[1];
             databurst_angle[0] = bump_direction;
             databurst_bump_mag[0] = bump_magnitude;
-            databurst_newsome[0] = newsome_mode;
+            databurst_newsome[0] = bump_and_stim;
+            databurst_num_targets[0] = num_outer_targets;
+            databurst_target_size[0] = target_size;            
             
 			/* clear the counters */
             ssSetIWorkValue(S, 7, 0); /* Databurst counter */
@@ -620,12 +652,19 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             } 
             break;
         case STATE_BUMP_STIM:
-            /* stimulation */            
+            /* stimulation */              
+            /* cursor in fail targets */
+            cursor_in_fail_targets = 0;
+            for (i=0 ; i<num_outer_targets ; i++){
+                if (cursorInTarget(cursor, ft[4*i])){
+                    cursor_in_fail_targets = 1;
+                }
+            } 
             if (cursorInTarget(cursor, rt)) {
                 new_state = STATE_REWARD;
                 reset_timer(); /* abort timeout */
                 state_changed();
-            } else if (cursorInTarget(cursor, ft)) {
+            } else if (cursor_in_fail_targets) {
                 new_state = STATE_FAIL;
                 reset_timer(); /* abort timeout */
                 state_changed();
@@ -636,21 +675,26 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             break;
         case STATE_MOVEMENT:
-            /* movement phase (go tone on entry) */
+            /* movement phase */
+            /* cursor in fail targets */
+            cursor_in_fail_targets = 0;
+            for (i=0 ; i<num_outer_targets ; i++){
+                if (cursorInTarget(cursor, ft[4*i])){
+                    cursor_in_fail_targets = 1;
+                }
+            } 
 			if (cursorInTarget(cursor, rt)) {
 				new_state = STATE_REWARD;
                 reset_timer(); /* reward timeout */
                 state_changed();			
-			} else if (cursorInTarget(cursor, ft)) {			
+			} else if (cursor_in_fail_targets) {			
                 new_state = STATE_FAIL;
                 reset_timer(); /* incomplete timeout */
-                state_changed();
-				
+                state_changed();				
 			} else if (elapsed_timer_time > movement_time) {
 				new_state = STATE_INCOMPLETE;
                 reset_timer(); /* incomplete timeout */
                 state_changed();
-
 			}
 			break;
         case STATE_ABORT:
@@ -709,11 +753,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int i;
         
     real_T ct[4];
-    real_T rt[4];     /* left outer target UL and LR coordinates */
-    real_T ft[4];     /* right outer target UL and LR coordinates */
+    real_T rt[4];     /* reward outer target UL and LR coordinates */
+    real_T ft[32];     /* fail outer target UL and LR coordinates */
     real_T ct_type;   /* type of center target 0=invisible 1=red square 2=lightning bolt (?) */
-    real_T rt_type;   /* type of left outer target 0=invisible 1=red square 2=lightning bolt (?) */
-    real_T ft_type;   /* type of right outer target 0=invisible 1=red square 2=lightning bolt (?) */
+    real_T rt_type;   /* type of reward outer target 0=invisible 1=red square 2=lightning bolt (?) */
+    real_T ft_type;   /* type of fail outer target 0=invisible 1=red square 2=lightning bolt (?) */
     real_T bump_direction;
     
     /* get trial type */
@@ -738,7 +782,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* allocate holders for outputs */
     real_T force_x, force_y, word, reward, tone_cnt, tone_id, pos_x, pos_y;
-    real_T target_pos[15];
+    real_T target_pos[45];
     real_T status[5];
     real_T version[4];
     
@@ -761,6 +805,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* current trial type */
     bump_direction = ssGetRWorkValue(S,4);
     training_mode = ssGetIWorkValue(S,6);
+    num_outer_targets = param_num_outer_targets;
+    go_tone_on_bump = param_go_tone_on_bump;
             
     /* bump parameters */
     bump_magnitude = ssGetRWorkValue(S,5);
@@ -795,10 +841,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     rt[2] = target_radius*cos(bump_direction+PI) + target_size/2;
     rt[3] = target_radius*sin(bump_direction+PI) - target_size/2;
 
-    ft[0] = target_radius*cos(bump_direction) - target_size/2; /* fail target */
-    ft[1] = target_radius*sin(bump_direction) + target_size/2;
-    ft[2] = target_radius*cos(bump_direction) + target_size/2; 
-    ft[3] = target_radius*sin(bump_direction) - target_size/2;   
+    for (i=0 ; i<num_outer_targets-2 ; i++) {
+        ft[i*4] = target_radius*cos(bump_direction+PI+(1+i)*2*PI/num_outer_targets) - target_size/2; /* fail target */
+        ft[i*4+1] = target_radius*sin(bump_direction+PI+(1+i)*2*PI/num_outer_targets) + target_size/2;
+        ft[i*4+2] = target_radius*cos(bump_direction+PI+(1+i)*2*PI/num_outer_targets) + target_size/2; 
+        ft[i*4+3] = target_radius*sin(bump_direction+PI+(1+i)*2*PI/num_outer_targets) - target_size/2;   
+    }
         
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
@@ -819,7 +867,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      ********************/
     
     /* force (0) */
-    if (newsome_mode) {
+    if (bump_and_stim || (!bump_and_stim && !stim_trial)) {
         if (bump_duration_counter > 0) {
             /* yes, so decrement the counter and maintain the bump */
             bump_duration_counter--;
@@ -835,25 +883,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             force_y = force_in[1];
         }        
     } else {
-        if (!stim_trial) {
-            if (bump_duration_counter > 0) {
-                /* yes, so decrement the counter and maintain the bump */
-                bump_duration_counter--;
-                force_x = force_in[0] + cos(bump_direction)*bump_magnitude;
-                force_y = force_in[1] + sin(bump_direction)*bump_magnitude;
-            } else if ( state == STATE_BUMP_STIM && new_state ) {
-                /* initiating a new bump */
-                bump_duration_counter = (int)bump_duration;
-                force_x = force_in[0] + cos(bump_direction)*bump_magnitude;
-                force_y = force_in[1] + sin(bump_direction)*bump_magnitude;
-            } else {
-                force_x = force_in[0]; 
-                force_y = force_in[1];
-            }
-        } else {
-            force_x = force_in[0]; 
-            force_y = force_in[1];
-        }
+        force_x = force_in[0]; 
+        force_y = force_in[1];
+
     }
     
     /* status (1) */
@@ -893,8 +925,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                 word = (stim_trial ? WORD_STIM(stim_code) : WORD_BUMP(bump_step)); 
                 break;
             case STATE_MOVEMENT:
-                /* toggle debugging var 
-                ssSetIWorkValue(S,27,ssGetIWorkValue(S,27)+1); */
                 word = WORD_GO_CUE;
                 break;
             case STATE_REWARD:
@@ -919,7 +949,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
        
     /* target_pos (3) */    
     /* start assuming no targets will be drawn */
-    for (i = 0; i<15; i++)
+    for (i = 0; i<45; i++)
         target_pos[i] = 0;
     
     if ( state == STATE_ORIGIN_ON)
@@ -936,18 +966,22 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         
         if (outer_target_on) {
             /* outer target(s) on */
-            target_pos[5] = 2;            
-            target_pos[10] = 2;            
-        } else {
-            target_pos[5] = 0;
-            target_pos[10] = 0;
+            for (i=0 ; i<num_outer_targets ; i++) {
+                target_pos[5*i+5] = 2;    
+            }
         }  
-        
+                
         for (i=0; i<4; i++) {
             target_pos[i+1] = ct[i];
-            target_pos[i+6] = rt[i];
-            target_pos[i+11] = ft[i];
-        }        
+            target_pos[i+6] = rt[i];            
+        }   
+        
+        for (i=0; i<num_outer_targets-1 ; i++){
+            target_pos[i*5+11] = ft[i*4];
+            target_pos[i*5+12] = ft[i*4+1];
+            target_pos[i*5+13] = ft[i*4+2];
+            target_pos[i*5+14] = ft[i*4+3];
+        }
         
     } else if ( state == STATE_MOVEMENT) {        
         if (center_target_off) {
@@ -965,9 +999,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             target_pos[i+6] = rt[i];
         }
         if (!training_mode) {
-            target_pos[10] = 2;
-            for (i=0; i<4; i++) {
-                target_pos[i+11] = ft[i];
+            for (i=0 ; i<num_outer_targets ; i++){
+                target_pos[i*5+10] = 2;
+                target_pos[i*5+11] = ft[i*4];
+                target_pos[i*5+12] = ft[i*4+1];
+                target_pos[i*5+13] = ft[i*4+2];
+                target_pos[i*5+14] = ft[i*4+3];                
             }
         }
     }
@@ -984,7 +1021,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         if (state == STATE_ABORT || state == STATE_FAIL) {
             tone_cnt++;
             tone_id = TONE_ABORT;
-        } else if (state == STATE_MOVEMENT) {
+        } else if (go_tone_on_bump && state == STATE_BUMP_STIM) {
+            tone_cnt++;
+            tone_id = TONE_GO; 
+        } else if (!go_tone_on_bump && state == STATE_MOVEMENT) {
             tone_cnt++;
             tone_id = TONE_GO; 
         } else if (state == STATE_REWARD) {
@@ -1026,7 +1066,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     word_p[0] = word;
     
     target_p = ssGetOutputPortRealSignal(S,3);
-    for (i=0; i<15; i++) {
+    for (i=0; i<45; i++) {
         target_p[i] = target_pos[i];
     }
     

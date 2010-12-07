@@ -429,14 +429,23 @@ namespace BehaviorGraphics
             // Stimulation parameters
             AddParamListItem("BC Pct Stimulation Trials", "P17", "Behavior BC", this.textBoxBCPctStimTrials);
                         
-            // Newsome mode
-            AddParamListItem("BC Newsome Mode", "P18", "Behavior BC", this.checkBoxBCNewsome);
+            // Bump and stim
+            AddParamListItem("BC Bump and Stim", "P18", "Behavior BC", this.checkBoxBCBumpAndStim);
 
             // Center target off on go cue
             AddParamListItem("BC Center Target Off", "P19", "Behavior BC", this.checkBoxBCCenterTargetOff);
 
             // Outer target(s) on on center hold
             AddParamListItem("BC Outer Target On", "P20", "Behavior BC", this.checkBoxBCOuterTargetOn);
+
+            // Go tone on bump
+            AddParamListItem("BC Go Tone On Bump", "P21", "Behavior BC", this.checkBoxBCGoToneOnBump);
+
+            // Target directions from stim table
+            AddParamListItem("BC Target Directions From Stim Table", "P22", "Behavior BC", this.checkBoxBCTargetDirectionsStim);
+
+            // Number of outer targets
+            AddParamListItem("BC Num Outer Targets", "P23", "Behavior BC", this.numericUpDownBCNumOuterTargets);
 
             #endregion
 
@@ -845,22 +854,6 @@ namespace BehaviorGraphics
                     e.Effect = DragDropEffects.All;
                 } else {
                     e.Effect = DragDropEffects.None;
-                }
-            }
-        }
-
-        private void NewsomeMode_Checked(object sender, EventArgs e)
-        {
-            if (checkBoxBCNewsome.Checked) {
-                BCStimGrid.RowCount = 1;
-                BCStimGrid[0, 0].Value = 0;
-                BCStimGrid[1, 0].Value = 0;                
-            }
-            else {
-                BCStimGrid.RowCount = 16;
-                for (int i = 0; i < 16; i++) {
-                    BCStimGrid[0, i].Value = -1;
-                    BCStimGrid[1, i].Value = -1;
                 }
             }
         }
@@ -1397,8 +1390,8 @@ namespace BehaviorGraphics
                     d = param[row*2+1];
                     BCStimGrid.Rows[row].Cells[1].Value = d.ToString();
                 }
-                if (checkBoxBCNewsome.Checked)
-                    BCStimGrid.RowCount = 1;
+                //if (checkBoxBCNewsome.Checked)
+                //    BCStimGrid.RowCount = 1;
 
             }
 
@@ -1985,7 +1978,14 @@ namespace BehaviorGraphics
                 labelWFIntMax.Show();
             }
             widget_ValueChanged(sender, e);
-        }    
+        }
+
+        private void radioButtonBCRandomTargets_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+ 
 
        
       
