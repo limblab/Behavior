@@ -395,7 +395,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	float *databurst_offsets;
     float *databurst_angle;
     float *databurst_bump_mag;
-    float *databurst_newsome;
+    int *databurst_bump_and_stim;
     int *databurst_num_targets;
     float *databurst_target_size;
     int databurst_counter;
@@ -462,8 +462,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	databurst_offsets  = (float *)(databurst + 7);
     databurst_angle    = databurst_offsets + 2;
     databurst_bump_mag = databurst_angle + 1;
-    databurst_newsome = (int *)(databurst_bump_mag + 1);
-    databurst_num_targets = databurst_newsome + 1;
+    databurst_bump_and_stim = (int *)(databurst_bump_mag + 1);
+    databurst_num_targets = databurst_bump_and_stim + 1;
     databurst_target_size = (float *)(databurst_num_targets + 1);
     
     /*********************************
@@ -614,7 +614,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			databurst_offsets[1] = *uPtrs[1];
             databurst_angle[0] = bump_direction;
             databurst_bump_mag[0] = bump_magnitude;
-            databurst_newsome[0] = bump_and_stim;
+            databurst_bump_and_stim[0] = bump_and_stim;
             databurst_num_targets[0] = num_outer_targets;
             databurst_target_size[0] = target_size;            
             
