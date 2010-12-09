@@ -63,7 +63,7 @@
  * bytes 15 to 18: float => bump angle (rad)
  * bytes 19 to 22: float => bump magnitude (bump units?)
  * byte 23: uchar => bump and stim? ( 0 if bump or stim, 1 if bump and stim )
- * byte 24: int => number of outer targets
+ * byte 24: uchar => number of outer targets
  * bytes 25 to 28: float => target size
  */
 
@@ -395,8 +395,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	float *databurst_offsets;
     float *databurst_angle;
     float *databurst_bump_mag;
-    int *databurst_bump_and_stim;
-    int *databurst_num_targets;
+    byte *databurst_bump_and_stim;
+    byte *databurst_num_targets;
     float *databurst_target_size;
     int databurst_counter;
             
@@ -614,7 +614,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			databurst_offsets[1] = *uPtrs[1];
             databurst_angle[0] = bump_direction;
             databurst_bump_mag[0] = bump_magnitude;
-            databurst_bump_and_stim[0] = bump_and_stim;
+            databurst_bump_and_stim[0] = (int)bump_and_stim;            
             databurst_num_targets[0] = num_outer_targets;
             databurst_target_size[0] = target_size;            
             
