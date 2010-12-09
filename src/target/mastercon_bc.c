@@ -460,10 +460,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     databurst_counter = ssGetIWorkValue(S, 7);
     databurst = ssGetPWorkValue(S, 0);
 	databurst_offsets  = (float *)(databurst + 7);
-    databurst_angle    = databurst_offsets + 2;
-    databurst_bump_mag = databurst_angle + 1;
+    databurst_angle    = (float *)(databurst_offsets + 2);
+    databurst_bump_mag = (float *)(databurst_angle + 1);
     databurst_bump_and_stim = (int *)(databurst_bump_mag + 1);
-    databurst_num_targets = databurst_bump_and_stim + 1;
+    databurst_num_targets = (int *)(databurst_bump_and_stim + 1);
     databurst_target_size = (float *)(databurst_num_targets + 1);
     
     /*********************************
@@ -630,8 +630,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_ORIGIN_ON;
                 reset_timer(); /* start timer for movement */
                 state_changed();
-            }                        
-            
+            }                                    
             ssSetIWorkValue(S, 7, databurst_counter+1);
             break;
         case STATE_ORIGIN_ON:
