@@ -37,7 +37,7 @@
  * Version 1 (0x01)
  * ----------------
  * byte   0: uchar => number of bytes to be transmitted
- * byte   1: uchar => databurst version number (in this case four)
+ * byte   1: uchar => databurst version number (in this case one)
  * byte   2: uchar => model version major
  * byte   3: uchar => model version minor
  * bytes  4 to  5: short => model version micro
@@ -176,7 +176,7 @@ static void mdlInitializeSizes(SimStruct *S)
     /*
      * Block has 4 input ports
      *      input port 0: (position) of width 2 (x, y)
-	 *      input port 1: (position offset) of width 2 (x, y)
+     *      input port 1: (position offset) of width 2 (x, y)
      *      input port 2: (force) of width 2 (x, y)
      *      input port 3: (catch force) of width 2 (x, y)
      */
@@ -224,6 +224,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                2: tone id
                                3: current target hold time
                                4: current target delay time
+                               5: UNUSED
                          [6-511]: positions of targets stored as (x, y) */
 
     ssSetNumIWork(S, 7); /*    0: state_transition (true if state changed), 
@@ -233,7 +234,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                4: aborts 
                                5: catch trial flag (true if catch trial)
                                6: databock counter */
-			      
+                  
     ssSetNumPWork(S, 1); /*    0: Databurst array pointer  */
     
     /* we have no zero crossing detection or modes */
@@ -404,8 +405,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T temp_distance;
     real_T temp_angle;
     byte *databurst;
-	float *databurst_offsets;
-	float *databurst_target_size;
+    float *databurst_offsets;
+    float *databurst_target_size;
     float *databurst_target_list;
     int databurst_counter;
     
@@ -443,8 +444,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 6);
     databurst = ssGetPWorkValue(S, 0);
-	databurst_offsets = (float *)(databurst + 6);
-	databurst_target_size = databurst_offsets + 2;
+    databurst_offsets = (float *)(databurst + 6);
+    databurst_target_size = databurst_offsets + 2;
     databurst_target_list = databurst_target_size + 1;
     
     /*********************************
@@ -538,15 +539,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* Copy data into databursts */
             databurst[0] = 6 + 3*sizeof(float) + 2*num_targets*sizeof(float);
             databurst[1] = DATABURST_VERSION;
-			databurst[2] = BEHAVIOR_VERSION_MAJOR;
-			databurst[3] = BEHAVIOR_VERSION_MINOR;
-			databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
-			databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
-			/* The offsets used in the calculation of the cursor location */
-			uPtrs = ssGetInputPortRealSignalPtrs(S, 1); 
-			databurst_offsets[0] = *uPtrs[0];
-			databurst_offsets[1] = *uPtrs[1];
-			databurst_target_size[0] = target_size - target_tolerance;
+            databurst[2] = BEHAVIOR_VERSION_MAJOR;
+            databurst[3] = BEHAVIOR_VERSION_MINOR;
+            databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
+            databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
+            /* The offsets used in the calculation of the cursor location */
+            uPtrs = ssGetInputPortRealSignalPtrs(S, 1); 
+            databurst_offsets[0] = *uPtrs[0];
+            databurst_offsets[1] = *uPtrs[1];
+            databurst_target_size[0] = target_size - target_tolerance;
             for (i = 0; i < num_targets * 2; i++) {
                 databurst_target_list[i] = (float)ssGetRWorkValue(S, 6 + i);
             }

@@ -228,7 +228,7 @@ static void mdlInitializeSizes(SimStruct *S)
      * Block has 3 input ports
      *      input port 0: (position) of width 2 (horizontal and vertical cursor displacement)
      *      input port 1: (position offsets) of width 2 (x, y)
-     *      input port 1: (target) of width 6*16 (vertical displacement, height, horiz disp, width, xVarEnable, yVarEnable)*16
+     *      input port 2: (target) of width 6*16 (vertical displacement, height, horiz disp, width, xVarEnable, yVarEnable)*16
      */
     if (!ssSetNumInputPorts(S, 3)) return;
     ssSetInputPortWidth(S, 0, 2); /* cursor position*/
