@@ -1022,7 +1022,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
            target_pos[i+1] = ct[i];
         }
     } else if (state ==  STATE_CENTER_HOLD  ||
-         state == STATE_BUMP_STIM) {
+         state == STATE_GO_CUE || state == STATE_BUMP) {
         /* center target on */
         target_pos[0] = 2;
         
