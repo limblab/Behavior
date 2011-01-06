@@ -1,4 +1,4 @@
-/* $Id: mastercon_fc.c 380 2009-02-02 21:38:53Z brian $
+/* $Id: mastercon_bc.c 380 2009-02-02 21:38:53Z brian $
  *
  * Master Control block for behavior: bump choice task
  */
@@ -146,14 +146,22 @@ static int target_directions_stim_table = 0; /* Get target directions from stim 
 static int num_outer_targets = 1; /* Number of outer targets to show */
 #define param_num_outer_targets (int)mxGetScalar(ssGetSFcnParam(S,22))
 
+/* bump delay parameters */
+static real_T bump_delay;
+static real_T bump_delay_l = 0; /*shortest delay between go cue/stim and bump */
+# define param_bump_delay_l mxGetScalar(ssGetSFcnParam(S,23))
+static real_T bump_delay_h = 0; /*longest delay between go cue/stim and bump */
+# define param_bump_delay_h mxGetScalar(ssGetSFcnParam(S,24))
+
 /*
  * State IDs
  */
 #define STATE_PRETRIAL 0
 #define STATE_ORIGIN_ON 1
 #define STATE_CENTER_HOLD 2
-#define STATE_BUMP_STIM 3
-#define STATE_MOVEMENT 4
+#define STATE_GO_CUE 3
+#define STATE_BUMP 4
+#define STATE_MOVEMENT 5
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
@@ -195,13 +203,16 @@ static void mdlCheckParameters(SimStruct *S)
     go_tone_on_bump = param_go_tone_on_bump;
     target_directions_stim_table = param_target_directions_stim_table;
     num_outer_targets = param_num_outer_targets;
+    
+    bump_delay_l = param_bump_delay_l;
+    bump_delay_h = param_bump_delay_h;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 23);
+    ssSetNumSFcnParams(S, 25);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -523,6 +534,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             target_directions_stim_table = param_target_directions_stim_table;
             num_outer_targets = param_num_outer_targets;
             
+            bump_delay_l = param_bump_delay_l;
+            bump_delay_h = param_bump_delay_h;
+            
             /* decide if it is a training trial */
             training_mode = (UNI<pct_training_trials) ? 1 : 0;
             ssSetIWorkValue(S,6,training_mode);
@@ -599,6 +613,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	        } else {
 	            center_hold = center_hold_l + (center_hold_h - center_hold_l)*UNI;
 	        }
+            
+            if (bump_delay_h == bump_delay_l) {
+	            bump_delay = bump_delay_h;
+	        } else {
+	            bump_delay = bump_delay_l + (bump_delay_h - bump_delay_l)*UNI;
+	        }
 	        
 			/* Setup the databurst */
 			databurst[0] = 6+1+4*sizeof(float)+2 + sizeof(float);
@@ -648,13 +668,41 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 reset_timer(); /* abort timeout */
                 state_changed();
             } else if (elapsed_timer_time > center_hold) {
-                new_state = STATE_BUMP_STIM;
+                new_state = STATE_GO_CUE;
                 reset_timer(); /* delay timer */
                 state_changed();
             } 
             break;
-        case STATE_BUMP_STIM:
+        case STATE_GO_CUE:
             /* stimulation */              
+            /* cursor in fail targets */
+            cursor_in_fail_targets = 0;
+            for (i=0 ; i<num_outer_targets ; i++){
+                ft_temp[0] = ft[4*i];
+                ft_temp[1] = ft[4*i+1];
+                ft_temp[2] = ft[4*i+2];
+                ft_temp[3] = ft[4*i+3];
+                if (cursorInTarget(cursor, ft_temp)){
+                    cursor_in_fail_targets = 1;
+                }
+            } 
+            if (cursorInTarget(cursor, rt)) {
+                new_state = STATE_REWARD;
+                reset_timer(); /* abort timeout */
+                state_changed();
+            } else if (cursor_in_fail_targets) {
+                new_state = STATE_FAIL;
+                reset_timer(); /* abort timeout */
+                state_changed();
+            } else if (elapsed_timer_time > bump_delay/1000) {
+                new_state = STATE_BUMP;
+                reset_timer(); /* movement timer */
+                state_changed();
+            }
+            break;
+            
+        case STATE_BUMP:
+            /* handle bump */              
             /* cursor in fail targets */
             cursor_in_fail_targets = 0;
             for (i=0 ; i<num_outer_targets ; i++){
@@ -680,6 +728,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 state_changed();
             }
             break;
+            
         case STATE_MOVEMENT:
             /* movement phase */
             /* cursor in fail targets */
@@ -883,7 +932,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             bump_duration_counter--;
             force_x = force_in[0] + cos(bump_direction)*bump_magnitude;
             force_y = force_in[1] + sin(bump_direction)*bump_magnitude;
-        } else if ( state == STATE_BUMP_STIM && new_state ) {
+        } else if ( state == STATE_BUMP && new_state ) {
             /* initiating a new bump */
             bump_duration_counter = (int)bump_duration;
             force_x = force_in[0] + cos(bump_direction)*bump_magnitude;
@@ -931,8 +980,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_ORIGIN_ON:
                 word = WORD_CT_ON;
                 break;
-            case STATE_BUMP_STIM:
-                word = (stim_trial ? WORD_STIM(stim_code) : WORD_BUMP(bump_step)); 
+            case STATE_GO_CUE:
+                word = WORD_STIM(stim_code);
+                break; 
+            case STATE_BUMP:
+                word = WORD_BUMP(bump_step); 
                 break;
             case STATE_MOVEMENT:
                 word = WORD_GO_CUE;
@@ -1031,7 +1083,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         if (state == STATE_ABORT || state == STATE_FAIL) {
             tone_cnt++;
             tone_id = TONE_ABORT;
-        } else if (go_tone_on_bump && state == STATE_BUMP_STIM) {
+        } else if (go_tone_on_bump && state == STATE_GO_CUE) {
             tone_cnt++;
             tone_id = TONE_GO; 
         } else if (!go_tone_on_bump && state == STATE_MOVEMENT) {
@@ -1050,7 +1102,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     version[3] = BEHAVIOR_VERSION_BUILD;
 
     /* pos (7) */
-    if ( (state == STATE_BUMP_STIM || state == STATE_MOVEMENT) && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) < window_size) {
+    if ( (state == STATE_GO_CUE || state ==  STATE_BUMP || state == STATE_MOVEMENT) && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) < window_size) {
         /* we are inside blocking window => draw cursor off screen */
         pos_x = 1E6;
         pos_y = 1E6;

@@ -447,6 +447,10 @@ namespace BehaviorGraphics
             // Number of outer targets
             AddParamListItem("BC Num Outer Targets", "P23", "Behavior BC", this.numericUpDownBCNumOuterTargets);
 
+            // Bump delay 
+            AddParamListItem("BC Bump Delay Low", "P24", "Behavior BC", this.textBoxBCBDL);
+            AddParamListItem("BC Bump Delay High", "P25", "Behavior BC", this.textBoxBCBDH);
+
             #endregion
 
             #region Visual Search

@@ -221,9 +221,6 @@ Set equal to Touch Pad High for non-random hold time.</value>
 When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
 This setting determines the number of intensity levels between on and off.</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>236, 17</value>
-  </metadata>
   <data name="label81.ToolTip" xml:space="preserve">
     <value>Number of gradations of test stimulation.
 
