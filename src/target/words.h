@@ -54,6 +54,8 @@
 #define WORD_TASK_CODE 0x0B
 #elif TASK_BF
 #define WORD_TASK_CODE 0x0C
+#elif TASK_2AFC
+#define WORD_TASK_CODE 0x0D
 #endif
 
 

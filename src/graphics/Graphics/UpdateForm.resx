@@ -271,6 +271,33 @@ This setting determines the number of intensity levels between on and off.</valu
 When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
 This setting determines the number of intensity levels between on and off.</value>
   </data>
+  <data name="label209.ToolTip" xml:space="preserve">
+    <value>Number of gradations of test stimulation.
+
+When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
+This setting determines the number of intensity levels between on and off.</value>
+  </data>
+  <data name="label204.ToolTip" xml:space="preserve">
+    <value>Number of gradations of test stimulation.
+
+When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
+This setting determines the number of intensity levels between on and off.</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>236, 17</value>
+  </metadata>
+  <data name="label222.ToolTip" xml:space="preserve">
+    <value>Number of gradations of test stimulation.
+
+When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
+This setting determines the number of intensity levels between on and off.</value>
+  </data>
+  <data name="label223.ToolTip" xml:space="preserve">
+    <value>Number of gradations of test stimulation.
+
+When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
+This setting determines the number of intensity levels between on and off.</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>43</value>
   </metadata>

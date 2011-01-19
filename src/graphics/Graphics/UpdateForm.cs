@@ -507,6 +507,55 @@ namespace BehaviorGraphics
             AddParamListItem("BF Pct Stimulation Trials", "P17", "Behavior BF", this.textBoxBFPctStimTrials);
 
             #endregion
+
+            #region Two-alternative forced choice
+            /* 
+             * Two-alternative forced choice Parameters 
+             */
+            // Two-alternative forced choice targets
+            AddParamListItem("2AFC Target Radius", "P3", "Behavior 2AFC", this.textBox2AFCTgtRadius);
+            AddParamListItem("2AFC Target Size", "P4", "Behavior 2AFC", this.textBox2AFCTgtSize);
+            AddParamListItem("2AFC Window Diameter", "P5", "Behavior 2AFC", this.textBox2AFCWindowRadius);
+            
+            // Two-alternative forced choice timing
+            AddParamListItem("2AFC OHL", "P6", "Behavior 2AFC", this.textBox2AFCOHL);
+            AddParamListItem("2AFC OHH", "P7", "Behavior 2AFC", this.textBox2AFCOHH);
+            AddParamListItem("2AFC M", "P8", "Behavior 2AFC", this.textBox2AFCM);
+            AddParamListItem("2AFC IL", "P9", "Behavior 2AFC", this.textBox2AFCIL);
+            AddParamListItem("2AFC IS", "P10", "Behavior 2AFC", this.textBox2AFCIS);
+            AddParamListItem("2AFC II", "P11", "Behavior 2AFC", this.textBox2AFCII);
+            AddParamListItem("2AFC IR", "P12", "Behavior 2AFC", this.textBox2AFCIR);
+            AddParamListItem("2AFC IF", "P13", "Behavior 2AFC", this.textBox2AFCIF);
+            AddParamListItem("2AFC IA", "P14", "Behavior 2AFC", this.textBox2AFCIA);
+            AddParamListItem("2AFC SDL", "P15", "Behavior 2AFC", this.textBox2AFCSDL);
+            AddParamListItem("2AFC SDH", "P16", "Behavior 2AFC", this.textBox2AFCSDH);
+
+            // Training trials
+            AddParamListItem("2AFC Pct Training Trials", "P17", "Behavior 2AFC", this.textBox2AFCPercentTraining);
+            AddParamListItem("2AFC CT Color Change", "P18", "Behavior 2AFC", this.checkBox2AFCCTColorChange);
+            
+            // Left target parameters
+            AddParamListItem("2AFC T1 Tone", "P19", "Behavior 2AFC", this.checkBox2AFCLTTC);
+            AddParamListItem("2AFC T1 ICMS", "P20", "Behavior 2AFC", this.checkBox2AFCLTI);
+            AddParamListItem("2AFC T1 Bump", "P21", "Behavior 2AFC", this.checkBox2AFCLTB);
+            AddParamListItem("2AFC T1 ICMS codes", "P22", "Behavior 2AFC", this.numericUpDown2AFCLTNSC);
+            AddParamListItem("2AFC T1 Bump steps", "P23", "Behavior 2AFC", this.numericUpDown2AFCLTNBS);
+            AddParamListItem("2AFC T1 Bump mag min", "P24", "Behavior 2AFC", this.textBox2AFCLTBMMin);
+            AddParamListItem("2AFC T1 Bump mag max", "P25", "Behavior 2AFC", this.textBox2AFCLTBMMax);
+            AddParamListItem("2AFC T1 Bump direction", "P26", "Behavior 2AFC", this.textBox2AFCLTBDir);
+            AddParamListItem("2AFC T1 Bump duration", "P27", "Behavior 2AFC", this.textBox2AFCLTBDur);
+
+            // Right target parameters
+            AddParamListItem("2AFC T2 Tone", "P28", "Behavior 2AFC", this.checkBox2AFCRTTC);
+            AddParamListItem("2AFC T2 ICMS", "P29", "Behavior 2AFC", this.checkBox2AFCRTI);
+            AddParamListItem("2AFC T2 Bump", "P30", "Behavior 2AFC", this.checkBox2AFCRTB);
+            AddParamListItem("2AFC T2 ICMS codes", "P31", "Behavior 2AFC", this.numericUpDown2AFCRTNSC);
+            AddParamListItem("2AFC T2 Bump steps", "P32", "Behavior 2AFC", this.numericUpDown2AFCRTNBS);
+            AddParamListItem("2AFC T2 Bump mag min", "P33", "Behavior 2AFC", this.textBox2AFCRTBMMin);
+            AddParamListItem("2AFC T2 Bump mag max", "P34", "Behavior 2AFC", this.textBox2AFCRTBMMax);
+            AddParamListItem("2AFC T2 Bump direction", "P35", "Behavior 2AFC", this.textBox2AFCRTBDir);
+            AddParamListItem("2AFC T2 Bump duration", "P36", "Behavior 2AFC", this.textBox2AFCRTBDur);
+            #endregion
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
@@ -1013,7 +1062,8 @@ namespace BehaviorGraphics
                     paramID = target.GetParamIdx("Behavior VS", "P15");
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior BF", "P1");
-
+                if (paramID < 0)
+                    paramID = target.GetParamIdx("Behavior 2AFC", "P1");
 
                 /* send the flag */
                 if (paramID >= 0) {
