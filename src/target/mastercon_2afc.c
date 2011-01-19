@@ -384,9 +384,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
      ********************/
     
     /* stupidly declare all variables at the begining of the function */
-    int i;
-    int j;
-    
+   
     real_T ct[4];
     real_T rt[4];     /* reward target UL and LR coordinates */
     real_T ft[4];     /* fail target UL and LR coordinates */
@@ -397,7 +395,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int reset_block = 0;
     
     /* get trial parameters */
-    real_T first_target;  /* 1 if left target is first, 2 for right target */
+    int first_target;  /* 1 if left target is first, 2 for right target */
     int bump_step_1;
     int bump_step_2;
     int training_mode;
@@ -411,8 +409,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* stimulation parameters */
     int stim_code_1;
     int stim_code_2;
-    int tmp;
-        
+    
     /* databurst variables */
     byte *databurst;
 	float *databurst_offsets;
@@ -469,21 +466,21 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     ct[2] = target_size/2;
     ct[3] = -target_size/2;
        
-    rt[0] = (-1)^first_target*target_radius - target_size/2; /* reward target */
-    rt[1] = (-1)^first_target*target_radius + target_size/2;
-    rt[2] = (-1)^first_target*target_radius + target_size/2;
-    rt[3] = (-1)^first_target*target_radius - target_size/2;
+    rt[0] = pow(-1,(float)first_target)*target_radius - target_size/2; /* reward target */
+    rt[1] = pow(-1,(float)first_target)*target_radius + target_size/2;
+    rt[2] = pow(-1,(float)first_target)*target_radius + target_size/2;
+    rt[3] = pow(-1,(float)first_target)*target_radius - target_size/2;
 
-    ft[0] = (-1)^(first_target+1)*target_radius - target_size/2; /* fail target */
-    ft[1] = (-1)^(first_target+1)*target_radius + target_size/2;
-    ft[2] = (-1)^(first_target+1)*target_radius + target_size/2; 
-    ft[3] = (-1)^(first_target+1)*target_radius - target_size/2;   
+    ft[0] = pow(-1,(float)first_target+1)*target_radius - target_size/2; /* fail target */
+    ft[1] = pow(-1,(float)first_target+1)*target_radius + target_size/2;
+    ft[2] = pow(-1,(float)first_target+1)*target_radius + target_size/2; 
+    ft[3] = pow(-1,(float)first_target+1)*target_radius - target_size/2;   
     
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 7);
     databurst = ssGetPWorkValue(S, 0);
 	databurst_offsets  = (float *)(databurst + 7);
-    databurst_target = (int *)(databurst_offsets+2);
+    databurst_target = (byte *)(databurst_offsets+2);
     databurst_target_size = (float *)(databurst_target + 1);
     databurst_stim_delay = databurst_target_size + 1;
     databurst_bump_duration_1 = databurst_stim_delay +1;
@@ -593,7 +590,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 }
                 if (t1_bump){
                     bump_step_1 = (int)(UNI*t1_bump_steps);                                
-                    bump_magnitude_1 = t1_bump_mag_min + ((float)bump_step)*(t1_bump_mag_max-t1_bump_mag_min)/((float)t1_bump_steps-1);
+                    bump_magnitude_1 = t1_bump_mag_min + ((float)bump_step_1)*(t1_bump_mag_max-t1_bump_mag_min)/((float)t1_bump_steps-1);
                     bump_duration_1 = t1_bump_duration;
                     if (t1_bump_direction == -1) {
                         bump_direction_1 = 2*PI*UNI;
@@ -603,7 +600,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 } 
                 if (t2_bump){
                     bump_step_2 = (int)(UNI*t2_bump_steps);                                
-                    bump_magnitude_2 = t2_bump_mag_min + ((float)bump_step)*(t2_bump_mag_max-t2_bump_mag_min)/((float)t2_bump_steps-1);
+                    bump_magnitude_2 = t2_bump_mag_min + ((float)bump_step_2)*(t2_bump_mag_max-t2_bump_mag_min)/((float)t2_bump_steps-1);
                     bump_duration_2 = t2_bump_duration;
                     if (t2_bump_direction == -1) {
                         bump_direction_2 = 2*PI*UNI;
@@ -620,7 +617,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 }
                 if (t1_bump){
                     bump_step_2 = (int)(UNI*t1_bump_steps);                                
-                    bump_magnitude_2 = t1_bump_mag_min + ((float)bump_step)*(t1_bump_mag_max-t1_bump_mag_min)/((float)t1_bump_steps-1);
+                    bump_magnitude_2 = t1_bump_mag_min + ((float)bump_step_2)*(t1_bump_mag_max-t1_bump_mag_min)/((float)t1_bump_steps-1);
                     bump_duration_2 = t1_bump_duration;
                     if (t1_bump_direction == -1) {
                         bump_direction_2 = 2*PI*UNI;
@@ -630,7 +627,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 } 
                 if (t2_bump){
                     bump_step_1 = (int)(UNI*t2_bump_steps);                                
-                    bump_magnitude_1 = t2_bump_mag_min + ((float)bump_step)*(t2_bump_mag_max-t2_bump_mag_min)/((float)t2_bump_steps-1);
+                    bump_magnitude_1 = t2_bump_mag_min + ((float)bump_step_1)*(t2_bump_mag_max-t2_bump_mag_min)/((float)t2_bump_steps-1);
                     bump_duration_1 = t2_bump_duration;
                     if (t2_bump_direction == -1) {
                         bump_direction_1 = 2*PI*UNI;
@@ -728,7 +725,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 reset_timer(); /* abort timeout */
                 state_changed();
             } else if (elapsed_timer_time > interval_length) {
-                new_state = STATE_INTERVAL_WAIT;
+                new_state = STATE_INTER_INTERVAL;
                 reset_timer(); /* delay timer */
                 state_changed();
             } 
@@ -830,7 +827,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T ft_type;   /* type of fail outer target 0=invisible 1=red square 2=lightning bolt (?) */
     real_T bump_direction_1;
     real_T bump_direction_2;
-    real_T bump_direction;
+    real_T bump_duration_1;
+    real_T bump_duration_2;
     int bump_duration;
     
     /* get trial type */
@@ -841,6 +839,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T bump_magnitude_1;
     real_T bump_magnitude_2;
     real_T bump_magnitude;
+    real_T bump_direction;
     
     int stim_code_1;
     int stim_code_2;
@@ -933,15 +932,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     ct[2] = target_size/2;
     ct[3] = -target_size/2;
 
-    rt[0] = (-1)^first_target*target_radius - target_size/2; /* reward target */
-    rt[1] = (-1)^first_target*target_radius + target_size/2;
-    rt[2] = (-1)^first_target*target_radius + target_size/2;
-    rt[3] = (-1)^first_target*target_radius - target_size/2;
+    rt[0] = pow(-1,(float)first_target)*target_radius - target_size/2; /* reward target */
+    rt[1] = pow(-1,(float)first_target)*target_radius + target_size/2;
+    rt[2] = pow(-1,(float)first_target)*target_radius + target_size/2;
+    rt[3] = pow(-1,(float)first_target)*target_radius - target_size/2;
 
-    ft[0] = (-1)^(first_target+1)*target_radius - target_size/2; /* fail target */
-    ft[1] = (-1)^(first_target+1)*target_radius + target_size/2;
-    ft[2] = (-1)^(first_target+1)*target_radius + target_size/2; 
-    ft[3] = (-1)^(first_target+1)*target_radius - target_size/2;   
+    ft[0] = pow(-1,(float)first_target+1)*target_radius - target_size/2; /* fail target */
+    ft[1] = pow(-1,(float)first_target+1)*target_radius + target_size/2;
+    ft[2] = pow(-1,(float)first_target+1)*target_radius + target_size/2; 
+    ft[3] = pow(-1,(float)first_target+1)*target_radius - target_size/2;   
         
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
@@ -977,7 +976,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             bump_duration_counter--;
             force_x = force_in[0] + cos(bump_direction)*bump_magnitude;
             force_y = force_in[1] + sin(bump_direction)*bump_magnitude;
-        } else if ( (state == STATE_INTERVAL_1 || state == STATE_INTERVAL_2) && interval_counter = 0 ) {
+        } else if ( (state == STATE_INTERVAL_1 || state == STATE_INTERVAL_2) && interval_counter == 0 ) {
             /* initiating a new bump */
             bump_duration_counter = (int)bump_duration;
             force_x = force_in[0] + cos(bump_direction)*bump_magnitude;
@@ -1117,10 +1116,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         if (state == STATE_ABORT || state == STATE_FAIL) {
             tone_cnt++;
             tone_id = TONE_ABORT;
-        } else if (go_tone_on_bump && state == STATE_GO_CUE) {
-            tone_cnt++;
-            tone_id = TONE_GO; 
-        } else if (!go_tone_on_bump && state == STATE_MOVEMENT) {
+        } else if (state == STATE_MOVEMENT) {
             tone_cnt++;
             tone_id = TONE_GO; 
         } else if (state == STATE_REWARD) {
@@ -1136,7 +1132,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     version[3] = BEHAVIOR_VERSION_BUILD;
 
     /* pos (7) */
-    if ( (state == STATE_GO_CUE || state ==  STATE_BUMP || state == STATE_MOVEMENT) && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) < window_size) {
+    if ( (state ==  STATE_INTERVAL_1 || state == STATE_INTERVAL_2) && sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1]) < window_size) {
         /* we are inside blocking window => draw cursor off screen */
         pos_x = 1E6;
         pos_y = 1E6;
