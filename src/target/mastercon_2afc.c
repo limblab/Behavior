@@ -80,7 +80,7 @@ static real_T center_hold_l = 0.5; /* shortest delay between entry of ct and bum
 #define param_center_hold_l mxGetScalar(ssGetSFcnParam(S,5))
 static real_T center_hold_h = 1.0; /* longest delay between entry of ct and bump/stim */ 
 #define param_center_hold_h mxGetScalar(ssGetSFcnParam(S,6))
-static real_T movement_time = 10;  /* movement time */
+static real_T movement_time = 10.0;  /* movement time */
 #define param_movement_time mxGetScalar(ssGetSFcnParam(S,7))
 static real_T interval_length = 1.0; /* length of each interval */
 #define param_interval_length mxGetScalar(ssGetSFcnParam(S,8))
@@ -98,9 +98,9 @@ static real_T abort_timeout = 1.0;     /* delay after abort */
 
 /* stimulus delay parameters */
 static real_T stim_delay;
-static real_T stim_delay_l = 0; /*shortest delay between interval signal and bump/stim/tone */
+static real_T stim_delay_l = 0.0; /*shortest delay between interval signal and bump/stim/tone */
 # define param_stim_delay_l mxGetScalar(ssGetSFcnParam(S,14))
-static real_T stim_delay_h = 0; /*longest delay between interval signal and bump/stim/tone */
+static real_T stim_delay_h = 0.0; /*longest delay between interval signal and bump/stim/tone */
 # define param_stim_delay_h mxGetScalar(ssGetSFcnParam(S,15))
 
 /* General parameters */
@@ -240,17 +240,15 @@ static void mdlInitializeSizes(SimStruct *S)
      *      input port 3: (catch force) of width 2 (x,y) NOT USED
 	 *      input port 4: (stim table) of width 32
      */
-    if (!ssSetNumInputPorts(S, 5)) return;
+    if (!ssSetNumInputPorts(S, 4)) return;
     ssSetInputPortWidth(S, 0, 2);
     ssSetInputPortWidth(S, 1, 2);
     ssSetInputPortWidth(S, 2, 2);
 	ssSetInputPortWidth(S, 3, 2);
-    ssSetInputPortWidth(S, 4, 32);
     ssSetInputPortDirectFeedThrough(S, 0, 1);
     ssSetInputPortDirectFeedThrough(S, 1, 1);
     ssSetInputPortDirectFeedThrough(S, 2, 1);
     ssSetInputPortDirectFeedThrough(S, 3, 1);
-    ssSetInputPortDirectFeedThrough(S, 4, 1);
     
     /* 
      * Block has 8 output ports (force, status, word, targets, reward, tone, version, pos) of widths:
@@ -272,7 +270,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 0, 2);   /* force   */
     ssSetOutputPortWidth(S, 1, 5);   /* status  */
     ssSetOutputPortWidth(S, 2, 1);   /* word    */
-    ssSetOutputPortWidth(S, 3, 45);  /* target  */
+    ssSetOutputPortWidth(S, 3, 15);  /* target  */
     ssSetOutputPortWidth(S, 4, 1);   /* reward  */
     ssSetOutputPortWidth(S, 5, 2);   /* tone    */
     ssSetOutputPortWidth(S, 6, 4);   /* version */
@@ -349,15 +347,10 @@ static void mdlInitializeConditions(SimStruct *S)
     /* setup databurst */
     databurst = malloc(256);
     ssSetPWorkValue(S, 0, databurst);
-    ssSetIWorkValue(S, 7, 0);
-    
-    /* set stim index to 16 so that it gets reset in pretrial*/
-    ssSetIWorkValue(S,10,16);    
-    
-    ssSetIWorkValue(S,27,-1);
+    ssSetIWorkValue(S, 7, 0);        
     
     /* set the initial last update time to 0 */
-    ssSetRWorkValue(S,6,0.0);    
+    ssSetRWorkValue(S,0,0.0);    
 }
 
 /* macro for setting state changed */
@@ -467,14 +460,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     ct[3] = -target_size/2;
        
     rt[0] = pow(-1,(float)first_target)*target_radius - target_size/2; /* reward target */
-    rt[1] = pow(-1,(float)first_target)*target_radius + target_size/2;
+    rt[1] = target_size/2;
     rt[2] = pow(-1,(float)first_target)*target_radius + target_size/2;
-    rt[3] = pow(-1,(float)first_target)*target_radius - target_size/2;
+    rt[3] = -target_size/2;
 
     ft[0] = pow(-1,(float)first_target+1)*target_radius - target_size/2; /* fail target */
-    ft[1] = pow(-1,(float)first_target+1)*target_radius + target_size/2;
+    ft[1] = target_size/2;
     ft[2] = pow(-1,(float)first_target+1)*target_radius + target_size/2; 
-    ft[3] = pow(-1,(float)first_target+1)*target_radius - target_size/2;   
+    ft[3] = -target_size/2;   
     
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 7);
@@ -933,14 +926,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     ct[3] = -target_size/2;
 
     rt[0] = pow(-1,(float)first_target)*target_radius - target_size/2; /* reward target */
-    rt[1] = pow(-1,(float)first_target)*target_radius + target_size/2;
+    rt[1] = target_size/2;
     rt[2] = pow(-1,(float)first_target)*target_radius + target_size/2;
-    rt[3] = pow(-1,(float)first_target)*target_radius - target_size/2;
+    rt[3] = -target_size/2;
 
     ft[0] = pow(-1,(float)first_target+1)*target_radius - target_size/2; /* fail target */
-    ft[1] = pow(-1,(float)first_target+1)*target_radius + target_size/2;
+    ft[1] = target_size/2;
     ft[2] = pow(-1,(float)first_target+1)*target_radius + target_size/2; 
-    ft[3] = pow(-1,(float)first_target+1)*target_radius - target_size/2;   
+    ft[3] = -target_size/2;   
         
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
