@@ -1044,9 +1044,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     } else {
         word = 0;
     }
-    /* stim word (in the middle of interval states */
-    if ((state == STATE_INTERVAL_1 || state == STATE_INTERVAL_2) && interval_counter == 0){
-    	word = WORD_STIM(stim_code);
+    /* stim word (in the middle of interval states, bump start time can be calculated from stim delay*/
+    if ((state == STATE_INTERVAL_1 || state == STATE_INTERVAL_2) && interval_counter == 0 && stim_code>-1){
+        word = WORD_STIM(stim_code);    
     }
     if ((state == STATE_INTERVAL_1 && interval_counter == 0 && tone_cue_1) ||
         (state == STATE_INTERVAL_2 && interval_counter == 0 && tone_cue_2)){    	
