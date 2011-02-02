@@ -367,7 +367,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			
 			abort_timeout      = param_intertrial;
 			failure_timeout    = param_intertrial;
-			failure_timeout    = param_intertrial;
+			incomplete_timeout = param_intertrial;
 			reward_timeout     = param_intertrial;    
 
             
