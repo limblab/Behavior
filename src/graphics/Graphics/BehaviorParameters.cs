@@ -287,7 +287,8 @@ namespace BehaviorGraphics
             Viscous = 2,
             Curl = 3,
             RotatingCurl = 4,
-            Chaotic = 5
+            Chaotic = 5,
+            Elastic = 6
         }
 
         public enum LoadParam
@@ -296,6 +297,7 @@ namespace BehaviorGraphics
             Static = 1,
             Chaotic = 2,
             Viscous = 3,
+            Elastic = 4
         }
 
         public enum BD_Catch_List

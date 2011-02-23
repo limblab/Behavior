@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.3818.25858">
-  <ScreenWidth>60</ScreenWidth>
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.4071.29773">
+  <ScreenWidth>23</ScreenWidth>
+  <GoToneVolume>0</GoToneVolume>
   <MGGains>
-    <double>60</double>
-    <double>60</double>
-    <double>15</double>
-    <double>60</double>
+    <double>0</double>
+    <double>0</double>
+    <double>0</double>
+    <double>0</double>
   </MGGains>
-  <BD_Catch_Block>4</BD_Catch_Block>
-  <VerticalDisplacement>-25</VerticalDisplacement>
+  <BD_Catch_Block>0</BD_Catch_Block>
+  <VerticalDisplacement>0</VerticalDisplacement>
   <Cursor>5</Cursor>
   <GlyphSet>0</GlyphSet>
-  <SoundTheme>Theme3</SoundTheme>
+  <SoundTheme>Theme1</SoundTheme>
   <CenterOutMode>None</CenterOutMode>
-  <Load>None</Load>
+  <Load>Elastic</Load>
   <LoadCatch>None</LoadCatch>
   <SerializedParameters>
     <dictionary>
@@ -27,11 +28,11 @@
       </item>
       <item>
         <key>X Offset</key>
-        <value>6</value>
+        <value>-2</value>
       </item>
       <item>
         <key>Y Offset</key>
-        <value>31</value>
+        <value>33</value>
       </item>
       <item>
         <key>Cursor Rotation</key>
@@ -39,11 +40,11 @@
       </item>
       <item>
         <key>Reward Pulse</key>
-        <value>0.2</value>
+        <value>0.3</value>
       </item>
       <item>
         <key>Reward Jackpot</key>
-        <value>0.6</value>
+        <value>0.7</value>
       </item>
       <item>
         <key>Reward Jackpot Chance</key>
@@ -63,11 +64,11 @@
       </item>
       <item>
         <key>Visc Constant</key>
-        <value>0.00475</value>
+        <value>0</value>
       </item>
       <item>
         <key>Curl Angle</key>
-        <value>-1.24</value>
+        <value>0</value>
       </item>
       <item>
         <key>Static X Force</key>
@@ -96,6 +97,14 @@
       <item>
         <key>Chaotic Load Gain</key>
         <value>0.0005</value>
+      </item>
+      <item>
+        <key>Elastic Load Gain</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Elastic Load Angle</key>
+        <value>0</value>
       </item>
       <item>
         <key>Visc Constant Catch</key>
@@ -135,35 +144,35 @@
       </item>
       <item>
         <key>CHL</key>
-        <value>0.25</value>
+        <value>0.5</value>
       </item>
       <item>
         <key>CHH</key>
-        <value>0.5</value>
+        <value>0.6</value>
       </item>
       <item>
         <key>DL</key>
-        <value>0.5</value>
+        <value>0.2</value>
       </item>
       <item>
         <key>DH</key>
-        <value>1</value>
-      </item>
-      <item>
-        <key>MT</key>
-        <value>1</value>
-      </item>
-      <item>
-        <key>OHL</key>
         <value>0.5</value>
       </item>
       <item>
+        <key>MT</key>
+        <value>1.5</value>
+      </item>
+      <item>
+        <key>OHL</key>
+        <value>0.2</value>
+      </item>
+      <item>
         <key>OHH</key>
-        <value>1</value>
+        <value>0.4</value>
       </item>
       <item>
         <key>IT</key>
-        <value>1</value>
+        <value>2</value>
       </item>
       <item>
         <key>Bump Duration</key>
@@ -183,7 +192,7 @@
       </item>
       <item>
         <key>CO Num Targets</key>
-        <value>3</value>
+        <value>8</value>
       </item>
       <item>
         <key>Target Radius</key>
@@ -191,7 +200,7 @@
       </item>
       <item>
         <key>Target Size</key>
-        <value>2.5</value>
+        <value>3</value>
       </item>
       <item>
         <key>Idiot Mode</key>
@@ -199,11 +208,11 @@
       </item>
       <item>
         <key>RW Num Targets</key>
-        <value>6</value>
+        <value>1</value>
       </item>
       <item>
         <key>RW Target Size</key>
-        <value>2.5</value>
+        <value>10</value>
       </item>
       <item>
         <key>Target Tolerance</key>
@@ -243,15 +252,15 @@
       </item>
       <item>
         <key>RW MT</key>
-        <value>2</value>
+        <value>1</value>
       </item>
       <item>
         <key>IMT</key>
-        <value>3</value>
+        <value>10</value>
       </item>
       <item>
         <key>IRW IT</key>
-        <value>1</value>
+        <value>1.5</value>
       </item>
       <item>
         <key>Minimum Distance</key>
@@ -267,7 +276,7 @@
       </item>
       <item>
         <key>FC Num Steps</key>
-        <value>3</value>
+        <value>8</value>
       </item>
       <item>
         <key>Percent Test Trials</key>
@@ -275,19 +284,19 @@
       </item>
       <item>
         <key>FC CHL</key>
-        <value>0.25</value>
+        <value>0.5</value>
       </item>
       <item>
         <key>FC CHH</key>
-        <value>0.75</value>
+        <value>1</value>
       </item>
       <item>
         <key>FC DL</key>
-        <value>0.25</value>
+        <value>0.5</value>
       </item>
       <item>
         <key>FC DH</key>
-        <value>0.75</value>
+        <value>1</value>
       </item>
       <item>
         <key>FC MT</key>
@@ -299,7 +308,7 @@
       </item>
       <item>
         <key>FC Target Size</key>
-        <value>2.5</value>
+        <value>3</value>
       </item>
       <item>
         <key>FC Target Distance</key>
@@ -319,11 +328,11 @@
       </item>
       <item>
         <key>BS Num Steps</key>
-        <value>1</value>
+        <value>7</value>
       </item>
       <item>
         <key>BS OHL</key>
-        <value>0.25</value>
+        <value>0</value>
       </item>
       <item>
         <key>BS OHH</key>
@@ -331,19 +340,19 @@
       </item>
       <item>
         <key>BS DL</key>
-        <value>0.5</value>
+        <value>0</value>
       </item>
       <item>
         <key>BS DH</key>
-        <value>1.5</value>
+        <value>1</value>
       </item>
       <item>
         <key>BS M</key>
-        <value>5</value>
+        <value>1</value>
       </item>
       <item>
         <key>BS DHL</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>BS DHH</key>
@@ -363,27 +372,27 @@
       </item>
       <item>
         <key>BS Bump Step Magnitude</key>
-        <value>0.05</value>
+        <value>0</value>
       </item>
       <item>
         <key>BS Bump Duration</key>
-        <value>0.125</value>
+        <value>0</value>
       </item>
       <item>
         <key>BS Num Bump Steps</key>
-        <value>1</value>
+        <value>7</value>
       </item>
       <item>
         <key>BS Num Stim Steps</key>
-        <value>1</value>
+        <value>7</value>
       </item>
       <item>
         <key>BS Bump Displacement</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>BS Stim Displacement</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>BS Target Angle</key>
@@ -391,11 +400,11 @@
       </item>
       <item>
         <key>BS Target Num</key>
-        <value>2</value>
+        <value>0</value>
       </item>
       <item>
         <key>BS Target Radius</key>
-        <value>8</value>
+        <value>10</value>
       </item>
       <item>
         <key>BS Target Size</key>
@@ -407,19 +416,19 @@
       </item>
       <item>
         <key>BS Num Target Positions</key>
-        <value>3</value>
+        <value>0</value>
       </item>
       <item>
         <key>MGTargets</key>
-        <value>3</value>
+        <value>1</value>
       </item>
       <item>
         <key>MGTPL</key>
-        <value>0.2</value>
+        <value>0</value>
       </item>
       <item>
         <key>MGTPH</key>
-        <value>0.5</value>
+        <value>0</value>
       </item>
       <item>
         <key>MGDL</key>
@@ -431,31 +440,31 @@
       </item>
       <item>
         <key>MGRT</key>
-        <value>5</value>
+        <value>0</value>
       </item>
       <item>
         <key>MGTH</key>
-        <value>0.5</value>
+        <value>0</value>
       </item>
       <item>
         <key>MGI</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>MG0</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>MG1</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>MG2</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>MG3</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>MGIM</key>
@@ -471,11 +480,11 @@
       </item>
       <item>
         <key>BDTPL</key>
-        <value>0.2</value>
+        <value>0</value>
       </item>
       <item>
         <key>BDTPH</key>
-        <value>0.2</value>
+        <value>0</value>
       </item>
       <item>
         <key>BDDL</key>
@@ -487,47 +496,47 @@
       </item>
       <item>
         <key>BDPT</key>
-        <value>5</value>
+        <value>0</value>
       </item>
       <item>
         <key>BDDT</key>
-        <value>5</value>
+        <value>0</value>
       </item>
       <item>
         <key>BDIT</key>
-        <value>2</value>
+        <value>0</value>
       </item>
       <item>
         <key>WFTargets</key>
-        <value>2</value>
-      </item>
-      <item>
-        <key>WFRT</key>
-        <value>5</value>
-      </item>
-      <item>
-        <key>WFTH</key>
-        <value>0.5</value>
-      </item>
-      <item>
-        <key>WFCHL</key>
-        <value>0.5</value>
-      </item>
-      <item>
-        <key>WFCHH</key>
-        <value>0.5</value>
-      </item>
-      <item>
-        <key>WFI</key>
         <value>1</value>
       </item>
       <item>
+        <key>WFRT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFTH</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFCHL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFCHH</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>WFI</key>
+        <value>0</value>
+      </item>
+      <item>
         <key>WFCDL</key>
-        <value>0.5</value>
+        <value>0</value>
       </item>
       <item>
         <key>WFCDH</key>
-        <value>0.5</value>
+        <value>0</value>
       </item>
       <item>
         <key>WFX</key>
@@ -539,11 +548,11 @@
       </item>
       <item>
         <key>WFH</key>
-        <value>2</value>
+        <value>0</value>
       </item>
       <item>
         <key>WFW</key>
-        <value>2</value>
+        <value>0</value>
       </item>
       <item>
         <key>WFIM</key>
@@ -552,6 +561,10 @@
       <item>
         <key>WFCatchTrials</key>
         <value>0</value>
+      </item>
+      <item>
+        <key>EncodersOn</key>
+        <value>1</value>
       </item>
       <item>
         <key>WFRotation</key>
@@ -567,11 +580,11 @@
       </item>
       <item>
         <key>WFGX</key>
-        <value>40</value>
+        <value>0</value>
       </item>
       <item>
         <key>WFGY</key>
-        <value>60</value>
+        <value>0</value>
       </item>
       <item>
         <key>WFOffsetX</key>
@@ -591,11 +604,11 @@
       </item>
       <item>
         <key>WFIntegratMax</key>
-        <value>0</value>
+        <value>10</value>
       </item>
       <item>
         <key>WFIntegratMin</key>
-        <value>0</value>
+        <value>-10</value>
       </item>
       <item>
         <key>WFNeuralControl</key>
@@ -603,15 +616,15 @@
       </item>
       <item>
         <key>BC Target Radius</key>
-        <value>1</value>
+        <value>10</value>
       </item>
       <item>
         <key>BC Target Size</key>
-        <value>1</value>
+        <value>2.5</value>
       </item>
       <item>
         <key>BC Window Diameter</key>
-        <value>1</value>
+        <value>2</value>
       </item>
       <item>
         <key>BC Num Bump Steps</key>
@@ -619,15 +632,15 @@
       </item>
       <item>
         <key>BC Bump Magnitude Min</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>BC Bump Magnitude Max</key>
-        <value>1</value>
+        <value>0.05</value>
       </item>
       <item>
         <key>BC Bump Duration</key>
-        <value>1</value>
+        <value>125</value>
       </item>
       <item>
         <key>BC OHL</key>
@@ -635,67 +648,103 @@
       </item>
       <item>
         <key>BC OHH</key>
-        <value>1</value>
+        <value>2</value>
       </item>
       <item>
         <key>BC M</key>
-        <value>1</value>
+        <value>10</value>
       </item>
       <item>
-        <key>BC I</key>
-        <value>1</value>
+        <key>BC IR</key>
+        <value>0</value>
       </item>
       <item>
         <key>BC IF</key>
         <value>1</value>
       </item>
       <item>
+        <key>BC IA</key>
+        <value>0</value>
+      </item>
+      <item>
         <key>BC Pct Training Trials</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>BC Pct Stimulation Trials</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BC Bump and Stim</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BC Center Target Off</key>
         <value>1</value>
+      </item>
+      <item>
+        <key>BC Outer Target On</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BC Go Tone On Bump</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BC Target Directions From Stim Table</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BC Num Outer Targets</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>BC Bump Delay Low</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BC Bump Delay High</key>
+        <value>0</value>
       </item>
       <item>
         <key>VSCHL</key>
-        <value>0.25</value>
+        <value>0</value>
       </item>
       <item>
         <key>VSCHH</key>
-        <value>0.5</value>
+        <value>0</value>
       </item>
       <item>
         <key>VSST</key>
-        <value>2</value>
+        <value>0</value>
       </item>
       <item>
         <key>VSRT</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>VSOHL</key>
-        <value>0.5</value>
+        <value>0</value>
       </item>
       <item>
         <key>VSOHH</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>VSRTO</key>
-        <value>0.5</value>
+        <value>0</value>
       </item>
       <item>
         <key>VSFTO</key>
-        <value>5</value>
+        <value>0</value>
       </item>
       <item>
         <key>VSITO</key>
-        <value>5</value>
+        <value>0</value>
       </item>
       <item>
         <key>VSATO</key>
-        <value>5</value>
+        <value>0</value>
       </item>
       <item>
         <key>VS Num Targets</key>
@@ -703,38 +752,238 @@
       </item>
       <item>
         <key>VSTR</key>
-        <value>10</value>
+        <value>0</value>
       </item>
       <item>
         <key>VSTS</key>
-        <value>3</value>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BF Arc Radius</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BF Arc Thickness</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BF Arc Length</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BF Target Size</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BF Window Diameter</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BF Num Bump Steps</key>
+        <value>7</value>
+      </item>
+      <item>
+        <key>BF Bump Magnitude Min</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BF Bump Magnitude Max</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BF Bump Duration</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BF OHL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BF OHH</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BF M</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BF I</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BF IF</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BF Pct Training Trials</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BF Pct Stimulation Trials</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC Target Radius</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC Target Size</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC Window Diameter</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC OHL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC OHH</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC M</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC IL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC IS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC II</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC IR</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC IF</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC IA</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC SDL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC SDH</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC Pct Training Trials</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC CT Color Change</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC T1 Tone</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC T1 ICMS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC T1 Bump</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC T1 ICMS codes</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC T1 Bump steps</key>
+        <value>4</value>
+      </item>
+      <item>
+        <key>2AFC T1 Bump mag min</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC T1 Bump mag max</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC T1 Bump direction</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC T1 Bump duration</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC T2 Tone</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC T2 ICMS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC T2 Bump</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC T2 ICMS codes</key>
+        <value>7</value>
+      </item>
+      <item>
+        <key>2AFC T2 Bump steps</key>
+        <value>7</value>
+      </item>
+      <item>
+        <key>2AFC T2 Bump mag min</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC T2 Bump mag max</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC T2 Bump direction</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2AFC T2 Bump duration</key>
+        <value>0</value>
       </item>
     </dictionary>
   </SerializedParameters>
   <MultiGadgetTargetList>
     <MultiGadgetTarget>
       <x>0</x>
-      <y>15</y>
-      <h>15</h>
-      <w>15</w>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
       <xVar>0</xVar>
       <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
-      <y>30</y>
-      <h>15</h>
-      <w>15</w>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
       <xVar>0</xVar>
       <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
-      <y>30</y>
-      <h>15</h>
-      <w>15</w>
+      <y>0</y>
+      <h>0</h>
+      <w>0</w>
       <xVar>0</xVar>
-      <yVar>1</yVar>
+      <yVar>0</yVar>
     </MultiGadgetTarget>
     <MultiGadgetTarget>
       <x>0</x>
@@ -1037,4 +1286,70 @@
       <PD>-1</PD>
     </BumpChoiceStim>
   </BumpChoiceStimList>
+  <BumpFollowStimList>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+    <BumpChoiceStim>
+      <StimCode>-1</StimCode>
+      <PD>-1</PD>
+    </BumpChoiceStim>
+  </BumpFollowStimList>
 </BehaviorParameters>

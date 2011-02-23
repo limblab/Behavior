@@ -153,6 +153,8 @@ namespace BehaviorGraphics
             AddParamListItem("Chaotic Time Constatnt2", "Value", "Force Generator/LorentzForce/Lorentz2/timescale", this.textBoxTimeConst);
             AddParamListItem("Chaotic Time Constatnt3", "Value", "Force Generator/LorentzForce/Lorentz3/timescale", this.textBoxTimeConst);
             AddParamListItem("Chaotic Load Gain", "Gain", "Force Generator/LorentzForceGain", this.textBoxChaoticGain);
+            AddParamListItem("Elastic Load Gain", "Gain", "Force Generator/ElasticLoadSubsystem/Gain", this.textBoxEG);
+            AddParamListItem("Elastic Load Angle", "Value", "Force Generator/PosForceAngle", this.textBoxEA);
 
             // Catch load
             AddParamListItem("Visc Constant Catch", "Gain", "Catch Force Generator/ViscLoadSubsystem/Gain", this.textBoxViscCatch);
@@ -164,6 +166,8 @@ namespace BehaviorGraphics
             AddParamListItem("Chaotic Time Constatnt2 Catch", "Value", "Catch Force Generator/LorentzForce/Lorentz2/timescale", this.textBoxTimeConstCatch);
             AddParamListItem("Chaotic Time Constatnt3 Catch", "Value", "Catch Force Generator/LorentzForce/Lorentz3/timescale", this.textBoxTimeConstCatch);
             AddParamListItem("Chaotic Load Gain Catch", "Gain", "Catch Force Generator/LorentzForceGain", this.textBoxChaoticGainCatch);
+            AddParamListItem("Elastic Load Gain Catch", "Gain", "Catch Force Generator/ElasticLoadSubsystem/Gain", this.textBoxEGC;
+            AddParamListItem("Elastic Load Angle Catch", "Value", "Catch Force Generator/PosForceAngle", this.textBoxEAC);
             #endregion
 
             #region Center-Out
@@ -684,13 +688,14 @@ namespace BehaviorGraphics
              * Curl
              * Rotating Curl
              * Chaotic
+             * Elastic
              */
 
-            labelViscConst.Enabled = ((load == "Viscous") || (load == "Curl") || (load == "Rotating Curl"));
-            textBoxVisc.Enabled = ((load == "Viscous") || (load == "Curl") || (load == "Rotating Curl"));
+            labelViscConst.Enabled = ((load == "Viscous") || (load == "Curl") || (load == "Rotating Curl") || (load == "Elastic"));
+            textBoxVisc.Enabled = ((load == "Viscous") || (load == "Curl") || (load == "Rotating Curl") || (load == "Elastic"));
 
             labelCurlAngle.Enabled = (load == "Curl");
-            angleEntryBoxCurlAngleCatch.Enabled = (load == "Curl");
+            angleEntryBoxCurlAngle.Enabled = (load == "Curl");
 
             labelStaticX.Enabled = load.Equals("Static");
             labelStaticY.Enabled = (load == "Static");
@@ -721,8 +726,8 @@ namespace BehaviorGraphics
              * Chaotic
              */
 
-            labelViscConstCatch.Enabled = ((catchLoad == "Viscous") || (catchLoad == "Curl") || (catchLoad == "Rotating Curl"));
-            textBoxViscCatch.Enabled = ((catchLoad == "Viscous") || (catchLoad == "Curl") || (catchLoad == "Rotating Curl"));
+            labelViscConstCatch.Enabled = ((catchLoad == "Viscous") || (catchLoad == "Curl") || (catchLoad == "Rotating Curl") || (catchLoad == "Elastic"));
+            textBoxViscCatch.Enabled = ((catchLoad == "Viscous") || (catchLoad == "Curl") || (catchLoad == "Rotating Curl") || (catchLoad == "Elastic"));
 
             labelCurlAngleCatch.Enabled = (catchLoad == "Curl");
             angleEntryBoxCurlAngleCatch.Enabled = (catchLoad == "Curl");
@@ -1314,6 +1319,9 @@ namespace BehaviorGraphics
                     case LoadParam.Chaotic:
                         this.comboBoxLoad.SelectedIndex = (int)LoadType.Chaotic;
                         break;
+                    case LoadParam.Elastic:
+                        this.comboBoxLoad.SelectedIndex = (int)LoadType.Elastic;
+                        break;
                     default:
                         paramID = target.GetParamIdx("Value", "Force Generator/DynamicAngle");
                         if (paramID >= 0) {
@@ -1353,6 +1361,9 @@ namespace BehaviorGraphics
                         break;
                     case LoadParam.Chaotic:
                         this.comboBoxLoadCatch.SelectedIndex = (int)LoadType.Chaotic;
+                        break;
+                    case LoadParam.Elastic:
+                        this.comboBoxLoadCatch.SelectedIndex = (int)LoadType.Elastic;
                         break;
                     default:
                         paramID = target.GetParamIdx("Value", "Catch Force Generator/DynamicAngle");
@@ -1827,6 +1838,9 @@ namespace BehaviorGraphics
                     case LoadType.Chaotic:
                         param.SetValue((double)LoadParam.Chaotic, 0);
                         break;
+                    case LoadType.Elastic:
+                        param.SetValue((double)LoadParam.Elastic, 0);
+                        break;
                     default:
                         break;
                 }
@@ -1852,6 +1866,9 @@ namespace BehaviorGraphics
                         break;
                     case LoadType.Chaotic:
                         param.SetValue((double)LoadParam.Chaotic, 0);
+                        break;
+                    case LoadType.Elastic:
+                        param.SetValue((double)LoadParam.Elastic, 0);
                         break;
                     default:
                         break;
