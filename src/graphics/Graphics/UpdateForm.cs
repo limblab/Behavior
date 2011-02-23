@@ -166,7 +166,7 @@ namespace BehaviorGraphics
             AddParamListItem("Chaotic Time Constatnt2 Catch", "Value", "Catch Force Generator/LorentzForce/Lorentz2/timescale", this.textBoxTimeConstCatch);
             AddParamListItem("Chaotic Time Constatnt3 Catch", "Value", "Catch Force Generator/LorentzForce/Lorentz3/timescale", this.textBoxTimeConstCatch);
             AddParamListItem("Chaotic Load Gain Catch", "Gain", "Catch Force Generator/LorentzForceGain", this.textBoxChaoticGainCatch);
-            AddParamListItem("Elastic Load Gain Catch", "Gain", "Catch Force Generator/ElasticLoadSubsystem/Gain", this.textBoxEGC;
+            AddParamListItem("Elastic Load Gain Catch", "Gain", "Catch Force Generator/ElasticLoadSubsystem/Gain", this.textBoxEGC);
             AddParamListItem("Elastic Load Angle Catch", "Value", "Catch Force Generator/PosForceAngle", this.textBoxEAC);
             #endregion
 
