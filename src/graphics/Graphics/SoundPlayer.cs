@@ -17,9 +17,16 @@ namespace BehaviorGraphics
         public SoundPlayer(System.Windows.Forms.Control owner, SoundPlayer.SoundTheme theme)
         {
             this.theme = theme;
-            device = new Device();
-            device.SetCooperativeLevel(owner, CooperativeLevel.Priority);
-
+            try {
+                device = new Device();
+                device.SetCooperativeLevel(owner, CooperativeLevel.Priority);
+            } catch {
+                System.Windows.Forms.MessageBox.Show(
+                    "Cannot initilialize audio device.  Are the speakers plugged in?",
+                    "Audio Error", System.Windows.Forms.MessageBoxButtons.OK, 
+                    System.Windows.Forms.MessageBoxIcon.Error);
+                Environment.Exit(0);
+            }
             BufferDescription d = new BufferDescription();
             d.ControlVolume = true;            
 
