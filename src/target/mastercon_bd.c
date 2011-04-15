@@ -172,7 +172,7 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target UL corner y,
      *                  target LR corner x, 
      *                  target LR corner y)     
-	 * 8: version : 4
+     * 8: version : 4
      */
     if (!ssSetNumOutputPorts(S, 9)) return;
     ssSetOutputPortWidth(S, 0, 1);
@@ -189,7 +189,7 @@ static void mdlInitializeSizes(SimStruct *S)
     
     /* work buffers */
     ssSetNumRWork(S, 6);   /* 
-    						0: time of last timer reset
+                            0: time of last timer reset
                             1: tone counter (incremented each time a tone is played)
                             2: tone id
                             3: current touch pad hold time
@@ -197,11 +197,11 @@ static void mdlInitializeSizes(SimStruct *S)
                             5: mastercon version
                             */
 
-    ssSetNumPWork(S, 0);	/*
+    ssSetNumPWork(S, 0);    /*
                             */
     
-    ssSetNumIWork(S, 9); 	/*
-    						0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 9);    /*
+                            0: state_transition (true if state changed), 
                             1: rewards
                             2: aborts
                             3: failures
@@ -209,10 +209,10 @@ static void mdlInitializeSizes(SimStruct *S)
                             5: catch_trial_flag
                             6: catch_block_counter
                             7: catch_index
-							8: databurst counter
-                          	*/
+                            8: databurst counter
+                            */
     
-	ssSetNumPWork(S, 1); /*    0: Databurst array pointer  */
+    ssSetNumPWork(S, 1); /*    0: Databurst array pointer  */
     
     /* we have no zero crossing detection or modes */
     ssSetNumModes(S, 0);
@@ -249,7 +249,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 2, 0);
     ssSetIWorkValue(S, 3, 0);
     ssSetIWorkValue(S, 4, 0);
-	
+    
     /* set catch trial flag & block counter to zero */
     ssSetIWorkValue(S,5,0); //catch_trial_flag
     ssSetIWorkValue(S,6,100); //catch_block_counter
@@ -258,7 +258,7 @@ static void mdlInitializeConditions(SimStruct *S)
     /* set reset counter to zero */
     master_reset = 0.0;
 
-	/* setup databurst */
+    /* setup databurst */
     databurst = malloc(256);
     ssSetPWorkValue(S, 0, databurst);
     ssSetIWorkValue(S, 8, 0);
@@ -292,8 +292,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int catch_block_counter;
     int catch_index;
 
-	int databurst_counter;
-	byte *databurst;
+    int databurst_counter;
+    byte *databurst;
         
     /******************
      * Initialization *
@@ -325,8 +325,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     catch_block_counter = ssGetIWorkValue(S,6);
     catch_index = ssGetIWorkValue(S,7);
     
-	databurst = ssGetPWorkValue(S,0);
-	databurst_counter = ssGetIWorkValue(S, 8);
+    databurst = ssGetPWorkValue(S,0);
+    databurst_counter = ssGetIWorkValue(S, 8);
 
     /*********************************
      * See if we have issued a reset *
@@ -356,19 +356,19 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             /* Update parameters */
 
-			touch_pad_hold_l = param_touch_pad_hold_l;
-			touch_pad_hold_h = param_touch_pad_hold_h;
-			
-			touch_pad_delay_l = param_touch_pad_delay_l;
-			touch_pad_delay_h = param_touch_pad_delay_h;
-			
-			pickup_time = param_pickup_time;
-			drop_time = param_drop_time;
-			
-			abort_timeout      = param_intertrial;
-			failure_timeout    = param_intertrial;
-			incomplete_timeout = param_intertrial;
-			reward_timeout     = param_intertrial;    
+            touch_pad_hold_l = param_touch_pad_hold_l;
+            touch_pad_hold_h = param_touch_pad_hold_h;
+            
+            touch_pad_delay_l = param_touch_pad_delay_l;
+            touch_pad_delay_h = param_touch_pad_delay_h;
+            
+            pickup_time = param_pickup_time;
+            drop_time = param_drop_time;
+            
+            abort_timeout      = param_intertrial;
+            failure_timeout    = param_intertrial;
+            incomplete_timeout = param_intertrial;
+            reward_timeout     = param_intertrial;    
 
             
             /* intialize timers*/
@@ -389,7 +389,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 to choose between 0% and 33%, with steps of 1/N
                 So catch_block_max is el of: [0(No catch),3,4,5,7,10,20]*/
 
-			// 1 - increment trial counter
+            // 1 - increment trial counter
             catch_block_counter +=1;
             ssSetIWorkValue(S,6,catch_block_counter);
 
@@ -400,7 +400,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 catch_index = (int)(UNI*(catch_block_max));
                 ssSetIWorkValue(S,7,catch_index);
                 ssSetIWorkValue(S,6,catch_block_counter);
-			}
+            }
 
             // 3 - is this the catch trial?
             if (catch_block_counter == catch_index && catch_block_max!=0) {
@@ -408,49 +408,49 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             } else {
                 set_catch_trial(0);
             }
-			
-			/* Setup the databurst */
-			databurst[0] = 6+1+4*sizeof(float);
+            
+            /* Setup the databurst */
+            databurst[0] = 6+1+4*sizeof(float);
             databurst[1] = DATABURST_VERSION;
-			databurst[2] = BEHAVIOR_VERSION_MAJOR;
-			databurst[3] = BEHAVIOR_VERSION_MINOR;
-			databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
-			databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
-			
-			ssSetIWorkValue(S, 8, 0); /* reset the databurst_counter */
+            databurst[2] = BEHAVIOR_VERSION_MAJOR;
+            databurst[3] = BEHAVIOR_VERSION_MINOR;
+            databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
+            databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
+            
+            ssSetIWorkValue(S, 8, 0); /* reset the databurst_counter */
 
             new_state = STATE_DATA_BLOCK;
             state_changed();
             /* End of Pretrial State */
             break;
-		case STATE_DATA_BLOCK:
-			if (databurst_counter > 2*(databurst[0]-1)) { 
+        case STATE_DATA_BLOCK:
+            if (databurst_counter > 2*(databurst[0]-1)) { 
                 new_state = STATE_TOUCH_PAD_ON;
                 state_changed();
             }
-			ssSetIWorkValue(S, 8, databurst_counter+1);
-			break;
+            ssSetIWorkValue(S, 8, databurst_counter+1);
+            break;
         case STATE_TOUCH_PAD_ON:
-			if (touch_pad) {
+            if (touch_pad) {
                 new_state = STATE_TOUCH_PAD_HOLD;
                 state_changed();
                 reset_timer();
             }
             break;
         case STATE_TOUCH_PAD_HOLD:
-			if (pickup_sensor) {
-				new_state = STATE_EMPTY_RACK;
-				reset_timer();
-				state_changed();
-			} else if (elapsed_timer_time > touch_pad_hold_timeout) {
-              	new_state = STATE_DELAY;
-				state_changed();
-				reset_timer();
-			} else if (!touch_pad) {
-				new_state = STATE_TOUCH_PAD_ON;
-				state_changed();
-				reset_timer();
-			}
+            if (pickup_sensor) {
+                new_state = STATE_EMPTY_RACK;
+                reset_timer();
+                state_changed();
+            } else if (elapsed_timer_time > touch_pad_hold_timeout) {
+                new_state = STATE_DELAY;
+                state_changed();
+                reset_timer();
+            } else if (!touch_pad) {
+                new_state = STATE_TOUCH_PAD_ON;
+                state_changed();
+                reset_timer();
+            }
             break;
         case STATE_DELAY:
             if (elapsed_timer_time > delay_timeout) {
@@ -512,14 +512,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_EMPTY_RACK:
             /* empty_rack - the monkey has his hand on touch pad but no ball detected in device */
-    		if (elapsed_timer_time > empty_rack_alarm_timeout) {
-				new_state = STATE_PRETRIAL;
+            if (elapsed_timer_time > empty_rack_alarm_timeout) {
+                new_state = STATE_PRETRIAL;
                 //don't count for a trial in catch_block
-                ssSetIWorkValue(S,6,catch_block_counter-1);				
-				state_changed();
-				reset_timer();
-			}
-			break;  
+                ssSetIWorkValue(S,6,catch_block_counter-1);             
+                state_changed();
+                reset_timer();
+            }
+            break;  
         case STATE_REWARD:
             /* reward */
             if (elapsed_timer_time > reward_timeout) {
@@ -553,7 +553,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T pickup_sensor, drop_sensor;
     real_T tone_cnt, tone_id;
     int new_state;
-	int gadget_id;
+    int gadget_id;
     
     /* holders for outputs */
     real_T reward, word, touch_pad_led, gadget_led, gadget_select;
@@ -574,8 +574,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *tone_p;
     real_T *version_p;
     
-	int databurst_counter;
-	byte *databurst;
+    int databurst_counter;
+    byte *databurst;
 
     /******************
      * Initialization *
@@ -586,7 +586,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int state = (int)state_r[0];
     new_state = ssGetIWorkValue(S, 0);
     
-	/* Current gadget index (always set to 3 for BD device) */
+    /* Current gadget index (always set to 3 for BD device) */
     gadget_id = 3;
 
     /* touch pad state */
@@ -624,7 +624,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     /* word (1) */
-	if (state == STATE_DATA_BLOCK) {
+    if (state == STATE_DATA_BLOCK) {
         if (databurst_counter % 2 == 0) {
             word = databurst[databurst_counter / 2] | 0xF0; // low order bits
         } else {
@@ -642,7 +642,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 //                 word = WORD_GADGET_ON(gadget_id);
 //                 break;
             case STATE_PICKUP:
-            	if (get_catch_trial()) {
+                if (get_catch_trial()) {
                     word = WORD_CATCH;
                 } else {
                     word = WORD_GO_CUE;
@@ -718,10 +718,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         } else if (state == STATE_REWARD) {
             tone_cnt++;
             tone_id = TONE_REWARD;
-		} else if (state == STATE_EMPTY_RACK) {
-			tone_cnt++;
-			tone_id = TONE_EMPTY_RACK;
-		}
+        } else if (state == STATE_EMPTY_RACK) {
+            tone_cnt++;
+            tone_id = TONE_EMPTY_RACK;
+        }
     }
     
     /* targets (7) */
@@ -738,12 +738,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         /* target green */
         target[0] = 3;
     }  else {
-	    /* target off*/
-	    target [0] = 0;
+        /* target off*/
+        target [0] = 0;
     }
     /* we don't need a second target */
     for (i=5; i<10; i++) {
-    	target[i] = 0;
+        target[i] = 0;
     }
 
      /* Version */
