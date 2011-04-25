@@ -65,10 +65,27 @@
  * byte 23: uchar => bump and stim? ( 0 if bump or stim, 1 if bump and stim )
  * byte 24: uchar => number of outer targets
  * bytes 25 to 28: float => target size
+ * 
+ * Version 3 (0x03)
+ * ----------------
+ * byte   0: uchar => number of bytes to be transmitted
+ * byte   1: uchar => databurst version number (in this case one)
+ * byte   2: uchar => model version major
+ * byte   3: uchar => model version minor
+ * bytes  4 to  5: short => model version micro
+ * byte   6: uchar => training trial (1 if training, 0 if not)
+ * bytes  7 to 10: float => x offset
+ * bytes 11 to 14: float => y offset
+ * bytes 15 to 18: float => bump angle (rad)
+ * bytes 19 to 22: float => bump magnitude (bump units?)
+ * byte 23: uchar => bump and stim? ( 0 if bump or stim, 1 if bump and stim )
+ * byte 24: uchar => number of outer targets
+ * bytes 25 to 28: float => target size
+ * bytes 29 to 32: float => abort distance threshold
  */
 
 typedef unsigned char byte;
-#define DATABURST_VERSION (0x02) 
+#define DATABURST_VERSION (0x03) 
 
 /*
  * Until we implement tunable parameters, these will act as defaults
@@ -153,15 +170,28 @@ static real_T bump_delay_l = 0; /*shortest delay between go cue/stim and bump */
 static real_T bump_delay_h = 0; /*longest delay between go cue/stim and bump */
 # define param_bump_delay_h mxGetScalar(ssGetSFcnParam(S,24))
 
+/* abort contingency parameter */
+static real_T abort_distance = 100; /* minimum distance between cursor and reward
+                                    * target for abort. If distance is larger than 
+                                    * abort distance then counted as fail */
+# define param_abort_distance mxGetScalar(ssGetSFcnParam(S,25))
+
+/* time dependent reward length parameters */
+static real_T reward_min = 1;   /* minimum reward pulse length */ 
+# define param_reward_min mxGetScalar(ssGetSFcnParam(S,26))
+static real_T reward_max = 1;   /* maximum reward pulse length */
+# define param_reward_max mxGetScalar(ssGetSFcnParam(S,27))
+
 /*
  * State IDs
  */
 #define STATE_PRETRIAL 0
 #define STATE_ORIGIN_ON 1
 #define STATE_CENTER_HOLD 2
-#define STATE_GO_CUE 3
-#define STATE_BUMP 4
-#define STATE_MOVEMENT 5
+#define STATE_LEAVE_CT 3
+#define STATE_GO_CUE 4
+#define STATE_BUMP 5
+#define STATE_MOVEMENT 6
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
@@ -206,13 +236,17 @@ static void mdlCheckParameters(SimStruct *S)
     
     bump_delay_l = param_bump_delay_l;
     bump_delay_h = param_bump_delay_h;
+    
+    abort_distance = param_abort_distance;
+    reward_min = param_reward_min;
+    reward_max = param_reward_max;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 25);
+    ssSetNumSFcnParams(S, 28);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -259,26 +293,29 @@ static void mdlInitializeSizes(SimStruct *S)
      *  version: 1 ( the cvs revision of the current .c file )
      *  pos: 2 (x and y position of the cursor)
      */
-    if (!ssSetNumOutputPorts(S, 8)) return;
+    if (!ssSetNumOutputPorts(S, 9)) return;
     ssSetOutputPortWidth(S, 0, 2);   /* force   */
     ssSetOutputPortWidth(S, 1, 5);   /* status  */
     ssSetOutputPortWidth(S, 2, 1);   /* word    */
     ssSetOutputPortWidth(S, 3, 45);  /* target  */
     ssSetOutputPortWidth(S, 4, 1);   /* reward  */
-    ssSetOutputPortWidth(S, 5, 2);   /* tone    */
-    ssSetOutputPortWidth(S, 6, 4);   /* version */
-    ssSetOutputPortWidth(S, 7, 2);   /* pos     */
+    ssSetOutputPortWidth(S, 5, 1);   /* reward pulse duration */
+    ssSetOutputPortWidth(S, 6, 2);   /* tone    */
+    ssSetOutputPortWidth(S, 7, 4);   /* version */
+    ssSetOutputPortWidth(S, 8, 2);   /* pos     */
     
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 7);  /* 0: time of last timer reset 
+    ssSetNumRWork(S, 9);  /* 0: time of last timer reset 
                              1: tone counter (incremented each time a tone is played)
                              2: tone id
 							 3: mastercon version
                              4: bump direction
                              5: bump magnitude   
-                             6: master update counter                        
+                             6: master update counter   
+                             7: minimum distance to reward target
+                             8: duration of movement (for calculating reward length)
                            */
     ssSetNumPWork(S, 1);   /* 0: pointer to databurst array
                             */
@@ -345,6 +382,12 @@ static void mdlInitializeConditions(SimStruct *S)
     
     /* set the initial last update time to 0 */
     ssSetRWorkValue(S,6,0.0);    
+    
+    /* set minimum distance to reward target to arbitrarily big number */
+    ssSetRWorkValue(S,7,100);
+    
+    /* set duration of movement to zero */
+    ssSetRWorkValue(S,8,0);
 }
 
 /* macro for setting state changed */
@@ -361,6 +404,11 @@ static void mdlInitializeConditions(SimStruct *S)
 static int cursorInTarget(real_T *c, real_T *t)
 {
     return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
+}
+
+static real_T cursorTargetDistance(real_T *c, real_T *t)
+{
+    return ( sqrt( (c[0] - t[0])*(c[0] - t[0]) + (c[1] - t[1])*(c[1] - t[1])) );
 }
 
 #define MDL_UPDATE
@@ -409,7 +457,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     byte *databurst_bump_and_stim;
     byte *databurst_num_targets;
     float *databurst_target_size;
+    float *databurst_abort_distance;
     int databurst_counter;
+    
+    /* distance to reward target */
+    float min_cursor_target_distance;
             
     /******************
      * Initialization *
@@ -467,6 +519,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         ft[4*i+3] = target_radius*sin(bump_direction+PI+(1+i)*2*PI/num_outer_targets) - target_size/2;   
     }
     
+    min_cursor_target_distance = min(ssGetRWorkValue(S, 7),cursorTargetDistance(cursor,rt));
+    
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 7);
     databurst = ssGetPWorkValue(S, 0);
@@ -476,6 +530,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     databurst_bump_and_stim = (int *)(databurst_bump_mag + 1);
     databurst_num_targets = (int *)(databurst_bump_and_stim + 1);
     databurst_target_size = (float *)(databurst_num_targets + 1);
+    databurst_abort_distance = (float *)(databurst_target_size + 1);
     
     /*********************************
      * See if we have issued a reset *  
@@ -536,6 +591,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             bump_delay_l = param_bump_delay_l;
             bump_delay_h = param_bump_delay_h;
+            
+            abort_distance = param_abort_distance;
+            
+            reward_min = param_reward_min;
+            reward_max = param_reward_max;
             
             /* decide if it is a training trial */
             training_mode = (UNI<pct_training_trials) ? 1 : 0;
@@ -619,9 +679,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	        } else {
 	            bump_delay = bump_delay_l + (bump_delay_h - bump_delay_l)*UNI;
 	        }
+            
+            /* reset minimum distance to arbitrarily big number */
+            min_cursor_target_distance = 100;
+            ssSetRWorkValue(S,7,min_cursor_target_distance);
 	        
 			/* Setup the databurst */
-			databurst[0] = 6+1+4*sizeof(float)+2 + sizeof(float);
+			databurst[0] = 6+1+4*sizeof(float)+ 2 + 2*sizeof(float);
             databurst[1] = DATABURST_VERSION;
 			databurst[2] = BEHAVIOR_VERSION_MAJOR;
 			databurst[3] = BEHAVIOR_VERSION_MINOR;
@@ -636,7 +700,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             databurst_bump_mag[0] = bump_magnitude;
             databurst_bump_and_stim[0] = (int)bump_and_stim;            
             databurst_num_targets[0] = num_outer_targets;
-            databurst_target_size[0] = target_size;            
+            databurst_target_size[0] = target_size;        
+            databurst_abort_distance[0] = abort_distance;
             
 			/* clear the counters */
             ssSetIWorkValue(S, 7, 0); /* Databurst counter */
@@ -664,7 +729,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         case STATE_CENTER_HOLD:
             /* center hold */
             if (!cursorInTarget(cursor, ct)) {
-                new_state = STATE_ABORT;
+                new_state = STATE_LEAVE_CT;
                 reset_timer(); /* abort timeout */
                 state_changed();
             } else if (elapsed_timer_time > center_hold) {
@@ -672,6 +737,18 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 reset_timer(); /* delay timer */
                 state_changed();
             } 
+            break;
+        case STATE_LEAVE_CT:
+            /* left CT before go cue */
+            if (min_cursor_target_distance < abort_distance*target_radius) {
+                new_state = STATE_ABORT;
+                reset_timer(); /* abort timeout */
+                state_changed();
+            } else {
+                new_state = STATE_FAIL;
+                reset_timer(); /* fail timeout */
+                state_changed();
+            }
             break;
         case STATE_GO_CUE:
             /* stimulation */              
@@ -744,6 +821,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             } 
 			if (cursorInTarget(cursor, rt)) {
 				new_state = STATE_REWARD;
+                ssSetRWorkValue(S,8,elapsed_timer_time);
                 reset_timer(); /* reward timeout */
                 state_changed();			
 			} else if (cursor_in_fail_targets) {			
@@ -818,6 +896,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T rt_type;   /* type of reward outer target 0=invisible 1=red square 2=lightning bolt (?) */
     real_T ft_type;   /* type of fail outer target 0=invisible 1=red square 2=lightning bolt (?) */
     real_T bump_direction;
+    real_T reward_duration; /* length of reward pulse depending on movement time */
+    real_T movement_time;
     
     /* get trial type */
     int training_mode;
@@ -854,6 +934,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *tone_p;
     real_T *version_p;
     real_T *pos_p;
+    real_T *reward_duration_p;
     
     /* get current state */
     real_T *state_r = ssGetRealDiscStates(S);
@@ -866,6 +947,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     training_mode = ssGetIWorkValue(S,6);
     num_outer_targets = param_num_outer_targets;
     go_tone_on_bump = param_go_tone_on_bump;
+    movement_time = param_movement_time;
             
     /* bump parameters */
     bump_magnitude = ssGetRWorkValue(S,5);
@@ -980,6 +1062,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_ORIGIN_ON:
                 word = WORD_CT_ON;
                 break;
+            case STATE_LEAVE_CT:
+                word = WORD_LEAVE_CT;
+                break;
             case STATE_GO_CUE:
                 word = WORD_STIM(stim_code);
                 break; 
@@ -1078,6 +1163,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         reward = 0;
     }
     
+    /* calculate reward_duration */
+    reward_duration = ssGetRWorkValue(S,8)*(reward_min-reward_max)/movement_time+reward_max;
+    
     /* tone (5) */
     if (new_state) {
         if (state == STATE_ABORT || state == STATE_FAIL) {
@@ -1135,18 +1223,21 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     reward_p = ssGetOutputPortRealSignal(S,4);
     reward_p[0] = reward;
     
-    tone_p = ssGetOutputPortRealSignal(S,5);
+    reward_duration_p = ssGetOutputPortRealSignal(S,5);
+    reward_duration_p[0] = reward_duration;
+    
+    tone_p = ssGetOutputPortRealSignal(S,6);
     tone_p[0] = tone_cnt;
     tone_p[1] = tone_id;
     ssSetRWorkValue(S, 1, tone_cnt);
     ssSetRWorkValue(S, 2, tone_id);
     
-    version_p = ssGetOutputPortRealSignal(S,6);
+    version_p = ssGetOutputPortRealSignal(S,7);
     for (i=0; i<4; i++) {
         version_p[i] = version[i];
     }
     
-    pos_p = ssGetOutputPortRealSignal(S,7);
+    pos_p = ssGetOutputPortRealSignal(S,8);
     pos_p[0] = pos_x;
     pos_p[1] = pos_y;
 

@@ -25,7 +25,7 @@
 #define BEHAVIOR_VERSION_MAJOR 2
 #define BEHAVIOR_VERSION_MINOR 8
 #define BEHAVIOR_VERSION_MICRO 491
-#define BEHAVIOR_VERSION_BUILD 976
+#define BEHAVIOR_VERSION_BUILD 977
 
 #ifndef __BUILD_UPDATED__
 #error This project must be built from the build script. 
@@ -105,6 +105,9 @@
 #define WORD_OT_ON(t) ( 0x40 | (t) )
 #define WORD_DESTINATION_TARGET_ON 0x40
 #define WORD_GADGET_ON(g) ( 0x40 | (g) )
+
+/* for bump choice behavior, before abort or fail decided */
+#define WORD_LEAVE_CT 0x40
 
 /* The meaning of d in the WORD_BUMP macro depends on context.
  * In CO: d is the direction of the bump, where the direction is 
