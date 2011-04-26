@@ -520,6 +520,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     }
     
     min_cursor_target_distance = min(ssGetRWorkValue(S, 7),cursorTargetDistance(cursor,rt));
+    ssSetRWorkValue(S,7,min_cursor_target_distance);
     
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S, 7);
@@ -727,6 +728,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             break;
         case STATE_CENTER_HOLD:
+            /* reset minimum distance to arbitrarily big number */
+            min_cursor_target_distance = 100;
+            ssSetRWorkValue(S,7,min_cursor_target_distance);
+            
             /* center hold */
             if (!cursorInTarget(cursor, ct)) {
                 new_state = STATE_LEAVE_CT;
@@ -740,14 +745,19 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_LEAVE_CT:
             /* left CT before go cue */
-            if (min_cursor_target_distance < abort_distance*target_radius) {
-                new_state = STATE_ABORT;
-                reset_timer(); /* abort timeout */
-                state_changed();
-            } else {
-                new_state = STATE_FAIL;
-                reset_timer(); /* fail timeout */
-                state_changed();
+            if (elapsed_timer_time > movement_time || cursorInTarget(cursor, rt) || cursorInTarget(cursor, ft)) {
+                min_cursor_target_distance = ssGetRWorkValue(S,7);
+                abort_distance = param_abort_distance;
+                target_radius = param_target_radius;
+                if (min_cursor_target_distance < abort_distance*target_radius) {
+                    new_state = STATE_ABORT;
+                    reset_timer(); /* abort timeout */
+                    state_changed();
+                } else {
+                    new_state = STATE_FAIL;
+                    reset_timer(); /* fail timeout */
+                    state_changed();
+                }
             }
             break;
         case STATE_GO_CUE:

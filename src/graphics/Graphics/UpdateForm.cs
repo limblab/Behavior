@@ -455,13 +455,14 @@ namespace BehaviorGraphics
             AddParamListItem("BC Bump Delay Low", "P24", "Behavior BC", this.textBoxBCBDL);
             AddParamListItem("BC Bump Delay High", "P25", "Behavior BC", this.textBoxBCBDH);
 
-            // Reward minimum and maximum
-            AddParamListItem("BC Reward Min", "P26", "Behavior BC", this.textBoxBCRewardMin);
-            AddParamListItem("BC Reward Max", "P27", "Behavior BC", this.textBoxBCRewardMax);
-
             // Abort/fail distance to target
-            AddParamListItem("BC Abort Distance", "P28", "Behavior BC", this.textBoxBCAbortDistance);
+            AddParamListItem("BC Abort Distance", "P26", "Behavior BC", this.textBoxBCAbortDistance);
 
+            // Reward minimum and maximum
+            AddParamListItem("BC Reward Min", "P27", "Behavior BC", this.textBoxBCRewardMin);
+            AddParamListItem("BC Reward Max", "P28", "Behavior BC", this.textBoxBCRewardMax);
+
+            
             #endregion
 
             #region Visual Search
@@ -2057,13 +2058,6 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
-
-        private void radioButtonBCRandomTargets_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
- 
 
        
       
