@@ -122,7 +122,7 @@ static real_T center_hold_l = 0.5; /* shortest delay between entry of ct and bum
 #define param_center_hold_l mxGetScalar(ssGetSFcnParam(S,9))
 static real_T center_hold_h = 1.0; /* longest delay between entry of ct and bump/stim */ 
 #define param_center_hold_h mxGetScalar(ssGetSFcnParam(S,10))
-static real_T movement_time = 10;  /* movement time */
+static real_T movement_time = 1.0;  /* movement time */
 #define param_movement_time mxGetScalar(ssGetSFcnParam(S,11))
 
 #define param_intertrial mxGetScalar(ssGetSFcnParam(S,12)) /* time between trials*/
@@ -764,7 +764,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* stimulation */              
             /* cursor in fail targets */
             cursor_in_fail_targets = 0;
-            for (i=0 ; i<num_outer_targets ; i++){
+            for (i=0 ; i<num_outer_targets-1 ; i++){
                 ft_temp[0] = ft[4*i];
                 ft_temp[1] = ft[4*i+1];
                 ft_temp[2] = ft[4*i+2];
@@ -792,7 +792,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* handle bump */              
             /* cursor in fail targets */
             cursor_in_fail_targets = 0;
-            for (i=0 ; i<num_outer_targets ; i++){
+            for (i=0 ; i<num_outer_targets-1 ; i++){
                 ft_temp[0] = ft[4*i];
                 ft_temp[1] = ft[4*i+1];
                 ft_temp[2] = ft[4*i+2];
@@ -820,7 +820,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* movement phase */
             /* cursor in fail targets */
             cursor_in_fail_targets = 0;
-            for (i=0 ; i<num_outer_targets ; i++){
+            for (i=0 ; i<num_outer_targets-1 ; i++){
                 ft_temp[0] = ft[4*i];
                 ft_temp[1] = ft[4*i+1];
                 ft_temp[2] = ft[4*i+2];
@@ -992,6 +992,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     rt[2] = target_radius*cos(bump_direction+PI) + target_size/2;
     rt[3] = target_radius*sin(bump_direction+PI) - target_size/2;
 
+    for (i=0 ; i<32 ; i++)
+        ft[i] = 0;
+    
     for (i=0 ; i<num_outer_targets-1 ; i++) {
         ft[i*4] = target_radius*cos(bump_direction+PI+(1+i)*2*PI/num_outer_targets) - target_size/2; /* fail target */
         ft[i*4+1] = target_radius*sin(bump_direction+PI+(1+i)*2*PI/num_outer_targets) + target_size/2;
@@ -1156,7 +1159,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             target_pos[i+6] = rt[i];
         }
         if (!training_mode) {
-            for (i=0 ; i<num_outer_targets ; i++){
+            for (i=0 ; i<num_outer_targets-1 ; i++){
                 target_pos[i*5+10] = 2;
                 target_pos[i*5+11] = ft[i*4];
                 target_pos[i*5+12] = ft[i*4+1];
