@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1261"
+    ComputedModelVersion    "1.1263"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "ricardo"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Apr 25 17:27:48 2011"
-  ModelVersionFormat	  "1.%<AutoIncrement:1261>"
+  LastModifiedDate	  "Thu Jun 30 13:26:05 2011"
+  ModelVersionFormat	  "1.%<AutoIncrement:1263>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -834,7 +834,7 @@ Model {
   }
   System {
     Name		    "bump_choice"
-    Location		    [-1278, 78, -2, 987]
+    Location		    [-128, 50, 880, 760]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -2584,6 +2584,7 @@ Model {
       Position		      [530, 165, 580, 195]
       CloseFcn		      "tagdialog Close"
       GotoTag		      "Offsets"
+      TagVisibility	      "global"
     }
     Block {
       BlockType		      Goto
@@ -2618,8 +2619,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[4, 82, 1276, 884]
-	Open			off
+	Location		[4, 82, 1008, 722]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2714,7 +2715,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Force/Torque Transform"
-	    Location		    [2, 82, 1270, 978]
+	    Location		    [2, 82, 1006, 739]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -2872,6 +2873,7 @@ Model {
 	  BlockType		  Gain
 	  Name			  "MG2"
 	  Position		  [725, 380, 795, 410]
+	  Gain			  "0.7752"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
