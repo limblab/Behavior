@@ -15,8 +15,8 @@
 
 #define PI (3.141592654)
 
-#define beg_window (0.4)
-#define end_window (0.6)
+#define beg_window (0.3)
+#define end_window (0.7)
 
 /* 
  * Current Databurst version: 0
@@ -66,7 +66,7 @@ typedef unsigned char byte;
 /*
  * Until we implement tunable parameters, these will act as defaults
  */
-static real_T num_targets = 8;      /* number of peripheral targets */
+static real_T num_targets = 1;      /* number of peripheral targets */
 #define param_num_targets mxGetScalar(ssGetSFcnParam(S,0))
 static real_T target_radius = 15.0; /* radius of target circle in cm */
 #define param_target_radius mxGetScalar(ssGetSFcnParam(S,1))
@@ -361,8 +361,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int tmp_tgts[256];
     int tmp_bump[256];
     int tmp_sort[256];
-	int tmp_dist[256];
-	int tmp_dist_sort[256];
+	//int tmp_dist[256];
+	//int tmp_dist_sort[256];
     int i, j, tmp;
 
     int databurst_counter;
@@ -1021,7 +1021,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     version[3] = BEHAVIOR_VERSION_BUILD;
     
     /* pos (7) */
-	if ((state == STATE_GO_CUE || state ==  STATE_BUMP || state == STATE_MOVEMENT) && 
+	if ((state == STATE_MOVEMENT) && 
 		((cos(atan2(cursor[1],cursor[0])-theta)*sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])) > beg_window*target_radius &&
 		(cos(atan2(cursor[1],cursor[0])-theta)*sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])) < end_window*target_radius)) {
 		/* We are inside the blocking window */
