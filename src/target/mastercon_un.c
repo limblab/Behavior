@@ -476,8 +476,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             delay_bumps = (int)param_delay_bumps;
 
-			beg_window = param_beg_window;
-			end_window = param_end_window;
+			//beg_window = param_beg_window;
+			//end_window = param_end_window;
 			            
             /* see if mode has changed.  If so we need a reset. */
             if (mode != param_mode) {
