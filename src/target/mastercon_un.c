@@ -46,6 +46,7 @@
  * bytes 30 to 33: float => displacement
  * bytes 34 to 37: float => displacement distribution mean
  * bytes 38 to 41: float => displacement distribution variance
+*/
 
 typedef unsigned char byte;
 #define DATABURST_VERSION (0x00) 
@@ -349,10 +350,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T cursor_old[2];
 	real_T cursor[2];
     real_T elapsed_timer_time;
-	real_T displace;
-	real_T dx;
-	real_T dy;
 	real_T rad_d;
+    real_T displace,w,x1,x2;
 
     int reset_block = 0;
         
@@ -367,6 +366,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     float *databurst_offsets;
     float *databurst_target_list;
     float *databurst_distribution;
+    float *databurst_displacement;
 
     /******************
      * Initialization *
@@ -415,7 +415,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
 	/* get displaced cursor location */
 
-	displace = ssGetRWorkVector(S,5);
+	displace = ssGetRWorkValue(S,5);
 	
 	rad_d = sqrt(cursor_old[0]*cursor_old[0] + cursor_old[1]*cursor_old[1]);
 	
@@ -500,15 +500,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			w = 1.0;
             for (i=0; i<100; i++) {
                if (w >= 1.0) {
-                  x1 = 2.0 * ((double)rand())/((double)RAND_MAX) - 1.0;
-                  x2 = 2.0 * ((double)rand())/((double)RAND_MAX) - 1.0;
+                  x1 = 2.0 * ((float)rand())/((float)RAND_MAX) - 1.0;
+                  x2 = 2.0 * ((float)rand())/((float)RAND_MAX) - 1.0;
                   w = x1 * x1 + x2 * x2;
                }
             }
 
             w = sqrt( (-2.0 * log( w ) ) / w );
 			displace = displacement_mean + x1*w*displacement_var;
-			ssSetRWorkVector(S,5,displace);
+			ssSetRWorkValue(S,5,displace);
 
             /* see if mode has changed.  If so we need a reset. */
             if (mode != param_mode) {
@@ -613,7 +613,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 set_catch_trial(0.0);
             }
             
-            
             /* Setup the databurst */
             databurst[0] = 6+2*sizeof(float)+ 7*sizeof(float);
             databurst[1] = DATABURST_VERSION;
@@ -629,7 +628,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             for (i = 0; i < 4; i++) {
                 databurst_target_list[i] = (float)ot[i];
             }
-            databurst_displacement = displace;
+            databurst_displacement[0] = displace;
 			databurst_distribution[0] = displacement_mean;
 			databurst_distribution[1] = displacement_var;
 
@@ -792,8 +791,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T theta;
     real_T ct[4];
     real_T ot[4];
+    real_T displace, rad_d;
     
     InputRealPtrsType uPtrs;
+    real_T cursor_old[2];
     real_T cursor[2];
     real_T force_in[2];
     real_T catch_force_in[2];
@@ -843,7 +844,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* get target bounds */
 	if (num_targets == 1) {
-		theta == 0;
+		theta = 0;
 	} else {
 		theta = PI/2 - target*2*PI/num_targets;
 	}
@@ -862,7 +863,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     cursor_old[0] = *uPtrs[0];
     cursor_old[1] = *uPtrs[1];
 	
-	displace = ssGetRWorkVector(S,5);
+	displace = ssGetRWorkValue(S,5);
 	
 	rad_d = sqrt(cursor_old[0]*cursor_old[0] + cursor_old[1]*cursor_old[1]);
 	
