@@ -488,6 +488,41 @@ namespace BehaviorGraphics
             AddParamListItem("VSTS", "P3", "Behavior VS", this.textBoxVSTS);
             #endregion
 
+            #region Uncertainty
+            /* 
+             * Uncertainty Parameters 
+             */
+
+            // Uncertainty timing
+            AddParamListItem("UCHL", "P4", "Behavior Un", this.textBoxUCHL);
+            AddParamListItem("UCHH", "P5", "Behavior Un", this.textBoxUCHH);
+            AddParamListItem("UDL", "P6", "Behavior Un", this.textBoxUDL);
+            AddParamListItem("UDH", "P7", "Behavior Un", this.textBoxUDH);
+            AddParamListItem("UMT", "P8", "Behavior Un", this.textBoxUMT);
+            AddParamListItem("UOHL", "P9", "Behavior Un", this.textBoxUOHL);
+            AddParamListItem("UOHH", "P10", "Behavior Un", this.textBoxUOHH);
+            AddParamListItem("UIT", "P11", "Behavior Un", this.textBoxUID);
+
+            // Uncertainty forces
+            AddParamListItem("UBump Duration", "P15", "Behavior Un", this.textBoxUBumpDuration);
+            AddParamListItem("UBump Amplitude", "P14", "Behavior Un", this.textBoxUBumpMag);
+            AddParamListItem("UCatch Trials Pct", "P12", "Behavior Un", this.textBoxUCatchPct);
+            AddParamListItem("UDelay Bumps", "P17", "Behavior Un", this.checkBoxUDelayBumps);
+
+            // Uncertainty targets
+            AddParamListItem("Un Num Targets", "P1", "Behavior Un", this.numericUUpDownNumTgts);
+            AddParamListItem("Un Target Radius", "P2", "Behavior Un", this.textBoxUTgtRadius);
+            AddParamListItem("Un Target Size", "P3", "Behavior Un", this.textBoxUTgtSize);
+            AddParamListItem("Un Idiot Mode", "P16", "Behavior Un", this.checkBoxUIdiot);
+
+            // Uncertainty Misc
+            AddParamListItem("Un Disp Mean", "P18", "Behavior Un", this.textBoxUDispMean);
+            AddParamListItem("Un Disp Var", "P19", "Behavior Un", this.textBoxUDispVar);
+            AddParamListItem("Un Block Win Start", "P20", "Behavior Un", this.textBoxUBlockWinStart);
+            AddParamListItem("Un Block Win End", "P21", "Behavior Un", this.textBoxUBlockWinEnd);
+
+            #endregion
+
             #region Bump-follow
             /* 
              * Bump-follow Parameters 
@@ -1077,6 +1112,8 @@ namespace BehaviorGraphics
                     paramID = target.GetParamIdx("Behavior BF", "P1");
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior 2AFC", "P1");
+                if (paramID < 0)
+                    paramID = target.GetParamIdx("Behavior Un", "P22");
 
                 /* send the flag */
                 if (paramID >= 0) {
@@ -2058,8 +2095,6 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
-
-       
       
     }
 
