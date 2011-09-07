@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1308"
+    ComputedModelVersion    "1.1309"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Aug 31 17:30:55 2011"
-  ModelVersionFormat	  "1.%<AutoIncrement:1308>"
+  LastModifiedDate	  "Wed Sep 07 10:23:38 2011"
+  ModelVersionFormat	  "1.%<AutoIncrement:1309>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -693,9 +693,6 @@ Model {
       OutPortSampleTime	      "-1"
     }
     Block {
-      BlockType		      Reference
-    }
-    Block {
       BlockType		      RelationalOperator
       Operator		      ">="
       InputSameDT	      on
@@ -836,7 +833,7 @@ Model {
   }
   System {
     Name		    "uncertainty"
-    Location		    [207, 154, 1194, 804]
+    Location		    [218, 154, 1205, 804]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -852,13 +849,13 @@ Model {
     ReportName		    "simulink-default.rpt"
     Block {
       BlockType		      "S-Function"
-      Name		      "Behavior CO"
+      Name		      "Behavior Un"
       Ports		      [4, 8]
       Position		      [535, 73, 760, 407]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_un"
       Parameters	      "8 10 2.5 1 1 .5 1.5 .75 .25 1 1 10 1 .02 125 1 "
-"0 0"
+"0 0 2 0.4 0.6 0 "
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'pos offsets')\nport_label('input',3,'force')\npor"
 "t_label('input',4,'catch force')\nport_label('output',1,'force')\nport_label("
@@ -1496,7 +1493,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData "off"
+	      FunctionWithSeparateData off
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1513,7 +1510,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData "off"
+	      FunctionWithSeparateData off
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1530,7 +1527,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData "off"
+	      FunctionWithSeparateData off
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1547,7 +1544,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData "off"
+	      FunctionWithSeparateData off
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -2592,7 +2589,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData "off"
+	      FunctionWithSeparateData off
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -2609,7 +2606,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData "off"
+	      FunctionWithSeparateData off
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -2626,7 +2623,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData "off"
+	      FunctionWithSeparateData off
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -2643,7 +2640,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData "off"
+	      FunctionWithSeparateData off
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -5891,10 +5888,10 @@ Model {
 	  Ports			  [2, 1]
 	  Position		  [410, 220, 515, 275]
 	  SourceBlock		  "limblab/Timer"
-	  SourceType		  "Unknown"
+	  SourceType		  ""
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData "off"
+	  FunctionWithSeparateData off
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -8296,7 +8293,7 @@ Model {
 	      Ports		      [3, 1]
 	      Position		      [610, 315, 710, 525]
 	      SourceBlock	      "limblab/SerialConverter"
-	      SourceType	      "Unknown"
+	      SourceType	      ""
 	    }
 	    Block {
 	      BlockType		      Switch
@@ -8312,7 +8309,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [860, 310, 915, 525]
 	      SourceBlock	      "limblab/ToBits"
-	      SourceType	      "Unknown"
+	      SourceType	      ""
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -8320,7 +8317,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [840, 635, 890, 830]
 	      SourceBlock	      "limblab/ToBits"
-	      SourceType	      "Unknown"
+	      SourceType	      ""
 	    }
 	    Block {
 	      BlockType		      SubSystem
@@ -9747,7 +9744,7 @@ Model {
 	      }
 	      Branch {
 		Points			[0, -185]
-		DstBlock		"Behavior CO"
+		DstBlock		"Behavior Un"
 		DstPort			1
 	      }
 	    }
@@ -9756,19 +9753,19 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "Behavior CO"
+      SrcBlock		      "Behavior Un"
       SrcPort		      2
       DstBlock		      "Status"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Behavior CO"
+      SrcBlock		      "Behavior Un"
       SrcPort		      3
       DstBlock		      "WordSbs"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Behavior CO"
+      SrcBlock		      "Behavior Un"
       SrcPort		      4
       Points		      [110, 0]
       Branch {
@@ -9782,14 +9779,14 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "Behavior CO"
+      SrcBlock		      "Behavior Un"
       SrcPort		      1
       Points		      [430, 0; 0, 345; -250, 0; 0, 85]
       DstBlock		      "Motor Control"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Behavior CO"
+      SrcBlock		      "Behavior Un"
       SrcPort		      5
       DstBlock		      "RewardSbs"
       DstPort		      1
@@ -9849,20 +9846,20 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Behavior CO"
+      SrcBlock		      "Behavior Un"
       SrcPort		      7
       DstBlock		      "Version Display"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Behavior CO"
+      SrcBlock		      "Behavior Un"
       SrcPort		      8
       Points		      [295, 0; 0, -50]
       DstBlock		      "UDPXmit"
       DstPort		      3
     }
     Line {
-      SrcBlock		      "Behavior CO"
+      SrcBlock		      "Behavior Un"
       SrcPort		      6
       DstBlock		      "UDPXmit"
       DstPort		      2
@@ -9876,19 +9873,19 @@ Model {
     Line {
       SrcBlock		      "Force Generator"
       SrcPort		      1
-      DstBlock		      "Behavior CO"
+      DstBlock		      "Behavior Un"
       DstPort		      3
     }
     Line {
       SrcBlock		      "Catch Force Generator"
       SrcPort		      1
-      DstBlock		      "Behavior CO"
+      DstBlock		      "Behavior Un"
       DstPort		      4
     }
     Line {
       SrcBlock		      "From"
       SrcPort		      1
-      DstBlock		      "Behavior CO"
+      DstBlock		      "Behavior Un"
       DstPort		      2
     }
   }
