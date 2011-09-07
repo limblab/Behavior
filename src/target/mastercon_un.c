@@ -15,9 +15,6 @@
 
 #define PI (3.141592654)
 
-#define beg_window (0.3)
-#define end_window (0.7)
-
 /* 
  * Current Databurst version: 0
  *
@@ -28,20 +25,8 @@
  *
  * Databurst version descriptions
  * ==============================
- *
+  *
  * Version 0 (0x00)
- * ----------------
-
- * byte   0: uchar => number of bytes to be transmitted
- * byte   1: uchar => databurst version number (in this case one)
- * byte   2: uchar => model version major
- * byte   3: uchar => model version minor
- * bytes  4 to  5: short => model version micro
- * bytes  6 to  9: float => x offset
- * bytes 10 to 13: float => y offset
- *
- *
- * Version 1 (0x01)
  * ----------------
  * byte   0: uchar => number of bytes to be transmitted
  * byte   1: uchar => databurst version number (in this case one)
@@ -58,15 +43,17 @@
  *      in normal behavior.
  *
  *      In MVC mode, the current value of the MVC target is provided in the databurst
- */
+ * bytes 30 to 33: float => displacement
+ * bytes 34 to 37: float => displacement distribution mean
+ * bytes 38 to 41: float => displacement distribution variance
 
 typedef unsigned char byte;
-#define DATABURST_VERSION (0x01) 
+#define DATABURST_VERSION (0x00) 
 
 /*
  * Until we implement tunable parameters, these will act as defaults
  */
-static real_T num_targets = 1;      /* number of peripheral targets */
+static real_T num_targets = 8;      /* number of peripheral targets */
 #define param_num_targets mxGetScalar(ssGetSFcnParam(S,0))
 static real_T target_radius = 15.0; /* radius of target circle in cm */
 #define param_target_radius mxGetScalar(ssGetSFcnParam(S,1))
@@ -123,21 +110,23 @@ static int bump_duration;
 #define param_idiot_mode mxGetScalar(ssGetSFcnParam(S,15))
 static int idiot_mode;
 
-static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,16))
-
 static int delay_bumps = 0;
-#define param_delay_bumps mxGetScalar(ssGetSFcnParam(S,17))
+#define param_delay_bumps mxGetScalar(ssGetSFcnParam(S,16))
 
-//static real_T beg_window = 0.4;   /* start of blocking window in fraction of target radius */
-//#define param_beg_window mxGetScalar(ssGetSFcnParam(S,18))
-//static real_T end_window = 0.6;   /* end of blocking window in fraction of target radius */
-//#define param_end_window mxGetScalar(ssGetSFcnParam(S,19))
-//static real_T displacement_mean = 0;
-//#define param_displacement_mean mxGetScalar(ssGetSFcnParam(S,20))
-//static real_T displacement_var = 2;
-//#define param_displacement_var mxGetScalar(ssGetSFcnParam(S,21))
+static real_T displacement_mean = 0;
+#define param_displacement_mean mxGetScalar(ssGetSFcnParam(S,17))
 
+static real_T displacement_var = 2;
+#define param_displacement_var mxGetScalar(ssGetSFcnParam(S,18))
+
+static real_T beg_window = 0.4;   /* start of blocking window in fraction of target radius */
+#define param_beg_window mxGetScalar(ssGetSFcnParam(S,19))
+
+static real_T end_window = 0.6;   /* end of blocking window in fraction of target radius */
+#define param_end_window mxGetScalar(ssGetSFcnParam(S,20))
+
+static real_T master_reset = 0.0;
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,21))
 
 /*
  * State IDs
@@ -185,17 +174,19 @@ static void mdlCheckParameters(SimStruct *S)
     
     delay_bumps = (int)param_delay_bumps;	
 	
-	//beg_window = param_beg_window;
-	//end_window = param_end_window;
-	//displacement_mean = param_displacement_mean;
-	//displacement_var = param_displacement_var;
+	displacement_mean = param_displacement_mean;
+	displacement_var = param_displacement_var;	
+	
+	beg_window = param_beg_window;
+	end_window = param_end_window;
+
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 18); 
+    ssSetNumSFcnParams(S, 22); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -253,11 +244,12 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 5);  /* 0: time of last timer reset 
+    ssSetNumRWork(S, 6);  /* 0: time of last timer reset 
                              1: tone counter (incremented each time a tone is played)
                              2: tone id
                              3: catch trial (1 for yes, 0 for no)
                              4: mastercon version
+							 5: displacement (cm for 1 target, rad for >1 target)
                            */
     ssSetNumPWork(S, 0);
     ssSetNumIWork(S, 586); /*    0: state_transition (true if state changed), 
@@ -336,6 +328,24 @@ static int cursorInTarget(real_T *c, real_T *t)
     return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
 }
 
+static real_T rand_norm(real_T *mu, real_T *sigma)
+{
+	real_T fac;
+	real_T rsq;
+	real_T v1;
+	real_T v2;
+
+	do {
+		v1 = 2.0*UNI-1.0;
+		v2 = 2.0*UNI-1.0;
+		rsq = v1*v1+v2*v2;
+	} while (rsq >= 1.0 || rsq == 0.0);
+		
+	fac = sqrt(-2.0*log(rsq)/rsq);
+	return sigma*v2*fac + mu;
+
+} 
+
 #define MDL_UPDATE
 static void mdlUpdate(SimStruct *S, int_T tid) 
 {
@@ -353,23 +363,28 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T ct[4];
     real_T ot[4];
     InputRealPtrsType uPtrs;
-    real_T cursor[2];
+    real_T cursor_old[2];
+	real_T cursor[2];
     real_T elapsed_timer_time;
+	real_T displace;
+	real_T dx;
+	real_T dy;
+	real_T rad_d;
+
     int reset_block = 0;
         
     /* block initialization working variables */
     int tmp_tgts[256];
     int tmp_bump[256];
     int tmp_sort[256];
-	//int tmp_dist[256];
-	//int tmp_dist_sort[256];
     int i, j, tmp;
 
     int databurst_counter;
     byte *databurst;
     float *databurst_offsets;
     float *databurst_target_list;
-    
+    float *databurst_distribution;
+
     /******************
      * Initialization *
      ******************/
@@ -381,8 +396,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
-    cursor[0] = *uPtrs[0];
-    cursor[1] = *uPtrs[1];
+    cursor_old[0] = *uPtrs[0];
+    cursor_old[1] = *uPtrs[1];
 
     /* current target number */
     IWorkVector = ssGetIWork(S);
@@ -400,7 +415,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
     
     /* get target bounds */
-    theta = PI/2 - target*2*PI/num_targets;
+	if (num_targets == 1) {
+		theta = 0;
+	} else {
+		theta = PI/2 - target*2*PI/num_targets;
+	}
     ct[0] = -target_size/2;
     ct[1] = target_size/2;
     ct[2] = target_size/2;
@@ -411,9 +430,20 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     ot[2] = cos(theta)*target_radius+target_size/2;
     ot[3] = sin(theta)*target_radius-target_size/2;
 
+	/* get displaced cursor location */
+
+	displace = ssGetRWorkVector(S,5);
+	
+	rad_d = sqrt(cursor_old[0]*cursor_old[0] + cursor_old[1]*cursor_old[1]);
+	
+	cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
+	cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
+
     databurst = ssGetPWorkValue(S,0);
     databurst_offsets = (float *)(databurst + 6);
     databurst_target_list = databurst_offsets + 2;
+	databurst_displacement = databurst_target_list + 16;
+	databurst_distribution = databurst_displacement + 2;
     databurst_counter = ssGetIWorkValue(S, 585);
      
     /*********************************
@@ -476,9 +506,17 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             delay_bumps = (int)param_delay_bumps;
 
-			//beg_window = param_beg_window;
-			//end_window = param_end_window;
-			            
+			displacement_mean = param_displacement_mean;
+			displacement_var = param_displacement_var;
+			
+			beg_window = param_beg_window;
+			end_window = param_end_window;	            
+
+				
+			/* get displacement of cursor drawn from normal distribution and save to work vector */
+			displace = rand_norm(displacement_mean,displacement_var);
+			ssSetRWorkVector(S,5,displace);
+
             /* see if mode has changed.  If so we need a reset. */
             if (mode != param_mode) {
                 reset_block = 1;
@@ -584,7 +622,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             
             /* Setup the databurst */
-            databurst[0] = 6+2*sizeof(float)+ 4*sizeof(float);
+            databurst[0] = 6+2*sizeof(float)+ 7*sizeof(float);
             databurst[1] = DATABURST_VERSION;
             databurst[2] = BEHAVIOR_VERSION_MAJOR;
             databurst[3] = BEHAVIOR_VERSION_MINOR;
@@ -598,7 +636,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             for (i = 0; i < 4; i++) {
                 databurst_target_list[i] = (float)ot[i];
             }
-            
+            databurst_displacement = displace;
+			databurst_distribution[0] = displacement_mean;
+			databurst_distribution[1] = displacement_var;
+
             /* reset counters */
             ssSetIWorkValue(S, 580, 0); /* clear the bump counter */
             ssSetIWorkValue(S, 585, 0); /* reset the databurst_counter */
@@ -808,7 +849,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_id = ssGetRWorkValue(S, 2);
     
     /* get target bounds */
-    theta = PI/2 - target*2*PI/num_targets;
+	if (num_targets == 1) {
+		theta == 0;
+	} else {
+		theta = PI/2 - target*2*PI/num_targets;
+	}
     ct[0] = -target_size/2;
     ct[1] = target_size/2;
     ct[2] = target_size/2;
@@ -821,8 +866,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
-    cursor[0] = *uPtrs[0];
-    cursor[1] = *uPtrs[1];
+    cursor_old[0] = *uPtrs[0];
+    cursor_old[1] = *uPtrs[1];
+	
+	displace = ssGetRWorkVector(S,5);
+	
+	rad_d = sqrt(cursor_old[0]*cursor_old[0] + cursor_old[1]*cursor_old[1]);
+	
+	cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
+	cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
     
     /* input force */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
