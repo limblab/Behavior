@@ -1,4 +1,4 @@
-/* $Id: mastercon_co.c 619 2010-07-28 19:22:06Z chris $
+/* $Id: mastercon_un.c 619 2011-09-7 19:22:06Z brian d $
  *
  * Master Control block for behavior: uncertainty task 
  */
@@ -10,7 +10,7 @@
 #include <string.h>
 #include "simstruc.h"
 
-#define TASK_CO 1
+#define TASK_UN 1
 #include "words.h"
 
 #define PI (3.141592654)
@@ -328,23 +328,6 @@ static int cursorInTarget(real_T *c, real_T *t)
     return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
 }
 
-static real_T rand_norm(real_T *mu, real_T *sigma)
-{
-	real_T fac;
-	real_T rsq;
-	real_T v1;
-	real_T v2;
-
-	do {
-		v1 = 2.0*UNI-1.0;
-		v2 = 2.0*UNI-1.0;
-		rsq = v1*v1+v2*v2;
-	} while (rsq >= 1.0 || rsq == 0.0);
-		
-	fac = sqrt(-2.0*log(rsq)/rsq);
-	return sigma*v2*fac + mu;
-
-} 
 
 #define MDL_UPDATE
 static void mdlUpdate(SimStruct *S, int_T tid) 
@@ -514,7 +497,17 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
 				
 			/* get displacement of cursor drawn from normal distribution and save to work vector */
-			displace = rand_norm(displacement_mean,displacement_var);
+			w = 1.0;
+            for (i=0; i<100; i++) {
+               if (w >= 1.0) {
+                  x1 = 2.0 * ((double)rand())/((double)RAND_MAX) - 1.0;
+                  x2 = 2.0 * ((double)rand())/((double)RAND_MAX) - 1.0;
+                  w = x1 * x1 + x2 * x2;
+               }
+            }
+
+            w = sqrt( (-2.0 * log( w ) ) / w );
+			displace = displacement_mean + x1*w*displacement_var;
 			ssSetRWorkVector(S,5,displace);
 
             /* see if mode has changed.  If so we need a reset. */
