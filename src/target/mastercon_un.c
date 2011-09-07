@@ -398,7 +398,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
     
     /* get target bounds */
-	if (num_targets == 1) {
+	if ((int)num_targets == 1) {
 		theta = 0;
 	} else {
 		theta = PI/2 - target*2*PI/num_targets;
@@ -417,10 +417,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
 	displace = ssGetRWorkValue(S,5);
 	
-	rad_d = sqrt(cursor_old[0]*cursor_old[0] + cursor_old[1]*cursor_old[1]);
-	
-	cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
-	cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
+	if ((int)num_targets == 1) {
+		cursor[0] = cursor_old[0];
+		cursor[1] = cursor_old[1] + displace;
+	} else {
+		rad_d = sqrt(cursor_old[0]*cursor_old[0] + cursor_old[1]*cursor_old[1]);
+		cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
+		cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
+	}
 
     databurst = ssGetPWorkValue(S,0);
     databurst_offsets = (float *)(databurst + 6);
@@ -428,7 +432,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	databurst_displacement = databurst_target_list + 16;
 	databurst_distribution = databurst_displacement + 2;
     databurst_counter = ssGetIWorkValue(S, 585);
-     
+    
     /*********************************
      * See if we have issued a reset *
      *********************************/
@@ -587,8 +591,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 }
             }
 
-
-            
             /* In all cases, we need to decide on the random timer durations */
             if (center_hold_h == center_hold_l) {
                 center_hold = center_hold_h;
