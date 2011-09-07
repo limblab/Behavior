@@ -25,7 +25,7 @@
 #define BEHAVIOR_VERSION_MAJOR 2
 #define BEHAVIOR_VERSION_MINOR 8
 #define BEHAVIOR_VERSION_MICRO 491
-#define BEHAVIOR_VERSION_BUILD 1006
+#define BEHAVIOR_VERSION_BUILD 1024
 
 #ifndef __BUILD_UPDATED__
 #error This project must be built from the build script. 
@@ -56,8 +56,9 @@
 #define WORD_TASK_CODE 0x0C
 #elif TASK_2AFC
 #define WORD_TASK_CODE 0x0D
+#elif TASK_UN
+#define WORD_TASK_CODE 0x0E
 #endif
-
 
 /* trial start */
 #define WORD_START_TRIAL_GENERIC 0x10
