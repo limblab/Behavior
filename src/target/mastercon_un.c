@@ -845,7 +845,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_id = ssGetRWorkValue(S, 2);
     
     /* get target bounds */
-	if (num_targets == 1) {
+	if ((int)num_targets == 1) {
 		theta = 0;
 	} else {
 		theta = PI/2 - target*2*PI/num_targets;
@@ -869,8 +869,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	
 	rad_d = sqrt(cursor_old[0]*cursor_old[0] + cursor_old[1]*cursor_old[1]);
 	
-	cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
-	cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
+	if ((int)num_targets == 1) {
+		cursor[0] = cursor_old[0];
+		cursor[1] = cursor_old[1] + displace;
+	} else {
+		cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
+		cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);
+	}
     
     /* input force */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
@@ -1069,18 +1074,29 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     version[3] = BEHAVIOR_VERSION_BUILD;
     
     /* pos (7) */
-	if ((state == STATE_MOVEMENT) && 
-		((cos(atan2(cursor[1],cursor[0])-theta)*sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])) > beg_window*target_radius &&
-		(cos(atan2(cursor[1],cursor[0])-theta)*sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])) < end_window*target_radius)) {
-		/* We are inside the blocking window */
-		pos_x = 1E6;
-		pos_y = 1E6;
+	if ((int)num_targets == 1) {
+		if ((state == STATE_MOVEMENT) && (cursor[0] > beg_window*target_radius)) {
+			/* We are inside the blocking window for the 1 target (1D) case */
+			pos_x = 1E6;
+			pos_y = 1E6;
+		} else {
+			/* We are outside the blocking window for the 1D case */	
+			pos_x = cursor[0];
+			pos_y = cursor[1];
+		} 
 	} else {
-        /* we are outside the blocking window */
-        pos_x = cursor[0];
-        pos_y = cursor[1];
-    }
-    
+		if ((state == STATE_MOVEMENT) && 
+			((cos(atan2(cursor[1],cursor[0])-theta)*sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])) > beg_window*target_radius &&
+			(cos(atan2(cursor[1],cursor[0])-theta)*sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])) < end_window*target_radius)) {
+			/* We are inside the blocking window */
+			pos_x = 1E6;
+			pos_y = 1E6;
+		} else {
+			/* we are outside the blocking window */
+			pos_x = cursor[0];
+			pos_y = cursor[1];
+		}
+	}    
     /**********************************
      * Write outputs back to SimStruct
      **********************************/
