@@ -107,6 +107,12 @@ static real_T percent_catch_trials = 0.0;
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,17))
 
+#define param_disable_abort mxGetScalar(ssGetSFcnParam(S,18))
+static int disable_abort;
+
+#define param_green_hold mxGetScalar(ssGetSFcnParam(S,19))
+static int green_hold;
+
 /*
  * State IDs
  */
@@ -156,6 +162,9 @@ static void mdlCheckParameters(SimStruct *S)
     maximum_distance = param_maximum_distance;
     
     percent_catch_trials = param_percent_catch_trials;
+	
+	disable_abort = (int)param_disable_abort;
+	green_hold = (int)param_green_hold;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
@@ -266,7 +275,9 @@ static void mdlSetWorkWidths(SimStruct *S)
         "MinInterTargetDistance",
         "MaxInterTargetDistance",
         "PctCatchTrials",
-        "MasterReset"
+        "MasterReset",
+		"DisableAbort",
+		"GreenHold"
     };
     ssRegAllTunableParamsAsRunTimeParams(S, param_names);
 }
@@ -294,6 +305,8 @@ static void mdlRTW (SimStruct *S)
     ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"MaxInterTargetDistance",mxGetPr(ssGetSFcnParam(S,15)),1);
     ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"PctCatchTrials",mxGetPr(ssGetSFcnParam(S,16)),1);
     ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"MasterReset",mxGetPr(ssGetSFcnParam(S,17)),1);
+	ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"DisableAbort",mxGetPr(ssGetSFcnParam(S,18)),1);
+    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"GreenHold",mxGetPr(ssGetSFcnParam(S,19)),1);
 }
 #endif
 
@@ -502,6 +515,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             maximum_distance = param_maximum_distance;
             
             percent_catch_trials = param_percent_catch_trials;
+			
+			disable_abort = (int)param_disable_abort;
+			green_hold = (int)param_green_hold;
             
             /* initialize target positions */
             if (maximum_distance==0){     /* random positions */
@@ -598,23 +614,30 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_TARGET_HOLD:
             /* dwell time in target */
-            if (!cursorInTarget(cursor, tgt)) {
+            /* abort disabled, go back to movement */
+            if (!cursorInTarget(cursor, tgt) &&
+				disable_abort) {
+                new_state = STATE_MOVEMENT;
+                reset_timer(); /* abort timeout */
+                state_changed();
+			} else if (!cursorInTarget(cursor, tgt)) {
+				/* abort enabled */
                 new_state = STATE_ABORT;
                 reset_timer(); /* abort timeout */
                 state_changed();
             } else if (elapsed_timer_time > ssGetRWorkValue(S,3)) {
                 /* next state depends on whether there are more targets */
                 if (target_index == (int)num_targets-1) {
-                  /* no more targets */
-                  new_state = STATE_REWARD;
-                  reset_timer(); /* reward timer */
-                  state_changed();
+					/* no more targets */
+					new_state = STATE_REWARD;
+					reset_timer(); /* reward timer */
+					state_changed();
                 } else {
-                  /* more targets */
-                  set_random_delay_time();
-                  new_state = STATE_TARGET_DELAY;
-                  reset_timer(); /* delay timer */
-                  state_changed();                
+					/* more targets */
+					set_random_delay_time();
+					new_state = STATE_TARGET_DELAY;
+					reset_timer(); /* delay timer */
+					state_changed();                
                 }
             }
             break;
@@ -825,6 +848,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                 if (catch_trial_flag) {
                     word = WORD_CATCH;
                 }
+				break;
+			case STATE_TARGET_HOLD:
+				word = WORD_TARGET_HOLD;
+				break;
             case STATE_MOVEMENT:
                 if (catch_trial_flag) {
                     word = WORD_CATCH;
@@ -841,6 +868,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_FAIL:
                 word = WORD_FAIL;
                 break;
+			case STATE_INCOMPLETE:
+				word = WORD_INCOMPLETE;
+				break;
             default:
                 word = 0;
         }
@@ -850,17 +880,23 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     /* target_pos (3) */
-    if ( state == STATE_INITIAL_MOVEMENT || 
-         state == STATE_MOVEMENT || 
-         state == STATE_TARGET_HOLD ||
-         state == STATE_TARGET_DELAY )
-    {
-        /* target on */
+    if (state == STATE_TARGET_HOLD &&
+		green_hold) {
+        /* target green */
+        target_pos[0] = 3;
+        for (i=0; i<4; i++) {
+            target_pos[i+1] = disp_tgt[i];
+        }
+	} else if (state == STATE_INITIAL_MOVEMENT || 
+			   state == STATE_MOVEMENT || 
+			   state == STATE_TARGET_HOLD ||
+			   state == STATE_TARGET_DELAY) {
+        /* target red */
         target_pos[0] = 1;
         for (i=0; i<4; i++) {
             target_pos[i+1] = disp_tgt[i];
         }
-    } else {
+	} else {
         /* target off */
         target_pos[0] = 0;
         for (i=0; i<4; i++) {
