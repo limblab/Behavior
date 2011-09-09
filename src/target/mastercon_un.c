@@ -417,7 +417,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
 	displace = ssGetRWorkValue(S,5);
 	
-	if ((int)num_targets == 1) {
+	if((int)num_targets == 1){
 		cursor[0] = cursor_old[0];
 		cursor[1] = cursor_old[1] + displace;
 	} else {
@@ -1075,10 +1075,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* pos (7) */
 	if ((int)num_targets == 1) {
-		if ((state == STATE_MOVEMENT) && (cursor[0] > beg_window*target_radius)) {
+		if ((state == STATE_MOVEMENT) && ((cursor[0] > beg_window*target_radius)&&(cursor[0] < end_window*target_radius))) {
 			/* We are inside the blocking window for the 1 target (1D) case */
 			pos_x = 1E6;
 			pos_y = 1E6;
+		} else if (cursor[0] < beg_window*target_radius){
+			pos_x = cursor_old[0];
+			pos_y = cursor_old[1];
 		} else {
 			/* We are outside the blocking window for the 1D case */	
 			pos_x = cursor[0];
@@ -1091,6 +1094,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 			/* We are inside the blocking window */
 			pos_x = 1E6;
 			pos_y = 1E6;
+		} else if ((cos(atan2(cursor[1],cursor[0])-theta)*sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])) < (beg_window*target_radius)){
+			pos_x = cursor_old[0];
+			pos_y = cursor_old[1];
 		} else {
 			/* we are outside the blocking window */
 			pos_x = cursor[0];
