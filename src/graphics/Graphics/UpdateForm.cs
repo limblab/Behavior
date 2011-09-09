@@ -228,6 +228,7 @@ namespace BehaviorGraphics
 
             AddParamListItem("RW Disable Abort", "P19", "Behavior RW", this.checkBoxRWDA);
             AddParamListItem("RW Green Targets", "P20", "Behavior RW", this.checkBoxRWGT);
+            AddParamListItem("RW Cumulative Hold", "P21", "Behavior RW", this.checkBoxRWCH);
 
             #endregion
 

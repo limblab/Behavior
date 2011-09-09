@@ -146,6 +146,7 @@ namespace BehaviorGraphics
             this.textBoxCHL = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPageRW = new System.Windows.Forms.TabPage();
+            this.checkBoxRWDA = new System.Windows.Forms.CheckBox();
             this.groupBox30 = new System.Windows.Forms.GroupBox();
             this.textBoxRWLeftTgtBound = new System.Windows.Forms.TextBox();
             this.textBoxRWRightTgtBound = new System.Windows.Forms.TextBox();
@@ -156,6 +157,7 @@ namespace BehaviorGraphics
             this.textBoxRWUpperTgtBound = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.checkBoxRWGT = new System.Windows.Forms.CheckBox();
             this.textBoxRWPctCatchTrials = new System.Windows.Forms.TextBox();
             this.label112 = new System.Windows.Forms.Label();
             this.textBoxRWMaxDistance = new System.Windows.Forms.TextBox();
@@ -722,8 +724,7 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.checkBoxRWDA = new System.Windows.Forms.CheckBox();
-            this.checkBoxRWGT = new System.Windows.Forms.CheckBox();
+            this.checkBoxRWCH = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -2061,6 +2062,7 @@ namespace BehaviorGraphics
             // 
             // tabPageRW
             // 
+            this.tabPageRW.Controls.Add(this.checkBoxRWCH);
             this.tabPageRW.Controls.Add(this.checkBoxRWDA);
             this.tabPageRW.Controls.Add(this.groupBox30);
             this.tabPageRW.Controls.Add(this.groupBox8);
@@ -2072,6 +2074,17 @@ namespace BehaviorGraphics
             this.tabPageRW.TabIndex = 2;
             this.tabPageRW.Text = "Random Walk";
             this.tabPageRW.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRWDA
+            // 
+            this.checkBoxRWDA.AutoSize = true;
+            this.checkBoxRWDA.Location = new System.Drawing.Point(491, 22);
+            this.checkBoxRWDA.Name = "checkBoxRWDA";
+            this.checkBoxRWDA.Size = new System.Drawing.Size(89, 17);
+            this.checkBoxRWDA.TabIndex = 32;
+            this.checkBoxRWDA.Text = "Disable Abort";
+            this.toolTip1.SetToolTip(this.checkBoxRWDA, "Restart movement state when cursor leaves target during hold period.");
+            this.checkBoxRWDA.UseVisualStyleBackColor = true;
             // 
             // groupBox30
             // 
@@ -2187,6 +2200,18 @@ namespace BehaviorGraphics
             this.groupBox8.TabIndex = 21;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Targets";
+            // 
+            // checkBoxRWGT
+            // 
+            this.checkBoxRWGT.AutoSize = true;
+            this.checkBoxRWGT.Location = new System.Drawing.Point(131, 91);
+            this.checkBoxRWGT.Name = "checkBoxRWGT";
+            this.checkBoxRWGT.Size = new System.Drawing.Size(94, 17);
+            this.checkBoxRWGT.TabIndex = 33;
+            this.checkBoxRWGT.Text = "Green Targets";
+            this.toolTip1.SetToolTip(this.checkBoxRWGT, "Target turns green when cursor is inside of it and remains red when cursor is not" +
+                    " inside.");
+            this.checkBoxRWGT.UseVisualStyleBackColor = true;
             // 
             // textBoxRWPctCatchTrials
             // 
@@ -8043,28 +8068,17 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // checkBoxRWDA
+            // checkBoxRWCH
             // 
-            this.checkBoxRWDA.AutoSize = true;
-            this.checkBoxRWDA.Location = new System.Drawing.Point(491, 22);
-            this.checkBoxRWDA.Name = "checkBoxRWDA";
-            this.checkBoxRWDA.Size = new System.Drawing.Size(89, 17);
-            this.checkBoxRWDA.TabIndex = 32;
-            this.checkBoxRWDA.Text = "Disable Abort";
-            this.toolTip1.SetToolTip(this.checkBoxRWDA, "Restart movement state when cursor leaves target during hold period.");
-            this.checkBoxRWDA.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxRWGT
-            // 
-            this.checkBoxRWGT.AutoSize = true;
-            this.checkBoxRWGT.Location = new System.Drawing.Point(131, 91);
-            this.checkBoxRWGT.Name = "checkBoxRWGT";
-            this.checkBoxRWGT.Size = new System.Drawing.Size(94, 17);
-            this.checkBoxRWGT.TabIndex = 33;
-            this.checkBoxRWGT.Text = "Green Targets";
-            this.toolTip1.SetToolTip(this.checkBoxRWGT, "Target turns green when cursor is inside of it and remains red when cursor is not" +
-                    " inside.");
-            this.checkBoxRWGT.UseVisualStyleBackColor = true;
+            this.checkBoxRWCH.AutoSize = true;
+            this.checkBoxRWCH.Location = new System.Drawing.Point(491, 44);
+            this.checkBoxRWCH.Name = "checkBoxRWCH";
+            this.checkBoxRWCH.Size = new System.Drawing.Size(103, 17);
+            this.checkBoxRWCH.TabIndex = 33;
+            this.checkBoxRWCH.Text = "Cumulative Hold";
+            this.toolTip1.SetToolTip(this.checkBoxRWCH, "Disable abort during hold period and use cumulative time in target to determine s" +
+                    "uccess.");
+            this.checkBoxRWCH.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -8944,5 +8958,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxUBlockWinStart;
         private System.Windows.Forms.CheckBox checkBoxRWDA;
         private System.Windows.Forms.CheckBox checkBoxRWGT;
+        private System.Windows.Forms.CheckBox checkBoxRWCH;
     }
 }
