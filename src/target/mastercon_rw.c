@@ -113,6 +113,9 @@ static int disable_abort;
 #define param_green_hold mxGetScalar(ssGetSFcnParam(S,19))
 static int green_hold;
 
+#define param_cumulative_hold mxGetScalar(ssGetSFcnParam(S,20))
+static int cumulative_hold;
+
 /*
  * State IDs
  */
@@ -165,6 +168,7 @@ static void mdlCheckParameters(SimStruct *S)
 	
 	disable_abort = (int)param_disable_abort;
 	green_hold = (int)param_green_hold;
+	cumulative_hold = (int)param_cumulative_hold;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
@@ -277,7 +281,8 @@ static void mdlSetWorkWidths(SimStruct *S)
         "PctCatchTrials",
         "MasterReset",
 		"DisableAbort",
-		"GreenHold"
+		"GreenHold",
+		"CumulativeHold"
     };
     ssRegAllTunableParamsAsRunTimeParams(S, param_names);
 }
@@ -307,6 +312,7 @@ static void mdlRTW (SimStruct *S)
     ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"MasterReset",mxGetPr(ssGetSFcnParam(S,17)),1);
 	ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"DisableAbort",mxGetPr(ssGetSFcnParam(S,18)),1);
     ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"GreenHold",mxGetPr(ssGetSFcnParam(S,19)),1);
+    ssWriteRTWParameters(S,1,SSWRITE_VALUE_VECT,"CumulativeHold",mxGetPr(ssGetSFcnParam(S,20)),1);
 }
 #endif
 
@@ -415,6 +421,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     InputRealPtrsType uPtrs;
     real_T cursor[2];
     real_T elapsed_timer_time;
+	real_T hold_time_stamp;
+	real_T hold_time;
     real_T temp_distance;
     real_T temp_angle;
     byte *databurst;
@@ -518,6 +526,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			
 			disable_abort = (int)param_disable_abort;
 			green_hold = (int)param_green_hold;
+			cumulative_hold = (int)param_cumulative_hold;
             
             /* initialize target positions */
             if (maximum_distance==0){     /* random positions */
@@ -589,9 +598,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         case STATE_INITIAL_MOVEMENT:
             /* first target on */
             if (cursorInTarget(cursor, tgt)) {
+				hold_time_stamp = (real_T)(ssGetT(S)); /* stamp time for cumulative hold */
+				hold_time = 0; /* reset total hold time for cumulative hold */
                 set_random_hold_time();
                 new_state = STATE_TARGET_HOLD;
-                reset_timer(); /* start target hold timer */
+				if (!cumulative_hold) {
+					reset_timer(); /* start target hold timer */
+				}
                 state_changed();
             } else if (elapsed_timer_time > initial_movement_time) {
                 new_state = STATE_INCOMPLETE;
@@ -601,8 +614,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_MOVEMENT:
             /* new target on */
-            if (cursorInTarget(cursor, tgt)) {
-                set_random_hold_time(); 
+            if (cursorInTarget(cursor, tgt) &&
+				cumulative_hold) {
+				hold_time_stamp = (real_T)(ssGetT(S)); /* stamp time for cumulative hold */
+                new_state = STATE_TARGET_HOLD;
+                state_changed();
+			} else if (cursorInTarget(cursor, tgt)) {
                 new_state = STATE_TARGET_HOLD;
                 reset_timer(); /* start target hold timer */
                 state_changed();
@@ -615,7 +632,27 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         case STATE_TARGET_HOLD:
             /* dwell time in target */
             /* abort disabled, go back to movement */
-            if (!cursorInTarget(cursor, tgt) &&
+            if (cumulative_hold) {
+                if (!cursorInTarget(cursor, tgt)) {
+					hold_time = hold_time + (real_T)(ssGetT(S)) - hold_time_stamp; /* update cumulative hold time */
+					new_state = STATE_MOVEMENT;
+					state_changed();
+				} else if (hold_time + (real_T)(ssGetT(S)) - hold_time_stamp > ssGetRWorkValue(S,3)) {
+					/* do this if total hold time is greater than required hold time */
+					if (target_index == (int)num_targets-1) {
+						/* no more targets */
+						new_state = STATE_REWARD;
+						reset_timer(); /* reward timer */
+						state_changed();
+					} else {
+						/* more targets */
+						set_random_delay_time();
+						new_state = STATE_TARGET_DELAY;
+						reset_timer(); /* delay timer */
+						state_changed();
+					}
+				}
+			} else if (!cursorInTarget(cursor, tgt) &&
 				disable_abort) {
                 new_state = STATE_MOVEMENT;
                 reset_timer(); /* abort timeout */
@@ -652,6 +689,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     target_index++;
                     ssSetIWorkValue(S, 1, target_index);
                     setCatchFlag(S, percent_catch_trials);  /* set flag randomly for next target */ 
+					hold_time = 0; /* reset hold time for next target */
+					set_random_hold_time(); /* for next hold period */
                     new_state = STATE_MOVEMENT;
                     reset_timer(); /* movement timer */
                     state_changed();
@@ -847,6 +886,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_INITIAL_MOVEMENT:
                 if (catch_trial_flag) {
                     word = WORD_CATCH;
+                } else {
+                    word = WORD_GO_CUE;
                 }
 				break;
 			case STATE_TARGET_HOLD:
