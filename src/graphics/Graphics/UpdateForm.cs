@@ -225,6 +225,10 @@ namespace BehaviorGraphics
             AddParamListItem("Minimum Distance", "P15", "Behavior RW", this.textBoxRWMinDistance);
             AddParamListItem("Maximum Distance", "P16", "Behavior RW", this.textBoxRWMaxDistance);
             AddParamListItem("RW Percent Catch Trials", "P17", "Behavior RW", this.textBoxRWPctCatchTrials);
+
+            AddParamListItem("RW Disable Abort", "P19", "Behavior RW", this.checkBoxRWDA);
+            AddParamListItem("RW Green Targets", "P20", "Behavior RW", this.checkBoxRWGT);
+
             #endregion
 
             #region Forced Choice
