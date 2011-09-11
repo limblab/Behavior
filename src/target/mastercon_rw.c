@@ -1,6 +1,6 @@
 /* $Id$
  *
- * Master Control block for behavior: center-out task 
+ * Master Control block for behavior: random walk task 
  */
 
 #define S_FUNCTION_NAME mastercon_rw
@@ -237,8 +237,10 @@ static void mdlInitializeSizes(SimStruct *S)
                                2: tone id
                                3: current target hold time
                                4: current target delay time
-                               5: UNUSED
-                         [6-511]: positions of targets stored as (x, y) */
+                               5: time last entered hold state (used for cumulative hold)
+                               6: cumulative hold time
+                               7: UNUSED
+                         [8-511]: positions of targets stored as (x, y) */
 
     ssSetNumIWork(S, 7); /*    0: state_transition (true if state changed), 
                                1: current target index (in sequence),
@@ -344,7 +346,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetRWorkValue(S, 2, 0.0);
     
     /* initialize targets at zero */
-    for (i = 6 ; i<512 ; i++){
+    for (i = 8 ; i<512 ; i++){
         ssSetRWorkValue(S, i, 0.0);
     }
     
@@ -421,8 +423,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     InputRealPtrsType uPtrs;
     real_T cursor[2];
     real_T elapsed_timer_time;
-	real_T hold_time_stamp;
-	real_T hold_time;
     real_T temp_distance;
     real_T temp_angle;
     byte *databurst;
@@ -452,7 +452,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     IWorkVector = ssGetIWork(S);
     target_index = IWorkVector[1];
     RWorkVector = ssGetRWork(S);
-    target_list = RWorkVector+6;
+    target_list = RWorkVector+8;
     target_x = target_list[2*target_index];
     target_y = target_list[2*target_index+1];
     
@@ -574,7 +574,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             databurst_offsets[1] = *uPtrs[1];
             databurst_target_size[0] = target_size - target_tolerance;
             for (i = 0; i < num_targets * 2; i++) {
-                databurst_target_list[i] = (float)ssGetRWorkValue(S, 6 + i);
+                databurst_target_list[i] = (float)ssGetRWorkValue(S, 8 + i);
             }
             
             /* and reset the counters */
@@ -598,8 +598,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         case STATE_INITIAL_MOVEMENT:
             /* first target on */
             if (cursorInTarget(cursor, tgt)) {
-				hold_time_stamp = (real_T)(ssGetT(S)); /* stamp time for cumulative hold */
-				hold_time = 0; /* reset total hold time for cumulative hold */
+				ssSetRWorkValue(S, 5, (real_T)(ssGetT(S))); /* stamp time for cumulative hold */
+				ssSetRWorkValue(S, 6, 0); /* reset cumulative hold time */
                 set_random_hold_time();
                 new_state = STATE_TARGET_HOLD;
 				if (!cumulative_hold) {
@@ -616,7 +616,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* new target on */
             if (cursorInTarget(cursor, tgt) &&
 				cumulative_hold) {
-				hold_time_stamp = (real_T)(ssGetT(S)); /* stamp time for cumulative hold */
+				ssSetRWorkValue(S, 5, (real_T)(ssGetT(S))); /* stamp time for cumulative hold */
                 new_state = STATE_TARGET_HOLD;
                 state_changed();
 			} else if (cursorInTarget(cursor, tgt)) {
@@ -634,10 +634,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* abort disabled, go back to movement */
             if (cumulative_hold) {
                 if (!cursorInTarget(cursor, tgt)) {
-					hold_time = hold_time + (real_T)(ssGetT(S)) - hold_time_stamp; /* update cumulative hold time */
+					ssSetRWorkValue(S, 6, ssGetRWorkValue(S,6) + (real_T)(ssGetT(S)) - ssGetRWorkValue(S,5)); /* update cumulative hold time */
 					new_state = STATE_MOVEMENT;
 					state_changed();
-				} else if (hold_time + (real_T)(ssGetT(S)) - hold_time_stamp > ssGetRWorkValue(S,3)) {
+				} else if ((ssGetRWorkValue(S,6) + (real_T)(ssGetT(S)) - ssGetRWorkValue(S,5)) > ssGetRWorkValue(S,3)) {
 					/* do this if total hold time is greater than required hold time */
 					if (target_index == (int)num_targets-1) {
 						/* no more targets */
@@ -689,7 +689,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     target_index++;
                     ssSetIWorkValue(S, 1, target_index);
                     setCatchFlag(S, percent_catch_trials);  /* set flag randomly for next target */ 
-					hold_time = 0; /* reset hold time for next target */
+					ssSetRWorkValue(S, 6, 0); /* reset cumulative hold time for next target */
 					set_random_hold_time(); /* for next hold period */
                     new_state = STATE_MOVEMENT;
                     reset_timer(); /* movement timer */
@@ -793,7 +793,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     IWorkVector = ssGetIWork(S);
     target_index = IWorkVector[1];
     RWorkVector = ssGetRWork(S);
-    target_list = RWorkVector+6;
+    target_list = RWorkVector+8;
     target_x = target_list[2*target_index];
     target_y = target_list[2*target_index+1];
     
