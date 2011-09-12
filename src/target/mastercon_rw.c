@@ -108,13 +108,13 @@ static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,17))
 
 #define param_disable_abort mxGetScalar(ssGetSFcnParam(S,18))
-static int disable_abort;
+static int disable_abort = 0;
 
 #define param_green_hold mxGetScalar(ssGetSFcnParam(S,19))
-static int green_hold;
+static int green_hold = 0;
 
 #define param_cumulative_hold mxGetScalar(ssGetSFcnParam(S,20))
-static int cumulative_hold;
+static int cumulative_hold = 0;
 
 /*
  * State IDs
@@ -175,7 +175,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 18); 
+    ssSetNumSFcnParams(S, 21); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -599,7 +599,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* first target on */
             if (cursorInTarget(cursor, tgt)) {
 				ssSetRWorkValue(S, 5, (real_T)(ssGetT(S))); /* stamp time for cumulative hold */
-				ssSetRWorkValue(S, 6, 0); /* reset cumulative hold time */
+				ssSetRWorkValue(S, 6, 0.0); /* reset cumulative hold time */
                 set_random_hold_time();
                 new_state = STATE_TARGET_HOLD;
 				if (!cumulative_hold) {
@@ -689,7 +689,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     target_index++;
                     ssSetIWorkValue(S, 1, target_index);
                     setCatchFlag(S, percent_catch_trials);  /* set flag randomly for next target */ 
-					ssSetRWorkValue(S, 6, 0); /* reset cumulative hold time for next target */
+					ssSetRWorkValue(S, 6, 0.0); /* reset cumulative hold time for next target */
 					set_random_hold_time(); /* for next hold period */
                     new_state = STATE_MOVEMENT;
                     reset_timer(); /* movement timer */
