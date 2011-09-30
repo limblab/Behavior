@@ -417,13 +417,23 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
 	displace = ssGetRWorkValue(S,5);
 	
-	if((int)num_targets == 1){
-		cursor[0] = cursor_old[0];
-		cursor[1] = cursor_old[1] + displace;
+	if((int)num_targets == 1) {
+		if (cursor_old[0] < beg_window*target_radius) {
+			cursor[0] = cursor_old[0];
+			cursor[1] = cursor_old[1];
+		} else {
+			cursor[0] = cursor_old[0];
+			cursor[1] = cursor_old[1] + displace;
+		}
 	} else {
 		rad_d = sqrt(cursor_old[0]*cursor_old[0] + cursor_old[1]*cursor_old[1]);
-		cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
-		cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
+		if ((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < (beg_window*target_radius)){
+				cursor[0] = cursor_old[0];
+				cursor[1] = cursor_old[1];
+		} else {
+			cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
+			cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
+		}
 	}
 
     databurst = ssGetPWorkValue(S,0);
@@ -869,12 +879,22 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	
 	rad_d = sqrt(cursor_old[0]*cursor_old[0] + cursor_old[1]*cursor_old[1]);
 	
-	if ((int)num_targets == 1) {
-		cursor[0] = cursor_old[0];
-		cursor[1] = cursor_old[1] + displace;
+	if((int)num_targets == 1) {
+		if (cursor_old[0] < beg_window*target_radius) {
+			cursor[0] = cursor_old[0];
+			cursor[1] = cursor_old[1];
+		} else {
+			cursor[0] = cursor_old[0];
+			cursor[1] = cursor_old[1] + displace;
+		}
 	} else {
-		cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
-		cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);
+		if ((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < (beg_window*target_radius)){
+				cursor[0] = cursor_old[0];
+				cursor[1] = cursor_old[1];
+		} else {
+			cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
+			cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
+		}
 	}
     
     /* input force */
@@ -1079,9 +1099,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 			/* We are inside the blocking window for the 1 target (1D) case */
 			pos_x = 1E6;
 			pos_y = 1E6;
-		} else if (cursor[0] < beg_window*target_radius){
-			pos_x = cursor_old[0];
-			pos_y = cursor_old[1];
 		} else {
 			/* We are outside the blocking window for the 1D case */	
 			pos_x = cursor[0];
@@ -1089,14 +1106,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		} 
 	} else {
 		if ((state == STATE_MOVEMENT) && 
-			((cos(atan2(cursor[1],cursor[0])-theta)*sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])) > beg_window*target_radius &&
-			(cos(atan2(cursor[1],cursor[0])-theta)*sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])) < end_window*target_radius)) {
+			(((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) > beg_window*target_radius) &&
+			((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < end_window*target_radius))){
 			/* We are inside the blocking window */
 			pos_x = 1E6;
 			pos_y = 1E6;
-		} else if ((cos(atan2(cursor[1],cursor[0])-theta)*sqrt(cursor[0]*cursor[0]+cursor[1]*cursor[1])) < (beg_window*target_radius)){
-			pos_x = cursor_old[0];
-			pos_y = cursor_old[1];
 		} else {
 			/* we are outside the blocking window */
 			pos_x = cursor[0];

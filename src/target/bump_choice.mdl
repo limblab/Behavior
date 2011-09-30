@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1263"
+    ComputedModelVersion    "1.1264"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jun 30 13:26:05 2011"
-  ModelVersionFormat	  "1.%<AutoIncrement:1263>"
+  LastModifiedDate	  "Fri Sep 30 13:45:10 2011"
+  ModelVersionFormat	  "1.%<AutoIncrement:1264>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -692,6 +692,9 @@ Model {
       OutPortSampleTime	      "-1"
     }
     Block {
+      BlockType		      Reference
+    }
+    Block {
       BlockType		      RelationalOperator
       Operator		      ">="
       InputSameDT	      on
@@ -834,7 +837,7 @@ Model {
   }
   System {
     Name		    "bump_choice"
-    Location		    [-128, 50, 880, 760]
+    Location		    [-128, 82, 859, 722]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -873,7 +876,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_bc"
       Parameters	      "0 0 10 3 5 7 0.0 0.05 125 0.5 2 10 1 2 2 0 0 0 "
-"0 1 0 0 0 0 0 100 1 1 "
+"0 1 0 0 0 0 0 100 1 1 1 1 0"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'pos offsets')\nport_label('input',3,'force')\npor"
 "t_label('input',4,'catch force')\nport_label('input',5,'stim table')\nport_la"
@@ -5945,7 +5948,7 @@ Model {
       Ports		      [4]
       Position		      [1255, 287, 1345, 388]
       SourceBlock	      "limblab/SendPacketToGraphics"
-      SourceType	      "SubSystem"
+      SourceType	      ""
       ShowPortLabels	      "FromPortIcon"
       SystemSampleTime	      "-1"
       FunctionWithSeparateData off

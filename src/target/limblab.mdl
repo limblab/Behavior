@@ -32,9 +32,9 @@ Library {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Matt Bauman"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Mar 23 18:16:04 2010"
+  LastModifiedDate	  "Mon Sep 19 14:34:43 2011"
   ModelVersionFormat	  "1.%<AutoIncrement:57>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
@@ -114,9 +114,6 @@ Library {
       StatesWhenEnabling      "held"
       ShowOutputPort	      off
       ZeroCross		      on
-    }
-    Block {
-      BlockType		      Ground
     }
     Block {
       BlockType		      Inport
@@ -219,16 +216,6 @@ Library {
       FunctionName	      "system"
       SFunctionModules	      "''"
       PortCounts	      "[]"
-    }
-    Block {
-      BlockType		      SignalSpecification
-      Dimensions	      "-1"
-      SampleTime	      "-1"
-      DataType		      "auto"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
-      SignalType	      "auto"
-      SamplingMode	      "auto"
     }
     Block {
       BlockType		      SubSystem
@@ -796,7 +783,7 @@ Library {
       System {
 	Name			"Neural Position Subsystem"
 	Location		[531, 152, 1021, 396]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1020,7 +1007,7 @@ Library {
 	  SourceType		  "Compare To Zero"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -1028,7 +1015,7 @@ Library {
 	  RTWMemSecDataParameters "Inherit from model"
 	  relop			  ">"
 	  LogicOutDataTypeMode	  "uint8"
-	  ZeroCross		  off
+	  ZeroCross		  "off"
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -1351,7 +1338,7 @@ Library {
 	  SourceType		  "Compare To Zero"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -1359,7 +1346,7 @@ Library {
 	  RTWMemSecDataParameters "Inherit from model"
 	  relop			  ">"
 	  LogicOutDataTypeMode	  "uint8"
-	  ZeroCross		  off
+	  ZeroCross		  "off"
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -1590,6 +1577,10 @@ Library {
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
       MaskHideContents	      off
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
       System {
 	Name			"SendPacketToGraphics"
 	Location		[45, 82, 672, 531]
@@ -1869,7 +1860,7 @@ Library {
 	  SourceType		  "Compare To Zero"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -1877,7 +1868,7 @@ Library {
 	  RTWMemSecDataParameters "Inherit from model"
 	  relop			  ">"
 	  LogicOutDataTypeMode	  "uint8"
-	  ZeroCross		  off
+	  ZeroCross		  "off"
 	}
 	Block {
 	  BlockType		  Reference
@@ -1889,7 +1880,7 @@ Library {
 	  SourceType		  "Detect Fall Nonpositive"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -1906,7 +1897,7 @@ Library {
 	  SourceType		  "SubSystem"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"

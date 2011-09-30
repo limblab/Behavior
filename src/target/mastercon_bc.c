@@ -182,6 +182,14 @@ static real_T reward_min = 1;   /* minimum reward pulse length */
 static real_T reward_max = 1;   /* maximum reward pulse length */
 # define param_reward_max mxGetScalar(ssGetSFcnParam(S,27))
 
+/* Differential reward/fail timeout parameters */
+static real_T no_stim_reward_multiplier = 1;
+# define param_no_stim_reward_multiplier mxGetScalar(ssGetSFcnParam(S,28));
+static real_T no_stim_fail_multiplier = 1;
+# define param_no_stim_fail_multiplier mxGetScalar(ssGetSFcnParam(S,29));
+static int zero_bump_multiplier = 1;
+# define param_zero_bump_multiplier (int)mxGetScalar(ssGetSFcnParam(S,30));
+
 /*
  * State IDs
  */
@@ -240,13 +248,17 @@ static void mdlCheckParameters(SimStruct *S)
     abort_distance = param_abort_distance;
     reward_min = param_reward_min;
     reward_max = param_reward_max;
+    
+    no_stim_reward_multiplier = param_no_stim_reward_multiplier;
+    no_stim_fail_multiplier = param_no_stim_fail_multiplier;
+    zero_bump_multiplier = param_zero_bump_multiplier;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 28);
+    ssSetNumSFcnParams(S, 31);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -448,6 +460,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int tmp_sort[16];
     int tmp;
     int stim_code_list_tmp[16];
+    int first_stim_index;
         
     /* databurst variables */
     byte *databurst;
@@ -484,6 +497,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     bump_magnitude = ssGetRWorkValue(S,5);    
     stim_trial = ssGetIWorkValue(S,9);
     stim_index = ssGetIWorkValue(S,10); 
+    first_stim_index = ssGetIWorkValue(S,28);
     
     if ( param_master_update > master_update ) {
         master_update = param_master_update;
@@ -598,6 +612,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             reward_min = param_reward_min;
             reward_max = param_reward_max;
             
+            no_stim_reward_multiplier = param_no_stim_reward_multiplier;
+            no_stim_fail_multiplier = param_no_stim_fail_multiplier;
+            zero_bump_multiplier = param_zero_bump_multiplier;
+
             /* decide if it is a training trial */
             training_mode = (UNI<pct_training_trials) ? 1 : 0;
             ssSetIWorkValue(S,6,training_mode);
@@ -853,9 +871,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_FAIL:
             /* failure */
-            if (bump_magnitude == 0 && !stim_trial && elapsed_timer_time > abort_timeout) {
-                new_state = STATE_PRETRIAL;
-                state_changed();
+            if (((bump_magnitude == 0 && !stim_trial && zero_bump_multiplier) ||
+            (ssGetIWorkValue(S,11+stim_index) == 0 && stim_trial))) {
+                if (elapsed_timer_time > failure_timeout*no_stim_fail_multiplier) {
+                    new_state = STATE_PRETRIAL;
+                    state_changed();
+                } else {
+                    break;
+                }                        
             } else if (elapsed_timer_time > failure_timeout) {
                 new_state = STATE_PRETRIAL;
                 state_changed();
@@ -1178,6 +1201,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* calculate reward_duration */
     reward_duration = ssGetRWorkValue(S,8)*(reward_min-reward_max)/movement_time+reward_max;
+    if ((stim_trial && ssGetIWorkValue(S,11+stim_index) == 0) || (!stim_trial && bump_magnitude==0 && zero_bump_multiplier)) {
+        reward_duration = reward_duration*no_stim_reward_multiplier;
+    }
     
     /* tone (5) */
     if (new_state) {

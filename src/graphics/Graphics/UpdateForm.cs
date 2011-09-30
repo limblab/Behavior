@@ -110,6 +110,7 @@ namespace BehaviorGraphics
                 BCStimGrid.Rows[i].Cells[0].Value = -1;
                 BCStimGrid.Rows[i].Cells[1].Value = -1;
             }
+            BCStimGrid.Rows[0].DefaultCellStyle.BackColor = Color.Aqua;
 
             // Setup BFStimTable
             BFStimGrid.Rows.Add(16);
@@ -466,6 +467,11 @@ namespace BehaviorGraphics
             // Reward minimum and maximum
             AddParamListItem("BC Reward Min", "P27", "Behavior BC", this.textBoxBCRewardMin);
             AddParamListItem("BC Reward Max", "P28", "Behavior BC", this.textBoxBCRewardMax);
+
+            // Reward/punishment multipliers for special cases (no stim/no bump)
+            AddParamListItem("BC Reward Multiplier", "P29", "Behavior BC", this.textBoxBCRewardMultiplier);
+            AddParamListItem("BC Fail Wait Multiplier", "P30", "Behavior BC", this.textBoxBCFailMultiplier);
+            AddParamListItem("BC Bump Multiplier", "P31", "Behavior BC", this.checkBoxBCZeroBumpMultiplier);
 
             
             #endregion
@@ -2100,6 +2106,8 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
+
+
       
     }
 
