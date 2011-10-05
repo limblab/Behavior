@@ -82,10 +82,29 @@
  * byte 24: uchar => number of outer targets
  * bytes 25 to 28: float => target size
  * bytes 29 to 32: float => abort distance threshold
+ * 
+ * Version 4 (0x04)
+ * ----------------
+ * byte   0: uchar => number of bytes to be transmitted
+ * byte   1: uchar => databurst version number (in this case one)
+ * byte   2: uchar => model version major
+ * byte   3: uchar => model version minor
+ * bytes  4 to  5: short => model version micro
+ * byte   6: uchar => training trial (1 if training, 0 if not)
+ * bytes  7 to 10: float => x offset
+ * bytes 11 to 14: float => y offset
+ * bytes 15 to 18: float => bump angle (rad) -> When random bump direction in use, this number is actually
+ *                          the angle of the reward target + pi.
+ * bytes 19 to 22: float => bump magnitude (bump units?)
+ * byte 23: uchar => bump and stim? ( 0 if bump or stim, 1 if bump and stim )
+ * byte 24: uchar => number of outer targets
+ * bytes 25 to 28: float => target size
+ * bytes 29 to 32: float => abort distance threshold
+ * bytes 33 to 36: float => real bump angle (rad) 
  */
 
 typedef unsigned char byte;
-#define DATABURST_VERSION (0x03) 
+#define DATABURST_VERSION (0x04) 
 
 /*
  * Until we implement tunable parameters, these will act as defaults
@@ -190,6 +209,14 @@ static real_T no_stim_fail_multiplier = 1;
 static int zero_bump_multiplier = 1;
 # define param_zero_bump_multiplier (int)mxGetScalar(ssGetSFcnParam(S,30));
 
+/* Independent bump direction */
+static int random_bump_direction_flag = 0;
+#define param_random_bump_direction_flag mxGetScalar(ssGetSFcnParam(S,31));
+
+/* Target color */
+static int target_color = 2;
+#define param_target_color mxGetScalar(ssGetSFcnParam(S,32));
+
 /*
  * State IDs
  */
@@ -252,13 +279,16 @@ static void mdlCheckParameters(SimStruct *S)
     no_stim_reward_multiplier = param_no_stim_reward_multiplier;
     no_stim_fail_multiplier = param_no_stim_fail_multiplier;
     zero_bump_multiplier = param_zero_bump_multiplier;
+    
+    random_bump_direction_flag = param_random_bump_direction_flag;
+    target_color = param_target_color;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 31);
+    ssSetNumSFcnParams(S, 33);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -319,7 +349,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 9);  /* 0: time of last timer reset 
+    ssSetNumRWork(S, 10);  /* 0: time of last timer reset 
                              1: tone counter (incremented each time a tone is played)
                              2: tone id
 							 3: mastercon version
@@ -328,6 +358,7 @@ static void mdlInitializeSizes(SimStruct *S)
                              6: master update counter   
                              7: minimum distance to reward target
                              8: duration of movement (for calculating reward length)
+                             9: random bump direction
                            */
     ssSetNumPWork(S, 1);   /* 0: pointer to databurst array
                             */
@@ -461,6 +492,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int tmp;
     int stim_code_list_tmp[16];
     int first_stim_index;
+    
+    real_T random_bump_direction;
         
     /* databurst variables */
     byte *databurst;
@@ -492,6 +525,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
     /* get IWorkVector */
     bump_direction = ssGetRWorkValue(S,4);
+    random_bump_direction = ssGetRWorkValue(S,9);
     bump_step = ssGetIWorkValue(S,5);
     training_mode = ssGetIWorkValue(S,6);
     bump_magnitude = ssGetRWorkValue(S,5);    
@@ -546,6 +580,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     databurst_num_targets = (int *)(databurst_bump_and_stim + 1);
     databurst_target_size = (float *)(databurst_num_targets + 1);
     databurst_abort_distance = (float *)(databurst_target_size + 1);
+    databurst_real_bump_angle = (float *)(databurst_abort_distance + 1);
     
     /*********************************
      * See if we have issued a reset *  
@@ -615,7 +650,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             no_stim_reward_multiplier = param_no_stim_reward_multiplier;
             no_stim_fail_multiplier = param_no_stim_fail_multiplier;
             zero_bump_multiplier = param_zero_bump_multiplier;
-
+            
+            random_bump_direction_flag = param_random_bump_direction_flag;
+            target_color = param_target_color;
+            
+            /* check if bump direction is independent of target direction */
+            random_bump_direction = random_bump_direction_flag ? 2*PI*UNI : 0;
+            ssSetRWorkValue(S,9,random_bump_direction);
+            
             /* decide if it is a training trial */
             training_mode = (UNI<pct_training_trials) ? 1 : 0;
             ssSetIWorkValue(S,6,training_mode);
@@ -704,7 +746,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             ssSetRWorkValue(S,7,min_cursor_target_distance);
 	        
 			/* Setup the databurst */
-			databurst[0] = 6+1+4*sizeof(float)+ 2 + 2*sizeof(float);
+			databurst[0] = 6+1+4*sizeof(float)+ 2 + 3*sizeof(float);
             databurst[1] = DATABURST_VERSION;
 			databurst[2] = BEHAVIOR_VERSION_MAJOR;
 			databurst[3] = BEHAVIOR_VERSION_MINOR;
@@ -721,6 +763,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             databurst_num_targets[0] = num_outer_targets;
             databurst_target_size[0] = target_size;        
             databurst_abort_distance[0] = abort_distance;
+            databurst_real_bump_direction[0] = bump_direction + random_bump_direction;
             
 			/* clear the counters */
             ssSetIWorkValue(S, 7, 0); /* Databurst counter */
@@ -929,6 +972,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T rt_type;   /* type of reward outer target 0=invisible 1=red square 2=lightning bolt (?) */
     real_T ft_type;   /* type of fail outer target 0=invisible 1=red square 2=lightning bolt (?) */
     real_T bump_direction;
+    real_T random_bump_direction;
     real_T reward_duration; /* length of reward pulse depending on movement time */
     real_T movement_time;
     
@@ -986,6 +1030,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     bump_magnitude = ssGetRWorkValue(S,5);
     bump_duration_counter = ssGetIWorkValue(S, 8);
     bump_step = ssGetIWorkValue(S, 5);
+    random_bump_direction = ssGetRWorkValue(S,9);
     
     /* get stimulation parameters */
     uPtrs = ssGetInputPortRealSignalPtrs(S,4);
@@ -1048,13 +1093,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         if (bump_duration_counter > 0) {
             /* yes, so decrement the counter and maintain the bump */
             bump_duration_counter--;
-            force_x = force_in[0] + cos(bump_direction)*bump_magnitude;
-            force_y = force_in[1] + sin(bump_direction)*bump_magnitude;
+            force_x = force_in[0] + cos(bump_direction + random_bump_direction)*bump_magnitude;
+            force_y = force_in[1] + sin(bump_direction + random_bump_direction)*bump_magnitude;
         } else if ( state == STATE_BUMP && new_state ) {
             /* initiating a new bump */
             bump_duration_counter = (int)bump_duration;
-            force_x = force_in[0] + cos(bump_direction)*bump_magnitude;
-            force_y = force_in[1] + sin(bump_direction)*bump_magnitude;
+            force_x = force_in[0] + cos(bump_direction + random_bump_direction)*bump_magnitude;
+            force_y = force_in[1] + sin(bump_direction + random_bump_direction)*bump_magnitude;
         } else {
             force_x = force_in[0]; 
             force_y = force_in[1];
@@ -1138,19 +1183,19 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     if ( state == STATE_ORIGIN_ON)
     {
         /* center target on */
-        target_pos[0] = 2;
+        target_pos[0] = target_color;
         for (i=0; i<4; i++) {
            target_pos[i+1] = ct[i];
         }
     } else if (state ==  STATE_CENTER_HOLD  ||
          state == STATE_GO_CUE || state == STATE_BUMP) {
         /* center target on */
-        target_pos[0] = 2;
+        target_pos[0] = target_color;
         
         if (outer_target_on) {
             /* outer target(s) on */
             for (i=0 ; i<num_outer_targets ; i++) {
-                target_pos[5*i+5] = 2;    
+                target_pos[5*i+5] = target_color;    
             }
         }  
                 
@@ -1171,19 +1216,19 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             /* center target off */
             target_pos[0] = 0;
         } else {
-            target_pos[0] = 2;
+            target_pos[0] = target_color;
         }
         for (i=0; i<4; i++) {
            target_pos[i+1] = ct[i];
         }
         /* outer target on */
-        target_pos[5] = 2;
+        target_pos[5] = target_color;
         for (i=0; i<4; i++) {
             target_pos[i+6] = rt[i];
         }
         if (!training_mode) {
             for (i=0 ; i<num_outer_targets-1 ; i++){
-                target_pos[i*5+10] = 2;
+                target_pos[i*5+10] = target_color;
                 target_pos[i*5+11] = ft[i*4];
                 target_pos[i*5+12] = ft[i*4+1];
                 target_pos[i*5+13] = ft[i*4+2];

@@ -473,7 +473,9 @@ namespace BehaviorGraphics
             AddParamListItem("BC Fail Wait Multiplier", "P30", "Behavior BC", this.textBoxBCFailMultiplier);
             AddParamListItem("BC Bump Multiplier", "P31", "Behavior BC", this.checkBoxBCZeroBumpMultiplier);
 
-            
+            AddParamListItem("BC Random bump direction", "P32", "Behavior BC", this.checkBoxBCRandomBump);
+            AddParamListItem("BC Target Color", "P33", "Behavior BC", this.textBoxBCTargetColor);
+                        
             #endregion
 
             #region Visual Search

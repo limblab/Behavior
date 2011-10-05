@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -400,6 +400,12 @@ namespace BehaviorGraphics
             this.comboBoxBDCT = new System.Windows.Forms.ComboBox();
             this.label147 = new System.Windows.Forms.Label();
             this.tabPageBC = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBoxBCZeroBumpMultiplier = new System.Windows.Forms.CheckBox();
+            this.textBoxBCFailMultiplier = new System.Windows.Forms.TextBox();
+            this.label252 = new System.Windows.Forms.Label();
+            this.textBoxBCRewardMultiplier = new System.Windows.Forms.TextBox();
+            this.label253 = new System.Windows.Forms.Label();
             this.textBoxBCAbortDistance = new System.Windows.Forms.TextBox();
             this.label233 = new System.Windows.Forms.Label();
             this.textBoxBCRewardMax = new System.Windows.Forms.TextBox();
@@ -725,12 +731,9 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.textBoxBCFailMultiplier = new System.Windows.Forms.TextBox();
-            this.label252 = new System.Windows.Forms.Label();
-            this.textBoxBCRewardMultiplier = new System.Windows.Forms.TextBox();
-            this.label253 = new System.Windows.Forms.Label();
-            this.checkBoxBCZeroBumpMultiplier = new System.Windows.Forms.CheckBox();
+            this.checkBoxBCRandomBump = new System.Windows.Forms.CheckBox();
+            this.textBoxBCTargetColor = new System.Windows.Forms.TextBox();
+            this.label254 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -783,6 +786,7 @@ namespace BehaviorGraphics
             this.groupBox38.SuspendLayout();
             this.groupBox39.SuspendLayout();
             this.tabPageBC.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.groupBox21.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BCStimGrid)).BeginInit();
             this.groupBox19.SuspendLayout();
@@ -827,7 +831,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -3584,8 +3587,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4343,8 +4346,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -4758,6 +4761,66 @@ namespace BehaviorGraphics
             this.tabPageBC.Text = "Bump-choice";
             this.tabPageBC.UseVisualStyleBackColor = true;
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Aqua;
+            this.panel1.Controls.Add(this.checkBoxBCZeroBumpMultiplier);
+            this.panel1.Controls.Add(this.textBoxBCFailMultiplier);
+            this.panel1.Controls.Add(this.label252);
+            this.panel1.Controls.Add(this.textBoxBCRewardMultiplier);
+            this.panel1.Controls.Add(this.label253);
+            this.panel1.Location = new System.Drawing.Point(462, 241);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(197, 62);
+            this.panel1.TabIndex = 38;
+            // 
+            // checkBoxBCZeroBumpMultiplier
+            // 
+            this.checkBoxBCZeroBumpMultiplier.AutoSize = true;
+            this.checkBoxBCZeroBumpMultiplier.Location = new System.Drawing.Point(6, 45);
+            this.checkBoxBCZeroBumpMultiplier.Name = "checkBoxBCZeroBumpMultiplier";
+            this.checkBoxBCZeroBumpMultiplier.Size = new System.Drawing.Size(126, 17);
+            this.checkBoxBCZeroBumpMultiplier.TabIndex = 46;
+            this.checkBoxBCZeroBumpMultiplier.Text = "Zero bump multiplier?";
+            this.toolTip1.SetToolTip(this.checkBoxBCZeroBumpMultiplier, "If checked, go tone is given at the beginning of bump/stim");
+            this.checkBoxBCZeroBumpMultiplier.UseVisualStyleBackColor = true;
+            // 
+            // textBoxBCFailMultiplier
+            // 
+            this.textBoxBCFailMultiplier.Location = new System.Drawing.Point(123, 24);
+            this.textBoxBCFailMultiplier.Name = "textBoxBCFailMultiplier";
+            this.textBoxBCFailMultiplier.Size = new System.Drawing.Size(72, 20);
+            this.textBoxBCFailMultiplier.TabIndex = 45;
+            this.toolTip1.SetToolTip(this.textBoxBCFailMultiplier, "Fail wait multiplier for stimulus in first row.");
+            this.textBoxBCFailMultiplier.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label252
+            // 
+            this.label252.AutoSize = true;
+            this.label252.Location = new System.Drawing.Point(3, 30);
+            this.label252.Name = "label252";
+            this.label252.Size = new System.Drawing.Size(88, 13);
+            this.label252.TabIndex = 44;
+            this.label252.Text = "Fail wait multiplier";
+            // 
+            // textBoxBCRewardMultiplier
+            // 
+            this.textBoxBCRewardMultiplier.Location = new System.Drawing.Point(123, 2);
+            this.textBoxBCRewardMultiplier.Name = "textBoxBCRewardMultiplier";
+            this.textBoxBCRewardMultiplier.Size = new System.Drawing.Size(72, 20);
+            this.textBoxBCRewardMultiplier.TabIndex = 43;
+            this.toolTip1.SetToolTip(this.textBoxBCRewardMultiplier, "Reward multiplier for stimulus in first row.");
+            this.textBoxBCRewardMultiplier.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label253
+            // 
+            this.label253.AutoSize = true;
+            this.label253.Location = new System.Drawing.Point(3, 8);
+            this.label253.Name = "label253";
+            this.label253.Size = new System.Drawing.Size(87, 13);
+            this.label253.TabIndex = 42;
+            this.label253.Text = "Reward multiplier";
+            // 
             // textBoxBCAbortDistance
             // 
             this.textBoxBCAbortDistance.Location = new System.Drawing.Point(585, 304);
@@ -4858,6 +4921,8 @@ namespace BehaviorGraphics
             // 
             // groupBox19
             // 
+            this.groupBox19.Controls.Add(this.label254);
+            this.groupBox19.Controls.Add(this.textBoxBCTargetColor);
             this.groupBox19.Controls.Add(this.label197);
             this.groupBox19.Controls.Add(this.numericUpDownBCNumOuterTargets);
             this.groupBox19.Controls.Add(this.checkBoxBCTargetDirectionsStim);
@@ -4869,9 +4934,9 @@ namespace BehaviorGraphics
             this.groupBox19.Controls.Add(this.label84);
             this.groupBox19.Controls.Add(this.textBoxBCTgtSize);
             this.groupBox19.Controls.Add(this.label85);
-            this.groupBox19.Location = new System.Drawing.Point(3, 224);
+            this.groupBox19.Location = new System.Drawing.Point(3, 219);
             this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(432, 105);
+            this.groupBox19.Size = new System.Drawing.Size(432, 110);
             this.groupBox19.TabIndex = 13;
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "Targets";
@@ -4995,6 +5060,7 @@ namespace BehaviorGraphics
             // 
             // groupBox17
             // 
+            this.groupBox17.Controls.Add(this.checkBoxBCRandomBump);
             this.groupBox17.Controls.Add(this.checkBoxBCGoToneOnBump);
             this.groupBox17.Controls.Add(this.checkBoxBCBumpAndStim);
             this.groupBox17.Controls.Add(this.label87);
@@ -5011,7 +5077,7 @@ namespace BehaviorGraphics
             this.groupBox17.Controls.Add(this.numericUpDownBCBumpSteps);
             this.groupBox17.Location = new System.Drawing.Point(219, 1);
             this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(216, 208);
+            this.groupBox17.Size = new System.Drawing.Size(216, 223);
             this.groupBox17.TabIndex = 21;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Bumps and stims";
@@ -5019,7 +5085,7 @@ namespace BehaviorGraphics
             // checkBoxBCGoToneOnBump
             // 
             this.checkBoxBCGoToneOnBump.AutoSize = true;
-            this.checkBoxBCGoToneOnBump.Location = new System.Drawing.Point(9, 191);
+            this.checkBoxBCGoToneOnBump.Location = new System.Drawing.Point(9, 186);
             this.checkBoxBCGoToneOnBump.Name = "checkBoxBCGoToneOnBump";
             this.checkBoxBCGoToneOnBump.Size = new System.Drawing.Size(131, 17);
             this.checkBoxBCGoToneOnBump.TabIndex = 42;
@@ -5030,7 +5096,7 @@ namespace BehaviorGraphics
             // checkBoxBCBumpAndStim
             // 
             this.checkBoxBCBumpAndStim.AutoSize = true;
-            this.checkBoxBCBumpAndStim.Location = new System.Drawing.Point(9, 173);
+            this.checkBoxBCBumpAndStim.Location = new System.Drawing.Point(9, 168);
             this.checkBoxBCBumpAndStim.Name = "checkBoxBCBumpAndStim";
             this.checkBoxBCBumpAndStim.Size = new System.Drawing.Size(100, 17);
             this.checkBoxBCBumpAndStim.TabIndex = 41;
@@ -8090,65 +8156,34 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // panel1
+            // checkBoxBCRandomBump
             // 
-            this.panel1.BackColor = System.Drawing.Color.Aqua;
-            this.panel1.Controls.Add(this.checkBoxBCZeroBumpMultiplier);
-            this.panel1.Controls.Add(this.textBoxBCFailMultiplier);
-            this.panel1.Controls.Add(this.label252);
-            this.panel1.Controls.Add(this.textBoxBCRewardMultiplier);
-            this.panel1.Controls.Add(this.label253);
-            this.panel1.Location = new System.Drawing.Point(462, 241);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(197, 62);
-            this.panel1.TabIndex = 38;
+            this.checkBoxBCRandomBump.AutoSize = true;
+            this.checkBoxBCRandomBump.Location = new System.Drawing.Point(9, 202);
+            this.checkBoxBCRandomBump.Name = "checkBoxBCRandomBump";
+            this.checkBoxBCRandomBump.Size = new System.Drawing.Size(181, 17);
+            this.checkBoxBCRandomBump.TabIndex = 43;
+            this.checkBoxBCRandomBump.Text = "Random bump (use with caution)";
+            this.toolTip1.SetToolTip(this.checkBoxBCRandomBump, "When checked, bumps will be given at a different direction than the targets.");
+            this.checkBoxBCRandomBump.UseVisualStyleBackColor = true;
             // 
-            // textBoxBCFailMultiplier
+            // textBoxBCTargetColor
             // 
-            this.textBoxBCFailMultiplier.Location = new System.Drawing.Point(123, 24);
-            this.textBoxBCFailMultiplier.Name = "textBoxBCFailMultiplier";
-            this.textBoxBCFailMultiplier.Size = new System.Drawing.Size(72, 20);
-            this.textBoxBCFailMultiplier.TabIndex = 45;
-            this.toolTip1.SetToolTip(this.textBoxBCFailMultiplier, "Fail wait multiplier for stimulus in first row.");
-            this.textBoxBCFailMultiplier.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.textBoxBCTargetColor.Location = new System.Drawing.Point(127, 89);
+            this.textBoxBCTargetColor.Name = "textBoxBCTargetColor";
+            this.textBoxBCTargetColor.Size = new System.Drawing.Size(56, 20);
+            this.textBoxBCTargetColor.TabIndex = 46;
+            this.toolTip1.SetToolTip(this.textBoxBCTargetColor, "Red = 1, White = 2, etc.");
+            this.textBoxBCTargetColor.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
-            // label252
+            // label254
             // 
-            this.label252.AutoSize = true;
-            this.label252.Location = new System.Drawing.Point(3, 30);
-            this.label252.Name = "label252";
-            this.label252.Size = new System.Drawing.Size(88, 13);
-            this.label252.TabIndex = 44;
-            this.label252.Text = "Fail wait multiplier";
-            // 
-            // textBoxBCRewardMultiplier
-            // 
-            this.textBoxBCRewardMultiplier.Location = new System.Drawing.Point(123, 2);
-            this.textBoxBCRewardMultiplier.Name = "textBoxBCRewardMultiplier";
-            this.textBoxBCRewardMultiplier.Size = new System.Drawing.Size(72, 20);
-            this.textBoxBCRewardMultiplier.TabIndex = 43;
-            this.toolTip1.SetToolTip(this.textBoxBCRewardMultiplier, "Reward multiplier for stimulus in first row.");
-            this.textBoxBCRewardMultiplier.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label253
-            // 
-            this.label253.AutoSize = true;
-            this.label253.Location = new System.Drawing.Point(3, 8);
-            this.label253.Name = "label253";
-            this.label253.Size = new System.Drawing.Size(87, 13);
-            this.label253.TabIndex = 42;
-            this.label253.Text = "Reward multiplier";
-            // 
-            // checkBoxBCZeroBumpMultiplier
-            // 
-            this.checkBoxBCZeroBumpMultiplier.AutoSize = true;
-            this.checkBoxBCZeroBumpMultiplier.Location = new System.Drawing.Point(6, 45);
-            this.checkBoxBCZeroBumpMultiplier.Name = "checkBoxBCZeroBumpMultiplier";
-            this.checkBoxBCZeroBumpMultiplier.Size = new System.Drawing.Size(126, 17);
-            this.checkBoxBCZeroBumpMultiplier.TabIndex = 46;
-            this.checkBoxBCZeroBumpMultiplier.Text = "Zero bump multiplier?";
-            this.toolTip1.SetToolTip(this.checkBoxBCZeroBumpMultiplier, "If checked, go tone is given at the beginning of bump/stim");
-            this.checkBoxBCZeroBumpMultiplier.UseVisualStyleBackColor = true;
+            this.label254.AutoSize = true;
+            this.label254.Location = new System.Drawing.Point(3, 91);
+            this.label254.Name = "label254";
+            this.label254.Size = new System.Drawing.Size(64, 13);
+            this.label254.TabIndex = 47;
+            this.label254.Text = "Target color";
             // 
             // UpdateForm
             // 
@@ -8259,6 +8294,8 @@ namespace BehaviorGraphics
             this.groupBox39.PerformLayout();
             this.tabPageBC.ResumeLayout(false);
             this.tabPageBC.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.groupBox21.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.BCStimGrid)).EndInit();
             this.groupBox19.ResumeLayout(false);
@@ -8328,8 +8365,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -9037,5 +9072,8 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxBCRewardMultiplier;
         private System.Windows.Forms.Label label253;
         private System.Windows.Forms.CheckBox checkBoxBCZeroBumpMultiplier;
+        private System.Windows.Forms.Label label254;
+        private System.Windows.Forms.TextBox textBoxBCTargetColor;
+        private System.Windows.Forms.CheckBox checkBoxBCRandomBump;
     }
 }
