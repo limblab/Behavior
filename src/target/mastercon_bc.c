@@ -211,11 +211,11 @@ static int zero_bump_multiplier = 1;
 
 /* Independent bump direction */
 static int random_bump_direction_flag = 0;
-#define param_random_bump_direction_flag mxGetScalar(ssGetSFcnParam(S,31));
+#define param_random_bump_direction_flag (int)mxGetScalar(ssGetSFcnParam(S,31));
 
 /* Target color */
 static int target_color = 2;
-#define param_target_color mxGetScalar(ssGetSFcnParam(S,32));
+#define param_target_color (int)mxGetScalar(ssGetSFcnParam(S,32));
 
 /*
  * State IDs
@@ -504,10 +504,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     byte *databurst_num_targets;
     float *databurst_target_size;
     float *databurst_abort_distance;
+    float *databurst_real_bump_angle;
     int databurst_counter;
     
     /* distance to reward target */
-    float min_cursor_target_distance;
+    real_T min_cursor_target_distance;
             
     /******************
      * Initialization *
@@ -763,7 +764,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             databurst_num_targets[0] = num_outer_targets;
             databurst_target_size[0] = target_size;        
             databurst_abort_distance[0] = abort_distance;
-            databurst_real_bump_direction[0] = bump_direction + random_bump_direction;
+            databurst_real_bump_angle[0] = bump_direction + random_bump_direction;
             
 			/* clear the counters */
             ssSetIWorkValue(S, 7, 0); /* Databurst counter */
