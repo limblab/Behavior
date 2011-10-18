@@ -475,6 +475,9 @@ namespace BehaviorGraphics
 
             AddParamListItem("BC Random bump direction", "P32", "Behavior BC", this.checkBoxBCRandomBump);
             AddParamListItem("BC Target Color", "P33", "Behavior BC", this.textBoxBCTargetColor);
+
+            AddParamListItem("BC Bump magnitude zero", "P34", "Behavior BC", this.checkBoxBCBumpMagZero);
+            AddParamListItem("BC First stim repeat", "P35", "Behavior BC", this.textBoxBCStim1Repeat);
                         
             #endregion
 

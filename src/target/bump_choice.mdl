@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1265"
+    ComputedModelVersion    "1.1266"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Oct 06 10:44:17 2011"
-  ModelVersionFormat	  "1.%<AutoIncrement:1265>"
+  LastModifiedDate	  "Tue Oct 18 15:36:25 2011"
+  ModelVersionFormat	  "1.%<AutoIncrement:1266>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -837,7 +837,7 @@ Model {
   }
   System {
     Name		    "bump_choice"
-    Location		    [-128, 82, 859, 722]
+    Location		    [208, 240, 1195, 880]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -876,7 +876,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_bc"
       Parameters	      "0 0 10 3 5 7 0.0 0.05 125 0.5 2 10 1 2 2 0 0 0 "
-"0 1 0 0 0 0 0 100 1 1 1 1 0 0 2"
+"0 1 0 0 0 0 0 100 1 1 1 1 0 0 2 0 1"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'pos offsets')\nport_label('input',3,'force')\npor"
 "t_label('input',4,'catch force')\nport_label('input',5,'stim table')\nport_la"

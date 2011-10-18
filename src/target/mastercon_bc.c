@@ -223,7 +223,7 @@ static int no_bump_when_stim_1 = 0;
 
 /* Ratio of trials with stim in first box */
 static real_T stim_1_repeats = 1;
-#define param_stim_1_repeats mxGetScalar(ssGetSFcnParam(S,34));
+#define param_stim_1_repeats (int)mxGetScalar(ssGetSFcnParam(S,34))
 
 /*
  * State IDs
@@ -569,11 +569,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         }
     }
-    for (i=0 ; i < param_stim_1_repeats-1 ; i++){
+    
+    for (i=0 ; i < param_stim_1_repeats - 1 ; i++) {
         stim_codes[num_stim_codes+i] = stim_codes[0];
         pref_dirs[num_stim_codes+i] = pref_dirs[0];
     }
-    num_stim_codes = num_stim_codes + param_stim_1_repeats-1;
+    num_stim_codes = num_stim_codes + (int)param_stim_1_repeats-1;
                 
     /* get elapsed time since last timer reset */
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
