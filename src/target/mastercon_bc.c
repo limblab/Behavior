@@ -217,6 +217,14 @@ static int random_bump_direction_flag = 0;
 static int target_color = 2;
 #define param_target_color (int)mxGetScalar(ssGetSFcnParam(S,32));
 
+/* No bump when stim ID in first box is given */
+static int no_bump_when_stim_1 = 0;
+#define param_no_bump_when_stim_1 (int)mxGetScalar(ssGetSFcnParam(S,33));
+
+/* Ratio of trials with stim in first box */
+static real_T stim_1_repeats = 1;
+#define param_stim_1_repeats mxGetScalar(ssGetSFcnParam(S,34));
+
 /*
  * State IDs
  */
@@ -282,13 +290,16 @@ static void mdlCheckParameters(SimStruct *S)
     
     random_bump_direction_flag = param_random_bump_direction_flag;
     target_color = param_target_color;
+    
+    no_bump_when_stim_1 = param_no_bump_when_stim_1;
+    stim_1_repeats = param_stim_1_repeats;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 33);
+    ssSetNumSFcnParams(S, 35);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -363,7 +374,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumPWork(S, 1);   /* 0: pointer to databurst array
                             */
     
-    ssSetNumIWork(S, 28);     /* 0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 44);     /* 0: state_transition (true if state changed), 
                                 1: successes
                                 2: failures
                                 3: aborts
@@ -374,8 +385,8 @@ static void mdlInitializeSizes(SimStruct *S)
                                 8: bump duration counter
                                 9: stim trial
                                 10: stim index
-                                11-26: stim list
-                                27: debugging info
+                                11-42: stim list
+                                43: debugging info
                              */
     
     /* we have no zero crossing detection or modes */
@@ -421,7 +432,7 @@ static void mdlInitializeConditions(SimStruct *S)
     /* set stim index to 16 so that it gets reset in pretrial*/
     ssSetIWorkValue(S,10,16);    
     
-    ssSetIWorkValue(S,27,-1);
+    ssSetIWorkValue(S,43,-1);
     
     /* set the initial last update time to 0 */
     ssSetRWorkValue(S,6,0.0);    
@@ -484,14 +495,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     
     /* stimulation parameters */
     int stim_index;
-    int stim_codes[16];
-    real_T pref_dirs[16];
+    int stim_codes[32];
+    real_T pref_dirs[32];
     int num_stim_codes;
     int stim_trial;
-    int tmp_sort[16];
+    int tmp_sort[32];
     int tmp;
-    int stim_code_list_tmp[16];
-    int first_stim_index;
+    int stim_code_list_tmp[32];
     
     real_T random_bump_direction;
         
@@ -532,12 +542,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     bump_magnitude = ssGetRWorkValue(S,5);    
     stim_trial = ssGetIWorkValue(S,9);
     stim_index = ssGetIWorkValue(S,10); 
-    first_stim_index = ssGetIWorkValue(S,28);
     
     if ( param_master_update > master_update ) {
         master_update = param_master_update;
         ssSetRWorkValue(S, 6, (real_T)ssGetT(S));
-        stim_index = 16;
+        stim_index = 32;
     }
     
     /* get stimulation parameters */
@@ -546,6 +555,25 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         stim_codes[i] = (int)*uPtrs[2*i];
         pref_dirs[i] = *uPtrs[2*i+1];
     }
+    for (i=16 ; i<32 ; i++) { 
+        stim_codes[i] = -1;  /* These stim codes are only for stim 1 repeats */
+        pref_dirs[i] = -1;
+    }
+    
+    /* check how many valid stim codes there are */
+    num_stim_codes = 0;
+    for (i=0 ; i<16 ; i++) { 
+        if (stim_codes[i] != -1) {
+            num_stim_codes++;
+        } else {
+            break;
+        }
+    }
+    for (i=0 ; i < param_stim_1_repeats-1 ; i++){
+        stim_codes[num_stim_codes+i] = stim_codes[0];
+        pref_dirs[num_stim_codes+i] = pref_dirs[0];
+    }
+    num_stim_codes = num_stim_codes + param_stim_1_repeats-1;
                 
     /* get elapsed time since last timer reset */
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
@@ -655,6 +683,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             random_bump_direction_flag = param_random_bump_direction_flag;
             target_color = param_target_color;
             
+            no_bump_when_stim_1 = param_no_bump_when_stim_1;
+            stim_1_repeats = param_stim_1_repeats;
+            
             /* check if bump direction is independent of target direction */
             random_bump_direction = random_bump_direction_flag ? 2*PI*UNI : 0;
             ssSetRWorkValue(S,9,random_bump_direction);
@@ -667,15 +698,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             stim_trial = (UNI<pct_stim_trials ? 1 : 0);
             ssSetIWorkValue(S,9,stim_trial);                 
 
-            /* check how many valid stim codes there are */
+            /* check how many valid stim codes there are 
             num_stim_codes = 0;
-            for (i=0 ; i<16 ; i++) { 
+            for (i=0 ; i<32 ; i++) { 
                 if (stim_codes[i] != -1) {
                     num_stim_codes++;
                 } else {
                     break;
                 }
-            }          
+            } */
             
             /* check if stimulation block needs to be reinitialized */
             if ( stim_index >= num_stim_codes-1 ) {
@@ -723,11 +754,16 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             ssSetRWorkValue(S,4,bump_direction);
                                                                  
             /* get a random bump step */
-            bump_step = (int)(UNI*bump_steps);
+            if (stim_trial && no_bump_when_stim_1 && (stim_codes[ssGetIWorkValue(S,11+stim_index)] == stim_codes[0])){ 
+                bump_step = 0;
+                bump_magnitude = 0;                    
+            } else {
+                bump_step = (int)(UNI*bump_steps);               
+                bump_magnitude = bump_magnitude_min + ((float)bump_step)*(bump_magnitude_max-bump_magnitude_min)/((float)bump_steps-1);
+            }
             ssSetIWorkValue(S,5,bump_step);
-            
-            bump_magnitude = bump_magnitude_min + ((float)bump_step)*(bump_magnitude_max-bump_magnitude_min)/((float)bump_steps-1);
             ssSetRWorkValue(S,5,bump_magnitude);
+
             
             /* In all cases, we need to decide on the random timer durations */
 	        if (center_hold_h == center_hold_l) {
