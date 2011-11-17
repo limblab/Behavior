@@ -48,10 +48,27 @@
  *      target representing two single-precision floating point numbers in 
  *      little-endian format represnting the x and y position of the center of 
  *      the target.
+ *
+ *  Version 2 (0x02) - Similar to version 1, fixed "target_size + target_tolerance" and
+ *                      it should now send all the bytes, previous version only sent
+ *                      half of them.
+ * ----------------
+ * byte   0: uchar => number of bytes to be transmitted
+ * byte   1: uchar => databurst version number (in this case one)
+ * byte   2: uchar => model version major
+ * byte   3: uchar => model version minor
+ * bytes  4 to  5: short => model version micro
+ * bytes  6 to  9: float => x offset
+ * bytes 10 to 13: float => y offset
+ * bytes 14 to 17: float => target_size + target_tolerance
+ * bytes 18 to 18+N*8: where N is the number of targets, contains 8 bytes per 
+ *      target representing two single-precision floating point numbers in 
+ *      little-endian format represnting the x and y position of the center of 
+ *      the target.
  */
 
 typedef unsigned char byte;
-#define DATABURST_VERSION ((byte)0x01) 
+#define DATABURST_VERSION ((byte)0x02) 
 
 /*
  * Tunable parameters
@@ -572,7 +589,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             uPtrs = ssGetInputPortRealSignalPtrs(S, 1); 
             databurst_offsets[0] = *uPtrs[0];
             databurst_offsets[1] = *uPtrs[1];
-            databurst_target_size[0] = target_size - target_tolerance;
+            databurst_target_size[0] = target_size + target_tolerance;
             for (i = 0; i < num_targets * 2; i++) {
                 databurst_target_list[i] = (float)ssGetRWorkValue(S, 8 + i);
             }
@@ -588,12 +605,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             break;
         case STATE_DATA_BLOCK:
-            if (databurst_counter++ >= databurst[0]) {
+            if (databurst_counter > 2*(databurst[0]-1)) {
                 new_state = STATE_INITIAL_MOVEMENT;
                 reset_timer(); /* start timer for movement */
                 state_changed();
             }
-            ssSetIWorkValue(S, 6, databurst_counter);
+            ssSetIWorkValue(S, 6, databurst_counter+1);
             break;
         case STATE_INITIAL_MOVEMENT:
             /* first target on */
