@@ -126,8 +126,17 @@ static real_T beg_window = 0.4;   /* start of blocking window in fraction of tar
 static real_T end_window = 0.6;   /* end of blocking window in fraction of target radius */
 #define param_end_window mxGetScalar(ssGetSFcnParam(S,20))
 
+static real_T beg_cue = 0.49; /* Start of cue window in fraction of radius */ 
+#define param_beg_cue mxGetScalar(ssGetSFcnParam(S,21))
+
+static real_T end_cue = 0.51; /* End of cue window in fraction of radius */
+#define param_end_cue mxGetScalar(ssGetSFcnParam(S,22))
+
+static real_T cue_var = 0.2; /* Variance of Cue 'cloud' */
+#define param_cue_var mxGetScalar(ssGetSFcnParam(S,23))
+
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,21))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,24))
 
 /*
  * State IDs
@@ -181,13 +190,18 @@ static void mdlCheckParameters(SimStruct *S)
 	beg_window = param_beg_window;
 	end_window = param_end_window;
 
+	beg_cue = param_beg_cue;
+	end_cue = param_end_cue;
+
+	cue_var = param_cue_var;
+
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 22); 
+    ssSetNumSFcnParams(S, 25); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -264,7 +278,7 @@ static void mdlInitializeSizes(SimStruct *S)
                                584: incompletes
                                585: databurst_counter */
     
-    ssSetNumPWork(S, 1); /*    0: Databurst array pointer  */
+    ssSetNumPWork(S, 1); /*    0: Databurst array pointer */
     
     /* we have no zero crossing detection or modes */
     ssSetNumModes(S, 0);
@@ -284,6 +298,9 @@ static void mdlInitializeConditions(SimStruct *S)
 {
     real_T *x0;
     byte *databurst;
+	real_T *gRandTable;
+	int i, j;
+	real_T w, x1, x2;
     
     /* initialize state to zero */
     x0 = ssGetRealDiscStates(S);
@@ -329,6 +346,11 @@ static int cursorInTarget(real_T *c, real_T *t)
     return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
 }
 
+/* gRand
+ * returns a random gaussian number from the table that was set up during 
+ * initialize_conditions
+ */
+#define gRand (sqrt(-2*log(UNI))*cos(2*PI*UNI));
 
 #define MDL_UPDATE
 static void mdlUpdate(SimStruct *S, int_T tid) 
@@ -501,17 +523,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
 				
 			/* get displacement of cursor drawn from normal distribution and save to work vector */
-			w = 1.0;
-            for (i=0; i<100; i++) {
-               if (w >= 1.0) {
-                  x1 = 2.0 * ((float)rand())/((float)RAND_MAX) - 1.0;
-                  x2 = 2.0 * ((float)rand())/((float)RAND_MAX) - 1.0;
-                  w = x1 * x1 + x2 * x2;
-               }
-            }
-
-            w = sqrt( (-2.0 * log( w ) ) / w );
-			displace = displacement_mean + x1*w*displacement_var;
+			displace = displacement_mean + gRand*displacement_var;
 			ssSetRWorkValue(S,5,displace);
 
             /* see if mode has changed.  If so we need a reset. */
@@ -846,7 +858,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* get target bounds */
 	if ((int)num_targets == 1) {
-		theta = 0;
+		theta = PI/2;
 	} else {
 		theta = PI/2 - target*2*PI/num_targets;
 	}
@@ -1077,15 +1089,27 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 
 	if ((state == STATE_MOVEMENT) && 
 		(((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) > beg_window*target_radius) &&
-		((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < end_window*target_radius))){
-		/* We are inside the blocking window */
+		((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < beg_cue*target_radius))){
+		/* We are inside the 1st blocking window */
 		pos_x = 1E6;
 		pos_y = 1E6;
+	} else if ((state == STATE_MOVEMENT) && 
+		(((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) > end_cue*target_radius) &&
+		((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < end_window*target_radius))){
+		/* We are inside the 2nd blocking window */
+		pos_x = 1E6;
+		pos_y = 1E6;
+	} else if ((state == STATE_MOVEMENT) && 
+		(((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) > beg_cue*target_radius) &&
+		((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < end_cue*target_radius))){
+		pos_x = cursor[0] + cue_var*gRand;
+		pos_y = cursor[1] + cue_var*gRand;
 	} else {
 		/* we are outside the blocking window */
 		pos_x = cursor[0];
 		pos_y = cursor[1];
 	}
+
 
     /**********************************
      * Write outputs back to SimStruct
