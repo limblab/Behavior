@@ -299,9 +299,6 @@ static void mdlInitializeConditions(SimStruct *S)
 {
     real_T *x0;
     byte *databurst;
-	real_T *gRandTable;
-	int i, j;
-	real_T w, x1, x2;
     
     /* initialize state to zero */
     x0 = ssGetRealDiscStates(S);
@@ -351,7 +348,8 @@ static int cursorInTarget(real_T *c, real_T *t)
  * returns a random gaussian number from the table that was set up during 
  * initialize_conditions
  */
-#define gRand (sqrt(-2*log(UNI))*cos(2*PI*UNI));
+
+#define gRand (sqrt(-2*log(UNI))*cos(2*PI*UNI))
 
 #define MDL_UPDATE
 static void mdlUpdate(SimStruct *S, int_T tid) 
@@ -374,8 +372,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	real_T cursor[2];
     real_T elapsed_timer_time;
 	real_T rad_d;
-    real_T displace,w,x1,x2;
-
+    real_T displace;
     int reset_block = 0;
         
     /* block initialization working variables */
@@ -422,7 +419,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     
     /* get target bounds */
 	if ((int)num_targets == 1) {
-		theta = 0;
+		theta = PI/2;
 	} else {
 		theta = PI/2 - target*2*PI/num_targets;
 	}
@@ -522,9 +519,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			beg_window = param_beg_window;
 			end_window = param_end_window;	            
 
-				
 			/* get displacement of cursor drawn from normal distribution and save to work vector */
-			displace = displacement_mean + gRand*displacement_var;
+			displace = (displacement_mean + (gRand * displacement_var)); 
 			ssSetRWorkValue(S,5,displace);
 
             /* see if mode has changed.  If so we need a reset. */
