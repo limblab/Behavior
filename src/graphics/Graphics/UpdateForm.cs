@@ -536,6 +536,10 @@ namespace BehaviorGraphics
             AddParamListItem("Un Disp Var", "P19", "Behavior Un", this.textBoxUDispVar);
             AddParamListItem("Un Block Win Start", "P20", "Behavior Un", this.textBoxUBlockWinStart);
             AddParamListItem("Un Block Win End", "P21", "Behavior Un", this.textBoxUBlockWinEnd);
+            AddParamListItem("Un Cue Start", "P22", "Behavior Un", this.textBoxUCueStart);
+            AddParamListItem("Un Cue End", "P23", "Behavior Un", this.textBoxUCueEnd);
+            AddParamListItem("Un Cue Var", "P24", "Behavior Un", this.textBoxUCueVar);
+
 
             #endregion
 
@@ -2111,7 +2115,6 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
-     
 
       
     }

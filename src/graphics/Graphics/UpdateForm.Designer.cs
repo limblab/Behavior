@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -607,6 +607,10 @@ namespace BehaviorGraphics
             this.label217 = new System.Windows.Forms.Label();
             this.tabUncertainty = new System.Windows.Forms.TabPage();
             this.groupBox54 = new System.Windows.Forms.GroupBox();
+            this.label258 = new System.Windows.Forms.Label();
+            this.label257 = new System.Windows.Forms.Label();
+            this.textBoxUCueEnd = new System.Windows.Forms.TextBox();
+            this.textBoxUCueStart = new System.Windows.Forms.TextBox();
             this.label251 = new System.Windows.Forms.Label();
             this.label250 = new System.Windows.Forms.Label();
             this.textBoxUBlockWinEnd = new System.Windows.Forms.TextBox();
@@ -738,6 +742,8 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
+            this.textBoxUCueVar = new System.Windows.Forms.TextBox();
+            this.label259 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -3591,8 +3597,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4350,8 +4356,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -6945,6 +6951,12 @@ namespace BehaviorGraphics
             // 
             // groupBox54
             // 
+            this.groupBox54.Controls.Add(this.label259);
+            this.groupBox54.Controls.Add(this.textBoxUCueVar);
+            this.groupBox54.Controls.Add(this.label258);
+            this.groupBox54.Controls.Add(this.label257);
+            this.groupBox54.Controls.Add(this.textBoxUCueEnd);
+            this.groupBox54.Controls.Add(this.textBoxUCueStart);
             this.groupBox54.Controls.Add(this.label251);
             this.groupBox54.Controls.Add(this.label250);
             this.groupBox54.Controls.Add(this.textBoxUBlockWinEnd);
@@ -6953,12 +6965,44 @@ namespace BehaviorGraphics
             this.groupBox54.Controls.Add(this.textBoxUDispVar);
             this.groupBox54.Controls.Add(this.label248);
             this.groupBox54.Controls.Add(this.textBoxUDispMean);
-            this.groupBox54.Location = new System.Drawing.Point(222, 229);
+            this.groupBox54.Location = new System.Drawing.Point(8, 240);
             this.groupBox54.Name = "groupBox54";
-            this.groupBox54.Size = new System.Drawing.Size(435, 100);
+            this.groupBox54.Size = new System.Drawing.Size(649, 140);
             this.groupBox54.TabIndex = 22;
             this.groupBox54.TabStop = false;
             this.groupBox54.Text = "Misc";
+            // 
+            // label258
+            // 
+            this.label258.AutoSize = true;
+            this.label258.Location = new System.Drawing.Point(493, 48);
+            this.label258.Name = "label258";
+            this.label258.Size = new System.Drawing.Size(47, 13);
+            this.label258.TabIndex = 26;
+            this.label258.Text = "Cue end";
+            // 
+            // label257
+            // 
+            this.label257.AutoSize = true;
+            this.label257.Location = new System.Drawing.Point(489, 19);
+            this.label257.Name = "label257";
+            this.label257.Size = new System.Drawing.Size(51, 13);
+            this.label257.TabIndex = 25;
+            this.label257.Text = "Cue Start";
+            // 
+            // textBoxUCueEnd
+            // 
+            this.textBoxUCueEnd.Location = new System.Drawing.Point(546, 45);
+            this.textBoxUCueEnd.Name = "textBoxUCueEnd";
+            this.textBoxUCueEnd.Size = new System.Drawing.Size(92, 20);
+            this.textBoxUCueEnd.TabIndex = 24;
+            // 
+            // textBoxUCueStart
+            // 
+            this.textBoxUCueStart.Location = new System.Drawing.Point(546, 15);
+            this.textBoxUCueStart.Name = "textBoxUCueStart";
+            this.textBoxUCueStart.Size = new System.Drawing.Size(92, 20);
+            this.textBoxUCueStart.TabIndex = 23;
             // 
             // label251
             // 
@@ -7291,7 +7335,7 @@ namespace BehaviorGraphics
             this.groupBox53.Controls.Add(this.label247);
             this.groupBox53.Location = new System.Drawing.Point(8, 8);
             this.groupBox53.Name = "groupBox53";
-            this.groupBox53.Size = new System.Drawing.Size(207, 250);
+            this.groupBox53.Size = new System.Drawing.Size(207, 226);
             this.groupBox53.TabIndex = 24;
             this.groupBox53.TabStop = false;
             this.groupBox53.Text = "Timing";
@@ -8231,6 +8275,22 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
+            // textBoxUCueVar
+            // 
+            this.textBoxUCueVar.Location = new System.Drawing.Point(546, 71);
+            this.textBoxUCueVar.Name = "textBoxUCueVar";
+            this.textBoxUCueVar.Size = new System.Drawing.Size(92, 20);
+            this.textBoxUCueVar.TabIndex = 27;
+            // 
+            // label259
+            // 
+            this.label259.AutoSize = true;
+            this.label259.Location = new System.Drawing.Point(470, 74);
+            this.label259.Name = "label259";
+            this.label259.Size = new System.Drawing.Size(70, 13);
+            this.label259.TabIndex = 29;
+            this.label259.Text = "Cue variance";
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -9125,5 +9185,11 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxBCStim1Repeat;
         private System.Windows.Forms.Label label255;
         private System.Windows.Forms.Label label256;
+        private System.Windows.Forms.Label label258;
+        private System.Windows.Forms.Label label257;
+        private System.Windows.Forms.TextBox textBoxUCueEnd;
+        private System.Windows.Forms.TextBox textBoxUCueStart;
+        private System.Windows.Forms.Label label259;
+        private System.Windows.Forms.TextBox textBoxUCueVar;
     }
 }
