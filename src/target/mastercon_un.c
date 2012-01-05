@@ -12,6 +12,7 @@
 
 #define TASK_UN 1
 #include "words.h"
+#include "random_macros.h"
 
 #define PI (3.141592654)
 
