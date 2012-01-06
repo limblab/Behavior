@@ -127,10 +127,10 @@ static real_T beg_window = 0.4;   /* start of blocking window in fraction of tar
 static real_T end_window = 0.6;   /* end of blocking window in fraction of target radius */
 #define param_end_window mxGetScalar(ssGetSFcnParam(S,20))
 
-static real_T beg_cue = 0.49; /* Start of cue window in fraction of radius */ 
+static real_T beg_cue = 0.5; /* Start of cue window in fraction of radius */ 
 #define param_beg_cue mxGetScalar(ssGetSFcnParam(S,21))
 
-static real_T end_cue = 0.51; /* End of cue window in fraction of radius */
+static real_T end_cue = 0.8; /* End of cue window in fraction of radius */
 #define param_end_cue mxGetScalar(ssGetSFcnParam(S,22))
 
 static real_T cue_var = 0.2; /* Variance of Cue 'cloud' */
@@ -418,11 +418,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
     
     /* get target bounds */
-	if ((int)num_targets == 1) {
-		theta = PI/2;
-	} else {
-		theta = PI/2 - target*2*PI/num_targets;
-	}
+	//if ((int)num_targets == 1) {
+	//	theta = PI/2;
+	//} else {
+	theta = PI/2 - target*2*PI/num_targets;
+	
     ct[0] = -target_size/2;
     ct[1] = target_size/2;
     ct[2] = target_size/2;
@@ -517,7 +517,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			displacement_var = param_displacement_var;
 			
 			beg_window = param_beg_window;
-			end_window = param_end_window;	            
+			end_window = param_end_window;
+
+			beg_cue = param_beg_cue;
+			end_cue = param_end_cue;
+			cue_var = param_cue_var;
 
 			/* get displacement of cursor drawn from normal distribution and save to work vector */
 			displace = (displacement_mean + (gRand * displacement_var)); 
@@ -854,11 +858,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_id = ssGetRWorkValue(S, 2);
     
     /* get target bounds */
-	if ((int)num_targets == 1) {
-		theta = PI/2;
-	} else {
-		theta = PI/2 - target*2*PI/num_targets;
-	}
+	theta = PI/2 - target*2*PI/num_targets;
+
     ct[0] = -target_size/2;
     ct[1] = target_size/2;
     ct[2] = target_size/2;
@@ -1110,19 +1111,19 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	//}
 
 	if ((state == STATE_MOVEMENT) && 
-		((curs_rad > beg_window*target_radius) &&(curs_rad < beg_cue*target_radius))){
+		((curs_rad > beg_window*target_radius) && (curs_rad < beg_cue*target_radius))){
 		/* We are inside the 1st blocking window */
 		pos_x = 1E6;
 		pos_y = 1E6;
 	} else if ((state == STATE_MOVEMENT) && 
-		((curs_rad > end_cue*target_radius) &&(curs_rad < end_window*target_radius))){
+		((curs_rad > end_cue*target_radius) && (curs_rad < end_window*target_radius))){
 		/* We are inside the 2nd blocking window */
 		pos_x = 1E6;
 		pos_y = 1E6;
 	} else if ((state == STATE_MOVEMENT) && 
-		((curs_rad > beg_cue*target_radius) &&(curs_rad < end_cue*target_radius))){
-		pos_x = cursor[0]; /* + cue_var*gRand; */
-		pos_y = cursor[1]; /* + cue_var*gRand; */
+		((curs_rad >= beg_cue*target_radius) && (curs_rad <= end_cue*target_radius))){
+		pos_x = cursor[0]+ cue_var*gRand;
+		pos_y = cursor[1]+ cue_var*gRand;
 	} else {
 		/* we are outside the blocking window */
 		pos_x = cursor[0];
