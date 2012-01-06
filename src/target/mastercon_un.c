@@ -802,7 +802,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T theta;
     real_T ct[4];
     real_T ot[4];
-    real_T displace, rad_d;
+    real_T displace, rad_d, curs_rad;
     
     InputRealPtrsType uPtrs;
     real_T cursor_old[2];
@@ -877,8 +877,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	displace = ssGetRWorkValue(S,5);
 	
 	rad_d = sqrt(cursor_old[0]*cursor_old[0] + cursor_old[1]*cursor_old[1]);
-	
-	if ((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < (beg_window*target_radius)){
+	curs_rad = cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d;
+
+	if (curs_rad < (beg_window*target_radius)){
 			cursor[0] = cursor_old[0];
 			cursor[1] = cursor_old[1];
 	} else {
@@ -1084,29 +1085,49 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* pos (7) */
 
+	
+	//if ((state == STATE_MOVEMENT) && 
+	//	(((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) > beg_window*target_radius) &&
+	//	((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < beg_cue*target_radius))){
+	//	/* We are inside the 1st blocking window */
+	//	pos_x = 1E6;
+	//	pos_y = 1E6;
+	//} else if ((state == STATE_MOVEMENT) && 
+	//	(((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) > end_cue*target_radius) &&
+	//	((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < end_window*target_radius))){
+	//	/* We are inside the 2nd blocking window */
+	//	pos_x = 1E6;
+	//	pos_y = 1E6;
+	//} else if ((state == STATE_MOVEMENT) && 
+	//	(((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) > beg_cue*target_radius) &&
+	//	((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < end_cue*target_radius))){
+	//	pos_x = cursor[0] + cue_var*gRand;
+	//	pos_y = cursor[1] + cue_var*gRand;
+	//} else {
+	//	/* we are outside the blocking window */
+	//	pos_x = cursor[0];
+	//	pos_y = cursor[1];
+	//}
+
 	if ((state == STATE_MOVEMENT) && 
-		(((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) > beg_window*target_radius) &&
-		((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < beg_cue*target_radius))){
+		((curs_rad > beg_window*target_radius) &&(curs_rad < beg_cue*target_radius))){
 		/* We are inside the 1st blocking window */
 		pos_x = 1E6;
 		pos_y = 1E6;
 	} else if ((state == STATE_MOVEMENT) && 
-		(((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) > end_cue*target_radius) &&
-		((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < end_window*target_radius))){
+		((curs_rad > end_cue*target_radius) &&(curs_rad < end_window*target_radius))){
 		/* We are inside the 2nd blocking window */
 		pos_x = 1E6;
 		pos_y = 1E6;
 	} else if ((state == STATE_MOVEMENT) && 
-		(((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) > beg_cue*target_radius) &&
-		((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < end_cue*target_radius))){
-		pos_x = cursor[0] + cue_var*gRand;
-		pos_y = cursor[1] + cue_var*gRand;
+		((curs_rad > beg_cue*target_radius) &&(curs_rad < end_cue*target_radius))){
+		pos_x = cursor[0]; /* + cue_var*gRand; */
+		pos_y = cursor[1]; /* + cue_var*gRand; */
 	} else {
 		/* we are outside the blocking window */
 		pos_x = cursor[0];
 		pos_y = cursor[1];
 	}
-
 
     /**********************************
      * Write outputs back to SimStruct
