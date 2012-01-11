@@ -6,6 +6,11 @@
     <FilePrefix>colors</FilePrefix>
   </GlyphDef>
   <GlyphDef>
+    <Name>Yellow Circle</Name>
+    <NumGlyphs>1</NumGlyphs>
+    <FilePrefix>yellowcircle</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
     <Name>Planet Symbols</Name>
     <NumGlyphs>10</NumGlyphs>
     <FilePrefix>planets</FilePrefix>
