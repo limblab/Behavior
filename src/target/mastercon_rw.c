@@ -54,7 +54,7 @@
  *                      half of them.
  * ----------------
  * byte   0: uchar => number of bytes to be transmitted
- * byte   1: uchar => databurst version number (in this case one)
+ * byte   1: uchar => databurst version number (in this case two)
  * byte   2: uchar => model version major
  * byte   3: uchar => model version minor
  * bytes  4 to  5: short => model version micro

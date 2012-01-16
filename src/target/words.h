@@ -1,6 +1,4 @@
 #define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
 /* $Id: words.h 491 2009-10-30 19:57:30Z brian $
  *
  * defines word codes for center out and random walk tasks.
@@ -58,6 +56,8 @@
 #define WORD_TASK_CODE 0x0D
 #elif TASK_UN
 #define WORD_TASK_CODE 0x0E
+#elif TASK_DB_DEFINED
+#define WORD_TASK_CODE 0x0F /* this is an escape indicating that the task will be specified by the databurst */
 #endif
 
 /* trial start */
