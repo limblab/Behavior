@@ -30,24 +30,9 @@
  * Version 0 (0x00)
  * ----------------
  * byte   0: uchar => number of bytes to be transmitted
- * byte   1: uchar => databurst version number (in this case one)
- * byte   2: uchar => model version major
- * byte   3: uchar => model version minor
- * bytes  4 to  5: short => model version micro
- * bytes  6 to  9: float => x offset
- * bytes 10 to 13: float => y offset
- * bytes 14 to 29: 16 bytes per target representing four single precision floating point
- *      numbers in little-endian format representing UL x, UL y, LR x and LR y coordinates
- *      of the UL and LR corners of the target.
- *
- *      The position of only the current target is output at the begining of each trial
- *      in normal behavior.
- *
- *      In MVC mode, the current value of the MVC target is provided in the databurst
- * bytes 30 to 33: float => displacement
- * bytes 34 to 37: float => displacement distribution mean
- * bytes 38 to 41: float => displacement distribution variance
-*/
+ * byte   1: uchar => databurst version number (in this case zero)
+ * bytes  2 to  5: float => displacement
+ */
 
 typedef unsigned char byte;
 #define DATABURST_VERSION (0x00) 
@@ -136,8 +121,14 @@ static real_T end_cue = 0.8; /* End of cue window in fraction of radius */
 static real_T cue_var = 0.2; /* Variance of Cue 'cloud' */
 #define param_cue_var mxGetScalar(ssGetSFcnParam(S,23))
 
+static real_T cue_dot_size = 0.2; /* Size of dots in cue cloud */
+#define param_cue_dot_size mxGetScalar(ssGetSFcnParam(S,24))
+
+static int cue_dot_num = 10 /* Number of dots in cue cloud */
+#define param_cue_dot_num = mxGetScalar(ssGetSFcnParam(S,25))
+
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,24))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,26))
 
 /*
  * State IDs
@@ -195,6 +186,8 @@ static void mdlCheckParameters(SimStruct *S)
 	end_cue = param_end_cue;
 
 	cue_var = param_cue_var;
+	cue_dot_size = param_cue_dot_size;
+	cue_dot_num = param_cue_dot_num;
 
 }
 
@@ -202,7 +195,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 25); 
+    ssSetNumSFcnParams(S, 27); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -243,7 +236,7 @@ static void mdlInitializeSizes(SimStruct *S)
      *                  target LR corner x, 
      *                  target LR corner y)
      *  reward: 1
-     *  tone: 2     ( 1: counter incemented for each new tone, 2: tone ID )
+     *  tone: 2     ( 1: counter incremented for each new tone, 2: tone ID )
      *  version: 1 ( the cvs revision of the current .c file )
      *  pos: 2 (x and y position of the cursor)
      */
@@ -260,12 +253,13 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 6);  /* 0: time of last timer reset 
+    ssSetNumRWork(S, 26);  /* 0: time of last timer reset 
                              1: tone counter (incremented each time a tone is played)
                              2: tone id
                              3: catch trial (1 for yes, 0 for no)
                              4: mastercon version
-							 5: displacement (cm for 1 target, rad for >1 target)
+							 5: displacement (in radians)
+							 [6-25]: positions of cue cloud points
                            */
     ssSetNumPWork(S, 0);
     ssSetNumIWork(S, 586); /*    0: state_transition (true if state changed), 
@@ -344,6 +338,21 @@ static int cursorInTarget(real_T *c, real_T *t)
     return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
 }
 
+static void Corners(rea_T *pos, real_T *corn, real_T width)
+{
+	/* Function takes the pointer to an array A with position coordinates 
+	[x1 y1 x2 y2 ...] and writes to an array size 2*A with corner vales 
+	[UL_X_(x1,y1) UL_Y_(x1,y1) LR_X_(x1,y1) LR_Y_(x1,y1) ...] */
+
+	int i;
+	for (i=0; i<(sizeof(pos)/sizeof(real_T));i++){
+		corn[4*i] = pos[2*i]-width/2;
+		corn[4*i+1] = pos[2*i+1] + width/2;
+		corn[4*i+1] = pos[2*i] + width/2;
+		corn[4*i+1] = pos[2*i+1] - width/2;
+	} 
+}
+
 /* gRand
  * returns a random gaussian number from the table that was set up during 
  * initialize_conditions
@@ -373,6 +382,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T elapsed_timer_time;
 	real_T rad_d;
     real_T displace;
+	
     int reset_block = 0;
         
     /* block initialization working variables */
@@ -383,9 +393,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
     int databurst_counter;
     byte *databurst;
-    float *databurst_offsets;
-    float *databurst_target_list;
-    float *databurst_distribution;
     float *databurst_displacement;
 
     /******************
@@ -447,11 +454,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	}
 
     databurst = ssGetPWorkValue(S,0);
-    databurst_offsets = (float *)(databurst + 6);
-    databurst_target_list = databurst_offsets + 2;
-	databurst_displacement = databurst_target_list + 16;
-	databurst_distribution = databurst_displacement + 2;
-    databurst_counter = ssGetIWorkValue(S, 585);
+    databurst_displacement = (float *)(databurst + 2);
     
     /*********************************
      * See if we have issued a reset *
@@ -527,81 +530,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			displace = (displacement_mean + (gRand * displacement_var)); 
 			ssSetRWorkValue(S,5,displace);
 
+			/* get displacement of cue cloud drawn from normal distribution and save positions to work vector */
+			for (i=0; i<20; i++){
+				ssSetRWorkValue(S,6+i,(gRand*cue_var));
+			}
+
             /* see if mode has changed.  If so we need a reset. */
             if (mode != param_mode) {
                 reset_block = 1;
                 mode = param_mode;
-            }
-
-            /* if we do not have our targets initialized => new block */
-            if (mode == MODE_BLOCK_CATCH && (target_index == num_targets-1 || reset_block)) {
-                /* initialize the targets */
-                for (i=0; i<num_targets; i++) {
-                    tmp_tgts[i] = i;
-                    tmp_sort[i] = rand();
-                }
-                for (i=0; i<num_targets-1; i++) {
-                    for (j=0; j<num_targets-1; j++) {
-                        if (tmp_sort[j] < tmp_sort[j+1]) {
-                            tmp = tmp_sort[j];
-                            tmp_sort[j] = tmp_sort[j+1];
-                            tmp_sort[j+1] = tmp;
-                            
-                            tmp = tmp_tgts[j];
-                            tmp_tgts[j] = tmp_tgts[j+1];
-                            tmp_tgts[j+1] = tmp;
-                        }
-                    }
-                }
-                /* write them back */
-                for (i=0; i<num_targets; i++) {
-                    target_list[i] = tmp_tgts[i];
-                }
-                /* and reset the counter */
-                ssSetIWorkValue(S, 1, 0);
-            } else if (mode == MODE_BUMP && (target_index == (num_targets+1)*(num_targets+1)-1 || reset_block)) {
-                /* initilize the targets and bump directions */
-                for (i=0; i<num_targets+1; i++) {
-                    for (j=0; j<num_targets+1; j++) {
-                        tmp_tgts[i*((int)num_targets+1)+j] = i-1;
-                        tmp_bump[i*((int)num_targets+1)+j] = j-1;
-                        tmp_sort[i*((int)num_targets+1)+j] = rand();
-                    }
-                }
-                for (i=0; i<(num_targets+1)*(num_targets+1)-1; i++) {
-                    for (j=0; j<(num_targets+1)*(num_targets+1)-1; j++) {
-                        if (tmp_sort[j] < tmp_sort[j+1]) {
-                            tmp = tmp_sort[j];
-                            tmp_sort[j] = tmp_sort[j+1];
-                            tmp_sort[j+1] = tmp;
-                            
-                            tmp = tmp_tgts[j];
-                            tmp_tgts[j] = tmp_tgts[j+1];
-                            tmp_tgts[j+1] = tmp;
-                            
-                            tmp = tmp_bump[j];
-                            tmp_bump[j] = tmp_bump[j+1];
-                            tmp_bump[j+1] = tmp;
-                        }
-                    }
-                }
-                for (i=0; i<(num_targets+1)*(num_targets+1)-1; i++) {
-                    target_list[i*2]   = tmp_tgts[i];
-                    target_list[i*2+1] = tmp_bump[i];
-                }
-                /* and reset the counter */
-                ssSetIWorkValue(S, 1, 0);
-            } else {
-                /* just advance the counter */
-                target_index++;
-                /* and write it back */
-                ssSetIWorkValue(S, 1, target_index);
-                if (mode == MODE_BLOCK_CATCH) {
-                    target = target_list[target_index];
-                } else {
-                    /* mode == MODE_BUMP */
-                    target = target_list[target_index*2];
-                }
             }
 
             /* In all cases, we need to decide on the random timer durations */
@@ -629,24 +566,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             
             /* Setup the databurst */
-            databurst[0] = 6+2*sizeof(float)+ 7*sizeof(float);
+            databurst[0] = 2+sizeof(float);
             databurst[1] = DATABURST_VERSION;
-            databurst[2] = BEHAVIOR_VERSION_MAJOR;
-            databurst[3] = BEHAVIOR_VERSION_MINOR;
-            databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
-            databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
-            /* The offsets used in the calculation of the cursor location */
-            uPtrs = ssGetInputPortRealSignalPtrs(S, 1); 
-            databurst_offsets[0] = *uPtrs[0];
-            databurst_offsets[1] = *uPtrs[1];
-            /* The target location */
-            for (i = 0; i < 4; i++) {
-                databurst_target_list[i] = (float)ot[i];
-            }
-            databurst_displacement[0] = displace;
-			databurst_distribution[0] = displacement_mean;
-			databurst_distribution[1] = displacement_var;
-
+			databurst_displacement[0] = displace;
+			
             /* reset counters */
             ssSetIWorkValue(S, 580, 0); /* clear the bump counter */
             ssSetIWorkValue(S, 585, 0); /* reset the databurst_counter */
@@ -796,7 +719,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /********************
      *  Initialization
      ********************/
-    int i;
+    int i,j;
     int_T *IWorkVector; 
     int_T target_index;
     int_T *target_list;
@@ -816,7 +739,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* allocate holders for outputs */
     real_T force_x, force_y, word, reward, tone_cnt, tone_id, pos_x, pos_y;
-    real_T target_pos[10];
+    real_T target_pos[60];
+	real_T cue_pos[cue_dot_num*4];
+	real_T cue_cents[cue_dot_num*2];
     real_T status[5];
     real_T version[4];
     
@@ -880,12 +805,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	rad_d = sqrt(cursor_old[0]*cursor_old[0] + cursor_old[1]*cursor_old[1]);
 	curs_rad = cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d;
 
-	if (curs_rad < (beg_window*target_radius)){
-			cursor[0] = cursor_old[0];
-			cursor[1] = cursor_old[1];
-	} else {
+	if ((state == STATE_MOVEMENT || state == STATE_OUTER_HOLD)&&(curs_rad > (beg_window*target_radius))){
+
 		cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
 		cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
+
+	} else {
+
+		cursor[0] = cursor_old[0];
+		cursor[1] = cursor_old[1];
 	}
   
     /* input force */
@@ -1084,32 +1012,26 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     version[2] = BEHAVIOR_VERSION_MICRO;
     version[3] = BEHAVIOR_VERSION_BUILD;
     
-    /* pos (7) */
-
+	/* DRAW CUE CLUSTER */ 
 	
-	//if ((state == STATE_MOVEMENT) && 
-	//	(((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) > beg_window*target_radius) &&
-	//	((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < beg_cue*target_radius))){
-	//	/* We are inside the 1st blocking window */
-	//	pos_x = 1E6;
-	//	pos_y = 1E6;
-	//} else if ((state == STATE_MOVEMENT) && 
-	//	(((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) > end_cue*target_radius) &&
-	//	((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < end_window*target_radius))){
-	//	/* We are inside the 2nd blocking window */
-	//	pos_x = 1E6;
-	//	pos_y = 1E6;
-	//} else if ((state == STATE_MOVEMENT) && 
-	//	(((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) > beg_cue*target_radius) &&
-	//	((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < end_cue*target_radius))){
-	//	pos_x = cursor[0] + cue_var*gRand;
-	//	pos_y = cursor[1] + cue_var*gRand;
-	//} else {
-	//	/* we are outside the blocking window */
-	//	pos_x = cursor[0];
-	//	pos_y = cursor[1];
-	//}
+	/* Get cue positions from work vector and save to cue_pos vector */
+	for (i = 0; i<20; i++){
+		cue_pos[i] = ssGetRWorkValue(S,6+i);
+	}
+	
+	Corners(cue_pos,cue_corns,cue_dot_size);
 
+	for (i = 0; i<(sizeof(cue_corns)/(4*sizeof(real_T))); i++){
+		target_pos[10+5*i] = 16;
+
+		target_pos[11+5*i] = cue_corns[0+5*i];
+		target_pos[12+5*i] = cue_corns[1+5*i];
+		target_pos[13+5*i] = cue_corns[2+5*i];
+		target_pos[14+5*i] = cue_corns[3+5*i];
+	}
+
+    /* pos (7) */
+	
 	if ((state == STATE_MOVEMENT) && 
 		((curs_rad > beg_window*target_radius) && (curs_rad < beg_cue*target_radius))){
 		/* We are inside the 1st blocking window */
@@ -1122,8 +1044,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		pos_y = 1E6;
 	} else if ((state == STATE_MOVEMENT) && 
 		((curs_rad >= beg_cue*target_radius) && (curs_rad <= end_cue*target_radius))){
-		pos_x = cursor[0]+ cue_var*gRand;
-		pos_y = cursor[1]+ cue_var*gRand;
+		pos_x = cursor[0];
+		pos_y = cursor[1];
 	} else {
 		/* we are outside the blocking window */
 		pos_x = cursor[0];
