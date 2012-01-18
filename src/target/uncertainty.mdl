@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1238"
+    ComputedModelVersion    "1.1239"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jan 18 12:38:25 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1238>"
+  LastModifiedDate	  "Wed Jan 18 12:55:08 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1239>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -835,7 +835,7 @@ Model {
   }
   System {
     Name		    "uncertainty"
-    Location		    [2, 82, 997, 727]
+    Location		    [2, 82, 989, 722]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -857,7 +857,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_un "
       Parameters	      "8 10 2.5 1 1 .5 1.5 .75 .25 1 1 10 1 .02 125 1 "
-"0 0 2 0.4 0.6 0 1 2 10 0"
+"0 0 2 0.4 0.6 0 1 2 0 10 0 "
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'force')\nport_label('input',3,'catch force')\npor"
 "t_label('output',1,'force')\nport_label('output',2,'status')\nport_label('out"
@@ -7063,7 +7063,7 @@ Model {
       MaskIconUnits	      "autoscale"
       System {
 	Name			"XY Position Subsystem"
-	Location		[54, 86, 1070, 808]
+	Location		[54, 86, 1058, 726]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -7945,7 +7945,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Jacobian-Cartesian Transformation"
-	    Location		    [0, 82, 1268, 884]
+	    Location		    [0, 82, 1004, 722]
 	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200

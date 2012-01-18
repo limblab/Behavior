@@ -124,8 +124,8 @@ static real_T cue_var = 0.2; /* Variance of Cue 'cloud' */
 static real_T cue_dot_size = 0.2; /* Size of dots in cue cloud */
 #define param_cue_dot_size mxGetScalar(ssGetSFcnParam(S,24))
 
-static int cue_dot_num = 10 /* Number of dots in cue cloud */
-#define param_cue_dot_num = mxGetScalar(ssGetSFcnParam(S,25))
+static real_T cue_dot_num = 10; /* Number of dots in cue cloud */
+#define param_cue_dot_num mxGetScalar(ssGetSFcnParam(S,25))
 
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,26))
@@ -338,7 +338,7 @@ static int cursorInTarget(real_T *c, real_T *t)
     return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
 }
 
-static void Corners(rea_T *pos, real_T *corn, real_T width)
+static void Corners(real_T *pos, real_T *corn, real_T width)
 {
 	/* Function takes the pointer to an array A with position coordinates 
 	[x1 y1 x2 y2 ...] and writes to an array size 2*A with corner vales 
@@ -386,10 +386,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int reset_block = 0;
         
     /* block initialization working variables */
-    int tmp_tgts[256];
-    int tmp_bump[256];
-    int tmp_sort[256];
-    int i, j, tmp;
+    int i;
 
     int databurst_counter;
     byte *databurst;
@@ -740,8 +737,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* allocate holders for outputs */
     real_T force_x, force_y, word, reward, tone_cnt, tone_id, pos_x, pos_y;
     real_T target_pos[60];
-	real_T cue_pos[cue_dot_num*4];
-	real_T cue_cents[cue_dot_num*2];
+	real_T cue_pos[40];
+	real_T cue_cents[20];
     real_T status[5];
     real_T version[4];
     
@@ -1019,15 +1016,20 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		cue_pos[i] = ssGetRWorkValue(S,6+i);
 	}
 	
-	Corners(cue_pos,cue_corns,cue_dot_size);
+	Corners(cue_pos,cue_pos,cue_dot_size);
 
-	for (i = 0; i<(sizeof(cue_corns)/(4*sizeof(real_T))); i++){
+	for (i = 0; i<cue_dot_num; i++){
 		target_pos[10+5*i] = 16;
 
-		target_pos[11+5*i] = cue_corns[0+5*i];
-		target_pos[12+5*i] = cue_corns[1+5*i];
-		target_pos[13+5*i] = cue_corns[2+5*i];
-		target_pos[14+5*i] = cue_corns[3+5*i];
+		target_pos[11+5*i] = cue_pos[0+5*i];
+		target_pos[12+5*i] = cue_pos[1+5*i];
+		target_pos[13+5*i] = cue_pos[2+5*i];
+		target_pos[14+5*i] = cue_pos[3+5*i];
+	}
+
+	/* Set remaining array contents to zero */
+	for (i = (int)(10+5*(cue_dot_num)); i<60; i++){
+		target_pos[i] = 0;
 	}
 
     /* pos (7) */
@@ -1044,8 +1046,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		pos_y = 1E6;
 	} else if ((state == STATE_MOVEMENT) && 
 		((curs_rad >= beg_cue*target_radius) && (curs_rad <= end_cue*target_radius))){
-		pos_x = cursor[0];
-		pos_y = cursor[1];
+		pos_x = 1E6;
+		pos_y = 1E6;
 	} else {
 		/* we are outside the blocking window */
 		pos_x = cursor[0];
