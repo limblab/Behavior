@@ -348,8 +348,8 @@ static void Corners(real_T *pos, real_T *corn, real_T width)
 	for (i=0; i<(sizeof(pos)/sizeof(real_T));i++){
 		corn[4*i] = pos[2*i]-width/2;
 		corn[4*i+1] = pos[2*i+1] + width/2;
-		corn[4*i+1] = pos[2*i] + width/2;
-		corn[4*i+1] = pos[2*i+1] - width/2;
+		corn[4*i+2] = pos[2*i] + width/2;
+		corn[4*i+3] = pos[2*i+1] - width/2;
 	} 
 }
 
@@ -1013,14 +1013,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	
 	/* Get cue positions from work vector and save to cue_pos vector */
 	for (i = 0; i<20; i++){
-		cue_pos[i] = ssGetRWorkValue(S,6+i);
+		cue_pos[2*i] = cursor[0] + ssGetRWorkValue(S,6+i);
+		cue_pos[2*i+1] = cursor[1] + ssGetRWorkValue(S,7+i);
 	}
 	
 	Corners(cue_pos,cue_pos,cue_dot_size);
 
 	for (i = 0; i<cue_dot_num; i++){
-		target_pos[10+5*i] = 16;
-
 		target_pos[11+5*i] = cue_pos[0+5*i];
 		target_pos[12+5*i] = cue_pos[1+5*i];
 		target_pos[13+5*i] = cue_pos[2+5*i];
@@ -1032,27 +1031,45 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		target_pos[i] = 0;
 	}
 
+	/* Display cue cloud when inside window */
+	if ((state == STATE_MOVEMENT) && 
+		((curs_rad >= beg_cue*target_radius) && (curs_rad <= end_cue*target_radius))){
+		for (i=0; i<cue_dot_num; i++){
+			target_pos[10+5*i] = 16;
+		}
+	} else {
+		for (i=0; i<cue_dot_num; i++){
+			target_pos[10+5*i] = 0;
+		}
+	}
+
     /* pos (7) */
 	
 	if ((state == STATE_MOVEMENT) && 
-		((curs_rad > beg_window*target_radius) && (curs_rad < beg_cue*target_radius))){
-		/* We are inside the 1st blocking window */
-		pos_x = 1E6;
-		pos_y = 1E6;
-	} else if ((state == STATE_MOVEMENT) && 
-		((curs_rad > end_cue*target_radius) && (curs_rad < end_window*target_radius))){
-		/* We are inside the 2nd blocking window */
-		pos_x = 1E6;
-		pos_y = 1E6;
-	} else if ((state == STATE_MOVEMENT) && 
-		((curs_rad >= beg_cue*target_radius) && (curs_rad <= end_cue*target_radius))){
+		((curs_rad > beg_window*target_radius) && (curs_rad < end_window*target_radius))){
+		/* We are inside the blocking window */
 		pos_x = 1E6;
 		pos_y = 1E6;
 	} else {
-		/* we are outside the blocking window */
+		/* We are outside of the blocking window */
 		pos_x = cursor[0];
 		pos_y = cursor[1];
 	}
+	
+	//} else if ((state == STATE_MOVEMENT) && 
+	//	((curs_rad > end_cue*target_radius) && (curs_rad < end_window*target_radius))){
+	//	/* We are inside the 2nd blocking window */
+	//	pos_x = 1E6;
+	//	pos_y = 1E6;
+	//} else if ((state == STATE_MOVEMENT) && 
+	//	((curs_rad >= beg_cue*target_radius) && (curs_rad <= end_cue*target_radius))){
+	//	pos_x = 1E6;
+	//	pos_y = 1E6;
+	//} else {
+	//	/* we are outside the blocking window */
+	//	pos_x = cursor[0];
+	//	pos_y = cursor[1];
+	//}
 
     /**********************************
      * Write outputs back to SimStruct
