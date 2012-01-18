@@ -539,6 +539,8 @@ namespace BehaviorGraphics
             AddParamListItem("Un Cue Start", "P22", "Behavior Un", this.textBoxUCueStart);
             AddParamListItem("Un Cue End", "P23", "Behavior Un", this.textBoxUCueEnd);
             AddParamListItem("Un Cue Var", "P24", "Behavior Un", this.textBoxUCueVar);
+            AddParamListItem("Un Cue Dot Size", "P25", "Behavior Un", this.textBoxUCueDotSize);
+            AddParamListItem("Un Num Cue Dots", "P26", "Behavior Un", this.numericUUpDownCueDotNum);
 
 
             #endregion

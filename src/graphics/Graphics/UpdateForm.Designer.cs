@@ -606,11 +606,18 @@ namespace BehaviorGraphics
             this.textBox2AFCOHL = new System.Windows.Forms.TextBox();
             this.label217 = new System.Windows.Forms.Label();
             this.tabUncertainty = new System.Windows.Forms.TabPage();
-            this.groupBox54 = new System.Windows.Forms.GroupBox();
-            this.label258 = new System.Windows.Forms.Label();
-            this.label257 = new System.Windows.Forms.Label();
-            this.textBoxUCueEnd = new System.Windows.Forms.TextBox();
+            this.groupBox55 = new System.Windows.Forms.GroupBox();
+            this.label261 = new System.Windows.Forms.Label();
+            this.numericUUpDownCueDotNum = new System.Windows.Forms.NumericUpDown();
+            this.label260 = new System.Windows.Forms.Label();
+            this.textBoxUCueDotSize = new System.Windows.Forms.TextBox();
+            this.label259 = new System.Windows.Forms.Label();
+            this.textBoxUCueVar = new System.Windows.Forms.TextBox();
             this.textBoxUCueStart = new System.Windows.Forms.TextBox();
+            this.label258 = new System.Windows.Forms.Label();
+            this.textBoxUCueEnd = new System.Windows.Forms.TextBox();
+            this.label257 = new System.Windows.Forms.Label();
+            this.groupBox54 = new System.Windows.Forms.GroupBox();
             this.label251 = new System.Windows.Forms.Label();
             this.label250 = new System.Windows.Forms.Label();
             this.textBoxUBlockWinEnd = new System.Windows.Forms.TextBox();
@@ -742,8 +749,6 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.textBoxUCueVar = new System.Windows.Forms.TextBox();
-            this.label259 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -826,6 +831,8 @@ namespace BehaviorGraphics
             this.groupBox45.SuspendLayout();
             this.groupBox46.SuspendLayout();
             this.tabUncertainty.SuspendLayout();
+            this.groupBox55.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownCueDotNum)).BeginInit();
             this.groupBox54.SuspendLayout();
             this.groupBox49.SuspendLayout();
             this.groupBox50.SuspendLayout();
@@ -6937,6 +6944,7 @@ namespace BehaviorGraphics
             // 
             // tabUncertainty
             // 
+            this.tabUncertainty.Controls.Add(this.groupBox55);
             this.tabUncertainty.Controls.Add(this.groupBox54);
             this.tabUncertainty.Controls.Add(this.groupBox49);
             this.tabUncertainty.Controls.Add(this.groupBox52);
@@ -6949,14 +6957,123 @@ namespace BehaviorGraphics
             this.tabUncertainty.Text = "Uncertainty";
             this.tabUncertainty.UseVisualStyleBackColor = true;
             // 
+            // groupBox55
+            // 
+            this.groupBox55.Controls.Add(this.label261);
+            this.groupBox55.Controls.Add(this.numericUUpDownCueDotNum);
+            this.groupBox55.Controls.Add(this.label260);
+            this.groupBox55.Controls.Add(this.textBoxUCueDotSize);
+            this.groupBox55.Controls.Add(this.label259);
+            this.groupBox55.Controls.Add(this.textBoxUCueVar);
+            this.groupBox55.Controls.Add(this.textBoxUCueStart);
+            this.groupBox55.Controls.Add(this.label258);
+            this.groupBox55.Controls.Add(this.textBoxUCueEnd);
+            this.groupBox55.Controls.Add(this.label257);
+            this.groupBox55.Location = new System.Drawing.Point(241, 240);
+            this.groupBox55.Name = "groupBox55";
+            this.groupBox55.Size = new System.Drawing.Size(377, 140);
+            this.groupBox55.TabIndex = 27;
+            this.groupBox55.TabStop = false;
+            this.groupBox55.Text = "Cue Cloud";
+            // 
+            // label261
+            // 
+            this.label261.AutoSize = true;
+            this.label261.Location = new System.Drawing.Point(197, 55);
+            this.label261.Name = "label261";
+            this.label261.Size = new System.Drawing.Size(76, 13);
+            this.label261.TabIndex = 35;
+            this.label261.Text = "Num Cue Dots";
+            // 
+            // numericUUpDownCueDotNum
+            // 
+            this.numericUUpDownCueDotNum.Location = new System.Drawing.Point(279, 51);
+            this.numericUUpDownCueDotNum.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUUpDownCueDotNum.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUUpDownCueDotNum.Name = "numericUUpDownCueDotNum";
+            this.numericUUpDownCueDotNum.Size = new System.Drawing.Size(68, 20);
+            this.numericUUpDownCueDotNum.TabIndex = 34;
+            this.toolTip1.SetToolTip(this.numericUUpDownCueDotNum, "Number of dots in cue cloud (max 10)");
+            this.numericUUpDownCueDotNum.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // label260
+            // 
+            this.label260.AutoSize = true;
+            this.label260.Location = new System.Drawing.Point(204, 22);
+            this.label260.Name = "label260";
+            this.label260.Size = new System.Drawing.Size(69, 13);
+            this.label260.TabIndex = 33;
+            this.label260.Text = "Cue Dot Size";
+            // 
+            // textBoxUCueDotSize
+            // 
+            this.textBoxUCueDotSize.Location = new System.Drawing.Point(279, 19);
+            this.textBoxUCueDotSize.Name = "textBoxUCueDotSize";
+            this.textBoxUCueDotSize.Size = new System.Drawing.Size(92, 20);
+            this.textBoxUCueDotSize.TabIndex = 32;
+            // 
+            // label259
+            // 
+            this.label259.AutoSize = true;
+            this.label259.Location = new System.Drawing.Point(12, 81);
+            this.label259.Name = "label259";
+            this.label259.Size = new System.Drawing.Size(70, 13);
+            this.label259.TabIndex = 29;
+            this.label259.Text = "Cue variance";
+            // 
+            // textBoxUCueVar
+            // 
+            this.textBoxUCueVar.Location = new System.Drawing.Point(88, 77);
+            this.textBoxUCueVar.Name = "textBoxUCueVar";
+            this.textBoxUCueVar.Size = new System.Drawing.Size(92, 20);
+            this.textBoxUCueVar.TabIndex = 27;
+            // 
+            // textBoxUCueStart
+            // 
+            this.textBoxUCueStart.Location = new System.Drawing.Point(88, 18);
+            this.textBoxUCueStart.Name = "textBoxUCueStart";
+            this.textBoxUCueStart.Size = new System.Drawing.Size(92, 20);
+            this.textBoxUCueStart.TabIndex = 23;
+            // 
+            // label258
+            // 
+            this.label258.AutoSize = true;
+            this.label258.Location = new System.Drawing.Point(35, 51);
+            this.label258.Name = "label258";
+            this.label258.Size = new System.Drawing.Size(47, 13);
+            this.label258.TabIndex = 26;
+            this.label258.Text = "Cue end";
+            // 
+            // textBoxUCueEnd
+            // 
+            this.textBoxUCueEnd.Location = new System.Drawing.Point(88, 48);
+            this.textBoxUCueEnd.Name = "textBoxUCueEnd";
+            this.textBoxUCueEnd.Size = new System.Drawing.Size(92, 20);
+            this.textBoxUCueEnd.TabIndex = 24;
+            // 
+            // label257
+            // 
+            this.label257.AutoSize = true;
+            this.label257.Location = new System.Drawing.Point(31, 22);
+            this.label257.Name = "label257";
+            this.label257.Size = new System.Drawing.Size(51, 13);
+            this.label257.TabIndex = 25;
+            this.label257.Text = "Cue Start";
+            // 
             // groupBox54
             // 
-            this.groupBox54.Controls.Add(this.label259);
-            this.groupBox54.Controls.Add(this.textBoxUCueVar);
-            this.groupBox54.Controls.Add(this.label258);
-            this.groupBox54.Controls.Add(this.label257);
-            this.groupBox54.Controls.Add(this.textBoxUCueEnd);
-            this.groupBox54.Controls.Add(this.textBoxUCueStart);
             this.groupBox54.Controls.Add(this.label251);
             this.groupBox54.Controls.Add(this.label250);
             this.groupBox54.Controls.Add(this.textBoxUBlockWinEnd);
@@ -6967,71 +7084,39 @@ namespace BehaviorGraphics
             this.groupBox54.Controls.Add(this.textBoxUDispMean);
             this.groupBox54.Location = new System.Drawing.Point(8, 240);
             this.groupBox54.Name = "groupBox54";
-            this.groupBox54.Size = new System.Drawing.Size(649, 140);
+            this.groupBox54.Size = new System.Drawing.Size(223, 140);
             this.groupBox54.TabIndex = 22;
             this.groupBox54.TabStop = false;
-            this.groupBox54.Text = "Misc";
-            // 
-            // label258
-            // 
-            this.label258.AutoSize = true;
-            this.label258.Location = new System.Drawing.Point(493, 48);
-            this.label258.Name = "label258";
-            this.label258.Size = new System.Drawing.Size(47, 13);
-            this.label258.TabIndex = 26;
-            this.label258.Text = "Cue end";
-            // 
-            // label257
-            // 
-            this.label257.AutoSize = true;
-            this.label257.Location = new System.Drawing.Point(489, 19);
-            this.label257.Name = "label257";
-            this.label257.Size = new System.Drawing.Size(51, 13);
-            this.label257.TabIndex = 25;
-            this.label257.Text = "Cue Start";
-            // 
-            // textBoxUCueEnd
-            // 
-            this.textBoxUCueEnd.Location = new System.Drawing.Point(546, 45);
-            this.textBoxUCueEnd.Name = "textBoxUCueEnd";
-            this.textBoxUCueEnd.Size = new System.Drawing.Size(92, 20);
-            this.textBoxUCueEnd.TabIndex = 24;
-            // 
-            // textBoxUCueStart
-            // 
-            this.textBoxUCueStart.Location = new System.Drawing.Point(546, 15);
-            this.textBoxUCueStart.Name = "textBoxUCueStart";
-            this.textBoxUCueStart.Size = new System.Drawing.Size(92, 20);
-            this.textBoxUCueStart.TabIndex = 23;
+            this.groupBox54.Text = "Blocking Window";
             // 
             // label251
             // 
             this.label251.AutoSize = true;
-            this.label251.Location = new System.Drawing.Point(223, 48);
+            this.label251.Location = new System.Drawing.Point(6, 100);
             this.label251.Name = "label251";
-            this.label251.Size = new System.Drawing.Size(111, 13);
+            this.label251.Size = new System.Drawing.Size(97, 13);
             this.label251.TabIndex = 22;
-            this.label251.Text = "Blocking window end ";
+            this.label251.Text = "Block window end ";
             // 
             // label250
             // 
             this.label250.AutoSize = true;
-            this.label250.Location = new System.Drawing.Point(221, 22);
+            this.label250.Location = new System.Drawing.Point(8, 74);
             this.label250.Name = "label250";
-            this.label250.Size = new System.Drawing.Size(110, 13);
+            this.label250.Size = new System.Drawing.Size(96, 13);
             this.label250.TabIndex = 21;
-            this.label250.Text = "Blocking window start";
+            this.label250.Text = "Block window start";
             // 
             // textBoxUBlockWinEnd
             // 
-            this.textBoxUBlockWinEnd.Location = new System.Drawing.Point(334, 45);
+            this.textBoxUBlockWinEnd.Location = new System.Drawing.Point(109, 100);
             this.textBoxUBlockWinEnd.Name = "textBoxUBlockWinEnd";
             this.textBoxUBlockWinEnd.Size = new System.Drawing.Size(92, 20);
             this.textBoxUBlockWinEnd.TabIndex = 20;
             // 
             // textBoxUBlockWinStart
             // 
-            this.textBoxUBlockWinStart.Location = new System.Drawing.Point(334, 19);
+            this.textBoxUBlockWinStart.Location = new System.Drawing.Point(109, 74);
             this.textBoxUBlockWinStart.Name = "textBoxUBlockWinStart";
             this.textBoxUBlockWinStart.Size = new System.Drawing.Size(92, 20);
             this.textBoxUBlockWinStart.TabIndex = 19;
@@ -8275,22 +8360,6 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // textBoxUCueVar
-            // 
-            this.textBoxUCueVar.Location = new System.Drawing.Point(546, 71);
-            this.textBoxUCueVar.Name = "textBoxUCueVar";
-            this.textBoxUCueVar.Size = new System.Drawing.Size(92, 20);
-            this.textBoxUCueVar.TabIndex = 27;
-            // 
-            // label259
-            // 
-            this.label259.AutoSize = true;
-            this.label259.Location = new System.Drawing.Point(470, 74);
-            this.label259.Name = "label259";
-            this.label259.Size = new System.Drawing.Size(70, 13);
-            this.label259.TabIndex = 29;
-            this.label259.Text = "Cue variance";
-            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -8445,6 +8514,9 @@ namespace BehaviorGraphics
             this.groupBox46.ResumeLayout(false);
             this.groupBox46.PerformLayout();
             this.tabUncertainty.ResumeLayout(false);
+            this.groupBox55.ResumeLayout(false);
+            this.groupBox55.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownCueDotNum)).EndInit();
             this.groupBox54.ResumeLayout(false);
             this.groupBox54.PerformLayout();
             this.groupBox49.ResumeLayout(false);
@@ -9191,5 +9263,10 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxUCueStart;
         private System.Windows.Forms.Label label259;
         private System.Windows.Forms.TextBox textBoxUCueVar;
+        private System.Windows.Forms.GroupBox groupBox55;
+        private System.Windows.Forms.TextBox textBoxUCueDotSize;
+        private System.Windows.Forms.Label label260;
+        private System.Windows.Forms.Label label261;
+        private System.Windows.Forms.NumericUpDown numericUUpDownCueDotNum;
     }
 }
