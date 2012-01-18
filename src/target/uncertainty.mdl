@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1234"
+    ComputedModelVersion    "1.1235"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Jan 17 14:14:12 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1234>"
+  LastModifiedDate	  "Wed Jan 18 11:34:00 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1235>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -857,7 +857,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_vs"
       Parameters	      "8 10 2.5 1 1 .5 1.5 .75 .25 1 1 10 1 .02 125 1 "
-"0 0 2 0.4 0.6 0 "
+"0 0 2 0.4 0.6 0  2 10"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'force')\nport_label('input',3,'catch force')\npor"
 "t_label('output',1,'force')\nport_label('output',2,'status')\nport_label('out"
