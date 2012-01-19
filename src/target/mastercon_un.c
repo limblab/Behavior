@@ -340,8 +340,8 @@ static int cursorInTarget(real_T *c, real_T *t)
 
 static void Corners(real_T *pos, real_T *corn, real_T width)
 {
-	/* Function takes the pointer to an array A with position coordinates 
-	[x1 y1 x2 y2 ...] and writes to an array size 2*A with corner vales 
+	/* Function takes the pointer to an array pos with position coordinates 
+	[x1 y1 x2 y2 ...] and writes to an array corn size 2*pos with corner vales 
 	[UL_X_(x1,y1) UL_Y_(x1,y1) LR_X_(x1,y1) LR_Y_(x1,y1) ...] */
 
 	int i;
@@ -726,7 +726,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T theta;
     real_T ct[4];
     real_T ot[4];
-    real_T displace, rad_d, curs_rad;
+    real_T displace, rad_d, curs_rad, new_rad_d, new_curs_d;
     
     InputRealPtrsType uPtrs;
     real_T cursor_old[2];
@@ -1011,13 +1011,16 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
 	/* DRAW CUE CLUSTER */ 
 	
-	/* Get cue positions from work vector and save to cue_pos vector */
+	new_rad_d = sqrt(cursor[0]*cursor[0] + cursor[1]*cursor[1]);
+	new_curs_rad = cos(atan2(cursor[1],cursor[0])-theta)*new_rad_d;
+
+	/* Get cue positions from work vector and save to cue_cents vector */
 	for (i = 0; i<20; i++){
-		cue_pos[2*i] = cursor[0] + ssGetRWorkValue(S,6+i);
-		cue_pos[2*i+1] = cursor[1] + ssGetRWorkValue(S,7+i);
+		cue_cents[2*i] = cursor[0] + ssGetRWorkValue(S,6+i);
+		cue_cents[2*i+1] = cursor[1] + ssGetRWorkValue(S,7+i);
 	}
 	
-	Corners(cue_pos,cue_pos,cue_dot_size);
+	Corners(cue_cents,cue_pos,cue_dot_size);
 
 	for (i = 0; i<cue_dot_num; i++){
 		target_pos[11+5*i] = cue_pos[0+5*i];
@@ -1033,7 +1036,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 
 	/* Display cue cloud when inside window */
 	if ((state == STATE_MOVEMENT) && 
-		((curs_rad >= beg_cue*target_radius) && (curs_rad <= end_cue*target_radius))){
+		((new_curs_rad >= beg_cue*target_radius) && (new_curs_rad <= end_cue*target_radius))){
 		for (i=0; i<cue_dot_num; i++){
 			target_pos[10+5*i] = 16;
 		}
@@ -1044,9 +1047,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	}
 
     /* pos (7) */
-	
+
 	if ((state == STATE_MOVEMENT) && 
-		((curs_rad > beg_window*target_radius) && (curs_rad < end_window*target_radius))){
+		((new_curs_rad > beg_window*target_radius) && (new_curs_rad < end_window*target_radius))){
 		/* We are inside the blocking window */
 		pos_x = 1E6;
 		pos_y = 1E6;
