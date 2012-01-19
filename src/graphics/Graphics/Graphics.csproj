@@ -247,6 +247,7 @@
     <EmbeddedResource Include="glyphs\blackHFb2.tga" />
     <EmbeddedResource Include="glyphs\blackHFc1.tga" />
     <EmbeddedResource Include="glyphs\blackHFc2.tga" />
+    <EmbeddedResource Include="glyphs\yellowcircle1.tga" />
     <None Include="obj\Release\DXCheck.csproj.ResolveComReference.cache" />
   </ItemGroup>
   <ItemGroup>
