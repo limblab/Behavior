@@ -380,7 +380,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T cursor_old[2];
 	real_T cursor[2];
     real_T elapsed_timer_time;
-	real_T rad_d;
+	real_T rad_d,curs_rad;
     real_T displace;
 	
     int reset_block = 0;
@@ -440,11 +440,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	/* get displaced cursor location */
 
 	displace = ssGetRWorkValue(S,5);
-	
 	rad_d = sqrt(cursor_old[0]*cursor_old[0] + cursor_old[1]*cursor_old[1]);
-	if ((cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d) < (beg_window*target_radius)){
-			cursor[0] = cursor_old[0];
-			cursor[1] = cursor_old[1];
+	curs_rad = cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d;
+
+	if (curs_rad < (beg_window*target_radius)){
+		cursor[0] = cursor_old[0];
+		cursor[1] = cursor_old[1];
 	} else {
 		cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
 		cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
@@ -726,7 +727,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T theta;
     real_T ct[4];
     real_T ot[4];
-    real_T displace, rad_d, curs_rad, new_rad_d, new_curs_d;
+    real_T displace, rad_d, curs_rad, new_rad_d, new_curs_rad;
     
     InputRealPtrsType uPtrs;
     real_T cursor_old[2];
