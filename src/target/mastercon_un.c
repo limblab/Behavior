@@ -121,7 +121,7 @@ static real_T end_cue = 0.8; /* End of cue window in fraction of radius */
 static real_T cue_var = 0.2; /* Variance of Cue 'cloud' */
 #define param_cue_var mxGetScalar(ssGetSFcnParam(S,23))
 
-static real_T cue_dot_size = 0.2; /* Size of dots in cue cloud */
+static real_T cue_dot_size = 1; /* Size of dots in cue cloud */
 #define param_cue_dot_size mxGetScalar(ssGetSFcnParam(S,24))
 
 static real_T cue_dot_num = 10; /* Number of dots in cue cloud */
@@ -727,7 +727,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T theta;
     real_T ct[4];
     real_T ot[4];
-    real_T displace, rad_d, curs_rad, new_rad_d, new_curs_rad;
+    real_T displace, rad_d, curs_rad, shifted_rad_d, shifted_curs_rad;
     
     InputRealPtrsType uPtrs;
     real_T cursor_old[2];
@@ -813,6 +813,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		cursor[0] = cursor_old[0];
 		cursor[1] = cursor_old[1];
 	}
+
+	shifted_rad_d = sqrt(cursor[0]*cursor[0] + cursor[1]*cursor[1]);
+	shifted_curs_rad = cos(atan2(cursor[1],cursor[0])-theta)*shifted_rad_d;
   
     /* input force */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
@@ -1012,9 +1015,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
 	/* DRAW CUE CLUSTER */ 
 	
-	new_rad_d = sqrt(cursor[0]*cursor[0] + cursor[1]*cursor[1]);
-	new_curs_rad = cos(atan2(cursor[1],cursor[0])-theta)*new_rad_d;
-
 	/* Get cue positions from work vector and save to cue_cents vector */
 	for (i = 0; i<20; i++){
 		cue_cents[2*i] = cursor[0] + ssGetRWorkValue(S,6+i);
@@ -1037,7 +1037,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 
 	/* Display cue cloud when inside window */
 	if ((state == STATE_MOVEMENT) && 
-		((new_curs_rad >= beg_cue*target_radius) && (new_curs_rad <= end_cue*target_radius))){
+		((shifted_curs_rad > beg_cue*target_radius) && (shifted_curs_rad < end_cue*target_radius))){
 		for (i=0; i<cue_dot_num; i++){
 			target_pos[10+5*i] = 16;
 		}
@@ -1050,7 +1050,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* pos (7) */
 
 	if ((state == STATE_MOVEMENT) && 
-		((new_curs_rad > beg_window*target_radius) && (new_curs_rad < end_window*target_radius))){
+		((shifted_curs_rad > beg_window*target_radius) && (shifted_curs_rad < end_window*target_radius))){
 		/* We are inside the blocking window */
 		pos_x = 1E6;
 		pos_y = 1E6;
@@ -1059,21 +1059,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		pos_x = cursor[0];
 		pos_y = cursor[1];
 	}
-	
-	//} else if ((state == STATE_MOVEMENT) && 
-	//	((curs_rad > end_cue*target_radius) && (curs_rad < end_window*target_radius))){
-	//	/* We are inside the 2nd blocking window */
-	//	pos_x = 1E6;
-	//	pos_y = 1E6;
-	//} else if ((state == STATE_MOVEMENT) && 
-	//	((curs_rad >= beg_cue*target_radius) && (curs_rad <= end_cue*target_radius))){
-	//	pos_x = 1E6;
-	//	pos_y = 1E6;
-	//} else {
-	//	/* we are outside the blocking window */
-	//	pos_x = cursor[0];
-	//	pos_y = cursor[1];
-	//}
 
     /**********************************
      * Write outputs back to SimStruct
