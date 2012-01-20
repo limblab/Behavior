@@ -23,7 +23,7 @@
 #define BEHAVIOR_VERSION_MAJOR 2
 #define BEHAVIOR_VERSION_MINOR 8
 #define BEHAVIOR_VERSION_MICRO 491
-#define BEHAVIOR_VERSION_BUILD 1046
+#define BEHAVIOR_VERSION_BUILD 1049
 
 #ifndef __BUILD_UPDATED__
 #error This project must be built from the build script. 
@@ -42,7 +42,7 @@
 #define WORD_TASK_CODE 0x06
 #elif TASK_WF
 #define WORD_TASK_CODE 0x07
-#elif TASK_UC
+#elif TASK_UC || TASK_UN
 #define WORD_TASK_CODE 0x08
 #elif TASK_BD
 #define WORD_TASK_CODE 0x09
@@ -54,8 +54,6 @@
 #define WORD_TASK_CODE 0x0C
 #elif TASK_2AFC
 #define WORD_TASK_CODE 0x0D
-#elif TASK_UN
-#define WORD_TASK_CODE 0x0E
 #elif TASK_DB_DEFINED
 #define WORD_TASK_CODE 0x0F /* this is an escape indicating that the task will be specified by the databurst */
 #endif

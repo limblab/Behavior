@@ -380,7 +380,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T cursor_old[2];
 	real_T cursor[2];
     real_T elapsed_timer_time;
-	real_T rad_d,curs_rad;
+	real_T rad_d,curs_rad, shifted_rad_d, shifted_curs_rad;
     real_T displace;
 	
     int reset_block = 0;
@@ -450,6 +450,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 		cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
 		cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
 	}
+
+	shifted_rad_d = sqrt(cursor[0]*cursor[0] + cursor[1]*cursor[1]);
+	shifted_curs_rad = cos(atan2(cursor[1],cursor[0])-theta)*shifted_rad_d;
 
     databurst = ssGetPWorkValue(S,0);
     databurst_displacement = (float *)(databurst + 2);
@@ -538,6 +541,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 reset_block = 1;
                 mode = param_mode;
             }
+
+			 target_index++;
+                /* and write it back */
+             ssSetIWorkValue(S, 1, target_index);
 
             /* In all cases, we need to decide on the random timer durations */
             if (center_hold_h == center_hold_l) {
