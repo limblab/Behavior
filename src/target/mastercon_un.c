@@ -992,34 +992,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             target_pos[i+6] = 0;
         }
     }
-        
-    /* reward (4) */
-    if (new_state && state==STATE_REWARD) {
-        reward = 1;
-    } else {
-        reward = 0;
-    }
-    
-    /* tone (5) */
-    if (new_state) {
-        if (state == STATE_ABORT) {
-            tone_cnt++;
-            tone_id = TONE_ABORT;
-        } else if (state == STATE_MOVEMENT) {
-            tone_cnt++;
-            tone_id = TONE_GO;
-        } else if (state == STATE_REWARD) {
-            tone_cnt++;
-            tone_id = TONE_REWARD;
-        }
-    }
-    
-    /* version (6) */
-    version[0] = BEHAVIOR_VERSION_MAJOR;
-    version[1] = BEHAVIOR_VERSION_MINOR;
-    version[2] = BEHAVIOR_VERSION_MICRO;
-    version[3] = BEHAVIOR_VERSION_BUILD;
-    
 	/* DRAW CUE CLUSTER */ 
 	
 	/* Get cue positions from work vector and save to cue_cents vector */
@@ -1053,11 +1025,39 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 			target_pos[10+5*i] = 0;
 		}
 	}
-
+        
+    /* reward (4) */
+    if (new_state && state==STATE_REWARD) {
+        reward = 1;
+    } else {
+        reward = 0;
+    }
+    
+    /* tone (5) */
+    if (new_state) {
+        if (state == STATE_ABORT) {
+            tone_cnt++;
+            tone_id = TONE_ABORT;
+        } else if (state == STATE_MOVEMENT) {
+            tone_cnt++;
+            tone_id = TONE_GO;
+        } else if (state == STATE_REWARD) {
+            tone_cnt++;
+            tone_id = TONE_REWARD;
+        }
+    }
+    
+    /* version (6) */
+    version[0] = BEHAVIOR_VERSION_MAJOR;
+    version[1] = BEHAVIOR_VERSION_MINOR;
+    version[2] = BEHAVIOR_VERSION_MICRO;
+    version[3] = BEHAVIOR_VERSION_BUILD;
+    
+	
     /* pos (7) */
 
 	if ((state == STATE_MOVEMENT) && 
-		((shifted_curs_rad > beg_window*target_radius) && (shifted_curs_rad < end_window*target_radius))){
+		((curs_rad > beg_window*target_radius) && (shifted_curs_rad < end_window*target_radius))){
 		/* We are inside the blocking window */
 		pos_x = 1E6;
 		pos_y = 1E6;
