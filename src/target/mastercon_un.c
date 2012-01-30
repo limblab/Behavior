@@ -127,8 +127,15 @@ static real_T cue_dot_size = 1; /* Size of dots in cue cloud */
 static real_T cue_dot_num = 10; /* Number of dots in cue cloud */
 #define param_cue_dot_num mxGetScalar(ssGetSFcnParam(S,25))
 
+static real_T window_type = 1; /* Type of blocking window. 1 (Circular) is default */
+#define param_window_type mxGetScalar(ssGetSFcnParam(S,26))
+
+static real_T displace_type = 1; /* Type of displacement. 1 (angular) is default */
+#define param_displace_type mxGetScalar(ssGetSFcnParam(S,27))
+
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,26))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,28))
+
 
 /*
  * State IDs
@@ -195,7 +202,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 27); 
+    ssSetNumSFcnParams(S, 29); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -422,9 +429,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
     
     /* get target bounds */
-	//if ((int)num_targets == 1) {
-	//	theta = PI/2;
-	//} else {
 	theta = PI/2 - target*2*PI/num_targets;
 	
     ct[0] = -target_size/2;
@@ -440,19 +444,33 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	/* get displaced cursor location */
 
 	displace = ssGetRWorkValue(S,5);
+	
 	rad_d = sqrt(cursor_old[0]*cursor_old[0] + cursor_old[1]*cursor_old[1]);
 	curs_rad = cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d;
 
-	if (curs_rad < (beg_window*target_radius)){
+	/* If displace type is type 1, then use angular displacement. If type 2, use linear displacement */
+	if ((state == STATE_MOVEMENT || state == STATE_OUTER_HOLD)&&(curs_rad > (beg_window*target_radius))){
+		if((int)displace_type == 1){
+			cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
+			cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
+		}else if((int)displace_type == 2){
+			cursor[0] = cursor_old[0] + displace*sin(theta);
+			cursor[1] = cursor_old[1] - displace*cos(theta);
+		}
+	} else {
+
 		cursor[0] = cursor_old[0];
 		cursor[1] = cursor_old[1];
-	} else {
-		cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
-		cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
 	}
 
-	shifted_rad_d = sqrt(cursor[0]*cursor[0] + cursor[1]*cursor[1]);
-	shifted_curs_rad = cos(atan2(cursor[1],cursor[0])-theta)*shifted_rad_d;
+	/* If window_type is type 2, use cosine (distance along ideal path to target), else use actual radius */
+	if((int)window_type == 2){
+		shifted_rad_d = sqrt(cursor[0]*cursor[0] + cursor[1]*cursor[1]);
+		shifted_curs_rad = cos(atan2(cursor[1],cursor[0])-theta)*shifted_rad_d;
+	} else {
+		shifted_rad_d = rad_d;
+		shifted_curs_rad = rad_d;
+	}
 
     databurst = ssGetPWorkValue(S,0);
     databurst_displacement = (float *)(databurst + 2);
@@ -810,19 +828,29 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	rad_d = sqrt(cursor_old[0]*cursor_old[0] + cursor_old[1]*cursor_old[1]);
 	curs_rad = cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d;
 
+	/* If displace type is type 1, then use angular displacement. If type 2, use linear displacement */
 	if ((state == STATE_MOVEMENT || state == STATE_OUTER_HOLD)&&(curs_rad > (beg_window*target_radius))){
-
-		cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
-		cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
-
+		if((int)displace_type == 1){
+			cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
+			cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
+		}else if((int)displace_type == 2){
+			cursor[0] = cursor_old[0] + displace*sin(theta);
+			cursor[1] = cursor_old[1] - displace*cos(theta);
+		}
 	} else {
 
 		cursor[0] = cursor_old[0];
 		cursor[1] = cursor_old[1];
 	}
 
-	shifted_rad_d = sqrt(cursor[0]*cursor[0] + cursor[1]*cursor[1]);
-	shifted_curs_rad = cos(atan2(cursor[1],cursor[0])-theta)*shifted_rad_d;
+	/* If window_type is type 2, use cosine (distance along ideal path to target), else use actual radius */
+	if((int)window_type == 2){
+		shifted_rad_d = sqrt(cursor[0]*cursor[0] + cursor[1]*cursor[1]);
+		shifted_curs_rad = cos(atan2(cursor[1],cursor[0])-theta)*shifted_rad_d;
+	} else {
+		shifted_rad_d = rad_d;
+		shifted_curs_rad = rad_d;
+	}
   
     /* input force */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
@@ -996,8 +1024,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	
 	/* Get cue positions from work vector and save to cue_cents vector */
 	for (i = 0; i<20; i++){
-		cue_cents[2*i] = cursor[0] + ssGetRWorkValue(S,6+i);
-		cue_cents[2*i+1] = cursor[1] + ssGetRWorkValue(S,7+i);
+		cue_cents[2*i] = (cursor[0] + ssGetRWorkValue(S,6+i));
+		cue_cents[2*i+1] = (cursor[1] + ssGetRWorkValue(S,7+i));
 	}
 	
 	Corners(cue_cents,cue_pos,cue_dot_size);
@@ -1055,16 +1083,28 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
 	
     /* pos (7) */
-
-	if ((state == STATE_MOVEMENT) && 
-		((curs_rad > beg_window*target_radius) && (shifted_curs_rad < end_window*target_radius))){
-		/* We are inside the blocking window */
-		pos_x = 1E6;
-		pos_y = 1E6;
-	} else {
-		/* We are outside of the blocking window */
-		pos_x = cursor[0];
-		pos_y = cursor[1];
+	if ((int)window_type == 2){
+		if ((state == STATE_MOVEMENT) && 
+			((curs_rad > beg_window*target_radius) && (shifted_curs_rad < end_window*target_radius))){
+			/* We are inside the blocking window */
+			pos_x = 1E6;
+			pos_y = 1E6;
+		} else {
+			/* We are outside of the blocking window */
+			pos_x = cursor[0];
+			pos_y = cursor[1];
+		}
+	}else{
+		if ((state == STATE_MOVEMENT) && 
+			((curs_rad > beg_window*target_radius) && (curs_rad < end_window*target_radius))){
+			/* We are inside the blocking window */
+			pos_x = 1E6;
+			pos_y = 1E6;
+		} else {
+			/* We are outside of the blocking window */
+			pos_x = cursor[0];
+			pos_y = cursor[1];
+		}
 	}
 
     /**********************************
