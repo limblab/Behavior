@@ -1031,10 +1031,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	Corners(cue_cents,cue_pos,cue_dot_size);
 
 	for (i = 0; i<cue_dot_num; i++){
-		target_pos[11+5*i] = cue_pos[0+5*i];
-		target_pos[12+5*i] = cue_pos[1+5*i];
-		target_pos[13+5*i] = cue_pos[2+5*i];
-		target_pos[14+5*i] = cue_pos[3+5*i];
+		target_pos[11+5*i] = cue_pos[0+4*i];
+		target_pos[12+5*i] = cue_pos[1+4*i];
+		target_pos[13+5*i] = cue_pos[2+4*i];
+		target_pos[14+5*i] = cue_pos[3+4*i];
 	}
 
 	/* Set remaining array contents to zero */
