@@ -1028,26 +1028,19 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 
 	/* Get cue positions from work vector and save to cue_cents vector */
 	for (i = 0; i<10; i++){
-		cue_cents[2*i] = (cursor[0 ]+ ssGetRWorkValue(S,6+i));
+		cue_cents[2*i] = (cursor[0] + ssGetRWorkValue(S,6+i));
 		cue_cents[2*i+1] = (cursor[1] + ssGetRWorkValue(S,7+i));
 	}
-#if 0
+
 	Corners(cue_cents,cue_pos,cue_dot_size);
-#endif
+
 	for (i = 0; i<cue_dot_num; i++){
 		target_pos[10+5*i] = 16;
-		target_pos[11+5*i] = cue_cents[2*i]-.5;//cursor[0]-.5;//cue_pos[0+4*i];
-		target_pos[12+5*i] = cue_cents[2*i+1]+.5;//cursor[1]+.5;//cue_pos[1+4*i];
-		target_pos[13+5*i] = cue_cents[2*i]+.5;//cursor[0]+.5;//cue_pos[2+4*i];
-		target_pos[14+5*i] = cue_cents[2*i+1]-.5;//cursor[1]-.5;//cue_pos[3+4*i];
+		target_pos[11+5*i] = cue_pos[0+4*i];
+		target_pos[12+5*i] = cue_pos[1+4*i];
+		target_pos[13+5*i] = cue_pos[2+4*i];
+		target_pos[14+5*i] = cue_pos[3+4*i];
 	}
-
-	/* Set remaining array contents to zero */
-#if 0
-	for (i = (int)(10+5*(cue_dot_num)); i<60; i++){
-		target_pos[i] = 0;
-	}
-#endif
 
 	/* Display cue cloud when inside window */
 
