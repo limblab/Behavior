@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1239"
+    ComputedModelVersion    "1.1242"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jan 18 12:55:08 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1239>"
+  LastModifiedDate	  "Thu Feb 02 15:03:28 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1242>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -857,7 +857,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_un "
       Parameters	      "8 10 2.5 1 1 .5 1.5 .75 .25 1 1 10 1 .02 125 1 "
-"0 0 2 0.4 0.6 0 1 2 0 10 0 "
+"0 0 2 0.4 0.6 0 1 2 0 10 0 0 0 "
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'force')\nport_label('input',3,'catch force')\npor"
 "t_label('output',1,'force')\nport_label('output',2,'status')\nport_label('out"
@@ -5690,7 +5690,7 @@ Model {
       System {
 	Name			"RewardSbs"
 	Location		[14, 142, 886, 404]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -7063,8 +7063,8 @@ Model {
       MaskIconUnits	      "autoscale"
       System {
 	Name			"XY Position Subsystem"
-	Location		[54, 86, 1058, 726]
-	Open			on
+	Location		[-77, 126, 927, 766]
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -7946,7 +7946,7 @@ Model {
 	  System {
 	    Name		    "Jacobian-Cartesian Transformation"
 	    Location		    [0, 82, 1004, 722]
-	    Open		    on
+	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"

@@ -251,7 +251,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 0, 2);   /* force   */
     ssSetOutputPortWidth(S, 1, 5);   /* status  */
     ssSetOutputPortWidth(S, 2, 1);   /* word    */
-    ssSetOutputPortWidth(S, 3, 10);  /* target  */
+    ssSetOutputPortWidth(S, 3, 60);  /* target  */
     ssSetOutputPortWidth(S, 4, 1);   /* reward  */
     ssSetOutputPortWidth(S, 5, 2);   /* tone    */
     ssSetOutputPortWidth(S, 6, 4);   /* version */
@@ -352,8 +352,8 @@ static void Corners(real_T *pos, real_T *corn, real_T width)
 	[UL_X_(x1,y1) UL_Y_(x1,y1) LR_X_(x1,y1) LR_Y_(x1,y1) ...] */
 
 	int i;
-	for (i=0; i<(sizeof(pos)/sizeof(real_T));i++){
-		corn[4*i] = pos[2*i]-width/2;
+	for (i=0; i<cue_dot_num;i++){
+		corn[4*i] = pos[2*i] - width/2;
 		corn[4*i+1] = pos[2*i+1] + width/2;
 		corn[4*i+2] = pos[2*i] + width/2;
 		corn[4*i+3] = pos[2*i+1] - width/2;
@@ -474,7 +474,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
     databurst = ssGetPWorkValue(S,0);
     databurst_displacement = (float *)(databurst + 2);
-    
+    databurst_counter = ssGetIWorkValue(S, 585);
+
     /*********************************
      * See if we have issued a reset *
      *********************************/
@@ -543,7 +544,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
 			beg_cue = param_beg_cue;
 			end_cue = param_end_cue;
+
 			cue_var = param_cue_var;
+			cue_dot_size = param_cue_dot_size;
+			cue_dot_num = param_cue_dot_num;
 
 			/* get displacement of cursor drawn from normal distribution and save to work vector */
 			displace = (displacement_mean + (gRand * displacement_var)); 
@@ -1021,39 +1025,40 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         }
     }
 	/* DRAW CUE CLUSTER */ 
-	
+
 	/* Get cue positions from work vector and save to cue_cents vector */
-	for (i = 0; i<20; i++){
-		cue_cents[2*i] = (cursor[0] + ssGetRWorkValue(S,6+i));
+	for (i = 0; i<10; i++){
+		cue_cents[2*i] = (cursor[0 ]+ ssGetRWorkValue(S,6+i));
 		cue_cents[2*i+1] = (cursor[1] + ssGetRWorkValue(S,7+i));
 	}
-	
+#if 0
 	Corners(cue_cents,cue_pos,cue_dot_size);
-
+#endif
 	for (i = 0; i<cue_dot_num; i++){
-		target_pos[11+5*i] = cue_pos[0+4*i];
-		target_pos[12+5*i] = cue_pos[1+4*i];
-		target_pos[13+5*i] = cue_pos[2+4*i];
-		target_pos[14+5*i] = cue_pos[3+4*i];
+		target_pos[10+5*i] = 16;
+		target_pos[11+5*i] = cue_cents[2*i]-.5;//cursor[0]-.5;//cue_pos[0+4*i];
+		target_pos[12+5*i] = cue_cents[2*i+1]+.5;//cursor[1]+.5;//cue_pos[1+4*i];
+		target_pos[13+5*i] = cue_cents[2*i]+.5;//cursor[0]+.5;//cue_pos[2+4*i];
+		target_pos[14+5*i] = cue_cents[2*i+1]-.5;//cursor[1]-.5;//cue_pos[3+4*i];
 	}
 
 	/* Set remaining array contents to zero */
+#if 0
 	for (i = (int)(10+5*(cue_dot_num)); i<60; i++){
 		target_pos[i] = 0;
 	}
+#endif
 
 	/* Display cue cloud when inside window */
-	if ((state == STATE_MOVEMENT) && 
-		((shifted_curs_rad > beg_cue*target_radius) && (shifted_curs_rad < end_cue*target_radius))){
-		for (i=0; i<cue_dot_num; i++){
-			target_pos[10+5*i] = 16;
-		}
-	} else {
+
+	if ((state != STATE_MOVEMENT) || 
+		!((shifted_curs_rad > beg_cue*target_radius) && (shifted_curs_rad < end_cue*target_radius)))
+	{
 		for (i=0; i<cue_dot_num; i++){
 			target_pos[10+5*i] = 0;
 		}
 	}
-        
+
     /* reward (4) */
     if (new_state && state==STATE_REWARD) {
         reward = 1;
