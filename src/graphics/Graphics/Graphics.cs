@@ -176,6 +176,9 @@ namespace BehaviorGraphics
             activeCursorTexture = cursorTextures[activeCursorIndex];
 
             device.RenderState.CullMode = Cull.None;
+            device.RenderState.SourceBlend = Blend.SourceAlpha;
+            device.RenderState.DestinationBlend = Blend.InvSourceAlpha;
+            device.RenderState.AlphaBlendEnable = true;
         }
 
         private void OnDeviceLost(object sender, EventArgs e)
@@ -229,7 +232,7 @@ namespace BehaviorGraphics
 
             // Draw yellow circle
             cursor = new Sprite(device);
-            cursor.Begin(SpriteFlags.AlphaBlend);
+            cursor.Begin(SpriteFlags.None);
             cursor.Draw(activeCursorTexture, Rectangle.Empty, activeCursor.Center, cm2screen(this.x, this.y), Color.White);
             cursor.End();
 

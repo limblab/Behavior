@@ -393,7 +393,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int reset_block = 0;
         
     /* block initialization working variables */
-    int i;
+    int tmp_tgts[256];
+    int tmp_bump[256];
+    int tmp_sort[256];
+    int i, j, tmp;
 
     int databurst_counter;
     byte *databurst;
@@ -564,10 +567,45 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 mode = param_mode;
             }
 
-			 target_index++;
-                /* and write it back */
-             ssSetIWorkValue(S, 1, target_index);
+			if (target_index == num_targets-1 || reset_block) {
+                /* initialize the targets */
+                for (i=0; i<num_targets; i++) {
+                    tmp_tgts[i] = i;
+                    tmp_sort[i] = rand();
+                }
+                for (i=0; i<num_targets-1; i++) {
+                    for (j=0; j<num_targets-1; j++) {
+                        if (tmp_sort[j] < tmp_sort[j+1]) {
+                            tmp = tmp_sort[j];
+                            tmp_sort[j] = tmp_sort[j+1];
+                            tmp_sort[j+1] = tmp;
+                            
+                            tmp = tmp_tgts[j];
+                            tmp_tgts[j] = tmp_tgts[j+1];
+                            tmp_tgts[j+1] = tmp;
+                        }
+                    }
+                }
+                /* write them back */
+                for (i=0; i<num_targets; i++) {
+                    target_list[i] = tmp_tgts[i];
+                }
+				/* and reset the counter */
+				ssSetIWorkValue(S, 1, 0);
 
+			} else {
+                /* just advance the counter */
+                target_index++;
+                /* and write it back */
+                ssSetIWorkValue(S, 1, target_index);
+                if (mode == MODE_BLOCK_CATCH) {
+                    target = target_list[target_index];
+                } else {
+                    /* mode == MODE_BUMP */
+                    target = target_list[target_index*2];
+                }
+            }
+			
             /* In all cases, we need to decide on the random timer durations */
             if (center_hold_h == center_hold_l) {
                 center_hold = center_hold_h;
