@@ -541,6 +541,8 @@ namespace BehaviorGraphics
             AddParamListItem("Un Cue Var", "P24", "Behavior Un", this.textBoxUCueVar);
             AddParamListItem("Un Cue Dot Size", "P25", "Behavior Un", this.textBoxUCueDotSize);
             AddParamListItem("Un Num Cue Dots", "P26", "Behavior Un", this.numericUUpDownCueDotNum);
+            AddParamListItem("Un Window Type", "P27", "Behavior Un", this.numericUUpDownWindowType);
+            AddParamListItem("Un Displacement Type", "P28", "Behavior Un", this.numericUUpDownDisplacementType);
 
 
             #endregion

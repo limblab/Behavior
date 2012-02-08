@@ -749,6 +749,10 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
+            this.numericUUpDownWindowType = new System.Windows.Forms.NumericUpDown();
+            this.numericUUpDownDisplacementType = new System.Windows.Forms.NumericUpDown();
+            this.label262 = new System.Windows.Forms.Label();
+            this.label263 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -848,6 +852,8 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownWindowType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownDisplacementType)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -6959,6 +6965,10 @@ namespace BehaviorGraphics
             // 
             // groupBox55
             // 
+            this.groupBox55.Controls.Add(this.label263);
+            this.groupBox55.Controls.Add(this.label262);
+            this.groupBox55.Controls.Add(this.numericUUpDownWindowType);
+            this.groupBox55.Controls.Add(this.numericUUpDownDisplacementType);
             this.groupBox55.Controls.Add(this.label261);
             this.groupBox55.Controls.Add(this.numericUUpDownCueDotNum);
             this.groupBox55.Controls.Add(this.label260);
@@ -8360,6 +8370,70 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
+            // numericUUpDownWindowType
+            // 
+            this.numericUUpDownWindowType.Location = new System.Drawing.Point(279, 81);
+            this.numericUUpDownWindowType.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUUpDownWindowType.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUUpDownWindowType.Name = "numericUUpDownWindowType";
+            this.numericUUpDownWindowType.Size = new System.Drawing.Size(68, 20);
+            this.numericUUpDownWindowType.TabIndex = 36;
+            this.toolTip1.SetToolTip(this.numericUUpDownWindowType, "Number of dots in cue cloud (max 10)");
+            this.numericUUpDownWindowType.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // numericUUpDownDisplacementType
+            // 
+            this.numericUUpDownDisplacementType.Location = new System.Drawing.Point(279, 109);
+            this.numericUUpDownDisplacementType.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUUpDownDisplacementType.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUUpDownDisplacementType.Name = "numericUUpDownDisplacementType";
+            this.numericUUpDownDisplacementType.Size = new System.Drawing.Size(68, 20);
+            this.numericUUpDownDisplacementType.TabIndex = 36;
+            this.toolTip1.SetToolTip(this.numericUUpDownDisplacementType, "Number of dots in cue cloud (max 10)");
+            this.numericUUpDownDisplacementType.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // label262
+            // 
+            this.label262.AutoSize = true;
+            this.label262.Location = new System.Drawing.Point(197, 84);
+            this.label262.Name = "label262";
+            this.label262.Size = new System.Drawing.Size(73, 13);
+            this.label262.TabIndex = 37;
+            this.label262.Text = "Window Type";
+            // 
+            // label263
+            // 
+            this.label263.AutoSize = true;
+            this.label263.Location = new System.Drawing.Point(175, 111);
+            this.label263.Name = "label263";
+            this.label263.Size = new System.Drawing.Size(98, 13);
+            this.label263.TabIndex = 38;
+            this.label263.Text = "Displacement Type";
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -8543,6 +8617,8 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownWindowType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownDisplacementType)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -9268,5 +9344,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label260;
         private System.Windows.Forms.Label label261;
         private System.Windows.Forms.NumericUpDown numericUUpDownCueDotNum;
+        private System.Windows.Forms.Label label263;
+        private System.Windows.Forms.Label label262;
+        private System.Windows.Forms.NumericUpDown numericUUpDownWindowType;
+        private System.Windows.Forms.NumericUpDown numericUUpDownDisplacementType;
     }
 }
