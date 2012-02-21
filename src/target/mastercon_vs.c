@@ -659,8 +659,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T theta;
     real_T center_hold, outer_hold;
     int i,j;
-/*    int correct_targ = ssGetIWorkValue(S, 8); */
-
     
     InputRealPtrsType uPtrs;
     real_T cursor[2];
@@ -847,8 +845,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         for (i=1; i<17; i++){
             if (target_type[i] != 0){
 				if ( state == STATE_OUTER_HOLD &&
+                     ssGetIWorkValue(S, 10) == target_idx + 1 &&
                      i == target_idx + 1 &&
-/*					 target_type[i] == correct_targ && */
 					 green_hold )
 					target_pos[j] = 3;
 				else
