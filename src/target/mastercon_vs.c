@@ -37,11 +37,11 @@
  * bytes  6 to  9: float => x offset
  * bytes 10 to 13: float => y offset
  * byte  14: int => number of targets
- * byte  15: int => target radius
- * byte  16: int => target index
- * bytes 17 to 20: float => target size
- * bytes 21 to 24: float => target x position
- * bytes 25 to 29: float => target y position
+ * bytes 15 to 18: float => target radius
+ * byte  19: int => target index
+ * bytes 20 to 23: float => target size
+ * bytes 24 to 27: float => target x position
+ * bytes 28 to 31: float => target y position
  *
  */
 
@@ -95,6 +95,11 @@ static real_T reward_timeout  = 1.0;    /* delay after reward before starting ne
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,14))
 
+#define param_disable_abort mxGetScalar(ssGetSFcnParam(S,15))
+static int disable_abort = 0;
+
+#define param_green_hold mxGetScalar(ssGetSFcnParam(S,16))
+static int green_hold = 0;
 
 /*
  * State IDs
@@ -138,6 +143,9 @@ static void mdlCheckParameters(SimStruct *S)
     incomplete_timeout = param_incomplete_timeout;
     
     master_reset = param_master_reset;
+
+	disable_abort = (int)param_disable_abort;
+	green_hold = (int)param_green_hold;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
@@ -209,7 +217,7 @@ static void mdlInitializeSizes(SimStruct *S)
                              5: mastercon version
                            */
     ssSetNumPWork(S, 0);
-    ssSetNumIWork(S, 10);    /* 0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 11);    /* 0: state_transition (true if state changed), 
                                 1: successes
                                 2: failures
                                 3: aborts 
@@ -218,7 +226,8 @@ static void mdlInitializeSizes(SimStruct *S)
                                 6: target index
                                 7: center target type
                                 8: correct target type
-                                9: distractor target type 
+                                9: distractor target type
+								10: index of target cursor is in
                              */
     
     ssSetNumPWork(S, 3);  /* 0: Databurst array pointer  
@@ -267,7 +276,7 @@ static void mdlInitializeConditions(SimStruct *S)
     ssSetIWorkValue(S, 4, 0);
     
     /* set target types */
-    ssSetIWorkValue(S, 7, 16);  /* center target appearance= same as correct target */
+    ssSetIWorkValue(S, 7, 16);  /* center target appearance = same as correct target */
     ssSetIWorkValue(S, 8, 16);  /* correct gabor wavelet    */
     ssSetIWorkValue(S, 9, 17);  /* distractor gabor wavelet */
 
@@ -426,7 +435,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             reward_timeout  = param_reward_timeout;   
             incomplete_timeout = param_incomplete_timeout;
             
-            /* Set target locations */
+			disable_abort = (int)param_disable_abort;
+			green_hold = (int)param_green_hold;
+
+			/* Set target locations */
             target_location[0][0]= -target_size/2;
             target_location[0][1]=  target_size/2;
             target_location[0][2]=  target_size/2;
@@ -504,7 +516,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         case STATE_DATA_BLOCK:
             if (databurst_counter > 2*(databurst[0]-1)) { 
                 new_state = STATE_CT_ON;
-                reset_timer(); /* start timer for movement */
                 state_changed();
             }
             ssSetIWorkValue(S, 5, databurst_counter+1);
@@ -514,31 +525,37 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* center target on */
             if (cursorInTarget(cursor, target_location[0])) {
                 new_state = STATE_CENTER_HOLD;
-                reset_timer(); /* start center hold timer */
+				reset_timer(); /* start center hold timer */
                 state_changed();
             }
             break;
         case STATE_CENTER_HOLD:
             /* center hold */
-            if (!cursorInTarget(cursor, target_location[0])) {
-                new_state = STATE_ABORT;
-                reset_timer(); /* abort timeout */
-                state_changed();
-            } else if (elapsed_timer_time > center_hold) {
+			if (elapsed_timer_time > center_hold) {
                 new_state = STATE_OT_ON;
-                reset_timer(); /* delay timer */
+                reset_timer(); /* start search timer */
                 state_changed();
+            } else if (!cursorInTarget(cursor, target_location[0])) {
+				if (disable_abort) {
+	                new_state = STATE_CT_ON;
+		            state_changed();
+				}
+				else {
+			        new_state = STATE_ABORT;
+				    reset_timer(); /* abort timeout */
+					state_changed();
+				}
             }
             break;
         case STATE_OT_ON:
             /* outer targets appear */
              if (elapsed_timer_time > search_delay) {
                 new_state = STATE_INCOMPLETE;
-                reset_timer();
+                reset_timer(); /* incomplete timeout */
                 state_changed();
              } else if (!cursorInTarget(cursor, target_location[0])) {
                 new_state = STATE_REACH;
-                reset_timer();
+                reset_timer(); /* start reach timer */
                 state_changed();
              }
              break;
@@ -546,17 +563,18 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* cursor has left center target */
             if (elapsed_timer_time > reach_time) {
                 new_state = STATE_INCOMPLETE;
-                reset_timer();
+                reset_timer(); /* incomplete timeout */
                 state_changed();   
-            }else{
-                for (i=1; i<17; i++){                           
-                    if (cursorInTarget(cursor, target_location[i])){
-                        if (target_type[i] == correct_targ ){       
+            } else {
+                for (i=1; i<17; i++) {                           
+                    if (cursorInTarget(cursor, target_location[i]) {
+						ssSetIWorkValue(S, 10, i); /* set index of target cursor is in */
+                        if ((target_type[i] == correct_targ) || disable_abort) {
                             new_state = STATE_OUTER_HOLD;
-                            reset_timer();
+                            reset_timer(); /* start hold timer */
                             state_changed();
-                        }else if (target_type[i] == distractor_targ ){
-                            new_state =STATE_FAIL;
+                        } else if (target_type[i] == distractor_targ) {
+                            new_state = STATE_FAIL;
                             reset_timer();
                             state_changed();
                         }
@@ -567,15 +585,18 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         case STATE_OUTER_HOLD:
             /* hold cursor in outer target */
             if (elapsed_timer_time > outer_hold) {
-                new_state = STATE_REWARD;
+				if (target_type[ssGetIWorkValue(S,10)] == correct_targ)
+					new_state = STATE_REWARD;
+				else
+					new_state = STATE_FAIL;
                 reset_timer();
                 state_changed();
-            } else{
-                if (elapsed_timer_time > outer_hold) {
-                    new_state = STATE_REWARD;
+            } else if (!cursorInTarget(cursor, target_location[ssGetIWorkValue(S,10)])) {
+                if (disable_abort) {
+                    new_state = STATE_REACH;
                     reset_timer();
                     state_changed();
-                }else if (!cursorInTarget(cursor, target_location[target_idx+1])) {
+                } else {
                     new_state = STATE_INCOMPLETE;
                     reset_timer();
                     state_changed();
@@ -793,9 +814,20 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         target_pos[i] = 0;
     }
     /* center  target on */
-    if ( state == STATE_CT_ON ||
-         state == STATE_CENTER_HOLD ||
-         state == STATE_OT_ON ) 
+	if ( (state == STATE_CENTER_HOLD ||
+          state == STATE_OT_ON) &&
+		  green_hold ) 
+    {
+            target_pos[0]=3;
+            target_pos[1]=target_location[0][0];
+            target_pos[2]=target_location[0][1];
+            target_pos[3]=target_location[0][2];
+            target_pos[4]=target_location[0][3]; 
+			
+    }
+	else if ( state == STATE_CT_ON ||
+              state == STATE_CENTER_HOLD ||
+              state == STATE_OT_ON ) 
     {
             target_pos[0]=target_type[0];
             target_pos[1]=target_location[0][0];
@@ -812,7 +844,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         j=5;
         for (i=1; i<17; i++){
             if (target_type[i] != 0){
-                target_pos[j]  =target_type[i];
+				if ( state == STATE_OUTER_HOLD &&
+					 target_type[i] == correct_targ &&
+					 green_hold )
+					target_pos[j] = 3;
+				else
+	                target_pos[j]  =target_type[i];
                 target_pos[j+1]=target_location[i][0];
                 target_pos[j+2]=target_location[i][1];
                 target_pos[j+3]=target_location[i][2];
