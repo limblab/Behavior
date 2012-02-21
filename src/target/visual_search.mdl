@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1231"
+    ComputedModelVersion    "1.1232"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "Nicholas Sachs"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Nov 12 12:50:32 2010"
-  ModelVersionFormat	  "1.%<AutoIncrement:1231>"
+  LastModifiedDate	  "Tue Feb 21 11:00:04 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1232>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -440,23 +440,91 @@ Model {
 	      ParenthesesLevel	      "Nominal"
 	      PortableWordSizes	      off
 	      ModelStepFunctionPrototypeControlCompliant off
-	      RL32ModeModifier	      "Real-Time"
-	      ExtMode		      on
-	      ExtModeMexFile	      "ext_xpc"
-	      ExtModeIntrfLevel	      "Level2 - Open"
-	      ExtModeArmWhenConnect   off
-	      RL32LogTETModifier      on
-	      RL32LogBufSizeModifier  "100000"
-	      RL32IRQSourceModifier   "Timer"
-	      xPCIRQSourceBoard	      "None/Other"
-	      xPCIOIRQSlot	      "-1"
-	      xpcDblBuff	      off
-	      xpcObjCom		      off
-	      xPCGenerateASAP2	      off
-	      xPCGenerateXML	      off
-	      RL32ObjectName	      "tg"
-	      xPCisDownloadable	      off
-	      xPCisDefaultEnv	      on
+	      CustomProperty {
+		DataType		"string"
+		Name			"RL32ModeModifier"
+		Value			"Real-Time"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"ExtMode"
+		Value			"on"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"ExtModeMexFile"
+		Value			"ext_xpc"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"ExtModeIntrfLevel"
+		Value			"Level2 - Open"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"ExtModeArmWhenConnect"
+		Value			"off"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"RL32LogTETModifier"
+		Value			"on"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"RL32LogBufSizeModifier"
+		Value			"100000"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"RL32IRQSourceModifier"
+		Value			"Timer"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCIRQSourceBoard"
+		Value			"None/Other"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCIOIRQSlot"
+		Value			"-1"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xpcDblBuff"
+		Value			"off"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xpcObjCom"
+		Value			"off"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCGenerateASAP2"
+		Value			"off"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCGenerateXML"
+		Value			"off"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"RL32ObjectName"
+		Value			"tg"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCisDownloadable"
+		Value			"off"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCisDefaultEnv"
+		Value			"on"
+	      }
 	    }
 	    PropName		    "Components"
 	  }
@@ -494,11 +562,6 @@ Model {
     Block {
       BlockType		      Clock
       DisplayTime	      off
-    }
-    Block {
-      BlockType		      CombinatorialLogic
-      TruthTable	      "[0 0;0 1;0 1;1 0;0 1;1 0;1 0;1 1]"
-      SampleTime	      "-1"
     }
     Block {
       BlockType		      Concatenate
@@ -584,9 +647,6 @@ Model {
       IconDisplay	      "Tag"
     }
     Block {
-      BlockType		      Ground
-    }
-    Block {
       BlockType		      Inport
       Port		      "1"
       UseBusObject	      off
@@ -613,18 +673,6 @@ Model {
 "tion)"
       LogicDataType	      "uint(8)"
       SampleTime	      "-1"
-    }
-    Block {
-      BlockType		      Math
-      Operator		      "exp"
-      OutputSignalType	      "auto"
-      SampleTime	      "-1"
-      OutDataTypeMode	      "Same as first input"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
-      LockScale		      off
-      RndMeth		      "Floor"
-      SaturateOnIntegerOverflow	on
     }
     Block {
       BlockType		      Memory
@@ -685,13 +733,6 @@ Model {
       SampleTime	      "-1"
     }
     Block {
-      BlockType		      RateTransition
-      Integrity		      on
-      Deterministic	      on
-      X0		      "0"
-      OutPortSampleTime	      "-1"
-    }
-    Block {
       BlockType		      Reference
     }
     Block {
@@ -717,16 +758,6 @@ Model {
       FunctionName	      "system"
       SFunctionModules	      "''"
       PortCounts	      "[]"
-    }
-    Block {
-      BlockType		      SignalSpecification
-      Dimensions	      "-1"
-      SampleTime	      "-1"
-      DataType		      "auto"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
-      SignalType	      "auto"
-      SamplingMode	      "auto"
     }
     Block {
       BlockType		      SubSystem
@@ -800,13 +831,6 @@ Model {
       VectorParams1D	      on
     }
     Block {
-      BlockType		      UnitDelay
-      X0		      "0"
-      SampleTime	      "1"
-      StateMustResolveToSignalObject off
-      RTWStateStorageClass    "Auto"
-    }
-    Block {
       BlockType		      WhileIterator
       MaxIters		      "5"
       WhileBlockType	      "while"
@@ -856,7 +880,7 @@ Model {
       Position		      [660, 88, 885, 422]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_vs"
-      Parameters	      "6 12 2.5 4 .5 1 10 2 0 0 1 1 1 1 0"
+      Parameters	      "6 12 2.5 4 .5 1 10 2 0 0 1 1 1 1 0 0 0"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'force')\nport_label('input',3,'catch force')\npor"
 "t_label('output',1,'force')\nport_label('output',2,'status')\nport_label('out"
@@ -1208,7 +1232,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1225,7 +1249,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1242,7 +1266,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1259,7 +1283,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1926,7 +1950,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1943,7 +1967,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1960,7 +1984,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1977,7 +2001,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -2652,7 +2676,7 @@ Model {
 	  SourceType		  "Compare To Constant"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -2661,7 +2685,7 @@ Model {
 	  relop			  ">"
 	  const			  "25"
 	  LogicOutDataTypeMode	  "uint8"
-	  ZeroCross		  off
+	  ZeroCross		  "off"
 	}
 	Block {
 	  BlockType		  Reference
@@ -2674,7 +2698,7 @@ Model {
 	  SourceType		  "Compare To Constant"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -2683,7 +2707,7 @@ Model {
 	  relop			  ">"
 	  const			  "25."
 	  LogicOutDataTypeMode	  "uint8"
-	  ZeroCross		  off
+	  ZeroCross		  "off"
 	}
 	Block {
 	  BlockType		  Demux
@@ -2785,14 +2809,14 @@ Model {
 	      SourceType	      "Transpose"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
 	      RTWMemSecDataInternal   "Inherit from model"
 	      RTWMemSecDataParameters "Inherit from model"
-	      Hermitian		      off
-	      overflowFlag	      off
+	      Hermitian		      "off"
+	      overflowFlag	      "off"
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -2934,7 +2958,7 @@ Model {
 	  SourceType		  "xpcscopeblock"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -2942,10 +2966,10 @@ Model {
 	  RTWMemSecDataParameters "Inherit from model"
 	  scopeno		  "4"
 	  scopetype		  "Target"
-	  autostart		  on
+	  autostart		  "on"
 	  viewmode		  "Numerical"
 	  formatstr		  "'%6.0f Control,%6.0f ServoKill'"
-	  grid			  on
+	  grid			  "on"
 	  ylimits		  "[-10,10]"
 	  nosamples		  "10"
 	  noprepostsamples	  "0"
@@ -2959,7 +2983,7 @@ Model {
 	  filename		  "data.dat"
 	  mode			  "Lazy"
 	  writesize		  "512"
-	  autorestart		  off
+	  autorestart		  "off"
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -3027,7 +3051,7 @@ Model {
 	      SourceType	      "Compare To Zero"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -3035,7 +3059,7 @@ Model {
 	      RTWMemSecDataParameters "Inherit from model"
 	      relop		      ">"
 	      LogicOutDataTypeMode    "uint8"
-	      ZeroCross		      off
+	      ZeroCross		      "off"
 	    }
 	    Block {
 	      BlockType		      SubSystem
@@ -3293,7 +3317,7 @@ Model {
 	  SourceType		  "xpcscopeblock"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -3301,10 +3325,10 @@ Model {
 	  RTWMemSecDataParameters "Inherit from model"
 	  scopeno		  "2"
 	  scopetype		  "Target"
-	  autostart		  on
+	  autostart		  "on"
 	  viewmode		  "Numerical"
 	  formatstr		  "'%15.2f Fx,%15.2f Fy,%15.2f T1,%15.2f T2'"
-	  grid			  on
+	  grid			  "on"
 	  ylimits		  "[-10,10]"
 	  nosamples		  "10"
 	  noprepostsamples	  "0"
@@ -3318,7 +3342,7 @@ Model {
 	  filename		  "data.dat"
 	  mode			  "Lazy"
 	  writesize		  "512"
-	  autorestart		  off
+	  autorestart		  "off"
 	}
 	Block {
 	  BlockType		  Constant
@@ -3555,7 +3579,7 @@ Model {
       SourceType	      "Neural Position Subsystem"
       ShowPortLabels	      "FromPortIcon"
       SystemSampleTime	      "[0.01 0]"
-      FunctionWithSeparateData off
+      FunctionWithSeparateData "off"
       RTWMemSecFuncInitTerm   "Inherit from model"
       RTWMemSecFuncExecute    "Inherit from model"
       RTWMemSecDataConstants  "Inherit from model"
@@ -3627,7 +3651,7 @@ Model {
 	  SourceType		  "Compare To Zero"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -3635,7 +3659,7 @@ Model {
 	  RTWMemSecDataParameters "Inherit from model"
 	  relop			  "=="
 	  LogicOutDataTypeMode	  "uint8"
-	  ZeroCross		  off
+	  ZeroCross		  "off"
 	}
 	Block {
 	  BlockType		  Reference
@@ -3647,7 +3671,7 @@ Model {
 	  SourceType		  "Compare To Zero"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -3655,7 +3679,7 @@ Model {
 	  RTWMemSecDataParameters "Inherit from model"
 	  relop			  "=="
 	  LogicOutDataTypeMode	  "uint8"
-	  ZeroCross		  off
+	  ZeroCross		  "off"
 	}
 	Block {
 	  BlockType		  DataTypeConversion
@@ -3691,7 +3715,7 @@ Model {
 	  SourceType		  "Detect Fall Nonpositive"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -3710,7 +3734,7 @@ Model {
 	  SourceType		  "Detect Fall Nonpositive"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -3878,7 +3902,7 @@ Model {
 	      SourceType	      "Compare To Constant"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -3887,7 +3911,7 @@ Model {
 	      relop		      "<="
 	      const		      "0.004"
 	      LogicOutDataTypeMode    "uint8"
-	      ZeroCross		      off
+	      ZeroCross		      "off"
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -3899,7 +3923,7 @@ Model {
 	      SourceType	      "Compare To Constant"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -3908,7 +3932,7 @@ Model {
 	      relop		      "<="
 	      const		      ".004"
 	      LogicOutDataTypeMode    "uint8"
-	      ZeroCross		      off
+	      ZeroCross		      "off"
 	    }
 	    Block {
 	      BlockType		      Demux
@@ -4304,7 +4328,7 @@ Model {
 	  SourceType		  "SRFlipFlop"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -4378,7 +4402,7 @@ Model {
 	      SourceType	      "Compare To Zero"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -4386,7 +4410,7 @@ Model {
 	      RTWMemSecDataParameters "Inherit from model"
 	      relop		      ">"
 	      LogicOutDataTypeMode    "uint8"
-	      ZeroCross		      off
+	      ZeroCross		      "off"
 	    }
 	    Block {
 	      BlockType		      SubSystem
@@ -4674,7 +4698,7 @@ Model {
 	      SourceType	      "Compare To Zero"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -4682,7 +4706,7 @@ Model {
 	      RTWMemSecDataParameters "Inherit from model"
 	      relop		      ">"
 	      LogicOutDataTypeMode    "uint8"
-	      ZeroCross		      off
+	      ZeroCross		      "off"
 	    }
 	    Block {
 	      BlockType		      SubSystem
@@ -4970,7 +4994,7 @@ Model {
 	      SourceType	      "Compare To Zero"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -4978,7 +5002,7 @@ Model {
 	      RTWMemSecDataParameters "Inherit from model"
 	      relop		      ">"
 	      LogicOutDataTypeMode    "uint8"
-	      ZeroCross		      off
+	      ZeroCross		      "off"
 	    }
 	    Block {
 	      BlockType		      SubSystem
@@ -5210,7 +5234,7 @@ Model {
 	  SourceType		  "Detect Fall Nonpositive"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -5232,10 +5256,10 @@ Model {
 	  Ports			  [2, 1]
 	  Position		  [410, 220, 515, 275]
 	  SourceBlock		  "limblab/Timer"
-	  SourceType		  ""
+	  SourceType		  "Unknown"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -5287,7 +5311,7 @@ Model {
 	  SourceType		  "xpcscopeblock"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -5295,11 +5319,11 @@ Model {
 	  RTWMemSecDataParameters "Inherit from model"
 	  scopeno		  "5"
 	  scopetype		  "Target"
-	  autostart		  on
+	  autostart		  "on"
 	  viewmode		  "Numerical"
 	  formatstr		  "'%2.0f OutsideBox,%2.0f Activate,%2.0f SR,%"
 "2.0f OD On,%2.0f no movement,%2.0f claimed' "
-	  grid			  on
+	  grid			  "on"
 	  ylimits		  "[-10,10]"
 	  nosamples		  "10"
 	  noprepostsamples	  "0"
@@ -5313,7 +5337,7 @@ Model {
 	  filename		  "data.dat"
 	  mode			  "Lazy"
 	  writesize		  "512"
-	  autorestart		  off
+	  autorestart		  "off"
 	}
 	Block {
 	  BlockType		  Outport
@@ -5819,7 +5843,7 @@ Model {
 	      SourceType	      "Sample and Hold"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -5827,7 +5851,7 @@ Model {
 	      RTWMemSecDataParameters "Inherit from model"
 	      trig		      "Rising edge"
 	      initCond		      "-1000"
-	      latchinput	      off
+	      latchinput	      "off"
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -6006,7 +6030,7 @@ Model {
       SourceType	      "SubSystem"
       ShowPortLabels	      "FromPortIcon"
       SystemSampleTime	      "-1"
-      FunctionWithSeparateData off
+      FunctionWithSeparateData "off"
       RTWMemSecFuncInitTerm   "Inherit from model"
       RTWMemSecFuncExecute    "Inherit from model"
       RTWMemSecDataConstants  "Inherit from model"
@@ -6022,7 +6046,7 @@ Model {
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
       SystemSampleTime	      "-1"
-      FunctionWithSeparateData off
+      FunctionWithSeparateData "off"
       RTWMemSecFuncInitTerm   "Inherit from model"
       RTWMemSecFuncExecute    "Inherit from model"
       RTWMemSecDataConstants  "Inherit from model"
@@ -6030,11 +6054,11 @@ Model {
       RTWMemSecDataParameters "Inherit from model"
       scopeno		      "3"
       scopetype		      "Target"
-      autostart		      on
+      autostart		      "on"
       viewmode		      "Numerical"
       formatstr		      "'%6.0f state,%6.0f rewards,%6.0f aborts,%6.0f f"
 "ails,%6.0f incompl'"
-      grid		      on
+      grid		      "on"
       ylimits		      "[-10,10]"
       nosamples		      "10"
       noprepostsamples	      "0"
@@ -6048,7 +6072,7 @@ Model {
       filename		      "data.dat"
       mode		      "Lazy"
       writesize		      "512"
-      autorestart	      off
+      autorestart	      "off"
     }
     Block {
       BlockType		      SubSystem
@@ -6441,14 +6465,14 @@ Model {
 	      DenCoeffs		      "[1 0.1]"
 	      BiQuadCoeffs	      "[1 0.3 0.4 1 0.1 0.2]"
 	      LatticeCoeffs	      "[0.2 0.4]"
-	      denIgnore		      on
+	      denIgnore		      "on"
 	      FiltPerSampPopup	      "One filter per frame"
 	      IC		      "0"
 	      ICnum		      "0"
 	      ICden		      "0"
-	      additionalParams	      off
-	      allowOverrides	      on
-	      showCoeff		      off
+	      additionalParams	      "off"
+	      allowOverrides	      "on"
+	      showCoeff		      "off"
 	      firstCoeffMode	      "Same word length as input"
 	      firstCoeffWordLength    "16"
 	      firstCoeffFracLength    "15"
@@ -6458,24 +6482,24 @@ Model {
 	      thirdCoeffMode	      "Same as input"
 	      thirdCoeffWordLength    "16"
 	      thirdCoeffFracLength    "15"
-	      showOut		      off
+	      showOut		      "off"
 	      outputMode	      "Same as accumulator"
 	      outputWordLength	      "16"
 	      outputFracLength	      "15"
-	      showAcc		      off
+	      showAcc		      "off"
 	      accumMode		      "Same as product output"
 	      accumWordLength	      "32"
 	      accumFracLength	      "30"
-	      showMpy		      off
+	      showMpy		      "off"
 	      prodOutputMode	      "Same as input"
 	      prodOutputWordLength    "32"
 	      prodOutputFracLength    "30"
-	      showMem		      off
+	      showMem		      "off"
 	      memoryMode	      "Same as accumulator"
 	      memoryWordLength	      "16"
 	      memoryFracLength	      "15"
 	      roundingMode	      "Floor"
-	      overflowMode	      off
+	      overflowMode	      "off"
 	      ScaleValues	      "1"
 	      scaleValueFracLength    "14"
 	      tapSumMode	      "Same as input"
@@ -6485,7 +6509,7 @@ Model {
 	      stageIOWordLength	      "16"
 	      stageInFracLength	      "15"
 	      stageOutFracLength      "15"
-	      LockScale		      off
+	      LockScale		      "off"
 	      FilterSource	      "Specify via dialog"
 	      dfiltObjectName	      "dfilt.dffir([1 2 1])"
 	      multiplicandMode	      "Same as output"
@@ -6511,14 +6535,14 @@ Model {
 	      DenCoeffs		      "[1 0.1]"
 	      BiQuadCoeffs	      "[1 0.3 0.4 1 0.1 0.2]"
 	      LatticeCoeffs	      "[0.2 0.4]"
-	      denIgnore		      on
+	      denIgnore		      "on"
 	      FiltPerSampPopup	      "One filter per frame"
 	      IC		      "0"
 	      ICnum		      "0"
 	      ICden		      "0"
-	      additionalParams	      off
-	      allowOverrides	      on
-	      showCoeff		      off
+	      additionalParams	      "off"
+	      allowOverrides	      "on"
+	      showCoeff		      "off"
 	      firstCoeffMode	      "Same word length as input"
 	      firstCoeffWordLength    "16"
 	      firstCoeffFracLength    "15"
@@ -6528,24 +6552,24 @@ Model {
 	      thirdCoeffMode	      "Same as input"
 	      thirdCoeffWordLength    "16"
 	      thirdCoeffFracLength    "15"
-	      showOut		      off
+	      showOut		      "off"
 	      outputMode	      "Same as accumulator"
 	      outputWordLength	      "16"
 	      outputFracLength	      "15"
-	      showAcc		      off
+	      showAcc		      "off"
 	      accumMode		      "Same as product output"
 	      accumWordLength	      "32"
 	      accumFracLength	      "30"
-	      showMpy		      off
+	      showMpy		      "off"
 	      prodOutputMode	      "Same as input"
 	      prodOutputWordLength    "32"
 	      prodOutputFracLength    "30"
-	      showMem		      off
+	      showMem		      "off"
 	      memoryMode	      "Same as accumulator"
 	      memoryWordLength	      "16"
 	      memoryFracLength	      "15"
 	      roundingMode	      "Floor"
-	      overflowMode	      off
+	      overflowMode	      "off"
 	      ScaleValues	      "1"
 	      scaleValueFracLength    "14"
 	      tapSumMode	      "Same as input"
@@ -6555,7 +6579,7 @@ Model {
 	      stageIOWordLength	      "16"
 	      stageInFracLength	      "15"
 	      stageOutFracLength      "15"
-	      LockScale		      off
+	      LockScale		      "off"
 	      FilterSource	      "Specify via dialog"
 	      dfiltObjectName	      "dfilt.dffir([1 2 1])"
 	      multiplicandMode	      "Same as output"
@@ -6664,14 +6688,14 @@ Model {
 	      DenCoeffs		      "[1 0.1]"
 	      BiQuadCoeffs	      "[1 0.3 0.4 1 0.1 0.2]"
 	      LatticeCoeffs	      "[0.2 0.4]"
-	      denIgnore		      on
+	      denIgnore		      "on"
 	      FiltPerSampPopup	      "One filter per frame"
 	      IC		      "0"
 	      ICnum		      "0"
 	      ICden		      "0"
-	      additionalParams	      off
-	      allowOverrides	      on
-	      showCoeff		      off
+	      additionalParams	      "off"
+	      allowOverrides	      "on"
+	      showCoeff		      "off"
 	      firstCoeffMode	      "Same word length as input"
 	      firstCoeffWordLength    "16"
 	      firstCoeffFracLength    "15"
@@ -6681,24 +6705,24 @@ Model {
 	      thirdCoeffMode	      "Same as input"
 	      thirdCoeffWordLength    "16"
 	      thirdCoeffFracLength    "15"
-	      showOut		      off
+	      showOut		      "off"
 	      outputMode	      "Same as accumulator"
 	      outputWordLength	      "16"
 	      outputFracLength	      "15"
-	      showAcc		      off
+	      showAcc		      "off"
 	      accumMode		      "Same as product output"
 	      accumWordLength	      "32"
 	      accumFracLength	      "30"
-	      showMpy		      off
+	      showMpy		      "off"
 	      prodOutputMode	      "Same as input"
 	      prodOutputWordLength    "32"
 	      prodOutputFracLength    "30"
-	      showMem		      off
+	      showMem		      "off"
 	      memoryMode	      "Same as accumulator"
 	      memoryWordLength	      "16"
 	      memoryFracLength	      "15"
 	      roundingMode	      "Floor"
-	      overflowMode	      off
+	      overflowMode	      "off"
 	      ScaleValues	      "1"
 	      scaleValueFracLength    "14"
 	      tapSumMode	      "Same as input"
@@ -6708,7 +6732,7 @@ Model {
 	      stageIOWordLength	      "16"
 	      stageInFracLength	      "15"
 	      stageOutFracLength      "15"
-	      LockScale		      off
+	      LockScale		      "off"
 	      FilterSource	      "Specify via dialog"
 	      dfiltObjectName	      "dfilt.dffir([1 2 1])"
 	      multiplicandMode	      "Same as output"
@@ -6734,14 +6758,14 @@ Model {
 	      DenCoeffs		      "[1 0.1]"
 	      BiQuadCoeffs	      "[1 0.3 0.4 1 0.1 0.2]"
 	      LatticeCoeffs	      "[0.2 0.4]"
-	      denIgnore		      on
+	      denIgnore		      "on"
 	      FiltPerSampPopup	      "One filter per frame"
 	      IC		      "0"
 	      ICnum		      "0"
 	      ICden		      "0"
-	      additionalParams	      off
-	      allowOverrides	      on
-	      showCoeff		      off
+	      additionalParams	      "off"
+	      allowOverrides	      "on"
+	      showCoeff		      "off"
 	      firstCoeffMode	      "Same word length as input"
 	      firstCoeffWordLength    "16"
 	      firstCoeffFracLength    "15"
@@ -6751,24 +6775,24 @@ Model {
 	      thirdCoeffMode	      "Same as input"
 	      thirdCoeffWordLength    "16"
 	      thirdCoeffFracLength    "15"
-	      showOut		      off
+	      showOut		      "off"
 	      outputMode	      "Same as accumulator"
 	      outputWordLength	      "16"
 	      outputFracLength	      "15"
-	      showAcc		      off
+	      showAcc		      "off"
 	      accumMode		      "Same as product output"
 	      accumWordLength	      "32"
 	      accumFracLength	      "30"
-	      showMpy		      off
+	      showMpy		      "off"
 	      prodOutputMode	      "Same as input"
 	      prodOutputWordLength    "32"
 	      prodOutputFracLength    "30"
-	      showMem		      off
+	      showMem		      "off"
 	      memoryMode	      "Same as accumulator"
 	      memoryWordLength	      "16"
 	      memoryFracLength	      "15"
 	      roundingMode	      "Floor"
-	      overflowMode	      off
+	      overflowMode	      "off"
 	      ScaleValues	      "1"
 	      scaleValueFracLength    "14"
 	      tapSumMode	      "Same as input"
@@ -6778,7 +6802,7 @@ Model {
 	      stageIOWordLength	      "16"
 	      stageInFracLength	      "15"
 	      stageOutFracLength      "15"
-	      LockScale		      off
+	      LockScale		      "off"
 	      FilterSource	      "Specify via dialog"
 	      dfiltObjectName	      "dfilt.dffir([1 2 1])"
 	      multiplicandMode	      "Same as output"
@@ -6974,7 +6998,7 @@ Model {
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
       SystemSampleTime	      "-1"
-      FunctionWithSeparateData off
+      FunctionWithSeparateData "off"
       RTWMemSecFuncInitTerm   "Inherit from model"
       RTWMemSecFuncExecute    "Inherit from model"
       RTWMemSecDataConstants  "Inherit from model"
@@ -6982,11 +7006,11 @@ Model {
       RTWMemSecDataParameters "Inherit from model"
       scopeno		      "7"
       scopetype		      "Target"
-      autostart		      on
+      autostart		      "on"
       viewmode		      "Numerical"
       formatstr		      "'%6.0f major,%6.0f minor,%6.0f revision,%6.0f b"
 "uild'"
-      grid		      on
+      grid		      "on"
       ylimits		      "[-10,10]"
       nosamples		      "10"
       noprepostsamples	      "0"
@@ -7000,7 +7024,7 @@ Model {
       filename		      "data.dat"
       mode		      "Lazy"
       writesize		      "512"
-      autorestart	      off
+      autorestart	      "off"
     }
     Block {
       BlockType		      SubSystem
@@ -7442,7 +7466,7 @@ Model {
 	      Ports		      [3, 1]
 	      Position		      [405, 315, 505, 525]
 	      SourceBlock	      "limblab/SerialConverter"
-	      SourceType	      ""
+	      SourceType	      "Unknown"
 	    }
 	    Block {
 	      BlockType		      Switch
@@ -7458,7 +7482,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [655, 310, 710, 525]
 	      SourceBlock	      "limblab/ToBits"
-	      SourceType	      ""
+	      SourceType	      "Unknown"
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -7466,7 +7490,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [635, 635, 685, 830]
 	      SourceBlock	      "limblab/ToBits"
-	      SourceType	      ""
+	      SourceType	      "Unknown"
 	    }
 	    Block {
 	      BlockType		      SubSystem
@@ -7517,7 +7541,7 @@ Model {
 		  SourceType		  "Compare To Constant"
 		  ShowPortLabels	  "FromPortIcon"
 		  SystemSampleTime	  "-1"
-		  FunctionWithSeparateData off
+		  FunctionWithSeparateData "off"
 		  RTWMemSecFuncInitTerm	  "Inherit from model"
 		  RTWMemSecFuncExecute	  "Inherit from model"
 		  RTWMemSecDataConstants  "Inherit from model"
@@ -7526,7 +7550,7 @@ Model {
 		  relop			  "<="
 		  const			  "200"
 		  LogicOutDataTypeMode	  "boolean"
-		  ZeroCross		  on
+		  ZeroCross		  "on"
 		}
 		Block {
 		  BlockType		  Reference
@@ -7538,7 +7562,7 @@ Model {
 		  SourceType		  "Compare To Constant"
 		  ShowPortLabels	  "FromPortIcon"
 		  SystemSampleTime	  "-1"
-		  FunctionWithSeparateData off
+		  FunctionWithSeparateData "off"
 		  RTWMemSecFuncInitTerm	  "Inherit from model"
 		  RTWMemSecFuncExecute	  "Inherit from model"
 		  RTWMemSecDataConstants  "Inherit from model"
@@ -7547,7 +7571,7 @@ Model {
 		  relop			  ">"
 		  const			  "100"
 		  LogicOutDataTypeMode	  "boolean"
-		  ZeroCross		  off
+		  ZeroCross		  "off"
 		}
 		Block {
 		  BlockType		  Constant
@@ -8489,7 +8513,7 @@ Model {
 "oder/PCI-QUAD04 "
 	  SourceType		  "enccbcioquadcount"
 	  channel		  "1"
-	  resetmode		  on
+	  resetmode		  "on"
 	  polarity		  "Positive Index"
 	  mode			  "Normal"
 	  limit			  "0"
@@ -8508,7 +8532,7 @@ Model {
 "oder/PCI-QUAD04 "
 	  SourceType		  "enccbcioquadcount"
 	  channel		  "2"
-	  resetmode		  on
+	  resetmode		  "on"
 	  polarity		  "Positive Index"
 	  mode			  "Normal"
 	  limit			  "0"
@@ -8719,7 +8743,7 @@ Model {
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
       SystemSampleTime	      "-1"
-      FunctionWithSeparateData off
+      FunctionWithSeparateData "off"
       RTWMemSecFuncInitTerm   "Inherit from model"
       RTWMemSecFuncExecute    "Inherit from model"
       RTWMemSecDataConstants  "Inherit from model"
@@ -8727,11 +8751,11 @@ Model {
       RTWMemSecDataParameters "Inherit from model"
       scopeno		      "1"
       scopetype		      "Target"
-      autostart		      on
+      autostart		      "on"
       viewmode		      "Numerical"
       formatstr		      "'%15.2f X,%15.2f Y,%15.2f dX,%15.2f dY,%15.2f F"
 "x,%15.2f Fy'"
-      grid		      on
+      grid		      "on"
       ylimits		      "[-10,10]"
       nosamples		      "10"
       noprepostsamples	      "0"
@@ -8745,7 +8769,7 @@ Model {
       filename		      "data.dat"
       mode		      "Lazy"
       writesize		      "512"
-      autorestart	      off
+      autorestart	      "off"
     }
     Line {
       SrcBlock		      "Velocity Calculation"
@@ -9008,7 +9032,7 @@ MatData {
 
 # Finite State Machines
 #
-#    Stateflow Version 6.6 (R2007a) dated Jan 30 2007, 03:33:34
+#    Stateflow Version 6.6 (R2007a) dated Jan 30 2007, 03:46:08
 #
 #
 
