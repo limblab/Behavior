@@ -152,7 +152,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 15); 
+    ssSetNumSFcnParams(S, 17); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -567,7 +567,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 state_changed();   
             } else {
                 for (i=1; i<17; i++) {                           
-                    if (cursorInTarget(cursor, target_location[i]) {
+                    if (cursorInTarget(cursor, target_location[i])) {
 						ssSetIWorkValue(S, 10, i); /* set index of target cursor is in */
                         if ((target_type[i] == correct_targ) || disable_abort) {
                             new_state = STATE_OUTER_HOLD;
@@ -659,6 +659,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T theta;
     real_T center_hold, outer_hold;
     int i,j;
+/*    int correct_targ = ssGetIWorkValue(S, 8); */
+
     
     InputRealPtrsType uPtrs;
     real_T cursor[2];
@@ -845,7 +847,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         for (i=1; i<17; i++){
             if (target_type[i] != 0){
 				if ( state == STATE_OUTER_HOLD &&
-					 target_type[i] == correct_targ &&
+                     i == target_idx + 1 &&
+/*					 target_type[i] == correct_targ && */
 					 green_hold )
 					target_pos[j] = 3;
 				else
