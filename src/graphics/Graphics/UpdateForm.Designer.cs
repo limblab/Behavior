@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -607,6 +607,10 @@ namespace BehaviorGraphics
             this.label217 = new System.Windows.Forms.Label();
             this.tabUncertainty = new System.Windows.Forms.TabPage();
             this.groupBox55 = new System.Windows.Forms.GroupBox();
+            this.label263 = new System.Windows.Forms.Label();
+            this.label262 = new System.Windows.Forms.Label();
+            this.numericUUpDownWindowType = new System.Windows.Forms.NumericUpDown();
+            this.numericUUpDownDisplacementType = new System.Windows.Forms.NumericUpDown();
             this.label261 = new System.Windows.Forms.Label();
             this.numericUUpDownCueDotNum = new System.Windows.Forms.NumericUpDown();
             this.label260 = new System.Windows.Forms.Label();
@@ -749,10 +753,8 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.numericUUpDownWindowType = new System.Windows.Forms.NumericUpDown();
-            this.numericUUpDownDisplacementType = new System.Windows.Forms.NumericUpDown();
-            this.label262 = new System.Windows.Forms.Label();
-            this.label263 = new System.Windows.Forms.Label();
+            this.checkBoxVSGT = new System.Windows.Forms.CheckBox();
+            this.checkBoxVSDA = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -836,6 +838,8 @@ namespace BehaviorGraphics
             this.groupBox46.SuspendLayout();
             this.tabUncertainty.SuspendLayout();
             this.groupBox55.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownWindowType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownDisplacementType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownCueDotNum)).BeginInit();
             this.groupBox54.SuspendLayout();
             this.groupBox49.SuspendLayout();
@@ -852,8 +856,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownWindowType)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownDisplacementType)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -3610,8 +3612,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4369,8 +4371,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -5488,6 +5490,8 @@ namespace BehaviorGraphics
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBoxVSDA);
+            this.tabPage1.Controls.Add(this.checkBoxVSGT);
             this.tabPage1.Controls.Add(this.comboBoxGlyphSelect);
             this.tabPage1.Controls.Add(this.label175);
             this.tabPage1.Controls.Add(this.groupBox22);
@@ -6986,6 +6990,70 @@ namespace BehaviorGraphics
             this.groupBox55.TabStop = false;
             this.groupBox55.Text = "Cue Cloud";
             // 
+            // label263
+            // 
+            this.label263.AutoSize = true;
+            this.label263.Location = new System.Drawing.Point(175, 111);
+            this.label263.Name = "label263";
+            this.label263.Size = new System.Drawing.Size(98, 13);
+            this.label263.TabIndex = 38;
+            this.label263.Text = "Displacement Type";
+            // 
+            // label262
+            // 
+            this.label262.AutoSize = true;
+            this.label262.Location = new System.Drawing.Point(197, 84);
+            this.label262.Name = "label262";
+            this.label262.Size = new System.Drawing.Size(73, 13);
+            this.label262.TabIndex = 37;
+            this.label262.Text = "Window Type";
+            // 
+            // numericUUpDownWindowType
+            // 
+            this.numericUUpDownWindowType.Location = new System.Drawing.Point(279, 81);
+            this.numericUUpDownWindowType.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUUpDownWindowType.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUUpDownWindowType.Name = "numericUUpDownWindowType";
+            this.numericUUpDownWindowType.Size = new System.Drawing.Size(68, 20);
+            this.numericUUpDownWindowType.TabIndex = 36;
+            this.toolTip1.SetToolTip(this.numericUUpDownWindowType, "Number of dots in cue cloud (max 10)");
+            this.numericUUpDownWindowType.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // numericUUpDownDisplacementType
+            // 
+            this.numericUUpDownDisplacementType.Location = new System.Drawing.Point(279, 109);
+            this.numericUUpDownDisplacementType.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUUpDownDisplacementType.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUUpDownDisplacementType.Name = "numericUUpDownDisplacementType";
+            this.numericUUpDownDisplacementType.Size = new System.Drawing.Size(68, 20);
+            this.numericUUpDownDisplacementType.TabIndex = 36;
+            this.toolTip1.SetToolTip(this.numericUUpDownDisplacementType, "Number of dots in cue cloud (max 10)");
+            this.numericUUpDownDisplacementType.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
             // label261
             // 
             this.label261.AutoSize = true;
@@ -8370,69 +8438,28 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // numericUUpDownWindowType
+            // checkBoxVSGT
             // 
-            this.numericUUpDownWindowType.Location = new System.Drawing.Point(279, 81);
-            this.numericUUpDownWindowType.Maximum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUUpDownWindowType.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUUpDownWindowType.Name = "numericUUpDownWindowType";
-            this.numericUUpDownWindowType.Size = new System.Drawing.Size(68, 20);
-            this.numericUUpDownWindowType.TabIndex = 36;
-            this.toolTip1.SetToolTip(this.numericUUpDownWindowType, "Number of dots in cue cloud (max 10)");
-            this.numericUUpDownWindowType.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
+            this.checkBoxVSGT.AutoSize = true;
+            this.checkBoxVSGT.Location = new System.Drawing.Point(434, 89);
+            this.checkBoxVSGT.Name = "checkBoxVSGT";
+            this.checkBoxVSGT.Size = new System.Drawing.Size(94, 17);
+            this.checkBoxVSGT.TabIndex = 34;
+            this.checkBoxVSGT.Text = "Green Targets";
+            this.toolTip1.SetToolTip(this.checkBoxVSGT, "Target turns green when cursor is inside of it and remains as glyph when cursor i" +
+                    "s not inside.");
+            this.checkBoxVSGT.UseVisualStyleBackColor = true;
             // 
-            // numericUUpDownDisplacementType
+            // checkBoxVSDA
             // 
-            this.numericUUpDownDisplacementType.Location = new System.Drawing.Point(279, 109);
-            this.numericUUpDownDisplacementType.Maximum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUUpDownDisplacementType.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUUpDownDisplacementType.Name = "numericUUpDownDisplacementType";
-            this.numericUUpDownDisplacementType.Size = new System.Drawing.Size(68, 20);
-            this.numericUUpDownDisplacementType.TabIndex = 36;
-            this.toolTip1.SetToolTip(this.numericUUpDownDisplacementType, "Number of dots in cue cloud (max 10)");
-            this.numericUUpDownDisplacementType.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            // 
-            // label262
-            // 
-            this.label262.AutoSize = true;
-            this.label262.Location = new System.Drawing.Point(197, 84);
-            this.label262.Name = "label262";
-            this.label262.Size = new System.Drawing.Size(73, 13);
-            this.label262.TabIndex = 37;
-            this.label262.Text = "Window Type";
-            // 
-            // label263
-            // 
-            this.label263.AutoSize = true;
-            this.label263.Location = new System.Drawing.Point(175, 111);
-            this.label263.Name = "label263";
-            this.label263.Size = new System.Drawing.Size(98, 13);
-            this.label263.TabIndex = 38;
-            this.label263.Text = "Displacement Type";
+            this.checkBoxVSDA.AutoSize = true;
+            this.checkBoxVSDA.Location = new System.Drawing.Point(434, 112);
+            this.checkBoxVSDA.Name = "checkBoxVSDA";
+            this.checkBoxVSDA.Size = new System.Drawing.Size(89, 17);
+            this.checkBoxVSDA.TabIndex = 35;
+            this.checkBoxVSDA.Text = "Disable Abort";
+            this.toolTip1.SetToolTip(this.checkBoxVSDA, "Restart movement state when cursor leaves target during hold period.");
+            this.checkBoxVSDA.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -8590,6 +8617,8 @@ namespace BehaviorGraphics
             this.tabUncertainty.ResumeLayout(false);
             this.groupBox55.ResumeLayout(false);
             this.groupBox55.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownWindowType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownDisplacementType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownCueDotNum)).EndInit();
             this.groupBox54.ResumeLayout(false);
             this.groupBox54.PerformLayout();
@@ -8617,8 +8646,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownWindowType)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownDisplacementType)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -9348,5 +9375,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label262;
         private System.Windows.Forms.NumericUpDown numericUUpDownWindowType;
         private System.Windows.Forms.NumericUpDown numericUUpDownDisplacementType;
+        private System.Windows.Forms.CheckBox checkBoxVSDA;
+        private System.Windows.Forms.CheckBox checkBoxVSGT;
     }
 }

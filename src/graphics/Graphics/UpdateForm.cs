@@ -486,22 +486,26 @@ namespace BehaviorGraphics
              * Visual Search Parameters 
              */
 
-            // Visual Search timing
-            AddParamListItem("VSCHL", "P5", "Behavior VS", this.textBoxVSCHL);
-            AddParamListItem("VSCHH", "P6", "Behavior VS", this.textBoxVSCHH);
-            AddParamListItem("VSST", "P7", "Behavior VS", this.textBoxVSST);
-            AddParamListItem("VSRT", "P8", "Behavior VS", this.textBoxVSRT);
-            AddParamListItem("VSOHL", "P9", "Behavior VS", this.textBoxVSOHL);
-            AddParamListItem("VSOHH", "P10", "Behavior VS", this.textBoxVSOHH);
-            AddParamListItem("VSRTO", "P14", "Behavior VS", this.textBoxVSRTO);
-            AddParamListItem("VSFTO", "P12", "Behavior VS", this.textBoxVSFTO);
-            AddParamListItem("VSITO", "P13", "Behavior VS", this.textBoxVSITO);
-            AddParamListItem("VSATO", "P11", "Behavior VS", this.textBoxVSATO);
-
             // Visual Search targets
             AddParamListItem("VS Num Targets", "P1", "Behavior VS", this.numericUpDownVSNumTarg);
-            AddParamListItem("VSTR", "P2", "Behavior VS", this.textBoxVSTR);
-            AddParamListItem("VSTS", "P3", "Behavior VS", this.textBoxVSTS);
+            AddParamListItem("VS Target Radius", "P2", "Behavior VS", this.textBoxVSTR);
+            AddParamListItem("VS Target Size", "P3", "Behavior VS", this.textBoxVSTS);
+
+            // Visual Search timing
+            AddParamListItem("VS Center Hold Low", "P5", "Behavior VS", this.textBoxVSCHL);
+            AddParamListItem("VS Center Hold High", "P6", "Behavior VS", this.textBoxVSCHH);
+            AddParamListItem("VS Search Time", "P7", "Behavior VS", this.textBoxVSST);
+            AddParamListItem("VS Reach Time", "P8", "Behavior VS", this.textBoxVSRT);
+            AddParamListItem("VS Outer Hold Low", "P9", "Behavior VS", this.textBoxVSOHL);
+            AddParamListItem("VS Outer Hold High", "P10", "Behavior VS", this.textBoxVSOHH);
+            AddParamListItem("VS Abort Timeout", "P11", "Behavior VS", this.textBoxVSATO);
+            AddParamListItem("VS Fail Timeout", "P12", "Behavior VS", this.textBoxVSFTO);
+            AddParamListItem("VS Incomplete Timeout", "P13", "Behavior VS", this.textBoxVSITO);
+            AddParamListItem("VS Reward Timeout", "P14", "Behavior VS", this.textBoxVSRTO);
+
+            AddParamListItem("VS Disable Abort", "P16", "Behavior VS", this.checkBoxVSDA);
+            AddParamListItem("VS Green Targets", "P17", "Behavior VS", this.checkBoxVSGT);
+
             #endregion
 
             #region Uncertainty
