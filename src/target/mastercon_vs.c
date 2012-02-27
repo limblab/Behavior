@@ -906,7 +906,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     word_p[0] = word;
     
     target_p = ssGetOutputPortRealSignal(S,3);
-    for (i=0; i<45; i++) {
+    for (i=0; i<85; i++) {
         target_p[i] = target_pos[i];
     }
     
