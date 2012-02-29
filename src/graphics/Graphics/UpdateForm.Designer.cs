@@ -468,6 +468,8 @@ namespace BehaviorGraphics
             this.textBoxBCOHL = new System.Windows.Forms.TextBox();
             this.label90 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBoxVSDA = new System.Windows.Forms.CheckBox();
+            this.checkBoxVSGT = new System.Windows.Forms.CheckBox();
             this.comboBoxGlyphSelect = new System.Windows.Forms.ComboBox();
             this.label175 = new System.Windows.Forms.Label();
             this.groupBox22 = new System.Windows.Forms.GroupBox();
@@ -753,8 +755,6 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.checkBoxVSGT = new System.Windows.Forms.CheckBox();
-            this.checkBoxVSDA = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -5504,6 +5504,29 @@ namespace BehaviorGraphics
             this.tabPage1.Text = "Visual Search";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // checkBoxVSDA
+            // 
+            this.checkBoxVSDA.AutoSize = true;
+            this.checkBoxVSDA.Location = new System.Drawing.Point(434, 112);
+            this.checkBoxVSDA.Name = "checkBoxVSDA";
+            this.checkBoxVSDA.Size = new System.Drawing.Size(89, 17);
+            this.checkBoxVSDA.TabIndex = 35;
+            this.checkBoxVSDA.Text = "Disable Abort";
+            this.toolTip1.SetToolTip(this.checkBoxVSDA, "Restart movement state when cursor leaves target during hold period.");
+            this.checkBoxVSDA.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxVSGT
+            // 
+            this.checkBoxVSGT.AutoSize = true;
+            this.checkBoxVSGT.Location = new System.Drawing.Point(434, 89);
+            this.checkBoxVSGT.Name = "checkBoxVSGT";
+            this.checkBoxVSGT.Size = new System.Drawing.Size(94, 17);
+            this.checkBoxVSGT.TabIndex = 34;
+            this.checkBoxVSGT.Text = "Green Targets";
+            this.toolTip1.SetToolTip(this.checkBoxVSGT, "Target turns green when cursor is inside of it and remains as glyph when cursor i" +
+                    "s not inside.");
+            this.checkBoxVSGT.UseVisualStyleBackColor = true;
+            // 
             // comboBoxGlyphSelect
             // 
             this.comboBoxGlyphSelect.FormattingEnabled = true;
@@ -5549,7 +5572,7 @@ namespace BehaviorGraphics
             // 
             this.numericUpDownVSNumTarg.Location = new System.Drawing.Point(13, 32);
             this.numericUpDownVSNumTarg.Maximum = new decimal(new int[] {
-            8,
+            16,
             0,
             0,
             0});
@@ -8437,29 +8460,6 @@ namespace BehaviorGraphics
             this.label74.Size = new System.Drawing.Size(61, 13);
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
-            // 
-            // checkBoxVSGT
-            // 
-            this.checkBoxVSGT.AutoSize = true;
-            this.checkBoxVSGT.Location = new System.Drawing.Point(434, 89);
-            this.checkBoxVSGT.Name = "checkBoxVSGT";
-            this.checkBoxVSGT.Size = new System.Drawing.Size(94, 17);
-            this.checkBoxVSGT.TabIndex = 34;
-            this.checkBoxVSGT.Text = "Green Targets";
-            this.toolTip1.SetToolTip(this.checkBoxVSGT, "Target turns green when cursor is inside of it and remains as glyph when cursor i" +
-                    "s not inside.");
-            this.checkBoxVSGT.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxVSDA
-            // 
-            this.checkBoxVSDA.AutoSize = true;
-            this.checkBoxVSDA.Location = new System.Drawing.Point(434, 112);
-            this.checkBoxVSDA.Name = "checkBoxVSDA";
-            this.checkBoxVSDA.Size = new System.Drawing.Size(89, 17);
-            this.checkBoxVSDA.TabIndex = 35;
-            this.checkBoxVSDA.Text = "Disable Abort";
-            this.toolTip1.SetToolTip(this.checkBoxVSDA, "Restart movement state when cursor leaves target during hold period.");
-            this.checkBoxVSDA.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 

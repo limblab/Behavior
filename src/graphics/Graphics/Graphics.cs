@@ -99,7 +99,7 @@ namespace BehaviorGraphics
             InitializeDevice();
             SetCursor(5);
 
-            t = new TargetSprite[16];
+            t = new TargetSprite[32];
             for (int i = 0; i < t.Length; i++) {
                 t[i] = new TargetSprite(device);
             }
@@ -123,7 +123,7 @@ namespace BehaviorGraphics
             activeGlyphDef = GlyphDefs[activeGlyphIndex];
             activeGlyphTextures = activeGlyphDef.GetTextures(device);
 
-            t = new TargetSprite[16];
+            t = new TargetSprite[32];
             for (int i = 0; i < t.Length; i++) {
                 t[i] = new TargetSprite(device, activeGlyphTextures);
             }

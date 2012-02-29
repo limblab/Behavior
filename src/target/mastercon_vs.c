@@ -845,12 +845,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         for (i=1; i<17; i++){
             if (target_type[i] != 0){
 				if ( state == STATE_OUTER_HOLD &&
-                     ssGetIWorkValue(S, 10) == target_idx + 1 &&
-                     i == target_idx + 1 &&
+                     ssGetIWorkValue(S, 10) == (target_idx + 1) &&
+                     i == (target_idx + 1) &&
 					 green_hold )
-					target_pos[j] = 3;
+					target_pos[j]=3;
 				else
-	                target_pos[j]  =target_type[i];
+	                target_pos[j]=target_type[i];
                 target_pos[j+1]=target_location[i][0];
                 target_pos[j+2]=target_location[i][1];
                 target_pos[j+3]=target_location[i][2];
