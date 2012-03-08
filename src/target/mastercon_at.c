@@ -460,7 +460,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T direction;
     real_T reward_target_side;
     real_T previous_visual_stair_ratio;
+    real_T new_visual_stair_ratio;
     real_T previous_proprio_stair_angle;
+    real_T new_proprio_stair_angle;
     int nshift
     
     InputRealPtrsType uPtrs;
@@ -471,7 +473,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* Trial parameters from IWorkVector*/
     int trial_type; /* 0=visual, 1=proprioceptive */
     int test_step;
-    int bump_step;
+    int temp_int;
     int training_mode;
     int proprio_stair_counter;
     int visual_stair_counter;
@@ -654,10 +656,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             ssSetIWorkValue(S,iWorkTrialType,trial_type); 
             
             /* pick a random bump magnitude */
-            bump_step = (int)(UNI*bump_steps);               
-            bump_magnitude = bump_mag_min + ((float)bump_step)*(bump_mag_max-bump_mag_min)/((float)bump_steps-1);
+            temp_int = (int)(UNI*num_bump_magnitudes);               
+            bump_magnitude = bump_mag_min + ((float)temp_int)*(bump_mag_max-bump_mag_min)/((float)num_bump_magnitudes-1);
             ssSetRWorkValue(S,rWorkBumpMagnitude,bump_magnitude);
-            ssSetIWorkValue(S,iWorkBumpStep,bump_step);
+            ssSetIWorkValue(S,iWorkBumpStep,temp_int);
             
             /* Pick target directions */
             if (num_directions < 1 ) {
@@ -665,36 +667,39 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             } else {
                 direction = (float)((int)(UNI*num_directions))*2*pi/num_directions + first_bump_direction;
             }                        
-            reward_target_side = 2*(UNI>0.5)-1;
-            
-            
+            reward_target_side = 2*(UNI>0.5)-1;  
                     
             /* Visual trials */            
-            if ( trial_type == 0 ){                        
-                
+            if ( trial_type == 0 ){
                 bump_direction = direction+(2*(UNI>0.5)-1)*target_separation; /* Randomly selected bump direction */
                 if (staircase){    
                     if (visual_stair_counter>0){
                         previous_visual_stair_ratio = visual_stair_ratios[visual_stair_counter-1];
-                    }else{
+                    } else {
                         previous_visual_stair_ratio = visual_stair_ratios[19];
                     }
-                    nshift = 0;
-                    for (i=1;i<20;i++){
-                        visual_stair_responses[i]-visual_stair_responses[i-1]
-                    
-                    reward_target_size = 
-                    fail_target_size = 
-
-                    fail_target_size
-                            
+                    /* ADD STAIRCASE CODE HERE
+                        nshift = 0;
+                        for (i=1;i<20;i++)
+                            visual_stair_responses[i]-visual_stair_responses[i-1]
+                     *
+                     * new_visual_stair_ratio;
+                    */
+                
                     visual_stair_counter++;
                     if (visual_stair_counter>19)
-                        visual_stair_counter = 0;
-                    
+                        visual_stair_counter = 0;                    
                 } else {
-                    
+                    temp_int = (int)(UNI*visual_num_steps);
+                    new_visual_stair_ratio = visual_target_min_ratio + ((float)temp_int)*(visual_target_max_ratio-visual_target_min_ratio)/((float)visual_num_steps-1);                    
                 }
+                if (new_visual_stair_ratio > 1) {
+                        reward_target_size = target_size*new_visual_stair_ratio;
+                        fail_target_size = target_size;
+                } else {
+                        reward_target_size = target_size;
+                        fail_target_size = target_size*new_visual_stair_ratio;
+                }    
             }
                 
                 
