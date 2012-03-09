@@ -891,7 +891,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		shifted_curs_rad = cos(atan2(cursor[1],cursor[0])-theta)*shifted_rad_d;
 	} else {
 		shifted_rad_d = rad_d;
-		shifted_curs_rad = rad_d;
+		shifted_curs_rad = curs_rad;
 	}
   
     /* input force */
@@ -1132,7 +1132,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 		}
 	}else{
 		if ((state == STATE_MOVEMENT) && 
-			((curs_rad > beg_window*target_radius) && (curs_rad < end_window*target_radius))){
+			((rad_d > beg_window*target_radius) && (rad_d < end_window*target_radius))){
 			/* We are inside the blocking window */
 			pos_x = 1E6;
 			pos_y = 1E6;
