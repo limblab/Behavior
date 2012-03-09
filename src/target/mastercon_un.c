@@ -452,16 +452,18 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	curs_rad = cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d;
 
 	/* If displace type is type 1, then use angular displacement. If type 2, use linear displacement */
-	if ((state == STATE_MOVEMENT || state == STATE_OUTER_HOLD)&&(curs_rad > (beg_window*target_radius))){
-		if((int)displace_type == 1){
+	if (state == STATE_MOVEMENT || state == STATE_OUTER_HOLD){
+		if(((int)displace_type == 1)&&(rad_d > (beg_window*target_radius))){
 			cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
 			cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
-		}else if((int)displace_type == 2){
+		}else if(((int)displace_type == 2)&&(curs_rad > (beg_window*target_radius))){
 			cursor[0] = cursor_old[0] + displace*sin(theta);
 			cursor[1] = cursor_old[1] - displace*cos(theta);
+		}else{
+			cursor[0] = cursor_old[0];
+			cursor[1] = cursor_old[1];
 		}
 	} else {
-
 		cursor[0] = cursor_old[0];
 		cursor[1] = cursor_old[1];
 	}
@@ -871,16 +873,18 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	curs_rad = cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d;
 
 	/* If displace type is type 1, then use angular displacement. If type 2, use linear displacement */
-	if ((state == STATE_MOVEMENT || state == STATE_OUTER_HOLD)&&(curs_rad > (beg_window*target_radius))){
-		if((int)displace_type == 1){
+	if (state == STATE_MOVEMENT || state == STATE_OUTER_HOLD){
+		if(((int)displace_type == 1)&&(rad_d > (beg_window*target_radius))){
 			cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
 			cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
-		}else if((int)displace_type == 2){
+		}else if(((int)displace_type == 2)&&(curs_rad > (beg_window*target_radius))){
 			cursor[0] = cursor_old[0] + displace*sin(theta);
 			cursor[1] = cursor_old[1] - displace*cos(theta);
+		}else{
+			cursor[0] = cursor_old[0];
+			cursor[1] = cursor_old[1];
 		}
 	} else {
-
 		cursor[0] = cursor_old[0];
 		cursor[1] = cursor_old[1];
 	}
