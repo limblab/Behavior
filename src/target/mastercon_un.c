@@ -1082,11 +1082,21 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 
 	/* Display cue cloud when inside window */
 
-	if ((state != STATE_MOVEMENT) || 
-		!((shifted_curs_rad > beg_cue*target_radius) && (shifted_curs_rad < end_cue*target_radius)))
-	{
-		for (i=0; i<cue_dot_num; i++){
-			target_pos[10+5*i] = 0;
+	if((int)window_type == 2){
+		if ((state != STATE_MOVEMENT) || 
+			!((shifted_curs_rad > beg_cue*target_radius) && (shifted_curs_rad < end_cue*target_radius)))
+		{
+			for (i=0; i<cue_dot_num; i++){
+				target_pos[10+5*i] = 0;
+			}
+		}
+	}else{
+		if ((state != STATE_MOVEMENT) || 
+			!((rad_d > beg_cue*target_radius) && (rad_d < end_cue*target_radius)))
+		{
+			for (i=0; i<cue_dot_num; i++){
+				target_pos[10+5*i] = 0;
+			}
 		}
 	}
 
