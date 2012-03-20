@@ -62,7 +62,7 @@ static real_T center_delay_h = 0.0;
 static real_T movement_time = 10.0;  /* movement time */
 #define param_movement_time mxGetScalar(ssGetSFcnParam(S,7))
 
-static real_T outer_hold;      /* outer target hold time */
+/* outer target hold time */
 static real_T outer_hold_l = 1.0;      
 #define param_outer_hold_l mxGetScalar(ssGetSFcnParam(S,8))
 static real_T outer_hold_h = 1.0; 
@@ -260,13 +260,14 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumSampleTimes(S, 1);
     
     /* work buffers */
-    ssSetNumRWork(S, 26);  /* 0: time of last timer reset 
+    ssSetNumRWork(S, 28);  /* 0: time of last timer reset 
                              1: tone counter (incremented each time a tone is played)
                              2: tone id
                              3: catch trial (1 for yes, 0 for no)
                              4: mastercon version
-							 5: displacement (in radians)
+							 5: displacement (in radians or cm)
 							 [6-25]: positions of cue cloud points
+							 [26-27]: [x y] position of outer hold cursor
                            */
     ssSetNumPWork(S, 0);
     ssSetNumIWork(S, 586); /*    0: state_transition (true if state changed), 
@@ -481,6 +482,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     databurst_displacement = (float *)(databurst + 2);
     databurst_counter = ssGetIWorkValue(S, 585);
 
+
     /*********************************
      * See if we have issued a reset *
      *********************************/
@@ -619,11 +621,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             } else {
                 center_delay = center_delay_l + (center_delay_h - center_delay_l)*((double)rand())/((double)RAND_MAX);
             }
-            if (outer_hold_h == outer_hold_l) {
-                outer_hold = outer_hold_h;
-            } else {
-                outer_hold = outer_hold_l + (outer_hold_h - outer_hold_l)*((double)rand())/((double)RAND_MAX);
-            }
             
             /* decide if this is a catch trial */
             if (mode == MODE_BLOCK_CATCH && catch_trial_pct > 0) {
@@ -704,9 +701,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_MOVEMENT:
             /* movement phase (go tone on entry) */
-            if (cursorInTarget(cursor, ot)) {
+            if (curs_rad > target_radius) {
                 new_state = STATE_OUTER_HOLD;
                 reset_timer(); /* outer hold timer */
+				ssSetRWorkValue(S,26,cursor[0]);
+				ssSetRWorkValue(S,27,cursor[1]);
                 state_changed();
             } else if (elapsed_timer_time > movement_time) {
                 new_state = STATE_FAIL;
@@ -716,11 +715,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_OUTER_HOLD:
             /* outer target hold phase */
-            if (!cursorInTarget(cursor, ot)) {
+            if ((!cursorInTarget(cursor, ot))&&(elapsed_timer_time > outer_hold_h)) {
                 new_state = STATE_INCOMPLETE;
                 reset_timer(); /* failure timeout */
                 state_changed();
-            } else if (elapsed_timer_time > outer_hold) {
+            } else if ((cursorInTarget(cursor, ot))&&(elapsed_timer_time > outer_hold_l)) {
                 new_state = STATE_REWARD;
                 reset_timer(); /* reward (inter-trial) timeout */
                 state_changed();
@@ -797,6 +796,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T ct[4];
     real_T ot[4];
     real_T displace, rad_d, curs_rad, shifted_rad_d, shifted_curs_rad;
+	real_T x_pos_hold, y_pos_hold;
     
     InputRealPtrsType uPtrs;
     real_T cursor_old[2];
@@ -1130,27 +1130,33 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     version[1] = BEHAVIOR_VERSION_MINOR;
     version[2] = BEHAVIOR_VERSION_MICRO;
     version[3] = BEHAVIOR_VERSION_BUILD;
-    
-	
+  
+
     /* pos (7) */
+
+	x_pos_hold = ssGetRWorkValue(S,26);
+	y_pos_hold = ssGetRWorkValue(S,27);
+
 	if ((int)window_type == 2){
 		if ((state == STATE_MOVEMENT) && 
 			((curs_rad > beg_window*target_radius) && (shifted_curs_rad < end_window*target_radius))){
 			/* We are inside the blocking window */
 			pos_x = 1E6;
 			pos_y = 1E6;
-		} else {
+		} else if(state == STATE_OUTER_HOLD){
 			/* We are outside of the blocking window */
+			pos_x = x_pos_hold;
+			pos_y = y_pos_hold;
+		} else{
 			pos_x = cursor[0];
 			pos_y = cursor[1];
-		}
 	}else{
 		if ((state == STATE_MOVEMENT) && 
 			((rad_d > beg_window*target_radius) && (rad_d < end_window*target_radius))){
 			/* We are inside the blocking window */
 			pos_x = 1E6;
 			pos_y = 1E6;
-		} else {
+		} else{
 			/* We are outside of the blocking window */
 			pos_x = cursor[0];
 			pos_y = cursor[1];
