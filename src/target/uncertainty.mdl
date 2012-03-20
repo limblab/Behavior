@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1242"
+    ComputedModelVersion    "1.1243"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Feb 02 15:03:28 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1242>"
+  LastModifiedDate	  "Tue Mar 20 12:18:14 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1243>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -685,13 +685,6 @@ Model {
       SampleTime	      "-1"
     }
     Block {
-      BlockType		      RateTransition
-      Integrity		      on
-      Deterministic	      on
-      X0		      "0"
-      OutPortSampleTime	      "-1"
-    }
-    Block {
       BlockType		      Reference
     }
     Block {
@@ -857,7 +850,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_un "
       Parameters	      "8 10 2.5 1 1 .5 1.5 .75 .25 1 1 10 1 .02 125 1 "
-"0 0 2 0.4 0.6 0 1 2 0 10 0 0 0 "
+"0 0 2 0.4 0.6 0 1 2 0 10 0 0 0.2 2 0 "
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'force')\nport_label('input',3,'catch force')\npor"
 "t_label('output',1,'force')\nport_label('output',2,'status')\nport_label('out"
@@ -1209,7 +1202,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1226,7 +1219,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1243,7 +1236,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1260,7 +1253,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1927,7 +1920,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1944,7 +1937,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1961,7 +1954,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -1978,7 +1971,7 @@ Model {
 	      SourceType	      "Lorentz attractor"
 	      ShowPortLabels	      "FromPortIcon"
 	      SystemSampleTime	      "-1"
-	      FunctionWithSeparateData off
+	      FunctionWithSeparateData "off"
 	      RTWMemSecFuncInitTerm   "Inherit from model"
 	      RTWMemSecFuncExecute    "Inherit from model"
 	      RTWMemSecDataConstants  "Inherit from model"
@@ -3556,7 +3549,7 @@ Model {
       SourceType	      "Neural Position Subsystem"
       ShowPortLabels	      "FromPortIcon"
       SystemSampleTime	      "[0.01 0]"
-      FunctionWithSeparateData off
+      FunctionWithSeparateData "off"
       RTWMemSecFuncInitTerm   "Inherit from model"
       RTWMemSecFuncExecute    "Inherit from model"
       RTWMemSecDataConstants  "Inherit from model"
@@ -5233,10 +5226,10 @@ Model {
 	  Ports			  [2, 1]
 	  Position		  [410, 220, 515, 275]
 	  SourceBlock		  "limblab/Timer"
-	  SourceType		  ""
+	  SourceType		  "Unknown"
 	  ShowPortLabels	  "FromPortIcon"
 	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
+	  FunctionWithSeparateData "off"
 	  RTWMemSecFuncInitTerm	  "Inherit from model"
 	  RTWMemSecFuncExecute	  "Inherit from model"
 	  RTWMemSecDataConstants  "Inherit from model"
@@ -6004,10 +5997,10 @@ Model {
       Ports		      [4]
       Position		      [1235, 277, 1325, 378]
       SourceBlock	      "limblab/SendPacketToGraphics"
-      SourceType	      ""
+      SourceType	      "Unknown"
       ShowPortLabels	      "FromPortIcon"
       SystemSampleTime	      "-1"
-      FunctionWithSeparateData off
+      FunctionWithSeparateData "off"
       RTWMemSecFuncInitTerm   "Inherit from model"
       RTWMemSecFuncExecute    "Inherit from model"
       RTWMemSecDataConstants  "Inherit from model"
@@ -7443,7 +7436,7 @@ Model {
 	      Ports		      [3, 1]
 	      Position		      [405, 315, 505, 525]
 	      SourceBlock	      "limblab/SerialConverter"
-	      SourceType	      ""
+	      SourceType	      "Unknown"
 	    }
 	    Block {
 	      BlockType		      Switch
@@ -7459,7 +7452,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [655, 310, 710, 525]
 	      SourceBlock	      "limblab/ToBits"
-	      SourceType	      ""
+	      SourceType	      "Unknown"
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -7467,7 +7460,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [635, 635, 685, 830]
 	      SourceBlock	      "limblab/ToBits"
-	      SourceType	      ""
+	      SourceType	      "Unknown"
 	    }
 	    Block {
 	      BlockType		      SubSystem
