@@ -1,4 +1,4 @@
-// to do: catch trials, training trials.
+// to do: test!
 
 #define S_FUNCTION_NAME mastercon_at
 #define S_FUNCTION_LEVEL 2
@@ -47,6 +47,7 @@
  * bytes 48 to 51: float => fail target size (cm)
  * bytes 52 to 55: float => outer target delay after bump (ms, if -1 outer
  *                          targets visible during center hold)
+ * byte        56: uchar => catch trial (1=yes, 0=no)
  */
 
 typedef unsigned char byte;
@@ -525,6 +526,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     float *databurst_fail_target_angle;
     float *databurst_reward_target_size;
     float *databurst_fail_target_size;
+    byte *databurst_catch_trial;
     int databurst_counter;
     
     /******************
@@ -614,6 +616,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     databurst_fail_target_angle = (float *)(databurst_reward_target_angle + 1);
     databurst_reward_target_size = (float *)(databurst_fail_target_angle + 1);
     databurst_fail_target_size = (float *)(databurst_reward_target_size + 1);
+    databurst_catch_trial = (int *)(databurst_fail_target_size + 1);
     
      /*********************************
      * See if we have issued a reset *  
@@ -770,7 +773,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 temp_int = -1;
             }                
             bump_1_direction = average_bump_direction + ((float)temp_int)*bump_separation/2;
-            bump_2_direction = average_bump_direction - ((float)temp_int)*bump_separation/2; 
+            if (catch_trial){
+                bump_2_direction = 2*PI*UNI; 
+            } else {
+                bump_2_direction = average_bump_direction - ((float)temp_int)*bump_separation/2; 
+            }
             ssSetRWorkValue(S,rWorkBump1Direction,bump_1_direction);
             ssSetRWorkValue(S,rWorkBump2Direction,bump_2_direction);     
 
@@ -792,7 +799,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             ssSetRWorkValue(S,rWorkVisualTarget2Size,visual_target_2_size);
             
             /* Setup the databurst */
-            databurst[0] = 6+4*sizeof(float)+2+8*sizeof(float);
+            databurst[0] = 6+4*sizeof(float)+2+8*sizeof(float)+1;
             databurst[1] = DATABURST_VERSION;
             databurst[2] = BEHAVIOR_VERSION_MAJOR;
 			databurst[3] = BEHAVIOR_VERSION_MINOR;
@@ -813,9 +820,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             databurst_fail_target_angle[0] = reward_target_angle+PI;
             databurst_reward_target_size[0] = target_size;
             databurst_fail_target_size[0] = target_size;
+            databurst_catch_trial[0] = catch_trial;
 
             /* clear the counters */
-            ssSetIWorkValue(S, 7, 0); /* Databurst counter */
+            ssSetIWorkValue(S, iWorkDataburstCounter, 0); /* Databurst counter */
             
 	        /* and advance */
 	        new_state = STATE_DATA_BLOCK;
@@ -1170,11 +1178,15 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
             
     if (state == STATE_MOVEMENT){
-        target_pos[0] = 3;
-        target_pos[5] = 4;
+        target_pos[0] = 3;        
         for (i=0; i<4; i++) {
            target_pos[i+1] = rt[i];
-           target_pos[i+6] = ft[i];
+        }
+        if (!training_mode){
+            target_pos[5] = 4;
+            for (i=0; i<4; i++) {
+               target_pos[i+6] = ft[i];
+            }
         }
     }
     
