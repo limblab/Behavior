@@ -54,6 +54,8 @@
 #define WORD_TASK_CODE 0x0C
 #elif TASK_2AFC
 #define WORD_TASK_CODE 0x0D
+#elif TASK_AT
+#define WORD_TASK_CODE 0x0E
 #elif TASK_DB_DEFINED
 #define WORD_TASK_CODE 0x0F /* this is an escape indicating that the task will be specified by the databurst */
 #endif
@@ -81,9 +83,6 @@
 #define WORD_INCOMPLETE ( WORD_END_TRIAL | WORD_INCOMPLETE_END_CODE )
 
 #define WORD_EMPTY_RACK_END_CODE 0x24
-
-
-
 
 /* 
  * intra-trial events 
