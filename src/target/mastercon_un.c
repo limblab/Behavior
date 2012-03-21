@@ -270,7 +270,8 @@ static void mdlInitializeSizes(SimStruct *S)
                              4: mastercon version
 							 5: displacement (in radians)
 							 [6-25]: positions of cue cloud points
-							 [26-27]: x and y hold position
+							 [26-27]: x-y position of held cursor position
+
                            */
     ssSetNumPWork(S, 0);
     ssSetNumIWork(S, 586); /*    0: state_transition (true if state changed), 
@@ -320,6 +321,10 @@ static void mdlInitializeConditions(SimStruct *S)
     
     /* set catch trial to zero (init only) */
     ssSetRWorkValue(S, 3, 0.0);
+
+	/* set held cursor position to zero */
+	ssSetRWorkValue(S, 26, 0.0);
+	ssSetRWorkValue(S, 27, 0.0);
     
     /* set trial counters to zero */
     ssSetIWorkValue(S, 581, 0);
@@ -390,6 +395,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     InputRealPtrsType uPtrs;
     real_T cursor_old[2];
 	real_T cursor[2];
+	real_T cursor_HOLD[2];
     real_T elapsed_timer_time;
 	real_T rad_d,curs_rad, shifted_rad_d, shifted_curs_rad;
     real_T displace;
@@ -485,6 +491,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     databurst = ssGetPWorkValue(S,0);
     databurst_displacement = (float *)(databurst + 2);
     databurst_counter = ssGetIWorkValue(S, 585);
+
+	/* Get cursor hold position */
+	cursor_HOLD[0] = ssGetRWorkValue(S, 26);
+	cursor_HOLD[1] = ssGetRWorkValue(S, 27);
 
     /*********************************
      * See if we have issued a reset *
@@ -714,8 +724,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             if (shifted_curs_rad > target_radius) {
                 new_state = STATE_OUTER_HOLD;
                 reset_timer(); /* outer hold timer */
-				ssSetRWorkValue(S,26,cursor[0]);
-				ssSetRWorkValue(S,27,cursor[1]);
+				ssSetRWorkValue(S, 26, cursor[0]);
+				ssSetRWorkValue(S, 27, cursor[1]);
                 state_changed();
             } else if (elapsed_timer_time > movement_time) {
                 new_state = STATE_FAIL;
@@ -725,11 +735,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_OUTER_HOLD:
             /* outer target hold phase */
-            if ((!cursorInTarget(cursor, ot))&&(elapsed_timer_time > outer_hold_h)) {
+            if ((!cursorInTarget(cursor_HOLD, ot))&&(elapsed_timer_time > outer_hold_h)) {
                 new_state = STATE_INCOMPLETE;
                 reset_timer(); /* failure timeout */
                 state_changed();
-            } else if ((cursorInTarget(cursor, ot))&&(elapsed_timer_time > outer_hold_l)) {
+            } else if ((cursorInTarget(cursor_HOLD, ot))&&(elapsed_timer_time > outer_hold_l)) {
                 new_state = STATE_REWARD;
                 reset_timer(); /* reward (inter-trial) timeout */
                 state_changed();
@@ -806,11 +816,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T ct[4];
     real_T ot[4];
     real_T displace, rad_d, curs_rad, shifted_rad_d, shifted_curs_rad;
-	real_T x_pos_hold, y_pos_hold;
     
     InputRealPtrsType uPtrs;
     real_T cursor_old[2];
     real_T cursor[2];
+	real_T cursor_HOLD[2];
     real_T force_in[2];
     real_T catch_force_in[2];
     
@@ -1143,8 +1153,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
 	
     /* pos (7) */
-	x_pos_hold = ssGetRWorkValue(S,26);
-	y_pos_hold = ssGetRWorkValue(S,27);
+	cursor_HOLD[0] = ssGetRWorkValue(S,26);
+	cursor_HOLD[1] = ssGetRWorkValue(S,27);
 
 	if ((int)window_type == 2){
 		if ((state == STATE_MOVEMENT) && 
@@ -1153,8 +1163,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 			pos_x = 1E6;
 			pos_y = 1E6;
 		} else if(state == STATE_OUTER_HOLD){
-			pos_x = x_pos_hold;
-			pos_y = y_pos_hold;
+			pos_x = cursor_HOLD[0];
+			pos_y = cursor_HOLD[1];
 		} else{
 			/* We are outside of the blocking window */
 			pos_x = cursor[0];
@@ -1167,8 +1177,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 			pos_x = 1E6;
 			pos_y = 1E6;
 		}else if(state == STATE_OUTER_HOLD){
-			pos_x = x_pos_hold;
-			pos_y = y_pos_hold; 
+			pos_x = cursor_HOLD[0];
+			pos_y = cursor_HOLD[1]; 
 		}else{
 			/* We are outside of the blocking window */
 			pos_x = cursor[0];
