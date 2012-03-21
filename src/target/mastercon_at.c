@@ -1,3 +1,5 @@
+// to do: catch trials, training trials.
+
 #define S_FUNCTION_NAME mastercon_at
 #define S_FUNCTION_LEVEL 2
 
@@ -312,16 +314,15 @@ static void mdlInitializeSizes(SimStruct *S)
      *  version: 1 ( the cvs revision of the current .c file )
      *  pos: 2 (x and y position of the cursor)
      */
-    if (!ssSetNumOutputPorts(S, 9)) return;
+    if (!ssSetNumOutputPorts(S, 8)) return;
     ssSetOutputPortWidth(S, 0, 2);   /* force   */
     ssSetOutputPortWidth(S, 1, 5);   /* status  */
     ssSetOutputPortWidth(S, 2, 1);   /* word    */
     ssSetOutputPortWidth(S, 3, 45);  /* target  */
     ssSetOutputPortWidth(S, 4, 1);   /* reward  */
-    ssSetOutputPortWidth(S, 5, 1);   /* reward pulse duration */
-    ssSetOutputPortWidth(S, 6, 2);   /* tone    */
-    ssSetOutputPortWidth(S, 7, 4);   /* version */
-    ssSetOutputPortWidth(S, 8, 2);   /* pos     */
+    ssSetOutputPortWidth(S, 5, 2);   /* tone    */
+    ssSetOutputPortWidth(S, 6, 4);   /* version */
+    ssSetOutputPortWidth(S, 7, 2);   /* pos     */
     
     ssSetNumSampleTimes(S, 1);
     
@@ -430,13 +431,14 @@ static void mdlInitializeConditions(SimStruct *S)
         ssSetIWorkValue(S,iWorkVisualStairResponses+i, UNI>0.5 ? 1:0);
     }    
     
-    ssSetRWorkValue(S,iWorkRewardTargetSize,3);
-    ssSetRWorkValue(S,iWorkFailTargetSize,2);
+//     ssSetRWorkValue(S,iWorkRewardTargetSize,3);
+//     ssSetRWorkValue(S,iWorkFailTargetSize,2);
     ssSetRWorkValue(S,rWorkRewardTargetAngle,0);
     ssSetRWorkValue(S,rWorkFailTargetAngle,PI);
     
     ssSetRWorkValue(S,rWorkBumpMagnitude,0);
-    ssSetRWorkValue(S,rWorkBumpDirection,0);
+    ssSetRWorkValue(S,rWorkBump1Direction,0);
+    ssSetRWorkValue(S,rWorkBump2Direction,0);
 }
 
 /* macro for setting state changed */
@@ -495,6 +497,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int proprio_stair_responses[20];
     int visual_stair_responses[20];
     int trial_block_count;
+    int catch_trial;
 
     /* from RWorkVector */
     real_T bump_1_direction;
@@ -552,9 +555,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         visual_stair_ratios[i] = ssGetRWorkValue(S,rWorkVisualStairRatios+i);
     }
     
-    bump_1_direction = ssGetIWorkValue(S,iWorkBump1Direction);
-    bump_2_direction = ssGetIWorkValue(S,iWorkBump1Direction);
-    bump_magnitude = ssGetIWorkValue(S,iWorkBumpMagnitude);
+    bump_1_direction = ssGetRWorkValue(S,rWorkBump1Direction);
+    bump_2_direction = ssGetRWorkValue(S,rWorkBump2Direction);
+    bump_magnitude = ssGetRWorkValue(S,rWorkBumpMagnitude);
     proprio_stair_counter = ssGetIWorkValue(S,iWorkProprioStairCounter);
     visual_stair_counter = ssGetIWorkValue(S,iWorkVisualStairCounter);
     
@@ -690,10 +693,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             /* advance block counter */
             trial_counter++;
-            if (trial_counter > trial_block_size){
+            if (trial_counter > trial_block_size)
                 trial_counter = 1;
-            }            
-            ssSetIWorkValue(S,iWorkTrialCounter);
+                        
+            ssSetIWorkValue(S,iWorkTrialCounter,trial_counter);
             
             /* decide if it is a visual trial */
             if (trial_counter == 1){
@@ -729,7 +732,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             if (!blocked_parameters || trial_counter==1){                
                 if (num_directions>0){
                     temp_int = (int)(UNI*num_directions);
-                    average_bump_direction = (temp_int*2*PI/num_directions + first_bump_direction) % 2*PI;
+                    average_bump_direction = temp_int*2*PI/num_directions + first_bump_direction;
+                    average_bump_direction = fmod(average_bump_direction,2*PI);
                 } else {
                     average_bump_direction = 2*PI*UNI;
                 }
@@ -748,7 +752,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             ssSetIWorkValue(S,iWorkBumpStep,temp_int);
 
             /* Pick reward target direction */            
-            reward_target_angle = UNI*2*pi; 
+            reward_target_angle = UNI*2*PI; 
             ssSetRWorkValue(S,rWorkRewardTargetAngle,reward_target_angle);
             ssSetRWorkValue(S,rWorkFailTargetAngle,reward_target_angle+PI);
 
@@ -819,7 +823,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_DATA_BLOCK:            
             if (databurst_counter > 2*(databurst[0]-1)) { 
-                new_state = STATE_ORIGIN_ON;
+                new_state = STATE_CENTER_TARGET_ON;
                 reset_timer(); /* start timer for movement */
                 state_changed();
             }                                    
@@ -909,14 +913,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			}
             break;
         case STATE_FAIL:
-            if (elapsed_timer_time > failure_timeout) {
+            if (elapsed_timer_time > fail_timeout) {
                 new_state = STATE_PRETRIAL;
                 state_changed();
             }
             break;
         case STATE_INCOMPLETE:
             /* incomplete */
-            if (elapsed_timer_time > incomplete_timeout) {
+            if (elapsed_timer_time > fail_timeout) {
                 new_state = STATE_PRETRIAL;
                 state_changed();
             }
@@ -1156,12 +1160,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         for (i=0; i<4; i++) {
            target_pos[i+1] = vt1[i];
         }
+    }
         
     if (state == STATE_BUMP_2){
         target_pos[0] = trial_type;
         for (i=0; i<4; i++) {
            target_pos[i+1] = vt2[i];
-        }    
+        }   
+    }
             
     if (state == STATE_MOVEMENT){
         target_pos[0] = 3;
@@ -1232,18 +1238,18 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     reward_p = ssGetOutputPortRealSignal(S,4);
     reward_p[0] = reward;
         
-    tone_p = ssGetOutputPortRealSignal(S,6);
+    tone_p = ssGetOutputPortRealSignal(S,5);
     tone_p[0] = tone_cnt;
     tone_p[1] = tone_id;
     ssSetRWorkValue(S, 1, tone_cnt);
     ssSetRWorkValue(S, 2, tone_id);
     
-    version_p = ssGetOutputPortRealSignal(S,7);
+    version_p = ssGetOutputPortRealSignal(S,6);
     for (i=0; i<4; i++) {
         version_p[i] = version[i];
     }
     
-    pos_p = ssGetOutputPortRealSignal(S,8);
+    pos_p = ssGetOutputPortRealSignal(S,7);
     pos_p[0] = pos_x;
     pos_p[1] = pos_y;
 
