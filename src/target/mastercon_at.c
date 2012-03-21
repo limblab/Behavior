@@ -32,18 +32,19 @@
  * bytes   4 to 5: short => model version micro
  * bytes   6 to 9: float => x offset (cm)
  * bytes 10 to 13: float => y offset (cm)
- * byte        14: uchar => trial type (0=visual, 1=proprioceptive)
- * bytes 15 to 18: float => bump magnitude (N)
- * bytes 19 to 22: float => bump angle (rad)
- * bytes 23 to 26: float => reward target angle (rad)
- * bytes 27 to 30: float => fail target angle (rad)
- * bytes 31 to 34: float => reward target size (cm)
- * bytes 35 to 38: float => fail target size (cm)
- * bytes 39 to 42: float => outer target delay after bump (ms, if -1 outer
+ * byte        14: uchar => trial type (0=visual, 1=proprioceptive, 2=control)
+ * byte        15: uchar => training trial (1=yes, 0=no)
+ * bytes 16 to 19: float => bump magnitude (N)
+ * bytes 20 to 23: float => bump 1 angle (rad)
+ * bytes 24 to 27: float => bump 2 angle (rad)
+ * bytes 28 to 31: float => visual target 1 size (cm)
+ * bytes 32 to 35: float => visual target 2 size (cm)
+ * bytes 36 to 39: float => reward target angle (rad)
+ * bytes 40 to 43: float => fail target angle (rad)
+ * bytes 44 to 47: float => reward target size (cm)
+ * bytes 48 to 51: float => fail target size (cm)
+ * bytes 52 to 55: float => outer target delay after bump (ms, if -1 outer
  *                          targets visible during center hold)
- * byte        43: uchar => training mode (0=normal, 1=training 
- *                          only one target shown)
- * bytes 44 to 47: float => direction (rad) - angle between two outer targets
  */
 
 typedef unsigned char byte;
@@ -61,92 +62,98 @@ static real_T master_update = 0.0;
 #define param_master_update mxGetScalar(ssGetSFcnParam(S,1))
 
 /* Timing parameters */
+static real_T center_hold;
 static real_T center_hold_l = 1.0;
 #define param_center_hold_l mxGetScalar(ssGetSFcnParam(S,2))
 static real_T center_hold_h = 2.0;
 #define param_center_hold_h mxGetScalar(ssGetSFcnParam(S,3))
+
+static real_T interbump_delay;
+static real_T interbump_delay_l = 2.0;
+#define param_interbump_delay_l mxGetScalar(ssGetSFcnParam(S,4));
+static real_T interbump_delay_h = 3.0;
+#define param_interbump_delay_h mxGetScalar(ssGetSFcnParam(S,5));
 static real_T movement_time = 5.0;
-#define param_movement_time mxGetScalar(ssGetSFcnParam(S,4))
+#define param_movement_time mxGetScalar(ssGetSFcnParam(S,6))
 static real_T reward_timeout = 1.0;
-#define param_reward_timeout mxGetScalar(ssGetSFcnParam(S,5))
+#define param_reward_timeout mxGetScalar(ssGetSFcnParam(S,7))
 static real_T fail_timeout = 1.0;
-#define param_fail_timeout mxGetScalar(ssGetSFcnParam(S,6))
+#define param_fail_timeout mxGetScalar(ssGetSFcnParam(S,8))
 static real_T abort_timeout = 1.0;
-#define param_abort_timeout mxGetScalar(ssGetSFcnParam(S,7))
+#define param_abort_timeout mxGetScalar(ssGetSFcnParam(S,9))
 static real_T outer_target_delay = 0.0;
-#define param_outer_target_delay mxGetScalar(ssGetSFcnParam(S,8))
+#define param_outer_target_delay mxGetScalar(ssGetSFcnParam(S,10))
 
 /* Stimuli parameters */
-static real_T percent_visual_trials = 50.0;
-#define param_percent_visual_trials mxGetScalar(ssGetSFcnParam(S,9))
+static real_T percent_visual_trials = 40.0;
+#define param_percent_visual_trials mxGetScalar(ssGetSFcnParam(S,11))
+static real_T percent_proprio_trials = 40.0;
+#define param_percent_proprio_trials mxGetScalar(ssGetSFcnParam(S,12))
 static int trial_block_size = 10;
-#define param_trial_block_size (int)mxGetScalar(ssGetSFcnParam(S,10))
+#define param_trial_block_size (int)mxGetScalar(ssGetSFcnParam(S,13))
+static int blocked_parameters = 1;
+#define param_blocked_parameters (int)mxGetScalar(ssGetSFcnParam(S,14))
+static real_T percent_catch_trials = 20.0;
+#define param_percent_catch_trials mxGetScalar(ssGetSFcnParam(S,15))
 static int staircase = 1;
-#define param_staircase (int)mxGetScalar(ssGetSFcnParam(S,11))
+#define param_staircase (int)mxGetScalar(ssGetSFcnParam(S,16))
 static real_T performance_objective = 0.7;
-#define param_performance_objective mxGetScalar(ssGetSFcnParam(S,12))
+#define param_performance_objective mxGetScalar(ssGetSFcnParam(S,17))
 static int staircase_length = 10;
-#define param_staircase_length (int)mxGetScalar(ssGetSFcnParam(S,13))
+#define param_staircase_length (int)mxGetScalar(ssGetSFcnParam(S,18))
 static real_T visual_start_ratio_1 = 0.5;
-#define param_visual_start_ratio_1 mxGetScalar(ssGetSFcnParam(S,14))
+#define param_visual_start_ratio_1 mxGetScalar(ssGetSFcnParam(S,19))
 static real_T visual_start_ratio_2 = 1.5;
-#define param_visual_start_ratio_2 mxGetScalar(ssGetSFcnParam(S,15))
+#define param_visual_start_ratio_2 mxGetScalar(ssGetSFcnParam(S,20))
 static real_T visual_start_step_size = 0.05;
-#define param_visual_start_step_size mxGetScalar(ssGetSFcnParam(S,16))
+#define param_visual_start_step_size mxGetScalar(ssGetSFcnParam(S,21))
 static real_T proprio_start_angle_1 = 0.2;
-#define param_proprio_start_angle_1 mxGetScalar(ssGetSFcnParam(S,17))
+#define param_proprio_start_angle_1 mxGetScalar(ssGetSFcnParam(S,22))
 static real_T proprio_start_angle_2 = 1;
-#define param_proprio_start_angle_2 mxGetScalar(ssGetSFcnParam(S,18))
+#define param_proprio_start_angle_2 mxGetScalar(ssGetSFcnParam(S,23))
 static real_T proprio_start_step_size = 0.05;
-#define param_proprio_start_step_size mxGetScalar(ssGetSFcnParam(S,19))
+#define param_proprio_start_step_size mxGetScalar(ssGetSFcnParam(S,24))
 static real_T visual_target_min_ratio = 0.8;
-#define param_visual_target_min_ratio mxGetScalar(ssGetSFcnParam(S,20))
+#define param_visual_target_min_ratio mxGetScalar(ssGetSFcnParam(S,25))
 static real_T visual_target_max_ratio = 1.2;
-#define param_visual_target_max_ratio mxGetScalar(ssGetSFcnParam(S,21))
+#define param_visual_target_max_ratio mxGetScalar(ssGetSFcnParam(S,26))
 static int visual_num_steps = 5;
-#define param_visual_num_steps (int)mxGetScalar(ssGetSFcnParam(S,22))
+#define param_visual_num_steps (int)mxGetScalar(ssGetSFcnParam(S,27))
 static real_T proprio_target_min_angle = 0.5;
-#define param_proprio_target_min_angle mxGetScalar(ssGetSFcnParam(S,23))
+#define param_proprio_target_min_angle mxGetScalar(ssGetSFcnParam(S,28))
 static real_T proprio_target_max_angle = 1.0;
-#define param_proprio_target_max_angle mxGetScalar(ssGetSFcnParam(S,24))
+#define param_proprio_target_max_angle mxGetScalar(ssGetSFcnParam(S,29))
 static int proprio_num_steps = 5;
-#define param_proprio_num_steps (int)mxGetScalar(ssGetSFcnParam(S,25))
+#define param_proprio_num_steps (int)mxGetScalar(ssGetSFcnParam(S,30))
 
 /* Bump parameters */
 static real_T bump_mag_min = 0.01;
-#define param_bump_mag_min mxGetScalar(ssGetSFcnParam(S,26))
+#define param_bump_mag_min mxGetScalar(ssGetSFcnParam(S,31))
 static real_T bump_mag_max = 0.03;
-#define param_bump_mag_max mxGetScalar(ssGetSFcnParam(S,27))
+#define param_bump_mag_max mxGetScalar(ssGetSFcnParam(S,32))
 static int num_bump_magnitudes = 3;
-#define param_num_bump_magnitudes (int)mxGetScalar(ssGetSFcnParam(S,28))
+#define param_num_bump_magnitudes (int)mxGetScalar(ssGetSFcnParam(S,33))
 static real_T bump_duration = 125;
-#define param_bump_duration mxGetScalar(ssGetSFcnParam(S,29))
+#define param_bump_duration mxGetScalar(ssGetSFcnParam(S,34))
 static int num_directions = 4;
-#define param_num_directions (int)mxGetScalar(ssGetSFcnParam(S,30))
+#define param_num_directions (int)mxGetScalar(ssGetSFcnParam(S,35))
 static real_T first_bump_direction = 0.0;
-#define param_first_bump_direction mxGetScalar(ssGetSFcnParam(S,31))
+#define param_first_bump_direction mxGetScalar(ssGetSFcnParam(S,36))
 
 /* Reward parameters */
 static real_T min_reward = 0.1;
-#define param_min_reward mxGetScalar(ssGetSFcnParam(S,32))
+#define param_min_reward mxGetScalar(ssGetSFcnParam(S,37))
 static real_T max_reward = 0.3;
-#define param_max_reward mxGetScalar(ssGetSFcnParam(S,33))
+#define param_max_reward mxGetScalar(ssGetSFcnParam(S,38))
 
 /* Target parameters */
 static real_T target_size = 3.0;
-#define param_target_size mxGetScalar(ssGetSFcnParam(S,34))
+#define param_target_size mxGetScalar(ssGetSFcnParam(S,39))
 static real_T target_radius = 10.0;
-#define param_target_radius mxGetScalar(ssGetSFcnParam(S,35))
-static real_T blocking_window_radius = 0.0;
-#define param_blocking_window_radius mxGetScalar(ssGetSFcnParam(S,36))
-static int visual_target_color = 1;
-#define param_visual_target_color (int)mxGetScalar(ssGetSFcnParam(S,37))
-static int proprio_target_color = 2;
-#define param_proprio_target_color (int)mxGetScalar(ssGetSFcnParam(S,38))
-static int return_center_target = 0;
-#define param_return_center_target (int)mxGetScalar(ssGetSFcnParam(S,39))
+#define param_target_radius mxGetScalar(ssGetSFcnParam(S,40))
+
 static real_T percent_training_trials = 0.0;
-#define param_percent_training_trials mxGetScalar(ssGetSFcnParam(S,40))
+#define param_percent_training_trials mxGetScalar(ssGetSFcnParam(S,41))
 
 /*
  * State IDs
@@ -154,8 +161,12 @@ static real_T percent_training_trials = 0.0;
 #define STATE_PRETRIAL 0
 #define STATE_CENTER_TARGET_ON 1
 #define STATE_CENTER_HOLD 2
-#define STATE_BUMP 3
-#define STATE_MOVEMENT 4
+#define STATE_BUMP_1 3
+#define STATE_INTERBUMP 4
+#define STATE_CENTER_HOLD_2 5
+#define STATE_BUMP_2 6
+#define STATE_OUTER_TARGET_DELAY 7
+#define STATE_MOVEMENT 8
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
@@ -170,21 +181,19 @@ static real_T percent_training_trials = 0.0;
 /* 
  * RWorkVector Indexes
  */
-#define rWorkBumpDirection 4
-#define rWorkBumpMagnitude 5
-#define rWorkMasterUpdateCounter 6
-#define rWorkMovementDuration 7
-#define rWorkTargetSeparation 8
+#define rWorkBump1Direction 4
+#define rWorkBump2Direction 5
+#define rWorkBumpMagnitude 6
+#define rWorkMasterUpdateCounter 7
+#define rWorkMovementDuration 8
 #define rWorkTargetSizeRatio 9
 #define rWorkProprioStairAngles 10
-// #define rWorkProprioStair2Angles 30
 #define rWorkVisualStairRatios 30
-// #define rWorkVisualStair2Ratios 70
-#define rWorkRewardTargetDirection 50
-#define rWorkFailTargetDirection 51
-#define rWorkRewardTargetSize 52
-#define rWorkFailTargetSize 53
-#define rWorkDirection 54
+#define rWorkRewardTargetAngle 50
+#define rWorkFailTargetAngle 51
+#define rWorkVisualTarget1Size 52
+#define rWorkVisualTarget2Size 53
+#define rWorkAverageBumpDirection 54
 
 /*
  * IWorkVector Indexes
@@ -195,24 +204,23 @@ static real_T percent_training_trials = 0.0;
 #define iWorkIncompletes 4
 #define iWorkTrainingMode 5
 #define iWorkProprioStairCounter 6
-// #define iWorkProprioStair2Counter 7
 #define iWorkVisualStairCounter 7
-// #define iWorkVisualStair2Counter 9
 #define iWorkProprioStairResponses 8
-// #define iWorkProprioStair2Responses 30
 #define iWorkVisualStairResponses 28
-// #define iWorkVisualStair2Responses 70
 #define iWorkDataburstCounter 48
 #define iWorkBumpDurationCounter 49
 #define iWorkBumpStep 50
-#define iWorkTestStep 51
+#define iWorkTrialCounter 51
 #define iWorkTrialType 52
 #define iWorkBlockCount 53
+#define iWorkCatchTrial 54
 
 static void mdlCheckParameters(SimStruct *S)
 {
     center_hold_l = param_center_hold_l;
     center_hold_h = param_center_hold_h;
+    interbump_delay_l = param_interbump_delay_l;
+    interbump_delay_h = param_interbump_delay_h;
     movement_time = param_movement_time;
     reward_timeout = param_reward_timeout;
     fail_timeout = param_fail_timeout;
@@ -220,7 +228,10 @@ static void mdlCheckParameters(SimStruct *S)
     outer_target_delay = param_outer_target_delay;
     
     percent_visual_trials = param_percent_visual_trials;
+    percent_proprio_trials = param_percent_proprio_trials;
     trial_block_size = param_trial_block_size;
+    blocked_parameters = param_blocked_parameters;
+    percent_catch_trials = param_percent_catch_trials;
     staircase = param_staircase;
     performance_objective = param_performance_objective;
     staircase_length = param_staircase_length;
@@ -249,10 +260,6 @@ static void mdlCheckParameters(SimStruct *S)
     
     target_size = param_target_size; 
     target_radius = param_target_radius; 
-    blocking_window_radius = param_blocking_window_radius;
-    visual_target_color = param_visual_target_color; 
-    proprio_target_color = param_proprio_target_color; 
-    return_center_target = param_return_center_target;
     percent_training_trials = param_percent_training_trials;
 }
     
@@ -260,7 +267,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 41);
+    ssSetNumSFcnParams(S, 42);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -323,25 +330,25 @@ static void mdlInitializeSizes(SimStruct *S)
                              1: tone counter (incremented each time a tone is played)
                              2: tone id
 							 3: mastercon version
-                             4: bump direction
-                             5: bump magnitude   
-                             6: master update counter 
-                             7: duration of movement (for calculating reward length)
-                             8: target separation
-                             9: target size difference
+                             4: bump 1 direction
+                             5: bump 2 direction
+                             6: bump magnitude   
+                             7: master update counter 
+                             8: duration of movement (for calculating reward length)
+                             9: target size ratio
                              10-29: proprioceptive staircase 1 bumps                             
                              30-49: visual staircase 1 ratios
                              50: reward target direction
                              51: fail target direction
-                             52: reward target size
-                             53: fail target size
-                             54: direction (angle halfway between RT and FT)
+                             52: visual target 1 size
+                             53: visual target 2 size
+                             54: average bump direction
                            */
     
     ssSetNumPWork(S, 1);   /* 0: pointer to databurst array
                            */
     
-    ssSetNumIWork(S, 53);     /* 0: state_transition (true if state changed), 
+    ssSetNumIWork(S, 55);     /* 0: state_transition (true if state changed), 
                                 1: successes
                                 2: failures
                                 3: aborts
@@ -356,7 +363,9 @@ static void mdlInitializeSizes(SimStruct *S)
                                 50: bump step
                                 51: test step (target separation for proprio trials or
                                     target size ratio for visual trials)
-                                52: trial block count
+                                52: trial type (0=visual,1=proprio,2=control)
+                                53: trial block count
+                                54: catch trial
                              */
     
     /* we have no zero crossing detection or modes */
@@ -403,6 +412,9 @@ static void mdlInitializeConditions(SimStruct *S)
     /* set staircase counters to zero*/
     ssSetIWorkValue(S,iWorkProprioStairCounter,0);    
     ssSetIWorkValue(S,iWorkVisualStairCounter,0);
+    
+    /* initialize block counter to zero */
+    ssSetIWorkValue(S,iWorkTrialCounter,0);
     
     /* set the initial last update time to 0 */
     ssSetRWorkValue(S,rWorkMasterUpdateCounter,0.0); 
@@ -453,17 +465,20 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* stupidly declare all variables at the begining of the function */
     int i;
     int j;
+    int nshift;
     
     real_T ct[4];
+    real_T vt1[4];    /* visual target 1 coordinates */
+    real_T vt2[4];    /* visual target 2 coordinates */
     real_T rt[4];     /* reward target UL and LR coordinates */
     real_T ft[4];     /* fail target UL and LR coordinates */
-    real_T direction;
-    real_T reward_target_side;
     real_T previous_visual_stair_ratio;
     real_T new_visual_stair_ratio;
     real_T previous_proprio_stair_angle;
     real_T new_proprio_stair_angle;
-    int nshift
+    real_T bump_separation;
+    real_T average_bump_direction;
+    real_T temp_real;
     
     InputRealPtrsType uPtrs;
     real_T cursor[2];
@@ -471,8 +486,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int reset_block = 0;
     
     /* Trial parameters from IWorkVector*/
-    int trial_type; /* 0=visual, 1=proprioceptive */
-    int test_step;
+    int trial_type; /* 0=visual, 1=proprioceptive, 2=control */
+    int trial_counter;
     int temp_int;
     int training_mode;
     int proprio_stair_counter;
@@ -482,29 +497,31 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int trial_block_count;
 
     /* from RWorkVector */
+    real_T bump_1_direction;
+    real_T bump_2_direction;
     real_T bump_magnitude;
-    real_T bump_direction;
     real_T reward_target_angle;
     real_T fail_target_angle;
-    real_T reward_target_size;
-    real_T fail_target_size;
     real_T target_size_ratio;
-    real_T target_separation;
     real_T proprio_stair_angles[20];
     real_T visual_stair_ratios[20];
+    real_T visual_target_1_size;
+    real_T visual_target_2_size;
     
     /* databurst variables */
     byte *databurst;
 	float *databurst_offsets;
     byte *databurst_trial_type;
+    byte *databurst_training;
     float *databurst_bump_mag;
-    float *databurst_bump_angle;
+    float *databurst_bump_1_direction;
+    float *databurst_bump_2_direction;
+    float *databurst_visual_target_1_size;
+    float *databurst_visual_target_2_size;
     float *databurst_reward_target_angle;
     float *databurst_fail_target_angle;
     float *databurst_reward_target_size;
     float *databurst_fail_target_size;
-    float *databurst_outer_target_delay;
-    float *databurst_direction;
     int databurst_counter;
     
     /******************
@@ -524,8 +541,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     if ( param_master_update > master_update ) {
         master_update = param_master_update;
         ssSetRWorkValue(S, 6, (real_T)ssGetT(S));
-    }
-    
+    }    
+        
     /* Read staircase data */
     for (i=0 ; i<20 ; i++) {
         proprio_stair_responses[i] = ssGetIWorkValue(S,iWorkProprioStairResponses+i);
@@ -535,16 +552,23 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         visual_stair_ratios[i] = ssGetRWorkValue(S,rWorkVisualStairRatios+i);
     }
     
+    bump_1_direction = ssGetIWorkValue(S,iWorkBump1Direction);
+    bump_2_direction = ssGetIWorkValue(S,iWorkBump1Direction);
+    bump_magnitude = ssGetIWorkValue(S,iWorkBumpMagnitude);
     proprio_stair_counter = ssGetIWorkValue(S,iWorkProprioStairCounter);
     visual_stair_counter = ssGetIWorkValue(S,iWorkVisualStairCounter);
     
-    reward_target_size = ssGetRWorkValue(S,rWorkRewardTargetSize);
-    fail_target_size = ssGetRWorkValue(S,rWorkFailTargetSize);
+    visual_target_1_size = ssGetRWorkValue(S,rWorkVisualTarget1Size);
+    visual_target_2_size = ssGetRWorkValue(S,rWorkVisualTarget2Size);
+    
     reward_target_angle = ssGetRWorkValue(S,rWorkRewardTargetAngle);
     fail_target_angle = ssGetRWorkValue(S,rWorkFailTargetAngle);
     
     /* get elapsed time since last timer reset */
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
+    
+    /* get trial counter (in block) */
+    trial_counter = ssGetIWorkValue(S,iWorkTrialCounter);
     
     /* get target bounds */
     ct[0] = -target_size/2;
@@ -552,29 +576,41 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     ct[2] = target_size/2;
     ct[3] = -target_size/2;
        
-    rt[0] = target_radius*cos(reward_target_angle) - reward_target_size/2; /* reward target */
-    rt[1] = target_radius*sin(reward_target_angle) + reward_target_size/2;
-    rt[2] = target_radius*cos(reward_target_angle) + reward_target_size/2;
-    rt[3] = target_radius*sin(reward_target_angle) - reward_target_size/2;
+    rt[0] = target_radius*cos(reward_target_angle) - target_size/2; /* reward target */
+    rt[1] = target_radius*sin(reward_target_angle) + target_size/2;
+    rt[2] = target_radius*cos(reward_target_angle) + target_size/2;
+    rt[3] = target_radius*sin(reward_target_angle) - target_size/2;
 
-    ft[0] = target_radius*cos(fail_target_angle) - fail_target_size/2; /* reward target */
-    ft[1] = target_radius*sin(fail_target_angle) + fail_target_size/2;
-    ft[2] = target_radius*cos(fail_target_angle) + fail_target_size/2;
-    ft[3] = target_radius*sin(fail_target_angle) - fail_target_size/2;
+    ft[0] = target_radius*cos(fail_target_angle) - target_size/2; /* reward target */
+    ft[1] = target_radius*sin(fail_target_angle) + target_size/2;
+    ft[2] = target_radius*cos(fail_target_angle) + target_size/2;
+    ft[3] = target_radius*sin(fail_target_angle) - target_size/2;
+    
+    vt1[0] = -visual_target_1_size/2;
+    vt1[1] = target_radius + visual_target_1_size/2;
+    vt1[2] = visual_target_1_size/2;
+    vt1[3] = target_radius - visual_target_1_size/2;
+    
+    vt2[0] = -visual_target_2_size/2;
+    vt2[1] = target_radius + visual_target_2_size/2;
+    vt2[2] = visual_target_2_size/2;
+    vt2[3] = target_radius - visual_target_2_size/2;
     
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S,iWorkDataburstCounter);
     databurst = ssGetPWorkValue(S,0);
     databurst_offsets = (float *)(databurst + 6);
     databurst_trial_type = (int *)(databurst_offsets + 2);
-    databurst_bump_mag = (float *)(databurst_trial_type + 1);
-    databurst_bump_angle = (float *)(databurst_bump_mag + 1);
-    databurst_reward_target_angle = (float *)(databurst_bump_angle + 1);
+    databurst_training = (int *)(databurst_trial_type + 1);
+    databurst_bump_mag = (float *)(databurst_training + 1);
+    databurst_bump_1_direction = (float *)(databurst_bump_mag + 1);
+    databurst_bump_2_direction = (float *)(databurst_bump_1_direction + 1);
+    databurst_visual_target_1_size = (float *)(databurst_bump_2_direction + 1);
+    databurst_visual_target_2_size = (float *)(databurst_visual_target_1_size + 1);
+    databurst_reward_target_angle = (float *)(databurst_visual_target_2_size + 1);
     databurst_fail_target_angle = (float *)(databurst_reward_target_angle + 1);
     databurst_reward_target_size = (float *)(databurst_fail_target_angle + 1);
     databurst_fail_target_size = (float *)(databurst_reward_target_size + 1);
-    databurst_outer_target_delay = (float *)(databurst_fail_target_size + 1);
-    databurst_direction = (float *)(databurst_outer_target_delay + 1);
     
      /*********************************
      * See if we have issued a reset *  
@@ -582,7 +618,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     if (param_master_reset != master_reset) {
         master_reset = param_master_reset;
         ssSetIWorkValue(S, iWorkRewards, 0);
-        ssSetIWorkValue(S, iWorkFailuress, 0);
+        ssSetIWorkValue(S, iWorkFailures, 0);
         ssSetIWorkValue(S, iWorkAborts, 0);
         ssSetIWorkValue(S, iWorkIncompletes, 0);
         state_r[0] = STATE_PRETRIAL;
@@ -605,6 +641,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             /* update parameters */
             center_hold_l = param_center_hold_l;
             center_hold_h = param_center_hold_h;
+            interbump_delay_l = param_interbump_delay_l;
+            interbump_delay_h = param_interbump_delay_h;
             movement_time = param_movement_time;
             reward_timeout = param_reward_timeout;
             fail_timeout = param_fail_timeout;
@@ -612,7 +650,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             outer_target_delay = param_outer_target_delay;
 
             percent_visual_trials = param_percent_visual_trials;
+            percent_proprio_trials = param_percent_proprio_trials;
             trial_block_size = param_trial_block_size;
+            blocked_parameters = param_blocked_parameters;
+            percent_catch_trials = param_percent_catch_trials;
             staircase = param_staircase;
             performance_objective = param_performance_objective;
             staircase_length = param_staircase_length;
@@ -641,73 +682,578 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             target_size = param_target_size; 
             target_radius = param_target_radius; 
-            blocking_window_radius = param_blocking_window_radius;
-            visual_target_color = param_visual_target_color; 
-            proprio_target_color = param_proprio_target_color; 
-            return_center_target = param_return_center_target;
-            percent_training_trials = param_percent_training_trials; 
+            percent_training_trials = param_percent_training_trials;
              
             /* decide if it is a training trial */ 
             training_mode = (100*UNI<percent_training_trials) ? 1 : 0;
             ssSetIWorkValue(S,iWorkTrainingMode,training_mode); 
             
+            /* advance block counter */
+            trial_counter++;
+            if (trial_counter > trial_block_size){
+                trial_counter = 1;
+            }            
+            ssSetIWorkValue(S,iWorkTrialCounter);
+            
             /* decide if it is a visual trial */
-            trial_type = (100*UNI<percent_visual_trials) ? 1 : 0;
+            if (trial_counter == 1){
+                temp_real = 100*UNI;
+                if (temp_real < percent_visual_trials){
+                    trial_type = 0;
+                } else if (temp_real < percent_visual_trials + percent_proprio_trials){
+                    trial_type = 1;
+                } else {
+                    trial_type = 2;
+                }
+            }            
             ssSetIWorkValue(S,iWorkTrialType,trial_type); 
             
+            /* decide if it is a catch trial */
+            catch_trial = (100*UNI<percent_catch_trials) ? 1 : 0;
+            ssSetIWorkValue(S,iWorkCatchTrial,catch_trial);
+            
+            /* timer lengths */
+            if (center_hold_h == center_hold_l) {
+	            center_hold = center_hold_h;
+	        } else {
+	            center_hold = center_hold_l + (center_hold_h - center_hold_l)*UNI;
+	        }
+            
+            if (interbump_delay_h == interbump_delay_l) {
+	            interbump_delay = interbump_delay_h;
+	        } else {
+	            interbump_delay = interbump_delay_l + (interbump_delay_h - interbump_delay_l)*UNI;
+	        }
+            
+            /* update trial parameters if necessary */
+            if (!blocked_parameters || trial_counter==1){                
+                if (num_directions>0){
+                    temp_int = (int)(UNI*num_directions);
+                    average_bump_direction = (temp_int*2*PI/num_directions + first_bump_direction) % 2*PI;
+                } else {
+                    average_bump_direction = 2*PI*UNI;
+                }
+                ssSetRWorkValue(S,rWorkAverageBumpDirection,average_bump_direction);
+            } else {
+                average_bump_direction = ssGetRWorkValue(S,rWorkAverageBumpDirection);
+            }
+                
             /* pick a random bump magnitude */
             temp_int = (int)(UNI*num_bump_magnitudes);               
             bump_magnitude = bump_mag_min + ((float)temp_int)*(bump_mag_max-bump_mag_min)/((float)num_bump_magnitudes-1);
+            if (num_bump_magnitudes < 2){  // Safety!
+                bump_magnitude = bump_mag_min;
+            }
             ssSetRWorkValue(S,rWorkBumpMagnitude,bump_magnitude);
             ssSetIWorkValue(S,iWorkBumpStep,temp_int);
-            
-            /* Pick target directions */
-            if (num_directions < 1 ) {
-                direction = UNI*2*pi;
+
+            /* Pick reward target direction */            
+            reward_target_angle = UNI*2*pi; 
+            ssSetRWorkValue(S,rWorkRewardTargetAngle,reward_target_angle);
+            ssSetRWorkValue(S,rWorkFailTargetAngle,reward_target_angle+PI);
+
+            /* Bump directions - No staircases coded yet */
+            if (UNI>0.5){
+                temp_int = (int)(UNI*proprio_num_steps); 
+                bump_separation = proprio_target_min_angle + ((float)temp_int)*(proprio_target_max_angle-proprio_target_min_angle)/((float)proprio_num_steps-1);
             } else {
-                direction = (float)((int)(UNI*num_directions))*2*pi/num_directions + first_bump_direction;
-            }                        
-            reward_target_side = 2*(UNI>0.5)-1;  
-                    
-            /* Visual trials */            
-            if ( trial_type == 0 ){
-                bump_direction = direction+(2*(UNI>0.5)-1)*target_separation; /* Randomly selected bump direction */
-                if (staircase){    
-                    if (visual_stair_counter>0){
-                        previous_visual_stair_ratio = visual_stair_ratios[visual_stair_counter-1];
-                    } else {
-                        previous_visual_stair_ratio = visual_stair_ratios[19];
-                    }
-                    /* ADD STAIRCASE CODE HERE
-                        nshift = 0;
-                        for (i=1;i<20;i++)
-                            visual_stair_responses[i]-visual_stair_responses[i-1]
-                     *
-                     * new_visual_stair_ratio;
-                    */
-                
-                    visual_stair_counter++;
-                    if (visual_stair_counter>19)
-                        visual_stair_counter = 0;                    
-                } else {
-                    temp_int = (int)(UNI*visual_num_steps);
-                    new_visual_stair_ratio = visual_target_min_ratio + ((float)temp_int)*(visual_target_max_ratio-visual_target_min_ratio)/((float)visual_num_steps-1);                    
-                }
-                if (new_visual_stair_ratio > 1) {
-                        reward_target_size = target_size*new_visual_stair_ratio;
-                        fail_target_size = target_size;
-                } else {
-                        reward_target_size = target_size;
-                        fail_target_size = target_size*new_visual_stair_ratio;
-                }    
+                bump_separation = 0;
             }
-                
-                
-                
-                
-                
-                
-                
-                
-                
-             
+
+            if (UNI>0.5) {
+                temp_int = 1;
+            } else {
+                temp_int = -1;
+            }                
+            bump_1_direction = average_bump_direction + ((float)temp_int)*bump_separation/2;
+            bump_2_direction = average_bump_direction - ((float)temp_int)*bump_separation/2; 
+            ssSetRWorkValue(S,rWorkBump1Direction,bump_1_direction);
+            ssSetRWorkValue(S,rWorkBump2Direction,bump_2_direction);     
+
+            /* Visual target sizes */
+            temp_int = (int)(UNI*visual_num_steps);
+            if (UNI>0.5){
+                new_visual_stair_ratio = visual_target_min_ratio + ((float)temp_int)*(visual_target_max_ratio-visual_target_min_ratio)/((float)visual_num_steps-1); 
+            } else {
+                new_visual_stair_ratio = 1;
+            }            
+            if (UNI>0.5){                
+                visual_target_1_size = target_size*new_visual_stair_ratio;
+                visual_target_2_size = target_size;
+            } else {
+                visual_target_1_size = target_size;
+                visual_target_2_size = target_size*new_visual_stair_ratio;
+            }            
+            ssSetRWorkValue(S,rWorkVisualTarget1Size,visual_target_1_size);
+            ssSetRWorkValue(S,rWorkVisualTarget2Size,visual_target_2_size);
+            
+            /* Setup the databurst */
+            databurst[0] = 6+4*sizeof(float)+2+8*sizeof(float);
+            databurst[1] = DATABURST_VERSION;
+            databurst[2] = BEHAVIOR_VERSION_MAJOR;
+			databurst[3] = BEHAVIOR_VERSION_MINOR;
+			databurst[4] = (BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8;
+			databurst[5] = (BEHAVIOR_VERSION_MICRO & 0x00FF);
+            /* The offsets used in the calculation of the cursor location */
+			uPtrs = ssGetInputPortRealSignalPtrs(S, 1); 
+			databurst_offsets[0] = *uPtrs[0];
+			databurst_offsets[1] = *uPtrs[1];
+            databurst_trial_type[0] = trial_type;
+            databurst_training[0] = training_mode;
+            databurst_bump_mag[0] = bump_magnitude;
+            databurst_bump_1_direction[0] = bump_1_direction;
+            databurst_bump_2_direction[0] = bump_2_direction;           
+            databurst_visual_target_1_size[0] = visual_target_1_size;
+            databurst_visual_target_2_size[0] = visual_target_2_size;
+            databurst_reward_target_angle[0] = reward_target_angle;
+            databurst_fail_target_angle[0] = reward_target_angle+PI;
+            databurst_reward_target_size[0] = target_size;
+            databurst_fail_target_size[0] = target_size;
+
+            /* clear the counters */
+            ssSetIWorkValue(S, 7, 0); /* Databurst counter */
+            
+	        /* and advance */
+	        new_state = STATE_DATA_BLOCK;
+	        state_changed();
+            break;
+        case STATE_DATA_BLOCK:            
+            if (databurst_counter > 2*(databurst[0]-1)) { 
+                new_state = STATE_ORIGIN_ON;
+                reset_timer(); /* start timer for movement */
+                state_changed();
+            }                                    
+            ssSetIWorkValue(S, 7, databurst_counter+1);
+            break;
+        case STATE_CENTER_TARGET_ON:
+            /* center target on */
+            if (cursorInTarget(cursor, ct)) {
+                new_state = STATE_CENTER_HOLD;
+                reset_timer(); /* start center hold timer */
+                state_changed();
+            }
+            break;
+        case STATE_CENTER_HOLD:
+            /* center hold */
+            if (!cursorInTarget(cursor, ct)) {
+                new_state = STATE_ABORT;
+                reset_timer(); /* abort timeout */
+                state_changed();
+            } else if (elapsed_timer_time > center_hold) {
+                new_state = STATE_BUMP_1;
+                reset_timer(); /* delay timer */
+                state_changed();
+            } 
+            break;
+        case STATE_BUMP_1:
+            if (elapsed_timer_time > bump_duration) {
+                new_state = STATE_INTERBUMP;
+                reset_timer(); /* movement timer */
+                state_changed();
+            }
+            break;
+        case STATE_INTERBUMP:
+            if (elapsed_timer_time > center_hold) {
+                new_state = STATE_CENTER_HOLD_2;
+                reset_timer(); /* delay timer */
+                state_changed();
+            } 
+            break;
+       case STATE_CENTER_HOLD_2:
+            /* center hold */
+            if (!cursorInTarget(cursor, ct)) {
+                new_state = STATE_ABORT;
+                reset_timer(); /* abort timeout */
+                state_changed();
+            } else if (elapsed_timer_time > center_hold) {
+                new_state = STATE_BUMP_2;
+                reset_timer(); /* delay timer */
+                state_changed();
+            } 
+            break;             
+        case STATE_BUMP_2:
+            if (elapsed_timer_time > bump_duration) {
+                new_state = STATE_OUTER_TARGET_DELAY;
+                reset_timer(); /* movement timer */
+                state_changed();
+            }
+            break;    
+        case STATE_OUTER_TARGET_DELAY:
+            if (elapsed_timer_time > outer_target_delay) {
+                new_state = STATE_MOVEMENT;
+                reset_timer();
+                state_changed();
+            }
+            break;
+        case STATE_MOVEMENT:
+            /* movement phase */
+			if (cursorInTarget(cursor, rt)) {
+				new_state = STATE_REWARD;
+                reset_timer(); /* reward timeout */
+                state_changed();			
+			} else if (cursorInTarget(cursor, ft)) {			
+                new_state = STATE_FAIL;
+                reset_timer(); /* incomplete timeout */
+                state_changed();				
+			} else if (elapsed_timer_time > movement_time) {
+				new_state = STATE_INCOMPLETE;
+                reset_timer(); /* incomplete timeout */
+                state_changed();
+			}
+			break;
+        case STATE_ABORT:
+            /* abort */
+            if (elapsed_timer_time > abort_timeout) {
+                new_state = STATE_PRETRIAL;
+                state_changed();
+			}
+            break;
+        case STATE_FAIL:
+            if (elapsed_timer_time > failure_timeout) {
+                new_state = STATE_PRETRIAL;
+                state_changed();
+            }
+            break;
+        case STATE_INCOMPLETE:
+            /* incomplete */
+            if (elapsed_timer_time > incomplete_timeout) {
+                new_state = STATE_PRETRIAL;
+                state_changed();
+            }
+            break;
+        case STATE_REWARD:
+            /* reward */
+            if (elapsed_timer_time > reward_timeout) {
+                new_state = STATE_PRETRIAL;
+                state_changed();
+            }
+            break;
+        default:
+            new_state = STATE_PRETRIAL;
+    }
+    /***********
+     * Cleanup *
+     ***********/
+    
+    /* write back new state */
+    state_r[0] = new_state;
+    
+    /* Burn random number from stack */
+    KISS;
+
+    UNUSED_ARG(tid);
+}
+
+static void mdlOutputs(SimStruct *S, int_T tid)
+{
+    /********************
+     *  Initialization
+     ********************/
+    int i;
+        
+    real_T ct[4];
+    real_T vt1[4];
+    real_T vt2[4];
+    real_T rt[4];     /* reward outer target UL and LR coordinates */
+    real_T ft[4];     /* fail outer target UL and LR coordinates */
+    
+    real_T bump_1_direction;
+    real_T bump_2_direction;
+    real_T bump_magnitude;
+    
+    /* get trial type */
+    int training_mode;
+    int trial_type;
+    
+    /* target sizes and angles*/
+    real_T visual_target_1_size;
+    real_T visual_target_2_size;
+    real_T reward_target_angle;
+    real_T fail_target_angle;
+    
+    int databurst_counter;
+    byte* databurst;
+    
+    InputRealPtrsType uPtrs;
+    real_T cursor[2];
+    real_T force_in[2];
+    
+    /* allocate holders for outputs */
+    real_T force_x, force_y, word, reward, tone_cnt, tone_id, pos_x, pos_y;
+    real_T target_pos[45];
+    real_T status[5];
+    real_T version[4];
+    
+    /* pointers to output buffers */
+    real_T *force_p;
+    real_T *word_p;
+    real_T *target_p;
+    real_T *status_p;
+    real_T *reward_p;
+    real_T *tone_p;
+    real_T *version_p;
+    real_T *pos_p;
+    
+    /* get current state */
+    real_T *state_r = ssGetRealDiscStates(S);
+    int state = (int)(state_r[0]);
+    int new_state = ssGetIWorkValue(S, 0);
+    ssSetIWorkValue(S, 0, 0); /* reset changed state each iteration */
+    
+    /* current trial type */
+    training_mode = ssGetIWorkValue(S,iWorkTrainingMode);
+    trial_type = ssGetIWorkValue(S,iWorkTrialType);
+    bump_1_direction = ssGetRWorkValue(S,rWorkBump1Direction);
+    bump_2_direction = ssGetRWorkValue(S,rWorkBump2Direction);
+    bump_magnitude = ssGetRWorkValue(S,rWorkBumpMagnitude);        
+    
+    visual_target_1_size = ssGetRWorkValue(S,rWorkVisualTarget1Size);
+    visual_target_2_size = ssGetRWorkValue(S,rWorkVisualTarget2Size);
+    
+    reward_target_angle = ssGetRWorkValue(S,rWorkRewardTargetAngle);
+    fail_target_angle = ssGetRWorkValue(S,rWorkFailTargetAngle);
+    
+    /* get current tone counter */
+    tone_cnt = ssGetRWorkValue(S, 1);
+    tone_id = ssGetRWorkValue(S, 2);
+    
+    /* get target bounds */
+    ct[0] = -target_size/2;
+    ct[1] = target_size/2;
+    ct[2] = target_size/2;
+    ct[3] = -target_size/2;
+       
+    rt[0] = target_radius*cos(reward_target_angle) - target_size/2; /* reward target */
+    rt[1] = target_radius*sin(reward_target_angle) + target_size/2;
+    rt[2] = target_radius*cos(reward_target_angle) + target_size/2;
+    rt[3] = target_radius*sin(reward_target_angle) - target_size/2;
+
+    ft[0] = target_radius*cos(fail_target_angle) - target_size/2; /* reward target */
+    ft[1] = target_radius*sin(fail_target_angle) + target_size/2;
+    ft[2] = target_radius*cos(fail_target_angle) + target_size/2;
+    ft[3] = target_radius*sin(fail_target_angle) - target_size/2;
+    
+    vt1[0] = -visual_target_1_size/2;
+    vt1[1] = target_radius + visual_target_1_size/2;
+    vt1[2] = visual_target_1_size/2;
+    vt1[3] = target_radius - visual_target_1_size/2;
+    
+    vt2[0] = -visual_target_2_size/2;
+    vt2[1] = target_radius + visual_target_2_size/2;
+    vt2[2] = visual_target_2_size/2;
+    vt2[3] = target_radius - visual_target_2_size/2;
+    
+    /* current cursor location */
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
+    cursor[0] = *uPtrs[0];
+    cursor[1] = *uPtrs[1];
+    
+    /* input force */
+    uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
+    force_in[0] = *uPtrs[0];
+    force_in[1] = *uPtrs[1];
+    
+    /* databurst */
+    databurst_counter = ssGetIWorkValue(S, 7);
+    databurst = (byte *)ssGetPWorkValue(S, 0);
+    
+    /********************
+     * Calculate outputs
+     ********************/
+    
+    if (state == STATE_BUMP_1){
+        force_x = force_in[0] + cos(bump_1_direction)*bump_magnitude;
+        force_y = force_in[1] + sin(bump_1_direction)*bump_magnitude;
+    } else if (state == STATE_BUMP_2){
+        force_x = force_in[0] + cos(bump_2_direction)*bump_magnitude;
+        force_y = force_in[1] + sin(bump_2_direction)*bump_magnitude;
+    } else {
+        force_x = force_in[0];
+        force_y = force_in[1];
+    }
+    
+    /* status (1) */
+    if (state == STATE_REWARD && new_state)
+        ssSetIWorkValue(S,iWorkRewards, ssGetIWorkValue(S, iWorkRewards)+1);
+    if (state == STATE_FAIL && new_state)
+        ssSetIWorkValue(S, iWorkFailures, ssGetIWorkValue(S, iWorkFailures)+1);
+    if (state == STATE_ABORT && new_state)
+        ssSetIWorkValue(S, iWorkAborts, ssGetIWorkValue(S, iWorkAborts)+1);
+    if (state == STATE_INCOMPLETE && new_state)
+        ssSetIWorkValue(S, iWorkIncompletes, ssGetIWorkValue(S, iWorkIncompletes)+1);
+    
+    status[0] = state;
+    status[1] = ssGetIWorkValue(S, 1); /* num rewards     */
+    status[2] = ssGetIWorkValue(S, 2); /* num fails       */
+    status[3] = ssGetIWorkValue(S, 3); /* num aborts      */
+    status[4] = ssGetIWorkValue(S, 4); /* num incompletes */
+    
+    /* word (2) */
+    if (state == STATE_DATA_BLOCK) {
+        if (databurst_counter % 2 == 0) {
+            word = databurst[databurst_counter / 2] | 0xF0; // low order bits
+        } else {
+            word = databurst[databurst_counter / 2] >> 4 | 0xF0; // high order bits
+        }
+    } else if (new_state) {
+        switch (state) {
+            case STATE_PRETRIAL:
+                word = WORD_START_TRIAL;
+                break;
+            case STATE_CENTER_TARGET_ON:
+                word = WORD_CT_ON;
+                break;
+            case STATE_CENTER_HOLD:
+                word = WORD_CENTER_TARGET_HOLD;
+                break;
+            case STATE_BUMP_1:
+                word = WORD_BUMP(1);
+                break;
+            case STATE_CENTER_HOLD_2:
+                word = WORD_CENTER_TARGET_HOLD;
+                break;
+            case STATE_BUMP_2:
+                word = WORD_BUMP(2); 
+                break;
+            case STATE_MOVEMENT:
+                word = WORD_OT_ON(0);
+                break;
+            case STATE_REWARD:
+                word = WORD_REWARD;
+                break;
+            case STATE_ABORT:
+                word = WORD_ABORT;
+                break;
+            case STATE_FAIL:
+                word = WORD_FAIL;
+                break;
+            case STATE_INCOMPLETE:
+                word = WORD_INCOMPLETE;
+                break;
+            default:
+                word = 0;
+        }
+
+    } else {
+        word = 0;
+    }
+    
+    /* target_pos (3) */    
+    /* start assuming no targets will be drawn */
+    for (i = 0; i<10; i++)
+        target_pos[i] = 0;
+    
+    if (state == STATE_CENTER_TARGET_ON || state == STATE_CENTER_HOLD ||
+            state == STATE_INTERBUMP || state == STATE_CENTER_HOLD_2){
+        target_pos[0] = trial_type;
+        for (i=0; i<4; i++) {
+           target_pos[i+1] = ct[i];
+        }
+    }
+    
+    if (state == STATE_BUMP_1){
+        target_pos[0] = trial_type;
+        for (i=0; i<4; i++) {
+           target_pos[i+1] = vt1[i];
+        }
+        
+    if (state == STATE_BUMP_2){
+        target_pos[0] = trial_type;
+        for (i=0; i<4; i++) {
+           target_pos[i+1] = vt2[i];
+        }    
+            
+    if (state == STATE_MOVEMENT){
+        target_pos[0] = 3;
+        target_pos[5] = 4;
+        for (i=0; i<4; i++) {
+           target_pos[i+1] = rt[i];
+           target_pos[i+6] = ft[i];
+        }
+    }
+    
+    /* reward (4) */
+    if (new_state && state==STATE_REWARD) {
+        reward = 1;
+    } else {
+        reward = 0;
+    }
+        
+    /* tone (5) */
+    if (new_state) {
+        if (state == STATE_ABORT || state == STATE_FAIL) {
+            tone_cnt++;
+            tone_id = TONE_ABORT;
+        } else if (state == STATE_MOVEMENT) {
+            tone_cnt++;
+            tone_id = TONE_GO; 
+        } else if (state == STATE_REWARD) {
+            tone_cnt++;
+            tone_id = TONE_REWARD;
+        }
+    }
+        
+    /* version (6) */
+    version[0] = BEHAVIOR_VERSION_MAJOR;
+    version[1] = BEHAVIOR_VERSION_MINOR;
+    version[2] = BEHAVIOR_VERSION_MICRO;
+    version[3] = BEHAVIOR_VERSION_BUILD;
+
+    /* pos (7) */
+    if (state ==  STATE_BUMP_1 || state == STATE_BUMP_2) {
+        /* we are inside blocking window => draw cursor off screen */
+        pos_x = 1E6;
+        pos_y = 1E6;
+    } else {
+        /* we are outside the blocking window */
+        pos_x = cursor[0];
+        pos_y = cursor[1];
+    }
+    
+    /**********************************
+     * Write outputs back to SimStruct
+     **********************************/
+    force_p = ssGetOutputPortRealSignal(S,0);
+    force_p[0] = force_x;
+    force_p[1] = force_y;
+    
+    status_p = ssGetOutputPortRealSignal(S,1);
+    for (i=0; i<5; i++) 
+        status_p[i] = status[i];
+    
+    word_p = ssGetOutputPortRealSignal(S,2);
+    word_p[0] = word;
+    
+    target_p = ssGetOutputPortRealSignal(S,3);
+    for (i=0; i<10; i++) {
+        target_p[i] = target_pos[i];
+    }
+    
+    reward_p = ssGetOutputPortRealSignal(S,4);
+    reward_p[0] = reward;
+        
+    tone_p = ssGetOutputPortRealSignal(S,6);
+    tone_p[0] = tone_cnt;
+    tone_p[1] = tone_id;
+    ssSetRWorkValue(S, 1, tone_cnt);
+    ssSetRWorkValue(S, 2, tone_id);
+    
+    version_p = ssGetOutputPortRealSignal(S,7);
+    for (i=0; i<4; i++) {
+        version_p[i] = version[i];
+    }
+    
+    pos_p = ssGetOutputPortRealSignal(S,8);
+    pos_p[0] = pos_x;
+    pos_p[1] = pos_y;
+
+    UNUSED_ARG(tid);
+}
+
+static void mdlTerminate (SimStruct *S) { UNUSED_ARG(S); }
+
+#ifdef MATLAB_MEX_FILE   /* Is this being compiled as a MEX-file? */
+#include "simulink.c"    /* MEX-file interface mechanism */
+#else
+#include "cg_sfun.h"     /* Code generation registration func */
+#endif
