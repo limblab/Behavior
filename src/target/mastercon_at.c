@@ -817,7 +817,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             /* Pick reward target direction */
             if ((trial_type == 0 && visual_target_1_size == visual_target_2_size) ||
-                    (trial_type == 1 && bump_1_direction == bump_2_direction){                   
+                    (trial_type == 1 && bump_1_direction == bump_2_direction)){                   
                 reward_target_angle = 0;
             } else {
                 reward_target_angle = PI;
@@ -878,15 +878,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_ABORT;
                 reset_timer(); /* abort timeout */
                 state_changed();
-            } else if (elapsed_timer_time > center_hold && trial_type == 1) {
+            } else if ((elapsed_timer_time > center_hold) && trial_type != 0 ) {
                 new_state = STATE_BUMP_1;
                 reset_timer(); /* delay timer */
                 state_changed();
-            } else if (elapsed_timer_time > center_hold && trial_type == 0) {
+            } else if ((elapsed_timer_time > center_hold) && trial_type == 0) {
                 new_state = STATE_VISUAL_1;
                 reset_timer();
                 state_changed();
-            }
+            } 
             break;
         case STATE_VISUAL_1:
             if (!cursorInTarget(cursor, ct)) {
@@ -900,11 +900,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             break;
         case STATE_BUMP_1:
-            if (elapsed_timer_time > bump_duration && trial_type != 2) {
+            if ((elapsed_timer_time > bump_duration) && trial_type != 2) {
                 new_state = STATE_INTERBUMP;
                 reset_timer();
                 state_changed();
-            } else if (elapsed_timer_time > bump_duration && trial_type == 2) {
+            } else if ((elapsed_timer_time > bump_duration) && trial_type == 2) {
                 new_state = STATE_OUTER_TARGET_DELAY;
                 reset_timer(); 
                 state_changed();
@@ -915,20 +915,24 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_CENTER_HOLD_2;
                 reset_timer(); /* delay timer */
                 state_changed();
-            } 
+            }
             break;
        case STATE_CENTER_HOLD_2:
             /* center hold */
-            if (!cursorInTarget(cursor, ct)) {
+            if (!cursorInTarget(cursor, ct)){
                 new_state = STATE_ABORT;
                 reset_timer(); /* abort timeout */
                 state_changed();
-            } else if (elapsed_timer_time > center_hold && trial_type == 1) {
+            } else if ((elapsed_timer_time > center_hold) && trial_type == 1) {
                 new_state = STATE_BUMP_2;
                 reset_timer(); /* delay timer */
                 state_changed();
-            } else if (elapsed_timer_time > center_hold && trial_type == 0) {
+            } else if ((elapsed_timer_time > center_hold) && trial_type == 0) {
                 new_state = STATE_VISUAL_2;
+                reset_timer(); /* delay timer */
+                state_changed();
+            } else if ((elapsed_timer_time > center_hold) && trial_type == 2) {
+                new_state = STATE_PRETRIAL;
                 reset_timer(); /* delay timer */
                 state_changed();
             }
@@ -1156,10 +1160,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         ssSetIWorkValue(S, iWorkIncompletes, ssGetIWorkValue(S, iWorkIncompletes)+1);
     
     status[0] = state;
-    status[1] = ssGetIWorkValue(S, 1); /* num rewards     */
-    status[2] = ssGetIWorkValue(S, 2); /* num fails       */
-    status[3] = ssGetIWorkValue(S, 3); /* num aborts      */
-    status[4] = ssGetIWorkValue(S, 4); /* num incompletes */
+    status[1] = ssGetIWorkValue(S, iWorkRewards); /* num rewards     */
+    status[2] = ssGetIWorkValue(S, iWorkAborts); /* num aborts       */
+    status[3] = ssGetIWorkValue(S, iWorkFailures); /* num fails      */
+    status[4] = ssGetIWorkValue(S, iWorkIncompletes); /* num incompletes */
     
     /* word (2) */
     if (state == STATE_DATA_BLOCK) {
@@ -1224,7 +1228,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     if (state == STATE_CENTER_TARGET_ON || state == STATE_CENTER_HOLD ||
             state == STATE_INTERBUMP || state == STATE_CENTER_HOLD_2 ||
-            state == STATE_BUMP_1 || state == STATE_BUMP_2){
+            state == STATE_BUMP_1 || state == STATE_BUMP_2 ||
+            state == STATE_VISUAL_1 || state == STATE_VISUAL_2){
         if (trial_type==0){
             target_pos[0] = BlueTarget;
         } else if (trial_type==1){
@@ -1238,16 +1243,16 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     if (state == STATE_VISUAL_1){        
-        target_pos[0] = BlueTarget;        
+        target_pos[5] = BlueTarget;        
         for (i=0; i<4; i++) {
-           target_pos[i+1] = vt1[i];
+           target_pos[i+6] = vt1[i];
         }
     }
     
     if (state == STATE_VISUAL_2){        
-        target_pos[0] = BlueTarget;        
+        target_pos[5] = BlueTarget;        
         for (i=0; i<4; i++) {
-           target_pos[i+1] = vt2[i];
+           target_pos[i+6] = vt2[i];
         }
     }        
             
