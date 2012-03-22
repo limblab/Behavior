@@ -240,7 +240,7 @@ static void mdlInitializeSizes(SimStruct *S)
      *  force: 2
      *  status: 5 ( block counter, successes, aborts, failures, incompletes )
      *  word:  1 (8 bits)
-     *  target: 10 ( target 1, 2: 
+     *  target: 70 ( target 1, 2: 
      *                  on/off, 
      *                  target UL corner x, 
      *                  target UL corner y,
@@ -255,7 +255,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 0, 2);   /* force   */
     ssSetOutputPortWidth(S, 1, 5);   /* status  */
     ssSetOutputPortWidth(S, 2, 1);   /* word    */
-    ssSetOutputPortWidth(S, 3, 60);  /* target  */
+    ssSetOutputPortWidth(S, 3, 70);  /* target  */
     ssSetOutputPortWidth(S, 4, 1);   /* reward  */
     ssSetOutputPortWidth(S, 5, 2);   /* tone    */
     ssSetOutputPortWidth(S, 6, 4);   /* version */
@@ -509,7 +509,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	curs_rad = cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d;
 
 	/* If displace type is type 1, then use angular displacement. If type 2, use linear displacement */
-	if (state == STATE_MOVEMENT || state == STATE_OUTER_HOLD){
+	if (state == STATE_MOVEMENT || state == STATE_OUTER_HOLD || state == STATE_OUTER_HOLD_WRONG){
 		if((displace_type == 1)&&(rad_d > (beg_window*target_radius))){
 			cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
 			cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
@@ -766,42 +766,52 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 state_changed();
             }
             break;
+
        case STATE_MOVEMENT:
             /* movement phase (go tone on entry) */
-			if (cursorInTarget(cursor,ot,displace_type) {
+			if (cursorInTarget(cursor,ot,(int)displace_type) ||
+				cursorInTarget(cursor,ot_w1,(int)displace_type) ||
+				cursorInTarget(cursor,ot_w2,(int)displace_type)){
+
 				new_state = STATE_OUTER_HOLD;
-				reset_timer(); /* outer hold timer */
 				ssSetRWorkValue(S, 26, cursor[0]);
 				ssSetRWorkValue(S, 27, cursor[1]);
+				reset_timer(); /* outer hold timer */
 				state_changed();
-			} else if (cursorInTarget(cursor,ot_w1,displace_type) || cursorInTarget(cursor,ot_w2,displace_type)){
+
+			} else if(cursorInTarget(cursor,ot_w1,(int)displace_type) ||
+				cursorInTarget(cursor,ot_w2,(int)displace_type)){
+			
 				new_state = STATE_OUTER_HOLD_WRONG;
 				ssSetRWorkValue(S, 26, cursor[0]);
 				ssSetRWorkValue(S, 27, cursor[1]);
-				reset_timer();
+				reset_timer(); /* outer hold timer */
 				state_changed();
-			} else {
-				(elapsed_timer_time > movement_time) {
-				new_state = STATE_FAIL;
+
+			} else if(elapsed_timer_time > movement_time){
+				new_state = STATE_INCOMPLETE;
 				reset_timer(); /* failure timeout */
 				state_changed();
 			}
-        break;
+			break;
+
         case STATE_OUTER_HOLD:
             /* outer target hold phase */
-            if (elapsed_timer_time > outer_hold_l) {
-                new_state = STATE_REWARD;
-                reset_timer(); /* reward (inter-trial) timeout */
-                state_changed();
-            }
+			if (elapsed_timer_time > outer_hold_l) {
+					new_state = STATE_REWARD;
+					reset_timer(); /* reward (inter-trial) timeout */
+					state_changed();
+			}
             break;
+		
 		case STATE_OUTER_HOLD_WRONG:
-			/* incorrect outer target hold phase */
+
 			if (elapsed_timer_time > outer_hold_h) {
-                new_state = STATE_INCOMPLETE;
-                reset_timer(); /* timeout */
-                state_changed();
-			
+				new_state = STATE_FAIL;
+				reset_timer();
+				state_changed();		
+			}
+
         case STATE_ABORT:
             /* abort */
             if (elapsed_timer_time > abort_timeout) {
@@ -991,7 +1001,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	curs_rad = cos(atan2(cursor_old[1],cursor_old[0])-theta)*rad_d;
 
 	/* If displace type is type 1, then use angular displacement. If type 2, use linear displacement */
-	if (state == STATE_MOVEMENT || state == STATE_OUTER_HOLD){
+	if (state == STATE_MOVEMENT || state == STATE_OUTER_HOLD || state == STATE_OUTER_HOLD_WRONG){
 		if((displace_type == 1)&&(rad_d > (beg_window*target_radius))){
 			cursor[0] = rad_d * cos(atan2(cursor_old[1],cursor_old[0])+displace);
 			cursor[1] = rad_d * sin(atan2(cursor_old[1],cursor_old[0])+displace);	
@@ -1176,27 +1186,27 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         /* outer targets on */
 		if( (int)displace_type == 2){
 			target_pos[5] = 1;
-			target_pos[60] = 7;
-			target_pos[65] = 7;
+			target_pos[10] = 7;
+			target_pos[15] = 7;
 		} else if( (int)displace_type == 1){
 			target_pos[5] = 5;
-			target_pos[60] = 8;
-			target_pos[65] = 8;
+			target_pos[10] = 8;
+			target_pos[15] = 8;
 		}
 		for (i=0; i<4; i++) {
 			target_pos[i+6] = ot[i];
-			target_pos[i+61] = ot_w1[i];
-			target_pos[i+66] = ot_w2[i];
+			target_pos[i+11] = ot_w1[i];
+			target_pos[i+16] = ot_w2[i];
 		}
     }  else {
        /* outer targets off */
 		target_pos[5] = 0;
-		target_pos[60] = 0;
-		target_pos[65] = 0;
+		target_pos[10] = 0;
+		target_pos[15] = 0;
 		for (i=0; i<4; i++) {
 			target_pos[i+6] = 0;
-			target_pos[i+61] = 0;
-			target_pos[i+66] = 0;
+			target_pos[i+11] = 0;
+			target_pos[i+16] = 0;
 		}
     }
 	/* DRAW CUE CLUSTER */ 
@@ -1210,11 +1220,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	Corners(cue_cents,cue_pos,cue_dot_size);
 
 	for (i = 0; i<cue_dot_num; i++){
-		target_pos[10+5*i] = 16;
-		target_pos[11+5*i] = cue_pos[0+4*i];
-		target_pos[12+5*i] = cue_pos[1+4*i];
-		target_pos[13+5*i] = cue_pos[2+4*i];
-		target_pos[14+5*i] = cue_pos[3+4*i];
+		target_pos[20+5*i] = 16;
+		target_pos[21+5*i] = cue_pos[0+4*i];
+		target_pos[22+5*i] = cue_pos[1+4*i];
+		target_pos[23+5*i] = cue_pos[2+4*i];
+		target_pos[24+5*i] = cue_pos[3+4*i];
 	}
 
 	/* Display cue cloud when inside window */
@@ -1224,7 +1234,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 			!((shifted_curs_rad > beg_cue*target_radius) && (shifted_curs_rad < end_cue*target_radius)))
 		{
 			for (i=0; i<cue_dot_num; i++){
-				target_pos[10+5*i] = 0;
+				target_pos[20+5*i] = 0;
 			}
 		}
 	}else{
@@ -1232,7 +1242,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 			!((rad_d > beg_cue*target_radius) && (rad_d < end_cue*target_radius)))
 		{
 			for (i=0; i<cue_dot_num; i++){
-				target_pos[10+5*i] = 0;
+				target_pos[20+5*i] = 0;
 			}
 		}
 	}
