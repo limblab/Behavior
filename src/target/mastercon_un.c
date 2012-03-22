@@ -146,6 +146,7 @@ static real_T master_reset = 0.0;
 #define STATE_CENTER_DELAY 3
 #define STATE_MOVEMENT 4
 #define STATE_OUTER_HOLD 5
+#define STATE_OUTER_HOLD_WRONG 6
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
@@ -349,9 +350,14 @@ static void mdlInitializeConditions(SimStruct *S)
  * target is specified by two corners: UL: x, y = t[0], t[1]
  *                                     LR: x, y = t[2], t[3]
  */
-static int cursorInTarget(real_T *c, real_T *t)
+static int cursorInTarget(real_T *c, real_T *t, int type)
 {
-    return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
+	if((int)type == 2){
+		return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
+	}else if((int)type == 1){
+		return ( (sqrt(c[0]^2+c[1]^2) > sqrt(t[0]^2+t[1]^2)) && (sqrt(c[2]^2+c[3]^2) < sqrt(t[2]^2+t[3]^2))
+			&& (atan2(c[1],c[0]) > atan2(t[1],t[0])) && (atan2(c[4],c[3]) < atan2(t[4],t[3]));
+	}
 }
 
 static void Corners(real_T *pos, real_T *corn, real_T width)
@@ -392,6 +398,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T theta;
     real_T ct[4];
     real_T ot[4];
+	real_T ot_w1[4], ot_w2[4];
     InputRealPtrsType uPtrs;
     real_T cursor_old[2];
 	real_T cursor[2];
@@ -444,15 +451,55 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     /* get target bounds */
 	theta = PI/2 - target*2*PI/num_targets;
 	
-    ct[0] = -target_size/2;
-    ct[1] = target_size/2;
-    ct[2] = target_size/2;
-    ct[3] = -target_size/2;
-    
-    ot[0] = cos(theta)*target_radius-target_size/2;
-    ot[1] = sin(theta)*target_radius+target_size/2;
-    ot[2] = cos(theta)*target_radius+target_size/2;
-    ot[3] = sin(theta)*target_radius-target_size/2;
+	/* correct targets */
+
+	ct[0] = -target_size/2;
+	ct[1] = target_size/2;
+	ct[2] = target_size/2;
+	ct[3] = -target_size/2;
+
+	if( (int)displace_type == 2){
+
+	    ot[0] = cos(theta)*target_radius-target_size/2;
+		ot[1] = sin(theta)*target_radius+target_size/2;
+		ot[2] = cos(theta)*target_radius+target_size/2;
+		ot[3] = sin(theta)*target_radius-target_size/2;
+
+	} else if( (int)displace_type == 1){
+		
+		ot[0] = (target_radius - target_size/2)*cos(theta-0.5*(target_size/(target_radius-target_size/2)));
+		ot[1] = (target_radius - target_size/2)*sin(theta-0.5*(target_size/(target_radius-target_size/2)));
+		ot[2] = (target_radius + target_size/2)*cos(theta+0.5*(target_size/(target_radius-target_size/2)));
+		ot[3] = (target_radius + target_size/2)*sin(theta+0.5*(target_size/(target_radius-target_size/2)));
+
+	}
+
+	/* incorrect targets */
+	if( (int)displace_type == 2){
+	
+		ot_w1[0] = -100;
+		ot_w1[1] = ot[1];
+		ot_w1[2] = ot[0];
+		ot_w1[3] = ot[3];
+
+		ot_w2[0] = ot[2];
+		ot_w2[1] = ot[1];
+		ot_w2[2] = 100;
+		ot_w2[3] = ot[3];
+
+	} else if( (int)displace_type == 1){
+	
+		ot_w1[0] = (target_radius - target_size/2)*cos(theta+0.5*(target_size/(target_radius-target_size/2)));
+		ot_w1[1] = (target_radius - target_size/2)*sin(theta+0.5*(target_size/(target_radius-target_size/2)));
+		ot_w1[2] = (target_radius + target_size/2)*cos(theta + pi/2);
+		ot_w1[3] = (target_radius + target_size/2)*sin(theta + pi/2);
+
+		ot_w2[0] = (target_radius - target_size/2)*cos(theta - pi/2);
+		ot_w2[1] = (target_radius - target_size/2)*sin(theta - pi/2);
+		ot_w2[2] = (target_radius + target_size/2)*cos(theta-0.5*(target_size/(target_radius-target_size/2)));
+		ot_w2[3] = (target_radius + target_size/2)*sin(theta-0.5*(target_size/(target_radius-target_size/2)));
+	
+	}
 
 	/* get displaced cursor location */
 
@@ -677,7 +724,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_CT_ON:
             /* center target on */
-            if (cursorInTarget(cursor, ct)) {
+            if (cursorInTarget(cursor, ct, 2)) {
                 new_state = STATE_CENTER_HOLD;
                 reset_timer(); /* start center hold timer */
                 state_changed();
@@ -685,7 +732,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_CENTER_HOLD:
             /* center hold */
-            if (!cursorInTarget(cursor, ct)) {
+            if (!cursorInTarget(cursor, ct,2)) {
                 new_state = STATE_ABORT;
                 reset_timer(); /* abort timeout */
                 state_changed();
@@ -709,7 +756,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_CENTER_DELAY:
             /* center delay (outer target on) */
-            if (!cursorInTarget(cursor, ct)) {
+            if (!cursorInTarget(cursor, ct,2)) {
                 new_state = STATE_ABORT;
                 reset_timer(); /* abort timeout */
                 state_changed();
@@ -721,30 +768,40 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
        case STATE_MOVEMENT:
             /* movement phase (go tone on entry) */
-            if (shifted_curs_rad > target_radius) {
-                new_state = STATE_OUTER_HOLD;
-                reset_timer(); /* outer hold timer */
+			if (cursorInTarget(cursor,ot,displace_type) {
+				new_state = STATE_OUTER_HOLD;
+				reset_timer(); /* outer hold timer */
 				ssSetRWorkValue(S, 26, cursor[0]);
 				ssSetRWorkValue(S, 27, cursor[1]);
-                state_changed();
-            } else if (elapsed_timer_time > movement_time) {
-                new_state = STATE_FAIL;
-                reset_timer(); /* failure timeout */
-                state_changed();
-            }
-            break;
+				state_changed();
+			} else if (cursorInTarget(cursor,ot_w1,displace_type) || cursorInTarget(cursor,ot_w2,displace_type)){
+				new_state = STATE_OUTER_HOLD_WRONG;
+				ssSetRWorkValue(S, 26, cursor[0]);
+				ssSetRWorkValue(S, 27, cursor[1]);
+				reset_timer();
+				state_changed();
+			} else {
+				(elapsed_timer_time > movement_time) {
+				new_state = STATE_FAIL;
+				reset_timer(); /* failure timeout */
+				state_changed();
+			}
+        break;
         case STATE_OUTER_HOLD:
             /* outer target hold phase */
-            if ((!cursorInTarget(cursor_HOLD, ot))&&(elapsed_timer_time > outer_hold_h)) {
-                new_state = STATE_INCOMPLETE;
-                reset_timer(); /* failure timeout */
-                state_changed();
-            } else if ((cursorInTarget(cursor_HOLD, ot))&&(elapsed_timer_time > outer_hold_l)) {
+            if (elapsed_timer_time > outer_hold_l) {
                 new_state = STATE_REWARD;
                 reset_timer(); /* reward (inter-trial) timeout */
                 state_changed();
             }
             break;
+		case STATE_OUTER_HOLD_WRONG:
+			/* incorrect outer target hold phase */
+			if (elapsed_timer_time > outer_hold_h) {
+                new_state = STATE_INCOMPLETE;
+                reset_timer(); /* timeout */
+                state_changed();
+			
         case STATE_ABORT:
             /* abort */
             if (elapsed_timer_time > abort_timeout) {
@@ -815,6 +872,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T theta;
     real_T ct[4];
     real_T ot[4];
+	real_T ot_w1[4], ot_w2[4];
     real_T displace, rad_d, curs_rad, shifted_rad_d, shifted_curs_rad;
     
     InputRealPtrsType uPtrs;
@@ -826,7 +884,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* allocate holders for outputs */
     real_T force_x, force_y, word, reward, tone_cnt, tone_id, pos_x, pos_y;
-    real_T target_pos[60];
+    real_T target_pos[70];
 	real_T cue_pos[40];
 	real_T cue_cents[20];
     real_T status[5];
@@ -871,16 +929,56 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* get target bounds */
 	theta = PI/2 - target*2*PI/num_targets;
+	
+	/* correct targets */
 
-    ct[0] = -target_size/2;
-    ct[1] = target_size/2;
-    ct[2] = target_size/2;
-    ct[3] = -target_size/2;
-    
-    ot[0] = cos(theta)*target_radius-target_size/2;
-    ot[1] = sin(theta)*target_radius+target_size/2;
-    ot[2] = cos(theta)*target_radius+target_size/2;
-    ot[3] = sin(theta)*target_radius-target_size/2;
+	ct[0] = -target_size/2;
+	ct[1] = target_size/2;
+	ct[2] = target_size/2;
+	ct[3] = -target_size/2;
+
+	if( (int)displace_type == 2){
+
+	    ot[0] = cos(theta)*target_radius-target_size/2;
+		ot[1] = sin(theta)*target_radius+target_size/2;
+		ot[2] = cos(theta)*target_radius+target_size/2;
+		ot[3] = sin(theta)*target_radius-target_size/2;
+
+	} else if( (int)displace_type == 1){
+		
+		ot[0] = (target_radius - target_size/2)*cos(theta-0.5*(target_size/(target_radius-target_size/2)));
+		ot[1] = (target_radius - target_size/2)*sin(theta-0.5*(target_size/(target_radius-target_size/2)));
+		ot[2] = (target_radius + target_size/2)*cos(theta+0.5*(target_size/(target_radius-target_size/2)));
+		ot[3] = (target_radius + target_size/2)*sin(theta+0.5*(target_size/(target_radius-target_size/2)));
+
+	}
+
+	/* incorrect targets */
+	if( (int)displace_type == 2){
+	
+		ot_w1[0] = -100;
+		ot_w1[1] = ot[1];
+		ot_w1[2] = ot[0];
+		ot_w1[3] = ot[3];
+
+		ot_w2[0] = ot[2];
+		ot_w2[1] = ot[1];
+		ot_w2[2] = 100;
+		ot_w2[3] = ot[3];
+
+	} else if( (int)displace_type == 1){
+	
+		ot_w1[0] = (target_radius - target_size/2)*cos(theta+0.5*(target_size/(target_radius-target_size/2)));
+		ot_w1[1] = (target_radius - target_size/2)*sin(theta+0.5*(target_size/(target_radius-target_size/2)));
+		ot_w1[2] = (target_radius + target_size/2)*cos(theta + pi/2);
+		ot_w1[3] = (target_radius + target_size/2)*sin(theta + pi/2);
+
+		ot_w2[0] = (target_radius - target_size/2)*cos(theta - pi/2);
+		ot_w2[1] = (target_radius - target_size/2)*sin(theta - pi/2);
+		ot_w2[2] = (target_radius + target_size/2)*cos(theta-0.5*(target_size/(target_radius-target_size/2)));
+		ot_w2[3] = (target_radius + target_size/2)*sin(theta-0.5*(target_size/(target_radius-target_size/2)));
+	
+	}
     
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
@@ -1072,19 +1170,34 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     if ( state == STATE_CENTER_DELAY ||
          state == STATE_MOVEMENT ||
-         state == STATE_OUTER_HOLD )
+         state == STATE_OUTER_HOLD ||
+		 state == STATE_OUTER_HOLD_WRONG)
     {
-        /* outer target on */
-        target_pos[5] = 1;
-        for (i=0; i<4; i++) {
-            target_pos[i+6] = ot[i];
-        }
+        /* outer targets on */
+		if( (int)displace_type == 2){
+			target_pos[5] = 1;
+			target_pos[60] = 7;
+			target_pos[65] = 7;
+		} else if( (int)displace_type == 1){
+			target_pos[5] = 5;
+			target_pos[60] = 8;
+			target_pos[65] = 8;
+		}
+		for (i=0; i<4; i++) {
+			target_pos[i+6] = ot[i];
+			target_pos[i+61] = ot_w1[i];
+			target_pos[i+66] = ot_w2[i];
+		}
     }  else {
-        /* outer target off */
-        target_pos[5] = 0;
-        for (i=0; i<4; i++) {
-            target_pos[i+6] = 0;
-        }
+       /* outer targets off */
+		target_pos[5] = 0;
+		target_pos[60] = 0;
+		target_pos[65] = 0;
+		for (i=0; i<4; i++) {
+			target_pos[i+6] = 0;
+			target_pos[i+61] = 0;
+			target_pos[i+66] = 0;
+		}
     }
 	/* DRAW CUE CLUSTER */ 
 
@@ -1142,6 +1255,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         } else if (state == STATE_REWARD) {
             tone_cnt++;
             tone_id = TONE_REWARD;
+		} else if (state = STATE_OUTER_HOLD_WRONG) {
+			tone_cnt++;
+			tone_id = TONE_ABORT;
         }
     }
     
@@ -1162,7 +1278,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 			/* We are inside the blocking window */
 			pos_x = 1E6;
 			pos_y = 1E6;
-		} else if(state == STATE_OUTER_HOLD){
+		} else if((state == STATE_OUTER_HOLD) || (state == STATE_OUTER_HOLD_WRONG)){
 			pos_x = cursor_HOLD[0];
 			pos_y = cursor_HOLD[1];
 		} else{
@@ -1176,7 +1292,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 			/* We are inside the blocking window */
 			pos_x = 1E6;
 			pos_y = 1E6;
-		}else if(state == STATE_OUTER_HOLD){
+		}else if((state == STATE_OUTER_HOLD) || (state == STATE_OUTER_HOLD_WRONG)){
 			pos_x = cursor_HOLD[0];
 			pos_y = cursor_HOLD[1]; 
 		}else{
@@ -1202,7 +1318,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     word_p[0] = word;
     
     target_p = ssGetOutputPortRealSignal(S,3);
-    for (i=0; i<60; i++) {
+    for (i=0; i<70; i++) {
         target_p[i] = target_pos[i];
     }
     

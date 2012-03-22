@@ -80,6 +80,15 @@ namespace BehaviorGraphics
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
                     break;
 
+                case TargetSpriteType.BlueTarget:
+                    /* Red square target */
+                    vertices = new CustomVertex.TransformedColored[4];
+                    getSquareVertices(ul, lr, Color.Blue, ref vertices);
+
+                    device.VertexFormat = CustomVertex.TransformedColored.Format;
+                    device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
+                    break;
+
                 case TargetSpriteType.WhiteTarget:
                     /* White square target */
                     vertices = new CustomVertex.TransformedColored[4];
@@ -140,6 +149,16 @@ namespace BehaviorGraphics
                     /* Red square target */
                     vertices = new CustomVertex.TransformedColored[200];
                     getArcVertices(ul, lr, Color.Red, ref vertices);
+                   
+                    device.VertexFormat = CustomVertex.TransformedColored.Format;
+                    device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 100, vertices);
+
+                    break;
+
+                case TargetSpriteType.BlueArc:
+                    /* Blue square target */
+                    vertices = new CustomVertex.TransformedColored[200];
+                    getArcVertices(ul, lr, Color.Blue, ref vertices);
                    
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 100, vertices);
@@ -265,6 +284,8 @@ namespace BehaviorGraphics
         WallColisionTarget = 4,
         RedArc = 5,
         WhiteArc = 6,
+	BlueTarget = 7,
+	BlueArc = 8,
         Glyph0 = 16,
         Glyph1 = 17,
         Glyph2 = 18,
