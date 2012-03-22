@@ -57,7 +57,7 @@ typedef unsigned char byte;
  * Until we implement tunable parameters, these will act as defaults
  */
 // Default parameter vector for Master Control box in model:
-// 0 0 1 2 2 3 5 1 1 1 0.5 40 40 10 1 20 1 0.7 10 0.5 1.5 0.05 0.2 1 0.05 0.8 1.2 5 0.5 1 5 0.01 0.03 3 125 4 0 0.1 0.3 3 10 0
+// 0 0 1 2 2 3 5 1 1 1 0.5 40 40 10 1 20 1 0.7 10 0.5 1.5 0.05 0.2 1 0.05 0.8 1.2 5 0.5 1 5 0.01 0.03 3 125 4 0 0.1 0.3 3 10 1 0
 
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,0))
@@ -156,9 +156,11 @@ static real_T target_size = 3.0;
 #define param_target_size mxGetScalar(ssGetSFcnParam(S,39))
 static real_T target_radius = 10.0;
 #define param_target_radius mxGetScalar(ssGetSFcnParam(S,40))
+static real_T visual_target_duration = 1.0;
+#define param_visual_target_duration mxGetScalar(ssGetSFcnParam(S,41))
 
 static real_T percent_training_trials = 0.0;
-#define param_percent_training_trials mxGetScalar(ssGetSFcnParam(S,41))
+#define param_percent_training_trials mxGetScalar(ssGetSFcnParam(S,42))
 
 /*
  * State IDs
@@ -166,12 +168,14 @@ static real_T percent_training_trials = 0.0;
 #define STATE_PRETRIAL 0
 #define STATE_CENTER_TARGET_ON 1
 #define STATE_CENTER_HOLD 2
-#define STATE_BUMP_1 3
-#define STATE_INTERBUMP 4
-#define STATE_CENTER_HOLD_2 5
-#define STATE_BUMP_2 6
-#define STATE_OUTER_TARGET_DELAY 7
-#define STATE_MOVEMENT 8
+#define STATE_VISUAL_1 3
+#define STATE_BUMP_1 4
+#define STATE_INTERBUMP 5
+#define STATE_CENTER_HOLD_2 6
+#define STATE_VISUAL_2 7
+#define STATE_BUMP_2 8
+#define STATE_OUTER_TARGET_DELAY 9
+#define STATE_MOVEMENT 10
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
@@ -271,6 +275,7 @@ static void mdlCheckParameters(SimStruct *S)
     
     target_size = param_target_size; 
     target_radius = param_target_radius; 
+    visual_target_duration = param_visual_target_duration;
     percent_training_trials = param_percent_training_trials;
 }
     
@@ -278,7 +283,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 42);
+    ssSetNumSFcnParams(S, 43);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -327,7 +332,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 0, 2);   /* force   */
     ssSetOutputPortWidth(S, 1, 5);   /* status  */
     ssSetOutputPortWidth(S, 2, 1);   /* word    */
-    ssSetOutputPortWidth(S, 3, 45);  /* target  */
+    ssSetOutputPortWidth(S, 3, 10);  /* target  */
     ssSetOutputPortWidth(S, 4, 1);   /* reward  */
     ssSetOutputPortWidth(S, 5, 2);   /* tone    */
     ssSetOutputPortWidth(S, 6, 4);   /* version */
@@ -696,6 +701,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
             target_size = param_target_size; 
             target_radius = param_target_radius; 
+            visual_target_duration = param_visual_target_duration;
             percent_training_trials = param_percent_training_trials;
              
             /* decide if it is a training trial */ 
@@ -710,7 +716,15 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             ssSetIWorkValue(S,iWorkTrialCounter,trial_counter);
             
             /* decide if it is a visual trial */
-            if (trial_counter == 1){
+            if (trial_block_size > 1){
+                if (100*trial_counter/trial_block_size<percent_visual_trials){
+                    trial_type = 0;
+                } else if (100*trial_counter/trial_block_size<percent_visual_trials + percent_proprio_trials){
+                    trial_type = 1;
+                } else {
+                    trial_type = 2;
+                }
+            } else {
                 temp_real = 100*UNI;
                 if (temp_real < percent_visual_trials){
                     trial_type = 0;
@@ -762,11 +776,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             ssSetRWorkValue(S,rWorkBumpMagnitude,bump_magnitude);
             ssSetIWorkValue(S,iWorkBumpStep,temp_int);
 
-            /* Pick reward target direction */            
-            reward_target_angle = UNI*2*PI; 
-            ssSetRWorkValue(S,rWorkRewardTargetAngle,reward_target_angle);
-            ssSetRWorkValue(S,rWorkFailTargetAngle,reward_target_angle+PI);
-
             /* Bump directions - No staircases coded yet */
             if (UNI>0.5){
                 temp_int = (int)(UNI*proprio_num_steps); 
@@ -805,6 +814,16 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }            
             ssSetRWorkValue(S,rWorkVisualTarget1Size,visual_target_1_size);
             ssSetRWorkValue(S,rWorkVisualTarget2Size,visual_target_2_size);
+            
+            /* Pick reward target direction */
+            if ((trial_type == 0 && visual_target_1_size == visual_target_2_size) ||
+                    (trial_type == 1 && bump_1_direction == bump_2_direction){                   
+                reward_target_angle = 0;
+            } else {
+                reward_target_angle = PI;
+            }            
+            ssSetRWorkValue(S,rWorkRewardTargetAngle,reward_target_angle);
+            ssSetRWorkValue(S,rWorkFailTargetAngle,reward_target_angle+PI);
             
             /* Setup the databurst */
             databurst[0] = 6+4*sizeof(float)+2+8*sizeof(float)+1;
@@ -859,16 +878,35 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_ABORT;
                 reset_timer(); /* abort timeout */
                 state_changed();
-            } else if (elapsed_timer_time > center_hold) {
+            } else if (elapsed_timer_time > center_hold && trial_type == 1) {
                 new_state = STATE_BUMP_1;
                 reset_timer(); /* delay timer */
                 state_changed();
-            } 
+            } else if (elapsed_timer_time > center_hold && trial_type == 0) {
+                new_state = STATE_VISUAL_1;
+                reset_timer();
+                state_changed();
+            }
+            break;
+        case STATE_VISUAL_1:
+            if (!cursorInTarget(cursor, ct)) {
+                new_state = STATE_ABORT;
+                reset_timer(); /* abort timeout */
+                state_changed();
+            } else if (elapsed_timer_time > visual_target_duration) {
+                new_state = STATE_BUMP_1;
+                reset_timer(); 
+                state_changed();
+            }
             break;
         case STATE_BUMP_1:
-            if (elapsed_timer_time > bump_duration) {
+            if (elapsed_timer_time > bump_duration && trial_type != 2) {
                 new_state = STATE_INTERBUMP;
-                reset_timer(); /* movement timer */
+                reset_timer();
+                state_changed();
+            } else if (elapsed_timer_time > bump_duration && trial_type == 2) {
+                new_state = STATE_OUTER_TARGET_DELAY;
+                reset_timer(); 
                 state_changed();
             }
             break;
@@ -885,12 +923,27 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_ABORT;
                 reset_timer(); /* abort timeout */
                 state_changed();
-            } else if (elapsed_timer_time > center_hold) {
+            } else if (elapsed_timer_time > center_hold && trial_type == 1) {
                 new_state = STATE_BUMP_2;
                 reset_timer(); /* delay timer */
                 state_changed();
-            } 
-            break;             
+            } else if (elapsed_timer_time > center_hold && trial_type == 0) {
+                new_state = STATE_VISUAL_2;
+                reset_timer(); /* delay timer */
+                state_changed();
+            }
+            break;
+        case STATE_VISUAL_2:
+            if (!cursorInTarget(cursor, ct)) {
+                new_state = STATE_ABORT;
+                reset_timer(); /* abort timeout */
+                state_changed();
+            } else if (elapsed_timer_time > visual_target_duration) {
+                new_state = STATE_OUTER_TARGET_DELAY;
+                reset_timer(); /* movement timer */
+                state_changed();
+            }
+            break;
         case STATE_BUMP_2:
             if (elapsed_timer_time > bump_duration) {
                 new_state = STATE_OUTER_TARGET_DELAY;
@@ -984,7 +1037,6 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* get trial type */
     int training_mode;
     int trial_type;
-    int same;
     
     /* target sizes and angles*/
     real_T visual_target_1_size;
@@ -1075,7 +1127,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     force_in[1] = *uPtrs[1];
     
     /* databurst */
-    databurst_counter = ssGetIWorkValue(S, 7);
+    databurst_counter = ssGetIWorkValue(S, iWorkDataburstCounter);
     databurst = (byte *)ssGetPWorkValue(S, 0);
     
     /********************
@@ -1127,17 +1179,23 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_CENTER_HOLD:
                 word = WORD_CENTER_TARGET_HOLD;
                 break;
+            case STATE_VISUAL_1:
+                word = WORD_OT_ON(1);
+                break;
             case STATE_BUMP_1:
                 word = WORD_BUMP(1);
                 break;
             case STATE_CENTER_HOLD_2:
                 word = WORD_CENTER_TARGET_HOLD;
                 break;
+            case STATE_VISUAL_2:
+                word = WORD_OT_ON(2);
+                break;
             case STATE_BUMP_2:
                 word = WORD_BUMP(2); 
                 break;
             case STATE_MOVEMENT:
-                word = WORD_OT_ON(0);
+                word = WORD_OT_ON(3);
                 break;
             case STATE_REWARD:
                 word = WORD_REWARD;
@@ -1165,7 +1223,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         target_pos[i] = 0;
     
     if (state == STATE_CENTER_TARGET_ON || state == STATE_CENTER_HOLD ||
-            state == STATE_INTERBUMP || state == STATE_CENTER_HOLD_2){
+            state == STATE_INTERBUMP || state == STATE_CENTER_HOLD_2 ||
+            state == STATE_BUMP_1 || state == STATE_BUMP_2){
         if (trial_type==0){
             target_pos[0] = BlueTarget;
         } else if (trial_type==1){
@@ -1178,31 +1237,19 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         }
     }
     
-    if (state == STATE_BUMP_1){
-        if (trial_type==0){
-            target_pos[0] = BlueTarget;
-        } else if (trial_type==1){
-            target_pos[0] = WhiteTarget;
-        } else {
-            target_pos[0] = GreenTarget;
-        }
+    if (state == STATE_VISUAL_1){        
+        target_pos[0] = BlueTarget;        
         for (i=0; i<4; i++) {
            target_pos[i+1] = vt1[i];
         }
     }
-        
-    if (state == STATE_BUMP_2){
-        if (trial_type==0){
-            target_pos[0] = BlueTarget;
-        } else if (trial_type==1){
-            target_pos[0] = WhiteTarget;
-        } else {
-            target_pos[0] = GreenTarget;
-        }
+    
+    if (state == STATE_VISUAL_2){        
+        target_pos[0] = BlueTarget;        
         for (i=0; i<4; i++) {
            target_pos[i+1] = vt2[i];
-        }   
-    }
+        }
+    }        
             
     if (state == STATE_MOVEMENT){
         target_pos[0] = RedTarget;        
@@ -1210,7 +1257,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
            target_pos[i+1] = rt[i];
         }
         if (!training_mode){
-            target_pos[5] = PurpleTarget;
+            target_pos[5] = RedTarget;
             for (i=0; i<4; i++) {
                target_pos[i+6] = ft[i];
             }
