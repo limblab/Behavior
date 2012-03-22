@@ -56,6 +56,8 @@ typedef unsigned char byte;
 /*
  * Until we implement tunable parameters, these will act as defaults
  */
+// Default parameter vector for Master Control box in model:
+// 0 0 1 2 2 3 5 1 1 1 0.5 40 40 10 1 20 1 0.7 10 0.5 1.5 0.05 0.2 1 0.05 0.8 1.2 5 0.5 1 5 0.01 0.03 3 125 4 0 0.1 0.3 3 10 0
 
 static real_T master_reset = 0.0;
 #define param_master_reset mxGetScalar(ssGetSFcnParam(S,0))
@@ -84,7 +86,7 @@ static real_T fail_timeout = 1.0;
 #define param_fail_timeout mxGetScalar(ssGetSFcnParam(S,8))
 static real_T abort_timeout = 1.0;
 #define param_abort_timeout mxGetScalar(ssGetSFcnParam(S,9))
-static real_T outer_target_delay = 0.0;
+static real_T outer_target_delay = 0.5;
 #define param_outer_target_delay mxGetScalar(ssGetSFcnParam(S,10))
 
 /* Stimuli parameters */
@@ -136,7 +138,7 @@ static real_T bump_mag_max = 0.03;
 #define param_bump_mag_max mxGetScalar(ssGetSFcnParam(S,32))
 static int num_bump_magnitudes = 3;
 #define param_num_bump_magnitudes (int)mxGetScalar(ssGetSFcnParam(S,33))
-static real_T bump_duration = 125;
+static real_T bump_duration = 0.125;
 #define param_bump_duration mxGetScalar(ssGetSFcnParam(S,34))
 static int num_directions = 4;
 #define param_num_directions (int)mxGetScalar(ssGetSFcnParam(S,35))
@@ -217,6 +219,12 @@ static real_T percent_training_trials = 0.0;
 #define iWorkTrialType 52
 #define iWorkBlockCount 53
 #define iWorkCatchTrial 54
+
+#define RedTarget 1
+#define BlueTarget 7
+#define WhiteTarget 2
+#define GreenTarget 3
+#define PurpleTarget 9
 
 static void mdlCheckParameters(SimStruct *S)
 {
@@ -835,7 +843,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 reset_timer(); /* start timer for movement */
                 state_changed();
             }                                    
-            ssSetIWorkValue(S, 7, databurst_counter+1);
+            ssSetIWorkValue(S, iWorkDataburstCounter, databurst_counter+1);
             break;
         case STATE_CENTER_TARGET_ON:
             /* center target on */
@@ -976,6 +984,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     /* get trial type */
     int training_mode;
     int trial_type;
+    int same;
     
     /* target sizes and angles*/
     real_T visual_target_1_size;
@@ -1157,33 +1166,51 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     if (state == STATE_CENTER_TARGET_ON || state == STATE_CENTER_HOLD ||
             state == STATE_INTERBUMP || state == STATE_CENTER_HOLD_2){
-        target_pos[0] = trial_type;
+        if (trial_type==0){
+            target_pos[0] = BlueTarget;
+        } else if (trial_type==1){
+            target_pos[0] = WhiteTarget;
+        } else {
+            target_pos[0] = GreenTarget;
+        }
         for (i=0; i<4; i++) {
            target_pos[i+1] = ct[i];
         }
     }
     
     if (state == STATE_BUMP_1){
-        target_pos[0] = trial_type;
+        if (trial_type==0){
+            target_pos[0] = BlueTarget;
+        } else if (trial_type==1){
+            target_pos[0] = WhiteTarget;
+        } else {
+            target_pos[0] = GreenTarget;
+        }
         for (i=0; i<4; i++) {
            target_pos[i+1] = vt1[i];
         }
     }
         
     if (state == STATE_BUMP_2){
-        target_pos[0] = trial_type;
+        if (trial_type==0){
+            target_pos[0] = BlueTarget;
+        } else if (trial_type==1){
+            target_pos[0] = WhiteTarget;
+        } else {
+            target_pos[0] = GreenTarget;
+        }
         for (i=0; i<4; i++) {
            target_pos[i+1] = vt2[i];
         }   
     }
             
     if (state == STATE_MOVEMENT){
-        target_pos[0] = 3;        
+        target_pos[0] = RedTarget;        
         for (i=0; i<4; i++) {
            target_pos[i+1] = rt[i];
         }
         if (!training_mode){
-            target_pos[5] = 4;
+            target_pos[5] = PurpleTarget;
             for (i=0; i<4; i++) {
                target_pos[i+6] = ft[i];
             }

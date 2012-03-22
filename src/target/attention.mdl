@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1268"
+    ComputedModelVersion    "1.1269"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Mar 21 16:31:25 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1268>"
+  LastModifiedDate	  "Thu Mar 22 11:52:10 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1269>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -829,7 +829,7 @@ Model {
   }
   System {
     Name		    "attention"
-    Location		    [2, 74, 1261, 946]
+    Location		    [2, 82, 989, 722]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -850,8 +850,9 @@ Model {
       Position		      [655, 55, 885, 475]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_at"
-      Parameters	      "0 0 1 2 2 3 5 1 1 1 1 0 40 40 10 1 20 1 .7 10 ."
-"5 1.5 0.05 0.2 1 0.05 0.8 1.2 5 0.5 1 5 0.01 0.03 3 125 4 0 0.1 0.3 3 10"
+      Parameters	      "0 0 1 2 2 3 5 1 1 1 0.5 40 40 10 1 20 1 0.7 10 "
+"0.5 1.5 0.05 0.2 1 0.05 0.8 1.2 5 0.5 1 5 0.01 0.03 3 0.125 4 0 0.1 0.3 3 10 "
+"0"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'pos offsets')\nport_label('input',3,'force')\npor"
 "t_label('input',4,'catch force')\nport_label('output',1,'force')\nport_label("

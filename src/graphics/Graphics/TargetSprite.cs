@@ -109,6 +109,15 @@ namespace BehaviorGraphics
 
                     break;
 
+                case TargetSpriteType.YellowTarget:
+                    /* Yellow square target */
+                    vertices = new CustomVertex.TransformedColored[4];
+                    getSquareVertices(ul, lr, Color.Yellow, ref vertices);
+
+                    device.VertexFormat = CustomVertex.TransformedColored.Format;
+                    device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
+                    break;
+
                 case TargetSpriteType.WallColisionTarget:
                     p.X = (lr - ul).Y / 3.0f;
                     p.Y = (ul - lr).X / 3.0f;
@@ -284,8 +293,9 @@ namespace BehaviorGraphics
         WallColisionTarget = 4,
         RedArc = 5,
         WhiteArc = 6,
-	BlueTarget = 7,
-	BlueArc = 8,
+	    BlueTarget = 7,
+	    BlueArc = 8,
+        YellowTarget = 9,
         Glyph0 = 16,
         Glyph1 = 17,
         Glyph2 = 18,
