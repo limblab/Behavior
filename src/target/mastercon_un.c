@@ -352,12 +352,22 @@ static void mdlInitializeConditions(SimStruct *S)
  */
 static int cursorInTarget(real_T *c, real_T *t, int type)
 {
+	real_T a[2];
+	
 	if((int)type == 2){
+
 		return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
+
 	}else if((int)type == 1){
-		return ( (sqrt(c[0]*c[0]+c[1]*c[1]) > sqrt(t[0]*t[0]+t[1]*t[1])) && 
-			(sqrt(c[0]*c[0]+c[1]*c[1]) < sqrt(t[2]*t[2]+t[3]*t[3])) && 
-			(atan2(c[1],c[0]) > atan2(t[1],t[0])) && (atan2(c[1],c[0]) < atan2(t[4],t[3])) );
+		a[0] = atan2(t[3],t[2]); if(a[0] < 0){ a[0] = a[0] + 2*PI;}
+		a[1] = atan2(t[1],t[0]); if(a[1] < 0){ a[1] = a[1] + 2*PI;}
+
+		/* a[0] = arc angle left (rad), a[1] = arc angle right (rad) */
+		if ( fmod(a[0]+PI,2*PI) -PI >  fmod(a[1]+PI,2*PI)-PI ) {
+			return ( fmod(a[0]+PI,2*PI)-PI > atan2(c[1],c[0]) && fmod(a[1]+PI,2*PI)-PI < atan2(c[1],c[0]) );
+		} else {
+			return ( fmod(a[0]+PI,2*PI)-PI > atan2(c[1],c[0]) || fmod(a[1]+PI,2*PI)-PI < atan2(c[1],c[0]) );
+		}    
 	}
 }
 
@@ -808,10 +818,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
 		
 		case STATE_OUTER_HOLD_WRONG:
-
+			/* outer target hold phase */
 			if (elapsed_timer_time > outer_hold_h) {
 				new_state = STATE_PRETRIAL;
-				reset_timer();
+				reset_timer(); /* Failure timeout */
 				state_changed();	
 				if (idiot_mode) {
                     target_index--;
