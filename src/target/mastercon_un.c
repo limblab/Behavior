@@ -355,8 +355,9 @@ static int cursorInTarget(real_T *c, real_T *t, int type)
 	if((int)type == 2){
 		return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
 	}else if((int)type == 1){
-		return ( (sqrt(c[0]^2+c[1]^2) > sqrt(t[0]^2+t[1]^2)) && (sqrt(c[2]^2+c[3]^2) < sqrt(t[2]^2+t[3]^2))
-			&& (atan2(c[1],c[0]) > atan2(t[1],t[0])) && (atan2(c[4],c[3]) < atan2(t[4],t[3]));
+		return ( (sqrt(c[0]*c[0]+c[1]*c[1]) > sqrt(t[0]*t[0]+t[1]*t[1])) && 
+			(sqrt(c[0]*c[0]+c[1]*c[1]) < sqrt(t[2]*t[2]+t[3]*t[3])) && 
+			(atan2(c[1],c[0]) > atan2(t[1],t[0])) && (atan2(c[1],c[0]) < atan2(t[4],t[3])) );
 	}
 }
 
@@ -491,11 +492,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	
 		ot_w1[0] = (target_radius - target_size/2)*cos(theta+0.5*(target_size/(target_radius-target_size/2)));
 		ot_w1[1] = (target_radius - target_size/2)*sin(theta+0.5*(target_size/(target_radius-target_size/2)));
-		ot_w1[2] = (target_radius + target_size/2)*cos(theta + pi/2);
-		ot_w1[3] = (target_radius + target_size/2)*sin(theta + pi/2);
+		ot_w1[2] = (target_radius + target_size/2)*cos(theta + PI/2);
+		ot_w1[3] = (target_radius + target_size/2)*sin(theta + PI/2);
 
-		ot_w2[0] = (target_radius - target_size/2)*cos(theta - pi/2);
-		ot_w2[1] = (target_radius - target_size/2)*sin(theta - pi/2);
+		ot_w2[0] = (target_radius - target_size/2)*cos(theta - PI/2);
+		ot_w2[1] = (target_radius - target_size/2)*sin(theta - PI/2);
 		ot_w2[2] = (target_radius + target_size/2)*cos(theta-0.5*(target_size/(target_radius-target_size/2)));
 		ot_w2[3] = (target_radius + target_size/2)*sin(theta-0.5*(target_size/(target_radius-target_size/2)));
 	
@@ -769,9 +770,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 
        case STATE_MOVEMENT:
             /* movement phase (go tone on entry) */
-			if (cursorInTarget(cursor,ot,(int)displace_type) ||
-				cursorInTarget(cursor,ot_w1,(int)displace_type) ||
-				cursorInTarget(cursor,ot_w2,(int)displace_type)){
+			if (cursorInTarget(cursor,ot,(int)displace_type)){
 
 				new_state = STATE_OUTER_HOLD;
 				ssSetRWorkValue(S, 26, cursor[0]);
@@ -798,19 +797,28 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         case STATE_OUTER_HOLD:
             /* outer target hold phase */
 			if (elapsed_timer_time > outer_hold_l) {
-					new_state = STATE_REWARD;
+					new_state = STATE_PRETRIAL;
 					reset_timer(); /* reward (inter-trial) timeout */
 					state_changed();
+				if (idiot_mode) {
+                    target_index--;
+                    ssSetIWorkValue(S, 1, target_index);
+                }
 			}
             break;
 		
 		case STATE_OUTER_HOLD_WRONG:
 
 			if (elapsed_timer_time > outer_hold_h) {
-				new_state = STATE_FAIL;
+				new_state = STATE_PRETRIAL;
 				reset_timer();
-				state_changed();		
+				state_changed();	
+				if (idiot_mode) {
+                    target_index--;
+                    ssSetIWorkValue(S, 1, target_index);
+                }
 			}
+			break;
 
         case STATE_ABORT:
             /* abort */
@@ -980,11 +988,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	
 		ot_w1[0] = (target_radius - target_size/2)*cos(theta+0.5*(target_size/(target_radius-target_size/2)));
 		ot_w1[1] = (target_radius - target_size/2)*sin(theta+0.5*(target_size/(target_radius-target_size/2)));
-		ot_w1[2] = (target_radius + target_size/2)*cos(theta + pi/2);
-		ot_w1[3] = (target_radius + target_size/2)*sin(theta + pi/2);
+		ot_w1[2] = (target_radius + target_size/2)*cos(theta + PI/2);
+		ot_w1[3] = (target_radius + target_size/2)*sin(theta + PI/2);
 
-		ot_w2[0] = (target_radius - target_size/2)*cos(theta - pi/2);
-		ot_w2[1] = (target_radius - target_size/2)*sin(theta - pi/2);
+		ot_w2[0] = (target_radius - target_size/2)*cos(theta - PI/2);
+		ot_w2[1] = (target_radius - target_size/2)*sin(theta - PI/2);
 		ot_w2[2] = (target_radius + target_size/2)*cos(theta-0.5*(target_size/(target_radius-target_size/2)));
 		ot_w2[3] = (target_radius + target_size/2)*sin(theta-0.5*(target_size/(target_radius-target_size/2)));
 	
@@ -1248,7 +1256,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	}
 
     /* reward (4) */
-    if (new_state && state==STATE_REWARD) {
+    if (new_state && state==STATE_OUTER_HOLD) {
         reward = 1;
     } else {
         reward = 0;
@@ -1262,10 +1270,10 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         } else if (state == STATE_MOVEMENT) {
             tone_cnt++;
             tone_id = TONE_GO;
-        } else if (state == STATE_REWARD) {
+        } else if (state == STATE_OUTER_HOLD) {
             tone_cnt++;
             tone_id = TONE_REWARD;
-		} else if (state = STATE_OUTER_HOLD_WRONG) {
+		} else if (state == STATE_OUTER_HOLD_WRONG) {
 			tone_cnt++;
 			tone_id = TONE_ABORT;
         }
