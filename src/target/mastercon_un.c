@@ -808,7 +808,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
         case STATE_OUTER_HOLD:
             /* outer target hold phase */
 			if (elapsed_timer_time > outer_hold_l) {
-					new_state = STATE_PRETRIAL;
+					new_state = STATE_REWARD;
 					reset_timer(); /* reward (inter-trial) timeout */
 					state_changed();
 				if (idiot_mode) {
@@ -821,7 +821,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 		case STATE_OUTER_HOLD_WRONG:
 			/* outer target hold phase */
 			if (elapsed_timer_time > outer_hold_h) {
-				new_state = STATE_PRETRIAL;
+				new_state = STATE_FAIL;
 				reset_timer(); /* Failure timeout */
 				state_changed();	
 				if (idiot_mode) {
