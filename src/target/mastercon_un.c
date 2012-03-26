@@ -37,6 +37,10 @@
 typedef unsigned char byte;
 #define DATABURST_VERSION (0x00) 
 
+/* target shapes */
+#define TARGET_SHAPE_RECT 2
+#define TARGET_SHAPE_ARC 1
+
 /*
  * Until we implement tunable parameters, these will act as defaults
  */
@@ -350,28 +354,21 @@ static void mdlInitializeConditions(SimStruct *S)
  * target is specified by two corners: UL: x, y = t[0], t[1]
  *                                     LR: x, y = t[2], t[3]
  */
-static int cursorInTarget(real_T *c, real_T *t, int type)
+static int cursorInTarget(real_T *c, real_T *t, int shape)
 {
-	real_T a[2];
-	
-	if((int)type == 2){
+	real_T rsq;
+
+	if (shape == TARGET_SHAPE_RECT) {
 
 		return ( (c[0] > t[0]) && (c[1] < t[1]) && (c[0] < t[2]) && (c[1] > t[3]) );
 
-	}else if((int)type == 1){
-		a[0] = atan2(t[3],t[2]); if(a[0] < 0){ a[0] = a[0] + 2*PI;}
-		a[1] = atan2(t[1],t[0]); if(a[1] < 0){ a[1] = a[1] + 2*PI;}
-
-		if((sqrt(c[0]*c[0] + c[1]*c[1]) > sqrt(t[2]*t[2] + t[3]*t[3])) &&
-			sqrt(c[0]*c[0] + c[1]*c[1]) < sqrt(t[0]*t[0] + t[1]*t[1])){
-
-			/* a[0] = arc angle left (rad), a[1] = arc angle right (rad) */
-			if ( fmod(a[0]+PI,2*PI) -PI >  fmod(a[1]+PI,2*PI)-PI ) {
-				return ( fmod(a[0]+PI,2*PI)-PI > atan2(c[1],c[0]) && fmod(a[1]+PI,2*PI)-PI < atan2(c[1],c[0]) );
-			} else {
-				return ( fmod(a[0]+PI,2*PI)-PI > atan2(c[1],c[0]) || fmod(a[1]+PI,2*PI)-PI < atan2(c[1],c[0]) );
-			}  
-		}
+	} else if (shape == TARGET_SHAPE_ARC) {
+		rsq = c[0]*c[0] + c[1]*c[1];
+		return ( /* distance criterion */ ( t[0]*t[0]+t[1]*t[1] < rsq && rsq < t[2]*t[2]+t[3]*t[3] ) &&
+			     /* angle criterion */    ( t[0]*c[1]-t[1]*c[0] > 0 && c[0]*t[3]-c[1]*t[2] > 0 ) );
+	} else {
+		/* unknown shape, return false by default */
+		return false;
 	}
 }
 
@@ -792,7 +789,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 				reset_timer(); /* outer hold timer */
 				state_changed();
 
-			} else if(cursorInTarget(cursor,ot_w1,(int)displace_type) ||
+			} else if (cursorInTarget(cursor,ot_w1,(int)displace_type) ||
 				cursorInTarget(cursor,ot_w2,(int)displace_type)){
 			
 				new_state = STATE_OUTER_HOLD_WRONG;
@@ -801,7 +798,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 				reset_timer(); /* outer hold timer */
 				state_changed();
 
-			} else if(elapsed_timer_time > movement_time){
+			} else if (elapsed_timer_time > movement_time){
 				new_state = STATE_INCOMPLETE;
 				reset_timer(); /* failure timeout */
 				state_changed();
