@@ -672,13 +672,60 @@ namespace BehaviorGraphics
             this.textBoxUCHL = new System.Windows.Forms.TextBox();
             this.label247 = new System.Windows.Forms.Label();
             this.tabAttention = new System.Windows.Forms.TabPage();
+            this.groupBox60 = new System.Windows.Forms.GroupBox();
+            this.textBoxATPSSS = new System.Windows.Forms.TextBox();
+            this.checkBoxATS = new System.Windows.Forms.CheckBox();
+            this.label289 = new System.Windows.Forms.Label();
+            this.label288 = new System.Windows.Forms.Label();
+            this.textBoxATVSSS = new System.Windows.Forms.TextBox();
+            this.textBoxATPO = new System.Windows.Forms.TextBox();
+            this.label266 = new System.Windows.Forms.Label();
+            this.label287 = new System.Windows.Forms.Label();
+            this.textBoxATPSA2 = new System.Windows.Forms.TextBox();
+            this.textBoxATSL = new System.Windows.Forms.TextBox();
+            this.label264 = new System.Windows.Forms.Label();
+            this.label286 = new System.Windows.Forms.Label();
+            this.textBoxATPSA1 = new System.Windows.Forms.TextBox();
+            this.textBoxATVSR1 = new System.Windows.Forms.TextBox();
+            this.label265 = new System.Windows.Forms.Label();
+            this.label275 = new System.Windows.Forms.Label();
+            this.textBoxATVSR2 = new System.Windows.Forms.TextBox();
+            this.groupBox59 = new System.Windows.Forms.GroupBox();
+            this.label270 = new System.Windows.Forms.Label();
+            this.label295 = new System.Windows.Forms.Label();
+            this.textBoxATPTT = new System.Windows.Forms.TextBox();
+            this.numericUpDownATPNS = new System.Windows.Forms.NumericUpDown();
+            this.label296 = new System.Windows.Forms.Label();
+            this.textBoxATPTMinA = new System.Windows.Forms.TextBox();
+            this.label297 = new System.Windows.Forms.Label();
+            this.textBoxATPTMaxA = new System.Windows.Forms.TextBox();
+            this.textBoxATPCT = new System.Windows.Forms.TextBox();
+            this.label294 = new System.Windows.Forms.Label();
+            this.label290 = new System.Windows.Forms.Label();
+            this.numericUpDownATVNS = new System.Windows.Forms.NumericUpDown();
+            this.label269 = new System.Windows.Forms.Label();
+            this.textBoxATVTMinR = new System.Windows.Forms.TextBox();
+            this.label293 = new System.Windows.Forms.Label();
+            this.textBoxATTBS = new System.Windows.Forms.TextBox();
+            this.textBoxATVTMaxR = new System.Windows.Forms.TextBox();
+            this.label285 = new System.Windows.Forms.Label();
+            this.textBoxATPPT = new System.Windows.Forms.TextBox();
+            this.label291 = new System.Windows.Forms.Label();
+            this.textBoxATPVT = new System.Windows.Forms.TextBox();
+            this.label292 = new System.Windows.Forms.Label();
             this.groupBox56 = new System.Windows.Forms.GroupBox();
+            this.textBoxATVTD = new System.Windows.Forms.TextBox();
+            this.label302 = new System.Windows.Forms.Label();
             this.textBoxATTR = new System.Windows.Forms.TextBox();
             this.label267 = new System.Windows.Forms.Label();
             this.textBoxATTS = new System.Windows.Forms.TextBox();
             this.label268 = new System.Windows.Forms.Label();
             this.groupBox57 = new System.Windows.Forms.GroupBox();
+            this.label299 = new System.Windows.Forms.Label();
+            this.numericUpDownATND = new System.Windows.Forms.NumericUpDown();
+            this.label298 = new System.Windows.Forms.Label();
             this.label271 = new System.Windows.Forms.Label();
+            this.textBoxATFBD = new System.Windows.Forms.TextBox();
             this.textBoxATBMMin = new System.Windows.Forms.TextBox();
             this.label272 = new System.Windows.Forms.Label();
             this.textBoxATBD = new System.Windows.Forms.TextBox();
@@ -686,7 +733,14 @@ namespace BehaviorGraphics
             this.textBoxATBMMax = new System.Windows.Forms.TextBox();
             this.label274 = new System.Windows.Forms.Label();
             this.numericUpDownATNBM = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxATBP = new System.Windows.Forms.CheckBox();
             this.groupBox58 = new System.Windows.Forms.GroupBox();
+            this.textBoxATMaxR = new System.Windows.Forms.TextBox();
+            this.label300 = new System.Windows.Forms.Label();
+            this.textBoxATMinR = new System.Windows.Forms.TextBox();
+            this.label301 = new System.Windows.Forms.Label();
+            this.textBoxATIBH = new System.Windows.Forms.TextBox();
+            this.label284 = new System.Windows.Forms.Label();
             this.textBoxATIBL = new System.Windows.Forms.TextBox();
             this.label283 = new System.Windows.Forms.Label();
             this.textBoxATOTD = new System.Windows.Forms.TextBox();
@@ -787,60 +841,6 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.textBoxATIBH = new System.Windows.Forms.TextBox();
-            this.label284 = new System.Windows.Forms.Label();
-            this.groupBox59 = new System.Windows.Forms.GroupBox();
-            this.textBoxATTBS = new System.Windows.Forms.TextBox();
-            this.label285 = new System.Windows.Forms.Label();
-            this.textBoxATVSR1 = new System.Windows.Forms.TextBox();
-            this.label286 = new System.Windows.Forms.Label();
-            this.textBoxATSL = new System.Windows.Forms.TextBox();
-            this.label287 = new System.Windows.Forms.Label();
-            this.textBoxATPO = new System.Windows.Forms.TextBox();
-            this.label288 = new System.Windows.Forms.Label();
-            this.textBoxATPCT = new System.Windows.Forms.TextBox();
-            this.label290 = new System.Windows.Forms.Label();
-            this.textBoxATPPT = new System.Windows.Forms.TextBox();
-            this.label291 = new System.Windows.Forms.Label();
-            this.textBoxATPVT = new System.Windows.Forms.TextBox();
-            this.label292 = new System.Windows.Forms.Label();
-            this.checkBoxATBP = new System.Windows.Forms.CheckBox();
-            this.checkBoxATS = new System.Windows.Forms.CheckBox();
-            this.textBoxATVSR2 = new System.Windows.Forms.TextBox();
-            this.label275 = new System.Windows.Forms.Label();
-            this.textBoxATPSA2 = new System.Windows.Forms.TextBox();
-            this.label264 = new System.Windows.Forms.Label();
-            this.textBoxATPSA1 = new System.Windows.Forms.TextBox();
-            this.label265 = new System.Windows.Forms.Label();
-            this.textBoxATVSSS = new System.Windows.Forms.TextBox();
-            this.label266 = new System.Windows.Forms.Label();
-            this.textBoxATPSSS = new System.Windows.Forms.TextBox();
-            this.label289 = new System.Windows.Forms.Label();
-            this.groupBox60 = new System.Windows.Forms.GroupBox();
-            this.label269 = new System.Windows.Forms.Label();
-            this.textBoxATVTMinR = new System.Windows.Forms.TextBox();
-            this.label293 = new System.Windows.Forms.Label();
-            this.textBoxATVTMaxR = new System.Windows.Forms.TextBox();
-            this.label294 = new System.Windows.Forms.Label();
-            this.numericUpDownATVNS = new System.Windows.Forms.NumericUpDown();
-            this.label295 = new System.Windows.Forms.Label();
-            this.numericUpDownATPNS = new System.Windows.Forms.NumericUpDown();
-            this.label296 = new System.Windows.Forms.Label();
-            this.textBoxATPTMinA = new System.Windows.Forms.TextBox();
-            this.label297 = new System.Windows.Forms.Label();
-            this.textBoxATPTMaxA = new System.Windows.Forms.TextBox();
-            this.label270 = new System.Windows.Forms.Label();
-            this.textBoxATPTT = new System.Windows.Forms.TextBox();
-            this.label298 = new System.Windows.Forms.Label();
-            this.textBoxATFBD = new System.Windows.Forms.TextBox();
-            this.label299 = new System.Windows.Forms.Label();
-            this.numericUpDownATND = new System.Windows.Forms.NumericUpDown();
-            this.textBoxATMaxR = new System.Windows.Forms.TextBox();
-            this.label300 = new System.Windows.Forms.Label();
-            this.textBoxATMinR = new System.Windows.Forms.TextBox();
-            this.label301 = new System.Windows.Forms.Label();
-            this.textBoxATVTD = new System.Windows.Forms.TextBox();
-            this.label302 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -935,8 +935,13 @@ namespace BehaviorGraphics
             ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownNumTgts)).BeginInit();
             this.groupBox53.SuspendLayout();
             this.tabAttention.SuspendLayout();
+            this.groupBox60.SuspendLayout();
+            this.groupBox59.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATPNS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATVNS)).BeginInit();
             this.groupBox56.SuspendLayout();
             this.groupBox57.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATND)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATNBM)).BeginInit();
             this.groupBox58.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -947,11 +952,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBox59.SuspendLayout();
-            this.groupBox60.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATVNS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATPNS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATND)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -1002,7 +1002,6 @@ namespace BehaviorGraphics
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(694, 454);
             this.tabControl.TabIndex = 0;
-            this.tabControl.Visible = false;
             // 
             // tabPageGen
             // 
@@ -1024,7 +1023,7 @@ namespace BehaviorGraphics
             this.tabPageGen.Location = new System.Drawing.Point(4, 40);
             this.tabPageGen.Name = "tabPageGen";
             this.tabPageGen.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGen.Size = new System.Drawing.Size(686, 386);
+            this.tabPageGen.Size = new System.Drawing.Size(686, 410);
             this.tabPageGen.TabIndex = 0;
             this.tabPageGen.Text = "General";
             this.tabPageGen.UseVisualStyleBackColor = true;
@@ -1265,7 +1264,7 @@ namespace BehaviorGraphics
             this.angleEntryBoxCurlAngleCatch.Size = new System.Drawing.Size(100, 21);
             this.angleEntryBoxCurlAngleCatch.TabIndex = 3;
             this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngleCatch, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngleCatch.Value = 0D;
+            this.angleEntryBoxCurlAngleCatch.Value = 0;
             // 
             // groupBox29
             // 
@@ -1492,7 +1491,7 @@ namespace BehaviorGraphics
             this.angleEntryBoxCurlAngle.Size = new System.Drawing.Size(100, 21);
             this.angleEntryBoxCurlAngle.TabIndex = 3;
             this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngle, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngle.Value = 0D;
+            this.angleEntryBoxCurlAngle.Value = 0;
             // 
             // groupBox6
             // 
@@ -1659,7 +1658,7 @@ namespace BehaviorGraphics
             this.angleEntryBoxCursorRotation.Size = new System.Drawing.Size(99, 21);
             this.angleEntryBoxCursorRotation.TabIndex = 5;
             this.toolTip1.SetToolTip(this.angleEntryBoxCursorRotation, "Rotation of workspace relative to handle.");
-            this.angleEntryBoxCursorRotation.Value = 0D;
+            this.angleEntryBoxCursorRotation.Value = 0;
             // 
             // label17
             // 
@@ -1750,7 +1749,7 @@ namespace BehaviorGraphics
             this.tabPageCO.Location = new System.Drawing.Point(4, 40);
             this.tabPageCO.Name = "tabPageCO";
             this.tabPageCO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCO.Size = new System.Drawing.Size(686, 386);
+            this.tabPageCO.Size = new System.Drawing.Size(686, 410);
             this.tabPageCO.TabIndex = 1;
             this.tabPageCO.Text = "Center-Out";
             this.tabPageCO.UseVisualStyleBackColor = true;
@@ -2163,8 +2162,8 @@ namespace BehaviorGraphics
             this.textBoxCHH.Size = new System.Drawing.Size(100, 20);
             this.textBoxCHH.TabIndex = 3;
             this.toolTip1.SetToolTip(this.textBoxCHH, resources.GetString("textBoxCHH.ToolTip"));
-            this.textBoxCHH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             this.textBoxCHH.VisibleChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.textBoxCHH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label2
             // 
@@ -2203,7 +2202,7 @@ namespace BehaviorGraphics
             this.tabPageRW.Location = new System.Drawing.Point(4, 40);
             this.tabPageRW.Name = "tabPageRW";
             this.tabPageRW.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRW.Size = new System.Drawing.Size(686, 386);
+            this.tabPageRW.Size = new System.Drawing.Size(686, 410);
             this.tabPageRW.TabIndex = 2;
             this.tabPageRW.Text = "Random Walk";
             this.tabPageRW.UseVisualStyleBackColor = true;
@@ -2655,7 +2654,7 @@ namespace BehaviorGraphics
             this.tabPageFC.Location = new System.Drawing.Point(4, 40);
             this.tabPageFC.Name = "tabPageFC";
             this.tabPageFC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFC.Size = new System.Drawing.Size(686, 386);
+            this.tabPageFC.Size = new System.Drawing.Size(686, 410);
             this.tabPageFC.TabIndex = 3;
             this.tabPageFC.Text = "Forced Choice";
             this.tabPageFC.UseVisualStyleBackColor = true;
@@ -2956,7 +2955,7 @@ namespace BehaviorGraphics
             this.tabPageBS.Location = new System.Drawing.Point(4, 40);
             this.tabPageBS.Name = "tabPageBS";
             this.tabPageBS.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBS.Size = new System.Drawing.Size(686, 386);
+            this.tabPageBS.Size = new System.Drawing.Size(686, 410);
             this.tabPageBS.TabIndex = 4;
             this.tabPageBS.Text = "Bump-stim";
             this.tabPageBS.UseVisualStyleBackColor = true;
@@ -3462,7 +3461,7 @@ namespace BehaviorGraphics
             this.tabPageMG.Location = new System.Drawing.Point(4, 40);
             this.tabPageMG.Name = "tabPageMG";
             this.tabPageMG.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMG.Size = new System.Drawing.Size(686, 386);
+            this.tabPageMG.Size = new System.Drawing.Size(686, 410);
             this.tabPageMG.TabIndex = 5;
             this.tabPageMG.Text = "Multi-Gadget";
             this.tabPageMG.UseVisualStyleBackColor = true;
@@ -3910,7 +3909,7 @@ namespace BehaviorGraphics
             this.tabPageWF.Location = new System.Drawing.Point(4, 40);
             this.tabPageWF.Name = "tabPageWF";
             this.tabPageWF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageWF.Size = new System.Drawing.Size(686, 386);
+            this.tabPageWF.Size = new System.Drawing.Size(686, 410);
             this.tabPageWF.TabIndex = 6;
             this.tabPageWF.Text = "Wrist Flexion";
             this.tabPageWF.UseVisualStyleBackColor = true;
@@ -4679,7 +4678,7 @@ namespace BehaviorGraphics
             this.tabPageBD.Location = new System.Drawing.Point(4, 40);
             this.tabPageBD.Name = "tabPageBD";
             this.tabPageBD.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBD.Size = new System.Drawing.Size(686, 386);
+            this.tabPageBD.Size = new System.Drawing.Size(686, 410);
             this.tabPageBD.TabIndex = 7;
             this.tabPageBD.Text = "Ball Drop";
             this.tabPageBD.UseVisualStyleBackColor = true;
@@ -7782,6 +7781,408 @@ namespace BehaviorGraphics
             this.tabAttention.Text = "Attention";
             this.tabAttention.UseVisualStyleBackColor = true;
             // 
+            // groupBox60
+            // 
+            this.groupBox60.Controls.Add(this.textBoxATPSSS);
+            this.groupBox60.Controls.Add(this.checkBoxATS);
+            this.groupBox60.Controls.Add(this.label289);
+            this.groupBox60.Controls.Add(this.label288);
+            this.groupBox60.Controls.Add(this.textBoxATVSSS);
+            this.groupBox60.Controls.Add(this.textBoxATPO);
+            this.groupBox60.Controls.Add(this.label266);
+            this.groupBox60.Controls.Add(this.label287);
+            this.groupBox60.Controls.Add(this.textBoxATPSA2);
+            this.groupBox60.Controls.Add(this.textBoxATSL);
+            this.groupBox60.Controls.Add(this.label264);
+            this.groupBox60.Controls.Add(this.label286);
+            this.groupBox60.Controls.Add(this.textBoxATPSA1);
+            this.groupBox60.Controls.Add(this.textBoxATVSR1);
+            this.groupBox60.Controls.Add(this.label265);
+            this.groupBox60.Controls.Add(this.label275);
+            this.groupBox60.Controls.Add(this.textBoxATVSR2);
+            this.groupBox60.Enabled = false;
+            this.groupBox60.Location = new System.Drawing.Point(8, 309);
+            this.groupBox60.Name = "groupBox60";
+            this.groupBox60.Size = new System.Drawing.Size(642, 96);
+            this.groupBox60.TabIndex = 28;
+            this.groupBox60.TabStop = false;
+            this.groupBox60.Text = "Staircases";
+            // 
+            // textBoxATPSSS
+            // 
+            this.textBoxATPSSS.Location = new System.Drawing.Point(524, 68);
+            this.textBoxATPSSS.Name = "textBoxATPSSS";
+            this.textBoxATPSSS.Size = new System.Drawing.Size(82, 20);
+            this.textBoxATPSSS.TabIndex = 54;
+            this.textBoxATPSSS.Text = "0";
+            // 
+            // checkBoxATS
+            // 
+            this.checkBoxATS.AutoSize = true;
+            this.checkBoxATS.Enabled = false;
+            this.checkBoxATS.Location = new System.Drawing.Point(6, 19);
+            this.checkBoxATS.Name = "checkBoxATS";
+            this.checkBoxATS.Size = new System.Drawing.Size(95, 17);
+            this.checkBoxATS.TabIndex = 45;
+            this.checkBoxATS.Text = "Use staircases";
+            this.checkBoxATS.UseVisualStyleBackColor = true;
+            // 
+            // label289
+            // 
+            this.label289.AutoSize = true;
+            this.label289.Location = new System.Drawing.Point(410, 71);
+            this.label289.Name = "label289";
+            this.label289.Size = new System.Drawing.Size(107, 13);
+            this.label289.TabIndex = 55;
+            this.label289.Text = "Proprio start step size";
+            // 
+            // label288
+            // 
+            this.label288.AutoSize = true;
+            this.label288.Location = new System.Drawing.Point(3, 44);
+            this.label288.Name = "label288";
+            this.label288.Size = new System.Drawing.Size(113, 13);
+            this.label288.TabIndex = 16;
+            this.label288.Text = "Performance objective";
+            // 
+            // textBoxATVSSS
+            // 
+            this.textBoxATVSSS.Location = new System.Drawing.Point(322, 70);
+            this.textBoxATVSSS.Name = "textBoxATVSSS";
+            this.textBoxATVSSS.Size = new System.Drawing.Size(82, 20);
+            this.textBoxATVSSS.TabIndex = 52;
+            this.textBoxATVSSS.Text = "0";
+            // 
+            // textBoxATPO
+            // 
+            this.textBoxATPO.Location = new System.Drawing.Point(117, 43);
+            this.textBoxATPO.Name = "textBoxATPO";
+            this.textBoxATPO.Size = new System.Drawing.Size(82, 20);
+            this.textBoxATPO.TabIndex = 9;
+            this.textBoxATPO.Text = "0";
+            // 
+            // label266
+            // 
+            this.label266.AutoSize = true;
+            this.label266.Location = new System.Drawing.Point(208, 73);
+            this.label266.Name = "label266";
+            this.label266.Size = new System.Drawing.Size(102, 13);
+            this.label266.TabIndex = 53;
+            this.label266.Text = "Visual start step size";
+            // 
+            // label287
+            // 
+            this.label287.AutoSize = true;
+            this.label287.Location = new System.Drawing.Point(6, 72);
+            this.label287.Name = "label287";
+            this.label287.Size = new System.Drawing.Size(83, 13);
+            this.label287.TabIndex = 18;
+            this.label287.Text = "Staircase length";
+            // 
+            // textBoxATPSA2
+            // 
+            this.textBoxATPSA2.Location = new System.Drawing.Point(524, 42);
+            this.textBoxATPSA2.Name = "textBoxATPSA2";
+            this.textBoxATPSA2.Size = new System.Drawing.Size(82, 20);
+            this.textBoxATPSA2.TabIndex = 50;
+            this.textBoxATPSA2.Text = "0";
+            // 
+            // textBoxATSL
+            // 
+            this.textBoxATSL.Location = new System.Drawing.Point(117, 69);
+            this.textBoxATSL.Name = "textBoxATSL";
+            this.textBoxATSL.Size = new System.Drawing.Size(82, 20);
+            this.textBoxATSL.TabIndex = 17;
+            this.textBoxATSL.Text = "0";
+            // 
+            // label264
+            // 
+            this.label264.AutoSize = true;
+            this.label264.Location = new System.Drawing.Point(410, 45);
+            this.label264.Name = "label264";
+            this.label264.Size = new System.Drawing.Size(101, 13);
+            this.label264.TabIndex = 51;
+            this.label264.Text = "Proprio start angle 2";
+            // 
+            // label286
+            // 
+            this.label286.AutoSize = true;
+            this.label286.Location = new System.Drawing.Point(208, 19);
+            this.label286.Name = "label286";
+            this.label286.Size = new System.Drawing.Size(90, 13);
+            this.label286.TabIndex = 20;
+            this.label286.Text = "Visual start ratio 1";
+            // 
+            // textBoxATPSA1
+            // 
+            this.textBoxATPSA1.Location = new System.Drawing.Point(524, 16);
+            this.textBoxATPSA1.Name = "textBoxATPSA1";
+            this.textBoxATPSA1.Size = new System.Drawing.Size(82, 20);
+            this.textBoxATPSA1.TabIndex = 48;
+            this.textBoxATPSA1.Text = "0";
+            // 
+            // textBoxATVSR1
+            // 
+            this.textBoxATVSR1.Location = new System.Drawing.Point(322, 16);
+            this.textBoxATVSR1.Name = "textBoxATVSR1";
+            this.textBoxATVSR1.Size = new System.Drawing.Size(82, 20);
+            this.textBoxATVSR1.TabIndex = 19;
+            this.textBoxATVSR1.Text = "0";
+            // 
+            // label265
+            // 
+            this.label265.AutoSize = true;
+            this.label265.Location = new System.Drawing.Point(410, 19);
+            this.label265.Name = "label265";
+            this.label265.Size = new System.Drawing.Size(101, 13);
+            this.label265.TabIndex = 49;
+            this.label265.Text = "Proprio start angle 1";
+            // 
+            // label275
+            // 
+            this.label275.AutoSize = true;
+            this.label275.Location = new System.Drawing.Point(208, 45);
+            this.label275.Name = "label275";
+            this.label275.Size = new System.Drawing.Size(90, 13);
+            this.label275.TabIndex = 47;
+            this.label275.Text = "Visual start ratio 2";
+            // 
+            // textBoxATVSR2
+            // 
+            this.textBoxATVSR2.Location = new System.Drawing.Point(322, 42);
+            this.textBoxATVSR2.Name = "textBoxATVSR2";
+            this.textBoxATVSR2.Size = new System.Drawing.Size(82, 20);
+            this.textBoxATVSR2.TabIndex = 46;
+            this.textBoxATVSR2.Text = "0";
+            // 
+            // groupBox59
+            // 
+            this.groupBox59.Controls.Add(this.label270);
+            this.groupBox59.Controls.Add(this.label295);
+            this.groupBox59.Controls.Add(this.textBoxATPTT);
+            this.groupBox59.Controls.Add(this.numericUpDownATPNS);
+            this.groupBox59.Controls.Add(this.label296);
+            this.groupBox59.Controls.Add(this.textBoxATPTMinA);
+            this.groupBox59.Controls.Add(this.label297);
+            this.groupBox59.Controls.Add(this.textBoxATPTMaxA);
+            this.groupBox59.Controls.Add(this.textBoxATPCT);
+            this.groupBox59.Controls.Add(this.label294);
+            this.groupBox59.Controls.Add(this.label290);
+            this.groupBox59.Controls.Add(this.numericUpDownATVNS);
+            this.groupBox59.Controls.Add(this.label269);
+            this.groupBox59.Controls.Add(this.textBoxATVTMinR);
+            this.groupBox59.Controls.Add(this.label293);
+            this.groupBox59.Controls.Add(this.textBoxATTBS);
+            this.groupBox59.Controls.Add(this.textBoxATVTMaxR);
+            this.groupBox59.Controls.Add(this.label285);
+            this.groupBox59.Controls.Add(this.textBoxATPPT);
+            this.groupBox59.Controls.Add(this.label291);
+            this.groupBox59.Controls.Add(this.textBoxATPVT);
+            this.groupBox59.Controls.Add(this.label292);
+            this.groupBox59.Location = new System.Drawing.Point(224, 9);
+            this.groupBox59.Name = "groupBox59";
+            this.groupBox59.Size = new System.Drawing.Size(207, 300);
+            this.groupBox59.TabIndex = 27;
+            this.groupBox59.TabStop = false;
+            this.groupBox59.Text = "Trial types";
+            // 
+            // label270
+            // 
+            this.label270.AutoSize = true;
+            this.label270.Location = new System.Drawing.Point(6, 93);
+            this.label270.Name = "label270";
+            this.label270.Size = new System.Drawing.Size(105, 13);
+            this.label270.TabIndex = 34;
+            this.label270.Text = "Percent training trials";
+            // 
+            // label295
+            // 
+            this.label295.AutoSize = true;
+            this.label295.Location = new System.Drawing.Point(6, 273);
+            this.label295.Name = "label295";
+            this.label295.Size = new System.Drawing.Size(92, 13);
+            this.label295.TabIndex = 61;
+            this.label295.Text = "Num proprio steps";
+            // 
+            // textBoxATPTT
+            // 
+            this.textBoxATPTT.Location = new System.Drawing.Point(129, 90);
+            this.textBoxATPTT.Name = "textBoxATPTT";
+            this.textBoxATPTT.Size = new System.Drawing.Size(72, 20);
+            this.textBoxATPTT.TabIndex = 33;
+            // 
+            // numericUpDownATPNS
+            // 
+            this.numericUpDownATPNS.Location = new System.Drawing.Point(131, 271);
+            this.numericUpDownATPNS.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.numericUpDownATPNS.Name = "numericUpDownATPNS";
+            this.numericUpDownATPNS.Size = new System.Drawing.Size(68, 20);
+            this.numericUpDownATPNS.TabIndex = 60;
+            this.numericUpDownATPNS.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label296
+            // 
+            this.label296.AutoSize = true;
+            this.label296.Location = new System.Drawing.Point(6, 223);
+            this.label296.Name = "label296";
+            this.label296.Size = new System.Drawing.Size(118, 13);
+            this.label296.TabIndex = 63;
+            this.label296.Text = "Proprio target min angle";
+            // 
+            // textBoxATPTMinA
+            // 
+            this.textBoxATPTMinA.Location = new System.Drawing.Point(129, 220);
+            this.textBoxATPTMinA.Name = "textBoxATPTMinA";
+            this.textBoxATPTMinA.Size = new System.Drawing.Size(72, 20);
+            this.textBoxATPTMinA.TabIndex = 62;
+            // 
+            // label297
+            // 
+            this.label297.AutoSize = true;
+            this.label297.Location = new System.Drawing.Point(6, 249);
+            this.label297.Name = "label297";
+            this.label297.Size = new System.Drawing.Size(121, 13);
+            this.label297.TabIndex = 65;
+            this.label297.Text = "Proprio target max angle";
+            // 
+            // textBoxATPTMaxA
+            // 
+            this.textBoxATPTMaxA.Location = new System.Drawing.Point(129, 246);
+            this.textBoxATPTMaxA.Name = "textBoxATPTMaxA";
+            this.textBoxATPTMaxA.Size = new System.Drawing.Size(72, 20);
+            this.textBoxATPTMaxA.TabIndex = 64;
+            // 
+            // textBoxATPCT
+            // 
+            this.textBoxATPCT.Location = new System.Drawing.Point(129, 116);
+            this.textBoxATPCT.Name = "textBoxATPCT";
+            this.textBoxATPCT.Size = new System.Drawing.Size(72, 20);
+            this.textBoxATPCT.TabIndex = 5;
+            // 
+            // label294
+            // 
+            this.label294.AutoSize = true;
+            this.label294.Location = new System.Drawing.Point(6, 196);
+            this.label294.Name = "label294";
+            this.label294.Size = new System.Drawing.Size(87, 13);
+            this.label294.TabIndex = 40;
+            this.label294.Text = "Num visual steps";
+            // 
+            // label290
+            // 
+            this.label290.AutoSize = true;
+            this.label290.Location = new System.Drawing.Point(5, 119);
+            this.label290.Name = "label290";
+            this.label290.Size = new System.Drawing.Size(98, 13);
+            this.label290.TabIndex = 8;
+            this.label290.Text = "Percent catch trials";
+            // 
+            // numericUpDownATVNS
+            // 
+            this.numericUpDownATVNS.Location = new System.Drawing.Point(131, 194);
+            this.numericUpDownATVNS.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.numericUpDownATVNS.Name = "numericUpDownATVNS";
+            this.numericUpDownATVNS.Size = new System.Drawing.Size(68, 20);
+            this.numericUpDownATVNS.TabIndex = 39;
+            this.numericUpDownATVNS.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label269
+            // 
+            this.label269.AutoSize = true;
+            this.label269.Location = new System.Drawing.Point(5, 146);
+            this.label269.Name = "label269";
+            this.label269.Size = new System.Drawing.Size(107, 13);
+            this.label269.TabIndex = 57;
+            this.label269.Text = "Visual target min ratio";
+            // 
+            // textBoxATVTMinR
+            // 
+            this.textBoxATVTMinR.Location = new System.Drawing.Point(129, 143);
+            this.textBoxATVTMinR.Name = "textBoxATVTMinR";
+            this.textBoxATVTMinR.Size = new System.Drawing.Size(72, 20);
+            this.textBoxATVTMinR.TabIndex = 56;
+            // 
+            // label293
+            // 
+            this.label293.AutoSize = true;
+            this.label293.Location = new System.Drawing.Point(5, 172);
+            this.label293.Name = "label293";
+            this.label293.Size = new System.Drawing.Size(110, 13);
+            this.label293.TabIndex = 59;
+            this.label293.Text = "Visual target max ratio";
+            // 
+            // textBoxATTBS
+            // 
+            this.textBoxATTBS.Location = new System.Drawing.Point(129, 64);
+            this.textBoxATTBS.Name = "textBoxATTBS";
+            this.textBoxATTBS.Size = new System.Drawing.Size(72, 20);
+            this.textBoxATTBS.TabIndex = 23;
+            // 
+            // textBoxATVTMaxR
+            // 
+            this.textBoxATVTMaxR.Location = new System.Drawing.Point(129, 169);
+            this.textBoxATVTMaxR.Name = "textBoxATVTMaxR";
+            this.textBoxATVTMaxR.Size = new System.Drawing.Size(72, 20);
+            this.textBoxATVTMaxR.TabIndex = 58;
+            // 
+            // label285
+            // 
+            this.label285.AutoSize = true;
+            this.label285.Location = new System.Drawing.Point(5, 67);
+            this.label285.Name = "label285";
+            this.label285.Size = new System.Drawing.Size(77, 13);
+            this.label285.TabIndex = 24;
+            this.label285.Text = "Trial block size";
+            // 
+            // textBoxATPPT
+            // 
+            this.textBoxATPPT.Location = new System.Drawing.Point(129, 38);
+            this.textBoxATPPT.Name = "textBoxATPPT";
+            this.textBoxATPPT.Size = new System.Drawing.Size(72, 20);
+            this.textBoxATPPT.TabIndex = 3;
+            // 
+            // label291
+            // 
+            this.label291.AutoSize = true;
+            this.label291.Location = new System.Drawing.Point(5, 41);
+            this.label291.Name = "label291";
+            this.label291.Size = new System.Drawing.Size(103, 13);
+            this.label291.TabIndex = 2;
+            this.label291.Text = "Percent proprio trials";
+            // 
+            // textBoxATPVT
+            // 
+            this.textBoxATPVT.Location = new System.Drawing.Point(129, 12);
+            this.textBoxATPVT.Name = "textBoxATPVT";
+            this.textBoxATPVT.Size = new System.Drawing.Size(72, 20);
+            this.textBoxATPVT.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.textBoxATPVT, "This is a tool tip\r\n");
+            // 
+            // label292
+            // 
+            this.label292.AutoSize = true;
+            this.label292.Location = new System.Drawing.Point(5, 15);
+            this.label292.Name = "label292";
+            this.label292.Size = new System.Drawing.Size(98, 13);
+            this.label292.TabIndex = 0;
+            this.label292.Text = "Percent visual trials";
+            // 
             // groupBox56
             // 
             this.groupBox56.Controls.Add(this.textBoxATVTD);
@@ -7796,6 +8197,22 @@ namespace BehaviorGraphics
             this.groupBox56.TabIndex = 23;
             this.groupBox56.TabStop = false;
             this.groupBox56.Text = "Targets";
+            // 
+            // textBoxATVTD
+            // 
+            this.textBoxATVTD.Location = new System.Drawing.Point(115, 64);
+            this.textBoxATVTD.Name = "textBoxATVTD";
+            this.textBoxATVTD.Size = new System.Drawing.Size(86, 20);
+            this.textBoxATVTD.TabIndex = 19;
+            // 
+            // label302
+            // 
+            this.label302.AutoSize = true;
+            this.label302.Location = new System.Drawing.Point(3, 67);
+            this.label302.Name = "label302";
+            this.label302.Size = new System.Drawing.Size(106, 13);
+            this.label302.TabIndex = 20;
+            this.label302.Text = "Visual target duration";
             // 
             // textBoxATTR
             // 
@@ -7853,6 +8270,41 @@ namespace BehaviorGraphics
             this.groupBox57.TabStop = false;
             this.groupBox57.Text = "Bumps";
             // 
+            // label299
+            // 
+            this.label299.AutoSize = true;
+            this.label299.Location = new System.Drawing.Point(5, 146);
+            this.label299.Name = "label299";
+            this.label299.Size = new System.Drawing.Size(77, 13);
+            this.label299.TabIndex = 46;
+            this.label299.Text = "Num directions";
+            // 
+            // numericUpDownATND
+            // 
+            this.numericUpDownATND.Location = new System.Drawing.Point(123, 144);
+            this.numericUpDownATND.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.numericUpDownATND.Name = "numericUpDownATND";
+            this.numericUpDownATND.Size = new System.Drawing.Size(68, 20);
+            this.numericUpDownATND.TabIndex = 45;
+            this.numericUpDownATND.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // label298
+            // 
+            this.label298.AutoSize = true;
+            this.label298.Location = new System.Drawing.Point(6, 173);
+            this.label298.Name = "label298";
+            this.label298.Size = new System.Drawing.Size(98, 13);
+            this.label298.TabIndex = 36;
+            this.label298.Text = "First bump direction";
+            // 
             // label271
             // 
             this.label271.AutoSize = true;
@@ -7862,6 +8314,13 @@ namespace BehaviorGraphics
             this.label271.TabIndex = 38;
             this.label271.Text = "Bump magnitude min";
             this.toolTip1.SetToolTip(this.label271, "Percent of trials on which to give an intermediate \"test\" stimulus.");
+            // 
+            // textBoxATFBD
+            // 
+            this.textBoxATFBD.Location = new System.Drawing.Point(123, 170);
+            this.textBoxATFBD.Name = "textBoxATFBD";
+            this.textBoxATFBD.Size = new System.Drawing.Size(68, 20);
+            this.textBoxATFBD.TabIndex = 34;
             // 
             // textBoxATBMMin
             // 
@@ -7936,6 +8395,16 @@ namespace BehaviorGraphics
             0,
             0});
             // 
+            // checkBoxATBP
+            // 
+            this.checkBoxATBP.AutoSize = true;
+            this.checkBoxATBP.Location = new System.Drawing.Point(8, 21);
+            this.checkBoxATBP.Name = "checkBoxATBP";
+            this.checkBoxATBP.Size = new System.Drawing.Size(113, 17);
+            this.checkBoxATBP.TabIndex = 44;
+            this.checkBoxATBP.Text = "Blocked directions";
+            this.checkBoxATBP.UseVisualStyleBackColor = true;
+            // 
             // groupBox58
             // 
             this.groupBox58.Controls.Add(this.textBoxATMaxR);
@@ -7966,6 +8435,54 @@ namespace BehaviorGraphics
             this.groupBox58.TabIndex = 22;
             this.groupBox58.TabStop = false;
             this.groupBox58.Text = "Timing";
+            // 
+            // textBoxATMaxR
+            // 
+            this.textBoxATMaxR.Location = new System.Drawing.Point(101, 270);
+            this.textBoxATMaxR.Name = "textBoxATMaxR";
+            this.textBoxATMaxR.Size = new System.Drawing.Size(100, 20);
+            this.textBoxATMaxR.TabIndex = 29;
+            // 
+            // label300
+            // 
+            this.label300.AutoSize = true;
+            this.label300.Location = new System.Drawing.Point(5, 273);
+            this.label300.Name = "label300";
+            this.label300.Size = new System.Drawing.Size(62, 13);
+            this.label300.TabIndex = 30;
+            this.label300.Text = "Max reward";
+            // 
+            // textBoxATMinR
+            // 
+            this.textBoxATMinR.Location = new System.Drawing.Point(101, 245);
+            this.textBoxATMinR.Name = "textBoxATMinR";
+            this.textBoxATMinR.Size = new System.Drawing.Size(100, 20);
+            this.textBoxATMinR.TabIndex = 27;
+            // 
+            // label301
+            // 
+            this.label301.AutoSize = true;
+            this.label301.Location = new System.Drawing.Point(5, 248);
+            this.label301.Name = "label301";
+            this.label301.Size = new System.Drawing.Size(59, 13);
+            this.label301.TabIndex = 28;
+            this.label301.Text = "Min reward";
+            // 
+            // textBoxATIBH
+            // 
+            this.textBoxATIBH.Location = new System.Drawing.Point(101, 90);
+            this.textBoxATIBH.Name = "textBoxATIBH";
+            this.textBoxATIBH.Size = new System.Drawing.Size(100, 20);
+            this.textBoxATIBH.TabIndex = 25;
+            // 
+            // label284
+            // 
+            this.label284.AutoSize = true;
+            this.label284.Location = new System.Drawing.Point(5, 93);
+            this.label284.Name = "label284";
+            this.label284.Size = new System.Drawing.Size(77, 13);
+            this.label284.TabIndex = 26;
+            this.label284.Text = "Interbump high";
             // 
             // textBoxATIBL
             // 
@@ -8888,518 +9405,6 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // textBoxATIBH
-            // 
-            this.textBoxATIBH.Location = new System.Drawing.Point(101, 90);
-            this.textBoxATIBH.Name = "textBoxATIBH";
-            this.textBoxATIBH.Size = new System.Drawing.Size(100, 20);
-            this.textBoxATIBH.TabIndex = 25;
-            // 
-            // label284
-            // 
-            this.label284.AutoSize = true;
-            this.label284.Location = new System.Drawing.Point(5, 93);
-            this.label284.Name = "label284";
-            this.label284.Size = new System.Drawing.Size(77, 13);
-            this.label284.TabIndex = 26;
-            this.label284.Text = "Interbump high";
-            // 
-            // groupBox59
-            // 
-            this.groupBox59.Controls.Add(this.label270);
-            this.groupBox59.Controls.Add(this.label295);
-            this.groupBox59.Controls.Add(this.textBoxATPTT);
-            this.groupBox59.Controls.Add(this.numericUpDownATPNS);
-            this.groupBox59.Controls.Add(this.label296);
-            this.groupBox59.Controls.Add(this.textBoxATPTMinA);
-            this.groupBox59.Controls.Add(this.label297);
-            this.groupBox59.Controls.Add(this.textBoxATPTMaxA);
-            this.groupBox59.Controls.Add(this.textBoxATPCT);
-            this.groupBox59.Controls.Add(this.label294);
-            this.groupBox59.Controls.Add(this.label290);
-            this.groupBox59.Controls.Add(this.numericUpDownATVNS);
-            this.groupBox59.Controls.Add(this.label269);
-            this.groupBox59.Controls.Add(this.textBoxATVTMinR);
-            this.groupBox59.Controls.Add(this.label293);
-            this.groupBox59.Controls.Add(this.textBoxATTBS);
-            this.groupBox59.Controls.Add(this.textBoxATVTMaxR);
-            this.groupBox59.Controls.Add(this.label285);
-            this.groupBox59.Controls.Add(this.textBoxATPPT);
-            this.groupBox59.Controls.Add(this.label291);
-            this.groupBox59.Controls.Add(this.textBoxATPVT);
-            this.groupBox59.Controls.Add(this.label292);
-            this.groupBox59.Location = new System.Drawing.Point(224, 9);
-            this.groupBox59.Name = "groupBox59";
-            this.groupBox59.Size = new System.Drawing.Size(207, 300);
-            this.groupBox59.TabIndex = 27;
-            this.groupBox59.TabStop = false;
-            this.groupBox59.Text = "Trial types";
-            // 
-            // textBoxATTBS
-            // 
-            this.textBoxATTBS.Location = new System.Drawing.Point(129, 64);
-            this.textBoxATTBS.Name = "textBoxATTBS";
-            this.textBoxATTBS.Size = new System.Drawing.Size(72, 20);
-            this.textBoxATTBS.TabIndex = 23;
-            // 
-            // label285
-            // 
-            this.label285.AutoSize = true;
-            this.label285.Location = new System.Drawing.Point(5, 67);
-            this.label285.Name = "label285";
-            this.label285.Size = new System.Drawing.Size(77, 13);
-            this.label285.TabIndex = 24;
-            this.label285.Text = "Trial block size";
-            // 
-            // textBoxATVSR1
-            // 
-            this.textBoxATVSR1.Location = new System.Drawing.Point(322, 16);
-            this.textBoxATVSR1.Name = "textBoxATVSR1";
-            this.textBoxATVSR1.Size = new System.Drawing.Size(82, 20);
-            this.textBoxATVSR1.TabIndex = 19;
-            // 
-            // label286
-            // 
-            this.label286.AutoSize = true;
-            this.label286.Location = new System.Drawing.Point(208, 19);
-            this.label286.Name = "label286";
-            this.label286.Size = new System.Drawing.Size(90, 13);
-            this.label286.TabIndex = 20;
-            this.label286.Text = "Visual start ratio 1";
-            // 
-            // textBoxATSL
-            // 
-            this.textBoxATSL.Location = new System.Drawing.Point(117, 69);
-            this.textBoxATSL.Name = "textBoxATSL";
-            this.textBoxATSL.Size = new System.Drawing.Size(82, 20);
-            this.textBoxATSL.TabIndex = 17;
-            // 
-            // label287
-            // 
-            this.label287.AutoSize = true;
-            this.label287.Location = new System.Drawing.Point(6, 72);
-            this.label287.Name = "label287";
-            this.label287.Size = new System.Drawing.Size(83, 13);
-            this.label287.TabIndex = 18;
-            this.label287.Text = "Staircase length";
-            // 
-            // textBoxATPO
-            // 
-            this.textBoxATPO.Location = new System.Drawing.Point(117, 43);
-            this.textBoxATPO.Name = "textBoxATPO";
-            this.textBoxATPO.Size = new System.Drawing.Size(82, 20);
-            this.textBoxATPO.TabIndex = 9;
-            // 
-            // label288
-            // 
-            this.label288.AutoSize = true;
-            this.label288.Location = new System.Drawing.Point(3, 44);
-            this.label288.Name = "label288";
-            this.label288.Size = new System.Drawing.Size(113, 13);
-            this.label288.TabIndex = 16;
-            this.label288.Text = "Performance objective";
-            // 
-            // textBoxATPCT
-            // 
-            this.textBoxATPCT.Location = new System.Drawing.Point(129, 116);
-            this.textBoxATPCT.Name = "textBoxATPCT";
-            this.textBoxATPCT.Size = new System.Drawing.Size(72, 20);
-            this.textBoxATPCT.TabIndex = 5;
-            // 
-            // label290
-            // 
-            this.label290.AutoSize = true;
-            this.label290.Location = new System.Drawing.Point(5, 119);
-            this.label290.Name = "label290";
-            this.label290.Size = new System.Drawing.Size(98, 13);
-            this.label290.TabIndex = 8;
-            this.label290.Text = "Percent catch trials";
-            // 
-            // textBoxATPPT
-            // 
-            this.textBoxATPPT.Location = new System.Drawing.Point(129, 38);
-            this.textBoxATPPT.Name = "textBoxATPPT";
-            this.textBoxATPPT.Size = new System.Drawing.Size(72, 20);
-            this.textBoxATPPT.TabIndex = 3;
-            // 
-            // label291
-            // 
-            this.label291.AutoSize = true;
-            this.label291.Location = new System.Drawing.Point(5, 41);
-            this.label291.Name = "label291";
-            this.label291.Size = new System.Drawing.Size(103, 13);
-            this.label291.TabIndex = 2;
-            this.label291.Text = "Percent proprio trials";
-            // 
-            // textBoxATPVT
-            // 
-            this.textBoxATPVT.Location = new System.Drawing.Point(129, 12);
-            this.textBoxATPVT.Name = "textBoxATPVT";
-            this.textBoxATPVT.Size = new System.Drawing.Size(72, 20);
-            this.textBoxATPVT.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.textBoxATPVT, "This is a tool tip\r\n");
-            // 
-            // label292
-            // 
-            this.label292.AutoSize = true;
-            this.label292.Location = new System.Drawing.Point(5, 15);
-            this.label292.Name = "label292";
-            this.label292.Size = new System.Drawing.Size(98, 13);
-            this.label292.TabIndex = 0;
-            this.label292.Text = "Percent visual trials";
-            // 
-            // checkBoxATBP
-            // 
-            this.checkBoxATBP.AutoSize = true;
-            this.checkBoxATBP.Location = new System.Drawing.Point(8, 21);
-            this.checkBoxATBP.Name = "checkBoxATBP";
-            this.checkBoxATBP.Size = new System.Drawing.Size(113, 17);
-            this.checkBoxATBP.TabIndex = 44;
-            this.checkBoxATBP.Text = "Blocked directions";
-            this.checkBoxATBP.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxATS
-            // 
-            this.checkBoxATS.AutoSize = true;
-            this.checkBoxATS.Enabled = false;
-            this.checkBoxATS.Location = new System.Drawing.Point(6, 19);
-            this.checkBoxATS.Name = "checkBoxATS";
-            this.checkBoxATS.Size = new System.Drawing.Size(95, 17);
-            this.checkBoxATS.TabIndex = 45;
-            this.checkBoxATS.Text = "Use staircases";
-            this.checkBoxATS.UseVisualStyleBackColor = true;
-            // 
-            // textBoxATVSR2
-            // 
-            this.textBoxATVSR2.Location = new System.Drawing.Point(322, 42);
-            this.textBoxATVSR2.Name = "textBoxATVSR2";
-            this.textBoxATVSR2.Size = new System.Drawing.Size(82, 20);
-            this.textBoxATVSR2.TabIndex = 46;
-            // 
-            // label275
-            // 
-            this.label275.AutoSize = true;
-            this.label275.Location = new System.Drawing.Point(208, 45);
-            this.label275.Name = "label275";
-            this.label275.Size = new System.Drawing.Size(90, 13);
-            this.label275.TabIndex = 47;
-            this.label275.Text = "Visual start ratio 2";
-            // 
-            // textBoxATPSA2
-            // 
-            this.textBoxATPSA2.Location = new System.Drawing.Point(524, 42);
-            this.textBoxATPSA2.Name = "textBoxATPSA2";
-            this.textBoxATPSA2.Size = new System.Drawing.Size(82, 20);
-            this.textBoxATPSA2.TabIndex = 50;
-            // 
-            // label264
-            // 
-            this.label264.AutoSize = true;
-            this.label264.Location = new System.Drawing.Point(410, 45);
-            this.label264.Name = "label264";
-            this.label264.Size = new System.Drawing.Size(101, 13);
-            this.label264.TabIndex = 51;
-            this.label264.Text = "Proprio start angle 2";
-            // 
-            // textBoxATPSA1
-            // 
-            this.textBoxATPSA1.Location = new System.Drawing.Point(524, 16);
-            this.textBoxATPSA1.Name = "textBoxATPSA1";
-            this.textBoxATPSA1.Size = new System.Drawing.Size(82, 20);
-            this.textBoxATPSA1.TabIndex = 48;
-            // 
-            // label265
-            // 
-            this.label265.AutoSize = true;
-            this.label265.Location = new System.Drawing.Point(410, 19);
-            this.label265.Name = "label265";
-            this.label265.Size = new System.Drawing.Size(101, 13);
-            this.label265.TabIndex = 49;
-            this.label265.Text = "Proprio start angle 1";
-            // 
-            // textBoxATVSSS
-            // 
-            this.textBoxATVSSS.Location = new System.Drawing.Point(322, 70);
-            this.textBoxATVSSS.Name = "textBoxATVSSS";
-            this.textBoxATVSSS.Size = new System.Drawing.Size(82, 20);
-            this.textBoxATVSSS.TabIndex = 52;
-            // 
-            // label266
-            // 
-            this.label266.AutoSize = true;
-            this.label266.Location = new System.Drawing.Point(208, 73);
-            this.label266.Name = "label266";
-            this.label266.Size = new System.Drawing.Size(102, 13);
-            this.label266.TabIndex = 53;
-            this.label266.Text = "Visual start step size";
-            // 
-            // textBoxATPSSS
-            // 
-            this.textBoxATPSSS.Location = new System.Drawing.Point(524, 68);
-            this.textBoxATPSSS.Name = "textBoxATPSSS";
-            this.textBoxATPSSS.Size = new System.Drawing.Size(82, 20);
-            this.textBoxATPSSS.TabIndex = 54;
-            // 
-            // label289
-            // 
-            this.label289.AutoSize = true;
-            this.label289.Location = new System.Drawing.Point(410, 71);
-            this.label289.Name = "label289";
-            this.label289.Size = new System.Drawing.Size(107, 13);
-            this.label289.TabIndex = 55;
-            this.label289.Text = "Proprio start step size";
-            // 
-            // groupBox60
-            // 
-            this.groupBox60.Controls.Add(this.textBoxATPSSS);
-            this.groupBox60.Controls.Add(this.checkBoxATS);
-            this.groupBox60.Controls.Add(this.label289);
-            this.groupBox60.Controls.Add(this.label288);
-            this.groupBox60.Controls.Add(this.textBoxATVSSS);
-            this.groupBox60.Controls.Add(this.textBoxATPO);
-            this.groupBox60.Controls.Add(this.label266);
-            this.groupBox60.Controls.Add(this.label287);
-            this.groupBox60.Controls.Add(this.textBoxATPSA2);
-            this.groupBox60.Controls.Add(this.textBoxATSL);
-            this.groupBox60.Controls.Add(this.label264);
-            this.groupBox60.Controls.Add(this.label286);
-            this.groupBox60.Controls.Add(this.textBoxATPSA1);
-            this.groupBox60.Controls.Add(this.textBoxATVSR1);
-            this.groupBox60.Controls.Add(this.label265);
-            this.groupBox60.Controls.Add(this.label275);
-            this.groupBox60.Controls.Add(this.textBoxATVSR2);
-            this.groupBox60.Enabled = false;
-            this.groupBox60.Location = new System.Drawing.Point(8, 309);
-            this.groupBox60.Name = "groupBox60";
-            this.groupBox60.Size = new System.Drawing.Size(642, 96);
-            this.groupBox60.TabIndex = 28;
-            this.groupBox60.TabStop = false;
-            this.groupBox60.Text = "Staircases";
-            // 
-            // label269
-            // 
-            this.label269.AutoSize = true;
-            this.label269.Location = new System.Drawing.Point(5, 146);
-            this.label269.Name = "label269";
-            this.label269.Size = new System.Drawing.Size(107, 13);
-            this.label269.TabIndex = 57;
-            this.label269.Text = "Visual target min ratio";
-            // 
-            // textBoxATVTMinR
-            // 
-            this.textBoxATVTMinR.Location = new System.Drawing.Point(129, 143);
-            this.textBoxATVTMinR.Name = "textBoxATVTMinR";
-            this.textBoxATVTMinR.Size = new System.Drawing.Size(72, 20);
-            this.textBoxATVTMinR.TabIndex = 56;
-            // 
-            // label293
-            // 
-            this.label293.AutoSize = true;
-            this.label293.Location = new System.Drawing.Point(5, 172);
-            this.label293.Name = "label293";
-            this.label293.Size = new System.Drawing.Size(110, 13);
-            this.label293.TabIndex = 59;
-            this.label293.Text = "Visual target max ratio";
-            // 
-            // textBoxATVTMaxR
-            // 
-            this.textBoxATVTMaxR.Location = new System.Drawing.Point(129, 169);
-            this.textBoxATVTMaxR.Name = "textBoxATVTMaxR";
-            this.textBoxATVTMaxR.Size = new System.Drawing.Size(72, 20);
-            this.textBoxATVTMaxR.TabIndex = 58;
-            // 
-            // label294
-            // 
-            this.label294.AutoSize = true;
-            this.label294.Location = new System.Drawing.Point(6, 196);
-            this.label294.Name = "label294";
-            this.label294.Size = new System.Drawing.Size(87, 13);
-            this.label294.TabIndex = 40;
-            this.label294.Text = "Num visual steps";
-            this.toolTip1.SetToolTip(this.label294, resources.GetString("label294.ToolTip"));
-            // 
-            // numericUpDownATVNS
-            // 
-            this.numericUpDownATVNS.Location = new System.Drawing.Point(131, 194);
-            this.numericUpDownATVNS.Maximum = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            this.numericUpDownATVNS.Name = "numericUpDownATVNS";
-            this.numericUpDownATVNS.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDownATVNS.TabIndex = 39;
-            this.numericUpDownATVNS.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            // 
-            // label295
-            // 
-            this.label295.AutoSize = true;
-            this.label295.Location = new System.Drawing.Point(6, 273);
-            this.label295.Name = "label295";
-            this.label295.Size = new System.Drawing.Size(92, 13);
-            this.label295.TabIndex = 61;
-            this.label295.Text = "Num proprio steps";
-            this.toolTip1.SetToolTip(this.label295, resources.GetString("label295.ToolTip"));
-            // 
-            // numericUpDownATPNS
-            // 
-            this.numericUpDownATPNS.Location = new System.Drawing.Point(131, 271);
-            this.numericUpDownATPNS.Maximum = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            this.numericUpDownATPNS.Name = "numericUpDownATPNS";
-            this.numericUpDownATPNS.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDownATPNS.TabIndex = 60;
-            this.numericUpDownATPNS.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            // 
-            // label296
-            // 
-            this.label296.AutoSize = true;
-            this.label296.Location = new System.Drawing.Point(6, 223);
-            this.label296.Name = "label296";
-            this.label296.Size = new System.Drawing.Size(118, 13);
-            this.label296.TabIndex = 63;
-            this.label296.Text = "Proprio target min angle";
-            // 
-            // textBoxATPTMinA
-            // 
-            this.textBoxATPTMinA.Location = new System.Drawing.Point(129, 220);
-            this.textBoxATPTMinA.Name = "textBoxATPTMinA";
-            this.textBoxATPTMinA.Size = new System.Drawing.Size(72, 20);
-            this.textBoxATPTMinA.TabIndex = 62;
-            // 
-            // label297
-            // 
-            this.label297.AutoSize = true;
-            this.label297.Location = new System.Drawing.Point(6, 249);
-            this.label297.Name = "label297";
-            this.label297.Size = new System.Drawing.Size(121, 13);
-            this.label297.TabIndex = 65;
-            this.label297.Text = "Proprio target max angle";
-            // 
-            // textBoxATPTMaxA
-            // 
-            this.textBoxATPTMaxA.Location = new System.Drawing.Point(129, 246);
-            this.textBoxATPTMaxA.Name = "textBoxATPTMaxA";
-            this.textBoxATPTMaxA.Size = new System.Drawing.Size(72, 20);
-            this.textBoxATPTMaxA.TabIndex = 64;
-            // 
-            // label270
-            // 
-            this.label270.AutoSize = true;
-            this.label270.Location = new System.Drawing.Point(6, 93);
-            this.label270.Name = "label270";
-            this.label270.Size = new System.Drawing.Size(105, 13);
-            this.label270.TabIndex = 34;
-            this.label270.Text = "Percent training trials";
-            // 
-            // textBoxATPTT
-            // 
-            this.textBoxATPTT.Location = new System.Drawing.Point(129, 90);
-            this.textBoxATPTT.Name = "textBoxATPTT";
-            this.textBoxATPTT.Size = new System.Drawing.Size(72, 20);
-            this.textBoxATPTT.TabIndex = 33;
-            // 
-            // label298
-            // 
-            this.label298.AutoSize = true;
-            this.label298.Location = new System.Drawing.Point(6, 173);
-            this.label298.Name = "label298";
-            this.label298.Size = new System.Drawing.Size(98, 13);
-            this.label298.TabIndex = 36;
-            this.label298.Text = "First bump direction";
-            // 
-            // textBoxATFBD
-            // 
-            this.textBoxATFBD.Location = new System.Drawing.Point(123, 170);
-            this.textBoxATFBD.Name = "textBoxATFBD";
-            this.textBoxATFBD.Size = new System.Drawing.Size(68, 20);
-            this.textBoxATFBD.TabIndex = 34;
-            // 
-            // label299
-            // 
-            this.label299.AutoSize = true;
-            this.label299.Location = new System.Drawing.Point(5, 146);
-            this.label299.Name = "label299";
-            this.label299.Size = new System.Drawing.Size(77, 13);
-            this.label299.TabIndex = 46;
-            this.label299.Text = "Num directions";
-            // 
-            // numericUpDownATND
-            // 
-            this.numericUpDownATND.Location = new System.Drawing.Point(123, 144);
-            this.numericUpDownATND.Maximum = new decimal(new int[] {
-            32,
-            0,
-            0,
-            0});
-            this.numericUpDownATND.Name = "numericUpDownATND";
-            this.numericUpDownATND.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDownATND.TabIndex = 45;
-            this.numericUpDownATND.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            // 
-            // textBoxATMaxR
-            // 
-            this.textBoxATMaxR.Location = new System.Drawing.Point(101, 270);
-            this.textBoxATMaxR.Name = "textBoxATMaxR";
-            this.textBoxATMaxR.Size = new System.Drawing.Size(100, 20);
-            this.textBoxATMaxR.TabIndex = 29;
-            // 
-            // label300
-            // 
-            this.label300.AutoSize = true;
-            this.label300.Location = new System.Drawing.Point(5, 273);
-            this.label300.Name = "label300";
-            this.label300.Size = new System.Drawing.Size(62, 13);
-            this.label300.TabIndex = 30;
-            this.label300.Text = "Max reward";
-            // 
-            // textBoxATMinR
-            // 
-            this.textBoxATMinR.Location = new System.Drawing.Point(101, 245);
-            this.textBoxATMinR.Name = "textBoxATMinR";
-            this.textBoxATMinR.Size = new System.Drawing.Size(100, 20);
-            this.textBoxATMinR.TabIndex = 27;
-            // 
-            // label301
-            // 
-            this.label301.AutoSize = true;
-            this.label301.Location = new System.Drawing.Point(5, 248);
-            this.label301.Name = "label301";
-            this.label301.Size = new System.Drawing.Size(59, 13);
-            this.label301.TabIndex = 28;
-            this.label301.Text = "Min reward";
-            // 
-            // textBoxATVTD
-            // 
-            this.textBoxATVTD.Location = new System.Drawing.Point(115, 64);
-            this.textBoxATVTD.Name = "textBoxATVTD";
-            this.textBoxATVTD.Size = new System.Drawing.Size(86, 20);
-            this.textBoxATVTD.TabIndex = 19;
-            // 
-            // label302
-            // 
-            this.label302.AutoSize = true;
-            this.label302.Location = new System.Drawing.Point(3, 67);
-            this.label302.Name = "label302";
-            this.label302.Size = new System.Drawing.Size(106, 13);
-            this.label302.TabIndex = 20;
-            this.label302.Text = "Visual target duration";
-            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -9417,11 +9422,11 @@ namespace BehaviorGraphics
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "UpdateForm";
             this.Text = "Update Target";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UpdateForm_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UpdateForm_FormClosed);
             this.Shown += new System.EventHandler(this.UpdateForm_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.UpdateForm_DragDrop);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UpdateForm_FormClosed);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.UpdateForm_DragEnter);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UpdateForm_FormClosing);
             this.tabControl.ResumeLayout(false);
             this.tabPageGen.ResumeLayout(false);
             this.tabPageGen.PerformLayout();
@@ -9573,10 +9578,17 @@ namespace BehaviorGraphics
             this.groupBox53.ResumeLayout(false);
             this.groupBox53.PerformLayout();
             this.tabAttention.ResumeLayout(false);
+            this.groupBox60.ResumeLayout(false);
+            this.groupBox60.PerformLayout();
+            this.groupBox59.ResumeLayout(false);
+            this.groupBox59.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATPNS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATVNS)).EndInit();
             this.groupBox56.ResumeLayout(false);
             this.groupBox56.PerformLayout();
             this.groupBox57.ResumeLayout(false);
             this.groupBox57.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATND)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATNBM)).EndInit();
             this.groupBox58.ResumeLayout(false);
             this.groupBox58.PerformLayout();
@@ -9593,13 +9605,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBox59.ResumeLayout(false);
-            this.groupBox59.PerformLayout();
-            this.groupBox60.ResumeLayout(false);
-            this.groupBox60.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATVNS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATPNS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATND)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

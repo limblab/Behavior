@@ -1,4 +1,4 @@
-// to do: test!
+// to do: add inter-visual-target-delay parameter, change visual targets to circles, 
 
 #define S_FUNCTION_NAME mastercon_at
 #define S_FUNCTION_LEVEL 2
@@ -452,7 +452,7 @@ static void mdlInitializeConditions(SimStruct *S)
     
     ssSetRWorkValue(S,rWorkBumpMagnitude,0);
     ssSetRWorkValue(S,rWorkBump1Direction,0);
-    ssSetRWorkValue(S,rWorkBump2Direction,0);
+    ssSetRWorkValue(S,rWorkBump2Direction,0);    
 }
 
 /* macro for setting state changed */
@@ -613,6 +613,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     vt2[1] = target_radius + visual_target_2_size/2;
     vt2[2] = visual_target_2_size/2;
     vt2[3] = target_radius - visual_target_2_size/2;
+    
+    /* get trial type */
+    trial_type = ssGetIWorkValue(S,iWorkTrialType);
     
     /* databurst pointers */
     databurst_counter = ssGetIWorkValue(S,iWorkDataburstCounter);
@@ -905,7 +908,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 reset_timer();
                 state_changed();
             } else if ((elapsed_timer_time > bump_duration) && trial_type == 2) {
-                new_state = STATE_OUTER_TARGET_DELAY;
+                new_state = STATE_REWARD;
                 reset_timer(); 
                 state_changed();
             }
@@ -919,23 +922,21 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
        case STATE_CENTER_HOLD_2:
             /* center hold */
-            if (!cursorInTarget(cursor, ct)){
+            if (elapsed_timer_time > center_hold) {
+                if (trial_type == 0){
+                    new_state = STATE_VISUAL_2;
+                } else if (trial_type == 1){
+                    new_state = STATE_BUMP_2;
+                } else if (trial_type == 2){
+                    new_state = STATE_REWARD;
+                }                
+                reset_timer(); /* delay timer */
+                state_changed();
+            } else if (!cursorInTarget(cursor, ct)){
                 new_state = STATE_ABORT;
                 reset_timer(); /* abort timeout */
                 state_changed();
-            } else if ((elapsed_timer_time > center_hold) && trial_type == 1) {
-                new_state = STATE_BUMP_2;
-                reset_timer(); /* delay timer */
-                state_changed();
-            } else if ((elapsed_timer_time > center_hold) && trial_type == 0) {
-                new_state = STATE_VISUAL_2;
-                reset_timer(); /* delay timer */
-                state_changed();
-            } else if ((elapsed_timer_time > center_hold) && trial_type == 2) {
-                new_state = STATE_PRETRIAL;
-                reset_timer(); /* delay timer */
-                state_changed();
-            }
+            } 
             break;
         case STATE_VISUAL_2:
             if (!cursorInTarget(cursor, ct)) {
@@ -1164,6 +1165,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     status[2] = ssGetIWorkValue(S, iWorkAborts); /* num aborts       */
     status[3] = ssGetIWorkValue(S, iWorkFailures); /* num fails      */
     status[4] = ssGetIWorkValue(S, iWorkIncompletes); /* num incompletes */
+// debug
+    status[4] = center_hold;
     
     /* word (2) */
     if (state == STATE_DATA_BLOCK) {
@@ -1261,7 +1264,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         for (i=0; i<4; i++) {
            target_pos[i+1] = rt[i];
         }
-        if (!training_mode){
+        if (!training_mode && trial_type!=2){
             target_pos[5] = RedTarget;
             for (i=0; i<4; i++) {
                target_pos[i+6] = ft[i];
