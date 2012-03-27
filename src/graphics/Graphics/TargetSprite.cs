@@ -189,6 +189,7 @@ namespace BehaviorGraphics {
                     /* Blue circle from bluecircle.tga */
                     vertices = new CustomVertex.TransformedColored[100];
                     /* centerX = ul[0], centerY = ul[1], radius = lr[0], */
+                    optionalColor = Color.Blue;
                     getCircleVertices(ul, lr.X, optionalColor, ref vertices);
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;

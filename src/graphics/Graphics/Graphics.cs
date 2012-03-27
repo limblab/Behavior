@@ -339,7 +339,10 @@ namespace BehaviorGraphics
                                                 (float)BitConverter.ToDouble(data, (pos++) * 8));
                             t[i].LR = cm2screen((float)BitConverter.ToDouble(data, (pos++) * 8),
                                                 (float)BitConverter.ToDouble(data, (pos++) * 8));
-                            t[i].SetColor(data, (pos-1) * 8 -4);
+                            if (t[i].Type == TargetSpriteType.Circle)
+                            {
+                                t[i].SetColor(data, (pos - 1) * 8);                                
+                            }
                         }
 
                         break;
