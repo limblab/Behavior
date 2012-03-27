@@ -77,7 +77,7 @@ namespace BehaviorGraphics {
                 case TargetSpriteType.RedTarget:
                     /* Red square target */
                     vertices = new CustomVertex.TransformedColored[4];
-                    getSquareVertices(ul, lr, Color.Red, ref vertices);
+                    getRectVertices(ul, lr, Color.Red, ref vertices);
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
@@ -86,7 +86,7 @@ namespace BehaviorGraphics {
                 case TargetSpriteType.BlueTarget:
                     /* Red square target */
                     vertices = new CustomVertex.TransformedColored[4];
-                    getSquareVertices(ul, lr, Color.Blue, ref vertices);
+                    getRectVertices(ul, lr, Color.Blue, ref vertices);
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
@@ -95,7 +95,7 @@ namespace BehaviorGraphics {
                 case TargetSpriteType.WhiteTarget:
                     /* White square target */
                     vertices = new CustomVertex.TransformedColored[4];
-                    getSquareVertices(ul, lr, Color.White, ref vertices);
+                    getRectVertices(ul, lr, Color.White, ref vertices);
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
@@ -105,7 +105,7 @@ namespace BehaviorGraphics {
                 case TargetSpriteType.GreenTarget:
                     /* White square target */
                     vertices = new CustomVertex.TransformedColored[4];
-                    getSquareVertices(ul, lr, Color.Green, ref vertices);
+                    getRectVertices(ul, lr, Color.Green, ref vertices);
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
@@ -115,7 +115,7 @@ namespace BehaviorGraphics {
                 case TargetSpriteType.YellowTarget:
                     /* Yellow square target */
                     vertices = new CustomVertex.TransformedColored[4];
-                    getSquareVertices(ul, lr, Color.Yellow, ref vertices);
+                    getRectVertices(ul, lr, Color.Yellow, ref vertices);
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
@@ -198,6 +198,15 @@ namespace BehaviorGraphics {
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 98, vertices);
                     break;
 
+                case TargetSpriteType.Square:
+                    /* Yellow square target */
+                    vertices = new CustomVertex.TransformedColored[4];
+                    getSquareVertices(ul, lr.X, optionalColor, ref vertices);
+
+                    device.VertexFormat = CustomVertex.TransformedColored.Format;
+                    device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
+                    break;
+
                 default:
 
                     // See if we are one of the glyph types
@@ -245,7 +254,7 @@ namespace BehaviorGraphics {
             device.SetTexture(0, null);
         }
 
-        private void getSquareVertices(Vector3 ul, Vector3 lr, Color c, ref CustomVertex.TransformedColored[] vertices) {
+        private void getRectVertices(Vector3 ul, Vector3 lr, Color c, ref CustomVertex.TransformedColored[] vertices) {
             vertices[0].Position = new Vector4(ul.X, ul.Y, 0f, 1f);
             vertices[0].Color = c.ToArgb();
             vertices[1].Position = new Vector4(ul.X, lr.Y, 0f, 1f);
@@ -253,6 +262,17 @@ namespace BehaviorGraphics {
             vertices[2].Position = new Vector4(lr.X, lr.Y, 0f, 1f);
             vertices[2].Color = c.ToArgb();
             vertices[3].Position = new Vector4(lr.X, ul.Y, 0f, 1f);
+            vertices[3].Color = c.ToArgb();
+        }
+
+        private void getSquareVertices(Vector3 centerCoord, float width, Color c, ref CustomVertex.TransformedColored[] vertices) {
+            vertices[0].Position = new Vector4(centerCoord.X-width/2, centerCoord.Y+width/2, 0f, 1f);
+            vertices[0].Color = c.ToArgb();
+            vertices[1].Position = new Vector4(centerCoord.X-width/2, centerCoord.Y-width/2, 0f, 1f);
+            vertices[1].Color = c.ToArgb();
+            vertices[2].Position = new Vector4(centerCoord.X+width/2, centerCoord.Y-width/2, 0f, 1f);
+            vertices[2].Color = c.ToArgb();
+            vertices[3].Position = new Vector4(centerCoord.X+width/2, centerCoord.Y+width/2, 0f, 1f);
             vertices[3].Color = c.ToArgb();
         }
 
@@ -338,6 +358,7 @@ namespace BehaviorGraphics {
         BlueArc = 8,
         YellowTarget = 9,
         Circle = 10,
+        Square = 11,
         Glyph0 = 16,
         Glyph1 = 17,
         Glyph2 = 18,

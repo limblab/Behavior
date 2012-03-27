@@ -1,4 +1,5 @@
-// to do:  reward!
+// to do:  reward!, test drawSquareTarget stuff (if 2 red targets are shown during movement
+// then it works.
 
 #define S_FUNCTION_NAME mastercon_at
 #define S_FUNCTION_LEVEL 2
@@ -1268,17 +1269,19 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }        
             
     if (state == STATE_MOVEMENT){
-        target_pos[0] = RedTargetType;        
+/*        target_pos[0] = RedTargetType;        
         for (i=0; i<4; i++) {
            target_pos[i+1] = rt[i];
-        }
-// 		drawRectTarget(target_pos, 0, rt, RedTargetType);
+        } */
+ 		//drawRectTarget(target_pos, 0, rt, RedTargetType);
+        drawSquareTarget(target_pos, 0, rt, COLOR_RED);
         if (!training_mode && trial_type!=2){
-// 			drawRectTarget(target_pos, 1, ft, RedTargetType);
-            target_pos[5] = RedTargetType;        
+ 			//drawRectTarget(target_pos, 1, ft, RedTargetType);
+            drawSquareTarget(target_pos, 0, ft, COLOR_RED);
+/*            target_pos[5] = RedTargetType;        
             for (i=0; i<4; i++) {
                target_pos[i+6] = ft[i];
-            }
+            } */
         }
     }
     
