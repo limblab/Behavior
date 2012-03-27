@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -841,6 +841,8 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
+            this.textBoxATIVT = new System.Windows.Forms.TextBox();
+            this.label303 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -3709,8 +3711,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4468,8 +4470,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -7801,16 +7803,16 @@ namespace BehaviorGraphics
             this.groupBox60.Controls.Add(this.label275);
             this.groupBox60.Controls.Add(this.textBoxATVSR2);
             this.groupBox60.Enabled = false;
-            this.groupBox60.Location = new System.Drawing.Point(8, 309);
+            this.groupBox60.Location = new System.Drawing.Point(8, 319);
             this.groupBox60.Name = "groupBox60";
-            this.groupBox60.Size = new System.Drawing.Size(642, 96);
+            this.groupBox60.Size = new System.Drawing.Size(642, 86);
             this.groupBox60.TabIndex = 28;
             this.groupBox60.TabStop = false;
             this.groupBox60.Text = "Staircases";
             // 
             // textBoxATPSSS
             // 
-            this.textBoxATPSSS.Location = new System.Drawing.Point(524, 68);
+            this.textBoxATPSSS.Location = new System.Drawing.Point(524, 60);
             this.textBoxATPSSS.Name = "textBoxATPSSS";
             this.textBoxATPSSS.Size = new System.Drawing.Size(82, 20);
             this.textBoxATPSSS.TabIndex = 54;
@@ -7820,7 +7822,7 @@ namespace BehaviorGraphics
             // 
             this.checkBoxATS.AutoSize = true;
             this.checkBoxATS.Enabled = false;
-            this.checkBoxATS.Location = new System.Drawing.Point(6, 19);
+            this.checkBoxATS.Location = new System.Drawing.Point(6, 16);
             this.checkBoxATS.Name = "checkBoxATS";
             this.checkBoxATS.Size = new System.Drawing.Size(95, 17);
             this.checkBoxATS.TabIndex = 45;
@@ -7830,7 +7832,7 @@ namespace BehaviorGraphics
             // label289
             // 
             this.label289.AutoSize = true;
-            this.label289.Location = new System.Drawing.Point(410, 71);
+            this.label289.Location = new System.Drawing.Point(410, 64);
             this.label289.Name = "label289";
             this.label289.Size = new System.Drawing.Size(107, 13);
             this.label289.TabIndex = 55;
@@ -7839,7 +7841,7 @@ namespace BehaviorGraphics
             // label288
             // 
             this.label288.AutoSize = true;
-            this.label288.Location = new System.Drawing.Point(3, 44);
+            this.label288.Location = new System.Drawing.Point(6, 40);
             this.label288.Name = "label288";
             this.label288.Size = new System.Drawing.Size(113, 13);
             this.label288.TabIndex = 16;
@@ -7847,7 +7849,7 @@ namespace BehaviorGraphics
             // 
             // textBoxATVSSS
             // 
-            this.textBoxATVSSS.Location = new System.Drawing.Point(322, 70);
+            this.textBoxATVSSS.Location = new System.Drawing.Point(322, 60);
             this.textBoxATVSSS.Name = "textBoxATVSSS";
             this.textBoxATVSSS.Size = new System.Drawing.Size(82, 20);
             this.textBoxATVSSS.TabIndex = 52;
@@ -7855,7 +7857,7 @@ namespace BehaviorGraphics
             // 
             // textBoxATPO
             // 
-            this.textBoxATPO.Location = new System.Drawing.Point(117, 43);
+            this.textBoxATPO.Location = new System.Drawing.Point(120, 32);
             this.textBoxATPO.Name = "textBoxATPO";
             this.textBoxATPO.Size = new System.Drawing.Size(82, 20);
             this.textBoxATPO.TabIndex = 9;
@@ -7864,7 +7866,7 @@ namespace BehaviorGraphics
             // label266
             // 
             this.label266.AutoSize = true;
-            this.label266.Location = new System.Drawing.Point(208, 73);
+            this.label266.Location = new System.Drawing.Point(208, 64);
             this.label266.Name = "label266";
             this.label266.Size = new System.Drawing.Size(102, 13);
             this.label266.TabIndex = 53;
@@ -7873,7 +7875,7 @@ namespace BehaviorGraphics
             // label287
             // 
             this.label287.AutoSize = true;
-            this.label287.Location = new System.Drawing.Point(6, 72);
+            this.label287.Location = new System.Drawing.Point(6, 64);
             this.label287.Name = "label287";
             this.label287.Size = new System.Drawing.Size(83, 13);
             this.label287.TabIndex = 18;
@@ -7881,7 +7883,7 @@ namespace BehaviorGraphics
             // 
             // textBoxATPSA2
             // 
-            this.textBoxATPSA2.Location = new System.Drawing.Point(524, 42);
+            this.textBoxATPSA2.Location = new System.Drawing.Point(524, 35);
             this.textBoxATPSA2.Name = "textBoxATPSA2";
             this.textBoxATPSA2.Size = new System.Drawing.Size(82, 20);
             this.textBoxATPSA2.TabIndex = 50;
@@ -7889,7 +7891,7 @@ namespace BehaviorGraphics
             // 
             // textBoxATSL
             // 
-            this.textBoxATSL.Location = new System.Drawing.Point(117, 69);
+            this.textBoxATSL.Location = new System.Drawing.Point(120, 61);
             this.textBoxATSL.Name = "textBoxATSL";
             this.textBoxATSL.Size = new System.Drawing.Size(82, 20);
             this.textBoxATSL.TabIndex = 17;
@@ -7898,7 +7900,7 @@ namespace BehaviorGraphics
             // label264
             // 
             this.label264.AutoSize = true;
-            this.label264.Location = new System.Drawing.Point(410, 45);
+            this.label264.Location = new System.Drawing.Point(410, 39);
             this.label264.Name = "label264";
             this.label264.Size = new System.Drawing.Size(101, 13);
             this.label264.TabIndex = 51;
@@ -7907,7 +7909,7 @@ namespace BehaviorGraphics
             // label286
             // 
             this.label286.AutoSize = true;
-            this.label286.Location = new System.Drawing.Point(208, 19);
+            this.label286.Location = new System.Drawing.Point(208, 14);
             this.label286.Name = "label286";
             this.label286.Size = new System.Drawing.Size(90, 13);
             this.label286.TabIndex = 20;
@@ -7915,7 +7917,7 @@ namespace BehaviorGraphics
             // 
             // textBoxATPSA1
             // 
-            this.textBoxATPSA1.Location = new System.Drawing.Point(524, 16);
+            this.textBoxATPSA1.Location = new System.Drawing.Point(524, 10);
             this.textBoxATPSA1.Name = "textBoxATPSA1";
             this.textBoxATPSA1.Size = new System.Drawing.Size(82, 20);
             this.textBoxATPSA1.TabIndex = 48;
@@ -7923,7 +7925,7 @@ namespace BehaviorGraphics
             // 
             // textBoxATVSR1
             // 
-            this.textBoxATVSR1.Location = new System.Drawing.Point(322, 16);
+            this.textBoxATVSR1.Location = new System.Drawing.Point(322, 10);
             this.textBoxATVSR1.Name = "textBoxATVSR1";
             this.textBoxATVSR1.Size = new System.Drawing.Size(82, 20);
             this.textBoxATVSR1.TabIndex = 19;
@@ -7932,7 +7934,7 @@ namespace BehaviorGraphics
             // label265
             // 
             this.label265.AutoSize = true;
-            this.label265.Location = new System.Drawing.Point(410, 19);
+            this.label265.Location = new System.Drawing.Point(410, 14);
             this.label265.Name = "label265";
             this.label265.Size = new System.Drawing.Size(101, 13);
             this.label265.TabIndex = 49;
@@ -7941,7 +7943,7 @@ namespace BehaviorGraphics
             // label275
             // 
             this.label275.AutoSize = true;
-            this.label275.Location = new System.Drawing.Point(208, 45);
+            this.label275.Location = new System.Drawing.Point(208, 39);
             this.label275.Name = "label275";
             this.label275.Size = new System.Drawing.Size(90, 13);
             this.label275.TabIndex = 47;
@@ -7949,7 +7951,7 @@ namespace BehaviorGraphics
             // 
             // textBoxATVSR2
             // 
-            this.textBoxATVSR2.Location = new System.Drawing.Point(322, 42);
+            this.textBoxATVSR2.Location = new System.Drawing.Point(322, 35);
             this.textBoxATVSR2.Name = "textBoxATVSR2";
             this.textBoxATVSR2.Size = new System.Drawing.Size(82, 20);
             this.textBoxATVSR2.TabIndex = 46;
@@ -7981,7 +7983,7 @@ namespace BehaviorGraphics
             this.groupBox59.Controls.Add(this.label292);
             this.groupBox59.Location = new System.Drawing.Point(224, 9);
             this.groupBox59.Name = "groupBox59";
-            this.groupBox59.Size = new System.Drawing.Size(207, 300);
+            this.groupBox59.Size = new System.Drawing.Size(207, 309);
             this.groupBox59.TabIndex = 27;
             this.groupBox59.TabStop = false;
             this.groupBox59.Text = "Trial types";
@@ -7989,7 +7991,7 @@ namespace BehaviorGraphics
             // label270
             // 
             this.label270.AutoSize = true;
-            this.label270.Location = new System.Drawing.Point(6, 93);
+            this.label270.Location = new System.Drawing.Point(6, 90);
             this.label270.Name = "label270";
             this.label270.Size = new System.Drawing.Size(105, 13);
             this.label270.TabIndex = 34;
@@ -7998,7 +8000,7 @@ namespace BehaviorGraphics
             // label295
             // 
             this.label295.AutoSize = true;
-            this.label295.Location = new System.Drawing.Point(6, 273);
+            this.label295.Location = new System.Drawing.Point(6, 265);
             this.label295.Name = "label295";
             this.label295.Size = new System.Drawing.Size(92, 13);
             this.label295.TabIndex = 61;
@@ -8006,21 +8008,22 @@ namespace BehaviorGraphics
             // 
             // textBoxATPTT
             // 
-            this.textBoxATPTT.Location = new System.Drawing.Point(129, 90);
+            this.textBoxATPTT.Location = new System.Drawing.Point(129, 87);
             this.textBoxATPTT.Name = "textBoxATPTT";
             this.textBoxATPTT.Size = new System.Drawing.Size(72, 20);
             this.textBoxATPTT.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.textBoxATPTT, "0-100");
             // 
             // numericUpDownATPNS
             // 
-            this.numericUpDownATPNS.Location = new System.Drawing.Point(131, 271);
+            this.numericUpDownATPNS.Location = new System.Drawing.Point(129, 262);
             this.numericUpDownATPNS.Maximum = new decimal(new int[] {
             30,
             0,
             0,
             0});
             this.numericUpDownATPNS.Name = "numericUpDownATPNS";
-            this.numericUpDownATPNS.Size = new System.Drawing.Size(68, 20);
+            this.numericUpDownATPNS.Size = new System.Drawing.Size(72, 20);
             this.numericUpDownATPNS.TabIndex = 60;
             this.numericUpDownATPNS.Value = new decimal(new int[] {
             5,
@@ -8031,7 +8034,7 @@ namespace BehaviorGraphics
             // label296
             // 
             this.label296.AutoSize = true;
-            this.label296.Location = new System.Drawing.Point(6, 223);
+            this.label296.Location = new System.Drawing.Point(6, 215);
             this.label296.Name = "label296";
             this.label296.Size = new System.Drawing.Size(118, 13);
             this.label296.TabIndex = 63;
@@ -8039,15 +8042,16 @@ namespace BehaviorGraphics
             // 
             // textBoxATPTMinA
             // 
-            this.textBoxATPTMinA.Location = new System.Drawing.Point(129, 220);
+            this.textBoxATPTMinA.Location = new System.Drawing.Point(129, 212);
             this.textBoxATPTMinA.Name = "textBoxATPTMinA";
             this.textBoxATPTMinA.Size = new System.Drawing.Size(72, 20);
             this.textBoxATPTMinA.TabIndex = 62;
+            this.toolTip1.SetToolTip(this.textBoxATPTMinA, "in radians");
             // 
             // label297
             // 
             this.label297.AutoSize = true;
-            this.label297.Location = new System.Drawing.Point(6, 249);
+            this.label297.Location = new System.Drawing.Point(6, 240);
             this.label297.Name = "label297";
             this.label297.Size = new System.Drawing.Size(121, 13);
             this.label297.TabIndex = 65;
@@ -8055,22 +8059,24 @@ namespace BehaviorGraphics
             // 
             // textBoxATPTMaxA
             // 
-            this.textBoxATPTMaxA.Location = new System.Drawing.Point(129, 246);
+            this.textBoxATPTMaxA.Location = new System.Drawing.Point(129, 237);
             this.textBoxATPTMaxA.Name = "textBoxATPTMaxA";
             this.textBoxATPTMaxA.Size = new System.Drawing.Size(72, 20);
             this.textBoxATPTMaxA.TabIndex = 64;
+            this.toolTip1.SetToolTip(this.textBoxATPTMaxA, "in radians");
             // 
             // textBoxATPCT
             // 
-            this.textBoxATPCT.Location = new System.Drawing.Point(129, 116);
+            this.textBoxATPCT.Location = new System.Drawing.Point(129, 112);
             this.textBoxATPCT.Name = "textBoxATPCT";
             this.textBoxATPCT.Size = new System.Drawing.Size(72, 20);
             this.textBoxATPCT.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.textBoxATPCT, "0-100");
             // 
             // label294
             // 
             this.label294.AutoSize = true;
-            this.label294.Location = new System.Drawing.Point(6, 196);
+            this.label294.Location = new System.Drawing.Point(6, 190);
             this.label294.Name = "label294";
             this.label294.Size = new System.Drawing.Size(87, 13);
             this.label294.TabIndex = 40;
@@ -8079,7 +8085,7 @@ namespace BehaviorGraphics
             // label290
             // 
             this.label290.AutoSize = true;
-            this.label290.Location = new System.Drawing.Point(5, 119);
+            this.label290.Location = new System.Drawing.Point(5, 115);
             this.label290.Name = "label290";
             this.label290.Size = new System.Drawing.Size(98, 13);
             this.label290.TabIndex = 8;
@@ -8087,14 +8093,14 @@ namespace BehaviorGraphics
             // 
             // numericUpDownATVNS
             // 
-            this.numericUpDownATVNS.Location = new System.Drawing.Point(131, 194);
+            this.numericUpDownATVNS.Location = new System.Drawing.Point(129, 187);
             this.numericUpDownATVNS.Maximum = new decimal(new int[] {
             30,
             0,
             0,
             0});
             this.numericUpDownATVNS.Name = "numericUpDownATVNS";
-            this.numericUpDownATVNS.Size = new System.Drawing.Size(68, 20);
+            this.numericUpDownATVNS.Size = new System.Drawing.Size(72, 20);
             this.numericUpDownATVNS.TabIndex = 39;
             this.numericUpDownATVNS.Value = new decimal(new int[] {
             5,
@@ -8105,7 +8111,7 @@ namespace BehaviorGraphics
             // label269
             // 
             this.label269.AutoSize = true;
-            this.label269.Location = new System.Drawing.Point(5, 146);
+            this.label269.Location = new System.Drawing.Point(5, 140);
             this.label269.Name = "label269";
             this.label269.Size = new System.Drawing.Size(107, 13);
             this.label269.TabIndex = 57;
@@ -8113,7 +8119,7 @@ namespace BehaviorGraphics
             // 
             // textBoxATVTMinR
             // 
-            this.textBoxATVTMinR.Location = new System.Drawing.Point(129, 143);
+            this.textBoxATVTMinR.Location = new System.Drawing.Point(129, 137);
             this.textBoxATVTMinR.Name = "textBoxATVTMinR";
             this.textBoxATVTMinR.Size = new System.Drawing.Size(72, 20);
             this.textBoxATVTMinR.TabIndex = 56;
@@ -8121,7 +8127,7 @@ namespace BehaviorGraphics
             // label293
             // 
             this.label293.AutoSize = true;
-            this.label293.Location = new System.Drawing.Point(5, 172);
+            this.label293.Location = new System.Drawing.Point(5, 165);
             this.label293.Name = "label293";
             this.label293.Size = new System.Drawing.Size(110, 13);
             this.label293.TabIndex = 59;
@@ -8129,14 +8135,14 @@ namespace BehaviorGraphics
             // 
             // textBoxATTBS
             // 
-            this.textBoxATTBS.Location = new System.Drawing.Point(129, 64);
+            this.textBoxATTBS.Location = new System.Drawing.Point(129, 62);
             this.textBoxATTBS.Name = "textBoxATTBS";
             this.textBoxATTBS.Size = new System.Drawing.Size(72, 20);
             this.textBoxATTBS.TabIndex = 23;
             // 
             // textBoxATVTMaxR
             // 
-            this.textBoxATVTMaxR.Location = new System.Drawing.Point(129, 169);
+            this.textBoxATVTMaxR.Location = new System.Drawing.Point(129, 162);
             this.textBoxATVTMaxR.Name = "textBoxATVTMaxR";
             this.textBoxATVTMaxR.Size = new System.Drawing.Size(72, 20);
             this.textBoxATVTMaxR.TabIndex = 58;
@@ -8144,7 +8150,7 @@ namespace BehaviorGraphics
             // label285
             // 
             this.label285.AutoSize = true;
-            this.label285.Location = new System.Drawing.Point(5, 67);
+            this.label285.Location = new System.Drawing.Point(5, 65);
             this.label285.Name = "label285";
             this.label285.Size = new System.Drawing.Size(77, 13);
             this.label285.TabIndex = 24;
@@ -8152,15 +8158,16 @@ namespace BehaviorGraphics
             // 
             // textBoxATPPT
             // 
-            this.textBoxATPPT.Location = new System.Drawing.Point(129, 38);
+            this.textBoxATPPT.Location = new System.Drawing.Point(129, 37);
             this.textBoxATPPT.Name = "textBoxATPPT";
             this.textBoxATPPT.Size = new System.Drawing.Size(72, 20);
             this.textBoxATPPT.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.textBoxATPPT, "0-100");
             // 
             // label291
             // 
             this.label291.AutoSize = true;
-            this.label291.Location = new System.Drawing.Point(5, 41);
+            this.label291.Location = new System.Drawing.Point(5, 40);
             this.label291.Name = "label291";
             this.label291.Size = new System.Drawing.Size(103, 13);
             this.label291.TabIndex = 2;
@@ -8172,7 +8179,7 @@ namespace BehaviorGraphics
             this.textBoxATPVT.Name = "textBoxATPVT";
             this.textBoxATPVT.Size = new System.Drawing.Size(72, 20);
             this.textBoxATPVT.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.textBoxATPVT, "This is a tool tip\r\n");
+            this.toolTip1.SetToolTip(this.textBoxATPVT, "0-100");
             // 
             // label292
             // 
@@ -8185,6 +8192,8 @@ namespace BehaviorGraphics
             // 
             // groupBox56
             // 
+            this.groupBox56.Controls.Add(this.textBoxATIVT);
+            this.groupBox56.Controls.Add(this.label303);
             this.groupBox56.Controls.Add(this.textBoxATVTD);
             this.groupBox56.Controls.Add(this.label302);
             this.groupBox56.Controls.Add(this.textBoxATTR);
@@ -8193,7 +8202,7 @@ namespace BehaviorGraphics
             this.groupBox56.Controls.Add(this.label268);
             this.groupBox56.Location = new System.Drawing.Point(437, 9);
             this.groupBox56.Name = "groupBox56";
-            this.groupBox56.Size = new System.Drawing.Size(213, 91);
+            this.groupBox56.Size = new System.Drawing.Size(213, 112);
             this.groupBox56.TabIndex = 23;
             this.groupBox56.TabStop = false;
             this.groupBox56.Text = "Targets";
@@ -8204,6 +8213,7 @@ namespace BehaviorGraphics
             this.textBoxATVTD.Name = "textBoxATVTD";
             this.textBoxATVTD.Size = new System.Drawing.Size(86, 20);
             this.textBoxATVTD.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.textBoxATVTD, "in seconds");
             // 
             // label302
             // 
@@ -8263,7 +8273,7 @@ namespace BehaviorGraphics
             this.groupBox57.Controls.Add(this.label274);
             this.groupBox57.Controls.Add(this.numericUpDownATNBM);
             this.groupBox57.Controls.Add(this.checkBoxATBP);
-            this.groupBox57.Location = new System.Drawing.Point(437, 106);
+            this.groupBox57.Location = new System.Drawing.Point(437, 122);
             this.groupBox57.Name = "groupBox57";
             this.groupBox57.Size = new System.Drawing.Size(213, 196);
             this.groupBox57.TabIndex = 24;
@@ -8321,6 +8331,7 @@ namespace BehaviorGraphics
             this.textBoxATFBD.Name = "textBoxATFBD";
             this.textBoxATFBD.Size = new System.Drawing.Size(68, 20);
             this.textBoxATFBD.TabIndex = 34;
+            this.toolTip1.SetToolTip(this.textBoxATFBD, "in radians");
             // 
             // textBoxATBMMin
             // 
@@ -8345,6 +8356,7 @@ namespace BehaviorGraphics
             this.textBoxATBD.Name = "textBoxATBD";
             this.textBoxATBD.Size = new System.Drawing.Size(68, 20);
             this.textBoxATBD.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.textBoxATBD, "in seconds");
             // 
             // label273
             // 
@@ -8431,22 +8443,23 @@ namespace BehaviorGraphics
             this.groupBox58.Controls.Add(this.label282);
             this.groupBox58.Location = new System.Drawing.Point(8, 9);
             this.groupBox58.Name = "groupBox58";
-            this.groupBox58.Size = new System.Drawing.Size(207, 300);
+            this.groupBox58.Size = new System.Drawing.Size(207, 309);
             this.groupBox58.TabIndex = 22;
             this.groupBox58.TabStop = false;
             this.groupBox58.Text = "Timing";
             // 
             // textBoxATMaxR
             // 
-            this.textBoxATMaxR.Location = new System.Drawing.Point(101, 270);
+            this.textBoxATMaxR.Location = new System.Drawing.Point(101, 262);
             this.textBoxATMaxR.Name = "textBoxATMaxR";
             this.textBoxATMaxR.Size = new System.Drawing.Size(100, 20);
             this.textBoxATMaxR.TabIndex = 29;
+            this.toolTip1.SetToolTip(this.textBoxATMaxR, "in seconds");
             // 
             // label300
             // 
             this.label300.AutoSize = true;
-            this.label300.Location = new System.Drawing.Point(5, 273);
+            this.label300.Location = new System.Drawing.Point(5, 265);
             this.label300.Name = "label300";
             this.label300.Size = new System.Drawing.Size(62, 13);
             this.label300.TabIndex = 30;
@@ -8454,15 +8467,16 @@ namespace BehaviorGraphics
             // 
             // textBoxATMinR
             // 
-            this.textBoxATMinR.Location = new System.Drawing.Point(101, 245);
+            this.textBoxATMinR.Location = new System.Drawing.Point(101, 237);
             this.textBoxATMinR.Name = "textBoxATMinR";
             this.textBoxATMinR.Size = new System.Drawing.Size(100, 20);
             this.textBoxATMinR.TabIndex = 27;
+            this.toolTip1.SetToolTip(this.textBoxATMinR, "in seconds");
             // 
             // label301
             // 
             this.label301.AutoSize = true;
-            this.label301.Location = new System.Drawing.Point(5, 248);
+            this.label301.Location = new System.Drawing.Point(5, 240);
             this.label301.Name = "label301";
             this.label301.Size = new System.Drawing.Size(59, 13);
             this.label301.TabIndex = 28;
@@ -8470,15 +8484,16 @@ namespace BehaviorGraphics
             // 
             // textBoxATIBH
             // 
-            this.textBoxATIBH.Location = new System.Drawing.Point(101, 90);
+            this.textBoxATIBH.Location = new System.Drawing.Point(101, 87);
             this.textBoxATIBH.Name = "textBoxATIBH";
             this.textBoxATIBH.Size = new System.Drawing.Size(100, 20);
             this.textBoxATIBH.TabIndex = 25;
+            this.toolTip1.SetToolTip(this.textBoxATIBH, "in seconds");
             // 
             // label284
             // 
             this.label284.AutoSize = true;
-            this.label284.Location = new System.Drawing.Point(5, 93);
+            this.label284.Location = new System.Drawing.Point(5, 90);
             this.label284.Name = "label284";
             this.label284.Size = new System.Drawing.Size(77, 13);
             this.label284.TabIndex = 26;
@@ -8486,15 +8501,16 @@ namespace BehaviorGraphics
             // 
             // textBoxATIBL
             // 
-            this.textBoxATIBL.Location = new System.Drawing.Point(101, 64);
+            this.textBoxATIBL.Location = new System.Drawing.Point(101, 62);
             this.textBoxATIBL.Name = "textBoxATIBL";
             this.textBoxATIBL.Size = new System.Drawing.Size(100, 20);
             this.textBoxATIBL.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.textBoxATIBL, "in seconds");
             // 
             // label283
             // 
             this.label283.AutoSize = true;
-            this.label283.Location = new System.Drawing.Point(5, 67);
+            this.label283.Location = new System.Drawing.Point(5, 65);
             this.label283.Name = "label283";
             this.label283.Size = new System.Drawing.Size(73, 13);
             this.label283.TabIndex = 24;
@@ -8502,15 +8518,16 @@ namespace BehaviorGraphics
             // 
             // textBoxATOTD
             // 
-            this.textBoxATOTD.Location = new System.Drawing.Point(101, 218);
+            this.textBoxATOTD.Location = new System.Drawing.Point(101, 212);
             this.textBoxATOTD.Name = "textBoxATOTD";
             this.textBoxATOTD.Size = new System.Drawing.Size(100, 20);
             this.textBoxATOTD.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.textBoxATOTD, "in seconds");
             // 
             // label276
             // 
             this.label276.AutoSize = true;
-            this.label276.Location = new System.Drawing.Point(5, 225);
+            this.label276.Location = new System.Drawing.Point(5, 215);
             this.label276.Name = "label276";
             this.label276.Size = new System.Drawing.Size(91, 13);
             this.label276.TabIndex = 20;
@@ -8518,15 +8535,16 @@ namespace BehaviorGraphics
             // 
             // textBoxATAW
             // 
-            this.textBoxATAW.Location = new System.Drawing.Point(101, 193);
+            this.textBoxATAW.Location = new System.Drawing.Point(101, 187);
             this.textBoxATAW.Name = "textBoxATAW";
             this.textBoxATAW.Size = new System.Drawing.Size(100, 20);
             this.textBoxATAW.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.textBoxATAW, "in seconds");
             // 
             // label277
             // 
             this.label277.AutoSize = true;
-            this.label277.Location = new System.Drawing.Point(5, 196);
+            this.label277.Location = new System.Drawing.Point(5, 190);
             this.label277.Name = "label277";
             this.label277.Size = new System.Drawing.Size(54, 13);
             this.label277.TabIndex = 18;
@@ -8534,15 +8552,16 @@ namespace BehaviorGraphics
             // 
             // textBoxATFW
             // 
-            this.textBoxATFW.Location = new System.Drawing.Point(101, 167);
+            this.textBoxATFW.Location = new System.Drawing.Point(101, 162);
             this.textBoxATFW.Name = "textBoxATFW";
             this.textBoxATFW.Size = new System.Drawing.Size(100, 20);
             this.textBoxATFW.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.textBoxATFW, "in seconds");
             // 
             // label278
             // 
             this.label278.AutoSize = true;
-            this.label278.Location = new System.Drawing.Point(5, 168);
+            this.label278.Location = new System.Drawing.Point(5, 165);
             this.label278.Name = "label278";
             this.label278.Size = new System.Drawing.Size(45, 13);
             this.label278.TabIndex = 16;
@@ -8550,15 +8569,16 @@ namespace BehaviorGraphics
             // 
             // textBoxATRW
             // 
-            this.textBoxATRW.Location = new System.Drawing.Point(101, 143);
+            this.textBoxATRW.Location = new System.Drawing.Point(101, 137);
             this.textBoxATRW.Name = "textBoxATRW";
             this.textBoxATRW.Size = new System.Drawing.Size(100, 20);
             this.textBoxATRW.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.textBoxATRW, "in seconds");
             // 
             // label279
             // 
             this.label279.AutoSize = true;
-            this.label279.Location = new System.Drawing.Point(5, 146);
+            this.label279.Location = new System.Drawing.Point(5, 140);
             this.label279.Name = "label279";
             this.label279.Size = new System.Drawing.Size(66, 13);
             this.label279.TabIndex = 14;
@@ -8566,15 +8586,16 @@ namespace BehaviorGraphics
             // 
             // textBoxATM
             // 
-            this.textBoxATM.Location = new System.Drawing.Point(101, 117);
+            this.textBoxATM.Location = new System.Drawing.Point(101, 112);
             this.textBoxATM.Name = "textBoxATM";
             this.textBoxATM.Size = new System.Drawing.Size(100, 20);
             this.textBoxATM.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.textBoxATM, "in seconds");
             // 
             // label280
             // 
             this.label280.AutoSize = true;
-            this.label280.Location = new System.Drawing.Point(5, 120);
+            this.label280.Location = new System.Drawing.Point(5, 115);
             this.label280.Name = "label280";
             this.label280.Size = new System.Drawing.Size(57, 13);
             this.label280.TabIndex = 8;
@@ -8582,15 +8603,16 @@ namespace BehaviorGraphics
             // 
             // textBoxATCHH
             // 
-            this.textBoxATCHH.Location = new System.Drawing.Point(101, 38);
+            this.textBoxATCHH.Location = new System.Drawing.Point(101, 37);
             this.textBoxATCHH.Name = "textBoxATCHH";
             this.textBoxATCHH.Size = new System.Drawing.Size(100, 20);
             this.textBoxATCHH.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.textBoxATCHH, "in seconds");
             // 
             // label281
             // 
             this.label281.AutoSize = true;
-            this.label281.Location = new System.Drawing.Point(5, 41);
+            this.label281.Location = new System.Drawing.Point(5, 40);
             this.label281.Name = "label281";
             this.label281.Size = new System.Drawing.Size(88, 13);
             this.label281.TabIndex = 2;
@@ -8602,7 +8624,7 @@ namespace BehaviorGraphics
             this.textBoxATCHL.Name = "textBoxATCHL";
             this.textBoxATCHL.Size = new System.Drawing.Size(100, 20);
             this.textBoxATCHL.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.textBoxATCHL, "This is a tool tip\r\n");
+            this.toolTip1.SetToolTip(this.textBoxATCHL, "in seconds");
             // 
             // label282
             // 
@@ -9404,6 +9426,23 @@ namespace BehaviorGraphics
             this.label74.Size = new System.Drawing.Size(61, 13);
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
+            // 
+            // textBoxATIVT
+            // 
+            this.textBoxATIVT.Location = new System.Drawing.Point(115, 87);
+            this.textBoxATIVT.Name = "textBoxATIVT";
+            this.textBoxATIVT.Size = new System.Drawing.Size(86, 20);
+            this.textBoxATIVT.TabIndex = 21;
+            this.toolTip1.SetToolTip(this.textBoxATIVT, "in seconds");
+            // 
+            // label303
+            // 
+            this.label303.AutoSize = true;
+            this.label303.Location = new System.Drawing.Point(3, 90);
+            this.label303.Name = "label303";
+            this.label303.Size = new System.Drawing.Size(88, 13);
+            this.label303.TabIndex = 22;
+            this.label303.Text = "Inter visual target";
             // 
             // UpdateForm
             // 
@@ -10422,5 +10461,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label301;
         private System.Windows.Forms.TextBox textBoxATVTD;
         private System.Windows.Forms.Label label302;
+        private System.Windows.Forms.TextBox textBoxATIVT;
+        private System.Windows.Forms.Label label303;
     }
 }

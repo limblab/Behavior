@@ -184,6 +184,16 @@ namespace BehaviorGraphics
 
                     break;
 
+                case TargetSpriteType.BlueCircle:
+                    /* Blue circle from bluecircle.tga */
+                    vertices = new CustomVertex.TransformedColored[200];
+                    /* centerX = ul[0], centerY = ul[1], radius = lr[0], */
+                    getCircleVertices(ul, lr, Color.Blue, ref vertices);
+
+                    device.VertexFormat = CustomVertex.TransformedColored.Format;
+                    device.DrawUserPrimitives(PrimitiveType.TriangleFan, 100, vertices);
+                    break;
+
                 default:
 
                     // See if we are one of the glyph types
@@ -274,6 +284,26 @@ namespace BehaviorGraphics
             }
         }
 
+        private void getCircleVertices(Vector3 centerCoord, Vector3 outerCoord, Color c, ref CustomVertex.TransformedColored[] vertices)
+        {
+            float radius = (float)Math.Sqrt((double)((centerCoord.X - outerCoord.X) * (centerCoord.X - outerCoord.X) + (centerCoord.Y - outerCoord.Y) * (centerCoord.Y - outerCoord.Y)));
+
+            vertices[0].Position = new Vector4(device.Viewport.Width / 2 + centerCoord.X, device.Viewport.Height / 2 + centerCoord.Y,
+                0f, 1f);
+
+            for (int i = 0; i < 100; i++)
+            {
+                double theta = (double)i / 100.0 * 2*Math.PI;
+
+                vertices[i].Position = new Vector4(
+                    radius * (float)Math.Cos(theta) + device.Viewport.Width / 2 + centerCoord.X,
+                    radius * (float)Math.Sin(theta) + device.Viewport.Height / 2 + centerCoord.Y,
+                    0f, 1f);
+                vertices[i].Color = c.ToArgb();
+
+            }
+        }
+
         public void SetPosition(float left, float top, float right, float bottom)
         {
             ul.X = left;
@@ -296,6 +326,7 @@ namespace BehaviorGraphics
 	    BlueTarget = 7,
 	    BlueArc = 8,
         YellowTarget = 9,
+        BlueCircle = 10,
         Glyph0 = 16,
         Glyph1 = 17,
         Glyph2 = 18,

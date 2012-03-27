@@ -690,6 +690,7 @@ namespace BehaviorGraphics
             AddParamListItem("AT TS", "P40", "Behavior AT", this.textBoxATTS);
             AddParamListItem("AT TR", "P41", "Behavior AT", this.textBoxATTR);
             AddParamListItem("AT VTD", "P42", "Behavior AT", this.textBoxATVTD);
+            AddParamListItem("AT IVT", "P44", "Behavior AT", this.textBoxATIVT);
             #endregion
         }
 
