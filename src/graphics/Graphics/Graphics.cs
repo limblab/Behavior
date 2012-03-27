@@ -311,10 +311,12 @@ namespace BehaviorGraphics
                         t[0].Type = (TargetSpriteType)(BitConverter.ToDouble(data, 16));
                         t[0].UL = cm2screen((float)BitConverter.ToDouble(data, 3 * 8), (float)BitConverter.ToDouble(data, 4 * 8));
                         t[0].LR = cm2screen((float)BitConverter.ToDouble(data, 5 * 8), (float)BitConverter.ToDouble(data, 6 * 8));
+                        t[0].SetColor(data, 6*8);
 
                         t[1].Type = (TargetSpriteType)(BitConverter.ToDouble(data, 56));
                         t[1].UL = cm2screen((float)BitConverter.ToDouble(data, 8 * 8), (float)BitConverter.ToDouble(data, 9 * 8));
                         t[1].LR = cm2screen((float)BitConverter.ToDouble(data, 10 * 8), (float)BitConverter.ToDouble(data, 11 * 8));
+                        t[1].SetColor(data, 11 * 8);
 
                         tone_id = BitConverter.ToDouble(data, 13 * 8);
                         new_tone_cnt = BitConverter.ToDouble(data, 12 * 8);
@@ -336,6 +338,7 @@ namespace BehaviorGraphics
                                                 (float)BitConverter.ToDouble(data, (pos++) * 8));
                             t[i].LR = cm2screen((float)BitConverter.ToDouble(data, (pos++) * 8),
                                                 (float)BitConverter.ToDouble(data, (pos++) * 8));
+                            t[i].SetColor(data, pos * 8);
                         }
 
                         break;

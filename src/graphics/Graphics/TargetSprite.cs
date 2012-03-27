@@ -5,24 +5,22 @@ using System.Drawing;
 using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
 
-namespace BehaviorGraphics
-{
-    public class TargetSprite
-    {
+namespace BehaviorGraphics {
+    public class TargetSprite {
         private Vector3 ul, lr;
         private TargetSpriteType type;
         private List<Texture> glyphTextures;
         private Texture errorTexture;
+        private Color optionalColor; // Used only on some target types
         Material material;
         Device device;
 
-        public TargetSprite(Device device)
-        {
+        public TargetSprite(Device device) {
             this.device = device;
             Setup();
 
             glyphTextures = new List<Texture>();
-            glyphTextures.Add(errorTexture);            
+            glyphTextures.Add(errorTexture);
         }
 
         public TargetSprite(Device device, List<Texture> glyphTextures) {
@@ -32,8 +30,7 @@ namespace BehaviorGraphics
             this.glyphTextures = glyphTextures;
         }
 
-        private void Setup()
-        {
+        private void Setup() {
             ul = new Vector3(0, 0, 0);
             lr = new Vector3(0, 0, 0);
             type = 0;
@@ -48,22 +45,24 @@ namespace BehaviorGraphics
             System.IO.Stream s = a.GetManifestResourceStream("BehaviorGraphics.glyphs.error.tga");
             errorTexture = TextureLoader.FromStream(device, s);
         }
-        
-        public Vector3 UL
-        {
+
+        public Vector3 UL {
             get { return new Vector3(ul.X, ul.Y, 0); }
             set { ul = value; }
         }
-        public Vector3 LR
-        {
+
+        public Vector3 LR {
             get { return new Vector3(lr.X, lr.Y, 0); }
             set { lr = value; }
         }
 
+        public void SetColor(byte[] buffer, int index) {
+            this.optionalColor = Color.FromArgb(buffer[index + 3], buffer[index], buffer[index + 1], buffer[index + 2]);
+        }
+
         public TargetSpriteType Type { get { return type; } set { type = value; } }
 
-        public void Draw()
-        {
+        public void Draw() {
             CustomVertex.TransformedColored[] vertices;
             Texture texture;
             Vector4 p = new Vector4();
@@ -158,7 +157,7 @@ namespace BehaviorGraphics
                     /* Red square target */
                     vertices = new CustomVertex.TransformedColored[200];
                     getArcVertices(ul, lr, Color.Red, ref vertices);
-                   
+
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 100, vertices);
 
@@ -168,7 +167,7 @@ namespace BehaviorGraphics
                     /* Blue square target */
                     vertices = new CustomVertex.TransformedColored[200];
                     getArcVertices(ul, lr, Color.Blue, ref vertices);
-                   
+
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 100, vertices);
 
@@ -184,11 +183,11 @@ namespace BehaviorGraphics
 
                     break;
 
-                case TargetSpriteType.BlueCircle:
+                case TargetSpriteType.Circle:
                     /* Blue circle from bluecircle.tga */
                     vertices = new CustomVertex.TransformedColored[100];
                     /* centerX = ul[0], centerY = ul[1], radius = lr[0], */
-                    getCircleVertices(ul, lr, Color.Blue, ref vertices);
+                    getCircleVertices(ul, lr.X, optionalColor, ref vertices);
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 98, vertices);
@@ -205,7 +204,7 @@ namespace BehaviorGraphics
                             texture = errorTexture;
                         }
 
-                        CustomVertex.TransformedTextured[] txtVert = 
+                        CustomVertex.TransformedTextured[] txtVert =
                             new CustomVertex.TransformedTextured[4];
                         txtVert[0].Position = new Vector4(ul.X, ul.Y, 0f, 1f);
                         txtVert[0].Tu = 0;
@@ -241,8 +240,7 @@ namespace BehaviorGraphics
             device.SetTexture(0, null);
         }
 
-        private void getSquareVertices(Vector3 ul, Vector3 lr, Color c, ref CustomVertex.TransformedColored[] vertices)
-        {
+        private void getSquareVertices(Vector3 ul, Vector3 lr, Color c, ref CustomVertex.TransformedColored[] vertices) {
             vertices[0].Position = new Vector4(ul.X, ul.Y, 0f, 1f);
             vertices[0].Color = c.ToArgb();
             vertices[1].Position = new Vector4(ul.X, lr.Y, 0f, 1f);
@@ -250,19 +248,18 @@ namespace BehaviorGraphics
             vertices[2].Position = new Vector4(lr.X, lr.Y, 0f, 1f);
             vertices[2].Color = c.ToArgb();
             vertices[3].Position = new Vector4(lr.X, ul.Y, 0f, 1f);
-            vertices[3].Color = c.ToArgb();            
+            vertices[3].Color = c.ToArgb();
         }
 
-        private void getArcVertices(Vector3 innerStart, Vector3 outerStop, Color c, ref CustomVertex.TransformedColored[] vertices)
-        {
+        private void getArcVertices(Vector3 innerStart, Vector3 outerStop, Color c, ref CustomVertex.TransformedColored[] vertices) {
             float start_angle = (float)Math.Atan2((double)innerStart.Y - device.Viewport.Height / 2, (double)innerStart.X - device.Viewport.Width / 2);
             float end_angle = (float)Math.Atan2((double)outerStop.Y - device.Viewport.Height / 2, (double)outerStop.X - device.Viewport.Width / 2);
-            
-            if (end_angle > start_angle ) {
+
+            if (end_angle > start_angle) {
                 start_angle = start_angle + (float)6.2832;
             }
 
-            float length =  2*(end_angle - start_angle);
+            float length = 2 * (end_angle - start_angle);
 
             float inner = (float)Math.Sqrt((double)((innerStart.X - device.Viewport.Width / 2) * (innerStart.X - device.Viewport.Width / 2) + (innerStart.Y - device.Viewport.Height / 2) * (innerStart.Y - device.Viewport.Height / 2)));
             float outer = (float)Math.Sqrt((double)((outerStop.X - device.Viewport.Width / 2) * (outerStop.X - device.Viewport.Width / 2) + (outerStop.Y - device.Viewport.Height / 2) * (outerStop.Y - device.Viewport.Height / 2)));
@@ -271,43 +268,38 @@ namespace BehaviorGraphics
                 double theta = start_angle + (double)i / 100.0 * length;
 
                 vertices[2 * i].Position = new Vector4(
-                    inner*(float)Math.Cos(theta) + device.Viewport.Width/2, 
-                    inner*(float)Math.Sin(theta) + device.Viewport.Height/2, 
+                    inner * (float)Math.Cos(theta) + device.Viewport.Width / 2,
+                    inner * (float)Math.Sin(theta) + device.Viewport.Height / 2,
                     0f, 1f);
                 vertices[2 * i].Color = c.ToArgb();
-                                
+
                 vertices[2 * i + 1].Position = new Vector4(
-                    outer * (float)Math.Cos(theta) + device.Viewport.Width/2, 
-                    outer * (float)Math.Sin(theta) + device.Viewport.Height/2, 
+                    outer * (float)Math.Cos(theta) + device.Viewport.Width / 2,
+                    outer * (float)Math.Sin(theta) + device.Viewport.Height / 2,
                     0f, 1f);
                 vertices[2 * i + 1].Color = c.ToArgb();
             }
         }
 
-        private void getCircleVertices(Vector3 centerCoord, Vector3 outerCoord, Color c, ref CustomVertex.TransformedColored[] vertices)
-        {
-            float radius = (float)Math.Sqrt((double)((centerCoord.X - outerCoord.X) * (centerCoord.X - outerCoord.X) + (centerCoord.Y - outerCoord.Y) * (centerCoord.Y - outerCoord.Y)));
+        private void getCircleVertices(Vector3 centerCoord, float outerX, Color c, ref CustomVertex.TransformedColored[] vertices) {
+            float radius = Math.Abs(centerCoord.X - outerX);
 
-            vertices[0].Position = new Vector4(centerCoord.X, centerCoord.Y,
-                0f, 1f);
+            vertices[0].Position = new Vector4(centerCoord.X, centerCoord.Y, 0f, 1f);
             vertices[0].Color = c.ToArgb();
 
-            for (int i = 1; i < 99; i++)
-            {
-                double theta = (double)i / 99.0 * 2*Math.PI;
+            for (int i = 1; i < 99; i++) {
+                double theta = (double)i / 99.0 * 2 * Math.PI;
 
                 vertices[i].Position = new Vector4(
                     radius * (float)Math.Cos(theta) + centerCoord.X,
                     radius * (float)Math.Sin(theta) + centerCoord.Y,
                     0f, 1f);
                 vertices[i].Color = c.ToArgb();
-
             }
             vertices[99] = vertices[1];
         }
 
-        public void SetPosition(float left, float top, float right, float bottom)
-        {
+        public void SetPosition(float left, float top, float right, float bottom) {
             ul.X = left;
             ul.Y = top;
             lr.X = right;
@@ -316,8 +308,7 @@ namespace BehaviorGraphics
 
     }
 
-    public enum TargetSpriteType
-    {
+    public enum TargetSpriteType {
         None = 0,
         RedTarget = 1,
         WhiteTarget = 2,
@@ -325,10 +316,10 @@ namespace BehaviorGraphics
         WallColisionTarget = 4,
         RedArc = 5,
         WhiteArc = 6,
-	    BlueTarget = 7,
-	    BlueArc = 8,
+        BlueTarget = 7,
+        BlueArc = 8,
         YellowTarget = 9,
-        BlueCircle = 10,
+        Circle = 10,
         Glyph0 = 16,
         Glyph1 = 17,
         Glyph2 = 18,

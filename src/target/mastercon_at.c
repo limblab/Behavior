@@ -10,6 +10,7 @@
 
 #define TASK_AT 1
 #include "words.h"
+#include "targets.h"
 #include "random_macros.h"
 
 #define PI (3.141592654)
@@ -226,13 +227,6 @@ static real_T percent_training_trials = 0.0;
 #define iWorkTrialType 52
 #define iWorkBlockCount 53
 #define iWorkCatchTrial 54
-
-#define RedTarget 1
-#define BlueTarget 7
-#define WhiteTarget 2
-#define GreenTarget 3
-#define PurpleTarget 9
-#define BlueCircle 10
 
 static void mdlCheckParameters(SimStruct *S)
 {
@@ -1070,7 +1064,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     /* allocate holders for outputs */
     real_T force_x, force_y, word, reward, tone_cnt, tone_id, pos_x, pos_y;
-    real_T target_pos[45];
+    real_T target_pos[10];
     real_T status[5];
     real_T version[4];
     
@@ -1127,12 +1121,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     vt1[0] = 0;
     vt1[1] = target_radius;
     vt1[2] = visual_target_1_size/2;
-    vt1[3] = target_radius + visual_target_1_size/2;
+	vt1[3] = 0xffff1271;
     
     vt2[0] = 0;
     vt2[1] = target_radius;
     vt2[2] = visual_target_2_size/2;
-    vt2[3] = target_radius + visual_target_2_size/2;
+    vt2[3] = 0xffa8ff12;
     
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
@@ -1248,11 +1242,11 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             state == STATE_VISUAL_1 || state == STATE_VISUAL_2 ||
             state == STATE_INTERVISUAL){
         if (trial_type==0){
-            target_pos[0] = BlueTarget;
+            target_pos[0] = BlueTargetType;
         } else if (trial_type==1){
-            target_pos[0] = WhiteTarget;
+            target_pos[0] = WhiteTargetType;
         } else {
-            target_pos[0] = GreenTarget;
+            target_pos[0] = GreenTargetType;
         }
         for (i=0; i<4; i++) {
            target_pos[i+1] = ct[i];
@@ -1260,29 +1254,23 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     if (state == STATE_VISUAL_1){        
-        target_pos[5] = BlueCircle;        
+        target_pos[5] = CircleTargetType;        
         for (i=0; i<4; i++) {
            target_pos[i+6] = vt1[i];
         }
     }
     
     if (state == STATE_VISUAL_2){        
-        target_pos[5] = BlueCircle;        
+        target_pos[5] = CircleTargetType;        
         for (i=0; i<4; i++) {
            target_pos[i+6] = vt2[i];
         }
     }        
             
     if (state == STATE_MOVEMENT){
-        target_pos[0] = RedTarget;        
-        for (i=0; i<4; i++) {
-           target_pos[i+1] = rt[i];
-        }
+		drawRectTarget(target_pos, 0, rt, RedTargetType);
         if (!training_mode && trial_type!=2){
-            target_pos[5] = RedTarget;
-            for (i=0; i<4; i++) {
-               target_pos[i+6] = ft[i];
-            }
+			drawRectTarget(target_pos, 1, ft, RedTargetType);
         }
     }
     
