@@ -1156,6 +1156,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_REWARD:
                 word = WORD_REWARD;
                 break;
+			case STATE_OUTER_HOLD:
+				word = WORD_OUTER_HOLD;
+				break;
+			case STATE_OUTER_HOLD_WRONG:
+				word = WORD_OUTER_HOLD_WRONG;
+				break;
             case STATE_ABORT:
                 word = WORD_ABORT;
                 break;
