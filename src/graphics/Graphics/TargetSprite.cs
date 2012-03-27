@@ -57,7 +57,9 @@ namespace BehaviorGraphics {
         }
 
         public void SetColor(byte[] buffer, int index) {
-            this.optionalColor = Color.FromArgb(buffer[index + 3], buffer[index], buffer[index + 1], buffer[index + 2]);
+            //this.optionalColor = Color.FromArgb((int)buffer[index], (int)buffer[index+1], (int)buffer[index + 2], (int)buffer[index + 3]);
+            this.optionalColor = Color.FromArgb(255, 255, (int)buffer[index + 2], (int)buffer[index + 3]);
+            //this.optionalColor = Color.Aqua;
         }
 
         public TargetSpriteType Type { get { return type; } set { type = value; } }
@@ -304,6 +306,19 @@ namespace BehaviorGraphics {
             ul.Y = top;
             lr.X = right;
             lr.Y = bottom;
+        }
+
+        public override String ToString()
+        {
+            try
+            {
+                return String.Format("Target: {0} | ({1,2}, {2,2}) ({3,2}, {4,2}) | {5}",
+                    this.type, this.ul.X, this.ul.Y, this.lr.X, this.lr.Y, this.optionalColor.ToString());
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
+            }
         }
 
     }

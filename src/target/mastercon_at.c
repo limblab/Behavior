@@ -1268,9 +1268,17 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }        
             
     if (state == STATE_MOVEMENT){
-		drawRectTarget(target_pos, 0, rt, RedTargetType);
+        target_pos[0] = RedTargetType;        
+        for (i=0; i<4; i++) {
+           target_pos[i+1] = rt[i];
+        }
+// 		drawRectTarget(target_pos, 0, rt, RedTargetType);
         if (!training_mode && trial_type!=2){
-			drawRectTarget(target_pos, 1, ft, RedTargetType);
+// 			drawRectTarget(target_pos, 1, ft, RedTargetType);
+            target_pos[5] = RedTargetType;        
+            for (i=0; i<4; i++) {
+               target_pos[i+6] = ft[i];
+            }
         }
     }
     

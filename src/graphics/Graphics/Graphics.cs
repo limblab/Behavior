@@ -213,6 +213,7 @@ namespace BehaviorGraphics
             posStr = posStr + "\n" + String.Format("Tone Count: {0}\nTone ID: {1}", this.tone_cnt, this.tone_id);
             posStr = posStr + "\n" + String.Format("Cursor: {0}\n{1}", this.activeCursorIndex, this.activeCursor);
             posStr = posStr + "\n" + String.Format("FPS: {0:f}", 1000.0 / interFrameInterval);
+            posStr = posStr + "\n" + this.t[1].ToString();
             font.DrawText(null, posStr, new System.Drawing.Point(10, 10), System.Drawing.Color.White);
 #endif
             if (connectionLost && flashOn) {
@@ -338,7 +339,7 @@ namespace BehaviorGraphics
                                                 (float)BitConverter.ToDouble(data, (pos++) * 8));
                             t[i].LR = cm2screen((float)BitConverter.ToDouble(data, (pos++) * 8),
                                                 (float)BitConverter.ToDouble(data, (pos++) * 8));
-                            t[i].SetColor(data, pos * 8);
+                            t[i].SetColor(data, (pos-1) * 8 -4);
                         }
 
                         break;

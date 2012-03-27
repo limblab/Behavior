@@ -20,7 +20,7 @@
 /* #define DrawCircleTarget(output, centerX, centerY, radius, color) \ */
 
 void drawRectTarget(float *output, int index, float *location, int type) {
-	output[0 + index*5*sizeof(float)] = type;
+	output[0 + index*5*sizeof(float)] = (float)type;
 	output[1 + index*5*sizeof(float)] = location[0];
 	output[2 + index*5*sizeof(float)] = location[1];
 	output[3 + index*5*sizeof(float)] = location[2];
