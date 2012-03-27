@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1270"
+    ComputedModelVersion    "1.1271"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Mar 22 16:34:59 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1270>"
+  LastModifiedDate	  "Tue Mar 27 08:54:40 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1271>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -852,7 +852,7 @@ Model {
       FunctionName	      "mastercon_at"
       Parameters	      "0 0 1 2 2 3 5 1 1 1 0.5 40 40 10 1 20 1 0.7 10 "
 "0.5 1.5 0.05 0.2 1 0.05 0.8 1.2 5 0.5 1 5 0.01 0.03 3 0.125 4 0 0.1 0.3 3 10 "
-"1 0"
+"1 0 1"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'pos offsets')\nport_label('input',3,'force')\npor"
 "t_label('input',4,'catch force')\nport_label('output',1,'force')\nport_label("

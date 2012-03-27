@@ -186,12 +186,12 @@ namespace BehaviorGraphics
 
                 case TargetSpriteType.BlueCircle:
                     /* Blue circle from bluecircle.tga */
-                    vertices = new CustomVertex.TransformedColored[200];
+                    vertices = new CustomVertex.TransformedColored[100];
                     /* centerX = ul[0], centerY = ul[1], radius = lr[0], */
                     getCircleVertices(ul, lr, Color.Blue, ref vertices);
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
-                    device.DrawUserPrimitives(PrimitiveType.TriangleFan, 100, vertices);
+                    device.DrawUserPrimitives(PrimitiveType.TriangleFan, 98, vertices);
                     break;
 
                 default:
@@ -288,20 +288,22 @@ namespace BehaviorGraphics
         {
             float radius = (float)Math.Sqrt((double)((centerCoord.X - outerCoord.X) * (centerCoord.X - outerCoord.X) + (centerCoord.Y - outerCoord.Y) * (centerCoord.Y - outerCoord.Y)));
 
-            vertices[0].Position = new Vector4(device.Viewport.Width / 2 + centerCoord.X, device.Viewport.Height / 2 + centerCoord.Y,
+            vertices[0].Position = new Vector4(centerCoord.X, centerCoord.Y,
                 0f, 1f);
+            vertices[0].Color = c.ToArgb();
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 1; i < 99; i++)
             {
-                double theta = (double)i / 100.0 * 2*Math.PI;
+                double theta = (double)i / 99.0 * 2*Math.PI;
 
                 vertices[i].Position = new Vector4(
-                    radius * (float)Math.Cos(theta) + device.Viewport.Width / 2 + centerCoord.X,
-                    radius * (float)Math.Sin(theta) + device.Viewport.Height / 2 + centerCoord.Y,
+                    radius * (float)Math.Cos(theta) + centerCoord.X,
+                    radius * (float)Math.Sin(theta) + centerCoord.Y,
                     0f, 1f);
                 vertices[i].Color = c.ToArgb();
 
             }
+            vertices[99] = vertices[1];
         }
 
         public void SetPosition(float left, float top, float right, float bottom)

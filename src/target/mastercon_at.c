@@ -290,7 +290,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 43);
+    ssSetNumSFcnParams(S, 44);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -922,12 +922,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 }
                 reset_timer();
                 state_changed();
+            }
             break;
         case STATE_INTERBUMP:
             if (elapsed_timer_time > interbump_delay && cursorInTarget(cursor, ct)) {
                 new_state = STATE_CENTER_HOLD_2;
                 reset_timer(); /* delay timer */
                 state_changed();
+            }
             break;
        case STATE_CENTER_HOLD_2:
             /* center hold */
