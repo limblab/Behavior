@@ -1121,12 +1121,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     vt1[0] = 0;
     vt1[1] = target_radius;
     vt1[2] = visual_target_1_size/2;
-	vt1[3] = 0xffff1271;
+	vt1[3] = TARGET_RGB(0, 0, 255);
     
     vt2[0] = 0;
     vt2[1] = target_radius;
     vt2[2] = visual_target_2_size/2;
-    vt2[3] = 0xffa8ff12;
+    vt2[3] = TARGET_RGB(0, 0, 255);
     
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);

@@ -16,6 +16,8 @@
 #define PurpleTargetType 9
 #define CircleTargetType 10
 
+#define TARGET_RGB(r, g, b) ( (r)*256*256 + (g)*256 + (b) )
+
 /* target display macros */
 /* #define DrawCircleTarget(output, centerX, centerY, radius, color) \ */
 
