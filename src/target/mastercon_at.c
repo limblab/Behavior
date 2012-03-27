@@ -1,5 +1,4 @@
-// to do: check inter-visual-target-delay parameter, check visual targets to circles, 
-// reward!
+// to do:  reward!
 
 #define S_FUNCTION_NAME mastercon_at
 #define S_FUNCTION_LEVEL 2
