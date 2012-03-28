@@ -344,7 +344,7 @@ namespace BehaviorGraphics
                             t[i].UL = cm2screen((float)ulx, (float)uly); 
                             t[i].LR = cm2screen((float)lrx, (float)lry);
                             if (t[i].Type == TargetSpriteType.Circle || t[i].Type == TargetSpriteType.Square)
-                            {
+                        {
                                 t[i].SetColor(lry);                                
                             }
                         }

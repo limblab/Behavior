@@ -485,8 +485,6 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     int nshift;
     
     real_T ct[4];
-    real_T vt1[4];    /* visual target 1 coordinates */
-    real_T vt2[4];    /* visual target 2 coordinates */
     real_T rt[4];     /* reward target UL and LR coordinates */
     real_T ft[4];     /* fail target UL and LR coordinates */
     real_T previous_visual_stair_ratio;
@@ -603,18 +601,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     ft[0] = target_radius*cos(fail_target_angle) - target_size/2; /* reward target */
     ft[1] = target_radius*sin(fail_target_angle) + target_size/2;
     ft[2] = target_radius*cos(fail_target_angle) + target_size/2;
-    ft[3] = target_radius*sin(fail_target_angle) - target_size/2;
-    
-    vt1[0] = -visual_target_1_size/2;
-    vt1[1] = target_radius + visual_target_1_size/2;
-    vt1[2] = visual_target_1_size/2;
-    vt1[3] = target_radius - visual_target_1_size/2;
-    
-    vt2[0] = -visual_target_2_size/2;
-    vt2[1] = target_radius + visual_target_2_size/2;
-    vt2[2] = visual_target_2_size/2;
-    vt2[3] = target_radius - visual_target_2_size/2;
-    
+    ft[3] = target_radius*sin(fail_target_angle) - target_size/2;   
+
     /* get trial type */
     trial_type = ssGetIWorkValue(S,iWorkTrialType);
     
@@ -1118,16 +1106,16 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     ft[2] = target_radius*cos(fail_target_angle) + target_size/2;
     ft[3] = target_radius*sin(fail_target_angle) - target_size/2;
     
-    // vt1 and vt2 are circle targets [centerX, centerY, anyouterpointX, anyouterpointY]
+    // vt1 and vt2 are circle targets [centerX, centerY, outerpointX, whatever]
     vt1[0] = 0;
     vt1[1] = target_radius;
     vt1[2] = visual_target_1_size/2;
-	vt1[3] = TARGET_RGB(0, 0, 255);
+	vt1[3] = 0;
     
     vt2[0] = 0;
     vt2[1] = target_radius;
     vt2[2] = visual_target_2_size/2;
-    vt2[3] = TARGET_RGB(0, 0, 255);
+    vt2[3] = 0;
     
     /* current cursor location */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
@@ -1242,46 +1230,28 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             state == STATE_BUMP_1 || state == STATE_BUMP_2 ||
             state == STATE_VISUAL_1 || state == STATE_VISUAL_2 ||
             state == STATE_INTERVISUAL){
+        
         if (trial_type==0){
-            target_pos[0] = BlueTargetType;
+            drawSquareTarget(target_pos, 0, ct, COLOR_BLUE);
         } else if (trial_type==1){
-            target_pos[0] = WhiteTargetType;
+            drawSquareTarget(target_pos, 0, ct, COLOR_WHITE);
         } else {
-            target_pos[0] = GreenTargetType;
-        }
-        for (i=0; i<4; i++) {
-           target_pos[i+1] = ct[i];
+            drawSquareTarget(target_pos, 0, ct, COLOR_GREEN);
         }
     }
     
-    if (state == STATE_VISUAL_1){        
-        target_pos[5] = CircleTargetType;        
-        for (i=0; i<4; i++) {
-           target_pos[i+6] = vt1[i];
-        }
+    if (state == STATE_VISUAL_1){       
+        drawCircleTarget(target_pos, 1, vt1, COLOR_BLUE);
     }
     
     if (state == STATE_VISUAL_2){        
-        target_pos[5] = CircleTargetType;        
-        for (i=0; i<4; i++) {
-           target_pos[i+6] = vt2[i];
-        }
+        drawCircleTarget(target_pos, 1, vt2, COLOR_BLUE);
     }        
             
     if (state == STATE_MOVEMENT){
-/*        target_pos[0] = RedTargetType;        
-        for (i=0; i<4; i++) {
-           target_pos[i+1] = rt[i];
-        } */
- 		//drawRectTarget(target_pos, 0, rt, RedTargetType);
         drawSquareTarget(target_pos, 0, rt, COLOR_RED);
         if (!training_mode && trial_type!=2){
- 			//drawRectTarget(target_pos, 1, ft, RedTargetType);
-            drawSquareTarget(target_pos, 0, ft, COLOR_RED);
-/*            target_pos[5] = RedTargetType;        
-            for (i=0; i<4; i++) {
-               target_pos[i+6] = ft[i];
-            } */
+            drawSquareTarget(target_pos, 1, ft, COLOR_RED);
         }
     }
     

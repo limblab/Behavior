@@ -265,15 +265,26 @@ namespace BehaviorGraphics {
             vertices[3].Color = c.ToArgb();
         }
 
-        private void getSquareVertices(Vector3 centerCoord, float width, Color c, ref CustomVertex.TransformedColored[] vertices) {
-            vertices[0].Position = new Vector4(centerCoord.X-width/2, centerCoord.Y+width/2, 0f, 1f);
+        private void getSquareVertices(Vector3 ul, float outerX, Color c, ref CustomVertex.TransformedColored[] vertices) {
+            float target_width = Math.Abs(outerX - ul.X);
+            vertices[0].Position = new Vector4(ul.X, ul.Y, 0f, 1f);
             vertices[0].Color = c.ToArgb();
-            vertices[1].Position = new Vector4(centerCoord.X-width/2, centerCoord.Y-width/2, 0f, 1f);
+            vertices[1].Position = new Vector4(ul.X, ul.Y + target_width, 0f, 1f);
             vertices[1].Color = c.ToArgb();
-            vertices[2].Position = new Vector4(centerCoord.X+width/2, centerCoord.Y-width/2, 0f, 1f);
+            vertices[2].Position = new Vector4(lr.X, ul.Y + target_width, 0f, 1f);
             vertices[2].Color = c.ToArgb();
-            vertices[3].Position = new Vector4(centerCoord.X+width/2, centerCoord.Y+width/2, 0f, 1f);
+            vertices[3].Position = new Vector4(lr.X, ul.Y, 0f, 1f);
             vertices[3].Color = c.ToArgb();
+            
+            /*Vector3 centerCoord = new Vector3(ul.X + target_width / 2, ul.Y - target_width / 2, 0);
+            vertices[0].Position = new Vector4(centerCoord.X - target_width / 2, centerCoord.Y + target_width / 2, 0f, 1f);
+            vertices[0].Color = c.ToArgb();
+            vertices[1].Position = new Vector4(centerCoord.X - target_width / 2, centerCoord.Y - target_width / 2, 0f, 1f);
+            vertices[1].Color = c.ToArgb();
+            vertices[2].Position = new Vector4(centerCoord.X + target_width / 2, centerCoord.Y - target_width / 2, 0f, 1f);
+            vertices[2].Color = c.ToArgb();
+            vertices[3].Position = new Vector4(centerCoord.X + target_width / 2, centerCoord.Y + target_width / 2, 0f, 1f);
+            vertices[3].Color = c.ToArgb();*/
         }
 
         private void getArcVertices(Vector3 innerStart, Vector3 outerStop, Color c, ref CustomVertex.TransformedColored[] vertices) {
