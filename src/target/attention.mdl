@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1276"
+    ComputedModelVersion    "1.1278"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Selket"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Mar 28 12:13:33 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1276>"
+  LastModifiedDate	  "Wed Mar 28 14:23:20 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1278>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -325,7 +325,8 @@ Model {
 	  ConfigurationMode	  "Optimized"
 	  ProcessScript		  "xpctarget_make_rtw_hook"
 	  ConfigAtBuild		  off
-	  CustomLibrary		  "targets.obj"
+	  CustomSource		  "targets.c\n"
+	  CustomLibrary		  ""
 	  IncludeHyperlinkInReport off
 	  LaunchReport		  off
 	  TargetLang		  "C"
@@ -830,7 +831,7 @@ Model {
   }
   System {
     Name		    "attention"
-    Location		    [93, 139, 1080, 779]
+    Location		    [31, 106, 1018, 746]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
