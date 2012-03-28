@@ -94,10 +94,10 @@ else
         end
         
         % finally, build the target with the auto rule
-        r = do_build(tree{rule_index}{1}, must_build);
-    else 
+        r = do_build(tree{rule_index}{1}, must_build, tree{rule_index});
+    else
         % If there is no rule, just make one up
-        r = do_build(target, false);
+        r = do_build(target, false, []);
     end
     
 end % strcmp(target, 'all')
@@ -106,29 +106,37 @@ end % strcmp(target, 'all')
 
 %%%%%%%%%%%%% Begin Internal Functions %%%%%%%%%%%%%%%%%
 
-function r = do_build(target, force)
+function r = do_build(target, force, deps)
     if (regexp(target, '\.mexw32$'))
-        r = do_build_mex(target, force);
+        r = do_build_mex(target, force, deps);
     elseif (regexp(target, '\.dlm$'))
-        r = do_build_dlm(target, force);
+        r = do_build_dlm(target, force, deps);
+    elseif (regexp(target, '\.obj$'))
+        r = do_build_obj(target, force, deps);
     else 
         error(['Have no rule for target: ' target]);
     end
 end
 
 
-function r = do_build_mex(target, force)
+function r = do_build_mex(target, force, deps)
     r = 0;
-    
+    libs = '';
+    for d=1:length(deps)
+        if regexp(deps{d}, '\.obj$')
+            libs = [libs ',''' deps{d} ''''];
+        end
+    end
+
     compname = target;
     compdate = dir(compname);
-        
+
     filename = regexp(compname, '^(\w*)\.mexw32$', 'tokens');
     filename = filename{1};
     filename = strcat(filename{1}, '.c');
     filedate = dir(filename);
     filedate = filedate.datenum;
-    
+
     if (~isempty(compdate))
         compdate = compdate.datenum;
         if (filedate > compdate)
@@ -137,28 +145,57 @@ function r = do_build_mex(target, force)
     else 
         r = 1;
     end
-    
+
     if (r || force)
         dbprint(['  building: ' target]);
-        mex(filename);
+        eval(['mex(filename' libs ')']);
     else
         dbprint(['  skipped:  ' target]);
     end
 end
 
-function r = do_build_dlm(target, force)
+function r = do_build_obj(target, force, deps)
     r = 0;
-    
+
     compname = target;
     compdate = dir(compname);
-        
+
+    filename = regexp(compname, '^(\w*)\.obj$', 'tokens');
+    filename = filename{1};
+    filename = strcat(filename{1}, '.c');
+    filedate = dir(filename);
+    filedate = filedate.datenum;
+
+    if (~isempty(compdate))
+        compdate = compdate.datenum;
+        if (filedate > compdate)
+            r = 1;
+        end 
+    else 
+        r = 1;
+    end
+
+    if (r || force)
+        dbprint(['  building: ' target]);
+        mex('-c', filename);
+    else
+        dbprint(['  skipped:  ' target]);
+    end
+end
+
+function r = do_build_dlm(target, force, deps)
+    r = 0;
+
+    compname = target;
+    compdate = dir(compname);
+
     filename = regexp(compname, '^(\w*)\.dlm$', 'tokens');
     filename = filename{1};
     buildname = filename{1};
     filename = strcat(filename{1}, '.mdl');
     filedate = dir(filename);
     filedate = filedate.datenum;
-    
+
     if (~isempty(compdate))
         compdate = compdate.datenum;
         if (filedate > compdate)
@@ -167,7 +204,7 @@ function r = do_build_dlm(target, force)
     else 
         r = 1;
     end
-            
+
     if (r || force)
         dbprint(['  building: ' target]);
         rtwbuild(buildname);

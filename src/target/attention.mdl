@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1271"
+    ComputedModelVersion    "1.1276"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "Selket"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Mar 27 08:54:40 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1271>"
+  LastModifiedDate	  "Wed Mar 28 12:13:33 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1276>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -325,6 +325,7 @@ Model {
 	  ConfigurationMode	  "Optimized"
 	  ProcessScript		  "xpctarget_make_rtw_hook"
 	  ConfigAtBuild		  off
+	  CustomLibrary		  "targets.obj"
 	  IncludeHyperlinkInReport off
 	  LaunchReport		  off
 	  TargetLang		  "C"
@@ -464,7 +465,7 @@ Model {
 	PropName		"Components"
       }
       Name		      "Configuration"
-      CurrentDlgPage	      "Optimization"
+      CurrentDlgPage	      "Real-Time Workshop/Custom Code"
     }
     PropName		    "ConfigurationSets"
   }
@@ -829,7 +830,7 @@ Model {
   }
   System {
     Name		    "attention"
-    Location		    [2, 82, 989, 722]
+    Location		    [93, 139, 1080, 779]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1081,7 +1082,7 @@ Model {
       BlockType		      SubSystem
       Name		      "Catch Force Generator"
       Ports		      [1, 1]
-      Position		      [525, 319, 585, 381]
+      Position		      [525, 394, 585, 456]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -1817,14 +1818,14 @@ Model {
     Block {
       BlockType		      Constant
       Name		      "Constant"
-      Position		      [1190, 360, 1220, 390]
+      Position		      [1190, 375, 1220, 405]
       Value		      "3"
     }
     Block {
       BlockType		      SubSystem
       Name		      "Force Generator"
       Ports		      [1, 1]
-      Position		      [525, 234, 585, 296]
+      Position		      [525, 289, 585, 351]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -2559,7 +2560,7 @@ Model {
     Block {
       BlockType		      From
       Name		      "From"
-      Position		      [530, 165, 580, 195]
+      Position		      [535, 200, 585, 230]
       CloseFcn		      "tagdialog Close"
       GotoTag		      "Offsets"
       TagVisibility	      "global"
@@ -2567,7 +2568,7 @@ Model {
     Block {
       BlockType		      Goto
       Name		      "Goto"
-      Position		      [1010, 264, 1055, 286]
+      Position		      [1015, 279, 1060, 301]
       GotoTag		      "Reward"
       TagVisibility	      "global"
     }
@@ -5594,7 +5595,7 @@ Model {
       BlockType		      SubSystem
       Name		      "RewardSbs"
       Ports		      [1, 1]
-      Position		      [935, 257, 985, 293]
+      Position		      [935, 272, 985, 308]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -5914,7 +5915,7 @@ Model {
       BlockType		      Reference
       Name		      "SendPacketToGraphics1"
       Ports		      [4]
-      Position		      [1255, 287, 1345, 388]
+      Position		      [1255, 302, 1345, 403]
       SourceBlock	      "limblab/SendPacketToGraphics"
       SourceType	      ""
       ShowPortLabels	      "FromPortIcon"
@@ -5930,7 +5931,7 @@ Model {
       BlockType		      Reference
       Name		      "Status"
       Ports		      [1]
-      Position		      [1010, 109, 1080, 151]
+      Position		      [1015, 119, 1085, 161]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -6635,7 +6636,7 @@ Model {
       BlockType		      Reference
       Name		      "Version Display"
       Ports		      [1]
-      Position		      [930, 364, 1000, 406]
+      Position		      [930, 369, 1000, 411]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -6672,7 +6673,7 @@ Model {
       BlockType		      SubSystem
       Name		      "WordSbs"
       Ports		      [1]
-      Position		      [935, 154, 980, 196]
+      Position		      [935, 169, 980, 211]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -8423,14 +8424,14 @@ Model {
       Branch {
 	Points			[0, -85]
 	Branch {
-	  Points		  [0, -200]
+	  Points		  [0, -105]
 	  Branch {
-	    Points		    [15, 0]
+	    Points		    [0, 0]
 	    DstBlock		    "Catch Force Generator"
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -65]
+	    Points		    [0, -105]
 	    DstBlock		    "Force Generator"
 	    DstPort		    1
 	  }
@@ -8456,14 +8457,13 @@ Model {
 	  DstPort		  1
 	}
 	Branch {
-	  Points		  [0, -110]
+	  Points		  [0, -90]
 	  Branch {
-	    Points		    [330, 0]
 	    DstBlock		    "Matrix\nConcatenation1"
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -380]
+	    Points		    [0, -400]
 	    DstBlock		    "Behavior AT"
 	    DstPort		    1
 	  }
@@ -8473,14 +8473,12 @@ Model {
     Line {
       SrcBlock		      "Behavior AT"
       SrcPort		      2
-      Points		      [0, -10]
       DstBlock		      "Status"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Behavior AT"
       SrcPort		      3
-      Points		      [0, -15]
       DstBlock		      "WordSbs"
       DstPort		      1
     }
@@ -8494,7 +8492,6 @@ Model {
     Line {
       SrcBlock		      "Behavior AT"
       SrcPort		      5
-      Points		      [30, 0]
       DstBlock		      "RewardSbs"
       DstPort		      1
     }
@@ -8560,49 +8557,44 @@ Model {
     Line {
       SrcBlock		      "Behavior AT"
       SrcPort		      4
-      Points		      [280, 0; 0, 60]
+      Points		      [280, 0; 0, 75]
       DstBlock		      "SendPacketToGraphics1"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Catch Force Generator"
       SrcPort		      1
-      Points		      [50, 0]
       DstBlock		      "Behavior AT"
       DstPort		      4
     }
     Line {
       SrcBlock		      "Force Generator"
       SrcPort		      1
-      Points		      [50, 0]
       DstBlock		      "Behavior AT"
       DstPort		      3
     }
     Line {
       SrcBlock		      "From"
       SrcPort		      1
-      Points		      [55, 0]
       DstBlock		      "Behavior AT"
       DstPort		      2
     }
     Line {
       SrcBlock		      "Behavior AT"
       SrcPort		      6
-      Points		      [350, 0]
       DstBlock		      "SendPacketToGraphics1"
       DstPort		      2
     }
     Line {
       SrcBlock		      "Behavior AT"
       SrcPort		      7
-      Points		      [25, 0]
       DstBlock		      "Version Display"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Behavior AT"
       SrcPort		      8
-      Points		      [0, -10; 275, 0; 0, -80]
+      Points		      [275, 0; 0, -75]
       DstBlock		      "SendPacketToGraphics1"
       DstPort		      3
     }
