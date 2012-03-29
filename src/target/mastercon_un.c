@@ -403,8 +403,6 @@ static real_T gRand() {
 
 }
 
-#define gRand (sqrt(-2*log(UNI))*cos(2*PI*UNI))
-
 #define MDL_UPDATE
 static void mdlUpdate(SimStruct *S, int_T tid) 
 {
