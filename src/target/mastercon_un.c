@@ -393,12 +393,15 @@ static void Corners(real_T *pos, real_T *corn, real_T width)
  */
 
 static real_T gRand() {
-	real_T r1,r2,gRand;
+	real_T r[2];
+	real_T gRand;
+	int i;
 
-	r1 = UNI;
-	r2 = UNI;
+	for (i=0; i<2; i++) {
+		r[i] = UNI;
+	}
 
-	gRand = sqrt(-2*log(r1))*cos(2*PI*r2);
+	gRand = sqrt(-2*log(r[0]))*cos(2*PI*r[1]);
 	return ( gRand );
 
 }
