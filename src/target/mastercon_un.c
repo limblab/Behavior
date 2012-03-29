@@ -430,6 +430,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     real_T elapsed_timer_time;
 	real_T rad_d,curs_rad, shifted_rad_d, shifted_curs_rad;
     real_T displace;
+	real_T displace_RAND, cluster_RAND;
 	
     int reset_block = 0;
         
@@ -643,12 +644,14 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			window_type = (int)param_window_type;
 
 			/* get displacement of cursor drawn from normal distribution and save to work vector */
-			displace = (displacement_mean + (gRand * displacement_var)); 
+			displace_RAND = gRand();
+			displace = (displacement_mean + (displace_RAND * displacement_var)); 
 			ssSetRWorkValue(S,5,displace);
 
 			/* get displacement of cue cloud drawn from normal distribution and save positions to work vector */
 			for (i=0; i<20; i++){
-				ssSetRWorkValue(S,6+i,(gRand*cue_var));
+				cluster_RAND = gRand();
+				ssSetRWorkValue(S,6+i,(cluster_RAND*cue_var));
 			}
 
             /* see if mode has changed.  If so we need a reset. */
