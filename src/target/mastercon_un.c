@@ -392,6 +392,17 @@ static void Corners(real_T *pos, real_T *corn, real_T width)
  * initialize_conditions
  */
 
+static real_T gRand() {
+	real_T r1,r2,gRand;
+
+	r1 = UNI;
+	r2 = UNI;
+
+	gRand = sqrt(-2*log(r1))*cos(2*PI*r2);
+	return ( gRand );
+
+}
+
 #define gRand (sqrt(-2*log(UNI))*cos(2*PI*UNI))
 
 #define MDL_UPDATE
@@ -1153,20 +1164,14 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                     word = WORD_GO_CUE;
                 }
                 break;
-            case STATE_REWARD:
-                word = WORD_REWARD;
-                break;
 			case STATE_OUTER_HOLD:
-				word = WORD_OUTER_HOLD;
+				word = WORD_REWARD;
 				break;
 			case STATE_OUTER_HOLD_WRONG:
-				word = WORD_OUTER_HOLD_WRONG;
+				word = WORD_FAIL;
 				break;
             case STATE_ABORT:
                 word = WORD_ABORT;
-                break;
-            case STATE_FAIL:
-                word = WORD_FAIL;
                 break;
             case STATE_INCOMPLETE:
                 word = WORD_INCOMPLETE;
