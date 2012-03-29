@@ -279,7 +279,7 @@ static void mdlCheckParameters(SimStruct *S)
     
     percent_training_trials = param_percent_training_trials;
 }
-    
+
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
