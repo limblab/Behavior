@@ -137,8 +137,11 @@ static int window_type = 2; /* Type of blocking window. 1 (Circular) is default 
 static int displace_type = 2; /* Type of displacement. 1 (angular) is default */
 #define param_displace_type mxGetScalar(ssGetSFcnParam(S,27))
 
+static real_T CT_offset = 0; /* Y offset for center target (for 1D task) */
+#define param_CT_offset mxGetScalar(ssGetSFcnParam(S,28))
+
 static real_T master_reset = 0.0;
-#define param_master_reset mxGetScalar(ssGetSFcnParam(S,28))
+#define param_master_reset mxGetScalar(ssGetSFcnParam(S,29))
 
 
 /*
@@ -204,13 +207,14 @@ static void mdlCheckParameters(SimStruct *S)
 	displace_type = (int)param_displace_type;
 	window_type = (int)param_window_type;
 
+	CT_offset = param_CT_offset;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 29); 
+    ssSetNumSFcnParams(S, 30); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -479,9 +483,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 	/* correct targets */
 
 	ct[0] = -target_size/2;
-	ct[1] = target_size/2;
+	ct[1] = target_size/2 - CT_offset;
 	ct[2] = target_size/2;
-	ct[3] = -target_size/2;
+	ct[3] = -target_size/2 - CT_offset;
 
 	if( (int)displace_type == 2){
 
@@ -642,6 +646,8 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 			cue_dot_num = param_cue_dot_num;
 			displace_type = (int)param_displace_type;
 			window_type = (int)param_window_type;
+
+			CT_offset = param_CT_offset;
 
 			/* get displacement of cursor drawn from normal distribution and save to work vector */
 			displace_RAND = gRand();
@@ -977,9 +983,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 	/* correct targets */
 
 	ct[0] = -target_size/2;
-	ct[1] = target_size/2;
+	ct[1] = target_size/2 - CT_offset;
 	ct[2] = target_size/2;
-	ct[3] = -target_size/2;
+	ct[3] = -target_size/2 - CT_offset;
 
 	if( (int)displace_type == 2){
 
