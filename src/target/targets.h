@@ -9,6 +9,7 @@
 #define TARGETS_H 1
 
 /* target type definitions */
+#define NullTargetType 0
 #define RedTargetType 1
 #define BlueTargetType 7
 #define WhiteTargetType 2

@@ -133,8 +133,13 @@ function r = do_build_mex(target, force, deps)
 
     filename = regexp(compname, '^(\w*)\.mexw32$', 'tokens');
     filename = filename{1};
-    filename = strcat(filename{1}, '.c');
-    filedate = dir(filename);
+    fn = strcat(filename{1}, '.cpp');
+    filedate = dir(fn);
+    % support legacy code
+    if (isempty(filedate))
+        fn = strcat(filename{1}, '.c');
+        filedate = dir(fn);
+    end
     filedate = filedate.datenum;
 
     if (~isempty(compdate))
@@ -142,13 +147,13 @@ function r = do_build_mex(target, force, deps)
         if (filedate > compdate)
             r = 1;
         end 
-    else 
+    else
         r = 1;
     end
 
     if (r || force)
         dbprint(['  building: ' target]);
-        eval(['mex(filename' libs ')']);
+        eval(['mex(fn' libs ')']);
     else
         dbprint(['  skipped:  ' target]);
     end
@@ -162,22 +167,27 @@ function r = do_build_obj(target, force, deps)
 
     filename = regexp(compname, '^(\w*)\.obj$', 'tokens');
     filename = filename{1};
-    filename = strcat(filename{1}, '.c');
-    filedate = dir(filename);
+    fn = strcat(filename{1}, '.cpp');
+    filedate = dir(fn);
+    % support legacy code
+    if (isempty(filedate))
+        fn = strcat(filename{1}, '.c');
+        filedate = dir(fn);
+    end
     filedate = filedate.datenum;
 
     if (~isempty(compdate))
         compdate = compdate.datenum;
         if (filedate > compdate)
             r = 1;
-        end 
-    else 
+        end
+    else
         r = 1;
     end
 
     if (r || force)
         dbprint(['  building: ' target]);
-        mex('-c', filename);
+        mex('-c', fn);
     else
         dbprint(['  skipped:  ' target]);
     end

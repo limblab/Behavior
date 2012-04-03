@@ -20,3 +20,4 @@ static UL z=362436069, w=521288629, jsr=123456789, jcong=380116160;
    provides a real in (0,1) and VNI a real in (-1,1).   */
    
 #endif /* RANDOM_MACROS_H */
+

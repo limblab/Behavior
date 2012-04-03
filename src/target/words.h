@@ -5,6 +5,16 @@
 #define __BUILD_UPDATED__ 1
 #define __BUILD_UPDATED__ 1
 #define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
 /* $Id: words.h 491 2009-10-30 19:57:30Z brian $
  *
  * defines word codes for center out and random walk tasks.
@@ -29,12 +39,19 @@
 #define BEHAVIOR_VERSION_MAJOR 2
 #define BEHAVIOR_VERSION_MINOR 8
 #define BEHAVIOR_VERSION_MICRO 491
-#define BEHAVIOR_VERSION_BUILD 1195
+#define BEHAVIOR_VERSION_BUILD 1288
 
 #ifndef __BUILD_UPDATED__
 #error This project must be built from the build script. 
 #endif
 /************ END OF AUTOMATICALLY UPDATED REGION *************/
+
+#ifndef TONE_GO
+# define TONE_GO 1
+# define TONE_REWARD 2
+# define TONE_ABORT 3
+# define PI (3.141592654)
+#endif
 
 /* task specific setup */
 #if TASK_CO
