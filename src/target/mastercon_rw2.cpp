@@ -135,8 +135,7 @@ void RandomWalkBehavior::update(SimStruct *S) {
 	 */
 	currentTarget = *targets[target_index];
 	targetBounds = currentTarget;
-    // TODO: fix target bounds
-	//targetBounds.width = currentTarget.width + paramValues[param_target_tolerance_id];
+    targetBounds.width = currentTarget.width + paramValues[param_target_tolerance_id];
 	
 	// Check for a master reset
 	// TODO: Check for a master reset
@@ -214,12 +213,12 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 	 * This must be the first thing you do
 	 */
 	readInputs(S);
-#if 0    
+
 	/* force (0) */
 	if (catchTrial) {
-		outputs->force = catchForce;
+		outputs->force = *catchForce;
 	} else {
-		outputs->force = force;
+		outputs->force = *force;
 	}
 
 	/* status (1) */
@@ -292,7 +291,7 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[1] = (Target *)(this->targets[target_index+1]);		
 	} else {
 		outputs->targets[1] = this->nullTarget;
-	}
+	}  
 
 	/* reward (4) */
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
@@ -314,7 +313,7 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 	 * This must be the last thing you do.
 	 */
     writeOutputs(S);
-#endif
+
 }
 
 /*********************************************************************************

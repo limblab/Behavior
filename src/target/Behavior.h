@@ -32,6 +32,7 @@ class Point {
 public:
     Point();
     Point(real_T x, real_T y);
+    
 	real_T x, y;
 };
 
@@ -74,7 +75,8 @@ public:
 	bool cursorInTarget(double x, double y);
 	bool cursorInTarget(Point *p);
 
-	double centerX, centerY, width, color;
+	double centerX, centerY, width;
+    int color;
 };
 
 class Outputs {

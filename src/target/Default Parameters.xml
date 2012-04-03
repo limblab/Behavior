@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.4071.29773">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.4476.22117">
   <ScreenWidth>23</ScreenWidth>
   <GoToneVolume>0</GoToneVolume>
   <MGGains>
@@ -143,6 +143,14 @@
         <value>0.0005</value>
       </item>
       <item>
+        <key>Elastic Load Gain Catch</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Elastic Load Angle Catch</key>
+        <value>0</value>
+      </item>
+      <item>
         <key>CHL</key>
         <value>0.5</value>
       </item>
@@ -208,11 +216,11 @@
       </item>
       <item>
         <key>RW Num Targets</key>
-        <value>1</value>
+        <value>2</value>
       </item>
       <item>
         <key>RW Target Size</key>
-        <value>10</value>
+        <value>5</value>
       </item>
       <item>
         <key>Target Tolerance</key>
@@ -236,11 +244,11 @@
       </item>
       <item>
         <key>THL</key>
-        <value>0</value>
+        <value>0.5</value>
       </item>
       <item>
         <key>THH</key>
-        <value>0</value>
+        <value>1</value>
       </item>
       <item>
         <key>TDL</key>
@@ -272,6 +280,18 @@
       </item>
       <item>
         <key>RW Percent Catch Trials</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>RW Disable Abort</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>RW Green Targets</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>RW Cumulative Hold</key>
         <value>0</value>
       </item>
       <item>
@@ -707,43 +727,43 @@
         <value>0</value>
       </item>
       <item>
-        <key>VSCHL</key>
+        <key>BC Abort Distance</key>
         <value>0</value>
       </item>
       <item>
-        <key>VSCHH</key>
+        <key>BC Reward Min</key>
         <value>0</value>
       </item>
       <item>
-        <key>VSST</key>
+        <key>BC Reward Max</key>
         <value>0</value>
       </item>
       <item>
-        <key>VSRT</key>
+        <key>BC Reward Multiplier</key>
         <value>0</value>
       </item>
       <item>
-        <key>VSOHL</key>
+        <key>BC Fail Wait Multiplier</key>
         <value>0</value>
       </item>
       <item>
-        <key>VSOHH</key>
+        <key>BC Bump Multiplier</key>
         <value>0</value>
       </item>
       <item>
-        <key>VSRTO</key>
+        <key>BC Random bump direction</key>
         <value>0</value>
       </item>
       <item>
-        <key>VSFTO</key>
+        <key>BC Target Color</key>
         <value>0</value>
       </item>
       <item>
-        <key>VSITO</key>
+        <key>BC Bump magnitude zero</key>
         <value>0</value>
       </item>
       <item>
-        <key>VSATO</key>
+        <key>BC First stim repeat</key>
         <value>0</value>
       </item>
       <item>
@@ -751,11 +771,171 @@
         <value>8</value>
       </item>
       <item>
-        <key>VSTR</key>
+        <key>VS Target Radius</key>
         <value>0</value>
       </item>
       <item>
-        <key>VSTS</key>
+        <key>VS Target Size</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>VS Center Hold Low</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>VS Center Hold High</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>VS Search Time</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>VS Reach Time</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>VS Outer Hold Low</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>VS Outer Hold High</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>VS Abort Timeout</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>VS Fail Timeout</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>VS Incomplete Timeout</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>VS Reward Timeout</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>VS Disable Abort</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>VS Green Targets</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UCHL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UCHH</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UDL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UDH</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UMT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UOHL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UOHH</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UIT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UBump Duration</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UBump Amplitude</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UCatch Trials Pct</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UDelay Bumps</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Num Targets</key>
+        <value>8</value>
+      </item>
+      <item>
+        <key>Un Target Radius</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Target Size</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Idiot Mode</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Disp Mean</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Disp Var</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Block Win Start</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Block Win End</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Cue Start</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Cue End</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Cue Var</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Cue Dot Size</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Num Cue Dots</key>
+        <value>10</value>
+      </item>
+      <item>
+        <key>Un Window Type</key>
+        <value>2</value>
+      </item>
+      <item>
+        <key>Un Displacement Type</key>
+        <value>2</value>
+      </item>
+      <item>
+        <key>Un CT offset</key>
         <value>0</value>
       </item>
       <item>
@@ -956,6 +1136,174 @@
       </item>
       <item>
         <key>2AFC T2 Bump duration</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT CHL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT CHH</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT IBL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT IBH</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT M</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT RW</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT FW</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT AW</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT OTD</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT PVT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT PPT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT TBS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BP</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT PCT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT PTT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT VTMinR</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT VTMaxR</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT VNS</key>
+        <value>5</value>
+      </item>
+      <item>
+        <key>AT PTMinA</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT PTMaxA</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT PNS</key>
+        <value>5</value>
+      </item>
+      <item>
+        <key>AT S</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT PO</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT SL</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT VSR1</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT VSR2</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT VSSS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT PSA1</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT PSA2</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT PSSS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BMMin</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BMMax</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT NBM</key>
+        <value>5</value>
+      </item>
+      <item>
+        <key>AT BDur</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BDirs</key>
+        <value>2</value>
+      </item>
+      <item>
+        <key>AT FBD</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT MinR</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT MaxR</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT TS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT TR</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT VTD</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT IVT</key>
         <value>0</value>
       </item>
     </dictionary>

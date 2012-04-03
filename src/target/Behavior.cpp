@@ -16,9 +16,9 @@
 #define CircleTargetType 10
 #endif 
 
-/***************************************************
- * Targets
- ***************************************************/
+/*******************************************
+ * Point 
+ *******************************************/
 
 Point::Point() {
     this->x = 0.0;
@@ -29,6 +29,10 @@ Point::Point(real_T x, real_T y) {
     this->x = x;
     this->y = y;
 }
+
+/***************************************************
+ * Targets
+ ***************************************************/
 
 int Target::Color(int r, int g, int b) {
 	return ( 256*256*r + 256*g + b );
@@ -152,6 +156,7 @@ Behavior::Behavior() {
     this->catchForce = new Point();
 	this->random = new Random();
 	this->nullTarget = (Target *)(new RectangleTarget(0, 0, 0, 0, NullTargetType));
+    this->outputs = new Outputs();
 }
 
 void Behavior::updateParameters(SimStruct *S) {
@@ -256,7 +261,7 @@ void Behavior::writeOutputs(SimStruct *S) {
 	// reward
 	uPtrs = ssGetOutputPortRealSignal(S, 4);
 	uPtrs[0] = (real_T)(outputs->reward ? 1.0 : 0.0);
-	
+
 	// tone
 	uPtrs = ssGetOutputPortRealSignal(S, 5);
 	uPtrs[0] = (real_T)outputs->tone_counter;

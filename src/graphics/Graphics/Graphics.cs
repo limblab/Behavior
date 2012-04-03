@@ -210,9 +210,10 @@ namespace BehaviorGraphics
 
             // display on screen
             string posStr = String.Format("X: {0:f}\nY: {1:f}", this.x, this.y);
-            posStr = posStr + "\n" + String.Format("Tone Count: {0}\nTone ID: {1}", this.tone_cnt, this.tone_id);
-            posStr = posStr + "\n" + String.Format("Cursor: {0}\n{1}", this.activeCursorIndex, this.activeCursor);
-            posStr = posStr + "\n" + String.Format("FPS: {0:f}", 1000.0 / interFrameInterval);
+            //posStr = posStr + "\n" + String.Format("Tone Count: {0}\nTone ID: {1}", this.tone_cnt, this.tone_id);
+            //posStr = posStr + "\n" + String.Format("Cursor: {0}\n{1}", this.activeCursorIndex, this.activeCursor);
+            //posStr = posStr + "\n" + String.Format("FPS: {0:f}", 1000.0 / interFrameInterval);
+            posStr = posStr + "\n" + this.t[0].ToString();
             posStr = posStr + "\n" + this.t[1].ToString();
             font.DrawText(null, posStr, new System.Drawing.Point(10, 10), System.Drawing.Color.White);
 #endif
@@ -312,12 +313,18 @@ namespace BehaviorGraphics
                         t[0].Type = (TargetSpriteType)(BitConverter.ToDouble(data, 16));
                         t[0].UL = cm2screen((float)BitConverter.ToDouble(data, 3 * 8), (float)BitConverter.ToDouble(data, 4 * 8));
                         t[0].LR = cm2screen((float)BitConverter.ToDouble(data, 5 * 8), (float)BitConverter.ToDouble(data, 6 * 8));
-                        //t[0].SetColor(data);
+                        if (t[0].Type == TargetSpriteType.Circle || t[0].Type == TargetSpriteType.Square)
+                        {
+                            t[0].SetColor((float)BitConverter.ToDouble(data, 6 * 8));
+                        }
 
                         t[1].Type = (TargetSpriteType)(BitConverter.ToDouble(data, 56));
                         t[1].UL = cm2screen((float)BitConverter.ToDouble(data, 8 * 8), (float)BitConverter.ToDouble(data, 9 * 8));
                         t[1].LR = cm2screen((float)BitConverter.ToDouble(data, 10 * 8), (float)BitConverter.ToDouble(data, 11 * 8));
-                        //t[1].SetColor(data, 11 * 8);
+                        if (t[1].Type == TargetSpriteType.Circle || t[1].Type == TargetSpriteType.Square)
+                        {
+                            t[1].SetColor((float)BitConverter.ToDouble(data, 11 * 8));
+                        }
 
                         tone_id = BitConverter.ToDouble(data, 13 * 8);
                         new_tone_cnt = BitConverter.ToDouble(data, 12 * 8);
@@ -333,7 +340,8 @@ namespace BehaviorGraphics
                         target_count = (int)BitConverter.ToDouble(data, (pos++) * 8);
                         target_count = Math.Max(target_count, t.Length);
 
-                        for (int i = 0; i < target_count; i++) {
+                        for (int i = 0; i < target_count; i++)
+                        {
                             t[i].Type = (TargetSpriteType)(BitConverter.ToDouble(data, (pos++) * 8));
 
                             double ulx = BitConverter.ToDouble(data, (pos++) * 8);
@@ -341,11 +349,11 @@ namespace BehaviorGraphics
                             double lrx = BitConverter.ToDouble(data, (pos++) * 8);
                             double lry = BitConverter.ToDouble(data, (pos++) * 8);
 
-                            t[i].UL = cm2screen((float)ulx, (float)uly); 
+                            t[i].UL = cm2screen((float)ulx, (float)uly);
                             t[i].LR = cm2screen((float)lrx, (float)lry);
                             if (t[i].Type == TargetSpriteType.Circle || t[i].Type == TargetSpriteType.Square)
-                        {
-                                t[i].SetColor(lry);                                
+                            {
+                                t[i].SetColor(lry);
                             }
                         }
 

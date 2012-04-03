@@ -57,10 +57,6 @@ namespace BehaviorGraphics {
         }
 
         public void SetColor(double input) {
-            //this.optionalColor = Color.FromArgb((int)buffer[index], (int)buffer[index+1], (int)buffer[index + 2], (int)buffer[index + 3]);
-            //this.optionalColor = Color.FromArgb(255, 255, (int)buffer[index + 2], (int)buffer[index + 3]);
-            //this.optionalColor = Color.Aqua;
-            //this.optionalColor = Color.FromArgb(buffer[4], buffer[5], buffer[6], buffer[7]);
             this.optionalColor = Color.FromArgb((int)(0xff000000 | ((uint)input)));
         }
 
@@ -191,7 +187,7 @@ namespace BehaviorGraphics {
                     /* Blue circle from bluecircle.tga */
                     vertices = new CustomVertex.TransformedColored[100];
                     /* centerX = ul[0], centerY = ul[1], radius = lr[0], */
-                    /* optionalColor = Color.Blue; */
+                    //optionalColor = Color.Blue;
                     getCircleVertices(ul, lr.X, optionalColor, ref vertices);
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
@@ -199,8 +195,9 @@ namespace BehaviorGraphics {
                     break;
 
                 case TargetSpriteType.Square:
-                    /* Yellow square target */
+                    /* Any color square target */
                     vertices = new CustomVertex.TransformedColored[4];
+                    //optionalColor = Color.Blue;
                     getSquareVertices(ul, lr.X, optionalColor, ref vertices);
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
