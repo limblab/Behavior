@@ -65,7 +65,7 @@
  * You must also update the definition below with the name of your class
  */
 #define MY_CLASS_NAME RandomWalkBehavior
-class RandomWalkBehavior : Behavior {
+class RandomWalkBehavior : public Behavior {
 public:
 	RandomWalkBehavior(SimStruct *S);
 	void update(SimStruct *S);
@@ -100,8 +100,8 @@ private:
 	}
 };
 
-RandomWalkBehavior::RandomWalkBehavior(SimStruct *S) {
-	int i;
+RandomWalkBehavior::RandomWalkBehavior(SimStruct *S) : Behavior() {
+    int i;
 
 	/* 
 	 * First, set up the number of parameters to be used 
@@ -109,7 +109,7 @@ RandomWalkBehavior::RandomWalkBehavior(SimStruct *S) {
 	this->setNumParams(NUM_PARAMETERS);
 	this->updateParameters(S);
 
-	/* 
+    /* 
 	 * Then do any behavior specific initialization 
 	 */
 	this->cumulativeHoldTimer = new Timer();
@@ -123,19 +123,20 @@ RandomWalkBehavior::RandomWalkBehavior(SimStruct *S) {
 }
 
 void RandomWalkBehavior::update(SimStruct *S) {
-	/* declarations */
+    /* declarations */
 	SquareTarget currentTarget;
 	SquareTarget targetBounds;
 	
 	/* Run parent update -- this must be the FIRST thing you do */
 	this->Behavior::update(S);
-
+    
 	/* 
 	 *custom update function 
 	 */
 	currentTarget = *targets[target_index];
 	targetBounds = currentTarget;
-	targetBounds.width = currentTarget.width + paramValues[param_target_tolerance_id];
+    // TODO: fix target bounds
+	//targetBounds.width = currentTarget.width + paramValues[param_target_tolerance_id];
 	
 	// Check for a master reset
 	// TODO: Check for a master reset
@@ -206,19 +207,19 @@ void RandomWalkBehavior::update(SimStruct *S) {
 }
 
 void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
-	/* declarations */
-	SquareTarget *currentTarget = targets[target_index];
+    /* declarations */
+    SquareTarget *currentTarget = targets[target_index];
 
 	/*
 	 * This must be the first thing you do
 	 */
 	readInputs(S);
-
+#if 0    
 	/* force (0) */
 	if (catchTrial) {
-		outputs->force = *catchForce;
+		outputs->force = catchForce;
 	} else {
-		outputs->force = *force;
+		outputs->force = force;
 	}
 
 	/* status (1) */
@@ -312,7 +313,8 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 	/* 
 	 * This must be the last thing you do.
 	 */
-	writeOutputs(S);
+    writeOutputs(S);
+#endif
 }
 
 /*********************************************************************************

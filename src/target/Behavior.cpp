@@ -20,6 +20,16 @@
  * Targets
  ***************************************************/
 
+Point::Point() {
+    this->x = 0.0;
+    this->y = 0.0;
+}
+
+Point::Point(real_T x, real_T y) {
+    this->x = x;
+    this->y = y;
+}
+
 int Target::Color(int r, int g, int b) {
 	return ( 256*256*r + 256*g + b );
 }
@@ -134,10 +144,12 @@ Behavior::Behavior() {
 	state_changed = true;
 	tone_counter = 0;
 	last_tone_id = 0;
-	this->trialCounter = new TrialCounter();
 	masterResetCounter = 0;
+	this->trialCounter = new TrialCounter();
 	this->stateTimer = new Timer();
-	cursor = new Point();
+	this->cursor = new Point();
+    this->force = new Point();
+    this->catchForce = new Point();
 	this->random = new Random();
 	this->nullTarget = (Target *)(new RectangleTarget(0, 0, 0, 0, NullTargetType));
 }
@@ -214,8 +226,8 @@ void Behavior::playTone(int toneId) {
 }
 
 void writePoint(real_T *u, Point *p) {
-	u[0] = (real_T)p->x;
-	u[1] = (real_T)p->y;
+	u[0] = (real_T)(p->x);
+	u[1] = (real_T)(p->y);
 }
 
 void Behavior::writeOutputs(SimStruct *S) {

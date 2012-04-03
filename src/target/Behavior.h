@@ -30,6 +30,8 @@ private:
 
 class Point {
 public:
+    Point();
+    Point(real_T x, real_T y);
 	real_T x, y;
 };
 
