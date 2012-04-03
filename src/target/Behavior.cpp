@@ -157,6 +157,7 @@ Behavior::Behavior() {
 	this->random = new Random();
 	this->nullTarget = (Target *)(new RectangleTarget(0, 0, 0, 0, NullTargetType));
     this->outputs = new Outputs();
+	this->db = new DataBurst();
 }
 
 void Behavior::updateParameters(SimStruct *S) {
@@ -218,7 +219,7 @@ void Behavior::readInputs(SimStruct *S) {
     catchForce->y = *uPtrs[1];
 }
 
-void Behavior::update(SimStruct *S) {
+void Behavior::generalUpdate(SimStruct *S) {
 	this->readInputs(S);
 	this->state_changed = false;
 	this->S = S;
@@ -276,6 +277,27 @@ void Behavior::writeOutputs(SimStruct *S) {
 	// position
 	uPtrs = ssGetOutputPortRealSignal(S, 7);
 	writePoint(uPtrs, &(outputs->position));
+}
+
+void Behavior::setMasterResetParamId(int n) {
+	this->masterResetParamId = n;
+}
+
+int Behavior::checkMasterReset(SimStruct *S) {
+	if (mxGetScalar(ssGetSFcnParam(S, masterResetParamId)) != masterResetCounter) {
+		// issue master reset
+		trialCounter->successes = 0;
+		trialCounter->failures = 0;
+		trialCounter->aborts = 0;
+		trialCounter->incompletes = 0;
+		
+		masterResetCounter = (int)mxGetScalar(ssGetSFcnParam(S, masterResetParamId));
+		setState(0);
+		
+		return 1;
+	} else {
+		return 0;
+	}
 }
 
 /*****************************************
@@ -353,3 +375,82 @@ int Random::getInteger(int low, int high) {
 unsigned long Random::getUL() {
 	return kiss();
 }
+
+/*************************************************************
+ * DataBurst
+ *************************************************************/
+
+DataBurst::DataBurst() {
+	buffer = new byte[255];
+	this->reset();
+}
+
+void DataBurst::reset() {
+	currentPlayingNibble = 0;
+	currentInsertByte = 1;
+	buffer[0] = 0;
+}
+
+byte DataBurst::getByte() {
+	byte out;
+
+	if (currentPlayingNibble % 2 == 0) {
+		out = buffer[currentPlayingNibble / 2] | 0xF0; // low order bits
+	} else {
+		out = buffer[currentPlayingNibble / 2] >> 4 | 0xF0;
+	}
+
+	currentPlayingNibble++;
+	return out;
+}
+
+bool DataBurst::isDone() {
+	return (currentPlayingNibble == currentInsertByte*2);
+}
+
+bool DataBurst::isRunning() {
+	return (!isDone());
+}
+
+void DataBurst::addInt(int n) {
+	int *nt;
+	if (currentInsertByte+4 >= 255) return;
+	
+	nt = (int *)(&buffer + currentInsertByte);
+	*nt = n;
+
+	currentInsertByte += 4;
+	buffer[0] += 4;
+}
+
+void DataBurst::addByte(byte b) {
+	if (currentInsertByte >= 255) return;
+	buffer[currentInsertByte++] = b;
+	buffer[0]++;
+}
+
+void DataBurst::addFloat(float f) {
+	float *ft;
+	if (currentInsertByte+4 >= 255) return;
+	
+	ft = (float *)(&buffer + currentInsertByte);
+	*ft = f;
+
+	currentInsertByte += 4;
+	buffer[0] += 4;
+}
+
+
+void DataBurst::addDouble(double d) {
+	double *dt;
+	if (currentInsertByte+8 >= 255) return;
+
+	dt = (double *)(&buffer + currentInsertByte);
+	*dt = d;
+
+	currentInsertByte += 8;
+	buffer[0] += 8;
+}
+
+
+

@@ -3,7 +3,6 @@
  * Master Control block for behavior: random walk task 
  */
 
-
 #define S_FUNCTION_NAME mastercon_rw2
 #define S_FUNCTION_LEVEL 2
 
@@ -56,6 +55,60 @@
  * are all defined in Behavior.h Do not use state numbers above 64 (0x40)
  */
 
+/* 
+ * Current Databurst version: 2
+ *
+ * Note that all databursts are encoded half a byte at a time as a word who's 
+ * high order bits are all 1 and who's low order bits represent the half byte to
+ * be transmitted.  Low order bits are transmitted first.  Thus to transmit the
+ * two bytes 0xCF 0x07, one would send 0xFF 0xFC 0xF7 0xF0.
+ *
+ * Databurst version descriptions
+ * ==============================
+ *
+ * Version 0 (0x00)
+ * ----------------
+ * byte 0: uchar => number of bytes to be transmitted
+ * byte 1: uchar => version number (in this case zero)
+ * bytes 2 - 2+N*8: where N is the number of targets, contains 8 bytes per 
+ *      target representing two single-precision floating point numbers in 
+ *      little-endian format represnting the x and y position of the center of 
+ *      the target.
+ *
+ * Version 1 (0x01)
+ * ----------------
+ * byte   0: uchar => number of bytes to be transmitted
+ * byte   1: uchar => databurst version number (in this case one)
+ * byte   2: uchar => model version major
+ * byte   3: uchar => model version minor
+ * bytes  4 to  5: short => model version micro
+ * bytes  6 to  9: float => x offset
+ * bytes 10 to 13: float => y offset
+ * bytes 14 to 17: float => target_size - target_tolerance
+ * bytes 18 to 18+N*8: where N is the number of targets, contains 8 bytes per 
+ *      target representing two single-precision floating point numbers in 
+ *      little-endian format represnting the x and y position of the center of 
+ *      the target.
+ *
+ *  Version 2 (0x02) - Similar to version 1, fixed "target_size + target_tolerance" and
+ *                      it should now send all the bytes, previous version only sent
+ *                      half of them.
+ * ----------------
+ * byte   0: uchar => number of bytes to be transmitted
+ * byte   1: uchar => databurst version number (in this case two)
+ * byte   2: uchar => model version major
+ * byte   3: uchar => model version minor
+ * bytes  4 to  5: short => model version micro
+ * bytes  6 to  9: float => x offset
+ * bytes 10 to 13: float => y offset
+ * bytes 14 to 17: float => target_size + target_tolerance
+ * bytes 18 to 18+N*8: where N is the number of targets, contains 8 bytes per 
+ *      target representing two single-precision floating point numbers in 
+ *      little-endian format represnting the x and y position of the center of 
+ *      the target.
+ */
+#define DATABURST_VERSION ((byte)0x02) 
+
 /**
  * This is the behavior class.  You must extend "Behavior" and implement
  * at least a constructor and the functions:
@@ -79,25 +132,7 @@ private:
 	double delayTime;
 	bool catchTrial;
 
-	void doPreTrial(SimStruct *S) {
-		int i;
-
-		/* initialize target positions */
-		if (paramValues[param_maximum_distance_id] == 0) {
-			/* uniform random positions */
-			for (i = 0; i<paramValues[param_num_targets_id]; i++) {
-				targets[i]->centerX = random->getDouble(paramValues[param_left_target_boundary_id],  paramValues[param_right_target_boundary_id]);
-				targets[i]->centerY = random->getDouble(paramValues[param_lower_target_boundary_id], paramValues[param_upper_target_boundary_id]);
-				targets[i]->width = paramValues[param_target_size_id];
-				targets[i]->color = Target::Color(255, 0, 0);
-			}
-		} else {
-			/* TODO: set not-quite-random target distances */
-		}
-
-		target_index = 0;
-		catchTrial = false;
-	}
+	void doPreTrial(SimStruct *S);
 };
 
 RandomWalkBehavior::RandomWalkBehavior(SimStruct *S) : Behavior() {
@@ -108,6 +143,7 @@ RandomWalkBehavior::RandomWalkBehavior(SimStruct *S) : Behavior() {
 	 */
 	this->setNumParams(NUM_PARAMETERS);
 	this->updateParameters(S);
+	this->setMasterResetParamId(param_master_reset_id);
 
     /* 
 	 * Then do any behavior specific initialization 
@@ -122,31 +158,105 @@ RandomWalkBehavior::RandomWalkBehavior(SimStruct *S) : Behavior() {
 	}
 }
 
+void RandomWalkBehavior::doPreTrial(SimStruct *S) {
+	int i, j;
+	double r, th;
+	SquareTarget lastTarget = *targets[(int)paramValues[param_num_targets_id]];
+	SquareTarget tmpTarget;
+
+	/* initialize target positions */
+	if (paramValues[param_maximum_distance_id] == 0) {
+		/* uniform random positions */
+		for (i = 0; i<paramValues[param_num_targets_id]; i++) {
+			targets[i]->centerX = random->getDouble(paramValues[param_left_target_boundary_id],  paramValues[param_right_target_boundary_id]);
+			targets[i]->centerY = random->getDouble(paramValues[param_lower_target_boundary_id], paramValues[param_upper_target_boundary_id]);
+			targets[i]->width = paramValues[param_target_size_id];
+			targets[i]->color = Target::Color(255, 0, 0);
+		}
+	} else {
+		/* set not-quite-random target distances 
+		 * semi-random with max and min distances */
+
+		for (i = 0; i<paramValues[param_num_targets_id]; i++) {
+			// Foreach Target
+			r = random->getDouble(paramValues[param_minimum_distance_id], paramValues[param_maximum_distance_id]);
+			th = random->getDouble(0, 2*PI);
+
+			// Copy previous target as a starting point
+			if (i==0) {
+				*targets[i] = lastTarget;
+			} else {
+				*targets[i] = *targets[i-1];
+			}
+			tmpTarget = *targets[i];
+
+			for (j=0; j<5; j++) {
+				// Add the offset
+				tmpTarget.centerX = targets[i]->centerX + r * cos(th);
+				tmpTarget.centerY = targets[i]->centerY + r * sin(th);
+				if (tmpTarget.centerX > paramValues[param_left_target_boundary_id] &&
+					tmpTarget.centerX < paramValues[param_right_target_boundary_id] &&
+					tmpTarget.centerY > paramValues[param_lower_target_boundary_id] &&
+					tmpTarget.centerY < paramValues[param_upper_target_boundary_id])
+				{
+					// Found a location that works
+					break;
+				}
+
+				if (j==4) {
+					// Give up and set at origin
+					tmpTarget.centerX = 0.0;
+					tmpTarget.centerY = 0.0;
+					break;
+				}
+
+				th = th + PI/2;
+				r = paramValues[param_minimum_distance_id];
+			}
+
+			*targets[i] = tmpTarget;
+		}
+	}
+
+	target_index = 0;
+	catchTrial = false;
+
+	/* setup the databurst */
+	db->reset();
+	db->addByte(DATABURST_VERSION);
+	db->addByte(BEHAVIOR_VERSION_MAJOR);
+    db->addByte(BEHAVIOR_VERSION_MINOR);
+	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);
+	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
+	db->addFloat(0.0); // TODO: add offsets here 
+	db->addFloat(0.0);
+	db->addFloat((float)paramValues[param_target_tolerance_id] + (float)paramValues[param_target_size_id]);
+	for (i = 0; i<paramValues[param_num_targets_id]; i++) {
+		db->addFloat((float)targets[i]->centerX);
+		db->addFloat((float)targets[i]->centerY);
+	}
+}
+
 void RandomWalkBehavior::update(SimStruct *S) {
     /* declarations */
 	SquareTarget currentTarget;
 	SquareTarget targetBounds;
 	
-	/* Run parent update -- this must be the FIRST thing you do */
-	this->Behavior::update(S);
-    
-	/* 
-	 *custom update function 
-	 */
 	currentTarget = *targets[target_index];
 	targetBounds = currentTarget;
     targetBounds.width = currentTarget.width + paramValues[param_target_tolerance_id];
-	
-	// Check for a master reset
-	// TODO: Check for a master reset
 
 	// State machine
 	switch (this->getState()) {
 		case STATE_PRETRIAL:
 			updateParameters(S);
 			doPreTrial(S);
-			setState(STATE_INITIAL_MOVEMENT);
+			setState(STATE_DATA_BLOCK);
 			break;
+		case STATE_DATA_BLOCK:
+			if (db->isDone()) {
+				setState(STATE_INITIAL_MOVEMENT);
+			}
 		case STATE_INITIAL_MOVEMENT:
 			/* first target on */
 			if (targetBounds.cursorInTarget(cursor)) {
@@ -209,11 +319,6 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
     /* declarations */
     SquareTarget *currentTarget = targets[target_index];
 
-	/*
-	 * This must be the first thing you do
-	 */
-	readInputs(S);
-
 	/* force (0) */
 	if (catchTrial) {
 		outputs->force = *catchForce;
@@ -222,7 +327,6 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* status (1) */
-	updateTrialCounters();
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
@@ -230,7 +334,9 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[4] = trialCounter->incompletes;
 
 	/* word(2) */
-	if (isNewState()) {
+	if (db->isRunning()) {
+		outputs->word = db->getByte();
+	} else if (isNewState()) {
 		switch (getState()) {
 			case STATE_PRETRIAL:
 				outputs->word = WORD_START_TRIAL;
@@ -272,7 +378,7 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* target_pos (3) */
-	// Target 0	
+	// Target 0
 	if (getState() == STATE_TARGET_HOLD && paramValues[param_green_hold_id]) {
 		currentTarget->color = Target::Color(0, 128, 0);
 		outputs->targets[0] = (Target *)currentTarget;
@@ -308,12 +414,6 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 
 	/* position (7) */
 	outputs->position = *cursor;
-
-	/* 
-	 * This must be the last thing you do.
-	 */
-    writeOutputs(S);
-
 }
 
 /*********************************************************************************
@@ -328,62 +428,6 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 #ifdef __cplusplus
 extern "C" { // use the C fcn-call standard for all functions  
 #endif       // defined within this scope                     
-
-/* 
- * Current Databurst version: 1
- *
- * Note that all databursts are encoded half a byte at a time as a word who's 
- * high order bits are all 1 and who's low order bits represent the half byte to
- * be transmitted.  Low order bits are transmitted first.  Thus to transmit the
- * two bytes 0xCF 0x07, one would send 0xFF 0xFC 0xF7 0xF0.
- *
- * Databurst version descriptions
- * ==============================
- *
- * Version 0 (0x00)
- * ----------------
- * byte 0: uchar => number of bytes to be transmitted
- * byte 1: uchar => version number (in this case zero)
- * bytes 2 - 2+N*8: where N is the number of targets, contains 8 bytes per 
- *      target representing two single-precision floating point numbers in 
- *      little-endian format represnting the x and y position of the center of 
- *      the target.
- *
- * Version 1 (0x01)
- * ----------------
- * byte   0: uchar => number of bytes to be transmitted
- * byte   1: uchar => databurst version number (in this case one)
- * byte   2: uchar => model version major
- * byte   3: uchar => model version minor
- * bytes  4 to  5: short => model version micro
- * bytes  6 to  9: float => x offset
- * bytes 10 to 13: float => y offset
- * bytes 14 to 17: float => target_size - target_tolerance
- * bytes 18 to 18+N*8: where N is the number of targets, contains 8 bytes per 
- *      target representing two single-precision floating point numbers in 
- *      little-endian format represnting the x and y position of the center of 
- *      the target.
- *
- *  Version 2 (0x02) - Similar to version 1, fixed "target_size + target_tolerance" and
- *                      it should now send all the bytes, previous version only sent
- *                      half of them.
- * ----------------
- * byte   0: uchar => number of bytes to be transmitted
- * byte   1: uchar => databurst version number (in this case two)
- * byte   2: uchar => model version major
- * byte   3: uchar => model version minor
- * bytes  4 to  5: short => model version micro
- * bytes  6 to  9: float => x offset
- * bytes 10 to 13: float => y offset
- * bytes 14 to 17: float => target_size + target_tolerance
- * bytes 18 to 18+N*8: where N is the number of targets, contains 8 bytes per 
- *      target representing two single-precision floating point numbers in 
- *      little-endian format represnting the x and y position of the center of 
- *      the target.
- */
-
-typedef unsigned char byte;
-#define DATABURST_VERSION ((byte)0x02) 
 
 static void mdlInitializeSizes(SimStruct *S)
 {
@@ -473,6 +517,9 @@ static void mdlStart(SimStruct *S)
 static void mdlUpdate(SimStruct *S, int_T tid) 
 {
 	MY_CLASS_NAME *b = (MY_CLASS_NAME *) ssGetPWork(S)[0];
+	if (b->checkMasterReset(S))
+		return;
+	b->generalUpdate(S);
 	b->update(S);
 	
     UNUSED_ARG(tid);
@@ -481,7 +528,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
 static void mdlOutputs(SimStruct *S, int_T tid)
 {
 	MY_CLASS_NAME *b = (MY_CLASS_NAME *) ssGetPWork(S)[0];
+	b->readInputs(S);
+	b->updateTrialCounters();
 	b->calculateOutputs(S);
+	b->writeOutputs(S);
 	
 	UNUSED_ARG(tid);
 }

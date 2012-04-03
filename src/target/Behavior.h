@@ -9,6 +9,11 @@
 #define STATE_INCOMPLETE 74
 #define STATE_DATA_BLOCK 255
 
+typedef unsigned char byte;
+
+/*
+ * TrialCounter
+ *********************************************/
 class TrialCounter {
 public:
 	int successes;
@@ -19,6 +24,9 @@ public:
 	TrialCounter();
 };
 
+/*
+ * Timer
+ *********************************************/
 class Timer {
 public:
 	Timer();
@@ -28,6 +36,9 @@ private:
 	real_T start_time;
 };
 
+/*
+ * Geometry
+ *********************************************/
 class Point {
 public:
     Point();
@@ -79,6 +90,9 @@ public:
     int color;
 };
 
+/*
+ * Outputs
+ *********************************************/
 class Outputs {
 public:
 	Point force;
@@ -92,6 +106,9 @@ public:
 	Point position;
 };
 
+/*
+ * Random
+ *********************************************/
 class Random {
 public:
 	Random();
@@ -106,19 +123,48 @@ private:
 	unsigned long kiss();
 };
 
+/*
+ * DataBurst
+ *********************************************/
+class DataBurst {
+public:
+	DataBurst();
+	byte getByte();
+	bool isDone();
+	bool isRunning();
+
+	void reset();
+	void addInt(int n);
+	void addByte(byte b);
+	void addFloat(float f);
+	void addDouble(double d);
+
+private:
+	byte *buffer;
+	int currentInsertByte;
+	int currentPlayingNibble;
+};
+
+/*
+ * Behavior
+ *********************************************/
 class Behavior {
 public:
 	Behavior();
-	void update(SimStruct *S);
-	void calculateOutputs(SimStruct *S);
+	void generalUpdate(SimStruct *S);
+	void readInputs(SimStruct *S);
+	void writeOutputs(SimStruct *S);
+	void updateTrialCounters();
+	int checkMasterReset(SimStruct *S);
+
+	/* These are the two functions that must be implemented for each behavior */
+	virtual void update(SimStruct *S) = 0;
+	virtual void calculateOutputs(SimStruct *S) = 0;
 
 protected:
 	void updateParameters(SimStruct *S);
 	void setNumParams(int n);
-	void readInputs(SimStruct *S);
-
-	void updateTrialCounters();
-	void writeOutputs(SimStruct *S);
+	void setMasterResetParamId(int n);
 
 	void setState(int state);
 	int getState();
@@ -134,7 +180,6 @@ protected:
 
 	/* trial counters */
 	TrialCounter *trialCounter;
-	int masterResetCounter;
 
 	Outputs *outputs;
 
@@ -153,9 +198,13 @@ protected:
 
 	SimStruct *S;
 
+	DataBurst *db;
+
 private:
 	int state;
 	bool state_changed;
+	int masterResetParamId;
+	int masterResetCounter;
 };
 
 #endif /* _BEHAVIOR_H */
