@@ -214,6 +214,8 @@ void RandomWalkBehavior::doPreTrial(SimStruct *S) {
 				r = paramValues[param_minimum_distance_id];
 			}
 
+            tmpTarget.width = paramValues[param_target_size_id];
+            tmpTarget.color = Target::Color(255, 0, 0);
 			*targets[i] = tmpTarget;
 		}
 	}
@@ -228,13 +230,14 @@ void RandomWalkBehavior::doPreTrial(SimStruct *S) {
     db->addByte(BEHAVIOR_VERSION_MINOR);
 	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
-	db->addFloat(0.0); // TODO: add offsets here 
-	db->addFloat(0.0);
+	db->addFloat((float)(inputs->offsets.x));
+	db->addFloat((float)(inputs->offsets.y));
 	db->addFloat((float)paramValues[param_target_tolerance_id] + (float)paramValues[param_target_size_id]);
 	for (i = 0; i<paramValues[param_num_targets_id]; i++) {
 		db->addFloat((float)targets[i]->centerX);
 		db->addFloat((float)targets[i]->centerY);
 	}
+    db->start();
 }
 
 void RandomWalkBehavior::update(SimStruct *S) {
@@ -259,23 +262,23 @@ void RandomWalkBehavior::update(SimStruct *S) {
 			}
 		case STATE_INITIAL_MOVEMENT:
 			/* first target on */
-			if (targetBounds.cursorInTarget(cursor)) {
+			if (targetBounds.cursorInTarget(&inputs->cursor)) {
 				setState(STATE_TARGET_HOLD);
 			} else if (stateTimer->elapsedTime(S) > paramValues[param_initial_movement_time_id]) {
 				setState(STATE_INCOMPLETE);
 			}
 			break;
 		case STATE_MOVEMENT:
-			if (targetBounds.cursorInTarget(cursor)) {
+			if (targetBounds.cursorInTarget(&inputs->cursor)) {
 				setState(STATE_TARGET_HOLD);
 			} else if (stateTimer->elapsedTime(S) > paramValues[param_movement_time_id]) {
 				setState(STATE_FAIL);
 			}
 			break;
 		case STATE_TARGET_HOLD:
-			if (!targetBounds.cursorInTarget(cursor) && paramValues[param_disable_abort_id]) {
+			if (!targetBounds.cursorInTarget(&inputs->cursor) && paramValues[param_disable_abort_id]) {
 				setState(STATE_MOVEMENT);
-			} else if (!targetBounds.cursorInTarget(cursor)) {
+			} else if (!targetBounds.cursorInTarget(&inputs->cursor)) {
 				setState(STATE_ABORT);
 			} else if (stateTimer->elapsedTime(S) > targetHoldTime) {
 				/* next state depends on whether there are more targets */
@@ -291,7 +294,7 @@ void RandomWalkBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_TARGET_DELAY:
-			if (!targetBounds.cursorInTarget(cursor)) {
+			if (!targetBounds.cursorInTarget(&inputs->cursor)) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if (stateTimer->elapsedTime(S) > delayTime) {
@@ -321,9 +324,9 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 
 	/* force (0) */
 	if (catchTrial) {
-		outputs->force = *catchForce;
+		outputs->force = inputs->catchForce;
 	} else {
-		outputs->force = *force;
+		outputs->force = inputs->force;
 	}
 
 	/* status (1) */
@@ -413,7 +416,7 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-	outputs->position = *cursor;
+	outputs->position = inputs->cursor;
 }
 
 /*********************************************************************************

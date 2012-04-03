@@ -151,9 +151,7 @@ Behavior::Behavior() {
 	masterResetCounter = 0;
 	this->trialCounter = new TrialCounter();
 	this->stateTimer = new Timer();
-	this->cursor = new Point();
-    this->force = new Point();
-    this->catchForce = new Point();
+    this->inputs = new Inputs();
 	this->random = new Random();
 	this->nullTarget = (Target *)(new RectangleTarget(0, 0, 0, 0, NullTargetType));
     this->outputs = new Outputs();
@@ -205,18 +203,23 @@ void Behavior::readInputs(SimStruct *S) {
 
 	/* cursor */
 	uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
-	cursor->x = *uPtrs[0];
-	cursor->y = *uPtrs[1];
+	inputs->cursor.x = *uPtrs[0];
+	inputs->cursor.y = *uPtrs[1];
 
+    /* offsets */
+    uPtrs  = ssGetInputPortRealSignalPtrs(S, 1);
+	inputs->offsets.x = *uPtrs[0];
+	inputs->offsets.y = *uPtrs[1];
+    
 	/* input force */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
-    force->x = *uPtrs[0];
-    force->y = *uPtrs[1];
+    inputs->force.x = *uPtrs[0];
+    inputs->force.y = *uPtrs[1];
     
     /* catch input force */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 3);
-    catchForce->x = *uPtrs[0];
-    catchForce->y = *uPtrs[1];
+    inputs->catchForce.x = *uPtrs[0];
+    inputs->catchForce.y = *uPtrs[1];
 }
 
 void Behavior::generalUpdate(SimStruct *S) {
@@ -388,7 +391,12 @@ DataBurst::DataBurst() {
 void DataBurst::reset() {
 	currentPlayingNibble = 0;
 	currentInsertByte = 1;
-	buffer[0] = 0;
+    started = false;
+	buffer[0] = 1;
+}
+
+void DataBurst::start() {
+    started = true;
 }
 
 byte DataBurst::getByte() {
@@ -401,6 +409,11 @@ byte DataBurst::getByte() {
 	}
 
 	currentPlayingNibble++;
+    
+    if (this->isDone()) {
+        started = false;
+    }
+    
 	return out;
 }
 
@@ -409,14 +422,14 @@ bool DataBurst::isDone() {
 }
 
 bool DataBurst::isRunning() {
-	return (!isDone());
+	return (started);
 }
 
 void DataBurst::addInt(int n) {
 	int *nt;
 	if (currentInsertByte+4 >= 255) return;
 	
-	nt = (int *)(&buffer + currentInsertByte);
+	nt = (int *)(&buffer[currentInsertByte]);
 	*nt = n;
 
 	currentInsertByte += 4;
@@ -433,7 +446,7 @@ void DataBurst::addFloat(float f) {
 	float *ft;
 	if (currentInsertByte+4 >= 255) return;
 	
-	ft = (float *)(&buffer + currentInsertByte);
+	ft = (float *)(&buffer[currentInsertByte]);
 	*ft = f;
 
 	currentInsertByte += 4;
@@ -445,7 +458,7 @@ void DataBurst::addDouble(double d) {
 	double *dt;
 	if (currentInsertByte+8 >= 255) return;
 
-	dt = (double *)(&buffer + currentInsertByte);
+	dt = (double *)(&buffer[currentInsertByte]);
 	*dt = d;
 
 	currentInsertByte += 8;

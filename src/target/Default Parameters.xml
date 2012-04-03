@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.4476.22117">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.4476.27735">
   <ScreenWidth>23</ScreenWidth>
   <GoToneVolume>0</GoToneVolume>
   <MGGains>
@@ -14,7 +14,7 @@
   <GlyphSet>0</GlyphSet>
   <SoundTheme>Theme1</SoundTheme>
   <CenterOutMode>None</CenterOutMode>
-  <Load>Elastic</Load>
+  <Load>None</Load>
   <LoadCatch>None</LoadCatch>
   <SerializedParameters>
     <dictionary>
@@ -216,11 +216,11 @@
       </item>
       <item>
         <key>RW Num Targets</key>
-        <value>2</value>
+        <value>8</value>
       </item>
       <item>
         <key>RW Target Size</key>
-        <value>5</value>
+        <value>3.5</value>
       </item>
       <item>
         <key>Target Tolerance</key>
@@ -244,11 +244,11 @@
       </item>
       <item>
         <key>THL</key>
-        <value>0.5</value>
+        <value>0</value>
       </item>
       <item>
         <key>THH</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>TDL</key>
@@ -260,7 +260,7 @@
       </item>
       <item>
         <key>RW MT</key>
-        <value>1</value>
+        <value>3</value>
       </item>
       <item>
         <key>IMT</key>
@@ -268,15 +268,15 @@
       </item>
       <item>
         <key>IRW IT</key>
-        <value>1.5</value>
+        <value>1</value>
       </item>
       <item>
         <key>Minimum Distance</key>
-        <value>0</value>
+        <value>2</value>
       </item>
       <item>
         <key>Maximum Distance</key>
-        <value>0</value>
+        <value>4</value>
       </item>
       <item>
         <key>RW Percent Catch Trials</key>
@@ -288,7 +288,7 @@
       </item>
       <item>
         <key>RW Green Targets</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>RW Cumulative Hold</key>

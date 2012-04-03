@@ -91,8 +91,16 @@ public:
 };
 
 /*
- * Outputs
+ * Inputs/Outputs
  *********************************************/
+class Inputs {
+public:
+	Point cursor;
+    Point offsets;
+    Point force;
+    Point catchForce;
+};
+
 class Outputs {
 public:
 	Point force;
@@ -139,10 +147,12 @@ public:
 	void addFloat(float f);
 	void addDouble(double d);
 
+    void start();
 private:
 	byte *buffer;
 	int currentInsertByte;
 	int currentPlayingNibble;
+    bool started;
 };
 
 /*
@@ -181,6 +191,7 @@ protected:
 	/* trial counters */
 	TrialCounter *trialCounter;
 
+    Inputs *inputs;
 	Outputs *outputs;
 
 	Timer *stateTimer;
@@ -190,11 +201,6 @@ protected:
 	/* TODO: add this */
 
 	Target *nullTarget;
-
-	Point *cursor;
-
-	Point *force;
-	Point *catchForce;
 
 	SimStruct *S;
 
