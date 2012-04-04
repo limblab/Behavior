@@ -1,4 +1,4 @@
-/* $Id: mastercon_rw.c 753 2012-01-16 22:03:55Z bwalker $
+/* $Id$
  *
  * Master Control block for behavior: random walk task 
  */
@@ -6,41 +6,10 @@
 #define S_FUNCTION_NAME mastercon_rw2
 #define S_FUNCTION_LEVEL 2
 
-#include <math.h>
-#include <stdlib.h>
-#include "simstruc.h"
-
-#include "Behavior.cpp"
-
 #define TASK_RW 1
 #include "words.h"
 
-/* 
- * identifiers for param values 
- */
-#define NUM_PARAMETERS 21 /* this line MUST be updated for you param to take effect */
-
-#define param_num_targets_id            0
-#define param_target_size_id            1
-#define param_target_tolerance_id       2
-#define param_left_target_boundary_id   3 /* left boundary for target drawing in cm */
-#define param_right_target_boundary_id  4 /* right boundary for target drawing in cm */
-#define param_upper_target_boundary_id  5 /* upper boundary for target drawing in cm */
-#define param_lower_target_boundary_id  6 /* lower boundary for target drawing in cm*/
-#define param_target_hold_l_id          7 /* dwell time in target before new target shown (low value) */
-#define param_target_hold_h_id          8 /* dwell time in target before new target shown (high value) */
-#define param_target_delay_l_id         9 /* delay time between next target  */
-#define param_target_delay_h_id        10 /* appearance and movement state   */
-#define param_movement_time_id         11
-#define param_initial_movement_time_id 12
-#define param_intertrial_id            13
-#define param_minimum_distance_id      14
-#define param_maximum_distance_id      15
-#define param_percent_catch_trials_id  16
-#define param_master_reset_id          17
-#define param_disable_abort_id         18
-#define param_green_hold_id            19
-#define param_cumulative_hold_id       20
+#include "common_header.cpp"
 
 /*
  * State IDs
@@ -109,6 +78,31 @@
  */
 #define DATABURST_VERSION ((byte)0x02) 
 
+// This must be custom defined for your behavior
+struct LocalParams {
+	real_T num_targets;
+	real_T target_size;
+	real_T target_tolerance;
+	real_T left_target_boundary;
+	real_T right_target_boundary;
+	real_T upper_target_boundary;
+	real_T lower_target_boundary;
+	real_T target_hold_l;
+	real_T target_hold_h;
+	real_T target_delay_l;
+	real_T target_delay_h;
+	real_T movement_time;
+	real_T initial_movement_time;
+	real_T intertrial;
+	real_T minimum_distance;
+	real_T maximum_distance;
+	real_T percent_catch_trials;
+	real_T master_reset;
+	real_T disable_abort;
+	real_T green_hold;
+	real_T cumulative_hold;
+};
+
 /**
  * This is the behavior class.  You must extend "Behavior" and implement
  * at least a constructor and the functions:
@@ -120,11 +114,13 @@
 #define MY_CLASS_NAME RandomWalkBehavior
 class RandomWalkBehavior : public Behavior {
 public:
+	// You must implement these three public methods
 	RandomWalkBehavior(SimStruct *S);
 	void update(SimStruct *S);
 	void calculateOutputs(SimStruct *S);	
 
 private:
+	// Your behavior's instance variables
 	int target_index;
 	SquareTarget *targets[128];
 	Timer *cumulativeHoldTimer;
@@ -132,6 +128,9 @@ private:
 	double delayTime;
 	bool catchTrial;
 
+	LocalParams *params;
+
+	// any helper functions you need
 	void doPreTrial(SimStruct *S);
 };
 
@@ -139,11 +138,44 @@ RandomWalkBehavior::RandomWalkBehavior(SimStruct *S) : Behavior() {
     int i;
 
 	/* 
-	 * First, set up the number of parameters to be used 
+	 * First, set up the parameters to be used 
 	 */
-	this->setNumParams(NUM_PARAMETERS);
+	// Create your *params object
+	params = new LocalParams();
+
+	// Set up the number of parameters you'll be using
+	this->setNumParams(21);
+
+	// Identify each bound variable 
+	this->bindParamId(&params->num_targets,				 0);
+	this->bindParamId(&params->target_size,				 1);
+	this->bindParamId(&params->target_tolerance,		 2);
+	this->bindParamId(&params->left_target_boundary,	 3);
+	this->bindParamId(&params->right_target_boundary,	 4);
+	this->bindParamId(&params->upper_target_boundary,	 5);
+	this->bindParamId(&params->lower_target_boundary,	 6);
+	this->bindParamId(&params->target_hold_l,			 7);
+	this->bindParamId(&params->target_hold_h,			 8);
+	this->bindParamId(&params->target_delay_l,			 9);
+	this->bindParamId(&params->target_delay_h,			10);
+	this->bindParamId(&params->movement_time,			11);
+	this->bindParamId(&params->initial_movement_time,	12);
+	this->bindParamId(&params->intertrial,				13);
+	this->bindParamId(&params->minimum_distance,		14);
+	this->bindParamId(&params->maximum_distance,		15);
+	this->bindParamId(&params->percent_catch_trials,	16);
+	this->bindParamId(&params->master_reset,			17);
+	this->bindParamId(&params->disable_abort,			18);
+	this->bindParamId(&params->green_hold,				19);
+	this->bindParamId(&params->cumulative_hold,			20);
+
+	// declare which already defined parameter is our master reset 
+	// (if you're using one) otherwise omit the following line
+	this->setMasterResetParamId(17);
+
+	// This function now fetches all of the parameters into the variables
+	// as defined above.
 	this->updateParameters(S);
-	this->setMasterResetParamId(param_master_reset_id);
 
     /* 
 	 * Then do any behavior specific initialization 
@@ -151,35 +183,36 @@ RandomWalkBehavior::RandomWalkBehavior(SimStruct *S) : Behavior() {
 	this->cumulativeHoldTimer = new Timer();
 
 	/* set target index to indicate that we need to begin a new block */
-	target_index = (int)paramValues[param_num_targets_id]-1;
+	target_index = (int)params->num_targets-1;
 
 	for (i = 0; i<128; i++) {
 		targets[i] = new SquareTarget(0, 0, 0, 0);
 	}
+
 }
 
 void RandomWalkBehavior::doPreTrial(SimStruct *S) {
 	int i, j;
 	double r, th;
-	SquareTarget lastTarget = *targets[(int)paramValues[param_num_targets_id]];
+	SquareTarget lastTarget = *targets[(int)params->num_targets];
 	SquareTarget tmpTarget;
 
 	/* initialize target positions */
-	if (paramValues[param_maximum_distance_id] == 0) {
+	if (params->maximum_distance == 0) {
 		/* uniform random positions */
-		for (i = 0; i<paramValues[param_num_targets_id]; i++) {
-			targets[i]->centerX = random->getDouble(paramValues[param_left_target_boundary_id],  paramValues[param_right_target_boundary_id]);
-			targets[i]->centerY = random->getDouble(paramValues[param_lower_target_boundary_id], paramValues[param_upper_target_boundary_id]);
-			targets[i]->width = paramValues[param_target_size_id];
+		for (i = 0; i<params->num_targets; i++) {
+			targets[i]->centerX = random->getDouble(params->left_target_boundary,  params->right_target_boundary);
+			targets[i]->centerY = random->getDouble(params->lower_target_boundary, params->upper_target_boundary);
+			targets[i]->width = params->target_size;
 			targets[i]->color = Target::Color(255, 0, 0);
 		}
 	} else {
 		/* set not-quite-random target distances 
 		 * semi-random with max and min distances */
 
-		for (i = 0; i<paramValues[param_num_targets_id]; i++) {
+		for (i = 0; i<params->num_targets; i++) {
 			// Foreach Target
-			r = random->getDouble(paramValues[param_minimum_distance_id], paramValues[param_maximum_distance_id]);
+			r = random->getDouble(params->minimum_distance, params->maximum_distance);
 			th = random->getDouble(0, 2*PI);
 
 			// Copy previous target as a starting point
@@ -194,10 +227,10 @@ void RandomWalkBehavior::doPreTrial(SimStruct *S) {
 				// Add the offset
 				tmpTarget.centerX = targets[i]->centerX + r * cos(th);
 				tmpTarget.centerY = targets[i]->centerY + r * sin(th);
-				if (tmpTarget.centerX > paramValues[param_left_target_boundary_id] &&
-					tmpTarget.centerX < paramValues[param_right_target_boundary_id] &&
-					tmpTarget.centerY > paramValues[param_lower_target_boundary_id] &&
-					tmpTarget.centerY < paramValues[param_upper_target_boundary_id])
+				if (tmpTarget.centerX > params->left_target_boundary &&
+					tmpTarget.centerX < params->right_target_boundary &&
+					tmpTarget.centerY > params->lower_target_boundary &&
+					tmpTarget.centerY < params->upper_target_boundary)
 				{
 					// Found a location that works
 					break;
@@ -211,10 +244,10 @@ void RandomWalkBehavior::doPreTrial(SimStruct *S) {
 				}
 
 				th = th + PI/2;
-				r = paramValues[param_minimum_distance_id];
+				r = params->minimum_distance;
 			}
 
-            tmpTarget.width = paramValues[param_target_size_id];
+            tmpTarget.width = params->target_size;
             tmpTarget.color = Target::Color(255, 0, 0);
 			*targets[i] = tmpTarget;
 		}
@@ -232,8 +265,8 @@ void RandomWalkBehavior::doPreTrial(SimStruct *S) {
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
 	db->addFloat((float)(inputs->offsets.x));
 	db->addFloat((float)(inputs->offsets.y));
-	db->addFloat((float)paramValues[param_target_tolerance_id] + (float)paramValues[param_target_size_id]);
-	for (i = 0; i<paramValues[param_num_targets_id]; i++) {
+	db->addFloat((float)params->target_tolerance + (float)params->target_size);
+	for (i = 0; i<params->num_targets; i++) {
 		db->addFloat((float)targets[i]->centerX);
 		db->addFloat((float)targets[i]->centerY);
 	}
@@ -247,7 +280,7 @@ void RandomWalkBehavior::update(SimStruct *S) {
 	
 	currentTarget = *targets[target_index];
 	targetBounds = currentTarget;
-    targetBounds.width = currentTarget.width + paramValues[param_target_tolerance_id];
+    targetBounds.width = currentTarget.width + params->target_tolerance;
 
 	// State machine
 	switch (this->getState()) {
@@ -258,49 +291,66 @@ void RandomWalkBehavior::update(SimStruct *S) {
 			break;
 		case STATE_DATA_BLOCK:
 			if (db->isDone()) {
+				cumulativeHoldTimer->stop(S);
 				setState(STATE_INITIAL_MOVEMENT);
 			}
 		case STATE_INITIAL_MOVEMENT:
 			/* first target on */
-			if (targetBounds.cursorInTarget(&inputs->cursor)) {
+			if (targetBounds.cursorInTarget(inputs->cursor)) {
+				cumulativeHoldTimer->start(S);
 				setState(STATE_TARGET_HOLD);
-			} else if (stateTimer->elapsedTime(S) > paramValues[param_initial_movement_time_id]) {
+			} else if (stateTimer->elapsedTime(S) > params->initial_movement_time) {
 				setState(STATE_INCOMPLETE);
 			}
 			break;
 		case STATE_MOVEMENT:
-			if (targetBounds.cursorInTarget(&inputs->cursor)) {
+			if (targetBounds.cursorInTarget(inputs->cursor)) {
+				cumulativeHoldTimer->start(S);
 				setState(STATE_TARGET_HOLD);
-			} else if (stateTimer->elapsedTime(S) > paramValues[param_movement_time_id]) {
+			} else if (stateTimer->elapsedTime(S) > params->movement_time) {
 				setState(STATE_FAIL);
 			}
 			break;
 		case STATE_TARGET_HOLD:
-			if (!targetBounds.cursorInTarget(&inputs->cursor) && paramValues[param_disable_abort_id]) {
+			if (params->cumulative_hold && cumulativeHoldTimer->elapsedTime(S) > targetHoldTime) {
+				/* next state depends on whether there are more targets */
+				if (target_index == params->num_targets - 1) {
+					/* no more targets */
+					cumulativeHoldTimer->stop(S);
+					playTone(TONE_REWARD);
+					setState(STATE_REWARD);
+				} else {
+					/* more targets */
+					cumulativeHoldTimer->stop(S);
+					delayTime = random->getDouble(params->target_delay_l, params->target_delay_h);
+					setState(STATE_TARGET_DELAY);
+				}
+			} else if (params->disable_abort && !targetBounds.cursorInTarget(inputs->cursor)) {
+				cumulativeHoldTimer->pause(S);
 				setState(STATE_MOVEMENT);
-			} else if (!targetBounds.cursorInTarget(&inputs->cursor)) {
+			} else if (!targetBounds.cursorInTarget(inputs->cursor)) {
 				setState(STATE_ABORT);
 			} else if (stateTimer->elapsedTime(S) > targetHoldTime) {
 				/* next state depends on whether there are more targets */
-				if (target_index == paramValues[param_num_targets_id]-1) {
+				if (target_index == params->num_targets - 1) {
 					/* no more targets */
 					playTone(TONE_REWARD);
 					setState(STATE_REWARD);
 				} else {
 					/* more targets */
-					delayTime = random->getDouble(paramValues[param_target_delay_l_id], paramValues[param_target_delay_h_id]);
+					delayTime = random->getDouble(params->target_delay_l, params->target_delay_h);
 					setState(STATE_TARGET_DELAY);
 				}
 			}
 			break;
 		case STATE_TARGET_DELAY:
-			if (!targetBounds.cursorInTarget(&inputs->cursor)) {
+			if (!targetBounds.cursorInTarget(inputs->cursor)) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if (stateTimer->elapsedTime(S) > delayTime) {
 				target_index++;
-				catchTrial = ( random->getDouble() < paramValues[param_percent_catch_trials_id] );
-				targetHoldTime = random->getDouble(paramValues[param_target_hold_l_id], paramValues[param_target_hold_h_id]);
+				catchTrial = ( random->getDouble() < params->percent_catch_trials );
+				targetHoldTime = random->getDouble(params->target_hold_l, params->target_hold_h);
 				playTone(TONE_GO);
 				setState(STATE_MOVEMENT);
 			}
@@ -309,7 +359,7 @@ void RandomWalkBehavior::update(SimStruct *S) {
         case STATE_REWARD:
 		case STATE_FAIL:
         case STATE_INCOMPLETE:
-			if (stateTimer->elapsedTime(S) > paramValues[param_intertrial_id]) {
+			if (stateTimer->elapsedTime(S) > params->intertrial) {
 				setState(STATE_PRETRIAL);
 			}
 			break;
@@ -382,7 +432,7 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 
 	/* target_pos (3) */
 	// Target 0
-	if (getState() == STATE_TARGET_HOLD && paramValues[param_green_hold_id]) {
+	if (getState() == STATE_TARGET_HOLD && params->green_hold) {
 		currentTarget->color = Target::Color(0, 128, 0);
 		outputs->targets[0] = (Target *)currentTarget;
 	} else if (getState() == STATE_INITIAL_MOVEMENT || 
@@ -419,137 +469,9 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 	outputs->position = inputs->cursor;
 }
 
-/*********************************************************************************
- * Begining of S-Function API interface                                          *
- *********************************************************************************
- * DO NOT EDIT ANYTHING BELOW THIS LINE * * DO NOT EDIT ANYTHING BELOW THIS LINE *
- * DO NOT EDIT ANYTHING BELOW THIS LINE * * DO NOT EDIT ANYTHING BELOW THIS LINE *
- * DO NOT EDIT ANYTHING BELOW THIS LINE * * DO NOT EDIT ANYTHING BELOW THIS LINE *
- * DO NOT EDIT ANYTHING BELOW THIS LINE * * DO NOT EDIT ANYTHING BELOW THIS LINE *
- *********************************************************************************/
+/*
+ * Include at bottom of your behavior code
+ */
+#include "common_footer.cpp"
 
-#ifdef __cplusplus
-extern "C" { // use the C fcn-call standard for all functions  
-#endif       // defined within this scope                     
 
-static void mdlInitializeSizes(SimStruct *S)
-{
-    int i;
-    
-    ssSetNumSFcnParams(S, NUM_PARAMETERS); 
-    if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
-        return; /* parameter number mismatch */
-    }
-    for (i=0; i<ssGetNumSFcnParams(S); i++)
-        ssSetSFcnParamTunable(S,i, 1);
-    // mdlCheckParameters(S);
-    
-    ssSetNumContStates(S, 0);
-    ssSetNumDiscStates(S, 0);
-    
-    /*
-     * Block has 4 input ports
-     *      input port 0: (position) of width 2 (x, y)
-     *      input port 1: (position offset) of width 2 (x, y)
-     *      input port 2: (force) of width 2 (x, y)
-     *      input port 3: (catch force) of width 2 (x, y)
-     */
-    if (!ssSetNumInputPorts(S, 4)) return;
-    ssSetInputPortWidth(S, 0, 2); /* x & y position */
-    ssSetInputPortWidth(S, 1, 2); /* x & y position offsets */
-    ssSetInputPortWidth(S, 2, 2); /* main force */
-    ssSetInputPortWidth(S, 3, 2); /* catch trial force */
-    ssSetInputPortDirectFeedThrough(S, 0, 1);
-    ssSetInputPortDirectFeedThrough(S, 1, 1);
-    ssSetInputPortDirectFeedThrough(S, 2, 1);
-    ssSetInputPortDirectFeedThrough(S, 3, 1);
-    
-    /* 
-     * Block has 8 output ports (force, status, word, targets, reward, tone, version, pos) of widths:
-     *  force: 2
-     *  status: 5 ( block counter, successes, aborts, failures, incompletes )
-     *  word:  1 (8 bits)
-     *  target: 10 ( target 1, 2: 
-     *                  on/off, 
-     *                  target UL corner x, 
-     *                  target UL corner y,
-     *                  target LR corner x, 
-     *                  target LR corner y)
-     *  reward: 1
-     *  tone: 2     ( 1: counter incemented for each new tone, 2: tone ID )
-     *  version: 1 ( the cvs revision of the current .c file )
-     *  pos: 2 (x and y position of the cursor)
-     */
-    if (!ssSetNumOutputPorts(S, 8)) return;
-    ssSetOutputPortWidth(S, 0, 2);   /* force   */
-    ssSetOutputPortWidth(S, 1, 5);   /* status  */
-    ssSetOutputPortWidth(S, 2, 1);   /* word    */
-    ssSetOutputPortWidth(S, 3, 10);  /* target  */
-    ssSetOutputPortWidth(S, 4, 1);   /* reward  */
-    ssSetOutputPortWidth(S, 5, 2);   /* tone    */
-    ssSetOutputPortWidth(S, 6, 4);   /* version */
-    ssSetOutputPortWidth(S, 7, 2);   /* pos     */
-    
-    ssSetNumSampleTimes(S, 1);
-
-    /* work buffers */
-	ssSetNumRWork(S, 0);
-	ssSetNumIWork(S, 0);
-	ssSetNumPWork(S, 1);
-
-    /* we have no zero crossing detection or modes */
-    ssSetNumModes(S, 0);
-    ssSetNumNonsampledZCs(S, 0);
-    
-    ssSetOptions(S, SS_OPTION_EXCEPTION_FREE_CODE);
-}
-
-static void mdlInitializeSampleTimes(SimStruct *S)
-{
-    ssSetSampleTime(S, 0, INHERITED_SAMPLE_TIME);
-    ssSetOffsetTime(S, 0, 0.0);
-}
-
-#define MDL_START
-static void mdlStart(SimStruct *S)
-{
-	ssGetPWork(S)[0] = (void *) new MY_CLASS_NAME(S);
-}
-
-#define MDL_UPDATE
-static void mdlUpdate(SimStruct *S, int_T tid) 
-{
-	MY_CLASS_NAME *b = (MY_CLASS_NAME *) ssGetPWork(S)[0];
-	if (b->checkMasterReset(S))
-		return;
-	b->generalUpdate(S);
-	b->update(S);
-	
-    UNUSED_ARG(tid);
-}
-
-static void mdlOutputs(SimStruct *S, int_T tid)
-{
-	MY_CLASS_NAME *b = (MY_CLASS_NAME *) ssGetPWork(S)[0];
-	b->readInputs(S);
-	b->updateTrialCounters();
-	b->calculateOutputs(S);
-	b->writeOutputs(S);
-	
-	UNUSED_ARG(tid);
-}
-
-static void mdlTerminate (SimStruct *S) { 
-	MY_CLASS_NAME *b = (MY_CLASS_NAME *) ssGetPWork(S)[0];
-	delete b;
-}
-
-#ifdef MATLAB_MEX_FILE   /* Is this being compiled as a MEX-file? */
-#include "simulink.c"    /* MEX-file interface mechanism */
-#else
-#include "cg_sfun.h"     /* Code generation registration func */
-#endif
-
-#ifdef __cplusplus
-} // end of extern "C" scope
-#endif

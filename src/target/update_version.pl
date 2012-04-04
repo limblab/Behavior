@@ -5,7 +5,7 @@
 use strict;
 
 my $filename = "words.h";
-my $rev = substr('$Rev$', 6, -1);
+my $rev = substr('$Rev: 412 $', 6, -1);
 
 my $dec_line = "#define __BUILD_UPDATED__ 1\n";
 

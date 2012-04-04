@@ -1,4 +1,4 @@
-/* $Id: mastercon_un.c 619 2011-09-7 19:22:06Z brian d $
+/* $Id$
  *
  * Master Control block for behavior: uncertainty task 
  */

@@ -1,4 +1,4 @@
-/* $Id: mastercon_bc.c 380 2009-02-02 21:38:53Z brian $
+/* $Id$
  *
  * Master Control block for behavior: bump choice task
  */

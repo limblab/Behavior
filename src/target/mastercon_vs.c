@@ -1,4 +1,4 @@
-/* $Id: mastercon_co.c 446 2009-05-31 21:38:42Z brian $
+/* $Id$
  *
  * Master Control block for behavior: center-out task 
  */
