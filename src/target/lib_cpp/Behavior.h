@@ -12,10 +12,10 @@
  */
 class Inputs {
 public:
-	Point cursor;
-    Point offsets;
-    Point force;
-    Point catchForce;
+	Point cursor; 	  /**< The current cursor location. */
+	Point offsets;    /**< The offsets (position of workspace zero relative to motor axes). */	
+    Point force;      /**< The input force from the selected force generator. */
+    Point catchForce; /**< The input force from the selected catch-force generator. */
 };
 
 /**
@@ -27,15 +27,15 @@ public:
  */
 class Outputs {
 public:
-	Point force;
-	int status[5];
-	int word;
-	Target *targets[2];
-	int reward;
-	int tone_counter;
-	int last_tone_id;
-	int version[4];
-	Point position;
+	Point force; 	    /**< Requested output force. */
+	int status[5];      /**< Five status numbers to be displayed. */
+	int word;           /**< 8-bit word to be output. */
+	Target *targets[2]; /**< Targets to be displayed. */
+	int reward;         /**< Set true to pulse the reward line. */
+	int tone_counter;   /**< Tone counter (see Behavior::playTone).  */
+	int last_tone_id;   /**< Id of last requested tone (see Behavior::playTone). */
+	int version[4];     /**< Four numbers indicating the version of the currently running behavior. */
+	Point position;     /**< The position to draw the cursor. */
 };
 
 /*

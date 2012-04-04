@@ -19,7 +19,6 @@
 #define TARGET_TYPE_CIRCLE 10
 #define TARGET_TYPE_SQUARE 11
 
-
 /***************************************************
  * Target (Parent class)
  ***************************************************/
@@ -61,7 +60,7 @@ public:
 	 * for each subclass.  It's purpose is to indicate whether 
 	 * the specified point is within the bounds of this particular
 	 * target.
-	 * @param point a Point containg the x,y coordinate to check
+	 * @param p a Point containg the x,y coordinate to check
 	 * @return true if the specified point is within the bounds of 
 	 * of the target, false otherwise.
 	 */
@@ -176,7 +175,7 @@ bool RectangleTarget::cursorInTarget(double x, double y) {
  * Determines if the specified point within the target.
  * This function will return whether the specified point is
  * within the target.
- * @param point a Point containg the x,y coordinate to check
+ * @param p a Point containg the x,y coordinate to check
  * @return true if the specified point is within the bounds of 
  * of the target, false otherwise.
  */
@@ -276,7 +275,7 @@ bool CircleTarget::cursorInTarget(double x, double y) {
  * Determines if the specified point within the target.
  * This function will return whether the specified point is
  * within the target.
- * @param point a Point containg the x,y coordinate to check
+ * @param p a Point containg the x,y coordinate to check
  * @return true if the specified point is within the bounds of 
  * of the target, false otherwise.
  */
@@ -376,7 +375,7 @@ bool SquareTarget::cursorInTarget(double x, double y) {
  * Determines if the specified point within the target.
  * This function will return whether the specified point is
  * within the target.
- * @param point a Point containg the x,y coordinate to check
+ * @param p a Point containg the x,y coordinate to check
  * @return true if the specified point is within the bounds of 
  * of the target, false otherwise.
  */

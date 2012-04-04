@@ -1,4 +1,4 @@
-/* $Id: $
+/* $Id$
  *
  * Contains simple helper classes for the behavior
  */
@@ -20,7 +20,8 @@ public:
     Point();
     Point(real_T x, real_T y);
     
-	real_T x, y;
+	real_T x; /**< The x coordinate of the point. */
+	real_T y; /**< The y coordinate of the point. */
 };
 
 /**
@@ -48,10 +49,10 @@ Point::Point(real_T x, real_T y) {
  */
 class TrialCounter {
 public:
-	int successes;
-	int failures;
-	int aborts;
-	int incompletes;
+	int successes;   /**< The count of the number of success trials. */
+	int failures;    /**< The count of the number of failure trials. */
+	int aborts;      /**< The count of the number of abort trials */
+	int incompletes; /**< The count of the number of incomplete trials */
 
 	TrialCounter();
 	void reset();

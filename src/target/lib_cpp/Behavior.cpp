@@ -1,3 +1,9 @@
+/**
+ * $Id$
+ *
+ * Parent class for all c++ behaviors.
+ */
+
 #include "Behavior.h"
 #include <math.h>
 
