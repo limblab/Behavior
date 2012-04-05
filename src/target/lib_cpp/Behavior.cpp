@@ -31,9 +31,13 @@ Behavior::Behavior() {
 	this->stateTimer = new Timer();
     this->inputs = new Inputs();
 	this->random = new Random();
-	this->nullTarget = (Target *)(new RectangleTarget(0, 0, 0, 0, TARGET_TYPE_NULL));
-    this->outputs = new Outputs();
 	this->db = new DataBurst();
+
+	this->nullTarget = (Target *)(new RectangleTarget(0, 0, 0, 0, TARGET_TYPE_NULL));
+	this->outputs = new Outputs();
+	for (int i = 0; i < 17; i++) {
+		this->outputs->targets[i] = nullTarget;
+	}
 }
 
 /**

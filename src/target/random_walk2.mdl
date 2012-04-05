@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1236"
+    ComputedModelVersion    "1.1234"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Selket"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Apr 02 23:33:01 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1236>"
+  LastModifiedDate	  "Thu Apr 05 10:25:57 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1234>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -325,8 +325,6 @@ Model {
 	  ConfigurationMode	  "Optimized"
 	  ProcessScript		  "xpctarget_make_rtw_hook"
 	  ConfigAtBuild		  off
-	  CustomSource		  "\n"
-	  CustomLibrary		  "\n"
 	  IncludeHyperlinkInReport off
 	  LaunchReport		  off
 	  TargetLang		  "C"
@@ -466,7 +464,7 @@ Model {
 	PropName		"Components"
       }
       Name		      "Configuration"
-      CurrentDlgPage	      "Real-Time Workshop/Custom Code"
+      CurrentDlgPage	      "Optimization"
     }
     PropName		    "ConfigurationSets"
   }
@@ -834,7 +832,7 @@ Model {
   }
   System {
     Name		    "random_walk2"
-    Location		    [91, 103, 1263, 748]
+    Location		    [86, 98, 1081, 743]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -850,7 +848,7 @@ Model {
     ReportName		    "simulink-default.rpt"
     Block {
       BlockType		      "S-Function"
-      Name		      "Behavior RW"
+      Name		      "Behavior VS"
       Ports		      [4, 8]
       Position		      [660, 88, 885, 422]
       BackgroundColor	      "lightBlue"
@@ -858,11 +856,11 @@ Model {
       Parameters	      "8 3 0 -10 10 -10 10 0 0 0 0 10 10 1 0 0 0 0 0 0"
 " 0"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
-"os')\nport_label('input',2,'pos offset')\nport_label('input',3,'force')\nport"
-"_label('input',4,'catch force')\nport_label('output',1,'force')\nport_label('"
-"output',2,'status')\nport_label('output',3,'word')\nport_label('output',4,'ta"
-"rgets')\nport_label('output',5,'reward')\nport_label('output',6,'tone')\nport"
-"_label('output',7,'version')\nport_label('output',8,'pos')"
+"os')\nport_label('input',2,'force')\nport_label('input',3,'catch force')\npor"
+"t_label('output',1,'force')\nport_label('output',2,'status')\nport_label('out"
+"put',3,'word')\nport_label('output',4,'targets')\nport_label('output',5,'rewa"
+"rd')\nport_label('output',6,'tone')\nport_label('output',7,'version')\nport_l"
+"abel('output',8,'pos')"
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
@@ -2557,7 +2555,7 @@ Model {
     Block {
       BlockType		      From
       Name		      "From"
-      Position		      [550, 201, 605, 229]
+      Position		      [550, 201, 600, 229]
       CloseFcn		      "tagdialog Close"
       GotoTag		      "Offsets"
     }
@@ -3540,7 +3538,7 @@ Model {
     Block {
       BlockType		      Switch
       Name		      "Neural Override"
-      Position		      [410, 76, 455, 184]
+      Position		      [410, 91, 455, 199]
       Criteria		      "u2 ~= 0"
       InputSameDT	      off
       SaturateOnIntegerOverflow	off
@@ -5999,6 +5997,22 @@ Model {
     }
     Block {
       BlockType		      Reference
+      Name		      "SendPacketToGraphics"
+      Ports		      [4]
+      Position		      [1235, 277, 1325, 378]
+      SourceBlock	      "limblab/SendPacketToGraphics"
+      SourceType	      ""
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+    }
+    Block {
+      BlockType		      Reference
       Name		      "Status"
       Ports		      [1]
       Position		      [1010, 134, 1080, 176]
@@ -6258,6 +6272,12 @@ Model {
       }
     }
     Block {
+      BlockType		      Constant
+      Name		      "TargetCount"
+      Position		      [1150, 350, 1180, 380]
+      Value		      "17"
+    }
+    Block {
       BlockType		      Terminator
       Name		      "Terminator"
       Position		      [1165, 225, 1185, 245]
@@ -6268,225 +6288,6 @@ Model {
       Position		      [340, 80, 360, 100]
       NamePlacement	      "alternate"
       ShowName		      off
-    }
-    Block {
-      BlockType		      SubSystem
-      Name		      "UDPXmit"
-      Ports		      [3]
-      Position		      [1265, 278, 1325, 352]
-      MinAlgLoopOccurrences   off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      MaskHideContents	      off
-      System {
-	Name			"UDPXmit"
-	Location		[2, 82, 1278, 876]
-	Open			off
-	ModelBrowserVisibility	off
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Inport
-	  Name			  "Targets"
-	  Position		  [95, 383, 125, 397]
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "Tone"
-	  Position		  [370, 623, 400, 637]
-	  Port			  "2"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "Pos"
-	  Position		  [320, 143, 350, 157]
-	  Port			  "3"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Demux
-	  Name			  "Demux"
-	  Ports			  [1, 10]
-	  Position		  [175, 182, 180, 598]
-	  BackgroundColor	  "black"
-	  ShowName		  off
-	  Outputs		  "10"
-	  DisplayOption		  "bar"
-	}
-	Block {
-	  BlockType		  Demux
-	  Name			  "Demux1"
-	  Ports			  [1, 2]
-	  Position		  [410, 109, 415, 191]
-	  BackgroundColor	  "black"
-	  ShowName		  off
-	  Outputs		  "2"
-	  DisplayOption		  "bar"
-	}
-	Block {
-	  BlockType		  Demux
-	  Name			  "Demux2"
-	  Ports			  [1, 2]
-	  Position		  [445, 589, 450, 671]
-	  BackgroundColor	  "black"
-	  ShowName		  off
-	  Outputs		  "2"
-	  DisplayOption		  "bar"
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Pack"
-	  Ports			  [14, 1]
-	  Position		  [565, 96, 675, 684]
-	  SourceBlock		  "xpclib/UDP/Pack"
-	  SourceType		  "xpcany2byte"
-	  datatypes		  "{'double', 'double','double','double','doub"
-"le','double','double','double','double','double','double','double','double','"
-"double'}"
-	  byteAlign		  "1"
-	}
-	Block {
-	  BlockType		  RateTransition
-	  Name			  "Rate Transition"
-	  Position		  [725, 369, 780, 411]
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Send"
-	  Ports			  [1]
-	  Position		  [825, 365, 905, 415]
-	  SourceBlock		  "xpclib/UDP/Send"
-	  SourceType		  "xpcudpbytesend"
-	  ipAddress		  "192.168.0.2"
-	  ipPort		  "25000"
-	  localPort		  "-1"
-	  sampletime		  ".02"
-	}
-	Line {
-	  SrcBlock		  "Rate Transition"
-	  SrcPort		  1
-	  DstBlock		  "Send"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Pack"
-	  SrcPort		  1
-	  DstBlock		  "Rate Transition"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  10
-	  DstBlock		  "Pack"
-	  DstPort		  12
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  9
-	  DstBlock		  "Pack"
-	  DstPort		  11
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  8
-	  DstBlock		  "Pack"
-	  DstPort		  10
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  7
-	  DstBlock		  "Pack"
-	  DstPort		  9
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  6
-	  DstBlock		  "Pack"
-	  DstPort		  8
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  5
-	  DstBlock		  "Pack"
-	  DstPort		  7
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  4
-	  DstBlock		  "Pack"
-	  DstPort		  6
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  3
-	  DstBlock		  "Pack"
-	  DstPort		  5
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  2
-	  DstBlock		  "Pack"
-	  DstPort		  4
-	}
-	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  1
-	  DstBlock		  "Pack"
-	  DstPort		  3
-	}
-	Line {
-	  SrcBlock		  "Demux1"
-	  SrcPort		  1
-	  DstBlock		  "Pack"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Demux1"
-	  SrcPort		  2
-	  DstBlock		  "Pack"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "Demux2"
-	  SrcPort		  1
-	  DstBlock		  "Pack"
-	  DstPort		  13
-	}
-	Line {
-	  SrcBlock		  "Demux2"
-	  SrcPort		  2
-	  DstBlock		  "Pack"
-	  DstPort		  14
-	}
-	Line {
-	  SrcBlock		  "Tone"
-	  SrcPort		  1
-	  DstBlock		  "Demux2"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Targets"
-	  SrcPort		  1
-	  DstBlock		  "Demux"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Pos"
-	  SrcPort		  1
-	  DstBlock		  "Demux1"
-	  DstPort		  1
-	}
-      }
     }
     Block {
       BlockType		      Constant
@@ -8141,7 +7942,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Jacobian-Cartesian Transformation"
-	    Location		    [0, 82, 1268, 884]
+	    Location		    [0, 82, 1268, 876]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -8197,7 +7998,7 @@ Model {
 	    Block {
 	      BlockType		      Goto
 	      Name		      "Goto"
-	      Position		      [710, 285, 750, 315]
+	      Position		      [755, 305, 795, 335]
 	      GotoTag		      "Offsets"
 	      TagVisibility	      "global"
 	    }
@@ -8241,7 +8042,7 @@ Model {
 	      BlockType		      Mux
 	      Name		      "Mux"
 	      Ports		      [2, 1]
-	      Position		      [680, 281, 685, 319]
+	      Position		      [695, 301, 700, 339]
 	      ShowName		      off
 	      Inputs		      "2"
 	      DisplayOption	      "bar"
@@ -8508,7 +8309,7 @@ Model {
 		DstPort			2
 	      }
 	      Branch {
-		Points			[110, 0; 0, -60]
+		Points			[110, 0; 0, -40]
 		DstBlock		"Mux"
 		DstPort			1
 	      }
@@ -8522,7 +8323,7 @@ Model {
 		DstPort			2
 	      }
 	      Branch {
-		Points			[185, 0; 0, 135]
+		Points			[190, 0; 0, 155]
 		DstBlock		"Mux"
 		DstPort			2
 	      }
@@ -8993,7 +8794,7 @@ Model {
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -325]
+	    Points		    [0, -310]
 	    DstBlock		    "Neural Override"
 	    DstPort		    3
 	  }
@@ -9001,19 +8802,19 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "Behavior RW"
+      SrcBlock		      "Behavior VS"
       SrcPort		      2
       DstBlock		      "Status"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Behavior RW"
+      SrcBlock		      "Behavior VS"
       SrcPort		      3
       DstBlock		      "WordSbs"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Behavior RW"
+      SrcBlock		      "Behavior VS"
       SrcPort		      4
       Points		      [110, 0]
       Branch {
@@ -9021,20 +8822,20 @@ Model {
 	DstPort			1
       }
       Branch {
-	Points			[0, -35; 220, 0; 0, 90]
-	DstBlock		"UDPXmit"
+	Points			[0, -35; 210, 0; 0, 90]
+	DstBlock		"SendPacketToGraphics"
 	DstPort			1
       }
     }
     Line {
-      SrcBlock		      "Behavior RW"
+      SrcBlock		      "Behavior VS"
       SrcPort		      1
       Points		      [460, 0; 0, 380; -325, 0; 0, 65]
       DstBlock		      "Motor Control"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Behavior RW"
+      SrcBlock		      "Behavior VS"
       SrcPort		      5
       DstBlock		      "RewardSbs"
       DstPort		      1
@@ -9086,22 +8887,22 @@ Model {
       DstPort		      2
     }
     Line {
-      SrcBlock		      "Behavior RW"
+      SrcBlock		      "Behavior VS"
       SrcPort		      7
       DstBlock		      "Version Display"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Behavior RW"
+      SrcBlock		      "Behavior VS"
       SrcPort		      8
-      Points		      [330, 0; 0, -55]
-      DstBlock		      "UDPXmit"
+      Points		      [220, 0; 0, -55]
+      DstBlock		      "SendPacketToGraphics"
       DstPort		      3
     }
     Line {
-      SrcBlock		      "Behavior RW"
+      SrcBlock		      "Behavior VS"
       SrcPort		      6
-      DstBlock		      "UDPXmit"
+      DstBlock		      "SendPacketToGraphics"
       DstPort		      2
     }
     Line {
@@ -9115,7 +8916,6 @@ Model {
       SrcPort		      1
       Points		      [30, 0]
       Branch {
-	Points			[0, -15]
 	DstBlock		"Neural Override"
 	DstPort			2
       }
@@ -9128,7 +8928,7 @@ Model {
     Line {
       SrcBlock		      "Neural Position Subsystem"
       SrcPort		      1
-      Points		      [90, 0; 0, 45]
+      Points		      [90, 0; 0, 60]
       DstBlock		      "Neural Override"
       DstPort		      1
     }
@@ -9141,7 +8941,8 @@ Model {
     Line {
       SrcBlock		      "Neural Override"
       SrcPort		      1
-      DstBlock		      "Behavior RW"
+      Points		      [185, 0]
+      DstBlock		      "Behavior VS"
       DstPort		      1
     }
     Line {
@@ -9151,21 +8952,27 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Force Generator"
+      SrcBlock		      "TargetCount"
       SrcPort		      1
-      DstBlock		      "Behavior RW"
-      DstPort		      3
+      DstBlock		      "SendPacketToGraphics"
+      DstPort		      4
     }
     Line {
       SrcBlock		      "Catch Force Generator"
       SrcPort		      1
-      DstBlock		      "Behavior RW"
+      DstBlock		      "Behavior VS"
       DstPort		      4
+    }
+    Line {
+      SrcBlock		      "Force Generator"
+      SrcPort		      1
+      DstBlock		      "Behavior VS"
+      DstPort		      3
     }
     Line {
       SrcBlock		      "From"
       SrcPort		      1
-      DstBlock		      "Behavior RW"
+      DstBlock		      "Behavior VS"
       DstPort		      2
     }
     Annotation {

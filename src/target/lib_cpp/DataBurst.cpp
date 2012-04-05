@@ -9,7 +9,7 @@
 
 /**
  * Data burst helper class.
- * This class used to setup and play back the data-burst. This should not 
+ * This class is used to set up and play back the data-burst. This should not 
  * need to be instantiated because there is a databurst available in Behavior::db.
  *
  * The general workflow for this class is as follows:
@@ -27,14 +27,14 @@
  *     if (db->isRunning())               // if we're writing out the databurst
  *         outputs->word = db->getByte(); // then write out the next byte
  *
- * These functions allow databurst data to be set dynamicall at run time and simplifies the playout process.
+ * These functions allow databurst data to be set dynamically at run time and simplifies the playout process.
  * Typically, in the state machine you would use STATE_DATA_BLOCK as one of your states and call DataBurst::isDone()
  * to determine whether to advance to the first state of your trial.
  * 
- * The databurst is currently limited to 255 bytes.  Attempts to add more than this will silently fail and the outputed 
+ * The databurst is **currently limited to 255 bytes.**  Attempts to add more than this will silently fail and the outputed 
  * databurst will contain only 255 bytes.
  *
- * The first byte of the databurst is always it's length in bytes.  This class handles that and you do not need to add it manually.
+ * The first byte of the databurst is always its length in bytes.  This class handles that and you do not need to add it manually.
  */
 class DataBurst {
 public:
@@ -115,7 +115,7 @@ byte DataBurst::getByte() {
 }
 
 /**
- * Indicates whether the databurst has finished playing out it's data and has no more.
+ * Indicates whether the databurst has finished playing out its data and has no more.
  * This function will continue to return true until DataBurst::reset() is called.
  * @return true when done with play out, false otherwise.
  */

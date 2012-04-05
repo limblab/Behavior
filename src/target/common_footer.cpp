@@ -64,7 +64,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 0, 2);   /* force   */
     ssSetOutputPortWidth(S, 1, 5);   /* status  */
     ssSetOutputPortWidth(S, 2, 1);   /* word    */
-    ssSetOutputPortWidth(S, 3, 10);  /* target  */
+    ssSetOutputPortWidth(S, 3, 85);  /* target  */
     ssSetOutputPortWidth(S, 4, 1);   /* reward  */
     ssSetOutputPortWidth(S, 5, 2);   /* tone    */
     ssSetOutputPortWidth(S, 6, 4);   /* version */
