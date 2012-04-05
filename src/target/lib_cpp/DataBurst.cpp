@@ -9,18 +9,20 @@
 
 /**
  * Data burst helper class.
- * This class is used to set up and play back the data-burst. This should not 
+ * This class is used to set up and play out the data-burst. This should not 
  * need to be instantiated because there is a databurst available in Behavior::db.
  *
  * The general workflow for this class is as follows:
  *
- *     // In the behavior class constructor (you don't have to do this)
+ *     // This call is performed for you in the Behavior constructor.
  *     DataBurst *db = new DataBurst();
  *     
+ *     // --- The following should be implemented in the specific behavior ---
  *     // In the pre-trial set up
  *     db->reset();               // get ready to fill with data
- *     db->addByte( someByte );
- *     ...                        // fill db with the data that should be included in databurst
+ *     db->addByte( someByte );   // fill db with the data that should be included in databurst
+ *     db->addByte( someOtherByte );
+ *     ...                        
  *     db->start();               // done adding data, get ready to spit it out
  *     
  *     // in outputs
