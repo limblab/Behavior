@@ -1,42 +1,6 @@
 #ifndef _BEHAVIOR_H
 #define _BEHAVIOR_H 1
 
-/*
- * Inputs/Outputs
- *********************************************/
-
-/**
- * This class holds a representation of the inputs to the master control block.
- * One instance of this class is created at Behavior::inputs and is automatically
- * filled prior to each call to update or setOutputs.
- */
-class Inputs {
-public:
-	Point cursor; 	  /**< The current cursor location. */
-	Point offsets;    /**< The offsets (position of workspace zero relative to motor axes). */	
-    Point force;      /**< The input force from the selected force generator. */
-    Point catchForce; /**< The input force from the selected catch-force generator. */
-};
-
-/**
- * This class holds a representation of the outputs of the master control block.
- * One instance of this class is created at Behavior::outputs and must be filled
- * during the subclass' setOutputs function.  The contents of this are then written
- * to simulink output fields after setOutputs returns.  See the reference implementation
- * in random walk for an example.
- */
-class Outputs {
-public:
-	Point force; 	     /**< Requested output force. */
-	int status[5];       /**< Five status numbers to be displayed. */
-	int word;            /**< 8-bit word to be output. */
-	Target *targets[17]; /**< Targets to be displayed. */
-	int reward;          /**< Set true to pulse the reward line. */
-	int tone_counter;    /**< Tone counter (see Behavior::playTone).  */
-	int last_tone_id;    /**< Id of last requested tone (see Behavior::playTone). */
-	int version[4];      /**< Four numbers indicating the version of the currently running behavior. */
-	Point position;      /**< The position to draw the cursor. */
-};
 
 /*
  * Behavior
@@ -55,12 +19,14 @@ class Behavior {
 public:
 	Behavior();
 	void generalUpdate(SimStruct *S);
-	void readInputs(SimStruct *S);
-	void writeOutputs(SimStruct *S);
 	void updateTrialCounters();
 	int checkMasterReset(SimStruct *S);
 	int getNumParams();
-	
+
+	/* These two functions should be implemented by a sub-class such as RobotBehavior */
+	virtual void readInputs(SimStruct *S) = 0;
+	virtual void writeOutputs(SimStruct *S) = 0;
+
 	/* These are the two functions that must be implemented for each behavior */
 
 	/**
@@ -116,17 +82,6 @@ protected:
 	TrialCounter *trialCounter;
 
 	/**
-	 * Stores the values of the inputs to the master control block.
-	 * These fields are updated automatically prior to calls to calculateOutputs or update.
-	 */
-    Inputs *inputs;
-
-	/**
-	 * Set these fields to the desired outputs of the master control block.
-	 */
-	Outputs *outputs;
-
-	/**
 	 * The state timer (do not modify).
 	 * This timer is automatically reset each time setState() is called.  Calls to `stateTimer->elapsedTime(S)`
 	 * will return the time spent in the current state.
@@ -140,11 +95,6 @@ protected:
 	 * instantiate their own RNG.
 	 */
 	Random *random;
-
-	/**
-	 * A predefined null target that will not be draw, provided for Convenience.
-	 */
-	Target *nullTarget;
 
 	/**
 	 * The provided instance of DataBurst.

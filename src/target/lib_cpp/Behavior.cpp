@@ -29,15 +29,8 @@ Behavior::Behavior() {
 	masterResetParamId = -1;
 	this->trialCounter = new TrialCounter();
 	this->stateTimer = new Timer();
-    this->inputs = new Inputs();
 	this->random = new Random();
 	this->db = new DataBurst();
-
-	this->nullTarget = (Target *)(new RectangleTarget(0, 0, 0, 0, TARGET_TYPE_NULL));
-	this->outputs = new Outputs();
-	for (int i = 0; i < 17; i++) {
-		this->outputs->targets[i] = nullTarget;
-	}
 }
 
 /**
@@ -137,35 +130,6 @@ void Behavior::updateTrialCounters() {
 }
 
 /**
- * Reads the inputs of the master control block into the Behavior::inputs structure.
- * Called automatically prior to calculateOutputs or update.
- * @param S the current SimStruct.
- */
-void Behavior::readInputs(SimStruct *S) {
-	InputRealPtrsType uPtrs;
-
-	/* cursor */
-	uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
-	inputs->cursor.x = *uPtrs[0];
-	inputs->cursor.y = *uPtrs[1];
-
-    /* offsets */
-    uPtrs  = ssGetInputPortRealSignalPtrs(S, 1);
-	inputs->offsets.x = *uPtrs[0];
-	inputs->offsets.y = *uPtrs[1];
-    
-	/* input force */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 2);
-    inputs->force.x = *uPtrs[0];
-    inputs->force.y = *uPtrs[1];
-    
-    /* catch input force */
-    uPtrs = ssGetInputPortRealSignalPtrs(S, 3);
-    inputs->catchForce.x = *uPtrs[0];
-    inputs->catchForce.y = *uPtrs[1];
-}
-
-/**
  * Run general (for all behaviors) update functions -- called automatically.
  * @param S the current SimStruct.
  */
@@ -193,52 +157,6 @@ void Behavior::playTone(int toneId) {
 void writePoint(real_T *u, Point *p) {
 	u[0] = (real_T)(p->x);
 	u[1] = (real_T)(p->y);
-}
-
-/**
- * Write the contents of Behavior::outputs to the SimStruct (automatically called).
- */
-void Behavior::writeOutputs(SimStruct *S) {
-	int i;
-	real_T *uPtrs;
-
-	// force
-	uPtrs = ssGetOutputPortRealSignal(S, 0);
-	writePoint(uPtrs, &(outputs->force));
-
-	// status
-	uPtrs = ssGetOutputPortRealSignal(S, 1);
-	for (i = 0; i<5; i++) {
-		uPtrs[i] = (real_T)outputs->status[i];
-	}
-
-	// word
-	uPtrs = ssGetOutputPortRealSignal(S, 2);
-	uPtrs[0] = (real_T)outputs->word;
-
-	// targets
-	uPtrs = ssGetOutputPortRealSignal(S, 3);
-	outputs->targets[0]->copyToOutputs(uPtrs, 0);
-	outputs->targets[1]->copyToOutputs(uPtrs, 5);
-
-	// reward
-	uPtrs = ssGetOutputPortRealSignal(S, 4);
-	uPtrs[0] = (real_T)(outputs->reward ? 1.0 : 0.0);
-
-	// tone
-	uPtrs = ssGetOutputPortRealSignal(S, 5);
-	uPtrs[0] = (real_T)outputs->tone_counter;
-	uPtrs[1] = (real_T)outputs->last_tone_id;
-
-	// version
-	uPtrs = ssGetOutputPortRealSignal(S, 6);
-	for (i = 0; i<4; i++) {
-		uPtrs[i] = outputs->version[i];
-	}
-
-	// position
-	uPtrs = ssGetOutputPortRealSignal(S, 7);
-	writePoint(uPtrs, &(outputs->position));
 }
 
 /**
