@@ -1,47 +1,6 @@
 #define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-/* $Id$
+/* 
+ * $Id$
  *
  * defines word codes for center out and random walk tasks.
  *
@@ -65,7 +24,7 @@
 #define BEHAVIOR_VERSION_MAJOR 2
 #define BEHAVIOR_VERSION_MINOR 8
 #define BEHAVIOR_VERSION_MICRO 491
-#define BEHAVIOR_VERSION_BUILD 1404
+#define BEHAVIOR_VERSION_BUILD 1406
 
 #ifndef __BUILD_UPDATED__
 #error This project must be built from the build script. 
@@ -108,6 +67,10 @@
 #elif TASK_DB_DEFINED
 #define WORD_TASK_CODE 0x0F /* this is an escape indicating that the task will be specified by the databurst */
 #endif
+
+/* Databurst task codes:
+ * 1) mastercon_2bc
+ */
 
 /* trial start */
 #define WORD_START_TRIAL_GENERIC 0x10

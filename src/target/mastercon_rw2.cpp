@@ -112,7 +112,7 @@ struct LocalParams {
  * You must also update the definition below with the name of your class
  */
 #define MY_CLASS_NAME RandomWalkBehavior
-class RandomWalkBehavior : public Behavior {
+class RandomWalkBehavior : public RobotBehavior {
 public:
 	// You must implement these three public methods
 	RandomWalkBehavior(SimStruct *S);
@@ -134,7 +134,7 @@ private:
 	void doPreTrial(SimStruct *S);
 };
 
-RandomWalkBehavior::RandomWalkBehavior(SimStruct *S) : Behavior() {
+RandomWalkBehavior::RandomWalkBehavior(SimStruct *S) : RobotBehavior() {
     int i;
 
 	/* 

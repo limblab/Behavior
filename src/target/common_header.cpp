@@ -33,7 +33,10 @@ typedef unsigned char byte;
 #include "lib_cpp/Timer.cpp"
 #include "lib_cpp/DataBurst.cpp"
 #include "lib_cpp/Targets.cpp"
+#include "lib_cpp/Bumps.cpp"
+#include "lib_cpp/Staircase.cpp"
 #include "lib_cpp/Behavior.cpp"
+#include "lib_cpp/RobotBehavior.cpp"
 
 #undef __COMMON_HEADER_CPP
 
