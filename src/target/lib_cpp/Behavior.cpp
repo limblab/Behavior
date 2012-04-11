@@ -76,7 +76,7 @@ int Behavior::getNumParams() {
  * @param paramIdNumber the identifier number for the parameter to bind.
  */
 void Behavior::bindParamId(real_T *paramLocation, int paramIdNumber) {
-	if (paramIdNumber > 0 && paramIdNumber < numParams) {
+	if (paramIdNumber >= 0 && paramIdNumber < numParams) {
 		this->paramAddrs[paramIdNumber] = paramLocation;
 	}
 }

@@ -241,6 +241,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 			if (db->isDone()) {
 				setState(STATE_CT_ON);
 			}
+			break;
 		case STATE_CT_ON:
 			/* first target on */
 			if (centerTarget->cursorInTarget(inputs->cursor)) {

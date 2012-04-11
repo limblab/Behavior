@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1240"
+    ComputedModelVersion    "1.1241"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Selket"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Apr 10 19:33:10 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1240>"
+  LastModifiedDate	  "Wed Apr 11 15:30:12 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1241>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -832,7 +832,7 @@ Model {
   }
   System {
     Name		    "psychophysics"
-    Location		    [197, 114, 1192, 759]
+    Location		    [44, 102, 1031, 742]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
