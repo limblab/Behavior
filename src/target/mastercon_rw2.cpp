@@ -128,7 +128,7 @@ private:
 	double delayTime;
 	bool catchTrial;
 
-	LocalParams *params;
+	LocalParams *params;	
 
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);

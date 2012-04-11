@@ -110,6 +110,8 @@ private:
 	int numParams;
 	real_T **paramAddrs;
 
+	real_T dummy_value; // Written to as the default location to write a parameter.
+
 	SimStruct *S;
 };
 

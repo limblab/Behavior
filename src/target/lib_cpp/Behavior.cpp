@@ -52,6 +52,9 @@ void Behavior::updateParameters(SimStruct *S) {
 void Behavior::setNumParams(int n) {
 	this->numParams = n;
 	this->paramAddrs = new real_T* [n];
+	for (int i=0; i<n; i++) {
+		this->paramAddrs[i] = &dummy_value;
+	}
 }
 
 /**
@@ -137,6 +140,8 @@ void Behavior::generalUpdate(SimStruct *S) {
 	this->readInputs(S);
 	this->state_changed = false;
 	this->S = S;
+	if (!this->stateTimer->isRunning()) 
+		this->stateTimer->start(S);
 	this->random->getUL(); // burn a number of the pRNG
 }
 
