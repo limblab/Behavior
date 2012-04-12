@@ -182,7 +182,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 		stairs[0]->setStep( params->sc_step_size );
 		stairs[0]->restart();
 
-		stairs[1]->setStartValue( params->target_angle + PI );
+		stairs[1]->setStartValue( params->target_angle + 180 );
 		stairs[1]->setRatio(3);
 		stairs[1]->setStep( -params->sc_step_size );
 		stairs[1]->restart();
@@ -364,22 +364,38 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
         getState() == STATE_BUMP) 
 	{
 		outputs->targets[0] = (Target *)centerTarget;
+		outputs->targets[1] = nullTarget;
+	} else if (getState() == STATE_MOVEMENT) {
+		outputs->targets[0] = (Target *)(this->primaryTarget);
+		outputs->targets[1] = (Target *)(this->secondaryTarget);
+	} else {
+		outputs->targets[0] = nullTarget;
+		outputs->targets[1] = nullTarget;
+	}
+
+#if 0
+	if (getState() == STATE_CT_ON || 
+	    getState() == STATE_CT_HOLD || 
+        getState() == STATE_OT_DISPLAY ||
+        getState() == STATE_BUMP) 
+	{
+		outputs->targets[0] = (Target *)centerTarget;
 	} else {
 		outputs->targets[0] = nullTarget;
 	}
 
 	// Outer Targets
-	if (getState() == STATE_OT_DISPLAY || 
+	if (/*getState() == STATE_OT_DISPLAY || 
 		getState() == STATE_BUMP || 
-		getState() == STATE_MOVEMENT) 
+		*/getState() == STATE_MOVEMENT) 
 	{
-		outputs->targets[1] = (Target *)(this->primaryTarget);
-		outputs->targets[2] = (Target *)(this->secondaryTarget);
+		outputs->targets[0] = (Target *)(this->primaryTarget);
+		outputs->targets[1] = (Target *)(this->secondaryTarget);
 	} else {
-		outputs->targets[1] = this->nullTarget;
-		outputs->targets[2] = this->nullTarget;
-	}  
-
+		outputs->targets[0] = nullTarget;
+		outputs->targets[1] = nullTarget;
+	}
+#endif
 	/* reward (4) */
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
 

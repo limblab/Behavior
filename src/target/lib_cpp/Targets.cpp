@@ -298,7 +298,7 @@ void CircleTarget::copyToOutputs(real_T *u, int offset) {
 	u[1+offset] = (real_T)(centerX);
 	u[2+offset] = (real_T)(centerY);
 	u[3+offset] = (real_T)(centerX + radius);
-	u[4+offset] = (real_T)(0.0);
+	u[4+offset] = (real_T)(color);
 }
 
 
