@@ -4,7 +4,6 @@
  * Classes to set up and run bumps
  */
 
-
 /**
  * Abstract bump generator class with common functions.
  */
@@ -13,6 +12,7 @@ public:
 	BumpGenerator();
 	Point getBumpForce(SimStruct *S);
 	void start(SimStruct *S);
+	void stop();
 	virtual double getBumpMagnitude(SimStruct *S) = 0;	
 	virtual bool isRunning(SimStruct *S) = 0;
 
@@ -20,11 +20,14 @@ public:
 
 protected:
 	Timer *timer;    /**< Tracks how long the bump has been running. */
+private:
+	bool is_running; /**< keeps track of whether the bump is running */
 };
 
 /** Default constructor */
 BumpGenerator::BumpGenerator() {
 	this->timer = new Timer();
+	this->is_running = false;
 }
 
 /**
@@ -34,15 +37,26 @@ BumpGenerator::BumpGenerator() {
  */
 Point BumpGenerator::getBumpForce(SimStruct *S) {
 	Point p;
-	double m = this->getBumpMagnitude(S);
-	p.x = m * cos(this->direction);
-	p.y = m * sin(this->direction);
+
+	if (is_running) {
+		double m = this->getBumpMagnitude(S);
+		p.x = m * cos(this->direction);
+		p.y = m * sin(this->direction);
+	} else {
+		p = Point(0,0);
+	}
+
 	return p;
 }
 
 void BumpGenerator::start(SimStruct *S) {
+	is_running = true;
 	timer->reset(S);
 	timer->start(S);
+}
+
+void BumpGenerator::stop() {
+	is_running = false;
 }
 
 /**
@@ -144,7 +158,12 @@ double TrapBumpGenerator::getBumpMagnitude(SimStruct *S) {
 
 /**********************************************
  * Sine wave generator
- **********************************************/
+ **********************************************/ 
+#if 0 /* This isn't working yet */
+
+/**
+ * This class is not working correctly.
+ */
 class CosineBumpGenerator : public BumpGenerator {
 public:
 	CosineBumpGenerator();
@@ -191,13 +210,14 @@ double CosineBumpGenerator::getBumpMagnitude(SimStruct *S) {
 	et = (double)timer->elapsedTime(S);
 
 	if (et < rise_time) {
-		return peak_magnitude * (1 - cos(PI * et / rise_time)) / 2;
+		return peak_magnitude * (1 - cos(2 * PI * et / rise_time)) / 2;
 	} else if (et < rise_time + hold_duration) {
 		return peak_magnitude;
 	} else if (et < 2 * rise_time + hold_duration) {
 		efet = et - rise_time - hold_duration;
-		return  peak_magnitude * (1 + cos(PI * efet / rise_time)) / 2;
+		return  peak_magnitude * (1 + cos(2 * PI * efet / rise_time)) / 2;
 	} else {
 		return 0.0;
 	}
 }
+#endif

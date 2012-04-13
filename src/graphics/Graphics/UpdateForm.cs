@@ -693,6 +693,34 @@ namespace BehaviorGraphics
             AddParamListItem("AT VTD", "P42", "Behavior AT", this.textBoxATVTD);
             AddParamListItem("AT IVT", "P44", "Behavior AT", this.textBoxATIVT);
             #endregion
+
+            #region Bump direction psychophysics
+            // Timing
+            AddParamListItem("2BC CT Hold", "P10", "Behavior 2BC", textBox2BCCTH);
+            AddParamListItem("2BC CT Delay", "P11", "Behavior 2BC", textBox2BCCTD);
+            AddParamListItem("2BC Bump Hold", "P12", "Behavior 2BC", textBox2BCBH);
+            AddParamListItem("2BC intertrial", "P13", "Behavior 2BC", textBox2BCInt);
+
+            // Bump
+            AddParamListItem("2BC Bump Mag", "P7", "Behavior 2BC", textBox2BCBA);
+            AddParamListItem("2BC Bump Dur", "P8", "Behavior 2BC", textBox2BCCTD);
+            AddParamListItem("2BC Bump RT", "P9", "Behavior 2BC", textBox2BCRT);
+
+            // Staircase
+            AddParamListItem("2BC SC Run", "P14", "Behavior 2BC", checkBox2BCRS);
+            AddParamListItem("2BC SC Step", "P15", "Behavior 2BC", textBox2BCSCStep);
+            AddParamListItem("2BC SC Use Bottom", "P16", "Behavior 2BC", checkBox2BCBS);
+            AddParamListItem("2BC SC Reset", "P2", "Behavior 2BC", numericUpDown2BCSCR);
+
+            // Targets
+            AddParamListItem("2BC Targ Rad", "P3", "Behavior 2BC", textBox2BCTR);
+            AddParamListItem("2BC Targ Dist", "P4", "Behavior 2BC", textBox2BCTD);
+            AddParamListItem("2BC Targ Grow", "P5", "Behavior 2BC", textBox2BCBTR);
+            AddParamListItem("2BC Targ Ang", "P6", "Behavior 2BC", angleEntryBox2BCAng);
+            AddParamListItem("2BC Targ Green", "P17", "Behavior 2BC", checkBox2BCGT);
+            AddParamListItem("2BC Hide Cursor", "P18", "Behavior 2BC", checkBox2BCHC);
+
+            #endregion
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
@@ -1204,6 +1232,8 @@ namespace BehaviorGraphics
                     paramID = target.GetParamIdx("Behavior 2AFC", "P1");
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior Un", "P22");
+                if (paramID < 0)
+                    paramID = target.GetParamIdx("Behavior 2BC", "P1");
 
                 /* send the flag */
                 if (paramID >= 0) {

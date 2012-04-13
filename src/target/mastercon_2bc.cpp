@@ -103,7 +103,7 @@ private:
 
 	double bump_dir;
 
-	CosineBumpGenerator *bump;
+	TrapBumpGenerator *bump;
 
 	LocalParams *params;
 	real_T last_soft_reset;
@@ -129,7 +129,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->soft_reset,		 1);
 	this->bindParamId(&params->target_size,		 2);
 	this->bindParamId(&params->target_radius,	 3);
-	this->bindParamID(&params->big_target,		 4);
+	this->bindParamId(&params->big_target,		 4);
 	this->bindParamId(&params->target_angle,	 5);
 	this->bindParamId(&params->bump_magnitude,	 6);
 	this->bindParamId(&params->bump_duration,	 7);
@@ -168,7 +168,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 
 	this->staircase_id = 0;
 	this->bump_dir = 0.0;
-	this->bump = new CosineBumpGenerator();
+	this->bump = new TrapBumpGenerator();
 }
 
 void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
@@ -220,9 +220,9 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 
 	// Reset primary target color if needed
 	if ((int)params->green_prim_targ) {
-		primaryTarget->color = Target::Color(255, 0, 160);
-	} else {
 		primaryTarget->color = Target::Color(160, 255, 0);
+	} else {
+		primaryTarget->color = Target::Color(255, 0, 160);
 	}
 
 	/* setup the databurst */
@@ -320,6 +320,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
         case STATE_REWARD:
 		case STATE_FAIL:
         case STATE_INCOMPLETE:
+			this->bump->stop();
 			if (stateTimer->elapsedTime(S) > params->intertrial_time) {
 				setState(STATE_PRETRIAL);
 			}

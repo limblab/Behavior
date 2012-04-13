@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.4476.27735">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.4485.36291">
   <ScreenWidth>23</ScreenWidth>
   <GoToneVolume>0</GoToneVolume>
   <MGGains>
@@ -10,7 +10,7 @@
   </MGGains>
   <BD_Catch_Block>0</BD_Catch_Block>
   <VerticalDisplacement>0</VerticalDisplacement>
-  <Cursor>5</Cursor>
+  <Cursor>1</Cursor>
   <GlyphSet>0</GlyphSet>
   <SoundTheme>Theme1</SoundTheme>
   <CenterOutMode>None</CenterOutMode>
@@ -1305,6 +1305,74 @@
       <item>
         <key>AT IVT</key>
         <value>0</value>
+      </item>
+      <item>
+        <key>2BC CT Hold</key>
+        <value>0.5</value>
+      </item>
+      <item>
+        <key>2BC CT Delay</key>
+        <value>0.5</value>
+      </item>
+      <item>
+        <key>2BC Bump Hold</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>2BC intertrial</key>
+        <value>0.5</value>
+      </item>
+      <item>
+        <key>2BC Bump Mag</key>
+        <value>0.2</value>
+      </item>
+      <item>
+        <key>2BC Bump Dur</key>
+        <value>0.5</value>
+      </item>
+      <item>
+        <key>2BC Bump RT</key>
+        <value>0.2</value>
+      </item>
+      <item>
+        <key>2BC SC Run</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2BC SC Step</key>
+        <value>10</value>
+      </item>
+      <item>
+        <key>2BC SC Use Bottom</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2BC SC Reset</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2BC Targ Rad</key>
+        <value>1.5</value>
+      </item>
+      <item>
+        <key>2BC Targ Dist</key>
+        <value>8</value>
+      </item>
+      <item>
+        <key>2BC Targ Grow</key>
+        <value>3</value>
+      </item>
+      <item>
+        <key>2BC Targ Ang</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>2BC Targ Green</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>2BC Hide Cursor</key>
+        <value>1</value>
       </item>
     </dictionary>
   </SerializedParameters>
