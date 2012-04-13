@@ -57,6 +57,7 @@ void BumpGenerator::start(SimStruct *S) {
 
 void BumpGenerator::stop() {
 	is_running = false;
+	timer->stop();
 }
 
 /**
@@ -208,14 +209,14 @@ double CosineBumpGenerator::getBumpMagnitude(SimStruct *S) {
 	}
 
 	et = (double)timer->elapsedTime(S);
-
+	efet = et - rise_time - hold_duration;
+	
 	if (et < rise_time) {
-		return peak_magnitude * (1 - cos(2 * PI * et / rise_time)) / 2;
+		return peak_magnitude * (1 - cos(PI * et / rise_time)) / 2;
 	} else if (et < rise_time + hold_duration) {
 		return peak_magnitude;
 	} else if (et < 2 * rise_time + hold_duration) {
-		efet = et - rise_time - hold_duration;
-		return  peak_magnitude * (1 + cos(2 * PI * efet / rise_time)) / 2;
+		return  peak_magnitude * (1 + cos(PI * efet / rise_time)) / 2;
 	} else {
 		return 0.0;
 	}

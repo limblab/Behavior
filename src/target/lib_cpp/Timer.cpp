@@ -26,6 +26,7 @@ public:
 	void pause(SimStruct *S);
 	void start(SimStruct *S);
 	void stop(SimStruct *S);
+	void stop();
 	bool isRunning();
 	real_T elapsedTime(SimStruct *S);
 private:
@@ -106,6 +107,12 @@ void Timer::start(SimStruct *S) {
  * @param S a pointer to the current SimStruct.
  */
 void Timer::stop(SimStruct *S) {
+	is_running = false;
+	start_time = 0.0;
+	previously_elapsed_time = 0.0;
+}
+
+void Timer::stop() {
 	is_running = false;
 	start_time = 0.0;
 	previously_elapsed_time = 0.0;
