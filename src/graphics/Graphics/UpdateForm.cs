@@ -711,6 +711,7 @@ namespace BehaviorGraphics
             AddParamListItem("2BC SC Step", "P15", "Behavior 2BC", textBox2BCSCStep);
             AddParamListItem("2BC SC Use Bottom", "P16", "Behavior 2BC", checkBox2BCBS);
             AddParamListItem("2BC SC Reset", "P2", "Behavior 2BC", numericUpDown2BCSCR);
+            AddParamListItem("2BC SC Limits", "P19", "Behavior 2BC", checkBox2BCSCLimit);
 
             // Targets
             AddParamListItem("2BC Targ Rad", "P3", "Behavior 2BC", textBox2BCTR);

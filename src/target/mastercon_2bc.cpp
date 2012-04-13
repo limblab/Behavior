@@ -74,6 +74,7 @@ struct LocalParams {
 	real_T use_bottom_sc;
 	real_T green_prim_targ;
 	real_T hide_cursor;
+	real_T use_limits;
 };
 
 /**
@@ -110,6 +111,7 @@ private:
 
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
+	void setupStaircase(int i, double angle, double step, bool limits, double fl, double bl);
 };
 
 TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
@@ -122,7 +124,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(18);
+	this->setNumParams(19);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,	 0);
@@ -143,6 +145,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->use_bottom_sc,   15);
 	this->bindParamId(&params->green_prim_targ, 16);
 	this->bindParamId(&params->hide_cursor,		17);
+	this->bindParamId(&params->use_limits,		18);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -158,7 +161,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	primaryTarget = new CircleTarget(); 
 	secondaryTarget = new CircleTarget(); 
 
-	centerTarget->color = Target::Color(255, 255, 255);
+	centerTarget->color = Target::Color(128, 128, 128);
 	primaryTarget->color = Target::Color(160, 255, 0);
 	secondaryTarget->color = Target::Color(255, 0, 160);
 
@@ -169,6 +172,19 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->staircase_id = 0;
 	this->bump_dir = 0.0;
 	this->bump = new TrapBumpGenerator();
+}
+
+void TwoBumpChoiceBehavior::setupStaircase(
+	int i, double angle, double step, bool limits, double fl, double bl) 
+{
+	stairs[i]->setStartValue( angle );
+	stairs[i]->setRatio( 3 );
+	stairs[i]->setStep( step );
+	stairs[i]->setUseForwardLimit( limits );
+	stairs[i]->setUseBackwardLimit( limits );
+	stairs[i]->setForwardLimit( fl );
+	stairs[i]->setBackwardLimit( bl );
+	stairs[i]->restart();
 }
 
 void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
@@ -187,25 +203,14 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 		// load parameters to the staircases and reset them.
 		last_soft_reset = params->soft_reset;
 
-		stairs[0]->setStartValue( params->target_angle );
-		stairs[0]->setRatio(3);
-		stairs[0]->setStep( params->sc_step_size );
-		stairs[0]->restart();
-
-		stairs[1]->setStartValue( params->target_angle + 180 );
-		stairs[1]->setRatio(3);
-		stairs[1]->setStep( -params->sc_step_size );
-		stairs[1]->restart();
-
-		stairs[2]->setStartValue( params->target_angle + 180 );
-		stairs[2]->setRatio(3);
-		stairs[2]->setStep( params->sc_step_size );
-		stairs[2]->restart();
-
-		stairs[3]->setStartValue( params->target_angle + 360 );
-		stairs[3]->setRatio(3);
-		stairs[3]->setStep( -params->sc_step_size );
-		stairs[3]->restart();
+		setupStaircase(0, params->target_angle, params->sc_step_size, (bool)params->use_limits, 
+			params->target_angle+90, params->target_angle);
+		setupStaircase(1, params->target_angle+180 , -params->sc_step_size, (bool)params->use_limits,
+			params->target_angle+90, params->target_angle+180);
+		setupStaircase(2, params->target_angle+180 , params->sc_step_size, (bool)params->use_limits,
+			params->target_angle+270, params->target_angle+180);
+		setupStaircase(3, params->target_angle+360 , -params->sc_step_size, (bool)params->use_limits,
+			params->target_angle+270, params->target_angle+360);
 	}
 
 	// Pick which staircase to use
@@ -239,6 +244,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)params->target_angle);
 	db->addFloat((float)params->bump_magnitude);
 	db->addFloat((float)params->bump_duration);
+	db->addFloat((float)params->bump_ramp);
     db->start();
 }
 
