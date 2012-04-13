@@ -703,7 +703,7 @@ namespace BehaviorGraphics
 
             // Bump
             AddParamListItem("2BC Bump Mag", "P7", "Behavior 2BC", textBox2BCBA);
-            AddParamListItem("2BC Bump Dur", "P8", "Behavior 2BC", textBox2BCCTD);
+            AddParamListItem("2BC Bump Dur", "P8", "Behavior 2BC", textBox2BCPD);
             AddParamListItem("2BC Bump RT", "P9", "Behavior 2BC", textBox2BCRT);
 
             // Staircase
