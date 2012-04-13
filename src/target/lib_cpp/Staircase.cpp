@@ -66,3 +66,4 @@ void Staircase::stepBackward() {
 	iteration++;
 	current_value -= step_size * step_ratio;
 }
+

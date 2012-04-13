@@ -18,7 +18,7 @@
 #define STATE_PRETRIAL 0
 #define STATE_CT_ON 1
 #define STATE_CT_HOLD 2
-#define STATE_OT_DISPLAY 3
+#define STATE_CT_BLOCK 3
 #define STATE_BUMP 4
 #define STATE_MOVEMENT 5
 /* 
@@ -63,12 +63,15 @@ struct LocalParams {
 	real_T target_angle;
 	real_T bump_magnitude;
 	real_T bump_duration;
+    real_T bump_ramp;
 	real_T ct_hold_time;
 	real_T ot_delay_time;
 	real_T bump_hold_time;
 	real_T intertrial_time;
 	real_T run_staircase;
 	real_T sc_step_size;
+	real_T use_bottom_sc;
+	real_T green_prim_targ;
 };
 
 /**
@@ -92,13 +95,13 @@ private:
 	CircleTarget *centerTarget;
 	CircleTarget *primaryTarget;
 	CircleTarget *secondaryTarget;
-
-	Staircase *stairs[2];
+    
+	Staircase *stairs[4];
 	int staircase_id;
 
 	double bump_dir;
 
-	SquareBumpGenerator *bump;
+	CosineBumpGenerator *bump;
 
 	LocalParams *params;
 	real_T last_soft_reset;
@@ -117,7 +120,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(13);
+	this->setNumParams(16);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,	 0);
@@ -127,12 +130,15 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->target_angle,	 4);
 	this->bindParamId(&params->bump_magnitude,	 5);
 	this->bindParamId(&params->bump_duration,	 6);
-	this->bindParamId(&params->ct_hold_time,	 7);
-	this->bindParamId(&params->ot_delay_time,	 8);
-	this->bindParamId(&params->bump_hold_time,	 9);
-	this->bindParamId(&params->intertrial_time, 10);
-	this->bindParamId(&params->run_staircase,	11);
-	this->bindParamId(&params->sc_step_size,	12);
+    this->bindParamId(&params->bump_ramp,        7);
+	this->bindParamId(&params->ct_hold_time,	 8);
+	this->bindParamId(&params->ot_delay_time,	 9);
+	this->bindParamId(&params->bump_hold_time,	10);
+	this->bindParamId(&params->intertrial_time, 11);
+	this->bindParamId(&params->run_staircase,	12);
+	this->bindParamId(&params->sc_step_size,	13);
+	this->bindParamId(&params->use_bottom_sc,   14);
+	this->bindParamId(&params->green_prim_targ, 15);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -149,16 +155,16 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	secondaryTarget = new CircleTarget(); 
 
 	centerTarget->color = Target::Color(255, 255, 255);
-	primaryTarget->color = Target::Color(255, 0, 160);
-	secondaryTarget->color = Target::Color(160, 255, 0);
+	primaryTarget->color = Target::Color(160, 255, 0);
+	secondaryTarget->color = Target::Color(255, 0, 160);
 
-	for (i=0; i<2; i++) {
+	for (i=0; i<4; i++) {
 		stairs[i] = new Staircase();
 	}
 
 	this->staircase_id = 0;
 	this->bump_dir = 0.0;
-	this->bump = new SquareBumpGenerator();
+	this->bump = new CosineBumpGenerator();
 }
 
 void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
@@ -186,16 +192,34 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 		stairs[1]->setRatio(3);
 		stairs[1]->setStep( -params->sc_step_size );
 		stairs[1]->restart();
+
+		stairs[2]->setStartValue( params->target_angle + 180 );
+		stairs[2]->setRatio(3);
+		stairs[2]->setStep( params->sc_step_size );
+		stairs[2]->restart();
+
+		stairs[3]->setStartValue( params->target_angle + 360 );
+		stairs[3]->setRatio(3);
+		stairs[3]->setStep( -params->sc_step_size );
+		stairs[3]->restart();
 	}
 
 	// Pick which staircase to use
-	this->staircase_id = random->getInteger(0,1);
+	this->staircase_id = (params->use_bottom_sc ? random->getInteger(0,3) : random->getInteger(0,1));
 	this->bump_dir = stairs[staircase_id]->getValue();
 
 	// Set up the bump itself
-	this->bump->duration = params->bump_duration;
-	this->bump->magnitude = params->bump_magnitude;
+	this->bump->hold_duration = params->bump_duration;
+	this->bump->peak_magnitude = params->bump_magnitude;
+	this->bump->rise_time = params->bump_ramp;
 	this->bump->direction = PI * this->bump_dir / 180;
+
+	// Reset primary target color if needed
+	if ((int)params->green_prim_targ) {
+		primaryTarget->color = Target::Color(255, 0, 160);
+	} else {
+		primaryTarget->color = Target::Color(160, 255, 0);
+	}
 
 	/* setup the databurst */
 	db->reset();
@@ -218,7 +242,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 	Target *correctTarget;
 	Target *incorrectTarget;
 
-	if (staircase_id == 0) {
+	if (staircase_id == 0 || staircase_id ==3) {
 		// want to be in primary target
 		correctTarget = primaryTarget;
 		incorrectTarget = secondaryTarget;
@@ -253,10 +277,11 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if (stateTimer->elapsedTime(S) > params->ct_hold_time) {
-				setState(STATE_OT_DISPLAY);
+                centerTarget->radius *= 2;
+				setState(STATE_CT_BLOCK);
 			}
 			break;
-		case STATE_OT_DISPLAY:
+		case STATE_CT_BLOCK:
 			if (!centerTarget->cursorInTarget(inputs->cursor)) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
@@ -328,7 +353,7 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_PRETRIAL:
 				outputs->word = WORD_START_TRIAL;
 				break;
-			case STATE_OT_DISPLAY:
+			case STATE_CT_BLOCK:
 				outputs->word = WORD_OT_ON(0);
 				break;
 			case STATE_BUMP:
@@ -360,7 +385,7 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 	// Center Target
 	if (getState() == STATE_CT_ON || 
 	    getState() == STATE_CT_HOLD || 
-        getState() == STATE_OT_DISPLAY ||
+        getState() == STATE_CT_BLOCK ||
         getState() == STATE_BUMP) 
 	{
 		outputs->targets[0] = (Target *)centerTarget;
@@ -373,29 +398,6 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[1] = nullTarget;
 	}
 
-#if 0
-	if (getState() == STATE_CT_ON || 
-	    getState() == STATE_CT_HOLD || 
-        getState() == STATE_OT_DISPLAY ||
-        getState() == STATE_BUMP) 
-	{
-		outputs->targets[0] = (Target *)centerTarget;
-	} else {
-		outputs->targets[0] = nullTarget;
-	}
-
-	// Outer Targets
-	if (/*getState() == STATE_OT_DISPLAY || 
-		getState() == STATE_BUMP || 
-		*/getState() == STATE_MOVEMENT) 
-	{
-		outputs->targets[0] = (Target *)(this->primaryTarget);
-		outputs->targets[1] = (Target *)(this->secondaryTarget);
-	} else {
-		outputs->targets[0] = nullTarget;
-		outputs->targets[1] = nullTarget;
-	}
-#endif
 	/* reward (4) */
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
 
@@ -410,7 +412,13 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-	outputs->position = inputs->cursor;
+    if (getState() == STATE_CT_BLOCK ||
+        getState() == STATE_BUMP) 
+    {
+        outputs->position = Point(1E6, 1E6);
+    } else {
+    	outputs->position = inputs->cursor;
+    } 
 }
 
 /*

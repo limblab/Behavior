@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1243"
+    ComputedModelVersion    "1.1249"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "System Administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 12 16:20:04 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1243>"
+  LastModifiedDate	  "Thu Apr 12 19:36:55 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1249>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -853,7 +853,7 @@ Model {
       Position		      [660, 88, 885, 422]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_2bc"
-      Parameters	      "0 0 2 10 0 .02 .5 .5 .5 1 .5 1 5"
+      Parameters	      "0 0 2 10 0 .1 0 .25 .5 .5 1 .5 1 5 0 1"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'force')\nport_label('input',3,'catch force')\npor"
 "t_label('output',1,'force')\nport_label('output',2,'status')\nport_label('out"
@@ -876,7 +876,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"BoundingBox"
-	Location		[172, 88, 1107, 912]
+	Location		[41, 90, 976, 760]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2557,6 +2557,7 @@ Model {
       Position		      [550, 201, 600, 229]
       CloseFcn		      "tagdialog Close"
       GotoTag		      "Offsets"
+      TagVisibility	      "global"
     }
     Block {
       BlockType		      Goto
@@ -2591,7 +2592,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[4, 82, 1276, 884]
+	Location		[71, 119, 946, 592]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2716,7 +2717,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Force/Torque Transform"
-	    Location		    [2, 82, 1270, 884]
+	    Location		    [2, 82, 1014, 752]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -3570,7 +3571,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Recentering Subsystem"
-	Location		[-4, 85, 1248, 862]
+	Location		[121, 123, 932, 618]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -4291,6 +4292,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "RecenterFlag"
 	  Position		  [200, 115, 230, 145]
+	  Value			  "0"
 	}
 	Block {
 	  BlockType		  Reference

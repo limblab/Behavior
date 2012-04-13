@@ -142,4 +142,62 @@ double TrapBumpGenerator::getBumpMagnitude(SimStruct *S) {
 	}
 }
 
+/**********************************************
+ * Sine wave generator
+ **********************************************/
+class CosineBumpGenerator : public BumpGenerator {
+public:
+	CosineBumpGenerator();
 
+	virtual double getBumpMagnitude(SimStruct *S);	
+	virtual bool isRunning(SimStruct *S);
+	
+	double rise_time;
+	double hold_duration;
+	double peak_magnitude;
+};
+
+
+/**
+ * Constructs a trapezoid wave bump generator with defautl duration and 
+ * magnitude of zero.
+ */
+CosineBumpGenerator::CosineBumpGenerator() {
+	rise_time = 0;
+	hold_duration = 0;
+	peak_magnitude = 0;
+}
+
+/**
+ * Required isRunning method. 
+ * @return whether the bump is running (active).
+ */
+bool CosineBumpGenerator::isRunning(SimStruct *S) {
+	return timer->isRunning() && timer->elapsedTime(S) < 2*rise_time+hold_duration;
+}
+
+/**
+ * Required getBumpMagnitude method. 
+ * @return the magnitude of the bump for the current time step.
+ */
+double CosineBumpGenerator::getBumpMagnitude(SimStruct *S) {
+	double et;   // Elapsed time
+	double efet; // Elapsed falling-edge time.
+
+	if (!this->isRunning(S)) { // get stupid case out of the way
+		return 0.0;
+	}
+
+	et = (double)timer->elapsedTime(S);
+
+	if (et < rise_time) {
+		return peak_magnitude * (1 - cos(PI * et / rise_time)) / 2;
+	} else if (et < rise_time + hold_duration) {
+		return peak_magnitude;
+	} else if (et < 2 * rise_time + hold_duration) {
+		efet = et - rise_time - hold_duration;
+		return  peak_magnitude * (1 + cos(PI * efet / rise_time)) / 2;
+	} else {
+		return 0.0;
+	}
+}
