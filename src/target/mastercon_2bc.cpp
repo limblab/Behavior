@@ -60,6 +60,7 @@ struct LocalParams {
 	real_T soft_reset;
 	real_T target_size;
 	real_T target_radius;
+	real_T big_target;
 	real_T target_angle;
 	real_T bump_magnitude;
 	real_T bump_duration;
@@ -72,6 +73,7 @@ struct LocalParams {
 	real_T sc_step_size;
 	real_T use_bottom_sc;
 	real_T green_prim_targ;
+	real_T hide_cursor;
 };
 
 /**
@@ -120,25 +122,27 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(16);
+	this->setNumParams(18);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,	 0);
 	this->bindParamId(&params->soft_reset,		 1);
 	this->bindParamId(&params->target_size,		 2);
 	this->bindParamId(&params->target_radius,	 3);
-	this->bindParamId(&params->target_angle,	 4);
-	this->bindParamId(&params->bump_magnitude,	 5);
-	this->bindParamId(&params->bump_duration,	 6);
-    this->bindParamId(&params->bump_ramp,        7);
-	this->bindParamId(&params->ct_hold_time,	 8);
-	this->bindParamId(&params->ot_delay_time,	 9);
-	this->bindParamId(&params->bump_hold_time,	10);
-	this->bindParamId(&params->intertrial_time, 11);
-	this->bindParamId(&params->run_staircase,	12);
-	this->bindParamId(&params->sc_step_size,	13);
-	this->bindParamId(&params->use_bottom_sc,   14);
-	this->bindParamId(&params->green_prim_targ, 15);
+	this->bindParamID(&params->big_target,		 4);
+	this->bindParamId(&params->target_angle,	 5);
+	this->bindParamId(&params->bump_magnitude,	 6);
+	this->bindParamId(&params->bump_duration,	 7);
+    this->bindParamId(&params->bump_ramp,        8);
+	this->bindParamId(&params->ct_hold_time,	 9);
+	this->bindParamId(&params->ot_delay_time,	10);
+	this->bindParamId(&params->bump_hold_time,	11);
+	this->bindParamId(&params->intertrial_time, 12);
+	this->bindParamId(&params->run_staircase,	13);
+	this->bindParamId(&params->sc_step_size,	14);
+	this->bindParamId(&params->use_bottom_sc,   15);
+	this->bindParamId(&params->green_prim_targ, 16);
+	this->bindParamId(&params->hide_cursor,		17);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -277,7 +281,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if (stateTimer->elapsedTime(S) > params->ct_hold_time) {
-                centerTarget->radius *= 2;
+                centerTarget->radius = params->big_target;
 				setState(STATE_CT_BLOCK);
 			}
 			break;
@@ -412,8 +416,7 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-    if (getState() == STATE_CT_BLOCK ||
-        getState() == STATE_BUMP) 
+    if ((getState() == STATE_CT_BLOCK || getState() == STATE_BUMP) && (params->hide_cursor > .1))
     {
         outputs->position = Point(1E6, 1E6);
     } else {

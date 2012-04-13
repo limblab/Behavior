@@ -2186,6 +2186,10 @@ namespace BehaviorGraphics
             widget_ValueChanged(sender, e);
         }
 
+        private void tabPage3_Click(object sender, EventArgs e) {
+
+        }
+
      
     }
 
