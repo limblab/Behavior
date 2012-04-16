@@ -97,6 +97,7 @@ public:
 	double getGaussian(double mean, double var); 
 	double getGaussian(); // mean zero, var one
 	int getInteger(int low, int high);
+	bool getBool();
 	unsigned long getUL();
 private:
 	unsigned long z, w, jsr, jcong;
@@ -186,6 +187,14 @@ double Random::getGaussian() {
 int Random::getInteger(int low, int high) {
 	unsigned long range = high - low + 1;
 	return low + (getUL() % range);
+}
+
+/**
+ * Returns a random boolean value of true or false with equal probability.
+ * @return a random boolean value.
+ */
+bool Random::getBool() {
+	return this->getInteger(0,1);
 }
 
 /**
