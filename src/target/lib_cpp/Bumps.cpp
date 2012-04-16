@@ -160,6 +160,7 @@ double TrapBumpGenerator::getBumpMagnitude(SimStruct *S) {
 /**********************************************
  * Sine wave generator
  **********************************************/ 
+
 /**
  * This class is not working correctly.
  */

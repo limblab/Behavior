@@ -107,14 +107,14 @@ private:
 
 	double bump_dir;
 
-	TrapBumpGenerator *bump;
+	CosineBumpGenerator *bump;
 
 	LocalParams *params;
 	real_T last_soft_reset;
 
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
-	void setupStaircase(int i, double angle, double step, bool limits, double fl, double bl);
+	void setupStaircase(int i, double angle, double step, double fl, double bl);
 	int choseTrialStaircase();
 };
 
@@ -176,19 +176,19 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->stim_trial = false;
 	this->staircase_id = -1;
 	this->bump_dir = 0.0;
-	this->bump = new TrapBumpGenerator();
+	this->bump = new CosineBumpGenerator();
 }
 
 void TwoBumpChoiceBehavior::setupStaircase(
-	int i, double angle, double step, bool limits, double fl, double bl) 
+	int i, double angle, double step, double fl, double bl) 
 {
 	// We do two staircases here because there are two stiarcases with similar
 	// starting points, one with stim and one without.
 	stairs[i]->setStartValue( angle );
 	stairs[i]->setRatio( 3 );
 	stairs[i]->setStep( step );
-	stairs[i]->setUseForwardLimit( limits );
-	stairs[i]->setUseBackwardLimit( limits );
+	stairs[i]->setUseForwardLimit( (bool)params->use_limits );
+	stairs[i]->setUseBackwardLimit( (bool)params->use_limits );
 	stairs[i]->setForwardLimit( fl );
 	stairs[i]->setBackwardLimit( bl );
 	stairs[i]->restart();
@@ -196,8 +196,8 @@ void TwoBumpChoiceBehavior::setupStaircase(
 	stairs[i+4]->setStartValue( angle );
 	stairs[i+4]->setRatio( 3 );
 	stairs[i+4]->setStep( step );
-	stairs[i+4]->setUseForwardLimit( limits );
-	stairs[i+4]->setUseBackwardLimit( limits );
+	stairs[i+4]->setUseForwardLimit( false );
+	stairs[i+4]->setUseBackwardLimit( false );
 	stairs[i+4]->setForwardLimit( fl );
 	stairs[i+4]->setBackwardLimit( bl );
 	stairs[i+4]->restart();
@@ -225,16 +225,11 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 		// load parameters to the staircases and reset them.
 		last_soft_reset = params->soft_reset;
 
-		setupStaircase(0, params->target_angle, params->sc_step_size, (bool)params->use_limits, 
-			params->target_angle+90, params->target_angle);
-		setupStaircase(1, params->target_angle+180 , -params->sc_step_size, (bool)params->use_limits,
-			params->target_angle+90, params->target_angle+180);
-		setupStaircase(2, params->target_angle+180 , params->sc_step_size, (bool)params->use_limits,
-			params->target_angle+270, params->target_angle+180);
-		setupStaircase(3, params->target_angle+360 , -params->sc_step_size, (bool)params->use_limits,
-			params->target_angle+270, params->target_angle+360);
+		setupStaircase(0, params->target_angle, params->sc_step_size, params->target_angle+90, params->target_angle);
+		setupStaircase(1, params->target_angle+180 , -params->sc_step_size, params->target_angle+90, params->target_angle+180);
+		setupStaircase(2, params->target_angle+180 , params->sc_step_size, params->target_angle+270, params->target_angle+180);
+		setupStaircase(3, params->target_angle+360 , -params->sc_step_size, (bool)params->use_limits, params->target_angle+270, params->target_angle+360);
 	}
-
 
 	// Pick which staircase to use
 	this->staircase_id = this->chooseStaircase();
@@ -257,7 +252,9 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	/* setup the databurst */
 	db->reset();
 	db->addByte(DATABURST_VERSION);
-	db->addByte(DATABURST_TASK_CODE);
+	db->addByte('2');
+	db->addByte('B');
+	db->addByte('C');
 	db->addByte(BEHAVIOR_VERSION_MAJOR);
     db->addByte(BEHAVIOR_VERSION_MINOR);
 	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);

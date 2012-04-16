@@ -68,7 +68,10 @@
 #endif
 
 /* Databurst task codes:
- * 1) mastercon_2bc
+ * code | task 
+ * -----+---------------
+ * 2BC  | mastercon_2bc
+ * ATN  | mastercon_attention
  */
 
 /* trial start */
