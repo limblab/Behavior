@@ -26,7 +26,7 @@
  */
 
 
-// #define DATABURST_VERSION ((byte)0x02) 
+#define DATABURST_VERSION ((byte)0x00) 
 
 // This must be custom defined for your behavior
 struct LocalParams {
@@ -80,15 +80,16 @@ public:
 
 private:
 	// Your behavior's instance variables
-	Point cloud_points[16];
+	Point cloud_points[10];
+	CircleTarget *cloud[10];
 	double displacement;
 	Point cursor_end_point;
 	double center_hold_time, center_delay_time, outer_hold_time;
 
-	Target *centerTarget;
-	Target *outerTarget;
-	Target *errorTargetLeft;
-	Target *errorTargetRight;
+	SquareTarget *centerTarget;
+	RectangleTarget *outerTarget;
+	RectangleTarget *errorTargetLeft;
+	RectangleTarget *errorTargetRight;
 
 	LocalParams *params;
 
@@ -146,9 +147,8 @@ UncertaintyBehavior::UncertaintyBehavior(SimStruct *S) : RobotBehavior() {
 	outerTarget		 = new RectangleTarget(0,0,0,0,1);
 	errorTargetLeft  = new RectangleTarget(0,0,0,0,7);
 	errorTargetRight = new RectangleTarget(0,0,0,0,7);
-	for (i=0; i<16; i++) {
-		cloud_points[i].x = 0.0;
-		cloud_points[i].y = 0.0;
+	for (i=0; i<10; i++) {
+		cloud[i] = new CircleTarget(0,0,0,Target::Color(255, 255, 0));
 	}
 	displacement       = 0.0;
 	cursor_end_point.x = 0.0;
@@ -181,17 +181,17 @@ void UncertaintyBehavior::doPreTrial(SimStruct *S) {
 	errorTargetRight->top    = params->target_radius + params->target_size/2;
 	errorTargetRight->bottom = params->target_radius - params->target_size/2;
 
-	for (i=0; i<16; i++) {
-		cloud_points[i].x = random->getGaussian(0, params->feedback_var);
-		cloud_points[i].y = random->getGaussian(0, params->feedback_var);
-	}
-
 	displacement = random->getGaussian(params->displacement_mean, params->displacement_var);
+
+	for (i=0; i<10; i++) {
+		cloud_points[i].x = random->getGaussian(0, params->feedback_var) + displacement;
+		cloud_points[i].y = random->getGaussian(0, params->feedback_var);
+		cloud[i]->radius = params->feedback_dot_size;
+	}
 
 	center_hold_time  = random->getDouble(params->center_hold_l, params->center_hold_h);
 	center_delay_time = random->getDouble(params->center_delay_l, params->center_delay_h);
-	outer_hold_time   = random->getDouble(params->outer_hold_l, params->outer_hold_h);
-
+	outer_hold_time   = random->getDouble(params->target_hold_l, params->target_hold_h);
 
 	// setup the databurst
 	db->reset();
@@ -206,7 +206,10 @@ void UncertaintyBehavior::doPreTrial(SimStruct *S) {
 
 void UncertaintyBehavior::update(SimStruct *S) {
     /* declarations */
-
+	for (int i=0; i<10; i++) {
+		cloud[i]->centerX = inputs->cursor.x + cloud_points[i].x;
+		cloud[i]->centerY = inputs->cursor.y + cloud_points[i].y;
+	}
 
 	// State machine
 	switch (this->getState()) {
@@ -230,7 +233,7 @@ void UncertaintyBehavior::update(SimStruct *S) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}
-			else if (stateTimer->elapsedtime(S) > center_hold_time) {
+			else if (stateTimer->elapsedTime(S) > center_hold_time) {
 				setState(STATE_CENTER_DELAY);
 			}
 			break;
@@ -290,8 +293,8 @@ void UncertaintyBehavior::update(SimStruct *S) {
 }
 
 void UncertaintyBehavior::calculateOutputs(SimStruct *S) {
-#if 0
     /* declarations */
+	int i;
 	double cursor_radius;
 	cursor_radius = sqrt(pow(inputs->cursor.x,2)+pow(inputs->cursor.y,2));
 
@@ -320,7 +323,7 @@ void UncertaintyBehavior::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_CENTER_TARGET_HOLD;
 				break;
 			case STATE_CENTER_DELAY:
-				outputs->word = WORD_DESTINATION_TARGET_ON;
+				outputs->word = WORD_OT_ON(0 /* change to whatever your target is */);
 				break;
 			case STATE_MOVEMENT:
 				outputs->word = WORD_GO_CUE;
@@ -371,14 +374,19 @@ void UncertaintyBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	// Target 4 through 20 Cue Cluster
-
-
-
-	if (getState() == STATE_TARGET_DELAY) {
-		outputs->targets[1] = (Target *)(this->targets[target_index+1]);		
-	} else {
-		outputs->targets[1] = this->nullTarget;
-	}  
+	 if (getState() == STATE_MOVEMENT && 
+		 inputs->cursor.y > params->feedback_window_begin && 
+		 inputs->cursor.y < params->feedback_window_end) 
+	 {
+		/*show dots*/
+		 for (i = 0; i<params->feedback_dot_num; i++) {
+			 outputs->targets[4+i] = cloud[i];
+		 }
+	 } else {
+		for (i = 4; i<14; i++) {
+			outputs->targets[i] = nullTarget;
+		}
+	 }
 
 	/* reward (4) */
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
@@ -394,22 +402,18 @@ void UncertaintyBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-	if (getState() == STATE_MOVEMENT) && (cursor_radius >= params->cursor_window_begin*params->target_radius) && (cursor_radius <= params->cursor_window_end*params->target_radius) {	
+	if ((getState() == STATE_MOVEMENT) && (inputs->cursor.y >= params->cursor_window_begin) && (inputs->cursor.y <= params->cursor_window_end)) {	
 		// if we are in the cursor blocking window, hide the cursor
-		outputs->position.x = 1000000;
-		outputs->position.y = 1000000;
+		outputs->position = Point(100000,100000);
 	} 
-	else if (getState() == STATE_REWARD) || (getState() == STATE_FAIL) {
+	else if ((getState() == STATE_REWARD) || (getState() == STATE_FAIL)) {
 		// if a completed trial, show the endpoint
 		outputs->position.x = cursor_end_point.x;
 		outputs->position.y = cursor_end_point.y;
-	}
-	else {	
+	} else {	
 		// otherwise, show veridical feedback
-		outputs->position = inputs-> cursor;
+		outputs->position = inputs->cursor;
 	}
-#endif
-	
 }
 /*
  * Include at bottom of your behavior code
