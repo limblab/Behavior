@@ -33,6 +33,8 @@ struct LocalParams {
 	real_T master_reset;
 
 	real_T num_targets;
+	// real_T target_theta
+
 	real_T target_radius;
 	real_T target_size;
 	real_T center_hold_l;
@@ -53,11 +55,11 @@ struct LocalParams {
 
 	real_T feedback_window_begin;
 	real_T feedback_window_end;
-//	real_T feedback_timer_end;
-//	real_T feedback_use_timer;
 
 	real_T cursor_window_begin;
 	real_T cursor_window_end;
+
+	
 };
 
 /**
@@ -78,9 +80,10 @@ public:
 
 private:
 	// Your behavior's instance variables
-	double displacement;
 	Point cloud_points[16];
-	double center_hold, center_delay, outer_hold;
+	double displacement;
+	Point cursor_end_point;
+	double center_hold_time, center_delay_time, outer_hold_time;
 
 	Target *centerTarget;
 	Target *outerTarget;
@@ -110,19 +113,19 @@ UncertaintyBehavior::UncertaintyBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->num_targets,				 1);
 	this->bindParamId(&params->target_radius,			 2);
 	this->bindParamId(&params->target_size,				 3);
-	this->bindParamId(&params->center_hold_l;
-	this->bindParamId(&params->center_hold_h;
-	this->bindParamId(&params->center_delay_l;
-	this->bindParamId(&params->center_delay_h;
-	this->bindParamId(&params->movement_time;
-	this->bindParamId(&params->target_hold_l;
-	this->bindParamId(&params->target_hold_h;
-	this->bindParamId(&params->intertrial;
-	this->bindParamId(&params->displacement_mean;
-	this->bindParamId(&params->displacement_var;
-	this->bindParamId(&params->feedback_var;
-	this->bindParamId(&params->feedback_dot_size;
-	this->bindParamId(&params->feedback_dot_num;
+	this->bindParamId(&params->center_hold_l,			 4);
+	this->bindParamId(&params->center_hold_h,			 5);
+	this->bindParamId(&params->center_delay_l,			 6);
+	this->bindParamId(&params->center_delay_h,			 7);
+	this->bindParamId(&params->movement_time,			 8);
+	this->bindParamId(&params->target_hold_l,			 9);
+	this->bindParamId(&params->target_hold_h,			10);
+	this->bindParamId(&params->intertrial,				11);
+	this->bindParamId(&params->displacement_mean,		12);
+	this->bindParamId(&params->displacement_var,		13);
+	this->bindParamId(&params->feedback_var,			14);
+	this->bindParamId(&params->feedback_dot_size,		15);
+	this->bindParamId(&params->feedback_dot_num,		16);
 	this->bindParamId(&params->feedback_window_begin,	17);
 	this->bindParamId(&params->feedback_window_end,		18);
 	this->bindParamId(&params->cursor_window_begin,		19);
@@ -139,107 +142,71 @@ UncertaintyBehavior::UncertaintyBehavior(SimStruct *S) : RobotBehavior() {
     /* 
 	 * Then do any behavior specific initialization 
 	 */
-	centerTarget = new RectangleTarget(0,0,0,0,0);
-	outerTarget = new RectangleTarget(0,0,0,0,0);
-	errorTargetLeft = new RectangleTarget(0,0,0,0,0);
-	errorTargetRight = new RectangleTarget(0,0,0,0,0);
-
+	centerTarget	 = new SquareTarget(0,0,0,0);
+	outerTarget		 = new RectangleTarget(0,0,0,0,1);
+	errorTargetLeft  = new RectangleTarget(0,0,0,0,7);
+	errorTargetRight = new RectangleTarget(0,0,0,0,7);
 	for (i=0; i<16; i++) {
-		cloud_points[i].x = 0;
-		cloud_points[i].y = 0;
+		cloud_points[i].x = 0.0;
+		cloud_points[i].y = 0.0;
 	}
+	displacement       = 0.0;
+	cursor_end_point.x = 0.0;
+	cursor_end_point.y = 0.0;
+	center_hold_time   = 0.0;
+	center_delay_time  = 0.0;
+	outer_hold_time	   = 0.0;
 }
 
-void RandomWalkBehavior::doPreTrial(SimStruct *S) {
-	int i, j;
-	double r, th;
-	SquareTarget lastTarget = *targets[(int)params->num_targets];
-	SquareTarget tmpTarget;
+void UncertaintyBehavior::doPreTrial(SimStruct *S) {
+	int i;
 
-	/* initialize target positions */
-	if (params->maximum_distance == 0) {
-		/* uniform random positions */
-		for (i = 0; i<params->num_targets; i++) {
-			targets[i]->centerX = random->getDouble(params->left_target_boundary,  params->right_target_boundary);
-			targets[i]->centerY = random->getDouble(params->lower_target_boundary, params->upper_target_boundary);
-			targets[i]->width = params->target_size;
-			targets[i]->color = Target::Color(255, 0, 0);
-		}
-	} else {
-		/* set not-quite-random target distances 
-		 * semi-random with max and min distances */
+	centerTarget->centerX = 0.0;
+	centerTarget->centerY = 0.0;
+	centerTarget->width   = params->target_size;
+	centerTarget->color   = Target::Color(255, 0, 0);
 
-		for (i = 0; i<params->num_targets; i++) {
-			// Foreach Target
-			r = random->getDouble(params->minimum_distance, params->maximum_distance);
-			th = random->getDouble(0, 2*PI);
+	outerTarget->left   = -params->target_size/2;
+	outerTarget->right  =  params->target_size/2;
+	outerTarget->top    = params->target_radius + params->target_size/2;
+	outerTarget->bottom = params->target_radius - params->target_size/2;
 
-			// Copy previous target as a starting point
-			if (i==0) {
-				*targets[i] = lastTarget;
-			} else {
-				*targets[i] = *targets[i-1];
-			}
-			tmpTarget = *targets[i];
+	errorTargetLeft->left   = -100;
+	errorTargetLeft->right  = -params->target_size/2;
+	errorTargetLeft->top    = params->target_radius + params->target_size/2;
+	errorTargetLeft->bottom = params->target_radius - params->target_size/2;
 
-			for (j=0; j<5; j++) {
-				// Add the offset
-				tmpTarget.centerX = targets[i]->centerX + r * cos(th);
-				tmpTarget.centerY = targets[i]->centerY + r * sin(th);
-				if (tmpTarget.centerX > params->left_target_boundary &&
-					tmpTarget.centerX < params->right_target_boundary &&
-					tmpTarget.centerY > params->lower_target_boundary &&
-					tmpTarget.centerY < params->upper_target_boundary)
-				{
-					// Found a location that works
-					break;
-				}
+	errorTargetRight->left   = params->target_size/2;
+	errorTargetRight->right  = 100;
+	errorTargetRight->top    = params->target_radius + params->target_size/2;
+	errorTargetRight->bottom = params->target_radius - params->target_size/2;
 
-				if (j==4) {
-					// Give up and set at origin
-					tmpTarget.centerX = 0.0;
-					tmpTarget.centerY = 0.0;
-					break;
-				}
-
-				th = th + PI/2;
-				r = params->minimum_distance;
-			}
-
-            tmpTarget.width = params->target_size;
-            tmpTarget.color = Target::Color(255, 0, 0);
-			*targets[i] = tmpTarget;
-		}
+	for (i=0; i<16; i++) {
+		cloud_points[i].x = random->getGaussian(0, params->feedback_var);
+		cloud_points[i].y = random->getGaussian(0, params->feedback_var);
 	}
 
-	target_index = 0;
-	catchTrial = false;
+	displacement = random->getGaussian(params->displacement_mean, params->displacement_var);
 
-	/* setup the databurst */
+	center_hold_time  = random->getDouble(params->center_hold_l, params->center_hold_h);
+	center_delay_time = random->getDouble(params->center_delay_l, params->center_delay_h);
+	outer_hold_time   = random->getDouble(params->outer_hold_l, params->outer_hold_h);
+
+
+	// setup the databurst
 	db->reset();
 	db->addByte(DATABURST_VERSION);
 	db->addByte(BEHAVIOR_VERSION_MAJOR);
     db->addByte(BEHAVIOR_VERSION_MINOR);
 	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
-	db->addFloat((float)(inputs->offsets.x));
-	db->addFloat((float)(inputs->offsets.y));
-	db->addFloat((float)params->target_tolerance + (float)params->target_size);
-	for (i = 0; i<params->num_targets; i++) {
-		db->addFloat((float)targets[i]->centerX);
-		db->addFloat((float)targets[i]->centerY);
-	}
+	db->addFloat((float)displacement);
     db->start();
 }
 
-void RandomWalkBehavior::update(SimStruct *S) {
+void UncertaintyBehavior::update(SimStruct *S) {
     /* declarations */
-	SquareTarget currentTarget;
-	SquareTarget targetBounds;
-	
-	currentTarget = *targets[target_index];
-	targetBounds = currentTarget;
-    targetBounds.width = currentTarget.width + params->target_tolerance;
+
 
 	// State machine
 	switch (this->getState()) {
@@ -250,73 +217,68 @@ void RandomWalkBehavior::update(SimStruct *S) {
 			break;
 		case STATE_DATA_BLOCK:
 			if (db->isDone()) {
-				cumulativeHoldTimer->stop(S);
-				setState(STATE_INITIAL_MOVEMENT);
+				setState(STATE_CT_ON);
 			}
-		case STATE_INITIAL_MOVEMENT:
+		case STATE_CT_ON:
 			/* first target on */
-			if (targetBounds.cursorInTarget(inputs->cursor)) {
-				cumulativeHoldTimer->start(S);
-				setState(STATE_TARGET_HOLD);
-			} else if (stateTimer->elapsedTime(S) > params->initial_movement_time) {
-				setState(STATE_INCOMPLETE);
-			}
+			if (centerTarget->cursorInTarget(inputs->cursor)) {
+				setState(STATE_CENTER_HOLD);
+			} 
 			break;
-		case STATE_MOVEMENT:
-			if (targetBounds.cursorInTarget(inputs->cursor)) {
-				cumulativeHoldTimer->start(S);
-				setState(STATE_TARGET_HOLD);
-			} else if (stateTimer->elapsedTime(S) > params->movement_time) {
-				setState(STATE_FAIL);
-			}
-			break;
-		case STATE_TARGET_HOLD:
-			if (params->cumulative_hold && cumulativeHoldTimer->elapsedTime(S) > targetHoldTime) {
-				/* next state depends on whether there are more targets */
-				if (target_index == params->num_targets - 1) {
-					/* no more targets */
-					cumulativeHoldTimer->stop(S);
-					playTone(TONE_REWARD);
-					setState(STATE_REWARD);
-				} else {
-					/* more targets */
-					cumulativeHoldTimer->stop(S);
-					delayTime = random->getDouble(params->target_delay_l, params->target_delay_h);
-					setState(STATE_TARGET_DELAY);
-				}
-			} else if (params->disable_abort && !targetBounds.cursorInTarget(inputs->cursor)) {
-				cumulativeHoldTimer->pause(S);
-				setState(STATE_MOVEMENT);
-			} else if (!targetBounds.cursorInTarget(inputs->cursor)) {
-				setState(STATE_ABORT);
-			} else if (stateTimer->elapsedTime(S) > targetHoldTime) {
-				/* next state depends on whether there are more targets */
-				if (target_index == params->num_targets - 1) {
-					/* no more targets */
-					playTone(TONE_REWARD);
-					setState(STATE_REWARD);
-				} else {
-					/* more targets */
-					delayTime = random->getDouble(params->target_delay_l, params->target_delay_h);
-					setState(STATE_TARGET_DELAY);
-				}
-			}
-			break;
-		case STATE_TARGET_DELAY:
-			if (!targetBounds.cursorInTarget(inputs->cursor)) {
+		case STATE_CENTER_HOLD:
+			if (!centerTarget->cursorInTarget(inputs->cursor)){
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			} else if (stateTimer->elapsedTime(S) > delayTime) {
-				target_index++;
-				catchTrial = ( random->getDouble() < params->percent_catch_trials );
-				targetHoldTime = random->getDouble(params->target_hold_l, params->target_hold_h);
+			}
+			else if (stateTimer->elapsedtime(S) > center_hold_time) {
+				setState(STATE_CENTER_DELAY);
+			}
+			break;
+		case STATE_CENTER_DELAY:
+			if (!centerTarget->cursorInTarget(inputs->cursor)) {
+				playTone(TONE_ABORT);
+				setState(STATE_ABORT);
+			} 
+			else if (stateTimer->elapsedTime(S) > center_delay_time) {
 				playTone(TONE_GO);
 				setState(STATE_MOVEMENT);
 			}
 			break;
-		case STATE_ABORT:
-        case STATE_REWARD:
+		case STATE_MOVEMENT:
+			if (outerTarget->cursorInTarget(inputs->cursor.x+displacement,inputs->cursor.y)) {
+				cursor_end_point.x=inputs->cursor.x+displacement;
+				cursor_end_point.y=inputs->cursor.y;
+				playTone(TONE_REWARD);
+				setState(STATE_OUTER_HOLD);
+			} 
+			else if ((errorTargetLeft->cursorInTarget(inputs->cursor.x+displacement,inputs->cursor.y))
+				  ||(errorTargetRight->cursorInTarget(inputs->cursor.x+displacement,inputs->cursor.y))) {
+				cursor_end_point.x=inputs->cursor.x+displacement;
+				cursor_end_point.y=inputs->cursor.y;
+				playTone(TONE_ABORT);
+				setState(STATE_FAIL);
+			}
+			else if (stateTimer->elapsedTime(S) > params->movement_time) {
+				setState(STATE_INCOMPLETE);
+			}
+			break;
+		case STATE_OUTER_HOLD:
+			if (!outerTarget->cursorInTarget(inputs->cursor.x+displacement,inputs->cursor.y)){
+				playTone(TONE_ABORT);
+				setState(STATE_ABORT);
+			}
+			else if (stateTimer->elapsedTime(S) > outer_hold_time) {
+				playTone(TONE_REWARD);
+				setState(STATE_REWARD);
+			}
+			break;
 		case STATE_FAIL:
+			if (stateTimer->elapsedTime(S) > (outer_hold_time + params->intertrial)) {
+				setState(STATE_PRETRIAL);
+			}
+			break;
+		case STATE_REWARD:
+		case STATE_ABORT:
         case STATE_INCOMPLETE:
 			if (stateTimer->elapsedTime(S) > params->intertrial) {
 				setState(STATE_PRETRIAL);
@@ -327,16 +289,14 @@ void RandomWalkBehavior::update(SimStruct *S) {
 	}
 }
 
-void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
+void UncertaintyBehavior::calculateOutputs(SimStruct *S) {
+#if 0
     /* declarations */
-    SquareTarget *currentTarget = targets[target_index];
+	double cursor_radius;
+	cursor_radius = sqrt(pow(inputs->cursor.x,2)+pow(inputs->cursor.y,2));
 
 	/* force (0) */
-	if (catchTrial) {
-		outputs->force = inputs->catchForce;
-	} else {
-		outputs->force = inputs->force;
-	}
+	outputs->force = inputs->force;
 
 	/* status (1) */
 	outputs->status[0] = getState();
@@ -353,22 +313,20 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_PRETRIAL:
 				outputs->word = WORD_START_TRIAL;
 				break;
-			case STATE_INITIAL_MOVEMENT:
-				if (catchTrial) {
-					outputs->word = WORD_CATCH;
-				} else {
-					outputs->word = WORD_GO_CUE;
-				}
+			case STATE_CT_ON:
+				outputs->word = WORD_CT_ON;
 				break;
-			case STATE_TARGET_HOLD:
-				outputs->word = WORD_TARGET_HOLD;
+			case STATE_CENTER_HOLD:
+				outputs->word = WORD_CENTER_TARGET_HOLD;
+				break;
+			case STATE_CENTER_DELAY:
+				outputs->word = WORD_DESTINATION_TARGET_ON;
 				break;
 			case STATE_MOVEMENT:
-				if (catchTrial) {
-					outputs->word = WORD_CATCH;
-				} else {
-					outputs->word = WORD_GO_CUE;
-				}
+				outputs->word = WORD_GO_CUE;
+				break;
+			case STATE_OUTER_HOLD:
+				outputs->word = WORD_OUTER_TARGET_HOLD;
 				break;
 			case STATE_REWARD:
 				outputs->word = WORD_REWARD;
@@ -391,20 +349,31 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 
 	/* target_pos (3) */
 	// Target 0
-	if (getState() == STATE_TARGET_HOLD && params->green_hold) {
-		currentTarget->color = Target::Color(0, 128, 0);
-		outputs->targets[0] = (Target *)currentTarget;
-	} else if (getState() == STATE_INITIAL_MOVEMENT || 
-			   getState() == STATE_MOVEMENT || 
-		       getState() == STATE_TARGET_HOLD ||
-		       getState() == STATE_TARGET_DELAY) {
-		currentTarget->color = Target::Color(255, 0, 0);
-		outputs->targets[0] = (Target *)currentTarget;
+	 if (getState() == STATE_CT_ON || 
+		 getState() == STATE_CENTER_HOLD || 
+		 getState() == STATE_CENTER_DELAY) {
+		outputs->targets[0] = (Target *)centerTarget;
 	} else {
 		outputs->targets[0] = nullTarget;
 	}
 
-	// Target 1
+	// Target 1, 2, 3
+	 if (getState() == STATE_CENTER_DELAY || 
+		 getState() == STATE_MOVEMENT || 
+		 getState() == STATE_OUTER_HOLD) {
+		outputs->targets[1] = (Target *)outerTarget;
+		outputs->targets[2] = (Target *)errorTargetLeft;
+		outputs->targets[3] = (Target *)errorTargetRight;
+	} else {
+		outputs->targets[1] = nullTarget;
+		outputs->targets[2] = nullTarget;
+		outputs->targets[3] = nullTarget;
+	}
+
+	// Target 4 through 20 Cue Cluster
+
+
+
 	if (getState() == STATE_TARGET_DELAY) {
 		outputs->targets[1] = (Target *)(this->targets[target_index+1]);		
 	} else {
@@ -425,9 +394,23 @@ void RandomWalkBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-	outputs->position = inputs->cursor;
+	if (getState() == STATE_MOVEMENT) && (cursor_radius >= params->cursor_window_begin*params->target_radius) && (cursor_radius <= params->cursor_window_end*params->target_radius) {	
+		// if we are in the cursor blocking window, hide the cursor
+		outputs->position.x = 1000000;
+		outputs->position.y = 1000000;
+	} 
+	else if (getState() == STATE_REWARD) || (getState() == STATE_FAIL) {
+		// if a completed trial, show the endpoint
+		outputs->position.x = cursor_end_point.x;
+		outputs->position.y = cursor_end_point.y;
+	}
+	else {	
+		// otherwise, show veridical feedback
+		outputs->position = inputs-> cursor;
+	}
+#endif
+	
 }
-
 /*
  * Include at bottom of your behavior code
  */
