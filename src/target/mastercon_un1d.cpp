@@ -186,13 +186,13 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 		outerTarget->top    = sin(tgt_ang_rad)*params->target_radius + params->target_size/2;
 		outerTarget->bottom = sin(tgt_ang_rad)*params->target_radius - params->target_size/2;
 
-		errorTargetLeft->left   = -100;
+		errorTargetLeft->left   = -20;
 		errorTargetLeft->right  = -params->target_size/2;
 		errorTargetLeft->top    = sin(tgt_ang_rad)*params->target_radius + params->target_size/2;
 		errorTargetLeft->bottom = sin(tgt_ang_rad)*params->target_radius - params->target_size/2;
 
 		errorTargetRight->left   = params->target_size/2;
-		errorTargetRight->right  = 100;
+		errorTargetRight->right  = 20;
 		errorTargetRight->top    = sin(tgt_ang_rad)*params->target_radius + params->target_size/2;
 		errorTargetRight->bottom = sin(tgt_ang_rad)*params->target_radius - params->target_size/2;
 	} else if ((params->target_angle == 0.0) || (params->target_angle == 180.0)){
@@ -201,15 +201,15 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 		outerTarget->left    = cos(tgt_ang_rad)*params->target_radius - params->target_size/2;
 		outerTarget->right   = cos(tgt_ang_rad)*params->target_radius + params->target_size/2;
 
-		errorTargetLeft->top     = 100;
+		errorTargetLeft->top     = 20;
 		errorTargetLeft->bottom  = params->target_size/2;
-		errorTargetLeft->right   = cos(tgt_ang_rad)*params->target_radius - params->target_size/2;
-		errorTargetLeft->left    = cos(tgt_ang_rad)*params->target_radius + params->target_size/2;
+		errorTargetLeft->left    = cos(tgt_ang_rad)*params->target_radius - params->target_size/2;
+		errorTargetLeft->right   = cos(tgt_ang_rad)*params->target_radius + params->target_size/2;
 
 		errorTargetRight->top    = -params->target_size/2;
-		errorTargetRight->bottom = -100;
-		errorTargetRight->right  = cos(tgt_ang_rad)*params->target_radius - params->target_size/2;
-		errorTargetRight->left   = cos(tgt_ang_rad)*params->target_radius + params->target_size/2;	
+		errorTargetRight->bottom = -20;
+		errorTargetRight->left   = cos(tgt_ang_rad)*params->target_radius - params->target_size/2;
+		errorTargetRight->right  = cos(tgt_ang_rad)*params->target_radius + params->target_size/2;	
 	} else {
 		// by default, place target at top
 		outerTarget->left   = -params->target_size/2;
@@ -217,13 +217,13 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 		outerTarget->top    = params->target_radius + params->target_size/2;
 		outerTarget->bottom = params->target_radius - params->target_size/2;
 
-		errorTargetLeft->left   = -100;
+		errorTargetLeft->left   = -20;
 		errorTargetLeft->right  = -params->target_size/2;
 		errorTargetLeft->top    = params->target_radius + params->target_size/2;
 		errorTargetLeft->bottom = params->target_radius - params->target_size/2;
 
 		errorTargetRight->left   = params->target_size/2;
-		errorTargetRight->right  = 100;
+		errorTargetRight->right  = 20;
 		errorTargetRight->top    = params->target_radius + params->target_size/2;
 		errorTargetRight->bottom = params->target_radius - params->target_size/2;
 	}
@@ -297,7 +297,7 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 			if (outerTarget->cursorInTarget(inputs->cursor.x+cursor_shift.x,inputs->cursor.y+cursor_shift.y)) {
 //				cursor_end_point.x=inputs->cursor.x + cursor_shift.x;
 //				cursor_end_point.y=inputs->cursor.y + cursor_shift.y;
-				playTone(TONE_REWARD);
+//				playTone(TONE_REWARD);
 				setState(STATE_OUTER_HOLD);
 			} 
 			else if ((errorTargetLeft->cursorInTarget(inputs->cursor.x+cursor_shift.x,inputs->cursor.y+cursor_shift.y))
@@ -418,7 +418,9 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 	// Target 1, 2, 3
 	 if (getState() == STATE_CENTER_DELAY || 
 		 getState() == STATE_MOVEMENT || 
-		 getState() == STATE_OUTER_HOLD) {
+		 getState() == STATE_OUTER_HOLD || 
+		 getState() == STATE_REWARD || 
+		 getState() == STATE_FAIL) {
 		outputs->targets[1] = (Target *)outerTarget;
 		outputs->targets[2] = (Target *)errorTargetLeft;
 		outputs->targets[3] = (Target *)errorTargetRight;
@@ -461,11 +463,16 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 		// if we are in the cursor blocking window, hide the cursor
 		outputs->position = Point(100000,100000);
 	} 
+	else if (getState() == STATE_OUTER_HOLD){
+		// show real-time shifted cursor during outer hold
+		outputs->position.x = inputs->cursor.x + cursor_shift.x;
+		outputs->position.y = inputs->cursor.y + cursor_shift.y;		
+	}
 	else if ((getState() == STATE_REWARD) || (getState() == STATE_FAIL)) {
-		// if a completed trial, show the endpoint
+		// if a completed trial, show the shifted endpoint
 		outputs->position.x = cursor_end_point.x;
 		outputs->position.y = cursor_end_point.y;
-	} else {	
+	} else {
 		// otherwise, show veridical feedback
 		outputs->position = inputs->cursor;
 	}
