@@ -1,12 +1,12 @@
 /* $Id: mastercon_un1d.cpp 858 2012-04-11 21:46:24Z paulw $
  *
- * Master Control block for behavior: 1D uncertainty task
+ * Master Control block for behavior: uncertainty 1d task 
  */
 
 #define S_FUNCTION_NAME mastercon_un1d
 #define S_FUNCTION_LEVEL 2
 
-#define TASK_UN 1
+#define TASK_UN1D 1
 #include "words.h"
 
 #include "common_header.cpp"
