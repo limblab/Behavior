@@ -510,45 +510,39 @@ namespace BehaviorGraphics
 
             #region Uncertainty
             /* 
-             * Uncertainty Parameters 
+             * Uncertainty 1D Parameters 
              */
 
-            // Uncertainty timing
-            AddParamListItem("UCHL", "P4", "Behavior Un", this.textBoxUCHL);
-            AddParamListItem("UCHH", "P5", "Behavior Un", this.textBoxUCHH);
-            AddParamListItem("UDL", "P6", "Behavior Un", this.textBoxUDL);
-            AddParamListItem("UDH", "P7", "Behavior Un", this.textBoxUDH);
-            AddParamListItem("UMT", "P8", "Behavior Un", this.textBoxUMT);
-            AddParamListItem("UOHL", "P9", "Behavior Un", this.textBoxUOHL);
-            AddParamListItem("UOHH", "P10", "Behavior Un", this.textBoxUOHH);
-            AddParamListItem("UIT", "P11", "Behavior Un", this.textBoxUID);
+            // Uncertainty Timing
+            AddParamListItem("UCHL", "P2", "Behavior Un1d", this.textBoxUCHL);
+            AddParamListItem("UCHH", "P3", "Behavior Un1d", this.textBoxUCHH);
+            AddParamListItem("UDL", "P4", "Behavior Un1d", this.textBoxUDL);
+            AddParamListItem("UDH", "P5", "Behavior Un1d", this.textBoxUDH);
+            AddParamListItem("UOHL", "P6", "Behavior Un1d", this.textBoxUOHL);
+            AddParamListItem("UOHH", "P7", "Behavior Un1d", this.textBoxUOHH);
+            AddParamListItem("UIT", "P8", "Behavior Un1d", this.textBoxUID);
+            AddParamListItem("UMT", "P9", "Behavior Un1d", this.textBoxUMT);
+            AddParamListItem("UFLT", "P10", "Behavior Un1d", this.textBoxUFLT);
 
-            // Uncertainty forces
-            AddParamListItem("UBump Duration", "P15", "Behavior Un", this.textBoxUBumpDuration);
-            AddParamListItem("UBump Amplitude", "P14", "Behavior Un", this.textBoxUBumpMag);
-            AddParamListItem("UCatch Trials Pct", "P12", "Behavior Un", this.textBoxUCatchPct);
-            AddParamListItem("UDelay Bumps", "P17", "Behavior Un", this.checkBoxUDelayBumps);
+            // Uncertainty Forces
 
-            // Uncertainty targets
-            AddParamListItem("Un Num Targets", "P1", "Behavior Un", this.numericUUpDownNumTgts);
-            AddParamListItem("Un Target Radius", "P2", "Behavior Un", this.textBoxUTgtRadius);
-            AddParamListItem("Un Target Size", "P3", "Behavior Un", this.textBoxUTgtSize);
-            AddParamListItem("Un Idiot Mode", "P16", "Behavior Un", this.checkBoxUIdiot);
+            // Uncertainty Targets
+            AddParamListItem("Un Target Angle", "P11", "Behavior Un1d", this.numericUpDownUTgtAngDeg);
+            AddParamListItem("Un Target Radius", "P12", "Behavior Un1d", this.textBoxUTgtRadius);
+            AddParamListItem("Un Target Size", "P13", "Behavior Un1d", this.textBoxUTgtSize);
 
-            // Uncertainty Misc
-            AddParamListItem("Un Disp Mean", "P18", "Behavior Un", this.textBoxUDispMean);
-            AddParamListItem("Un Disp Var", "P19", "Behavior Un", this.textBoxUDispVar);
-            AddParamListItem("Un Block Win Start", "P20", "Behavior Un", this.textBoxUBlockWinStart);
-            AddParamListItem("Un Block Win End", "P21", "Behavior Un", this.textBoxUBlockWinEnd);
-            AddParamListItem("Un Cue Start", "P22", "Behavior Un", this.textBoxUCueStart);
-            AddParamListItem("Un Cue End", "P23", "Behavior Un", this.textBoxUCueEnd);
-            AddParamListItem("Un Cue Var", "P24", "Behavior Un", this.textBoxUCueVar);
-            AddParamListItem("Un Cue Dot Size", "P25", "Behavior Un", this.textBoxUCueDotSize);
-            AddParamListItem("Un Num Cue Dots", "P26", "Behavior Un", this.numericUUpDownCueDotNum);
-            AddParamListItem("Un Window Type", "P27", "Behavior Un", this.numericUUpDownWindowType);
-            AddParamListItem("Un Displacement Type", "P28", "Behavior Un", this.numericUUpDownDisplacementType);
-            AddParamListItem("Un CT offset", "P29", "Behavior Un", this.textBoxUctoffset);
+            // Uncertainty Displacement Parameters
+            AddParamListItem("Un Disp Mean", "P14", "Behavior Un1d", this.textBoxUDispMean);
+            AddParamListItem("Un Disp Var", "P15", "Behavior Un1d", this.textBoxUDispVar);
+            AddParamListItem("Un Block Win Start", "P16", "Behavior Un1d", this.textBoxUBlockWinStart);
+            AddParamListItem("Un Block Win End", "P17", "Behavior Un1d", this.textBoxUBlockWinEnd);
 
+            // Uncertainty Feedback Parameters
+            AddParamListItem("Un Feedback Start", "P18", "Behavior Un1d", this.textBoxUFbStart);
+            AddParamListItem("Un Feedback End", "P19", "Behavior Un1d", this.textBoxUFbEnd);
+            AddParamListItem("Un Cloud Var", "P20", "Behavior Un1d", this.textBoxUFbVar);
+            AddParamListItem("Un Dot Size", "P21", "Behavior Un1d", this.textBoxUDotSize);
+            AddParamListItem("Un Num Dots", "P22", "Behavior Un1d", this.numericUUpDownDotNum);
 
             #endregion
 
@@ -2218,6 +2212,36 @@ namespace BehaviorGraphics
         }
 
         private void tabPage3_Click(object sender, EventArgs e) {
+
+        }
+
+        private void groupBox55_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label259_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label238_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox54_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label243_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label234_Click(object sender, EventArgs e)
+        {
 
         }
 
