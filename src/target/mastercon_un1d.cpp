@@ -10,6 +10,7 @@
 #include "words.h"
 
 #include "common_header.cpp"
+#define PI (3.141592654)
 
 /*
  * State IDs
@@ -32,32 +33,32 @@
 struct LocalParams {
 	real_T master_reset;
 
-	real_T num_targets;
-	// real_T target_theta
-
-	real_T target_radius;
-	real_T target_size;
 	real_T center_hold_l;
 	real_T center_hold_h;
 	real_T center_delay_l;
 	real_T center_delay_h;
-	real_T movement_time;
-	real_T target_hold_l;
-	real_T target_hold_h;
+	real_T outer_hold_l;
+	real_T outer_hold_h;
 	real_T intertrial;
+	real_T movement_time;
+	real_T failure_lag;
+
+	real_T target_angle;
+	real_T target_radius;
+	real_T target_size;
 
 	real_T displacement_mean;
 	real_T displacement_var;
-
-	real_T feedback_var;
-	real_T feedback_dot_size;
-	real_T feedback_dot_num;
+	real_T block_window_begin;
+	real_T block_window_end;
 
 	real_T feedback_window_begin;
 	real_T feedback_window_end;
+	real_T cloud_var;
+	real_T feedback_dot_size;
+	real_T feedback_dot_num;
 
-	real_T cursor_window_begin;
-	real_T cursor_window_end;
+
 
 	
 };
@@ -83,6 +84,7 @@ private:
 	Point cloud_points[10];
 	CircleTarget *cloud[10];
 	double displacement;
+	Point cursor_shift;
 	Point cursor_end_point;
 	double center_hold_time, center_delay_time, outer_hold_time;
 
@@ -107,30 +109,35 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(21);
+	this->setNumParams(22);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			 0);
-	this->bindParamId(&params->num_targets,				 1);
-	this->bindParamId(&params->target_radius,			 2);
-	this->bindParamId(&params->target_size,				 3);
-	this->bindParamId(&params->center_hold_l,			 4);
-	this->bindParamId(&params->center_hold_h,			 5);
-	this->bindParamId(&params->center_delay_l,			 6);
-	this->bindParamId(&params->center_delay_h,			 7);
+	
+	this->bindParamId(&params->center_hold_l,			 1);
+	this->bindParamId(&params->center_hold_h,			 2);
+	this->bindParamId(&params->center_delay_l,			 3);
+	this->bindParamId(&params->center_delay_h,			 4);
+	this->bindParamId(&params->outer_hold_l,			 5);
+	this->bindParamId(&params->outer_hold_h,			 6);
+	this->bindParamId(&params->intertrial,				 7);
 	this->bindParamId(&params->movement_time,			 8);
-	this->bindParamId(&params->target_hold_l,			 9);
-	this->bindParamId(&params->target_hold_h,			10);
-	this->bindParamId(&params->intertrial,				11);
-	this->bindParamId(&params->displacement_mean,		12);
-	this->bindParamId(&params->displacement_var,		13);
-	this->bindParamId(&params->feedback_var,			14);
-	this->bindParamId(&params->feedback_dot_size,		15);
-	this->bindParamId(&params->feedback_dot_num,		16);
+	this->bindParamId(&params->failure_lag,				 9);
+
+	this->bindParamId(&params->target_angle,			10);
+	this->bindParamId(&params->target_radius,			11);
+	this->bindParamId(&params->target_size,				12);
+
+	this->bindParamId(&params->displacement_mean,		13);
+	this->bindParamId(&params->displacement_var,		14);
+	this->bindParamId(&params->block_window_begin,		15);
+	this->bindParamId(&params->block_window_end,		16);
+	
 	this->bindParamId(&params->feedback_window_begin,	17);
 	this->bindParamId(&params->feedback_window_end,		18);
-	this->bindParamId(&params->cursor_window_begin,		19);
-	this->bindParamId(&params->cursor_window_end,		20);
+	this->bindParamId(&params->cloud_var,				19);
+	this->bindParamId(&params->feedback_dot_size,		20);
+	this->bindParamId(&params->feedback_dot_num,		21);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -151,6 +158,8 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 		cloud[i] = new CircleTarget(0,0,0,Target::Color(255, 255, 0));
 	}
 	displacement       = 0.0;
+	cursor_shift.x	   = 0.0;
+	cursor_shift.y	   = 0.0;
 	cursor_end_point.x = 0.0;
 	cursor_end_point.y = 0.0;
 	center_hold_time   = 0.0;
@@ -160,38 +169,74 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 
 void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 	int i;
-
+	double tgt_ang_rad;
+	tgt_ang_rad = params->target_angle*PI/180;
 	centerTarget->centerX = 0.0;
 	centerTarget->centerY = 0.0;
 	centerTarget->width   = params->target_size;
 	centerTarget->color   = Target::Color(255, 0, 0);
-
-	outerTarget->left   = -params->target_size/2;
-	outerTarget->right  =  params->target_size/2;
-	outerTarget->top    = params->target_radius + params->target_size/2;
-	outerTarget->bottom = params->target_radius - params->target_size/2;
-
-	errorTargetLeft->left   = -100;
-	errorTargetLeft->right  = -params->target_size/2;
-	errorTargetLeft->top    = params->target_radius + params->target_size/2;
-	errorTargetLeft->bottom = params->target_radius - params->target_size/2;
-
-	errorTargetRight->left   = params->target_size/2;
-	errorTargetRight->right  = 100;
-	errorTargetRight->top    = params->target_radius + params->target_size/2;
-	errorTargetRight->bottom = params->target_radius - params->target_size/2;
-
 	displacement = random->getGaussian(params->displacement_mean, params->displacement_var);
+	cursor_shift.x = displacement*sin(tgt_ang_rad);
+	cursor_shift.y = -displacement*cos(tgt_ang_rad);
+
+	if ((params->target_angle == 90.0) || (params->target_angle == 270.0)){
+		outerTarget->left   = -params->target_size/2;
+		outerTarget->right  =  params->target_size/2;
+		outerTarget->top    = sin(tgt_ang_rad)*params->target_radius + params->target_size/2;
+		outerTarget->bottom = sin(tgt_ang_rad)*params->target_radius - params->target_size/2;
+
+		errorTargetLeft->left   = -100;
+		errorTargetLeft->right  = -params->target_size/2;
+		errorTargetLeft->top    = sin(tgt_ang_rad)*params->target_radius + params->target_size/2;
+		errorTargetLeft->bottom = sin(tgt_ang_rad)*params->target_radius - params->target_size/2;
+
+		errorTargetRight->left   = params->target_size/2;
+		errorTargetRight->right  = 100;
+		errorTargetRight->top    = sin(tgt_ang_rad)*params->target_radius + params->target_size/2;
+		errorTargetRight->bottom = sin(tgt_ang_rad)*params->target_radius - params->target_size/2;
+	} else if ((params->target_angle == 0.0) || (params->target_angle == 180.0)){
+		outerTarget->top     = params->target_size/2;
+		outerTarget->bottom  = -params->target_size/2;
+		outerTarget->left    = cos(tgt_ang_rad)*params->target_radius - params->target_size/2;
+		outerTarget->right   = cos(tgt_ang_rad)*params->target_radius + params->target_size/2;
+
+		errorTargetLeft->top     = 100;
+		errorTargetLeft->bottom  = params->target_size/2;
+		errorTargetLeft->right   = cos(tgt_ang_rad)*params->target_radius - params->target_size/2;
+		errorTargetLeft->left    = cos(tgt_ang_rad)*params->target_radius + params->target_size/2;
+
+		errorTargetRight->top    = -params->target_size/2;
+		errorTargetRight->bottom = -100;
+		errorTargetRight->right  = cos(tgt_ang_rad)*params->target_radius - params->target_size/2;
+		errorTargetRight->left   = cos(tgt_ang_rad)*params->target_radius + params->target_size/2;	
+	} else {
+		// by default, place target at top
+		outerTarget->left   = -params->target_size/2;
+		outerTarget->right  =  params->target_size/2;
+		outerTarget->top    = params->target_radius + params->target_size/2;
+		outerTarget->bottom = params->target_radius - params->target_size/2;
+
+		errorTargetLeft->left   = -100;
+		errorTargetLeft->right  = -params->target_size/2;
+		errorTargetLeft->top    = params->target_radius + params->target_size/2;
+		errorTargetLeft->bottom = params->target_radius - params->target_size/2;
+
+		errorTargetRight->left   = params->target_size/2;
+		errorTargetRight->right  = 100;
+		errorTargetRight->top    = params->target_radius + params->target_size/2;
+		errorTargetRight->bottom = params->target_radius - params->target_size/2;
+	}
+
 
 	for (i=0; i<10; i++) {
-		cloud_points[i].x = random->getGaussian(0, params->feedback_var) + displacement;
-		cloud_points[i].y = random->getGaussian(0, params->feedback_var);
+		cloud_points[i].x = random->getGaussian(0, params->cloud_var) + cursor_shift.x;
+		cloud_points[i].y = random->getGaussian(0, params->cloud_var) + cursor_shift.y;
 		cloud[i]->radius = params->feedback_dot_size;
 	}
 
 	center_hold_time  = random->getDouble(params->center_hold_l, params->center_hold_h);
 	center_delay_time = random->getDouble(params->center_delay_l, params->center_delay_h);
-	outer_hold_time   = random->getDouble(params->target_hold_l, params->target_hold_h);
+	outer_hold_time   = random->getDouble(params->outer_hold_l, params->outer_hold_h);
 
 	// setup the databurst
 	db->reset();
@@ -248,16 +293,16 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_MOVEMENT:
-			if (outerTarget->cursorInTarget(inputs->cursor.x+displacement,inputs->cursor.y)) {
-				cursor_end_point.x=inputs->cursor.x+displacement;
-				cursor_end_point.y=inputs->cursor.y;
+			if (outerTarget->cursorInTarget(inputs->cursor.x+cursor_shift.x,inputs->cursor.y+cursor_shift.y)) {
+				cursor_end_point.x=inputs->cursor.x + cursor_shift.x;
+				cursor_end_point.y=inputs->cursor.y + cursor_shift.y;
 				playTone(TONE_REWARD);
 				setState(STATE_OUTER_HOLD);
 			} 
-			else if ((errorTargetLeft->cursorInTarget(inputs->cursor.x+displacement,inputs->cursor.y))
-				  ||(errorTargetRight->cursorInTarget(inputs->cursor.x+displacement,inputs->cursor.y))) {
-				cursor_end_point.x=inputs->cursor.x+displacement;
-				cursor_end_point.y=inputs->cursor.y;
+			else if ((errorTargetLeft->cursorInTarget(inputs->cursor.x+cursor_shift.x,inputs->cursor.y+cursor_shift.y))
+				  ||(errorTargetRight->cursorInTarget(inputs->cursor.x+cursor_shift.x,inputs->cursor.y+cursor_shift.y))) {				
+				cursor_end_point.x=inputs->cursor.x + cursor_shift.x;
+				cursor_end_point.y=inputs->cursor.y + cursor_shift.y;
 				playTone(TONE_ABORT);
 				setState(STATE_FAIL);
 			}
@@ -266,7 +311,7 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_OUTER_HOLD:
-			if (!outerTarget->cursorInTarget(inputs->cursor.x+displacement,inputs->cursor.y)){
+			if (!outerTarget->cursorInTarget(inputs->cursor.x+cursor_shift.x,inputs->cursor.y+cursor_shift.y)){
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}
@@ -276,7 +321,7 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_FAIL:
-			if (stateTimer->elapsedTime(S) > (outer_hold_time + params->intertrial)) {
+			if (stateTimer->elapsedTime(S) > (params->failure_lag + params->intertrial)) {
 				setState(STATE_PRETRIAL);
 			}
 			break;
@@ -295,8 +340,15 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
     /* declarations */
 	int i;
-	double cursor_radius;
-	cursor_radius = sqrt(pow(inputs->cursor.x,2)+pow(inputs->cursor.y,2));
+	double cursor_extent;
+	if ((params->target_angle == 90.0) || (params->target_angle == 270.0)){
+		cursor_extent = inputs->cursor.y;
+	} else if ((params->target_angle == 0.0) || (params->target_angle == 180.0)){
+		cursor_extent = inputs->cursor.x;
+	} else {
+		cursor_extent = 0.0;
+	}
+
 
 	/* force (0) */
 	outputs->force = inputs->force;
@@ -320,7 +372,7 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_CT_ON;
 				break;
 			case STATE_CENTER_HOLD:
-				outputs->word = WORD_CENTER_TARGET_HOLD;
+				outputs->word = WORD_CENTER_outer_hold;
 				break;
 			case STATE_CENTER_DELAY:
 				outputs->word = WORD_OT_ON(0 /* change to whatever your target is */);
@@ -329,7 +381,7 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_GO_CUE;
 				break;
 			case STATE_OUTER_HOLD:
-				outputs->word = WORD_OUTER_TARGET_HOLD;
+				outputs->word = WORD_OUTER_outer_hold;
 				break;
 			case STATE_REWARD:
 				outputs->word = WORD_REWARD;
@@ -375,8 +427,8 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 
 	// Target 4 through 20 Cue Cluster
 	 if (getState() == STATE_MOVEMENT && 
-		 inputs->cursor.y > params->feedback_window_begin && 
-		 inputs->cursor.y < params->feedback_window_end) 
+		 cursor_extent > params->feedback_window_begin && 
+		 cursor_extent < params->feedback_window_end) 
 	 {
 		/*show dots*/
 		 for (i = 0; i<params->feedback_dot_num; i++) {
@@ -402,7 +454,7 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-	if ((getState() == STATE_MOVEMENT) && (inputs->cursor.y >= params->cursor_window_begin) && (inputs->cursor.y <= params->cursor_window_end)) {	
+	if ((getState() == STATE_MOVEMENT) && (cursor_extent >= params->block_window_begin) && (cursor_extent <= params->block_window_end)) {	
 		// if we are in the cursor blocking window, hide the cursor
 		outputs->position = Point(100000,100000);
 	} 
