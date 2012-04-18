@@ -137,8 +137,9 @@ void RobotBehavior::writeOutputs(SimStruct *S) {
 
 	// targets
 	uPtrs = ssGetOutputPortRealSignal(S, 3);
-	outputs->targets[0]->copyToOutputs(uPtrs, 0);
-	outputs->targets[1]->copyToOutputs(uPtrs, 5);
+	for (i = 0; i<17; i++) {
+		outputs->targets[i]->copyToOutputs(uPtrs, i*5);
+	}
 
 	// reward
 	uPtrs = ssGetOutputPortRealSignal(S, 4);
