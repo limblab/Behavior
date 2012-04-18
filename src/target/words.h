@@ -1,4 +1,10 @@
 #define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
 /* 
  * $Id$
  *
@@ -24,7 +30,7 @@
 #define BEHAVIOR_VERSION_MAJOR 2
 #define BEHAVIOR_VERSION_MINOR 8
 #define BEHAVIOR_VERSION_MICRO 491
-#define BEHAVIOR_VERSION_BUILD 1445
+#define BEHAVIOR_VERSION_BUILD 1453
 
 #ifndef __BUILD_UPDATED__
 #error This project must be built from the build script. 
@@ -50,7 +56,7 @@
 #define WORD_TASK_CODE 0x06
 #elif TASK_WF
 #define WORD_TASK_CODE 0x07
-#elif TASK_UC || TASK_UN
+#elif TASK_UC || TASK_UN || TASK_UN1D
 #define WORD_TASK_CODE 0x08
 #elif TASK_BD
 #define WORD_TASK_CODE 0x09
