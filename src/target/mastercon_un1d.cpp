@@ -372,7 +372,7 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_CT_ON;
 				break;
 			case STATE_CENTER_HOLD:
-				outputs->word = WORD_CENTER_outer_hold;
+				outputs->word = WORD_OUTER_TARGET_HOLD;
 				break;
 			case STATE_CENTER_DELAY:
 				outputs->word = WORD_OT_ON(0 /* change to whatever your target is */);
@@ -381,7 +381,7 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_GO_CUE;
 				break;
 			case STATE_OUTER_HOLD:
-				outputs->word = WORD_OUTER_outer_hold;
+				outputs->word = WORD_OUTER_TARGET_HOLD;
 				break;
 			case STATE_REWARD:
 				outputs->word = WORD_REWARD;
