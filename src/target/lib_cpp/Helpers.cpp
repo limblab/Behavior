@@ -194,7 +194,7 @@ int Random::getInteger(int low, int high) {
  * @return a random boolean value.
  */
 bool Random::getBool() {
-	return this->getInteger(0,1);
+	return (kiss() % 2 == 0);
 }
 
 /**
