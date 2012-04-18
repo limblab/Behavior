@@ -176,6 +176,7 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 	centerTarget->width   = params->target_size;
 	centerTarget->color   = Target::Color(255, 0, 0);
 	displacement = random->getGaussian(params->displacement_mean, params->displacement_var);
+
 	cursor_shift.x = displacement*sin(tgt_ang_rad);
 	cursor_shift.y = -displacement*cos(tgt_ang_rad);
 
@@ -294,8 +295,8 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 			break;
 		case STATE_MOVEMENT:
 			if (outerTarget->cursorInTarget(inputs->cursor.x+cursor_shift.x,inputs->cursor.y+cursor_shift.y)) {
-				cursor_end_point.x=inputs->cursor.x + cursor_shift.x;
-				cursor_end_point.y=inputs->cursor.y + cursor_shift.y;
+//				cursor_end_point.x=inputs->cursor.x + cursor_shift.x;
+//				cursor_end_point.y=inputs->cursor.y + cursor_shift.y;
 				playTone(TONE_REWARD);
 				setState(STATE_OUTER_HOLD);
 			} 
@@ -316,6 +317,8 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 				setState(STATE_ABORT);
 			}
 			else if (stateTimer->elapsedTime(S) > outer_hold_time) {
+				cursor_end_point.x=inputs->cursor.x + cursor_shift.x;
+				cursor_end_point.y=inputs->cursor.y + cursor_shift.y;
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
 			}
@@ -342,9 +345,9 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 	int i;
 	double cursor_extent;
 	if ((params->target_angle == 90.0) || (params->target_angle == 270.0)){
-		cursor_extent = inputs->cursor.y;
+		cursor_extent = fabs(inputs->cursor.y);
 	} else if ((params->target_angle == 0.0) || (params->target_angle == 180.0)){
-		cursor_extent = inputs->cursor.x;
+		cursor_extent = fabs(inputs->cursor.x);
 	} else {
 		cursor_extent = 0.0;
 	}
