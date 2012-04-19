@@ -540,10 +540,24 @@ namespace BehaviorGraphics
             // Uncertainty Feedback Parameters
             AddParamListItem("Un Feedback Start", "P18", "Behavior Un1d", this.textBoxUFbStart);
             AddParamListItem("Un Feedback End", "P19", "Behavior Un1d", this.textBoxUFbEnd);
-            AddParamListItem("Un Cloud Var", "P20", "Behavior Un1d", this.textBoxUFbVar);
-            AddParamListItem("Un Dot Size", "P21", "Behavior Un1d", this.textBoxUDotSize);
-            AddParamListItem("Un Num Dots", "P22", "Behavior Un1d", this.numericUUpDownDotNum);
+            AddParamListItem("Un Dot Size", "P20", "Behavior Un1d", this.textBoxUDotSize);
+            AddParamListItem("Un Num Dots", "P21", "Behavior Un1d", this.numericUUpDownDotNum);
+            
+            AddParamListItem("Un Cloud Var One", "P22", "Behavior Un1d", this.textBoxUFbVarOne);
+            AddParamListItem("Un Cloud Var Two", "P23", "Behavior Un1d", this.textBoxUFbVarTwo);
+            AddParamListItem("Un Cloud Var Three", "P24", "Behavior Un1d", this.textBoxUFbVarThree);
+            AddParamListItem("Un Cloud Var Four", "P25", "Behavior Un1d", this.textBoxUFbVarFour);
+            AddParamListItem("Un Cloud Frq One", "P26", "Behavior Un1d", this.textBoxUFbFrqOne);
+            AddParamListItem("Un Cloud Frq Two", "P27", "Behavior Un1d", this.textBoxUFbFrqTwo);
+            AddParamListItem("Un Cloud Frq Three", "P28", "Behavior Un1d", this.textBoxUFbFrqThree);
+            AddParamListItem("Un Cloud Frq Four", "P29", "Behavior Un1d", this.textBoxUFbFrqFour);
+            AddParamListItem("Un Cloud One Blank", "P30", "Behavior Un1d", this.checkBoxUBlankFbOne);
 
+            AddParamListItem("Un Feedback Timer", "P31", "Behavior Un1d", this.checkBoxUFbTimerOn);
+            AddParamListItem("Un Feedback Time", "P32", "Behavior Un1d", this.textBoxUFbTime);
+            AddParamListItem("Un Feedback Location", "P33", "Behavior Un1d", this.textBoxUFbTimerLoc);
+
+            AddParamListItem("Un Error Targets", "P34", "Behavior Un1d", this.checkBoxUErrorTargetsOn);
             #endregion
 
             #region Bump-follow
@@ -2211,39 +2225,53 @@ namespace BehaviorGraphics
             widget_ValueChanged(sender, e);
         }
 
-        private void tabPage3_Click(object sender, EventArgs e) {
-
-        }
-
-        private void groupBox55_Enter(object sender, EventArgs e)
+        private void checkBoxUFbTimerOn_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (!checkBoxUFbTimerOn.Checked)
+            {
+                textBoxUFbStart.Show();
+                textBoxUFbEnd.Show();
+                labelUFbStart.Show();
+                labelUFbEnd.Show();
+                textBoxUFbTime.Hide();
+                textBoxUFbTimerLoc.Hide();
+                labelUFbTime.Hide();
+                labelUFbLoc.Hide();
+            }
+            else
+            {
+                textBoxUFbStart.Hide();
+                textBoxUFbEnd.Hide();
+                labelUFbStart.Hide();
+                labelUFbEnd.Hide();
+                textBoxUFbTime.Show();
+                textBoxUFbTimerLoc.Show();
+                labelUFbTime.Show();
+                labelUFbLoc.Show();
+            }
+            widget_ValueChanged(sender, e);
         }
 
-        private void label259_Click(object sender, EventArgs e)
+        private void checkBoxUBlankFbOne_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (!checkBoxUBlankFbOne.Checked)
+            {
+                textboxUFbFrqOne.Show();
+                textboxUFbVarOne.Show();
+                labelUFbFrqOne.Show();
+                labelUFbVarOne.Show();
+            }
+            else
+            {
+                textboxUFbFrqOne.Hide();
+                textboxUFbVarOne.Hide();
+                labelUFbFrqOne.Hide();
+                labelUFbVarOne.Hide();
+            }
+            widget_ValueChanged(sender, e);
         }
 
-        private void label238_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void groupBox54_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label243_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label234_Click(object sender, EventArgs e)
-        {
-
-        }
 
      
     }
