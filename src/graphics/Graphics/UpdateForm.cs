@@ -645,61 +645,52 @@ namespace BehaviorGraphics
             /* 
              * Attention Parameters 
              */
+           
             // Timing
-            AddParamListItem("AT CHL", "P3", "Behavior AT", this.textBoxATCHL);
-            AddParamListItem("AT CHH", "P4", "Behavior AT", this.textBoxATCHH);
-            AddParamListItem("AT IBL", "P5", "Behavior AT", this.textBoxATIBL);
-            AddParamListItem("AT IBH", "P6", "Behavior AT", this.textBoxATIBH);
-            AddParamListItem("AT M", "P7", "Behavior AT", this.textBoxATM);
-            AddParamListItem("AT RW", "P8", "Behavior AT", this.textBoxATRW);
-            AddParamListItem("AT FW", "P9", "Behavior AT", this.textBoxATFW);
-            AddParamListItem("AT AW", "P10", "Behavior AT", this.textBoxATAW);
-            AddParamListItem("AT OTD", "P11", "Behavior AT", this.textBoxATOTD);
+            AddParamListItem("AT CHL", "P2", "Behavior AT", this.textBoxATCHL);
+            AddParamListItem("AT CHH", "P3", "Behavior AT", this.textBoxATCHH);
+            AddParamListItem("AT IBL", "P4", "Behavior AT", this.textBoxATIBL);
+            AddParamListItem("AT IBH", "P5", "Behavior AT", this.textBoxATIBH);
+            AddParamListItem("AT M", "P6", "Behavior AT", this.textBoxATM);
+            AddParamListItem("AT RW", "P7", "Behavior AT", this.textBoxATRW);
+            AddParamListItem("AT FW", "P8", "Behavior AT", this.textBoxATFW);
+            AddParamListItem("AT AW", "P9", "Behavior AT", this.textBoxATAW);
+            AddParamListItem("AT OTD", "P10", "Behavior AT", this.textBoxATOTD);
+
+            // Targets
+            AddParamListItem("AT TS", "P11", "Behavior AT", this.textBoxATTS);
+            AddParamListItem("AT TR", "P12", "Behavior AT", this.textBoxATTR);
+            AddParamListItem("AT VTD", "P13", "Behavior AT", this.textBoxATVTD);
+            AddParamListItem("AT IVT", "P14", "Behavior AT", this.textBoxATIVT);
 
             // Trial types
-            AddParamListItem("AT PVT", "P12", "Behavior AT", this.textBoxATPVT);
-            AddParamListItem("AT PPT", "P13", "Behavior AT", this.textBoxATPPT);
-            AddParamListItem("AT TBS", "P14", "Behavior AT", this.textBoxATTBS);
-            AddParamListItem("AT BP", "P15", "Behavior AT", this.checkBoxATBP);
-            AddParamListItem("AT PCT", "P16", "Behavior AT", this.textBoxATPCT);
-            AddParamListItem("AT PTT", "P43", "Behavior AT", this.textBoxATPTT);
-
-            // Visual targets or proprioceptive (non-staircase) parameters
-            AddParamListItem("AT VTMinR", "P26", "Behavior AT", this.textBoxATVTMinR);
-            AddParamListItem("AT VTMaxR", "P27", "Behavior AT", this.textBoxATVTMaxR);
-            AddParamListItem("AT VNS", "P28", "Behavior AT", this.numericUpDownATVNS);
-            AddParamListItem("AT PTMinA", "P29", "Behavior AT", this.textBoxATPTMinA);
-            AddParamListItem("AT PTMaxA", "P30", "Behavior AT", this.textBoxATPTMaxA);
-            AddParamListItem("AT PNS", "P31", "Behavior AT", this.numericUpDownATPNS);
-
-            // Staircases
-            AddParamListItem("AT S", "P17", "Behavior AT", this.checkBoxATS);
-            AddParamListItem("AT PO", "P18", "Behavior AT", this.textBoxATPO);
-            AddParamListItem("AT SL", "P19", "Behavior AT", this.textBoxATSL);
-            AddParamListItem("AT VSR1", "P20", "Behavior AT", this.textBoxATVSR1);
-            AddParamListItem("AT VSR2", "P21", "Behavior AT", this.textBoxATVSR2);
-            AddParamListItem("AT VSSS", "P22", "Behavior AT", this.textBoxATVSSS);
-            AddParamListItem("AT PSA1", "P23", "Behavior AT", this.textBoxATPSA1);
-            AddParamListItem("AT PSA2", "P24", "Behavior AT", this.textBoxATPSA2);
-            AddParamListItem("AT PSSS", "P25", "Behavior AT", this.textBoxATPSSS);   
-
-            // Bumps
-            AddParamListItem("AT BMMin", "P32", "Behavior AT", this.textBoxATBMMin);
-            AddParamListItem("AT BMMax", "P33", "Behavior AT", this.textBoxATBMMax);
-            AddParamListItem("AT NBM", "P34", "Behavior AT", this.numericUpDownATNBM);
-            AddParamListItem("AT BDur", "P35", "Behavior AT", this.textBoxATBD);
-            AddParamListItem("AT BDirs", "P36", "Behavior AT", this.numericUpDownATND);
-            AddParamListItem("AT FBD", "P37", "Behavior AT", this.textBoxATFBD);
+            AddParamListItem("AT PVT", "P15", "Behavior AT", this.textBoxATPVT);
+            AddParamListItem("AT PPT", "P16", "Behavior AT", this.textBoxATPPT);
+            AddParamListItem("AT TBS", "P17", "Behavior AT", this.textBoxATTBS);
+            AddParamListItem("AT PTT", "P18", "Behavior AT", this.textBoxATPTT);
+            AddParamListItem("AT PCT", "P19", "Behavior AT", this.textBoxATPCT);
+            AddParamListItem("AT BD", "P20", "Behavior AT", this.checkBoxATBP);
+            AddParamListItem("AT BDirs", "P21", "Behavior AT", this.numericUpDownATND);
+            AddParamListItem("AT FBD", "P22", "Behavior AT", this.textBoxATFBD);
             
-            // Reward
-            AddParamListItem("AT MinR", "P38", "Behavior AT", this.textBoxATMinR);
-            AddParamListItem("AT MaxR", "P39", "Behavior AT", this.textBoxATMaxR);
+            // Visual targets or proprioceptive parameters     
+            AddParamListItem("AT VSS", "P23", "Behavior AT", this.textBoxATVSS);
+            AddParamListItem("AT VNS", "P24", "Behavior AT", this.numericUpDownATVNS);
+            AddParamListItem("AT VTMinR", "P25", "Behavior AT", this.textBoxATVTMinR);
+            AddParamListItem("AT VTMaxR", "P26", "Behavior AT", this.textBoxATVTMaxR);
+            AddParamListItem("AT PSS", "P27", "Behavior AT", this.textBoxATPSS);
+            AddParamListItem("AT NBM", "P28", "Behavior AT", this.numericUpDownATNBM);
+            AddParamListItem("AT BMMin", "P29", "Behavior AT", this.textBoxATBMMin);
+            AddParamListItem("AT BMMax", "P30", "Behavior AT", this.textBoxATBMMax);
+            AddParamListItem("AT BDur", "P31", "Behavior AT", this.textBoxATBD);
+            AddParamListItem("AT S", "P32", "Behavior AT", this.checkBoxATS);
+            AddParamListItem("AT SR", "33", "Behavior AT", this.numericUpDownATSR);
             
-            // Targets
-            AddParamListItem("AT TS", "P40", "Behavior AT", this.textBoxATTS);
-            AddParamListItem("AT TR", "P41", "Behavior AT", this.textBoxATTR);
-            AddParamListItem("AT VTD", "P42", "Behavior AT", this.textBoxATVTD);
-            AddParamListItem("AT IVT", "P44", "Behavior AT", this.textBoxATIVT);
+            // Bias force
+            AddParamListItem("AT BFM", "P34", "Behavior AT", this.textBoxATBFM);
+            AddParamListItem("AT BFD", "P35", "Behavior AT", this.textBoxATBFD);
+            AddParamListItem("AT BFR", "P36", "Behavior AT", this.textBoxATBFR);  
+            
             #endregion
 
             #region Bump direction psychophysics
@@ -2224,7 +2215,6 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
-
         private void checkBoxUFbTimerOn_CheckedChanged(object sender, EventArgs e)
         {
             if (!checkBoxUFbTimerOn.Checked)
@@ -2270,7 +2260,6 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
-
 
 
      

@@ -79,7 +79,8 @@
 // This must be custom defined for your behavior
 struct LocalParams{
 	real_T master_reset;
-	real_T soft_reset;
+
+	// Timing
 	real_T center_hold_l;
 	real_T center_hold_h;
 	real_T interbump_delay_l;
@@ -89,32 +90,35 @@ struct LocalParams{
 	real_T fail_timeout;
 	real_T abort_timeout;
 	real_T outer_target_delay;
-	real_T percent_visual_trials;
-	real_T percent_proprio_trials;
-	real_T trial_block_size;
-	real_T blocked_parameters;
-	real_T percent_catch_trials;
-	real_T percent_training_trials;
-	
-	// Stimuli
-	real_T use_staircases;
-	real_T visual_min_ratio;
-	real_T visual_max_ratio;
-	real_T visual_step_size;
-	real_T num_visual_steps;
-	real_T bump_mag_min;
-	real_T bump_mag_max;
-	real_T proprio_step_size;
-	real_T num_proprio_steps;
-	real_T bump_duration;
-	real_T num_directions;
-	real_T first_bump_direction;
 
 	// Target parameters
 	real_T target_size;
 	real_T target_radius;
 	real_T visual_target_duration;
 	real_T inter_visual_target_delay;
+
+	// Trial types
+	real_T percent_visual_trials;
+	real_T percent_proprio_trials;
+	real_T trial_block_size;
+	real_T percent_training_trials;
+	real_T percent_catch_trials;
+	real_T blocked_directions;
+	real_T num_directions;
+	real_T first_bump_direction;
+	
+	// Stimuli
+	real_T visual_step_size;
+	real_T num_visual_steps;
+	real_T visual_min_ratio;
+	real_T visual_max_ratio;
+	real_T proprio_step_size;
+	real_T num_proprio_steps;
+	real_T bump_mag_min;
+	real_T bump_mag_max;	
+	real_T bump_duration;
+	real_T use_staircases;
+	real_T staircase_reset;
 
 	// Bias force
 	real_T bias_force_magnitude;
@@ -180,7 +184,7 @@ private:
 	TrapBumpGenerator *bias_force;
 
 	LocalParams *params;
-	real_T last_soft_reset;
+	real_T last_staircase_reset;
 
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
@@ -202,43 +206,42 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	this->setNumParams(20);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
-	this->bindParamId(&params->soft_reset,								 1);
-	this->bindParamId(&params->center_hold_l,							 2);
-	this->bindParamId(&params->center_hold_h,							 3);
-	this->bindParamId(&params->interbump_delay_l,						 4);
-	this->bindParamId(&params->interbump_delay_h,						 5);
-	this->bindParamId(&params->movement_time,							 6);
-	this->bindParamId(&params->reward_timeout,							 7);
-    this->bindParamId(&params->fail_timeout,							 8);
-	this->bindParamId(&params->abort_timeout,							 9);
-	this->bindParamId(&params->outer_target_delay,						10);
-	this->bindParamId(&params->percent_visual_trials,					11);
-	this->bindParamId(&params->percent_proprio_trials,					12);
-	this->bindParamId(&params->trial_block_size,						13);
-	this->bindParamId(&params->blocked_parameters,						14);
-	this->bindParamId(&params->percent_catch_trials,					15);
-	this->bindParamId(&params->percent_training_trials,					16);
-	this->bindParamId(&params->use_staircases,							17);
-	this->bindParamId(&params->visual_min_ratio,						18);
-	this->bindParamId(&params->visual_max_ratio,						19);
-	this->bindParamId(&params->visual_step_size,						20);
-	this->bindParamId(&params->num_visual_steps,						21);
-	this->bindParamId(&params->bump_mag_min,							22);
-	this->bindParamId(&params->bump_mag_max,							23);
-	this->bindParamId(&params->proprio_step_size,						24);
-	this->bindParamId(&params->num_proprio_steps,						25);
-	this->bindParamId(&params->bump_duration,							26);	
-	this->bindParamId(&params->num_directions,							27);
-	this->bindParamId(&params->first_bump_direction,					28);
-	this->bindParamId(&params->target_size,								29);
-	this->bindParamId(&params->target_radius,							30);
-	this->bindParamId(&params->visual_target_duration,					31);
-	this->bindParamId(&params->inter_visual_target_delay,				32);
+	this->bindParamId(&params->center_hold_l,							 1);
+	this->bindParamId(&params->center_hold_h,							 2);
+	this->bindParamId(&params->interbump_delay_l,						 3);
+	this->bindParamId(&params->interbump_delay_h,						 4);
+	this->bindParamId(&params->movement_time,							 5);
+	this->bindParamId(&params->reward_timeout,							 6);
+	this->bindParamId(&params->fail_timeout,							 7);
+    this->bindParamId(&params->abort_timeout,							 8);
+	this->bindParamId(&params->outer_target_delay,						 9);
+	this->bindParamId(&params->target_size,								10);
+	this->bindParamId(&params->target_radius,							11);
+	this->bindParamId(&params->visual_target_duration,					12);
+	this->bindParamId(&params->inter_visual_target_delay,				13);
+	this->bindParamId(&params->percent_visual_trials,					14);
+	this->bindParamId(&params->percent_proprio_trials,					15);
+	this->bindParamId(&params->trial_block_size,						16);
+	this->bindParamId(&params->percent_training_trials,					17);
+	this->bindParamId(&params->percent_catch_trials,					18);
+	this->bindParamId(&params->blocked_directions,						19);
+	this->bindParamId(&params->num_directions,							20);
+	this->bindParamId(&params->first_bump_direction,					21);
+	this->bindParamId(&params->visual_step_size,						22);
+	this->bindParamId(&params->num_visual_steps,						23);
+	this->bindParamId(&params->visual_min_ratio,						24);
+	this->bindParamId(&params->visual_max_ratio,						25);
+	this->bindParamId(&params->proprio_step_size,						26);	
+	this->bindParamId(&params->num_proprio_steps,						27);
+	this->bindParamId(&params->bump_mag_min,							28);
+	this->bindParamId(&params->bump_mag_max,							29);
+	this->bindParamId(&params->bump_duration,							30);
+	this->bindParamId(&params->use_staircases,							31);
+	this->bindParamId(&params->staircase_reset,							32);
 	this->bindParamId(&params->bias_force_magnitude,					33);
 	this->bindParamId(&params->bias_force_direction,					34);
-	this->bindParamId(&params->bias_force_ramp,							35);
-
-
+	this->bindParamId(&params->bias_force_ramp,							35);				
+		
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -247,7 +250,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	// as defined above.
 	//this->updateParameters(S);
 	
-	last_soft_reset = -1; // force a soft reset of first trial
+	last_staircase_reset = -1; // force a staircase reset of first trial
 
 	visual_color = Target::Color(50,50,255);
 	proprio_color = Target::Color(255,180,0);
@@ -331,9 +334,9 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	
 	standard_bump_magnitude = (params->bump_mag_max + params->bump_mag_min)/2;
 
-	if (last_soft_reset != params->soft_reset) {
+	if (last_staircase_reset != params->staircase_reset) {
 		// load parameters to the staircases and reset them.
-		last_soft_reset = params->soft_reset;
+		last_staircase_reset = params->staircase_reset;
 		for (i=0 ; i < params->num_directions ; i++){
 			setupProprioStaircase(i*2, params->bump_mag_min, params->proprio_step_size, test_bump_magnitude, params->bump_mag_min);
 			setupProprioStaircase(i*2+1, params->bump_mag_max, -params->proprio_step_size, test_bump_magnitude, params->bump_mag_max);
@@ -381,18 +384,26 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	biggerSecondResponseTarget->centerX = params->target_radius;
 	biggerSecondResponseTarget->centerY = 0;
 	
+	// Pick the bump direction
+	if (!params->blocked_directions || trial_counter==1){
+			if (params->num_directions>0){
+				i = random->getInteger(0,(int)(params->num_directions-1));
+				bump_direction = fmod(i * 2 * PI/params->num_directions + params->first_bump_direction,2*PI);
+			} else {
+				bump_direction = random->getDouble(0,2*PI);
+			}
+		}
+		
+	bump_1_magnitude = standard_bump_magnitude;
+	bump_2_magnitude = standard_bump_magnitude;
+
 	if (trial_type == VISUAL_TRIAL) {
 
 		centerTarget->color = visual_color;
 		biggerFirstResponseTarget->color = visual_color;
 		biggerSecondResponseTarget->color = visual_color;
 		visualTarget1->color = visual_color;
-		visualTarget2->color = visual_color;
-
-		i = random->getInteger(0,(int)(params->num_directions-1));
-		bump_direction = i * 2 * PI/params->num_directions + params->first_bump_direction;
-		bump_1_magnitude = standard_bump_magnitude;
-		bump_2_magnitude = standard_bump_magnitude;
+		visualTarget2->color = visual_color;		
 
 		if (params->use_staircases){			
 			staircase_id = random->getBool();
@@ -422,9 +433,6 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		biggerSecondResponseTarget->color = proprio_color;
 		visualTarget1->color = 0;
 		visualTarget2->color = 0;
-
-		i = random->getInteger(0,(int)(params->num_directions-1));
-		bump_direction = i * 2*PI/params->num_directions + params->first_bump_direction;
 
 		if (params->use_staircases){
 			staircase_id = i*2 + random->getBool();
@@ -461,13 +469,22 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	bump1->hold_duration = params->bump_duration;
 	bump1->peak_magnitude = bump_1_magnitude;
 	bump1->rise_time = 0;
-	bump1->direction = bump_direction;
+	if (!catch_trial){
+		bump1->direction = bump_direction;
+	} else {
+		if (params->num_directions>0){
+				i = random->getInteger(0,(int)(params->num_directions-1));
+				bump1->direction = fmod(i * 2 * PI/params->num_directions + params->first_bump_direction,2*PI);
+		} else {
+			bump1->direction = random->getDouble(0,2*PI);
+		}
+	}
 
 	bump2->hold_duration = params->bump_duration;
 	bump2->peak_magnitude = bump_2_magnitude;
 	bump2->rise_time = 0;
 	bump2->direction = bump_direction;
-
+				
 	bias_force->hold_duration = center_hold;
 	bias_force->peak_magnitude = params->bias_force_magnitude;
 	bias_force->rise_time = params->bias_force_ramp;
@@ -544,7 +561,9 @@ void AttentionBehavior::update(SimStruct *S) {
 			break;
 		case STATE_BUMP_1:
 			if (stateTimer->elapsedTime(S) > params->bump_duration) {
-				if (trial_type == VISUAL_TRIAL){
+				if (catch_trial){
+					setState(STATE_PRETRIAL);
+				} else if (trial_type == VISUAL_TRIAL){
 					setState(STATE_INTERVISUAL);
 				} else if (trial_type == PROPRIO_TRIAL){
 					setState(STATE_INTERBUMP);
