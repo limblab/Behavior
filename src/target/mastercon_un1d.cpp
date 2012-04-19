@@ -46,16 +46,14 @@ struct LocalParams {
 	real_T target_angle;
 	real_T target_radius;
 	real_T target_size;
+	real_T error_targets_on;
 
 	real_T displacement_mean;
 	real_T displacement_var;
 	real_T block_window_begin;
 	real_T block_window_end;
 
-	real_T feedback_window_begin;
-	real_T feedback_window_end;
-	real_T feedback_dot_size;
-	real_T feedback_dot_num;
+
 
 	real_T cloud_var_one;
 	real_T cloud_var_two;
@@ -67,11 +65,15 @@ struct LocalParams {
 	real_T cloud_frq_four;
 	real_T cloud_one_blank_on;
 
+	real_T feedback_window_begin;
+	real_T feedback_window_end;
+	real_T feedback_dot_size;
+	real_T feedback_dot_num;
+
 	real_T feedback_timer_on;
 	real_T feedback_time;
 	real_T feedback_loc;
 
-	real_T error_targets_on;
 };
 
 /**
@@ -140,32 +142,32 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->target_angle,			10);
 	this->bindParamId(&params->target_radius,			11);
 	this->bindParamId(&params->target_size,				12);
+	this->bindParamId(&params->error_targets_on,		13);
 
-	this->bindParamId(&params->displacement_mean,		13);
-	this->bindParamId(&params->displacement_var,		14);
-	this->bindParamId(&params->block_window_begin,		15);
-	this->bindParamId(&params->block_window_end,		16);
+	this->bindParamId(&params->displacement_mean,		14);
+	this->bindParamId(&params->displacement_var,		15);
+	this->bindParamId(&params->block_window_begin,		16);
+	this->bindParamId(&params->block_window_end,		17);
 	
-	this->bindParamId(&params->feedback_window_begin,	17);
-	this->bindParamId(&params->feedback_window_end,		18);
-	this->bindParamId(&params->feedback_dot_size,		19);
-	this->bindParamId(&params->feedback_dot_num,		20);
+	this->bindParamId(&params->cloud_var_one,			18);
+	this->bindParamId(&params->cloud_var_two,			19);
+	this->bindParamId(&params->cloud_var_three,			20);
+	this->bindParamId(&params->cloud_var_four,			21);
+	this->bindParamId(&params->cloud_frq_one,			22);
+	this->bindParamId(&params->cloud_frq_two,			23);
+	this->bindParamId(&params->cloud_frq_three,			24);
+	this->bindParamId(&params->cloud_frq_four,			25);
+	this->bindParamId(&params->cloud_one_blank_on,		26);
 
-	this->bindParamId(&params->cloud_var_one,			21);
-	this->bindParamId(&params->cloud_var_two,			22);
-	this->bindParamId(&params->cloud_var_three,			23);
-	this->bindParamId(&params->cloud_var_four,			24);
-	this->bindParamId(&params->cloud_frq_one,			25);
-	this->bindParamId(&params->cloud_frq_two,			26);
-	this->bindParamId(&params->cloud_frq_three,			27);
-	this->bindParamId(&params->cloud_frq_four,			28);
-	this->bindParamId(&params->cloud_one_blank_on,		29);
+	this->bindParamId(&params->feedback_window_begin,	27);
+	this->bindParamId(&params->feedback_window_end,		28);
+	this->bindParamId(&params->feedback_dot_size,		29);
+	this->bindParamId(&params->feedback_dot_num,		30);
 
-	this->bindParamId(&params->feedback_timer_on,		30);
-	this->bindParamId(&params->feedback_time,			31);
-	this->bindParamId(&params->feedback_loc,			32);
+	this->bindParamId(&params->feedback_timer_on,		31);
+	this->bindParamId(&params->feedback_time,			32);
+	this->bindParamId(&params->feedback_loc,			33);
 
-	this->bindParamId(&params->error_targets_on,		33);
 
 
 	// declare which already defined parameter is our master reset 
