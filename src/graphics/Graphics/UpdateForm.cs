@@ -2256,15 +2256,15 @@ namespace BehaviorGraphics
         {
             if (!checkBoxUBlankFbOne.Checked)
             {
-                textboxUFbFrqOne.Show();
-                textboxUFbVarOne.Show();
+                textBoxUFbFrqOne.Show();
+                textBoxUFbVarOne.Show();
                 labelUFbFrqOne.Show();
                 labelUFbVarOne.Show();
             }
             else
             {
-                textboxUFbFrqOne.Hide();
-                textboxUFbVarOne.Hide();
+                textBoxUFbFrqOne.Hide();
+                textBoxUFbVarOne.Hide();
                 labelUFbFrqOne.Hide();
                 labelUFbVarOne.Hide();
             }
