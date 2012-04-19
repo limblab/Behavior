@@ -105,7 +105,7 @@ struct LocalParams{
 	real_T bump_mag_min;
 	real_T bump_mag_max;
 	real_T proprio_step_size;
-	real_T num_bump_magnitudes;
+	real_T num_proprio_steps;
 	real_T bump_duration;
 	real_T num_directions;
 	real_T first_bump_direction;
@@ -158,7 +158,7 @@ private:
 	
 	int trial_type;	/* VISUAL_TRIAL, PROPRIO_TRIAL, CONTROL_TRIAL */
 	int trial_counter;
-	int training_trial;
+	int training_mode;
 	int catch_trial;
 	int bigger_first;
 
@@ -167,6 +167,9 @@ private:
 	int control_color;
 	int response_color;
 	
+	real_T test_target_size;
+	real_T test_bump_size;
+	real_T bump_direction;
 	real_T standard_bump_magnitude;
 	real_T test_bump_magnitude;
 	real_T bump_1_magnitude;
@@ -181,13 +184,13 @@ private:
 
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
-	void setupStaircase(int i, double angle, double step, bool limits, double fl, double bl);
+	void setupProprioStaircase(int i, double angle, double step, double fl, double bl);
+	void setupVisualStaircase(int i, double angle, double step, double fl, double bl);
 	int choseTrialStaircase();
 };
 
 AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     int i;
-	real_T temp_real;
 
 	/* 
 	 * First, set up the parameters to be used 
@@ -223,7 +226,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->bump_mag_min,							22);
 	this->bindParamId(&params->bump_mag_max,							23);
 	this->bindParamId(&params->proprio_step_size,						24);
-	this->bindParamId(&params->num_bump_magnitudes,						25);
+	this->bindParamId(&params->num_proprio_steps,						25);
 	this->bindParamId(&params->bump_duration,							26);	
 	this->bindParamId(&params->num_directions,							27);
 	this->bindParamId(&params->first_bump_direction,					28);
@@ -251,7 +254,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	control_color = Target::Color(50,200,50);
 	response_color = Target::Color(255,0,0);
 
-	CenterTarget = new SquareTarget();
+	centerTarget = new SquareTarget();
 
 	visualTarget1 = new CircleTarget();
 	visualTarget2 = new CircleTarget();
@@ -278,7 +281,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	staircase_id = -1;
 	trial_type = 0;
 	trial_counter = 0;
-	training_trial = false;
+	training_mode = false;
 	catch_trial = false;
 
 	standard_bump_magnitude = 0.0;
@@ -356,7 +359,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		temp_real = random->getDouble(0,100);
 		if (temp_real < params->percent_visual_trials){
 			trial_type = VISUAL_TRIAL;
-		} else if (temp_real < params->percent_visual_trials + param->percent_proprio_trials){
+		} else if (temp_real < params->percent_visual_trials + params->percent_proprio_trials){
 			trial_type = PROPRIO_TRIAL;
 		} else {
 			trial_type = CONTROL_TRIAL;
@@ -365,7 +368,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		
 	catch_trial = (this->random->getDouble(0,100) < params->percent_catch_trials) ? 1 : 0;
 	training_mode = (this->random->getDouble(0,100) < params->percent_training_trials) ? 1 : 0;
-	bigger_first = this->random->getBool;
+	bigger_first = this->random->getBool();
 	
 	// Set up target locations, etc.
 	centerTarget->width = params->target_size;
@@ -386,16 +389,16 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		visualTarget1->color = visual_color;
 		visualTarget2->color = visual_color;
 
-		i = random->getInteger(0,params->num_directions-1);
-		bump_direction = i * 2 * PI/num_directions + first_bump_direction;
+		i = random->getInteger(0,(int)(params->num_directions-1));
+		bump_direction = i * 2 * PI/params->num_directions + params->first_bump_direction;
 		bump_1_magnitude = standard_bump_magnitude;
 		bump_2_magnitude = standard_bump_magnitude;
 
-		if (use_staircases){			
+		if (params->use_staircases){			
 			staircase_id = random->getBool();
 			test_target_size = visualStairs[staircase_id]->getValue();
 		} else {
-			i = random->getInteger(0,params->num_visual_steps-1);
+			i = random->getInteger(0,(int)(params->num_visual_steps-1));
 			test_target_size = params->visual_min_ratio + i*(params->visual_max_ratio - params->visual_min_ratio)/(params->num_visual_steps-1);
 		}
 
@@ -420,15 +423,15 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		visualTarget1->color = 0;
 		visualTarget2->color = 0;
 
-		i = random->getInteger(0,params->num_directions-1);
-		bump_direction = i * 2*PI/num_directions + first_bump_direction;
+		i = random->getInteger(0,(int)(params->num_directions-1));
+		bump_direction = i * 2*PI/params->num_directions + params->first_bump_direction;
 
-		if (use_staircases){
+		if (params->use_staircases){
 			staircase_id = i*2 + random->getBool();
 			test_bump_size = visualStairs[staircase_id]->getValue();
 		} else {			
-			i = random->getInteger(0,params->proprio_num_steps-1);
-			test_bump_size = params->bump_mag_min + i*(params->bump_mag_max - params->bump_mag_min)/(params->proprio_num_steps-1);
+			i = random->getInteger(0,(int)(params->num_proprio_steps-1));
+			test_bump_size = params->bump_mag_min + i*(params->bump_mag_max - params->bump_mag_min)/(params->num_proprio_steps-1);
 		}
 
 		if (bigger_first){		
@@ -477,23 +480,23 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
     db->addByte(BEHAVIOR_VERSION_MINOR);
 	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
-	db->addFloat(inputs->offset.x);
-	db->addFloat(inputs->offset.y);
+	db->addFloat((float)(inputs->offsets.x));
+	db->addFloat((float)(inputs->offsets.y));
 	db->addByte(trial_type);
 	db->addByte(staircase_id);
 	db->addByte(training_mode);
 	db->addByte(catch_trial);
-	db->addFloat(bump_1_magnitude);
-	db->addFloat(bump_2_magnitude);
-	db->addFloat(bump_direction);
-	db->addFloat(params->bump_duration);
-	db->addFloat(visualTarget1->radius);
-	db->addFloat(visualTarget2->radius);
-	db->addFloat(rewardTarget->centerX);
-	db->addFloat(failTarget->centerY);
-	db->addFloat(params->outer_target_delay);
-	db->addFloat(params->bias_force_magnitude);
-	db->addFloat(params->bias_force_direction);
+	db->addFloat((float)(bump_1_magnitude));
+	db->addFloat((float)(bump_2_magnitude));
+	db->addFloat((float)(bump_direction));
+	db->addFloat((float)(params->bump_duration));
+	db->addFloat((float)(visualTarget1->radius));
+	db->addFloat((float)(visualTarget2->radius));
+	db->addFloat((float)(rewardTarget->centerX));
+	db->addFloat((float)(failTarget->centerY));
+	db->addFloat((float)(params->outer_target_delay));
+	db->addFloat((float)(params->bias_force_magnitude));
+	db->addFloat((float)(params->bias_force_direction));
 	db->start();
 
 }
@@ -552,7 +555,7 @@ void AttentionBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_INTERBUMP:
-			if (stateTimer->elapsedTime(S) > params->interbump_delay && centerTarget->cursorInTarget(inputs->cursor)){
+			if (stateTimer->elapsedTime(S) > interbump_delay && centerTarget->cursorInTarget(inputs->cursor)){
 				bias_force->start(S);
 				setState(STATE_CENTER_HOLD_2);
 			}
@@ -592,7 +595,7 @@ void AttentionBehavior::update(SimStruct *S) {
 			break;
 		case STATE_MOVEMENT:
 			if (rewardTarget->cursorInTarget(inputs->cursor)){
-				if (params->run_staircases){
+				if (params->use_staircases){
 					if (trial_type == VISUAL_TRIAL){
 						this->visualStairs[staircase_id]->stepForward();
 					} else if (trial_type == PROPRIO_TRIAL){
@@ -601,8 +604,8 @@ void AttentionBehavior::update(SimStruct *S) {
 				}			
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
-			} else if (failTarget->cursorInTarget(inputs->cursor){
-				if (params->run_staircases){
+			} else if (failTarget->cursorInTarget(inputs->cursor)){
+				if (params->use_staircases){
 					if (trial_type == VISUAL_TRIAL){
 						this->visualStairs[staircase_id]->stepBackward();
 					} else if (trial_type == PROPRIO_TRIAL){
@@ -611,7 +614,7 @@ void AttentionBehavior::update(SimStruct *S) {
 				}
 				playTone(TONE_ABORT);
 				setState(STATE_FAIL);
-			} else if stateTimer->elapsedTime(S) > params->movement_time){
+			} else if (stateTimer->elapsedTime(S) > params->movement_time){
 				setState(STATE_INCOMPLETE);
 			}
 			break;
