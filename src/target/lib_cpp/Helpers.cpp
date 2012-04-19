@@ -20,6 +20,12 @@ public:
     Point();
     Point(real_T x, real_T y);
     
+	Point & operator+=(const Point &p);
+	Point & operator-=(const Point &p);
+	
+	const Point operator+(const Point &p);
+	const Point operator-(const Point &p);
+
 	real_T x; /**< The x coordinate of the point. */
 	real_T y; /**< The y coordinate of the point. */
 };
@@ -38,6 +44,31 @@ Point::Point() {
 Point::Point(real_T x, real_T y) {
     this->x = x;
     this->y = y;
+}
+
+
+Point & Point::operator+=(const Point &p) {
+	this->x = this->x + p.x;
+	this->y = this->y + p.y;
+	return *this;
+}
+
+Point & Point::operator-=(const Point &p) {
+	this->x = this->x - p.x;
+	this->y = this->y - p.y;
+	return *this;
+}
+
+const Point Point::operator+(const Point &p) {
+	Point a = *this;
+	a += p;
+	return a;
+}
+
+const Point Point::operator-(const Point &p) {
+	Point a = *this;
+	a -= p;
+	return a;
 }
 
 /***************************************************

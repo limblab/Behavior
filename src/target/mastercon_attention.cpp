@@ -36,7 +36,8 @@
  * bytes 42 to 45: float => fail target center x (cm)
  * bytes 46 to 49: float => outer target delay after bump (ms, if -1 outer
  *                          targets visible during center hold)
-
+ * bytes 50 to 53: float => bias force magnitude (N?)
+ * bytes 54 to 57: float => bias force direction (rad)
  */
 
 #define S_FUNCTION_NAME mastercon_attention
@@ -58,7 +59,7 @@
  */
 #define STATE_PRETRIAL				 0
 #define STATE_CENTER_TARGET_ON		 1
-#define STATE_CENTER_HOLD			 2
+#define STATE_CENTER_HOLD_1			 2
 #define STATE_VISUAL_1				 3
 #define STATE_BUMP_1				 4
 #define STATE_INTERBUMP				 5
@@ -114,6 +115,11 @@ struct LocalParams{
 	real_T target_radius;
 	real_T visual_target_duration;
 	real_T inter_visual_target_delay;
+
+	// Bias force
+	real_T bias_force_magnitude;
+	real_T bias_force_direction;
+	real_T bias_force_ramp;
 };
 
 /**
@@ -168,6 +174,7 @@ private:
 
 	TrapBumpGenerator *bump1;
 	TrapBumpGenerator *bump2;
+	TrapBumpGenerator *bias_force;
 
 	LocalParams *params;
 	real_T last_soft_reset;
@@ -224,6 +231,9 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->target_radius,							30);
 	this->bindParamId(&params->visual_target_duration,					31);
 	this->bindParamId(&params->inter_visual_target_delay,				32);
+	this->bindParamId(&params->bias_force_magnitude,					33);
+	this->bindParamId(&params->bias_force_direction,					34);
+	this->bindParamId(&params->bias_force_ramp,							35);
 
 
 	// declare which already defined parameter is our master reset 
@@ -279,6 +289,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 
 	bump1 = new TrapBumpGenerator();
 	bump2 = new TrapBumpGenerator();
+	bias_force = new TrapBumpGenerator();
 }
 
 void AttentionBehavior::setupProprioStaircase(
@@ -366,7 +377,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	biggerSecondResponseTarget->width = params->target_size;
 	biggerSecondResponseTarget->centerX = params->target_radius;
 	biggerSecondResponseTarget->centerY = 0;
-
+	
 	if (trial_type == VISUAL_TRIAL) {
 
 		centerTarget->color = visual_color;
@@ -444,15 +455,20 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
 	// Set up the bumps
 	
-	this->bump1->hold_duration = params->bump_duration;
-	this->bump1->peak_magnitude = params->bump_1_magnitude;
-	this->bump1->rise_time = 0;
-	this->bump1->direction = this->bump_direction;
+	bump1->hold_duration = params->bump_duration;
+	bump1->peak_magnitude = bump_1_magnitude;
+	bump1->rise_time = 0;
+	bump1->direction = bump_direction;
 
-	this->bump2->hold_duration = params->bump_duration;
-	this->bump2->peak_magnitude = params->bump_2_magnitude;
-	this->bump2->rise_time = 0;
-	this->bump2->direction = this->bump_direction;
+	bump2->hold_duration = params->bump_duration;
+	bump2->peak_magnitude = bump_2_magnitude;
+	bump2->rise_time = 0;
+	bump2->direction = bump_direction;
+
+	bias_force->hold_duration = center_hold;
+	bias_force->peak_magnitude = params->bias_force_magnitude;
+	bias_force->rise_time = params->bias_force_ramp;
+	bias_force->direction = params->bias_force_direction;
 
 	/* setup the databurst */
 	db->reset();
@@ -476,6 +492,8 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat(rewardTarget->centerX);
 	db->addFloat(failTarget->centerY);
 	db->addFloat(params->outer_target_delay);
+	db->addFloat(params->bias_force_magnitude);
+	db->addFloat(params->bias_force_direction);
 	db->start();
 
 }
@@ -497,10 +515,11 @@ void AttentionBehavior::update(SimStruct *S) {
 		case STATE_CENTER_TARGET_ON:
 			/* first target on */
 			if (centerTarget->cursorInTarget(inputs->cursor)) {
-				setState(STATE_CENTER_HOLD);
+				bias_force->start(S);
+				setState(STATE_CENTER_HOLD_1);
 			}
 			break;
-		case STATE_CENTER_HOLD:
+		case STATE_CENTER_HOLD_1:
 			if (stateTimer->elapsedTime(S) > center_hold && trial_type != VISUAL_TRIAL) {
 				bump1->start(S);
 				setState(STATE_BUMP_1);
@@ -534,6 +553,7 @@ void AttentionBehavior::update(SimStruct *S) {
 			break;
 		case STATE_INTERBUMP:
 			if (stateTimer->elapsedTime(S) > params->interbump_delay && centerTarget->cursorInTarget(inputs->cursor)){
+				bias_force->start(S);
 				setState(STATE_CENTER_HOLD_2);
 			}
 			break;
@@ -572,9 +592,23 @@ void AttentionBehavior::update(SimStruct *S) {
 			break;
 		case STATE_MOVEMENT:
 			if (rewardTarget->cursorInTarget(inputs->cursor)){
+				if (params->run_staircases){
+					if (trial_type == VISUAL_TRIAL){
+						this->visualStairs[staircase_id]->stepForward();
+					} else if (trial_type == PROPRIO_TRIAL){
+						this->proprioStairs[staircase_id]->stepForward();
+					}
+				}			
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
 			} else if (failTarget->cursorInTarget(inputs->cursor){
+				if (params->run_staircases){
+					if (trial_type == VISUAL_TRIAL){
+						this->visualStairs[staircase_id]->stepBackward();
+					} else if (trial_type == PROPRIO_TRIAL){
+						this->proprioStairs[staircase_id]->stepBackward();
+					}
+				}
 				playTone(TONE_ABORT);
 				setState(STATE_FAIL);
 			} else if stateTimer->elapsedTime(S) > params->movement_time){
@@ -584,6 +618,7 @@ void AttentionBehavior::update(SimStruct *S) {
 		case STATE_ABORT:
 			this->bump1->stop();
 			this->bump2->stop();
+			this->bias_force->stop();
 			if (stateTimer->elapsedTime(S) > params->abort_timeout) {
 				setState(STATE_PRETRIAL);
 			}
@@ -591,6 +626,7 @@ void AttentionBehavior::update(SimStruct *S) {
         case STATE_REWARD:
 			this->bump1->stop();
 			this->bump2->stop();
+			this->bias_force->stop();
 			if (stateTimer->elapsedTime(S) > params->reward_timeout) {
 				setState(STATE_PRETRIAL);
 			}
@@ -598,6 +634,7 @@ void AttentionBehavior::update(SimStruct *S) {
 		case STATE_FAIL:
 			this->bump1->stop();
 			this->bump2->stop();
+			this->bias_force->stop();
 			if (stateTimer->elapsedTime(S) > params->fail_timeout) {
 				setState(STATE_PRETRIAL);
 			}
@@ -605,6 +642,7 @@ void AttentionBehavior::update(SimStruct *S) {
         case STATE_INCOMPLETE:
 			this->bump1->stop();
 			this->bump2->stop();
+			this->bias_force->stop();
 			if (stateTimer->elapsedTime(S) > params->reward_timeout) {
 				setState(STATE_PRETRIAL);
 			}
@@ -615,28 +653,27 @@ void AttentionBehavior::update(SimStruct *S) {
 }
 
 void AttentionBehavior::calculateOutputs(SimStruct *S) {
-    /* declarations */
-    Point bf;
+	Point bf;
 
 	/* force (0) */
-	if (bump1->isRunning(S)) {
-		bf = bump1->getBumpForce(S);
-		outputs->force.x = inputs->force.x + bf.x;
-		outputs->force.y = inputs->force.y + bf.y;
-	} else if (bump2->isRunning(S)){
-		bf = bump2->getBumpForce(S);
-		outputs->force.x = inputs->force.x + bf.x;
-		outputs->force.y = inputs->force.y + bf.y;
-	} else {
-		outputs->force = inputs->force;
+	outputs->force = inputs->force;
+
+	if (bias_force->isRunning(S)){
+		outputs->force += bias_force->getBumpForce(S);
 	}
+
+	if (bump1->isRunning(S)) {
+		outputs->force += bump1->getBumpForce(S);		
+	} else if (bump2->isRunning(S)){
+		outputs->force += bump2->getBumpForce(S);
+	} 
 
 	/* status (1) */
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->failures;
-	outputs->status[3] = (int)stairs[0]->getValue();
-	outputs->status[4] = (int)stairs[1]->getValue();
+	outputs->status[3] = trialCounter->aborts;
+	outputs->status[4] = trialCounter->incompletes;
 
 	/* word(2) */
 	if (db->isRunning()) {
@@ -646,17 +683,29 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_PRETRIAL:
 				outputs->word = WORD_START_TRIAL;
 				break;
-			case STATE_CT_BLOCK:
+			case STATE_CENTER_TARGET_ON:
 				outputs->word = WORD_OT_ON(0);
 				break;
-			case STATE_STIM:
-				outputs->word = WORD_STIM(0);
+			case STATE_CENTER_HOLD_1:
+				outputs->word = WORD_CENTER_TARGET_HOLD;
 				break;
-			case STATE_BUMP:
-				outputs->word = WORD_BUMP(0);
+			case STATE_VISUAL_1:
+				outputs->word = WORD_OT_ON(1);
+				break;
+			case STATE_BUMP_1:
+				outputs->word = WORD_BUMP(1);
+				break;
+			case STATE_CENTER_HOLD_2:
+				outputs->word = WORD_CENTER_TARGET_HOLD;
+				break;
+			case STATE_VISUAL_2:
+				outputs->word = WORD_OT_ON(2);
+				break;
+			case STATE_BUMP_2:
+				outputs->word = WORD_BUMP(2);
 				break;
 			case STATE_MOVEMENT:
-				outputs->word = WORD_GO_CUE;
+				outputs->word = WORD_OT_ON(3);
 				break;
 			case STATE_REWARD:
 				outputs->word = WORD_REWARD;
@@ -679,16 +728,31 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 
 	/* target_pos (3) */
 	// Center Target
-	if (getState() == STATE_CT_ON || 
-	    getState() == STATE_CT_HOLD || 
-        getState() == STATE_CT_BLOCK ||
-        getState() == STATE_BUMP) 
+	if (getState() == STATE_CENTER_TARGET_ON || 
+	    getState() == STATE_CENTER_HOLD_1 || 
+        getState() == STATE_INTERBUMP ||
+        getState() == STATE_CENTER_HOLD_2 ||
+		getState() == STATE_BUMP_1 ||
+		getState() == STATE_BUMP_2 ||
+		getState() == STATE_VISUAL_1 ||
+		getState() == STATE_VISUAL_2 ||
+		getState() == STATE_INTERVISUAL) 
 	{
 		outputs->targets[0] = (Target *)centerTarget;
 		outputs->targets[1] = nullTarget;
+	} else if (getState() == STATE_VISUAL_1) {
+		outputs->targets[0] = (Target *)visualTarget1;
+		outputs->targets[1] = (Target *)centerTarget;
+	} else if (getState() == STATE_VISUAL_2) {
+		outputs->targets[0] = (Target *)visualTarget2;
+		outputs->targets[1] = (Target *)centerTarget;
 	} else if (getState() == STATE_MOVEMENT) {
-		outputs->targets[0] = (Target *)(this->primaryTarget);
-		outputs->targets[1] = (Target *)(this->secondaryTarget);
+		outputs->targets[0] = (Target *)rewardTarget;
+		if (!training_mode) {
+			outputs->targets[1] = (Target *)failTarget;
+		} else {
+			outputs->targets[1] = nullTarget;
+		}
 	} else {
 		outputs->targets[0] = nullTarget;
 		outputs->targets[1] = nullTarget;
@@ -708,7 +772,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-    if ((getState() == STATE_CT_BLOCK || getState() == STATE_BUMP) && (params->hide_cursor > .1))
+    if (getState() == STATE_BUMP_1 || getState() == STATE_BUMP_2)
     {
         outputs->position = Point(1E6, 1E6);
     } else {
