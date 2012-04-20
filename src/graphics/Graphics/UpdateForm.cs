@@ -560,7 +560,7 @@ namespace BehaviorGraphics
             AddParamListItem("Un Feedback Time", "P33", "Behavior Un1d", this.textBoxUFbTime);
             AddParamListItem("Un Feedback Loc", "P34", "Behavior Un1d", this.textBoxUFbLoc);
 
-
+            AddParamListItem("Un Center Offset", "P35", "Behavior Un1d", this.textBoxUCenterOffset);
             #endregion
 
             #region Bump-follow
@@ -2258,6 +2258,11 @@ namespace BehaviorGraphics
         }
 
         private void textBox27_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox49_Enter(object sender, EventArgs e)
         {
 
         }
