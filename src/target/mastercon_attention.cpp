@@ -354,21 +354,21 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
 	// Select a trial type
 	if (params->trial_block_size > 1){
-		if (100*trial_counter/params->trial_block_size < params->percent_visual_trials){
+		if (100*trial_counter/params->trial_block_size <= params->percent_visual_trials){
 			trial_type = VISUAL_TRIAL;
-		} else if (100*trial_counter/params->trial_block_size < params->percent_visual_trials + params->percent_proprio_trials){
+		} else if (100*trial_counter/params->trial_block_size <= params->percent_visual_trials + params->percent_proprio_trials){
 			trial_type = PROPRIO_TRIAL;
 		} else {
 			trial_type = CONTROL_TRIAL;
 		}
 	} else {
 		temp_real = random->getDouble(0,100);
-		if (temp_real < params->percent_visual_trials){
+		if (temp_real <= params->percent_visual_trials){
 			trial_type = VISUAL_TRIAL;
-		} else if (temp_real < params->percent_visual_trials + params->percent_proprio_trials){
+		} else if (temp_real <= params->percent_visual_trials + params->percent_proprio_trials){
 			trial_type = PROPRIO_TRIAL;
 		} else {
-			trial_type = CONTROL_TRIAL;
+			trial_type = CONTROL_TRIAL; 
 		}
 	}
 		
@@ -516,7 +516,6 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)(params->bias_force_magnitude));
 	db->addFloat((float)(params->bias_force_direction));
 	db->start();
-
 }
 
 void AttentionBehavior::update(SimStruct *S) {
@@ -563,7 +562,7 @@ void AttentionBehavior::update(SimStruct *S) {
 		case STATE_BUMP_1:
 			if (stateTimer->elapsedTime(S) > params->bump_duration) {
 				if (catch_trial){
-					setState(STATE_PRETRIAL);
+					setState(STATE_INCOMPLETE);
 				} else if (trial_type == VISUAL_TRIAL){
 					setState(STATE_INTERVISUAL);
 				} else if (trial_type == PROPRIO_TRIAL){
@@ -639,33 +638,33 @@ void AttentionBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_ABORT:
-// 			this->bump1->stop();
-// 			this->bump2->stop();
-// 			this->bias_force->stop();
+			this->bump1->stop();
+			this->bump2->stop();
+			this->bias_force->stop();
 			if (stateTimer->elapsedTime(S) > params->abort_timeout) {
 				setState(STATE_PRETRIAL);
 			}
 			break;
         case STATE_REWARD:
-// 			this->bump1->stop();
-// 			this->bump2->stop();
-// 			this->bias_force->stop();
+			this->bump1->stop();
+			this->bump2->stop();
+			this->bias_force->stop();
 			if (stateTimer->elapsedTime(S) > params->reward_timeout) {
 				setState(STATE_PRETRIAL);
 			}
 			break;
 		case STATE_FAIL:
-// 			this->bump1->stop();
-// 			this->bump2->stop();
-// 			this->bias_force->stop();
+			this->bump1->stop();
+			this->bump2->stop();
+			this->bias_force->stop();
 			if (stateTimer->elapsedTime(S) > params->fail_timeout) {
 				setState(STATE_PRETRIAL);
 			}
 			break;
         case STATE_INCOMPLETE:
-// 			this->bump1->stop();
-// 			this->bump2->stop();
-// 			this->bias_force->stop();
+			this->bump1->stop();
+			this->bump2->stop();
+			this->bias_force->stop();
 			if (stateTimer->elapsedTime(S) > params->reward_timeout) {
 				setState(STATE_PRETRIAL);
 			}
@@ -763,10 +762,10 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[1] = nullTarget;
 	} else if (getState() == STATE_VISUAL_1) {
 		outputs->targets[0] = (Target *)visualTarget1;
-		outputs->targets[1] = (Target *)centerTarget;
+		outputs->targets[1] = nullTarget;
 	} else if (getState() == STATE_VISUAL_2) {
 		outputs->targets[0] = (Target *)visualTarget2;
-		outputs->targets[1] = (Target *)centerTarget;
+		outputs->targets[1] = nullTarget;
 	} else if (getState() == STATE_MOVEMENT) {
 		outputs->targets[0] = (Target *)rewardTarget;
 		if (!training_mode) {
