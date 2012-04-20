@@ -76,6 +76,7 @@ struct LocalParams {
 	real_T feedback_time;
 	real_T feedback_loc;        // where the feedback is activated(cm)
 
+	real_T center_tgt_offset;   // offset of the center along outer target axis
 };
 
 /**
@@ -132,7 +133,7 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(34);
+	this->setNumParams(35);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			 0);
@@ -175,6 +176,8 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->feedback_timer_mode,		31);
 	this->bindParamId(&params->feedback_time,			32);
 	this->bindParamId(&params->feedback_loc,			33);
+
+	this->bindParamId(&params->center_tgt_offset,		34);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
