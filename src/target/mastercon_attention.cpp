@@ -190,7 +190,6 @@ private:
 	void doPreTrial(SimStruct *S);
 	void setupProprioStaircase(int i, double angle, double step, double fl, double bl);
 	void setupVisualStaircase(int i, double angle, double step, double fl, double bl);
-	int choseTrialStaircase();
 };
 
 AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
@@ -390,13 +389,13 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	
 	// Pick the bump direction
 	if (!params->blocked_directions || trial_counter==1){
-			if (params->num_directions>0){
-				i = random->getInteger(0,(int)(params->num_directions-1));
-				bump_direction = fmod(i * 2 * PI/params->num_directions + params->first_bump_direction,2*PI);
-			} else {
-				bump_direction = random->getDouble(0,2*PI);
-			}
-		}
+        if (params->num_directions>0){
+            i = random->getInteger(0,(int)(params->num_directions-1));
+            bump_direction = fmod(i * 2 * PI/params->num_directions + params->first_bump_direction,2*PI);
+        } else {
+            bump_direction = random->getDouble(0,2*PI);
+        }
+    }
 		
 	bump_1_magnitude = standard_bump_magnitude;
 	bump_2_magnitude = standard_bump_magnitude;
@@ -418,17 +417,16 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		}
 
 		if (bigger_first){
-			visualTarget1->radius = params->target_size > test_target_size ? params->target_size : test_target_size;
-			visualTarget2->radius = params->target_size > test_target_size ? test_target_size : params->target_size;
+			visualTarget1->radius = params->target_size > test_target_size ? 2*params->target_size : 2*test_target_size;
+			visualTarget2->radius = params->target_size > test_target_size ? 2*test_target_size : 2*params->target_size;
 			rewardTarget = biggerFirstResponseTarget;
 			failTarget = biggerSecondResponseTarget;
 		} else {			
-			visualTarget1->radius = params->target_size > test_target_size ? test_target_size : params->target_size;
-			visualTarget2->radius = params->target_size > test_target_size ? params->target_size : test_target_size;
+			visualTarget1->radius = params->target_size > test_target_size ? 2*test_target_size : 2*params->target_size;
+			visualTarget2->radius = params->target_size > test_target_size ? 2*params->target_size : 2*test_target_size;
 			rewardTarget = biggerSecondResponseTarget;
 			failTarget = biggerFirstResponseTarget;
 		}
-
 
 	} else if ( trial_type == PROPRIO_TRIAL ) {	
 
@@ -468,8 +466,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		bump_2_magnitude = standard_bump_magnitude;
 	}	
 
-	// Set up the bumps
-	
+	// Set up the bumps	
 	bump1->hold_duration = params->bump_duration;
 	bump1->peak_magnitude = bump_1_magnitude;
 	bump1->rise_time = 0;
@@ -523,13 +520,13 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 }
 
 void AttentionBehavior::update(SimStruct *S) {
-
+	int i;
 	// State machine
 	switch (this->getState()) {
 		case STATE_PRETRIAL:
-			updateParameters(S);
-			doPreTrial(S);
-			setState(STATE_DATA_BLOCK);
+            updateParameters(S);
+            doPreTrial(S);
+            setState(STATE_DATA_BLOCK);
 			break;
 		case STATE_DATA_BLOCK:
 			if (db->isDone()) {
@@ -642,33 +639,33 @@ void AttentionBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_ABORT:
-			this->bump1->stop();
-			this->bump2->stop();
-			this->bias_force->stop();
+// 			this->bump1->stop();
+// 			this->bump2->stop();
+// 			this->bias_force->stop();
 			if (stateTimer->elapsedTime(S) > params->abort_timeout) {
 				setState(STATE_PRETRIAL);
 			}
 			break;
         case STATE_REWARD:
-			this->bump1->stop();
-			this->bump2->stop();
-			this->bias_force->stop();
+// 			this->bump1->stop();
+// 			this->bump2->stop();
+// 			this->bias_force->stop();
 			if (stateTimer->elapsedTime(S) > params->reward_timeout) {
 				setState(STATE_PRETRIAL);
 			}
 			break;
 		case STATE_FAIL:
-			this->bump1->stop();
-			this->bump2->stop();
-			this->bias_force->stop();
+// 			this->bump1->stop();
+// 			this->bump2->stop();
+// 			this->bias_force->stop();
 			if (stateTimer->elapsedTime(S) > params->fail_timeout) {
 				setState(STATE_PRETRIAL);
 			}
 			break;
         case STATE_INCOMPLETE:
-			this->bump1->stop();
-			this->bump2->stop();
-			this->bias_force->stop();
+// 			this->bump1->stop();
+// 			this->bump2->stop();
+// 			this->bias_force->stop();
 			if (stateTimer->elapsedTime(S) > params->reward_timeout) {
 				setState(STATE_PRETRIAL);
 			}
@@ -694,13 +691,13 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 		outputs->force += bump2->getBumpForce(S);
 	} 
 
-	/* status (1) */
+    /* status (1) */
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->failures;
 	outputs->status[3] = trialCounter->aborts;
 	outputs->status[4] = trialCounter->incompletes;
-
+    
 	/* word(2) */
 	if (db->isRunning()) {
 		outputs->word = db->getByte();
@@ -760,8 +757,6 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
         getState() == STATE_CENTER_HOLD_2 ||
 		getState() == STATE_BUMP_1 ||
 		getState() == STATE_BUMP_2 ||
-		getState() == STATE_VISUAL_1 ||
-		getState() == STATE_VISUAL_2 ||
 		getState() == STATE_INTERVISUAL) 
 	{
 		outputs->targets[0] = (Target *)centerTarget;
@@ -804,6 +799,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     } else {
     	outputs->position = inputs->cursor;
     } 
+    
 }
 
 /*
