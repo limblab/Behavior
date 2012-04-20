@@ -203,7 +203,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(20);
+	this->setNumParams(36);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->center_hold_l,							 1);
@@ -241,7 +241,11 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->bias_force_magnitude,					33);
 	this->bindParamId(&params->bias_force_direction,					34);
 	this->bindParamId(&params->bias_force_ramp,							35);				
-		
+    
+    // default parameters:
+    // 0 .5 1 .5 1 10 1 1 1 1 3 10 1 1 35 35 10 20 20 1 2 1.57 .1 4 .5 
+    // 1.5 .0005 4 .01 .03 .2 1 0 .0001 0 .2
+    
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
