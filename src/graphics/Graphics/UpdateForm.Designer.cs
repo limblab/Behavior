@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -608,6 +608,9 @@ namespace BehaviorGraphics
             this.textBox2AFCOHL = new System.Windows.Forms.TextBox();
             this.label217 = new System.Windows.Forms.Label();
             this.tabUncertainty1D = new System.Windows.Forms.TabPage();
+            this.groupBox49 = new System.Windows.Forms.GroupBox();
+            this.textBoxUCenterOffset = new System.Windows.Forms.TextBox();
+            this.label287 = new System.Windows.Forms.Label();
             this.groupBox55 = new System.Windows.Forms.GroupBox();
             this.textBoxUFbTime = new System.Windows.Forms.TextBox();
             this.label324 = new System.Windows.Forms.Label();
@@ -876,9 +879,6 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.textBoxUCenterOffset = new System.Windows.Forms.TextBox();
-            this.label287 = new System.Windows.Forms.Label();
-            this.groupBox49 = new System.Windows.Forms.GroupBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -961,6 +961,7 @@ namespace BehaviorGraphics
             this.groupBox45.SuspendLayout();
             this.groupBox46.SuspendLayout();
             this.tabUncertainty1D.SuspendLayout();
+            this.groupBox49.SuspendLayout();
             this.groupBox55.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownDotNum)).BeginInit();
             this.groupBox54.SuspendLayout();
@@ -991,7 +992,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBox49.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -3750,8 +3750,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4509,8 +4509,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -7128,6 +7128,36 @@ namespace BehaviorGraphics
             this.tabUncertainty1D.Text = "Uncertainty1D";
             this.tabUncertainty1D.UseVisualStyleBackColor = true;
             // 
+            // groupBox49
+            // 
+            this.groupBox49.Controls.Add(this.textBoxUCenterOffset);
+            this.groupBox49.Controls.Add(this.label287);
+            this.groupBox49.Location = new System.Drawing.Point(222, 333);
+            this.groupBox49.Name = "groupBox49";
+            this.groupBox49.Size = new System.Drawing.Size(441, 66);
+            this.groupBox49.TabIndex = 46;
+            this.groupBox49.TabStop = false;
+            this.groupBox49.Text = "Miscellaneous Parameters";
+            this.groupBox49.Enter += new System.EventHandler(this.groupBox49_Enter);
+            // 
+            // textBoxUCenterOffset
+            // 
+            this.textBoxUCenterOffset.Location = new System.Drawing.Point(85, 30);
+            this.textBoxUCenterOffset.Name = "textBoxUCenterOffset";
+            this.textBoxUCenterOffset.Size = new System.Drawing.Size(44, 20);
+            this.textBoxUCenterOffset.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.textBoxUCenterOffset, "Offset of center target along the outer target axis.");
+            // 
+            // label287
+            // 
+            this.label287.AutoSize = true;
+            this.label287.Location = new System.Drawing.Point(9, 33);
+            this.label287.Name = "label287";
+            this.label287.Size = new System.Drawing.Size(69, 13);
+            this.label287.TabIndex = 25;
+            this.label287.Text = "Center Offset";
+            this.toolTip1.SetToolTip(this.label287, "Offset of the center target along the target axis");
+            // 
             // groupBox55
             // 
             this.groupBox55.Controls.Add(this.textBoxUFbTime);
@@ -7190,6 +7220,7 @@ namespace BehaviorGraphics
             this.textBoxUFbLoc.Name = "textBoxUFbLoc";
             this.textBoxUFbLoc.Size = new System.Drawing.Size(30, 20);
             this.textBoxUFbLoc.TabIndex = 61;
+            this.toolTip1.SetToolTip(this.textBoxUFbLoc, "From 0 to target radius, where the feedback is shown and timer is triggered.");
             // 
             // label325
             // 
@@ -7408,6 +7439,7 @@ namespace BehaviorGraphics
             this.textBoxUFbStart.Name = "textBoxUFbStart";
             this.textBoxUFbStart.Size = new System.Drawing.Size(36, 20);
             this.textBoxUFbStart.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.textBoxUFbStart, "From 0 to target radius, where the feedback turns on.");
             this.textBoxUFbStart.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label258
@@ -7425,6 +7457,7 @@ namespace BehaviorGraphics
             this.textBoxUFbEnd.Name = "textBoxUFbEnd";
             this.textBoxUFbEnd.Size = new System.Drawing.Size(36, 20);
             this.textBoxUFbEnd.TabIndex = 35;
+            this.toolTip1.SetToolTip(this.textBoxUFbEnd, "From 0 to target radius, where the feedback turns off.");
             this.textBoxUFbEnd.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label257
@@ -7478,6 +7511,7 @@ namespace BehaviorGraphics
             this.textBoxUBlockWinEnd.Name = "textBoxUBlockWinEnd";
             this.textBoxUBlockWinEnd.Size = new System.Drawing.Size(66, 20);
             this.textBoxUBlockWinEnd.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.textBoxUBlockWinEnd, "Where the cursor blocking window turns off.");
             this.textBoxUBlockWinEnd.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBoxUBlockWinStart
@@ -7486,6 +7520,7 @@ namespace BehaviorGraphics
             this.textBoxUBlockWinStart.Name = "textBoxUBlockWinStart";
             this.textBoxUBlockWinStart.Size = new System.Drawing.Size(66, 20);
             this.textBoxUBlockWinStart.TabIndex = 29;
+            this.toolTip1.SetToolTip(this.textBoxUBlockWinStart, "Where the cursor blocking window turns on.");
             this.textBoxUBlockWinStart.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label249
@@ -9807,36 +9842,6 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // textBoxUCenterOffset
-            // 
-            this.textBoxUCenterOffset.Location = new System.Drawing.Point(85, 30);
-            this.textBoxUCenterOffset.Name = "textBoxUCenterOffset";
-            this.textBoxUCenterOffset.Size = new System.Drawing.Size(44, 20);
-            this.textBoxUCenterOffset.TabIndex = 26;
-            this.toolTip1.SetToolTip(this.textBoxUCenterOffset, "Offset of center target along the outer target axis.");
-            // 
-            // label287
-            // 
-            this.label287.AutoSize = true;
-            this.label287.Location = new System.Drawing.Point(9, 33);
-            this.label287.Name = "label287";
-            this.label287.Size = new System.Drawing.Size(69, 13);
-            this.label287.TabIndex = 25;
-            this.label287.Text = "Center Offset";
-            this.toolTip1.SetToolTip(this.label287, "Offset of the center target along the target axis");
-            // 
-            // groupBox49
-            // 
-            this.groupBox49.Controls.Add(this.textBoxUCenterOffset);
-            this.groupBox49.Controls.Add(this.label287);
-            this.groupBox49.Location = new System.Drawing.Point(222, 333);
-            this.groupBox49.Name = "groupBox49";
-            this.groupBox49.Size = new System.Drawing.Size(441, 66);
-            this.groupBox49.TabIndex = 46;
-            this.groupBox49.TabStop = false;
-            this.groupBox49.Text = "Miscellaneous Parameters";
-            this.groupBox49.Enter += new System.EventHandler(this.groupBox49_Enter);
-            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -9991,6 +9996,8 @@ namespace BehaviorGraphics
             this.groupBox46.ResumeLayout(false);
             this.groupBox46.PerformLayout();
             this.tabUncertainty1D.ResumeLayout(false);
+            this.groupBox49.ResumeLayout(false);
+            this.groupBox49.PerformLayout();
             this.groupBox55.ResumeLayout(false);
             this.groupBox55.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUUpDownDotNum)).EndInit();
@@ -10040,8 +10047,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBox49.ResumeLayout(false);
-            this.groupBox49.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
