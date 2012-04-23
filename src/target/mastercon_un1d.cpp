@@ -98,6 +98,7 @@ public:
 private:
 	// Your behavior's instance variables
 	double displacement; // current trial displacement
+	Point  center_offset; // center target offset
 	Point  cursor_shift;  // current trial cursor shift
 	Point  cursor_end_point; // current trial end point
 	double cursor_extent;  // distance from center in direction of target
@@ -203,6 +204,8 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 	current_cloud_var  = 0.0;
 	cursor_shift.x	   = 0.0;
 	cursor_shift.y	   = 0.0;
+	center_offset.x	   = 0.0;
+	center_offset.y	   = 0.0;
 	cursor_end_point.x = 0.0;
 	cursor_end_point.y = 0.0;
 	center_hold_time   = 0.0;
@@ -220,9 +223,9 @@ void Uncertainty1dBehavior::updateCloud(SimStruct *S) {
 
 void Uncertainty1dBehavior::updateCursorExtent(SimStruct *S){
 	if ((params->target_angle == 90.0) || (params->target_angle == 270.0)){
-		cursor_extent = fabs(inputs->cursor.y);
+		cursor_extent = fabs(inputs->cursor.y)-params->center_tgt_offset;
 	} else if ((params->target_angle == 0.0) || (params->target_angle == 180.0)){
-		cursor_extent = fabs(inputs->cursor.x);
+		cursor_extent = fabs(inputs->cursor.x)-params->center_tgt_offset;
 	} else {
 		cursor_extent = 0.0;
 	}
@@ -239,69 +242,72 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 	double actual_freq_four;
 	double cloud_rand; // random variable to determine which cloud
 
-	// Set Center Target to Origin
-	centerTarget->centerX = 0.0;
-	centerTarget->centerY = 0.0;
-	centerTarget->width   = params->target_size;
-	centerTarget->color   = Target::Color(255, 0, 0);
-
 	// Calculate the Displacement (Prior Shift)
 	displacement = random->getGaussian(params->displacement_mean, params->displacement_var);
 
 	// The Target Angle in Radians
 	tgt_ang_rad = params->target_angle*PI/180;
 
+	center_offset.x = params->center_tgt_offset*cos(tgt_ang_rad);
+	center_offset.y = params->center_tgt_offset*sin(tgt_ang_rad);
+
+	// Set Center Target
+	centerTarget->centerX = 0.0+center_offset.x ;
+	centerTarget->centerY = 0.0+center_offset.y ;
+	centerTarget->width   = params->target_size;
+	centerTarget->color   = Target::Color(255, 0, 0);
+
 	// Calculate the Cursor Shift
-	cursor_shift.x = displacement*sin(tgt_ang_rad);
+	cursor_shift.x =  displacement*sin(tgt_ang_rad);
 	cursor_shift.y = -displacement*cos(tgt_ang_rad);
 
 	// Set Up The Targets
 	if ((params->target_angle == 90.0) || (params->target_angle == 270.0)){
-		outerTarget->left   = -params->target_size/2;
-		outerTarget->right  =  params->target_size/2;
-		outerTarget->top    = sin(tgt_ang_rad)*params->target_radius + params->target_size/2;
-		outerTarget->bottom = sin(tgt_ang_rad)*params->target_radius - params->target_size/2;
+		outerTarget->left   = centerTarget->centerX-params->target_size/2;
+		outerTarget->right  = centerTarget->centerX+params->target_size/2;
+		outerTarget->top    = centerTarget->centerY+sin(tgt_ang_rad)*params->target_radius + params->target_size/2;
+		outerTarget->bottom = centerTarget->centerY+sin(tgt_ang_rad)*params->target_radius - params->target_size/2;
 
-		errorTargetLeft->left   = -20;
-		errorTargetLeft->right  = -params->target_size/2;
-		errorTargetLeft->top    = sin(tgt_ang_rad)*params->target_radius + params->target_size/2;
-		errorTargetLeft->bottom = sin(tgt_ang_rad)*params->target_radius - params->target_size/2;
+		errorTargetLeft->left   = centerTarget->centerX-40;
+		errorTargetLeft->right  = centerTarget->centerX-params->target_size/2;
+		errorTargetLeft->top    = centerTarget->centerY+sin(tgt_ang_rad)*params->target_radius + params->target_size/2;
+		errorTargetLeft->bottom = centerTarget->centerY+sin(tgt_ang_rad)*params->target_radius - params->target_size/2;
 
-		errorTargetRight->left   = params->target_size/2;
-		errorTargetRight->right  = 20;
-		errorTargetRight->top    = sin(tgt_ang_rad)*params->target_radius + params->target_size/2;
-		errorTargetRight->bottom = sin(tgt_ang_rad)*params->target_radius - params->target_size/2;
+		errorTargetRight->left   = centerTarget->centerX+params->target_size/2;
+		errorTargetRight->right  = centerTarget->centerX+40;
+		errorTargetRight->top    = centerTarget->centerY+sin(tgt_ang_rad)*params->target_radius + params->target_size/2;
+		errorTargetRight->bottom = centerTarget->centerY+sin(tgt_ang_rad)*params->target_radius - params->target_size/2;
 	} else if ((params->target_angle == 0.0) || (params->target_angle == 180.0)){
-		outerTarget->top     = params->target_size/2;
-		outerTarget->bottom  = -params->target_size/2;
-		outerTarget->left    = cos(tgt_ang_rad)*params->target_radius - params->target_size/2;
-		outerTarget->right   = cos(tgt_ang_rad)*params->target_radius + params->target_size/2;
+		outerTarget->top     = centerTarget->centerY+params->target_size/2;
+		outerTarget->bottom  = centerTarget->centerY-params->target_size/2;
+		outerTarget->left    = centerTarget->centerX+cos(tgt_ang_rad)*params->target_radius - params->target_size/2;
+		outerTarget->right   = centerTarget->centerX+cos(tgt_ang_rad)*params->target_radius + params->target_size/2;
 
-		errorTargetLeft->top     = 20;
-		errorTargetLeft->bottom  = params->target_size/2;
-		errorTargetLeft->left    = cos(tgt_ang_rad)*params->target_radius - params->target_size/2;
-		errorTargetLeft->right   = cos(tgt_ang_rad)*params->target_radius + params->target_size/2;
+		errorTargetLeft->top     = centerTarget->centerY+40;
+		errorTargetLeft->bottom  = centerTarget->centerY+params->target_size/2;
+		errorTargetLeft->left    = centerTarget->centerX+cos(tgt_ang_rad)*params->target_radius - params->target_size/2;
+		errorTargetLeft->right   = centerTarget->centerX+cos(tgt_ang_rad)*params->target_radius + params->target_size/2;
 
-		errorTargetRight->top    = -params->target_size/2;
-		errorTargetRight->bottom = -20;
-		errorTargetRight->left   = cos(tgt_ang_rad)*params->target_radius - params->target_size/2;
-		errorTargetRight->right  = cos(tgt_ang_rad)*params->target_radius + params->target_size/2;	
+		errorTargetRight->top    = centerTarget->centerY-params->target_size/2;
+		errorTargetRight->bottom = centerTarget->centerY-40;
+		errorTargetRight->left   = centerTarget->centerX+cos(tgt_ang_rad)*params->target_radius - params->target_size/2;
+		errorTargetRight->right  = centerTarget->centerX+cos(tgt_ang_rad)*params->target_radius + params->target_size/2;	
 	} else {
 		// by default, place target at top
-		outerTarget->left   = -params->target_size/2;
-		outerTarget->right  =  params->target_size/2;
-		outerTarget->top    = params->target_radius + params->target_size/2;
-		outerTarget->bottom = params->target_radius - params->target_size/2;
+		outerTarget->left   = centerTarget->centerX-params->target_size/2;
+		outerTarget->right  = centerTarget->centerX+params->target_size/2;
+		outerTarget->top    = centerTarget->centerY+sin(tgt_ang_rad)*params->target_radius + params->target_size/2;
+		outerTarget->bottom = centerTarget->centerY+sin(tgt_ang_rad)*params->target_radius - params->target_size/2;
 
-		errorTargetLeft->left   = -20;
-		errorTargetLeft->right  = -params->target_size/2;
-		errorTargetLeft->top    = params->target_radius + params->target_size/2;
-		errorTargetLeft->bottom = params->target_radius - params->target_size/2;
+		errorTargetLeft->left   = centerTarget->centerX-40;
+		errorTargetLeft->right  = centerTarget->centerX-params->target_size/2;
+		errorTargetLeft->top    = centerTarget->centerY+sin(tgt_ang_rad)*params->target_radius + params->target_size/2;
+		errorTargetLeft->bottom = centerTarget->centerY+sin(tgt_ang_rad)*params->target_radius - params->target_size/2;
 
-		errorTargetRight->left   = params->target_size/2;
-		errorTargetRight->right  = 20;
-		errorTargetRight->top    = params->target_radius + params->target_size/2;
-		errorTargetRight->bottom = params->target_radius - params->target_size/2;
+		errorTargetRight->left   = centerTarget->centerX+params->target_size/2;
+		errorTargetRight->right  = centerTarget->centerX+40;
+		errorTargetRight->top    = centerTarget->centerY+sin(tgt_ang_rad)*params->target_radius + params->target_size/2;
+		errorTargetRight->bottom = centerTarget->centerY+sin(tgt_ang_rad)*params->target_radius - params->target_size/2;
 	}
 	
 	// Regarding Cloud Frequency:
@@ -420,7 +426,6 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 			else if ((params->error_targets_mode) &&
 				     (errorTargetLeft->cursorInTarget(inputs->cursor+cursor_shift) ||
 				      errorTargetRight->cursorInTarget(inputs->cursor+cursor_shift))) {
-			  
 				cursor_end_point=inputs->cursor + cursor_shift;
 				playTone(TONE_ABORT);
 				setState(STATE_FAIL);
@@ -435,7 +440,7 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 				setState(STATE_ABORT);
 			}
 			else if (stateTimer->elapsedTime(S) > outer_hold_time) {
-				cursor_end_point=inputs->cursor+ cursor_shift;
+				cursor_end_point=inputs->cursor+cursor_shift;
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
 			}
