@@ -223,9 +223,9 @@ void Uncertainty1dBehavior::updateCloud(SimStruct *S) {
 
 void Uncertainty1dBehavior::updateCursorExtent(SimStruct *S){
 	if ((params->target_angle == 90.0) || (params->target_angle == 270.0)){
-		cursor_extent = fabs(inputs->cursor.y)-params->center_tgt_offset;
+		cursor_extent = inputs->cursor.y-params->center_tgt_offset*sin(params->target_angle*PI/180);
 	} else if ((params->target_angle == 0.0) || (params->target_angle == 180.0)){
-		cursor_extent = fabs(inputs->cursor.x)-params->center_tgt_offset;
+		cursor_extent = inputs->cursor.x-params->center_tgt_offset*cos(params->target_angle*PI/180);
 	} else {
 		cursor_extent = 0.0;
 	}
