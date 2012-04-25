@@ -30,14 +30,15 @@
  * bytes 18 to 21: float => bump 1 magnitude (N?)
  * bytes 22 to 25: float => bump 2 magnitude (N?)
  * bytes 26 to 29: float => bump angle (rad)
- * bytes 30 to 33: float => visual target 1 size (cm)
- * bytes 34 to 37: float => visual target 2 size (cm)
- * bytes 38 to 41: float => reward target center x (cm)
- * bytes 42 to 45: float => fail target center x (cm)
- * bytes 46 to 49: float => outer target delay after bump (ms, if -1 outer
+ * bytes 30 to 33: float => bump duration (s)
+ * bytes 34 to 37: float => visual target 1 size (cm)
+ * bytes 38 to 41: float => visual target 2 size (cm)
+ * bytes 42 to 45: float => reward target center x (cm)
+ * bytes 46 to 49: float => fail target center x (cm)
+ * bytes 50 to 53: float => outer target delay after bump (ms, if -1 outer
  *                          targets visible during center hold)
- * bytes 50 to 53: float => bias force magnitude (N?)
- * bytes 54 to 57: float => bias force direction (rad)
+ * bytes 54 to 57: float => bias force magnitude (N?)
+ * bytes 58 to 61: float => bias force direction (rad)
  */
 
 #define S_FUNCTION_NAME mastercon_attention
@@ -344,8 +345,8 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 			setupProprioStaircase(i*2, params->bump_mag_min, params->proprio_step_size, test_bump_magnitude, params->bump_mag_min);
 			setupProprioStaircase(i*2+1, params->bump_mag_max, -params->proprio_step_size, test_bump_magnitude, params->bump_mag_max);
 		};
-		setupVisualStaircase(0, params->visual_min_ratio, params->visual_step_size, params->target_size, params->visual_min_ratio);
-		setupVisualStaircase(1, params->visual_max_ratio, -params->visual_step_size, params->target_size, params->visual_max_ratio);
+		setupVisualStaircase(0, (params->target_size)*(params->visual_min_ratio), (params->target_size)*(params->visual_step_size), params->target_size, (params->target_size)*(params->visual_min_ratio));
+		setupVisualStaircase(1, (params->target_size)*(params->visual_max_ratio), (-params->target_size)*(params->visual_step_size), params->target_size, (params->target_size)*(params->visual_max_ratio));
 	}
 
 	trial_counter++;
@@ -413,17 +414,17 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 			test_target_size = visualStairs[staircase_id]->getValue();
 		} else {
 			i = random->getInteger(0,(int)(params->num_visual_steps-1));
-			test_target_size = params->visual_min_ratio + i*(params->visual_max_ratio - params->visual_min_ratio)/(params->num_visual_steps-1);
+			test_target_size = params->target_size*(params->visual_min_ratio + i*(params->visual_max_ratio - params->visual_min_ratio)/(params->num_visual_steps-1));
 		}
 
 		if (bigger_first){
-			visualTarget1->radius = params->target_size > test_target_size ? 2*params->target_size : 2*test_target_size;
-			visualTarget2->radius = params->target_size > test_target_size ? 2*test_target_size : 2*params->target_size;
+			visualTarget1->radius = params->target_size > test_target_size ? params->target_size : test_target_size;
+			visualTarget2->radius = params->target_size > test_target_size ? test_target_size : params->target_size;
 			rewardTarget = biggerFirstResponseTarget;
 			failTarget = biggerSecondResponseTarget;
 		} else {			
-			visualTarget1->radius = params->target_size > test_target_size ? 2*test_target_size : 2*params->target_size;
-			visualTarget2->radius = params->target_size > test_target_size ? 2*params->target_size : 2*test_target_size;
+			visualTarget1->radius = params->target_size > test_target_size ? test_target_size : params->target_size;
+			visualTarget2->radius = params->target_size > test_target_size ? params->target_size : test_target_size;
 			rewardTarget = biggerSecondResponseTarget;
 			failTarget = biggerFirstResponseTarget;
 		}
@@ -511,7 +512,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)(visualTarget1->radius));
 	db->addFloat((float)(visualTarget2->radius));
 	db->addFloat((float)(rewardTarget->centerX));
-	db->addFloat((float)(failTarget->centerY));
+	db->addFloat((float)(failTarget->centerX));
 	db->addFloat((float)(params->outer_target_delay));
 	db->addFloat((float)(params->bias_force_magnitude));
 	db->addFloat((float)(params->bias_force_direction));
