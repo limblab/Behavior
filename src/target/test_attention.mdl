@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1276"
+    ComputedModelVersion    "1.1278"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "System Administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Apr 20 11:00:09 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1276>"
+  LastModifiedDate	  "Fri Apr 20 11:30:54 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1278>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -545,7 +545,7 @@ Model {
   }
   System {
     Name		    "test_attention"
-    Location		    [10, 106, 1014, 763]
+    Location		    [2, 74, 1022, 707]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -606,7 +606,7 @@ Model {
       BlockType		      Demux
       Name		      "Demux"
       Ports		      [1, 5]
-      Position		      [655, 230, 660, 350]
+      Position		      [675, 95, 680, 215]
       BackgroundColor	      "black"
       ShowName		      off
       Outputs		      "5"
@@ -616,7 +616,15 @@ Model {
       BlockType		      Display
       Name		      "Failures"
       Ports		      [1]
-      Position		      [780, 352, 880, 398]
+      Position		      [800, 217, 900, 263]
+      Decimation	      "1"
+      Lockdown		      off
+    }
+    Block {
+      BlockType		      Display
+      Name		      "Failures1"
+      Ports		      [1]
+      Position		      [780, 317, 880, 583]
       Decimation	      "1"
       Lockdown		      off
     }
@@ -642,7 +650,7 @@ Model {
       BlockType		      Display
       Name		      "Rewards"
       Ports		      [1]
-      Position		      [840, 242, 940, 288]
+      Position		      [860, 107, 960, 153]
       Decimation	      "1"
       Lockdown		      off
     }
@@ -650,7 +658,7 @@ Model {
       BlockType		      Display
       Name		      "State"
       Ports		      [1]
-      Position		      [740, 177, 840, 223]
+      Position		      [760, 42, 860, 88]
       Format		      "long"
       Decimation	      "1"
       Lockdown		      off
@@ -678,7 +686,7 @@ Model {
     Line {
       SrcBlock		      "Behavior Attention"
       SrcPort		      2
-      Points		      [35, 0; 0, 155]
+      Points		      [55, 0; 0, 20]
       DstBlock		      "Demux"
       DstPort		      1
     }
@@ -736,6 +744,13 @@ Model {
       SrcPort		      3
       Points		      [60, 0; 0, 85]
       DstBlock		      "Failures"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Behavior Attention"
+      SrcPort		      4
+      Points		      [80, 0; 0, 235]
+      DstBlock		      "Failures1"
       DstPort		      1
     }
   }

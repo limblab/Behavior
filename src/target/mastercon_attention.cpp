@@ -205,7 +205,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(36);
+	this->setNumParams(34);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->center_hold_l,							 1);
@@ -243,8 +243,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->bias_force_ramp,							33);				
     
     // default parameters:
-    // 0 .5 1 .5 1 10 1 1 1 1 3 10 1 1 35 35 10 20 20 1 2 1.57 4 5 
-    // 7 4 .01 .03 .2 1 0 .0001 0 .2
+    // 0 .5 1 .5 1 10 1 1 1 1 3 10 1 1 35 35 10 20 20 1 2 1.57 4 5 7 4 .01 .03 .2 1 0 .0001 0 .2
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -503,6 +502,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
     db->addByte(BEHAVIOR_VERSION_MINOR);
 	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
+	/*
 	db->addFloat((float)(inputs->offsets.x));
 	db->addFloat((float)(inputs->offsets.y));
 	db->addByte(trial_type);
@@ -520,11 +520,12 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)(params->outer_target_delay));
 	db->addFloat((float)(params->bias_force_magnitude));
 	db->addFloat((float)(params->bias_force_direction));
+	*/
 	db->start();
 }
 
 void AttentionBehavior::update(SimStruct *S) {
-	int i;
+	//int i;
 	// State machine
 	switch (this->getState()) {
 		case STATE_PRETRIAL:
@@ -533,9 +534,9 @@ void AttentionBehavior::update(SimStruct *S) {
             setState(STATE_DATA_BLOCK);
 			break;
 		case STATE_DATA_BLOCK:
-			if (db->isDone()) {
+			//if (db->isDone()) {
 				setState(STATE_CENTER_TARGET_ON);
-			}
+			//}
 			break;
 		case STATE_CENTER_TARGET_ON:
 			/* first target on */
@@ -621,9 +622,9 @@ void AttentionBehavior::update(SimStruct *S) {
 			if (rewardTarget->cursorInTarget(inputs->cursor)){
 				if (params->use_staircases){
 					if (trial_type == VISUAL_TRIAL){
-						this->visualStairs[staircase_id]->stepForward();
+						//this->visualStairs[staircase_id]->stepForward();
 					} else if (trial_type == PROPRIO_TRIAL){
-						this->proprioStairs[staircase_id]->stepForward();
+						//this->proprioStairs[staircase_id]->stepForward();
 					}
 				}			
 				playTone(TONE_REWARD);
@@ -631,9 +632,9 @@ void AttentionBehavior::update(SimStruct *S) {
 			} else if (failTarget->cursorInTarget(inputs->cursor)){
 				if (params->use_staircases){
 					if (trial_type == VISUAL_TRIAL){
-						this->visualStairs[staircase_id]->stepBackward();
+						//this->visualStairs[staircase_id]->stepBackward();
 					} else if (trial_type == PROPRIO_TRIAL){
-						this->proprioStairs[staircase_id]->stepBackward();
+						//this->proprioStairs[staircase_id]->stepBackward();
 					}
 				}
 				playTone(TONE_ABORT);
@@ -680,6 +681,7 @@ void AttentionBehavior::update(SimStruct *S) {
 }
 
 void AttentionBehavior::calculateOutputs(SimStruct *S) {
+#if 0
 	Point bf;
 
 	/* force (0) */
@@ -703,7 +705,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[4] = trialCounter->incompletes;
     
 	/* word(2) */
-	if (db->isRunning()) {
+	if (false){ //db->isRunning()) {
 		outputs->word = db->getByte();
 	} else if (isNewState()) {
 		switch (getState()) {
@@ -803,7 +805,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     } else {
     	outputs->position = inputs->cursor;
     } 
-    
+#endif
 }
 
 /*
