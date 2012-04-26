@@ -313,9 +313,9 @@ void AttentionBehavior::setupProprioStaircase(
 }
 
 void AttentionBehavior::setupVisualStaircase(
-	int i, double start_ratio, double step, double fl, double bl) 
+	int i, double start_size, double step, double fl, double bl) 
 {	
-	visualStairs[i]->setStartValue( start_ratio );
+	visualStairs[i]->setStartValue( start_size );
 	visualStairs[i]->setRatio( 3 );
 	visualStairs[i]->setStep( step );
 	visualStairs[i]->setUseForwardLimit( 1 );
@@ -346,8 +346,8 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 			setupProprioStaircase(i*2, params->bump_mag_min, proprio_step_size, standard_bump_magnitude, params->bump_mag_min);
 			setupProprioStaircase(i*2+1, params->bump_mag_max, -proprio_step_size, standard_bump_magnitude, params->bump_mag_max);
 		};
-		setupVisualStaircase(0, params->visual_min_diameter, visual_step_size, standard_target_radius, params->visual_min_diameter);
-		setupVisualStaircase(1, params->visual_max_diameter, -visual_step_size, standard_target_radius, params->visual_max_diameter);
+		setupVisualStaircase(0, params->visual_min_diameter, visual_step_size, 2*standard_target_radius, params->visual_min_diameter);
+		setupVisualStaircase(1, params->visual_max_diameter, -visual_step_size, 2*standard_target_radius, params->visual_max_diameter);
 	}
 
 	trial_counter++;
@@ -439,8 +439,9 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		visualTarget2->color = 0;
 
 		if (params->use_staircases){
+			i = random->getInteger(0,(int)(params->num_directions-1));
 			staircase_id = i*2 + random->getBool();
-			test_bump_magnitude = visualStairs[staircase_id]->getValue();
+			test_bump_magnitude = proprioStairs[staircase_id]->getValue();
 		} else {			
 			i = random->getInteger(0,(int)(params->num_proprio_steps-1));
 			test_bump_magnitude = params->bump_mag_min + i*(params->bump_mag_max - params->bump_mag_min)/(params->num_proprio_steps-1);
@@ -642,7 +643,7 @@ void AttentionBehavior::update(SimStruct *S) {
 		case STATE_ABORT:
 			this->bump1->stop();
 			this->bump2->stop();
-			this->bias_force->stop();
+			this->bias_force->stop();			
 			if (stateTimer->elapsedTime(S) > params->abort_timeout) {
 				setState(STATE_PRETRIAL);
 			}
@@ -650,7 +651,7 @@ void AttentionBehavior::update(SimStruct *S) {
         case STATE_REWARD:
 			this->bump1->stop();
 			this->bump2->stop();
-			this->bias_force->stop();
+			this->bias_force->stop();			
 			if (stateTimer->elapsedTime(S) > params->reward_timeout) {
 				setState(STATE_PRETRIAL);
 			}
@@ -658,7 +659,7 @@ void AttentionBehavior::update(SimStruct *S) {
 		case STATE_FAIL:
 			this->bump1->stop();
 			this->bump2->stop();
-			this->bias_force->stop();
+			this->bias_force->stop();			
 			if (stateTimer->elapsedTime(S) > params->fail_timeout) {
 				setState(STATE_PRETRIAL);
 			}
