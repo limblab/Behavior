@@ -111,8 +111,8 @@ struct LocalParams{
 	// Stimuli
 	real_T visual_step_size;
 	real_T num_visual_steps;
-	real_T visual_min_ratio;
-	real_T visual_max_ratio;
+	real_T visual_min_diameter;
+	real_T visual_max_diameter;
 	real_T proprio_step_size;
 	real_T num_proprio_steps;
 	real_T bump_mag_min;
@@ -172,11 +172,13 @@ private:
 	int control_color;
 	int response_color;
 	
-	real_T test_target_size;
-	real_T test_bump_size;
+	real_T standard_target_radius;
+	real_T test_target_radius;
+	real_T visual_step_size;
 	real_T bump_direction;
 	real_T standard_bump_magnitude;
 	real_T test_bump_magnitude;
+	real_T proprio_step_size;
 	real_T bump_1_magnitude;
 	real_T bump_2_magnitude;
 
@@ -227,20 +229,18 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->blocked_directions,						19);
 	this->bindParamId(&params->num_directions,							20);
 	this->bindParamId(&params->first_bump_direction,					21);
-	this->bindParamId(&params->visual_step_size,						22);
-	this->bindParamId(&params->num_visual_steps,						23);
-	this->bindParamId(&params->visual_min_ratio,						24);
-	this->bindParamId(&params->visual_max_ratio,						25);
-	this->bindParamId(&params->proprio_step_size,						26);	
-	this->bindParamId(&params->num_proprio_steps,						27);
-	this->bindParamId(&params->bump_mag_min,							28);
-	this->bindParamId(&params->bump_mag_max,							29);
-	this->bindParamId(&params->bump_duration,							30);
-	this->bindParamId(&params->use_staircases,							31);
-	this->bindParamId(&params->staircase_reset,							32);
-	this->bindParamId(&params->bias_force_magnitude,					33);
-	this->bindParamId(&params->bias_force_direction,					34);
-	this->bindParamId(&params->bias_force_ramp,							35);				
+	this->bindParamId(&params->num_visual_steps,						22);
+	this->bindParamId(&params->visual_min_diameter,						23);
+	this->bindParamId(&params->visual_max_diameter,						24);	
+	this->bindParamId(&params->num_proprio_steps,						25);
+	this->bindParamId(&params->bump_mag_min,							26);
+	this->bindParamId(&params->bump_mag_max,							27);
+	this->bindParamId(&params->bump_duration,							28);
+	this->bindParamId(&params->use_staircases,							29);
+	this->bindParamId(&params->staircase_reset,							30);
+	this->bindParamId(&params->bias_force_magnitude,					31);
+	this->bindParamId(&params->bias_force_direction,					32);
+	this->bindParamId(&params->bias_force_ramp,							33);				
     
     // default parameters:
     // 0 .5 1 .5 1 10 1 1 1 1 3 10 1 1 35 35 10 20 20 1 2 1.57 .1 4 .5 
@@ -337,16 +337,20 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	interbump_delay = this->random->getDouble(params->interbump_delay_l, params->interbump_delay_h);
 	
 	standard_bump_magnitude = (params->bump_mag_max + params->bump_mag_min)/2;
+	standard_target_radius = ((params->visual_min_diameter + params->visual_max_diameter)/2)/2;
+
+	visual_step_size = (params->visual_max_diameter - params->visual_min_diameter)/(params->num_visual_steps);
+	proprio_step_size = (params->bump_mag_max - params->bump_mag_min)/(params->num_proprio_steps);
 
 	if (last_staircase_reset != params->staircase_reset) {
 		// load parameters to the staircases and reset them.
 		last_staircase_reset = params->staircase_reset;
 		for (i=0 ; i < params->num_directions ; i++){
-			setupProprioStaircase(i*2, params->bump_mag_min, params->proprio_step_size, test_bump_magnitude, params->bump_mag_min);
-			setupProprioStaircase(i*2+1, params->bump_mag_max, -params->proprio_step_size, test_bump_magnitude, params->bump_mag_max);
+			setupProprioStaircase(i*2, params->bump_mag_min, proprio_step_size, standard_bump_magnitude, params->bump_mag_min);
+			setupProprioStaircase(i*2+1, params->bump_mag_max, -proprio_step_size, standard_bump_magnitude, params->bump_mag_max);
 		};
-		setupVisualStaircase(0, (params->target_size)*(params->visual_min_ratio), (params->target_size)*(params->visual_step_size), params->target_size, (params->target_size)*(params->visual_min_ratio));
-		setupVisualStaircase(1, (params->target_size)*(params->visual_max_ratio), (-params->target_size)*(params->visual_step_size), params->target_size, (params->target_size)*(params->visual_max_ratio));
+		setupVisualStaircase(0, params->visual_min_diameter, visual_step_size, standard_target_radius, params->visual_min_diameter);
+		setupVisualStaircase(1, params->visual_max_diameter, -visual_step_size, standard_target_radius, params->visual_max_diameter);
 	}
 
 	trial_counter++;
@@ -355,9 +359,9 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
 	// Select a trial type
 	if (params->trial_block_size > 1){
-		if (100*trial_counter/params->trial_block_size <= params->percent_visual_trials){
+		if ((100*trial_counter/params->trial_block_size) <= params->percent_visual_trials){
 			trial_type = VISUAL_TRIAL;
-		} else if (100*trial_counter/params->trial_block_size <= params->percent_visual_trials + params->percent_proprio_trials){
+		} else if ((100*trial_counter/params->trial_block_size) <= (params->percent_visual_trials + params->percent_proprio_trials)){
 			trial_type = PROPRIO_TRIAL;
 		} else {
 			trial_type = CONTROL_TRIAL;
@@ -366,7 +370,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		temp_real = random->getDouble(0,100);
 		if (temp_real <= params->percent_visual_trials){
 			trial_type = VISUAL_TRIAL;
-		} else if (temp_real <= params->percent_visual_trials + params->percent_proprio_trials){
+		} else if (temp_real <= (params->percent_visual_trials + params->percent_proprio_trials)){
 			trial_type = PROPRIO_TRIAL;
 		} else {
 			trial_type = CONTROL_TRIAL; 
@@ -411,20 +415,20 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
 		if (params->use_staircases){			
 			staircase_id = random->getBool();
-			test_target_size = visualStairs[staircase_id]->getValue();
+			test_target_radius = (visualStairs[staircase_id]->getValue())/2;
 		} else {
 			i = random->getInteger(0,(int)(params->num_visual_steps-1));
-			test_target_size = params->target_size*(params->visual_min_ratio + i*(params->visual_max_ratio - params->visual_min_ratio)/(params->num_visual_steps-1));
+			test_target_radius = (params->visual_min_diameter + i*(params->visual_max_diameter - params->visual_min_diameter)/(params->num_visual_steps-1))/2;
 		}
 
 		if (bigger_first){
-			visualTarget1->radius = params->target_size > test_target_size ? params->target_size : test_target_size;
-			visualTarget2->radius = params->target_size > test_target_size ? test_target_size : params->target_size;
+			visualTarget1->radius = params->target_size > test_target_radius ? standard_target_radius : test_target_radius;
+			visualTarget2->radius = params->target_size > test_target_radius ? test_target_radius : standard_target_radius;
 			rewardTarget = biggerFirstResponseTarget;
 			failTarget = biggerSecondResponseTarget;
 		} else {			
-			visualTarget1->radius = params->target_size > test_target_size ? test_target_size : params->target_size;
-			visualTarget2->radius = params->target_size > test_target_size ? params->target_size : test_target_size;
+			visualTarget1->radius = params->target_size > test_target_radius ? test_target_radius : standard_target_radius;
+			visualTarget2->radius = params->target_size > test_target_radius ? standard_target_radius : test_target_radius;
 			rewardTarget = biggerSecondResponseTarget;
 			failTarget = biggerFirstResponseTarget;
 		}
@@ -439,20 +443,20 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
 		if (params->use_staircases){
 			staircase_id = i*2 + random->getBool();
-			test_bump_size = visualStairs[staircase_id]->getValue();
+			test_bump_magnitude = visualStairs[staircase_id]->getValue();
 		} else {			
 			i = random->getInteger(0,(int)(params->num_proprio_steps-1));
-			test_bump_size = params->bump_mag_min + i*(params->bump_mag_max - params->bump_mag_min)/(params->num_proprio_steps-1);
+			test_bump_magnitude = params->bump_mag_min + i*(params->bump_mag_max - params->bump_mag_min)/(params->num_proprio_steps-1);
 		}
 
 		if (bigger_first){		
-			bump_1_magnitude = test_bump_size > standard_bump_magnitude ? test_bump_size : standard_bump_magnitude;
-			bump_2_magnitude = test_bump_size > standard_bump_magnitude ? standard_bump_magnitude : test_bump_size;
+			bump_1_magnitude = test_bump_magnitude > standard_bump_magnitude ? test_bump_magnitude : standard_bump_magnitude;
+			bump_2_magnitude = test_bump_magnitude > standard_bump_magnitude ? standard_bump_magnitude : test_bump_magnitude;
 			rewardTarget = biggerFirstResponseTarget;
 			failTarget = biggerSecondResponseTarget;
 		} else {									
-			bump_1_magnitude = test_bump_size > standard_bump_magnitude ? standard_bump_magnitude : test_bump_size;
-			bump_2_magnitude = test_bump_size > standard_bump_magnitude ? test_bump_size : standard_bump_magnitude;
+			bump_1_magnitude = test_bump_magnitude > standard_bump_magnitude ? standard_bump_magnitude : test_bump_magnitude;
+			bump_2_magnitude = test_bump_magnitude > standard_bump_magnitude ? test_bump_magnitude : standard_bump_magnitude;
 			rewardTarget = biggerSecondResponseTarget;
 			failTarget = biggerFirstResponseTarget;
 		}

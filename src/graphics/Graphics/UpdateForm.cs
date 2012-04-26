@@ -676,23 +676,21 @@ namespace BehaviorGraphics
             AddParamListItem("AT BDirs", "P21", "Behavior AT", this.numericUpDownATND);
             AddParamListItem("AT FBD", "P22", "Behavior AT", this.textBoxATFBD);
             
-            // Visual targets or proprioceptive parameters     
-            AddParamListItem("AT VSS", "P23", "Behavior AT", this.textBoxATVSS);
-            AddParamListItem("AT VNS", "P24", "Behavior AT", this.numericUpDownATVNS);
-            AddParamListItem("AT VTMinR", "P25", "Behavior AT", this.textBoxATVTMinR);
-            AddParamListItem("AT VTMaxR", "P26", "Behavior AT", this.textBoxATVTMaxR);
-            AddParamListItem("AT PSS", "P27", "Behavior AT", this.textBoxATPSS);
-            AddParamListItem("AT NBM", "P28", "Behavior AT", this.numericUpDownATNBM);
-            AddParamListItem("AT BMMin", "P29", "Behavior AT", this.textBoxATBMMin);
-            AddParamListItem("AT BMMax", "P30", "Behavior AT", this.textBoxATBMMax);
-            AddParamListItem("AT BDur", "P31", "Behavior AT", this.textBoxATBD);
-            AddParamListItem("AT S", "P32", "Behavior AT", this.checkBoxATS);
-            AddParamListItem("AT SR", "33", "Behavior AT", this.numericUpDownATSR);
+            // Visual targets or proprioceptive parameters
+            AddParamListItem("AT VNS", "P23", "Behavior AT", this.numericUpDownATVNS);
+            AddParamListItem("AT VTMinR", "P24", "Behavior AT", this.textBoxATVTMinR);
+            AddParamListItem("AT VTMaxR", "P25", "Behavior AT", this.textBoxATVTMaxR);
+            AddParamListItem("AT NBM", "P26", "Behavior AT", this.numericUpDownATNBM);
+            AddParamListItem("AT BMMin", "P27", "Behavior AT", this.textBoxATBMMin);
+            AddParamListItem("AT BMMax", "P28", "Behavior AT", this.textBoxATBMMax);
+            AddParamListItem("AT BDur", "P29", "Behavior AT", this.textBoxATBD);
+            AddParamListItem("AT S", "P30", "Behavior AT", this.checkBoxATS);
+            AddParamListItem("AT SR", "31", "Behavior AT", this.numericUpDownATSR);
             
             // Bias force
-            AddParamListItem("AT BFM", "P34", "Behavior AT", this.textBoxATBFM);
-            AddParamListItem("AT BFD", "P35", "Behavior AT", this.textBoxATBFD);
-            AddParamListItem("AT BFR", "P36", "Behavior AT", this.textBoxATBFR);  
+            AddParamListItem("AT BFM", "P32", "Behavior AT", this.textBoxATBFM);
+            AddParamListItem("AT BFD", "P33", "Behavior AT", this.textBoxATBFD);
+            AddParamListItem("AT BFR", "P34", "Behavior AT", this.textBoxATBFR);  
             
             #endregion
 
