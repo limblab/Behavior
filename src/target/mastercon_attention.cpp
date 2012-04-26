@@ -697,8 +697,10 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     /* status (1) */
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
-	outputs->status[2] = trialCounter->failures;
-	outputs->status[3] = trialCounter->aborts;
+	//outputs->status[2] = trialCounter->failures;
+	//outputs->status[3] = trialCounter->aborts;
+	outputs->status[2] = staircase_id;
+	outputs->status[3] = 100*visualStairs[staircase_id]->getValue();
 	outputs->status[4] = trialCounter->incompletes;
     
 	/* word(2) */
