@@ -2216,54 +2216,6 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
-        private void tabPage3_Click(object sender, EventArgs e) {
-
-        }
-
-        private void groupBox55_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label259_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label238_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox54_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label243_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label234_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox28_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox27_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox49_Enter(object sender, EventArgs e)
-        {
-
-        }
 
      
     }

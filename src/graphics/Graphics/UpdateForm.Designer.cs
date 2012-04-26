@@ -7134,7 +7134,6 @@ namespace BehaviorGraphics
             this.groupBox49.TabIndex = 46;
             this.groupBox49.TabStop = false;
             this.groupBox49.Text = "Miscellaneous Parameters";
-            this.groupBox49.Enter += new System.EventHandler(this.groupBox49_Enter);
             // 
             // textBoxUCenterOffset
             // 
@@ -7192,7 +7191,6 @@ namespace BehaviorGraphics
             this.groupBox55.TabIndex = 45;
             this.groupBox55.TabStop = false;
             this.groupBox55.Text = "Feedback Cloud Properties (Likelihood)";
-            this.groupBox55.Enter += new System.EventHandler(this.groupBox55_Enter);
             // 
             // textBoxUFbTime
             // 
@@ -7262,7 +7260,6 @@ namespace BehaviorGraphics
             this.textBoxUFbFrq4.Name = "textBoxUFbFrq4";
             this.textBoxUFbFrq4.Size = new System.Drawing.Size(41, 20);
             this.textBoxUFbFrq4.TabIndex = 55;
-            this.textBoxUFbFrq4.TextChanged += new System.EventHandler(this.textBox27_TextChanged);
             // 
             // label304
             // 
@@ -7279,7 +7276,6 @@ namespace BehaviorGraphics
             this.textBoxUFbFrq3.Name = "textBoxUFbFrq3";
             this.textBoxUFbFrq3.Size = new System.Drawing.Size(41, 20);
             this.textBoxUFbFrq3.TabIndex = 53;
-            this.textBoxUFbFrq3.TextChanged += new System.EventHandler(this.textBox28_TextChanged);
             // 
             // label322
             // 
@@ -7419,7 +7415,6 @@ namespace BehaviorGraphics
             this.label259.Size = new System.Drawing.Size(95, 13);
             this.label259.TabIndex = 36;
             this.label259.Text = "Cloud #1 Variance";
-            this.label259.Click += new System.EventHandler(this.label259_Click);
             // 
             // textBoxUFbVar
             // 
@@ -7481,7 +7476,6 @@ namespace BehaviorGraphics
             this.groupBox54.TabIndex = 44;
             this.groupBox54.TabStop = false;
             this.groupBox54.Text = "Perturbation Properties (Prior)";
-            this.groupBox54.Enter += new System.EventHandler(this.groupBox54_Enter);
             // 
             // label251
             // 
@@ -7637,7 +7631,6 @@ namespace BehaviorGraphics
             this.label238.Size = new System.Drawing.Size(95, 13);
             this.label238.TabIndex = 18;
             this.label238.Text = "Target Angle (deg)";
-            this.label238.Click += new System.EventHandler(this.label238_Click);
             // 
             // label239
             // 
@@ -7683,7 +7676,6 @@ namespace BehaviorGraphics
             this.label234.Size = new System.Drawing.Size(85, 13);
             this.label234.TabIndex = 16;
             this.label234.Text = "Failure Lag Time";
-            this.label234.Click += new System.EventHandler(this.label234_Click);
             // 
             // textBoxUFLT
             // 
@@ -7770,7 +7762,6 @@ namespace BehaviorGraphics
             this.label243.Size = new System.Drawing.Size(83, 13);
             this.label243.TabIndex = 14;
             this.label243.Text = "Movement Time";
-            this.label243.Click += new System.EventHandler(this.label243_Click);
             // 
             // textBoxUDH
             // 
@@ -8248,7 +8239,7 @@ namespace BehaviorGraphics
             // 
             // numericUpDownATNBM
             // 
-            this.numericUpDownATNBM.Location = new System.Drawing.Point(133, 90);
+            this.numericUpDownATNBM.Location = new System.Drawing.Point(144, 90);
             this.numericUpDownATNBM.Maximum = new decimal(new int[] {
             7,
             0,
@@ -8260,7 +8251,7 @@ namespace BehaviorGraphics
             0,
             0});
             this.numericUpDownATNBM.Name = "numericUpDownATNBM";
-            this.numericUpDownATNBM.Size = new System.Drawing.Size(72, 20);
+            this.numericUpDownATNBM.Size = new System.Drawing.Size(61, 20);
             this.numericUpDownATNBM.TabIndex = 3;
             this.toolTip1.SetToolTip(this.numericUpDownATNBM, "Number of gradations of bump magnitude.");
             this.numericUpDownATNBM.Value = new decimal(new int[] {
@@ -8283,14 +8274,14 @@ namespace BehaviorGraphics
             // 
             // numericUpDownATVNS
             // 
-            this.numericUpDownATVNS.Location = new System.Drawing.Point(133, 12);
+            this.numericUpDownATVNS.Location = new System.Drawing.Point(144, 12);
             this.numericUpDownATVNS.Maximum = new decimal(new int[] {
             30,
             0,
             0,
             0});
             this.numericUpDownATVNS.Name = "numericUpDownATVNS";
-            this.numericUpDownATVNS.Size = new System.Drawing.Size(72, 20);
+            this.numericUpDownATVNS.Size = new System.Drawing.Size(61, 20);
             this.numericUpDownATVNS.TabIndex = 60;
             this.numericUpDownATVNS.Value = new decimal(new int[] {
             5,
@@ -8320,9 +8311,9 @@ namespace BehaviorGraphics
             // 
             // textBoxATBMMin
             // 
-            this.textBoxATBMMin.Location = new System.Drawing.Point(133, 117);
+            this.textBoxATBMMin.Location = new System.Drawing.Point(144, 117);
             this.textBoxATBMMin.Name = "textBoxATBMMin";
-            this.textBoxATBMMin.Size = new System.Drawing.Size(72, 20);
+            this.textBoxATBMMin.Size = new System.Drawing.Size(61, 20);
             this.textBoxATBMMin.TabIndex = 5;
             this.textBoxATBMMin.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -8338,9 +8329,9 @@ namespace BehaviorGraphics
             // 
             // textBoxATBD
             // 
-            this.textBoxATBD.Location = new System.Drawing.Point(133, 165);
+            this.textBoxATBD.Location = new System.Drawing.Point(144, 165);
             this.textBoxATBD.Name = "textBoxATBD";
-            this.textBoxATBD.Size = new System.Drawing.Size(72, 20);
+            this.textBoxATBD.Size = new System.Drawing.Size(61, 20);
             this.textBoxATBD.TabIndex = 9;
             this.toolTip1.SetToolTip(this.textBoxATBD, "in seconds");
             this.textBoxATBD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
@@ -8357,25 +8348,25 @@ namespace BehaviorGraphics
             // 
             // textBoxATBMMax
             // 
-            this.textBoxATBMMax.Location = new System.Drawing.Point(133, 140);
+            this.textBoxATBMMax.Location = new System.Drawing.Point(144, 140);
             this.textBoxATBMMax.Name = "textBoxATBMMax";
-            this.textBoxATBMMax.Size = new System.Drawing.Size(72, 20);
+            this.textBoxATBMMax.Size = new System.Drawing.Size(61, 20);
             this.textBoxATBMMax.TabIndex = 7;
             this.textBoxATBMMax.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBoxATVTMinR
             // 
-            this.textBoxATVTMinR.Location = new System.Drawing.Point(133, 38);
+            this.textBoxATVTMinR.Location = new System.Drawing.Point(144, 38);
             this.textBoxATVTMinR.Name = "textBoxATVTMinR";
-            this.textBoxATVTMinR.Size = new System.Drawing.Size(72, 20);
+            this.textBoxATVTMinR.Size = new System.Drawing.Size(61, 20);
             this.textBoxATVTMinR.TabIndex = 56;
             this.textBoxATVTMinR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBoxATVTMaxR
             // 
-            this.textBoxATVTMaxR.Location = new System.Drawing.Point(133, 63);
+            this.textBoxATVTMaxR.Location = new System.Drawing.Point(144, 63);
             this.textBoxATVTMaxR.Name = "textBoxATVTMaxR";
-            this.textBoxATVTMaxR.Size = new System.Drawing.Size(72, 20);
+            this.textBoxATVTMaxR.Size = new System.Drawing.Size(61, 20);
             this.textBoxATVTMaxR.TabIndex = 58;
             this.textBoxATVTMaxR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -8384,18 +8375,18 @@ namespace BehaviorGraphics
             this.label269.AutoSize = true;
             this.label269.Location = new System.Drawing.Point(11, 41);
             this.label269.Name = "label269";
-            this.label269.Size = new System.Drawing.Size(107, 13);
+            this.label269.Size = new System.Drawing.Size(127, 13);
             this.label269.TabIndex = 57;
-            this.label269.Text = "Visual target min ratio";
+            this.label269.Text = "Visual target min diameter";
             // 
             // label293
             // 
             this.label293.AutoSize = true;
             this.label293.Location = new System.Drawing.Point(11, 66);
             this.label293.Name = "label293";
-            this.label293.Size = new System.Drawing.Size(110, 13);
+            this.label293.Size = new System.Drawing.Size(130, 13);
             this.label293.TabIndex = 59;
-            this.label293.Text = "Visual target max ratio";
+            this.label293.Text = "Visual target max diameter";
             // 
             // groupBox58
             // 

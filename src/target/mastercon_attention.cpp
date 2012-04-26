@@ -1,6 +1,6 @@
 /* $Id: $
  *
- * Master Control block for behavior: bump psychophysics 2-bump choice
+ * Master Control block for behavior: attention
  */
 
 /* 
@@ -45,7 +45,7 @@
 #define S_FUNCTION_LEVEL 2
 
 // Our task code will be in the databurst
-#define TASK_DB_DEFINED 1
+#define TASK_AT 1
 #include "words.h"
 
 #include "common_header.cpp"
@@ -109,11 +109,9 @@ struct LocalParams{
 	real_T first_bump_direction;
 	
 	// Stimuli
-	real_T visual_step_size;
 	real_T num_visual_steps;
 	real_T visual_min_diameter;
 	real_T visual_max_diameter;
-	real_T proprio_step_size;
 	real_T num_proprio_steps;
 	real_T bump_mag_min;
 	real_T bump_mag_max;	
@@ -421,13 +419,13 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		}
 
 		if (bigger_first){
-			visualTarget1->radius = params->target_size > test_target_radius ? standard_target_radius : test_target_radius;
-			visualTarget2->radius = params->target_size > test_target_radius ? test_target_radius : standard_target_radius;
+			visualTarget1->radius = standard_target_radius > test_target_radius ? standard_target_radius : test_target_radius;
+			visualTarget2->radius = standard_target_radius > test_target_radius ? test_target_radius : standard_target_radius;
 			rewardTarget = biggerFirstResponseTarget;
 			failTarget = biggerSecondResponseTarget;
 		} else {			
-			visualTarget1->radius = params->target_size > test_target_radius ? test_target_radius : standard_target_radius;
-			visualTarget2->radius = params->target_size > test_target_radius ? standard_target_radius : test_target_radius;
+			visualTarget1->radius = standard_target_radius > test_target_radius ? test_target_radius : standard_target_radius;
+			visualTarget2->radius = standard_target_radius > test_target_radius ? standard_target_radius : test_target_radius;
 			rewardTarget = biggerSecondResponseTarget;
 			failTarget = biggerFirstResponseTarget;
 		}
@@ -502,7 +500,6 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
     db->addByte(BEHAVIOR_VERSION_MINOR);
 	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
-	/*
 	db->addFloat((float)(inputs->offsets.x));
 	db->addFloat((float)(inputs->offsets.y));
 	db->addByte(trial_type);
@@ -520,7 +517,6 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)(params->outer_target_delay));
 	db->addFloat((float)(params->bias_force_magnitude));
 	db->addFloat((float)(params->bias_force_direction));
-	*/
 	db->start();
 }
 
@@ -534,9 +530,9 @@ void AttentionBehavior::update(SimStruct *S) {
             setState(STATE_DATA_BLOCK);
 			break;
 		case STATE_DATA_BLOCK:
-			//if (db->isDone()) {
+			if (db->isDone()) {
 				setState(STATE_CENTER_TARGET_ON);
-			//}
+			}
 			break;
 		case STATE_CENTER_TARGET_ON:
 			/* first target on */
@@ -622,9 +618,9 @@ void AttentionBehavior::update(SimStruct *S) {
 			if (rewardTarget->cursorInTarget(inputs->cursor)){
 				if (params->use_staircases){
 					if (trial_type == VISUAL_TRIAL){
-						//this->visualStairs[staircase_id]->stepForward();
+						this->visualStairs[staircase_id]->stepForward();
 					} else if (trial_type == PROPRIO_TRIAL){
-						//this->proprioStairs[staircase_id]->stepForward();
+						this->proprioStairs[staircase_id]->stepForward();
 					}
 				}			
 				playTone(TONE_REWARD);
@@ -632,9 +628,9 @@ void AttentionBehavior::update(SimStruct *S) {
 			} else if (failTarget->cursorInTarget(inputs->cursor)){
 				if (params->use_staircases){
 					if (trial_type == VISUAL_TRIAL){
-						//this->visualStairs[staircase_id]->stepBackward();
+						this->visualStairs[staircase_id]->stepBackward();
 					} else if (trial_type == PROPRIO_TRIAL){
-						//this->proprioStairs[staircase_id]->stepBackward();
+						this->proprioStairs[staircase_id]->stepBackward();
 					}
 				}
 				playTone(TONE_ABORT);
@@ -681,7 +677,7 @@ void AttentionBehavior::update(SimStruct *S) {
 }
 
 void AttentionBehavior::calculateOutputs(SimStruct *S) {
-#if 0
+
 	Point bf;
 
 	/* force (0) */
@@ -705,7 +701,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[4] = trialCounter->incompletes;
     
 	/* word(2) */
-	if (false){ //db->isRunning()) {
+	if (db->isRunning()) {
 		outputs->word = db->getByte();
 	} else if (isNewState()) {
 		switch (getState()) {
@@ -805,7 +801,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     } else {
     	outputs->position = inputs->cursor;
     } 
-#endif
+
 }
 
 /*
