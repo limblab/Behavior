@@ -243,8 +243,8 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->bias_force_ramp,							33);				
     
     // default parameters:
-    // 0 .5 1 .5 1 10 1 1 1 1 3 10 1 1 35 35 10 20 20 1 2 1.57 .1 4 .5 
-    // 1.5 .0005 4 .01 .03 .2 1 0 .0001 0 .2
+    // 0 .5 1 .5 1 10 1 1 1 1 3 10 1 1 35 35 10 20 20 1 2 1.57 4 5 
+    // 7 4 .01 .03 .2 1 0 .0001 0 .2
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
