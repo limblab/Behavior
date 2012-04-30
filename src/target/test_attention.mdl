@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1285"
+    ComputedModelVersion    "1.1291"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "ricardo"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 26 17:32:26 2012"
+  LastModifiedDate	  "Mon Apr 30 16:04:17 2012"
   RTWModifiedTimeStamp	  257361230
-  ModelVersionFormat	  "1.%<AutoIncrement:1285>"
+  ModelVersionFormat	  "1.%<AutoIncrement:1291>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -637,6 +637,17 @@ Model {
       PreserveConstantTs      off
     }
     Block {
+      BlockType		      DataTypeConversion
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Inherit via back propagation"
+      LockScale		      off
+      ConvertRealWorld	      "Real World Value (RWV)"
+      RndMeth		      "Zero"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
       BlockType		      Demux
       Outputs		      "4"
       DisplayOption	      "none"
@@ -676,7 +687,7 @@ Model {
   }
   System {
     Name		    "test_attention"
-    Location		    [178, 158, 1182, 774]
+    Location		    [2, 74, 1278, 941]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -690,13 +701,13 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "19"
+    SIDHighWatermark	    "41"
     Block {
       BlockType		      Display
       Name		      "Aborts"
       SID		      "1"
       Ports		      [1]
-      Position		      [865, 232, 965, 278]
+      Position		      [775, 577, 875, 623]
       Decimation	      "1"
       Lockdown		      off
     }
@@ -705,7 +716,7 @@ Model {
       Name		      "Behavior Attention"
       SID		      "2"
       Ports		      [4, 8]
-      Position		      [350, 68, 575, 402]
+      Position		      [230, 288, 455, 622]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_attention"
       Parameters	      "0 .5 1 .5 1 100 1 1 1 1 3 10 1 1 100 0 10 20 20 1 2 1.57 10 5 10 4 .01 .03 .2 1 0 .0001 0 .2"
@@ -724,40 +735,148 @@ Model {
       BlockType		      Constant
       Name		      "Constant1"
       SID		      "4"
-      Position		      [105, 130, 135, 160]
+      Position		      [60, 350, 90, 380]
       Value		      "0"
     }
     Block {
       BlockType		      Constant
       Name		      "Constant2"
       SID		      "5"
-      Position		      [120, 255, 150, 285]
+      Position		      [85, 455, 115, 485]
       Value		      "0"
     }
     Block {
       BlockType		      Constant
       Name		      "Constant3"
       SID		      "6"
-      Position		      [125, 335, 155, 365]
+      Position		      [85, 510, 115, 540]
       Value		      "0"
+    }
+    Block {
+      BlockType		      DataTypeConversion
+      Name		      "Data Type Conversion2"
+      SID		      "30"
+      Position		      [775, 168, 850, 202]
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      DataTypeConversion
+      Name		      "Data Type Conversion3"
+      SID		      "31"
+      Position		      [590, 168, 665, 202]
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      DataTypeConversion
+      Name		      "Data Type Conversion4"
+      SID		      "33"
+      Position		      [775, 108, 850, 142]
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      DataTypeConversion
+      Name		      "Data Type Conversion5"
+      SID		      "34"
+      Position		      [590, 108, 665, 142]
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      DataTypeConversion
+      Name		      "Data Type Conversion6"
+      SID		      "39"
+      Position		      [790, 218, 865, 252]
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      DataTypeConversion
+      Name		      "Data Type Conversion7"
+      SID		      "40"
+      Position		      [605, 218, 680, 252]
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Demux
       Name		      "Demux"
       SID		      "7"
       Ports		      [1, 5]
-      Position		      [675, 95, 680, 215]
+      Position		      [500, 285, 505, 405]
       BackgroundColor	      "black"
       ShowName		      off
       Outputs		      "5"
       DisplayOption	      "bar"
     }
     Block {
+      BlockType		      Reference
+      Name		      "Detect\nIncrease1"
+      SID		      "32"
+      Ports		      [1, 1]
+      Position		      [690, 169, 750, 201]
+      LibraryVersion	      "1.236"
+      SourceBlock	      "simulink/Logic and Bit\nOperations/Detect\nIncrease"
+      SourceType	      "Detect Increase"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      GeneratePreprocessorConditionals off
+      vinit		      "0.0"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Detect\nIncrease2"
+      SID		      "35"
+      Ports		      [1, 1]
+      Position		      [690, 109, 750, 141]
+      LibraryVersion	      "1.236"
+      SourceBlock	      "simulink/Logic and Bit\nOperations/Detect\nIncrease"
+      SourceType	      "Detect Increase"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      GeneratePreprocessorConditionals off
+      vinit		      "0.0"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Detect\nIncrease3"
+      SID		      "41"
+      Ports		      [1, 1]
+      Position		      [705, 219, 765, 251]
+      LibraryVersion	      "1.236"
+      SourceBlock	      "simulink/Logic and Bit\nOperations/Detect\nIncrease"
+      SourceType	      "Detect Increase"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      GeneratePreprocessorConditionals off
+      vinit		      "0.0"
+    }
+    Block {
       BlockType		      Display
       Name		      "Failures"
       SID		      "8"
       Ports		      [1]
-      Position		      [860, 172, 960, 218]
+      Position		      [835, 507, 935, 553]
       Decimation	      "1"
       Lockdown		      off
     }
@@ -766,7 +885,7 @@ Model {
       Name		      "Failures1"
       SID		      "9"
       Ports		      [1]
-      Position		      [780, 317, 880, 583]
+      Position		      [500, 507, 600, 773]
       Decimation	      "1"
       Lockdown		      off
     }
@@ -775,7 +894,7 @@ Model {
       Name		      "Incompletes"
       SID		      "10"
       Ports		      [1]
-      Position		      [740, 252, 840, 298]
+      Position		      [775, 667, 875, 713]
       Decimation	      "1"
       Lockdown		      off
     }
@@ -784,7 +903,7 @@ Model {
       Name		      "Mux"
       SID		      "11"
       Ports		      [2, 1]
-      Position		      [235, 91, 240, 129]
+      Position		      [160, 311, 165, 349]
       ShowName		      off
       Inputs		      "2"
       DisplayOption	      "bar"
@@ -794,7 +913,7 @@ Model {
       Name		      "Mux1"
       SID		      "12"
       Ports		      [2, 1]
-      Position		      [255, 296, 260, 334]
+      Position		      [180, 481, 185, 519]
       ShowName		      off
       Inputs		      "2"
       DisplayOption	      "bar"
@@ -803,10 +922,10 @@ Model {
       BlockType		      Mux
       Name		      "Mux2"
       SID		      "19"
-      Ports		      [3, 1]
-      Position		      [890, 16, 895, 54]
+      Ports		      [6, 1]
+      Position		      [895, 13, 900, 307]
       ShowName		      off
-      Inputs		      "3"
+      Inputs		      "6"
       DisplayOption	      "bar"
     }
     Block {
@@ -814,7 +933,7 @@ Model {
       Name		      "Repeating\nSequence\nStair"
       SID		      "17"
       Ports		      [0, 1]
-      Position		      [70, 55, 100, 85]
+      Position		      [65, 270, 95, 300]
       LibraryVersion	      "1.236"
       SourceBlock	      "simulink/Sources/Repeating\nSequence\nStair"
       SourceType	      "Repeating Sequence Stair"
@@ -843,7 +962,7 @@ Model {
       Name		      "Rewards"
       SID		      "13"
       Ports		      [1]
-      Position		      [860, 107, 960, 153]
+      Position		      [865, 432, 965, 478]
       Decimation	      "1"
       Lockdown		      off
     }
@@ -852,7 +971,7 @@ Model {
       Name		      "State"
       SID		      "14"
       Ports		      [1]
-      Position		      [760, 42, 860, 88]
+      Position		      [885, 347, 985, 393]
       Format		      "long"
       Decimation	      "1"
       Lockdown		      off
@@ -862,7 +981,7 @@ Model {
       Name		      "To Workspace"
       SID		      "18"
       Ports		      [1]
-      Position		      [940, 20, 1000, 50]
+      Position		      [955, 145, 1015, 175]
       VariableName	      "simout"
       MaxDataPoints	      "inf"
       SampleTime	      "-1"
@@ -871,14 +990,14 @@ Model {
     Line {
       SrcBlock		      "Repeating\nSequence\nStair"
       SrcPort		      1
-      Points		      [70, 0; 0, 30]
+      Points		      [20, 0; 0, 35]
       DstBlock		      "Mux"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Constant1"
       SrcPort		      1
-      Points		      [40, 0; 0, -25]
+      Points		      [30, 0; 0, -25]
       DstBlock		      "Mux"
       DstPort		      2
     }
@@ -891,108 +1010,124 @@ Model {
     Line {
       SrcBlock		      "Behavior Attention"
       SrcPort		      2
-      Points		      [55, 0; 0, 20]
+      Points		      [25, 0]
       DstBlock		      "Demux"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Demux"
       SrcPort		      1
-      Points		      [60, 0]
-      DstBlock		      "State"
-      DstPort		      1
+      Points		      [15, 0]
+      Branch {
+	Points			[345, 0]
+	DstBlock		"State"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, -260]
+	DstBlock		"Mux2"
+	DstPort			1
+      }
     }
     Line {
       SrcBlock		      "Constant2"
       SrcPort		      1
-      Points		      [40, 0; 0, 35]
+      Points		      [0, 20]
       DstBlock		      "Mux1"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Constant3"
       SrcPort		      1
-      Points		      [40, 0; 0, -25]
+      Points		      [5, 0; 0, -15]
       DstBlock		      "Mux1"
       DstPort		      2
     }
     Line {
       SrcBlock		      "Mux1"
       SrcPort		      1
-      Points		      [35, 0]
+      Points		      [15, 0; 0, 5]
       Branch {
-	Points			[0, -35]
-	Branch {
-	  Points		  [0, -85]
-	  DstBlock		  "Behavior Attention"
-	  DstPort		  2
-	}
-	Branch {
-	  DstBlock		  "Behavior Attention"
-	  DstPort		  3
-	}
-      }
-      Branch {
-	Points			[0, 50]
+	Points			[0, 80]
 	DstBlock		"Behavior Attention"
 	DstPort			4
+      }
+      Branch {
+	Points			[0, -90]
+	DstBlock		"Behavior Attention"
+	DstPort			2
+      }
+      Branch {
+	Points			[0, -5]
+	DstBlock		"Behavior Attention"
+	DstPort			3
       }
     }
     Line {
       SrcBlock		      "Demux"
       SrcPort		      2
-      Points		      [150, 0]
+      Points		      [0, 10; 230, 0]
       Branch {
+	Points			[110, 0]
 	DstBlock		"Rewards"
 	DstPort			1
       }
       Branch {
-	Points			[0, -105]
+	Points			[0, -45]
 	DstBlock		"Mux2"
-	DstPort			1
+	DstPort			6
       }
     }
     Line {
       SrcBlock		      "Demux"
       SrcPort		      3
-      Points		      [60, 0; 0, 40; 80, 0]
+      Points		      [40, 0]
       Branch {
+	Points			[270, 0]
 	DstBlock		"Failures"
 	DstPort			1
       }
       Branch {
-	Points			[0, -160]
-	DstBlock		"Mux2"
-	DstPort			2
+	Points			[0, -220]
+	DstBlock		"Data Type Conversion5"
+	DstPort			1
       }
     }
     Line {
       SrcBlock		      "Behavior Attention"
       SrcPort		      4
-      Points		      [80, 0; 0, 235]
+      Points		      [20, 0; 0, 205]
       DstBlock		      "Failures1"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Demux"
       SrcPort		      5
-      Points		      [20, 0; 0, 70]
-      DstBlock		      "Incompletes"
-      DstPort		      1
+      Points		      [0, 80; 65, 0]
+      Branch {
+	Points			[80, 0; 0, 215]
+	DstBlock		"Incompletes"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, -240]
+	DstBlock		"Data Type Conversion7"
+	DstPort			1
+      }
     }
     Line {
       SrcBlock		      "Demux"
       SrcPort		      4
-      Points		      [50, 0; 0, 60; 105, 0]
+      Points		      [55, 0]
       Branch {
-	Points			[10, 0]
+	Points			[195, 0]
 	DstBlock		"Aborts"
 	DstPort			1
       }
       Branch {
-	Points			[0, -195]
-	DstBlock		"Mux2"
-	DstPort			3
+	Points			[0, -185]
+	DstBlock		"Data Type Conversion3"
+	DstPort			1
       }
     }
     Line {
@@ -1000,6 +1135,68 @@ Model {
       SrcPort		      1
       DstBlock		      "To Workspace"
       DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Data Type Conversion3"
+      SrcPort		      1
+      DstBlock		      "Detect\nIncrease1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Detect\nIncrease1"
+      SrcPort		      1
+      DstBlock		      "Data Type Conversion2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Data Type Conversion5"
+      SrcPort		      1
+      DstBlock		      "Detect\nIncrease2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Detect\nIncrease2"
+      SrcPort		      1
+      DstBlock		      "Data Type Conversion4"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Data Type Conversion4"
+      SrcPort		      1
+      Points		      [0, 10]
+      DstBlock		      "Mux2"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Data Type Conversion2"
+      SrcPort		      1
+      DstBlock		      "Mux2"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "Data Type Conversion7"
+      SrcPort		      1
+      DstBlock		      "Detect\nIncrease3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Detect\nIncrease3"
+      SrcPort		      1
+      DstBlock		      "Data Type Conversion6"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Data Type Conversion6"
+      SrcPort		      1
+      DstBlock		      "Mux2"
+      DstPort		      5
+    }
+    Line {
+      SrcBlock		      "Behavior Attention"
+      SrcPort		      5
+      Points		      [5, 0; 0, -390]
+      DstBlock		      "Mux2"
+      DstPort		      2
     }
   }
 }
