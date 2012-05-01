@@ -648,7 +648,7 @@ namespace BehaviorGraphics
             /* 
              * Attention Parameters 
              */
-           
+            
             // Timing
             AddParamListItem("AT CHL", "P2", "Behavior AT", this.textBoxATCHL);
             AddParamListItem("AT CHH", "P3", "Behavior AT", this.textBoxATCHH);
@@ -685,7 +685,7 @@ namespace BehaviorGraphics
             AddParamListItem("AT BMMax", "P28", "Behavior AT", this.textBoxATBMMax);
             AddParamListItem("AT BDur", "P29", "Behavior AT", this.textBoxATBD);
             AddParamListItem("AT S", "P30", "Behavior AT", this.checkBoxATS);
-            AddParamListItem("AT SR", "31", "Behavior AT", this.numericUpDownATSR);
+            AddParamListItem("AT SR", "P31", "Behavior AT", this.numericUpDownATSR);
             
             // Bias force
             AddParamListItem("AT BFM", "P32", "Behavior AT", this.textBoxATBFM);

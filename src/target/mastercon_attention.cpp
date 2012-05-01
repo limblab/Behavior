@@ -169,6 +169,8 @@ private:
 	int proprio_color;
 	int control_color;
 	int response_color;
+
+	int debug_var;
 	
 	real_T standard_target_radius;
 	real_T test_target_radius;
@@ -251,6 +253,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	// as defined above.
 	//this->updateParameters(S);
 	
+	debug_var = -1;
 	last_staircase_reset = -1; // force a staircase reset of first trial
 
 	visual_color = Target::Color(50,50,255);
@@ -278,7 +281,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	for (i=0; i<16; i++) {
 		proprioStairs[i] = new Staircase();		
 	}
-	
+		
 	visualStairs[0] = new Staircase();
 	visualStairs[1] = new Staircase();
 
@@ -380,6 +383,8 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	
 	// Set up target locations, etc.
 	centerTarget->width = params->target_size;
+	visualTarget1->centerY = params->target_radius;
+	visualTarget2->centerY = params->target_radius;
 
 	biggerFirstResponseTarget->width = params->target_size;
 	biggerFirstResponseTarget->centerX = -params->target_radius;
@@ -477,8 +482,8 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		bump1->direction = bump_direction;
 	} else {
 		if (params->num_directions>0){
-				i = random->getInteger(0,(int)(params->num_directions-1));
-				bump1->direction = fmod(i * 2 * PI/params->num_directions + params->first_bump_direction,2*PI);
+            i = random->getInteger(0,(int)(params->num_directions-1));
+            bump1->direction = fmod(i * 2 * PI/params->num_directions + params->first_bump_direction,2*PI);
 		} else {
 			bump1->direction = random->getDouble(0,2*PI);
 		}
@@ -619,9 +624,9 @@ void AttentionBehavior::update(SimStruct *S) {
 			if (rewardTarget->cursorInTarget(inputs->cursor)){
 				if (params->use_staircases){
 					if (trial_type == VISUAL_TRIAL){
-						this->visualStairs[staircase_id]->stepForward();
+						visualStairs[staircase_id]->stepForward();						
 					} else if (trial_type == PROPRIO_TRIAL){
-						this->proprioStairs[staircase_id]->stepForward();
+						proprioStairs[staircase_id]->stepForward();
 					}
 				}			
 				playTone(TONE_REWARD);
@@ -629,9 +634,9 @@ void AttentionBehavior::update(SimStruct *S) {
 			} else if (failTarget->cursorInTarget(inputs->cursor)){
 				if (params->use_staircases){
 					if (trial_type == VISUAL_TRIAL){
-						this->visualStairs[staircase_id]->stepBackward();
+						visualStairs[staircase_id]->stepBackward();
 					} else if (trial_type == PROPRIO_TRIAL){
-						this->proprioStairs[staircase_id]->stepBackward();
+						proprioStairs[staircase_id]->stepBackward();
 					}
 				}
 				playTone(TONE_ABORT);
@@ -697,11 +702,10 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     /* status (1) */
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
-	//outputs->status[2] = trialCounter->failures;
-	//outputs->status[3] = trialCounter->aborts;
-	outputs->status[2] = staircase_id;
-	outputs->status[3] = 100*visualStairs[staircase_id]->getValue();
+	outputs->status[2] = trialCounter->failures;
+	outputs->status[3] = trialCounter->aborts;	
 	outputs->status[4] = trialCounter->incompletes;
+	/*outputs->status[4] = debug_var;*/
     
 	/* word(2) */
 	if (db->isRunning()) {
@@ -768,10 +772,10 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[1] = nullTarget;
 	} else if (getState() == STATE_VISUAL_1) {
 		outputs->targets[0] = (Target *)visualTarget1;
-		outputs->targets[1] = nullTarget;
+		outputs->targets[1] = (Target *)centerTarget;
 	} else if (getState() == STATE_VISUAL_2) {
 		outputs->targets[0] = (Target *)visualTarget2;
-		outputs->targets[1] = nullTarget;
+		outputs->targets[1] = (Target *)centerTarget;
 	} else if (getState() == STATE_MOVEMENT) {
 		outputs->targets[0] = (Target *)rewardTarget;
 		if (!training_mode) {
@@ -798,7 +802,8 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-    if (getState() == STATE_BUMP_1 || getState() == STATE_BUMP_2)
+    if (getState() == STATE_BUMP_1 || getState() == STATE_INTERBUMP || 
+		getState() == STATE_BUMP_2 )
     {
         outputs->position = Point(1E6, 1E6);
     } else {
