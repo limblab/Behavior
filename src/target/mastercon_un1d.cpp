@@ -77,6 +77,9 @@ struct LocalParams {
 	real_T feedback_loc;        // where the feedback is activated(cm)
 
 	real_T center_tgt_offset;   // offset of the center along outer target axis
+
+	real_T max_speed_threshold; // maximum speed threshold
+
 };
 
 /**
@@ -103,12 +106,16 @@ private:
 	Point  cursor_end_point; // current trial end point
 	double cursor_extent;  // distance from center in direction of target
 
+
 	Point  cloud_points[10];
 	double current_cloud_var; // current trial feedback variance
 	bool   cloud_blank; // current trial, blank feedback?
 	Timer *feedback_timer; // feedback timer
 
 	double center_hold_time, center_delay_time, outer_hold_time;
+
+	Point  previous_position; // for calculating speed
+	double previous_time_point;
 
 	SquareTarget    *centerTarget;
 	RectangleTarget *outerTarget;
@@ -134,7 +141,7 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(35);
+	this->setNumParams(36);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			 0);
@@ -180,6 +187,8 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 
 	this->bindParamId(&params->center_tgt_offset,		34);
 
+	this->bindParamId(&params->max_speed_threshold,		35);
+
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -206,11 +215,14 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 	cursor_shift.y	   = 0.0;
 	center_offset.x	   = 0.0;
 	center_offset.y	   = 0.0;
+	previous_position.x = 0.0;
+	previous_position.y = 0.0;
 	cursor_end_point.x = 0.0;
 	cursor_end_point.y = 0.0;
 	center_hold_time   = 0.0;
 	center_delay_time  = 0.0;
 	outer_hold_time	   = 0.0;
+	previous_time_point= 0.0;
 	cloud_blank        = false;
 }
 
@@ -419,19 +431,23 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_MOVEMENT:
-			if (outerTarget->cursorInTarget(inputs->cursor+cursor_shift)) {
-
-				setState(STATE_OUTER_HOLD);
-			} 
+			if (stateTimer->elapsedTime(S) > params->movement_time) {
+				setState(STATE_INCOMPLETE);
+			}
+			else if ((sqrt(pow(inputs->cursor.x-previous_position.x,2)+pow(inputs->cursor.y-previous_position.y,2))/
+				(stateTimer->elapsedTime(S)-previous_time_point)) > params->max_speed_threshold){
+				playTone(TONE_ABORT);
+				setState(STATE_ABORT);
+			}
 			else if ((params->error_targets_mode) &&
 				     (errorTargetLeft->cursorInTarget(inputs->cursor+cursor_shift) ||
 				      errorTargetRight->cursorInTarget(inputs->cursor+cursor_shift))) {
-				cursor_end_point=inputs->cursor + cursor_shift;
+				cursor_end_point=inputs->cursor;
 				playTone(TONE_ABORT);
 				setState(STATE_FAIL);
 			}
-			else if (stateTimer->elapsedTime(S) > params->movement_time) {
-				setState(STATE_INCOMPLETE);
+			else if (outerTarget->cursorInTarget(inputs->cursor+cursor_shift)) {
+				setState(STATE_OUTER_HOLD);
 			}
 			break;
 		case STATE_OUTER_HOLD:
@@ -440,7 +456,7 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 				setState(STATE_ABORT);
 			}
 			else if (stateTimer->elapsedTime(S) > outer_hold_time) {
-				cursor_end_point=inputs->cursor+cursor_shift;
+				cursor_end_point=inputs->cursor;
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
 			}
@@ -466,6 +482,10 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
     /* declarations */
 	int i;
 	updateCursorExtent(S);
+	
+	// assign the current position and time point to previous position
+	previous_position = inputs->cursor;
+	previous_time_point = stateTimer->elapsedTime(S);
 
 	/* force (0) */
 	outputs->force = inputs->force;
@@ -632,7 +652,7 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 	}
 	else if ((getState() == STATE_REWARD) || (getState() == STATE_FAIL)) {
 		// if a completed trial, show the shifted endpoint
-		outputs->position = cursor_end_point;
+		outputs->position = cursor_end_point + cursor_shift;
 	}
 	else {
 		// otherwise, show real position
