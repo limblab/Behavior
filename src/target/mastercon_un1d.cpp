@@ -434,7 +434,7 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 			if (stateTimer->elapsedTime(S) > params->movement_time) {
 				setState(STATE_INCOMPLETE);
 			}
-			else if ((sqrt(pow(inputs->cursor.x-previous_position.x,2)+pow(inputs->cursor.y-previous_position.y,2))/
+			else if ((sqrt(pow((inputs->cursor.x-previous_position.x),2)+pow((inputs->cursor.y-previous_position.y),2))/
 				(stateTimer->elapsedTime(S)-previous_time_point)) > params->max_speed_threshold){
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
@@ -476,6 +476,10 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 		default:
 			setState(STATE_PRETRIAL);
 	}
+    // assign the current position and time point to previous position
+	previous_position.x = inputs->cursor.x;
+    previous_position.y = inputs->cursor.y;
+	previous_time_point = stateTimer->elapsedTime(S);
 }
 
 void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
@@ -483,9 +487,7 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 	int i;
 	updateCursorExtent(S);
 	
-	// assign the current position and time point to previous position
-	previous_position = inputs->cursor;
-	previous_time_point = stateTimer->elapsedTime(S);
+
 
 	/* force (0) */
 	outputs->force = inputs->force;
@@ -582,7 +584,7 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 		if (params->feedback_timer_mode) {
 			// If the feedback location was reached and the timer isn't running, start the timer, 
 			// and set the cloud position (once per movement)
-			if ((cursor_extent >= params->feedback_loc) && !feedback_timer->isRunning()) {
+			if ((fabs(cursor_extent) >= params->feedback_loc) && !feedback_timer->isRunning()) {
 				feedback_timer->start(S);
 				updateCloud(S);
 			}
@@ -605,8 +607,8 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 		else {
 			updateCloud(S);
 			// If cursor is actually in the window
-			if ((cursor_extent > params->feedback_window_begin) && 
-				(cursor_extent < params->feedback_window_end)) {
+			if ((fabs(cursor_extent) > params->feedback_window_begin) && 
+				(fabs(cursor_extent) < params->feedback_window_end)) {
 				// show dots
 				for (i = 0; i<params->feedback_dot_num; i++) {
 					outputs->targets[4+i] = cloud[i];
@@ -642,7 +644,9 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-	if ((getState() == STATE_MOVEMENT) && (cursor_extent >= params->block_window_begin) && (cursor_extent <= params->block_window_end)) {	
+	if ((getState() == STATE_MOVEMENT) 
+		&& (fabs(cursor_extent) >= params->block_window_begin) 
+		&& (fabs(cursor_extent) <= params->block_window_end)) {	
 		// if we are in the cursor blocking window, hide the cursor
 		outputs->position = Point(100000,100000);
 	} 
