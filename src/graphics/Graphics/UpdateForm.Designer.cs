@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -875,6 +875,8 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
+            this.textBoxUMaxSpeedThreshold = new System.Windows.Forms.TextBox();
+            this.label266 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -3746,8 +3748,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4505,8 +4507,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -7126,6 +7128,8 @@ namespace BehaviorGraphics
             // 
             // groupBox49
             // 
+            this.groupBox49.Controls.Add(this.textBoxUMaxSpeedThreshold);
+            this.groupBox49.Controls.Add(this.label266);
             this.groupBox49.Controls.Add(this.textBoxUCenterOffset);
             this.groupBox49.Controls.Add(this.label287);
             this.groupBox49.Location = new System.Drawing.Point(222, 333);
@@ -9783,6 +9787,24 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
+            // textBoxUMaxSpeedThreshold
+            // 
+            this.textBoxUMaxSpeedThreshold.Location = new System.Drawing.Point(263, 30);
+            this.textBoxUMaxSpeedThreshold.Name = "textBoxUMaxSpeedThreshold";
+            this.textBoxUMaxSpeedThreshold.Size = new System.Drawing.Size(44, 20);
+            this.textBoxUMaxSpeedThreshold.TabIndex = 28;
+            this.toolTip1.SetToolTip(this.textBoxUMaxSpeedThreshold, "maximum speed threshold.");
+            // 
+            // label266
+            // 
+            this.label266.AutoSize = true;
+            this.label266.Location = new System.Drawing.Point(152, 33);
+            this.label266.Name = "label266";
+            this.label266.Size = new System.Drawing.Size(111, 13);
+            this.label266.TabIndex = 27;
+            this.label266.Text = "Max Speed Threshold";
+            this.toolTip1.SetToolTip(this.label266, "Maximum speed threshold");
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -10839,5 +10861,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxUCenterOffset;
         private System.Windows.Forms.Label label287;
         private System.Windows.Forms.GroupBox groupBox49;
+        private System.Windows.Forms.TextBox textBoxUMaxSpeedThreshold;
+        private System.Windows.Forms.Label label266;
     }
 }

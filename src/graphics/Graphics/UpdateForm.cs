@@ -561,6 +561,8 @@ namespace BehaviorGraphics
             AddParamListItem("Un Feedback Loc", "P34", "Behavior Un1d", this.textBoxUFbLoc);
 
             AddParamListItem("Un Center Offset", "P35", "Behavior Un1d", this.textBoxUCenterOffset);
+            AddParamListItem("Un Max Speed Threshold", "P36", "Behavior Un1d", this.textBoxUMaxSpeedThreshold);
+
             #endregion
 
             #region Bump-follow
