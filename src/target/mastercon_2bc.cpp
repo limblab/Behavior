@@ -22,7 +22,7 @@
 #define STATE_STIM 4
 #define STATE_BUMP 5
 #define STATE_MOVEMENT 6
-#define STATE_ERROR 7
+#define STATE_PENALTY 7
 
 /* 
  * STATE_REWARD STATE_ABORT STATE_FAIL STATE_INCOMPLETE STATE_DATA_BLOCK 
@@ -79,6 +79,7 @@ struct LocalParams {
 	real_T hide_cursor;
 	real_T use_limits;
 	real_T use_stim;
+	real_T penalty_time;
 };
 
 /**
@@ -102,6 +103,7 @@ private:
 	CircleTarget *centerTarget;
 	CircleTarget *primaryTarget;
 	CircleTarget *secondaryTarget;
+	SquareTarget *errorTarget;
     
 	Staircase *stairs[8];
 	int staircase_id;
@@ -130,7 +132,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(20);
+	this->setNumParams(21);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,	 0);
 	this->bindParamId(&params->soft_reset,		 1);
@@ -152,6 +154,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->hide_cursor,		17);
 	this->bindParamId(&params->use_limits,		18);
 	this->bindParamId(&params->use_stim,        19);
+	this->bindParamId(&params->penalty_time,        20);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -170,6 +173,8 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	centerTarget->color = Target::Color(128, 128, 128);
 	primaryTarget->color = Target::Color(160, 255, 0);
 	secondaryTarget->color = Target::Color(255, 0, 160);
+
+	errorTarget = new SquareTarget(0, 0, 100, Target::Color(255, 255, 255));
 
 	for (i=0; i<8; i++) {
 		stairs[i] = new Staircase();
@@ -351,6 +356,15 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 				if (params->run_staircase)
 					this->stairs[staircase_id]->stepBackward();
 				playTone(TONE_ABORT);
+				if (this->params->penalty_time > 0) {
+					setState(STATE_PENALTY);
+				} else {
+					setState(STATE_FAIL);
+				}
+			}
+			break;
+		case STATE_PENALTY:
+			if (stateTimer->elapsedTime(S) > params->penalty_time) {
 				setState(STATE_FAIL);
 			}
 			break;
@@ -440,6 +454,9 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 	} else if (getState() == STATE_MOVEMENT) {
 		outputs->targets[0] = (Target *)(this->primaryTarget);
 		outputs->targets[1] = (Target *)(this->secondaryTarget);
+	} else if (getState() == STATE_PENALTY) {
+		outputs->targets[0] = (Target *)(this->errorTarget);
+		outputs->targets[1] = nullTarget;
 	} else {
 		outputs->targets[0] = nullTarget;
 		outputs->targets[1] = nullTarget;

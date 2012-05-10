@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.4486.20650">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.4512.32168">
   <ScreenWidth>23</ScreenWidth>
   <GoToneVolume>0</GoToneVolume>
   <MGGains>
@@ -843,10 +843,6 @@
         <value>0</value>
       </item>
       <item>
-        <key>UMT</key>
-        <value>0</value>
-      </item>
-      <item>
         <key>UOHL</key>
         <value>0</value>
       </item>
@@ -859,24 +855,16 @@
         <value>0</value>
       </item>
       <item>
-        <key>UBump Duration</key>
+        <key>UMT</key>
         <value>0</value>
       </item>
       <item>
-        <key>UBump Amplitude</key>
+        <key>UFLT</key>
         <value>0</value>
       </item>
       <item>
-        <key>UCatch Trials Pct</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>UDelay Bumps</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>Un Num Targets</key>
-        <value>8</value>
+        <key>Un Target Angle</key>
+        <value>90</value>
       </item>
       <item>
         <key>Un Target Radius</key>
@@ -887,7 +875,7 @@
         <value>0</value>
       </item>
       <item>
-        <key>Un Idiot Mode</key>
+        <key>Un Error Targets On</key>
         <value>0</value>
       </item>
       <item>
@@ -907,35 +895,75 @@
         <value>0</value>
       </item>
       <item>
-        <key>Un Cue Start</key>
+        <key>Un Cloud Var</key>
         <value>0</value>
       </item>
       <item>
-        <key>Un Cue End</key>
+        <key>Un Cloud Var 2</key>
         <value>0</value>
       </item>
       <item>
-        <key>Un Cue Var</key>
+        <key>Un Cloud Var 3</key>
         <value>0</value>
       </item>
       <item>
-        <key>Un Cue Dot Size</key>
+        <key>Un Cloud Var 4</key>
         <value>0</value>
       </item>
       <item>
-        <key>Un Num Cue Dots</key>
+        <key>Un Cloud Frq</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Cloud Frq 2</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Cloud Frq 3</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Cloud Frq 4</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Cloud One Block</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Feedback Start</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Feedback End</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Dot Size</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Num Dots</key>
         <value>10</value>
       </item>
       <item>
-        <key>Un Window Type</key>
-        <value>2</value>
+        <key>Un Timed Feedback On</key>
+        <value>0</value>
       </item>
       <item>
-        <key>Un Displacement Type</key>
-        <value>2</value>
+        <key>Un Feedback Time</key>
+        <value>0</value>
       </item>
       <item>
-        <key>Un CT offset</key>
+        <key>Un Feedback Loc</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Center Offset</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>Un Max Speed Threshold</key>
         <value>0</value>
       </item>
       <item>
@@ -1175,122 +1203,6 @@
         <value>0</value>
       </item>
       <item>
-        <key>AT PVT</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT PPT</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT TBS</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT BP</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT PCT</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT PTT</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT VTMinR</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT VTMaxR</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT VNS</key>
-        <value>5</value>
-      </item>
-      <item>
-        <key>AT PTMinA</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT PTMaxA</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT PNS</key>
-        <value>5</value>
-      </item>
-      <item>
-        <key>AT S</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT PO</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT SL</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT VSR1</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT VSR2</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT VSSS</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT PSA1</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT PSA2</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT PSSS</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT BMMin</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT BMMax</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT NBM</key>
-        <value>5</value>
-      </item>
-      <item>
-        <key>AT BDur</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT BDirs</key>
-        <value>2</value>
-      </item>
-      <item>
-        <key>AT FBD</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT MinR</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT MaxR</key>
-        <value>0</value>
-      </item>
-      <item>
         <key>AT TS</key>
         <value>0</value>
       </item>
@@ -1304,6 +1216,86 @@
       </item>
       <item>
         <key>AT IVT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT PVT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT PPT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT TBS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT PTT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT PCT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BD</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BDirs</key>
+        <value>2</value>
+      </item>
+      <item>
+        <key>AT FBD</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT VNS</key>
+        <value>5</value>
+      </item>
+      <item>
+        <key>AT VTMinR</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT VTMaxR</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT NBM</key>
+        <value>5</value>
+      </item>
+      <item>
+        <key>AT BMMin</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BMMax</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BDur</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT S</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT SR</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BFM</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BFD</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BFR</key>
         <value>0</value>
       </item>
       <item>
@@ -1340,7 +1332,7 @@
       </item>
       <item>
         <key>2BC SC Step</key>
-        <value>10</value>
+        <value>15</value>
       </item>
       <item>
         <key>2BC SC Use Bottom</key>
@@ -1364,7 +1356,7 @@
       </item>
       <item>
         <key>2BC Targ Grow</key>
-        <value>3</value>
+        <value>5</value>
       </item>
       <item>
         <key>2BC Targ Ang</key>

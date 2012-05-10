@@ -609,6 +609,8 @@ namespace BehaviorGraphics
             this.label217 = new System.Windows.Forms.Label();
             this.tabUncertainty1D = new System.Windows.Forms.TabPage();
             this.groupBox49 = new System.Windows.Forms.GroupBox();
+            this.textBoxUMaxSpeedThreshold = new System.Windows.Forms.TextBox();
+            this.label266 = new System.Windows.Forms.Label();
             this.textBoxUCenterOffset = new System.Windows.Forms.TextBox();
             this.label287 = new System.Windows.Forms.Label();
             this.groupBox55 = new System.Windows.Forms.GroupBox();
@@ -875,8 +877,8 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.textBoxUMaxSpeedThreshold = new System.Windows.Forms.TextBox();
-            this.label266 = new System.Windows.Forms.Label();
+            this.textBox2BCPenalty = new System.Windows.Forms.TextBox();
+            this.label288 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -7139,6 +7141,24 @@ namespace BehaviorGraphics
             this.groupBox49.TabStop = false;
             this.groupBox49.Text = "Miscellaneous Parameters";
             // 
+            // textBoxUMaxSpeedThreshold
+            // 
+            this.textBoxUMaxSpeedThreshold.Location = new System.Drawing.Point(263, 30);
+            this.textBoxUMaxSpeedThreshold.Name = "textBoxUMaxSpeedThreshold";
+            this.textBoxUMaxSpeedThreshold.Size = new System.Drawing.Size(44, 20);
+            this.textBoxUMaxSpeedThreshold.TabIndex = 28;
+            this.toolTip1.SetToolTip(this.textBoxUMaxSpeedThreshold, "maximum speed threshold.");
+            // 
+            // label266
+            // 
+            this.label266.AutoSize = true;
+            this.label266.Location = new System.Drawing.Point(152, 33);
+            this.label266.Name = "label266";
+            this.label266.Size = new System.Drawing.Size(111, 13);
+            this.label266.TabIndex = 27;
+            this.label266.Text = "Max Speed Threshold";
+            this.toolTip1.SetToolTip(this.label266, "Maximum speed threshold");
+            // 
             // textBoxUCenterOffset
             // 
             this.textBoxUCenterOffset.Location = new System.Drawing.Point(85, 30);
@@ -8826,7 +8846,7 @@ namespace BehaviorGraphics
             this.groupBox62.Controls.Add(this.label312);
             this.groupBox62.Controls.Add(this.label311);
             this.groupBox62.Controls.Add(this.textBox2BCPD);
-            this.groupBox62.Location = new System.Drawing.Point(4, 134);
+            this.groupBox62.Location = new System.Drawing.Point(6, 163);
             this.groupBox62.Name = "groupBox62";
             this.groupBox62.Size = new System.Drawing.Size(198, 104);
             this.groupBox62.TabIndex = 9;
@@ -8902,6 +8922,8 @@ namespace BehaviorGraphics
             // 
             // groupBox61
             // 
+            this.groupBox61.Controls.Add(this.label288);
+            this.groupBox61.Controls.Add(this.textBox2BCPenalty);
             this.groupBox61.Controls.Add(this.textBox2BCInt);
             this.groupBox61.Controls.Add(this.label309);
             this.groupBox61.Controls.Add(this.textBox2BCBH);
@@ -8913,7 +8935,7 @@ namespace BehaviorGraphics
             this.groupBox61.Controls.Add(this.label305);
             this.groupBox61.Location = new System.Drawing.Point(6, 6);
             this.groupBox61.Name = "groupBox61";
-            this.groupBox61.Size = new System.Drawing.Size(196, 122);
+            this.groupBox61.Size = new System.Drawing.Size(196, 151);
             this.groupBox61.TabIndex = 2;
             this.groupBox61.TabStop = false;
             this.groupBox61.Text = "Timing";
@@ -9787,23 +9809,21 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // textBoxUMaxSpeedThreshold
+            // textBox2BCPenalty
             // 
-            this.textBoxUMaxSpeedThreshold.Location = new System.Drawing.Point(263, 30);
-            this.textBoxUMaxSpeedThreshold.Name = "textBoxUMaxSpeedThreshold";
-            this.textBoxUMaxSpeedThreshold.Size = new System.Drawing.Size(44, 20);
-            this.textBoxUMaxSpeedThreshold.TabIndex = 28;
-            this.toolTip1.SetToolTip(this.textBoxUMaxSpeedThreshold, "maximum speed threshold.");
+            this.textBox2BCPenalty.Location = new System.Drawing.Point(90, 117);
+            this.textBox2BCPenalty.Name = "textBox2BCPenalty";
+            this.textBox2BCPenalty.Size = new System.Drawing.Size(100, 20);
+            this.textBox2BCPenalty.TabIndex = 9;
             // 
-            // label266
+            // label288
             // 
-            this.label266.AutoSize = true;
-            this.label266.Location = new System.Drawing.Point(152, 33);
-            this.label266.Name = "label266";
-            this.label266.Size = new System.Drawing.Size(111, 13);
-            this.label266.TabIndex = 27;
-            this.label266.Text = "Max Speed Threshold";
-            this.toolTip1.SetToolTip(this.label266, "Maximum speed threshold");
+            this.label288.AutoSize = true;
+            this.label288.Location = new System.Drawing.Point(6, 121);
+            this.label288.Name = "label288";
+            this.label288.Size = new System.Drawing.Size(42, 13);
+            this.label288.TabIndex = 10;
+            this.label288.Text = "Penalty";
             // 
             // UpdateForm
             // 
@@ -10863,5 +10883,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.GroupBox groupBox49;
         private System.Windows.Forms.TextBox textBoxUMaxSpeedThreshold;
         private System.Windows.Forms.Label label266;
+        private System.Windows.Forms.Label label288;
+        private System.Windows.Forms.TextBox textBox2BCPenalty;
     }
 }
