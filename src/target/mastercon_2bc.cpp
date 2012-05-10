@@ -22,6 +22,8 @@
 #define STATE_STIM 4
 #define STATE_BUMP 5
 #define STATE_MOVEMENT 6
+#define STATE_ERROR 7
+
 /* 
  * STATE_REWARD STATE_ABORT STATE_FAIL STATE_INCOMPLETE STATE_DATA_BLOCK 
  * are all defined in Behavior.h Do not use state numbers above 64 (0x40)
@@ -101,7 +103,7 @@ private:
 	CircleTarget *primaryTarget;
 	CircleTarget *secondaryTarget;
     
-	Staircase *stairs[4];
+	Staircase *stairs[8];
 	int staircase_id;
 	bool stim_trial;
 
@@ -115,7 +117,7 @@ private:
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
 	void setupStaircase(int i, double angle, double step, double fl, double bl);
-	int choseTrialStaircase();
+	int chooseStaircase();
 };
 
 TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
@@ -169,7 +171,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	primaryTarget->color = Target::Color(160, 255, 0);
 	secondaryTarget->color = Target::Color(255, 0, 160);
 
-	for (i=0; i<4; i++) {
+	for (i=0; i<8; i++) {
 		stairs[i] = new Staircase();
 	}
 
@@ -204,7 +206,7 @@ void TwoBumpChoiceBehavior::setupStaircase(
 }
 
 int TwoBumpChoiceBehavior::chooseStaircase() {
-	int stim = this->random->getBool();
+	int stim = (params->use_stim ? this->random->getBool() : false);
 	int sc_dir = (params->use_bottom_sc ? random->getInteger(0,3) : random->getInteger(0,1));
 	return (stim ? sc_dir + 4 : sc_dir);
 }
@@ -228,7 +230,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 		setupStaircase(0, params->target_angle, params->sc_step_size, params->target_angle+90, params->target_angle);
 		setupStaircase(1, params->target_angle+180 , -params->sc_step_size, params->target_angle+90, params->target_angle+180);
 		setupStaircase(2, params->target_angle+180 , params->sc_step_size, params->target_angle+270, params->target_angle+180);
-		setupStaircase(3, params->target_angle+360 , -params->sc_step_size, (bool)params->use_limits, params->target_angle+270, params->target_angle+360);
+		setupStaircase(3, params->target_angle+360 , -params->sc_step_size, (bool)params->use_limits, params->target_angle+270);
 	}
 
 	// Pick which staircase to use
@@ -271,6 +273,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 }
 
 void TwoBumpChoiceBehavior::update(SimStruct *S) {
+
 	Target *correctTarget;
 	Target *incorrectTarget;
 
@@ -363,6 +366,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 		default:
 			setState(STATE_PRETRIAL);
 	}
+
 }
 
 void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
