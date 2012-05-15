@@ -310,7 +310,7 @@ static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 35);
+    ssSetNumSFcnParams(S, 37);
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -1265,7 +1265,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
            target_pos[i+1] = ct[i];
         }
     } else if (state ==  STATE_CENTER_HOLD  ||
-         state == STATE_GO_CUE || state == STATE_BUMP) {
+         state == STATE_GO_CUE || state == STATE_BUMP || state==STATE_DELAY) {
         /* center target on */
         target_pos[0] = target_color;
         

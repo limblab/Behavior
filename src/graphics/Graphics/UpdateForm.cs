@@ -481,6 +481,7 @@ namespace BehaviorGraphics
 
             AddParamListItem("BC fast abort", "P36", "Behavior BC", this.checkBoxBCFA);
 
+            AddParamListItem("BC post stim delay", "P37", "Behavior BC", this.textBoxBCPSD);
             #endregion
 
             #region Visual Search

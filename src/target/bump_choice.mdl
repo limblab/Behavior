@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1266"
+    ComputedModelVersion    "1.1268"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Oct 18 15:36:25 2011"
-  ModelVersionFormat	  "1.%<AutoIncrement:1266>"
+  LastModifiedDate	  "Tue May 15 15:06:16 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1268>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -692,9 +692,6 @@ Model {
       OutPortSampleTime	      "-1"
     }
     Block {
-      BlockType		      Reference
-    }
-    Block {
       BlockType		      RelationalOperator
       Operator		      ">="
       InputSameDT	      on
@@ -837,7 +834,7 @@ Model {
   }
   System {
     Name		    "bump_choice"
-    Location		    [208, 240, 1195, 880]
+    Location		    [19, 199, 1006, 839]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -876,7 +873,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_bc"
       Parameters	      "0 0 10 3 5 7 0.0 0.05 125 0.5 2 10 1 2 2 0 0 0 "
-"0 1 0 0 0 0 0 100 1 1 1 1 0 0 2 0 1"
+"0 1 0 0 0 0 0 100 1 1 1 1 0 0 2 0 1 0 0"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'pos offsets')\nport_label('input',3,'force')\npor"
 "t_label('input',4,'catch force')\nport_label('input',5,'stim table')\nport_la"
@@ -2623,7 +2620,7 @@ Model {
       System {
 	Name			"Motor Control"
 	Location		[4, 82, 1008, 722]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"

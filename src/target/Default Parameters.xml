@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.4512.32168">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.4513.24998">
   <ScreenWidth>23</ScreenWidth>
   <GoToneVolume>0</GoToneVolume>
   <MGGains>
@@ -40,7 +40,7 @@
       </item>
       <item>
         <key>Reward Pulse</key>
-        <value>0.3</value>
+        <value>1.1</value>
       </item>
       <item>
         <key>Reward Jackpot</key>
@@ -48,7 +48,7 @@
       </item>
       <item>
         <key>Reward Jackpot Chance</key>
-        <value>10</value>
+        <value>0</value>
       </item>
       <item>
         <key>Recenter Handle</key>
@@ -216,11 +216,11 @@
       </item>
       <item>
         <key>RW Num Targets</key>
-        <value>8</value>
+        <value>2</value>
       </item>
       <item>
         <key>RW Target Size</key>
-        <value>3.5</value>
+        <value>3</value>
       </item>
       <item>
         <key>Target Tolerance</key>
@@ -244,19 +244,19 @@
       </item>
       <item>
         <key>THL</key>
-        <value>0</value>
+        <value>0.25</value>
       </item>
       <item>
         <key>THH</key>
-        <value>0</value>
+        <value>0.5</value>
       </item>
       <item>
         <key>TDL</key>
-        <value>0</value>
+        <value>0.25</value>
       </item>
       <item>
         <key>TDH</key>
-        <value>0</value>
+        <value>0.75</value>
       </item>
       <item>
         <key>RW MT</key>
@@ -272,11 +272,11 @@
       </item>
       <item>
         <key>Minimum Distance</key>
-        <value>2</value>
+        <value>0</value>
       </item>
       <item>
         <key>Maximum Distance</key>
-        <value>4</value>
+        <value>0</value>
       </item>
       <item>
         <key>RW Percent Catch Trials</key>
@@ -1308,31 +1308,35 @@
       </item>
       <item>
         <key>2BC Bump Hold</key>
-        <value>1</value>
+        <value>1.5</value>
       </item>
       <item>
         <key>2BC intertrial</key>
-        <value>0.5</value>
+        <value>1</value>
+      </item>
+      <item>
+        <key>2BC penalty</key>
+        <value>7</value>
       </item>
       <item>
         <key>2BC Bump Mag</key>
-        <value>0.1</value>
+        <value>0.05</value>
       </item>
       <item>
         <key>2BC Bump Dur</key>
-        <value>0.5</value>
-      </item>
-      <item>
-        <key>2BC Bump RT</key>
-        <value>0.25</value>
-      </item>
-      <item>
-        <key>2BC SC Run</key>
         <value>0</value>
       </item>
       <item>
+        <key>2BC Bump RT</key>
+        <value>0.2</value>
+      </item>
+      <item>
+        <key>2BC SC Run</key>
+        <value>1</value>
+      </item>
+      <item>
         <key>2BC SC Step</key>
-        <value>15</value>
+        <value>3</value>
       </item>
       <item>
         <key>2BC SC Use Bottom</key>
@@ -1340,7 +1344,7 @@
       </item>
       <item>
         <key>2BC SC Reset</key>
-        <value>0</value>
+        <value>4</value>
       </item>
       <item>
         <key>2BC SC Limits</key>
@@ -1356,7 +1360,7 @@
       </item>
       <item>
         <key>2BC Targ Grow</key>
-        <value>5</value>
+        <value>7</value>
       </item>
       <item>
         <key>2BC Targ Ang</key>
@@ -1364,11 +1368,11 @@
       </item>
       <item>
         <key>2BC Targ Green</key>
-        <value>1</value>
+        <value>0</value>
       </item>
       <item>
         <key>2BC Hide Cursor</key>
-        <value>1</value>
+        <value>0</value>
       </item>
     </dictionary>
   </SerializedParameters>
