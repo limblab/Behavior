@@ -478,7 +478,9 @@ namespace BehaviorGraphics
 
             AddParamListItem("BC Bump magnitude zero", "P34", "Behavior BC", this.checkBoxBCBumpMagZero);
             AddParamListItem("BC First stim repeat", "P35", "Behavior BC", this.textBoxBCStim1Repeat);
-                        
+
+            AddParamListItem("BC fast abort", "P36", "Behavior BC", this.checkBoxBCFA);
+
             #endregion
 
             #region Visual Search

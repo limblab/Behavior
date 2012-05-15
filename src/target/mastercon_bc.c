@@ -225,6 +225,13 @@ static int no_bump_when_stim_1 = 0;
 static real_T stim_1_repeats = 1;
 #define param_stim_1_repeats (int)mxGetScalar(ssGetSFcnParam(S,34))
 
+/* causes ABORT immediately if monkey leaves center target early */
+static real_T fast_abort = 0;
+#define param_fast_abort ((int)mxGetScalar(ssGetSFcnParam(S,35)))
+
+static real_T post_stim_delay = 0.0;
+#define param_post_stim_delay (mxGetScalar(ssGetSFcnParam(S,36)))
+
 /*
  * State IDs
  */
@@ -234,7 +241,8 @@ static real_T stim_1_repeats = 1;
 #define STATE_LEAVE_CT 3
 #define STATE_GO_CUE 4
 #define STATE_BUMP 5
-#define STATE_MOVEMENT 6
+#define STATE_DELAY 6
+#define STATE_MOVEMENT 7
 #define STATE_REWARD 82
 #define STATE_ABORT 65
 #define STATE_FAIL 70
@@ -293,6 +301,9 @@ static void mdlCheckParameters(SimStruct *S)
     
     no_bump_when_stim_1 = param_no_bump_when_stim_1;
     stim_1_repeats = param_stim_1_repeats;
+
+	fast_abort = param_fast_abort;
+	post_stim_delay = param_post_stim_delay;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
@@ -691,6 +702,9 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             random_bump_direction = random_bump_direction_flag ? 2*PI*UNI : 0;
             ssSetRWorkValue(S,9,random_bump_direction);
             
+			fast_abort = param_fast_abort;
+			post_stim_delay = param_post_stim_delay;
+
             /* decide if it is a training trial */
             training_mode = (UNI<pct_training_trials) ? 1 : 0;
             ssSetIWorkValue(S,6,training_mode);
@@ -833,7 +847,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             
             /* center hold */
             if (!cursorInTarget(cursor, ct)) {
-                new_state = STATE_LEAVE_CT;
+				if (fast_abort) {
+					new_state = STATE_ABORT;
+				} else {
+	                new_state = STATE_LEAVE_CT;
+				}
                 reset_timer(); /* abort timeout */
                 state_changed();
             } else if (elapsed_timer_time > center_hold) {
@@ -871,8 +889,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 if (cursorInTarget(cursor, ft_temp)){
                     cursor_in_fail_targets = 1;
                 }
-            } 
-            if (cursorInTarget(cursor, rt)) {
+            }
+
+			if (fast_abort && !cursorInTarget(cursor, ct)) {
+				new_state = STATE_ABORT;
+                reset_timer(); /* abort timeout */
+                state_changed();
+			} else if (cursorInTarget(cursor, rt)) {
                 new_state = STATE_REWARD;
                 reset_timer(); /* abort timeout */
                 state_changed();
@@ -900,7 +923,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     cursor_in_fail_targets = 1;
                 }
             } 
-            if (cursorInTarget(cursor, rt)) {
+
+			if (fast_abort && !cursorInTarget(cursor, ct)) {
+				new_state = STATE_ABORT;
+                reset_timer(); /* abort timeout */
+                state_changed();
+			} else if (cursorInTarget(cursor, rt)) {
                 new_state = STATE_REWARD;
                 reset_timer(); /* abort timeout */
                 state_changed();
@@ -909,12 +937,23 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 reset_timer(); /* abort timeout */
                 state_changed();
             } else if (elapsed_timer_time > bump_duration/1000) {
-                new_state = STATE_MOVEMENT;
+                new_state = STATE_DELAY;
                 reset_timer(); /* movement timer */
                 state_changed();
             }
             break;
             
+		case STATE_DELAY:
+			if (fast_abort && !cursorInTarget(cursor, ct)) {
+				new_state = STATE_ABORT;
+                reset_timer(); /* abort timeout */
+                state_changed();
+			} else if (elapsed_timer_time > post_stim_delay) {
+				new_state = STATE_MOVEMENT;
+				reset_timer();
+				state_changed();
+			}
+			break;
         case STATE_MOVEMENT:
             /* movement phase */
             /* cursor in fail targets */
