@@ -394,7 +394,7 @@ namespace BehaviorGraphics {
                     if (iDot < num_coherent_dots)
                     {
                         new_x = Graphics.moving_dots[iDot].X + speed * Math.Cos(direction) * elapsed_time;
-                        new_y = Graphics.moving_dots[iDot].Y + speed * Math.Sin(direction) * elapsed_time;
+                        new_y = Graphics.moving_dots[iDot].Y - speed * Math.Sin(direction) * elapsed_time;
                         
                     } else {
                         new_x = target_center_x + target_width * (rand.NextDouble() - .5);
@@ -405,8 +405,12 @@ namespace BehaviorGraphics {
                 {                    
                     double rand_dir = 2 * Math.PI * rand.NextDouble();
 
-                    displacement_x = 0.01 * coherence * Math.Cos(direction) + (1 - 0.01 * coherence) * Math.Cos(rand_dir);
-                    displacement_y = 0.01 * coherence * Math.Sin(direction) + (1 - 0.01 * coherence) * Math.Sin(rand_dir);
+                    displacement_x = Math.Sqrt(0.01 * coherence) * Math.Cos(direction) + 
+                                        Math.Sqrt(1 - 0.01 * coherence) * Math.Cos(rand_dir);
+                    displacement_y = Math.Sqrt(0.01 * coherence) * Math.Sin(direction) + 
+                                        Math.Sqrt(1 - 0.01 * coherence) * Math.Sin(rand_dir);
+                    //displacement_x = Math.Cos(direction) + (1 - 0.01 * coherence) * Math.Cos(rand_dir);
+                    //displacement_y = Math.Sin(direction) + (1 - 0.01 * coherence) * Math.Sin(rand_dir);
 
                     displacement_x = speed * elapsed_time * displacement_x /
                         (Math.Sqrt(Math.Pow(displacement_x, 2) + Math.Pow(displacement_y, 2)));
@@ -414,7 +418,7 @@ namespace BehaviorGraphics {
                         (Math.Sqrt(Math.Pow(displacement_x, 2) + Math.Pow(displacement_y, 2)));
 
                     new_x = Graphics.moving_dots[iDot].X + displacement_x;
-                    new_y = Graphics.moving_dots[iDot].Y + displacement_y;
+                    new_y = Graphics.moving_dots[iDot].Y - displacement_y;
                 }
 
                 if (new_x <= ul.X)

@@ -218,7 +218,7 @@ namespace BehaviorGraphics
             string posStr = String.Format("X: {0:f}\nY: {1:f}", this.x, this.y);
             //posStr = posStr + "\n" + String.Format("Tone Count: {0}\nTone ID: {1}", this.tone_cnt, this.tone_id);
             //posStr = posStr + "\n" + String.Format("Cursor: {0}\n{1}", this.activeCursorIndex, this.activeCursor);
-            //posStr = posStr + "\n" + String.Format("FPS: {0:f}", 1000.0 / interFrameInterval);
+            posStr = posStr + "\n" + String.Format("FPS: {0:f}", 1000.0 / interFrameInterval);
             posStr = posStr + "\n" + this.t[0].ToString();
             posStr = posStr + "\n" + this.t[1].ToString();
             font.DrawText(null, posStr, new System.Drawing.Point(10, 10), System.Drawing.Color.White);
