@@ -19,6 +19,9 @@
 #define TARGET_TYPE_CIRCLE 10
 #define TARGET_TYPE_SQUARE 11
 
+// Moving dots target
+#define TARGET_TYPE_MOVING_DOTS 12
+
 /***************************************************
  * Target (Parent class)
  ***************************************************/
@@ -402,9 +405,187 @@ void SquareTarget::copyToOutputs(real_T *u, int offset) {
 }
 
 
+/***************************************************
+ * MovingDotsTargetA
+ ***************************************************/
+
+/**
+ * First part of a moving dots target (must be followed by MovingDotsTargetB).
+ * Represents a square area with an arbitrary number of white dots 
+ * moving with a certain level of coherence. When the newsomeDots parameter
+ * is 1 the dots will behave as in Newsome and Pare (1988), when it is 0
+ * they will move in a random walk.
+ * 
+ */
+class MovingDotsTargetA : public Target {
+public:
+	MovingDotsTargetA();
+	MovingDotsTargetA(double centerX, double centerY, double width, double coherence);
+	void copyToOutputs(real_T *u, int offset);
+	bool cursorInTarget(double x, double y);
+	bool cursorInTarget(Point p);
+
+	/** The x coordinate of the center of the square target */
+	double centerX;
+
+	/** The y coordinate of the center of the square target */
+	double centerY;
+
+	/** The width (and height) of the square) */
+	double width;
+
+	/** The level of coherence (from 0 to 100). */
+    double coherence;
+};
+
+/**
+ * Default constructor sets all values to zero.
+ */
+MovingDotsTargetA::MovingDotsTargetA() {
+	this->centerX = 0.0;
+	this->centerY = 0.0;
+	this->width = 0.0;
+	this->coherence = 0.0;
+}
+
+/**
+ * Creates a MovingDotsTargetA with the requested position, size, and coherence.
+ * @param centerX the x coordinate of the center of the target.
+ * @param centerY the y coordinate of the center of the target.
+ * @param width the width and height of the square target.
+ * @param coherence the level of coherence of the moving dots.
+ */
+MovingDotsTargetA::MovingDotsTargetA(double centerX, double centerY, double width, double coherence) {
+	this->centerX = centerX;
+	this->centerY = centerY;
+	this->width = width;
+	this->coherence = coherence;
+}
+
+/**
+ * Determines if the specified point within the target.
+ * This function will return whether the specified point is
+ * within the target.
+ * @param x the x coordinate of the point.
+ * @param y the y coordinate of the point.
+ * @return true if the specified point is within the bounds of 
+ * of the target, false otherwise.
+ */
+bool MovingDotsTargetA::cursorInTarget(double x, double y) {
+	return ( (x > centerX - width/2) && (x < centerX + width/2) && 
+		(y > centerY - width/2) && (y < centerY + width/2) );
+}
+
+/**
+ * Determines if the specified point within the target.
+ * Determines if the specified point within the target.
+ * This function will return whether the specified point is
+ * within the target.
+ * @param p a Point containg the x,y coordinate to check
+ * @return true if the specified point is within the bounds of 
+ * of the target, false otherwise.
+ */
+bool MovingDotsTargetA::cursorInTarget(Point p) {
+	return this->cursorInTarget(p.x, p.y);
+}
+
+/**
+ * Copies the target to the outputs array.
+ * This function will the internal 
+ * data of the target to the list of five real_Ts that is necessary
+ * to send to the graphics program. This function is called from
+ * Behavior::writeOutputs and you should never have to call it 
+ * directly.
+ * @param u the output buffer to write to.
+ * @param offset the location to begin writing.
+ */
+void MovingDotsTargetA::copyToOutputs(real_T *u, int offset) {
+	u[0+offset] = (real_T)(TARGET_TYPE_MOVING_DOTS);
+	u[1+offset] = (real_T)(centerX - width / 2);
+	u[2+offset] = (real_T)(centerY + width / 2);
+	u[3+offset] = (real_T)(centerX + width / 2);
+	u[4+offset] = (real_T)(coherence);
+}
 
 
+/***************************************************
+ * MovingDotsTargetB
+ ***************************************************/
 
+/**
+ * Second part of a moving dots target (must be preceded by MovingDotsTargetA).
+ * Represents a square area with an arbitrary number of white dots 
+ * moving with a certain level of coherence. When the newsomeDots parameter
+ * is 1 the dots will behave as in Newsome and Pare (1988), when it is 0
+ * they will move in a random walk.
+ * 
+ */
+class MovingDotsTargetB : public Target {
+public:
+	MovingDotsTargetB();
+	MovingDotsTargetB(double direction, double speed, int num_dots, double dot_radius, int newsome_dots);
+	void copyToOutputs(real_T *u, int offset);
+
+	/** The direction of movement of the dots */
+	double direction;
+
+	/** The speed of the dots */
+	double speed;
+
+	/** The number of dots */
+	int num_dots;
+
+	/** The radius of each dot */
+    double dot_radius;
+
+	/** The type of movement */
+	int newsome_dots;
+};
+
+/**
+ * Default constructor sets all values to zero.
+ */
+MovingDotsTargetB::MovingDotsTargetB() {
+	this->direction = 0.0;
+	this->speed = 0.0;
+	this->num_dots = 0;
+	this->dot_radius = 0.0;
+	this->newsome_dots = 0;
+}
+
+/**
+ * Creates a MovingDotsTargetB with the requested parameters.
+ * @param direction the direction of movement of the dots.
+ * @param speed the speed of movement of the dots.
+ * @param num_dots the number of dots displayed.
+ * @param dot_radius the radius of each dot.
+ * @param newsome_dots the type of movement of the dots.
+ */
+MovingDotsTargetB::MovingDotsTargetB(double direction, double speed, int num_dots, double dot_radius, int newsome_dots) {
+	this->direction = direction;
+	this->speed = speed;
+	this->num_dots = num_dots;
+	this->dot_radius = dot_radius;
+	this->newsome_dots = newsome_dots;
+}
+
+/**
+ * Copies the target to the outputs array.
+ * This function will the internal 
+ * data of the target to the list of five real_Ts that is necessary
+ * to send to the graphics program. This function is called from
+ * Behavior::writeOutputs and you should never have to call it 
+ * directly.
+ * @param u the output buffer to write to.
+ * @param offset the location to begin writing.
+ */
+void MovingDotsTargetB::copyToOutputs(real_T *u, int offset) {
+	u[0+offset] = (real_T)(direction);
+	u[1+offset] = (real_T)(speed);
+	u[2+offset] = (real_T)(num_dots);
+	u[3+offset] = (real_T)(dot_radius);
+	u[4+offset] = (real_T)(newsome_dots);
+}
 
 
 

@@ -12,6 +12,11 @@ namespace BehaviorGraphics {
         private List<Texture> glyphTextures;
         private Texture errorTexture;
         private Color optionalColor; // Used only on some target types
+        private double previous_tick;
+
+        // Moving dots parameters
+        private double coherence, direction, speed, num_dots, dot_radius, newsome_dots;
+
         Material material;
         Device device;
 
@@ -36,6 +41,15 @@ namespace BehaviorGraphics {
             type = 0;
             glyphTextures = new List<Texture>();
 
+            coherence = 0;
+            direction = 0;
+            speed = 0;
+            num_dots = 0;
+            dot_radius = 0;
+            newsome_dots = 0;
+
+            previous_tick = (double)Environment.TickCount;
+
             material = new Material();
             material.Diffuse = Color.White;
             material.Specular = Color.LightGray;
@@ -58,6 +72,16 @@ namespace BehaviorGraphics {
 
         public void SetColor(double input) {
             this.optionalColor = Color.FromArgb((int)(0xff000000 | ((uint)input)));
+        }
+
+        public void movingDotsParams(double coh, double dir, double spe, double num, double size, double mov)
+        {
+            this.coherence = coh;
+            this.direction = dir;
+            this.speed = spe;
+            this.num_dots = num;
+            this.dot_radius = size;
+            this.newsome_dots = mov;
         }
 
         public TargetSpriteType Type { get { return type; } set { type = value; } }
@@ -204,6 +228,21 @@ namespace BehaviorGraphics {
                     device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
                     break;
 
+                case TargetSpriteType.MovingDots:
+                    getNextDotPositions();
+                    vertices = new CustomVertex.TransformedColored[10];
+
+                    for (int iDot = 1; iDot < num_dots; iDot++)
+                    {
+                        getCircleVertices(Graphics.moving_dots[iDot], (float)(Graphics.moving_dots[iDot].X + dot_radius),
+                            Color.White, ref vertices);
+                        device.VertexFormat = CustomVertex.TransformedColored.Format;
+                        device.DrawUserPrimitives(PrimitiveType.TriangleFan, 8, vertices);
+                    }  
+
+                    break;
+
+
                 default:
 
                     // See if we are one of the glyph types
@@ -332,7 +371,78 @@ namespace BehaviorGraphics {
             vertices[99] = vertices[1];
         }
 
-        public void SetPosition(float left, float top, float right, float bottom) {
+        private void getNextDotPositions()
+        {
+            double displacement_x, displacement_y, new_x, new_y;
+            double elapsed_time;
+            double target_center_x, target_center_y, target_width;
+            Random rand;
+            rand = new Random();
+
+            elapsed_time = ((double)Environment.TickCount - previous_tick)/1000; // sec
+            target_width = Math.Abs(ul.X - lr.X);
+            target_center_x = ul.X+target_width/2;
+            target_center_y = ul.Y-target_width/2;
+
+            for (int iDot = 0; iDot < num_dots; iDot++)
+            {
+                if (this.newsome_dots == 1)
+                {
+                    int num_coherent_dots = (int)Math.Round(num_dots * coherence / 100);
+                    if (iDot < num_coherent_dots)
+                    {
+                        new_x = Graphics.moving_dots[iDot].X + speed * Math.Cos(direction) * elapsed_time;
+                        new_y = Graphics.moving_dots[iDot].Y + speed * Math.Sin(direction) * elapsed_time;
+                        
+                    } else {
+                        new_x = target_width * (rand.NextDouble() - .5) + target_center_x;
+                        new_y = target_width * (rand.NextDouble() - .5) + target_center_y;
+                    }
+                }
+                else
+                {                    
+                    double rand_dir = 2 * Math.PI * rand.NextDouble();
+
+                    displacement_x = 0.01 * coherence * Math.Cos(direction) + (1 - 0.01 * coherence) * Math.Cos(rand_dir);
+                    displacement_y = 0.01 * coherence * Math.Sin(direction) + (1 - 0.01 * coherence) * Math.Sin(rand_dir);
+
+                    displacement_x = speed * elapsed_time * displacement_x /
+                        (Math.Sqrt(Math.Pow(displacement_x, 2) + Math.Pow(displacement_y, 2)));
+                    displacement_y = speed * elapsed_time * displacement_y /
+                        (Math.Sqrt(Math.Pow(displacement_x, 2) + Math.Pow(displacement_y, 2)));
+
+                    new_x = Graphics.moving_dots[iDot].X + displacement_x;
+                    new_y = Graphics.moving_dots[iDot].Y + displacement_y;
+                }
+
+                if (new_x <= ul.X)
+                {
+                    new_x = lr.X;
+                    new_y = target_width * (rand.NextDouble() - .5) + target_center_y;
+                }
+                else if (new_x >= lr.X)
+                {
+                    new_x = ul.X;
+                    new_y = target_width * (rand.NextDouble() - .5) + target_center_y;
+                }
+                if (new_y >= ul.Y)
+                {
+                    new_y = ul.Y - target_width;
+                    new_x = target_width * (rand.NextDouble() - .5) + target_center_x;
+                }
+                else if (new_y <= (ul.Y - target_width))
+                {
+                    new_y = ul.Y;
+                    new_x = target_width * (rand.NextDouble() - .5) + target_center_x;
+                }
+
+                Graphics.moving_dots[iDot] = new Vector3((float)new_x, (float)new_y, 0f);
+                
+            }
+        }
+
+        public void SetPosition(float left, float top, float right, float bottom)
+        {
             ul.X = left;
             ul.Y = top;
             lr.X = right;
@@ -367,6 +477,7 @@ namespace BehaviorGraphics {
         YellowTarget = 9,
         Circle = 10,
         Square = 11,
+        MovingDots = 12,
         Glyph0 = 16,
         Glyph1 = 17,
         Glyph2 = 18,

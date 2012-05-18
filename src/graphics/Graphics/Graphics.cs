@@ -50,7 +50,10 @@ namespace BehaviorGraphics
 
         private int target_count = 2;
         private TargetSprite[] t;
+        public static List<Vector3> moving_dots;
 
+        private Random rand;
+        
         // Box variables
         private Box box;
         private CustomVertex.TransformedColored[] boxVertices = new CustomVertex.TransformedColored[5];
@@ -78,6 +81,8 @@ namespace BehaviorGraphics
 
             this.verticalDisplacement = 0.0f;
 
+            rand = new Random();
+
             // Network
             this.server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             this.server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveBuffer, 1);
@@ -103,6 +108,8 @@ namespace BehaviorGraphics
             for (int i = 0; i < t.Length; i++) {
                 t[i] = new TargetSprite(device);
             }
+
+            moving_dots = new List<Vector3>();
 
             this.keepGraphicsRunning = false;
 
@@ -202,6 +209,7 @@ namespace BehaviorGraphics
 
             device.Clear(ClearFlags.Target, System.Drawing.Color.Black, 1.0f, 0);
             device.BeginScene();
+            
 #if DEBUG
             // Calculate frame rate
             double lastInterframeInterval = (double)Environment.TickCount - lastFrameTime;
@@ -355,6 +363,28 @@ namespace BehaviorGraphics
                             {
                                 t[i].SetColor(lry);
                             }
+
+                            if (t[i].Type == TargetSpriteType.MovingDots)
+                            {
+                                target_count--;
+                                double coherence = lry;
+                                double direction = BitConverter.ToDouble(data, (pos++) * 8);
+                                double speed = BitConverter.ToDouble(data, (pos++) * 8);
+                                double num_dots = BitConverter.ToDouble(data, (pos++) * 8);
+                                double dot_size = BitConverter.ToDouble(data, (pos++) * 8);
+                                double newsome_dots = BitConverter.ToDouble(data, (pos++) * 8);
+                                t[i].movingDotsParams(coherence, direction, speed, num_dots, dot_size, newsome_dots); 
+
+                                double target_width = Math.Abs(t[i].LR.X - t[i].UL.X);
+                                for (int iDot = 0; i < num_dots; i++)
+                                {
+                                    moving_dots[iDot] = new Vector3((float)(rand.NextDouble() * target_width + (t[i].LR.X + t[i].UL.X) / 2),
+                                                                    (float)(rand.NextDouble() * target_width + (t[i].LR.Y + t[i].UL.Y) / 2),
+                                                                    0f);
+
+                                }
+                            }
+                            
                         }
 
                         break;
