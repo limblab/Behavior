@@ -143,6 +143,11 @@ public:
 
 private:
 	// Your behavior's instance variables
+    
+    // REMOVE LATER
+    MovingDotsTargetA *dotsTargetA;
+    MovingDotsTargetB *dotsTargetB;
+    
 	SquareTarget *centerTarget;
 	SquareTarget *biggerFirstResponseTarget;
 	SquareTarget *biggerSecondResponseTarget;
@@ -260,6 +265,9 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	proprio_color = Target::Color(255,180,0);
 	control_color = Target::Color(50,200,50);
 	response_color = Target::Color(255,0,0);
+    
+    dotsTargetA = new MovingDotsTargetA();
+    dotsTargetB = new MovingDotsTargetB();
 
 	centerTarget = new SquareTarget();
 
@@ -381,6 +389,18 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	training_mode = (this->random->getDouble(0,100) < params->percent_training_trials) ? 1 : 0;
 	bigger_first = this->random->getBool();
 	
+    // REMOVE LATER
+    dotsTargetA->width = 3*params->target_size;
+    dotsTargetA->centerX = 0;
+    dotsTargetA->centerY = 0;
+    dotsTargetA->coherence = 80;
+    
+    dotsTargetB->direction = 0.0;
+    dotsTargetB->speed = 10;
+    dotsTargetB->num_dots = 20;
+    dotsTargetB->dot_radius = 1;
+    dotsTargetB->newsome_dots = 0;
+    
 	// Set up target locations, etc.
 	centerTarget->width = params->target_size;
 	visualTarget1->centerY = params->target_radius;
@@ -758,35 +778,37 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 		outputs->word = 0;
 	}
 
-	/* target_pos (3) */
-	// Center Target
-	if (getState() == STATE_CENTER_TARGET_ON || 
-	    getState() == STATE_CENTER_HOLD_1 || 
-        getState() == STATE_INTERBUMP ||
-        getState() == STATE_CENTER_HOLD_2 ||
-		getState() == STATE_BUMP_1 ||
-		getState() == STATE_BUMP_2 ||
-		getState() == STATE_INTERVISUAL) 
-	{
-		outputs->targets[0] = (Target *)centerTarget;
-		outputs->targets[1] = nullTarget;
-	} else if (getState() == STATE_VISUAL_1) {
-		outputs->targets[0] = (Target *)visualTarget1;
-		outputs->targets[1] = (Target *)centerTarget;
-	} else if (getState() == STATE_VISUAL_2) {
-		outputs->targets[0] = (Target *)visualTarget2;
-		outputs->targets[1] = (Target *)centerTarget;
-	} else if (getState() == STATE_MOVEMENT) {
-		outputs->targets[0] = (Target *)rewardTarget;
-		if (!training_mode) {
-			outputs->targets[1] = (Target *)failTarget;
-		} else {
-			outputs->targets[1] = nullTarget;
-		}
-	} else {
-		outputs->targets[0] = nullTarget;
-		outputs->targets[1] = nullTarget;
-	}
+    outputs->targets[0] = (Target *)dotsTargetA;
+    outputs->targets[1] = (Target *)dotsTargetB;
+// 	/* target_pos (3) */
+// 	// Center Target
+// 	if (getState() == STATE_CENTER_TARGET_ON || 
+// 	    getState() == STATE_CENTER_HOLD_1 || 
+//         getState() == STATE_INTERBUMP ||
+//         getState() == STATE_CENTER_HOLD_2 ||
+// 		getState() == STATE_BUMP_1 ||
+// 		getState() == STATE_BUMP_2 ||
+// 		getState() == STATE_INTERVISUAL) 
+// 	{
+// 		outputs->targets[0] = (Target *)centerTarget;
+// 		outputs->targets[1] = nullTarget;
+// 	} else if (getState() == STATE_VISUAL_1) {
+// 		outputs->targets[0] = (Target *)visualTarget1;
+// 		outputs->targets[1] = (Target *)centerTarget;
+// 	} else if (getState() == STATE_VISUAL_2) {
+// 		outputs->targets[0] = (Target *)visualTarget2;
+// 		outputs->targets[1] = (Target *)centerTarget;
+// 	} else if (getState() == STATE_MOVEMENT) {
+// 		outputs->targets[0] = (Target *)rewardTarget;
+// 		if (!training_mode) {
+// 			outputs->targets[1] = (Target *)failTarget;
+// 		} else {
+// 			outputs->targets[1] = nullTarget;
+// 		}
+// 	} else {
+// 		outputs->targets[0] = nullTarget;
+// 		outputs->targets[1] = nullTarget;
+// 	}
 
 	/* reward (4) */
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD));

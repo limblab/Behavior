@@ -524,6 +524,8 @@ class MovingDotsTargetB : public Target {
 public:
 	MovingDotsTargetB();
 	MovingDotsTargetB(double direction, double speed, int num_dots, double dot_radius, int newsome_dots);
+    bool cursorInTarget(double x, double y);
+	bool cursorInTarget(Point p);
 	void copyToOutputs(real_T *u, int offset);
 
 	/** The direction of movement of the dots */
@@ -567,6 +569,14 @@ MovingDotsTargetB::MovingDotsTargetB(double direction, double speed, int num_dot
 	this->num_dots = num_dots;
 	this->dot_radius = dot_radius;
 	this->newsome_dots = newsome_dots;
+}
+
+bool MovingDotsTargetB::cursorInTarget(double x, double y) {
+	return 0;
+}
+
+bool MovingDotsTargetB::cursorInTarget(Point p) {
+	return 0;
 }
 
 /**

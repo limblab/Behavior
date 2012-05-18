@@ -48,7 +48,7 @@ namespace BehaviorGraphics {
             dot_radius = 0;
             newsome_dots = 0;
 
-            previous_tick = (double)Environment.TickCount;
+            previous_tick = Environment.TickCount;
 
             material = new Material();
             material.Diffuse = Color.White;
@@ -230,14 +230,14 @@ namespace BehaviorGraphics {
 
                 case TargetSpriteType.MovingDots:
                     getNextDotPositions();
-                    vertices = new CustomVertex.TransformedColored[10];
+                    vertices = new CustomVertex.TransformedColored[100];
 
                     for (int iDot = 1; iDot < num_dots; iDot++)
                     {
                         getCircleVertices(Graphics.moving_dots[iDot], (float)(Graphics.moving_dots[iDot].X + dot_radius),
                             Color.White, ref vertices);
                         device.VertexFormat = CustomVertex.TransformedColored.Format;
-                        device.DrawUserPrimitives(PrimitiveType.TriangleFan, 8, vertices);
+                        device.DrawUserPrimitives(PrimitiveType.TriangleFan, 98, vertices);
                     }  
 
                     break;
@@ -380,9 +380,11 @@ namespace BehaviorGraphics {
             rand = new Random();
 
             elapsed_time = ((double)Environment.TickCount - previous_tick)/1000; // sec
+            previous_tick = Environment.TickCount;
             target_width = Math.Abs(ul.X - lr.X);
             target_center_x = ul.X+target_width/2;
-            target_center_y = ul.Y-target_width/2;
+            target_center_y = ul.Y+target_width/2;
+            //this.speed = 0.00001;
 
             for (int iDot = 0; iDot < num_dots; iDot++)
             {
@@ -395,8 +397,8 @@ namespace BehaviorGraphics {
                         new_y = Graphics.moving_dots[iDot].Y + speed * Math.Sin(direction) * elapsed_time;
                         
                     } else {
-                        new_x = target_width * (rand.NextDouble() - .5) + target_center_x;
-                        new_y = target_width * (rand.NextDouble() - .5) + target_center_y;
+                        new_x = target_center_x + target_width * (rand.NextDouble() - .5);
+                        new_y = target_center_y + target_width * (rand.NextDouble() - .5);
                     }
                 }
                 else
@@ -425,12 +427,12 @@ namespace BehaviorGraphics {
                     new_x = ul.X;
                     new_y = target_width * (rand.NextDouble() - .5) + target_center_y;
                 }
-                if (new_y >= ul.Y)
+                if (new_y <= ul.Y)
                 {
-                    new_y = ul.Y - target_width;
+                    new_y = ul.Y + target_width;
                     new_x = target_width * (rand.NextDouble() - .5) + target_center_x;
                 }
-                else if (new_y <= (ul.Y - target_width))
+                else if (new_y >= (ul.Y + target_width))
                 {
                     new_y = ul.Y;
                     new_x = target_width * (rand.NextDouble() - .5) + target_center_x;

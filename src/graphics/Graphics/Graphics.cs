@@ -109,8 +109,6 @@ namespace BehaviorGraphics
                 t[i] = new TargetSprite(device);
             }
 
-            moving_dots = new List<Vector3>();
-
             this.keepGraphicsRunning = false;
 
             updateForm = new UpdateForm();
@@ -376,12 +374,16 @@ namespace BehaviorGraphics
                                 t[i].movingDotsParams(coherence, direction, speed, num_dots, dot_size, newsome_dots); 
 
                                 double target_width = Math.Abs(t[i].LR.X - t[i].UL.X);
-                                for (int iDot = 0; i < num_dots; i++)
+                                if (Graphics.moving_dots == null)
                                 {
-                                    moving_dots[iDot] = new Vector3((float)(rand.NextDouble() * target_width + (t[i].LR.X + t[i].UL.X) / 2),
-                                                                    (float)(rand.NextDouble() * target_width + (t[i].LR.Y + t[i].UL.Y) / 2),
-                                                                    0f);
-
+                                    Graphics.moving_dots = new List<Vector3>((int)num_dots);
+                                    for (int iDot = 0; iDot < num_dots; iDot++)
+                                    {
+                                        Graphics.moving_dots.Add(
+                                            new Vector3((float)(rand.NextDouble() * target_width + (t[i].LR.X + t[i].UL.X) / 2),
+                                                        (float)(rand.NextDouble() * target_width + (t[i].UL.Y + target_width / 2)),
+                                                        0f));
+                                    }
                                 }
                             }
                             
