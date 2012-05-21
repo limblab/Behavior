@@ -366,11 +366,13 @@ namespace BehaviorGraphics
                                 double coherence = lry;
                                 double direction = BitConverter.ToDouble(data, (pos++) * 8);
                                 double speed = BitConverter.ToDouble(data, (pos++) * 8);
+                                Vector3 temp_vector3_1 = cm2screen((float)speed,(float)0);
+                                Vector3 temp_vector3_2 = cm2screen((float)0, (float)0);
+                                speed = temp_vector3_1.X - temp_vector3_2.X;
                                 double num_dots = BitConverter.ToDouble(data, (pos++) * 8);
                                 double dot_size = BitConverter.ToDouble(data, (pos++) * 8);
-                                double newsome_dots = BitConverter.ToDouble(data, (pos++) * 8);
+                                double newsome_dots = BitConverter.ToDouble(data, (pos++) * 8);                                
                                 t[i].movingDotsParams(coherence, direction, speed, num_dots, dot_size, newsome_dots); 
-
                                 
                             }
                             
@@ -443,6 +445,7 @@ namespace BehaviorGraphics
                 fullScreen = true;
                 Cursor.Hide();
                 this.device.Reset(GetPresentParams());
+                Graphics.moving_dots = null;
             }
 
             if (fullScreen && e.KeyCode == Keys.Escape) {
@@ -454,6 +457,7 @@ namespace BehaviorGraphics
                 this.Size = oldSize;
                 this.Location = oldLocation;
                 this.FormBorderStyle = FormBorderStyle.Sizable;
+                Graphics.moving_dots = null;
             }
         }
 

@@ -442,7 +442,7 @@ namespace BehaviorGraphics {
                     new_x = Graphics.moving_dots[iDot].X + displacement_x;
                     new_y = Graphics.moving_dots[iDot].Y - displacement_y;
                 }
-
+                
                 if (new_x <= this.UL.X)
                 {
                     new_x = this.LR.X;
