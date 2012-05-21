@@ -52,7 +52,7 @@ namespace BehaviorGraphics
         private TargetSprite[] t;
         public static List<Vector3> moving_dots;
 
-        private Random rand;
+
         
         // Box variables
         private Box box;
@@ -80,8 +80,6 @@ namespace BehaviorGraphics
             drawBox = false;
 
             this.verticalDisplacement = 0.0f;
-
-            rand = new Random();
 
             // Network
             this.server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
@@ -373,18 +371,7 @@ namespace BehaviorGraphics
                                 double newsome_dots = BitConverter.ToDouble(data, (pos++) * 8);
                                 t[i].movingDotsParams(coherence, direction, speed, num_dots, dot_size, newsome_dots); 
 
-                                double target_width = Math.Abs(t[i].LR.X - t[i].UL.X);
-                                if (Graphics.moving_dots == null)
-                                {
-                                    Graphics.moving_dots = new List<Vector3>((int)num_dots);
-                                    for (int iDot = 0; iDot < num_dots; iDot++)
-                                    {
-                                        Graphics.moving_dots.Add(
-                                            new Vector3((float)(rand.NextDouble() * target_width + (t[i].LR.X + t[i].UL.X) / 2),
-                                                        (float)(rand.NextDouble() * target_width + (t[i].UL.Y + target_width / 2)),
-                                                        0f));
-                                    }
-                                }
+                                
                             }
                             
                         }

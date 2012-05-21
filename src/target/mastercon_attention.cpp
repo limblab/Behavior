@@ -393,10 +393,10 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
     dotsTargetA->width = 3*params->target_size;
     dotsTargetA->centerX = 0;
     dotsTargetA->centerY = 0;
-    dotsTargetA->coherence = 50;
+    dotsTargetA->coherence = 100;
     
     dotsTargetB->direction = PI/4;
-    dotsTargetB->speed = 200;
+    dotsTargetB->speed = 50;
     dotsTargetB->num_dots = 200;
     dotsTargetB->dot_radius = 1;
     dotsTargetB->newsome_dots = 0;

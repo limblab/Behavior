@@ -15,6 +15,7 @@ namespace BehaviorGraphics {
         private double previous_tick;
 
         // Moving dots parameters
+        private Random rand;
         private double coherence, direction, speed, num_dots, dot_radius, newsome_dots;
 
         Material material;
@@ -215,7 +216,7 @@ namespace BehaviorGraphics {
                     getCircleVertices(ul, lr.X, optionalColor, ref vertices);
 
                     device.VertexFormat = CustomVertex.TransformedColored.Format;
-                    device.DrawUserPrimitives(PrimitiveType.TriangleFan, 98, vertices);
+                    device.DrawUserPrimitives(PrimitiveType.TriangleFan, vertices.Length-2, vertices);
                     break;
 
                 case TargetSpriteType.Square:
@@ -229,15 +230,36 @@ namespace BehaviorGraphics {
                     break;
 
                 case TargetSpriteType.MovingDots:
+                    rand = new Random();
+                    double target_width = this.LR.X - this.UL.X;
+                    if (Graphics.moving_dots != null)
+                    {
+                        if (Graphics.moving_dots.Count != num_dots)
+                        {
+                            Graphics.moving_dots = new List<Vector3>((int)num_dots);
+                        }
+                    }
+                    else
+                    {
+                        Graphics.moving_dots = new List<Vector3>((int)num_dots);
+                        for (int iDot = 0; iDot < num_dots; iDot++)
+                        {
+                            Graphics.moving_dots.Add(
+                                new Vector3((float)(rand.NextDouble() * target_width + this.UL.X),
+                                            (float)(rand.NextDouble() * target_width + this.UL.Y),
+                                            0f));
+                        }
+                        previous_tick = Environment.TickCount;
+                    }
                     getNextDotPositions();
-                    vertices = new CustomVertex.TransformedColored[100];
+                    vertices = new CustomVertex.TransformedColored[20];
 
                     for (int iDot = 1; iDot < num_dots; iDot++)
                     {
                         getCircleVertices(Graphics.moving_dots[iDot], (float)(Graphics.moving_dots[iDot].X + dot_radius),
                             Color.White, ref vertices);
                         device.VertexFormat = CustomVertex.TransformedColored.Format;
-                        device.DrawUserPrimitives(PrimitiveType.TriangleFan, 98, vertices);
+                        device.DrawUserPrimitives(PrimitiveType.TriangleFan, vertices.Length-2, vertices);
                     }  
 
                     break;
@@ -355,12 +377,13 @@ namespace BehaviorGraphics {
 
         private void getCircleVertices(Vector3 centerCoord, float outerX, Color c, ref CustomVertex.TransformedColored[] vertices) {
             float radius = Math.Abs(centerCoord.X - outerX);
+            int num_vertices = vertices.Length;
 
             vertices[0].Position = new Vector4(centerCoord.X, centerCoord.Y, 0f, 1f);
             vertices[0].Color = c.ToArgb();
 
-            for (int i = 1; i < 99; i++) {
-                double theta = (double)i / 99.0 * 2 * Math.PI;
+            for (int i = 1; i < num_vertices-1; i++) {
+                double theta = (double)i / num_vertices * 2.0 * Math.PI;
 
                 vertices[i].Position = new Vector4(
                     radius * (float)Math.Cos(theta) + centerCoord.X,
@@ -368,7 +391,7 @@ namespace BehaviorGraphics {
                     0f, 1f);
                 vertices[i].Color = c.ToArgb();
             }
-            vertices[99] = vertices[1];
+            vertices[num_vertices-1] = vertices[1];
         }
 
         private void getNextDotPositions()
@@ -409,37 +432,36 @@ namespace BehaviorGraphics {
                                         Math.Sqrt(1 - 0.01 * coherence) * Math.Cos(rand_dir);
                     displacement_y = Math.Sqrt(0.01 * coherence) * Math.Sin(direction) + 
                                         Math.Sqrt(1 - 0.01 * coherence) * Math.Sin(rand_dir);
+                    double displacement_mag = (Math.Sqrt(Math.Pow(displacement_x, 2) + Math.Pow(displacement_y, 2)));
                     //displacement_x = Math.Cos(direction) + (1 - 0.01 * coherence) * Math.Cos(rand_dir);
                     //displacement_y = Math.Sin(direction) + (1 - 0.01 * coherence) * Math.Sin(rand_dir);
 
-                    displacement_x = speed * elapsed_time * displacement_x /
-                        (Math.Sqrt(Math.Pow(displacement_x, 2) + Math.Pow(displacement_y, 2)));
-                    displacement_y = speed * elapsed_time * displacement_y /
-                        (Math.Sqrt(Math.Pow(displacement_x, 2) + Math.Pow(displacement_y, 2)));
+                    displacement_x = speed * elapsed_time * displacement_x / displacement_mag;
+                    displacement_y = speed * elapsed_time * displacement_y / displacement_mag;
 
                     new_x = Graphics.moving_dots[iDot].X + displacement_x;
                     new_y = Graphics.moving_dots[iDot].Y - displacement_y;
                 }
 
-                if (new_x <= ul.X)
+                if (new_x <= this.UL.X)
                 {
-                    new_x = lr.X;
-                    new_y = target_width * (rand.NextDouble() - .5) + target_center_y;
+                    new_x = this.LR.X;
+                    new_y = target_center_y - target_width * (rand.NextDouble() - .5);
                 }
-                else if (new_x >= lr.X)
+                else if (new_x >= this.LR.X)
                 {
-                    new_x = ul.X;
-                    new_y = target_width * (rand.NextDouble() - .5) + target_center_y;
+                    new_x = this.UL.X;
+                    new_y = target_center_y - target_width * (rand.NextDouble() - .5);
                 }
-                if (new_y <= ul.Y)
+                if (new_y <= this.UL.Y)
                 {
-                    new_y = ul.Y + target_width;
-                    new_x = target_width * (rand.NextDouble() - .5) + target_center_x;
+                    new_y = this.UL.Y + target_width;
+                    new_x = target_center_x + target_width * (rand.NextDouble() - .5);
                 }
-                else if (new_y >= (ul.Y + target_width))
+                else if (new_y >= (this.UL.Y + target_width))
                 {
-                    new_y = ul.Y;
-                    new_x = target_width * (rand.NextDouble() - .5) + target_center_x;
+                    new_y = this.UL.Y;
+                    new_x = target_center_x + target_width * (rand.NextDouble() - .5);
                 }
 
                 Graphics.moving_dots[iDot] = new Vector3((float)new_x, (float)new_y, 0f);
