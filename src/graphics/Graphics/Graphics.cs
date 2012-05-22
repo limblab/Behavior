@@ -370,9 +370,9 @@ namespace BehaviorGraphics
                                 Vector3 temp_vector3_2 = cm2screen((float)0, (float)0);
                                 speed = temp_vector3_1.X - temp_vector3_2.X;
                                 double num_dots = BitConverter.ToDouble(data, (pos++) * 8);
-                                double dot_size = BitConverter.ToDouble(data, (pos++) * 8);
+                                double dot_radius = BitConverter.ToDouble(data, (pos++) * 8);
                                 double newsome_dots = BitConverter.ToDouble(data, (pos++) * 8);                                
-                                t[i].movingDotsParams(coherence, direction, speed, num_dots, dot_size, newsome_dots); 
+                                t[i].movingDotsParams(coherence, direction, speed, num_dots, dot_radius, newsome_dots); 
                                 
                             }
                             
