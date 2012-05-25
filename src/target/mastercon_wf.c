@@ -19,8 +19,8 @@
 /* 
  * Current Databurst version: 4
  *
- * Note that all databursts are encoded half a byte at a time as a word who's 
- * high order bits are all 1 and who's low order bits represent the half byte to
+ * Note that all databursts are encoded half a byte at a time as a word whose 
+ * high order bits are all 1 and whose low order bits represent the half byte to
  * be transmitted.  Low order bits are transmitted first.  Thus to transmit the
  * two bytes 0xCF 0x07, one would send 0xFF 0xFC 0xF7 0xF0.
  *
