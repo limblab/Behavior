@@ -211,58 +211,58 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(44);
+	this->setNumParams(42);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->center_hold_l,							 1);
 	this->bindParamId(&params->center_hold_h,							 2);
-	this->bindParamId(&params->movement_time,							 5);
-	this->bindParamId(&params->reward_timeout,							 6);
-	this->bindParamId(&params->fail_timeout,							 7);
-    this->bindParamId(&params->abort_timeout,							 8);
+	this->bindParamId(&params->movement_time,							 3);
+	this->bindParamId(&params->reward_timeout,							 4);
+	this->bindParamId(&params->fail_timeout,							 5);
+    this->bindParamId(&params->abort_timeout,							 6);
 
-	this->bindParamId(&params->target_size,								 9);
-	this->bindParamId(&params->target_radius,							10);
+	this->bindParamId(&params->target_size,								 7);
+	this->bindParamId(&params->target_radius,							 8);
 
-	this->bindParamId(&params->percent_visual_trials,					11);
-	this->bindParamId(&params->percent_proprio_trials,					12);
-	this->bindParamId(&params->trial_block_size,						13);
-	this->bindParamId(&params->percent_training_trials,					14);
-	this->bindParamId(&params->percent_catch_trials,					15);
-	this->bindParamId(&params->blocked_directions,						16);
-	this->bindParamId(&params->blocked_difficulty,						17);
-	this->bindParamId(&params->num_directions,							18);
-	this->bindParamId(&params->first_main_direction,					19);
+	this->bindParamId(&params->percent_visual_trials,					 9);
+	this->bindParamId(&params->percent_proprio_trials,					10);
+	this->bindParamId(&params->trial_block_size,						11);
+	this->bindParamId(&params->percent_training_trials,					12);
+	this->bindParamId(&params->percent_catch_trials,					13);
+	this->bindParamId(&params->blocked_directions,						14);
+	this->bindParamId(&params->blocked_difficulty,						15);
+	this->bindParamId(&params->num_directions,							16);
+	this->bindParamId(&params->first_main_direction,					17);
 
-	this->bindParamId(&params->moving_dots_duration,					20);
-	this->bindParamId(&params->moving_dots_target_size,					21);
-	this->bindParamId(&params->moving_dots_coherence,					22);
-	this->bindParamId(&params->moving_dots_speed,						23);
-	this->bindParamId(&params->moving_dots_num_dots,					24);
-	this->bindParamId(&params->moving_dots_dot_radius,					25);
-	this->bindParamId(&params->moving_dots_movement_type,				26);
-	this->bindParamId(&params->moving_dots_easy_min_separation,			27);
-	this->bindParamId(&params->moving_dots_easy_max_separation,			28);
-	this->bindParamId(&params->moving_dots_num_steps,					29);
-	this->bindParamId(&params->moving_dots_hard_min_separation,			30);
-	this->bindParamId(&params->moving_dots_hard_max_separation,			31);
+	this->bindParamId(&params->moving_dots_duration,					18);
+	this->bindParamId(&params->moving_dots_target_size,					19);
+	this->bindParamId(&params->moving_dots_coherence,					20);
+	this->bindParamId(&params->moving_dots_speed,						21);
+	this->bindParamId(&params->moving_dots_num_dots,					22);
+	this->bindParamId(&params->moving_dots_dot_radius,					23);
+	this->bindParamId(&params->moving_dots_movement_type,				24);
+	this->bindParamId(&params->moving_dots_easy_min_separation,			25);
+	this->bindParamId(&params->moving_dots_easy_max_separation,			26);
+	this->bindParamId(&params->moving_dots_num_steps,					27);
+	this->bindParamId(&params->moving_dots_hard_min_separation,			28);
+	this->bindParamId(&params->moving_dots_hard_max_separation,			29);
 
-	this->bindParamId(&params->bump_duration,							32);
-	this->bindParamId(&params->bump_num_steps,							33);
-	this->bindParamId(&params->bump_easy_min_separation,				34);
-	this->bindParamId(&params->bump_easy_max_separation,				35);
-	this->bindParamId(&params->bump_hard_min_separation,				36);
-	this->bindParamId(&params->bump_hard_max_separation,				37);
-	this->bindParamId(&params->bump_magnitude,							38);
+	this->bindParamId(&params->bump_duration,							30);
+	this->bindParamId(&params->bump_num_steps,							31);
+	this->bindParamId(&params->bump_easy_min_separation,				32);
+	this->bindParamId(&params->bump_easy_max_separation,				33);
+	this->bindParamId(&params->bump_hard_min_separation,				34);
+	this->bindParamId(&params->bump_hard_max_separation,				35);
+	this->bindParamId(&params->bump_magnitude,							36);
 
-	this->bindParamId(&params->use_staircases,							39);
-	this->bindParamId(&params->staircase_reset,							40);
-	this->bindParamId(&params->bias_force_magnitude,					41);
-	this->bindParamId(&params->bias_force_direction,					42);
-	this->bindParamId(&params->bias_force_ramp,							43);				
+	this->bindParamId(&params->use_staircases,							37);
+	this->bindParamId(&params->staircase_reset,							38);
+	this->bindParamId(&params->bias_force_magnitude,					39);
+	this->bindParamId(&params->bias_force_direction,					40);
+	this->bindParamId(&params->bias_force_ramp,							41);				
     
     // default parameters:
-    // 0 0 1 5 1 1 1 3 10 40 30 10 20 20 1 1 4 1 6 100 3 50 0 90 180 3 0 30 4 1 3 90 180 4 0 30 0 -1 .001 0 .2
+    // 0 .5 1 5 1 1 1   3 10   40 30 20 20 20 1 1 4 0   1 10 80 1 50 .1 0 1.57 3.14 5 0 1.57   .3 5 1.57 3.14 0 1.57 .005   0 0 .003 0 .2
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
