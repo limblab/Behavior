@@ -167,6 +167,7 @@ private:
     Staircase *proprioStairs[16];
 	Staircase *visualStairs[16];
 	int staircase_id;
+	int i_dir;
 	
 	int trial_type;	/* VISUAL_TRIAL, PROPRIO_TRIAL, CONTROL_TRIAL */
 	int trial_counter;
@@ -342,7 +343,7 @@ void AttentionBehavior::setupVisualStaircase(
 
 
 void AttentionBehavior::doPreTrial(SimStruct *S) {
-	int i, i_dir;
+	int i;
 	real_T temp_real;
 	real_T temp_real2;
 
@@ -362,14 +363,15 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		for (i=0 ; i < params->num_directions ; i++){
 			temp_real  = i * 2 * PI / (params->num_directions) + params->first_main_direction;
 			temp_real2  = (params->moving_dots_easy_max_separation)/2;
-			setupVisualStaircase(i*2, temp_real + temp_real2, visual_stair_step_size, temp_real, temp_real + temp_real2);
-			setupVisualStaircase(i*2+1, temp_real - temp_real2, -visual_stair_step_size, temp_real, temp_real - temp_real2);
-			
-			temp_real2  = (params->bump_easy_max_separation)/2;
-			setupProprioStaircase(i*2, temp_real + temp_real2, bump_stair_step_size, temp_real, temp_real + temp_real2);
-			setupProprioStaircase(i*2+1, temp_real - temp_real2, -bump_stair_step_size, temp_real, temp_real - temp_real2);			
-		};
+			setupVisualStaircase(i*2, temp_real - temp_real2, -visual_stair_step_size, temp_real, temp_real - temp_real2);
+			setupVisualStaircase(i*2+1, temp_real + temp_real2, visual_stair_step_size, temp_real, temp_real + temp_real2);			
 
+			temp_real2  = (params->bump_easy_max_separation)/2;
+			setupProprioStaircase(i*2, temp_real - temp_real2, -bump_stair_step_size, temp_real, temp_real - temp_real2);
+			setupProprioStaircase(i*2+1, temp_real + temp_real2, bump_stair_step_size, temp_real, temp_real + temp_real2);						
+		};
+        // also reset trial blocks
+        trial_counter = 0;
 	}
 
 	trial_counter++;
@@ -438,7 +440,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
 	// Pick a stimulus to the left or right
 	left_stim = random->getBool();
-	staircase_id = left_stim + i_dir*2;
+	staircase_id = left_stim + i_dir*2; // right stim = even, left stim = odd.
 
 	dotsTargetB->direction = 0;
 

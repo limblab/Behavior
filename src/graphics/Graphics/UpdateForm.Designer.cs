@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -3771,8 +3771,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4530,8 +4530,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -7939,16 +7939,16 @@ namespace BehaviorGraphics
             this.groupBox51.Size = new System.Drawing.Size(191, 61);
             this.groupBox51.TabIndex = 70;
             this.groupBox51.TabStop = false;
-            this.groupBox51.Text = "Staircases";
+            this.groupBox51.Text = "Staircases and block reset";
             // 
             // label286
             // 
             this.label286.AutoSize = true;
-            this.label286.Location = new System.Drawing.Point(116, 38);
+            this.label286.Location = new System.Drawing.Point(19, 38);
             this.label286.Name = "label286";
-            this.label286.Size = new System.Drawing.Size(35, 13);
+            this.label286.Size = new System.Drawing.Size(132, 13);
             this.label286.TabIndex = 68;
-            this.label286.Text = "Reset";
+            this.label286.Text = "Staircases and block reset";
             // 
             // numericUpDownATSR
             // 
@@ -8278,6 +8278,7 @@ namespace BehaviorGraphics
             this.numericUpDownATND.Name = "numericUpDownATND";
             this.numericUpDownATND.Size = new System.Drawing.Size(48, 20);
             this.numericUpDownATND.TabIndex = 45;
+            this.toolTip1.SetToolTip(this.numericUpDownATND, "if zero, randomly picked direction.");
             this.numericUpDownATND.Value = new decimal(new int[] {
             2,
             0,
