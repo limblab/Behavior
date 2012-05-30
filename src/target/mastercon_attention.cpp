@@ -531,32 +531,32 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
 	/* setup the databurst */
 	db->reset();
-	db->addByte(DATABURST_VERSION);
-	db->addByte(BEHAVIOR_VERSION_MAJOR);
-    db->addByte(BEHAVIOR_VERSION_MINOR);
-	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);
-	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
-	db->addFloat((float)(inputs->offsets.x));
-	db->addFloat((float)(inputs->offsets.y));
-	db->addByte(trial_type);
-	db->addByte(staircase_id);
-	db->addByte(training_mode);
-	db->addByte(catch_trial);
-	db->addFloat((float)(main_direction));
-	db->addFloat((float)(params->bump_magnitude));
-	db->addFloat((float)(bump_direction));
-	db->addFloat((float)(params->bump_duration));
-	db->addFloat((float)(params->moving_dots_target_size));
-	db->addFloat((float)(params->moving_dots_coherence));
-	db->addFloat((float)(dotsTargetB->direction));
-	db->addFloat((float)(params->moving_dots_speed));
-	db->addFloat((float)(params->moving_dots_num_dots));
-	db->addFloat((float)(params->moving_dots_dot_radius));
-	db->addFloat((float)(params->moving_dots_movement_type));
-	db->addFloat((float)(rewardTarget->centerX));
-	db->addFloat((float)(rewardTarget->centerY));
-	db->addFloat((float)(params->bias_force_magnitude));
-	db->addFloat((float)(params->bias_force_direction));
+	db->addByte(DATABURST_VERSION);								// byte 1 -> Matlab idx 2
+	db->addByte(BEHAVIOR_VERSION_MAJOR);						// byte 2 -> Matlab idx 3
+    db->addByte(BEHAVIOR_VERSION_MINOR);						// byte 3 -> Matlab idx 4
+	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);		// byte 4 -> Matlab idx 5
+	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);				// byte 5 -> Matlab idx 6
+	db->addFloat((float)(inputs->offsets.x));					// bytes 6 to 9 -> Matlab idx 7 to 10
+	db->addFloat((float)(inputs->offsets.y));					// bytes 10 to 13 -> Matlab idx 11 to 14
+	db->addByte(trial_type);									// byte 14 -> Matlab idx 15
+	db->addByte(staircase_id);									// byte 15 -> Matlab idx 16
+	db->addByte(training_mode);									// byte 16 -> Matlab idx 17
+	db->addByte(catch_trial);									// byte 17 -> Matlab idx 18
+	db->addFloat((float)(main_direction));						// bytes 18 to 21 -> Matlab idx 19 to 22
+	db->addFloat((float)(params->bump_magnitude));				// bytes 22 to 25 -> Matlab idx 23 to 26 
+	db->addFloat((float)(bump_direction));						// bytes 26 to 29 -> Matlab idx 27 to 30
+	db->addFloat((float)(params->bump_duration));				// bytes 30 to 33 -> Matlab idx 31 to 34 
+	db->addFloat((float)(params->moving_dots_target_size));		// bytes 34 to 37 -> Matlab idx 35 to 38 
+	db->addFloat((float)(params->moving_dots_coherence));		// bytes 38 to 41 -> Matlab idx 39 to 42 
+	db->addFloat((float)(dotsTargetB->direction));				// bytes 42 to 45 -> Matlab idx 43 to 46 
+	db->addFloat((float)(params->moving_dots_speed));			// bytes 46 to 49 -> Matlab idx 47 to 50 
+	db->addFloat((float)(params->moving_dots_num_dots));		// bytes 50 to 53 -> Matlab idx 51 to 54 
+	db->addFloat((float)(params->moving_dots_dot_radius));		// bytes 54 to 57 -> Matlab idx 55 to 58 
+	db->addFloat((float)(params->moving_dots_movement_type));	// bytes 58 to 61 -> Matlab idx 59 to 62 
+	db->addFloat((float)(rewardTarget->centerX));				// bytes 62 to 65 -> Matlab idx 63 to 66 
+	db->addFloat((float)(rewardTarget->centerY));				// bytes 66 to 69 -> Matlab idx 67 to 70 
+	db->addFloat((float)(params->bias_force_magnitude));		// bytes 70 to 73 -> Matlab idx 71 to 74 
+	db->addFloat((float)(params->bias_force_direction));		// bytes 74 to 77 -> Matlab idx 75 to 78 
 	db->start();
 }
 
@@ -697,13 +697,13 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_CT_ON;
 				break;
 			case STATE_CENTER_HOLD:
-				outputs->word = WORD_OT_ON(0);
+				outputs->word = WORD_CENTER_TARGET_HOLD;
 				break;			
 			case STATE_STIMULI:
-				outputs->word = WORD_BUMP(1);
+				outputs->word = WORD_BUMP(0);
 				break;
 			case STATE_MOVEMENT:
-				outputs->word = WORD_MOVEMENT_ONSET;
+				outputs->word = WORD_OT_ON(0);
 				break;
 			case STATE_REWARD:
 				outputs->word = WORD_REWARD;
