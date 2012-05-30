@@ -234,9 +234,17 @@ namespace BehaviorGraphics {
                     double target_width = this.LR.X - this.UL.X;
                     if (Graphics.moving_dots != null)
                     {
-                        if (Graphics.moving_dots.Count != num_dots)
+                        if (Graphics.moving_dots.Capacity != num_dots)
                         {
                             Graphics.moving_dots = new List<Vector3>((int)num_dots);
+                            for (int iDot = 0; iDot < num_dots; iDot++)
+                            {
+                                Graphics.moving_dots.Add(
+                                    new Vector3((float)(rand.NextDouble() * target_width + this.UL.X),
+                                                (float)(rand.NextDouble() * target_width + this.UL.Y),
+                                                0f));
+                            }
+                            previous_tick = Environment.TickCount;
                         }
                     }
                     else
@@ -403,11 +411,13 @@ namespace BehaviorGraphics {
             rand = new Random();
 
             elapsed_time = ((double)Environment.TickCount - previous_tick)/1000; // sec
+            if (elapsed_time > .1)
+                elapsed_time = 0;
+
             previous_tick = Environment.TickCount;
             target_width = Math.Abs(ul.X - lr.X);
             target_center_x = ul.X+target_width/2;
             target_center_y = ul.Y+target_width/2;
-            //this.speed = 0.00001;
 
             for (int iDot = 0; iDot < num_dots; iDot++)
             {
