@@ -591,7 +591,8 @@ void AttentionBehavior::update(SimStruct *S) {
 			}
 			break;		
 		case STATE_STIMULI:
-			if (stateTimer->elapsedTime(S) > params->bump_duration) {
+			if (stateTimer->elapsedTime(S) > params->bump_duration && 
+					centerTarget->cursorInTarget(inputs->cursor)) {
 				if (catch_trial){
 					setState(STATE_INCOMPLETE);
 				} else if (trial_type == VISUAL_TRIAL || trial_type == PROPRIO_TRIAL){

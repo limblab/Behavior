@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1288"
+    ComputedModelVersion    "1.1289"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed May 30 09:47:55 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1288>"
+  LastModifiedDate	  "Thu May 31 11:56:07 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1289>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -830,7 +830,7 @@ Model {
   }
   System {
     Name		    "attention"
-    Location		    [-3, 99, 984, 739]
+    Location		    [2, 74, 1005, 700]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -5946,8 +5946,8 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "'%6.0f state,%6.0f rewards,%6.0f aborts,%6.0f f"
-"ails,%6.0f incompl'"
+      formatstr		      "'%6.0f state,%6.0f rewards,%6.0f fails,%6.0f ab"
+"orts,%6.0f incompl'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"

@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1297"
+    ComputedModelVersion    "1.1298"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed May 30 15:15:56 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1297>"
+  LastModifiedDate	  "Thu May 31 12:07:17 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1298>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -953,6 +953,15 @@ Model {
       SampleTime	      "-1"
       SaveFormat	      "Structure"
     }
+    Block {
+      BlockType		      Display
+      Name		      "Word"
+      Ports		      [1]
+      Position		      [645, 377, 745, 423]
+      Format		      "long"
+      Decimation	      "1"
+      Lockdown		      off
+    }
     Line {
       SrcBlock		      "Constant1"
       SrcPort		      1
@@ -1162,6 +1171,13 @@ Model {
       SrcPort		      1
       Points		      [20, 0; 0, 35]
       DstBlock		      "Mux"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Behavior Attention"
+      SrcPort		      3
+      Points		      [35, 0; 0, 15; 135, 0]
+      DstBlock		      "Word"
       DstPort		      1
     }
   }
