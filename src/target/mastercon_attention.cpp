@@ -363,12 +363,12 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		for (i=0 ; i < params->num_directions ; i++){
 			temp_real  = i * 2 * PI / (params->num_directions) + params->first_main_direction;
 			temp_real2  = (params->moving_dots_easy_max_separation)/2;
-			setupVisualStaircase(i*2, temp_real - temp_real2, -visual_stair_step_size, temp_real, temp_real - temp_real2);
-			setupVisualStaircase(i*2+1, temp_real + temp_real2, visual_stair_step_size, temp_real, temp_real + temp_real2);			
+			setupVisualStaircase(i*2, temp_real - temp_real2, visual_stair_step_size, temp_real, temp_real - temp_real2);
+			setupVisualStaircase(i*2+1, temp_real + temp_real2, -visual_stair_step_size, temp_real, temp_real + temp_real2);			
 
 			temp_real2  = (params->bump_easy_max_separation)/2;
-			setupProprioStaircase(i*2, temp_real - temp_real2, -bump_stair_step_size, temp_real, temp_real - temp_real2);
-			setupProprioStaircase(i*2+1, temp_real + temp_real2, bump_stair_step_size, temp_real, temp_real + temp_real2);						
+			setupProprioStaircase(i*2, temp_real - temp_real2, bump_stair_step_size, temp_real, temp_real - temp_real2);
+			setupProprioStaircase(i*2+1, temp_real + temp_real2, -bump_stair_step_size, temp_real, temp_real + temp_real2);						
 		};
         // also reset trial blocks
         trial_counter = 0;
