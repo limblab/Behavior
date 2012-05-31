@@ -1253,6 +1253,8 @@ namespace BehaviorGraphics
                     paramID = target.GetParamIdx("Behavior Un", "P22");
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior 2BC", "P1");
+                if (paramID < 0)
+                    paramID = target.GetParamIdx("Behavior AT", "P1");
 
                 /* send the flag */
                 if (paramID >= 0) {
@@ -1344,6 +1346,7 @@ namespace BehaviorGraphics
             theme1ToolStripMenuItem.Checked = false;
             theme2ToolStripMenuItem.Checked = false;
             theme3ToolStripMenuItem.Checked = false;
+            theme4ToolStripMenuItem.Checked = false;
 
             SoundPlayer.SoundTheme theme;
 
@@ -1353,6 +1356,9 @@ namespace BehaviorGraphics
             } else if (sender.Equals(theme3ToolStripMenuItem)) {
                 theme = SoundPlayer.SoundTheme.Theme3;
                 theme3ToolStripMenuItem.Checked = true;
+            } else if (sender.Equals(theme4ToolStripMenuItem)){
+                theme = SoundPlayer.SoundTheme.Theme4;
+                theme4ToolStripMenuItem.Checked = true;
             } else {
                 theme = SoundPlayer.SoundTheme.Theme1;
                 theme1ToolStripMenuItem.Checked = true;

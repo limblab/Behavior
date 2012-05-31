@@ -112,7 +112,8 @@ namespace BehaviorGraphics
         {
             Theme1 = 1,
             Theme2 = 2,
-            Theme3 = 3
+            Theme3 = 3,
+            Theme4 = 4
         }
     }
 }
