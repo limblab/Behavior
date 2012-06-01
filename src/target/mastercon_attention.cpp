@@ -464,6 +464,8 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 			}	
 
 		}
+		i = random->getInteger(0,(int)(params->num_directions-1));
+		bump_direction = i*2*PI/(params->num_directions);
 
 		if (left_stim){
 			rewardTarget = leftResponseTarget;
@@ -472,7 +474,6 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
             rewardTarget = rightResponseTarget;
 			failTarget = leftResponseTarget;
         }
-
 
 	} else if ( trial_type == PROPRIO_TRIAL ) {	
 		centerTarget->color = proprio_color;
@@ -591,7 +592,9 @@ void AttentionBehavior::update(SimStruct *S) {
 			}
 			break;		
 		case STATE_STIMULI:
-			if (stateTimer->elapsedTime(S) > params->bump_duration && 
+			if (!centerTarget->cursorInTarget(inputs->cursor)){
+				setState(STATE_ABORT);
+			} else if (stateTimer->elapsedTime(S) > params->bump_duration && 
 					centerTarget->cursorInTarget(inputs->cursor)) {
 				if (catch_trial){
 					setState(STATE_INCOMPLETE);
@@ -678,13 +681,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 		outputs->force += bump->getBumpForce(S);		
 	} 
 
-    /* status (1) */
-	outputs->status[0] = getState();
-	outputs->status[1] = trialCounter->successes;
-	outputs->status[2] = trialCounter->failures;
-	outputs->status[3] = trialCounter->aborts;	
-	outputs->status[4] = trialCounter->incompletes;
-	/*outputs->status[4] = debug_var;*/
+
     
 	/* word(2) */
 	if (db->isRunning()) {
@@ -724,8 +721,17 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	} else {
 		outputs->word = 0;
 	}
+	
+	if (outputs->word>0)
+		debug_var = outputs->word;
 
-
+    /* status (1) */
+	outputs->status[0] = getState();
+	outputs->status[1] = trialCounter->successes;
+	outputs->status[2] = trialCounter->failures;
+	outputs->status[3] = trialCounter->aborts;	
+	outputs->status[4] = trialCounter->incompletes;
+	//outputs->status[4] = debug_var;
 
  	/* target_pos (3) */
  	// Center Target

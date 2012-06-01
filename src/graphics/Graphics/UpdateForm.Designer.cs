@@ -701,8 +701,8 @@ namespace BehaviorGraphics
             this.angleEntryBoxATBEMaxS = new AngleBox.AngleEntryBox();
             this.numericUpDownATBNS = new System.Windows.Forms.NumericUpDown();
             this.angleEntryBoxATBEMinS = new AngleBox.AngleEntryBox();
-            this.label327 = new System.Windows.Forms.Label();
-            this.label326 = new System.Windows.Forms.Label();
+            this.labelATBEMaxS = new System.Windows.Forms.Label();
+            this.labelATBEMinS = new System.Windows.Forms.Label();
             this.groupBox60 = new System.Windows.Forms.GroupBox();
             this.textBoxATBFR = new System.Windows.Forms.TextBox();
             this.label265 = new System.Windows.Forms.Label();
@@ -754,8 +754,8 @@ namespace BehaviorGraphics
             this.label302 = new System.Windows.Forms.Label();
             this.label294 = new System.Windows.Forms.Label();
             this.numericUpDownATMDNS = new System.Windows.Forms.NumericUpDown();
-            this.label269 = new System.Windows.Forms.Label();
-            this.label293 = new System.Windows.Forms.Label();
+            this.labelATMDEMinS = new System.Windows.Forms.Label();
+            this.labelATMDEMaxS = new System.Windows.Forms.Label();
             this.groupBox58 = new System.Windows.Forms.GroupBox();
             this.textBoxATAW = new System.Windows.Forms.TextBox();
             this.label277 = new System.Windows.Forms.Label();
@@ -7973,7 +7973,7 @@ namespace BehaviorGraphics
             this.checkBoxATS.TabIndex = 45;
             this.checkBoxATS.Text = "Use staircases";
             this.checkBoxATS.UseVisualStyleBackColor = true;
-            this.checkBoxATS.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
+            this.checkBoxATS.CheckedChanged += new System.EventHandler(this.checkBoxATS_CheckedChanged);
             // 
             // groupBox50
             // 
@@ -7989,8 +7989,8 @@ namespace BehaviorGraphics
             this.groupBox50.Controls.Add(this.angleEntryBoxATBEMaxS);
             this.groupBox50.Controls.Add(this.numericUpDownATBNS);
             this.groupBox50.Controls.Add(this.angleEntryBoxATBEMinS);
-            this.groupBox50.Controls.Add(this.label327);
-            this.groupBox50.Controls.Add(this.label326);
+            this.groupBox50.Controls.Add(this.labelATBEMaxS);
+            this.groupBox50.Controls.Add(this.labelATBEMinS);
             this.groupBox50.Location = new System.Drawing.Point(375, 194);
             this.groupBox50.Name = "groupBox50";
             this.groupBox50.Size = new System.Drawing.Size(305, 143);
@@ -8112,23 +8112,23 @@ namespace BehaviorGraphics
             this.angleEntryBoxATBEMinS.TabIndex = 80;
             this.angleEntryBoxATBEMinS.Value = 0;
             // 
-            // label327
+            // labelATBEMaxS
             // 
-            this.label327.AutoSize = true;
-            this.label327.Location = new System.Drawing.Point(132, 68);
-            this.label327.Name = "label327";
-            this.label327.Size = new System.Drawing.Size(104, 13);
-            this.label327.TabIndex = 79;
-            this.label327.Text = "Easy max separation";
+            this.labelATBEMaxS.AutoSize = true;
+            this.labelATBEMaxS.Location = new System.Drawing.Point(132, 68);
+            this.labelATBEMaxS.Name = "labelATBEMaxS";
+            this.labelATBEMaxS.Size = new System.Drawing.Size(104, 13);
+            this.labelATBEMaxS.TabIndex = 79;
+            this.labelATBEMaxS.Text = "Easy max separation";
             // 
-            // label326
+            // labelATBEMinS
             // 
-            this.label326.AutoSize = true;
-            this.label326.Location = new System.Drawing.Point(132, 40);
-            this.label326.Name = "label326";
-            this.label326.Size = new System.Drawing.Size(101, 13);
-            this.label326.TabIndex = 78;
-            this.label326.Text = "Easy min separation";
+            this.labelATBEMinS.AutoSize = true;
+            this.labelATBEMinS.Location = new System.Drawing.Point(132, 40);
+            this.labelATBEMinS.Name = "labelATBEMinS";
+            this.labelATBEMinS.Size = new System.Drawing.Size(101, 13);
+            this.labelATBEMinS.TabIndex = 78;
+            this.labelATBEMinS.Text = "Easy min separation";
             // 
             // groupBox60
             // 
@@ -8450,8 +8450,8 @@ namespace BehaviorGraphics
             this.groupBox57.Controls.Add(this.label302);
             this.groupBox57.Controls.Add(this.label294);
             this.groupBox57.Controls.Add(this.numericUpDownATMDNS);
-            this.groupBox57.Controls.Add(this.label269);
-            this.groupBox57.Controls.Add(this.label293);
+            this.groupBox57.Controls.Add(this.labelATMDEMinS);
+            this.groupBox57.Controls.Add(this.labelATMDEMaxS);
             this.groupBox57.Location = new System.Drawing.Point(374, 8);
             this.groupBox57.Name = "groupBox57";
             this.groupBox57.Size = new System.Drawing.Size(306, 180);
@@ -8653,23 +8653,23 @@ namespace BehaviorGraphics
             0});
             this.numericUpDownATMDNS.ValueChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
-            // label269
+            // labelATMDEMinS
             // 
-            this.label269.AutoSize = true;
-            this.label269.Location = new System.Drawing.Point(133, 47);
-            this.label269.Name = "label269";
-            this.label269.Size = new System.Drawing.Size(101, 13);
-            this.label269.TabIndex = 57;
-            this.label269.Text = "Easy min separation";
+            this.labelATMDEMinS.AutoSize = true;
+            this.labelATMDEMinS.Location = new System.Drawing.Point(133, 47);
+            this.labelATMDEMinS.Name = "labelATMDEMinS";
+            this.labelATMDEMinS.Size = new System.Drawing.Size(101, 13);
+            this.labelATMDEMinS.TabIndex = 57;
+            this.labelATMDEMinS.Text = "Easy min separation";
             // 
-            // label293
+            // labelATMDEMaxS
             // 
-            this.label293.AutoSize = true;
-            this.label293.Location = new System.Drawing.Point(133, 72);
-            this.label293.Name = "label293";
-            this.label293.Size = new System.Drawing.Size(104, 13);
-            this.label293.TabIndex = 59;
-            this.label293.Text = "Easy max separation";
+            this.labelATMDEMaxS.AutoSize = true;
+            this.labelATMDEMaxS.Location = new System.Drawing.Point(133, 72);
+            this.labelATMDEMaxS.Name = "labelATMDEMaxS";
+            this.labelATMDEMaxS.Size = new System.Drawing.Size(104, 13);
+            this.labelATMDEMaxS.TabIndex = 59;
+            this.labelATMDEMaxS.Text = "Easy max separation";
             // 
             // groupBox58
             // 
@@ -9404,28 +9404,28 @@ namespace BehaviorGraphics
             this.theme1ToolStripMenuItem.Checked = true;
             this.theme1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.theme1ToolStripMenuItem.Name = "theme1ToolStripMenuItem";
-            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme1ToolStripMenuItem.Text = "Theme 1";
             this.theme1ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme2ToolStripMenuItem
             // 
             this.theme2ToolStripMenuItem.Name = "theme2ToolStripMenuItem";
-            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme2ToolStripMenuItem.Text = "Theme 2";
             this.theme2ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme3ToolStripMenuItem
             // 
             this.theme3ToolStripMenuItem.Name = "theme3ToolStripMenuItem";
-            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme3ToolStripMenuItem.Text = "Theme 3";
             this.theme3ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme4ToolStripMenuItem
             // 
             this.theme4ToolStripMenuItem.Name = "theme4ToolStripMenuItem";
-            this.theme4ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.theme4ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme4ToolStripMenuItem.Text = "Theme 4";
             this.theme4ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
@@ -10988,9 +10988,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label282;
         private System.Windows.Forms.CheckBox checkBoxATS;
         private System.Windows.Forms.GroupBox groupBox59;
-        private System.Windows.Forms.Label label269;
+        private System.Windows.Forms.Label labelATMDEMinS;
         private System.Windows.Forms.CheckBox checkBoxATBDirs;
-        private System.Windows.Forms.Label label293;
+        private System.Windows.Forms.Label labelATMDEMaxS;
         private System.Windows.Forms.TextBox textBoxATTBS;
         private System.Windows.Forms.Label label285;
         private System.Windows.Forms.TextBox textBoxATPCT;
@@ -11120,8 +11120,8 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label303;
         private AngleBox.AngleEntryBox angleEntryBoxATBEMaxS;
         private AngleBox.AngleEntryBox angleEntryBoxATBEMinS;
-        private System.Windows.Forms.Label label327;
-        private System.Windows.Forms.Label label326;
+        private System.Windows.Forms.Label labelATBEMaxS;
+        private System.Windows.Forms.Label labelATBEMinS;
         private System.Windows.Forms.GroupBox groupBox51;
         private System.Windows.Forms.ToolStripMenuItem theme4ToolStripMenuItem;
     }

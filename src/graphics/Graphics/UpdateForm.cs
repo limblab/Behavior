@@ -1045,6 +1045,32 @@ namespace BehaviorGraphics
             widget_ValueChanged(sender, e);
         }
 
+        private void checkBoxATS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxATS.Checked)
+            {
+                labelATMDEMaxS.Text = "Starting separation";
+                labelATBEMaxS.Text = "Starting separation";
+                angleEntryBoxATBEMinS.Enabled = false;
+                angleEntryBoxATBHMinS.Enabled = false;
+                angleEntryBoxATBHMaxS.Enabled = false;
+                angleEntryBoxATMDEMinS.Enabled = false;
+                angleEntryBoxATMDHMinS.Enabled = false;
+                angleEntryBoxATMDHMaxS.Enabled = false;
+            }
+            else
+            {
+                labelATMDEMaxS.Text = "Easy max separation";
+                labelATBEMaxS.Text = "Easy max separation";
+                angleEntryBoxATBEMinS.Enabled = true;
+                angleEntryBoxATBHMinS.Enabled = true;
+                angleEntryBoxATBHMaxS.Enabled = true;
+                angleEntryBoxATMDEMinS.Enabled = true;
+                angleEntryBoxATMDHMinS.Enabled = true;
+                angleEntryBoxATMDHMaxS.Enabled = true;
+            }
+        }
+
         private void UpdateForm_Shown(object sender, EventArgs e)
         {
             foreach (CursorDef cd in ((Graphics)this.Owner).CursorDefs) {
