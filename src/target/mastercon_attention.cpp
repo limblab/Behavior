@@ -634,6 +634,7 @@ void AttentionBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_ABORT:
+			trial_counter--;
 			this->bump->stop();
 			this->bias_force->stop();			
 			if (stateTimer->elapsedTime(S) > params->abort_timeout) {
@@ -681,7 +682,13 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 		outputs->force += bump->getBumpForce(S);		
 	} 
 
-
+	/* status (1) */
+	outputs->status[0] = getState();
+	outputs->status[1] = trialCounter->successes;
+	outputs->status[2] = trialCounter->failures;
+	outputs->status[3] = trialCounter->aborts;	
+	outputs->status[4] = trialCounter->incompletes;
+	//outputs->status[4] = debug_var;
     
 	/* word(2) */
 	if (db->isRunning()) {
@@ -721,17 +728,6 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	} else {
 		outputs->word = 0;
 	}
-	
-	if (outputs->word>0)
-		debug_var = outputs->word;
-
-    /* status (1) */
-	outputs->status[0] = getState();
-	outputs->status[1] = trialCounter->successes;
-	outputs->status[2] = trialCounter->failures;
-	outputs->status[3] = trialCounter->aborts;	
-	outputs->status[4] = trialCounter->incompletes;
-	//outputs->status[4] = debug_var;
 
  	/* target_pos (3) */
  	// Center Target
