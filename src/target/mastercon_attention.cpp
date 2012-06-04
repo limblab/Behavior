@@ -190,6 +190,9 @@ private:
 	real_T bump_easy_step_size;
 	real_T bump_hard_step_size;
 	real_T total_bump_duration;
+	real_T bump_direction_history[100];
+	int bump_direction_read_index;
+	int bump_direction_write_index;
 
 	TrapBumpGenerator *bump;
 	TrapBumpGenerator *bias_force;
@@ -312,6 +315,12 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	main_direction = 0.0;
 	bump_direction = 0.0;
 
+	for (i=0; i<100; i++){
+		bump_direction_history[i] = -1;
+	}
+	bump_direction_read_index = 0;
+	bump_direction_write_index = 0;
+
 	bump = new TrapBumpGenerator();
 	bias_force = new TrapBumpGenerator();
 }
@@ -371,8 +380,12 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 			setupProprioStaircase(i*2, temp_real - temp_real2, bump_stair_step_size, temp_real, temp_real - temp_real2);
 			setupProprioStaircase(i*2+1, temp_real + temp_real2, -bump_stair_step_size, temp_real, temp_real + temp_real2);						
 		};
-        // also reset trial blocks
+        // also reset trial blocks and bump direction history
         trial_counter = 0;
+		for (i=0; i<100; i++)
+			bump_direction_history[i] = -1;
+		bump_direction_read_index = 0;
+		bump_direction_write_index = 0;
 	}
 
 	trial_counter++;
@@ -381,10 +394,10 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
 	// Select a trial type
 	if (params->trial_block_size > 1){
-		if ((100*trial_counter/params->trial_block_size) <= params->percent_visual_trials){
-			trial_type = VISUAL_TRIAL;
-		} else if ((100*trial_counter/params->trial_block_size) <= (params->percent_visual_trials + params->percent_proprio_trials)){
+		if ((100*trial_counter/params->trial_block_size) <= params->percent_proprio_trials){
 			trial_type = PROPRIO_TRIAL;
+		} else if ((100*trial_counter/params->trial_block_size) <= (params->percent_visual_trials + params->percent_proprio_trials)){
+			trial_type = VISUAL_TRIAL;
 		} else {
 			trial_type = CONTROL_TRIAL;
 		}
@@ -465,8 +478,13 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 			}	
 
 		}
-		i = random->getInteger(0,(int)(params->num_directions-1));
-		bump_direction = i*2*PI/(params->num_directions);
+
+		//i = random->getInteger(0,(int)(params->num_directions-1));
+		//bump_direction = i*2*PI/(params->num_directions) + params->first_main_direction;
+
+		/*temp_real = (params->bump_hard_min_separation + 
+					i*(params->bump_hard_max_separation - params->bump_hard_min_separation)/(params->bump_num_steps-1))/2;
+		bump_direction = left_stim ? main_direction + temp_real : main_direction - temp_real;*/
 
 		if (left_stim){
 			rewardTarget = leftResponseTarget;
@@ -495,6 +513,8 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 				 bump_direction = left_stim ? main_direction + temp_real : main_direction - temp_real;
 			}	
 		}
+		bump_direction_write_index == 99 ? bump_direction_write_index = 0 : bump_direction_write_index++;
+		bump_direction_history[bump_direction_write_index] = bump_direction;
 
 		if (left_stim){
 			rewardTarget = leftResponseTarget;
@@ -508,8 +528,19 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		centerTarget->color = control_color;
 		leftResponseTarget->color = 0;
 		rightResponseTarget->color = 0;
-		bump_direction = main_direction;
+		//bump_direction = main_direction;
 	}	
+	
+	// Set up the bump direction history
+	if (trial_type!=PROPRIO_TRIAL){
+		if (bump_direction_history[0] == -1){
+			bump_direction = main_direction;
+		} else {
+			(bump_direction_read_index == 99 || bump_direction_read_index > bump_direction_write_index) ?
+				bump_direction_read_index = 0 : bump_direction_read_index++;
+			bump_direction = bump_direction_history[bump_direction_read_index];
+		}
+	}
 
 	// Set up the bumps	
 	total_bump_duration = params->bump_duration + params->bias_force_ramp + center_hold + 0.5;
