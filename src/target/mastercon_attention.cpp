@@ -189,6 +189,7 @@ private:
 	real_T bump_direction;
 	real_T bump_easy_step_size;
 	real_T bump_hard_step_size;
+	real_T total_bump_duration;
 
 	TrapBumpGenerator *bump;
 	TrapBumpGenerator *bias_force;
@@ -511,6 +512,9 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	}	
 
 	// Set up the bumps	
+	total_bump_duration = params->bump_duration + params->bias_force_ramp + center_hold + 0.5;
+	// replace "+ 1" with parameter?
+
 	bump->hold_duration = params->bump_duration;
 	bump->peak_magnitude = params->bump_magnitude;
 	bump->rise_time = 0;
@@ -583,7 +587,8 @@ void AttentionBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_CENTER_HOLD:
-			if (stateTimer->elapsedTime(S) > center_hold) {
+			if (stateTimer->elapsedTime(S) > (center_hold>params->bias_force_ramp ? 
+				center_hold : params->bias_force_ramp)) {
 				bump->start(S);
 				setState(STATE_STIMULI);
 			} else if (!centerTarget->cursorInTarget(inputs->cursor)) {
@@ -592,9 +597,7 @@ void AttentionBehavior::update(SimStruct *S) {
 			}
 			break;		
 		case STATE_STIMULI:
-			if (!centerTarget->cursorInTarget(inputs->cursor)){
-				setState(STATE_ABORT);
-			} else if (stateTimer->elapsedTime(S) > params->bump_duration && 
+			if (stateTimer->elapsedTime(S) > params->bump_duration && 
 					centerTarget->cursorInTarget(inputs->cursor)) {
 				if (catch_trial){
 					setState(STATE_INCOMPLETE);
@@ -605,6 +608,19 @@ void AttentionBehavior::update(SimStruct *S) {
 					setState(STATE_REWARD);
 				}
 			}
+			//if (!centerTarget->cursorInTarget(inputs->cursor)){
+			//	setState(STATE_ABORT);
+			//} else if (stateTimer->elapsedTime(S) > (total_bump_length && 
+			//		centerTarget->cursorInTarget(inputs->cursor)) {
+			//	if (catch_trial){
+			//		setState(STATE_INCOMPLETE);
+			//	} else if (trial_type == VISUAL_TRIAL || trial_type == PROPRIO_TRIAL){
+			//		setState(STATE_MOVEMENT);
+			//	} else {
+			//		playTone(TONE_REWARD);
+			//		setState(STATE_REWARD);
+			//	}
+			//}
 			break;						
 		case STATE_MOVEMENT:
 			if (rewardTarget->cursorInTarget(inputs->cursor)){
@@ -633,11 +649,11 @@ void AttentionBehavior::update(SimStruct *S) {
 				setState(STATE_INCOMPLETE);
 			}
 			break;
-		case STATE_ABORT:
-			trial_counter--;
+		case STATE_ABORT:			
 			this->bump->stop();
 			this->bias_force->stop();			
 			if (stateTimer->elapsedTime(S) > params->abort_timeout) {
+				trial_counter--;
 				setState(STATE_PRETRIAL);
 			}
 			break;
@@ -651,7 +667,7 @@ void AttentionBehavior::update(SimStruct *S) {
 		case STATE_FAIL:
 			this->bump->stop();
 			this->bias_force->stop();			
-			if (stateTimer->elapsedTime(S) > params->fail_timeout) {
+			if (stateTimer->elapsedTime(S) > params->fail_timeout) {				
 				setState(STATE_PRETRIAL);
 			}
 			break;
@@ -737,7 +753,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
  		outputs->targets[0] = (Target *)centerTarget;
 		outputs->targets[1] = nullTarget;
  	} else if (getState() == STATE_STIMULI) {
-		if (trial_type == VISUAL_TRIAL){
+		if (trial_type == VISUAL_TRIAL && stateTimer->elapsedTime(S)<params->moving_dots_duration){
 			outputs->targets[0] = (Target *)dotsTargetA;
 			outputs->targets[1] = (Target *)dotsTargetB;
 		} else {
@@ -770,7 +786,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-    if (getState() == STATE_STIMULI)
+    if (getState() == STATE_STIMULI && stateTimer->elapsedTime(S)<(params->bump_duration + 0.5))
     {
         outputs->position = Point(1E6, 1E6);
     } else {
