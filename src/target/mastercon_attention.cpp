@@ -513,7 +513,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 				 bump_direction = left_stim ? main_direction + temp_real : main_direction - temp_real;
 			}	
 		}
-		bump_direction_write_index == 99 ? bump_direction_write_index = 0 : bump_direction_write_index++;
+		bump_direction_write_index >= 99 ? bump_direction_write_index = 0 : bump_direction_write_index++;
 		bump_direction_history[bump_direction_write_index] = bump_direction;
 
 		if (left_stim){
@@ -536,7 +536,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		if (bump_direction_history[0] == -1){
 			bump_direction = main_direction;
 		} else {
-			(bump_direction_read_index == 99 || bump_direction_read_index > bump_direction_write_index) ?
+			(bump_direction_read_index == 99 || bump_direction_read_index >= bump_direction_write_index) ?
 				bump_direction_read_index = 0 : bump_direction_read_index++;
 			bump_direction = bump_direction_history[bump_direction_read_index];
 		}
