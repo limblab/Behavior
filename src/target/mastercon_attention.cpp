@@ -384,8 +384,8 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
         trial_counter = 0;
 		for (i=0; i<100; i++)
 			bump_direction_history[i] = -1;
-		bump_direction_read_index = 0;
-		bump_direction_write_index = 0;
+		bump_direction_read_index = 200;
+		bump_direction_write_index = 200;
 	}
 
 	trial_counter++;
@@ -536,7 +536,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		if (bump_direction_history[0] == -1){
 			bump_direction = main_direction;
 		} else {
-			(bump_direction_read_index == 99 || bump_direction_read_index >= bump_direction_write_index) ?
+			(bump_direction_read_index >= 99 || bump_direction_read_index >= bump_direction_write_index) ?
 				bump_direction_read_index = 0 : bump_direction_read_index++;
 			bump_direction = bump_direction_history[bump_direction_read_index];
 		}
