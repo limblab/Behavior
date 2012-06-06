@@ -544,22 +544,22 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
 	// Set up the bumps	
 	total_bump_duration = params->bump_duration + params->bias_force_ramp + center_hold + 0.5;
-	// replace "+ 1" with parameter?
+	// replace "+ 0.5" with parameter?
 
 	bump->hold_duration = params->bump_duration;
 	bump->peak_magnitude = params->bump_magnitude;
 	bump->rise_time = 0;
-	if (!catch_trial){
-		bump->direction = bump_direction;
-	} else {
+	if (catch_trial){
 		if (params->num_directions>0){
             i = random->getInteger(0,(int)(params->num_directions-1));
-            bump->direction = fmod(i * 2 * PI/params->num_directions + params->first_main_direction,2*PI);
+            bump_direction = fmod(i * 2 * PI/params->num_directions + params->first_main_direction,2*PI);
 		} else {
-			bump->direction = random->getDouble(0,2*PI);
+			bump_direction = random->getDouble(0,2*PI);
 		}
 	}
 				
+	bump->direction = bump_direction;
+
 	bias_force->hold_duration = center_hold;
 	bias_force->peak_magnitude = params->bias_force_magnitude;
 	bias_force->rise_time = params->bias_force_ramp;
