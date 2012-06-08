@@ -542,6 +542,10 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		}
 	}
 
+	if (training_mode)
+		rewardTarget->width = 0;
+
+
 	// Set up the bumps	
 	total_bump_duration = params->bump_duration + params->bias_force_ramp + center_hold + 0.5;
 	// replace "+ 0.5" with parameter?
