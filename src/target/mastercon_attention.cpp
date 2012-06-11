@@ -543,7 +543,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	}
 
 	if (training_mode)
-		rewardTarget->width = 0;
+		failTarget->width = 0;
 
 
 	// Set up the bumps	
