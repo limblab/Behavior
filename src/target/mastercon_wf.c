@@ -42,7 +42,7 @@
  *
  *      In MVC mode, the current value of the MVC target is provided in the databurst
  *
- * Version 2 (0x02)
+ * Version 2 (0x02) 
  * ----------------
  * byte 0: uchar => number of bytes to be transmitted
  * byte 1: uchar => version number (in this case two)
@@ -593,7 +593,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             
             /* decide if this is going to be a catch trial */
-            set_catch_trial( catch_trials_pct > (double)rand()/(double)RAND_MAX ? 1 : 0 );
+            set_catch_trial( (catch_trials_pct > ((double)rand()/(double)RAND_MAX)) ? 1 : 0 );
 
             /***************************************/
             /* see if we have to update MVC_Target */
