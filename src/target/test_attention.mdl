@@ -6,12 +6,28 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1298"
+    ComputedModelVersion    "1.1300"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
   SavedCharacterEncoding  "windows-1252"
   SaveDefaultBlockParams  on
+  ScopeRefreshTime	  0.035000
+  OverrideScopeRefreshTime on
+  DisableAllScopes	  off
+  DataTypeOverride	  "UseLocalSettings"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  CloseFcn		  "rtwprivate ssgencode ModelCloseRequest rwalk_multi_local_v1"
+  Created		  "Wed Jul 23 09:41:05 2003"
+  Creator		  "limblab"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "ricardo"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Wed Jun 06 11:26:08 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1300>"
+  ConfigurationManager	  "None"
   SampleTimeColors	  off
   LibraryLinkDisplay	  "none"
   WideLines		  off
@@ -25,12 +41,6 @@ Model {
   SortedOrder		  off
   ExecutionContextIcon	  off
   ShowLinearizationAnnotations on
-  ScopeRefreshTime	  0.035000
-  OverrideScopeRefreshTime on
-  DisableAllScopes	  off
-  DataTypeOverride	  "UseLocalSettings"
-  MinMaxOverflowLogging	  "UseLocalSettings"
-  MinMaxOverflowArchiveMode "Overwrite"
   BlockNameDataTip	  off
   BlockParametersDataTip  off
   BlockDescriptionStringDataTip	off
@@ -38,17 +48,6 @@ Model {
   StatusBar		  on
   BrowserShowLibraryLinks off
   BrowserLookUnderMasks	  off
-  CloseFcn		  "rtwprivate ssgencode ModelCloseRequest rwalk_multi_"
-"local_v1"
-  Created		  "Wed Jul 23 09:41:05 2003"
-  Creator		  "limblab"
-  UpdateHistory		  "UpdateHistoryNever"
-  ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
-  ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu May 31 12:07:17 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1298>"
-  ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
   Profile		  off
@@ -56,7 +55,6 @@ Model {
   AccelSystemTargetFile	  "accel.tlc"
   AccelTemplateMakefile	  "accel_default_tmf"
   AccelMakeCommand	  "make_rtw"
-  AccelVerboseBuild	  off
   TryForcingSFcnDF	  off
   RecordCoverage	  off
   CovPath		  "/"
@@ -91,7 +89,6 @@ Model {
   ExtModeLogAll		  on
   ExtModeAutoUpdateStatusClock on
   BufferReuse		  off
-  ProdHWDeviceType	  "Generic->32-bit x86 compatible"
   ShowModelReferenceBlockVersion off
   ShowModelReferenceBlockIO off
   Array {
@@ -160,6 +157,7 @@ Model {
 	}
 	Simulink.OptimizationCC {
 	  $ObjectID		  4
+	  Version		  "1.2.0"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    5
@@ -170,7 +168,6 @@ Model {
 	    Cell		    "InitFltsAndDblsToZero"
 	    PropName		    "DisabledProps"
 	  }
-	  Version		  "1.2.0"
 	  BlockReduction	  off
 	  BooleanDataType	  off
 	  ConditionallyExecuteInputs on
@@ -178,9 +175,7 @@ Model {
 	  InlineInvariantSignals  off
 	  OptimizeBlockIOStorage  off
 	  BufferReuse		  off
-	  EnforceIntegerDowncast  on
 	  ExpressionFolding	  off
-	  ExpressionDepthLimit	  2147483647
 	  FoldNonRolledExpr	  off
 	  LocalBlockOutputs	  off
 	  RollThreshold		  5
@@ -196,6 +191,8 @@ Model {
 	  OptimizeModelRefInitCode off
 	  LifeSpan		  "inf"
 	  BufferReusableBoundary  on
+	  AccelVerboseBuild	  off
+  EnforceIntegerDowncast   on
 	}
 	Simulink.DebuggingCC {
 	  $ObjectID		  5
@@ -253,13 +250,13 @@ Model {
 	  ModelReferenceVersionMismatchMessage "none"
 	  ModelReferenceIOMismatchMessage "none"
 	  ModelReferenceCSMismatchMessage "none"
-	  ModelReferenceSimTargetVerbose off
 	  UnknownTsInhSupMsg	  "warning"
 	  ModelReferenceDataLoggingMessage "warning"
 	  ModelReferenceSymbolNameMessage "warning"
 	  ModelReferenceExtraNoncontSigs "error"
 	  StateNameClashWarn	  "warning"
 	  StrictBusMsg		  "None"
+  ModelReferenceSimTargetVerbose   off
 	}
 	Simulink.HardwareCC {
 	  $ObjectID		  6
@@ -278,7 +275,7 @@ Model {
 	  TargetBitPerInt	  32
 	  TargetBitPerLong	  32
 	  TargetShiftRightIntArith on
-	  TargetIntDivRoundTo	  "Floor"
+	  TargetIntDivRoundTo	  "Zero"
 	  TargetEndianess	  "LittleEndian"
 	  TargetWordSize	  32
 	  TargetTypeEmulationWarnSuppressLevel 0
@@ -299,7 +296,8 @@ Model {
 	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
-	  $ObjectID		  8
+	  $ObjectID		  9
+	  Version		  "1.2.0"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    2
@@ -307,7 +305,6 @@ Model {
 	    Cell		    "TargetLang"
 	    PropName		    "DisabledProps"
 	  }
-	  Version		  "1.2.0"
 	  SystemTargetFile	  "xpctarget.tlc"
 	  GenCodeOnly		  off
 	  MakeCommand		  "make_rtw"
@@ -335,7 +332,8 @@ Model {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
-	      $ObjectID		      9
+	      $ObjectID		      10
+	      Version		      "1.2.0"
 	      Array {
 		Type			"Cell"
 		Dimension		16
@@ -357,7 +355,6 @@ Model {
 		Cell			"CustomSymbolStrMacro"
 		PropName		"DisabledProps"
 	      }
-	      Version		      "1.2.0"
 	      ForceParamTrailComments off
 	      GenerateComments	      on
 	      IgnoreCustomStorageClasses on
@@ -370,7 +367,6 @@ Model {
 	      SimulinkDataObjDesc     off
 	      SFDataObjDesc	      off
 	      IncDataTypeInIds	      off
-	      PrefixModelToSubsysFcnNames on
 	      MangleLength	      1
 	      CustomSymbolStrGlobalVar "$R$N$M"
 	      CustomSymbolStrType     "$N$R$M"
@@ -390,7 +386,8 @@ Model {
 	    }
 	    xpctarget.xpcTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
-	      $ObjectID		      10
+	      $ObjectID		      11
+	      Version		      "1.2.0"
 	      Array {
 		Type			"Cell"
 		Dimension		15
@@ -407,24 +404,25 @@ Model {
 		Cell			"SupportContinuousTime"
 		Cell			"SupportNonInlinedSFcns"
 		Cell			"GenerateTestInterfaces"
-		Cell			"ModelStepFunctionPrototypeControlComp"
-"liant"
+		Cell			"ModelStepFunctionPrototypeControlCompliant"
 		Cell			"SupportNonFinite"
 		PropName		"DisabledProps"
 	      }
-	      Version		      "1.2.0"
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
 	      TargetLibSuffix	      ""
 	      TargetPreCompLibLocation ""
-	      GenFloatMathFcnCalls    "ANSI_C"
+	      GenFloatMathFcnCalls   "XPC_BLAS"
 	      UtilityFuncGeneration   "Auto"
 	      GenerateFullHeader      on
 	      GenerateSampleERTMain   off
 	      GenerateTestInterfaces  off
 	      IsPILTarget	      off
 	      ModelReferenceCompliant on
+	      ParMdlRefBuildCompliant on
+	      CompOptLevelCompliant   on
 	      IncludeMdlTerminateFcn  on
 	      CombineOutputUpdateFcns off
+	      CombineSignalStateStructs	off
 	      SuppressErrorStatus     off
 	      IncludeFileDelimiter    "Auto"
 	      ERTCustomFileBanners    off
@@ -448,6 +446,8 @@ Model {
 	      ExtModeArmWhenConnect   off
 	      RL32LogTETModifier      on
 	      RL32LogBufSizeModifier  "100000"
+	      xPCTaskExecutionProfile off
+	      xPCRL32EventNumber      "5000"
 	      RL32IRQSourceModifier   "Timer"
 	      xPCIRQSourceBoard	      "None/Other"
 	      xPCIOIRQSlot	      "-1"
@@ -458,6 +458,11 @@ Model {
 	      RL32ObjectName	      "tg"
 	      xPCisDownloadable	      off
 	      xPCisDefaultEnv	      on
+	      xPCisModelTimeout	      on
+	      xPCModelTimeoutSecs     "5"
+	      xPCLoadParamSetFile     off
+	      xPCConcurrentTasks      off
+	      xPCEnableSFAnimation    off
 	    }
 	    PropName		    "Components"
 	  }
@@ -474,7 +479,6 @@ Model {
     $ObjectID		    1
   }
   BlockDefaults {
-    Orientation		    "right"
     ForegroundColor	    "black"
     BackgroundColor	    "white"
     DropShadow		    off
@@ -484,6 +488,24 @@ Model {
     FontWeight		    "normal"
     FontAngle		    "normal"
     ShowName		    on
+    Orientation		    "right"
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
   }
   BlockParameterDefaults {
     Block {
@@ -491,23 +513,23 @@ Model {
       Value		      "1"
       VectorParams1D	      on
       SamplingMode	      "Sample based"
-      OutDataTypeMode	      "Inherit from 'Constant value'"
-      OutDataType	      "sfix(16)"
-      ConRadixGroup	      "Use specified scaling"
-      OutScaling	      "2^0"
       SampleTime	      "inf"
       FramePeriod	      "inf"
+  OutDataTypeMode   "Inherit from 'Constant value'"
+  OutDataType   "fixdt(1,16,0)"
+  ConRadixGroup   "Use specified scaling"
+  OutScaling   "[]"
     }
     Block {
       BlockType		      DataTypeConversion
-      OutDataTypeMode	      "Inherit via back propagation"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
       LockScale		      off
       ConvertRealWorld	      "Real World Value (RWV)"
       RndMeth		      "Zero"
       SaturateOnIntegerOverflow	on
       SampleTime	      "-1"
+  OutDataTypeMode   "Inherit via back propagation"
+  OutDataType   "fixdt(1,16,0)"
+  OutScaling   "[]"
     }
     Block {
       BlockType		      Demux
@@ -523,40 +545,6 @@ Model {
       SampleTime	      "-1"
     }
     Block {
-      BlockType		      Ground
-    }
-    Block {
-      BlockType		      SignalConversion
-      OverrideOpt	      off
-    }
-    Block {
-      BlockType		      Inport
-      Port		      "1"
-      UseBusObject	      off
-      BusObject		      "BusObject"
-      BusOutputAsStruct	      off
-      PortDimensions	      "-1"
-      SampleTime	      "-1"
-      DataType		      "auto"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
-      SignalType	      "auto"
-      SamplingMode	      "auto"
-      LatchByDelayingOutsideSignal off
-      LatchByCopyingInsideSignal off
-      Interpolate	      on
-    }
-    Block {
-      BlockType		      MultiPortSwitch
-      Inputs		      "4"
-      zeroidx		      off
-      InputSameDT	      on
-      OutDataTypeMode	      "Inherit via internal rule"
-      RndMeth		      "Floor"
-      SaturateOnIntegerOverflow	on
-      SampleTime	      "-1"
-    }
-    Block {
       BlockType		      Mux
       Inputs		      "4"
       DisplayOption	      "none"
@@ -565,90 +553,11 @@ Model {
       NonVirtualBus	      off
     }
     Block {
-      BlockType		      Outport
-      Port		      "1"
-      UseBusObject	      off
-      BusObject		      "BusObject"
-      BusOutputAsStruct	      off
-      PortDimensions	      "-1"
-      SampleTime	      "-1"
-      DataType		      "auto"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
-      SignalType	      "auto"
-      SamplingMode	      "auto"
-      OutputWhenDisabled      "held"
-      InitialOutput	      "[]"
-    }
-    Block {
-      BlockType		      RelationalOperator
-      Operator		      ">="
-      InputSameDT	      on
-      LogicOutDataTypeMode    "Logical (see Configuration Parameters: Optimiza"
-"tion)"
-      LogicDataType	      "uint(8)"
-      ZeroCross		      on
-      SampleTime	      "-1"
-    }
-    Block {
-      BlockType		      "S-Function"
+      BlockType		      S-Function
       FunctionName	      "system"
       SFunctionModules	      "''"
       PortCounts	      "[]"
-    }
-    Block {
-      BlockType		      SignalSpecification
-      Dimensions	      "-1"
-      SampleTime	      "-1"
-      DataType		      "auto"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
-      SignalType	      "auto"
-      SamplingMode	      "auto"
-    }
-    Block {
-      BlockType		      SubSystem
-      ShowPortLabels	      "FromPortIcon"
-      Permissions	      "ReadWrite"
-      PermitHierarchicalResolution "All"
-      TreatAsAtomicUnit	      off
-      SystemSampleTime	      "-1"
-      RTWFcnNameOpts	      "Auto"
-      RTWFileNameOpts	      "Auto"
-      RTWMemSecFuncInitTerm   "Inherit from model"
-      RTWMemSecFuncExecute    "Inherit from model"
-      RTWMemSecDataConstants  "Inherit from model"
-      RTWMemSecDataInternal   "Inherit from model"
-      RTWMemSecDataParameters "Inherit from model"
-      SimViewingDevice	      off
-      DataTypeOverride	      "UseLocalSettings"
-      MinMaxOverflowLogging   "UseLocalSettings"
-    }
-    Block {
-      BlockType		      Sum
-      IconShape		      "rectangular"
-      Inputs		      "++"
-      CollapseMode	      "All dimensions"
-      CollapseDim	      "1"
-      InputSameDT	      on
-      OutDataTypeMode	      "Same as first input"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
-      LockScale		      off
-      RndMeth		      "Floor"
-      SaturateOnIntegerOverflow	on
-      SampleTime	      "-1"
-    }
-    Block {
-      BlockType		      Switch
-      Criteria		      "u2 >= Threshold"
-      Threshold		      "0"
-      InputSameDT	      on
-      OutDataTypeMode	      "Inherit via internal rule"
-      RndMeth		      "Floor"
-      SaturateOnIntegerOverflow	on
-      ZeroCross		      on
-      SampleTime	      "-1"
+      SFunctionDeploymentMode off
     }
     Block {
       BlockType		      ToWorkspace
@@ -657,37 +566,13 @@ Model {
       Decimation	      "1"
       SampleTime	      "0"
       FixptAsFi		      off
+      NumInputs		      "1"
     }
-    Block {
-      BlockType		      UnitDelay
-      X0		      "0"
-      SampleTime	      "1"
-      StateMustResolveToSignalObject off
-      RTWStateStorageClass    "Auto"
-    }
-  }
-  AnnotationDefaults {
-    HorizontalAlignment	    "center"
-    VerticalAlignment	    "middle"
-    ForegroundColor	    "black"
-    BackgroundColor	    "white"
-    DropShadow		    off
-    FontName		    "Helvetica"
-    FontSize		    10
-    FontWeight		    "normal"
-    FontAngle		    "normal"
-    UseDisplayTextAsClickCallback off
-  }
-  LineDefaults {
-    FontName		    "Helvetica"
-    FontSize		    9
-    FontWeight		    "normal"
-    FontAngle		    "normal"
   }
   System {
     Name		    "test_attention"
-    Location		    [2, 82, 989, 722]
-    Open		    on
+    Location		    [149, 195, 1136, 835]
+    Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -709,21 +594,19 @@ Model {
       Lockdown		      off
     }
     Block {
-      BlockType		      "S-Function"
+      BlockType		      S-Function
       Name		      "Behavior Attention"
       Ports		      [4, 8]
       Position		      [230, 288, 455, 622]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_attention"
-      Parameters	      "0 .5 1 5 1 1 1   3 10   100 0 10 0 0 1 1 4 0   "
-"1 10 80 1 50 .1 0 1.57 3.14 5 0 1.57   .3 5 1.57 3.14 0 1.57 .005   1 1 .003 "
-"0 .2"
-      MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
-"os')\nport_label('input',2,'offsets')\nport_label('input',3,'force')\nport_la"
-"bel('input',4,'catch force')\nport_label('output',1,'force')\nport_label('out"
-"put',2,'status')\nport_label('output',3,'word')\nport_label('output',4,'targe"
-"ts')\nport_label('output',5,'reward')\nport_label('output',6,'tone')\nport_la"
-"bel('output',7,'version')\nport_label('output',8,'pos')"
+      Parameters	      "0 .5 1 5 1 1 1   3 10   50 50 10 0 0 1 1 4 0   1 10 80 1 50 .1 0 1.57 3.14 5 0 1.57   .3 5 1.5"
+      "7 3.14 0 1.57 .005   1 1 .003 0 .2"
+      EnableBusSupport	      off
+      MaskDisplay	      "disp('Master Control')\nport_label('input',1,'pos')\nport_label('input',2,'offsets')\nport_la"
+      "bel('input',3,'force')\nport_label('input',4,'catch force')\nport_label('output',1,'force')\nport_label('output'"
+      ",2,'status')\nport_label('output',3,'word')\nport_label('output',4,'targets')\nport_label('output',5,'reward')\n"
+      "port_label('output',6,'tone')\nport_label('output',7,'version')\nport_label('output',8,'pos')"
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
@@ -804,8 +687,7 @@ Model {
       Name		      "Detect\nIncrease1"
       Ports		      [1, 1]
       Position		      [690, 169, 750, 201]
-      SourceBlock	      "simulink/Logic and Bit\nOperations/Detect\nIncr"
-"ease"
+      SourceBlock	      "simulink/Logic and Bit\nOperations/Detect\nIncrease"
       SourceType	      "Detect Increase"
       ShowPortLabels	      "FromPortIcon"
       SystemSampleTime	      "-1"
@@ -822,8 +704,7 @@ Model {
       Name		      "Detect\nIncrease2"
       Ports		      [1, 1]
       Position		      [690, 109, 750, 141]
-      SourceBlock	      "simulink/Logic and Bit\nOperations/Detect\nIncr"
-"ease"
+      SourceBlock	      "simulink/Logic and Bit\nOperations/Detect\nIncrease"
       SourceType	      "Detect Increase"
       ShowPortLabels	      "FromPortIcon"
       SystemSampleTime	      "-1"
@@ -840,8 +721,7 @@ Model {
       Name		      "Detect\nIncrease3"
       Ports		      [1, 1]
       Position		      [705, 219, 765, 251]
-      SourceBlock	      "simulink/Logic and Bit\nOperations/Detect\nIncr"
-"ease"
+      SourceBlock	      "simulink/Logic and Bit\nOperations/Detect\nIncrease"
       SourceType	      "Detect Increase"
       ShowPortLabels	      "FromPortIcon"
       SystemSampleTime	      "-1"
@@ -947,6 +827,7 @@ Model {
     Block {
       BlockType		      ToWorkspace
       Name		      "To Workspace"
+      Ports		      [1]
       Position		      [955, 145, 1015, 175]
       VariableName	      "simout"
       MaxDataPoints	      "inf"
@@ -1182,39 +1063,28 @@ Model {
     }
   }
 }
-
-# Finite State Machines
-#
-#    Stateflow Version 6.6 (R2007a) dated Jan 30 2007, 03:33:34
-#
-#
-
 Stateflow {
-
-	machine {
-		id                   		1
-		name                 		"test_attention"
-		created              		"29-Sep-2006 15:42:48"
-		isLibrary            		0
-		firstTarget          		2
-		sfVersion            		66014000
-	}
-
-	target {
-		id                        		2
-		name                      		"sfun"
-		codeFlags                 		""
-		machine                   		1
-		linkNode                  		[1 0 3]
-	}
-
-	target {
-		id                        		3
-		name                      		"rtw"
-		codeFlags                 		" comments=1 statebitsets=1 databitsets=1 emitlogicalops=1 el"
-						"seifdetection=1 constantfolding=1 redundantloadelimination=0"
-						" preservenames=0 preservenameswithparent=0 exportcharts=0"
-		machine                   		1
-		linkNode                  		[1 2 0]
-	}
+  machine {
+    id			    1
+    name		    "tpa210b1ef_8adb_4da4_9b74_7e0961369b6e"
+    created		    "29-Sep-2006 15:42:48"
+    isLibrary		    0
+    firstTarget		    2
+    sfVersion		    66014000.000000
+  }
+  target {
+    id			    2
+    name		    "sfun"
+    codeFlags		    " debug=1 overflow=1 echo=1"
+    machine		    1
+    linkNode		    [1 0 3]
+  }
+  target {
+    id			    3
+    name		    "rtw"
+    codeFlags		    " comments=1 statebitsets=1 databitsets=1 emitlogicalops=1 elseifdetection=1 constantfolding=1 redu"
+    "ndantloadelimination=0 preservenames=0 preservenameswithparent=0 exportcharts=0"
+    machine		    1
+    linkNode		    [1 2 0]
+  }
 }

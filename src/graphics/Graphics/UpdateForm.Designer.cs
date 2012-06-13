@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -899,6 +899,8 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
+            this.radioButtonWFCTNC = new System.Windows.Forms.RadioButton();
+            this.radioButtonWFCNC = new System.Windows.Forms.RadioButton();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -3772,8 +3774,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle9;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4135,6 +4137,8 @@ namespace BehaviorGraphics
             // 
             // groupBox40
             // 
+            this.groupBox40.Controls.Add(this.radioButtonWFCNC);
+            this.groupBox40.Controls.Add(this.radioButtonWFCTNC);
             this.groupBox40.Controls.Add(this.label47);
             this.groupBox40.Controls.Add(this.textBoxWFNC);
             this.groupBox40.Controls.Add(this.label46);
@@ -4155,7 +4159,7 @@ namespace BehaviorGraphics
             this.groupBox40.Controls.Add(this.label150);
             this.groupBox40.Location = new System.Drawing.Point(184, 95);
             this.groupBox40.Name = "groupBox40";
-            this.groupBox40.Size = new System.Drawing.Size(146, 200);
+            this.groupBox40.Size = new System.Drawing.Size(146, 240);
             this.groupBox40.TabIndex = 23;
             this.groupBox40.TabStop = false;
             this.groupBox40.Text = "Cursor Control";
@@ -4189,7 +4193,7 @@ namespace BehaviorGraphics
             // labelWFIntMax
             // 
             this.labelWFIntMax.AutoSize = true;
-            this.labelWFIntMax.Location = new System.Drawing.Point(72, 178);
+            this.labelWFIntMax.Location = new System.Drawing.Point(72, 215);
             this.labelWFIntMax.Name = "labelWFIntMax";
             this.labelWFIntMax.Size = new System.Drawing.Size(27, 13);
             this.labelWFIntMax.TabIndex = 31;
@@ -4198,7 +4202,7 @@ namespace BehaviorGraphics
             // 
             // textBoxWFIntMax
             // 
-            this.textBoxWFIntMax.Location = new System.Drawing.Point(101, 175);
+            this.textBoxWFIntMax.Location = new System.Drawing.Point(101, 212);
             this.textBoxWFIntMax.Name = "textBoxWFIntMax";
             this.textBoxWFIntMax.Size = new System.Drawing.Size(30, 20);
             this.textBoxWFIntMax.TabIndex = 19;
@@ -4207,7 +4211,7 @@ namespace BehaviorGraphics
             // 
             // textBoxWFIntMin
             // 
-            this.textBoxWFIntMin.Location = new System.Drawing.Point(42, 175);
+            this.textBoxWFIntMin.Location = new System.Drawing.Point(42, 212);
             this.textBoxWFIntMin.Name = "textBoxWFIntMin";
             this.textBoxWFIntMin.Size = new System.Drawing.Size(30, 20);
             this.textBoxWFIntMin.TabIndex = 17;
@@ -4217,7 +4221,7 @@ namespace BehaviorGraphics
             // labelWFIntMin
             // 
             this.labelWFIntMin.AutoSize = true;
-            this.labelWFIntMin.Location = new System.Drawing.Point(18, 178);
+            this.labelWFIntMin.Location = new System.Drawing.Point(18, 215);
             this.labelWFIntMin.Name = "labelWFIntMin";
             this.labelWFIntMin.Size = new System.Drawing.Size(24, 13);
             this.labelWFIntMin.TabIndex = 28;
@@ -4227,7 +4231,7 @@ namespace BehaviorGraphics
             // checkBoxWFIntegrate
             // 
             this.checkBoxWFIntegrate.AutoSize = true;
-            this.checkBoxWFIntegrate.Location = new System.Drawing.Point(6, 152);
+            this.checkBoxWFIntegrate.Location = new System.Drawing.Point(6, 189);
             this.checkBoxWFIntegrate.Name = "checkBoxWFIntegrate";
             this.checkBoxWFIntegrate.Size = new System.Drawing.Size(108, 17);
             this.checkBoxWFIntegrate.TabIndex = 15;
@@ -4338,7 +4342,7 @@ namespace BehaviorGraphics
             this.groupBox36.Controls.Add(this.label124);
             this.groupBox36.Location = new System.Drawing.Point(184, 9);
             this.groupBox36.Name = "groupBox36";
-            this.groupBox36.Size = new System.Drawing.Size(146, 83);
+            this.groupBox36.Size = new System.Drawing.Size(146, 80);
             this.groupBox36.TabIndex = 21;
             this.groupBox36.TabStop = false;
             this.groupBox36.Text = "Options";
@@ -4531,8 +4535,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle10;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -10040,6 +10044,33 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
+            // radioButtonWFCTNC
+            // 
+            this.radioButtonWFCTNC.AutoSize = true;
+            this.radioButtonWFCTNC.Checked = true;
+            this.radioButtonWFCTNC.Location = new System.Drawing.Point(9, 148);
+            this.radioButtonWFCTNC.Name = "radioButtonWFCTNC";
+            this.radioButtonWFCTNC.Size = new System.Drawing.Size(110, 17);
+            this.radioButtonWFCTNC.TabIndex = 45;
+            this.radioButtonWFCTNC.TabStop = true;
+            this.radioButtonWFCTNC.Text = "During catch trials";
+            this.toolTip1.SetToolTip(this.radioButtonWFCTNC, "If selected, the cursor will be controlled with Neural Control % during catch tri" +
+                    "als.");
+            this.radioButtonWFCTNC.UseVisualStyleBackColor = true;            
+            // 
+            // radioButtonWFCNC
+            // 
+            this.radioButtonWFCNC.AutoSize = true;
+            this.radioButtonWFCNC.Location = new System.Drawing.Point(9, 166);
+            this.radioButtonWFCNC.Name = "radioButtonWFCNC";
+            this.radioButtonWFCNC.Size = new System.Drawing.Size(78, 17);
+            this.radioButtonWFCNC.TabIndex = 46;
+            this.radioButtonWFCNC.TabStop = true;
+            this.radioButtonWFCNC.Text = "Continuous";
+            this.toolTip1.SetToolTip(this.radioButtonWFCNC, "If selected, catch trials become irrelevant and neural control is used all the ti" +
+                    "me with Neural Control %.");
+            this.radioButtonWFCNC.UseVisualStyleBackColor = true;            
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -11124,5 +11155,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelATBEMinS;
         private System.Windows.Forms.GroupBox groupBox51;
         private System.Windows.Forms.ToolStripMenuItem theme4ToolStripMenuItem;
+        private System.Windows.Forms.RadioButton radioButtonWFCNC;
+        private System.Windows.Forms.RadioButton radioButtonWFCTNC;
     }
 }

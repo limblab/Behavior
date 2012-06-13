@@ -407,6 +407,7 @@ namespace BehaviorGraphics
 
             // Neural Control
             AddParamListItem("WFNeuralControl", "Value", "CursorPos/NeuralControlPct", this.textBoxWFNC);
+            AddParamListItem("WFNeuralControlCatchTrial", "P21", "Behavior WF", this.radioButtonWFCTNC);
 
             #endregion
 

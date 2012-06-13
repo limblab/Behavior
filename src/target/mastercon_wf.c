@@ -156,6 +156,9 @@ static real_T master_update = 0.0;
 
 /* Param(S,19) is center_hold_time_h -- see above */
 
+static int neural_control_during_catch_trials = 1;
+#define param_neural_control_during_catch_trials mxGetScalar(ssGetSFcnParam(S,20));
+
 #define set_catch_trial(x) ssSetIWorkValue(S, 22, (x))
 #define get_catch_trial() ssGetIWorkValue(S, 22)
 
@@ -207,6 +210,8 @@ static void mdlCheckParameters(SimStruct *S)
   rotation           = param_rotation * PI / 180.0;
   rotation_increment = param_rotation_increment * PI / 180.0;
   rotation_max       = param_rotation_max * PI / 180.0;
+
+  neural_control_during_catch_trials = (int)param_neural_control_during_catch_trials;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
@@ -255,7 +260,7 @@ static void mdlInitializeSizes(SimStruct *S)
      * 7: rotation: 1
      *
      */
-    if (!ssSetNumOutputPorts(S, 8)) return;
+    if (!ssSetNumOutputPorts(S, 9)) return;
     ssSetOutputPortWidth(S, 0, 1);
     ssSetOutputPortWidth(S, 1, 1);
     ssSetOutputPortWidth(S, 2, 4);
@@ -264,6 +269,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOutputPortWidth(S, 5, 8);
     ssSetOutputPortWidth(S, 6, 4); /*version*/
     ssSetOutputPortWidth(S, 7, 1);
+	ssSetOutputPortWidth(S, 8, 1);
     
     ssSetNumSampleTimes(S, 1);
     
@@ -582,6 +588,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             rotation_increment = param_rotation_increment * PI / 180.0;
             rotation_max       = param_rotation_max * PI / 180.0;
+			neural_control_during_catch_trials = (int)param_neural_control_during_catch_trials;
             
             /* Check for the rotation flag and rotate the cursor by that amount */
             if ( ssGetIWorkValue(S, 24) ) {
@@ -590,10 +597,11 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                      (rotation_increment > 0 && rotation > rotation_max) )
                     rotation = rotation_max;
                 ssSetIWorkValue(S, 24, 0); /* and unflag */
-            }
-            
+            }            
+
             /* decide if this is going to be a catch trial */
-            set_catch_trial( (catch_trials_pct > ((double)rand()/(double)RAND_MAX)) ? 1 : 0 );
+			set_catch_trial(catch_trials_pct > UNI ? 1 : 0);
+            /*set_catch_trial( (catch_trials_pct > ((double)rand()/(double)RAND_MAX)) ? 1 : 0 );*/
 
             /***************************************/
             /* see if we have to update MVC_Target */
@@ -931,6 +939,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     real_T *mvcTarget_p;
     real_T *version_p;
     real_T *rotation_p;
+	real_T *neural_control_flag_p;
     
     /******************
      * Initialization *
@@ -1026,8 +1035,18 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_cnt = ssGetRWorkValue(S, 2);
     tone_id  = ssGetRWorkValue(S, 3);
     
-    /* targets (4) */
-    for (i=0; i<4; i++) {
+    /* targets (4) and neural control flag (8)*/
+	neural_control_flag_p = ssGetOutputPortRealSignal(S,8);
+	if (!neural_control_during_catch_trials){
+		neural_control_flag_p[0] = 1;
+	} else {
+		if (get_catch_trial() && (state==STATE_MOVEMENT || state==STATE_CONTINUE_MOVEMENT || state==STATE_TARGET_HOLD))
+			neural_control_flag_p[0] = 1;
+		else
+			neural_control_flag_p[0] = 0;
+	}
+    
+	for (i=0; i<4; i++) {
         target[i+1] = tgt[i];
         target[i+6] = center[i];
     }
