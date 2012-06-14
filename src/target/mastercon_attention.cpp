@@ -219,7 +219,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(42);
+	this->setNumParams(43);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->center_hold_l,							 1);
@@ -425,8 +425,8 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	if (current_percent_training_mode == -100){
 		current_percent_training_mode = params->percent_training_trials;
 	} 
-	current_percent_training_mode > 100 ? 100 : current_percent_training_mode;
-	current_percent_training_mode < 0 ? 0 : current_percent_training_mode;
+	current_percent_training_mode = current_percent_training_mode > 100 ? 100 : current_percent_training_mode;
+	current_percent_training_mode = current_percent_training_mode < 0 ? 0 : current_percent_training_mode;
 	training_mode = (this->random->getDouble(0,100) < current_percent_training_mode) ? 1 : 0;
 	
     dotsTargetA->width = params->moving_dots_target_size;
@@ -708,17 +708,17 @@ void AttentionBehavior::update(SimStruct *S) {
 			break;
         case STATE_REWARD:
 			this->bump->stop();
-			this->bias_force->stop();		
-			this->current_percent_training_mode = this->current_percent_training_mode - params->percent_training_step;			
+			this->bias_force->stop();					
 			if (stateTimer->elapsedTime(S) > params->reward_timeout) {
+				current_percent_training_mode = current_percent_training_mode - params->percent_training_step;			
 				setState(STATE_PRETRIAL);
 			}
 			break;
 		case STATE_FAIL:
 			this->bump->stop();
-			this->bias_force->stop();		
-			this->current_percent_training_mode = this->current_percent_training_mode + params->percent_training_step;
+			this->bias_force->stop();					
 			if (stateTimer->elapsedTime(S) > params->fail_timeout) {				
+				current_percent_training_mode = current_percent_training_mode + 3*params->percent_training_step;
 				setState(STATE_PRETRIAL);
 			}
 			break;
@@ -754,7 +754,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->failures;
 	outputs->status[3] = trialCounter->aborts;	
-	outputs->status[4] = trialCounter->incompletes;
+	outputs->status[4] = trialCounter->incompletes;	
 	//outputs->status[4] = debug_var;
     
 	/* word(2) */
