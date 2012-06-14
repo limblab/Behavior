@@ -95,6 +95,7 @@ struct LocalParams{
 	real_T percent_proprio_trials;
 	real_T trial_block_size;
 	real_T percent_training_trials;
+	real_T percent_training_step;
 	real_T percent_catch_trials;
 	real_T blocked_directions;
 	real_T blocked_difficulty;
@@ -194,6 +195,8 @@ private:
 	int bump_direction_read_index;
 	int bump_direction_write_index;
 
+	real_T current_percent_training_mode;
+
 	TrapBumpGenerator *bump;
 	TrapBumpGenerator *bias_force;
 
@@ -264,7 +267,9 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->staircase_reset,							38);
 	this->bindParamId(&params->bias_force_magnitude,					39);
 	this->bindParamId(&params->bias_force_direction,					40);
-	this->bindParamId(&params->bias_force_ramp,							41);				
+	this->bindParamId(&params->bias_force_ramp,							41);		
+
+	this->bindParamId(&params->percent_training_step,					42);
     
     // default parameters:
     // 0 .5 1 5 1 1 1   3 10   40 30 20 20 20 1 1 4 0   1 10 80 1 50 .1 0 1.57 3.14 5 0 1.57   .3 5 1.57 3.14 0 1.57 .005   0 0 .003 0 .2
@@ -320,6 +325,8 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	}
 	bump_direction_read_index = 0;
 	bump_direction_write_index = 0;
+
+	current_percent_training_mode = -100;
 
 	bump = new TrapBumpGenerator();
 	bias_force = new TrapBumpGenerator();
@@ -386,6 +393,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 			bump_direction_history[i] = -1;
 		bump_direction_read_index = 200;
 		bump_direction_write_index = 200;
+		current_percent_training_mode = -100;
 	}
 
 	trial_counter++;
@@ -413,7 +421,13 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	}
 		
 	catch_trial = (this->random->getDouble(0,100) < params->percent_catch_trials) ? 1 : 0;
-	training_mode = (this->random->getDouble(0,100) < params->percent_training_trials) ? 1 : 0;
+	
+	if (current_percent_training_mode == -100){
+		current_percent_training_mode = params->percent_training_trials;
+	} 
+	current_percent_training_mode > 100 ? 100 : current_percent_training_mode;
+	current_percent_training_mode < 0 ? 0 : current_percent_training_mode;
+	training_mode = (this->random->getDouble(0,100) < current_percent_training_mode) ? 1 : 0;
 	
     dotsTargetA->width = params->moving_dots_target_size;
     dotsTargetA->centerX = 0;
@@ -694,14 +708,16 @@ void AttentionBehavior::update(SimStruct *S) {
 			break;
         case STATE_REWARD:
 			this->bump->stop();
-			this->bias_force->stop();			
+			this->bias_force->stop();		
+			this->current_percent_training_mode = this->current_percent_training_mode - params->percent_training_step;			
 			if (stateTimer->elapsedTime(S) > params->reward_timeout) {
 				setState(STATE_PRETRIAL);
 			}
 			break;
 		case STATE_FAIL:
 			this->bump->stop();
-			this->bias_force->stop();			
+			this->bias_force->stop();		
+			this->current_percent_training_mode = this->current_percent_training_mode + params->percent_training_step;
 			if (stateTimer->elapsedTime(S) > params->fail_timeout) {				
 				setState(STATE_PRETRIAL);
 			}

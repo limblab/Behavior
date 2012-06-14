@@ -709,7 +709,9 @@ namespace BehaviorGraphics
             AddParamListItem("AT BFM", "P40", "Behavior AT", this.textBoxATBFM);
             AddParamListItem("AT BFD", "P41", "Behavior AT", this.textBoxATBFD);
             AddParamListItem("AT BFR", "P42", "Behavior AT", this.textBoxATBFR);  
-            
+
+            // More training stuff
+            AddParamListItem("AT PTS", "P43", "Behavior AT", this.textBoxATPTS);            
             #endregion
 
             #region Bump direction psychophysics

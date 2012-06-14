@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -322,6 +322,8 @@ namespace BehaviorGraphics
             this.textBoxWFRotInc = new System.Windows.Forms.TextBox();
             this.buttonWFclear = new System.Windows.Forms.Button();
             this.groupBox40 = new System.Windows.Forms.GroupBox();
+            this.radioButtonWFCNC = new System.Windows.Forms.RadioButton();
+            this.radioButtonWFCTNC = new System.Windows.Forms.RadioButton();
             this.label47 = new System.Windows.Forms.Label();
             this.textBoxWFNC = new System.Windows.Forms.TextBox();
             this.label46 = new System.Windows.Forms.Label();
@@ -899,8 +901,8 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.radioButtonWFCTNC = new System.Windows.Forms.RadioButton();
-            this.radioButtonWFCNC = new System.Windows.Forms.RadioButton();
+            this.label269 = new System.Windows.Forms.Label();
+            this.textBoxATPTS = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -3774,8 +3776,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4164,6 +4166,33 @@ namespace BehaviorGraphics
             this.groupBox40.TabStop = false;
             this.groupBox40.Text = "Cursor Control";
             // 
+            // radioButtonWFCNC
+            // 
+            this.radioButtonWFCNC.AutoSize = true;
+            this.radioButtonWFCNC.Location = new System.Drawing.Point(9, 166);
+            this.radioButtonWFCNC.Name = "radioButtonWFCNC";
+            this.radioButtonWFCNC.Size = new System.Drawing.Size(78, 17);
+            this.radioButtonWFCNC.TabIndex = 46;
+            this.radioButtonWFCNC.TabStop = true;
+            this.radioButtonWFCNC.Text = "Continuous";
+            this.toolTip1.SetToolTip(this.radioButtonWFCNC, "If selected, catch trials become irrelevant and neural control is used all the ti" +
+                    "me with Neural Control %.");
+            this.radioButtonWFCNC.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonWFCTNC
+            // 
+            this.radioButtonWFCTNC.AutoSize = true;
+            this.radioButtonWFCTNC.Checked = true;
+            this.radioButtonWFCTNC.Location = new System.Drawing.Point(9, 148);
+            this.radioButtonWFCTNC.Name = "radioButtonWFCTNC";
+            this.radioButtonWFCTNC.Size = new System.Drawing.Size(110, 17);
+            this.radioButtonWFCTNC.TabIndex = 45;
+            this.radioButtonWFCTNC.TabStop = true;
+            this.radioButtonWFCTNC.Text = "During catch trials";
+            this.toolTip1.SetToolTip(this.radioButtonWFCTNC, "If selected, the cursor will be controlled with Neural Control % during catch tri" +
+                    "als.");
+            this.radioButtonWFCTNC.UseVisualStyleBackColor = true;
+            // 
             // label47
             // 
             this.label47.AutoSize = true;
@@ -4535,8 +4564,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -8203,6 +8232,8 @@ namespace BehaviorGraphics
             // 
             // groupBox59
             // 
+            this.groupBox59.Controls.Add(this.label269);
+            this.groupBox59.Controls.Add(this.textBoxATPTS);
             this.groupBox59.Controls.Add(this.angleEntryBoxATFMD);
             this.groupBox59.Controls.Add(this.checkBoxATBDiff);
             this.groupBox59.Controls.Add(this.label298);
@@ -8221,14 +8252,14 @@ namespace BehaviorGraphics
             this.groupBox59.Controls.Add(this.label292);
             this.groupBox59.Location = new System.Drawing.Point(178, 8);
             this.groupBox59.Name = "groupBox59";
-            this.groupBox59.Size = new System.Drawing.Size(190, 239);
+            this.groupBox59.Size = new System.Drawing.Size(190, 267);
             this.groupBox59.TabIndex = 27;
             this.groupBox59.TabStop = false;
             this.groupBox59.Text = "Trial types";
             // 
             // angleEntryBoxATFMD
             // 
-            this.angleEntryBoxATFMD.Location = new System.Drawing.Point(109, 213);
+            this.angleEntryBoxATFMD.Location = new System.Drawing.Point(109, 237);
             this.angleEntryBoxATFMD.Name = "angleEntryBoxATFMD";
             this.angleEntryBoxATFMD.Size = new System.Drawing.Size(72, 21);
             this.angleEntryBoxATFMD.TabIndex = 78;
@@ -8237,7 +8268,7 @@ namespace BehaviorGraphics
             // checkBoxATBDiff
             // 
             this.checkBoxATBDiff.AutoSize = true;
-            this.checkBoxATBDiff.Location = new System.Drawing.Point(9, 163);
+            this.checkBoxATBDiff.Location = new System.Drawing.Point(9, 187);
             this.checkBoxATBDiff.Name = "checkBoxATBDiff";
             this.checkBoxATBDiff.Size = new System.Drawing.Size(106, 17);
             this.checkBoxATBDiff.TabIndex = 47;
@@ -8248,7 +8279,7 @@ namespace BehaviorGraphics
             // label298
             // 
             this.label298.AutoSize = true;
-            this.label298.Location = new System.Drawing.Point(5, 218);
+            this.label298.Location = new System.Drawing.Point(5, 242);
             this.label298.Name = "label298";
             this.label298.Size = new System.Drawing.Size(94, 13);
             this.label298.TabIndex = 36;
@@ -8257,7 +8288,7 @@ namespace BehaviorGraphics
             // label299
             // 
             this.label299.AutoSize = true;
-            this.label299.Location = new System.Drawing.Point(6, 191);
+            this.label299.Location = new System.Drawing.Point(6, 215);
             this.label299.Name = "label299";
             this.label299.Size = new System.Drawing.Size(77, 13);
             this.label299.TabIndex = 46;
@@ -8274,7 +8305,7 @@ namespace BehaviorGraphics
             // 
             // numericUpDownATND
             // 
-            this.numericUpDownATND.Location = new System.Drawing.Point(133, 189);
+            this.numericUpDownATND.Location = new System.Drawing.Point(133, 213);
             this.numericUpDownATND.Maximum = new decimal(new int[] {
             32,
             0,
@@ -8302,7 +8333,7 @@ namespace BehaviorGraphics
             // 
             // textBoxATPCT
             // 
-            this.textBoxATPCT.Location = new System.Drawing.Point(129, 112);
+            this.textBoxATPCT.Location = new System.Drawing.Point(129, 136);
             this.textBoxATPCT.Name = "textBoxATPCT";
             this.textBoxATPCT.Size = new System.Drawing.Size(52, 20);
             this.textBoxATPCT.TabIndex = 5;
@@ -8312,7 +8343,7 @@ namespace BehaviorGraphics
             // label290
             // 
             this.label290.AutoSize = true;
-            this.label290.Location = new System.Drawing.Point(5, 115);
+            this.label290.Location = new System.Drawing.Point(5, 139);
             this.label290.Name = "label290";
             this.label290.Size = new System.Drawing.Size(98, 13);
             this.label290.TabIndex = 8;
@@ -8338,7 +8369,7 @@ namespace BehaviorGraphics
             // checkBoxATBDirs
             // 
             this.checkBoxATBDirs.AutoSize = true;
-            this.checkBoxATBDirs.Location = new System.Drawing.Point(9, 140);
+            this.checkBoxATBDirs.Location = new System.Drawing.Point(9, 164);
             this.checkBoxATBDirs.Name = "checkBoxATBDirs";
             this.checkBoxATBDirs.Size = new System.Drawing.Size(113, 17);
             this.checkBoxATBDirs.TabIndex = 44;
@@ -10044,32 +10075,24 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // radioButtonWFCTNC
+            // label269
             // 
-            this.radioButtonWFCTNC.AutoSize = true;
-            this.radioButtonWFCTNC.Checked = true;
-            this.radioButtonWFCTNC.Location = new System.Drawing.Point(9, 148);
-            this.radioButtonWFCTNC.Name = "radioButtonWFCTNC";
-            this.radioButtonWFCTNC.Size = new System.Drawing.Size(110, 17);
-            this.radioButtonWFCTNC.TabIndex = 45;
-            this.radioButtonWFCTNC.TabStop = true;
-            this.radioButtonWFCTNC.Text = "During catch trials";
-            this.toolTip1.SetToolTip(this.radioButtonWFCTNC, "If selected, the cursor will be controlled with Neural Control % during catch tri" +
-                    "als.");
-            this.radioButtonWFCTNC.UseVisualStyleBackColor = true;            
+            this.label269.AutoSize = true;
+            this.label269.Location = new System.Drawing.Point(6, 113);
+            this.label269.Name = "label269";
+            this.label269.Size = new System.Drawing.Size(104, 13);
+            this.label269.TabIndex = 80;
+            this.label269.Text = "Percent training step";
             // 
-            // radioButtonWFCNC
+            // textBoxATPTS
             // 
-            this.radioButtonWFCNC.AutoSize = true;
-            this.radioButtonWFCNC.Location = new System.Drawing.Point(9, 166);
-            this.radioButtonWFCNC.Name = "radioButtonWFCNC";
-            this.radioButtonWFCNC.Size = new System.Drawing.Size(78, 17);
-            this.radioButtonWFCNC.TabIndex = 46;
-            this.radioButtonWFCNC.TabStop = true;
-            this.radioButtonWFCNC.Text = "Continuous";
-            this.toolTip1.SetToolTip(this.radioButtonWFCNC, "If selected, catch trials become irrelevant and neural control is used all the ti" +
-                    "me with Neural Control %.");
-            this.radioButtonWFCNC.UseVisualStyleBackColor = true;            
+            this.textBoxATPTS.Location = new System.Drawing.Point(129, 110);
+            this.textBoxATPTS.Name = "textBoxATPTS";
+            this.textBoxATPTS.Size = new System.Drawing.Size(52, 20);
+            this.textBoxATPTS.TabIndex = 79;
+            this.toolTip1.SetToolTip(this.textBoxATPTS, "Change of percent training trials for each reward or fail (use number greater tha" +
+                    "n or equal to zero).");
+            this.textBoxATPTS.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // UpdateForm
             // 
@@ -11157,5 +11180,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.ToolStripMenuItem theme4ToolStripMenuItem;
         private System.Windows.Forms.RadioButton radioButtonWFCNC;
         private System.Windows.Forms.RadioButton radioButtonWFCTNC;
+        private System.Windows.Forms.Label label269;
+        private System.Windows.Forms.TextBox textBoxATPTS;
     }
 }
