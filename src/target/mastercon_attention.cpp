@@ -754,8 +754,9 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->failures;
 	outputs->status[3] = trialCounter->aborts;	
-	outputs->status[4] = trialCounter->incompletes;	
+	//outputs->status[4] = trialCounter->incompletes;	
 	//outputs->status[4] = debug_var;
+	outputs->status[4] = current_percent_training_mode;
     
 	/* word(2) */
 	if (db->isRunning()) {
