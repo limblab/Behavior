@@ -743,6 +743,16 @@ namespace BehaviorGraphics
             AddParamListItem("2BC Hide Cursor", "P18", "Behavior 2BC", checkBox2BCHC);
 
             #endregion
+
+            #region Unstable Field
+            AddParamListItem("UF NS", "P2", "Behavior UF", this.textBoxUFNS);
+            AddParamListItem("UF PS", "P3", "Behavior UF", this.textBoxUFPS);
+            AddParamListItem("UF FA", "P4", "Behavior UF", this.textBoxUFFA);
+            AddParamListItem("UF XPO", "P5", "Behavior UF", this.textBoxUFXPO);
+            AddParamListItem("UF YPO", "P6", "Behavior UF", this.textBoxUFYPO);
+            AddParamListItem("UF XFO", "P7", "Behavior UF", this.textBoxUFXFO);
+            AddParamListItem("UF YFO", "P8", "Behavior UF", this.textBoxUFYFO);
+            #endregion
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
@@ -1284,6 +1294,8 @@ namespace BehaviorGraphics
                     paramID = target.GetParamIdx("Behavior 2BC", "P1");
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior AT", "P1");
+                if (paramID < 0)
+                    paramID = target.GetParamIdx("Behavior UF", "P1");
 
                 /* send the flag */
                 if (paramID >= 0) {
