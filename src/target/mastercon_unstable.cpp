@@ -75,10 +75,10 @@ private:
 	SquareTarget *centerTarget;	
 	LocalParams *params;	
 	// any helper functions you need
+	void doPreTrial(SimStruct *S);
 };
 
 AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
-    int i;
 
 	/* 
 	 * First, set up the parameters to be used 
@@ -146,22 +146,22 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	/* force (0) */
 	outputs->force = inputs->force;
 
-	outputs->force.X += params->negative_stiffness*((inputs->cursor.X - params->x_position_offset)*cos(params->field_angle) +
-					    (inputs->cursor.Y - params->y_position_offset)*sin(params->field_angle))*cos(params->field_angle) + 
-						params->positive_stiffness*(-(inputs->cursor.X - params->x_position_offset)*sin(params->field_angle) + 
-						(inputs->cursor.Y - params->y_position_offset)*cos(params->field_angle))*sin(params->field_angle) + params->x_force_offset;
+	outputs->force.x += params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(params->field_angle) +
+					    (inputs->cursor.y - params->y_position_offset)*sin(params->field_angle))*cos(params->field_angle) + 
+						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(params->field_angle) + 
+						(inputs->cursor.y - params->y_position_offset)*cos(params->field_angle))*sin(params->field_angle) + params->x_force_offset;
 
-	outputs->force.Y = params->negative_stiffness*((inputs->cursor.X-params->x_position_offset)*cos(params->field_angle) + 
-						(inputs->cursor.Y-params->y_position_offset)*sin(params->field_angle))*sin(params->field_angle) -
-						params->positive_stiffness*(-(inputs->cursor.X - params->x_position_offset)*sin(params->field_angle) + 
-						(inputs->cursor.Y-params->y_position_offset)*cos(params->field_angle))*cos(params->field_angle) + params->y_force_offset;
+	outputs->force.y = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset)*cos(params->field_angle) + 
+						(inputs->cursor.y - params->y_position_offset)*sin(params->field_angle))*sin(params->field_angle) -
+						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(params->field_angle) + 
+						(inputs->cursor.y-params->y_position_offset)*cos(params->field_angle))*cos(params->field_angle) + params->y_force_offset;
 	
 	/* status (1) */
 	outputs->status[0] = getState();
-	outputs->status[1] = 0;
-	outputs->status[2] = 0;
-	outputs->status[3] = 0;	
-	outputs->status[4] = 0;    	
+	outputs->status[1] = params->negative_stiffness;
+	outputs->status[2] = params->positive_stiffness;
+	outputs->status[3] = outputs->force.x;	
+	outputs->status[4] = outputs->force.y;    	
  	
  	outputs->targets[0] = (Target *)centerTarget;
 	outputs->targets[1] = nullTarget;
