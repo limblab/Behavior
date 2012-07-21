@@ -1465,6 +1465,10 @@ namespace BehaviorGraphics
                         AngleEntryBox ab = (AngleEntryBox)paramControls[key];
                         ab.Value = Double.Parse(param[0].ToString());
                     }
+                    else if (paramControls[key].GetType() == typeof(RadioButton)) {
+                        RadioButton rb = (RadioButton)paramControls[key];
+                        rb.Checked = (param[0] > 0);
+                    }
                 }
 
                 done += 1f;
@@ -1740,6 +1744,9 @@ namespace BehaviorGraphics
                 } else if (paramControls[key].GetType() == typeof(AngleEntryBox)) {
                     AngleEntryBox ab = (AngleEntryBox)paramControls[key];
                     paramValue = ab.Value;
+                } else if (paramControls[key].GetType() == typeof(RadioButton)) {
+                    RadioButton rb = (RadioButton)paramControls[key];
+                    paramValue = (rb.Checked ? 1.0 : 0.0);
                 } else {
                     paramValue = 0;
                 }
@@ -1933,6 +1940,9 @@ namespace BehaviorGraphics
                     } else if (paramControls[key].GetType() == typeof(AngleEntryBox)) {
                         AngleEntryBox ab = (AngleEntryBox)paramControls[key];
                         ab.Value = bp.Parameters[key];
+                    } else if (paramControls[key].GetType() == typeof(RadioButton)) {
+                        RadioButton rb = (RadioButton)paramControls[key];
+                        rb.Checked = (bp.Parameters[key] > 0);
                     }
                 } catch (KeyNotFoundException) {
                 }

@@ -156,28 +156,27 @@ static real_T master_update = 0.0;
 
 /* Param(S,19) is center_hold_time_h -- see above */
 
-static int neural_control_during_catch_trials = 1;
+static real_T neural_control_during_catch_trials = 1;
 #define param_neural_control_during_catch_trials mxGetScalar(ssGetSFcnParam(S,20));
 
 #define set_catch_trial(x) ssSetIWorkValue(S, 22, (x))
 #define get_catch_trial() ssGetIWorkValue(S, 22)
 
-
 /*
  * State IDs
  */
 #define STATE_PRETRIAL          0
-#define STATE_RECENTERING       1
-#define STATE_CENTER_HOLD       2
-#define STATE_MOVEMENT          3
-#define STATE_TARGET_HOLD       4
-#define STATE_CONTINUE_MOVEMENT 5
-#define STATE_DELAY             6
+#define STATE_CENTERING         1
+#define STATE_RECENTERING       2
+#define STATE_CENTER_HOLD       3
+#define STATE_DELAY             4
+#define STATE_MOVEMENT          5
+#define STATE_TARGET_HOLD       6
+#define STATE_CONTINUE_MOVEMENT 7
 #define STATE_REWARD            82
 #define STATE_ABORT             65
 #define STATE_FAIL              70
 #define STATE_DATA_BLOCK        255
-
 
 #define TONE_GO 1
 #define TONE_REWARD 2
@@ -211,7 +210,7 @@ static void mdlCheckParameters(SimStruct *S)
   rotation_increment = param_rotation_increment * PI / 180.0;
   rotation_max       = param_rotation_max * PI / 180.0;
 
-  neural_control_during_catch_trials = (int)param_neural_control_during_catch_trials;
+  neural_control_during_catch_trials = param_neural_control_during_catch_trials;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
@@ -588,7 +587,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             rotation_increment = param_rotation_increment * PI / 180.0;
             rotation_max       = param_rotation_max * PI / 180.0;
-			neural_control_during_catch_trials = (int)param_neural_control_during_catch_trials;
+			neural_control_during_catch_trials = param_neural_control_during_catch_trials;
             
             /* Check for the rotation flag and rotate the cursor by that amount */
             if ( ssGetIWorkValue(S, 24) ) {
@@ -777,12 +776,12 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_DATA_BLOCK:
             if (databurst_counter > 2*(databurst[0]-1)) { 
-               new_state = STATE_RECENTERING;
+               new_state = STATE_CENTERING;
                state_changed();
             }
             ssSetIWorkValue(S, 23, databurst_counter+1);
             break;           
-        case STATE_RECENTERING:
+        case STATE_CENTERING:
             if (cursorInTarget(cursor, center)) {
                 new_state = STATE_CENTER_HOLD;
                 state_changed();
@@ -795,12 +794,19 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 new_state = STATE_RECENTERING;
                 state_changed();
             } else if ( elapsed_timer_time > ssGetRWorkValue(S,31) ) {
-                new_state = (center_delay_time_h > 0) ? STATE_DELAY : STATE_MOVEMENT;
+                new_state = STATE_DELAY;
                 set_random_delay_time();
                 state_changed();
                 reset_timer();
             }
             break;
+        case STATE_RECENTERING:
+            if (cursorInTarget(cursor, center)) {
+                new_state = STATE_CENTER_HOLD;
+                state_changed();
+                reset_timer();                
+            }
+            break;            
         case STATE_DELAY:
             if (!cursorInTarget(cursor, center)) {
                 new_state = STATE_RECENTERING;
@@ -915,6 +921,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      ********************/
     int i;
     real_T target_x, target_y, target_h, target_w;
+    int target_index;
+    int target_id;
     real_T tgt[4];
     real_T center[4];
     real_T tone_cnt, tone_id;
@@ -950,7 +958,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     int state = (int)state_r[0];
     new_state = ssGetIWorkValue(S, 0);
     
-    /* Get the Current Target Location */
+    /* Get the Current Target ID and Location */
+    target_index = ssGetIWorkValue(S, 1);
+    target_id = ssGetIWorkValue(S, 5 + target_index);
     target_y = ssGetRWorkValue(S,33);
     target_h = ssGetRWorkValue(S,34);
     target_x = ssGetRWorkValue(S,35);
@@ -999,15 +1009,24 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             case STATE_PRETRIAL:
                 word = WORD_START_TRIAL;
                 break;
-            case STATE_RECENTERING:
+            case STATE_CENTERING:
                 word = WORD_CT_ON;
                 break;
+            case STATE_CENTER_HOLD:
+                word = WORD_CENTER_TARGET_HOLD;
+                break;
+			case STATE_DELAY:
+				word = WORD_OT_ON(target_id);
+				break;
             case STATE_MOVEMENT:
                 if (get_catch_trial()) {
                     word = WORD_CATCH;
                 } else {
                     word = WORD_GO_CUE;
                 }
+                break;
+            case STATE_TARGET_HOLD:
+                word = WORD_OUTER_TARGET_HOLD;
                 break;
             case STATE_REWARD:
                 word = WORD_REWARD;
@@ -1035,17 +1054,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_cnt = ssGetRWorkValue(S, 2);
     tone_id  = ssGetRWorkValue(S, 3);
     
-    /* targets (4) and neural control flag (8)*/
-	neural_control_flag_p = ssGetOutputPortRealSignal(S,8);
-	if (!neural_control_during_catch_trials){
-		neural_control_flag_p[0] = 1;
-	} else {
-		if (get_catch_trial() && (state==STATE_MOVEMENT || state==STATE_CONTINUE_MOVEMENT || state==STATE_TARGET_HOLD))
-			neural_control_flag_p[0] = 1;
-		else
-			neural_control_flag_p[0] = 0;
-	}
-    
+    /* targets (4)*/     
 	for (i=0; i<4; i++) {
         target[i+1] = tgt[i];
         target[i+6] = center[i];
@@ -1100,6 +1109,18 @@ static void mdlOutputs(SimStruct *S, int_T tid)
      version[2] = BEHAVIOR_VERSION_MICRO;
      version[3] = BEHAVIOR_VERSION_BUILD;
     
+    /* neural control flag (8)*/
+	neural_control_flag_p = ssGetOutputPortRealSignal(S,8);
+	if (!neural_control_during_catch_trials){
+		neural_control_flag_p[0] = 1;
+	} else {
+		if (get_catch_trial() && (state==STATE_MOVEMENT || state==STATE_CONTINUE_MOVEMENT || state==STATE_TARGET_HOLD))
+			neural_control_flag_p[0] = 1;
+		else
+			neural_control_flag_p[0] = 0;
+	}
+
+
     /**********************************
      * Write outputs back to SimStruct
      **********************************/

@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.366"
+    ComputedModelVersion    "1.370"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jun 13 15:24:42 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:366>"
+  LastModifiedDate	  "Mon Jul 02 14:25:32 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:370>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -160,11 +160,12 @@ Model {
 	  $ObjectID		  4
 	  Array {
 	    Type		    "Cell"
-	    Dimension		    4
+	    Dimension		    5
 	    Cell		    "ZeroExternalMemoryAtStartup"
 	    Cell		    "ZeroInternalMemoryAtStartup"
 	    Cell		    "NoFixptDivByZeroProtection"
 	    Cell		    "OptimizeModelRefInitCode"
+	    Cell		    "InitFltsAndDblsToZero"
 	    PropName		    "DisabledProps"
 	  }
 	  Version		  "1.2.0"
@@ -774,7 +775,7 @@ Model {
   }
   System {
     Name		    "wrist_flexion"
-    Location		    [0, 82, 1012, 752]
+    Location		    [-8, 79, 988, 713]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -791,18 +792,19 @@ Model {
     Block {
       BlockType		      "S-Function"
       Name		      "Behavior WF"
-      Ports		      [3, 8]
-      Position		      [415, 94, 615, 576]
+      Ports		      [3, 9]
+      Position		      [415, 92, 615, 628]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_wf"
-      Parameters	      "8 5 .5 .5 1 2 2 2 2 2 0 0 0 0 0 0 0 0.7854 0 .5"
+      Parameters	      "8 5 .5 .5 1 0 0 3 3 2 0 0 0 0 0 0 0 0.7854 0 .5"
 " 0"
       MaskDisplay	      "disp('Master Control\\nWrist-Flexion')\nport_la"
 "bel('input',1,'cursor')\nport_label('input',2,'cursor offset')\nport_label('i"
 "nput',3,'target list')\nport_label('output',1,'Reward')\nport_label('output',"
 "2,'Word')\nport_label('output',3,'Status')\nport_label('output',4,'Tone')\npo"
 "rt_label('output',5,'Targets')\nport_label('output',6,'MVC Target')\nport_lab"
-"el('output',7,'version')\nport_label('output',8,'rotation')"
+"el('output',7,'version')\nport_label('output',8,'rotation')\nport_label('outp"
+"ut',9,'neural control flag')"
       MaskIconFrame	      on
       MaskIconOpaque	      on
       MaskIconRotate	      "none"
@@ -848,7 +850,7 @@ Model {
     Block {
       BlockType		      SubSystem
       Name		      "CursorPos"
-      Ports		      [1, 2]
+      Ports		      [2, 2]
       Position		      [280, 159, 345, 226]
       ShowPortLabels	      "none"
       MinAlgLoopOccurrences   off
@@ -857,7 +859,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"CursorPos"
-	Location		[-4, 87, 965, 654]
+	Location		[139, 136, 966, 711]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -873,14 +875,21 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "Rotation"
-	  Position		  [625, 408, 655, 422]
+	  Position		  [535, 323, 565, 337]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Neural control flag"
+	  Position		  [910, 283, 940, 297]
+	  Port			  "2"
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  SubSystem
 	  Name			  "Cursor Rotation"
 	  Ports			  [3, 2]
-	  Position		  [790, 103, 905, 217]
+	  Position		  [625, 103, 740, 217]
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
@@ -1114,7 +1123,7 @@ Model {
 	  BlockType		  Demux
 	  Name			  "Demux"
 	  Ports			  [1, 4]
-	  Position		  [980, 280, 985, 400]
+	  Position		  [820, 275, 825, 395]
 	  BackgroundColor	  "black"
 	  ShowName		  off
 	  DisplayOption		  "bar"
@@ -1128,13 +1137,13 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "EnableIntegrator"
-	  Position		  [1415, 225, 1445, 255]
+	  Position		  [1435, 225, 1465, 255]
 	  Value			  "0"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "EnablePosFilter"
-	  Position		  [600, 145, 630, 175]
+	  Position		  [1125, 210, 1155, 240]
 	  Value			  "0"
 	}
 	Block {
@@ -1177,7 +1186,7 @@ Model {
 	  BlockType		  Integrator
 	  Name			  "Integrator"
 	  Ports			  [2, 1]
-	  Position		  [1405, 147, 1465, 203]
+	  Position		  [1425, 147, 1485, 203]
 	  ExternalReset		  "rising"
 	  LimitOutput		  on
 	  UpperSaturationLimit	  "15"
@@ -1188,7 +1197,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "LowPassFilterX"
 	  Ports			  [1, 1]
-	  Position		  [580, 12, 645, 68]
+	  Position		  [1105, 122, 1170, 178]
 	  SourceBlock		  "dsparch4/Analog\nFilter Design"
 	  SourceType		  "Analog Filter Design"
 	  method		  "Butterworth"
@@ -1203,7 +1212,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "LowPassFilterY"
 	  Ports			  [1, 1]
-	  Position		  [580, 207, 645, 263]
+	  Position		  [1105, 262, 1170, 318]
 	  SourceBlock		  "dsparch4/Analog\nFilter Design"
 	  SourceType		  "Analog Filter Design"
 	  method		  "Butterworth"
@@ -1218,7 +1227,7 @@ Model {
 	  BlockType		  Mux
 	  Name			  "Mux"
 	  Ports			  [2, 1]
-	  Position		  [1310, 216, 1315, 329]
+	  Position		  [1330, 216, 1335, 329]
 	  ShowName		  off
 	  Inputs		  "2"
 	  DisplayOption		  "bar"
@@ -1236,14 +1245,14 @@ Model {
 	  BlockType		  SubSystem
 	  Name			  "Neural Control Subsystem"
 	  Ports			  [6, 2]
-	  Position		  [1140, 125, 1225, 410]
+	  Position		  [975, 125, 1060, 410]
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
 	  FunctionWithSeparateData off
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Neural Control Subsystem"
-	    Location		    [54, 87, 875, 515]
+	    Location		    [75, 130, 896, 558]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1278,7 +1287,7 @@ Model {
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "CatchTrialFlag"
+	      Name		      "Neural control enable"
 	      Position		      [135, 218, 165, 232]
 	      Port		      "4"
 	      IconDisplay	      "Port number"
@@ -1462,7 +1471,7 @@ Model {
 	      DstPort		      2
 	    }
 	    Line {
-	      SrcBlock		      "CatchTrialFlag"
+	      SrcBlock		      "Neural control enable"
 	      SrcPort		      1
 	      DstBlock		      "Override"
 	      DstPort		      2
@@ -1585,7 +1594,7 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "NeuralControlPct"
-	  Position		  [930, 230, 960, 260]
+	  Position		  [765, 230, 795, 260]
 	  Value			  "0"
 	}
 	Block {
@@ -1671,7 +1680,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Receive"
 	  Ports			  [0, 2]
-	  Position		  [805, 318, 895, 402]
+	  Position		  [640, 313, 730, 397]
 	  SourceBlock		  "xpclib/UDP/Receive"
 	  SourceType		  "xpcudpbytereceive"
 	  ipAddress		  "0.0.0.0"
@@ -1682,13 +1691,13 @@ Model {
 	Block {
 	  BlockType		  Constant
 	  Name			  "ResetIntegrator"
-	  Position		  [1355, 175, 1385, 205]
+	  Position		  [1375, 175, 1405, 205]
 	  Value			  "0"
 	}
 	Block {
 	  BlockType		  Saturate
 	  Name			  "Saturation"
-	  Position		  [1005, 230, 1035, 260]
+	  Position		  [840, 230, 870, 260]
 	  UpperLimit		  "100"
 	  LowerLimit		  "0"
 	}
@@ -1721,7 +1730,7 @@ Model {
 	Block {
 	  BlockType		  Switch
 	  Name			  "Switch"
-	  Position		  [700, 223, 730, 297]
+	  Position		  [1225, 278, 1255, 352]
 	  Criteria		  "u2 ~= 0"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
@@ -1729,7 +1738,7 @@ Model {
 	Block {
 	  BlockType		  Switch
 	  Name			  "Switch1"
-	  Position		  [700, 28, 730, 102]
+	  Position		  [1225, 138, 1255, 212]
 	  Criteria		  "u2 ~= 0"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
@@ -1737,7 +1746,7 @@ Model {
 	Block {
 	  BlockType		  Switch
 	  Name			  "Switch2"
-	  Position		  [1500, 189, 1545, 291]
+	  Position		  [1520, 189, 1565, 291]
 	  Criteria		  "u2 ~= 0"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
@@ -1761,20 +1770,26 @@ Model {
 	Block {
 	  BlockType		  Terminator
 	  Name			  "Terminator"
-	  Position		  [925, 370, 945, 390]
+	  Position		  [765, 365, 785, 385]
 	  ShowName		  off
 	}
 	Block {
 	  BlockType		  Terminator
 	  Name			  "Terminator1"
-	  Position		  [1005, 285, 1025, 305]
+	  Position		  [845, 280, 865, 300]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator2"
+	  Position		  [845, 310, 865, 330]
 	  ShowName		  off
 	}
 	Block {
 	  BlockType		  Reference
 	  Name			  "Unpack"
 	  Ports			  [1, 1]
-	  Position		  [910, 329, 955, 351]
+	  Position		  [750, 324, 795, 346]
 	  ShowName		  off
 	  SourceBlock		  "xpclib/UDP/Unpack"
 	  SourceType		  "xpcbyte2any"
@@ -1785,7 +1800,7 @@ Model {
 	Block {
 	  BlockType		  Outport
 	  Name			  "Pos"
-	  Position		  [1585, 233, 1615, 247]
+	  Position		  [1605, 233, 1635, 247]
 	  IconDisplay		  "Port number"
 	  BusOutputAsStruct	  off
 	}
@@ -1798,50 +1813,9 @@ Model {
 	  BusOutputAsStruct	  off
 	}
 	Line {
-	  SrcBlock		  "LowPassFilterX"
-	  SrcPort		  1
-	  DstBlock		  "Switch1"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "LowPassFilterY"
-	  SrcPort		  1
-	  DstBlock		  "Switch"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "EnablePosFilter"
-	  SrcPort		  1
-	  Points		  [30, 0]
-	  Branch {
-	    Points		    [0, 100]
-	    DstBlock		    "Switch"
-	    DstPort		    2
-	  }
-	  Branch {
-	    Points		    [0, -95]
-	    DstBlock		    "Switch1"
-	    DstPort		    2
-	  }
-	}
-	Line {
-	  SrcBlock		  "Switch1"
-	  SrcPort		  1
-	  Points		  [15, 0; 0, 55]
-	  DstBlock		  "Cursor Rotation"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Switch"
-	  SrcPort		  1
-	  Points		  [15, 0; 0, -100]
-	  DstBlock		  "Cursor Rotation"
-	  DstPort		  2
-	}
-	Line {
 	  SrcBlock		  "Rotation"
 	  SrcPort		  1
-	  Points		  [105, 0; 0, -215]
+	  Points		  [30, 0; 0, -130]
 	  DstBlock		  "Cursor Rotation"
 	  DstPort		  3
 	}
@@ -1922,34 +1896,6 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "GainX"
-	  SrcPort		  1
-	  Points		  [15, 0]
-	  Branch {
-	    DstBlock		    "Switch1"
-	    DstPort		    3
-	  }
-	  Branch {
-	    Points		    [0, -50]
-	    DstBlock		    "LowPassFilterX"
-	    DstPort		    1
-	  }
-	}
-	Line {
-	  SrcBlock		  "GainY"
-	  SrcPort		  1
-	  Points		  [15, 0]
-	  Branch {
-	    DstBlock		    "Switch"
-	    DstPort		    3
-	  }
-	  Branch {
-	    Points		    [0, -50]
-	    DstBlock		    "LowPassFilterY"
-	    DstPort		    1
-	  }
-	}
-	Line {
 	  SrcBlock		  "Sum2"
 	  SrcPort		  1
 	  DstBlock		  "GainY"
@@ -2020,13 +1966,6 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Demux"
-	  SrcPort		  2
-	  Points		  [55, 0; 0, -35]
-	  DstBlock		  "Neural Control Subsystem"
-	  DstPort		  4
-	}
-	Line {
 	  SrcBlock		  "Saturation"
 	  SrcPort		  1
 	  DstBlock		  "Neural Control Subsystem"
@@ -2086,32 +2025,112 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Neural Control Subsystem"
-	  SrcPort		  1
-	  Points		  [40, 0; 0, 45]
-	  DstBlock		  "Mux"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Neural Control Subsystem"
-	  SrcPort		  2
-	  Points		  [40, 0; 0, -40]
-	  DstBlock		  "Mux"
-	  DstPort		  2
-	}
-	Line {
 	  SrcBlock		  "Demux"
 	  SrcPort		  3
-	  Points		  [85, 0; 0, -20]
+	  Points		  [85, 0; 0, -15]
 	  DstBlock		  "Neural Control Subsystem"
 	  DstPort		  5
 	}
 	Line {
 	  SrcBlock		  "Demux"
 	  SrcPort		  4
-	  Points		  [85, 0; 0, -5]
 	  DstBlock		  "Neural Control Subsystem"
 	  DstPort		  6
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  DstBlock		  "Terminator2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Neural control flag"
+	  SrcPort		  1
+	  DstBlock		  "Neural Control Subsystem"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "LowPassFilterX"
+	  SrcPort		  1
+	  DstBlock		  "Switch1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "LowPassFilterY"
+	  SrcPort		  1
+	  DstBlock		  "Switch"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "EnablePosFilter"
+	  SrcPort		  1
+	  Points		  [0, 10; 30, 0]
+	  Branch {
+	    Points		    [0, 80]
+	    DstBlock		    "Switch"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [0, -60]
+	    DstBlock		    "Switch1"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "Neural Control Subsystem"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    DstBlock		    "Switch1"
+	    DstPort		    3
+	  }
+	  Branch {
+	    Points		    [0, -50]
+	    DstBlock		    "LowPassFilterX"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Neural Control Subsystem"
+	  SrcPort		  2
+	  Points		  [15, 0]
+	  Branch {
+	    DstBlock		    "Switch"
+	    DstPort		    3
+	  }
+	  Branch {
+	    Points		    [0, -50]
+	    DstBlock		    "LowPassFilterY"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Switch1"
+	  SrcPort		  1
+	  Points		  [30, 0; 0, 70]
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Switch"
+	  SrcPort		  1
+	  Points		  [35, 0; 0, -20; 20, 0]
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "GainY"
+	  SrcPort		  1
+	  Points		  [30, 0; 0, -125]
+	  DstBlock		  "Cursor Rotation"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "GainX"
+	  SrcPort		  1
+	  Points		  [30, 0; 0, 30]
+	  DstBlock		  "Cursor Rotation"
+	  DstPort		  1
 	}
       }
     }
@@ -2127,7 +2146,7 @@ Model {
       BlockType		      Reference
       Name		      "MVC Target"
       Ports		      [1]
-      Position		      [665, 403, 755, 447]
+      Position		      [665, 398, 755, 442]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -2164,7 +2183,7 @@ Model {
     Block {
       BlockType		      Memory
       Name		      "Memory"
-      Position		      [665, 530, 695, 560]
+      Position		      [665, 525, 695, 555]
       InheritSampleTime	      on
       Port {
 	PortNumber		1
@@ -2174,10 +2193,25 @@ Model {
       }
     }
     Block {
+      BlockType		      Memory
+      Name		      "Memory1"
+      Position		      [670, 585, 700, 615]
+      InheritSampleTime	      on
+    }
+    Block {
       BlockType		      Mux
       Name		      "Mux"
       Ports		      [2, 1]
       Position		      [880, 268, 885, 337]
+      ShowName		      off
+      Inputs		      "2"
+      DisplayOption	      "bar"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "Mux1"
+      Ports		      [2, 1]
+      Position		      [840, 548, 845, 617]
       ShowName		      off
       Inputs		      "2"
       DisplayOption	      "bar"
@@ -2194,14 +2228,14 @@ Model {
     Block {
       BlockType		      Reshape
       Name		      "Reshape"
-      Position		      [370, 483, 400, 507]
+      Position		      [355, 528, 385, 552]
       OutputDimensionality    "Column vector (2-D)"
     }
     Block {
       BlockType		      SubSystem
       Name		      "RewardSbs"
       Ports		      [1, 1]
-      Position		      [665, 111, 755, 139]
+      Position		      [665, 106, 755, 134]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -2521,7 +2555,7 @@ Model {
       BlockType		      Reference
       Name		      "Status"
       Ports		      [1]
-      Position		      [665, 230, 755, 260]
+      Position		      [880, 570, 970, 600]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -2537,7 +2571,7 @@ Model {
       autostart		      on
       viewmode		      "Numerical"
       formatstr		      "'%6.0f State,%6.0f Rewards,%6.0f Aborts,%6.0f F"
-"ailures'"
+"ailures,%6.0f NeuralFlag'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"
@@ -2558,7 +2592,7 @@ Model {
       BlockType		      SubSystem
       Name		      "UDPXmit"
       Ports		      [3]
-      Position		      [665, 293, 755, 377]
+      Position		      [665, 288, 755, 372]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -2777,7 +2811,7 @@ Model {
       BlockType		      Reference
       Name		      "Version Display"
       Ports		      [1]
-      Position		      [665, 464, 755, 506]
+      Position		      [665, 459, 755, 501]
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
       SourceType	      "xpcscopeblock"
       ShowPortLabels	      "FromPortIcon"
@@ -2814,7 +2848,7 @@ Model {
       BlockType		      Reference
       Name		      "WFTargetTable"
       Ports		      [0, 1]
-      Position		      [260, 437, 325, 503]
+      Position		      [260, 507, 325, 573]
       SourceBlock	      "simulink/Lookup\nTables/Direct Lookup\nTable (n"
 "-D)"
       SourceType	      "LookupNDDirect"
@@ -2832,7 +2866,7 @@ Model {
       BlockType		      SubSystem
       Name		      "WordSbs"
       Ports		      [3]
-      Position		      [665, 158, 755, 212]
+      Position		      [665, 153, 755, 207]
       MinAlgLoopOccurrences   off
       RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
@@ -3431,7 +3465,7 @@ Model {
     Line {
       SrcBlock		      "Behavior WF"
       SrcPort		      2
-      Points		      [10, 0; 0, -20]
+      Points		      [0, -20]
       DstBlock		      "WordSbs"
       DstPort		      1
     }
@@ -3439,12 +3473,6 @@ Model {
       SrcBlock		      "Behavior WF"
       SrcPort		      1
       DstBlock		      "RewardSbs"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Behavior WF"
-      SrcPort		      3
-      DstBlock		      "Status"
       DstPort		      1
     }
     Line {
@@ -3465,6 +3493,7 @@ Model {
       SrcPort		      1
       Points		      [25, 0]
       Branch {
+	Points			[25, 0]
 	DstBlock		"Behavior WF"
 	DstPort			1
       }
@@ -3477,12 +3506,12 @@ Model {
 	Branch {
 	  Points		  [-175, 0]
 	  Branch {
-	    Points		    [0, 20]
+	    Points		    [0, 15]
 	    DstBlock		    "UDPXmit"
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -100]
+	    Points		    [0, -105]
 	    DstBlock		    "WordSbs"
 	    DstPort		    2
 	  }
@@ -3516,13 +3545,13 @@ Model {
       SrcPort		      1
       Points		      [110, 0]
       Branch {
-	Points			[0, -225]
+	Points			[0, -220]
 	DstBlock		"Rad2Deg"
 	DstPort			1
       }
       Branch {
 	Labels			[4, 0]
-	Points			[0, 60; -595, 0; 0, -410]
+	Points			[0, 115; -595, 0; 0, -480]
 	DstBlock		"CursorPos"
 	DstPort			1
       }
@@ -3530,7 +3559,6 @@ Model {
     Line {
       SrcBlock		      "WFTargetTable"
       SrcPort		      1
-      Points		      [0, 25]
       DstBlock		      "Reshape"
       DstPort		      1
     }
@@ -3561,9 +3589,42 @@ Model {
     Line {
       SrcBlock		      "CursorPos"
       SrcPort		      2
-      Points		      [25, 0; 0, 125]
+      Points		      [25, 0; 0, 150]
       DstBlock		      "Behavior WF"
       DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Behavior WF"
+      SrcPort		      9
+      DstBlock		      "Memory1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Memory1"
+      SrcPort		      1
+      Points		      [5, 0]
+      Branch {
+	Points			[0, 50; -490, 0; 0, -440]
+	DstBlock		"CursorPos"
+	DstPort			2
+      }
+      Branch {
+	DstBlock		"Mux1"
+	DstPort			2
+      }
+    }
+    Line {
+      SrcBlock		      "Behavior WF"
+      SrcPort		      3
+      Points		      [155, 0; 0, 325]
+      DstBlock		      "Mux1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Mux1"
+      SrcPort		      1
+      DstBlock		      "Status"
+      DstPort		      1
     }
   }
 }
