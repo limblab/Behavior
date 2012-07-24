@@ -21,7 +21,7 @@
 #define STATE_MOVEMENT 4
 /* 
  * STATE_REWARD STATE_ABORT STATE_FAIL STATE_INCOMPLETE STATE_DATA_BLOCK 
- * are all defined in Behavior.h Do not use state numbers above 64 (0x40)
+ * are all defined in common_header.cpp Do not use state numbers above 64 (0x40)
  */
 
 /* 
