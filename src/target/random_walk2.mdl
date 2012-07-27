@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1234"
+    ComputedModelVersion    "1.1236"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,10 +44,10 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Selket"
+  LastModifiedBy	  "David"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 05 10:25:57 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1234>"
+  LastModifiedDate	  "Tue Jul 17 18:38:55 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1236>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
