@@ -200,6 +200,7 @@ void TwoBumpChoiceBehavior::setupStaircase(
 	stairs[i]->setUseBackwardLimit( (bool)params->use_limits );
 	stairs[i]->setForwardLimit( fl );
 	stairs[i]->setBackwardLimit( bl );
+	stairs[i]->setUseSoftLimit( true );
 	stairs[i]->restart();
 
 	stairs[i+4]->setStartValue( angle );
@@ -209,6 +210,7 @@ void TwoBumpChoiceBehavior::setupStaircase(
 	stairs[i+4]->setUseBackwardLimit( false );
 	stairs[i+4]->setForwardLimit( fl );
 	stairs[i+4]->setBackwardLimit( bl );
+	stairs[i+4]->setUseSoftLimit( true );
 	stairs[i+4]->restart();
 }
 

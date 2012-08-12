@@ -18,6 +18,7 @@ public:
 	void setUseForwardLimit(bool b);
 	void setBackwardLimit(double limit);
 	void setUseBackwardLimit(bool b);
+	void setUseSoftLimit(bool b);
 
 protected:
 	double step_size;
@@ -28,6 +29,7 @@ protected:
 	double backward_limit;
 	bool use_forward_limit;
 	bool use_backward_limit;
+	bool soft_limit; // if true then don't go all the way to the limit if you would step over.
 
 	int iteration;
 
@@ -70,6 +72,10 @@ void Staircase::setStartValue(double startValue) {
 	param_start_value = startValue;
 }
 
+void Staircase::setUseSoftLimit(bool b) {
+	soft_limit = b;
+}
+
 void Staircase::setRatio(int ratio) {
 	param_ratio = ratio;
 }
@@ -80,10 +86,12 @@ int Staircase::getIteration() {
 
 void Staircase::stepForward() {
 	iteration++;
+
 	current_value += step_size;
 
-	if (use_forward_limit && ((step_size<0)!=(current_value>forward_limit)))
-		current_value = forward_limit;
+	if (use_forward_limit && ((step_size<0)!=(current_value>forward_limit))) {
+		current_value = (soft_limit ? current_value - step_size : forward_limit);
+	}
 }
 
 /*
@@ -100,8 +108,9 @@ void Staircase::stepBackward() {
 	iteration++;
 	current_value -= step_size * step_ratio;
 
-	if (use_forward_limit && ((step_size<0)!=(current_value<backward_limit)))
-		current_value = backward_limit;
+	if (use_forward_limit && ((step_size<0)!=(current_value<backward_limit))) {
+		current_value = (soft_limit ? current_value + step_size*step_ratio : backward_limit);
+	}
 }
 
 // Limits
