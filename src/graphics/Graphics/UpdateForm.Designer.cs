@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -921,6 +921,7 @@ namespace BehaviorGraphics
             this.label74 = new System.Windows.Forms.Label();
             this.numericUpDown2BCSR = new System.Windows.Forms.NumericUpDown();
             this.label331 = new System.Windows.Forms.Label();
+            this.checkBox2BDSS = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -3798,8 +3799,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4586,8 +4587,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -9002,6 +9003,7 @@ namespace BehaviorGraphics
             // 
             // groupBox63
             // 
+            this.groupBox63.Controls.Add(this.checkBox2BDSS);
             this.groupBox63.Controls.Add(this.label331);
             this.groupBox63.Controls.Add(this.numericUpDown2BCSR);
             this.groupBox63.Controls.Add(this.checkBox2BCSCLimit);
@@ -10292,6 +10294,16 @@ namespace BehaviorGraphics
             this.label331.TabIndex = 17;
             this.label331.Text = "Step Ratio";
             // 
+            // checkBox2BDSS
+            // 
+            this.checkBox2BDSS.AutoSize = true;
+            this.checkBox2BDSS.Location = new System.Drawing.Point(6, 192);
+            this.checkBox2BDSS.Name = "checkBox2BDSS";
+            this.checkBox2BDSS.Size = new System.Drawing.Size(124, 17);
+            this.checkBox2BDSS.TabIndex = 18;
+            this.checkBox2BDSS.Text = "Use Single Staircase\r\n";
+            this.checkBox2BDSS.UseVisualStyleBackColor = true;
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -11402,5 +11414,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxUFNS;
         private System.Windows.Forms.Label label331;
         private System.Windows.Forms.NumericUpDown numericUpDown2BCSR;
+        private System.Windows.Forms.CheckBox checkBox2BDSS;
     }
 }

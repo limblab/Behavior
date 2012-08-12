@@ -735,6 +735,7 @@ namespace BehaviorGraphics
             AddParamListItem("2BC SC Limits", "P19", "Behavior 2BC", checkBox2BCSCLimit);
             AddParamListItem("2BC SC Start", "P22", "Behavior 2BC", textBox2BCSCS);
             AddParamListItem("2BC SC Ratio", "P23", "Behavior 2BC", numericUpDown2BCSR);
+            AddParamListItem("2BC SC Single", "P24", "Behavior 2BC", checkBox2BDSS);
 
             // Targets
             AddParamListItem("2BC Targ Rad", "P3", "Behavior 2BC", textBox2BCTR);

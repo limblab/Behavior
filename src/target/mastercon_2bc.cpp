@@ -82,6 +82,7 @@ struct LocalParams {
 	real_T penalty_time;
 	real_T staircase_start;
 	real_T staircase_ratio;
+	real_T use_single_sc;
 };
 
 /**
@@ -110,6 +111,7 @@ private:
 	Staircase *stairs[8];
 	int staircase_id;
 	bool stim_trial;
+	bool step_sc_together;
 
 	double bump_dir;
 
@@ -122,6 +124,9 @@ private:
 	void doPreTrial(SimStruct *S);
 	void setupStaircase(int i, double angle, double step, double fl, double bl);
 	int chooseStaircase();
+
+	void stepAllSCForward();
+	void stepAllSCBackward();
 };
 
 TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
@@ -134,7 +139,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(23);
+	this->setNumParams(24);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,	 0);
 	this->bindParamId(&params->soft_reset,		 1);
@@ -159,6 +164,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->penalty_time,    20);
 	this->bindParamId(&params->staircase_start, 21);
 	this->bindParamId(&params->staircase_ratio, 22);
+	this->bindParamId(&params->use_single_sc,   23);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -237,6 +243,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	if (last_soft_reset != params->soft_reset) {
 		// load parameters to the staircases and reset them.
 		last_soft_reset = params->soft_reset;
+		step_sc_together = params->use_single_sc;
 
 		setupStaircase(0, params->target_angle+params->staircase_start, params->sc_step_size, params->target_angle+90, params->target_angle);
 		setupStaircase(1, params->target_angle-params->staircase_start+180 , -params->sc_step_size, params->target_angle+90, params->target_angle+180);
@@ -281,6 +288,16 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)params->bump_ramp);
 	db->addByte(this->stim_trial);
     db->start();
+}
+
+void TwoBumpChoiceBehavior::stepAllSCForward() {
+	for (int i = 0; i < 7; i++)
+		this->stairs[i]->stepForward();
+}
+
+void TwoBumpChoiceBehavior::stepAllSCBackward() {
+	for (int i = 0; i < 7; i++)
+		this->stairs[i]->stepBackward();
 }
 
 void TwoBumpChoiceBehavior::update(SimStruct *S) {
@@ -354,13 +371,19 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 			break;
 		case STATE_MOVEMENT:
 			if (correctTarget->cursorInTarget(inputs->cursor)) {
-				if (params->run_staircase)
+				if (params->run_staircase && step_sc_together) {
+					stepAllSCForward();
+				} else if (params->run_staircase && !step_sc_together) {
 					this->stairs[staircase_id]->stepForward();
+				}
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
 			} else if (incorrectTarget->cursorInTarget(inputs->cursor)) {
-				if (params->run_staircase)
+				if (params->run_staircase && step_sc_together) {
+					stepAllSCBackward();
+				} else if (params->run_staircase && !step_sc_together) {
 					this->stairs[staircase_id]->stepBackward();
+				}
 				playTone(TONE_ABORT);
 				if (this->params->penalty_time > 0) {
 					setState(STATE_PENALTY);
