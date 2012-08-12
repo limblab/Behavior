@@ -919,6 +919,8 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
+            this.numericUpDown2BCSR = new System.Windows.Forms.NumericUpDown();
+            this.label331 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -1036,6 +1038,7 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2BCSR)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -8887,6 +8890,7 @@ namespace BehaviorGraphics
             this.tabPage3.Size = new System.Drawing.Size(686, 410);
             this.tabPage3.TabIndex = 14;
             this.tabPage3.Text = "Bump Direction";
+            this.toolTip1.SetToolTip(this.tabPage3, "Step this many times the step size on wrong answers");
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // groupBox64
@@ -8998,6 +9002,8 @@ namespace BehaviorGraphics
             // 
             // groupBox63
             // 
+            this.groupBox63.Controls.Add(this.label331);
+            this.groupBox63.Controls.Add(this.numericUpDown2BCSR);
             this.groupBox63.Controls.Add(this.checkBox2BCSCLimit);
             this.groupBox63.Controls.Add(this.textBox2BCSCS);
             this.groupBox63.Controls.Add(this.textBox24);
@@ -9011,7 +9017,7 @@ namespace BehaviorGraphics
             this.groupBox63.Controls.Add(this.checkBox2BCRS);
             this.groupBox63.Location = new System.Drawing.Point(208, 6);
             this.groupBox63.Name = "groupBox63";
-            this.groupBox63.Size = new System.Drawing.Size(215, 232);
+            this.groupBox63.Size = new System.Drawing.Size(215, 261);
             this.groupBox63.TabIndex = 10;
             this.groupBox63.TabStop = false;
             this.groupBox63.Text = "Staircase";
@@ -9019,7 +9025,7 @@ namespace BehaviorGraphics
             // checkBox2BCSCLimit
             // 
             this.checkBox2BCSCLimit.AutoSize = true;
-            this.checkBox2BCSCLimit.Location = new System.Drawing.Point(6, 186);
+            this.checkBox2BCSCLimit.Location = new System.Drawing.Point(6, 215);
             this.checkBox2BCSCLimit.Name = "checkBox2BCSCLimit";
             this.checkBox2BCSCLimit.Size = new System.Drawing.Size(121, 17);
             this.checkBox2BCSCLimit.TabIndex = 16;
@@ -9064,7 +9070,7 @@ namespace BehaviorGraphics
             // checkBox2BCBS
             // 
             this.checkBox2BCBS.AutoSize = true;
-            this.checkBox2BCBS.Location = new System.Drawing.Point(6, 209);
+            this.checkBox2BCBS.Location = new System.Drawing.Point(6, 238);
             this.checkBox2BCBS.Name = "checkBox2BCBS";
             this.checkBox2BCBS.Size = new System.Drawing.Size(125, 17);
             this.checkBox2BCBS.TabIndex = 11;
@@ -10265,6 +10271,27 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
+            // numericUpDown2BCSR
+            // 
+            this.numericUpDown2BCSR.Location = new System.Drawing.Point(136, 166);
+            this.numericUpDown2BCSR.Name = "numericUpDown2BCSR";
+            this.numericUpDown2BCSR.Size = new System.Drawing.Size(73, 20);
+            this.numericUpDown2BCSR.TabIndex = 12;
+            this.numericUpDown2BCSR.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // label331
+            // 
+            this.label331.AutoSize = true;
+            this.label331.Location = new System.Drawing.Point(6, 168);
+            this.label331.Name = "label331";
+            this.label331.Size = new System.Drawing.Size(57, 13);
+            this.label331.TabIndex = 17;
+            this.label331.Text = "Step Ratio";
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -10477,6 +10504,7 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2BCSR)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -11372,5 +11400,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxUFXPO;
         private System.Windows.Forms.TextBox textBoxUFPS;
         private System.Windows.Forms.TextBox textBoxUFNS;
+        private System.Windows.Forms.Label label331;
+        private System.Windows.Forms.NumericUpDown numericUpDown2BCSR;
     }
 }

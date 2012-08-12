@@ -81,6 +81,7 @@ struct LocalParams {
 	real_T use_stim;
 	real_T penalty_time;
 	real_T staircase_start;
+	real_T staircase_ratio;
 };
 
 /**
@@ -133,7 +134,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(22);
+	this->setNumParams(23);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,	 0);
 	this->bindParamId(&params->soft_reset,		 1);
@@ -157,6 +158,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->use_stim,        19);
 	this->bindParamId(&params->penalty_time,    20);
 	this->bindParamId(&params->staircase_start, 21);
+	this->bindParamId(&params->staircase_ratio, 22);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -194,7 +196,7 @@ void TwoBumpChoiceBehavior::setupStaircase(
 	// We do two staircases here because there are two stiarcases with similar
 	// starting points, one with stim and one without.
 	stairs[i]->setStartValue( angle );
-	stairs[i]->setRatio( 3 );
+	stairs[i]->setRatio( params->staircase_ratio );
 	stairs[i]->setStep( step );
 	stairs[i]->setUseForwardLimit( (bool)params->use_limits );
 	stairs[i]->setUseBackwardLimit( (bool)params->use_limits );
@@ -204,7 +206,7 @@ void TwoBumpChoiceBehavior::setupStaircase(
 	stairs[i]->restart();
 
 	stairs[i+4]->setStartValue( angle );
-	stairs[i+4]->setRatio( 3 );
+	stairs[i+4]->setRatio( params->staircase_ratio );
 	stairs[i+4]->setStep( step );
 	stairs[i+4]->setUseForwardLimit( false );
 	stairs[i+4]->setUseBackwardLimit( false );

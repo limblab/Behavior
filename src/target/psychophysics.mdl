@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1256"
+    ComputedModelVersion    "1.1257"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sun Aug 12 16:24:24 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1256>"
+  LastModifiedDate	  "Sun Aug 12 16:57:49 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1257>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -854,7 +854,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_2bc"
       Parameters	      "0 0 2 10 4 0 .1 0 .25 .5 .5 1 .5 1 5 0 1 1 0 0 "
-"0 0"
+"0 0 3"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'force')\nport_label('input',3,'catch force')\npor"
 "t_label('output',1,'force')\nport_label('output',2,'status')\nport_label('out"
