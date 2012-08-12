@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.4513.24998">
+<BehaviorParameters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.8.4607.27177">
   <ScreenWidth>23</ScreenWidth>
   <GoToneVolume>0</GoToneVolume>
   <MGGains>
@@ -635,6 +635,10 @@
         <value>0</value>
       </item>
       <item>
+        <key>WFNeuralControlCatchTrial</key>
+        <value>1</value>
+      </item>
+      <item>
         <key>BC Target Radius</key>
         <value>10</value>
       </item>
@@ -764,6 +768,14 @@
       </item>
       <item>
         <key>BC First stim repeat</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BC fast abort</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>BC post stim delay</key>
         <value>0</value>
       </item>
       <item>
@@ -1175,14 +1187,6 @@
         <value>0</value>
       </item>
       <item>
-        <key>AT IBL</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT IBH</key>
-        <value>0</value>
-      </item>
-      <item>
         <key>AT M</key>
         <value>0</value>
       </item>
@@ -1199,23 +1203,11 @@
         <value>0</value>
       </item>
       <item>
-        <key>AT OTD</key>
-        <value>0</value>
-      </item>
-      <item>
         <key>AT TS</key>
         <value>0</value>
       </item>
       <item>
         <key>AT TR</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT VTD</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT IVT</key>
         <value>0</value>
       </item>
       <item>
@@ -1239,43 +1231,95 @@
         <value>0</value>
       </item>
       <item>
-        <key>AT BD</key>
+        <key>AT BDirs</key>
+        <value>1</value>
+      </item>
+      <item>
+        <key>AT BDiff</key>
         <value>0</value>
       </item>
       <item>
-        <key>AT BDirs</key>
+        <key>AT NumDirs</key>
         <value>2</value>
       </item>
       <item>
-        <key>AT FBD</key>
+        <key>AT FMD</key>
         <value>0</value>
       </item>
       <item>
-        <key>AT VNS</key>
+        <key>AT MDD</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT MDTS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT MDC</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT MDS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT MDND</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT MDDR</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT MDMT</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT MDEMinS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT MDEMaxS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT MDNS</key>
         <value>5</value>
       </item>
       <item>
-        <key>AT VTMinR</key>
+        <key>AT MDHMinS</key>
         <value>0</value>
       </item>
       <item>
-        <key>AT VTMaxR</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT NBM</key>
-        <value>5</value>
-      </item>
-      <item>
-        <key>AT BMMin</key>
-        <value>0</value>
-      </item>
-      <item>
-        <key>AT BMMax</key>
+        <key>AT MDHMaxS</key>
         <value>0</value>
       </item>
       <item>
         <key>AT BDur</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BNS</key>
+        <value>5</value>
+      </item>
+      <item>
+        <key>AT BEMinS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BEMaxS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BHMinS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BHMaxS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>AT BMag</key>
         <value>0</value>
       </item>
       <item>
@@ -1299,6 +1343,10 @@
         <value>0</value>
       </item>
       <item>
+        <key>AT PTS</key>
+        <value>0</value>
+      </item>
+      <item>
         <key>2BC CT Hold</key>
         <value>0.5</value>
       </item>
@@ -1316,11 +1364,11 @@
       </item>
       <item>
         <key>2BC penalty</key>
-        <value>7</value>
+        <value>1</value>
       </item>
       <item>
         <key>2BC Bump Mag</key>
-        <value>0.05</value>
+        <value>0.03</value>
       </item>
       <item>
         <key>2BC Bump Dur</key>
@@ -1336,7 +1384,7 @@
       </item>
       <item>
         <key>2BC SC Step</key>
-        <value>3</value>
+        <value>10</value>
       </item>
       <item>
         <key>2BC SC Use Bottom</key>
@@ -1344,11 +1392,15 @@
       </item>
       <item>
         <key>2BC SC Reset</key>
-        <value>4</value>
+        <value>2</value>
       </item>
       <item>
         <key>2BC SC Limits</key>
         <value>1</value>
+      </item>
+      <item>
+        <key>2BC SC Start</key>
+        <value>45</value>
       </item>
       <item>
         <key>2BC Targ Rad</key>
@@ -1360,7 +1412,7 @@
       </item>
       <item>
         <key>2BC Targ Grow</key>
-        <value>7</value>
+        <value>3</value>
       </item>
       <item>
         <key>2BC Targ Ang</key>
@@ -1372,6 +1424,34 @@
       </item>
       <item>
         <key>2BC Hide Cursor</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UF NS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UF PS</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UF FA</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UF XPO</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UF YPO</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UF XFO</key>
+        <value>0</value>
+      </item>
+      <item>
+        <key>UF YFO</key>
         <value>0</value>
       </item>
     </dictionary>

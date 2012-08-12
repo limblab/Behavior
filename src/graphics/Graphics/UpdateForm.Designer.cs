@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -787,7 +787,7 @@ namespace BehaviorGraphics
             this.checkBox2BCGT = new System.Windows.Forms.CheckBox();
             this.groupBox63 = new System.Windows.Forms.GroupBox();
             this.checkBox2BCSCLimit = new System.Windows.Forms.CheckBox();
-            this.textBox25 = new System.Windows.Forms.TextBox();
+            this.textBox2BCSCS = new System.Windows.Forms.TextBox();
             this.textBox24 = new System.Windows.Forms.TextBox();
             this.label317 = new System.Windows.Forms.Label();
             this.textBox23 = new System.Windows.Forms.TextBox();
@@ -3795,8 +3795,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4583,8 +4583,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -8999,7 +8999,7 @@ namespace BehaviorGraphics
             // groupBox63
             // 
             this.groupBox63.Controls.Add(this.checkBox2BCSCLimit);
-            this.groupBox63.Controls.Add(this.textBox25);
+            this.groupBox63.Controls.Add(this.textBox2BCSCS);
             this.groupBox63.Controls.Add(this.textBox24);
             this.groupBox63.Controls.Add(this.label317);
             this.groupBox63.Controls.Add(this.textBox23);
@@ -9026,14 +9026,13 @@ namespace BehaviorGraphics
             this.checkBox2BCSCLimit.Text = "Use Staircase Limits";
             this.checkBox2BCSCLimit.UseVisualStyleBackColor = true;
             // 
-            // textBox25
+            // textBox2BCSCS
             // 
-            this.textBox25.Enabled = false;
-            this.textBox25.Location = new System.Drawing.Point(109, 62);
-            this.textBox25.Name = "textBox25";
-            this.textBox25.Size = new System.Drawing.Size(100, 20);
-            this.textBox25.TabIndex = 15;
-            this.textBox25.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.textBox2BCSCS.Location = new System.Drawing.Point(109, 62);
+            this.textBox2BCSCS.Name = "textBox2BCSCS";
+            this.textBox2BCSCS.Size = new System.Drawing.Size(100, 20);
+            this.textBox2BCSCS.TabIndex = 15;
+            this.textBox2BCSCS.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBox24
             // 
@@ -11259,7 +11258,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label312;
         private System.Windows.Forms.GroupBox groupBox63;
         private System.Windows.Forms.Label label314;
-        private System.Windows.Forms.TextBox textBox25;
+        private System.Windows.Forms.TextBox textBox2BCSCS;
         private System.Windows.Forms.TextBox textBox24;
         private System.Windows.Forms.Label label317;
         private System.Windows.Forms.TextBox textBox23;

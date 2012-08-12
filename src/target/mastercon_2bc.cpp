@@ -80,6 +80,7 @@ struct LocalParams {
 	real_T use_limits;
 	real_T use_stim;
 	real_T penalty_time;
+	real_T staircase_start;
 };
 
 /**
@@ -132,7 +133,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(21);
+	this->setNumParams(22);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,	 0);
 	this->bindParamId(&params->soft_reset,		 1);
@@ -154,7 +155,8 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->hide_cursor,		17);
 	this->bindParamId(&params->use_limits,		18);
 	this->bindParamId(&params->use_stim,        19);
-	this->bindParamId(&params->penalty_time,        20);
+	this->bindParamId(&params->penalty_time,    20);
+	this->bindParamId(&params->staircase_start, 21);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -232,10 +234,10 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 		// load parameters to the staircases and reset them.
 		last_soft_reset = params->soft_reset;
 
-		setupStaircase(0, params->target_angle, params->sc_step_size, params->target_angle+90, params->target_angle);
-		setupStaircase(1, params->target_angle+180 , -params->sc_step_size, params->target_angle+90, params->target_angle+180);
-		setupStaircase(2, params->target_angle+180 , params->sc_step_size, params->target_angle+270, params->target_angle+180);
-		setupStaircase(3, params->target_angle+360 , -params->sc_step_size, (bool)params->use_limits, params->target_angle+270);
+		setupStaircase(0, params->target_angle+params->staircase_start, params->sc_step_size, params->target_angle+90, params->target_angle);
+		setupStaircase(1, params->target_angle-params->staircase_start+180 , -params->sc_step_size, params->target_angle+90, params->target_angle+180);
+		setupStaircase(2, params->target_angle+params->staircase_start+180 , params->sc_step_size, params->target_angle+270, params->target_angle+180);
+		setupStaircase(3, params->target_angle-params->staircase_start+360 , -params->sc_step_size, (bool)params->use_limits, params->target_angle+270);
 	}
 
 	// Pick which staircase to use
