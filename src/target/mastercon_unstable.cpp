@@ -32,7 +32,7 @@
  * bytes 38 to 41: float => bias force magnitude (N?)
  * bytes 42 to 45: float => bias force angle (rad)
  */
- */
+
 
 #define S_FUNCTION_NAME mastercon_unstable
 #define S_FUNCTION_LEVEL 2
@@ -133,7 +133,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(8);
+	this->setNumParams(19);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->field_ramp_up,							 1);
@@ -240,7 +240,7 @@ void AttentionBehavior::update(SimStruct *S) {
 			}
 			break;		
 		case STATE_FIELD_BUILD_UP:
-			if (stateTimer->elapsedTime(S) > field_ramp_up){
+			if (stateTimer->elapsedTime(S) > params->field_ramp_up){
 				setState(STATE_HOLD_FIELD);
 			} else if (!workSpaceTarget->cursorInTarget(inputs->cursor)){
 				setState(STATE_ABORT);
@@ -256,6 +256,7 @@ void AttentionBehavior::update(SimStruct *S) {
 			break;
 		case STATE_CT_HOLD:
 			if (stateTimer->elapsedTime(S) > field_hold_time){
+				bump->start(S);
 				setState(STATE_BUMP);
 			} else if (!centerTarget->cursorInTarget(inputs->cursor)){
 				setState(STATE_HOLD_FIELD);
@@ -274,6 +275,7 @@ void AttentionBehavior::update(SimStruct *S) {
 
 void AttentionBehavior::calculateOutputs(SimStruct *S) {	
 	/* force (0) */
+	real_T ratio_force;
 	real_T x_force_field = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(params->field_angle) +
 					    (inputs->cursor.y - params->y_position_offset)*sin(params->field_angle))*cos(params->field_angle) + 
 						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(params->field_angle) + 
@@ -291,7 +293,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 
 	switch (this->getState()){
 		case STATE_FIELD_BUILD_UP:
-			real_T ratio_force = stateTimer->elapsedTime(S) / params->field_ramp_up;
+			ratio_force = stateTimer->elapsedTime(S) / params->field_ramp_up;
 			outputs->force.x = ratio_force * x_force_field;
 			outputs->force.y = ratio_force * y_force_field;
 			break;
@@ -313,7 +315,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
-	outputs->status[3] = 0;	
+	outputs->status[3] = floor(1000*bump_direction);	
 	outputs->status[4] = 0;
  	
 	/* word (2) */
