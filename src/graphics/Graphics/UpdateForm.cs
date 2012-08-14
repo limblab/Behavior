@@ -748,13 +748,32 @@ namespace BehaviorGraphics
             #endregion
 
             #region Unstable Field
-            AddParamListItem("UF NS", "P2", "Behavior UF", this.textBoxUFNS);
-            AddParamListItem("UF PS", "P3", "Behavior UF", this.textBoxUFPS);
-            AddParamListItem("UF FA", "P4", "Behavior UF", this.textBoxUFFA);
-            AddParamListItem("UF XPO", "P5", "Behavior UF", this.textBoxUFXPO);
-            AddParamListItem("UF YPO", "P6", "Behavior UF", this.textBoxUFYPO);
-            AddParamListItem("UF XFO", "P7", "Behavior UF", this.textBoxUFXFO);
-            AddParamListItem("UF YFO", "P8", "Behavior UF", this.textBoxUFYFO);
+            // Timing
+            AddParamListItem("UF FRU", "P2", "Behavior UF", this.textBoxUFFRU);
+            AddParamListItem("UF FHL", "P3", "Behavior UF", this.textBoxUFFHL);
+            AddParamListItem("UF FHH", "P4", "Behavior UF", this.textBoxUFFHH);
+            AddParamListItem("UF RW", "P5", "Behavior UF", this.textBoxUFRW);
+            AddParamListItem("UF AW", "P6", "Behavior UF", this.textBoxUFAW);
+
+            // Target and workspace
+            AddParamListItem("UF TD", "P7", "Behavior UF", this.textBoxUFTD);
+            AddParamListItem("UF WD", "P8", "Behavior UF", this.textBoxUFWD);
+
+            // Unstable field
+            AddParamListItem("UF NS", "P9", "Behavior UF", this.textBoxUFNS);
+            AddParamListItem("UF PS", "P10", "Behavior UF", this.textBoxUFPS);
+            AddParamListItem("UF FA", "P11", "Behavior UF", this.textBoxUFFA);
+            AddParamListItem("UF XPO", "P12", "Behavior UF", this.textBoxUFXPO);
+            AddParamListItem("UF YPO", "P13", "Behavior UF", this.textBoxUFYPO);
+            AddParamListItem("UF BFM", "P14", "Behavior UF", this.textBoxUFBFM);
+            AddParamListItem("UF BFA", "P15", "Behavior UF", this.angleEntryBoxUFBFA);
+
+            // Bumps
+            AddParamListItem("UF BD", "P16", "Behavior UF", this.textBoxUFBD);
+            AddParamListItem("UF BM", "P17", "Behavior UF", this.textBoxUFBM);
+            AddParamListItem("UF ND", "P18", "Behavior UF", this.numericUpDownUFND);
+            AddParamListItem("UF FD", "P19", "Behavior UF", this.angleEntryBoxUFFD);
+
             #endregion
         }
 
