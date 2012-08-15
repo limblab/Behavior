@@ -268,6 +268,16 @@ void AttentionBehavior::update(SimStruct *S) {
 				setState(STATE_REWARD);
 			}
 			break;
+		case STATE_REWARD:
+			if (stateTimer->elapsedTime(S) > params->reward_wait){
+				setState(STATE_PRETRIAL);
+			}
+			break;
+		case STATE_ABORT:
+			if (stateTimer->elapsedTime(S) > params->abort_wait){
+				setState(STATE_PRETRIAL);
+			}
+			break;
 		default:
 			setState(STATE_PRETRIAL);
 	}
