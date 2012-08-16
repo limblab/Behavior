@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1296"
+    ComputedModelVersion    "1.1298"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Aug 14 16:53:05 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1296>"
+  LastModifiedDate	  "Thu Aug 16 15:05:31 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1298>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -5600,7 +5600,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"RewardSbs"
-	Location		[14, 142, 1045, 581]
+	Location		[67, 168, 970, 629]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -5682,7 +5682,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Schmidt"
-	    Location		    [26, 85, 629, 391]
+	    Location		    [339, 444, 942, 750]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -5944,8 +5944,8 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "'%6.0f state,%6.0f rewards,%6.0f fails,%6.0f ab"
-"orts,%6.0f incompl'"
+      formatstr		      "'%6.0f state,%6.0f rewards,%6.0f aborts,%6.0f b"
+"ump_ang,%6.0f debug_var'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"
@@ -6727,7 +6727,7 @@ Model {
       MaskIconUnits	      "autoscale"
       System {
 	Name			"XY Position Subsystem"
-	Location		[54, 86, 1069, 792]
+	Location		[-39, 90, 965, 730]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -6986,7 +6986,7 @@ Model {
 	  MaskIconUnits		  "autoscale"
 	  System {
 	    Name		    "For Iterator\nSubsystem"
-	    Location		    [0, 82, 996, 752]
+	    Location		    [0, 82, 987, 722]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -7145,7 +7145,7 @@ Model {
 	      MaskHideContents	      off
 	      System {
 		Name			"While Iterator\nSubsystem"
-		Location		[2, 82, 1278, 978]
+		Location		[2, 82, 1006, 739]
 		Open			off
 		ModelBrowserVisibility	off
 		ModelBrowserWidth	200
