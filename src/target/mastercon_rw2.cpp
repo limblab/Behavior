@@ -294,6 +294,7 @@ void RandomWalkBehavior::update(SimStruct *S) {
 				cumulativeHoldTimer->stop(S);
 				setState(STATE_INITIAL_MOVEMENT);
 			}
+			break;
 		case STATE_INITIAL_MOVEMENT:
 			/* first target on */
 			if (targetBounds.cursorInTarget(inputs->cursor)) {

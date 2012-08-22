@@ -3,6 +3,8 @@
  * Master Control block for behavior: bump psychophysics 2-bump choice
  */
 
+#pragma warning(disable:4800)
+
 #define S_FUNCTION_NAME mastercon_2bc
 #define S_FUNCTION_LEVEL 2
 
@@ -78,7 +80,7 @@ struct LocalParams {
 	real_T green_prim_targ;
 	real_T hide_cursor;
 	real_T use_limits;
-	real_T use_stim;
+	real_T stim_prob;
 	real_T penalty_time;
 	real_T staircase_start;
 	real_T staircase_ratio;
@@ -139,7 +141,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(24);
+	this->setNumParams(25);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,	 0);
 	this->bindParamId(&params->soft_reset,		 1);
@@ -160,7 +162,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->green_prim_targ, 16);
 	this->bindParamId(&params->hide_cursor,		17);
 	this->bindParamId(&params->use_limits,		18);
-	this->bindParamId(&params->use_stim,        19);
+	this->bindParamId(&params->stim_prob,       19);
 	this->bindParamId(&params->penalty_time,    20);
 	this->bindParamId(&params->staircase_start, 21);
 	this->bindParamId(&params->staircase_ratio, 22);
@@ -202,7 +204,7 @@ void TwoBumpChoiceBehavior::setupStaircase(
 	// We do two staircases here because there are two stiarcases with similar
 	// starting points, one with stim and one without.
 	stairs[i]->setStartValue( angle );
-	stairs[i]->setRatio( params->staircase_ratio );
+	stairs[i]->setRatio( (int)params->staircase_ratio );
 	stairs[i]->setStep( step );
 	stairs[i]->setUseForwardLimit( (bool)params->use_limits );
 	stairs[i]->setUseBackwardLimit( (bool)params->use_limits );
@@ -212,7 +214,7 @@ void TwoBumpChoiceBehavior::setupStaircase(
 	stairs[i]->restart();
 
 	stairs[i+4]->setStartValue( angle );
-	stairs[i+4]->setRatio( params->staircase_ratio );
+	stairs[i+4]->setRatio( (int)params->staircase_ratio );
 	stairs[i+4]->setStep( step );
 	stairs[i+4]->setUseForwardLimit( false );
 	stairs[i+4]->setUseBackwardLimit( false );
@@ -223,7 +225,7 @@ void TwoBumpChoiceBehavior::setupStaircase(
 }
 
 int TwoBumpChoiceBehavior::chooseStaircase() {
-	int stim = (params->use_stim ? this->random->getBool() : false);
+	int stim = (this->random->getDouble() < this->params->stim_prob);
 	int sc_dir = (params->use_bottom_sc ? random->getInteger(0,3) : random->getInteger(0,1));
 	return (stim ? sc_dir + 4 : sc_dir);
 }
@@ -260,7 +262,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	this->bump->hold_duration = params->bump_duration;
 	this->bump->peak_magnitude = params->bump_magnitude;
 	this->bump->rise_time = params->bump_ramp;
-	this->bump->direction = PI * this->bump_dir / 180;
+	this->bump->direction = params->target_angle + PI * this->bump_dir / 180;
 
 	// Reset primary target color if needed
 	if ((int)params->green_prim_targ) {

@@ -727,6 +727,9 @@ namespace BehaviorGraphics
             AddParamListItem("2BC Bump Dur", "P8", "Behavior 2BC", textBox2BCPD);
             AddParamListItem("2BC Bump RT", "P9", "Behavior 2BC", textBox2BCRT);
 
+            // Stim
+            AddParamListItem("2BC Stim Prob", "P20", "Behavior 2BC", textBox2BCStimProb);
+
             // Staircase
             AddParamListItem("2BC SC Run", "P14", "Behavior 2BC", checkBox2BCRS);
             AddParamListItem("2BC SC Step", "P15", "Behavior 2BC", textBox2BCSCStep);
@@ -2274,6 +2277,7 @@ namespace BehaviorGraphics
         {
             get { return this.formWasModified || this.bpWasModified; }
         }
+
         public string Filename
         {
             get { return this.filename; }
