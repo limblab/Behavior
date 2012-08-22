@@ -1061,7 +1061,13 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     }
     
     switch (state) {
-        case STATE_RECENTERING:
+        case STATE_CENTERING:
+            /* target off */
+            target[0] = 0;
+            /* center red*/
+            target[5] = 1;
+        break;
+		case STATE_RECENTERING:
             /* target off */
             target[0] = 0;
             /* center red*/
