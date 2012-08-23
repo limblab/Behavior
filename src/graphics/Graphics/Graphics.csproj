@@ -265,9 +265,7 @@
     <EmbeddedResource Include="tones\go4.wav" />
     <EmbeddedResource Include="tones\abort4.wav" />
     <EmbeddedResource Include="tones\reward4.wav" />
-    <Content Include="xpcapi.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="xpcapi.dll" />
     <Content Include="xpcapiCOM.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
