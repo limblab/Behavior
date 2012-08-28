@@ -85,6 +85,7 @@ struct LocalParams {
 	real_T staircase_start;
 	real_T staircase_ratio;
 	real_T use_single_sc;
+    real_T recenter_cursor;
 };
 
 /**
@@ -116,6 +117,8 @@ private:
 	bool step_sc_together;
 
 	double bump_dir;
+    
+    Point cursorOffset;
 
 	CosineBumpGenerator *bump;
 
@@ -167,6 +170,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->staircase_start, 21);
 	this->bindParamId(&params->staircase_ratio, 22);
 	this->bindParamId(&params->use_single_sc,   23);
+	this->bindParamId(&params->recenter_cursor, 24);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -242,6 +246,10 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	secondaryTarget->centerX = params->target_radius*cos(PI + params->target_angle);
 	secondaryTarget->centerY = params->target_radius*sin(PI + params->target_angle);
 
+    // Reset cursor offset
+    cursorOffset.x = 0;
+    cursorOffset.y = 0;
+    
 	if (last_soft_reset != params->soft_reset) {
 		// load parameters to the staircases and reset them.
 		last_soft_reset = params->soft_reset;
@@ -364,6 +372,9 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 				if (this->stim_trial) {
 					setState(STATE_STIM);
 				} else {
+                    if (params->recenter_cursor) {
+                        cursorOffset = inputs->cursor;
+                    }   
 					setState(STATE_MOVEMENT);
 				}
 			}
@@ -372,7 +383,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 			setState(STATE_BUMP);
 			break;
 		case STATE_MOVEMENT:
-			if (correctTarget->cursorInTarget(inputs->cursor)) {
+			if (correctTarget->cursorInTarget(inputs->cursor - cursorOffset)) {
 				if (params->run_staircase && step_sc_together) {
 					stepAllSCForward();
 				} else if (params->run_staircase && !step_sc_together) {
@@ -380,7 +391,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 				}
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
-			} else if (incorrectTarget->cursorInTarget(inputs->cursor)) {
+			} else if (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset)) {
 				if (params->run_staircase && step_sc_together) {
 					stepAllSCBackward();
 				} else if (params->run_staircase && !step_sc_together) {
@@ -510,8 +521,10 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
     if ((getState() == STATE_CT_BLOCK || getState() == STATE_BUMP) && (params->hide_cursor > .1))
     {
         outputs->position = Point(1E6, 1E6);
-    } else {
-    	outputs->position = inputs->cursor;
+    } else { //if ( (params->recenter_cursor) && (getState() == STATE_MOVEMENT) ) {
+        outputs->position = inputs->cursor - cursorOffset;
+//    } else {
+//    	outputs->position = inputs->cursor;
     } 
 }
 

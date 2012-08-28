@@ -721,6 +721,7 @@ namespace BehaviorGraphics
             AddParamListItem("2BC Bump Hold", "P12", "Behavior 2BC", textBox2BCBH);
             AddParamListItem("2BC intertrial", "P13", "Behavior 2BC", textBox2BCInt);
             AddParamListItem("2BC penalty", "P21", "Behavior 2BC", textBox2BCPenalty);
+            AddParamListItem("2BC Recenter cursor", "P25", "Behavior 2BC", checkBox2BCRecenter);
 
             // Bump
             AddParamListItem("2BC Bump Mag", "P7", "Behavior 2BC", textBox2BCBA);
