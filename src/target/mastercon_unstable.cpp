@@ -119,6 +119,10 @@ private:
 	TrapBumpGenerator *bump;
 	real_T x_force_at_bump_start;
 	real_T y_force_at_bump_start;
+    
+    real_T x_vel;
+    real_T y_vel;
+    real_T vel;
 
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
@@ -226,64 +230,72 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
 void AttentionBehavior::update(SimStruct *S) {
 	//int i;
-	// State machine
-	switch (this->getState()) {
-		case STATE_PRETRIAL:
-            updateParameters(S);
-            doPreTrial(S);
-            setState(STATE_CENTER_TARGET_ON);
-			break;		
-		case STATE_CENTER_TARGET_ON:
-			/* center target on */
-			if (centerTarget->cursorInTarget(inputs->cursor)) {				
-				setState(STATE_FIELD_BUILD_UP);
-			}
-			break;		
-		case STATE_FIELD_BUILD_UP:
-			if (stateTimer->elapsedTime(S) > params->field_ramp_up){
-				setState(STATE_HOLD_FIELD);
-			} else if (!workSpaceTarget->cursorInTarget(inputs->cursor)){
-				setState(STATE_ABORT);
-			}
-			break;
-		case STATE_HOLD_FIELD:
-			if (!workSpaceTarget->cursorInTarget(inputs->cursor)){
-				playTone(TONE_ABORT);
-				setState(STATE_ABORT);				
-			} else if (centerTarget->cursorInTarget(inputs->cursor)){
-				setState(STATE_CT_HOLD);
-			}
-			break;
-		case STATE_CT_HOLD:
-			if (stateTimer->elapsedTime(S) > field_hold_time){
-				bump->start(S);
-				setState(STATE_BUMP);
-			} else if (!centerTarget->cursorInTarget(inputs->cursor)){
-				setState(STATE_HOLD_FIELD);
-			}
-			break;
-		case STATE_BUMP:
-			if (stateTimer->elapsedTime(S) > params->bump_duration){
-				playTone(TONE_REWARD);
-				setState(STATE_REWARD);
-			}
-			break;
-		case STATE_REWARD:
-			if (stateTimer->elapsedTime(S) > params->reward_wait){
-				setState(STATE_PRETRIAL);
-			}
-			break;
-		case STATE_ABORT:
-			if (stateTimer->elapsedTime(S) > params->abort_wait){
-				setState(STATE_PRETRIAL);
-			}
-			break;
-		default:
-			setState(STATE_PRETRIAL);
-	}
+    x_vel = inputs->catchForce.x;
+    y_vel = inputs->catchForce.y;
+    vel = sqrt(x_vel*x_vel + y_vel*y_vel);
+    
+    // State machine
+    if (vel > 10000){
+        setState(STATE_PRETRIAL);
+    } else {
+        switch (this->getState()) {
+            case STATE_PRETRIAL:
+                updateParameters(S);
+                doPreTrial(S);
+                setState(STATE_CENTER_TARGET_ON);
+                break;		
+            case STATE_CENTER_TARGET_ON:
+                /* center target on */
+                if (centerTarget->cursorInTarget(inputs->cursor)) {				
+                    setState(STATE_FIELD_BUILD_UP);
+                }
+                break;		
+            case STATE_FIELD_BUILD_UP:
+                if (stateTimer->elapsedTime(S) > params->field_ramp_up){
+                    setState(STATE_HOLD_FIELD);
+                } else if (!workSpaceTarget->cursorInTarget(inputs->cursor)){
+                    setState(STATE_ABORT);
+                }
+                break;
+            case STATE_HOLD_FIELD:
+                if (!workSpaceTarget->cursorInTarget(inputs->cursor)){
+                    playTone(TONE_ABORT);
+                    setState(STATE_ABORT);				
+                } else if (centerTarget->cursorInTarget(inputs->cursor)){
+                    setState(STATE_CT_HOLD);
+                }
+                break;
+            case STATE_CT_HOLD:
+                if (stateTimer->elapsedTime(S) > field_hold_time){
+                    bump->start(S);
+                    setState(STATE_BUMP);
+                } else if (!centerTarget->cursorInTarget(inputs->cursor)){
+                    setState(STATE_HOLD_FIELD);
+                }
+                break;
+            case STATE_BUMP:
+                if (stateTimer->elapsedTime(S) > params->bump_duration){
+                    playTone(TONE_REWARD);
+                    setState(STATE_REWARD);
+                }
+                break;
+            case STATE_REWARD:
+                if (stateTimer->elapsedTime(S) > params->reward_wait){
+                    setState(STATE_PRETRIAL);
+                }
+                break;
+            case STATE_ABORT:
+                if (stateTimer->elapsedTime(S) > params->abort_wait){
+                    setState(STATE_PRETRIAL);
+                }
+                break;
+            default:
+                setState(STATE_PRETRIAL);
+        }
+    }
 }
 
-void AttentionBehavior::calculateOutputs(SimStruct *S) {	
+void AttentionBehavior::calculateOutputs(SimStruct *S) {	        
 	/* force (0) */
 	real_T ratio_force;
 	real_T x_force_field = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(params->field_angle) +
@@ -319,7 +331,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 			break;
 		default:
 			outputs->force = Point(0,0);
-	}
+	}        
 		
 	/* status (1) */
 	outputs->status[0] = getState();

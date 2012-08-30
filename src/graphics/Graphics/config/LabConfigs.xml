@@ -124,12 +124,12 @@
       <LabParam>
         <Block>BoundingBox/XHighLimit</Block>
         <Name>Value</Name>
-        <Value>25</Value>
+        <Value>10</Value>
       </LabParam>
       <LabParam>
         <Block>BoundingBox/YHighLimit</Block>
         <Name>Value</Name>
-        <Value>-46</Value>
+        <Value>-42</Value>
       </LabParam>
     </LabParamList>
   </LabConfig>
