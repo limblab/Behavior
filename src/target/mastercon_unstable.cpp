@@ -293,9 +293,20 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     y_vel = inputs->catchForce.y;
     vel = sqrt(x_vel*x_vel + y_vel*y_vel); 
     
-    
-	/* force (0) */
+    /* force (0) */
 	real_T ratio_force;
+    
+    /*
+     x_force_field = kn*((x - x_offset)*cos(field_angle) +...
+                (y - y_offset)*sin(field_angle))*cos(field_angle) + ...
+                kp*(-(x - x_offset)*sin(field_angle) + ...
+                (y - y_offset)*cos(field_angle))*sin(field_angle) + bias_mag * cos(bias_angle);
+                        
+    y_force_field = kn*((x-x_offset)*cos(field_angle) + ...
+                (y - y_offset)*sin(field_angle))*sin(field_angle) -...
+                kp*(-(x - x_offset)*sin(field_angle) + ...
+                (y-y_offset)*cos(field_angle))*cos(field_angle) + bias_mag * sin(bias_angle); */
+    
 	real_T x_force_field = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(params->field_angle) +
 					    (inputs->cursor.y - params->y_position_offset)*sin(params->field_angle))*cos(params->field_angle) + 
 						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(params->field_angle) + 
