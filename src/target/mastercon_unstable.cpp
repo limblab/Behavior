@@ -290,6 +290,7 @@ void AttentionBehavior::update(SimStruct *S) {
 void AttentionBehavior::calculateOutputs(SimStruct *S) {
     real_T b; // Damping coefficient
     b = 2*sqrt(0.5 * params->positive_stiffness);  // Assuming 0.5kg mass
+    b = 0.005;
     
     //int i;
     x_vel = inputs->catchForce.x;
@@ -329,15 +330,15 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 					    (inputs->cursor.y - params->y_position_offset)*sin(params->field_angle))*cos(params->field_angle) + 
 						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(params->field_angle) + 
 						(inputs->cursor.y - params->y_position_offset)*cos(params->field_angle))*sin(params->field_angle) + 
-                        params->bias_force_magnitude * cos(params->bias_force_angle);
-                       // b*(-x_vel*sin(params->field_angle) + y_vel*cos(params->field_angle))*sin(params->field_angle);
+                        params->bias_force_magnitude * cos(params->bias_force_angle) +
+                        b*(-x_vel*sin(params->field_angle) + y_vel*cos(params->field_angle))*sin(params->field_angle);
 
 	real_T y_force_field = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset)*cos(params->field_angle) + 
 						(inputs->cursor.y - params->y_position_offset)*sin(params->field_angle))*sin(params->field_angle) -
 						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(params->field_angle) + 
 						(inputs->cursor.y-params->y_position_offset)*cos(params->field_angle))*cos(params->field_angle) + 
-                        params->bias_force_magnitude * sin(params->bias_force_angle);
-                       // b*(-x_vel*sin(params->field_angle) + y_vel*cos(params->field_angle))*cos(params->field_angle);
+                        params->bias_force_magnitude * sin(params->bias_force_angle) -
+                        b*(-x_vel*sin(params->field_angle) + y_vel*cos(params->field_angle))*cos(params->field_angle);
 
 
 	if (isNewState() && getState() == STATE_BUMP){
