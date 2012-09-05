@@ -235,12 +235,12 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
                 block_order[i] = i;
                 block_order_point[i] = &block_order[0] + i*sizeof(int);
             }
-            random->permute((void **)block_order_point, params->num_field_orientations);
+            random->permute((void **)block_order_point, params->num_field_orientations);            
         }
     }
     trial_counter++;
 
-    field_angle = fmod(block_order[block_counter] * PI/params->num_field_orientations + 
+    field_angle = fmod(block_order[block_counter] * PI/(params->num_field_orientations) + 
         params->first_field_angle,2*PI);  
 
 
@@ -326,7 +326,7 @@ void AttentionBehavior::update(SimStruct *S) {
 void AttentionBehavior::calculateOutputs(SimStruct *S) {
     real_T b; // Damping coefficient
     b = 2*sqrt(0.5 * params->positive_stiffness);  // Assuming 0.5kg mass
-    b = 0.005;
+    b = 0.01;
     
     //int i;
     x_vel = inputs->catchForce.x;
@@ -412,7 +412,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = floor(1000*bump_direction);	
-	outputs->status[4] = block_counter;
+	outputs->status[4] = floor(1000*field_angle);	
  	
 	/* word (2) */
 	if (db->isRunning()) {
