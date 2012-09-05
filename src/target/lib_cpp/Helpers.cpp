@@ -130,6 +130,7 @@ public:
 	int getInteger(int low, int high);
 	bool getBool();
 	unsigned long getUL();
+    void permute(void **input, int length);
 private:
 	unsigned long z, w, jsr, jcong;
 	unsigned long kiss();
@@ -236,3 +237,34 @@ unsigned long Random::getUL() {
 	return kiss();
 }
 
+/** Returns a random permutation of the int array as an array of ints.
+ * @ returns a random permutation of numbers between 1 and n.
+ */
+void Random::permute(void **input, int length){
+    double *tmp_sort;
+    int i, j; 
+    double tmp_d;
+    void *tmp;
+    
+    tmp_sort = (double *)malloc(length * sizeof(double));
+
+    for (i=0; i<length; i++){
+        tmp_sort[i] = rand();
+    }
+    
+    for (i=0; i<length-1; i++){
+        for (j=0; j<length-1; j++){
+            if (tmp_sort[j] < tmp_sort[j+1]){
+                tmp_d = tmp_sort[j];
+                tmp_sort[j] = tmp_sort[j+1];
+                tmp_sort[j+1] = tmp_d;
+
+                tmp = input[j];
+                input[j] = input[j+1];
+                input[j+1] = tmp;
+            }
+        }
+    }
+    
+    free(tmp_sort);
+}      

@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -774,6 +774,7 @@ namespace BehaviorGraphics
             this.textBoxATCHL = new System.Windows.Forms.TextBox();
             this.label282 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.checkBox2BCRecenter = new System.Windows.Forms.CheckBox();
             this.groupBox64 = new System.Windows.Forms.GroupBox();
             this.checkBox2BCHC = new System.Windows.Forms.CheckBox();
             this.label321 = new System.Windows.Forms.Label();
@@ -851,7 +852,6 @@ namespace BehaviorGraphics
             this.label332 = new System.Windows.Forms.Label();
             this.groupBox65 = new System.Windows.Forms.GroupBox();
             this.angleEntryBoxUFBFA = new AngleBox.AngleEntryBox();
-            this.textBoxUFFA = new System.Windows.Forms.TextBox();
             this.label330 = new System.Windows.Forms.Label();
             this.label329 = new System.Windows.Forms.Label();
             this.label328 = new System.Windows.Forms.Label();
@@ -949,7 +949,11 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.checkBox2BCRecenter = new System.Windows.Forms.CheckBox();
+            this.label344 = new System.Windows.Forms.Label();
+            this.textBoxUFFBL = new System.Windows.Forms.TextBox();
+            this.label345 = new System.Windows.Forms.Label();
+            this.numericUpDownUFNO = new System.Windows.Forms.NumericUpDown();
+            this.angleEntryBoxUFFFA = new AngleBox.AngleEntryBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -1072,6 +1076,7 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUFNO)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -3831,8 +3836,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4619,8 +4624,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -8927,6 +8932,18 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.tabPage3, "Step this many times the step size on wrong answers");
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // checkBox2BCRecenter
+            // 
+            this.checkBox2BCRecenter.AutoSize = true;
+            this.checkBox2BCRecenter.Location = new System.Drawing.Point(15, 273);
+            this.checkBox2BCRecenter.Name = "checkBox2BCRecenter";
+            this.checkBox2BCRecenter.Size = new System.Drawing.Size(103, 17);
+            this.checkBox2BCRecenter.TabIndex = 12;
+            this.checkBox2BCRecenter.Text = "Recenter Cursor";
+            this.toolTip1.SetToolTip(this.checkBox2BCRecenter, "Checking this box will ensure that the cursor is always displayed in the\r\ncenter " +
+                    "of the blocking window at the begining of the movement phase.");
+            this.checkBox2BCRecenter.UseVisualStyleBackColor = true;
+            // 
             // groupBox64
             // 
             this.groupBox64.Controls.Add(this.checkBox2BCHC);
@@ -9667,8 +9684,12 @@ namespace BehaviorGraphics
             // 
             // groupBox65
             // 
+            this.groupBox65.Controls.Add(this.angleEntryBoxUFFFA);
+            this.groupBox65.Controls.Add(this.label345);
+            this.groupBox65.Controls.Add(this.numericUpDownUFNO);
+            this.groupBox65.Controls.Add(this.textBoxUFFBL);
+            this.groupBox65.Controls.Add(this.label344);
             this.groupBox65.Controls.Add(this.angleEntryBoxUFBFA);
-            this.groupBox65.Controls.Add(this.textBoxUFFA);
             this.groupBox65.Controls.Add(this.label330);
             this.groupBox65.Controls.Add(this.label329);
             this.groupBox65.Controls.Add(this.label328);
@@ -9683,31 +9704,23 @@ namespace BehaviorGraphics
             this.groupBox65.Controls.Add(this.textBoxUFNS);
             this.groupBox65.Location = new System.Drawing.Point(214, 8);
             this.groupBox65.Name = "groupBox65";
-            this.groupBox65.Size = new System.Drawing.Size(201, 220);
+            this.groupBox65.Size = new System.Drawing.Size(201, 285);
             this.groupBox65.TabIndex = 0;
             this.groupBox65.TabStop = false;
             this.groupBox65.Text = "Unstable field parameters";
             // 
             // angleEntryBoxUFBFA
             // 
-            this.angleEntryBoxUFBFA.Location = new System.Drawing.Point(103, 185);
+            this.angleEntryBoxUFBFA.Location = new System.Drawing.Point(103, 233);
             this.angleEntryBoxUFBFA.Name = "angleEntryBoxUFBFA";
             this.angleEntryBoxUFBFA.Size = new System.Drawing.Size(76, 21);
             this.angleEntryBoxUFBFA.TabIndex = 1;
             this.angleEntryBoxUFBFA.Value = 0;
             // 
-            // textBoxUFFA
-            // 
-            this.textBoxUFFA.Location = new System.Drawing.Point(125, 75);
-            this.textBoxUFFA.Name = "textBoxUFFA";
-            this.textBoxUFFA.Size = new System.Drawing.Size(54, 20);
-            this.textBoxUFFA.TabIndex = 6;
-            this.textBoxUFFA.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
             // label330
             // 
             this.label330.AutoSize = true;
-            this.label330.Location = new System.Drawing.Point(6, 190);
+            this.label330.Location = new System.Drawing.Point(6, 238);
             this.label330.Name = "label330";
             this.label330.Size = new System.Drawing.Size(83, 13);
             this.label330.TabIndex = 12;
@@ -9716,7 +9729,7 @@ namespace BehaviorGraphics
             // label329
             // 
             this.label329.AutoSize = true;
-            this.label329.Location = new System.Drawing.Point(6, 134);
+            this.label329.Location = new System.Drawing.Point(6, 182);
             this.label329.Name = "label329";
             this.label329.Size = new System.Drawing.Size(82, 13);
             this.label329.TabIndex = 11;
@@ -9725,7 +9738,7 @@ namespace BehaviorGraphics
             // label328
             // 
             this.label328.AutoSize = true;
-            this.label328.Location = new System.Drawing.Point(6, 162);
+            this.label328.Location = new System.Drawing.Point(6, 210);
             this.label328.Name = "label328";
             this.label328.Size = new System.Drawing.Size(106, 13);
             this.label328.TabIndex = 10;
@@ -9734,16 +9747,16 @@ namespace BehaviorGraphics
             // label327
             // 
             this.label327.AutoSize = true;
-            this.label327.Location = new System.Drawing.Point(6, 78);
+            this.label327.Location = new System.Drawing.Point(6, 102);
             this.label327.Name = "label327";
-            this.label327.Size = new System.Drawing.Size(58, 13);
+            this.label327.Size = new System.Drawing.Size(77, 13);
             this.label327.TabIndex = 9;
-            this.label327.Text = "Field angle";
+            this.label327.Text = "First field angle";
             // 
             // label326
             // 
             this.label326.AutoSize = true;
-            this.label326.Location = new System.Drawing.Point(6, 106);
+            this.label326.Location = new System.Drawing.Point(6, 154);
             this.label326.Name = "label326";
             this.label326.Size = new System.Drawing.Size(82, 13);
             this.label326.TabIndex = 8;
@@ -9769,7 +9782,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUFBFM
             // 
-            this.textBoxUFBFM.Location = new System.Drawing.Point(125, 159);
+            this.textBoxUFBFM.Location = new System.Drawing.Point(125, 207);
             this.textBoxUFBFM.Name = "textBoxUFBFM";
             this.textBoxUFBFM.Size = new System.Drawing.Size(54, 20);
             this.textBoxUFBFM.TabIndex = 4;
@@ -9777,7 +9790,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUFYPO
             // 
-            this.textBoxUFYPO.Location = new System.Drawing.Point(125, 131);
+            this.textBoxUFYPO.Location = new System.Drawing.Point(125, 179);
             this.textBoxUFYPO.Name = "textBoxUFYPO";
             this.textBoxUFYPO.Size = new System.Drawing.Size(54, 20);
             this.textBoxUFYPO.TabIndex = 3;
@@ -9785,7 +9798,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUFXPO
             // 
-            this.textBoxUFXPO.Location = new System.Drawing.Point(125, 103);
+            this.textBoxUFXPO.Location = new System.Drawing.Point(125, 151);
             this.textBoxUFXPO.Name = "textBoxUFXPO";
             this.textBoxUFXPO.Size = new System.Drawing.Size(54, 20);
             this.textBoxUFXPO.TabIndex = 2;
@@ -10607,17 +10620,56 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // checkBox2BCRecenter
+            // label344
             // 
-            this.checkBox2BCRecenter.AutoSize = true;
-            this.checkBox2BCRecenter.Location = new System.Drawing.Point(15, 273);
-            this.checkBox2BCRecenter.Name = "checkBox2BCRecenter";
-            this.checkBox2BCRecenter.Size = new System.Drawing.Size(103, 17);
-            this.checkBox2BCRecenter.TabIndex = 12;
-            this.checkBox2BCRecenter.Text = "Recenter Cursor";
-            this.toolTip1.SetToolTip(this.checkBox2BCRecenter, "Checking this box will ensure that the cursor is always displayed in the\r\ncenter " +
-                    "of the blocking window at the begining of the movement phase.");
-            this.checkBox2BCRecenter.UseVisualStyleBackColor = true;
+            this.label344.AutoSize = true;
+            this.label344.Location = new System.Drawing.Point(6, 128);
+            this.label344.Name = "label344";
+            this.label344.Size = new System.Drawing.Size(90, 13);
+            this.label344.TabIndex = 14;
+            this.label344.Text = "Field block length";
+            // 
+            // textBoxUFFBL
+            // 
+            this.textBoxUFFBL.Location = new System.Drawing.Point(125, 125);
+            this.textBoxUFFBL.Name = "textBoxUFFBL";
+            this.textBoxUFFBL.Size = new System.Drawing.Size(54, 20);
+            this.textBoxUFFBL.TabIndex = 13;
+            // 
+            // label345
+            // 
+            this.label345.AutoSize = true;
+            this.label345.Location = new System.Drawing.Point(6, 74);
+            this.label345.Name = "label345";
+            this.label345.Size = new System.Drawing.Size(86, 13);
+            this.label345.TabIndex = 44;
+            this.label345.Text = "Num orientations";
+            // 
+            // numericUpDownUFNO
+            // 
+            this.numericUpDownUFNO.Location = new System.Drawing.Point(133, 73);
+            this.numericUpDownUFNO.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownUFNO.Name = "numericUpDownUFNO";
+            this.numericUpDownUFNO.Size = new System.Drawing.Size(46, 20);
+            this.numericUpDownUFNO.TabIndex = 43;
+            this.toolTip1.SetToolTip(this.numericUpDownUFNO, "Number of gradations of field orientations.");
+            this.numericUpDownUFNO.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // angleEntryBoxUFFFA
+            // 
+            this.angleEntryBoxUFFFA.Location = new System.Drawing.Point(103, 99);
+            this.angleEntryBoxUFFFA.Name = "angleEntryBoxUFFFA";
+            this.angleEntryBoxUFFFA.Size = new System.Drawing.Size(76, 21);
+            this.angleEntryBoxUFFFA.TabIndex = 45;
+            this.angleEntryBoxUFFFA.Value = 0;
             // 
             // UpdateForm
             // 
@@ -10839,6 +10891,7 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUFNO)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -11719,7 +11772,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label269;
         private System.Windows.Forms.TextBox textBoxATPTS;
         private System.Windows.Forms.TabPage UnstableField;
-        private System.Windows.Forms.TextBox textBoxUFFA;
         private System.Windows.Forms.GroupBox groupBox65;
         private System.Windows.Forms.Label label330;
         private System.Windows.Forms.Label label329;
@@ -11765,5 +11817,10 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label343;
         private System.Windows.Forms.TextBox textBox2BCStimProb;
         private System.Windows.Forms.CheckBox checkBox2BCRecenter;
+        private System.Windows.Forms.Label label345;
+        private System.Windows.Forms.NumericUpDown numericUpDownUFNO;
+        private System.Windows.Forms.TextBox textBoxUFFBL;
+        private System.Windows.Forms.Label label344;
+        private AngleBox.AngleEntryBox angleEntryBoxUFFFA;
     }
 }

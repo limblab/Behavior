@@ -766,7 +766,7 @@ namespace BehaviorGraphics
             // Unstable field
             AddParamListItem("UF NS", "P9", "Behavior UF", this.textBoxUFNS);
             AddParamListItem("UF PS", "P10", "Behavior UF", this.textBoxUFPS);
-            AddParamListItem("UF FA", "P11", "Behavior UF", this.textBoxUFFA);
+            AddParamListItem("UF FA", "P11", "Behavior UF", this.angleEntryBoxUFFFA);
             AddParamListItem("UF XPO", "P12", "Behavior UF", this.textBoxUFXPO);
             AddParamListItem("UF YPO", "P13", "Behavior UF", this.textBoxUFYPO);
             AddParamListItem("UF BFM", "P14", "Behavior UF", this.textBoxUFBFM);
@@ -777,6 +777,10 @@ namespace BehaviorGraphics
             AddParamListItem("UF BM", "P17", "Behavior UF", this.textBoxUFBM);
             AddParamListItem("UF ND", "P18", "Behavior UF", this.numericUpDownUFND);
             AddParamListItem("UF FD", "P19", "Behavior UF", this.angleEntryBoxUFFD);
+
+            // Unstable field again
+            AddParamListItem("UF NO", "P20", "Behavior UF", this.numericUpDownUFNO);
+            AddParamListItem("UF FBL", "P21", "Behavior UF", this.textBoxUFFBL);
 
             #endregion
         }

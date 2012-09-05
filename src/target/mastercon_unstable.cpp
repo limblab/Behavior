@@ -89,6 +89,10 @@ struct LocalParams{
 	real_T bump_magnitude;
 	real_T num_bump_directions;
 	real_T first_bump_direction;
+    
+    // Unstable field again
+    real_T num_field_orientations;
+    real_T field_block_length;
 };
 
 /**
@@ -123,6 +127,11 @@ private:
     real_T x_vel;
     real_T y_vel;
     real_T vel;
+    
+    int trial_counter;
+    int block_counter;
+    int block_order [10];
+    int *block_order_point [10];
 
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
@@ -137,7 +146,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(19);
+	this->setNumParams(21);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->field_ramp_up,							 1);
@@ -162,8 +171,11 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->num_bump_directions,						 17);
 	this->bindParamId(&params->first_bump_direction,					 18);
     
+    this->bindParamId(&params->num_field_orientations,                   19);
+    this->bindParamId(&params->field_block_length,                       20);
+    
     // default parameters:
-    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0
+    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -185,6 +197,9 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	bump = new TrapBumpGenerator();
 	x_force_at_bump_start = 0;
 	y_force_at_bump_start = 0;
+    
+    block_counter = 10000; 
+    trial_counter = 10000; // Stupidly large number so that the blocks are reset in first pretrial.
 }
 
 void AttentionBehavior::doPreTrial(SimStruct *S) {	
@@ -207,6 +222,24 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	bump->rise_time = 0;	
 	x_force_at_bump_start = 0;
 	y_force_at_bump_start = 0;
+    
+    if (trial_counter >= params->field_block_length-1){
+        trial_counter = -1;
+        block_counter++;
+        if (block_counter >= params->num_field_orientations){
+            block_counter = 0;
+            for (int i=0; i < params->num_field_orientations; i++){
+                block_order[i] = i;
+                block_order_point[i] = &block_order[0] + i*sizeof(int);
+            }
+            random->permute((void **)block_order_point, params->num_field_orientations);
+        }
+    }
+    trial_counter++;
+    
+    
+    
+
 
 	/* setup the databurst */
 	db->reset();
