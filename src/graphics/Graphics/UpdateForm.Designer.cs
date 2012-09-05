@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -851,6 +851,11 @@ namespace BehaviorGraphics
             this.label333 = new System.Windows.Forms.Label();
             this.label332 = new System.Windows.Forms.Label();
             this.groupBox65 = new System.Windows.Forms.GroupBox();
+            this.angleEntryBoxUFFFA = new AngleBox.AngleEntryBox();
+            this.label345 = new System.Windows.Forms.Label();
+            this.numericUpDownUFNO = new System.Windows.Forms.NumericUpDown();
+            this.textBoxUFFBL = new System.Windows.Forms.TextBox();
+            this.label344 = new System.Windows.Forms.Label();
             this.angleEntryBoxUFBFA = new AngleBox.AngleEntryBox();
             this.label330 = new System.Windows.Forms.Label();
             this.label329 = new System.Windows.Forms.Label();
@@ -949,11 +954,6 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.label344 = new System.Windows.Forms.Label();
-            this.textBoxUFFBL = new System.Windows.Forms.TextBox();
-            this.label345 = new System.Windows.Forms.Label();
-            this.numericUpDownUFNO = new System.Windows.Forms.NumericUpDown();
-            this.angleEntryBoxUFFFA = new AngleBox.AngleEntryBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -1068,6 +1068,7 @@ namespace BehaviorGraphics
             this.groupBox67.SuspendLayout();
             this.groupBox66.SuspendLayout();
             this.groupBox65.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUFNO)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -1076,7 +1077,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUFNO)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -3836,8 +3836,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4624,8 +4624,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -9709,6 +9709,59 @@ namespace BehaviorGraphics
             this.groupBox65.TabStop = false;
             this.groupBox65.Text = "Unstable field parameters";
             // 
+            // angleEntryBoxUFFFA
+            // 
+            this.angleEntryBoxUFFFA.Location = new System.Drawing.Point(103, 99);
+            this.angleEntryBoxUFFFA.Name = "angleEntryBoxUFFFA";
+            this.angleEntryBoxUFFFA.Size = new System.Drawing.Size(76, 21);
+            this.angleEntryBoxUFFFA.TabIndex = 45;
+            this.angleEntryBoxUFFFA.Value = 0;
+            // 
+            // label345
+            // 
+            this.label345.AutoSize = true;
+            this.label345.Location = new System.Drawing.Point(6, 74);
+            this.label345.Name = "label345";
+            this.label345.Size = new System.Drawing.Size(86, 13);
+            this.label345.TabIndex = 44;
+            this.label345.Text = "Num orientations";
+            // 
+            // numericUpDownUFNO
+            // 
+            this.numericUpDownUFNO.Location = new System.Drawing.Point(133, 73);
+            this.numericUpDownUFNO.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownUFNO.Name = "numericUpDownUFNO";
+            this.numericUpDownUFNO.Size = new System.Drawing.Size(46, 20);
+            this.numericUpDownUFNO.TabIndex = 43;
+            this.toolTip1.SetToolTip(this.numericUpDownUFNO, "Number of gradations of field orientations.");
+            this.numericUpDownUFNO.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDownUFNO.ValueChanged += new System.EventHandler(this.widget_ValueChanged);
+            // 
+            // textBoxUFFBL
+            // 
+            this.textBoxUFFBL.Location = new System.Drawing.Point(125, 125);
+            this.textBoxUFFBL.Name = "textBoxUFFBL";
+            this.textBoxUFFBL.Size = new System.Drawing.Size(54, 20);
+            this.textBoxUFFBL.TabIndex = 13;
+            this.textBoxUFFBL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label344
+            // 
+            this.label344.AutoSize = true;
+            this.label344.Location = new System.Drawing.Point(6, 128);
+            this.label344.Name = "label344";
+            this.label344.Size = new System.Drawing.Size(90, 13);
+            this.label344.TabIndex = 14;
+            this.label344.Text = "Field block length";
+            // 
             // angleEntryBoxUFBFA
             // 
             this.angleEntryBoxUFBFA.Location = new System.Drawing.Point(103, 233);
@@ -10620,57 +10673,6 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // label344
-            // 
-            this.label344.AutoSize = true;
-            this.label344.Location = new System.Drawing.Point(6, 128);
-            this.label344.Name = "label344";
-            this.label344.Size = new System.Drawing.Size(90, 13);
-            this.label344.TabIndex = 14;
-            this.label344.Text = "Field block length";
-            // 
-            // textBoxUFFBL
-            // 
-            this.textBoxUFFBL.Location = new System.Drawing.Point(125, 125);
-            this.textBoxUFFBL.Name = "textBoxUFFBL";
-            this.textBoxUFFBL.Size = new System.Drawing.Size(54, 20);
-            this.textBoxUFFBL.TabIndex = 13;
-            // 
-            // label345
-            // 
-            this.label345.AutoSize = true;
-            this.label345.Location = new System.Drawing.Point(6, 74);
-            this.label345.Name = "label345";
-            this.label345.Size = new System.Drawing.Size(86, 13);
-            this.label345.TabIndex = 44;
-            this.label345.Text = "Num orientations";
-            // 
-            // numericUpDownUFNO
-            // 
-            this.numericUpDownUFNO.Location = new System.Drawing.Point(133, 73);
-            this.numericUpDownUFNO.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownUFNO.Name = "numericUpDownUFNO";
-            this.numericUpDownUFNO.Size = new System.Drawing.Size(46, 20);
-            this.numericUpDownUFNO.TabIndex = 43;
-            this.toolTip1.SetToolTip(this.numericUpDownUFNO, "Number of gradations of field orientations.");
-            this.numericUpDownUFNO.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            // 
-            // angleEntryBoxUFFFA
-            // 
-            this.angleEntryBoxUFFFA.Location = new System.Drawing.Point(103, 99);
-            this.angleEntryBoxUFFFA.Name = "angleEntryBoxUFFFA";
-            this.angleEntryBoxUFFFA.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBoxUFFFA.TabIndex = 45;
-            this.angleEntryBoxUFFFA.Value = 0;
-            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -10878,6 +10880,7 @@ namespace BehaviorGraphics
             this.groupBox66.PerformLayout();
             this.groupBox65.ResumeLayout(false);
             this.groupBox65.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUFNO)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -10891,7 +10894,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUFNO)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

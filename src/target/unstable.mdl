@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1310"
+    ComputedModelVersion    "1.1314"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Aug 30 17:29:05 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1310>"
+  LastModifiedDate	  "Wed Sep 05 14:27:34 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1314>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -851,7 +851,8 @@ Model {
       Position		      [655, 60, 885, 480]
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_unstable"
-      Parameters	      "0 1 1 2 1 1   5 10   0 0 0 0 0 0 0   .2 0 1 0"
+      Parameters	      "0 1 1 2 1 1   5 10   0 0 0 0 0 0 0   .2 0 1 0  "
+" 1 10"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'pos offsets')\nport_label('input',3,'force')\npor"
 "t_label('input',4,'catch force')\nport_label('output',1,'force')\nport_label("
@@ -1821,7 +1822,7 @@ Model {
     Block {
       BlockType		      From
       Name		      "From"
-      Position		      [535, 205, 585, 235]
+      Position		      [530, 210, 580, 240]
       CloseFcn		      "tagdialog Close"
       GotoTag		      "Offsets"
       TagVisibility	      "global"
@@ -7831,6 +7832,7 @@ Model {
     Line {
       SrcBlock		      "From"
       SrcPort		      1
+      Points		      [0, -5]
       DstBlock		      "Behavior UF"
       DstPort		      2
     }

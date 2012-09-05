@@ -78,7 +78,7 @@ struct LocalParams{
 	// Unstable field
 	real_T negative_stiffness;  // Must be a positive value
 	real_T positive_stiffness;
-	real_T field_angle;
+	real_T first_field_angle;
 	real_T x_position_offset;
 	real_T y_position_offset;
 	real_T bias_force_magnitude;
@@ -128,6 +128,8 @@ private:
     real_T y_vel;
     real_T vel;
     
+    real_T field_angle;
+    
     int trial_counter;
     int block_counter;
     int block_order [10];
@@ -160,7 +162,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 
 	this->bindParamId(&params->negative_stiffness,						 8);
 	this->bindParamId(&params->positive_stiffness,						 9);
-	this->bindParamId(&params->field_angle,								 10);
+	this->bindParamId(&params->first_field_angle,   					 10);
 	this->bindParamId(&params->x_position_offset,						 11);
 	this->bindParamId(&params->y_position_offset,						 12);
     this->bindParamId(&params->bias_force_magnitude,					 13);
@@ -200,6 +202,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     
     block_counter = 10000; 
     trial_counter = 10000; // Stupidly large number so that the blocks are reset in first pretrial.
+    field_angle = 0;
 }
 
 void AttentionBehavior::doPreTrial(SimStruct *S) {	
@@ -236,9 +239,9 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
         }
     }
     trial_counter++;
-    
-    
-    
+
+    field_angle = fmod(block_order[block_counter] * PI/params->num_field_orientations + 
+        params->first_field_angle,2*PI);  
 
 
 	/* setup the databurst */
@@ -254,7 +257,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)bump_direction);						// bytes 18 to 21 -> Matlab idx 19 to 22
 	db->addFloat((float)params->negative_stiffness);			// bytes 22 to 25 -> Matlab idx 23 to 26
 	db->addFloat((float)params->positive_stiffness);			// bytes 26 to 29 -> Matlab idx 27 to 30
-	db->addFloat((float)params->field_angle);					// bytes 30 to 33 -> Matlab idx 31 to 34
+	db->addFloat((float)field_angle);                           // bytes 30 to 33 -> Matlab idx 31 to 34
 	db->addFloat((float)params->bias_force_magnitude);			// bytes 34 to 37 -> Matlab idx 35 to 38
 	db->addFloat((float)params->bias_force_angle);				// bytes 38 to 41 -> Matlab idx 39 to 42
 	db->start();
@@ -359,19 +362,19 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
      */
     
     // Damped forces
-    real_T x_force_field = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(params->field_angle) +
-					    (inputs->cursor.y - params->y_position_offset)*sin(params->field_angle))*cos(params->field_angle) + 
-						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(params->field_angle) + 
-						(inputs->cursor.y - params->y_position_offset)*cos(params->field_angle))*sin(params->field_angle) + 
+    real_T x_force_field = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
+					    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle) + 
+						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
+						(inputs->cursor.y - params->y_position_offset)*cos(field_angle))*sin(field_angle) + 
                         params->bias_force_magnitude * cos(params->bias_force_angle) +
-                        b*(-x_vel*sin(params->field_angle) + y_vel*cos(params->field_angle))*sin(params->field_angle);
+                        b*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*sin(field_angle);
 
-	real_T y_force_field = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset)*cos(params->field_angle) + 
-						(inputs->cursor.y - params->y_position_offset)*sin(params->field_angle))*sin(params->field_angle) -
-						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(params->field_angle) + 
-						(inputs->cursor.y-params->y_position_offset)*cos(params->field_angle))*cos(params->field_angle) + 
+	real_T y_force_field = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset)*cos(field_angle) + 
+						(inputs->cursor.y - params->y_position_offset)*sin(field_angle))*sin(field_angle) -
+						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
+						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle) + 
                         params->bias_force_magnitude * sin(params->bias_force_angle) -
-                        b*(-x_vel*sin(params->field_angle) + y_vel*cos(params->field_angle))*cos(params->field_angle);
+                        b*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*cos(field_angle);
 
 
 	if (isNewState() && getState() == STATE_BUMP){
@@ -409,7 +412,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = floor(1000*bump_direction);	
-	outputs->status[4] = 0;
+	outputs->status[4] = block_counter;
  	
 	/* word (2) */
 	if (db->isRunning()) {
