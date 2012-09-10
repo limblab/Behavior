@@ -4,7 +4,7 @@
  */
 
 /* 
- * Current Databurst version: 0
+ * Current Databurst version: 1
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -15,6 +15,23 @@
  * ==============================
  *
  * Version 0 (0x00)
+ * ----------------
+ * byte         0: uchar => number of bytes to be transmitted
+ * byte         1: uchar => databurst version number (in this case zero)
+ * byte         2: uchar => model version major
+ * byte         3: uchar => model version minor
+ * bytes   4 to 5: short => model version micro
+ * bytes   6 to 9: float => x offset (cm)
+ * bytes 10 to 13: float => y offset (cm)
+ * bytes 14 to 17: float => bump magnitude (N?)
+ * bytes 18 to 21: float => bump direction (rad)
+ * bytes 22 to 25: float => negative stiffness (N/m?)
+ * bytes 26 to 29: float => positive stiffness (N/m?)
+ * bytes 30 to 33: float => force field angle (rad)
+ * bytes 34 to 37: float => bias force magnitude (N?)
+ * bytes 38 to 41: float => bias force angle (rad)
+ *
+ * * Version 1 (0x01)
  * ----------------
  * byte         0: uchar => number of bytes to be transmitted
  * byte         1: uchar => databurst version number (in this case zero)
@@ -58,7 +75,7 @@
  * are all defined in Behavior.h Do not use state numbers above 64 (0x40)
  */
 
-#define DATABURST_VERSION ((byte)0x00) 
+#define DATABURST_VERSION ((byte)0x01) 
 
 // This must be custom defined for your behavior
 struct LocalParams{
@@ -255,11 +272,12 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)(inputs->offsets.y));					// bytes 10 to 13 -> Matlab idx 11 to 14
 	db->addFloat((float)params->bump_magnitude);				// bytes 14 to 17 -> Matlab idx 15 to 18
 	db->addFloat((float)bump_direction);						// bytes 18 to 21 -> Matlab idx 19 to 22
-	db->addFloat((float)params->negative_stiffness);			// bytes 22 to 25 -> Matlab idx 23 to 26
-	db->addFloat((float)params->positive_stiffness);			// bytes 26 to 29 -> Matlab idx 27 to 30
-	db->addFloat((float)field_angle);                           // bytes 30 to 33 -> Matlab idx 31 to 34
-	db->addFloat((float)params->bias_force_magnitude);			// bytes 34 to 37 -> Matlab idx 35 to 38
-	db->addFloat((float)params->bias_force_angle);				// bytes 38 to 41 -> Matlab idx 39 to 42
+    db->addFloat((float)params->bump_duration);                 // bytes 22 to 25 -> Matlab idx 23 to 26
+	db->addFloat((float)params->negative_stiffness);			// bytes 26 to 29 -> Matlab idx 27 to 30
+	db->addFloat((float)params->positive_stiffness);			// bytes 30 to 33 -> Matlab idx 31 to 34
+	db->addFloat((float)field_angle);                           // bytes 34 to 37 -> Matlab idx 35 to 38
+	db->addFloat((float)params->bias_force_magnitude);			// bytes 38 to 41 -> Matlab idx 39 to 42
+	db->addFloat((float)params->bias_force_angle);				// bytes 38 to 41 -> Matlab idx 43 to 46
 	db->start();
 
 }
@@ -346,20 +364,9 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     y_force_field = kn*((x-x_offset)*cos(field_angle) + ...
                 (y - y_offset)*sin(field_angle))*sin(field_angle) -...
                 kp*(-(x - x_offset)*sin(field_angle) + ...
-                (y-y_offset)*cos(field_angle))*cos(field_angle) + bias_mag * sin(bias_angle) +...
+                (y-y_offset)*cos(field_angle))*cos(field_angle) + bias_mag * sin(bias_angle) -...
                 b*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*cos(field_angle); */
     
-    /* Non-damped forces
-	real_T x_force_field = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(params->field_angle) +
-					    (inputs->cursor.y - params->y_position_offset)*sin(params->field_angle))*cos(params->field_angle) + 
-						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(params->field_angle) + 
-						(inputs->cursor.y - params->y_position_offset)*cos(params->field_angle))*sin(params->field_angle) + params->bias_force_magnitude * cos(params->bias_force_angle);
-
-	real_T y_force_field = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset)*cos(params->field_angle) + 
-						(inputs->cursor.y - params->y_position_offset)*sin(params->field_angle))*sin(params->field_angle) -
-						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(params->field_angle) + 
-						(inputs->cursor.y-params->y_position_offset)*cos(params->field_angle))*cos(params->field_angle) + params->bias_force_magnitude * sin(params->bias_force_angle);
-     */
     
     // Damped forces
     real_T x_force_field = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
@@ -412,7 +419,8 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = floor(1000*bump_direction);	
-	outputs->status[4] = floor(1000*field_angle);	
+	outputs->status[4] = floor(1000*params->y_position_offset);
+
  	
 	/* word (2) */
 	if (db->isRunning()) {
@@ -420,25 +428,25 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	} else if (isNewState()) {
 		switch (getState()) {
 			case STATE_PRETRIAL:
-				outputs->word = WORD_START_TRIAL;
+				outputs->word = WORD_START_TRIAL;           // 0x1F = 31
 				break;
 			case STATE_CENTER_TARGET_ON:
-				outputs->word = WORD_CT_ON;
+				outputs->word = WORD_CT_ON;                 // 0x30 = 48
 				break;
 			case STATE_FIELD_BUILD_UP:
-				outputs->word = WORD_FIELD_BUILDING_UP;
+				outputs->word = WORD_FIELD_BUILDING_UP;     // 0x31 = 49
 				break;
 			case STATE_CT_HOLD:
-				outputs->word = WORD_CENTER_TARGET_HOLD;
+				outputs->word = WORD_CENTER_TARGET_HOLD;    // 0xA0 = 160
 				break;			
 			case STATE_BUMP:
-				outputs->word = WORD_BUMP(0);
+				outputs->word = WORD_BUMP(0);               // 0x50 = 80
 				break;			
 			case STATE_REWARD:
-				outputs->word = WORD_REWARD;
+				outputs->word = WORD_REWARD;                // 0x20 = 32
 				break;
 			case STATE_ABORT:
-				outputs->word = WORD_ABORT;
+				outputs->word = WORD_ABORT;                 // 0x21 = 33
 				break;			
 			default:
 				outputs->word = 0;
