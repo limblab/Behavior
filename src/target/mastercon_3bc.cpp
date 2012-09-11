@@ -65,8 +65,29 @@
  * bytes 52-55: int			=> staircase ratio
  * byte 56:		uchar		=> stim trial flag
  * bytes 57-60: float		=> training trial frequency
+ * bytes 61-64: float		=> stimulation probability 
+ * byte 65:		uchar		=> recenter cursor flag
+ * bytes 66-69: float		=> target radius
+ * bytes 70-73: float		=> target size
+ * bytes 74-77: float		=> intertrial time
+ * bytes 78-81: float		=> penalty time
+ * bytes 82-85: float		=> bump hold time
+ * bytes 86-89: float		=> center hold time
+ * bytes 90-93: float		=> outer target delay time
+ * bytes 94-97: float		=> bump rate skew (varies between 0 and 1 adjusting the skew towards bumping at the forward limit)
  */
-
+	db->addByte((byte)this->training_trial);
+	db->addFloat((float)this->params->training_frequency);
+	db->addFloat((float)this->params->stim_prob);
+	db->addByte((byte)this->params->recenter_cursor);
+	db->addFloat((float)this->params->target_radius);
+	db->addFloat((float)this->params->target_size);
+	db->addFloat((float)this->params->intertrial_time);
+	db->addFloat((float)this->params->penalty_time);
+	db->addFloat((float)this->params->bump_hold_time);
+	db->addFloat((float)this->params->ct_hold_time);
+	db->addFloat((float)this->params->ot_delay_time);
+	db->addFloat((float)this->params->bump_rate_skew);
 #define DATABURST_VERSION ((byte)0x01) 
 #define DATABURST_TASK_CODE ((byte)0x01)
 
@@ -104,6 +125,7 @@ struct LocalParams {
 	real_T random_bump;
 	real_T bump_floor;
 	real_T bump_ceiling;
+	real_T bump_rate_skew;
 };
 
 /**
@@ -165,7 +187,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(32);
+	this->setNumParams(33);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,		0);
 	this->bindParamId(&params->soft_reset,			1);
@@ -199,6 +221,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->random_bump,			29);	
 	this->bindParamId(&params->bump_floor,			30);
 	this->bindParamId(&params->bump_ceiling,		31);
+	this->bindParamId(&params->bump_rate_skew,		32);
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -264,7 +287,8 @@ int TwoBumpChoiceBehavior::chooseStaircase() {
 }
 
 void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
-	int ctr, idx;
+	int ctr;
+	bool sw;
 
 	//set the target direction
 	if ((int)this->params->use_random_targets) {
@@ -305,65 +329,52 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 		this->bump_dir = stairs[staircase_id]->getValue();
 		this->stim_trial = (staircase_id > 3);
 	} else if ((int)this->params->random_bump){
-		//selects a random bump direction. the bump angle will be between the floor and ceiling limits specified in the localparams
-		//the probability of each angle between the floor and ceiling will follow a half gaussian distribution with the max occurring
-		//at the peak bump angle. The tail of the gaussian will be truncated such that only angles between the floor and ceiling will
-		//occur.
+		//selects a random bump direction. Bumps will be between the floor and ceiling values and will be skewed according
+		//to the skewing parameter bump_rate_skew. bump_rate_skew=1 will yield a linear ramp in bump probability with increasing
+		//bump angle, while bump_rate_skew=0 will yield a uniform bump distribution between the two limits
 		//staircase ID here is being used simply as a quadrent ID. this will be used later to set the correct and incorrect targets
 		this->staircase_id=this->random->getInteger(0,3); 
-
+		sw=this->random->getDouble()<bump_rate_skew;
+		
 		switch (this->staircase_id){
 			case 0:
 				//bumps in the 0-90deg quadrent
-				this->bump_dir = -2.0;
-				idx = 0;
-				do {
-					bump_dir = this->params->bump_ceiling - (this->params->bump_ceiling-this->params->bump_floor)*abs(this->random->getGaussian(0,.5));
-					idx++;
-				} while(this->bump_dir < this->params->bump_floor || idx < 10);
-				if (idx>10) {
-					bump_dir=this->params->bump_ceiling;
+				if(sw){
+					//use a linear pdf random number
+					bump_dir=this->params->bump_floor + (this->params->bump_ceiling - this->params->bump_floor) * sqrt(1- this->random->getDouble());
+				} else {
+					// use a uniform pdf random number
+					bump_dir=this->params->bump_floor + (this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble();
 				}
 				break;
 			case 1:
 				//bumps in the 90-180deg quadrent
-				bump_dir = 200.0;
-				idx = 0;
-                
-				do {
-					bump_dir=(180 - this->params->bump_ceiling) + (this->params->bump_ceiling-this->params->bump_floor)*abs(this->random->getGaussian(0,.5));
-					idx++;
-				} while(this->bump_dir > (180 - this->params->bump_floor) || idx < 10);
-                
-				if (idx>10) {
-					bump_dir=180 - this->params->bump_ceiling;
+				if(sw){
+					//use a linear pdf random number
+					bump_dir=180 - this->params->bump_floor - (this->params->bump_ceiling - this->params->bump_floor) * sqrt(1-this->random->getDouble()^2);
+				} else {
+					// use a uniform pdf random number
+					bump_dir=180 - this->params->bump_floor - (this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble();
 				}
 				break;
 			case 2:
 				//bumps in the 180-270deg quadrent
-				bump_dir=170.0;
-				idx=0;
-                
-				do {
-					bump_dir=(180 + this->params->bump_ceiling) - (this->params->bump_ceiling-this->params->bump_floor)*abs(this->random->getGaussian(0,.5));
-					idx++;
-				} while(this->bump_dir < (180 - this->params->bump_floor) || idx < 10);
-                
-				if (idx>10){
-					bump_dir=180 + this->params->bump_ceiling;
+				if(sw){
+					//use a linear pdf random number
+					bump_dir=180 + this->params->bump_floor + (this->params->bump_ceiling - this->params->bump_floor) * sqrt(1-this->random->getDouble()^2);
+				} else {
+					// use a uniform pdf random number
+					bump_dir=180 + this->params->bump_floor + (this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble();
 				}
 				break;
 			default:
 				//bumps in the 270-360deg quadrent
-				bump_dir=370;
-				idx=0;
-				do {
-					bump_dir=(360 - this->params->bump_ceiling) + (this->params->bump_ceiling-this->params->bump_floor)*abs(this->random->getGaussian(0,.5));
-					idx++;
-				} while(this->bump_dir > (360 - this->params->bump_floor) || idx < 10);
-                
-				if (idx>10){
-					bump_dir = 360 - this->params->bump_ceiling;
+				if(sw){
+					//use a linear pdf random number
+					bump_dir=360 - this->params->bump_floor - (this->params->bump_ceiling - this->params->bump_floor) * sqrt(1-this->random->getDouble()^2);
+				} else {
+					// use a uniform pdf random number
+					bump_dir=360 - this->params->bump_floor - (this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble();
 				}
 				break;
 		}
@@ -423,6 +434,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)this->params->bump_hold_time);
 	db->addFloat((float)this->params->ct_hold_time);
 	db->addFloat((float)this->params->ot_delay_time);
+	db->addFloat((float)this->params->bump_rate_skew);
 	db->start();
 }
 
