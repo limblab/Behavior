@@ -76,18 +76,7 @@
  * bytes 90-93: float		=> outer target delay time
  * bytes 94-97: float		=> bump rate skew (varies between 0 and 1 adjusting the skew towards bumping at the forward limit)
  */
-	db->addByte((byte)this->training_trial);
-	db->addFloat((float)this->params->training_frequency);
-	db->addFloat((float)this->params->stim_prob);
-	db->addByte((byte)this->params->recenter_cursor);
-	db->addFloat((float)this->params->target_radius);
-	db->addFloat((float)this->params->target_size);
-	db->addFloat((float)this->params->intertrial_time);
-	db->addFloat((float)this->params->penalty_time);
-	db->addFloat((float)this->params->bump_hold_time);
-	db->addFloat((float)this->params->ct_hold_time);
-	db->addFloat((float)this->params->ot_delay_time);
-	db->addFloat((float)this->params->bump_rate_skew);
+	
 #define DATABURST_VERSION ((byte)0x01) 
 #define DATABURST_TASK_CODE ((byte)0x01)
 
@@ -334,47 +323,47 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 		//bump angle, while bump_rate_skew=0 will yield a uniform bump distribution between the two limits
 		//staircase ID here is being used simply as a quadrent ID. this will be used later to set the correct and incorrect targets
 		this->staircase_id=this->random->getInteger(0,3); 
-		sw=this->random->getDouble()<bump_rate_skew;
+		sw=this->random->getDouble()<this->params->bump_rate_skew;
 		
 		switch (this->staircase_id){
 			case 0:
 				//bumps in the 0-90deg quadrent
 				if(sw){
 					//use a linear pdf random number
-					bump_dir=this->params->bump_floor + (this->params->bump_ceiling - this->params->bump_floor) * sqrt(1- this->random->getDouble());
+					bump_dir=this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(1- this->random->getDouble()));
 				} else {
 					// use a uniform pdf random number
-					bump_dir=this->params->bump_floor + (this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble();
+					bump_dir=this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
 				}
 				break;
 			case 1:
 				//bumps in the 90-180deg quadrent
 				if(sw){
 					//use a linear pdf random number
-					bump_dir=180 - this->params->bump_floor - (this->params->bump_ceiling - this->params->bump_floor) * sqrt(1-this->random->getDouble()^2);
+					bump_dir=180 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(1-this->random->getDouble()));
 				} else {
 					// use a uniform pdf random number
-					bump_dir=180 - this->params->bump_floor - (this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble();
+					bump_dir=180 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
 				}
 				break;
 			case 2:
 				//bumps in the 180-270deg quadrent
 				if(sw){
 					//use a linear pdf random number
-					bump_dir=180 + this->params->bump_floor + (this->params->bump_ceiling - this->params->bump_floor) * sqrt(1-this->random->getDouble()^2);
+					bump_dir=180 + this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(1-this->random->getDouble()));
 				} else {
 					// use a uniform pdf random number
-					bump_dir=180 + this->params->bump_floor + (this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble();
+					bump_dir=180 + this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
 				}
 				break;
 			default:
 				//bumps in the 270-360deg quadrent
 				if(sw){
 					//use a linear pdf random number
-					bump_dir=360 - this->params->bump_floor - (this->params->bump_ceiling - this->params->bump_floor) * sqrt(1-this->random->getDouble()^2);
+					bump_dir=360 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(1-this->random->getDouble()));
 				} else {
 					// use a uniform pdf random number
-					bump_dir=360 - this->params->bump_floor - (this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble();
+					bump_dir=360 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
 				}
 				break;
 		}
