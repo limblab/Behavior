@@ -3,9 +3,9 @@
  * Master Control block for behavior: bump psychophysics 2-bump choice
  */
 
-#pragma warning(disable:4800)
+#pragma warning(disable: 4800)
 
-#define S_FUNCTION_NAME mastercon_2bc
+#define S_FUNCTION_NAME mastercon_3bc
 #define S_FUNCTION_LEVEL 2
 
 // Our task code will be in the databurst
@@ -67,16 +67,6 @@
  * bytes 57-60: float		=> training trial frequency
  */
 
-	db->addFloat((float)this->params->stim_prob);
-	db->addByte(this->params->recenter_cursor);
-	db->addFloat((float)this->params->target_radius);
-	db->addFloat((float)this->params->target_size);
-	db->addFloat((float)this->params->intertrial_time);
-	db->addFloat((float)this->params->penalty_time);
-	db->addFloat((float)this->params->bump_hold_time);
-	db->addFloat((float)this->params->ct_hold_time);
-	db->addFloat((float)this->params->ot_delay_time);
-
 #define DATABURST_VERSION ((byte)0x01) 
 #define DATABURST_TASK_CODE ((byte)0x01)
 
@@ -114,7 +104,6 @@ struct LocalParams {
 	real_T random_bump;
 	real_T bump_floor;
 	real_T bump_ceiling;
-
 };
 
 /**
@@ -176,7 +165,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(33);
+	this->setNumParams(32);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,		0);
 	this->bindParamId(&params->soft_reset,			1);
@@ -275,13 +264,13 @@ int TwoBumpChoiceBehavior::chooseStaircase() {
 }
 
 void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
-	int ctr;
+	int ctr, idx;
 
 	//set the target direction
-	if ((int)this->params->use_random_target) {
-		this->tgt_angle=this->random->getInteger(this->params->target_floor,this->params->target_ceiling) * PI/180;
+	if ((int)this->params->use_random_targets) {
+		this->tgt_angle = (float)(this->random->getInteger((int)this->params->target_floor,(int)this->params->target_ceiling) * PI / 180);
 	} else {
-		this->tgt_angle=this->params->target_angle;
+		this->tgt_angle = (float)this->params->target_angle;
 	}
 
 	// Set up target locations, etc.
@@ -311,11 +300,11 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	}
 
 	// Pick which staircase to use
-	if ((int)run_staircase){
+	if ((int)this->params->run_staircase){
 		this->staircase_id = this->chooseStaircase();
 		this->bump_dir = stairs[staircase_id]->getValue();
 		this->stim_trial = (staircase_id > 3);
-	} else if ((int)random_bump){
+	} else if ((int)this->params->random_bump){
 		//selects a random bump direction. the bump angle will be between the floor and ceiling limits specified in the localparams
 		//the probability of each angle between the floor and ceiling will follow a half gaussian distribution with the max occurring
 		//at the peak bump angle. The tail of the gaussian will be truncated such that only angles between the floor and ceiling will
@@ -326,25 +315,27 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 		switch (this->staircase_id){
 			case 0:
 				//bumps in the 0-90deg quadrent
-				this->bump_dir=-2.0;
-				idx=0;
-				do{
-					bump_dir=this->params->bump_ceiling - (this->params->bump_ceiling-this->params->bump_floor)*abs(this->random->getGaussian(0,.5));
+				this->bump_dir = -2.0;
+				idx = 0;
+				do {
+					bump_dir = this->params->bump_ceiling - (this->params->bump_ceiling-this->params->bump_floor)*abs(this->random->getGaussian(0,.5));
 					idx++;
-				}while(this->bump_dir < this->params->bump_floor || idx < 10)
-				if (idx>10){
+				} while(this->bump_dir < this->params->bump_floor || idx < 10);
+				if (idx>10) {
 					bump_dir=this->params->bump_ceiling;
 				}
 				break;
 			case 1:
 				//bumps in the 90-180deg quadrent
-				bump_dir=200.0;
-				idx=0;
-				do{
+				bump_dir = 200.0;
+				idx = 0;
+                
+				do {
 					bump_dir=(180 - this->params->bump_ceiling) + (this->params->bump_ceiling-this->params->bump_floor)*abs(this->random->getGaussian(0,.5));
 					idx++;
-				}while(this->bump_dir > (180-this->params->bump_floor || idx < 10)
-				if (idx>10){
+				} while(this->bump_dir > (180 - this->params->bump_floor) || idx < 10);
+                
+				if (idx>10) {
 					bump_dir=180 - this->params->bump_ceiling;
 				}
 				break;
@@ -352,10 +343,12 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 				//bumps in the 180-270deg quadrent
 				bump_dir=170.0;
 				idx=0;
-				do{
+                
+				do {
 					bump_dir=(180 + this->params->bump_ceiling) - (this->params->bump_ceiling-this->params->bump_floor)*abs(this->random->getGaussian(0,.5));
 					idx++;
-				}while(this->bump_dir < (180-this->params->bump_floor || idx < 10)
+				} while(this->bump_dir < (180 - this->params->bump_floor) || idx < 10);
+                
 				if (idx>10){
 					bump_dir=180 + this->params->bump_ceiling;
 				}
@@ -364,12 +357,13 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 				//bumps in the 270-360deg quadrent
 				bump_dir=370;
 				idx=0;
-				do{
+				do {
 					bump_dir=(360 - this->params->bump_ceiling) + (this->params->bump_ceiling-this->params->bump_floor)*abs(this->random->getGaussian(0,.5));
 					idx++;
-				}while(this->bump_dir > (360-this->params->bump_floor || idx < 10)
+				} while(this->bump_dir > (360 - this->params->bump_floor) || idx < 10);
+                
 				if (idx>10){
-					bump_dir=360 - this->params->bump_ceiling;
+					bump_dir = 360 - this->params->bump_ceiling;
 				}
 				break;
 		}
@@ -407,21 +401,21 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->addInt(stairs[staircase_id]->getIteration());
 	db->addFloat((float)params->target_angle);
 	db->addFloat((float)bump_dir);
-	db->addByte(params->use_random_targets);
+	db->addByte((byte)params->use_random_targets);
 	db->addInt((int)params->target_floor);
 	db->addInt((int)params->target_ceiling);
 	db->addFloat((float)params->bump_magnitude);
 	db->addFloat((float)params->bump_duration);
 	db->addFloat((float)params->bump_ramp);
-	db->addByte(params->random_bump);
+	db->addByte((byte)params->random_bump);
 	db->addInt((int)params->bump_floor);
 	db->addInt((int)params->bump_ceiling);
-	db->addInt((int)params->staircase_ratio)
-	db->addByte(this->stim_trial);
-	db->addByte(this->training_trial);
-	db->addFloat((float)this->training_frequency);
+	db->addInt((int)params->staircase_ratio);
+	db->addByte((byte)this->stim_trial);
+	db->addByte((byte)this->training_trial);
+	db->addFloat((float)this->params->training_frequency);
 	db->addFloat((float)this->params->stim_prob);
-	db->addByte(this->params->recenter_cursor);
+	db->addByte((byte)this->params->recenter_cursor);
 	db->addFloat((float)this->params->target_radius);
 	db->addFloat((float)this->params->target_size);
 	db->addFloat((float)this->params->intertrial_time);
