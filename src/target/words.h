@@ -1,38 +1,4 @@
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
+
 
 /* 
  * $Id$
@@ -70,6 +36,7 @@
 # define TONE_GO 1
 # define TONE_REWARD 2
 # define TONE_ABORT 3
+# define TONE_FAIL 6
 # define PI (3.141592654)
 #endif
 
