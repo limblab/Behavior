@@ -316,19 +316,19 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	}
 
 	// Pick which staircase to use
-	if ((int)this->params->run_staircase){
-		this->staircase_id = this->chooseStaircase();
-		this->bump_dir = stairs[staircase_id]->getValue();
-		this->stim_trial = (staircase_id > 3);
-	} else if ((int)this->params->random_bump){
+	this->staircase_id = this->chooseStaircase();
+	this->bump_dir = stairs[staircase_id]->getValue();
+	this->stim_trial = (staircase_id > 3);
+
+	if ((int)this->params->random_bump){
 		//selects a random bump direction. Bumps will be between the floor and ceiling values and will be skewed according
 		//to the skewing parameter bump_rate_skew. bump_rate_skew=1 will yield a linear ramp in bump probability with increasing
 		//bump angle, while bump_rate_skew=0 will yield a uniform bump distribution between the two limits
 		//staircase ID here is being used simply as a quadrent ID. this will be used later to set the correct and incorrect targets
-		this->staircase_id=this->random->getInteger(0,3); 
+
 		sw=this->random->getDouble()<this->params->bump_rate_skew;
 		
-		switch (this->staircase_id){
+		switch (this->staircase_id % 4){
 			case 0:
 				//bumps in the 0-90deg quadrent
 				if(sw){
@@ -387,7 +387,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	}
 	/* Select whether this will be a training trial 
 	*  If the training frequency is zero we should not see any training trials*/
-	training_trial=this->random->getDouble() < params->training_frequency;
+	training_trial=(this->random->getDouble() < params->training_frequency);
 
 
 	/* setup the databurst */
@@ -635,31 +635,59 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 	/* target_pos (3) */
 	// Center Target
 	if (getState() == STATE_CT_ON || 
-	    getState() == STATE_CT_HOLD || 
+	    getState() == STATE_CT_HOLD ) 
 	{
 		outputs->targets[0] = (Target *)centerTarget;
 		outputs->targets[1] = nullTarget;
+		outputs->targets[2] = nullTarget;
 	} else if
-        getState() == STATE_CT_BLOCK ||
-        getState() == STATE_BUMP) 
+        (getState() == STATE_CT_BLOCK ||
+         getState() == STATE_BUMP) 
 	{
 		outputs->targets[0] = (Target *)centerTarget;
 		if (this->params->show_target_during_bump) {
-		outputs->targets[1] = (Target *)(this->primaryTarget);
-		outputs->targets[2] = (Target *)(this->secondaryTarget);
+			if (this->training_trial) {
+				if(this->staircase_id%4 == 0 || this->staircase_id%4 == 3) {
+		            outputs->targets[1] = (Target *)(this->primaryTarget);
+			        outputs->targets[2] = nullTarget;
+				} else {
+		            outputs->targets[1] = (Target *)(this->secondaryTarget);
+			        outputs->targets[2] = nullTarget;
+				}
+			} else {
+				outputs->targets[1] = (Target *)(this->primaryTarget);
+		        outputs->targets[2] = (Target *)(this->secondaryTarget);
+			}
 		} else {
-		outputs->targets[1] = nullTarget;;
-		outputs->targets[2] = nullTarget;
+            outputs->targets[1] = nullTarget;;
+            outputs->targets[2] = nullTarget;
 		}
 	} else if (getState() == STATE_MOVEMENT) {
 		outputs->targets[0] = (Target *)(this->primaryTarget);
 		outputs->targets[1] = (Target *)(this->secondaryTarget);
+		if (this->training_trial) {
+			if(this->staircase_id%4 == 0 || this->staircase_id%4 == 3) {
+	            outputs->targets[0] = (Target *)(this->primaryTarget);
+		        outputs->targets[1] = nullTarget;
+				outputs->targets[2] = nullTarget;
+			} else {
+	            outputs->targets[0] = (Target *)(this->secondaryTarget);
+				outputs->targets[1] = nullTarget;
+		        outputs->targets[2] = nullTarget;
+			}
+		} else {
+			outputs->targets[0] = (Target *)(this->primaryTarget);
+	        outputs->targets[1] = (Target *)(this->secondaryTarget);
+			outputs->targets[2] = nullTarget;
+		}
 	} else if (getState() == STATE_PENALTY) {
 		outputs->targets[0] = (Target *)(this->errorTarget);
 		outputs->targets[1] = nullTarget;
+		outputs->targets[2] = nullTarget;
 	} else {
 		outputs->targets[0] = nullTarget;
 		outputs->targets[1] = nullTarget;
+		outputs->targets[2] = nullTarget;
 	}
 
 	/* reward (4) */

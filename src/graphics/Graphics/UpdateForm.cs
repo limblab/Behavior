@@ -727,6 +727,9 @@ namespace BehaviorGraphics
             AddParamListItem("2BC Bump Mag", "P7", "Behavior 2BC", textBox2BCBA);
             AddParamListItem("2BC Bump Dur", "P8", "Behavior 2BC", textBox2BCPD);
             AddParamListItem("2BC Bump RT", "P9", "Behavior 2BC", textBox2BCRT);
+            AddParamListItem("2BC Use Random Bumps", "P30", "Behavior 2BC", checkBox2BC_rand_bumps);
+            AddParamListItem("2BC Rand Bump Floor", "P31", "Behavior 2BC", textBox2BC_rand_bump_floor);
+            AddParamListItem("2BC Rand Bump Ceil", "P32", "Behavior 2BC", textBox2BC_rand_bump_ceil);
 
             // Stim
             AddParamListItem("2BC Stim Prob", "P20", "Behavior 2BC", textBox2BCStimProb);
@@ -748,6 +751,11 @@ namespace BehaviorGraphics
             AddParamListItem("2BC Targ Ang", "P6", "Behavior 2BC", angleEntryBox2BCAng);
             AddParamListItem("2BC Targ Green", "P17", "Behavior 2BC", checkBox2BCGT);
             AddParamListItem("2BC Hide Cursor", "P18", "Behavior 2BC", checkBox2BCHC);
+            AddParamListItem("2BC Use Random Targets","P27","Behavior 2BC", checkBox2BC_rand_tgts);
+            AddParamListItem("2BC Rand Targ Floor", "P28", "Behavior 2BC", textBox2BC_rand_tgt_floor);
+            AddParamListItem("2BC Rand Targ Ceil", "P29", "Behavior 2BC", textBox2BC_rand_tgt_ceil);
+            AddParamListItem("2BC show tgt during bump", "P34", "Behavior 2BC", checkBox2BC_showtgt_bump);
+            AddParamListItem("2BC training freq", "P26", "Behavior 2BC", textBox2BC_training_freq);
 
             #endregion
 
