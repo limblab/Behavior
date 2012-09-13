@@ -42,8 +42,8 @@ namespace BehaviorGraphics
             s = a.GetManifestResourceStream(String.Format("BehaviorGraphics.tones.reward{0}.wav", (int)theme));
             reward = new SecondaryBuffer(s, d, device);
 
-            //s = a.GetManifestResourceStream(String.Format("BehaviorGraphics.tones.fail{0}.wav", (int)theme));
-            //reward = new SecondaryBuffer(s, d, device);
+            s = a.GetManifestResourceStream(String.Format("BehaviorGraphics.tones.fail{0}.wav", (int)theme));
+            reward = new SecondaryBuffer(s, d, device);
 
             s = a.GetManifestResourceStream(String.Format("BehaviorGraphics.tones.somethingwrong.wav"));
             empty_rack = new SecondaryBuffer(s, d, device);
@@ -66,6 +66,8 @@ namespace BehaviorGraphics
                 empty_rack.Play(0, flags);
             } else if (id == SoundID.mask) {
                 mask.Play(0, flags);
+            } else if (id == SoundID.fail) {
+                fail.Play(0, flags);
             }
         }
 
