@@ -730,6 +730,7 @@ namespace BehaviorGraphics
             AddParamListItem("2BC Use Random Bumps", "P30", "Behavior 2BC", checkBox2BC_rand_bumps);
             AddParamListItem("2BC Rand Bump Floor", "P31", "Behavior 2BC", textBox2BC_rand_bump_floor);
             AddParamListItem("2BC Rand Bump Ceil", "P32", "Behavior 2BC", textBox2BC_rand_bump_ceil);
+            AddParamListItem("2BC Rand Bump Skew", "P33", "Behavior 2BC", textBox2BC_rand_bump_skew);
 
             // Stim
             AddParamListItem("2BC Stim Prob", "P20", "Behavior 2BC", textBox2BCStimProb);
@@ -2329,6 +2330,16 @@ namespace BehaviorGraphics
                 labelWFIntMax.Show();
             }
             widget_ValueChanged(sender, e);
+        }
+
+        private void label351_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox21_TextChanged(object sender, EventArgs e)
+        {
+
         }
      
     }

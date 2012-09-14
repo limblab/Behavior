@@ -541,7 +541,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 				} else if (params->run_staircase && !step_sc_together) {
 					this->stairs[staircase_id]->stepBackward();
 				}
-				playTone(TONE_ABORT);
+				playTone(TONE_FAIL);
 				if (this->params->penalty_time > 0) {
 					setState(STATE_PENALTY);
 				} else {

@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -774,10 +774,19 @@ namespace BehaviorGraphics
             this.textBoxATCHL = new System.Windows.Forms.TextBox();
             this.label282 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.checkBox2BCRecenter = new System.Windows.Forms.CheckBox();
-            this.groupBox64 = new System.Windows.Forms.GroupBox();
+            this.groupBox69 = new System.Windows.Forms.GroupBox();
             this.checkBox2BCHC = new System.Windows.Forms.CheckBox();
+            this.checkBox2BCRecenter = new System.Windows.Forms.CheckBox();
+            this.label346 = new System.Windows.Forms.Label();
+            this.groupBox64 = new System.Windows.Forms.GroupBox();
+            this.label348 = new System.Windows.Forms.Label();
+            this.checkBox2BC_showtgt_bump = new System.Windows.Forms.CheckBox();
+            this.textBox2BC_training_freq = new System.Windows.Forms.TextBox();
+            this.label347 = new System.Windows.Forms.Label();
+            this.textBox2BC_rand_tgt_ceil = new System.Windows.Forms.TextBox();
+            this.textBox2BC_rand_tgt_floor = new System.Windows.Forms.TextBox();
             this.label321 = new System.Windows.Forms.Label();
+            this.checkBox2BC_rand_tgts = new System.Windows.Forms.CheckBox();
             this.angleEntryBox2BCAng = new AngleBox.AngleEntryBox();
             this.label320 = new System.Windows.Forms.Label();
             this.textBox2BCBTR = new System.Windows.Forms.TextBox();
@@ -793,6 +802,8 @@ namespace BehaviorGraphics
             this.label331 = new System.Windows.Forms.Label();
             this.numericUpDown2BCSR = new System.Windows.Forms.NumericUpDown();
             this.checkBox2BCSCLimit = new System.Windows.Forms.CheckBox();
+            this.label310 = new System.Windows.Forms.Label();
+            this.numericUpDown2BCSCR = new System.Windows.Forms.NumericUpDown();
             this.textBox2BCSCS = new System.Windows.Forms.TextBox();
             this.textBox24 = new System.Windows.Forms.TextBox();
             this.label317 = new System.Windows.Forms.Label();
@@ -804,14 +815,17 @@ namespace BehaviorGraphics
             this.label314 = new System.Windows.Forms.Label();
             this.checkBox2BCRS = new System.Windows.Forms.CheckBox();
             this.groupBox62 = new System.Windows.Forms.GroupBox();
+            this.label349 = new System.Windows.Forms.Label();
             this.textBox2BCBA = new System.Windows.Forms.TextBox();
+            this.label350 = new System.Windows.Forms.Label();
+            this.textBox2BC_rand_bump_ceil = new System.Windows.Forms.TextBox();
             this.textBox2BCRT = new System.Windows.Forms.TextBox();
+            this.textBox2BC_rand_bump_floor = new System.Windows.Forms.TextBox();
             this.label313 = new System.Windows.Forms.Label();
+            this.checkBox2BC_rand_bumps = new System.Windows.Forms.CheckBox();
             this.label312 = new System.Windows.Forms.Label();
             this.label311 = new System.Windows.Forms.Label();
             this.textBox2BCPD = new System.Windows.Forms.TextBox();
-            this.label310 = new System.Windows.Forms.Label();
-            this.numericUpDown2BCSCR = new System.Windows.Forms.NumericUpDown();
             this.groupBox61 = new System.Windows.Forms.GroupBox();
             this.label288 = new System.Windows.Forms.Label();
             this.textBox2BCPenalty = new System.Windows.Forms.TextBox();
@@ -954,20 +968,8 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.textBox2BC_training_freq = new System.Windows.Forms.TextBox();
-            this.label346 = new System.Windows.Forms.Label();
-            this.checkBox2BC_showtgt_bump = new System.Windows.Forms.CheckBox();
-            this.checkBox2BC_rand_tgts = new System.Windows.Forms.CheckBox();
-            this.textBox2BC_rand_tgt_ceil = new System.Windows.Forms.TextBox();
-            this.textBox2BC_rand_tgt_floor = new System.Windows.Forms.TextBox();
-            this.label347 = new System.Windows.Forms.Label();
-            this.label348 = new System.Windows.Forms.Label();
-            this.label349 = new System.Windows.Forms.Label();
-            this.label350 = new System.Windows.Forms.Label();
-            this.textBox2BC_rand_bump_ceil = new System.Windows.Forms.TextBox();
-            this.textBox2BC_rand_bump_floor = new System.Windows.Forms.TextBox();
-            this.checkBox2BC_rand_bumps = new System.Windows.Forms.CheckBox();
-            this.groupBox69 = new System.Windows.Forms.GroupBox();
+            this.label351 = new System.Windows.Forms.Label();
+            this.textBox2BC_rand_bump_skew = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -1070,11 +1072,12 @@ namespace BehaviorGraphics
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATMDNS)).BeginInit();
             this.groupBox58.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.groupBox69.SuspendLayout();
             this.groupBox64.SuspendLayout();
             this.groupBox63.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2BCSR)).BeginInit();
-            this.groupBox62.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2BCSCR)).BeginInit();
+            this.groupBox62.SuspendLayout();
             this.groupBox61.SuspendLayout();
             this.UnstableField.SuspendLayout();
             this.groupBox68.SuspendLayout();
@@ -1091,7 +1094,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBox69.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -3851,8 +3853,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4639,8 +4641,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -8946,6 +8948,27 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.tabPage3, "Step this many times the step size on wrong answers");
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // groupBox69
+            // 
+            this.groupBox69.Controls.Add(this.checkBox2BCHC);
+            this.groupBox69.Controls.Add(this.checkBox2BCRecenter);
+            this.groupBox69.Location = new System.Drawing.Point(429, 292);
+            this.groupBox69.Name = "groupBox69";
+            this.groupBox69.Size = new System.Drawing.Size(226, 53);
+            this.groupBox69.TabIndex = 22;
+            this.groupBox69.TabStop = false;
+            this.groupBox69.Text = "Cursor";
+            // 
+            // checkBox2BCHC
+            // 
+            this.checkBox2BCHC.AutoSize = true;
+            this.checkBox2BCHC.Location = new System.Drawing.Point(8, 20);
+            this.checkBox2BCHC.Name = "checkBox2BCHC";
+            this.checkBox2BCHC.Size = new System.Drawing.Size(81, 17);
+            this.checkBox2BCHC.TabIndex = 21;
+            this.checkBox2BCHC.Text = "Hide Cursor";
+            this.checkBox2BCHC.UseVisualStyleBackColor = true;
+            // 
             // checkBox2BCRecenter
             // 
             this.checkBox2BCRecenter.AutoSize = true;
@@ -8957,6 +8980,15 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.checkBox2BCRecenter, "Checking this box will ensure that the cursor is always displayed in the\r\ncenter " +
                     "of the blocking window at the begining of the movement phase.");
             this.checkBox2BCRecenter.UseVisualStyleBackColor = true;
+            // 
+            // label346
+            // 
+            this.label346.AutoSize = true;
+            this.label346.Location = new System.Drawing.Point(439, 269);
+            this.label346.Name = "label346";
+            this.label346.Size = new System.Drawing.Size(92, 13);
+            this.label346.TabIndex = 20;
+            this.label346.Text = "Training Trial Freq";
             // 
             // groupBox64
             // 
@@ -8983,15 +9015,58 @@ namespace BehaviorGraphics
             this.groupBox64.TabStop = false;
             this.groupBox64.Text = "Targets";
             // 
-            // checkBox2BCHC
+            // label348
             // 
-            this.checkBox2BCHC.AutoSize = true;
-            this.checkBox2BCHC.Location = new System.Drawing.Point(8, 20);
-            this.checkBox2BCHC.Name = "checkBox2BCHC";
-            this.checkBox2BCHC.Size = new System.Drawing.Size(81, 17);
-            this.checkBox2BCHC.TabIndex = 21;
-            this.checkBox2BCHC.Text = "Hide Cursor";
-            this.checkBox2BCHC.UseVisualStyleBackColor = true;
+            this.label348.AutoSize = true;
+            this.label348.Location = new System.Drawing.Point(6, 186);
+            this.label348.Name = "label348";
+            this.label348.Size = new System.Drawing.Size(102, 13);
+            this.label348.TabIndex = 27;
+            this.label348.Text = "Target Angle Ceiling";
+            // 
+            // checkBox2BC_showtgt_bump
+            // 
+            this.checkBox2BC_showtgt_bump.AutoSize = true;
+            this.checkBox2BC_showtgt_bump.Location = new System.Drawing.Point(6, 237);
+            this.checkBox2BC_showtgt_bump.Name = "checkBox2BC_showtgt_bump";
+            this.checkBox2BC_showtgt_bump.Size = new System.Drawing.Size(144, 17);
+            this.checkBox2BC_showtgt_bump.TabIndex = 22;
+            this.checkBox2BC_showtgt_bump.Text = "Show target during bump";
+            this.toolTip1.SetToolTip(this.checkBox2BC_showtgt_bump, "When checked the targets will appear during the bump period rather than waiting f" +
+                    "or the go tone");
+            this.checkBox2BC_showtgt_bump.UseVisualStyleBackColor = true;
+            // 
+            // textBox2BC_training_freq
+            // 
+            this.textBox2BC_training_freq.Location = new System.Drawing.Point(120, 260);
+            this.textBox2BC_training_freq.Name = "textBox2BC_training_freq";
+            this.textBox2BC_training_freq.Size = new System.Drawing.Size(100, 20);
+            this.textBox2BC_training_freq.TabIndex = 14;
+            this.toolTip1.SetToolTip(this.textBox2BC_training_freq, "sets the frequncy at which training trials are presented. training trials only di" +
+                    "splay the correct target");
+            // 
+            // label347
+            // 
+            this.label347.AutoSize = true;
+            this.label347.Location = new System.Drawing.Point(6, 160);
+            this.label347.Name = "label347";
+            this.label347.Size = new System.Drawing.Size(94, 13);
+            this.label347.TabIndex = 26;
+            this.label347.Text = "Target Angle Floor";
+            // 
+            // textBox2BC_rand_tgt_ceil
+            // 
+            this.textBox2BC_rand_tgt_ceil.Location = new System.Drawing.Point(120, 183);
+            this.textBox2BC_rand_tgt_ceil.Name = "textBox2BC_rand_tgt_ceil";
+            this.textBox2BC_rand_tgt_ceil.Size = new System.Drawing.Size(100, 20);
+            this.textBox2BC_rand_tgt_ceil.TabIndex = 25;
+            // 
+            // textBox2BC_rand_tgt_floor
+            // 
+            this.textBox2BC_rand_tgt_floor.Location = new System.Drawing.Point(120, 157);
+            this.textBox2BC_rand_tgt_floor.Name = "textBox2BC_rand_tgt_floor";
+            this.textBox2BC_rand_tgt_floor.Size = new System.Drawing.Size(100, 20);
+            this.textBox2BC_rand_tgt_floor.TabIndex = 24;
             // 
             // label321
             // 
@@ -9001,6 +9076,18 @@ namespace BehaviorGraphics
             this.label321.Size = new System.Drawing.Size(56, 13);
             this.label321.TabIndex = 20;
             this.label321.Text = "Big Target";
+            // 
+            // checkBox2BC_rand_tgts
+            // 
+            this.checkBox2BC_rand_tgts.AutoSize = true;
+            this.checkBox2BC_rand_tgts.Location = new System.Drawing.Point(9, 134);
+            this.checkBox2BC_rand_tgts.Name = "checkBox2BC_rand_tgts";
+            this.checkBox2BC_rand_tgts.Size = new System.Drawing.Size(105, 17);
+            this.checkBox2BC_rand_tgts.TabIndex = 23;
+            this.checkBox2BC_rand_tgts.Text = "Random Targets";
+            this.toolTip1.SetToolTip(this.checkBox2BC_rand_tgts, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox2BC_rand_tgts.UseVisualStyleBackColor = true;
             // 
             // angleEntryBox2BCAng
             // 
@@ -9155,6 +9242,22 @@ namespace BehaviorGraphics
             this.checkBox2BCSCLimit.Text = "Use Staircase Limits";
             this.checkBox2BCSCLimit.UseVisualStyleBackColor = true;
             // 
+            // label310
+            // 
+            this.label310.AutoSize = true;
+            this.label310.Location = new System.Drawing.Point(53, 287);
+            this.label310.Name = "label310";
+            this.label310.Size = new System.Drawing.Size(112, 26);
+            this.label310.TabIndex = 8;
+            this.label310.Text = "Increment this counter\r\nto reset staircases.";
+            // 
+            // numericUpDown2BCSCR
+            // 
+            this.numericUpDown2BCSCR.Location = new System.Drawing.Point(56, 316);
+            this.numericUpDown2BCSCR.Name = "numericUpDown2BCSCR";
+            this.numericUpDown2BCSCR.Size = new System.Drawing.Size(73, 20);
+            this.numericUpDown2BCSCR.TabIndex = 3;
+            // 
             // textBox2BCSCS
             // 
             this.textBox2BCSCS.Location = new System.Drawing.Point(109, 62);
@@ -9248,6 +9351,8 @@ namespace BehaviorGraphics
             // 
             // groupBox62
             // 
+            this.groupBox62.Controls.Add(this.label351);
+            this.groupBox62.Controls.Add(this.textBox2BC_rand_bump_skew);
             this.groupBox62.Controls.Add(this.label349);
             this.groupBox62.Controls.Add(this.textBox2BCBA);
             this.groupBox62.Controls.Add(this.label350);
@@ -9261,10 +9366,19 @@ namespace BehaviorGraphics
             this.groupBox62.Controls.Add(this.textBox2BCPD);
             this.groupBox62.Location = new System.Drawing.Point(6, 163);
             this.groupBox62.Name = "groupBox62";
-            this.groupBox62.Size = new System.Drawing.Size(198, 182);
+            this.groupBox62.Size = new System.Drawing.Size(198, 199);
             this.groupBox62.TabIndex = 9;
             this.groupBox62.TabStop = false;
             this.groupBox62.Text = "Bump";
+            // 
+            // label349
+            // 
+            this.label349.AutoSize = true;
+            this.label349.Location = new System.Drawing.Point(0, 149);
+            this.label349.Name = "label349";
+            this.label349.Size = new System.Drawing.Size(97, 13);
+            this.label349.TabIndex = 32;
+            this.label349.Text = "Rand Bump Ceiling";
             // 
             // textBox2BCBA
             // 
@@ -9274,6 +9388,24 @@ namespace BehaviorGraphics
             this.textBox2BCBA.TabIndex = 14;
             this.textBox2BCBA.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
+            // label350
+            // 
+            this.label350.AutoSize = true;
+            this.label350.Location = new System.Drawing.Point(0, 123);
+            this.label350.Name = "label350";
+            this.label350.Size = new System.Drawing.Size(89, 13);
+            this.label350.TabIndex = 31;
+            this.label350.Text = "Rand Bump Floor";
+            // 
+            // textBox2BC_rand_bump_ceil
+            // 
+            this.textBox2BC_rand_bump_ceil.Location = new System.Drawing.Point(99, 146);
+            this.textBox2BC_rand_bump_ceil.Name = "textBox2BC_rand_bump_ceil";
+            this.textBox2BC_rand_bump_ceil.Size = new System.Drawing.Size(88, 20);
+            this.textBox2BC_rand_bump_ceil.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.textBox2BC_rand_bump_ceil, "Greatest angular deviation from the target angle that random bumps may take. (Deg" +
+                    ")");
+            // 
             // textBox2BCRT
             // 
             this.textBox2BCRT.Location = new System.Drawing.Point(87, 45);
@@ -9281,6 +9413,14 @@ namespace BehaviorGraphics
             this.textBox2BCRT.Size = new System.Drawing.Size(100, 20);
             this.textBox2BCRT.TabIndex = 13;
             this.textBox2BCRT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBox2BC_rand_bump_floor
+            // 
+            this.textBox2BC_rand_bump_floor.Location = new System.Drawing.Point(99, 120);
+            this.textBox2BC_rand_bump_floor.Name = "textBox2BC_rand_bump_floor";
+            this.textBox2BC_rand_bump_floor.Size = new System.Drawing.Size(88, 20);
+            this.textBox2BC_rand_bump_floor.TabIndex = 29;
+            this.toolTip1.SetToolTip(this.textBox2BC_rand_bump_floor, "Lowest angular deviation from the target angl that random bumps may take. (Deg)");
             // 
             // label313
             // 
@@ -9290,6 +9430,18 @@ namespace BehaviorGraphics
             this.label313.Size = new System.Drawing.Size(53, 13);
             this.label313.TabIndex = 12;
             this.label313.Text = "Amplitude";
+            // 
+            // checkBox2BC_rand_bumps
+            // 
+            this.checkBox2BC_rand_bumps.AutoSize = true;
+            this.checkBox2BC_rand_bumps.Location = new System.Drawing.Point(3, 97);
+            this.checkBox2BC_rand_bumps.Name = "checkBox2BC_rand_bumps";
+            this.checkBox2BC_rand_bumps.Size = new System.Drawing.Size(131, 17);
+            this.checkBox2BC_rand_bumps.TabIndex = 28;
+            this.checkBox2BC_rand_bumps.Text = "Random Bump Angles";
+            this.toolTip1.SetToolTip(this.checkBox2BC_rand_bumps, "When checked the bumps will be made at random angles between the specified floor " +
+                    "and ceiling values");
+            this.checkBox2BC_rand_bumps.UseVisualStyleBackColor = true;
             // 
             // label312
             // 
@@ -9316,22 +9468,6 @@ namespace BehaviorGraphics
             this.textBox2BCPD.Size = new System.Drawing.Size(100, 20);
             this.textBox2BCPD.TabIndex = 9;
             this.textBox2BCPD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label310
-            // 
-            this.label310.AutoSize = true;
-            this.label310.Location = new System.Drawing.Point(53, 287);
-            this.label310.Name = "label310";
-            this.label310.Size = new System.Drawing.Size(112, 26);
-            this.label310.TabIndex = 8;
-            this.label310.Text = "Increment this counter\r\nto reset staircases.";
-            // 
-            // numericUpDown2BCSCR
-            // 
-            this.numericUpDown2BCSCR.Location = new System.Drawing.Point(56, 316);
-            this.numericUpDown2BCSCR.Name = "numericUpDown2BCSCR";
-            this.numericUpDown2BCSCR.Size = new System.Drawing.Size(73, 20);
-            this.numericUpDown2BCSCR.TabIndex = 3;
             // 
             // groupBox61
             // 
@@ -10700,137 +10836,26 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // textBox2BC_training_freq
+            // label351
             // 
-            this.textBox2BC_training_freq.Location = new System.Drawing.Point(120, 260);
-            this.textBox2BC_training_freq.Name = "textBox2BC_training_freq";
-            this.textBox2BC_training_freq.Size = new System.Drawing.Size(100, 20);
-            this.textBox2BC_training_freq.TabIndex = 14;
-            this.toolTip1.SetToolTip(this.textBox2BC_training_freq, "sets the frequncy at which training trials are presented. training trials only di" +
-                    "splay the correct target");
+            this.label351.AutoSize = true;
+            this.label351.Location = new System.Drawing.Point(0, 175);
+            this.label351.Name = "label351";
+            this.label351.Size = new System.Drawing.Size(93, 13);
+            this.label351.TabIndex = 101;
+            this.label351.Text = "Rand Bump Skew";
+            this.label351.Click += new System.EventHandler(this.label351_Click);
             // 
-            // label346
+            // textBox2BC_rand_bump_skew
             // 
-            this.label346.AutoSize = true;
-            this.label346.Location = new System.Drawing.Point(439, 269);
-            this.label346.Name = "label346";
-            this.label346.Size = new System.Drawing.Size(92, 13);
-            this.label346.TabIndex = 20;
-            this.label346.Text = "Training Trial Freq";
-            // 
-            // checkBox2BC_showtgt_bump
-            // 
-            this.checkBox2BC_showtgt_bump.AutoSize = true;
-            this.checkBox2BC_showtgt_bump.Location = new System.Drawing.Point(6, 237);
-            this.checkBox2BC_showtgt_bump.Name = "checkBox2BC_showtgt_bump";
-            this.checkBox2BC_showtgt_bump.Size = new System.Drawing.Size(144, 17);
-            this.checkBox2BC_showtgt_bump.TabIndex = 22;
-            this.checkBox2BC_showtgt_bump.Text = "Show target during bump";
-            this.toolTip1.SetToolTip(this.checkBox2BC_showtgt_bump, "When checked the targets will appear during the bump period rather than waiting f" +
-                    "or the go tone");
-            this.checkBox2BC_showtgt_bump.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2BC_rand_tgts
-            // 
-            this.checkBox2BC_rand_tgts.AutoSize = true;
-            this.checkBox2BC_rand_tgts.Location = new System.Drawing.Point(9, 134);
-            this.checkBox2BC_rand_tgts.Name = "checkBox2BC_rand_tgts";
-            this.checkBox2BC_rand_tgts.Size = new System.Drawing.Size(105, 17);
-            this.checkBox2BC_rand_tgts.TabIndex = 23;
-            this.checkBox2BC_rand_tgts.Text = "Random Targets";
-            this.toolTip1.SetToolTip(this.checkBox2BC_rand_tgts, "When checked the targets will appear at random angles between the specified floor" +
-                    " and ceiling values");
-            this.checkBox2BC_rand_tgts.UseVisualStyleBackColor = true;
-            // 
-            // textBox2BC_rand_tgt_ceil
-            // 
-            this.textBox2BC_rand_tgt_ceil.Location = new System.Drawing.Point(120, 183);
-            this.textBox2BC_rand_tgt_ceil.Name = "textBox2BC_rand_tgt_ceil";
-            this.textBox2BC_rand_tgt_ceil.Size = new System.Drawing.Size(100, 20);
-            this.textBox2BC_rand_tgt_ceil.TabIndex = 25;
-            // 
-            // textBox2BC_rand_tgt_floor
-            // 
-            this.textBox2BC_rand_tgt_floor.Location = new System.Drawing.Point(120, 157);
-            this.textBox2BC_rand_tgt_floor.Name = "textBox2BC_rand_tgt_floor";
-            this.textBox2BC_rand_tgt_floor.Size = new System.Drawing.Size(100, 20);
-            this.textBox2BC_rand_tgt_floor.TabIndex = 24;
-            // 
-            // label347
-            // 
-            this.label347.AutoSize = true;
-            this.label347.Location = new System.Drawing.Point(6, 160);
-            this.label347.Name = "label347";
-            this.label347.Size = new System.Drawing.Size(94, 13);
-            this.label347.TabIndex = 26;
-            this.label347.Text = "Target Angle Floor";
-            // 
-            // label348
-            // 
-            this.label348.AutoSize = true;
-            this.label348.Location = new System.Drawing.Point(6, 186);
-            this.label348.Name = "label348";
-            this.label348.Size = new System.Drawing.Size(102, 13);
-            this.label348.TabIndex = 27;
-            this.label348.Text = "Target Angle Ceiling";
-            // 
-            // label349
-            // 
-            this.label349.AutoSize = true;
-            this.label349.Location = new System.Drawing.Point(0, 149);
-            this.label349.Name = "label349";
-            this.label349.Size = new System.Drawing.Size(97, 13);
-            this.label349.TabIndex = 32;
-            this.label349.Text = "Rand Bump Ceiling";
-            // 
-            // label350
-            // 
-            this.label350.AutoSize = true;
-            this.label350.Location = new System.Drawing.Point(0, 123);
-            this.label350.Name = "label350";
-            this.label350.Size = new System.Drawing.Size(89, 13);
-            this.label350.TabIndex = 31;
-            this.label350.Text = "Rand Bump Floor";
-            // 
-            // textBox2BC_rand_bump_ceil
-            // 
-            this.textBox2BC_rand_bump_ceil.Location = new System.Drawing.Point(99, 146);
-            this.textBox2BC_rand_bump_ceil.Name = "textBox2BC_rand_bump_ceil";
-            this.textBox2BC_rand_bump_ceil.Size = new System.Drawing.Size(88, 20);
-            this.textBox2BC_rand_bump_ceil.TabIndex = 30;
-            this.toolTip1.SetToolTip(this.textBox2BC_rand_bump_ceil, "Greatest angular deviation from the target angle that random bumps may take. (Deg" +
-                    ")");
-            // 
-            // textBox2BC_rand_bump_floor
-            // 
-            this.textBox2BC_rand_bump_floor.Location = new System.Drawing.Point(99, 120);
-            this.textBox2BC_rand_bump_floor.Name = "textBox2BC_rand_bump_floor";
-            this.textBox2BC_rand_bump_floor.Size = new System.Drawing.Size(88, 20);
-            this.textBox2BC_rand_bump_floor.TabIndex = 29;
-            this.toolTip1.SetToolTip(this.textBox2BC_rand_bump_floor, "Lowest angular deviation from the target angl that random bumps may take. (Deg)");
-            // 
-            // checkBox2BC_rand_bumps
-            // 
-            this.checkBox2BC_rand_bumps.AutoSize = true;
-            this.checkBox2BC_rand_bumps.Location = new System.Drawing.Point(3, 97);
-            this.checkBox2BC_rand_bumps.Name = "checkBox2BC_rand_bumps";
-            this.checkBox2BC_rand_bumps.Size = new System.Drawing.Size(131, 17);
-            this.checkBox2BC_rand_bumps.TabIndex = 28;
-            this.checkBox2BC_rand_bumps.Text = "Random Bump Angles";
-            this.toolTip1.SetToolTip(this.checkBox2BC_rand_bumps, "When checked the bumps will be made at random angles between the specified floor " +
-                    "and ceiling values");
-            this.checkBox2BC_rand_bumps.UseVisualStyleBackColor = true;
-            // 
-            // groupBox69
-            // 
-            this.groupBox69.Controls.Add(this.checkBox2BCHC);
-            this.groupBox69.Controls.Add(this.checkBox2BCRecenter);
-            this.groupBox69.Location = new System.Drawing.Point(429, 292);
-            this.groupBox69.Name = "groupBox69";
-            this.groupBox69.Size = new System.Drawing.Size(226, 53);
-            this.groupBox69.TabIndex = 22;
-            this.groupBox69.TabStop = false;
-            this.groupBox69.Text = "Cursor";
+            this.textBox2BC_rand_bump_skew.Location = new System.Drawing.Point(99, 172);
+            this.textBox2BC_rand_bump_skew.Name = "textBox2BC_rand_bump_skew";
+            this.textBox2BC_rand_bump_skew.Size = new System.Drawing.Size(88, 20);
+            this.textBox2BC_rand_bump_skew.TabIndex = 100;
+            this.toolTip1.SetToolTip(this.textBox2BC_rand_bump_skew, "sets the skew in the probability of bump angles. setting this param to 0 gives a " +
+                    "uniform distribution, setting to 1 gives a linear distribution with max likelyho" +
+                    "od at the greatist bump angle");
+            this.textBox2BC_rand_bump_skew.TextChanged += new System.EventHandler(this.textBox21_TextChanged);
             // 
             // UpdateForm
             // 
@@ -11019,14 +11044,16 @@ namespace BehaviorGraphics
             this.groupBox58.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.groupBox69.ResumeLayout(false);
+            this.groupBox69.PerformLayout();
             this.groupBox64.ResumeLayout(false);
             this.groupBox64.PerformLayout();
             this.groupBox63.ResumeLayout(false);
             this.groupBox63.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2BCSR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2BCSCR)).EndInit();
             this.groupBox62.ResumeLayout(false);
             this.groupBox62.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2BCSCR)).EndInit();
             this.groupBox61.ResumeLayout(false);
             this.groupBox61.PerformLayout();
             this.UnstableField.ResumeLayout(false);
@@ -11053,8 +11080,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBox69.ResumeLayout(false);
-            this.groupBox69.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -11999,5 +12024,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBox2BC_rand_bump_floor;
         private System.Windows.Forms.CheckBox checkBox2BC_rand_bumps;
         private System.Windows.Forms.GroupBox groupBox69;
+        private System.Windows.Forms.Label label351;
+        private System.Windows.Forms.TextBox textBox2BC_rand_bump_skew;
     }
 }

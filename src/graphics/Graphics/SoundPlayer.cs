@@ -12,7 +12,7 @@ namespace BehaviorGraphics
         private SoundPlayer.SoundTheme theme;
         private int goToneVolume;
 
-        private SecondaryBuffer abort, go, reward, empty_rack, mask;
+        private SecondaryBuffer abort, go, reward, empty_rack, mask, fail;
 
         public SoundPlayer(System.Windows.Forms.Control owner, SoundPlayer.SoundTheme theme)
         {
@@ -43,13 +43,14 @@ namespace BehaviorGraphics
             reward = new SecondaryBuffer(s, d, device);
 
             s = a.GetManifestResourceStream(String.Format("BehaviorGraphics.tones.fail{0}.wav", (int)theme));
-            reward = new SecondaryBuffer(s, d, device);
+            fail = new SecondaryBuffer(s, d, device);
 
             s = a.GetManifestResourceStream(String.Format("BehaviorGraphics.tones.somethingwrong.wav"));
             empty_rack = new SecondaryBuffer(s, d, device);
 
             s = a.GetManifestResourceStream(String.Format("BehaviorGraphics.tones.mask.wav"));
             mask = new SecondaryBuffer(s, d, device);
+
         }
 
         public void Play(SoundID id) {
