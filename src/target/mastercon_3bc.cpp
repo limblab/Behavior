@@ -333,7 +333,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 				//bumps in the 0-90deg quadrent
 				if(sw){
 					//use a linear pdf random number
-					bump_dir=this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(1- this->random->getDouble()));
+					bump_dir=this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(this->random->getDouble()));
 				} else {
 					// use a uniform pdf random number
 					bump_dir=this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
@@ -343,7 +343,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 				//bumps in the 90-180deg quadrent
 				if(sw){
 					//use a linear pdf random number
-					bump_dir=180 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(1-this->random->getDouble()));
+					bump_dir=180 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(this->random->getDouble()));
 				} else {
 					// use a uniform pdf random number
 					bump_dir=180 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
@@ -353,7 +353,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 				//bumps in the 180-270deg quadrent
 				if(sw){
 					//use a linear pdf random number
-					bump_dir=180 + this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(1-this->random->getDouble()));
+					bump_dir=180 + this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(this->random->getDouble()));
 				} else {
 					// use a uniform pdf random number
 					bump_dir=180 + this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
@@ -363,7 +363,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 				//bumps in the 270-360deg quadrent
 				if(sw){
 					//use a linear pdf random number
-					bump_dir=360 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(1-this->random->getDouble()));
+					bump_dir=360 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(this->random->getDouble()));
 				} else {
 					// use a uniform pdf random number
 					bump_dir=360 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
