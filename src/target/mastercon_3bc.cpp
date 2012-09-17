@@ -588,7 +588,7 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[2] = trialCounter->failures;
 	outputs->status[3] = (int)stairs[0]->getValue();
 	if((int)this->params->use_random_targets){
-		outputs->status[4] = (int)(180 * this->tgt_angle *180 / PI);
+		outputs->status[4] = (int)(this->tgt_angle *180 / PI);
 	} else {
 		outputs->status[4] = (int)stairs[1]->getValue();
 	}
