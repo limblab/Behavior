@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.371"
+    ComputedModelVersion    "1.375"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Aug 07 16:05:16 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:371>"
+  LastModifiedDate	  "Tue Sep 04 17:00:27 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:375>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -797,7 +797,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_wf"
       Parameters	      "8 5 .5 .5 1 0 0 3 3 2 0 0 0 0 0 0 0 0.7854 0 .5"
-" 0"
+" 0 0 0 0"
       MaskDisplay	      "disp('Master Control\\nWrist-Flexion')\nport_la"
 "bel('input',1,'cursor')\nport_label('input',2,'cursor offset')\nport_label('i"
 "nput',3,'target list')\nport_label('output',1,'Reward')\nport_label('output',"

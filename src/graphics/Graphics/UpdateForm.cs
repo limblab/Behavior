@@ -365,10 +365,10 @@ namespace BehaviorGraphics
             AddParamListItem("WFRT", "P2", "Behavior WF", this.textBoxWFRT);
             AddParamListItem("WFTH", "P3", "Behavior WF", this.textBoxWFTH);
             AddParamListItem("WFCHL", "P4", "Behavior WF", this.textBoxWFCHL);
-            AddParamListItem("WFCHH", "P20", "Behavior WF", this.textBoxWFCHH);
             AddParamListItem("WFI", "P5", "Behavior WF", this.textBoxWFI);
             AddParamListItem("WFCDL", "P10", "Behavior WF", this.textBoxWFCDL);
             AddParamListItem("WFCDH", "P11", "Behavior WF", this.textBoxWFCDH);
+            AddParamListItem("WFCHH", "P20", "Behavior WF", this.textBoxWFCHH);
 
             //Center
             AddParamListItem("WFX", "P6", "Behavior WF", this.textBoxWFX);
@@ -408,6 +408,12 @@ namespace BehaviorGraphics
             // Neural Control
             AddParamListItem("WFNeuralControl", "Value", "CursorPos/NeuralControlPct", this.textBoxWFNC);
             AddParamListItem("WFNeuralControlCatchTrial", "P21", "Behavior WF", this.radioButtonWFCTNC);
+
+            // Ramp of catch trials
+            AddParamListItem("WFCatchTrialRamp", "P22", "Behavior WF", this.checkBoxWFCTRamp);
+            AddParamListItem("WFCatchTrialSlope", "P23", "Behavior WF", this.textBoxWFCTSlope);
+            AddParamListItem("WFAdapCatchTrials", "P24", "Behavior WF", this.WFckboxAdaptCatch);
+
 
             #endregion
 

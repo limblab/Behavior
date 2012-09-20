@@ -1,4 +1,19 @@
 #define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
 
 /* 
  * $Id$
@@ -159,7 +174,11 @@
 #define WORD_TARGET_HOLD 0xA0
 #define WORD_OUTER_TARGET_HOLD 0xA1
 
+/* Adaptation Flag */
+#define WORD_ADAPT 0xB0
+
 /* Unstable field words */
 #define WORD_FIELD_BUILDING_UP 0x31
+
 
 #endif /* WORDS_CO_H */
