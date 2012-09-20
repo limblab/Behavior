@@ -54,15 +54,15 @@
  * bytes 14-17: float		=> target angle
  * bytes 18-21: float		=> bump direction
  * byte  22:	uchar		=> random target flag
- * bytes 23-26: int			=> target floor (minimum angle(deg) target can take in random target assignment)
- * bytes 27-30: int			=> target ceiling (maximum angle(deg) target can take in random target assignment)
+ * bytes 23-26: float		=> target floor (minimum angle(deg) target can take in random target assignment)
+ * bytes 27-30: float		=> target ceiling (maximum angle(deg) target can take in random target assignment)
  * bytes 31-34: float		=> bump magnitude
  * bytes 35-38: float		=> bump duration
  * bytes 39-42: float		=> bump ramp
  * byte  43:	uchar		=> random bump flag
- * bytes 44-47: int			=> bump floor (minimum angle(deg) bump can take in random target assignment)
- * bytes 48-51:	int			=> bump ceiling (maximum angle(deg) bump can take in random target assignment)
- * bytes 52-55: int			=> staircase ratio
+ * bytes 44-47: float		=> bump floor (minimum angle(deg) bump can take in random target assignment)
+ * bytes 48-51:	float		=> bump ceiling (maximum angle(deg) bump can take in random target assignment)
+ * bytes 52-55: float		=> staircase ratio
  * byte  56:	uchar		=> stim trial flag
  * bytes 57-60: float		=> training trial frequency
  * bytes 61-64: float		=> stimulation probability 
@@ -402,18 +402,18 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
 	db->addByte(staircase_id);
 	db->addInt(stairs[staircase_id]->getIteration());
-	db->addFloat((float)params->target_angle);
+	db->addFloat((float)params->tgt_angle);
 	db->addFloat((float)bump_dir);
 	db->addByte((byte)params->use_random_targets);
-	db->addInt((int)params->target_floor);
-	db->addInt((int)params->target_ceiling);
+	db->addFloat((float)params->target_floor);
+	db->addFloat((float)params->target_ceiling);
 	db->addFloat((float)params->bump_magnitude);
 	db->addFloat((float)params->bump_duration);
 	db->addFloat((float)params->bump_ramp);
 	db->addByte((byte)params->random_bump);
-	db->addInt((int)params->bump_floor);
-	db->addInt((int)params->bump_ceiling);
-	db->addInt((int)params->staircase_ratio);
+	db->addFloat((float)params->bump_floor);
+	db->addFloat((float)params->bump_ceiling);
+	db->addFloat((float)params->staircase_ratio);
 	db->addByte((byte)this->stim_trial);
 	db->addByte((byte)this->training_trial);
 	db->addFloat((float)this->params->training_frequency);
