@@ -1159,6 +1159,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 			} else if(state==STATE_MOVEMENT || state==STATE_CONTINUE_MOVEMENT || state==STATE_TARGET_HOLD) {
 				neural_control_flag_p[0] = 1;
 			}
+			else {
+				neural_control_flag_p[0] = 0;
+			}
 		} else {
 			neural_control_flag_p[0] = 0;
 		}
