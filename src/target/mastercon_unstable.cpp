@@ -4,7 +4,7 @@
  */
 
 /* 
- * Current Databurst version: 1
+ * Current Databurst version: 2
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -13,6 +13,43 @@
  *
  * Databurst version descriptions
  * ==============================
+ * 
+ * Version 2 (0x02)
+ * ----------------
+ * byte         0: uchar => number of bytes to be transmitted
+ * byte         1: uchar => databurst version number (in this case zero)
+ * byte         2: uchar => model version major
+ * byte         3: uchar => model version minor
+ * bytes   4 to 5: short => model version micro
+ * bytes   6 to 9: float => x offset (cm)
+ * bytes 10 to 13: float => y offset (cm)
+ * bytes 14 to 17: float => bump magnitude (N?)
+ * bytes 18 to 21: float => bump direction (rad)
+ * bytes 22 to 25: float => bump duration (s)
+ * bytes 26 to 29: float => negative stiffness (N/m?)
+ * bytes 30 to 33: float => positive stiffness (N/m?)
+ * bytes 34 to 37: float => force field angle (rad)
+ * bytes 38 to 41: float => bias force magnitude (N?)
+ * bytes 42 to 45: float => bias force angle (rad)
+ * bytes 46 to 49: float => force target diameter (N?)
+ *
+ * Version 1 (0x01)
+ * ----------------
+ * byte         0: uchar => number of bytes to be transmitted
+ * byte         1: uchar => databurst version number (in this case zero)
+ * byte         2: uchar => model version major
+ * byte         3: uchar => model version minor
+ * bytes   4 to 5: short => model version micro
+ * bytes   6 to 9: float => x offset (cm)
+ * bytes 10 to 13: float => y offset (cm)
+ * bytes 14 to 17: float => bump magnitude (N?)
+ * bytes 18 to 21: float => bump direction (rad)
+ * bytes 22 to 25: float => bump duration (s)
+ * bytes 26 to 29: float => negative stiffness (N/m?)
+ * bytes 30 to 33: float => positive stiffness (N/m?)
+ * bytes 34 to 37: float => force field angle (rad)
+ * bytes 38 to 41: float => bias force magnitude (N?)
+ * bytes 42 to 45: float => bias force angle (rad)
  *
  * Version 0 (0x00)
  * ----------------
@@ -30,24 +67,6 @@
  * bytes 30 to 33: float => force field angle (rad)
  * bytes 34 to 37: float => bias force magnitude (N?)
  * bytes 38 to 41: float => bias force angle (rad)
- *
- * * Version 1 (0x01)
- * ----------------
- * byte         0: uchar => number of bytes to be transmitted
- * byte         1: uchar => databurst version number (in this case zero)
- * byte         2: uchar => model version major
- * byte         3: uchar => model version minor
- * bytes   4 to 5: short => model version micro
- * bytes   6 to 9: float => x offset (cm)
- * bytes 10 to 13: float => y offset (cm)
- * bytes 14 to 17: float => bump magnitude (N?)
- * bytes 18 to 21: float => bump direction (rad)
- * bytes 22 to 25: float => bump duration (s)
- * bytes 26 to 29: float => negative stiffness (N/m?)
- * bytes 30 to 33: float => positive stiffness (N/m?)
- * bytes 34 to 37: float => force field angle (rad)
- * bytes 38 to 41: float => bias force magnitude (N?)
- * bytes 42 to 45: float => bias force angle (rad)
  */
 
 
@@ -109,7 +128,10 @@ struct LocalParams{
     
     // Unstable field again
     real_T num_field_orientations;
-    real_T field_block_length;
+    real_T field_block_length;    
+        
+    // Force target
+    real_T force_target_diameter;
 };
 
 /**
@@ -131,7 +153,8 @@ public:
 private:
 	// Your behavior's instance variables    
 	CircleTarget *centerTarget;	
-	CircleTarget *workSpaceTarget;
+	CircleTarget *workSpaceTarget;	
+    
 	LocalParams *params;	
 
 	real_T field_hold_time;
@@ -165,7 +188,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(21);
+	this->setNumParams(22);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->field_ramp_up,							 1);
@@ -193,8 +216,10 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->num_field_orientations,                   19);
     this->bindParamId(&params->field_block_length,                       20);
     
+    this->bindParamId(&params->force_target_diameter,                    21);
+    
     // default parameters:
-    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10
+    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -210,7 +235,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	workSpaceTarget = new CircleTarget();
 	workSpaceTarget->color = Target::Color(60,60,60);
 
-	field_hold_time = 0.0;
+    field_hold_time = 0.0;
 	bump_direction = 0.0;
 	
 	bump = new TrapBumpGenerator();
@@ -230,7 +255,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	workSpaceTarget->centerX = params->x_position_offset;
 	workSpaceTarget->centerY = params->y_position_offset;
 	workSpaceTarget->radius = params->workspace_diameter/2;
-
+    
 	field_hold_time = this->random->getDouble(params->field_hold_low,params->field_hold_high);
 
 	int rand_i = this->random->getInteger(0,(int)(params->num_bump_directions-1));
@@ -277,12 +302,27 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)params->positive_stiffness);			// bytes 30 to 33 -> Matlab idx 31 to 34
 	db->addFloat((float)field_angle);                           // bytes 34 to 37 -> Matlab idx 35 to 38
 	db->addFloat((float)params->bias_force_magnitude);			// bytes 38 to 41 -> Matlab idx 39 to 42
-	db->addFloat((float)params->bias_force_angle);				// bytes 38 to 41 -> Matlab idx 43 to 46
+	db->addFloat((float)params->bias_force_angle);				// bytes 42 to 45 -> Matlab idx 43 to 46
+    db->addFloat((float)params->force_target_diameter);         // bytes 46 to 49 -> Matlab idx 47 to 50
 	db->start();
 
 }
 
 void AttentionBehavior::update(SimStruct *S) {
+    real_T force_to_position = params->target_diameter/params->force_target_diameter;     
+    
+    // Force cursor
+    real_T x_force_cursor = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
+					    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle) + 
+						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
+						(inputs->cursor.y - params->y_position_offset)*cos(field_angle))*sin(field_angle);
+
+	real_T y_force_cursor = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset)*cos(field_angle) + 
+						(inputs->cursor.y - params->y_position_offset)*sin(field_angle))*sin(field_angle) -
+						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
+						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle);
+
+    
 	// State machine
     switch (this->getState()) {
         case STATE_PRETRIAL:
@@ -304,10 +344,10 @@ void AttentionBehavior::update(SimStruct *S) {
             }
             break;
         case STATE_HOLD_FIELD:
-            if (!workSpaceTarget->cursorInTarget(inputs->cursor)){
+            if (!workSpaceTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
                 playTone(TONE_ABORT);
                 setState(STATE_ABORT);				
-            } else if (centerTarget->cursorInTarget(inputs->cursor)){
+            } else if (centerTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
                 setState(STATE_CT_HOLD);
             }
             break;
@@ -315,7 +355,7 @@ void AttentionBehavior::update(SimStruct *S) {
             if (stateTimer->elapsedTime(S) > field_hold_time){
                 bump->start(S);
                 setState(STATE_BUMP);
-            } else if (!centerTarget->cursorInTarget(inputs->cursor)){
+            } else if (!centerTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
                 setState(STATE_HOLD_FIELD);
             }
             break;
@@ -342,6 +382,8 @@ void AttentionBehavior::update(SimStruct *S) {
 }
 
 void AttentionBehavior::calculateOutputs(SimStruct *S) {
+    real_T force_to_position = params->target_diameter/params->force_target_diameter;
+    
     real_T b; // Damping coefficient
     b = 2*sqrt(0.5 * params->positive_stiffness);  // Assuming 0.5kg mass
     b = 0.01;
@@ -352,21 +394,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     vel = sqrt(x_vel*x_vel + y_vel*y_vel);     
     
     /* force (0) */
-	real_T ratio_force;
-    
-    /*
-     x_force_field = kn*((x - x_offset)*cos(field_angle) +...
-                (y - y_offset)*sin(field_angle))*cos(field_angle) + ...
-                kp*(-(x - x_offset)*sin(field_angle) + ...
-                (y - y_offset)*cos(field_angle))*sin(field_angle) + bias_mag * cos(bias_angle) +...
-                b*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*sin(field_angle);
-                        
-    y_force_field = kn*((x-x_offset)*cos(field_angle) + ...
-                (y - y_offset)*sin(field_angle))*sin(field_angle) -...
-                kp*(-(x - x_offset)*sin(field_angle) + ...
-                (y-y_offset)*cos(field_angle))*cos(field_angle) + bias_mag * sin(bias_angle) -...
-                b*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*cos(field_angle); */
-    
+	real_T ratio_force;    
     
     // Damped forces
     real_T x_force_field = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
@@ -383,6 +411,16 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
                         params->bias_force_magnitude * sin(params->bias_force_angle) -
                         b*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*cos(field_angle);
 
+    // Damped forces
+    real_T x_force_cursor = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
+					    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle) - 
+						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
+						(inputs->cursor.y - params->y_position_offset)*cos(field_angle))*sin(field_angle);
+
+	real_T y_force_cursor = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset)*cos(field_angle) + 
+						(inputs->cursor.y - params->y_position_offset)*sin(field_angle))*sin(field_angle) +
+						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
+						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle);
 
 	if (isNewState() && getState() == STATE_BUMP){
 		x_force_at_bump_start = x_force_field;
@@ -484,14 +522,25 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[1] = BEHAVIOR_VERSION_MINOR;
 	outputs->version[2] = BEHAVIOR_VERSION_MICRO;
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
-
-	/* position (7) */
-    if (getState() == STATE_BUMP)
-    {
-        outputs->position = Point(1E6, 1E6);
-    } else {
-    	outputs->position = inputs->cursor;
-    }
+    
+    /* position (7) */
+    switch (this->getState()){
+		case STATE_FIELD_BUILD_UP:
+			ratio_force = stateTimer->elapsedTime(S) / params->field_ramp_up;
+			outputs->position.x = force_to_position * ratio_force * x_force_cursor;
+			outputs->position.y = force_to_position * ratio_force * y_force_cursor;
+			break;
+		case STATE_HOLD_FIELD:
+		case STATE_CT_HOLD:
+			outputs->position.x = force_to_position * x_force_cursor;
+			outputs->position.y = force_to_position * y_force_cursor;
+			break;
+		case STATE_BUMP:
+			outputs->position = Point(1E6, 1E6);
+			break;
+		default:
+			outputs->position = inputs->cursor;
+	}        
 
 }
 

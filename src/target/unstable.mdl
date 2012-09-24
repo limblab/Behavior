@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1315"
+    ComputedModelVersion    "1.1316"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Sep 05 16:49:54 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1315>"
+  LastModifiedDate	  "Mon Sep 24 16:33:38 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1316>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -852,7 +852,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_unstable"
       Parameters	      "0 1 1 2 1 1   5 10   0 0 0 0 0 0 0   .2 0 1 0  "
-" 1 1"
+" 1 1  1"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'pos offsets')\nport_label('input',3,'force')\npor"
 "t_label('input',4,'catch force')\nport_label('output',1,'force')\nport_label("

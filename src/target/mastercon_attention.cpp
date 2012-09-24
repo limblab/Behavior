@@ -133,6 +133,9 @@ struct LocalParams{
 	real_T bias_force_magnitude;
 	real_T bias_force_direction;
 	real_T bias_force_ramp;
+    
+    // Force target
+    real_T force_target_diameter;
 };
 
 /**

@@ -797,6 +797,9 @@ namespace BehaviorGraphics
             AddParamListItem("UF NO", "P20", "Behavior UF", this.numericUpDownUFNO);
             AddParamListItem("UF FBL", "P21", "Behavior UF", this.textBoxUFFBL);
 
+            // Force target
+            AddParamListItem("UF FTD", "P22", "Behavior UF", this.textBoxUFFTD);
+
             #endregion
         }
 
