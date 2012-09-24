@@ -799,7 +799,7 @@ namespace BehaviorGraphics
             this.textBox2BCTR = new System.Windows.Forms.TextBox();
             this.checkBox2BCGT = new System.Windows.Forms.CheckBox();
             this.groupBox63 = new System.Windows.Forms.GroupBox();
-            this.label343 = new System.Windows.Forms.Label();
+            this.label343BC = new System.Windows.Forms.Label();
             this.textBox2BCStimProb = new System.Windows.Forms.TextBox();
             this.checkBox2BDSS = new System.Windows.Forms.CheckBox();
             this.label331 = new System.Windows.Forms.Label();
@@ -9198,7 +9198,7 @@ namespace BehaviorGraphics
             // 
             // groupBox63
             // 
-            this.groupBox63.Controls.Add(this.label343);
+            this.groupBox63.Controls.Add(this.label343BC);
             this.groupBox63.Controls.Add(this.textBox2BCStimProb);
             this.groupBox63.Controls.Add(this.checkBox2BDSS);
             this.groupBox63.Controls.Add(this.label331);
@@ -9223,14 +9223,14 @@ namespace BehaviorGraphics
             this.groupBox63.TabStop = false;
             this.groupBox63.Text = "Staircase";
             // 
-            // label343
+            // label343BC
             // 
-            this.label343.AutoSize = true;
-            this.label343.Location = new System.Drawing.Point(6, 267);
-            this.label343.Name = "label343";
-            this.label343.Size = new System.Drawing.Size(52, 13);
-            this.label343.TabIndex = 19;
-            this.label343.Text = "Stim Prob";
+            this.label343BC.AutoSize = true;
+            this.label343BC.Location = new System.Drawing.Point(6, 267);
+            this.label343BC.Name = "label343BC";
+            this.label343BC.Size = new System.Drawing.Size(52, 13);
+            this.label343BC.TabIndex = 19;
+            this.label343BC.Text = "Stim Prob";
             // 
             // textBox2BCStimProb
             // 
@@ -12051,7 +12051,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label340;
         private System.Windows.Forms.Label label342;
         private AngleBox.AngleEntryBox angleEntryBoxUFFD;
-        private System.Windows.Forms.Label label343;
+        private System.Windows.Forms.Label label343BC;
         private System.Windows.Forms.TextBox textBoxWFCTSlope;
         private System.Windows.Forms.CheckBox checkBoxWFCTRamp;
         private System.Windows.Forms.CheckBox WFckboxAdaptCatch;
