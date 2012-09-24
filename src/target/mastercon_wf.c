@@ -801,7 +801,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;
         case STATE_DATA_BLOCK:
             if (databurst_counter > 2*(databurst[0]-1)) { 
-               new_state = STATE_CENTERING;
+               new_state = STATE_ADAPT_FLAG;
                state_changed();
             }
             ssSetIWorkValue(S, 23, databurst_counter+1);
@@ -1040,7 +1040,9 @@ static void mdlOutputs(SimStruct *S, int_T tid)
                 word = WORD_START_TRIAL;
                 break;
 			case STATE_ADAPT_FLAG:
-				word = WORD_ADAPT;
+				if (get_catch_trial()) {
+					word = WORD_ADAPT;
+				}
 				break;
             case STATE_CENTERING:
                 word = WORD_CT_ON;
