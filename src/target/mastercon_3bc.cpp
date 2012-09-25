@@ -32,7 +32,7 @@
  */
 
 /* 
- * Current Databurst version: 0
+ * Current Databurst version: 1
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -42,7 +42,7 @@
  * Databurst version descriptions
  * ==============================
  *
- * Version 0 (0x01)
+ * Version 1 (0x01)
  * ----------------
  * byte  0:		uchar		=> number of bytes to be transmitted
  * byte  1:		uchar		=> version number (in this case one)
