@@ -389,16 +389,8 @@ void AttentionBehavior::update(SimStruct *S) {
 }
 
 void AttentionBehavior::calculateOutputs(SimStruct *S) {
-    real_T force_to_position = params->target_diameter/params->force_target_diameter;
-    
-    // Position bump P,D values
-    real_T bump_vel_P = 1;
-    real_T bump_vel_D = 0.01*2(sqrt(0.5*bump_vel_P);
-    real_T x_force_bump;
-    real_T y_force_bump;
-    real_T x_acc = (x_vel - x_vel_old);
-    real_T y_acc = (y_vel - y_vel_old);
-    
+    real_T force_to_position = params->target_diameter/params->force_target_diameter;   
+   
     // Force field damping coefficient
     real_T b;
     b = 0.01*2*sqrt(0.5 * params->positive_stiffness);  // Assuming 0.5kg mass    
@@ -408,8 +400,16 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     y_vel = inputs->catchForce.y;
     vel = sqrt(x_vel*x_vel + y_vel*y_vel);     
     
+    // Position bump P,D values
+    real_T bump_vel_P = 0.015;
+    real_T bump_vel_D = 2*sqrt(0.5*bump_vel_P);
+    real_T x_force_bump;
+    real_T y_force_bump;
+    real_T x_acc = (x_vel - x_vel_old)/1000;
+    real_T y_acc = (y_vel - y_vel_old)/1000;
+    
     /* force (0) */
-	real_T ratio_force;    
+	real_T ratio_force;  
     
     // Force field
     real_T x_force_field = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
@@ -438,8 +438,8 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle);
     
     // Position bump    
-    x_force_bump = (x_vel-params->bump_magnitude*cos(bump_direction))*bump_vel_P + x_acc*cos(bump_direction)*bump_vel_D;
-    y_force_bump = (y_vel-params->bump_magnitude*sin(bump_direction))*bump_vel_P + y_acc*sin(bump_direction)*bump_vel_D;
+    x_force_bump = (params->bump_magnitude*cos(bump_direction)-x_vel)*bump_vel_P - x_acc*cos(bump_direction)*bump_vel_D;
+    y_force_bump = (params->bump_magnitude*sin(bump_direction)-y_vel)*bump_vel_P - y_acc*sin(bump_direction)*bump_vel_D;
     
 	if (isNewState() && getState() == STATE_BUMP){
 		x_force_at_bump_start = x_force_field;

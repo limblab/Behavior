@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1316"
+    ComputedModelVersion    "1.1317"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Sep 24 16:33:38 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1316>"
+  LastModifiedDate	  "Tue Oct 02 16:30:33 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1317>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -1861,7 +1861,7 @@ Model {
       System {
 	Name			"Motor Control"
 	Location		[4, 82, 1008, 722]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1904,7 +1904,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Compare\nTo Constant"
 	  Ports			  [1, 1]
-	  Position		  [760, 490, 790, 520]
+	  Position		  [665, 490, 695, 520]
 	  Orientation		  "left"
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
 "\nTo Constant"
@@ -1918,7 +1918,7 @@ Model {
 	  RTWMemSecDataInternal	  "Inherit from model"
 	  RTWMemSecDataParameters "Inherit from model"
 	  relop			  ">"
-	  const			  "25"
+	  const			  "100"
 	  LogicOutDataTypeMode	  "uint8"
 	  ZeroCross		  off
 	}
@@ -1926,7 +1926,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Compare\nTo Constant1"
 	  Ports			  [1, 1]
-	  Position		  [760, 555, 790, 585]
+	  Position		  [665, 555, 695, 585]
 	  Orientation		  "left"
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
 "\nTo Constant"
@@ -1940,7 +1940,7 @@ Model {
 	  RTWMemSecDataInternal	  "Inherit from model"
 	  RTWMemSecDataParameters "Inherit from model"
 	  relop			  ">"
-	  const			  "25."
+	  const			  "100"
 	  LogicOutDataTypeMode	  "uint8"
 	  ZeroCross		  off
 	}
@@ -2095,7 +2095,7 @@ Model {
 	  BlockType		  Logic
 	  Name			  "Logical\nOperator1"
 	  Ports			  [2, 1]
-	  Position		  [655, 522, 685, 553]
+	  Position		  [565, 522, 595, 553]
 	  Orientation		  "left"
 	  Operator		  "OR"
 	  AllPortsSameDT	  off
@@ -2129,7 +2129,7 @@ Model {
 	Block {
 	  BlockType		  Memory
 	  Name			  "Memory"
-	  Position		  [555, 525, 585, 555]
+	  Position		  [500, 525, 530, 555]
 	  Orientation		  "left"
 	}
 	Block {
