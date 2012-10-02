@@ -163,9 +163,14 @@ private:
 	real_T x_force_at_bump_start;
 	real_T y_force_at_bump_start;
     
+    real_T x_pos_at_bump_start;
+    real_T y_pos_at_bump_start;
+    
     real_T x_vel;
     real_T y_vel;
     real_T vel;
+    real_T x_vel_old;
+    real_T y_vel_old;
     
     real_T field_angle;
     
@@ -244,6 +249,9 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     block_counter = 10000; 
     trial_counter = 10000; // Stupidly large number so that the blocks are reset in first pretrial.
     field_angle = 0;
+    
+    x_vel_old = 0;
+    y_vel_old = 0;
 }
 
 void AttentionBehavior::doPreTrial(SimStruct *S) {	
@@ -383,19 +391,27 @@ void AttentionBehavior::update(SimStruct *S) {
 void AttentionBehavior::calculateOutputs(SimStruct *S) {
     real_T force_to_position = params->target_diameter/params->force_target_diameter;
     
-    real_T b; // Damping coefficient
-    b = 2*sqrt(0.5 * params->positive_stiffness);  // Assuming 0.5kg mass
-    b = 0.01;
+    // Position bump P,D values
+    real_T bump_vel_P = 1;
+    real_T bump_vel_D = 0.01*2(sqrt(0.5*bump_vel_P);
+    real_T x_force_bump;
+    real_T y_force_bump;
+    real_T x_acc = (x_vel - x_vel_old);
+    real_T y_acc = (y_vel - y_vel_old);
+    
+    // Force field damping coefficient
+    real_T b;
+    b = 0.01*2*sqrt(0.5 * params->positive_stiffness);  // Assuming 0.5kg mass    
     
     //int i;
-    x_vel = inputs->catchForce.x;
+    x_vel = inputs->catchForce.x;  // Passing velocity signal through catch force port
     y_vel = inputs->catchForce.y;
     vel = sqrt(x_vel*x_vel + y_vel*y_vel);     
     
     /* force (0) */
 	real_T ratio_force;    
     
-    // Damped forces
+    // Force field
     real_T x_force_field = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
 					    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle) + 
 						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
@@ -410,7 +426,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
                         params->bias_force_magnitude * sin(params->bias_force_angle) -
                         b*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*cos(field_angle);
 
-    // Damped forces
+    // Force cursor
     real_T x_force_cursor = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
 					    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle) - 
 						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
@@ -420,10 +436,16 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 						(inputs->cursor.y - params->y_position_offset)*sin(field_angle))*sin(field_angle) +
 						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
 						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle);
-
+    
+    // Position bump    
+    x_force_bump = (x_vel-params->bump_magnitude*cos(bump_direction))*bump_vel_P + x_acc*cos(bump_direction)*bump_vel_D;
+    y_force_bump = (y_vel-params->bump_magnitude*sin(bump_direction))*bump_vel_P + y_acc*sin(bump_direction)*bump_vel_D;
+    
 	if (isNewState() && getState() == STATE_BUMP){
 		x_force_at_bump_start = x_force_field;
 		y_force_at_bump_start = y_force_field;
+        x_pos_at_bump_start = inputs->cursor.x;
+        y_pos_at_bump_start = inputs->cursor.y;
 	}
 
 	switch (this->getState()){
@@ -438,9 +460,13 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 			outputs->force.y = y_force_field;
 			break;
 		case STATE_BUMP:
-			outputs->force = bump->getBumpForce(S);
-			outputs->force.x += x_force_at_bump_start;
-			outputs->force.y += y_force_at_bump_start;
+			//outputs->force = bump->getBumpForce(S);
+			//outputs->force.x += x_force_at_bump_start;
+			//outputs->force.y += y_force_at_bump_start;
+            
+            outputs->force.x = x_force_bump;
+            outputs->force.y = y_force_bump;
+                        
 			break;
         case STATE_REWARD:
         case STATE_ABORT:
@@ -540,7 +566,9 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 		default:
 			outputs->position = inputs->cursor;
 	}        
-
+    
+    x_vel_old = x_vel;
+    y_vel_old = y_vel;
 }
 
 /*
