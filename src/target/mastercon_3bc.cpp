@@ -178,7 +178,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(34);
+	this->setNumParams(35);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
 	this->bindParamId(&params->soft_reset,				1);
@@ -214,6 +214,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->bump_ceiling,			31);
 	this->bindParamId(&params->bump_rate_skew,			32);
 	this->bindParamId(&params->show_target_during_bump,	33);
+    this->bindParamId(&params->bump_incr,           	34);
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -281,6 +282,8 @@ int TwoBumpChoiceBehavior::chooseStaircase() {
 void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	int ctr;
 	bool sw;
+    // int bump_incr; //increment we want the bump_dir to be in (in degrees; e.g. bump_dir = 10, 20, 30 -> increment = 10)
+    int num_bump_dirs; // number of bump directions there will be between bump_floor and bump_ceiling
 
 	//set the target direction
 	if ((int)this->params->use_random_targets) {
@@ -327,6 +330,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 		//staircase ID here is being used simply as a quadrent ID. this will be used later to set the correct and incorrect targets
 
 		sw=this->random->getDouble()<this->params->bump_rate_skew;
+        num_bump_dirs = (int)((this->params->bump_ceiling - this->params->bump_floor)/bump_incr);
 		
 		switch (this->staircase_id % 4){
 			case 0:
@@ -336,7 +340,8 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 					bump_dir=this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(this->random->getDouble()));
 				} else {
 					// use a uniform pdf random number
-					bump_dir=this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
+					// bump_dir=this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
+                    bump_dir = this->params->bump_floor + bump_incr * (this->random->getInteger(0,num_bump_dirs)); 
 				}
 				break;
 			case 1:
@@ -345,8 +350,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 					//use a linear pdf random number
 					bump_dir=180 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(this->random->getDouble()));
 				} else {
-					// use a uniform pdf random number
-					bump_dir=180 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
+                    bump_dir=180 - this->params->bump_floor - bump_incr * (this->random->getInteger(0,num_bump_dirs));
 				}
 				break;
 			case 2:
@@ -355,8 +359,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 					//use a linear pdf random number
 					bump_dir=180 + this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(this->random->getDouble()));
 				} else {
-					// use a uniform pdf random number
-					bump_dir=180 + this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
+                    bum_dir = 180 + this->params->bump_floor + bump_incr * (this->random->getInteger(0,num_bump_dirs));
 				}
 				break;
 			default:
@@ -365,8 +368,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 					//use a linear pdf random number
 					bump_dir=360 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(this->random->getDouble()));
 				} else {
-					// use a uniform pdf random number
-					bump_dir=360 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
+					bump_dir=360 - this->params->bump_floor - bump_incr * (this->random->getInteger(0,num_bump_dirs));
 				}
 				break;
 		}
