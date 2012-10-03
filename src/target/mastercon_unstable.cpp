@@ -15,7 +15,7 @@
  * Databurst version descriptions
  * ==============================
  * 
- * Version 2 (0x02)
+ * Version 3 (0x03)
  * ----------------
  * byte         0: uchar => number of bytes to be transmitted
  * byte         1: uchar => databurst version number (in this case zero)
@@ -271,6 +271,8 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	bump_direction = 0.0;
 	
 	bump = new TrapBumpGenerator();
+    x_pos_at_bump_start = 0;
+	y_pos_at_bump_start = 0;
 	x_force_at_bump_start = 0;
 	y_force_at_bump_start = 0;
     
@@ -429,11 +431,18 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     vel = sqrt(x_vel*x_vel + y_vel*y_vel);     
     
     // Velocity bump P,D values
-    real_T D_gain = params->controller_damping_ratio*2*sqrt(params->mass*params->P_gain);
+    real_T D_gain = params->controller_damping_ratio * 2 * sqrt(params->mass * params->P_gain);
     real_T x_force_bump;
     real_T y_force_bump;
     real_T x_acc = (x_vel - x_vel_old)/1000;
     real_T y_acc = (y_vel - y_vel_old)/1000;
+    real_T desired_x_pos;
+    real_T desired_y_pos;
+    
+    if (getState() == STATE_BUMP){
+        desired_x_pos = x_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S)/1000 * cos(params->bump_direction);
+        desired_y_pos = y_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S)/1000 * sin(params->bump_direction);
+    }
     
     /* force (0) */
 	real_T ratio_force;  
@@ -464,9 +473,11 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
 						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle);
     
-    // Position bump    
-    x_force_bump = (params->bump_velocity*cos(bump_direction)-x_vel)*params->P_gain - x_acc*cos(bump_direction)*D_gain;
-    y_force_bump = (params->bump_velocity*sin(bump_direction)-y_vel)*params->P_gain - y_acc*sin(bump_direction)*D_gain;
+    // Position bump
+    x_force_bump = (params->bump_velocity*cos(bump_direction)-x_vel)*params->P_gain - x_acc*cos(bump_direction)*D_gain +
+            (desired_x_pos - inputs->cursor.x) * params->P_gain;
+    y_force_bump = (params->bump_velocity*sin(bump_direction)-y_vel)*params->P_gain - y_acc*sin(bump_direction)*D_gain +
+            (desired_y_pos - inputs->cursor.y) * params->P_gain;
     
 	if (isNewState() && getState() == STATE_BUMP){
 		x_force_at_bump_start = x_force_field;
