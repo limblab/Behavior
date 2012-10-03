@@ -789,7 +789,7 @@ namespace BehaviorGraphics
 
             // Bumps
             AddParamListItem("UF BD", "P16", "Behavior UF", this.textBoxUFBD);
-            AddParamListItem("UF BM", "P17", "Behavior UF", this.textBoxUFBM);
+            AddParamListItem("UF BV", "P17", "Behavior UF", this.textBoxUFBV);
             AddParamListItem("UF ND", "P18", "Behavior UF", this.numericUpDownUFND);
             AddParamListItem("UF FD", "P19", "Behavior UF", this.angleEntryBoxUFFD);
 
