@@ -440,8 +440,8 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     real_T desired_y_pos;
     
     if (getState() == STATE_BUMP){
-        desired_x_pos = x_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S)/1000 * cos(params->bump_direction);
-        desired_y_pos = y_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S)/1000 * sin(params->bump_direction);
+        desired_x_pos = x_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S)/1000 * cos(bump_direction);
+        desired_y_pos = y_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S)/1000 * sin(bump_direction);
     }
     
     /* force (0) */
@@ -475,9 +475,9 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     
     // Position bump
     x_force_bump = (params->bump_velocity*cos(bump_direction)-x_vel)*params->P_gain - x_acc*cos(bump_direction)*D_gain +
-            (desired_x_pos - inputs->cursor.x) * params->P_gain;
+            (desired_x_pos - inputs->cursor.x) * params->P_gain * 3;
     y_force_bump = (params->bump_velocity*sin(bump_direction)-y_vel)*params->P_gain - y_acc*sin(bump_direction)*D_gain +
-            (desired_y_pos - inputs->cursor.y) * params->P_gain;
+            (desired_y_pos - inputs->cursor.y) * params->P_gain * 3;
     
 	if (isNewState() && getState() == STATE_BUMP){
 		x_force_at_bump_start = x_force_field;
