@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -976,6 +976,13 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
+            this.groupBox70 = new System.Windows.Forms.GroupBox();
+            this.textBoxUFDR = new System.Windows.Forms.TextBox();
+            this.label353 = new System.Windows.Forms.Label();
+            this.textBoxUFPG = new System.Windows.Forms.TextBox();
+            this.label355 = new System.Windows.Forms.Label();
+            this.textBoxUFM = new System.Windows.Forms.TextBox();
+            this.label352 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -1100,6 +1107,7 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
+            this.groupBox70.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -3859,8 +3867,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4692,8 +4700,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -9656,6 +9664,7 @@ namespace BehaviorGraphics
             // 
             // UnstableField
             // 
+            this.UnstableField.Controls.Add(this.groupBox70);
             this.UnstableField.Controls.Add(this.groupBox68);
             this.UnstableField.Controls.Add(this.groupBox67);
             this.UnstableField.Controls.Add(this.groupBox66);
@@ -10926,6 +10935,71 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
+            // groupBox70
+            // 
+            this.groupBox70.Controls.Add(this.textBoxUFM);
+            this.groupBox70.Controls.Add(this.label352);
+            this.groupBox70.Controls.Add(this.textBoxUFDR);
+            this.groupBox70.Controls.Add(this.label353);
+            this.groupBox70.Controls.Add(this.textBoxUFPG);
+            this.groupBox70.Controls.Add(this.label355);
+            this.groupBox70.Location = new System.Drawing.Point(421, 172);
+            this.groupBox70.Name = "groupBox70";
+            this.groupBox70.Size = new System.Drawing.Size(200, 121);
+            this.groupBox70.TabIndex = 48;
+            this.groupBox70.TabStop = false;
+            this.groupBox70.Text = "Velocity bump controller";
+            // 
+            // textBoxUFDR
+            // 
+            this.textBoxUFDR.Location = new System.Drawing.Point(113, 47);
+            this.textBoxUFDR.Name = "textBoxUFDR";
+            this.textBoxUFDR.Size = new System.Drawing.Size(46, 20);
+            this.textBoxUFDR.TabIndex = 40;
+            // 
+            // label353
+            // 
+            this.label353.AutoSize = true;
+            this.label353.Location = new System.Drawing.Point(9, 24);
+            this.label353.Name = "label353";
+            this.label353.Size = new System.Drawing.Size(37, 13);
+            this.label353.TabIndex = 43;
+            this.label353.Text = "P gain";
+            this.toolTip1.SetToolTip(this.label353, "in seconds");
+            // 
+            // textBoxUFPG
+            // 
+            this.textBoxUFPG.Location = new System.Drawing.Point(113, 21);
+            this.textBoxUFPG.Name = "textBoxUFPG";
+            this.textBoxUFPG.Size = new System.Drawing.Size(46, 20);
+            this.textBoxUFPG.TabIndex = 41;
+            // 
+            // label355
+            // 
+            this.label355.AutoSize = true;
+            this.label355.Location = new System.Drawing.Point(9, 50);
+            this.label355.Name = "label355";
+            this.label355.Size = new System.Drawing.Size(72, 13);
+            this.label355.TabIndex = 44;
+            this.label355.Text = "Damping ratio";
+            // 
+            // textBoxUFM
+            // 
+            this.textBoxUFM.Location = new System.Drawing.Point(113, 73);
+            this.textBoxUFM.Name = "textBoxUFM";
+            this.textBoxUFM.Size = new System.Drawing.Size(46, 20);
+            this.textBoxUFM.TabIndex = 45;
+            this.toolTip1.SetToolTip(this.textBoxUFM, "in kg");
+            // 
+            // label352
+            // 
+            this.label352.AutoSize = true;
+            this.label352.Location = new System.Drawing.Point(9, 76);
+            this.label352.Name = "label352";
+            this.label352.Size = new System.Drawing.Size(32, 13);
+            this.label352.TabIndex = 46;
+            this.label352.Text = "Mass";
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -11149,6 +11223,8 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
+            this.groupBox70.ResumeLayout(false);
+            this.groupBox70.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -12101,5 +12177,12 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBox2BC_rand_bump_skew;
         private System.Windows.Forms.TextBox textBoxUFFTD;
         private System.Windows.Forms.Label labelUFFTD;
+        private System.Windows.Forms.GroupBox groupBox70;
+        private System.Windows.Forms.TextBox textBoxUFM;
+        private System.Windows.Forms.Label label352;
+        private System.Windows.Forms.TextBox textBoxUFDR;
+        private System.Windows.Forms.Label label353;
+        private System.Windows.Forms.TextBox textBoxUFPG;
+        private System.Windows.Forms.Label label355;
     }
 }

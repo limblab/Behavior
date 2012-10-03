@@ -800,6 +800,11 @@ namespace BehaviorGraphics
             // Force target
             AddParamListItem("UF FTD", "P22", "Behavior UF", this.textBoxUFFTD);
 
+            // Velocity bump controller
+            AddParamListItem("UF PG", "P23", "Behavior UF", this.textBoxUFPG);
+            AddParamListItem("UF DR", "P24", "Behavior UF", this.textBoxUFDR);
+            AddParamListItem("UF M", "P25", "Behavior UF", this.textBoxUFM);
+
             #endregion
         }
 
