@@ -404,7 +404,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
 	db->addByte(staircase_id);
 	db->addInt(stairs[staircase_id]->getIteration());
-	db->addFloat((float)params->tgt_angle);
+	db->addFloat((float)tgt_angle);
 	db->addFloat((float)bump_dir);
 	db->addByte((byte)params->use_random_targets);
 	db->addFloat((float)params->target_floor);
