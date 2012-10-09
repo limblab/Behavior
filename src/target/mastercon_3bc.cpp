@@ -32,7 +32,7 @@
  */
 
 /* 
- * Current Databurst version: 1
+ * Current Databurst version: 2
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -78,7 +78,7 @@
  * byte  98
  */
 	
-#define DATABURST_VERSION ((byte)0x01) 
+#define DATABURST_VERSION ((byte)0x02) 
 #define DATABURST_TASK_CODE ((byte)0x01)
 
 // This must be custom defined for your behavior
