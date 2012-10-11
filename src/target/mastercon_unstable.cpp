@@ -152,9 +152,10 @@ struct LocalParams{
     real_T force_target_diameter;
     
     // Velocity controller parameters
-    real_T P_gain;
+    real_T P_gain_vel;
     real_T controller_damping_ratio;
     real_T mass;
+    real_T P_gain_pos;
 };
 
 /**
@@ -216,7 +217,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(25);
+	this->setNumParams(26);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->field_ramp_up,							 1);
@@ -246,12 +247,13 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     
     this->bindParamId(&params->force_target_diameter,                    21);
     
-    this->bindParamId(&params->P_gain,                             22);
+    this->bindParamId(&params->P_gain_vel,                               22);
     this->bindParamId(&params->controller_damping_ratio,                 23);
-    this->bindParamId(&params->mass,                          24);
+    this->bindParamId(&params->mass,                                     24);
+    this->bindParamId(&params->P_gain_pos,                               25);
     
     // default parameters:
-    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5
+    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -431,7 +433,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     vel = sqrt(x_vel*x_vel + y_vel*y_vel);     
     
     // Velocity bump P,D values
-    real_T D_gain = params->controller_damping_ratio * 2 * sqrt(params->mass * params->P_gain);
+    real_T D_gain_vel = params->controller_damping_ratio * 2 * sqrt(params->mass * params->P_gain_vel);
     real_T x_force_bump;
     real_T y_force_bump;
     real_T x_acc = (x_vel - x_vel_old)/1000;
@@ -474,10 +476,10 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle);
     
     // Position bump
-    x_force_bump = (params->bump_velocity*cos(bump_direction)-x_vel)*params->P_gain - x_acc*cos(bump_direction)*D_gain +
-            (desired_x_pos - inputs->cursor.x) * params->P_gain * 3;
-    y_force_bump = (params->bump_velocity*sin(bump_direction)-y_vel)*params->P_gain - y_acc*sin(bump_direction)*D_gain +
-            (desired_y_pos - inputs->cursor.y) * params->P_gain * 3;
+    x_force_bump = (params->bump_velocity*cos(bump_direction)-x_vel)*params->P_gain_vel - x_acc*cos(bump_direction)*D_gain_vel +
+            (desired_x_pos - inputs->cursor.x) * params->P_gain_pos;
+    y_force_bump = (params->bump_velocity*sin(bump_direction)-y_vel)*params->P_gain_vel - y_acc*sin(bump_direction)*D_gain_vel +
+            (desired_y_pos - inputs->cursor.y) * params->P_gain_pos;
     
 	if (isNewState() && getState() == STATE_BUMP){
 		x_force_at_bump_start = x_force_field;
@@ -520,7 +522,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = floor(180*bump_direction/PI);	
-	outputs->status[4] = floor(1000*D_gain);
+	outputs->status[4] = floor(1000*D_gain_vel);
 
  	
 	/* word (2) */

@@ -94,22 +94,22 @@
       <LabParam>
         <Block>Motor Control/MG1</Block>
         <Name>Gain</Name>
-        <Value>-1</Value>
+        <Value>1</Value>
       </LabParam>
       <LabParam>
         <Block>Motor Control/MG2</Block>
         <Name>Gain</Name>
-        <Value>1</Value>
+        <Value>-1</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L1</Block>
         <Name>Value</Name>
-        <Value>24.75</Value>
+        <Value>25.1</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L2</Block>
         <Name>Value</Name>
-        <Value>23.6</Value>
+        <Value>24.1</Value>
       </LabParam>
       <LabParam>
         <Block>BoundingBox/XLowLimit</Block>
@@ -124,7 +124,7 @@
       <LabParam>
         <Block>BoundingBox/XHighLimit</Block>
         <Name>Value</Name>
-        <Value>10</Value>
+        <Value>25</Value>
       </LabParam>
       <LabParam>
         <Block>BoundingBox/YHighLimit</Block>

@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -845,6 +845,13 @@ namespace BehaviorGraphics
             this.textBox2BCCTH = new System.Windows.Forms.TextBox();
             this.label305 = new System.Windows.Forms.Label();
             this.UnstableField = new System.Windows.Forms.TabPage();
+            this.groupBox70 = new System.Windows.Forms.GroupBox();
+            this.textBoxUFM = new System.Windows.Forms.TextBox();
+            this.label352 = new System.Windows.Forms.Label();
+            this.textBoxUFDR = new System.Windows.Forms.TextBox();
+            this.label353 = new System.Windows.Forms.Label();
+            this.textBoxUFPG = new System.Windows.Forms.TextBox();
+            this.label355 = new System.Windows.Forms.Label();
             this.groupBox68 = new System.Windows.Forms.GroupBox();
             this.angleEntryBoxUFFD = new AngleBox.AngleEntryBox();
             this.label342 = new System.Windows.Forms.Label();
@@ -976,13 +983,8 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.groupBox70 = new System.Windows.Forms.GroupBox();
-            this.textBoxUFDR = new System.Windows.Forms.TextBox();
-            this.label353 = new System.Windows.Forms.Label();
-            this.textBoxUFPG = new System.Windows.Forms.TextBox();
-            this.label355 = new System.Windows.Forms.Label();
-            this.textBoxUFM = new System.Windows.Forms.TextBox();
-            this.label352 = new System.Windows.Forms.Label();
+            this.label354 = new System.Windows.Forms.Label();
+            this.textBoxUFPGP = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -1093,6 +1095,7 @@ namespace BehaviorGraphics
             this.groupBox62.SuspendLayout();
             this.groupBox61.SuspendLayout();
             this.UnstableField.SuspendLayout();
+            this.groupBox70.SuspendLayout();
             this.groupBox68.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUFND)).BeginInit();
             this.groupBox67.SuspendLayout();
@@ -1107,7 +1110,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBox70.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -3867,8 +3869,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4700,8 +4702,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -9677,6 +9679,73 @@ namespace BehaviorGraphics
             this.UnstableField.Text = "Unstable Field";
             this.UnstableField.UseVisualStyleBackColor = true;
             // 
+            // groupBox70
+            // 
+            this.groupBox70.Controls.Add(this.label354);
+            this.groupBox70.Controls.Add(this.textBoxUFPGP);
+            this.groupBox70.Controls.Add(this.textBoxUFM);
+            this.groupBox70.Controls.Add(this.label352);
+            this.groupBox70.Controls.Add(this.textBoxUFDR);
+            this.groupBox70.Controls.Add(this.label353);
+            this.groupBox70.Controls.Add(this.textBoxUFPG);
+            this.groupBox70.Controls.Add(this.label355);
+            this.groupBox70.Location = new System.Drawing.Point(421, 159);
+            this.groupBox70.Name = "groupBox70";
+            this.groupBox70.Size = new System.Drawing.Size(200, 134);
+            this.groupBox70.TabIndex = 48;
+            this.groupBox70.TabStop = false;
+            this.groupBox70.Text = "Velocity bump controller";
+            // 
+            // textBoxUFM
+            // 
+            this.textBoxUFM.Location = new System.Drawing.Point(113, 73);
+            this.textBoxUFM.Name = "textBoxUFM";
+            this.textBoxUFM.Size = new System.Drawing.Size(46, 20);
+            this.textBoxUFM.TabIndex = 45;
+            this.toolTip1.SetToolTip(this.textBoxUFM, "in kg");
+            // 
+            // label352
+            // 
+            this.label352.AutoSize = true;
+            this.label352.Location = new System.Drawing.Point(9, 76);
+            this.label352.Name = "label352";
+            this.label352.Size = new System.Drawing.Size(32, 13);
+            this.label352.TabIndex = 46;
+            this.label352.Text = "Mass";
+            // 
+            // textBoxUFDR
+            // 
+            this.textBoxUFDR.Location = new System.Drawing.Point(113, 47);
+            this.textBoxUFDR.Name = "textBoxUFDR";
+            this.textBoxUFDR.Size = new System.Drawing.Size(46, 20);
+            this.textBoxUFDR.TabIndex = 40;
+            // 
+            // label353
+            // 
+            this.label353.AutoSize = true;
+            this.label353.Location = new System.Drawing.Point(9, 24);
+            this.label353.Name = "label353";
+            this.label353.Size = new System.Drawing.Size(54, 13);
+            this.label353.TabIndex = 43;
+            this.label353.Text = "P gain vel";
+            this.toolTip1.SetToolTip(this.label353, "in seconds");
+            // 
+            // textBoxUFPG
+            // 
+            this.textBoxUFPG.Location = new System.Drawing.Point(113, 21);
+            this.textBoxUFPG.Name = "textBoxUFPG";
+            this.textBoxUFPG.Size = new System.Drawing.Size(46, 20);
+            this.textBoxUFPG.TabIndex = 41;
+            // 
+            // label355
+            // 
+            this.label355.AutoSize = true;
+            this.label355.Location = new System.Drawing.Point(9, 50);
+            this.label355.Name = "label355";
+            this.label355.Size = new System.Drawing.Size(72, 13);
+            this.label355.TabIndex = 44;
+            this.label355.Text = "Damping ratio";
+            // 
             // groupBox68
             // 
             this.groupBox68.Controls.Add(this.angleEntryBoxUFFD);
@@ -10935,70 +11004,22 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // groupBox70
+            // label354
             // 
-            this.groupBox70.Controls.Add(this.textBoxUFM);
-            this.groupBox70.Controls.Add(this.label352);
-            this.groupBox70.Controls.Add(this.textBoxUFDR);
-            this.groupBox70.Controls.Add(this.label353);
-            this.groupBox70.Controls.Add(this.textBoxUFPG);
-            this.groupBox70.Controls.Add(this.label355);
-            this.groupBox70.Location = new System.Drawing.Point(421, 172);
-            this.groupBox70.Name = "groupBox70";
-            this.groupBox70.Size = new System.Drawing.Size(200, 121);
-            this.groupBox70.TabIndex = 48;
-            this.groupBox70.TabStop = false;
-            this.groupBox70.Text = "Velocity bump controller";
+            this.label354.AutoSize = true;
+            this.label354.Location = new System.Drawing.Point(9, 102);
+            this.label354.Name = "label354";
+            this.label354.Size = new System.Drawing.Size(57, 13);
+            this.label354.TabIndex = 48;
+            this.label354.Text = "P gain pos";
+            this.toolTip1.SetToolTip(this.label354, "in seconds");
             // 
-            // textBoxUFDR
+            // textBoxUFPGP
             // 
-            this.textBoxUFDR.Location = new System.Drawing.Point(113, 47);
-            this.textBoxUFDR.Name = "textBoxUFDR";
-            this.textBoxUFDR.Size = new System.Drawing.Size(46, 20);
-            this.textBoxUFDR.TabIndex = 40;
-            // 
-            // label353
-            // 
-            this.label353.AutoSize = true;
-            this.label353.Location = new System.Drawing.Point(9, 24);
-            this.label353.Name = "label353";
-            this.label353.Size = new System.Drawing.Size(37, 13);
-            this.label353.TabIndex = 43;
-            this.label353.Text = "P gain";
-            this.toolTip1.SetToolTip(this.label353, "in seconds");
-            // 
-            // textBoxUFPG
-            // 
-            this.textBoxUFPG.Location = new System.Drawing.Point(113, 21);
-            this.textBoxUFPG.Name = "textBoxUFPG";
-            this.textBoxUFPG.Size = new System.Drawing.Size(46, 20);
-            this.textBoxUFPG.TabIndex = 41;
-            // 
-            // label355
-            // 
-            this.label355.AutoSize = true;
-            this.label355.Location = new System.Drawing.Point(9, 50);
-            this.label355.Name = "label355";
-            this.label355.Size = new System.Drawing.Size(72, 13);
-            this.label355.TabIndex = 44;
-            this.label355.Text = "Damping ratio";
-            // 
-            // textBoxUFM
-            // 
-            this.textBoxUFM.Location = new System.Drawing.Point(113, 73);
-            this.textBoxUFM.Name = "textBoxUFM";
-            this.textBoxUFM.Size = new System.Drawing.Size(46, 20);
-            this.textBoxUFM.TabIndex = 45;
-            this.toolTip1.SetToolTip(this.textBoxUFM, "in kg");
-            // 
-            // label352
-            // 
-            this.label352.AutoSize = true;
-            this.label352.Location = new System.Drawing.Point(9, 76);
-            this.label352.Name = "label352";
-            this.label352.Size = new System.Drawing.Size(32, 13);
-            this.label352.TabIndex = 46;
-            this.label352.Text = "Mass";
+            this.textBoxUFPGP.Location = new System.Drawing.Point(113, 99);
+            this.textBoxUFPGP.Name = "textBoxUFPGP";
+            this.textBoxUFPGP.Size = new System.Drawing.Size(46, 20);
+            this.textBoxUFPGP.TabIndex = 47;
             // 
             // UpdateForm
             // 
@@ -11200,6 +11221,8 @@ namespace BehaviorGraphics
             this.groupBox61.ResumeLayout(false);
             this.groupBox61.PerformLayout();
             this.UnstableField.ResumeLayout(false);
+            this.groupBox70.ResumeLayout(false);
+            this.groupBox70.PerformLayout();
             this.groupBox68.ResumeLayout(false);
             this.groupBox68.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUFND)).EndInit();
@@ -11223,8 +11246,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBox70.ResumeLayout(false);
-            this.groupBox70.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -12184,5 +12205,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label353;
         private System.Windows.Forms.TextBox textBoxUFPG;
         private System.Windows.Forms.Label label355;
+        private System.Windows.Forms.Label label354;
+        private System.Windows.Forms.TextBox textBoxUFPGP;
     }
 }

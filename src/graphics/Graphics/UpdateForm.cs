@@ -804,6 +804,7 @@ namespace BehaviorGraphics
             AddParamListItem("UF PG", "P23", "Behavior UF", this.textBoxUFPG);
             AddParamListItem("UF DR", "P24", "Behavior UF", this.textBoxUFDR);
             AddParamListItem("UF M", "P25", "Behavior UF", this.textBoxUFM);
+            AddParamListItem("UF PGP", "P26", "Behavior UF", this.textBoxUFPGP);
 
             #endregion
         }
