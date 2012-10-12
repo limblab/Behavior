@@ -723,46 +723,35 @@ namespace BehaviorGraphics
             #region Bump direction psychophysics
             // Timing
             AddParamListItem("2BC CT Hold", "P10", "Behavior 2BC", textBox2BCCTH);
-            AddParamListItem("2BC CT Delay", "P11", "Behavior 2BC", textBox2BCCTD);
+            AddParamListItem("2BC Bump Delay", "P11", "Behavior 2BC", textBox2BC_bump_delay);
             AddParamListItem("2BC Bump Hold", "P12", "Behavior 2BC", textBox2BCBH);
             AddParamListItem("2BC intertrial", "P13", "Behavior 2BC", textBox2BCInt);
-            AddParamListItem("2BC penalty", "P21", "Behavior 2BC", textBox2BCPenalty);
-            AddParamListItem("2BC Recenter cursor", "P25", "Behavior 2BC", checkBox2BCRecenter);
+            AddParamListItem("2BC penalty", "P17", "Behavior 2BC", textBox2BCPenalty);
+            AddParamListItem("2BC Recenter cursor", "P18", "Behavior 2BC", checkBox2BCRecenter);
 
             // Bump
             AddParamListItem("2BC Bump Mag", "P7", "Behavior 2BC", textBox2BCBA);
             AddParamListItem("2BC Bump Dur", "P8", "Behavior 2BC", textBox2BCPD);
             AddParamListItem("2BC Bump RT", "P9", "Behavior 2BC", textBox2BCRT);
-            AddParamListItem("2BC Use Random Bumps", "P30", "Behavior 2BC", checkBox2BC_rand_bumps);
-            AddParamListItem("2BC Rand Bump Floor", "P31", "Behavior 2BC", textBox2BC_rand_bump_floor);
-            AddParamListItem("2BC Rand Bump Ceil", "P32", "Behavior 2BC", textBox2BC_rand_bump_ceil);
-            AddParamListItem("2BC Rand Bump Skew", "P33", "Behavior 2BC", textBox2BC_rand_bump_skew);
+            AddParamListItem("2BC Rand Bump Floor", "P23", "Behavior 2BC", textBox2BC_rand_bump_floor);
+            AddParamListItem("2BC Rand Bump Ceil", "P24", "Behavior 2BC", textBox2BC_rand_bump_ceil);
+            AddParamListItem("2BC Bump Angle Increment", "P26", "Behavior 2BC", textBox2BC_bump_incr);
 
             // Stim
-            AddParamListItem("2BC Stim Prob", "P20", "Behavior 2BC", textBox2BCStimProb);
-
-            // Staircase
-            AddParamListItem("2BC SC Run", "P14", "Behavior 2BC", checkBox2BCRS);
-            AddParamListItem("2BC SC Step", "P15", "Behavior 2BC", textBox2BCSCStep);
-            AddParamListItem("2BC SC Use Bottom", "P16", "Behavior 2BC", checkBox2BCBS);
-            AddParamListItem("2BC SC Reset", "P2", "Behavior 2BC", numericUpDown2BCSCR);
-            AddParamListItem("2BC SC Limits", "P19", "Behavior 2BC", checkBox2BCSCLimit);
-            AddParamListItem("2BC SC Start", "P22", "Behavior 2BC", textBox2BCSCS);
-            AddParamListItem("2BC SC Ratio", "P23", "Behavior 2BC", numericUpDown2BCSR);
-            AddParamListItem("2BC SC Single", "P24", "Behavior 2BC", checkBox2BDSS);
+            AddParamListItem("2BC Stim Prob", "P16", "Behavior 2BC", textBox2BCStimProb);
 
             // Targets
             AddParamListItem("2BC Targ Rad", "P3", "Behavior 2BC", textBox2BCTR);
             AddParamListItem("2BC Targ Dist", "P4", "Behavior 2BC", textBox2BCTD);
             AddParamListItem("2BC Targ Grow", "P5", "Behavior 2BC", textBox2BCBTR);
             AddParamListItem("2BC Targ Ang", "P6", "Behavior 2BC", angleEntryBox2BCAng);
-            AddParamListItem("2BC Targ Green", "P17", "Behavior 2BC", checkBox2BCGT);
-            AddParamListItem("2BC Hide Cursor", "P18", "Behavior 2BC", checkBox2BCHC);
-            AddParamListItem("2BC Use Random Targets","P27","Behavior 2BC", checkBox2BC_rand_tgts);
-            AddParamListItem("2BC Rand Targ Floor", "P28", "Behavior 2BC", textBox2BC_rand_tgt_floor);
-            AddParamListItem("2BC Rand Targ Ceil", "P29", "Behavior 2BC", textBox2BC_rand_tgt_ceil);
-            AddParamListItem("2BC show tgt during bump", "P34", "Behavior 2BC", checkBox2BC_showtgt_bump);
-            AddParamListItem("2BC training freq", "P26", "Behavior 2BC", textBox2BC_training_freq);
+            AddParamListItem("2BC Targ Green", "P14", "Behavior 2BC", checkBox2BCGT);
+            AddParamListItem("2BC Hide Cursor", "P15", "Behavior 2BC", checkBox2BCHC);
+            AddParamListItem("2BC Use Random Targets","P20","Behavior 2BC", checkBox2BC_rand_tgts);
+            AddParamListItem("2BC Rand Targ Floor", "P21", "Behavior 2BC", textBox2BC_rand_tgt_floor);
+            AddParamListItem("2BC Rand Targ Ceil", "P22", "Behavior 2BC", textBox2BC_rand_tgt_ceil);
+            AddParamListItem("2BC show tgt during bump", "P25", "Behavior 2BC", checkBox2BC_showtgt_bump);
+            AddParamListItem("2BC training freq", "P18", "Behavior 2BC", textBox2BC_training_freq);
 
             #endregion
 
