@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1319"
+    ComputedModelVersion    "1.1327"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Oct 05 10:39:41 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1319>"
+  LastModifiedDate	  "Fri Oct 12 15:03:38 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1327>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -876,7 +876,7 @@ Model {
       System {
 	Name			"BoundingBox"
 	Location		[49, 82, 883, 612]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1861,7 +1861,7 @@ Model {
       System {
 	Name			"Motor Control"
 	Location		[4, 82, 1008, 722]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1901,10 +1901,26 @@ Model {
 	  IconDisplay		  "Port number"
 	}
 	Block {
+	  BlockType		  Abs
+	  Name			  "Abs"
+	  Position		  [740, 480, 770, 510]
+	  Orientation		  "left"
+	  NamePlacement		  "alternate"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Abs
+	  Name			  "Abs1"
+	  Position		  [745, 530, 775, 560]
+	  Orientation		  "left"
+	  NamePlacement		  "alternate"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
 	  BlockType		  Reference
-	  Name			  "Compare\nTo Constant"
+	  Name			  "Compare\nTo Constant1"
 	  Ports			  [1, 1]
-	  Position		  [665, 490, 695, 520]
+	  Position		  [665, 530, 695, 560]
 	  Orientation		  "left"
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
 "\nTo Constant"
@@ -1924,9 +1940,9 @@ Model {
 	}
 	Block {
 	  BlockType		  Reference
-	  Name			  "Compare\nTo Constant1"
+	  Name			  "Compare\nTo Constant2"
 	  Ports			  [1, 1]
-	  Position		  [665, 555, 695, 585]
+	  Position		  [665, 480, 695, 510]
 	  Orientation		  "left"
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
 "\nTo Constant"
@@ -2198,6 +2214,20 @@ Model {
 	  mode			  "Lazy"
 	  writesize		  "512"
 	  autorestart		  off
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation"
+	  Position		  [885, 260, 915, 290]
+	  UpperLimit		  "8"
+	  LowerLimit		  "-8"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation1"
+	  Position		  [880, 380, 910, 410]
+	  UpperLimit		  "8"
+	  LowerLimit		  "-8"
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -2566,17 +2596,17 @@ Model {
 	  SrcPort		  1
 	  Points		  [15, 0]
 	  Branch {
-	    Points		    [0, 230]
-	    DstBlock		    "Compare\nTo Constant"
-	    DstPort		    1
-	  }
-	  Branch {
 	    Points		    [0, -150]
 	    DstBlock		    "Mux"
 	    DstPort		    2
 	  }
 	  Branch {
-	    DstBlock		    "PCI-6025E "
+	    Points		    [0, 220]
+	    DstBlock		    "Abs"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Saturation"
 	    DstPort		    1
 	  }
 	}
@@ -2585,18 +2615,18 @@ Model {
 	  SrcPort		  1
 	  Points		  [25, 0]
 	  Branch {
-	    Points		    [0, 175]
-	    DstBlock		    "Compare\nTo Constant1"
-	    DstPort		    1
-	  }
-	  Branch {
 	    Points		    [0, -240]
 	    DstBlock		    "Mux"
 	    DstPort		    3
 	  }
 	  Branch {
-	    DstBlock		    "PCI-6025E "
-	    DstPort		    2
+	    Points		    [0, 150]
+	    DstBlock		    "Abs1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Saturation1"
+	    DstPort		    1
 	  }
 	}
 	Line {
@@ -2667,16 +2697,15 @@ Model {
 	  }
 	}
 	Line {
-	  SrcBlock		  "Compare\nTo Constant"
+	  SrcBlock		  "Compare\nTo Constant2"
 	  SrcPort		  1
-	  Points		  [-15, 0; 0, 25]
+	  Points		  [-15, 0; 0, 35]
 	  DstBlock		  "Logical\nOperator1"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Compare\nTo Constant1"
 	  SrcPort		  1
-	  Points		  [-15, 0; 0, -25]
 	  DstBlock		  "Logical\nOperator1"
 	  DstPort		  2
 	}
@@ -2736,6 +2765,30 @@ Model {
 	  DstBlock		  "Xpos"
 	  DstPort		  1
 	}
+	Line {
+	  SrcBlock		  "Abs"
+	  SrcPort		  1
+	  DstBlock		  "Compare\nTo Constant2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Abs1"
+	  SrcPort		  1
+	  DstBlock		  "Compare\nTo Constant1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation1"
+	  SrcPort		  1
+	  DstBlock		  "PCI-6025E "
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Saturation"
+	  SrcPort		  1
+	  DstBlock		  "PCI-6025E "
+	  DstPort		  1
+	}
       }
     }
     Block {
@@ -2788,7 +2841,7 @@ Model {
 	  Name			  "Bounding Box Viscosity"
 	  Position		  [1030, 84, 1130, 116]
 	  NamePlacement		  "alternate"
-	  Gain			  "-0.001"
+	  Gain			  "-0.025"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -3178,7 +3231,7 @@ Model {
 	  System {
 	    Name		    "PD Controller"
 	    Location		    [100, 127, 970, 784]
-	    Open		    off
+	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -3257,7 +3310,7 @@ Model {
 	      Name		      "Gain1"
 	      Position		      [360, 165, 420, 195]
 	      NamePlacement	      "alternate"
-	      Gain		      "-.001"
+	      Gain		      "-.025"
 	      ParameterDataTypeMode   "Inherit via internal rule"
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -3267,7 +3320,7 @@ Model {
 	      Name		      "Gain2"
 	      Position		      [360, 230, 420, 260]
 	      NamePlacement	      "alternate"
-	      Gain		      "-.001"
+	      Gain		      "-.025"
 	      ParameterDataTypeMode   "Inherit via internal rule"
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -3277,7 +3330,7 @@ Model {
 	      Name		      "Gain3"
 	      Position		      [280, 65, 340, 95]
 	      NamePlacement	      "alternate"
-	      Gain		      "-.0002"
+	      Gain		      "-.0026"
 	      ParameterDataTypeMode   "Inherit via internal rule"
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -3287,7 +3340,7 @@ Model {
 	      Name		      "Gain4"
 	      Position		      [280, 320, 340, 350]
 	      NamePlacement	      "alternate"
-	      Gain		      "-.0002"
+	      Gain		      "-.0026"
 	      ParameterDataTypeMode   "Inherit via internal rule"
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -3325,15 +3378,15 @@ Model {
 	      BlockType		      Saturate
 	      Name		      "Saturation"
 	      Position		      [530, 160, 560, 190]
-	      UpperLimit	      ".01"
-	      LowerLimit	      "-0.01"
+	      UpperLimit	      ".25"
+	      LowerLimit	      "-0.25"
 	    }
 	    Block {
 	      BlockType		      Saturate
 	      Name		      "Saturation1"
 	      Position		      [530, 240, 560, 270]
-	      UpperLimit	      ".01"
-	      LowerLimit	      "-0.01"
+	      UpperLimit	      ".13"
+	      LowerLimit	      "-0.13"
 	    }
 	    Block {
 	      BlockType		      Outport

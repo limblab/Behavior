@@ -425,7 +425,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
    
     // Force field damping coefficient
     real_T b;
-    b = 0.01*2*sqrt(params->mass * params->positive_stiffness);  // Assuming 0.5kg mass    
+    b = 0.05*2*sqrt(params->mass * params->positive_stiffness);  // Assuming 0.5kg mass    
     
     //int i;
     x_vel = inputs->catchForce.x;  // Passing velocity signal through catch force port
@@ -510,8 +510,8 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 			break;
         case STATE_REWARD:
         case STATE_ABORT:
-            outputs->force.x = -x_vel*0.0005;
-            outputs->force.y = -y_vel*0.0005;
+            outputs->force.x = -x_vel*0.012;
+            outputs->force.y = -y_vel*0.012;
             break;
 		default:
 			outputs->force = Point(0,0);

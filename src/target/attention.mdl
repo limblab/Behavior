@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1290"
+    ComputedModelVersion    "1.1291"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jun 14 12:45:09 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1290>"
+  LastModifiedDate	  "Fri Oct 12 13:12:03 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1291>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -2599,7 +2599,7 @@ Model {
       System {
 	Name			"Motor Control"
 	Location		[4, 82, 1008, 722]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2843,7 +2843,7 @@ Model {
 	  BlockType		  Gain
 	  Name			  "MG1"
 	  Position		  [725, 259, 790, 291]
-	  Gain			  "-1"
+	  Gain			  "0.075"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -2852,7 +2852,7 @@ Model {
 	  BlockType		  Gain
 	  Name			  "MG2"
 	  Position		  [725, 380, 795, 410]
-	  Gain			  "0.7752"
+	  Gain			  "-0.0915"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off

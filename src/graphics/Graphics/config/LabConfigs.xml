@@ -94,12 +94,12 @@
       <LabParam>
         <Block>Motor Control/MG1</Block>
         <Name>Gain</Name>
-        <Value>1</Value>
+        <Value>0.075</Value>
       </LabParam>
       <LabParam>
         <Block>Motor Control/MG2</Block>
         <Name>Gain</Name>
-        <Value>-1.22</Value>
+        <Value>-0.0915</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L1</Block>
