@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1327"
+    ComputedModelVersion    "1.1338"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Oct 12 15:03:38 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1327>"
+  LastModifiedDate	  "Mon Oct 15 08:47:45 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1338>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -1860,8 +1860,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[4, 82, 1008, 722]
-	Open			off
+	Location		[4, 82, 991, 722]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1903,7 +1903,7 @@ Model {
 	Block {
 	  BlockType		  Abs
 	  Name			  "Abs"
-	  Position		  [740, 480, 770, 510]
+	  Position		  [740, 530, 770, 560]
 	  Orientation		  "left"
 	  NamePlacement		  "alternate"
 	  SaturateOnIntegerOverflow off
@@ -1911,7 +1911,7 @@ Model {
 	Block {
 	  BlockType		  Abs
 	  Name			  "Abs1"
-	  Position		  [745, 530, 775, 560]
+	  Position		  [745, 580, 775, 610]
 	  Orientation		  "left"
 	  NamePlacement		  "alternate"
 	  SaturateOnIntegerOverflow off
@@ -1919,6 +1919,28 @@ Model {
 	Block {
 	  BlockType		  Reference
 	  Name			  "Compare\nTo Constant1"
+	  Ports			  [1, 1]
+	  Position		  [665, 580, 695, 610]
+	  Orientation		  "left"
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
+"\nTo Constant"
+	  SourceType		  "Compare To Constant"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  relop			  ">"
+	  const			  "1000"
+	  LogicOutDataTypeMode	  "uint8"
+	  ZeroCross		  off
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Compare\nTo Constant2"
 	  Ports			  [1, 1]
 	  Position		  [665, 530, 695, 560]
 	  Orientation		  "left"
@@ -1934,31 +1956,25 @@ Model {
 	  RTWMemSecDataInternal	  "Inherit from model"
 	  RTWMemSecDataParameters "Inherit from model"
 	  relop			  ">"
-	  const			  "100"
+	  const			  "1000"
 	  LogicOutDataTypeMode	  "uint8"
 	  ZeroCross		  off
 	}
 	Block {
-	  BlockType		  Reference
-	  Name			  "Compare\nTo Constant2"
-	  Ports			  [1, 1]
-	  Position		  [665, 480, 695, 510]
-	  Orientation		  "left"
-	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
-"\nTo Constant"
-	  SourceType		  "Compare To Constant"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
-	  relop			  ">"
-	  const			  "100"
-	  LogicOutDataTypeMode	  "uint8"
-	  ZeroCross		  off
+	  BlockType		  DataTypeConversion
+	  Name			  "Data Type Conversion"
+	  Position		  [210, 423, 285, 457]
+	  OutDataTypeMode	  "double"
+	  RndMeth		  "Floor"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  DataTypeConversion
+	  Name			  "Data Type Conversion1"
+	  Position		  [325, 368, 400, 402]
+	  OutDataTypeMode	  "double"
+	  RndMeth		  "Floor"
+	  SaturateOnIntegerOverflow off
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -2111,7 +2127,7 @@ Model {
 	  BlockType		  Logic
 	  Name			  "Logical\nOperator1"
 	  Ports			  [2, 1]
-	  Position		  [565, 522, 595, 553]
+	  Position		  [565, 572, 595, 603]
 	  Orientation		  "left"
 	  Operator		  "OR"
 	  AllPortsSameDT	  off
@@ -2138,14 +2154,15 @@ Model {
 	Block {
 	  BlockType		  Concatenate
 	  Name			  "Matrix\nConcatenation"
-	  Ports			  [2, 1]
-	  Position		  [340, 439, 395, 481]
+	  Ports			  [4, 1]
+	  Position		  [385, 434, 440, 476]
+	  NumInputs		  "4"
 	  Mode			  "Vector"
 	}
 	Block {
 	  BlockType		  Memory
 	  Name			  "Memory"
-	  Position		  [500, 525, 530, 555]
+	  Position		  [500, 575, 530, 605]
 	  Orientation		  "left"
 	}
 	Block {
@@ -2183,7 +2200,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Recenter/ServoKill"
 	  Ports			  [1]
-	  Position		  [430, 440, 500, 480]
+	  Position		  [460, 435, 530, 475]
 	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
 	  SourceType		  "xpcscopeblock"
 	  ShowPortLabels	  "FromPortIcon"
@@ -2198,7 +2215,8 @@ Model {
 	  scopetype		  "Target"
 	  autostart		  on
 	  viewmode		  "Numerical"
-	  formatstr		  "'%6.0f Control,%6.0f ServoKill'"
+	  formatstr		  "'%6.0f Control,%6.0f ServoKill',%15.2f M1 c"
+"ommand,%15.2f M2 command"
 	  grid			  on
 	  ylimits		  "[-10,10]"
 	  nosamples		  "10"
@@ -2233,7 +2251,7 @@ Model {
 	  BlockType		  SubSystem
 	  Name			  "Schmidt"
 	  Ports			  [1, 1]
-	  Position		  [375, 519, 475, 561]
+	  Position		  [375, 569, 475, 611]
 	  Orientation		  "left"
 	  MinAlgLoopOccurrences	  off
 	  RTWSystemCode		  "Auto"
@@ -2601,13 +2619,21 @@ Model {
 	    DstPort		    2
 	  }
 	  Branch {
-	    Points		    [0, 220]
-	    DstBlock		    "Abs"
+	    DstBlock		    "Saturation"
 	    DstPort		    1
 	  }
 	  Branch {
-	    DstBlock		    "Saturation"
-	    DstPort		    1
+	    Points		    [0, 215]
+	    Branch {
+	      Points		      [0, 55]
+	      DstBlock		      "Abs"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [-440, 0]
+	      DstBlock		      "Matrix\nConcatenation"
+	      DstPort		      3
+	    }
 	  }
 	}
 	Line {
@@ -2620,13 +2646,21 @@ Model {
 	    DstPort		    3
 	  }
 	  Branch {
-	    Points		    [0, 150]
-	    DstBlock		    "Abs1"
+	    DstBlock		    "Saturation1"
 	    DstPort		    1
 	  }
 	  Branch {
-	    DstBlock		    "Saturation1"
-	    DstPort		    1
+	    Points		    [0, 125]
+	    Branch {
+	      Points		      [0, 75]
+	      DstBlock		      "Abs1"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [-510, 0; 0, -50]
+	      DstBlock		      "Matrix\nConcatenation"
+	      DstPort		      4
+	    }
 	  }
 	}
 	Line {
@@ -2685,15 +2719,15 @@ Model {
 	Line {
 	  SrcBlock		  "Schmidt"
 	  SrcPort		  1
-	  Points		  [-65, 0; 0, -70]
+	  Points		  [-80, 0; 0, -205]
 	  Branch {
-	    Points		    [0, -195]
+	    Points		    [0, -110]
 	    DstBlock		    "Switch2"
 	    DstPort		    2
 	  }
 	  Branch {
-	    DstBlock		    "Matrix\nConcatenation"
-	    DstPort		    2
+	    DstBlock		    "Data Type Conversion1"
+	    DstPort		    1
 	  }
 	}
 	Line {
@@ -2742,8 +2776,8 @@ Model {
 	    DstPort		    2
 	  }
 	  Branch {
-	    Points		    [0, 150]
-	    DstBlock		    "Matrix\nConcatenation"
+	    Points		    [-10, 0]
+	    DstBlock		    "Data Type Conversion"
 	    DstPort		    1
 	  }
 	}
@@ -2789,6 +2823,19 @@ Model {
 	  DstBlock		  "PCI-6025E "
 	  DstPort		  1
 	}
+	Line {
+	  SrcBlock		  "Data Type Conversion"
+	  SrcPort		  1
+	  DstBlock		  "Matrix\nConcatenation"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Data Type Conversion1"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, 40; -55, 0; 0, 25]
+	  DstBlock		  "Matrix\nConcatenation"
+	  DstPort		  2
+	}
       }
     }
     Block {
@@ -2802,7 +2849,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Recentering Subsystem"
-	Location		[-4, 85, 983, 725]
+	Location		[2, 74, 1005, 700]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -3310,7 +3357,7 @@ Model {
 	      Name		      "Gain1"
 	      Position		      [360, 165, 420, 195]
 	      NamePlacement	      "alternate"
-	      Gain		      "-.025"
+	      Gain		      "-.5"
 	      ParameterDataTypeMode   "Inherit via internal rule"
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -3320,7 +3367,7 @@ Model {
 	      Name		      "Gain2"
 	      Position		      [360, 230, 420, 260]
 	      NamePlacement	      "alternate"
-	      Gain		      "-.025"
+	      Gain		      "-.5"
 	      ParameterDataTypeMode   "Inherit via internal rule"
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -3379,14 +3426,14 @@ Model {
 	      Name		      "Saturation"
 	      Position		      [530, 160, 560, 190]
 	      UpperLimit	      ".25"
-	      LowerLimit	      "-0.25"
+	      LowerLimit	      "-.25"
 	    }
 	    Block {
 	      BlockType		      Saturate
 	      Name		      "Saturation1"
 	      Position		      [530, 240, 560, 270]
-	      UpperLimit	      ".13"
-	      LowerLimit	      "-0.13"
+	      UpperLimit	      ".25"
+	      LowerLimit	      "-.25"
 	    }
 	    Block {
 	      BlockType		      Outport
