@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1347"
+    ComputedModelVersion    "1.1349"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Oct 15 16:41:03 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1347>"
+  LastModifiedDate	  "Mon Oct 15 17:22:26 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1349>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -2215,8 +2215,8 @@ Model {
 	  scopetype		  "Target"
 	  autostart		  on
 	  viewmode		  "Numerical"
-	  formatstr		  "'%6.0f Control,%6.0f ServoKill',%15.2f M1 c"
-"ommand,%15.2f M2 command"
+	  formatstr		  "'%15.2f Control,%15.2f ServoKill ,%15.2f M1"
+" command,%15.2f M2 command'"
 	  grid			  on
 	  ylimits		  "[-10,10]"
 	  nosamples		  "10"
@@ -2850,7 +2850,7 @@ Model {
       System {
 	Name			"Recentering Subsystem"
 	Location		[2, 82, 989, 708]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -3278,7 +3278,7 @@ Model {
 	  System {
 	    Name		    "PD Controller"
 	    Location		    [100, 127, 970, 784]
-	    Open		    on
+	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
