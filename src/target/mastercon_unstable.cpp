@@ -27,12 +27,12 @@
  * bytes 14 to 17: float => bump velocity (cm/s)
  * bytes 18 to 21: float => bump direction (rad)
  * bytes 22 to 25: float => bump duration (s)
- * bytes 26 to 29: float => negative stiffness (N/m?)
- * bytes 30 to 33: float => positive stiffness (N/m?)
+ * bytes 26 to 29: float => negative stiffness (N/cm)
+ * bytes 30 to 33: float => positive stiffness (N/cm)
  * bytes 34 to 37: float => force field angle (rad)
- * bytes 38 to 41: float => bias force magnitude (N?)
+ * bytes 38 to 41: float => bias force magnitude (N)
  * bytes 42 to 45: float => bias force angle (rad)
- * bytes 46 to 49: float => force target diameter (N?)
+ * bytes 46 to 49: float => force target diameter (N)
  *
  * Version 2 (0x02)
  * ----------------
@@ -425,7 +425,8 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
    
     // Force field damping coefficient
     real_T b;
-    b = 0.05*2*sqrt(params->mass * params->positive_stiffness);  // Assuming 0.5kg mass    
+    //b = 0.05*2*sqrt(params->mass * params->positive_stiffness);
+    b = .1*2*sqrt(params->mass * params->positive_stiffness*100)/100; // [N/cm/s]?
     
     //int i;
     x_vel = inputs->catchForce.x;  // Passing velocity signal through catch force port
@@ -433,7 +434,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     vel = sqrt(x_vel*x_vel + y_vel*y_vel);     
     
     // Velocity bump P,D values
-    real_T D_gain_vel = params->controller_damping_ratio * 2 * sqrt(params->mass * params->P_gain_vel);
+    real_T D_gain_vel = params->controller_damping_ratio * 2 * sqrt(params->mass * params->P_gain_vel * 100)/100;
     real_T x_force_bump;
     real_T y_force_bump;
     real_T x_acc = (x_vel - x_vel_old)/1000;
