@@ -156,6 +156,8 @@ struct LocalParams{
     real_T controller_damping_ratio;
     real_T mass;
     real_T P_gain_pos;
+    
+    real_T force_field_damping;
 };
 
 /**
@@ -197,6 +199,11 @@ private:
     real_T x_vel_old;
     real_T y_vel_old;
     
+    real_T x_pos;
+    real_T y_pos;
+    real_T x_pos_old;
+    real_T y_pos_old;
+    
     real_T field_angle;
     
     int trial_counter;
@@ -217,7 +224,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(26);
+	this->setNumParams(27);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->field_ramp_up,							 1);
@@ -252,8 +259,10 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->mass,                                     24);
     this->bindParamId(&params->P_gain_pos,                               25);
     
+    this->bindParamId(&params->force_field_damping,                      26);
+    
     // default parameters:
-    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0
+    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -281,6 +290,9 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     block_counter = 10000; 
     trial_counter = 10000; // Stupidly large number so that the blocks are reset in first pretrial.
     field_angle = 0;
+    
+    x_pos_old = 0;
+    y_pos_old = 0;
     
     x_vel_old = 0;
     y_vel_old = 0;
@@ -426,25 +438,30 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     // Force field damping coefficient
     real_T b;
     //b = 0.05*2*sqrt(params->mass * params->positive_stiffness);
-    b = .1*2*sqrt(params->mass * params->positive_stiffness*100)/100; // [N/cm/s]?
+    b = params->force_field_damping;
+    //b = .1*2*sqrt(params->mass * params->positive_stiffness*100)/100; // [N/cm/s]?
+    x_pos = inputs->cursor.x;
+    y_pos = inputs->cursor.y;
     
     //int i;
-    x_vel = inputs->catchForce.x;  // Passing velocity signal through catch force port
-    y_vel = inputs->catchForce.y;
+    //x_vel = inputs->catchForce.x;  // Passing velocity signal through catch force port
+    //y_vel = inputs->catchForce.y;
+    x_vel = (x_pos-x_pos_old)/.001;
+    y_vel = (y_pos-y_pos_old)/.001;
     vel = sqrt(x_vel*x_vel + y_vel*y_vel);     
     
     // Velocity bump P,D values
-    real_T D_gain_vel = params->controller_damping_ratio * 2 * sqrt(params->mass * params->P_gain_vel * 100)/100;
+    real_T D_gain_vel = params->controller_damping_ratio;
     real_T x_force_bump;
     real_T y_force_bump;
-    real_T x_acc = (x_vel - x_vel_old)/1000;
-    real_T y_acc = (y_vel - y_vel_old)/1000;
+    real_T x_acc = (x_vel - x_vel_old)/.001;
+    real_T y_acc = (y_vel - y_vel_old)/.001;
     real_T desired_x_pos;
     real_T desired_y_pos;
     
     if (getState() == STATE_BUMP){
-        desired_x_pos = x_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S)/1000 * cos(bump_direction);
-        desired_y_pos = y_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S)/1000 * sin(bump_direction);
+        desired_x_pos = x_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S)/.001 * cos(bump_direction);
+        desired_y_pos = y_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S)/.001 * sin(bump_direction);
     }
     
     /* force (0) */
@@ -608,6 +625,8 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 			outputs->position = inputs->cursor;
 	}        
     
+    x_pos_old = x_pos;
+    y_pos_old = y_pos;    
     x_vel_old = x_vel;
     y_vel_old = y_vel;
 }

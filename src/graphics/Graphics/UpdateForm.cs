@@ -795,6 +795,9 @@ namespace BehaviorGraphics
             AddParamListItem("UF M", "P25", "Behavior UF", this.textBoxUFM);
             AddParamListItem("UF PGP", "P26", "Behavior UF", this.textBoxUFPGP);
 
+            //Field damping
+            AddParamListItem("UF FDamp", "P27", "Behavior UF", this.textBoxUFFDamp);
+
             #endregion
         }
 
