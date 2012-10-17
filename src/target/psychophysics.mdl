@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1261"
+    ComputedModelVersion    "1.1264"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Sep 12 14:47:08 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1261>"
+  LastModifiedDate	  "Thu Oct 11 20:55:02 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1264>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -854,7 +854,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_3bc"
       Parameters	      "0 0 2 10 4 0 .1 0 .25 .5 .5 1 .5 1 5 0 1 1 0 0 "
-"0 0 3 0 0 0 0 0 0 0 0 0 0 0"
+"0 0 0 0 0 0 0 "
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'force')\nport_label('input',3,'catch force')\npor"
 "t_label('output',1,'force')\nport_label('output',2,'status')\nport_label('out"
@@ -1827,7 +1827,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Force Generator"
-	Location		[2, 82, 1278, 978]
+	Location		[2, 82, 1006, 739]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2875,7 +2875,8 @@ Model {
 	Block {
 	  BlockType		  Gain
 	  Name			  "MG2"
-	  Position		  [725, 380, 775, 410]
+	  Position		  [715, 379, 775, 411]
+	  Gain			  ".7752"
 	  ParameterDataTypeMode	  "Inherit via internal rule"
 	  OutDataTypeMode	  "Inherit via internal rule"
 	  SaturateOnIntegerOverflow off

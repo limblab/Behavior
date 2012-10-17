@@ -287,6 +287,9 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	/* Select whether this will be a training trial 
 	*  If the training frequency is zero we should not see any training trials*/
 	training_trial=(this->random->getDouble() < params->training_frequency);
+    
+    /* Select whether this will be a stimulation trial */
+    this->stim_trial=(this->random->getDouble() < params->stim_prob);
 
 	/* setup the databurst */
 	db->reset();
@@ -460,8 +463,9 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 // 	outputs->status[2] = trialCounter->failures;
 // 	outputs->status[3] = (int)(this->bump_dir);
 // 	outputs->status[4] = params->bump_magnitude;
-	outputs->status[0] = this->tgt_angle;
-	outputs->status[1] = this->bump_dir;
+  
+    outputs->status[0] = bump->isRunning(S);
+	outputs->status[1] = (int)params->bump_delay_time*100;
     outputs->status[2] = (int)(0.5+this->bump->direction * 180/PI);
 	outputs->status[3] = (int)(this->bump->peak_magnitude*100);
 	outputs->status[4] = (int)(params->bump_magnitude*100);
