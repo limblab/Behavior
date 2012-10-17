@@ -460,8 +460,8 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     real_T desired_y_pos;
     
     if (getState() == STATE_BUMP){
-        desired_x_pos = x_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S)/.001 * cos(bump_direction);
-        desired_y_pos = y_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S)/.001 * sin(bump_direction);
+        desired_x_pos = x_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S) * cos(bump_direction);
+        desired_y_pos = y_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S) * sin(bump_direction);
     }
     
     /* force (0) */
