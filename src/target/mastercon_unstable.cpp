@@ -206,6 +206,8 @@ private:
     
     real_T field_angle;
     
+    real_T old_block_length;
+    
     int trial_counter;
     int block_counter;
     int block_order [10];
@@ -319,6 +321,11 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	x_force_at_bump_start = 0;
 	y_force_at_bump_start = 0;
     
+    if (old_block_length != params->field_block_length) {
+        trial_counter = 10000;
+        block_counter = 10000;
+    }
+        
     if (trial_counter >= params->field_block_length-1){
         trial_counter = -1;
         block_counter++;
@@ -359,7 +366,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
 }
 
-void AttentionBehavior::update(SimStruct *S) {
+void AttentionBehavior::update(SimStruct *S) {    
     real_T force_to_position = params->target_diameter/params->force_target_diameter;     
     
     // Force cursor
@@ -377,6 +384,7 @@ void AttentionBehavior::update(SimStruct *S) {
 	// State machine
     switch (this->getState()) {
         case STATE_PRETRIAL:
+            old_block_length = params->field_block_length;
             updateParameters(S);
             doPreTrial(S);
             setState(STATE_CENTER_TARGET_ON);
