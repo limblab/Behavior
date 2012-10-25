@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1350"
+    ComputedModelVersion    "1.1356"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Oct 17 10:21:41 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1350>"
+  LastModifiedDate	  "Thu Oct 25 08:42:42 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1356>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -830,7 +830,7 @@ Model {
   }
   System {
     Name		    "unstable"
-    Location		    [2, 82, 989, 708]
+    Location		    [0, 50, 1008, 746]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1860,7 +1860,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[4, 82, 991, 722]
+	Location		[2, 50, 1010, 760]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2849,8 +2849,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Recentering Subsystem"
-	Location		[2, 82, 989, 708]
-	Open			off
+	Location		[0, 50, 1008, 746]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -3277,8 +3277,8 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "PD Controller"
-	    Location		    [100, 127, 970, 784]
-	    Open		    off
+	    Location		    [40, 300, 910, 957]
+	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -3357,7 +3357,7 @@ Model {
 	      Name		      "Gain1"
 	      Position		      [360, 165, 420, 195]
 	      NamePlacement	      "alternate"
-	      Gain		      "-.2"
+	      Gain		      "-.3"
 	      ParameterDataTypeMode   "Inherit via internal rule"
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -3367,7 +3367,7 @@ Model {
 	      Name		      "Gain2"
 	      Position		      [360, 230, 420, 260]
 	      NamePlacement	      "alternate"
-	      Gain		      "-.2"
+	      Gain		      "-.3"
 	      ParameterDataTypeMode   "Inherit via internal rule"
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -3377,7 +3377,7 @@ Model {
 	      Name		      "Gain3"
 	      Position		      [280, 65, 340, 95]
 	      NamePlacement	      "alternate"
-	      Gain		      "-.2"
+	      Gain		      "-.3"
 	      ParameterDataTypeMode   "Inherit via internal rule"
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -3387,7 +3387,7 @@ Model {
 	      Name		      "Gain4"
 	      Position		      [280, 320, 340, 350]
 	      NamePlacement	      "alternate"
-	      Gain		      "-.2"
+	      Gain		      "-.3"
 	      ParameterDataTypeMode   "Inherit via internal rule"
 	      OutDataTypeMode	      "Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -3425,15 +3425,15 @@ Model {
 	      BlockType		      Saturate
 	      Name		      "Saturation"
 	      Position		      [530, 160, 560, 190]
-	      UpperLimit	      ".5"
-	      LowerLimit	      "-.5"
+	      UpperLimit	      ".8"
+	      LowerLimit	      "-.8"
 	    }
 	    Block {
 	      BlockType		      Saturate
 	      Name		      "Saturation1"
 	      Position		      [530, 240, 560, 270]
-	      UpperLimit	      ".5"
-	      LowerLimit	      "-.5"
+	      UpperLimit	      ".8"
+	      LowerLimit	      "-.8"
 	    }
 	    Block {
 	      BlockType		      Outport
