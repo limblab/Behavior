@@ -570,8 +570,10 @@ namespace BehaviorGraphics
             AddParamListItem("Un Feedback Time", "P33", "Behavior Un1d", this.textBoxUFbTime);
             AddParamListItem("Un Feedback Loc", "P34", "Behavior Un1d", this.textBoxUFbLoc);
 
-            AddParamListItem("Un Center Offset", "P35", "Behavior Un1d", this.textBoxUCenterOffset);
-            AddParamListItem("Un Max Speed Threshold", "P36", "Behavior Un1d", this.textBoxUMaxSpeedThreshold);
+            AddParamListItem("Un Max Speed Threshold", "P35", "Behavior Un1d", this.textBoxUMaxSpeedThreshold);
+            AddParamListItem("Un Center Offset X", "P36", "Behavior Un1d", this.textBoxUCenterOffsetX);
+            AddParamListItem("Un Center Offset Y", "P37", "Behavior Un1d", this.textBoxUCenterOffsetY);
+            AddParamListItem("Un Training Feedback Mode", "P38", "Behavior Un1d", this.checkBoxUTrainingFeedbackMode);
 
             #endregion
 
@@ -2348,6 +2350,26 @@ namespace BehaviorGraphics
         {
 
         }
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox55_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox53_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelUWindowedFeedback_Click(object sender, EventArgs e)
+        {
+
+        }
+
      
     }
 

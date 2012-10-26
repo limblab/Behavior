@@ -33,6 +33,7 @@
 struct LocalParams {
 	real_T master_reset;
 
+	// Time Bounds for various timers
 	real_T center_hold_l;
 	real_T center_hold_h;
 	real_T center_delay_l;
@@ -40,46 +41,56 @@ struct LocalParams {
 	real_T outer_hold_l;
 	real_T outer_hold_h;
 	real_T intertrial;
-	real_T movement_time;
-	real_T failure_lag;   // penalty lag for failed movements
+	real_T movement_time;	   // maximum allowed movement time
+	real_T failure_lag;        // penalty lag for failed movements
 
-	real_T target_angle;  // currently just four directions
-	real_T target_radius; // i.e. movement length
-	real_T target_size;   // width of target
+	real_T target_angle;       // Four cardinal directions
+	real_T target_radius;      // i.e. movement length
+	real_T target_size;        // width of target
 	real_T error_targets_mode; // whether to show error targets
 
+	// parameters determining the cursor shift from true hand location 
+	//   (always perpendicular to target direction)
 	real_T displacement_mean;
 	real_T displacement_var;
 	real_T block_window_begin;
 	real_T block_window_end;
 
-	// currently supports up to four feedback cloud variances
+	// currently supports up to four feedback cloud uncertainties
 	real_T cloud_var_one;
 	real_T cloud_var_two;
 	real_T cloud_var_three;
 	real_T cloud_var_four;
 
-	// "frequency" of each cloud (arbitrary units)
+	// relative frequency of occurrence for each cloud (arbitrary units)
 	real_T cloud_frq_one;
 	real_T cloud_frq_two;
 	real_T cloud_frq_three;
 	real_T cloud_frq_four;
 
-	real_T cloud_one_blank_mode; // can blank feedback for cloud one
+	real_T cloud_one_blank_mode; // toggles blank feedback (no cloud) for "cloud one"
 
+	real_T feedback_dot_size;    // size of each dot in cloud
+	real_T feedback_dot_num;	 // number of dots in the cloud
+
+	// three feedback modes
+	//   windowed: displays dynamic feedback cloud at shifted cursor position within window bounds
 	real_T feedback_window_begin;
 	real_T feedback_window_end;
-	real_T feedback_dot_size;
-	real_T feedback_dot_num;
 
-	real_T feedback_timer_mode; // use feedback timer instead of window
-	real_T feedback_time;
-	real_T feedback_loc;        // where the feedback is activated(cm)
+	//   timed:    displays static feedback cloud centered at shifted cursor position when at a 
+	//			   specified distance, for a specific length of time
+	real_T feedback_timer_mode; // toggles use of the feedback timer instead of windowed feedback
+	real_T feedback_time;		// time feedback cloud is shown
+	real_T feedback_loc;        // where the feedback cloud is activated and drawn (in cm along radius)
 
-	real_T center_tgt_offset;   // offset of the center along outer target axis
+	//   training mode: toggling this mode shows a shifted cursor dot within the windowed bounds
+	//					plus the timed feedback cloud
+	real_T training_feedback_mode; 
 
-	real_T max_speed_threshold; // maximum speed threshold
-
+	real_T center_tgt_offset_X;   // offset of the center along x axis
+	real_T center_tgt_offset_Y;   // offset of the center along y axis
+	real_T max_speed_threshold; // maximum allowed speed threshold
 };
 
 /**
@@ -100,7 +111,7 @@ public:
 
 private:
 	// Your behavior's instance variables
-	double displacement; // current trial displacement
+	double displacement;  // current trial displacement
 	Point  center_offset; // center target offset
 	Point  cursor_shift;  // current trial cursor shift
 	Point  cursor_end_point; // current trial end point
@@ -109,8 +120,9 @@ private:
 
 	Point  cloud_points[10];
 	double current_cloud_var; // current trial feedback variance
-	bool   cloud_blank; // current trial, blank feedback?
-	Timer *feedback_timer; // feedback timer
+	bool   cloud_blank;       // toggles current trial, blank feedback
+	bool   feedback_training_mode; // show shifted cursor dot plus timed cloud
+	Timer  *feedback_timer; // feedback timer
 
 	double center_hold_time, center_delay_time, outer_hold_time;
 
@@ -141,7 +153,7 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(36);
+	this->setNumParams(38);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			 0);
@@ -184,10 +196,10 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->feedback_timer_mode,		31);
 	this->bindParamId(&params->feedback_time,			32);
 	this->bindParamId(&params->feedback_loc,			33);
-
-	this->bindParamId(&params->center_tgt_offset,		34);
-
-	this->bindParamId(&params->max_speed_threshold,		35);
+	this->bindParamId(&params->max_speed_threshold,		34);
+	this->bindParamId(&params->center_tgt_offset_X,		35);
+	this->bindParamId(&params->center_tgt_offset_Y,		36);
+	this->bindParamId(&params->training_feedback_mode,	37);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -235,9 +247,9 @@ void Uncertainty1dBehavior::updateCloud(SimStruct *S) {
 
 void Uncertainty1dBehavior::updateCursorExtent(SimStruct *S){
 	if ((params->target_angle == 90.0) || (params->target_angle == 270.0)){
-		cursor_extent = inputs->cursor.y-params->center_tgt_offset*sin(params->target_angle*PI/180);
+		cursor_extent = inputs->cursor.y-params->center_tgt_offset_Y;
 	} else if ((params->target_angle == 0.0) || (params->target_angle == 180.0)){
-		cursor_extent = inputs->cursor.x-params->center_tgt_offset*cos(params->target_angle*PI/180);
+		cursor_extent = inputs->cursor.x-params->center_tgt_offset_X;
 	} else {
 		cursor_extent = 0.0;
 	}
@@ -260,8 +272,8 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 	// The Target Angle in Radians
 	tgt_ang_rad = params->target_angle*PI/180;
 
-	center_offset.x = params->center_tgt_offset*cos(tgt_ang_rad);
-	center_offset.y = params->center_tgt_offset*sin(tgt_ang_rad);
+	center_offset.x = params->center_tgt_offset_X;
+	center_offset.y = params->center_tgt_offset_Y;
 
 	// Set Center Target
 	centerTarget->centerX = 0.0+center_offset.x ;
@@ -340,8 +352,7 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 	actual_freq_two   = fabs(params->cloud_frq_two)/total_cloud_freq;
 	actual_freq_three = fabs(params->cloud_frq_three)/total_cloud_freq;
 	actual_freq_four  = fabs(params->cloud_frq_four)/total_cloud_freq;
-
-
+	
 	if (cloud_rand <= actual_freq_one){
 		current_cloud_var = params->cloud_var_one;
 		// Using Variance One, so check if this trial should be blanked feedback
@@ -377,6 +388,7 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 	center_delay_time = random->getDouble(params->center_delay_l, params->center_delay_h);
 	outer_hold_time   = random->getDouble(params->outer_hold_l, params->outer_hold_h);
 
+
 	feedback_timer->stop();
 
 	// setup the databurst
@@ -393,7 +405,9 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 
 void Uncertainty1dBehavior::update(SimStruct *S) {
     /* declarations */
-
+	double current_speed = (sqrt(pow((inputs->cursor.x-previous_position.x),2)+pow((inputs->cursor.y-previous_position.y),2))/
+				(stateTimer->elapsedTime(S)-previous_time_point));
+	
 	// State machine
 	switch (this->getState()) {
 		case STATE_PRETRIAL:
@@ -416,7 +430,7 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}
-			else if (stateTimer->elapsedTime(S) > center_hold_time) {
+			else if (stateTimer->elapsedTime(S) >= center_hold_time) {
 				setState(STATE_CENTER_DELAY);
 			}
 			break;
@@ -425,7 +439,7 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} 
-			else if (stateTimer->elapsedTime(S) > center_delay_time) {
+			else if (stateTimer->elapsedTime(S) >= center_delay_time) {
 				playTone(TONE_GO);
 				setState(STATE_MOVEMENT);
 			}
@@ -434,8 +448,7 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 			if (stateTimer->elapsedTime(S) > params->movement_time) {
 				setState(STATE_INCOMPLETE);
 			}
-			else if ((sqrt(pow((inputs->cursor.x-previous_position.x),2)+pow((inputs->cursor.y-previous_position.y),2))/
-				(stateTimer->elapsedTime(S)-previous_time_point)) > params->max_speed_threshold){
+			else if (current_speed > params->max_speed_threshold){
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}
@@ -451,14 +464,14 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_OUTER_HOLD:
-			if (!outerTarget->cursorInTarget(inputs->cursor+cursor_shift)){
-				playTone(TONE_ABORT);
-				setState(STATE_ABORT);
-			}
-			else if (stateTimer->elapsedTime(S) > outer_hold_time) {
+			if (stateTimer->elapsedTime(S) >= outer_hold_time) {
 				cursor_end_point=inputs->cursor;
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
+			}
+			else if (!outerTarget->cursorInTarget(inputs->cursor+cursor_shift)){
+				playTone(TONE_ABORT);
+				setState(STATE_ABORT);
 			}
 			break;
 		case STATE_FAIL:
@@ -477,8 +490,7 @@ void Uncertainty1dBehavior::update(SimStruct *S) {
 			setState(STATE_PRETRIAL);
 	}
     // assign the current position and time point to previous position
-	previous_position.x = inputs->cursor.x;
-    previous_position.y = inputs->cursor.y;
+	previous_position = inputs->cursor;
 	previous_time_point = stateTimer->elapsedTime(S);
 }
 
@@ -486,8 +498,6 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
     /* declarations */
 	int i;
 	updateCursorExtent(S);
-	
-
 
 	/* force (0) */
 	outputs->force = inputs->force;
@@ -576,20 +586,23 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[3] = nullTarget;
 	}
 
-	// Target 4 through 13 Feedback Cloud
+	// Targets 4 through 13 Feedback Cloud
 	// This seems convoluted but stick with me here.
 	// Draw the cloud if we are within a movement and its not a cloud_blank trial
 	if ((getState() == STATE_MOVEMENT) && !cloud_blank) {
-		// If we are in timer feedback mode..
-		if (params->feedback_timer_mode) {
-			// If the feedback location was reached and the timer isn't running, start the timer, 
-			// and set the cloud position (once per movement)
+		
+		// If we are in timer feedback mode or in training mode (which shows the timed cloud also)
+		if (params->feedback_timer_mode || params->training_feedback_mode) {
+			// If the feedback location was reached and the timer isn't running yet, start the timer, 
+			// and set the cloud position 
+			// (this should occur only once per movement since feedback_timer never stops, once started)
 			if ((fabs(cursor_extent) >= params->feedback_loc) && !feedback_timer->isRunning()) {
 				feedback_timer->start(S);
 				updateCloud(S);
 			}
+
 			// If the timer is running and we haven't hit the feedback time limit yet,
-			// draw the cloud
+			// keep drawing the cloud
 			if (feedback_timer->isRunning() && (feedback_timer->elapsedTime(S) <= params->feedback_time)){
 				// show dots
 				for (i = 0; i<params->feedback_dot_num; i++) {
@@ -597,25 +610,26 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 				}
 			}
 			else {
-				// otherwise hide dots
+				// otherwise don't drawn the cloud
 				for (i = 4; i<14; i++) {
 					outputs->targets[i] = nullTarget;
 				}
 			}
 		}
-		// Update the cloud continuously if not in feedback timer mode (i.e. window mode)
+		// Windowed feedback mode
+		// Update the cloud position continuously if not in feedback timer mode (i.e. window mode)
 		else {
 			updateCloud(S);
 			// If cursor is actually in the window
-			if ((fabs(cursor_extent) > params->feedback_window_begin) && 
-				(fabs(cursor_extent) < params->feedback_window_end)) {
-				// show dots
+			// Show the dots
+			if ((fabs(cursor_extent) >= params->feedback_window_begin) && 
+				(fabs(cursor_extent) <= params->feedback_window_end)) {
 				for (i = 0; i<params->feedback_dot_num; i++) {
 					outputs->targets[4+i] = cloud[i];
 				}
 			} 
+			// Otherwise hide dots
 			else {
-				// otherwise hide dots
 				for (i = 4; i<14; i++) {
 					outputs->targets[i] = nullTarget;
 				}
@@ -623,7 +637,7 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 		}
 		
 	}
-	// Hide the dots otherwise (not in a movement or a blank cloud trial)
+	// Hide the dots otherwise (if not a movement, or it is a blank cloud trial)
 	else {
 		for (i = 4; i<14; i++) {
 			outputs->targets[i] = nullTarget;
@@ -644,22 +658,44 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-	if ((getState() == STATE_MOVEMENT) 
-		&& (fabs(cursor_extent) >= params->block_window_begin) 
-		&& (fabs(cursor_extent) <= params->block_window_end)) {	
-		// if we are in the cursor blocking window, hide the cursor
-		outputs->position = Point(100000,100000);
-	} 
-	else if (getState() == STATE_OUTER_HOLD){
-		// show real-time shifted cursor during outer hold
+	// If we are in the movement,
+	if (getState() == STATE_MOVEMENT){ 
+		// in training mode (which means shifted cursor dot with timed cloud)
+		if (params->training_feedback_mode){
+			// and in the feedback window, show the shifted cursor
+			if ((fabs(cursor_extent) >= params->feedback_window_begin) && 
+				(fabs(cursor_extent) <= params->feedback_window_end))	{				
+					outputs->position = inputs->cursor + cursor_shift;
+			}
+			// otherwise hide the cursor
+			else {
+				outputs->position = Point(100000,100000);		
+			}
+		}
+		// not in training mode 
+		else  {
+			// but in the block window, hide it
+			if ((fabs(cursor_extent) >= params->block_window_begin) &&
+				(fabs(cursor_extent) <= params->block_window_end)) {	
+				outputs->position = Point(100000,100000);
+			}
+			// otherwise, show the cursor
+			else {
+				outputs->position = inputs->cursor;
+			}
+		}
+	}
+	// If we are in the outer hold, show the shifted cursor
+	else if (getState() == STATE_OUTER_HOLD) {
 		outputs->position = inputs->cursor + cursor_shift;
 	}
+	// If in a reward or fail state, show the final shifted endpoint
 	else if ((getState() == STATE_REWARD) || (getState() == STATE_FAIL)) {
 		// if a completed trial, show the shifted endpoint
 		outputs->position = cursor_end_point + cursor_shift;
 	}
+	// In all other cases, show the real cursor position
 	else {
-		// otherwise, show real position
 		outputs->position = inputs->cursor;
 	}
 }
