@@ -1,4 +1,4 @@
-/* $Id: mastercon_un1d.cpp 858 2012-04-19 21:46:24Z paulw $
+/* $Id: mastercon_un1d.cpp 858 2012-11-01 21:46:24Z paulw $
  *
  * Master Control block for behavior: uncertainty 1d task 
  */
@@ -27,7 +27,7 @@
  */
 
 
-#define DATABURST_VERSION ((byte)0x00) 
+#define DATABURST_VERSION ((byte)0x01) 
 
 // This must be custom defined for your behavior
 struct LocalParams {
@@ -400,6 +400,12 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
 	db->addFloat((float)displacement);
 	db->addFloat((float)current_cloud_var);
+	db->addFloat((float)params->feedback_dot_num);
+	// Set Up The Cloud Points
+	for (i=0; i<10; i++) {
+		db->addFloat((float)cloud_points[i].x);
+		db->addFloat((float)cloud_points[i].y);
+	}
     db->start();
 }
 
@@ -521,7 +527,7 @@ void Uncertainty1dBehavior::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_CT_ON;
 				break;
 			case STATE_CENTER_HOLD:
-				outputs->word = WORD_OUTER_TARGET_HOLD;
+				outputs->word = WORD_CENTER_TARGET_HOLD;
 				break;
 			case STATE_CENTER_DELAY:
 				outputs->word = WORD_OT_ON(0 /* change to whatever your target is */);
