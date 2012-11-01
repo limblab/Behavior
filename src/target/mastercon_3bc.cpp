@@ -32,7 +32,7 @@
  */
 
 /* 
- * Current Databurst version: 0
+ * Current Databurst version: 2
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -42,43 +42,41 @@
  * Databurst version descriptions
  * ==============================
  *
- * Version 0 (0x01)
+ * Version 1 (0x03)
  * ----------------
  * byte  0:		uchar		=> number of bytes to be transmitted
  * byte  1:		uchar		=> version number (in this case one)
  * byte  2:		uchar		=> task code (0x01)
  * bytes 3-6:	uchar       => version code
  * byte  7-8:	uchar		=> version code (micro)
- * byte  9:		uchar		=> staircase id
- * bytes 10-13:	int			=> staircase iteration
- * bytes 14-17: float		=> target angle
- * bytes 18-21: float		=> bump direction
- * byte  22:	uchar		=> random target flag
- * bytes 23-26: float		=> target floor (minimum angle(deg) target can take in random target assignment)
- * bytes 27-30: float		=> target ceiling (maximum angle(deg) target can take in random target assignment)
- * bytes 31-34: float		=> bump magnitude
- * bytes 35-38: float		=> bump duration
- * bytes 39-42: float		=> bump ramp
- * byte  43:	uchar		=> random bump flag
- * bytes 44-47: float		=> bump floor (minimum angle(deg) bump can take in random target assignment)
- * bytes 48-51:	float		=> bump ceiling (maximum angle(deg) bump can take in random target assignment)
- * bytes 52-55: float		=> staircase ratio
- * byte  56:	uchar		=> stim trial flag
- * bytes 57-60: float		=> training trial frequency
- * bytes 61-64: float		=> stimulation probability 
- * byte  65:	uchar		=> recenter cursor flag
- * bytes 66-69: float		=> target radius
- * bytes 70-73: float		=> target size
- * bytes 74-77: float		=> intertrial time
- * bytes 78-81: float		=> penalty time
- * bytes 82-85: float		=> bump hold time
- * bytes 86-89: float		=> center hold time
- * bytes 90-93: float		=> outer target delay time
- * bytes 94-97: float		=> bump rate skew (varies between 0 and 1 adjusting the skew towards bumping at the forward limit)
- * byte  98
+ * bytes 9-12:  float		=> target angle
+ * bytes 13-16: float		=> bump direction
+ * byte  17:	uchar		=> random target flag
+ * bytes 18-21: float		=> target floor (minimum angle(deg) target can take in random target assignment)
+ * bytes 22-25: float		=> target ceiling (maximum angle(deg) target can take in random target assignment)
+ * bytes 26-29: float		=> bump magnitude
+ * bytes 30-33: float		=> bump duration
+ * bytes 34-37: float		=> bump ramp
+ * bytes 38-41: float		=> bump floor (minimum angle(deg) bump can take in random target assignment)
+ * bytes 42-45:	float		=> bump ceiling (maximum angle(deg) bump can take in random target assignment)
+ * byte  46:	uchar		=> stim trial flag
+ * byte  47:    uchar       => training trial flag
+ * bytes 48-51: float		=> training trial frequency
+ * bytes 52-55: float		=> stimulation probability 
+ * byte  56:	uchar		=> recenter cursor flag
+ * bytes 57-60: float		=> target radius
+ * bytes 61-64: float		=> target size
+ * bytes 65-68: float		=> intertrial time
+ * bytes 69-72: float		=> penalty time
+ * bytes 73-76: float		=> bump hold time
+ * bytes 77-80: float		=> center hold time
+ * bytes 81-84: float		=> bump delay time
+ * byte  85:	uchar		=> show target during bump
+ * bytes 86-89:	float		=> bump incriment
+ * byte	 90		uchar		=> is primary target
  */
 	
-#define DATABURST_VERSION ((byte)0x01) 
+#define DATABURST_VERSION ((byte)0x03) 
 #define DATABURST_TASK_CODE ((byte)0x01)
 
 // This must be custom defined for your behavior
@@ -93,30 +91,22 @@ struct LocalParams {
 	real_T bump_duration;
     real_T bump_ramp;
 	real_T ct_hold_time;
-	real_T ot_delay_time;
+	real_T bump_delay_time;
 	real_T bump_hold_time;
 	real_T intertrial_time;
-	real_T run_staircase;
-	real_T sc_step_size;
-	real_T use_bottom_sc;
 	real_T green_prim_targ;
 	real_T hide_cursor;
-	real_T use_limits;
 	real_T stim_prob;
 	real_T penalty_time;
-	real_T staircase_start;
-	real_T staircase_ratio;
-	real_T use_single_sc;
     real_T recenter_cursor;
 	real_T training_frequency;
 	real_T use_random_targets;
 	real_T target_floor;
 	real_T target_ceiling;
-	real_T random_bump;
 	real_T bump_floor;
 	real_T bump_ceiling;
-	real_T bump_rate_skew;
 	real_T show_target_during_bump;
+    real_T bump_incr;
 };
 
 /**
@@ -142,12 +132,9 @@ private:
 	CircleTarget *secondaryTarget;
 	SquareTarget *errorTarget;
     
-	Staircase *stairs[8];
-	int staircase_id;
 	bool stim_trial;
-	bool step_sc_together;
 
-	double bump_dir;
+	int bump_dir;
     
     Point cursorOffset;
 
@@ -157,19 +144,16 @@ private:
 	real_T last_soft_reset;
 
 	bool training_trial;
-	float tgt_angle;
-
+	int tgt_angle;
+	int bump_quadrent;
+	bool is_primary_target;
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
-	void setupStaircase(int i, double angle, double step, double fl, double bl);
-	int chooseStaircase();
 
-	void stepAllSCForward();
-	void stepAllSCBackward();
 };
 
 TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
-    int i;
+
 
 	/* 
 	 * First, set up the parameters to be used 
@@ -178,7 +162,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(34);
+	this->setNumParams(27);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
 	this->bindParamId(&params->soft_reset,				1);
@@ -190,30 +174,22 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->bump_duration,			7);
     this->bindParamId(&params->bump_ramp,				8);
 	this->bindParamId(&params->ct_hold_time,			9);
-	this->bindParamId(&params->ot_delay_time,			10);
+	this->bindParamId(&params->bump_delay_time,			10);
 	this->bindParamId(&params->bump_hold_time,			11);
 	this->bindParamId(&params->intertrial_time,			12);
-	this->bindParamId(&params->run_staircase,			13);
-	this->bindParamId(&params->sc_step_size,			14);
-	this->bindParamId(&params->use_bottom_sc,			15);
-	this->bindParamId(&params->green_prim_targ,			16);
-	this->bindParamId(&params->hide_cursor,				17);
-	this->bindParamId(&params->use_limits,				18);
-	this->bindParamId(&params->stim_prob,				19);
-	this->bindParamId(&params->penalty_time,			20);
-	this->bindParamId(&params->staircase_start,			21);
-	this->bindParamId(&params->staircase_ratio,			22);
-	this->bindParamId(&params->use_single_sc,			23);
-	this->bindParamId(&params->recenter_cursor,			24);
-	this->bindParamId(&params->training_frequency,		25);
-	this->bindParamId(&params->use_random_targets,		26);
-	this->bindParamId(&params->target_floor,			27);
-	this->bindParamId(&params->target_ceiling,			28);
-	this->bindParamId(&params->random_bump,				29);	
-	this->bindParamId(&params->bump_floor,				30);
-	this->bindParamId(&params->bump_ceiling,			31);
-	this->bindParamId(&params->bump_rate_skew,			32);
-	this->bindParamId(&params->show_target_during_bump,	33);
+	this->bindParamId(&params->green_prim_targ,			13);
+	this->bindParamId(&params->hide_cursor,				14);
+	this->bindParamId(&params->stim_prob,				15);
+	this->bindParamId(&params->penalty_time,			16);
+	this->bindParamId(&params->recenter_cursor,			17);
+	this->bindParamId(&params->training_frequency,		18);
+	this->bindParamId(&params->use_random_targets,		19);
+	this->bindParamId(&params->target_floor,			20);
+	this->bindParamId(&params->target_ceiling,			21);
+	this->bindParamId(&params->bump_floor,				22);
+	this->bindParamId(&params->bump_ceiling,			23);
+	this->bindParamId(&params->show_target_during_bump,	24);
+    this->bindParamId(&params->bump_incr,           	25);
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -234,150 +210,73 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 
 	errorTarget = new SquareTarget(0, 0, 100, Target::Color(255, 255, 255));
 
-	for (i=0; i<8; i++) {
-		stairs[i] = new Staircase();
-	}
+
 
 	this->stim_trial = false;
-	this->staircase_id = -1;
-	this->bump_dir = 0.0;
+
+	this->bump_dir = 0;
 	this->bump = new CosineBumpGenerator();
 	this->training_trial=0;
 	this->tgt_angle=0;
 }
 
-void TwoBumpChoiceBehavior::setupStaircase(
-	int i, double angle, double step, double fl, double bl) 
-{
-	// We do two staircases here because there are two stiarcases with similar
-	// starting points, one with stim and one without.
-	stairs[i]->setStartValue( angle );
-	stairs[i]->setRatio( (int)params->staircase_ratio );
-	stairs[i]->setStep( step );
-	stairs[i]->setUseForwardLimit( (bool)params->use_limits );
-	stairs[i]->setUseBackwardLimit( (bool)params->use_limits );
-	stairs[i]->setForwardLimit( fl );
-	stairs[i]->setBackwardLimit( bl );
-	stairs[i]->setUseSoftLimit( true );
-	stairs[i]->restart();
-
-	stairs[i+4]->setStartValue( angle );
-	stairs[i+4]->setRatio( (int)params->staircase_ratio );
-	stairs[i+4]->setStep( step );
-	stairs[i+4]->setUseForwardLimit( false );
-	stairs[i+4]->setUseBackwardLimit( false );
-	stairs[i+4]->setForwardLimit( fl );
-	stairs[i+4]->setBackwardLimit( bl );
-	stairs[i+4]->setUseSoftLimit( true );
-	stairs[i+4]->restart();
-}
-
-int TwoBumpChoiceBehavior::chooseStaircase() {
-	int stim = (this->random->getDouble() < this->params->stim_prob);
-	int sc_dir = (params->use_bottom_sc ? random->getInteger(0,3) : random->getInteger(0,1));
-	return (stim ? sc_dir + 4 : sc_dir);
-}
 
 void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
-	int ctr;
-	bool sw;
+    int num_bump_dirs; // number of bump directions there will be between bump_floor and bump_ceiling
 
 	//set the target direction
 	if ((int)this->params->use_random_targets) {
-		this->tgt_angle = (float)(this->random->getInteger((int)this->params->target_floor,(int)this->params->target_ceiling) * PI / 180);
+		this->tgt_angle = this->random->getInteger((int)this->params->target_floor,(int)this->params->target_ceiling);
 	} else {
-		this->tgt_angle = (float)this->params->target_angle;
+		this->tgt_angle = (int)this->params->target_angle;
 	}
 
 	// Set up target locations, etc.
 	centerTarget->radius = params->target_size;
 
 	primaryTarget->radius = params->target_size;
-	primaryTarget->centerX = params->target_radius*cos(this->tgt_angle);
-	primaryTarget->centerY = params->target_radius*sin(this->tgt_angle);
+	primaryTarget->centerX = params->target_radius*cos((float)this->tgt_angle * PI/180);
+	primaryTarget->centerY = params->target_radius*sin((float)this->tgt_angle * PI/180);
 	
 	secondaryTarget->radius = params->target_size;
-	secondaryTarget->centerX = params->target_radius*cos(PI + this->tgt_angle);
-	secondaryTarget->centerY = params->target_radius*sin(PI + this->tgt_angle);
+	secondaryTarget->centerX = params->target_radius*cos(PI + (float)this->tgt_angle * PI/180);
+	secondaryTarget->centerY = params->target_radius*sin(PI + (float)this->tgt_angle * PI/180);
 
     // Reset cursor offset
     cursorOffset.x = 0;
     cursorOffset.y = 0;
     
-	if (last_soft_reset != params->soft_reset) {
-		// load parameters to the staircases and reset them.
-		last_soft_reset = params->soft_reset;
-		step_sc_together = params->use_single_sc;
-		// the staircase is taking degree values so that the displayed staircase values are easier to read
-		setupStaircase(0, (this->tgt_angle *180/PI) +params->staircase_start,		params->sc_step_size,	(this->tgt_angle *180/PI)+90,	(this->tgt_angle *180/PI));
-		setupStaircase(1, (this->tgt_angle *180/PI) -params->staircase_start+180 ,	-params->sc_step_size,	(this->tgt_angle *180/PI)+90,	(this->tgt_angle *180/PI)+180);
-		setupStaircase(2, (this->tgt_angle *180/PI) +params->staircase_start+180 ,	params->sc_step_size,	(this->tgt_angle *180/PI)+270,	(this->tgt_angle *180/PI)+180);
-		setupStaircase(3, (this->tgt_angle *180/PI) -params->staircase_start+360 ,	-params->sc_step_size,	(this->tgt_angle *180/PI)+270,	(this->tgt_angle *180/PI)+360);
-	}
-
-	// Pick which staircase to use
-	this->staircase_id = this->chooseStaircase();
-	this->bump_dir = stairs[staircase_id]->getValue();
-	this->stim_trial = (staircase_id > 3);
-
-	if ((int)this->params->random_bump){
-		//selects a random bump direction. Bumps will be between the floor and ceiling values and will be skewed according
-		//to the skewing parameter bump_rate_skew. bump_rate_skew=1 will yield a linear ramp in bump probability with increasing
-		//bump angle, while bump_rate_skew=0 will yield a uniform bump distribution between the two limits
-		//staircase ID here is being used simply as a quadrent ID. this will be used later to set the correct and incorrect targets
-
-		sw=this->random->getDouble()<this->params->bump_rate_skew;
-		
-		switch (this->staircase_id % 4){
-			case 0:
-				//bumps in the 0-90deg quadrent
-				if(sw){
-					//use a linear pdf random number
-					bump_dir=this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(this->random->getDouble()));
-				} else {
-					// use a uniform pdf random number
-					bump_dir=this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
-				}
-				break;
-			case 1:
-				//bumps in the 90-180deg quadrent
-				if(sw){
-					//use a linear pdf random number
-					bump_dir=180 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(this->random->getDouble()));
-				} else {
-					// use a uniform pdf random number
-					bump_dir=180 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
-				}
-				break;
-			case 2:
-				//bumps in the 180-270deg quadrent
-				if(sw){
-					//use a linear pdf random number
-					bump_dir=180 + this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(this->random->getDouble()));
-				} else {
-					// use a uniform pdf random number
-					bump_dir=180 + this->params->bump_floor + (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
-				}
-				break;
-			default:
-				//bumps in the 270-360deg quadrent
-				if(sw){
-					//use a linear pdf random number
-					bump_dir=360 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * sqrt(this->random->getDouble()));
-				} else {
-					// use a uniform pdf random number
-					bump_dir=360 - this->params->bump_floor - (int)((this->params->bump_ceiling - this->params->bump_floor) * this->random->getDouble());
-				}
-				break;
-		}
+	//select a random bump direction. 
+    num_bump_dirs = (int)((this->params->bump_ceiling - this->params->bump_floor)/this->params->bump_incr);
+	this->bump_quadrent = this->random->getInteger(0,3);
+	switch (this->bump_quadrent){
+		case 0:
+			//bumps in the 0-90deg quadrent
+            bump_dir = (int)this->params->bump_floor + (int)this->params->bump_incr * (this->random->getInteger(0,num_bump_dirs)); 
+			this->is_primary_target=true;
+			break;
+		case 1:
+			//bumps in the 90-180deg quadrent
+            bump_dir=180 - (int)this->params->bump_floor - (int)this->params->bump_incr * (this->random->getInteger(0,num_bump_dirs));
+			this->is_primary_target=false;
+			break;
+		case 2:
+			//bumps in the 180-270deg quadrent
+            bump_dir = 180 + (int)this->params->bump_floor + (int)this->params->bump_incr * (this->random->getInteger(0,num_bump_dirs));
+			this->is_primary_target=false;
+			break;
+		default:
+			//bumps in the 270-360deg quadrent
+			bump_dir=360 - (int)this->params->bump_floor - (int)this->params->bump_incr * (this->random->getInteger(0,num_bump_dirs));
+			this->is_primary_target=true;
+			break;
 	}
 
 	// Set up the bump itself
 	this->bump->hold_duration = params->bump_duration;
-	this->bump->peak_magnitude = params->bump_magnitude;
+    this->bump->peak_magnitude = (float)params->bump_magnitude;
 	this->bump->rise_time = params->bump_ramp;
-	this->bump->direction = this->tgt_angle + this->bump_dir * PI/180;
-
+	this->bump->direction = ((double)(this->tgt_angle + this->bump_dir)) * PI/180;
 
 	// Reset primary target color if needed
 	if ((int)params->green_prim_targ) {
@@ -388,7 +287,9 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	/* Select whether this will be a training trial 
 	*  If the training frequency is zero we should not see any training trials*/
 	training_trial=(this->random->getDouble() < params->training_frequency);
-
+    
+    /* Select whether this will be a stimulation trial */
+    this->stim_trial=(this->random->getDouble() < params->stim_prob);
 
 	/* setup the databurst */
 	db->reset();
@@ -400,20 +301,16 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
     db->addByte(BEHAVIOR_VERSION_MINOR);
 	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
-	db->addByte(staircase_id);
-	db->addInt(stairs[staircase_id]->getIteration());
-	db->addFloat((float)params->tgt_angle);
-	db->addFloat((float)bump_dir);
+	db->addFloat((float)this->tgt_angle);
+	db->addFloat((float)this->bump_dir);
 	db->addByte((byte)params->use_random_targets);
 	db->addFloat((float)params->target_floor);
 	db->addFloat((float)params->target_ceiling);
 	db->addFloat((float)params->bump_magnitude);
 	db->addFloat((float)params->bump_duration);
 	db->addFloat((float)params->bump_ramp);
-	db->addByte((byte)params->random_bump);
 	db->addFloat((float)params->bump_floor);
 	db->addFloat((float)params->bump_ceiling);
-	db->addFloat((float)params->staircase_ratio);
 	db->addByte((byte)this->stim_trial);
 	db->addByte((byte)this->training_trial);
 	db->addFloat((float)this->params->training_frequency);
@@ -425,29 +322,19 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)this->params->penalty_time);
 	db->addFloat((float)this->params->bump_hold_time);
 	db->addFloat((float)this->params->ct_hold_time);
-	db->addFloat((float)this->params->ot_delay_time);
-	db->addFloat((float)this->params->bump_rate_skew);
-	db->addByte((int)this->params->show_target_during_bump);
+	db->addFloat((float)this->params->bump_delay_time);
+	db->addByte((byte)this->params->show_target_during_bump);
+	db->addFloat((float)this->params->bump_incr);
+	db->addByte((byte)this->is_primary_target);
 	db->start();
 }
 
-void TwoBumpChoiceBehavior::stepAllSCForward() {
-	for (int i = 0; i < 7; i++)
-		this->stairs[i]->stepForward();
-}
-
-void TwoBumpChoiceBehavior::stepAllSCBackward() {
-	for (int i = 0; i < 7; i++)
-		this->stairs[i]->stepBackward();
-}
-
 void TwoBumpChoiceBehavior::update(SimStruct *S) {
-
 	Target *correctTarget;
 	Target *incorrectTarget;
 	
 	if (training_trial) {
-		if (staircase_id == 0 || staircase_id ==3) {
+		if (this->is_primary_target) {
 			// want to be in primary target
 			correctTarget = primaryTarget;
 			incorrectTarget = nullTarget;
@@ -458,7 +345,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 			incorrectTarget = nullTarget;
 		}
 	} else {
-		if (staircase_id == 0 || staircase_id ==3) {
+		if (this->is_primary_target) {
 			// want to be in primary target
 			correctTarget = primaryTarget;
 			incorrectTarget = secondaryTarget;
@@ -501,7 +388,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 			if (!centerTarget->cursorInTarget(inputs->cursor)) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			} else if (stateTimer->elapsedTime(S) > params->ot_delay_time) {
+			} else if (stateTimer->elapsedTime(S) > params->bump_delay_time) {
 				bump->start(S);
 				if (this->stim_trial) {
 					setState(STATE_STIM);
@@ -516,7 +403,6 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 				setState(STATE_ABORT);
 			} else if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
 				playTone(TONE_GO);
-				
                 if (params->recenter_cursor) {
                     cursorOffset = inputs->cursor;
                 }   
@@ -528,19 +414,9 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 			break;
 		case STATE_MOVEMENT:
 			if (correctTarget->cursorInTarget(inputs->cursor - cursorOffset)) {
-				if (params->run_staircase && step_sc_together) {
-					stepAllSCForward();
-				} else if (params->run_staircase && !step_sc_together) {
-					this->stairs[staircase_id]->stepForward();
-				}
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
 			} else if (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset)) {
-				if (params->run_staircase && step_sc_together) {
-					stepAllSCBackward();
-				} else if (params->run_staircase && !step_sc_together) {
-					this->stairs[staircase_id]->stepBackward();
-				}
 				playTone(TONE_FAIL);
 				if (this->params->penalty_time > 0) {
 					setState(STATE_PENALTY);
@@ -566,7 +442,6 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 		default:
 			setState(STATE_PRETRIAL);
 	}
-
 }
 
 void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
@@ -583,18 +458,17 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* status (1) */
-	outputs->status[0] = getState();
-	outputs->status[1] = trialCounter->successes;
-	outputs->status[2] = trialCounter->failures;
-
-	if((int)this->params->use_random_targets){
-		outputs->status[3] = (int)(this->bump_dir);
-		outputs->status[4] = (int)(this->tgt_angle *180 / PI);
-	} else {
-		outputs->status[3] = (int)stairs[0]->getValue();
-		outputs->status[4] = (int)stairs[1]->getValue();
-	}
-
+// 	outputs->status[0] = getState();
+// 	outputs->status[1] = trialCounter->successes;
+// 	outputs->status[2] = trialCounter->failures;
+// 	outputs->status[3] = (int)(this->bump_dir);
+// 	outputs->status[4] = params->bump_magnitude;
+  
+    outputs->status[0] = bump->isRunning(S);
+	outputs->status[1] = (int)params->bump_delay_time*100;
+    outputs->status[2] = (int)(0.5+this->bump->direction * 180/PI);
+	outputs->status[3] = (int)(this->bump->peak_magnitude*100);
+	outputs->status[4] = (int)(params->bump_magnitude*100);
 	/* word(2) */
 	if (db->isRunning()) {
 		outputs->word = db->getByte();
@@ -649,7 +523,7 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[0] = (Target *)centerTarget;
 		if (this->params->show_target_during_bump) {
 			if (this->training_trial) {
-				if(this->staircase_id%4 == 0 || this->staircase_id%4 == 3) {
+				if(this->is_primary_target) {
 		            outputs->targets[1] = (Target *)(this->primaryTarget);
 			        outputs->targets[2] = nullTarget;
 				} else {
@@ -668,7 +542,7 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[0] = (Target *)(this->primaryTarget);
 		outputs->targets[1] = (Target *)(this->secondaryTarget);
 		if (this->training_trial) {
-			if(this->staircase_id%4 == 0 || this->staircase_id%4 == 3) {
+			if(this->is_primary_target) {
 	            outputs->targets[0] = (Target *)(this->primaryTarget);
 		        outputs->targets[1] = nullTarget;
 				outputs->targets[2] = nullTarget;
