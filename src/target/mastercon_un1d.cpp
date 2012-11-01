@@ -52,15 +52,15 @@ struct LocalParams {
 	// parameters determining the cursor shift from true hand location 
 	//   (always perpendicular to target direction)
 	real_T displacement_mean;
-	real_T displacement_var;
+	real_T displacement_std;
 	real_T block_window_begin;
 	real_T block_window_end;
 
 	// currently supports up to four feedback cloud uncertainties
-	real_T cloud_var_one;
-	real_T cloud_var_two;
-	real_T cloud_var_three;
-	real_T cloud_var_four;
+	real_T cloud_std_one;
+	real_T cloud_std_two;
+	real_T cloud_std_three;
+	real_T cloud_std_four;
 
 	// relative frequency of occurrence for each cloud (arbitrary units)
 	real_T cloud_frq_one;
@@ -111,7 +111,7 @@ public:
 
 private:
 	// Your behavior's instance variables
-	double displacement;  // current trial displacement
+	double current_displacement;  // current trial displacement
 	Point  center_offset; // center target offset
 	Point  cursor_shift;  // current trial cursor shift
 	Point  cursor_end_point; // current trial end point
@@ -119,7 +119,7 @@ private:
 
 
 	Point  cloud_points[10];
-	double current_cloud_var; // current trial feedback variance
+	double current_cloud_std; // current trial feedback variance
 	bool   cloud_blank;       // toggles current trial, blank feedback
 	bool   feedback_training_mode; // show shifted cursor dot plus timed cloud
 	Timer  *feedback_timer; // feedback timer
@@ -174,14 +174,14 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->error_targets_mode,		13);
 
 	this->bindParamId(&params->displacement_mean,		14);
-	this->bindParamId(&params->displacement_var,		15);
+	this->bindParamId(&params->displacement_std,		15);
 	this->bindParamId(&params->block_window_begin,		16);
 	this->bindParamId(&params->block_window_end,		17);
 	
-	this->bindParamId(&params->cloud_var_one,			18);
-	this->bindParamId(&params->cloud_var_two,			19);
-	this->bindParamId(&params->cloud_var_three,			20);
-	this->bindParamId(&params->cloud_var_four,			21);
+	this->bindParamId(&params->cloud_std_one,			18);
+	this->bindParamId(&params->cloud_std_two,			19);
+	this->bindParamId(&params->cloud_std_three,			20);
+	this->bindParamId(&params->cloud_std_four,			21);
 	this->bindParamId(&params->cloud_frq_one,			22);
 	this->bindParamId(&params->cloud_frq_two,			23);
 	this->bindParamId(&params->cloud_frq_three,			24);
@@ -221,8 +221,8 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 		cloud[i] = new CircleTarget(0,0,0,Target::Color(255, 255, 0));
 	}
 	cursor_extent	   = 0.0;
-	displacement       = 0.0;
-	current_cloud_var  = 0.0;
+	current_displacement       = 0.0;
+	current_cloud_std  = 0.0;
 	cursor_shift.x	   = 0.0;
 	cursor_shift.y	   = 0.0;
 	center_offset.x	   = 0.0;
@@ -267,7 +267,7 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 	double cloud_rand; // random variable to determine which cloud
 
 	// Calculate the Displacement (Prior Shift)
-	displacement = random->getGaussian(params->displacement_mean, params->displacement_var);
+	current_displacement = random->getGaussian(params->displacement_mean, params->displacement_std);
 
 	// The Target Angle in Radians
 	tgt_ang_rad = params->target_angle*PI/180;
@@ -282,8 +282,8 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 	centerTarget->color   = Target::Color(255, 0, 0);
 
 	// Calculate the Cursor Shift
-	cursor_shift.x =  displacement*sin(tgt_ang_rad);
-	cursor_shift.y = -displacement*cos(tgt_ang_rad);
+	cursor_shift.x =  current_displacement*sin(tgt_ang_rad);
+	cursor_shift.y = -current_displacement*cos(tgt_ang_rad);
 
 	// Set Up The Targets
 	if ((params->target_angle == 90.0) || (params->target_angle == 270.0)){
@@ -354,28 +354,28 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 	actual_freq_four  = fabs(params->cloud_frq_four)/total_cloud_freq;
 	
 	if (cloud_rand <= actual_freq_one){
-		current_cloud_var = params->cloud_var_one;
+		current_cloud_std = params->cloud_std_one;
 		// Using Variance One, so check if this trial should be blanked feedback
 		cloud_blank = params->cloud_one_blank_mode;
 	} else if (cloud_rand <= actual_freq_one+actual_freq_two){
-		current_cloud_var = params->cloud_var_two;
+		current_cloud_std = params->cloud_std_two;
 		cloud_blank = false;
 	} else if (cloud_rand <= actual_freq_one+actual_freq_two+actual_freq_three){
-		current_cloud_var = params->cloud_var_three;
+		current_cloud_std = params->cloud_std_three;
 		cloud_blank = false;
 	} else if (cloud_rand <= actual_freq_one+actual_freq_two+actual_freq_three+actual_freq_four){
-		current_cloud_var = params->cloud_var_four;
+		current_cloud_std = params->cloud_std_four;
 		cloud_blank = false;
 	} else {
 		// by default, no feedback is shown
-		current_cloud_var = 0.0;
+		current_cloud_std = 0.0;
 		cloud_blank = true;
 	}
 
 	// Set Up The Cloud Points
 	for (i=0; i<10; i++) {
-		cloud_points[i].x = random->getGaussian(0, current_cloud_var) + cursor_shift.x;
-		cloud_points[i].y = random->getGaussian(0, current_cloud_var) + cursor_shift.y;
+		cloud_points[i].x = random->getGaussian(0, current_cloud_std) + cursor_shift.x;
+		cloud_points[i].y = random->getGaussian(0, current_cloud_std) + cursor_shift.y;
 		cloud[i]->radius = params->feedback_dot_size;
 	}
 
@@ -398,8 +398,8 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
     db->addByte(BEHAVIOR_VERSION_MINOR);
 	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
-	db->addFloat((float)displacement);
-	db->addFloat((float)current_cloud_var);
+	db->addFloat((float)current_displacement);
+	db->addFloat((float)current_cloud_std);
 	db->addFloat((float)params->feedback_dot_num);
 	// Set Up The Cloud Points
 	for (i=0; i<10; i++) {

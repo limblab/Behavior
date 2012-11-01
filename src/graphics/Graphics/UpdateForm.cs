@@ -544,15 +544,15 @@ namespace BehaviorGraphics
 
             // Uncertainty Displacement Parameters
             AddParamListItem("Un Disp Mean", "P15", "Behavior Un1d", this.textBoxUDispMean);
-            AddParamListItem("Un Disp Var", "P16", "Behavior Un1d", this.textBoxUDispVar);
+            AddParamListItem("Un Disp Std", "P16", "Behavior Un1d", this.textBoxUDispStd);
             AddParamListItem("Un Block Win Start", "P17", "Behavior Un1d", this.textBoxUBlockWinStart);
             AddParamListItem("Un Block Win End", "P18", "Behavior Un1d", this.textBoxUBlockWinEnd);
 
             // Uncertainty Feedback Parameters
-            AddParamListItem("Un Cloud Var", "P19", "Behavior Un1d", this.textBoxUFbVar);
-            AddParamListItem("Un Cloud Var 2", "P20", "Behavior Un1d", this.textBoxUFbVar2);
-            AddParamListItem("Un Cloud Var 3", "P21", "Behavior Un1d", this.textBoxUFbVar3);
-            AddParamListItem("Un Cloud Var 4", "P22", "Behavior Un1d", this.textBoxUFbVar4);
+            AddParamListItem("Un Cloud Std", "P19", "Behavior Un1d", this.textBoxUFbStd);
+            AddParamListItem("Un Cloud Std 2", "P20", "Behavior Un1d", this.textBoxUFbStd2);
+            AddParamListItem("Un Cloud Std 3", "P21", "Behavior Un1d", this.textBoxUFbStd3);
+            AddParamListItem("Un Cloud Std 4", "P22", "Behavior Un1d", this.textBoxUFbStd4);
 
             AddParamListItem("Un Cloud Frq", "P23", "Behavior Un1d", this.textBoxUFbFrq);
             AddParamListItem("Un Cloud Frq 2", "P24", "Behavior Un1d", this.textBoxUFbFrq2);
@@ -2366,6 +2366,11 @@ namespace BehaviorGraphics
         }
 
         private void labelUWindowedFeedback_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelUDispVar_Click(object sender, EventArgs e)
         {
 
         }
