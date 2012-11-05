@@ -32,7 +32,7 @@
  */
 
 /* 
- * Current Databurst version: 2
+ * Current Databurst version: 3
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -42,7 +42,7 @@
  * Databurst version descriptions
  * ==============================
  *
- * Version 1 (0x03)
+ * Version 4 (0x04)
  * ----------------
  * byte  0:		uchar		=> number of bytes to be transmitted
  * byte  1:		uchar		=> version number (in this case one)
@@ -76,7 +76,7 @@
  * byte	 90		uchar		=> is primary target
  */
 	
-#define DATABURST_VERSION ((byte)0x03) 
+#define DATABURST_VERSION ((byte)0x04) 
 #define DATABURST_TASK_CODE ((byte)0x01)
 
 // This must be custom defined for your behavior
@@ -107,6 +107,7 @@ struct LocalParams {
 	real_T bump_ceiling;
 	real_T show_target_during_bump;
     real_T bump_incr;
+	real_T stim_levels;
 };
 
 /**
@@ -190,6 +191,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->bump_ceiling,			23);
 	this->bindParamId(&params->show_target_during_bump,	24);
     this->bindParamId(&params->bump_incr,           	25);
+	this->bindParamId(&params->stimlevels,				26);
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -481,7 +483,7 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_OT_ON(0);
 				break;
 			case STATE_STIM:
-				outputs->word = WORD_STIM(0);
+				outputs->word = WORD_STIM(this->random->getInteger(0,(int)this->params->stim_levels));
 				break;
 			case STATE_BUMP:
 				outputs->word = WORD_BUMP(0);
