@@ -741,6 +741,7 @@ namespace BehaviorGraphics
 
             // Stim
             AddParamListItem("2BC Stim Prob", "P16", "Behavior 2BC", textBox2BCStimProb);
+            AddParamListItem("2BC Stim levels", "P27", "Behavior 2BC", textBox2BC_stim_levels);
 
             // Targets
             AddParamListItem("2BC Targ Rad", "P3", "Behavior 2BC", textBox2BCTR);
