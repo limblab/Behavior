@@ -186,6 +186,7 @@ static real_T adapt_during_catch_trials = 0.0;
 #define STATE_REWARD            82
 #define STATE_ABORT             65
 #define STATE_FAIL              70
+#define STATE_INCOMPLETE        73
 #define STATE_DATA_BLOCK        255
 
 #define TONE_GO 1
@@ -589,6 +590,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             abort_timeout   = param_intertrial;    
             failure_timeout = param_intertrial;   
             reward_timeout  = param_intertrial;
+            incomplete_timeout = param_intertrial;
 
 			/* Set up the percentage of catch trials */
 			if ( param_catch_trials_ramp ) { // Continuously increase catch trial percentage
@@ -808,20 +810,26 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             break;           
 		case STATE_ADAPT_FLAG:
 			new_state = STATE_CENTERING;
+			state_changed();
+            reset_timer();
 			break;
         case STATE_CENTERING:
-            if (cursorInTarget(cursor, center)) {
+           if (elapsed_timer_time > reach_time) {
+                new_state = STATE_ABORT;
+                state_changed();
+                reset_timer();
+            } else if (cursorInTarget(cursor, center)) {
                 new_state = STATE_CENTER_HOLD;
                 state_changed();
                 set_random_hold_time();
-                reset_timer();                
+				reset_target_hold_timer();
             }
-            break;
+			break;
         case STATE_CENTER_HOLD:
             if (!cursorInTarget(cursor, center)) {
                 new_state = STATE_RECENTERING;
                 state_changed();
-            } else if ( elapsed_timer_time > ssGetRWorkValue(S,31) ) {
+            } else if ( elapsed_target_hold_time > ssGetRWorkValue(S,31) ) {
                 new_state = STATE_DELAY;
                 set_random_delay_time();
                 state_changed();
@@ -829,15 +837,19 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             }
             break;
         case STATE_RECENTERING:
-            if (cursorInTarget(cursor, center)) {
+           if (elapsed_timer_time > reach_time) {
+                new_state = STATE_ABORT;
+                state_changed();
+                reset_timer();
+            } else if (cursorInTarget(cursor, center)) {
                 new_state = STATE_CENTER_HOLD;
                 state_changed();
-                reset_timer();                
+                reset_target_hold_timer();
             }
-            break;            
+			break;
         case STATE_DELAY:
             if (!cursorInTarget(cursor, center)) {
-                new_state = STATE_RECENTERING;
+                new_state = STATE_INCOMPLETE;
                 state_changed();
                 reset_timer();
             } else if ( elapsed_timer_time > ssGetRWorkValue(S,32) ) {
@@ -893,6 +905,13 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                 state_changed();
             }
             break;
+        case STATE_INCOMPLETE:
+            /* incomplete */
+            if (elapsed_timer_time > incomplete_timeout) {
+                new_state = STATE_PRETRIAL;
+                state_changed();
+            }
+            break;            
         case STATE_REWARD:
             /* reward */
             if (elapsed_timer_time > reward_timeout) {
@@ -1042,6 +1061,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
 			case STATE_ADAPT_FLAG:
 				if (get_catch_trial()) {
 					word = WORD_ADAPT;
+				} else {
+					word = 0.0;
 				}
 				break;
             case STATE_CENTERING:
