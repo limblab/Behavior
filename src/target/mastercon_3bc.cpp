@@ -136,6 +136,7 @@ private:
 	bool stim_trial;
 
 	int bump_dir;
+	float bumpmag_local;
     
     Point cursorOffset;
 
@@ -275,8 +276,13 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	}
 
 	// Set up the bump itself
+	if(this->random->getInteger(1,10)>1){
+		bumpmag_local=(float)params->bump_magnitude;
+	} else {
+		bumpmag_local=0;
+	}
 	this->bump->hold_duration = params->bump_duration;
-    this->bump->peak_magnitude = (float)params->bump_magnitude;
+    this->bump->peak_magnitude = bumpmag_local;
 	this->bump->rise_time = params->bump_ramp;
 	this->bump->direction = ((double)(this->tgt_angle + this->bump_dir)) * PI/180;
 
@@ -305,14 +311,14 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
 	db->addFloat((float)this->tgt_angle);
 	db->addFloat((float)this->bump_dir);
-	db->addByte((byte)params->use_random_targets);
-	db->addFloat((float)params->target_floor);
-	db->addFloat((float)params->target_ceiling);
-	db->addFloat((float)params->bump_magnitude);
-	db->addFloat((float)params->bump_duration);
-	db->addFloat((float)params->bump_ramp);
-	db->addFloat((float)params->bump_floor);
-	db->addFloat((float)params->bump_ceiling);
+	db->addByte((byte)this->params->use_random_targets);
+	db->addFloat((float)this->params->target_floor);
+	db->addFloat((float)this->params->target_ceiling);
+	db->addFloat((float)this->bumpmag_local);
+	db->addFloat((float)this->params->bump_duration);
+	db->addFloat((float)this->params->bump_ramp);
+	db->addFloat((float)this->params->bump_floor);
+	db->addFloat((float)this->params->bump_ceiling);
 	db->addByte((byte)this->stim_trial);
 	db->addByte((byte)this->training_trial);
 	db->addFloat((float)this->params->training_frequency);
@@ -400,7 +406,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_BUMP:
-			if (!centerTarget->cursorInTarget(inputs->cursor)) {
+			if (!centerTarget->cursorInTarget(inputs->cursor) && !this->stim_trial) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
@@ -460,17 +466,12 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* status (1) */
-// 	outputs->status[0] = getState();
-// 	outputs->status[1] = trialCounter->successes;
-// 	outputs->status[2] = trialCounter->failures;
-// 	outputs->status[3] = (int)(this->bump_dir);
-// 	outputs->status[4] = params->bump_magnitude;
+ 	outputs->status[0] = getState();
+ 	outputs->status[1] = trialCounter->successes;
+ 	outputs->status[2] = trialCounter->failures;
+ 	outputs->status[3] = (int)(this->bump_dir);
+ 	outputs->status[4] = params->bump_magnitude;
   
-    outputs->status[0] = bump->isRunning(S);
-	outputs->status[1] = (int)params->bump_delay_time*100;
-    outputs->status[2] = (int)(0.5+this->bump->direction * 180/PI);
-	outputs->status[3] = (int)(this->bump->peak_magnitude*100);
-	outputs->status[4] = (int)(params->bump_magnitude*100);
 	/* word(2) */
 	if (db->isRunning()) {
 		outputs->word = db->getByte();
