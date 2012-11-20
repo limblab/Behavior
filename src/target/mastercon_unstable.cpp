@@ -5,7 +5,7 @@
 
 #define DATABURST_VERSION ((byte)0x03) 
 /* 
- * Current Databurst version: 3
+ * Current Databurst version: 4
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -15,6 +15,26 @@
  * Databurst version descriptions
  * ==============================
  * 
+ * Version 4 (0x04)
+ * ----------------
+ * byte         0: uchar => number of bytes to be transmitted
+ * byte         1: uchar => databurst version number (in this case zero)
+ * byte         2: uchar => model version major
+ * byte         3: uchar => model version minor
+ * bytes   4 to 5: short => model version micro
+ * bytes   6 to 9: float => x offset (cm)
+ * bytes 10 to 13: float => y offset (cm)
+ * bytes 14 to 17: float => bump velocity (cm/s) or magnitude (N) depending on type.
+ * bytes 18 to 21: float => bump direction (rad)
+ * bytes 22 to 25: float => bump duration (s)
+ * bytes 26 to 29: float => negative stiffness (N/cm)
+ * bytes 30 to 33: float => positive stiffness (N/cm)
+ * bytes 34 to 37: float => force field angle (rad)
+ * bytes 38 to 41: float => bias force magnitude (N)
+ * bytes 42 to 45: float => bias force angle (rad)
+ * bytes 46 to 49: float => force target diameter (N)
+ * byte        50: uchar => force bump (if 0, vel bump)
+ *
  * Version 3 (0x03)
  * ----------------
  * byte         0: uchar => number of bytes to be transmitted
@@ -158,6 +178,10 @@ struct LocalParams{
     real_T P_gain_pos;
     
     real_T force_field_damping;
+    
+    // Bump type
+    real_T force_bump;
+    real_T force_bump_magnitude;
 };
 
 /**
@@ -226,7 +250,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(27);
+	this->setNumParams(29);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->field_ramp_up,							 1);
@@ -263,8 +287,11 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     
     this->bindParamId(&params->force_field_damping,                      26);
     
+    this->bindParamId(&params->force_bump,                               27);
+    this->bindParamId(&params->force_bump_magnitude,                     28);
+    
     // default parameters:
-    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001
+    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -316,7 +343,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
 	bump->direction = bump_direction;
 	bump->hold_duration = params->bump_duration;
-	bump->peak_magnitude = params->bump_velocity;
+	bump->peak_magnitude = params->force_bump_magnitude;
 	bump->rise_time = 0;	
 	x_force_at_bump_start = 0;
 	y_force_at_bump_start = 0;
@@ -353,7 +380,11 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);				// byte 5 -> Matlab idx 6
 	db->addFloat((float)(inputs->offsets.x));					// bytes 6 to 9 -> Matlab idx 7 to 10
 	db->addFloat((float)(inputs->offsets.y));					// bytes 10 to 13 -> Matlab idx 11 to 14
-	db->addFloat((float)params->bump_velocity);				// bytes 14 to 17 -> Matlab idx 15 to 18
+    if (params->force_bump){
+        db->addFloat((float)params->force_bump_magnitude);      // bytes 14 to 17 -> Matlab idx 15 to 18
+    } else {
+    	db->addFloat((float)params->bump_velocity);				// bytes 14 to 17 -> Matlab idx 15 to 18
+    }
 	db->addFloat((float)bump_direction);						// bytes 18 to 21 -> Matlab idx 19 to 22
     db->addFloat((float)params->bump_duration);                 // bytes 22 to 25 -> Matlab idx 23 to 26
 	db->addFloat((float)params->negative_stiffness);			// bytes 26 to 29 -> Matlab idx 27 to 30
@@ -362,6 +393,8 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)params->bias_force_magnitude);			// bytes 38 to 41 -> Matlab idx 39 to 42
 	db->addFloat((float)params->bias_force_angle);				// bytes 42 to 45 -> Matlab idx 43 to 46
     db->addFloat((float)params->force_target_diameter);         // bytes 46 to 49 -> Matlab idx 47 to 50
+    db->addByte((int)params->force_bump);                       // byte 50 -> Matlab idx 51
+    
 	db->start();
 
 }
@@ -525,14 +558,15 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 			outputs->force.x = x_force_field;
 			outputs->force.y = y_force_field;
 			break;
-		case STATE_BUMP:
-			//outputs->force = bump->getBumpForce(S);
-			//outputs->force.x += x_force_at_bump_start;
-			//outputs->force.y += y_force_at_bump_start;
-            
-            outputs->force.x = x_force_bump;
-            outputs->force.y = y_force_bump;
-                        
+		case STATE_BUMP:            
+            if(params->force_bump){
+                outputs->force = bump->getBumpForce(S);
+                outputs->force.x += x_force_at_bump_start;
+                outputs->force.y += y_force_at_bump_start;
+            } else {            
+                outputs->force.x = x_force_bump;
+                outputs->force.y = y_force_bump;
+            }                        
 			break;
         case STATE_REWARD:
         case STATE_ABORT:

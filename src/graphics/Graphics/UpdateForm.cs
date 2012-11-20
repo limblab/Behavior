@@ -801,6 +801,10 @@ namespace BehaviorGraphics
             //Field damping
             AddParamListItem("UF FDamp", "P27", "Behavior UF", this.textBoxUFFDamp);
 
+            // Bump type
+            AddParamListItem("UF BType", "P28", "Behavior UF", this.checkBoxUFFB);
+            AddParamListItem("UF BMag", "P29", "Behavior UF", this.textBoxUFBM);
+
             #endregion
         }
 

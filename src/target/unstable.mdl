@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1356"
+    ComputedModelVersion    "1.1360"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -46,8 +46,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Oct 25 08:42:42 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:1356>"
+  LastModifiedDate	  "Tue Nov 20 16:12:53 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:1360>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -830,7 +830,7 @@ Model {
   }
   System {
     Name		    "unstable"
-    Location		    [0, 50, 1008, 746]
+    Location		    [0, 82, 987, 722]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -852,7 +852,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_unstable"
       Parameters	      "0 1 1 2 1 1   5 10   0 0 0 0 0 0 0   .2 0 1 0  "
-" 1 1  1   0 1 0 0  0.001"
+" 1 1  1   0 1 0 0  0.001   1 0"
       MaskDisplay	      "disp('Master Control')\nport_label('input',1,'p"
 "os')\nport_label('input',2,'pos offsets')\nport_label('input',3,'force')\npor"
 "t_label('input',4,'catch force')\nport_label('output',1,'force')\nport_label("
@@ -1822,7 +1822,7 @@ Model {
     Block {
       BlockType		      From
       Name		      "From"
-      Position		      [530, 210, 580, 240]
+      Position		      [530, 205, 580, 235]
       CloseFcn		      "tagdialog Close"
       GotoTag		      "Offsets"
       TagVisibility	      "global"
@@ -1860,7 +1860,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[2, 50, 1010, 760]
+	Location		[2, 82, 989, 722]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1920,7 +1920,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Compare\nTo Constant1"
 	  Ports			  [1, 1]
-	  Position		  [665, 580, 695, 610]
+	  Position		  [655, 589, 695, 621]
 	  Orientation		  "left"
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
 "\nTo Constant"
@@ -1934,7 +1934,7 @@ Model {
 	  RTWMemSecDataInternal	  "Inherit from model"
 	  RTWMemSecDataParameters "Inherit from model"
 	  relop			  ">"
-	  const			  "1000"
+	  const			  "10000"
 	  LogicOutDataTypeMode	  "uint8"
 	  ZeroCross		  off
 	}
@@ -1942,7 +1942,7 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Compare\nTo Constant2"
 	  Ports			  [1, 1]
-	  Position		  [665, 530, 695, 560]
+	  Position		  [650, 529, 695, 561]
 	  Orientation		  "left"
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
 "\nTo Constant"
@@ -1956,7 +1956,7 @@ Model {
 	  RTWMemSecDataInternal	  "Inherit from model"
 	  RTWMemSecDataParameters "Inherit from model"
 	  relop			  ">"
-	  const			  "1000"
+	  const			  "10000"
 	  LogicOutDataTypeMode	  "uint8"
 	  ZeroCross		  off
 	}
@@ -2275,7 +2275,7 @@ Model {
 	  MaskIconOpaque	  on
 	  MaskIconRotate	  "none"
 	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "10"
+	  MaskValueString	  "5"
 	  System {
 	    Name		    "Schmidt"
 	    Location		    [2, 82, 1270, 884]
@@ -2733,13 +2733,14 @@ Model {
 	Line {
 	  SrcBlock		  "Compare\nTo Constant2"
 	  SrcPort		  1
-	  Points		  [-15, 0; 0, 35]
+	  Points		  [0, 35]
 	  DstBlock		  "Logical\nOperator1"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Compare\nTo Constant1"
 	  SrcPort		  1
+	  Points		  [0, -10]
 	  DstBlock		  "Logical\nOperator1"
 	  DstPort		  2
 	}
@@ -2808,6 +2809,7 @@ Model {
 	Line {
 	  SrcBlock		  "Abs1"
 	  SrcPort		  1
+	  Points		  [-30, 0]
 	  DstBlock		  "Compare\nTo Constant1"
 	  DstPort		  1
 	}
@@ -2849,7 +2851,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Recentering Subsystem"
-	Location		[0, 50, 1008, 746]
+	Location		[0, 82, 987, 722]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -7932,7 +7934,6 @@ Model {
     Line {
       SrcBlock		      "From"
       SrcPort		      1
-      Points		      [0, -5]
       DstBlock		      "Behavior UF"
       DstPort		      2
     }
