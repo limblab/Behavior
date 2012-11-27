@@ -192,7 +192,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->bump_ceiling,			23);
 	this->bindParamId(&params->show_target_during_bump,	24);
     this->bindParamId(&params->bump_incr,           	25);
-	this->bindParamId(&params->stimlevels,				26);
+	this->bindParamId(&params->stim_levels,				26);
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
