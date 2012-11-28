@@ -583,7 +583,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = floor(180*bump_direction/PI);	
-	outputs->status[4] = floor(1000*D_gain_vel);
+	outputs->status[4] = trial_counter;
 
  	
 	/* word (2) */
