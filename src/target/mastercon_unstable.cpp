@@ -464,6 +464,7 @@ void AttentionBehavior::update(SimStruct *S) {
             break;
         case STATE_ABORT:
             if (stateTimer->elapsedTime(S) > params->abort_wait){
+                trial_counter--;
                 setState(STATE_PRETRIAL);
             }
             break;
