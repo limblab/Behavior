@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.375"
+    ComputedModelVersion    "1.376"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -44,8 +44,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Sep 04 17:00:27 2012"
-  ModelVersionFormat	  "1.%<AutoIncrement:375>"
+  LastModifiedDate	  "Thu Nov 15 15:04:21 2012"
+  ModelVersionFormat	  "1.%<AutoIncrement:376>"
   ConfigurationManager	  "None"
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -859,8 +859,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"CursorPos"
-	Location		[139, 136, 966, 711]
-	Open			off
+	Location		[136, 115, 963, 690]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1203,7 +1203,7 @@ Model {
 	  method		  "Butterworth"
 	  filttype		  "Lowpass"
 	  N			  "8"
-	  Wlo			  "15"
+	  Wlo			  "31.4"
 	  Whi			  "80"
 	  Rp			  "2"
 	  Rs			  "40"
@@ -1218,7 +1218,7 @@ Model {
 	  method		  "Butterworth"
 	  filttype		  "Lowpass"
 	  N			  "8"
-	  Wlo			  "15"
+	  Wlo			  "31.4"
 	  Whi			  "80"
 	  Rp			  "2"
 	  Rs			  "40"
