@@ -134,8 +134,8 @@ struct LocalParams{
 	real_T bias_force_direction;
 	real_T bias_force_ramp;
     
-    // Force target
-    real_T force_target_diameter;
+    // Center cursor
+    real_T center_cursor;
 };
 
 /**
@@ -199,6 +199,8 @@ private:
 	int bump_direction_write_index;
 
 	real_T current_percent_training_mode;
+    
+    Point cursor_offset;    
 
 	TrapBumpGenerator *bump;
 	TrapBumpGenerator *bias_force;
@@ -222,7 +224,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(43);
+	this->setNumParams(44);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->center_hold_l,							 1);
@@ -273,9 +275,10 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->bias_force_ramp,							41);		
 
 	this->bindParamId(&params->percent_training_step,					42);
+    this->bindParamId(&params->center_cursor,       					43);
     
     // default parameters:
-    // 0 .5 1 5 1 1 1   3 10   40 30 20 20 20 1 1 4 0   1 10 80 1 50 .1 0 1.57 3.14 5 0 1.57   .3 5 1.57 3.14 0 1.57 .005   0 0 .003 0 .2
+    // 0 .5 1 5 1 1 1   3 10   40 30 20 20 20 1 1 4 0   1 10 80 1 50 .1 0 1.57 3.14 5 0 1.57   .3 5 1.57 3.14 0 1.57 .005   0 0 .003 0 .2 0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -333,6 +336,8 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 
 	bump = new TrapBumpGenerator();
 	bias_force = new TrapBumpGenerator();
+    
+    cursor_offset = Point(0,0);
 }
 
 void AttentionBehavior::setupProprioStaircase(
@@ -469,6 +474,9 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 		easy_trial = random->getBool();
 	}
 
+    // Reset cursor offset
+    cursor_offset = Point(0,0);    
+    
 	// Pick a stimulus to the left or right
 	left_stim = random->getBool();
 	staircase_id = left_stim + i_dir*2; // right stim = even, left stim = odd.
@@ -649,8 +657,13 @@ void AttentionBehavior::update(SimStruct *S) {
 			}
 			break;		
 		case STATE_STIMULI:
+            if (stateTimer->elapsedTime(S) == params->bump_duration + 0.5){
+                cursor_offset.x = -inputs->cursor.x * params->center_cursor;
+                cursor_offset.y = -inputs->cursor.y * params->center_cursor;
+            }
+           
 			if (stateTimer->elapsedTime(S) > params->bump_duration && 
-					centerTarget->cursorInTarget(inputs->cursor)) {
+					centerTarget->cursorInTarget(inputs->cursor + cursor_offset)) {
 				if (catch_trial){
 					setState(STATE_INCOMPLETE);
 				} else if (trial_type == VISUAL_TRIAL || trial_type == PROPRIO_TRIAL){
@@ -675,7 +688,11 @@ void AttentionBehavior::update(SimStruct *S) {
 			//}
 			break;						
 		case STATE_MOVEMENT:
-			if (rewardTarget->cursorInTarget(inputs->cursor)){
+            if (stateTimer->elapsedTime(S) >= 5){
+                cursor_offset.x = 0;
+                cursor_offset.y = 0;
+            } 
+			if (rewardTarget->cursorInTarget(inputs->cursor + cursor_offset)){
 				if (params->use_staircases){
 					if (trial_type == VISUAL_TRIAL){
 						visualStairs[staircase_id]->stepForward();						
@@ -685,7 +702,7 @@ void AttentionBehavior::update(SimStruct *S) {
 				}			
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
-			} else if (failTarget->cursorInTarget(inputs->cursor)){
+			} else if (failTarget->cursorInTarget(inputs->cursor + cursor_offset)){
 				if (params->use_staircases){
 					if (trial_type == VISUAL_TRIAL){
 						visualStairs[staircase_id]->stepBackward();
@@ -845,7 +862,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     {
         outputs->position = Point(1E6, 1E6);
     } else {
-    	outputs->position = inputs->cursor;
+    	outputs->position = inputs->cursor + cursor_offset;
     } 
 
 }
