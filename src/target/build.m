@@ -109,6 +109,8 @@ end % strcmp(target, 'all')
 function r = do_build(target, force, deps)
     if (regexp(target, '\.mexw32$'))
         r = do_build_mex(target, force, deps);
+    elseif (regexp(target, '\.mexw64$'))
+        r = do_build_mex(target, force, deps);
     elseif (regexp(target, '\.dlm$'))
         r = do_build_dlm(target, force, deps);
     elseif (regexp(target, '\.obj$'))
@@ -132,6 +134,9 @@ function r = do_build_mex(target, force, deps)
     compdate = dir(compname);
 
     filename = regexp(compname, '^(\w*)\.mexw32$', 'tokens');
+    if isempty(filename)
+        filename = regexp(compname, '^(\w*)\.mexw64$', 'tokens');
+    end
     filename = filename{1};
     fn = strcat(filename{1}, '.cpp');
     filedate = dir(fn);

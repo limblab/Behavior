@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -844,6 +844,9 @@ namespace BehaviorGraphics
             this.textBoxUFPG = new System.Windows.Forms.TextBox();
             this.label355 = new System.Windows.Forms.Label();
             this.groupBox68 = new System.Windows.Forms.GroupBox();
+            this.textBoxUFBM = new System.Windows.Forms.TextBox();
+            this.label235UF = new System.Windows.Forms.Label();
+            this.checkBoxUFFB = new System.Windows.Forms.CheckBox();
             this.angleEntryBoxUFFD = new AngleBox.AngleEntryBox();
             this.label342 = new System.Windows.Forms.Label();
             this.textBoxUFBV = new System.Windows.Forms.TextBox();
@@ -976,9 +979,7 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.checkBoxUFFB = new System.Windows.Forms.CheckBox();
-            this.textBoxUFBM = new System.Windows.Forms.TextBox();
-            this.label235UF = new System.Windows.Forms.Label();
+            this.checkBoxATCC = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -3861,8 +3862,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4694,8 +4695,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -8125,6 +8126,7 @@ namespace BehaviorGraphics
             // 
             // tabAttention
             // 
+            this.tabAttention.Controls.Add(this.checkBoxATCC);
             this.tabAttention.Controls.Add(this.groupBox51);
             this.tabAttention.Controls.Add(this.groupBox50);
             this.tabAttention.Controls.Add(this.groupBox60);
@@ -9666,6 +9668,35 @@ namespace BehaviorGraphics
             this.groupBox68.TabStop = false;
             this.groupBox68.Text = "Bumps";
             // 
+            // textBoxUFBM
+            // 
+            this.textBoxUFBM.Location = new System.Drawing.Point(113, 145);
+            this.textBoxUFBM.Name = "textBoxUFBM";
+            this.textBoxUFBM.Size = new System.Drawing.Size(46, 20);
+            this.textBoxUFBM.TabIndex = 49;
+            this.textBoxUFBM.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label235UF
+            // 
+            this.label235UF.AutoSize = true;
+            this.label235UF.Location = new System.Drawing.Point(9, 148);
+            this.label235UF.Name = "label235UF";
+            this.label235UF.Size = new System.Drawing.Size(86, 13);
+            this.label235UF.TabIndex = 50;
+            this.label235UF.Text = "Bump magnitude";
+            // 
+            // checkBoxUFFB
+            // 
+            this.checkBoxUFFB.AutoSize = true;
+            this.checkBoxUFFB.Location = new System.Drawing.Point(12, 127);
+            this.checkBoxUFFB.Name = "checkBoxUFFB";
+            this.checkBoxUFFB.Size = new System.Drawing.Size(82, 17);
+            this.checkBoxUFFB.TabIndex = 48;
+            this.checkBoxUFFB.Text = "Force bump";
+            this.toolTip1.SetToolTip(this.checkBoxUFFB, "If checked: open loop force bump, otherwise velocity PD bump.");
+            this.checkBoxUFFB.UseVisualStyleBackColor = true;
+            this.checkBoxUFFB.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
+            // 
             // angleEntryBoxUFFD
             // 
             this.angleEntryBoxUFFD.Location = new System.Drawing.Point(83, 98);
@@ -10930,34 +10961,16 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // checkBoxUFFB
+            // checkBoxATCC
             // 
-            this.checkBoxUFFB.AutoSize = true;
-            this.checkBoxUFFB.Location = new System.Drawing.Point(12, 127);
-            this.checkBoxUFFB.Name = "checkBoxUFFB";
-            this.checkBoxUFFB.Size = new System.Drawing.Size(82, 17);
-            this.checkBoxUFFB.TabIndex = 48;
-            this.checkBoxUFFB.Text = "Force bump";
-            this.toolTip1.SetToolTip(this.checkBoxUFFB, "If checked: open loop force bump, otherwise velocity PD bump.");
-            this.checkBoxUFFB.UseVisualStyleBackColor = true;
-            this.checkBoxUFFB.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
-            // 
-            // textBoxUFBM
-            // 
-            this.textBoxUFBM.Location = new System.Drawing.Point(113, 145);
-            this.textBoxUFBM.Name = "textBoxUFBM";
-            this.textBoxUFBM.Size = new System.Drawing.Size(46, 20);
-            this.textBoxUFBM.TabIndex = 49;
-            this.textBoxUFBM.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label235UF
-            // 
-            this.label235UF.AutoSize = true;
-            this.label235UF.Location = new System.Drawing.Point(9, 148);
-            this.label235UF.Name = "label235UF";
-            this.label235UF.Size = new System.Drawing.Size(86, 13);
-            this.label235UF.TabIndex = 50;
-            this.label235UF.Text = "Bump magnitude";
+            this.checkBoxATCC.AutoSize = true;
+            this.checkBoxATCC.Location = new System.Drawing.Point(14, 343);
+            this.checkBoxATCC.Name = "checkBoxATCC";
+            this.checkBoxATCC.Size = new System.Drawing.Size(142, 17);
+            this.checkBoxATCC.TabIndex = 71;
+            this.checkBoxATCC.Text = "Center cursor after bump";
+            this.toolTip1.SetToolTip(this.checkBoxATCC, "if unchecked: random walk dots");
+            this.checkBoxATCC.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -11126,6 +11139,7 @@ namespace BehaviorGraphics
             this.groupBoxUTimers.ResumeLayout(false);
             this.groupBoxUTimers.PerformLayout();
             this.tabAttention.ResumeLayout(false);
+            this.tabAttention.PerformLayout();
             this.groupBox51.ResumeLayout(false);
             this.groupBox51.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownATSR)).EndInit();
@@ -12137,5 +12151,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxUFBM;
         private System.Windows.Forms.Label label235UF;
         private System.Windows.Forms.CheckBox checkBoxUFFB;
+        private System.Windows.Forms.CheckBox checkBoxATCC;
     }
 }

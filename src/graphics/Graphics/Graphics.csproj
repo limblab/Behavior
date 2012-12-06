@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{EE5B33E7-DCA0-4801-B48F-128EA4D2B6A8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -16,6 +16,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -28,7 +29,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -189,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\DXCheck.vshost.exe.manifest" />
+    <None Include="bin\Release\BehaviorGraphics.vshost.exe.manifest" />
     <None Include="config\Parameters.xsl" />
     <EmbeddedResource Include="glyphs\colors1.tga" />
     <EmbeddedResource Include="glyphs\colors2.tga" />
@@ -254,12 +255,22 @@
     <Content Include="bin\Debug\DXCheck.exe" />
     <Content Include="bin\Debug\DXCheck.pdb" />
     <Content Include="bin\Debug\DXCheck.vshost.exe" />
+    <Content Include="bin\Release\AngleBox.dll" />
+    <Content Include="bin\Release\AngleBox.pdb" />
+    <Content Include="bin\Release\BehaviorGraphics.exe" />
+    <Content Include="bin\Release\BehaviorGraphics.pdb" />
+    <Content Include="bin\Release\BehaviorGraphics.vshost.exe" />
     <Content Include="bin\Release\DXCheck.exe" />
     <Content Include="bin\Release\DXCheck.pdb" />
     <EmbeddedResource Include="config\GlyphDefs.xml" />
+    <Content Include="bin\Release\Interop.XPCAPICOMLib.dll" />
     <Content Include="obj\Release\DXCheck.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Release\Interop.XPCAPICOMLib.dll" />
     <Content Include="obj\Release\TempPE\Properties.Resources.Designer.cs.dll" />
+    <Content Include="xpcapi.dll" />
+    <Content Include="xpcapiCOM.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="tones\somethingwrong.wav" />
     <EmbeddedResource Include="tones\mask.wav" />
     <EmbeddedResource Include="tones\go4.wav" />
@@ -269,10 +280,6 @@
     <EmbeddedResource Include="tones\fail2.wav" />
     <EmbeddedResource Include="tones\fail3.wav" />
     <EmbeddedResource Include="tones\fail4.wav" />
-    <Content Include="xpcapi.dll" />
-    <Content Include="xpcapiCOM.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AngleBox\AngleBox.csproj">
@@ -281,6 +288,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <Visible>False</Visible>
       <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
@@ -295,6 +307,11 @@
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5</ProductName>
       <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
       <Visible>False</Visible>
