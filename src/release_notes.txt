@@ -167,3 +167,11 @@ version 2.7
 General
   * Fixed a versioning error that caused 2.6 to fail to compile under certain circumstances.
   * Added the a variable "reward jackpot" mode to all models.
+
+version 3.0
+===========
+
+General
+  * Dec 11, 2012.  
+  * Added several new behaviors.
+  * Updated all models and behaviors to Matlab R2012b.
