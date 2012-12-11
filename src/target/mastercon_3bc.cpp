@@ -406,7 +406,8 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_BUMP:
-			if (!centerTarget->cursorInTarget(inputs->cursor) && !this->stim_trial) {
+//			if (!centerTarget->cursorInTarget(inputs->cursor) && !this->stim_trial) {
+			if (!centerTarget->cursorInTarget(inputs->cursor) ) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
