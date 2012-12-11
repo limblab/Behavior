@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{EE5B33E7-DCA0-4801-B48F-128EA4D2B6A8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -267,7 +267,9 @@
     <Content Include="obj\Release\DXCheck.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Release\Interop.XPCAPICOMLib.dll" />
     <Content Include="obj\Release\TempPE\Properties.Resources.Designer.cs.dll" />
-    <Content Include="xpcapi.dll" />
+    <Content Include="xpcapi.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="xpcapiCOM.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
