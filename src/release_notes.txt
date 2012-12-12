@@ -175,3 +175,10 @@ General
   * Dec 11, 2012.  
   * Added several new behaviors.
   * Updated all models and behaviors to Matlab R2012b.
+
+version 3.1
+===========
+
+General
+  * Dec 12, 2012.
+  * Fixed how table parameter IDs are read by BehaviorGraphics.
