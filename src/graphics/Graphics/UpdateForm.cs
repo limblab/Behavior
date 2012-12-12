@@ -329,7 +329,7 @@ namespace BehaviorGraphics
             //                    Double.Parse(this.MGGain1.Text),
             //                    Double.Parse(this.MGGain2.Text),
             //                    Double.Parse(this.MGGain3.Text)};
-            //AddParamListItem("MGGains", "table", "CursorPos/GadgetGains", MGGains);
+            //AddParamListItem("MGGains", "Table", "CursorPos/GadgetGains", MGGains);
             //AddParamListItem("MGGain0", "table(1)","CursorPos/GadgetGains", this.MGGain0);
             //AddParamListItem("MGGain1", "table(2)","CursorPos/GadgetGains", this.MGGain1);
             //AddParamListItem("MGGain2", "table(3)","CursorPos/GadgetGains", this.MGGain2);
@@ -1682,7 +1682,7 @@ namespace BehaviorGraphics
             this.toolStripProgressBar1.Value = (int)(100f * done / total);
 
             // MultiGadget Targets
-            paramID = target.GetParamIdx("TargetTable", "table");
+            paramID = target.GetParamIdx("TargetTable", "Table");
             if (paramID != -1) {
                 // Get Dimensions               
                 int[] dims = (int[])target.GetParamDims(paramID);
@@ -1699,7 +1699,7 @@ namespace BehaviorGraphics
             }
             
             //MG-Gains
-            paramID = target.GetParamIdx("CursorPos/GadgetGain", "table");
+            paramID = target.GetParamIdx("CursorPos/GadgetGain", "Table");
             if (paramID != -1) {
                 param = (double[])target.GetParam(paramID);
                 MGGain0.Text = param[0].ToString();
@@ -1713,7 +1713,7 @@ namespace BehaviorGraphics
             this.toolStripProgressBar1.Value = (int)(100f * done / total);
 
             // Wrist Flexion Targets
-            paramID = target.GetParamIdx("WFTargetTable", "table");
+            paramID = target.GetParamIdx("WFTargetTable", "Table");
             if (paramID != -1) {
                 // Get Dimensions               
                 int[] dims = (int[])target.GetParamDims(paramID);
@@ -1733,7 +1733,7 @@ namespace BehaviorGraphics
             this.toolStripProgressBar1.Value = (int)(100f * done / total);
 
             // Bump choice stimulation table
-            paramID = target.GetParamIdx("BCStimTable", "table");
+            paramID = target.GetParamIdx("BCStimTable", "Table");
             if (paramID != -1)
             {
                 param = (double[])target.GetParam(paramID);
@@ -1754,7 +1754,7 @@ namespace BehaviorGraphics
             this.toolStripProgressBar1.Value = (int)(100f * done / total);
 
             // Bump follow stimulation table
-            paramID = target.GetParamIdx("BFStimTable", "table");
+            paramID = target.GetParamIdx("BFStimTable", "Table");
             if (paramID != -1) {
                 param = (double[])target.GetParam(paramID);
                 for (int row = 0; row < 16; row++) {
@@ -2203,7 +2203,7 @@ namespace BehaviorGraphics
             /*
              * MG Targets 
              */
-            paramID = target.GetParamIdx("TargetTable", "table");
+            paramID = target.GetParamIdx("TargetTable", "Table");
             if (paramID >= 0) {
                 Array mgTargets = Array.CreateInstance(typeof(double), 80);
 
@@ -2224,7 +2224,7 @@ namespace BehaviorGraphics
             /*
              * MG Gains
              */
-            paramID = target.GetParamIdx("CursorPos/GadgetGain", "table");
+            paramID = target.GetParamIdx("CursorPos/GadgetGain", "Table");
             if (paramID >= 0)
             {
                 Array mgGains = Array.CreateInstance(typeof(double), 4);
@@ -2235,7 +2235,7 @@ namespace BehaviorGraphics
             /*
             * WF Targets 
             */
-            paramID = target.GetParamIdx("WFTargetTable", "table");
+            paramID = target.GetParamIdx("WFTargetTable", "Table");
             if (paramID >= 0) {
                 Array wfTargets = Array.CreateInstance(typeof(double), 96);
 
@@ -2265,7 +2265,7 @@ namespace BehaviorGraphics
             this.toolStripProgressBar1.Value = (int)(100f * done / total);
 
             /* Bump choice stims */
-            paramID = target.GetParamIdx("BCStimTable", "table");
+            paramID = target.GetParamIdx("BCStimTable", "Table");
             if (paramID >= 0)
             {
                 Array bcStims = Array.CreateInstance(typeof(double), 32);
@@ -2281,7 +2281,7 @@ namespace BehaviorGraphics
             this.toolStripProgressBar1.Value = (int)(100f * done / total);
 
             /* Bump follow stims */
-            paramID = target.GetParamIdx("BFStimTable", "table");
+            paramID = target.GetParamIdx("BFStimTable", "Table");
             if (paramID >= 0) {
                 Array bfStims = Array.CreateInstance(typeof(double), 32);
                 for (int i = 0; i < bp.BFStims.Count; i++) {
