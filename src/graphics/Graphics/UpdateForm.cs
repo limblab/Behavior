@@ -574,6 +574,7 @@ namespace BehaviorGraphics
             AddParamListItem("Un Center Offset X", "P36", "Behavior Un1d", this.textBoxUCenterOffsetX);
             AddParamListItem("Un Center Offset Y", "P37", "Behavior Un1d", this.textBoxUCenterOffsetY);
             AddParamListItem("Un Training Feedback Mode", "P38", "Behavior Un1d", this.checkBoxUTrainingFeedbackMode);
+            AddParamListItem("Un Toggle Cloud 1D", "P39", "Behavior Un1d", this.checkBoxUToggleCloud1D);
 
             #endregion
 

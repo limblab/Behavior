@@ -91,6 +91,8 @@ struct LocalParams {
 	real_T center_tgt_offset_X;   // offset of the center along x axis
 	real_T center_tgt_offset_Y;   // offset of the center along y axis
 	real_T max_speed_threshold; // maximum allowed speed threshold
+
+	real_T toggle_1D_cloud;	// use a 1 dimensional cloud
 };
 
 /**
@@ -153,7 +155,7 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(38);
+	this->setNumParams(39);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			 0);
@@ -200,6 +202,7 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->center_tgt_offset_X,		35);
 	this->bindParamId(&params->center_tgt_offset_Y,		36);
 	this->bindParamId(&params->training_feedback_mode,	37);
+	this->bindParamId(&params->toggle_1D_cloud,		38);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -220,7 +223,7 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 	for (i=0; i<10; i++) {
 		cloud[i] = new CircleTarget(0,0,0,Target::Color(255, 255, 0));
 	}
-	cursor_extent	   = 0.0;
+	cursor_extent			   = 0.0;
 	current_displacement       = 0.0;
 	current_cloud_std  = 0.0;
 	cursor_shift.x	   = 0.0;
@@ -283,7 +286,7 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 
 	// Calculate the Cursor Shift
 	cursor_shift.x =  current_displacement*sin(tgt_ang_rad);
-	cursor_shift.y = -current_displacement*cos(tgt_ang_rad);
+	cursor_shift.y =  current_displacement*-cos(tgt_ang_rad);
 
 	// Set Up The Targets
 	if ((params->target_angle == 90.0) || (params->target_angle == 270.0)){
@@ -374,9 +377,17 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 
 	// Set Up The Cloud Points
 	for (i=0; i<10; i++) {
-		cloud_points[i].x = random->getGaussian(0, current_cloud_std) + cursor_shift.x;
-		cloud_points[i].y = random->getGaussian(0, current_cloud_std) + cursor_shift.y;
-		cloud[i]->radius = params->feedback_dot_size;
+		if (params->cloud_mode_1D){
+			// For 1D clouds, since targets are at 0, 90, 180, 270....
+			cloud_points[i].x = random->getGaussian(0, current_cloud_std)*abs(sin(tgt_ang_rad)) + cursor_shift.x;
+			cloud_points[i].y = random->getGaussian(0, current_cloud_std)*abs(cos(tgt_ang_rad)) + cursor_shift.y;
+			cloud[i]->radius = params->feedback_dot_size;
+		}
+		else{
+			cloud_points[i].x = random->getGaussian(0, current_cloud_std) + cursor_shift.x;
+			cloud_points[i].y = random->getGaussian(0, current_cloud_std) + cursor_shift.y;
+			cloud[i]->radius = params->feedback_dot_size;
+		}
 	}
 
 	// Initialize the cloud and cursor extent

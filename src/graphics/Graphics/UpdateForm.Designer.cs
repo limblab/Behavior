@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -694,6 +694,7 @@ namespace BehaviorGraphics
             this.textBoxUCHL = new System.Windows.Forms.TextBox();
             this.labelUCHoldLow = new System.Windows.Forms.Label();
             this.tabAttention = new System.Windows.Forms.TabPage();
+            this.checkBoxATCC = new System.Windows.Forms.CheckBox();
             this.groupBox51 = new System.Windows.Forms.GroupBox();
             this.label286 = new System.Windows.Forms.Label();
             this.numericUpDownATSR = new System.Windows.Forms.NumericUpDown();
@@ -979,7 +980,7 @@ namespace BehaviorGraphics
             this.label72 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
-            this.checkBoxATCC = new System.Windows.Forms.CheckBox();
+            this.checkBoxUToggleCloud1D = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -3862,8 +3863,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4695,8 +4696,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -7387,6 +7388,7 @@ namespace BehaviorGraphics
             // 
             // groupBoxUFeedbackProp
             // 
+            this.groupBoxUFeedbackProp.Controls.Add(this.checkBoxUToggleCloud1D);
             this.groupBoxUFeedbackProp.Controls.Add(this.labelUWindowedFeedback);
             this.groupBoxUFeedbackProp.Controls.Add(this.textBoxUFbTime);
             this.groupBoxUFeedbackProp.Controls.Add(this.labelUFeedbackLocation);
@@ -7483,7 +7485,7 @@ namespace BehaviorGraphics
             // checkBoxUCloudOneBlock
             // 
             this.checkBoxUCloudOneBlock.AutoSize = true;
-            this.checkBoxUCloudOneBlock.Location = new System.Drawing.Point(311, 30);
+            this.checkBoxUCloudOneBlock.Location = new System.Drawing.Point(303, 30);
             this.checkBoxUCloudOneBlock.Name = "checkBoxUCloudOneBlock";
             this.checkBoxUCloudOneBlock.Size = new System.Drawing.Size(99, 17);
             this.checkBoxUCloudOneBlock.TabIndex = 56;
@@ -8141,6 +8143,17 @@ namespace BehaviorGraphics
             this.tabAttention.TabIndex = 13;
             this.tabAttention.Text = "Attention";
             this.tabAttention.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxATCC
+            // 
+            this.checkBoxATCC.AutoSize = true;
+            this.checkBoxATCC.Location = new System.Drawing.Point(14, 343);
+            this.checkBoxATCC.Name = "checkBoxATCC";
+            this.checkBoxATCC.Size = new System.Drawing.Size(142, 17);
+            this.checkBoxATCC.TabIndex = 71;
+            this.checkBoxATCC.Text = "Center cursor after bump";
+            this.toolTip1.SetToolTip(this.checkBoxATCC, "if unchecked: random walk dots");
+            this.checkBoxATCC.UseVisualStyleBackColor = true;
             // 
             // groupBox51
             // 
@@ -10961,16 +10974,16 @@ namespace BehaviorGraphics
             this.label74.TabIndex = 16;
             this.label74.Text = "Target Size";
             // 
-            // checkBoxATCC
+            // checkBoxUToggleCloud1D
             // 
-            this.checkBoxATCC.AutoSize = true;
-            this.checkBoxATCC.Location = new System.Drawing.Point(14, 343);
-            this.checkBoxATCC.Name = "checkBoxATCC";
-            this.checkBoxATCC.Size = new System.Drawing.Size(142, 17);
-            this.checkBoxATCC.TabIndex = 71;
-            this.checkBoxATCC.Text = "Center cursor after bump";
-            this.toolTip1.SetToolTip(this.checkBoxATCC, "if unchecked: random walk dots");
-            this.checkBoxATCC.UseVisualStyleBackColor = true;
+            this.checkBoxUToggleCloud1D.AutoSize = true;
+            this.checkBoxUToggleCloud1D.Location = new System.Drawing.Point(303, 118);
+            this.checkBoxUToggleCloud1D.Name = "checkBoxUToggleCloud1D";
+            this.checkBoxUToggleCloud1D.Size = new System.Drawing.Size(95, 17);
+            this.checkBoxUToggleCloud1D.TabIndex = 63;
+            this.checkBoxUToggleCloud1D.Text = "Use 1-D Cloud";
+            this.toolTip1.SetToolTip(this.checkBoxUToggleCloud1D, "draws a 1-dimensional cursor cloud");
+            this.checkBoxUToggleCloud1D.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -12152,5 +12165,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label235UF;
         private System.Windows.Forms.CheckBox checkBoxUFFB;
         private System.Windows.Forms.CheckBox checkBoxATCC;
+        private System.Windows.Forms.CheckBox checkBoxUToggleCloud1D;
     }
 }
