@@ -92,7 +92,7 @@ struct LocalParams {
 	real_T center_tgt_offset_Y;   // offset of the center along y axis
 	real_T max_speed_threshold; // maximum allowed speed threshold
 
-	real_T toggle_1D_cloud;	// use a 1 dimensional cloud
+	real_T cloud_mode_1D;	// use a 1 dimensional cloud
 };
 
 /**
@@ -202,7 +202,7 @@ Uncertainty1dBehavior::Uncertainty1dBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->center_tgt_offset_X,		35);
 	this->bindParamId(&params->center_tgt_offset_Y,		36);
 	this->bindParamId(&params->training_feedback_mode,	37);
-	this->bindParamId(&params->toggle_1D_cloud,		38);
+	this->bindParamId(&params->cloud_mode_1D,		38);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
