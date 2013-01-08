@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1276"
+    ComputedModelVersion    "1.1277"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -40,7 +40,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[8]
+	Filter			[9]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -57,7 +57,7 @@ Model {
 	LoadSaveID		"0"
 	Extents			[984.0, 603.0]
 	ZoomFactor		[1.0]
-	Offset			[0.0, 0.0]
+	Offset			[-29.5, -66.5]
       }
     }
   }
@@ -65,11 +65,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Nov 26 17:12:29 2012"
-  RTWModifiedTimeStamp	  275850748
-  ModelVersionFormat	  "1.%<AutoIncrement:1276>"
+  LastModifiedDate	  "Mon Jan 07 09:25:36 2013"
+  RTWModifiedTimeStamp	  279451527
+  ModelVersionFormat	  "1.%<AutoIncrement:1277>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -793,8 +793,8 @@ Model {
       Position		      [350, 68, 575, 402]
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
-      FunctionName	      "mastercon_3bc"
-      Parameters	      "0 0 2 10 4 0 .1 0 .25 .5 .5 1 .5 1 5 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
+      FunctionName	      "mastercon_untarget1D"
+      Parameters	      "1 0.5 1 0.5 1 0.5 1 1 3 1 90 10 2 3 3 2 1 5 8 1 2 3 4 0.25 0.25 0.25 0.25 0 0.2 7 3 5 0.2 0 1 5"
       EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"

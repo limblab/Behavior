@@ -518,7 +518,7 @@ namespace BehaviorGraphics
 
             #endregion
 
-            #region Uncertainty
+            #region Uncertainty1D
             /* 
              * Uncertainty 1D Parameters 
              */
@@ -575,6 +575,8 @@ namespace BehaviorGraphics
             AddParamListItem("Un Center Offset Y", "P37", "Behavior Un1d", this.textBoxUCenterOffsetY);
             AddParamListItem("Un Training Feedback Mode", "P38", "Behavior Un1d", this.checkBoxUTrainingFeedbackMode);
             AddParamListItem("Un Toggle Cloud 1D", "P39", "Behavior Un1d", this.checkBoxUToggleCloud1D);
+            AddParamListItem("Un 1D Cloud Jitter", "P40", "Behavior Un1d", this.textBoxUJitterValue);
+
 
             #endregion
 
@@ -807,6 +809,61 @@ namespace BehaviorGraphics
             // Bump type
             AddParamListItem("UF BType", "P28", "Behavior UF", this.checkBoxUFFB);
             AddParamListItem("UF BMag", "P29", "Behavior UF", this.textBoxUFBM);
+
+            #endregion
+
+            #region UncertaintyTarget1D
+            /* 
+             * UncertaintyTarget1D Parameters 
+             */
+
+            // Timing
+            AddParamListItem("UT1D CHL", "P2", "Behavior UnTarget1d", this.textBoxUT1DCHL);
+            AddParamListItem("UT1D CHH", "P3", "Behavior UnTarget1d", this.textBoxUT1DCHH);
+            AddParamListItem("UT1D DL",  "P4", "Behavior UnTarget1d", this.textBoxUT1DDL);
+            AddParamListItem("UT1D DH",  "P5", "Behavior UnTarget1d", this.textBoxUT1DDH);
+            AddParamListItem("UT1D OHL", "P6", "Behavior UnTarget1d", this.textBoxUT1DOHL);
+            AddParamListItem("UT1D OHH", "P7", "Behavior UnTarget1d", this.textBoxUT1DOHH);
+            AddParamListItem("UT1D ITI", "P8", "Behavior UnTarget1d", this.textBoxUT1DITI);
+            AddParamListItem("UT1D MT",  "P9", "Behavior UnTarget1d", this.textBoxUT1DMT);
+            AddParamListItem("UT1D FLT", "P10", "Behavior UnTarget1d", this.textBoxUT1DFLT);
+
+            // Uncertainty General Settings
+            AddParamListItem("UT1D Target Angle", "P11", "Behavior UnTarget1d", this.numericUpDownUT1DTargetAngle);
+            AddParamListItem("UT1D Movement Length", "P12", "Behavior UnTarget1d", this.textBoxUT1DMovementLen);
+            AddParamListItem("UT1D Target Diameter", "P13", "Behavior UnTarget1d", this.textBoxUT1DTargetSize);
+            AddParamListItem("UT1D Center X Offset", "P14", "Behavior UnTarget1d", this.textBoxUT1DCenterXOffset);
+            AddParamListItem("UT1D Center Y Offset", "P15", "Behavior UnTarget1d", this.textBoxUT1DCenterYOffset);
+
+            // Uncertainty Target Shift Parameters
+            AddParamListItem("UT1D Shift Mean", "P16", "Behavior UnTarget1d", this.textBoxUT1DShiftMean);
+            AddParamListItem("UT1D Shift Stdev", "P17", "Behavior UnTarget1d", this.textBoxUT1DShiftStdev);
+            AddParamListItem("UT1D Block Window Start", "P18", "Behavior UnTarget1d", this.textBoxUT1DBlockWindowStart);
+            AddParamListItem("UT1D Block Window End", "P19", "Behavior UnTarget1d", this.textBoxUT1DBlockWindowEnd);
+
+            // Uncertainty Target Cloud Parameters
+            AddParamListItem("UT1D Cloud 1 Stdev", "P20", "Behavior UnTarget1d", this.textBoxUT1DCloud1Stdev);
+            AddParamListItem("UT1D Cloud 2 Stdev", "P21", "Behavior UnTarget1d", this.textBoxUT1DCloud2Stdev);
+            AddParamListItem("UT1D Cloud 3 Stdev", "P22", "Behavior UnTarget1d", this.textBoxUT1DCloud3Stdev);
+            AddParamListItem("UT1D Cloud 4 Stdev", "P23", "Behavior UnTarget1d", this.textBoxUT1DCloud4Stdev);
+
+            AddParamListItem("UT1D Cloud 1 Freq", "P24", "Behavior UnTarget1d", this.textBoxUT1DCloud1Freq);
+            AddParamListItem("UT1D Cloud 2 Freq", "P25", "Behavior UnTarget1d", this.textBoxUT1DCloud2Freq);
+            AddParamListItem("UT1D Cloud 3 Freq", "P26", "Behavior UnTarget1d", this.textBoxUT1DCloud3Freq);
+            AddParamListItem("UT1D Cloud 4 Freq", "P27", "Behavior UnTarget1d", this.textBoxUT1DCloud4Freq);
+
+            AddParamListItem("UT1D Cloud 1 Blank",  "P28", "Behavior UnTarget1d", this.checkBoxUT1DCloud1Blank);
+
+            AddParamListItem("UT1D Slice Size",     "P29", "Behavior UnTarget1d", this.textBoxUT1DSliceSize);
+            AddParamListItem("UT1D Slice Number",   "P30", "Behavior UnTarget1d", this.numericUpDownUT1DSliceNumber);
+            AddParamListItem("UT1D Feedback Start", "P31", "Behavior UnTarget1d", this.textBoxUT1DFeedbackStart);
+            AddParamListItem("UT1D Feedback End",   "P32", "Behavior UnTarget1d", this.textBoxUT1DFeedbackEnd);
+
+            AddParamListItem("UT1D Cloud Jitter", "P33", "Behavior UnTarget1d", this.textBoxUT1DCloudJitter);
+
+            AddParamListItem("UT1D Use Timed", "P34", "Behavior UnTarget1d", this.checkBoxUT1DUseTimed);
+            AddParamListItem("UT1D Timed Duration", "P35", "Behavior UnTarget1d", this.textBoxUT1DTimedDuration);
+            AddParamListItem("UT1D Timed Location", "P36", "Behavior UnTarget1d", this.textBoxUT1DTimedLocation);
 
             #endregion
         }
@@ -2379,6 +2436,16 @@ namespace BehaviorGraphics
         }
 
         private void labelUDispVar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label244_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label310_Click(object sender, EventArgs e)
         {
 
         }

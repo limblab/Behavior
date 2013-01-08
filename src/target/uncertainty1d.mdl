@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1257"
+    ComputedModelVersion    "1.1258"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -67,9 +67,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jan 03 16:19:07 2013"
-  RTWModifiedTimeStamp	  279130745
-  ModelVersionFormat	  "1.%<AutoIncrement:1257>"
+  LastModifiedDate	  "Mon Jan 07 08:39:08 2013"
+  RTWModifiedTimeStamp	  279448743
+  ModelVersionFormat	  "1.%<AutoIncrement:1258>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1069,7 +1069,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_un1d"
       Parameters	      "1 0.5 1 0 0 0.25 0.5 1 2.5 1 90 10 1.5 1 3 2 0.5 12 0.5 1 0 0 0.5 0.5 0 0 0 4 6 0.5 5 0 0.2 5 "
-      "60 0 0 0 0"
+      "60 0 0 0 0 0"
       EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"
@@ -5784,7 +5784,7 @@ Model {
 	  ZOrder		  -34
 	  LibraryVersion	  "1.58"
 	  SourceBlock		  "limblab/Timer"
-	  SourceType		  "Unknown"
+	  SourceType		  ""
 	  Time			  "10"
 	}
 	Block {
@@ -8165,7 +8165,7 @@ Model {
 	      ZOrder		      -12
 	      LibraryVersion	      "1.58"
 	      SourceBlock	      "limblab/SerialConverter"
-	      SourceType	      "Unknown"
+	      SourceType	      ""
 	    }
 	    Block {
 	      BlockType		      Switch
@@ -8186,7 +8186,7 @@ Model {
 	      ZOrder		      -14
 	      LibraryVersion	      "1.58"
 	      SourceBlock	      "limblab/ToBits"
-	      SourceType	      "Unknown"
+	      SourceType	      ""
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -8197,7 +8197,7 @@ Model {
 	      ZOrder		      -15
 	      LibraryVersion	      "1.58"
 	      SourceBlock	      "limblab/ToBits"
-	      SourceType	      "Unknown"
+	      SourceType	      ""
 	    }
 	    Block {
 	      BlockType		      SubSystem
