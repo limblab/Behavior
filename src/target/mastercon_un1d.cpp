@@ -381,9 +381,9 @@ void Uncertainty1dBehavior::doPreTrial(SimStruct *S) {
 	for (i=0; i<10; i++) {
 		if (params->cloud_mode_1D){
 			// For 1D clouds, since targets are at 0, 90, 180, 270....
-			cloud_points[i].x = random->getGaussian(0, current_cloud_std)*abs(sin(tgt_ang_rad)) + ...
+			cloud_points[i].x = random->getGaussian(0, current_cloud_std)*abs(sin(tgt_ang_rad)) + 
 				random->getDouble(-abs(params->cloud_jitter),abs(params->cloud_jitter))*abs(cos(tgt_ang_rad))+cursor_shift.x;
-			cloud_points[i].y = random->getGaussian(0, current_cloud_std)*abs(cos(tgt_ang_rad)) + ...
+			cloud_points[i].y = random->getGaussian(0, current_cloud_std)*abs(cos(tgt_ang_rad)) +
 				random->getDouble(-abs(params->cloud_jitter),abs(params->cloud_jitter))*abs(sin(tgt_ang_rad))+cursor_shift.y;
 			cloud[i]->radius = params->feedback_dot_size;
 		}

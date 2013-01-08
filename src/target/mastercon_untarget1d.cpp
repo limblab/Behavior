@@ -5,7 +5,7 @@
 
 #define S_FUNCTION_NAME mastercon_untarget1d
 #define S_FUNCTION_LEVEL 2
-#define TASK_UNTARGET1D 1
+#define TASK_DB_DEFINED 1
 
 #include "words.h"
 #include "common_header.cpp"
@@ -121,7 +121,7 @@ private:
 	double previous_time_point;
 
 	SquareTarget    *centerTarget;
-	RectangleTarget *outerTarget;
+	SquareTarget	 *outerTarget;
 	RectangleTarget *targetBar;
 	RectangleTarget *cloud[10];
 
@@ -200,7 +200,7 @@ UncertaintyTarget1dBehavior::UncertaintyTarget1dBehavior(SimStruct *S) : RobotBe
 	 * Then do any behavior specific initialization 
 	 */
 	centerTarget	 = new SquareTarget(0,0,0,0);
-	outerTarget		 = new RectangleTarget(0,0,0,0,7);
+	outerTarget		 = new SquareTarget(0,0,0,0);
 	targetBar		 = new RectangleTarget(0,0,0,0,7);
 	feedback_timer	 = new Timer();
 	for (i=0; i<10; i++) {
@@ -312,20 +312,19 @@ void UncertaintyTarget1dBehavior::doPreTrial(SimStruct *S) {
 	// Set Up The Cloud Points
 	for (i=0; i<10; i++) {
 			// For 1D clouds, since targets are at 0, 90, 180, 270....
-			slice_points[i].x = random->getGaussian(0, current_target_stdev)*abs(sin(tgt_ang_rad)) + ...
+			slice_points[i].x = random->getGaussian(0, current_target_stdev)*abs(sin(tgt_ang_rad)) +
 				/*random->getDouble(-abs(params->cloud_jitter),abs(params->cloud_jitter))*abs(cos(tgt_ang_rad))+*/target_shift.x;
-			slice_points[i].y = random->getGaussian(0, current_target_stdev)*abs(cos(tgt_ang_rad)) + ...
+			slice_points[i].y = random->getGaussian(0, current_target_stdev)*abs(cos(tgt_ang_rad)) +
 				/*random->getDouble(-abs(params->cloud_jitter),abs(params->cloud_jitter))*abs(sin(tgt_ang_rad))+*/target_shift.y;
 	}
 
 
 	// Set Up The Targets
-	outerTarget->type = 7;
 	if ((params->target_angle == 90.0) || (params->target_angle == 270.0)){
-		outerTarget->left   = centerTarget->centerX+target_shift.x-params->target_size/2;
-		outerTarget->right  = centerTarget->centerX+target_shift.x+params->target_size/2;
-		outerTarget->top    = centerTarget->centerY+sin(tgt_ang_rad)*params->movement_length + params->target_size/2;
-		outerTarget->bottom = centerTarget->centerY+sin(tgt_ang_rad)*params->movement_length - params->target_size/2;
+			outerTarget->centerX = centerTarget->centerX+target_shift.x ;
+			outerTarget->centerY = centerTarget->centerY+sin(tgt_ang_rad)*params->movement_length ;
+			outerTarget->width   = params->target_size;
+			outerTarget->color   = Target::Color(0, 0, 255);
 
 		targetBar->left   = centerTarget->centerX-40;
 		targetBar->right  = centerTarget->centerX+40;
@@ -333,34 +332,35 @@ void UncertaintyTarget1dBehavior::doPreTrial(SimStruct *S) {
 		targetBar->bottom = centerTarget->centerY+sin(tgt_ang_rad)*params->movement_length - params->target_size/2;
 
 		for (i=0; i<10; i++) {
-			cloud[i]->left   = slice_points[i].x-params->slice_size*params->target_size/2
-			cloud[i]->right  = slice_points[i].x+params->slice_size*params->target_size/2
+			cloud[i]->left   = slice_points[i].x-params->slice_size*params->target_size/2;
+			cloud[i]->right  = slice_points[i].x+params->slice_size*params->target_size/2;
 			cloud[i]->top    = centerTarget->centerY+sin(tgt_ang_rad)*params->movement_length + params->target_size/2;
 			cloud[i]->bottom = centerTarget->centerY+sin(tgt_ang_rad)*params->movement_length - params->target_size/2;
 		}
 	} else if ((params->target_angle == 0.0) || (params->target_angle == 180.0)){
-		outerTarget->top     = centerTarget->centerY+target_shift.y+params->target_size/2;
-		outerTarget->bottom  = centerTarget->centerY+target_shift.y-params->target_size/2;
-		outerTarget->left    = centerTarget->centerX+cos(tgt_ang_rad)*params->movement_length - params->target_size/2;
-		outerTarget->right   = centerTarget->centerX+cos(tgt_ang_rad)*params->movement_length + params->target_size/2;
+			outerTarget->centerY = centerTarget->centerY+target_shift.y ;
+			outerTarget->centerX = centerTarget->centerX+cos(tgt_ang_rad)*params->movement_length ;
+			outerTarget->width   = params->target_size;
+			outerTarget->color   = Target::Color(0, 0, 255);
+
 
 		targetBar->top     = centerTarget->centerY+40;
 		targetBar->bottom  = centerTarget->centerY-40;
 		targetBar->left    = centerTarget->centerX+cos(tgt_ang_rad)*params->movement_length - params->target_size/2;
 		targetBar->right   = centerTarget->centerX+cos(tgt_ang_rad)*params->movement_length + params->target_size/2;
 		for (i=0; i<10; i++) {
-			cloud[i]->top     = slice_points[i].y+params->slice_size*params->target_size/2
-			cloud[i]->bottom  = slice_points[i].y-params->slice_size*params->target_size/2
+			cloud[i]->top     = slice_points[i].y+params->slice_size*params->target_size/2;
+			cloud[i]->bottom  = slice_points[i].y-params->slice_size*params->target_size/2;
 			cloud[i]->left    = centerTarget->centerX+cos(tgt_ang_rad)*params->movement_length - params->target_size/2;
 			cloud[i]->right   = centerTarget->centerX+cos(tgt_ang_rad)*params->movement_length + params->target_size/2;
 		}
 
 	} else {
 		// by default, place target at top
-		outerTarget->left   = centerTarget->centerX+target_shift.x-params->target_size/2;
-		outerTarget->right  = centerTarget->centerX+target_shift.x+params->target_size/2;
-		outerTarget->top    = centerTarget->centerY+sin(tgt_ang_rad)*params->movement_length + params->target_size/2;
-		outerTarget->bottom = centerTarget->centerY+sin(tgt_ang_rad)*params->movement_length - params->target_size/2;
+			outerTarget->centerX = centerTarget->centerX+target_shift.x ;
+			outerTarget->centerY = centerTarget->centerY+sin(tgt_ang_rad)*params->movement_length ;
+			outerTarget->width   = params->target_size;
+			outerTarget->color   = Target::Color(0, 0, 255);
 
 		targetBar->left   = centerTarget->centerX-40;
 		targetBar->right  = centerTarget->centerY+40;
@@ -368,8 +368,8 @@ void UncertaintyTarget1dBehavior::doPreTrial(SimStruct *S) {
 		targetBar->bottom = centerTarget->centerY+sin(tgt_ang_rad)*params->movement_length - params->target_size/2;
 		
 		for (i=0; i<10; i++) {
-			cloud[i]->left   = slice_points[i].x-params->slice_size*params->target_size/2
-			cloud[i]->right  = slice_points[i].x+params->slice_size*params->target_size/2
+			cloud[i]->left   = slice_points[i].x-params->slice_size*params->target_size/2;
+			cloud[i]->right  = slice_points[i].x+params->slice_size*params->target_size/2;
 			cloud[i]->top    = centerTarget->centerY+sin(tgt_ang_rad)*params->movement_length + params->target_size/2;
 			cloud[i]->bottom = centerTarget->centerY+sin(tgt_ang_rad)*params->movement_length - params->target_size/2;
 		}
@@ -390,6 +390,9 @@ void UncertaintyTarget1dBehavior::doPreTrial(SimStruct *S) {
 	// setup the databurst
 	db->reset();
 	db->addByte(DATABURST_VERSION);
+	db->addByte('U');
+	db->addByte('N');
+	db->addByte('T');
 	db->addByte(BEHAVIOR_VERSION_MAJOR);
     db->addByte(BEHAVIOR_VERSION_MINOR);
 	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);
@@ -451,9 +454,11 @@ void UncertaintyTarget1dBehavior::update(SimStruct *S) {
 				setState(STATE_INCOMPLETE);
 			}
 			else if (outerTarget->cursorInTarget(inputs->cursor)) {
+				outerTarget->color   = Target::Color(255, 0, 0);
 				setState(STATE_OUTER_HOLD);
 			}
 			else if (targetBar->cursorInTarget(inputs->cursor)) {
+				outerTarget->color   = Target::Color(255, 0, 0);
 				cursor_end_point=inputs->cursor;
 				playTone(TONE_ABORT);
 				setState(STATE_FAIL);
@@ -461,13 +466,11 @@ void UncertaintyTarget1dBehavior::update(SimStruct *S) {
 			break;
 		case STATE_OUTER_HOLD:
 			if (stateTimer->elapsedTime(S) >= outer_hold_time) {
-				cursor_end_point=inputs->cursor;
-				outerTarget->type = 1;
+				cursor_end_point=inputs->cursor;	
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
 			}
 			else if (!outerTarget->cursorInTarget(inputs->cursor)){
-				outerTarget->type = 1;
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}
@@ -559,20 +562,20 @@ void UncertaintyTarget1dBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[0] = nullTarget;
 	}
 
-	// Target 1 is the outer target
-	// Target 2 is the target bar
+	// Target 2 is the outer target
+	// Target 1 is the target bar
 	if (getState() == STATE_CENTER_DELAY || 
 		getState() == STATE_MOVEMENT || 
 		getState() == STATE_OUTER_HOLD || 
 		getState() == STATE_REWARD || 
 		getState() == STATE_FAIL) {
 
-		outputs->targets[1] = (Target *)outerTarget;
-		outputs->targets[2] = (Target *)targetBar;
+		outputs->targets[2] = (Target *)outerTarget;
+		outputs->targets[1] = (Target *)targetBar;
 	} 
 	else {
-		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
+		outputs->targets[1] = nullTarget;
 	}
 
 	// Targets 3 through 12 Target Cloud
@@ -655,7 +658,7 @@ void UncertaintyTarget1dBehavior::calculateOutputs(SimStruct *S) {
 			else {
 				outputs->position = inputs->cursor;
 			}
-		}
+		
 	}
 	// If we are in the outer hold, show the cursor
 	else if (getState() == STATE_OUTER_HOLD) {

@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1277"
+    ComputedModelVersion    "1.1278"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -65,11 +65,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jan 07 09:25:36 2013"
-  RTWModifiedTimeStamp	  279451527
-  ModelVersionFormat	  "1.%<AutoIncrement:1277>"
+  LastModifiedDate	  "Mon Jan 07 18:43:08 2013"
+  RTWModifiedTimeStamp	  279484986
+  ModelVersionFormat	  "1.%<AutoIncrement:1278>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -793,7 +793,7 @@ Model {
       Position		      [350, 68, 575, 402]
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
-      FunctionName	      "mastercon_untarget1D"
+      FunctionName	      "mastercon_untarget1d"
       Parameters	      "1 0.5 1 0.5 1 0.5 1 1 3 1 90 10 2 3 3 2 1 5 8 1 2 3 4 0.25 0.25 0.25 0.25 0 0.2 7 3 5 0.2 0 1 5"
       EnableBusSupport	      off
       Object {

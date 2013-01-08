@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -941,9 +941,9 @@ namespace BehaviorGraphics
             this.textBoxUT1DCloud1Freq = new System.Windows.Forms.TextBox();
             this.labelUT1DCloud4Stdev = new System.Windows.Forms.Label();
             this.textBoxUT1DCloud4Stdev = new System.Windows.Forms.TextBox();
-            this.label257 = new System.Windows.Forms.Label();
+            this.labelUT1DCloud3Stdev = new System.Windows.Forms.Label();
             this.textBoxUT1DCloud3Stdev = new System.Windows.Forms.TextBox();
-            this.label258 = new System.Windows.Forms.Label();
+            this.labelUT1DCloud2Stdev = new System.Windows.Forms.Label();
             this.textBoxUT1DCloud2Stdev = new System.Windows.Forms.TextBox();
             this.labelUT1DSliceNumber = new System.Windows.Forms.Label();
             this.numericUpDownUT1DSliceNumber = new System.Windows.Forms.NumericUpDown();
@@ -3955,8 +3955,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4788,8 +4788,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -10546,9 +10546,9 @@ namespace BehaviorGraphics
             this.groupBoxUT1DCloud.Controls.Add(this.textBoxUT1DCloud1Freq);
             this.groupBoxUT1DCloud.Controls.Add(this.labelUT1DCloud4Stdev);
             this.groupBoxUT1DCloud.Controls.Add(this.textBoxUT1DCloud4Stdev);
-            this.groupBoxUT1DCloud.Controls.Add(this.label257);
+            this.groupBoxUT1DCloud.Controls.Add(this.labelUT1DCloud3Stdev);
             this.groupBoxUT1DCloud.Controls.Add(this.textBoxUT1DCloud3Stdev);
-            this.groupBoxUT1DCloud.Controls.Add(this.label258);
+            this.groupBoxUT1DCloud.Controls.Add(this.labelUT1DCloud2Stdev);
             this.groupBoxUT1DCloud.Controls.Add(this.textBoxUT1DCloud2Stdev);
             this.groupBoxUT1DCloud.Controls.Add(this.labelUT1DSliceNumber);
             this.groupBoxUT1DCloud.Controls.Add(this.numericUpDownUT1DSliceNumber);
@@ -10728,14 +10728,14 @@ namespace BehaviorGraphics
             this.textBoxUT1DCloud4Stdev.Size = new System.Drawing.Size(36, 20);
             this.textBoxUT1DCloud4Stdev.TabIndex = 47;
             // 
-            // label257
+            // labelUT1DCloud3Stdev
             // 
-            this.label257.AutoSize = true;
-            this.label257.Location = new System.Drawing.Point(9, 90);
-            this.label257.Name = "label257";
-            this.label257.Size = new System.Drawing.Size(84, 13);
-            this.label257.TabIndex = 44;
-            this.label257.Text = "Cloud #3  Stdev";
+            this.labelUT1DCloud3Stdev.AutoSize = true;
+            this.labelUT1DCloud3Stdev.Location = new System.Drawing.Point(9, 90);
+            this.labelUT1DCloud3Stdev.Name = "labelUT1DCloud3Stdev";
+            this.labelUT1DCloud3Stdev.Size = new System.Drawing.Size(84, 13);
+            this.labelUT1DCloud3Stdev.TabIndex = 44;
+            this.labelUT1DCloud3Stdev.Text = "Cloud #3  Stdev";
             // 
             // textBoxUT1DCloud3Stdev
             // 
@@ -10744,14 +10744,14 @@ namespace BehaviorGraphics
             this.textBoxUT1DCloud3Stdev.Size = new System.Drawing.Size(36, 20);
             this.textBoxUT1DCloud3Stdev.TabIndex = 45;
             // 
-            // label258
+            // labelUT1DCloud2Stdev
             // 
-            this.label258.AutoSize = true;
-            this.label258.Location = new System.Drawing.Point(9, 61);
-            this.label258.Name = "label258";
-            this.label258.Size = new System.Drawing.Size(84, 13);
-            this.label258.TabIndex = 42;
-            this.label258.Text = "Cloud #2  Stdev";
+            this.labelUT1DCloud2Stdev.AutoSize = true;
+            this.labelUT1DCloud2Stdev.Location = new System.Drawing.Point(9, 61);
+            this.labelUT1DCloud2Stdev.Name = "labelUT1DCloud2Stdev";
+            this.labelUT1DCloud2Stdev.Size = new System.Drawing.Size(84, 13);
+            this.labelUT1DCloud2Stdev.TabIndex = 42;
+            this.labelUT1DCloud2Stdev.Text = "Cloud #2  Stdev";
             // 
             // textBoxUT1DCloud2Stdev
             // 
@@ -13102,9 +13102,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxUT1DCloud1Freq;
         private System.Windows.Forms.Label labelUT1DCloud4Stdev;
         private System.Windows.Forms.TextBox textBoxUT1DCloud4Stdev;
-        private System.Windows.Forms.Label label257;
+        private System.Windows.Forms.Label labelUT1DCloud3Stdev;
         private System.Windows.Forms.TextBox textBoxUT1DCloud3Stdev;
-        private System.Windows.Forms.Label label258;
+        private System.Windows.Forms.Label labelUT1DCloud2Stdev;
         private System.Windows.Forms.TextBox textBoxUT1DCloud2Stdev;
         private System.Windows.Forms.Label labelUT1DSliceNumber;
         private System.Windows.Forms.NumericUpDown numericUpDownUT1DSliceNumber;
