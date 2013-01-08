@@ -137,7 +137,7 @@ private:
 
 	int bump_dir;
 	float bumpmag_local;
-    
+    float catch_rate;
     Point cursorOffset;
 
 	CosineBumpGenerator *bump;
@@ -216,7 +216,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 
 
 	this->stim_trial = false;
-
+	this->catch_rate = 0;//this is a stupid hardcode until I get rount to implementing a link to the graphics panel for dynamic setting
 	this->bump_dir = 0;
 	this->bump = new CosineBumpGenerator();
 	this->training_trial=0;
@@ -276,10 +276,14 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	}
 
 	// Set up the bump itself
-	if(this->random->getInteger(1,10)>1){
-		bumpmag_local=(float)params->bump_magnitude;
+	if(catch_rate>0){
+		if(this->random->getInteger(1,10)>1){
+			bumpmag_local=(float)params->bump_magnitude;
+		} else {
+			bumpmag_local=0;
+		}
 	} else {
-		bumpmag_local=0;
+		bumpmag_local=(float)params->bump_magnitude;
 	}
 	this->bump->hold_duration = params->bump_duration;
     this->bump->peak_magnitude = bumpmag_local;
