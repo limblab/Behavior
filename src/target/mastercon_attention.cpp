@@ -641,82 +641,85 @@ void AttentionBehavior::update(SimStruct *S) {
 			break;
 		case STATE_CENTER_TARGET_ON:
 			/* first target on */
-			if (centerTarget->cursorInTarget(inputs->cursor)) {
-				bias_force->start(S);
-				setState(STATE_CENTER_HOLD);
-			}
+            if (inputs->catchForce.x) {
+                setState(STATE_INCOMPLETE);
+            } else {
+                if (centerTarget->cursorInTarget(inputs->cursor)) {
+                    bias_force->start(S);
+                    setState(STATE_CENTER_HOLD);
+                }
+            }
 			break;
 		case STATE_CENTER_HOLD:
-			if (stateTimer->elapsedTime(S) > (center_hold>params->bias_force_ramp ? 
-				center_hold : params->bias_force_ramp)) {
-				bump->start(S);
-				setState(STATE_STIMULI);
-			} else if (!centerTarget->cursorInTarget(inputs->cursor)) {
-				playTone(TONE_ABORT);
-				setState(STATE_ABORT);
-			}
-			break;		
-		case STATE_STIMULI:
-            if (stateTimer->elapsedTime(S) == params->bump_duration + 0.5){
-                cursor_offset.x = -inputs->cursor.x * params->center_cursor;
-                cursor_offset.y = -inputs->cursor.y * params->center_cursor;
+            if (inputs->catchForce.x) {
+                setState(STATE_INCOMPLETE);
+            } else {
+                if (stateTimer->elapsedTime(S) > (center_hold>params->bias_force_ramp ? 
+                    center_hold : params->bias_force_ramp)) {
+                    bump->start(S);
+                    setState(STATE_STIMULI);
+                } else if (!centerTarget->cursorInTarget(inputs->cursor)) {
+                    playTone(TONE_ABORT);
+                    setState(STATE_ABORT);
+                }
             }
-           
-			if (stateTimer->elapsedTime(S) > params->bump_duration && 
-					centerTarget->cursorInTarget(inputs->cursor + cursor_offset)) {
-				if (catch_trial){
-					setState(STATE_INCOMPLETE);
-				} else if (trial_type == VISUAL_TRIAL || trial_type == PROPRIO_TRIAL){
-					setState(STATE_MOVEMENT);
-				} else {
-					playTone(TONE_REWARD);
-					setState(STATE_REWARD);
-				}
-			}
-			//if (!centerTarget->cursorInTarget(inputs->cursor)){
-			//	setState(STATE_ABORT);
-			//} else if (stateTimer->elapsedTime(S) > (total_bump_length && 
-			//		centerTarget->cursorInTarget(inputs->cursor)) {
-			//	if (catch_trial){
-			//		setState(STATE_INCOMPLETE);
-			//	} else if (trial_type == VISUAL_TRIAL || trial_type == PROPRIO_TRIAL){
-			//		setState(STATE_MOVEMENT);
-			//	} else {
-			//		playTone(TONE_REWARD);
-			//		setState(STATE_REWARD);
-			//	}
-			//}
+            break;		
+		case STATE_STIMULI:
+            if (inputs->catchForce.x) {
+                setState(STATE_INCOMPLETE);
+            } else {
+                if (stateTimer->elapsedTime(S) == params->bump_duration + 0.5){
+                    cursor_offset.x = -inputs->cursor.x * params->center_cursor;
+                    cursor_offset.y = -inputs->cursor.y * params->center_cursor;
+                }
+
+                if (stateTimer->elapsedTime(S) > params->bump_duration && 
+                        centerTarget->cursorInTarget(inputs->cursor + cursor_offset)) {
+                    if (catch_trial){
+                        setState(STATE_INCOMPLETE);
+                    } else if (trial_type == VISUAL_TRIAL || trial_type == PROPRIO_TRIAL){
+                        setState(STATE_MOVEMENT);
+                    } else {
+                        playTone(TONE_REWARD);
+                        setState(STATE_REWARD);
+                    }
+                }
+            }
 			break;						
 		case STATE_MOVEMENT:
-            if (stateTimer->elapsedTime(S) >= 5){
-                cursor_offset.x = 0;
-                cursor_offset.y = 0;
-            } 
-			if (rewardTarget->cursorInTarget(inputs->cursor + cursor_offset)){
-				if (params->use_staircases){
-					if (trial_type == VISUAL_TRIAL){
-						visualStairs[staircase_id]->stepForward();						
-					} else if (trial_type == PROPRIO_TRIAL){
-						proprioStairs[staircase_id]->stepForward();
-					}
-				}			
-				playTone(TONE_REWARD);
-				setState(STATE_REWARD);
-			} else if (failTarget->cursorInTarget(inputs->cursor + cursor_offset)){
-				if (params->use_staircases){
-					if (trial_type == VISUAL_TRIAL){
-						visualStairs[staircase_id]->stepBackward();
-					} else if (trial_type == PROPRIO_TRIAL){
-						proprioStairs[staircase_id]->stepBackward();
-					}
-				}
-				playTone(TONE_ABORT);
-				setState(STATE_FAIL);
-			} else if (params->movement_time < 0) {
-                // wait in this state forever
-            } else if (stateTimer->elapsedTime(S) > params->movement_time){
-				setState(STATE_INCOMPLETE);
-			}
+            if (inputs->catchForce.x) {
+                setState(STATE_INCOMPLETE);
+            } else {
+                if (stateTimer->elapsedTime(S) >= 5){
+                    cursor_offset.x = 0;
+                    cursor_offset.y = 0;
+                } 
+                if (rewardTarget->cursorInTarget(inputs->cursor + cursor_offset)){
+                    if (params->use_staircases){
+                        if (trial_type == VISUAL_TRIAL){
+                            visualStairs[staircase_id]->stepForward();						
+                        } else if (trial_type == PROPRIO_TRIAL){
+                            proprioStairs[staircase_id]->stepForward();
+                        }
+                    }			
+                    playTone(TONE_REWARD);
+                    setState(STATE_REWARD);
+                } else if (failTarget->cursorInTarget(inputs->cursor + cursor_offset)){
+                    if (params->use_staircases){
+                        if (trial_type == VISUAL_TRIAL){
+                            visualStairs[staircase_id]->stepBackward();
+                        } else if (trial_type == PROPRIO_TRIAL){
+                            proprioStairs[staircase_id]->stepBackward();
+                        }
+                    }
+                    playTone(TONE_ABORT);
+                    setState(STATE_FAIL);
+                } else if (params->movement_time < 0) {
+                    // wait in this state forever
+                } else if (stateTimer->elapsedTime(S) > params->movement_time){
+                    setState(STATE_INCOMPLETE);
+                }
+            }
 			break;
 		case STATE_ABORT:			
 			this->bump->stop();
@@ -743,11 +746,14 @@ void AttentionBehavior::update(SimStruct *S) {
 			}
 			break;
         case STATE_INCOMPLETE:
-			this->bump->stop();
+            this->bump->stop();
 			this->bias_force->stop();
-			if (stateTimer->elapsedTime(S) > params->reward_timeout) {
-				setState(STATE_PRETRIAL);
-			}
+            
+            if (inputs->catchForce.x){
+                // Stay in this state until handle is back in workspace.
+            } else if (stateTimer->elapsedTime(S) > params->reward_timeout) {
+                    setState(STATE_PRETRIAL);
+            }
 			break;
 		default:
 			setState(STATE_PRETRIAL);
