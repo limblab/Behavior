@@ -864,6 +864,7 @@ namespace BehaviorGraphics
             AddParamListItem("UT1D Use Timed", "P34", "Behavior UnTarget1d", this.checkBoxUT1DUseTimed);
             AddParamListItem("UT1D Timed Duration", "P35", "Behavior UnTarget1d", this.textBoxUT1DTimedDuration);
             AddParamListItem("UT1D Timed Location", "P36", "Behavior UnTarget1d", this.textBoxUT1DTimedLocation);
+            AddParamListItem("UT1D Target Delay Mode", "P37", "Behavior UnTarget1d", this.checkBoxUT1DTargetDelayMode);
 
             #endregion
         }

@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -901,6 +901,8 @@ namespace BehaviorGraphics
             this.textBoxUFPS = new System.Windows.Forms.TextBox();
             this.textBoxUFNS = new System.Windows.Forms.TextBox();
             this.tabUncertaintyTarget1D = new System.Windows.Forms.TabPage();
+            this.checkBoxUT1DTargetDelayMode = new System.Windows.Forms.CheckBox();
+            this.textBoxUT1DDelayInfo = new System.Windows.Forms.TextBox();
             this.labelUT1DUnits = new System.Windows.Forms.Label();
             this.groupBoxUT1DTimers = new System.Windows.Forms.GroupBox();
             this.labelUT1DFLT = new System.Windows.Forms.Label();
@@ -3955,8 +3957,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4788,8 +4790,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -10314,6 +10316,8 @@ namespace BehaviorGraphics
             // 
             // tabUncertaintyTarget1D
             // 
+            this.tabUncertaintyTarget1D.Controls.Add(this.checkBoxUT1DTargetDelayMode);
+            this.tabUncertaintyTarget1D.Controls.Add(this.textBoxUT1DDelayInfo);
             this.tabUncertaintyTarget1D.Controls.Add(this.labelUT1DUnits);
             this.tabUncertaintyTarget1D.Controls.Add(this.groupBoxUT1DTimers);
             this.tabUncertaintyTarget1D.Controls.Add(this.groupBoxUT1DCloud);
@@ -10327,11 +10331,31 @@ namespace BehaviorGraphics
             this.tabUncertaintyTarget1D.Text = "UncertaintyTarget1D";
             this.tabUncertaintyTarget1D.UseVisualStyleBackColor = true;
             // 
+            // checkBoxUT1DTargetDelayMode
+            // 
+            this.checkBoxUT1DTargetDelayMode.AutoSize = true;
+            this.checkBoxUT1DTargetDelayMode.Location = new System.Drawing.Point(396, 80);
+            this.checkBoxUT1DTargetDelayMode.Name = "checkBoxUT1DTargetDelayMode";
+            this.checkBoxUT1DTargetDelayMode.Size = new System.Drawing.Size(117, 17);
+            this.checkBoxUT1DTargetDelayMode.TabIndex = 71;
+            this.checkBoxUT1DTargetDelayMode.Text = "Target Delay Mode";
+            this.checkBoxUT1DTargetDelayMode.UseVisualStyleBackColor = true;
+            // 
+            // textBoxUT1DDelayInfo
+            // 
+            this.textBoxUT1DDelayInfo.Location = new System.Drawing.Point(398, 100);
+            this.textBoxUT1DDelayInfo.Multiline = true;
+            this.textBoxUT1DDelayInfo.Name = "textBoxUT1DDelayInfo";
+            this.textBoxUT1DDelayInfo.ReadOnly = true;
+            this.textBoxUT1DDelayInfo.Size = new System.Drawing.Size(118, 62);
+            this.textBoxUT1DDelayInfo.TabIndex = 65;
+            this.textBoxUT1DDelayInfo.Text = "Note: This Mode will display the Target Cloud during Center Delay and Movement.";
+            // 
             // labelUT1DUnits
             // 
             this.labelUT1DUnits.AutoSize = true;
             this.labelUT1DUnits.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUT1DUnits.Location = new System.Drawing.Point(204, 139);
+            this.labelUT1DUnits.Location = new System.Drawing.Point(202, 139);
             this.labelUT1DUnits.Name = "labelUT1DUnits";
             this.labelUT1DUnits.Size = new System.Drawing.Size(185, 13);
             this.labelUT1DUnits.TabIndex = 64;
@@ -13170,5 +13194,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBox51;
         private System.Windows.Forms.Label label324;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox textBoxUT1DDelayInfo;
+        private System.Windows.Forms.CheckBox checkBoxUT1DTargetDelayMode;
     }
 }

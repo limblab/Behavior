@@ -83,7 +83,7 @@ struct LocalParams {
 	real_T use_timed_cloud;		// toggles use of the feedback timer instead of windowed feedback
 	real_T timed_duration;		// time feedback cloud is shown
 	real_T timed_location;      // where the feedback cloud is activated (in cm along radius)
-
+	real_T use_delay_cloud;
 };
 
 /**
@@ -113,8 +113,9 @@ private:
 	Point  slice_points[10];
 	double current_target_stdev; // current trial feedback variance
 	bool   cloud_blank;       // toggles current trial, blank feedback
+	bool   delay_cloud_mode;
 	Timer  *feedback_timer; // feedback timer
-
+	
 	double center_hold_time, center_delay_time, outer_hold_time;
 
 	Point  previous_position; // for calculating speed
@@ -142,7 +143,7 @@ UncertaintyTarget1dBehavior::UncertaintyTarget1dBehavior(SimStruct *S) : RobotBe
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(36);
+	this->setNumParams(37);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			 0);
@@ -188,6 +189,8 @@ UncertaintyTarget1dBehavior::UncertaintyTarget1dBehavior(SimStruct *S) : RobotBe
 	this->bindParamId(&params->timed_duration,			34);
 	this->bindParamId(&params->timed_location,			35);
 
+	this->bindParamId(&params->use_delay_cloud,			36);
+
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -222,12 +225,13 @@ UncertaintyTarget1dBehavior::UncertaintyTarget1dBehavior(SimStruct *S) : RobotBe
 	outer_hold_time	   = 0.0;
 	previous_time_point= 0.0;
 	cloud_blank        = false;
+	delay_cloud_mode	   = false;
 }
 /*
 void Uncertainty1dBehavior::updateCloud(SimStruct *S) {
 	for (int i=0; i<10; i++) {
 		cloud[i]->centerX = inputs->cursor.x + slice_points[i].x;
-		cloud[i]->centerY = inputs->cursor.y + slice_points[i].y;
+		cloud[i]->centerY = inputs->cursor.y + slice_points[i].y; 
 	}
 }
 */
@@ -251,7 +255,7 @@ void UncertaintyTarget1dBehavior::doPreTrial(SimStruct *S) {
 	double actual_freq_three;
 	double actual_freq_four;
 	double cloud_rand; // random variable to determine which cloud
-
+	delay_cloud_mode = params->use_delay_cloud;
 	// Calculate the Shift (Prior Shift)
 	current_trial_shift = random->getGaussian(params->shift_mean, params->shift_stdev);
 
@@ -312,9 +316,9 @@ void UncertaintyTarget1dBehavior::doPreTrial(SimStruct *S) {
 	// Set Up The Cloud Points
 	for (i=0; i<10; i++) {
 			// For 1D clouds, since targets are at 0, 90, 180, 270....
-			slice_points[i].x = random->getGaussian(0, current_target_stdev)*abs(sin(tgt_ang_rad)) +
+			slice_points[i].x = random->getGaussian(0, current_target_stdev)*abs(sin(tgt_ang_rad)) + center_offset.x +
 				/*random->getDouble(-abs(params->cloud_jitter),abs(params->cloud_jitter))*abs(cos(tgt_ang_rad))+*/target_shift.x;
-			slice_points[i].y = random->getGaussian(0, current_target_stdev)*abs(cos(tgt_ang_rad)) +
+			slice_points[i].y = random->getGaussian(0, current_target_stdev)*abs(cos(tgt_ang_rad)) + center_offset.y +
 				/*random->getDouble(-abs(params->cloud_jitter),abs(params->cloud_jitter))*abs(sin(tgt_ang_rad))+*/target_shift.y;
 	}
 
@@ -579,60 +583,76 @@ void UncertaintyTarget1dBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	// Targets 3 through 12 Target Cloud
-	// Draw the target cloud if we are within a movement and its not a cloud_blank trial
-	if ((getState() == STATE_MOVEMENT) && !cloud_blank) {
-		
-		// If we are in timer feedback mode (which shows the timed cloud also)
-		if (params->use_timed_cloud) {
-			// If the feedback location was reached and the timer isn't running yet, start the timer, 
-			// and set the cloud position 
-			// (this should occur only once per movement since feedback_timer never stops, once started)
-			if ((fabs(cursor_extent) >= params->timed_location) && !feedback_timer->isRunning()) {
-				feedback_timer->start(S);
-			}
-
-			// If the timer is running and we haven't hit the feedback time limit yet,
-			// keep drawing the cloud
-			if (feedback_timer->isRunning() && (feedback_timer->elapsedTime(S) <= params->timed_duration)){
-				// show dots
-				for (i = 0; i<params->slice_number; i++) {
-					outputs->targets[3+i] = cloud[i];
-				}
-			}
-			else {
-				// otherwise don't draw the cloud
-				for (i = 3; i<13; i++) {
-					outputs->targets[i] = nullTarget;
-				}
-			}
+	// If we are in delay mode, draw the cloud during the delay period and during the movement period.
+	if (delay_cloud_mode)
+	{
+		// if in delay or movement, show the slices
+		if ((getState() == STATE_CENTER_DELAY) || (getState() == STATE_MOVEMENT)) {
+			for (i = 0; i<params->slice_number; i++) {
+				outputs->targets[3+i] = cloud[i];
+			}		
 		}
-		// Windowed feedback mode
-		// Update the cloud position continuously if not in feedback timer mode (i.e. window mode)
 		else {
-			// If cursor is actually in the window
-			// Show the dots
-			if ((fabs(cursor_extent) >= params->feedback_window_begin) && 
-				(fabs(cursor_extent) <= params->feedback_window_end)) {
-				for (i = 0; i<params->slice_number; i++) {
-					outputs->targets[3+i] = cloud[i];
-				}
-			} 
-			// Otherwise hide dots
-			else {
-				for (i = 3; i<13; i++) {
-					outputs->targets[i] = nullTarget;
-				}
+			for (i = 3; i<13; i++) {
+				outputs->targets[i] = nullTarget;
 			}
 		}
-		
 	}
-	// Hide the dots otherwise (if not a movement, or it is a blank cloud trial)
+	// Draw the target cloud if we are within a movement and its not a cloud_blank trial
 	else {
-		for (i = 3; i<13; i++) {
-			outputs->targets[i] = nullTarget;
-		}
-	 }
+		if ((getState() == STATE_MOVEMENT) && !cloud_blank) {
+		
+			// If we are in timer feedback mode (which shows the timed cloud also)
+			if (params->use_timed_cloud) {
+				// If the feedback location was reached and the timer isn't running yet, start the timer, 
+				// and set the cloud position 
+				// (this should occur only once per movement since feedback_timer never stops, once started)
+				if ((fabs(cursor_extent) >= params->timed_location) && !feedback_timer->isRunning()) {
+					feedback_timer->start(S);
+				}
 
+				// If the timer is running and we haven't hit the feedback time limit yet,
+				// keep drawing the cloud
+				if (feedback_timer->isRunning() && (feedback_timer->elapsedTime(S) <= params->timed_duration)){
+					// show dots
+					for (i = 0; i<params->slice_number; i++) {
+						outputs->targets[3+i] = cloud[i];
+					}
+				}
+				else {
+					// otherwise don't draw the cloud
+					for (i = 3; i<13; i++) {
+						outputs->targets[i] = nullTarget;
+					}
+				}
+			}
+			// Windowed feedback mode
+			// Update the cloud position continuously if not in feedback timer mode (i.e. window mode)
+			else {
+				// If cursor is actually in the window
+				// Show the dots
+				if ((fabs(cursor_extent) >= params->feedback_window_begin) && 
+					(fabs(cursor_extent) <= params->feedback_window_end)) {
+					for (i = 0; i<params->slice_number; i++) {
+						outputs->targets[3+i] = cloud[i];
+					}
+				} 
+				// Otherwise hide dots
+				else {
+					for (i = 3; i<13; i++) {
+						outputs->targets[i] = nullTarget;
+					}
+				}
+			}
+		
+		}
+	// Hide the dots otherwise (if not a movement, or it is a blank cloud trial)
+		else {
+			for (i = 3; i<13; i++) {
+				outputs->targets[i] = nullTarget;
+			}
+		}
+	}
 	/* reward (4) */
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
 
