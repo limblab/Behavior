@@ -752,7 +752,8 @@ void AttentionBehavior::update(SimStruct *S) {
             if (inputs->catchForce.x){
                 // Stay in this state until handle is back in workspace.
             } else if (stateTimer->elapsedTime(S) > params->reward_timeout) {
-                    setState(STATE_PRETRIAL);
+                trial_counter--;
+                setState(STATE_PRETRIAL);
             }
 			break;
 		default:
