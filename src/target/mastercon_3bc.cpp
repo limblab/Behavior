@@ -231,7 +231,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	if ((int)this->params->use_random_targets) {
 		this->tgt_angle = this->random->getInteger((int)this->params->target_floor,(int)this->params->target_ceiling);
 	} else {
-		this->tgt_angle = (int)this->params->target_angle;
+		this->tgt_angle = (int)((180/PI)*(this->params->target_angle));
 	}
 
 	// Set up target locations, etc.
@@ -472,10 +472,12 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 
 	/* status (1) */
  	outputs->status[0] = getState();
- 	outputs->status[1] = trialCounter->successes;
- 	outputs->status[2] = trialCounter->failures;
+//  	outputs->status[1] = trialCounter->successes;
+    outputs->status[1] = (int)(params->target_angle);
+//  	outputs->status[2] = trialCounter->failures;
+    outputs->status[2] = (int)(this->tgt_angle);
  	outputs->status[3] = (int)(this->bump_dir);
- 	outputs->status[4] = params->bump_magnitude;
+ 	outputs->status[4] = (int)(180/PI)*this->bump->direction;
   
 	/* word(2) */
 	if (db->isRunning()) {
@@ -543,7 +545,7 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 		        outputs->targets[2] = (Target *)(this->secondaryTarget);
 			}
 		} else {
-            outputs->targets[1] = nullTarget;;
+            outputs->targets[1] = nullTarget;
             outputs->targets[2] = nullTarget;
 		}
 	} else if (getState() == STATE_MOVEMENT) {
