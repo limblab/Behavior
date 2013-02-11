@@ -586,15 +586,32 @@ void UncertaintyTarget1dBehavior::calculateOutputs(SimStruct *S) {
 	// If we are in delay mode, draw the cloud during the delay period and during the movement period.
 	if (delay_cloud_mode)
 	{
-		// if in delay or movement, show the slices
-		if ((getState() == STATE_CENTER_DELAY) || (getState() == STATE_MOVEMENT)) {
-			for (i = 0; i<params->slice_number; i++) {
-				outputs->targets[3+i] = cloud[i];
-			}		
+		// if in delay or movement (and feedback_window_end is positive), show the slices
+		if (params->feedback_window_end >= 0) {
+			if (((getState() == STATE_CENTER_DELAY) || (getState() == STATE_MOVEMENT)) &&
+				(fabs(cursor_extent) >= params->feedback_window_begin) && 
+				(fabs(cursor_extent) <= params->feedback_window_end)) {
+				for (i = 0; i<params->slice_number; i++) {
+					outputs->targets[3+i] = cloud[i];
+				}		
+			}
+			else {
+				for (i = 3; i<13; i++) {
+					outputs->targets[i] = nullTarget;
+				}
+			}
 		}
+		// if feedback_window_end is negative, only display slices when in CENTER DELAY
 		else {
-			for (i = 3; i<13; i++) {
-				outputs->targets[i] = nullTarget;
+			if (getState() == STATE_CENTER_DELAY) {
+				for (i = 0; i<params->slice_number; i++) {
+					outputs->targets[3+i] = cloud[i];
+				}		
+			}
+			else {
+				for (i = 3; i<13; i++) {
+					outputs->targets[i] = nullTarget;
+				}
 			}
 		}
 	}
