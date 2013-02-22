@@ -867,6 +867,62 @@ namespace BehaviorGraphics
             AddParamListItem("UT1D Target Delay Mode", "P37", "Behavior UnTarget1d", this.checkBoxUT1DTargetDelayMode);
 
             #endregion
+
+            #region UncertaintyTarget2D
+            /* 
+             * UncertaintyTarget2D Parameters 
+             */
+
+            // Timing
+            AddParamListItem("UT2D CHL", "P2", "Behavior UnTarget2d", this.textBoxUT2DCHL);
+            AddParamListItem("UT2D CHH", "P3", "Behavior UnTarget2d", this.textBoxUT2DCHH);
+            AddParamListItem("UT2D DL", "P4", "Behavior UnTarget2d", this.textBoxUT2DDL);
+            AddParamListItem("UT2D DH", "P5", "Behavior UnTarget2d", this.textBoxUT2DDH);
+            AddParamListItem("UT2D OHL", "P6", "Behavior UnTarget2d", this.textBoxUT2DOHL);
+            AddParamListItem("UT2D OHH", "P7", "Behavior UnTarget2d", this.textBoxUT2DOHH);
+            AddParamListItem("UT2D ITI", "P8", "Behavior UnTarget2d", this.textBoxUT2DITI);
+            AddParamListItem("UT2D MT", "P9", "Behavior UnTarget2d", this.textBoxUT2DMT);
+            AddParamListItem("UT2D FLT", "P10", "Behavior UnTarget2d", this.textBoxUT2DFLT);
+
+            // Uncertainty General Settings
+            AddParamListItem("UT2D Target Angle", "P11", "Behavior UnTarget2d", this.numericUpDownUT2DTargetAngle);
+            AddParamListItem("UT2D Movement Length", "P12", "Behavior UnTarget2d", this.textBoxUT2DMovementLen);
+            AddParamListItem("UT2D Target Diameter", "P13", "Behavior UnTarget2d", this.textBoxUT2DTargetSize);
+            AddParamListItem("UT2D Center X Offset", "P14", "Behavior UnTarget2d", this.textBoxUT2DCenterXOffset);
+            AddParamListItem("UT2D Center Y Offset", "P15", "Behavior UnTarget2d", this.textBoxUT2DCenterYOffset);
+
+            // Uncertainty Target Shift Parameters
+            AddParamListItem("UT2D Shift Mean", "P16", "Behavior UnTarget2d", this.textBoxUT2DShiftMean);
+            AddParamListItem("UT2D Shift Stdev", "P17", "Behavior UnTarget2d", this.textBoxUT2DShiftStdev);
+            AddParamListItem("UT2D Block Window Start", "P18", "Behavior UnTarget2d", this.textBoxUT2DBlockWindowStart);
+            AddParamListItem("UT2D Block Window End", "P19", "Behavior UnTarget2d", this.textBoxUT2DBlockWindowEnd);
+
+            // Uncertainty Target Cloud Parameters
+            AddParamListItem("UT2D Cloud 1 Stdev", "P20", "Behavior UnTarget2d", this.textBoxUT2DCloud1Stdev);
+            AddParamListItem("UT2D Cloud 2 Stdev", "P21", "Behavior UnTarget2d", this.textBoxUT2DCloud2Stdev);
+            AddParamListItem("UT2D Cloud 3 Stdev", "P22", "Behavior UnTarget2d", this.textBoxUT2DCloud3Stdev);
+            AddParamListItem("UT2D Cloud 4 Stdev", "P23", "Behavior UnTarget2d", this.textBoxUT2DCloud4Stdev);
+
+            AddParamListItem("UT2D Cloud 1 Freq", "P24", "Behavior UnTarget2d", this.textBoxUT2DCloud1Freq);
+            AddParamListItem("UT2D Cloud 2 Freq", "P25", "Behavior UnTarget2d", this.textBoxUT2DCloud2Freq);
+            AddParamListItem("UT2D Cloud 3 Freq", "P26", "Behavior UnTarget2d", this.textBoxUT2DCloud3Freq);
+            AddParamListItem("UT2D Cloud 4 Freq", "P27", "Behavior UnTarget2d", this.textBoxUT2DCloud4Freq);
+
+            AddParamListItem("UT2D Cloud 1 Blank", "P28", "Behavior UnTarget2d", this.checkBoxUT2DCloud1Blank);
+
+            AddParamListItem("UT2D Slice Size", "P29", "Behavior UnTarget2d", this.textBoxUT2DSliceSize);
+            AddParamListItem("UT2D Slice Number", "P30", "Behavior UnTarget2d", this.numericUpDownUT2DSliceNumber);
+            AddParamListItem("UT2D Feedback Start", "P31", "Behavior UnTarget2d", this.textBoxUT2DFeedbackStart);
+            AddParamListItem("UT2D Feedback End", "P32", "Behavior UnTarget2d", this.textBoxUT2DFeedbackEnd);
+
+            AddParamListItem("UT2D Cloud Jitter", "P33", "Behavior UnTarget2d", this.textBoxUT2DCloudJitter);
+
+            AddParamListItem("UT2D Use Timed", "P34", "Behavior UnTarget2d", this.checkBoxUT2DUseTimed);
+            AddParamListItem("UT2D Timed Duration", "P35", "Behavior UnTarget2d", this.textBoxUT2DTimedDuration);
+            AddParamListItem("UT2D Timed Location", "P36", "Behavior UnTarget2d", this.textBoxUT2DTimedLocation);
+            AddParamListItem("UT2D Target Delay Mode", "P37", "Behavior UnTarget2d", this.checkBoxUT2DTargetDelayMode);
+
+            #endregion
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
