@@ -127,14 +127,23 @@ public:
 	double getDouble(); // defaults zero to one
 	double getGaussian(double mean, double var); 
 	double getGaussian(); // mean zero, var one
+	double getVonMises(double mean, double K); 
+	double getVonMises(double K); // mean zero
 	int getInteger(int low, int high);
 	bool getBool();
 	unsigned long getUL();
     void permute(void **input, int length);
+	static const double VMFAIL;
 private:
 	unsigned long z, w, jsr, jcong;
 	unsigned long kiss();
 };
+
+/**
+ * Initilizes constant.
+ */
+const double Random::VMFAIL = 1000000;
+
 
 /**
  * Initilizes the pRNG to a pre-defined seed.
@@ -207,6 +216,76 @@ double Random::getGaussian() {
 	return sqrt(-2*log(a))*cos(2*3.141592654*b);
 }
 
+/**
+ * Returns a random number from a circular normal (Von Mises) distrbution with mean 'mean'
+ * and concentration 'K' (approaches variance '1/K'). This method could take several iterations
+ * to produce an acceptable value due to rejection algorithm.  In practice, this should not be an
+ * issue for the real-time system.
+ * @return a double selected from the circular normal distribution with mean 'mean' and variance '1/K'.
+ */
+double Random::getVonMises(double mean, double K){
+	double vmvar=getVonMises(K);
+	if (vmvar==Random::VMFAIL){
+		return vmvar;
+	}
+	else{
+		vmvar += mean;
+		if (vmvar>3.141592654)
+			vmvar -= 2*3.141592654;
+		else if (vmvar<-3.141592654)
+			vmvar += 2*3.141592654;
+		return vmvar;
+	}
+}
+
+/**
+ * Returns a random number from a circular normal (Von Mises) distrbution with mean 0
+ * and concentration 'K' (approaches variance '1/K').  This method could take several iterations
+ * to produce an acceptable value due to rejection algorithm.  In practice, this should not be an
+ * issue for the real-time system.
+ * @return a double selected from the circular normal distribution with mean 0 and variance '1/K'.
+ */
+double Random::getVonMises(double K){
+	// K be non-zero.  Negative values are also incorrect but won't crash the algorithm
+	if (K==0)
+		K=0.0001;
+	bool accept;
+	double tau, rho, r, u1, Z, f, c;
+	int num_iter;
+	int fail_iter = 50;
+	tau = 1+sqrt(1+4*pow(K,2));
+	rho = (tau-sqrt(2*tau))/(2*K);
+	r   = (1+pow(rho,2))/(2*rho);
+	accept = false;
+	num_iter=0;
+	while ((!accept)&&(num_iter < fail_iter)) {
+		u1 = getDouble();
+		Z = cos(getDouble()*3.141592654);
+		f = (1+r*Z)/(r+z);
+		c = K*(r-f);
+		if ((c*(2-c)-u1)>0){
+			accept = true;
+		} else if ((log(c/u1)+1-c)>=0) {
+			accept = true;
+		} else {
+			num_iter++;
+		}
+	}
+	//Failure Mode
+	if (num_iter>=fail_iter){
+		return Random::VMFAIL;
+	}
+	else {
+		// Success Mode
+		double u2 = getDouble()-0.5;
+		if (u2 < DBL_EPSILON) {
+			return -acos(f); 
+		}
+		else {
+			return (u2>DBL_EPSILON)*acos(f); 
+		}
+	}
+}
 /**
  * Returns a random integer in the specified range.
  * This function returns an interger selected from the set of integers between `low` and `high` (inclusive).
