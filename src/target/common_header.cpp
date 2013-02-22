@@ -1,5 +1,5 @@
 /**
- * common_headder.cpp
+ * common_header.cpp
  * Contains the includes required to build a subclass of Behavior
  * 
  * $Id: $
@@ -7,6 +7,7 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <float.h>
 #include "simstruc.h"
 
 /*
