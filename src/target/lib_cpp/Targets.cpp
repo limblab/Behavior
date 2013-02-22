@@ -252,6 +252,13 @@ public:
 	 * The target type to be requested from the graphics computer.
 	 */
 	double type;
+
+	double tx1;
+	double ty1;
+	double tx2;
+	double ty2;
+	double trsqL;
+	double trsqH;
 };
 
 /**
@@ -263,6 +270,12 @@ ArcTarget::ArcTarget() {
 	this->span = 0.0; 
 	this->height = 0.0;
 	this->type = TARGET_TYPE_NULL;
+	this->tx1 = 0;
+	this->ty1 = 0;
+	this->tx2 = 0;
+	this->ty2 = 0;
+	this->trsqL = 0;
+	this->trsqH = 0;
 }
 
 /**
@@ -274,13 +287,7 @@ ArcTarget::ArcTarget() {
  * @param type the type of target.
  */
 ArcTarget::ArcTarget(double r, double theta, double span, double height, int type) {
-	double tx1;
-	double ty1;
-	double tx2;
-	double ty2;
-	double trsqrL;
-	double trsqrH;
-	
+
 	this->r = r;
 	this->theta = theta;
 	this->span = span; 
@@ -309,7 +316,7 @@ bool ArcTarget::cursorInTarget(double x, double y) {
 	double rsq;
 	rsq = x*x + y*y;
 
-	return ( /* distance criterion */ ( rsq > (this->trsqL) && rsq < (this->trsqH) &&
+	return ( /* distance criterion */ rsq > (this->trsqL) && rsq < (this->trsqH) &&
 		     /* angle criterion */    ( (this->tx1)*y-(this->ty1)*x > 0 && 
 									    (this->ty2)*x-(this->tx2)*y > 0 ) );
 
