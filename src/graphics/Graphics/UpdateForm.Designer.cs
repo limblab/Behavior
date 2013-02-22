@@ -302,6 +302,13 @@ namespace BehaviorGraphics
             this.textBoxMGTPL = new System.Windows.Forms.TextBox();
             this.label122 = new System.Windows.Forms.Label();
             this.tabPageWF = new System.Windows.Forms.TabPage();
+            this.groupBoxFilter = new System.Windows.Forms.GroupBox();
+            this.label237 = new System.Windows.Forms.Label();
+            this.comboBoxWFM = new System.Windows.Forms.ComboBox();
+            this.label236 = new System.Windows.Forms.Label();
+            this.label235 = new System.Windows.Forms.Label();
+            this.textBoxWFPE = new System.Windows.Forms.TextBox();
+            this.textBoxWFOF = new System.Windows.Forms.TextBox();
             this.groupBox43 = new System.Windows.Forms.GroupBox();
             this.label194 = new System.Windows.Forms.Label();
             this.label192 = new System.Windows.Forms.Label();
@@ -1052,13 +1059,13 @@ namespace BehaviorGraphics
             this.UncertaintyTarget2D = new System.Windows.Forms.TabPage();
             this.groupBox49 = new System.Windows.Forms.GroupBox();
             this.textBoxUT2DCenterYOffset = new System.Windows.Forms.TextBox();
-            this.label235 = new System.Windows.Forms.Label();
+            this.label235UT = new System.Windows.Forms.Label();
             this.numericUpDownUT2DTargetAngle = new System.Windows.Forms.NumericUpDown();
             this.textBoxUT2DTargetSize = new System.Windows.Forms.TextBox();
-            this.label236 = new System.Windows.Forms.Label();
+            this.label236UT = new System.Windows.Forms.Label();
             this.textBoxUT2DCenterXOffset = new System.Windows.Forms.TextBox();
             this.textBoxUT2DMovementLen = new System.Windows.Forms.TextBox();
-            this.label237 = new System.Windows.Forms.Label();
+            this.label237UT = new System.Windows.Forms.Label();
             this.label238 = new System.Windows.Forms.Label();
             this.label239 = new System.Windows.Forms.Label();
             this.label240 = new System.Windows.Forms.Label();
@@ -1173,6 +1180,7 @@ namespace BehaviorGraphics
             ((System.ComponentModel.ISupportInitialize)(this.MGTargetGrid)).BeginInit();
             this.groupBox31.SuspendLayout();
             this.tabPageWF.SuspendLayout();
+            this.groupBoxFilter.SuspendLayout();
             this.groupBox43.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox40.SuspendLayout();
@@ -4193,6 +4201,7 @@ namespace BehaviorGraphics
             // 
             // tabPageWF
             // 
+            this.tabPageWF.Controls.Add(this.groupBoxFilter);
             this.tabPageWF.Controls.Add(this.groupBox43);
             this.tabPageWF.Controls.Add(this.groupBox12);
             this.tabPageWF.Controls.Add(this.buttonWFclear);
@@ -4207,7 +4216,78 @@ namespace BehaviorGraphics
             this.tabPageWF.Size = new System.Drawing.Size(686, 410);
             this.tabPageWF.TabIndex = 6;
             this.tabPageWF.Text = "Wrist Flexion";
-            this.tabPageWF.UseVisualStyleBackColor = true;
+            this.tabPageWF.UseVisualStyleBackColor = true;           
+            // 
+            // groupBoxFilter
+            // 
+            this.groupBoxFilter.Controls.Add(this.label237);
+            this.groupBoxFilter.Controls.Add(this.comboBoxWFM);
+            this.groupBoxFilter.Controls.Add(this.label236);
+            this.groupBoxFilter.Controls.Add(this.label235);
+            this.groupBoxFilter.Controls.Add(this.textBoxWFPE);
+            this.groupBoxFilter.Controls.Add(this.textBoxWFOF);
+            this.groupBoxFilter.Location = new System.Drawing.Point(347, 311);
+            this.groupBoxFilter.Name = "groupBoxFilter";
+            this.groupBoxFilter.Size = new System.Drawing.Size(281, 77);
+            this.groupBoxFilter.TabIndex = 43;
+            this.groupBoxFilter.TabStop = false;
+            this.groupBoxFilter.Text = "Filter Properties";
+            // 
+            // label237
+            // 
+            this.label237.AutoSize = true;
+            this.label237.Location = new System.Drawing.Point(132, 26);
+            this.label237.Name = "label237";
+            this.label237.Size = new System.Drawing.Size(68, 13);
+            this.label237.TabIndex = 42;
+            this.label237.Text = "Filter Method";
+            // 
+            // comboBoxWFM
+            // 
+            this.comboBoxWFM.Enabled = false;
+            this.comboBoxWFM.FormattingEnabled = true;
+            this.comboBoxWFM.Items.AddRange(new object[] {
+            "Butterworth",
+            "Chebyshev I",
+            "Chebyshev II",
+            "Elliptic",
+            "Bessel"});
+            this.comboBoxWFM.Location = new System.Drawing.Point(129, 48);
+            this.comboBoxWFM.Name = "comboBoxWFM";
+            this.comboBoxWFM.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxWFM.TabIndex = 41;
+            // 
+            // label236
+            // 
+            this.label236.AutoSize = true;
+            this.label236.Location = new System.Drawing.Point(19, 52);
+            this.label236.Name = "label236";
+            this.label236.Size = new System.Drawing.Size(55, 13);
+            this.label236.TabIndex = 40;
+            this.label236.Text = "wp (rad/s)";
+            // 
+            // label235
+            // 
+            this.label235.AutoSize = true;
+            this.label235.Location = new System.Drawing.Point(32, 26);
+            this.label235.Name = "label235";
+            this.label235.Size = new System.Drawing.Size(33, 13);
+            this.label235.TabIndex = 39;
+            this.label235.Text = "Order";
+            // 
+            // textBoxWFPE
+            // 
+            this.textBoxWFPE.Location = new System.Drawing.Point(79, 49);
+            this.textBoxWFPE.Name = "textBoxWFPE";
+            this.textBoxWFPE.Size = new System.Drawing.Size(33, 20);
+            this.textBoxWFPE.TabIndex = 38;
+            // 
+            // textBoxWFOF
+            // 
+            this.textBoxWFOF.Location = new System.Drawing.Point(79, 23);
+            this.textBoxWFOF.Name = "textBoxWFOF";
+            this.textBoxWFOF.Size = new System.Drawing.Size(33, 20);
+            this.textBoxWFOF.TabIndex = 37;
             // 
             // groupBox43
             // 
@@ -4397,7 +4477,7 @@ namespace BehaviorGraphics
             // radioButtonWFCNC
             // 
             this.radioButtonWFCNC.AutoSize = true;
-            this.radioButtonWFCNC.Location = new System.Drawing.Point(9, 166);
+            this.radioButtonWFCNC.Location = new System.Drawing.Point(8, 163);
             this.radioButtonWFCNC.Name = "radioButtonWFCNC";
             this.radioButtonWFCNC.Size = new System.Drawing.Size(78, 17);
             this.radioButtonWFCNC.TabIndex = 46;
@@ -4411,7 +4491,7 @@ namespace BehaviorGraphics
             // 
             this.radioButtonWFCTNC.AutoSize = true;
             this.radioButtonWFCTNC.Checked = true;
-            this.radioButtonWFCTNC.Location = new System.Drawing.Point(9, 148);
+            this.radioButtonWFCTNC.Location = new System.Drawing.Point(8, 145);
             this.radioButtonWFCTNC.Name = "radioButtonWFCTNC";
             this.radioButtonWFCTNC.Size = new System.Drawing.Size(110, 17);
             this.radioButtonWFCTNC.TabIndex = 45;
@@ -4424,7 +4504,7 @@ namespace BehaviorGraphics
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(125, 126);
+            this.label47.Location = new System.Drawing.Point(124, 130);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(15, 13);
             this.label47.TabIndex = 45;
@@ -4432,7 +4512,7 @@ namespace BehaviorGraphics
             // 
             // textBoxWFNC
             // 
-            this.textBoxWFNC.Location = new System.Drawing.Point(94, 122);
+            this.textBoxWFNC.Location = new System.Drawing.Point(93, 126);
             this.textBoxWFNC.Name = "textBoxWFNC";
             this.textBoxWFNC.Size = new System.Drawing.Size(25, 20);
             this.textBoxWFNC.TabIndex = 13;
@@ -4441,7 +4521,7 @@ namespace BehaviorGraphics
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(6, 125);
+            this.label46.Location = new System.Drawing.Point(5, 129);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(74, 13);
             this.label46.TabIndex = 32;
@@ -4450,7 +4530,7 @@ namespace BehaviorGraphics
             // labelWFIntMax
             // 
             this.labelWFIntMax.AutoSize = true;
-            this.labelWFIntMax.Location = new System.Drawing.Point(72, 215);
+            this.labelWFIntMax.Location = new System.Drawing.Point(71, 212);
             this.labelWFIntMax.Name = "labelWFIntMax";
             this.labelWFIntMax.Size = new System.Drawing.Size(27, 13);
             this.labelWFIntMax.TabIndex = 31;
@@ -4459,7 +4539,7 @@ namespace BehaviorGraphics
             // 
             // textBoxWFIntMax
             // 
-            this.textBoxWFIntMax.Location = new System.Drawing.Point(101, 212);
+            this.textBoxWFIntMax.Location = new System.Drawing.Point(100, 209);
             this.textBoxWFIntMax.Name = "textBoxWFIntMax";
             this.textBoxWFIntMax.Size = new System.Drawing.Size(30, 20);
             this.textBoxWFIntMax.TabIndex = 19;
@@ -4468,7 +4548,7 @@ namespace BehaviorGraphics
             // 
             // textBoxWFIntMin
             // 
-            this.textBoxWFIntMin.Location = new System.Drawing.Point(42, 212);
+            this.textBoxWFIntMin.Location = new System.Drawing.Point(41, 209);
             this.textBoxWFIntMin.Name = "textBoxWFIntMin";
             this.textBoxWFIntMin.Size = new System.Drawing.Size(30, 20);
             this.textBoxWFIntMin.TabIndex = 17;
@@ -4478,7 +4558,7 @@ namespace BehaviorGraphics
             // labelWFIntMin
             // 
             this.labelWFIntMin.AutoSize = true;
-            this.labelWFIntMin.Location = new System.Drawing.Point(18, 215);
+            this.labelWFIntMin.Location = new System.Drawing.Point(17, 212);
             this.labelWFIntMin.Name = "labelWFIntMin";
             this.labelWFIntMin.Size = new System.Drawing.Size(24, 13);
             this.labelWFIntMin.TabIndex = 28;
@@ -4488,7 +4568,7 @@ namespace BehaviorGraphics
             // checkBoxWFIntegrate
             // 
             this.checkBoxWFIntegrate.AutoSize = true;
-            this.checkBoxWFIntegrate.Location = new System.Drawing.Point(6, 189);
+            this.checkBoxWFIntegrate.Location = new System.Drawing.Point(5, 186);
             this.checkBoxWFIntegrate.Name = "checkBoxWFIntegrate";
             this.checkBoxWFIntegrate.Size = new System.Drawing.Size(108, 17);
             this.checkBoxWFIntegrate.TabIndex = 15;
@@ -4499,7 +4579,7 @@ namespace BehaviorGraphics
             // checkBoxWFFILT
             // 
             this.checkBoxWFFILT.AutoSize = true;
-            this.checkBoxWFFILT.Location = new System.Drawing.Point(6, 99);
+            this.checkBoxWFFILT.Location = new System.Drawing.Point(8, 99);
             this.checkBoxWFFILT.Name = "checkBoxWFFILT";
             this.checkBoxWFFILT.Size = new System.Drawing.Size(129, 17);
             this.checkBoxWFFILT.TabIndex = 11;
@@ -7507,7 +7587,7 @@ namespace BehaviorGraphics
             this.checkBoxUTrainingFeedbackMode.TabIndex = 62;
             this.checkBoxUTrainingFeedbackMode.Text = "Windowed Displaced Cursor + Timed Feedback";
             this.checkBoxUTrainingFeedbackMode.UseVisualStyleBackColor = true;
-            this.checkBoxUTrainingFeedbackMode.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            //this.checkBoxUTrainingFeedbackMode.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // textBoxUMaxSpeedThreshold
             // 
@@ -7562,8 +7642,7 @@ namespace BehaviorGraphics
             this.groupBoxUFeedbackProp.Size = new System.Drawing.Size(441, 228);
             this.groupBoxUFeedbackProp.TabIndex = 45;
             this.groupBoxUFeedbackProp.TabStop = false;
-            this.groupBoxUFeedbackProp.Text = "Cursor Cloud Properties (Likelihood)";
-            this.groupBoxUFeedbackProp.Enter += new System.EventHandler(this.groupBox55_Enter);
+            this.groupBoxUFeedbackProp.Text = "Cursor Cloud Properties (Likelihood)";            
             // 
             // panelUTimedFeedback
             // 
@@ -7667,7 +7746,7 @@ namespace BehaviorGraphics
             this.labelUWindowedFeedback.Size = new System.Drawing.Size(277, 13);
             this.labelUWindowedFeedback.TabIndex = 62;
             this.labelUWindowedFeedback.Text = "Default Mode: Continuous Windowed Feedback";
-            this.labelUWindowedFeedback.Click += new System.EventHandler(this.labelUWindowedFeedback_Click);
+            
             // 
             // checkBoxUCloudOneBlock
             // 
@@ -7955,7 +8034,7 @@ namespace BehaviorGraphics
             this.labelUDispVar.Size = new System.Drawing.Size(90, 13);
             this.labelUDispVar.TabIndex = 26;
             this.labelUDispVar.Text = "Displacement Std";
-            this.labelUDispVar.Click += new System.EventHandler(this.labelUDispVar_Click);
+            
             // 
             // textBoxUDispStd
             // 
@@ -8142,7 +8221,7 @@ namespace BehaviorGraphics
             this.groupBoxUTimers.TabIndex = 42;
             this.groupBoxUTimers.TabStop = false;
             this.groupBoxUTimers.Text = "Timers";
-            this.groupBoxUTimers.Enter += new System.EventHandler(this.groupBox53_Enter);
+            
             // 
             // labelUFailLag
             // 
@@ -10590,7 +10669,7 @@ namespace BehaviorGraphics
             this.labelUT1DCloudInfo.Size = new System.Drawing.Size(256, 13);
             this.labelUT1DCloudInfo.TabIndex = 62;
             this.labelUT1DCloudInfo.Text = "Default: Continuous Target Cloud Feedback";
-            this.labelUT1DCloudInfo.Click += new System.EventHandler(this.label244_Click);
+            
             // 
             // checkBoxUT1DCloud1Blank
             // 
@@ -10887,7 +10966,7 @@ namespace BehaviorGraphics
             this.labelUT1DShiftMean.Size = new System.Drawing.Size(58, 13);
             this.labelUT1DShiftMean.TabIndex = 24;
             this.labelUT1DShiftMean.Text = "Shift Mean";
-            this.labelUT1DShiftMean.Click += new System.EventHandler(this.label310_Click);
+            
             // 
             // textBoxUT1DShiftMean
             // 
@@ -11865,13 +11944,13 @@ namespace BehaviorGraphics
             // groupBox49
             // 
             this.groupBox49.Controls.Add(this.textBoxUT2DCenterYOffset);
-            this.groupBox49.Controls.Add(this.label235);
+            this.groupBox49.Controls.Add(this.label235UT);
             this.groupBox49.Controls.Add(this.numericUpDownUT2DTargetAngle);
             this.groupBox49.Controls.Add(this.textBoxUT2DTargetSize);
-            this.groupBox49.Controls.Add(this.label236);
+            this.groupBox49.Controls.Add(this.label236UT);
             this.groupBox49.Controls.Add(this.textBoxUT2DCenterXOffset);
             this.groupBox49.Controls.Add(this.textBoxUT2DMovementLen);
-            this.groupBox49.Controls.Add(this.label237);
+            this.groupBox49.Controls.Add(this.label237UT);
             this.groupBox49.Controls.Add(this.label238);
             this.groupBox49.Controls.Add(this.label239);
             this.groupBox49.Location = new System.Drawing.Point(6, 6);
@@ -11889,15 +11968,15 @@ namespace BehaviorGraphics
             this.textBoxUT2DCenterYOffset.TabIndex = 30;
             this.toolTip1.SetToolTip(this.textBoxUT2DCenterYOffset, "Offset of center target along the outer target axis.");
             // 
-            // label235
+            // label235UT
             // 
-            this.label235.AutoSize = true;
-            this.label235.Location = new System.Drawing.Point(13, 119);
-            this.label235.Name = "label235";
-            this.label235.Size = new System.Drawing.Size(79, 13);
-            this.label235.TabIndex = 29;
-            this.label235.Text = "Center Y Offset";
-            this.toolTip1.SetToolTip(this.label235, "Offset of the center target along the target axis");
+            this.label235UT.AutoSize = true;
+            this.label235UT.Location = new System.Drawing.Point(13, 119);
+            this.label235UT.Name = "label235UT";
+            this.label235UT.Size = new System.Drawing.Size(79, 13);
+            this.label235UT.TabIndex = 29;
+            this.label235UT.Text = "Center Y Offset";
+            this.toolTip1.SetToolTip(this.label235UT, "Offset of the center target along the target axis");
             // 
             // numericUpDownUT2DTargetAngle
             // 
@@ -11930,14 +12009,14 @@ namespace BehaviorGraphics
             this.textBoxUT2DTargetSize.TabIndex = 23;
             this.toolTip1.SetToolTip(this.textBoxUT2DTargetSize, "Size of targets in cm.");
             // 
-            // label236
+            // label236UT
             // 
-            this.label236.AutoSize = true;
-            this.label236.Location = new System.Drawing.Point(13, 71);
-            this.label236.Name = "label236";
-            this.label236.Size = new System.Drawing.Size(83, 13);
-            this.label236.TabIndex = 22;
-            this.label236.Text = "Target Diameter";
+            this.label236UT.AutoSize = true;
+            this.label236UT.Location = new System.Drawing.Point(13, 71);
+            this.label236UT.Name = "label236UT";
+            this.label236UT.Size = new System.Drawing.Size(83, 13);
+            this.label236UT.TabIndex = 22;
+            this.label236UT.Text = "Target Diameter";
             // 
             // textBoxUT2DCenterXOffset
             // 
@@ -11955,15 +12034,15 @@ namespace BehaviorGraphics
             this.textBoxUT2DMovementLen.TabIndex = 21;
             this.toolTip1.SetToolTip(this.textBoxUT2DMovementLen, "Radius of the circle on which the outer targets are presented (cm).  ");
             // 
-            // label237
+            // label237UT
             // 
-            this.label237.AutoSize = true;
-            this.label237.Location = new System.Drawing.Point(13, 95);
-            this.label237.Name = "label237";
-            this.label237.Size = new System.Drawing.Size(79, 13);
-            this.label237.TabIndex = 25;
-            this.label237.Text = "Center X Offset";
-            this.toolTip1.SetToolTip(this.label237, "Offset of the center target along the target axis");
+            this.label237UT.AutoSize = true;
+            this.label237UT.Location = new System.Drawing.Point(13, 95);
+            this.label237UT.Name = "label237UT";
+            this.label237UT.Size = new System.Drawing.Size(79, 13);
+            this.label237UT.TabIndex = 25;
+            this.label237UT.Text = "Center X Offset";
+            this.toolTip1.SetToolTip(this.label237UT, "Offset of the center target along the target axis");
             // 
             // label238
             // 
@@ -12769,6 +12848,8 @@ namespace BehaviorGraphics
             this.groupBox31.ResumeLayout(false);
             this.groupBox31.PerformLayout();
             this.tabPageWF.ResumeLayout(false);
+            this.groupBoxFilter.ResumeLayout(false);
+            this.groupBoxFilter.PerformLayout();
             this.groupBox43.ResumeLayout(false);
             this.groupBox43.PerformLayout();
             this.groupBox12.ResumeLayout(false);
@@ -13890,6 +13971,13 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label235UF;
         private System.Windows.Forms.CheckBox checkBoxUFFB;
         private System.Windows.Forms.CheckBox checkBoxATCC;
+        private System.Windows.Forms.Label label236;
+        private System.Windows.Forms.Label label235;
+        private System.Windows.Forms.TextBox textBoxWFPE;
+        private System.Windows.Forms.TextBox textBoxWFOF;
+        private System.Windows.Forms.Label label237;
+        private System.Windows.Forms.ComboBox comboBoxWFM;
+        private System.Windows.Forms.GroupBox groupBoxFilter;
         private System.Windows.Forms.CheckBox checkBoxUToggleCloud1D;
         private System.Windows.Forms.TabPage tabUncertaintyTarget1D;
         private System.Windows.Forms.GroupBox groupBoxUT1DCloud;
@@ -13987,13 +14075,13 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxUT2DShiftMean;
         private System.Windows.Forms.GroupBox groupBox49;
         private System.Windows.Forms.TextBox textBoxUT2DCenterYOffset;
-        private System.Windows.Forms.Label label235;
+        private System.Windows.Forms.Label label235UT;
         private System.Windows.Forms.NumericUpDown numericUpDownUT2DTargetAngle;
         private System.Windows.Forms.TextBox textBoxUT2DTargetSize;
-        private System.Windows.Forms.Label label236;
+        private System.Windows.Forms.Label label236UT;
         private System.Windows.Forms.TextBox textBoxUT2DCenterXOffset;
         private System.Windows.Forms.TextBox textBoxUT2DMovementLen;
-        private System.Windows.Forms.Label label237;
+        private System.Windows.Forms.Label label237UT;
         private System.Windows.Forms.Label label238;
         private System.Windows.Forms.Label label239;
         private System.Windows.Forms.Label label240;

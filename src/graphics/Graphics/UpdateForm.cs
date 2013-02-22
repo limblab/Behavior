@@ -399,6 +399,11 @@ namespace BehaviorGraphics
 
             // Software Filter
             AddParamListItem("WFFiltEnable", "Value", "CursorPos/EnablePosFilter", this.checkBoxWFFILT);
+            AddParamListItem("WFFiltFreqX", "B", "CursorPos/LowPassFilterX", this.textBoxWFPE);
+            AddParamListItem("WFFiltOrderX", "C", "CursorPos/LowPassFilterX", this.textBoxWFOF);
+            AddParamListItem("WFFiltFreqY", "B", "CursorPos/LowPassFilterY", this.textBoxWFPE);
+            AddParamListItem("WFFiltOrderY", "C", "CursorPos/LowPassFilterY", this.textBoxWFOF);           
+            
 
             // Integration
             AddParamListItem("WFIntegration", "Value", "CursorPos/EnableIntegrator", this.checkBoxWFIntegrate);
@@ -924,6 +929,8 @@ namespace BehaviorGraphics
 
             #endregion
         }
+
+        
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
         {
@@ -2463,50 +2470,7 @@ namespace BehaviorGraphics
             widget_ValueChanged(sender, e);
         }
 
-        private void label351_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox21_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox55_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox53_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelUWindowedFeedback_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelUDispVar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label244_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label310_Click(object sender, EventArgs e)
-        {
-
-        }
-
+       
      
     }
 
