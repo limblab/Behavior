@@ -19,6 +19,11 @@
 #define TARGET_TYPE_CIRCLE 10
 #define TARGET_TYPE_SQUARE 11
 
+// Arc types
+#define ARC_TYPE_RED		5
+#define ARC_TYPE_WHITE		6
+#define ARC_TYPE_BLUE		8
+
 // Moving dots target
 #define TARGET_TYPE_MOVING_DOTS 12
 
@@ -204,6 +209,142 @@ void RectangleTarget::copyToOutputs(real_T *u, int offset) {
 	u[4+offset] = this->bottom;
 }
 
+/***************************************************
+ * ArcTarget
+ ***************************************************/
+
+/**
+ * An arc target of an arbitrary type.
+ * There are a number of target types that generate arc targets
+ * of different colors or with different glyphs.  This class represents
+ * all of these target types setting the `type` variable will determine
+ * which target type is requested from the graphics.
+ */
+class ArcTarget : public Target {
+public: 
+	ArcTarget();
+	ArcTarget(double r, double theta, double span, double height, int type);
+	void copyToOutputs(real_T *u, int offset);
+	bool cursorInTarget(double x, double y);
+	bool cursorInTarget(Point p);
+
+	/**
+	 * Radius to middle of target.
+	 */
+	double r;
+
+	/**
+	 * Angle to middle of target (rad).
+	 */
+	double theta;
+
+	/**
+	 * Angle width of target
+	 */
+	double span;
+
+	/**
+	 * Radius width of target.
+	 */
+	double height;
+
+	/**
+	 * The target type to be requested from the graphics computer.
+	 */
+	double type;
+};
+
+/**
+ * Default constructor sets all values to zero.
+ */
+ArcTarget::ArcTarget() {
+	this->r = 0.0;
+	this->theta = 0.0;
+	this->span = 0.0; 
+	this->height = 0.0;
+	this->type = TARGET_TYPE_NULL;
+}
+
+/**
+ * Creates an ArcTarget with the requested boundaries and type.
+ * @param r radius to middle of target.
+ * @param theta angle to middle of target.
+ * @param span the angle of separation between target edges.
+ * @param height the difference in radius between target edges.
+ * @param type the type of target.
+ */
+ArcTarget::ArcTarget(double r, double theta, double span, double height, int type) {
+	double tx1;
+	double ty1;
+	double tx2;
+	double ty2;
+	double trsqrL;
+	double trsqrH;
+	
+	this->r = r;
+	this->theta = theta;
+	this->span = span; 
+	this->height = height;
+	this->type = type;
+
+	this->tx1 = (r - height*0.5)*cos(theta-0.5*span);
+	this->ty1 = (r - height*0.5)*cos(theta-0.5*span);
+	this->tx2 = (r + height*0.5)*cos(theta+0.5*span);
+	this->ty2 = (r + height*0.5)*cos(theta+0.5*span);
+	this->trsqL = (r - height*0.5)*(r - height*0.5);
+	this->trsqH = (r + height*0.5)*(r + height*0.5);
+}
+
+/**
+ * Determines if the specified point within the target.
+ * This function will return whether the specified point is
+ * within the target.
+ * @param x the x coordinate of the point.
+ * @param y the y coordinate of the point.
+ * @return true if the specified point is within the bounds of 
+ * of the target, false otherwise.
+ */
+bool ArcTarget::cursorInTarget(double x, double y) {
+
+	double rsq;
+	rsq = x*x + y*y;
+
+	return ( /* distance criterion */ ( rsq > (this->trsqL) && rsq < (this->trsqH) &&
+		     /* angle criterion */    ( (this->tx1)*y-(this->ty1)*x > 0 && 
+									    (this->ty2)*x-(this->tx2)*y > 0 ) );
+
+}
+
+/**
+ * Determines if the specified point within the target.
+ * Determines if the specified point within the target.
+ * This function will return whether the specified point is
+ * within the target.
+ * @param p a Point containg the x,y coordinate to check
+ * @return true if the specified point is within the bounds of 
+ * of the target, false otherwise.
+ */
+bool ArcTarget::cursorInTarget(Point p) {
+	return this->cursorInTarget(p.x, p.y);
+}
+
+/**
+ * Copies the target to the outputs array.
+ * This function will copy the internal 
+ * data of the target to the list of five real_Ts that is necessary
+ * to send to the graphics program. This function is called from
+ * Behavior::writeOutputs and you should never have to call it 
+ * directly.
+ * @param u the output buffer to write to.
+ * @param offset the location to begin writing.
+ */
+void ArcTarget::copyToOutputs(real_T *u, int offset) {
+	u[0+offset] = this->type;
+	u[1+offset] = this->tx1;
+	u[2+offset] = this->ty1;
+	u[3+offset] = this->tx2;
+	u[4+offset] = this->ty2;
+}
 
 
 /***************************************************
