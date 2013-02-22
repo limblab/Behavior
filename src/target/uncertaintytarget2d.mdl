@@ -1,12 +1,12 @@
 Model {
-  Name			  "uncertaintytarget1d"
+  Name			  "uncertaintytarget2d"
   Version		  8.0
   MdlSubVersion		  0
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1260"
+    ComputedModelVersion    "1.1261"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -31,7 +31,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [174.0, 38.0, 1036.0, 692.0]
+      Location		      [-43.0, 20.0, 1036.0, 692.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -57,7 +57,7 @@ Model {
 	LoadSaveID		"0"
 	Extents			[984.0, 516.0]
 	ZoomFactor		[1.0]
-	Offset			[6.0, 1.0]
+	Offset			[321.0, 1.0]
       }
     }
   }
@@ -67,9 +67,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Jan 11 09:55:20 2013"
-  RTWModifiedTimeStamp	  279798915
-  ModelVersionFormat	  "1.%<AutoIncrement:1260>"
+  LastModifiedDate	  "Fri Feb 22 17:46:45 2013"
+  RTWModifiedTimeStamp	  283455997
+  ModelVersionFormat	  "1.%<AutoIncrement:1261>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -106,11 +106,11 @@ Model {
     $PropName		    "DataLoggingOverride"
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
-    model_		    "uncertaintytarget1d"
+    model_		    "uncertaintytarget2d"
     Array {
       Type		      "Cell"
       Dimension		      1
-      Cell		      "uncertaintytarget1d"
+      Cell		      "uncertaintytarget2d"
       PropName		      "logAsSpecifiedByModels_"
     }
     Array {
@@ -1043,8 +1043,8 @@ Model {
     }
   }
   System {
-    Name		    "uncertaintytarget1d"
-    Location		    [174, 38, 1210, 730]
+    Name		    "uncertaintytarget2d"
+    Location		    [-43, 20, 993, 712]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1061,13 +1061,13 @@ Model {
     SIDHighWatermark	    "433"
     Block {
       BlockType		      S-Function
-      Name		      "Behavior UnTarget1d"
+      Name		      "Behavior UnTarget2d"
       SID		      "1"
       Ports		      [4, 8]
       Position		      [660, 88, 885, 422]
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
-      FunctionName	      "mastercon_untarget1d"
+      FunctionName	      "mastercon_untarget2d"
       Parameters	      "1 0.5 1 0.5 1 0.5 1 1 3 1 90 10 2 3 3 2 1 5 8 1 2 3 4 0.25 0.25 0.25 0.25 0 0.2 7 3 5 0.2 0 1 "
       "5 0"
       EnableBusSupport	      off
@@ -9625,19 +9625,19 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "Behavior UnTarget1d"
+      SrcBlock		      "Behavior UnTarget2d"
       SrcPort		      2
       DstBlock		      "Status"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Behavior UnTarget1d"
+      SrcBlock		      "Behavior UnTarget2d"
       SrcPort		      3
       DstBlock		      "WordSbs"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Behavior UnTarget1d"
+      SrcBlock		      "Behavior UnTarget2d"
       SrcPort		      4
       Points		      [110, 0]
       Branch {
@@ -9651,14 +9651,14 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "Behavior UnTarget1d"
+      SrcBlock		      "Behavior UnTarget2d"
       SrcPort		      1
       Points		      [460, 0; 0, 380; -325, 0; 0, 65]
       DstBlock		      "Motor Control"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Behavior UnTarget1d"
+      SrcBlock		      "Behavior UnTarget2d"
       SrcPort		      5
       DstBlock		      "RewardSbs"
       DstPort		      1
@@ -9710,20 +9710,20 @@ Model {
       DstPort		      2
     }
     Line {
-      SrcBlock		      "Behavior UnTarget1d"
+      SrcBlock		      "Behavior UnTarget2d"
       SrcPort		      7
       DstBlock		      "Version Display"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Behavior UnTarget1d"
+      SrcBlock		      "Behavior UnTarget2d"
       SrcPort		      8
       Points		      [220, 0; 0, -55]
       DstBlock		      "SendPacketToGraphics"
       DstPort		      3
     }
     Line {
-      SrcBlock		      "Behavior UnTarget1d"
+      SrcBlock		      "Behavior UnTarget2d"
       SrcPort		      6
       DstBlock		      "SendPacketToGraphics"
       DstPort		      2
@@ -9765,7 +9765,7 @@ Model {
       SrcBlock		      "Neural Override"
       SrcPort		      1
       Points		      [185, 0]
-      DstBlock		      "Behavior UnTarget1d"
+      DstBlock		      "Behavior UnTarget2d"
       DstPort		      1
     }
     Line {
@@ -9783,19 +9783,19 @@ Model {
     Line {
       SrcBlock		      "Catch Force Generator"
       SrcPort		      1
-      DstBlock		      "Behavior UnTarget1d"
+      DstBlock		      "Behavior UnTarget2d"
       DstPort		      4
     }
     Line {
       SrcBlock		      "Force Generator"
       SrcPort		      1
-      DstBlock		      "Behavior UnTarget1d"
+      DstBlock		      "Behavior UnTarget2d"
       DstPort		      3
     }
     Line {
       SrcBlock		      "From"
       SrcPort		      1
-      DstBlock		      "Behavior UnTarget1d"
+      DstBlock		      "Behavior UnTarget2d"
       DstPort		      2
     }
     Annotation {
@@ -9868,7 +9868,7 @@ MatData {
 Stateflow {
   machine {
     id			    1
-    name		    "uncertaintytarget1d"
+    name		    "uncertaintytarget2d"
     created		    "29-Sep-2006 15:42:48"
     isLibrary		    0
     firstTarget		    2

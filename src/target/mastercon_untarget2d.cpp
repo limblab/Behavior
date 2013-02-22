@@ -106,11 +106,11 @@ private:
 	// Your behavior's instance variables
 	Point  center_offset; // center target offset
 	double current_trial_shift;  // current trial displacement
-	Point  target_shift;  // current trial cursor shift
+	double  target_shift;  // current trial cursor shift
 	Point  cursor_end_point; // current trial end point
 	double cursor_extent;  // distance from center in direction of target
 
-	Point  slice_points[10];
+	double  slice_points[10];
 	double current_target_stdev; // current trial feedback variance
 	bool   cloud_blank;       // toggles current trial, blank feedback
 	bool   delay_cloud_mode;
@@ -324,7 +324,7 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 
 		targetBar->r  = params->movement_length;
 		targetBar->theta  = 0; 
-		targetBar->span    = 2*pi;
+		targetBar->span    = 2*PI;
 		targetBar->height = outerTarget->height;
 
 		for (i=0; i<10; i++) {
@@ -451,7 +451,7 @@ void UncertaintyTarget2dBehavior::update(SimStruct *S) {
 	previous_time_point = stateTimer->elapsedTime(S);
 }
 
-void UncertaintyTarget1dBehavior::calculateOutputs(SimStruct *S) {
+void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
     /* declarations */
 	int i;
 	updateCursorExtent(S);
