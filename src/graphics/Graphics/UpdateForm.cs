@@ -399,11 +399,6 @@ namespace BehaviorGraphics
 
             // Software Filter
             AddParamListItem("WFFiltEnable", "Value", "CursorPos/EnablePosFilter", this.checkBoxWFFILT);
-            AddParamListItem("WFFiltFreqX", "B", "CursorPos/LowPassFilterX", this.textBoxWFPE);
-            AddParamListItem("WFFiltOrderX", "C", "CursorPos/LowPassFilterX", this.textBoxWFOF);
-            AddParamListItem("WFFiltFreqY", "B", "CursorPos/LowPassFilterY", this.textBoxWFPE);
-            AddParamListItem("WFFiltOrderY", "C", "CursorPos/LowPassFilterY", this.textBoxWFOF);           
-            
 
             // Integration
             AddParamListItem("WFIntegration", "Value", "CursorPos/EnableIntegrator", this.checkBoxWFIntegrate);
@@ -929,8 +924,6 @@ namespace BehaviorGraphics
 
             #endregion
         }
-
-        
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
         {
@@ -2469,8 +2462,6 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
-
-       
      
     }
 
