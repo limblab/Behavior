@@ -270,12 +270,12 @@ ArcTarget::ArcTarget() {
 	this->span = 0.0; 
 	this->height = 0.0;
 	this->type = TARGET_TYPE_NULL;
-	this->tx1 = 0;
-	this->ty1 = 0;
-	this->tx2 = 0;
-	this->ty2 = 0;
-	this->trsqL = 0;
-	this->trsqH = 0;
+	this->tx1 = 0.0;
+	this->ty1 = 0.0;
+	this->tx2 = 0.0;
+	this->ty2 = 0.0;
+	this->trsqL = 0.0;
+	this->trsqH = 0.0;
 }
 
 /**
@@ -294,12 +294,12 @@ ArcTarget::ArcTarget(double r, double theta, double span, double height, int typ
 	this->height = height;
 	this->type = type;
 
-	this->tx1 = (r - height*0.5)*cos(theta-0.5*span);
-	this->ty1 = (r - height*0.5)*cos(theta-0.5*span);
-	this->tx2 = (r + height*0.5)*cos(theta+0.5*span);
-	this->ty2 = (r + height*0.5)*cos(theta+0.5*span);
-	this->trsqL = (r - height*0.5)*(r - height*0.5);
-	this->trsqH = (r + height*0.5)*(r + height*0.5);
+	this->tx1 = (this->r + this->height*0.5)*cos(this->theta-0.5*this->span);
+	this->ty1 = (this->r + this->height*0.5)*sin(this->theta-0.5*this->span);
+	this->tx2 = (this->r - this->height*0.5)*cos(this->theta+0.5*this->span);
+	this->ty2 = (this->r - this->height*0.5)*sin(this->theta+0.5*this->span);
+	this->trsqL = (this->r - this->height*0.5)*(this->r - this->height*0.5);
+	this->trsqH = (this->r + this->height*0.5)*(this->r + this->height*0.5);
 }
 
 /**
@@ -314,11 +314,20 @@ ArcTarget::ArcTarget(double r, double theta, double span, double height, int typ
 bool ArcTarget::cursorInTarget(double x, double y) {
 
 	double rsq;
+	double tx1,ty1,tx2,ty2, trsqL,trsqH;
+
+	tx1 = (this->r + this->height*0.5)*cos(this->theta-0.5*this->span);
+	ty1 = (this->r + this->height*0.5)*sin(this->theta-0.5*this->span);
+	tx2 = (this->r - this->height*0.5)*cos(this->theta+0.5*this->span);
+	ty2 = (this->r - this->height*0.5)*sin(this->theta+0.5*this->span);
+	trsqL = (this->r - this->height*0.5)*(this->r - this->height*0.5);
+	trsqH = (this->r + this->height*0.5)*(this->r + this->height*0.5);
+
 	rsq = x*x + y*y;
 
-	return ( /* distance criterion */ rsq > (this->trsqL) && rsq < (this->trsqH) &&
-		     /* angle criterion */    ( (this->tx1)*y-(this->ty1)*x > 0 && 
-									    (this->ty2)*x-(this->tx2)*y > 0 ) );
+	return ( /* distance criterion */ (rsq > trsqL && rsq < trsqH) &&
+		     /* angle criterion */    ( x*ty1-y*tx1 < 0 && 
+									    x*ty2-y*tx2 > 0 ) );
 
 }
 
@@ -347,10 +356,10 @@ bool ArcTarget::cursorInTarget(Point p) {
  */
 void ArcTarget::copyToOutputs(real_T *u, int offset) {
 	u[0+offset] = this->type;
-	u[1+offset] = this->tx1;
-	u[2+offset] = this->ty1;
-	u[3+offset] = this->tx2;
-	u[4+offset] = this->ty2;
+	u[1+offset] = (this->r + this->height*0.5)*cos(this->theta-0.5*this->span);
+	u[2+offset] = (this->r + this->height*0.5)*sin(this->theta-0.5*this->span);
+	u[3+offset] = (this->r - this->height*0.5)*cos(this->theta+0.5*this->span);
+	u[4+offset] = (this->r - this->height*0.5)*sin(this->theta+0.5*this->span);
 }
 
 

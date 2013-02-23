@@ -247,8 +247,9 @@ double Random::getVonMises(double mean, double K){
  */
 double Random::getVonMises(double K){
 	// K be non-zero.  Negative values are also incorrect but won't crash the algorithm
-	if (K==0)
+	if (K==0) {
 		K=0.0001;
+	}
 	bool accept;
 	double tau, rho, r, u1, Z, f, c;
 	int num_iter;
@@ -261,7 +262,7 @@ double Random::getVonMises(double K){
 	while ((!accept)&&(num_iter < fail_iter)) {
 		u1 = getDouble();
 		Z = cos(getDouble()*3.141592654);
-		f = (1+r*Z)/(r+z);
+		f = (1+r*Z)/(r+Z);
 		c = K*(r-f);
 		if ((c*(2-c)-u1)>0){
 			accept = true;
