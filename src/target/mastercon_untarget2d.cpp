@@ -252,7 +252,7 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 	double cloud_rand; // random variable to determine which cloud
 	delay_cloud_mode = params->use_delay_cloud;
 	// Calculate the Shift (Prior Shift)
-	current_trial_shift = random->getVonMises(params->shift_mean, params->shift_stdev);
+	current_trial_shift = params->shift_mean + random->getVonMises(params->shift_stdev);
 
 	// The Target Angle in Radians
 	tgt_ang_rad = params->target_angle*PI/180;
@@ -311,7 +311,7 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 	// Set Up The Cloud Points
 	for (i=0; i<10; i++) {
 			// For 1D clouds, since targets are at 0, 90, 180, 270....
-			slice_points[i] = random->getVonMises(0, current_target_stdev);
+			slice_points[i] = random->getVonMises(current_target_stdev);
 	}
 
 
@@ -319,19 +319,24 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 
 		outerTarget->r = params->movement_length  ;
 		outerTarget->theta = target_shift;
-		outerTarget->span   = params->target_size;
+		outerTarget->span   = PI/10;
 		outerTarget->height = 2;
+
+		//outerTarget->left = -2;//params->movement_length  ;
+		//outerTarget->top = 8; //target_shift;
+		//outerTarget->right   = 2;
+		//outerTarget->bottom = 6;
 
 		targetBar->r  = params->movement_length;
 		targetBar->theta  = 0; 
-		targetBar->span    = 2*PI;
-		targetBar->height = outerTarget->height;
+		targetBar->span    = 2*PI-0.00001;
+		targetBar->height = 2+0.1;
 
 		for (i=0; i<10; i++) {
 			cloud[i]->r   = params->movement_length;
 			cloud[i]->theta  = target_shift + slice_points[i];
 			cloud[i]->span    = params->slice_size;
-			cloud[i]->height = targetBar->height;
+			cloud[i]->height = 2;
 		}
 	
 	// Initialize the cloud and cursor extent
@@ -414,7 +419,8 @@ void UncertaintyTarget2dBehavior::update(SimStruct *S) {
 			else if (outerTarget->cursorInTarget(inputs->cursor)) {
 				setState(STATE_OUTER_HOLD);
 			}
-			else if (targetBar->cursorInTarget(inputs->cursor)) {
+			else if ( (cursor_extent > params->movement_length-2*0.5) && 
+					(!outerTarget->cursorInTarget(inputs->cursor)) ){
 				cursor_end_point=inputs->cursor;
 				playTone(TONE_ABORT);
 				setState(STATE_FAIL);
@@ -460,7 +466,7 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 	outputs->force = inputs->force;
 
 	/* status (1) */
-	outputs->status[0] = getState();
+	outputs->status[0] = (outerTarget->theta)*PI/180;//getState();
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = trialCounter->failures;
@@ -518,8 +524,8 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[0] = nullTarget;
 	}
 
-	// Target 2 is the outer target
-	// Target 1 is the target bar
+	// Target 1 is the outer target
+	// Target 2 is the target bar
 	if (getState() == STATE_CENTER_DELAY || 
 		getState() == STATE_MOVEMENT) {
 
