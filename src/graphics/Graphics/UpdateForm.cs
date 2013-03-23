@@ -885,7 +885,7 @@ namespace BehaviorGraphics
             AddParamListItem("UT2D FLT", "P10", "Behavior UnTarget2d", this.textBoxUT2DFLT);
 
             // Uncertainty General Settings
-            AddParamListItem("UT2D Target Angle", "P11", "Behavior UnTarget2d", this.numericUpDownUT2DTargetAngle);
+            AddParamListItem("UT2D Outer Target Size", "P11", "Behavior UnTarget2d", this.textBoxUT2DOTSize);
             AddParamListItem("UT2D Movement Length", "P12", "Behavior UnTarget2d", this.textBoxUT2DMovementLen);
             AddParamListItem("UT2D Target Diameter", "P13", "Behavior UnTarget2d", this.textBoxUT2DTargetSize);
             AddParamListItem("UT2D Center X Offset", "P14", "Behavior UnTarget2d", this.textBoxUT2DCenterXOffset);
@@ -921,6 +921,10 @@ namespace BehaviorGraphics
             AddParamListItem("UT2D Timed Duration", "P35", "Behavior UnTarget2d", this.textBoxUT2DTimedDuration);
             AddParamListItem("UT2D Timed Location", "P36", "Behavior UnTarget2d", this.textBoxUT2DTimedLocation);
             AddParamListItem("UT2D Target Delay Mode", "P37", "Behavior UnTarget2d", this.checkBoxUT2DTargetDelayMode);
+
+            AddParamListItem("UT2D Outer Target Depth", "P38", "Behavior UnTarget2d", this.textBoxUT2DOTdepth);
+
+            AddParamListItem("UT2D Show Prior", "P39", "Behavior UnTarget2d", this.checkBoxUT2Dshowprior);
 
             #endregion
         }
@@ -2501,12 +2505,12 @@ namespace BehaviorGraphics
 
         }
 
-        private void label244_Click(object sender, EventArgs e)
+        private void label310_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void label310_Click(object sender, EventArgs e)
+        private void labelUT2DTargetSize_Click(object sender, EventArgs e)
         {
 
         }

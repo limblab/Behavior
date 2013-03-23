@@ -977,6 +977,82 @@ namespace BehaviorGraphics
             this.labelUT1DCenterXOffset = new System.Windows.Forms.Label();
             this.labelUT1DTargetAngle = new System.Windows.Forms.Label();
             this.labelUT1DMovementLen = new System.Windows.Forms.Label();
+            this.UncertaintyTarget2D = new System.Windows.Forms.TabPage();
+            this.checkBoxUT2DTargetDelayMode = new System.Windows.Forms.CheckBox();
+            this.textBoxUT2DDelayInfo = new System.Windows.Forms.TextBox();
+            this.labelUT2DUnits = new System.Windows.Forms.Label();
+            this.groupBoxUT2DTimers = new System.Windows.Forms.GroupBox();
+            this.label236 = new System.Windows.Forms.Label();
+            this.textBoxUT2DFLT = new System.Windows.Forms.TextBox();
+            this.textBoxUT2DITI = new System.Windows.Forms.TextBox();
+            this.label237 = new System.Windows.Forms.Label();
+            this.textBoxUT2DOHH = new System.Windows.Forms.TextBox();
+            this.label238 = new System.Windows.Forms.Label();
+            this.textBoxUT2DOHL = new System.Windows.Forms.TextBox();
+            this.label239 = new System.Windows.Forms.Label();
+            this.textBoxUT2DMT = new System.Windows.Forms.TextBox();
+            this.label240 = new System.Windows.Forms.Label();
+            this.textBoxUT2DDH = new System.Windows.Forms.TextBox();
+            this.label241 = new System.Windows.Forms.Label();
+            this.textBoxUT2DDL = new System.Windows.Forms.TextBox();
+            this.label242 = new System.Windows.Forms.Label();
+            this.textBoxUT2DCHH = new System.Windows.Forms.TextBox();
+            this.label243 = new System.Windows.Forms.Label();
+            this.textBoxUT2DCHL = new System.Windows.Forms.TextBox();
+            this.label244 = new System.Windows.Forms.Label();
+            this.groupBoxUT2DCloud = new System.Windows.Forms.GroupBox();
+            this.textBoxUT2DTimedDuration = new System.Windows.Forms.TextBox();
+            this.labelUT2DTimedLocation = new System.Windows.Forms.Label();
+            this.textBoxUT2DTimedLocation = new System.Windows.Forms.TextBox();
+            this.labelUT2DTimedDuration = new System.Windows.Forms.Label();
+            this.checkBoxUT2DUseTimed = new System.Windows.Forms.CheckBox();
+            this.textBoxUT2DCloudJitter = new System.Windows.Forms.TextBox();
+            this.labelUT2DCloudJitter = new System.Windows.Forms.Label();
+            this.labelUT2DCloudInfo = new System.Windows.Forms.Label();
+            this.checkBoxUT2DCloud1Blank = new System.Windows.Forms.CheckBox();
+            this.labelUT2DCloud4Freq = new System.Windows.Forms.Label();
+            this.textBoxUT2DCloud4Freq = new System.Windows.Forms.TextBox();
+            this.labelUT2DCloud3Freq = new System.Windows.Forms.Label();
+            this.textBoxUT2DCloud3Freq = new System.Windows.Forms.TextBox();
+            this.labelUT2DCloud2Freq = new System.Windows.Forms.Label();
+            this.textBoxUT2DCloud2Freq = new System.Windows.Forms.TextBox();
+            this.labelUT2DCloud1Freq = new System.Windows.Forms.Label();
+            this.textBoxUT2DCloud1Freq = new System.Windows.Forms.TextBox();
+            this.labelUT2DCloud4Stdev = new System.Windows.Forms.Label();
+            this.textBoxUT2DCloud4Stdev = new System.Windows.Forms.TextBox();
+            this.labelUT2DCloud3Stdev = new System.Windows.Forms.Label();
+            this.textBoxUT2DCloud3Stdev = new System.Windows.Forms.TextBox();
+            this.labelUT2DCloud2Stdev = new System.Windows.Forms.Label();
+            this.textBoxUT2DCloud2Stdev = new System.Windows.Forms.TextBox();
+            this.labelUT2DSliceNumber = new System.Windows.Forms.Label();
+            this.numericUpDownUT2DSliceNumber = new System.Windows.Forms.NumericUpDown();
+            this.labelUT2DSliceSize = new System.Windows.Forms.Label();
+            this.textBoxUT2DSliceSize = new System.Windows.Forms.TextBox();
+            this.labelUT2DCloud1Stdev = new System.Windows.Forms.Label();
+            this.textBoxUT2DCloud1Stdev = new System.Windows.Forms.TextBox();
+            this.textBoxUT2DFeedbackStart = new System.Windows.Forms.TextBox();
+            this.labelUT2DFeedbackEnd = new System.Windows.Forms.Label();
+            this.textBoxUT2DFeedbackEnd = new System.Windows.Forms.TextBox();
+            this.labelUT2DFeedbackStart = new System.Windows.Forms.Label();
+            this.groupBoxUT2DShift = new System.Windows.Forms.GroupBox();
+            this.textBoxUT2DOTSize = new System.Windows.Forms.TextBox();
+            this.labelUT2DBlockWindowEnd = new System.Windows.Forms.Label();
+            this.labelUT2DBlockWindowStart = new System.Windows.Forms.Label();
+            this.textBoxUT2DBlockWindowEnd = new System.Windows.Forms.TextBox();
+            this.textBoxUT2DBlockWindowStart = new System.Windows.Forms.TextBox();
+            this.labelUT2DShiftStdev = new System.Windows.Forms.Label();
+            this.textBoxUT2DShiftStdev = new System.Windows.Forms.TextBox();
+            this.labelUT2DShiftMean = new System.Windows.Forms.Label();
+            this.textBoxUT2DShiftMean = new System.Windows.Forms.TextBox();
+            this.groupBoxUT2DTaskSettings = new System.Windows.Forms.GroupBox();
+            this.textBoxUT2DCenterYOffset = new System.Windows.Forms.TextBox();
+            this.labelUT2DCenterYOffset = new System.Windows.Forms.Label();
+            this.textBoxUT2DTargetSize = new System.Windows.Forms.TextBox();
+            this.labelUT2DTargetSize = new System.Windows.Forms.Label();
+            this.textBoxUT2DCenterXOffset = new System.Windows.Forms.TextBox();
+            this.textBoxUT2DMovementLen = new System.Windows.Forms.TextBox();
+            this.labelUT2DCenterXOffset = new System.Windows.Forms.Label();
+            this.labelUT2DMovementLen = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelMdl = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -1065,83 +1141,10 @@ namespace BehaviorGraphics
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.label324 = new System.Windows.Forms.Label();
-            this.UncertaintyTarget2D = new System.Windows.Forms.TabPage();
-            this.checkBoxUT2DTargetDelayMode = new System.Windows.Forms.CheckBox();
-            this.textBoxUT2DDelayInfo = new System.Windows.Forms.TextBox();
-            this.labelUT2DUnits = new System.Windows.Forms.Label();
-            this.groupBoxUT2DTimers = new System.Windows.Forms.GroupBox();
-            this.label236 = new System.Windows.Forms.Label();
-            this.textBoxUT2DFLT = new System.Windows.Forms.TextBox();
-            this.textBoxUT2DITI = new System.Windows.Forms.TextBox();
-            this.label237 = new System.Windows.Forms.Label();
-            this.textBoxUT2DOHH = new System.Windows.Forms.TextBox();
-            this.label238 = new System.Windows.Forms.Label();
-            this.textBoxUT2DOHL = new System.Windows.Forms.TextBox();
-            this.label239 = new System.Windows.Forms.Label();
-            this.textBoxUT2DMT = new System.Windows.Forms.TextBox();
-            this.label240 = new System.Windows.Forms.Label();
-            this.textBoxUT2DDH = new System.Windows.Forms.TextBox();
-            this.label241 = new System.Windows.Forms.Label();
-            this.textBoxUT2DDL = new System.Windows.Forms.TextBox();
-            this.label242 = new System.Windows.Forms.Label();
-            this.textBoxUT2DCHH = new System.Windows.Forms.TextBox();
-            this.label243 = new System.Windows.Forms.Label();
-            this.textBoxUT2DCHL = new System.Windows.Forms.TextBox();
-            this.label244 = new System.Windows.Forms.Label();
-            this.groupBoxUT2DCloud = new System.Windows.Forms.GroupBox();
-            this.textBoxUT2DTimedDuration = new System.Windows.Forms.TextBox();
-            this.labelUT2DTimedLocation = new System.Windows.Forms.Label();
-            this.textBoxUT2DTimedLocation = new System.Windows.Forms.TextBox();
-            this.labelUT2DTimedDuration = new System.Windows.Forms.Label();
-            this.checkBoxUT2DUseTimed = new System.Windows.Forms.CheckBox();
-            this.textBoxUT2DCloudJitter = new System.Windows.Forms.TextBox();
-            this.labelUT2DCloudJitter = new System.Windows.Forms.Label();
-            this.labelUT2DCloudInfo = new System.Windows.Forms.Label();
-            this.checkBoxUT2DCloud1Blank = new System.Windows.Forms.CheckBox();
-            this.labelUT2DCloud4Freq = new System.Windows.Forms.Label();
-            this.textBoxUT2DCloud4Freq = new System.Windows.Forms.TextBox();
-            this.labelUT2DCloud3Freq = new System.Windows.Forms.Label();
-            this.textBoxUT2DCloud3Freq = new System.Windows.Forms.TextBox();
-            this.labelUT2DCloud2Freq = new System.Windows.Forms.Label();
-            this.textBoxUT2DCloud2Freq = new System.Windows.Forms.TextBox();
-            this.labelUT2DCloud1Freq = new System.Windows.Forms.Label();
-            this.textBoxUT2DCloud1Freq = new System.Windows.Forms.TextBox();
-            this.labelUT2DCloud4Stdev = new System.Windows.Forms.Label();
-            this.textBoxUT2DCloud4Stdev = new System.Windows.Forms.TextBox();
-            this.labelUT2DCloud3Stdev = new System.Windows.Forms.Label();
-            this.textBoxUT2DCloud3Stdev = new System.Windows.Forms.TextBox();
-            this.labelUT2DCloud2Stdev = new System.Windows.Forms.Label();
-            this.textBoxUT2DCloud2Stdev = new System.Windows.Forms.TextBox();
-            this.labelUT2DSliceNumber = new System.Windows.Forms.Label();
-            this.numericUpDownUT2DSliceNumber = new System.Windows.Forms.NumericUpDown();
-            this.labelUT2DSliceSize = new System.Windows.Forms.Label();
-            this.textBoxUT2DSliceSize = new System.Windows.Forms.TextBox();
-            this.labelUT2DCloud1Stdev = new System.Windows.Forms.Label();
-            this.textBoxUT2DCloud1Stdev = new System.Windows.Forms.TextBox();
-            this.textBoxUT2DFeedbackStart = new System.Windows.Forms.TextBox();
-            this.labelUT2DFeedbackEnd = new System.Windows.Forms.Label();
-            this.textBoxUT2DFeedbackEnd = new System.Windows.Forms.TextBox();
-            this.labelUT2DFeedbackStart = new System.Windows.Forms.Label();
-            this.groupBoxUT2DShift = new System.Windows.Forms.GroupBox();
-            this.labelUT2DBlockWindowEnd = new System.Windows.Forms.Label();
-            this.labelUT2DBlockWindowStart = new System.Windows.Forms.Label();
-            this.textBoxUT2DBlockWindowEnd = new System.Windows.Forms.TextBox();
-            this.textBoxUT2DBlockWindowStart = new System.Windows.Forms.TextBox();
-            this.labelUT2DShiftStdev = new System.Windows.Forms.Label();
-            this.textBoxUT2DShiftStdev = new System.Windows.Forms.TextBox();
-            this.labelUT2DShiftMean = new System.Windows.Forms.Label();
-            this.textBoxUT2DShiftMean = new System.Windows.Forms.TextBox();
-            this.groupBoxUT2DTaskSettings = new System.Windows.Forms.GroupBox();
-            this.textBoxUT2DCenterYOffset = new System.Windows.Forms.TextBox();
-            this.labelUT2DCenterYOffset = new System.Windows.Forms.Label();
-            this.numericUpDownUT2DTargetAngle = new System.Windows.Forms.NumericUpDown();
-            this.textBoxUT2DTargetSize = new System.Windows.Forms.TextBox();
-            this.labelUT2DTargetSize = new System.Windows.Forms.Label();
-            this.textBoxUT2DCenterXOffset = new System.Windows.Forms.TextBox();
-            this.textBoxUT2DMovementLen = new System.Windows.Forms.TextBox();
-            this.labelUT2DCenterXOffset = new System.Windows.Forms.Label();
-            this.labelUT2DTargetAngle = new System.Windows.Forms.Label();
-            this.labelUT2DMovementLen = new System.Windows.Forms.Label();
+            this.label235 = new System.Windows.Forms.Label();
+            this.textBoxUT2DOTdepth = new System.Windows.Forms.TextBox();
+            this.label245 = new System.Windows.Forms.Label();
+            this.checkBoxUT2Dshowprior = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -1266,6 +1269,12 @@ namespace BehaviorGraphics
             this.groupBoxUT1DShift.SuspendLayout();
             this.groupBoxUT1DTaskSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUT1DTargetAngle)).BeginInit();
+            this.UncertaintyTarget2D.SuspendLayout();
+            this.groupBoxUT2DTimers.SuspendLayout();
+            this.groupBoxUT2DCloud.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUT2DSliceNumber)).BeginInit();
+            this.groupBoxUT2DShift.SuspendLayout();
+            this.groupBoxUT2DTaskSettings.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -1274,13 +1283,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.UncertaintyTarget2D.SuspendLayout();
-            this.groupBoxUT2DTimers.SuspendLayout();
-            this.groupBoxUT2DCloud.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUT2DSliceNumber)).BeginInit();
-            this.groupBoxUT2DShift.SuspendLayout();
-            this.groupBoxUT2DTaskSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUT2DTargetAngle)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -10745,7 +10747,6 @@ namespace BehaviorGraphics
             this.labelUT1DCloudInfo.Size = new System.Drawing.Size(256, 13);
             this.labelUT1DCloudInfo.TabIndex = 62;
             this.labelUT1DCloudInfo.Text = "Default: Continuous Target Cloud Feedback";
-            this.labelUT1DCloudInfo.Click += new System.EventHandler(this.label244_Click);
             // 
             // checkBoxUT1DCloud1Blank
             // 
@@ -11171,6 +11172,758 @@ namespace BehaviorGraphics
             this.labelUT1DMovementLen.Size = new System.Drawing.Size(93, 13);
             this.labelUT1DMovementLen.TabIndex = 20;
             this.labelUT1DMovementLen.Text = "Movement Length";
+            // 
+            // UncertaintyTarget2D
+            // 
+            this.UncertaintyTarget2D.Controls.Add(this.checkBoxUT2DTargetDelayMode);
+            this.UncertaintyTarget2D.Controls.Add(this.textBoxUT2DDelayInfo);
+            this.UncertaintyTarget2D.Controls.Add(this.labelUT2DUnits);
+            this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DTimers);
+            this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DCloud);
+            this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DShift);
+            this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DTaskSettings);
+            this.UncertaintyTarget2D.Location = new System.Drawing.Point(4, 40);
+            this.UncertaintyTarget2D.Name = "UncertaintyTarget2D";
+            this.UncertaintyTarget2D.Padding = new System.Windows.Forms.Padding(3);
+            this.UncertaintyTarget2D.Size = new System.Drawing.Size(686, 410);
+            this.UncertaintyTarget2D.TabIndex = 17;
+            this.UncertaintyTarget2D.Text = "UncertaintyTarget2D";
+            this.UncertaintyTarget2D.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUT2DTargetDelayMode
+            // 
+            this.checkBoxUT2DTargetDelayMode.AutoSize = true;
+            this.checkBoxUT2DTargetDelayMode.Location = new System.Drawing.Point(396, 88);
+            this.checkBoxUT2DTargetDelayMode.Name = "checkBoxUT2DTargetDelayMode";
+            this.checkBoxUT2DTargetDelayMode.Size = new System.Drawing.Size(117, 17);
+            this.checkBoxUT2DTargetDelayMode.TabIndex = 78;
+            this.checkBoxUT2DTargetDelayMode.Text = "Target Delay Mode";
+            this.checkBoxUT2DTargetDelayMode.UseVisualStyleBackColor = true;
+            // 
+            // textBoxUT2DDelayInfo
+            // 
+            this.textBoxUT2DDelayInfo.Location = new System.Drawing.Point(398, 108);
+            this.textBoxUT2DDelayInfo.Multiline = true;
+            this.textBoxUT2DDelayInfo.Name = "textBoxUT2DDelayInfo";
+            this.textBoxUT2DDelayInfo.ReadOnly = true;
+            this.textBoxUT2DDelayInfo.Size = new System.Drawing.Size(118, 62);
+            this.textBoxUT2DDelayInfo.TabIndex = 77;
+            this.textBoxUT2DDelayInfo.Text = "Note: This Mode will display the Target Cloud during Center Delay and Movement.";
+            // 
+            // labelUT2DUnits
+            // 
+            this.labelUT2DUnits.AutoSize = true;
+            this.labelUT2DUnits.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUT2DUnits.Location = new System.Drawing.Point(467, 298);
+            this.labelUT2DUnits.Name = "labelUT2DUnits";
+            this.labelUT2DUnits.Size = new System.Drawing.Size(185, 13);
+            this.labelUT2DUnits.TabIndex = 76;
+            this.labelUT2DUnits.Text = "Units: centimeters and seconds";
+            // 
+            // groupBoxUT2DTimers
+            // 
+            this.groupBoxUT2DTimers.Controls.Add(this.label236);
+            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DFLT);
+            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DITI);
+            this.groupBoxUT2DTimers.Controls.Add(this.label237);
+            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DOHH);
+            this.groupBoxUT2DTimers.Controls.Add(this.label238);
+            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DOHL);
+            this.groupBoxUT2DTimers.Controls.Add(this.label239);
+            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DMT);
+            this.groupBoxUT2DTimers.Controls.Add(this.label240);
+            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DDH);
+            this.groupBoxUT2DTimers.Controls.Add(this.label241);
+            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DDL);
+            this.groupBoxUT2DTimers.Controls.Add(this.label242);
+            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DCHH);
+            this.groupBoxUT2DTimers.Controls.Add(this.label243);
+            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DCHL);
+            this.groupBoxUT2DTimers.Controls.Add(this.label244);
+            this.groupBoxUT2DTimers.Location = new System.Drawing.Point(530, 14);
+            this.groupBoxUT2DTimers.Name = "groupBoxUT2DTimers";
+            this.groupBoxUT2DTimers.Size = new System.Drawing.Size(150, 269);
+            this.groupBoxUT2DTimers.TabIndex = 75;
+            this.groupBoxUT2DTimers.TabStop = false;
+            this.groupBoxUT2DTimers.Text = "Timers";
+            // 
+            // label236
+            // 
+            this.label236.AutoSize = true;
+            this.label236.Location = new System.Drawing.Point(13, 236);
+            this.label236.Name = "label236";
+            this.label236.Size = new System.Drawing.Size(85, 13);
+            this.label236.TabIndex = 16;
+            this.label236.Text = "Failure Lag Time";
+            // 
+            // textBoxUT2DFLT
+            // 
+            this.textBoxUT2DFLT.Location = new System.Drawing.Point(108, 233);
+            this.textBoxUT2DFLT.Name = "textBoxUT2DFLT";
+            this.textBoxUT2DFLT.Size = new System.Drawing.Size(34, 20);
+            this.textBoxUT2DFLT.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.textBoxUT2DFLT, "Failure Lag Time.  The additional time added to intertrial intervals after a fail" +
+                    "ure.");
+            // 
+            // textBoxUT2DITI
+            // 
+            this.textBoxUT2DITI.Location = new System.Drawing.Point(108, 181);
+            this.textBoxUT2DITI.Name = "textBoxUT2DITI";
+            this.textBoxUT2DITI.Size = new System.Drawing.Size(34, 20);
+            this.textBoxUT2DITI.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.textBoxUT2DITI, "Time between completion of one trial and the initiation of the next.");
+            // 
+            // label237
+            // 
+            this.label237.AutoSize = true;
+            this.label237.Location = new System.Drawing.Point(13, 184);
+            this.label237.Name = "label237";
+            this.label237.Size = new System.Drawing.Size(82, 13);
+            this.label237.TabIndex = 12;
+            this.label237.Text = "Intertrial Interval";
+            // 
+            // textBoxUT2DOHH
+            // 
+            this.textBoxUT2DOHH.Location = new System.Drawing.Point(108, 152);
+            this.textBoxUT2DOHH.Name = "textBoxUT2DOHH";
+            this.textBoxUT2DOHH.Size = new System.Drawing.Size(34, 20);
+            this.textBoxUT2DOHH.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.textBoxUT2DOHH, "Upper bound on random outer hold time.  Outer hold time is the time between when " +
+                    "the cursor enters the outer target and the reward is given.\r\nSet equal to Outer " +
+                    "Hold Low for non-random hold time.");
+            // 
+            // label238
+            // 
+            this.label238.AutoSize = true;
+            this.label238.Location = new System.Drawing.Point(13, 155);
+            this.label238.Name = "label238";
+            this.label238.Size = new System.Drawing.Size(83, 13);
+            this.label238.TabIndex = 10;
+            this.label238.Text = "Outer Hold High";
+            // 
+            // textBoxUT2DOHL
+            // 
+            this.textBoxUT2DOHL.Location = new System.Drawing.Point(108, 126);
+            this.textBoxUT2DOHL.Name = "textBoxUT2DOHL";
+            this.textBoxUT2DOHL.Size = new System.Drawing.Size(34, 20);
+            this.textBoxUT2DOHL.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.textBoxUT2DOHL, "Lower bound on random outer hold time.  Outer hold time is the time between when " +
+                    "the cursor enters the outer target and the reward is given.\r\nSet equal to Outer " +
+                    "Hold High for non-random hold time.");
+            // 
+            // label239
+            // 
+            this.label239.AutoSize = true;
+            this.label239.Location = new System.Drawing.Point(13, 129);
+            this.label239.Name = "label239";
+            this.label239.Size = new System.Drawing.Size(81, 13);
+            this.label239.TabIndex = 8;
+            this.label239.Text = "Outer Hold Low";
+            // 
+            // textBoxUT2DMT
+            // 
+            this.textBoxUT2DMT.Location = new System.Drawing.Point(108, 207);
+            this.textBoxUT2DMT.Name = "textBoxUT2DMT";
+            this.textBoxUT2DMT.Size = new System.Drawing.Size(34, 20);
+            this.textBoxUT2DMT.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.textBoxUT2DMT, "Movement time.  Amount of time monkey has to reach the outer target after recievi" +
+                    "ng the go cue.");
+            // 
+            // label240
+            // 
+            this.label240.AutoSize = true;
+            this.label240.Location = new System.Drawing.Point(13, 210);
+            this.label240.Name = "label240";
+            this.label240.Size = new System.Drawing.Size(83, 13);
+            this.label240.TabIndex = 14;
+            this.label240.Text = "Movement Time";
+            // 
+            // textBoxUT2DDH
+            // 
+            this.textBoxUT2DDH.Location = new System.Drawing.Point(108, 98);
+            this.textBoxUT2DDH.Name = "textBoxUT2DDH";
+            this.textBoxUT2DDH.Size = new System.Drawing.Size(34, 20);
+            this.textBoxUT2DDH.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.textBoxUT2DDH, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
+                    "lay time.");
+            // 
+            // label241
+            // 
+            this.label241.AutoSize = true;
+            this.label241.Location = new System.Drawing.Point(13, 101);
+            this.label241.Name = "label241";
+            this.label241.Size = new System.Drawing.Size(59, 13);
+            this.label241.TabIndex = 6;
+            this.label241.Text = "Delay High";
+            // 
+            // textBoxUT2DDL
+            // 
+            this.textBoxUT2DDL.Location = new System.Drawing.Point(108, 72);
+            this.textBoxUT2DDL.Name = "textBoxUT2DDL";
+            this.textBoxUT2DDL.Size = new System.Drawing.Size(34, 20);
+            this.textBoxUT2DDL.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.textBoxUT2DDL, "Lower bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay High for non-random d" +
+                    "elay time.");
+            // 
+            // label242
+            // 
+            this.label242.AutoSize = true;
+            this.label242.Location = new System.Drawing.Point(13, 75);
+            this.label242.Name = "label242";
+            this.label242.Size = new System.Drawing.Size(57, 13);
+            this.label242.TabIndex = 4;
+            this.label242.Text = "Delay Low";
+            // 
+            // textBoxUT2DCHH
+            // 
+            this.textBoxUT2DCHH.Location = new System.Drawing.Point(108, 46);
+            this.textBoxUT2DCHH.Name = "textBoxUT2DCHH";
+            this.textBoxUT2DCHH.Size = new System.Drawing.Size(34, 20);
+            this.textBoxUT2DCHH.TabIndex = 3;
+            this.textBoxUT2DCHH.TextChanged += new System.EventHandler(this.textBox29_TextChanged);
+            // 
+            // label243
+            // 
+            this.label243.AutoSize = true;
+            this.label243.Location = new System.Drawing.Point(13, 49);
+            this.label243.Name = "label243";
+            this.label243.Size = new System.Drawing.Size(88, 13);
+            this.label243.TabIndex = 2;
+            this.label243.Text = "Center Hold High";
+            // 
+            // textBoxUT2DCHL
+            // 
+            this.textBoxUT2DCHL.Location = new System.Drawing.Point(108, 20);
+            this.textBoxUT2DCHL.Name = "textBoxUT2DCHL";
+            this.textBoxUT2DCHL.Size = new System.Drawing.Size(34, 20);
+            this.textBoxUT2DCHL.TabIndex = 1;
+            // 
+            // label244
+            // 
+            this.label244.AutoSize = true;
+            this.label244.Location = new System.Drawing.Point(13, 23);
+            this.label244.Name = "label244";
+            this.label244.Size = new System.Drawing.Size(86, 13);
+            this.label244.TabIndex = 0;
+            this.label244.Text = "Center Hold Low";
+            // 
+            // groupBoxUT2DCloud
+            // 
+            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DTimedDuration);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DTimedLocation);
+            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DTimedLocation);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DTimedDuration);
+            this.groupBoxUT2DCloud.Controls.Add(this.checkBoxUT2DUseTimed);
+            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloudJitter);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloudJitter);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloudInfo);
+            this.groupBoxUT2DCloud.Controls.Add(this.checkBoxUT2DCloud1Blank);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud4Freq);
+            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud4Freq);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud3Freq);
+            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud3Freq);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud2Freq);
+            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud2Freq);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud1Freq);
+            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud1Freq);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud4Stdev);
+            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud4Stdev);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud3Stdev);
+            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud3Stdev);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud2Stdev);
+            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud2Stdev);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DSliceNumber);
+            this.groupBoxUT2DCloud.Controls.Add(this.numericUpDownUT2DSliceNumber);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DSliceSize);
+            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DSliceSize);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud1Stdev);
+            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud1Stdev);
+            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DFeedbackStart);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DFeedbackEnd);
+            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DFeedbackEnd);
+            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DFeedbackStart);
+            this.groupBoxUT2DCloud.Location = new System.Drawing.Point(8, 176);
+            this.groupBoxUT2DCloud.Name = "groupBoxUT2DCloud";
+            this.groupBoxUT2DCloud.Size = new System.Drawing.Size(441, 228);
+            this.groupBoxUT2DCloud.TabIndex = 74;
+            this.groupBoxUT2DCloud.TabStop = false;
+            this.groupBoxUT2DCloud.Text = "Target Cloud (Likelihood)";
+            // 
+            // textBoxUT2DTimedDuration
+            // 
+            this.textBoxUT2DTimedDuration.Location = new System.Drawing.Point(403, 172);
+            this.textBoxUT2DTimedDuration.Name = "textBoxUT2DTimedDuration";
+            this.textBoxUT2DTimedDuration.Size = new System.Drawing.Size(32, 20);
+            this.textBoxUT2DTimedDuration.TabIndex = 68;
+            // 
+            // labelUT2DTimedLocation
+            // 
+            this.labelUT2DTimedLocation.AutoSize = true;
+            this.labelUT2DTimedLocation.Location = new System.Drawing.Point(299, 204);
+            this.labelUT2DTimedLocation.Name = "labelUT2DTimedLocation";
+            this.labelUT2DTimedLocation.Size = new System.Drawing.Size(80, 13);
+            this.labelUT2DTimedLocation.TabIndex = 69;
+            this.labelUT2DTimedLocation.Text = "Timed Location";
+            // 
+            // textBoxUT2DTimedLocation
+            // 
+            this.textBoxUT2DTimedLocation.Location = new System.Drawing.Point(403, 201);
+            this.textBoxUT2DTimedLocation.Name = "textBoxUT2DTimedLocation";
+            this.textBoxUT2DTimedLocation.Size = new System.Drawing.Size(32, 20);
+            this.textBoxUT2DTimedLocation.TabIndex = 70;
+            this.toolTip1.SetToolTip(this.textBoxUT2DTimedLocation, "From 0 to target radius, where the feedback is shown and timer is triggered.");
+            // 
+            // labelUT2DTimedDuration
+            // 
+            this.labelUT2DTimedDuration.AutoSize = true;
+            this.labelUT2DTimedDuration.Location = new System.Drawing.Point(299, 175);
+            this.labelUT2DTimedDuration.Name = "labelUT2DTimedDuration";
+            this.labelUT2DTimedDuration.Size = new System.Drawing.Size(79, 13);
+            this.labelUT2DTimedDuration.TabIndex = 67;
+            this.labelUT2DTimedDuration.Text = "Timed Duration";
+            // 
+            // checkBoxUT2DUseTimed
+            // 
+            this.checkBoxUT2DUseTimed.AutoSize = true;
+            this.checkBoxUT2DUseTimed.Location = new System.Drawing.Point(303, 145);
+            this.checkBoxUT2DUseTimed.Name = "checkBoxUT2DUseTimed";
+            this.checkBoxUT2DUseTimed.Size = new System.Drawing.Size(128, 17);
+            this.checkBoxUT2DUseTimed.TabIndex = 66;
+            this.checkBoxUT2DUseTimed.Text = "Use Timed Feedback";
+            this.checkBoxUT2DUseTimed.UseVisualStyleBackColor = true;
+            // 
+            // textBoxUT2DCloudJitter
+            // 
+            this.textBoxUT2DCloudJitter.Location = new System.Drawing.Point(404, 115);
+            this.textBoxUT2DCloudJitter.Name = "textBoxUT2DCloudJitter";
+            this.textBoxUT2DCloudJitter.Size = new System.Drawing.Size(32, 20);
+            this.textBoxUT2DCloudJitter.TabIndex = 65;
+            this.toolTip1.SetToolTip(this.textBoxUT2DCloudJitter, "+/- range (cm) for jitter (random draw from uniform distribution)");
+            // 
+            // labelUT2DCloudJitter
+            // 
+            this.labelUT2DCloudJitter.AutoSize = true;
+            this.labelUT2DCloudJitter.Location = new System.Drawing.Point(300, 118);
+            this.labelUT2DCloudJitter.Name = "labelUT2DCloudJitter";
+            this.labelUT2DCloudJitter.Size = new System.Drawing.Size(59, 13);
+            this.labelUT2DCloudJitter.TabIndex = 64;
+            this.labelUT2DCloudJitter.Text = "Cloud Jitter";
+            // 
+            // labelUT2DCloudInfo
+            // 
+            this.labelUT2DCloudInfo.AutoSize = true;
+            this.labelUT2DCloudInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUT2DCloudInfo.Location = new System.Drawing.Point(12, 146);
+            this.labelUT2DCloudInfo.Name = "labelUT2DCloudInfo";
+            this.labelUT2DCloudInfo.Size = new System.Drawing.Size(256, 13);
+            this.labelUT2DCloudInfo.TabIndex = 62;
+            this.labelUT2DCloudInfo.Text = "Default: Continuous Target Cloud Feedback";
+            // 
+            // checkBoxUT2DCloud1Blank
+            // 
+            this.checkBoxUT2DCloud1Blank.AutoSize = true;
+            this.checkBoxUT2DCloud1Blank.Location = new System.Drawing.Point(303, 30);
+            this.checkBoxUT2DCloud1Blank.Name = "checkBoxUT2DCloud1Blank";
+            this.checkBoxUT2DCloud1Blank.Size = new System.Drawing.Size(99, 17);
+            this.checkBoxUT2DCloud1Blank.TabIndex = 56;
+            this.checkBoxUT2DCloud1Blank.Text = "Blank Cloud #1";
+            this.checkBoxUT2DCloud1Blank.UseVisualStyleBackColor = true;
+            // 
+            // labelUT2DCloud4Freq
+            // 
+            this.labelUT2DCloud4Freq.AutoSize = true;
+            this.labelUT2DCloud4Freq.Location = new System.Drawing.Point(152, 118);
+            this.labelUT2DCloud4Freq.Name = "labelUT2DCloud4Freq";
+            this.labelUT2DCloud4Freq.Size = new System.Drawing.Size(74, 13);
+            this.labelUT2DCloud4Freq.TabIndex = 54;
+            this.labelUT2DCloud4Freq.Text = "Cloud #4 Freq";
+            // 
+            // textBoxUT2DCloud4Freq
+            // 
+            this.textBoxUT2DCloud4Freq.Location = new System.Drawing.Point(235, 115);
+            this.textBoxUT2DCloud4Freq.Name = "textBoxUT2DCloud4Freq";
+            this.textBoxUT2DCloud4Freq.Size = new System.Drawing.Size(41, 20);
+            this.textBoxUT2DCloud4Freq.TabIndex = 55;
+            // 
+            // labelUT2DCloud3Freq
+            // 
+            this.labelUT2DCloud3Freq.AutoSize = true;
+            this.labelUT2DCloud3Freq.Location = new System.Drawing.Point(152, 90);
+            this.labelUT2DCloud3Freq.Name = "labelUT2DCloud3Freq";
+            this.labelUT2DCloud3Freq.Size = new System.Drawing.Size(74, 13);
+            this.labelUT2DCloud3Freq.TabIndex = 52;
+            this.labelUT2DCloud3Freq.Text = "Cloud #3 Freq";
+            // 
+            // textBoxUT2DCloud3Freq
+            // 
+            this.textBoxUT2DCloud3Freq.Location = new System.Drawing.Point(235, 87);
+            this.textBoxUT2DCloud3Freq.Name = "textBoxUT2DCloud3Freq";
+            this.textBoxUT2DCloud3Freq.Size = new System.Drawing.Size(41, 20);
+            this.textBoxUT2DCloud3Freq.TabIndex = 53;
+            // 
+            // labelUT2DCloud2Freq
+            // 
+            this.labelUT2DCloud2Freq.AutoSize = true;
+            this.labelUT2DCloud2Freq.Location = new System.Drawing.Point(152, 61);
+            this.labelUT2DCloud2Freq.Name = "labelUT2DCloud2Freq";
+            this.labelUT2DCloud2Freq.Size = new System.Drawing.Size(74, 13);
+            this.labelUT2DCloud2Freq.TabIndex = 50;
+            this.labelUT2DCloud2Freq.Text = "Cloud #2 Freq";
+            // 
+            // textBoxUT2DCloud2Freq
+            // 
+            this.textBoxUT2DCloud2Freq.Location = new System.Drawing.Point(235, 58);
+            this.textBoxUT2DCloud2Freq.Name = "textBoxUT2DCloud2Freq";
+            this.textBoxUT2DCloud2Freq.Size = new System.Drawing.Size(41, 20);
+            this.textBoxUT2DCloud2Freq.TabIndex = 51;
+            // 
+            // labelUT2DCloud1Freq
+            // 
+            this.labelUT2DCloud1Freq.AutoSize = true;
+            this.labelUT2DCloud1Freq.Location = new System.Drawing.Point(152, 31);
+            this.labelUT2DCloud1Freq.Name = "labelUT2DCloud1Freq";
+            this.labelUT2DCloud1Freq.Size = new System.Drawing.Size(74, 13);
+            this.labelUT2DCloud1Freq.TabIndex = 48;
+            this.labelUT2DCloud1Freq.Text = "Cloud #1 Freq";
+            // 
+            // textBoxUT2DCloud1Freq
+            // 
+            this.textBoxUT2DCloud1Freq.Location = new System.Drawing.Point(235, 28);
+            this.textBoxUT2DCloud1Freq.Name = "textBoxUT2DCloud1Freq";
+            this.textBoxUT2DCloud1Freq.Size = new System.Drawing.Size(41, 20);
+            this.textBoxUT2DCloud1Freq.TabIndex = 49;
+            // 
+            // labelUT2DCloud4Stdev
+            // 
+            this.labelUT2DCloud4Stdev.AutoSize = true;
+            this.labelUT2DCloud4Stdev.Location = new System.Drawing.Point(9, 118);
+            this.labelUT2DCloud4Stdev.Name = "labelUT2DCloud4Stdev";
+            this.labelUT2DCloud4Stdev.Size = new System.Drawing.Size(84, 13);
+            this.labelUT2DCloud4Stdev.TabIndex = 46;
+            this.labelUT2DCloud4Stdev.Text = "Cloud #4  Stdev";
+            // 
+            // textBoxUT2DCloud4Stdev
+            // 
+            this.textBoxUT2DCloud4Stdev.Location = new System.Drawing.Point(110, 115);
+            this.textBoxUT2DCloud4Stdev.Name = "textBoxUT2DCloud4Stdev";
+            this.textBoxUT2DCloud4Stdev.Size = new System.Drawing.Size(36, 20);
+            this.textBoxUT2DCloud4Stdev.TabIndex = 47;
+            // 
+            // labelUT2DCloud3Stdev
+            // 
+            this.labelUT2DCloud3Stdev.AutoSize = true;
+            this.labelUT2DCloud3Stdev.Location = new System.Drawing.Point(9, 90);
+            this.labelUT2DCloud3Stdev.Name = "labelUT2DCloud3Stdev";
+            this.labelUT2DCloud3Stdev.Size = new System.Drawing.Size(84, 13);
+            this.labelUT2DCloud3Stdev.TabIndex = 44;
+            this.labelUT2DCloud3Stdev.Text = "Cloud #3  Stdev";
+            // 
+            // textBoxUT2DCloud3Stdev
+            // 
+            this.textBoxUT2DCloud3Stdev.Location = new System.Drawing.Point(110, 87);
+            this.textBoxUT2DCloud3Stdev.Name = "textBoxUT2DCloud3Stdev";
+            this.textBoxUT2DCloud3Stdev.Size = new System.Drawing.Size(36, 20);
+            this.textBoxUT2DCloud3Stdev.TabIndex = 45;
+            // 
+            // labelUT2DCloud2Stdev
+            // 
+            this.labelUT2DCloud2Stdev.AutoSize = true;
+            this.labelUT2DCloud2Stdev.Location = new System.Drawing.Point(9, 61);
+            this.labelUT2DCloud2Stdev.Name = "labelUT2DCloud2Stdev";
+            this.labelUT2DCloud2Stdev.Size = new System.Drawing.Size(84, 13);
+            this.labelUT2DCloud2Stdev.TabIndex = 42;
+            this.labelUT2DCloud2Stdev.Text = "Cloud #2  Stdev";
+            // 
+            // textBoxUT2DCloud2Stdev
+            // 
+            this.textBoxUT2DCloud2Stdev.Location = new System.Drawing.Point(110, 58);
+            this.textBoxUT2DCloud2Stdev.Name = "textBoxUT2DCloud2Stdev";
+            this.textBoxUT2DCloud2Stdev.Size = new System.Drawing.Size(36, 20);
+            this.textBoxUT2DCloud2Stdev.TabIndex = 43;
+            // 
+            // labelUT2DSliceNumber
+            // 
+            this.labelUT2DSliceNumber.AutoSize = true;
+            this.labelUT2DSliceNumber.Location = new System.Drawing.Point(8, 204);
+            this.labelUT2DSliceNumber.Name = "labelUT2DSliceNumber";
+            this.labelUT2DSliceNumber.Size = new System.Drawing.Size(57, 13);
+            this.labelUT2DSliceNumber.TabIndex = 40;
+            this.labelUT2DSliceNumber.Text = "# of Slices";
+            // 
+            // numericUpDownUT2DSliceNumber
+            // 
+            this.numericUpDownUT2DSliceNumber.Location = new System.Drawing.Point(91, 201);
+            this.numericUpDownUT2DSliceNumber.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownUT2DSliceNumber.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownUT2DSliceNumber.Name = "numericUpDownUT2DSliceNumber";
+            this.numericUpDownUT2DSliceNumber.Size = new System.Drawing.Size(41, 20);
+            this.numericUpDownUT2DSliceNumber.TabIndex = 41;
+            this.toolTip1.SetToolTip(this.numericUpDownUT2DSliceNumber, "Number of dots in cue cloud (max 10)");
+            this.numericUpDownUT2DSliceNumber.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            // 
+            // labelUT2DSliceSize
+            // 
+            this.labelUT2DSliceSize.AutoSize = true;
+            this.labelUT2DSliceSize.Location = new System.Drawing.Point(8, 175);
+            this.labelUT2DSliceSize.Name = "labelUT2DSliceSize";
+            this.labelUT2DSliceSize.Size = new System.Drawing.Size(53, 13);
+            this.labelUT2DSliceSize.TabIndex = 38;
+            this.labelUT2DSliceSize.Text = "Slice Size";
+            // 
+            // textBoxUT2DSliceSize
+            // 
+            this.textBoxUT2DSliceSize.Location = new System.Drawing.Point(91, 172);
+            this.textBoxUT2DSliceSize.Name = "textBoxUT2DSliceSize";
+            this.textBoxUT2DSliceSize.Size = new System.Drawing.Size(41, 20);
+            this.textBoxUT2DSliceSize.TabIndex = 39;
+            // 
+            // labelUT2DCloud1Stdev
+            // 
+            this.labelUT2DCloud1Stdev.AutoSize = true;
+            this.labelUT2DCloud1Stdev.Location = new System.Drawing.Point(9, 31);
+            this.labelUT2DCloud1Stdev.Name = "labelUT2DCloud1Stdev";
+            this.labelUT2DCloud1Stdev.Size = new System.Drawing.Size(84, 13);
+            this.labelUT2DCloud1Stdev.TabIndex = 36;
+            this.labelUT2DCloud1Stdev.Text = "Cloud #1  Stdev";
+            // 
+            // textBoxUT2DCloud1Stdev
+            // 
+            this.textBoxUT2DCloud1Stdev.Location = new System.Drawing.Point(110, 28);
+            this.textBoxUT2DCloud1Stdev.Name = "textBoxUT2DCloud1Stdev";
+            this.textBoxUT2DCloud1Stdev.Size = new System.Drawing.Size(36, 20);
+            this.textBoxUT2DCloud1Stdev.TabIndex = 37;
+            // 
+            // textBoxUT2DFeedbackStart
+            // 
+            this.textBoxUT2DFeedbackStart.Location = new System.Drawing.Point(247, 172);
+            this.textBoxUT2DFeedbackStart.Name = "textBoxUT2DFeedbackStart";
+            this.textBoxUT2DFeedbackStart.Size = new System.Drawing.Size(36, 20);
+            this.textBoxUT2DFeedbackStart.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.textBoxUT2DFeedbackStart, "From 0 to target radius, where the feedback turns on.");
+            // 
+            // labelUT2DFeedbackEnd
+            // 
+            this.labelUT2DFeedbackEnd.AutoSize = true;
+            this.labelUT2DFeedbackEnd.Location = new System.Drawing.Point(152, 204);
+            this.labelUT2DFeedbackEnd.Name = "labelUT2DFeedbackEnd";
+            this.labelUT2DFeedbackEnd.Size = new System.Drawing.Size(77, 13);
+            this.labelUT2DFeedbackEnd.TabIndex = 34;
+            this.labelUT2DFeedbackEnd.Text = "Feedback End";
+            // 
+            // textBoxUT2DFeedbackEnd
+            // 
+            this.textBoxUT2DFeedbackEnd.Location = new System.Drawing.Point(247, 201);
+            this.textBoxUT2DFeedbackEnd.Name = "textBoxUT2DFeedbackEnd";
+            this.textBoxUT2DFeedbackEnd.Size = new System.Drawing.Size(36, 20);
+            this.textBoxUT2DFeedbackEnd.TabIndex = 35;
+            this.toolTip1.SetToolTip(this.textBoxUT2DFeedbackEnd, "From 0 to target radius, where the feedback turns off.");
+            // 
+            // labelUT2DFeedbackStart
+            // 
+            this.labelUT2DFeedbackStart.AutoSize = true;
+            this.labelUT2DFeedbackStart.Location = new System.Drawing.Point(152, 175);
+            this.labelUT2DFeedbackStart.Name = "labelUT2DFeedbackStart";
+            this.labelUT2DFeedbackStart.Size = new System.Drawing.Size(80, 13);
+            this.labelUT2DFeedbackStart.TabIndex = 32;
+            this.labelUT2DFeedbackStart.Text = "Feedback Start";
+            // 
+            // groupBoxUT2DShift
+            // 
+            this.groupBoxUT2DShift.Controls.Add(this.checkBoxUT2Dshowprior);
+            this.groupBoxUT2DShift.Controls.Add(this.labelUT2DBlockWindowEnd);
+            this.groupBoxUT2DShift.Controls.Add(this.labelUT2DBlockWindowStart);
+            this.groupBoxUT2DShift.Controls.Add(this.textBoxUT2DBlockWindowEnd);
+            this.groupBoxUT2DShift.Controls.Add(this.textBoxUT2DBlockWindowStart);
+            this.groupBoxUT2DShift.Controls.Add(this.labelUT2DShiftStdev);
+            this.groupBoxUT2DShift.Controls.Add(this.textBoxUT2DShiftStdev);
+            this.groupBoxUT2DShift.Controls.Add(this.labelUT2DShiftMean);
+            this.groupBoxUT2DShift.Controls.Add(this.textBoxUT2DShiftMean);
+            this.groupBoxUT2DShift.Location = new System.Drawing.Point(202, 8);
+            this.groupBoxUT2DShift.Name = "groupBoxUT2DShift";
+            this.groupBoxUT2DShift.Size = new System.Drawing.Size(179, 162);
+            this.groupBoxUT2DShift.TabIndex = 73;
+            this.groupBoxUT2DShift.TabStop = false;
+            this.groupBoxUT2DShift.Text = "Target Shift (Prior)";
+            // 
+            // textBoxUT2DOTSize
+            // 
+            this.textBoxUT2DOTSize.Location = new System.Drawing.Point(135, 40);
+            this.textBoxUT2DOTSize.Name = "textBoxUT2DOTSize";
+            this.textBoxUT2DOTSize.Size = new System.Drawing.Size(43, 20);
+            this.textBoxUT2DOTSize.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.textBoxUT2DOTSize, "Size of outer targets in degrees");
+            // 
+            // labelUT2DBlockWindowEnd
+            // 
+            this.labelUT2DBlockWindowEnd.AutoSize = true;
+            this.labelUT2DBlockWindowEnd.Location = new System.Drawing.Point(12, 95);
+            this.labelUT2DBlockWindowEnd.Name = "labelUT2DBlockWindowEnd";
+            this.labelUT2DBlockWindowEnd.Size = new System.Drawing.Size(101, 13);
+            this.labelUT2DBlockWindowEnd.TabIndex = 30;
+            this.labelUT2DBlockWindowEnd.Text = "Block Window End ";
+            // 
+            // labelUT2DBlockWindowStart
+            // 
+            this.labelUT2DBlockWindowStart.AutoSize = true;
+            this.labelUT2DBlockWindowStart.Location = new System.Drawing.Point(12, 71);
+            this.labelUT2DBlockWindowStart.Name = "labelUT2DBlockWindowStart";
+            this.labelUT2DBlockWindowStart.Size = new System.Drawing.Size(101, 13);
+            this.labelUT2DBlockWindowStart.TabIndex = 28;
+            this.labelUT2DBlockWindowStart.Text = "Block Window Start";
+            // 
+            // textBoxUT2DBlockWindowEnd
+            // 
+            this.textBoxUT2DBlockWindowEnd.Location = new System.Drawing.Point(126, 91);
+            this.textBoxUT2DBlockWindowEnd.Name = "textBoxUT2DBlockWindowEnd";
+            this.textBoxUT2DBlockWindowEnd.Size = new System.Drawing.Size(39, 20);
+            this.textBoxUT2DBlockWindowEnd.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.textBoxUT2DBlockWindowEnd, "Where the cursor blocking window turns off.");
+            // 
+            // textBoxUT2DBlockWindowStart
+            // 
+            this.textBoxUT2DBlockWindowStart.Location = new System.Drawing.Point(126, 67);
+            this.textBoxUT2DBlockWindowStart.Name = "textBoxUT2DBlockWindowStart";
+            this.textBoxUT2DBlockWindowStart.Size = new System.Drawing.Size(39, 20);
+            this.textBoxUT2DBlockWindowStart.TabIndex = 29;
+            this.toolTip1.SetToolTip(this.textBoxUT2DBlockWindowStart, "Where the cursor blocking window turns on.");
+            // 
+            // labelUT2DShiftStdev
+            // 
+            this.labelUT2DShiftStdev.AutoSize = true;
+            this.labelUT2DShiftStdev.Location = new System.Drawing.Point(12, 47);
+            this.labelUT2DShiftStdev.Name = "labelUT2DShiftStdev";
+            this.labelUT2DShiftStdev.Size = new System.Drawing.Size(59, 13);
+            this.labelUT2DShiftStdev.TabIndex = 26;
+            this.labelUT2DShiftStdev.Text = "Shift Stdev";
+            // 
+            // textBoxUT2DShiftStdev
+            // 
+            this.textBoxUT2DShiftStdev.Location = new System.Drawing.Point(126, 43);
+            this.textBoxUT2DShiftStdev.Name = "textBoxUT2DShiftStdev";
+            this.textBoxUT2DShiftStdev.Size = new System.Drawing.Size(39, 20);
+            this.textBoxUT2DShiftStdev.TabIndex = 27;
+            // 
+            // labelUT2DShiftMean
+            // 
+            this.labelUT2DShiftMean.AutoSize = true;
+            this.labelUT2DShiftMean.Location = new System.Drawing.Point(12, 22);
+            this.labelUT2DShiftMean.Name = "labelUT2DShiftMean";
+            this.labelUT2DShiftMean.Size = new System.Drawing.Size(58, 13);
+            this.labelUT2DShiftMean.TabIndex = 24;
+            this.labelUT2DShiftMean.Text = "Shift Mean";
+            // 
+            // textBoxUT2DShiftMean
+            // 
+            this.textBoxUT2DShiftMean.Location = new System.Drawing.Point(126, 19);
+            this.textBoxUT2DShiftMean.Name = "textBoxUT2DShiftMean";
+            this.textBoxUT2DShiftMean.Size = new System.Drawing.Size(39, 20);
+            this.textBoxUT2DShiftMean.TabIndex = 25;
+            // 
+            // groupBoxUT2DTaskSettings
+            // 
+            this.groupBoxUT2DTaskSettings.Controls.Add(this.label245);
+            this.groupBoxUT2DTaskSettings.Controls.Add(this.textBoxUT2DOTdepth);
+            this.groupBoxUT2DTaskSettings.Controls.Add(this.label235);
+            this.groupBoxUT2DTaskSettings.Controls.Add(this.textBoxUT2DOTSize);
+            this.groupBoxUT2DTaskSettings.Controls.Add(this.textBoxUT2DCenterYOffset);
+            this.groupBoxUT2DTaskSettings.Controls.Add(this.labelUT2DCenterYOffset);
+            this.groupBoxUT2DTaskSettings.Controls.Add(this.textBoxUT2DTargetSize);
+            this.groupBoxUT2DTaskSettings.Controls.Add(this.labelUT2DTargetSize);
+            this.groupBoxUT2DTaskSettings.Controls.Add(this.textBoxUT2DCenterXOffset);
+            this.groupBoxUT2DTaskSettings.Controls.Add(this.textBoxUT2DMovementLen);
+            this.groupBoxUT2DTaskSettings.Controls.Add(this.labelUT2DCenterXOffset);
+            this.groupBoxUT2DTaskSettings.Controls.Add(this.labelUT2DMovementLen);
+            this.groupBoxUT2DTaskSettings.Location = new System.Drawing.Point(5, 8);
+            this.groupBoxUT2DTaskSettings.Name = "groupBoxUT2DTaskSettings";
+            this.groupBoxUT2DTaskSettings.Size = new System.Drawing.Size(191, 162);
+            this.groupBoxUT2DTaskSettings.TabIndex = 72;
+            this.groupBoxUT2DTaskSettings.TabStop = false;
+            this.groupBoxUT2DTaskSettings.Text = "General Task Settings";
+            // 
+            // textBoxUT2DCenterYOffset
+            // 
+            this.textBoxUT2DCenterYOffset.Location = new System.Drawing.Point(133, 136);
+            this.textBoxUT2DCenterYOffset.Name = "textBoxUT2DCenterYOffset";
+            this.textBoxUT2DCenterYOffset.Size = new System.Drawing.Size(44, 20);
+            this.textBoxUT2DCenterYOffset.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.textBoxUT2DCenterYOffset, "Offset of center target along the outer target axis.");
+            // 
+            // labelUT2DCenterYOffset
+            // 
+            this.labelUT2DCenterYOffset.AutoSize = true;
+            this.labelUT2DCenterYOffset.Location = new System.Drawing.Point(12, 140);
+            this.labelUT2DCenterYOffset.Name = "labelUT2DCenterYOffset";
+            this.labelUT2DCenterYOffset.Size = new System.Drawing.Size(79, 13);
+            this.labelUT2DCenterYOffset.TabIndex = 29;
+            this.labelUT2DCenterYOffset.Text = "Center Y Offset";
+            this.toolTip1.SetToolTip(this.labelUT2DCenterYOffset, "Offset of the center target along the target axis");
+            // 
+            // textBoxUT2DTargetSize
+            // 
+            this.textBoxUT2DTargetSize.Location = new System.Drawing.Point(134, 88);
+            this.textBoxUT2DTargetSize.Name = "textBoxUT2DTargetSize";
+            this.textBoxUT2DTargetSize.Size = new System.Drawing.Size(43, 20);
+            this.textBoxUT2DTargetSize.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.textBoxUT2DTargetSize, "Radius of center target");
+            // 
+            // labelUT2DTargetSize
+            // 
+            this.labelUT2DTargetSize.AutoSize = true;
+            this.labelUT2DTargetSize.Location = new System.Drawing.Point(13, 91);
+            this.labelUT2DTargetSize.Name = "labelUT2DTargetSize";
+            this.labelUT2DTargetSize.Size = new System.Drawing.Size(108, 13);
+            this.labelUT2DTargetSize.TabIndex = 22;
+            this.labelUT2DTargetSize.Text = "Center Target Radius";
+            this.labelUT2DTargetSize.Click += new System.EventHandler(this.labelUT2DTargetSize_Click);
+            // 
+            // textBoxUT2DCenterXOffset
+            // 
+            this.textBoxUT2DCenterXOffset.Location = new System.Drawing.Point(134, 112);
+            this.textBoxUT2DCenterXOffset.Name = "textBoxUT2DCenterXOffset";
+            this.textBoxUT2DCenterXOffset.Size = new System.Drawing.Size(43, 20);
+            this.textBoxUT2DCenterXOffset.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.textBoxUT2DCenterXOffset, "Offset of center target along the outer target axis.");
+            // 
+            // textBoxUT2DMovementLen
+            // 
+            this.textBoxUT2DMovementLen.Location = new System.Drawing.Point(135, 15);
+            this.textBoxUT2DMovementLen.Name = "textBoxUT2DMovementLen";
+            this.textBoxUT2DMovementLen.Size = new System.Drawing.Size(43, 20);
+            this.textBoxUT2DMovementLen.TabIndex = 21;
+            this.toolTip1.SetToolTip(this.textBoxUT2DMovementLen, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // labelUT2DCenterXOffset
+            // 
+            this.labelUT2DCenterXOffset.AutoSize = true;
+            this.labelUT2DCenterXOffset.Location = new System.Drawing.Point(12, 116);
+            this.labelUT2DCenterXOffset.Name = "labelUT2DCenterXOffset";
+            this.labelUT2DCenterXOffset.Size = new System.Drawing.Size(79, 13);
+            this.labelUT2DCenterXOffset.TabIndex = 25;
+            this.labelUT2DCenterXOffset.Text = "Center X Offset";
+            this.toolTip1.SetToolTip(this.labelUT2DCenterXOffset, "Offset of the center target along the target axis");
+            // 
+            // labelUT2DMovementLen
+            // 
+            this.labelUT2DMovementLen.AutoSize = true;
+            this.labelUT2DMovementLen.Location = new System.Drawing.Point(13, 19);
+            this.labelUT2DMovementLen.Name = "labelUT2DMovementLen";
+            this.labelUT2DMovementLen.Size = new System.Drawing.Size(93, 13);
+            this.labelUT2DMovementLen.TabIndex = 20;
+            this.labelUT2DMovementLen.Text = "Movement Length";
             // 
             // statusStrip1
             // 
@@ -12000,777 +12753,41 @@ namespace BehaviorGraphics
             this.label324.TabIndex = 64;
             this.label324.Text = "1-D Jitter Magnitude";
             // 
-            // UncertaintyTarget2D
-            // 
-            this.UncertaintyTarget2D.Controls.Add(this.checkBoxUT2DTargetDelayMode);
-            this.UncertaintyTarget2D.Controls.Add(this.textBoxUT2DDelayInfo);
-            this.UncertaintyTarget2D.Controls.Add(this.labelUT2DUnits);
-            this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DTimers);
-            this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DCloud);
-            this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DShift);
-            this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DTaskSettings);
-            this.UncertaintyTarget2D.Location = new System.Drawing.Point(4, 40);
-            this.UncertaintyTarget2D.Name = "UncertaintyTarget2D";
-            this.UncertaintyTarget2D.Padding = new System.Windows.Forms.Padding(3);
-            this.UncertaintyTarget2D.Size = new System.Drawing.Size(686, 410);
-            this.UncertaintyTarget2D.TabIndex = 17;
-            this.UncertaintyTarget2D.Text = "UncertaintyTarget2D";
-            this.UncertaintyTarget2D.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxUT2DTargetDelayMode
-            // 
-            this.checkBoxUT2DTargetDelayMode.AutoSize = true;
-            this.checkBoxUT2DTargetDelayMode.Location = new System.Drawing.Point(396, 88);
-            this.checkBoxUT2DTargetDelayMode.Name = "checkBoxUT2DTargetDelayMode";
-            this.checkBoxUT2DTargetDelayMode.Size = new System.Drawing.Size(117, 17);
-            this.checkBoxUT2DTargetDelayMode.TabIndex = 78;
-            this.checkBoxUT2DTargetDelayMode.Text = "Target Delay Mode";
-            this.checkBoxUT2DTargetDelayMode.UseVisualStyleBackColor = true;
-            // 
-            // textBoxUT2DDelayInfo
-            // 
-            this.textBoxUT2DDelayInfo.Location = new System.Drawing.Point(398, 108);
-            this.textBoxUT2DDelayInfo.Multiline = true;
-            this.textBoxUT2DDelayInfo.Name = "textBoxUT2DDelayInfo";
-            this.textBoxUT2DDelayInfo.ReadOnly = true;
-            this.textBoxUT2DDelayInfo.Size = new System.Drawing.Size(118, 62);
-            this.textBoxUT2DDelayInfo.TabIndex = 77;
-            this.textBoxUT2DDelayInfo.Text = "Note: This Mode will display the Target Cloud during Center Delay and Movement.";
-            // 
-            // labelUT2DUnits
-            // 
-            this.labelUT2DUnits.AutoSize = true;
-            this.labelUT2DUnits.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUT2DUnits.Location = new System.Drawing.Point(202, 147);
-            this.labelUT2DUnits.Name = "labelUT2DUnits";
-            this.labelUT2DUnits.Size = new System.Drawing.Size(185, 13);
-            this.labelUT2DUnits.TabIndex = 76;
-            this.labelUT2DUnits.Text = "Units: centimeters and seconds";
-            // 
-            // groupBoxUT2DTimers
-            // 
-            this.groupBoxUT2DTimers.Controls.Add(this.label236);
-            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DFLT);
-            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DITI);
-            this.groupBoxUT2DTimers.Controls.Add(this.label237);
-            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DOHH);
-            this.groupBoxUT2DTimers.Controls.Add(this.label238);
-            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DOHL);
-            this.groupBoxUT2DTimers.Controls.Add(this.label239);
-            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DMT);
-            this.groupBoxUT2DTimers.Controls.Add(this.label240);
-            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DDH);
-            this.groupBoxUT2DTimers.Controls.Add(this.label241);
-            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DDL);
-            this.groupBoxUT2DTimers.Controls.Add(this.label242);
-            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DCHH);
-            this.groupBoxUT2DTimers.Controls.Add(this.label243);
-            this.groupBoxUT2DTimers.Controls.Add(this.textBoxUT2DCHL);
-            this.groupBoxUT2DTimers.Controls.Add(this.label244);
-            this.groupBoxUT2DTimers.Location = new System.Drawing.Point(530, 14);
-            this.groupBoxUT2DTimers.Name = "groupBoxUT2DTimers";
-            this.groupBoxUT2DTimers.Size = new System.Drawing.Size(150, 269);
-            this.groupBoxUT2DTimers.TabIndex = 75;
-            this.groupBoxUT2DTimers.TabStop = false;
-            this.groupBoxUT2DTimers.Text = "Timers";
-            // 
-            // label236
-            // 
-            this.label236.AutoSize = true;
-            this.label236.Location = new System.Drawing.Point(13, 236);
-            this.label236.Name = "label236";
-            this.label236.Size = new System.Drawing.Size(85, 13);
-            this.label236.TabIndex = 16;
-            this.label236.Text = "Failure Lag Time";
-            // 
-            // textBoxUT2DFLT
-            // 
-            this.textBoxUT2DFLT.Location = new System.Drawing.Point(108, 233);
-            this.textBoxUT2DFLT.Name = "textBoxUT2DFLT";
-            this.textBoxUT2DFLT.Size = new System.Drawing.Size(34, 20);
-            this.textBoxUT2DFLT.TabIndex = 17;
-            this.toolTip1.SetToolTip(this.textBoxUT2DFLT, "Failure Lag Time.  The additional time added to intertrial intervals after a fail" +
-                    "ure.");
-            // 
-            // textBoxUT2DITI
-            // 
-            this.textBoxUT2DITI.Location = new System.Drawing.Point(108, 181);
-            this.textBoxUT2DITI.Name = "textBoxUT2DITI";
-            this.textBoxUT2DITI.Size = new System.Drawing.Size(34, 20);
-            this.textBoxUT2DITI.TabIndex = 13;
-            this.toolTip1.SetToolTip(this.textBoxUT2DITI, "Time between completion of one trial and the initiation of the next.");
-            // 
-            // label237
-            // 
-            this.label237.AutoSize = true;
-            this.label237.Location = new System.Drawing.Point(13, 184);
-            this.label237.Name = "label237";
-            this.label237.Size = new System.Drawing.Size(82, 13);
-            this.label237.TabIndex = 12;
-            this.label237.Text = "Intertrial Interval";
-            // 
-            // textBoxUT2DOHH
-            // 
-            this.textBoxUT2DOHH.Location = new System.Drawing.Point(108, 152);
-            this.textBoxUT2DOHH.Name = "textBoxUT2DOHH";
-            this.textBoxUT2DOHH.Size = new System.Drawing.Size(34, 20);
-            this.textBoxUT2DOHH.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.textBoxUT2DOHH, "Upper bound on random outer hold time.  Outer hold time is the time between when " +
-                    "the cursor enters the outer target and the reward is given.\r\nSet equal to Outer " +
-                    "Hold Low for non-random hold time.");
-            // 
-            // label238
-            // 
-            this.label238.AutoSize = true;
-            this.label238.Location = new System.Drawing.Point(13, 155);
-            this.label238.Name = "label238";
-            this.label238.Size = new System.Drawing.Size(83, 13);
-            this.label238.TabIndex = 10;
-            this.label238.Text = "Outer Hold High";
-            // 
-            // textBoxUT2DOHL
-            // 
-            this.textBoxUT2DOHL.Location = new System.Drawing.Point(108, 126);
-            this.textBoxUT2DOHL.Name = "textBoxUT2DOHL";
-            this.textBoxUT2DOHL.Size = new System.Drawing.Size(34, 20);
-            this.textBoxUT2DOHL.TabIndex = 9;
-            this.toolTip1.SetToolTip(this.textBoxUT2DOHL, "Lower bound on random outer hold time.  Outer hold time is the time between when " +
-                    "the cursor enters the outer target and the reward is given.\r\nSet equal to Outer " +
-                    "Hold High for non-random hold time.");
-            // 
-            // label239
-            // 
-            this.label239.AutoSize = true;
-            this.label239.Location = new System.Drawing.Point(13, 129);
-            this.label239.Name = "label239";
-            this.label239.Size = new System.Drawing.Size(81, 13);
-            this.label239.TabIndex = 8;
-            this.label239.Text = "Outer Hold Low";
-            // 
-            // textBoxUT2DMT
-            // 
-            this.textBoxUT2DMT.Location = new System.Drawing.Point(108, 207);
-            this.textBoxUT2DMT.Name = "textBoxUT2DMT";
-            this.textBoxUT2DMT.Size = new System.Drawing.Size(34, 20);
-            this.textBoxUT2DMT.TabIndex = 15;
-            this.toolTip1.SetToolTip(this.textBoxUT2DMT, "Movement time.  Amount of time monkey has to reach the outer target after recievi" +
-                    "ng the go cue.");
-            // 
-            // label240
-            // 
-            this.label240.AutoSize = true;
-            this.label240.Location = new System.Drawing.Point(13, 210);
-            this.label240.Name = "label240";
-            this.label240.Size = new System.Drawing.Size(83, 13);
-            this.label240.TabIndex = 14;
-            this.label240.Text = "Movement Time";
-            // 
-            // textBoxUT2DDH
-            // 
-            this.textBoxUT2DDH.Location = new System.Drawing.Point(108, 98);
-            this.textBoxUT2DDH.Name = "textBoxUT2DDH";
-            this.textBoxUT2DDH.Size = new System.Drawing.Size(34, 20);
-            this.textBoxUT2DDH.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.textBoxUT2DDH, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
-                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
-                    "lay time.");
-            // 
-            // label241
-            // 
-            this.label241.AutoSize = true;
-            this.label241.Location = new System.Drawing.Point(13, 101);
-            this.label241.Name = "label241";
-            this.label241.Size = new System.Drawing.Size(59, 13);
-            this.label241.TabIndex = 6;
-            this.label241.Text = "Delay High";
-            // 
-            // textBoxUT2DDL
-            // 
-            this.textBoxUT2DDL.Location = new System.Drawing.Point(108, 72);
-            this.textBoxUT2DDL.Name = "textBoxUT2DDL";
-            this.textBoxUT2DDL.Size = new System.Drawing.Size(34, 20);
-            this.textBoxUT2DDL.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.textBoxUT2DDL, "Lower bound on random delay time.  Delay is the time between when the outer targe" +
-                    "t appears and the go cue is presented.\r\nSet equal to Delay High for non-random d" +
-                    "elay time.");
-            // 
-            // label242
-            // 
-            this.label242.AutoSize = true;
-            this.label242.Location = new System.Drawing.Point(13, 75);
-            this.label242.Name = "label242";
-            this.label242.Size = new System.Drawing.Size(57, 13);
-            this.label242.TabIndex = 4;
-            this.label242.Text = "Delay Low";
-            // 
-            // textBoxUT2DCHH
-            // 
-            this.textBoxUT2DCHH.Location = new System.Drawing.Point(108, 46);
-            this.textBoxUT2DCHH.Name = "textBoxUT2DCHH";
-            this.textBoxUT2DCHH.Size = new System.Drawing.Size(34, 20);
-            this.textBoxUT2DCHH.TabIndex = 3;
-            this.textBoxUT2DCHH.TextChanged += new System.EventHandler(this.textBox29_TextChanged);
-            // 
-            // label243
-            // 
-            this.label243.AutoSize = true;
-            this.label243.Location = new System.Drawing.Point(13, 49);
-            this.label243.Name = "label243";
-            this.label243.Size = new System.Drawing.Size(88, 13);
-            this.label243.TabIndex = 2;
-            this.label243.Text = "Center Hold High";
-            // 
-            // textBoxUT2DCHL
-            // 
-            this.textBoxUT2DCHL.Location = new System.Drawing.Point(108, 20);
-            this.textBoxUT2DCHL.Name = "textBoxUT2DCHL";
-            this.textBoxUT2DCHL.Size = new System.Drawing.Size(34, 20);
-            this.textBoxUT2DCHL.TabIndex = 1;
-            // 
-            // label244
-            // 
-            this.label244.AutoSize = true;
-            this.label244.Location = new System.Drawing.Point(13, 23);
-            this.label244.Name = "label244";
-            this.label244.Size = new System.Drawing.Size(86, 13);
-            this.label244.TabIndex = 0;
-            this.label244.Text = "Center Hold Low";
-            // 
-            // groupBoxUT2DCloud
-            // 
-            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DTimedDuration);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DTimedLocation);
-            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DTimedLocation);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DTimedDuration);
-            this.groupBoxUT2DCloud.Controls.Add(this.checkBoxUT2DUseTimed);
-            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloudJitter);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloudJitter);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloudInfo);
-            this.groupBoxUT2DCloud.Controls.Add(this.checkBoxUT2DCloud1Blank);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud4Freq);
-            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud4Freq);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud3Freq);
-            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud3Freq);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud2Freq);
-            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud2Freq);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud1Freq);
-            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud1Freq);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud4Stdev);
-            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud4Stdev);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud3Stdev);
-            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud3Stdev);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud2Stdev);
-            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud2Stdev);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DSliceNumber);
-            this.groupBoxUT2DCloud.Controls.Add(this.numericUpDownUT2DSliceNumber);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DSliceSize);
-            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DSliceSize);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DCloud1Stdev);
-            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DCloud1Stdev);
-            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DFeedbackStart);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DFeedbackEnd);
-            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DFeedbackEnd);
-            this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DFeedbackStart);
-            this.groupBoxUT2DCloud.Location = new System.Drawing.Point(8, 169);
-            this.groupBoxUT2DCloud.Name = "groupBoxUT2DCloud";
-            this.groupBoxUT2DCloud.Size = new System.Drawing.Size(441, 228);
-            this.groupBoxUT2DCloud.TabIndex = 74;
-            this.groupBoxUT2DCloud.TabStop = false;
-            this.groupBoxUT2DCloud.Text = "Target Cloud (Likelihood)";
-            // 
-            // textBoxUT2DTimedDuration
-            // 
-            this.textBoxUT2DTimedDuration.Location = new System.Drawing.Point(403, 172);
-            this.textBoxUT2DTimedDuration.Name = "textBoxUT2DTimedDuration";
-            this.textBoxUT2DTimedDuration.Size = new System.Drawing.Size(32, 20);
-            this.textBoxUT2DTimedDuration.TabIndex = 68;
-            // 
-            // labelUT2DTimedLocation
-            // 
-            this.labelUT2DTimedLocation.AutoSize = true;
-            this.labelUT2DTimedLocation.Location = new System.Drawing.Point(299, 204);
-            this.labelUT2DTimedLocation.Name = "labelUT2DTimedLocation";
-            this.labelUT2DTimedLocation.Size = new System.Drawing.Size(80, 13);
-            this.labelUT2DTimedLocation.TabIndex = 69;
-            this.labelUT2DTimedLocation.Text = "Timed Location";
-            // 
-            // textBoxUT2DTimedLocation
-            // 
-            this.textBoxUT2DTimedLocation.Location = new System.Drawing.Point(403, 201);
-            this.textBoxUT2DTimedLocation.Name = "textBoxUT2DTimedLocation";
-            this.textBoxUT2DTimedLocation.Size = new System.Drawing.Size(32, 20);
-            this.textBoxUT2DTimedLocation.TabIndex = 70;
-            this.toolTip1.SetToolTip(this.textBoxUT2DTimedLocation, "From 0 to target radius, where the feedback is shown and timer is triggered.");
-            // 
-            // labelUT2DTimedDuration
-            // 
-            this.labelUT2DTimedDuration.AutoSize = true;
-            this.labelUT2DTimedDuration.Location = new System.Drawing.Point(299, 175);
-            this.labelUT2DTimedDuration.Name = "labelUT2DTimedDuration";
-            this.labelUT2DTimedDuration.Size = new System.Drawing.Size(79, 13);
-            this.labelUT2DTimedDuration.TabIndex = 67;
-            this.labelUT2DTimedDuration.Text = "Timed Duration";
-            // 
-            // checkBoxUT2DUseTimed
-            // 
-            this.checkBoxUT2DUseTimed.AutoSize = true;
-            this.checkBoxUT2DUseTimed.Location = new System.Drawing.Point(303, 145);
-            this.checkBoxUT2DUseTimed.Name = "checkBoxUT2DUseTimed";
-            this.checkBoxUT2DUseTimed.Size = new System.Drawing.Size(128, 17);
-            this.checkBoxUT2DUseTimed.TabIndex = 66;
-            this.checkBoxUT2DUseTimed.Text = "Use Timed Feedback";
-            this.checkBoxUT2DUseTimed.UseVisualStyleBackColor = true;
-            // 
-            // textBoxUT2DCloudJitter
-            // 
-            this.textBoxUT2DCloudJitter.Location = new System.Drawing.Point(404, 115);
-            this.textBoxUT2DCloudJitter.Name = "textBoxUT2DCloudJitter";
-            this.textBoxUT2DCloudJitter.Size = new System.Drawing.Size(32, 20);
-            this.textBoxUT2DCloudJitter.TabIndex = 65;
-            this.toolTip1.SetToolTip(this.textBoxUT2DCloudJitter, "+/- range (cm) for jitter (random draw from uniform distribution)");
-            // 
-            // labelUT2DCloudJitter
-            // 
-            this.labelUT2DCloudJitter.AutoSize = true;
-            this.labelUT2DCloudJitter.Location = new System.Drawing.Point(300, 118);
-            this.labelUT2DCloudJitter.Name = "labelUT2DCloudJitter";
-            this.labelUT2DCloudJitter.Size = new System.Drawing.Size(59, 13);
-            this.labelUT2DCloudJitter.TabIndex = 64;
-            this.labelUT2DCloudJitter.Text = "Cloud Jitter";
-            // 
-            // labelUT2DCloudInfo
-            // 
-            this.labelUT2DCloudInfo.AutoSize = true;
-            this.labelUT2DCloudInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUT2DCloudInfo.Location = new System.Drawing.Point(12, 146);
-            this.labelUT2DCloudInfo.Name = "labelUT2DCloudInfo";
-            this.labelUT2DCloudInfo.Size = new System.Drawing.Size(256, 13);
-            this.labelUT2DCloudInfo.TabIndex = 62;
-            this.labelUT2DCloudInfo.Text = "Default: Continuous Target Cloud Feedback";
-            // 
-            // checkBoxUT2DCloud1Blank
-            // 
-            this.checkBoxUT2DCloud1Blank.AutoSize = true;
-            this.checkBoxUT2DCloud1Blank.Location = new System.Drawing.Point(303, 30);
-            this.checkBoxUT2DCloud1Blank.Name = "checkBoxUT2DCloud1Blank";
-            this.checkBoxUT2DCloud1Blank.Size = new System.Drawing.Size(99, 17);
-            this.checkBoxUT2DCloud1Blank.TabIndex = 56;
-            this.checkBoxUT2DCloud1Blank.Text = "Blank Cloud #1";
-            this.checkBoxUT2DCloud1Blank.UseVisualStyleBackColor = true;
-            // 
-            // labelUT2DCloud4Freq
-            // 
-            this.labelUT2DCloud4Freq.AutoSize = true;
-            this.labelUT2DCloud4Freq.Location = new System.Drawing.Point(152, 118);
-            this.labelUT2DCloud4Freq.Name = "labelUT2DCloud4Freq";
-            this.labelUT2DCloud4Freq.Size = new System.Drawing.Size(74, 13);
-            this.labelUT2DCloud4Freq.TabIndex = 54;
-            this.labelUT2DCloud4Freq.Text = "Cloud #4 Freq";
-            // 
-            // textBoxUT2DCloud4Freq
-            // 
-            this.textBoxUT2DCloud4Freq.Location = new System.Drawing.Point(235, 115);
-            this.textBoxUT2DCloud4Freq.Name = "textBoxUT2DCloud4Freq";
-            this.textBoxUT2DCloud4Freq.Size = new System.Drawing.Size(41, 20);
-            this.textBoxUT2DCloud4Freq.TabIndex = 55;
-            // 
-            // labelUT2DCloud3Freq
-            // 
-            this.labelUT2DCloud3Freq.AutoSize = true;
-            this.labelUT2DCloud3Freq.Location = new System.Drawing.Point(152, 90);
-            this.labelUT2DCloud3Freq.Name = "labelUT2DCloud3Freq";
-            this.labelUT2DCloud3Freq.Size = new System.Drawing.Size(74, 13);
-            this.labelUT2DCloud3Freq.TabIndex = 52;
-            this.labelUT2DCloud3Freq.Text = "Cloud #3 Freq";
-            // 
-            // textBoxUT2DCloud3Freq
-            // 
-            this.textBoxUT2DCloud3Freq.Location = new System.Drawing.Point(235, 87);
-            this.textBoxUT2DCloud3Freq.Name = "textBoxUT2DCloud3Freq";
-            this.textBoxUT2DCloud3Freq.Size = new System.Drawing.Size(41, 20);
-            this.textBoxUT2DCloud3Freq.TabIndex = 53;
-            // 
-            // labelUT2DCloud2Freq
-            // 
-            this.labelUT2DCloud2Freq.AutoSize = true;
-            this.labelUT2DCloud2Freq.Location = new System.Drawing.Point(152, 61);
-            this.labelUT2DCloud2Freq.Name = "labelUT2DCloud2Freq";
-            this.labelUT2DCloud2Freq.Size = new System.Drawing.Size(74, 13);
-            this.labelUT2DCloud2Freq.TabIndex = 50;
-            this.labelUT2DCloud2Freq.Text = "Cloud #2 Freq";
-            // 
-            // textBoxUT2DCloud2Freq
-            // 
-            this.textBoxUT2DCloud2Freq.Location = new System.Drawing.Point(235, 58);
-            this.textBoxUT2DCloud2Freq.Name = "textBoxUT2DCloud2Freq";
-            this.textBoxUT2DCloud2Freq.Size = new System.Drawing.Size(41, 20);
-            this.textBoxUT2DCloud2Freq.TabIndex = 51;
-            // 
-            // labelUT2DCloud1Freq
-            // 
-            this.labelUT2DCloud1Freq.AutoSize = true;
-            this.labelUT2DCloud1Freq.Location = new System.Drawing.Point(152, 31);
-            this.labelUT2DCloud1Freq.Name = "labelUT2DCloud1Freq";
-            this.labelUT2DCloud1Freq.Size = new System.Drawing.Size(74, 13);
-            this.labelUT2DCloud1Freq.TabIndex = 48;
-            this.labelUT2DCloud1Freq.Text = "Cloud #1 Freq";
-            // 
-            // textBoxUT2DCloud1Freq
-            // 
-            this.textBoxUT2DCloud1Freq.Location = new System.Drawing.Point(235, 28);
-            this.textBoxUT2DCloud1Freq.Name = "textBoxUT2DCloud1Freq";
-            this.textBoxUT2DCloud1Freq.Size = new System.Drawing.Size(41, 20);
-            this.textBoxUT2DCloud1Freq.TabIndex = 49;
-            // 
-            // labelUT2DCloud4Stdev
-            // 
-            this.labelUT2DCloud4Stdev.AutoSize = true;
-            this.labelUT2DCloud4Stdev.Location = new System.Drawing.Point(9, 118);
-            this.labelUT2DCloud4Stdev.Name = "labelUT2DCloud4Stdev";
-            this.labelUT2DCloud4Stdev.Size = new System.Drawing.Size(84, 13);
-            this.labelUT2DCloud4Stdev.TabIndex = 46;
-            this.labelUT2DCloud4Stdev.Text = "Cloud #4  Stdev";
-            // 
-            // textBoxUT2DCloud4Stdev
-            // 
-            this.textBoxUT2DCloud4Stdev.Location = new System.Drawing.Point(110, 115);
-            this.textBoxUT2DCloud4Stdev.Name = "textBoxUT2DCloud4Stdev";
-            this.textBoxUT2DCloud4Stdev.Size = new System.Drawing.Size(36, 20);
-            this.textBoxUT2DCloud4Stdev.TabIndex = 47;
-            // 
-            // labelUT2DCloud3Stdev
-            // 
-            this.labelUT2DCloud3Stdev.AutoSize = true;
-            this.labelUT2DCloud3Stdev.Location = new System.Drawing.Point(9, 90);
-            this.labelUT2DCloud3Stdev.Name = "labelUT2DCloud3Stdev";
-            this.labelUT2DCloud3Stdev.Size = new System.Drawing.Size(84, 13);
-            this.labelUT2DCloud3Stdev.TabIndex = 44;
-            this.labelUT2DCloud3Stdev.Text = "Cloud #3  Stdev";
-            // 
-            // textBoxUT2DCloud3Stdev
-            // 
-            this.textBoxUT2DCloud3Stdev.Location = new System.Drawing.Point(110, 87);
-            this.textBoxUT2DCloud3Stdev.Name = "textBoxUT2DCloud3Stdev";
-            this.textBoxUT2DCloud3Stdev.Size = new System.Drawing.Size(36, 20);
-            this.textBoxUT2DCloud3Stdev.TabIndex = 45;
-            // 
-            // labelUT2DCloud2Stdev
-            // 
-            this.labelUT2DCloud2Stdev.AutoSize = true;
-            this.labelUT2DCloud2Stdev.Location = new System.Drawing.Point(9, 61);
-            this.labelUT2DCloud2Stdev.Name = "labelUT2DCloud2Stdev";
-            this.labelUT2DCloud2Stdev.Size = new System.Drawing.Size(84, 13);
-            this.labelUT2DCloud2Stdev.TabIndex = 42;
-            this.labelUT2DCloud2Stdev.Text = "Cloud #2  Stdev";
-            // 
-            // textBoxUT2DCloud2Stdev
-            // 
-            this.textBoxUT2DCloud2Stdev.Location = new System.Drawing.Point(110, 58);
-            this.textBoxUT2DCloud2Stdev.Name = "textBoxUT2DCloud2Stdev";
-            this.textBoxUT2DCloud2Stdev.Size = new System.Drawing.Size(36, 20);
-            this.textBoxUT2DCloud2Stdev.TabIndex = 43;
-            // 
-            // labelUT2DSliceNumber
-            // 
-            this.labelUT2DSliceNumber.AutoSize = true;
-            this.labelUT2DSliceNumber.Location = new System.Drawing.Point(8, 204);
-            this.labelUT2DSliceNumber.Name = "labelUT2DSliceNumber";
-            this.labelUT2DSliceNumber.Size = new System.Drawing.Size(57, 13);
-            this.labelUT2DSliceNumber.TabIndex = 40;
-            this.labelUT2DSliceNumber.Text = "# of Slices";
-            // 
-            // numericUpDownUT2DSliceNumber
-            // 
-            this.numericUpDownUT2DSliceNumber.Location = new System.Drawing.Point(91, 201);
-            this.numericUpDownUT2DSliceNumber.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDownUT2DSliceNumber.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownUT2DSliceNumber.Name = "numericUpDownUT2DSliceNumber";
-            this.numericUpDownUT2DSliceNumber.Size = new System.Drawing.Size(41, 20);
-            this.numericUpDownUT2DSliceNumber.TabIndex = 41;
-            this.toolTip1.SetToolTip(this.numericUpDownUT2DSliceNumber, "Number of dots in cue cloud (max 10)");
-            this.numericUpDownUT2DSliceNumber.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            // 
-            // labelUT2DSliceSize
-            // 
-            this.labelUT2DSliceSize.AutoSize = true;
-            this.labelUT2DSliceSize.Location = new System.Drawing.Point(8, 175);
-            this.labelUT2DSliceSize.Name = "labelUT2DSliceSize";
-            this.labelUT2DSliceSize.Size = new System.Drawing.Size(53, 13);
-            this.labelUT2DSliceSize.TabIndex = 38;
-            this.labelUT2DSliceSize.Text = "Slice Size";
-            // 
-            // textBoxUT2DSliceSize
-            // 
-            this.textBoxUT2DSliceSize.Location = new System.Drawing.Point(91, 172);
-            this.textBoxUT2DSliceSize.Name = "textBoxUT2DSliceSize";
-            this.textBoxUT2DSliceSize.Size = new System.Drawing.Size(41, 20);
-            this.textBoxUT2DSliceSize.TabIndex = 39;
-            // 
-            // labelUT2DCloud1Stdev
-            // 
-            this.labelUT2DCloud1Stdev.AutoSize = true;
-            this.labelUT2DCloud1Stdev.Location = new System.Drawing.Point(9, 31);
-            this.labelUT2DCloud1Stdev.Name = "labelUT2DCloud1Stdev";
-            this.labelUT2DCloud1Stdev.Size = new System.Drawing.Size(84, 13);
-            this.labelUT2DCloud1Stdev.TabIndex = 36;
-            this.labelUT2DCloud1Stdev.Text = "Cloud #1  Stdev";
-            // 
-            // textBoxUT2DCloud1Stdev
-            // 
-            this.textBoxUT2DCloud1Stdev.Location = new System.Drawing.Point(110, 28);
-            this.textBoxUT2DCloud1Stdev.Name = "textBoxUT2DCloud1Stdev";
-            this.textBoxUT2DCloud1Stdev.Size = new System.Drawing.Size(36, 20);
-            this.textBoxUT2DCloud1Stdev.TabIndex = 37;
-            // 
-            // textBoxUT2DFeedbackStart
-            // 
-            this.textBoxUT2DFeedbackStart.Location = new System.Drawing.Point(247, 172);
-            this.textBoxUT2DFeedbackStart.Name = "textBoxUT2DFeedbackStart";
-            this.textBoxUT2DFeedbackStart.Size = new System.Drawing.Size(36, 20);
-            this.textBoxUT2DFeedbackStart.TabIndex = 33;
-            this.toolTip1.SetToolTip(this.textBoxUT2DFeedbackStart, "From 0 to target radius, where the feedback turns on.");
-            // 
-            // labelUT2DFeedbackEnd
-            // 
-            this.labelUT2DFeedbackEnd.AutoSize = true;
-            this.labelUT2DFeedbackEnd.Location = new System.Drawing.Point(152, 204);
-            this.labelUT2DFeedbackEnd.Name = "labelUT2DFeedbackEnd";
-            this.labelUT2DFeedbackEnd.Size = new System.Drawing.Size(77, 13);
-            this.labelUT2DFeedbackEnd.TabIndex = 34;
-            this.labelUT2DFeedbackEnd.Text = "Feedback End";
-            // 
-            // textBoxUT2DFeedbackEnd
-            // 
-            this.textBoxUT2DFeedbackEnd.Location = new System.Drawing.Point(247, 201);
-            this.textBoxUT2DFeedbackEnd.Name = "textBoxUT2DFeedbackEnd";
-            this.textBoxUT2DFeedbackEnd.Size = new System.Drawing.Size(36, 20);
-            this.textBoxUT2DFeedbackEnd.TabIndex = 35;
-            this.toolTip1.SetToolTip(this.textBoxUT2DFeedbackEnd, "From 0 to target radius, where the feedback turns off.");
-            // 
-            // labelUT2DFeedbackStart
-            // 
-            this.labelUT2DFeedbackStart.AutoSize = true;
-            this.labelUT2DFeedbackStart.Location = new System.Drawing.Point(152, 175);
-            this.labelUT2DFeedbackStart.Name = "labelUT2DFeedbackStart";
-            this.labelUT2DFeedbackStart.Size = new System.Drawing.Size(80, 13);
-            this.labelUT2DFeedbackStart.TabIndex = 32;
-            this.labelUT2DFeedbackStart.Text = "Feedback Start";
-            // 
-            // groupBoxUT2DShift
-            // 
-            this.groupBoxUT2DShift.Controls.Add(this.labelUT2DBlockWindowEnd);
-            this.groupBoxUT2DShift.Controls.Add(this.labelUT2DBlockWindowStart);
-            this.groupBoxUT2DShift.Controls.Add(this.textBoxUT2DBlockWindowEnd);
-            this.groupBoxUT2DShift.Controls.Add(this.textBoxUT2DBlockWindowStart);
-            this.groupBoxUT2DShift.Controls.Add(this.labelUT2DShiftStdev);
-            this.groupBoxUT2DShift.Controls.Add(this.textBoxUT2DShiftStdev);
-            this.groupBoxUT2DShift.Controls.Add(this.labelUT2DShiftMean);
-            this.groupBoxUT2DShift.Controls.Add(this.textBoxUT2DShiftMean);
-            this.groupBoxUT2DShift.Location = new System.Drawing.Point(203, 14);
-            this.groupBoxUT2DShift.Name = "groupBoxUT2DShift";
-            this.groupBoxUT2DShift.Size = new System.Drawing.Size(179, 120);
-            this.groupBoxUT2DShift.TabIndex = 73;
-            this.groupBoxUT2DShift.TabStop = false;
-            this.groupBoxUT2DShift.Text = "Target Shift (Prior)";
-            // 
-            // labelUT2DBlockWindowEnd
-            // 
-            this.labelUT2DBlockWindowEnd.AutoSize = true;
-            this.labelUT2DBlockWindowEnd.Location = new System.Drawing.Point(12, 95);
-            this.labelUT2DBlockWindowEnd.Name = "labelUT2DBlockWindowEnd";
-            this.labelUT2DBlockWindowEnd.Size = new System.Drawing.Size(101, 13);
-            this.labelUT2DBlockWindowEnd.TabIndex = 30;
-            this.labelUT2DBlockWindowEnd.Text = "Block Window End ";
-            // 
-            // labelUT2DBlockWindowStart
-            // 
-            this.labelUT2DBlockWindowStart.AutoSize = true;
-            this.labelUT2DBlockWindowStart.Location = new System.Drawing.Point(12, 71);
-            this.labelUT2DBlockWindowStart.Name = "labelUT2DBlockWindowStart";
-            this.labelUT2DBlockWindowStart.Size = new System.Drawing.Size(101, 13);
-            this.labelUT2DBlockWindowStart.TabIndex = 28;
-            this.labelUT2DBlockWindowStart.Text = "Block Window Start";
-            // 
-            // textBoxUT2DBlockWindowEnd
-            // 
-            this.textBoxUT2DBlockWindowEnd.Location = new System.Drawing.Point(126, 91);
-            this.textBoxUT2DBlockWindowEnd.Name = "textBoxUT2DBlockWindowEnd";
-            this.textBoxUT2DBlockWindowEnd.Size = new System.Drawing.Size(39, 20);
-            this.textBoxUT2DBlockWindowEnd.TabIndex = 31;
-            this.toolTip1.SetToolTip(this.textBoxUT2DBlockWindowEnd, "Where the cursor blocking window turns off.");
-            // 
-            // textBoxUT2DBlockWindowStart
-            // 
-            this.textBoxUT2DBlockWindowStart.Location = new System.Drawing.Point(126, 67);
-            this.textBoxUT2DBlockWindowStart.Name = "textBoxUT2DBlockWindowStart";
-            this.textBoxUT2DBlockWindowStart.Size = new System.Drawing.Size(39, 20);
-            this.textBoxUT2DBlockWindowStart.TabIndex = 29;
-            this.toolTip1.SetToolTip(this.textBoxUT2DBlockWindowStart, "Where the cursor blocking window turns on.");
-            // 
-            // labelUT2DShiftStdev
-            // 
-            this.labelUT2DShiftStdev.AutoSize = true;
-            this.labelUT2DShiftStdev.Location = new System.Drawing.Point(12, 47);
-            this.labelUT2DShiftStdev.Name = "labelUT2DShiftStdev";
-            this.labelUT2DShiftStdev.Size = new System.Drawing.Size(59, 13);
-            this.labelUT2DShiftStdev.TabIndex = 26;
-            this.labelUT2DShiftStdev.Text = "Shift Stdev";
-            // 
-            // textBoxUT2DShiftStdev
-            // 
-            this.textBoxUT2DShiftStdev.Location = new System.Drawing.Point(126, 43);
-            this.textBoxUT2DShiftStdev.Name = "textBoxUT2DShiftStdev";
-            this.textBoxUT2DShiftStdev.Size = new System.Drawing.Size(39, 20);
-            this.textBoxUT2DShiftStdev.TabIndex = 27;
-            // 
-            // labelUT2DShiftMean
-            // 
-            this.labelUT2DShiftMean.AutoSize = true;
-            this.labelUT2DShiftMean.Location = new System.Drawing.Point(12, 22);
-            this.labelUT2DShiftMean.Name = "labelUT2DShiftMean";
-            this.labelUT2DShiftMean.Size = new System.Drawing.Size(58, 13);
-            this.labelUT2DShiftMean.TabIndex = 24;
-            this.labelUT2DShiftMean.Text = "Shift Mean";
-            // 
-            // textBoxUT2DShiftMean
-            // 
-            this.textBoxUT2DShiftMean.Location = new System.Drawing.Point(126, 19);
-            this.textBoxUT2DShiftMean.Name = "textBoxUT2DShiftMean";
-            this.textBoxUT2DShiftMean.Size = new System.Drawing.Size(39, 20);
-            this.textBoxUT2DShiftMean.TabIndex = 25;
-            // 
-            // groupBoxUT2DTaskSettings
-            // 
-            this.groupBoxUT2DTaskSettings.Controls.Add(this.textBoxUT2DCenterYOffset);
-            this.groupBoxUT2DTaskSettings.Controls.Add(this.labelUT2DCenterYOffset);
-            this.groupBoxUT2DTaskSettings.Controls.Add(this.numericUpDownUT2DTargetAngle);
-            this.groupBoxUT2DTaskSettings.Controls.Add(this.textBoxUT2DTargetSize);
-            this.groupBoxUT2DTaskSettings.Controls.Add(this.labelUT2DTargetSize);
-            this.groupBoxUT2DTaskSettings.Controls.Add(this.textBoxUT2DCenterXOffset);
-            this.groupBoxUT2DTaskSettings.Controls.Add(this.textBoxUT2DMovementLen);
-            this.groupBoxUT2DTaskSettings.Controls.Add(this.labelUT2DCenterXOffset);
-            this.groupBoxUT2DTaskSettings.Controls.Add(this.labelUT2DTargetAngle);
-            this.groupBoxUT2DTaskSettings.Controls.Add(this.labelUT2DMovementLen);
-            this.groupBoxUT2DTaskSettings.Location = new System.Drawing.Point(6, 14);
-            this.groupBoxUT2DTaskSettings.Name = "groupBoxUT2DTaskSettings";
-            this.groupBoxUT2DTaskSettings.Size = new System.Drawing.Size(191, 144);
-            this.groupBoxUT2DTaskSettings.TabIndex = 72;
-            this.groupBoxUT2DTaskSettings.TabStop = false;
-            this.groupBoxUT2DTaskSettings.Text = "General Task Settings";
-            // 
-            // textBoxUT2DCenterYOffset
-            // 
-            this.textBoxUT2DCenterYOffset.Location = new System.Drawing.Point(134, 115);
-            this.textBoxUT2DCenterYOffset.Name = "textBoxUT2DCenterYOffset";
-            this.textBoxUT2DCenterYOffset.Size = new System.Drawing.Size(44, 20);
-            this.textBoxUT2DCenterYOffset.TabIndex = 30;
-            this.toolTip1.SetToolTip(this.textBoxUT2DCenterYOffset, "Offset of center target along the outer target axis.");
-            // 
-            // labelUT2DCenterYOffset
-            // 
-            this.labelUT2DCenterYOffset.AutoSize = true;
-            this.labelUT2DCenterYOffset.Location = new System.Drawing.Point(13, 119);
-            this.labelUT2DCenterYOffset.Name = "labelUT2DCenterYOffset";
-            this.labelUT2DCenterYOffset.Size = new System.Drawing.Size(79, 13);
-            this.labelUT2DCenterYOffset.TabIndex = 29;
-            this.labelUT2DCenterYOffset.Text = "Center Y Offset";
-            this.toolTip1.SetToolTip(this.labelUT2DCenterYOffset, "Offset of the center target along the target axis");
-            // 
-            // numericUpDownUT2DTargetAngle
-            // 
-            this.numericUpDownUT2DTargetAngle.Increment = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            this.numericUpDownUT2DTargetAngle.Location = new System.Drawing.Point(134, 19);
-            this.numericUpDownUT2DTargetAngle.Maximum = new decimal(new int[] {
-            270,
-            0,
-            0,
-            0});
-            this.numericUpDownUT2DTargetAngle.Name = "numericUpDownUT2DTargetAngle";
-            this.numericUpDownUT2DTargetAngle.Size = new System.Drawing.Size(43, 20);
-            this.numericUpDownUT2DTargetAngle.TabIndex = 19;
-            this.toolTip1.SetToolTip(this.numericUpDownUT2DTargetAngle, "Position of Target: 0 (right), 90 (up), 180 (left), 270 (down)");
-            this.numericUpDownUT2DTargetAngle.Value = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            // 
-            // textBoxUT2DTargetSize
-            // 
-            this.textBoxUT2DTargetSize.Location = new System.Drawing.Point(135, 67);
-            this.textBoxUT2DTargetSize.Name = "textBoxUT2DTargetSize";
-            this.textBoxUT2DTargetSize.Size = new System.Drawing.Size(43, 20);
-            this.textBoxUT2DTargetSize.TabIndex = 23;
-            this.toolTip1.SetToolTip(this.textBoxUT2DTargetSize, "Size of targets in cm.");
-            // 
-            // labelUT2DTargetSize
-            // 
-            this.labelUT2DTargetSize.AutoSize = true;
-            this.labelUT2DTargetSize.Location = new System.Drawing.Point(13, 71);
-            this.labelUT2DTargetSize.Name = "labelUT2DTargetSize";
-            this.labelUT2DTargetSize.Size = new System.Drawing.Size(83, 13);
-            this.labelUT2DTargetSize.TabIndex = 22;
-            this.labelUT2DTargetSize.Text = "Target Diameter";
-            // 
-            // textBoxUT2DCenterXOffset
-            // 
-            this.textBoxUT2DCenterXOffset.Location = new System.Drawing.Point(135, 91);
-            this.textBoxUT2DCenterXOffset.Name = "textBoxUT2DCenterXOffset";
-            this.textBoxUT2DCenterXOffset.Size = new System.Drawing.Size(43, 20);
-            this.textBoxUT2DCenterXOffset.TabIndex = 26;
-            this.toolTip1.SetToolTip(this.textBoxUT2DCenterXOffset, "Offset of center target along the outer target axis.");
-            // 
-            // textBoxUT2DMovementLen
-            // 
-            this.textBoxUT2DMovementLen.Location = new System.Drawing.Point(135, 43);
-            this.textBoxUT2DMovementLen.Name = "textBoxUT2DMovementLen";
-            this.textBoxUT2DMovementLen.Size = new System.Drawing.Size(43, 20);
-            this.textBoxUT2DMovementLen.TabIndex = 21;
-            this.toolTip1.SetToolTip(this.textBoxUT2DMovementLen, "Radius of the circle on which the outer targets are presented (cm).  ");
-            // 
-            // labelUT2DCenterXOffset
-            // 
-            this.labelUT2DCenterXOffset.AutoSize = true;
-            this.labelUT2DCenterXOffset.Location = new System.Drawing.Point(13, 95);
-            this.labelUT2DCenterXOffset.Name = "labelUT2DCenterXOffset";
-            this.labelUT2DCenterXOffset.Size = new System.Drawing.Size(79, 13);
-            this.labelUT2DCenterXOffset.TabIndex = 25;
-            this.labelUT2DCenterXOffset.Text = "Center X Offset";
-            this.toolTip1.SetToolTip(this.labelUT2DCenterXOffset, "Offset of the center target along the target axis");
-            // 
-            // labelUT2DTargetAngle
-            // 
-            this.labelUT2DTargetAngle.AutoSize = true;
-            this.labelUT2DTargetAngle.Location = new System.Drawing.Point(13, 22);
-            this.labelUT2DTargetAngle.Name = "labelUT2DTargetAngle";
-            this.labelUT2DTargetAngle.Size = new System.Drawing.Size(95, 13);
-            this.labelUT2DTargetAngle.TabIndex = 18;
-            this.labelUT2DTargetAngle.Text = "Target Angle (deg)";
-            // 
-            // labelUT2DMovementLen
-            // 
-            this.labelUT2DMovementLen.AutoSize = true;
-            this.labelUT2DMovementLen.Location = new System.Drawing.Point(13, 47);
-            this.labelUT2DMovementLen.Name = "labelUT2DMovementLen";
-            this.labelUT2DMovementLen.Size = new System.Drawing.Size(93, 13);
-            this.labelUT2DMovementLen.TabIndex = 20;
-            this.labelUT2DMovementLen.Text = "Movement Length";
+            // label235
+            // 
+            this.label235.AutoSize = true;
+            this.label235.Location = new System.Drawing.Point(13, 43);
+            this.label235.Name = "label235";
+            this.label235.Size = new System.Drawing.Size(95, 13);
+            this.label235.TabIndex = 32;
+            this.label235.Text = "Outer Target width";
+            // 
+            // textBoxUT2DOTdepth
+            // 
+            this.textBoxUT2DOTdepth.Location = new System.Drawing.Point(134, 64);
+            this.textBoxUT2DOTdepth.Name = "textBoxUT2DOTdepth";
+            this.textBoxUT2DOTdepth.Size = new System.Drawing.Size(43, 20);
+            this.textBoxUT2DOTdepth.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.textBoxUT2DOTdepth, "Size of outer targets in degrees");
+            // 
+            // label245
+            // 
+            this.label245.AutoSize = true;
+            this.label245.Location = new System.Drawing.Point(13, 67);
+            this.label245.Name = "label245";
+            this.label245.Size = new System.Drawing.Size(97, 13);
+            this.label245.TabIndex = 34;
+            this.label245.Text = "Outer Target depth";
+            // 
+            // checkBoxUT2Dshowprior
+            // 
+            this.checkBoxUT2Dshowprior.AutoSize = true;
+            this.checkBoxUT2Dshowprior.Location = new System.Drawing.Point(15, 131);
+            this.checkBoxUT2Dshowprior.Name = "checkBoxUT2Dshowprior";
+            this.checkBoxUT2Dshowprior.Size = new System.Drawing.Size(77, 17);
+            this.checkBoxUT2Dshowprior.TabIndex = 79;
+            this.checkBoxUT2Dshowprior.Text = "Show Prior";
+            this.checkBoxUT2Dshowprior.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -12999,6 +13016,17 @@ namespace BehaviorGraphics
             this.groupBoxUT1DTaskSettings.ResumeLayout(false);
             this.groupBoxUT1DTaskSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUT1DTargetAngle)).EndInit();
+            this.UncertaintyTarget2D.ResumeLayout(false);
+            this.UncertaintyTarget2D.PerformLayout();
+            this.groupBoxUT2DTimers.ResumeLayout(false);
+            this.groupBoxUT2DTimers.PerformLayout();
+            this.groupBoxUT2DCloud.ResumeLayout(false);
+            this.groupBoxUT2DCloud.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUT2DSliceNumber)).EndInit();
+            this.groupBoxUT2DShift.ResumeLayout(false);
+            this.groupBoxUT2DShift.PerformLayout();
+            this.groupBoxUT2DTaskSettings.ResumeLayout(false);
+            this.groupBoxUT2DTaskSettings.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -13012,18 +13040,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.UncertaintyTarget2D.ResumeLayout(false);
-            this.UncertaintyTarget2D.PerformLayout();
-            this.groupBoxUT2DTimers.ResumeLayout(false);
-            this.groupBoxUT2DTimers.PerformLayout();
-            this.groupBoxUT2DCloud.ResumeLayout(false);
-            this.groupBoxUT2DCloud.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUT2DSliceNumber)).EndInit();
-            this.groupBoxUT2DShift.ResumeLayout(false);
-            this.groupBoxUT2DShift.PerformLayout();
-            this.groupBoxUT2DTaskSettings.ResumeLayout(false);
-            this.groupBoxUT2DTaskSettings.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUT2DTargetAngle)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -14134,13 +14150,16 @@ namespace BehaviorGraphics
         private System.Windows.Forms.GroupBox groupBoxUT2DTaskSettings;
         private System.Windows.Forms.TextBox textBoxUT2DCenterYOffset;
         private System.Windows.Forms.Label labelUT2DCenterYOffset;
-        private System.Windows.Forms.NumericUpDown numericUpDownUT2DTargetAngle;
         private System.Windows.Forms.TextBox textBoxUT2DTargetSize;
         private System.Windows.Forms.Label labelUT2DTargetSize;
         private System.Windows.Forms.TextBox textBoxUT2DCenterXOffset;
         private System.Windows.Forms.TextBox textBoxUT2DMovementLen;
         private System.Windows.Forms.Label labelUT2DCenterXOffset;
-        private System.Windows.Forms.Label labelUT2DTargetAngle;
         private System.Windows.Forms.Label labelUT2DMovementLen;
+        private System.Windows.Forms.TextBox textBoxUT2DOTSize;
+        private System.Windows.Forms.Label label235;
+        private System.Windows.Forms.Label label245;
+        private System.Windows.Forms.TextBox textBoxUT2DOTdepth;
+        private System.Windows.Forms.CheckBox checkBoxUT2Dshowprior;
     }
 }
