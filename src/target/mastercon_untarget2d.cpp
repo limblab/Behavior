@@ -44,9 +44,10 @@ struct LocalParams {
 	real_T movement_time;	   // maximum allowed movement time
 	real_T failure_lag;        // penalty lag for failed movements
 
-	real_T target_angle;       // Four cardinal directions
 	real_T movement_length;      // i.e. movement length
-	real_T target_size;        // width of target
+	real_T target_size;        // width of center target
+	real_T OT_size;			  // size of outer target
+	real_T OT_depth;
 	real_T center_X_offset;   // offset of the center along x axis
 	real_T center_Y_offset;   // offset of the center along y axis
 
@@ -56,6 +57,7 @@ struct LocalParams {
 	real_T shift_stdev;
 	real_T block_window_begin;
 	real_T block_window_end;
+	real_T show_prior;
 
 	// currently supports up to four feedback cloud uncertainties
 	real_T cloud_stdev_one;
@@ -125,6 +127,7 @@ private:
 	ArcTarget		*outerTarget;
 	ArcTarget		*targetBar;
 	ArcTarget		*cloud[10];
+	ArcTarget		*priorTarget;
 
 	LocalParams *params;
 
@@ -158,7 +161,7 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	this->bindParamId(&params->movement_time,			 8);
 	this->bindParamId(&params->failure_lag,				 9);
 
-	this->bindParamId(&params->target_angle,			10);
+	this->bindParamId(&params->OT_size,					10);
 	this->bindParamId(&params->movement_length,			11);
 	this->bindParamId(&params->target_size,				12);
 	this->bindParamId(&params->center_X_offset,			13);
@@ -191,6 +194,10 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 
 	this->bindParamId(&params->use_delay_cloud,			36);
 
+	this->bindParamId(&params->OT_depth,				37);
+	
+	this->bindParamId(&params->show_prior,				38);
+
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -205,26 +212,30 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	centerTarget	 = new CircleTarget(0,0,0,0);
 	outerTarget		 = new ArcTarget(0,0,0,0,5);
 	targetBar		 = new ArcTarget(0,0,0,0,8);
+	priorTarget		 = new ArcTarget(0,0,0,0,6);
+	
+
 	feedback_timer	 = new Timer();
 	for (i=0; i<10; i++) {
 		cloud[i] = new ArcTarget(0,0,0,0,5);
 	}
-	cursor_extent			   = 0.0;
-	current_trial_shift       = 0.0;
-	current_target_stdev  = 0.0;
-	target_shift        = 0.0;
-	center_offset.x	   = 0.0;
-	center_offset.y	   = 0.0;
-	previous_position.x = 0.0;
-	previous_position.y = 0.0;
-	cursor_end_point.x = 0.0;
-	cursor_end_point.y = 0.0;
-	center_hold_time   = 0.0;
-	center_delay_time  = 0.0;
-	outer_hold_time	   = 0.0;
-	previous_time_point= 0.0;
-	cloud_blank        = false;
-	delay_cloud_mode	   = false;
+	cursor_extent		 = 0.0;
+	current_trial_shift  = 0.0;
+	current_target_stdev = 0.0;
+	target_shift         = 0.0;
+	center_offset.x	     = 0.0;
+	center_offset.y	     = 0.0;
+	previous_position.x  = 0.0;
+	previous_position.y  = 0.0;
+	cursor_end_point.x   = 0.0;
+	cursor_end_point.y   = 0.0;
+	center_hold_time     = 0.0;
+	center_delay_time    = 0.0;
+	outer_hold_time	     = 0.0;
+	previous_time_point  = 0.0;
+	cloud_blank          = false;
+	delay_cloud_mode	 = false;
+	show_prior			 = 
 }
 /*
 void Uncertainty1dBehavior::updateCloud(SimStruct *S) {
@@ -243,7 +254,6 @@ void UncertaintyTarget2dBehavior::updateCursorExtent(SimStruct *S){
 // Pre-trial initialization and calculations
 void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 	int i;
-	double tgt_ang_rad;
 	double total_cloud_freq;
 	double actual_freq_one;
 	double actual_freq_two;
@@ -251,11 +261,9 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 	double actual_freq_four;
 	double cloud_rand; // random variable to determine which cloud
 	delay_cloud_mode = params->use_delay_cloud;
+	
 	// Calculate the Shift (Prior Shift)
-	current_trial_shift = params->shift_mean + random->getVonMises(params->shift_stdev);
-
-	// The Target Angle in Radians
-	tgt_ang_rad = params->target_angle*PI/180;
+	current_trial_shift = (params->shift_mean)*PI/180 + random->getVonMises(params->shift_stdev);
 
 	center_offset.x = params->center_X_offset;
 	center_offset.y = params->center_Y_offset;
@@ -319,25 +327,25 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 
 		outerTarget->r = params->movement_length  ;
 		outerTarget->theta = target_shift;
-		outerTarget->span   = PI/10;
-		outerTarget->height = 2;
-
-		//outerTarget->left = -2;//params->movement_length  ;
-		//outerTarget->top = 8; //target_shift;
-		//outerTarget->right   = 2;
-		//outerTarget->bottom = 6;
+		outerTarget->span   = (params->OT_size)*PI/180;
+		outerTarget->height = params->OT_depth;
 
 		targetBar->r  = params->movement_length;
 		targetBar->theta  = 0; 
 		targetBar->span    = 2*PI-0.00001;
-		targetBar->height = 2+0.1;
+		targetBar->height = params->OT_depth;
 
 		for (i=0; i<10; i++) {
 			cloud[i]->r   = params->movement_length;
 			cloud[i]->theta  = target_shift + slice_points[i];
 			cloud[i]->span    = params->slice_size;
-			cloud[i]->height = 2;
+			cloud[i]->height = params->OT_depth - 0.1;
 		}
+
+		priorTarget->r = params->movement_length;
+		priorTarget->theta = (params->shift_mean)*PI/180;
+		priorTarget->span = params->slice_size;
+		priorTarget->height = params->OT_depth - 0.1;
 	
 	// Initialize the cloud and cursor extent
 //	updateCloud(S);
@@ -466,7 +474,7 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 	outputs->force = inputs->force;
 
 	/* status (1) */
-	outputs->status[0] = (outerTarget->theta)*PI/180;//getState();
+	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = trialCounter->failures;
@@ -555,12 +563,17 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 				(fabs(cursor_extent) <= params->feedback_window_end)) {
 				for (i = 0; i<params->slice_number; i++) {
 					outputs->targets[3+i] = cloud[i];
-				}		
+				}
 			}
 			else {
 				for (i = 3; i<13; i++) {
 					outputs->targets[i] = nullTarget;
 				}
+			}
+			if (show_prior) {
+				outputs->targets[3+slice_number] = (Target *)priorTarget;
+			} else {
+				outputs->targets[3+slice_number] = nullTarget;
 			}
 		}
 		// if feedback_window_end is negative, only display slices when in CENTER DELAY
@@ -574,6 +587,11 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 				for (i = 3; i<13; i++) {
 					outputs->targets[i] = nullTarget;
 				}
+			}
+			if (show_prior) {
+				outputs->targets[3+slice_number] = (Target *)priorTarget;
+			} else {
+				outputs->targets[3+slice_number] = nullTarget;
 			}
 		}
 	}
@@ -597,12 +615,18 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 					for (i = 0; i<params->slice_number; i++) {
 						outputs->targets[3+i] = cloud[i];
 					}
+					if (show_prior) {
+						outputs->targets[3+slice_number] = (Target *)priorTarget;
+					} else {
+						outputs->targets[3+slice_number] = nullTarget;
+					}
 				}
 				else {
 					// otherwise don't draw the cloud
 					for (i = 3; i<13; i++) {
 						outputs->targets[i] = nullTarget;
 					}
+					outputs->targets[3+slice_number] = nullTarget;
 				}
 			}
 			// Windowed feedback mode
@@ -615,12 +639,18 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 					for (i = 0; i<params->slice_number; i++) {
 						outputs->targets[3+i] = cloud[i];
 					}
+					if (show_prior) {
+						outputs->targets[3+slice_number] = (Target *)priorTarget;
+					} else {
+						outputs->targets[3+slice_number] = nullTarget;
+					}
 				} 
 				// Otherwise hide dots
 				else {
 					for (i = 3; i<13; i++) {
 						outputs->targets[i] = nullTarget;
 					}
+					outputs->targets[3+slice_number] = nullTarget;
 				}
 			}
 		
@@ -630,6 +660,7 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 			for (i = 3; i<13; i++) {
 				outputs->targets[i] = nullTarget;
 			}
+			outputs->targets[3+slice_number] = nullTarget;
 		}
 	}
 	/* reward (4) */
@@ -648,15 +679,15 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 	/* position (7) */
 	// If we are in the movement,
 	if (getState() == STATE_MOVEMENT){ 
-			// but in the block window, hide it
-			if ((fabs(cursor_extent) >= params->block_window_begin) &&
-				(fabs(cursor_extent) <= params->block_window_end)) {	
-				outputs->position = Point(100000,100000);
-			}
-			// otherwise, show the cursor
-			else {
-				outputs->position = inputs->cursor;
-			}
+		// but in the block window, hide it
+		if ((fabs(cursor_extent) >= params->block_window_begin) &&
+			(fabs(cursor_extent) <= params->block_window_end)) {	
+			outputs->position = Point(100000,100000);
+		}
+		// otherwise, show the cursor
+		else {
+			outputs->position = inputs->cursor;
+		}
 		
 	}
 	// If we are in the outer hold, show the cursor
