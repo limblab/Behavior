@@ -111,6 +111,7 @@ private:
 	double  target_shift;  // current trial cursor shift
 	Point  cursor_end_point; // current trial end point
 	double cursor_extent;  // distance from center in direction of target
+	bool disp_prior;
 
 	double  slice_points[10];
 	double current_target_stdev; // current trial feedback variance
@@ -146,7 +147,7 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(37);
+	this->setNumParams(39);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			 0);
@@ -235,7 +236,7 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	previous_time_point  = 0.0;
 	cloud_blank          = false;
 	delay_cloud_mode	 = false;
-	show_prior			 = 
+	disp_prior			 = false;
 }
 /*
 void Uncertainty1dBehavior::updateCloud(SimStruct *S) {
@@ -267,6 +268,8 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 
 	center_offset.x = params->center_X_offset;
 	center_offset.y = params->center_Y_offset;
+
+	disp_prior = params->show_prior;
 
 	// Set Center Target
 	centerTarget->centerX = 0.0+center_offset.x ;
@@ -333,19 +336,19 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 		targetBar->r  = params->movement_length;
 		targetBar->theta  = 0; 
 		targetBar->span    = 2*PI-0.00001;
-		targetBar->height = params->OT_depth;
+		targetBar->height = params->OT_depth+.1;
 
 		for (i=0; i<10; i++) {
 			cloud[i]->r   = params->movement_length;
 			cloud[i]->theta  = target_shift + slice_points[i];
-			cloud[i]->span    = params->slice_size;
-			cloud[i]->height = params->OT_depth - 0.1;
+			cloud[i]->span    = (params->slice_size)*PI/180;
+			cloud[i]->height = params->OT_depth;
 		}
 
 		priorTarget->r = params->movement_length;
 		priorTarget->theta = (params->shift_mean)*PI/180;
-		priorTarget->span = params->slice_size;
-		priorTarget->height = params->OT_depth - 0.1;
+		priorTarget->span = (params->slice_size)*PI/180;
+		priorTarget->height = params->OT_depth;
 	
 	// Initialize the cloud and cursor extent
 //	updateCloud(S);
@@ -564,16 +567,17 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 				for (i = 0; i<params->slice_number; i++) {
 					outputs->targets[3+i] = cloud[i];
 				}
+				if (disp_prior) {
+					outputs->targets[3 + int(params->slice_number)] = (Target *)priorTarget;
+				} else {
+					outputs->targets[3 + int(params->slice_number)] = nullTarget;
+				}
 			}
 			else {
 				for (i = 3; i<13; i++) {
 					outputs->targets[i] = nullTarget;
 				}
-			}
-			if (show_prior) {
-				outputs->targets[3+slice_number] = (Target *)priorTarget;
-			} else {
-				outputs->targets[3+slice_number] = nullTarget;
+				outputs->targets[3 + int(params->slice_number)] = nullTarget;
 			}
 		}
 		// if feedback_window_end is negative, only display slices when in CENTER DELAY
@@ -581,17 +585,18 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 			if (getState() == STATE_CENTER_DELAY) {
 				for (i = 0; i<params->slice_number; i++) {
 					outputs->targets[3+i] = cloud[i];
-				}		
+				}
+				if (disp_prior) {
+					outputs->targets[3 + int(params->slice_number)] = (Target *)priorTarget;
+				} else {
+					outputs->targets[3 + int(params->slice_number)] = nullTarget;
+				}
 			}
 			else {
 				for (i = 3; i<13; i++) {
 					outputs->targets[i] = nullTarget;
 				}
-			}
-			if (show_prior) {
-				outputs->targets[3+slice_number] = (Target *)priorTarget;
-			} else {
-				outputs->targets[3+slice_number] = nullTarget;
+				outputs->targets[3 + int(params->slice_number)] = nullTarget;
 			}
 		}
 	}
@@ -615,10 +620,10 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 					for (i = 0; i<params->slice_number; i++) {
 						outputs->targets[3+i] = cloud[i];
 					}
-					if (show_prior) {
-						outputs->targets[3+slice_number] = (Target *)priorTarget;
+					if (disp_prior) {
+						outputs->targets[3 + int(params->slice_number)] = (Target *)priorTarget;
 					} else {
-						outputs->targets[3+slice_number] = nullTarget;
+						outputs->targets[3 + int(params->slice_number)] = nullTarget;
 					}
 				}
 				else {
@@ -626,7 +631,7 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 					for (i = 3; i<13; i++) {
 						outputs->targets[i] = nullTarget;
 					}
-					outputs->targets[3+slice_number] = nullTarget;
+					outputs->targets[3 + int(params->slice_number)] = nullTarget;
 				}
 			}
 			// Windowed feedback mode
@@ -639,10 +644,10 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 					for (i = 0; i<params->slice_number; i++) {
 						outputs->targets[3+i] = cloud[i];
 					}
-					if (show_prior) {
-						outputs->targets[3+slice_number] = (Target *)priorTarget;
+					if (disp_prior) {
+						outputs->targets[3 + int(params->slice_number)] = (Target *)priorTarget;
 					} else {
-						outputs->targets[3+slice_number] = nullTarget;
+						outputs->targets[3 + int(params->slice_number)] = nullTarget;
 					}
 				} 
 				// Otherwise hide dots
@@ -650,7 +655,7 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 					for (i = 3; i<13; i++) {
 						outputs->targets[i] = nullTarget;
 					}
-					outputs->targets[3+slice_number] = nullTarget;
+					outputs->targets[3 + int(params->slice_number)] = nullTarget;
 				}
 			}
 		
@@ -660,7 +665,7 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 			for (i = 3; i<13; i++) {
 				outputs->targets[i] = nullTarget;
 			}
-			outputs->targets[3+slice_number] = nullTarget;
+			outputs->targets[3 + int(params->slice_number)] = nullTarget;
 		}
 	}
 	/* reward (4) */
