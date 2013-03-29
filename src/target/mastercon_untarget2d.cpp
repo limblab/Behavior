@@ -214,6 +214,7 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	outerTarget		 = new ArcTarget(0,0,0,0,5);
 	targetBar		 = new ArcTarget(0,0,0,0,8);
 	priorTarget		 = new ArcTarget(0,0,0,0,6);
+	timerTarget      = new CircleTarget(0,0,0,0);
 	
 
 	feedback_timer	 = new Timer();
@@ -349,6 +350,12 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 		priorTarget->theta = (params->shift_mean)*PI/180;
 		priorTarget->span = (params->slice_size)*PI/180;
 		priorTarget->height = params->OT_depth;
+
+		timerTarget->centerX = 15;
+		timerTarget->centerY = 11 ;
+		timerTarget->radius   = 0.25;
+		timerTarget->color   = Target::Color(255, 0, 0);
+
 	
 	// Initialize the cloud and cursor extent
 //	updateCloud(S);
@@ -563,10 +570,11 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 		if (params->feedback_window_end >= 0) {
 			if (((getState() == STATE_CENTER_DELAY) || (getState() == STATE_MOVEMENT)) &&
 				(fabs(cursor_extent) >= params->feedback_window_begin) && 
-				(fabs(cursor_extent) <= params->feedback_window_end)) {
+				(fabs(cursor_extent) <= params->feedback_window_end )) {
 				for (i = 0; i<params->slice_number; i++) {
 					outputs->targets[3+i] = cloud[i];
 				}
+				
 				if (disp_prior) {
 					outputs->targets[3 + int(params->slice_number)] = (Target *)priorTarget;
 				} else {
@@ -667,7 +675,15 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 			}
 			outputs->targets[3 + int(params->slice_number)] = nullTarget;
 		}
-	}
+	
+
+	/* Timer Dot */
+		if (stateTimer->elapsedTime(S) < 0.1) {
+			outputs->targets[4+int(params->slice_number)] = (Target *)timerTarget;
+		}
+		else {
+			outputs->targets[4+int(params->slice_number)] = nullTarget;
+		}
 	/* reward (4) */
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
 
