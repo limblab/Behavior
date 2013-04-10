@@ -79,7 +79,14 @@ struct LocalParams {
 	real_T feedback_window_end;
 
 	real_T cloud_jitter;
-
+	
+	real_T delay_catch_freq;
+	real_T delay_catch_l;
+	real_T delay_catch_h;
+	
+	real_T use_cohack_mode;
+	real_T cohack_tgtnum;
+	real_T cohack_rot;
 	//   timed:    displays static feedback cloud centered at shifted cursor position when at a 
 	//			   specified distance, for a specific length of time
 	real_T use_timed_cloud;		// toggles use of the feedback timer instead of windowed feedback
@@ -117,6 +124,7 @@ private:
 	double current_target_stdev; // current trial feedback variance
 	bool   cloud_blank;       // toggles current trial, blank feedback
 	bool   delay_cloud_mode;
+	bool   cohack_mode;
 	Timer  *feedback_timer; // feedback timer
 	
 	double center_hold_time, center_delay_time, outer_hold_time;
@@ -147,7 +155,7 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(39);
+	this->setNumParams(45);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			 0);
@@ -198,6 +206,13 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	this->bindParamId(&params->OT_depth,				37);
 	
 	this->bindParamId(&params->show_prior,				38);
+	
+	this->bindParamId(&params->delay_catch_freq,		39);
+	this->bindParamId(&params->delay_catch_l,			40);
+	this->bindParamId(&params->delay_catch_h,			41);
+	this->bindParamId(&params->use_cohack_mode,			42);
+	this->bindParamId(&params->cohack_tgtnum,			43);
+	this->bindParamId(&params->cohack_rot,				44);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -237,6 +252,7 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	previous_time_point  = 0.0;
 	cloud_blank          = false;
 	delay_cloud_mode	 = false;
+	cohack_mode			 = false;
 	disp_prior			 = false;
 }
 /*
@@ -263,10 +279,16 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 	double actual_freq_four;
 	double cloud_rand; // random variable to determine which cloud
 	delay_cloud_mode = params->use_delay_cloud;
+	cohack_mode      = params->use_cohack_mode;
 	
 	// Calculate the Shift (Prior Shift)
 	current_trial_shift = (params->shift_mean)*PI/180 + random->getVonMises(params->shift_stdev);
-
+	
+	// If in center out hack mode, set the "shift" to one of a set number of potential locations
+	if (cohack_mode){
+		current_trial_shift = params->cohack_rot*PI/180+2*PI*random->getInteger(1,params->cohack_tgtnum)/params->cohack_tgtnum;
+	}
+	
 	center_offset.x = params->center_X_offset;
 	center_offset.y = params->center_Y_offset;
 
@@ -363,7 +385,17 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 	
 	// Randomized Timers
 	center_hold_time  = random->getDouble(params->center_hold_l, params->center_hold_h);
-	center_delay_time = random->getDouble(params->center_delay_l, params->center_delay_h);
+	
+	// if this is a center delay catch trial, calculate the delay time based on catch bounds
+	if (random->getDouble() <= params->delay_catch_freq)
+	{
+		center_delay_time = random->getDouble(params->delay_catch_l, params->delay_catch_h);
+	}
+	else
+	{
+		center_delay_time = random->getDouble(params->center_delay_l, params->center_delay_h);
+	}
+	
 	outer_hold_time   = random->getDouble(params->outer_hold_l, params->outer_hold_h);
 
 

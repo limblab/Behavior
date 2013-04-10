@@ -144,7 +144,6 @@ private:
  */
 const double Random::VMFAIL = 1000000;
 
-
 /**
  * Initilizes the pRNG to a pre-defined seed.
  */

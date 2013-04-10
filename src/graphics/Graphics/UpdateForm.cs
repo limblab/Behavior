@@ -926,6 +926,14 @@ namespace BehaviorGraphics
 
             AddParamListItem("UT2D Show Prior", "P39", "Behavior UnTarget2d", this.checkBoxUT2Dshowprior);
 
+            AddParamListItem("UT2D Delay Catch Freq", "P40", "Behavior UnTarget2d", this.textBoxUT2D_DelayCatchFreq);
+            AddParamListItem("UT2D Delay Catch Low", "P41", "Behavior UnTarget2d", this.textBoxUT2D_DelayCatchLow);
+            AddParamListItem("UT2D Delay Catch High", "P42", "Behavior UnTarget2d", this.textBoxUT2D_DelayCatchHigh);
+
+            AddParamListItem("UT2D COHack Mode", "P43", "Behavior UnTarget2d", this.checkBoxUT2D_COHackMode);
+            AddParamListItem("UT2D COHack TgtNum", "P44", "Behavior UnTarget2d", this.numericUpDownUT2D_COHackTgtNum);
+            AddParamListItem("UT2D COHack Rot", "P45", "Behavior UnTarget2d", this.textBoxUT2D_COHackRot);
+
             #endregion
         }
 
@@ -2514,6 +2522,12 @@ namespace BehaviorGraphics
         {
 
         }
+
+        private void UncertaintyTarget2D_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 
 }
