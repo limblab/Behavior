@@ -424,37 +424,57 @@ void AttentionBehavior::update(SimStruct *S) {
             break;		
         case STATE_CENTER_TARGET_ON:
             /* center target on */
-            if (centerTarget->cursorInTarget(inputs->cursor)) {				
-                setState(STATE_FIELD_BUILD_UP);
+            if (inputs->catchForce.x) {
+                setState(STATE_INCOMPLETE);
+            } else {
+                if (centerTarget->cursorInTarget(inputs->cursor)) {				
+                    setState(STATE_FIELD_BUILD_UP);
+                }
             }
             break;		
         case STATE_FIELD_BUILD_UP:
-            if (stateTimer->elapsedTime(S) > params->field_ramp_up){
-                setState(STATE_HOLD_FIELD);
-            } else if (!workSpaceTarget->cursorInTarget(inputs->cursor)){
-                setState(STATE_ABORT);
+            if (inputs->catchForce.x) {
+                setState(STATE_INCOMPLETE);
+            } else {
+                if (stateTimer->elapsedTime(S) > params->field_ramp_up){
+                    setState(STATE_HOLD_FIELD);
+                } else if (!workSpaceTarget->cursorInTarget(inputs->cursor)){
+                    setState(STATE_ABORT);
+                }
             }
             break;
         case STATE_HOLD_FIELD:
-            if (!workSpaceTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
-                playTone(TONE_ABORT);
-                setState(STATE_ABORT);				
-            } else if (centerTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
-                setState(STATE_CT_HOLD);
+            if (inputs->catchForce.x) {
+                setState(STATE_INCOMPLETE);
+            } else {
+                if (!workSpaceTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
+                    playTone(TONE_ABORT);
+                    setState(STATE_ABORT);				
+                } else if (centerTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
+                    setState(STATE_CT_HOLD);
+                }
             }
             break;
         case STATE_CT_HOLD:
-            if (stateTimer->elapsedTime(S) > field_hold_time){
-                bump->start(S);
-                setState(STATE_BUMP);
-            } else if (!centerTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
-                setState(STATE_HOLD_FIELD);
+            if (inputs->catchForce.x) {
+                setState(STATE_INCOMPLETE);
+            } else {
+                if (stateTimer->elapsedTime(S) > field_hold_time){
+                    bump->start(S);
+                    setState(STATE_BUMP);
+                } else if (!centerTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
+                    setState(STATE_HOLD_FIELD);
+                }
             }
             break;
         case STATE_BUMP:
-            if (stateTimer->elapsedTime(S) > params->bump_duration){
-                playTone(TONE_REWARD);
-                setState(STATE_REWARD);
+            if (inputs->catchForce.x) {
+                setState(STATE_INCOMPLETE);
+            } else {
+                if (stateTimer->elapsedTime(S) > params->bump_duration){
+                    playTone(TONE_REWARD);
+                    setState(STATE_REWARD);
+                }
             }
             break;
         case STATE_REWARD:
@@ -468,6 +488,15 @@ void AttentionBehavior::update(SimStruct *S) {
                 setState(STATE_PRETRIAL);
             }
             break;
+        case STATE_INCOMPLETE:
+            this->bump->stop();            
+            if (inputs->catchForce.x){
+                // Stay in this state until handle is back in workspace.
+            } else if (stateTimer->elapsedTime(S) > params->reward_wait) {
+                trial_counter--;
+                setState(STATE_PRETRIAL);
+            }
+			break;
         default:
             setState(STATE_PRETRIAL);
     }
