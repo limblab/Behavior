@@ -156,7 +156,7 @@ struct LocalParams{
 	real_T x_position_offset;
 	real_T y_position_offset;
 	real_T bias_force_magnitude;
-	real_T bias_force_angle;
+	real_T first_bias_force_direction;
 
 	// Bumps
 	real_T bump_duration;
@@ -182,6 +182,10 @@ struct LocalParams{
     // Bump type
     real_T force_bump;
     real_T force_bump_magnitude;
+    
+    // More bias force stuff
+    real_T num_bias_directions;
+    real_T bias_direction_separation;
 };
 
 /**
@@ -236,6 +240,9 @@ private:
     int block_counter;
     int block_order [10];
     int *block_order_point [10];
+    int bias_force_counter;
+    
+    real_T bias_force_angle;
 
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
@@ -250,7 +257,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(29);
+	this->setNumParams(31);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->field_ramp_up,							 1);
@@ -268,7 +275,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->x_position_offset,						 11);
 	this->bindParamId(&params->y_position_offset,						 12);
     this->bindParamId(&params->bias_force_magnitude,					 13);
-	this->bindParamId(&params->bias_force_angle,						 14);
+	this->bindParamId(&params->first_bias_force_direction,			     14);
 
 	this->bindParamId(&params->bump_duration,							 15);
 	this->bindParamId(&params->bump_velocity,							 16);
@@ -290,8 +297,11 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->force_bump,                               27);
     this->bindParamId(&params->force_bump_magnitude,                     28);
     
+    this->bindParamId(&params->num_bias_directions,                      29);
+    this->bindParamId(&params->bias_direction_separation,                30);
+    
     // default parameters:
-    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0
+    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -318,6 +328,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     
     block_counter = 10000; 
     trial_counter = 10000; // Stupidly large number so that the blocks are reset in first pretrial.
+    bias_force_counter = 10000;
     field_angle = 0;
     
     x_pos_old = 0;
@@ -325,6 +336,8 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     
     x_vel_old = 0;
     y_vel_old = 0;
+    
+    bias_force_angle = 0;
 }
 
 void AttentionBehavior::doPreTrial(SimStruct *S) {	
@@ -351,6 +364,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
     if (old_block_length != params->field_block_length) {
         trial_counter = 10000;
         block_counter = 10000;
+        bias_force_counter = 10000;
     }
         
     if (trial_counter >= params->field_block_length-1){
@@ -369,6 +383,15 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
     field_angle = fmod(block_order[block_counter] * PI/(params->num_field_orientations) + 
         params->first_field_angle,2*PI);  
+    
+    if (block_counter == 0 & trial_counter == 0){
+        bias_force_counter++;
+        if (bias_force_counter >= params->num_bias_directions){
+            bias_force_counter = 0;
+        }
+        bias_force_angle = fmod(bias_force_counter * params->bias_direction_separation + 
+            params->first_bias_force_direction,2*PI); 
+    }
 
 
 	/* setup the databurst */
@@ -391,7 +414,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)params->positive_stiffness);			// bytes 30 to 33 -> Matlab idx 31 to 34
 	db->addFloat((float)field_angle);                           // bytes 34 to 37 -> Matlab idx 35 to 38
 	db->addFloat((float)params->bias_force_magnitude);			// bytes 38 to 41 -> Matlab idx 39 to 42
-	db->addFloat((float)params->bias_force_angle);				// bytes 42 to 45 -> Matlab idx 43 to 46
+	db->addFloat((float)bias_force_angle);                      // bytes 42 to 45 -> Matlab idx 43 to 46
     db->addFloat((float)params->force_target_diameter);         // bytes 46 to 49 -> Matlab idx 47 to 50
     db->addByte((int)params->force_bump);                       // byte 50 -> Matlab idx 51
     
@@ -543,16 +566,17 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 					    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle) + 
 						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
 						(inputs->cursor.y - params->y_position_offset)*cos(field_angle))*sin(field_angle) + 
-                        params->bias_force_magnitude * cos(params->bias_force_angle) +
+                        params->bias_force_magnitude * cos(bias_force_angle) +
                         b*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*sin(field_angle);
 
 	real_T y_force_field = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset)*cos(field_angle) + 
 						(inputs->cursor.y - params->y_position_offset)*sin(field_angle))*sin(field_angle) -
 						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
 						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle) + 
-                        params->bias_force_magnitude * sin(params->bias_force_angle) -
+                        params->bias_force_magnitude * sin(bias_force_angle) -
                         b*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*cos(field_angle);
 
+    
     // Force cursor
     real_T x_force_cursor = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
 					    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle) - 
