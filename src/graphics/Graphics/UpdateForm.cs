@@ -782,7 +782,7 @@ namespace BehaviorGraphics
             AddParamListItem("UF XPO", "P12", "Behavior UF", this.textBoxUFXPO);
             AddParamListItem("UF YPO", "P13", "Behavior UF", this.textBoxUFYPO);
             AddParamListItem("UF BFM", "P14", "Behavior UF", this.textBoxUFBFM);
-            AddParamListItem("UF BFA", "P15", "Behavior UF", this.angleEntryBoxUFBFA);
+            AddParamListItem("UF BFA", "P15", "Behavior UF", this.angleEntryBoxUFFBFA);
 
             // Bumps
             AddParamListItem("UF BD", "P16", "Behavior UF", this.textBoxUFBD);
@@ -809,6 +809,10 @@ namespace BehaviorGraphics
             // Bump type
             AddParamListItem("UF BType", "P28", "Behavior UF", this.checkBoxUFFB);
             AddParamListItem("UF BMag", "P29", "Behavior UF", this.textBoxUFBM);
+
+            // More bias force stuff
+            AddParamListItem("UF NBF", "P30", "Behavior UF", this.numericUpDownUFNBFA);
+            AddParamListItem("UF BAS", "P31", "Behavior UF", this.angleEntryBoxUFBAS);
 
             #endregion
 
