@@ -216,7 +216,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 
 
 	this->stim_trial = false;
-	this->catch_rate = 0;//this is a stupid hardcode until I get rount to implementing a link to the graphics panel for dynamic setting
+	this->catch_rate = 0.1;//this is a stupid hardcode until I get rount to implementing a link to the graphics panel for dynamic setting
 	this->bump_dir = 0;
 	this->bump = new CosineBumpGenerator();
 	this->training_trial=0;
