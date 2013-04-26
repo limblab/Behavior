@@ -3,7 +3,7 @@
  * Master Control block for behavior: unstable field
  */
 
-#define DATABURST_VERSION ((byte)0x03) 
+#define DATABURST_VERSION ((byte)0x05) 
 /* 
  * Current Databurst version: 4
  *
@@ -15,6 +15,27 @@
  * Databurst version descriptions
  * ==============================
  * 
+ * * Version 5 (0x05)
+ * ----------------
+ * byte         0: uchar => number of bytes to be transmitted
+ * byte         1: uchar => databurst version number (in this case zero)
+ * byte         2: uchar => model version major
+ * byte         3: uchar => model version minor
+ * bytes   4 to 5: short => model version micro
+ * bytes   6 to 9: float => x offset (cm)
+ * bytes 10 to 13: float => y offset (cm)
+ * bytes 14 to 17: float => bump velocity (cm/s) or magnitude (N) depending on type.
+ * bytes 18 to 21: float => bump direction (rad)
+ * bytes 22 to 25: float => bump duration (s)
+ * bytes 26 to 29: float => negative stiffness (N/cm)
+ * bytes 30 to 33: float => positive stiffness (N/cm)
+ * bytes 34 to 37: float => force field angle (rad)
+ * bytes 38 to 41: float => bias force magnitude (N)
+ * bytes 42 to 45: float => bias force angle (rad)
+ * bytes 46 to 49: float => force target diameter (N)
+ * byte        50: uchar => force bump (if 0, vel bump)
+ * bytes 51 to 54: float => infintite force bump duration
+ *
  * Version 4 (0x04)
  * ----------------
  * byte         0: uchar => number of bytes to be transmitted
@@ -163,7 +184,7 @@ struct LocalParams{
 	real_T bump_velocity;
 	real_T num_bump_directions;
 	real_T first_bump_direction;
-    
+        
     // Unstable field again
     real_T num_field_orientations;
     real_T field_block_length;    
@@ -186,6 +207,9 @@ struct LocalParams{
     // More bias force stuff
     real_T num_bias_directions;
     real_T bias_direction_separation;
+    
+    // More bump stuff
+    real_T infinite_bump_duration;
 };
 
 /**
@@ -215,6 +239,7 @@ private:
 	real_T bump_direction;
 	
 	TrapBumpGenerator *bump;
+    TrapBumpGenerator *infinite_bump;
 	real_T x_force_at_bump_start;
 	real_T y_force_at_bump_start;
     
@@ -257,7 +282,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(31);
+	this->setNumParams(32);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->field_ramp_up,							 1);
@@ -300,8 +325,10 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->num_bias_directions,                      29);
     this->bindParamId(&params->bias_direction_separation,                30);
     
+    this->bindParamId(&params->infinite_bump_duration,                   31);
+    
     // default parameters:
-    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2
+    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2   0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -321,6 +348,8 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	bump_direction = 0.0;
 	
 	bump = new TrapBumpGenerator();
+    infinite_bump = new TrapBumpGenerator();
+    
     x_pos_at_bump_start = 0;
 	y_pos_at_bump_start = 0;
 	x_force_at_bump_start = 0;
@@ -358,6 +387,12 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	bump->hold_duration = params->bump_duration;
 	bump->peak_magnitude = params->force_bump_magnitude;
 	bump->rise_time = 0;	
+    
+    infinite_bump->direction = bump_direction;
+	infinite_bump->hold_duration = params->infinite_bump_duration;
+	infinite_bump->peak_magnitude = 10*params->force_bump_magnitude;
+	infinite_bump->rise_time = 0;
+    
 	x_force_at_bump_start = 0;
 	y_force_at_bump_start = 0;
     
@@ -417,6 +452,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)bias_force_angle);                      // bytes 42 to 45 -> Matlab idx 43 to 46
     db->addFloat((float)params->force_target_diameter);         // bytes 46 to 49 -> Matlab idx 47 to 50
     db->addByte((int)params->force_bump);                       // byte 50 -> Matlab idx 51
+    db->addFloat((float)params->infinite_bump_duration);        // bytes 51 to 54 -> Matlab idx 52 to 55
     
 	db->start();
 
@@ -484,6 +520,7 @@ void AttentionBehavior::update(SimStruct *S) {
             } else {
                 if (stateTimer->elapsedTime(S) > field_hold_time){
                     bump->start(S);
+                    infinite_bump->start(S);
                     setState(STATE_BUMP);
                 } else if (!centerTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
                     setState(STATE_HOLD_FIELD);
@@ -512,7 +549,8 @@ void AttentionBehavior::update(SimStruct *S) {
             }
             break;
         case STATE_INCOMPLETE:
-            this->bump->stop();            
+            this->bump->stop();
+            this->infinite_bump->stop();
             if (inputs->catchForce.x){
                 // Stay in this state until handle is back in workspace.
             } else if (stateTimer->elapsedTime(S) > params->reward_wait) {
@@ -615,6 +653,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 		case STATE_BUMP:            
             if(params->force_bump){
                 outputs->force = bump->getBumpForce(S);
+                outputs->force += infinite_bump->getBumpForce(S);
                 outputs->force.x += x_force_at_bump_start;
                 outputs->force.y += y_force_at_bump_start;
             } else {            

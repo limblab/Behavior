@@ -814,6 +814,9 @@ namespace BehaviorGraphics
             AddParamListItem("UF NBF", "P30", "Behavior UF", this.numericUpDownUFNBFA);
             AddParamListItem("UF BAS", "P31", "Behavior UF", this.angleEntryBoxUFBAS);
 
+            // More bump stuff
+            AddParamListItem("UF IBD", "P32", "Behavior UF", this.textBoxUFIBD);
+
             #endregion
 
             #region UncertaintyTarget1D

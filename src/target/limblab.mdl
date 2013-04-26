@@ -19,7 +19,7 @@ Library {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [1216.0, 52.0, 1198.0, 848.0]
+      Location		      [116.0, 109.0, 903.0, 599.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -43,9 +43,9 @@ Library {
 	IsActive		[1]
 	ViewObjType		"SimulinkSubsys"
 	LoadSaveID		"229"
-	Extents			[1146.0, 680.0]
-	ZoomFactor		[1.0]
-	Offset			[0.0, 0.0]
+	Extents			[851.0, 431.0]
+	ZoomFactor		[0.8]
+	Offset			[37.616666666665878, 61.6666666666664]
       }
     }
   }
@@ -53,11 +53,11 @@ Library {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "ricardo"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Apr 10 10:46:03 2013"
-  RTWModifiedTimeStamp	  287491562
-  ModelVersionFormat	  "1.%<AutoIncrement:64>"
+  LastModifiedDate	  "Fri Apr 26 12:47:46 2013"
+  RTWModifiedTimeStamp	  288881264
+  ModelVersionFormat	  "1.%<AutoIncrement:65>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -976,7 +976,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "277"
+    SIDHighWatermark	    "279"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
@@ -1730,7 +1730,7 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[1216, 52, 2414, 900]
+	Location		[116, 109, 1019, 708]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1742,7 +1742,7 @@ Library {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"100"
+	ZoomFactor		"80"
 	Block {
 	  BlockType		  Inport
 	  Name			  "DefaultForce"
@@ -1790,7 +1790,7 @@ Library {
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
 	  SourceType		  "Compare To Constant"
 	  relop			  ">"
-	  const			  "25"
+	  const			  "250"
 	  OutDataTypeStr	  "uint8"
 	  ZeroCross		  off
 	}
@@ -1806,7 +1806,7 @@ Library {
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
 	  SourceType		  "Compare To Constant"
 	  relop			  ">"
-	  const			  "25."
+	  const			  "250"
 	  OutDataTypeStr	  "uint8"
 	  ZeroCross		  off
 	}
@@ -2066,6 +2066,28 @@ Library {
 	  initValue		  "[0 0]"
 	  sampletime		  "0.001"
 	  slot			  "-1"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation"
+	  SID			  "278"
+	  Ports			  [1, 1]
+	  Position		  [890, 260, 920, 290]
+	  ZOrder		  4
+	  InputPortMap		  "u0"
+	  UpperLimit		  "7.5"
+	  LowerLimit		  "-7.5"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation1"
+	  SID			  "279"
+	  Ports			  [1, 1]
+	  Position		  [890, 380, 920, 410]
+	  ZOrder		  5
+	  InputPortMap		  "u0"
+	  UpperLimit		  "7.5"
+	  LowerLimit		  "-7.5"
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -2480,8 +2502,7 @@ Library {
 	  SrcPort		  1
 	  Points		  [15, 0]
 	  Branch {
-	    Points		    [0, 230]
-	    DstBlock		    "Compare\nTo Constant"
+	    DstBlock		    "Saturation"
 	    DstPort		    1
 	  }
 	  Branch {
@@ -2490,7 +2511,8 @@ Library {
 	    DstPort		    2
 	  }
 	  Branch {
-	    DstBlock		    "PCI-6025E "
+	    Points		    [0, 230]
+	    DstBlock		    "Compare\nTo Constant"
 	    DstPort		    1
 	  }
 	}
@@ -2504,13 +2526,13 @@ Library {
 	    DstPort		    1
 	  }
 	  Branch {
+	    DstBlock		    "Saturation1"
+	    DstPort		    1
+	  }
+	  Branch {
 	    Points		    [0, -240]
 	    DstBlock		    "Mux"
 	    DstPort		    3
-	  }
-	  Branch {
-	    DstBlock		    "PCI-6025E "
-	    DstPort		    2
 	  }
 	}
 	Line {
@@ -2669,6 +2691,18 @@ Library {
 	  SrcPort		  1
 	  DstBlock		  "Task off"
 	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation"
+	  SrcPort		  1
+	  DstBlock		  "PCI-6025E "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Saturation1"
+	  SrcPort		  1
+	  DstBlock		  "PCI-6025E "
+	  DstPort		  2
 	}
       }
     }
@@ -4680,9 +4714,9 @@ Library {
 	  Ports			  [2, 1]
 	  Position		  [410, 220, 515, 275]
 	  ZOrder		  -34
-	  LibraryVersion	  "1.61"
+	  LibraryVersion	  "1.64"
 	  SourceBlock		  "limblab/Timer"
-	  SourceType		  "Unknown"
+	  SourceType		  ""
 	  Time			  "10"
 	}
 	Block {

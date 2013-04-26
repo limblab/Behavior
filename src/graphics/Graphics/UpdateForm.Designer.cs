@@ -880,6 +880,10 @@ namespace BehaviorGraphics
             this.label333 = new System.Windows.Forms.Label();
             this.label332 = new System.Windows.Forms.Label();
             this.groupBox65 = new System.Windows.Forms.GroupBox();
+            this.label247UF = new System.Windows.Forms.Label();
+            this.angleEntryBoxUFBAS = new AngleBox.AngleEntryBox();
+            this.label246UF = new System.Windows.Forms.Label();
+            this.numericUpDownUFNBFA = new System.Windows.Forms.NumericUpDown();
             this.label310UF = new System.Windows.Forms.Label();
             this.textBoxUFFDamp = new System.Windows.Forms.TextBox();
             this.angleEntryBoxUFFFA = new AngleBox.AngleEntryBox();
@@ -1155,10 +1159,8 @@ namespace BehaviorGraphics
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.label324 = new System.Windows.Forms.Label();
-            this.angleEntryBoxUFBAS = new AngleBox.AngleEntryBox();
-            this.label246UF = new System.Windows.Forms.Label();
-            this.label247UF = new System.Windows.Forms.Label();
-            this.numericUpDownUFNBFA = new System.Windows.Forms.NumericUpDown();
+            this.labelUFIBD = new System.Windows.Forms.Label();
+            this.textBoxUFIBD = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -1275,6 +1277,7 @@ namespace BehaviorGraphics
             this.groupBox67.SuspendLayout();
             this.groupBox66.SuspendLayout();
             this.groupBox65.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUFNBFA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUFNO)).BeginInit();
             this.tabUncertaintyTarget1D.SuspendLayout();
             this.groupBoxUT1DTimers.SuspendLayout();
@@ -1298,7 +1301,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUFNBFA)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -9826,7 +9828,7 @@ namespace BehaviorGraphics
             this.groupBox70.Controls.Add(this.label353);
             this.groupBox70.Controls.Add(this.textBoxUFPG);
             this.groupBox70.Controls.Add(this.label355);
-            this.groupBox70.Location = new System.Drawing.Point(421, 185);
+            this.groupBox70.Location = new System.Drawing.Point(421, 223);
             this.groupBox70.Name = "groupBox70";
             this.groupBox70.Size = new System.Drawing.Size(200, 134);
             this.groupBox70.TabIndex = 48;
@@ -9906,6 +9908,8 @@ namespace BehaviorGraphics
             // 
             // groupBox68
             // 
+            this.groupBox68.Controls.Add(this.labelUFIBD);
+            this.groupBox68.Controls.Add(this.textBoxUFIBD);
             this.groupBox68.Controls.Add(this.textBoxUFBM);
             this.groupBox68.Controls.Add(this.label235UF);
             this.groupBox68.Controls.Add(this.checkBoxUFFB);
@@ -9919,14 +9923,14 @@ namespace BehaviorGraphics
             this.groupBox68.Controls.Add(this.label340);
             this.groupBox68.Location = new System.Drawing.Point(421, 8);
             this.groupBox68.Name = "groupBox68";
-            this.groupBox68.Size = new System.Drawing.Size(200, 171);
+            this.groupBox68.Size = new System.Drawing.Size(200, 209);
             this.groupBox68.TabIndex = 3;
             this.groupBox68.TabStop = false;
             this.groupBox68.Text = "Bumps";
             // 
             // textBoxUFBM
             // 
-            this.textBoxUFBM.Location = new System.Drawing.Point(113, 145);
+            this.textBoxUFBM.Location = new System.Drawing.Point(131, 145);
             this.textBoxUFBM.Name = "textBoxUFBM";
             this.textBoxUFBM.Size = new System.Drawing.Size(46, 20);
             this.textBoxUFBM.TabIndex = 49;
@@ -9955,7 +9959,7 @@ namespace BehaviorGraphics
             // 
             // angleEntryBoxUFFD
             // 
-            this.angleEntryBoxUFFD.Location = new System.Drawing.Point(83, 98);
+            this.angleEntryBoxUFFD.Location = new System.Drawing.Point(101, 98);
             this.angleEntryBoxUFFD.Name = "angleEntryBoxUFFD";
             this.angleEntryBoxUFFD.Size = new System.Drawing.Size(76, 21);
             this.angleEntryBoxUFFD.TabIndex = 47;
@@ -9972,7 +9976,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUFBV
             // 
-            this.textBoxUFBV.Location = new System.Drawing.Point(113, 47);
+            this.textBoxUFBV.Location = new System.Drawing.Point(131, 47);
             this.textBoxUFBV.Name = "textBoxUFBV";
             this.textBoxUFBV.Size = new System.Drawing.Size(46, 20);
             this.textBoxUFBV.TabIndex = 40;
@@ -9990,7 +9994,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUFBD
             // 
-            this.textBoxUFBD.Location = new System.Drawing.Point(113, 21);
+            this.textBoxUFBD.Location = new System.Drawing.Point(131, 21);
             this.textBoxUFBD.Name = "textBoxUFBD";
             this.textBoxUFBD.Size = new System.Drawing.Size(46, 20);
             this.textBoxUFBD.TabIndex = 41;
@@ -10008,7 +10012,7 @@ namespace BehaviorGraphics
             // 
             // numericUpDownUFND
             // 
-            this.numericUpDownUFND.Location = new System.Drawing.Point(113, 73);
+            this.numericUpDownUFND.Location = new System.Drawing.Point(131, 73);
             this.numericUpDownUFND.Minimum = new decimal(new int[] {
             1,
             0,
@@ -10236,6 +10240,50 @@ namespace BehaviorGraphics
             this.groupBox65.TabIndex = 0;
             this.groupBox65.TabStop = false;
             this.groupBox65.Text = "Unstable field parameters";
+            // 
+            // label247UF
+            // 
+            this.label247UF.AutoSize = true;
+            this.label247UF.Location = new System.Drawing.Point(5, 288);
+            this.label247UF.Name = "label247UF";
+            this.label247UF.Size = new System.Drawing.Size(112, 13);
+            this.label247UF.TabIndex = 51;
+            this.label247UF.Text = "Num bias force angles";
+            // 
+            // angleEntryBoxUFBAS
+            // 
+            this.angleEntryBoxUFBAS.Location = new System.Drawing.Point(119, 312);
+            this.angleEntryBoxUFBAS.Name = "angleEntryBoxUFBAS";
+            this.angleEntryBoxUFBAS.Size = new System.Drawing.Size(76, 21);
+            this.angleEntryBoxUFBAS.TabIndex = 48;
+            this.angleEntryBoxUFBAS.Value = 0;
+            // 
+            // label246UF
+            // 
+            this.label246UF.AutoSize = true;
+            this.label246UF.Location = new System.Drawing.Point(6, 320);
+            this.label246UF.Name = "label246UF";
+            this.label246UF.Size = new System.Drawing.Size(108, 13);
+            this.label246UF.TabIndex = 49;
+            this.label246UF.Text = "Bias angle separation";
+            // 
+            // numericUpDownUFNBFA
+            // 
+            this.numericUpDownUFNBFA.Location = new System.Drawing.Point(149, 286);
+            this.numericUpDownUFNBFA.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownUFNBFA.Name = "numericUpDownUFNBFA";
+            this.numericUpDownUFNBFA.Size = new System.Drawing.Size(46, 20);
+            this.numericUpDownUFNBFA.TabIndex = 50;
+            this.toolTip1.SetToolTip(this.numericUpDownUFNBFA, "Number of gradations of field orientations.");
+            this.numericUpDownUFNBFA.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // label310UF
             // 
@@ -12929,49 +12977,23 @@ namespace BehaviorGraphics
             this.label324.TabIndex = 64;
             this.label324.Text = "1-D Jitter Magnitude";
             // 
-            // angleEntryBoxUFBAS
+            // labelUFIBD
             // 
-            this.angleEntryBoxUFBAS.Location = new System.Drawing.Point(119, 312);
-            this.angleEntryBoxUFBAS.Name = "angleEntryBoxUFBAS";
-            this.angleEntryBoxUFBAS.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBoxUFBAS.TabIndex = 48;
-            this.angleEntryBoxUFBAS.Value = 0;
+            this.labelUFIBD.AutoSize = true;
+            this.labelUFIBD.Location = new System.Drawing.Point(9, 177);
+            this.labelUFIBD.Name = "labelUFIBD";
+            this.labelUFIBD.Size = new System.Drawing.Size(108, 13);
+            this.labelUFIBD.TabIndex = 52;
+            this.labelUFIBD.Text = "Infinite bump duration";
+            this.toolTip1.SetToolTip(this.labelUFIBD, "in seconds");
             // 
-            // label246UF
+            // textBoxUFIBD
             // 
-            this.label246UF.AutoSize = true;
-            this.label246UF.Location = new System.Drawing.Point(6, 320);
-            this.label246UF.Name = "label246UF";
-            this.label246UF.Size = new System.Drawing.Size(108, 13);
-            this.label246UF.TabIndex = 49;
-            this.label246UF.Text = "Bias angle separation";
-            // 
-            // label247UF
-            // 
-            this.label247UF.AutoSize = true;
-            this.label247UF.Location = new System.Drawing.Point(5, 288);
-            this.label247UF.Name = "label247UF";
-            this.label247UF.Size = new System.Drawing.Size(112, 13);
-            this.label247UF.TabIndex = 51;
-            this.label247UF.Text = "Num bias force angles";
-            // 
-            // numericUpDownUFNBFA
-            // 
-            this.numericUpDownUFNBFA.Location = new System.Drawing.Point(149, 286);
-            this.numericUpDownUFNBFA.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownUFNBFA.Name = "numericUpDownUFNBFA";
-            this.numericUpDownUFNBFA.Size = new System.Drawing.Size(46, 20);
-            this.numericUpDownUFNBFA.TabIndex = 50;
-            this.toolTip1.SetToolTip(this.numericUpDownUFNBFA, "Number of gradations of field orientations.");
-            this.numericUpDownUFNBFA.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
+            this.textBoxUFIBD.Location = new System.Drawing.Point(131, 174);
+            this.textBoxUFIBD.Name = "textBoxUFIBD";
+            this.textBoxUFIBD.Size = new System.Drawing.Size(46, 20);
+            this.textBoxUFIBD.TabIndex = 51;
+            this.toolTip1.SetToolTip(this.textBoxUFIBD, "in seconds");
             // 
             // UpdateForm
             // 
@@ -13187,6 +13209,7 @@ namespace BehaviorGraphics
             this.groupBox66.PerformLayout();
             this.groupBox65.ResumeLayout(false);
             this.groupBox65.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUFNBFA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUFNO)).EndInit();
             this.tabUncertaintyTarget1D.ResumeLayout(false);
             this.tabUncertaintyTarget1D.PerformLayout();
@@ -13225,7 +13248,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUFNBFA)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -14361,5 +14383,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.NumericUpDown numericUpDownUFNBFA;
         private AngleBox.AngleEntryBox angleEntryBoxUFBAS;
         private System.Windows.Forms.Label label246UF;
+        private System.Windows.Forms.Label labelUFIBD;
+        private System.Windows.Forms.TextBox textBoxUFIBD;
     }
 }
