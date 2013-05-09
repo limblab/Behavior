@@ -19,7 +19,7 @@ Library {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [116.0, 109.0, 1341.0, 708.0]
+      Location		      [25.0, 26.0, 1036.0, 708.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -41,11 +41,11 @@ Library {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkTopLevel"
-	LoadSaveID		"0"
-	Extents			[1289.0, 540.0]
+	ViewObjType		"SimulinkSubsys"
+	LoadSaveID		"136"
+	Extents			[984.0, 540.0]
 	ZoomFactor		[1.0]
-	Offset			[0.0, 0.0]
+	Offset			[85.099999999999966, 45.199999999999989]
       }
     }
   }
@@ -53,11 +53,11 @@ Library {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "ricardo"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu May 09 12:37:06 2013"
-  RTWModifiedTimeStamp	  290003787
-  ModelVersionFormat	  "1.%<AutoIncrement:67>"
+  LastModifiedDate	  "Thu May 09 13:26:04 2013"
+  RTWModifiedTimeStamp	  290006763
+  ModelVersionFormat	  "1.%<AutoIncrement:70>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -962,8 +962,8 @@ Library {
   }
   System {
     Name		    "limblab"
-    Location		    [116, 109, 1457, 817]
-    Open		    on
+    Location		    [116, 109, 1152, 817]
+    Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -3048,7 +3048,7 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"Recentering Subsystem"
-	Location		[1277, 45, 2819, 876]
+	Location		[25, 26, 1061, 734]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -3060,7 +3060,7 @@ Library {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"60"
+	ZoomFactor		"100"
 	Block {
 	  BlockType		  Inport
 	  Name			  "Vel"
@@ -3095,7 +3095,7 @@ Library {
 	  Position		  [1065, 84, 1130, 116]
 	  ZOrder		  -4
 	  NamePlacement		  "alternate"
-	  Gain			  "-0.025"
+	  Gain			  "-0.1"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -3502,8 +3502,8 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "PD Controller"
-	    Location		    [162, 151, 1259, 916]
-	    Open		    off
+	    Location		    [25, 26, 1061, 734]
+	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -3546,7 +3546,7 @@ Library {
 	      Name		      "Add"
 	      SID		      "140"
 	      Ports		      [2, 1]
-	      Position		      [455, 157, 485, 188]
+	      Position		      [535, 157, 565, 188]
 	      ZOrder		      -4
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3557,7 +3557,7 @@ Library {
 	      Name		      "Add1"
 	      SID		      "141"
 	      Ports		      [2, 1]
-	      Position		      [455, 237, 485, 268]
+	      Position		      [535, 237, 565, 268]
 	      ZOrder		      -5
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3640,7 +3640,7 @@ Library {
 	      Name		      "Mux4"
 	      SID		      "148"
 	      Ports		      [2, 1]
-	      Position		      [600, 135, 605, 295]
+	      Position		      [690, 135, 695, 295]
 	      ZOrder		      -12
 	      ShowName		      off
 	      Inputs		      "2"
@@ -3673,28 +3673,28 @@ Library {
 	      Name		      "Saturation"
 	      SID		      "151"
 	      Ports		      [1, 1]
-	      Position		      [530, 160, 560, 190]
-	      ZOrder		      -15
+	      Position		      [460, 165, 490, 195]
+	      ZOrder		      1
 	      InputPortMap	      "u0"
-	      UpperLimit	      ".8"
-	      LowerLimit	      "-.8"
+	      UpperLimit	      "3"
+	      LowerLimit	      "-3"
 	    }
 	    Block {
 	      BlockType		      Saturate
 	      Name		      "Saturation1"
 	      SID		      "152"
 	      Ports		      [1, 1]
-	      Position		      [530, 240, 560, 270]
-	      ZOrder		      -16
+	      Position		      [460, 230, 490, 260]
+	      ZOrder		      2
 	      InputPortMap	      "u0"
-	      UpperLimit	      ".8"
-	      LowerLimit	      "-.8"
+	      UpperLimit	      "3"
+	      LowerLimit	      "-3"
 	    }
 	    Block {
 	      BlockType		      Outport
 	      Name		      "Force"
 	      SID		      "153"
-	      Position		      [640, 208, 670, 222]
+	      Position		      [730, 208, 760, 222]
 	      ZOrder		      -17
 	      IconDisplay	      "Port number"
 	    }
@@ -3720,27 +3720,21 @@ Library {
 	      DstPort		      1
 	    }
 	    Line {
-	      SrcBlock		      "Saturation"
+	      SrcBlock		      "Add"
 	      SrcPort		      1
 	      DstBlock		      "Mux4"
 	      DstPort		      1
 	    }
 	    Line {
-	      SrcBlock		      "Add"
+	      SrcBlock		      "Gain1"
 	      SrcPort		      1
 	      DstBlock		      "Saturation"
 	      DstPort		      1
 	    }
 	    Line {
-	      SrcBlock		      "Gain1"
-	      SrcPort		      1
-	      DstBlock		      "Add"
-	      DstPort		      2
-	    }
-	    Line {
 	      SrcBlock		      "Gain3"
 	      SrcPort		      1
-	      Points		      [85, 0; 0, 85]
+	      Points		      [85, 0; 0, 62; 90, 0]
 	      DstBlock		      "Add"
 	      DstPort		      1
 	    }
@@ -3751,27 +3745,21 @@ Library {
 	      DstPort		      1
 	    }
 	    Line {
-	      SrcBlock		      "Saturation1"
+	      SrcBlock		      "Add1"
 	      SrcPort		      1
 	      DstBlock		      "Mux4"
 	      DstPort		      2
 	    }
 	    Line {
-	      SrcBlock		      "Add1"
+	      SrcBlock		      "Gain2"
 	      SrcPort		      1
 	      DstBlock		      "Saturation1"
 	      DstPort		      1
 	    }
 	    Line {
-	      SrcBlock		      "Gain2"
-	      SrcPort		      1
-	      DstBlock		      "Add1"
-	      DstPort		      1
-	    }
-	    Line {
 	      SrcBlock		      "Gain4"
 	      SrcPort		      1
-	      Points		      [85, 0; 0, -75]
+	      Points		      [85, 0; 0, -45; 86, 0; 0, -30]
 	      DstBlock		      "Add1"
 	      DstPort		      2
 	    }
@@ -3818,6 +3806,18 @@ Library {
 	      SrcPort		      1
 	      Points		      [30, 0; 0, -220]
 	      DstBlock		      "Gain3"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Saturation"
+	      SrcPort		      1
+	      DstBlock		      "Add"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Saturation1"
+	      SrcPort		      1
+	      DstBlock		      "Add1"
 	      DstPort		      1
 	    }
 	  }
@@ -4838,7 +4838,7 @@ Library {
 	  Ports			  [2, 1]
 	  Position		  [410, 220, 515, 275]
 	  ZOrder		  -34
-	  LibraryVersion	  "1.65"
+	  LibraryVersion	  "1.69"
 	  SourceBlock		  "limblab/Timer"
 	  SourceType		  ""
 	  Time			  "10"
