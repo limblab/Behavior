@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1368"
+    ComputedModelVersion    "1.1369"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -31,7 +31,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [59.0, 38.0, 922.0, 688.0]
+      Location		      [35.0, 36.0, 980.0, 717.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -55,9 +55,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[870.0, 512.0]
+	Extents			[928.0, 541.0]
 	ZoomFactor		[0.8]
-	Offset			[387.0822917709753, 280.65]
+	Offset			[343.3322917709753, 280.65]
       }
     }
   }
@@ -65,11 +65,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "ricardo"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Apr 26 12:48:31 2013"
-  RTWModifiedTimeStamp	  288880998
-  ModelVersionFormat	  "1.%<AutoIncrement:1368>"
+  LastModifiedDate	  "Thu May 09 12:37:42 2013"
+  RTWModifiedTimeStamp	  290003860
+  ModelVersionFormat	  "1.%<AutoIncrement:1369>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1012,7 +1012,7 @@ Model {
   }
   System {
     Name		    "unstable"
-    Location		    [59, 38, 981, 726]
+    Location		    [35, 36, 1015, 753]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1026,7 +1026,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "80"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "380"
+    SIDHighWatermark	    "381"
     Block {
       BlockType		      S-Function
       Name		      "Behavior UF"
@@ -1055,7 +1055,7 @@ Model {
       Ports		      [1, 1]
       Position		      [430, 718, 520, 782]
       ZOrder		      8
-      LibraryVersion	      "1.65"
+      LibraryVersion	      "1.67"
       SourceBlock	      "limblab/BoundingBox"
       SourceType	      "SubSystem"
     }
@@ -1066,6 +1066,14 @@ Model {
       Position		      [1190, 380, 1220, 410]
       ZOrder		      -3
       Value		      "3"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant1"
+      SID		      "381"
+      Position		      [1005, 800, 1035, 830]
+      ZOrder		      11
+      Value		      "0"
     }
     Block {
       BlockType		      DataTypeConversion
@@ -1200,7 +1208,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 169, 405, 231]
 	      ZOrder		      -3
-	      LibraryVersion	      "1.64"
+	      LibraryVersion	      "1.65"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".1"
@@ -1212,7 +1220,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 254, 405, 316]
 	      ZOrder		      -4
-	      LibraryVersion	      "1.64"
+	      LibraryVersion	      "1.65"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".2"
@@ -1224,7 +1232,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 339, 405, 401]
 	      ZOrder		      -5
-	      LibraryVersion	      "1.64"
+	      LibraryVersion	      "1.65"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".3"
@@ -1236,7 +1244,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 424, 405, 486]
 	      ZOrder		      -6
-	      LibraryVersion	      "1.64"
+	      LibraryVersion	      "1.65"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".4"
@@ -1912,10 +1920,10 @@ Model {
       BlockType		      Reference
       Name		      "Motor Control"
       SID		      "376"
-      Ports		      [4, 1]
-      Position		      [1090, 519, 1280, 826]
+      Ports		      [5, 1]
+      Position		      [1090, 541, 1280, 849]
       ZOrder		      6
-      LibraryVersion	      "1.65"
+      LibraryVersion	      "1.67"
       SourceBlock	      "limblab/Motor Control"
       SourceType	      "SubSystem"
     }
@@ -1926,7 +1934,7 @@ Model {
       Ports		      [3, 2]
       Position		      [720, 593, 840, 747]
       ZOrder		      7
-      LibraryVersion	      "1.65"
+      LibraryVersion	      "1.67"
       SourceBlock	      "limblab/Recentering Subsystem"
       SourceType	      "SubSystem"
     }
@@ -2286,7 +2294,7 @@ Model {
       Ports		      [4]
       Position		      [1255, 307, 1345, 408]
       ZOrder		      -12
-      LibraryVersion	      "1.65"
+      LibraryVersion	      "1.67"
       SourceBlock	      "limblab/SendPacketToGraphics"
       SourceType	      "SubSystem"
     }
@@ -3588,7 +3596,7 @@ Model {
 	      Ports		      [3, 1]
 	      Position		      [405, 315, 505, 525]
 	      ZOrder		      -12
-	      LibraryVersion	      "1.64"
+	      LibraryVersion	      "1.65"
 	      SourceBlock	      "limblab/SerialConverter"
 	      SourceType	      ""
 	    }
@@ -3609,7 +3617,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [655, 310, 710, 525]
 	      ZOrder		      -14
-	      LibraryVersion	      "1.64"
+	      LibraryVersion	      "1.65"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      ""
 	    }
@@ -3620,7 +3628,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [635, 635, 685, 830]
 	      ZOrder		      -15
-	      LibraryVersion	      "1.64"
+	      LibraryVersion	      "1.65"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      ""
 	    }
@@ -5056,7 +5064,7 @@ Model {
     Line {
       SrcBlock		      "Behavior UF"
       SrcPort		      1
-      Points		      [17, 0; 0, 465]
+      Points		      [17, 0; 0, 480]
       DstBlock		      "Motor Control"
       DstPort		      1
     }
@@ -5079,7 +5087,7 @@ Model {
       SrcPort		      3
       Points		      [95, 0]
       Branch {
-	Points			[507, 0; 0, -45]
+	Points			[507, 0; 0, -45; 164, -30]
 	DstBlock		"Motor Control"
 	DstPort			4
       }
@@ -5104,6 +5112,7 @@ Model {
     Line {
       SrcBlock		      "Recentering Subsystem"
       SrcPort		      2
+      Points		      [99, -15]
       DstBlock		      "Motor Control"
       DstPort		      3
     }
@@ -5168,11 +5177,11 @@ Model {
       SrcPort		      1
       Points		      [25, 0]
       Branch {
+	Points			[0, -20]
 	DstBlock		"Matrix\nConcatenation2"
 	DstPort			1
       }
       Branch {
-	Points			[0, 20]
 	DstBlock		"Matrix\nConcatenation2"
 	DstPort			2
       }
@@ -5189,6 +5198,12 @@ Model {
       SrcPort		      1
       DstBlock		      "Behavior UF"
       DstPort		      4
+    }
+    Line {
+      SrcBlock		      "Constant1"
+      SrcPort		      1
+      DstBlock		      "Motor Control"
+      DstPort		      5
     }
   }
 }

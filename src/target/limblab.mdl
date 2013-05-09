@@ -19,7 +19,7 @@ Library {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [116.0, 109.0, 903.0, 599.0]
+      Location		      [116.0, 109.0, 1341.0, 708.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -41,11 +41,11 @@ Library {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"229"
-	Extents			[851.0, 431.0]
-	ZoomFactor		[0.8]
-	Offset			[37.616666666665878, 61.6666666666664]
+	ViewObjType		"SimulinkTopLevel"
+	LoadSaveID		"0"
+	Extents			[1289.0, 540.0]
+	ZoomFactor		[1.0]
+	Offset			[0.0, 0.0]
       }
     }
   }
@@ -53,11 +53,11 @@ Library {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "ricardo"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Apr 26 12:47:46 2013"
-  RTWModifiedTimeStamp	  288881264
-  ModelVersionFormat	  "1.%<AutoIncrement:65>"
+  LastModifiedDate	  "Thu May 09 12:37:06 2013"
+  RTWModifiedTimeStamp	  290003787
+  ModelVersionFormat	  "1.%<AutoIncrement:67>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -962,8 +962,8 @@ Library {
   }
   System {
     Name		    "limblab"
-    Location		    [1302, 63, 2844, 894]
-    Open		    off
+    Location		    [116, 109, 1457, 817]
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -976,7 +976,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "279"
+    SIDHighWatermark	    "286"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
@@ -1718,8 +1718,8 @@ Library {
       BlockType		      SubSystem
       Name		      "Motor Control"
       SID		      "229"
-      Ports		      [4, 1]
-      Position		      [635, 29, 825, 336]
+      Ports		      [5, 1]
+      Position		      [635, 31, 825, 339]
       ZOrder		      4
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
@@ -1730,8 +1730,8 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[116, 109, 1019, 708]
-	Open			on
+	Location		[116, 109, 1457, 817]
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1742,7 +1742,7 @@ Library {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"80"
+	ZoomFactor		"100"
 	Block {
 	  BlockType		  Inport
 	  Name			  "DefaultForce"
@@ -1779,11 +1779,40 @@ Library {
 	  IconDisplay		  "Port number"
 	}
 	Block {
+	  BlockType		  Inport
+	  Name			  "Inhibit Motors"
+	  SID			  "281"
+	  Position		  [1010, 328, 1040, 342]
+	  ZOrder		  10
+	  Port			  "5"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Abs
+	  Name			  "Abs"
+	  SID			  "285"
+	  Position		  [765, 500, 795, 530]
+	  ZOrder		  11
+	  BlockMirror		  on
+	  NamePlacement		  "alternate"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Abs
+	  Name			  "Abs1"
+	  SID			  "286"
+	  Position		  [765, 555, 795, 585]
+	  ZOrder		  12
+	  BlockMirror		  on
+	  NamePlacement		  "alternate"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
 	  BlockType		  Reference
 	  Name			  "Compare\nTo Constant"
 	  SID			  "234"
 	  Ports			  [1, 1]
-	  Position		  [760, 490, 790, 520]
+	  Position		  [710, 500, 740, 530]
 	  ZOrder		  -5
 	  BlockMirror		  on
 	  LibraryVersion	  "1.281"
@@ -1799,7 +1828,7 @@ Library {
 	  Name			  "Compare\nTo Constant1"
 	  SID			  "235"
 	  Ports			  [1, 1]
-	  Position		  [760, 555, 790, 585]
+	  Position		  [710, 555, 740, 585]
 	  ZOrder		  -6
 	  BlockMirror		  on
 	  LibraryVersion	  "1.281"
@@ -1809,6 +1838,18 @@ Library {
 	  const			  "250"
 	  OutDataTypeStr	  "uint8"
 	  ZeroCross		  off
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux1"
+	  SID			  "282"
+	  Ports			  [1, 2]
+	  Position		  [1160, 271, 1165, 389]
+	  ZOrder		  9
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -2042,6 +2083,17 @@ Library {
 	}
 	Block {
 	  BlockType		  Mux
+	  Name			  "Mux1"
+	  SID			  "280"
+	  Ports			  [2, 1]
+	  Position		  [975, 275, 980, 395]
+	  ZOrder		  6
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
 	  Name			  "Mux2"
 	  SID			  "252"
 	  Ports			  [2, 1]
@@ -2056,7 +2108,7 @@ Library {
 	  Name			  "PCI-6025E "
 	  SID			  "253"
 	  Ports			  [2]
-	  Position		  [1010, 214, 1125, 456]
+	  Position		  [1185, 209, 1300, 451]
 	  ZOrder		  -15
 	  LibraryVersion	  "1.265"
 	  SourceBlock		  "xpcnilib/D//A/E Series/PCI-6025E DA"
@@ -2434,6 +2486,17 @@ Library {
 	  ZeroCross		  off
 	}
 	Block {
+	  BlockType		  Switch
+	  Name			  "Switch3"
+	  SID			  "283"
+	  Position		  [1085, 293, 1115, 367]
+	  ZOrder		  8
+	  Criteria		  "u2 ~= 0"
+	  InputSameDT		  off
+	  SaturateOnIntegerOverflow off
+	  ZeroCross		  off
+	}
+	Block {
 	  BlockType		  Terminator
 	  Name			  "To scope if\ndesired"
 	  SID			  "277"
@@ -2475,6 +2538,14 @@ Library {
 	}
 	Block {
 	  BlockType		  Constant
+	  Name			  "zero2"
+	  SID			  "284"
+	  Position		  [1030, 296, 1060, 314]
+	  ZOrder		  7
+	  Value			  "[0 0]"
+	}
+	Block {
+	  BlockType		  Constant
 	  Name			  "zeroX"
 	  SID			  "274"
 	  Position		  [235, 140, 265, 170]
@@ -2502,6 +2573,10 @@ Library {
 	  SrcPort		  1
 	  Points		  [15, 0]
 	  Branch {
+	    DstBlock		    "Abs"
+	    DstPort		    1
+	  }
+	  Branch {
 	    DstBlock		    "Saturation"
 	    DstPort		    1
 	  }
@@ -2510,11 +2585,6 @@ Library {
 	    DstBlock		    "Mux"
 	    DstPort		    2
 	  }
-	  Branch {
-	    Points		    [0, 230]
-	    DstBlock		    "Compare\nTo Constant"
-	    DstPort		    1
-	  }
 	}
 	Line {
 	  SrcBlock		  "MG2"
@@ -2522,7 +2592,7 @@ Library {
 	  Points		  [25, 0]
 	  Branch {
 	    Points		    [0, 175]
-	    DstBlock		    "Compare\nTo Constant1"
+	    DstBlock		    "Abs1"
 	    DstPort		    1
 	  }
 	  Branch {
@@ -2612,14 +2682,14 @@ Library {
 	Line {
 	  SrcBlock		  "Compare\nTo Constant"
 	  SrcPort		  1
-	  Points		  [-15, 0; 0, 25]
+	  Points		  [-5, 0]
 	  DstBlock		  "Logical\nOperator1"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Compare\nTo Constant1"
 	  SrcPort		  1
-	  Points		  [-15, 0; 0, -25]
+	  Points		  [-5, 0]
 	  DstBlock		  "Logical\nOperator1"
 	  DstPort		  2
 	}
@@ -2695,14 +2765,68 @@ Library {
 	Line {
 	  SrcBlock		  "Saturation"
 	  SrcPort		  1
-	  DstBlock		  "PCI-6025E "
+	  Points		  [29, 0; 0, 30]
+	  DstBlock		  "Mux1"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Saturation1"
 	  SrcPort		  1
+	  Points		  [27, 0; 0, -30]
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Inhibit Motors"
+	  SrcPort		  1
+	  Points		  [24, 0; 0, -5]
+	  DstBlock		  "Switch3"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "zero2"
+	  SrcPort		  1
+	  DstBlock		  "Switch3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  Points		  [0, 23; 85, 0]
+	  DstBlock		  "Switch3"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Switch3"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  Points		  [5, 0; 0, 30]
 	  DstBlock		  "PCI-6025E "
 	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  1
+	  Points		  [5, 0; 0, -30]
+	  DstBlock		  "PCI-6025E "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Abs"
+	  SrcPort		  1
+	  DstBlock		  "Compare\nTo Constant"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Abs1"
+	  SrcPort		  1
+	  DstBlock		  "Compare\nTo Constant1"
+	  DstPort		  1
 	}
       }
     }
@@ -4714,7 +4838,7 @@ Library {
 	  Ports			  [2, 1]
 	  Position		  [410, 220, 515, 275]
 	  ZOrder		  -34
-	  LibraryVersion	  "1.64"
+	  LibraryVersion	  "1.65"
 	  SourceBlock		  "limblab/Timer"
 	  SourceType		  ""
 	  Time			  "10"
