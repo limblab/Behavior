@@ -137,7 +137,7 @@ private:
 	ArcTarget		*targetBar;
 	ArcTarget		*cloud[10];
 	ArcTarget		*priorTarget;
-
+	CircleTarget    *timerTarget;
 	LocalParams *params;
 
 	// helper functions
@@ -373,10 +373,10 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 		priorTarget->span = (params->slice_size)*PI/180;
 		priorTarget->height = params->OT_depth;
 
-		timerTarget->centerX = 15;
-		timerTarget->centerY = 11 ;
-		timerTarget->radius   = 0.25;
-		timerTarget->color   = Target::Color(255, 0, 0);
+		timerTarget->centerX = 14.25;
+		timerTarget->centerY = 10.75 ;
+		timerTarget->radius   = 0.5;
+		timerTarget->color   = Target::Color(255, 255, 255);
 
 	
 	// Initialize the cloud and cursor extent
@@ -707,10 +707,10 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 			}
 			outputs->targets[3 + int(params->slice_number)] = nullTarget;
 		}
-	
+	}
 
 	/* Timer Dot */
-		if (stateTimer->elapsedTime(S) < 0.1) {
+		if (stateTimer->elapsedTime(S) < 0.25) {
 			outputs->targets[4+int(params->slice_number)] = (Target *)timerTarget;
 		}
 		else {
