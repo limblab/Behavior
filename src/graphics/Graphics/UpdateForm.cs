@@ -197,6 +197,10 @@ namespace BehaviorGraphics
             AddParamListItem("Target Radius", "P2", "Behavior CO", this.textBoxTgtRadius);
             AddParamListItem("Target Size", "P3", "Behavior CO", this.textBoxTgtSize);
             AddParamListItem("Idiot Mode", "P16", "Behavior CO", this.checkBoxIdiot);
+            AddParamListItem("First Target Shift", "P19", "Behavior CO", this.angleEntryBox_CO_FTS);
+            AddParamListItem("Default Target Range", "P20", "Behavior CO", this.angleEntryBox_CO_DTR);
+            
+            
             #endregion
 
             #region Random Walk
@@ -2531,6 +2535,11 @@ namespace BehaviorGraphics
         }
 
         private void UncertaintyTarget2D_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
         {
 
         }

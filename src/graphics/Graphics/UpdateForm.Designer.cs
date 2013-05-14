@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -850,6 +850,8 @@ namespace BehaviorGraphics
             this.textBoxUFPG = new System.Windows.Forms.TextBox();
             this.label355 = new System.Windows.Forms.Label();
             this.groupBox68 = new System.Windows.Forms.GroupBox();
+            this.labelUFIBD = new System.Windows.Forms.Label();
+            this.textBoxUFIBD = new System.Windows.Forms.TextBox();
             this.textBoxUFBM = new System.Windows.Forms.TextBox();
             this.label235UF = new System.Windows.Forms.Label();
             this.checkBoxUFFB = new System.Windows.Forms.CheckBox();
@@ -1159,8 +1161,10 @@ namespace BehaviorGraphics
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.label324 = new System.Windows.Forms.Label();
-            this.labelUFIBD = new System.Windows.Forms.Label();
-            this.textBoxUFIBD = new System.Windows.Forms.TextBox();
+            this.labelCO_DTR = new System.Windows.Forms.Label();
+            this.label_CO_FTS = new System.Windows.Forms.Label();
+            this.angleEntryBox_CO_DTR = new AngleBox.AngleEntryBox();
+            this.angleEntryBox_CO_FTS = new AngleBox.AngleEntryBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -2114,7 +2118,7 @@ namespace BehaviorGraphics
             this.groupBox3.Controls.Add(this.bumpGroup);
             this.groupBox3.Controls.Add(this.radioButtonCatch);
             this.groupBox3.Controls.Add(this.radioButtonBump);
-            this.groupBox3.Location = new System.Drawing.Point(220, 81);
+            this.groupBox3.Location = new System.Drawing.Point(219, 152);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(441, 175);
             this.groupBox3.TabIndex = 23;
@@ -2269,6 +2273,10 @@ namespace BehaviorGraphics
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.angleEntryBox_CO_FTS);
+            this.groupBox2.Controls.Add(this.angleEntryBox_CO_DTR);
+            this.groupBox2.Controls.Add(this.label_CO_FTS);
+            this.groupBox2.Controls.Add(this.labelCO_DTR);
             this.groupBox2.Controls.Add(this.textBoxTgtSize);
             this.groupBox2.Controls.Add(this.numericUpDownNumTgts);
             this.groupBox2.Controls.Add(this.label20);
@@ -2278,10 +2286,11 @@ namespace BehaviorGraphics
             this.groupBox2.Controls.Add(this.label21);
             this.groupBox2.Location = new System.Drawing.Point(220, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(441, 69);
+            this.groupBox2.Size = new System.Drawing.Size(441, 140);
             this.groupBox2.TabIndex = 21;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Targets";
+            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // textBoxTgtSize
             // 
@@ -4062,8 +4071,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4895,8 +4904,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -9928,6 +9937,24 @@ namespace BehaviorGraphics
             this.groupBox68.TabStop = false;
             this.groupBox68.Text = "Bumps";
             // 
+            // labelUFIBD
+            // 
+            this.labelUFIBD.AutoSize = true;
+            this.labelUFIBD.Location = new System.Drawing.Point(9, 177);
+            this.labelUFIBD.Name = "labelUFIBD";
+            this.labelUFIBD.Size = new System.Drawing.Size(108, 13);
+            this.labelUFIBD.TabIndex = 52;
+            this.labelUFIBD.Text = "Infinite bump duration";
+            this.toolTip1.SetToolTip(this.labelUFIBD, "in seconds");
+            // 
+            // textBoxUFIBD
+            // 
+            this.textBoxUFIBD.Location = new System.Drawing.Point(131, 174);
+            this.textBoxUFIBD.Name = "textBoxUFIBD";
+            this.textBoxUFIBD.Size = new System.Drawing.Size(46, 20);
+            this.textBoxUFIBD.TabIndex = 51;
+            this.toolTip1.SetToolTip(this.textBoxUFIBD, "in seconds");
+            // 
             // textBoxUFBM
             // 
             this.textBoxUFBM.Location = new System.Drawing.Point(131, 145);
@@ -12977,23 +13004,39 @@ namespace BehaviorGraphics
             this.label324.TabIndex = 64;
             this.label324.Text = "1-D Jitter Magnitude";
             // 
-            // labelUFIBD
+            // labelCO_DTR
             // 
-            this.labelUFIBD.AutoSize = true;
-            this.labelUFIBD.Location = new System.Drawing.Point(9, 177);
-            this.labelUFIBD.Name = "labelUFIBD";
-            this.labelUFIBD.Size = new System.Drawing.Size(108, 13);
-            this.labelUFIBD.TabIndex = 52;
-            this.labelUFIBD.Text = "Infinite bump duration";
-            this.toolTip1.SetToolTip(this.labelUFIBD, "in seconds");
+            this.labelCO_DTR.AutoSize = true;
+            this.labelCO_DTR.Location = new System.Drawing.Point(10, 86);
+            this.labelCO_DTR.Name = "labelCO_DTR";
+            this.labelCO_DTR.Size = new System.Drawing.Size(110, 13);
+            this.labelCO_DTR.TabIndex = 19;
+            this.labelCO_DTR.Text = "Default Target Range";
             // 
-            // textBoxUFIBD
+            // label_CO_FTS
             // 
-            this.textBoxUFIBD.Location = new System.Drawing.Point(131, 174);
-            this.textBoxUFIBD.Name = "textBoxUFIBD";
-            this.textBoxUFIBD.Size = new System.Drawing.Size(46, 20);
-            this.textBoxUFIBD.TabIndex = 51;
-            this.toolTip1.SetToolTip(this.textBoxUFIBD, "in seconds");
+            this.label_CO_FTS.AutoSize = true;
+            this.label_CO_FTS.Location = new System.Drawing.Point(234, 86);
+            this.label_CO_FTS.Name = "label_CO_FTS";
+            this.label_CO_FTS.Size = new System.Drawing.Size(78, 13);
+            this.label_CO_FTS.TabIndex = 20;
+            this.label_CO_FTS.Text = "First target shift";
+            // 
+            // angleEntryBox_CO_DTR
+            // 
+            this.angleEntryBox_CO_DTR.Location = new System.Drawing.Point(130, 78);
+            this.angleEntryBox_CO_DTR.Name = "angleEntryBox_CO_DTR";
+            this.angleEntryBox_CO_DTR.Size = new System.Drawing.Size(76, 21);
+            this.angleEntryBox_CO_DTR.TabIndex = 46;
+            this.angleEntryBox_CO_DTR.Value = 6.28;
+            // 
+            // angleEntryBox_CO_FTS
+            // 
+            this.angleEntryBox_CO_FTS.Location = new System.Drawing.Point(326, 78);
+            this.angleEntryBox_CO_FTS.Name = "angleEntryBox_CO_FTS";
+            this.angleEntryBox_CO_FTS.Size = new System.Drawing.Size(76, 21);
+            this.angleEntryBox_CO_FTS.TabIndex = 47;
+            this.angleEntryBox_CO_FTS.Value = 0;
             // 
             // UpdateForm
             // 
@@ -14385,5 +14428,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label246UF;
         private System.Windows.Forms.Label labelUFIBD;
         private System.Windows.Forms.TextBox textBoxUFIBD;
+        private AngleBox.AngleEntryBox angleEntryBox_CO_FTS;
+        private AngleBox.AngleEntryBox angleEntryBox_CO_DTR;
+        private System.Windows.Forms.Label label_CO_FTS;
+        private System.Windows.Forms.Label labelCO_DTR;
     }
 }

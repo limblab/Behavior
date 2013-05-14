@@ -126,6 +126,12 @@ static real_T master_reset = 0.0;
 static int delay_bumps = 0;
 #define param_delay_bumps mxGetScalar(ssGetSFcnParam(S,17))
 
+static real_T first_target_shift;
+#define param_first_target_shift mxGetScalar(ssGetSFcnParam(S,18))
+
+static real_T target_angle_range;
+#define param_target_angle_range mxGetScalar(ssGetSFcnParam(S,19))
+
 /*
  * State IDs
  */
@@ -171,13 +177,17 @@ static void mdlCheckParameters(SimStruct *S)
     idiot_mode = (int)param_idiot_mode;
     
     delay_bumps = (int)param_delay_bumps;
+
+	first_target_shift = param_first_target_shift;
+    
+    target_angle_range = param_target_angle_range;
 }
 
 static void mdlInitializeSizes(SimStruct *S)
 {
     int i;
     
-    ssSetNumSFcnParams(S, 18); 
+    ssSetNumSFcnParams(S, 20); 
     if (ssGetNumSFcnParams(S) != ssGetSFcnParamsCount(S)) {
         return; /* parameter number mismatch */
     }
@@ -379,7 +389,7 @@ static void mdlUpdate(SimStruct *S, int_T tid)
     elapsed_timer_time = (real_T)(ssGetT(S)) - ssGetRWorkValue(S, 0);
     
     /* get target bounds */
-    theta = PI/2 - target*2*PI/num_targets;
+    theta = PI/2 - target*target_angle_range/num_targets + first_target_shift;
     ct[0] = -target_size/2;
     ct[1] = target_size/2;
     ct[2] = target_size/2;
@@ -454,6 +464,10 @@ static void mdlUpdate(SimStruct *S, int_T tid)
             idiot_mode = (int)param_idiot_mode;
             
             delay_bumps = (int)param_delay_bumps;
+
+			first_target_shift = param_first_target_shift;
+            
+            target_angle_range = param_target_angle_range;
             
             /* see if mode has changed.  If so we need a reset. */
             if (mode != param_mode) {
@@ -531,7 +545,17 @@ static void mdlUpdate(SimStruct *S, int_T tid)
                     target = target_list[target_index*2];
                 }
             }
-            
+            theta = PI/2 - target*target_angle_range/num_targets + first_target_shift;
+            ct[0] = -target_size/2;
+            ct[1] = target_size/2;
+            ct[2] = target_size/2;
+            ct[3] = -target_size/2;
+
+            ot[0] = cos(theta)*target_radius-target_size/2;
+            ot[1] = sin(theta)*target_radius+target_size/2;
+            ot[2] = cos(theta)*target_radius+target_size/2;
+            ot[3] = sin(theta)*target_radius-target_size/2;
+
             /* In all cases, we need to decide on the random timer durations */
             if (center_hold_h == center_hold_l) {
                 center_hold = center_hold_h;
@@ -782,7 +806,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     tone_id = ssGetRWorkValue(S, 2);
     
     /* get target bounds */
-    theta = PI/2 - target*2*PI/num_targets;
+    theta = PI/2 - target*target_angle_range/num_targets + first_target_shift;
     ct[0] = -target_size/2;
     ct[1] = target_size/2;
     ct[2] = target_size/2;
@@ -838,7 +862,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
             bump_duration_counter--;
             if (bump_duration_counter == 0)
                 bump_duration_counter = -1; /* don't bump again */
-            theta = PI/2 - bump*2*PI/num_targets;
+            theta = PI/2 - bump*target_angle_range/num_targets + first_target_shift;
             force_x = force_in[0] + cos(theta)*bump_magnitude;
             force_y = force_in[1] + sin(theta)*bump_magnitude;
         } else if ( bump != -1 && 
@@ -852,7 +876,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         {
             /* initiating a new mid-movement bump */
             bump_duration_counter = bump_duration;
-            theta = PI/2 - bump*2*PI/num_targets;
+            theta = PI/2 - bump*target_angle_range/num_targets + first_target_shift;
             force_x = force_in[0] + cos(theta)*bump_magnitude;
             force_y = force_in[1] + sin(theta)*bump_magnitude;
         } else {
