@@ -5,7 +5,7 @@
 
 #define DATABURST_VERSION ((byte)0x05) 
 /* 
- * Current Databurst version: 4
+ * Current Databurst version: 5
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -419,7 +419,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
     field_angle = fmod(block_order[block_counter] * PI/(params->num_field_orientations) + 
         params->first_field_angle,2*PI);  
     
-    if (block_counter == 0 & trial_counter == 0){
+    if (block_counter == 0 && trial_counter == 0){
         bias_force_counter++;
         if (bias_force_counter >= params->num_bias_directions){
             bias_force_counter = 0;
