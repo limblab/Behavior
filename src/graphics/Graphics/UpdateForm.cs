@@ -171,6 +171,28 @@ namespace BehaviorGraphics
             AddParamListItem("Elastic Load Angle Catch", "Value", "Catch Force Generator/PosForceAngle", this.textBoxEAC);
             #endregion
 
+            #region Defend Center
+
+            AddParamListItem("DC Target Size", "P3", "Behavior Defend Center", textboxDC_target_size);
+            AddParamListItem("DC Target Size Big", "P4", "Behavior Defend Center", textboxDC_target_size_big);
+            AddParamListItem("DC Bump Magnitude", "P5", "Behavior Defend Center", textboxDC_bump_magnitude);
+            AddParamListItem("DC Bump Duration", "P6", "Behavior Defend Center", textboxDC_bump_duration);
+            AddParamListItem("DC Bump Ramp", "P7", "Behavior Defend Center", textboxDC_bump_ramp);
+            AddParamListItem("DC Center Hold Time", "P8", "Behavior Defend Center", textboxDC_center_hold);
+            AddParamListItem("DC Bump Delay Time", "P9", "Behavior Defend Center", textboxDC_bump_delay);
+            AddParamListItem("DC Bump Delay Random", "P10", "Behavior Defend Center", textboxDC_bump_delay_rand);
+            AddParamListItem("DC Bump Hold Time", "P11", "Behavior Defend Center", textboxDC_bump_hold_time);
+            AddParamListItem("DC Inter Trial Time", "P12", "Behavior Defend Center", textboxDC_inter_trial_time);
+            AddParamListItem("DC Hide Cursor", "P13", "Behavior Defend Center", checkboxDC_hide_cursor);
+            AddParamListItem("DC Stim Prob", "P14", "Behavior Defend Center", textboxDC_stim_prob);
+            AddParamListItem("DC Penalty Time", "P15", "Behavior Defend Center", textboxDC_penalty_time);
+            AddParamListItem("DC Bump Floor", "P16", "Behavior Defend Center", textboxDC_bump_floor);
+            AddParamListItem("DC Bump Ceiling", "P17", "Behavior Defend Center", textboxDC_bump_ceiling);
+            AddParamListItem("DC Bump Increment", "P18", "Behavior Defend Center", textboxDC_bump_increment);
+            AddParamListItem("DC Stim Levels", "P19", "Behavior Defend Center", textboxDC_stim_levels);
+
+            #endregion
+
             #region Center-Out
             /* 
              * Center-Out Parameters 
@@ -2486,58 +2508,6 @@ namespace BehaviorGraphics
             widget_ValueChanged(sender, e);
         }
         
-        private void label351_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox21_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void textBox29_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox55_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox53_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelUWindowedFeedback_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelUDispVar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label310_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelUT2DTargetSize_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void UncertaintyTarget2D_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void groupBox2_Enter(object sender, EventArgs e)
         {
