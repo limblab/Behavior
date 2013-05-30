@@ -108,6 +108,8 @@ struct LocalParams {
 	real_T show_target_during_bump;
     real_T bump_incr;
 	real_T stim_levels;
+	real_T catch_rate;
+	real_T abort_during_bump
 };
 
 /**
@@ -137,7 +139,6 @@ private:
 
 	int bump_dir;
 	float bumpmag_local;
-    float catch_rate;
     Point cursorOffset;
 
 	CosineBumpGenerator *bump;
@@ -164,7 +165,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(27);
+	this->setNumParams(29);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
 	this->bindParamId(&params->soft_reset,				1);
@@ -193,6 +194,8 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->show_target_during_bump,	24);
     this->bindParamId(&params->bump_incr,           	25);
 	this->bindParamId(&params->stim_levels,				26);
+	this->bindParamId(&params->catch_rate,				27);
+	this->bindParamId(&params->abort_during_bump,		28);
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -216,7 +219,6 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 
 
 	this->stim_trial = false;
-	this->catch_rate = 0.1;//this is a stupid hardcode until I get rount to implementing a link to the graphics panel for dynamic setting
 	this->bump_dir = 0;
 	this->bump = new CosineBumpGenerator();
 	this->training_trial=0;
@@ -276,7 +278,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	}
 
 	// Set up the bump itself
-	if(catch_rate>0){
+	if(params->catch_rate>0){
 		if(this->random->getInteger(1,10)>1){
 			bumpmag_local=(float)params->bump_magnitude;
 		} else {
@@ -410,12 +412,10 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_BUMP:
-//			if (!centerTarget->cursorInTarget(inputs->cursor) && !this->stim_trial) {
-//			if (!centerTarget->cursorInTarget(inputs->cursor) ) {
-//				playTone(TONE_ABORT);
-//				setState(STATE_ABORT);
-//			} else 
-			if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
+			if (!centerTarget->cursorInTarget(inputs->cursor) && params->abort_during_bump) {
+				playTone(TONE_ABORT);
+				setState(STATE_ABORT);
+			} else if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
 				playTone(TONE_GO);
                 if (params->recenter_cursor) {
                     cursorOffset = inputs->cursor;
