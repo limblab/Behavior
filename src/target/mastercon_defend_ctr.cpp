@@ -104,11 +104,12 @@ struct LocalParams {
  *
  * You must also update the definition below with the name of your class
  */
-#define MY_CLASS_NAME TwoBumpChoiceBehavior
-class TwoBumpChoiceBehavior : public RobotBehavior {
+
+#define MY_CLASS_NAME DefendCenterBehavior
+class DefendCenterBehavior : public RobotBehavior {
 public:
 	// You must implement these three public methods
-	TwoBumpChoiceBehavior(SimStruct *S);
+	DefendCenterBehavior(SimStruct *S);
 	void update(SimStruct *S);
 	void calculateOutputs(SimStruct *S);	
 
@@ -136,7 +137,7 @@ private:
 
 };
 
-TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
+DefendCenterBehavior::DefendCenterBehavior(SimStruct *S) : RobotBehavior() {
 
 
 	/* 
@@ -157,7 +158,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->bump_ramp,				6);
 	this->bindParamId(&params->ct_hold_time,			7);
 	this->bindParamId(&params->bump_delay_time,			8);
-	this->bindParamID(&params->bump_delay_rand,			9);
+	this->bindParamId(&params->bump_delay_rand,			9);
 	this->bindParamId(&params->bump_hold_time,			10);
 	this->bindParamId(&params->intertrial_time,			11);
 	this->bindParamId(&params->hide_cursor,				12);
@@ -179,6 +180,8 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 
 	centerTarget = new CircleTarget();
 	centerTarget->color = Target::Color(128, 128, 128);
+    centerTarget->centerX = 0;
+	centerTarget->centerY = 0;
 
 	errorTarget = new SquareTarget(0, 0, 100, Target::Color(255, 255, 255));
 
@@ -192,13 +195,13 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 }
 
 
-void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
+void DefendCenterBehavior::doPreTrial(SimStruct *S) {
     int num_bump_dirs; // number of bump directions there will be between bump_floor and bump_ceiling
 
 
 	// Set up target locations, etc.
 	centerTarget->radius = params->target_size;
-
+    
  	//select a random bump direction. 
     num_bump_dirs = (int)((this->params->bump_ceiling - this->params->bump_floor)/this->params->bump_incr);
 	bump_dir = (int)this->params->bump_floor + (int)this->params->bump_incr * (this->random->getInteger(0,num_bump_dirs)); 
@@ -218,7 +221,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	this->bump->hold_duration = params->bump_duration;
 	this->bump->rise_time = params->bump_ramp;
 
-	this->bumpdelay=params->bump_delay_time+this->random->getDouble(0,params->bump_delay_rand)
+	this->bumpdelay=params->bump_delay_time+this->random->getDouble(0,params->bump_delay_rand);
     
     /* Select whether this will be a stimulation trial */
     this->stim_trial=(this->random->getDouble() < params->stim_prob);
@@ -252,7 +255,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->start();
 }
 
-void TwoBumpChoiceBehavior::update(SimStruct *S) {
+void DefendCenterBehavior::update(SimStruct *S) {
 	// State machine
 	switch (this->getState()) {
 		case STATE_PRETRIAL:
@@ -334,7 +337,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 	}
 }
 
-void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
+void DefendCenterBehavior::calculateOutputs(SimStruct *S) {
     /* declarations */
     Point bf;
 
@@ -355,7 +358,10 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 
  	outputs->status[3] = trialCounter->failures;
  	outputs->status[4] = (int)(180/PI)*this->bump->direction;
-  
+    
+    outputs->status[3] = -1;
+    outputs->status[4] = params->target_size;
+      
 	/* word(2) */
 	if (db->isRunning()) {
 		outputs->word = db->getByte();
@@ -396,27 +402,17 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* target_pos (3) */
-	outputs->targets[1] = nullTarget;
-	outputs->targets[2] = nullTarget;
-	// Center Target
-	if (getState() == STATE_CT_ON || 
-	    getState() == STATE_CT_HOLD ) 
-	{
-		outputs->targets[0] = (Target *)centerTarget;
-		
-	} else if
-        (getState() == STATE_CT_BLOCK ||
-         getState() == STATE_BUMP) 
-	{
-		outputs->targets[0] = (Target *)centerTarget;
+	// Center Target    
+	if (getState() == STATE_CT_ON || getState() == STATE_CT_HOLD ) {
+		outputs->targets[0] = (Target *)(this->centerTarget);		
+	} else if (getState() == STATE_CT_BLOCK || getState() == STATE_BUMP){
+        outputs->targets[0] = (Target *)(this->centerTarget);
 	} else if (getState() == STATE_MOVEMENT) {
 		outputs->targets[0] = (Target *)(this->centerTarget);
-
 	} else if (getState() == STATE_PENALTY) {
 		outputs->targets[0] = (Target *)(this->errorTarget);
 	} else {
 		outputs->targets[0] = nullTarget;
-
 	}
 
 	/* reward (4) */

@@ -473,12 +473,10 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 
 	/* status (1) */
  	outputs->status[0] = getState();
-//  	outputs->status[1] = trialCounter->successes;
-    outputs->status[1] = (int)(params->target_angle);
-//  	outputs->status[2] = trialCounter->failures;
-    outputs->status[2] = (int)(this->tgt_angle);
- 	outputs->status[3] = (int)(this->bump_dir);
- 	outputs->status[4] = (int)(180/PI)*this->bump->direction;
+	outputs->status[1] = trialCounter->successes;
+	outputs->status[2] = trialCounter->aborts;
+ 	outputs->status[3] = trialCounter->failures;
+ 	outputs->status[4] = trialCounter->incompletes;
   
 	/* word(2) */
 	if (db->isRunning()) {

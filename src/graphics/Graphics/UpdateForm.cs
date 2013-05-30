@@ -785,8 +785,9 @@ namespace BehaviorGraphics
             AddParamListItem("2BC Rand Targ Floor", "P21", "Behavior 2BC", textBox2BC_rand_tgt_floor);
             AddParamListItem("2BC Rand Targ Ceil", "P22", "Behavior 2BC", textBox2BC_rand_tgt_ceil);
             AddParamListItem("2BC show tgt during bump", "P25", "Behavior 2BC", checkBox2BC_showtgt_bump);
-            AddParamListItem("2BC training freq", "P18", "Behavior 2BC", textBox2BC_training_freq);
+            AddParamListItem("2BC training freq", "P19", "Behavior 2BC", textBox2BC_training_freq);
 
+            
             #endregion
 
             #region Unstable Field
@@ -2509,10 +2510,6 @@ namespace BehaviorGraphics
         }
         
 
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
-        }
 
     }
 
