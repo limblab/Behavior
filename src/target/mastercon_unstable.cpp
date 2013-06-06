@@ -210,6 +210,9 @@ struct LocalParams{
     
     // More bump stuff
     real_T infinite_bump_duration;
+    
+    // More field stuff
+    real_T vel_filt;
 };
 
 /**
@@ -282,7 +285,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(32);
+	this->setNumParams(33);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->field_ramp_up,							 1);
@@ -327,8 +330,10 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     
     this->bindParamId(&params->infinite_bump_duration,                   31);
     
+    this->bindParamId(&params->vel_filt,                                 32);
+    
     // default parameters:
-    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2   0
+    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2   0   1
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -578,8 +583,8 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     //int i;
     //x_vel = inputs->catchForce.x;  // Passing velocity signal through catch force port
     //y_vel = inputs->catchForce.y;
-    x_vel = (x_pos-x_pos_old)/.001;
-    y_vel = (y_pos-y_pos_old)/.001;
+    x_vel = x_vel_old*(1-params->vel_filt) + ((x_pos-x_pos_old)/.001)*params->vel_filt;
+    y_vel = y_vel_old*(1-params->vel_filt) + ((y_pos-y_pos_old)/.001)*params->vel_filt;
     vel = sqrt(x_vel*x_vel + y_vel*y_vel);     
     
     // Velocity bump P,D values

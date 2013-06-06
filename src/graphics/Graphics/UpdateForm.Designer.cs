@@ -819,6 +819,9 @@ namespace BehaviorGraphics
             this.label343BC = new System.Windows.Forms.Label();
             this.textBox2BCStimProb = new System.Windows.Forms.TextBox();
             this.groupBox62 = new System.Windows.Forms.GroupBox();
+            this.cr_label = new System.Windows.Forms.Label();
+            this.textBox2BC_catch_rate = new System.Windows.Forms.TextBox();
+            this.checkBox2BC_abort_during_bump = new System.Windows.Forms.CheckBox();
             this.label354BC = new System.Windows.Forms.Label();
             this.textBox2BC_bump_incr = new System.Windows.Forms.TextBox();
             this.label349 = new System.Windows.Forms.Label();
@@ -1205,9 +1208,8 @@ namespace BehaviorGraphics
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.label324 = new System.Windows.Forms.Label();
-            this.checkBox2BC_abort_during_bump = new System.Windows.Forms.CheckBox();
-            this.textBox2BC_catch_rate = new System.Windows.Forms.TextBox();
-            this.cr_label = new System.Windows.Forms.Label();
+            this.labelUFVelFilt = new System.Windows.Forms.Label();
+            this.textBoxUFVF = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -9677,6 +9679,35 @@ namespace BehaviorGraphics
             this.groupBox62.TabStop = false;
             this.groupBox62.Text = "Bump";
             // 
+            // cr_label
+            // 
+            this.cr_label.AutoSize = true;
+            this.cr_label.Location = new System.Drawing.Point(4, 190);
+            this.cr_label.Name = "cr_label";
+            this.cr_label.Size = new System.Drawing.Size(55, 13);
+            this.cr_label.TabIndex = 106;
+            this.cr_label.Text = "catch rate";
+            // 
+            // textBox2BC_catch_rate
+            // 
+            this.textBox2BC_catch_rate.Location = new System.Drawing.Point(99, 187);
+            this.textBox2BC_catch_rate.Name = "textBox2BC_catch_rate";
+            this.textBox2BC_catch_rate.Size = new System.Drawing.Size(88, 20);
+            this.textBox2BC_catch_rate.TabIndex = 105;
+            this.toolTip1.SetToolTip(this.textBox2BC_catch_rate, "sets the step size between adjacent bump angles. should be entered in degrees");
+            // 
+            // checkBox2BC_abort_during_bump
+            // 
+            this.checkBox2BC_abort_during_bump.AutoSize = true;
+            this.checkBox2BC_abort_during_bump.Location = new System.Drawing.Point(6, 232);
+            this.checkBox2BC_abort_during_bump.Name = "checkBox2BC_abort_during_bump";
+            this.checkBox2BC_abort_during_bump.Size = new System.Drawing.Size(111, 17);
+            this.checkBox2BC_abort_during_bump.TabIndex = 104;
+            this.checkBox2BC_abort_during_bump.Text = "abort during bump";
+            this.toolTip1.SetToolTip(this.checkBox2BC_abort_during_bump, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox2BC_abort_during_bump.UseVisualStyleBackColor = true;
+            // 
             // label354BC
             // 
             this.label354BC.AutoSize = true;
@@ -10318,6 +10349,8 @@ namespace BehaviorGraphics
             // 
             // groupBox65
             // 
+            this.groupBox65.Controls.Add(this.labelUFVelFilt);
+            this.groupBox65.Controls.Add(this.textBoxUFVF);
             this.groupBox65.Controls.Add(this.label247UF);
             this.groupBox65.Controls.Add(this.angleEntryBoxUFBAS);
             this.groupBox65.Controls.Add(this.label246UF);
@@ -10344,7 +10377,7 @@ namespace BehaviorGraphics
             this.groupBox65.Controls.Add(this.textBoxUFNS);
             this.groupBox65.Location = new System.Drawing.Point(214, 8);
             this.groupBox65.Name = "groupBox65";
-            this.groupBox65.Size = new System.Drawing.Size(201, 349);
+            this.groupBox65.Size = new System.Drawing.Size(201, 378);
             this.groupBox65.TabIndex = 0;
             this.groupBox65.TabStop = false;
             this.groupBox65.Text = "Unstable field parameters";
@@ -10352,7 +10385,7 @@ namespace BehaviorGraphics
             // label247UF
             // 
             this.label247UF.AutoSize = true;
-            this.label247UF.Location = new System.Drawing.Point(5, 288);
+            this.label247UF.Location = new System.Drawing.Point(4, 318);
             this.label247UF.Name = "label247UF";
             this.label247UF.Size = new System.Drawing.Size(112, 13);
             this.label247UF.TabIndex = 51;
@@ -10360,7 +10393,7 @@ namespace BehaviorGraphics
             // 
             // angleEntryBoxUFBAS
             // 
-            this.angleEntryBoxUFBAS.Location = new System.Drawing.Point(119, 312);
+            this.angleEntryBoxUFBAS.Location = new System.Drawing.Point(118, 342);
             this.angleEntryBoxUFBAS.Name = "angleEntryBoxUFBAS";
             this.angleEntryBoxUFBAS.Size = new System.Drawing.Size(76, 21);
             this.angleEntryBoxUFBAS.TabIndex = 48;
@@ -10369,7 +10402,7 @@ namespace BehaviorGraphics
             // label246UF
             // 
             this.label246UF.AutoSize = true;
-            this.label246UF.Location = new System.Drawing.Point(6, 320);
+            this.label246UF.Location = new System.Drawing.Point(5, 350);
             this.label246UF.Name = "label246UF";
             this.label246UF.Size = new System.Drawing.Size(108, 13);
             this.label246UF.TabIndex = 49;
@@ -10377,7 +10410,7 @@ namespace BehaviorGraphics
             // 
             // numericUpDownUFNBFA
             // 
-            this.numericUpDownUFNBFA.Location = new System.Drawing.Point(149, 286);
+            this.numericUpDownUFNBFA.Location = new System.Drawing.Point(148, 316);
             this.numericUpDownUFNBFA.Minimum = new decimal(new int[] {
             1,
             0,
@@ -10413,7 +10446,7 @@ namespace BehaviorGraphics
             // 
             // angleEntryBoxUFFFA
             // 
-            this.angleEntryBoxUFFFA.Location = new System.Drawing.Point(120, 125);
+            this.angleEntryBoxUFFFA.Location = new System.Drawing.Point(119, 155);
             this.angleEntryBoxUFFFA.Name = "angleEntryBoxUFFFA";
             this.angleEntryBoxUFFFA.Size = new System.Drawing.Size(76, 21);
             this.angleEntryBoxUFFFA.TabIndex = 45;
@@ -10422,7 +10455,7 @@ namespace BehaviorGraphics
             // label345
             // 
             this.label345.AutoSize = true;
-            this.label345.Location = new System.Drawing.Point(6, 100);
+            this.label345.Location = new System.Drawing.Point(5, 130);
             this.label345.Name = "label345";
             this.label345.Size = new System.Drawing.Size(86, 13);
             this.label345.TabIndex = 44;
@@ -10430,7 +10463,7 @@ namespace BehaviorGraphics
             // 
             // numericUpDownUFNO
             // 
-            this.numericUpDownUFNO.Location = new System.Drawing.Point(150, 99);
+            this.numericUpDownUFNO.Location = new System.Drawing.Point(149, 129);
             this.numericUpDownUFNO.Minimum = new decimal(new int[] {
             1,
             0,
@@ -10449,7 +10482,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUFFBL
             // 
-            this.textBoxUFFBL.Location = new System.Drawing.Point(142, 151);
+            this.textBoxUFFBL.Location = new System.Drawing.Point(141, 181);
             this.textBoxUFFBL.Name = "textBoxUFFBL";
             this.textBoxUFFBL.Size = new System.Drawing.Size(54, 20);
             this.textBoxUFFBL.TabIndex = 13;
@@ -10458,7 +10491,7 @@ namespace BehaviorGraphics
             // label344
             // 
             this.label344.AutoSize = true;
-            this.label344.Location = new System.Drawing.Point(6, 154);
+            this.label344.Location = new System.Drawing.Point(5, 184);
             this.label344.Name = "label344";
             this.label344.Size = new System.Drawing.Size(90, 13);
             this.label344.TabIndex = 14;
@@ -10466,7 +10499,7 @@ namespace BehaviorGraphics
             // 
             // angleEntryBoxUFFBFA
             // 
-            this.angleEntryBoxUFFBFA.Location = new System.Drawing.Point(120, 259);
+            this.angleEntryBoxUFFBFA.Location = new System.Drawing.Point(119, 289);
             this.angleEntryBoxUFFBFA.Name = "angleEntryBoxUFFBFA";
             this.angleEntryBoxUFFBFA.Size = new System.Drawing.Size(76, 21);
             this.angleEntryBoxUFFBFA.TabIndex = 1;
@@ -10475,7 +10508,7 @@ namespace BehaviorGraphics
             // label330
             // 
             this.label330.AutoSize = true;
-            this.label330.Location = new System.Drawing.Point(6, 264);
+            this.label330.Location = new System.Drawing.Point(5, 294);
             this.label330.Name = "label330";
             this.label330.Size = new System.Drawing.Size(104, 13);
             this.label330.TabIndex = 12;
@@ -10484,7 +10517,7 @@ namespace BehaviorGraphics
             // label329
             // 
             this.label329.AutoSize = true;
-            this.label329.Location = new System.Drawing.Point(6, 208);
+            this.label329.Location = new System.Drawing.Point(5, 238);
             this.label329.Name = "label329";
             this.label329.Size = new System.Drawing.Size(82, 13);
             this.label329.TabIndex = 11;
@@ -10493,7 +10526,7 @@ namespace BehaviorGraphics
             // label328
             // 
             this.label328.AutoSize = true;
-            this.label328.Location = new System.Drawing.Point(6, 236);
+            this.label328.Location = new System.Drawing.Point(5, 266);
             this.label328.Name = "label328";
             this.label328.Size = new System.Drawing.Size(106, 13);
             this.label328.TabIndex = 10;
@@ -10502,7 +10535,7 @@ namespace BehaviorGraphics
             // label327
             // 
             this.label327.AutoSize = true;
-            this.label327.Location = new System.Drawing.Point(6, 128);
+            this.label327.Location = new System.Drawing.Point(5, 158);
             this.label327.Name = "label327";
             this.label327.Size = new System.Drawing.Size(77, 13);
             this.label327.TabIndex = 9;
@@ -10511,7 +10544,7 @@ namespace BehaviorGraphics
             // label326
             // 
             this.label326.AutoSize = true;
-            this.label326.Location = new System.Drawing.Point(6, 180);
+            this.label326.Location = new System.Drawing.Point(5, 210);
             this.label326.Name = "label326";
             this.label326.Size = new System.Drawing.Size(82, 13);
             this.label326.TabIndex = 8;
@@ -10537,7 +10570,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUFBFM
             // 
-            this.textBoxUFBFM.Location = new System.Drawing.Point(142, 233);
+            this.textBoxUFBFM.Location = new System.Drawing.Point(141, 263);
             this.textBoxUFBFM.Name = "textBoxUFBFM";
             this.textBoxUFBFM.Size = new System.Drawing.Size(54, 20);
             this.textBoxUFBFM.TabIndex = 4;
@@ -10545,7 +10578,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUFYPO
             // 
-            this.textBoxUFYPO.Location = new System.Drawing.Point(142, 205);
+            this.textBoxUFYPO.Location = new System.Drawing.Point(141, 235);
             this.textBoxUFYPO.Name = "textBoxUFYPO";
             this.textBoxUFYPO.Size = new System.Drawing.Size(54, 20);
             this.textBoxUFYPO.TabIndex = 3;
@@ -10553,7 +10586,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUFXPO
             // 
-            this.textBoxUFXPO.Location = new System.Drawing.Point(142, 177);
+            this.textBoxUFXPO.Location = new System.Drawing.Point(141, 207);
             this.textBoxUFXPO.Name = "textBoxUFXPO";
             this.textBoxUFXPO.Size = new System.Drawing.Size(54, 20);
             this.textBoxUFXPO.TabIndex = 2;
@@ -12645,7 +12678,7 @@ namespace BehaviorGraphics
             // toolStripStatusLabelMdl
             // 
             this.toolStripStatusLabelMdl.Name = "toolStripStatusLabelMdl";
-            this.toolStripStatusLabelMdl.Size = new System.Drawing.Size(86, 17);
+            this.toolStripStatusLabelMdl.Size = new System.Drawing.Size(99, 17);
             this.toolStripStatusLabelMdl.Text = "No model loaded";
             // 
             // toolStripProgressBar1
@@ -12678,14 +12711,14 @@ namespace BehaviorGraphics
             this.toolStripSeparator2,
             this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -12693,7 +12726,7 @@ namespace BehaviorGraphics
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -12702,30 +12735,30 @@ namespace BehaviorGraphics
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
                         | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(183, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(183, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.quitToolStripMenuItem.Text = "&Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quit);
             // 
@@ -12735,13 +12768,13 @@ namespace BehaviorGraphics
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -12755,27 +12788,27 @@ namespace BehaviorGraphics
             this.setLabToolStripMenuItem,
             this.keepGraphicsRunningToolStripMenuItem});
             this.displayToolStripMenuItem.Name = "displayToolStripMenuItem";
-            this.displayToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.displayToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.displayToolStripMenuItem.Text = "&Display";
             // 
             // boxToolStripMenuItem
             // 
             this.boxToolStripMenuItem.Name = "boxToolStripMenuItem";
-            this.boxToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.boxToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.boxToolStripMenuItem.Text = "&Box";
             this.boxToolStripMenuItem.Click += new System.EventHandler(this.boxToolStripMenuItem_Click);
             // 
             // boxSettingsToolStripMenuItem
             // 
             this.boxSettingsToolStripMenuItem.Name = "boxSettingsToolStripMenuItem";
-            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.boxSettingsToolStripMenuItem.Text = "Box &Settings...";
             this.boxSettingsToolStripMenuItem.Click += new System.EventHandler(this.boxSettingsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(181, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(194, 6);
             // 
             // soundThemeToolStripMenuItem
             // 
@@ -12785,7 +12818,7 @@ namespace BehaviorGraphics
             this.theme3ToolStripMenuItem,
             this.theme4ToolStripMenuItem});
             this.soundThemeToolStripMenuItem.Name = "soundThemeToolStripMenuItem";
-            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.soundThemeToolStripMenuItem.Text = "Sound &Theme";
             // 
             // theme1ToolStripMenuItem
@@ -12793,42 +12826,42 @@ namespace BehaviorGraphics
             this.theme1ToolStripMenuItem.Checked = true;
             this.theme1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.theme1ToolStripMenuItem.Name = "theme1ToolStripMenuItem";
-            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme1ToolStripMenuItem.Text = "Theme 1";
             this.theme1ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme2ToolStripMenuItem
             // 
             this.theme2ToolStripMenuItem.Name = "theme2ToolStripMenuItem";
-            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme2ToolStripMenuItem.Text = "Theme 2";
             this.theme2ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme3ToolStripMenuItem
             // 
             this.theme3ToolStripMenuItem.Name = "theme3ToolStripMenuItem";
-            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme3ToolStripMenuItem.Text = "Theme 3";
             this.theme3ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme4ToolStripMenuItem
             // 
             this.theme4ToolStripMenuItem.Name = "theme4ToolStripMenuItem";
-            this.theme4ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme4ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme4ToolStripMenuItem.Text = "Theme 4";
             this.theme4ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // setLabToolStripMenuItem
             // 
             this.setLabToolStripMenuItem.Name = "setLabToolStripMenuItem";
-            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.setLabToolStripMenuItem.Text = "Set &Lab...";
             this.setLabToolStripMenuItem.Click += new System.EventHandler(this.setLabToolStripMenuItem_Click);
             // 
             // keepGraphicsRunningToolStripMenuItem
             // 
             this.keepGraphicsRunningToolStripMenuItem.Name = "keepGraphicsRunningToolStripMenuItem";
-            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.keepGraphicsRunningToolStripMenuItem.Text = "&Keep Graphics Running";
             this.keepGraphicsRunningToolStripMenuItem.Click += new System.EventHandler(this.keepGraphicsRunningToolStripMenuItem_Click);
             // 
@@ -12838,14 +12871,14 @@ namespace BehaviorGraphics
             this.loadModelToolStripMenuItem,
             this.resetCountersToolStripMenuItem});
             this.modelToolStripMenuItem.Name = "modelToolStripMenuItem";
-            this.modelToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.modelToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.modelToolStripMenuItem.Text = "&Model";
             // 
             // loadModelToolStripMenuItem
             // 
             this.loadModelToolStripMenuItem.Name = "loadModelToolStripMenuItem";
             this.loadModelToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.loadModelToolStripMenuItem.Text = "&Load Model";
             this.loadModelToolStripMenuItem.Click += new System.EventHandler(this.loadModelToolStripMenuItem_Click);
             // 
@@ -12853,7 +12886,7 @@ namespace BehaviorGraphics
             // 
             this.resetCountersToolStripMenuItem.Name = "resetCountersToolStripMenuItem";
             this.resetCountersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.resetCountersToolStripMenuItem.Text = "&Reset Counters";
             this.resetCountersToolStripMenuItem.Click += new System.EventHandler(this.resetCountersToolStripMenuItem_Click);
             // 
@@ -13457,34 +13490,22 @@ namespace BehaviorGraphics
             this.label324.TabIndex = 64;
             this.label324.Text = "1-D Jitter Magnitude";
             // 
-            // checkBox2BC_abort_during_bump
+            // labelUFVelFilt
             // 
-            this.checkBox2BC_abort_during_bump.AutoSize = true;
-            this.checkBox2BC_abort_during_bump.Location = new System.Drawing.Point(6, 232);
-            this.checkBox2BC_abort_during_bump.Name = "checkBox2BC_abort_during_bump";
-            this.checkBox2BC_abort_during_bump.Size = new System.Drawing.Size(111, 17);
-            this.checkBox2BC_abort_during_bump.TabIndex = 104;
-            this.checkBox2BC_abort_during_bump.Text = "abort during bump";
-            this.toolTip1.SetToolTip(this.checkBox2BC_abort_during_bump, "When checked the targets will appear at random angles between the specified floor" +
-                    " and ceiling values");
-            this.checkBox2BC_abort_during_bump.UseVisualStyleBackColor = true;
+            this.labelUFVelFilt.AutoSize = true;
+            this.labelUFVelFilt.Location = new System.Drawing.Point(6, 102);
+            this.labelUFVelFilt.Name = "labelUFVelFilt";
+            this.labelUFVelFilt.Size = new System.Drawing.Size(66, 13);
+            this.labelUFVelFilt.TabIndex = 53;
+            this.labelUFVelFilt.Text = "Velocity filter";
             // 
-            // textBox2BC_catch_rate
+            // textBoxUFVF
             // 
-            this.textBox2BC_catch_rate.Location = new System.Drawing.Point(99, 187);
-            this.textBox2BC_catch_rate.Name = "textBox2BC_catch_rate";
-            this.textBox2BC_catch_rate.Size = new System.Drawing.Size(88, 20);
-            this.textBox2BC_catch_rate.TabIndex = 105;
-            this.toolTip1.SetToolTip(this.textBox2BC_catch_rate, "sets the step size between adjacent bump angles. should be entered in degrees");
-            // 
-            // cr_label
-            // 
-            this.cr_label.AutoSize = true;
-            this.cr_label.Location = new System.Drawing.Point(4, 190);
-            this.cr_label.Name = "cr_label";
-            this.cr_label.Size = new System.Drawing.Size(55, 13);
-            this.cr_label.TabIndex = 106;
-            this.cr_label.Text = "catch rate";
+            this.textBoxUFVF.Location = new System.Drawing.Point(142, 99);
+            this.textBoxUFVF.Name = "textBoxUFVF";
+            this.textBoxUFVF.Size = new System.Drawing.Size(54, 20);
+            this.textBoxUFVF.TabIndex = 52;
+            this.toolTip1.SetToolTip(this.textBoxUFVF, "vel = old_vel*(1-VF) + curr_vel*VF");
             // 
             // UpdateForm
             // 
@@ -14934,5 +14955,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label cr_label;
         private System.Windows.Forms.TextBox textBox2BC_catch_rate;
         private System.Windows.Forms.CheckBox checkBox2BC_abort_during_bump;
+        private System.Windows.Forms.Label labelUFVelFilt;
+        private System.Windows.Forms.TextBox textBoxUFVF;
     }
 }

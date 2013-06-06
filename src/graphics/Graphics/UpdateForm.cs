@@ -770,7 +770,8 @@ namespace BehaviorGraphics
             AddParamListItem("2BC Rand Bump Ceil", "P24", "Behavior 2BC", textBox2BC_rand_bump_ceil);
             AddParamListItem("2BC Bump Angle Increment", "P26", "Behavior 2BC", textBox2BC_bump_incr);
             AddParamListItem("2BC Catch Rate", "P28", "Behavior 2BC", textBox2BC_catch_rate);
-            AddParamListItem("2BC Abort During Bump", "P29", "Behavior 2BC", checkBox2BC_abort_during);
+            // The following line was giving a compilation error
+            //AddParamListItem("2BC Abort During Bump", "P29", "Behavior 2BC", checkBox2BC_abort_during);
 
             // Stim
             AddParamListItem("2BC Stim Prob", "P16", "Behavior 2BC", textBox2BCStimProb);
@@ -845,6 +846,9 @@ namespace BehaviorGraphics
 
             // More bump stuff
             AddParamListItem("UF IBD", "P32", "Behavior UF", this.textBoxUFIBD);
+
+            // More field stuff
+            AddParamListItem("UF VF", "P33", "Behavior UF", this.textBoxUFVF);
 
             #endregion
 
