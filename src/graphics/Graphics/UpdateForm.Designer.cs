@@ -889,6 +889,8 @@ namespace BehaviorGraphics
             this.label333 = new System.Windows.Forms.Label();
             this.label332 = new System.Windows.Forms.Label();
             this.groupBox65 = new System.Windows.Forms.GroupBox();
+            this.labelUFVelFilt = new System.Windows.Forms.Label();
+            this.textBoxUFVF = new System.Windows.Forms.TextBox();
             this.label247UF = new System.Windows.Forms.Label();
             this.angleEntryBoxUFBAS = new AngleBox.AngleEntryBox();
             this.label246UF = new System.Windows.Forms.Label();
@@ -1208,8 +1210,8 @@ namespace BehaviorGraphics
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.label324 = new System.Windows.Forms.Label();
-            this.labelUFVelFilt = new System.Windows.Forms.Label();
-            this.textBoxUFVF = new System.Windows.Forms.TextBox();
+            this.label247UFPF = new System.Windows.Forms.Label();
+            this.textBoxUFPF = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -1362,7 +1364,7 @@ namespace BehaviorGraphics
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(534, 487);
+            this.cancelButton.Location = new System.Drawing.Point(534, 503);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 98;
@@ -1373,7 +1375,7 @@ namespace BehaviorGraphics
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(615, 487);
+            this.okButton.Location = new System.Drawing.Point(615, 503);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 99;
@@ -1409,7 +1411,7 @@ namespace BehaviorGraphics
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(694, 454);
+            this.tabControl.Size = new System.Drawing.Size(694, 470);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageGen
@@ -9934,7 +9936,7 @@ namespace BehaviorGraphics
             this.UnstableField.Location = new System.Drawing.Point(4, 58);
             this.UnstableField.Name = "UnstableField";
             this.UnstableField.Padding = new System.Windows.Forms.Padding(3);
-            this.UnstableField.Size = new System.Drawing.Size(686, 392);
+            this.UnstableField.Size = new System.Drawing.Size(686, 408);
             this.UnstableField.TabIndex = 15;
             this.UnstableField.Text = "Unstable Field";
             this.UnstableField.UseVisualStyleBackColor = true;
@@ -10349,6 +10351,8 @@ namespace BehaviorGraphics
             // 
             // groupBox65
             // 
+            this.groupBox65.Controls.Add(this.label247UFPF);
+            this.groupBox65.Controls.Add(this.textBoxUFPF);
             this.groupBox65.Controls.Add(this.labelUFVelFilt);
             this.groupBox65.Controls.Add(this.textBoxUFVF);
             this.groupBox65.Controls.Add(this.label247UF);
@@ -10377,15 +10381,32 @@ namespace BehaviorGraphics
             this.groupBox65.Controls.Add(this.textBoxUFNS);
             this.groupBox65.Location = new System.Drawing.Point(214, 8);
             this.groupBox65.Name = "groupBox65";
-            this.groupBox65.Size = new System.Drawing.Size(201, 378);
+            this.groupBox65.Size = new System.Drawing.Size(201, 394);
             this.groupBox65.TabIndex = 0;
             this.groupBox65.TabStop = false;
             this.groupBox65.Text = "Unstable field parameters";
             // 
+            // labelUFVelFilt
+            // 
+            this.labelUFVelFilt.AutoSize = true;
+            this.labelUFVelFilt.Location = new System.Drawing.Point(6, 102);
+            this.labelUFVelFilt.Name = "labelUFVelFilt";
+            this.labelUFVelFilt.Size = new System.Drawing.Size(66, 13);
+            this.labelUFVelFilt.TabIndex = 53;
+            this.labelUFVelFilt.Text = "Velocity filter";
+            // 
+            // textBoxUFVF
+            // 
+            this.textBoxUFVF.Location = new System.Drawing.Point(142, 99);
+            this.textBoxUFVF.Name = "textBoxUFVF";
+            this.textBoxUFVF.Size = new System.Drawing.Size(54, 20);
+            this.textBoxUFVF.TabIndex = 52;
+            this.toolTip1.SetToolTip(this.textBoxUFVF, "vel = old_vel*(1-VF) + curr_vel*VF");
+            // 
             // label247UF
             // 
             this.label247UF.AutoSize = true;
-            this.label247UF.Location = new System.Drawing.Point(4, 318);
+            this.label247UF.Location = new System.Drawing.Point(4, 337);
             this.label247UF.Name = "label247UF";
             this.label247UF.Size = new System.Drawing.Size(112, 13);
             this.label247UF.TabIndex = 51;
@@ -10393,7 +10414,7 @@ namespace BehaviorGraphics
             // 
             // angleEntryBoxUFBAS
             // 
-            this.angleEntryBoxUFBAS.Location = new System.Drawing.Point(118, 342);
+            this.angleEntryBoxUFBAS.Location = new System.Drawing.Point(118, 361);
             this.angleEntryBoxUFBAS.Name = "angleEntryBoxUFBAS";
             this.angleEntryBoxUFBAS.Size = new System.Drawing.Size(76, 21);
             this.angleEntryBoxUFBAS.TabIndex = 48;
@@ -10402,7 +10423,7 @@ namespace BehaviorGraphics
             // label246UF
             // 
             this.label246UF.AutoSize = true;
-            this.label246UF.Location = new System.Drawing.Point(5, 350);
+            this.label246UF.Location = new System.Drawing.Point(5, 369);
             this.label246UF.Name = "label246UF";
             this.label246UF.Size = new System.Drawing.Size(108, 13);
             this.label246UF.TabIndex = 49;
@@ -10410,7 +10431,7 @@ namespace BehaviorGraphics
             // 
             // numericUpDownUFNBFA
             // 
-            this.numericUpDownUFNBFA.Location = new System.Drawing.Point(148, 316);
+            this.numericUpDownUFNBFA.Location = new System.Drawing.Point(148, 335);
             this.numericUpDownUFNBFA.Minimum = new decimal(new int[] {
             1,
             0,
@@ -10446,7 +10467,7 @@ namespace BehaviorGraphics
             // 
             // angleEntryBoxUFFFA
             // 
-            this.angleEntryBoxUFFFA.Location = new System.Drawing.Point(119, 155);
+            this.angleEntryBoxUFFFA.Location = new System.Drawing.Point(119, 174);
             this.angleEntryBoxUFFFA.Name = "angleEntryBoxUFFFA";
             this.angleEntryBoxUFFFA.Size = new System.Drawing.Size(76, 21);
             this.angleEntryBoxUFFFA.TabIndex = 45;
@@ -10455,7 +10476,7 @@ namespace BehaviorGraphics
             // label345
             // 
             this.label345.AutoSize = true;
-            this.label345.Location = new System.Drawing.Point(5, 130);
+            this.label345.Location = new System.Drawing.Point(5, 149);
             this.label345.Name = "label345";
             this.label345.Size = new System.Drawing.Size(86, 13);
             this.label345.TabIndex = 44;
@@ -10463,7 +10484,7 @@ namespace BehaviorGraphics
             // 
             // numericUpDownUFNO
             // 
-            this.numericUpDownUFNO.Location = new System.Drawing.Point(149, 129);
+            this.numericUpDownUFNO.Location = new System.Drawing.Point(149, 148);
             this.numericUpDownUFNO.Minimum = new decimal(new int[] {
             1,
             0,
@@ -10482,7 +10503,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUFFBL
             // 
-            this.textBoxUFFBL.Location = new System.Drawing.Point(141, 181);
+            this.textBoxUFFBL.Location = new System.Drawing.Point(141, 200);
             this.textBoxUFFBL.Name = "textBoxUFFBL";
             this.textBoxUFFBL.Size = new System.Drawing.Size(54, 20);
             this.textBoxUFFBL.TabIndex = 13;
@@ -10491,7 +10512,7 @@ namespace BehaviorGraphics
             // label344
             // 
             this.label344.AutoSize = true;
-            this.label344.Location = new System.Drawing.Point(5, 184);
+            this.label344.Location = new System.Drawing.Point(5, 203);
             this.label344.Name = "label344";
             this.label344.Size = new System.Drawing.Size(90, 13);
             this.label344.TabIndex = 14;
@@ -10499,7 +10520,7 @@ namespace BehaviorGraphics
             // 
             // angleEntryBoxUFFBFA
             // 
-            this.angleEntryBoxUFFBFA.Location = new System.Drawing.Point(119, 289);
+            this.angleEntryBoxUFFBFA.Location = new System.Drawing.Point(119, 308);
             this.angleEntryBoxUFFBFA.Name = "angleEntryBoxUFFBFA";
             this.angleEntryBoxUFFBFA.Size = new System.Drawing.Size(76, 21);
             this.angleEntryBoxUFFBFA.TabIndex = 1;
@@ -10508,7 +10529,7 @@ namespace BehaviorGraphics
             // label330
             // 
             this.label330.AutoSize = true;
-            this.label330.Location = new System.Drawing.Point(5, 294);
+            this.label330.Location = new System.Drawing.Point(5, 313);
             this.label330.Name = "label330";
             this.label330.Size = new System.Drawing.Size(104, 13);
             this.label330.TabIndex = 12;
@@ -10517,7 +10538,7 @@ namespace BehaviorGraphics
             // label329
             // 
             this.label329.AutoSize = true;
-            this.label329.Location = new System.Drawing.Point(5, 238);
+            this.label329.Location = new System.Drawing.Point(5, 257);
             this.label329.Name = "label329";
             this.label329.Size = new System.Drawing.Size(82, 13);
             this.label329.TabIndex = 11;
@@ -10526,7 +10547,7 @@ namespace BehaviorGraphics
             // label328
             // 
             this.label328.AutoSize = true;
-            this.label328.Location = new System.Drawing.Point(5, 266);
+            this.label328.Location = new System.Drawing.Point(5, 285);
             this.label328.Name = "label328";
             this.label328.Size = new System.Drawing.Size(106, 13);
             this.label328.TabIndex = 10;
@@ -10535,7 +10556,7 @@ namespace BehaviorGraphics
             // label327
             // 
             this.label327.AutoSize = true;
-            this.label327.Location = new System.Drawing.Point(5, 158);
+            this.label327.Location = new System.Drawing.Point(5, 177);
             this.label327.Name = "label327";
             this.label327.Size = new System.Drawing.Size(77, 13);
             this.label327.TabIndex = 9;
@@ -10544,7 +10565,7 @@ namespace BehaviorGraphics
             // label326
             // 
             this.label326.AutoSize = true;
-            this.label326.Location = new System.Drawing.Point(5, 210);
+            this.label326.Location = new System.Drawing.Point(5, 229);
             this.label326.Name = "label326";
             this.label326.Size = new System.Drawing.Size(82, 13);
             this.label326.TabIndex = 8;
@@ -10570,7 +10591,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUFBFM
             // 
-            this.textBoxUFBFM.Location = new System.Drawing.Point(141, 263);
+            this.textBoxUFBFM.Location = new System.Drawing.Point(141, 282);
             this.textBoxUFBFM.Name = "textBoxUFBFM";
             this.textBoxUFBFM.Size = new System.Drawing.Size(54, 20);
             this.textBoxUFBFM.TabIndex = 4;
@@ -10578,7 +10599,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUFYPO
             // 
-            this.textBoxUFYPO.Location = new System.Drawing.Point(141, 235);
+            this.textBoxUFYPO.Location = new System.Drawing.Point(141, 254);
             this.textBoxUFYPO.Name = "textBoxUFYPO";
             this.textBoxUFYPO.Size = new System.Drawing.Size(54, 20);
             this.textBoxUFYPO.TabIndex = 3;
@@ -10586,7 +10607,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUFXPO
             // 
-            this.textBoxUFXPO.Location = new System.Drawing.Point(141, 207);
+            this.textBoxUFXPO.Location = new System.Drawing.Point(141, 226);
             this.textBoxUFXPO.Name = "textBoxUFXPO";
             this.textBoxUFXPO.Size = new System.Drawing.Size(54, 20);
             this.textBoxUFXPO.TabIndex = 2;
@@ -12668,7 +12689,7 @@ namespace BehaviorGraphics
             this.toolStripStatusLabelMdl,
             this.toolStripProgressBar1});
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 513);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 529);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(692, 22);
             this.statusStrip1.SizingGrip = false;
@@ -12893,7 +12914,7 @@ namespace BehaviorGraphics
             // buttonRefresh
             // 
             this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRefresh.Location = new System.Drawing.Point(12, 487);
+            this.buttonRefresh.Location = new System.Drawing.Point(12, 503);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 23);
             this.buttonRefresh.TabIndex = 97;
@@ -13490,22 +13511,22 @@ namespace BehaviorGraphics
             this.label324.TabIndex = 64;
             this.label324.Text = "1-D Jitter Magnitude";
             // 
-            // labelUFVelFilt
+            // label247UFPF
             // 
-            this.labelUFVelFilt.AutoSize = true;
-            this.labelUFVelFilt.Location = new System.Drawing.Point(6, 102);
-            this.labelUFVelFilt.Name = "labelUFVelFilt";
-            this.labelUFVelFilt.Size = new System.Drawing.Size(66, 13);
-            this.labelUFVelFilt.TabIndex = 53;
-            this.labelUFVelFilt.Text = "Velocity filter";
+            this.label247UFPF.AutoSize = true;
+            this.label247UFPF.Location = new System.Drawing.Point(6, 128);
+            this.label247UFPF.Name = "label247UFPF";
+            this.label247UFPF.Size = new System.Drawing.Size(66, 13);
+            this.label247UFPF.TabIndex = 55;
+            this.label247UFPF.Text = "Position filter";
             // 
-            // textBoxUFVF
+            // textBoxUFPF
             // 
-            this.textBoxUFVF.Location = new System.Drawing.Point(142, 99);
-            this.textBoxUFVF.Name = "textBoxUFVF";
-            this.textBoxUFVF.Size = new System.Drawing.Size(54, 20);
-            this.textBoxUFVF.TabIndex = 52;
-            this.toolTip1.SetToolTip(this.textBoxUFVF, "vel = old_vel*(1-VF) + curr_vel*VF");
+            this.textBoxUFPF.Location = new System.Drawing.Point(142, 125);
+            this.textBoxUFPF.Name = "textBoxUFPF";
+            this.textBoxUFPF.Size = new System.Drawing.Size(54, 20);
+            this.textBoxUFPF.TabIndex = 54;
+            this.toolTip1.SetToolTip(this.textBoxUFPF, "pos = old_pos*(1-PF) + curr_pos*PF");
             // 
             // UpdateForm
             // 
@@ -13514,7 +13535,7 @@ namespace BehaviorGraphics
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(692, 535);
+            this.ClientSize = new System.Drawing.Size(692, 551);
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -14957,5 +14978,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.CheckBox checkBox2BC_abort_during_bump;
         private System.Windows.Forms.Label labelUFVelFilt;
         private System.Windows.Forms.TextBox textBoxUFVF;
+        private System.Windows.Forms.Label label247UFPF;
+        private System.Windows.Forms.TextBox textBoxUFPF;
     }
 }

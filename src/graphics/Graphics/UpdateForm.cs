@@ -849,6 +849,7 @@ namespace BehaviorGraphics
 
             // More field stuff
             AddParamListItem("UF VF", "P33", "Behavior UF", this.textBoxUFVF);
+            AddParamListItem("UF PF", "P34", "Behavior UF", this.textBoxUFPF);
 
             #endregion
 

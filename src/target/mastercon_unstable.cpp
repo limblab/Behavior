@@ -213,6 +213,7 @@ struct LocalParams{
     
     // More field stuff
     real_T vel_filt;
+    real_T pos_filt;
 };
 
 /**
@@ -285,7 +286,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(33);
+	this->setNumParams(34);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->field_ramp_up,							 1);
@@ -331,9 +332,10 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->infinite_bump_duration,                   31);
     
     this->bindParamId(&params->vel_filt,                                 32);
+    this->bindParamId(&params->pos_filt,                                 33);
     
     // default parameters:
-    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2   0   1
+    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2   0   1 1
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -577,8 +579,12 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     //b = 0.05*2*sqrt(params->mass * params->positive_stiffness);
     b = params->force_field_damping;
     //b = .1*2*sqrt(params->mass * params->positive_stiffness*100)/100; // [N/cm/s]?
-    x_pos = inputs->cursor.x;
-    y_pos = inputs->cursor.y;
+    
+    //x_pos = inputs->cursor.x;
+    //y_pos = inputs->cursor.y;
+    
+    x_pos = x_pos_old*(1-params->pos_filt) + inputs->cursor.x * params->pos_filt;
+    y_pos = y_pos_old*(1-params->pos_filt) + inputs->cursor.y * params->pos_filt;
     
     //int i;
     //x_vel = inputs->catchForce.x;  // Passing velocity signal through catch force port
@@ -603,18 +609,24 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     
     /* force (0) */
 	real_T ratio_force;  
+    real_T distance_from_zero = sqrt(((inputs->cursor.x - params->x_position_offset)*sin(field_angle) * 
+                                      (inputs->cursor.x - params->x_position_offset)*sin(field_angle)) + 
+                                      ((inputs->cursor.y - params->y_position_offset)*cos(field_angle) * 
+                                      (inputs->cursor.y - params->y_position_offset)*cos(field_angle)));
+    real_T tolerance = 0;
+    real_T out_of_tolerance = distance_from_zero > tolerance;
     
     // Force field
     real_T x_force_field = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
 					    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle) + 
-						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
+						out_of_tolerance*params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
 						(inputs->cursor.y - params->y_position_offset)*cos(field_angle))*sin(field_angle) + 
                         params->bias_force_magnitude * cos(bias_force_angle) +
                         b*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*sin(field_angle);
 
 	real_T y_force_field = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset)*cos(field_angle) + 
 						(inputs->cursor.y - params->y_position_offset)*sin(field_angle))*sin(field_angle) -
-						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
+						out_of_tolerance*params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
 						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle) + 
                         params->bias_force_magnitude * sin(bias_force_angle) -
                         b*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*cos(field_angle);
