@@ -109,7 +109,7 @@ struct LocalParams {
     real_T bump_incr;
 	real_T stim_levels;
 	real_T catch_rate;
-	real_T abort_during_bump
+	real_T abort_during_bump;
 };
 
 /**
@@ -279,7 +279,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 
 	// Set up the bump itself
 	if(params->catch_rate>0){
-		if(this->random->getInteger(1,10)>1){
+		if(this->random->getDouble()>params->catch_rate){
 			bumpmag_local=(float)params->bump_magnitude;
 		} else {
 			bumpmag_local=0;
@@ -476,7 +476,8 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
  	outputs->status[3] = trialCounter->failures;
- 	outputs->status[4] = trialCounter->incompletes;
+// 	outputs->status[4] = trialCounter->incompletes;
+   	outputs->status[4] = params->abort_during_bump;
   
 	/* word(2) */
 	if (db->isRunning()) {
