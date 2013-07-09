@@ -149,6 +149,8 @@
 #define STATE_HOLD_FIELD			 3
 #define STATE_CT_HOLD				 4
 #define STATE_BUMP					 5
+#define STATE_START_RECORDING        6
+#define STATE_STOP_RECORDING         7
 
 /* 
  * STATE_REWARD STATE_ABORT STATE_FAIL STATE_INCOMPLETE STATE_DATA_BLOCK 
@@ -214,6 +216,10 @@ struct LocalParams{
     // More field stuff
     real_T vel_filt;
     real_T pos_filt;
+    
+    // Cereubs recording stuff
+    real_T record;
+    real_T record_for_x_mins;
 };
 
 /**
@@ -275,6 +281,8 @@ private:
 
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
+    
+    Timer *recordingTimer;
 };
 
 AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
@@ -286,7 +294,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(34);
+	this->setNumParams(36);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->field_ramp_up,							 1);
@@ -334,6 +342,9 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->vel_filt,                                 32);
     this->bindParamId(&params->pos_filt,                                 33);
     
+    this->bindParamId(&params->record,                                   34);
+    this->bindParamId(&params->record_for_x_mins,                        35);
+    
     // default parameters:
     // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2   0   1 1
     
@@ -374,6 +385,8 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     y_vel_old = 0;
     
     bias_force_angle = 0;
+    
+    recordingTimer = new Timer();
 }
 
 void AttentionBehavior::doPreTrial(SimStruct *S) {	
@@ -486,8 +499,26 @@ void AttentionBehavior::update(SimStruct *S) {
             old_block_length = params->field_block_length;
             updateParameters(S);
             doPreTrial(S);
-            setState(STATE_CENTER_TARGET_ON);
+            if (params->record && !recordingTimer->isRunning()){
+                setState(STATE_START_RECORDING);
+            } else if (!params->record || (recordingTimer->elapsedTime(S) > 60 * params->record_for_x_mins)) {
+                setState(STATE_STOP_RECORDING);
+            } else {
+                setState(STATE_CENTER_TARGET_ON);
+            }
             break;		
+        case STATE_START_RECORDING:
+            if (stateTimer->elapsedTime(S) > 1){
+                recordingTimer->start(S);
+                setState(STATE_CENTER_TARGET_ON);
+            }
+            break;
+        case STATE_STOP_RECORDING:
+            if (stateTimer->elapsedTime(S) > 1){
+                recordingTimer->stop(S);                
+                setState(STATE_PRETRIAL);
+            }
+            break;                   
         case STATE_CENTER_TARGET_ON:
             /* center target on */
             if (inputs->catchForce.x) {
@@ -703,6 +734,12 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_PRETRIAL:
 				outputs->word = WORD_START_TRIAL;           // 0x1F = 31
 				break;
+            case STATE_START_RECORDING:
+                outputs->word = WORD_START_RECORDING;       // 0x91 = 145
+                break;
+            case STATE_STOP_RECORDING:
+                outputs->word = WORD_STOP_RECORDING;        // 0x92 = 146
+                break;            
 			case STATE_CENTER_TARGET_ON:
 				outputs->word = WORD_CT_ON;                 // 0x30 = 48
 				break;

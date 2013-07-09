@@ -850,6 +850,10 @@ namespace BehaviorGraphics
             AddParamListItem("UF VF", "P33", "Behavior UF", this.textBoxUFVF);
             AddParamListItem("UF PF", "P34", "Behavior UF", this.textBoxUFPF);
 
+            // Recording stuff
+            AddParamListItem("UF SRec", "P35", "Behavior UF", this.checkBoxRecord);
+            AddParamListItem("UF RecFor", "P36", "Behavior UF", this.textBoxRecordFor);
+
             #endregion
 
             #region UncertaintyTarget1D

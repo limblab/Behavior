@@ -10,6 +10,11 @@
 #define __BUILD_UPDATED__ 1
 #define __BUILD_UPDATED__ 1
 #define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
 
 /* 
  * $Id$
@@ -36,7 +41,7 @@
 #define BEHAVIOR_VERSION_MAJOR 2
 #define BEHAVIOR_VERSION_MINOR 8
 #define BEHAVIOR_VERSION_MICRO 491
-#define BEHAVIOR_VERSION_BUILD 2045
+#define BEHAVIOR_VERSION_BUILD 2053
 
 #ifndef __BUILD_UPDATED__
 #error This project must be built from the build script. 
@@ -177,5 +182,10 @@
 /* Unstable field words */
 #define WORD_FIELD_BUILDING_UP 0x31
 
+/* Cerebus recording words */
+#define WORD_START_RECORDING 0x91
+#define WORD_STOP_RECORDING 0x92
+#define WORD_PAUSE_RECORDING 0x93
+#define WORD_RESUME_RECORDING 0x94
 
 #endif /* WORDS_CO_H */
