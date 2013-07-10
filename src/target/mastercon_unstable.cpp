@@ -144,13 +144,14 @@
  * State IDs
  */
 #define STATE_PRETRIAL				 0
-#define STATE_CENTER_TARGET_ON		 1
-#define STATE_FIELD_BUILD_UP		 2
-#define STATE_HOLD_FIELD			 3
-#define STATE_CT_HOLD				 4
-#define STATE_BUMP					 5
-#define STATE_START_RECORDING        6
-#define STATE_STOP_RECORDING         7
+#define STATE_WAIT_FOR_DB            1   
+#define STATE_CENTER_TARGET_ON		 2
+#define STATE_FIELD_BUILD_UP		 3
+#define STATE_HOLD_FIELD			 4
+#define STATE_CT_HOLD				 5
+#define STATE_BUMP					 6
+#define STATE_START_RECORDING        7
+#define STATE_STOP_RECORDING         8
 
 /* 
  * STATE_REWARD STATE_ABORT STATE_FAIL STATE_INCOMPLETE STATE_DATA_BLOCK 
@@ -283,6 +284,8 @@ private:
 	void doPreTrial(SimStruct *S);
     
     Timer *recordingTimer;
+    
+    int lastWord;
 };
 
 AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
@@ -387,6 +390,8 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     bias_force_angle = 0;
     
     recordingTimer = new Timer();
+    
+    lastWord = 0;
 }
 
 void AttentionBehavior::doPreTrial(SimStruct *S) {	
@@ -499,15 +504,20 @@ void AttentionBehavior::update(SimStruct *S) {
             old_block_length = params->field_block_length;
             updateParameters(S);
             doPreTrial(S);
-            if ((bool)params->record && !recordingTimer->isRunning()){
-                setState(STATE_START_RECORDING);
-            } else if ((!((bool)params->record) && recordingTimer->isRunning()) ||
-                    (recordingTimer->elapsedTime(S) > 60 * params->record_for_x_mins)) {
-                setState(STATE_STOP_RECORDING);
-            } else {
-                setState(STATE_CENTER_TARGET_ON);
+            setState(STATE_WAIT_FOR_DB);
+            break;
+        case STATE_WAIT_FOR_DB:
+            if (!db->isRunning()) {
+                if ((bool)params->record && !recordingTimer->isRunning()){
+                    setState(STATE_START_RECORDING);
+                } else if ((!((bool)params->record) && recordingTimer->isRunning()) ||
+                        (recordingTimer->elapsedTime(S) > 60 * params->record_for_x_mins)) {
+                    setState(STATE_STOP_RECORDING);
+                } else {
+                    setState(STATE_CENTER_TARGET_ON);
+                }
             }
-            break;		
+            break;
         case STATE_START_RECORDING:
             if (!recordingTimer->isRunning()) {
                 recordingTimer->start(S);
@@ -521,7 +531,7 @@ void AttentionBehavior::update(SimStruct *S) {
                 recordingTimer->stop(S);
             }            
             if (stateTimer->elapsedTime(S) > 1.0){                                
-                setState(STATE_CENTER_TARGET_ON);
+                setState(STATE_INCOMPLETE);
             }
             break;                   
         case STATE_CENTER_TARGET_ON:
@@ -728,8 +738,8 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = floor(180*bump_direction/PI);	
-// 	outputs->status[4] = trial_counter;
-
+	outputs->status[4] = trial_counter;
+//     outputs->status[4] = lastWord;
  	
 	/* word (2) */
 	if (db->isRunning()) {
@@ -737,33 +747,40 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	} else if (isNewState()) {
 		switch (getState()) {
 			case STATE_PRETRIAL:
-				outputs->word = WORD_START_TRIAL;           // 0x1F = 31
-                outputs->status[4] = params->record;
+				outputs->word = WORD_START_TRIAL;           // 0x1F = 31  
+                lastWord = WORD_START_TRIAL;
 				break;
-            case STATE_START_RECORDING:                
-                outputs->word = WORD_START_RECORDING;       // 0x91 = 145
-                break;
+            case STATE_START_RECORDING:
+				outputs->word = WORD_START_RECORDING;        // 0x91 = 145  
+                lastWord = WORD_START_RECORDING;
+				break;
             case STATE_STOP_RECORDING:
-                outputs->status[4] = 222;
-                outputs->word = WORD_STOP_RECORDING;        // 0x92 = 146
-                break;
+				outputs->word = WORD_STOP_RECORDING;         // 0x92 = 146  
+                lastWord = WORD_STOP_RECORDING;
+				break;              
 			case STATE_CENTER_TARGET_ON:
 				outputs->word = WORD_CT_ON;                 // 0x30 = 48
+                lastWord = WORD_CT_ON;
 				break;
 			case STATE_FIELD_BUILD_UP:
 				outputs->word = WORD_FIELD_BUILDING_UP;     // 0x31 = 49
+                lastWord = WORD_FIELD_BUILDING_UP;
 				break;
 			case STATE_CT_HOLD:
 				outputs->word = WORD_CENTER_TARGET_HOLD;    // 0xA0 = 160
+                lastWord = WORD_CENTER_TARGET_HOLD;
 				break;			
 			case STATE_BUMP:
 				outputs->word = WORD_BUMP(0);               // 0x50 = 80
+                lastWord = WORD_BUMP(0);
 				break;			
 			case STATE_REWARD:
 				outputs->word = WORD_REWARD;                // 0x20 = 32
+                lastWord = WORD_REWARD;
 				break;
 			case STATE_ABORT:
 				outputs->word = WORD_ABORT;                 // 0x21 = 33
+                lastWord = WORD_ABORT;
 				break;			
 			default:
 				outputs->word = 0;
