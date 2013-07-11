@@ -35,6 +35,11 @@ namespace BehaviorGraphics
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageGen = new System.Windows.Forms.TabPage();
+            this.groupBox71 = new System.Windows.Forms.GroupBox();
+            this.labelMinutes = new System.Windows.Forms.Label();
+            this.labelRecordFor = new System.Windows.Forms.Label();
+            this.textBoxRecordFor = new System.Windows.Forms.TextBox();
+            this.checkBoxRecord = new System.Windows.Forms.CheckBox();
             this.label195 = new System.Windows.Forms.Label();
             this.textBoxGoToneVolume = new System.Windows.Forms.TextBox();
             this.checkBoxUseNeuralControl = new System.Windows.Forms.CheckBox();
@@ -1212,13 +1217,9 @@ namespace BehaviorGraphics
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.label324 = new System.Windows.Forms.Label();
-            this.groupBox71 = new System.Windows.Forms.GroupBox();
-            this.checkBoxRecord = new System.Windows.Forms.CheckBox();
-            this.textBoxRecordFor = new System.Windows.Forms.TextBox();
-            this.labelRecordFor = new System.Windows.Forms.Label();
-            this.labelMinutes = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
+            this.groupBox71.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.groupBox27.SuspendLayout();
             this.groupBox29.SuspendLayout();
@@ -1363,7 +1364,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBox71.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -1446,6 +1446,56 @@ namespace BehaviorGraphics
             this.tabPageGen.Text = "General";
             this.tabPageGen.UseVisualStyleBackColor = true;
             this.tabPageGen.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tabPageGen_MouseDoubleClick);
+            // 
+            // groupBox71
+            // 
+            this.groupBox71.Controls.Add(this.labelMinutes);
+            this.groupBox71.Controls.Add(this.labelRecordFor);
+            this.groupBox71.Controls.Add(this.textBoxRecordFor);
+            this.groupBox71.Controls.Add(this.checkBoxRecord);
+            this.groupBox71.Location = new System.Drawing.Point(236, 301);
+            this.groupBox71.Name = "groupBox71";
+            this.groupBox71.Size = new System.Drawing.Size(203, 97);
+            this.groupBox71.TabIndex = 26;
+            this.groupBox71.TabStop = false;
+            this.groupBox71.Text = "Cerebus recording (not available for all behaviors)";
+            // 
+            // labelMinutes
+            // 
+            this.labelMinutes.AutoSize = true;
+            this.labelMinutes.Location = new System.Drawing.Point(100, 58);
+            this.labelMinutes.Name = "labelMinutes";
+            this.labelMinutes.Size = new System.Drawing.Size(85, 13);
+            this.labelMinutes.TabIndex = 3;
+            this.labelMinutes.Text = "minute long files.";
+            // 
+            // labelRecordFor
+            // 
+            this.labelRecordFor.AutoSize = true;
+            this.labelRecordFor.Location = new System.Drawing.Point(6, 58);
+            this.labelRecordFor.Name = "labelRecordFor";
+            this.labelRecordFor.Size = new System.Drawing.Size(42, 13);
+            this.labelRecordFor.TabIndex = 2;
+            this.labelRecordFor.Text = "Record";
+            // 
+            // textBoxRecordFor
+            // 
+            this.textBoxRecordFor.Location = new System.Drawing.Point(50, 55);
+            this.textBoxRecordFor.Name = "textBoxRecordFor";
+            this.textBoxRecordFor.Size = new System.Drawing.Size(44, 20);
+            this.textBoxRecordFor.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.textBoxRecordFor, "if -1, record forever");
+            this.textBoxRecordFor.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // checkBoxRecord
+            // 
+            this.checkBoxRecord.AutoSize = true;
+            this.checkBoxRecord.Location = new System.Drawing.Point(8, 32);
+            this.checkBoxRecord.Name = "checkBoxRecord";
+            this.checkBoxRecord.Size = new System.Drawing.Size(61, 17);
+            this.checkBoxRecord.TabIndex = 0;
+            this.checkBoxRecord.Text = "Record";
+            this.checkBoxRecord.UseVisualStyleBackColor = true;
             // 
             // label195
             // 
@@ -13535,55 +13585,6 @@ namespace BehaviorGraphics
             this.label324.TabIndex = 64;
             this.label324.Text = "1-D Jitter Magnitude";
             // 
-            // groupBox71
-            // 
-            this.groupBox71.Controls.Add(this.labelMinutes);
-            this.groupBox71.Controls.Add(this.labelRecordFor);
-            this.groupBox71.Controls.Add(this.textBoxRecordFor);
-            this.groupBox71.Controls.Add(this.checkBoxRecord);
-            this.groupBox71.Location = new System.Drawing.Point(236, 301);
-            this.groupBox71.Name = "groupBox71";
-            this.groupBox71.Size = new System.Drawing.Size(203, 97);
-            this.groupBox71.TabIndex = 26;
-            this.groupBox71.TabStop = false;
-            this.groupBox71.Text = "Cerebus recording (not available for all behaviors)";
-            // 
-            // checkBoxRecord
-            // 
-            this.checkBoxRecord.AutoSize = true;
-            this.checkBoxRecord.Location = new System.Drawing.Point(8, 32);
-            this.checkBoxRecord.Name = "checkBoxRecord";
-            this.checkBoxRecord.Size = new System.Drawing.Size(61, 17);
-            this.checkBoxRecord.TabIndex = 0;
-            this.checkBoxRecord.Text = "Record";
-            this.checkBoxRecord.UseVisualStyleBackColor = true;
-            // 
-            // textBoxRecordFor
-            // 
-            this.textBoxRecordFor.Location = new System.Drawing.Point(50, 55);
-            this.textBoxRecordFor.Name = "textBoxRecordFor";
-            this.textBoxRecordFor.Size = new System.Drawing.Size(44, 20);
-            this.textBoxRecordFor.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.textBoxRecordFor, "if -1, record forever");
-            // 
-            // labelRecordFor
-            // 
-            this.labelRecordFor.AutoSize = true;
-            this.labelRecordFor.Location = new System.Drawing.Point(6, 58);
-            this.labelRecordFor.Name = "labelRecordFor";
-            this.labelRecordFor.Size = new System.Drawing.Size(42, 13);
-            this.labelRecordFor.TabIndex = 2;
-            this.labelRecordFor.Text = "Record";
-            // 
-            // labelMinutes
-            // 
-            this.labelMinutes.AutoSize = true;
-            this.labelMinutes.Location = new System.Drawing.Point(100, 58);
-            this.labelMinutes.Name = "labelMinutes";
-            this.labelMinutes.Size = new System.Drawing.Size(85, 13);
-            this.labelMinutes.TabIndex = 3;
-            this.labelMinutes.Text = "minute long files.";
-            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -13609,6 +13610,8 @@ namespace BehaviorGraphics
             this.tabControl.ResumeLayout(false);
             this.tabPageGen.ResumeLayout(false);
             this.tabPageGen.PerformLayout();
+            this.groupBox71.ResumeLayout(false);
+            this.groupBox71.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
             this.groupBox27.ResumeLayout(false);
@@ -13848,8 +13851,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBox71.ResumeLayout(false);
-            this.groupBox71.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
