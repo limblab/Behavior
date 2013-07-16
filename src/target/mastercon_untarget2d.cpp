@@ -27,7 +27,7 @@
  */
 
 
-#define DATABURST_VERSION ((byte)0x00) 
+#define DATABURST_VERSION ((byte)0x01) 
 
 // This must be custom defined for your behavior
 struct LocalParams {
@@ -412,6 +412,7 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
 	db->addFloat((float)current_trial_shift);
+	db->addFloat((float)params->shift_stdev);  // added in databurst version 0x01
 	db->addFloat((float)current_target_stdev);
 	db->addFloat((float)params->slice_number);
 	// Set Up The Cloud Points
