@@ -109,7 +109,7 @@
       <LabParam>
         <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L2</Block>
         <Name>Value</Name>
-        <Value>24.13</Value>
+        <Value>23.8125</Value>
       </LabParam>
       <LabParam>
         <Block>BoundingBox/XLowLimit</Block>
