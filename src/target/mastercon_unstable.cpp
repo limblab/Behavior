@@ -404,23 +404,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	workSpaceTarget->radius = params->workspace_diameter/2;
     
 	field_hold_time = this->random->getDouble(params->field_hold_low,params->field_hold_high);
-
-	int rand_i = this->random->getInteger(0,(int)(params->num_bump_directions-1));
-	bump_direction = fmod(rand_i * 2 * PI/params->num_bump_directions + params->first_bump_direction,2*PI);
-
-	bump->direction = bump_direction;
-	bump->hold_duration = params->bump_duration;
-	bump->peak_magnitude = params->force_bump_magnitude;
-	bump->rise_time = 0;	
-    
-    infinite_bump->direction = bump_direction;
-	infinite_bump->hold_duration = params->infinite_bump_duration;
-	infinite_bump->peak_magnitude = 10*params->force_bump_magnitude;
-	infinite_bump->rise_time = 0;
-    
-	x_force_at_bump_start = 0;
-	y_force_at_bump_start = 0;
-    
+	   
     if (old_block_length != params->field_block_length) {
         trial_counter = 10000;
         block_counter = 10000;
@@ -452,6 +436,22 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
         bias_force_angle = fmod(bias_force_counter * params->bias_direction_separation + 
             params->first_bias_force_direction,2*PI); 
     }
+    
+    int rand_i = this->random->getInteger(0,(int)(params->num_bump_directions-1));
+	bump_direction = fmod(rand_i * 2 * PI/params->num_bump_directions + params->first_bump_direction,2*PI);
+
+	bump->direction = bump_direction;
+	bump->hold_duration = params->bump_duration;
+	bump->peak_magnitude = params->force_bump_magnitude;
+	bump->rise_time = 0;	
+    
+    infinite_bump->direction = bump_direction;
+	infinite_bump->hold_duration = params->infinite_bump_duration;
+	infinite_bump->peak_magnitude = 10*params->force_bump_magnitude;
+	infinite_bump->rise_time = 0;
+    
+	x_force_at_bump_start = 0;
+	y_force_at_bump_start = 0;
 
 
 	/* setup the databurst */

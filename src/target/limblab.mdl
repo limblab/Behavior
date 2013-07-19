@@ -19,7 +19,7 @@ Library {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [25.0, 26.0, 1036.0, 708.0]
+      Location		      [25.0, 26.0, 1436.0, 784.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -42,10 +42,10 @@ Library {
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
 	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"136"
-	Extents			[984.0, 540.0]
+	LoadSaveID		"229"
+	Extents			[1384.0, 616.0]
 	ZoomFactor		[1.0]
-	Offset			[85.099999999999966, 45.199999999999989]
+	Offset			[194.41666666666652, 57.000000000000114]
       }
     }
   }
@@ -53,11 +53,11 @@ Library {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "ricardo"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu May 09 13:26:04 2013"
-  RTWModifiedTimeStamp	  290006763
-  ModelVersionFormat	  "1.%<AutoIncrement:70>"
+  LastModifiedDate	  "Fri Jul 19 15:06:20 2013"
+  RTWModifiedTimeStamp	  296147178
+  ModelVersionFormat	  "1.%<AutoIncrement:72>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -962,7 +962,7 @@ Library {
   }
   System {
     Name		    "limblab"
-    Location		    [116, 109, 1152, 817]
+    Location		    [25, 26, 1061, 734]
     Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -976,7 +976,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "286"
+    SIDHighWatermark	    "299"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
@@ -1730,8 +1730,8 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[116, 109, 1457, 817]
-	Open			off
+	Location		[25, 26, 1461, 810]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1838,6 +1838,34 @@ Library {
 	  const			  "250"
 	  OutDataTypeStr	  "uint8"
 	  ZeroCross		  off
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Compare To Zero"
+	  SID			  "293"
+	  Ports			  [1, 1]
+	  Position		  [1210, 240, 1240, 270]
+	  ZOrder		  15
+	  LibraryVersion	  "1.281"
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Zero"
+	  SourceType		  "Compare To Zero"
+	  relop			  ">="
+	  OutDataTypeStr	  "boolean"
+	  ZeroCross		  on
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Compare To Zero1"
+	  SID			  "296"
+	  Ports			  [1, 1]
+	  Position		  [1225, 410, 1255, 440]
+	  ZOrder		  19
+	  LibraryVersion	  "1.281"
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Zero"
+	  SourceType		  "Compare To Zero"
+	  relop			  ">="
+	  OutDataTypeStr	  "boolean"
+	  ZeroCross		  on
 	}
 	Block {
 	  BlockType		  Demux
@@ -2010,6 +2038,46 @@ Library {
 	  }
 	}
 	Block {
+	  BlockType		  Gain
+	  Name			  "GainM1Neg"
+	  SID			  "295"
+	  Position		  [1210, 285, 1240, 315]
+	  ZOrder		  17
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "GainM1Pos"
+	  SID			  "292"
+	  Position		  [1210, 195, 1240, 225]
+	  ZOrder		  14
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "GainM2Neg"
+	  SID			  "298"
+	  Position		  [1225, 460, 1255, 490]
+	  ZOrder		  21
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "GainM2Pos"
+	  SID			  "297"
+	  Position		  [1225, 360, 1255, 390]
+	  ZOrder		  18
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
 	  BlockType		  Logic
 	  Name			  "Logical\nOperator1"
 	  SID			  "245"
@@ -2108,7 +2176,7 @@ Library {
 	  Name			  "PCI-6025E "
 	  SID			  "253"
 	  Ports			  [2]
-	  Position		  [1185, 209, 1300, 451]
+	  Position		  [1375, 209, 1490, 451]
 	  ZOrder		  -15
 	  LibraryVersion	  "1.265"
 	  SourceBlock		  "xpcnilib/D//A/E Series/PCI-6025E DA"
@@ -2497,6 +2565,24 @@ Library {
 	  ZeroCross		  off
 	}
 	Block {
+	  BlockType		  Switch
+	  Name			  "Switch4"
+	  SID			  "294"
+	  Position		  [1300, 250, 1350, 290]
+	  ZOrder		  16
+	  InputSameDT		  off
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Switch
+	  Name			  "Switch5"
+	  SID			  "299"
+	  Position		  [1300, 370, 1350, 410]
+	  ZOrder		  20
+	  InputSameDT		  off
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
 	  BlockType		  Terminator
 	  Name			  "To scope if\ndesired"
 	  SID			  "277"
@@ -2804,17 +2890,24 @@ Library {
 	}
 	Line {
 	  SrcBlock		  "Demux1"
-	  SrcPort		  2
-	  Points		  [5, 0; 0, 30]
-	  DstBlock		  "PCI-6025E "
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "Demux1"
 	  SrcPort		  1
-	  Points		  [5, 0; 0, -30]
-	  DstBlock		  "PCI-6025E "
-	  DstPort		  1
+	  Points		  [2, 0]
+	  Branch {
+	    Points		    [0, -45]
+	    Branch {
+	      Points		      [0, -45]
+	      DstBlock		      "GainM1Pos"
+	      DstPort		      1
+	    }
+	    Branch {
+	      DstBlock		      "Compare To Zero"
+	      DstPort		      1
+	    }
+	  }
+	  Branch {
+	    DstBlock		    "GainM1Neg"
+	    DstPort		    1
+	  }
 	}
 	Line {
 	  SrcBlock		  "Abs"
@@ -2827,6 +2920,80 @@ Library {
 	  SrcPort		  1
 	  DstBlock		  "Compare\nTo Constant1"
 	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Compare To Zero"
+	  SrcPort		  1
+	  Points		  [30, 0; 0, 15]
+	  DstBlock		  "Switch4"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "GainM1Pos"
+	  SrcPort		  1
+	  Points		  [42, 0; 0, 45]
+	  DstBlock		  "Switch4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Switch4"
+	  SrcPort		  1
+	  DstBlock		  "PCI-6025E "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "GainM1Neg"
+	  SrcPort		  1
+	  Points		  [41, 0; 0, -15]
+	  DstBlock		  "Switch4"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Compare To Zero1"
+	  SrcPort		  1
+	  Points		  [21, 0; 0, -35]
+	  DstBlock		  "Switch5"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "GainM2Pos"
+	  SrcPort		  1
+	  DstBlock		  "Switch5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "GainM2Neg"
+	  SrcPort		  1
+	  Points		  [26, 0; 0, -70]
+	  DstBlock		  "Switch5"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Switch5"
+	  SrcPort		  1
+	  DstBlock		  "PCI-6025E "
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  Points		  [12, 0; 0, 15]
+	  Branch {
+	    DstBlock		    "GainM2Pos"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 50]
+	    Branch {
+	      Points		      [0, 50]
+	      DstBlock		      "GainM2Neg"
+	      DstPort		      1
+	    }
+	    Branch {
+	      DstBlock		      "Compare To Zero1"
+	      DstPort		      1
+	    }
+	  }
 	}
       }
     }
@@ -3503,7 +3670,7 @@ Library {
 	  System {
 	    Name		    "PD Controller"
 	    Location		    [25, 26, 1061, 734]
-	    Open		    on
+	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -4838,9 +5005,9 @@ Library {
 	  Ports			  [2, 1]
 	  Position		  [410, 220, 515, 275]
 	  ZOrder		  -34
-	  LibraryVersion	  "1.69"
+	  LibraryVersion	  "1.70"
 	  SourceBlock		  "limblab/Timer"
-	  SourceType		  ""
+	  SourceType		  "Unknown"
 	  Time			  "10"
 	}
 	Block {
