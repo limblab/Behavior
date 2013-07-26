@@ -5,7 +5,7 @@
 
 #pragma warning(disable: 4800)
 
-#define S_FUNCTION_NAME mastercon_3bc
+#define S_FUNCTION_NAME mastercon_CO_bump
 #define S_FUNCTION_LEVEL 2
 
 // Our task code will be in the databurst
@@ -136,6 +136,7 @@ private:
 	bool stim_trial;
 
 	int bump_dir;
+    int bump_side;
 	float bumpmag_local;
     Point cursorOffset;
 
@@ -163,7 +164,7 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(23);
+	this->setNumParams(20);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
 	this->bindParamId(&params->soft_reset,				1);
@@ -183,11 +184,8 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->target_floor,			15);
 	this->bindParamId(&params->target_ceiling,			16);
 	this->bindParamId(&params->target_incr,				17);
-	this->bindParamId(&params->bump_floor,				18);
-	this->bindParamId(&params->bump_ceiling,			19);
-    this->bindParamId(&params->bump_incr,           	20);
-	this->bindParamId(&params->stim_levels,				21);
-	this->bindParamId(&params->catch_rate,				22);
+	this->bindParamId(&params->stim_levels,				18);
+	this->bindParamId(&params->catch_rate,				19);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -217,10 +215,8 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 
 
 void COBumpBehavior::doPreTrial(SimStruct *S) {
-    int num_bump_dirs; // number of bump directions there will be between bump_floor and bump_ceiling
 	int num_tgt_dirs;	//number of target directions there will be between target floor and target ceiling
 
-	num_bump_dirs = (int)((this->params->bump_ceiling - this->params->bump_floor)/this->params->bump_incr);
 	num_tgt_dirs = (int)((this->params->target_ceiling - this->params->target_floor)/this->params->target_incr);
 
 	//set the target direction
@@ -240,8 +236,8 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
    
 	//select a bump direction orthogonal to the target axis
     
-	this->bump_dir = this->random->getInteger(0,1);
-	switch (this->bump_quadrent){
+	this->bump_side = this->random->getInteger(0,1);
+	switch (this->bump_side){
 		case 0:
 			//bumps in the -90deg direction
             bump_dir = 270; 
@@ -292,9 +288,6 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)this->bump_dir);
 	db->addFloat((float)this->params->bump_duration);
 	db->addFloat((float)this->params->bump_ramp);
-	db->addFloat((float)this->params->bump_floor);
-	db->addFloat((float)this->params->bump_ceiling);
-	db->addFloat((float)this->params->bump_incr);
 	db->addByte((byte)this->stim_trial);
 	db->addFloat((float)this->params->stim_prob);
 	db->addFloat((float)this->params->target_radius);
@@ -336,22 +329,6 @@ void COBumpBehavior::update(SimStruct *S) {
 				setState(STATE_MOVEMENT);
 			}
 			break;
-		case STATE_CT_BLOCK:
-			if (!centerTarget->cursorInTarget(inputs->cursor)) {
-				playTone(TONE_ABORT);
-				setState(STATE_ABORT);
-			} else 
-			}
-			break;
-		case STATE_BUMP:
-			if (primaryTarget->cursorInTarget(inputs->cursor)) {
-				playTone(TONE_REWARD);
-				setState(STATE_REWARD);
-			}
-			break;
-		case STATE_STIM:
-			setState(STATE_BUMP);
-			break;
 		case STATE_MOVEMENT:
 			if (stateTimer->elapsedTime(S) > params->bump_delay_time) {
 				bump->start(S);
@@ -360,6 +337,18 @@ void COBumpBehavior::update(SimStruct *S) {
 				} else {
 					setState(STATE_BUMP);
 				}
+			}
+			break;
+		case STATE_STIM:
+			setState(STATE_BUMP);
+			break;            
+		case STATE_BUMP:
+			if (stateTimer->elapsedTime(S) > params->bump_hold_time){
+                playTone(TONE_FAIL);
+				setState(STATE_PENALTY);
+            } else if(primaryTarget->cursorInTarget(inputs->cursor)) {
+				playTone(TONE_REWARD);
+				setState(STATE_REWARD);
 			}
 			break;
 		case STATE_PENALTY:
@@ -484,16 +473,9 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-    if ((getState() == STATE_CT_BLOCK || getState() == STATE_BUMP) && (params->hide_cursor > .1))
-    {
-        outputs->position = Point(1E6, 1E6);
-    } else { //if ( (params->recenter_cursor) && (getState() == STATE_MOVEMENT) ) {
-        outputs->position = inputs->cursor;
-//    } else {
-//    	outputs->position = inputs->cursor;
-    } 
-}
+    outputs->position = inputs->cursor;
 
+}
 /*
  * Include at bottom of your behavior code
  */

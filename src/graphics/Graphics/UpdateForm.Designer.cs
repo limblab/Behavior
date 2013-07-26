@@ -1172,7 +1172,7 @@ namespace BehaviorGraphics
             this.label_ctr_out_bump_BumpHold = new System.Windows.Forms.Label();
             this.label_ctr_out_bump_BumpDelay = new System.Windows.Forms.Label();
             this.label367 = new System.Windows.Forms.Label();
-            this.textbox_ctr_out_bump_CTHold = new System.Windows.Forms.TextBox();
+            this.textBox_ctr_out_bump_CTHold = new System.Windows.Forms.TextBox();
             this.label_ctr_out_bump_CTHold = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelMdl = new System.Windows.Forms.ToolStripStatusLabel();
@@ -1262,6 +1262,8 @@ namespace BehaviorGraphics
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.label324 = new System.Windows.Forms.Label();
+            this.label_ctr_out_bump_TargetAngleIncr = new System.Windows.Forms.Label();
+            this.textBox_ctr_out_bump_TargetIncr = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -12817,13 +12819,15 @@ namespace BehaviorGraphics
             this.tabPage5.Location = new System.Drawing.Point(4, 58);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(686, 392);
+            this.tabPage5.Size = new System.Drawing.Size(686, 408);
             this.tabPage5.TabIndex = 19;
             this.tabPage5.Text = "Ctr_out_bump";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // groupBox72
             // 
+            this.groupBox72.Controls.Add(this.label_ctr_out_bump_TargetAngleIncr);
+            this.groupBox72.Controls.Add(this.textBox_ctr_out_bump_TargetIncr);
             this.groupBox72.Controls.Add(this.label_ctr_out_bump_TargetAngleCeiling);
             this.groupBox72.Controls.Add(this.label_ctr_out_bump_TargetAngleFloor);
             this.groupBox72.Controls.Add(this.textBox_ctr_out_bump_TargetAngleCeiling);
@@ -13134,7 +13138,7 @@ namespace BehaviorGraphics
             this.groupBox75.Controls.Add(this.label_ctr_out_bump_BumpHold);
             this.groupBox75.Controls.Add(this.label_ctr_out_bump_BumpDelay);
             this.groupBox75.Controls.Add(this.label367);
-            this.groupBox75.Controls.Add(this.textbox_ctr_out_bump_CTHold);
+            this.groupBox75.Controls.Add(this.textBox_ctr_out_bump_CTHold);
             this.groupBox75.Controls.Add(this.label_ctr_out_bump_CTHold);
             this.groupBox75.Location = new System.Drawing.Point(29, 38);
             this.groupBox75.Name = "groupBox75";
@@ -13216,12 +13220,12 @@ namespace BehaviorGraphics
             this.label367.TabIndex = 2;
             this.label367.Text = "CT Hold";
             // 
-            // textbox_ctr_out_bump_CTHold
+            // textBox_ctr_out_bump_CTHold
             // 
-            this.textbox_ctr_out_bump_CTHold.Location = new System.Drawing.Point(90, 13);
-            this.textbox_ctr_out_bump_CTHold.Name = "textbox_ctr_out_bump_CTHold";
-            this.textbox_ctr_out_bump_CTHold.Size = new System.Drawing.Size(100, 20);
-            this.textbox_ctr_out_bump_CTHold.TabIndex = 1;
+            this.textBox_ctr_out_bump_CTHold.Location = new System.Drawing.Point(90, 13);
+            this.textBox_ctr_out_bump_CTHold.Name = "textBox_ctr_out_bump_CTHold";
+            this.textBox_ctr_out_bump_CTHold.Size = new System.Drawing.Size(100, 20);
+            this.textBox_ctr_out_bump_CTHold.TabIndex = 1;
             // 
             // label_ctr_out_bump_CTHold
             // 
@@ -14059,6 +14063,22 @@ namespace BehaviorGraphics
             this.label324.Size = new System.Drawing.Size(102, 13);
             this.label324.TabIndex = 64;
             this.label324.Text = "1-D Jitter Magnitude";
+            // 
+            // label_ctr_out_bump_TargetAngleIncr
+            // 
+            this.label_ctr_out_bump_TargetAngleIncr.AutoSize = true;
+            this.label_ctr_out_bump_TargetAngleIncr.Location = new System.Drawing.Point(6, 213);
+            this.label_ctr_out_bump_TargetAngleIncr.Name = "label_ctr_out_bump_TargetAngleIncr";
+            this.label_ctr_out_bump_TargetAngleIncr.Size = new System.Drawing.Size(89, 13);
+            this.label_ctr_out_bump_TargetAngleIncr.TabIndex = 29;
+            this.label_ctr_out_bump_TargetAngleIncr.Text = "Target Angle Incr";
+            // 
+            // textBox_ctr_out_bump_TargetIncr
+            // 
+            this.textBox_ctr_out_bump_TargetIncr.Location = new System.Drawing.Point(120, 210);
+            this.textBox_ctr_out_bump_TargetIncr.Name = "textBox_ctr_out_bump_TargetIncr";
+            this.textBox_ctr_out_bump_TargetIncr.Size = new System.Drawing.Size(100, 20);
+            this.textBox_ctr_out_bump_TargetIncr.TabIndex = 28;
             // 
             // UpdateForm
             // 
@@ -15571,7 +15591,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label_ctr_out_bump_BumpHold;
         private System.Windows.Forms.Label label_ctr_out_bump_BumpDelay;
         private System.Windows.Forms.Label label367;
-        private System.Windows.Forms.TextBox textbox_ctr_out_bump_CTHold;
+        private System.Windows.Forms.TextBox textBox_ctr_out_bump_CTHold;
         private System.Windows.Forms.Label label_ctr_out_bump_CTHold;
+        private System.Windows.Forms.Label label_ctr_out_bump_TargetAngleIncr;
+        private System.Windows.Forms.TextBox textBox_ctr_out_bump_TargetIncr;
     }
 }

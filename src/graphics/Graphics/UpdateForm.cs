@@ -797,10 +797,10 @@ namespace BehaviorGraphics
 
             AddParamListItem("COB target size", "P3", "Behavior CO Bump", textBox_ctr_out_bump_TargetRadius);
             AddParamListItem("COB target radius", "P4", "Behavior CO Bump", textBox_ctr_out_bump_TargetDistance);
-            AddParamListItem("COB target angle", "P5", "Behavior CO Bump", textBox_ctr_out_bump_TargetAngle);
+            AddParamListItem("COB target angle", "P5", "Behavior CO Bump", angleEntryBox_ctr_out_bump);
             AddParamListItem("COB bump mag", "P6", "Behavior CO Bump", textBox_ctr_out_bump_amplitude);
             AddParamListItem("COB bump dur", "P7", "Behavior CO Bump", textBox_ctr_out_bump_PeakDuration);
-            AddParamListItem("COB bump ramp", "P8", "Behavior CO Bump", textBox_ctr_out_bump_BumpRamp);
+            AddParamListItem("COB bump ramp", "P8", "Behavior CO Bump", textBox_ctr_out_bump_RiseTime);
             AddParamListItem("COB ctr hold", "P9", "Behavior CO Bump", textBox_ctr_out_bump_CTHold);
             AddParamListItem("COB bump delay", "P10", "Behavior CO Bump", textBox_ctr_out_bump_BumpDelay);
             AddParamListItem("COB bump hold", "P11", "Behavior CO Bump", textBox_ctr_out_bump_BumpHold);
@@ -808,14 +808,11 @@ namespace BehaviorGraphics
             AddParamListItem("COB stim prob", "P13", "Behavior CO Bump", textBox_ctr_out_bump_StimProb);
             AddParamListItem("COB penalty time", "P14", "Behavior CO Bump", textBox_ctr_out_bump_penalty);
             AddParamListItem("COB use rantom targets", "P15", "Behavior CO Bump", checkBox_ctr_out_bump_RandomTargets);
-            AddParamListItem("COB target floor", "P16", "Behavior CO Bump", textBox_ctr_out_bump_TargetFloor);
-            AddParamListItem("COB target ceiling", "P17", "Behavior CO Bump", textBox_ctr_out_bump_TargetCeiling);
+            AddParamListItem("COB target floor", "P16", "Behavior CO Bump", textBox_ctr_out_bump_TargetAngleFloor);
+            AddParamListItem("COB target ceiling", "P17", "Behavior CO Bump", textBox_ctr_out_bump_TargetAngleCeiling);
             AddParamListItem("COB target incr", "P18", "Behavior CO Bump", textBox_ctr_out_bump_TargetIncr);
-            AddParamListItem("COB bump floor", "P19", "Behavior CO Bump", textBox_ctr_out_bump_BumpFloor);
-            AddParamListItem("COB bump ceiling", "P20", "Behavior CO Bump", textBox_ctr_out_bump_BumpCeiling);
-            AddParamListItem("COB bump incr", "P21", "Behavior CO Bump", textBox_ctr_out_bump_BumpIncr);
-            AddParamListItem("COB stim levels", "P22", "Behavior CO Bump", textBox_ctr_out_bump_StimLevels);
-            AddParamListItem("COB catch rate", "P23", "Behavior CO Bump", textBox_ctr_out_bump_CatchRate);
+            AddParamListItem("COB stim levels", "P19", "Behavior CO Bump", textBox_ctr_out_bump_StimLevels);
+            AddParamListItem("COB catch rate", "P20", "Behavior CO Bump", textBox_ctr_out_bump_CatchRate);
             
             #endregion
 
