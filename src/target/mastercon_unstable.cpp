@@ -280,6 +280,9 @@ private:
     int block_order [10];
     int *block_order_point [10];
     int bias_force_counter;
+    int bump_counter;
+    int bump_order [10];
+    int *bump_order_point [10];
     
     real_T bias_force_angle;
 
@@ -384,6 +387,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     block_counter = 10000; 
     trial_counter = 10000; // Stupidly large number so that the blocks are reset in first pretrial.
     bias_force_counter = 10000;
+    bump_counter = 10000;
     field_angle = 0;
     
     x_pos_old = 0;
@@ -414,6 +418,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
         trial_counter = 10000;
         block_counter = 10000;
         bias_force_counter = 10000;
+        bump_counter = 10000;
     }
         
     if (trial_counter >= params->field_block_length-1){
@@ -429,6 +434,16 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
         }
     }
     trial_counter++;
+    
+    if (bump_counter >= params->num_bump_directions-1){
+        bump_counter = -1;
+        for (int i=0; i < params->num_bump_directions; i++){
+            bump_order[i] = i;
+            bump_order_point[i] = &bump_order[0] + i*sizeof(int);
+        }
+        random->permute((void **)bump_order_point, params->num_bump_directions);
+    }
+    bump_counter++;
 
     field_angle = fmod(block_order[block_counter] * PI/(params->num_field_orientations) + 
         params->first_field_angle,2*PI);  
@@ -442,8 +457,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
             params->first_bias_force_direction,2*PI); 
     }
     
-    int rand_i = this->random->getInteger(0,(int)(params->num_bump_directions-1));
-	bump_direction = fmod(rand_i * 2 * PI/params->num_bump_directions + params->first_bump_direction,2*PI);
+	bump_direction = fmod(bump_order[bump_counter] * 2 * PI/params->num_bump_directions + params->first_bump_direction,2*PI);
 
 	bump->direction = bump_direction;
 	bump->hold_duration = params->bump_duration;
