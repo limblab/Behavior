@@ -3,7 +3,7 @@
  * Master Control block for behavior: unstable field
  */
 
-#define DATABURST_VERSION ((byte)0x05) 
+#define DATABURST_VERSION ((byte)0x06) 
 /* 
  * Current Databurst version: 5
  *
@@ -15,6 +15,28 @@
  * Databurst version descriptions
  * ==============================
  * 
+ * * * Version 6 (0x06)
+ * ----------------
+ * byte         0: uchar => number of bytes to be transmitted
+ * byte         1: uchar => databurst version number (in this case zero)
+ * byte         2: uchar => model version major
+ * byte         3: uchar => model version minor
+ * bytes   4 to 5: short => model version micro
+ * bytes   6 to 9: float => x offset (cm)
+ * bytes 10 to 13: float => y offset (cm)
+ * bytes 14 to 17: float => bump velocity (cm/s) or magnitude (N) depending on type.
+ * bytes 18 to 21: float => bump direction (rad)
+ * bytes 22 to 25: float => bump duration (s)
+ * bytes 26 to 29: float => negative stiffness (N/cm)
+ * bytes 30 to 33: float => positive stiffness (N/cm)
+ * bytes 34 to 37: float => force field angle (rad)
+ * bytes 38 to 41: float => bias force magnitude (N)
+ * bytes 42 to 45: float => bias force angle (rad)
+ * bytes 46 to 49: float => force target diameter (N)
+ * byte        50: uchar => force bump (if 0: vel bump)
+ * bytes 51 to 54: float => infintite force bump duration
+ * byte        55: uchar => position cursor (if 0: force cursor)
+ *
  * * Version 5 (0x05)
  * ----------------
  * byte         0: uchar => number of bytes to be transmitted
@@ -495,8 +517,9 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)params->bias_force_magnitude);			// bytes 38 to 41 -> Matlab idx 39 to 42
 	db->addFloat((float)bias_force_angle);                      // bytes 42 to 45 -> Matlab idx 43 to 46
     db->addFloat((float)params->force_target_diameter);         // bytes 46 to 49 -> Matlab idx 47 to 50
-    db->addByte((int)params->force_bump);                       // byte 50 -> Matlab idx 51
+    db->addByte((int)params->force_bump);                       // byte 50        -> Matlab idx 51
     db->addFloat((float)params->infinite_bump_duration);        // bytes 51 to 54 -> Matlab idx 52 to 55
+    db->addByte((int)params->position_cursor);                  // byte 44        -> Matlab idx 56 
     
 	db->start();
 
