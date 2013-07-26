@@ -42,10 +42,10 @@ Library {
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
 	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"229"
+	LoadSaveID		"102"
 	Extents			[1384.0, 616.0]
-	ZoomFactor		[1.0]
-	Offset			[194.41666666666652, 57.000000000000114]
+	ZoomFactor		[0.8]
+	Offset			[-60.456441110274568, -26.697918507876807]
       }
     }
   }
@@ -55,9 +55,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "ricardo"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Jul 19 15:06:20 2013"
-  RTWModifiedTimeStamp	  296147178
-  ModelVersionFormat	  "1.%<AutoIncrement:72>"
+  LastModifiedDate	  "Fri Jul 26 08:55:23 2013"
+  RTWModifiedTimeStamp	  296729714
+  ModelVersionFormat	  "1.%<AutoIncrement:73>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -962,7 +962,7 @@ Library {
   }
   System {
     Name		    "limblab"
-    Location		    [25, 26, 1061, 734]
+    Location		    [25, 26, 1461, 810]
     Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -976,7 +976,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "299"
+    SIDHighWatermark	    "309"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
@@ -1731,7 +1731,7 @@ Library {
       System {
 	Name			"Motor Control"
 	Location		[25, 26, 1461, 810]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -3215,8 +3215,8 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"Recentering Subsystem"
-	Location		[25, 26, 1061, 734]
-	Open			off
+	Location		[25, 26, 1461, 810]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -3227,12 +3227,12 @@ Library {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"100"
+	ZoomFactor		"80"
 	Block {
 	  BlockType		  Inport
 	  Name			  "Vel"
 	  SID			  "103"
-	  Position		  [25, 203, 55, 217]
+	  Position		  [25, 263, 55, 277]
 	  ZOrder		  -1
 	  IconDisplay		  "Port number"
 	}
@@ -3240,7 +3240,7 @@ Library {
 	  BlockType		  Inport
 	  Name			  "Pos"
 	  SID			  "104"
-	  Position		  [775, 288, 805, 302]
+	  Position		  [775, 348, 805, 362]
 	  ZOrder		  -2
 	  Port			  "2"
 	  IconDisplay		  "Port number"
@@ -3249,17 +3249,29 @@ Library {
 	  BlockType		  Inport
 	  Name			  "OutsideBox"
 	  SID			  "105"
-	  Position		  [165, 333, 195, 347]
+	  Position		  [165, 393, 195, 407]
 	  ZOrder		  -3
 	  NamePlacement		  "alternate"
 	  Port			  "3"
 	  IconDisplay		  "Port number"
 	}
 	Block {
+	  BlockType		  Sum
+	  Name			  "Add"
+	  SID			  "306"
+	  Ports			  [2, 1]
+	  Position		  [960, 72, 990, 103]
+	  ZOrder		  7
+	  Inputs		  "-+"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
 	  BlockType		  Gain
 	  Name			  "Bounding Box Viscosity"
 	  SID			  "106"
-	  Position		  [1065, 84, 1130, 116]
+	  Position		  [925, 144, 990, 176]
 	  ZOrder		  -4
 	  NamePlacement		  "alternate"
 	  Gain			  "-0.1"
@@ -3272,7 +3284,7 @@ Library {
 	  Name			  "Compare\nTo Zero"
 	  SID			  "107"
 	  Ports			  [1, 1]
-	  Position		  [195, 165, 225, 195]
+	  Position		  [195, 225, 225, 255]
 	  ZOrder		  -5
 	  LibraryVersion	  "1.281"
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Zero"
@@ -3286,7 +3298,7 @@ Library {
 	  Name			  "Compare\nTo Zero1"
 	  SID			  "108"
 	  Ports			  [1, 1]
-	  Position		  [195, 225, 225, 255]
+	  Position		  [195, 285, 225, 315]
 	  ZOrder		  -6
 	  LibraryVersion	  "1.281"
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Zero"
@@ -3296,10 +3308,24 @@ Library {
 	  ZeroCross		  off
 	}
 	Block {
+	  BlockType		  Reference
+	  Name			  "Compare\nTo Zero2"
+	  SID			  "307"
+	  Ports			  [1, 1]
+	  Position		  [1025, 75, 1055, 105]
+	  ZOrder		  8
+	  LibraryVersion	  "1.281"
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Zero"
+	  SourceType		  "Compare To Zero"
+	  relop			  "<="
+	  OutDataTypeStr	  "boolean"
+	  ZeroCross		  on
+	}
+	Block {
 	  BlockType		  DataTypeConversion
 	  Name			  "Data Type Conversion1"
 	  SID			  "109"
-	  Position		  [1380, 753, 1455, 787]
+	  Position		  [1380, 813, 1455, 847]
 	  ZOrder		  -7
 	  RndMeth		  "Floor"
 	  SaturateOnIntegerOverflow off
@@ -3308,7 +3334,7 @@ Library {
 	  BlockType		  DataTypeConversion
 	  Name			  "Data Type Conversion2"
 	  SID			  "110"
-	  Position		  [1380, 688, 1455, 722]
+	  Position		  [1380, 748, 1455, 782]
 	  ZOrder		  -8
 	  RndMeth		  "Floor"
 	  SaturateOnIntegerOverflow off
@@ -3318,8 +3344,32 @@ Library {
 	  Name			  "Demux"
 	  SID			  "111"
 	  Ports			  [1, 2]
-	  Position		  [150, 150, 155, 270]
+	  Position		  [150, 210, 155, 330]
 	  ZOrder		  -9
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux1"
+	  SID			  "302"
+	  Ports			  [1, 2]
+	  Position		  [855, 35, 860, 70]
+	  ZOrder		  3
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux2"
+	  SID			  "304"
+	  Ports			  [1, 2]
+	  Position		  [855, 95, 860, 130]
+	  ZOrder		  5
 	  BackgroundColor	  "black"
 	  ShowName		  off
 	  Outputs		  "2"
@@ -3330,7 +3380,7 @@ Library {
 	  Name			  "Falling Edge"
 	  SID			  "112"
 	  Ports			  [1, 1]
-	  Position		  [1290, 745, 1350, 795]
+	  Position		  [1290, 805, 1350, 855]
 	  ZOrder		  -10
 	  LibraryVersion	  "1.281"
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Detect Fall\nNonpositive"
@@ -3344,7 +3394,7 @@ Library {
 	  Name			  "Falling Edge1"
 	  SID			  "113"
 	  Ports			  [1, 1]
-	  Position		  [1290, 680, 1350, 730]
+	  Position		  [1290, 740, 1350, 790]
 	  ZOrder		  -11
 	  NamePlacement		  "alternate"
 	  LibraryVersion	  "1.281"
@@ -3358,16 +3408,24 @@ Library {
 	  BlockType		  From
 	  Name			  "FromActivate"
 	  SID			  "114"
-	  Position		  [1760, 596, 1800, 624]
+	  Position		  [1760, 656, 1800, 684]
 	  ZOrder		  -12
 	  CloseFcn		  "tagdialog Close"
 	  GotoTag		  "B"
 	}
 	Block {
 	  BlockType		  From
+	  Name			  "FromOffsets\n"
+	  SID			  "300"
+	  Position		  [785, 41, 830, 69]
+	  ZOrder		  1
+	  GotoTag		  "Offsets"
+	}
+	Block {
+	  BlockType		  From
 	  Name			  "FromOutsideBox"
 	  SID			  "115"
-	  Position		  [1760, 551, 1800, 579]
+	  Position		  [1760, 611, 1800, 639]
 	  ZOrder		  -13
 	  CloseFcn		  "tagdialog Close"
 	}
@@ -3375,7 +3433,7 @@ Library {
 	  BlockType		  From
 	  Name			  "FromPDOn"
 	  SID			  "116"
-	  Position		  [1760, 686, 1800, 714]
+	  Position		  [1760, 746, 1800, 774]
 	  ZOrder		  -14
 	  CloseFcn		  "tagdialog Close"
 	  GotoTag		  "D"
@@ -3384,7 +3442,7 @@ Library {
 	  BlockType		  From
 	  Name			  "FromPDOn1"
 	  SID			  "117"
-	  Position		  [1760, 731, 1800, 759]
+	  Position		  [1760, 791, 1800, 819]
 	  ZOrder		  -15
 	  CloseFcn		  "tagdialog Close"
 	  GotoTag		  "E"
@@ -3393,7 +3451,7 @@ Library {
 	  BlockType		  From
 	  Name			  "FromSR"
 	  SID			  "118"
-	  Position		  [1760, 641, 1800, 669]
+	  Position		  [1760, 701, 1800, 729]
 	  ZOrder		  -16
 	  CloseFcn		  "tagdialog Close"
 	  GotoTag		  "C"
@@ -3403,7 +3461,7 @@ Library {
 	  Name			  "InBox"
 	  SID			  "119"
 	  Ports			  [1, 1]
-	  Position		  [290, 322, 320, 358]
+	  Position		  [290, 382, 320, 418]
 	  ZOrder		  -17
 	  Operator		  "NOT"
 	  AllPortsSameDT	  off
@@ -3414,7 +3472,7 @@ Library {
 	  Name			  "Logical\nOperator"
 	  SID			  "120"
 	  Ports			  [4, 1]
-	  Position		  [290, 217, 320, 253]
+	  Position		  [290, 277, 320, 313]
 	  ZOrder		  -18
 	  Inputs		  "4"
 	  AllPortsSameDT	  off
@@ -3425,7 +3483,7 @@ Library {
 	  Name			  "Logical\nOperator1"
 	  SID			  "121"
 	  Ports			  [2, 1]
-	  Position		  [1490, 653, 1525, 722]
+	  Position		  [1490, 713, 1525, 782]
 	  ZOrder		  -19
 	  Operator		  "OR"
 	  AllPortsSameDT	  off
@@ -3436,7 +3494,7 @@ Library {
 	  Name			  "Logical\nOperator3"
 	  SID			  "122"
 	  Ports			  [2, 1]
-	  Position		  [825, 508, 855, 557]
+	  Position		  [825, 568, 855, 617]
 	  ZOrder		  -20
 	  AllPortsSameDT	  off
 	  OutDataTypeStr	  "boolean"
@@ -3446,7 +3504,7 @@ Library {
 	  Name			  "Logical\nOperator5"
 	  SID			  "123"
 	  Ports			  [3, 1]
-	  Position		  [1730, 795, 1760, 895]
+	  Position		  [1730, 855, 1760, 955]
 	  ZOrder		  -21
 	  Operator		  "OR"
 	  Inputs		  "3"
@@ -3458,7 +3516,7 @@ Library {
 	  Name			  "Logical\nOperator6"
 	  SID			  "124"
 	  Ports			  [1, 1]
-	  Position		  [740, 486, 770, 514]
+	  Position		  [740, 546, 770, 574]
 	  ZOrder		  -22
 	  Operator		  "NOT"
 	  AllPortsSameDT	  off
@@ -3469,7 +3527,7 @@ Library {
 	  Name			  "Mux"
 	  SID			  "125"
 	  Ports			  [6, 1]
-	  Position		  [1835, 539, 1840, 816]
+	  Position		  [1835, 599, 1840, 876]
 	  ZOrder		  -23
 	  ShowName		  off
 	  Inputs		  "6"
@@ -3480,7 +3538,7 @@ Library {
 	  Name			  "NOT"
 	  SID			  "126"
 	  Ports			  [1, 1]
-	  Position		  [1385, 587, 1415, 623]
+	  Position		  [1385, 647, 1415, 683]
 	  ZOrder		  -24
 	  Operator		  "NOT"
 	  AllPortsSameDT	  off
@@ -3491,7 +3549,7 @@ Library {
 	  Name			  "No Movement"
 	  SID			  "127"
 	  Ports			  [1, 1]
-	  Position		  [855, 391, 980, 469]
+	  Position		  [855, 451, 980, 529]
 	  ZOrder		  -25
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -3658,7 +3716,7 @@ Library {
 	  Name			  "PD Controller"
 	  SID			  "136"
 	  Ports			  [3, 1]
-	  Position		  [910, 185, 1035, 315]
+	  Position		  [910, 245, 1035, 375]
 	  ZOrder		  -26
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -3669,7 +3727,7 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "PD Controller"
-	    Location		    [25, 26, 1061, 734]
+	    Location		    [25, 26, 1461, 810]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -3990,10 +4048,21 @@ Library {
 	  }
 	}
 	Block {
+	  BlockType		  Product
+	  Name			  "Product"
+	  SID			  "308"
+	  Ports			  [2, 1]
+	  Position		  [1120, 137, 1150, 168]
+	  ZOrder		  9
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
 	  BlockType		  Constant
 	  Name			  "RecenterFlag"
 	  SID			  "154"
-	  Position		  [200, 115, 230, 145]
+	  Position		  [200, 175, 230, 205]
 	  ZOrder		  -27
 	}
 	Block {
@@ -4001,7 +4070,7 @@ Library {
 	  Name			  "S-R\nFlip-Flop"
 	  SID			  "155"
 	  Ports			  [2, 2]
-	  Position		  [1570, 690, 1615, 770]
+	  Position		  [1570, 750, 1615, 830]
 	  ZOrder		  -28
 	  LibraryVersion	  "1.44"
 	  SourceBlock		  "simulink_extras/Flip Flops/S-R\nFlip-Flop"
@@ -4013,7 +4082,7 @@ Library {
 	  Name			  "Schmidt1"
 	  SID			  "156"
 	  Ports			  [1, 1]
-	  Position		  [585, 229, 685, 271]
+	  Position		  [585, 289, 685, 331]
 	  ZOrder		  -29
 	  NamePlacement		  "alternate"
 	  MinAlgLoopOccurrences	  off
@@ -4335,7 +4404,7 @@ Library {
 	  Name			  "Schmidt2"
 	  SID			  "172"
 	  Ports			  [1, 1]
-	  Position		  [575, 821, 735, 869]
+	  Position		  [575, 881, 735, 929]
 	  ZOrder		  -30
 	  NamePlacement		  "alternate"
 	  MinAlgLoopOccurrences	  off
@@ -4657,7 +4726,7 @@ Library {
 	  Name			  "Schmidt3"
 	  SID			  "188"
 	  Ports			  [1, 1]
-	  Position		  [1130, 684, 1265, 726]
+	  Position		  [1130, 744, 1265, 786]
 	  ZOrder		  -31
 	  NamePlacement		  "alternate"
 	  MinAlgLoopOccurrences	  off
@@ -4979,7 +5048,7 @@ Library {
 	  Name			  "Start Moving"
 	  SID			  "204"
 	  Ports			  [1, 1]
-	  Position		  [1045, 680, 1105, 730]
+	  Position		  [1045, 740, 1105, 790]
 	  ZOrder		  -32
 	  LibraryVersion	  "1.281"
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Detect Fall\nNonpositive"
@@ -4992,29 +5061,43 @@ Library {
 	  BlockType		  Switch
 	  Name			  "Switch"
 	  SID			  "205"
-	  Position		  [1245, 520, 1275, 550]
+	  Position		  [1245, 580, 1275, 610]
 	  ZOrder		  -33
 	  Criteria		  "u2 ~= 0"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator"
+	  SID			  "303"
+	  Position		  [885, 35, 905, 55]
+	  ZOrder		  4
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator1"
+	  SID			  "305"
+	  Position		  [885, 85, 905, 105]
+	  ZOrder		  6
+	}
+	Block {
 	  BlockType		  Reference
 	  Name			  "Timer"
 	  SID			  "206"
 	  Ports			  [2, 1]
-	  Position		  [410, 220, 515, 275]
+	  Position		  [410, 280, 515, 335]
 	  ZOrder		  -34
-	  LibraryVersion	  "1.70"
+	  LibraryVersion	  "1.72"
 	  SourceBlock		  "limblab/Timer"
-	  SourceType		  "Unknown"
+	  SourceType		  ""
 	  Time			  "10"
 	}
 	Block {
 	  BlockType		  Goto
 	  Name			  "ToActivate"
 	  SID			  "207"
-	  Position		  [425, 150, 465, 180]
+	  Position		  [425, 210, 465, 240]
 	  ZOrder		  -35
 	  GotoTag		  "B"
 	}
@@ -5022,7 +5105,7 @@ Library {
 	  BlockType		  Goto
 	  Name			  "ToOutsideBox"
 	  SID			  "208"
-	  Position		  [325, 455, 365, 485]
+	  Position		  [325, 515, 365, 545]
 	  ZOrder		  -36
 	  GotoTag		  "A"
 	}
@@ -5030,7 +5113,7 @@ Library {
 	  BlockType		  Goto
 	  Name			  "ToOutsideBox1"
 	  SID			  "209"
-	  Position		  [1060, 415, 1100, 445]
+	  Position		  [1060, 475, 1100, 505]
 	  ZOrder		  -37
 	  GotoTag		  "E"
 	}
@@ -5038,7 +5121,7 @@ Library {
 	  BlockType		  Goto
 	  Name			  "ToPDOn"
 	  SID			  "210"
-	  Position		  [790, 180, 830, 210]
+	  Position		  [790, 240, 830, 270]
 	  ZOrder		  -38
 	  GotoTag		  "D"
 	}
@@ -5046,7 +5129,7 @@ Library {
 	  BlockType		  Goto
 	  Name			  "ToSR"
 	  SID			  "211"
-	  Position		  [1670, 695, 1710, 725]
+	  Position		  [1670, 755, 1710, 785]
 	  ZOrder		  -39
 	  GotoTag		  "C"
 	}
@@ -5055,7 +5138,7 @@ Library {
 	  Name			  "Xpos1"
 	  SID			  "212"
 	  Ports			  [1]
-	  Position		  [1965, 660, 2035, 700]
+	  Position		  [1965, 720, 2035, 760]
 	  ZOrder		  -40
 	  LibraryVersion	  "1.1718"
 	  SourceBlock		  "xpclib/Misc./Scope (xPC) "
@@ -5087,7 +5170,7 @@ Library {
 	  BlockType		  Outport
 	  Name			  "Forces"
 	  SID			  "213"
-	  Position		  [1325, 528, 1355, 542]
+	  Position		  [1325, 588, 1355, 602]
 	  ZOrder		  -41
 	  IconDisplay		  "Port number"
 	}
@@ -5095,7 +5178,7 @@ Library {
 	  BlockType		  Outport
 	  Name			  "toSwitch"
 	  SID			  "214"
-	  Position		  [1825, 838, 1860, 852]
+	  Position		  [1825, 898, 1860, 912]
 	  ZOrder		  -42
 	  Port			  "2"
 	  IconDisplay		  "Port number"
@@ -5299,15 +5382,22 @@ Library {
 	Line {
 	  SrcBlock		  "Pos"
 	  SrcPort		  1
-	  DstBlock		  "PD Controller"
-	  DstPort		  3
+	  Points		  [33, 0]
+	  Branch {
+	    Points		    [0, -240]
+	    DstBlock		    "Demux2"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "PD Controller"
+	    DstPort		    3
+	  }
 	}
 	Line {
 	  SrcBlock		  "Bounding Box Viscosity"
 	  SrcPort		  1
-	  Points		  [60, 0; 0, 425]
-	  DstBlock		  "Switch"
-	  DstPort		  1
+	  DstBlock		  "Product"
+	  DstPort		  2
 	}
 	Line {
 	  SrcBlock		  "Mux"
@@ -5443,6 +5533,64 @@ Library {
 	  Points		  [15, 0; 0, 65]
 	  DstBlock		  "Logical\nOperator1"
 	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "FromOffsets\n"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  1
+	  DstBlock		  "Terminator"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  1
+	  Points		  [5, 0]
+	  DstBlock		  "Terminator1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  Points		  [2, 0; 0, 20]
+	  DstBlock		  "Add"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  2
+	  Points		  [80, 0]
+	  DstBlock		  "Add"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Add"
+	  SrcPort		  1
+	  DstBlock		  "Compare\nTo Zero2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Compare\nTo Zero2"
+	  SrcPort		  1
+	  Points		  [18, 0; 0, 55]
+	  DstBlock		  "Product"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Product"
+	  SrcPort		  1
+	  Points		  [42, 0; 0, 430]
+	  DstBlock		  "Switch"
+	  DstPort		  1
+	}
+	Annotation {
+	  SID			  "309"
+	  Name			  "Viscous field except when very close to robot base, at which point the motors turn off"
+	  Position		  [967, 18]
 	}
       }
     }
@@ -6491,7 +6639,7 @@ Library {
 	  Ports			  [1, 1, 1]
 	  Position		  [390, 414, 490, 456]
 	  ZOrder		  -6
-	  LibraryVersion	  "1.61"
+	  LibraryVersion	  "1.72"
 	  SourceBlock		  "limblab/ResetableSchmidt/Enabled\nSubsystem"
 	  SourceType		  "SubSystem"
 	}
