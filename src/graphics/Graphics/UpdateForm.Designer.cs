@@ -1131,6 +1131,8 @@ namespace BehaviorGraphics
             this.label317 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.groupBox72 = new System.Windows.Forms.GroupBox();
+            this.label_ctr_out_bump_TargetAngleIncr = new System.Windows.Forms.Label();
+            this.textBox_ctr_out_bump_TargetIncr = new System.Windows.Forms.TextBox();
             this.label_ctr_out_bump_TargetAngleCeiling = new System.Windows.Forms.Label();
             this.label_ctr_out_bump_TargetAngleFloor = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_TargetAngleCeiling = new System.Windows.Forms.TextBox();
@@ -1262,8 +1264,7 @@ namespace BehaviorGraphics
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.label324 = new System.Windows.Forms.Label();
-            this.label_ctr_out_bump_TargetAngleIncr = new System.Windows.Forms.Label();
-            this.textBox_ctr_out_bump_TargetIncr = new System.Windows.Forms.TextBox();
+            this.checkBoxUFPC = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -10291,6 +10292,7 @@ namespace BehaviorGraphics
             // 
             // groupBox67
             // 
+            this.groupBox67.Controls.Add(this.checkBoxUFPC);
             this.groupBox67.Controls.Add(this.textBoxUFFTD);
             this.groupBox67.Controls.Add(this.labelUFFTD);
             this.groupBox67.Controls.Add(this.textBoxUFWD);
@@ -10299,7 +10301,7 @@ namespace BehaviorGraphics
             this.groupBox67.Controls.Add(this.label337);
             this.groupBox67.Location = new System.Drawing.Point(8, 172);
             this.groupBox67.Name = "groupBox67";
-            this.groupBox67.Size = new System.Drawing.Size(200, 121);
+            this.groupBox67.Size = new System.Drawing.Size(200, 118);
             this.groupBox67.TabIndex = 2;
             this.groupBox67.TabStop = false;
             this.groupBox67.Text = "Target and workspace";
@@ -12846,6 +12848,22 @@ namespace BehaviorGraphics
             this.groupBox72.TabStop = false;
             this.groupBox72.Text = "Targets";
             // 
+            // label_ctr_out_bump_TargetAngleIncr
+            // 
+            this.label_ctr_out_bump_TargetAngleIncr.AutoSize = true;
+            this.label_ctr_out_bump_TargetAngleIncr.Location = new System.Drawing.Point(6, 213);
+            this.label_ctr_out_bump_TargetAngleIncr.Name = "label_ctr_out_bump_TargetAngleIncr";
+            this.label_ctr_out_bump_TargetAngleIncr.Size = new System.Drawing.Size(89, 13);
+            this.label_ctr_out_bump_TargetAngleIncr.TabIndex = 29;
+            this.label_ctr_out_bump_TargetAngleIncr.Text = "Target Angle Incr";
+            // 
+            // textBox_ctr_out_bump_TargetIncr
+            // 
+            this.textBox_ctr_out_bump_TargetIncr.Location = new System.Drawing.Point(120, 210);
+            this.textBox_ctr_out_bump_TargetIncr.Name = "textBox_ctr_out_bump_TargetIncr";
+            this.textBox_ctr_out_bump_TargetIncr.Size = new System.Drawing.Size(100, 20);
+            this.textBox_ctr_out_bump_TargetIncr.TabIndex = 28;
+            // 
             // label_ctr_out_bump_TargetAngleCeiling
             // 
             this.label_ctr_out_bump_TargetAngleCeiling.AutoSize = true;
@@ -14064,21 +14082,16 @@ namespace BehaviorGraphics
             this.label324.TabIndex = 64;
             this.label324.Text = "1-D Jitter Magnitude";
             // 
-            // label_ctr_out_bump_TargetAngleIncr
+            // checkBoxUFPC
             // 
-            this.label_ctr_out_bump_TargetAngleIncr.AutoSize = true;
-            this.label_ctr_out_bump_TargetAngleIncr.Location = new System.Drawing.Point(6, 213);
-            this.label_ctr_out_bump_TargetAngleIncr.Name = "label_ctr_out_bump_TargetAngleIncr";
-            this.label_ctr_out_bump_TargetAngleIncr.Size = new System.Drawing.Size(89, 13);
-            this.label_ctr_out_bump_TargetAngleIncr.TabIndex = 29;
-            this.label_ctr_out_bump_TargetAngleIncr.Text = "Target Angle Incr";
-            // 
-            // textBox_ctr_out_bump_TargetIncr
-            // 
-            this.textBox_ctr_out_bump_TargetIncr.Location = new System.Drawing.Point(120, 210);
-            this.textBox_ctr_out_bump_TargetIncr.Name = "textBox_ctr_out_bump_TargetIncr";
-            this.textBox_ctr_out_bump_TargetIncr.Size = new System.Drawing.Size(100, 20);
-            this.textBox_ctr_out_bump_TargetIncr.TabIndex = 28;
+            this.checkBoxUFPC.AutoSize = true;
+            this.checkBoxUFPC.Location = new System.Drawing.Point(9, 93);
+            this.checkBoxUFPC.Name = "checkBoxUFPC";
+            this.checkBoxUFPC.Size = new System.Drawing.Size(95, 17);
+            this.checkBoxUFPC.TabIndex = 16;
+            this.checkBoxUFPC.Text = "Position cursor";
+            this.toolTip1.SetToolTip(this.checkBoxUFPC, "If checked, position feedback, otherwise, force feedback.");
+            this.checkBoxUFPC.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -15595,5 +15608,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label_ctr_out_bump_CTHold;
         private System.Windows.Forms.Label label_ctr_out_bump_TargetAngleIncr;
         private System.Windows.Forms.TextBox textBox_ctr_out_bump_TargetIncr;
+        private System.Windows.Forms.CheckBox checkBoxUFPC;
     }
 }

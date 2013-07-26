@@ -221,6 +221,9 @@ struct LocalParams{
     // Cereubs recording stuff
     real_T record;
     real_T record_for_x_mins;
+    
+    // More cursor stuff
+    real_T position_cursor;
 };
 
 /**
@@ -297,7 +300,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(36);
+	this->setNumParams(37);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->field_ramp_up,							 1);
@@ -348,8 +351,10 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->record,                                   34);
     this->bindParamId(&params->record_for_x_mins,                        35);
     
+    this->bindParamId(&params->position_cursor,                          36);
+    
     // default parameters:
-    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2   0   1 1
+    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2   0   1 1   0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -559,11 +564,20 @@ void AttentionBehavior::update(SimStruct *S) {
             if (inputs->catchForce.x) {
                 setState(STATE_INCOMPLETE);
             } else {
-                if (!workSpaceTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
-                    playTone(TONE_ABORT);
-                    setState(STATE_ABORT);				
-                } else if (centerTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
-                    setState(STATE_CT_HOLD);
+                if (!params->position_cursor){
+                    if (!workSpaceTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
+                        playTone(TONE_ABORT);
+                        setState(STATE_ABORT);				
+                    } else if (centerTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
+                        setState(STATE_CT_HOLD);
+                    }
+                } else {
+                    if (!workSpaceTarget->cursorInTarget(inputs->cursor)){
+                        playTone(TONE_ABORT);
+                        setState(STATE_ABORT);				
+                    } else if (centerTarget->cursorInTarget(inputs->cursor)){
+                        setState(STATE_CT_HOLD);
+                    }
                 }
             }
             break;
@@ -571,12 +585,24 @@ void AttentionBehavior::update(SimStruct *S) {
             if (inputs->catchForce.x) {
                 setState(STATE_INCOMPLETE);
             } else {
-                if (stateTimer->elapsedTime(S) > field_hold_time){
+                if (stateTimer->elapsedTime(S) > field_hold_time && !params->position_cursor){
                     bump->start(S);
                     infinite_bump->start(S);
                     setState(STATE_BUMP);
-                } else if (!centerTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
-                    setState(STATE_HOLD_FIELD);
+                } else if (stateTimer->elapsedTime(S) > field_hold_time && centerTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
+                    bump->start(S);
+                    infinite_bump->start(S);
+                    setState(STATE_BUMP);
+                } else {
+                    if (!params->position_cursor){
+                        if (!centerTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
+                            setState(STATE_HOLD_FIELD);
+                        }
+                    } else {
+                        if (!centerTarget->cursorInTarget(inputs->cursor)){
+                            setState(STATE_HOLD_FIELD);
+                        }
+                    }
                 }
             }
             break;
@@ -663,15 +689,17 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     real_T out_of_tolerance = distance_from_zero > tolerance;
     
     // Force field
-    real_T x_force_field = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
-					    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle) + 
+    real_T x_force_neg_stiffness = pow(params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
+					    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle),1/3);
+    real_T x_force_field = x_force_neg_stiffness + 
 						out_of_tolerance*params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
 						(inputs->cursor.y - params->y_position_offset)*cos(field_angle))*sin(field_angle) + 
                         params->bias_force_magnitude * cos(bias_force_angle) +
                         b*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*sin(field_angle);
 
-	real_T y_force_field = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset)*cos(field_angle) + 
-						(inputs->cursor.y - params->y_position_offset)*sin(field_angle))*sin(field_angle) -
+    real_T y_force_neg_stiffness = pow(params->negative_stiffness*((inputs->cursor.x-params->x_position_offset)*cos(field_angle) + 
+						(inputs->cursor.y - params->y_position_offset)*sin(field_angle))*sin(field_angle),1/3);
+	real_T y_force_field = y_force_neg_stiffness -
 						out_of_tolerance*params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
 						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle) + 
                         params->bias_force_magnitude * sin(bias_force_angle) -
@@ -819,17 +847,27 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[2] = BEHAVIOR_VERSION_MICRO;
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
     
-    /* position (7) */
+    /* position (7) */    
     switch (this->getState()){
 		case STATE_FIELD_BUILD_UP:
-			ratio_force = stateTimer->elapsedTime(S) / params->field_ramp_up;
-			outputs->position.x = force_to_position * ratio_force * x_force_cursor;
-			outputs->position.y = force_to_position * ratio_force * y_force_cursor;
+            if (!params->position_cursor){
+                ratio_force = stateTimer->elapsedTime(S) / params->field_ramp_up;
+                outputs->position.x = force_to_position * ratio_force * x_force_cursor;
+                outputs->position.y = force_to_position * ratio_force * y_force_cursor;
+            } else {                
+                outputs->position.x = inputs->cursor.x - params->x_position_offset;
+                outputs->position.y = inputs->cursor.y - params->y_position_offset;
+            }
 			break;
 		case STATE_HOLD_FIELD:
 		case STATE_CT_HOLD:
-			outputs->position.x = force_to_position * x_force_cursor;
-			outputs->position.y = force_to_position * y_force_cursor;
+            if (!params->position_cursor){
+                outputs->position.x = force_to_position * x_force_cursor;
+                outputs->position.y = force_to_position * y_force_cursor;
+            } else {                
+                outputs->position.x = inputs->cursor.x - params->x_position_offset;
+                outputs->position.y = inputs->cursor.y - params->y_position_offset;
+            }
 			break;
 		case STATE_BUMP:
 			outputs->position = Point(1E6, 1E6);
