@@ -689,16 +689,20 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     real_T out_of_tolerance = distance_from_zero > tolerance;
     
     // Force field
-    real_T x_force_neg_stiffness = pow(params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
-					    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle),1/3);
+    real_T x_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
+					    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle);
+    real_T temp_debug_x = sqrt(fabs(x_force_neg_stiffness));
+    x_force_neg_stiffness = (x_force_neg_stiffness>0?1:-1)*sqrt(fabs(x_force_neg_stiffness));
     real_T x_force_field = x_force_neg_stiffness + 
 						out_of_tolerance*params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
 						(inputs->cursor.y - params->y_position_offset)*cos(field_angle))*sin(field_angle) + 
                         params->bias_force_magnitude * cos(bias_force_angle) +
                         b*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*sin(field_angle);
 
-    real_T y_force_neg_stiffness = pow(params->negative_stiffness*((inputs->cursor.x-params->x_position_offset)*cos(field_angle) + 
-						(inputs->cursor.y - params->y_position_offset)*sin(field_angle))*sin(field_angle),1/3);
+    real_T y_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset)*cos(field_angle) + 
+						(inputs->cursor.y - params->y_position_offset)*sin(field_angle))*sin(field_angle);
+    real_T temp_debug_y = sqrt(fabs(y_force_neg_stiffness));
+    y_force_neg_stiffness = (y_force_neg_stiffness>0?1:-1)*sqrt(fabs(y_force_neg_stiffness));
 	real_T y_force_field = y_force_neg_stiffness -
 						out_of_tolerance*params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
 						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle) + 
@@ -762,11 +766,18 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	}        
 		
 	/* status (1) */
-	outputs->status[0] = getState();
-	outputs->status[1] = trialCounter->successes;
-	outputs->status[2] = trialCounter->aborts;
-	outputs->status[3] = floor(180*bump_direction/PI);	
-	outputs->status[4] = trial_counter;
+// 	outputs->status[0] = getState();
+// 	outputs->status[1] = trialCounter->successes;
+// 	outputs->status[2] = trialCounter->aborts;
+// 	outputs->status[3] = floor(180*bump_direction/PI);	
+// 	outputs->status[4] = trial_counter;
+    
+    outputs->status[0] = getState();
+	outputs->status[1] = x_force_neg_stiffness*100;
+	outputs->status[2] = temp_debug_y*100;
+	outputs->status[3] = y_force_neg_stiffness*100;	
+	outputs->status[4] = temp_debug_y*100;
+    
 //     outputs->status[4] = lastWord;
  	
 	/* word (2) */
