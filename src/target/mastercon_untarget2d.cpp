@@ -137,7 +137,7 @@ private:
 	ArcTarget		*targetBar;
 	ArcTarget		*cloud[10];
 	ArcTarget		*priorTarget;
-	CircleTarget    *timerTarget;
+	SquareTarget    *timerTarget;
 	LocalParams *params;
 
 	// helper functions
@@ -229,7 +229,7 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	outerTarget		 = new ArcTarget(0,0,0,0,5);
 	targetBar		 = new ArcTarget(0,0,0,0,8);
 	priorTarget		 = new ArcTarget(0,0,0,0,6);
-	timerTarget      = new CircleTarget(0,0,0,0);
+	timerTarget      = new SquareTarget(0,0,0,0);
 	
 
 	feedback_timer	 = new Timer();
@@ -374,8 +374,8 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 		priorTarget->height = params->OT_depth;
 
 		timerTarget->centerX = 14.25;
-		timerTarget->centerY = 10.75 ;
-		timerTarget->radius   = 0.5;
+		timerTarget->centerY = 10.55 ;
+		timerTarget->width   = 0.8;
 		timerTarget->color   = Target::Color(255, 255, 255);
 
 	
