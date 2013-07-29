@@ -564,7 +564,8 @@ void AttentionBehavior::update(SimStruct *S) {
             if (!recordingTimer->isRunning()) {
                 recordingTimer->start(S);
             }
-            if (stateTimer->elapsedTime(S) > 1.0) {               
+            if (stateTimer->elapsedTime(S) > 1.0) {    
+                playTone(TONE_GO);
                 setState(STATE_CENTER_TARGET_ON);
             }
             break;
@@ -572,7 +573,8 @@ void AttentionBehavior::update(SimStruct *S) {
             if (recordingTimer->isRunning()) {
                 recordingTimer->stop(S);
             }            
-            if (stateTimer->elapsedTime(S) > 1.0){                                
+            if (stateTimer->elapsedTime(S) > 1.0){     
+                playTone(TONE_GO);
                 setState(STATE_INCOMPLETE);
             }
             break;                   
