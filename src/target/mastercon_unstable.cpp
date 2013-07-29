@@ -803,18 +803,12 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	}        
 		
 	/* status (1) */
-// 	outputs->status[0] = getState();
-// 	outputs->status[1] = trialCounter->successes;
-// 	outputs->status[2] = trialCounter->aborts;
-// 	outputs->status[3] = floor(180*bump_direction/PI);	
-// 	outputs->status[4] = trial_counter;
-    
-    outputs->status[0] = getState();
-	outputs->status[1] = x_force_neg_stiffness*100;
-	outputs->status[2] = temp_debug_y*100;
-	outputs->status[3] = y_force_neg_stiffness*100;	
-	outputs->status[4] = temp_debug_y*100;
-    
+	outputs->status[0] = getState();
+	outputs->status[1] = trialCounter->successes;
+	outputs->status[2] = trialCounter->aborts;
+	outputs->status[3] = floor(180*bump_direction/PI);	
+	outputs->status[4] = trial_counter;
+        
 //     outputs->status[4] = lastWord;
  	
 	/* word (2) */
