@@ -5,7 +5,7 @@
 
 #define DATABURST_VERSION ((byte)0x06) 
 /* 
- * Current Databurst version: 5
+ * Current Databurst version: 6
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -456,19 +456,8 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
         }
     }
     trial_counter++;
-    
-    if (bump_counter >= params->num_bump_directions-1){
-        bump_counter = -1;
-        for (int i=0; i < params->num_bump_directions; i++){
-            bump_order[i] = i;
-            bump_order_point[i] = &bump_order[0] + i*sizeof(int);
-        }
-        random->permute((void **)bump_order_point, params->num_bump_directions);
-    }
-    bump_counter++;
-
     field_angle = fmod(block_order[block_counter] * PI/(params->num_field_orientations) + 
-        params->first_field_angle,2*PI);  
+        params->first_field_angle,2*PI); 
     
     if (block_counter == 0 && trial_counter == 0){
         bias_force_counter++;
@@ -479,7 +468,19 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
             params->first_bias_force_direction,2*PI); 
     }
     
-	bump_direction = fmod(bump_order[bump_counter] * 2 * PI/params->num_bump_directions + params->first_bump_direction,2*PI);
+        
+//     if (bump_counter >= params->num_bump_directions-1){
+//         bump_counter = -1;
+//         
+//         for (int i=0; i < params->num_bump_directions; i++){
+//             bump_order[i] = i;
+//             bump_order_point[i] = &bump_order[0] + i*sizeof(int);
+//         }
+//         random->permute((void **)bump_order_point, params->num_bump_directions);
+//     }
+//     bump_counter++; 
+// 	bump_direction = fmod(bump_order[bump_counter] * 2 * PI/params->num_bump_directions + params->first_bump_direction,2*PI);
+    bump_direction = fmod(random->getInteger(0,params->num_bump_directions-1) * 2 * PI/params->num_bump_directions + params->first_bump_direction,2*PI);
 
 	bump->direction = bump_direction;
 	bump->hold_duration = params->bump_duration;
@@ -809,7 +810,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = floor(180*bump_direction/PI);	
-	outputs->status[4] = trial_counter;
+	outputs->status[4] = floor(180*field_angle/PI);
         
 //     outputs->status[4] = lastWord;
  	
