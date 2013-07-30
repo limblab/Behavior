@@ -468,7 +468,34 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
             params->first_bias_force_direction,2*PI); 
     }
     
-        
+    if (bump_counter >= params->num_bump_directions-1){
+        bump_counter = -1;
+        double tmp_sort[100];
+        double tmp_d;
+        int tmp;
+
+        for (int i=0; i<params->num_bump_directions; i++){
+            bump_order[i] = i;
+            tmp_sort[i] = rand();
+        }
+
+        for (int i=0; i<params->num_bump_directions-1; i++){
+            for (int j=0; j<params->num_bump_directions-1; j++){
+                if (tmp_sort[j] < tmp_sort[j+1]){
+                    tmp_d = tmp_sort[j];
+                    tmp_sort[j] = tmp_sort[j+1];
+                    tmp_sort[j+1] = tmp_d;
+
+                    tmp = bump_order[j];
+                    bump_order[j] = bump_order[j+1];
+                    bump_order[j+1] = tmp;
+                }
+            }
+        }
+    }
+    bump_counter++;
+    bump_direction = fmod(bump_order[bump_counter] * 2 * PI/params->num_bump_directions + params->first_bump_direction,2*PI);
+
 //     if (bump_counter >= params->num_bump_directions-1){
 //         bump_counter = -1;
 //         
@@ -480,7 +507,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 //     }
 //     bump_counter++; 
 // 	bump_direction = fmod(bump_order[bump_counter] * 2 * PI/params->num_bump_directions + params->first_bump_direction,2*PI);
-    bump_direction = fmod(random->getInteger(0,params->num_bump_directions-1) * 2 * PI/params->num_bump_directions + params->first_bump_direction,2*PI);
+//     bump_direction = fmod(random->getInteger(0,params->num_bump_directions-1) * 2 * PI/params->num_bump_directions + params->first_bump_direction,2*PI);
 
 	bump->direction = bump_direction;
 	bump->hold_duration = params->bump_duration;
