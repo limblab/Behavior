@@ -314,6 +314,10 @@ private:
     Timer *recordingTimer;
     
     int lastWord;
+    
+    real_T debug_var;
+    real_T pos_cursor_x_offset;
+    real_T pos_cursor_y_offset;
 };
 
 AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
@@ -422,7 +426,12 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     
     recordingTimer = new Timer();
     
+    debug_var = 0.0;
+    
     lastWord = 0;
+    
+    pos_cursor_x_offset = 0.0;
+    pos_cursor_y_offset = 0.0;
 }
 
 void AttentionBehavior::doPreTrial(SimStruct *S) {	
@@ -446,13 +455,30 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
     if (trial_counter >= params->field_block_length-1){
         trial_counter = -1;
         block_counter++;
-        if (block_counter >= params->num_field_orientations){
+        if (block_counter >= params->num_field_orientations){            
             block_counter = 0;
-            for (int i=0; i < params->num_field_orientations; i++){
+            double tmp_sort[100];
+            double tmp_d;
+            int tmp;
+
+            for (int i=0; i<params->num_field_orientations; i++){
                 block_order[i] = i;
-                block_order_point[i] = &block_order[0] + i*sizeof(int);
+                tmp_sort[i] = random->getDouble(0,1);
             }
-            random->permute((void **)block_order_point, params->num_field_orientations);            
+
+            for (int i=0; i<params->num_field_orientations-1; i++){
+                for (int j=0; j<params->num_field_orientations-1; j++){
+                    if (tmp_sort[j] < tmp_sort[j+1]){
+                        tmp_d = tmp_sort[j];
+                        tmp_sort[j] = tmp_sort[j+1];
+                        tmp_sort[j+1] = tmp_d;
+
+                        tmp = block_order[j];
+                        block_order[j] = block_order[j+1];
+                        block_order[j+1] = tmp;
+                    }
+                }
+            }
         }
     }
     trial_counter++;
@@ -476,7 +502,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
         for (int i=0; i<params->num_bump_directions; i++){
             bump_order[i] = i;
-            tmp_sort[i] = rand();
+            tmp_sort[i] = random->getDouble(0,1);
         }
 
         for (int i=0; i<params->num_bump_directions-1; i++){
@@ -495,19 +521,6 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
     }
     bump_counter++;
     bump_direction = fmod(bump_order[bump_counter] * 2 * PI/params->num_bump_directions + params->first_bump_direction,2*PI);
-
-//     if (bump_counter >= params->num_bump_directions-1){
-//         bump_counter = -1;
-//         
-//         for (int i=0; i < params->num_bump_directions; i++){
-//             bump_order[i] = i;
-//             bump_order_point[i] = &bump_order[0] + i*sizeof(int);
-//         }
-//         random->permute((void **)bump_order_point, params->num_bump_directions);
-//     }
-//     bump_counter++; 
-// 	bump_direction = fmod(bump_order[bump_counter] * 2 * PI/params->num_bump_directions + params->first_bump_direction,2*PI);
-//     bump_direction = fmod(random->getInteger(0,params->num_bump_directions-1) * 2 * PI/params->num_bump_directions + params->first_bump_direction,2*PI);
 
 	bump->direction = bump_direction;
 	bump->hold_duration = params->bump_duration;
@@ -567,7 +580,8 @@ void AttentionBehavior::update(SimStruct *S) {
 						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
 						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle);
 
-    
+//     pos_cursor_x_offset = params->bias_force_magnitude*cos(bias_force_angle)
+            
 	// State machine
     switch (this->getState()) {
         case STATE_PRETRIAL:
@@ -757,22 +771,21 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     
     // Force field
     real_T x_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
-					    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle);
-    real_T temp_debug_x = sqrt(fabs(x_force_neg_stiffness));
+					    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle);    
     x_force_neg_stiffness = (x_force_neg_stiffness>0?1:-1)*sqrt(fabs(x_force_neg_stiffness));
-    real_T x_force_field = x_force_neg_stiffness + 
-						out_of_tolerance*params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
-						(inputs->cursor.y - params->y_position_offset)*cos(field_angle))*sin(field_angle) + 
+    
+    real_T x_force_pos_stiffness = out_of_tolerance*params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
+						(inputs->cursor.y - params->y_position_offset)*cos(field_angle))*sin(field_angle);
+    real_T x_force_field = x_force_neg_stiffness + x_force_pos_stiffness + 
                         params->bias_force_magnitude * cos(bias_force_angle) +
                         b*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*sin(field_angle);
 
     real_T y_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset)*cos(field_angle) + 
 						(inputs->cursor.y - params->y_position_offset)*sin(field_angle))*sin(field_angle);
-    real_T temp_debug_y = sqrt(fabs(y_force_neg_stiffness));
-    y_force_neg_stiffness = (y_force_neg_stiffness>0?1:-1)*sqrt(fabs(y_force_neg_stiffness));
-	real_T y_force_field = y_force_neg_stiffness -
-						out_of_tolerance*params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
-						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle) + 
+    y_force_neg_stiffness = (y_force_neg_stiffness>0?1:-1)*sqrt(fabs(y_force_neg_stiffness));    
+    real_T y_force_pos_stiffness = out_of_tolerance*params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
+						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle);
+	real_T y_force_field = y_force_neg_stiffness - y_force_pos_stiffness + 
                         params->bias_force_magnitude * sin(bias_force_angle) -
                         b*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*cos(field_angle);
 
@@ -839,7 +852,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[3] = floor(180*bump_direction/PI);	
 	outputs->status[4] = floor(180*field_angle/PI);
         
-//     outputs->status[4] = lastWord;
+//     outputs->status[4] = floor(180*field_angle/PI);
  	
 	/* word (2) */
 	if (db->isRunning()) {
