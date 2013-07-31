@@ -323,6 +323,8 @@ private:
     Point cursor_offset;
     real_T x_force_field;
     real_T y_force_field;
+    real_T x_force_field_target;
+    real_T y_force_field_target;
     real_T x_force_cursor;
     real_T y_force_cursor;
     real_T ratio_force;
@@ -455,6 +457,8 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     pos_cursor_y_offset = 0.0;
     x_force_field = 0.0;
     y_force_field = 0.0;
+    x_force_field_target = 0.0;
+    y_force_field_target = 0.0;
     x_force_cursor = 0.0;
     y_force_cursor = 0.0;
     ratio_force = 0.0;
@@ -636,6 +640,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 void AttentionBehavior::update(SimStruct *S) {   
     
     real_T zero_for_debugging = 0.0;
+    real_T zero_2_for_debugging = 0.0;
     
     real_T damping;  
     // Force field damping coefficient    
@@ -649,25 +654,29 @@ void AttentionBehavior::update(SimStruct *S) {
     vel = sqrt(x_vel*x_vel + y_vel*y_vel);      
                
     /* force (0) */ 
-    x_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset - cursor_offset.x)*cos(field_angle) +
-                    (inputs->cursor.y - params->y_position_offset - cursor_offset.y)*sin(field_angle))*cos(field_angle);    
+    x_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset - zero_2_for_debugging*cursor_offset.x)*cos(field_angle) +
+                    (inputs->cursor.y - params->y_position_offset - zero_2_for_debugging*cursor_offset.y)*sin(field_angle))*cos(field_angle);    
 //         x_force_neg_stiffness = (x_force_neg_stiffness>0?1:-1)*sqrt(fabs(x_force_neg_stiffness));
-    x_force_pos_stiffness = params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset - cursor_offset.x)*sin(field_angle) + 
-                    (inputs->cursor.y - params->y_position_offset - cursor_offset.y)*cos(field_angle))*sin(field_angle);
-    y_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset - cursor_offset.x)*cos(field_angle) + 
-                    (inputs->cursor.y - params->y_position_offset - cursor_offset.y)*sin(field_angle))*sin(field_angle);
+    x_force_pos_stiffness = params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset - zero_2_for_debugging*cursor_offset.x)*sin(field_angle) + 
+                    (inputs->cursor.y - params->y_position_offset - zero_2_for_debugging*cursor_offset.y)*cos(field_angle))*sin(field_angle);
+    y_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset - zero_2_for_debugging*cursor_offset.x)*cos(field_angle) + 
+                    (inputs->cursor.y - params->y_position_offset - zero_2_for_debugging*cursor_offset.y)*sin(field_angle))*sin(field_angle);
 //         y_force_neg_stiffness = (y_force_neg_stiffness>0?1:-1)*sqrt(fabs(y_force_neg_stiffness));    
-    y_force_pos_stiffness = params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset - cursor_offset.x)*sin(field_angle) + 
-                    (inputs->cursor.y-params->y_position_offset - cursor_offset.y)*cos(field_angle))*cos(field_angle);
+    y_force_pos_stiffness = params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset - zero_2_for_debugging*cursor_offset.x)*sin(field_angle) + 
+                    (inputs->cursor.y-params->y_position_offset - zero_2_for_debugging*cursor_offset.y)*cos(field_angle))*cos(field_angle);
     
     
     x_force_field = x_force_neg_stiffness + x_force_pos_stiffness + 
                     params->bias_force_magnitude * cos(bias_force_angle) +
                     damping*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*sin(field_angle);
+    x_force_field_target =x_force_neg_stiffness + x_force_pos_stiffness + 
+                    params->bias_force_magnitude * cos(bias_force_angle);
     
 	y_force_field = y_force_neg_stiffness - y_force_pos_stiffness + 
                         params->bias_force_magnitude * sin(bias_force_angle) -
                         damping*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*cos(field_angle);
+    y_force_field_target = y_force_neg_stiffness - y_force_pos_stiffness + 
+                        params->bias_force_magnitude * sin(bias_force_angle);
 
     // Force cursor
     x_force_cursor = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
@@ -768,7 +777,7 @@ void AttentionBehavior::update(SimStruct *S) {
                     bump->start(S);
                     infinite_bump->start(S);
                     setState(STATE_BUMP);
-                } else if (stateTimer->elapsedTime(S) > field_hold_time && forceTarget->cursorInTarget(Point(x_force_field,y_force_field))){
+                } else if (stateTimer->elapsedTime(S) > field_hold_time && forceTarget->cursorInTarget(Point(x_force_field_target,y_force_field_target))){
                     bump->start(S);
                     infinite_bump->start(S);
                     setState(STATE_BUMP);
