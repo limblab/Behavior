@@ -578,7 +578,30 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
     
 	x_force_at_bump_start = 0;
 	y_force_at_bump_start = 0;
-
+    
+    // Cursor offset for position feedback
+    real_T Fb, kneg, kpos, theta_f, theta_b, a, b, c, d, e;
+    Fb = params->bias_force_magnitude;
+    kneg = params->negative_stiffness;
+    kpos = params->positive_stiffness;
+    theta_f = field_angle;
+    theta_b = bias_force_angle;   
+    a = kneg*cos(theta_f)*cos(theta_f)-kpos*sin(theta_f)*sin(theta_f);
+    b = (kneg+kpos)*sin(theta_f)*cos(theta_f);
+    c = Fb*sin(theta_b);
+    d = kneg*sin(theta_f)*sin(theta_f)-kpos*cos(theta_f)*cos(theta_f);
+    e = Fb*cos(theta_b);
+    
+    pos_cursor_x_offset = (c*d-b*e)/(b*b-a*d);    
+    pos_cursor_y_offset = (a*e-b*c)/(b*b-a*d);
+               
+    if (params->position_cursor){
+        cursor_offset.x = pos_cursor_x_offset;
+        cursor_offset.y = pos_cursor_y_offset;
+    } else {
+        cursor_offset.x = 0;
+        cursor_offset.y = 0;
+    }
 
 	/* setup the databurst */
 	db->reset();
@@ -610,7 +633,10 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
 }
 
-void AttentionBehavior::update(SimStruct *S) {     
+void AttentionBehavior::update(SimStruct *S) {   
+    
+    real_T zero_for_debugging = 0.0;
+    
     real_T damping;  
     // Force field damping coefficient    
     damping = params->force_field_damping;
@@ -620,32 +646,20 @@ void AttentionBehavior::update(SimStruct *S) {
     
     x_vel = x_vel_old*(1-params->vel_filt) + ((x_pos-x_pos_old)/.001)*params->vel_filt;
     y_vel = y_vel_old*(1-params->vel_filt) + ((y_pos-y_pos_old)/.001)*params->vel_filt;
-    vel = sqrt(x_vel*x_vel + y_vel*y_vel);     
-           
+    vel = sqrt(x_vel*x_vel + y_vel*y_vel);      
+               
     /* force (0) */ 
-    if (params->position_cursor){
-        x_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset - cursor_offset.x)*cos(field_angle) +
-                            (inputs->cursor.y - params->y_position_offset - cursor_offset.y)*sin(field_angle))*cos(field_angle);    
+    x_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset - cursor_offset.x)*cos(field_angle) +
+                    (inputs->cursor.y - params->y_position_offset - cursor_offset.y)*sin(field_angle))*cos(field_angle);    
 //         x_force_neg_stiffness = (x_force_neg_stiffness>0?1:-1)*sqrt(fabs(x_force_neg_stiffness));
-        x_force_pos_stiffness = params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset - cursor_offset.x)*sin(field_angle) + 
-                            (inputs->cursor.y - params->y_position_offset - cursor_offset.y)*cos(field_angle))*sin(field_angle);
-        y_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset - cursor_offset.x)*cos(field_angle) + 
-						(inputs->cursor.y - params->y_position_offset - cursor_offset.y)*sin(field_angle))*sin(field_angle);
+    x_force_pos_stiffness = params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset - cursor_offset.x)*sin(field_angle) + 
+                    (inputs->cursor.y - params->y_position_offset - cursor_offset.y)*cos(field_angle))*sin(field_angle);
+    y_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset - cursor_offset.x)*cos(field_angle) + 
+                    (inputs->cursor.y - params->y_position_offset - cursor_offset.y)*sin(field_angle))*sin(field_angle);
 //         y_force_neg_stiffness = (y_force_neg_stiffness>0?1:-1)*sqrt(fabs(y_force_neg_stiffness));    
-        y_force_pos_stiffness = params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset - cursor_offset.x)*sin(field_angle) + 
-						(inputs->cursor.y-params->y_position_offset - cursor_offset.y)*cos(field_angle))*cos(field_angle);
-    } else {
-        x_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
-                            (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle);    
-        x_force_neg_stiffness = (x_force_neg_stiffness>0?1:-1)*sqrt(fabs(x_force_neg_stiffness));
-        x_force_pos_stiffness = params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
-                            (inputs->cursor.y - params->y_position_offset)*cos(field_angle))*sin(field_angle);
-        y_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x-params->x_position_offset)*cos(field_angle) + 
-						(inputs->cursor.y - params->y_position_offset)*sin(field_angle))*sin(field_angle);
-        y_force_neg_stiffness = (y_force_neg_stiffness>0?1:-1)*sqrt(fabs(y_force_neg_stiffness));    
-        y_force_pos_stiffness = params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
-						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle);
-    }   
+    y_force_pos_stiffness = params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset - cursor_offset.x)*sin(field_angle) + 
+                    (inputs->cursor.y-params->y_position_offset - cursor_offset.y)*cos(field_angle))*cos(field_angle);
+    
     
     x_force_field = x_force_neg_stiffness + x_force_pos_stiffness + 
                     params->bias_force_magnitude * cos(bias_force_angle) +
@@ -654,7 +668,6 @@ void AttentionBehavior::update(SimStruct *S) {
 	y_force_field = y_force_neg_stiffness - y_force_pos_stiffness + 
                         params->bias_force_magnitude * sin(bias_force_angle) -
                         damping*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*cos(field_angle);
-
 
     // Force cursor
     x_force_cursor = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
@@ -666,26 +679,7 @@ void AttentionBehavior::update(SimStruct *S) {
 						(inputs->cursor.y - params->y_position_offset)*sin(field_angle))*sin(field_angle) +
 						params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
 						(inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle);
-       
-  
-    real_T Fb, kneg, kpos, theta_f, theta_b, a, b, c, d, e;
-    Fb = params->bias_force_magnitude;
-    kneg = params->negative_stiffness;
-    kpos = params->positive_stiffness;
-    theta_f = field_angle;
-    theta_b = bias_force_angle;   
-    a = kneg*cos(theta_f)*cos(theta_f)-kpos*sin(theta_f)*sin(theta_f);
-    b = (kneg+kpos)*sin(theta_f)*cos(theta_f);
-    c = Fb*sin(theta_b);
-    d = kneg*sin(theta_f)*sin(theta_f)-kpos*cos(theta_f)*cos(theta_f);
-    e = Fb*cos(theta_b);
-    
-    pos_cursor_x_offset = (c*d-b*e)/(b*b-a*d);    
-    pos_cursor_y_offset = (a*e-b*c)/(b*b-a*d);
-               
-    cursor_offset.x = pos_cursor_x_offset;
-    cursor_offset.y = pos_cursor_y_offset;
-    
+           
 	// State machine
     switch (this->getState()) {
         case STATE_PRETRIAL:
@@ -729,7 +723,7 @@ void AttentionBehavior::update(SimStruct *S) {
             if (inputs->catchForce.x) {
                 setState(STATE_INCOMPLETE);
             } else {
-                if (centerTarget->cursorInTarget(inputs->cursor - cursor_offset)) {				
+                if (centerTarget->cursorInTarget(inputs->cursor - Point(cursor_offset.x*zero_for_debugging,cursor_offset.y*zero_for_debugging))) {
                     setState(STATE_FIELD_BUILD_UP);
                 }
             }
@@ -740,7 +734,7 @@ void AttentionBehavior::update(SimStruct *S) {
             } else {
                 if (stateTimer->elapsedTime(S) > params->field_ramp_up){
                     setState(STATE_HOLD_FIELD);
-                } else if (!workSpaceTarget->cursorInTarget(inputs->cursor - cursor_offset)){
+                } else if (!workSpaceTarget->cursorInTarget(inputs->cursor - Point(cursor_offset.x*zero_for_debugging,cursor_offset.y*zero_for_debugging))){
                     setState(STATE_ABORT);
                 }
             }
@@ -757,10 +751,10 @@ void AttentionBehavior::update(SimStruct *S) {
                         setState(STATE_CT_HOLD);
                     }
                 } else {
-                    if (!workSpaceTarget->cursorInTarget(inputs->cursor - cursor_offset)){
+                    if (!workSpaceTarget->cursorInTarget(inputs->cursor - Point(cursor_offset.x*zero_for_debugging,cursor_offset.y*zero_for_debugging))){
                         playTone(TONE_ABORT);
                         setState(STATE_ABORT);				
-                    } else if (centerTarget->cursorInTarget(inputs->cursor - cursor_offset)){
+                    } else if (centerTarget->cursorInTarget(inputs->cursor - Point(cursor_offset.x*zero_for_debugging,cursor_offset.y*zero_for_debugging))){
                         setState(STATE_CT_HOLD);
                     }
                 }
@@ -784,7 +778,7 @@ void AttentionBehavior::update(SimStruct *S) {
                             setState(STATE_HOLD_FIELD);
                         }
                     } else {
-                        if (!centerTarget->cursorInTarget(inputs->cursor - cursor_offset)){
+                        if (!centerTarget->cursorInTarget(inputs->cursor - Point(cursor_offset.x*zero_for_debugging,cursor_offset.y*zero_for_debugging))){
                             setState(STATE_HOLD_FIELD);
                         }
                     }
@@ -829,6 +823,8 @@ void AttentionBehavior::update(SimStruct *S) {
 }
 
 void AttentionBehavior::calculateOutputs(SimStruct *S) {
+    real_T zero_for_debugging = 0.0;
+    
     real_T x_force_bump;
     real_T y_force_bump;
             
@@ -989,8 +985,8 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
                 outputs->position.x = force_to_position * ratio_force * x_force_cursor;
                 outputs->position.y = force_to_position * ratio_force * y_force_cursor;
             } else {                
-                outputs->position.x = inputs->cursor.x - params->x_position_offset - cursor_offset.x;
-                outputs->position.y = inputs->cursor.y - params->y_position_offset - cursor_offset.y;
+                outputs->position.x = inputs->cursor.x - params->x_position_offset - zero_for_debugging*cursor_offset.x;
+                outputs->position.y = inputs->cursor.y - params->y_position_offset - zero_for_debugging*cursor_offset.y;
             }
 			break;
 		case STATE_HOLD_FIELD:
@@ -999,8 +995,8 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
                 outputs->position.x = force_to_position * x_force_cursor;
                 outputs->position.y = force_to_position * y_force_cursor;
             } else {                
-                outputs->position.x = inputs->cursor.x - params->x_position_offset - cursor_offset.x;
-                outputs->position.y = inputs->cursor.y - params->y_position_offset - cursor_offset.y;
+                outputs->position.x = inputs->cursor.x - params->x_position_offset - zero_for_debugging*cursor_offset.x;
+                outputs->position.y = inputs->cursor.y - params->y_position_offset - zero_for_debugging*cursor_offset.y;
             }
 			break;
 		case STATE_BUMP:
@@ -1010,7 +1006,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
             if (!params->position_cursor){
                 outputs->position = inputs->cursor;
             } else {
-                outputs->position = inputs->cursor - cursor_offset;
+                outputs->position = inputs->cursor - Point(cursor_offset.x*zero_for_debugging,cursor_offset.y*zero_for_debugging);
             }
                   
 	}        
