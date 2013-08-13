@@ -42,9 +42,7 @@
  * Databurst version descriptions
  * ==============================
 
-
-
- * Version 0 (0x00)
+ * Version 1 (0x01)
  * ----------------
  * byte  0:		uchar		=> number of bytes to be transmitted
  * byte  1:		uchar		=> version number (in this case 0)
@@ -72,15 +70,11 @@
  * bytes 75-78: float		=> bump hold time
  * bytes 79-82: float		=> center hold time
  * bytes 83-86: float		=> bump delay time
-
-
-
-
-
-
+ * byte  87:	uchar		=> flag for whether or not the cursor is hidden during movement
+ * bytes 89-92: float		=> radius from center within which the cursor will be hidden
  */
 	
-#define DATABURST_VERSION ((byte)0x00) 
+#define DATABURST_VERSION ((byte)0x01) 
 #define DATABURST_TASK_CODE ((byte)0x01)
 
 // This must be custom defined for your behavior
@@ -108,6 +102,9 @@ struct LocalParams {
     real_T bump_incr;
 	real_T stim_levels;
 	real_T catch_rate;
+	real_T hide_cursor;
+	real_T hide_radius;
+
 };
 
 /**
@@ -186,6 +183,10 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->target_incr,				17);
 	this->bindParamId(&params->stim_levels,				18);
 	this->bindParamId(&params->catch_rate,				19);
+	this->bindParamId(&params->hide_cursor,				23);
+	this->bindParamId(&params->hide_radius,				24);
+
+
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -297,6 +298,8 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)this->params->bump_hold_time);
 	db->addFloat((float)this->params->ct_hold_time);
 	db->addFloat((float)this->params->bump_delay_time);
+	db->addByte((byte)this->params->hide_cursor);
+	db->addFloat((float)this->params->hide_radius);
 	db->start();
 }
 
@@ -373,6 +376,7 @@ void COBumpBehavior::update(SimStruct *S) {
 void COBumpBehavior::calculateOutputs(SimStruct *S) {
     /* declarations */
     Point bf;
+	double radius;
 
 	/* force (0) */
 	if (bump->isRunning(S)) {
@@ -473,8 +477,13 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-    outputs->position = inputs->cursor;
-
+	radius=sqrt(	inputs->cursor.x*inputs->cursor.x	+	inputs->cursor.y*inputs->cursor.y	)	/	params->target_radius;
+    if ((getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM) && (params->hide_cursor > .1) && !centerTarget->cursorInTarget(inputs->cursor) && radius<params->hide_radius)
+    {
+        outputs->position = Point(1E6, 1E6);
+	} else {
+        outputs->position = inputs->cursor;
+    } 
 }
 /*
  * Include at bottom of your behavior code
