@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1266"
+    ComputedModelVersion    "1.1267"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -31,7 +31,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [47.0, 52.0, 897.0, 716.0]
+      Location		      [38.0, 10.0, 897.0, 716.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -53,11 +53,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkTopLevel"
-	LoadSaveID		"0"
-	Extents			[845.0, 540.0]
-	ZoomFactor		[1.0]
-	Offset			[0.0, 0.0]
+	ViewObjType		"SimulinkSubsys"
+	LoadSaveID		"388"
+	Extents			[853.0, 556.0]
+	ZoomFactor		[0.6]
+	Offset			[-262.00000000000011, -176.66666666666674]
       }
     }
   }
@@ -65,11 +65,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu May 30 12:56:10 2013"
-  RTWModifiedTimeStamp	  291819367
-  ModelVersionFormat	  "1.%<AutoIncrement:1266>"
+  LastModifiedDate	  "Wed Jul 10 21:18:17 2013"
+  RTWModifiedTimeStamp	  295391894
+  ModelVersionFormat	  "1.%<AutoIncrement:1267>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1044,8 +1044,8 @@ Model {
   }
   System {
     Name		    "psychophysics"
-    Location		    [47, 52, 944, 768]
-    Open		    on
+    Location		    [38, 10, 935, 726]
+    Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -5786,7 +5786,7 @@ Model {
 	  ZOrder		  -34
 	  LibraryVersion	  "1.70"
 	  SourceBlock		  "limblab/Timer"
-	  SourceType		  ""
+	  SourceType		  "Unknown"
 	  Time			  "10"
 	}
 	Block {
@@ -7739,7 +7739,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"XY Position Subsystem"
-	Location		[24, 52, 1096, 958]
+	Location		[38, 10, 935, 726]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -8167,7 +8167,7 @@ Model {
 	      ZOrder		      -12
 	      LibraryVersion	      "1.70"
 	      SourceBlock	      "limblab/SerialConverter"
-	      SourceType	      ""
+	      SourceType	      "Unknown"
 	    }
 	    Block {
 	      BlockType		      Switch
@@ -8188,7 +8188,7 @@ Model {
 	      ZOrder		      -14
 	      LibraryVersion	      "1.70"
 	      SourceBlock	      "limblab/ToBits"
-	      SourceType	      ""
+	      SourceType	      "Unknown"
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -8199,7 +8199,7 @@ Model {
 	      ZOrder		      -15
 	      LibraryVersion	      "1.70"
 	      SourceBlock	      "limblab/ToBits"
-	      SourceType	      ""
+	      SourceType	      "Unknown"
 	    }
 	    Block {
 	      BlockType		      SubSystem
@@ -8706,8 +8706,8 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Jacobian-Cartesian Transformation"
-	    Location		    [16, 52, 1340, 1030]
-	    Open		    off
+	    Location		    [38, 10, 935, 726]
+	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -8718,7 +8718,7 @@ Model {
 	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
 	    TiledPageScale	    1
 	    ShowPageBoundaries	    off
-	    ZoomFactor		    "100"
+	    ZoomFactor		    "60"
 	    Block {
 	      BlockType		      Inport
 	      Name		      "Th1"
@@ -8784,7 +8784,7 @@ Model {
 	      SID		      "395"
 	      Position		      [185, 295, 215, 325]
 	      ZOrder		      -7
-	      Value		      "24"
+	      Value		      "27.3"
 	    }
 	    Block {
 	      BlockType		      Constant
@@ -8792,7 +8792,7 @@ Model {
 	      SID		      "396"
 	      Position		      [150, 570, 180, 600]
 	      ZOrder		      -8
-	      Value		      "23.5"
+	      Value		      "26.0"
 	    }
 	    Block {
 	      BlockType		      Concatenate
@@ -9254,7 +9254,6 @@ Model {
 		DstPort			2
 	      }
 	      Branch {
-		Points			[5, 0]
 		DstBlock		"Product1"
 		DstPort			2
 	      }

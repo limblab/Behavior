@@ -813,7 +813,9 @@ namespace BehaviorGraphics
             AddParamListItem("COB target incr", "P18", "Behavior CO Bump", textBox_ctr_out_bump_TargetIncr);
             AddParamListItem("COB stim levels", "P19", "Behavior CO Bump", textBox_ctr_out_bump_StimLevels);
             AddParamListItem("COB catch rate", "P20", "Behavior CO Bump", textBox_ctr_out_bump_CatchRate);
-            
+            AddParamListItem("COB hide cursor", "P21", "Behavior CO Bump", checkBox_ctr_out_bump_HideCursor);
+            AddParamListItem("COB hide cursor radius", "P22", "Behavior CO Bump", textBox_ctr_out_bump_HideCursorRadius);
+            AddParamListItem("COB hidden cursor training", "P22", "Behavior CO Bump", checkBox_ctr_out_bump_HiddenCursorTraining);
             #endregion
 
             #region Unstable Field
@@ -2545,6 +2547,7 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
+
 
 
     }

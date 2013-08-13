@@ -79,6 +79,7 @@
 #define DATABURST_VERSION ((byte)0x04) 
 #define DATABURST_TASK_CODE ((byte)0x01)
 
+
 // This must be custom defined for your behavior
 struct LocalParams {
 	real_T master_reset;
@@ -475,9 +476,13 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
  	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
- 	outputs->status[3] = trialCounter->failures;
-// 	outputs->status[4] = trialCounter->incompletes;
-   	outputs->status[4] = params->abort_during_bump;
+	outputs->status[3] = trialCounter->failures;
+ 	outputs->status[4] = trialCounter->incompletes;
+// 	outputs->status[0] = (int)this->bump_dir;
+//	outputs->status[1] = (int)this->tgt_angle;
+//	outputs->status[2] = trialCounter->aborts;
+//	outputs->status[3] = trialCounter->failures;
+//  outputs->status[4] = params->abort_during_bump;
   
 	/* word(2) */
 	if (db->isRunning()) {

@@ -104,7 +104,7 @@ struct LocalParams {
 	real_T catch_rate;
 	real_T hide_cursor;
 	real_T hide_radius;
-
+    real_T hidden_cursor_training;
 };
 
 /**
@@ -161,7 +161,7 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(20);
+	this->setNumParams(23);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
 	this->bindParamId(&params->soft_reset,				1);
@@ -183,11 +183,10 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->target_incr,				17);
 	this->bindParamId(&params->stim_levels,				18);
 	this->bindParamId(&params->catch_rate,				19);
-	this->bindParamId(&params->hide_cursor,				23);
-	this->bindParamId(&params->hide_radius,				24);
-
-
-
+	this->bindParamId(&params->hide_cursor,				20);
+	this->bindParamId(&params->hide_radius,				21);
+    this->bindParamId(&params->hidden_cursor_training,  22);
+    
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -310,7 +309,9 @@ void COBumpBehavior::update(SimStruct *S) {
 		case STATE_PRETRIAL:
 			updateParameters(S);
 			doPreTrial(S);
-			setState(STATE_DATA_BLOCK);
+            if (stateTimer->elapsedTime(S) > params->intertrial_time) {
+				setState(STATE_DATA_BLOCK);
+			}
 			break;
 		case STATE_DATA_BLOCK:
 			if (db->isDone()) {
@@ -377,6 +378,8 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
     /* declarations */
     Point bf;
 	double radius;
+    double x_comp;
+    double y_comp;
 
 	/* force (0) */
 	if (bump->isRunning(S)) {
@@ -477,13 +480,37 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-	radius=sqrt(	inputs->cursor.x*inputs->cursor.x	+	inputs->cursor.y*inputs->cursor.y	)	/	params->target_radius;
-    if ((getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM) && (params->hide_cursor > .1) && !centerTarget->cursorInTarget(inputs->cursor) && radius<params->hide_radius)
-    {
-        outputs->position = Point(1E6, 1E6);
-	} else {
+    x_comp=inputs->cursor.x - centerTarget->centerX;
+    y_comp=inputs->cursor.y - centerTarget->centerY;
+	radius=sqrt(x_comp*x_comp + y_comp*y_comp	)	/	params->target_radius;
+//    outputs->status[0] = (int)(radius*100);
+//    outputs->status[1] = (int)(params->hide_radius * 100);
+    
+    if (params->hide_cursor > .1) {
+        if (params->hidden_cursor_training){
+            if(getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM && !centerTarget->cursorInTarget(inputs->cursor) && radius<params->hide_radius){
+                outputs->position = Point(1E6, 1E6);
+            } else {
+                outputs->position = inputs->cursor;
+            }
+        } else {
+            if(getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM || getState() == STATE_PRETRIAL || getState() == STATE_FAIL || getState() == STATE_ABORT || getState() == STATE_REWARD || getState() == STATE_INCOMPLETE){
+                outputs->position = Point(1E6, 1E6);
+            } else {
+                outputs->position = inputs->cursor;
+            }
+        }
+    } else {
         outputs->position = inputs->cursor;
-    } 
+    }
+    
+//     if (params->hidden_cursor_training && (getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM) && (params->hide_cursor > .1) && !centerTarget->cursorInTarget(inputs->cursor) && radius<params->hide_radius){
+//         outputs->position = Point(1E6, 1E6);
+// 	} else if (getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM || getState() == STATE_PRETRIAL) && (params->hide_cursor > .1)){
+//         outputs->position = Point(1E6, 1E6);
+//     } else {
+//         outputs->position = inputs->cursor;
+//     } 
 }
 /*
  * Include at bottom of your behavior code
