@@ -391,11 +391,11 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* status (1) */
- 	outputs->status[0] = getState();
-	outputs->status[1] = trialCounter->successes;
+// 	outputs->status[0] = getState();
+//	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
  	outputs->status[3] = trialCounter->failures;
- 	outputs->status[4] = trialCounter->incompletes;
+ //	outputs->status[4] = trialCounter->incompletes;
   
 	/* word(2) */
 	if (db->isRunning()) {
@@ -483,13 +483,17 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
     x_comp=inputs->cursor.x - centerTarget->centerX;
     y_comp=inputs->cursor.y - centerTarget->centerY;
 	radius=sqrt(x_comp*x_comp + y_comp*y_comp	)	/	params->target_radius;
-//    outputs->status[0] = (int)(radius*100);
-//    outputs->status[1] = (int)(params->hide_radius * 100);
+    outputs->status[0] = (int)(radius*100);
+    outputs->status[1] = (int)(params->hide_radius * 100);
     
     if (params->hide_cursor > .1) {
-        if (params->hidden_cursor_training){
-            if(getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM && !centerTarget->cursorInTarget(inputs->cursor) && radius<params->hide_radius){
-                outputs->position = Point(1E6, 1E6);
+        if (params->hidden_cursor_training > .1){
+            if(getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM ){
+                if ( radius<params->hide_radius ){
+                    outputs->position = Point(1E6, 1E6);
+                } else {
+                    outputs->position = inputs->cursor;
+                }
             } else {
                 outputs->position = inputs->cursor;
             }

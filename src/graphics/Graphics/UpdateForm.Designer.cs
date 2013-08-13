@@ -1132,6 +1132,7 @@ namespace BehaviorGraphics
             this.label317 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.groupBox76 = new System.Windows.Forms.GroupBox();
+            this.checkBox_ctr_out_bump_HiddenCursorTraining = new System.Windows.Forms.CheckBox();
             this.checkBox_ctr_out_bump_HideCursor = new System.Windows.Forms.CheckBox();
             this.hide_cursor_radius_label = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_HideCursorRadius = new System.Windows.Forms.TextBox();
@@ -1269,7 +1270,6 @@ namespace BehaviorGraphics
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.label324 = new System.Windows.Forms.Label();
-            this.checkBox_ctr_out_bump_HiddenCursorTraining = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -12857,6 +12857,18 @@ namespace BehaviorGraphics
             this.groupBox76.TabStop = false;
             this.groupBox76.Text = "Stimulus";
             // 
+            // checkBox_ctr_out_bump_HiddenCursorTraining
+            // 
+            this.checkBox_ctr_out_bump_HiddenCursorTraining.AutoSize = true;
+            this.checkBox_ctr_out_bump_HiddenCursorTraining.Location = new System.Drawing.Point(9, 76);
+            this.checkBox_ctr_out_bump_HiddenCursorTraining.Name = "checkBox_ctr_out_bump_HiddenCursorTraining";
+            this.checkBox_ctr_out_bump_HiddenCursorTraining.Size = new System.Drawing.Size(134, 17);
+            this.checkBox_ctr_out_bump_HiddenCursorTraining.TabIndex = 31;
+            this.checkBox_ctr_out_bump_HiddenCursorTraining.Text = "Hidden Cursor Training";
+            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_HiddenCursorTraining, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_ctr_out_bump_HiddenCursorTraining.UseVisualStyleBackColor = true;
+            // 
             // checkBox_ctr_out_bump_HideCursor
             // 
             this.checkBox_ctr_out_bump_HideCursor.AutoSize = true;
@@ -13106,6 +13118,7 @@ namespace BehaviorGraphics
             this.textBox_ctr_out_bump_CatchRate.Size = new System.Drawing.Size(88, 20);
             this.textBox_ctr_out_bump_CatchRate.TabIndex = 105;
             this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_CatchRate, "sets the step size between adjacent bump angles. should be entered in degrees");
+
             // 
             // label_ctr_out_bump_BumpIncr
             // 
@@ -14143,18 +14156,6 @@ namespace BehaviorGraphics
             this.label324.Size = new System.Drawing.Size(102, 13);
             this.label324.TabIndex = 64;
             this.label324.Text = "1-D Jitter Magnitude";
-            // 
-            // checkBox_ctr_out_bump_HiddenCursorTraining
-            // 
-            this.checkBox_ctr_out_bump_HiddenCursorTraining.AutoSize = true;
-            this.checkBox_ctr_out_bump_HiddenCursorTraining.Location = new System.Drawing.Point(9, 76);
-            this.checkBox_ctr_out_bump_HiddenCursorTraining.Name = "checkBox_ctr_out_bump_HiddenCursorTraining";
-            this.checkBox_ctr_out_bump_HiddenCursorTraining.Size = new System.Drawing.Size(134, 17);
-            this.checkBox_ctr_out_bump_HiddenCursorTraining.TabIndex = 31;
-            this.checkBox_ctr_out_bump_HiddenCursorTraining.Text = "Hidden Cursor Training";
-            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_HiddenCursorTraining, "When checked the targets will appear at random angles between the specified floor" +
-                    " and ceiling values");
-            this.checkBox_ctr_out_bump_HiddenCursorTraining.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
