@@ -12,10 +12,9 @@ class BumpGenerator {
         BumpGenerator();	
         void start(SimStruct *S);
         void stop();
-    // 	virtual double getBumpMagnitude(SimStruct *S) = 0;	
         virtual bool isRunning(SimStruct *S) = 0;
-        virtual Point getBumpForce(SimStruct *S) = 0;
-        virtual Point getBumpForce(SimStruct *S,Point vel, Point pos) = 0;
+        virtual Point getBumpForce(SimStruct *S) = 0; /**< Used in feedforward force bumps > */
+        virtual Point getBumpForce(SimStruct *S,Point vel, Point pos) = 0; /**< Used in PD bumps only. */
         double direction; /**< Gets or sets the direction the bump will act in. */    
 
     protected:
@@ -30,25 +29,6 @@ BumpGenerator::BumpGenerator() {
 	this->timer = new Timer();
 	this->is_running = false;
 }
-
-// /**
-//  * Calculates the x and y components of the force to be output. 
-//  * This function calls BumpGenerator::getBumpMagnitude() to find
-//  * the magnitude and reads BumpGenerator::direction.
-//  */
-// Point BumpGenerator::getBumpForce(SimStruct *S) {
-// 	Point p;
-// 
-// 	if (is_running) {
-// 		double m = this->getBumpMagnitude(S);
-// 		p.x = m * cos(this->direction);
-// 		p.y = m * sin(this->direction);
-// 	} else {
-// 		p = Point(0,0);
-// 	}
-// 
-// 	return p;
-// }
 
 void BumpGenerator::start(SimStruct *S) {
 	is_running = true;
@@ -93,8 +73,8 @@ bool SquareBumpGenerator::isRunning(SimStruct *S) {
 }
 
 /**
- * Required getBumpMagnitude method. 
- * @return the magnitude of the bump for the current time step.
+ * Required getBumpForce method. 
+ * @return the force of the bump for the current time step.
  */
 Point SquareBumpGenerator::getBumpForce(SimStruct *S) {
     Point p;
@@ -130,7 +110,7 @@ public:
 };
 
 /**
- * Constructs a trapezoid wave bump generator with defautl duration and 
+ * Constructs a trapezoid wave bump generator with default duration and 
  * magnitude of zero.
  */
 TrapBumpGenerator::TrapBumpGenerator() {
@@ -148,7 +128,7 @@ bool TrapBumpGenerator::isRunning(SimStruct *S) {
 }
 
 /**
- * Required getBumpMagnitude method. 
+ * Required getBumpForce method. 
  * @return the magnitude of the bump for the current time step.
  */
 Point TrapBumpGenerator::getBumpForce(SimStruct *S) {
@@ -204,7 +184,7 @@ public:
 
 
 /**
- * Constructs a trapezoid wave bump generator with defautl duration and 
+ * Constructs a sine wave bump generator with default duration and 
  * magnitude of zero.
  */
 CosineBumpGenerator::CosineBumpGenerator() {
@@ -222,7 +202,7 @@ bool CosineBumpGenerator::isRunning(SimStruct *S) {
 }
 
 /**
- * Required getBumpMagnitude method. 
+ * Required getBumpForce method. 
  * @return the magnitude of the bump for the current time step.
  */
 Point CosineBumpGenerator::getBumpForce(SimStruct *S) {
@@ -307,6 +287,14 @@ Point PDBumpGenerator::getBumpForce(SimStruct *S) {
 }
 
 Point PDBumpGenerator::getBumpForce(SimStruct *S, Point vel, Point pos) {
+    if (timer->elapsedTime(S)<0.002){
+        this->initial_position = pos;
+    }
+    this->desired_position.x = this->initial_position.x + 
+            bump_vel * timer->elapsedTime(S) * cos(this->direction);
+    this->desired_position.y = this->initial_position.y + 
+            bump_vel * timer->elapsedTime(S) * sin(this->direction);
+        
     Point p;
     p.x = (bump_vel*cos(this->direction)-vel.x)*vel_gain + 
             (desired_position.x - pos.x)*pos_gain;

@@ -782,10 +782,12 @@ void UnstableBehavior::update(SimStruct *S) {
                 if (stateTimer->elapsedTime(S) > field_hold_time && !params->position_cursor){
                     bump->start(S);
                     infinite_bump->start(S);
+                    PDbump->start(S);
                     setState(STATE_BUMP);
                 } else if (stateTimer->elapsedTime(S) > field_hold_time && forceTarget->cursorInTarget(Point(x_force_field_target,y_force_field_target))){
                     bump->start(S);
                     infinite_bump->start(S);
+                    PDbump->start(S);
                     setState(STATE_BUMP);
                 } else {
                     if (!params->position_cursor){
@@ -824,6 +826,7 @@ void UnstableBehavior::update(SimStruct *S) {
         case STATE_INCOMPLETE:
             this->bump->stop();
             this->infinite_bump->stop();
+            this->PDbump->stop();
             if (inputs->catchForce.x){
                 // Stay in this state until handle is back in workspace.
             } else if (stateTimer->elapsedTime(S) > params->reward_wait) {
