@@ -8,20 +8,21 @@
  * Abstract bump generator class with common functions.
  */
 class BumpGenerator {
-public:
-	BumpGenerator();
-	Point getBumpForce(SimStruct *S);
-	void start(SimStruct *S);
-	void stop();
-	virtual double getBumpMagnitude(SimStruct *S) = 0;	
-	virtual bool isRunning(SimStruct *S) = 0;
+    public:
+        BumpGenerator();	
+        void start(SimStruct *S);
+        void stop();
+    // 	virtual double getBumpMagnitude(SimStruct *S) = 0;	
+        virtual bool isRunning(SimStruct *S) = 0;
+        virtual Point getBumpForce(SimStruct *S) = 0;
+        virtual Point getBumpForce(SimStruct *S,Point vel, Point pos) = 0;
+        double direction; /**< Gets or sets the direction the bump will act in. */    
 
-	double direction; /**< Gets or sets the direction the bump will act in. */
+    protected:
+        Timer *timer;    /**< Tracks how long the bump has been running. */
+        bool is_running; /**< keeps track of whether the bump is running */
 
-protected:
-	Timer *timer;    /**< Tracks how long the bump has been running. */
-private:
-	bool is_running; /**< keeps track of whether the bump is running */
+    private:        
 };
 
 /** Default constructor */
@@ -30,24 +31,24 @@ BumpGenerator::BumpGenerator() {
 	this->is_running = false;
 }
 
-/**
- * Calculates the x and y components of the force to be output. 
- * This function calls BumpGenerator::getBumpMagnitude() to find
- * the magnitude and reads BumpGenerator::direction.
- */
-Point BumpGenerator::getBumpForce(SimStruct *S) {
-	Point p;
-
-	if (is_running) {
-		double m = this->getBumpMagnitude(S);
-		p.x = m * cos(this->direction);
-		p.y = m * sin(this->direction);
-	} else {
-		p = Point(0,0);
-	}
-
-	return p;
-}
+// /**
+//  * Calculates the x and y components of the force to be output. 
+//  * This function calls BumpGenerator::getBumpMagnitude() to find
+//  * the magnitude and reads BumpGenerator::direction.
+//  */
+// Point BumpGenerator::getBumpForce(SimStruct *S) {
+// 	Point p;
+// 
+// 	if (is_running) {
+// 		double m = this->getBumpMagnitude(S);
+// 		p.x = m * cos(this->direction);
+// 		p.y = m * sin(this->direction);
+// 	} else {
+// 		p = Point(0,0);
+// 	}
+// 
+// 	return p;
+// }
 
 void BumpGenerator::start(SimStruct *S) {
 	is_running = true;
@@ -66,7 +67,8 @@ void BumpGenerator::stop() {
 class SquareBumpGenerator : public BumpGenerator {
 public:
 	SquareBumpGenerator();
-	virtual double getBumpMagnitude(SimStruct *S);	
+	virtual Point getBumpForce(SimStruct *S);	
+    virtual Point getBumpForce(SimStruct *S,Point vel, Point pos);
 	virtual bool isRunning(SimStruct *S);
 
 	double duration;
@@ -94,8 +96,21 @@ bool SquareBumpGenerator::isRunning(SimStruct *S) {
  * Required getBumpMagnitude method. 
  * @return the magnitude of the bump for the current time step.
  */
-double SquareBumpGenerator::getBumpMagnitude(SimStruct *S) {
-	return ( this->isRunning(S) ? this->magnitude : 0.0f );
+Point SquareBumpGenerator::getBumpForce(SimStruct *S) {
+    Point p;
+    
+	if (this->is_running) {
+		double m = this->magnitude;
+		p.x = m * cos(this->direction);
+		p.y = m * sin(this->direction);
+	} else {
+		p = Point(0,0);
+	}
+	return p;        
+}
+
+Point SquareBumpGenerator::getBumpForce(SimStruct *S, Point vel, Point pos) {
+    return(this->getBumpForce(S));
 }
 
 /**
@@ -105,7 +120,8 @@ class TrapBumpGenerator : public BumpGenerator {
 public:
 	TrapBumpGenerator();
 
-	virtual double getBumpMagnitude(SimStruct *S);	
+	virtual Point getBumpForce(SimStruct *S);	
+    virtual Point getBumpForce(SimStruct *S,Point vel, Point pos);
 	virtual bool isRunning(SimStruct *S);
 	
 	double rise_time;
@@ -135,26 +151,35 @@ bool TrapBumpGenerator::isRunning(SimStruct *S) {
  * Required getBumpMagnitude method. 
  * @return the magnitude of the bump for the current time step.
  */
-double TrapBumpGenerator::getBumpMagnitude(SimStruct *S) {
+Point TrapBumpGenerator::getBumpForce(SimStruct *S) {
+    Point p;
+    double m;
 	double et;   // Elapsed time
 	double efet; // Elapsed falling-edge time.
 
 	if (!this->isRunning(S)) { // get stupid case out of the way
-		return 0.0;
-	}
-
-	et = (double)timer->elapsedTime(S);
-
-	if (et < rise_time) {
-		return et * peak_magnitude / rise_time;
-	} else if (et < rise_time + hold_duration) {
-		return peak_magnitude;
-	} else if (et < 2 * rise_time + hold_duration) {
-		efet = et - rise_time - hold_duration;
-		return (rise_time - efet) * peak_magnitude / rise_time;
+		m = 0.0;
 	} else {
-		return 0.0;
-	}
+        et = (double)timer->elapsedTime(S);
+        if (et < rise_time) {
+            m = et * peak_magnitude / rise_time;
+        } else if (et < rise_time + hold_duration) {
+            m = peak_magnitude;
+        } else if (et < 2 * rise_time + hold_duration) {
+            efet = et - rise_time - hold_duration;
+            m = (rise_time - efet) * peak_magnitude / rise_time;
+        } else {
+            m = 0.0;
+        }
+    }
+    
+    p.x = m * cos(this->direction);
+    p.y = m * sin(this->direction);
+    return p;
+}
+
+Point TrapBumpGenerator::getBumpForce(SimStruct *S, Point vel, Point pos) {
+    return(this->getBumpForce(S));
 }
 
 /**********************************************
@@ -168,7 +193,8 @@ class CosineBumpGenerator : public BumpGenerator {
 public:
 	CosineBumpGenerator();
 
-	virtual double getBumpMagnitude(SimStruct *S);	
+	virtual Point getBumpForce(SimStruct *S);	
+    virtual Point getBumpForce(SimStruct *S,Point vel, Point pos);
 	virtual bool isRunning(SimStruct *S);
 	
 	double rise_time;
@@ -199,24 +225,93 @@ bool CosineBumpGenerator::isRunning(SimStruct *S) {
  * Required getBumpMagnitude method. 
  * @return the magnitude of the bump for the current time step.
  */
-double CosineBumpGenerator::getBumpMagnitude(SimStruct *S) {
+Point CosineBumpGenerator::getBumpForce(SimStruct *S) {
+    Point p;
 	double et;   // Elapsed time
 	double efet; // Elapsed falling-edge time.
+    double m;    // Magnitude
 
 	if (!this->isRunning(S)) { // get stupid case out of the way
-		return 0.0;
-	}
-
-	et = (double)timer->elapsedTime(S);
-	efet = et - rise_time - hold_duration;
-	
-	if (et < rise_time) {
-		return peak_magnitude * (1 - cos(PI * et / rise_time)) / 2;
-	} else if (et < rise_time + hold_duration) {
-		return peak_magnitude;
-	} else if (et < 2 * rise_time + hold_duration) {
-		return  peak_magnitude * (1 + cos(PI * efet / rise_time)) / 2;
+		m = 0.0;
 	} else {
-		return 0.0;
-	}
+        et = (double)timer->elapsedTime(S);
+        efet = et - rise_time - hold_duration;
+
+        if (et < rise_time) {
+            m = peak_magnitude * (1 - cos(PI * et / rise_time)) / 2;
+        } else if (et < rise_time + hold_duration) {
+            m = peak_magnitude;
+        } else if (et < 2 * rise_time + hold_duration) {
+            m =  peak_magnitude * (1 + cos(PI * efet / rise_time)) / 2;
+        } else {
+            m = 0.0;
+        }
+    }
+    p.x = m * cos(this->direction);
+    p.y = m * sin(this->direction);
+    return p; 
+}
+
+Point CosineBumpGenerator::getBumpForce(SimStruct *S, Point vel, Point pos) {
+    return(this->getBumpForce(S));
+}
+
+/**
+ * Generates a velocity controlled bump.
+ */
+class PDBumpGenerator : public BumpGenerator {
+public:
+	PDBumpGenerator();
+    virtual Point getBumpForce(SimStruct *S);
+	virtual Point getBumpForce(SimStruct *S, Point vel, Point pos);	
+	virtual bool isRunning(SimStruct *S);
+
+	double duration;
+    Point initial_position;
+    Point desired_position;
+	double bump_vel;
+    double vel_gain;
+    double pos_gain;
+};
+
+/**
+ * Constructs a velocity bump generator with default velocity, 
+ * duration, gains, etc. of zero. 
+ */
+PDBumpGenerator::PDBumpGenerator() {
+	duration = 0.0;
+    initial_position = Point(0,0);
+    desired_position = Point(0,0);
+	bump_vel = 0.0;
+    vel_gain = 0.0;
+    pos_gain = 0.0;
+}
+
+/**
+ * Required isRunning method. 
+ * @return whether the bump is running (active).
+ */
+bool PDBumpGenerator::isRunning(SimStruct *S) {
+	return timer->isRunning() && timer->elapsedTime(S) < duration;
+}
+
+/**
+ * Required getBumpForce method. 
+ * @return the force of the bump for the current time step.
+ */
+
+Point PDBumpGenerator::getBumpForce(SimStruct *S) {
+    Point p;
+    p = Point(0,0);    
+	return (p);
+}
+
+Point PDBumpGenerator::getBumpForce(SimStruct *S, Point vel, Point pos) {
+    Point p;
+    p.x = (bump_vel*cos(this->direction)-vel.x)*vel_gain + 
+            (desired_position.x - pos.x)*pos_gain;
+    p.y = (bump_vel*sin(this->direction)-vel.y)*vel_gain + 
+            (desired_position.y - pos.y)*pos_gain;
+    
+	return ( this->isRunning(S) ? p : Point(0,0) );
 }

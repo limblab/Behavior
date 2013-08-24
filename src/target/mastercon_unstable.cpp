@@ -256,11 +256,11 @@ struct LocalParams{
  *
  * You must also update the definition below with the name of your class
  */
-#define MY_CLASS_NAME AttentionBehavior
-class AttentionBehavior : public RobotBehavior {
+#define MY_CLASS_NAME UnstableBehavior
+class UnstableBehavior : public RobotBehavior {
 public:
 	// You must implement these three public methods
-	AttentionBehavior(SimStruct *S);
+	UnstableBehavior(SimStruct *S);
 	void update(SimStruct *S);
 	void calculateOutputs(SimStruct *S);	
 
@@ -278,6 +278,8 @@ private:
 	
 	TrapBumpGenerator *bump;
     TrapBumpGenerator *infinite_bump;
+    PDBumpGenerator *PDbump;
+    
 	real_T x_force_at_bump_start;
 	real_T y_force_at_bump_start;
     
@@ -286,7 +288,7 @@ private:
     
     real_T x_vel;
     real_T y_vel;
-    real_T vel;
+
     real_T x_vel_old;
     real_T y_vel_old;
     
@@ -336,7 +338,7 @@ private:
     real_T desired_y_pos;
 };
 
-AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
+UnstableBehavior::UnstableBehavior(SimStruct *S) : RobotBehavior() {
 
 	/* 
 	 * First, set up the parameters to be used 
@@ -426,6 +428,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	
 	bump = new TrapBumpGenerator();
     infinite_bump = new TrapBumpGenerator();
+    PDbump = new PDBumpGenerator();
     
     x_pos_at_bump_start = 0;
 	y_pos_at_bump_start = 0;
@@ -470,7 +473,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
     desired_y_pos = 0.0;
 }
 
-void AttentionBehavior::doPreTrial(SimStruct *S) {	
+void UnstableBehavior::doPreTrial(SimStruct *S) {	
     force_to_position = params->target_diameter/params->force_target_diameter;
     
 	centerTarget->centerX = params->x_position_offset;
@@ -579,6 +582,12 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	infinite_bump->peak_magnitude = 10*params->force_bump_magnitude;
 	infinite_bump->rise_time = 0;
     
+    PDbump->direction = bump_direction;
+    PDbump->duration = params->bump_duration;
+    PDbump->bump_vel = params->bump_velocity;
+    PDbump->vel_gain = params->P_gain_vel;
+    PDbump->pos_gain = params->P_gain_pos;
+    
 	x_force_at_bump_start = 0;
 	y_force_at_bump_start = 0;
     
@@ -636,7 +645,7 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 
 }
 
-void AttentionBehavior::update(SimStruct *S) {   
+void UnstableBehavior::update(SimStruct *S) {   
     
     real_T zero_2_for_debugging = 0.0;
     
@@ -648,8 +657,7 @@ void AttentionBehavior::update(SimStruct *S) {
     y_pos = y_pos_old*(1-params->pos_filt) + inputs->cursor.y * params->pos_filt;
     
     x_vel = x_vel_old*(1-params->vel_filt) + ((x_pos-x_pos_old)/.001)*params->vel_filt;
-    y_vel = y_vel_old*(1-params->vel_filt) + ((y_pos-y_pos_old)/.001)*params->vel_filt;
-    vel = sqrt(x_vel*x_vel + y_vel*y_vel);      
+    y_vel = y_vel_old*(1-params->vel_filt) + ((y_pos-y_pos_old)/.001)*params->vel_filt;   
                
     /* force (0) */ 
     x_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
@@ -829,7 +837,7 @@ void AttentionBehavior::update(SimStruct *S) {
     
 }
 
-void AttentionBehavior::calculateOutputs(SimStruct *S) {    
+void UnstableBehavior::calculateOutputs(SimStruct *S) {    
     real_T x_force_bump;
     real_T y_force_bump;
             
@@ -844,11 +852,15 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     y_force_bump = (params->bump_velocity*sin(bump_direction)-y_vel)*params->P_gain_vel - y_acc*sin(bump_direction)*D_gain_vel +
             (desired_y_pos - inputs->cursor.y) * params->P_gain_pos;
     
+    Point PDbump_force = PDbump->getBumpForce(S,Point(x_vel,y_vel),Point(x_pos,y_pos));
+    x_force_bump = PDbump_force.x;
+    y_force_bump = PDbump_force.y;    
+    
     if (isNewState() && getState() == STATE_BUMP){
 		x_force_at_bump_start = x_force_field;
 		y_force_at_bump_start = y_force_field;
         x_pos_at_bump_start = inputs->cursor.x;
-        y_pos_at_bump_start = inputs->cursor.y;
+        y_pos_at_bump_start = inputs->cursor.y; 
 	}
     
     if (getState() == STATE_BUMP){
