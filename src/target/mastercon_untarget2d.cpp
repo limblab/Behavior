@@ -604,10 +604,16 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 			if (((getState() == STATE_CENTER_DELAY) || (getState() == STATE_MOVEMENT)) &&
 				(fabs(cursor_extent) >= params->feedback_window_begin) && 
 				(fabs(cursor_extent) <= params->feedback_window_end )) {
-				for (i = 0; i<params->slice_number; i++) {
-					outputs->targets[3+i] = cloud[i];
-				}
-				
+					if  (!cloud_blank){
+						for (i = 0; i<params->slice_number; i++) {
+							outputs->targets[3+i] = cloud[i];
+						}
+					}
+					else{
+						for (i = 0; i<params->slice_number; i++) {
+							outputs->targets[3+i] = nullTarget;
+						}
+					}
 				if (disp_prior) {
 					outputs->targets[3 + int(params->slice_number)] = (Target *)priorTarget;
 				} else {
@@ -624,9 +630,16 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 		// if feedback_window_end is negative, only display slices when in CENTER DELAY
 		else {
 			if (getState() == STATE_CENTER_DELAY) {
+					if  (!cloud_blank){
+						for (i = 0; i<params->slice_number; i++) {
+							outputs->targets[3+i] = cloud[i];
+						}
+					}
+					else{
 				for (i = 0; i<params->slice_number; i++) {
-					outputs->targets[3+i] = cloud[i];
+					outputs->targets[3+i] = nullTarget;
 				}
+			}
 				if (disp_prior) {
 					outputs->targets[3 + int(params->slice_number)] = (Target *)priorTarget;
 				} else {
