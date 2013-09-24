@@ -32,7 +32,7 @@
  */
 
 /* 
- * Current Databurst version: 4
+ * Current Databurst version: 0
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -42,7 +42,7 @@
  * Databurst version descriptions
  * ==============================
  *
- * Version 4 (0x04)
+ * Version 0 (0x00)
  * ----------------
  * byte  0:		uchar		=> number of bytes to be transmitted
  * byte  1:		uchar		=> version number (in this case one)
@@ -76,7 +76,7 @@
  * byte	 90		uchar		=> is primary target
  */
 	
-#define DATABURST_VERSION ((byte)0x04) 
+#define DATABURST_VERSION ((byte)0x00) 
 #define DATABURST_TASK_CODE ((byte)0x01)
 
 // This must be custom defined for your behavior
@@ -121,7 +121,7 @@ struct LocalParams {
  * You must also update the definition below with the name of your class
  */
 #define MY_CLASS_NAME TwoBumpChoiceBehavior
-class TwoBumpChoiceBehavior : public RobotBehavior {
+class RingBumpBehavior : public RobotBehavior {
 public:
 	// You must implement these three public methods
 	TwoBumpChoiceBehavior(SimStruct *S);
@@ -155,7 +155,7 @@ private:
 
 };
 
-TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
+RingBumpBehavior::RingBumpBehavior(SimStruct *S) : RobotBehavior() {
 
 
 	/* 
@@ -226,7 +226,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 }
 
 
-void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
+void RingBumpBehavior::doPreTrial(SimStruct *S) {
     int num_bump_dirs; // number of bump directions there will be between bump_floor and bump_ceiling
 
 	//set the target direction
@@ -343,7 +343,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->start();
 }
 
-void TwoBumpChoiceBehavior::update(SimStruct *S) {
+void RingBumpBehavior::update(SimStruct *S) {
 	Target *correctTarget;
 	Target *incorrectTarget;
 	
@@ -458,7 +458,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 	}
 }
 
-void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
+void RingBumpBehavior::calculateOutputs(SimStruct *S) {
     /* declarations */
     Point bf;
 

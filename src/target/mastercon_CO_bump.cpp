@@ -32,7 +32,7 @@
  */
 
 /* 
- * Current Databurst version: 3
+ * Current Databurst version: 1
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -42,36 +42,34 @@
  * Databurst version descriptions
  * ==============================
 
- * Version 1 (0x01)
- * ----------------
- * byte  0:		uchar		=> number of bytes to be transmitted
- * byte  1:		uchar		=> version number (in this case 0)
- * byte  2-4:	uchar		=> task code 'C' 'O' 'B'
- * bytes 5-6:	uchar       => version code
- * byte  7-8:	uchar		=> version code (micro)
- * bytes 9-12:  float		=> target angle
- * byte	 13:	uchar		=> random target flag
- * bytes 14-17:	float		=> target floor (minimum angle(deg) target can take in random target assignment)
- * bytes 18-21:	float		=> target ceiling (maximum angle(deg) target can take in random target assignment)
- * bytes 22-25:	float		=> target incriment(deg)
- * bytes 26-29: float		=> bump magnitude
- * bytes 30-33: float		=> bump direction
- * bytes 34-37: float		=> bump duration
- * bytes 38-41: float		=> bump ramp
- * bytes 42-45: float		=> bump floor (minimum angle(deg) bump can take in random target assignment)
- * bytes 46-49:	float		=> bump ceiling (maximum angle(deg) bump can take in random target assignment)
- * bytes 50-53:	float		=> bump incriment
- * byte  54:	uchar		=> stim trial flag
- * bytes 55-58: float		=> stimulation probability 
- * bytes 59-62: float		=> target radius
- * bytes 63-66: float		=> target size
- * bytes 67-70: float		=> intertrial time
- * bytes 71-74: float		=> penalty time
- * bytes 75-78: float		=> bump hold time
- * bytes 79-82: float		=> center hold time
- * bytes 83-86: float		=> bump delay time
- * byte  87:	uchar		=> flag for whether or not the cursor is hidden during movement
- * bytes 89-92: float		=> radius from center within which the cursor will be hidden
+% * Version 1 (0x01)
+%  * ----------------
+%  * byte  0:		uchar		=> number of bytes to be transmitted
+%  * byte  1:		uchar		=> version number (in this case 0)
+%  * byte  2-4:	uchar		=> task code 'C' 'O' 'B'
+%  * bytes 5-6:	uchar       => version code
+%  * byte  7-8:	uchar		=> version code (micro)
+%  * bytes 9-12:  float		=> target angle
+%  * byte	 13:	uchar		=> random target flag
+%  * bytes 14-17:	float		=> target floor (minimum angle(deg) target can take in random target assignment)
+%  * bytes 18-21:	float		=> target ceiling (maximum angle(deg) target can take in random target assignment)
+%  * bytes 22-25:	float		=> target incriment(deg)
+%  * bytes 26-29: float		=> bump magnitude
+%  * bytes 30-33: float		=> bump direction
+%  * bytes 34-37: float		=> bump duration
+%  * bytes 38-41: float		=> bump ramp
+%  * byte  42:	uchar		=> stim trial flag
+%  * bytes 43-46: float		=> stimulation probability 
+%  * bytes 47-50: float		=> target radius
+%  * bytes 51-54: float		=> target size
+%  * bytes 55-58: float		=> intertrial time
+%  * bytes 59-62: float		=> penalty time
+%  * bytes 63-66: float		=> bump hold time
+%  * bytes 67-70: float		=> center hold time
+%  * bytes 71-74: float		=> bump delay time
+%  * byte  75:	uchar		=> flag for whether or not the cursor is hidden during movement
+%  * bytes 76-79: float		=> radius from center within which the cursor will be hidden
+%  */
  */
 	
 #define DATABURST_VERSION ((byte)0x01) 
