@@ -38,8 +38,20 @@
     <Y>15</Y>
   </CursorDef>
   <CursorDef>
+    <Name>BlueFace</Name>
+    <File>blueFace.tga</File>
+    <X>15</X>
+    <Y>15</Y>
+  </CursorDef>
+  <CursorDef>
     <Name>Nautilus</Name>
     <File>Nautilus.tga</File>
+    <X>100</X>
+    <Y>65</Y>
+  </CursorDef>
+  <CursorDef>
+    <Name>Homer</Name>
+    <File>HomerSimpsonsBrain.tga</File>
     <X>100</X>
     <Y>65</Y>
   </CursorDef>

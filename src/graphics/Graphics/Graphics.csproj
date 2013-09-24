@@ -250,6 +250,8 @@
     <EmbeddedResource Include="glyphs\blackHFc2.tga" />
     <EmbeddedResource Include="glyphs\yellowcircle1.tga" />
     <None Include="obj\Release\DXCheck.csproj.ResolveComReference.cache" />
+    <EmbeddedResource Include="textures\HomerSimpsonsBrain.tga" />
+    <EmbeddedResource Include="textures\blueFace.tga" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\DXCheck.exe" />
