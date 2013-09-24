@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1301"
+    ComputedModelVersion    "1.1302"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -31,7 +31,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [119.0, 83.0, 1036.0, 780.0]
+      Location		      [-8.0, -8.0, 1616.0, 854.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -40,7 +40,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[8]
+	Filter			[9]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -55,9 +55,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[984.0, 604.0]
-	ZoomFactor		[1.0]
-	Offset			[0.0, -1.0]
+	Extents			[1564.0, 678.0]
+	ZoomFactor		[0.8]
+	Offset			[-377.75000000000023, -8.3666666666664753]
       }
     }
   }
@@ -65,11 +65,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "ricardo"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Nov 26 17:12:35 2012"
-  RTWModifiedTimeStamp	  275850754
-  ModelVersionFormat	  "1.%<AutoIncrement:1301>"
+  LastModifiedDate	  "Tue Sep 24 16:00:49 2013"
+  RTWModifiedTimeStamp	  301938572
+  ModelVersionFormat	  "1.%<AutoIncrement:1302>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -792,7 +792,7 @@ Model {
   }
   System {
     Name		    "test_attention"
-    Location		    [119, 83, 1155, 863]
+    Location		    [-8, -8, 1608, 846]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -804,7 +804,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "100"
+    ZoomFactor		    "80"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "26"
     Block {
@@ -827,7 +827,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_attention"
       Parameters	      "0 .5 1 5 1 1 1   3 10   50 50 10 0 0 1 1 4 0   1 10 80 1 50 .1 0 1.57 3.14 5 0 1.57   .3 5 1.5"
-      "7 3.14 0 1.57 .005   1 1 .003 0 .2"
+      "7 3.14 0 1.57 .005   1 1 .003 0 .2 0 0"
       EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"
@@ -1027,11 +1027,11 @@ Model {
       BlockType		      Mux
       Name		      "Mux2"
       SID		      "21"
-      Ports		      [6, 1]
+      Ports		      [7, 1]
       Position		      [895, 13, 900, 307]
       ZOrder		      -21
       ShowName		      off
-      Inputs		      "6"
+      Inputs		      "7"
       DisplayOption	      "bar"
     }
     Block {
@@ -1129,7 +1129,7 @@ Model {
 	DstPort			1
       }
       Branch {
-	Points			[0, -260]
+	Points			[0, -255]
 	DstBlock		"Mux2"
 	DstPort			1
       }
@@ -1177,7 +1177,7 @@ Model {
 	DstPort			1
       }
       Branch {
-	Points			[0, -45]
+	Points			[0, -90]
 	DstBlock		"Mux2"
 	DstPort			6
       }
@@ -1267,13 +1267,14 @@ Model {
     Line {
       SrcBlock		      "Data Type Conversion4"
       SrcPort		      1
-      Points		      [0, 10]
+      Points		      [0, -5]
       DstBlock		      "Mux2"
       DstPort		      3
     }
     Line {
       SrcBlock		      "Data Type Conversion2"
       SrcPort		      1
+      Points		      [25, 0]
       DstBlock		      "Mux2"
       DstPort		      4
     }
@@ -1292,13 +1293,14 @@ Model {
     Line {
       SrcBlock		      "Data Type Conversion6"
       SrcPort		      1
+      Points		      [10, 0]
       DstBlock		      "Mux2"
       DstPort		      5
     }
     Line {
       SrcBlock		      "Behavior Attention"
       SrcPort		      5
-      Points		      [5, 0; 0, -390]
+      Points		      [5, 0; 0, -395]
       DstBlock		      "Mux2"
       DstPort		      2
     }
@@ -1312,9 +1314,17 @@ Model {
     Line {
       SrcBlock		      "Behavior Attention"
       SrcPort		      3
-      Points		      [35, 0; 0, 15; 135, 0]
-      DstBlock		      "Word"
-      DstPort		      1
+      Points		      [35, 0; 0, 15; 112, 0]
+      Branch {
+	Points			[0, -97; 273, 0]
+	DstBlock		"Mux2"
+	DstPort			7
+      }
+      Branch {
+	Points			[23, 0]
+	DstBlock		"Word"
+	DstPort			1
+      }
     }
   }
 }

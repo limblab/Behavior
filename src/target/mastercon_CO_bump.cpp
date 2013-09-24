@@ -70,7 +70,6 @@
 %  * byte  75:	uchar		=> flag for whether or not the cursor is hidden during movement
 %  * bytes 76-79: float		=> radius from center within which the cursor will be hidden
 %  */
- */
 	
 #define DATABURST_VERSION ((byte)0x01) 
 #define DATABURST_TASK_CODE ((byte)0x01)
