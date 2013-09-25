@@ -306,9 +306,7 @@ void COBumpBehavior::update(SimStruct *S) {
 		case STATE_PRETRIAL:
 			updateParameters(S);
 			doPreTrial(S);
-            if (stateTimer->elapsedTime(S) > params->intertrial_time) {
-				setState(STATE_DATA_BLOCK);
-			}
+			setState(STATE_DATA_BLOCK);
 			break;
 		case STATE_DATA_BLOCK:
 			if (db->isDone()) {
