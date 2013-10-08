@@ -143,6 +143,7 @@ private:
 	int tgt_angle;
 	int bump_quadrent;
 	bool is_primary_target;
+	bool success_flag;
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
 
@@ -265,6 +266,8 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	
     /* Select whether this will be a stimulation trial */
     this->stim_trial=(this->random->getDouble() < params->stim_prob);
+	/* reset the success flag*/
+	success_flag=false;
 
 	/* setup the databurst */
 	db->reset();
@@ -343,11 +346,15 @@ void COBumpBehavior::update(SimStruct *S) {
 			break;            
 		case STATE_BUMP:
 			if (stateTimer->elapsedTime(S) > params->bump_hold_time){
-                playTone(TONE_FAIL);
-				setState(STATE_PENALTY);
+				if (success_flag){
+					playTone(TONE_REWARD);
+					setState(STATE_REWARD);
+				} else
+					playTone(TONE_FAIL);
+					setState(STATE_PENALTY);
+				}
             } else if(primaryTarget->cursorInTarget(inputs->cursor)) {
-				playTone(TONE_REWARD);
-				setState(STATE_REWARD);
+				success_flag=true;
 			}
 			break;
 		case STATE_PENALTY:
