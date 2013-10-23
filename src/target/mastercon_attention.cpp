@@ -4,7 +4,7 @@
  */
 
 /* 
- * Current Databurst version: 0
+ * Current Databurst version: 1
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -13,6 +13,36 @@
  *
  * Databurst version descriptions
  * ==============================
+ *
+ * * Version 1 (0x01)
+ * ----------------
+ * byte         0: uchar => number of bytes to be transmitted
+ * byte         1: uchar => databurst version number (in this case zero)
+ * byte         2: uchar => model version major
+ * byte         3: uchar => model version minor
+ * bytes   4 to 5: short => model version micro
+ * bytes   6 to 9: float => x offset (cm)
+ * bytes 10 to 13: float => y offset (cm)
+ * byte        14: uchar => trial type (0=visual, 1=proprioceptive, 2=control)
+ * byte		   15: uchar => staircase ID
+ * byte        16: uchar => training mode (1=yes, 0=no)
+ * byte        17: uchar => catch trial (1=yes, 0=no)
+ * bytes 18 to 21: float => main direction (rad)
+ * bytes 22 to 25: float => bump magnitude (N) or velocity (cm/s) depending on bump type
+ * bytes 26 to 29: float => bump direction (rad)
+ * bytes 30 to 33: float => bump duration (s)
+ * bytes 34 to 37: float => moving dots target size (cm)
+ * bytes 38 to 41: float => dots coherence (0-100%)
+ * bytes 42 to 45: float => dots direction (rad)
+ * bytes 46 to 49: float => dots speed (cm/s)
+ * bytes 50 to 53: uchar => number of dots
+ * bytes 54 to 57: float => dot radius (cm)
+ * bytes 58 to 61: uchar => dot movement type (0=random walk, 1=Newsome)
+ * bytes 62 to 65: float => reward target center x (cm)
+ * bytes 66 to 69: float => reward target center y (cm)
+ * bytes 70 to 73: float => bias force magnitude (N?)
+ * bytes 74 to 77: float => bias force direction (rad)
+ * byte        78: uchar => force bump (if 0, vel bump)
  *
  * Version 0 (0x00)
  * ----------------
@@ -62,17 +92,20 @@
  * State IDs
  */
 #define STATE_PRETRIAL				 0
-#define STATE_CENTER_TARGET_ON		 1
-#define STATE_CENTER_HOLD			 2
-#define STATE_STIMULI				 3
-#define STATE_MOVEMENT				 4
+#define STATE_WAIT_FOR_DB            1
+#define STATE_CENTER_TARGET_ON		 2
+#define STATE_CENTER_HOLD			 3
+#define STATE_STIMULI				 4
+#define STATE_MOVEMENT				 5
+#define STATE_START_RECORDING        6
+#define STATE_STOP_RECORDING         7
 
 /* 
  * STATE_REWARD STATE_ABORT STATE_FAIL STATE_INCOMPLETE STATE_DATA_BLOCK 
  * are all defined in Behavior.h Do not use state numbers above 64 (0x40)
  */
 
-#define DATABURST_VERSION ((byte)0x00) 
+#define DATABURST_VERSION ((byte)0x01) 
 
 // This must be custom defined for your behavior
 struct LocalParams{
@@ -136,6 +169,21 @@ struct LocalParams{
     
     // Center cursor
     real_T center_cursor;
+    
+    // Bump type
+    real_T force_bump;  
+    real_T bump_velocity;
+    real_T P_gain_vel;
+    real_T P_gain_pos;
+        
+    // More field stuff
+    real_T vel_filt;
+    real_T pos_filt;
+    
+    // Cerebus recording stuff
+    real_T record;
+    real_T record_for_x_mins;
+    
 };
 
 /**
@@ -203,15 +251,27 @@ private:
     Point cursor_offset;    
 
 	TrapBumpGenerator *bump;
-	TrapBumpGenerator *bias_force;
+	TrapBumpGenerator *bias_force;    
+    PDBumpGenerator *PDbump;
 
 	LocalParams *params;
 	real_T last_staircase_reset;
+    
+    real_T x_vel;
+    real_T y_vel;
+    real_T x_vel_old;
+    real_T y_vel_old;    
+    real_T x_pos;
+    real_T y_pos;
+    real_T x_pos_old;
+    real_T y_pos_old;
 
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
 	void setupProprioStaircase(int i, double angle, double step, double fl, double bl);
 	void setupVisualStaircase(int i, double angle, double step, double fl, double bl);
+    
+    Timer *recordingTimer;
 };
 
 AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
@@ -277,8 +337,20 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->percent_training_step,					42);
     this->bindParamId(&params->center_cursor,       					43);
     
+    this->bindParamId(&params->P_gain_vel,                              44);
+    this->bindParamId(&params->P_gain_pos,                              45);
+        
+    this->bindParamId(&params->force_bump,                              46);
+    this->bindParamId(&params->bump_velocity,                           47);
+        
+    this->bindParamId(&params->vel_filt,                                48);
+    this->bindParamId(&params->pos_filt,                                49);
+    
+    this->bindParamId(&params->record,                                  50);
+    this->bindParamId(&params->record_for_x_mins,                       51);
+    
     // default parameters:
-    // 0 .5 1 5 1 1 1   3 10   40 30 20 20 20 1 1 4 0   1 10 80 1 50 .1 0 1.57 3.14 5 0 1.57   .3 5 1.57 3.14 0 1.57 .005   0 0 .003 0 .2 0
+    // 0 .5 1 5 1 1 1   3 10   40 30 20 20 20 1 1 4 0   1 10 80 1 50 .1 0 1.57 3.14 5 0 1.57   .3 5 1.57 3.14 0 1.57 .005   0 0 .003 0 .2 0  0 0  1 0  0 0  0 0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -336,8 +408,17 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 
 	bump = new TrapBumpGenerator();
 	bias_force = new TrapBumpGenerator();
+    PDbump = new PDBumpGenerator();
+    
+    x_pos_old = 0;
+    y_pos_old = 0;
+    
+    x_vel_old = 0;
+    y_vel_old = 0;
     
     cursor_offset = Point(0,0);
+    
+    recordingTimer = new Timer();
 }
 
 void AttentionBehavior::setupProprioStaircase(
@@ -588,6 +669,12 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	}
 				
 	bump->direction = bump_direction;
+    
+    PDbump->direction = bump_direction;
+    PDbump->duration = params->bump_duration;
+    PDbump->bump_vel = params->bump_velocity;
+    PDbump->vel_gain = params->P_gain_vel;
+    PDbump->pos_gain = params->P_gain_pos;    
 
 	bias_force->hold_duration = center_hold;
 	bias_force->peak_magnitude = params->bias_force_magnitude;
@@ -607,8 +694,12 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	db->addByte(staircase_id);									// byte 15 -> Matlab idx 16
 	db->addByte(training_mode);									// byte 16 -> Matlab idx 17
 	db->addByte(catch_trial);									// byte 17 -> Matlab idx 18
-	db->addFloat((float)(main_direction));						// bytes 18 to 21 -> Matlab idx 19 to 22
-	db->addFloat((float)(params->bump_magnitude));				// bytes 22 to 25 -> Matlab idx 23 to 26 
+	db->addFloat((float)(main_direction));						// bytes 18 to 21 -> Matlab idx 19 to 22   
+    if (params->force_bump){
+        db->addFloat((float)params->bump_magnitude);            // bytes 22 to 25 -> Matlab idx 23 to 26
+    } else {
+    	db->addFloat((float)params->bump_velocity);				// bytes 22 to 25 -> Matlab idx 23 to 26
+    }    
 	db->addFloat((float)(bump_direction));						// bytes 26 to 29 -> Matlab idx 27 to 30
 	db->addFloat((float)(params->bump_duration));				// bytes 30 to 33 -> Matlab idx 31 to 34 
 	db->addFloat((float)(params->moving_dots_target_size));		// bytes 34 to 37 -> Matlab idx 35 to 38 
@@ -622,23 +713,56 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)(rewardTarget->centerY));				// bytes 66 to 69 -> Matlab idx 67 to 70 
 	db->addFloat((float)(params->bias_force_magnitude));		// bytes 70 to 73 -> Matlab idx 71 to 74 
 	db->addFloat((float)(params->bias_force_direction));		// bytes 74 to 77 -> Matlab idx 75 to 78 
+    db->addByte((int)params->force_bump);                       // byte 78        -> Matlab idx 79
 	db->start();
 }
 
 void AttentionBehavior::update(SimStruct *S) {
 	//int i;
+    
+    x_pos = x_pos_old*(1-params->pos_filt) + inputs->cursor.x * params->pos_filt;
+    y_pos = y_pos_old*(1-params->pos_filt) + inputs->cursor.y * params->pos_filt;
+    
+    x_vel = x_vel_old*(1-params->vel_filt) + ((x_pos-x_pos_old)/.001)*params->vel_filt;
+    y_vel = y_vel_old*(1-params->vel_filt) + ((y_pos-y_pos_old)/.001)*params->vel_filt;   
+    
 	// State machine
 	switch (this->getState()) {
 		case STATE_PRETRIAL:
             updateParameters(S);
             doPreTrial(S);
-            setState(STATE_DATA_BLOCK);
-			break;
-		case STATE_DATA_BLOCK:
-			if (db->isDone()) {
-				setState(STATE_CENTER_TARGET_ON);
-			}
-			break;
+            setState(STATE_WAIT_FOR_DB);
+            break;
+        case STATE_WAIT_FOR_DB:
+            if (!db->isRunning()) {
+                if ((bool)params->record && !recordingTimer->isRunning()){
+                    setState(STATE_START_RECORDING);
+                } else if ((!((bool)params->record) && recordingTimer->isRunning()) ||
+                        (recordingTimer->elapsedTime(S) > 60 * params->record_for_x_mins)) {
+                    setState(STATE_STOP_RECORDING);
+                } else {
+                    setState(STATE_CENTER_TARGET_ON);
+                }
+            }
+            break;
+        case STATE_START_RECORDING:
+            if (!recordingTimer->isRunning()) {
+                recordingTimer->start(S);
+            }
+            if (stateTimer->elapsedTime(S) > 1.0) {    
+                playTone(TONE_GO);
+                setState(STATE_CENTER_TARGET_ON);
+            }
+            break;
+        case STATE_STOP_RECORDING:
+            if (recordingTimer->isRunning()) {
+                recordingTimer->stop(S);
+            }            
+            if (stateTimer->elapsedTime(S) > 1.0){     
+                playTone(TONE_GO);
+                setState(STATE_INCOMPLETE);
+            }
+            break;           
 		case STATE_CENTER_TARGET_ON:
 			/* first target on */
             if (inputs->catchForce.x) {
@@ -657,6 +781,7 @@ void AttentionBehavior::update(SimStruct *S) {
                 if (stateTimer->elapsedTime(S) > (center_hold>params->bias_force_ramp ? 
                     center_hold : params->bias_force_ramp)) {
                     bump->start(S);
+                    PDbump->start(S);
                     setState(STATE_STIMULI);
                 } else if (!centerTarget->cursorInTarget(inputs->cursor)) {
                     playTone(TONE_ABORT);
@@ -723,7 +848,8 @@ void AttentionBehavior::update(SimStruct *S) {
 			break;
 		case STATE_ABORT:			
 			this->bump->stop();
-			this->bias_force->stop();			
+			this->bias_force->stop();	
+            this->PDbump->stop();
 			if (stateTimer->elapsedTime(S) > params->abort_timeout) {
 				trial_counter--;
 				setState(STATE_PRETRIAL);
@@ -731,7 +857,8 @@ void AttentionBehavior::update(SimStruct *S) {
 			break;
         case STATE_REWARD:
 			this->bump->stop();
-			this->bias_force->stop();					
+			this->bias_force->stop();	
+            this->PDbump->stop();
 			if (stateTimer->elapsedTime(S) > params->reward_timeout) {
 				current_percent_training_mode = current_percent_training_mode - params->percent_training_step;			
 				setState(STATE_PRETRIAL);
@@ -739,7 +866,8 @@ void AttentionBehavior::update(SimStruct *S) {
 			break;
 		case STATE_FAIL:
 			this->bump->stop();
-			this->bias_force->stop();					
+			this->bias_force->stop();		
+            this->PDbump->stop();
 			if (stateTimer->elapsedTime(S) > params->fail_timeout) {				
 				current_percent_training_mode = current_percent_training_mode + 3*params->percent_training_step;
 				setState(STATE_PRETRIAL);
@@ -748,7 +876,7 @@ void AttentionBehavior::update(SimStruct *S) {
         case STATE_INCOMPLETE:
             this->bump->stop();
 			this->bias_force->stop();
-            
+            this->PDbump->stop();
             if (inputs->catchForce.x){
                 // Stay in this state until handle is back in workspace.
             } else if (stateTimer->elapsedTime(S) > params->reward_timeout) {
@@ -768,13 +896,22 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	/* force (0) */
 	outputs->force = inputs->force;
 
-	if (bias_force->isRunning(S)){
-		outputs->force += bias_force->getBumpForce(S);
-	}
+    if (params->force_bump){
+        if (bias_force->isRunning(S)){
+            outputs->force += bias_force->getBumpForce(S);
+        }
+        if (bump->isRunning(S)) {
+            outputs->force += bump->getBumpForce(S);		
+        } 
+    } else {    
+        if (bias_force->isRunning(S)){
+            outputs->force += bias_force->getBumpForce(S);
+        }
+        if (bump->isRunning(S)) {	
+            outputs->force = PDbump->getBumpForce(S,Point(x_vel,y_vel),Point(x_pos,y_pos));
+        }
+    }
 
-	if (bump->isRunning(S)) {
-		outputs->force += bump->getBumpForce(S);		
-	} 
 
 	/* status (1) */
 	outputs->status[0] = getState();
@@ -792,6 +929,12 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 		switch (getState()) {
 			case STATE_PRETRIAL:
 				outputs->word = WORD_START_TRIAL;
+				break;
+            case STATE_START_RECORDING:
+				outputs->word = WORD_START_RECORDING;        // 0x91 = 145  
+				break;
+            case STATE_STOP_RECORDING:
+				outputs->word = WORD_STOP_RECORDING;         // 0x92 = 146  
 				break;
 			case STATE_CENTER_TARGET_ON:
 				outputs->word = WORD_CT_ON;
@@ -871,6 +1014,11 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
     } else {
     	outputs->position = inputs->cursor + cursor_offset;
     } 
+    
+    x_pos_old = x_pos;
+    y_pos_old = y_pos;    
+    x_vel_old = x_vel;
+    y_vel_old = y_vel;
 
 }
 

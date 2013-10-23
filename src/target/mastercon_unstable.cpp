@@ -240,7 +240,7 @@ struct LocalParams{
     real_T vel_filt;
     real_T pos_filt;
     
-    // Cereubs recording stuff
+    // Cerebus recording stuff
     real_T record;
     real_T record_for_x_mins;
     
@@ -842,19 +842,9 @@ void UnstableBehavior::update(SimStruct *S) {
 
 void UnstableBehavior::calculateOutputs(SimStruct *S) {    
     real_T x_force_bump;
-    real_T y_force_bump;
-            
-    // Velocity bump P,D values
-    real_T D_gain_vel = params->controller_damping_ratio;
-    real_T x_acc = (x_vel - x_vel_old)/.001;
-    real_T y_acc = (y_vel - y_vel_old)/.001;   
-    
+    real_T y_force_bump;           
+
     // Position bump
-    x_force_bump = (params->bump_velocity*cos(bump_direction)-x_vel)*params->P_gain_vel - x_acc*cos(bump_direction)*D_gain_vel +
-            (desired_x_pos - inputs->cursor.x) * params->P_gain_pos;
-    y_force_bump = (params->bump_velocity*sin(bump_direction)-y_vel)*params->P_gain_vel - y_acc*sin(bump_direction)*D_gain_vel +
-            (desired_y_pos - inputs->cursor.y) * params->P_gain_pos;
-    
     Point PDbump_force = PDbump->getBumpForce(S,Point(x_vel,y_vel),Point(x_pos,y_pos));
     x_force_bump = PDbump_force.x;
     y_force_bump = PDbump_force.y;    
@@ -864,13 +854,8 @@ void UnstableBehavior::calculateOutputs(SimStruct *S) {
 		y_force_at_bump_start = y_force_field;
         x_pos_at_bump_start = inputs->cursor.x;
         y_pos_at_bump_start = inputs->cursor.y; 
-	}
-    
-    if (getState() == STATE_BUMP){
-        desired_x_pos = x_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S)/.001 * cos(bump_direction);
-        desired_y_pos = y_pos_at_bump_start + params->bump_velocity * stateTimer->elapsedTime(S)/.001 * sin(bump_direction);
-    }
-    
+	} 
+
 	switch (this->getState()){
 		case STATE_FIELD_BUILD_UP:
 			ratio_force = stateTimer->elapsedTime(S) / params->field_ramp_up;

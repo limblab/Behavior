@@ -751,6 +751,18 @@ namespace BehaviorGraphics
             AddParamListItem("AT PTS", "P43", "Behavior AT", this.textBoxATPTS);
             AddParamListItem("AT CC", "P44", "Behavior AT", this.checkBoxATCC);
 
+            // Velocity bump stuff
+            AddParamListItem("AT FB", "P45", "Behavior AT", this.checkBoxATFB);
+            AddParamListItem("AT BV", "P46", "Behavior AT", this.textBoxATBV);
+            AddParamListItem("AT PGV", "P47", "Behavior AT", this.textBoxATPGV);
+            AddParamListItem("AT PGP", "P48", "Behavior AT", this.textBoxATPGP);
+            AddParamListItem("AT VF", "P49", "Behavior AT", this.textBoxATVF);
+            AddParamListItem("AT PF", "P50", "Behavior AT", this.textBoxATPF);
+
+            // Recording stuff
+            AddParamListItem("AT SRec", "P51", "Behavior AT", this.checkBoxRecord);
+            AddParamListItem("AT RecFor", "P52", "Behavior AT", this.textBoxRecordFor);
+
             #endregion
 
             #region Bump direction psychophysics
@@ -791,8 +803,7 @@ namespace BehaviorGraphics
 
             
             #endregion
-
-
+            
             #region CO Bump
 
             AddParamListItem("COB target size", "P3", "Behavior CO Bump", textBox_ctr_out_bump_TargetRadius);
