@@ -284,7 +284,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(44);
+	this->setNumParams(52);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->center_hold_l,							 1);
@@ -907,7 +907,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
         if (bias_force->isRunning(S)){
             outputs->force += bias_force->getBumpForce(S);
         }
-        if (bump->isRunning(S)) {	
+        if (PDbump->isRunning(S)) {	
             outputs->force = PDbump->getBumpForce(S,Point(x_vel,y_vel),Point(x_pos,y_pos));
         }
     }
