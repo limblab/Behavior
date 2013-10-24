@@ -896,17 +896,15 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	/* force (0) */
 	outputs->force = inputs->force;
 
-    if (params->force_bump){
-        if (bias_force->isRunning(S)){
-            outputs->force += bias_force->getBumpForce(S);
-        }
+    if (bias_force->isRunning(S)){
+        outputs->force += bias_force->getBumpForce(S);
+    }
+    
+    if (params->force_bump){        
         if (bump->isRunning(S)) {
             outputs->force += bump->getBumpForce(S);		
         } 
     } else {    
-        if (bias_force->isRunning(S)){
-            outputs->force += bias_force->getBumpForce(S);
-        }
         if (PDbump->isRunning(S)) {	
             outputs->force = PDbump->getBumpForce(S,Point(x_vel,y_vel),Point(x_pos,y_pos));
         }
@@ -920,7 +918,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[3] = trialCounter->aborts;	
 	//outputs->status[4] = trialCounter->incompletes;	
 	//outputs->status[4] = debug_var;
-	outputs->status[4] = current_percent_training_mode;
+	outputs->status[4] = params->bump_velocity;
     
 	/* word(2) */
 	if (db->isRunning()) {
