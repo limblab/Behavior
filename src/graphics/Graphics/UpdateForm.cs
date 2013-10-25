@@ -751,11 +751,11 @@ namespace BehaviorGraphics
             AddParamListItem("AT PTS", "P43", "Behavior AT", this.textBoxATPTS);
             AddParamListItem("AT CC", "P44", "Behavior AT", this.checkBoxATCC);
 
-            // Velocity bump stuff
-            AddParamListItem("AT FB", "P45", "Behavior AT", this.checkBoxATFB);
-            AddParamListItem("AT BV", "P46", "Behavior AT", this.textBoxATBV);
-            AddParamListItem("AT PGV", "P47", "Behavior AT", this.textBoxATPGV);
-            AddParamListItem("AT PGP", "P48", "Behavior AT", this.textBoxATPGP);
+            // Velocity bump stuff            
+            AddParamListItem("AT PGV", "P45", "Behavior AT", this.textBoxATPGV);
+            AddParamListItem("AT PGP", "P46", "Behavior AT", this.textBoxATPGP);
+            AddParamListItem("AT FB", "P47", "Behavior AT", this.checkBoxATFB);
+            AddParamListItem("AT BV", "P48", "Behavior AT", this.textBoxATBV);
             AddParamListItem("AT VF", "P49", "Behavior AT", this.textBoxATVF);
             AddParamListItem("AT PF", "P50", "Behavior AT", this.textBoxATPF);
 
