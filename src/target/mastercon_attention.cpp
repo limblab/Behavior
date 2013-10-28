@@ -900,8 +900,7 @@ void AttentionBehavior::calculateOutputs(SimStruct *S) {
         outputs->force += bias_force->getBumpForce(S);
     }
     
-//     if (params->force_bump){  
-    if (0){
+    if (params->force_bump){  
         if (bump->isRunning(S)) {
             outputs->force += bump->getBumpForce(S);		
         } 
