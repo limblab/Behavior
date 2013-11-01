@@ -245,6 +245,8 @@ private:
 	real_T bump_direction_history[100];
 	int bump_direction_read_index;
 	int bump_direction_write_index;
+    int main_dir_counter;
+    int main_dir_order [10];
 
 	real_T current_percent_training_mode;
     
@@ -403,6 +405,7 @@ AttentionBehavior::AttentionBehavior(SimStruct *S) : RobotBehavior() {
 	}
 	bump_direction_read_index = 0;
 	bump_direction_write_index = 0;
+    main_dir_counter = 10000;
 
 	current_percent_training_mode = -100;
 
@@ -534,11 +537,40 @@ void AttentionBehavior::doPreTrial(SimStruct *S) {
 	leftResponseTarget->width = params->target_size;
 	rightResponseTarget->width = params->target_size;
 	
+    if (main_dir_counter >= params->num_directions-1){
+        main_dir_counter = -1;
+        double tmp_sort[100];
+        double tmp_d;
+        int tmp;
+
+        for (int i=0; i<params->num_directions; i++){
+            main_dir_order[i] = i;
+            tmp_sort[i] = random->getDouble(0,1);
+        }
+
+        for (int i=0; i<params->num_directions-1; i++){
+            for (int j=0; j<params->num_directions-1; j++){
+                if (tmp_sort[j] < tmp_sort[j+1]){
+                    tmp_d = tmp_sort[j];
+                    tmp_sort[j] = tmp_sort[j+1];
+                    tmp_sort[j+1] = tmp_d;
+
+                    tmp = main_dir_order[j];
+                    main_dir_order[j] = main_dir_order[j+1];
+                    main_dir_order[j+1] = tmp;
+                }
+            }
+        }
+    }
+    
+//     bump_direction = fmod(main_dir_order[main_dir_counter] * 2 * PI/params->num_bump_directions + params->first_bump_direction,2*PI);
+    
 	// Pick the main direction
 	if (!params->blocked_directions || trial_counter==1){
         if (params->num_directions>0){
-            i_dir = random->getInteger(0,(int)(params->num_directions-1));
-            main_direction = fmod(i_dir * 2 * PI/params->num_directions + params->first_main_direction,2*PI);
+            main_dir_counter++;
+//             i_dir = random->getInteger(0,(int)(params->num_directions-1));
+            main_direction = fmod(main_dir_order[main_dir_counter] * 2 * PI/params->num_directions + params->first_main_direction,2*PI);
         } else {
 			i_dir = 0;
             main_direction = random->getDouble(0,2*PI);
