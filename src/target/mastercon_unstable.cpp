@@ -3,9 +3,9 @@
  * Master Control block for behavior: unstable field
  */
 
-#define DATABURST_VERSION ((byte)0x06) 
+#define DATABURST_VERSION ((byte)0x07) 
 /* 
- * Current Databurst version: 6
+ * Current Databurst version: 7
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -15,6 +15,29 @@
  * Databurst version descriptions
  * ==============================
  * 
+ * * Version 7 (0x07)
+ * ----------------
+ * byte         0: uchar => number of bytes to be transmitted
+ * byte         1: uchar => databurst version number (in this case zero)
+ * byte         2: uchar => model version major
+ * byte         3: uchar => model version minor
+ * bytes   4 to 5: short => model version micro
+ * bytes   6 to 9: float => x offset (cm)
+ * bytes 10 to 13: float => y offset (cm)
+ * bytes 14 to 17: float => bump velocity (cm/s) or magnitude (N) depending on type.
+ * bytes 18 to 21: float => bump direction (rad)
+ * bytes 22 to 25: float => bump duration (s)
+ * bytes 26 to 29: float => negative stiffness (N/cm)
+ * bytes 30 to 33: float => positive stiffness (N/cm)
+ * bytes 34 to 37: float => force field angle (rad)
+ * bytes 38 to 41: float => bias force magnitude (N)
+ * bytes 42 to 45: float => bias force angle (rad)
+ * bytes 46 to 49: float => force target diameter (N)
+ * byte        50: uchar => force bump (if 0: vel bump)
+ * bytes 51 to 54: float => infintite force bump duration
+ * byte        55: uchar => position cursor (if 0: force cursor)
+ * byte        56: uchar => late hold (if 1: yes)
+ *
  * * * Version 6 (0x06)
  * ----------------
  * byte         0: uchar => number of bytes to be transmitted
@@ -172,10 +195,8 @@
 #define STATE_HOLD_FIELD			 4
 #define STATE_CT_HOLD				 5
 #define STATE_BUMP					 6
-#define STATE_LATE_HOLD_GRACE        7
-#define STATE_LATE_HOLD              8
-#define STATE_START_RECORDING        9
-#define STATE_STOP_RECORDING         10
+#define STATE_START_RECORDING        7
+#define STATE_STOP_RECORDING         8
 
 
 /* 
@@ -250,9 +271,10 @@ struct LocalParams{
     // More cursor stuff
     real_T position_cursor;
     
-    // More timing stuff
-    real_T late_hold_grace;
-    real_T late_hold;
+    // More target stuff
+    real_T late_target_hold;
+    real_T late_target_diameter;
+    real_T min_bump_hold;
 };
 
 /**
@@ -277,6 +299,7 @@ private:
 	CircleTarget *workSpaceTarget;	
     CircleTarget *forceTarget;
     CircleTarget *forceFeedbackTarget;
+    CircleTarget *lateTarget;
     
 	LocalParams *params;	
 
@@ -343,6 +366,8 @@ private:
     real_T force_to_position;
     real_T desired_x_pos;
     real_T desired_y_pos;
+    
+    int exit_target;
 };
 
 UnstableBehavior::UnstableBehavior(SimStruct *S) : RobotBehavior() {
@@ -354,7 +379,7 @@ UnstableBehavior::UnstableBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(39);
+	this->setNumParams(40);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->field_ramp_up,							 1);
@@ -407,11 +432,12 @@ UnstableBehavior::UnstableBehavior(SimStruct *S) : RobotBehavior() {
     
     this->bindParamId(&params->position_cursor,                          36);
     
-    this->bindParamId(&params->late_hold_grace,                          37);
-    this->bindParamId(&params->late_hold,                                38);
+    this->bindParamId(&params->late_target_hold,                         37);
+    this->bindParamId(&params->late_target_diameter,                     38);
+    this->bindParamId(&params->min_bump_hold,                            39);
     
     // default parameters:
-    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2   0   1 1   0   0 0
+    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2   0   1 1   0   1 3 0.5
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -422,8 +448,8 @@ UnstableBehavior::UnstableBehavior(SimStruct *S) : RobotBehavior() {
 	//this->updateParameters(S);
 		
 	centerTarget = new CircleTarget();
-	centerTarget->color = Target::Color(255,150,50);	
-
+	centerTarget->color = Target::Color(255,130,0);	
+    
 	workSpaceTarget = new CircleTarget();
 	workSpaceTarget->color = Target::Color(60,60,60);
     
@@ -432,6 +458,9 @@ UnstableBehavior::UnstableBehavior(SimStruct *S) : RobotBehavior() {
     
     forceFeedbackTarget = new CircleTarget();
 	forceFeedbackTarget->color = Target::Color(255,0,0);
+    
+    lateTarget = new CircleTarget();
+	lateTarget->color = Target::Color(255,0,0);
 
     field_hold_time = 0.0;
 	bump_direction = 0.0;
@@ -481,6 +510,8 @@ UnstableBehavior::UnstableBehavior(SimStruct *S) : RobotBehavior() {
     force_to_position = 0.0;
     desired_x_pos = 0.0;
     desired_y_pos = 0.0;
+    
+    exit_target = 0;
 }
 
 void UnstableBehavior::doPreTrial(SimStruct *S) {	
@@ -493,6 +524,11 @@ void UnstableBehavior::doPreTrial(SimStruct *S) {
 	workSpaceTarget->centerX = params->x_position_offset;
 	workSpaceTarget->centerY = params->y_position_offset;
 	workSpaceTarget->radius = params->workspace_diameter/2;
+    
+    lateTarget->centerX = params->x_position_offset;
+	lateTarget->centerY = params->y_position_offset;
+	lateTarget->radius = params->late_target_diameter/2;
+    lateTarget->color = Target::Color(255,0,0);
         
 	field_hold_time = this->random->getDouble(params->field_hold_low,params->field_hold_high);
 	   
@@ -601,6 +637,8 @@ void UnstableBehavior::doPreTrial(SimStruct *S) {
 	x_force_at_bump_start = 0;
 	y_force_at_bump_start = 0;
     
+    exit_target = 0;
+    
 // //     Cursor offset for position feedback
 //     real_T Fb, kneg, kpos, theta_f, theta_b, a, b, c, d, e;
 //     Fb = params->bias_force_magnitude;
@@ -649,7 +687,8 @@ void UnstableBehavior::doPreTrial(SimStruct *S) {
     db->addFloat((float)params->force_target_diameter);         // bytes 46 to 49 -> Matlab idx 47 to 50
     db->addByte((int)params->force_bump);                       // byte 50        -> Matlab idx 51
     db->addFloat((float)params->infinite_bump_duration);        // bytes 51 to 54 -> Matlab idx 52 to 55
-    db->addByte((int)params->position_cursor);                  // byte 44        -> Matlab idx 56 
+    db->addByte((int)params->position_cursor);                  // byte 55        -> Matlab idx 56 
+    db->addByte((int)params->late_target_hold);                 // byte 56        -> Matlab idx 57
     
 	db->start();
 
@@ -813,47 +852,31 @@ void UnstableBehavior::update(SimStruct *S) {
             }
             break;
         case STATE_BUMP:
+            if (!lateTarget->cursorInTarget(inputs->cursor)){
+                exit_target = 1;
+                lateTarget->color = Target::Color(0,255,0);
+            }
             if (inputs->catchForce.x) {
                 setState(STATE_INCOMPLETE);
             } else {
-                if (stateTimer->elapsedTime(S) > params->bump_duration){
-                    if (params->late_hold > 0){
-                        setState(STATE_LATE_HOLD_GRACE);
-                    } else {
+                if (params->position_cursor && params->late_target_hold){
+                    if (stateTimer->elapsedTime(S) > params->min_bump_hold){
+                        if (exit_target && lateTarget->cursorInTarget(inputs->cursor)){
+                            setState(STATE_REWARD);
+                            playTone(TONE_REWARD);
+                        } else if (stateTimer->elapsedTime(S) > params->bump_duration){
+                            setState(STATE_FAIL);
+                            playTone(TONE_FAIL);
+                        }
+                    }
+                } else {                    
+                    if (stateTimer->elapsedTime(S) > params->bump_duration){                    
                         setState(STATE_REWARD);
                         playTone(TONE_REWARD);
                     }
                 }
             }
-            break;
-        case STATE_LATE_HOLD_GRACE:
-            if (stateTimer->elapsedTime(S) > params->late_hold_grace){
-                setState(STATE_LATE_HOLD);
-            }
-            break;
-        case STATE_LATE_HOLD:
-            if (!params->position_cursor){
-                if (centerTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
-                    if (stateTimer->elapsedTime(S) > params->late_hold - params->late_hold_grace){
-                        setState(STATE_REWARD);
-                        playTone(TONE_REWARD);
-                    } 
-                } else {
-                    setState(STATE_FAIL);
-                    playTone(TONE_FAIL);
-                }                
-            } else {
-                if (centerTarget->cursorInTarget(inputs->cursor)){
-                    if (stateTimer->elapsedTime(S) > params->late_hold - params->late_hold_grace){
-                        setState(STATE_REWARD);
-                        playTone(TONE_REWARD);
-                    }
-                } else {
-                    setState(STATE_FAIL);
-                    playTone(TONE_FAIL);
-                }
-            }                  
-            break;
+            break;        
         case STATE_REWARD:
             if (stateTimer->elapsedTime(S) > params->reward_wait){
                 setState(STATE_PRETRIAL);
@@ -912,8 +935,6 @@ void UnstableBehavior::calculateOutputs(SimStruct *S) {
 			break;
 		case STATE_HOLD_FIELD:
 		case STATE_CT_HOLD:
-        case STATE_LATE_HOLD_GRACE:
-        case STATE_LATE_HOLD:
 			outputs->force.x = x_force_field;
 			outputs->force.y = y_force_field;
 			break;
@@ -1009,10 +1030,7 @@ void UnstableBehavior::calculateOutputs(SimStruct *S) {
 			break;
 		case STATE_FIELD_BUILD_UP:
 		case STATE_HOLD_FIELD:
-		case STATE_CT_HOLD:
-        case STATE_BUMP:
-        case STATE_LATE_HOLD_GRACE:
-        case STATE_LATE_HOLD:
+		case STATE_CT_HOLD:        
 			outputs->targets[0] = (Target *)workSpaceTarget;
 			outputs->targets[1] = (Target *)centerTarget;
             if (params->position_cursor){
@@ -1021,6 +1039,11 @@ void UnstableBehavior::calculateOutputs(SimStruct *S) {
                 outputs->targets[2] = nullTarget;
             }
 			break;
+        case STATE_BUMP:
+            outputs->targets[0] = (Target *)lateTarget;
+			outputs->targets[1] = nullTarget;
+            outputs->targets[2] = nullTarget;  
+            break;
 		default:
 			outputs->targets[0] = nullTarget;
 			outputs->targets[1] = nullTarget;
@@ -1054,8 +1077,6 @@ void UnstableBehavior::calculateOutputs(SimStruct *S) {
 			break;
 		case STATE_HOLD_FIELD:
 		case STATE_CT_HOLD:
-        case STATE_LATE_HOLD_GRACE:
-        case STATE_LATE_HOLD:
         case STATE_BUMP:
             if (!params->position_cursor){
                 outputs->position.x = force_to_position * x_force_cursor;
