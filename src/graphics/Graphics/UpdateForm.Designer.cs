@@ -714,6 +714,17 @@ namespace BehaviorGraphics
             this.numericUpDownATSR = new System.Windows.Forms.NumericUpDown();
             this.checkBoxATS = new System.Windows.Forms.CheckBox();
             this.groupBox50 = new System.Windows.Forms.GroupBox();
+            this.textBoxATPGP = new System.Windows.Forms.TextBox();
+            this.labelATPGP = new System.Windows.Forms.Label();
+            this.textBoxATPGV = new System.Windows.Forms.TextBox();
+            this.labelATPGV = new System.Windows.Forms.Label();
+            this.textBoxATPF = new System.Windows.Forms.TextBox();
+            this.labelATPosFilt = new System.Windows.Forms.Label();
+            this.textBoxATVF = new System.Windows.Forms.TextBox();
+            this.labelATVelFilt = new System.Windows.Forms.Label();
+            this.textBoxATBV = new System.Windows.Forms.TextBox();
+            this.labelATBumpVel = new System.Windows.Forms.Label();
+            this.checkBoxATFB = new System.Windows.Forms.CheckBox();
             this.textBoxATBM = new System.Windows.Forms.TextBox();
             this.angleEntryBoxATBHMaxS = new AngleBox.AngleEntryBox();
             this.label272 = new System.Windows.Forms.Label();
@@ -1270,17 +1281,10 @@ namespace BehaviorGraphics
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.label324 = new System.Windows.Forms.Label();
-            this.checkBoxATFB = new System.Windows.Forms.CheckBox();
-            this.textBoxATBV = new System.Windows.Forms.TextBox();
-            this.labelATBumpVel = new System.Windows.Forms.Label();
-            this.textBoxATVF = new System.Windows.Forms.TextBox();
-            this.labelATVelFilt = new System.Windows.Forms.Label();
-            this.textBoxATPF = new System.Windows.Forms.TextBox();
-            this.labelATPosFilt = new System.Windows.Forms.Label();
-            this.textBoxATPGP = new System.Windows.Forms.TextBox();
-            this.labelATPGP = new System.Windows.Forms.Label();
-            this.textBoxATPGV = new System.Windows.Forms.TextBox();
-            this.labelATPGV = new System.Windows.Forms.Label();
+            this.textBoxUFLH = new System.Windows.Forms.TextBox();
+            this.textBoxUFLHG = new System.Windows.Forms.TextBox();
+            this.labelUFLH = new System.Windows.Forms.Label();
+            this.labelUFLHG = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -8698,6 +8702,99 @@ namespace BehaviorGraphics
             this.groupBox50.TabStop = false;
             this.groupBox50.Text = "Bumps";
             // 
+            // textBoxATPGP
+            // 
+            this.textBoxATPGP.Location = new System.Drawing.Point(212, 181);
+            this.textBoxATPGP.Name = "textBoxATPGP";
+            this.textBoxATPGP.Size = new System.Drawing.Size(46, 20);
+            this.textBoxATPGP.TabIndex = 95;
+            // 
+            // labelATPGP
+            // 
+            this.labelATPGP.AutoSize = true;
+            this.labelATPGP.Location = new System.Drawing.Point(132, 184);
+            this.labelATPGP.Name = "labelATPGP";
+            this.labelATPGP.Size = new System.Drawing.Size(57, 13);
+            this.labelATPGP.TabIndex = 96;
+            this.labelATPGP.Text = "P gain pos";
+            // 
+            // textBoxATPGV
+            // 
+            this.textBoxATPGV.Location = new System.Drawing.Point(212, 155);
+            this.textBoxATPGV.Name = "textBoxATPGV";
+            this.textBoxATPGV.Size = new System.Drawing.Size(46, 20);
+            this.textBoxATPGV.TabIndex = 93;
+            // 
+            // labelATPGV
+            // 
+            this.labelATPGV.AutoSize = true;
+            this.labelATPGV.Location = new System.Drawing.Point(132, 158);
+            this.labelATPGV.Name = "labelATPGV";
+            this.labelATPGV.Size = new System.Drawing.Size(54, 13);
+            this.labelATPGV.TabIndex = 94;
+            this.labelATPGV.Text = "P gain vel";
+            // 
+            // textBoxATPF
+            // 
+            this.textBoxATPF.Location = new System.Drawing.Point(80, 181);
+            this.textBoxATPF.Name = "textBoxATPF";
+            this.textBoxATPF.Size = new System.Drawing.Size(46, 20);
+            this.textBoxATPF.TabIndex = 91;
+            this.toolTip1.SetToolTip(this.textBoxATPF, "pos = old_pos*(1-PF) + curr_pos*PF");
+            // 
+            // labelATPosFilt
+            // 
+            this.labelATPosFilt.AutoSize = true;
+            this.labelATPosFilt.Location = new System.Drawing.Point(0, 184);
+            this.labelATPosFilt.Name = "labelATPosFilt";
+            this.labelATPosFilt.Size = new System.Drawing.Size(47, 13);
+            this.labelATPosFilt.TabIndex = 92;
+            this.labelATPosFilt.Text = "Pos filter";
+            // 
+            // textBoxATVF
+            // 
+            this.textBoxATVF.Location = new System.Drawing.Point(80, 155);
+            this.textBoxATVF.Name = "textBoxATVF";
+            this.textBoxATVF.Size = new System.Drawing.Size(46, 20);
+            this.textBoxATVF.TabIndex = 89;
+            this.toolTip1.SetToolTip(this.textBoxATVF, "vel = old_vel*(1-VF) + curr_vel*VF");
+            // 
+            // labelATVelFilt
+            // 
+            this.labelATVelFilt.AutoSize = true;
+            this.labelATVelFilt.Location = new System.Drawing.Point(0, 158);
+            this.labelATVelFilt.Name = "labelATVelFilt";
+            this.labelATVelFilt.Size = new System.Drawing.Size(44, 13);
+            this.labelATVelFilt.TabIndex = 90;
+            this.labelATVelFilt.Text = "Vel filter";
+            // 
+            // textBoxATBV
+            // 
+            this.textBoxATBV.Location = new System.Drawing.Point(82, 89);
+            this.textBoxATBV.Name = "textBoxATBV";
+            this.textBoxATBV.Size = new System.Drawing.Size(46, 20);
+            this.textBoxATBV.TabIndex = 87;
+            // 
+            // labelATBumpVel
+            // 
+            this.labelATBumpVel.AutoSize = true;
+            this.labelATBumpVel.Location = new System.Drawing.Point(2, 92);
+            this.labelATBumpVel.Name = "labelATBumpVel";
+            this.labelATBumpVel.Size = new System.Drawing.Size(44, 13);
+            this.labelATBumpVel.TabIndex = 88;
+            this.labelATBumpVel.Text = "Velocity";
+            // 
+            // checkBoxATFB
+            // 
+            this.checkBoxATFB.AutoSize = true;
+            this.checkBoxATFB.Location = new System.Drawing.Point(5, 71);
+            this.checkBoxATFB.Name = "checkBoxATFB";
+            this.checkBoxATFB.Size = new System.Drawing.Size(83, 17);
+            this.checkBoxATFB.TabIndex = 86;
+            this.checkBoxATFB.Text = "Force Bump";
+            this.toolTip1.SetToolTip(this.checkBoxATFB, "If checked, force bump, otherwise position bump");
+            this.checkBoxATFB.UseVisualStyleBackColor = true;
+            // 
             // textBoxATBM
             // 
             this.textBoxATBM.Location = new System.Drawing.Point(82, 45);
@@ -10327,7 +10424,7 @@ namespace BehaviorGraphics
             this.groupBox67.Controls.Add(this.textBoxUFTD);
             this.groupBox67.Controls.Add(this.label338);
             this.groupBox67.Controls.Add(this.label337);
-            this.groupBox67.Location = new System.Drawing.Point(8, 172);
+            this.groupBox67.Location = new System.Drawing.Point(8, 224);
             this.groupBox67.Name = "groupBox67";
             this.groupBox67.Size = new System.Drawing.Size(200, 118);
             this.groupBox67.TabIndex = 2;
@@ -10398,6 +10495,10 @@ namespace BehaviorGraphics
             // 
             // groupBox66
             // 
+            this.groupBox66.Controls.Add(this.textBoxUFLH);
+            this.groupBox66.Controls.Add(this.textBoxUFLHG);
+            this.groupBox66.Controls.Add(this.labelUFLH);
+            this.groupBox66.Controls.Add(this.labelUFLHG);
             this.groupBox66.Controls.Add(this.textBoxUFFHL);
             this.groupBox66.Controls.Add(this.textBoxUFFHH);
             this.groupBox66.Controls.Add(this.textBoxUFAW);
@@ -10410,7 +10511,7 @@ namespace BehaviorGraphics
             this.groupBox66.Controls.Add(this.label332);
             this.groupBox66.Location = new System.Drawing.Point(8, 8);
             this.groupBox66.Name = "groupBox66";
-            this.groupBox66.Size = new System.Drawing.Size(200, 158);
+            this.groupBox66.Size = new System.Drawing.Size(200, 209);
             this.groupBox66.TabIndex = 1;
             this.groupBox66.TabStop = false;
             this.groupBox66.Text = "Timing";
@@ -10433,7 +10534,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUFAW
             // 
-            this.textBoxUFAW.Location = new System.Drawing.Point(126, 131);
+            this.textBoxUFAW.Location = new System.Drawing.Point(126, 179);
             this.textBoxUFAW.Name = "textBoxUFAW";
             this.textBoxUFAW.Size = new System.Drawing.Size(55, 20);
             this.textBoxUFAW.TabIndex = 7;
@@ -10441,7 +10542,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUFRW
             // 
-            this.textBoxUFRW.Location = new System.Drawing.Point(126, 103);
+            this.textBoxUFRW.Location = new System.Drawing.Point(126, 151);
             this.textBoxUFRW.Name = "textBoxUFRW";
             this.textBoxUFRW.Size = new System.Drawing.Size(55, 20);
             this.textBoxUFRW.TabIndex = 6;
@@ -10458,7 +10559,7 @@ namespace BehaviorGraphics
             // label336
             // 
             this.label336.AutoSize = true;
-            this.label336.Location = new System.Drawing.Point(6, 134);
+            this.label336.Location = new System.Drawing.Point(6, 182);
             this.label336.Name = "label336";
             this.label336.Size = new System.Drawing.Size(54, 13);
             this.label336.TabIndex = 4;
@@ -10485,7 +10586,7 @@ namespace BehaviorGraphics
             // label333
             // 
             this.label333.AutoSize = true;
-            this.label333.Location = new System.Drawing.Point(6, 106);
+            this.label333.Location = new System.Drawing.Point(6, 154);
             this.label333.Name = "label333";
             this.label333.Size = new System.Drawing.Size(66, 13);
             this.label333.TabIndex = 1;
@@ -14178,98 +14279,37 @@ namespace BehaviorGraphics
             this.label324.TabIndex = 64;
             this.label324.Text = "1-D Jitter Magnitude";
             // 
-            // checkBoxATFB
+            // textBoxUFLH
             // 
-            this.checkBoxATFB.AutoSize = true;
-            this.checkBoxATFB.Location = new System.Drawing.Point(5, 71);
-            this.checkBoxATFB.Name = "checkBoxATFB";
-            this.checkBoxATFB.Size = new System.Drawing.Size(83, 17);
-            this.checkBoxATFB.TabIndex = 86;
-            this.checkBoxATFB.Text = "Force Bump";
-            this.toolTip1.SetToolTip(this.checkBoxATFB, "If checked, force bump, otherwise position bump");
-            this.checkBoxATFB.UseVisualStyleBackColor = true;
+            this.textBoxUFLH.Location = new System.Drawing.Point(126, 125);
+            this.textBoxUFLH.Name = "textBoxUFLH";
+            this.textBoxUFLH.Size = new System.Drawing.Size(55, 20);
+            this.textBoxUFLH.TabIndex = 13;
             // 
-            // textBoxATBV
+            // textBoxUFLHG
             // 
-            this.textBoxATBV.Location = new System.Drawing.Point(82, 89);
-            this.textBoxATBV.Name = "textBoxATBV";
-            this.textBoxATBV.Size = new System.Drawing.Size(46, 20);
-            this.textBoxATBV.TabIndex = 87;
+            this.textBoxUFLHG.Location = new System.Drawing.Point(126, 97);
+            this.textBoxUFLHG.Name = "textBoxUFLHG";
+            this.textBoxUFLHG.Size = new System.Drawing.Size(55, 20);
+            this.textBoxUFLHG.TabIndex = 12;
             // 
-            // labelATBumpVel
+            // labelUFLH
             // 
-            this.labelATBumpVel.AutoSize = true;
-            this.labelATBumpVel.Location = new System.Drawing.Point(2, 92);
-            this.labelATBumpVel.Name = "labelATBumpVel";
-            this.labelATBumpVel.Size = new System.Drawing.Size(44, 13);
-            this.labelATBumpVel.TabIndex = 88;
-            this.labelATBumpVel.Text = "Velocity";
+            this.labelUFLH.AutoSize = true;
+            this.labelUFLH.Location = new System.Drawing.Point(6, 128);
+            this.labelUFLH.Name = "labelUFLH";
+            this.labelUFLH.Size = new System.Drawing.Size(51, 13);
+            this.labelUFLH.TabIndex = 11;
+            this.labelUFLH.Text = "Late hold";
             // 
-            // textBoxATVF
+            // labelUFLHG
             // 
-            this.textBoxATVF.Location = new System.Drawing.Point(80, 155);
-            this.textBoxATVF.Name = "textBoxATVF";
-            this.textBoxATVF.Size = new System.Drawing.Size(46, 20);
-            this.textBoxATVF.TabIndex = 89;
-            this.toolTip1.SetToolTip(this.textBoxATVF, "vel = old_vel*(1-VF) + curr_vel*VF");
-            // 
-            // labelATVelFilt
-            // 
-            this.labelATVelFilt.AutoSize = true;
-            this.labelATVelFilt.Location = new System.Drawing.Point(0, 158);
-            this.labelATVelFilt.Name = "labelATVelFilt";
-            this.labelATVelFilt.Size = new System.Drawing.Size(44, 13);
-            this.labelATVelFilt.TabIndex = 90;
-            this.labelATVelFilt.Text = "Vel filter";
-            // 
-            // textBoxATPF
-            // 
-            this.textBoxATPF.Location = new System.Drawing.Point(80, 181);
-            this.textBoxATPF.Name = "textBoxATPF";
-            this.textBoxATPF.Size = new System.Drawing.Size(46, 20);
-            this.textBoxATPF.TabIndex = 91;
-            this.toolTip1.SetToolTip(this.textBoxATPF, "pos = old_pos*(1-PF) + curr_pos*PF");
-            // 
-            // labelATPosFilt
-            // 
-            this.labelATPosFilt.AutoSize = true;
-            this.labelATPosFilt.Location = new System.Drawing.Point(0, 184);
-            this.labelATPosFilt.Name = "labelATPosFilt";
-            this.labelATPosFilt.Size = new System.Drawing.Size(47, 13);
-            this.labelATPosFilt.TabIndex = 92;
-            this.labelATPosFilt.Text = "Pos filter";
-            // 
-            // textBoxATPGP
-            // 
-            this.textBoxATPGP.Location = new System.Drawing.Point(212, 181);
-            this.textBoxATPGP.Name = "textBoxATPGP";
-            this.textBoxATPGP.Size = new System.Drawing.Size(46, 20);
-            this.textBoxATPGP.TabIndex = 95;
-            // 
-            // labelATPGP
-            // 
-            this.labelATPGP.AutoSize = true;
-            this.labelATPGP.Location = new System.Drawing.Point(132, 184);
-            this.labelATPGP.Name = "labelATPGP";
-            this.labelATPGP.Size = new System.Drawing.Size(57, 13);
-            this.labelATPGP.TabIndex = 96;
-            this.labelATPGP.Text = "P gain pos";
-            // 
-            // textBoxATPGV
-            // 
-            this.textBoxATPGV.Location = new System.Drawing.Point(212, 155);
-            this.textBoxATPGV.Name = "textBoxATPGV";
-            this.textBoxATPGV.Size = new System.Drawing.Size(46, 20);
-            this.textBoxATPGV.TabIndex = 93;
-            // 
-            // labelATPGV
-            // 
-            this.labelATPGV.AutoSize = true;
-            this.labelATPGV.Location = new System.Drawing.Point(132, 158);
-            this.labelATPGV.Name = "labelATPGV";
-            this.labelATPGV.Size = new System.Drawing.Size(54, 13);
-            this.labelATPGV.TabIndex = 94;
-            this.labelATPGV.Text = "P gain vel";
+            this.labelUFLHG.AutoSize = true;
+            this.labelUFLHG.Location = new System.Drawing.Point(6, 100);
+            this.labelUFLHG.Name = "labelUFLHG";
+            this.labelUFLHG.Size = new System.Drawing.Size(81, 13);
+            this.labelUFLHG.TabIndex = 10;
+            this.labelUFLHG.Text = "Late hold grace";
             // 
             // UpdateForm
             // 
@@ -15805,5 +15845,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxATBV;
         private System.Windows.Forms.Label labelATBumpVel;
         private System.Windows.Forms.CheckBox checkBoxATFB;
+        private System.Windows.Forms.TextBox textBoxUFLH;
+        private System.Windows.Forms.TextBox textBoxUFLHG;
+        private System.Windows.Forms.Label labelUFLH;
+        private System.Windows.Forms.Label labelUFLHG;
     }
 }

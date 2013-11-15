@@ -172,8 +172,11 @@
 #define STATE_HOLD_FIELD			 4
 #define STATE_CT_HOLD				 5
 #define STATE_BUMP					 6
-#define STATE_START_RECORDING        7
-#define STATE_STOP_RECORDING         8
+#define STATE_LATE_HOLD_GRACE        7
+#define STATE_LATE_HOLD              8
+#define STATE_START_RECORDING        9
+#define STATE_STOP_RECORDING         10
+
 
 /* 
  * STATE_REWARD STATE_ABORT STATE_FAIL STATE_INCOMPLETE STATE_DATA_BLOCK 
@@ -246,6 +249,10 @@ struct LocalParams{
     
     // More cursor stuff
     real_T position_cursor;
+    
+    // More timing stuff
+    real_T late_hold_grace;
+    real_T late_hold;
 };
 
 /**
@@ -347,7 +354,7 @@ UnstableBehavior::UnstableBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(37);
+	this->setNumParams(39);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->field_ramp_up,							 1);
@@ -400,8 +407,11 @@ UnstableBehavior::UnstableBehavior(SimStruct *S) : RobotBehavior() {
     
     this->bindParamId(&params->position_cursor,                          36);
     
+    this->bindParamId(&params->late_hold_grace,                          37);
+    this->bindParamId(&params->late_hold,                                38);
+    
     // default parameters:
-    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2   0   1 1   0
+    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2   0   1 1   0   0 0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -807,10 +817,42 @@ void UnstableBehavior::update(SimStruct *S) {
                 setState(STATE_INCOMPLETE);
             } else {
                 if (stateTimer->elapsedTime(S) > params->bump_duration){
-                    playTone(TONE_REWARD);
-                    setState(STATE_REWARD);
+                    if (params->late_hold > 0){
+                        setState(STATE_LATE_HOLD_GRACE);
+                    } else {
+                        setState(STATE_REWARD);
+                        playTone(TONE_REWARD);
+                    }
                 }
             }
+            break;
+        case STATE_LATE_HOLD_GRACE:
+            if (stateTimer->elapsedTime(S) > params->late_hold_grace){
+                setState(STATE_LATE_HOLD);
+            }
+            break;
+        case STATE_LATE_HOLD:
+            if (!params->position_cursor){
+                if (centerTarget->cursorInTarget(Point(force_to_position*x_force_cursor,force_to_position*y_force_cursor))){
+                    if (stateTimer->elapsedTime(S) > params->late_hold - params->late_hold_grace){
+                        setState(STATE_REWARD);
+                        playTone(TONE_REWARD);
+                    } 
+                } else {
+                    setState(STATE_FAIL);
+                    playTone(TONE_FAIL);
+                }                
+            } else {
+                if (centerTarget->cursorInTarget(inputs->cursor)){
+                    if (stateTimer->elapsedTime(S) > params->late_hold - params->late_hold_grace){
+                        setState(STATE_REWARD);
+                        playTone(TONE_REWARD);
+                    }
+                } else {
+                    setState(STATE_FAIL);
+                    playTone(TONE_FAIL);
+                }
+            }                  
             break;
         case STATE_REWARD:
             if (stateTimer->elapsedTime(S) > params->reward_wait){
@@ -818,6 +860,12 @@ void UnstableBehavior::update(SimStruct *S) {
             }
             break;
         case STATE_ABORT:
+            if (stateTimer->elapsedTime(S) > params->abort_wait){
+                trial_counter--;
+                setState(STATE_PRETRIAL);
+            }
+            break;
+        case STATE_FAIL:
             if (stateTimer->elapsedTime(S) > params->abort_wait){
                 trial_counter--;
                 setState(STATE_PRETRIAL);
@@ -864,6 +912,8 @@ void UnstableBehavior::calculateOutputs(SimStruct *S) {
 			break;
 		case STATE_HOLD_FIELD:
 		case STATE_CT_HOLD:
+        case STATE_LATE_HOLD_GRACE:
+        case STATE_LATE_HOLD:
 			outputs->force.x = x_force_field;
 			outputs->force.y = y_force_field;
 			break;
@@ -879,7 +929,8 @@ void UnstableBehavior::calculateOutputs(SimStruct *S) {
             }                        
 			break;
         case STATE_REWARD:
-        case STATE_ABORT:
+        case STATE_ABORT:    
+        case STATE_FAIL:
             outputs->force.x = -x_vel*0.012;
             outputs->force.y = -y_vel*0.012;
             break;
@@ -929,7 +980,7 @@ void UnstableBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_BUMP:
 				outputs->word = WORD_BUMP(0);               // 0x50 = 80
                 lastWord = WORD_BUMP(0);
-				break;			
+				break;	
 			case STATE_REWARD:
 				outputs->word = WORD_REWARD;                // 0x20 = 32
                 lastWord = WORD_REWARD;
@@ -937,7 +988,11 @@ void UnstableBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_ABORT:
 				outputs->word = WORD_ABORT;                 // 0x21 = 33
                 lastWord = WORD_ABORT;
-				break;			
+				break;		
+            case STATE_FAIL:
+                outputs->word = WORD_FAIL;                  // 0x22 = 34
+                lastWord = WORD_FAIL;
+                break;
 			default:
 				outputs->word = 0;
 		}
@@ -955,6 +1010,9 @@ void UnstableBehavior::calculateOutputs(SimStruct *S) {
 		case STATE_FIELD_BUILD_UP:
 		case STATE_HOLD_FIELD:
 		case STATE_CT_HOLD:
+        case STATE_BUMP:
+        case STATE_LATE_HOLD_GRACE:
+        case STATE_LATE_HOLD:
 			outputs->targets[0] = (Target *)workSpaceTarget;
 			outputs->targets[1] = (Target *)centerTarget;
             if (params->position_cursor){
@@ -996,6 +1054,9 @@ void UnstableBehavior::calculateOutputs(SimStruct *S) {
 			break;
 		case STATE_HOLD_FIELD:
 		case STATE_CT_HOLD:
+        case STATE_LATE_HOLD_GRACE:
+        case STATE_LATE_HOLD:
+        case STATE_BUMP:
             if (!params->position_cursor){
                 outputs->position.x = force_to_position * x_force_cursor;
                 outputs->position.y = force_to_position * y_force_cursor;
@@ -1003,9 +1064,6 @@ void UnstableBehavior::calculateOutputs(SimStruct *S) {
                 outputs->position.x = inputs->cursor.x - params->x_position_offset;
                 outputs->position.y = inputs->cursor.y - params->y_position_offset;
             }
-			break;
-		case STATE_BUMP:
-			outputs->position = Point(1E6, 1E6);
 			break;
 		default:
             if (!params->position_cursor){

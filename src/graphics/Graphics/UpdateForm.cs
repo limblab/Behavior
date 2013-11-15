@@ -894,6 +894,10 @@ namespace BehaviorGraphics
             // Cursor stuff
             AddParamListItem("UF PC", "P37", "Behavior UF", this.checkBoxUFPC);
 
+            // More timing stuff
+            AddParamListItem("UF LHG", "P38", "Behavior UF", this.textBoxUFLHG);
+            AddParamListItem("UF LH", "P39", "Behavior UF", this.textBoxUFLH);
+
             #endregion
 
             #region UncertaintyTarget1D
