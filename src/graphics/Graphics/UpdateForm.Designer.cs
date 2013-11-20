@@ -887,6 +887,8 @@ namespace BehaviorGraphics
             this.numericUpDownUFND = new System.Windows.Forms.NumericUpDown();
             this.label340 = new System.Windows.Forms.Label();
             this.groupBox67 = new System.Windows.Forms.GroupBox();
+            this.textBoxUFLTD = new System.Windows.Forms.TextBox();
+            this.labelUFLTD = new System.Windows.Forms.Label();
             this.checkBoxUFPC = new System.Windows.Forms.CheckBox();
             this.textBoxUFFTD = new System.Windows.Forms.TextBox();
             this.labelUFFTD = new System.Windows.Forms.Label();
@@ -895,6 +897,9 @@ namespace BehaviorGraphics
             this.label338 = new System.Windows.Forms.Label();
             this.label337 = new System.Windows.Forms.Label();
             this.groupBox66 = new System.Windows.Forms.GroupBox();
+            this.textBoxUFMBH = new System.Windows.Forms.TextBox();
+            this.labelUFMBH = new System.Windows.Forms.Label();
+            this.checkBoxUFLTH = new System.Windows.Forms.CheckBox();
             this.textBoxUFFHL = new System.Windows.Forms.TextBox();
             this.textBoxUFFHH = new System.Windows.Forms.TextBox();
             this.textBoxUFAW = new System.Windows.Forms.TextBox();
@@ -1281,11 +1286,6 @@ namespace BehaviorGraphics
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.label324 = new System.Windows.Forms.Label();
-            this.checkBoxUFLTH = new System.Windows.Forms.CheckBox();
-            this.textBoxUFLTD = new System.Windows.Forms.TextBox();
-            this.labelUFLTD = new System.Windows.Forms.Label();
-            this.textBoxUFMBH = new System.Windows.Forms.TextBox();
-            this.labelUFMBH = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -10305,6 +10305,7 @@ namespace BehaviorGraphics
             this.textBoxUFIBD.Size = new System.Drawing.Size(46, 20);
             this.textBoxUFIBD.TabIndex = 51;
             this.toolTip1.SetToolTip(this.textBoxUFIBD, "in seconds");
+            this.textBoxUFIBD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBoxUFBM
             // 
@@ -10434,6 +10435,23 @@ namespace BehaviorGraphics
             this.groupBox67.TabStop = false;
             this.groupBox67.Text = "Target and workspace";
             // 
+            // textBoxUFLTD
+            // 
+            this.textBoxUFLTD.Location = new System.Drawing.Point(126, 95);
+            this.textBoxUFLTD.Name = "textBoxUFLTD";
+            this.textBoxUFLTD.Size = new System.Drawing.Size(55, 20);
+            this.textBoxUFLTD.TabIndex = 18;
+            this.textBoxUFLTD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelUFLTD
+            // 
+            this.labelUFLTD.AutoSize = true;
+            this.labelUFLTD.Location = new System.Drawing.Point(6, 101);
+            this.labelUFLTD.Name = "labelUFLTD";
+            this.labelUFLTD.Size = new System.Drawing.Size(101, 13);
+            this.labelUFLTD.TabIndex = 17;
+            this.labelUFLTD.Text = "Late target diameter";
+            // 
             // checkBoxUFPC
             // 
             this.checkBoxUFPC.AutoSize = true;
@@ -10517,6 +10535,33 @@ namespace BehaviorGraphics
             this.groupBox66.TabIndex = 1;
             this.groupBox66.TabStop = false;
             this.groupBox66.Text = "Timing";
+            // 
+            // textBoxUFMBH
+            // 
+            this.textBoxUFMBH.Location = new System.Drawing.Point(126, 152);
+            this.textBoxUFMBH.Name = "textBoxUFMBH";
+            this.textBoxUFMBH.Size = new System.Drawing.Size(55, 20);
+            this.textBoxUFMBH.TabIndex = 19;
+            this.textBoxUFMBH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelUFMBH
+            // 
+            this.labelUFMBH.AutoSize = true;
+            this.labelUFMBH.Location = new System.Drawing.Point(6, 155);
+            this.labelUFMBH.Name = "labelUFMBH";
+            this.labelUFMBH.Size = new System.Drawing.Size(76, 13);
+            this.labelUFMBH.TabIndex = 18;
+            this.labelUFMBH.Text = "Min bump hold";
+            // 
+            // checkBoxUFLTH
+            // 
+            this.checkBoxUFLTH.AutoSize = true;
+            this.checkBoxUFLTH.Location = new System.Drawing.Point(6, 173);
+            this.checkBoxUFLTH.Name = "checkBoxUFLTH";
+            this.checkBoxUFLTH.Size = new System.Drawing.Size(100, 17);
+            this.checkBoxUFLTH.TabIndex = 17;
+            this.checkBoxUFLTH.Text = "Late target hold";
+            this.checkBoxUFLTH.UseVisualStyleBackColor = true;
             // 
             // textBoxUFFHL
             // 
@@ -10656,6 +10701,7 @@ namespace BehaviorGraphics
             this.textBoxUFPF.Size = new System.Drawing.Size(54, 20);
             this.textBoxUFPF.TabIndex = 54;
             this.toolTip1.SetToolTip(this.textBoxUFPF, "pos = old_pos*(1-PF) + curr_pos*PF");
+            this.textBoxUFPF.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // labelUFVelFilt
             // 
@@ -10673,6 +10719,7 @@ namespace BehaviorGraphics
             this.textBoxUFVF.Size = new System.Drawing.Size(54, 20);
             this.textBoxUFVF.TabIndex = 52;
             this.toolTip1.SetToolTip(this.textBoxUFVF, "vel = old_vel*(1-VF) + curr_vel*VF");
+            this.textBoxUFVF.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label247UF
             // 
@@ -14280,48 +14327,6 @@ namespace BehaviorGraphics
             this.label324.Size = new System.Drawing.Size(102, 13);
             this.label324.TabIndex = 64;
             this.label324.Text = "1-D Jitter Magnitude";
-            // 
-            // checkBoxUFLTH
-            // 
-            this.checkBoxUFLTH.AutoSize = true;
-            this.checkBoxUFLTH.Location = new System.Drawing.Point(6, 173);
-            this.checkBoxUFLTH.Name = "checkBoxUFLTH";
-            this.checkBoxUFLTH.Size = new System.Drawing.Size(100, 17);
-            this.checkBoxUFLTH.TabIndex = 17;
-            this.checkBoxUFLTH.Text = "Late target hold";
-            this.checkBoxUFLTH.UseVisualStyleBackColor = true;
-            // 
-            // textBoxUFLTD
-            // 
-            this.textBoxUFLTD.Location = new System.Drawing.Point(126, 95);
-            this.textBoxUFLTD.Name = "textBoxUFLTD";
-            this.textBoxUFLTD.Size = new System.Drawing.Size(55, 20);
-            this.textBoxUFLTD.TabIndex = 18;
-            // 
-            // labelUFLTD
-            // 
-            this.labelUFLTD.AutoSize = true;
-            this.labelUFLTD.Location = new System.Drawing.Point(6, 101);
-            this.labelUFLTD.Name = "labelUFLTD";
-            this.labelUFLTD.Size = new System.Drawing.Size(101, 13);
-            this.labelUFLTD.TabIndex = 17;
-            this.labelUFLTD.Text = "Late target diameter";
-            // 
-            // textBoxUFMBH
-            // 
-            this.textBoxUFMBH.Location = new System.Drawing.Point(126, 152);
-            this.textBoxUFMBH.Name = "textBoxUFMBH";
-            this.textBoxUFMBH.Size = new System.Drawing.Size(55, 20);
-            this.textBoxUFMBH.TabIndex = 19;
-            // 
-            // labelUFMBH
-            // 
-            this.labelUFMBH.AutoSize = true;
-            this.labelUFMBH.Location = new System.Drawing.Point(6, 155);
-            this.labelUFMBH.Name = "labelUFMBH";
-            this.labelUFMBH.Size = new System.Drawing.Size(76, 13);
-            this.labelUFMBH.TabIndex = 18;
-            this.labelUFMBH.Text = "Min bump hold";
             // 
             // UpdateForm
             // 

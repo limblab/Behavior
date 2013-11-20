@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1376"
+    ComputedModelVersion    "1.1377"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -57,7 +57,7 @@ Model {
 	LoadSaveID		"0"
 	Extents			[984.0, 604.0]
 	ZoomFactor		[0.8]
-	Offset			[-75.3020454632981, 42.5]
+	Offset			[177.1979545367019, 42.5]
       }
     }
   }
@@ -67,9 +67,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Nov 15 12:52:59 2013"
-  RTWModifiedTimeStamp	  306420776
-  ModelVersionFormat	  "1.%<AutoIncrement:1376>"
+  LastModifiedDate	  "Wed Nov 20 08:22:52 2013"
+  RTWModifiedTimeStamp	  306836570
+  ModelVersionFormat	  "1.%<AutoIncrement:1377>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -2313,7 +2313,7 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "'%6.0f state,%6.0f rewards,%6.0f aborts,%6.0f bump_ang,%6.0f debug_var'"
+      formatstr		      "'%6.0f state,%6.0f rewards,%6.0f aborts,%6.0f failures,%6.0f bump_ang'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"

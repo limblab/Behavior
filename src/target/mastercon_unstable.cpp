@@ -963,8 +963,8 @@ void UnstableBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
-	outputs->status[3] = floor(180*bump_direction/PI);	
-	outputs->status[4] = floor(180*field_angle/PI);
+	outputs->status[3] = trialCounter->failures;
+	outputs->status[4] = floor(180*bump_direction/PI);	
     
 //     outputs->status[3] = x_force_neg_stiffness*100;
 //     outputs->status[4] = y_force_neg_stiffness*100;
