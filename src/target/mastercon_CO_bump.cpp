@@ -144,6 +144,7 @@ private:
 	int bump_quadrent;
 	bool is_primary_target;
 	bool success_flag;
+	float ct_hold;
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
 
@@ -261,6 +262,9 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	this->bump->rise_time = params->bump_ramp;
 	this->bump->direction = ((double)(this->tgt_angle + this->bump_dir)) * PI/180;
 
+	//select the actual center hold time
+	ct_hold=this->random->getDouble()*ct_hold_time;
+
 	// Reset primary target color if needed
 	primaryTarget->color = Target::Color(255, 0, 160);
 	
@@ -326,7 +330,7 @@ void COBumpBehavior::update(SimStruct *S) {
 			if (!centerTarget->cursorInTarget(inputs->cursor)) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			} else if (stateTimer->elapsedTime(S) > params->ct_hold_time) {
+			} else if (stateTimer->elapsedTime(S) > this->ct_hold) {
 				playTone(TONE_GO);
 				setState(STATE_MOVEMENT);
 			}
