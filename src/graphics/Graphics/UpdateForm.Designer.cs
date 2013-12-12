@@ -1286,6 +1286,7 @@ namespace BehaviorGraphics
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.label324 = new System.Windows.Forms.Label();
+            this.checkBoxUFST = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -1445,7 +1446,7 @@ namespace BehaviorGraphics
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(534, 503);
+            this.cancelButton.Location = new System.Drawing.Point(534, 532);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 98;
@@ -1456,7 +1457,7 @@ namespace BehaviorGraphics
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(615, 503);
+            this.okButton.Location = new System.Drawing.Point(615, 532);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 99;
@@ -1493,7 +1494,7 @@ namespace BehaviorGraphics
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(694, 470);
+            this.tabControl.Size = new System.Drawing.Size(694, 499);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageGen
@@ -10173,7 +10174,7 @@ namespace BehaviorGraphics
             this.UnstableField.Location = new System.Drawing.Point(4, 58);
             this.UnstableField.Name = "UnstableField";
             this.UnstableField.Padding = new System.Windows.Forms.Padding(3);
-            this.UnstableField.Size = new System.Drawing.Size(686, 408);
+            this.UnstableField.Size = new System.Drawing.Size(686, 437);
             this.UnstableField.TabIndex = 15;
             this.UnstableField.Text = "Unstable Field";
             this.UnstableField.UseVisualStyleBackColor = true;
@@ -10650,6 +10651,7 @@ namespace BehaviorGraphics
             // 
             // groupBox65
             // 
+            this.groupBox65.Controls.Add(this.checkBoxUFST);
             this.groupBox65.Controls.Add(this.label247UFPF);
             this.groupBox65.Controls.Add(this.textBoxUFPF);
             this.groupBox65.Controls.Add(this.labelUFVelFilt);
@@ -10680,7 +10682,7 @@ namespace BehaviorGraphics
             this.groupBox65.Controls.Add(this.textBoxUFNS);
             this.groupBox65.Location = new System.Drawing.Point(214, 8);
             this.groupBox65.Name = "groupBox65";
-            this.groupBox65.Size = new System.Drawing.Size(201, 394);
+            this.groupBox65.Size = new System.Drawing.Size(201, 423);
             this.groupBox65.TabIndex = 0;
             this.groupBox65.TabStop = false;
             this.groupBox65.Text = "Unstable field parameters";
@@ -13506,7 +13508,7 @@ namespace BehaviorGraphics
             this.toolStripStatusLabelMdl,
             this.toolStripProgressBar1});
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 529);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 558);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(692, 22);
             this.statusStrip1.SizingGrip = false;
@@ -13731,7 +13733,7 @@ namespace BehaviorGraphics
             // buttonRefresh
             // 
             this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRefresh.Location = new System.Drawing.Point(12, 503);
+            this.buttonRefresh.Location = new System.Drawing.Point(12, 532);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 23);
             this.buttonRefresh.TabIndex = 97;
@@ -14328,6 +14330,17 @@ namespace BehaviorGraphics
             this.label324.TabIndex = 64;
             this.label324.Text = "1-D Jitter Magnitude";
             // 
+            // checkBoxUFST
+            // 
+            this.checkBoxUFST.AutoSize = true;
+            this.checkBoxUFST.Location = new System.Drawing.Point(7, 385);
+            this.checkBoxUFST.Name = "checkBoxUFST";
+            this.checkBoxUFST.Size = new System.Drawing.Size(68, 17);
+            this.checkBoxUFST.TabIndex = 56;
+            this.checkBoxUFST.Text = "Stiff trials";
+            this.toolTip1.SetToolTip(this.checkBoxUFST, "If checked, position feedback, otherwise, force feedback.");
+            this.checkBoxUFST.UseVisualStyleBackColor = true;
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -14335,7 +14348,7 @@ namespace BehaviorGraphics
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(692, 551);
+            this.ClientSize = new System.Drawing.Size(692, 580);
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -15867,5 +15880,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.CheckBox checkBoxUFLTH;
         private System.Windows.Forms.TextBox textBoxUFMBH;
         private System.Windows.Forms.Label labelUFMBH;
+        private System.Windows.Forms.CheckBox checkBoxUFST;
     }
 }

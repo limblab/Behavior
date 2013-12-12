@@ -899,6 +899,8 @@ namespace BehaviorGraphics
             AddParamListItem("UF LTD", "P39", "Behavior UF", this.textBoxUFLTD);
             AddParamListItem("UF MBH", "P40", "Behavior UF", this.textBoxUFMBH);
 
+            // Stiff trials
+            AddParamListItem("UF ST", "P41", "Behavior UF", this.checkBoxUFST);
             #endregion
 
             #region UncertaintyTarget1D

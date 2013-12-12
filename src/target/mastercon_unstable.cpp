@@ -3,7 +3,7 @@
  * Master Control block for behavior: unstable field
  */
 
-#define DATABURST_VERSION ((byte)0x07) 
+#define DATABURST_VERSION ((byte)0x08) 
 /* 
  * Current Databurst version: 7
  *
@@ -14,6 +14,30 @@
  *
  * Databurst version descriptions
  * ==============================
+ *
+ * * Version 8 (0x08)
+ * ----------------
+ * byte         0: uchar => number of bytes to be transmitted
+ * byte         1: uchar => databurst version number (in this case zero)
+ * byte         2: uchar => model version major
+ * byte         3: uchar => model version minor
+ * bytes   4 to 5: short => model version micro
+ * bytes   6 to 9: float => x offset (cm)
+ * bytes 10 to 13: float => y offset (cm)
+ * bytes 14 to 17: float => bump velocity (cm/s) or magnitude (N) depending on type.
+ * bytes 18 to 21: float => bump direction (rad)
+ * bytes 22 to 25: float => bump duration (s)
+ * bytes 26 to 29: float => negative stiffness (N/cm)
+ * bytes 30 to 33: float => positive stiffness (N/cm)
+ * bytes 34 to 37: float => force field angle (rad)
+ * bytes 38 to 41: float => bias force magnitude (N)
+ * bytes 42 to 45: float => bias force angle (rad)
+ * bytes 46 to 49: float => force target diameter (N)
+ * byte        50: uchar => force bump (if 0: vel bump)
+ * bytes 51 to 54: float => infintite force bump duration
+ * byte        55: uchar => position cursor (if 0: force cursor)
+ * byte        56: uchar => late hold (if 1: yes)
+ * byte        57: uchar => stiff trial
  * 
  * * Version 7 (0x07)
  * ----------------
@@ -275,6 +299,9 @@ struct LocalParams{
     real_T late_target_hold;
     real_T late_target_diameter;
     real_T min_bump_hold;
+    
+    // Stiff trials
+    real_T stiff_trials;
 };
 
 /**
@@ -365,9 +392,9 @@ private:
     real_T y_force_pos_stiffness;
     real_T force_to_position;
     real_T desired_x_pos;
-    real_T desired_y_pos;
-    
+    real_T desired_y_pos;    
     int exit_target;
+    int stiff_trial;
 };
 
 UnstableBehavior::UnstableBehavior(SimStruct *S) : RobotBehavior() {
@@ -379,7 +406,7 @@ UnstableBehavior::UnstableBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(40);
+	this->setNumParams(41);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,							 0);
 	this->bindParamId(&params->field_ramp_up,							 1);
@@ -436,8 +463,10 @@ UnstableBehavior::UnstableBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->late_target_diameter,                     38);
     this->bindParamId(&params->min_bump_hold,                            39);
     
+    this->bindParamId(&params->stiff_trials,                             40);
+    
     // default parameters:
-    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2   0   1 1   0   1 3 0.5
+    // 1 1 2 1 1   5 10   5 5 0 0 0 1 1   .2 0 1 0   1 10   1   0.015 1 0.5 0   .001   1 0   1 pi/2   0   1 1   0   1 3 0.5  0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -512,6 +541,7 @@ UnstableBehavior::UnstableBehavior(SimStruct *S) : RobotBehavior() {
     desired_y_pos = 0.0;
     
     exit_target = 0;
+    stiff_trial = 0;
 }
 
 void UnstableBehavior::doPreTrial(SimStruct *S) {	
@@ -542,19 +572,19 @@ void UnstableBehavior::doPreTrial(SimStruct *S) {
     if (trial_counter >= params->field_block_length-1){
         trial_counter = -1;
         block_counter++;
-        if (block_counter >= params->num_field_orientations){            
+        if (block_counter >= (params->num_field_orientations + params->stiff_trials)){            
             block_counter = 0;
             double tmp_sort[100];
             double tmp_d;
             int tmp;
 
-            for (int i=0; i<params->num_field_orientations; i++){
+            for (int i=0; i<(params->num_field_orientations + params->stiff_trials); i++){
                 block_order[i] = i;
                 tmp_sort[i] = random->getDouble(0,1);
             }
 
-            for (int i=0; i<params->num_field_orientations-1; i++){
-                for (int j=0; j<params->num_field_orientations-1; j++){
+            for (int i=0; i<(params->num_field_orientations + params->stiff_trials)-1; i++){
+                for (int j=0; j<(params->num_field_orientations + params->stiff_trials)-1; j++){
                     if (tmp_sort[j] < tmp_sort[j+1]){
                         tmp_d = tmp_sort[j];
                         tmp_sort[j] = tmp_sort[j+1];
@@ -569,8 +599,14 @@ void UnstableBehavior::doPreTrial(SimStruct *S) {
         }
     }
     trial_counter++;
-    field_angle = fmod(block_order[block_counter] * PI/(params->num_field_orientations) + 
-        params->first_field_angle,2*PI); 
+    if (block_order[block_counter] == params->num_field_orientations){
+        field_angle = params->first_field_angle - 2*PI;
+        stiff_trial = 1;
+    } else {
+        field_angle = fmod(block_order[block_counter] * PI/(params->num_field_orientations) + 
+        params->first_field_angle,2*PI);
+        stiff_trial = 0;
+    }
     
     if (block_counter == 0 && trial_counter == 0){
         bias_force_counter++;
@@ -689,6 +725,7 @@ void UnstableBehavior::doPreTrial(SimStruct *S) {
     db->addFloat((float)params->infinite_bump_duration);        // bytes 51 to 54 -> Matlab idx 52 to 55
     db->addByte((int)params->position_cursor);                  // byte 55        -> Matlab idx 56 
     db->addByte((int)params->late_target_hold);                 // byte 56        -> Matlab idx 57
+    db->addByte((int)stiff_trial);                               // byte 57        -> Matlab idx 58
     
 	db->start();
 
@@ -709,27 +746,38 @@ void UnstableBehavior::update(SimStruct *S) {
     y_vel = y_vel_old*(1-params->vel_filt) + ((y_pos-y_pos_old)/.001)*params->vel_filt;   
                
     /* force (0) */ 
-    x_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
-                    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle);    
-//         x_force_neg_stiffness = (x_force_neg_stiffness>0?1:-1)*sqrt(fabs(x_force_neg_stiffness));
     x_force_pos_stiffness = params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
-                    (inputs->cursor.y - params->y_position_offset)*cos(field_angle))*sin(field_angle);
-    y_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) + 
-                    (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*sin(field_angle);
-//         y_force_neg_stiffness = (y_force_neg_stiffness>0?1:-1)*sqrt(fabs(y_force_neg_stiffness));    
-    y_force_pos_stiffness = params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
-                    (inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle);
-    
-    
-    x_force_field = x_force_neg_stiffness + x_force_pos_stiffness + 
-                    params->bias_force_magnitude * cos(bias_force_angle) +
+                    (inputs->cursor.y - params->y_position_offset)*cos(field_angle))*sin(field_angle) +
                     damping*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*sin(field_angle);
-    x_force_field_target =x_force_neg_stiffness + x_force_pos_stiffness + 
+    y_force_pos_stiffness = params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle) + 
+                    (inputs->cursor.y-params->y_position_offset)*cos(field_angle))*cos(field_angle) +
+                    damping*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*cos(field_angle);
+    
+    if (stiff_trial){ // really no negative stiffness
+        x_force_pos_stiffness +=
+                params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle+PI/2) + 
+                (inputs->cursor.y - params->y_position_offset)*cos(field_angle+PI/2))*sin(field_angle+PI/2) +
+                damping*(-x_vel*sin(field_angle+PI/2) + y_vel*cos(field_angle+PI/2))*sin(field_angle+PI/2);
+        y_force_pos_stiffness += 
+                params->positive_stiffness*(-(inputs->cursor.x - params->x_position_offset)*sin(field_angle+PI/2) + 
+                (inputs->cursor.y-params->y_position_offset)*cos(field_angle+PI/2))*cos(field_angle+PI/2) +
+                damping*(-x_vel*sin(field_angle+PI/2) + y_vel*cos(field_angle+PI/2))*cos(field_angle+PI/2);
+        x_force_neg_stiffness = 0;                
+        y_force_neg_stiffness = 0;
+    } else {
+        x_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) +
+                        (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*cos(field_angle);        
+        y_force_neg_stiffness = params->negative_stiffness*((inputs->cursor.x - params->x_position_offset)*cos(field_angle) + 
+                        (inputs->cursor.y - params->y_position_offset)*sin(field_angle))*sin(field_angle);
+    }
+        
+    x_force_field = x_force_neg_stiffness + x_force_pos_stiffness + 
+                    params->bias_force_magnitude * cos(bias_force_angle);
+    x_force_field_target = x_force_neg_stiffness + x_force_pos_stiffness + 
                     params->bias_force_magnitude * cos(bias_force_angle);
     
 	y_force_field = y_force_neg_stiffness - y_force_pos_stiffness + 
-                        params->bias_force_magnitude * sin(bias_force_angle) -
-                        damping*(-x_vel*sin(field_angle) + y_vel*cos(field_angle))*cos(field_angle);
+                        params->bias_force_magnitude * sin(bias_force_angle);
     y_force_field_target = y_force_neg_stiffness - y_force_pos_stiffness + 
                         params->bias_force_magnitude * sin(bias_force_angle);
 
@@ -964,7 +1012,7 @@ void UnstableBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = trialCounter->failures;
-	outputs->status[4] = floor(180*bump_direction/PI);	
+	outputs->status[4] = floor(180*field_angle/PI);	
     
 //     outputs->status[3] = x_force_neg_stiffness*100;
 //     outputs->status[4] = y_force_neg_stiffness*100;
