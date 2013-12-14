@@ -349,17 +349,14 @@ void COBumpBehavior::update(SimStruct *S) {
 			setState(STATE_BUMP);
 			break;            
 		case STATE_BUMP:
-			if (stateTimer->elapsedTime(S) > params->bump_hold_time){
-				if (success_flag){
-					playTone(TONE_REWARD);
-					setState(STATE_REWARD);
-				} else
-					playTone(TONE_FAIL);
-					setState(STATE_PENALTY);
-				}
-            } else if(primaryTarget->cursorInTarget(inputs->cursor)) {
-				success_flag=true;
+			if ((stateTimer->elapsedTime(S) > params->bump_hold_time) && primaryTarget->cursorInTarget(inputs->cursor) ){
+				playTone(TONE_REWARD);
+				setState(STATE_REWARD);
+			} else
+				playTone(TONE_FAIL);
+				setState(STATE_PENALTY);
 			}
+
 			break;
 		case STATE_PENALTY:
 			if (stateTimer->elapsedTime(S) > params->penalty_time) {
