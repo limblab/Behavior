@@ -2,7 +2,7 @@
  *
  * Master Control block for behavior: bump psychophysics 2-bump choice
  */
-
+ 
 #pragma warning(disable: 4800)
 
 #define S_FUNCTION_NAME mastercon_CO_bump
@@ -144,6 +144,7 @@ private:
 	int bump_quadrent;
 	bool is_primary_target;
 	bool success_flag;
+	double reward_rate;
 	float ct_hold;
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
@@ -263,7 +264,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	this->bump->direction = ((double)(this->tgt_angle + this->bump_dir)) * PI/180;
 
 	//select the actual center hold time
-	ct_hold=this->random->getDouble()*ct_hold_time;
+	ct_hold=(float)this->random->getDouble(0.5,(double)this->params->ct_hold_time);
 
 	// Reset primary target color if needed
 	primaryTarget->color = Target::Color(255, 0, 160);
@@ -272,6 +273,9 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
     this->stim_trial=(this->random->getDouble() < params->stim_prob);
 	/* reset the success flag*/
 	success_flag=false;
+
+	/* set the reward rate for this trial */
+	this->reward_rate=.6;
 
 	/* setup the databurst */
 	db->reset();
@@ -346,17 +350,26 @@ void COBumpBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_STIM:
-			setState(STATE_BUMP);
+			if (stateTimer->elapsedTime(S) > params->bump_hold_time){
+				if (this->random->getDouble() < this->reward_rate){
+					playTone(TONE_REWARD);
+					setState(STATE_REWARD);
+				} else {
+					playTone(TONE_FAIL);
+					setState(STATE_PENALTY);
+				}
+            } 
 			break;            
 		case STATE_BUMP:
-			if ((stateTimer->elapsedTime(S) > params->bump_hold_time) && primaryTarget->cursorInTarget(inputs->cursor) ){
-				playTone(TONE_REWARD);
-				setState(STATE_REWARD);
-			} else
-				playTone(TONE_FAIL);
-				setState(STATE_PENALTY);
-			}
-
+            if(stateTimer->elapsedTime(S) > params->bump_hold_time) {
+    			if ( primaryTarget->cursorInTarget(inputs->cursor) ){
+        			playTone(TONE_REWARD);
+            		setState(STATE_REWARD);
+                } else {
+                    playTone(TONE_FAIL);
+    				setState(STATE_PENALTY);
+        		}
+            }
 			break;
 		case STATE_PENALTY:
 			if (stateTimer->elapsedTime(S) > params->penalty_time) {
@@ -441,20 +454,16 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 
 	/* target_pos (3) */
 	// Center Target
-	if (getState() == STATE_CT_ON || 
-	    getState() == STATE_CT_HOLD ) 
-	{
+	if (getState() == STATE_CT_ON || getState() == STATE_CT_HOLD ) {
 		outputs->targets[0] = (Target *)centerTarget;
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
-	} else if
-        (getState() == STATE_CT_BLOCK ||
-         getState() == STATE_BUMP) 
-	{
+        
+	} else if (getState() == STATE_CT_BLOCK) {
 		outputs->targets[0] = (Target *)centerTarget;
 		outputs->targets[1] = (Target *)(this->primaryTarget);
 
-	} else if (getState() == STATE_MOVEMENT) {
+	} else if ((getState() == STATE_MOVEMENT) || (getState() == STATE_BUMP)|| (getState() == STATE_STIM)) {
 		outputs->targets[0] = (Target *)(this->primaryTarget);
 	    outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
@@ -463,6 +472,7 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[0] = (Target *)(this->errorTarget);
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
+        
 	} else {
 		outputs->targets[0] = nullTarget;
 		outputs->targets[1] = nullTarget;
