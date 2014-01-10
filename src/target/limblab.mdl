@@ -19,7 +19,7 @@ Library {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [25.0, 26.0, 1436.0, 784.0]
+      Location		      [50.0, 32.0, 1036.0, 780.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -42,10 +42,10 @@ Library {
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
 	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"102"
-	Extents			[1384.0, 616.0]
-	ZoomFactor		[0.8]
-	Offset			[-60.456441110274568, -26.697918507876807]
+	LoadSaveID		"215"
+	Extents			[984.0, 612.0]
+	ZoomFactor		[1.0]
+	Offset			[0.0, 0.0]
       }
     }
   }
@@ -53,11 +53,11 @@ Library {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "ricardo"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Jul 26 08:55:23 2013"
-  RTWModifiedTimeStamp	  296729714
-  ModelVersionFormat	  "1.%<AutoIncrement:73>"
+  LastModifiedDate	  "Fri Jan 10 16:45:19 2014"
+  RTWModifiedTimeStamp	  311273118
+  ModelVersionFormat	  "1.%<AutoIncrement:74>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -962,7 +962,7 @@ Library {
   }
   System {
     Name		    "limblab"
-    Location		    [25, 26, 1461, 810]
+    Location		    [50, 32, 1086, 812]
     Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -976,7 +976,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "309"
+    SIDHighWatermark	    "310"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
@@ -993,8 +993,8 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"BoundingBox"
-	Location		[167, 111, 1208, 959]
-	Open			off
+	Location		[50, 32, 1086, 812]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1213,6 +1213,11 @@ Library {
 	    DstBlock		    "Relational\nOperator3"
 	    DstPort		    1
 	  }
+	}
+	Annotation {
+	  SID			  "310"
+	  Name			  "These values get overwritten by BehaviorGraphics.  Change them in LabParams.xml instead."
+	  Position		  [299, 179]
 	}
 	Annotation {
 	  SID			  "228"
@@ -3216,7 +3221,7 @@ Library {
       System {
 	Name			"Recentering Subsystem"
 	Location		[25, 26, 1461, 810]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -5088,7 +5093,7 @@ Library {
 	  Ports			  [2, 1]
 	  Position		  [410, 280, 515, 335]
 	  ZOrder		  -34
-	  LibraryVersion	  "1.72"
+	  LibraryVersion	  "1.73"
 	  SourceBlock		  "limblab/Timer"
 	  SourceType		  ""
 	  Time			  "10"
