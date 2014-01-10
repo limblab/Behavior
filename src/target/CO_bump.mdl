@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1270"
+    ComputedModelVersion    "1.1272"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -53,11 +53,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkTopLevel"
-	LoadSaveID		"0"
-	Extents			[992.0, 594.0]
-	ZoomFactor		[0.8]
-	Offset			[306.58333333333337, 259.0]
+	ViewObjType		"SimulinkSubsys"
+	LoadSaveID		"2"
+	Extents			[984.0, 578.0]
+	ZoomFactor		[1.0]
+	Offset			[0.0, 0.0]
       }
     }
   }
@@ -65,11 +65,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Aug 13 10:34:13 2013"
-  RTWModifiedTimeStamp	  298286585
-  ModelVersionFormat	  "1.%<AutoIncrement:1270>"
+  LastModifiedDate	  "Fri Jan 10 16:39:30 2014"
+  RTWModifiedTimeStamp	  311271823
+  ModelVersionFormat	  "1.%<AutoIncrement:1272>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1072,7 +1072,7 @@ Model {
   System {
     Name		    "CO_bump"
     Location		    [-8, -8, 1028, 746]
-    Open		    on
+    Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1083,9 +1083,9 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "80"
+    ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "433"
+    SIDHighWatermark	    "434"
     Block {
       BlockType		      S-Function
       Name		      "Behavior CO Bump"
@@ -1123,8 +1123,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"BoundingBox"
-	Location		[16, 52, 1007, 906]
-	Open			off
+	Location		[-8, -8, 1028, 746]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1218,7 +1218,7 @@ Model {
 	  SID			  "10"
 	  Position		  [295, 315, 325, 345]
 	  ZOrder		  -8
-	  Value			  "25"
+	  Value			  "100"
 	}
 	Block {
 	  BlockType		  Constant
@@ -1226,7 +1226,7 @@ Model {
 	  SID			  "11"
 	  Position		  [295, 250, 325, 280]
 	  ZOrder		  -9
-	  Value			  "-30"
+	  Value			  "-100"
 	}
 	Block {
 	  BlockType		  Constant
@@ -1234,7 +1234,7 @@ Model {
 	  SID			  "12"
 	  Position		  [295, 380, 325, 410]
 	  ZOrder		  -10
-	  Value			  "-46"
+	  Value			  "-100"
 	}
 	Block {
 	  BlockType		  Constant
@@ -1242,7 +1242,7 @@ Model {
 	  SID			  "13"
 	  Position		  [295, 445, 325, 475]
 	  ZOrder		  -11
-	  Value			  "-22"
+	  Value			  "100"
 	}
 	Block {
 	  BlockType		  Outport
@@ -1307,7 +1307,6 @@ Model {
 	Line {
 	  SrcBlock		  "Logical\nOperator"
 	  SrcPort		  1
-	  Points		  [30, 0]
 	  DstBlock		  "Out"
 	  DstPort		  1
 	}
@@ -1344,6 +1343,11 @@ Model {
 	    DstBlock		    "Relational\nOperator3"
 	    DstPort		    1
 	  }
+	}
+	Annotation {
+	  SID			  "434"
+	  Name			  "These parameters are overwritten by BehaviorGraphics.  Change them in LabConfigs.xml instead."
+	  Position		  [367, 155]
 	}
 	Annotation {
 	  SID			  "15"
@@ -2979,7 +2983,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[41, 52, 972, 709]
+	Location		[-8, -8, 1028, 746]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
