@@ -19,7 +19,7 @@ Library {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-1078.0, 123.0, 1036.0, 780.0]
+      Location		      [-8.0, -8.0, 1036.0, 754.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -43,9 +43,9 @@ Library {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[984.0, 612.0]
+	Extents			[984.0, 586.0]
 	ZoomFactor		[1.0]
-	Offset			[0.0, 0.0]
+	Offset			[0.0, -7.0]
       }
     }
   }
@@ -53,11 +53,11 @@ Library {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "ricardo"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jan 29 09:59:24 2014"
-  RTWModifiedTimeStamp	  312890362
-  ModelVersionFormat	  "1.%<AutoIncrement:76>"
+  LastModifiedDate	  "Thu Jan 30 13:25:05 2014"
+  RTWModifiedTimeStamp	  312989100
+  ModelVersionFormat	  "1.%<AutoIncrement:78>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1000,7 +1000,7 @@ Library {
   }
   System {
     Name		    "limblab"
-    Location		    [-1078, 123, -42, 903]
+    Location		    [-8, -8, 1028, 746]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1388,7 +1388,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 169, 405, 231]
 	      ZOrder		      -3
-	      LibraryVersion	      "1.74"
+	      LibraryVersion	      "1.76"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".1"
@@ -1400,7 +1400,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 254, 405, 316]
 	      ZOrder		      -4
-	      LibraryVersion	      "1.74"
+	      LibraryVersion	      "1.76"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".2"
@@ -1412,7 +1412,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 339, 405, 401]
 	      ZOrder		      -5
-	      LibraryVersion	      "1.74"
+	      LibraryVersion	      "1.76"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".3"
@@ -1424,7 +1424,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 424, 405, 486]
 	      ZOrder		      -6
-	      LibraryVersion	      "1.74"
+	      LibraryVersion	      "1.76"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".4"
@@ -5917,7 +5917,7 @@ Library {
 	  Ports			  [2, 1]
 	  Position		  [410, 280, 515, 335]
 	  ZOrder		  -34
-	  LibraryVersion	  "1.75"
+	  LibraryVersion	  "1.76"
 	  SourceBlock		  "limblab/Timer"
 	  SourceType		  "Unknown"
 	  Time			  "10"
@@ -8100,7 +8100,8 @@ Library {
       SID		      "315"
       Ports		      [2, 1]
       Position		      [515, 375, 625, 435]
-      ZOrder		      5
+      ZOrder		      15
+      LibraryVersion	      "1.77"
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
       RTWSystemCode	      "Auto"
@@ -8110,7 +8111,7 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"Velocity Calculation"
-	Location		[338, 41, 1374, 821]
+	Location		[-8, -8, 1028, 746]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -8727,6 +8728,7 @@ Library {
 	  SID			  "340"
 	  Position		  [490, 255, 520, 285]
 	  ZOrder		  -13
+	  Value			  "0"
 	}
 	Block {
 	  BlockType		  Outport

@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1383"
+    ComputedModelVersion    "1.1385"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -31,7 +31,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [491.0, 47.0, 1036.0, 780.0]
+      Location		      [-8.0, -8.0, 1040.0, 754.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -55,9 +55,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[984.0, 604.0]
-	ZoomFactor		[1.0]
-	Offset			[56.0, 46.0]
+	Extents			[988.0, 578.0]
+	ZoomFactor		[0.8]
+	Offset			[33.58333333333303, 215.38279331479328]
       }
     }
   }
@@ -65,11 +65,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "ricardo"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jan 29 14:19:18 2014"
-  RTWModifiedTimeStamp	  312890857
-  ModelVersionFormat	  "1.%<AutoIncrement:1383>"
+  LastModifiedDate	  "Thu Jan 30 13:25:08 2014"
+  RTWModifiedTimeStamp	  312988953
+  ModelVersionFormat	  "1.%<AutoIncrement:1385>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -966,7 +966,7 @@ Model {
   }
   System {
     Name		    "dynamic_center_out"
-    Location		    [491, 47, 1527, 827]
+    Location		    [-8, -8, 1032, 746]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -978,7 +978,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "100"
+    ZoomFactor		    "80"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "387"
     Block {
@@ -1009,7 +1009,7 @@ Model {
       Ports		      [1, 1]
       Position		      [430, 718, 520, 782]
       ZOrder		      8
-      LibraryVersion	      "1.76"
+      LibraryVersion	      "1.78"
       SourceBlock	      "limblab/BoundingBox"
       SourceType	      "SubSystem"
     }
@@ -1100,7 +1100,7 @@ Model {
       Ports		      [5, 1]
       Position		      [1090, 541, 1280, 849]
       ZOrder		      6
-      LibraryVersion	      "1.76"
+      LibraryVersion	      "1.78"
       SourceBlock	      "limblab/Motor Control"
       SourceType	      "SubSystem"
     }
@@ -1111,7 +1111,7 @@ Model {
       Ports		      [0, 2]
       Position		      [330, 306, 445, 384]
       ZOrder		      12
-      LibraryVersion	      "1.76"
+      LibraryVersion	      "1.78"
       SourceBlock	      "limblab/Neural Position Subsystem"
       SourceType	      "Neural Position Subsystem"
     }
@@ -1122,7 +1122,7 @@ Model {
       Ports		      [3, 2]
       Position		      [720, 593, 840, 747]
       ZOrder		      7
-      LibraryVersion	      "1.76"
+      LibraryVersion	      "1.78"
       SourceBlock	      "limblab/Recentering Subsystem"
       SourceType	      "SubSystem"
     }
@@ -1133,7 +1133,7 @@ Model {
       Ports		      [1, 1]
       Position		      [935, 277, 985, 313]
       ZOrder		      14
-      LibraryVersion	      "1.76"
+      LibraryVersion	      "1.78"
       SourceBlock	      "limblab/RewardSbs"
       SourceType	      "SubSystem"
     }
@@ -1144,7 +1144,7 @@ Model {
       Ports		      [4]
       Position		      [1255, 307, 1345, 408]
       ZOrder		      -12
-      LibraryVersion	      "1.76"
+      LibraryVersion	      "1.78"
       SourceBlock	      "limblab/SendPacketToGraphics"
       SourceType	      "SubSystem"
     }
@@ -1195,7 +1195,7 @@ Model {
       Ports		      [2, 1]
       Position		      [345, 590, 455, 650]
       ZOrder		      15
-      LibraryVersion	      "1.76"
+      LibraryVersion	      "1.78"
       SourceBlock	      "limblab/Velocity Calculation"
       SourceType	      "SubSystem"
     }
@@ -1239,7 +1239,7 @@ Model {
       Ports		      [1]
       Position		      [935, 174, 980, 216]
       ZOrder		      13
-      LibraryVersion	      "1.76"
+      LibraryVersion	      "1.78"
       SourceBlock	      "limblab/WordSbs"
       SourceType	      "SubSystem"
     }

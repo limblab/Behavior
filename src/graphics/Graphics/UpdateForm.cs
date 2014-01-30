@@ -1035,29 +1035,30 @@ namespace BehaviorGraphics
             AddParamListItem("DCO RW", "P5", "Behavior DCO", this.textBoxDCORW);
             AddParamListItem("DCO AW", "P6", "Behavior DCO", this.textBoxDCOAW);
             AddParamListItem("DCO FW", "P7", "Behavior DCO", this.textBoxDCOFW);
+            AddParamListItem("DCO MT", "P8", "Behavior DCO", this.textBoxDCOMT);
 
             // Cursor
-            AddParamListItem("DCO CR", "P8", "Behavior DCO", this.textBoxDCOCR);
-            AddParamListItem("DCO BC", "P9", "Behavior DCO", this.checkBoxDCOBC);
+            AddParamListItem("DCO CR", "P9", "Behavior DCO", this.textBoxDCOCR);
+            AddParamListItem("DCO BC", "P10", "Behavior DCO", this.checkBoxDCOBC);
 
             // Targets
-            AddParamListItem("DCO CTR", "P10", "Behavior DCO", this.textBoxDCOCTR);
-            AddParamListItem("DCO OTR", "P11", "Behavior DCO", this.textBoxDCOOTR);
-            AddParamListItem("DCO OTS", "P12", "Behavior DCO", this.textBoxDCOOTS);
-            AddParamListItem("DCO OTT", "P13", "Behavior DCO", this.textBoxDCOOTT);
-            AddParamListItem("DCO NT", "P14", "Behavior DCO", this.textBoxDCONT);
-            AddParamListItem("DCO TS", "P15", "Behavior DCO", this.textBoxDCOTS);
-            AddParamListItem("DCO TFMin", "P16", "Behavior DCO", this.textBoxDCOTFMin);
-            AddParamListItem("DCO TFMax", "P17", "Behavior DCO", this.textBoxDCOTFMax);
+            AddParamListItem("DCO CTR", "P11", "Behavior DCO", this.textBoxDCOCTR);
+            AddParamListItem("DCO OTR", "P12", "Behavior DCO", this.textBoxDCOOTR);
+            AddParamListItem("DCO OTS", "P13", "Behavior DCO", this.textBoxDCOOTS);
+            AddParamListItem("DCO OTT", "P14", "Behavior DCO", this.textBoxDCOOTT);
+            AddParamListItem("DCO NT", "P15", "Behavior DCO", this.textBoxDCONT);
+            AddParamListItem("DCO TS", "P16", "Behavior DCO", this.textBoxDCOTS);
+            AddParamListItem("DCO TFMin", "P17", "Behavior DCO", this.textBoxDCOTFMin);
+            AddParamListItem("DCO TFMax", "P18", "Behavior DCO", this.textBoxDCOTFMax);
 
             // Controller
-            AddParamListItem("DCO D", "P18", "Behavior DCO", this.textBoxDCOD);
-            AddParamListItem("DCO VF", "P19", "Behavior DCO", this.textBoxDCOVF);
-            AddParamListItem("DCO PF", "P20", "Behavior DCO", this.textBoxDCOPF);
+            AddParamListItem("DCO D", "P19", "Behavior DCO", this.textBoxDCOD);
+            AddParamListItem("DCO VF", "P20", "Behavior DCO", this.textBoxDCOVF);
+            AddParamListItem("DCO PF", "P21", "Behavior DCO", this.textBoxDCOPF);
 
             // Cerebus recording
-            AddParamListItem("DCO SRec", "P21", "Behavior DCO", this.checkBoxRecord);
-            AddParamListItem("DCO RecFor", "P22", "Behavior DCO", this.textBoxRecordFor);
+            AddParamListItem("DCO SRec", "P22", "Behavior DCO", this.checkBoxRecord);
+            AddParamListItem("DCO RecFor", "P23", "Behavior DCO", this.textBoxRecordFor);
             #endregion
         }
 

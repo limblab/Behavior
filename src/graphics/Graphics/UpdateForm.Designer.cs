@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -1199,6 +1199,47 @@ namespace BehaviorGraphics
             this.label367 = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_CTHold = new System.Windows.Forms.TextBox();
             this.label_ctr_out_bump_CTHold = new System.Windows.Forms.Label();
+            this.tabDynamicCO = new System.Windows.Forms.TabPage();
+            this.groupBoxDCOCont = new System.Windows.Forms.GroupBox();
+            this.textBoxDCOPF = new System.Windows.Forms.TextBox();
+            this.labelDCOPF = new System.Windows.Forms.Label();
+            this.textBoxDCOVF = new System.Windows.Forms.TextBox();
+            this.label358 = new System.Windows.Forms.Label();
+            this.textBoxDCOD = new System.Windows.Forms.TextBox();
+            this.labelDCOD = new System.Windows.Forms.Label();
+            this.groupBoxDCOT = new System.Windows.Forms.GroupBox();
+            this.textBoxDCOTFMax = new System.Windows.Forms.TextBox();
+            this.labelDCOTFMax = new System.Windows.Forms.Label();
+            this.textBoxDCOTFMin = new System.Windows.Forms.TextBox();
+            this.labelDCOTFMin = new System.Windows.Forms.Label();
+            this.textBoxDCOTS = new System.Windows.Forms.TextBox();
+            this.labelDCOTS = new System.Windows.Forms.Label();
+            this.textBoxDCONT = new System.Windows.Forms.TextBox();
+            this.labelDCONT = new System.Windows.Forms.Label();
+            this.textBoxDCOOTT = new System.Windows.Forms.TextBox();
+            this.labelDCOOTT = new System.Windows.Forms.Label();
+            this.textBoxDCOOTS = new System.Windows.Forms.TextBox();
+            this.labelDCOOTS = new System.Windows.Forms.Label();
+            this.textBoxDCOOTR = new System.Windows.Forms.TextBox();
+            this.checkBoxDCOBC = new System.Windows.Forms.CheckBox();
+            this.textBoxDCOCR = new System.Windows.Forms.TextBox();
+            this.labelDCOCR = new System.Windows.Forms.Label();
+            this.labelDCOOTR = new System.Windows.Forms.Label();
+            this.textBoxDCOCTR = new System.Windows.Forms.TextBox();
+            this.labelDCOCTR = new System.Windows.Forms.Label();
+            this.groupBoxDCOTime = new System.Windows.Forms.GroupBox();
+            this.textBoxDCOFW = new System.Windows.Forms.TextBox();
+            this.labelDCOFW = new System.Windows.Forms.Label();
+            this.textBoxDCOCHH = new System.Windows.Forms.TextBox();
+            this.textBoxDCOOH = new System.Windows.Forms.TextBox();
+            this.textBoxDCOAW = new System.Windows.Forms.TextBox();
+            this.textBoxDCORW = new System.Windows.Forms.TextBox();
+            this.textBoxDCOCHL = new System.Windows.Forms.TextBox();
+            this.labelDCOAW = new System.Windows.Forms.Label();
+            this.labelDCOCHH = new System.Windows.Forms.Label();
+            this.labelDCOOH = new System.Windows.Forms.Label();
+            this.labelDCORW = new System.Windows.Forms.Label();
+            this.labelDCOCHL = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelMdl = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -1254,6 +1295,7 @@ namespace BehaviorGraphics
             this.textBox20 = new System.Windows.Forms.TextBox();
             this.textBox51 = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.label143 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
@@ -1287,10 +1329,8 @@ namespace BehaviorGraphics
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.label324 = new System.Windows.Forms.Label();
-            this.tabDynamicCO = new System.Windows.Forms.TabPage();
             this.textBox21 = new System.Windows.Forms.TextBox();
             this.label247 = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.textBox22 = new System.Windows.Forms.TextBox();
             this.label248 = new System.Windows.Forms.Label();
             this.textBox23 = new System.Windows.Forms.TextBox();
@@ -1310,46 +1350,8 @@ namespace BehaviorGraphics
             this.label331 = new System.Windows.Forms.Label();
             this.label351 = new System.Windows.Forms.Label();
             this.label356 = new System.Windows.Forms.Label();
-            this.groupBoxDCOT = new System.Windows.Forms.GroupBox();
-            this.textBoxDCOCTR = new System.Windows.Forms.TextBox();
-            this.labelDCOCTR = new System.Windows.Forms.Label();
-            this.groupBoxDCOTime = new System.Windows.Forms.GroupBox();
-            this.textBoxDCOFW = new System.Windows.Forms.TextBox();
-            this.labelDCOFW = new System.Windows.Forms.Label();
-            this.textBoxDCOCHH = new System.Windows.Forms.TextBox();
-            this.textBoxDCOOH = new System.Windows.Forms.TextBox();
-            this.textBoxDCOAW = new System.Windows.Forms.TextBox();
-            this.textBoxDCORW = new System.Windows.Forms.TextBox();
-            this.textBoxDCOCHL = new System.Windows.Forms.TextBox();
-            this.labelDCOAW = new System.Windows.Forms.Label();
-            this.labelDCOCHH = new System.Windows.Forms.Label();
-            this.labelDCOOH = new System.Windows.Forms.Label();
-            this.labelDCORW = new System.Windows.Forms.Label();
-            this.labelDCOCHL = new System.Windows.Forms.Label();
-            this.labelDCOOTR = new System.Windows.Forms.Label();
-            this.labelDCOCR = new System.Windows.Forms.Label();
-            this.textBoxDCOCR = new System.Windows.Forms.TextBox();
-            this.checkBoxDCOBC = new System.Windows.Forms.CheckBox();
-            this.textBoxDCOOTR = new System.Windows.Forms.TextBox();
-            this.textBoxDCOOTT = new System.Windows.Forms.TextBox();
-            this.labelDCOOTT = new System.Windows.Forms.Label();
-            this.textBoxDCOOTS = new System.Windows.Forms.TextBox();
-            this.labelDCOOTS = new System.Windows.Forms.Label();
-            this.textBoxDCOTFMax = new System.Windows.Forms.TextBox();
-            this.labelDCOTFMax = new System.Windows.Forms.Label();
-            this.textBoxDCOTFMin = new System.Windows.Forms.TextBox();
-            this.labelDCOTFMin = new System.Windows.Forms.Label();
-            this.textBoxDCOTS = new System.Windows.Forms.TextBox();
-            this.labelDCOTS = new System.Windows.Forms.Label();
-            this.textBoxDCONT = new System.Windows.Forms.TextBox();
-            this.labelDCONT = new System.Windows.Forms.Label();
-            this.groupBoxDCOCont = new System.Windows.Forms.GroupBox();
-            this.textBoxDCOPF = new System.Windows.Forms.TextBox();
-            this.labelDCOPF = new System.Windows.Forms.Label();
-            this.textBoxDCOVF = new System.Windows.Forms.TextBox();
-            this.label358 = new System.Windows.Forms.Label();
-            this.textBoxDCOD = new System.Windows.Forms.TextBox();
-            this.labelDCOD = new System.Windows.Forms.Label();
+            this.textBoxDCOMT = new System.Windows.Forms.TextBox();
+            this.labelDCOMT = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -1495,6 +1497,10 @@ namespace BehaviorGraphics
             this.groupBox73.SuspendLayout();
             this.groupBox74.SuspendLayout();
             this.groupBox75.SuspendLayout();
+            this.tabDynamicCO.SuspendLayout();
+            this.groupBoxDCOCont.SuspendLayout();
+            this.groupBoxDCOT.SuspendLayout();
+            this.groupBoxDCOTime.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -1503,10 +1509,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.tabDynamicCO.SuspendLayout();
-            this.groupBoxDCOT.SuspendLayout();
-            this.groupBoxDCOTime.SuspendLayout();
-            this.groupBoxDCOCont.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -2359,10 +2361,10 @@ namespace BehaviorGraphics
             this.tabPageCO.Controls.Add(this.groupBox3);
             this.tabPageCO.Controls.Add(this.groupBox2);
             this.tabPageCO.Controls.Add(this.groupBox1);
-            this.tabPageCO.Location = new System.Drawing.Point(4, 22);
+            this.tabPageCO.Location = new System.Drawing.Point(4, 58);
             this.tabPageCO.Name = "tabPageCO";
             this.tabPageCO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCO.Size = new System.Drawing.Size(686, 473);
+            this.tabPageCO.Size = new System.Drawing.Size(686, 437);
             this.tabPageCO.TabIndex = 1;
             this.tabPageCO.Text = "Center-Out";
             this.tabPageCO.UseVisualStyleBackColor = true;
@@ -2850,10 +2852,10 @@ namespace BehaviorGraphics
             this.tabPageRW.Controls.Add(this.groupBox30);
             this.tabPageRW.Controls.Add(this.groupBox8);
             this.tabPageRW.Controls.Add(this.groupBox7);
-            this.tabPageRW.Location = new System.Drawing.Point(4, 22);
+            this.tabPageRW.Location = new System.Drawing.Point(4, 58);
             this.tabPageRW.Name = "tabPageRW";
             this.tabPageRW.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRW.Size = new System.Drawing.Size(686, 473);
+            this.tabPageRW.Size = new System.Drawing.Size(686, 437);
             this.tabPageRW.TabIndex = 2;
             this.tabPageRW.Text = "Random Walk";
             this.tabPageRW.UseVisualStyleBackColor = true;
@@ -3302,10 +3304,10 @@ namespace BehaviorGraphics
             this.tabPageFC.Controls.Add(this.textBoxFCPctTestTrials);
             this.tabPageFC.Controls.Add(this.groupBox9);
             this.tabPageFC.Controls.Add(this.label43);
-            this.tabPageFC.Location = new System.Drawing.Point(4, 22);
+            this.tabPageFC.Location = new System.Drawing.Point(4, 58);
             this.tabPageFC.Name = "tabPageFC";
             this.tabPageFC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFC.Size = new System.Drawing.Size(686, 473);
+            this.tabPageFC.Size = new System.Drawing.Size(686, 437);
             this.tabPageFC.TabIndex = 3;
             this.tabPageFC.Text = "Forced Choice";
             this.tabPageFC.UseVisualStyleBackColor = true;
@@ -3603,10 +3605,10 @@ namespace BehaviorGraphics
             this.tabPageBS.Controls.Add(this.groupBox25);
             this.tabPageBS.Controls.Add(this.groupBox28);
             this.tabPageBS.Controls.Add(this.groupBox26);
-            this.tabPageBS.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBS.Location = new System.Drawing.Point(4, 58);
             this.tabPageBS.Name = "tabPageBS";
             this.tabPageBS.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBS.Size = new System.Drawing.Size(686, 473);
+            this.tabPageBS.Size = new System.Drawing.Size(686, 437);
             this.tabPageBS.TabIndex = 4;
             this.tabPageBS.Text = "Bump-stim";
             this.tabPageBS.UseVisualStyleBackColor = true;
@@ -4109,10 +4111,10 @@ namespace BehaviorGraphics
             this.tabPageMG.Controls.Add(this.groupBox37);
             this.tabPageMG.Controls.Add(this.groupBoxMGTargets);
             this.tabPageMG.Controls.Add(this.groupBox31);
-            this.tabPageMG.Location = new System.Drawing.Point(4, 22);
+            this.tabPageMG.Location = new System.Drawing.Point(4, 58);
             this.tabPageMG.Name = "tabPageMG";
             this.tabPageMG.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMG.Size = new System.Drawing.Size(686, 473);
+            this.tabPageMG.Size = new System.Drawing.Size(686, 437);
             this.tabPageMG.TabIndex = 5;
             this.tabPageMG.Text = "Multi-Gadget";
             this.tabPageMG.UseVisualStyleBackColor = true;
@@ -4360,8 +4362,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -4557,10 +4559,10 @@ namespace BehaviorGraphics
             this.tabPageWF.Controls.Add(this.groupBox35);
             this.tabPageWF.Controls.Add(this.groupBox33);
             this.tabPageWF.Controls.Add(this.groupBox34);
-            this.tabPageWF.Location = new System.Drawing.Point(4, 22);
+            this.tabPageWF.Location = new System.Drawing.Point(4, 58);
             this.tabPageWF.Name = "tabPageWF";
             this.tabPageWF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageWF.Size = new System.Drawing.Size(686, 473);
+            this.tabPageWF.Size = new System.Drawing.Size(686, 437);
             this.tabPageWF.TabIndex = 6;
             this.tabPageWF.Text = "Wrist Flexion";
             this.tabPageWF.UseVisualStyleBackColor = true;
@@ -5193,8 +5195,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -5400,10 +5402,10 @@ namespace BehaviorGraphics
             // 
             this.tabPageBD.Controls.Add(this.groupBox38);
             this.tabPageBD.Controls.Add(this.groupBox39);
-            this.tabPageBD.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBD.Location = new System.Drawing.Point(4, 58);
             this.tabPageBD.Name = "tabPageBD";
             this.tabPageBD.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBD.Size = new System.Drawing.Size(686, 473);
+            this.tabPageBD.Size = new System.Drawing.Size(686, 437);
             this.tabPageBD.TabIndex = 7;
             this.tabPageBD.Text = "Ball Drop";
             this.tabPageBD.UseVisualStyleBackColor = true;
@@ -5600,10 +5602,10 @@ namespace BehaviorGraphics
             this.tabPageBC.Controls.Add(this.groupBox19);
             this.tabPageBC.Controls.Add(this.groupBox17);
             this.tabPageBC.Controls.Add(this.groupBox18);
-            this.tabPageBC.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBC.Location = new System.Drawing.Point(4, 58);
             this.tabPageBC.Name = "tabPageBC";
             this.tabPageBC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBC.Size = new System.Drawing.Size(686, 473);
+            this.tabPageBC.Size = new System.Drawing.Size(686, 437);
             this.tabPageBC.TabIndex = 8;
             this.tabPageBC.Text = "Bump-choice";
             this.tabPageBC.UseVisualStyleBackColor = true;
@@ -6348,10 +6350,10 @@ namespace BehaviorGraphics
             this.tabPage1.Controls.Add(this.label175);
             this.tabPage1.Controls.Add(this.groupBox22);
             this.tabPage1.Controls.Add(this.groupBox20);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 58);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(686, 473);
+            this.tabPage1.Size = new System.Drawing.Size(686, 437);
             this.tabPage1.TabIndex = 9;
             this.tabPage1.Text = "Visual Search";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -6703,10 +6705,10 @@ namespace BehaviorGraphics
             this.tabPageBF.Controls.Add(this.groupBox24);
             this.tabPageBF.Controls.Add(this.groupBox41);
             this.tabPageBF.Controls.Add(this.groupBox42);
-            this.tabPageBF.Location = new System.Drawing.Point(4, 40);
+            this.tabPageBF.Location = new System.Drawing.Point(4, 58);
             this.tabPageBF.Name = "tabPageBF";
             this.tabPageBF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBF.Size = new System.Drawing.Size(686, 455);
+            this.tabPageBF.Size = new System.Drawing.Size(686, 437);
             this.tabPageBF.TabIndex = 10;
             this.tabPageBF.Text = "Bump-follow";
             this.tabPageBF.UseVisualStyleBackColor = true;
@@ -7120,10 +7122,10 @@ namespace BehaviorGraphics
             this.tabPage2.Controls.Add(this.groupBox44);
             this.tabPage2.Controls.Add(this.groupBox45);
             this.tabPage2.Controls.Add(this.groupBox46);
-            this.tabPage2.Location = new System.Drawing.Point(4, 40);
+            this.tabPage2.Location = new System.Drawing.Point(4, 58);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(686, 455);
+            this.tabPage2.Size = new System.Drawing.Size(686, 437);
             this.tabPage2.TabIndex = 11;
             this.tabPage2.Text = "2AFC";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -7834,10 +7836,10 @@ namespace BehaviorGraphics
             this.tabUncertainty1D.Controls.Add(this.groupBoxUPertProp);
             this.tabUncertainty1D.Controls.Add(this.groupBoxUTargetSettings);
             this.tabUncertainty1D.Controls.Add(this.groupBoxUTimers);
-            this.tabUncertainty1D.Location = new System.Drawing.Point(4, 40);
+            this.tabUncertainty1D.Location = new System.Drawing.Point(4, 58);
             this.tabUncertainty1D.Name = "tabUncertainty1D";
             this.tabUncertainty1D.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUncertainty1D.Size = new System.Drawing.Size(686, 455);
+            this.tabUncertainty1D.Size = new System.Drawing.Size(686, 437);
             this.tabUncertainty1D.TabIndex = 12;
             this.tabUncertainty1D.Text = "Uncertainty1D";
             this.tabUncertainty1D.UseVisualStyleBackColor = true;
@@ -8674,10 +8676,10 @@ namespace BehaviorGraphics
             this.tabAttention.Controls.Add(this.groupBox56);
             this.tabAttention.Controls.Add(this.groupBox57);
             this.tabAttention.Controls.Add(this.groupBox58);
-            this.tabAttention.Location = new System.Drawing.Point(4, 40);
+            this.tabAttention.Location = new System.Drawing.Point(4, 58);
             this.tabAttention.Name = "tabAttention";
             this.tabAttention.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAttention.Size = new System.Drawing.Size(686, 455);
+            this.tabAttention.Size = new System.Drawing.Size(686, 437);
             this.tabAttention.TabIndex = 13;
             this.tabAttention.Text = "Attention";
             this.tabAttention.UseVisualStyleBackColor = true;
@@ -9696,10 +9698,10 @@ namespace BehaviorGraphics
             this.tabPage3.Controls.Add(this.groupBox63);
             this.tabPage3.Controls.Add(this.groupBox62);
             this.tabPage3.Controls.Add(this.groupBox61);
-            this.tabPage3.Location = new System.Drawing.Point(4, 40);
+            this.tabPage3.Location = new System.Drawing.Point(4, 58);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(686, 455);
+            this.tabPage3.Size = new System.Drawing.Size(686, 437);
             this.tabPage3.TabIndex = 14;
             this.tabPage3.Text = "Bump Direction";
             this.toolTip1.SetToolTip(this.tabPage3, "Step this many times the step size on wrong answers");
@@ -11039,10 +11041,10 @@ namespace BehaviorGraphics
             this.tabUncertaintyTarget1D.Controls.Add(this.groupBoxUT1DCloud);
             this.tabUncertaintyTarget1D.Controls.Add(this.groupBoxUT1DShift);
             this.tabUncertaintyTarget1D.Controls.Add(this.groupBoxUT1DTaskSettings);
-            this.tabUncertaintyTarget1D.Location = new System.Drawing.Point(4, 40);
+            this.tabUncertaintyTarget1D.Location = new System.Drawing.Point(4, 58);
             this.tabUncertaintyTarget1D.Name = "tabUncertaintyTarget1D";
             this.tabUncertaintyTarget1D.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUncertaintyTarget1D.Size = new System.Drawing.Size(686, 455);
+            this.tabUncertaintyTarget1D.Size = new System.Drawing.Size(686, 437);
             this.tabUncertaintyTarget1D.TabIndex = 16;
             this.tabUncertaintyTarget1D.Text = "UncertaintyTarget1D";
             this.tabUncertaintyTarget1D.UseVisualStyleBackColor = true;
@@ -11808,10 +11810,10 @@ namespace BehaviorGraphics
             this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DCloud);
             this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DShift);
             this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DTaskSettings);
-            this.UncertaintyTarget2D.Location = new System.Drawing.Point(4, 40);
+            this.UncertaintyTarget2D.Location = new System.Drawing.Point(4, 58);
             this.UncertaintyTarget2D.Name = "UncertaintyTarget2D";
             this.UncertaintyTarget2D.Padding = new System.Windows.Forms.Padding(3);
-            this.UncertaintyTarget2D.Size = new System.Drawing.Size(686, 455);
+            this.UncertaintyTarget2D.Size = new System.Drawing.Size(686, 437);
             this.UncertaintyTarget2D.TabIndex = 17;
             this.UncertaintyTarget2D.Text = "UncertaintyTarget2D";
             this.UncertaintyTarget2D.UseVisualStyleBackColor = true;
@@ -13581,6 +13583,402 @@ namespace BehaviorGraphics
             this.label_ctr_out_bump_CTHold.TabIndex = 0;
             this.label_ctr_out_bump_CTHold.Text = "CT Hold";
             // 
+            // tabDynamicCO
+            // 
+            this.tabDynamicCO.Controls.Add(this.groupBoxDCOCont);
+            this.tabDynamicCO.Controls.Add(this.groupBoxDCOT);
+            this.tabDynamicCO.Controls.Add(this.groupBoxDCOTime);
+            this.tabDynamicCO.Location = new System.Drawing.Point(4, 58);
+            this.tabDynamicCO.Name = "tabDynamicCO";
+            this.tabDynamicCO.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDynamicCO.Size = new System.Drawing.Size(686, 437);
+            this.tabDynamicCO.TabIndex = 20;
+            this.tabDynamicCO.Text = "Dynamic center out";
+            this.tabDynamicCO.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxDCOCont
+            // 
+            this.groupBoxDCOCont.Controls.Add(this.textBoxDCOPF);
+            this.groupBoxDCOCont.Controls.Add(this.labelDCOPF);
+            this.groupBoxDCOCont.Controls.Add(this.textBoxDCOVF);
+            this.groupBoxDCOCont.Controls.Add(this.label358);
+            this.groupBoxDCOCont.Controls.Add(this.textBoxDCOD);
+            this.groupBoxDCOCont.Controls.Add(this.labelDCOD);
+            this.groupBoxDCOCont.Location = new System.Drawing.Point(455, 14);
+            this.groupBoxDCOCont.Name = "groupBoxDCOCont";
+            this.groupBoxDCOCont.Size = new System.Drawing.Size(200, 100);
+            this.groupBoxDCOCont.TabIndex = 5;
+            this.groupBoxDCOCont.TabStop = false;
+            this.groupBoxDCOCont.Text = "Controller parameters";
+            // 
+            // textBoxDCOPF
+            // 
+            this.textBoxDCOPF.Location = new System.Drawing.Point(128, 72);
+            this.textBoxDCOPF.Name = "textBoxDCOPF";
+            this.textBoxDCOPF.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOPF.TabIndex = 25;
+            this.textBoxDCOPF.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOPF
+            // 
+            this.labelDCOPF.AutoSize = true;
+            this.labelDCOPF.Location = new System.Drawing.Point(15, 75);
+            this.labelDCOPF.Name = "labelDCOPF";
+            this.labelDCOPF.Size = new System.Drawing.Size(38, 13);
+            this.labelDCOPF.TabIndex = 24;
+            this.labelDCOPF.Text = "Pos filt";
+            // 
+            // textBoxDCOVF
+            // 
+            this.textBoxDCOVF.Location = new System.Drawing.Point(128, 44);
+            this.textBoxDCOVF.Name = "textBoxDCOVF";
+            this.textBoxDCOVF.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOVF.TabIndex = 23;
+            this.textBoxDCOVF.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label358
+            // 
+            this.label358.AutoSize = true;
+            this.label358.Location = new System.Drawing.Point(15, 47);
+            this.label358.Name = "label358";
+            this.label358.Size = new System.Drawing.Size(35, 13);
+            this.label358.TabIndex = 22;
+            this.label358.Text = "Vel filt";
+            // 
+            // textBoxDCOD
+            // 
+            this.textBoxDCOD.Location = new System.Drawing.Point(128, 19);
+            this.textBoxDCOD.Name = "textBoxDCOD";
+            this.textBoxDCOD.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOD.TabIndex = 21;
+            this.textBoxDCOD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOD
+            // 
+            this.labelDCOD.AutoSize = true;
+            this.labelDCOD.Location = new System.Drawing.Point(15, 19);
+            this.labelDCOD.Name = "labelDCOD";
+            this.labelDCOD.Size = new System.Drawing.Size(49, 13);
+            this.labelDCOD.TabIndex = 20;
+            this.labelDCOD.Text = "Damping";
+            // 
+            // groupBoxDCOT
+            // 
+            this.groupBoxDCOT.Controls.Add(this.textBoxDCOTFMax);
+            this.groupBoxDCOT.Controls.Add(this.labelDCOTFMax);
+            this.groupBoxDCOT.Controls.Add(this.textBoxDCOTFMin);
+            this.groupBoxDCOT.Controls.Add(this.labelDCOTFMin);
+            this.groupBoxDCOT.Controls.Add(this.textBoxDCOTS);
+            this.groupBoxDCOT.Controls.Add(this.labelDCOTS);
+            this.groupBoxDCOT.Controls.Add(this.textBoxDCONT);
+            this.groupBoxDCOT.Controls.Add(this.labelDCONT);
+            this.groupBoxDCOT.Controls.Add(this.textBoxDCOOTT);
+            this.groupBoxDCOT.Controls.Add(this.labelDCOOTT);
+            this.groupBoxDCOT.Controls.Add(this.textBoxDCOOTS);
+            this.groupBoxDCOT.Controls.Add(this.labelDCOOTS);
+            this.groupBoxDCOT.Controls.Add(this.textBoxDCOOTR);
+            this.groupBoxDCOT.Controls.Add(this.checkBoxDCOBC);
+            this.groupBoxDCOT.Controls.Add(this.textBoxDCOCR);
+            this.groupBoxDCOT.Controls.Add(this.labelDCOCR);
+            this.groupBoxDCOT.Controls.Add(this.labelDCOOTR);
+            this.groupBoxDCOT.Controls.Add(this.textBoxDCOCTR);
+            this.groupBoxDCOT.Controls.Add(this.labelDCOCTR);
+            this.groupBoxDCOT.Location = new System.Drawing.Point(235, 14);
+            this.groupBoxDCOT.Name = "groupBoxDCOT";
+            this.groupBoxDCOT.Size = new System.Drawing.Size(200, 329);
+            this.groupBoxDCOT.TabIndex = 4;
+            this.groupBoxDCOT.TabStop = false;
+            this.groupBoxDCOT.Text = "Cursor and targets";
+            // 
+            // textBoxDCOTFMax
+            // 
+            this.textBoxDCOTFMax.Location = new System.Drawing.Point(126, 265);
+            this.textBoxDCOTFMax.Name = "textBoxDCOTFMax";
+            this.textBoxDCOTFMax.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOTFMax.TabIndex = 29;
+            this.textBoxDCOTFMax.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOTFMax
+            // 
+            this.labelDCOTFMax.AutoSize = true;
+            this.labelDCOTFMax.Location = new System.Drawing.Point(13, 268);
+            this.labelDCOTFMax.Name = "labelDCOTFMax";
+            this.labelDCOTFMax.Size = new System.Drawing.Size(87, 13);
+            this.labelDCOTFMax.TabIndex = 28;
+            this.labelDCOTFMax.Text = "Target force max";
+            // 
+            // textBoxDCOTFMin
+            // 
+            this.textBoxDCOTFMin.Location = new System.Drawing.Point(126, 237);
+            this.textBoxDCOTFMin.Name = "textBoxDCOTFMin";
+            this.textBoxDCOTFMin.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOTFMin.TabIndex = 27;
+            this.textBoxDCOTFMin.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOTFMin
+            // 
+            this.labelDCOTFMin.AutoSize = true;
+            this.labelDCOTFMin.Location = new System.Drawing.Point(13, 240);
+            this.labelDCOTFMin.Name = "labelDCOTFMin";
+            this.labelDCOTFMin.Size = new System.Drawing.Size(84, 13);
+            this.labelDCOTFMin.TabIndex = 26;
+            this.labelDCOTFMin.Text = "Target force min";
+            // 
+            // textBoxDCOTS
+            // 
+            this.textBoxDCOTS.Location = new System.Drawing.Point(126, 209);
+            this.textBoxDCOTS.Name = "textBoxDCOTS";
+            this.textBoxDCOTS.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOTS.TabIndex = 25;
+            this.textBoxDCOTS.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOTS
+            // 
+            this.labelDCOTS.AutoSize = true;
+            this.labelDCOTS.Location = new System.Drawing.Point(13, 212);
+            this.labelDCOTS.Name = "labelDCOTS";
+            this.labelDCOTS.Size = new System.Drawing.Size(79, 13);
+            this.labelDCOTS.TabIndex = 24;
+            this.labelDCOTS.Text = "Target stiffness";
+            // 
+            // textBoxDCONT
+            // 
+            this.textBoxDCONT.Location = new System.Drawing.Point(126, 181);
+            this.textBoxDCONT.Name = "textBoxDCONT";
+            this.textBoxDCONT.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCONT.TabIndex = 23;
+            this.textBoxDCONT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCONT
+            // 
+            this.labelDCONT.AutoSize = true;
+            this.labelDCONT.Location = new System.Drawing.Point(13, 184);
+            this.labelDCONT.Name = "labelDCONT";
+            this.labelDCONT.Size = new System.Drawing.Size(91, 13);
+            this.labelDCONT.TabIndex = 22;
+            this.labelDCONT.Text = "Number of targets";
+            // 
+            // textBoxDCOOTT
+            // 
+            this.textBoxDCOOTT.Location = new System.Drawing.Point(126, 153);
+            this.textBoxDCOOTT.Name = "textBoxDCOOTT";
+            this.textBoxDCOOTT.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOOTT.TabIndex = 21;
+            this.textBoxDCOOTT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOOTT
+            // 
+            this.labelDCOOTT.AutoSize = true;
+            this.labelDCOOTT.Location = new System.Drawing.Point(13, 156);
+            this.labelDCOOTT.Name = "labelDCOOTT";
+            this.labelDCOOTT.Size = new System.Drawing.Size(111, 13);
+            this.labelDCOOTT.TabIndex = 20;
+            this.labelDCOOTT.Text = "Outer target thickness";
+            // 
+            // textBoxDCOOTS
+            // 
+            this.textBoxDCOOTS.Location = new System.Drawing.Point(126, 125);
+            this.textBoxDCOOTS.Name = "textBoxDCOOTS";
+            this.textBoxDCOOTS.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOOTS.TabIndex = 19;
+            this.textBoxDCOOTS.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOOTS
+            // 
+            this.labelDCOOTS.AutoSize = true;
+            this.labelDCOOTS.Location = new System.Drawing.Point(13, 128);
+            this.labelDCOOTS.Name = "labelDCOOTS";
+            this.labelDCOOTS.Size = new System.Drawing.Size(89, 13);
+            this.labelDCOOTS.TabIndex = 18;
+            this.labelDCOOTS.Text = "Outer target span";
+            // 
+            // textBoxDCOOTR
+            // 
+            this.textBoxDCOOTR.Location = new System.Drawing.Point(126, 97);
+            this.textBoxDCOOTR.Name = "textBoxDCOOTR";
+            this.textBoxDCOOTR.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOOTR.TabIndex = 17;
+            this.textBoxDCOOTR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // checkBoxDCOBC
+            // 
+            this.checkBoxDCOBC.AutoSize = true;
+            this.checkBoxDCOBC.Location = new System.Drawing.Point(16, 43);
+            this.checkBoxDCOBC.Name = "checkBoxDCOBC";
+            this.checkBoxDCOBC.Size = new System.Drawing.Size(85, 17);
+            this.checkBoxDCOBC.TabIndex = 16;
+            this.checkBoxDCOBC.Text = "Brain control";
+            this.checkBoxDCOBC.UseVisualStyleBackColor = true;
+            this.checkBoxDCOBC.TextChanged += new System.EventHandler(this.widget_ValueChanged);
+            // 
+            // textBoxDCOCR
+            // 
+            this.textBoxDCOCR.Location = new System.Drawing.Point(126, 19);
+            this.textBoxDCOCR.Name = "textBoxDCOCR";
+            this.textBoxDCOCR.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOCR.TabIndex = 15;
+            this.textBoxDCOCR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOCR
+            // 
+            this.labelDCOCR.AutoSize = true;
+            this.labelDCOCR.Location = new System.Drawing.Point(13, 22);
+            this.labelDCOCR.Name = "labelDCOCR";
+            this.labelDCOCR.Size = new System.Drawing.Size(68, 13);
+            this.labelDCOCR.TabIndex = 14;
+            this.labelDCOCR.Text = "Cursor radius";
+            // 
+            // labelDCOOTR
+            // 
+            this.labelDCOOTR.AutoSize = true;
+            this.labelDCOOTR.Location = new System.Drawing.Point(13, 100);
+            this.labelDCOOTR.Name = "labelDCOOTR";
+            this.labelDCOOTR.Size = new System.Drawing.Size(94, 13);
+            this.labelDCOOTR.TabIndex = 13;
+            this.labelDCOOTR.Text = "Outer target radius";
+            // 
+            // textBoxDCOCTR
+            // 
+            this.textBoxDCOCTR.Location = new System.Drawing.Point(126, 72);
+            this.textBoxDCOCTR.Name = "textBoxDCOCTR";
+            this.textBoxDCOCTR.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOCTR.TabIndex = 12;
+            this.textBoxDCOCTR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOCTR
+            // 
+            this.labelDCOCTR.AutoSize = true;
+            this.labelDCOCTR.Location = new System.Drawing.Point(13, 72);
+            this.labelDCOCTR.Name = "labelDCOCTR";
+            this.labelDCOCTR.Size = new System.Drawing.Size(99, 13);
+            this.labelDCOCTR.TabIndex = 10;
+            this.labelDCOCTR.Text = "Center target radius";
+            // 
+            // groupBoxDCOTime
+            // 
+            this.groupBoxDCOTime.Controls.Add(this.textBoxDCOMT);
+            this.groupBoxDCOTime.Controls.Add(this.labelDCOMT);
+            this.groupBoxDCOTime.Controls.Add(this.textBoxDCOFW);
+            this.groupBoxDCOTime.Controls.Add(this.labelDCOFW);
+            this.groupBoxDCOTime.Controls.Add(this.textBoxDCOCHH);
+            this.groupBoxDCOTime.Controls.Add(this.textBoxDCOOH);
+            this.groupBoxDCOTime.Controls.Add(this.textBoxDCOAW);
+            this.groupBoxDCOTime.Controls.Add(this.textBoxDCORW);
+            this.groupBoxDCOTime.Controls.Add(this.textBoxDCOCHL);
+            this.groupBoxDCOTime.Controls.Add(this.labelDCOAW);
+            this.groupBoxDCOTime.Controls.Add(this.labelDCOCHH);
+            this.groupBoxDCOTime.Controls.Add(this.labelDCOOH);
+            this.groupBoxDCOTime.Controls.Add(this.labelDCORW);
+            this.groupBoxDCOTime.Controls.Add(this.labelDCOCHL);
+            this.groupBoxDCOTime.Location = new System.Drawing.Point(17, 14);
+            this.groupBoxDCOTime.Name = "groupBoxDCOTime";
+            this.groupBoxDCOTime.Size = new System.Drawing.Size(200, 215);
+            this.groupBoxDCOTime.TabIndex = 3;
+            this.groupBoxDCOTime.TabStop = false;
+            this.groupBoxDCOTime.Text = "Timing";
+            // 
+            // textBoxDCOFW
+            // 
+            this.textBoxDCOFW.Location = new System.Drawing.Point(126, 152);
+            this.textBoxDCOFW.Name = "textBoxDCOFW";
+            this.textBoxDCOFW.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOFW.TabIndex = 19;
+            this.textBoxDCOFW.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOFW
+            // 
+            this.labelDCOFW.AutoSize = true;
+            this.labelDCOFW.Location = new System.Drawing.Point(6, 155);
+            this.labelDCOFW.Name = "labelDCOFW";
+            this.labelDCOFW.Size = new System.Drawing.Size(45, 13);
+            this.labelDCOFW.TabIndex = 18;
+            this.labelDCOFW.Text = "Fail wait";
+            // 
+            // textBoxDCOCHH
+            // 
+            this.textBoxDCOCHH.Location = new System.Drawing.Point(126, 45);
+            this.textBoxDCOCHH.Name = "textBoxDCOCHH";
+            this.textBoxDCOCHH.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOCHH.TabIndex = 9;
+            this.textBoxDCOCHH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxDCOOH
+            // 
+            this.textBoxDCOOH.Location = new System.Drawing.Point(126, 71);
+            this.textBoxDCOOH.Name = "textBoxDCOOH";
+            this.textBoxDCOOH.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOOH.TabIndex = 8;
+            this.textBoxDCOOH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxDCOAW
+            // 
+            this.textBoxDCOAW.Location = new System.Drawing.Point(126, 126);
+            this.textBoxDCOAW.Name = "textBoxDCOAW";
+            this.textBoxDCOAW.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOAW.TabIndex = 7;
+            this.textBoxDCOAW.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxDCORW
+            // 
+            this.textBoxDCORW.Location = new System.Drawing.Point(126, 98);
+            this.textBoxDCORW.Name = "textBoxDCORW";
+            this.textBoxDCORW.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCORW.TabIndex = 6;
+            this.textBoxDCORW.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxDCOCHL
+            // 
+            this.textBoxDCOCHL.Location = new System.Drawing.Point(126, 19);
+            this.textBoxDCOCHL.Name = "textBoxDCOCHL";
+            this.textBoxDCOCHL.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOCHL.TabIndex = 5;
+            this.textBoxDCOCHL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOAW
+            // 
+            this.labelDCOAW.AutoSize = true;
+            this.labelDCOAW.Location = new System.Drawing.Point(6, 129);
+            this.labelDCOAW.Name = "labelDCOAW";
+            this.labelDCOAW.Size = new System.Drawing.Size(54, 13);
+            this.labelDCOAW.TabIndex = 4;
+            this.labelDCOAW.Text = "Abort wait";
+            // 
+            // labelDCOCHH
+            // 
+            this.labelDCOCHH.AutoSize = true;
+            this.labelDCOCHH.Location = new System.Drawing.Point(6, 50);
+            this.labelDCOCHH.Name = "labelDCOCHH";
+            this.labelDCOCHH.Size = new System.Drawing.Size(84, 13);
+            this.labelDCOCHH.TabIndex = 3;
+            this.labelDCOCHH.Text = "Center hold high";
+            // 
+            // labelDCOOH
+            // 
+            this.labelDCOOH.AutoSize = true;
+            this.labelDCOOH.Location = new System.Drawing.Point(6, 78);
+            this.labelDCOOH.Name = "labelDCOOH";
+            this.labelDCOOH.Size = new System.Drawing.Size(56, 13);
+            this.labelDCOOH.TabIndex = 2;
+            this.labelDCOOH.Text = "Outer hold";
+            // 
+            // labelDCORW
+            // 
+            this.labelDCORW.AutoSize = true;
+            this.labelDCORW.Location = new System.Drawing.Point(6, 101);
+            this.labelDCORW.Name = "labelDCORW";
+            this.labelDCORW.Size = new System.Drawing.Size(66, 13);
+            this.labelDCORW.TabIndex = 1;
+            this.labelDCORW.Text = "Reward wait";
+            // 
+            // labelDCOCHL
+            // 
+            this.labelDCOCHL.AutoSize = true;
+            this.labelDCOCHL.Location = new System.Drawing.Point(6, 22);
+            this.labelDCOCHL.Name = "labelDCOCHL";
+            this.labelDCOCHL.Size = new System.Drawing.Size(80, 13);
+            this.labelDCOCHL.TabIndex = 0;
+            this.labelDCOCHL.Text = "Center hold low";
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -14065,6 +14463,17 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.checkBox1, "draws a 1-dimensional cursor cloud");
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(8, 118);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(95, 17);
+            this.checkBox2.TabIndex = 16;
+            this.checkBox2.Text = "Position cursor";
+            this.toolTip1.SetToolTip(this.checkBox2, "If checked, position feedback, otherwise, force feedback.");
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // label143
             // 
             this.label143.AutoSize = true;
@@ -14409,19 +14818,6 @@ namespace BehaviorGraphics
             this.label324.TabIndex = 64;
             this.label324.Text = "1-D Jitter Magnitude";
             // 
-            // tabDynamicCO
-            // 
-            this.tabDynamicCO.Controls.Add(this.groupBoxDCOCont);
-            this.tabDynamicCO.Controls.Add(this.groupBoxDCOT);
-            this.tabDynamicCO.Controls.Add(this.groupBoxDCOTime);
-            this.tabDynamicCO.Location = new System.Drawing.Point(4, 58);
-            this.tabDynamicCO.Name = "tabDynamicCO";
-            this.tabDynamicCO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDynamicCO.Size = new System.Drawing.Size(686, 437);
-            this.tabDynamicCO.TabIndex = 20;
-            this.tabDynamicCO.Text = "Dynamic center out";
-            this.tabDynamicCO.UseVisualStyleBackColor = true;
-            // 
             // textBox21
             // 
             this.textBox21.Location = new System.Drawing.Point(126, 95);
@@ -14437,17 +14833,6 @@ namespace BehaviorGraphics
             this.label247.Size = new System.Drawing.Size(101, 13);
             this.label247.TabIndex = 17;
             this.label247.Text = "Late target diameter";
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(8, 118);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(95, 17);
-            this.checkBox2.TabIndex = 16;
-            this.checkBox2.Text = "Position cursor";
-            this.toolTip1.SetToolTip(this.checkBox2, "If checked, position feedback, otherwise, force feedback.");
-            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // textBox22
             // 
@@ -14603,367 +14988,22 @@ namespace BehaviorGraphics
             this.label356.TabIndex = 0;
             this.label356.Text = "Field ramp up";
             // 
-            // groupBoxDCOT
-            // 
-            this.groupBoxDCOT.Controls.Add(this.textBoxDCOTFMax);
-            this.groupBoxDCOT.Controls.Add(this.labelDCOTFMax);
-            this.groupBoxDCOT.Controls.Add(this.textBoxDCOTFMin);
-            this.groupBoxDCOT.Controls.Add(this.labelDCOTFMin);
-            this.groupBoxDCOT.Controls.Add(this.textBoxDCOTS);
-            this.groupBoxDCOT.Controls.Add(this.labelDCOTS);
-            this.groupBoxDCOT.Controls.Add(this.textBoxDCONT);
-            this.groupBoxDCOT.Controls.Add(this.labelDCONT);
-            this.groupBoxDCOT.Controls.Add(this.textBoxDCOOTT);
-            this.groupBoxDCOT.Controls.Add(this.labelDCOOTT);
-            this.groupBoxDCOT.Controls.Add(this.textBoxDCOOTS);
-            this.groupBoxDCOT.Controls.Add(this.labelDCOOTS);
-            this.groupBoxDCOT.Controls.Add(this.textBoxDCOOTR);
-            this.groupBoxDCOT.Controls.Add(this.checkBoxDCOBC);
-            this.groupBoxDCOT.Controls.Add(this.textBoxDCOCR);
-            this.groupBoxDCOT.Controls.Add(this.labelDCOCR);
-            this.groupBoxDCOT.Controls.Add(this.labelDCOOTR);
-            this.groupBoxDCOT.Controls.Add(this.textBoxDCOCTR);
-            this.groupBoxDCOT.Controls.Add(this.labelDCOCTR);
-            this.groupBoxDCOT.Location = new System.Drawing.Point(235, 14);
-            this.groupBoxDCOT.Name = "groupBoxDCOT";
-            this.groupBoxDCOT.Size = new System.Drawing.Size(200, 329);
-            this.groupBoxDCOT.TabIndex = 4;
-            this.groupBoxDCOT.TabStop = false;
-            this.groupBoxDCOT.Text = "Cursor and targets";
-            // 
-            // textBoxDCOCTR
-            // 
-            this.textBoxDCOCTR.Location = new System.Drawing.Point(126, 72);
-            this.textBoxDCOCTR.Name = "textBoxDCOCTR";
-            this.textBoxDCOCTR.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOCTR.TabIndex = 12;
-            // 
-            // labelDCOCTR
-            // 
-            this.labelDCOCTR.AutoSize = true;
-            this.labelDCOCTR.Location = new System.Drawing.Point(13, 72);
-            this.labelDCOCTR.Name = "labelDCOCTR";
-            this.labelDCOCTR.Size = new System.Drawing.Size(99, 13);
-            this.labelDCOCTR.TabIndex = 10;
-            this.labelDCOCTR.Text = "Center target radius";
-            // 
-            // groupBoxDCOTime
-            // 
-            this.groupBoxDCOTime.Controls.Add(this.textBoxDCOFW);
-            this.groupBoxDCOTime.Controls.Add(this.labelDCOFW);
-            this.groupBoxDCOTime.Controls.Add(this.textBoxDCOCHH);
-            this.groupBoxDCOTime.Controls.Add(this.textBoxDCOOH);
-            this.groupBoxDCOTime.Controls.Add(this.textBoxDCOAW);
-            this.groupBoxDCOTime.Controls.Add(this.textBoxDCORW);
-            this.groupBoxDCOTime.Controls.Add(this.textBoxDCOCHL);
-            this.groupBoxDCOTime.Controls.Add(this.labelDCOAW);
-            this.groupBoxDCOTime.Controls.Add(this.labelDCOCHH);
-            this.groupBoxDCOTime.Controls.Add(this.labelDCOOH);
-            this.groupBoxDCOTime.Controls.Add(this.labelDCORW);
-            this.groupBoxDCOTime.Controls.Add(this.labelDCOCHL);
-            this.groupBoxDCOTime.Location = new System.Drawing.Point(17, 14);
-            this.groupBoxDCOTime.Name = "groupBoxDCOTime";
-            this.groupBoxDCOTime.Size = new System.Drawing.Size(200, 199);
-            this.groupBoxDCOTime.TabIndex = 3;
-            this.groupBoxDCOTime.TabStop = false;
-            this.groupBoxDCOTime.Text = "Timing";
-            // 
-            // textBoxDCOFW
-            // 
-            this.textBoxDCOFW.Location = new System.Drawing.Point(126, 152);
-            this.textBoxDCOFW.Name = "textBoxDCOFW";
-            this.textBoxDCOFW.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOFW.TabIndex = 19;
-            // 
-            // labelDCOFW
-            // 
-            this.labelDCOFW.AutoSize = true;
-            this.labelDCOFW.Location = new System.Drawing.Point(6, 155);
-            this.labelDCOFW.Name = "labelDCOFW";
-            this.labelDCOFW.Size = new System.Drawing.Size(45, 13);
-            this.labelDCOFW.TabIndex = 18;
-            this.labelDCOFW.Text = "Fail wait";
-            // 
-            // textBoxDCOCHH
-            // 
-            this.textBoxDCOCHH.Location = new System.Drawing.Point(126, 45);
-            this.textBoxDCOCHH.Name = "textBoxDCOCHH";
-            this.textBoxDCOCHH.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOCHH.TabIndex = 9;
-            // 
-            // textBoxDCOOH
-            // 
-            this.textBoxDCOOH.Location = new System.Drawing.Point(126, 71);
-            this.textBoxDCOOH.Name = "textBoxDCOOH";
-            this.textBoxDCOOH.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOOH.TabIndex = 8;
-            // 
-            // textBoxDCOAW
-            // 
-            this.textBoxDCOAW.Location = new System.Drawing.Point(126, 126);
-            this.textBoxDCOAW.Name = "textBoxDCOAW";
-            this.textBoxDCOAW.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOAW.TabIndex = 7;
-            // 
-            // textBoxDCORW
-            // 
-            this.textBoxDCORW.Location = new System.Drawing.Point(126, 98);
-            this.textBoxDCORW.Name = "textBoxDCORW";
-            this.textBoxDCORW.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCORW.TabIndex = 6;
-            // 
-            // textBoxDCOCHL
-            // 
-            this.textBoxDCOCHL.Location = new System.Drawing.Point(126, 19);
-            this.textBoxDCOCHL.Name = "textBoxDCOCHL";
-            this.textBoxDCOCHL.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOCHL.TabIndex = 5;
-            // 
-            // labelDCOAW
-            // 
-            this.labelDCOAW.AutoSize = true;
-            this.labelDCOAW.Location = new System.Drawing.Point(6, 129);
-            this.labelDCOAW.Name = "labelDCOAW";
-            this.labelDCOAW.Size = new System.Drawing.Size(54, 13);
-            this.labelDCOAW.TabIndex = 4;
-            this.labelDCOAW.Text = "Abort wait";
-            // 
-            // labelDCOCHH
-            // 
-            this.labelDCOCHH.AutoSize = true;
-            this.labelDCOCHH.Location = new System.Drawing.Point(6, 50);
-            this.labelDCOCHH.Name = "labelDCOCHH";
-            this.labelDCOCHH.Size = new System.Drawing.Size(84, 13);
-            this.labelDCOCHH.TabIndex = 3;
-            this.labelDCOCHH.Text = "Center hold high";
-            // 
-            // labelDCOOH
-            // 
-            this.labelDCOOH.AutoSize = true;
-            this.labelDCOOH.Location = new System.Drawing.Point(6, 78);
-            this.labelDCOOH.Name = "labelDCOOH";
-            this.labelDCOOH.Size = new System.Drawing.Size(56, 13);
-            this.labelDCOOH.TabIndex = 2;
-            this.labelDCOOH.Text = "Outer hold";
-            // 
-            // labelDCORW
-            // 
-            this.labelDCORW.AutoSize = true;
-            this.labelDCORW.Location = new System.Drawing.Point(6, 101);
-            this.labelDCORW.Name = "labelDCORW";
-            this.labelDCORW.Size = new System.Drawing.Size(66, 13);
-            this.labelDCORW.TabIndex = 1;
-            this.labelDCORW.Text = "Reward wait";
-            // 
-            // labelDCOCHL
-            // 
-            this.labelDCOCHL.AutoSize = true;
-            this.labelDCOCHL.Location = new System.Drawing.Point(6, 22);
-            this.labelDCOCHL.Name = "labelDCOCHL";
-            this.labelDCOCHL.Size = new System.Drawing.Size(80, 13);
-            this.labelDCOCHL.TabIndex = 0;
-            this.labelDCOCHL.Text = "Center hold low";
-            // 
-            // labelDCOOTR
-            // 
-            this.labelDCOOTR.AutoSize = true;
-            this.labelDCOOTR.Location = new System.Drawing.Point(13, 100);
-            this.labelDCOOTR.Name = "labelDCOOTR";
-            this.labelDCOOTR.Size = new System.Drawing.Size(94, 13);
-            this.labelDCOOTR.TabIndex = 13;
-            this.labelDCOOTR.Text = "Outer target radius";
-            // 
-            // labelDCOCR
-            // 
-            this.labelDCOCR.AutoSize = true;
-            this.labelDCOCR.Location = new System.Drawing.Point(13, 22);
-            this.labelDCOCR.Name = "labelDCOCR";
-            this.labelDCOCR.Size = new System.Drawing.Size(68, 13);
-            this.labelDCOCR.TabIndex = 14;
-            this.labelDCOCR.Text = "Cursor radius";
-            // 
-            // textBoxDCOCR
-            // 
-            this.textBoxDCOCR.Location = new System.Drawing.Point(126, 19);
-            this.textBoxDCOCR.Name = "textBoxDCOCR";
-            this.textBoxDCOCR.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOCR.TabIndex = 15;
-            // 
-            // checkBoxDCOBC
-            // 
-            this.checkBoxDCOBC.AutoSize = true;
-            this.checkBoxDCOBC.Location = new System.Drawing.Point(16, 43);
-            this.checkBoxDCOBC.Name = "checkBoxDCOBC";
-            this.checkBoxDCOBC.Size = new System.Drawing.Size(85, 17);
-            this.checkBoxDCOBC.TabIndex = 16;
-            this.checkBoxDCOBC.Text = "Brain control";
-            this.checkBoxDCOBC.UseVisualStyleBackColor = true;
-            // 
-            // textBoxDCOOTR
-            // 
-            this.textBoxDCOOTR.Location = new System.Drawing.Point(126, 97);
-            this.textBoxDCOOTR.Name = "textBoxDCOOTR";
-            this.textBoxDCOOTR.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOOTR.TabIndex = 17;
-            // 
-            // textBoxDCOOTT
-            // 
-            this.textBoxDCOOTT.Location = new System.Drawing.Point(126, 153);
-            this.textBoxDCOOTT.Name = "textBoxDCOOTT";
-            this.textBoxDCOOTT.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOOTT.TabIndex = 21;
-            // 
-            // labelDCOOTT
-            // 
-            this.labelDCOOTT.AutoSize = true;
-            this.labelDCOOTT.Location = new System.Drawing.Point(13, 156);
-            this.labelDCOOTT.Name = "labelDCOOTT";
-            this.labelDCOOTT.Size = new System.Drawing.Size(111, 13);
-            this.labelDCOOTT.TabIndex = 20;
-            this.labelDCOOTT.Text = "Outer target thickness";
-            // 
-            // textBoxDCOOTS
-            // 
-            this.textBoxDCOOTS.Location = new System.Drawing.Point(126, 125);
-            this.textBoxDCOOTS.Name = "textBoxDCOOTS";
-            this.textBoxDCOOTS.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOOTS.TabIndex = 19;
-            // 
-            // labelDCOOTS
-            // 
-            this.labelDCOOTS.AutoSize = true;
-            this.labelDCOOTS.Location = new System.Drawing.Point(13, 128);
-            this.labelDCOOTS.Name = "labelDCOOTS";
-            this.labelDCOOTS.Size = new System.Drawing.Size(89, 13);
-            this.labelDCOOTS.TabIndex = 18;
-            this.labelDCOOTS.Text = "Outer target span";
-            // 
-            // textBoxDCOTFMax
-            // 
-            this.textBoxDCOTFMax.Location = new System.Drawing.Point(126, 265);
-            this.textBoxDCOTFMax.Name = "textBoxDCOTFMax";
-            this.textBoxDCOTFMax.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOTFMax.TabIndex = 29;
-            // 
-            // labelDCOTFMax
-            // 
-            this.labelDCOTFMax.AutoSize = true;
-            this.labelDCOTFMax.Location = new System.Drawing.Point(13, 268);
-            this.labelDCOTFMax.Name = "labelDCOTFMax";
-            this.labelDCOTFMax.Size = new System.Drawing.Size(87, 13);
-            this.labelDCOTFMax.TabIndex = 28;
-            this.labelDCOTFMax.Text = "Target force max";
-            // 
-            // textBoxDCOTFMin
-            // 
-            this.textBoxDCOTFMin.Location = new System.Drawing.Point(126, 237);
-            this.textBoxDCOTFMin.Name = "textBoxDCOTFMin";
-            this.textBoxDCOTFMin.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOTFMin.TabIndex = 27;
-            // 
-            // labelDCOTFMin
-            // 
-            this.labelDCOTFMin.AutoSize = true;
-            this.labelDCOTFMin.Location = new System.Drawing.Point(13, 240);
-            this.labelDCOTFMin.Name = "labelDCOTFMin";
-            this.labelDCOTFMin.Size = new System.Drawing.Size(84, 13);
-            this.labelDCOTFMin.TabIndex = 26;
-            this.labelDCOTFMin.Text = "Target force min";
-            // 
-            // textBoxDCOTS
-            // 
-            this.textBoxDCOTS.Location = new System.Drawing.Point(126, 209);
-            this.textBoxDCOTS.Name = "textBoxDCOTS";
-            this.textBoxDCOTS.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOTS.TabIndex = 25;
-            // 
-            // labelDCOTS
-            // 
-            this.labelDCOTS.AutoSize = true;
-            this.labelDCOTS.Location = new System.Drawing.Point(13, 212);
-            this.labelDCOTS.Name = "labelDCOTS";
-            this.labelDCOTS.Size = new System.Drawing.Size(79, 13);
-            this.labelDCOTS.TabIndex = 24;
-            this.labelDCOTS.Text = "Target stiffness";
-            // 
-            // textBoxDCONT
-            // 
-            this.textBoxDCONT.Location = new System.Drawing.Point(126, 181);
-            this.textBoxDCONT.Name = "textBoxDCONT";
-            this.textBoxDCONT.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCONT.TabIndex = 23;
-            // 
-            // labelDCONT
-            // 
-            this.labelDCONT.AutoSize = true;
-            this.labelDCONT.Location = new System.Drawing.Point(13, 184);
-            this.labelDCONT.Name = "labelDCONT";
-            this.labelDCONT.Size = new System.Drawing.Size(91, 13);
-            this.labelDCONT.TabIndex = 22;
-            this.labelDCONT.Text = "Number of targets";
-            // 
-            // groupBoxDCOCont
-            // 
-            this.groupBoxDCOCont.Controls.Add(this.textBoxDCOPF);
-            this.groupBoxDCOCont.Controls.Add(this.labelDCOPF);
-            this.groupBoxDCOCont.Controls.Add(this.textBoxDCOVF);
-            this.groupBoxDCOCont.Controls.Add(this.label358);
-            this.groupBoxDCOCont.Controls.Add(this.textBoxDCOD);
-            this.groupBoxDCOCont.Controls.Add(this.labelDCOD);
-            this.groupBoxDCOCont.Location = new System.Drawing.Point(455, 14);
-            this.groupBoxDCOCont.Name = "groupBoxDCOCont";
-            this.groupBoxDCOCont.Size = new System.Drawing.Size(200, 100);
-            this.groupBoxDCOCont.TabIndex = 5;
-            this.groupBoxDCOCont.TabStop = false;
-            this.groupBoxDCOCont.Text = "Controller parameters";
-            // 
-            // textBoxDCOPF
-            // 
-            this.textBoxDCOPF.Location = new System.Drawing.Point(128, 72);
-            this.textBoxDCOPF.Name = "textBoxDCOPF";
-            this.textBoxDCOPF.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOPF.TabIndex = 25;
-            // 
-            // labelDCOPF
-            // 
-            this.labelDCOPF.AutoSize = true;
-            this.labelDCOPF.Location = new System.Drawing.Point(15, 75);
-            this.labelDCOPF.Name = "labelDCOPF";
-            this.labelDCOPF.Size = new System.Drawing.Size(38, 13);
-            this.labelDCOPF.TabIndex = 24;
-            this.labelDCOPF.Text = "Pos filt";
-            // 
-            // textBoxDCOVF
-            // 
-            this.textBoxDCOVF.Location = new System.Drawing.Point(128, 44);
-            this.textBoxDCOVF.Name = "textBoxDCOVF";
-            this.textBoxDCOVF.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOVF.TabIndex = 23;
-            // 
-            // label358
-            // 
-            this.label358.AutoSize = true;
-            this.label358.Location = new System.Drawing.Point(15, 47);
-            this.label358.Name = "label358";
-            this.label358.Size = new System.Drawing.Size(35, 13);
-            this.label358.TabIndex = 22;
-            this.label358.Text = "Vel filt";
-            // 
-            // textBoxDCOD
-            // 
-            this.textBoxDCOD.Location = new System.Drawing.Point(128, 19);
-            this.textBoxDCOD.Name = "textBoxDCOD";
-            this.textBoxDCOD.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOD.TabIndex = 21;
-            // 
-            // labelDCOD
-            // 
-            this.labelDCOD.AutoSize = true;
-            this.labelDCOD.Location = new System.Drawing.Point(15, 19);
-            this.labelDCOD.Name = "labelDCOD";
-            this.labelDCOD.Size = new System.Drawing.Size(49, 13);
-            this.labelDCOD.TabIndex = 20;
-            this.labelDCOD.Text = "Damping";
+            // textBoxDCOMT
+            // 
+            this.textBoxDCOMT.Location = new System.Drawing.Point(126, 179);
+            this.textBoxDCOMT.Name = "textBoxDCOMT";
+            this.textBoxDCOMT.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOMT.TabIndex = 21;
+            this.textBoxDCOMT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOMT
+            // 
+            this.labelDCOMT.AutoSize = true;
+            this.labelDCOMT.Location = new System.Drawing.Point(6, 182);
+            this.labelDCOMT.Name = "labelDCOMT";
+            this.labelDCOMT.Size = new System.Drawing.Size(79, 13);
+            this.labelDCOMT.TabIndex = 20;
+            this.labelDCOMT.Text = "Movement time";
             // 
             // UpdateForm
             // 
@@ -15229,6 +15269,13 @@ namespace BehaviorGraphics
             this.groupBox74.PerformLayout();
             this.groupBox75.ResumeLayout(false);
             this.groupBox75.PerformLayout();
+            this.tabDynamicCO.ResumeLayout(false);
+            this.groupBoxDCOCont.ResumeLayout(false);
+            this.groupBoxDCOCont.PerformLayout();
+            this.groupBoxDCOT.ResumeLayout(false);
+            this.groupBoxDCOT.PerformLayout();
+            this.groupBoxDCOTime.ResumeLayout(false);
+            this.groupBoxDCOTime.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -15242,13 +15289,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.tabDynamicCO.ResumeLayout(false);
-            this.groupBoxDCOT.ResumeLayout(false);
-            this.groupBoxDCOT.PerformLayout();
-            this.groupBoxDCOTime.ResumeLayout(false);
-            this.groupBoxDCOTime.PerformLayout();
-            this.groupBoxDCOCont.ResumeLayout(false);
-            this.groupBoxDCOCont.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -16575,5 +16615,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label358;
         private System.Windows.Forms.TextBox textBoxDCOD;
         private System.Windows.Forms.Label labelDCOD;
+        private System.Windows.Forms.TextBox textBoxDCOMT;
+        private System.Windows.Forms.Label labelDCOMT;
     }
 }
