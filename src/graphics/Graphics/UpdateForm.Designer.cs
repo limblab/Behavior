@@ -1208,6 +1208,10 @@ namespace BehaviorGraphics
             this.textBoxDCOD = new System.Windows.Forms.TextBox();
             this.labelDCOD = new System.Windows.Forms.Label();
             this.groupBoxDCOT = new System.Windows.Forms.GroupBox();
+            this.textBoxDCOTFW = new System.Windows.Forms.TextBox();
+            this.labelDCOTFW = new System.Windows.Forms.Label();
+            this.textBoxDCONTF = new System.Windows.Forms.TextBox();
+            this.labelDCONTF = new System.Windows.Forms.Label();
             this.textBoxDCOTFMax = new System.Windows.Forms.TextBox();
             this.labelDCOTFMax = new System.Windows.Forms.Label();
             this.textBoxDCOTFMin = new System.Windows.Forms.TextBox();
@@ -1352,10 +1356,6 @@ namespace BehaviorGraphics
             this.label331 = new System.Windows.Forms.Label();
             this.label351 = new System.Windows.Forms.Label();
             this.label356 = new System.Windows.Forms.Label();
-            this.textBoxDCONTF = new System.Windows.Forms.TextBox();
-            this.labelDCONTF = new System.Windows.Forms.Label();
-            this.textBoxDCOTFW = new System.Windows.Forms.TextBox();
-            this.labelDCOTFW = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -13698,6 +13698,42 @@ namespace BehaviorGraphics
             this.groupBoxDCOT.TabStop = false;
             this.groupBoxDCOT.Text = "Cursor and targets";
             // 
+            // textBoxDCOTFW
+            // 
+            this.textBoxDCOTFW.Location = new System.Drawing.Point(126, 315);
+            this.textBoxDCOTFW.Name = "textBoxDCOTFW";
+            this.textBoxDCOTFW.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOTFW.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.textBoxDCOTFW, "+/- ratio of target force");
+            this.textBoxDCOTFW.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOTFW
+            // 
+            this.labelDCOTFW.AutoSize = true;
+            this.labelDCOTFW.Location = new System.Drawing.Point(13, 318);
+            this.labelDCOTFW.Name = "labelDCOTFW";
+            this.labelDCOTFW.Size = new System.Drawing.Size(104, 13);
+            this.labelDCOTFW.TabIndex = 32;
+            this.labelDCOTFW.Text = "Target force window";
+            this.toolTip1.SetToolTip(this.labelDCOTFW, "+/- ratio of target force");
+            // 
+            // textBoxDCONTF
+            // 
+            this.textBoxDCONTF.Location = new System.Drawing.Point(126, 235);
+            this.textBoxDCONTF.Name = "textBoxDCONTF";
+            this.textBoxDCONTF.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCONTF.TabIndex = 31;
+            this.textBoxDCONTF.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCONTF
+            // 
+            this.labelDCONTF.AutoSize = true;
+            this.labelDCONTF.Location = new System.Drawing.Point(13, 237);
+            this.labelDCONTF.Name = "labelDCONTF";
+            this.labelDCONTF.Size = new System.Drawing.Size(91, 13);
+            this.labelDCONTF.TabIndex = 30;
+            this.labelDCONTF.Text = "Num target forces";
+            // 
             // textBoxDCOTFMax
             // 
             this.textBoxDCOTFMax.Location = new System.Drawing.Point(126, 289);
@@ -15012,40 +15048,6 @@ namespace BehaviorGraphics
             this.label356.Size = new System.Drawing.Size(70, 13);
             this.label356.TabIndex = 0;
             this.label356.Text = "Field ramp up";
-            // 
-            // textBoxDCONTF
-            // 
-            this.textBoxDCONTF.Location = new System.Drawing.Point(126, 235);
-            this.textBoxDCONTF.Name = "textBoxDCONTF";
-            this.textBoxDCONTF.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCONTF.TabIndex = 31;
-            // 
-            // labelDCONTF
-            // 
-            this.labelDCONTF.AutoSize = true;
-            this.labelDCONTF.Location = new System.Drawing.Point(13, 237);
-            this.labelDCONTF.Name = "labelDCONTF";
-            this.labelDCONTF.Size = new System.Drawing.Size(91, 13);
-            this.labelDCONTF.TabIndex = 30;
-            this.labelDCONTF.Text = "Num target forces";
-            // 
-            // textBoxDCOTFW
-            // 
-            this.textBoxDCOTFW.Location = new System.Drawing.Point(126, 315);
-            this.textBoxDCOTFW.Name = "textBoxDCOTFW";
-            this.textBoxDCOTFW.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOTFW.TabIndex = 33;
-            this.toolTip1.SetToolTip(this.textBoxDCOTFW, "+/- ratio of target force");
-            // 
-            // labelDCOTFW
-            // 
-            this.labelDCOTFW.AutoSize = true;
-            this.labelDCOTFW.Location = new System.Drawing.Point(13, 318);
-            this.labelDCOTFW.Name = "labelDCOTFW";
-            this.labelDCOTFW.Size = new System.Drawing.Size(104, 13);
-            this.labelDCOTFW.TabIndex = 32;
-            this.labelDCOTFW.Text = "Target force window";
-            this.toolTip1.SetToolTip(this.labelDCOTFW, "+/- ratio of target force");
             // 
             // UpdateForm
             // 

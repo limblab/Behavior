@@ -244,8 +244,12 @@ void DynamicCenterOut::doPreTrial(SimStruct *S) {
     }
 
     i = random->getInteger(0,params->num_target_forces-1);
-    target_force = params->min_target_force +
-            i*(params->max_target_force-params->min_target_force)/(params->num_target_forces-1);
+    if (params->num_target_forces>1){
+        target_force = params->min_target_force +
+                i*(params->max_target_force-params->min_target_force)/(params->num_target_forces-1);
+    } else {
+        target_force = params->min_target_force;
+    }
     
     outerTarget->theta = target_direction;
     
@@ -427,7 +431,6 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
     real_T cursor_red;
     real_T cursor_blue;
     real_T cursor_green;
-    real_T target_force;
     real_T m;
     real_T b_red_1;
     real_T b_red_2;
@@ -509,7 +512,7 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = trialCounter->failures;
 	outputs->status[4] = trialCounter->incompletes; 
- 	
+    
 	/* word (2) */
 	if (db->isRunning()) {
 		outputs->word = db->getByte();

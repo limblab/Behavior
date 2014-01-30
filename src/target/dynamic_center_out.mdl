@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1385"
+    ComputedModelVersion    "1.1386"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -31,7 +31,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, -8.0, 1040.0, 754.0]
+      Location		      [-8.0, -8.0, 1036.0, 754.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -55,9 +55,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[988.0, 578.0]
-	ZoomFactor		[0.8]
-	Offset			[33.58333333333303, 215.38279331479328]
+	Extents			[984.0, 578.0]
+	ZoomFactor		[1.0]
+	Offset			[154.58333333333303, 282.13279331479328]
       }
     }
   }
@@ -67,9 +67,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jan 30 13:25:08 2014"
-  RTWModifiedTimeStamp	  312988953
-  ModelVersionFormat	  "1.%<AutoIncrement:1385>"
+  LastModifiedDate	  "Thu Jan 30 16:39:06 2014"
+  RTWModifiedTimeStamp	  313000745
+  ModelVersionFormat	  "1.%<AutoIncrement:1386>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -966,7 +966,7 @@ Model {
   }
   System {
     Name		    "dynamic_center_out"
-    Location		    [-8, -8, 1032, 746]
+    Location		    [-8, -8, 1028, 746]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -978,7 +978,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "80"
+    ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "387"
     Block {
@@ -990,7 +990,7 @@ Model {
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_dynamic_center_out"
-      Parameters	      "1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0 50 2 4  0 0 0  0 0"
+      Parameters	      "1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0 10 3 2 4 .1  .5 .1 1  0 0"
       EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"
@@ -1685,7 +1685,7 @@ Model {
 	      Ports		      [3, 1]
 	      Position		      [405, 315, 505, 525]
 	      ZOrder		      -12
-	      LibraryVersion	      "1.76"
+	      LibraryVersion	      "1.78"
 	      SourceBlock	      "limblab/SerialConverter"
 	      SourceType	      ""
 	    }
@@ -1706,7 +1706,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [655, 310, 710, 525]
 	      ZOrder		      -14
-	      LibraryVersion	      "1.76"
+	      LibraryVersion	      "1.78"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      ""
 	    }
@@ -1717,7 +1717,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [635, 635, 685, 830]
 	      ZOrder		      -15
-	      LibraryVersion	      "1.76"
+	      LibraryVersion	      "1.78"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      ""
 	    }
