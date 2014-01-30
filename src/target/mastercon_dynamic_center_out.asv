@@ -29,8 +29,8 @@
  * bytes 34 to 37: float    => outer target span (cm)
  * bytes 38 to 41: float    => outer target thickness (cm)
  * bytes 18 to 21: float    => outer target stiffness (N/cm)
- * bytes 22 to 25: float    => min target force (N)
- * bytes 26 to 29: float    => max target force (N)
+ * bytes 22 to 25: float    => target force (N)
+ * bytes 26 to 29: float    => target force range (+/- % of target force)
  * bytes 30 to 33: float    => cursor radius (cm)
  * byte        34: int      => brain control (if 1: yes)
  */
@@ -85,8 +85,10 @@ struct LocalParams{
     real_T outer_target_thickness;
     real_T num_targets;
     real_T target_stiffness;
-    real_T target_force_min;
-    real_T target_force_max;
+    real_T num_target_forces;
+    real_T min_target_force;
+    real_T max_target_force;
+    real_T target_force_window;
     
     // Velocity controller parameters       
     real_T damping;
@@ -119,18 +121,21 @@ private:
 	CircleTarget *centerTarget;	
 	ArcTarget *outerTarget;	
     CircleTarget *cursorTarget;   
+    CircleTarget *miniCursorTarget;
     
 	LocalParams *params;	
 
 	real_T center_hold_time;
 	real_T target_direction;
+    real_T target_force;
     
     Point cursor_velocity;
     Point cursor_velocity_old;
     
     Point cursor_position;
-    Point cursor_position_old;    
+    Point cursor_position_old;
     Point force;
+    real_T spring_force;
     
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
@@ -151,7 +156,7 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(23);
+	this->setNumParams(25);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
 	this->bindParamId(&params->center_hold_low,                         1);
@@ -171,19 +176,21 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->outer_target_thickness,                  13);
 	this->bindParamId(&params->num_targets,                             14);
     this->bindParamId(&params->target_stiffness,                        15);
-	this->bindParamId(&params->target_force_min,                        16);
-	this->bindParamId(&params->target_force_max,                        17);
+	this->bindParamId(&params->num_target_forces,                       16);
+    this->bindParamId(&params->min_target_force,                        17);
+	this->bindParamId(&params->max_target_force,                        18);
+    this->bindParamId(&params->target_force_window,                     19);
     
-	this->bindParamId(&params->damping,                                 18);
-	this->bindParamId(&params->vel_filt,                                19);
-	this->bindParamId(&params->pos_filt,                                20);
+	this->bindParamId(&params->damping,                                 20);
+	this->bindParamId(&params->vel_filt,                                21);
+	this->bindParamId(&params->pos_filt,                                22);
       
-    this->bindParamId(&params->record,                                  21);
-    this->bindParamId(&params->record_for_x_mins,                       22);    
+    this->bindParamId(&params->record,                                  23);
+    this->bindParamId(&params->record_for_x_mins,                       24);    
    
     
     // default parameters:
-    // 1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0 50 2 4  0 0 0  0 0
+    // 1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0 10 3 2 4 .1  .5 .1 1  0 0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -201,15 +208,20 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
     
 	cursorTarget = new CircleTarget();
 	cursorTarget->color = Target::Color(255,255,255);
+    
+    miniCursorTarget = new CircleTarget();
+	miniCursorTarget->color = Target::Color(0,0,255);
 
     center_hold_time = 0.0;
 	target_direction = 0.0;
+    target_force = 0.0;
     
-    cursor_position = Point(0,0);
+    cursor_position = Point(1000,1000);
     cursor_position_old = Point(0,0);
     cursor_velocity = Point(0,0);
     cursor_velocity_old = Point(0,0);
     force = Point(0,0);
+    spring_force = 0;
         
     recordingTimer = new Timer();
     
@@ -224,18 +236,27 @@ void DynamicCenterOut::doPreTrial(SimStruct *S) {
     outerTarget->r = params->outer_target_radius;
     outerTarget->span = params->outer_target_span;
 	outerTarget->height = params->outer_target_thickness;
-    if (num_targets == 0){
+    if (params->num_targets == 0){
         target_direction = random->getDouble(0,2*PI);
     } else {
         i = random->getInteger(0,params->num_targets-1);
         target_direction = fmod(i * 2 * PI/params->num_targets,2*PI);
     }
+
+    i = random->getInteger(0,params->num_target_forces-1);
+    target_force = params->min_target_force +
+            i*(params->max_target_force-params->min_target_force)/(params->num_target_forces-1);
+    
     outerTarget->theta = target_direction;
     
     cursorTarget->centerX = cursor_position.x;
 	cursorTarget->centerY = cursor_position.y;
 	cursorTarget->radius = params->cursor_radius;
     cursorTarget->color = Target::Color(255,255,255);
+    
+    miniCursorTarget->centerX = cursor_position.x;
+	miniCursorTarget->centerY = cursor_position.y;
+	miniCursorTarget->radius = 0.2*params->cursor_radius;
         
 	center_hold_time = this->random->getDouble(params->center_hold_low,params->center_hold_high);
 
@@ -315,7 +336,8 @@ void DynamicCenterOut::update(SimStruct *S) {
                 if (!centerTarget->cursorInTarget(cursor_position)){
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);				
-                } else if (stateTimer->elapsedTime(S) > center_hold_time)){
+                } else if (stateTimer->elapsedTime(S) > center_hold_time){
+                    playTone(TONE_GO);
                     setState(STATE_MOVEMENT);
                 }
             }
@@ -327,20 +349,21 @@ void DynamicCenterOut::update(SimStruct *S) {
                 if (params->movement_time > 0 && 
                         (stateTimer->elapsedTime(S) > params->movement_time)){
                     setState(STATE_FAIL);
-                } else if (outerTarget->cursorInTarget(cursor_position) {
+                } else if (outerTarget->cursorInTarget(cursor_position)){
                     setState(STATE_OT_HOLD);
                 }
             }
             break;        
         case STATE_OT_HOLD:
-            if (~outerTarget->cursorInTarget(cursor_position) {
-                setState(STATE_MOVEMENT);
-            } else {
+            if (spring_force > params->target_force_min &&
+                    spring_force < params->target_force_max){
                 if (stateTimer->elapsedTime(S) > params->outer_hold){
                     playTone(TONE_REWARD);
                     setState(STATE_REWARD);
                 }
-            }                    
+            } else {
+                setState(STATE_MOVEMENT);    
+            }
             break;
         case STATE_REWARD:
             if (stateTimer->elapsedTime(S) > params->reward_wait){
@@ -373,6 +396,8 @@ void DynamicCenterOut::update(SimStruct *S) {
 void DynamicCenterOut::calculateOutputs(SimStruct *S) {   
     cursorTarget->centerX = cursor_position.x;
 	cursorTarget->centerY = cursor_position.y;
+    miniCursorTarget->centerX = cursor_position.x;
+	miniCursorTarget->centerY = cursor_position.y;
     
     if (params->brain_control){
         cursor_position.x = cursor_position_old.x*(1-params->pos_filt) + 
@@ -381,9 +406,9 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
                 inputs->force.y * params->pos_filt; // hacked it to take the neural input through the force port
     } else {
         cursor_position.x = cursor_position_old.x*(1-params->pos_filt) + 
-                inputs->cursor.x * params->pos_filt; // hacked it to take the neural input through the force port
+                inputs->cursor.x * params->pos_filt; 
         cursor_position.y = cursor_position_old.y*(1-params->pos_filt) + 
-                inputs->cursor.y * params->pos_filt; // hacked it to take the neural input through the force port
+                inputs->cursor.y * params->pos_filt; 
     }
     
     cursor_velocity.x = cursor_velocity_old.x*(1-params->vel_filt) +
@@ -400,43 +425,88 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
     real_T distance_cursor_target;
     real_T force_angle;
     real_T cursor_red;
-    real_T cursor_blue_green;
+    real_T cursor_blue;
+    real_T cursor_green;
     real_T target_force;
+    real_T m;
+    real_T b_red_1;
+    real_T b_red_2;
+    real_T b_green; 
+    real_T position_target;
+    real_T min_position_target;
+    real_T max_position_target;
+    real_T distance_cursor_origin;
     
-    distance_cursor_target = params->outer_target_radius -
-            sqrt(cursor_position.x*cursor_position.x + cursor_position.y*cursor_position.y);
+    distance_cursor_origin = sqrt(cursor_position.x*cursor_position.x + cursor_position.y*cursor_position.y);
+    
+    distance_cursor_target = params->outer_target_radius - 
+            0.5*params->outer_target_thickness -
+            distance_cursor_origin;
     force_angle = fmod(atan2(cursor_position.y,cursor_position.x) + PI,2*PI);
-    force_magnitude = params->target_stiffness * distance_cursor_target;
-            
-    force.x = force_magnitude * cos(force_angle) + params->damping*(-cursor_velocity.x);
-    force.y = force_magnitude * sin(force_angle) + params->damping*(-cursor_velocity.y);
+    spring_force = -params->target_stiffness * distance_cursor_target; 
+
+    force.x = spring_force * cos(force_angle) + params->damping*(-cursor_velocity.x);
+    force.y = spring_force * sin(force_angle) + params->damping*(-cursor_velocity.y);
     
     target_force = (params->target_force_min + params->target_force_max)/2;
-    real_T b = -2*255/(params->target_force_max - params->target_force_min);
+    min_position_target = params->target_force_min/params->target_stiffness + 
+            params->outer_target_radius - 
+            0.5*params->outer_target_thickness;
+    max_position_target = params->target_force_max/params->target_stiffness + 
+            params->outer_target_radius - 
+            0.5*params->outer_target_thickness;
+    position_target = (min_position_target + max_position_target)/2;
         
-    if (outerTarget->cursorInTarget(cursor_position){
-        outputs->force = force;    
-        if (force_magnitude > target_force){
-            cursor_red = b * force_magnitude + 
-                2*255*params->target_force_max/(params->target_force_max - params->target_force_min);
-            cursor_red = max(cursor_red,0);
-            cursor_blue_green = 0;
-        } else if (force_magnitude < target_force){
+    m = -255/(max_position_target - position_target);
+    b_red_1 = m * min_position_target;
+    b_red_2 = -m * max_position_target;
+    b_green = -m * position_target;
+//     b_red = 255*(1+position_target/(max_position_target-position_target));
+//     b_blue = 255*position_target/(max_position_target-position_target);    
+        
+    if ((getState()==STATE_MOVEMENT || getState()==STATE_OT_HOLD) && 
+            outerTarget->cursorInTarget(cursor_position)){
+        outputs->force = force;
+        if (distance_cursor_origin < position_target && 
+                distance_cursor_origin > min_position_target){
+            cursor_red = -m*distance_cursor_origin + b_red_1;
+            cursor_green = m*distance_cursor_origin + b_green;
+            cursor_blue = 0;
+        } else if (distance_cursor_origin > position_target){
+            cursor_red = m*distance_cursor_origin + b_red_2;
+            cursor_green = m*distance_cursor_origin + b_green;
+            cursor_blue = 0;
+        } else {
             cursor_red = 255;
-            cursor_blue_green = b * force_magnitude + 
-                2*255*target_force/(params->target_force_max - params->target_force_min);
+            cursor_green = 255;
+            cursor_blue = 255;
+        }
+//         cursor_red = m*distance_cursor_origin + b_red;
+//         cursor_blue = m*distance_cursor_origin + b_blue;
+        
+        
     } else {
         outputs->force = Point(0,0);
         cursor_red = 255;
-        cursor_blue_green = 255;
+        cursor_blue = 255;
+        cursor_green = 255;
     }   
+    cursor_red = (cursor_red>0)?cursor_red:0;
+    cursor_red = (cursor_red<255)?cursor_red:255;
+    cursor_red = (int)cursor_red;
+    cursor_blue = (cursor_blue>0)?cursor_blue:0;
+    cursor_blue = (cursor_blue<255)?cursor_blue:255;
+    cursor_blue = (int)cursor_blue;
+    cursor_green = (cursor_green>0)?cursor_green:0;
+    cursor_green = (cursor_green<255)?cursor_green:255;
+    cursor_green = (int)cursor_green;
 		
 	/* status (1) */
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = trialCounter->failures;
-	outputs->status[4] = trialCounter->incompletes;	    
+	outputs->status[4] = trialCounter->incompletes; 
  	
 	/* word (2) */
 	if (db->isRunning()) {
@@ -478,23 +548,33 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
 	}
 
 	/* targets (3) */
+    cursorTarget->color = Target::Color(cursor_red,cursor_green,cursor_blue);	
+    
 	switch (this->getState()){
 		case STATE_CENTER_TARGET_ON:
-            outputs->targets[0] = (Target *)cursorTarget
-			outputs->targets[1] = (Target *)centerTarget;
-			outputs->targets[2] = nullTarget;            
+            outputs->targets[0] = (Target *)centerTarget;
+			outputs->targets[1] = (Target *)cursorTarget;
+			outputs->targets[2] = nullTarget;        
+            outputs->targets[3] = (Target *)miniCursorTarget;
 			break;
 		case STATE_CT_HOLD: 
+            outputs->targets[0] = (Target *)centerTarget;
+			outputs->targets[1] = (Target *)outerTarget;
+			outputs->targets[2] = (Target *)cursorTarget;
+            outputs->targets[3] = (Target *)miniCursorTarget;
+			break; 
         case STATE_MOVEMENT:
         case STATE_OT_HOLD:
-            outputs->targets[0] = (Target *)cursorTarget
-			outputs->targets[1] = (Target *)centerTarget;
-			outputs->targets[2] = (Target *)outerTarget;
+            outputs->targets[0] = (Target *)outerTarget;
+			outputs->targets[1] = (Target *)cursorTarget;
+			outputs->targets[2] = nullTarget;
+            outputs->targets[3] = (Target *)miniCursorTarget;
 			break;       
 		default:
-            outputs->targets[0] = (Target *)cursorTarget
+            outputs->targets[0] = (Target *)cursorTarget;
 			outputs->targets[1] = nullTarget;
             outputs->targets[2] = nullTarget;
+            outputs->targets[3] = (Target *)miniCursorTarget;
 	}
 
 	/* reward (4) */
@@ -510,10 +590,9 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
 	outputs->version[2] = BEHAVIOR_VERSION_MICRO;
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
     
-    /* position (7) */    
+    /* position (7) (Not using normal cursor with this task) */    
     outputs->position.x = 10000;
-    outputs->position.y = 10000;
-    
+    outputs->position.y = 10000;    
 }
 
 /*

@@ -1048,17 +1048,19 @@ namespace BehaviorGraphics
             AddParamListItem("DCO OTT", "P14", "Behavior DCO", this.textBoxDCOOTT);
             AddParamListItem("DCO NT", "P15", "Behavior DCO", this.textBoxDCONT);
             AddParamListItem("DCO TS", "P16", "Behavior DCO", this.textBoxDCOTS);
-            AddParamListItem("DCO TFMin", "P17", "Behavior DCO", this.textBoxDCOTFMin);
-            AddParamListItem("DCO TFMax", "P18", "Behavior DCO", this.textBoxDCOTFMax);
+            AddParamListItem("DCO NTF", "P17", "Behavior DCO", this.textBoxDCONTF);
+            AddParamListItem("DCO TFMin", "P18", "Behavior DCO", this.textBoxDCOTFMin);
+            AddParamListItem("DCO TFMax", "P19", "Behavior DCO", this.textBoxDCOTFMax);
+            AddParamListItem("DCO TFW", "P20", "Behavior DCO", this.textBoxDCOTFW);
 
             // Controller
-            AddParamListItem("DCO D", "P19", "Behavior DCO", this.textBoxDCOD);
-            AddParamListItem("DCO VF", "P20", "Behavior DCO", this.textBoxDCOVF);
-            AddParamListItem("DCO PF", "P21", "Behavior DCO", this.textBoxDCOPF);
+            AddParamListItem("DCO D", "P21", "Behavior DCO", this.textBoxDCOD);
+            AddParamListItem("DCO VF", "P22", "Behavior DCO", this.textBoxDCOVF);
+            AddParamListItem("DCO PF", "P23", "Behavior DCO", this.textBoxDCOPF);
 
             // Cerebus recording
-            AddParamListItem("DCO SRec", "P22", "Behavior DCO", this.checkBoxRecord);
-            AddParamListItem("DCO RecFor", "P23", "Behavior DCO", this.textBoxRecordFor);
+            AddParamListItem("DCO SRec", "P24", "Behavior DCO", this.checkBoxRecord);
+            AddParamListItem("DCO RecFor", "P25", "Behavior DCO", this.textBoxRecordFor);
             #endregion
         }
 

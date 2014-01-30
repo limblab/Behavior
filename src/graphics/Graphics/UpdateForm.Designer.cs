@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -1228,6 +1228,8 @@ namespace BehaviorGraphics
             this.textBoxDCOCTR = new System.Windows.Forms.TextBox();
             this.labelDCOCTR = new System.Windows.Forms.Label();
             this.groupBoxDCOTime = new System.Windows.Forms.GroupBox();
+            this.textBoxDCOMT = new System.Windows.Forms.TextBox();
+            this.labelDCOMT = new System.Windows.Forms.Label();
             this.textBoxDCOFW = new System.Windows.Forms.TextBox();
             this.labelDCOFW = new System.Windows.Forms.Label();
             this.textBoxDCOCHH = new System.Windows.Forms.TextBox();
@@ -1350,8 +1352,10 @@ namespace BehaviorGraphics
             this.label331 = new System.Windows.Forms.Label();
             this.label351 = new System.Windows.Forms.Label();
             this.label356 = new System.Windows.Forms.Label();
-            this.textBoxDCOMT = new System.Windows.Forms.TextBox();
-            this.labelDCOMT = new System.Windows.Forms.Label();
+            this.textBoxDCONTF = new System.Windows.Forms.TextBox();
+            this.labelDCONTF = new System.Windows.Forms.Label();
+            this.textBoxDCOTFW = new System.Windows.Forms.TextBox();
+            this.labelDCOTFW = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -4362,8 +4366,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5195,8 +5199,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -13664,6 +13668,10 @@ namespace BehaviorGraphics
             // 
             // groupBoxDCOT
             // 
+            this.groupBoxDCOT.Controls.Add(this.textBoxDCOTFW);
+            this.groupBoxDCOT.Controls.Add(this.labelDCOTFW);
+            this.groupBoxDCOT.Controls.Add(this.textBoxDCONTF);
+            this.groupBoxDCOT.Controls.Add(this.labelDCONTF);
             this.groupBoxDCOT.Controls.Add(this.textBoxDCOTFMax);
             this.groupBoxDCOT.Controls.Add(this.labelDCOTFMax);
             this.groupBoxDCOT.Controls.Add(this.textBoxDCOTFMin);
@@ -13685,14 +13693,14 @@ namespace BehaviorGraphics
             this.groupBoxDCOT.Controls.Add(this.labelDCOCTR);
             this.groupBoxDCOT.Location = new System.Drawing.Point(235, 14);
             this.groupBoxDCOT.Name = "groupBoxDCOT";
-            this.groupBoxDCOT.Size = new System.Drawing.Size(200, 329);
+            this.groupBoxDCOT.Size = new System.Drawing.Size(200, 369);
             this.groupBoxDCOT.TabIndex = 4;
             this.groupBoxDCOT.TabStop = false;
             this.groupBoxDCOT.Text = "Cursor and targets";
             // 
             // textBoxDCOTFMax
             // 
-            this.textBoxDCOTFMax.Location = new System.Drawing.Point(126, 265);
+            this.textBoxDCOTFMax.Location = new System.Drawing.Point(126, 289);
             this.textBoxDCOTFMax.Name = "textBoxDCOTFMax";
             this.textBoxDCOTFMax.Size = new System.Drawing.Size(55, 20);
             this.textBoxDCOTFMax.TabIndex = 29;
@@ -13701,7 +13709,7 @@ namespace BehaviorGraphics
             // labelDCOTFMax
             // 
             this.labelDCOTFMax.AutoSize = true;
-            this.labelDCOTFMax.Location = new System.Drawing.Point(13, 268);
+            this.labelDCOTFMax.Location = new System.Drawing.Point(13, 292);
             this.labelDCOTFMax.Name = "labelDCOTFMax";
             this.labelDCOTFMax.Size = new System.Drawing.Size(87, 13);
             this.labelDCOTFMax.TabIndex = 28;
@@ -13709,7 +13717,7 @@ namespace BehaviorGraphics
             // 
             // textBoxDCOTFMin
             // 
-            this.textBoxDCOTFMin.Location = new System.Drawing.Point(126, 237);
+            this.textBoxDCOTFMin.Location = new System.Drawing.Point(126, 261);
             this.textBoxDCOTFMin.Name = "textBoxDCOTFMin";
             this.textBoxDCOTFMin.Size = new System.Drawing.Size(55, 20);
             this.textBoxDCOTFMin.TabIndex = 27;
@@ -13718,7 +13726,7 @@ namespace BehaviorGraphics
             // labelDCOTFMin
             // 
             this.labelDCOTFMin.AutoSize = true;
-            this.labelDCOTFMin.Location = new System.Drawing.Point(13, 240);
+            this.labelDCOTFMin.Location = new System.Drawing.Point(13, 264);
             this.labelDCOTFMin.Name = "labelDCOTFMin";
             this.labelDCOTFMin.Size = new System.Drawing.Size(84, 13);
             this.labelDCOTFMin.TabIndex = 26;
@@ -13726,7 +13734,7 @@ namespace BehaviorGraphics
             // 
             // textBoxDCOTS
             // 
-            this.textBoxDCOTS.Location = new System.Drawing.Point(126, 209);
+            this.textBoxDCOTS.Location = new System.Drawing.Point(126, 207);
             this.textBoxDCOTS.Name = "textBoxDCOTS";
             this.textBoxDCOTS.Size = new System.Drawing.Size(55, 20);
             this.textBoxDCOTS.TabIndex = 25;
@@ -13735,7 +13743,7 @@ namespace BehaviorGraphics
             // labelDCOTS
             // 
             this.labelDCOTS.AutoSize = true;
-            this.labelDCOTS.Location = new System.Drawing.Point(13, 212);
+            this.labelDCOTS.Location = new System.Drawing.Point(13, 210);
             this.labelDCOTS.Name = "labelDCOTS";
             this.labelDCOTS.Size = new System.Drawing.Size(79, 13);
             this.labelDCOTS.TabIndex = 24;
@@ -13876,6 +13884,23 @@ namespace BehaviorGraphics
             this.groupBoxDCOTime.TabIndex = 3;
             this.groupBoxDCOTime.TabStop = false;
             this.groupBoxDCOTime.Text = "Timing";
+            // 
+            // textBoxDCOMT
+            // 
+            this.textBoxDCOMT.Location = new System.Drawing.Point(126, 179);
+            this.textBoxDCOMT.Name = "textBoxDCOMT";
+            this.textBoxDCOMT.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOMT.TabIndex = 21;
+            this.textBoxDCOMT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOMT
+            // 
+            this.labelDCOMT.AutoSize = true;
+            this.labelDCOMT.Location = new System.Drawing.Point(6, 182);
+            this.labelDCOMT.Name = "labelDCOMT";
+            this.labelDCOMT.Size = new System.Drawing.Size(79, 13);
+            this.labelDCOMT.TabIndex = 20;
+            this.labelDCOMT.Text = "Movement time";
             // 
             // textBoxDCOFW
             // 
@@ -14988,22 +15013,39 @@ namespace BehaviorGraphics
             this.label356.TabIndex = 0;
             this.label356.Text = "Field ramp up";
             // 
-            // textBoxDCOMT
+            // textBoxDCONTF
             // 
-            this.textBoxDCOMT.Location = new System.Drawing.Point(126, 179);
-            this.textBoxDCOMT.Name = "textBoxDCOMT";
-            this.textBoxDCOMT.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOMT.TabIndex = 21;
-            this.textBoxDCOMT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.textBoxDCONTF.Location = new System.Drawing.Point(126, 235);
+            this.textBoxDCONTF.Name = "textBoxDCONTF";
+            this.textBoxDCONTF.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCONTF.TabIndex = 31;
             // 
-            // labelDCOMT
+            // labelDCONTF
             // 
-            this.labelDCOMT.AutoSize = true;
-            this.labelDCOMT.Location = new System.Drawing.Point(6, 182);
-            this.labelDCOMT.Name = "labelDCOMT";
-            this.labelDCOMT.Size = new System.Drawing.Size(79, 13);
-            this.labelDCOMT.TabIndex = 20;
-            this.labelDCOMT.Text = "Movement time";
+            this.labelDCONTF.AutoSize = true;
+            this.labelDCONTF.Location = new System.Drawing.Point(13, 237);
+            this.labelDCONTF.Name = "labelDCONTF";
+            this.labelDCONTF.Size = new System.Drawing.Size(91, 13);
+            this.labelDCONTF.TabIndex = 30;
+            this.labelDCONTF.Text = "Num target forces";
+            // 
+            // textBoxDCOTFW
+            // 
+            this.textBoxDCOTFW.Location = new System.Drawing.Point(126, 315);
+            this.textBoxDCOTFW.Name = "textBoxDCOTFW";
+            this.textBoxDCOTFW.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOTFW.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.textBoxDCOTFW, "+/- ratio of target force");
+            // 
+            // labelDCOTFW
+            // 
+            this.labelDCOTFW.AutoSize = true;
+            this.labelDCOTFW.Location = new System.Drawing.Point(13, 318);
+            this.labelDCOTFW.Name = "labelDCOTFW";
+            this.labelDCOTFW.Size = new System.Drawing.Size(104, 13);
+            this.labelDCOTFW.TabIndex = 32;
+            this.labelDCOTFW.Text = "Target force window";
+            this.toolTip1.SetToolTip(this.labelDCOTFW, "+/- ratio of target force");
             // 
             // UpdateForm
             // 
@@ -16617,5 +16659,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelDCOD;
         private System.Windows.Forms.TextBox textBoxDCOMT;
         private System.Windows.Forms.Label labelDCOMT;
+        private System.Windows.Forms.TextBox textBoxDCOTFW;
+        private System.Windows.Forms.Label labelDCOTFW;
+        private System.Windows.Forms.TextBox textBoxDCONTF;
+        private System.Windows.Forms.Label labelDCONTF;
     }
 }
