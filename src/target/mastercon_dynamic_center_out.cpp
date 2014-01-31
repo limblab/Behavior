@@ -536,6 +536,9 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
 			case STATE_MOVEMENT:
 				outputs->word = WORD_MOVEMENT_ONSET;        // 0x80 = 128
                 break;
+            case STATE_OT_HOLD:
+                outputs->word = WORD_OUTER_TARGET_HOLD;     // 0xA1 = 161
+                break;
 			case STATE_REWARD:
 				outputs->word = WORD_REWARD;                // 0x20 = 32
                 break;
