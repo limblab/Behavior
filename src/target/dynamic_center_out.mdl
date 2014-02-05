@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1386"
+    ComputedModelVersion    "1.1387"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -56,8 +56,8 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[984.0, 578.0]
-	ZoomFactor		[1.0]
-	Offset			[154.58333333333303, 282.13279331479328]
+	ZoomFactor		[0.6]
+	Offset			[-16.116599291521652, -46.917206685206622]
       }
     }
   }
@@ -67,9 +67,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jan 30 16:39:06 2014"
-  RTWModifiedTimeStamp	  313000745
-  ModelVersionFormat	  "1.%<AutoIncrement:1386>"
+  LastModifiedDate	  "Wed Feb 05 09:15:13 2014"
+  RTWModifiedTimeStamp	  313492510
+  ModelVersionFormat	  "1.%<AutoIncrement:1387>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -978,7 +978,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "100"
+    ZoomFactor		    "60"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "387"
     Block {
@@ -1162,7 +1162,7 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
-      formatstr		      "'%6.0f state,%6.0f rewards,%6.0f aborts,%6.0f failures,%6.0f bump_ang'"
+      formatstr		      "'%6.0f state,%6.0f rewards,%6.0f aborts,%6.0f failures,%6.0f incompletes'"
       grid		      on
       ylimits		      "[-10,10]"
       nosamples		      "10"

@@ -310,7 +310,7 @@ void DynamicCenterOut::update(SimStruct *S) {
                 recordingTimer->start(S);
             }
             if (stateTimer->elapsedTime(S) > 1.0) {    
-                playTone(TONE_GO);
+                playTone(TONE_ABORT);
                 setState(STATE_CENTER_TARGET_ON);
             }
             break;
@@ -319,7 +319,7 @@ void DynamicCenterOut::update(SimStruct *S) {
                 recordingTimer->stop(S);
             }            
             if (stateTimer->elapsedTime(S) > 1.0){     
-                playTone(TONE_GO);
+                playTone(TONE_ABORT);
                 setState(STATE_INCOMPLETE);
             }
             break;                   
@@ -338,7 +338,7 @@ void DynamicCenterOut::update(SimStruct *S) {
                 setState(STATE_INCOMPLETE);
             } else {
                 if (!centerTarget->cursorInTarget(cursor_position)){
-                    playTone(TONE_ABORT);
+                    playTone(TONE_FAIL);
                     setState(STATE_ABORT);				
                 } else if (stateTimer->elapsedTime(S) > center_hold_time){
                     playTone(TONE_GO);
