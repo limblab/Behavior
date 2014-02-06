@@ -233,7 +233,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	primaryTarget->centerX = params->target_radius*cos((float)this->tgt_angle * PI/180);
 	primaryTarget->centerY = params->target_radius*sin((float)this->tgt_angle * PI/180);
 	
-   
+
 	//select a bump direction orthogonal to the target axis
     
 	this->bump_side = this->random->getInteger(0,1);
@@ -262,15 +262,18 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
     this->bump->peak_magnitude = bumpmag_local;
 	this->bump->rise_time = params->bump_ramp;
 	this->bump->direction = ((double)(this->tgt_angle + this->bump_dir)) * PI/180;
-
+    /* Select whether this will be a stimulation trial */
+    this->stim_trial=(this->random->getDouble() < params->stim_prob);
+	if this->stim_trial{
+		bumpmag_local=0;
+	}
 	//select the actual center hold time
 	ct_hold=(float)this->random->getDouble(0.5,(double)this->params->ct_hold_time);
 
 	// Reset primary target color if needed
 	primaryTarget->color = Target::Color(255, 0, 160);
 	
-    /* Select whether this will be a stimulation trial */
-    this->stim_trial=(this->random->getDouble() < params->stim_prob);
+
 	/* reset the success flag*/
 	success_flag=false;
 
