@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1387"
+    ComputedModelVersion    "1.1388"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -56,8 +56,8 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[984.0, 578.0]
-	ZoomFactor		[0.6]
-	Offset			[-16.116599291521652, -46.917206685206622]
+	ZoomFactor		[0.59999999999999987]
+	Offset			[-16.116599291521879, -46.917206685206736]
       }
     }
   }
@@ -67,9 +67,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Feb 05 09:15:13 2014"
-  RTWModifiedTimeStamp	  313492510
-  ModelVersionFormat	  "1.%<AutoIncrement:1387>"
+  LastModifiedDate	  "Tue Feb 11 15:26:20 2014"
+  RTWModifiedTimeStamp	  314033177
+  ModelVersionFormat	  "1.%<AutoIncrement:1388>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -978,7 +978,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "60"
+    ZoomFactor		    "59"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "387"
     Block {
@@ -990,7 +990,7 @@ Model {
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_dynamic_center_out"
-      Parameters	      "1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0 10 3 2 4 .1  .5 .1 1  0 0"
+      Parameters	      "1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0 10 3 2 4 .1  .5 .1 1  0 0  1"
       EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"

@@ -98,6 +98,9 @@ struct LocalParams{
     // Cerebus recording stuff
     real_T record;
     real_T record_for_x_mins;
+    
+    // More target stuff
+    real_T repeat_target;
 };
 
 /**
@@ -136,6 +139,7 @@ private:
     Point cursor_position_old;
     Point force;
     real_T spring_force;
+    real_T last_trial_reward;
     
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
@@ -156,7 +160,7 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(25);
+	this->setNumParams(26);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
 	this->bindParamId(&params->center_hold_low,                         1);
@@ -187,10 +191,12 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
       
     this->bindParamId(&params->record,                                  23);
     this->bindParamId(&params->record_for_x_mins,                       24);    
+    
+    this->bindParamId(&params->repeat_target,                           25);
    
     
     // default parameters:
-    // 1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0 10 3 2 4 .1  .5 .1 1  0 0
+    // 1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0 10 3 2 4 .1  .5 .1 1  0 0  0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -222,6 +228,7 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
     cursor_velocity_old = Point(0,0);
     force = Point(0,0);
     spring_force = 0;
+    last_trial_reward = 1;
         
     recordingTimer = new Timer();
     
@@ -236,12 +243,15 @@ void DynamicCenterOut::doPreTrial(SimStruct *S) {
     outerTarget->r = params->outer_target_radius;
     outerTarget->span = params->outer_target_span;
 	outerTarget->height = params->outer_target_thickness;
-    if (params->num_targets == 0){
-        target_direction = random->getDouble(0,2*PI);
-    } else {
-        i = random->getInteger(0,params->num_targets-1);
-        target_direction = fmod(i * 2 * PI/params->num_targets,2*PI);
+    if (!params->repeat_target || last_trial_reward){
+        if (params->num_targets == 0){
+            target_direction = random->getDouble(0,2*PI);
+        } else {
+            i = random->getInteger(0,params->num_targets-1);
+            target_direction = fmod(i * 2 * PI/params->num_targets,2*PI);
+        }
     }
+    last_trial_reward = 0;
 
     i = random->getInteger(0,params->num_target_forces-1);
     if (params->num_target_forces>1){
@@ -371,6 +381,7 @@ void DynamicCenterOut::update(SimStruct *S) {
             break;
         case STATE_REWARD:
             if (stateTimer->elapsedTime(S) > params->reward_wait){
+                last_trial_reward = 1;
                 setState(STATE_PRETRIAL);
             }
             break;

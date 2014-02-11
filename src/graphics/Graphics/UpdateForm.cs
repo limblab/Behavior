@@ -1044,7 +1044,7 @@ namespace BehaviorGraphics
             // Targets
             AddParamListItem("DCO CTR", "P11", "Behavior DCO", this.textBoxDCOCTR);
             AddParamListItem("DCO OTR", "P12", "Behavior DCO", this.textBoxDCOOTR);
-            AddParamListItem("DCO OTS", "P13", "Behavior DCO", this.textBoxDCOOTS);
+            AddParamListItem("DCO OTS", "P13", "Behavior DCO", this.angleEntryBoxDCOOTS);
             AddParamListItem("DCO OTT", "P14", "Behavior DCO", this.textBoxDCOOTT);
             AddParamListItem("DCO NT", "P15", "Behavior DCO", this.textBoxDCONT);
             AddParamListItem("DCO TS", "P16", "Behavior DCO", this.textBoxDCOTS);
@@ -1061,6 +1061,9 @@ namespace BehaviorGraphics
             // Cerebus recording
             AddParamListItem("DCO SRec", "P24", "Behavior DCO", this.checkBoxRecord);
             AddParamListItem("DCO RecFor", "P25", "Behavior DCO", this.textBoxRecordFor);
+
+            // More target stuff
+            AddParamListItem("DCO STIF", "P26", "Behavior DCO", this.checkBoxDCOSTIF);
             #endregion
         }
 
@@ -1605,6 +1608,8 @@ namespace BehaviorGraphics
                     paramID = target.GetParamIdx("Behavior AT", "P1");
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior UF", "P1");
+                if (paramID < 0)
+                    paramID = target.GetParamIdx("Behavior DCO", "P1");
 
                 /* send the flag */
                 if (paramID >= 0) {

@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -1222,7 +1222,6 @@ namespace BehaviorGraphics
             this.labelDCONT = new System.Windows.Forms.Label();
             this.textBoxDCOOTT = new System.Windows.Forms.TextBox();
             this.labelDCOOTT = new System.Windows.Forms.Label();
-            this.textBoxDCOOTS = new System.Windows.Forms.TextBox();
             this.labelDCOOTS = new System.Windows.Forms.Label();
             this.textBoxDCOOTR = new System.Windows.Forms.TextBox();
             this.checkBoxDCOBC = new System.Windows.Forms.CheckBox();
@@ -1356,6 +1355,8 @@ namespace BehaviorGraphics
             this.label331 = new System.Windows.Forms.Label();
             this.label351 = new System.Windows.Forms.Label();
             this.label356 = new System.Windows.Forms.Label();
+            this.checkBoxDCOSTIF = new System.Windows.Forms.CheckBox();
+            this.angleEntryBoxDCOOTS = new AngleBox.AngleEntryBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -4366,8 +4367,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5199,8 +5200,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -13668,6 +13669,8 @@ namespace BehaviorGraphics
             // 
             // groupBoxDCOT
             // 
+            this.groupBoxDCOT.Controls.Add(this.angleEntryBoxDCOOTS);
+            this.groupBoxDCOT.Controls.Add(this.checkBoxDCOSTIF);
             this.groupBoxDCOT.Controls.Add(this.textBoxDCOTFW);
             this.groupBoxDCOT.Controls.Add(this.labelDCOTFW);
             this.groupBoxDCOT.Controls.Add(this.textBoxDCONTF);
@@ -13682,7 +13685,6 @@ namespace BehaviorGraphics
             this.groupBoxDCOT.Controls.Add(this.labelDCONT);
             this.groupBoxDCOT.Controls.Add(this.textBoxDCOOTT);
             this.groupBoxDCOT.Controls.Add(this.labelDCOOTT);
-            this.groupBoxDCOT.Controls.Add(this.textBoxDCOOTS);
             this.groupBoxDCOT.Controls.Add(this.labelDCOOTS);
             this.groupBoxDCOT.Controls.Add(this.textBoxDCOOTR);
             this.groupBoxDCOT.Controls.Add(this.checkBoxDCOBC);
@@ -13818,14 +13820,6 @@ namespace BehaviorGraphics
             this.labelDCOOTT.Size = new System.Drawing.Size(111, 13);
             this.labelDCOOTT.TabIndex = 20;
             this.labelDCOOTT.Text = "Outer target thickness";
-            // 
-            // textBoxDCOOTS
-            // 
-            this.textBoxDCOOTS.Location = new System.Drawing.Point(126, 125);
-            this.textBoxDCOOTS.Name = "textBoxDCOOTS";
-            this.textBoxDCOOTS.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOOTS.TabIndex = 19;
-            this.textBoxDCOOTS.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // labelDCOOTS
             // 
@@ -15048,6 +15042,24 @@ namespace BehaviorGraphics
             this.label356.Size = new System.Drawing.Size(70, 13);
             this.label356.TabIndex = 0;
             this.label356.Text = "Field ramp up";
+            // 
+            // checkBoxDCOSTIF
+            // 
+            this.checkBoxDCOSTIF.AutoSize = true;
+            this.checkBoxDCOSTIF.Location = new System.Drawing.Point(16, 346);
+            this.checkBoxDCOSTIF.Name = "checkBoxDCOSTIF";
+            this.checkBoxDCOSTIF.Size = new System.Drawing.Size(107, 17);
+            this.checkBoxDCOSTIF.TabIndex = 34;
+            this.checkBoxDCOSTIF.Text = "Same target if fail";
+            this.checkBoxDCOSTIF.UseVisualStyleBackColor = true;
+            // 
+            // angleEntryBoxDCOOTS
+            // 
+            this.angleEntryBoxDCOOTS.Location = new System.Drawing.Point(126, 125);
+            this.angleEntryBoxDCOOTS.Name = "angleEntryBoxDCOOTS";
+            this.angleEntryBoxDCOOTS.Size = new System.Drawing.Size(68, 21);
+            this.angleEntryBoxDCOOTS.TabIndex = 6;
+            this.angleEntryBoxDCOOTS.Value = 0;
             // 
             // UpdateForm
             // 
@@ -16637,7 +16649,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label356;
         private System.Windows.Forms.TextBox textBoxDCOOTT;
         private System.Windows.Forms.Label labelDCOOTT;
-        private System.Windows.Forms.TextBox textBoxDCOOTS;
         private System.Windows.Forms.Label labelDCOOTS;
         private System.Windows.Forms.TextBox textBoxDCOOTR;
         private System.Windows.Forms.CheckBox checkBoxDCOBC;
@@ -16665,5 +16676,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelDCOTFW;
         private System.Windows.Forms.TextBox textBoxDCONTF;
         private System.Windows.Forms.Label labelDCONTF;
+        private System.Windows.Forms.CheckBox checkBoxDCOSTIF;
+        private AngleBox.AngleEntryBox angleEntryBoxDCOOTS;
     }
 }
