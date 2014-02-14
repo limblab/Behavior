@@ -51,10 +51,11 @@
 #define STATE_WAIT_FOR_DB            1
 #define STATE_CENTER_TARGET_ON		 2
 #define STATE_CT_HOLD				 3
-#define STATE_MOVEMENT               4
-#define STATE_OT_HOLD                5
-#define STATE_START_RECORDING        6
-#define STATE_STOP_RECORDING         7
+#define STATE_OT_ON     			 4
+#define STATE_MOVEMENT               5
+#define STATE_OT_HOLD                6
+#define STATE_START_RECORDING        7
+#define STATE_STOP_RECORDING         8
 
 /* 
  * STATE_REWARD STATE_ABORT STATE_FAIL STATE_INCOMPLETE STATE_DATA_BLOCK 
@@ -350,6 +351,18 @@ void DynamicCenterOut::update(SimStruct *S) {
                 if (!centerTarget->cursorInTarget(cursor_position)){
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);				
+                } else if (stateTimer->elapsedTime(S) > params->center_hold_low){
+                    setState(STATE_OT_ON);
+                }
+            }
+            break;
+        case STATE_OT_ON:
+            if (inputs->catchForce.x) {
+                setState(STATE_INCOMPLETE);
+            } else {
+                if (!centerTarget->cursorInTarget(cursor_position)){
+                    playTone(TONE_ABORT);
+                    setState(STATE_ABORT);				
                 } else if (stateTimer->elapsedTime(S) > center_hold_time){
                     playTone(TONE_GO);
                     setState(STATE_MOVEMENT);
@@ -544,6 +557,9 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
 			case STATE_CT_HOLD:
 				outputs->word = WORD_CENTER_TARGET_HOLD;    // 0xA0 = 160
                 break;			
+            case STATE_OT_ON:
+                outputs->word = WORD_OT_ON(0);
+                break;
 			case STATE_MOVEMENT:
 				outputs->word = WORD_MOVEMENT_ONSET;        // 0x80 = 128
                 break;
@@ -576,7 +592,13 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
 			outputs->targets[2] = nullTarget;        
             outputs->targets[3] = (Target *)miniCursorTarget;
 			break;
-		case STATE_CT_HOLD: 
+        case STATE_CT_HOLD: 
+            outputs->targets[0] = (Target *)centerTarget;
+			outputs->targets[1] = (Target *)cursorTarget;
+			outputs->targets[2] = nullTarget;        
+            outputs->targets[3] = (Target *)miniCursorTarget;
+			break;
+		case STATE_OT_ON: 
             outputs->targets[0] = (Target *)centerTarget;
 			outputs->targets[1] = (Target *)outerTarget;
 			outputs->targets[2] = (Target *)cursorTarget;
