@@ -487,11 +487,21 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
     distance_cursor_target = params->outer_target_radius - 
             0.5*params->outer_target_thickness -
             distance_cursor_origin;
+    
+    int force_on = (distance_cursor_target > 0 )? 0 : 1;
+    
     force_angle = fmod(atan2(cursor_position.y,cursor_position.x) + PI,2*PI);
     spring_force = -target_stiffness * distance_cursor_target; 
 
-    force.x = spring_force * cos(force_angle) + params->damping*(-cursor_velocity.x);
-    force.y = spring_force * sin(force_angle) + params->damping*(-cursor_velocity.y);
+    force.x = force_on*(spring_force * cos(force_angle) +
+            (params->damping*target_stiffness*(-cursor_velocity.x))/10);
+    force.y = force_on*(spring_force * sin(force_angle) +
+            (params->damping*target_stiffness*(-cursor_velocity.y))/10);
+    if (getState()==STATE_MOVEMENT || getState()==STATE_OT_HOLD){
+        outputs->force = force;
+    } else {        
+        outputs->force = Point(0,0);
+    }
     
     target_force_min = target_force*(1-params->target_force_window);
     target_force_max = target_force*(1+params->target_force_window);
@@ -507,13 +517,10 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
     m = -255/(max_position_target - position_target);
     b_red_1 = m * min_position_target;
     b_red_2 = -m * max_position_target;
-    b_green = -m * position_target;
-//     b_red = 255*(1+position_target/(max_position_target-position_target));
-//     b_blue = 255*position_target/(max_position_target-position_target);    
-        
+    b_green = -m * position_target;   
+            
     if ((getState()==STATE_MOVEMENT || getState()==STATE_OT_HOLD) && 
-            outerTarget->cursorInTarget(cursor_position)){
-        outputs->force = force;
+            outerTarget->cursorInTarget(cursor_position)){        
         if (distance_cursor_origin < position_target && 
                 distance_cursor_origin > min_position_target){
             cursor_red = -m*distance_cursor_origin + b_red_1;
@@ -528,10 +535,7 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
             cursor_green = 255;
             cursor_blue = 255;
         }
-//         cursor_red = m*distance_cursor_origin + b_red;
-//         cursor_blue = m*distance_cursor_origin + b_blue;  
     } else {
-        outputs->force = Point(0,0);
         cursor_red = 255;
         cursor_blue = 255;
         cursor_green = 255;
