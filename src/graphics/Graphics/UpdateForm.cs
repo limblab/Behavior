@@ -1047,23 +1047,25 @@ namespace BehaviorGraphics
             AddParamListItem("DCO OTS", "P13", "Behavior DCO", this.angleEntryBoxDCOOTS);
             AddParamListItem("DCO OTT", "P14", "Behavior DCO", this.textBoxDCOOTT);
             AddParamListItem("DCO NT", "P15", "Behavior DCO", this.textBoxDCONT);
-            AddParamListItem("DCO TS", "P16", "Behavior DCO", this.textBoxDCOTS);
-            AddParamListItem("DCO NTF", "P17", "Behavior DCO", this.textBoxDCONTF);
-            AddParamListItem("DCO TFMin", "P18", "Behavior DCO", this.textBoxDCOTFMin);
-            AddParamListItem("DCO TFMax", "P19", "Behavior DCO", this.textBoxDCOTFMax);
-            AddParamListItem("DCO TFW", "P20", "Behavior DCO", this.textBoxDCOTFW);
+            AddParamListItem("DCO NTS", "P16", "Behavior DCO", this.textBoxDCONTS);
+            AddParamListItem("DCO TSMin", "P17", "Behavior DCO", this.textBoxDCOTSMin);
+            AddParamListItem("DCO TSMax", "P18", "Behavior DCO", this.textBoxDCOTSMax);
+            AddParamListItem("DCO NTF", "P19", "Behavior DCO", this.textBoxDCONTF);
+            AddParamListItem("DCO TFMin", "P20", "Behavior DCO", this.textBoxDCOTFMin);
+            AddParamListItem("DCO TFMax", "P21", "Behavior DCO", this.textBoxDCOTFMax);
+            AddParamListItem("DCO TFW", "P22", "Behavior DCO", this.textBoxDCOTFW);
 
             // Controller
-            AddParamListItem("DCO D", "P21", "Behavior DCO", this.textBoxDCOD);
-            AddParamListItem("DCO VF", "P22", "Behavior DCO", this.textBoxDCOVF);
-            AddParamListItem("DCO PF", "P23", "Behavior DCO", this.textBoxDCOPF);
+            AddParamListItem("DCO D", "P23", "Behavior DCO", this.textBoxDCOD);
+            AddParamListItem("DCO VF", "P24", "Behavior DCO", this.textBoxDCOVF);
+            AddParamListItem("DCO PF", "P25", "Behavior DCO", this.textBoxDCOPF);
 
             // Cerebus recording
-            AddParamListItem("DCO SRec", "P24", "Behavior DCO", this.checkBoxRecord);
-            AddParamListItem("DCO RecFor", "P25", "Behavior DCO", this.textBoxRecordFor);
+            AddParamListItem("DCO SRec", "P26", "Behavior DCO", this.checkBoxRecord);
+            AddParamListItem("DCO RecFor", "P27", "Behavior DCO", this.textBoxRecordFor);
 
             // More target stuff
-            AddParamListItem("DCO STIF", "P26", "Behavior DCO", this.checkBoxDCOSTIF);
+            AddParamListItem("DCO STIF", "P28", "Behavior DCO", this.checkBoxDCOSTIF);
             #endregion
         }
 

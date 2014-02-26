@@ -85,7 +85,9 @@ struct LocalParams{
     real_T outer_target_span;
     real_T outer_target_thickness;
     real_T num_targets;
-    real_T target_stiffness;
+    real_T num_target_stiffness;
+    real_T min_target_stiffness;
+    real_T max_target_stiffness;
     real_T num_target_forces;
     real_T min_target_force;
     real_T max_target_force;
@@ -132,6 +134,7 @@ private:
 	real_T center_hold_time;
 	real_T target_direction;
     real_T target_force;
+    real_T target_stiffness;
     
     Point cursor_velocity;
     Point cursor_velocity_old;
@@ -161,7 +164,7 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(26);
+	this->setNumParams(28);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
 	this->bindParamId(&params->center_hold_low,                         1);
@@ -180,24 +183,28 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->outer_target_span,   					12);
 	this->bindParamId(&params->outer_target_thickness,                  13);
 	this->bindParamId(&params->num_targets,                             14);
-    this->bindParamId(&params->target_stiffness,                        15);
-	this->bindParamId(&params->num_target_forces,                       16);
-    this->bindParamId(&params->min_target_force,                        17);
-	this->bindParamId(&params->max_target_force,                        18);
-    this->bindParamId(&params->target_force_window,                     19);
     
-	this->bindParamId(&params->damping,                                 20);
-	this->bindParamId(&params->vel_filt,                                21);
-	this->bindParamId(&params->pos_filt,                                22);
+    this->bindParamId(&params->num_target_stiffness,                    15);
+    this->bindParamId(&params->min_target_stiffness,                    16);
+    this->bindParamId(&params->max_target_stiffness,                    17);    
+	
+	this->bindParamId(&params->num_target_forces,                       18);
+    this->bindParamId(&params->min_target_force,                        19);
+	this->bindParamId(&params->max_target_force,                        20);
+    this->bindParamId(&params->target_force_window,                     21);
+    
+	this->bindParamId(&params->damping,                                 22);
+	this->bindParamId(&params->vel_filt,                                23);
+	this->bindParamId(&params->pos_filt,                                24);
       
-    this->bindParamId(&params->record,                                  23);
-    this->bindParamId(&params->record_for_x_mins,                       24);    
+    this->bindParamId(&params->record,                                  25);
+    this->bindParamId(&params->record_for_x_mins,                       26);    
     
-    this->bindParamId(&params->repeat_target,                           25);
+    this->bindParamId(&params->repeat_target,                           27);
    
     
     // default parameters:
-    // 1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0 10 3 2 4 .1  .5 .1 1  0 0  0
+    // 1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0  3 5 10  3 2 4 .1  .5 .1 1  0 0  0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -222,6 +229,7 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
     center_hold_time = 0.0;
 	target_direction = 0.0;
     target_force = 0.0;
+    target_stiffness = 5;
     
     cursor_position = Point(1000,1000);
     cursor_position_old = Point(0,0);
@@ -262,6 +270,14 @@ void DynamicCenterOut::doPreTrial(SimStruct *S) {
         target_force = params->min_target_force;
     }
     
+    i = random->getInteger(0,params->num_target_stiffness-1);
+    if (params->num_target_stiffness>1){
+        target_stiffness = params->min_target_stiffness +
+                i*(params->max_target_stiffness-params->min_target_stiffness)/(params->num_target_stiffness-1);
+    } else {
+        target_stiffness = params->min_target_stiffness;
+    }
+    
     outerTarget->theta = target_direction;
     
     cursorTarget->centerX = cursor_position.x;
@@ -288,7 +304,7 @@ void DynamicCenterOut::doPreTrial(SimStruct *S) {
     db->addFloat((float)params->outer_target_radius);           // bytes 18 to 21 -> Matlab idx 19 to 22
 	db->addFloat((float)params->outer_target_span);             // bytes 22 to 25 -> Matlab idx 23 to 26
 	db->addFloat((float)params->outer_target_thickness);        // bytes 26 to 29 -> Matlab idx 27 to 30
-	db->addFloat((float)params->target_stiffness);              // bytes 30 to 33 -> Matlab idx 31 to 34
+	db->addFloat((float)target_stiffness);              // bytes 30 to 33 -> Matlab idx 31 to 34
 	db->addFloat((float)target_force);                          // bytes 34 to 37 -> Matlab idx 35 to 38
 	db->addFloat((float)params->target_force_window);           // bytes 38 to 41 -> Matlab idx 39 to 42
     db->addFloat((float)params->cursor_radius);                 // bytes 42 to 45 -> Matlab idx 43 to 46
@@ -472,7 +488,7 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
             0.5*params->outer_target_thickness -
             distance_cursor_origin;
     force_angle = fmod(atan2(cursor_position.y,cursor_position.x) + PI,2*PI);
-    spring_force = -params->target_stiffness * distance_cursor_target; 
+    spring_force = -target_stiffness * distance_cursor_target; 
 
     force.x = spring_force * cos(force_angle) + params->damping*(-cursor_velocity.x);
     force.y = spring_force * sin(force_angle) + params->damping*(-cursor_velocity.y);
@@ -480,10 +496,10 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
     target_force_min = target_force*(1-params->target_force_window);
     target_force_max = target_force*(1+params->target_force_window);
     
-    min_position_target = target_force_min/params->target_stiffness + 
+    min_position_target = target_force_min/target_stiffness + 
             params->outer_target_radius - 
             0.5*params->outer_target_thickness;
-    max_position_target = target_force_max/params->target_stiffness + 
+    max_position_target = target_force_max/target_stiffness + 
             params->outer_target_radius - 
             0.5*params->outer_target_thickness;
     position_target = (min_position_target + max_position_target)/2;
