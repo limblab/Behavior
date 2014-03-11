@@ -45,7 +45,7 @@ Library {
 	LoadSaveID		"0"
 	Extents			[984.0, 586.0]
 	ZoomFactor		[1.0]
-	Offset			[0.0, -7.0]
+	Offset			[11.0, -63.0]
       }
     }
   }
@@ -55,9 +55,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jan 30 13:25:05 2014"
-  RTWModifiedTimeStamp	  312989100
-  ModelVersionFormat	  "1.%<AutoIncrement:78>"
+  LastModifiedDate	  "Tue Mar 11 13:39:26 2014"
+  RTWModifiedTimeStamp	  316445962
+  ModelVersionFormat	  "1.%<AutoIncrement:82>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1014,7 +1014,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "404"
+    SIDHighWatermark	    "410"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
@@ -1388,7 +1388,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 169, 405, 231]
 	      ZOrder		      -3
-	      LibraryVersion	      "1.76"
+	      LibraryVersion	      "1.78"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".1"
@@ -1400,7 +1400,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 254, 405, 316]
 	      ZOrder		      -4
-	      LibraryVersion	      "1.76"
+	      LibraryVersion	      "1.78"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".2"
@@ -1412,7 +1412,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 339, 405, 401]
 	      ZOrder		      -5
-	      LibraryVersion	      "1.76"
+	      LibraryVersion	      "1.78"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".3"
@@ -1424,7 +1424,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 424, 405, 486]
 	      ZOrder		      -6
-	      LibraryVersion	      "1.76"
+	      LibraryVersion	      "1.78"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".4"
@@ -3851,7 +3851,7 @@ Library {
       }
       System {
 	Name			"Neural Position Subsystem"
-	Location		[501, 52, 1047, 480]
+	Location		[-8, -8, 1028, 746]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -5917,7 +5917,7 @@ Library {
 	  Ports			  [2, 1]
 	  Position		  [410, 280, 515, 335]
 	  ZOrder		  -34
-	  LibraryVersion	  "1.76"
+	  LibraryVersion	  "1.78"
 	  SourceBlock		  "limblab/Timer"
 	  SourceType		  "Unknown"
 	  Time			  "10"
@@ -7462,6 +7462,285 @@ Library {
     }
     Block {
       BlockType		      SubSystem
+      Name		      "SendPacketToDecoder"
+      SID		      "405"
+      Ports		      [5]
+      Position		      [730, 179, 820, 281]
+      ZOrder		      16
+      AncestorBlock	      "limblab/SendPacketToGraphics"
+      LibraryVersion	      "*1.78"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"SendPacketToDecoder"
+	Location		[-8, -8, 1028, 746]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	SIDHighWatermark	"419"
+	SIDPrevWatermark	"404"
+	Block {
+	  BlockType		  Inport
+	  Name			  "TargetList"
+	  SID			  "405:28"
+	  Position		  [85, 453, 115, 467]
+	  ZOrder		  -1
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Tone"
+	  SID			  "405:29"
+	  Position		  [100, 163, 130, 177]
+	  ZOrder		  -2
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  PortDimensions	  "[2]"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Position"
+	  SID			  "405:30"
+	  Position		  [100, 253, 130, 267]
+	  ZOrder		  -3
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  PortDimensions	  "[2]"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "TargetCount"
+	  SID			  "405:31"
+	  Position		  [85, 408, 115, 422]
+	  ZOrder		  -4
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	  PortDimensions	  "[1]"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Force"
+	  SID			  "405:406"
+	  Position		  [85, 343, 115, 357]
+	  ZOrder		  2
+	  Port			  "5"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  SID			  "405:32"
+	  Ports			  [1, 2]
+	  Position		  [185, 124, 190, 211]
+	  ZOrder		  -5
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux1"
+	  SID			  "405:33"
+	  Ports			  [1, 2]
+	  Position		  [185, 214, 190, 301]
+	  ZOrder		  -6
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux2"
+	  SID			  "405:405"
+	  Ports			  [1, 2]
+	  Position		  [185, 304, 190, 391]
+	  ZOrder		  1
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "NaN upper bytes"
+	  SID			  "405:34"
+	  Position		  [60, 87, 165, 113]
+	  ZOrder		  -7
+	  Value			  "hex2dec('fff80000')"
+	  OutDataTypeStr	  "uint32"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Pack"
+	  SID			  "405:35"
+	  Ports			  [10, 1]
+	  Position		  [250, 39, 365, 476]
+	  ZOrder		  -8
+	  LibraryVersion	  "1.1718"
+	  SourceBlock		  "xpclib/UDP/Pack"
+	  SourceType		  "xpcany2byte"
+	  datatypes		  "{'uint32','uint32','double','double','double','double','double','double','double','double'}"
+	  byteAlign		  "1"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Packet Spec"
+	  SID			  "405:36"
+	  Position		  [105, 40, 135, 70]
+	  ZOrder		  -9
+	  OutDataTypeStr	  "uint32"
+	}
+	Block {
+	  BlockType		  RateTransition
+	  Name			  "Rate Transition"
+	  SID			  "405:37"
+	  Position		  [410, 194, 465, 236]
+	  ZOrder		  -10
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Send"
+	  SID			  "405:38"
+	  Ports			  [1]
+	  Position		  [510, 190, 590, 240]
+	  ZOrder		  -11
+	  LibraryVersion	  "1.1718"
+	  SourceBlock		  "xpclib/UDP/Send"
+	  SourceType		  "xpcudpbytesend"
+	  ipAddress		  "192.168.0.10"
+	  ipPort		  "24998"
+	  localPort		  "-1"
+	  vblLen		  off
+	  sampletime		  ".02"
+	}
+	Line {
+	  SrcBlock		  "Rate Transition"
+	  SrcPort		  1
+	  DstBlock		  "Send"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Pack"
+	  SrcPort		  1
+	  Points		  [16, 0; 0, -45]
+	  DstBlock		  "Rate Transition"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Tone"
+	  SrcPort		  1
+	  DstBlock		  "Demux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Position"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  DstBlock		  "Pack"
+	  DstPort		  6
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  DstBlock		  "Pack"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "NaN upper bytes"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Packet Spec"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Force"
+	  SrcPort		  1
+	  DstBlock		  "Demux2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  7
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  2
+	  DstBlock		  "Pack"
+	  DstPort		  8
+	}
+	Line {
+	  SrcBlock		  "TargetCount"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  9
+	}
+	Line {
+	  SrcBlock		  "TargetList"
+	  SrcPort		  1
+	  DstBlock		  "Pack"
+	  DstPort		  10
+	}
+	Annotation {
+	  SID			  "405:40"
+	  Name			  "This subsystem packs the information\nto be sent to the Graphics Client.  The\nPacket Spec tells the Grap"
+	  "hics Client\nhow to parse the information.  The\noriginal specification didn't send a version\nnumber; it simply se"
+	  "nt 16 doubles.  To\ndifferentiate the two, I ensure the first\ndouble is NaN.  The packet spec is then\nparsed from"
+	  " inside the NaN's payload."
+	  Position		  [388, 105]
+	  HorizontalAlignment	  "left"
+	}
+	Annotation {
+	  SID			  "405:39"
+	  Name			  "The UDP sends its packets every other cycle\nto a specific IP address and port.  It is not\nbroadcast.  \n"
+	  "\nThe TargetList is a stacked array\nof 5 doubles repeated TargetCount times:\nThe TargetType, the upperleft X,Y po"
+	  "sition\nand the lower right X, Y position."
+	  Position		  [390, 332]
+	  HorizontalAlignment	  "left"
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
       Name		      "SendPacketToGraphics"
       SID		      "27"
       Ports		      [4]
@@ -7476,7 +7755,7 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"SendPacketToGraphics"
-	Location		[16, 52, 811, 1053]
+	Location		[-8, -8, 1028, 746]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -7817,7 +8096,7 @@ Library {
 	  Ports			  [1, 1, 1]
 	  Position		  [390, 414, 490, 456]
 	  ZOrder		  -6
-	  LibraryVersion	  "1.75"
+	  LibraryVersion	  "1.78"
 	  SourceBlock		  "limblab/ResetableSchmidt/Enabled\nSubsystem"
 	  SourceType		  "SubSystem"
 	}

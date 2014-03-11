@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1389"
+    ComputedModelVersion    "1.1393"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -56,8 +56,8 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[984.0, 578.0]
-	ZoomFactor		[0.59999999999999987]
-	Offset			[-16.116599291521879, -46.917206685206736]
+	ZoomFactor		[1.25]
+	Offset			[587.90099385222788, 105.92491567010222]
       }
     }
   }
@@ -65,11 +65,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "ricardo"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Feb 26 14:21:37 2014"
-  RTWModifiedTimeStamp	  315325296
-  ModelVersionFormat	  "1.%<AutoIncrement:1389>"
+  LastModifiedDate	  "Tue Mar 11 13:38:21 2014"
+  RTWModifiedTimeStamp	  316445783
+  ModelVersionFormat	  "1.%<AutoIncrement:1393>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -978,9 +978,9 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "59"
+    ZoomFactor		    "125"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "387"
+    SIDHighWatermark	    "388"
     Block {
       BlockType		      S-Function
       Name		      "Behavior DCO"
@@ -1009,7 +1009,7 @@ Model {
       Ports		      [1, 1]
       Position		      [430, 718, 520, 782]
       ZOrder		      8
-      LibraryVersion	      "1.78"
+      LibraryVersion	      "1.81"
       SourceBlock	      "limblab/BoundingBox"
       SourceType	      "SubSystem"
     }
@@ -1100,7 +1100,7 @@ Model {
       Ports		      [5, 1]
       Position		      [1090, 541, 1280, 849]
       ZOrder		      6
-      LibraryVersion	      "1.78"
+      LibraryVersion	      "1.81"
       SourceBlock	      "limblab/Motor Control"
       SourceType	      "SubSystem"
     }
@@ -1111,7 +1111,7 @@ Model {
       Ports		      [0, 2]
       Position		      [330, 306, 445, 384]
       ZOrder		      12
-      LibraryVersion	      "1.78"
+      LibraryVersion	      "1.81"
       SourceBlock	      "limblab/Neural Position Subsystem"
       SourceType	      "Neural Position Subsystem"
     }
@@ -1122,7 +1122,7 @@ Model {
       Ports		      [3, 2]
       Position		      [720, 593, 840, 747]
       ZOrder		      7
-      LibraryVersion	      "1.78"
+      LibraryVersion	      "1.81"
       SourceBlock	      "limblab/Recentering Subsystem"
       SourceType	      "SubSystem"
     }
@@ -1133,8 +1133,19 @@ Model {
       Ports		      [1, 1]
       Position		      [935, 277, 985, 313]
       ZOrder		      14
-      LibraryVersion	      "1.78"
+      LibraryVersion	      "1.81"
       SourceBlock	      "limblab/RewardSbs"
+      SourceType	      "SubSystem"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "SendPacketToDecoder"
+      SID		      "388"
+      Ports		      [5]
+      Position		      [1255, 154, 1345, 256]
+      ZOrder		      18
+      LibraryVersion	      "1.81"
+      SourceBlock	      "limblab/SendPacketToDecoder"
       SourceType	      "SubSystem"
     }
     Block {
@@ -1144,7 +1155,7 @@ Model {
       Ports		      [4]
       Position		      [1255, 307, 1345, 408]
       ZOrder		      -12
-      LibraryVersion	      "1.78"
+      LibraryVersion	      "1.81"
       SourceBlock	      "limblab/SendPacketToGraphics"
       SourceType	      "SubSystem"
     }
@@ -1195,7 +1206,7 @@ Model {
       Ports		      [2, 1]
       Position		      [345, 590, 455, 650]
       ZOrder		      15
-      LibraryVersion	      "1.78"
+      LibraryVersion	      "1.81"
       SourceBlock	      "limblab/Velocity Calculation"
       SourceType	      "SubSystem"
     }
@@ -1239,7 +1250,7 @@ Model {
       Ports		      [1]
       Position		      [935, 174, 980, 216]
       ZOrder		      13
-      LibraryVersion	      "1.78"
+      LibraryVersion	      "1.81"
       SourceBlock	      "limblab/WordSbs"
       SourceType	      "SubSystem"
     }
@@ -1685,7 +1696,7 @@ Model {
 	      Ports		      [3, 1]
 	      Position		      [405, 315, 505, 525]
 	      ZOrder		      -12
-	      LibraryVersion	      "1.78"
+	      LibraryVersion	      "1.81"
 	      SourceBlock	      "limblab/SerialConverter"
 	      SourceType	      ""
 	    }
@@ -1706,7 +1717,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [655, 310, 710, 525]
 	      ZOrder		      -14
-	      LibraryVersion	      "1.78"
+	      LibraryVersion	      "1.81"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      ""
 	    }
@@ -1717,7 +1728,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [635, 635, 685, 830]
 	      ZOrder		      -15
-	      LibraryVersion	      "1.78"
+	      LibraryVersion	      "1.81"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      ""
 	    }
@@ -3145,9 +3156,17 @@ Model {
     Line {
       SrcBlock		      "Behavior DCO"
       SrcPort		      1
-      Points		      [17, 0; 0, 480]
-      DstBlock		      "Motor Control"
-      DstPort		      1
+      Points		      [17, 0]
+      Branch {
+	Points			[303, 0; 0, 150]
+	DstBlock		"SendPacketToDecoder"
+	DstPort			5
+      }
+      Branch {
+	Points			[0, 480]
+	DstBlock		"Motor Control"
+	DstPort			1
+      }
     }
     Line {
       SrcBlock		      "Behavior DCO"
@@ -3212,15 +3231,31 @@ Model {
     Line {
       SrcBlock		      "Constant"
       SrcPort		      1
-      DstBlock		      "SendPacketToGraphics1"
-      DstPort		      4
+      Points		      [7, 0]
+      Branch {
+	Points			[0, -170]
+	DstBlock		"SendPacketToDecoder"
+	DstPort			4
+      }
+      Branch {
+	DstBlock		"SendPacketToGraphics1"
+	DstPort			4
+      }
     }
     Line {
       SrcBlock		      "Behavior DCO"
       SrcPort		      4
-      Points		      [280, 0; 0, 75]
-      DstBlock		      "SendPacketToGraphics1"
-      DstPort		      1
+      Points		      [280, 0]
+      Branch {
+	Points			[0, 75]
+	DstBlock		"SendPacketToGraphics1"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, -80]
+	DstBlock		"SendPacketToDecoder"
+	DstPort			1
+      }
     }
     Line {
       SrcBlock		      "From"
@@ -3231,8 +3266,16 @@ Model {
     Line {
       SrcBlock		      "Behavior DCO"
       SrcPort		      6
-      DstBlock		      "SendPacketToGraphics1"
-      DstPort		      2
+      Points		      [288, 0]
+      Branch {
+	Points			[0, -160]
+	DstBlock		"SendPacketToDecoder"
+	DstPort			2
+      }
+      Branch {
+	DstBlock		"SendPacketToGraphics1"
+	DstPort			2
+      }
     }
     Line {
       SrcBlock		      "Behavior DCO"
@@ -3243,9 +3286,16 @@ Model {
     Line {
       SrcBlock		      "Behavior DCO"
       SrcPort		      8
-      Points		      [275, 0; 0, -75]
-      DstBlock		      "SendPacketToGraphics1"
-      DstPort		      3
+      Points		      [275, 0; 0, -75; 23, 0]
+      Branch {
+	Points			[0, -165]
+	DstBlock		"SendPacketToDecoder"
+	DstPort			3
+      }
+      Branch {
+	DstBlock		"SendPacketToGraphics1"
+	DstPort			3
+      }
     }
     Line {
       SrcBlock		      "Motor Control"
