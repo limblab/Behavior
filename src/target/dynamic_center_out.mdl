@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1402"
+    ComputedModelVersion    "1.1404"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -79,9 +79,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Mar 14 13:41:13 2014"
-  RTWModifiedTimeStamp	  316698224
-  ModelVersionFormat	  "1.%<AutoIncrement:1402>"
+  LastModifiedDate	  "Fri Apr 04 10:00:31 2014"
+  RTWModifiedTimeStamp	  318506384
+  ModelVersionFormat	  "1.%<AutoIncrement:1404>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -3387,13 +3387,6 @@ Model {
     }
     Line {
       SrcBlock		      "Neural Position Subsystem"
-      SrcPort		      3
-      Points		      [19, 0; 0, 100]
-      DstBlock		      "Data Type Conversion2"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Neural Position Subsystem"
       SrcPort		      4
       Points		      [10, 0; 0, 150]
       DstBlock		      "Data Type Conversion3"
@@ -3410,6 +3403,13 @@ Model {
       SrcPort		      1
       DstBlock		      "Behavior DCO"
       DstPort		      5
+    }
+    Line {
+      SrcBlock		      "Neural Position Subsystem"
+      SrcPort		      3
+      Points		      [20, 0; 0, 100]
+      DstBlock		      "Data Type Conversion2"
+      DstPort		      1
     }
   }
 }
