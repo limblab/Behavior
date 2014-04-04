@@ -19,7 +19,7 @@ Library {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, -8.0, 1036.0, 754.0]
+      Location		      [-8.0, -8.0, 1040.0, 754.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -36,16 +36,28 @@ Library {
 	$ClassName		"Simulink.ExplorerBarInfo"
 	Visible			[1]
       }
-      Object {
-	$PropName		"EditorsInfo"
-	$ObjectID		5
-	$ClassName		"Simulink.EditorInfo"
-	IsActive		[1]
-	ViewObjType		"SimulinkTopLevel"
-	LoadSaveID		"0"
-	Extents			[984.0, 586.0]
-	ZoomFactor		[1.0]
-	Offset			[11.0, -63.0]
+      Array {
+	Type			"Simulink.EditorInfo"
+	Dimension		2
+	Object {
+	  $ObjectID		  5
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkTopLevel"
+	  LoadSaveID		  "0"
+	  Extents		  [988.0, 583.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [-143.25, -8.0]
+	}
+	Object {
+	  $ObjectID		  6
+	  IsActive		  [1]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "24"
+	  Extents		  [988.0, 583.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [0.0, 0.0]
+	}
+	PropName		"EditorsInfo"
       }
     }
   }
@@ -55,9 +67,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Mar 11 13:39:26 2014"
-  RTWModifiedTimeStamp	  316445962
-  ModelVersionFormat	  "1.%<AutoIncrement:82>"
+  LastModifiedDate	  "Fri Mar 14 13:40:49 2014"
+  RTWModifiedTimeStamp	  316704399
+  ModelVersionFormat	  "1.%<AutoIncrement:88>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -125,13 +137,13 @@ Library {
     Type		    "Handle"
     Dimension		    1
     Simulink.ConfigSet {
-      $ObjectID		      6
+      $ObjectID		      7
       Version		      "1.12.1"
       Array {
 	Type			"Handle"
 	Dimension		8
 	Simulink.SolverCC {
-	  $ObjectID		  7
+	  $ObjectID		  8
 	  Version		  "1.12.1"
 	  StartTime		  "0.0"
 	  StopTime		  "10.0"
@@ -166,7 +178,7 @@ Library {
 	  InsertRTBMode		  "Whenever possible"
 	}
 	Simulink.DataIOCC {
-	  $ObjectID		  8
+	  $ObjectID		  9
 	  Version		  "1.12.1"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
@@ -198,7 +210,7 @@ Library {
 	  Refine		  "1"
 	}
 	Simulink.OptimizationCC {
-	  $ObjectID		  9
+	  $ObjectID		  10
 	  Version		  "1.12.1"
 	  Array {
 	    Type		    "Cell"
@@ -254,7 +266,7 @@ Library {
 	  ParallelExecutionInRapidAccelerator on
 	}
 	Simulink.DebuggingCC {
-	  $ObjectID		  10
+	  $ObjectID		  11
 	  Version		  "1.12.1"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
@@ -344,7 +356,7 @@ Library {
 	  SFTransitionActionBeforeConditionDiag	"warning"
 	}
 	Simulink.HardwareCC {
-	  $ObjectID		  11
+	  $ObjectID		  12
 	  Version		  "1.12.1"
 	  ProdBitPerChar	  8
 	  ProdBitPerShort	  16
@@ -381,7 +393,7 @@ Library {
 	  ProdEqTarget		  on
 	}
 	Simulink.ModelReferenceCC {
-	  $ObjectID		  12
+	  $ObjectID		  13
 	  Version		  "1.12.1"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
 	  CheckModelReferenceTargetMessage "error"
@@ -396,7 +408,7 @@ Library {
 	  SupportModelReferenceSimTargetCustomCode off
 	}
 	Simulink.SFSimCC {
-	  $ObjectID		  13
+	  $ObjectID		  14
 	  Version		  "1.12.1"
 	  SFSimEnableDebug	  on
 	  SFSimOverflowDetection  on
@@ -411,7 +423,7 @@ Library {
 	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
-	  $ObjectID		  14
+	  $ObjectID		  15
 	  Version		  "1.12.1"
 	  Array {
 	    Type		    "Cell"
@@ -480,7 +492,7 @@ Library {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
-	      $ObjectID		      15
+	      $ObjectID		      16
 	      Version		      "1.12.1"
 	      Array {
 		Type			"Cell"
@@ -548,7 +560,7 @@ Library {
 	    }
 	    Simulink.GRTTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
-	      $ObjectID		      16
+	      $ObjectID		      17
 	      Version		      "1.12.1"
 	      Array {
 		Type			"Cell"
@@ -1000,7 +1012,7 @@ Library {
   }
   System {
     Name		    "limblab"
-    Location		    [-8, -8, 1028, 746]
+    Location		    [-8, -8, 1032, 746]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1014,7 +1026,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "410"
+    SIDHighWatermark	    "414"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
@@ -1388,7 +1400,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 169, 405, 231]
 	      ZOrder		      -3
-	      LibraryVersion	      "1.78"
+	      LibraryVersion	      "1.82"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".1"
@@ -1400,7 +1412,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 254, 405, 316]
 	      ZOrder		      -4
-	      LibraryVersion	      "1.78"
+	      LibraryVersion	      "1.82"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".2"
@@ -1412,7 +1424,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 339, 405, 401]
 	      ZOrder		      -5
-	      LibraryVersion	      "1.78"
+	      LibraryVersion	      "1.82"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".3"
@@ -1424,7 +1436,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 424, 405, 486]
 	      ZOrder		      -6
-	      LibraryVersion	      "1.78"
+	      LibraryVersion	      "1.82"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".4"
@@ -2066,7 +2078,7 @@ Library {
       MaskHideContents	      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		17
+	$ObjectID		18
 	$ClassName		"Simulink.Mask"
 	Type			"Lorentz attractor"
 	Description		"Creats chaotic oscelations using a lorentz attractor algorithm."
@@ -2076,7 +2088,7 @@ Library {
 	Display			"port_label('output', 1, 'Out')"
 	Object {
 	  $PropName		  "Parameters"
-	  $ObjectID		  18
+	  $ObjectID		  19
 	  $ClassName		  "Simulink.MaskParameter"
 	  Type			  "edit"
 	  Name			  "y0"
@@ -3055,7 +3067,7 @@ Library {
 	  MaskHideContents	  off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    19
+	    $ObjectID		    20
 	    $ClassName		    "Simulink.Mask"
 	    Type		    "Schmidt Trigger"
 	    Description		    "Creates an output pulse of the specified time in seconds when trig goes high"
@@ -3063,7 +3075,7 @@ Library {
 	    Display		    "port_label('output',1,'out')\nport_label('input',1,'trig')\nfprintf('t = %d',Time)"
 	    Object {
 	      $PropName		      "Parameters"
-	      $ObjectID		      20
+	      $ObjectID		      21
 	      $ClassName	      "Simulink.MaskParameter"
 	      Type		      "edit"
 	      Name		      "Time"
@@ -3830,7 +3842,7 @@ Library {
       BlockType		      SubSystem
       Name		      "Neural Position Subsystem"
       SID		      "24"
-      Ports		      [0, 2]
+      Ports		      [0, 4]
       Position		      [290, 21, 405, 99]
       ZOrder		      -2
       MinAlgLoopOccurrences   off
@@ -3843,16 +3855,17 @@ Library {
       MaskHideContents	      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		21
+	$ObjectID		22
 	$ClassName		"Simulink.Mask"
 	Type			"Neural Position Subsystem"
 	Description		"Uses a UDP receive block to receive and parse the sent neural position from the real time system."
-	Display			"port_label('output',1,'pos')\nport_label('output',2,'catch trial flag')"
+	Display			"port_label('output',1,'pos')\nport_label('output',2,'catch trial flag')\nport_label('output',3,'extra 1')\n"
+	"port_label('output',4,'extra 2')"
       }
       System {
 	Name			"Neural Position Subsystem"
-	Location		[-8, -8, 1028, 746]
-	Open			off
+	Location		[-8, -8, 1032, 746]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -3868,11 +3881,12 @@ Library {
 	  BlockType		  Demux
 	  Name			  "Demux"
 	  SID			  "65"
-	  Ports			  [1, 4]
-	  Position		  [235, 61, 240, 179]
+	  Ports			  [1, 8]
+	  Position		  [235, 63, 240, 297]
 	  ZOrder		  -1
 	  BackgroundColor	  "black"
 	  ShowName		  off
+	  Outputs		  "8"
 	  DisplayOption		  "bar"
 	  Port {
 	    PortNumber		    1
@@ -3908,6 +3922,28 @@ Library {
 	  DisplayOption		  "bar"
 	}
 	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  SID			  "411"
+	  Ports			  [2, 1]
+	  Position		  [270, 180, 275, 240]
+	  ZOrder		  1
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux2"
+	  SID			  "412"
+	  Ports			  [2, 1]
+	  Position		  [270, 240, 275, 300]
+	  ZOrder		  2
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
 	  BlockType		  Reference
 	  Name			  "Receive"
 	  SID			  "67"
@@ -3919,8 +3955,8 @@ Library {
 	  SourceType		  "xpcudpbytereceive"
 	  ipAddress		  "0.0.0.0"
 	  ipPort		  "24999"
-	  width			  "16"
-	  vblLen		  off
+	  width			  "32"
+	  vblLen		  on
 	  sampletime		  "0.001"
 	}
 	Block {
@@ -3951,7 +3987,7 @@ Library {
 	  LibraryVersion	  "1.1718"
 	  SourceBlock		  "xpclib/UDP/Unpack"
 	  SourceType		  "xpcbyte2any"
-	  dimensions		  "{[1,4]}"
+	  dimensions		  "{[1,8]}"
 	  datatypes		  "{'single'}"
 	  byteAlign		  "1"
 	}
@@ -3972,9 +4008,28 @@ Library {
 	  Port			  "2"
 	  IconDisplay		  "Port number"
 	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "shoulder"
+	  SID			  "413"
+	  Position		  [370, 203, 400, 217]
+	  ZOrder		  3
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "elbow"
+	  SID			  "414"
+	  Position		  [370, 263, 400, 277]
+	  ZOrder		  4
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
 	Line {
 	  SrcBlock		  "Demux"
 	  SrcPort		  2
+	  Points		  [0, 0]
 	  DstBlock		  "catch trial flag"
 	  DstPort		  1
 	}
@@ -3989,14 +4044,16 @@ Library {
 	  Labels		  [-1, 1]
 	  SrcBlock		  "Demux"
 	  SrcPort		  4
+	  Points		  [0, 0]
 	  DstBlock		  "Mux"
 	  DstPort		  2
 	}
 	Line {
 	  Name			  "x"
-	  Labels		  [1, 0]
+	  Labels		  [2, 0]
 	  SrcBlock		  "Demux"
 	  SrcPort		  3
+	  Points		  [0, 0]
 	  DstBlock		  "Mux"
 	  DstPort		  1
 	}
@@ -4005,12 +4062,14 @@ Library {
 	  Labels		  [0, 1]
 	  SrcBlock		  "Demux"
 	  SrcPort		  1
+	  Points		  [0, 0]
 	  DstBlock		  "Terminator1"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Unpack"
 	  SrcPort		  1
+	  Points		  [10, 0]
 	  DstBlock		  "Demux"
 	  DstPort		  1
 	}
@@ -4024,6 +4083,42 @@ Library {
 	  SrcBlock		  "Receive"
 	  SrcPort		  1
 	  DstBlock		  "Unpack"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  5
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  6
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  7
+	  DstBlock		  "Mux2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  8
+	  DstBlock		  "Mux2"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "shoulder"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux2"
+	  SrcPort		  1
+	  DstBlock		  "elbow"
 	  DstPort		  1
 	}
       }
@@ -4923,7 +5018,7 @@ Library {
 	  MaskHideContents	  off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    22
+	    $ObjectID		    23
 	    $ClassName		    "Simulink.Mask"
 	    Type		    "Schmidt Trigger"
 	    Description		    "Creates an output pulse of the specified time in seconds when trig goes high"
@@ -4931,7 +5026,7 @@ Library {
 	    Display		    "port_label('output',1,'out')\nport_label('input',1,'trig')\nfprintf('t = %d',Time)"
 	    Object {
 	      $PropName		      "Parameters"
-	      $ObjectID		      23
+	      $ObjectID		      24
 	      $ClassName	      "Simulink.MaskParameter"
 	      Type		      "edit"
 	      Name		      "Time"
@@ -5245,7 +5340,7 @@ Library {
 	  MaskHideContents	  off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    24
+	    $ObjectID		    25
 	    $ClassName		    "Simulink.Mask"
 	    Type		    "Schmidt Trigger"
 	    Description		    "Creates an output pulse of the specified time in seconds when trig goes high"
@@ -5253,7 +5348,7 @@ Library {
 	    Display		    "port_label('output',1,'out')\nport_label('input',1,'trig')\nfprintf('t = %d',Time)"
 	    Object {
 	      $PropName		      "Parameters"
-	      $ObjectID		      25
+	      $ObjectID		      26
 	      $ClassName	      "Simulink.MaskParameter"
 	      Type		      "edit"
 	      Name		      "Time"
@@ -5567,7 +5662,7 @@ Library {
 	  MaskHideContents	  off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    26
+	    $ObjectID		    27
 	    $ClassName		    "Simulink.Mask"
 	    Type		    "Schmidt Trigger"
 	    Description		    "Creates an output pulse of the specified time in seconds when trig goes high"
@@ -5575,7 +5670,7 @@ Library {
 	    Display		    "port_label('output',1,'out')\nport_label('input',1,'trig')\nfprintf('t = %d',Time)"
 	    Object {
 	      $PropName		      "Parameters"
-	      $ObjectID		      27
+	      $ObjectID		      28
 	      $ClassName	      "Simulink.MaskParameter"
 	      Type		      "edit"
 	      Name		      "Time"
@@ -5917,9 +6012,9 @@ Library {
 	  Ports			  [2, 1]
 	  Position		  [410, 280, 515, 335]
 	  ZOrder		  -34
-	  LibraryVersion	  "1.78"
+	  LibraryVersion	  "1.82"
 	  SourceBlock		  "limblab/Timer"
-	  SourceType		  "Unknown"
+	  SourceType		  ""
 	  Time			  "10"
 	}
 	Block {
@@ -6439,11 +6534,11 @@ Library {
       MaskHideContents	      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		28
+	$ObjectID		29
 	$ClassName		"Simulink.Mask"
 	Object {
 	  $PropName		  "Parameters"
-	  $ObjectID		  29
+	  $ObjectID		  30
 	  $ClassName		  "Simulink.MaskParameter"
 	  Type			  "edit"
 	  Name			  "Time"
@@ -7155,7 +7250,7 @@ Library {
       MaskHideContents	      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		30
+	$ObjectID		31
 	$ClassName		"Simulink.Mask"
 	Type			"Schmidt Trigger"
 	Description		"Creates an output pulse of the specified time in seconds when trig goes high"
@@ -7163,7 +7258,7 @@ Library {
 	Display			"port_label('output',1,'out')\nport_label('input',1,'trig')\nfprintf('t = %.2f',Time)"
 	Object {
 	  $PropName		  "Parameters"
-	  $ObjectID		  31
+	  $ObjectID		  32
 	  $ClassName		  "Simulink.MaskParameter"
 	  Type			  "edit"
 	  Name			  "Time"
@@ -7985,7 +8080,7 @@ Library {
       EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		32
+	$ObjectID		33
 	$ClassName		"Simulink.Mask"
 	Display			"port_label('output', 1, 'Byte Out')\nport_label('input', 1, 'index')\nport_label('input', 2, 'sh')\nport_l"
 	"abel('input', 3, 'el')"
@@ -8007,13 +8102,13 @@ Library {
       MaskHideContents	      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		33
+	$ObjectID		34
 	$ClassName		"Simulink.Mask"
 	Display			"port_label('output',1,'out')\nport_label('input',1,'start')\nport_label('input',2,'reset')\nfprintf('t = %"
 	".2f',Time)"
 	Object {
 	  $PropName		  "Parameters"
-	  $ObjectID		  34
+	  $ObjectID		  35
 	  $ClassName		  "Simulink.MaskParameter"
 	  Type			  "edit"
 	  Name			  "Time"
@@ -8096,7 +8191,7 @@ Library {
 	  Ports			  [1, 1, 1]
 	  Position		  [390, 414, 490, 456]
 	  ZOrder		  -6
-	  LibraryVersion	  "1.78"
+	  LibraryVersion	  "1.82"
 	  SourceBlock		  "limblab/ResetableSchmidt/Enabled\nSubsystem"
 	  SourceType		  "SubSystem"
 	}
@@ -8366,7 +8461,7 @@ Library {
       EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		35
+	$ObjectID		36
 	$ClassName		"Simulink.Mask"
 	Display			"port_label('input', 1, 'u')\nport_label('output', 1, 'y0')\nport_label('output', 2, 'y1')\nport_label('out"
 	"put', 3, 'y2')\nport_label('output', 4, 'y3')\nport_label('output', 5, 'y4')\nport_label('output', 6, 'y5')\nport_lab"

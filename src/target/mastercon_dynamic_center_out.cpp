@@ -128,6 +128,8 @@ private:
 	ArcTarget *outerTarget;	
     CircleTarget *cursorTarget;   
     CircleTarget *miniCursorTarget;
+    CircleTarget *lowerArm[5];
+    CircleTarget *upperArm[5];    
     
 	LocalParams *params;	
 
@@ -144,6 +146,9 @@ private:
     Point force;
     real_T spring_force;
     real_T last_trial_reward;
+    
+    Point shoulder_pos;
+    Point elbow_pos;
     
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
@@ -225,6 +230,13 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
     
     miniCursorTarget = new CircleTarget();
 	miniCursorTarget->color = Target::Color(0,0,255);
+    
+    for (i=0; i<5; i++) {
+		lowerArm[i] = new CircleTarget(0,0,.5,0);
+        lowerArm[i]->color = Target::Color(127,127,127);
+        upperArm[i] = new CircleTarget(0,0,.5,0);
+        upperArm[i]->color = Target::Color(127,127,127);
+	}
 
     center_hold_time = 0.0;
 	target_direction = 0.0;
@@ -238,6 +250,9 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
     force = Point(0,0);
     spring_force = 0;
     last_trial_reward = 1;
+    
+    shoulder_pos = Point(0,0);
+    elbow_pos = Point(0,0);
         
     recordingTimer = new Timer();
     
@@ -448,12 +463,28 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
                 inputs->force.x * params->pos_filt; // hacked it to take the neural input through the force port
         cursor_position.y = cursor_position_old.y*(1-params->pos_filt) + 
                 inputs->force.y * params->pos_filt; // hacked it to take the neural input through the force port
+        
+        shoulder_pos = inputs->extra1;
+        elbow_pos = inputs->extra2;
+        
+        Point upper_arm_length;
+        Point lower_arm_length;
+        
+        upper_arm_length = shoulder_pos - elbow_pos;
+        lower_arm_length = elbow_pos - cursor_position;
+        
+        for(i=0; i<5 ; i++){
+            upperArm[i]->centerX = shoulder_pos.x - i*upper_arm_length.x/5;
+            upperArm[i]->centerY = shoulder_pos.y - i*upper_arm_length.y/5;
+            lowerArm[i]->centerX = elbow_pos.x - i*lower_arm_length.x/5;
+            lowerArm[i]->centerY = elbow_pos.y - i*lower_arm_length.y/5;
+        }
     } else {
         cursor_position.x = cursor_position_old.x*(1-params->pos_filt) + 
                 inputs->cursor.x * params->pos_filt; 
         cursor_position.y = cursor_position_old.y*(1-params->pos_filt) + 
                 inputs->cursor.y * params->pos_filt; 
-    }
+    }                    
     
     cursor_velocity.x = cursor_velocity_old.x*(1-params->vel_filt) +
         ((cursor_position.x-cursor_position_old.x)/.001)*params->vel_filt;
@@ -555,7 +586,7 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = trialCounter->failures;
-	outputs->status[4] = trialCounter->incompletes; 
+	outputs->status[4] = trialCounter->incompletes;  
     
 	/* word (2) */
 	if (db->isRunning()) {
@@ -637,6 +668,17 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
             outputs->targets[2] = nullTarget;
             outputs->targets[3] = (Target *)miniCursorTarget;
 	}
+    if (params->brain_control){
+        for(i=0;i<5;i++){
+            outputs->targets[4+i] = upperArm[i];
+            outputs->targets[9+i] = lowerArm[i];
+        }
+    } else {
+        for(i=0;i<5;i++){
+            outputs->targets[4+i] = nullTarget;
+            outputs->targets[9+i] = nullTarget;
+        }
+    }            
 
 	/* reward (4) */
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD));

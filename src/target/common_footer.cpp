@@ -28,21 +28,27 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetNumDiscStates(S, 0);
     
     /*
-     * Block has 4 input ports
+     * Block has 6 input ports
      *      input port 0: (position) of width 2 (x, y)
      *      input port 1: (position offset) of width 2 (x, y)
      *      input port 2: (force) of width 2 (x, y)
      *      input port 3: (catch force) of width 2 (x, y)
+     *      input port 4: (extra 1) of width 2 (x, y)
+     *      input port 5: (extra 2) of width 2 (x, y)
      */
-    if (!ssSetNumInputPorts(S, 4)) return;
+    if (!ssSetNumInputPorts(S, 6)) return;
     ssSetInputPortWidth(S, 0, 2); /* x & y position */
     ssSetInputPortWidth(S, 1, 2); /* x & y position offsets */
     ssSetInputPortWidth(S, 2, 2); /* main force */
     ssSetInputPortWidth(S, 3, 2); /* catch trial force */
+    ssSetInputPortWidth(S, 4, 2); /* extra 1 */
+    ssSetInputPortWidth(S, 5, 2); /* extra 2 */
     ssSetInputPortDirectFeedThrough(S, 0, 1);
     ssSetInputPortDirectFeedThrough(S, 1, 1);
     ssSetInputPortDirectFeedThrough(S, 2, 1);
     ssSetInputPortDirectFeedThrough(S, 3, 1);
+    ssSetInputPortDirectFeedThrough(S, 4, 1);
+    ssSetInputPortDirectFeedThrough(S, 5, 1);
     
     /* 
      * Block has 8 output ports (force, status, word, targets, reward, tone, version, pos) of widths:

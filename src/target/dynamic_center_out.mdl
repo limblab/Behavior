@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1393"
+    ComputedModelVersion    "1.1402"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -48,16 +48,28 @@ Model {
 	$ClassName		"Simulink.ExplorerBarInfo"
 	Visible			[1]
       }
-      Object {
-	$PropName		"EditorsInfo"
-	$ObjectID		5
-	$ClassName		"Simulink.EditorInfo"
-	IsActive		[1]
-	ViewObjType		"SimulinkTopLevel"
-	LoadSaveID		"0"
-	Extents			[984.0, 578.0]
-	ZoomFactor		[1.25]
-	Offset			[587.90099385222788, 105.92491567010222]
+      Array {
+	Type			"Simulink.EditorInfo"
+	Dimension		2
+	Object {
+	  $ObjectID		  5
+	  IsActive		  [1]
+	  ViewObjType		  "SimulinkTopLevel"
+	  LoadSaveID		  "0"
+	  Extents		  [984.0, 575.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [56.0, 46.0]
+	}
+	Object {
+	  $ObjectID		  6
+	  IsActive		  [0]
+	  ViewObjType		  "SimulinkSubsys"
+	  LoadSaveID		  "389"
+	  Extents		  [984.0, 575.0]
+	  ZoomFactor		  [1.0]
+	  Offset		  [-309.5, -167.5]
+	}
+	PropName		"EditorsInfo"
       }
     }
   }
@@ -67,9 +79,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Mar 11 13:38:21 2014"
-  RTWModifiedTimeStamp	  316445783
-  ModelVersionFormat	  "1.%<AutoIncrement:1393>"
+  LastModifiedDate	  "Fri Mar 14 13:41:13 2014"
+  RTWModifiedTimeStamp	  316698224
+  ModelVersionFormat	  "1.%<AutoIncrement:1402>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -104,7 +116,7 @@ Model {
   TryForcingSFcnDF	  off
   Object {
     $PropName		    "DataLoggingOverride"
-    $ObjectID		    6
+    $ObjectID		    7
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "dynamic_center_out"
     Array {
@@ -162,13 +174,13 @@ Model {
     Type		    "Handle"
     Dimension		    1
     Simulink.ConfigSet {
-      $ObjectID		      7
+      $ObjectID		      8
       Version		      "1.12.1"
       Array {
 	Type			"Handle"
 	Dimension		8
 	Simulink.SolverCC {
-	  $ObjectID		  8
+	  $ObjectID		  9
 	  Version		  "1.12.1"
 	  StartTime		  "0.0"
 	  StopTime		  "Inf"
@@ -203,7 +215,7 @@ Model {
 	  InsertRTBMode		  "Whenever possible"
 	}
 	Simulink.DataIOCC {
-	  $ObjectID		  9
+	  $ObjectID		  10
 	  Version		  "1.12.1"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
@@ -235,7 +247,7 @@ Model {
 	  Refine		  "1"
 	}
 	Simulink.OptimizationCC {
-	  $ObjectID		  10
+	  $ObjectID		  11
 	  Version		  "1.12.1"
 	  Array {
 	    Type		    "Cell"
@@ -291,7 +303,7 @@ Model {
 	  ParallelExecutionInRapidAccelerator on
 	}
 	Simulink.DebuggingCC {
-	  $ObjectID		  11
+	  $ObjectID		  12
 	  Version		  "1.12.1"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
@@ -381,7 +393,7 @@ Model {
 	  SFTransitionActionBeforeConditionDiag	"warning"
 	}
 	Simulink.HardwareCC {
-	  $ObjectID		  12
+	  $ObjectID		  13
 	  Version		  "1.12.1"
 	  ProdBitPerChar	  8
 	  ProdBitPerShort	  16
@@ -418,7 +430,7 @@ Model {
 	  ProdEqTarget		  on
 	}
 	Simulink.ModelReferenceCC {
-	  $ObjectID		  13
+	  $ObjectID		  14
 	  Version		  "1.12.1"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
 	  CheckModelReferenceTargetMessage "error"
@@ -433,7 +445,7 @@ Model {
 	  SupportModelReferenceSimTargetCustomCode off
 	}
 	Simulink.SFSimCC {
-	  $ObjectID		  14
+	  $ObjectID		  15
 	  Version		  "1.12.1"
 	  SFSimEnableDebug	  on
 	  SFSimOverflowDetection  on
@@ -448,7 +460,7 @@ Model {
 	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
-	  $ObjectID		  15
+	  $ObjectID		  16
 	  Version		  "1.12.1"
 	  Array {
 	    Type		    "Cell"
@@ -520,7 +532,7 @@ Model {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
-	      $ObjectID		      16
+	      $ObjectID		      17
 	      Version		      "1.12.1"
 	      Array {
 		Type			"Cell"
@@ -588,7 +600,7 @@ Model {
 	    }
 	    xpctarget.xpcTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
-	      $ObjectID		      17
+	      $ObjectID		      18
 	      Version		      "1.12.1"
 	      Array {
 		Type			"Cell"
@@ -690,11 +702,11 @@ Model {
   }
   Simulink.ConfigSet {
     $PropName		    "ActiveConfigurationSet"
-    $ObjectID		    7
+    $ObjectID		    8
   }
   Object {
     $PropName		    "DataTransfer"
-    $ObjectID		    18
+    $ObjectID		    19
     $ClassName		    "Simulink.GlobalDataTransfer"
     DefaultTransitionBetweenSyncTasks "Ensure deterministic transfer (maximum delay)"
     DefaultTransitionBetweenAsyncTasks "Ensure data integrity only"
@@ -978,14 +990,14 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "125"
+    ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "388"
+    SIDHighWatermark	    "391"
     Block {
       BlockType		      S-Function
       Name		      "Behavior DCO"
       SID		      "1"
-      Ports		      [4, 8]
+      Ports		      [6, 8]
       Position		      [655, 60, 885, 480]
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
@@ -994,12 +1006,13 @@ Model {
       EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		19
+	$ObjectID		20
 	$ClassName		"Simulink.Mask"
 	Display			"disp('Master Control')\nport_label('input',1,'pos')\nport_label('input',2,'pos offsets')\nport_label('inpu"
-	"t',3,'force')\nport_label('input',4,'task off')\nport_label('output',1,'force')\nport_label('output',2,'status')\npor"
-	"t_label('output',3,'word')\nport_label('output',4,'targets')\nport_label('output',5,'reward')\nport_label('output',6,"
-	"'tone')\nport_label('output',7,'version')\nport_label('output',8,'pos')"
+	"t',3,'force')\nport_label('input',4,'task off')\nport_label('input',5,'extra 1')\nport_label('input',6,'extra 2')\npo"
+	"rt_label('output',1,'force')\nport_label('output',2,'status')\nport_label('output',3,'word')\nport_label('output',4,'"
+	"targets')\nport_label('output',5,'reward')\nport_label('output',6,'tone')\nport_label('output',7,'version')\nport_lab"
+	"el('output',8,'pos')"
       }
     }
     Block {
@@ -1009,7 +1022,7 @@ Model {
       Ports		      [1, 1]
       Position		      [430, 718, 520, 782]
       ZOrder		      8
-      LibraryVersion	      "1.81"
+      LibraryVersion	      "1.88"
       SourceBlock	      "limblab/BoundingBox"
       SourceType	      "SubSystem"
     }
@@ -1033,7 +1046,7 @@ Model {
       BlockType		      DataTypeConversion
       Name		      "Data Type Conversion"
       SID		      "379"
-      Position		      [550, 413, 625, 447]
+      Position		      [520, 288, 595, 322]
       ZOrder		      10
       RndMeth		      "Floor"
       SaturateOnIntegerOverflow	off
@@ -1042,8 +1055,26 @@ Model {
       BlockType		      DataTypeConversion
       Name		      "Data Type Conversion1"
       SID		      "387"
-      Position		      [550, 308, 625, 342]
+      Position		      [510, 218, 585, 252]
       ZOrder		      17
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      DataTypeConversion
+      Name		      "Data Type Conversion2"
+      SID		      "390"
+      Position		      [535, 358, 610, 392]
+      ZOrder		      20
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      DataTypeConversion
+      Name		      "Data Type Conversion3"
+      SID		      "391"
+      Position		      [535, 428, 610, 462]
+      ZOrder		      21
       RndMeth		      "Floor"
       SaturateOnIntegerOverflow	off
     }
@@ -1051,7 +1082,7 @@ Model {
       BlockType		      From
       Name		      "From"
       SID		      "58"
-      Position		      [530, 205, 580, 235]
+      Position		      [510, 150, 560, 180]
       ZOrder		      -5
       CloseFcn		      "tagdialog Close"
       GotoTag		      "Offsets"
@@ -1100,18 +1131,18 @@ Model {
       Ports		      [5, 1]
       Position		      [1090, 541, 1280, 849]
       ZOrder		      6
-      LibraryVersion	      "1.81"
+      LibraryVersion	      "1.88"
       SourceBlock	      "limblab/Motor Control"
       SourceType	      "SubSystem"
     }
     Block {
       BlockType		      Reference
       Name		      "Neural Position Subsystem"
-      SID		      "382"
-      Ports		      [0, 2]
-      Position		      [330, 306, 445, 384]
-      ZOrder		      12
-      LibraryVersion	      "1.81"
+      SID		      "389"
+      Ports		      [0, 4]
+      Position		      [265, 226, 380, 304]
+      ZOrder		      19
+      LibraryVersion	      "1.88"
       SourceBlock	      "limblab/Neural Position Subsystem"
       SourceType	      "Neural Position Subsystem"
     }
@@ -1122,7 +1153,7 @@ Model {
       Ports		      [3, 2]
       Position		      [720, 593, 840, 747]
       ZOrder		      7
-      LibraryVersion	      "1.81"
+      LibraryVersion	      "1.88"
       SourceBlock	      "limblab/Recentering Subsystem"
       SourceType	      "SubSystem"
     }
@@ -1133,7 +1164,7 @@ Model {
       Ports		      [1, 1]
       Position		      [935, 277, 985, 313]
       ZOrder		      14
-      LibraryVersion	      "1.81"
+      LibraryVersion	      "1.88"
       SourceBlock	      "limblab/RewardSbs"
       SourceType	      "SubSystem"
     }
@@ -1144,7 +1175,13 @@ Model {
       Ports		      [5]
       Position		      [1255, 154, 1345, 256]
       ZOrder		      18
-      LibraryVersion	      "1.81"
+      LibraryVersion	      "1.88"
+      LinkData {
+	BlockName		"Send"
+	DialogParameters {
+	  sampletime		  ".01"
+	}
+      }
       SourceBlock	      "limblab/SendPacketToDecoder"
       SourceType	      "SubSystem"
     }
@@ -1155,7 +1192,7 @@ Model {
       Ports		      [4]
       Position		      [1255, 307, 1345, 408]
       ZOrder		      -12
-      LibraryVersion	      "1.81"
+      LibraryVersion	      "1.88"
       SourceBlock	      "limblab/SendPacketToGraphics"
       SourceType	      "SubSystem"
     }
@@ -1196,7 +1233,7 @@ Model {
       BlockType		      Terminator
       Name		      "Terminator"
       SID		      "386"
-      Position		      [490, 355, 510, 375]
+      Position		      [425, 245, 445, 265]
       ZOrder		      16
     }
     Block {
@@ -1206,7 +1243,7 @@ Model {
       Ports		      [2, 1]
       Position		      [345, 590, 455, 650]
       ZOrder		      15
-      LibraryVersion	      "1.81"
+      LibraryVersion	      "1.88"
       SourceBlock	      "limblab/Velocity Calculation"
       SourceType	      "SubSystem"
     }
@@ -1250,7 +1287,7 @@ Model {
       Ports		      [1]
       Position		      [935, 174, 980, 216]
       ZOrder		      13
-      LibraryVersion	      "1.81"
+      LibraryVersion	      "1.88"
       SourceBlock	      "limblab/WordSbs"
       SourceType	      "SubSystem"
     }
@@ -1696,7 +1733,7 @@ Model {
 	      Ports		      [3, 1]
 	      Position		      [405, 315, 505, 525]
 	      ZOrder		      -12
-	      LibraryVersion	      "1.81"
+	      LibraryVersion	      "1.88"
 	      SourceBlock	      "limblab/SerialConverter"
 	      SourceType	      ""
 	    }
@@ -1717,7 +1754,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [655, 310, 710, 525]
 	      ZOrder		      -14
-	      LibraryVersion	      "1.81"
+	      LibraryVersion	      "1.88"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      ""
 	    }
@@ -1728,7 +1765,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [635, 635, 685, 830]
 	      ZOrder		      -15
-	      LibraryVersion	      "1.81"
+	      LibraryVersion	      "1.88"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      ""
 	    }
@@ -3134,7 +3171,7 @@ Model {
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -400]
+	    Points		    [0, -420]
 	    DstBlock		    "Behavior DCO"
 	    DstPort		    1
 	  }
@@ -3314,7 +3351,7 @@ Model {
     Line {
       SrcBlock		      "Matrix\nConcatenation2"
       SrcPort		      1
-      Points		      [0, -187; -859, 0; 0, -68]
+      Points		      [0, -187; -885, 0]
       DstBlock		      "Data Type Conversion"
       DstPort		      1
     }
@@ -3347,6 +3384,32 @@ Model {
       SrcPort		      1
       DstBlock		      "Behavior DCO"
       DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Neural Position Subsystem"
+      SrcPort		      3
+      Points		      [19, 0; 0, 100]
+      DstBlock		      "Data Type Conversion2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Neural Position Subsystem"
+      SrcPort		      4
+      Points		      [10, 0; 0, 150]
+      DstBlock		      "Data Type Conversion3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Data Type Conversion3"
+      SrcPort		      1
+      DstBlock		      "Behavior DCO"
+      DstPort		      6
+    }
+    Line {
+      SrcBlock		      "Data Type Conversion2"
+      SrcPort		      1
+      DstBlock		      "Behavior DCO"
+      DstPort		      5
     }
   }
 }
