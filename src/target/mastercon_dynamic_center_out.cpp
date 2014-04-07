@@ -232,10 +232,10 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
 	miniCursorTarget->color = Target::Color(0,0,255);
     
     for (i=0; i<5; i++) {
-		lowerArm[i] = new CircleTarget(0,0,.5,0);
-        lowerArm[i]->color = Target::Color(127,127,127);
-        upperArm[i] = new CircleTarget(0,0,.5,0);
-        upperArm[i]->color = Target::Color(127,127,127);
+		lowerArm[i] = new CircleTarget(0,0,.3,0);
+        lowerArm[i]->color = Target::Color(80,80,80);
+        upperArm[i] = new CircleTarget(0,0,.3,0);
+        upperArm[i]->color = Target::Color(80,80,80);
 	}
 
     center_hold_time = 0.0;
@@ -474,10 +474,10 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
         lower_arm_length = elbow_pos - cursor_position;
         
         for(i=0; i<5 ; i++){
-            upperArm[i]->centerX = shoulder_pos.x - i*upper_arm_length.x/5;
-            upperArm[i]->centerY = shoulder_pos.y - i*upper_arm_length.y/5;
-            lowerArm[i]->centerX = elbow_pos.x - i*lower_arm_length.x/5;
-            lowerArm[i]->centerY = elbow_pos.y - i*lower_arm_length.y/5;
+            upperArm[i]->centerX = shoulder_pos.x - (i+1)*upper_arm_length.x/5;
+            upperArm[i]->centerY = shoulder_pos.y - (i+1)*upper_arm_length.y/5;
+            lowerArm[i]->centerX = elbow_pos.x - (i+1)*lower_arm_length.x/6;
+            lowerArm[i]->centerY = elbow_pos.y - (i+1)*lower_arm_length.y/6;
         }
     } else {
         cursor_position.x = cursor_position_old.x*(1-params->pos_filt) + 
