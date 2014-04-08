@@ -367,7 +367,7 @@ void DynamicCenterOut::update(SimStruct *S) {
             break;                   
         case STATE_CENTER_TARGET_ON:
             /* center target on */
-            if (inputs->catchForce.x) {
+            if (inputs->catchForce.x && !params->brain_control) {
                 setState(STATE_INCOMPLETE);
             } else {
                 if (centerTarget->cursorInTarget(cursor_position)) {
@@ -376,7 +376,7 @@ void DynamicCenterOut::update(SimStruct *S) {
             }
             break;
         case STATE_CT_HOLD:
-            if (inputs->catchForce.x) {
+            if (inputs->catchForce.x  && !params->brain_control) {
                 setState(STATE_INCOMPLETE);
             } else {
                 if (!centerTarget->cursorInTarget(cursor_position)){
@@ -388,7 +388,7 @@ void DynamicCenterOut::update(SimStruct *S) {
             }
             break;
         case STATE_OT_ON:
-            if (inputs->catchForce.x) {
+            if (inputs->catchForce.x && !params->brain_control) {
                 setState(STATE_INCOMPLETE);
             } else {
                 if (!centerTarget->cursorInTarget(cursor_position)){
@@ -401,7 +401,7 @@ void DynamicCenterOut::update(SimStruct *S) {
             }
             break;        
         case STATE_MOVEMENT:
-            if (inputs->catchForce.x) {
+            if (inputs->catchForce.x && !params->brain_control) {
                 setState(STATE_INCOMPLETE);
             } else {
                 if (params->movement_time > 0 && 
