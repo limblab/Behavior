@@ -93,6 +93,8 @@ struct LocalParams {
 	real_T timed_duration;		// time feedback cloud is shown
 	real_T timed_location;      // where the feedback cloud is activated (in cm along radius)
 	real_T use_delay_cloud;
+
+	real_T reward_perc; 
 };
 
 /**
@@ -126,6 +128,7 @@ private:
 	bool   delay_cloud_mode;
 	bool   cohack_mode;
 	Timer  *feedback_timer; // feedback timer
+	bool   give_reward;
 	
 	double center_hold_time, center_delay_time, outer_hold_time;
 
@@ -155,7 +158,7 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(45);
+	this->setNumParams(46);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			 0);
@@ -213,6 +216,7 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	this->bindParamId(&params->use_cohack_mode,			42);
 	this->bindParamId(&params->cohack_tgtnum,			43);
 	this->bindParamId(&params->cohack_rot,				44);
+	this->bindParamId(&params->reward_perc,				45);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -254,6 +258,7 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	delay_cloud_mode	 = false;
 	cohack_mode			 = false;
 	disp_prior			 = false;
+	give_reward			 = true;
 }
 /*
 void Uncertainty1dBehavior::updateCloud(SimStruct *S) {
@@ -278,6 +283,7 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 	double actual_freq_three;
 	double actual_freq_four;
 	double cloud_rand; // random variable to determine which cloud
+	double rewardp_rand; // random variable to determine if reward is given
 	delay_cloud_mode = params->use_delay_cloud;
 	cohack_mode      = params->use_cohack_mode;
 	
@@ -303,7 +309,9 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 	// Calculate the Target Shift
 	target_shift = current_trial_shift;
 
-	
+	// Determine whether reward will be given or not
+	rewardp_rand = random->getDouble();
+
 	// Regarding Cloud Frequency:
 	//   Rather than require frequencies to be additive to 1.0 or 100 or something,
 	//   we recalculate the frequency in arbitrary units/proportions
@@ -327,19 +335,24 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 		current_target_stdev = params->cloud_stdev_one;
 		// Using Variance One, so check if this trial should be blanked feedback
 		cloud_blank = params->cloud_one_blank_mode;
+		give_reward = rewardp_rand <= ((params->reward_perc)/100);
 	} else if (cloud_rand <= actual_freq_one+actual_freq_two){
 		current_target_stdev = params->cloud_stdev_two;
 		cloud_blank = false;
+		give_reward = true;
 	} else if (cloud_rand <= actual_freq_one+actual_freq_two+actual_freq_three){
 		current_target_stdev = params->cloud_stdev_three;
 		cloud_blank = false;
+		give_reward = true;
 	} else if (cloud_rand <= actual_freq_one+actual_freq_two+actual_freq_three+actual_freq_four){
 		current_target_stdev = params->cloud_stdev_four;
 		cloud_blank = false;
+		give_reward = true;
 	} else {
 		// by default, no feedback is shown
 		current_target_stdev = 0.0;
 		cloud_blank = true;
+		give_reward = true;
 	}
 
 	// Set Up The Cloud Points
@@ -480,7 +493,9 @@ void UncertaintyTarget2dBehavior::update(SimStruct *S) {
 		case STATE_OUTER_HOLD:
 			if (stateTimer->elapsedTime(S) >= outer_hold_time) {
 				cursor_end_point=inputs->cursor;	
-				playTone(TONE_REWARD);
+				if (give_reward) {
+					playTone(TONE_REWARD);
+				}
 				setState(STATE_REWARD);
 			}
 			else if (!outerTarget->cursorInTarget(inputs->cursor)){
@@ -731,7 +746,7 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 			outputs->targets[4+int(params->slice_number)] = nullTarget;
 		}
 	/* reward (4) */
-	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
+	outputs->reward = (isNewState() && (getState() == STATE_REWARD) && give_reward);
 
 	/* tone (5) */
 	this->outputs->tone_counter = this->tone_counter;
