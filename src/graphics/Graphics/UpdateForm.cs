@@ -1025,6 +1025,8 @@ namespace BehaviorGraphics
             AddParamListItem("UT2D COHack TgtNum", "P44", "Behavior UnTarget2d", this.numericUpDownUT2D_COHackTgtNum);
             AddParamListItem("UT2D COHack Rot", "P45", "Behavior UnTarget2d", this.textBoxUT2D_COHackRot);
 
+            AddParamListItem("UT2D reward perc", "P46", "Behavior UnTarget2d", this.textBoxUT2Drewardperc);
+
             #endregion
 
             #region Dynamic Center Out
@@ -2608,7 +2610,6 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
-
 
     }
 

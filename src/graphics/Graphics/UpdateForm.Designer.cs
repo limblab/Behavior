@@ -1046,6 +1046,8 @@ namespace BehaviorGraphics
             this.textBoxUT2DCHL = new System.Windows.Forms.TextBox();
             this.label244 = new System.Windows.Forms.Label();
             this.groupBoxUT2DCloud = new System.Windows.Forms.GroupBox();
+            this.label357 = new System.Windows.Forms.Label();
+            this.textBoxUT2Drewardperc = new System.Windows.Forms.TextBox();
             this.textBoxUT2DTimedDuration = new System.Windows.Forms.TextBox();
             this.labelUT2DTimedLocation = new System.Windows.Forms.Label();
             this.textBoxUT2DTimedLocation = new System.Windows.Forms.TextBox();
@@ -1208,6 +1210,10 @@ namespace BehaviorGraphics
             this.textBoxDCOD = new System.Windows.Forms.TextBox();
             this.labelDCOD = new System.Windows.Forms.Label();
             this.groupBoxDCOT = new System.Windows.Forms.GroupBox();
+            this.textBoxDCOTSMax = new System.Windows.Forms.TextBox();
+            this.labelDCOTSMax = new System.Windows.Forms.Label();
+            this.textBoxDCOTSMin = new System.Windows.Forms.TextBox();
+            this.labelDCOTSMin = new System.Windows.Forms.Label();
             this.angleEntryBoxDCOOTS = new AngleBox.AngleEntryBox();
             this.checkBoxDCOSTIF = new System.Windows.Forms.CheckBox();
             this.textBoxDCOTFW = new System.Windows.Forms.TextBox();
@@ -1357,10 +1363,6 @@ namespace BehaviorGraphics
             this.label331 = new System.Windows.Forms.Label();
             this.label351 = new System.Windows.Forms.Label();
             this.label356 = new System.Windows.Forms.Label();
-            this.textBoxDCOTSMin = new System.Windows.Forms.TextBox();
-            this.labelDCOTSMin = new System.Windows.Forms.Label();
-            this.textBoxDCOTSMax = new System.Windows.Forms.TextBox();
-            this.labelDCOTSMax = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -12101,6 +12103,8 @@ namespace BehaviorGraphics
             // 
             // groupBoxUT2DCloud
             // 
+            this.groupBoxUT2DCloud.Controls.Add(this.label357);
+            this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2Drewardperc);
             this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DTimedDuration);
             this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DTimedLocation);
             this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DTimedLocation);
@@ -12136,10 +12140,26 @@ namespace BehaviorGraphics
             this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DFeedbackStart);
             this.groupBoxUT2DCloud.Location = new System.Drawing.Point(8, 176);
             this.groupBoxUT2DCloud.Name = "groupBoxUT2DCloud";
-            this.groupBoxUT2DCloud.Size = new System.Drawing.Size(441, 228);
+            this.groupBoxUT2DCloud.Size = new System.Drawing.Size(477, 228);
             this.groupBoxUT2DCloud.TabIndex = 74;
             this.groupBoxUT2DCloud.TabStop = false;
             this.groupBoxUT2DCloud.Text = "Target Cloud (Likelihood)";
+            // 
+            // label357
+            // 
+            this.label357.AutoSize = true;
+            this.label357.Location = new System.Drawing.Point(397, 31);
+            this.label357.Name = "label357";
+            this.label357.Size = new System.Drawing.Size(40, 13);
+            this.label357.TabIndex = 72;
+            this.label357.Text = "Rew %";
+            // 
+            // textBoxUT2Drewardperc
+            // 
+            this.textBoxUT2Drewardperc.Location = new System.Drawing.Point(438, 28);
+            this.textBoxUT2Drewardperc.Name = "textBoxUT2Drewardperc";
+            this.textBoxUT2Drewardperc.Size = new System.Drawing.Size(33, 20);
+            this.textBoxUT2Drewardperc.TabIndex = 71;
             // 
             // textBoxUT2DTimedDuration
             // 
@@ -12214,7 +12234,7 @@ namespace BehaviorGraphics
             // checkBoxUT2DCloud1Blank
             // 
             this.checkBoxUT2DCloud1Blank.AutoSize = true;
-            this.checkBoxUT2DCloud1Blank.Location = new System.Drawing.Point(303, 30);
+            this.checkBoxUT2DCloud1Blank.Location = new System.Drawing.Point(289, 30);
             this.checkBoxUT2DCloud1Blank.Name = "checkBoxUT2DCloud1Blank";
             this.checkBoxUT2DCloud1Blank.Size = new System.Drawing.Size(99, 17);
             this.checkBoxUT2DCloud1Blank.TabIndex = 56;
@@ -13708,6 +13728,40 @@ namespace BehaviorGraphics
             this.groupBoxDCOT.TabStop = false;
             this.groupBoxDCOT.Text = "Cursor and targets";
             // 
+            // textBoxDCOTSMax
+            // 
+            this.textBoxDCOTSMax.Location = new System.Drawing.Point(126, 259);
+            this.textBoxDCOTSMax.Name = "textBoxDCOTSMax";
+            this.textBoxDCOTSMax.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOTSMax.TabIndex = 38;
+            this.textBoxDCOTSMax.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOTSMax
+            // 
+            this.labelDCOTSMax.AutoSize = true;
+            this.labelDCOTSMax.Location = new System.Drawing.Point(13, 262);
+            this.labelDCOTSMax.Name = "labelDCOTSMax";
+            this.labelDCOTSMax.Size = new System.Drawing.Size(101, 13);
+            this.labelDCOTSMax.TabIndex = 37;
+            this.labelDCOTSMax.Text = "Target stiffness max";
+            // 
+            // textBoxDCOTSMin
+            // 
+            this.textBoxDCOTSMin.Location = new System.Drawing.Point(126, 233);
+            this.textBoxDCOTSMin.Name = "textBoxDCOTSMin";
+            this.textBoxDCOTSMin.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOTSMin.TabIndex = 36;
+            this.textBoxDCOTSMin.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOTSMin
+            // 
+            this.labelDCOTSMin.AutoSize = true;
+            this.labelDCOTSMin.Location = new System.Drawing.Point(13, 236);
+            this.labelDCOTSMin.Name = "labelDCOTSMin";
+            this.labelDCOTSMin.Size = new System.Drawing.Size(98, 13);
+            this.labelDCOTSMin.TabIndex = 35;
+            this.labelDCOTSMin.Text = "Target stiffness min";
+            // 
             // angleEntryBoxDCOOTS
             // 
             this.angleEntryBoxDCOOTS.Location = new System.Drawing.Point(126, 125);
@@ -15068,40 +15122,6 @@ namespace BehaviorGraphics
             this.label356.Size = new System.Drawing.Size(70, 13);
             this.label356.TabIndex = 0;
             this.label356.Text = "Field ramp up";
-            // 
-            // textBoxDCOTSMin
-            // 
-            this.textBoxDCOTSMin.Location = new System.Drawing.Point(126, 233);
-            this.textBoxDCOTSMin.Name = "textBoxDCOTSMin";
-            this.textBoxDCOTSMin.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOTSMin.TabIndex = 36;
-            this.textBoxDCOTSMin.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // labelDCOTSMin
-            // 
-            this.labelDCOTSMin.AutoSize = true;
-            this.labelDCOTSMin.Location = new System.Drawing.Point(13, 236);
-            this.labelDCOTSMin.Name = "labelDCOTSMin";
-            this.labelDCOTSMin.Size = new System.Drawing.Size(98, 13);
-            this.labelDCOTSMin.TabIndex = 35;
-            this.labelDCOTSMin.Text = "Target stiffness min";
-            // 
-            // textBoxDCOTSMax
-            // 
-            this.textBoxDCOTSMax.Location = new System.Drawing.Point(126, 259);
-            this.textBoxDCOTSMax.Name = "textBoxDCOTSMax";
-            this.textBoxDCOTSMax.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOTSMax.TabIndex = 38;
-            this.textBoxDCOTSMax.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // labelDCOTSMax
-            // 
-            this.labelDCOTSMax.AutoSize = true;
-            this.labelDCOTSMax.Location = new System.Drawing.Point(13, 262);
-            this.labelDCOTSMax.Name = "labelDCOTSMax";
-            this.labelDCOTSMax.Size = new System.Drawing.Size(101, 13);
-            this.labelDCOTSMax.TabIndex = 37;
-            this.labelDCOTSMax.Text = "Target stiffness max";
             // 
             // UpdateForm
             // 
@@ -16724,5 +16744,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelDCOTSMax;
         private System.Windows.Forms.TextBox textBoxDCOTSMin;
         private System.Windows.Forms.Label labelDCOTSMin;
+        private System.Windows.Forms.TextBox textBoxUT2Drewardperc;
+        private System.Windows.Forms.Label label357;
     }
 }
