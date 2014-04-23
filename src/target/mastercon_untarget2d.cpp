@@ -95,6 +95,13 @@ struct LocalParams {
 	real_T use_delay_cloud;
 
 	real_T reward_perc; 
+
+	real_T target_circle_color;
+	real_T cloud_1_color;
+	real_T cloud_2_color;
+	real_T cloud_3_color;
+	real_T cloud_4_color;
+	real_T prior_burrito_color;
 };
 
 /**
@@ -141,11 +148,12 @@ private:
 	ArcTarget		*cloud[10];
 	ArcTarget		*priorTarget;
 	SquareTarget    *timerTarget;
-	LocalParams *params;
+	LocalParams     *params;
 
 	// helper functions
 	void doPreTrial(SimStruct *S);
 	void updateCursorExtent(SimStruct *S); // updates cursor extent (used for windowing)
+	int  getArcColorCode(int arc_color);
 };
 
 UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBehavior() {
@@ -158,7 +166,7 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(46);
+	this->setNumParams(52);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			 0);
@@ -217,6 +225,12 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	this->bindParamId(&params->cohack_tgtnum,			43);
 	this->bindParamId(&params->cohack_rot,				44);
 	this->bindParamId(&params->reward_perc,				45);
+	this->bindParamId(&params->target_circle_color,		46);
+	this->bindParamId(&params->cloud_1_color,			47);
+	this->bindParamId(&params->cloud_2_color,			48);
+	this->bindParamId(&params->cloud_3_color,			49);
+	this->bindParamId(&params->cloud_4_color,			50);	
+	this->bindParamId(&params->prior_burrito_color,		51);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -225,6 +239,7 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	// This function now fetches all of the parameters into the variables
 	// as defined above.
 	this->updateParameters(S);
+
 
     /* 
 	 * Then do any behavior specific initialization 
@@ -274,9 +289,40 @@ void UncertaintyTarget2dBehavior::updateCursorExtent(SimStruct *S){
 
 }
 
+int UncertaintyTarget2dBehavior::getArcColorCode(int arc_color) {
+	int ret_color;
+	
+	if (arc_color==1) {
+		ret_color = 5;
+	}
+	else if (arc_color==2) {
+		ret_color = 6;
+	}
+	else if (arc_color==3){
+		ret_color= 8;
+	}
+	else if (arc_color==4){
+		ret_color= 13;
+	}
+	else if (arc_color==5){
+		ret_color= 14;
+	}
+	else if (arc_color==6){
+		ret_color= 15;
+	}
+	else {
+		ret_color = 5;
+	}
+	return ret_color;
+}
+
+
+
+
 // Pre-trial initialization and calculations
 void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 	int i;
+	int current_cloud_color;
 	double total_cloud_freq;
 	double actual_freq_one;
 	double actual_freq_two;
@@ -336,24 +382,30 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 		// Using Variance One, so check if this trial should be blanked feedback
 		cloud_blank = params->cloud_one_blank_mode;
 		give_reward = rewardp_rand <= ((params->reward_perc)/100);
+		current_cloud_color =  getArcColorCode((int)params->cloud_1_color);
 	} else if (cloud_rand <= actual_freq_one+actual_freq_two){
 		current_target_stdev = params->cloud_stdev_two;
 		cloud_blank = false;
 		give_reward = true;
+		current_cloud_color =  getArcColorCode((int)params->cloud_2_color);
 	} else if (cloud_rand <= actual_freq_one+actual_freq_two+actual_freq_three){
 		current_target_stdev = params->cloud_stdev_three;
 		cloud_blank = false;
 		give_reward = true;
+		current_cloud_color =  getArcColorCode((int)params->cloud_3_color);
 	} else if (cloud_rand <= actual_freq_one+actual_freq_two+actual_freq_three+actual_freq_four){
 		current_target_stdev = params->cloud_stdev_four;
 		cloud_blank = false;
 		give_reward = true;
+		current_cloud_color =  getArcColorCode((int)params->cloud_4_color);
 	} else {
 		// by default, no feedback is shown
 		current_target_stdev = 0.0;
 		cloud_blank = true;
 		give_reward = true;
+		current_cloud_color = 5;
 	}
+
 
 	// Set Up The Cloud Points
 	for (i=0; i<10; i++) {
@@ -373,18 +425,21 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 		targetBar->theta  = 0; 
 		targetBar->span    = 2*PI-0.00001;
 		targetBar->height = params->OT_depth+.1;
+	   targetBar->type = getArcColorCode((int)params->target_circle_color);
 
 		for (i=0; i<10; i++) {
-			cloud[i]->r   = params->movement_length;
+			cloud[i]->r      = params->movement_length;
 			cloud[i]->theta  = target_shift + slice_points[i];
-			cloud[i]->span    = (params->slice_size)*PI/180;
+			cloud[i]->span   = (params->slice_size)*PI/180;
 			cloud[i]->height = params->OT_depth;
+  			cloud[i]->type = current_cloud_color;
 		}
 
 		priorTarget->r = params->movement_length;
 		priorTarget->theta = (params->shift_mean)*PI/180;
 		priorTarget->span = (params->slice_size)*PI/180;
 		priorTarget->height = params->OT_depth;
+ 		priorTarget->type   = getArcColorCode((int)params->prior_burrito_color);
 
 		timerTarget->centerX = 14.25;
 		timerTarget->centerY = 10.55 ;

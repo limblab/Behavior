@@ -1026,6 +1026,13 @@ namespace BehaviorGraphics
             AddParamListItem("UT2D COHack Rot", "P45", "Behavior UnTarget2d", this.textBoxUT2D_COHackRot);
 
             AddParamListItem("UT2D reward perc", "P46", "Behavior UnTarget2d", this.textBoxUT2Drewardperc);
+            
+            AddParamListItem("UT2D Target Circle Color", "P47", "Behavior UnTarget2d", this.numericUD_TargetCircleColor);
+            AddParamListItem("UT2D Cloud 1 Color", "P48", "Behavior UnTarget2d", this.numericUD_TargetColor_1);
+            AddParamListItem("UT2D Cloud 2 Color", "P49", "Behavior UnTarget2d", this.numericUD_TargetColor_2);
+            AddParamListItem("UT2D Cloud 3 Color", "P50", "Behavior UnTarget2d", this.numericUD_TargetColor_3);
+            AddParamListItem("UT2D Cloud 4 Color", "P51", "Behavior UnTarget2d", this.numericUD_TargetColor_4);
+            AddParamListItem("UT2D Prior Marker Color", "P52", "Behavior UnTarget2d", this.numericUD_PriorColor);
 
             #endregion
 
@@ -2609,6 +2616,31 @@ namespace BehaviorGraphics
                 labelWFIntMax.Show();
             }
             widget_ValueChanged(sender, e);
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label360_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox31_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBoxUT2DShift_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown6_ValueChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

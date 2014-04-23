@@ -207,7 +207,33 @@ namespace BehaviorGraphics {
                     device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 100, vertices);
 
                     break;
+                case TargetSpriteType.GreenArc:
+                    /* Green arc target */
+                    vertices = new CustomVertex.TransformedColored[200];
+                    getArcVertices(ul, lr, Color.Green, ref vertices);
 
+                    device.VertexFormat = CustomVertex.TransformedColored.Format;
+                    device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 100, vertices);
+
+                    break;
+                case TargetSpriteType.OrangeArc:
+                    /* Orange arc target */
+                    vertices = new CustomVertex.TransformedColored[200];
+                    getArcVertices(ul, lr, Color.Orange, ref vertices);
+
+                    device.VertexFormat = CustomVertex.TransformedColored.Format;
+                    device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 100, vertices);
+
+                    break;
+                case TargetSpriteType.PurpleArc:
+                    /* Purple arc target */
+                    vertices = new CustomVertex.TransformedColored[200];
+                    getArcVertices(ul, lr, Color.Purple, ref vertices);
+
+                    device.VertexFormat = CustomVertex.TransformedColored.Format;
+                    device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 100, vertices);
+
+                    break;
                 case TargetSpriteType.Circle:
                     /* Blue circle from bluecircle.tga */
                     vertices = new CustomVertex.TransformedColored[100];
@@ -516,6 +542,9 @@ namespace BehaviorGraphics {
         Circle = 10,
         Square = 11,
         MovingDots = 12,
+        GreenArc = 13,
+        PurpleArc = 14,
+        OrangeArc = 15,
         Glyph0 = 16,
         Glyph1 = 17,
         Glyph2 = 18,

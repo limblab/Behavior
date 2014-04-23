@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -1363,6 +1363,19 @@ namespace BehaviorGraphics
             this.label331 = new System.Windows.Forms.Label();
             this.label351 = new System.Windows.Forms.Label();
             this.label356 = new System.Windows.Forms.Label();
+            this.label359 = new System.Windows.Forms.Label();
+            this.numericUD_TargetColor_2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUD_TargetColor_3 = new System.Windows.Forms.NumericUpDown();
+            this.label360 = new System.Windows.Forms.Label();
+            this.numericUD_TargetColor_4 = new System.Windows.Forms.NumericUpDown();
+            this.label361 = new System.Windows.Forms.Label();
+            this.numericUD_TargetColor_1 = new System.Windows.Forms.NumericUpDown();
+            this.label362 = new System.Windows.Forms.Label();
+            this.textBox31 = new System.Windows.Forms.TextBox();
+            this.numericUD_TargetCircleColor = new System.Windows.Forms.NumericUpDown();
+            this.label363 = new System.Windows.Forms.Label();
+            this.numericUD_PriorColor = new System.Windows.Forms.NumericUpDown();
+            this.label364 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -1520,6 +1533,12 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_TargetColor_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_TargetColor_3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_TargetColor_4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_TargetColor_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_TargetCircleColor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_PriorColor)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -4373,8 +4392,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5206,8 +5225,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -12103,6 +12122,15 @@ namespace BehaviorGraphics
             // 
             // groupBoxUT2DCloud
             // 
+            this.groupBoxUT2DCloud.Controls.Add(this.textBox31);
+            this.groupBoxUT2DCloud.Controls.Add(this.numericUD_TargetColor_1);
+            this.groupBoxUT2DCloud.Controls.Add(this.label362);
+            this.groupBoxUT2DCloud.Controls.Add(this.numericUD_TargetColor_4);
+            this.groupBoxUT2DCloud.Controls.Add(this.label361);
+            this.groupBoxUT2DCloud.Controls.Add(this.numericUD_TargetColor_3);
+            this.groupBoxUT2DCloud.Controls.Add(this.label360);
+            this.groupBoxUT2DCloud.Controls.Add(this.numericUD_TargetColor_2);
+            this.groupBoxUT2DCloud.Controls.Add(this.label359);
             this.groupBoxUT2DCloud.Controls.Add(this.label357);
             this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2Drewardperc);
             this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DTimedDuration);
@@ -12140,7 +12168,7 @@ namespace BehaviorGraphics
             this.groupBoxUT2DCloud.Controls.Add(this.labelUT2DFeedbackStart);
             this.groupBoxUT2DCloud.Location = new System.Drawing.Point(8, 176);
             this.groupBoxUT2DCloud.Name = "groupBoxUT2DCloud";
-            this.groupBoxUT2DCloud.Size = new System.Drawing.Size(477, 228);
+            this.groupBoxUT2DCloud.Size = new System.Drawing.Size(516, 228);
             this.groupBoxUT2DCloud.TabIndex = 74;
             this.groupBoxUT2DCloud.TabStop = false;
             this.groupBoxUT2DCloud.Text = "Target Cloud (Likelihood)";
@@ -12150,13 +12178,13 @@ namespace BehaviorGraphics
             this.label357.AutoSize = true;
             this.label357.Location = new System.Drawing.Point(397, 31);
             this.label357.Name = "label357";
-            this.label357.Size = new System.Drawing.Size(40, 13);
+            this.label357.Size = new System.Drawing.Size(74, 13);
             this.label357.TabIndex = 72;
-            this.label357.Text = "Rew %";
+            this.label357.Text = "Cld #1 Rwd %";
             // 
             // textBoxUT2Drewardperc
             // 
-            this.textBoxUT2Drewardperc.Location = new System.Drawing.Point(438, 28);
+            this.textBoxUT2Drewardperc.Location = new System.Drawing.Point(478, 28);
             this.textBoxUT2Drewardperc.Name = "textBoxUT2Drewardperc";
             this.textBoxUT2Drewardperc.Size = new System.Drawing.Size(33, 20);
             this.textBoxUT2Drewardperc.TabIndex = 71;
@@ -12197,7 +12225,7 @@ namespace BehaviorGraphics
             // checkBoxUT2DUseTimed
             // 
             this.checkBoxUT2DUseTimed.AutoSize = true;
-            this.checkBoxUT2DUseTimed.Location = new System.Drawing.Point(303, 145);
+            this.checkBoxUT2DUseTimed.Location = new System.Drawing.Point(274, 145);
             this.checkBoxUT2DUseTimed.Name = "checkBoxUT2DUseTimed";
             this.checkBoxUT2DUseTimed.Size = new System.Drawing.Size(128, 17);
             this.checkBoxUT2DUseTimed.TabIndex = 66;
@@ -12206,7 +12234,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUT2DCloudJitter
             // 
-            this.textBoxUT2DCloudJitter.Location = new System.Drawing.Point(404, 115);
+            this.textBoxUT2DCloudJitter.Location = new System.Drawing.Point(480, 143);
             this.textBoxUT2DCloudJitter.Name = "textBoxUT2DCloudJitter";
             this.textBoxUT2DCloudJitter.Size = new System.Drawing.Size(32, 20);
             this.textBoxUT2DCloudJitter.TabIndex = 65;
@@ -12215,7 +12243,7 @@ namespace BehaviorGraphics
             // labelUT2DCloudJitter
             // 
             this.labelUT2DCloudJitter.AutoSize = true;
-            this.labelUT2DCloudJitter.Location = new System.Drawing.Point(300, 118);
+            this.labelUT2DCloudJitter.Location = new System.Drawing.Point(412, 146);
             this.labelUT2DCloudJitter.Name = "labelUT2DCloudJitter";
             this.labelUT2DCloudJitter.Size = new System.Drawing.Size(59, 13);
             this.labelUT2DCloudJitter.TabIndex = 64;
@@ -12234,75 +12262,75 @@ namespace BehaviorGraphics
             // checkBoxUT2DCloud1Blank
             // 
             this.checkBoxUT2DCloud1Blank.AutoSize = true;
-            this.checkBoxUT2DCloud1Blank.Location = new System.Drawing.Point(289, 30);
+            this.checkBoxUT2DCloud1Blank.Location = new System.Drawing.Point(292, 29);
             this.checkBoxUT2DCloud1Blank.Name = "checkBoxUT2DCloud1Blank";
             this.checkBoxUT2DCloud1Blank.Size = new System.Drawing.Size(99, 17);
             this.checkBoxUT2DCloud1Blank.TabIndex = 56;
-            this.checkBoxUT2DCloud1Blank.Text = "Blank Cloud #1";
+            this.checkBoxUT2DCloud1Blank.Text = "Cloud #1 Blank";
             this.checkBoxUT2DCloud1Blank.UseVisualStyleBackColor = true;
             // 
             // labelUT2DCloud4Freq
             // 
             this.labelUT2DCloud4Freq.AutoSize = true;
-            this.labelUT2DCloud4Freq.Location = new System.Drawing.Point(152, 118);
+            this.labelUT2DCloud4Freq.Location = new System.Drawing.Point(137, 118);
             this.labelUT2DCloud4Freq.Name = "labelUT2DCloud4Freq";
-            this.labelUT2DCloud4Freq.Size = new System.Drawing.Size(74, 13);
+            this.labelUT2DCloud4Freq.Size = new System.Drawing.Size(28, 13);
             this.labelUT2DCloud4Freq.TabIndex = 54;
-            this.labelUT2DCloud4Freq.Text = "Cloud #4 Freq";
+            this.labelUT2DCloud4Freq.Text = "Freq";
             // 
             // textBoxUT2DCloud4Freq
             // 
-            this.textBoxUT2DCloud4Freq.Location = new System.Drawing.Point(235, 115);
+            this.textBoxUT2DCloud4Freq.Location = new System.Drawing.Point(168, 114);
             this.textBoxUT2DCloud4Freq.Name = "textBoxUT2DCloud4Freq";
-            this.textBoxUT2DCloud4Freq.Size = new System.Drawing.Size(41, 20);
+            this.textBoxUT2DCloud4Freq.Size = new System.Drawing.Size(20, 20);
             this.textBoxUT2DCloud4Freq.TabIndex = 55;
             // 
             // labelUT2DCloud3Freq
             // 
             this.labelUT2DCloud3Freq.AutoSize = true;
-            this.labelUT2DCloud3Freq.Location = new System.Drawing.Point(152, 90);
+            this.labelUT2DCloud3Freq.Location = new System.Drawing.Point(137, 90);
             this.labelUT2DCloud3Freq.Name = "labelUT2DCloud3Freq";
-            this.labelUT2DCloud3Freq.Size = new System.Drawing.Size(74, 13);
+            this.labelUT2DCloud3Freq.Size = new System.Drawing.Size(28, 13);
             this.labelUT2DCloud3Freq.TabIndex = 52;
-            this.labelUT2DCloud3Freq.Text = "Cloud #3 Freq";
+            this.labelUT2DCloud3Freq.Text = "Freq";
             // 
             // textBoxUT2DCloud3Freq
             // 
-            this.textBoxUT2DCloud3Freq.Location = new System.Drawing.Point(235, 87);
+            this.textBoxUT2DCloud3Freq.Location = new System.Drawing.Point(168, 86);
             this.textBoxUT2DCloud3Freq.Name = "textBoxUT2DCloud3Freq";
-            this.textBoxUT2DCloud3Freq.Size = new System.Drawing.Size(41, 20);
+            this.textBoxUT2DCloud3Freq.Size = new System.Drawing.Size(20, 20);
             this.textBoxUT2DCloud3Freq.TabIndex = 53;
             // 
             // labelUT2DCloud2Freq
             // 
             this.labelUT2DCloud2Freq.AutoSize = true;
-            this.labelUT2DCloud2Freq.Location = new System.Drawing.Point(152, 61);
+            this.labelUT2DCloud2Freq.Location = new System.Drawing.Point(137, 61);
             this.labelUT2DCloud2Freq.Name = "labelUT2DCloud2Freq";
-            this.labelUT2DCloud2Freq.Size = new System.Drawing.Size(74, 13);
+            this.labelUT2DCloud2Freq.Size = new System.Drawing.Size(28, 13);
             this.labelUT2DCloud2Freq.TabIndex = 50;
-            this.labelUT2DCloud2Freq.Text = "Cloud #2 Freq";
+            this.labelUT2DCloud2Freq.Text = "Freq";
             // 
             // textBoxUT2DCloud2Freq
             // 
-            this.textBoxUT2DCloud2Freq.Location = new System.Drawing.Point(235, 58);
+            this.textBoxUT2DCloud2Freq.Location = new System.Drawing.Point(168, 57);
             this.textBoxUT2DCloud2Freq.Name = "textBoxUT2DCloud2Freq";
-            this.textBoxUT2DCloud2Freq.Size = new System.Drawing.Size(41, 20);
+            this.textBoxUT2DCloud2Freq.Size = new System.Drawing.Size(20, 20);
             this.textBoxUT2DCloud2Freq.TabIndex = 51;
             // 
             // labelUT2DCloud1Freq
             // 
             this.labelUT2DCloud1Freq.AutoSize = true;
-            this.labelUT2DCloud1Freq.Location = new System.Drawing.Point(152, 31);
+            this.labelUT2DCloud1Freq.Location = new System.Drawing.Point(137, 31);
             this.labelUT2DCloud1Freq.Name = "labelUT2DCloud1Freq";
-            this.labelUT2DCloud1Freq.Size = new System.Drawing.Size(74, 13);
+            this.labelUT2DCloud1Freq.Size = new System.Drawing.Size(28, 13);
             this.labelUT2DCloud1Freq.TabIndex = 48;
-            this.labelUT2DCloud1Freq.Text = "Cloud #1 Freq";
+            this.labelUT2DCloud1Freq.Text = "Freq";
             // 
             // textBoxUT2DCloud1Freq
             // 
-            this.textBoxUT2DCloud1Freq.Location = new System.Drawing.Point(235, 28);
+            this.textBoxUT2DCloud1Freq.Location = new System.Drawing.Point(168, 27);
             this.textBoxUT2DCloud1Freq.Name = "textBoxUT2DCloud1Freq";
-            this.textBoxUT2DCloud1Freq.Size = new System.Drawing.Size(41, 20);
+            this.textBoxUT2DCloud1Freq.Size = new System.Drawing.Size(20, 20);
             this.textBoxUT2DCloud1Freq.TabIndex = 49;
             // 
             // labelUT2DCloud4Stdev
@@ -12316,7 +12344,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUT2DCloud4Stdev
             // 
-            this.textBoxUT2DCloud4Stdev.Location = new System.Drawing.Point(110, 115);
+            this.textBoxUT2DCloud4Stdev.Location = new System.Drawing.Point(96, 115);
             this.textBoxUT2DCloud4Stdev.Name = "textBoxUT2DCloud4Stdev";
             this.textBoxUT2DCloud4Stdev.Size = new System.Drawing.Size(36, 20);
             this.textBoxUT2DCloud4Stdev.TabIndex = 47;
@@ -12332,7 +12360,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUT2DCloud3Stdev
             // 
-            this.textBoxUT2DCloud3Stdev.Location = new System.Drawing.Point(110, 87);
+            this.textBoxUT2DCloud3Stdev.Location = new System.Drawing.Point(96, 87);
             this.textBoxUT2DCloud3Stdev.Name = "textBoxUT2DCloud3Stdev";
             this.textBoxUT2DCloud3Stdev.Size = new System.Drawing.Size(36, 20);
             this.textBoxUT2DCloud3Stdev.TabIndex = 45;
@@ -12348,7 +12376,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUT2DCloud2Stdev
             // 
-            this.textBoxUT2DCloud2Stdev.Location = new System.Drawing.Point(110, 58);
+            this.textBoxUT2DCloud2Stdev.Location = new System.Drawing.Point(96, 58);
             this.textBoxUT2DCloud2Stdev.Name = "textBoxUT2DCloud2Stdev";
             this.textBoxUT2DCloud2Stdev.Size = new System.Drawing.Size(36, 20);
             this.textBoxUT2DCloud2Stdev.TabIndex = 43;
@@ -12412,7 +12440,7 @@ namespace BehaviorGraphics
             // 
             // textBoxUT2DCloud1Stdev
             // 
-            this.textBoxUT2DCloud1Stdev.Location = new System.Drawing.Point(110, 28);
+            this.textBoxUT2DCloud1Stdev.Location = new System.Drawing.Point(96, 28);
             this.textBoxUT2DCloud1Stdev.Name = "textBoxUT2DCloud1Stdev";
             this.textBoxUT2DCloud1Stdev.Size = new System.Drawing.Size(36, 20);
             this.textBoxUT2DCloud1Stdev.TabIndex = 37;
@@ -12453,7 +12481,11 @@ namespace BehaviorGraphics
             // 
             // groupBoxUT2DShift
             // 
+            this.groupBoxUT2DShift.Controls.Add(this.numericUD_PriorColor);
+            this.groupBoxUT2DShift.Controls.Add(this.label364);
+            this.groupBoxUT2DShift.Controls.Add(this.numericUD_TargetCircleColor);
             this.groupBoxUT2DShift.Controls.Add(this.labelUT2D_COHackRot);
+            this.groupBoxUT2DShift.Controls.Add(this.label363);
             this.groupBoxUT2DShift.Controls.Add(this.textBoxUT2D_COHackRot);
             this.groupBoxUT2DShift.Controls.Add(this.checkBoxUT2Dshowprior);
             this.groupBoxUT2DShift.Controls.Add(this.labelUT2D_COHackTgtNum);
@@ -12473,11 +12505,12 @@ namespace BehaviorGraphics
             this.groupBoxUT2DShift.TabIndex = 73;
             this.groupBoxUT2DShift.TabStop = false;
             this.groupBoxUT2DShift.Text = "Target Shift (Prior)";
+            this.groupBoxUT2DShift.Enter += new System.EventHandler(this.groupBoxUT2DShift_Enter);
             // 
             // labelUT2D_COHackRot
             // 
             this.labelUT2D_COHackRot.AutoSize = true;
-            this.labelUT2D_COHackRot.Location = new System.Drawing.Point(135, 125);
+            this.labelUT2D_COHackRot.Location = new System.Drawing.Point(168, 125);
             this.labelUT2D_COHackRot.Name = "labelUT2D_COHackRot";
             this.labelUT2D_COHackRot.Size = new System.Drawing.Size(65, 13);
             this.labelUT2D_COHackRot.TabIndex = 82;
@@ -12495,15 +12528,15 @@ namespace BehaviorGraphics
             this.checkBoxUT2Dshowprior.AutoSize = true;
             this.checkBoxUT2Dshowprior.Location = new System.Drawing.Point(15, 74);
             this.checkBoxUT2Dshowprior.Name = "checkBoxUT2Dshowprior";
-            this.checkBoxUT2Dshowprior.Size = new System.Drawing.Size(77, 17);
+            this.checkBoxUT2Dshowprior.Size = new System.Drawing.Size(116, 17);
             this.checkBoxUT2Dshowprior.TabIndex = 79;
-            this.checkBoxUT2Dshowprior.Text = "Show Prior";
+            this.checkBoxUT2Dshowprior.Text = "Show Prior (Burrito)";
             this.checkBoxUT2Dshowprior.UseVisualStyleBackColor = true;
             // 
             // labelUT2D_COHackTgtNum
             // 
             this.labelUT2D_COHackTgtNum.AutoSize = true;
-            this.labelUT2D_COHackTgtNum.Location = new System.Drawing.Point(135, 99);
+            this.labelUT2D_COHackTgtNum.Location = new System.Drawing.Point(168, 99);
             this.labelUT2D_COHackTgtNum.Name = "labelUT2D_COHackTgtNum";
             this.labelUT2D_COHackTgtNum.Size = new System.Drawing.Size(61, 13);
             this.labelUT2D_COHackTgtNum.TabIndex = 71;
@@ -15123,6 +15156,207 @@ namespace BehaviorGraphics
             this.label356.TabIndex = 0;
             this.label356.Text = "Field ramp up";
             // 
+            // label359
+            // 
+            this.label359.AutoSize = true;
+            this.label359.Location = new System.Drawing.Point(194, 61);
+            this.label359.Name = "label359";
+            this.label359.Size = new System.Drawing.Size(31, 13);
+            this.label359.TabIndex = 84;
+            this.label359.Text = "Color";
+            // 
+            // numericUD_TargetColor_2
+            // 
+            this.numericUD_TargetColor_2.Location = new System.Drawing.Point(231, 58);
+            this.numericUD_TargetColor_2.Maximum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.numericUD_TargetColor_2.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUD_TargetColor_2.Name = "numericUD_TargetColor_2";
+            this.numericUD_TargetColor_2.Size = new System.Drawing.Size(33, 20);
+            this.numericUD_TargetColor_2.TabIndex = 84;
+            this.numericUD_TargetColor_2.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numericUD_TargetColor_3
+            // 
+            this.numericUD_TargetColor_3.Location = new System.Drawing.Point(231, 86);
+            this.numericUD_TargetColor_3.Maximum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.numericUD_TargetColor_3.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUD_TargetColor_3.Name = "numericUD_TargetColor_3";
+            this.numericUD_TargetColor_3.Size = new System.Drawing.Size(33, 20);
+            this.numericUD_TargetColor_3.TabIndex = 86;
+            this.numericUD_TargetColor_3.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label360
+            // 
+            this.label360.AutoSize = true;
+            this.label360.Location = new System.Drawing.Point(194, 89);
+            this.label360.Name = "label360";
+            this.label360.Size = new System.Drawing.Size(31, 13);
+            this.label360.TabIndex = 85;
+            this.label360.Text = "Color";
+            this.label360.Click += new System.EventHandler(this.label360_Click);
+            // 
+            // numericUD_TargetColor_4
+            // 
+            this.numericUD_TargetColor_4.Location = new System.Drawing.Point(231, 115);
+            this.numericUD_TargetColor_4.Maximum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.numericUD_TargetColor_4.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUD_TargetColor_4.Name = "numericUD_TargetColor_4";
+            this.numericUD_TargetColor_4.Size = new System.Drawing.Size(33, 20);
+            this.numericUD_TargetColor_4.TabIndex = 88;
+            this.numericUD_TargetColor_4.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUD_TargetColor_4.ValueChanged += new System.EventHandler(this.numericUpDown6_ValueChanged);
+            // 
+            // label361
+            // 
+            this.label361.AutoSize = true;
+            this.label361.Location = new System.Drawing.Point(194, 118);
+            this.label361.Name = "label361";
+            this.label361.Size = new System.Drawing.Size(31, 13);
+            this.label361.TabIndex = 87;
+            this.label361.Text = "Color";
+            // 
+            // numericUD_TargetColor_1
+            // 
+            this.numericUD_TargetColor_1.Location = new System.Drawing.Point(231, 29);
+            this.numericUD_TargetColor_1.Maximum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.numericUD_TargetColor_1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUD_TargetColor_1.Name = "numericUD_TargetColor_1";
+            this.numericUD_TargetColor_1.Size = new System.Drawing.Size(33, 20);
+            this.numericUD_TargetColor_1.TabIndex = 90;
+            this.numericUD_TargetColor_1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label362
+            // 
+            this.label362.AutoSize = true;
+            this.label362.Location = new System.Drawing.Point(194, 32);
+            this.label362.Name = "label362";
+            this.label362.Size = new System.Drawing.Size(31, 13);
+            this.label362.TabIndex = 89;
+            this.label362.Text = "Color";
+            // 
+            // textBox31
+            // 
+            this.textBox31.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox31.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox31.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox31.Location = new System.Drawing.Point(289, 52);
+            this.textBox31.Multiline = true;
+            this.textBox31.Name = "textBox31";
+            this.textBox31.Size = new System.Drawing.Size(193, 63);
+            this.textBox31.TabIndex = 91;
+            this.textBox31.Text = "Colors:  Red (1), White (2), Blue (3), Green (4), Purple (5), Orange (6)";
+            this.textBox31.TextChanged += new System.EventHandler(this.textBox31_TextChanged);
+            // 
+            // numericUD_TargetCircleColor
+            // 
+            this.numericUD_TargetCircleColor.Location = new System.Drawing.Point(112, 123);
+            this.numericUD_TargetCircleColor.Maximum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.numericUD_TargetCircleColor.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUD_TargetCircleColor.Name = "numericUD_TargetCircleColor";
+            this.numericUD_TargetCircleColor.Size = new System.Drawing.Size(33, 20);
+            this.numericUD_TargetCircleColor.TabIndex = 93;
+            this.numericUD_TargetCircleColor.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // label363
+            // 
+            this.label363.AutoSize = true;
+            this.label363.Location = new System.Drawing.Point(12, 125);
+            this.label363.Name = "label363";
+            this.label363.Size = new System.Drawing.Size(94, 13);
+            this.label363.TabIndex = 92;
+            this.label363.Text = "Target Circle Color";
+            // 
+            // numericUD_PriorColor
+            // 
+            this.numericUD_PriorColor.Location = new System.Drawing.Point(112, 96);
+            this.numericUD_PriorColor.Maximum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.numericUD_PriorColor.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUD_PriorColor.Name = "numericUD_PriorColor";
+            this.numericUD_PriorColor.Size = new System.Drawing.Size(33, 20);
+            this.numericUD_PriorColor.TabIndex = 95;
+            this.numericUD_PriorColor.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // label364
+            // 
+            this.label364.AutoSize = true;
+            this.label364.Location = new System.Drawing.Point(12, 98);
+            this.label364.Name = "label364";
+            this.label364.Size = new System.Drawing.Size(91, 13);
+            this.label364.TabIndex = 94;
+            this.label364.Text = "Prior Marker Color";
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -15407,6 +15641,12 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_TargetColor_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_TargetColor_3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_TargetColor_4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_TargetColor_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_TargetCircleColor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_PriorColor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -16746,5 +16986,18 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelDCOTSMin;
         private System.Windows.Forms.TextBox textBoxUT2Drewardperc;
         private System.Windows.Forms.Label label357;
+        private System.Windows.Forms.Label label359;
+        private System.Windows.Forms.NumericUpDown numericUD_TargetColor_4;
+        private System.Windows.Forms.Label label361;
+        private System.Windows.Forms.NumericUpDown numericUD_TargetColor_3;
+        private System.Windows.Forms.Label label360;
+        private System.Windows.Forms.NumericUpDown numericUD_TargetColor_2;
+        private System.Windows.Forms.TextBox textBox31;
+        private System.Windows.Forms.NumericUpDown numericUD_TargetColor_1;
+        private System.Windows.Forms.Label label362;
+        private System.Windows.Forms.NumericUpDown numericUD_TargetCircleColor;
+        private System.Windows.Forms.Label label363;
+        private System.Windows.Forms.NumericUpDown numericUD_PriorColor;
+        private System.Windows.Forms.Label label364;
     }
 }

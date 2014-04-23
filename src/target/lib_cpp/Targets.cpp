@@ -23,6 +23,9 @@
 #define ARC_TYPE_RED		5
 #define ARC_TYPE_WHITE		6
 #define ARC_TYPE_BLUE		8
+#define ARC_TYPE_GREEN		13
+#define ARC_TYPE_PURPLE		14
+#define ARC_TYPE_ORANGE		15
 
 // Moving dots target
 #define TARGET_TYPE_MOVING_DOTS 12
