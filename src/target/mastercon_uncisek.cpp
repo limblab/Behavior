@@ -117,7 +117,7 @@ private:
 
 
 	CircleTarget    *centerTarget;
-	CircleTarget    *outerTargets[8];
+	CircleTarget    *outerTarget[8];
 	double			outer_angles[8];
 	SquareTarget    *timerTarget;
 
@@ -258,18 +258,18 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	int t_dif;
 	t_dif = (int) (ang_diff/t_ang);
 	int c_2a, c_2b;
-	c_2a=cue_one_idx+t_dif;
-	c_2b=cue_one_idx-t_dif;
-	if c_2a>7
-		c_2a=c_2a-8;
-	if c_2b<0
-		c_2b=c_2b+8;
-	if random->getBool()
+	c_2a = curr_cue_one_idx + t_dif;
+	c_2b = curr_cue_one_idx - t_dif;
+	if (c_2a > 7)
+		c_2a = c_2a - 8;
+	if (c_2b < 0)
+		c_2b = c_2b + 8;
+	if (random->getBool())
 		curr_cue_two_idx=c_2a;
 	else
 		curr_cue_two_idx=c_2b;
 
-	if random->getBool(){
+	if (random->getBool()){
 		curr_target_idx=curr_cue_one_idx;
 		curr_cue_color=c_color_one;
 	}
@@ -279,7 +279,7 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	}
 
 	co_mode=params->center_out_mode;
-	if co_mode
+	if (co_mode)
 		m_mode=false;
 	else
 		m_mode =params->match_mode;
@@ -376,6 +376,7 @@ void UncertaintyCisekBehavior::update(SimStruct *S) {
 				setState(STATE_ABORT);
 			}
 			else if (stateTimer->elapsedTime(S) >= ct_cue_delay_time) {
+				playTone(TONE_GO);
 				setState(STATE_MOVEMENT);
 			}
 			break;
@@ -384,27 +385,30 @@ void UncertaintyCisekBehavior::update(SimStruct *S) {
 				setState(STATE_INCOMPLETE);
 			}
 			else { 
-				for(i=0;i<7;i++)	{			
+				for(i=0;i<8;i++)	{			
 					if (outerTarget[i]->cursorInTarget(inputs->cursor)) {
-						if (i==target_index){
+						if (i==curr_target_idx){
 							setState(STATE_OUTER_HOLD);
 						}
 						else {
-							playTone(TONE_FAILURE);
+							outerTarget[curr_target_idx]->color = curr_cue_color;
+							playTone(TONE_ABORT);
 							setState(STATE_FAIL);
+
 						}
 					}
 				}
 			}
 			break;
 		case STATE_OUTER_HOLD:
-			if (stateTimer->elapsedTime(S) >= ot_hold_time) {	
+			if (stateTimer->elapsedTime(S) >= ot_hold_time) {
+				outerTarget[curr_target_idx]->color = curr_cue_color;
 				if (give_reward) {
 					playTone(TONE_REWARD);
 				}
 				setState(STATE_REWARD);
 			}
-			else if (!outerTarget[target_index]->cursorInTarget(inputs->cursor)){
+			else if (!outerTarget[curr_target_idx]->cursorInTarget(inputs->cursor)){
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}
@@ -490,7 +494,7 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 
 	/* target_pos (3) */
 	// Target 0 is the center target
-	if (getState() == STATE_CT_ON || getState() == STATE_CT_MEM_DELAY ||
+	if (getState() == STATE_CT_ON || getState() == STATE_CT_MEM_DELAY || getState() == STATE_CT_OUTER_DELAY ||
 		getState() == STATE_CT_HOLD || getState() == STATE_CT_CUE_DELAY) {
 		outputs->targets[0] = (Target *)centerTarget;
 	}
@@ -500,20 +504,26 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 
 	// Target(s) 1-8 are the outer target(s)
 	if (getState() == STATE_CT_OUTER_DELAY){
-		for (i=0;i<7;i++){
-			output->targets[i+1] = nullTarget;
+		for (i=0;i<8;i++){
+			outputs->targets[i+1] = nullTarget;
 		}
-		output->targets[curr_cue_one_idx+1]= outerTarget[curr_cue_one_idx];
-		output->targets[curr_cue_two_idx+1]= outerTarget[curr_cue_two_idx];
+		outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
+		outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];
 	}
-	else if (getState() == STATE_MOVEMENT){
-		for (i=0;i<7;i++){
-			output->targets[i+1] = outerTarget[i];
+	else if (getState() == STATE_REWARD || getState() == STATE_FAIL) {
+		for (i=0;i<8;i++){
+			outputs->targets[i+1] = nullTarget;
+		}
+		outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
+	}
+	else if (getState() == STATE_MOVEMENT || (getState() == STATE_OUTER_HOLD)){
+		for (i=0;i<8;i++){
+			outputs->targets[i+1] = outerTarget[i];
 		}
 	}
 	else {
-		for (i=0;i<7;i++){
-			output->targets[i+1] = nullTarget;
+		for (i=0;i<8;i++){
+			outputs->targets[i+1] = nullTarget;
 		}
 	}
 
