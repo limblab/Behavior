@@ -248,8 +248,8 @@ void VisualSearchBehavior::update(SimStruct *S) {
 			}else {
 
 				for(i=1;i<params->num_targets;i++) {
-					if(outerTargets[i]->cursorInTarget(inputs->cursor)){
-						if (i==correct_target||params->disable_abort){
+					if(outerTarget[i]->cursorInTarget(inputs->cursor)){
+						if (i==target_index){
 							setState(STATE_OUTER_HOLD);
 							current_target=i;
 						}else {

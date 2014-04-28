@@ -6,6 +6,7 @@
 #define __BUILD_UPDATED__ 1
 #define __BUILD_UPDATED__ 1
 #define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
 
 /* 
  * $Id$
@@ -32,7 +33,7 @@
 #define BEHAVIOR_VERSION_MAJOR 2
 #define BEHAVIOR_VERSION_MINOR 8
 #define BEHAVIOR_VERSION_MICRO 491
-#define BEHAVIOR_VERSION_BUILD 2398
+#define BEHAVIOR_VERSION_BUILD 2399
 
 #ifndef __BUILD_UPDATED__
 #error This project must be built from the build script. 
@@ -178,5 +179,9 @@
 #define WORD_STOP_RECORDING 0x92
 #define WORD_PAUSE_RECORDING 0x93
 #define WORD_RESUME_RECORDING 0x94
+
+/* For UnCisek */
+#define WORD_CT_MEM_DELAY 0x81
+#define WORD_CT_TARGCUE_ON 0x82
 
 #endif /* WORDS_CO_H */

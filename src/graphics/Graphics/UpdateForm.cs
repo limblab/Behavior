@@ -1076,6 +1076,48 @@ namespace BehaviorGraphics
             // More target stuff
             AddParamListItem("DCO STIF", "P28", "Behavior DCO", this.checkBoxDCOSTIF);
             #endregion
+
+            #region UnCisek
+            /* 
+             * UnCisek Parameters 
+             */
+
+            // Timing
+            AddParamListItem("UCK CHL", "P2", "Behavior UnCisek", this.textBoxUCK_CHLo);
+            AddParamListItem("UCK CHH", "P3", "Behavior UnCisek", this.textBoxUCK_CHHi);
+            AddParamListItem("UCK OCDL", "P4", "Behavior UnCisek", this.textBoxUCK_OCDLo);
+            AddParamListItem("UCK OCDH", "P5", "Behavior UnCisek", this.textBoxUCK_OCDHi);
+            AddParamListItem("UCK CMDL", "P6", "Behavior UnCisek", this.textBoxUCK_CMDLo);
+            AddParamListItem("UCK CMDH", "P7", "Behavior UnCisek", this.textBoxUCK_CMDHi);
+            AddParamListItem("UCK CCDL", "P8", "Behavior UnCisek", this.textBoxUCK_CCDLo);
+            AddParamListItem("UCK CCDH", "P9", "Behavior UnCisek", this.textBoxUCK_CCDHi);
+            AddParamListItem("UCK OHL", "P10", "Behavior UnCisek", this.textBoxUCK_OHLo);
+            AddParamListItem("UCK OHH", "P11", "Behavior UnCisek", this.textBoxUCK_OHHi);
+            AddParamListItem("UCK ITI", "P12", "Behavior UnCisek", this.textBoxUCK_ITI);
+            AddParamListItem("UCK MMT", "P13", "Behavior UnCisek", this.textBoxUCK_MMT);
+            AddParamListItem("UCK FPL", "P14", "Behavior UnCisek", this.textBoxUCK_FPL);
+
+            // General Parameters     
+            AddParamListItem("UCK Move Length", "P15", "Behavior UnCisek", this.textBoxUCK_MLen);
+            AddParamListItem("UCK Center Size", "P16", "Behavior UnCisek", this.textBoxUCK_CTS);
+            AddParamListItem("UCK Outer Size", "P17", "Behavior UnCisek", this.textBoxUCK_OTS);
+            AddParamListItem("UCK Target Angle Diff", "P18", "Behavior UnCisek", this.numericUD_UCK_TAD);
+            AddParamListItem("UCK Cue One R", "P19", "Behavior UnCisek", this.textBoxUCK_Cue1ColR);
+            AddParamListItem("UCK Cue One G", "P20", "Behavior UnCisek", this.textBoxUCK_Cue1ColG);
+            AddParamListItem("UCK Cue One B", "P21", "Behavior UnCisek", this.textBoxUCK_Cue1ColB);
+            AddParamListItem("UCK Cue Two R", "P22", "Behavior UnCisek", this.textBoxUCK_Cue2ColR);
+            AddParamListItem("UCK Cue Two G", "P23", "Behavior UnCisek", this.textBoxUCK_Cue2ColG);
+            AddParamListItem("UCK Cue Two B", "P24", "Behavior UnCisek", this.textBoxUCK_Cue2ColB);
+            AddParamListItem("UCK Default R", "P25", "Behavior UnCisek", this.textBoxUCK_DefColR);
+            AddParamListItem("UCK Default G", "P26", "Behavior UnCisek", this.textBoxUCK_DefColG);
+            AddParamListItem("UCK Default B", "P27", "Behavior UnCisek", this.textBoxUCK_DefColB);
+            AddParamListItem("UCK Cue One Reward", "P28", "Behavior UnCisek", this.textBoxUCK_Cue1Rew);
+            AddParamListItem("UCK Cue Two Reward", "P29", "Behavior UnCisek", this.textBoxUCK_Cue2Rew);
+            AddParamListItem("UCK CO Mode", "P30", "Behavior UnCisek", this.checkBoxUCK_COMode);
+            AddParamListItem("UCK Match Mode", "P31", "Behavior UnCisek", this.checkBoxUCK_MMode);
+
+            #endregion
+
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
@@ -2639,6 +2681,61 @@ namespace BehaviorGraphics
         }
 
         private void numericUpDown6_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBoxUCKTimers_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label369_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelUCK_OCDHi_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelUCK_ITI_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label365_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox32_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label366_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox40_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxUCK_Cue1ColR_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBoxUCKTargetProperties_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabUnCisek_Click(object sender, EventArgs e)
         {
 
         }
