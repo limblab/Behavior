@@ -517,9 +517,11 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
 	}
 	else if (getState() == STATE_MOVEMENT || (getState() == STATE_OUTER_HOLD)){
-		for (i=0;i<8;i++){
-			outputs->targets[i+1] = outerTarget[i];
-		}
+//		for (i=0;i<8;i++){
+//			outputs->targets[i+1] = outerTarget[i];
+//		}
+		outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
+		outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];
 	}
 	else {
 		for (i=0;i<8;i++){
