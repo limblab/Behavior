@@ -18,6 +18,9 @@ namespace BehaviorGraphics {
         private Random rand;
         private double coherence, direction, speed, num_dots, dot_radius, newsome_dots;
 
+        // Ring gradient parameters
+        private double radius, width, vm_m, vm_k, min_p, max_p;
+
         Material material;
         Device device;
 
@@ -48,6 +51,13 @@ namespace BehaviorGraphics {
             num_dots = 0;
             dot_radius = 0;
             newsome_dots = 0;
+
+            radius = 0;
+            width = 0;
+            vm_m = 0;
+            vm_k = 0;
+            min_p = 0;
+            max_p = 0;
 
             previous_tick = Environment.TickCount;
 
@@ -83,6 +93,16 @@ namespace BehaviorGraphics {
             this.num_dots = num;
             this.dot_radius = size;
             this.newsome_dots = mov;
+        }
+
+        public void RingGradientParams(double r, double w, double vm_m, double vm_k, double min_p, double max_p)
+        {
+            this.radius = r; 
+            this.width = w;
+            this.vm_m = vm_m;
+            this.vm_k = vm_k;
+            this.min_p = min_p;
+            this.max_p = max_p;
         }
 
         public TargetSpriteType Type { get { return type; } set { type = value; } }
@@ -298,6 +318,16 @@ namespace BehaviorGraphics {
 
                     break;
 
+                case TargetSpriteType.RingGradient:
+
+                    vertices = new CustomVertex.TransformedColored[200];
+                    getRingVertices(ref vertices, optionalColor);
+
+                    device.VertexFormat = CustomVertex.TransformedColored.Format;
+                    device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 100, vertices);
+
+                break;
+
 
                 default:
 
@@ -406,6 +436,53 @@ namespace BehaviorGraphics {
                     outer * (float)Math.Sin(theta) + device.Viewport.Height / 2,
                     0f, 1f);
                 vertices[2 * i + 1].Color = c.ToArgb();
+            }
+        }
+
+        private void getRingVertices(ref CustomVertex.TransformedColored[] vertices, Color c)
+        {
+            
+            var vonMises = new VonMisesDistribution(vm_m , vm_k); 
+  
+            float x1 = (float)((radius + width / 2) * Math.Cos((double)vm_m));
+            float y1 = (float)((radius + width / 2) * Math.Sin((double)vm_m));
+            float x2 = (float)((radius - width / 2) * Math.Cos((double)(vm_m + 6.2831)));
+            float y2 = (float)((radius - width / 2) * Math.Sin((double)(vm_m + 6.2831)));
+
+            float start_angle = (float)vm_m;
+            float end_angle = (float)(vm_m + 6.2831);
+
+            if (end_angle > start_angle)
+            {
+                start_angle = start_angle + (float)6.2832;
+            }
+
+            float length = 2 * (end_angle - start_angle);
+
+            float inner = (float)Math.Sqrt((double)((x1 - device.Viewport.Width / 2) * (x1 - device.Viewport.Width / 2) + (y1 - device.Viewport.Height / 2) * (y1 - device.Viewport.Height / 2)));
+            float outer = (float)Math.Sqrt((double)((x2 - device.Viewport.Width / 2) * (x2 - device.Viewport.Width / 2) + (y2 - device.Viewport.Height / 2) * (y2 - device.Viewport.Height / 2)));
+
+            for (int i = 0; i < 100; i++)
+            {
+    
+                double theta = start_angle + (double)i / 100.0 * length;
+                double probthet = vonMises.ProbabilityDensityFunction(theta);
+                double prob255 = ((probthet - min_p) / (max_p - min_p)) * 255;
+                if (prob255 > 255) { prob255 = 255; } else if (prob255 < 0) { prob255 = 0; }
+
+                int alphaval = Convert.ToInt32(prob255);
+
+                vertices[2 * i].Position = new Vector4(
+                    inner * (float)Math.Cos(theta) + device.Viewport.Width / 2,
+                    inner * (float)Math.Sin(theta) + device.Viewport.Height / 2,
+                    0f, 1f);
+                vertices[2 * i].Color = Color.fromArgb(alphaval,c.ToArgb());
+
+                vertices[2 * i + 1].Position = new Vector4(
+                    outer * (float)Math.Cos(theta) + device.Viewport.Width / 2,
+                    outer * (float)Math.Sin(theta) + device.Viewport.Height / 2,
+                    0f, 1f);
+                vertices[2 * i + 1].Color = Color.fromArgb(alphaval,c.ToArgb());
             }
         }
 
@@ -545,6 +622,7 @@ namespace BehaviorGraphics {
         GreenArc = 13,
         PurpleArc = 14,
         OrangeArc = 15,
+        RingGradient = 48,
         Glyph0 = 16,
         Glyph1 = 17,
         Glyph2 = 18,

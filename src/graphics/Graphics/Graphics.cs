@@ -376,6 +376,19 @@ namespace BehaviorGraphics
                                 double newsome_dots = BitConverter.ToDouble(data, (pos++) * 8);                                
                                 t[i].movingDotsParams(coherence, direction, speed, num_dots, dot_radius, newsome_dots); 
                                 
+                            } else if (t[i].Type == TargetSpriteType.RingGradient)
+                            {
+                                target_count--;
+                                double radius = ulx;
+                                double width = uly;
+                                double ringcol = lrx;
+                                double vm_m = lry;
+                                double vm_k = BitConverter.ToDouble(data, (pos++) * 8);
+                                double min_p = BitConverter.ToDouble(data, (pos++) * 8);
+                                double max_p = BitConverter.ToDouble(data, (pos++) * 8);
+
+                                t[i].RingGradientParams(radius,width,vm_m,vm_k,min_p,max_p);
+                                t[i].SetColor(ringcol);
                             }
                             
                         }

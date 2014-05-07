@@ -1018,6 +1018,10 @@ namespace BehaviorGraphics
             this.labelUT1DTargetAngle = new System.Windows.Forms.Label();
             this.labelUT1DMovementLen = new System.Windows.Forms.Label();
             this.UncertaintyTarget2D = new System.Windows.Forms.TabPage();
+            this.labelUT2D_minmaxp = new System.Windows.Forms.Label();
+            this.textBoxUT2D_maxp = new System.Windows.Forms.TextBox();
+            this.textBoxUT2D_minp = new System.Windows.Forms.TextBox();
+            this.checkBoxUT2D_gradient = new System.Windows.Forms.CheckBox();
             this.labelUT2DUnits = new System.Windows.Forms.Label();
             this.groupBoxUT2DTimers = new System.Windows.Forms.GroupBox();
             this.checkBoxUT2DTargetDelayMode = new System.Windows.Forms.CheckBox();
@@ -1266,6 +1270,65 @@ namespace BehaviorGraphics
             this.labelDCOOH = new System.Windows.Forms.Label();
             this.labelDCORW = new System.Windows.Forms.Label();
             this.labelDCOCHL = new System.Windows.Forms.Label();
+            this.tabUnCisek = new System.Windows.Forms.TabPage();
+            this.groupBoxUCKTimers = new System.Windows.Forms.GroupBox();
+            this.textBoxUCK_FPL = new System.Windows.Forms.TextBox();
+            this.labelUCK_FPL = new System.Windows.Forms.Label();
+            this.textBoxUCK_MMT = new System.Windows.Forms.TextBox();
+            this.labelUCK_MMT = new System.Windows.Forms.Label();
+            this.textBoxUCK_ITI = new System.Windows.Forms.TextBox();
+            this.labelUCK_ITI = new System.Windows.Forms.Label();
+            this.textBoxUCK_OHHi = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_OHLo = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_CCDHi = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_CCDLo = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_CMDHi = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_CMDLo = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_OCDHi = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_OCDLo = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_CHHi = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_CHLo = new System.Windows.Forms.TextBox();
+            this.labelUCK_OHHi = new System.Windows.Forms.Label();
+            this.labelUCK_OHLo = new System.Windows.Forms.Label();
+            this.labelUCK_CDDHi = new System.Windows.Forms.Label();
+            this.labelUCK_CCDLo = new System.Windows.Forms.Label();
+            this.labelUCK_CMDHi = new System.Windows.Forms.Label();
+            this.labelUCK_CMDLo = new System.Windows.Forms.Label();
+            this.labelUCK_OCDHi = new System.Windows.Forms.Label();
+            this.labelUCK_OCDLo = new System.Windows.Forms.Label();
+            this.labelUCK_CHHi = new System.Windows.Forms.Label();
+            this.labelUCK_CHLo = new System.Windows.Forms.Label();
+            this.groupBoxUCKTargetProperties = new System.Windows.Forms.GroupBox();
+            this.checkBoxUCK_MMode = new System.Windows.Forms.CheckBox();
+            this.checkBoxUCK_COMode = new System.Windows.Forms.CheckBox();
+            this.textBoxUCK_Cue2Rew = new System.Windows.Forms.TextBox();
+            this.labelUCK_Cue2Rew = new System.Windows.Forms.Label();
+            this.textBoxUCK_Cue1Rew = new System.Windows.Forms.TextBox();
+            this.labelUCK_Cue1Rew = new System.Windows.Forms.Label();
+            this.labelUCK_ColorGuide = new System.Windows.Forms.Label();
+            this.labelUCK_colB = new System.Windows.Forms.Label();
+            this.labelUCK_colG = new System.Windows.Forms.Label();
+            this.labelUCK_colR = new System.Windows.Forms.Label();
+            this.textBoxUCK_Cue2ColB = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_Cue2ColG = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_Cue2ColR = new System.Windows.Forms.TextBox();
+            this.labelUCK_Cue2Col = new System.Windows.Forms.Label();
+            this.textBoxUCK_Cue1ColB = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_Cue1ColG = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_Cue1ColR = new System.Windows.Forms.TextBox();
+            this.labelUCK_Cue1Col = new System.Windows.Forms.Label();
+            this.textBoxUCK_DefColB = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_DefColG = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_DefColR = new System.Windows.Forms.TextBox();
+            this.labelUCK_DefCol = new System.Windows.Forms.Label();
+            this.numericUD_UCK_TAD = new System.Windows.Forms.NumericUpDown();
+            this.label_UCK_TAD = new System.Windows.Forms.Label();
+            this.textBoxUCK_OTS = new System.Windows.Forms.TextBox();
+            this.labelUCK_OTS = new System.Windows.Forms.Label();
+            this.textBoxUCK_CTS = new System.Windows.Forms.TextBox();
+            this.labelUCK_CTS = new System.Windows.Forms.Label();
+            this.textBoxUCK_MLen = new System.Windows.Forms.TextBox();
+            this.labelUCK_MLen = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelMdl = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -1376,65 +1439,6 @@ namespace BehaviorGraphics
             this.label331 = new System.Windows.Forms.Label();
             this.label351 = new System.Windows.Forms.Label();
             this.label356 = new System.Windows.Forms.Label();
-            this.tabUnCisek = new System.Windows.Forms.TabPage();
-            this.groupBoxUCKTargetProperties = new System.Windows.Forms.GroupBox();
-            this.groupBoxUCKTimers = new System.Windows.Forms.GroupBox();
-            this.labelUCK_CHLo = new System.Windows.Forms.Label();
-            this.labelUCK_CHHi = new System.Windows.Forms.Label();
-            this.labelUCK_OCDHi = new System.Windows.Forms.Label();
-            this.labelUCK_OCDLo = new System.Windows.Forms.Label();
-            this.labelUCK_CMDHi = new System.Windows.Forms.Label();
-            this.labelUCK_CMDLo = new System.Windows.Forms.Label();
-            this.labelUCK_CDDHi = new System.Windows.Forms.Label();
-            this.labelUCK_CCDLo = new System.Windows.Forms.Label();
-            this.labelUCK_OHHi = new System.Windows.Forms.Label();
-            this.labelUCK_OHLo = new System.Windows.Forms.Label();
-            this.textBoxUCK_CHLo = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_CHHi = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_OCDHi = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_OCDLo = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_CMDHi = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_CMDLo = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_CCDHi = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_CCDLo = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_OHHi = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_OHLo = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_ITI = new System.Windows.Forms.TextBox();
-            this.labelUCK_ITI = new System.Windows.Forms.Label();
-            this.textBoxUCK_MMT = new System.Windows.Forms.TextBox();
-            this.labelUCK_MMT = new System.Windows.Forms.Label();
-            this.textBoxUCK_FPL = new System.Windows.Forms.TextBox();
-            this.labelUCK_FPL = new System.Windows.Forms.Label();
-            this.textBoxUCK_MLen = new System.Windows.Forms.TextBox();
-            this.labelUCK_MLen = new System.Windows.Forms.Label();
-            this.textBoxUCK_CTS = new System.Windows.Forms.TextBox();
-            this.labelUCK_CTS = new System.Windows.Forms.Label();
-            this.textBoxUCK_OTS = new System.Windows.Forms.TextBox();
-            this.labelUCK_OTS = new System.Windows.Forms.Label();
-            this.label_UCK_TAD = new System.Windows.Forms.Label();
-            this.numericUD_UCK_TAD = new System.Windows.Forms.NumericUpDown();
-            this.textBoxUCK_DefColR = new System.Windows.Forms.TextBox();
-            this.labelUCK_DefCol = new System.Windows.Forms.Label();
-            this.textBoxUCK_DefColG = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_DefColB = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_Cue1ColB = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_Cue1ColG = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_Cue1ColR = new System.Windows.Forms.TextBox();
-            this.labelUCK_Cue1Col = new System.Windows.Forms.Label();
-            this.textBoxUCK_Cue2ColB = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_Cue2ColG = new System.Windows.Forms.TextBox();
-            this.textBoxUCK_Cue2ColR = new System.Windows.Forms.TextBox();
-            this.labelUCK_Cue2Col = new System.Windows.Forms.Label();
-            this.labelUCK_colR = new System.Windows.Forms.Label();
-            this.labelUCK_colG = new System.Windows.Forms.Label();
-            this.labelUCK_colB = new System.Windows.Forms.Label();
-            this.labelUCK_ColorGuide = new System.Windows.Forms.Label();
-            this.textBoxUCK_Cue2Rew = new System.Windows.Forms.TextBox();
-            this.labelUCK_Cue2Rew = new System.Windows.Forms.Label();
-            this.textBoxUCK_Cue1Rew = new System.Windows.Forms.TextBox();
-            this.labelUCK_Cue1Rew = new System.Windows.Forms.Label();
-            this.checkBoxUCK_COMode = new System.Windows.Forms.CheckBox();
-            this.checkBoxUCK_MMode = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -1590,6 +1594,10 @@ namespace BehaviorGraphics
             this.groupBoxDCOCont.SuspendLayout();
             this.groupBoxDCOT.SuspendLayout();
             this.groupBoxDCOTime.SuspendLayout();
+            this.tabUnCisek.SuspendLayout();
+            this.groupBoxUCKTimers.SuspendLayout();
+            this.groupBoxUCKTargetProperties.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_UCK_TAD)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -1598,10 +1606,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.tabUnCisek.SuspendLayout();
-            this.groupBoxUCKTargetProperties.SuspendLayout();
-            this.groupBoxUCKTimers.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUD_UCK_TAD)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -2455,10 +2459,10 @@ namespace BehaviorGraphics
             this.tabPageCO.Controls.Add(this.groupBox3);
             this.tabPageCO.Controls.Add(this.groupBox2);
             this.tabPageCO.Controls.Add(this.groupBox1);
-            this.tabPageCO.Location = new System.Drawing.Point(4, 22);
+            this.tabPageCO.Location = new System.Drawing.Point(4, 58);
             this.tabPageCO.Name = "tabPageCO";
             this.tabPageCO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCO.Size = new System.Drawing.Size(686, 473);
+            this.tabPageCO.Size = new System.Drawing.Size(686, 437);
             this.tabPageCO.TabIndex = 1;
             this.tabPageCO.Text = "Center-Out";
             this.tabPageCO.UseVisualStyleBackColor = true;
@@ -2946,10 +2950,10 @@ namespace BehaviorGraphics
             this.tabPageRW.Controls.Add(this.groupBox30);
             this.tabPageRW.Controls.Add(this.groupBox8);
             this.tabPageRW.Controls.Add(this.groupBox7);
-            this.tabPageRW.Location = new System.Drawing.Point(4, 22);
+            this.tabPageRW.Location = new System.Drawing.Point(4, 58);
             this.tabPageRW.Name = "tabPageRW";
             this.tabPageRW.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRW.Size = new System.Drawing.Size(686, 473);
+            this.tabPageRW.Size = new System.Drawing.Size(686, 437);
             this.tabPageRW.TabIndex = 2;
             this.tabPageRW.Text = "Random Walk";
             this.tabPageRW.UseVisualStyleBackColor = true;
@@ -3398,10 +3402,10 @@ namespace BehaviorGraphics
             this.tabPageFC.Controls.Add(this.textBoxFCPctTestTrials);
             this.tabPageFC.Controls.Add(this.groupBox9);
             this.tabPageFC.Controls.Add(this.label43);
-            this.tabPageFC.Location = new System.Drawing.Point(4, 22);
+            this.tabPageFC.Location = new System.Drawing.Point(4, 58);
             this.tabPageFC.Name = "tabPageFC";
             this.tabPageFC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFC.Size = new System.Drawing.Size(686, 473);
+            this.tabPageFC.Size = new System.Drawing.Size(686, 437);
             this.tabPageFC.TabIndex = 3;
             this.tabPageFC.Text = "Forced Choice";
             this.tabPageFC.UseVisualStyleBackColor = true;
@@ -3699,10 +3703,10 @@ namespace BehaviorGraphics
             this.tabPageBS.Controls.Add(this.groupBox25);
             this.tabPageBS.Controls.Add(this.groupBox28);
             this.tabPageBS.Controls.Add(this.groupBox26);
-            this.tabPageBS.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBS.Location = new System.Drawing.Point(4, 58);
             this.tabPageBS.Name = "tabPageBS";
             this.tabPageBS.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBS.Size = new System.Drawing.Size(686, 473);
+            this.tabPageBS.Size = new System.Drawing.Size(686, 437);
             this.tabPageBS.TabIndex = 4;
             this.tabPageBS.Text = "Bump-stim";
             this.tabPageBS.UseVisualStyleBackColor = true;
@@ -4205,10 +4209,10 @@ namespace BehaviorGraphics
             this.tabPageMG.Controls.Add(this.groupBox37);
             this.tabPageMG.Controls.Add(this.groupBoxMGTargets);
             this.tabPageMG.Controls.Add(this.groupBox31);
-            this.tabPageMG.Location = new System.Drawing.Point(4, 22);
+            this.tabPageMG.Location = new System.Drawing.Point(4, 58);
             this.tabPageMG.Name = "tabPageMG";
             this.tabPageMG.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMG.Size = new System.Drawing.Size(686, 473);
+            this.tabPageMG.Size = new System.Drawing.Size(686, 437);
             this.tabPageMG.TabIndex = 5;
             this.tabPageMG.Text = "Multi-Gadget";
             this.tabPageMG.UseVisualStyleBackColor = true;
@@ -4653,10 +4657,10 @@ namespace BehaviorGraphics
             this.tabPageWF.Controls.Add(this.groupBox35);
             this.tabPageWF.Controls.Add(this.groupBox33);
             this.tabPageWF.Controls.Add(this.groupBox34);
-            this.tabPageWF.Location = new System.Drawing.Point(4, 22);
+            this.tabPageWF.Location = new System.Drawing.Point(4, 58);
             this.tabPageWF.Name = "tabPageWF";
             this.tabPageWF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageWF.Size = new System.Drawing.Size(686, 473);
+            this.tabPageWF.Size = new System.Drawing.Size(686, 437);
             this.tabPageWF.TabIndex = 6;
             this.tabPageWF.Text = "Wrist Flexion";
             this.tabPageWF.UseVisualStyleBackColor = true;
@@ -5496,10 +5500,10 @@ namespace BehaviorGraphics
             // 
             this.tabPageBD.Controls.Add(this.groupBox38);
             this.tabPageBD.Controls.Add(this.groupBox39);
-            this.tabPageBD.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBD.Location = new System.Drawing.Point(4, 58);
             this.tabPageBD.Name = "tabPageBD";
             this.tabPageBD.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBD.Size = new System.Drawing.Size(686, 473);
+            this.tabPageBD.Size = new System.Drawing.Size(686, 437);
             this.tabPageBD.TabIndex = 7;
             this.tabPageBD.Text = "Ball Drop";
             this.tabPageBD.UseVisualStyleBackColor = true;
@@ -5696,10 +5700,10 @@ namespace BehaviorGraphics
             this.tabPageBC.Controls.Add(this.groupBox19);
             this.tabPageBC.Controls.Add(this.groupBox17);
             this.tabPageBC.Controls.Add(this.groupBox18);
-            this.tabPageBC.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBC.Location = new System.Drawing.Point(4, 58);
             this.tabPageBC.Name = "tabPageBC";
             this.tabPageBC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBC.Size = new System.Drawing.Size(686, 473);
+            this.tabPageBC.Size = new System.Drawing.Size(686, 437);
             this.tabPageBC.TabIndex = 8;
             this.tabPageBC.Text = "Bump-choice";
             this.tabPageBC.UseVisualStyleBackColor = true;
@@ -6444,10 +6448,10 @@ namespace BehaviorGraphics
             this.tabPage1.Controls.Add(this.label175);
             this.tabPage1.Controls.Add(this.groupBox22);
             this.tabPage1.Controls.Add(this.groupBox20);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 58);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(686, 473);
+            this.tabPage1.Size = new System.Drawing.Size(686, 437);
             this.tabPage1.TabIndex = 9;
             this.tabPage1.Text = "Visual Search";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -6799,10 +6803,10 @@ namespace BehaviorGraphics
             this.tabPageBF.Controls.Add(this.groupBox24);
             this.tabPageBF.Controls.Add(this.groupBox41);
             this.tabPageBF.Controls.Add(this.groupBox42);
-            this.tabPageBF.Location = new System.Drawing.Point(4, 40);
+            this.tabPageBF.Location = new System.Drawing.Point(4, 58);
             this.tabPageBF.Name = "tabPageBF";
             this.tabPageBF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBF.Size = new System.Drawing.Size(686, 455);
+            this.tabPageBF.Size = new System.Drawing.Size(686, 437);
             this.tabPageBF.TabIndex = 10;
             this.tabPageBF.Text = "Bump-follow";
             this.tabPageBF.UseVisualStyleBackColor = true;
@@ -7216,10 +7220,10 @@ namespace BehaviorGraphics
             this.tabPage2.Controls.Add(this.groupBox44);
             this.tabPage2.Controls.Add(this.groupBox45);
             this.tabPage2.Controls.Add(this.groupBox46);
-            this.tabPage2.Location = new System.Drawing.Point(4, 40);
+            this.tabPage2.Location = new System.Drawing.Point(4, 58);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(686, 455);
+            this.tabPage2.Size = new System.Drawing.Size(686, 437);
             this.tabPage2.TabIndex = 11;
             this.tabPage2.Text = "2AFC";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -7930,10 +7934,10 @@ namespace BehaviorGraphics
             this.tabUncertainty1D.Controls.Add(this.groupBoxUPertProp);
             this.tabUncertainty1D.Controls.Add(this.groupBoxUTargetSettings);
             this.tabUncertainty1D.Controls.Add(this.groupBoxUTimers);
-            this.tabUncertainty1D.Location = new System.Drawing.Point(4, 40);
+            this.tabUncertainty1D.Location = new System.Drawing.Point(4, 58);
             this.tabUncertainty1D.Name = "tabUncertainty1D";
             this.tabUncertainty1D.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUncertainty1D.Size = new System.Drawing.Size(686, 455);
+            this.tabUncertainty1D.Size = new System.Drawing.Size(686, 437);
             this.tabUncertainty1D.TabIndex = 12;
             this.tabUncertainty1D.Text = "Uncertainty1D";
             this.tabUncertainty1D.UseVisualStyleBackColor = true;
@@ -8770,10 +8774,10 @@ namespace BehaviorGraphics
             this.tabAttention.Controls.Add(this.groupBox56);
             this.tabAttention.Controls.Add(this.groupBox57);
             this.tabAttention.Controls.Add(this.groupBox58);
-            this.tabAttention.Location = new System.Drawing.Point(4, 40);
+            this.tabAttention.Location = new System.Drawing.Point(4, 58);
             this.tabAttention.Name = "tabAttention";
             this.tabAttention.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAttention.Size = new System.Drawing.Size(686, 455);
+            this.tabAttention.Size = new System.Drawing.Size(686, 437);
             this.tabAttention.TabIndex = 13;
             this.tabAttention.Text = "Attention";
             this.tabAttention.UseVisualStyleBackColor = true;
@@ -9792,10 +9796,10 @@ namespace BehaviorGraphics
             this.tabPage3.Controls.Add(this.groupBox63);
             this.tabPage3.Controls.Add(this.groupBox62);
             this.tabPage3.Controls.Add(this.groupBox61);
-            this.tabPage3.Location = new System.Drawing.Point(4, 40);
+            this.tabPage3.Location = new System.Drawing.Point(4, 58);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(686, 455);
+            this.tabPage3.Size = new System.Drawing.Size(686, 437);
             this.tabPage3.TabIndex = 14;
             this.tabPage3.Text = "Bump Direction";
             this.toolTip1.SetToolTip(this.tabPage3, "Step this many times the step size on wrong answers");
@@ -10335,10 +10339,10 @@ namespace BehaviorGraphics
             this.UnstableField.Controls.Add(this.groupBox67);
             this.UnstableField.Controls.Add(this.groupBox66);
             this.UnstableField.Controls.Add(this.groupBox65);
-            this.UnstableField.Location = new System.Drawing.Point(4, 40);
+            this.UnstableField.Location = new System.Drawing.Point(4, 58);
             this.UnstableField.Name = "UnstableField";
             this.UnstableField.Padding = new System.Windows.Forms.Padding(3);
-            this.UnstableField.Size = new System.Drawing.Size(686, 455);
+            this.UnstableField.Size = new System.Drawing.Size(686, 437);
             this.UnstableField.TabIndex = 15;
             this.UnstableField.Text = "Unstable Field";
             this.UnstableField.UseVisualStyleBackColor = true;
@@ -11135,10 +11139,10 @@ namespace BehaviorGraphics
             this.tabUncertaintyTarget1D.Controls.Add(this.groupBoxUT1DCloud);
             this.tabUncertaintyTarget1D.Controls.Add(this.groupBoxUT1DShift);
             this.tabUncertaintyTarget1D.Controls.Add(this.groupBoxUT1DTaskSettings);
-            this.tabUncertaintyTarget1D.Location = new System.Drawing.Point(4, 40);
+            this.tabUncertaintyTarget1D.Location = new System.Drawing.Point(4, 58);
             this.tabUncertaintyTarget1D.Name = "tabUncertaintyTarget1D";
             this.tabUncertaintyTarget1D.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUncertaintyTarget1D.Size = new System.Drawing.Size(686, 455);
+            this.tabUncertaintyTarget1D.Size = new System.Drawing.Size(686, 437);
             this.tabUncertaintyTarget1D.TabIndex = 16;
             this.tabUncertaintyTarget1D.Text = "UncertaintyTarget1D";
             this.tabUncertaintyTarget1D.UseVisualStyleBackColor = true;
@@ -11899,6 +11903,10 @@ namespace BehaviorGraphics
             // 
             // UncertaintyTarget2D
             // 
+            this.UncertaintyTarget2D.Controls.Add(this.labelUT2D_minmaxp);
+            this.UncertaintyTarget2D.Controls.Add(this.textBoxUT2D_maxp);
+            this.UncertaintyTarget2D.Controls.Add(this.textBoxUT2D_minp);
+            this.UncertaintyTarget2D.Controls.Add(this.checkBoxUT2D_gradient);
             this.UncertaintyTarget2D.Controls.Add(this.labelUT2DUnits);
             this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DTimers);
             this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DCloud);
@@ -11911,6 +11919,42 @@ namespace BehaviorGraphics
             this.UncertaintyTarget2D.TabIndex = 17;
             this.UncertaintyTarget2D.Text = "UncertaintyTarget2D";
             this.UncertaintyTarget2D.UseVisualStyleBackColor = true;
+            // 
+            // labelUT2D_minmaxp
+            // 
+            this.labelUT2D_minmaxp.AutoSize = true;
+            this.labelUT2D_minmaxp.Location = new System.Drawing.Point(119, 411);
+            this.labelUT2D_minmaxp.Name = "labelUT2D_minmaxp";
+            this.labelUT2D_minmaxp.Size = new System.Drawing.Size(104, 13);
+            this.labelUT2D_minmaxp.TabIndex = 92;
+            this.labelUT2D_minmaxp.Text = "min | max prob(theta)";
+            // 
+            // textBoxUT2D_maxp
+            // 
+            this.textBoxUT2D_maxp.Location = new System.Drawing.Point(271, 408);
+            this.textBoxUT2D_maxp.Name = "textBoxUT2D_maxp";
+            this.textBoxUT2D_maxp.Size = new System.Drawing.Size(36, 20);
+            this.textBoxUT2D_maxp.TabIndex = 93;
+            this.toolTip1.SetToolTip(this.textBoxUT2D_maxp, "probability at which transparency is 0 ");
+            this.textBoxUT2D_maxp.TextChanged += new System.EventHandler(this.textBoxUT2D_maxp_TextChanged);
+            // 
+            // textBoxUT2D_minp
+            // 
+            this.textBoxUT2D_minp.Location = new System.Drawing.Point(229, 408);
+            this.textBoxUT2D_minp.Name = "textBoxUT2D_minp";
+            this.textBoxUT2D_minp.Size = new System.Drawing.Size(36, 20);
+            this.textBoxUT2D_minp.TabIndex = 92;
+            this.toolTip1.SetToolTip(this.textBoxUT2D_minp, "probability at which transparency is 1");
+            // 
+            // checkBoxUT2D_gradient
+            // 
+            this.checkBoxUT2D_gradient.AutoSize = true;
+            this.checkBoxUT2D_gradient.Location = new System.Drawing.Point(12, 410);
+            this.checkBoxUT2D_gradient.Name = "checkBoxUT2D_gradient";
+            this.checkBoxUT2D_gradient.Size = new System.Drawing.Size(88, 17);
+            this.checkBoxUT2D_gradient.TabIndex = 92;
+            this.checkBoxUT2D_gradient.Text = "Use Gradient";
+            this.checkBoxUT2D_gradient.UseVisualStyleBackColor = true;
             // 
             // labelUT2DUnits
             // 
@@ -12248,7 +12292,6 @@ namespace BehaviorGraphics
             this.textBox31.Size = new System.Drawing.Size(193, 63);
             this.textBox31.TabIndex = 91;
             this.textBox31.Text = "Colors:  Red (1), White (2), Blue (3), Green (4), Purple (5), Orange (6)";
-            this.textBox31.TextChanged += new System.EventHandler(this.textBox31_TextChanged);
             // 
             // numericUD_TargetColor_1
             // 
@@ -12302,7 +12345,6 @@ namespace BehaviorGraphics
             0,
             0,
             0});
-            this.numericUD_TargetColor_4.ValueChanged += new System.EventHandler(this.numericUpDown6_ValueChanged);
             // 
             // label361
             // 
@@ -12343,7 +12385,6 @@ namespace BehaviorGraphics
             this.label360.Size = new System.Drawing.Size(31, 13);
             this.label360.TabIndex = 85;
             this.label360.Text = "Color";
-            this.label360.Click += new System.EventHandler(this.label360_Click);
             // 
             // numericUD_TargetColor_2
             // 
@@ -12708,7 +12749,6 @@ namespace BehaviorGraphics
             this.groupBoxUT2DShift.TabIndex = 73;
             this.groupBoxUT2DShift.TabStop = false;
             this.groupBoxUT2DShift.Text = "Target Shift (Prior)";
-            this.groupBoxUT2DShift.Enter += new System.EventHandler(this.groupBoxUT2DShift_Enter);
             // 
             // numericUD_PriorColor
             // 
@@ -14412,6 +14452,567 @@ namespace BehaviorGraphics
             this.labelDCOCHL.TabIndex = 0;
             this.labelDCOCHL.Text = "Center hold low";
             // 
+            // tabUnCisek
+            // 
+            this.tabUnCisek.Controls.Add(this.groupBoxUCKTimers);
+            this.tabUnCisek.Controls.Add(this.groupBoxUCKTargetProperties);
+            this.tabUnCisek.Location = new System.Drawing.Point(4, 58);
+            this.tabUnCisek.Name = "tabUnCisek";
+            this.tabUnCisek.Padding = new System.Windows.Forms.Padding(3);
+            this.tabUnCisek.Size = new System.Drawing.Size(686, 437);
+            this.tabUnCisek.TabIndex = 21;
+            this.tabUnCisek.Text = "UnCisek";
+            this.tabUnCisek.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxUCKTimers
+            // 
+            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_FPL);
+            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_FPL);
+            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_MMT);
+            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_MMT);
+            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_ITI);
+            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_ITI);
+            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_OHHi);
+            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_OHLo);
+            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_CCDHi);
+            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_CCDLo);
+            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_CMDHi);
+            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_CMDLo);
+            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_OCDHi);
+            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_OCDLo);
+            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_CHHi);
+            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_CHLo);
+            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_OHHi);
+            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_OHLo);
+            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_CDDHi);
+            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_CCDLo);
+            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_CMDHi);
+            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_CMDLo);
+            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_OCDHi);
+            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_OCDLo);
+            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_CHHi);
+            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_CHLo);
+            this.groupBoxUCKTimers.Location = new System.Drawing.Point(504, 11);
+            this.groupBoxUCKTimers.Name = "groupBoxUCKTimers";
+            this.groupBoxUCKTimers.Size = new System.Drawing.Size(170, 356);
+            this.groupBoxUCKTimers.TabIndex = 1;
+            this.groupBoxUCKTimers.TabStop = false;
+            this.groupBoxUCKTimers.Text = "Timers";
+            // 
+            // textBoxUCK_FPL
+            // 
+            this.textBoxUCK_FPL.Location = new System.Drawing.Point(133, 318);
+            this.textBoxUCK_FPL.Name = "textBoxUCK_FPL";
+            this.textBoxUCK_FPL.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_FPL.TabIndex = 25;
+            // 
+            // labelUCK_FPL
+            // 
+            this.labelUCK_FPL.AutoSize = true;
+            this.labelUCK_FPL.Location = new System.Drawing.Point(12, 321);
+            this.labelUCK_FPL.Name = "labelUCK_FPL";
+            this.labelUCK_FPL.Size = new System.Drawing.Size(97, 13);
+            this.labelUCK_FPL.TabIndex = 24;
+            this.labelUCK_FPL.Text = "Failure Penalty Lag";
+            // 
+            // textBoxUCK_MMT
+            // 
+            this.textBoxUCK_MMT.Location = new System.Drawing.Point(133, 292);
+            this.textBoxUCK_MMT.Name = "textBoxUCK_MMT";
+            this.textBoxUCK_MMT.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_MMT.TabIndex = 23;
+            // 
+            // labelUCK_MMT
+            // 
+            this.labelUCK_MMT.AutoSize = true;
+            this.labelUCK_MMT.Location = new System.Drawing.Point(12, 295);
+            this.labelUCK_MMT.Name = "labelUCK_MMT";
+            this.labelUCK_MMT.Size = new System.Drawing.Size(106, 13);
+            this.labelUCK_MMT.TabIndex = 22;
+            this.labelUCK_MMT.Text = "Movement Max Time";
+            // 
+            // textBoxUCK_ITI
+            // 
+            this.textBoxUCK_ITI.Location = new System.Drawing.Point(133, 266);
+            this.textBoxUCK_ITI.Name = "textBoxUCK_ITI";
+            this.textBoxUCK_ITI.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_ITI.TabIndex = 21;
+            // 
+            // labelUCK_ITI
+            // 
+            this.labelUCK_ITI.AutoSize = true;
+            this.labelUCK_ITI.Location = new System.Drawing.Point(12, 269);
+            this.labelUCK_ITI.Name = "labelUCK_ITI";
+            this.labelUCK_ITI.Size = new System.Drawing.Size(82, 13);
+            this.labelUCK_ITI.TabIndex = 20;
+            this.labelUCK_ITI.Text = "Intertrial Interval";
+            // 
+            // textBoxUCK_OHHi
+            // 
+            this.textBoxUCK_OHHi.Location = new System.Drawing.Point(133, 239);
+            this.textBoxUCK_OHHi.Name = "textBoxUCK_OHHi";
+            this.textBoxUCK_OHHi.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_OHHi.TabIndex = 19;
+            // 
+            // textBoxUCK_OHLo
+            // 
+            this.textBoxUCK_OHLo.Location = new System.Drawing.Point(133, 217);
+            this.textBoxUCK_OHLo.Name = "textBoxUCK_OHLo";
+            this.textBoxUCK_OHLo.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_OHLo.TabIndex = 18;
+            // 
+            // textBoxUCK_CCDHi
+            // 
+            this.textBoxUCK_CCDHi.Location = new System.Drawing.Point(133, 190);
+            this.textBoxUCK_CCDHi.Name = "textBoxUCK_CCDHi";
+            this.textBoxUCK_CCDHi.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_CCDHi.TabIndex = 17;
+            // 
+            // textBoxUCK_CCDLo
+            // 
+            this.textBoxUCK_CCDLo.Location = new System.Drawing.Point(133, 168);
+            this.textBoxUCK_CCDLo.Name = "textBoxUCK_CCDLo";
+            this.textBoxUCK_CCDLo.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_CCDLo.TabIndex = 16;
+            // 
+            // textBoxUCK_CMDHi
+            // 
+            this.textBoxUCK_CMDHi.Location = new System.Drawing.Point(133, 141);
+            this.textBoxUCK_CMDHi.Name = "textBoxUCK_CMDHi";
+            this.textBoxUCK_CMDHi.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_CMDHi.TabIndex = 15;
+            // 
+            // textBoxUCK_CMDLo
+            // 
+            this.textBoxUCK_CMDLo.Location = new System.Drawing.Point(133, 119);
+            this.textBoxUCK_CMDLo.Name = "textBoxUCK_CMDLo";
+            this.textBoxUCK_CMDLo.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_CMDLo.TabIndex = 14;
+            // 
+            // textBoxUCK_OCDHi
+            // 
+            this.textBoxUCK_OCDHi.Location = new System.Drawing.Point(133, 91);
+            this.textBoxUCK_OCDHi.Name = "textBoxUCK_OCDHi";
+            this.textBoxUCK_OCDHi.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_OCDHi.TabIndex = 13;
+            // 
+            // textBoxUCK_OCDLo
+            // 
+            this.textBoxUCK_OCDLo.Location = new System.Drawing.Point(133, 69);
+            this.textBoxUCK_OCDLo.Name = "textBoxUCK_OCDLo";
+            this.textBoxUCK_OCDLo.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_OCDLo.TabIndex = 12;
+            // 
+            // textBoxUCK_CHHi
+            // 
+            this.textBoxUCK_CHHi.Location = new System.Drawing.Point(133, 42);
+            this.textBoxUCK_CHHi.Name = "textBoxUCK_CHHi";
+            this.textBoxUCK_CHHi.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_CHHi.TabIndex = 11;
+            // 
+            // textBoxUCK_CHLo
+            // 
+            this.textBoxUCK_CHLo.Location = new System.Drawing.Point(133, 20);
+            this.textBoxUCK_CHLo.Name = "textBoxUCK_CHLo";
+            this.textBoxUCK_CHLo.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_CHLo.TabIndex = 10;
+            // 
+            // labelUCK_OHHi
+            // 
+            this.labelUCK_OHHi.AutoSize = true;
+            this.labelUCK_OHHi.Location = new System.Drawing.Point(12, 242);
+            this.labelUCK_OHHi.Name = "labelUCK_OHHi";
+            this.labelUCK_OHHi.Size = new System.Drawing.Size(83, 13);
+            this.labelUCK_OHHi.TabIndex = 9;
+            this.labelUCK_OHHi.Text = "Outer Hold High";
+            // 
+            // labelUCK_OHLo
+            // 
+            this.labelUCK_OHLo.AutoSize = true;
+            this.labelUCK_OHLo.Location = new System.Drawing.Point(12, 220);
+            this.labelUCK_OHLo.Name = "labelUCK_OHLo";
+            this.labelUCK_OHLo.Size = new System.Drawing.Size(81, 13);
+            this.labelUCK_OHLo.TabIndex = 8;
+            this.labelUCK_OHLo.Text = "Outer Hold Low";
+            // 
+            // labelUCK_CDDHi
+            // 
+            this.labelUCK_CDDHi.AutoSize = true;
+            this.labelUCK_CDDHi.Location = new System.Drawing.Point(12, 193);
+            this.labelUCK_CDDHi.Name = "labelUCK_CDDHi";
+            this.labelUCK_CDDHi.Size = new System.Drawing.Size(115, 13);
+            this.labelUCK_CDDHi.TabIndex = 7;
+            this.labelUCK_CDDHi.Text = "Center Cue Delay High";
+            // 
+            // labelUCK_CCDLo
+            // 
+            this.labelUCK_CCDLo.AutoSize = true;
+            this.labelUCK_CCDLo.Location = new System.Drawing.Point(12, 171);
+            this.labelUCK_CCDLo.Name = "labelUCK_CCDLo";
+            this.labelUCK_CCDLo.Size = new System.Drawing.Size(113, 13);
+            this.labelUCK_CCDLo.TabIndex = 6;
+            this.labelUCK_CCDLo.Text = "Center Cue Delay Low";
+            // 
+            // labelUCK_CMDHi
+            // 
+            this.labelUCK_CMDHi.AutoSize = true;
+            this.labelUCK_CMDHi.Location = new System.Drawing.Point(12, 144);
+            this.labelUCK_CMDHi.Name = "labelUCK_CMDHi";
+            this.labelUCK_CMDHi.Size = new System.Drawing.Size(119, 13);
+            this.labelUCK_CMDHi.TabIndex = 5;
+            this.labelUCK_CMDHi.Text = "Center Mem Delay High";
+            // 
+            // labelUCK_CMDLo
+            // 
+            this.labelUCK_CMDLo.AutoSize = true;
+            this.labelUCK_CMDLo.Location = new System.Drawing.Point(12, 122);
+            this.labelUCK_CMDLo.Name = "labelUCK_CMDLo";
+            this.labelUCK_CMDLo.Size = new System.Drawing.Size(117, 13);
+            this.labelUCK_CMDLo.TabIndex = 4;
+            this.labelUCK_CMDLo.Text = "Center Mem Delay Low";
+            // 
+            // labelUCK_OCDHi
+            // 
+            this.labelUCK_OCDHi.AutoSize = true;
+            this.labelUCK_OCDHi.Location = new System.Drawing.Point(12, 94);
+            this.labelUCK_OCDHi.Name = "labelUCK_OCDHi";
+            this.labelUCK_OCDHi.Size = new System.Drawing.Size(110, 13);
+            this.labelUCK_OCDHi.TabIndex = 3;
+            this.labelUCK_OCDHi.Text = "Outer Cue Delay High";
+            // 
+            // labelUCK_OCDLo
+            // 
+            this.labelUCK_OCDLo.AutoSize = true;
+            this.labelUCK_OCDLo.Location = new System.Drawing.Point(12, 72);
+            this.labelUCK_OCDLo.Name = "labelUCK_OCDLo";
+            this.labelUCK_OCDLo.Size = new System.Drawing.Size(108, 13);
+            this.labelUCK_OCDLo.TabIndex = 2;
+            this.labelUCK_OCDLo.Text = "Outer Cue Delay Low";
+            // 
+            // labelUCK_CHHi
+            // 
+            this.labelUCK_CHHi.AutoSize = true;
+            this.labelUCK_CHHi.Location = new System.Drawing.Point(12, 45);
+            this.labelUCK_CHHi.Name = "labelUCK_CHHi";
+            this.labelUCK_CHHi.Size = new System.Drawing.Size(88, 13);
+            this.labelUCK_CHHi.TabIndex = 1;
+            this.labelUCK_CHHi.Text = "Center Hold High";
+            // 
+            // labelUCK_CHLo
+            // 
+            this.labelUCK_CHLo.AutoSize = true;
+            this.labelUCK_CHLo.Location = new System.Drawing.Point(12, 23);
+            this.labelUCK_CHLo.Name = "labelUCK_CHLo";
+            this.labelUCK_CHLo.Size = new System.Drawing.Size(86, 13);
+            this.labelUCK_CHLo.TabIndex = 0;
+            this.labelUCK_CHLo.Text = "Center Hold Low";
+            // 
+            // groupBoxUCKTargetProperties
+            // 
+            this.groupBoxUCKTargetProperties.Controls.Add(this.checkBoxUCK_MMode);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.checkBoxUCK_COMode);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue2Rew);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_Cue2Rew);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue1Rew);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_Cue1Rew);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_ColorGuide);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_colB);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_colG);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_colR);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue2ColB);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue2ColG);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue2ColR);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_Cue2Col);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue1ColB);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue1ColG);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue1ColR);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_Cue1Col);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_DefColB);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_DefColG);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_DefColR);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_DefCol);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.numericUD_UCK_TAD);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.label_UCK_TAD);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_OTS);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_OTS);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_CTS);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_CTS);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_MLen);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_MLen);
+            this.groupBoxUCKTargetProperties.Location = new System.Drawing.Point(15, 11);
+            this.groupBoxUCKTargetProperties.Name = "groupBoxUCKTargetProperties";
+            this.groupBoxUCKTargetProperties.Size = new System.Drawing.Size(475, 214);
+            this.groupBoxUCKTargetProperties.TabIndex = 0;
+            this.groupBoxUCKTargetProperties.TabStop = false;
+            this.groupBoxUCKTargetProperties.Text = "General Properties";
+            // 
+            // checkBoxUCK_MMode
+            // 
+            this.checkBoxUCK_MMode.AutoSize = true;
+            this.checkBoxUCK_MMode.Location = new System.Drawing.Point(21, 185);
+            this.checkBoxUCK_MMode.Name = "checkBoxUCK_MMode";
+            this.checkBoxUCK_MMode.Size = new System.Drawing.Size(86, 17);
+            this.checkBoxUCK_MMode.TabIndex = 53;
+            this.checkBoxUCK_MMode.Text = "Match Mode";
+            this.checkBoxUCK_MMode.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUCK_COMode
+            // 
+            this.checkBoxUCK_COMode.AutoSize = true;
+            this.checkBoxUCK_COMode.Location = new System.Drawing.Point(21, 159);
+            this.checkBoxUCK_COMode.Name = "checkBoxUCK_COMode";
+            this.checkBoxUCK_COMode.Size = new System.Drawing.Size(107, 17);
+            this.checkBoxUCK_COMode.TabIndex = 52;
+            this.checkBoxUCK_COMode.Text = "Center Out Mode";
+            this.checkBoxUCK_COMode.UseVisualStyleBackColor = true;
+            // 
+            // textBoxUCK_Cue2Rew
+            // 
+            this.textBoxUCK_Cue2Rew.Location = new System.Drawing.Point(317, 182);
+            this.textBoxUCK_Cue2Rew.Name = "textBoxUCK_Cue2Rew";
+            this.textBoxUCK_Cue2Rew.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_Cue2Rew.TabIndex = 51;
+            // 
+            // labelUCK_Cue2Rew
+            // 
+            this.labelUCK_Cue2Rew.AutoSize = true;
+            this.labelUCK_Cue2Rew.Location = new System.Drawing.Point(196, 185);
+            this.labelUCK_Cue2Rew.Name = "labelUCK_Cue2Rew";
+            this.labelUCK_Cue2Rew.Size = new System.Drawing.Size(101, 13);
+            this.labelUCK_Cue2Rew.TabIndex = 50;
+            this.labelUCK_Cue2Rew.Text = "Cue Two Reward %";
+            // 
+            // textBoxUCK_Cue1Rew
+            // 
+            this.textBoxUCK_Cue1Rew.Location = new System.Drawing.Point(317, 157);
+            this.textBoxUCK_Cue1Rew.Name = "textBoxUCK_Cue1Rew";
+            this.textBoxUCK_Cue1Rew.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_Cue1Rew.TabIndex = 49;
+            // 
+            // labelUCK_Cue1Rew
+            // 
+            this.labelUCK_Cue1Rew.AutoSize = true;
+            this.labelUCK_Cue1Rew.Location = new System.Drawing.Point(196, 160);
+            this.labelUCK_Cue1Rew.Name = "labelUCK_Cue1Rew";
+            this.labelUCK_Cue1Rew.Size = new System.Drawing.Size(100, 13);
+            this.labelUCK_Cue1Rew.TabIndex = 48;
+            this.labelUCK_Cue1Rew.Text = "Cue One Reward %";
+            // 
+            // labelUCK_ColorGuide
+            // 
+            this.labelUCK_ColorGuide.AutoSize = true;
+            this.labelUCK_ColorGuide.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUCK_ColorGuide.Location = new System.Drawing.Point(299, 131);
+            this.labelUCK_ColorGuide.Name = "labelUCK_ColorGuide";
+            this.labelUCK_ColorGuide.Size = new System.Drawing.Size(136, 13);
+            this.labelUCK_ColorGuide.TabIndex = 47;
+            this.labelUCK_ColorGuide.Text = "Color Range (0 to 255)";
+            // 
+            // labelUCK_colB
+            // 
+            this.labelUCK_colB.AutoSize = true;
+            this.labelUCK_colB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUCK_colB.Location = new System.Drawing.Point(399, 23);
+            this.labelUCK_colB.Name = "labelUCK_colB";
+            this.labelUCK_colB.Size = new System.Drawing.Size(15, 13);
+            this.labelUCK_colB.TabIndex = 46;
+            this.labelUCK_colB.Text = "B";
+            // 
+            // labelUCK_colG
+            // 
+            this.labelUCK_colG.AutoSize = true;
+            this.labelUCK_colG.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUCK_colG.Location = new System.Drawing.Point(361, 23);
+            this.labelUCK_colG.Name = "labelUCK_colG";
+            this.labelUCK_colG.Size = new System.Drawing.Size(16, 13);
+            this.labelUCK_colG.TabIndex = 45;
+            this.labelUCK_colG.Text = "G";
+            // 
+            // labelUCK_colR
+            // 
+            this.labelUCK_colR.AutoSize = true;
+            this.labelUCK_colR.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUCK_colR.Location = new System.Drawing.Point(324, 23);
+            this.labelUCK_colR.Name = "labelUCK_colR";
+            this.labelUCK_colR.Size = new System.Drawing.Size(16, 13);
+            this.labelUCK_colR.TabIndex = 44;
+            this.labelUCK_colR.Text = "R";
+            // 
+            // textBoxUCK_Cue2ColB
+            // 
+            this.textBoxUCK_Cue2ColB.Location = new System.Drawing.Point(391, 98);
+            this.textBoxUCK_Cue2ColB.Name = "textBoxUCK_Cue2ColB";
+            this.textBoxUCK_Cue2ColB.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_Cue2ColB.TabIndex = 43;
+            // 
+            // textBoxUCK_Cue2ColG
+            // 
+            this.textBoxUCK_Cue2ColG.Location = new System.Drawing.Point(354, 98);
+            this.textBoxUCK_Cue2ColG.Name = "textBoxUCK_Cue2ColG";
+            this.textBoxUCK_Cue2ColG.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_Cue2ColG.TabIndex = 42;
+            // 
+            // textBoxUCK_Cue2ColR
+            // 
+            this.textBoxUCK_Cue2ColR.Location = new System.Drawing.Point(317, 98);
+            this.textBoxUCK_Cue2ColR.Name = "textBoxUCK_Cue2ColR";
+            this.textBoxUCK_Cue2ColR.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_Cue2ColR.TabIndex = 41;
+            // 
+            // labelUCK_Cue2Col
+            // 
+            this.labelUCK_Cue2Col.AutoSize = true;
+            this.labelUCK_Cue2Col.Location = new System.Drawing.Point(196, 101);
+            this.labelUCK_Cue2Col.Name = "labelUCK_Cue2Col";
+            this.labelUCK_Cue2Col.Size = new System.Drawing.Size(77, 13);
+            this.labelUCK_Cue2Col.TabIndex = 40;
+            this.labelUCK_Cue2Col.Text = "Cue Two Color";
+            // 
+            // textBoxUCK_Cue1ColB
+            // 
+            this.textBoxUCK_Cue1ColB.Location = new System.Drawing.Point(391, 73);
+            this.textBoxUCK_Cue1ColB.Name = "textBoxUCK_Cue1ColB";
+            this.textBoxUCK_Cue1ColB.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_Cue1ColB.TabIndex = 39;
+            // 
+            // textBoxUCK_Cue1ColG
+            // 
+            this.textBoxUCK_Cue1ColG.Location = new System.Drawing.Point(354, 73);
+            this.textBoxUCK_Cue1ColG.Name = "textBoxUCK_Cue1ColG";
+            this.textBoxUCK_Cue1ColG.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_Cue1ColG.TabIndex = 38;
+            // 
+            // textBoxUCK_Cue1ColR
+            // 
+            this.textBoxUCK_Cue1ColR.Location = new System.Drawing.Point(317, 73);
+            this.textBoxUCK_Cue1ColR.Name = "textBoxUCK_Cue1ColR";
+            this.textBoxUCK_Cue1ColR.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_Cue1ColR.TabIndex = 37;
+            // 
+            // labelUCK_Cue1Col
+            // 
+            this.labelUCK_Cue1Col.AutoSize = true;
+            this.labelUCK_Cue1Col.Location = new System.Drawing.Point(196, 76);
+            this.labelUCK_Cue1Col.Name = "labelUCK_Cue1Col";
+            this.labelUCK_Cue1Col.Size = new System.Drawing.Size(76, 13);
+            this.labelUCK_Cue1Col.TabIndex = 36;
+            this.labelUCK_Cue1Col.Text = "Cue One Color";
+            // 
+            // textBoxUCK_DefColB
+            // 
+            this.textBoxUCK_DefColB.Location = new System.Drawing.Point(391, 46);
+            this.textBoxUCK_DefColB.Name = "textBoxUCK_DefColB";
+            this.textBoxUCK_DefColB.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_DefColB.TabIndex = 35;
+            // 
+            // textBoxUCK_DefColG
+            // 
+            this.textBoxUCK_DefColG.Location = new System.Drawing.Point(354, 46);
+            this.textBoxUCK_DefColG.Name = "textBoxUCK_DefColG";
+            this.textBoxUCK_DefColG.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_DefColG.TabIndex = 34;
+            // 
+            // textBoxUCK_DefColR
+            // 
+            this.textBoxUCK_DefColR.Location = new System.Drawing.Point(317, 46);
+            this.textBoxUCK_DefColR.Name = "textBoxUCK_DefColR";
+            this.textBoxUCK_DefColR.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_DefColR.TabIndex = 33;
+            // 
+            // labelUCK_DefCol
+            // 
+            this.labelUCK_DefCol.AutoSize = true;
+            this.labelUCK_DefCol.Location = new System.Drawing.Point(196, 49);
+            this.labelUCK_DefCol.Name = "labelUCK_DefCol";
+            this.labelUCK_DefCol.Size = new System.Drawing.Size(102, 13);
+            this.labelUCK_DefCol.TabIndex = 32;
+            this.labelUCK_DefCol.Text = "Target Default Color";
+            // 
+            // numericUD_UCK_TAD
+            // 
+            this.numericUD_UCK_TAD.Increment = new decimal(new int[] {
+            45,
+            0,
+            0,
+            0});
+            this.numericUD_UCK_TAD.Location = new System.Drawing.Point(137, 105);
+            this.numericUD_UCK_TAD.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.numericUD_UCK_TAD.Minimum = new decimal(new int[] {
+            45,
+            0,
+            0,
+            0});
+            this.numericUD_UCK_TAD.Name = "numericUD_UCK_TAD";
+            this.numericUD_UCK_TAD.ReadOnly = true;
+            this.numericUD_UCK_TAD.Size = new System.Drawing.Size(50, 20);
+            this.numericUD_UCK_TAD.TabIndex = 31;
+            this.numericUD_UCK_TAD.Value = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            // 
+            // label_UCK_TAD
+            // 
+            this.label_UCK_TAD.AutoSize = true;
+            this.label_UCK_TAD.Location = new System.Drawing.Point(18, 108);
+            this.label_UCK_TAD.Name = "label_UCK_TAD";
+            this.label_UCK_TAD.Size = new System.Drawing.Size(114, 13);
+            this.label_UCK_TAD.TabIndex = 30;
+            this.label_UCK_TAD.Text = "Target Angle Diff (deg)";
+            // 
+            // textBoxUCK_OTS
+            // 
+            this.textBoxUCK_OTS.Location = new System.Drawing.Point(139, 73);
+            this.textBoxUCK_OTS.Name = "textBoxUCK_OTS";
+            this.textBoxUCK_OTS.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_OTS.TabIndex = 29;
+            // 
+            // labelUCK_OTS
+            // 
+            this.labelUCK_OTS.AutoSize = true;
+            this.labelUCK_OTS.Location = new System.Drawing.Point(18, 76);
+            this.labelUCK_OTS.Name = "labelUCK_OTS";
+            this.labelUCK_OTS.Size = new System.Drawing.Size(113, 13);
+            this.labelUCK_OTS.TabIndex = 28;
+            this.labelUCK_OTS.Text = "Outer Target Size (cm)";
+            // 
+            // textBoxUCK_CTS
+            // 
+            this.textBoxUCK_CTS.Location = new System.Drawing.Point(139, 46);
+            this.textBoxUCK_CTS.Name = "textBoxUCK_CTS";
+            this.textBoxUCK_CTS.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_CTS.TabIndex = 27;
+            // 
+            // labelUCK_CTS
+            // 
+            this.labelUCK_CTS.AutoSize = true;
+            this.labelUCK_CTS.Location = new System.Drawing.Point(18, 49);
+            this.labelUCK_CTS.Name = "labelUCK_CTS";
+            this.labelUCK_CTS.Size = new System.Drawing.Size(118, 13);
+            this.labelUCK_CTS.TabIndex = 26;
+            this.labelUCK_CTS.Text = "Center Target Size (cm)";
+            // 
+            // textBoxUCK_MLen
+            // 
+            this.textBoxUCK_MLen.Location = new System.Drawing.Point(139, 20);
+            this.textBoxUCK_MLen.Name = "textBoxUCK_MLen";
+            this.textBoxUCK_MLen.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_MLen.TabIndex = 25;
+            // 
+            // labelUCK_MLen
+            // 
+            this.labelUCK_MLen.AutoSize = true;
+            this.labelUCK_MLen.Location = new System.Drawing.Point(18, 23);
+            this.labelUCK_MLen.Name = "labelUCK_MLen";
+            this.labelUCK_MLen.Size = new System.Drawing.Size(116, 13);
+            this.labelUCK_MLen.TabIndex = 24;
+            this.labelUCK_MLen.Text = "Movement Length (cm)";
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -15421,578 +16022,6 @@ namespace BehaviorGraphics
             this.label356.TabIndex = 0;
             this.label356.Text = "Field ramp up";
             // 
-            // tabUnCisek
-            // 
-            this.tabUnCisek.Controls.Add(this.groupBoxUCKTimers);
-            this.tabUnCisek.Controls.Add(this.groupBoxUCKTargetProperties);
-            this.tabUnCisek.Location = new System.Drawing.Point(4, 58);
-            this.tabUnCisek.Name = "tabUnCisek";
-            this.tabUnCisek.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUnCisek.Size = new System.Drawing.Size(686, 437);
-            this.tabUnCisek.TabIndex = 21;
-            this.tabUnCisek.Text = "UnCisek";
-            this.tabUnCisek.UseVisualStyleBackColor = true;
-            this.tabUnCisek.Click += new System.EventHandler(this.tabUnCisek_Click);
-            // 
-            // groupBoxUCKTargetProperties
-            // 
-            this.groupBoxUCKTargetProperties.Controls.Add(this.checkBoxUCK_MMode);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.checkBoxUCK_COMode);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue2Rew);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_Cue2Rew);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue1Rew);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_Cue1Rew);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_ColorGuide);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_colB);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_colG);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_colR);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue2ColB);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue2ColG);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue2ColR);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_Cue2Col);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue1ColB);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue1ColG);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue1ColR);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_Cue1Col);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_DefColB);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_DefColG);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_DefColR);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_DefCol);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.numericUD_UCK_TAD);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.label_UCK_TAD);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_OTS);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_OTS);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_CTS);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_CTS);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_MLen);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_MLen);
-            this.groupBoxUCKTargetProperties.Location = new System.Drawing.Point(15, 11);
-            this.groupBoxUCKTargetProperties.Name = "groupBoxUCKTargetProperties";
-            this.groupBoxUCKTargetProperties.Size = new System.Drawing.Size(475, 214);
-            this.groupBoxUCKTargetProperties.TabIndex = 0;
-            this.groupBoxUCKTargetProperties.TabStop = false;
-            this.groupBoxUCKTargetProperties.Text = "General Properties";
-            this.groupBoxUCKTargetProperties.Enter += new System.EventHandler(this.groupBoxUCKTargetProperties_Enter);
-            // 
-            // groupBoxUCKTimers
-            // 
-            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_FPL);
-            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_FPL);
-            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_MMT);
-            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_MMT);
-            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_ITI);
-            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_ITI);
-            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_OHHi);
-            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_OHLo);
-            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_CCDHi);
-            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_CCDLo);
-            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_CMDHi);
-            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_CMDLo);
-            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_OCDHi);
-            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_OCDLo);
-            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_CHHi);
-            this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_CHLo);
-            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_OHHi);
-            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_OHLo);
-            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_CDDHi);
-            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_CCDLo);
-            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_CMDHi);
-            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_CMDLo);
-            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_OCDHi);
-            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_OCDLo);
-            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_CHHi);
-            this.groupBoxUCKTimers.Controls.Add(this.labelUCK_CHLo);
-            this.groupBoxUCKTimers.Location = new System.Drawing.Point(504, 11);
-            this.groupBoxUCKTimers.Name = "groupBoxUCKTimers";
-            this.groupBoxUCKTimers.Size = new System.Drawing.Size(170, 356);
-            this.groupBoxUCKTimers.TabIndex = 1;
-            this.groupBoxUCKTimers.TabStop = false;
-            this.groupBoxUCKTimers.Text = "Timers";
-            this.groupBoxUCKTimers.Enter += new System.EventHandler(this.groupBoxUCKTimers_Enter);
-            // 
-            // labelUCK_CHLo
-            // 
-            this.labelUCK_CHLo.AutoSize = true;
-            this.labelUCK_CHLo.Location = new System.Drawing.Point(12, 23);
-            this.labelUCK_CHLo.Name = "labelUCK_CHLo";
-            this.labelUCK_CHLo.Size = new System.Drawing.Size(86, 13);
-            this.labelUCK_CHLo.TabIndex = 0;
-            this.labelUCK_CHLo.Text = "Center Hold Low";
-            // 
-            // labelUCK_CHHi
-            // 
-            this.labelUCK_CHHi.AutoSize = true;
-            this.labelUCK_CHHi.Location = new System.Drawing.Point(12, 45);
-            this.labelUCK_CHHi.Name = "labelUCK_CHHi";
-            this.labelUCK_CHHi.Size = new System.Drawing.Size(88, 13);
-            this.labelUCK_CHHi.TabIndex = 1;
-            this.labelUCK_CHHi.Text = "Center Hold High";
-            // 
-            // labelUCK_OCDHi
-            // 
-            this.labelUCK_OCDHi.AutoSize = true;
-            this.labelUCK_OCDHi.Location = new System.Drawing.Point(12, 94);
-            this.labelUCK_OCDHi.Name = "labelUCK_OCDHi";
-            this.labelUCK_OCDHi.Size = new System.Drawing.Size(110, 13);
-            this.labelUCK_OCDHi.TabIndex = 3;
-            this.labelUCK_OCDHi.Text = "Outer Cue Delay High";
-            this.labelUCK_OCDHi.Click += new System.EventHandler(this.labelUCK_OCDHi_Click);
-            // 
-            // labelUCK_OCDLo
-            // 
-            this.labelUCK_OCDLo.AutoSize = true;
-            this.labelUCK_OCDLo.Location = new System.Drawing.Point(12, 72);
-            this.labelUCK_OCDLo.Name = "labelUCK_OCDLo";
-            this.labelUCK_OCDLo.Size = new System.Drawing.Size(108, 13);
-            this.labelUCK_OCDLo.TabIndex = 2;
-            this.labelUCK_OCDLo.Text = "Outer Cue Delay Low";
-            this.labelUCK_OCDLo.Click += new System.EventHandler(this.label369_Click);
-            // 
-            // labelUCK_CMDHi
-            // 
-            this.labelUCK_CMDHi.AutoSize = true;
-            this.labelUCK_CMDHi.Location = new System.Drawing.Point(12, 144);
-            this.labelUCK_CMDHi.Name = "labelUCK_CMDHi";
-            this.labelUCK_CMDHi.Size = new System.Drawing.Size(119, 13);
-            this.labelUCK_CMDHi.TabIndex = 5;
-            this.labelUCK_CMDHi.Text = "Center Mem Delay High";
-            // 
-            // labelUCK_CMDLo
-            // 
-            this.labelUCK_CMDLo.AutoSize = true;
-            this.labelUCK_CMDLo.Location = new System.Drawing.Point(12, 122);
-            this.labelUCK_CMDLo.Name = "labelUCK_CMDLo";
-            this.labelUCK_CMDLo.Size = new System.Drawing.Size(117, 13);
-            this.labelUCK_CMDLo.TabIndex = 4;
-            this.labelUCK_CMDLo.Text = "Center Mem Delay Low";
-            // 
-            // labelUCK_CDDHi
-            // 
-            this.labelUCK_CDDHi.AutoSize = true;
-            this.labelUCK_CDDHi.Location = new System.Drawing.Point(12, 193);
-            this.labelUCK_CDDHi.Name = "labelUCK_CDDHi";
-            this.labelUCK_CDDHi.Size = new System.Drawing.Size(115, 13);
-            this.labelUCK_CDDHi.TabIndex = 7;
-            this.labelUCK_CDDHi.Text = "Center Cue Delay High";
-            // 
-            // labelUCK_CCDLo
-            // 
-            this.labelUCK_CCDLo.AutoSize = true;
-            this.labelUCK_CCDLo.Location = new System.Drawing.Point(12, 171);
-            this.labelUCK_CCDLo.Name = "labelUCK_CCDLo";
-            this.labelUCK_CCDLo.Size = new System.Drawing.Size(113, 13);
-            this.labelUCK_CCDLo.TabIndex = 6;
-            this.labelUCK_CCDLo.Text = "Center Cue Delay Low";
-            // 
-            // labelUCK_OHHi
-            // 
-            this.labelUCK_OHHi.AutoSize = true;
-            this.labelUCK_OHHi.Location = new System.Drawing.Point(12, 242);
-            this.labelUCK_OHHi.Name = "labelUCK_OHHi";
-            this.labelUCK_OHHi.Size = new System.Drawing.Size(83, 13);
-            this.labelUCK_OHHi.TabIndex = 9;
-            this.labelUCK_OHHi.Text = "Outer Hold High";
-            // 
-            // labelUCK_OHLo
-            // 
-            this.labelUCK_OHLo.AutoSize = true;
-            this.labelUCK_OHLo.Location = new System.Drawing.Point(12, 220);
-            this.labelUCK_OHLo.Name = "labelUCK_OHLo";
-            this.labelUCK_OHLo.Size = new System.Drawing.Size(81, 13);
-            this.labelUCK_OHLo.TabIndex = 8;
-            this.labelUCK_OHLo.Text = "Outer Hold Low";
-            // 
-            // textBoxUCK_CHLo
-            // 
-            this.textBoxUCK_CHLo.Location = new System.Drawing.Point(133, 20);
-            this.textBoxUCK_CHLo.Name = "textBoxUCK_CHLo";
-            this.textBoxUCK_CHLo.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_CHLo.TabIndex = 10;
-            // 
-            // textBoxUCK_CHHi
-            // 
-            this.textBoxUCK_CHHi.Location = new System.Drawing.Point(133, 42);
-            this.textBoxUCK_CHHi.Name = "textBoxUCK_CHHi";
-            this.textBoxUCK_CHHi.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_CHHi.TabIndex = 11;
-            // 
-            // textBoxUCK_OCDHi
-            // 
-            this.textBoxUCK_OCDHi.Location = new System.Drawing.Point(133, 91);
-            this.textBoxUCK_OCDHi.Name = "textBoxUCK_OCDHi";
-            this.textBoxUCK_OCDHi.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_OCDHi.TabIndex = 13;
-            // 
-            // textBoxUCK_OCDLo
-            // 
-            this.textBoxUCK_OCDLo.Location = new System.Drawing.Point(133, 69);
-            this.textBoxUCK_OCDLo.Name = "textBoxUCK_OCDLo";
-            this.textBoxUCK_OCDLo.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_OCDLo.TabIndex = 12;
-            // 
-            // textBoxUCK_CMDHi
-            // 
-            this.textBoxUCK_CMDHi.Location = new System.Drawing.Point(133, 141);
-            this.textBoxUCK_CMDHi.Name = "textBoxUCK_CMDHi";
-            this.textBoxUCK_CMDHi.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_CMDHi.TabIndex = 15;
-            // 
-            // textBoxUCK_CMDLo
-            // 
-            this.textBoxUCK_CMDLo.Location = new System.Drawing.Point(133, 119);
-            this.textBoxUCK_CMDLo.Name = "textBoxUCK_CMDLo";
-            this.textBoxUCK_CMDLo.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_CMDLo.TabIndex = 14;
-            // 
-            // textBoxUCK_CCDHi
-            // 
-            this.textBoxUCK_CCDHi.Location = new System.Drawing.Point(133, 190);
-            this.textBoxUCK_CCDHi.Name = "textBoxUCK_CCDHi";
-            this.textBoxUCK_CCDHi.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_CCDHi.TabIndex = 17;
-            // 
-            // textBoxUCK_CCDLo
-            // 
-            this.textBoxUCK_CCDLo.Location = new System.Drawing.Point(133, 168);
-            this.textBoxUCK_CCDLo.Name = "textBoxUCK_CCDLo";
-            this.textBoxUCK_CCDLo.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_CCDLo.TabIndex = 16;
-            // 
-            // textBoxUCK_OHHi
-            // 
-            this.textBoxUCK_OHHi.Location = new System.Drawing.Point(133, 239);
-            this.textBoxUCK_OHHi.Name = "textBoxUCK_OHHi";
-            this.textBoxUCK_OHHi.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_OHHi.TabIndex = 19;
-            // 
-            // textBoxUCK_OHLo
-            // 
-            this.textBoxUCK_OHLo.Location = new System.Drawing.Point(133, 217);
-            this.textBoxUCK_OHLo.Name = "textBoxUCK_OHLo";
-            this.textBoxUCK_OHLo.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_OHLo.TabIndex = 18;
-            // 
-            // textBoxUCK_ITI
-            // 
-            this.textBoxUCK_ITI.Location = new System.Drawing.Point(133, 266);
-            this.textBoxUCK_ITI.Name = "textBoxUCK_ITI";
-            this.textBoxUCK_ITI.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_ITI.TabIndex = 21;
-            // 
-            // labelUCK_ITI
-            // 
-            this.labelUCK_ITI.AutoSize = true;
-            this.labelUCK_ITI.Location = new System.Drawing.Point(12, 269);
-            this.labelUCK_ITI.Name = "labelUCK_ITI";
-            this.labelUCK_ITI.Size = new System.Drawing.Size(82, 13);
-            this.labelUCK_ITI.TabIndex = 20;
-            this.labelUCK_ITI.Text = "Intertrial Interval";
-            this.labelUCK_ITI.Click += new System.EventHandler(this.labelUCK_ITI_Click);
-            // 
-            // textBoxUCK_MMT
-            // 
-            this.textBoxUCK_MMT.Location = new System.Drawing.Point(133, 292);
-            this.textBoxUCK_MMT.Name = "textBoxUCK_MMT";
-            this.textBoxUCK_MMT.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_MMT.TabIndex = 23;
-            // 
-            // labelUCK_MMT
-            // 
-            this.labelUCK_MMT.AutoSize = true;
-            this.labelUCK_MMT.Location = new System.Drawing.Point(12, 295);
-            this.labelUCK_MMT.Name = "labelUCK_MMT";
-            this.labelUCK_MMT.Size = new System.Drawing.Size(106, 13);
-            this.labelUCK_MMT.TabIndex = 22;
-            this.labelUCK_MMT.Text = "Movement Max Time";
-            // 
-            // textBoxUCK_FPL
-            // 
-            this.textBoxUCK_FPL.Location = new System.Drawing.Point(133, 318);
-            this.textBoxUCK_FPL.Name = "textBoxUCK_FPL";
-            this.textBoxUCK_FPL.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_FPL.TabIndex = 25;
-            // 
-            // labelUCK_FPL
-            // 
-            this.labelUCK_FPL.AutoSize = true;
-            this.labelUCK_FPL.Location = new System.Drawing.Point(12, 321);
-            this.labelUCK_FPL.Name = "labelUCK_FPL";
-            this.labelUCK_FPL.Size = new System.Drawing.Size(97, 13);
-            this.labelUCK_FPL.TabIndex = 24;
-            this.labelUCK_FPL.Text = "Failure Penalty Lag";
-            // 
-            // textBoxUCK_MLen
-            // 
-            this.textBoxUCK_MLen.Location = new System.Drawing.Point(139, 20);
-            this.textBoxUCK_MLen.Name = "textBoxUCK_MLen";
-            this.textBoxUCK_MLen.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_MLen.TabIndex = 25;
-            this.textBoxUCK_MLen.TextChanged += new System.EventHandler(this.textBox32_TextChanged);
-            // 
-            // labelUCK_MLen
-            // 
-            this.labelUCK_MLen.AutoSize = true;
-            this.labelUCK_MLen.Location = new System.Drawing.Point(18, 23);
-            this.labelUCK_MLen.Name = "labelUCK_MLen";
-            this.labelUCK_MLen.Size = new System.Drawing.Size(116, 13);
-            this.labelUCK_MLen.TabIndex = 24;
-            this.labelUCK_MLen.Text = "Movement Length (cm)";
-            this.labelUCK_MLen.Click += new System.EventHandler(this.label365_Click);
-            // 
-            // textBoxUCK_CTS
-            // 
-            this.textBoxUCK_CTS.Location = new System.Drawing.Point(139, 46);
-            this.textBoxUCK_CTS.Name = "textBoxUCK_CTS";
-            this.textBoxUCK_CTS.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_CTS.TabIndex = 27;
-            // 
-            // labelUCK_CTS
-            // 
-            this.labelUCK_CTS.AutoSize = true;
-            this.labelUCK_CTS.Location = new System.Drawing.Point(18, 49);
-            this.labelUCK_CTS.Name = "labelUCK_CTS";
-            this.labelUCK_CTS.Size = new System.Drawing.Size(118, 13);
-            this.labelUCK_CTS.TabIndex = 26;
-            this.labelUCK_CTS.Text = "Center Target Size (cm)";
-            // 
-            // textBoxUCK_OTS
-            // 
-            this.textBoxUCK_OTS.Location = new System.Drawing.Point(139, 73);
-            this.textBoxUCK_OTS.Name = "textBoxUCK_OTS";
-            this.textBoxUCK_OTS.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_OTS.TabIndex = 29;
-            // 
-            // labelUCK_OTS
-            // 
-            this.labelUCK_OTS.AutoSize = true;
-            this.labelUCK_OTS.Location = new System.Drawing.Point(18, 76);
-            this.labelUCK_OTS.Name = "labelUCK_OTS";
-            this.labelUCK_OTS.Size = new System.Drawing.Size(113, 13);
-            this.labelUCK_OTS.TabIndex = 28;
-            this.labelUCK_OTS.Text = "Outer Target Size (cm)";
-            // 
-            // label_UCK_TAD
-            // 
-            this.label_UCK_TAD.AutoSize = true;
-            this.label_UCK_TAD.Location = new System.Drawing.Point(18, 108);
-            this.label_UCK_TAD.Name = "label_UCK_TAD";
-            this.label_UCK_TAD.Size = new System.Drawing.Size(114, 13);
-            this.label_UCK_TAD.TabIndex = 30;
-            this.label_UCK_TAD.Text = "Target Angle Diff (deg)";
-            // 
-            // numericUD_UCK_TAD
-            // 
-            this.numericUD_UCK_TAD.Increment = new decimal(new int[] {
-            45,
-            0,
-            0,
-            0});
-            this.numericUD_UCK_TAD.Location = new System.Drawing.Point(137, 105);
-            this.numericUD_UCK_TAD.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.numericUD_UCK_TAD.Minimum = new decimal(new int[] {
-            45,
-            0,
-            0,
-            0});
-            this.numericUD_UCK_TAD.Name = "numericUD_UCK_TAD";
-            this.numericUD_UCK_TAD.ReadOnly = true;
-            this.numericUD_UCK_TAD.Size = new System.Drawing.Size(50, 20);
-            this.numericUD_UCK_TAD.TabIndex = 31;
-            this.numericUD_UCK_TAD.Value = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            // 
-            // textBoxUCK_DefColR
-            // 
-            this.textBoxUCK_DefColR.Location = new System.Drawing.Point(317, 46);
-            this.textBoxUCK_DefColR.Name = "textBoxUCK_DefColR";
-            this.textBoxUCK_DefColR.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_DefColR.TabIndex = 33;
-            // 
-            // labelUCK_DefCol
-            // 
-            this.labelUCK_DefCol.AutoSize = true;
-            this.labelUCK_DefCol.Location = new System.Drawing.Point(196, 49);
-            this.labelUCK_DefCol.Name = "labelUCK_DefCol";
-            this.labelUCK_DefCol.Size = new System.Drawing.Size(102, 13);
-            this.labelUCK_DefCol.TabIndex = 32;
-            this.labelUCK_DefCol.Text = "Target Default Color";
-            // 
-            // textBoxUCK_DefColG
-            // 
-            this.textBoxUCK_DefColG.Location = new System.Drawing.Point(354, 46);
-            this.textBoxUCK_DefColG.Name = "textBoxUCK_DefColG";
-            this.textBoxUCK_DefColG.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_DefColG.TabIndex = 34;
-            // 
-            // textBoxUCK_DefColB
-            // 
-            this.textBoxUCK_DefColB.Location = new System.Drawing.Point(391, 46);
-            this.textBoxUCK_DefColB.Name = "textBoxUCK_DefColB";
-            this.textBoxUCK_DefColB.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_DefColB.TabIndex = 35;
-            // 
-            // textBoxUCK_Cue1ColB
-            // 
-            this.textBoxUCK_Cue1ColB.Location = new System.Drawing.Point(391, 73);
-            this.textBoxUCK_Cue1ColB.Name = "textBoxUCK_Cue1ColB";
-            this.textBoxUCK_Cue1ColB.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_Cue1ColB.TabIndex = 39;
-            // 
-            // textBoxUCK_Cue1ColG
-            // 
-            this.textBoxUCK_Cue1ColG.Location = new System.Drawing.Point(354, 73);
-            this.textBoxUCK_Cue1ColG.Name = "textBoxUCK_Cue1ColG";
-            this.textBoxUCK_Cue1ColG.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_Cue1ColG.TabIndex = 38;
-            // 
-            // textBoxUCK_Cue1ColR
-            // 
-            this.textBoxUCK_Cue1ColR.Location = new System.Drawing.Point(317, 73);
-            this.textBoxUCK_Cue1ColR.Name = "textBoxUCK_Cue1ColR";
-            this.textBoxUCK_Cue1ColR.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_Cue1ColR.TabIndex = 37;
-            this.textBoxUCK_Cue1ColR.TextChanged += new System.EventHandler(this.textBoxUCK_Cue1ColR_TextChanged);
-            // 
-            // labelUCK_Cue1Col
-            // 
-            this.labelUCK_Cue1Col.AutoSize = true;
-            this.labelUCK_Cue1Col.Location = new System.Drawing.Point(196, 76);
-            this.labelUCK_Cue1Col.Name = "labelUCK_Cue1Col";
-            this.labelUCK_Cue1Col.Size = new System.Drawing.Size(76, 13);
-            this.labelUCK_Cue1Col.TabIndex = 36;
-            this.labelUCK_Cue1Col.Text = "Cue One Color";
-            this.labelUCK_Cue1Col.Click += new System.EventHandler(this.label366_Click);
-            // 
-            // textBoxUCK_Cue2ColB
-            // 
-            this.textBoxUCK_Cue2ColB.Location = new System.Drawing.Point(391, 98);
-            this.textBoxUCK_Cue2ColB.Name = "textBoxUCK_Cue2ColB";
-            this.textBoxUCK_Cue2ColB.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_Cue2ColB.TabIndex = 43;
-            // 
-            // textBoxUCK_Cue2ColG
-            // 
-            this.textBoxUCK_Cue2ColG.Location = new System.Drawing.Point(354, 98);
-            this.textBoxUCK_Cue2ColG.Name = "textBoxUCK_Cue2ColG";
-            this.textBoxUCK_Cue2ColG.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_Cue2ColG.TabIndex = 42;
-            // 
-            // textBoxUCK_Cue2ColR
-            // 
-            this.textBoxUCK_Cue2ColR.Location = new System.Drawing.Point(317, 98);
-            this.textBoxUCK_Cue2ColR.Name = "textBoxUCK_Cue2ColR";
-            this.textBoxUCK_Cue2ColR.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_Cue2ColR.TabIndex = 41;
-            this.textBoxUCK_Cue2ColR.TextChanged += new System.EventHandler(this.textBox40_TextChanged);
-            // 
-            // labelUCK_Cue2Col
-            // 
-            this.labelUCK_Cue2Col.AutoSize = true;
-            this.labelUCK_Cue2Col.Location = new System.Drawing.Point(196, 101);
-            this.labelUCK_Cue2Col.Name = "labelUCK_Cue2Col";
-            this.labelUCK_Cue2Col.Size = new System.Drawing.Size(77, 13);
-            this.labelUCK_Cue2Col.TabIndex = 40;
-            this.labelUCK_Cue2Col.Text = "Cue Two Color";
-            // 
-            // labelUCK_colR
-            // 
-            this.labelUCK_colR.AutoSize = true;
-            this.labelUCK_colR.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUCK_colR.Location = new System.Drawing.Point(324, 23);
-            this.labelUCK_colR.Name = "labelUCK_colR";
-            this.labelUCK_colR.Size = new System.Drawing.Size(16, 13);
-            this.labelUCK_colR.TabIndex = 44;
-            this.labelUCK_colR.Text = "R";
-            // 
-            // labelUCK_colG
-            // 
-            this.labelUCK_colG.AutoSize = true;
-            this.labelUCK_colG.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUCK_colG.Location = new System.Drawing.Point(361, 23);
-            this.labelUCK_colG.Name = "labelUCK_colG";
-            this.labelUCK_colG.Size = new System.Drawing.Size(16, 13);
-            this.labelUCK_colG.TabIndex = 45;
-            this.labelUCK_colG.Text = "G";
-            // 
-            // labelUCK_colB
-            // 
-            this.labelUCK_colB.AutoSize = true;
-            this.labelUCK_colB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUCK_colB.Location = new System.Drawing.Point(399, 23);
-            this.labelUCK_colB.Name = "labelUCK_colB";
-            this.labelUCK_colB.Size = new System.Drawing.Size(15, 13);
-            this.labelUCK_colB.TabIndex = 46;
-            this.labelUCK_colB.Text = "B";
-            // 
-            // labelUCK_ColorGuide
-            // 
-            this.labelUCK_ColorGuide.AutoSize = true;
-            this.labelUCK_ColorGuide.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUCK_ColorGuide.Location = new System.Drawing.Point(299, 131);
-            this.labelUCK_ColorGuide.Name = "labelUCK_ColorGuide";
-            this.labelUCK_ColorGuide.Size = new System.Drawing.Size(136, 13);
-            this.labelUCK_ColorGuide.TabIndex = 47;
-            this.labelUCK_ColorGuide.Text = "Color Range (0 to 255)";
-            // 
-            // textBoxUCK_Cue2Rew
-            // 
-            this.textBoxUCK_Cue2Rew.Location = new System.Drawing.Point(317, 182);
-            this.textBoxUCK_Cue2Rew.Name = "textBoxUCK_Cue2Rew";
-            this.textBoxUCK_Cue2Rew.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_Cue2Rew.TabIndex = 51;
-            // 
-            // labelUCK_Cue2Rew
-            // 
-            this.labelUCK_Cue2Rew.AutoSize = true;
-            this.labelUCK_Cue2Rew.Location = new System.Drawing.Point(196, 185);
-            this.labelUCK_Cue2Rew.Name = "labelUCK_Cue2Rew";
-            this.labelUCK_Cue2Rew.Size = new System.Drawing.Size(101, 13);
-            this.labelUCK_Cue2Rew.TabIndex = 50;
-            this.labelUCK_Cue2Rew.Text = "Cue Two Reward %";
-            // 
-            // textBoxUCK_Cue1Rew
-            // 
-            this.textBoxUCK_Cue1Rew.Location = new System.Drawing.Point(317, 157);
-            this.textBoxUCK_Cue1Rew.Name = "textBoxUCK_Cue1Rew";
-            this.textBoxUCK_Cue1Rew.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_Cue1Rew.TabIndex = 49;
-            // 
-            // labelUCK_Cue1Rew
-            // 
-            this.labelUCK_Cue1Rew.AutoSize = true;
-            this.labelUCK_Cue1Rew.Location = new System.Drawing.Point(196, 160);
-            this.labelUCK_Cue1Rew.Name = "labelUCK_Cue1Rew";
-            this.labelUCK_Cue1Rew.Size = new System.Drawing.Size(100, 13);
-            this.labelUCK_Cue1Rew.TabIndex = 48;
-            this.labelUCK_Cue1Rew.Text = "Cue One Reward %";
-            // 
-            // checkBoxUCK_COMode
-            // 
-            this.checkBoxUCK_COMode.AutoSize = true;
-            this.checkBoxUCK_COMode.Location = new System.Drawing.Point(21, 159);
-            this.checkBoxUCK_COMode.Name = "checkBoxUCK_COMode";
-            this.checkBoxUCK_COMode.Size = new System.Drawing.Size(107, 17);
-            this.checkBoxUCK_COMode.TabIndex = 52;
-            this.checkBoxUCK_COMode.Text = "Center Out Mode";
-            this.checkBoxUCK_COMode.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxUCK_MMode
-            // 
-            this.checkBoxUCK_MMode.AutoSize = true;
-            this.checkBoxUCK_MMode.Location = new System.Drawing.Point(21, 185);
-            this.checkBoxUCK_MMode.Name = "checkBoxUCK_MMode";
-            this.checkBoxUCK_MMode.Size = new System.Drawing.Size(86, 17);
-            this.checkBoxUCK_MMode.TabIndex = 53;
-            this.checkBoxUCK_MMode.Text = "Match Mode";
-            this.checkBoxUCK_MMode.UseVisualStyleBackColor = true;
-            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -16270,6 +16299,12 @@ namespace BehaviorGraphics
             this.groupBoxDCOT.PerformLayout();
             this.groupBoxDCOTime.ResumeLayout(false);
             this.groupBoxDCOTime.PerformLayout();
+            this.tabUnCisek.ResumeLayout(false);
+            this.groupBoxUCKTimers.ResumeLayout(false);
+            this.groupBoxUCKTimers.PerformLayout();
+            this.groupBoxUCKTargetProperties.ResumeLayout(false);
+            this.groupBoxUCKTargetProperties.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_UCK_TAD)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -16283,12 +16318,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.tabUnCisek.ResumeLayout(false);
-            this.groupBoxUCKTargetProperties.ResumeLayout(false);
-            this.groupBoxUCKTargetProperties.PerformLayout();
-            this.groupBoxUCKTimers.ResumeLayout(false);
-            this.groupBoxUCKTimers.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUD_UCK_TAD)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -17700,5 +17729,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelUCK_Cue2Rew;
         private System.Windows.Forms.TextBox textBoxUCK_Cue1Rew;
         private System.Windows.Forms.Label labelUCK_Cue1Rew;
+        private System.Windows.Forms.CheckBox checkBoxUT2D_gradient;
+        private System.Windows.Forms.TextBox textBoxUT2D_maxp;
+        private System.Windows.Forms.TextBox textBoxUT2D_minp;
+        private System.Windows.Forms.Label labelUT2D_minmaxp;
     }
 }
