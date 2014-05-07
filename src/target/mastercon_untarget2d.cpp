@@ -477,6 +477,15 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 		ringB->vm_k		= current_target_stdev;
 		ringB->min_p	= params->minimum_p;
 		ringB->max_p	= params->maximum_p;
+
+		for (i=0; i<10; i++) {
+			cloud[i]->r      = 100;
+			cloud[i]->theta  = target_shift + slice_points[i];
+			cloud[i]->span   = (params->slice_size)*PI/180;
+			cloud[i]->height = params->OT_depth;
+			cloud[i]->type = current_cloud_color;
+		}
+
 	} else {
 		ringA->radius	= params->100;
 		ringA->width	= params->0.1;
@@ -486,14 +495,14 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 		ringB->vm_k		= 10;
 		ringB->min_p	= 0;
 		ringB->max_p	= 10;
-	}
-
-	for (i=0; i<10; i++) {
-		cloud[i]->r      = params->movement_length;
-		cloud[i]->theta  = target_shift + slice_points[i];
-		cloud[i]->span   = (params->slice_size)*PI/180;
-		cloud[i]->height = params->OT_depth;
-		cloud[i]->type = current_cloud_color;
+		
+		for (i=0; i<10; i++) {
+			cloud[i]->r      = params->movement_length;
+			cloud[i]->theta  = target_shift + slice_points[i];
+			cloud[i]->span   = (params->slice_size)*PI/180;
+			cloud[i]->height = params->OT_depth;
+			cloud[i]->type = current_cloud_color;
+		}
 	}
 
 	priorTarget->r = params->movement_length;
