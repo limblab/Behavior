@@ -1215,6 +1215,9 @@ namespace BehaviorGraphics
             this.textBox_ctr_out_bump_CTHold = new System.Windows.Forms.TextBox();
             this.label_ctr_out_bump_CTHold = new System.Windows.Forms.Label();
             this.tabDynamicCO = new System.Windows.Forms.TabPage();
+            this.groupBox77 = new System.Windows.Forms.GroupBox();
+            this.textBoxDCOFCG = new System.Windows.Forms.TextBox();
+            this.labelDCOFCG = new System.Windows.Forms.Label();
             this.groupBoxDCOCont = new System.Windows.Forms.GroupBox();
             this.textBoxDCOPF = new System.Windows.Forms.TextBox();
             this.labelDCOPF = new System.Windows.Forms.Label();
@@ -1435,9 +1438,6 @@ namespace BehaviorGraphics
             this.label331 = new System.Windows.Forms.Label();
             this.label351 = new System.Windows.Forms.Label();
             this.label356 = new System.Windows.Forms.Label();
-            this.groupBox77 = new System.Windows.Forms.GroupBox();
-            this.textBoxDCOFCG = new System.Windows.Forms.TextBox();
-            this.labelDCOFCG = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -1590,6 +1590,7 @@ namespace BehaviorGraphics
             this.groupBox74.SuspendLayout();
             this.groupBox75.SuspendLayout();
             this.tabDynamicCO.SuspendLayout();
+            this.groupBox77.SuspendLayout();
             this.groupBoxDCOCont.SuspendLayout();
             this.groupBoxDCOT.SuspendLayout();
             this.groupBoxDCOTime.SuspendLayout();
@@ -1605,7 +1606,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBox77.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -13928,6 +13928,34 @@ namespace BehaviorGraphics
             this.tabDynamicCO.Text = "Dynamic center out";
             this.tabDynamicCO.UseVisualStyleBackColor = true;
             // 
+            // groupBox77
+            // 
+            this.groupBox77.Controls.Add(this.textBoxDCOFCG);
+            this.groupBox77.Controls.Add(this.labelDCOFCG);
+            this.groupBox77.Location = new System.Drawing.Point(455, 129);
+            this.groupBox77.Name = "groupBox77";
+            this.groupBox77.Size = new System.Drawing.Size(199, 56);
+            this.groupBox77.TabIndex = 6;
+            this.groupBox77.TabStop = false;
+            this.groupBox77.Text = "Isometric mode parameters";
+            // 
+            // textBoxDCOFCG
+            // 
+            this.textBoxDCOFCG.Location = new System.Drawing.Point(128, 25);
+            this.textBoxDCOFCG.Name = "textBoxDCOFCG";
+            this.textBoxDCOFCG.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOFCG.TabIndex = 27;
+            this.textBoxDCOFCG.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelDCOFCG
+            // 
+            this.labelDCOFCG.AutoSize = true;
+            this.labelDCOFCG.Location = new System.Drawing.Point(15, 28);
+            this.labelDCOFCG.Name = "labelDCOFCG";
+            this.labelDCOFCG.Size = new System.Drawing.Size(89, 13);
+            this.labelDCOFCG.TabIndex = 26;
+            this.labelDCOFCG.Text = "Force cursor gain";
+            // 
             // groupBoxDCOCont
             // 
             this.groupBoxDCOCont.Controls.Add(this.textBoxDCOPF);
@@ -15998,33 +16026,6 @@ namespace BehaviorGraphics
             this.label356.TabIndex = 0;
             this.label356.Text = "Field ramp up";
             // 
-            // groupBox77
-            // 
-            this.groupBox77.Controls.Add(this.textBoxDCOFCG);
-            this.groupBox77.Controls.Add(this.labelDCOFCG);
-            this.groupBox77.Location = new System.Drawing.Point(455, 129);
-            this.groupBox77.Name = "groupBox77";
-            this.groupBox77.Size = new System.Drawing.Size(199, 56);
-            this.groupBox77.TabIndex = 6;
-            this.groupBox77.TabStop = false;
-            this.groupBox77.Text = "Isometric mode parameters";
-            // 
-            // textBoxDCOFCG
-            // 
-            this.textBoxDCOFCG.Location = new System.Drawing.Point(128, 25);
-            this.textBoxDCOFCG.Name = "textBoxDCOFCG";
-            this.textBoxDCOFCG.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOFCG.TabIndex = 27;
-            // 
-            // labelDCOFCG
-            // 
-            this.labelDCOFCG.AutoSize = true;
-            this.labelDCOFCG.Location = new System.Drawing.Point(15, 28);
-            this.labelDCOFCG.Name = "labelDCOFCG";
-            this.labelDCOFCG.Size = new System.Drawing.Size(89, 13);
-            this.labelDCOFCG.TabIndex = 26;
-            this.labelDCOFCG.Text = "Force cursor gain";
-            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -16296,6 +16297,8 @@ namespace BehaviorGraphics
             this.groupBox75.ResumeLayout(false);
             this.groupBox75.PerformLayout();
             this.tabDynamicCO.ResumeLayout(false);
+            this.groupBox77.ResumeLayout(false);
+            this.groupBox77.PerformLayout();
             this.groupBoxDCOCont.ResumeLayout(false);
             this.groupBoxDCOCont.PerformLayout();
             this.groupBoxDCOT.ResumeLayout(false);
@@ -16321,8 +16324,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBox77.ResumeLayout(false);
-            this.groupBox77.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
