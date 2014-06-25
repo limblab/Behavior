@@ -102,10 +102,6 @@ struct LocalParams {
 	real_T cloud_3_color;
 	real_T cloud_4_color;
 	real_T prior_burrito_color;
-
-	real_T use_gradient_mode;
-	real_T minimum_p;
-	real_T maximum_p;
 };
 
 /**
@@ -140,8 +136,7 @@ private:
 	bool   cohack_mode;
 	Timer  *feedback_timer; // feedback timer
 	bool   give_reward;
-	bool   gradient_mode;
-
+	
 	double center_hold_time, center_delay_time, outer_hold_time;
 
 	Point  previous_position; // for calculating speed
@@ -154,8 +149,6 @@ private:
 	ArcTarget		*priorTarget;
 	SquareTarget    *timerTarget;
 	LocalParams     *params;
-	RingGradientA	*ringA;
-	RingGradientB	*ringB;
 
 	// helper functions
 	void doPreTrial(SimStruct *S);
@@ -173,7 +166,7 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(55);
+	this->setNumParams(52);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			 0);
@@ -238,9 +231,6 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	this->bindParamId(&params->cloud_3_color,			49);
 	this->bindParamId(&params->cloud_4_color,			50);	
 	this->bindParamId(&params->prior_burrito_color,		51);
-	this->bindParamId(&params->use_gradient_mode,		52);
-	this->bindParamId(&params->minimum_p,				53);
-	this->bindParamId(&params->maximum_p,				54);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -259,14 +249,12 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	targetBar		 = new ArcTarget(0,0,0,0,8);
 	priorTarget		 = new ArcTarget(0,0,0,0,6);
 	timerTarget      = new SquareTarget(0,0,0,0);
-	ringA			 = new RingGradientA(0,0,0,0);
-	ringB			 = new RingGradientB(0,0,0);
+	
 
 	feedback_timer	 = new Timer();
 	for (i=0; i<10; i++) {
 		cloud[i] = new ArcTarget(0,0,0,0,5);
 	}
-
 	cursor_extent		 = 0.0;
 	current_trial_shift  = 0.0;
 	current_target_stdev = 0.0;
@@ -286,7 +274,6 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	cohack_mode			 = false;
 	disp_prior			 = false;
 	give_reward			 = true;
-	gradient_mode		 = false;
 }
 /*
 void Uncertainty1dBehavior::updateCloud(SimStruct *S) {
@@ -330,33 +317,6 @@ int UncertaintyTarget2dBehavior::getArcColorCode(int arc_color) {
 }
 
 
-int UncertaintyTarget2dBehavior::getGradientColor(int arc_color) { 
-
-	int grad_col;
-		
-	if (arc_color==1) {
-		grad_col = Target::Color(255,0,0);
-	}
-	else if (arc_color==2) {
-		grad_col = Target::Color(255,255,255);
-	}
-	else if (arc_color==3){
-		grad_col = Target::Color(0,0,255);
-	}
-	else if (arc_color==4){
-		grad_col = Target::Color(0,255,0);
-	}
-	else if (arc_color==5){
-		grad_col = Target::Color(128,0,128);
-	}
-	else if (arc_color==6){
-		grad_col = Target::Color(255,165,0);
-	}
-	else {
-		grad_col = Target::Color(255,0,0);
-	}
-	return grad_col;
-}
 
 
 // Pre-trial initialization and calculations
@@ -372,7 +332,6 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 	double rewardp_rand; // random variable to determine if reward is given
 	delay_cloud_mode = params->use_delay_cloud;
 	cohack_mode      = params->use_cohack_mode;
-	gradient_mode    = params->use_gradient_mode;
 	
 	// Calculate the Shift (Prior Shift)
 	current_trial_shift = (params->shift_mean)*PI/180 + random->getVonMises(params->shift_stdev);
@@ -457,66 +416,37 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 
 	// Set Up The Targets
 
-	outerTarget->r = params->movement_length  ;
-	outerTarget->theta = target_shift;
-	outerTarget->span   = (params->OT_size)*PI/180;
-	outerTarget->height = params->OT_depth;
+		outerTarget->r = params->movement_length  ;
+		outerTarget->theta = target_shift;
+		outerTarget->span   = (params->OT_size)*PI/180;
+		outerTarget->height = params->OT_depth;
 
-	targetBar->r  = params->movement_length;
-	targetBar->theta  = 0; 
-	targetBar->span    = 2*PI-0.00001;
-	targetBar->height = params->OT_depth+.1;
-    targetBar->type = getArcColorCode((int)params->target_circle_color);
+		targetBar->r  = params->movement_length;
+		targetBar->theta  = 0; 
+		targetBar->span    = 2*PI-0.00001;
+		targetBar->height = params->OT_depth+.1;
+	   targetBar->type = getArcColorCode((int)params->target_circle_color);
 
-	if (gradient_mode){
-		ringA->radius	= params->movement_length;
-		ringA->width	= params->OT_depth+0.1;
-		ringA->ringcol	= getGradientColor(current_cloud_color);
-		ringA->vm_m		= target_shift + slice_points[1];
-
-		ringB->vm_k		= current_target_stdev;
-		ringB->min_p	= params->minimum_p;
-		ringB->max_p	= params->maximum_p;
-
-		for (i=0; i<10; i++) {
-			cloud[i]->r      = 100;
-			cloud[i]->theta  = target_shift + slice_points[i];
-			cloud[i]->span   = (params->slice_size)*PI/180;
-			cloud[i]->height = params->OT_depth;
-			cloud[i]->type = current_cloud_color;
-		}
-
-	} else {
-		ringA->radius	= params->100;
-		ringA->width	= params->0.1;
-		ringA->ringcol	= getGradientColor(5);
-		ringA->vm_m		= 0;
-
-		ringB->vm_k		= 10;
-		ringB->min_p	= 0;
-		ringB->max_p	= 10;
-		
 		for (i=0; i<10; i++) {
 			cloud[i]->r      = params->movement_length;
 			cloud[i]->theta  = target_shift + slice_points[i];
 			cloud[i]->span   = (params->slice_size)*PI/180;
 			cloud[i]->height = params->OT_depth;
-			cloud[i]->type = current_cloud_color;
+  			cloud[i]->type = current_cloud_color;
 		}
-	}
 
-	priorTarget->r = params->movement_length;
-	priorTarget->theta = (params->shift_mean)*PI/180;
-	priorTarget->span = (params->slice_size)*PI/180;
-	priorTarget->height = params->OT_depth;
-	priorTarget->type   = getArcColorCode((int)params->prior_burrito_color);
+		priorTarget->r = params->movement_length;
+		priorTarget->theta = (params->shift_mean)*PI/180;
+		priorTarget->span = (params->slice_size)*PI/180;
+		priorTarget->height = params->OT_depth;
+ 		priorTarget->type   = getArcColorCode((int)params->prior_burrito_color);
 
-	timerTarget->centerX = 14.25;
-	timerTarget->centerY = 10.55 ;
-	timerTarget->width   = 0.8;
-	timerTarget->color   = Target::Color(255, 255, 255);
+		timerTarget->centerX = 14.25;
+		timerTarget->centerY = 10.55 ;
+		timerTarget->width   = 0.8;
+		timerTarget->color   = Target::Color(255, 255, 255);
 
-
+	
 	// Initialize the cloud and cursor extent
 //	updateCloud(S);
 	updateCursorExtent(S);
@@ -748,29 +678,23 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 						for (i = 0; i<params->slice_number; i++) {
 							outputs->targets[3+i] = cloud[i];
 						}
-						outputs->targets[15] = (Target *)ringA;
-						outputs->targets[16] = (Target *)ringB;
 					}
 					else{
 						for (i = 0; i<params->slice_number; i++) {
 							outputs->targets[3+i] = nullTarget;
 						}
-						outputs->targets[15] = nullTarget;
-						outputs->targets[16] = nullTarget;
 					}
 				if (disp_prior) {
-					outputs->targets[13] = (Target *)priorTarget;
+					outputs->targets[3 + int(params->slice_number)] = (Target *)priorTarget;
 				} else {
-					outputs->targets[13] = nullTarget;
+					outputs->targets[3 + int(params->slice_number)] = nullTarget;
 				}
 			}
 			else {
 				for (i = 3; i<13; i++) {
 					outputs->targets[i] = nullTarget;
 				}
-				outputs->targets[13] = nullTarget;
-				outputs->targets[15] = nullTarget;
-				outputs->targets[16] = nullTarget;
+				outputs->targets[3 + int(params->slice_number)] = nullTarget;
 			}
 		}
 		// if feedback_window_end is negative, only display slices when in CENTER DELAY
@@ -780,29 +704,23 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 						for (i = 0; i<params->slice_number; i++) {
 							outputs->targets[3+i] = cloud[i];
 						}
-						outputs->targets[15] = (Target *)ringA;
-						outputs->targets[16] = (Target *)ringB;
 					}
 					else{
 				for (i = 0; i<params->slice_number; i++) {
 					outputs->targets[3+i] = nullTarget;
 				}
-				outputs->targets[15] = nullTarget;
-				outputs->targets[16] = nullTarget;
 			}
 				if (disp_prior) {
-					outputs->targets[13] = (Target *)priorTarget;
+					outputs->targets[3 + int(params->slice_number)] = (Target *)priorTarget;
 				} else {
-					outputs->targets[13] = nullTarget;
+					outputs->targets[3 + int(params->slice_number)] = nullTarget;
 				}
 			}
 			else {
 				for (i = 3; i<13; i++) {
 					outputs->targets[i] = nullTarget;
 				}
-				outputs->targets[13] = nullTarget;
-				outputs->targets[15] = nullTarget;
-				outputs->targets[16] = nullTarget;
+				outputs->targets[3 + int(params->slice_number)] = nullTarget;
 			}
 		}
 	}
@@ -826,12 +744,10 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 					for (i = 0; i<params->slice_number; i++) {
 						outputs->targets[3+i] = cloud[i];
 					}
-					outputs->targets[15] = (Target *)ringA;
-					outputs->targets[16] = (Target *)ringB;
 					if (disp_prior) {
-						outputs->targets[13] = (Target *)priorTarget;
+						outputs->targets[3 + int(params->slice_number)] = (Target *)priorTarget;
 					} else {
-						outputs->targets[13] = nullTarget;
+						outputs->targets[3 + int(params->slice_number)] = nullTarget;
 					}
 				}
 				else {
@@ -839,9 +755,7 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 					for (i = 3; i<13; i++) {
 						outputs->targets[i] = nullTarget;
 					}
-					outputs->targets[13] = nullTarget;
-					outputs->targets[15] = nullTarget;
-					outputs->targets[16] = nullTarget;
+					outputs->targets[3 + int(params->slice_number)] = nullTarget;
 				}
 			}
 			// Windowed feedback mode
@@ -854,13 +768,10 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 					for (i = 0; i<params->slice_number; i++) {
 						outputs->targets[3+i] = cloud[i];
 					}
-					outputs->targets[15] = (Target *)ringA;
-					outputs->targets[16] = (Target *)ringB;
-
 					if (disp_prior) {
-						outputs->targets[13] = (Target *)priorTarget;
+						outputs->targets[3 + int(params->slice_number)] = (Target *)priorTarget;
 					} else {
-						outputs->targets[13] = nullTarget;
+						outputs->targets[3 + int(params->slice_number)] = nullTarget;
 					}
 				} 
 				// Otherwise hide dots
@@ -868,9 +779,7 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 					for (i = 3; i<13; i++) {
 						outputs->targets[i] = nullTarget;
 					}
-					outputs->targets[13] = nullTarget;
-					outputs->targets[15] = nullTarget;
-					outputs->targets[16] = nullTarget;
+					outputs->targets[3 + int(params->slice_number)] = nullTarget;
 				}
 			}
 		
@@ -880,18 +789,16 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 			for (i = 3; i<13; i++) {
 				outputs->targets[i] = nullTarget;
 			}
-			outputs->targets[13] = nullTarget;
-			outputs->targets[15] = nullTarget;
-			outputs->targets[16] = nullTarget;
+			outputs->targets[3 + int(params->slice_number)] = nullTarget;
 		}
 	}
 
 	/* Timer Dot */
 		if (stateTimer->elapsedTime(S) < 0.25) {
-			outputs->targets[14] = (Target *)timerTarget;
+			outputs->targets[4+int(params->slice_number)] = (Target *)timerTarget;
 		}
 		else {
-			outputs->targets[14] = nullTarget;
+			outputs->targets[4+int(params->slice_number)] = nullTarget;
 		}
 	/* reward (4) */
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD) && give_reward);
