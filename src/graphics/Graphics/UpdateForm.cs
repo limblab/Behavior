@@ -1075,6 +1075,10 @@ namespace BehaviorGraphics
 
             // More target stuff
             AddParamListItem("DCO STIF", "P28", "Behavior DCO", this.checkBoxDCOSTIF);
+
+            // Isometric mode stuff
+            AddParamListItem("DCO FCG", "P29", "Behavior DCO", this.textBoxDCOFCG);
+
             #endregion
 
             #region UnCisek

@@ -33,6 +33,26 @@
  * bytes 38 to 41: float    => target force range (+/- % of target force)
  * bytes 42 to 45: float    => cursor radius (cm)
  * byte        46: int      => brain control (if 1: yes)
+ * 
+ * * Version 1 (0x01)
+ * ----------------
+ * byte         0: uchar    => number of bytes to be transmitted
+ * byte         1: uchar    => databurst version number (in this case zero)
+ * byte         2: uchar    => model version major
+ * byte         3: uchar    => model version minor
+ * bytes   4 to 5: short    => model version micro
+ * bytes   6 to 9: float    => x offset (cm)
+ * bytes 10 to 13: float    => y offset (cm)
+ * bytes 14 to 17: float    => outer target direction (rad)
+ * bytes 18 to 21: float    => outer target radius (cm)
+ * bytes 22 to 25: float    => outer target span (cm)
+ * bytes 26 to 29: float    => outer target thickness (cm)
+ * bytes 30 to 33: float    => outer target stiffness (N/cm)
+ * bytes 34 to 37: float    => target force (N)
+ * bytes 38 to 41: float    => target force range (+/- % of target force)
+ * bytes 42 to 45: float    => cursor radius (cm)
+ * byte        46: int      => brain control (if 1: yes)
+ * bytes 47 to 50: float    => force cursor gain (cm/N)
  */
 
 #define S_FUNCTION_NAME mastercon_dynamic_center_out
@@ -104,6 +124,9 @@ struct LocalParams{
     
     // More target stuff
     real_T repeat_target;
+    
+    // Isometric task stuff
+    real_T force_cursor_gain;
 };
 
 /**
@@ -169,7 +192,7 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(28);
+	this->setNumParams(29);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
 	this->bindParamId(&params->center_hold_low,                         1);
@@ -206,10 +229,12 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->record_for_x_mins,                       26);    
     
     this->bindParamId(&params->repeat_target,                           27);
+    
+    this->bindParamId(&params->force_cursor_gain,                       28);
    
     
     // default parameters:
-    // 1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0  3 5 10  3 2 4 .1  .5 .1 1  0 0  0
+    // 1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0  3 5 10  3 2 4 .1  .5 .1 1  0 0  0  1
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -319,11 +344,12 @@ void DynamicCenterOut::doPreTrial(SimStruct *S) {
     db->addFloat((float)params->outer_target_radius);           // bytes 18 to 21 -> Matlab idx 19 to 22
 	db->addFloat((float)params->outer_target_span);             // bytes 22 to 25 -> Matlab idx 23 to 26
 	db->addFloat((float)params->outer_target_thickness);        // bytes 26 to 29 -> Matlab idx 27 to 30
-	db->addFloat((float)target_stiffness);              // bytes 30 to 33 -> Matlab idx 31 to 34
+	db->addFloat((float)target_stiffness);                      // bytes 30 to 33 -> Matlab idx 31 to 34
 	db->addFloat((float)target_force);                          // bytes 34 to 37 -> Matlab idx 35 to 38
 	db->addFloat((float)params->target_force_window);           // bytes 38 to 41 -> Matlab idx 39 to 42
     db->addFloat((float)params->cursor_radius);                 // bytes 42 to 45 -> Matlab idx 43 to 46
-    db->addByte((int)params->brain_control);                    // byte 46        -> Matlab idx 47    
+    db->addByte((int)params->brain_control);                    // byte 46        -> Matlab idx 47
+    db->addFloat((float)params->force_cursor_gain);             // bytes 47 to 50 -> Matlab idx 48 to 51
 	db->start();
 }
 
@@ -609,7 +635,7 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_CENTER_TARGET_HOLD;    // 0xA0 = 160
                 break;			
             case STATE_OT_ON:
-                outputs->word = WORD_OT_ON(0);
+                outputs->word = WORD_OT_ON(0);              // 0x40 = 64
                 break;
 			case STATE_MOVEMENT:
 				outputs->word = WORD_MOVEMENT_ONSET;        // 0x80 = 128
