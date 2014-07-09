@@ -13952,9 +13952,9 @@ namespace BehaviorGraphics
             this.labelDCOFCG.AutoSize = true;
             this.labelDCOFCG.Location = new System.Drawing.Point(15, 28);
             this.labelDCOFCG.Name = "labelDCOFCG";
-            this.labelDCOFCG.Size = new System.Drawing.Size(89, 13);
+            this.labelDCOFCG.Size = new System.Drawing.Size(54, 13);
             this.labelDCOFCG.TabIndex = 26;
-            this.labelDCOFCG.Text = "Force cursor gain";
+            this.labelDCOFCG.Text = "(not used)";
             // 
             // groupBoxDCOCont
             // 

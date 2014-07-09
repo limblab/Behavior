@@ -478,13 +478,13 @@ void DynamicCenterOut::update(SimStruct *S) {
     
 }
 
-void DynamicCenterOut::calculateOutputs(SimStruct *S) {   
-    cursorTarget->centerX = cursor_position.x;
-	cursorTarget->centerY = cursor_position.y;
-    miniCursorTarget->centerX = cursor_position.x;
-	miniCursorTarget->centerY = cursor_position.y;
-    
+void DynamicCenterOut::calculateOutputs(SimStruct *S) {  
     if (params->brain_control){
+        if (~(cursor_position_old.x>=0) && ~(cursor_position_old.x<=0) || 
+                ~(cursor_position_old.y>=0) && ~(cursor_position_old.y<=0)){
+            cursor_position_old.x = 0.0;
+            cursor_position_old.y = 0.0;
+        }
         cursor_position.x = cursor_position_old.x*(1-params->pos_filt) + 
                 inputs->force.x * params->pos_filt; // hacked it to take the neural input through the force port
         cursor_position.y = cursor_position_old.y*(1-params->pos_filt) + 
@@ -510,7 +510,12 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
                 inputs->cursor.x * params->pos_filt; 
         cursor_position.y = cursor_position_old.y*(1-params->pos_filt) + 
                 inputs->cursor.y * params->pos_filt; 
-    }                    
+    }         
+    
+    cursorTarget->centerX = cursor_position.x;
+	cursorTarget->centerY = cursor_position.y;
+    miniCursorTarget->centerX = cursor_position.x;
+	miniCursorTarget->centerY = cursor_position.y;
     
     cursor_velocity.x = cursor_velocity_old.x*(1-params->vel_filt) +
         ((cursor_position.x-cursor_position_old.x)/.001)*params->vel_filt;
