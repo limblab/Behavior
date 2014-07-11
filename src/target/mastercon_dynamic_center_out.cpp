@@ -482,8 +482,13 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
     if (params->brain_control){
         if (~(cursor_position_old.x>=0) && ~(cursor_position_old.x<=0) || 
                 ~(cursor_position_old.y>=0) && ~(cursor_position_old.y<=0)){
-            cursor_position_old.x = 0.0;
-            cursor_position_old.y = 0.0;
+            cursor_position_old.x = inputs->force.x;
+            cursor_position_old.y = inputs->force.y;
+        }
+        if (~(cursor_velocity_old.x>=0) && ~(cursor_velocity_old.x<=0) || 
+                ~(cursor_velocity_old.y>=0) && ~(cursor_velocity_old.y<=0)){
+            cursor_velocity_old.x = 0;
+            cursor_velocity_old.y = 0;
         }
         cursor_position.x = cursor_position_old.x*(1-params->pos_filt) + 
                 inputs->force.x * params->pos_filt; // hacked it to take the neural input through the force port
@@ -559,6 +564,10 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
             (params->damping*target_stiffness*(-cursor_velocity.x))/10);
     force.y = force_on*(spring_force * sin(force_angle) +
             (params->damping*target_stiffness*(-cursor_velocity.y))/10);
+//     if (~(force.x>=0) && ~(force.x<=0) || 
+//             ~(force.y>=0) && ~(force.y<=0)){
+//         force = Point(0,0);
+//     }
     if (getState()==STATE_MOVEMENT || getState()==STATE_OT_HOLD){
         outputs->force = force;
     } else {        
