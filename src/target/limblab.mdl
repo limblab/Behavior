@@ -19,7 +19,7 @@ Library {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, -8.0, 1036.0, 754.0]
+      Location		      [138.0, 47.0, 1036.0, 780.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -42,8 +42,8 @@ Library {
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
 	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"405"
-	Extents			[984.0, 586.0]
+	LoadSaveID		"342"
+	Extents			[984.0, 612.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
@@ -55,9 +55,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jul 09 11:36:40 2014"
-  RTWModifiedTimeStamp	  326806596
-  ModelVersionFormat	  "1.%<AutoIncrement:97>"
+  LastModifiedDate	  "Tue Jul 15 17:08:19 2014"
+  RTWModifiedTimeStamp	  327344898
+  ModelVersionFormat	  "1.%<AutoIncrement:98>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -6908,8 +6908,8 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"RewardSbs"
-	Location		[338, 41, 1374, 821]
-	Open			off
+	Location		[138, 47, 1174, 827]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -6959,19 +6959,19 @@ Library {
 	}
 	Block {
 	  BlockType		  Constant
-	  Name			  "RewardDuration"
-	  SID			  "347"
-	  Position		  [185, 70, 215, 100]
-	  ZOrder		  -5
-	  Value			  "0.30"
-	}
-	Block {
-	  BlockType		  Constant
 	  Name			  "RewardJackpot"
 	  SID			  "348"
 	  Position		  [160, 205, 190, 235]
 	  ZOrder		  -6
 	  Value			  "0.60"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "RewardTime"
+	  SID			  "347"
+	  Position		  [185, 70, 215, 100]
+	  ZOrder		  -5
+	  Value			  "0.30"
 	}
 	Block {
 	  BlockType		  Reference
@@ -7233,7 +7233,7 @@ Library {
 	  DstPort		  2
 	}
 	Line {
-	  SrcBlock		  "RewardDuration"
+	  SrcBlock		  "RewardTime"
 	  SrcPort		  1
 	  Points		  [20, 0; 0, 45]
 	  DstBlock		  "Switch"
@@ -7581,7 +7581,7 @@ Library {
       System {
 	Name			"SendPacketToDecoder"
 	Location		[-8, -8, 1028, 746]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -7593,7 +7593,7 @@ Library {
 	TiledPageScale		1
 	ShowPageBoundaries	off
 	ZoomFactor		"100"
-	SIDHighWatermark	"437"
+	SIDHighWatermark	"452"
 	SIDPrevWatermark	"404"
 	Block {
 	  BlockType		  Inport
