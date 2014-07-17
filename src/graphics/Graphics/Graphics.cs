@@ -444,7 +444,7 @@ namespace BehaviorGraphics
                 sp.Play(SoundPlayer.SoundID.fail);
             }
 #endif
-            if (!fullScreen && e.KeyCode == Keys.F12) {
+            if (!fullScreen && (e.KeyCode == Keys.F12 || e.KeyCode == Keys.F8)) {
                 /* Go to full screen mode */
                 oldSize = this.Size;
                 oldLocation = this.Location;
