@@ -675,50 +675,50 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
 
 	/* targets (3) */
     cursorTarget->color = Target::Color(cursor_red,cursor_green,cursor_blue);	
-    
-	switch (this->getState()){
-		case STATE_CENTER_TARGET_ON:
-            outputs->targets[0] = (Target *)centerTarget;
-			outputs->targets[1] = (Target *)cursorTarget;
-			outputs->targets[2] = nullTarget;        
-            outputs->targets[3] = (Target *)miniCursorTarget;
-			break;
-        case STATE_CT_HOLD: 
-            outputs->targets[0] = (Target *)centerTarget;
-			outputs->targets[1] = (Target *)cursorTarget;
-			outputs->targets[2] = nullTarget;        
-            outputs->targets[3] = (Target *)miniCursorTarget;
-			break;
-		case STATE_OT_ON: 
-            outputs->targets[0] = (Target *)centerTarget;
-			outputs->targets[1] = (Target *)outerTarget;
-			outputs->targets[2] = (Target *)cursorTarget;
-            outputs->targets[3] = (Target *)miniCursorTarget;
-			break; 
-        case STATE_MOVEMENT:
-        case STATE_OT_HOLD:
-            outputs->targets[0] = (Target *)outerTarget;
-			outputs->targets[1] = (Target *)cursorTarget;
-			outputs->targets[2] = nullTarget;
-            outputs->targets[3] = (Target *)miniCursorTarget;
-			break;       
-		default:
-            outputs->targets[0] = (Target *)cursorTarget;
-			outputs->targets[1] = nullTarget;
-            outputs->targets[2] = nullTarget;
-            outputs->targets[3] = (Target *)miniCursorTarget;
-	}
     if (params->brain_control){
         for(i=0;i<5;i++){
-            outputs->targets[4+i] = upperArm[i];
-            outputs->targets[9+i] = lowerArm[i];
+            outputs->targets[i] = upperArm[i];
+            outputs->targets[5+i] = lowerArm[i];
         }
     } else {
         for(i=0;i<5;i++){
-            outputs->targets[4+i] = nullTarget;
-            outputs->targets[9+i] = nullTarget;
+            outputs->targets[i] = nullTarget;
+            outputs->targets[5+i] = nullTarget;
         }
-    }            
+    }
+	switch (this->getState()){
+		case STATE_CENTER_TARGET_ON:
+            outputs->targets[10] = (Target *)centerTarget;
+			outputs->targets[11] = (Target *)cursorTarget;
+			outputs->targets[12] = nullTarget;        
+            outputs->targets[13] = (Target *)miniCursorTarget;
+			break;
+        case STATE_CT_HOLD: 
+            outputs->targets[10] = (Target *)centerTarget;
+			outputs->targets[11] = (Target *)cursorTarget;
+			outputs->targets[12] = nullTarget;        
+            outputs->targets[13] = (Target *)miniCursorTarget;
+			break;
+		case STATE_OT_ON: 
+            outputs->targets[10] = (Target *)centerTarget;
+			outputs->targets[11] = (Target *)outerTarget;
+			outputs->targets[12] = (Target *)cursorTarget;
+            outputs->targets[13] = (Target *)miniCursorTarget;
+			break; 
+        case STATE_MOVEMENT:
+        case STATE_OT_HOLD:
+            outputs->targets[10] = (Target *)outerTarget;
+			outputs->targets[11] = (Target *)cursorTarget;
+			outputs->targets[12] = nullTarget;
+            outputs->targets[13] = (Target *)miniCursorTarget;
+			break;       
+		default:
+            outputs->targets[10] = (Target *)cursorTarget;
+			outputs->targets[11] = nullTarget;
+            outputs->targets[12] = nullTarget;
+            outputs->targets[13] = (Target *)miniCursorTarget;
+	}
+    
 
 	/* reward (4) */
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
