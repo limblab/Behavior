@@ -257,7 +257,7 @@ namespace BehaviorGraphics
                 OnDeviceLost(null, EventArgs.Empty);
             }
 
-            cursor.Dispose();
+            cursor.Dispose();            
         }
 
         private Vector3 cm2screen(double x, double y)
@@ -287,8 +287,8 @@ namespace BehaviorGraphics
         {
             byte[] data = new byte[1024];
 
-            try {
-                int recv = server.ReceiveFrom(data, ref remote);
+            try {                
+                int recv = server.ReceiveFrom(data, ref remote);                
                 /* Determine which transmission protocol is in use */
                 int packet_spec = -1;
                 if (!Double.IsNaN(BitConverter.ToDouble(data, 0))) {
