@@ -311,12 +311,18 @@ void UnstableReach::doPreTrial(SimStruct *S) {
     if ((stiffness_index == 0) &&
             ((100*trial_counter/params->trial_block_size) >= (stiffness_order_percent[0]-1))){
         stiffness_index = 1;
+        if (stiffness_order_percent[1]==0)
+            stiffness_index = 2;
     } else if ((stiffness_index == 1) &&
             ((100*trial_counter/params->trial_block_size) >= (stiffness_order_percent[0]+stiffness_order_percent[1]-1))){
         stiffness_index = 2;
+        if (stiffness_order_percent[2]==0)
+            stiffness_index = 0;
     } else if ((stiffness_index == 2) &&
             ((100*trial_counter/params->trial_block_size) >= 99)){
         stiffness_index = 0;
+        if (stiffness_order_percent[0]==0)
+            stiffness_index = 1;
     }
     trial_stiffness = stiffnesses[stiffness_order[stiffness_index]];
     
