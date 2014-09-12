@@ -86,6 +86,7 @@ struct LocalParams{
     real_T field_stiffness_3;
     real_T percent_stiffness_1;
     real_T percent_stiffness_2;
+    real_T damping;
     real_T first_movement_direction;
     real_T num_movement_directions;    
     real_T trial_block_size;
@@ -167,7 +168,7 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(24);
+	this->setNumParams(25);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
 	this->bindParamId(&params->center_hold_low,                         1);
@@ -177,25 +178,32 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->abort_wait,								5);
 	this->bindParamId(&params->fail_wait,								6);
     this->bindParamId(&params->movement_time,							7);
+    
     this->bindParamId(&params->brain_control,                           8);
+    
     this->bindParamId(&params->target_radius,                           9);
     this->bindParamId(&params->movement_distance,                       10);
     this->bindParamId(&params->color_cue,                               11);
+    
     this->bindParamId(&params->field_stiffness_1,                       12);
     this->bindParamId(&params->field_stiffness_2,                       13);
     this->bindParamId(&params->field_stiffness_3,                       14);
     this->bindParamId(&params->percent_stiffness_1,                     15);
     this->bindParamId(&params->percent_stiffness_2,                     16);
-    this->bindParamId(&params->first_movement_direction,                17);
-    this->bindParamId(&params->num_movement_directions,                 18);
-    this->bindParamId(&params->trial_block_size,                        19);
-    this->bindParamId(&params->vel_filt,                                20);
-    this->bindParamId(&params->pos_filt,                                21);
-    this->bindParamId(&params->record,                                  22);
-    this->bindParamId(&params->record_for_x_mins,                       23);
+    this->bindParamId(&params->damping,                                 17);
+    
+    this->bindParamId(&params->first_movement_direction,                18);
+    this->bindParamId(&params->num_movement_directions,                 19);
+    this->bindParamId(&params->trial_block_size,                        20);
+    
+    this->bindParamId(&params->vel_filt,                                21);
+    this->bindParamId(&params->pos_filt,                                22);
+    
+    this->bindParamId(&params->record,                                  23);
+    this->bindParamId(&params->record_for_x_mins,                       24);
   
     // default parameters:
-    // 0 1 2 1 1 1 1 30   0   2 10 1   1 0 -1 33 33   0 8 100   1 1   0 0
+    // 0 1 2 1 1 1 1 30   0   2 15 1   .5 0 -.5 33 33 .05   0 8 10   1 1   0 0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -238,7 +246,7 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
     old_block_length = -10;
     trial_counter = 10000;
     stiffness_index = 0;
-    movement_direction_index = random->getInteger(0,2);
+    movement_direction_index = random->getInteger(0,100);
     
     target_color = Target::Color(117,140,0);
     target_colors[0] = Target::Color(50,50,255);
@@ -300,15 +308,15 @@ void UnstableReach::doPreTrial(SimStruct *S) {
         params->first_movement_direction,2*PI);
     
     // Select stiffness
-    if (stiffness_index == 0){        
-        if ((100*trial_counter/params->trial_block_size) >= (stiffness_order_percent[0]-1))
-            stiffness_index == 1;            
-    } else if (stiffness_index == 1){
-    	if ((100*trial_counter/params->trial_block_size) >= (stiffness_order_percent[0]+stiffness_order_percent[1]-1))
-            stiffness_index == 2;
-    } else if (stiffness_index == 2){        
-        if ((100*trial_counter/params->trial_block_size) >= 99)
-            stiffness_index == 0;
+    if ((stiffness_index == 0) &&
+            ((100*trial_counter/params->trial_block_size) >= (stiffness_order_percent[0]-1))){
+        stiffness_index = 1;
+    } else if ((stiffness_index == 1) &&
+            ((100*trial_counter/params->trial_block_size) >= (stiffness_order_percent[0]+stiffness_order_percent[1]-1))){
+        stiffness_index = 2;
+    } else if ((stiffness_index == 2) &&
+            ((100*trial_counter/params->trial_block_size) >= 99)){
+        stiffness_index = 0;
     }
     trial_stiffness = stiffnesses[stiffness_order[stiffness_index]];
     
@@ -321,10 +329,10 @@ void UnstableReach::doPreTrial(SimStruct *S) {
     centerTarget->color = target_color;
     outerTarget->color = target_color;
     
-    centerTarget->centerX = cos(movement_direction+PI) * params->movement_distance;
-    centerTarget->centerY = sin(movement_direction+PI) * params->movement_distance;
-    outerTarget->centerX = cos(movement_direction) * params->movement_distance;
-    outerTarget->centerY = sin(movement_direction) * params->movement_distance;
+    centerTarget->centerX = cos(movement_direction+PI) * params->movement_distance/2;
+    centerTarget->centerY = sin(movement_direction+PI) * params->movement_distance/2;
+    outerTarget->centerX = cos(movement_direction) * params->movement_distance/2;
+    outerTarget->centerY = sin(movement_direction) * params->movement_distance/2;
         
 	center_hold_time = this->random->getDouble(params->center_hold_low,params->center_hold_high);
 
@@ -443,6 +451,8 @@ void UnstableReach::update(SimStruct *S) {
             if (stateTimer->elapsedTime(S) > params->outer_hold){
                 playTone(TONE_REWARD);
                 setState(STATE_REWARD);
+            } else if (!outerTarget->cursorInTarget(cursor_position)){
+                setState(STATE_FAIL);
             }
             break;
         case STATE_REWARD:
@@ -523,10 +533,14 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
     /* force (0) */ 
     force = Point(0,0);
     
-    force.x = trial_stiffness*(cursor_position.x*cos(movement_direction+PI/2) +
-                    cursor_position.y*sin(movement_direction+PI/2))*cos(movement_direction+PI/2);        
-    force.y = trial_stiffness*(cursor_position.x*cos(movement_direction+PI/2) + 
-                    cursor_position.y*sin(movement_direction+PI/2))*sin(movement_direction+PI/2);   
+    force.x = -trial_stiffness*(cursor_position.x * cos(movement_direction+PI/2) +
+                    cursor_position.y * sin(movement_direction+PI/2)) * cos(movement_direction+PI/2) -
+                    (trial_stiffness>0 ? params->damping*(cursor_velocity.x * cos(movement_direction+PI/2) + 
+                    cursor_velocity.y * sin(movement_direction+PI/2)) * cos(movement_direction+PI/2) : 0);        
+    force.y = -trial_stiffness*(cursor_position.x*cos(movement_direction+PI/2) + 
+                    cursor_position.y * sin(movement_direction+PI/2)) * sin(movement_direction+PI/2) -
+                    (trial_stiffness>0 ? params->damping*(cursor_velocity.x * cos(movement_direction+PI/2) + 
+                    cursor_velocity.y * sin(movement_direction+PI/2)) * sin(movement_direction+PI/2) : 0);    
 
     if (getState()==STATE_MOVEMENT || getState()==STATE_OT_HOLD){
         outputs->force = force;

@@ -1122,6 +1122,44 @@ namespace BehaviorGraphics
 
             #endregion
 
+            #region Unstable Reach
+            // Timing
+            AddParamListItem("UR CHL", "P2", "Behavior UR", this.textBoxURCHL);
+            AddParamListItem("UR CHH", "P3", "Behavior UR", this.textBoxURCHH);
+            AddParamListItem("UR OH", "P4", "Behavior UR", this.textBoxUROH);
+            AddParamListItem("UR RW", "P5", "Behavior UR", this.textBoxURRW);
+            AddParamListItem("UR AW", "P6", "Behavior UR", this.textBoxURAW);
+            AddParamListItem("UR FW", "P7", "Behavior UR", this.textBoxURFW);
+            AddParamListItem("UR MT", "P8", "Behavior UR", this.textBoxURMT);
+
+            // Cursor
+            AddParamListItem("UR BC", "P9", "Behavior UR", this.checkBoxURBC);
+
+            // Targets
+            AddParamListItem("UR TR", "P10", "Behavior UR", this.textBoxURTR);
+            AddParamListItem("UR MD", "P11", "Behavior UR", this.textBoxURMD);
+            AddParamListItem("UR CC", "P12", "Behavior UR", this.checkBoxURCC);
+
+            // Force field
+            AddParamListItem("UR FS1", "P13", "Behavior UR", this.textBoxURFS1);
+            AddParamListItem("UR FS2", "P14", "Behavior UR", this.textBoxURFS2);
+            AddParamListItem("UR FS3", "P15", "Behavior UR", this.textBoxURFS3);
+            AddParamListItem("UR PS1", "P16", "Behavior UR", this.textBoxURPS1);
+            AddParamListItem("UR PS2", "P17", "Behavior UR", this.textBoxURPS2);
+            AddParamListItem("UR D", "P18", "Behavior UR", this.textBoxURD);
+            AddParamListItem("UR FMD", "P19", "Behavior UF", this.angleEntryBoxURFMD);
+            AddParamListItem("UR NMD", "P20", "Behavior UR", this.textBoxURNMD);
+            AddParamListItem("UR TBS", "P21", "Behavior UR", this.textBoxURTBS);
+            
+            // Velocity controller
+            AddParamListItem("UR VF", "P22", "Behavior UR", this.textBoxURVF);
+            AddParamListItem("UR PF", "P23", "Behavior UR", this.textBoxURPF);
+            
+            // Cerebus recording
+            AddParamListItem("UR SRec", "P24", "Behavior UR", this.checkBoxRecord);
+            AddParamListItem("UR RecFor", "P25", "Behavior UR", this.textBoxRecordFor);
+
+            #endregion
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
@@ -1667,6 +1705,8 @@ namespace BehaviorGraphics
                     paramID = target.GetParamIdx("Behavior UF", "P1");
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior DCO", "P1");
+                if (paramID < 0)
+                    paramID = target.GetParamIdx("Behavior UR", "P1");
 
                 /* send the flag */
                 if (paramID >= 0) {
@@ -2664,82 +2704,7 @@ namespace BehaviorGraphics
             widget_ValueChanged(sender, e);
         }
 
-        private void checkBox4_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label360_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox31_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBoxUT2DShift_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown6_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBoxUCKTimers_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label369_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelUCK_OCDHi_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelUCK_ITI_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label365_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox32_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label366_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox40_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxUCK_Cue1ColR_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBoxUCKTargetProperties_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabUnCisek_Click(object sender, EventArgs e)
+        private void groupBox79_Enter(object sender, EventArgs e)
         {
 
         }

@@ -29,11 +29,11 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
-            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabs = new System.Windows.Forms.TabControl();
             this.tabPageGen = new System.Windows.Forms.TabPage();
             this.groupBox71 = new System.Windows.Forms.GroupBox();
             this.labelMinutes = new System.Windows.Forms.Label();
@@ -1328,6 +1328,53 @@ namespace BehaviorGraphics
             this.labelUCK_CTS = new System.Windows.Forms.Label();
             this.textBoxUCK_MLen = new System.Windows.Forms.TextBox();
             this.labelUCK_MLen = new System.Windows.Forms.Label();
+            this.tabUnstableReach = new System.Windows.Forms.TabPage();
+            this.groupBoxURVC = new System.Windows.Forms.GroupBox();
+            this.textBoxURPF = new System.Windows.Forms.TextBox();
+            this.labelURPF = new System.Windows.Forms.Label();
+            this.textBoxURVF = new System.Windows.Forms.TextBox();
+            this.labelURVF = new System.Windows.Forms.Label();
+            this.groupBox80 = new System.Windows.Forms.GroupBox();
+            this.textBoxURTBS = new System.Windows.Forms.TextBox();
+            this.labelURTBS = new System.Windows.Forms.Label();
+            this.textBoxURNMD = new System.Windows.Forms.TextBox();
+            this.labelURNMD = new System.Windows.Forms.Label();
+            this.labelURFMD = new System.Windows.Forms.Label();
+            this.angleEntryBoxURFMD = new AngleBox.AngleEntryBox();
+            this.textBoxURD = new System.Windows.Forms.TextBox();
+            this.labelURD = new System.Windows.Forms.Label();
+            this.textBoxURPS2 = new System.Windows.Forms.TextBox();
+            this.labelURPS2 = new System.Windows.Forms.Label();
+            this.textBoxURPS1 = new System.Windows.Forms.TextBox();
+            this.labelURPS1 = new System.Windows.Forms.Label();
+            this.textBoxURFS3 = new System.Windows.Forms.TextBox();
+            this.labelURFS3 = new System.Windows.Forms.Label();
+            this.textBoxURFS2 = new System.Windows.Forms.TextBox();
+            this.labelURFS2 = new System.Windows.Forms.Label();
+            this.textBoxURFS1 = new System.Windows.Forms.TextBox();
+            this.labelURFS1 = new System.Windows.Forms.Label();
+            this.groupBox79 = new System.Windows.Forms.GroupBox();
+            this.textBoxURMD = new System.Windows.Forms.TextBox();
+            this.checkBoxURBC = new System.Windows.Forms.CheckBox();
+            this.checkBoxURCC = new System.Windows.Forms.CheckBox();
+            this.labelURMD = new System.Windows.Forms.Label();
+            this.textBoxURTR = new System.Windows.Forms.TextBox();
+            this.labelURTR = new System.Windows.Forms.Label();
+            this.groupBox78 = new System.Windows.Forms.GroupBox();
+            this.textBoxURMT = new System.Windows.Forms.TextBox();
+            this.labelURMT = new System.Windows.Forms.Label();
+            this.textBoxURFW = new System.Windows.Forms.TextBox();
+            this.labelURFW = new System.Windows.Forms.Label();
+            this.textBoxURCHH = new System.Windows.Forms.TextBox();
+            this.textBoxUROH = new System.Windows.Forms.TextBox();
+            this.textBoxURAW = new System.Windows.Forms.TextBox();
+            this.textBoxURRW = new System.Windows.Forms.TextBox();
+            this.textBoxURCHL = new System.Windows.Forms.TextBox();
+            this.labelURAW = new System.Windows.Forms.Label();
+            this.labelURCHH = new System.Windows.Forms.Label();
+            this.labelUROH = new System.Windows.Forms.Label();
+            this.labelURRW = new System.Windows.Forms.Label();
+            this.labelURCHL = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelMdl = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -1384,6 +1431,8 @@ namespace BehaviorGraphics
             this.textBox51 = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.textBox34 = new System.Windows.Forms.TextBox();
+            this.label368 = new System.Windows.Forms.Label();
             this.label143 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
@@ -1438,7 +1487,33 @@ namespace BehaviorGraphics
             this.label331 = new System.Windows.Forms.Label();
             this.label351 = new System.Windows.Forms.Label();
             this.label356 = new System.Windows.Forms.Label();
-            this.tabControl.SuspendLayout();
+            this.textBox32 = new System.Windows.Forms.TextBox();
+            this.label365 = new System.Windows.Forms.Label();
+            this.textBox33 = new System.Windows.Forms.TextBox();
+            this.label366 = new System.Windows.Forms.Label();
+            this.angleEntryBox1 = new AngleBox.AngleEntryBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.textBox35 = new System.Windows.Forms.TextBox();
+            this.label369 = new System.Windows.Forms.Label();
+            this.textBox36 = new System.Windows.Forms.TextBox();
+            this.label370 = new System.Windows.Forms.Label();
+            this.textBox37 = new System.Windows.Forms.TextBox();
+            this.label371 = new System.Windows.Forms.Label();
+            this.textBox38 = new System.Windows.Forms.TextBox();
+            this.label372 = new System.Windows.Forms.Label();
+            this.textBox39 = new System.Windows.Forms.TextBox();
+            this.label373 = new System.Windows.Forms.Label();
+            this.textBox40 = new System.Windows.Forms.TextBox();
+            this.label374 = new System.Windows.Forms.Label();
+            this.label375 = new System.Windows.Forms.Label();
+            this.textBox41 = new System.Windows.Forms.TextBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.textBox42 = new System.Windows.Forms.TextBox();
+            this.label376 = new System.Windows.Forms.Label();
+            this.label377 = new System.Windows.Forms.Label();
+            this.textBox43 = new System.Windows.Forms.TextBox();
+            this.label378 = new System.Windows.Forms.Label();
+            this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -1598,6 +1673,11 @@ namespace BehaviorGraphics
             this.groupBoxUCKTimers.SuspendLayout();
             this.groupBoxUCKTargetProperties.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUD_UCK_TAD)).BeginInit();
+            this.tabUnstableReach.SuspendLayout();
+            this.groupBoxURVC.SuspendLayout();
+            this.groupBox80.SuspendLayout();
+            this.groupBox79.SuspendLayout();
+            this.groupBox78.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -1631,39 +1711,41 @@ namespace BehaviorGraphics
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
-            // tabControl
+            // tabs
             // 
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.tabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl.Controls.Add(this.tabPageGen);
-            this.tabControl.Controls.Add(this.tabPageCO);
-            this.tabControl.Controls.Add(this.tabPageRW);
-            this.tabControl.Controls.Add(this.tabPageFC);
-            this.tabControl.Controls.Add(this.tabPageBS);
-            this.tabControl.Controls.Add(this.tabPageMG);
-            this.tabControl.Controls.Add(this.tabPageWF);
-            this.tabControl.Controls.Add(this.tabPageBD);
-            this.tabControl.Controls.Add(this.tabPageBC);
-            this.tabControl.Controls.Add(this.tabPage1);
-            this.tabControl.Controls.Add(this.tabPageBF);
-            this.tabControl.Controls.Add(this.tabPage2);
-            this.tabControl.Controls.Add(this.tabUncertainty1D);
-            this.tabControl.Controls.Add(this.tabAttention);
-            this.tabControl.Controls.Add(this.tabPage3);
-            this.tabControl.Controls.Add(this.UnstableField);
-            this.tabControl.Controls.Add(this.tabUncertaintyTarget1D);
-            this.tabControl.Controls.Add(this.UncertaintyTarget2D);
-            this.tabControl.Controls.Add(this.tabPage4);
-            this.tabControl.Controls.Add(this.tabPage5);
-            this.tabControl.Controls.Add(this.tabDynamicCO);
-            this.tabControl.Controls.Add(this.tabUnCisek);
-            this.tabControl.Location = new System.Drawing.Point(0, 27);
-            this.tabControl.Multiline = true;
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(694, 499);
-            this.tabControl.TabIndex = 0;
+            this.tabs.Controls.Add(this.tabPageGen);
+            this.tabs.Controls.Add(this.tabPageCO);
+            this.tabs.Controls.Add(this.tabPageRW);
+            this.tabs.Controls.Add(this.tabPageFC);
+            this.tabs.Controls.Add(this.tabPageBS);
+            this.tabs.Controls.Add(this.tabPageMG);
+            this.tabs.Controls.Add(this.tabPageWF);
+            this.tabs.Controls.Add(this.tabPageBD);
+            this.tabs.Controls.Add(this.tabPageBC);
+            this.tabs.Controls.Add(this.tabPage1);
+            this.tabs.Controls.Add(this.tabPageBF);
+            this.tabs.Controls.Add(this.tabPage2);
+            this.tabs.Controls.Add(this.tabUncertainty1D);
+            this.tabs.Controls.Add(this.tabAttention);
+            this.tabs.Controls.Add(this.tabPage3);
+            this.tabs.Controls.Add(this.UnstableField);
+            this.tabs.Controls.Add(this.tabUncertaintyTarget1D);
+            this.tabs.Controls.Add(this.UncertaintyTarget2D);
+            this.tabs.Controls.Add(this.tabPage4);
+            this.tabs.Controls.Add(this.tabPage5);
+            this.tabs.Controls.Add(this.tabDynamicCO);
+            this.tabs.Controls.Add(this.tabUnCisek);
+            this.tabs.Controls.Add(this.tabUnstableReach);
+            this.tabs.Location = new System.Drawing.Point(0, 27);
+            this.tabs.Multiline = true;
+            this.tabs.Name = "tabs";
+            this.tabs.SelectedIndex = 0;
+            this.tabs.Size = new System.Drawing.Size(694, 499);
+            this.tabs.TabIndex = 0;
+            this.tabs.TabStop = false;
             // 
             // tabPageGen
             // 
@@ -4460,8 +4542,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5293,8 +5375,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -12252,7 +12334,6 @@ namespace BehaviorGraphics
             this.textBox31.Size = new System.Drawing.Size(193, 63);
             this.textBox31.TabIndex = 91;
             this.textBox31.Text = "Colors:  Red (1), White (2), Blue (3), Green (4), Purple (5), Orange (6)";
-            this.textBox31.TextChanged += new System.EventHandler(this.textBox31_TextChanged);
             // 
             // numericUD_TargetColor_1
             // 
@@ -12306,7 +12387,6 @@ namespace BehaviorGraphics
             0,
             0,
             0});
-            this.numericUD_TargetColor_4.ValueChanged += new System.EventHandler(this.numericUpDown6_ValueChanged);
             // 
             // label361
             // 
@@ -12347,7 +12427,6 @@ namespace BehaviorGraphics
             this.label360.Size = new System.Drawing.Size(31, 13);
             this.label360.TabIndex = 85;
             this.label360.Text = "Color";
-            this.label360.Click += new System.EventHandler(this.label360_Click);
             // 
             // numericUD_TargetColor_2
             // 
@@ -12712,7 +12791,6 @@ namespace BehaviorGraphics
             this.groupBoxUT2DShift.TabIndex = 73;
             this.groupBoxUT2DShift.TabStop = false;
             this.groupBoxUT2DShift.Text = "Target Shift (Prior)";
-            this.groupBoxUT2DShift.Enter += new System.EventHandler(this.groupBoxUT2DShift_Enter);
             // 
             // numericUD_PriorColor
             // 
@@ -14456,7 +14534,6 @@ namespace BehaviorGraphics
             this.tabUnCisek.TabIndex = 21;
             this.tabUnCisek.Text = "UnCisek";
             this.tabUnCisek.UseVisualStyleBackColor = true;
-            this.tabUnCisek.Click += new System.EventHandler(this.tabUnCisek_Click);
             // 
             // groupBoxUCKTimers
             // 
@@ -14492,7 +14569,6 @@ namespace BehaviorGraphics
             this.groupBoxUCKTimers.TabIndex = 1;
             this.groupBoxUCKTimers.TabStop = false;
             this.groupBoxUCKTimers.Text = "Timers";
-            this.groupBoxUCKTimers.Enter += new System.EventHandler(this.groupBoxUCKTimers_Enter);
             // 
             // textBoxUCK_FPL
             // 
@@ -14541,7 +14617,6 @@ namespace BehaviorGraphics
             this.labelUCK_ITI.Size = new System.Drawing.Size(82, 13);
             this.labelUCK_ITI.TabIndex = 20;
             this.labelUCK_ITI.Text = "Intertrial Interval";
-            this.labelUCK_ITI.Click += new System.EventHandler(this.labelUCK_ITI_Click);
             // 
             // textBoxUCK_OHHi
             // 
@@ -14675,7 +14750,6 @@ namespace BehaviorGraphics
             this.labelUCK_OCDHi.Size = new System.Drawing.Size(110, 13);
             this.labelUCK_OCDHi.TabIndex = 3;
             this.labelUCK_OCDHi.Text = "Outer Cue Delay High";
-            this.labelUCK_OCDHi.Click += new System.EventHandler(this.labelUCK_OCDHi_Click);
             // 
             // labelUCK_OCDLo
             // 
@@ -14685,7 +14759,6 @@ namespace BehaviorGraphics
             this.labelUCK_OCDLo.Size = new System.Drawing.Size(108, 13);
             this.labelUCK_OCDLo.TabIndex = 2;
             this.labelUCK_OCDLo.Text = "Outer Cue Delay Low";
-            this.labelUCK_OCDLo.Click += new System.EventHandler(this.label369_Click);
             // 
             // labelUCK_CHHi
             // 
@@ -14743,7 +14816,6 @@ namespace BehaviorGraphics
             this.groupBoxUCKTargetProperties.TabIndex = 0;
             this.groupBoxUCKTargetProperties.TabStop = false;
             this.groupBoxUCKTargetProperties.Text = "General Properties";
-            this.groupBoxUCKTargetProperties.Enter += new System.EventHandler(this.groupBoxUCKTargetProperties_Enter);
             // 
             // checkBoxUCK_MMode
             // 
@@ -14857,7 +14929,6 @@ namespace BehaviorGraphics
             this.textBoxUCK_Cue2ColR.Name = "textBoxUCK_Cue2ColR";
             this.textBoxUCK_Cue2ColR.Size = new System.Drawing.Size(31, 20);
             this.textBoxUCK_Cue2ColR.TabIndex = 41;
-            this.textBoxUCK_Cue2ColR.TextChanged += new System.EventHandler(this.textBox40_TextChanged);
             // 
             // labelUCK_Cue2Col
             // 
@@ -14888,7 +14959,6 @@ namespace BehaviorGraphics
             this.textBoxUCK_Cue1ColR.Name = "textBoxUCK_Cue1ColR";
             this.textBoxUCK_Cue1ColR.Size = new System.Drawing.Size(31, 20);
             this.textBoxUCK_Cue1ColR.TabIndex = 37;
-            this.textBoxUCK_Cue1ColR.TextChanged += new System.EventHandler(this.textBoxUCK_Cue1ColR_TextChanged);
             // 
             // labelUCK_Cue1Col
             // 
@@ -14898,7 +14968,6 @@ namespace BehaviorGraphics
             this.labelUCK_Cue1Col.Size = new System.Drawing.Size(76, 13);
             this.labelUCK_Cue1Col.TabIndex = 36;
             this.labelUCK_Cue1Col.Text = "Cue One Color";
-            this.labelUCK_Cue1Col.Click += new System.EventHandler(this.label366_Click);
             // 
             // textBoxUCK_DefColB
             // 
@@ -15005,7 +15074,6 @@ namespace BehaviorGraphics
             this.textBoxUCK_MLen.Name = "textBoxUCK_MLen";
             this.textBoxUCK_MLen.Size = new System.Drawing.Size(31, 20);
             this.textBoxUCK_MLen.TabIndex = 25;
-            this.textBoxUCK_MLen.TextChanged += new System.EventHandler(this.textBox32_TextChanged);
             // 
             // labelUCK_MLen
             // 
@@ -15015,7 +15083,460 @@ namespace BehaviorGraphics
             this.labelUCK_MLen.Size = new System.Drawing.Size(116, 13);
             this.labelUCK_MLen.TabIndex = 24;
             this.labelUCK_MLen.Text = "Movement Length (cm)";
-            this.labelUCK_MLen.Click += new System.EventHandler(this.label365_Click);
+            // 
+            // tabUnstableReach
+            // 
+            this.tabUnstableReach.Controls.Add(this.groupBoxURVC);
+            this.tabUnstableReach.Controls.Add(this.groupBox80);
+            this.tabUnstableReach.Controls.Add(this.groupBox79);
+            this.tabUnstableReach.Controls.Add(this.groupBox78);
+            this.tabUnstableReach.Location = new System.Drawing.Point(4, 58);
+            this.tabUnstableReach.Name = "tabUnstableReach";
+            this.tabUnstableReach.Padding = new System.Windows.Forms.Padding(3);
+            this.tabUnstableReach.Size = new System.Drawing.Size(686, 437);
+            this.tabUnstableReach.TabIndex = 22;
+            this.tabUnstableReach.Text = "Unstable Reach";
+            this.tabUnstableReach.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxURVC
+            // 
+            this.groupBoxURVC.Controls.Add(this.textBoxURPF);
+            this.groupBoxURVC.Controls.Add(this.labelURPF);
+            this.groupBoxURVC.Controls.Add(this.textBoxURVF);
+            this.groupBoxURVC.Controls.Add(this.labelURVF);
+            this.groupBoxURVC.Location = new System.Drawing.Point(440, 290);
+            this.groupBoxURVC.Name = "groupBoxURVC";
+            this.groupBoxURVC.Size = new System.Drawing.Size(202, 67);
+            this.groupBoxURVC.TabIndex = 36;
+            this.groupBoxURVC.TabStop = false;
+            this.groupBoxURVC.Text = "Velocity controller";
+            // 
+            // textBoxURPF
+            // 
+            this.textBoxURPF.Location = new System.Drawing.Point(128, 41);
+            this.textBoxURPF.Name = "textBoxURPF";
+            this.textBoxURPF.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURPF.TabIndex = 35;
+            this.textBoxURPF.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelURPF
+            // 
+            this.labelURPF.AutoSize = true;
+            this.labelURPF.Location = new System.Drawing.Point(8, 45);
+            this.labelURPF.Name = "labelURPF";
+            this.labelURPF.Size = new System.Drawing.Size(66, 13);
+            this.labelURPF.TabIndex = 34;
+            this.labelURPF.Text = "Position filter";
+            // 
+            // textBoxURVF
+            // 
+            this.textBoxURVF.Location = new System.Drawing.Point(128, 15);
+            this.textBoxURVF.Name = "textBoxURVF";
+            this.textBoxURVF.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURVF.TabIndex = 33;
+            this.textBoxURVF.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelURVF
+            // 
+            this.labelURVF.AutoSize = true;
+            this.labelURVF.Location = new System.Drawing.Point(8, 19);
+            this.labelURVF.Name = "labelURVF";
+            this.labelURVF.Size = new System.Drawing.Size(66, 13);
+            this.labelURVF.TabIndex = 32;
+            this.labelURVF.Text = "Velocity filter";
+            // 
+            // groupBox80
+            // 
+            this.groupBox80.Controls.Add(this.textBoxURTBS);
+            this.groupBox80.Controls.Add(this.labelURTBS);
+            this.groupBox80.Controls.Add(this.textBoxURNMD);
+            this.groupBox80.Controls.Add(this.labelURNMD);
+            this.groupBox80.Controls.Add(this.labelURFMD);
+            this.groupBox80.Controls.Add(this.angleEntryBoxURFMD);
+            this.groupBox80.Controls.Add(this.textBoxURD);
+            this.groupBox80.Controls.Add(this.labelURD);
+            this.groupBox80.Controls.Add(this.textBoxURPS2);
+            this.groupBox80.Controls.Add(this.labelURPS2);
+            this.groupBox80.Controls.Add(this.textBoxURPS1);
+            this.groupBox80.Controls.Add(this.labelURPS1);
+            this.groupBox80.Controls.Add(this.textBoxURFS3);
+            this.groupBox80.Controls.Add(this.labelURFS3);
+            this.groupBox80.Controls.Add(this.textBoxURFS2);
+            this.groupBox80.Controls.Add(this.labelURFS2);
+            this.groupBox80.Controls.Add(this.textBoxURFS1);
+            this.groupBox80.Controls.Add(this.labelURFS1);
+            this.groupBox80.Location = new System.Drawing.Point(443, 13);
+            this.groupBox80.Name = "groupBox80";
+            this.groupBox80.Size = new System.Drawing.Size(200, 264);
+            this.groupBox80.TabIndex = 35;
+            this.groupBox80.TabStop = false;
+            this.groupBox80.Text = "Force fields";
+            // 
+            // textBoxURTBS
+            // 
+            this.textBoxURTBS.Location = new System.Drawing.Point(126, 228);
+            this.textBoxURTBS.Name = "textBoxURTBS";
+            this.textBoxURTBS.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURTBS.TabIndex = 31;
+            this.textBoxURTBS.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelURTBS
+            // 
+            this.labelURTBS.AutoSize = true;
+            this.labelURTBS.Location = new System.Drawing.Point(6, 232);
+            this.labelURTBS.Name = "labelURTBS";
+            this.labelURTBS.Size = new System.Drawing.Size(77, 13);
+            this.labelURTBS.TabIndex = 30;
+            this.labelURTBS.Text = "Trial block size";
+            // 
+            // textBoxURNMD
+            // 
+            this.textBoxURNMD.Location = new System.Drawing.Point(126, 202);
+            this.textBoxURNMD.Name = "textBoxURNMD";
+            this.textBoxURNMD.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURNMD.TabIndex = 29;
+            this.textBoxURNMD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelURNMD
+            // 
+            this.labelURNMD.AutoSize = true;
+            this.labelURNMD.Location = new System.Drawing.Point(6, 206);
+            this.labelURNMD.Name = "labelURNMD";
+            this.labelURNMD.Size = new System.Drawing.Size(100, 13);
+            this.labelURNMD.TabIndex = 28;
+            this.labelURNMD.Text = "Num movement dirs";
+            // 
+            // labelURFMD
+            // 
+            this.labelURFMD.AutoSize = true;
+            this.labelURFMD.Location = new System.Drawing.Point(8, 180);
+            this.labelURFMD.Name = "labelURFMD";
+            this.labelURFMD.Size = new System.Drawing.Size(92, 13);
+            this.labelURFMD.TabIndex = 27;
+            this.labelURFMD.Text = "First movement dir";
+            // 
+            // angleEntryBoxURFMD
+            // 
+            this.angleEntryBoxURFMD.Location = new System.Drawing.Point(116, 175);
+            this.angleEntryBoxURFMD.Name = "angleEntryBoxURFMD";
+            this.angleEntryBoxURFMD.Size = new System.Drawing.Size(78, 21);
+            this.angleEntryBoxURFMD.TabIndex = 26;
+            this.angleEntryBoxURFMD.Value = 0;
+            // 
+            // textBoxURD
+            // 
+            this.textBoxURD.Location = new System.Drawing.Point(126, 149);
+            this.textBoxURD.Name = "textBoxURD";
+            this.textBoxURD.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURD.TabIndex = 25;
+            this.textBoxURD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelURD
+            // 
+            this.labelURD.AutoSize = true;
+            this.labelURD.Location = new System.Drawing.Point(6, 154);
+            this.labelURD.Name = "labelURD";
+            this.labelURD.Size = new System.Drawing.Size(49, 13);
+            this.labelURD.TabIndex = 24;
+            this.labelURD.Text = "Damping";
+            this.toolTip1.SetToolTip(this.labelURD, "Only for positive stiffnesses");
+            // 
+            // textBoxURPS2
+            // 
+            this.textBoxURPS2.Location = new System.Drawing.Point(126, 124);
+            this.textBoxURPS2.Name = "textBoxURPS2";
+            this.textBoxURPS2.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURPS2.TabIndex = 23;
+            this.textBoxURPS2.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelURPS2
+            // 
+            this.labelURPS2.AutoSize = true;
+            this.labelURPS2.Location = new System.Drawing.Point(6, 128);
+            this.labelURPS2.Name = "labelURPS2";
+            this.labelURPS2.Size = new System.Drawing.Size(94, 13);
+            this.labelURPS2.TabIndex = 22;
+            this.labelURPS2.Text = "Percent stiffness 2";
+            // 
+            // textBoxURPS1
+            // 
+            this.textBoxURPS1.Location = new System.Drawing.Point(126, 98);
+            this.textBoxURPS1.Name = "textBoxURPS1";
+            this.textBoxURPS1.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURPS1.TabIndex = 21;
+            this.textBoxURPS1.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelURPS1
+            // 
+            this.labelURPS1.AutoSize = true;
+            this.labelURPS1.Location = new System.Drawing.Point(6, 102);
+            this.labelURPS1.Name = "labelURPS1";
+            this.labelURPS1.Size = new System.Drawing.Size(94, 13);
+            this.labelURPS1.TabIndex = 20;
+            this.labelURPS1.Text = "Percent stiffness 1";
+            // 
+            // textBoxURFS3
+            // 
+            this.textBoxURFS3.Location = new System.Drawing.Point(126, 73);
+            this.textBoxURFS3.Name = "textBoxURFS3";
+            this.textBoxURFS3.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURFS3.TabIndex = 19;
+            this.textBoxURFS3.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelURFS3
+            // 
+            this.labelURFS3.AutoSize = true;
+            this.labelURFS3.Location = new System.Drawing.Point(6, 76);
+            this.labelURFS3.Name = "labelURFS3";
+            this.labelURFS3.Size = new System.Drawing.Size(79, 13);
+            this.labelURFS3.TabIndex = 18;
+            this.labelURFS3.Text = "Field stiffness 3";
+            // 
+            // textBoxURFS2
+            // 
+            this.textBoxURFS2.Location = new System.Drawing.Point(126, 47);
+            this.textBoxURFS2.Name = "textBoxURFS2";
+            this.textBoxURFS2.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURFS2.TabIndex = 17;
+            this.textBoxURFS2.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelURFS2
+            // 
+            this.labelURFS2.AutoSize = true;
+            this.labelURFS2.Location = new System.Drawing.Point(6, 50);
+            this.labelURFS2.Name = "labelURFS2";
+            this.labelURFS2.Size = new System.Drawing.Size(79, 13);
+            this.labelURFS2.TabIndex = 13;
+            this.labelURFS2.Text = "Field stiffness 2";
+            // 
+            // textBoxURFS1
+            // 
+            this.textBoxURFS1.Location = new System.Drawing.Point(126, 22);
+            this.textBoxURFS1.Name = "textBoxURFS1";
+            this.textBoxURFS1.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURFS1.TabIndex = 12;
+            this.textBoxURFS1.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelURFS1
+            // 
+            this.labelURFS1.AutoSize = true;
+            this.labelURFS1.Location = new System.Drawing.Point(6, 24);
+            this.labelURFS1.Name = "labelURFS1";
+            this.labelURFS1.Size = new System.Drawing.Size(79, 13);
+            this.labelURFS1.TabIndex = 10;
+            this.labelURFS1.Text = "Field stiffness 1";
+            // 
+            // groupBox79
+            // 
+            this.groupBox79.Controls.Add(this.textBoxURMD);
+            this.groupBox79.Controls.Add(this.checkBoxURBC);
+            this.groupBox79.Controls.Add(this.checkBoxURCC);
+            this.groupBox79.Controls.Add(this.labelURMD);
+            this.groupBox79.Controls.Add(this.textBoxURTR);
+            this.groupBox79.Controls.Add(this.labelURTR);
+            this.groupBox79.Location = new System.Drawing.Point(227, 13);
+            this.groupBox79.Name = "groupBox79";
+            this.groupBox79.Size = new System.Drawing.Size(200, 128);
+            this.groupBox79.TabIndex = 5;
+            this.groupBox79.TabStop = false;
+            this.groupBox79.Text = "Cursor and targets";
+            this.groupBox79.Enter += new System.EventHandler(this.groupBox79_Enter);
+            // 
+            // textBoxURMD
+            // 
+            this.textBoxURMD.Location = new System.Drawing.Point(122, 72);
+            this.textBoxURMD.Name = "textBoxURMD";
+            this.textBoxURMD.Size = new System.Drawing.Size(55, 20);
+            this.textBoxURMD.TabIndex = 17;
+            this.textBoxURMD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // checkBoxURBC
+            // 
+            this.checkBoxURBC.AutoSize = true;
+            this.checkBoxURBC.Location = new System.Drawing.Point(12, 26);
+            this.checkBoxURBC.Name = "checkBoxURBC";
+            this.checkBoxURBC.Size = new System.Drawing.Size(85, 17);
+            this.checkBoxURBC.TabIndex = 16;
+            this.checkBoxURBC.Text = "Brain control";
+            this.checkBoxURBC.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxURCC
+            // 
+            this.checkBoxURCC.AutoSize = true;
+            this.checkBoxURCC.Location = new System.Drawing.Point(12, 96);
+            this.checkBoxURCC.Name = "checkBoxURCC";
+            this.checkBoxURCC.Size = new System.Drawing.Size(71, 17);
+            this.checkBoxURCC.TabIndex = 34;
+            this.checkBoxURCC.Text = "Color cue";
+            this.checkBoxURCC.UseVisualStyleBackColor = true;
+            // 
+            // labelURMD
+            // 
+            this.labelURMD.AutoSize = true;
+            this.labelURMD.Location = new System.Drawing.Point(9, 74);
+            this.labelURMD.Name = "labelURMD";
+            this.labelURMD.Size = new System.Drawing.Size(100, 13);
+            this.labelURMD.TabIndex = 13;
+            this.labelURMD.Text = "Movement distance";
+            // 
+            // textBoxURTR
+            // 
+            this.textBoxURTR.Location = new System.Drawing.Point(122, 47);
+            this.textBoxURTR.Name = "textBoxURTR";
+            this.textBoxURTR.Size = new System.Drawing.Size(55, 20);
+            this.textBoxURTR.TabIndex = 12;
+            this.textBoxURTR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelURTR
+            // 
+            this.labelURTR.AutoSize = true;
+            this.labelURTR.Location = new System.Drawing.Point(9, 52);
+            this.labelURTR.Name = "labelURTR";
+            this.labelURTR.Size = new System.Drawing.Size(69, 13);
+            this.labelURTR.TabIndex = 10;
+            this.labelURTR.Text = "Target radius";
+            // 
+            // groupBox78
+            // 
+            this.groupBox78.Controls.Add(this.textBoxURMT);
+            this.groupBox78.Controls.Add(this.labelURMT);
+            this.groupBox78.Controls.Add(this.textBoxURFW);
+            this.groupBox78.Controls.Add(this.labelURFW);
+            this.groupBox78.Controls.Add(this.textBoxURCHH);
+            this.groupBox78.Controls.Add(this.textBoxUROH);
+            this.groupBox78.Controls.Add(this.textBoxURAW);
+            this.groupBox78.Controls.Add(this.textBoxURRW);
+            this.groupBox78.Controls.Add(this.textBoxURCHL);
+            this.groupBox78.Controls.Add(this.labelURAW);
+            this.groupBox78.Controls.Add(this.labelURCHH);
+            this.groupBox78.Controls.Add(this.labelUROH);
+            this.groupBox78.Controls.Add(this.labelURRW);
+            this.groupBox78.Controls.Add(this.labelURCHL);
+            this.groupBox78.Location = new System.Drawing.Point(21, 13);
+            this.groupBox78.Name = "groupBox78";
+            this.groupBox78.Size = new System.Drawing.Size(200, 215);
+            this.groupBox78.TabIndex = 4;
+            this.groupBox78.TabStop = false;
+            this.groupBox78.Text = "Timing";
+            // 
+            // textBoxURMT
+            // 
+            this.textBoxURMT.Location = new System.Drawing.Point(126, 179);
+            this.textBoxURMT.Name = "textBoxURMT";
+            this.textBoxURMT.Size = new System.Drawing.Size(55, 20);
+            this.textBoxURMT.TabIndex = 21;
+            this.textBoxURMT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelURMT
+            // 
+            this.labelURMT.AutoSize = true;
+            this.labelURMT.Location = new System.Drawing.Point(6, 182);
+            this.labelURMT.Name = "labelURMT";
+            this.labelURMT.Size = new System.Drawing.Size(79, 13);
+            this.labelURMT.TabIndex = 20;
+            this.labelURMT.Text = "Movement time";
+            // 
+            // textBoxURFW
+            // 
+            this.textBoxURFW.Location = new System.Drawing.Point(126, 152);
+            this.textBoxURFW.Name = "textBoxURFW";
+            this.textBoxURFW.Size = new System.Drawing.Size(55, 20);
+            this.textBoxURFW.TabIndex = 19;
+            this.textBoxURFW.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelURFW
+            // 
+            this.labelURFW.AutoSize = true;
+            this.labelURFW.Location = new System.Drawing.Point(6, 155);
+            this.labelURFW.Name = "labelURFW";
+            this.labelURFW.Size = new System.Drawing.Size(45, 13);
+            this.labelURFW.TabIndex = 18;
+            this.labelURFW.Text = "Fail wait";
+            // 
+            // textBoxURCHH
+            // 
+            this.textBoxURCHH.Location = new System.Drawing.Point(126, 45);
+            this.textBoxURCHH.Name = "textBoxURCHH";
+            this.textBoxURCHH.Size = new System.Drawing.Size(55, 20);
+            this.textBoxURCHH.TabIndex = 9;
+            this.textBoxURCHH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxUROH
+            // 
+            this.textBoxUROH.Location = new System.Drawing.Point(126, 71);
+            this.textBoxUROH.Name = "textBoxUROH";
+            this.textBoxUROH.Size = new System.Drawing.Size(55, 20);
+            this.textBoxUROH.TabIndex = 8;
+            this.textBoxUROH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxURAW
+            // 
+            this.textBoxURAW.Location = new System.Drawing.Point(126, 126);
+            this.textBoxURAW.Name = "textBoxURAW";
+            this.textBoxURAW.Size = new System.Drawing.Size(55, 20);
+            this.textBoxURAW.TabIndex = 7;
+            this.textBoxURAW.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxURRW
+            // 
+            this.textBoxURRW.Location = new System.Drawing.Point(126, 98);
+            this.textBoxURRW.Name = "textBoxURRW";
+            this.textBoxURRW.Size = new System.Drawing.Size(55, 20);
+            this.textBoxURRW.TabIndex = 6;
+            this.textBoxURRW.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxURCHL
+            // 
+            this.textBoxURCHL.Location = new System.Drawing.Point(126, 19);
+            this.textBoxURCHL.Name = "textBoxURCHL";
+            this.textBoxURCHL.Size = new System.Drawing.Size(55, 20);
+            this.textBoxURCHL.TabIndex = 5;
+            this.textBoxURCHL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelURAW
+            // 
+            this.labelURAW.AutoSize = true;
+            this.labelURAW.Location = new System.Drawing.Point(6, 129);
+            this.labelURAW.Name = "labelURAW";
+            this.labelURAW.Size = new System.Drawing.Size(54, 13);
+            this.labelURAW.TabIndex = 4;
+            this.labelURAW.Text = "Abort wait";
+            // 
+            // labelURCHH
+            // 
+            this.labelURCHH.AutoSize = true;
+            this.labelURCHH.Location = new System.Drawing.Point(6, 50);
+            this.labelURCHH.Name = "labelURCHH";
+            this.labelURCHH.Size = new System.Drawing.Size(84, 13);
+            this.labelURCHH.TabIndex = 3;
+            this.labelURCHH.Text = "Center hold high";
+            // 
+            // labelUROH
+            // 
+            this.labelUROH.AutoSize = true;
+            this.labelUROH.Location = new System.Drawing.Point(6, 78);
+            this.labelUROH.Name = "labelUROH";
+            this.labelUROH.Size = new System.Drawing.Size(56, 13);
+            this.labelUROH.TabIndex = 2;
+            this.labelUROH.Text = "Outer hold";
+            // 
+            // labelURRW
+            // 
+            this.labelURRW.AutoSize = true;
+            this.labelURRW.Location = new System.Drawing.Point(6, 101);
+            this.labelURRW.Name = "labelURRW";
+            this.labelURRW.Size = new System.Drawing.Size(66, 13);
+            this.labelURRW.TabIndex = 1;
+            this.labelURRW.Text = "Reward wait";
+            // 
+            // labelURCHL
+            // 
+            this.labelURCHL.AutoSize = true;
+            this.labelURCHL.Location = new System.Drawing.Point(6, 22);
+            this.labelURCHL.Name = "labelURCHL";
+            this.labelURCHL.Size = new System.Drawing.Size(80, 13);
+            this.labelURCHL.TabIndex = 0;
+            this.labelURCHL.Text = "Center hold low";
             // 
             // statusStrip1
             // 
@@ -15511,6 +16032,24 @@ namespace BehaviorGraphics
             this.checkBox2.Text = "Position cursor";
             this.toolTip1.SetToolTip(this.checkBox2, "If checked, position feedback, otherwise, force feedback.");
             this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // textBox34
+            // 
+            this.textBox34.Location = new System.Drawing.Point(126, 365);
+            this.textBox34.Name = "textBox34";
+            this.textBox34.Size = new System.Drawing.Size(55, 20);
+            this.textBox34.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.textBox34, "+/- ratio of target force");
+            // 
+            // label368
+            // 
+            this.label368.AutoSize = true;
+            this.label368.Location = new System.Drawing.Point(13, 368);
+            this.label368.Name = "label368";
+            this.label368.Size = new System.Drawing.Size(104, 13);
+            this.label368.TabIndex = 32;
+            this.label368.Text = "Target force window";
+            this.toolTip1.SetToolTip(this.label368, "+/- ratio of target force");
             // 
             // label143
             // 
@@ -16026,6 +16565,219 @@ namespace BehaviorGraphics
             this.label356.TabIndex = 0;
             this.label356.Text = "Field ramp up";
             // 
+            // textBox32
+            // 
+            this.textBox32.Location = new System.Drawing.Point(126, 259);
+            this.textBox32.Name = "textBox32";
+            this.textBox32.Size = new System.Drawing.Size(55, 20);
+            this.textBox32.TabIndex = 38;
+            // 
+            // label365
+            // 
+            this.label365.AutoSize = true;
+            this.label365.Location = new System.Drawing.Point(13, 262);
+            this.label365.Name = "label365";
+            this.label365.Size = new System.Drawing.Size(101, 13);
+            this.label365.TabIndex = 37;
+            this.label365.Text = "Target stiffness max";
+            // 
+            // textBox33
+            // 
+            this.textBox33.Location = new System.Drawing.Point(126, 233);
+            this.textBox33.Name = "textBox33";
+            this.textBox33.Size = new System.Drawing.Size(55, 20);
+            this.textBox33.TabIndex = 36;
+            // 
+            // label366
+            // 
+            this.label366.AutoSize = true;
+            this.label366.Location = new System.Drawing.Point(13, 236);
+            this.label366.Name = "label366";
+            this.label366.Size = new System.Drawing.Size(98, 13);
+            this.label366.TabIndex = 35;
+            this.label366.Text = "Target stiffness min";
+            // 
+            // angleEntryBox1
+            // 
+            this.angleEntryBox1.Location = new System.Drawing.Point(126, 125);
+            this.angleEntryBox1.Name = "angleEntryBox1";
+            this.angleEntryBox1.Size = new System.Drawing.Size(68, 21);
+            this.angleEntryBox1.TabIndex = 6;
+            this.angleEntryBox1.Value = 0;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(16, 396);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(107, 17);
+            this.checkBox4.TabIndex = 34;
+            this.checkBox4.Text = "Same target if fail";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // textBox35
+            // 
+            this.textBox35.Location = new System.Drawing.Point(126, 285);
+            this.textBox35.Name = "textBox35";
+            this.textBox35.Size = new System.Drawing.Size(55, 20);
+            this.textBox35.TabIndex = 31;
+            // 
+            // label369
+            // 
+            this.label369.AutoSize = true;
+            this.label369.Location = new System.Drawing.Point(13, 287);
+            this.label369.Name = "label369";
+            this.label369.Size = new System.Drawing.Size(91, 13);
+            this.label369.TabIndex = 30;
+            this.label369.Text = "Num target forces";
+            // 
+            // textBox36
+            // 
+            this.textBox36.Location = new System.Drawing.Point(126, 339);
+            this.textBox36.Name = "textBox36";
+            this.textBox36.Size = new System.Drawing.Size(55, 20);
+            this.textBox36.TabIndex = 29;
+            // 
+            // label370
+            // 
+            this.label370.AutoSize = true;
+            this.label370.Location = new System.Drawing.Point(13, 342);
+            this.label370.Name = "label370";
+            this.label370.Size = new System.Drawing.Size(87, 13);
+            this.label370.TabIndex = 28;
+            this.label370.Text = "Target force max";
+            // 
+            // textBox37
+            // 
+            this.textBox37.Location = new System.Drawing.Point(126, 311);
+            this.textBox37.Name = "textBox37";
+            this.textBox37.Size = new System.Drawing.Size(55, 20);
+            this.textBox37.TabIndex = 27;
+            // 
+            // label371
+            // 
+            this.label371.AutoSize = true;
+            this.label371.Location = new System.Drawing.Point(13, 314);
+            this.label371.Name = "label371";
+            this.label371.Size = new System.Drawing.Size(84, 13);
+            this.label371.TabIndex = 26;
+            this.label371.Text = "Target force min";
+            // 
+            // textBox38
+            // 
+            this.textBox38.Location = new System.Drawing.Point(126, 207);
+            this.textBox38.Name = "textBox38";
+            this.textBox38.Size = new System.Drawing.Size(55, 20);
+            this.textBox38.TabIndex = 25;
+            // 
+            // label372
+            // 
+            this.label372.AutoSize = true;
+            this.label372.Location = new System.Drawing.Point(13, 210);
+            this.label372.Name = "label372";
+            this.label372.Size = new System.Drawing.Size(100, 13);
+            this.label372.TabIndex = 24;
+            this.label372.Text = "Num target stiffness";
+            // 
+            // textBox39
+            // 
+            this.textBox39.Location = new System.Drawing.Point(126, 181);
+            this.textBox39.Name = "textBox39";
+            this.textBox39.Size = new System.Drawing.Size(55, 20);
+            this.textBox39.TabIndex = 23;
+            // 
+            // label373
+            // 
+            this.label373.AutoSize = true;
+            this.label373.Location = new System.Drawing.Point(13, 184);
+            this.label373.Name = "label373";
+            this.label373.Size = new System.Drawing.Size(91, 13);
+            this.label373.TabIndex = 22;
+            this.label373.Text = "Number of targets";
+            // 
+            // textBox40
+            // 
+            this.textBox40.Location = new System.Drawing.Point(126, 153);
+            this.textBox40.Name = "textBox40";
+            this.textBox40.Size = new System.Drawing.Size(55, 20);
+            this.textBox40.TabIndex = 21;
+            // 
+            // label374
+            // 
+            this.label374.AutoSize = true;
+            this.label374.Location = new System.Drawing.Point(13, 156);
+            this.label374.Name = "label374";
+            this.label374.Size = new System.Drawing.Size(111, 13);
+            this.label374.TabIndex = 20;
+            this.label374.Text = "Outer target thickness";
+            // 
+            // label375
+            // 
+            this.label375.AutoSize = true;
+            this.label375.Location = new System.Drawing.Point(13, 128);
+            this.label375.Name = "label375";
+            this.label375.Size = new System.Drawing.Size(89, 13);
+            this.label375.TabIndex = 18;
+            this.label375.Text = "Outer target span";
+            // 
+            // textBox41
+            // 
+            this.textBox41.Location = new System.Drawing.Point(126, 97);
+            this.textBox41.Name = "textBox41";
+            this.textBox41.Size = new System.Drawing.Size(55, 20);
+            this.textBox41.TabIndex = 17;
+            // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Location = new System.Drawing.Point(16, 43);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(85, 17);
+            this.checkBox8.TabIndex = 16;
+            this.checkBox8.Text = "Brain control";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            // 
+            // textBox42
+            // 
+            this.textBox42.Location = new System.Drawing.Point(126, 19);
+            this.textBox42.Name = "textBox42";
+            this.textBox42.Size = new System.Drawing.Size(55, 20);
+            this.textBox42.TabIndex = 15;
+            // 
+            // label376
+            // 
+            this.label376.AutoSize = true;
+            this.label376.Location = new System.Drawing.Point(13, 22);
+            this.label376.Name = "label376";
+            this.label376.Size = new System.Drawing.Size(68, 13);
+            this.label376.TabIndex = 14;
+            this.label376.Text = "Cursor radius";
+            // 
+            // label377
+            // 
+            this.label377.AutoSize = true;
+            this.label377.Location = new System.Drawing.Point(13, 100);
+            this.label377.Name = "label377";
+            this.label377.Size = new System.Drawing.Size(94, 13);
+            this.label377.TabIndex = 13;
+            this.label377.Text = "Outer target radius";
+            // 
+            // textBox43
+            // 
+            this.textBox43.Location = new System.Drawing.Point(126, 72);
+            this.textBox43.Name = "textBox43";
+            this.textBox43.Size = new System.Drawing.Size(55, 20);
+            this.textBox43.TabIndex = 12;
+            // 
+            // label378
+            // 
+            this.label378.AutoSize = true;
+            this.label378.Location = new System.Drawing.Point(13, 72);
+            this.label378.Name = "label378";
+            this.label378.Size = new System.Drawing.Size(99, 13);
+            this.label378.TabIndex = 10;
+            this.label378.Text = "Center target radius";
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -16037,7 +16789,7 @@ namespace BehaviorGraphics
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.tabControl);
+            this.Controls.Add(this.tabs);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
             this.MainMenuStrip = this.menuStrip1;
@@ -16048,7 +16800,7 @@ namespace BehaviorGraphics
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UpdateForm_FormClosed);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.UpdateForm_DragEnter);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UpdateForm_FormClosing);
-            this.tabControl.ResumeLayout(false);
+            this.tabs.ResumeLayout(false);
             this.tabPageGen.ResumeLayout(false);
             this.tabPageGen.PerformLayout();
             this.groupBox71.ResumeLayout(false);
@@ -16311,6 +17063,15 @@ namespace BehaviorGraphics
             this.groupBoxUCKTargetProperties.ResumeLayout(false);
             this.groupBoxUCKTargetProperties.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUD_UCK_TAD)).EndInit();
+            this.tabUnstableReach.ResumeLayout(false);
+            this.groupBoxURVC.ResumeLayout(false);
+            this.groupBoxURVC.PerformLayout();
+            this.groupBox80.ResumeLayout(false);
+            this.groupBox80.PerformLayout();
+            this.groupBox79.ResumeLayout(false);
+            this.groupBox79.PerformLayout();
+            this.groupBox78.ResumeLayout(false);
+            this.groupBox78.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -16333,7 +17094,7 @@ namespace BehaviorGraphics
 
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button okButton;
-        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabControl tabs;
         private System.Windows.Forms.TabPage tabPageGen;
         private System.Windows.Forms.TabPage tabPageCO;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -17738,5 +18499,80 @@ namespace BehaviorGraphics
         private System.Windows.Forms.GroupBox groupBox77;
         private System.Windows.Forms.TextBox textBoxDCOFCG;
         private System.Windows.Forms.Label labelDCOFCG;
+        private System.Windows.Forms.TabPage tabUnstableReach;
+        private System.Windows.Forms.GroupBox groupBox79;
+        private System.Windows.Forms.CheckBox checkBoxURCC;
+        private System.Windows.Forms.TextBox textBoxURMD;
+        private System.Windows.Forms.CheckBox checkBoxURBC;
+        private System.Windows.Forms.Label labelURMD;
+        private System.Windows.Forms.TextBox textBoxURTR;
+        private System.Windows.Forms.Label labelURTR;
+        private System.Windows.Forms.GroupBox groupBox78;
+        private System.Windows.Forms.TextBox textBoxURMT;
+        private System.Windows.Forms.Label labelURMT;
+        private System.Windows.Forms.TextBox textBoxURFW;
+        private System.Windows.Forms.Label labelURFW;
+        private System.Windows.Forms.TextBox textBoxURCHH;
+        private System.Windows.Forms.TextBox textBoxUROH;
+        private System.Windows.Forms.TextBox textBoxURAW;
+        private System.Windows.Forms.TextBox textBoxURRW;
+        private System.Windows.Forms.TextBox textBoxURCHL;
+        private System.Windows.Forms.Label labelURAW;
+        private System.Windows.Forms.Label labelURCHH;
+        private System.Windows.Forms.Label labelUROH;
+        private System.Windows.Forms.Label labelURRW;
+        private System.Windows.Forms.Label labelURCHL;
+        private System.Windows.Forms.TextBox textBox32;
+        private System.Windows.Forms.Label label365;
+        private System.Windows.Forms.TextBox textBox33;
+        private System.Windows.Forms.Label label366;
+        private AngleBox.AngleEntryBox angleEntryBox1;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.TextBox textBox34;
+        private System.Windows.Forms.Label label368;
+        private System.Windows.Forms.TextBox textBox35;
+        private System.Windows.Forms.Label label369;
+        private System.Windows.Forms.TextBox textBox36;
+        private System.Windows.Forms.Label label370;
+        private System.Windows.Forms.TextBox textBox37;
+        private System.Windows.Forms.Label label371;
+        private System.Windows.Forms.TextBox textBox38;
+        private System.Windows.Forms.Label label372;
+        private System.Windows.Forms.TextBox textBox39;
+        private System.Windows.Forms.Label label373;
+        private System.Windows.Forms.TextBox textBox40;
+        private System.Windows.Forms.Label label374;
+        private System.Windows.Forms.Label label375;
+        private System.Windows.Forms.TextBox textBox41;
+        private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.TextBox textBox42;
+        private System.Windows.Forms.Label label376;
+        private System.Windows.Forms.Label label377;
+        private System.Windows.Forms.TextBox textBox43;
+        private System.Windows.Forms.Label label378;
+        private System.Windows.Forms.GroupBox groupBox80;
+        private System.Windows.Forms.TextBox textBoxURD;
+        private System.Windows.Forms.Label labelURD;
+        private System.Windows.Forms.TextBox textBoxURPS2;
+        private System.Windows.Forms.Label labelURPS2;
+        private System.Windows.Forms.TextBox textBoxURPS1;
+        private System.Windows.Forms.Label labelURPS1;
+        private System.Windows.Forms.TextBox textBoxURFS3;
+        private System.Windows.Forms.Label labelURFS3;
+        private System.Windows.Forms.TextBox textBoxURFS2;
+        private System.Windows.Forms.Label labelURFS2;
+        private System.Windows.Forms.TextBox textBoxURFS1;
+        private System.Windows.Forms.Label labelURFS1;
+        private System.Windows.Forms.TextBox textBoxURTBS;
+        private System.Windows.Forms.Label labelURTBS;
+        private System.Windows.Forms.TextBox textBoxURNMD;
+        private System.Windows.Forms.Label labelURNMD;
+        private System.Windows.Forms.Label labelURFMD;
+        private AngleBox.AngleEntryBox angleEntryBoxURFMD;
+        private System.Windows.Forms.GroupBox groupBoxURVC;
+        private System.Windows.Forms.TextBox textBoxURPF;
+        private System.Windows.Forms.Label labelURPF;
+        private System.Windows.Forms.TextBox textBoxURVF;
+        private System.Windows.Forms.Label labelURVF;
     }
 }
