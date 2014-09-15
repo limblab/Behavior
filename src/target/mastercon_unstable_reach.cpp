@@ -588,7 +588,7 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_MOVEMENT_ONSET;        // 0x80 = 128
                 break;
             case STATE_WAIT_FOR_MOVEMENT:
-                outputs->word = GO_CUE;                     // 0x31 = 49
+                outputs->word = WORD_GO_CUE;                     // 0x31 = 49
                 break;
             case STATE_OT_HOLD:
                 outputs->word = WORD_OUTER_TARGET_HOLD;     // 0xA1 = 161
