@@ -616,15 +616,46 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
             (curve_center.y - cursor_position.y)*(curve_center.y - cursor_position.y));
     real_T distance_cursor_to_arc = abs(abs(curve_radius) - distance_cursor_to_center);
     real_T force_angle = atan2(cursor_position.y-curve_center.y,cursor_position.x-curve_center.x);
-    real_T inside_arc = distance_cursor_to_center < abs(curve_radius) ? 1 : -1;    
-    force_angle = (inside_arc == 1) ? force_angle+PI : force_angle;    
-    real_T cursor_speed = sqrt(cursor_velocity.x*cursor_velocity.x +
-            cursor_velocity.y*cursor_velocity.y);
-    real_T cursor_direction = atan2(cursor_velocity.y,cursor_velocity.x);
+    
+    real_T inside_circle = distance_cursor_to_center < abs(curve_radius) ? 1 : -1;    
+    force_angle = (inside_circle == 1) ? force_angle+PI : force_angle;    
+    
+    real_T target_angle_bound_1 = atan2(centerTarget->centerY - curve_center.y,
+            centerTarget->centerX - curve_center.x);
+    while (target_angle_bound_1 < 0)
+        target_angle_bound_1 = target_angle_bound_1 + 2*PI;
+    
+    real_T target_angle_bound_2 = atan2(outerTarget->centerY - curve_center.y,
+            outerTarget->centerX - curve_center.x);
+    while (target_angle_bound_2 < 0)
+        target_angle_bound_2 = target_angle_bound_2 + 2*PI;
+    
+    if (target_angle_bound_2 < target_angle_bound_1){
+        real_T temp_angle = target_angle_bound_1;
+        target_angle_bound_1 = target_angle_bound_2;
+        target_angle_bound_2 = temp_angle;
+    }
+    
+    target_angle_bound_2 = target_angle_bound_2 - target_angle_bound_1;
+    while (target_angle_bound_2 < 0)
+        target_angle_bound_2 = target_angle_bound_2 + 2*PI;
+    
+    real_T cursor_angle = atan2(cursor_position.y-curve_center.y,cursor_position.x-curve_center.x);
+    cursor_angle = cursor_angle - target_angle_bound_1;
+    while (cursor_angle < 0)
+        cursor_angle = cursor_angle + 2*PI;
+    
+    real_T within_angle;
+    if (cursor_angle < target_angle_bound_2 && curve_direction == 1 || 
+           cursor_angle > target_angle_bound_2 && curve_direction == -1 ){
+        within_angle = 1;
+    } else {
+        within_angle = 0;
+    }
     
     real_T damping_axis_angle = atan2(cursor_position.y-curve_center.y,cursor_position.x-curve_center.x);
     
-    if (curve_displacement == 0){
+    if (curve_displacement == 0 || !within_angle){
         force.x = -trial_stiffness*(cursor_position.x * cos(movement_direction+PI/2) +
                     cursor_position.y * sin(movement_direction+PI/2)) * cos(movement_direction+PI/2) -
                     (trial_stiffness>0 ? params->damping*(cursor_velocity.x * cos(movement_direction+PI/2) + 
@@ -633,7 +664,7 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
                     cursor_position.y * sin(movement_direction+PI/2)) * sin(movement_direction+PI/2) -
                     (trial_stiffness>0 ? params->damping*(cursor_velocity.x * cos(movement_direction+PI/2) + 
                     cursor_velocity.y * sin(movement_direction+PI/2)) * sin(movement_direction+PI/2) : 0);    
-    } else {                     
+    } else {
         force.x = -trial_stiffness*distance_cursor_to_arc*cos(force_angle) -
                 (trial_stiffness>0 ? params->damping*(cursor_velocity.x * cos(damping_axis_angle) + 
                     cursor_velocity.y * sin(damping_axis_angle)) * cos(damping_axis_angle) : 0);  
@@ -661,11 +692,11 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
 	outputs->status[3] = trialCounter->failures;
 	outputs->status[4] = trialCounter->incompletes;  
     
-//     outputs->status[0] = getState();
-// 	outputs->status[1] = curve_displacement;
-// 	outputs->status[2] = curve_direction;
-// 	outputs->status[3] = params->num_curve_displacements;
-// 	outputs->status[4] = params->max_curve_displacement;  
+    outputs->status[0] = within_angle;
+	outputs->status[1] = target_angle_bound_1*180/PI;
+	outputs->status[2] = target_angle_bound_2*180/PI;
+	outputs->status[3] = cursor_angle * 180/PI;
+	outputs->status[4] = 0;  
     
 	/* word (2) */
 	if (db->isRunning()) {
