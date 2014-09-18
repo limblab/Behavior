@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1421"
+    ComputedModelVersion    "1.1423"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -56,8 +56,8 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[984.0, 601.0]
-	ZoomFactor		[1.0]
-	Offset			[429.41198885206154, 0.62088402768261242]
+	ZoomFactor		[0.8]
+	Offset			[161.88268268349975, 185.5208840276822]
       }
     }
   }
@@ -67,9 +67,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Sep 12 09:41:51 2014"
-  RTWModifiedTimeStamp	  332353789
-  ModelVersionFormat	  "1.%<AutoIncrement:1421>"
+  LastModifiedDate	  "Thu Sep 18 13:10:02 2014"
+  RTWModifiedTimeStamp	  332946564
+  ModelVersionFormat	  "1.%<AutoIncrement:1423>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -820,7 +820,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "100"
+    ZoomFactor		    "80"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "395"
     Block {
@@ -832,7 +832,7 @@ Model {
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_unstable_reach"
-      Parameters	      "0 .2 .5 .3 .3 .3 .3 5   0   2 15 1   .5 0 -.5 33 33 .05   0 8 10   1 1   0 0"
+      Parameters	      "0 .2 .5 .3 .3 .3 .3 5   0   2 15 1   .5 0 -.5 33 33 .05   0 8 10   1 1   0 0   0 2 3"
       EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"
@@ -852,7 +852,7 @@ Model {
       Ports		      [1, 1]
       Position		      [430, 698, 520, 762]
       ZOrder		      8
-      LibraryVersion	      "1.100"
+      LibraryVersion	      "1.110"
       SourceBlock	      "limblab/BoundingBox"
       SourceType	      "SubSystem"
     }
@@ -962,7 +962,7 @@ Model {
       Ports		      [5, 1]
       Position		      [1090, 541, 1280, 849]
       ZOrder		      6
-      LibraryVersion	      "1.100"
+      LibraryVersion	      "1.110"
       SourceBlock	      "limblab/Motor Control"
       SourceType	      "SubSystem"
     }
@@ -973,7 +973,7 @@ Model {
       Ports		      [0, 4]
       Position		      [265, 226, 380, 304]
       ZOrder		      19
-      LibraryVersion	      "1.100"
+      LibraryVersion	      "1.110"
       SourceBlock	      "limblab/Neural Position Subsystem"
       SourceType	      "Neural Position Subsystem"
     }
@@ -984,7 +984,7 @@ Model {
       Ports		      [3, 2]
       Position		      [670, 593, 790, 747]
       ZOrder		      7
-      LibraryVersion	      "1.100"
+      LibraryVersion	      "1.110"
       SourceBlock	      "limblab/Recentering Subsystem"
       SourceType	      "SubSystem"
     }
@@ -995,7 +995,7 @@ Model {
       Ports		      [1, 1]
       Position		      [910, 277, 960, 313]
       ZOrder		      14
-      LibraryVersion	      "1.100"
+      LibraryVersion	      "1.110"
       SourceBlock	      "limblab/RewardSbs"
       SourceType	      "SubSystem"
     }
@@ -1006,7 +1006,7 @@ Model {
       Ports		      [6]
       Position		      [1255, 136, 1345, 254]
       ZOrder		      18
-      LibraryVersion	      "1.100"
+      LibraryVersion	      "1.110"
       SourceBlock	      "limblab/SendPacketToDecoder"
       SourceType	      "SubSystem"
     }
@@ -1017,7 +1017,7 @@ Model {
       Ports		      [4]
       Position		      [1255, 307, 1345, 408]
       ZOrder		      -12
-      LibraryVersion	      "1.100"
+      LibraryVersion	      "1.110"
       SourceBlock	      "limblab/SendPacketToGraphics"
       SourceType	      "SubSystem"
     }
@@ -1068,7 +1068,7 @@ Model {
       Ports		      [2, 1]
       Position		      [345, 590, 455, 650]
       ZOrder		      15
-      LibraryVersion	      "1.100"
+      LibraryVersion	      "1.110"
       SourceBlock	      "limblab/Velocity Calculation"
       SourceType	      "SubSystem"
     }
@@ -1112,7 +1112,7 @@ Model {
       Ports		      [1]
       Position		      [935, 174, 980, 216]
       ZOrder		      13
-      LibraryVersion	      "1.100"
+      LibraryVersion	      "1.110"
       SourceBlock	      "limblab/WordSbs"
       SourceType	      "SubSystem"
     }
@@ -1123,7 +1123,7 @@ Model {
       Ports		      [0, 4]
       Position		      [35, 642, 160, 878]
       ZOrder		      22
-      LibraryVersion	      "1.100"
+      LibraryVersion	      "1.110"
       SourceBlock	      "limblab/XY Position Subsystem"
       SourceType	      "SubSystem"
     }

@@ -42,10 +42,10 @@ Library {
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
 	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"27"
+	LoadSaveID		"102"
 	Extents			[984.0, 586.0]
 	ZoomFactor		[1.0]
-	Offset			[0.0, 0.0]
+	Offset			[223.06886896780895, -14.413270736041227]
       }
     }
   }
@@ -55,9 +55,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Sep 03 11:37:23 2014"
-  RTWModifiedTimeStamp	  331645040
-  ModelVersionFormat	  "1.%<AutoIncrement:100>"
+  LastModifiedDate	  "Thu Sep 18 13:14:15 2014"
+  RTWModifiedTimeStamp	  332946854
+  ModelVersionFormat	  "1.%<AutoIncrement:111>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -744,6 +744,28 @@ Library {
       CoefficientInTFapproximation "inf"
     }
     Block {
+      BlockType		      DiscreteFir
+      CoefSource	      "Dialog parameters"
+      FilterStructure	      "Direct form"
+      Coefficients	      "[0.5 0.5]"
+      InputProcessing	      "Elements as channels (sample based)"
+      InitialStates	      "0"
+      SampleTime	      "-1"
+      CoefMin		      "[]"
+      CoefMax		      "[]"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      TapSumDataTypeStr	      "Inherit: Same as input"
+      CoefDataTypeStr	      "Inherit: Same word length as input"
+      ProductDataTypeStr      "Inherit: Inherit via internal rule"
+      AccumDataTypeStr	      "Inherit: Inherit via internal rule"
+      StateDataTypeStr	      "Inherit: Same as accumulator"
+      OutDataTypeStr	      "Inherit: Same as accumulator"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
       BlockType		      EnablePort
       StatesWhenEnabling      "held"
       PropagateVarSize	      "Only when enabling"
@@ -1037,7 +1059,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "533"
+    SIDHighWatermark	    "541"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
@@ -1303,7 +1325,7 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"Force Generator"
-	Location		[35, 0, 1071, 780]
+	Location		[-8, -8, 1028, 746]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2582,7 +2604,7 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[25, 26, 1461, 810]
+	Location		[-8, -8, 1028, 746]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -4136,7 +4158,8 @@ Library {
       SID		      "102"
       Ports		      [3, 2]
       Position		      [195, 393, 315, 547]
-      ZOrder		      2
+      ZOrder		      7
+      LibraryVersion	      "1.108"
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
       RTWSystemCode	      "Auto"
@@ -4146,8 +4169,8 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"Recentering Subsystem"
-	Location		[25, 26, 1461, 810]
-	Open			off
+	Location		[-8, -8, 1028, 746]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -4158,7 +4181,7 @@ Library {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"80"
+	ZoomFactor		"100"
 	Block {
 	  BlockType		  Inport
 	  Name			  "Vel"
@@ -4205,7 +4228,7 @@ Library {
 	  Position		  [925, 144, 990, 176]
 	  ZOrder		  -4
 	  NamePlacement		  "alternate"
-	  Gain			  "-0.1"
+	  Gain			  "-.08"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -4243,7 +4266,7 @@ Library {
 	  Name			  "Compare\nTo Zero2"
 	  SID			  "307"
 	  Ports			  [1, 1]
-	  Position		  [1025, 75, 1055, 105]
+	  Position		  [1015, 75, 1045, 105]
 	  ZOrder		  8
 	  LibraryVersion	  "1.281"
 	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Zero"
@@ -4307,6 +4330,17 @@ Library {
 	  DisplayOption		  "bar"
 	}
 	Block {
+	  BlockType		  DiscreteFir
+	  Name			  "Discrete FIR Filter"
+	  SID			  "536"
+	  Ports			  [1, 1]
+	  Position		  [515, 141, 575, 179]
+	  ZOrder		  12
+	  Coefficients		  "[0.0069    0.0195    0.0106    0.0194    0.0217    0.0270    0.0313    0.0360    0.0404    0.0445 "
+	  "   0.0482    0.0513    0.0538    0.0554    0.0563    0.0563    0.0554 0.0538    0.0513    0.0482    0.0445    0.040"
+	  "4    0.0360    0.0313    0.0270    0.0217    0.0194    0.0106    0.0195    0.0069]"
+	}
+	Block {
 	  BlockType		  Reference
 	  Name			  "Falling Edge"
 	  SID			  "112"
@@ -4351,6 +4385,7 @@ Library {
 	  Position		  [785, 41, 830, 69]
 	  ZOrder		  1
 	  GotoTag		  "Offsets"
+	  TagVisibility		  "global"
 	}
 	Block {
 	  BlockType		  From
@@ -4658,7 +4693,7 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "PD Controller"
-	    Location		    [25, 26, 1461, 810]
+	    Location		    [-8, -8, 1028, 746]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -4750,7 +4785,7 @@ Library {
 	      Position		      [360, 165, 420, 195]
 	      ZOrder		      -8
 	      NamePlacement	      "alternate"
-	      Gain		      "-.3"
+	      Gain		      "-.05"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -4762,7 +4797,7 @@ Library {
 	      Position		      [360, 230, 420, 260]
 	      ZOrder		      -9
 	      NamePlacement	      "alternate"
-	      Gain		      "-.3"
+	      Gain		      "-.05"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -4774,7 +4809,7 @@ Library {
 	      Position		      [280, 65, 340, 95]
 	      ZOrder		      -10
 	      NamePlacement	      "alternate"
-	      Gain		      "-.3"
+	      Gain		      "-.03"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -4786,7 +4821,7 @@ Library {
 	      Position		      [280, 320, 340, 350]
 	      ZOrder		      -11
 	      NamePlacement	      "alternate"
-	      Gain		      "-.3"
+	      Gain		      "-.03"
 	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
@@ -4983,7 +5018,7 @@ Library {
 	  Name			  "Product"
 	  SID			  "308"
 	  Ports			  [2, 1]
-	  Position		  [1120, 137, 1150, 168]
+	  Position		  [1150, 137, 1180, 168]
 	  ZOrder		  9
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -6019,9 +6054,9 @@ Library {
 	  Ports			  [2, 1]
 	  Position		  [410, 280, 515, 335]
 	  ZOrder		  -34
-	  LibraryVersion	  "1.93"
+	  LibraryVersion	  "1.110"
 	  SourceBlock		  "limblab/Timer"
-	  SourceType		  "Unknown"
+	  SourceType		  ""
 	  Time			  "10"
 	}
 	Block {
@@ -6243,24 +6278,9 @@ Library {
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -110; 650, 0]
-	    Branch {
-	      Points		      [0, 330]
-	      DstBlock		      "No Movement"
-	      DstPort		      1
-	    }
-	    Branch {
-	      Points		      [135, 0]
-	      Branch {
-		Points			[0, 105]
-		DstBlock		"PD Controller"
-		DstPort			1
-	      }
-	      Branch {
-		DstBlock		"Bounding Box Viscosity"
-		DstPort			1
-	      }
-	    }
+	    Points		    [0, -110]
+	    DstBlock		    "Discrete FIR Filter"
+	    DstPort		    1
 	  }
 	}
 	Line {
@@ -6507,16 +6527,38 @@ Library {
 	Line {
 	  SrcBlock		  "Compare\nTo Zero2"
 	  SrcPort		  1
-	  Points		  [18, 0; 0, 55]
+	  Points		  [54, 0; 0, 55]
 	  DstBlock		  "Product"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Product"
 	  SrcPort		  1
-	  Points		  [42, 0; 0, 430]
+	  Points		  [12, 0; 0, 430]
 	  DstBlock		  "Switch"
 	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Discrete FIR Filter"
+	  SrcPort		  1
+	  Points		  [150, 0]
+	  Branch {
+	    Points		    [0, 330]
+	    DstBlock		    "No Movement"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [135, 0]
+	    Branch {
+	      Points		      [0, 105]
+	      DstBlock		      "PD Controller"
+	      DstPort		      1
+	    }
+	    Branch {
+	      DstBlock		      "Bounding Box Viscosity"
+	      DstPort		      1
+	    }
+	  }
 	}
 	Annotation {
 	  SID			  "309"
@@ -7895,7 +7937,7 @@ Library {
       System {
 	Name			"SendPacketToGraphics"
 	Location		[-8, -8, 1028, 746]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"

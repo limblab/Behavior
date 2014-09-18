@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1513,6 +1513,12 @@ namespace BehaviorGraphics
             this.label377 = new System.Windows.Forms.Label();
             this.textBox43 = new System.Windows.Forms.TextBox();
             this.label378 = new System.Windows.Forms.Label();
+            this.labelURMinCD = new System.Windows.Forms.Label();
+            this.labelURMaxCD = new System.Windows.Forms.Label();
+            this.labelURNCD = new System.Windows.Forms.Label();
+            this.textBoxURMinCD = new System.Windows.Forms.TextBox();
+            this.textBoxURMaxCD = new System.Windows.Forms.TextBox();
+            this.textBoxURNCD = new System.Windows.Forms.TextBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -4542,8 +4548,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5375,8 +5381,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -15104,7 +15110,7 @@ namespace BehaviorGraphics
             this.groupBoxURVC.Controls.Add(this.labelURPF);
             this.groupBoxURVC.Controls.Add(this.textBoxURVF);
             this.groupBoxURVC.Controls.Add(this.labelURVF);
-            this.groupBoxURVC.Location = new System.Drawing.Point(440, 290);
+            this.groupBoxURVC.Location = new System.Drawing.Point(227, 147);
             this.groupBoxURVC.Name = "groupBoxURVC";
             this.groupBoxURVC.Size = new System.Drawing.Size(202, 67);
             this.groupBoxURVC.TabIndex = 36;
@@ -15147,6 +15153,12 @@ namespace BehaviorGraphics
             // 
             // groupBox80
             // 
+            this.groupBox80.Controls.Add(this.textBoxURNCD);
+            this.groupBox80.Controls.Add(this.textBoxURMaxCD);
+            this.groupBox80.Controls.Add(this.textBoxURMinCD);
+            this.groupBox80.Controls.Add(this.labelURNCD);
+            this.groupBox80.Controls.Add(this.labelURMaxCD);
+            this.groupBox80.Controls.Add(this.labelURMinCD);
             this.groupBox80.Controls.Add(this.textBoxURTBS);
             this.groupBox80.Controls.Add(this.labelURTBS);
             this.groupBox80.Controls.Add(this.textBoxURNMD);
@@ -15167,14 +15179,14 @@ namespace BehaviorGraphics
             this.groupBox80.Controls.Add(this.labelURFS1);
             this.groupBox80.Location = new System.Drawing.Point(443, 13);
             this.groupBox80.Name = "groupBox80";
-            this.groupBox80.Size = new System.Drawing.Size(200, 264);
+            this.groupBox80.Size = new System.Drawing.Size(211, 340);
             this.groupBox80.TabIndex = 35;
             this.groupBox80.TabStop = false;
             this.groupBox80.Text = "Force fields";
             // 
             // textBoxURTBS
             // 
-            this.textBoxURTBS.Location = new System.Drawing.Point(126, 228);
+            this.textBoxURTBS.Location = new System.Drawing.Point(137, 227);
             this.textBoxURTBS.Name = "textBoxURTBS";
             this.textBoxURTBS.Size = new System.Drawing.Size(68, 20);
             this.textBoxURTBS.TabIndex = 31;
@@ -15183,7 +15195,7 @@ namespace BehaviorGraphics
             // labelURTBS
             // 
             this.labelURTBS.AutoSize = true;
-            this.labelURTBS.Location = new System.Drawing.Point(6, 232);
+            this.labelURTBS.Location = new System.Drawing.Point(6, 231);
             this.labelURTBS.Name = "labelURTBS";
             this.labelURTBS.Size = new System.Drawing.Size(77, 13);
             this.labelURTBS.TabIndex = 30;
@@ -15191,7 +15203,7 @@ namespace BehaviorGraphics
             // 
             // textBoxURNMD
             // 
-            this.textBoxURNMD.Location = new System.Drawing.Point(126, 202);
+            this.textBoxURNMD.Location = new System.Drawing.Point(137, 201);
             this.textBoxURNMD.Name = "textBoxURNMD";
             this.textBoxURNMD.Size = new System.Drawing.Size(68, 20);
             this.textBoxURNMD.TabIndex = 29;
@@ -15217,7 +15229,7 @@ namespace BehaviorGraphics
             // 
             // angleEntryBoxURFMD
             // 
-            this.angleEntryBoxURFMD.Location = new System.Drawing.Point(116, 175);
+            this.angleEntryBoxURFMD.Location = new System.Drawing.Point(127, 174);
             this.angleEntryBoxURFMD.Name = "angleEntryBoxURFMD";
             this.angleEntryBoxURFMD.Size = new System.Drawing.Size(78, 21);
             this.angleEntryBoxURFMD.TabIndex = 26;
@@ -15225,7 +15237,7 @@ namespace BehaviorGraphics
             // 
             // textBoxURD
             // 
-            this.textBoxURD.Location = new System.Drawing.Point(126, 149);
+            this.textBoxURD.Location = new System.Drawing.Point(137, 148);
             this.textBoxURD.Name = "textBoxURD";
             this.textBoxURD.Size = new System.Drawing.Size(68, 20);
             this.textBoxURD.TabIndex = 25;
@@ -15243,7 +15255,7 @@ namespace BehaviorGraphics
             // 
             // textBoxURPS2
             // 
-            this.textBoxURPS2.Location = new System.Drawing.Point(126, 124);
+            this.textBoxURPS2.Location = new System.Drawing.Point(137, 123);
             this.textBoxURPS2.Name = "textBoxURPS2";
             this.textBoxURPS2.Size = new System.Drawing.Size(68, 20);
             this.textBoxURPS2.TabIndex = 23;
@@ -15260,7 +15272,7 @@ namespace BehaviorGraphics
             // 
             // textBoxURPS1
             // 
-            this.textBoxURPS1.Location = new System.Drawing.Point(126, 98);
+            this.textBoxURPS1.Location = new System.Drawing.Point(137, 97);
             this.textBoxURPS1.Name = "textBoxURPS1";
             this.textBoxURPS1.Size = new System.Drawing.Size(68, 20);
             this.textBoxURPS1.TabIndex = 21;
@@ -15277,7 +15289,7 @@ namespace BehaviorGraphics
             // 
             // textBoxURFS3
             // 
-            this.textBoxURFS3.Location = new System.Drawing.Point(126, 73);
+            this.textBoxURFS3.Location = new System.Drawing.Point(137, 72);
             this.textBoxURFS3.Name = "textBoxURFS3";
             this.textBoxURFS3.Size = new System.Drawing.Size(68, 20);
             this.textBoxURFS3.TabIndex = 19;
@@ -15294,7 +15306,7 @@ namespace BehaviorGraphics
             // 
             // textBoxURFS2
             // 
-            this.textBoxURFS2.Location = new System.Drawing.Point(126, 47);
+            this.textBoxURFS2.Location = new System.Drawing.Point(137, 46);
             this.textBoxURFS2.Name = "textBoxURFS2";
             this.textBoxURFS2.Size = new System.Drawing.Size(68, 20);
             this.textBoxURFS2.TabIndex = 17;
@@ -15311,7 +15323,7 @@ namespace BehaviorGraphics
             // 
             // textBoxURFS1
             // 
-            this.textBoxURFS1.Location = new System.Drawing.Point(126, 22);
+            this.textBoxURFS1.Location = new System.Drawing.Point(137, 21);
             this.textBoxURFS1.Name = "textBoxURFS1";
             this.textBoxURFS1.Size = new System.Drawing.Size(68, 20);
             this.textBoxURFS1.TabIndex = 12;
@@ -16777,6 +16789,57 @@ namespace BehaviorGraphics
             this.label378.Size = new System.Drawing.Size(99, 13);
             this.label378.TabIndex = 10;
             this.label378.Text = "Center target radius";
+            // 
+            // labelURMinCD
+            // 
+            this.labelURMinCD.AutoSize = true;
+            this.labelURMinCD.Location = new System.Drawing.Point(6, 257);
+            this.labelURMinCD.Name = "labelURMinCD";
+            this.labelURMinCD.Size = new System.Drawing.Size(119, 13);
+            this.labelURMinCD.TabIndex = 32;
+            this.labelURMinCD.Text = "Min curve displacement";
+            // 
+            // labelURMaxCD
+            // 
+            this.labelURMaxCD.AutoSize = true;
+            this.labelURMaxCD.Location = new System.Drawing.Point(6, 283);
+            this.labelURMaxCD.Name = "labelURMaxCD";
+            this.labelURMaxCD.Size = new System.Drawing.Size(122, 13);
+            this.labelURMaxCD.TabIndex = 33;
+            this.labelURMaxCD.Text = "Max curve displacement";
+            // 
+            // labelURNCD
+            // 
+            this.labelURNCD.AutoSize = true;
+            this.labelURNCD.Location = new System.Drawing.Point(6, 309);
+            this.labelURNCD.Name = "labelURNCD";
+            this.labelURNCD.Size = new System.Drawing.Size(129, 13);
+            this.labelURNCD.TabIndex = 34;
+            this.labelURNCD.Text = "Num curve displacements";
+            // 
+            // textBoxURMinCD
+            // 
+            this.textBoxURMinCD.Location = new System.Drawing.Point(137, 253);
+            this.textBoxURMinCD.Name = "textBoxURMinCD";
+            this.textBoxURMinCD.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURMinCD.TabIndex = 35;
+            this.textBoxURMinCD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxURMaxCD
+            // 
+            this.textBoxURMaxCD.Location = new System.Drawing.Point(137, 279);
+            this.textBoxURMaxCD.Name = "textBoxURMaxCD";
+            this.textBoxURMaxCD.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURMaxCD.TabIndex = 36;
+            this.textBoxURMaxCD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxURNCD
+            // 
+            this.textBoxURNCD.Location = new System.Drawing.Point(137, 305);
+            this.textBoxURNCD.Name = "textBoxURNCD";
+            this.textBoxURNCD.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURNCD.TabIndex = 37;
+            this.textBoxURNCD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // UpdateForm
             // 
@@ -18574,5 +18637,11 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelURPF;
         private System.Windows.Forms.TextBox textBoxURVF;
         private System.Windows.Forms.Label labelURVF;
+        private System.Windows.Forms.TextBox textBoxURNCD;
+        private System.Windows.Forms.TextBox textBoxURMaxCD;
+        private System.Windows.Forms.TextBox textBoxURMinCD;
+        private System.Windows.Forms.Label labelURNCD;
+        private System.Windows.Forms.Label labelURMaxCD;
+        private System.Windows.Forms.Label labelURMinCD;
     }
 }

@@ -1159,6 +1159,11 @@ namespace BehaviorGraphics
             AddParamListItem("UR SRec", "P24", "Behavior UR", this.checkBoxRecord);
             AddParamListItem("UR RecFor", "P25", "Behavior UR", this.textBoxRecordFor);
 
+            // More force field
+            AddParamListItem("UR MinCD", "P26", "Behavior UR", this.textBoxURMinCD);
+            AddParamListItem("UR MaxCD", "P27", "Behavior UR", this.textBoxURMaxCD);
+            AddParamListItem("UR NumCD", "P28", "Behavior UR", this.textBoxURNCD);
+
             #endregion
         }
 

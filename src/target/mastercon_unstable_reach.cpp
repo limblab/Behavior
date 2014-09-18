@@ -3,9 +3,9 @@
  * Master Control block for behavior: unstable reach
  */
 
-#define DATABURST_VERSION ((byte)0x00) 
+#define DATABURST_VERSION ((byte)0x01) 
 /* 
- * Current Databurst version: 0
+ * Current Databurst version: 1
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -29,6 +29,23 @@
  * bytes 22 to 25: float    => target radius (cm)
  * bytes 26 to 29: float    => movement distance (cm)
  * byte        30: int      => brain control (if 1: yes)
+ *
+ ** * Version 1 (0x01)
+ * ----------------
+ * byte         0: uchar    => number of bytes to be transmitted
+ * byte         1: uchar    => databurst version number (in this case zero)
+ * byte         2: uchar    => model version major
+ * byte         3: uchar    => model version minor
+ * bytes   4 to 5: short    => model version micro
+ * bytes   6 to 9: float    => x offset (cm)
+ * bytes 10 to 13: float    => y offset (cm)
+ * bytes 14 to 17: float    => movement direction (rad)
+ * bytes 18 to 21: float    => trial stiffness (N/cm)
+ * bytes 22 to 25: float    => target radius (cm)
+ * bytes 26 to 29: float    => movement distance (cm)
+ * byte        30: int      => brain control (if 1: yes)
+ * bytes 31 to 34: float    => curve displacement (cm)
+ * bytes 35 to 38: float    => curve displacement direction
  */
 
 #define S_FUNCTION_NAME mastercon_unstable_reach
@@ -98,7 +115,11 @@ struct LocalParams{
     // Cerebus recording stuff
     real_T record;
     real_T record_for_x_mins;
-        
+    
+    // Curved field stuff
+    real_T min_curve_displacement;
+    real_T max_curve_displacement;
+    real_T num_curve_displacements;        
 };
 
 /**
@@ -150,13 +171,17 @@ private:
     int movement_direction_index;
     int target_colors[4];    
     int target_color;
+    real_T debug_var;  
+    real_T curve_displacement;
+    real_T curve_direction;
+    int curve_counter;
+//     int curve_order[16];
+    real_T curve_list[16];
     
 	// any helper functions you need
-	void doPreTrial(SimStruct *S);
-    
+	void doPreTrial(SimStruct *S);    
     Timer *recordingTimer;   
-    
-    real_T debug_var;        
+              
 };
 
 UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
@@ -168,7 +193,7 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(25);
+	this->setNumParams(28);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
 	this->bindParamId(&params->center_hold_low,                         1);
@@ -201,9 +226,13 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
     
     this->bindParamId(&params->record,                                  23);
     this->bindParamId(&params->record_for_x_mins,                       24);
+    
+    this->bindParamId(&params->min_curve_displacement,                  25);
+    this->bindParamId(&params->max_curve_displacement,                  26);
+    this->bindParamId(&params->num_curve_displacements,                 27);
   
     // default parameters:
-    // 0 1 2 1 1 1 1 30   0   2 15 1   .5 0 -.5 33 33 .05   0 8 10   1 1   0 0
+    // 0 1 2 1 1 1 1 30   0   2 15 1   .5 0 -.5 33 33 .05   0 8 10   1 1   0 0   0 2 3
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -253,9 +282,17 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
     target_colors[1] = Target::Color(50,200,50);
     target_colors[2] = Target::Color(255,166,0);
     target_colors[3] = Target::Color(230,0,0);
+    
+    curve_displacement = 0;
+    curve_counter = 10000;
+    curve_direction = 1;
 }
 
-void UnstableReach::doPreTrial(SimStruct *S) {	
+void UnstableReach::doPreTrial(SimStruct *S) {
+    double tmp_sort[16];
+    double tmp_d;
+    int tmp;
+        
 	centerTarget->radius = params->target_radius;
     outerTarget->radius = params->target_radius;
       
@@ -267,10 +304,7 @@ void UnstableReach::doPreTrial(SimStruct *S) {
         movement_direction_index++;
         old_block_length = params->trial_block_size;
         
-        // Stiffness order 
-        double tmp_sort[3];
-        double tmp_d;
-        int tmp;
+        // Stiffness order         
 
         for (int i=0; i<3; i++){
             stiffness_order[i] = i;            
@@ -319,12 +353,37 @@ void UnstableReach::doPreTrial(SimStruct *S) {
         if (stiffness_order_percent[2]==0)
             stiffness_index = 0;
     } else if ((stiffness_index == 2) &&
-            ((100*trial_counter/params->trial_block_size) >= 99)){
+            ((100*trial_counter/params->trial_block_size) >= 100)){
         stiffness_index = 0;
         if (stiffness_order_percent[0]==0)
             stiffness_index = 1;
     }
     trial_stiffness = stiffnesses[stiffness_order[stiffness_index]];
+    
+    // Curvature
+    if (curve_counter >= params->num_curve_displacements){
+        for (int i=0; i<params->num_curve_displacements; i++){
+            curve_list[i] = i*(params->max_curve_displacement - params->min_curve_displacement)/
+                    (params->num_curve_displacements-1) + params->min_curve_displacement;
+            tmp_sort[i] = random->getDouble(0,1);
+        }
+        for (int i=0; i<params->num_curve_displacements; i++){
+            for (int j=0; j<params->num_curve_displacements; j++){
+                if (tmp_sort[j] < tmp_sort[j+1]){
+                    tmp_d = tmp_sort[j];
+                    tmp_sort[j] = tmp_sort[j+1];
+                    tmp_sort[j+1] = tmp_d;
+                    
+                    tmp = curve_list[j];
+                    curve_list[j] = curve_list[j+1];
+                    curve_list[j+1] = tmp;
+                }
+            }
+        }
+        curve_counter = 0;
+    }
+    curve_displacement = curve_list[curve_counter++];    
+    curve_direction = random->getDouble(0,1) > 0.5 ? 1 : -1;
     
     // Targets
     if (params->color_cue){
@@ -356,6 +415,8 @@ void UnstableReach::doPreTrial(SimStruct *S) {
 	db->addFloat((float)params->target_radius);                 // bytes 22 to 25 -> Matlab idx 23 to 26
 	db->addFloat((float)params->movement_distance);             // bytes 26 to 29 -> Matlab idx 27 to 30	    
     db->addByte((int)params->brain_control);                    // byte 30        -> Matlab idx 31
+    db->addFloat((float)curve_displacement);                    // bytes 31 to 34 -> Matlab idx 32 to 35
+    db->addFloat((float)curve_direction);                       // bytes 35 to 38 -> Matlab idx 36 to 39
 	db->start();
 }
 
@@ -491,13 +552,13 @@ void UnstableReach::update(SimStruct *S) {
 
 void UnstableReach::calculateOutputs(SimStruct *S) {  
     if (params->brain_control){
-        if (~(cursor_position_old.x>=0) && ~(cursor_position_old.x<=0) || 
-                ~(cursor_position_old.y>=0) && ~(cursor_position_old.y<=0)){
+        if (!(cursor_position_old.x>=0) && !(cursor_position_old.x<=0) || 
+                !(cursor_position_old.y>=0) && !(cursor_position_old.y<=0)){
             cursor_position_old.x = inputs->force.x;
             cursor_position_old.y = inputs->force.y;
         }
-        if (~(cursor_velocity_old.x>=0) && ~(cursor_velocity_old.x<=0) || 
-                ~(cursor_velocity_old.y>=0) && ~(cursor_velocity_old.y<=0)){
+        if (!(cursor_velocity_old.x>=0) && !(cursor_velocity_old.x<=0) || 
+                !(cursor_velocity_old.y>=0) && !(cursor_velocity_old.y<=0)){
             cursor_velocity_old.x = 0;
             cursor_velocity_old.y = 0;
         }
@@ -539,16 +600,55 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
     /* force (0) */ 
     force = Point(0,0);
     
-    force.x = -trial_stiffness*(cursor_position.x * cos(movement_direction+PI/2) +
+    real_T center_offset = (curve_displacement*curve_displacement - 
+                    ((params->movement_distance/2)*(params->movement_distance/2)))/
+                    (2*params->movement_distance/2);
+    real_T curve_radius = ((params->movement_distance/2)*(params->movement_distance/2) +
+                    curve_displacement*curve_displacement)/
+                    (2*curve_displacement);
+    
+    Point curve_center;
+    curve_center.x = sin(movement_direction + PI*(curve_direction+1)/2)*(curve_radius - curve_displacement);
+    curve_center.y = cos(movement_direction + PI*(curve_direction+1)/2)*(curve_radius - curve_displacement);
+    
+    real_T distance_cursor_to_center = sqrt(
+            (curve_center.x - cursor_position.x)*(curve_center.x - cursor_position.x) +
+            (curve_center.y - cursor_position.y)*(curve_center.y - cursor_position.y));
+    real_T distance_cursor_to_arc = abs(abs(curve_radius) - distance_cursor_to_center);
+    real_T force_angle = atan2(cursor_position.y-curve_center.y,cursor_position.x-curve_center.x);
+    real_T inside_arc = distance_cursor_to_center < abs(curve_radius) ? 1 : -1;    
+    force_angle = (inside_arc == 1) ? force_angle+PI : force_angle;    
+    real_T cursor_speed = sqrt(cursor_velocity.x*cursor_velocity.x +
+            cursor_velocity.y*cursor_velocity.y);
+    real_T cursor_direction = atan2(cursor_velocity.y,cursor_velocity.x);
+    
+    real_T damping_axis_angle = atan2(cursor_position.y-curve_center.y,cursor_position.x-curve_center.x);
+    
+    if (curve_displacement == 0){
+        force.x = -trial_stiffness*(cursor_position.x * cos(movement_direction+PI/2) +
                     cursor_position.y * sin(movement_direction+PI/2)) * cos(movement_direction+PI/2) -
                     (trial_stiffness>0 ? params->damping*(cursor_velocity.x * cos(movement_direction+PI/2) + 
                     cursor_velocity.y * sin(movement_direction+PI/2)) * cos(movement_direction+PI/2) : 0);        
-    force.y = -trial_stiffness*(cursor_position.x*cos(movement_direction+PI/2) + 
+        force.y = -trial_stiffness*(cursor_position.x*cos(movement_direction+PI/2) + 
                     cursor_position.y * sin(movement_direction+PI/2)) * sin(movement_direction+PI/2) -
                     (trial_stiffness>0 ? params->damping*(cursor_velocity.x * cos(movement_direction+PI/2) + 
                     cursor_velocity.y * sin(movement_direction+PI/2)) * sin(movement_direction+PI/2) : 0);    
-
-    if (getState()==STATE_MOVEMENT || getState()==STATE_OT_HOLD){
+    } else {                     
+        force.x = -trial_stiffness*distance_cursor_to_arc*cos(force_angle) -
+                (trial_stiffness>0 ? params->damping*(cursor_velocity.x * cos(damping_axis_angle) + 
+                    cursor_velocity.y * sin(damping_axis_angle)) * cos(damping_axis_angle) : 0);  
+        force.y = -trial_stiffness*distance_cursor_to_arc*sin(force_angle) -
+                (trial_stiffness>0 ? params->damping*(cursor_velocity.x * cos(damping_axis_angle) + 
+                    cursor_velocity.y * sin(damping_axis_angle)) * sin(damping_axis_angle) : 0); 
+    }
+            
+    
+   
+    if (getState()==STATE_CT_HOLD || 
+            getState()==STATE_OT_ON ||
+            getState()==STATE_WAIT_FOR_MOVEMENT ||
+            getState()==STATE_MOVEMENT || 
+            getState()==STATE_OT_HOLD){
         outputs->force = force;
     } else {        
         outputs->force = Point(0,0);
@@ -560,6 +660,12 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = trialCounter->failures;
 	outputs->status[4] = trialCounter->incompletes;  
+    
+//     outputs->status[0] = getState();
+// 	outputs->status[1] = curve_displacement;
+// 	outputs->status[2] = curve_direction;
+// 	outputs->status[3] = params->num_curve_displacements;
+// 	outputs->status[4] = params->max_curve_displacement;  
     
 	/* word (2) */
 	if (db->isRunning()) {
