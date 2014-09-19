@@ -45,7 +45,11 @@
  * bytes 26 to 29: float    => movement distance (cm)
  * byte        30: int      => brain control (if 1: yes)
  * bytes 31 to 34: float    => curve displacement (cm)
- * bytes 35 to 38: float    => curve displacement direction
+ * bytes 35 to 38: float    => curve direction
+ * byte        39: int      => bump trial
+ * bytes 40 to 43: float    => bump magnitude (N)
+ * bytes 44 to 47: float    => bump direction (rad)
+ * bytes 48 to 51: float    => bump_duration (s)
  */
 
 #define S_FUNCTION_NAME mastercon_unstable_reach
@@ -67,9 +71,10 @@
 #define STATE_OT_ON     			 4
 #define STATE_WAIT_FOR_MOVEMENT      5
 #define STATE_MOVEMENT               6
-#define STATE_OT_HOLD                7
-#define STATE_START_RECORDING        8
-#define STATE_STOP_RECORDING         9
+#define STATE_BUMP                   7
+#define STATE_OT_HOLD                8
+#define STATE_START_RECORDING        9
+#define STATE_STOP_RECORDING         10
 
 /* 
  * STATE_REWARD STATE_ABORT STATE_FAIL STATE_INCOMPLETE STATE_DATA_BLOCK 
@@ -120,6 +125,11 @@ struct LocalParams{
     real_T min_curve_displacement;
     real_T max_curve_displacement;
     real_T num_curve_displacements;        
+    
+    // Bumps
+    real_T percent_bump_trials;
+    real_T bump_magnitude;
+    real_T bump_duration;
 };
 
 /**
@@ -175,8 +185,15 @@ private:
     real_T curve_displacement;
     real_T curve_direction;
     int curve_counter;
-//     int curve_order[16];
     real_T curve_list[16];
+    int bump_trial;
+    real_T bump_direction;
+    
+    TrapBumpGenerator *bump;
+    TrapBumpGenerator *infinite_bump;
+    int start_bump;
+    Point force_at_bump_start;
+    int dont_bump_again;
     
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);    
@@ -193,7 +210,7 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(28);
+	this->setNumParams(31);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
 	this->bindParamId(&params->center_hold_low,                         1);
@@ -230,9 +247,13 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->min_curve_displacement,                  25);
     this->bindParamId(&params->max_curve_displacement,                  26);
     this->bindParamId(&params->num_curve_displacements,                 27);
+    
+    this->bindParamId(&params->percent_bump_trials,                     28);
+    this->bindParamId(&params->bump_magnitude,                          29);
+    this->bindParamId(&params->bump_duration,                           30);    
   
     // default parameters:
-    // 0 1 2 1 1 1 1 30   0   2 15 1   .5 0 -.5 33 33 .05   0 8 10   1 1   0 0   0 2 3
+    // 0 1 2 1 1 1 1 30   0   2 15 1   .5 0 -.5 33 33 .05   0 8 10   1 1   0 0   0 2 3   20 3 .2
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -286,6 +307,14 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
     curve_displacement = 0;
     curve_counter = 10000;
     curve_direction = 1;
+    
+    bump_trial = 0;
+    bump_direction = 0;
+    bump = new TrapBumpGenerator();
+    infinite_bump = new TrapBumpGenerator();
+    start_bump = 0;
+    force_at_bump_start = Point(0,0);
+    dont_bump_again = 0;
 }
 
 void UnstableReach::doPreTrial(SimStruct *S) {
@@ -363,8 +392,12 @@ void UnstableReach::doPreTrial(SimStruct *S) {
     // Curvature
     if (curve_counter >= params->num_curve_displacements){
         for (int i=0; i<params->num_curve_displacements; i++){
-            curve_list[i] = i*(params->max_curve_displacement - params->min_curve_displacement)/
-                    (params->num_curve_displacements-1) + params->min_curve_displacement;
+            if (params->num_curve_displacements == 1){
+                curve_list[i] = params->min_curve_displacement;
+            } else {
+                curve_list[i] = i*(params->max_curve_displacement - params->min_curve_displacement)/
+                        (params->num_curve_displacements-1) + params->min_curve_displacement;
+            }
             tmp_sort[i] = random->getDouble(0,1);
         }
         for (int i=0; i<params->num_curve_displacements; i++){
@@ -382,8 +415,29 @@ void UnstableReach::doPreTrial(SimStruct *S) {
         }
         curve_counter = 0;
     }
-    curve_displacement = curve_list[curve_counter++];    
-    curve_direction = random->getDouble(0,1) > 0.5 ? 1 : -1;
+    curve_direction = (curve_list[curve_counter]>=0) ? 1 : -1;
+    curve_displacement = abs(curve_list[curve_counter++]); 
+    
+    // Bumps
+    if (random->getDouble(0,1)*100 < params->percent_bump_trials){
+        bump_trial = 1;
+        curve_displacement = 0;
+        bump_direction = movement_direction + PI/2 + PI * (random->getDouble(0,1) > 0.5);
+        bump_direction = fmod(bump_direction,2*PI);
+    } else {
+        bump_trial = 0;
+    }
+    bump->direction = bump_direction;
+	bump->hold_duration = params->bump_duration;
+	bump->peak_magnitude = params->bump_magnitude;
+	bump->rise_time = 0;	
+    
+    infinite_bump->direction = bump_direction;
+	infinite_bump->hold_duration = 0.03;
+	infinite_bump->peak_magnitude = 0*params->bump_magnitude;
+	infinite_bump->rise_time = 0;
+    
+    dont_bump_again = 0;
     
     // Targets
     if (params->color_cue){
@@ -414,9 +468,13 @@ void UnstableReach::doPreTrial(SimStruct *S) {
     db->addFloat((float)trial_stiffness);                       // bytes 18 to 21 -> Matlab idx 19 to 22
 	db->addFloat((float)params->target_radius);                 // bytes 22 to 25 -> Matlab idx 23 to 26
 	db->addFloat((float)params->movement_distance);             // bytes 26 to 29 -> Matlab idx 27 to 30	    
-    db->addByte((int)params->brain_control);                    // byte 30        -> Matlab idx 31
+    db->addByte((int)params->brain_control);                    // byte  30       -> Matlab idx 31
     db->addFloat((float)curve_displacement);                    // bytes 31 to 34 -> Matlab idx 32 to 35
     db->addFloat((float)curve_direction);                       // bytes 35 to 38 -> Matlab idx 36 to 39
+    db->addFloat((int)bump_trial);                              // byte  39       -> Matlab idx 40
+    db->addFloat((float)params->bump_magnitude);                        // bytes 40 to 43 -> Matlab idx 41 to 44
+    db->addFloat((float)bump_direction);                        // bytes 44 to 47 -> Matlab idx 45 to 48
+    db->addFloat((float)params->bump_duration);                         // bytes 48 to 51 -> Matlab idx 49 to 52
 	db->start();
 }
 
@@ -505,6 +563,8 @@ void UnstableReach::update(SimStruct *S) {
         case STATE_MOVEMENT:
             if (inputs->catchForce.x && !params->brain_control) {
                 setState(STATE_INCOMPLETE);
+            } else if (bump_trial && start_bump){ 
+                setState(STATE_BUMP);            
             } else {
                 if (params->movement_time > 0 && 
                         (stateTimer->elapsedTime(S) > params->movement_time)){
@@ -513,7 +573,25 @@ void UnstableReach::update(SimStruct *S) {
                     setState(STATE_OT_HOLD);
                 }
             }
-            break;        
+            break;     
+        case STATE_BUMP:
+            if (start_bump){
+                bump->start(S);
+                infinite_bump->start(S);
+                start_bump = 0;
+                dont_bump_again = 1;
+            }
+            if (params->movement_time > 0 && 
+                    (stateTimer->elapsedTime(S) > params->movement_time)){
+                this->bump->stop();
+                this->infinite_bump->stop();
+                setState(STATE_INCOMPLETE);
+            } else if (outerTarget->cursorInTarget(cursor_position)){
+                this->bump->stop();
+                this->infinite_bump->stop();
+                setState(STATE_OT_HOLD);
+            }
+            break;
         case STATE_OT_HOLD:           
             if (stateTimer->elapsedTime(S) > params->outer_hold){
                 playTone(TONE_REWARD);
@@ -609,53 +687,36 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
     
     Point curve_center;
     curve_center.x = sin(movement_direction + PI*(curve_direction+1)/2)*(curve_radius - curve_displacement);
-    curve_center.y = cos(movement_direction + PI*(curve_direction+1)/2)*(curve_radius - curve_displacement);
+    curve_center.y = -cos(movement_direction + PI*(curve_direction+1)/2)*(curve_radius - curve_displacement);
     
     real_T distance_cursor_to_center = sqrt(
             (curve_center.x - cursor_position.x)*(curve_center.x - cursor_position.x) +
             (curve_center.y - cursor_position.y)*(curve_center.y - cursor_position.y));
+    real_T distance_cursor_to_target  = 
+            (sqrt((centerTarget->centerX - cursor_position.x)*(centerTarget->centerX - cursor_position.x) +
+            (centerTarget->centerY - cursor_position.y)*(centerTarget->centerY - cursor_position.y)) <
+            sqrt((outerTarget->centerX - cursor_position.x)*(outerTarget->centerX - cursor_position.x) +
+            (outerTarget->centerY - cursor_position.y)*(outerTarget->centerY - cursor_position.y)))?
+            sqrt((centerTarget->centerX - cursor_position.x)*(centerTarget->centerX - cursor_position.x) +
+            (centerTarget->centerY - cursor_position.y)*(centerTarget->centerY - cursor_position.y)) :
+             sqrt((outerTarget->centerX - cursor_position.x)*(outerTarget->centerX - cursor_position.x) +
+            (outerTarget->centerY - cursor_position.y)*(outerTarget->centerY - cursor_position.y));   
+    
     real_T distance_cursor_to_arc = abs(abs(curve_radius) - distance_cursor_to_center);
     real_T force_angle = atan2(cursor_position.y-curve_center.y,cursor_position.x-curve_center.x);
     
-    real_T inside_circle = distance_cursor_to_center < abs(curve_radius) ? 1 : -1;    
+    real_T inside_circle = distance_cursor_to_center < abs(curve_radius) ? 1 : 0;    
     force_angle = (inside_circle == 1) ? force_angle+PI : force_angle;    
-    
-    real_T target_angle_bound_1 = atan2(centerTarget->centerY - curve_center.y,
-            centerTarget->centerX - curve_center.x);
-    while (target_angle_bound_1 < 0)
-        target_angle_bound_1 = target_angle_bound_1 + 2*PI;
-    
-    real_T target_angle_bound_2 = atan2(outerTarget->centerY - curve_center.y,
-            outerTarget->centerX - curve_center.x);
-    while (target_angle_bound_2 < 0)
-        target_angle_bound_2 = target_angle_bound_2 + 2*PI;
-    
-    if (target_angle_bound_2 < target_angle_bound_1){
-        real_T temp_angle = target_angle_bound_1;
-        target_angle_bound_1 = target_angle_bound_2;
-        target_angle_bound_2 = temp_angle;
-    }
-    
-    target_angle_bound_2 = target_angle_bound_2 - target_angle_bound_1;
-    while (target_angle_bound_2 < 0)
-        target_angle_bound_2 = target_angle_bound_2 + 2*PI;
-    
-    real_T cursor_angle = atan2(cursor_position.y-curve_center.y,cursor_position.x-curve_center.x);
-    cursor_angle = cursor_angle - target_angle_bound_1;
-    while (cursor_angle < 0)
-        cursor_angle = cursor_angle + 2*PI;
-    
-    real_T within_angle;
-    if (cursor_angle < target_angle_bound_2 && curve_direction == 1 || 
-           cursor_angle > target_angle_bound_2 && curve_direction == -1 ){
-        within_angle = 1;
-    } else {
-        within_angle = 0;
-    }
+
+    real_T cursor_center_opposite_side = (((centerTarget->centerY-outerTarget->centerY)*
+            (cursor_position.x-centerTarget->centerX) + (outerTarget->centerX - centerTarget->centerX) *
+            (cursor_position.y-centerTarget->centerY)) * 
+            ((centerTarget->centerY - outerTarget->centerY)*(curve_center.x-centerTarget->centerX) +
+            (outerTarget->centerX - centerTarget->centerX)*(curve_center.y-centerTarget->centerY))) < 0;            
     
     real_T damping_axis_angle = atan2(cursor_position.y-curve_center.y,cursor_position.x-curve_center.x);
     
-    if (curve_displacement == 0 || !within_angle){
+    if (curve_displacement == 0 || (!cursor_center_opposite_side && !inside_circle)){
         force.x = -trial_stiffness*(cursor_position.x * cos(movement_direction+PI/2) +
                     cursor_position.y * sin(movement_direction+PI/2)) * cos(movement_direction+PI/2) -
                     (trial_stiffness>0 ? params->damping*(cursor_velocity.x * cos(movement_direction+PI/2) + 
@@ -664,6 +725,17 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
                     cursor_position.y * sin(movement_direction+PI/2)) * sin(movement_direction+PI/2) -
                     (trial_stiffness>0 ? params->damping*(cursor_velocity.x * cos(movement_direction+PI/2) + 
                     cursor_velocity.y * sin(movement_direction+PI/2)) * sin(movement_direction+PI/2) : 0);    
+    } else if (!cursor_center_opposite_side && inside_circle) {
+        force.x = -curve_direction*trial_stiffness*(cursor_position.x * cos(movement_direction+PI/2) +
+                    cursor_position.y * sin(movement_direction+PI/2)) * cos(movement_direction+PI/2) -
+                    (trial_stiffness>0 ? params->damping*(cursor_velocity.x * cos(movement_direction+PI/2) + 
+                    cursor_velocity.y * sin(movement_direction+PI/2)) * cos(movement_direction+PI/2) : 0);        
+        force.y = -curve_direction*trial_stiffness*(cursor_position.x*cos(movement_direction+PI/2) + 
+                    cursor_position.y * sin(movement_direction+PI/2)) * sin(movement_direction+PI/2) -
+                    (trial_stiffness>0 ? params->damping*(cursor_velocity.x * cos(movement_direction+PI/2) + 
+                    cursor_velocity.y * sin(movement_direction+PI/2)) * sin(movement_direction+PI/2) : 0);    
+        force.x += -curve_direction*trial_stiffness*distance_cursor_to_target*cos(movement_direction+PI/2);  
+        force.y += -curve_direction*trial_stiffness*distance_cursor_to_target*sin(movement_direction+PI/2); 
     } else {
         force.x = -trial_stiffness*distance_cursor_to_arc*cos(force_angle) -
                 (trial_stiffness>0 ? params->damping*(cursor_velocity.x * cos(damping_axis_angle) + 
@@ -672,13 +744,31 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
                 (trial_stiffness>0 ? params->damping*(cursor_velocity.x * cos(damping_axis_angle) + 
                     cursor_velocity.y * sin(damping_axis_angle)) * sin(damping_axis_angle) : 0); 
     }
-            
     
+    real_T cursor_vec_x = cursor_position.x - centerTarget->centerX;
+    real_T cursor_vec_y = cursor_position.y - centerTarget->centerY;
+    real_T target_vec_x = outerTarget->centerX - centerTarget->centerX;
+    real_T target_vec_y = outerTarget->centerY - centerTarget->centerY;           
+    
+    real_T cursor_projection = (cursor_vec_x*target_vec_x + cursor_vec_y*target_vec_y)/
+            params->movement_distance;
+    
+    start_bump = 0;
+    if (cursor_projection > params->movement_distance/2 &&
+            !bump->isRunning(S) && !dont_bump_again){
+        start_bump = 1;
+        force_at_bump_start = force;
+    }
+    if (bump->isRunning(S)){
+        force = bump->getBumpForce(S) + force_at_bump_start;
+        force += infinite_bump->getBumpForce(S);
+    }
    
     if (getState()==STATE_CT_HOLD || 
             getState()==STATE_OT_ON ||
             getState()==STATE_WAIT_FOR_MOVEMENT ||
-            getState()==STATE_MOVEMENT || 
+            getState()==STATE_MOVEMENT ||
+            getState()==STATE_BUMP ||
             getState()==STATE_OT_HOLD){
         outputs->force = force;
     } else {        
@@ -692,11 +782,11 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
 	outputs->status[3] = trialCounter->failures;
 	outputs->status[4] = trialCounter->incompletes;  
     
-    outputs->status[0] = within_angle;
-	outputs->status[1] = target_angle_bound_1*180/PI;
-	outputs->status[2] = target_angle_bound_2*180/PI;
-	outputs->status[3] = cursor_angle * 180/PI;
-	outputs->status[4] = 0;  
+//     outputs->status[0] = bump_trial;
+// 	outputs->status[1] = bump_direction*180/PI;
+// 	outputs->status[2] = params->bump_magnitude;
+// 	outputs->status[3] = bump->isRunning(S);
+// 	outputs->status[4] = 0;  
     
 	/* word (2) */
 	if (db->isRunning()) {
@@ -725,8 +815,11 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_MOVEMENT_ONSET;        // 0x80 = 128
                 break;
             case STATE_WAIT_FOR_MOVEMENT:
-                outputs->word = WORD_GO_CUE;                     // 0x31 = 49
+                outputs->word = WORD_GO_CUE;                // 0x31 = 49
                 break;
+            case STATE_BUMP:
+				outputs->word = WORD_BUMP(0);               // 0x50 = 80
+				break;    
             case STATE_OT_HOLD:
                 outputs->word = WORD_OUTER_TARGET_HOLD;     // 0xA1 = 161
                 break;
@@ -773,6 +866,7 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
 			break;             
         case STATE_WAIT_FOR_MOVEMENT:
         case STATE_MOVEMENT:
+        case STATE_BUMP:
         case STATE_OT_HOLD:
             outputs->targets[10] = (Target *)outerTarget;
 			outputs->targets[11] = nullTarget;

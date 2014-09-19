@@ -1164,6 +1164,11 @@ namespace BehaviorGraphics
             AddParamListItem("UR MaxCD", "P27", "Behavior UR", this.textBoxURMaxCD);
             AddParamListItem("UR NumCD", "P28", "Behavior UR", this.textBoxURNCD);
 
+            // Bumps
+            AddParamListItem("UR PBT", "P29", "Behavior UR", this.textBoxURPBT);
+            AddParamListItem("UR BM", "P30", "Behavior UR", this.textBoxURBM);
+            AddParamListItem("UR BD", "P31", "Behavior UR", this.textBoxURBD);
+
             #endregion
         }
 

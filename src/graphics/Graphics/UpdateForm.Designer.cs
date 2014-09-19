@@ -1335,6 +1335,12 @@ namespace BehaviorGraphics
             this.textBoxURVF = new System.Windows.Forms.TextBox();
             this.labelURVF = new System.Windows.Forms.Label();
             this.groupBox80 = new System.Windows.Forms.GroupBox();
+            this.textBoxURNCD = new System.Windows.Forms.TextBox();
+            this.textBoxURMaxCD = new System.Windows.Forms.TextBox();
+            this.textBoxURMinCD = new System.Windows.Forms.TextBox();
+            this.labelURNCD = new System.Windows.Forms.Label();
+            this.labelURMaxCD = new System.Windows.Forms.Label();
+            this.labelURMinCD = new System.Windows.Forms.Label();
             this.textBoxURTBS = new System.Windows.Forms.TextBox();
             this.labelURTBS = new System.Windows.Forms.Label();
             this.textBoxURNMD = new System.Windows.Forms.TextBox();
@@ -1513,12 +1519,13 @@ namespace BehaviorGraphics
             this.label377 = new System.Windows.Forms.Label();
             this.textBox43 = new System.Windows.Forms.TextBox();
             this.label378 = new System.Windows.Forms.Label();
-            this.labelURMinCD = new System.Windows.Forms.Label();
-            this.labelURMaxCD = new System.Windows.Forms.Label();
-            this.labelURNCD = new System.Windows.Forms.Label();
-            this.textBoxURMinCD = new System.Windows.Forms.TextBox();
-            this.textBoxURMaxCD = new System.Windows.Forms.TextBox();
-            this.textBoxURNCD = new System.Windows.Forms.TextBox();
+            this.groupBoxURB = new System.Windows.Forms.GroupBox();
+            this.textBoxURPBT = new System.Windows.Forms.TextBox();
+            this.textBoxURBM = new System.Windows.Forms.TextBox();
+            this.textBoxURBD = new System.Windows.Forms.TextBox();
+            this.labelURPBT = new System.Windows.Forms.Label();
+            this.labelURBM = new System.Windows.Forms.Label();
+            this.labelURBD = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -1692,6 +1699,7 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
+            this.groupBoxURB.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -15092,6 +15100,7 @@ namespace BehaviorGraphics
             // 
             // tabUnstableReach
             // 
+            this.tabUnstableReach.Controls.Add(this.groupBoxURB);
             this.tabUnstableReach.Controls.Add(this.groupBoxURVC);
             this.tabUnstableReach.Controls.Add(this.groupBox80);
             this.tabUnstableReach.Controls.Add(this.groupBox79);
@@ -15183,6 +15192,57 @@ namespace BehaviorGraphics
             this.groupBox80.TabIndex = 35;
             this.groupBox80.TabStop = false;
             this.groupBox80.Text = "Force fields";
+            // 
+            // textBoxURNCD
+            // 
+            this.textBoxURNCD.Location = new System.Drawing.Point(137, 305);
+            this.textBoxURNCD.Name = "textBoxURNCD";
+            this.textBoxURNCD.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURNCD.TabIndex = 37;
+            this.textBoxURNCD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxURMaxCD
+            // 
+            this.textBoxURMaxCD.Location = new System.Drawing.Point(137, 279);
+            this.textBoxURMaxCD.Name = "textBoxURMaxCD";
+            this.textBoxURMaxCD.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURMaxCD.TabIndex = 36;
+            this.textBoxURMaxCD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxURMinCD
+            // 
+            this.textBoxURMinCD.Location = new System.Drawing.Point(137, 253);
+            this.textBoxURMinCD.Name = "textBoxURMinCD";
+            this.textBoxURMinCD.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURMinCD.TabIndex = 35;
+            this.textBoxURMinCD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelURNCD
+            // 
+            this.labelURNCD.AutoSize = true;
+            this.labelURNCD.Location = new System.Drawing.Point(6, 309);
+            this.labelURNCD.Name = "labelURNCD";
+            this.labelURNCD.Size = new System.Drawing.Size(129, 13);
+            this.labelURNCD.TabIndex = 34;
+            this.labelURNCD.Text = "Num curve displacements";
+            // 
+            // labelURMaxCD
+            // 
+            this.labelURMaxCD.AutoSize = true;
+            this.labelURMaxCD.Location = new System.Drawing.Point(6, 283);
+            this.labelURMaxCD.Name = "labelURMaxCD";
+            this.labelURMaxCD.Size = new System.Drawing.Size(122, 13);
+            this.labelURMaxCD.TabIndex = 33;
+            this.labelURMaxCD.Text = "Max curve displacement";
+            // 
+            // labelURMinCD
+            // 
+            this.labelURMinCD.AutoSize = true;
+            this.labelURMinCD.Location = new System.Drawing.Point(6, 257);
+            this.labelURMinCD.Name = "labelURMinCD";
+            this.labelURMinCD.Size = new System.Drawing.Size(119, 13);
+            this.labelURMinCD.TabIndex = 32;
+            this.labelURMinCD.Text = "Min curve displacement";
             // 
             // textBoxURTBS
             // 
@@ -16790,56 +16850,73 @@ namespace BehaviorGraphics
             this.label378.TabIndex = 10;
             this.label378.Text = "Center target radius";
             // 
-            // labelURMinCD
+            // groupBoxURB
             // 
-            this.labelURMinCD.AutoSize = true;
-            this.labelURMinCD.Location = new System.Drawing.Point(6, 257);
-            this.labelURMinCD.Name = "labelURMinCD";
-            this.labelURMinCD.Size = new System.Drawing.Size(119, 13);
-            this.labelURMinCD.TabIndex = 32;
-            this.labelURMinCD.Text = "Min curve displacement";
+            this.groupBoxURB.Controls.Add(this.labelURBD);
+            this.groupBoxURB.Controls.Add(this.labelURBM);
+            this.groupBoxURB.Controls.Add(this.labelURPBT);
+            this.groupBoxURB.Controls.Add(this.textBoxURBD);
+            this.groupBoxURB.Controls.Add(this.textBoxURBM);
+            this.groupBoxURB.Controls.Add(this.textBoxURPBT);
+            this.groupBoxURB.Location = new System.Drawing.Point(227, 228);
+            this.groupBoxURB.Name = "groupBoxURB";
+            this.groupBoxURB.Size = new System.Drawing.Size(201, 95);
+            this.groupBoxURB.TabIndex = 37;
+            this.groupBoxURB.TabStop = false;
+            this.groupBoxURB.Text = "Bumps";
             // 
-            // labelURMaxCD
+            // textBoxURPBT
             // 
-            this.labelURMaxCD.AutoSize = true;
-            this.labelURMaxCD.Location = new System.Drawing.Point(6, 283);
-            this.labelURMaxCD.Name = "labelURMaxCD";
-            this.labelURMaxCD.Size = new System.Drawing.Size(122, 13);
-            this.labelURMaxCD.TabIndex = 33;
-            this.labelURMaxCD.Text = "Max curve displacement";
+            this.textBoxURPBT.Location = new System.Drawing.Point(123, 16);
+            this.textBoxURPBT.Name = "textBoxURPBT";
+            this.textBoxURPBT.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURPBT.TabIndex = 36;
+            this.textBoxURPBT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
-            // labelURNCD
+            // textBoxURBM
             // 
-            this.labelURNCD.AutoSize = true;
-            this.labelURNCD.Location = new System.Drawing.Point(6, 309);
-            this.labelURNCD.Name = "labelURNCD";
-            this.labelURNCD.Size = new System.Drawing.Size(129, 13);
-            this.labelURNCD.TabIndex = 34;
-            this.labelURNCD.Text = "Num curve displacements";
+            this.textBoxURBM.Location = new System.Drawing.Point(122, 42);
+            this.textBoxURBM.Name = "textBoxURBM";
+            this.textBoxURBM.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURBM.TabIndex = 37;
+            this.textBoxURBM.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
-            // textBoxURMinCD
+            // textBoxURBD
             // 
-            this.textBoxURMinCD.Location = new System.Drawing.Point(137, 253);
-            this.textBoxURMinCD.Name = "textBoxURMinCD";
-            this.textBoxURMinCD.Size = new System.Drawing.Size(68, 20);
-            this.textBoxURMinCD.TabIndex = 35;
-            this.textBoxURMinCD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.textBoxURBD.Location = new System.Drawing.Point(122, 68);
+            this.textBoxURBD.Name = "textBoxURBD";
+            this.textBoxURBD.Size = new System.Drawing.Size(68, 20);
+            this.textBoxURBD.TabIndex = 38;
+            this.textBoxURBD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
-            // textBoxURMaxCD
+            // labelURPBT
             // 
-            this.textBoxURMaxCD.Location = new System.Drawing.Point(137, 279);
-            this.textBoxURMaxCD.Name = "textBoxURMaxCD";
-            this.textBoxURMaxCD.Size = new System.Drawing.Size(68, 20);
-            this.textBoxURMaxCD.TabIndex = 36;
-            this.textBoxURMaxCD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.labelURPBT.AutoSize = true;
+            this.labelURPBT.Location = new System.Drawing.Point(6, 19);
+            this.labelURPBT.Name = "labelURPBT";
+            this.labelURPBT.Size = new System.Drawing.Size(97, 13);
+            this.labelURPBT.TabIndex = 36;
+            this.labelURPBT.Text = "Percent bump trials";
             // 
-            // textBoxURNCD
+            // labelURBM
             // 
-            this.textBoxURNCD.Location = new System.Drawing.Point(137, 305);
-            this.textBoxURNCD.Name = "textBoxURNCD";
-            this.textBoxURNCD.Size = new System.Drawing.Size(68, 20);
-            this.textBoxURNCD.TabIndex = 37;
-            this.textBoxURNCD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.labelURBM.AutoSize = true;
+            this.labelURBM.Location = new System.Drawing.Point(6, 45);
+            this.labelURBM.Name = "labelURBM";
+            this.labelURBM.Size = new System.Drawing.Size(86, 13);
+            this.labelURBM.TabIndex = 39;
+            this.labelURBM.Text = "Bump magnitude";
+            this.toolTip1.SetToolTip(this.labelURBM, "in Newtons");
+            // 
+            // labelURBD
+            // 
+            this.labelURBD.AutoSize = true;
+            this.labelURBD.Location = new System.Drawing.Point(6, 71);
+            this.labelURBD.Name = "labelURBD";
+            this.labelURBD.Size = new System.Drawing.Size(75, 13);
+            this.labelURBD.TabIndex = 40;
+            this.labelURBD.Text = "Bump duration";
+            this.toolTip1.SetToolTip(this.labelURBD, "in seconds");
             // 
             // UpdateForm
             // 
@@ -17148,6 +17225,8 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
+            this.groupBoxURB.ResumeLayout(false);
+            this.groupBoxURB.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -18643,5 +18722,12 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelURNCD;
         private System.Windows.Forms.Label labelURMaxCD;
         private System.Windows.Forms.Label labelURMinCD;
+        private System.Windows.Forms.GroupBox groupBoxURB;
+        private System.Windows.Forms.Label labelURBD;
+        private System.Windows.Forms.Label labelURBM;
+        private System.Windows.Forms.Label labelURPBT;
+        private System.Windows.Forms.TextBox textBoxURBD;
+        private System.Windows.Forms.TextBox textBoxURBM;
+        private System.Windows.Forms.TextBox textBoxURPBT;
     }
 }
