@@ -471,10 +471,10 @@ void UnstableReach::doPreTrial(SimStruct *S) {
     db->addByte((int)params->brain_control);                    // byte  30       -> Matlab idx 31
     db->addFloat((float)curve_displacement);                    // bytes 31 to 34 -> Matlab idx 32 to 35
     db->addFloat((float)curve_direction);                       // bytes 35 to 38 -> Matlab idx 36 to 39
-    db->addFloat((int)bump_trial);                              // byte  39       -> Matlab idx 40
-    db->addFloat((float)params->bump_magnitude);                        // bytes 40 to 43 -> Matlab idx 41 to 44
-    db->addFloat((float)bump_direction);                        // bytes 44 to 47 -> Matlab idx 45 to 48
-    db->addFloat((float)params->bump_duration);                         // bytes 48 to 51 -> Matlab idx 49 to 52
+    db->addFloat((int)bump_trial);                              // bytes 39 to 42 -> Matlab idx 40 to 43
+    db->addFloat((float)params->bump_magnitude);                // bytes 43 to 46 -> Matlab idx 44 to 47
+    db->addFloat((float)bump_direction);                        // bytes 47 to 50 -> Matlab idx 48 to 51
+    db->addFloat((float)params->bump_duration);                 // bytes 51 to 54 -> Matlab idx 52 to 55
 	db->start();
 }
 
