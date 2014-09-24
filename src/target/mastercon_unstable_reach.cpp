@@ -179,6 +179,7 @@ private:
     int stiffness_index;
     int old_block_length;
     int movement_direction_index;
+    int toggle_mov_direction;
     int target_colors[4];    
     int target_color;
     real_T debug_var;  
@@ -194,6 +195,7 @@ private:
     int start_bump;
     Point force_at_bump_start;
     int dont_bump_again;
+    int last_trial_reward;
     
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);    
@@ -297,6 +299,7 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
     trial_counter = 10000;
     stiffness_index = 0;
     movement_direction_index = random->getInteger(0,100);
+    toggle_mov_direction = 0;
     
     target_color = Target::Color(117,140,0);
     target_colors[0] = Target::Color(50,50,255);
@@ -315,6 +318,7 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
     start_bump = 0;
     force_at_bump_start = Point(0,0);
     dont_bump_again = 0;
+    last_trial_reward = 1;
 }
 
 void UnstableReach::doPreTrial(SimStruct *S) {
@@ -325,11 +329,13 @@ void UnstableReach::doPreTrial(SimStruct *S) {
 	centerTarget->radius = params->target_radius;
     outerTarget->radius = params->target_radius;
       
-    trial_counter++;  
+    if (last_trial_reward==1)
+        trial_counter++;
            
     if (trial_counter >= params->trial_block_size || old_block_length != params->trial_block_size){
         trial_counter = 0;
         stiffness_index = 0;
+        toggle_mov_direction = 0;
         movement_direction_index++;
         old_block_length = params->trial_block_size;
         
@@ -367,7 +373,10 @@ void UnstableReach::doPreTrial(SimStruct *S) {
     }
     
     // Select movement direction
-    movement_direction = fmod(movement_direction_index * 2 * PI/(params->num_movement_directions) + 
+    if (last_trial_reward==1)
+        toggle_mov_direction = -toggle_mov_direction + 1;
+    
+    movement_direction = fmod(toggle_mov_direction*PI + movement_direction_index * 2 * PI/(params->num_movement_directions) + 
         params->first_movement_direction,2*PI);
     
     // Select stiffness
@@ -426,6 +435,7 @@ void UnstableReach::doPreTrial(SimStruct *S) {
         bump_direction = fmod(bump_direction,2*PI);
     } else {
         bump_trial = 0;
+        bump_direction = 0;
     }
     bump->direction = bump_direction;
 	bump->hold_duration = params->bump_duration;
@@ -438,6 +448,7 @@ void UnstableReach::doPreTrial(SimStruct *S) {
 	infinite_bump->rise_time = 0;
     
     dont_bump_again = 0;
+    last_trial_reward = 0;
     
     // Targets
     if (params->color_cue){
@@ -601,7 +612,8 @@ void UnstableReach::update(SimStruct *S) {
             }
             break;
         case STATE_REWARD:
-            if (stateTimer->elapsedTime(S) > params->reward_wait){                
+            if (stateTimer->elapsedTime(S) > params->reward_wait){ 
+                last_trial_reward = 1;
                 setState(STATE_PRETRIAL);
             }
             break;

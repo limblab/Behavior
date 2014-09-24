@@ -1147,7 +1147,7 @@ namespace BehaviorGraphics
             AddParamListItem("UR PS1", "P16", "Behavior UR", this.textBoxURPS1);
             AddParamListItem("UR PS2", "P17", "Behavior UR", this.textBoxURPS2);
             AddParamListItem("UR D", "P18", "Behavior UR", this.textBoxURD);
-            AddParamListItem("UR FMD", "P19", "Behavior UF", this.angleEntryBoxURFMD);
+            AddParamListItem("UR FMD", "P19", "Behavior UR", this.angleEntryBoxURFMD);
             AddParamListItem("UR NMD", "P20", "Behavior UR", this.textBoxURNMD);
             AddParamListItem("UR TBS", "P21", "Behavior UR", this.textBoxURTBS);
             
@@ -2713,12 +2713,6 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
-
-        private void groupBox79_Enter(object sender, EventArgs e)
-        {
-
-        }
-
     }
 
 }
