@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1424"
+    ComputedModelVersion    "1.1425"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -67,9 +67,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Sep 19 11:35:48 2014"
-  RTWModifiedTimeStamp	  333027261
-  ModelVersionFormat	  "1.%<AutoIncrement:1424>"
+  LastModifiedDate	  "Wed Sep 24 15:44:51 2014"
+  RTWModifiedTimeStamp	  333474289
+  ModelVersionFormat	  "1.%<AutoIncrement:1425>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -833,6 +833,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_unstable_reach"
       Parameters	      "0 .2 .5 .3 .3 .3 .3 5   0   2 15 1   .5 0 -.5 33 33 .05   0 8 10   1 1   0 0   0 2 3   20 3 .2"
+      "   10 1 1 0"
       EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"

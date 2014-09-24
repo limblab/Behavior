@@ -3,9 +3,9 @@
  * Master Control block for behavior: unstable reach
  */
 
-#define DATABURST_VERSION ((byte)0x01) 
+#define DATABURST_VERSION ((byte)0x02) 
 /* 
- * Current Databurst version: 1
+ * Current Databurst version: 2
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -50,6 +50,28 @@
  * bytes 40 to 43: float    => bump magnitude (N)
  * bytes 44 to 47: float    => bump direction (rad)
  * bytes 48 to 51: float    => bump_duration (s)
+ *
+ ** * Version 2 (0x02)
+ * ----------------
+ * byte         0: uchar    => number of bytes to be transmitted
+ * byte         1: uchar    => databurst version number (in this case zero)
+ * byte         2: uchar    => model version major
+ * byte         3: uchar    => model version minor
+ * bytes   4 to 5: short    => model version micro
+ * bytes   6 to 9: float    => x offset (cm)
+ * bytes 10 to 13: float    => y offset (cm)
+ * bytes 14 to 17: float    => movement direction (rad)
+ * bytes 18 to 21: float    => trial stiffness (N/cm)
+ * bytes 22 to 25: float    => target radius (cm)
+ * bytes 26 to 29: float    => movement distance (cm)
+ * byte        30: int      => brain control (if 1: yes)
+ * bytes 31 to 34: float    => curve displacement (cm)
+ * bytes 35 to 38: float    => curve direction
+ * byte        39: int      => bump trial
+ * bytes 40 to 43: float    => bump magnitude or velocity (N or cm/s)
+ * bytes 44 to 47: float    => bump direction (rad)
+ * bytes 48 to 51: float    => bump_duration (s)
+ * byte        52: int      => force bump (1 if force, 0 if velocity)
  */
 
 #define S_FUNCTION_NAME mastercon_unstable_reach
@@ -130,6 +152,10 @@ struct LocalParams{
     real_T percent_bump_trials;
     real_T bump_magnitude;
     real_T bump_duration;
+    real_T bump_velocity;
+    real_T P_gain_vel;
+    real_T P_gain_pos;
+    real_T force_bump;
 };
 
 /**
@@ -190,10 +216,12 @@ private:
     int bump_trial;
     real_T bump_direction;
     
+    Point force_at_bump_start;
     TrapBumpGenerator *bump;
     TrapBumpGenerator *infinite_bump;
+    PDBumpGenerator *PDbump;
+    
     int start_bump;
-    Point force_at_bump_start;
     int dont_bump_again;
     int last_trial_reward;
     
@@ -212,7 +240,7 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(31);
+	this->setNumParams(35);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
 	this->bindParamId(&params->center_hold_low,                         1);
@@ -253,9 +281,13 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->percent_bump_trials,                     28);
     this->bindParamId(&params->bump_magnitude,                          29);
     this->bindParamId(&params->bump_duration,                           30);    
+    this->bindParamId(&params->bump_velocity,                           31);
+    this->bindParamId(&params->P_gain_vel,                              32);
+    this->bindParamId(&params->P_gain_pos,                              33);
+    this->bindParamId(&params->force_bump,                              34);
   
     // default parameters:
-    // 0 1 2 1 1 1 1 30   0   2 15 1   .5 0 -.5 33 33 .05   0 8 10   1 1   0 0   0 2 3   20 3 .2
+    // 0 1 2 1 1 1 1 30   0   2 15 1   .5 0 -.5 33 33 .05   0 8 10   1 1   0 0   0 2 3   20 3 .2 10 1 1 0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -315,6 +347,7 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
     bump_direction = 0;
     bump = new TrapBumpGenerator();
     infinite_bump = new TrapBumpGenerator();
+    PDbump = new PDBumpGenerator();
     start_bump = 0;
     force_at_bump_start = Point(0,0);
     dont_bump_again = 0;
@@ -447,6 +480,12 @@ void UnstableReach::doPreTrial(SimStruct *S) {
 	infinite_bump->peak_magnitude = 0*params->bump_magnitude;
 	infinite_bump->rise_time = 0;
     
+    PDbump->direction = bump_direction;
+    PDbump->duration = params->bump_duration;
+    PDbump->bump_vel = params->bump_velocity;
+    PDbump->vel_gain = params->P_gain_vel;
+    PDbump->pos_gain = params->P_gain_pos;
+    
     dont_bump_again = 0;
     last_trial_reward = 0;
     
@@ -483,9 +522,14 @@ void UnstableReach::doPreTrial(SimStruct *S) {
     db->addFloat((float)curve_displacement);                    // bytes 31 to 34 -> Matlab idx 32 to 35
     db->addFloat((float)curve_direction);                       // bytes 35 to 38 -> Matlab idx 36 to 39
     db->addFloat((int)bump_trial);                              // bytes 39 to 42 -> Matlab idx 40 to 43
-    db->addFloat((float)params->bump_magnitude);                // bytes 43 to 46 -> Matlab idx 44 to 47
+    if (params->force_bump){
+        db->addFloat((float)params->bump_magnitude);            // bytes 43 to 46 -> Matlab idx 44 to 47
+    } else {
+        db->addFloat((float)params->bump_velocity);             // bytes 43 to 46 -> Matlab idx 44 to 47
+    }
     db->addFloat((float)bump_direction);                        // bytes 47 to 50 -> Matlab idx 48 to 51
     db->addFloat((float)params->bump_duration);                 // bytes 51 to 54 -> Matlab idx 52 to 55
+    db->addByte((int)params->force_bump);                       // byte  55       -> Matlab idx 56
 	db->start();
 }
 
@@ -589,6 +633,7 @@ void UnstableReach::update(SimStruct *S) {
             if (start_bump){
                 bump->start(S);
                 infinite_bump->start(S);
+                PDbump->start(S);
                 start_bump = 0;
                 dont_bump_again = 1;
             }
@@ -596,10 +641,12 @@ void UnstableReach::update(SimStruct *S) {
                     (stateTimer->elapsedTime(S) > params->movement_time)){
                 this->bump->stop();
                 this->infinite_bump->stop();
+                this->PDbump->stop();
                 setState(STATE_INCOMPLETE);
             } else if (outerTarget->cursorInTarget(cursor_position)){
                 this->bump->stop();
                 this->infinite_bump->stop();
+                this->PDbump->stop();
                 setState(STATE_OT_HOLD);
             }
             break;
@@ -771,10 +818,18 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
         start_bump = 1;
         force_at_bump_start = force;
     }
+    
     if (bump->isRunning(S)){
-        force = bump->getBumpForce(S) + force_at_bump_start;
-        force += infinite_bump->getBumpForce(S);
+        if(params->force_bump){
+            force = bump->getBumpForce(S) + force_at_bump_start;
+            force += infinite_bump->getBumpForce(S);
+        } else {            
+            force = PDbump->getBumpForce(S,cursor_velocity,cursor_position);
+        }
     }
+    
+//     if (!bump->isRunning(S) && dont_bump_again)
+//         force = Point(0,0);        
    
     if (getState()==STATE_CT_HOLD || 
             getState()==STATE_OT_ON ||

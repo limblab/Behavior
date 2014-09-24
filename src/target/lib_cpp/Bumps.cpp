@@ -296,10 +296,17 @@ Point PDBumpGenerator::getBumpForce(SimStruct *S, Point vel, Point pos) {
             bump_vel * timer->elapsedTime(S) * sin(this->direction);
         
     Point p;
-    p.x = (bump_vel*cos(this->direction)-vel.x)*vel_gain + 
-            (desired_position.x - pos.x)*pos_gain;
-    p.y = (bump_vel*sin(this->direction)-vel.y)*vel_gain + 
-            (desired_position.y - pos.y)*pos_gain;
+    if (timer->elapsedTime(S)<(this->duration/2)){
+        p.x = (bump_vel*cos(this->direction)-vel.x)*vel_gain + 
+                (desired_position.x - pos.x)*pos_gain;
+        p.y = (bump_vel*sin(this->direction)-vel.y)*vel_gain + 
+                (desired_position.y - pos.y)*pos_gain;
+    } else {
+        p.x = -(bump_vel*cos(this->direction)-vel.x)*vel_gain + 
+                (initial_position.x - pos.x)*pos_gain;
+        p.y = -(bump_vel*sin(this->direction)-vel.y)*vel_gain + 
+                (initial_position.y - pos.y)*pos_gain;
+    }
     
 	return ( this->isRunning(S) ? p : Point(0,0) );
 }

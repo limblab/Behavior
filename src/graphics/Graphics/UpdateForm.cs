@@ -1168,6 +1168,10 @@ namespace BehaviorGraphics
             AddParamListItem("UR PBT", "P29", "Behavior UR", this.textBoxURPBT);
             AddParamListItem("UR BM", "P30", "Behavior UR", this.textBoxURBM);
             AddParamListItem("UR BD", "P31", "Behavior UR", this.textBoxURBD);
+            AddParamListItem("UR BV", "P32", "Behavior UR", this.textBoxURBV);
+            AddParamListItem("UR VG", "P33", "Behavior UR", this.textBoxURVG);
+            AddParamListItem("UR PG", "P34", "Behavior UR", this.textBoxURPG);
+            AddParamListItem("UR FB", "P35", "Behavior UR", this.checkBoxURFB);
 
             #endregion
         }
@@ -2713,6 +2717,7 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
+
     }
 
 }
