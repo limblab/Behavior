@@ -15412,7 +15412,6 @@ namespace BehaviorGraphics
             this.groupBox79.TabIndex = 5;
             this.groupBox79.TabStop = false;
             this.groupBox79.Text = "Cursor and targets";
-            this.groupBox79.Enter += new System.EventHandler(this.groupBox79_Enter);
             // 
             // textBoxURMD
             // 
