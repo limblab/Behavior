@@ -24,8 +24,8 @@
  * bytes   4 to 5: short    => model version micro
  * bytes   6 to 9: float    => x offset (cm)
  * bytes 10 to 13: float    => y offset (cm)
- * bytes 14 to 17: float    => force direction (rad)
- * bytes 18 to 21: float    => force amplitude (N)
+ * bytes 14 to 17: float    => trial force direction (rad)
+ * bytes 18 to 21: float    => trial force amplitude (N)
  * bytes 22 to 25: float    => perturbation type (0 = sin, 1 = triangle)
  * bytes 26 to 29: float    => target radius (cm)
  * byte        30: int      => brain control (if 1: yes)
@@ -35,6 +35,7 @@
  * bytes 37 to 40: float    => bump direction (rad)
  * bytes 41 to 44: float    => bump_duration (s)
  * byte        45: int      => force bump (1 if force, 0 if velocity)
+ * bytes 46 to 49: float    => trial force frequency (Hz)     
  */
 
 #define S_FUNCTION_NAME mastercon_resist_perturbations
@@ -469,6 +470,7 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     db->addFloat((float)bump_direction);                        // bytes 37 to 40 -> Matlab idx 38 to 41
     db->addFloat((float)params->bump_duration);                 // bytes 41 to 44 -> Matlab idx 42 to 45
     db->addByte((int)params->force_bump);                       // byte  45       -> Matlab idx 46
+    db->addFloat((float)trial_force_frequency);                 // bytes 46 to 49 -> Matlab idx 47 to 50
 	db->start();
 }
 
