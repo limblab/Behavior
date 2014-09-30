@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1426"
+    ComputedModelVersion    "1.1427"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -65,11 +65,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "ricardo"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Sep 30 09:55:59 2014"
-  RTWModifiedTimeStamp	  333971757
-  ModelVersionFormat	  "1.%<AutoIncrement:1426>"
+  LastModifiedDate	  "Tue Sep 30 10:08:45 2014"
+  RTWModifiedTimeStamp	  333972524
+  ModelVersionFormat	  "1.%<AutoIncrement:1427>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -832,7 +832,7 @@ Model {
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_resist_perturbations"
-      Parameters	      "0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .1 1 3 5 0 4 0 0 0   0 0   0 0   8 0 20 2 .2 5 1 0 1"
+      Parameters	      "0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .1 1 3 5 0 4 0 0 0   1 1   0 0   8 0 20 2 .2 5 1 0 1"
       EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"

@@ -240,7 +240,7 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->force_bump,                              35);
   
     // default parameters:
-    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .1 1 3 5 0 4 0 0 0   0 0   0 0   8 0 20 2 .2 5 1 0 1
+    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .1 1 3 5 0 4 0 0 0   1 1   0 0   8 0 20 2 .2 5 1 0 1
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -538,6 +538,7 @@ void ResistPerturbations::update(SimStruct *S) {
                 setState(STATE_INCOMPLETE);
             } else {
                 if (!centerTarget->cursorInTarget(cursor_position)){
+                    perturbationTimer->stop(S);
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);				
                 } else if (trigger_bump){
@@ -669,9 +670,16 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
         trigger_bump = 1;
     }
     old_force_magnitude = force_magnitude;
-    for (int i=0; i<5; i++){
-        forceFeedback[i]->centerX = cursor_position.x + force_magnitude*i/4*cos(trial_force_direction);
-        forceFeedback[i]->centerY = cursor_position.y + force_magnitude*i/4*sin(trial_force_direction);
+    if (getState() == STATE_PERTURBATION && params->force_visual_feedback) {
+        for (int i=0; i<5; i++){
+            forceFeedback[i]->centerX = cursor_position.x + force_magnitude*i/4*cos(trial_force_direction);
+            forceFeedback[i]->centerY = cursor_position.y + force_magnitude*i/4*sin(trial_force_direction);
+        }
+    } else {
+        for (int i=0; i<5; i++){
+            forceFeedback[i]->centerX = cursor_position.x;
+            forceFeedback[i]->centerY = cursor_position.y;
+        }
     }
     
     if (bump->isRunning(S)){

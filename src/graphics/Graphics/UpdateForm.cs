@@ -1174,6 +1174,58 @@ namespace BehaviorGraphics
             AddParamListItem("UR FB", "P35", "Behavior UR", this.checkBoxURFB);
 
             #endregion
+
+            #region Resist perturbations
+            // Timing
+            AddParamListItem("RP CHL", "P2", "Behavior RP", this.textBoxRPCHL);
+            AddParamListItem("RP CHH", "P3", "Behavior RP", this.textBoxRPCHH);
+            AddParamListItem("RP PHL", "P4", "Behavior RP", this.textBoxRPPHL);
+            AddParamListItem("RP PHH", "P5", "Behavior RP", this.textBoxRPPHH);
+            AddParamListItem("RP RW", "P6", "Behavior RP", this.textBoxRPRW);
+            AddParamListItem("RP AW", "P7", "Behavior RP", this.textBoxRPAW);
+            AddParamListItem("RP FW", "P8", "Behavior RP", this.textBoxRPFW);
+
+            // Cursor
+            AddParamListItem("RP BC", "P9", "Behavior RP", this.checkBoxRPBC);
+
+            // Targets
+            AddParamListItem("RP TR", "P10", "Behavior RP", this.textBoxRPTR);
+            AddParamListItem("RP FVF", "P11", "Behavior RP", this.checkBoxRPFVF);
+
+            // Perturbations
+            AddParamListItem("RP FAL", "P12", "Behavior RP", this.textBoxRPFAL);
+            AddParamListItem("RP FAH", "P13", "Behavior RP", this.textBoxRPFAH);
+            AddParamListItem("RP NFA", "P14", "Behavior RP", this.textBoxRPNFA);
+            AddParamListItem("RP FFL", "P15", "Behavior RP", this.textBoxRPFFL);
+            AddParamListItem("RP FFH", "P16", "Behavior RP", this.textBoxRPFFH);
+            AddParamListItem("RP NFF", "P17", "Behavior RP", this.textBoxRPNFF);
+            AddParamListItem("RP FBS", "P18", "Behavior RP", this.textBoxRPFBS);
+            AddParamListItem("RP FFD", "P19", "Behavior RP", this.angleEntryBoxRPFFD);
+            AddParamListItem("RP NFD", "P20", "Behavior RP", this.textBoxRPNFD);
+            AddParamListItem("RP BFD", "P21", "Behavior RP", this.checkBoxRPBFD);
+            AddParamListItem("RP TRB", "P22", "Behavior RP", this.checkBoxRPTRB);
+            AddParamListItem("RP PT", "P23", "Behavior RP", this.textBoxRPPT);
+
+            // Velocity controller
+            AddParamListItem("RP VF", "P24", "Behavior RP", this.textBoxRPVF);
+            AddParamListItem("RP PF", "P25", "Behavior RP", this.textBoxRPPF);
+
+            // Cerebus recording
+            AddParamListItem("RP SRec", "P26", "Behavior RP", this.checkBoxRecord);
+            AddParamListItem("RP RecFor", "P27", "Behavior RP", this.textBoxRecordFor);
+
+            // Bumps
+            AddParamListItem("RP NBD", "P28", "Behavior RP", this.textBoxRPNBD);
+            AddParamListItem("RP FBD", "P29", "Behavior RP", this.angleEntryBoxRPFBD);
+            AddParamListItem("RP PBT", "P30", "Behavior RP", this.textBoxRPPBT);
+            AddParamListItem("RP BM", "P31", "Behavior RP", this.textBoxRPBM);
+            AddParamListItem("RP BD", "P32", "Behavior RP", this.textBoxRPBD);
+            AddParamListItem("RP BV", "P33", "Behavior RP", this.textBoxRPBV);
+            AddParamListItem("RP VG", "P34", "Behavior RP", this.textBoxRPVG);
+            AddParamListItem("RP PG", "P35", "Behavior RP", this.textBoxRPPG);
+            AddParamListItem("RP FB", "P36", "Behavior RP", this.checkBoxRPFB);
+
+            #endregion
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
@@ -1721,6 +1773,8 @@ namespace BehaviorGraphics
                     paramID = target.GetParamIdx("Behavior DCO", "P1");
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior UR", "P1");
+                if (paramID < 0)
+                    paramID = target.GetParamIdx("Behavior RP", "P1");
 
                 /* send the flag */
                 if (paramID >= 0) {
