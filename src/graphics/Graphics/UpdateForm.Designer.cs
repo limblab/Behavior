@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1661,6 +1661,10 @@ namespace BehaviorGraphics
             this.label405 = new System.Windows.Forms.Label();
             this.label406 = new System.Windows.Forms.Label();
             this.label407 = new System.Windows.Forms.Label();
+            this.labelRPS = new System.Windows.Forms.Label();
+            this.textBoxRPS = new System.Windows.Forms.TextBox();
+            this.textBoxRPD = new System.Windows.Forms.TextBox();
+            this.labelRPD = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -4698,8 +4702,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5531,8 +5535,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -16127,6 +16131,10 @@ namespace BehaviorGraphics
             // 
             // groupBoxRPPert
             // 
+            this.groupBoxRPPert.Controls.Add(this.textBoxRPD);
+            this.groupBoxRPPert.Controls.Add(this.labelRPD);
+            this.groupBoxRPPert.Controls.Add(this.textBoxRPS);
+            this.groupBoxRPPert.Controls.Add(this.labelRPS);
             this.groupBoxRPPert.Controls.Add(this.checkBoxRPTRB);
             this.groupBoxRPPert.Controls.Add(this.checkBoxRPBFD);
             this.groupBoxRPPert.Controls.Add(this.labelRPFBS);
@@ -16151,7 +16159,7 @@ namespace BehaviorGraphics
             this.groupBoxRPPert.Controls.Add(this.labelRPNFF);
             this.groupBoxRPPert.Location = new System.Drawing.Point(449, 9);
             this.groupBoxRPPert.Name = "groupBoxRPPert";
-            this.groupBoxRPPert.Size = new System.Drawing.Size(211, 351);
+            this.groupBoxRPPert.Size = new System.Drawing.Size(211, 395);
             this.groupBoxRPPert.TabIndex = 40;
             this.groupBoxRPPert.TabStop = false;
             this.groupBoxRPPert.Text = "Perturbations";
@@ -18278,6 +18286,40 @@ namespace BehaviorGraphics
             this.label407.TabIndex = 0;
             this.label407.Text = "Center hold low";
             // 
+            // labelRPS
+            // 
+            this.labelRPS.AutoSize = true;
+            this.labelRPS.Location = new System.Drawing.Point(14, 335);
+            this.labelRPS.Name = "labelRPS";
+            this.labelRPS.Size = new System.Drawing.Size(47, 13);
+            this.labelRPS.TabIndex = 54;
+            this.labelRPS.Text = "Stiffness";
+            // 
+            // textBoxRPS
+            // 
+            this.textBoxRPS.Location = new System.Drawing.Point(145, 332);
+            this.textBoxRPS.Name = "textBoxRPS";
+            this.textBoxRPS.Size = new System.Drawing.Size(60, 20);
+            this.textBoxRPS.TabIndex = 55;
+            this.textBoxRPS.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxRPD
+            // 
+            this.textBoxRPD.Location = new System.Drawing.Point(145, 358);
+            this.textBoxRPD.Name = "textBoxRPD";
+            this.textBoxRPD.Size = new System.Drawing.Size(60, 20);
+            this.textBoxRPD.TabIndex = 57;
+            this.textBoxRPD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelRPD
+            // 
+            this.labelRPD.AutoSize = true;
+            this.labelRPD.Location = new System.Drawing.Point(14, 361);
+            this.labelRPD.Name = "labelRPD";
+            this.labelRPD.Size = new System.Drawing.Size(49, 13);
+            this.labelRPD.TabIndex = 56;
+            this.labelRPD.Text = "Damping";
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -20235,5 +20277,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelRPNBD;
         private System.Windows.Forms.Label labelRPFBD;
         private AngleBox.AngleEntryBox angleEntryBoxRPFBD;
+        private System.Windows.Forms.TextBox textBoxRPD;
+        private System.Windows.Forms.Label labelRPD;
+        private System.Windows.Forms.TextBox textBoxRPS;
+        private System.Windows.Forms.Label labelRPS;
     }
 }

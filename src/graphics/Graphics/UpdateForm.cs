@@ -1225,6 +1225,10 @@ namespace BehaviorGraphics
             AddParamListItem("RP PG", "P35", "Behavior RP", this.textBoxRPPG);
             AddParamListItem("RP FB", "P36", "Behavior RP", this.checkBoxRPFB);
 
+            // Stabilizing field
+            AddParamListItem("RP S", "P37", "Behavior RP", this.textBoxRPS);
+            AddParamListItem("RP D", "P38", "Behavior RP", this.textBoxRPD);
+
             #endregion
         }
 

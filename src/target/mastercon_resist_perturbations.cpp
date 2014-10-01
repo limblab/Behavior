@@ -3,9 +3,9 @@
  * Master Control block for behavior: resist perturbations
  */
 
-#define DATABURST_VERSION ((byte)0x00) 
+#define DATABURST_VERSION ((byte)0x01) 
 /* 
- * Current Databurst version: 0
+ * Current Databurst version: 1
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -15,7 +15,7 @@
  * Databurst version descriptions
  * ==============================
  
- ** * Version 0 (0x00)
+ ** * Version 1 (0x01)
  * ----------------
  * byte         0: uchar    => number of bytes to be transmitted
  * byte         1: uchar    => databurst version number (in this case zero)
@@ -36,6 +36,30 @@
  * bytes 41 to 44: float    => bump_duration (s)
  * byte        45: int      => force bump (1 if force, 0 if velocity)
  * bytes 46 to 49: float    => trial force frequency (Hz)     
+ * bytes 50 to 53: float    => stiffness (N/cm)    
+ * bytes 54 to 57: float    => damping (N/cm/s)     
+ *
+ *** * Version 0 (0x00)
+ * ----------------
+ * byte         0: uchar    => number of bytes to be transmitted
+ * byte         1: uchar    => databurst version number (in this case zero)
+ * byte         2: uchar    => model version major
+ * byte         3: uchar    => model version minor
+ * bytes   4 to 5: short    => model version micro
+ * bytes   6 to 9: float    => x offset (cm)
+ * bytes 10 to 13: float    => y offset (cm)
+ * bytes 14 to 17: float    => trial force direction (rad)
+ * bytes 18 to 21: float    => trial force amplitude (N)
+ * bytes 22 to 25: float    => perturbation type (0 = sin, 1 = triangle)
+ * bytes 26 to 29: float    => target radius (cm)
+ * byte        30: int      => brain control (if 1: yes)
+ * byte        31: int      => force visual feedback (if 1: yes)
+ * byte        32: int      => bump trial
+ * bytes 33 to 36: float    => bump magnitude or velocity (N or cm/s)
+ * bytes 37 to 40: float    => bump direction (rad)
+ * bytes 41 to 44: float    => bump_duration (s)
+ * byte        45: int      => force bump (1 if force, 0 if velocity)
+ * bytes 46 to 49: float    => trial force frequency (Hz)   
  */
 
 #define S_FUNCTION_NAME mastercon_resist_perturbations
@@ -116,6 +140,10 @@ struct LocalParams{
     real_T P_gain_vel;
     real_T P_gain_pos;
     real_T force_bump;
+    
+    // Stabilizing field
+    real_T stiffness;
+    real_T damping;
 };
 
 /**
@@ -193,7 +221,7 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(36);
+	this->setNumParams(38);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
     
@@ -238,9 +266,12 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->P_gain_vel,                              33);
     this->bindParamId(&params->P_gain_pos,                              34);
     this->bindParamId(&params->force_bump,                              35);
+    
+    this->bindParamId(&params->stiffness,                               36);
+    this->bindParamId(&params->damping,                                 37);
   
     // default parameters:
-    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .1 1 3 5 0 4 0 0 0   1 1   0 0   8 0 20 2 .2 5 1 0 1
+    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .1 1 3 5 0 4 0 0 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   0 0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -470,6 +501,8 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     db->addFloat((float)params->bump_duration);                 // bytes 41 to 44 -> Matlab idx 42 to 45
     db->addByte((int)params->force_bump);                       // byte  45       -> Matlab idx 46
     db->addFloat((float)trial_force_frequency);                 // bytes 46 to 49 -> Matlab idx 47 to 50
+    db->addFloat((float)params->stiffness);                     // bytes 50 to 53 -> Matlab idx 51 to 54
+    db->addFloat((float)params->damping);                       // bytes 54 to 57 -> Matlab idx 55 to 58
 	db->start();
 }
 
@@ -663,7 +696,27 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
         }
         force.x = force_magnitude * cos(trial_force_direction);
         force.y = force_magnitude * sin(trial_force_direction);
+        
     }
+    force.x += -params->stiffness*(cursor_position.x * cos(trial_force_direction+PI/2) +
+                    cursor_position.y * sin(trial_force_direction+PI/2)) * cos(trial_force_direction+PI/2) -
+                    params->damping*(cursor_velocity.x * cos(trial_force_direction+PI/2) + 
+                    cursor_velocity.y * sin(trial_force_direction+PI/2)) * cos(trial_force_direction+PI/2);        
+    force.y += -params->stiffness*(cursor_position.x*cos(trial_force_direction+PI/2) + 
+            cursor_position.y * sin(trial_force_direction+PI/2)) * sin(trial_force_direction+PI/2) -
+            params->damping*(cursor_velocity.x * cos(trial_force_direction+PI/2) + 
+            cursor_velocity.y * sin(trial_force_direction+PI/2)) * sin(trial_force_direction+PI/2);    
+    if (getState() == STATE_CT_HOLD) {
+        force.x += -params->stiffness*(cursor_position.x * cos(trial_force_direction) +
+                    cursor_position.y * sin(trial_force_direction)) * cos(trial_force_direction) -
+                    params->damping*(cursor_velocity.x * cos(trial_force_direction) + 
+                    cursor_velocity.y * sin(trial_force_direction)) * cos(trial_force_direction);        
+        force.y += -params->stiffness*(cursor_position.x*cos(trial_force_direction) + 
+                cursor_position.y * sin(trial_force_direction)) * sin(trial_force_direction) -
+                params->damping*(cursor_velocity.x * cos(trial_force_direction) + 
+                cursor_velocity.y * sin(trial_force_direction)) * sin(trial_force_direction);    
+    }
+  
     
     if (getState() == STATE_PERTURBATION &&
             stateTimer->elapsedTime(S) >= perturbation_hold_time &&
@@ -692,7 +745,8 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
         }
     }
    
-    if (getState()==STATE_PERTURBATION ||
+    if (getState()==STATE_CT_HOLD ||
+            getState()==STATE_PERTURBATION ||
             getState()==STATE_BUMP){
         outputs->force = force;
     } else {        
