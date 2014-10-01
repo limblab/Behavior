@@ -168,9 +168,8 @@ private:
     real_T bump_direction;
     int last_trial_reward;
     
-    real_T amplitudes[500];
-    real_T directions[500];
-    real_T frequencies[500];
+    int frequency_order[16];
+    real_T frequencies[16];
     
     int trigger_bump;
     real_T old_force_magnitude;
@@ -263,10 +262,9 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
         forceFeedback[i]->color = Target::Color(255,255,255);
 	}
     
-    for (int i=0; i<500; i++){
-        amplitudes[i] = 0;
+    for (int i=0; i<16; i++){
+        frequency_order[i] = -1;
         frequencies[i] = 0;
-        directions[i] = 0;
     }
 
     center_hold_time = 0.0;
@@ -311,16 +309,16 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     int rand_i;
     real_T rand_d;
     
-//     number_of_blocks = params->num_force_amplitudes + params->num_force_directions +
-//             params->num_force_frequencies;
+    number_of_blocks = params->num_force_frequencies;
 
 	centerTarget->radius = params->target_radius;
       
     if (last_trial_reward==1){
         trial_counter++;
-        if (trial_counter >= params->force_block_size)
+        if (trial_counter >= params->force_block_size){
             trial_counter = 0;
             block_counter++;
+        }
     }
        
     rand_i = random->getInteger(0,params->num_force_amplitudes);  
@@ -335,18 +333,6 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
                 params->force_amplitude_low);
     }
     
-    rand_i = random->getInteger(params->force_frequency_low,params->force_frequency_high);
-    rand_d = random->getDouble(0,1);
-    if (params->num_force_frequencies > 1){
-        trial_force_frequency = params->force_frequency_low + rand_i*(params->force_frequency_high -
-                params->force_frequency_low)/(params->num_force_frequencies-1);
-    } else if (params->num_force_frequencies == 1){
-        trial_force_frequency = params->force_frequency_low;
-    } else {
-        trial_force_frequency = params->force_frequency_low + rand_d*(params->force_frequency_high -
-                params->force_frequency_low);
-    }
-    
     rand_i = random->getInteger(0,params->num_force_directions-1);
     rand_d = random->getDouble(0,2*PI);
     if (params->num_force_directions > 1){
@@ -358,48 +344,53 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
         trial_force_direction = rand_d;
     }
         
+//     rand_i = random->getInteger(0,params->num_force_frequencies-1);
+//     rand_d = random->getDouble(0,1);
+//     if (params->num_force_frequencies > 1){
+//         trial_force_frequency = params->force_frequency_low + rand_i*(params->force_frequency_high -
+//                 params->force_frequency_low)/(params->num_force_frequencies-1);
+//     } else if (params->num_force_frequencies == 1){
+//         trial_force_frequency = params->force_frequency_low;
+//     } else {
+//         trial_force_frequency = params->force_frequency_low + rand_d*(params->force_frequency_high -
+//                 params->force_frequency_low);
+//     }
     
-//     if (block_counter >= number_of_blocks || old_toggle_reset_block != params->toggle_reset_block){
-//         old_toggle_reset_block = params->toggle_reset_block;
-//         block_counter = 0;
-//         trial_counter = 0;      
-//         
-//         int amplitude_order[16];
-//         int frequency_order[16];
-//         int direction_order[16];
-//         
-//         // Amplitude order
-//         
-//         if (params->num_force_amplitudes > 0){
-//             for (int i=0; i<params->num_force_amplitudes; i++){
-//                 amplitude_order[i] = i;
-//                 if (params->num_force_amplitudes > 1){
-//                     amplitudes[i] = params->force_amplitude_low + i*(params->force_amplitude_high -
-//                             params->force_amplitude_low)/(params->num_force_amplitudes-1);
-//                 } else {
-//                     amplitudes[i] = params->force_amplitude_low;
-//                 }
-//                 tmp_sort[i] = random->getDouble(0,1);
-//             }
-//             
-//             for (int i=0; i<params->num_force_amplitudes; i++){
-//                 for (int j=0; j<params->num_force_amplitudes; j++){
-//                     if (tmp_sort[j] < tmp_sort[j+1]){
-//                         tmp_d = tmp_sort[j];
-//                         tmp_sort[j] = tmp_sort[j+1];
-//                         tmp_sort[j+1] = tmp_d;
-//                         
-//                         tmp = amplitude_order[j];
-//                         amplitude_order[j] = amplitude_order[j+1];
-//                         amplitude_order[j+1] = tmp;
-//                         
-//                         tmp = stiffness_order_percent[j];
-//                         stiffness_order_percent[j] = stiffness_order_percent[j+1];
-//                         stiffness_order_percent[j+1] = tmp;
-//                     }
-//                 }
-//             }
-//         }
+    if (block_counter >= number_of_blocks || old_toggle_reset_block != params->toggle_reset_block){
+        old_toggle_reset_block = params->toggle_reset_block;
+        block_counter = 0;
+        trial_counter = 0;
+        
+        // Frequency order
+        
+        if (params->num_force_frequencies > 0){
+            for (int i=0; i<params->num_force_frequencies; i++){
+                frequency_order[i] = i;
+                if (params->num_force_frequencies > 1){
+                    frequencies[i] = params->force_frequency_low + i*(params->force_frequency_high -
+                            params->force_frequency_low)/(params->num_force_frequencies-1);
+                } else {
+                    frequencies[i] = params->force_frequency_low;
+                }
+                tmp_sort[i] = random->getDouble(0,1);
+            }
+            
+            for (int i=0; i<params->num_force_frequencies; i++){
+                for (int j=0; j<params->num_force_frequencies; j++){
+                    if (tmp_sort[j] < tmp_sort[j+1]){
+                        tmp_d = tmp_sort[j];
+                        tmp_sort[j] = tmp_sort[j+1];
+                        tmp_sort[j+1] = tmp_d;
+                        
+                        tmp = frequency_order[j];
+                        frequency_order[j] = frequency_order[j+1];
+                        frequency_order[j+1] = tmp;  
+                    }
+                }
+            }
+        }
+    }
+    trial_force_frequency = frequencies[frequency_order[block_counter]];
  
     // Bumps
     trigger_bump = 0;
@@ -437,8 +428,16 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     
     last_trial_reward = 0;
     
-    // Targets    
-    centerTarget->color = Target::Color(200,0,0);    
+    // Targets
+    real_T m_red = 1/(params->force_frequency_high - params->force_frequency_low);
+    real_T b_red = -params->force_frequency_low/(params->force_frequency_high - params->force_frequency_low);
+    real_T m_blue = -m_red;
+    real_T b_blue = params->force_frequency_high/(params->force_frequency_high - params->force_frequency_low);
+    int red_value = int(255*(m_red*trial_force_frequency + b_red));
+    red_value = (red_value < 0) ? 0 : (red_value > 255 ? 255 : red_value);    
+    int blue_value = int(255*(m_blue*trial_force_frequency + b_blue));
+    blue_value = (blue_value < 0) ? 0 : (blue_value > 255 ? 255 : blue_value);
+    centerTarget->color = Target::Color(red_value,0,blue_value);    
     
     centerTarget->centerX = 0;
     centerTarget->centerY = 0;
@@ -707,11 +706,11 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
 	outputs->status[3] = trialCounter->failures;
 	outputs->status[4] = trialCounter->incompletes;  
     
-//     outputs->status[0] = bump_trial;
-// 	outputs->status[1] = bump_direction*180/PI;
-// 	outputs->status[2] = params->bump_magnitude;
-// 	outputs->status[3] = bump->isRunning(S);
-// 	outputs->status[4] = 0;  
+//     outputs->status[0] = 100*frequencies[0];
+// 	outputs->status[1] = 100*frequencies[1];
+// 	outputs->status[2] = 100*frequencies[2];
+// 	outputs->status[3] = 100*frequencies[3];
+// 	outputs->status[4] = trial_counter;  
     
 	/* word (2) */
 	if (db->isRunning()) {
