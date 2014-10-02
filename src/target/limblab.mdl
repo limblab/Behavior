@@ -42,10 +42,10 @@ Library {
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
 	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"102"
+	LoadSaveID		"24"
 	Extents			[984.0, 586.0]
 	ZoomFactor		[1.0]
-	Offset			[223.06886896780895, -14.413270736041227]
+	Offset			[0.0, 0.0]
       }
     }
   }
@@ -55,9 +55,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Sep 18 13:14:15 2014"
-  RTWModifiedTimeStamp	  332946854
-  ModelVersionFormat	  "1.%<AutoIncrement:111>"
+  LastModifiedDate	  "Thu Oct 02 11:55:36 2014"
+  RTWModifiedTimeStamp	  334151734
+  ModelVersionFormat	  "1.%<AutoIncrement:114>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1059,7 +1059,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "541"
+    SIDHighWatermark	    "545"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
@@ -1433,7 +1433,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 169, 405, 231]
 	      ZOrder		      -3
-	      LibraryVersion	      "1.93"
+	      LibraryVersion	      "1.113"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".1"
@@ -1445,7 +1445,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 254, 405, 316]
 	      ZOrder		      -4
-	      LibraryVersion	      "1.93"
+	      LibraryVersion	      "1.113"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".2"
@@ -1457,7 +1457,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 339, 405, 401]
 	      ZOrder		      -5
-	      LibraryVersion	      "1.93"
+	      LibraryVersion	      "1.113"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".3"
@@ -1469,7 +1469,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 424, 405, 486]
 	      ZOrder		      -6
-	      LibraryVersion	      "1.93"
+	      LibraryVersion	      "1.113"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".4"
@@ -3875,8 +3875,8 @@ Library {
       BlockType		      SubSystem
       Name		      "Neural Position Subsystem"
       SID		      "24"
-      Ports		      [0, 4]
-      Position		      [290, 21, 405, 99]
+      Ports		      [0, 6]
+      Position		      [290, 10, 405, 105]
       ZOrder		      -2
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
@@ -3893,12 +3893,12 @@ Library {
 	Type			"Neural Position Subsystem"
 	Description		"Uses a UDP receive block to receive and parse the sent neural position from the real time system."
 	Display			"port_label('output',1,'pos')\nport_label('output',2,'catch trial flag')\nport_label('output',3,'extra 1')\n"
-	"port_label('output',4,'extra 2')"
+	"port_label('output',4,'extra 2')\nport_label('output',5,'extra 3')\nport_label('output',6,'extra 4')"
       }
       System {
 	Name			"Neural Position Subsystem"
 	Location		[-8, -8, 1028, 746]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -3914,12 +3914,12 @@ Library {
 	  BlockType		  Demux
 	  Name			  "Demux"
 	  SID			  "65"
-	  Ports			  [1, 8]
-	  Position		  [235, 63, 240, 297]
+	  Ports			  [1, 12]
+	  Position		  [230, 63, 240, 417]
 	  ZOrder		  -1
 	  BackgroundColor	  "black"
 	  ShowName		  off
-	  Outputs		  "8"
+	  Outputs		  "12"
 	  DisplayOption		  "bar"
 	  Port {
 	    PortNumber		    1
@@ -3977,6 +3977,28 @@ Library {
 	  DisplayOption		  "bar"
 	}
 	Block {
+	  BlockType		  Mux
+	  Name			  "Mux3"
+	  SID			  "542"
+	  Ports			  [2, 1]
+	  Position		  [270, 300, 275, 360]
+	  ZOrder		  5
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux4"
+	  SID			  "544"
+	  Ports			  [2, 1]
+	  Position		  [270, 360, 275, 420]
+	  ZOrder		  7
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
 	  BlockType		  Reference
 	  Name			  "Receive"
 	  SID			  "67"
@@ -3988,7 +4010,7 @@ Library {
 	  SourceType		  "xpcudpbytereceive"
 	  ipAddress		  "0.0.0.0"
 	  ipPort		  "24999"
-	  width			  "32"
+	  width			  "48"
 	  vblLen		  on
 	  sampletime		  "0.001"
 	}
@@ -4020,7 +4042,7 @@ Library {
 	  LibraryVersion	  "1.1718"
 	  SourceBlock		  "xpclib/UDP/Unpack"
 	  SourceType		  "xpcbyte2any"
-	  dimensions		  "{[1,8]}"
+	  dimensions		  "{[1,12]}"
 	  datatypes		  "{'single'}"
 	  byteAlign		  "1"
 	}
@@ -4057,6 +4079,24 @@ Library {
 	  Position		  [370, 263, 400, 277]
 	  ZOrder		  4
 	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "extra 3"
+	  SID			  "543"
+	  Position		  [370, 323, 400, 337]
+	  ZOrder		  6
+	  Port			  "5"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "extra 4"
+	  SID			  "545"
+	  Position		  [370, 383, 400, 397]
+	  ZOrder		  8
+	  Port			  "6"
 	  IconDisplay		  "Port number"
 	}
 	Line {
@@ -4098,7 +4138,7 @@ Library {
 	Line {
 	  SrcBlock		  "Unpack"
 	  SrcPort		  1
-	  Points		  [10, 0]
+	  Points		  [5, 0]
 	  DstBlock		  "Demux"
 	  DstPort		  1
 	}
@@ -4150,6 +4190,42 @@ Library {
 	  DstBlock		  "extra 2"
 	  DstPort		  1
 	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  9
+	  DstBlock		  "Mux3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  10
+	  DstBlock		  "Mux3"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux3"
+	  SrcPort		  1
+	  DstBlock		  "extra 3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  11
+	  DstBlock		  "Mux4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  12
+	  DstBlock		  "Mux4"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux4"
+	  SrcPort		  1
+	  DstBlock		  "extra 4"
+	  DstPort		  1
+	}
       }
     }
     Block {
@@ -4170,7 +4246,7 @@ Library {
       System {
 	Name			"Recentering Subsystem"
 	Location		[-8, -8, 1028, 746]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -6054,7 +6130,7 @@ Library {
 	  Ports			  [2, 1]
 	  Position		  [410, 280, 515, 335]
 	  ZOrder		  -34
-	  LibraryVersion	  "1.110"
+	  LibraryVersion	  "1.113"
 	  SourceBlock		  "limblab/Timer"
 	  SourceType		  ""
 	  Time			  "10"
@@ -8277,7 +8353,7 @@ Library {
 	  Ports			  [1, 1, 1]
 	  Position		  [390, 414, 490, 456]
 	  ZOrder		  -6
-	  LibraryVersion	  "1.93"
+	  LibraryVersion	  "1.113"
 	  SourceBlock		  "limblab/ResetableSchmidt/Enabled\nSubsystem"
 	  SourceType		  "SubSystem"
 	}
@@ -9788,9 +9864,9 @@ Library {
 	      Ports		      [3, 1]
 	      Position		      [405, 315, 505, 525]
 	      ZOrder		      -12
-	      LibraryVersion	      "1.94"
+	      LibraryVersion	      "1.113"
 	      SourceBlock	      "limblab/SerialConverter"
-	      SourceType	      "Unknown"
+	      SourceType	      ""
 	    }
 	    Block {
 	      BlockType		      Switch
@@ -9809,9 +9885,9 @@ Library {
 	      Ports		      [1, 8]
 	      Position		      [655, 310, 710, 525]
 	      ZOrder		      -14
-	      LibraryVersion	      "1.94"
+	      LibraryVersion	      "1.113"
 	      SourceBlock	      "limblab/ToBits"
-	      SourceType	      "Unknown"
+	      SourceType	      ""
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -9820,9 +9896,9 @@ Library {
 	      Ports		      [1, 8]
 	      Position		      [635, 635, 685, 830]
 	      ZOrder		      -15
-	      LibraryVersion	      "1.94"
+	      LibraryVersion	      "1.113"
 	      SourceBlock	      "limblab/ToBits"
-	      SourceType	      "Unknown"
+	      SourceType	      ""
 	    }
 	    Block {
 	      BlockType		      SubSystem

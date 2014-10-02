@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1428"
+    ComputedModelVersion    "1.1430"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -56,8 +56,8 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[984.0, 601.0]
-	ZoomFactor		[0.8]
-	Offset			[161.88268268349975, 185.5208840276822]
+	ZoomFactor		[1.0]
+	Offset			[-194.27621035389961, 132.64469355149151]
       }
     }
   }
@@ -67,9 +67,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Oct 01 15:27:14 2014"
-  RTWModifiedTimeStamp	  334078033
-  ModelVersionFormat	  "1.%<AutoIncrement:1428>"
+  LastModifiedDate	  "Thu Oct 02 11:54:17 2014"
+  RTWModifiedTimeStamp	  334151628
+  ModelVersionFormat	  "1.%<AutoIncrement:1430>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -785,6 +785,12 @@ Model {
       SampleTime	      "-1"
     }
     Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
+    }
+    Block {
       BlockType		      From
       GotoTag		      "A"
       IconDisplay	      "Tag"
@@ -794,6 +800,15 @@ Model {
       BlockType		      Goto
       IconDisplay	      "Tag"
       TagVisibility	      "local"
+    }
+    Block {
+      BlockType		      Logic
+      Operator		      "AND"
+      Inputs		      "2"
+      IconShape		      "rectangular"
+      AllPortsSameDT	      on
+      OutDataTypeStr	      "Inherit: Logical (see Configuration Parameters: Optimization)"
+      SampleTime	      "-1"
     }
     Block {
       BlockType		      S-Function
@@ -820,9 +835,9 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "80"
+    ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "395"
+    SIDHighWatermark	    "400"
     Block {
       BlockType		      S-Function
       Name		      "Behavior RP"
@@ -853,7 +868,7 @@ Model {
       Ports		      [1, 1]
       Position		      [430, 698, 520, 762]
       ZOrder		      8
-      LibraryVersion	      "1.111"
+      LibraryVersion	      "1.113"
       SourceBlock	      "limblab/BoundingBox"
       SourceType	      "SubSystem"
     }
@@ -910,6 +925,17 @@ Model {
       SaturateOnIntegerOverflow	off
     }
     Block {
+      BlockType		      Demux
+      Name		      "Demux"
+      SID		      "398"
+      Ports		      [1, 2]
+      Position		      [385, 296, 390, 334]
+      ZOrder		      25
+      ShowName		      off
+      Outputs		      "2"
+      DisplayOption	      "bar"
+    }
+    Block {
       BlockType		      From
       Name		      "From"
       SID		      "58"
@@ -940,6 +966,17 @@ Model {
       SourceType	      "ICH5SMI"
     }
     Block {
+      BlockType		      Logic
+      Name		      "Logical Operator"
+      SID		      "400"
+      Ports		      [2, 1]
+      Position		      [460, 287, 490, 318]
+      ZOrder		      27
+      Operator		      "OR"
+      AllPortsSameDT	      off
+      OutDataTypeStr	      "boolean"
+    }
+    Block {
       BlockType		      Concatenate
       Name		      "Matrix\nConcatenation1"
       SID		      "61"
@@ -963,7 +1000,7 @@ Model {
       Ports		      [5, 1]
       Position		      [1090, 541, 1280, 849]
       ZOrder		      6
-      LibraryVersion	      "1.111"
+      LibraryVersion	      "1.113"
       SourceBlock	      "limblab/Motor Control"
       SourceType	      "SubSystem"
     }
@@ -971,10 +1008,10 @@ Model {
       BlockType		      Reference
       Name		      "Neural Position Subsystem"
       SID		      "389"
-      Ports		      [0, 4]
-      Position		      [265, 226, 380, 304]
+      Ports		      [0, 6]
+      Position		      [230, 230, 340, 340]
       ZOrder		      19
-      LibraryVersion	      "1.111"
+      LibraryVersion	      "1.113"
       SourceBlock	      "limblab/Neural Position Subsystem"
       SourceType	      "Neural Position Subsystem"
     }
@@ -985,7 +1022,7 @@ Model {
       Ports		      [3, 2]
       Position		      [670, 593, 790, 747]
       ZOrder		      7
-      LibraryVersion	      "1.111"
+      LibraryVersion	      "1.113"
       SourceBlock	      "limblab/Recentering Subsystem"
       SourceType	      "SubSystem"
     }
@@ -996,7 +1033,7 @@ Model {
       Ports		      [1, 1]
       Position		      [910, 277, 960, 313]
       ZOrder		      14
-      LibraryVersion	      "1.111"
+      LibraryVersion	      "1.113"
       SourceBlock	      "limblab/RewardSbs"
       SourceType	      "SubSystem"
     }
@@ -1007,7 +1044,7 @@ Model {
       Ports		      [6]
       Position		      [1255, 136, 1345, 254]
       ZOrder		      18
-      LibraryVersion	      "1.111"
+      LibraryVersion	      "1.113"
       SourceBlock	      "limblab/SendPacketToDecoder"
       SourceType	      "SubSystem"
     }
@@ -1018,7 +1055,7 @@ Model {
       Ports		      [4]
       Position		      [1255, 307, 1345, 408]
       ZOrder		      -12
-      LibraryVersion	      "1.111"
+      LibraryVersion	      "1.113"
       SourceBlock	      "limblab/SendPacketToGraphics"
       SourceType	      "SubSystem"
     }
@@ -1063,13 +1100,27 @@ Model {
       ZOrder		      16
     }
     Block {
+      BlockType		      Terminator
+      Name		      "Terminator1"
+      SID		      "396"
+      Position		      [375, 380, 395, 400]
+      ZOrder		      23
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator2"
+      SID		      "399"
+      Position		      [400, 315, 420, 335]
+      ZOrder		      26
+    }
+    Block {
       BlockType		      Reference
       Name		      "Velocity Calculation1"
       SID		      "385"
       Ports		      [2, 1]
       Position		      [345, 590, 455, 650]
       ZOrder		      15
-      LibraryVersion	      "1.111"
+      LibraryVersion	      "1.113"
       SourceBlock	      "limblab/Velocity Calculation"
       SourceType	      "SubSystem"
     }
@@ -1113,7 +1164,7 @@ Model {
       Ports		      [1]
       Position		      [935, 174, 980, 216]
       ZOrder		      13
-      LibraryVersion	      "1.111"
+      LibraryVersion	      "1.113"
       SourceBlock	      "limblab/WordSbs"
       SourceType	      "SubSystem"
     }
@@ -1124,7 +1175,7 @@ Model {
       Ports		      [0, 4]
       Position		      [35, 642, 160, 878]
       ZOrder		      22
-      LibraryVersion	      "1.111"
+      LibraryVersion	      "1.113"
       SourceBlock	      "limblab/XY Position Subsystem"
       SourceType	      "SubSystem"
     }
@@ -1178,7 +1229,7 @@ Model {
     Line {
       SrcBlock		      "XY Position Subsystem"
       SrcPort		      1
-      Points		      [85, 0]
+      Points		      [45, 0]
       Branch {
 	DstBlock		"Recentering Subsystem"
 	DstPort			2
@@ -1375,9 +1426,9 @@ Model {
     Line {
       SrcBlock		      "Matrix\nConcatenation2"
       SrcPort		      1
-      Points		      [0, -187; -885, 0]
-      DstBlock		      "Data Type Conversion"
-      DstPort		      1
+      Points		      [9, 0; 0, -188; -962, 0; 0, -187]
+      DstBlock		      "Logical Operator"
+      DstPort		      2
     }
     Line {
       SrcBlock		      "Data Type Conversion"
@@ -1420,7 +1471,7 @@ Model {
     Line {
       SrcBlock		      "Neural Position Subsystem"
       SrcPort		      4
-      Points		      [10, 0; 0, 150]
+      Points		      [5, 0; 0, 150]
       DstBlock		      "Data Type Conversion3"
       DstPort		      1
     }
@@ -1439,7 +1490,7 @@ Model {
     Line {
       SrcBlock		      "Neural Position Subsystem"
       SrcPort		      3
-      Points		      [20, 0; 0, 100]
+      Points		      [18, 0; 0, 90; 107, 0; 0, 10]
       DstBlock		      "Data Type Conversion2"
       DstPort		      1
     }
@@ -1449,6 +1500,38 @@ Model {
       Points		      [863, 0; 0, -645]
       DstBlock		      "SendPacketToDecoder"
       DstPort		      4
+    }
+    Line {
+      SrcBlock		      "Neural Position Subsystem"
+      SrcPort		      6
+      Points		      [13, 0; 0, 55]
+      DstBlock		      "Terminator1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Neural Position Subsystem"
+      SrcPort		      5
+      DstBlock		      "Demux"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Demux"
+      SrcPort		      2
+      DstBlock		      "Terminator2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Demux"
+      SrcPort		      1
+      Points		      [30, 0; 0, -10]
+      DstBlock		      "Logical Operator"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Logical Operator"
+      SrcPort		      1
+      DstBlock		      "Data Type Conversion"
+      DstPort		      1
     }
   }
 }
