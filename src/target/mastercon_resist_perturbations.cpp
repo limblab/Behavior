@@ -14,7 +14,6 @@
  *
  * Databurst version descriptions
  * ==============================
- 
  ** * Version 1 (0x01)
  * ----------------
  * byte         0: uchar    => number of bytes to be transmitted
@@ -720,7 +719,7 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
     
     if (getState() == STATE_PERTURBATION &&
             stateTimer->elapsedTime(S) >= perturbation_hold_time &&
-            old_force_magnitude<=0 && force_magnitude>0){
+            old_force_magnitude>=0 && force_magnitude<0){
         trigger_bump = 1;
     }
     old_force_magnitude = force_magnitude;

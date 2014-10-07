@@ -215,8 +215,8 @@ private:
     real_T curve_list[16];
     int bump_trial;
     real_T bump_direction;
+    real_T bump_magnitude;
     
-    Point force_at_bump_start;
     TrapBumpGenerator *bump;
     TrapBumpGenerator *infinite_bump;
     PDBumpGenerator *PDbump;
@@ -345,11 +345,11 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
     
     bump_trial = 0;
     bump_direction = 0;
+    bump_magnitude = 0;
     bump = new TrapBumpGenerator();
     infinite_bump = new TrapBumpGenerator();
     PDbump = new PDBumpGenerator();
-    start_bump = 0;
-    force_at_bump_start = Point(0,0);
+    start_bump = 0;    
     dont_bump_again = 0;
     last_trial_reward = 1;
 }
@@ -463,16 +463,23 @@ void UnstableReach::doPreTrial(SimStruct *S) {
     // Bumps
     if (random->getDouble(0,1)*100 < params->percent_bump_trials){
         bump_trial = 1;
-        curve_displacement = 0;
-        bump_direction = movement_direction + PI/2 + PI * (random->getDouble(0,1) > 0.5);
-        bump_direction = fmod(bump_direction,2*PI);
+        curve_displacement = 0;       
+        if (random->getDouble(0,1) < (1/3)){
+            bump_direction = movement_direction;
+            bump_magnitude = 0;
+        } else {
+            bump_direction = movement_direction + PI/2 + PI * (random->getDouble(0,1) > 0.5);
+            bump_direction = fmod(bump_direction,2*PI);
+            bump_magnitude = params->bump_magnitude;
+        }
     } else {
         bump_trial = 0;
         bump_direction = 0;
+        bump_magnitude = 0;
     }
     bump->direction = bump_direction;
 	bump->hold_duration = params->bump_duration;
-	bump->peak_magnitude = params->bump_magnitude;
+	bump->peak_magnitude = bump_magnitude;
 	bump->rise_time = 0;	
     
     infinite_bump->direction = bump_direction;
@@ -523,7 +530,7 @@ void UnstableReach::doPreTrial(SimStruct *S) {
     db->addFloat((float)curve_direction);                       // bytes 35 to 38 -> Matlab idx 36 to 39
     db->addFloat((int)bump_trial);                              // bytes 39 to 42 -> Matlab idx 40 to 43
     if (params->force_bump){
-        db->addFloat((float)params->bump_magnitude);            // bytes 43 to 46 -> Matlab idx 44 to 47
+        db->addFloat((float)bump_magnitude);                    // bytes 43 to 46 -> Matlab idx 44 to 47
     } else {
         db->addFloat((float)params->bump_velocity);             // bytes 43 to 46 -> Matlab idx 44 to 47
     }
@@ -774,7 +781,7 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
             (outerTarget->centerX - centerTarget->centerX)*(curve_center.y-centerTarget->centerY))) < 0;            
     
     real_T damping_axis_angle = atan2(cursor_position.y-curve_center.y,cursor_position.x-curve_center.x);
-    
+        
     if (curve_displacement == 0 || (!cursor_center_opposite_side && !inside_circle)){
         force.x = -trial_stiffness*(cursor_position.x * cos(movement_direction+PI/2) +
                     cursor_position.y * sin(movement_direction+PI/2)) * cos(movement_direction+PI/2) -
@@ -804,6 +811,10 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
                     cursor_velocity.y * sin(damping_axis_angle)) * sin(damping_axis_angle) : 0); 
     }
     
+    if (bump_trial){
+        force = Point(0,0);
+    }
+    
     real_T cursor_vec_x = cursor_position.x - centerTarget->centerX;
     real_T cursor_vec_y = cursor_position.y - centerTarget->centerY;
     real_T target_vec_x = outerTarget->centerX - centerTarget->centerX;
@@ -815,13 +826,12 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
     start_bump = 0;
     if (cursor_projection > params->movement_distance/2 &&
             !bump->isRunning(S) && !dont_bump_again){
-        start_bump = 1;
-        force_at_bump_start = force;
+        start_bump = 1;        
     }
     
     if (bump->isRunning(S)){
         if(params->force_bump){
-            force = bump->getBumpForce(S) + force_at_bump_start;
+            force = bump->getBumpForce(S);
             force += infinite_bump->getBumpForce(S);
         } else {            
             force = PDbump->getBumpForce(S,cursor_velocity,cursor_position);
