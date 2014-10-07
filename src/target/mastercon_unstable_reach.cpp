@@ -464,7 +464,7 @@ void UnstableReach::doPreTrial(SimStruct *S) {
     if (random->getDouble(0,1)*100 < params->percent_bump_trials){
         bump_trial = 1;
         curve_displacement = 0;       
-        if (random->getDouble(0,1) < (1/3)){
+        if (random->getDouble(0,1)*100 < (100/3)){
             bump_direction = movement_direction;
             bump_magnitude = 0;
         } else {
@@ -861,7 +861,7 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
     
 //     outputs->status[0] = bump_trial;
 // 	outputs->status[1] = bump_direction*180/PI;
-// 	outputs->status[2] = params->bump_magnitude;
+// 	outputs->status[2] = bump_magnitude;
 // 	outputs->status[3] = bump->isRunning(S);
 // 	outputs->status[4] = 0;  
     
