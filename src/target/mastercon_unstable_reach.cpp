@@ -409,8 +409,12 @@ void UnstableReach::doPreTrial(SimStruct *S) {
     if (last_trial_reward==1)
         toggle_mov_direction = -toggle_mov_direction + 1;
     
-    movement_direction = fmod(toggle_mov_direction*PI + movement_direction_index * 2 * PI/(params->num_movement_directions) + 
-        params->first_movement_direction,2*PI);
+    if (params->num_movement_directions > 1) {
+        movement_direction = fmod(toggle_mov_direction*PI + movement_direction_index * 2 * PI/(params->num_movement_directions) + 
+            params->first_movement_direction,2*PI);
+    } else {
+        movement_direction = params->first_movement_direction;
+    }
     
     // Select stiffness
     if ((stiffness_index == 0) &&
@@ -461,21 +465,23 @@ void UnstableReach::doPreTrial(SimStruct *S) {
     curve_displacement = abs(curve_list[curve_counter++]); 
     
     // Bumps
-    if (random->getDouble(0,1)*100 < params->percent_bump_trials){
-        bump_trial = 1;
-        curve_displacement = 0;       
-        if (random->getDouble(0,1)*100 < (100/3)){
-            bump_direction = movement_direction;
-            bump_magnitude = 0;
+    if (last_trial_reward) {
+        if (random->getDouble(0,1)*100 < params->percent_bump_trials){
+            bump_trial = 1;
+            curve_displacement = 0;       
+            if (random->getDouble(0,1)*100 < (100/3)){
+                bump_direction = movement_direction;
+                bump_magnitude = 0;
+            } else {
+                bump_direction = movement_direction + PI/2 + PI * (random->getDouble(0,1) > 0.5);
+                bump_direction = fmod(bump_direction,2*PI);
+                bump_magnitude = params->bump_magnitude;
+            }
         } else {
-            bump_direction = movement_direction + PI/2 + PI * (random->getDouble(0,1) > 0.5);
-            bump_direction = fmod(bump_direction,2*PI);
-            bump_magnitude = params->bump_magnitude;
+            bump_trial = 0;
+            bump_direction = 0;
+            bump_magnitude = 0;
         }
-    } else {
-        bump_trial = 0;
-        bump_direction = 0;
-        bump_magnitude = 0;
     }
     bump->direction = bump_direction;
 	bump->hold_duration = params->bump_duration;
