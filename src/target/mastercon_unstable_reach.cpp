@@ -925,10 +925,10 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
 	outputs->status[3] = trialCounter->failures;
 	outputs->status[4] = trialCounter->incompletes;  
     
-//     outputs->status[0] = bump_trial;
-// 	outputs->status[1] = bump_direction*180/PI;
-// 	outputs->status[2] = bump_magnitude;
-// 	outputs->status[3] = bump->isRunning(S);
+//     outputs->status[0] = screen_delay_idx;
+// 	outputs->status[1] = int(params->screen_delay*1000);
+// 	outputs->status[2] = 0;
+// 	outputs->status[3] = 0;
 // 	outputs->status[4] = 0;  
     
 	/* word (2) */
