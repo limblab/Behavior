@@ -3,9 +3,9 @@
  * Master Control block for behavior: unstable reach
  */
 
-#define DATABURST_VERSION ((byte)0x02) 
+#define DATABURST_VERSION ((byte)0x03) 
 /* 
- * Current Databurst version: 2
+ * Current Databurst version: 3
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -72,6 +72,29 @@
  * bytes 44 to 47: float    => bump direction (rad)
  * bytes 48 to 51: float    => bump_duration (s)
  * byte        52: int      => force bump (1 if force, 0 if velocity)
+  *
+ ** * Version 3 (0x03)
+ * ----------------
+ * byte         0: uchar    => number of bytes to be transmitted
+ * byte         1: uchar    => databurst version number (in this case zero)
+ * byte         2: uchar    => model version major
+ * byte         3: uchar    => model version minor
+ * bytes   4 to 5: short    => model version micro
+ * bytes   6 to 9: float    => x offset (cm)
+ * bytes 10 to 13: float    => y offset (cm)
+ * bytes 14 to 17: float    => movement direction (rad)
+ * bytes 18 to 21: float    => trial stiffness (N/cm)
+ * bytes 22 to 25: float    => target radius (cm)
+ * bytes 26 to 29: float    => movement distance (cm)
+ * byte        30: int      => brain control (if 1: yes)
+ * bytes 31 to 34: float    => curve displacement (cm)
+ * bytes 35 to 38: float    => curve direction
+ * bytes 39 to 42: int      => bump trial
+ * bytes 43 to 46: float    => bump magnitude or velocity (N or cm/s)
+ * bytes 47 to 50: float    => bump direction (rad)
+ * bytes 51 to 54: float    => bump_duration (s)
+ * byte        55: int      => force bump (1 if force, 0 if velocity)
+ * bytes 56 to 59: float    => screen delay (sec)
  */
 
 #define S_FUNCTION_NAME mastercon_unstable_reach
@@ -156,6 +179,9 @@ struct LocalParams{
     real_T P_gain_vel;
     real_T P_gain_pos;
     real_T force_bump;
+    
+    // Screen delay
+    real_T screen_delay;
 };
 
 /**
@@ -179,7 +205,10 @@ private:
 	CircleTarget *centerTarget;	
 	CircleTarget *outerTarget;	   
     CircleTarget *lowerArm[5];
-    CircleTarget *upperArm[5];    
+    CircleTarget *upperArm[5];
+    
+    CircleTarget *centerTarget_vector[1000];	
+	CircleTarget *outerTarget_vector[1000];	 
     
 	LocalParams *params;	
 
@@ -193,6 +222,7 @@ private:
     Point cursor_position;
     Point cursor_position_old;
     Point force;        
+    Point cursor_position_vector[1000];
     
     Point shoulder_pos;
     Point elbow_pos;
@@ -225,6 +255,9 @@ private:
     int dont_bump_again;
     int last_trial_reward;
     
+    int screen_delay_idx;
+    int write_screen_delay_idx;
+    
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);    
     Timer *recordingTimer;   
@@ -240,7 +273,7 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(35);
+	this->setNumParams(36);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
 	this->bindParamId(&params->center_hold_low,                         1);
@@ -285,9 +318,11 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->P_gain_vel,                              32);
     this->bindParamId(&params->P_gain_pos,                              33);
     this->bindParamId(&params->force_bump,                              34);
+    
+    this->bindParamId(&params->screen_delay,                            35);
   
     // default parameters:
-    // 0 1 2 1 1 1 1 30   0   2 15 1   .5 0 -.5 33 33 .05   0 8 10   1 1   0 0   0 2 3   20 3 .2 10 1 1 0
+    // 0 1 2 1 1 1 1 30   0   2 15 1   .5 0 -.5 33 33 .05   0 8 10   1 1   0 0   0 2 3   20 3 .2 10 1 1 0   0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -302,6 +337,17 @@ UnstableReach::UnstableReach(SimStruct *S) : RobotBehavior() {
     
     outerTarget = new CircleTarget();
     outerTarget->color = Target::Color(255,0,0);
+    
+    screen_delay_idx = 0;
+    write_screen_delay_idx = 0;
+    
+    for (int i=0; i<1000; i++){
+        centerTarget_vector[i] = new CircleTarget();
+        centerTarget_vector[i]->color = Target::Color(255,0,0);	
+        outerTarget_vector[i] = new CircleTarget();
+        outerTarget_vector[i]->color = Target::Color(255,0,0);
+        cursor_position_vector[i] = Point(0,0);
+    }   
     
     for (int i=0; i<5; i++) {
 		lowerArm[i] = new CircleTarget(0,0,.3,0);
@@ -534,7 +580,7 @@ void UnstableReach::doPreTrial(SimStruct *S) {
     db->addByte((int)params->brain_control);                    // byte  30       -> Matlab idx 31
     db->addFloat((float)curve_displacement);                    // bytes 31 to 34 -> Matlab idx 32 to 35
     db->addFloat((float)curve_direction);                       // bytes 35 to 38 -> Matlab idx 36 to 39
-    db->addFloat((int)bump_trial);                              // bytes 39 to 42 -> Matlab idx 40 to 43
+    db->addFloat((float)bump_trial);                            // bytes 39 to 42 -> Matlab idx 40 to 43
     if (params->force_bump){
         db->addFloat((float)bump_magnitude);                    // bytes 43 to 46 -> Matlab idx 44 to 47
     } else {
@@ -543,6 +589,7 @@ void UnstableReach::doPreTrial(SimStruct *S) {
     db->addFloat((float)bump_direction);                        // bytes 47 to 50 -> Matlab idx 48 to 51
     db->addFloat((float)params->bump_duration);                 // bytes 51 to 54 -> Matlab idx 52 to 55
     db->addByte((int)params->force_bump);                       // byte  55       -> Matlab idx 56
+    db->addFloat((float)params->screen_delay);                  // bytes 56 to 59 -> Matlab idx 57 to 60
 	db->start();
 }
 
@@ -745,7 +792,16 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
         ((cursor_position.y-cursor_position_old.y)/.001)*params->vel_filt;
     
     cursor_position_old = cursor_position;
-    cursor_velocity_old = cursor_velocity;   
+    cursor_velocity_old = cursor_velocity;  
+    
+    screen_delay_idx++;    
+    write_screen_delay_idx = screen_delay_idx + int(params->screen_delay*1000);
+    screen_delay_idx = screen_delay_idx%1000;
+    write_screen_delay_idx = write_screen_delay_idx%1000;
+
+    cursor_position_vector[write_screen_delay_idx] = cursor_position;
+    centerTarget_vector[write_screen_delay_idx] = centerTarget;
+    outerTarget_vector[write_screen_delay_idx] = outerTarget;
     
     /* force (0) */ 
     force = Point(0,0);
@@ -817,6 +873,13 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
                     cursor_velocity.y * sin(damping_axis_angle)) * sin(damping_axis_angle) : 0); 
     }
     
+    if (getState()==STATE_CT_HOLD){
+        real_T force_multiplier = (stateTimer->elapsedTime(S))/params->center_hold_low;
+        force_multiplier = (force_multiplier > 1) ? 1 : force_multiplier;
+        force.x = force_multiplier*force.x;
+        force.y = force_multiplier*force.y;
+    }
+    
     if (bump_trial){
         force = Point(0,0);
     }
@@ -842,10 +905,7 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
         } else {            
             force = PDbump->getBumpForce(S,cursor_velocity,cursor_position);
         }
-    }
-    
-//     if (!bump->isRunning(S) && dont_bump_again)
-//         force = Point(0,0);        
+    }    
    
     if (getState()==STATE_CT_HOLD || 
             getState()==STATE_OT_ON ||
@@ -936,22 +996,22 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
     }
 	switch (this->getState()){
 		case STATE_CENTER_TARGET_ON:
-            outputs->targets[10] = (Target *)centerTarget;
+            outputs->targets[10] = (Target *)centerTarget_vector[screen_delay_idx];
 			outputs->targets[11] = nullTarget;
 			break;
         case STATE_CT_HOLD: 
-            outputs->targets[10] = (Target *)centerTarget;
+            outputs->targets[10] = (Target *)centerTarget_vector[screen_delay_idx];
 			outputs->targets[11] = nullTarget;
 			break;
 		case STATE_OT_ON: 
-            outputs->targets[10] = (Target *)centerTarget;
-			outputs->targets[11] = (Target *)outerTarget;
+            outputs->targets[10] = (Target *)centerTarget_vector[screen_delay_idx];
+			outputs->targets[11] = (Target *)outerTarget_vector[screen_delay_idx];
 			break;             
         case STATE_WAIT_FOR_MOVEMENT:
         case STATE_MOVEMENT:
         case STATE_BUMP:
         case STATE_OT_HOLD:
-            outputs->targets[10] = (Target *)outerTarget;
+            outputs->targets[10] = (Target *)outerTarget_vector[screen_delay_idx];
 			outputs->targets[11] = nullTarget;
 			break;       
 		default:
@@ -973,7 +1033,7 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
     
     /* position (7) */   
-    outputs->position = cursor_position;
+    outputs->position = cursor_position_vector[screen_delay_idx];
 }
 
 /*

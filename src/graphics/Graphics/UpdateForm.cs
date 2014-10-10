@@ -1173,6 +1173,8 @@ namespace BehaviorGraphics
             AddParamListItem("UR PG", "P34", "Behavior UR", this.textBoxURPG);
             AddParamListItem("UR FB", "P35", "Behavior UR", this.checkBoxURFB);
 
+            AddParamListItem("UR SD", "P36", "Behavior UR", this.textBoxURSD);
+
             #endregion
 
             #region Resist perturbations

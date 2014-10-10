@@ -1420,6 +1420,10 @@ namespace BehaviorGraphics
             this.textBoxRPVF = new System.Windows.Forms.TextBox();
             this.labelRPVF = new System.Windows.Forms.Label();
             this.groupBoxRPPert = new System.Windows.Forms.GroupBox();
+            this.textBoxRPD = new System.Windows.Forms.TextBox();
+            this.labelRPD = new System.Windows.Forms.Label();
+            this.textBoxRPS = new System.Windows.Forms.TextBox();
+            this.labelRPS = new System.Windows.Forms.Label();
             this.checkBoxRPTRB = new System.Windows.Forms.CheckBox();
             this.checkBoxRPBFD = new System.Windows.Forms.CheckBox();
             this.labelRPFBS = new System.Windows.Forms.Label();
@@ -1661,10 +1665,8 @@ namespace BehaviorGraphics
             this.label405 = new System.Windows.Forms.Label();
             this.label406 = new System.Windows.Forms.Label();
             this.label407 = new System.Windows.Forms.Label();
-            this.labelRPS = new System.Windows.Forms.Label();
-            this.textBoxRPS = new System.Windows.Forms.TextBox();
-            this.textBoxRPD = new System.Windows.Forms.TextBox();
-            this.labelRPD = new System.Windows.Forms.Label();
+            this.textBoxURSD = new System.Windows.Forms.TextBox();
+            this.labelURSD = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -15752,6 +15754,8 @@ namespace BehaviorGraphics
             // 
             // groupBox78
             // 
+            this.groupBox78.Controls.Add(this.labelURSD);
+            this.groupBox78.Controls.Add(this.textBoxURSD);
             this.groupBox78.Controls.Add(this.textBoxURMT);
             this.groupBox78.Controls.Add(this.labelURMT);
             this.groupBox78.Controls.Add(this.textBoxURFW);
@@ -15768,7 +15772,7 @@ namespace BehaviorGraphics
             this.groupBox78.Controls.Add(this.labelURCHL);
             this.groupBox78.Location = new System.Drawing.Point(21, 13);
             this.groupBox78.Name = "groupBox78";
-            this.groupBox78.Size = new System.Drawing.Size(200, 215);
+            this.groupBox78.Size = new System.Drawing.Size(200, 244);
             this.groupBox78.TabIndex = 4;
             this.groupBox78.TabStop = false;
             this.groupBox78.Text = "Timing";
@@ -16163,6 +16167,40 @@ namespace BehaviorGraphics
             this.groupBoxRPPert.TabIndex = 40;
             this.groupBoxRPPert.TabStop = false;
             this.groupBoxRPPert.Text = "Perturbations";
+            // 
+            // textBoxRPD
+            // 
+            this.textBoxRPD.Location = new System.Drawing.Point(145, 358);
+            this.textBoxRPD.Name = "textBoxRPD";
+            this.textBoxRPD.Size = new System.Drawing.Size(60, 20);
+            this.textBoxRPD.TabIndex = 57;
+            this.textBoxRPD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelRPD
+            // 
+            this.labelRPD.AutoSize = true;
+            this.labelRPD.Location = new System.Drawing.Point(14, 361);
+            this.labelRPD.Name = "labelRPD";
+            this.labelRPD.Size = new System.Drawing.Size(49, 13);
+            this.labelRPD.TabIndex = 56;
+            this.labelRPD.Text = "Damping";
+            // 
+            // textBoxRPS
+            // 
+            this.textBoxRPS.Location = new System.Drawing.Point(145, 332);
+            this.textBoxRPS.Name = "textBoxRPS";
+            this.textBoxRPS.Size = new System.Drawing.Size(60, 20);
+            this.textBoxRPS.TabIndex = 55;
+            this.textBoxRPS.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelRPS
+            // 
+            this.labelRPS.AutoSize = true;
+            this.labelRPS.Location = new System.Drawing.Point(14, 335);
+            this.labelRPS.Name = "labelRPS";
+            this.labelRPS.Size = new System.Drawing.Size(47, 13);
+            this.labelRPS.TabIndex = 54;
+            this.labelRPS.Text = "Stiffness";
             // 
             // checkBoxRPTRB
             // 
@@ -18286,39 +18324,23 @@ namespace BehaviorGraphics
             this.label407.TabIndex = 0;
             this.label407.Text = "Center hold low";
             // 
-            // labelRPS
+            // textBoxURSD
             // 
-            this.labelRPS.AutoSize = true;
-            this.labelRPS.Location = new System.Drawing.Point(14, 335);
-            this.labelRPS.Name = "labelRPS";
-            this.labelRPS.Size = new System.Drawing.Size(47, 13);
-            this.labelRPS.TabIndex = 54;
-            this.labelRPS.Text = "Stiffness";
+            this.textBoxURSD.Location = new System.Drawing.Point(126, 206);
+            this.textBoxURSD.Name = "textBoxURSD";
+            this.textBoxURSD.Size = new System.Drawing.Size(55, 20);
+            this.textBoxURSD.TabIndex = 22;
+            this.toolTip1.SetToolTip(this.textBoxURSD, "in seconds");
+            this.textBoxURSD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
-            // textBoxRPS
+            // labelURSD
             // 
-            this.textBoxRPS.Location = new System.Drawing.Point(145, 332);
-            this.textBoxRPS.Name = "textBoxRPS";
-            this.textBoxRPS.Size = new System.Drawing.Size(60, 20);
-            this.textBoxRPS.TabIndex = 55;
-            this.textBoxRPS.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // textBoxRPD
-            // 
-            this.textBoxRPD.Location = new System.Drawing.Point(145, 358);
-            this.textBoxRPD.Name = "textBoxRPD";
-            this.textBoxRPD.Size = new System.Drawing.Size(60, 20);
-            this.textBoxRPD.TabIndex = 57;
-            this.textBoxRPD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // labelRPD
-            // 
-            this.labelRPD.AutoSize = true;
-            this.labelRPD.Location = new System.Drawing.Point(14, 361);
-            this.labelRPD.Name = "labelRPD";
-            this.labelRPD.Size = new System.Drawing.Size(49, 13);
-            this.labelRPD.TabIndex = 56;
-            this.labelRPD.Text = "Damping";
+            this.labelURSD.AutoSize = true;
+            this.labelURSD.Location = new System.Drawing.Point(6, 209);
+            this.labelURSD.Name = "labelURSD";
+            this.labelURSD.Size = new System.Drawing.Size(69, 13);
+            this.labelURSD.TabIndex = 23;
+            this.labelURSD.Text = "Screen delay";
             // 
             // UpdateForm
             // 
@@ -20281,5 +20303,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelRPD;
         private System.Windows.Forms.TextBox textBoxRPS;
         private System.Windows.Forms.Label labelRPS;
+        private System.Windows.Forms.Label labelURSD;
+        private System.Windows.Forms.TextBox textBoxURSD;
     }
 }
