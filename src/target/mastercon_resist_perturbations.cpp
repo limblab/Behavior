@@ -198,8 +198,6 @@ private:
     int frequency_order[16];
     real_T frequencies[16];
     
-    int trigger_bump;
-    real_T old_force_magnitude;
     TrapBumpGenerator *bump;
     TrapBumpGenerator *infinite_bump;
     PDBumpGenerator *PDbump;
@@ -321,13 +319,11 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     old_toggle_reset_block = 1;
     debug_var = 0.0;
     
-    trigger_bump = 0;
     bump_trial = 0;
     bump_direction = 0;
     bump = new TrapBumpGenerator();
     infinite_bump = new TrapBumpGenerator();
     PDbump = new PDBumpGenerator();     
-    old_force_magnitude = 0;
     last_trial_reward = 1;
 }
 
@@ -423,7 +419,6 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     trial_force_frequency = frequencies[frequency_order[block_counter]];
  
     // Bumps
-    trigger_bump = 0;
     if (random->getDouble(0,1)*100 < params->percent_bump_trials){
         bump_trial = 1;   
         rand_i = random->getInteger(0,params->num_bump_directions);       
@@ -561,8 +556,12 @@ void ResistPerturbations::update(SimStruct *S) {
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);				
                 } else if (stateTimer->elapsedTime(S) > center_hold_time){
-                    perturbationTimer->start(S);
-                    setState(STATE_PERTURBATION);
+                    if (bump_trial){
+                        setState(STATE_BUMP);
+                    } else {
+                        perturbationTimer->start(S);
+                        setState(STATE_PERTURBATION);
+                    }
                 }
             }
             break;
@@ -574,14 +573,10 @@ void ResistPerturbations::update(SimStruct *S) {
                     perturbationTimer->stop(S);
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);				
-                } else if (trigger_bump){
+                } else if (stateTimer->elapsedTime(S) >= perturbation_hold_time){
                     perturbationTimer->stop(S);
-                    if (bump_trial){                                 
-                        setState(STATE_BUMP);
-                    } else {
-                        playTone(TONE_REWARD);
-                        setState(STATE_REWARD);
-                    }
+                    playTone(TONE_REWARD);
+                    setState(STATE_REWARD);                    
                 }
             }
             break;  
@@ -715,14 +710,7 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
                 params->damping*(cursor_velocity.x * cos(trial_force_direction) + 
                 cursor_velocity.y * sin(trial_force_direction)) * sin(trial_force_direction);    
     }
-  
-    
-    if (getState() == STATE_PERTURBATION &&
-            stateTimer->elapsedTime(S) >= perturbation_hold_time &&
-            old_force_magnitude>=0 && force_magnitude<0){
-        trigger_bump = 1;
-    }
-    old_force_magnitude = force_magnitude;
+      
     if (getState() == STATE_PERTURBATION && params->force_visual_feedback) {
         for (int i=0; i<5; i++){
             forceFeedback[i]->centerX = cursor_position.x + force_magnitude*i/4*cos(trial_force_direction);
