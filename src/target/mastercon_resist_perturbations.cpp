@@ -347,7 +347,7 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
         }
     }
        
-    rand_i = random->getInteger(0,params->num_force_amplitudes);  
+    rand_i = random->getInteger(0,params->num_force_amplitudes-1);  
     rand_d = random->getDouble(0,1);
     if (params->num_force_amplitudes > 1){
         trial_force_amplitude = params->force_amplitude_low + rand_i*(params->force_amplitude_high -
@@ -421,7 +421,7 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     // Bumps
     if (random->getDouble(0,1)*100 < params->percent_bump_trials){
         bump_trial = 1;   
-        rand_i = random->getInteger(0,params->num_bump_directions);       
+        rand_i = random->getInteger(0,params->num_bump_directions-1);       
         rand_d = random->getDouble(0,2*PI);
         if (params->num_bump_directions > 1){
             bump_direction = params->first_bump_direction + 
