@@ -813,6 +813,12 @@ void UnstableReach::calculateOutputs(SimStruct *S) {
                     curve_displacement*curve_displacement)/
                     (2*curve_displacement);
     
+    
+    Point cursor_projection;
+    cursor_projection.x = cursor_position.x
+    
+    
+    
     Point curve_center;
     curve_center.x = sin(movement_direction + PI*(curve_direction+1)/2)*(curve_radius - curve_displacement);
     curve_center.y = -cos(movement_direction + PI*(curve_direction+1)/2)*(curve_radius - curve_displacement);
