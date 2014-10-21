@@ -3,9 +3,9 @@
  * Master Control block for behavior: resist perturbations
  */
 
-#define DATABURST_VERSION ((byte)0x01) 
+#define DATABURST_VERSION ((byte)0x02) 
 /* 
- * Current Databurst version: 1
+ * Current Databurst version: 2 
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -14,6 +14,32 @@
  *
  * Databurst version descriptions
  * ==============================
+ *** * Version 2 (0x02)
+ * ----------------
+ * byte         0: uchar    => number of bytes to be transmitted
+ * byte         1: uchar    => databurst version number (in this case zero)
+ * byte         2: uchar    => model version major
+ * byte         3: uchar    => model version minor
+ * bytes   4 to 5: short    => model version micro
+ * bytes   6 to 9: float    => x offset (cm)
+ * bytes 10 to 13: float    => y offset (cm)
+ * bytes 14 to 17: float    => trial force direction (rad)
+ * bytes 18 to 21: float    => trial force amplitude (N)
+ * bytes 22 to 25: float    => perturbation type (0 = sin, 1 = triangle)
+ * bytes 26 to 29: float    => perturbation hold target radius (cm)
+ * byte        30: int      => brain control (if 1: yes)
+ * byte        31: int      => force visual feedback (if 1: yes)
+ * byte        32: int      => bump trial
+ * bytes 33 to 36: float    => bump magnitude or velocity (N or cm/s)
+ * bytes 37 to 40: float    => bump direction (rad)
+ * bytes 41 to 44: float    => bump_duration (s)
+ * byte        45: int      => force bump (1 if force, 0 if velocity)
+ * bytes 46 to 49: float    => trial force frequency (Hz)     
+ * bytes 50 to 53: float    => stiffness (N/cm)    
+ * bytes 54 to 57: float    => damping (N/cm/s)    
+ * bytes 58 to 61: float    => center hold target radius (cm) 
+ * byte        62: int    => early bump
+ *
  ** * Version 1 (0x01)
  * ----------------
  * byte         0: uchar    => number of bytes to be transmitted
@@ -143,6 +169,13 @@ struct LocalParams{
     // Stabilizing field
     real_T stiffness;
     real_T damping;
+    
+    // More target stuff
+    real_T center_hold_target_radius;
+    
+    // More bump stuff
+    real_T early_bumps;
+    real_T late_bumps;
 };
 
 /**
@@ -164,6 +197,7 @@ public:
 private:
 	// Your behavior's instance variables    
 	CircleTarget *centerTarget;	
+    CircleTarget *holdTarget;
 	CircleTarget *forceFeedback[5];	   
     CircleTarget *lowerArm[5];
     CircleTarget *upperArm[5];    
@@ -198,9 +232,14 @@ private:
     int frequency_order[16];
     real_T frequencies[16];
     
+    int trigger_bump;    
+    real_T old_force_magnitude;
+    
     TrapBumpGenerator *bump;
     TrapBumpGenerator *infinite_bump;
     PDBumpGenerator *PDbump;
+    
+    int early_bump;
     
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);    
@@ -218,7 +257,7 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(38);
+	this->setNumParams(41);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
     
@@ -266,9 +305,14 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     
     this->bindParamId(&params->stiffness,                               36);
     this->bindParamId(&params->damping,                                 37);
+    
+    this->bindParamId(&params->center_hold_target_radius,               38);
+    
+    this->bindParamId(&params->early_bumps,                             39);
+    this->bindParamId(&params->late_bumps,                              40);
   
     // default parameters:
-    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .1 1 3 5 0 4 0 0 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   0 0
+    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .1 1 3 5 0 4 0 0 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   0 0   1   1 1
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -280,6 +324,8 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
   
 	centerTarget = new CircleTarget();
 	centerTarget->color = Target::Color(255,0,0);	
+    holdTarget = new CircleTarget();
+	holdTarget->color = Target::Color(255,0,0);	    
     
     for (int i=0; i<5; i++) {
 		lowerArm[i] = new CircleTarget(0,0,.3,0);
@@ -319,12 +365,16 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     old_toggle_reset_block = 1;
     debug_var = 0.0;
     
+    trigger_bump = 0;
+    old_force_magnitude = 0;
     bump_trial = 0;
     bump_direction = 0;
     bump = new TrapBumpGenerator();
     infinite_bump = new TrapBumpGenerator();
     PDbump = new PDBumpGenerator();     
     last_trial_reward = 1;
+    
+    early_bump = 0;
 }
 
 void ResistPerturbations::doPreTrial(SimStruct *S) {
@@ -338,6 +388,7 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     number_of_blocks = params->num_force_frequencies;
 
 	centerTarget->radius = params->target_radius;
+    holdTarget->radius = params->center_hold_target_radius;
       
     if (last_trial_reward==1){
         trial_counter++;
@@ -345,106 +396,103 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
             trial_counter = 0;
             block_counter++;
         }
-    }
        
-    rand_i = random->getInteger(0,params->num_force_amplitudes-1);  
-    rand_d = random->getDouble(0,1);
-    if (params->num_force_amplitudes > 1){
-        trial_force_amplitude = params->force_amplitude_low + rand_i*(params->force_amplitude_high -
-                params->force_amplitude_low)/(params->num_force_amplitudes-1);
-    } else if (params->num_force_amplitudes == 1){
-        trial_force_amplitude = params->force_amplitude_low;
-    } else {
-        trial_force_amplitude = params->force_amplitude_low + rand_d*(params->force_amplitude_high -
-                params->force_amplitude_low);
-    }
-    
-    rand_i = random->getInteger(0,params->num_force_directions-1);
-    rand_d = random->getDouble(0,2*PI);
-    if (params->num_force_directions > 1){
-        trial_force_direction = params->first_force_direction + 
-                rand_i*(2*PI)/(params->num_force_directions);
-    } else if (params->num_force_directions == 1){
-        trial_force_direction = params->first_force_direction;
-    } else {
-        trial_force_direction = rand_d;
-    }
-        
-//     rand_i = random->getInteger(0,params->num_force_frequencies-1);
-//     rand_d = random->getDouble(0,1);
-//     if (params->num_force_frequencies > 1){
-//         trial_force_frequency = params->force_frequency_low + rand_i*(params->force_frequency_high -
-//                 params->force_frequency_low)/(params->num_force_frequencies-1);
-//     } else if (params->num_force_frequencies == 1){
-//         trial_force_frequency = params->force_frequency_low;
-//     } else {
-//         trial_force_frequency = params->force_frequency_low + rand_d*(params->force_frequency_high -
-//                 params->force_frequency_low);
-//     }
-    
-    if (block_counter >= number_of_blocks || old_toggle_reset_block != params->toggle_reset_block){
-        old_toggle_reset_block = params->toggle_reset_block;
-        block_counter = 0;
-        trial_counter = 0;
-        
-        // Frequency order
-        
-        if (params->num_force_frequencies > 0){
-            for (int i=0; i<params->num_force_frequencies; i++){
-                frequency_order[i] = i;
-                if (params->num_force_frequencies > 1){
-                    frequencies[i] = params->force_frequency_low + i*(params->force_frequency_high -
-                            params->force_frequency_low)/(params->num_force_frequencies-1);
-                } else {
-                    frequencies[i] = params->force_frequency_low;
+        rand_i = random->getInteger(0,params->num_force_amplitudes-1);  
+        rand_d = random->getDouble(0,1);
+        if (params->num_force_amplitudes > 1){
+            trial_force_amplitude = params->force_amplitude_low + rand_i*(params->force_amplitude_high -
+                    params->force_amplitude_low)/(params->num_force_amplitudes-1);
+        } else if (params->num_force_amplitudes == 1){
+            trial_force_amplitude = params->force_amplitude_low;
+        } else {
+            trial_force_amplitude = params->force_amplitude_low + rand_d*(params->force_amplitude_high -
+                    params->force_amplitude_low);
+        }
+
+        rand_i = random->getInteger(0,params->num_force_directions-1);
+        rand_d = random->getDouble(0,2*PI);
+        if (params->num_force_directions > 1){
+            trial_force_direction = params->first_force_direction + 
+                    rand_i*(2*PI)/(params->num_force_directions);
+        } else if (params->num_force_directions == 1){
+            trial_force_direction = params->first_force_direction;
+        } else {
+            trial_force_direction = rand_d;
+        }
+
+        if (block_counter >= number_of_blocks || old_toggle_reset_block != params->toggle_reset_block){
+            old_toggle_reset_block = params->toggle_reset_block;
+            block_counter = 0;
+            trial_counter = 0;
+
+            // Frequency order
+
+            if (params->num_force_frequencies > 0){
+                for (int i=0; i<params->num_force_frequencies; i++){
+                    frequency_order[i] = i;
+                    if (params->num_force_frequencies > 1){
+                        frequencies[i] = params->force_frequency_low + i*(params->force_frequency_high -
+                                params->force_frequency_low)/(params->num_force_frequencies-1);
+                    } else {
+                        frequencies[i] = params->force_frequency_low;
+                    }
+                    tmp_sort[i] = random->getDouble(0,1);
                 }
-                tmp_sort[i] = random->getDouble(0,1);
-            }
-            
-            for (int i=0; i<params->num_force_frequencies; i++){
-                for (int j=0; j<params->num_force_frequencies; j++){
-                    if (tmp_sort[j] < tmp_sort[j+1]){
-                        tmp_d = tmp_sort[j];
-                        tmp_sort[j] = tmp_sort[j+1];
-                        tmp_sort[j+1] = tmp_d;
-                        
-                        tmp = frequency_order[j];
-                        frequency_order[j] = frequency_order[j+1];
-                        frequency_order[j+1] = tmp;  
+
+                for (int i=0; i<params->num_force_frequencies; i++){
+                    for (int j=0; j<params->num_force_frequencies; j++){
+                        if (tmp_sort[j] < tmp_sort[j+1]){
+                            tmp_d = tmp_sort[j];
+                            tmp_sort[j] = tmp_sort[j+1];
+                            tmp_sort[j+1] = tmp_d;
+
+                            tmp = frequency_order[j];
+                            frequency_order[j] = frequency_order[j+1];
+                            frequency_order[j+1] = tmp;  
+                        }
                     }
                 }
             }
         }
-    }
-    trial_force_frequency = frequencies[frequency_order[block_counter]];
- 
-    // Bumps
-    if (random->getDouble(0,1)*100 < params->percent_bump_trials){
-        bump_trial = 1;   
-        rand_i = random->getInteger(0,params->num_bump_directions-1);       
-        rand_d = random->getDouble(0,2*PI);
-        if (params->num_bump_directions > 1){
-            bump_direction = params->first_bump_direction + 
-                    rand_i*(2*PI)/(params->num_bump_directions);
-        } else if (params->num_bump_directions == 1){
-            bump_direction = params->first_bump_direction;
+        trial_force_frequency = frequencies[frequency_order[block_counter]];
+
+        // Bumps
+        if (random->getDouble(0,1)*100 < params->percent_bump_trials){
+            bump_trial = 1;   
+            rand_i = random->getInteger(0,params->num_bump_directions-1);       
+            rand_d = random->getDouble(0,2*PI);
+            if (params->num_bump_directions > 1){
+                bump_direction = params->first_bump_direction + 
+                        rand_i*(2*PI)/(params->num_bump_directions);
+            } else if (params->num_bump_directions == 1){
+                bump_direction = params->first_bump_direction;
+            } else {
+                bump_direction = rand_d;
+            }
         } else {
-            bump_direction = rand_d;
+            bump_trial = 0;
+            bump_direction = 0;
         }
-    } else {
-        bump_trial = 0;
-        bump_direction = 0;
+        if (params->early_bumps && params->late_bumps){
+            rand_d = random->getDouble(0,1);
+            early_bump = (rand_d>0.5) ? 1 : 0;
+        } else if (params->early_bumps) {
+            early_bump = 1;
+        } else {
+            early_bump = 0;
+        }
     }
+    
     bump->direction = bump_direction;
-	bump->hold_duration = params->bump_duration;
-	bump->peak_magnitude = params->bump_magnitude;
-	bump->rise_time = 0;	
-    
+    bump->hold_duration = params->bump_duration;
+    bump->peak_magnitude = params->bump_magnitude;
+    bump->rise_time = 0;	
+
     infinite_bump->direction = bump_direction;
-	infinite_bump->hold_duration = 0.03;
-	infinite_bump->peak_magnitude = 0*params->bump_magnitude;
-	infinite_bump->rise_time = 0;
-    
+    infinite_bump->hold_duration = 0.03;
+    infinite_bump->peak_magnitude = 0*params->bump_magnitude;
+    infinite_bump->rise_time = 0;
+
     PDbump->direction = bump_direction;
     PDbump->duration = params->bump_duration;
     PDbump->bump_vel = params->bump_velocity;
@@ -463,9 +511,12 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     int blue_value = int(255*(m_blue*trial_force_frequency + b_blue));
     blue_value = (blue_value < 0) ? 0 : (blue_value > 255 ? 255 : blue_value);
     centerTarget->color = Target::Color(red_value,0,blue_value);    
+    holdTarget->color = Target::Color(red_value,0,blue_value);    
     
     centerTarget->centerX = 0;
     centerTarget->centerY = 0;
+    holdTarget->centerX = 0;
+    holdTarget->centerY = 0;
         
 	center_hold_time = this->random->getDouble(params->center_hold_low,params->center_hold_high);
     perturbation_hold_time = this->random->getDouble(params->perturbation_hold_low,params->perturbation_hold_high);
@@ -497,6 +548,8 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     db->addFloat((float)trial_force_frequency);                 // bytes 46 to 49 -> Matlab idx 47 to 50
     db->addFloat((float)params->stiffness);                     // bytes 50 to 53 -> Matlab idx 51 to 54
     db->addFloat((float)params->damping);                       // bytes 54 to 57 -> Matlab idx 55 to 58
+    db->addFloat((float)params->center_hold_target_radius);     // bytes 58 to 61 -> Matlab idx 59 to 62
+    db->addByte((int)early_bump);                               // byte 62        -> Matlab idx 63
 	db->start();
 }
 
@@ -543,7 +596,7 @@ void ResistPerturbations::update(SimStruct *S) {
             if (inputs->catchForce.x && !params->brain_control) {
                 setState(STATE_INCOMPLETE);
             } else {
-                if (centerTarget->cursorInTarget(cursor_position)) {
+                if (holdTarget->cursorInTarget(cursor_position)) {
                     setState(STATE_CT_HOLD);
                 }
             }
@@ -552,11 +605,11 @@ void ResistPerturbations::update(SimStruct *S) {
             if (inputs->catchForce.x  && !params->brain_control) {
                 setState(STATE_INCOMPLETE);
             } else {
-                if (!centerTarget->cursorInTarget(cursor_position)){
+                if (!holdTarget->cursorInTarget(cursor_position)){
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);				
                 } else if (stateTimer->elapsedTime(S) > center_hold_time){
-                    if (bump_trial){
+                    if (bump_trial && early_bump){
                         setState(STATE_BUMP);
                     } else {
                         perturbationTimer->start(S);
@@ -572,8 +625,11 @@ void ResistPerturbations::update(SimStruct *S) {
                 if (!centerTarget->cursorInTarget(cursor_position)){
                     perturbationTimer->stop(S);
                     playTone(TONE_ABORT);
-                    setState(STATE_ABORT);				
-                } else if (stateTimer->elapsedTime(S) >= perturbation_hold_time){
+                    setState(STATE_ABORT);		
+                } else if (bump_trial && trigger_bump) {
+                    perturbationTimer->stop(S);
+                    setState(STATE_BUMP);                      
+                } else if (!bump_trial && (stateTimer->elapsedTime(S) >= perturbation_hold_time)){
                     perturbationTimer->stop(S);
                     playTone(TONE_REWARD);
                     setState(STATE_REWARD);                    
@@ -711,6 +767,13 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
                 params->damping*(cursor_velocity.x * cos(trial_force_direction) + 
                 cursor_velocity.y * sin(trial_force_direction)) * sin(trial_force_direction));    
     }
+    
+    if (getState() == STATE_PERTURBATION &&
+            stateTimer->elapsedTime(S) >= perturbation_hold_time &&
+            old_force_magnitude>=0 && force_magnitude<0){
+        trigger_bump = 1;
+    }
+    old_force_magnitude = force_magnitude;
       
     if (getState() == STATE_PERTURBATION && params->force_visual_feedback) {
         for (int i=0; i<5; i++){
@@ -811,6 +874,8 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
 	switch (this->getState()){
 		case STATE_CENTER_TARGET_ON:
         case STATE_CT_HOLD: 
+            outputs->targets[10] = (Target *)holdTarget;
+            break;
         case STATE_PERTURBATION:
         case STATE_BUMP:
             outputs->targets[10] = (Target *)centerTarget;

@@ -1381,6 +1381,8 @@ namespace BehaviorGraphics
             this.textBoxURTR = new System.Windows.Forms.TextBox();
             this.labelURTR = new System.Windows.Forms.Label();
             this.groupBox78 = new System.Windows.Forms.GroupBox();
+            this.labelURSD = new System.Windows.Forms.Label();
+            this.textBoxURSD = new System.Windows.Forms.TextBox();
             this.textBoxURMT = new System.Windows.Forms.TextBox();
             this.labelURMT = new System.Windows.Forms.Label();
             this.textBoxURFW = new System.Windows.Forms.TextBox();
@@ -1665,8 +1667,10 @@ namespace BehaviorGraphics
             this.label405 = new System.Windows.Forms.Label();
             this.label406 = new System.Windows.Forms.Label();
             this.label407 = new System.Windows.Forms.Label();
-            this.textBoxURSD = new System.Windows.Forms.TextBox();
-            this.labelURSD = new System.Windows.Forms.Label();
+            this.textBoxRPHTR = new System.Windows.Forms.TextBox();
+            this.labelRPHTR = new System.Windows.Forms.Label();
+            this.checkBoxRPEB = new System.Windows.Forms.CheckBox();
+            this.checkBoxRPLB = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -15777,6 +15781,24 @@ namespace BehaviorGraphics
             this.groupBox78.TabStop = false;
             this.groupBox78.Text = "Timing";
             // 
+            // labelURSD
+            // 
+            this.labelURSD.AutoSize = true;
+            this.labelURSD.Location = new System.Drawing.Point(6, 209);
+            this.labelURSD.Name = "labelURSD";
+            this.labelURSD.Size = new System.Drawing.Size(69, 13);
+            this.labelURSD.TabIndex = 23;
+            this.labelURSD.Text = "Screen delay";
+            // 
+            // textBoxURSD
+            // 
+            this.textBoxURSD.Location = new System.Drawing.Point(126, 206);
+            this.textBoxURSD.Name = "textBoxURSD";
+            this.textBoxURSD.Size = new System.Drawing.Size(55, 20);
+            this.textBoxURSD.TabIndex = 22;
+            this.toolTip1.SetToolTip(this.textBoxURSD, "in seconds");
+            this.textBoxURSD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
             // textBoxURMT
             // 
             this.textBoxURMT.Location = new System.Drawing.Point(126, 179);
@@ -15913,6 +15935,8 @@ namespace BehaviorGraphics
             // 
             // groupBoxRPBumps
             // 
+            this.groupBoxRPBumps.Controls.Add(this.checkBoxRPLB);
+            this.groupBoxRPBumps.Controls.Add(this.checkBoxRPEB);
             this.groupBoxRPBumps.Controls.Add(this.labelRPFBD);
             this.groupBoxRPBumps.Controls.Add(this.angleEntryBoxRPFBD);
             this.groupBoxRPBumps.Controls.Add(this.textBoxRPNBD);
@@ -15930,9 +15954,9 @@ namespace BehaviorGraphics
             this.groupBoxRPBumps.Controls.Add(this.textBoxRPBD);
             this.groupBoxRPBumps.Controls.Add(this.textBoxRPBM);
             this.groupBoxRPBumps.Controls.Add(this.textBoxRPPBT);
-            this.groupBoxRPBumps.Location = new System.Drawing.Point(234, 182);
+            this.groupBoxRPBumps.Location = new System.Drawing.Point(233, 140);
             this.groupBoxRPBumps.Name = "groupBoxRPBumps";
-            this.groupBoxRPBumps.Size = new System.Drawing.Size(201, 249);
+            this.groupBoxRPBumps.Size = new System.Drawing.Size(201, 291);
             this.groupBoxRPBumps.TabIndex = 42;
             this.groupBoxRPBumps.TabStop = false;
             this.groupBoxRPBumps.Text = "Bumps";
@@ -16092,7 +16116,7 @@ namespace BehaviorGraphics
             this.groupBoxRPVel.Controls.Add(this.labelRPPF);
             this.groupBoxRPVel.Controls.Add(this.textBoxRPVF);
             this.groupBoxRPVel.Controls.Add(this.labelRPVF);
-            this.groupBoxRPVel.Location = new System.Drawing.Point(233, 109);
+            this.groupBoxRPVel.Location = new System.Drawing.Point(25, 239);
             this.groupBoxRPVel.Name = "groupBoxRPVel";
             this.groupBoxRPVel.Size = new System.Drawing.Size(202, 67);
             this.groupBoxRPVel.TabIndex = 41;
@@ -16395,13 +16419,15 @@ namespace BehaviorGraphics
             // 
             // groupBoxRPCursor
             // 
+            this.groupBoxRPCursor.Controls.Add(this.textBoxRPHTR);
+            this.groupBoxRPCursor.Controls.Add(this.labelRPHTR);
             this.groupBoxRPCursor.Controls.Add(this.checkBoxRPBC);
             this.groupBoxRPCursor.Controls.Add(this.checkBoxRPFVF);
             this.groupBoxRPCursor.Controls.Add(this.textBoxRPTR);
             this.groupBoxRPCursor.Controls.Add(this.labelRPTR);
             this.groupBoxRPCursor.Location = new System.Drawing.Point(233, 9);
             this.groupBoxRPCursor.Name = "groupBoxRPCursor";
-            this.groupBoxRPCursor.Size = new System.Drawing.Size(200, 92);
+            this.groupBoxRPCursor.Size = new System.Drawing.Size(200, 125);
             this.groupBoxRPCursor.TabIndex = 39;
             this.groupBoxRPCursor.TabStop = false;
             this.groupBoxRPCursor.Text = "Cursor and targets";
@@ -16419,7 +16445,7 @@ namespace BehaviorGraphics
             // checkBoxRPFVF
             // 
             this.checkBoxRPFVF.AutoSize = true;
-            this.checkBoxRPFVF.Location = new System.Drawing.Point(12, 71);
+            this.checkBoxRPFVF.Location = new System.Drawing.Point(12, 101);
             this.checkBoxRPFVF.Name = "checkBoxRPFVF";
             this.checkBoxRPFVF.Size = new System.Drawing.Size(131, 17);
             this.checkBoxRPFVF.TabIndex = 34;
@@ -18324,23 +18350,44 @@ namespace BehaviorGraphics
             this.label407.TabIndex = 0;
             this.label407.Text = "Center hold low";
             // 
-            // textBoxURSD
+            // textBoxRPHTR
             // 
-            this.textBoxURSD.Location = new System.Drawing.Point(126, 206);
-            this.textBoxURSD.Name = "textBoxURSD";
-            this.textBoxURSD.Size = new System.Drawing.Size(55, 20);
-            this.textBoxURSD.TabIndex = 22;
-            this.toolTip1.SetToolTip(this.textBoxURSD, "in seconds");
-            this.textBoxURSD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.textBoxRPHTR.Location = new System.Drawing.Point(123, 73);
+            this.textBoxRPHTR.Name = "textBoxRPHTR";
+            this.textBoxRPHTR.Size = new System.Drawing.Size(68, 20);
+            this.textBoxRPHTR.TabIndex = 36;
+            this.textBoxRPHTR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
-            // labelURSD
+            // labelRPHTR
             // 
-            this.labelURSD.AutoSize = true;
-            this.labelURSD.Location = new System.Drawing.Point(6, 209);
-            this.labelURSD.Name = "labelURSD";
-            this.labelURSD.Size = new System.Drawing.Size(69, 13);
-            this.labelURSD.TabIndex = 23;
-            this.labelURSD.Text = "Screen delay";
+            this.labelRPHTR.AutoSize = true;
+            this.labelRPHTR.Location = new System.Drawing.Point(9, 78);
+            this.labelRPHTR.Name = "labelRPHTR";
+            this.labelRPHTR.Size = new System.Drawing.Size(90, 13);
+            this.labelRPHTR.TabIndex = 35;
+            this.labelRPHTR.Text = "Hold target radius";
+            // 
+            // checkBoxRPEB
+            // 
+            this.checkBoxRPEB.AutoSize = true;
+            this.checkBoxRPEB.Location = new System.Drawing.Point(107, 247);
+            this.checkBoxRPEB.Name = "checkBoxRPEB";
+            this.checkBoxRPEB.Size = new System.Drawing.Size(83, 17);
+            this.checkBoxRPEB.TabIndex = 56;
+            this.checkBoxRPEB.Text = "Early bumps";
+            this.toolTip1.SetToolTip(this.checkBoxRPEB, "Force bump if checked, velocity if not.");
+            this.checkBoxRPEB.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRPLB
+            // 
+            this.checkBoxRPLB.AutoSize = true;
+            this.checkBoxRPLB.Location = new System.Drawing.Point(107, 268);
+            this.checkBoxRPLB.Name = "checkBoxRPLB";
+            this.checkBoxRPLB.Size = new System.Drawing.Size(81, 17);
+            this.checkBoxRPLB.TabIndex = 57;
+            this.checkBoxRPLB.Text = "Late bumps";
+            this.toolTip1.SetToolTip(this.checkBoxRPLB, "Force bump if checked, velocity if not.");
+            this.checkBoxRPLB.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -20305,5 +20352,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelRPS;
         private System.Windows.Forms.Label labelURSD;
         private System.Windows.Forms.TextBox textBoxURSD;
+        private System.Windows.Forms.CheckBox checkBoxRPLB;
+        private System.Windows.Forms.CheckBox checkBoxRPEB;
+        private System.Windows.Forms.TextBox textBoxRPHTR;
+        private System.Windows.Forms.Label labelRPHTR;
     }
 }
