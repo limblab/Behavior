@@ -474,8 +474,8 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
             bump_direction = 0;
         }
         if (params->early_bumps && params->late_bumps){
-            rand_d = random->getDouble(0,1);
-            early_bump = (rand_d>0.5) ? 1 : 0;
+            rand_d = random->getDouble(0,100);
+            early_bump = (rand_d>50) ? 1 : 0;
         } else if (params->early_bumps) {
             early_bump = 1;
         } else {
@@ -483,6 +483,7 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
         }
     }
     
+    trigger_bump = 0;
     bump->direction = bump_direction;
     bump->hold_duration = params->bump_duration;
     bump->peak_magnitude = params->bump_magnitude;
