@@ -625,6 +625,7 @@ void ResistPerturbations::update(SimStruct *S) {
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);		
                 } else if (bump_trial && trigger_bump) {
+                    trigger_bump = 0;
                     perturbationTimer->stop(S);
                     setState(STATE_BUMP);                      
                 } else if (!bump_trial && (stateTimer->elapsedTime(S) >= perturbation_hold_time)){
@@ -649,26 +650,42 @@ void ResistPerturbations::update(SimStruct *S) {
             }
             break;      
         case STATE_REWARD:
+            trigger_bump = 0;
             if (stateTimer->elapsedTime(S) > params->reward_wait){ 
+                this->bump->stop();
+                this->infinite_bump->stop();
+                this->PDbump->stop();
                 last_trial_reward = 1;
                 was_rewarded = 1;
                 setState(STATE_PRETRIAL);
             }
             break;
         case STATE_ABORT:
+            trigger_bump = 0;
             if (stateTimer->elapsedTime(S) > params->abort_wait){
+                this->bump->stop();
+                this->infinite_bump->stop();
+                this->PDbump->stop();
                 setState(STATE_PRETRIAL);
             }
             break;
         case STATE_FAIL:
-            if (stateTimer->elapsedTime(S) > params->fail_wait){                
+            trigger_bump = 0;
+            if (stateTimer->elapsedTime(S) > params->fail_wait){  
+                this->bump->stop();
+                this->infinite_bump->stop();
+                this->PDbump->stop();
                 setState(STATE_PRETRIAL);
             }
             break;
-        case STATE_INCOMPLETE:            
+        case STATE_INCOMPLETE:   
+            trigger_bump = 0;
             if (inputs->catchForce.x && !params->brain_control){
                 // Stay in this state until handle is back in workspace.
-            } else if (stateTimer->elapsedTime(S) > params->reward_wait) {                
+            } else if (stateTimer->elapsedTime(S) > params->reward_wait) {       
+                this->bump->stop();
+                this->infinite_bump->stop();
+                this->PDbump->stop();
                 setState(STATE_PRETRIAL);
             }
 			break;
