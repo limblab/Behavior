@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1449,6 +1449,8 @@ namespace BehaviorGraphics
             this.textBoxRPNFF = new System.Windows.Forms.TextBox();
             this.labelRPNFF = new System.Windows.Forms.Label();
             this.groupBoxRPCursor = new System.Windows.Forms.GroupBox();
+            this.textBoxRPHTR = new System.Windows.Forms.TextBox();
+            this.labelRPHTR = new System.Windows.Forms.Label();
             this.checkBoxRPBC = new System.Windows.Forms.CheckBox();
             this.checkBoxRPFVF = new System.Windows.Forms.CheckBox();
             this.textBoxRPTR = new System.Windows.Forms.TextBox();
@@ -1667,10 +1669,8 @@ namespace BehaviorGraphics
             this.label405 = new System.Windows.Forms.Label();
             this.label406 = new System.Windows.Forms.Label();
             this.label407 = new System.Windows.Forms.Label();
-            this.textBoxRPHTR = new System.Windows.Forms.TextBox();
-            this.labelRPHTR = new System.Windows.Forms.Label();
-            this.checkBoxRPEB = new System.Windows.Forms.CheckBox();
-            this.checkBoxRPLB = new System.Windows.Forms.CheckBox();
+            this.labelRPPEB = new System.Windows.Forms.Label();
+            this.textBoxRPPEB = new System.Windows.Forms.TextBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -4708,8 +4708,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5541,8 +5541,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -15935,8 +15935,8 @@ namespace BehaviorGraphics
             // 
             // groupBoxRPBumps
             // 
-            this.groupBoxRPBumps.Controls.Add(this.checkBoxRPLB);
-            this.groupBoxRPBumps.Controls.Add(this.checkBoxRPEB);
+            this.groupBoxRPBumps.Controls.Add(this.labelRPPEB);
+            this.groupBoxRPBumps.Controls.Add(this.textBoxRPPEB);
             this.groupBoxRPBumps.Controls.Add(this.labelRPFBD);
             this.groupBoxRPBumps.Controls.Add(this.angleEntryBoxRPFBD);
             this.groupBoxRPBumps.Controls.Add(this.textBoxRPNBD);
@@ -16431,6 +16431,23 @@ namespace BehaviorGraphics
             this.groupBoxRPCursor.TabIndex = 39;
             this.groupBoxRPCursor.TabStop = false;
             this.groupBoxRPCursor.Text = "Cursor and targets";
+            // 
+            // textBoxRPHTR
+            // 
+            this.textBoxRPHTR.Location = new System.Drawing.Point(123, 73);
+            this.textBoxRPHTR.Name = "textBoxRPHTR";
+            this.textBoxRPHTR.Size = new System.Drawing.Size(68, 20);
+            this.textBoxRPHTR.TabIndex = 36;
+            this.textBoxRPHTR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelRPHTR
+            // 
+            this.labelRPHTR.AutoSize = true;
+            this.labelRPHTR.Location = new System.Drawing.Point(9, 78);
+            this.labelRPHTR.Name = "labelRPHTR";
+            this.labelRPHTR.Size = new System.Drawing.Size(90, 13);
+            this.labelRPHTR.TabIndex = 35;
+            this.labelRPHTR.Text = "Hold target radius";
             // 
             // checkBoxRPBC
             // 
@@ -18350,44 +18367,22 @@ namespace BehaviorGraphics
             this.label407.TabIndex = 0;
             this.label407.Text = "Center hold low";
             // 
-            // textBoxRPHTR
+            // labelRPPEB
             // 
-            this.textBoxRPHTR.Location = new System.Drawing.Point(123, 73);
-            this.textBoxRPHTR.Name = "textBoxRPHTR";
-            this.textBoxRPHTR.Size = new System.Drawing.Size(68, 20);
-            this.textBoxRPHTR.TabIndex = 36;
-            this.textBoxRPHTR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.labelRPPEB.AutoSize = true;
+            this.labelRPPEB.Location = new System.Drawing.Point(5, 254);
+            this.labelRPPEB.Name = "labelRPPEB";
+            this.labelRPPEB.Size = new System.Drawing.Size(103, 13);
+            this.labelRPPEB.TabIndex = 57;
+            this.labelRPPEB.Text = "Percent early bumps";
             // 
-            // labelRPHTR
+            // textBoxRPPEB
             // 
-            this.labelRPHTR.AutoSize = true;
-            this.labelRPHTR.Location = new System.Drawing.Point(9, 78);
-            this.labelRPHTR.Name = "labelRPHTR";
-            this.labelRPHTR.Size = new System.Drawing.Size(90, 13);
-            this.labelRPHTR.TabIndex = 35;
-            this.labelRPHTR.Text = "Hold target radius";
-            // 
-            // checkBoxRPEB
-            // 
-            this.checkBoxRPEB.AutoSize = true;
-            this.checkBoxRPEB.Location = new System.Drawing.Point(107, 247);
-            this.checkBoxRPEB.Name = "checkBoxRPEB";
-            this.checkBoxRPEB.Size = new System.Drawing.Size(83, 17);
-            this.checkBoxRPEB.TabIndex = 56;
-            this.checkBoxRPEB.Text = "Early bumps";
-            this.toolTip1.SetToolTip(this.checkBoxRPEB, "Force bump if checked, velocity if not.");
-            this.checkBoxRPEB.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxRPLB
-            // 
-            this.checkBoxRPLB.AutoSize = true;
-            this.checkBoxRPLB.Location = new System.Drawing.Point(107, 268);
-            this.checkBoxRPLB.Name = "checkBoxRPLB";
-            this.checkBoxRPLB.Size = new System.Drawing.Size(81, 17);
-            this.checkBoxRPLB.TabIndex = 57;
-            this.checkBoxRPLB.Text = "Late bumps";
-            this.toolTip1.SetToolTip(this.checkBoxRPLB, "Force bump if checked, velocity if not.");
-            this.checkBoxRPLB.UseVisualStyleBackColor = true;
+            this.textBoxRPPEB.Location = new System.Drawing.Point(121, 251);
+            this.textBoxRPPEB.Name = "textBoxRPPEB";
+            this.textBoxRPPEB.Size = new System.Drawing.Size(68, 20);
+            this.textBoxRPPEB.TabIndex = 56;
+            this.textBoxRPPEB.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // UpdateForm
             // 
@@ -20352,9 +20347,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelRPS;
         private System.Windows.Forms.Label labelURSD;
         private System.Windows.Forms.TextBox textBoxURSD;
-        private System.Windows.Forms.CheckBox checkBoxRPLB;
-        private System.Windows.Forms.CheckBox checkBoxRPEB;
         private System.Windows.Forms.TextBox textBoxRPHTR;
         private System.Windows.Forms.Label labelRPHTR;
+        private System.Windows.Forms.Label labelRPPEB;
+        private System.Windows.Forms.TextBox textBoxRPPEB;
     }
 }

@@ -1235,8 +1235,7 @@ namespace BehaviorGraphics
             AddParamListItem("RP HTR", "P39", "Behavior RP", this.textBoxRPHTR);
 
             // More bump stuff
-            AddParamListItem("RP EB", "P40", "Behavior RP", this.checkBoxRPEB);
-            AddParamListItem("RP LB", "P41", "Behavior RP", this.checkBoxRPLB);
+            AddParamListItem("RP PEB", "P40", "Behavior RP", this.textBoxRPPEB);            
 
             #endregion
         }

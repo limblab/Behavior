@@ -174,8 +174,7 @@ struct LocalParams{
     real_T center_hold_target_radius;
     
     // More bump stuff
-    real_T early_bumps;
-    real_T late_bumps;
+    real_T percent_early_bumps;
 };
 
 /**
@@ -237,9 +236,9 @@ private:
     
     TrapBumpGenerator *bump;
     TrapBumpGenerator *infinite_bump;
-    PDBumpGenerator *PDbump;
-    
+    PDBumpGenerator *PDbump;    
     int early_bump;
+    int was_rewarded;
     
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);    
@@ -257,7 +256,7 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(41);
+	this->setNumParams(40);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
     
@@ -308,11 +307,10 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     
     this->bindParamId(&params->center_hold_target_radius,               38);
     
-    this->bindParamId(&params->early_bumps,                             39);
-    this->bindParamId(&params->late_bumps,                              40);
+    this->bindParamId(&params->percent_early_bumps,                     39);
   
     // default parameters:
-    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .1 1 3 5 0 4 0 0 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   0 0   1   1 1
+    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .1 1 3 5 0 4 0 0 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   0 0   1   50
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -372,9 +370,10 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     bump = new TrapBumpGenerator();
     infinite_bump = new TrapBumpGenerator();
     PDbump = new PDBumpGenerator();     
-    last_trial_reward = 1;
-    
+    last_trial_reward = 1;    
     early_bump = 0;
+    
+    was_rewarded = 0;
 }
 
 void ResistPerturbations::doPreTrial(SimStruct *S) {
@@ -390,7 +389,7 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
 	centerTarget->radius = params->target_radius;
     holdTarget->radius = params->center_hold_target_radius;
       
-    if (last_trial_reward==1){
+    if (last_trial_reward==1 || !was_rewarded){        
         trial_counter++;
         if (trial_counter >= params->force_block_size){
             trial_counter = 0;
@@ -473,14 +472,12 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
             bump_trial = 0;
             bump_direction = 0;
         }
-        if (params->early_bumps && params->late_bumps){
+        
+        early_bump = 0;
+        if (bump_trial){
             rand_d = random->getDouble(0,100);
-            early_bump = (rand_d>50) ? 1 : 0;
-        } else if (params->early_bumps) {
-            early_bump = 1;
-        } else {
-            early_bump = 0;
-        }
+            early_bump = (rand_d <= params->percent_early_bumps ? 1 : 0);
+        }        
     }
     
     trigger_bump = 0;
@@ -654,6 +651,7 @@ void ResistPerturbations::update(SimStruct *S) {
         case STATE_REWARD:
             if (stateTimer->elapsedTime(S) > params->reward_wait){ 
                 last_trial_reward = 1;
+                was_rewarded = 1;
                 setState(STATE_PRETRIAL);
             }
             break;
