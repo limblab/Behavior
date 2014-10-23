@@ -310,7 +310,7 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->percent_early_bumps,                     39);
   
     // default parameters:
-    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .1 1 3 5 0 4 0 0 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   0 0   1   50
+    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .2 2 2 1 0 2 0 5 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   0 0   1   50
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -342,7 +342,7 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     center_hold_time = 0.0;
     perturbation_hold_time = 1.0;
     
-    trial_force_amplitude = 0.0;
+    trial_force_amplitude = 0.1;
 	trial_force_direction = 0.0;
     trial_force_frequency = 1.0;
     
@@ -360,7 +360,7 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     
     trial_counter = 10000;
     block_counter = 10000;
-    old_toggle_reset_block = 1;
+    old_toggle_reset_block = -1;
     debug_var = 0.0;
     
     trigger_bump = 0;
@@ -389,7 +389,7 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
 	centerTarget->radius = params->target_radius;
     holdTarget->radius = params->center_hold_target_radius;
       
-    if (last_trial_reward==1 || !was_rewarded){        
+    if (last_trial_reward==1 || !was_rewarded || old_toggle_reset_block != params->toggle_reset_block){        
         trial_counter++;
         if (trial_counter >= params->force_block_size){
             trial_counter = 0;
@@ -618,6 +618,7 @@ void ResistPerturbations::update(SimStruct *S) {
             break;
         case STATE_PERTURBATION:
             if (inputs->catchForce.x && !params->brain_control) {
+                perturbationTimer->stop(S);
                 setState(STATE_INCOMPLETE);
             } else {
                 if (!centerTarget->cursorInTarget(cursor_position)){
@@ -812,8 +813,8 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
         }
     }
    
-    if (getState()==STATE_CT_HOLD ||
-            getState()==STATE_PERTURBATION ||
+    //if (getState()==STATE_CT_HOLD ||
+    if(getState()==STATE_PERTURBATION ||
             getState()==STATE_BUMP){
         outputs->force = force;
     } else {        
