@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1399,6 +1399,8 @@ namespace BehaviorGraphics
             this.labelURCHL = new System.Windows.Forms.Label();
             this.tabPageResist = new System.Windows.Forms.TabPage();
             this.groupBoxRPBumps = new System.Windows.Forms.GroupBox();
+            this.labelRPPEB = new System.Windows.Forms.Label();
+            this.textBoxRPPEB = new System.Windows.Forms.TextBox();
             this.labelRPFBD = new System.Windows.Forms.Label();
             this.angleEntryBoxRPFBD = new AngleBox.AngleEntryBox();
             this.textBoxRPNBD = new System.Windows.Forms.TextBox();
@@ -1669,8 +1671,7 @@ namespace BehaviorGraphics
             this.label405 = new System.Windows.Forms.Label();
             this.label406 = new System.Windows.Forms.Label();
             this.label407 = new System.Windows.Forms.Label();
-            this.labelRPPEB = new System.Windows.Forms.Label();
-            this.textBoxRPPEB = new System.Windows.Forms.TextBox();
+            this.checkBoxDCOSFT = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -4708,8 +4709,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5541,8 +5542,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -14174,11 +14175,12 @@ namespace BehaviorGraphics
             // 
             // groupBox77
             // 
+            this.groupBox77.Controls.Add(this.checkBoxDCOSFT);
             this.groupBox77.Controls.Add(this.textBoxDCOFCG);
             this.groupBox77.Controls.Add(this.labelDCOFCG);
             this.groupBox77.Location = new System.Drawing.Point(455, 129);
             this.groupBox77.Name = "groupBox77";
-            this.groupBox77.Size = new System.Drawing.Size(199, 56);
+            this.groupBox77.Size = new System.Drawing.Size(199, 82);
             this.groupBox77.TabIndex = 6;
             this.groupBox77.TabStop = false;
             this.groupBox77.Text = "Isometric mode parameters";
@@ -15960,6 +15962,23 @@ namespace BehaviorGraphics
             this.groupBoxRPBumps.TabIndex = 42;
             this.groupBoxRPBumps.TabStop = false;
             this.groupBoxRPBumps.Text = "Bumps";
+            // 
+            // labelRPPEB
+            // 
+            this.labelRPPEB.AutoSize = true;
+            this.labelRPPEB.Location = new System.Drawing.Point(5, 254);
+            this.labelRPPEB.Name = "labelRPPEB";
+            this.labelRPPEB.Size = new System.Drawing.Size(103, 13);
+            this.labelRPPEB.TabIndex = 57;
+            this.labelRPPEB.Text = "Percent early bumps";
+            // 
+            // textBoxRPPEB
+            // 
+            this.textBoxRPPEB.Location = new System.Drawing.Point(121, 251);
+            this.textBoxRPPEB.Name = "textBoxRPPEB";
+            this.textBoxRPPEB.Size = new System.Drawing.Size(68, 20);
+            this.textBoxRPPEB.TabIndex = 56;
+            this.textBoxRPPEB.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // labelRPFBD
             // 
@@ -18367,22 +18386,15 @@ namespace BehaviorGraphics
             this.label407.TabIndex = 0;
             this.label407.Text = "Center hold low";
             // 
-            // labelRPPEB
+            // checkBoxDCOSFT
             // 
-            this.labelRPPEB.AutoSize = true;
-            this.labelRPPEB.Location = new System.Drawing.Point(5, 254);
-            this.labelRPPEB.Name = "labelRPPEB";
-            this.labelRPPEB.Size = new System.Drawing.Size(103, 13);
-            this.labelRPPEB.TabIndex = 57;
-            this.labelRPPEB.Text = "Percent early bumps";
-            // 
-            // textBoxRPPEB
-            // 
-            this.textBoxRPPEB.Location = new System.Drawing.Point(121, 251);
-            this.textBoxRPPEB.Name = "textBoxRPPEB";
-            this.textBoxRPPEB.Size = new System.Drawing.Size(68, 20);
-            this.textBoxRPPEB.TabIndex = 56;
-            this.textBoxRPPEB.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.checkBoxDCOSFT.AutoSize = true;
+            this.checkBoxDCOSFT.Location = new System.Drawing.Point(18, 51);
+            this.checkBoxDCOSFT.Name = "checkBoxDCOSFT";
+            this.checkBoxDCOSFT.Size = new System.Drawing.Size(110, 17);
+            this.checkBoxDCOSFT.TabIndex = 35;
+            this.checkBoxDCOSFT.Text = "Show force target";
+            this.checkBoxDCOSFT.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -20351,5 +20363,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelRPHTR;
         private System.Windows.Forms.Label labelRPPEB;
         private System.Windows.Forms.TextBox textBoxRPPEB;
+        private System.Windows.Forms.CheckBox checkBoxDCOSFT;
     }
 }

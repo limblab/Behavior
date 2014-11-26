@@ -84,7 +84,7 @@ namespace BehaviorGraphics
             // Network
             this.server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             this.server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveBuffer, 1);
-            this.server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, 10);
+            this.server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, 1);            
             IPEndPoint sender = new IPEndPoint(IPAddress.Any, 25000);
             this.remote = (EndPoint)sender;
             server.Bind(remote);
@@ -287,8 +287,10 @@ namespace BehaviorGraphics
         {
             byte[] data = new byte[1024];
 
-            try {                
-                int recv = server.ReceiveFrom(data, ref remote);                
+            try {
+                int recv = 0;
+                recv = server.ReceiveFrom(data, ref remote);
+
                 /* Determine which transmission protocol is in use */
                 int packet_spec = -1;
                 if (!Double.IsNaN(BitConverter.ToDouble(data, 0))) {

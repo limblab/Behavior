@@ -3,9 +3,9 @@
  * Master Control block for behavior: dynamic center out
  */
 
-#define DATABURST_VERSION ((byte)0x00) 
+#define DATABURST_VERSION ((byte)0x02) 
 /* 
- * Current Databurst version: 0
+ * Current Databurst version: 2
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -53,6 +53,27 @@
  * bytes 42 to 45: float    => cursor radius (cm)
  * byte        46: int      => brain control (if 1: yes)
  * bytes 47 to 50: float    => force cursor gain (cm/N)
+ * * 
+ * * Version 2 (0x02)
+ * ----------------
+ * byte         0: uchar    => number of bytes to be transmitted
+ * byte         1: uchar    => databurst version number (in this case zero)
+ * byte         2: uchar    => model version major
+ * byte         3: uchar    => model version minor
+ * bytes   4 to 5: short    => model version micro
+ * bytes   6 to 9: float    => x offset (cm)
+ * bytes 10 to 13: float    => y offset (cm)
+ * bytes 14 to 17: float    => outer target direction (rad)
+ * bytes 18 to 21: float    => outer target radius (cm)
+ * bytes 22 to 25: float    => outer target span (cm)
+ * bytes 26 to 29: float    => outer target thickness (cm)
+ * bytes 30 to 33: float    => outer target stiffness (N/cm)
+ * bytes 34 to 37: float    => target force (N)
+ * bytes 38 to 41: float    => target force range (+/- % of target force)
+ * bytes 42 to 45: float    => cursor radius (cm)
+ * byte        46: int      => brain control (if 1: yes)
+ * bytes 47 to 50: float    => force cursor gain (cm/N)
+ * byte        51: int      => show force target
  */
 
 #define S_FUNCTION_NAME mastercon_dynamic_center_out
@@ -127,6 +148,9 @@ struct LocalParams{
     
     // Isometric task stuff
     real_T force_cursor_gain;
+    
+    // More target stuff
+    real_T show_force_target;
 };
 
 /**
@@ -173,6 +197,12 @@ private:
     Point shoulder_pos;
     Point elbow_pos;
     
+    real_T position_target;
+    real_T min_position_target;
+    real_T max_position_target;
+    real_T target_force_min;
+    real_T target_force_max;
+    
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
     
@@ -192,7 +222,7 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(29);
+	this->setNumParams(30);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
 	this->bindParamId(&params->center_hold_low,                         1);
@@ -231,10 +261,11 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->repeat_target,                           27);
     
     this->bindParamId(&params->force_cursor_gain,                       28);
-   
     
+    this->bindParamId(&params->show_force_target,                       29);
+       
     // default parameters:
-    // 1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0  3 5 10  3 2 4 .1  .5 .1 1  0 0  0  1
+    // 1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0  3 5 10  3 2 4 .1  .5 .1 1  0 0  0  1   0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -275,6 +306,12 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
     force = Point(0,0);
     spring_force = 0;
     last_trial_reward = 1;
+    
+    position_target = 0;
+    min_position_target = 0;
+    max_position_target = 0;
+    target_force_min = 0;
+    target_force_max = 0;
     
     shoulder_pos = Point(0,0);
     elbow_pos = Point(0,0);
@@ -330,6 +367,22 @@ void DynamicCenterOut::doPreTrial(SimStruct *S) {
 	miniCursorTarget->radius = 0.2*params->cursor_radius;
         
 	center_hold_time = this->random->getDouble(params->center_hold_low,params->center_hold_high);
+    
+    target_force_min = target_force*(1-params->target_force_window);
+    target_force_max = target_force*(1+params->target_force_window);
+    
+    min_position_target = target_force_min/target_stiffness + 
+            params->outer_target_radius - 
+            0.5*params->outer_target_thickness;
+    max_position_target = target_force_max/target_stiffness + 
+            params->outer_target_radius - 
+            0.5*params->outer_target_thickness;
+    position_target = (min_position_target + max_position_target)/2;
+    
+    if (params->show_force_target){        
+        outerTarget->r = position_target;
+        outerTarget->height = max_position_target - min_position_target;
+    }
 
 	/* setup the databurst */
 	db->reset();
@@ -350,6 +403,7 @@ void DynamicCenterOut::doPreTrial(SimStruct *S) {
     db->addFloat((float)params->cursor_radius);                 // bytes 42 to 45 -> Matlab idx 43 to 46
     db->addByte((int)params->brain_control);                    // byte 46        -> Matlab idx 47
     db->addFloat((float)params->force_cursor_gain);             // bytes 47 to 50 -> Matlab idx 48 to 51
+    db->addByte((int)params->show_force_target);                // byte 51        -> Matlab idx 52
 	db->start();
 }
 
@@ -542,11 +596,6 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
     real_T b_red_1;
     real_T b_red_2;
     real_T b_green; 
-    real_T position_target;
-    real_T min_position_target;
-    real_T max_position_target;
-    real_T target_force_min;
-    real_T target_force_max;
     real_T distance_cursor_origin;
     
     distance_cursor_origin = sqrt(cursor_position.x*cursor_position.x + cursor_position.y*cursor_position.y);
@@ -574,16 +623,6 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
         outputs->force = Point(0,0);
     }
     
-    target_force_min = target_force*(1-params->target_force_window);
-    target_force_max = target_force*(1+params->target_force_window);
-    
-    min_position_target = target_force_min/target_stiffness + 
-            params->outer_target_radius - 
-            0.5*params->outer_target_thickness;
-    max_position_target = target_force_max/target_stiffness + 
-            params->outer_target_radius - 
-            0.5*params->outer_target_thickness;
-    position_target = (min_position_target + max_position_target)/2;
         
     m = -255/(max_position_target - position_target);
     b_red_1 = m * min_position_target;

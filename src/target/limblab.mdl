@@ -42,7 +42,7 @@ Library {
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
 	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"24"
+	LoadSaveID		"27"
 	Extents			[984.0, 586.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
@@ -55,9 +55,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Oct 02 11:55:36 2014"
-  RTWModifiedTimeStamp	  334151734
-  ModelVersionFormat	  "1.%<AutoIncrement:114>"
+  LastModifiedDate	  "Fri Nov 14 16:30:25 2014"
+  RTWModifiedTimeStamp	  337883423
+  ModelVersionFormat	  "1.%<AutoIncrement:115>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1059,7 +1059,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "545"
+    SIDHighWatermark	    "550"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
@@ -1433,7 +1433,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 169, 405, 231]
 	      ZOrder		      -3
-	      LibraryVersion	      "1.113"
+	      LibraryVersion	      "1.114"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".1"
@@ -1445,7 +1445,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 254, 405, 316]
 	      ZOrder		      -4
-	      LibraryVersion	      "1.113"
+	      LibraryVersion	      "1.114"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".2"
@@ -1457,7 +1457,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 339, 405, 401]
 	      ZOrder		      -5
-	      LibraryVersion	      "1.113"
+	      LibraryVersion	      "1.114"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".3"
@@ -1469,7 +1469,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 424, 405, 486]
 	      ZOrder		      -6
-	      LibraryVersion	      "1.113"
+	      LibraryVersion	      "1.114"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".4"
@@ -3898,7 +3898,7 @@ Library {
       System {
 	Name			"Neural Position Subsystem"
 	Location		[-8, -8, 1028, 746]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -6130,7 +6130,7 @@ Library {
 	  Ports			  [2, 1]
 	  Position		  [410, 280, 515, 335]
 	  ZOrder		  -34
-	  LibraryVersion	  "1.113"
+	  LibraryVersion	  "1.114"
 	  SourceBlock		  "limblab/Timer"
 	  SourceType		  ""
 	  Time			  "10"
@@ -8013,7 +8013,7 @@ Library {
       System {
 	Name			"SendPacketToGraphics"
 	Location		[-8, -8, 1028, 746]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -8138,7 +8138,7 @@ Library {
 	  ipPort		  "25000"
 	  localPort		  "-1"
 	  vblLen		  off
-	  sampletime		  ".001"
+	  sampletime		  ".02"
 	}
 	Line {
 	  SrcBlock		  "Rate Transition"
@@ -9864,7 +9864,7 @@ Library {
 	      Ports		      [3, 1]
 	      Position		      [405, 315, 505, 525]
 	      ZOrder		      -12
-	      LibraryVersion	      "1.113"
+	      LibraryVersion	      "1.114"
 	      SourceBlock	      "limblab/SerialConverter"
 	      SourceType	      ""
 	    }
@@ -9885,7 +9885,7 @@ Library {
 	      Ports		      [1, 8]
 	      Position		      [655, 310, 710, 525]
 	      ZOrder		      -14
-	      LibraryVersion	      "1.113"
+	      LibraryVersion	      "1.114"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      ""
 	    }
@@ -9896,7 +9896,7 @@ Library {
 	      Ports		      [1, 8]
 	      Position		      [635, 635, 685, 830]
 	      ZOrder		      -15
-	      LibraryVersion	      "1.113"
+	      LibraryVersion	      "1.114"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      ""
 	    }

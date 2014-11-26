@@ -591,7 +591,8 @@ void ResistPerturbations::update(SimStruct *S) {
             break;                   
         case STATE_CENTER_TARGET_ON:
             /* center target on */
-            if (inputs->catchForce.x && !params->brain_control) {
+            if (inputs->catchForce.y  && !params->brain_control ||
+                    inputs->catchForce.x) {
                 setState(STATE_INCOMPLETE);
             } else {
                 if (holdTarget->cursorInTarget(cursor_position)) {
@@ -600,7 +601,8 @@ void ResistPerturbations::update(SimStruct *S) {
             }
             break;
         case STATE_CT_HOLD:
-            if (inputs->catchForce.x  && !params->brain_control) {
+            if (inputs->catchForce.y  && !params->brain_control ||
+                    inputs->catchForce.x) {
                 setState(STATE_INCOMPLETE);
             } else {
                 if (!holdTarget->cursorInTarget(cursor_position)){
@@ -617,7 +619,8 @@ void ResistPerturbations::update(SimStruct *S) {
             }
             break;
         case STATE_PERTURBATION:
-            if (inputs->catchForce.x && !params->brain_control) {
+            if (inputs->catchForce.y  && !params->brain_control ||
+                    inputs->catchForce.x) {
                 perturbationTimer->stop(S);
                 setState(STATE_INCOMPLETE);
             } else {
@@ -787,8 +790,9 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
     
     if (getState() == STATE_PERTURBATION &&
             stateTimer->elapsedTime(S) >= perturbation_hold_time &&
-            (old_force_magnitude>=0 && force_magnitude<0 ||
-            old_force_magnitude<=0 && force_magnitude>0)){
+            old_force_magnitude>=0 && force_magnitude<0){
+//             (old_force_magnitude>=0 && force_magnitude<0 ||
+//             old_force_magnitude<=0 && force_magnitude>0)){
         trigger_bump = 1;
     }
     old_force_magnitude = force_magnitude;
