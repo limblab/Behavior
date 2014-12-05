@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1437"
+    ComputedModelVersion    "1.1447"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -31,7 +31,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [2.0, 19.0, 1036.0, 777.0]
+      Location		      [1592.0, -8.0, 1456.0, 916.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -55,9 +55,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[984.0, 601.0]
+	Extents			[1404.0, 740.0]
 	ZoomFactor		[1.25]
-	Offset			[83.899999999999977, 64.6]
+	Offset			[169.79999999999995, 48.199999999999989]
       }
     }
   }
@@ -65,11 +65,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "ricardo"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Nov 21 09:15:55 2014"
-  RTWModifiedTimeStamp	  338461889
-  ModelVersionFormat	  "1.%<AutoIncrement:1437>"
+  LastModifiedDate	  "Fri Dec 05 09:05:12 2014"
+  RTWModifiedTimeStamp	  339613731
+  ModelVersionFormat	  "1.%<AutoIncrement:1447>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -814,7 +814,7 @@ Model {
   }
   System {
     Name		    "resist_perturbations"
-    Location		    [2, 19, 1038, 796]
+    Location		    [1592, -8, 3048, 908]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -828,18 +828,18 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "125"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "401"
+    SIDHighWatermark	    "407"
     Block {
       BlockType		      S-Function
       Name		      "Behavior RP"
       SID		      "1"
-      Ports		      [6, 8]
-      Position		      [655, 60, 885, 480]
+      Ports		      [7, 8]
+      Position		      [650, 60, 880, 550]
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_resist_perturbations"
       Parameters	      "0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .2 2 2 1 0 2 0 5 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   "
-      "0 0   1   50"
+      "0 0   1   50   0 1 3 1"
       EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"
@@ -847,9 +847,9 @@ Model {
 	$ClassName		"Simulink.Mask"
 	Display			"disp('Master Control')\nport_label('input',1,'pos')\nport_label('input',2,'pos offsets')\nport_label('inpu"
 	"t',3,'force')\nport_label('input',4,'task off')\nport_label('input',5,'extra 1')\nport_label('input',6,'extra 2')\npo"
-	"rt_label('output',1,'force')\nport_label('output',2,'status')\nport_label('output',3,'word')\nport_label('output',4,'"
-	"targets')\nport_label('output',5,'reward')\nport_label('output',6,'tone')\nport_label('output',7,'version')\nport_lab"
-	"el('output',8,'pos')"
+	"rt_label('input',7,'extra 3')\nport_label('output',1,'force')\nport_label('output',2,'status')\nport_label('output',3"
+	",'word')\nport_label('output',4,'targets')\nport_label('output',5,'reward')\nport_label('output',6,'tone')\nport_labe"
+	"l('output',7,'version')\nport_label('output',8,'pos')"
       }
     }
     Block {
@@ -857,7 +857,7 @@ Model {
       Name		      "BoundingBox"
       SID		      "378"
       Ports		      [1, 1]
-      Position		      [430, 698, 520, 762]
+      Position		      [430, 773, 520, 837]
       ZOrder		      8
       LibraryVersion	      "1.115"
       SourceBlock	      "limblab/BoundingBox"
@@ -867,7 +867,7 @@ Model {
       BlockType		      Constant
       Name		      "Constant"
       SID		      "16"
-      Position		      [1190, 380, 1220, 410]
+      Position		      [1190, 450, 1220, 480]
       ZOrder		      -3
       Value		      "3"
     }
@@ -875,9 +875,18 @@ Model {
       BlockType		      Constant
       Name		      "Constant1"
       SID		      "381"
-      Position		      [1040, 800, 1070, 830]
+      Position		      [1040, 875, 1070, 905]
       ZOrder		      11
       Value		      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant2"
+      SID		      "406"
+      Position		      [405, 510, 435, 540]
+      ZOrder		      34
+      Value		      "0"
+      OutDataTypeStr	      "single"
     }
     Block {
       BlockType		      DataTypeConversion
@@ -918,9 +927,18 @@ Model {
     Block {
       BlockType		      DataTypeConversion
       Name		      "Data Type Conversion4"
-      SID		      "401"
+      SID		      "407"
       Position		      [425, 288, 475, 302]
-      ZOrder		      29
+      ZOrder		      35
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      DataTypeConversion
+      Name		      "Data Type Conversion5"
+      SID		      "404"
+      Position		      [535, 498, 610, 532]
+      ZOrder		      32
       RndMeth		      "Floor"
       SaturateOnIntegerOverflow	off
     }
@@ -949,7 +967,7 @@ Model {
       BlockType		      Goto
       Name		      "Goto"
       SID		      "59"
-      Position		      [975, 284, 1020, 306]
+      Position		      [975, 324, 1020, 346]
       ZOrder		      -6
       GotoTag		      "Reward"
       TagVisibility	      "global"
@@ -970,7 +988,7 @@ Model {
       Name		      "Matrix\nConcatenation1"
       SID		      "61"
       Ports		      [3, 1]
-      Position		      [670, 509, 725, 551]
+      Position		      [670, 584, 725, 626]
       ZOrder		      -8
       NumInputs		      "3"
     }
@@ -979,15 +997,23 @@ Model {
       Name		      "Matrix\nConcatenation2"
       SID		      "380"
       Ports		      [2, 1]
-      Position		      [490, 284, 545, 326]
+      Position		      [500, 284, 555, 326]
       ZOrder		      28
+    }
+    Block {
+      BlockType		      Concatenate
+      Name		      "Matrix\nConcatenation3"
+      SID		      "403"
+      Ports		      [2, 1]
+      Position		      [485, 496, 500, 534]
+      ZOrder		      31
     }
     Block {
       BlockType		      Reference
       Name		      "Motor Control"
       SID		      "376"
       Ports		      [5, 1]
-      Position		      [1090, 541, 1280, 849]
+      Position		      [1090, 616, 1280, 924]
       ZOrder		      6
       LibraryVersion	      "1.115"
       SourceBlock	      "limblab/Motor Control"
@@ -1009,7 +1035,7 @@ Model {
       Name		      "Recentering Subsystem"
       SID		      "377"
       Ports		      [3, 2]
-      Position		      [670, 593, 790, 747]
+      Position		      [670, 668, 790, 822]
       ZOrder		      7
       LibraryVersion	      "1.115"
       SourceBlock	      "limblab/Recentering Subsystem"
@@ -1020,7 +1046,7 @@ Model {
       Name		      "RewardSbs"
       SID		      "384"
       Ports		      [1, 1]
-      Position		      [910, 277, 960, 313]
+      Position		      [910, 317, 960, 353]
       ZOrder		      14
       LibraryVersion	      "1.115"
       SourceBlock	      "limblab/RewardSbs"
@@ -1042,7 +1068,7 @@ Model {
       Name		      "SendPacketToGraphics1"
       SID		      "246"
       Ports		      [4]
-      Position		      [1255, 307, 1345, 408]
+      Position		      [1255, 377, 1345, 478]
       ZOrder		      -12
       LibraryVersion	      "1.115"
       SourceBlock	      "limblab/SendPacketToGraphics"
@@ -1053,7 +1079,7 @@ Model {
       Name		      "Status"
       SID		      "247"
       Ports		      [1]
-      Position		      [965, 124, 1035, 166]
+      Position		      [935, 134, 1005, 176]
       ZOrder		      -13
       LibraryVersion	      "1.1718"
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
@@ -1092,22 +1118,15 @@ Model {
       BlockType		      Terminator
       Name		      "Terminator1"
       SID		      "396"
-      Position		      [375, 380, 395, 400]
+      Position		      [390, 425, 410, 445]
       ZOrder		      23
-    }
-    Block {
-      BlockType		      Terminator
-      Name		      "Terminator2"
-      SID		      "399"
-      Position		      [400, 315, 420, 335]
-      ZOrder		      26
     }
     Block {
       BlockType		      Reference
       Name		      "Velocity Calculation1"
       SID		      "385"
       Ports		      [2, 1]
-      Position		      [345, 590, 455, 650]
+      Position		      [345, 665, 455, 725]
       ZOrder		      15
       LibraryVersion	      "1.115"
       SourceBlock	      "limblab/Velocity Calculation"
@@ -1118,7 +1137,7 @@ Model {
       Name		      "Version Display"
       SID		      "275"
       Ports		      [1]
-      Position		      [930, 374, 1000, 416]
+      Position		      [930, 434, 1000, 476]
       ZOrder		      -15
       LibraryVersion	      "1.1718"
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
@@ -1151,7 +1170,7 @@ Model {
       Name		      "WordSbs1"
       SID		      "383"
       Ports		      [1]
-      Position		      [935, 174, 980, 216]
+      Position		      [935, 194, 980, 236]
       ZOrder		      13
       LibraryVersion	      "1.115"
       SourceBlock	      "limblab/WordSbs"
@@ -1162,7 +1181,7 @@ Model {
       Name		      "XY Position Subsystem"
       SID		      "392"
       Ports		      [0, 4]
-      Position		      [35, 642, 160, 878]
+      Position		      [35, 717, 160, 953]
       ZOrder		      22
       LibraryVersion	      "1.115"
       SourceBlock	      "limblab/XY Position Subsystem"
@@ -1173,7 +1192,7 @@ Model {
       Name		      "Xpos"
       SID		      "374"
       Ports		      [1]
-      Position		      [755, 510, 825, 550]
+      Position		      [755, 585, 825, 625]
       ZOrder		      -18
       LibraryVersion	      "1.1718"
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
@@ -1236,7 +1255,7 @@ Model {
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -420]
+	    Points		    [0, -495]
 	    DstBlock		    "Behavior RP"
 	    DstPort		    1
 	  }
@@ -1258,16 +1277,16 @@ Model {
     Line {
       SrcBlock		      "Behavior RP"
       SrcPort		      1
-      Points		      [7, 0]
+      Points		      [12, 0]
+      Branch {
+	Points			[0, 555]
+	DstBlock		"Motor Control"
+	DstPort			1
+      }
       Branch {
 	Points			[313, 0; 0, 90]
 	DstBlock		"SendPacketToDecoder"
 	DstPort			3
-      }
-      Branch {
-	Points			[0, 480]
-	DstBlock		"Motor Control"
-	DstPort			1
       }
     }
     Line {
@@ -1335,7 +1354,7 @@ Model {
       SrcPort		      1
       Points		      [10, 0]
       Branch {
-	Points			[0, -170]
+	Points			[0, -240]
 	DstBlock		"SendPacketToDecoder"
 	DstPort			5
       }
@@ -1347,15 +1366,16 @@ Model {
     Line {
       SrcBlock		      "Behavior RP"
       SrcPort		      4
-      Points		      [257, 0]
+      Points		      [262, 0]
       Branch {
-	Points			[0, 75]
-	DstBlock		"SendPacketToGraphics1"
-	DstPort			1
-      }
-      Branch {
+	Points			[0, -30]
 	DstBlock		"SendPacketToDecoder"
 	DstPort			6
+      }
+      Branch {
+	Points			[0, 115]
+	DstBlock		"SendPacketToGraphics1"
+	DstPort			1
       }
     }
     Line {
@@ -1367,15 +1387,16 @@ Model {
     Line {
       SrcBlock		      "Behavior RP"
       SrcPort		      6
-      Points		      [235, 0]
+      Points		      [240, 0]
       Branch {
-	DstBlock		"SendPacketToGraphics1"
-	DstPort			2
-      }
-      Branch {
-	Points			[0, -200]
+	Points			[0, -250]
 	DstBlock		"SendPacketToDecoder"
 	DstPort			1
+      }
+      Branch {
+	Points			[0, 20]
+	DstBlock		"SendPacketToGraphics1"
+	DstPort			2
       }
     }
     Line {
@@ -1387,21 +1408,21 @@ Model {
     Line {
       SrcBlock		      "Behavior RP"
       SrcPort		      8
-      Points		      [151, 0; 0, -75]
+      Points		      [156, 0; 0, -75]
+      Branch {
+	Points			[0, -275]
+	DstBlock		"SendPacketToDecoder"
+	DstPort			2
+      }
       Branch {
 	DstBlock		"SendPacketToGraphics1"
 	DstPort			3
-      }
-      Branch {
-	Points			[0, -205]
-	DstBlock		"SendPacketToDecoder"
-	DstPort			2
       }
     }
     Line {
       SrcBlock		      "Motor Control"
       SrcPort		      1
-      Points		      [9, 0; 0, -194; -860, 0; 0, -186]
+      Points		      [9, 0; 0, 175; -1027, 0; 0, -444; 168, 0; 0, -186]
       DstBlock		      "Matrix\nConcatenation2"
       DstPort		      2
     }
@@ -1434,7 +1455,7 @@ Model {
       SrcPort		      1
       Points		      [35, 0]
       Branch {
-	Points			[0, 310]
+	Points			[0, 385]
 	DstBlock		"Matrix\nConcatenation1"
 	DstPort			3
       }
@@ -1446,7 +1467,7 @@ Model {
     Line {
       SrcBlock		      "Neural Position Subsystem"
       SrcPort		      4
-      Points		      [5, 0; 0, 150]
+      Points		      [13, 0; 0, 120; 126, 0; 0, 30]
       DstBlock		      "Data Type Conversion3"
       DstPort		      1
     }
@@ -1463,23 +1484,16 @@ Model {
       DstPort		      5
     }
     Line {
-      SrcBlock		      "Neural Position Subsystem"
-      SrcPort		      3
-      Points		      [18, 0; 0, 90; 107, 0; 0, 10]
-      DstBlock		      "Data Type Conversion2"
-      DstPort		      1
-    }
-    Line {
       SrcBlock		      "XY Position Subsystem"
       SrcPort		      4
-      Points		      [863, 0; 0, -645]
+      Points		      [863, 0; 0, -720]
       DstBlock		      "SendPacketToDecoder"
       DstPort		      4
     }
     Line {
       SrcBlock		      "Neural Position Subsystem"
       SrcPort		      6
-      Points		      [13, 0; 0, 55]
+      Points		      [2, 0; 0, 100]
       DstBlock		      "Terminator1"
       DstPort		      1
     }
@@ -1490,15 +1504,47 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Demux"
-      SrcPort		      2
-      DstBlock		      "Terminator2"
-      DstPort		      1
-    }
-    Line {
       SrcBlock		      "Matrix\nConcatenation2"
       SrcPort		      1
       DstBlock		      "Data Type Conversion"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Neural Position Subsystem"
+      SrcPort		      3
+      Points		      [24, 0; 0, 100]
+      DstBlock		      "Data Type Conversion2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Demux"
+      SrcPort		      2
+      Points		      [60, 0; 0, 180]
+      DstBlock		      "Matrix\nConcatenation3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Matrix\nConcatenation3"
+      SrcPort		      1
+      DstBlock		      "Data Type Conversion5"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Data Type Conversion5"
+      SrcPort		      1
+      DstBlock		      "Behavior RP"
+      DstPort		      7
+    }
+    Line {
+      SrcBlock		      "Constant2"
+      SrcPort		      1
+      DstBlock		      "Matrix\nConcatenation3"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Data Type Conversion4"
+      SrcPort		      1
+      DstBlock		      "Matrix\nConcatenation2"
       DstPort		      1
     }
     Line {
@@ -1506,12 +1552,6 @@ Model {
       SrcPort		      1
       Points		      [12, 0; 0, -10]
       DstBlock		      "Data Type Conversion4"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Data Type Conversion4"
-      SrcPort		      1
-      DstBlock		      "Matrix\nConcatenation2"
       DstPort		      1
     }
   }

@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1216,6 +1216,7 @@ namespace BehaviorGraphics
             this.label_ctr_out_bump_CTHold = new System.Windows.Forms.Label();
             this.tabDynamicCO = new System.Windows.Forms.TabPage();
             this.groupBox77 = new System.Windows.Forms.GroupBox();
+            this.checkBoxDCOSFT = new System.Windows.Forms.CheckBox();
             this.textBoxDCOFCG = new System.Windows.Forms.TextBox();
             this.labelDCOFCG = new System.Windows.Forms.Label();
             this.groupBoxDCOCont = new System.Windows.Forms.GroupBox();
@@ -1671,7 +1672,15 @@ namespace BehaviorGraphics
             this.label405 = new System.Windows.Forms.Label();
             this.label406 = new System.Windows.Forms.Label();
             this.label407 = new System.Windows.Forms.Label();
-            this.checkBoxDCOSFT = new System.Windows.Forms.CheckBox();
+            this.groupBoxRPCocontraction = new System.Windows.Forms.GroupBox();
+            this.labelRPCCL = new System.Windows.Forms.Label();
+            this.labelRPCCH = new System.Windows.Forms.Label();
+            this.labelRPNCCL = new System.Windows.Forms.Label();
+            this.labelRPCCW = new System.Windows.Forms.Label();
+            this.textBoxRPCCL = new System.Windows.Forms.TextBox();
+            this.textBoxRPCCH = new System.Windows.Forms.TextBox();
+            this.textBoxRPNCCL = new System.Windows.Forms.TextBox();
+            this.textBoxRPCCW = new System.Windows.Forms.TextBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -1852,6 +1861,7 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
+            this.groupBoxRPCocontraction.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -4709,8 +4719,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5542,8 +5552,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -14185,6 +14195,16 @@ namespace BehaviorGraphics
             this.groupBox77.TabStop = false;
             this.groupBox77.Text = "Isometric mode parameters";
             // 
+            // checkBoxDCOSFT
+            // 
+            this.checkBoxDCOSFT.AutoSize = true;
+            this.checkBoxDCOSFT.Location = new System.Drawing.Point(18, 51);
+            this.checkBoxDCOSFT.Name = "checkBoxDCOSFT";
+            this.checkBoxDCOSFT.Size = new System.Drawing.Size(110, 17);
+            this.checkBoxDCOSFT.TabIndex = 35;
+            this.checkBoxDCOSFT.Text = "Show force target";
+            this.checkBoxDCOSFT.UseVisualStyleBackColor = true;
+            // 
             // textBoxDCOFCG
             // 
             this.textBoxDCOFCG.Location = new System.Drawing.Point(128, 25);
@@ -15922,6 +15942,7 @@ namespace BehaviorGraphics
             // 
             // tabPageResist
             // 
+            this.tabPageResist.Controls.Add(this.groupBoxRPCocontraction);
             this.tabPageResist.Controls.Add(this.groupBoxRPBumps);
             this.tabPageResist.Controls.Add(this.groupBoxRPVel);
             this.tabPageResist.Controls.Add(this.groupBoxRPPert);
@@ -18386,15 +18407,93 @@ namespace BehaviorGraphics
             this.label407.TabIndex = 0;
             this.label407.Text = "Center hold low";
             // 
-            // checkBoxDCOSFT
+            // groupBoxRPCocontraction
             // 
-            this.checkBoxDCOSFT.AutoSize = true;
-            this.checkBoxDCOSFT.Location = new System.Drawing.Point(18, 51);
-            this.checkBoxDCOSFT.Name = "checkBoxDCOSFT";
-            this.checkBoxDCOSFT.Size = new System.Drawing.Size(110, 17);
-            this.checkBoxDCOSFT.TabIndex = 35;
-            this.checkBoxDCOSFT.Text = "Show force target";
-            this.checkBoxDCOSFT.UseVisualStyleBackColor = true;
+            this.groupBoxRPCocontraction.Controls.Add(this.textBoxRPCCW);
+            this.groupBoxRPCocontraction.Controls.Add(this.textBoxRPNCCL);
+            this.groupBoxRPCocontraction.Controls.Add(this.textBoxRPCCH);
+            this.groupBoxRPCocontraction.Controls.Add(this.textBoxRPCCL);
+            this.groupBoxRPCocontraction.Controls.Add(this.labelRPCCW);
+            this.groupBoxRPCocontraction.Controls.Add(this.labelRPNCCL);
+            this.groupBoxRPCocontraction.Controls.Add(this.labelRPCCH);
+            this.groupBoxRPCocontraction.Controls.Add(this.labelRPCCL);
+            this.groupBoxRPCocontraction.Location = new System.Drawing.Point(26, 312);
+            this.groupBoxRPCocontraction.Name = "groupBoxRPCocontraction";
+            this.groupBoxRPCocontraction.Size = new System.Drawing.Size(201, 119);
+            this.groupBoxRPCocontraction.TabIndex = 43;
+            this.groupBoxRPCocontraction.TabStop = false;
+            this.groupBoxRPCocontraction.Text = "Co-contraction targets";
+            // 
+            // labelRPCCL
+            // 
+            this.labelRPCCL.AutoSize = true;
+            this.labelRPCCL.Location = new System.Drawing.Point(5, 25);
+            this.labelRPCCL.Name = "labelRPCCL";
+            this.labelRPCCL.Size = new System.Drawing.Size(95, 13);
+            this.labelRPCCL.TabIndex = 0;
+            this.labelRPCCL.Text = "Co-contraction low";
+            this.toolTip1.SetToolTip(this.labelRPCCL, "Between 0 and 1");
+            // 
+            // labelRPCCH
+            // 
+            this.labelRPCCH.AutoSize = true;
+            this.labelRPCCH.Location = new System.Drawing.Point(5, 49);
+            this.labelRPCCH.Name = "labelRPCCH";
+            this.labelRPCCH.Size = new System.Drawing.Size(99, 13);
+            this.labelRPCCH.TabIndex = 1;
+            this.labelRPCCH.Text = "Co-contraction high";
+            this.toolTip1.SetToolTip(this.labelRPCCH, "Between 0 and 1");
+            // 
+            // labelRPNCCL
+            // 
+            this.labelRPNCCL.AutoSize = true;
+            this.labelRPNCCL.Location = new System.Drawing.Point(5, 72);
+            this.labelRPNCCL.Name = "labelRPNCCL";
+            this.labelRPNCCL.Size = new System.Drawing.Size(127, 13);
+            this.labelRPNCCL.TabIndex = 2;
+            this.labelRPNCCL.Text = "Num cocontraction levels";
+            // 
+            // labelRPCCW
+            // 
+            this.labelRPCCW.AutoSize = true;
+            this.labelRPCCW.Location = new System.Drawing.Point(5, 95);
+            this.labelRPCCW.Name = "labelRPCCW";
+            this.labelRPCCW.Size = new System.Drawing.Size(115, 13);
+            this.labelRPCCW.TabIndex = 3;
+            this.labelRPCCW.Text = "Co-contraction window";
+            this.toolTip1.SetToolTip(this.labelRPCCW, "Between 0 and 1");
+            // 
+            // textBoxRPCCL
+            // 
+            this.textBoxRPCCL.Location = new System.Drawing.Point(136, 22);
+            this.textBoxRPCCL.Name = "textBoxRPCCL";
+            this.textBoxRPCCL.Size = new System.Drawing.Size(54, 20);
+            this.textBoxRPCCL.TabIndex = 34;
+            this.textBoxRPCCL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxRPCCH
+            // 
+            this.textBoxRPCCH.Location = new System.Drawing.Point(136, 46);
+            this.textBoxRPCCH.Name = "textBoxRPCCH";
+            this.textBoxRPCCH.Size = new System.Drawing.Size(54, 20);
+            this.textBoxRPCCH.TabIndex = 35;
+            this.textBoxRPCCH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxRPNCCL
+            // 
+            this.textBoxRPNCCL.Location = new System.Drawing.Point(136, 69);
+            this.textBoxRPNCCL.Name = "textBoxRPNCCL";
+            this.textBoxRPNCCL.Size = new System.Drawing.Size(54, 20);
+            this.textBoxRPNCCL.TabIndex = 36;
+            this.textBoxRPNCCL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxRPCCW
+            // 
+            this.textBoxRPCCW.Location = new System.Drawing.Point(136, 92);
+            this.textBoxRPCCW.Name = "textBoxRPCCW";
+            this.textBoxRPCCW.Size = new System.Drawing.Size(54, 20);
+            this.textBoxRPCCW.TabIndex = 37;
+            this.textBoxRPCCW.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // UpdateForm
             // 
@@ -18716,6 +18815,8 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
+            this.groupBoxRPCocontraction.ResumeLayout(false);
+            this.groupBoxRPCocontraction.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -20364,5 +20465,14 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelRPPEB;
         private System.Windows.Forms.TextBox textBoxRPPEB;
         private System.Windows.Forms.CheckBox checkBoxDCOSFT;
+        private System.Windows.Forms.GroupBox groupBoxRPCocontraction;
+        private System.Windows.Forms.Label labelRPCCL;
+        private System.Windows.Forms.TextBox textBoxRPCCW;
+        private System.Windows.Forms.TextBox textBoxRPNCCL;
+        private System.Windows.Forms.TextBox textBoxRPCCH;
+        private System.Windows.Forms.TextBox textBoxRPCCL;
+        private System.Windows.Forms.Label labelRPCCW;
+        private System.Windows.Forms.Label labelRPNCCL;
+        private System.Windows.Forms.Label labelRPCCH;
     }
 }

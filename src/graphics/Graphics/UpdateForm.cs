@@ -1238,7 +1238,13 @@ namespace BehaviorGraphics
             AddParamListItem("RP HTR", "P39", "Behavior RP", this.textBoxRPHTR);
 
             // More bump stuff
-            AddParamListItem("RP PEB", "P40", "Behavior RP", this.textBoxRPPEB);            
+            AddParamListItem("RP PEB", "P40", "Behavior RP", this.textBoxRPPEB);      
+      
+            // Co-contraction stuff
+            AddParamListItem("RP CCL", "P41", "Behavior RP", this.textBoxRPCCL);
+            AddParamListItem("PR CCH", "P42", "Behavior RP", this.textBoxRPCCH);
+            AddParamListItem("RP NCCL", "P43", "Behavior RP", this.textBoxRPNCCL);
+            AddParamListItem("RP CCW", "P44", "Behavior RP", this.textBoxRPCCW);
 
             #endregion
         }

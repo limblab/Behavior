@@ -120,6 +120,12 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>236, 17</value>
   </metadata>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>236, 17</value>
+  </metadata>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>236, 17</value>
+  </metadata>
   <data name="textBoxCHH.ToolTip" xml:space="preserve">
     <value>Upper bound on random center hold time.  Center hold time is the time between when the cursor enters the center target and the outer target appears.
 Set equal to Center Hold Low for non-random hold time.</value>
@@ -177,6 +183,9 @@ This setting determines the number of intensity levels between on and off.</valu
   <metadata name="y_varMG.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="y_varMG.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="textBoxMGTPL.ToolTip" xml:space="preserve">
     <value>Lower bound on random touch pad hold time -- the amount of time the monkey must keep its hand on the touch pad before the gadget LED is illuminated.
 Set equal to Touch Pad High for non-random hold time.</value>
@@ -187,10 +196,22 @@ Set equal to Touch Pad High for non-random hold time.</value>
   <metadata name="y_varWF.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="x_varWF.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="y_varWF.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="textBoxBDTPL.ToolTip" xml:space="preserve">
     <value>Lower bound on random touch pad hold time -- the amount of time the monkey must keep its hand on the touch pad before the gadget LED is illuminated.
 Set equal to Touch Pad High for non-random hold time.</value>
   </data>
+  <metadata name="StimCodeColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="PDColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="StimCodeColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -217,6 +238,12 @@ Set equal to Center Hold Low for non-random hold time.</value>
     <value>Lower bound on random center hold time.  Center hold time is the time between when the cursor enters the center target and the outer target appears.
 Set equal to Center Hold High for non-random hold time.</value>
   </data>
+  <metadata name="dataGridViewTextBoxColumn1.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridViewTextBoxColumn2.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="dataGridViewTextBoxColumn1.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
