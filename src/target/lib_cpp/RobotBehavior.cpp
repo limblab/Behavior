@@ -40,7 +40,7 @@ public:
 	Point force; 	     /**< Requested output force. */
 	int status[5];       /**< Five status numbers to be displayed. */
 	int word;            /**< 8-bit word to be output. */
-	Target *targets[64]; /**< Targets to be displayed. */
+	Target *targets[20]; /**< Targets to be displayed. */
 	int reward;          /**< Set true to pulse the reward line. */
 	int tone_counter;    /**< Tone counter (see Behavior::playTone).  */
 	int last_tone_id;    /**< Id of last requested tone (see: Behavior::playTone). */
@@ -83,7 +83,7 @@ RobotBehavior::RobotBehavior() : Behavior() {
 	this->outputs = new RobotOutputs();
 
 	this->nullTarget = (Target *)(new RectangleTarget(0, 0, 0, 0, TARGET_TYPE_NULL));
-	for (int i = 0; i < 64; i++) {
+	for (int i = 0; i < 20; i++) {
 		this->outputs->targets[i] = nullTarget;
 	}
 }
@@ -155,7 +155,7 @@ void RobotBehavior::writeOutputs(SimStruct *S) {
 
 	// targets
 	uPtrs = ssGetOutputPortRealSignal(S, 3);
-	for (i = 0; i<64; i++) {
+	for (i = 0; i<20; i++) {
 		outputs->targets[i]->copyToOutputs(uPtrs, i*5);
 	}
 

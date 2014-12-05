@@ -126,7 +126,7 @@ namespace BehaviorGraphics
             activeGlyphDef = GlyphDefs[activeGlyphIndex];
             activeGlyphTextures = activeGlyphDef.GetTextures(device);
 
-            t = new TargetSprite[64];  // Arbitrarily limiting number of targets to 64
+            t = new TargetSprite[20];  // Arbitrarily limiting number of targets to 64
             for (int i = 0; i < t.Length; i++) {
                 t[i] = new TargetSprite(device, activeGlyphTextures);
             }

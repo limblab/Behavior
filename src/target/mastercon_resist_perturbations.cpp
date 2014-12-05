@@ -209,6 +209,7 @@ struct LocalParams{
     real_T cocontraction_high; 
     real_T num_cocontraction_levels;
     real_T cocontraction_window; 
+    real_T outer_cursor_radius;
 };
 
 /**
@@ -232,8 +233,8 @@ private:
 	CircleTarget *centerTarget;	
     CircleTarget *holdTarget;
 	CircleTarget *forceFeedback[5];	   
-    CircleTarget *lowerArm[5];
-    CircleTarget *upperArm[5]; 
+    CircleTarget *lowerArm[4];
+    CircleTarget *upperArm[4]; 
     CircleTarget *cursorTarget;
     CircleTarget *cursorRingTarget;
     
@@ -297,7 +298,7 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(44);
+	this->setNumParams(45);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
     
@@ -351,12 +352,13 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->percent_early_bumps,                     39);
     
     this->bindParamId(&params->cocontraction_low,                       40);
-    this->bindParamId(&params->cocontraction_high,                       41);
+    this->bindParamId(&params->cocontraction_high,                      41);
     this->bindParamId(&params->num_cocontraction_levels,                42);
     this->bindParamId(&params->cocontraction_window,                    43);
+    this->bindParamId(&params->outer_cursor_radius,                     44);
   
     // default parameters:
-    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .2 2 2 1 0 2 0 5 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   0 0   1   50   0 1 3 1
+    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .2 2 2 1 0 2 0 5 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   0 0   1   50   0 1 3 1 0.8
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -375,15 +377,16 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     cursorRingTarget = new CircleTarget();
     cursorRingTarget->radius = 0.8;
  
-    
-    for (int i=0; i<5; i++) {
+    for (int i=0; i<4; i++) {
 		lowerArm[i] = new CircleTarget(0,0,.3,0);
         lowerArm[i]->color = Target::Color(80,80,80);
         upperArm[i] = new CircleTarget(0,0,.3,0);
         upperArm[i]->color = Target::Color(80,80,80);
+	}
+    for (int i=0; i<5; i++) {
         forceFeedback[i] = new CircleTarget(0,0,.3,0);
         forceFeedback[i]->color = Target::Color(255,255,255);
-	}
+    }
     
     for (int i=0; i<16; i++){
         frequency_order[i] = -1;
@@ -443,6 +446,8 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
 
 	centerTarget->radius = params->target_radius;
     holdTarget->radius = params->center_hold_target_radius;
+    cursorRingTarget->radius = params->outer_cursor_radius;
+    cursorTarget->radius = 0.7*params->outer_cursor_radius;
       
     if (last_trial_reward==1 || !was_rewarded || old_toggle_reset_block != params->toggle_reset_block){        
         trial_counter++;
@@ -586,9 +591,10 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     holdTarget->centerY = 0;
     
     // Cursors
-    cursorRingTarget->color = Target::Color((int)(trial_cocontraction*255),
-            (int)(trial_cocontraction*255),(int)(trial_cocontraction*255));
-    cursorTarget->color = Target::Color(128,128,128);
+    real_T ring_color = (trial_cocontraction - params->cocontraction_low) /
+            (params->cocontraction_high - params->cocontraction_low);
+    cursorRingTarget->color = Target::Color((int)(128),
+            (int)128,(int)(128));
         
 	center_hold_time = this->random->getDouble(params->center_hold_low,params->center_hold_high);
     perturbation_hold_time = this->random->getDouble(params->perturbation_hold_low,params->perturbation_hold_high);
@@ -672,8 +678,8 @@ void ResistPerturbations::update(SimStruct *S) {
                 setState(STATE_INCOMPLETE);
             } else {
                 if (holdTarget->cursorInTarget(cursor_position) &&
-                        cocontraction_level > min_cocontraction &&
-                        cocontraction_level < max_cocontraction) {
+                        cocontraction_level >= min_cocontraction &&
+                        cocontraction_level <= max_cocontraction) {
                     setState(STATE_CT_HOLD);
                 }
             }
@@ -807,11 +813,11 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
         upper_arm_length = shoulder_pos - elbow_pos;
         lower_arm_length = elbow_pos - cursor_position;
         
-        for(int i=0; i<5 ; i++){
-            upperArm[i]->centerX = shoulder_pos.x - (i+1)*upper_arm_length.x/5;
-            upperArm[i]->centerY = shoulder_pos.y - (i+1)*upper_arm_length.y/5;
-            lowerArm[i]->centerX = elbow_pos.x - (i+1)*lower_arm_length.x/6;
-            lowerArm[i]->centerY = elbow_pos.y - (i+1)*lower_arm_length.y/6;
+        for(int i=0; i<4 ; i++){
+            upperArm[i]->centerX = shoulder_pos.x - (i+1)*upper_arm_length.x/4;
+            upperArm[i]->centerY = shoulder_pos.y - (i+1)*upper_arm_length.y/4;
+            lowerArm[i]->centerX = elbow_pos.x - (i+1)*lower_arm_length.x/5;
+            lowerArm[i]->centerY = elbow_pos.y - (i+1)*lower_arm_length.y/5;
         }
     } else {
         cursor_position.x = cursor_position_old.x*(1-params->pos_filt) + 
@@ -829,12 +835,19 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
     cursor_velocity_old = cursor_velocity;   
     
     cocontraction_level = inputs->extra3.x;
+    
     cursorRingTarget->centerX = cursor_position.x;
     cursorRingTarget->centerY = cursor_position.y;    
+//     cursorRingTarget->color = Target::Color((int)(trial_cocontraction*255),
+//             (int)(255),(int)(trial_cocontraction*255));
+    
     cursorTarget->centerX = cursor_position.x;
     cursorTarget->centerY = cursor_position.y;
-    cursorTarget->color = Target::Color((int)(cocontraction_level*255),
-            (int)(cocontraction_level*255),(int)(cocontraction_level*255));
+    real_T cursor_color =  (cocontraction_level - min_cocontraction) /
+            (max_cocontraction - min_cocontraction);
+    cursor_color = (cursor_color<0)?0:((cursor_color>1)?1:cursor_color);
+    cursorTarget->color = Target::Color((int)(cursor_color*255),
+            (int)(cursor_color*255),(int)(cursor_color*255));
     
     /* force (0) */ 
     force = Point(0,0);
@@ -923,11 +936,11 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
 	outputs->status[3] = trialCounter->failures;
 	outputs->status[4] = trialCounter->incompletes;  
     
-//     outputs->status[0] = 100*frequencies[0];
-// 	outputs->status[1] = 100*frequencies[1];
-// 	outputs->status[2] = 100*frequencies[2];
-// 	outputs->status[3] = 100*frequencies[3];
-// 	outputs->status[4] = trial_counter;  
+//     outputs->status[0] = ;
+	outputs->status[1] = 100*cocontraction_level;
+	outputs->status[2] = 100*trial_cocontraction;
+	outputs->status[3] = 100*min_cocontraction;
+ 	outputs->status[4] = 100*cursor_color;
     
 	/* word (2) */
 	if (db->isRunning()) {
@@ -973,33 +986,35 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
 
 	/* targets (3) */    
     if (params->brain_control){
-        for(int i=0;i<5;i++){
+        for(int i=0;i<4;i++){
             outputs->targets[i] = upperArm[i];
-            outputs->targets[5+i] = lowerArm[i];
+            outputs->targets[4+i] = lowerArm[i];
         }
     } else {
-        for(int i=0;i<5;i++){
+        for(int i=0;i<4;i++){
             outputs->targets[i] = nullTarget;
-            outputs->targets[5+i] = nullTarget;
+            outputs->targets[4+i] = nullTarget;
         }
     }
 	switch (this->getState()){
 		case STATE_CENTER_TARGET_ON:
         case STATE_CT_HOLD: 
-            outputs->targets[10] = (Target *)holdTarget;
+            outputs->targets[8] = (Target *)holdTarget;
             break;
         case STATE_PERTURBATION:
         case STATE_BUMP:
-            outputs->targets[10] = (Target *)centerTarget;
+            outputs->targets[8] = (Target *)centerTarget;
 			break;     
 		default:
-            outputs->targets[10] = nullTarget;
+            outputs->targets[8] = nullTarget;
 	}
     if (params->force_visual_feedback && getState()==STATE_PERTURBATION) {
         for (int i=0; i<5; i++){
-            outputs->targets[11+i] = forceFeedback[i];
+            outputs->targets[9+i] = forceFeedback[i];
         }
     }
+    outputs->targets[14] = (Target *)cursorRingTarget;
+    outputs->targets[15] = (Target *)cursorTarget;
     
 	/* reward (4) */
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD));

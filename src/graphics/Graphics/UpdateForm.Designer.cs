@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1399,6 +1399,15 @@ namespace BehaviorGraphics
             this.labelURRW = new System.Windows.Forms.Label();
             this.labelURCHL = new System.Windows.Forms.Label();
             this.tabPageResist = new System.Windows.Forms.TabPage();
+            this.groupBoxRPCocontraction = new System.Windows.Forms.GroupBox();
+            this.textBoxRPCCW = new System.Windows.Forms.TextBox();
+            this.textBoxRPNCCL = new System.Windows.Forms.TextBox();
+            this.textBoxRPCCH = new System.Windows.Forms.TextBox();
+            this.textBoxRPCCL = new System.Windows.Forms.TextBox();
+            this.labelRPCCW = new System.Windows.Forms.Label();
+            this.labelRPNCCL = new System.Windows.Forms.Label();
+            this.labelRPCCH = new System.Windows.Forms.Label();
+            this.labelRPCCL = new System.Windows.Forms.Label();
             this.groupBoxRPBumps = new System.Windows.Forms.GroupBox();
             this.labelRPPEB = new System.Windows.Forms.Label();
             this.textBoxRPPEB = new System.Windows.Forms.TextBox();
@@ -1672,15 +1681,8 @@ namespace BehaviorGraphics
             this.label405 = new System.Windows.Forms.Label();
             this.label406 = new System.Windows.Forms.Label();
             this.label407 = new System.Windows.Forms.Label();
-            this.groupBoxRPCocontraction = new System.Windows.Forms.GroupBox();
-            this.labelRPCCL = new System.Windows.Forms.Label();
-            this.labelRPCCH = new System.Windows.Forms.Label();
-            this.labelRPNCCL = new System.Windows.Forms.Label();
-            this.labelRPCCW = new System.Windows.Forms.Label();
-            this.textBoxRPCCL = new System.Windows.Forms.TextBox();
-            this.textBoxRPCCH = new System.Windows.Forms.TextBox();
-            this.textBoxRPNCCL = new System.Windows.Forms.TextBox();
-            this.textBoxRPCCW = new System.Windows.Forms.TextBox();
+            this.textBoxRPCR = new System.Windows.Forms.TextBox();
+            this.labelRPCR = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -1848,6 +1850,7 @@ namespace BehaviorGraphics
             this.groupBox79.SuspendLayout();
             this.groupBox78.SuspendLayout();
             this.tabPageResist.SuspendLayout();
+            this.groupBoxRPCocontraction.SuspendLayout();
             this.groupBoxRPBumps.SuspendLayout();
             this.groupBoxRPVel.SuspendLayout();
             this.groupBoxRPPert.SuspendLayout();
@@ -1861,7 +1864,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBoxRPCocontraction.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -4719,8 +4721,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5552,8 +5554,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -15956,6 +15958,94 @@ namespace BehaviorGraphics
             this.tabPageResist.Text = "Resist Perturbations";
             this.tabPageResist.UseVisualStyleBackColor = true;
             // 
+            // groupBoxRPCocontraction
+            // 
+            this.groupBoxRPCocontraction.Controls.Add(this.textBoxRPCCW);
+            this.groupBoxRPCocontraction.Controls.Add(this.textBoxRPNCCL);
+            this.groupBoxRPCocontraction.Controls.Add(this.textBoxRPCCH);
+            this.groupBoxRPCocontraction.Controls.Add(this.textBoxRPCCL);
+            this.groupBoxRPCocontraction.Controls.Add(this.labelRPCCW);
+            this.groupBoxRPCocontraction.Controls.Add(this.labelRPNCCL);
+            this.groupBoxRPCocontraction.Controls.Add(this.labelRPCCH);
+            this.groupBoxRPCocontraction.Controls.Add(this.labelRPCCL);
+            this.groupBoxRPCocontraction.Location = new System.Drawing.Point(26, 312);
+            this.groupBoxRPCocontraction.Name = "groupBoxRPCocontraction";
+            this.groupBoxRPCocontraction.Size = new System.Drawing.Size(201, 119);
+            this.groupBoxRPCocontraction.TabIndex = 43;
+            this.groupBoxRPCocontraction.TabStop = false;
+            this.groupBoxRPCocontraction.Text = "Co-contraction targets";
+            // 
+            // textBoxRPCCW
+            // 
+            this.textBoxRPCCW.Location = new System.Drawing.Point(136, 92);
+            this.textBoxRPCCW.Name = "textBoxRPCCW";
+            this.textBoxRPCCW.Size = new System.Drawing.Size(54, 20);
+            this.textBoxRPCCW.TabIndex = 37;
+            this.textBoxRPCCW.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxRPNCCL
+            // 
+            this.textBoxRPNCCL.Location = new System.Drawing.Point(136, 69);
+            this.textBoxRPNCCL.Name = "textBoxRPNCCL";
+            this.textBoxRPNCCL.Size = new System.Drawing.Size(54, 20);
+            this.textBoxRPNCCL.TabIndex = 36;
+            this.textBoxRPNCCL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxRPCCH
+            // 
+            this.textBoxRPCCH.Location = new System.Drawing.Point(136, 46);
+            this.textBoxRPCCH.Name = "textBoxRPCCH";
+            this.textBoxRPCCH.Size = new System.Drawing.Size(54, 20);
+            this.textBoxRPCCH.TabIndex = 35;
+            this.textBoxRPCCH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxRPCCL
+            // 
+            this.textBoxRPCCL.Location = new System.Drawing.Point(136, 22);
+            this.textBoxRPCCL.Name = "textBoxRPCCL";
+            this.textBoxRPCCL.Size = new System.Drawing.Size(54, 20);
+            this.textBoxRPCCL.TabIndex = 34;
+            this.textBoxRPCCL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelRPCCW
+            // 
+            this.labelRPCCW.AutoSize = true;
+            this.labelRPCCW.Location = new System.Drawing.Point(5, 95);
+            this.labelRPCCW.Name = "labelRPCCW";
+            this.labelRPCCW.Size = new System.Drawing.Size(115, 13);
+            this.labelRPCCW.TabIndex = 3;
+            this.labelRPCCW.Text = "Co-contraction window";
+            this.toolTip1.SetToolTip(this.labelRPCCW, "Between 0 and 1");
+            // 
+            // labelRPNCCL
+            // 
+            this.labelRPNCCL.AutoSize = true;
+            this.labelRPNCCL.Location = new System.Drawing.Point(5, 72);
+            this.labelRPNCCL.Name = "labelRPNCCL";
+            this.labelRPNCCL.Size = new System.Drawing.Size(127, 13);
+            this.labelRPNCCL.TabIndex = 2;
+            this.labelRPNCCL.Text = "Num cocontraction levels";
+            // 
+            // labelRPCCH
+            // 
+            this.labelRPCCH.AutoSize = true;
+            this.labelRPCCH.Location = new System.Drawing.Point(5, 49);
+            this.labelRPCCH.Name = "labelRPCCH";
+            this.labelRPCCH.Size = new System.Drawing.Size(99, 13);
+            this.labelRPCCH.TabIndex = 1;
+            this.labelRPCCH.Text = "Co-contraction high";
+            this.toolTip1.SetToolTip(this.labelRPCCH, "Between 0 and 1");
+            // 
+            // labelRPCCL
+            // 
+            this.labelRPCCL.AutoSize = true;
+            this.labelRPCCL.Location = new System.Drawing.Point(5, 25);
+            this.labelRPCCL.Name = "labelRPCCL";
+            this.labelRPCCL.Size = new System.Drawing.Size(95, 13);
+            this.labelRPCCL.TabIndex = 0;
+            this.labelRPCCL.Text = "Co-contraction low";
+            this.toolTip1.SetToolTip(this.labelRPCCL, "Between 0 and 1");
+            // 
             // groupBoxRPBumps
             // 
             this.groupBoxRPBumps.Controls.Add(this.labelRPPEB);
@@ -15977,9 +16067,9 @@ namespace BehaviorGraphics
             this.groupBoxRPBumps.Controls.Add(this.textBoxRPBD);
             this.groupBoxRPBumps.Controls.Add(this.textBoxRPBM);
             this.groupBoxRPBumps.Controls.Add(this.textBoxRPPBT);
-            this.groupBoxRPBumps.Location = new System.Drawing.Point(233, 140);
+            this.groupBoxRPBumps.Location = new System.Drawing.Point(233, 157);
             this.groupBoxRPBumps.Name = "groupBoxRPBumps";
-            this.groupBoxRPBumps.Size = new System.Drawing.Size(201, 291);
+            this.groupBoxRPBumps.Size = new System.Drawing.Size(201, 280);
             this.groupBoxRPBumps.TabIndex = 42;
             this.groupBoxRPBumps.TabStop = false;
             this.groupBoxRPBumps.Text = "Bumps";
@@ -16459,6 +16549,8 @@ namespace BehaviorGraphics
             // 
             // groupBoxRPCursor
             // 
+            this.groupBoxRPCursor.Controls.Add(this.textBoxRPCR);
+            this.groupBoxRPCursor.Controls.Add(this.labelRPCR);
             this.groupBoxRPCursor.Controls.Add(this.textBoxRPHTR);
             this.groupBoxRPCursor.Controls.Add(this.labelRPHTR);
             this.groupBoxRPCursor.Controls.Add(this.checkBoxRPBC);
@@ -16467,7 +16559,7 @@ namespace BehaviorGraphics
             this.groupBoxRPCursor.Controls.Add(this.labelRPTR);
             this.groupBoxRPCursor.Location = new System.Drawing.Point(233, 9);
             this.groupBoxRPCursor.Name = "groupBoxRPCursor";
-            this.groupBoxRPCursor.Size = new System.Drawing.Size(200, 125);
+            this.groupBoxRPCursor.Size = new System.Drawing.Size(200, 144);
             this.groupBoxRPCursor.TabIndex = 39;
             this.groupBoxRPCursor.TabStop = false;
             this.groupBoxRPCursor.Text = "Cursor and targets";
@@ -18407,93 +18499,22 @@ namespace BehaviorGraphics
             this.label407.TabIndex = 0;
             this.label407.Text = "Center hold low";
             // 
-            // groupBoxRPCocontraction
+            // textBoxRPCR
             // 
-            this.groupBoxRPCocontraction.Controls.Add(this.textBoxRPCCW);
-            this.groupBoxRPCocontraction.Controls.Add(this.textBoxRPNCCL);
-            this.groupBoxRPCocontraction.Controls.Add(this.textBoxRPCCH);
-            this.groupBoxRPCocontraction.Controls.Add(this.textBoxRPCCL);
-            this.groupBoxRPCocontraction.Controls.Add(this.labelRPCCW);
-            this.groupBoxRPCocontraction.Controls.Add(this.labelRPNCCL);
-            this.groupBoxRPCocontraction.Controls.Add(this.labelRPCCH);
-            this.groupBoxRPCocontraction.Controls.Add(this.labelRPCCL);
-            this.groupBoxRPCocontraction.Location = new System.Drawing.Point(26, 312);
-            this.groupBoxRPCocontraction.Name = "groupBoxRPCocontraction";
-            this.groupBoxRPCocontraction.Size = new System.Drawing.Size(201, 119);
-            this.groupBoxRPCocontraction.TabIndex = 43;
-            this.groupBoxRPCocontraction.TabStop = false;
-            this.groupBoxRPCocontraction.Text = "Co-contraction targets";
+            this.textBoxRPCR.Location = new System.Drawing.Point(123, 118);
+            this.textBoxRPCR.Name = "textBoxRPCR";
+            this.textBoxRPCR.Size = new System.Drawing.Size(68, 20);
+            this.textBoxRPCR.TabIndex = 38;
+            this.textBoxRPCR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
-            // labelRPCCL
+            // labelRPCR
             // 
-            this.labelRPCCL.AutoSize = true;
-            this.labelRPCCL.Location = new System.Drawing.Point(5, 25);
-            this.labelRPCCL.Name = "labelRPCCL";
-            this.labelRPCCL.Size = new System.Drawing.Size(95, 13);
-            this.labelRPCCL.TabIndex = 0;
-            this.labelRPCCL.Text = "Co-contraction low";
-            this.toolTip1.SetToolTip(this.labelRPCCL, "Between 0 and 1");
-            // 
-            // labelRPCCH
-            // 
-            this.labelRPCCH.AutoSize = true;
-            this.labelRPCCH.Location = new System.Drawing.Point(5, 49);
-            this.labelRPCCH.Name = "labelRPCCH";
-            this.labelRPCCH.Size = new System.Drawing.Size(99, 13);
-            this.labelRPCCH.TabIndex = 1;
-            this.labelRPCCH.Text = "Co-contraction high";
-            this.toolTip1.SetToolTip(this.labelRPCCH, "Between 0 and 1");
-            // 
-            // labelRPNCCL
-            // 
-            this.labelRPNCCL.AutoSize = true;
-            this.labelRPNCCL.Location = new System.Drawing.Point(5, 72);
-            this.labelRPNCCL.Name = "labelRPNCCL";
-            this.labelRPNCCL.Size = new System.Drawing.Size(127, 13);
-            this.labelRPNCCL.TabIndex = 2;
-            this.labelRPNCCL.Text = "Num cocontraction levels";
-            // 
-            // labelRPCCW
-            // 
-            this.labelRPCCW.AutoSize = true;
-            this.labelRPCCW.Location = new System.Drawing.Point(5, 95);
-            this.labelRPCCW.Name = "labelRPCCW";
-            this.labelRPCCW.Size = new System.Drawing.Size(115, 13);
-            this.labelRPCCW.TabIndex = 3;
-            this.labelRPCCW.Text = "Co-contraction window";
-            this.toolTip1.SetToolTip(this.labelRPCCW, "Between 0 and 1");
-            // 
-            // textBoxRPCCL
-            // 
-            this.textBoxRPCCL.Location = new System.Drawing.Point(136, 22);
-            this.textBoxRPCCL.Name = "textBoxRPCCL";
-            this.textBoxRPCCL.Size = new System.Drawing.Size(54, 20);
-            this.textBoxRPCCL.TabIndex = 34;
-            this.textBoxRPCCL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // textBoxRPCCH
-            // 
-            this.textBoxRPCCH.Location = new System.Drawing.Point(136, 46);
-            this.textBoxRPCCH.Name = "textBoxRPCCH";
-            this.textBoxRPCCH.Size = new System.Drawing.Size(54, 20);
-            this.textBoxRPCCH.TabIndex = 35;
-            this.textBoxRPCCH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // textBoxRPNCCL
-            // 
-            this.textBoxRPNCCL.Location = new System.Drawing.Point(136, 69);
-            this.textBoxRPNCCL.Name = "textBoxRPNCCL";
-            this.textBoxRPNCCL.Size = new System.Drawing.Size(54, 20);
-            this.textBoxRPNCCL.TabIndex = 36;
-            this.textBoxRPNCCL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // textBoxRPCCW
-            // 
-            this.textBoxRPCCW.Location = new System.Drawing.Point(136, 92);
-            this.textBoxRPCCW.Name = "textBoxRPCCW";
-            this.textBoxRPCCW.Size = new System.Drawing.Size(54, 20);
-            this.textBoxRPCCW.TabIndex = 37;
-            this.textBoxRPCCW.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.labelRPCR.AutoSize = true;
+            this.labelRPCR.Location = new System.Drawing.Point(9, 123);
+            this.labelRPCR.Name = "labelRPCR";
+            this.labelRPCR.Size = new System.Drawing.Size(68, 13);
+            this.labelRPCR.TabIndex = 37;
+            this.labelRPCR.Text = "Cursor radius";
             // 
             // UpdateForm
             // 
@@ -18792,6 +18813,8 @@ namespace BehaviorGraphics
             this.groupBox78.ResumeLayout(false);
             this.groupBox78.PerformLayout();
             this.tabPageResist.ResumeLayout(false);
+            this.groupBoxRPCocontraction.ResumeLayout(false);
+            this.groupBoxRPCocontraction.PerformLayout();
             this.groupBoxRPBumps.ResumeLayout(false);
             this.groupBoxRPBumps.PerformLayout();
             this.groupBoxRPVel.ResumeLayout(false);
@@ -18815,8 +18838,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBoxRPCocontraction.ResumeLayout(false);
-            this.groupBoxRPCocontraction.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -20474,5 +20495,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelRPCCW;
         private System.Windows.Forms.Label labelRPNCCL;
         private System.Windows.Forms.Label labelRPCCH;
+        private System.Windows.Forms.TextBox textBoxRPCR;
+        private System.Windows.Forms.Label labelRPCR;
     }
 }
