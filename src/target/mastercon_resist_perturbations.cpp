@@ -41,6 +41,7 @@
  * byte        62: int      => early bump
  * bytes 63 to 66: float    => co-contraction level [0-1]
  * bytes 67 to 70: float    => co-contraction window [0-1]
+ * bytes 71 to 74: float    => outer cursor radius (cm)
  *
  *** * Version 2 (0x02)
  * ----------------
@@ -237,6 +238,7 @@ private:
     CircleTarget *upperArm[4]; 
     CircleTarget *cursorTarget;
     CircleTarget *cursorRingTarget;
+    CircleTarget *cursorInnerTarget;
     
 	LocalParams *params;	
 
@@ -281,6 +283,9 @@ private:
     real_T cocontraction_level;
     real_T min_cocontraction;
     real_T max_cocontraction;
+    real_T cursor_color;
+    real_T inner_color;
+    real_T ring_color;
     
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);    
@@ -376,6 +381,8 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     cursorTarget->radius = 0.5;
     cursorRingTarget = new CircleTarget();
     cursorRingTarget->radius = 0.8;
+    cursorInnerTarget = new CircleTarget();
+    cursorInnerTarget->radius = 0.3;
  
     for (int i=0; i<4; i++) {
 		lowerArm[i] = new CircleTarget(0,0,.3,0);
@@ -448,6 +455,7 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     holdTarget->radius = params->center_hold_target_radius;
     cursorRingTarget->radius = params->outer_cursor_radius;
     cursorTarget->radius = 0.7*params->outer_cursor_radius;
+    cursorInnerTarget->radius = 0.4*params->outer_cursor_radius;
       
     if (last_trial_reward==1 || !was_rewarded || old_toggle_reset_block != params->toggle_reset_block){        
         trial_counter++;
@@ -630,6 +638,7 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     db->addByte((int)early_bump);                               // byte 62        -> Matlab idx 63
     db->addFloat((float)trial_cocontraction);                   // bytes 63 to 66 -> Matlab idx 64 to 67
     db->addFloat((float)params->cocontraction_window);          // bytes 67 to 70 -> Matlab idx 68 to 71
+    db->addFloat((float)params->outer_cursor_radius);           // bytes 71 to 74 -> Matlab idx 72 to 75
 	db->start();
 }
 
@@ -838,16 +847,30 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
     
     cursorRingTarget->centerX = cursor_position.x;
     cursorRingTarget->centerY = cursor_position.y;    
-//     cursorRingTarget->color = Target::Color((int)(trial_cocontraction*255),
-//             (int)(255),(int)(trial_cocontraction*255));
+    
+    cursorInnerTarget->centerX = cursor_position.x;
+    cursorInnerTarget->centerY = cursor_position.y; 
     
     cursorTarget->centerX = cursor_position.x;
     cursorTarget->centerY = cursor_position.y;
-    real_T cursor_color =  (cocontraction_level - min_cocontraction) /
-            (max_cocontraction - min_cocontraction);
+    
+    cursor_color =  (cocontraction_level - (params->cocontraction_low - params->cocontraction_window/2)) /
+        (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
     cursor_color = (cursor_color<0)?0:((cursor_color>1)?1:cursor_color);
     cursorTarget->color = Target::Color((int)(cursor_color*255),
             (int)(cursor_color*255),(int)(cursor_color*255));
+    
+    ring_color = (max_cocontraction - (params->cocontraction_low - params->cocontraction_window/2)) /
+        (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
+    ring_color = (ring_color<0)?0:((ring_color>1)?1:ring_color);    
+    cursorRingTarget->color = Target::Color((int)(ring_color*255),
+            (int)(ring_color*255),(int)(ring_color*255));
+    
+    inner_color = (min_cocontraction - (params->cocontraction_low - params->cocontraction_window/2)) /
+        (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
+    inner_color = (inner_color<0)?0:((inner_color>1)?1:inner_color);    
+    cursorInnerTarget->color = Target::Color((int)(inner_color*255),
+            (int)(inner_color*255),(int)(inner_color*255));
     
     /* force (0) */ 
     force = Point(0,0);
@@ -937,10 +960,10 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
 	outputs->status[4] = trialCounter->incompletes;  
     
 //     outputs->status[0] = ;
-	outputs->status[1] = 100*cocontraction_level;
-	outputs->status[2] = 100*trial_cocontraction;
-	outputs->status[3] = 100*min_cocontraction;
- 	outputs->status[4] = 100*cursor_color;
+// 	outputs->status[1] = 100*cocontraction_level;
+// 	outputs->status[2] = (int)(100*cursor_color);
+// 	outputs->status[3] = (int)(100*inner_color);
+//  	outputs->status[4] = (int)(100*ring_color);
     
 	/* word (2) */
 	if (db->isRunning()) {
@@ -1015,6 +1038,7 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
     }
     outputs->targets[14] = (Target *)cursorRingTarget;
     outputs->targets[15] = (Target *)cursorTarget;
+    outputs->targets[16] = (Target *)cursorInnerTarget;
     
 	/* reward (4) */
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
