@@ -286,6 +286,9 @@ private:
     real_T cursor_color;
     real_T inner_color;
     real_T ring_color;
+    int size_target;
+    real_T ring_radius;
+    real_T cursor_radius;
     
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);    
@@ -439,6 +442,10 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     trial_cocontraction = 0.5;
     min_cocontraction = 0;
     max_cocontraction = 0;
+        
+    size_target = 1;
+    ring_radius = 1;
+    cursor_radius = 1;
 }
 
 void ResistPerturbations::doPreTrial(SimStruct *S) {
@@ -450,12 +457,6 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     real_T rand_d;
     
     number_of_blocks = params->num_force_frequencies;
-
-	centerTarget->radius = params->target_radius;
-    holdTarget->radius = params->center_hold_target_radius;
-    cursorRingTarget->radius = params->outer_cursor_radius;
-    cursorTarget->radius = 0.7*params->outer_cursor_radius;
-    cursorInnerTarget->radius = 0.4*params->outer_cursor_radius;
       
     if (last_trial_reward==1 || !was_rewarded || old_toggle_reset_block != params->toggle_reset_block){        
         trial_counter++;
@@ -581,7 +582,10 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     
     last_trial_reward = 0;
     
-    // Targets
+    // Targets    
+    centerTarget->radius = params->target_radius;
+    holdTarget->radius = params->center_hold_target_radius;    
+    
     real_T m_red = 1/(params->force_frequency_high - params->force_frequency_low);
     real_T b_red = -params->force_frequency_low/(params->force_frequency_high - params->force_frequency_low);
     real_T m_blue = -m_red;
@@ -599,10 +603,27 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     holdTarget->centerY = 0;
     
     // Cursors
-    real_T ring_color = (trial_cocontraction - params->cocontraction_low) /
-            (params->cocontraction_high - params->cocontraction_low);
-    cursorRingTarget->color = Target::Color((int)(128),
+        
+    if (size_target){
+        
+        ring_radius = (max_cocontraction - (params->cocontraction_low - params->cocontraction_window/2)) /
+            (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
+        ring_radius = ring_radius * params->outer_cursor_radius;          
+        cursorRingTarget->color = Target::Color(255,255,255);  
+        
+        cursor_radius = (min_cocontraction - (params->cocontraction_low - params->cocontraction_window/2)) /
+            (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
+        cursor_radius = cursor_radius * params->outer_cursor_radius;         
+        cursorTarget->color = Target::Color(0,0,0);        
+        
+        cursorInnerTarget->color = Target::Color(128,128,128);
+    } else {
+        cursorRingTarget->radius = params->outer_cursor_radius;
+        cursorTarget->radius = 0.7*params->outer_cursor_radius;
+        cursorInnerTarget->radius = 0.4*params->outer_cursor_radius;        
+        cursorRingTarget->color = Target::Color((int)(128),
             (int)128,(int)(128));
+    }        
         
 	center_hold_time = this->random->getDouble(params->center_hold_low,params->center_hold_high);
     perturbation_hold_time = this->random->getDouble(params->perturbation_hold_low,params->perturbation_hold_high);
@@ -659,6 +680,7 @@ void ResistPerturbations::update(SimStruct *S) {
                     setState(STATE_STOP_RECORDING);
                 } else {
                     setState(STATE_CENTER_TARGET_ON);
+                    playTone(TONE_GO);
                 }
             }
             break;
@@ -669,6 +691,7 @@ void ResistPerturbations::update(SimStruct *S) {
             if (stateTimer->elapsedTime(S) > 1.0) {    
                 playTone(TONE_FAIL);
                 setState(STATE_CENTER_TARGET_ON);
+                playTone(TONE_GO);
             }
             break;
         case STATE_STOP_RECORDING:
@@ -854,23 +877,41 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
     cursorTarget->centerX = cursor_position.x;
     cursorTarget->centerY = cursor_position.y;
     
-    cursor_color =  (cocontraction_level - (params->cocontraction_low - params->cocontraction_window/2)) /
-        (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
-    cursor_color = (cursor_color<0)?0:((cursor_color>1)?1:cursor_color);
-    cursorTarget->color = Target::Color((int)(cursor_color*255),
-            (int)(cursor_color*255),(int)(cursor_color*255));
-    
-    ring_color = (max_cocontraction - (params->cocontraction_low - params->cocontraction_window/2)) /
-        (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
-    ring_color = (ring_color<0)?0:((ring_color>1)?1:ring_color);    
-    cursorRingTarget->color = Target::Color((int)(ring_color*255),
-            (int)(ring_color*255),(int)(ring_color*255));
-    
-    inner_color = (min_cocontraction - (params->cocontraction_low - params->cocontraction_window/2)) /
-        (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
-    inner_color = (inner_color<0)?0:((inner_color>1)?1:inner_color);    
-    cursorInnerTarget->color = Target::Color((int)(inner_color*255),
-            (int)(inner_color*255),(int)(inner_color*255));
+    if (size_target){
+        real_T inner_radius;
+        inner_radius = (cocontraction_level - (params->cocontraction_low - params->cocontraction_window/2)) /
+            (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
+        inner_radius = (inner_radius<0)?0:((inner_radius>1)?1:inner_radius);
+        inner_radius = inner_radius*params->outer_cursor_radius;
+        cursorInnerTarget->radius = inner_radius;        
+        if (getState() == STATE_CENTER_TARGET_ON || 
+                getState() == STATE_CT_HOLD || 
+                getState() == STATE_PERTURBATION) {
+            cursorTarget->radius = cursor_radius;
+            cursorRingTarget->radius = ring_radius;
+        } else {
+            cursorTarget->radius = 0;
+            cursorRingTarget->radius = 0;
+        }
+    } else {
+        cursor_color =  (cocontraction_level - (params->cocontraction_low - params->cocontraction_window/2)) /
+            (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
+        cursor_color = (cursor_color<0)?0:((cursor_color>1)?1:cursor_color);
+        cursorTarget->color = Target::Color((int)(cursor_color*255),
+                (int)(cursor_color*255),(int)(cursor_color*255));
+
+        ring_color = (max_cocontraction - (params->cocontraction_low - params->cocontraction_window/2)) /
+            (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
+        ring_color = (ring_color<0)?0:((ring_color>1)?1:ring_color);    
+        cursorRingTarget->color = Target::Color((int)(ring_color*255),
+                (int)(ring_color*255),(int)(ring_color*255));
+
+        inner_color = (min_cocontraction - (params->cocontraction_low - params->cocontraction_window/2)) /
+            (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
+        inner_color = (inner_color<0)?0:((inner_color>1)?1:inner_color);    
+        cursorInnerTarget->color = Target::Color((int)(inner_color*255),
+                (int)(inner_color*255),(int)(inner_color*255));
+    }
     
     /* force (0) */ 
     force = Point(0,0);
@@ -1036,8 +1077,13 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
             outputs->targets[9+i] = forceFeedback[i];
         }
     }
-    outputs->targets[14] = (Target *)cursorRingTarget;
-    outputs->targets[15] = (Target *)cursorTarget;
+    if (cursorRingTarget->radius > cursorTarget->radius){
+        outputs->targets[14] = (Target *)cursorRingTarget;
+        outputs->targets[15] = (Target *)cursorTarget;
+    } else {
+        outputs->targets[14] = (Target *)cursorTarget;
+        outputs->targets[15] = (Target *)cursorRingTarget;
+    }
     outputs->targets[16] = (Target *)cursorInnerTarget;
     
 	/* reward (4) */
