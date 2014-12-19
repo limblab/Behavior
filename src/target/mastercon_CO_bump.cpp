@@ -264,7 +264,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	this->bump->direction = ((double)(this->tgt_angle + this->bump_dir)) * PI/180;
     /* Select whether this will be a stimulation trial */
     this->stim_trial=(this->random->getDouble() < params->stim_prob);
-	if this->stim_trial{
+	if (this->stim_trial){
 		bumpmag_local=0;
 	}
 	//select the actual center hold time
@@ -337,20 +337,20 @@ void COBumpBehavior::update(SimStruct *S) {
 			if (!centerTarget->cursorInTarget(inputs->cursor)) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			} else if (stateTimer->elapsedTime(S) > this->ct_hold) {
-				playTone(TONE_GO);
-				setState(STATE_MOVEMENT);
+			} else if (stateTimer->elapsedTime(S) > this->params->bump_delay_time) {
+				bump->start(S);
+				setState(STATE_BUMP);
 			}
 			break;
 		case STATE_MOVEMENT:
-			if (stateTimer->elapsedTime(S) > params->bump_delay_time) {
-				bump->start(S);
-				if (this->stim_trial) {
-					setState(STATE_STIM);
-				} else {
-					setState(STATE_BUMP);
-				}
-			}
+			if ( primaryTarget->cursorInTarget(inputs->cursor) ){
+        			playTone(TONE_REWARD);
+            		setState(STATE_REWARD);
+                } else if (stateTimer->elapsedTime(S) > 5){
+                    playTone(TONE_FAIL);
+    				setState(STATE_PENALTY);
+        		}
+			
 			break;
 		case STATE_STIM:
 			if (stateTimer->elapsedTime(S) > params->bump_hold_time){
@@ -365,13 +365,8 @@ void COBumpBehavior::update(SimStruct *S) {
 			break;            
 		case STATE_BUMP:
             if(stateTimer->elapsedTime(S) > params->bump_hold_time) {
-    			if ( primaryTarget->cursorInTarget(inputs->cursor) ){
-        			playTone(TONE_REWARD);
-            		setState(STATE_REWARD);
-                } else {
-                    playTone(TONE_FAIL);
-    				setState(STATE_PENALTY);
-        		}
+				playTone(TONE_GO);
+    			setState(STATE_MOVEMENT);
             }
 			break;
 		case STATE_PENALTY:
@@ -411,8 +406,11 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 
 	/* status (1) */
  	outputs->status[0] = getState();
+    //outputs->status[0] = bumpmag_local;
 	outputs->status[1] = trialCounter->successes;
+    //outputs->status[1] = this->tgt_angle; 
 	outputs->status[2] = trialCounter->aborts;
+//    outputs->status[2] = this->bump_dir;
  	outputs->status[3] = trialCounter->failures;
  	outputs->status[4] = trialCounter->incompletes;
   
@@ -457,16 +455,16 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 
 	/* target_pos (3) */
 	// Center Target
-	if (getState() == STATE_CT_ON || getState() == STATE_CT_HOLD ) {
+	if (getState() == STATE_CT_ON || getState() == STATE_CT_HOLD || getState() == STATE_CT_BLOCK) {
 		outputs->targets[0] = (Target *)centerTarget;
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
         
-	} else if (getState() == STATE_CT_BLOCK) {
-		outputs->targets[0] = (Target *)centerTarget;
-		outputs->targets[1] = (Target *)(this->primaryTarget);
-
-	} else if ((getState() == STATE_MOVEMENT) || (getState() == STATE_BUMP)|| (getState() == STATE_STIM)) {
+	} else if ( (getState() == STATE_BUMP)) {
+		outputs->targets[0] = nullTarget;
+		outputs->targets[1] = nullTarget;
+		outputs->targets[2] = nullTarget;
+	} else if ((getState() == STATE_MOVEMENT) || (getState() == STATE_STIM)) {
 		outputs->targets[0] = (Target *)(this->primaryTarget);
 	    outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
