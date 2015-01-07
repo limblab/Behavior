@@ -1248,6 +1248,62 @@ namespace BehaviorGraphics
             AddParamListItem("RP CR", "P45", "Behavior RP", this.textBoxRPCR);
 
             #endregion
+
+            #region Cue Comb
+            // Timing
+            AddParamListItem("CC CHL", "P2", "Behavior CC", this.textBoxCC_CHL);
+            AddParamListItem("CC CHH", "P3", "Behavior CC", this.textBoxCC_CHH);
+            AddParamListItem("CC CDL", "P4", "Behavior CC", this.textBoxCC_CDL);
+            AddParamListItem("CC CDH", "P5", "Behavior CC", this.textBoxCC_CDH);
+            AddParamListItem("CC intertrial", "P6", "Behavior CC", this.textBoxCC_intertrial);
+            AddParamListItem("CC MT", "P7", "Behavior CC", this.textBoxCC_movementTime);
+            AddParamListItem("CC FailLag", "P8", "Behavior CC", this.textBoxCC_failurelag);
+            AddParamListItem("CC MoveLength", "P9", "Behavior CC", this.textBoxCC_MovementLength);
+            AddParamListItem("CC CTsize", "P10", "Behavior CC", this.textBoxCC_CTrad);
+            AddParamListItem("CC OT_size", "P11", "Behavior CC", this.textBoxCC_OTwidth);
+            AddParamListItem("CC OT_depth", "P12", "Behavior CC", this.textBoxCC_OTdepth);
+            AddParamListItem("CC X_offset", "P13", "Behavior CC", this.textBoxCC_Xoffset);
+            AddParamListItem("CC Y_offset", "P14", "Behavior CC", this.textBoxCC_Yoffset);
+            AddParamListItem("CC prior_mean", "P15", "Behavior CC", this.textBoxCC_PriorMean);
+            AddParamListItem("CC prior_kap", "P16", "Behavior CC", this.textBoxCC_PriorKap);
+
+            AddParamListItem("CC cloud_kap_one", "P17", "Behavior CC", this.textBoxCC_cloud1Kap);
+            AddParamListItem("CC cloud_kap_two", "P18", "Behavior CC", this.textBoxCC_cloud2Kap);
+            AddParamListItem("CC cloud_kap_three", "P19", "Behavior CC", this.textBoxCC_cloud3Kap);
+            AddParamListItem("CC cloud_kap_four", "P20", "Behavior CC", this.textBoxCC_cloud4Kap);
+            AddParamListItem("CC cloud_freq_one", "P21", "Behavior CC", this.textBoxCC_cloud1Freq);
+            AddParamListItem("CC cloud_freq_two", "P22", "Behavior CC", this.textBoxCC_cloud2Freq);
+            AddParamListItem("CC cloud_freq_three", "P23", "Behavior CC", this.textBoxCC_cloud3Freq);
+            AddParamListItem("CC cloud_freq_four", "P24", "Behavior CC", this.textBoxCC_cloud4Freq);
+
+            AddParamListItem("CC cloud_blank", "P25", "Behavior CC", this.textBoxCC_cloud1Blank);
+            AddParamListItem("CC slice_size", "P26", "Behavior CC", this.textBoxCC_slicesize);
+            AddParamListItem("CC slice_num", "P27", "Behavior CC", this.numericUpDownCC_numslices);
+
+            AddParamListItem("CC catch_freq", "P28", "Behavior CC", this.textBoxCC_catchFreq);
+            AddParamListItem("CC catch_L", "P29", "Behavior CC", this.textBoxCC_catchLow);
+            AddParamListItem("CC catch_H", "P30", "Behavior CC", this.textBoxCC_catchHigh);
+            AddParamListItem("CC use_cohack", "P31", "Behavior CC", this.textBoxCC_COhack);
+            AddParamListItem("CC cohack_tgtnum", "P32", "Behavior CC", this.textBoxCC_numCOtargs);
+
+            AddParamListItem("CC Random_bump", "P33", "Behavior CC", this.textBoxCC_useRandomBump);
+            AddParamListItem("CC Rand_Low", "P34", "Behavior CC", this.textBoxCC_randbumpLow);
+            AddParamListItem("CC Rand_High", "P35", "Behavior CC", this.textBoxCC_randbumpHigh);
+
+            AddParamListItem("CC bump_1_mag", "P36", "Behavior CC", this.textBoxCC_bump1Mag);
+            AddParamListItem("CC bump_2_mag", "P37", "Behavior CC", this.textBoxCC_bump2Mag);
+            AddParamListItem("CC bump_3_mag", "P38", "Behavior CC", this.textBoxCC_bump3Mag);
+            AddParamListItem("CC bump_1_freq", "P39", "Behavior CC", this.textBoxCC_bump1Freq);
+            AddParamListItem("CC bump_2_freq", "P40", "Behavior CC", this.textBoxCC_bump2Freq);
+            AddParamListItem("CC bump_3_freq", "P41", "Behavior CC", this.textBoxCC_bump3Freq);
+
+            AddParamListItem("CC bump_duration", "P42", "Behavior CC", this.textBoxCC_bumpduration);
+            AddParamListItem("CC Gain_pos", "P43", "Behavior CC", this.textBoxCC_posGain);
+            AddParamListItem("CC Gain_vel", "P44", "Behavior CC", this.textBoxCC_velGain);
+
+            AddParamListItem("CC stim_prob", "P45", "Behavior CC", this.textBoxCC_stimProb);
+
+            #endregion
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
@@ -2793,6 +2849,7 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
+
 
     }
 

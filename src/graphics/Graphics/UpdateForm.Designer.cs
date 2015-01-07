@@ -1461,6 +1461,8 @@ namespace BehaviorGraphics
             this.textBoxRPNFF = new System.Windows.Forms.TextBox();
             this.labelRPNFF = new System.Windows.Forms.Label();
             this.groupBoxRPCursor = new System.Windows.Forms.GroupBox();
+            this.textBoxRPCR = new System.Windows.Forms.TextBox();
+            this.labelRPCR = new System.Windows.Forms.Label();
             this.textBoxRPHTR = new System.Windows.Forms.TextBox();
             this.labelRPHTR = new System.Windows.Forms.Label();
             this.checkBoxRPBC = new System.Windows.Forms.CheckBox();
@@ -1482,6 +1484,85 @@ namespace BehaviorGraphics
             this.labelRPPHL = new System.Windows.Forms.Label();
             this.labelRPRW = new System.Windows.Forms.Label();
             this.labelRPCHL = new System.Windows.Forms.Label();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.groupBox85 = new System.Windows.Forms.GroupBox();
+            this.label451 = new System.Windows.Forms.Label();
+            this.textBoxCC_failurelag = new System.Windows.Forms.TextBox();
+            this.textBoxCC_intertrial = new System.Windows.Forms.TextBox();
+            this.label455 = new System.Windows.Forms.Label();
+            this.textBoxCC_movementTime = new System.Windows.Forms.TextBox();
+            this.label456 = new System.Windows.Forms.Label();
+            this.textBoxCC_CDH = new System.Windows.Forms.TextBox();
+            this.label457 = new System.Windows.Forms.Label();
+            this.textBoxCC_CDL = new System.Windows.Forms.TextBox();
+            this.label458 = new System.Windows.Forms.Label();
+            this.textBoxCC_CHH = new System.Windows.Forms.TextBox();
+            this.label459 = new System.Windows.Forms.Label();
+            this.textBoxCC_CHL = new System.Windows.Forms.TextBox();
+            this.label460 = new System.Windows.Forms.Label();
+            this.groupBox84 = new System.Windows.Forms.GroupBox();
+            this.label448 = new System.Windows.Forms.Label();
+            this.textBoxCC_bumpduration = new System.Windows.Forms.TextBox();
+            this.label447 = new System.Windows.Forms.Label();
+            this.textBoxCC_randbumpHigh = new System.Windows.Forms.TextBox();
+            this.label446 = new System.Windows.Forms.Label();
+            this.textBoxCC_randbumpLow = new System.Windows.Forms.TextBox();
+            this.checkBoxCC_useRandomBump = new System.Windows.Forms.CheckBox();
+            this.label430 = new System.Windows.Forms.Label();
+            this.textBoxCC_bump3Freq = new System.Windows.Forms.TextBox();
+            this.label431 = new System.Windows.Forms.Label();
+            this.textBoxCC_bump2Freq = new System.Windows.Forms.TextBox();
+            this.label442 = new System.Windows.Forms.Label();
+            this.textBoxCC_bump1Freq = new System.Windows.Forms.TextBox();
+            this.label443 = new System.Windows.Forms.Label();
+            this.textBoxCC_bump3Mag = new System.Windows.Forms.TextBox();
+            this.label444 = new System.Windows.Forms.Label();
+            this.textBoxCC_bump2Mag = new System.Windows.Forms.TextBox();
+            this.label445 = new System.Windows.Forms.Label();
+            this.textBoxCC_bump1Mag = new System.Windows.Forms.TextBox();
+            this.groupBox83 = new System.Windows.Forms.GroupBox();
+            this.checkBoxCC_cloud1Blank = new System.Windows.Forms.CheckBox();
+            this.label432 = new System.Windows.Forms.Label();
+            this.textBoxCC_cloud4Freq = new System.Windows.Forms.TextBox();
+            this.label433 = new System.Windows.Forms.Label();
+            this.textBoxCC_cloud3Freq = new System.Windows.Forms.TextBox();
+            this.label434 = new System.Windows.Forms.Label();
+            this.textBoxCC_cloud2Freq = new System.Windows.Forms.TextBox();
+            this.label435 = new System.Windows.Forms.Label();
+            this.textBoxCC_cloud1Freq = new System.Windows.Forms.TextBox();
+            this.label436 = new System.Windows.Forms.Label();
+            this.textBoxCC_cloud4Kap = new System.Windows.Forms.TextBox();
+            this.label437 = new System.Windows.Forms.Label();
+            this.textBoxCC_cloud3Kap = new System.Windows.Forms.TextBox();
+            this.label438 = new System.Windows.Forms.Label();
+            this.textBoxCC_cloud2Kap = new System.Windows.Forms.TextBox();
+            this.label439 = new System.Windows.Forms.Label();
+            this.numericUpDownCC_numslices = new System.Windows.Forms.NumericUpDown();
+            this.label440 = new System.Windows.Forms.Label();
+            this.textBoxCC_slicesize = new System.Windows.Forms.TextBox();
+            this.label441 = new System.Windows.Forms.Label();
+            this.textBoxCC_cloud1Kap = new System.Windows.Forms.TextBox();
+            this.groupBox82 = new System.Windows.Forms.GroupBox();
+            this.label423 = new System.Windows.Forms.Label();
+            this.numericUpDownCC_numCOtargs = new System.Windows.Forms.NumericUpDown();
+            this.label426 = new System.Windows.Forms.Label();
+            this.textBoxCC_PriorKap = new System.Windows.Forms.TextBox();
+            this.checkBoxCC_COhack = new System.Windows.Forms.CheckBox();
+            this.label427 = new System.Windows.Forms.Label();
+            this.textBoxCC_PriorMean = new System.Windows.Forms.TextBox();
+            this.groupBox81 = new System.Windows.Forms.GroupBox();
+            this.label414 = new System.Windows.Forms.Label();
+            this.textBoxCC_OTdepth = new System.Windows.Forms.TextBox();
+            this.label415 = new System.Windows.Forms.Label();
+            this.textBoxCC_OTwidth = new System.Windows.Forms.TextBox();
+            this.textBoxCC_Yoffset = new System.Windows.Forms.TextBox();
+            this.label416 = new System.Windows.Forms.Label();
+            this.textBoxCC_CTrad = new System.Windows.Forms.TextBox();
+            this.label417 = new System.Windows.Forms.Label();
+            this.textBoxCC_Xoffset = new System.Windows.Forms.TextBox();
+            this.textBoxCC_MovementLength = new System.Windows.Forms.TextBox();
+            this.label418 = new System.Windows.Forms.Label();
+            this.label419 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelMdl = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -1544,6 +1625,18 @@ namespace BehaviorGraphics
             this.label382 = new System.Windows.Forms.Label();
             this.label383 = new System.Windows.Forms.Label();
             this.label393 = new System.Windows.Forms.Label();
+            this.textBox73 = new System.Windows.Forms.TextBox();
+            this.textBox74 = new System.Windows.Forms.TextBox();
+            this.textBox75 = new System.Windows.Forms.TextBox();
+            this.label410 = new System.Windows.Forms.Label();
+            this.textBox76 = new System.Windows.Forms.TextBox();
+            this.textBox77 = new System.Windows.Forms.TextBox();
+            this.textBox78 = new System.Windows.Forms.TextBox();
+            this.label412 = new System.Windows.Forms.Label();
+            this.textBox79 = new System.Windows.Forms.TextBox();
+            this.textBox80 = new System.Windows.Forms.TextBox();
+            this.textBox82 = new System.Windows.Forms.TextBox();
+            this.textBox84 = new System.Windows.Forms.TextBox();
             this.label143 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
@@ -1681,8 +1774,35 @@ namespace BehaviorGraphics
             this.label405 = new System.Windows.Forms.Label();
             this.label406 = new System.Windows.Forms.Label();
             this.label407 = new System.Windows.Forms.Label();
-            this.textBoxRPCR = new System.Windows.Forms.TextBox();
-            this.labelRPCR = new System.Windows.Forms.Label();
+            this.label408 = new System.Windows.Forms.Label();
+            this.label409 = new System.Windows.Forms.Label();
+            this.label411 = new System.Windows.Forms.Label();
+            this.label413 = new System.Windows.Forms.Label();
+            this.label420 = new System.Windows.Forms.Label();
+            this.label421 = new System.Windows.Forms.Label();
+            this.label422 = new System.Windows.Forms.Label();
+            this.textBox81 = new System.Windows.Forms.TextBox();
+            this.label424 = new System.Windows.Forms.Label();
+            this.textBox83 = new System.Windows.Forms.TextBox();
+            this.label425 = new System.Windows.Forms.Label();
+            this.label428 = new System.Windows.Forms.Label();
+            this.label429 = new System.Windows.Forms.Label();
+            this.textBox85 = new System.Windows.Forms.TextBox();
+            this.textBoxCC_catchHigh = new System.Windows.Forms.TextBox();
+            this.label449 = new System.Windows.Forms.Label();
+            this.textBoxCC_catchLow = new System.Windows.Forms.TextBox();
+            this.label450 = new System.Windows.Forms.Label();
+            this.textBoxCC_catchFreq = new System.Windows.Forms.TextBox();
+            this.label452 = new System.Windows.Forms.Label();
+            this.groupBox86 = new System.Windows.Forms.GroupBox();
+            this.groupBox87 = new System.Windows.Forms.GroupBox();
+            this.textBoxCC_velGain = new System.Windows.Forms.TextBox();
+            this.label453 = new System.Windows.Forms.Label();
+            this.textBoxCC_posGain = new System.Windows.Forms.TextBox();
+            this.label461 = new System.Windows.Forms.Label();
+            this.groupBox88 = new System.Windows.Forms.GroupBox();
+            this.textBoxCC_stimProb = new System.Windows.Forms.TextBox();
+            this.label467 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -1856,6 +1976,14 @@ namespace BehaviorGraphics
             this.groupBoxRPPert.SuspendLayout();
             this.groupBoxRPCursor.SuspendLayout();
             this.groupBoxRPTiming.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.groupBox85.SuspendLayout();
+            this.groupBox84.SuspendLayout();
+            this.groupBox83.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCC_numslices)).BeginInit();
+            this.groupBox82.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCC_numCOtargs)).BeginInit();
+            this.groupBox81.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -1864,6 +1992,9 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
+            this.groupBox86.SuspendLayout();
+            this.groupBox87.SuspendLayout();
+            this.groupBox88.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -1918,6 +2049,7 @@ namespace BehaviorGraphics
             this.tabs.Controls.Add(this.tabUnCisek);
             this.tabs.Controls.Add(this.tabUnstableReach);
             this.tabs.Controls.Add(this.tabPageResist);
+            this.tabs.Controls.Add(this.tabPage6);
             this.tabs.Location = new System.Drawing.Point(0, 27);
             this.tabs.Multiline = true;
             this.tabs.Name = "tabs";
@@ -16564,6 +16696,23 @@ namespace BehaviorGraphics
             this.groupBoxRPCursor.TabStop = false;
             this.groupBoxRPCursor.Text = "Cursor and targets";
             // 
+            // textBoxRPCR
+            // 
+            this.textBoxRPCR.Location = new System.Drawing.Point(123, 118);
+            this.textBoxRPCR.Name = "textBoxRPCR";
+            this.textBoxRPCR.Size = new System.Drawing.Size(68, 20);
+            this.textBoxRPCR.TabIndex = 38;
+            this.textBoxRPCR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelRPCR
+            // 
+            this.labelRPCR.AutoSize = true;
+            this.labelRPCR.Location = new System.Drawing.Point(9, 123);
+            this.labelRPCR.Name = "labelRPCR";
+            this.labelRPCR.Size = new System.Drawing.Size(68, 13);
+            this.labelRPCR.TabIndex = 37;
+            this.labelRPCR.Text = "Cursor radius";
+            // 
             // textBoxRPHTR
             // 
             this.textBoxRPHTR.Location = new System.Drawing.Point(123, 73);
@@ -16759,6 +16908,789 @@ namespace BehaviorGraphics
             this.labelRPCHL.Size = new System.Drawing.Size(80, 13);
             this.labelRPCHL.TabIndex = 0;
             this.labelRPCHL.Text = "Center hold low";
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.groupBox88);
+            this.tabPage6.Controls.Add(this.groupBox87);
+            this.tabPage6.Controls.Add(this.groupBox86);
+            this.tabPage6.Controls.Add(this.groupBox85);
+            this.tabPage6.Controls.Add(this.groupBox84);
+            this.tabPage6.Controls.Add(this.groupBox83);
+            this.tabPage6.Controls.Add(this.groupBox82);
+            this.tabPage6.Controls.Add(this.groupBox81);
+            this.tabPage6.Location = new System.Drawing.Point(4, 58);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(686, 437);
+            this.tabPage6.TabIndex = 24;
+            this.tabPage6.Text = "Cue Comb";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // groupBox85
+            // 
+            this.groupBox85.Controls.Add(this.label451);
+            this.groupBox85.Controls.Add(this.textBoxCC_failurelag);
+            this.groupBox85.Controls.Add(this.textBoxCC_intertrial);
+            this.groupBox85.Controls.Add(this.label455);
+            this.groupBox85.Controls.Add(this.textBoxCC_movementTime);
+            this.groupBox85.Controls.Add(this.label456);
+            this.groupBox85.Controls.Add(this.textBoxCC_CDH);
+            this.groupBox85.Controls.Add(this.label457);
+            this.groupBox85.Controls.Add(this.textBoxCC_CDL);
+            this.groupBox85.Controls.Add(this.label458);
+            this.groupBox85.Controls.Add(this.textBoxCC_CHH);
+            this.groupBox85.Controls.Add(this.label459);
+            this.groupBox85.Controls.Add(this.textBoxCC_CHL);
+            this.groupBox85.Controls.Add(this.label460);
+            this.groupBox85.Location = new System.Drawing.Point(357, 12);
+            this.groupBox85.Name = "groupBox85";
+            this.groupBox85.Size = new System.Drawing.Size(150, 215);
+            this.groupBox85.TabIndex = 77;
+            this.groupBox85.TabStop = false;
+            this.groupBox85.Text = "Timers";
+            // 
+            // label451
+            // 
+            this.label451.AutoSize = true;
+            this.label451.Location = new System.Drawing.Point(13, 191);
+            this.label451.Name = "label451";
+            this.label451.Size = new System.Drawing.Size(85, 13);
+            this.label451.TabIndex = 16;
+            this.label451.Text = "Failure Lag Time";
+            // 
+            // textBoxCC_failurelag
+            // 
+            this.textBoxCC_failurelag.Location = new System.Drawing.Point(108, 188);
+            this.textBoxCC_failurelag.Name = "textBoxCC_failurelag";
+            this.textBoxCC_failurelag.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_failurelag.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.textBoxCC_failurelag, "Failure Lag Time.  The additional time added to intertrial intervals after a fail" +
+                    "ure.");
+            // 
+            // textBoxCC_intertrial
+            // 
+            this.textBoxCC_intertrial.Location = new System.Drawing.Point(108, 162);
+            this.textBoxCC_intertrial.Name = "textBoxCC_intertrial";
+            this.textBoxCC_intertrial.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_intertrial.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.textBoxCC_intertrial, "Lower bound on random outer hold time.  Outer hold time is the time between when " +
+                    "the cursor enters the outer target and the reward is given.\r\nSet equal to Outer " +
+                    "Hold High for non-random hold time.");
+            // 
+            // label455
+            // 
+            this.label455.AutoSize = true;
+            this.label455.Location = new System.Drawing.Point(13, 165);
+            this.label455.Name = "label455";
+            this.label455.Size = new System.Drawing.Size(92, 13);
+            this.label455.TabIndex = 8;
+            this.label455.Text = "Outer Pause Time";
+            // 
+            // textBoxCC_movementTime
+            // 
+            this.textBoxCC_movementTime.Location = new System.Drawing.Point(108, 131);
+            this.textBoxCC_movementTime.Name = "textBoxCC_movementTime";
+            this.textBoxCC_movementTime.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_movementTime.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.textBoxCC_movementTime, "Movement time.  Amount of time monkey has to reach the outer target after recievi" +
+                    "ng the go cue.");
+            // 
+            // label456
+            // 
+            this.label456.AutoSize = true;
+            this.label456.Location = new System.Drawing.Point(13, 134);
+            this.label456.Name = "label456";
+            this.label456.Size = new System.Drawing.Size(83, 13);
+            this.label456.TabIndex = 14;
+            this.label456.Text = "Movement Time";
+            // 
+            // textBoxCC_CDH
+            // 
+            this.textBoxCC_CDH.Location = new System.Drawing.Point(108, 102);
+            this.textBoxCC_CDH.Name = "textBoxCC_CDH";
+            this.textBoxCC_CDH.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_CDH.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.textBoxCC_CDH, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
+                    "lay time.");
+            // 
+            // label457
+            // 
+            this.label457.AutoSize = true;
+            this.label457.Location = new System.Drawing.Point(13, 105);
+            this.label457.Name = "label457";
+            this.label457.Size = new System.Drawing.Size(93, 13);
+            this.label457.TabIndex = 6;
+            this.label457.Text = "Center Delay High";
+            // 
+            // textBoxCC_CDL
+            // 
+            this.textBoxCC_CDL.Location = new System.Drawing.Point(108, 76);
+            this.textBoxCC_CDL.Name = "textBoxCC_CDL";
+            this.textBoxCC_CDL.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_CDL.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.textBoxCC_CDL, "Lower bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay High for non-random d" +
+                    "elay time.");
+            // 
+            // label458
+            // 
+            this.label458.AutoSize = true;
+            this.label458.Location = new System.Drawing.Point(13, 79);
+            this.label458.Name = "label458";
+            this.label458.Size = new System.Drawing.Size(91, 13);
+            this.label458.TabIndex = 4;
+            this.label458.Text = "Center Delay Low";
+            // 
+            // textBoxCC_CHH
+            // 
+            this.textBoxCC_CHH.Location = new System.Drawing.Point(108, 46);
+            this.textBoxCC_CHH.Name = "textBoxCC_CHH";
+            this.textBoxCC_CHH.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_CHH.TabIndex = 3;
+            // 
+            // label459
+            // 
+            this.label459.AutoSize = true;
+            this.label459.Location = new System.Drawing.Point(13, 49);
+            this.label459.Name = "label459";
+            this.label459.Size = new System.Drawing.Size(88, 13);
+            this.label459.TabIndex = 2;
+            this.label459.Text = "Center Hold High";
+            // 
+            // textBoxCC_CHL
+            // 
+            this.textBoxCC_CHL.Location = new System.Drawing.Point(108, 20);
+            this.textBoxCC_CHL.Name = "textBoxCC_CHL";
+            this.textBoxCC_CHL.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_CHL.TabIndex = 1;
+            // 
+            // label460
+            // 
+            this.label460.AutoSize = true;
+            this.label460.Location = new System.Drawing.Point(13, 23);
+            this.label460.Name = "label460";
+            this.label460.Size = new System.Drawing.Size(86, 13);
+            this.label460.TabIndex = 0;
+            this.label460.Text = "Center Hold Low";
+            // 
+            // groupBox84
+            // 
+            this.groupBox84.Controls.Add(this.label448);
+            this.groupBox84.Controls.Add(this.textBoxCC_bumpduration);
+            this.groupBox84.Controls.Add(this.label447);
+            this.groupBox84.Controls.Add(this.textBoxCC_randbumpHigh);
+            this.groupBox84.Controls.Add(this.label446);
+            this.groupBox84.Controls.Add(this.textBoxCC_randbumpLow);
+            this.groupBox84.Controls.Add(this.checkBoxCC_useRandomBump);
+            this.groupBox84.Controls.Add(this.label430);
+            this.groupBox84.Controls.Add(this.textBoxCC_bump3Freq);
+            this.groupBox84.Controls.Add(this.label431);
+            this.groupBox84.Controls.Add(this.textBoxCC_bump2Freq);
+            this.groupBox84.Controls.Add(this.label442);
+            this.groupBox84.Controls.Add(this.textBoxCC_bump1Freq);
+            this.groupBox84.Controls.Add(this.label443);
+            this.groupBox84.Controls.Add(this.textBoxCC_bump3Mag);
+            this.groupBox84.Controls.Add(this.label444);
+            this.groupBox84.Controls.Add(this.textBoxCC_bump2Mag);
+            this.groupBox84.Controls.Add(this.label445);
+            this.groupBox84.Controls.Add(this.textBoxCC_bump1Mag);
+            this.groupBox84.Location = new System.Drawing.Point(6, 319);
+            this.groupBox84.Name = "groupBox84";
+            this.groupBox84.Size = new System.Drawing.Size(345, 112);
+            this.groupBox84.TabIndex = 76;
+            this.groupBox84.TabStop = false;
+            this.groupBox84.Text = "Bump (magnitudes in cm)";
+            // 
+            // label448
+            // 
+            this.label448.AutoSize = true;
+            this.label448.Location = new System.Drawing.Point(199, 83);
+            this.label448.Name = "label448";
+            this.label448.Size = new System.Drawing.Size(91, 13);
+            this.label448.TabIndex = 71;
+            this.label448.Text = "Bump Duration (s)";
+            // 
+            // textBoxCC_bumpduration
+            // 
+            this.textBoxCC_bumpduration.Location = new System.Drawing.Point(292, 80);
+            this.textBoxCC_bumpduration.Name = "textBoxCC_bumpduration";
+            this.textBoxCC_bumpduration.Size = new System.Drawing.Size(45, 20);
+            this.textBoxCC_bumpduration.TabIndex = 72;
+            // 
+            // label447
+            // 
+            this.label447.AutoSize = true;
+            this.label447.Location = new System.Drawing.Point(276, 54);
+            this.label447.Name = "label447";
+            this.label447.Size = new System.Drawing.Size(29, 13);
+            this.label447.TabIndex = 69;
+            this.label447.Text = "High";
+            // 
+            // textBoxCC_randbumpHigh
+            // 
+            this.textBoxCC_randbumpHigh.Location = new System.Drawing.Point(310, 51);
+            this.textBoxCC_randbumpHigh.Name = "textBoxCC_randbumpHigh";
+            this.textBoxCC_randbumpHigh.Size = new System.Drawing.Size(27, 20);
+            this.textBoxCC_randbumpHigh.TabIndex = 70;
+            // 
+            // label446
+            // 
+            this.label446.AutoSize = true;
+            this.label446.Location = new System.Drawing.Point(205, 54);
+            this.label446.Name = "label446";
+            this.label446.Size = new System.Drawing.Size(27, 13);
+            this.label446.TabIndex = 67;
+            this.label446.Text = "Low";
+            // 
+            // textBoxCC_randbumpLow
+            // 
+            this.textBoxCC_randbumpLow.Location = new System.Drawing.Point(239, 51);
+            this.textBoxCC_randbumpLow.Name = "textBoxCC_randbumpLow";
+            this.textBoxCC_randbumpLow.Size = new System.Drawing.Size(27, 20);
+            this.textBoxCC_randbumpLow.TabIndex = 68;
+            // 
+            // checkBoxCC_useRandomBump
+            // 
+            this.checkBoxCC_useRandomBump.AutoSize = true;
+            this.checkBoxCC_useRandomBump.Location = new System.Drawing.Point(210, 24);
+            this.checkBoxCC_useRandomBump.Name = "checkBoxCC_useRandomBump";
+            this.checkBoxCC_useRandomBump.Size = new System.Drawing.Size(112, 17);
+            this.checkBoxCC_useRandomBump.TabIndex = 66;
+            this.checkBoxCC_useRandomBump.Text = "Use Random Mag";
+            this.checkBoxCC_useRandomBump.UseVisualStyleBackColor = true;
+            // 
+            // label430
+            // 
+            this.label430.AutoSize = true;
+            this.label430.Location = new System.Drawing.Point(138, 87);
+            this.label430.Name = "label430";
+            this.label430.Size = new System.Drawing.Size(28, 13);
+            this.label430.TabIndex = 64;
+            this.label430.Text = "Freq";
+            // 
+            // textBoxCC_bump3Freq
+            // 
+            this.textBoxCC_bump3Freq.Location = new System.Drawing.Point(169, 83);
+            this.textBoxCC_bump3Freq.Name = "textBoxCC_bump3Freq";
+            this.textBoxCC_bump3Freq.Size = new System.Drawing.Size(20, 20);
+            this.textBoxCC_bump3Freq.TabIndex = 65;
+            // 
+            // label431
+            // 
+            this.label431.AutoSize = true;
+            this.label431.Location = new System.Drawing.Point(138, 58);
+            this.label431.Name = "label431";
+            this.label431.Size = new System.Drawing.Size(28, 13);
+            this.label431.TabIndex = 62;
+            this.label431.Text = "Freq";
+            // 
+            // textBoxCC_bump2Freq
+            // 
+            this.textBoxCC_bump2Freq.Location = new System.Drawing.Point(169, 54);
+            this.textBoxCC_bump2Freq.Name = "textBoxCC_bump2Freq";
+            this.textBoxCC_bump2Freq.Size = new System.Drawing.Size(20, 20);
+            this.textBoxCC_bump2Freq.TabIndex = 63;
+            // 
+            // label442
+            // 
+            this.label442.AutoSize = true;
+            this.label442.Location = new System.Drawing.Point(138, 28);
+            this.label442.Name = "label442";
+            this.label442.Size = new System.Drawing.Size(28, 13);
+            this.label442.TabIndex = 60;
+            this.label442.Text = "Freq";
+            // 
+            // textBoxCC_bump1Freq
+            // 
+            this.textBoxCC_bump1Freq.Location = new System.Drawing.Point(169, 24);
+            this.textBoxCC_bump1Freq.Name = "textBoxCC_bump1Freq";
+            this.textBoxCC_bump1Freq.Size = new System.Drawing.Size(20, 20);
+            this.textBoxCC_bump1Freq.TabIndex = 61;
+            // 
+            // label443
+            // 
+            this.label443.AutoSize = true;
+            this.label443.Location = new System.Drawing.Point(10, 87);
+            this.label443.Name = "label443";
+            this.label443.Size = new System.Drawing.Size(77, 13);
+            this.label443.TabIndex = 58;
+            this.label443.Text = "Bump #3  Mag";
+            // 
+            // textBoxCC_bump3Mag
+            // 
+            this.textBoxCC_bump3Mag.Location = new System.Drawing.Point(97, 84);
+            this.textBoxCC_bump3Mag.Name = "textBoxCC_bump3Mag";
+            this.textBoxCC_bump3Mag.Size = new System.Drawing.Size(36, 20);
+            this.textBoxCC_bump3Mag.TabIndex = 59;
+            // 
+            // label444
+            // 
+            this.label444.AutoSize = true;
+            this.label444.Location = new System.Drawing.Point(10, 58);
+            this.label444.Name = "label444";
+            this.label444.Size = new System.Drawing.Size(77, 13);
+            this.label444.TabIndex = 56;
+            this.label444.Text = "Bump #2  Mag";
+            // 
+            // textBoxCC_bump2Mag
+            // 
+            this.textBoxCC_bump2Mag.Location = new System.Drawing.Point(97, 55);
+            this.textBoxCC_bump2Mag.Name = "textBoxCC_bump2Mag";
+            this.textBoxCC_bump2Mag.Size = new System.Drawing.Size(36, 20);
+            this.textBoxCC_bump2Mag.TabIndex = 57;
+            // 
+            // label445
+            // 
+            this.label445.AutoSize = true;
+            this.label445.Location = new System.Drawing.Point(10, 28);
+            this.label445.Name = "label445";
+            this.label445.Size = new System.Drawing.Size(74, 13);
+            this.label445.TabIndex = 54;
+            this.label445.Text = "Bump #1 Mag";
+            // 
+            // textBoxCC_bump1Mag
+            // 
+            this.textBoxCC_bump1Mag.Location = new System.Drawing.Point(97, 25);
+            this.textBoxCC_bump1Mag.Name = "textBoxCC_bump1Mag";
+            this.textBoxCC_bump1Mag.Size = new System.Drawing.Size(36, 20);
+            this.textBoxCC_bump1Mag.TabIndex = 55;
+            // 
+            // groupBox83
+            // 
+            this.groupBox83.Controls.Add(this.checkBoxCC_cloud1Blank);
+            this.groupBox83.Controls.Add(this.label432);
+            this.groupBox83.Controls.Add(this.textBoxCC_cloud4Freq);
+            this.groupBox83.Controls.Add(this.label433);
+            this.groupBox83.Controls.Add(this.textBoxCC_cloud3Freq);
+            this.groupBox83.Controls.Add(this.label434);
+            this.groupBox83.Controls.Add(this.textBoxCC_cloud2Freq);
+            this.groupBox83.Controls.Add(this.label435);
+            this.groupBox83.Controls.Add(this.textBoxCC_cloud1Freq);
+            this.groupBox83.Controls.Add(this.label436);
+            this.groupBox83.Controls.Add(this.textBoxCC_cloud4Kap);
+            this.groupBox83.Controls.Add(this.label437);
+            this.groupBox83.Controls.Add(this.textBoxCC_cloud3Kap);
+            this.groupBox83.Controls.Add(this.label438);
+            this.groupBox83.Controls.Add(this.textBoxCC_cloud2Kap);
+            this.groupBox83.Controls.Add(this.label439);
+            this.groupBox83.Controls.Add(this.numericUpDownCC_numslices);
+            this.groupBox83.Controls.Add(this.label440);
+            this.groupBox83.Controls.Add(this.textBoxCC_slicesize);
+            this.groupBox83.Controls.Add(this.label441);
+            this.groupBox83.Controls.Add(this.textBoxCC_cloud1Kap);
+            this.groupBox83.Location = new System.Drawing.Point(8, 174);
+            this.groupBox83.Name = "groupBox83";
+            this.groupBox83.Size = new System.Drawing.Size(343, 139);
+            this.groupBox83.TabIndex = 75;
+            this.groupBox83.TabStop = false;
+            this.groupBox83.Text = "Target Cloud (Likelihood)";
+            // 
+            // checkBoxCC_cloud1Blank
+            // 
+            this.checkBoxCC_cloud1Blank.AutoSize = true;
+            this.checkBoxCC_cloud1Blank.Location = new System.Drawing.Point(221, 21);
+            this.checkBoxCC_cloud1Blank.Name = "checkBoxCC_cloud1Blank";
+            this.checkBoxCC_cloud1Blank.Size = new System.Drawing.Size(99, 17);
+            this.checkBoxCC_cloud1Blank.TabIndex = 56;
+            this.checkBoxCC_cloud1Blank.Text = "Cloud #1 Blank";
+            this.checkBoxCC_cloud1Blank.UseVisualStyleBackColor = true;
+            // 
+            // label432
+            // 
+            this.label432.AutoSize = true;
+            this.label432.Location = new System.Drawing.Point(136, 110);
+            this.label432.Name = "label432";
+            this.label432.Size = new System.Drawing.Size(28, 13);
+            this.label432.TabIndex = 54;
+            this.label432.Text = "Freq";
+            // 
+            // textBoxCC_cloud4Freq
+            // 
+            this.textBoxCC_cloud4Freq.Location = new System.Drawing.Point(167, 106);
+            this.textBoxCC_cloud4Freq.Name = "textBoxCC_cloud4Freq";
+            this.textBoxCC_cloud4Freq.Size = new System.Drawing.Size(20, 20);
+            this.textBoxCC_cloud4Freq.TabIndex = 55;
+            // 
+            // label433
+            // 
+            this.label433.AutoSize = true;
+            this.label433.Location = new System.Drawing.Point(136, 82);
+            this.label433.Name = "label433";
+            this.label433.Size = new System.Drawing.Size(28, 13);
+            this.label433.TabIndex = 52;
+            this.label433.Text = "Freq";
+            // 
+            // textBoxCC_cloud3Freq
+            // 
+            this.textBoxCC_cloud3Freq.Location = new System.Drawing.Point(167, 78);
+            this.textBoxCC_cloud3Freq.Name = "textBoxCC_cloud3Freq";
+            this.textBoxCC_cloud3Freq.Size = new System.Drawing.Size(20, 20);
+            this.textBoxCC_cloud3Freq.TabIndex = 53;
+            // 
+            // label434
+            // 
+            this.label434.AutoSize = true;
+            this.label434.Location = new System.Drawing.Point(136, 53);
+            this.label434.Name = "label434";
+            this.label434.Size = new System.Drawing.Size(28, 13);
+            this.label434.TabIndex = 50;
+            this.label434.Text = "Freq";
+            // 
+            // textBoxCC_cloud2Freq
+            // 
+            this.textBoxCC_cloud2Freq.Location = new System.Drawing.Point(167, 49);
+            this.textBoxCC_cloud2Freq.Name = "textBoxCC_cloud2Freq";
+            this.textBoxCC_cloud2Freq.Size = new System.Drawing.Size(20, 20);
+            this.textBoxCC_cloud2Freq.TabIndex = 51;
+            // 
+            // label435
+            // 
+            this.label435.AutoSize = true;
+            this.label435.Location = new System.Drawing.Point(136, 23);
+            this.label435.Name = "label435";
+            this.label435.Size = new System.Drawing.Size(28, 13);
+            this.label435.TabIndex = 48;
+            this.label435.Text = "Freq";
+            // 
+            // textBoxCC_cloud1Freq
+            // 
+            this.textBoxCC_cloud1Freq.Location = new System.Drawing.Point(167, 19);
+            this.textBoxCC_cloud1Freq.Name = "textBoxCC_cloud1Freq";
+            this.textBoxCC_cloud1Freq.Size = new System.Drawing.Size(20, 20);
+            this.textBoxCC_cloud1Freq.TabIndex = 49;
+            // 
+            // label436
+            // 
+            this.label436.AutoSize = true;
+            this.label436.Location = new System.Drawing.Point(8, 110);
+            this.label436.Name = "label436";
+            this.label436.Size = new System.Drawing.Size(87, 13);
+            this.label436.TabIndex = 46;
+            this.label436.Text = "Cloud #4  Kappa";
+            // 
+            // textBoxCC_cloud4Kap
+            // 
+            this.textBoxCC_cloud4Kap.Location = new System.Drawing.Point(95, 107);
+            this.textBoxCC_cloud4Kap.Name = "textBoxCC_cloud4Kap";
+            this.textBoxCC_cloud4Kap.Size = new System.Drawing.Size(36, 20);
+            this.textBoxCC_cloud4Kap.TabIndex = 47;
+            // 
+            // label437
+            // 
+            this.label437.AutoSize = true;
+            this.label437.Location = new System.Drawing.Point(8, 82);
+            this.label437.Name = "label437";
+            this.label437.Size = new System.Drawing.Size(87, 13);
+            this.label437.TabIndex = 44;
+            this.label437.Text = "Cloud #3  Kappa";
+            // 
+            // textBoxCC_cloud3Kap
+            // 
+            this.textBoxCC_cloud3Kap.Location = new System.Drawing.Point(95, 79);
+            this.textBoxCC_cloud3Kap.Name = "textBoxCC_cloud3Kap";
+            this.textBoxCC_cloud3Kap.Size = new System.Drawing.Size(36, 20);
+            this.textBoxCC_cloud3Kap.TabIndex = 45;
+            // 
+            // label438
+            // 
+            this.label438.AutoSize = true;
+            this.label438.Location = new System.Drawing.Point(8, 53);
+            this.label438.Name = "label438";
+            this.label438.Size = new System.Drawing.Size(87, 13);
+            this.label438.TabIndex = 42;
+            this.label438.Text = "Cloud #2  Kappa";
+            // 
+            // textBoxCC_cloud2Kap
+            // 
+            this.textBoxCC_cloud2Kap.Location = new System.Drawing.Point(95, 50);
+            this.textBoxCC_cloud2Kap.Name = "textBoxCC_cloud2Kap";
+            this.textBoxCC_cloud2Kap.Size = new System.Drawing.Size(36, 20);
+            this.textBoxCC_cloud2Kap.TabIndex = 43;
+            // 
+            // label439
+            // 
+            this.label439.AutoSize = true;
+            this.label439.Location = new System.Drawing.Point(211, 97);
+            this.label439.Name = "label439";
+            this.label439.Size = new System.Drawing.Size(57, 13);
+            this.label439.TabIndex = 40;
+            this.label439.Text = "# of Slices";
+            // 
+            // numericUpDownCC_numslices
+            // 
+            this.numericUpDownCC_numslices.Location = new System.Drawing.Point(294, 94);
+            this.numericUpDownCC_numslices.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownCC_numslices.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownCC_numslices.Name = "numericUpDownCC_numslices";
+            this.numericUpDownCC_numslices.Size = new System.Drawing.Size(41, 20);
+            this.numericUpDownCC_numslices.TabIndex = 41;
+            this.toolTip1.SetToolTip(this.numericUpDownCC_numslices, "Number of dots in cue cloud (max 10)");
+            this.numericUpDownCC_numslices.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            // 
+            // label440
+            // 
+            this.label440.AutoSize = true;
+            this.label440.Location = new System.Drawing.Point(211, 68);
+            this.label440.Name = "label440";
+            this.label440.Size = new System.Drawing.Size(53, 13);
+            this.label440.TabIndex = 38;
+            this.label440.Text = "Slice Size";
+            // 
+            // textBoxCC_slicesize
+            // 
+            this.textBoxCC_slicesize.Location = new System.Drawing.Point(294, 65);
+            this.textBoxCC_slicesize.Name = "textBoxCC_slicesize";
+            this.textBoxCC_slicesize.Size = new System.Drawing.Size(41, 20);
+            this.textBoxCC_slicesize.TabIndex = 39;
+            // 
+            // label441
+            // 
+            this.label441.AutoSize = true;
+            this.label441.Location = new System.Drawing.Point(8, 23);
+            this.label441.Name = "label441";
+            this.label441.Size = new System.Drawing.Size(87, 13);
+            this.label441.TabIndex = 36;
+            this.label441.Text = "Cloud #1  Kappa";
+            // 
+            // textBoxCC_cloud1Kap
+            // 
+            this.textBoxCC_cloud1Kap.Location = new System.Drawing.Point(95, 20);
+            this.textBoxCC_cloud1Kap.Name = "textBoxCC_cloud1Kap";
+            this.textBoxCC_cloud1Kap.Size = new System.Drawing.Size(36, 20);
+            this.textBoxCC_cloud1Kap.TabIndex = 37;
+            // 
+            // groupBox82
+            // 
+            this.groupBox82.Controls.Add(this.label423);
+            this.groupBox82.Controls.Add(this.numericUpDownCC_numCOtargs);
+            this.groupBox82.Controls.Add(this.label426);
+            this.groupBox82.Controls.Add(this.textBoxCC_PriorKap);
+            this.groupBox82.Controls.Add(this.checkBoxCC_COhack);
+            this.groupBox82.Controls.Add(this.label427);
+            this.groupBox82.Controls.Add(this.textBoxCC_PriorMean);
+            this.groupBox82.Location = new System.Drawing.Point(205, 12);
+            this.groupBox82.Name = "groupBox82";
+            this.groupBox82.Size = new System.Drawing.Size(146, 156);
+            this.groupBox82.TabIndex = 74;
+            this.groupBox82.TabStop = false;
+            this.groupBox82.Text = "Target Location";
+            // 
+            // label423
+            // 
+            this.label423.AutoSize = true;
+            this.label423.Location = new System.Drawing.Point(12, 98);
+            this.label423.Name = "label423";
+            this.label423.Size = new System.Drawing.Size(61, 13);
+            this.label423.TabIndex = 71;
+            this.label423.Text = "CO Targets";
+            // 
+            // numericUpDownCC_numCOtargs
+            // 
+            this.numericUpDownCC_numCOtargs.Increment = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownCC_numCOtargs.Location = new System.Drawing.Point(80, 96);
+            this.numericUpDownCC_numCOtargs.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDownCC_numCOtargs.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownCC_numCOtargs.Name = "numericUpDownCC_numCOtargs";
+            this.numericUpDownCC_numCOtargs.Size = new System.Drawing.Size(44, 20);
+            this.numericUpDownCC_numCOtargs.TabIndex = 81;
+            this.numericUpDownCC_numCOtargs.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
+            // label426
+            // 
+            this.label426.AutoSize = true;
+            this.label426.Location = new System.Drawing.Point(12, 47);
+            this.label426.Name = "label426";
+            this.label426.Size = new System.Drawing.Size(59, 13);
+            this.label426.TabIndex = 26;
+            this.label426.Text = "Loc Kappa";
+            // 
+            // textBoxCC_PriorKap
+            // 
+            this.textBoxCC_PriorKap.Location = new System.Drawing.Point(80, 43);
+            this.textBoxCC_PriorKap.Name = "textBoxCC_PriorKap";
+            this.textBoxCC_PriorKap.Size = new System.Drawing.Size(39, 20);
+            this.textBoxCC_PriorKap.TabIndex = 27;
+            // 
+            // checkBoxCC_COhack
+            // 
+            this.checkBoxCC_COhack.AutoSize = true;
+            this.checkBoxCC_COhack.Location = new System.Drawing.Point(11, 73);
+            this.checkBoxCC_COhack.Name = "checkBoxCC_COhack";
+            this.checkBoxCC_COhack.Size = new System.Drawing.Size(128, 17);
+            this.checkBoxCC_COhack.TabIndex = 80;
+            this.checkBoxCC_COhack.Text = "Use Center-Out Hack";
+            this.checkBoxCC_COhack.UseVisualStyleBackColor = true;
+            // 
+            // label427
+            // 
+            this.label427.AutoSize = true;
+            this.label427.Location = new System.Drawing.Point(12, 22);
+            this.label427.Name = "label427";
+            this.label427.Size = new System.Drawing.Size(55, 13);
+            this.label427.TabIndex = 24;
+            this.label427.Text = "Mean Loc";
+            // 
+            // textBoxCC_PriorMean
+            // 
+            this.textBoxCC_PriorMean.Location = new System.Drawing.Point(80, 19);
+            this.textBoxCC_PriorMean.Name = "textBoxCC_PriorMean";
+            this.textBoxCC_PriorMean.Size = new System.Drawing.Size(39, 20);
+            this.textBoxCC_PriorMean.TabIndex = 25;
+            // 
+            // groupBox81
+            // 
+            this.groupBox81.Controls.Add(this.label414);
+            this.groupBox81.Controls.Add(this.textBoxCC_OTdepth);
+            this.groupBox81.Controls.Add(this.label415);
+            this.groupBox81.Controls.Add(this.textBoxCC_OTwidth);
+            this.groupBox81.Controls.Add(this.textBoxCC_Yoffset);
+            this.groupBox81.Controls.Add(this.label416);
+            this.groupBox81.Controls.Add(this.textBoxCC_CTrad);
+            this.groupBox81.Controls.Add(this.label417);
+            this.groupBox81.Controls.Add(this.textBoxCC_Xoffset);
+            this.groupBox81.Controls.Add(this.textBoxCC_MovementLength);
+            this.groupBox81.Controls.Add(this.label418);
+            this.groupBox81.Controls.Add(this.label419);
+            this.groupBox81.Location = new System.Drawing.Point(8, 6);
+            this.groupBox81.Name = "groupBox81";
+            this.groupBox81.Size = new System.Drawing.Size(191, 162);
+            this.groupBox81.TabIndex = 73;
+            this.groupBox81.TabStop = false;
+            this.groupBox81.Text = "General Task Settings";
+            // 
+            // label414
+            // 
+            this.label414.AutoSize = true;
+            this.label414.Location = new System.Drawing.Point(13, 67);
+            this.label414.Name = "label414";
+            this.label414.Size = new System.Drawing.Size(99, 13);
+            this.label414.TabIndex = 34;
+            this.label414.Text = "Outer Target Depth";
+            // 
+            // textBoxCC_OTdepth
+            // 
+            this.textBoxCC_OTdepth.Location = new System.Drawing.Point(134, 64);
+            this.textBoxCC_OTdepth.Name = "textBoxCC_OTdepth";
+            this.textBoxCC_OTdepth.Size = new System.Drawing.Size(43, 20);
+            this.textBoxCC_OTdepth.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.textBoxCC_OTdepth, "Size of outer targets in degrees");
+            // 
+            // label415
+            // 
+            this.label415.AutoSize = true;
+            this.label415.Location = new System.Drawing.Point(13, 43);
+            this.label415.Name = "label415";
+            this.label415.Size = new System.Drawing.Size(98, 13);
+            this.label415.TabIndex = 32;
+            this.label415.Text = "Outer Target Width";
+            // 
+            // textBoxCC_OTwidth
+            // 
+            this.textBoxCC_OTwidth.Location = new System.Drawing.Point(135, 40);
+            this.textBoxCC_OTwidth.Name = "textBoxCC_OTwidth";
+            this.textBoxCC_OTwidth.Size = new System.Drawing.Size(43, 20);
+            this.textBoxCC_OTwidth.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.textBoxCC_OTwidth, "Size of outer targets in degrees");
+            // 
+            // textBoxCC_Yoffset
+            // 
+            this.textBoxCC_Yoffset.Location = new System.Drawing.Point(133, 136);
+            this.textBoxCC_Yoffset.Name = "textBoxCC_Yoffset";
+            this.textBoxCC_Yoffset.Size = new System.Drawing.Size(44, 20);
+            this.textBoxCC_Yoffset.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.textBoxCC_Yoffset, "Offset of center target along the outer target axis.");
+            // 
+            // label416
+            // 
+            this.label416.AutoSize = true;
+            this.label416.Location = new System.Drawing.Point(12, 140);
+            this.label416.Name = "label416";
+            this.label416.Size = new System.Drawing.Size(79, 13);
+            this.label416.TabIndex = 29;
+            this.label416.Text = "Center Y Offset";
+            this.toolTip1.SetToolTip(this.label416, "Offset of the center target along the target axis");
+            // 
+            // textBoxCC_CTrad
+            // 
+            this.textBoxCC_CTrad.Location = new System.Drawing.Point(134, 88);
+            this.textBoxCC_CTrad.Name = "textBoxCC_CTrad";
+            this.textBoxCC_CTrad.Size = new System.Drawing.Size(43, 20);
+            this.textBoxCC_CTrad.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.textBoxCC_CTrad, "Radius of center target");
+            // 
+            // label417
+            // 
+            this.label417.AutoSize = true;
+            this.label417.Location = new System.Drawing.Point(13, 91);
+            this.label417.Name = "label417";
+            this.label417.Size = new System.Drawing.Size(108, 13);
+            this.label417.TabIndex = 22;
+            this.label417.Text = "Center Target Radius";
+            // 
+            // textBoxCC_Xoffset
+            // 
+            this.textBoxCC_Xoffset.Location = new System.Drawing.Point(134, 112);
+            this.textBoxCC_Xoffset.Name = "textBoxCC_Xoffset";
+            this.textBoxCC_Xoffset.Size = new System.Drawing.Size(43, 20);
+            this.textBoxCC_Xoffset.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.textBoxCC_Xoffset, "Offset of center target along the outer target axis.");
+            // 
+            // textBoxCC_MovementLength
+            // 
+            this.textBoxCC_MovementLength.Location = new System.Drawing.Point(135, 15);
+            this.textBoxCC_MovementLength.Name = "textBoxCC_MovementLength";
+            this.textBoxCC_MovementLength.Size = new System.Drawing.Size(43, 20);
+            this.textBoxCC_MovementLength.TabIndex = 21;
+            this.toolTip1.SetToolTip(this.textBoxCC_MovementLength, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // label418
+            // 
+            this.label418.AutoSize = true;
+            this.label418.Location = new System.Drawing.Point(12, 116);
+            this.label418.Name = "label418";
+            this.label418.Size = new System.Drawing.Size(79, 13);
+            this.label418.TabIndex = 25;
+            this.label418.Text = "Center X Offset";
+            this.toolTip1.SetToolTip(this.label418, "Offset of the center target along the target axis");
+            // 
+            // label419
+            // 
+            this.label419.AutoSize = true;
+            this.label419.Location = new System.Drawing.Point(13, 19);
+            this.label419.Name = "label419";
+            this.label419.Size = new System.Drawing.Size(93, 13);
+            this.label419.TabIndex = 20;
+            this.label419.Text = "Movement Length";
             // 
             // statusStrip1
             // 
@@ -17313,6 +18245,107 @@ namespace BehaviorGraphics
             this.label393.TabIndex = 24;
             this.label393.Text = "Damping";
             this.toolTip1.SetToolTip(this.label393, "Only for positive stiffnesses");
+            // 
+            // textBox73
+            // 
+            this.textBox73.Location = new System.Drawing.Point(134, 64);
+            this.textBox73.Name = "textBox73";
+            this.textBox73.Size = new System.Drawing.Size(43, 20);
+            this.textBox73.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.textBox73, "Size of outer targets in degrees");
+            // 
+            // textBox74
+            // 
+            this.textBox74.Location = new System.Drawing.Point(135, 40);
+            this.textBox74.Name = "textBox74";
+            this.textBox74.Size = new System.Drawing.Size(43, 20);
+            this.textBox74.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.textBox74, "Size of outer targets in degrees");
+            // 
+            // textBox75
+            // 
+            this.textBox75.Location = new System.Drawing.Point(133, 136);
+            this.textBox75.Name = "textBox75";
+            this.textBox75.Size = new System.Drawing.Size(44, 20);
+            this.textBox75.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.textBox75, "Offset of center target along the outer target axis.");
+            // 
+            // label410
+            // 
+            this.label410.AutoSize = true;
+            this.label410.Location = new System.Drawing.Point(12, 140);
+            this.label410.Name = "label410";
+            this.label410.Size = new System.Drawing.Size(79, 13);
+            this.label410.TabIndex = 29;
+            this.label410.Text = "Center Y Offset";
+            this.toolTip1.SetToolTip(this.label410, "Offset of the center target along the target axis");
+            // 
+            // textBox76
+            // 
+            this.textBox76.Location = new System.Drawing.Point(134, 88);
+            this.textBox76.Name = "textBox76";
+            this.textBox76.Size = new System.Drawing.Size(43, 20);
+            this.textBox76.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.textBox76, "Radius of center target");
+            // 
+            // textBox77
+            // 
+            this.textBox77.Location = new System.Drawing.Point(134, 112);
+            this.textBox77.Name = "textBox77";
+            this.textBox77.Size = new System.Drawing.Size(43, 20);
+            this.textBox77.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.textBox77, "Offset of center target along the outer target axis.");
+            // 
+            // textBox78
+            // 
+            this.textBox78.Location = new System.Drawing.Point(135, 15);
+            this.textBox78.Name = "textBox78";
+            this.textBox78.Size = new System.Drawing.Size(43, 20);
+            this.textBox78.TabIndex = 21;
+            this.toolTip1.SetToolTip(this.textBox78, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // label412
+            // 
+            this.label412.AutoSize = true;
+            this.label412.Location = new System.Drawing.Point(12, 116);
+            this.label412.Name = "label412";
+            this.label412.Size = new System.Drawing.Size(79, 13);
+            this.label412.TabIndex = 25;
+            this.label412.Text = "Center X Offset";
+            this.toolTip1.SetToolTip(this.label412, "Offset of the center target along the target axis");
+            // 
+            // textBox79
+            // 
+            this.textBox79.Location = new System.Drawing.Point(99, 187);
+            this.textBox79.Name = "textBox79";
+            this.textBox79.Size = new System.Drawing.Size(88, 20);
+            this.textBox79.TabIndex = 105;
+            this.toolTip1.SetToolTip(this.textBox79, "sets the step size between adjacent bump angles. should be entered in degrees");
+            // 
+            // textBox80
+            // 
+            this.textBox80.Location = new System.Drawing.Point(99, 155);
+            this.textBox80.Name = "textBox80";
+            this.textBox80.Size = new System.Drawing.Size(88, 20);
+            this.textBox80.TabIndex = 102;
+            this.toolTip1.SetToolTip(this.textBox80, "sets the step size between adjacent bump angles. should be entered in degrees");
+            // 
+            // textBox82
+            // 
+            this.textBox82.Location = new System.Drawing.Point(99, 128);
+            this.textBox82.Name = "textBox82";
+            this.textBox82.Size = new System.Drawing.Size(88, 20);
+            this.textBox82.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.textBox82, "Greatest angular deviation from the target angle that random bumps may take. (Deg" +
+                    ")");
+            // 
+            // textBox84
+            // 
+            this.textBox84.Location = new System.Drawing.Point(99, 102);
+            this.textBox84.Name = "textBox84";
+            this.textBox84.Size = new System.Drawing.Size(88, 20);
+            this.textBox84.TabIndex = 29;
+            this.toolTip1.SetToolTip(this.textBox84, "Lowest angular deviation from the target angl that random bumps may take. (Deg)");
             // 
             // label143
             // 
@@ -18499,22 +19532,275 @@ namespace BehaviorGraphics
             this.label407.TabIndex = 0;
             this.label407.Text = "Center hold low";
             // 
-            // textBoxRPCR
+            // label408
             // 
-            this.textBoxRPCR.Location = new System.Drawing.Point(123, 118);
-            this.textBoxRPCR.Name = "textBoxRPCR";
-            this.textBoxRPCR.Size = new System.Drawing.Size(68, 20);
-            this.textBoxRPCR.TabIndex = 38;
-            this.textBoxRPCR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.label408.AutoSize = true;
+            this.label408.Location = new System.Drawing.Point(13, 67);
+            this.label408.Name = "label408";
+            this.label408.Size = new System.Drawing.Size(99, 13);
+            this.label408.TabIndex = 34;
+            this.label408.Text = "Outer Target Depth";
             // 
-            // labelRPCR
+            // label409
             // 
-            this.labelRPCR.AutoSize = true;
-            this.labelRPCR.Location = new System.Drawing.Point(9, 123);
-            this.labelRPCR.Name = "labelRPCR";
-            this.labelRPCR.Size = new System.Drawing.Size(68, 13);
-            this.labelRPCR.TabIndex = 37;
-            this.labelRPCR.Text = "Cursor radius";
+            this.label409.AutoSize = true;
+            this.label409.Location = new System.Drawing.Point(13, 43);
+            this.label409.Name = "label409";
+            this.label409.Size = new System.Drawing.Size(98, 13);
+            this.label409.TabIndex = 32;
+            this.label409.Text = "Outer Target Width";
+            // 
+            // label411
+            // 
+            this.label411.AutoSize = true;
+            this.label411.Location = new System.Drawing.Point(13, 91);
+            this.label411.Name = "label411";
+            this.label411.Size = new System.Drawing.Size(108, 13);
+            this.label411.TabIndex = 22;
+            this.label411.Text = "Center Target Radius";
+            // 
+            // label413
+            // 
+            this.label413.AutoSize = true;
+            this.label413.Location = new System.Drawing.Point(13, 19);
+            this.label413.Name = "label413";
+            this.label413.Size = new System.Drawing.Size(93, 13);
+            this.label413.TabIndex = 20;
+            this.label413.Text = "Movement Length";
+            // 
+            // label420
+            // 
+            this.label420.AutoSize = true;
+            this.label420.Location = new System.Drawing.Point(4, 190);
+            this.label420.Name = "label420";
+            this.label420.Size = new System.Drawing.Size(55, 13);
+            this.label420.TabIndex = 106;
+            this.label420.Text = "catch rate";
+            // 
+            // label421
+            // 
+            this.label421.AutoSize = true;
+            this.label421.Location = new System.Drawing.Point(2, 158);
+            this.label421.Name = "label421";
+            this.label421.Size = new System.Drawing.Size(83, 13);
+            this.label421.TabIndex = 103;
+            this.label421.Text = "Bump increment";
+            // 
+            // label422
+            // 
+            this.label422.AutoSize = true;
+            this.label422.Location = new System.Drawing.Point(2, 131);
+            this.label422.Name = "label422";
+            this.label422.Size = new System.Drawing.Size(97, 13);
+            this.label422.TabIndex = 32;
+            this.label422.Text = "Rand Bump Ceiling";
+            // 
+            // textBox81
+            // 
+            this.textBox81.Location = new System.Drawing.Point(87, 73);
+            this.textBox81.Name = "textBox81";
+            this.textBox81.Size = new System.Drawing.Size(100, 20);
+            this.textBox81.TabIndex = 14;
+            // 
+            // label424
+            // 
+            this.label424.AutoSize = true;
+            this.label424.Location = new System.Drawing.Point(2, 105);
+            this.label424.Name = "label424";
+            this.label424.Size = new System.Drawing.Size(89, 13);
+            this.label424.TabIndex = 31;
+            this.label424.Text = "Rand Bump Floor";
+            // 
+            // textBox83
+            // 
+            this.textBox83.Location = new System.Drawing.Point(87, 45);
+            this.textBox83.Name = "textBox83";
+            this.textBox83.Size = new System.Drawing.Size(100, 20);
+            this.textBox83.TabIndex = 13;
+            // 
+            // label425
+            // 
+            this.label425.AutoSize = true;
+            this.label425.Location = new System.Drawing.Point(6, 76);
+            this.label425.Name = "label425";
+            this.label425.Size = new System.Drawing.Size(53, 13);
+            this.label425.TabIndex = 12;
+            this.label425.Text = "Amplitude";
+            // 
+            // label428
+            // 
+            this.label428.AutoSize = true;
+            this.label428.Location = new System.Drawing.Point(6, 48);
+            this.label428.Name = "label428";
+            this.label428.Size = new System.Drawing.Size(54, 13);
+            this.label428.TabIndex = 11;
+            this.label428.Text = "Rise Time";
+            // 
+            // label429
+            // 
+            this.label429.AutoSize = true;
+            this.label429.Location = new System.Drawing.Point(6, 22);
+            this.label429.Name = "label429";
+            this.label429.Size = new System.Drawing.Size(75, 13);
+            this.label429.TabIndex = 10;
+            this.label429.Text = "Peak Duration";
+            // 
+            // textBox85
+            // 
+            this.textBox85.Location = new System.Drawing.Point(87, 19);
+            this.textBox85.Name = "textBox85";
+            this.textBox85.Size = new System.Drawing.Size(100, 20);
+            this.textBox85.TabIndex = 9;
+            // 
+            // textBoxCC_catchHigh
+            // 
+            this.textBoxCC_catchHigh.Location = new System.Drawing.Point(108, 72);
+            this.textBoxCC_catchHigh.Name = "textBoxCC_catchHigh";
+            this.textBoxCC_catchHigh.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_catchHigh.TabIndex = 83;
+            this.toolTip1.SetToolTip(this.textBoxCC_catchHigh, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
+                    "lay time.");
+            // 
+            // label449
+            // 
+            this.label449.AutoSize = true;
+            this.label449.Location = new System.Drawing.Point(13, 75);
+            this.label449.Name = "label449";
+            this.label449.Size = new System.Drawing.Size(90, 13);
+            this.label449.TabIndex = 82;
+            this.label449.Text = "Delay Catch High";
+            // 
+            // textBoxCC_catchLow
+            // 
+            this.textBoxCC_catchLow.Location = new System.Drawing.Point(108, 47);
+            this.textBoxCC_catchLow.Name = "textBoxCC_catchLow";
+            this.textBoxCC_catchLow.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_catchLow.TabIndex = 81;
+            this.toolTip1.SetToolTip(this.textBoxCC_catchLow, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
+                    "lay time.");
+            // 
+            // label450
+            // 
+            this.label450.AutoSize = true;
+            this.label450.Location = new System.Drawing.Point(13, 50);
+            this.label450.Name = "label450";
+            this.label450.Size = new System.Drawing.Size(88, 13);
+            this.label450.TabIndex = 80;
+            this.label450.Text = "Delay Catch Low";
+            // 
+            // textBoxCC_catchFreq
+            // 
+            this.textBoxCC_catchFreq.Location = new System.Drawing.Point(108, 22);
+            this.textBoxCC_catchFreq.Name = "textBoxCC_catchFreq";
+            this.textBoxCC_catchFreq.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_catchFreq.TabIndex = 79;
+            this.toolTip1.SetToolTip(this.textBoxCC_catchFreq, "Lower bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay High for non-random d" +
+                    "elay time.");
+            // 
+            // label452
+            // 
+            this.label452.AutoSize = true;
+            this.label452.Location = new System.Drawing.Point(13, 25);
+            this.label452.Name = "label452";
+            this.label452.Size = new System.Drawing.Size(89, 13);
+            this.label452.TabIndex = 78;
+            this.label452.Text = "Delay Catch Freq";
+            // 
+            // groupBox86
+            // 
+            this.groupBox86.Controls.Add(this.textBoxCC_catchLow);
+            this.groupBox86.Controls.Add(this.textBoxCC_catchHigh);
+            this.groupBox86.Controls.Add(this.label452);
+            this.groupBox86.Controls.Add(this.label449);
+            this.groupBox86.Controls.Add(this.textBoxCC_catchFreq);
+            this.groupBox86.Controls.Add(this.label450);
+            this.groupBox86.Location = new System.Drawing.Point(357, 233);
+            this.groupBox86.Name = "groupBox86";
+            this.groupBox86.Size = new System.Drawing.Size(150, 104);
+            this.groupBox86.TabIndex = 78;
+            this.groupBox86.TabStop = false;
+            this.groupBox86.Text = "Catch Trials";
+            // 
+            // groupBox87
+            // 
+            this.groupBox87.Controls.Add(this.textBoxCC_velGain);
+            this.groupBox87.Controls.Add(this.label453);
+            this.groupBox87.Controls.Add(this.textBoxCC_posGain);
+            this.groupBox87.Controls.Add(this.label461);
+            this.groupBox87.Location = new System.Drawing.Point(357, 343);
+            this.groupBox87.Name = "groupBox87";
+            this.groupBox87.Size = new System.Drawing.Size(150, 76);
+            this.groupBox87.TabIndex = 84;
+            this.groupBox87.TabStop = false;
+            this.groupBox87.Text = "PD bump control";
+            // 
+            // textBoxCC_velGain
+            // 
+            this.textBoxCC_velGain.Location = new System.Drawing.Point(84, 52);
+            this.textBoxCC_velGain.Name = "textBoxCC_velGain";
+            this.textBoxCC_velGain.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_velGain.TabIndex = 81;
+            this.toolTip1.SetToolTip(this.textBoxCC_velGain, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
+                    "lay time.");
+            // 
+            // label453
+            // 
+            this.label453.AutoSize = true;
+            this.label453.Location = new System.Drawing.Point(31, 30);
+            this.label453.Name = "label453";
+            this.label453.Size = new System.Drawing.Size(50, 13);
+            this.label453.TabIndex = 78;
+            this.label453.Text = "Pos Gain";
+            // 
+            // textBoxCC_posGain
+            // 
+            this.textBoxCC_posGain.Location = new System.Drawing.Point(84, 27);
+            this.textBoxCC_posGain.Name = "textBoxCC_posGain";
+            this.textBoxCC_posGain.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_posGain.TabIndex = 79;
+            this.toolTip1.SetToolTip(this.textBoxCC_posGain, "Lower bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay High for non-random d" +
+                    "elay time.");
+            // 
+            // label461
+            // 
+            this.label461.AutoSize = true;
+            this.label461.Location = new System.Drawing.Point(31, 55);
+            this.label461.Name = "label461";
+            this.label461.Size = new System.Drawing.Size(47, 13);
+            this.label461.TabIndex = 80;
+            this.label461.Text = "Vel Gain";
+            // 
+            // groupBox88
+            // 
+            this.groupBox88.Controls.Add(this.textBoxCC_stimProb);
+            this.groupBox88.Controls.Add(this.label467);
+            this.groupBox88.Location = new System.Drawing.Point(513, 12);
+            this.groupBox88.Name = "groupBox88";
+            this.groupBox88.Size = new System.Drawing.Size(150, 60);
+            this.groupBox88.TabIndex = 85;
+            this.groupBox88.TabStop = false;
+            this.groupBox88.Text = "Stim";
+            // 
+            // textBoxCC_stimProb
+            // 
+            this.textBoxCC_stimProb.Location = new System.Drawing.Point(85, 20);
+            this.textBoxCC_stimProb.Name = "textBoxCC_stimProb";
+            this.textBoxCC_stimProb.Size = new System.Drawing.Size(57, 20);
+            this.textBoxCC_stimProb.TabIndex = 1;
+            // 
+            // label467
+            // 
+            this.label467.AutoSize = true;
+            this.label467.Location = new System.Drawing.Point(13, 23);
+            this.label467.Name = "label467";
+            this.label467.Size = new System.Drawing.Size(52, 13);
+            this.label467.TabIndex = 0;
+            this.label467.Text = "Stim Prob";
             // 
             // UpdateForm
             // 
@@ -18825,6 +20111,19 @@ namespace BehaviorGraphics
             this.groupBoxRPCursor.PerformLayout();
             this.groupBoxRPTiming.ResumeLayout(false);
             this.groupBoxRPTiming.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.groupBox85.ResumeLayout(false);
+            this.groupBox85.PerformLayout();
+            this.groupBox84.ResumeLayout(false);
+            this.groupBox84.PerformLayout();
+            this.groupBox83.ResumeLayout(false);
+            this.groupBox83.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCC_numslices)).EndInit();
+            this.groupBox82.ResumeLayout(false);
+            this.groupBox82.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCC_numCOtargs)).EndInit();
+            this.groupBox81.ResumeLayout(false);
+            this.groupBox81.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -18838,6 +20137,12 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
+            this.groupBox86.ResumeLayout(false);
+            this.groupBox86.PerformLayout();
+            this.groupBox87.ResumeLayout(false);
+            this.groupBox87.PerformLayout();
+            this.groupBox88.ResumeLayout(false);
+            this.groupBox88.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -20497,5 +21802,125 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelRPCCH;
         private System.Windows.Forms.TextBox textBoxRPCR;
         private System.Windows.Forms.Label labelRPCR;
+        private System.Windows.Forms.Label label408;
+        private System.Windows.Forms.TextBox textBox73;
+        private System.Windows.Forms.Label label409;
+        private System.Windows.Forms.TextBox textBox74;
+        private System.Windows.Forms.TextBox textBox75;
+        private System.Windows.Forms.Label label410;
+        private System.Windows.Forms.TextBox textBox76;
+        private System.Windows.Forms.Label label411;
+        private System.Windows.Forms.TextBox textBox77;
+        private System.Windows.Forms.TextBox textBox78;
+        private System.Windows.Forms.Label label412;
+        private System.Windows.Forms.Label label413;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.GroupBox groupBox81;
+        private System.Windows.Forms.Label label414;
+        private System.Windows.Forms.TextBox textBoxCC_OTdepth;
+        private System.Windows.Forms.Label label415;
+        private System.Windows.Forms.TextBox textBoxCC_OTwidth;
+        private System.Windows.Forms.TextBox textBoxCC_Yoffset;
+        private System.Windows.Forms.Label label416;
+        private System.Windows.Forms.TextBox textBoxCC_CTrad;
+        private System.Windows.Forms.Label label417;
+        private System.Windows.Forms.TextBox textBoxCC_Xoffset;
+        private System.Windows.Forms.TextBox textBoxCC_MovementLength;
+        private System.Windows.Forms.Label label418;
+        private System.Windows.Forms.Label label419;
+        private System.Windows.Forms.GroupBox groupBox82;
+        private System.Windows.Forms.Label label423;
+        private System.Windows.Forms.NumericUpDown numericUpDownCC_numCOtargs;
+        private System.Windows.Forms.Label label426;
+        private System.Windows.Forms.TextBox textBoxCC_PriorKap;
+        private System.Windows.Forms.CheckBox checkBoxCC_COhack;
+        private System.Windows.Forms.Label label427;
+        private System.Windows.Forms.TextBox textBoxCC_PriorMean;
+        private System.Windows.Forms.GroupBox groupBox83;
+        private System.Windows.Forms.CheckBox checkBoxCC_cloud1Blank;
+        private System.Windows.Forms.Label label432;
+        private System.Windows.Forms.TextBox textBoxCC_cloud4Freq;
+        private System.Windows.Forms.Label label433;
+        private System.Windows.Forms.TextBox textBoxCC_cloud3Freq;
+        private System.Windows.Forms.Label label434;
+        private System.Windows.Forms.TextBox textBoxCC_cloud2Freq;
+        private System.Windows.Forms.Label label435;
+        private System.Windows.Forms.TextBox textBoxCC_cloud1Freq;
+        private System.Windows.Forms.Label label436;
+        private System.Windows.Forms.TextBox textBoxCC_cloud4Kap;
+        private System.Windows.Forms.Label label437;
+        private System.Windows.Forms.TextBox textBoxCC_cloud3Kap;
+        private System.Windows.Forms.Label label438;
+        private System.Windows.Forms.TextBox textBoxCC_cloud2Kap;
+        private System.Windows.Forms.Label label439;
+        private System.Windows.Forms.NumericUpDown numericUpDownCC_numslices;
+        private System.Windows.Forms.Label label440;
+        private System.Windows.Forms.TextBox textBoxCC_slicesize;
+        private System.Windows.Forms.Label label441;
+        private System.Windows.Forms.TextBox textBoxCC_cloud1Kap;
+        private System.Windows.Forms.GroupBox groupBox84;
+        private System.Windows.Forms.Label label420;
+        private System.Windows.Forms.TextBox textBox79;
+        private System.Windows.Forms.Label label421;
+        private System.Windows.Forms.TextBox textBox80;
+        private System.Windows.Forms.Label label422;
+        private System.Windows.Forms.TextBox textBox81;
+        private System.Windows.Forms.Label label424;
+        private System.Windows.Forms.TextBox textBox82;
+        private System.Windows.Forms.TextBox textBox83;
+        private System.Windows.Forms.TextBox textBox84;
+        private System.Windows.Forms.Label label425;
+        private System.Windows.Forms.Label label428;
+        private System.Windows.Forms.Label label429;
+        private System.Windows.Forms.TextBox textBox85;
+        private System.Windows.Forms.Label label430;
+        private System.Windows.Forms.TextBox textBoxCC_bump3Freq;
+        private System.Windows.Forms.Label label431;
+        private System.Windows.Forms.TextBox textBoxCC_bump2Freq;
+        private System.Windows.Forms.Label label442;
+        private System.Windows.Forms.TextBox textBoxCC_bump1Freq;
+        private System.Windows.Forms.Label label443;
+        private System.Windows.Forms.TextBox textBoxCC_bump3Mag;
+        private System.Windows.Forms.Label label444;
+        private System.Windows.Forms.TextBox textBoxCC_bump2Mag;
+        private System.Windows.Forms.Label label445;
+        private System.Windows.Forms.TextBox textBoxCC_bump1Mag;
+        private System.Windows.Forms.GroupBox groupBox85;
+        private System.Windows.Forms.Label label451;
+        private System.Windows.Forms.TextBox textBoxCC_failurelag;
+        private System.Windows.Forms.TextBox textBoxCC_intertrial;
+        private System.Windows.Forms.Label label455;
+        private System.Windows.Forms.TextBox textBoxCC_movementTime;
+        private System.Windows.Forms.Label label456;
+        private System.Windows.Forms.TextBox textBoxCC_CDH;
+        private System.Windows.Forms.Label label457;
+        private System.Windows.Forms.TextBox textBoxCC_CDL;
+        private System.Windows.Forms.Label label458;
+        private System.Windows.Forms.TextBox textBoxCC_CHH;
+        private System.Windows.Forms.Label label459;
+        private System.Windows.Forms.TextBox textBoxCC_CHL;
+        private System.Windows.Forms.Label label460;
+        private System.Windows.Forms.Label label448;
+        private System.Windows.Forms.TextBox textBoxCC_bumpduration;
+        private System.Windows.Forms.Label label447;
+        private System.Windows.Forms.TextBox textBoxCC_randbumpHigh;
+        private System.Windows.Forms.Label label446;
+        private System.Windows.Forms.TextBox textBoxCC_randbumpLow;
+        private System.Windows.Forms.CheckBox checkBoxCC_useRandomBump;
+        private System.Windows.Forms.GroupBox groupBox86;
+        private System.Windows.Forms.TextBox textBoxCC_catchLow;
+        private System.Windows.Forms.TextBox textBoxCC_catchHigh;
+        private System.Windows.Forms.Label label452;
+        private System.Windows.Forms.Label label449;
+        private System.Windows.Forms.TextBox textBoxCC_catchFreq;
+        private System.Windows.Forms.Label label450;
+        private System.Windows.Forms.GroupBox groupBox87;
+        private System.Windows.Forms.TextBox textBoxCC_velGain;
+        private System.Windows.Forms.Label label453;
+        private System.Windows.Forms.TextBox textBoxCC_posGain;
+        private System.Windows.Forms.Label label461;
+        private System.Windows.Forms.GroupBox groupBox88;
+        private System.Windows.Forms.TextBox textBoxCC_stimProb;
+        private System.Windows.Forms.Label label467;
     }
 }
