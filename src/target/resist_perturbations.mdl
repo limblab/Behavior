@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1451"
+    ComputedModelVersion    "1.1452"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -31,7 +31,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, -8.0, 1036.0, 754.0]
+      Location		      [-2.0, 0.0, 1036.0, 754.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -56,8 +56,8 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[984.0, 578.0]
-	ZoomFactor		[1.0]
-	Offset			[98.399999999999977, 83.600000000000023]
+	ZoomFactor		[0.8]
+	Offset			[170.53973612185837, 299.01085364313838]
       }
     }
   }
@@ -67,9 +67,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Dec 05 13:30:30 2014"
-  RTWModifiedTimeStamp	  339687007
-  ModelVersionFormat	  "1.%<AutoIncrement:1451>"
+  LastModifiedDate	  "Thu Jan 08 16:35:45 2015"
+  RTWModifiedTimeStamp	  342635433
+  ModelVersionFormat	  "1.%<AutoIncrement:1452>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -330,7 +330,7 @@ Model {
 	  IntegerOverflowMsg	  "warning"
 	  Int32ToFloatConvMsg	  "warning"
 	  ParameterDowncastMsg	  "error"
-	  ParameterOverflowMsg	  "error"
+	  ParameterOverflowMsg	  "warning"
 	  ParameterUnderflowMsg	  "none"
 	  ParameterPrecisionLossMsg "warning"
 	  ParameterTunabilityLossMsg "warning"
@@ -452,7 +452,7 @@ Model {
 	  Version		  "1.12.1"
 	  Array {
 	    Type		    "Cell"
-	    Dimension		    15
+	    Dimension		    16
 	    Cell		    "IncludeHyperlinkInReport"
 	    Cell		    "GenerateTraceInfo"
 	    Cell		    "GenerateTraceReport"
@@ -468,6 +468,7 @@ Model {
 	    Cell		    "CodeExecutionProfiling"
 	    Cell		    "CodeProfilingSaveOptions"
 	    Cell		    "CodeProfilingInstrumentation"
+	    Cell		    "TargetLang"
 	    PropName		    "DisabledProps"
 	  }
 	  SystemTargetFile	  "xpctarget.tlc"
@@ -683,8 +684,8 @@ Model {
       }
       Name		      "Configuration"
       ExtraOptions	      "-aGenerateTraceInfo=0 -aIgnoreTestpoints=0 "
-      CurrentDlgPage	      "Real-Time Workshop/Custom Code"
-      ConfigPrmDlgPosition     [ 72, 69, 952, 699 ] 
+      CurrentDlgPage	      "Diagnostics/Data Validity"
+      ConfigPrmDlgPosition     [ 64, 39, 960, 707 ] 
     }
     PropName		    "ConfigurationSets"
   }
@@ -814,7 +815,7 @@ Model {
   }
   System {
     Name		    "resist_perturbations"
-    Location		    [-8, -8, 1028, 746]
+    Location		    [-2, 0, 1034, 754]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -826,7 +827,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "100"
+    ZoomFactor		    "80"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "407"
     Block {
@@ -859,7 +860,7 @@ Model {
       Ports		      [1, 1]
       Position		      [430, 773, 520, 837]
       ZOrder		      8
-      LibraryVersion	      "1.115"
+      LibraryVersion	      "1.152"
       SourceBlock	      "limblab/BoundingBox"
       SourceType	      "SubSystem"
     }
@@ -1015,7 +1016,7 @@ Model {
       Ports		      [5, 1]
       Position		      [1090, 616, 1280, 924]
       ZOrder		      6
-      LibraryVersion	      "1.115"
+      LibraryVersion	      "1.152"
       SourceBlock	      "limblab/Motor Control"
       SourceType	      "SubSystem"
     }
@@ -1026,7 +1027,7 @@ Model {
       Ports		      [0, 6]
       Position		      [230, 230, 340, 340]
       ZOrder		      19
-      LibraryVersion	      "1.115"
+      LibraryVersion	      "1.152"
       SourceBlock	      "limblab/Neural Position Subsystem"
       SourceType	      "Neural Position Subsystem"
     }
@@ -1037,7 +1038,7 @@ Model {
       Ports		      [3, 2]
       Position		      [670, 668, 790, 822]
       ZOrder		      7
-      LibraryVersion	      "1.115"
+      LibraryVersion	      "1.152"
       SourceBlock	      "limblab/Recentering Subsystem"
       SourceType	      "SubSystem"
     }
@@ -1048,7 +1049,7 @@ Model {
       Ports		      [1, 1]
       Position		      [910, 317, 960, 353]
       ZOrder		      14
-      LibraryVersion	      "1.115"
+      LibraryVersion	      "1.152"
       SourceBlock	      "limblab/RewardSbs"
       SourceType	      "SubSystem"
     }
@@ -1059,7 +1060,7 @@ Model {
       Ports		      [6]
       Position		      [1255, 136, 1345, 254]
       ZOrder		      18
-      LibraryVersion	      "1.115"
+      LibraryVersion	      "1.152"
       SourceBlock	      "limblab/SendPacketToDecoder"
       SourceType	      "SubSystem"
     }
@@ -1070,7 +1071,7 @@ Model {
       Ports		      [4]
       Position		      [1255, 377, 1345, 478]
       ZOrder		      -12
-      LibraryVersion	      "1.115"
+      LibraryVersion	      "1.152"
       SourceBlock	      "limblab/SendPacketToGraphics"
       SourceType	      "SubSystem"
     }
@@ -1128,7 +1129,7 @@ Model {
       Ports		      [2, 1]
       Position		      [345, 665, 455, 725]
       ZOrder		      15
-      LibraryVersion	      "1.115"
+      LibraryVersion	      "1.152"
       SourceBlock	      "limblab/Velocity Calculation"
       SourceType	      "SubSystem"
     }
@@ -1172,7 +1173,7 @@ Model {
       Ports		      [1]
       Position		      [935, 194, 980, 236]
       ZOrder		      13
-      LibraryVersion	      "1.115"
+      LibraryVersion	      "1.152"
       SourceBlock	      "limblab/WordSbs"
       SourceType	      "SubSystem"
     }
@@ -1183,7 +1184,7 @@ Model {
       Ports		      [0, 4]
       Position		      [35, 717, 160, 953]
       ZOrder		      22
-      LibraryVersion	      "1.115"
+      LibraryVersion	      "1.152"
       SourceBlock	      "limblab/XY Position Subsystem"
       SourceType	      "SubSystem"
     }
