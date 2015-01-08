@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1485,6 +1485,21 @@ namespace BehaviorGraphics
             this.labelRPRW = new System.Windows.Forms.Label();
             this.labelRPCHL = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.groupBox88 = new System.Windows.Forms.GroupBox();
+            this.textBoxCC_stimProb = new System.Windows.Forms.TextBox();
+            this.label467 = new System.Windows.Forms.Label();
+            this.groupBox87 = new System.Windows.Forms.GroupBox();
+            this.textBoxCC_velGain = new System.Windows.Forms.TextBox();
+            this.label453 = new System.Windows.Forms.Label();
+            this.textBoxCC_posGain = new System.Windows.Forms.TextBox();
+            this.label461 = new System.Windows.Forms.Label();
+            this.groupBox86 = new System.Windows.Forms.GroupBox();
+            this.textBoxCC_catchLow = new System.Windows.Forms.TextBox();
+            this.textBoxCC_catchHigh = new System.Windows.Forms.TextBox();
+            this.label452 = new System.Windows.Forms.Label();
+            this.label449 = new System.Windows.Forms.Label();
+            this.textBoxCC_catchFreq = new System.Windows.Forms.TextBox();
+            this.label450 = new System.Windows.Forms.Label();
             this.groupBox85 = new System.Windows.Forms.GroupBox();
             this.label451 = new System.Windows.Forms.Label();
             this.textBoxCC_failurelag = new System.Windows.Forms.TextBox();
@@ -1788,21 +1803,11 @@ namespace BehaviorGraphics
             this.label428 = new System.Windows.Forms.Label();
             this.label429 = new System.Windows.Forms.Label();
             this.textBox85 = new System.Windows.Forms.TextBox();
-            this.textBoxCC_catchHigh = new System.Windows.Forms.TextBox();
-            this.label449 = new System.Windows.Forms.Label();
-            this.textBoxCC_catchLow = new System.Windows.Forms.TextBox();
-            this.label450 = new System.Windows.Forms.Label();
-            this.textBoxCC_catchFreq = new System.Windows.Forms.TextBox();
-            this.label452 = new System.Windows.Forms.Label();
-            this.groupBox86 = new System.Windows.Forms.GroupBox();
-            this.groupBox87 = new System.Windows.Forms.GroupBox();
-            this.textBoxCC_velGain = new System.Windows.Forms.TextBox();
-            this.label453 = new System.Windows.Forms.Label();
-            this.textBoxCC_posGain = new System.Windows.Forms.TextBox();
-            this.label461 = new System.Windows.Forms.Label();
-            this.groupBox88 = new System.Windows.Forms.GroupBox();
-            this.textBoxCC_stimProb = new System.Windows.Forms.TextBox();
-            this.label467 = new System.Windows.Forms.Label();
+            this.groupBoxIsometric = new System.Windows.Forms.GroupBox();
+            this.checkBoxIM = new System.Windows.Forms.CheckBox();
+            this.checkBoxUSDH = new System.Windows.Forms.CheckBox();
+            this.textBoxF2SG = new System.Windows.Forms.TextBox();
+            this.labelF2SG = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBox71.SuspendLayout();
@@ -1977,6 +1982,9 @@ namespace BehaviorGraphics
             this.groupBoxRPCursor.SuspendLayout();
             this.groupBoxRPTiming.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            this.groupBox88.SuspendLayout();
+            this.groupBox87.SuspendLayout();
+            this.groupBox86.SuspendLayout();
             this.groupBox85.SuspendLayout();
             this.groupBox84.SuspendLayout();
             this.groupBox83.SuspendLayout();
@@ -1992,9 +2000,7 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBox86.SuspendLayout();
-            this.groupBox87.SuspendLayout();
-            this.groupBox88.SuspendLayout();
+            this.groupBoxIsometric.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -2060,6 +2066,7 @@ namespace BehaviorGraphics
             // 
             // tabPageGen
             // 
+            this.tabPageGen.Controls.Add(this.groupBoxIsometric);
             this.tabPageGen.Controls.Add(this.groupBox71);
             this.tabPageGen.Controls.Add(this.label195);
             this.tabPageGen.Controls.Add(this.textBoxGoToneVolume);
@@ -4853,8 +4860,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5686,8 +5693,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -16927,6 +16934,156 @@ namespace BehaviorGraphics
             this.tabPage6.Text = "Cue Comb";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // groupBox88
+            // 
+            this.groupBox88.Controls.Add(this.textBoxCC_stimProb);
+            this.groupBox88.Controls.Add(this.label467);
+            this.groupBox88.Location = new System.Drawing.Point(513, 12);
+            this.groupBox88.Name = "groupBox88";
+            this.groupBox88.Size = new System.Drawing.Size(150, 60);
+            this.groupBox88.TabIndex = 85;
+            this.groupBox88.TabStop = false;
+            this.groupBox88.Text = "Stim";
+            // 
+            // textBoxCC_stimProb
+            // 
+            this.textBoxCC_stimProb.Location = new System.Drawing.Point(85, 20);
+            this.textBoxCC_stimProb.Name = "textBoxCC_stimProb";
+            this.textBoxCC_stimProb.Size = new System.Drawing.Size(57, 20);
+            this.textBoxCC_stimProb.TabIndex = 1;
+            // 
+            // label467
+            // 
+            this.label467.AutoSize = true;
+            this.label467.Location = new System.Drawing.Point(13, 23);
+            this.label467.Name = "label467";
+            this.label467.Size = new System.Drawing.Size(52, 13);
+            this.label467.TabIndex = 0;
+            this.label467.Text = "Stim Prob";
+            // 
+            // groupBox87
+            // 
+            this.groupBox87.Controls.Add(this.textBoxCC_velGain);
+            this.groupBox87.Controls.Add(this.label453);
+            this.groupBox87.Controls.Add(this.textBoxCC_posGain);
+            this.groupBox87.Controls.Add(this.label461);
+            this.groupBox87.Location = new System.Drawing.Point(357, 343);
+            this.groupBox87.Name = "groupBox87";
+            this.groupBox87.Size = new System.Drawing.Size(150, 76);
+            this.groupBox87.TabIndex = 84;
+            this.groupBox87.TabStop = false;
+            this.groupBox87.Text = "PD bump control";
+            // 
+            // textBoxCC_velGain
+            // 
+            this.textBoxCC_velGain.Location = new System.Drawing.Point(84, 52);
+            this.textBoxCC_velGain.Name = "textBoxCC_velGain";
+            this.textBoxCC_velGain.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_velGain.TabIndex = 81;
+            this.toolTip1.SetToolTip(this.textBoxCC_velGain, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
+                    "lay time.");
+            // 
+            // label453
+            // 
+            this.label453.AutoSize = true;
+            this.label453.Location = new System.Drawing.Point(31, 30);
+            this.label453.Name = "label453";
+            this.label453.Size = new System.Drawing.Size(50, 13);
+            this.label453.TabIndex = 78;
+            this.label453.Text = "Pos Gain";
+            // 
+            // textBoxCC_posGain
+            // 
+            this.textBoxCC_posGain.Location = new System.Drawing.Point(84, 27);
+            this.textBoxCC_posGain.Name = "textBoxCC_posGain";
+            this.textBoxCC_posGain.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_posGain.TabIndex = 79;
+            this.toolTip1.SetToolTip(this.textBoxCC_posGain, "Lower bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay High for non-random d" +
+                    "elay time.");
+            // 
+            // label461
+            // 
+            this.label461.AutoSize = true;
+            this.label461.Location = new System.Drawing.Point(31, 55);
+            this.label461.Name = "label461";
+            this.label461.Size = new System.Drawing.Size(47, 13);
+            this.label461.TabIndex = 80;
+            this.label461.Text = "Vel Gain";
+            // 
+            // groupBox86
+            // 
+            this.groupBox86.Controls.Add(this.textBoxCC_catchLow);
+            this.groupBox86.Controls.Add(this.textBoxCC_catchHigh);
+            this.groupBox86.Controls.Add(this.label452);
+            this.groupBox86.Controls.Add(this.label449);
+            this.groupBox86.Controls.Add(this.textBoxCC_catchFreq);
+            this.groupBox86.Controls.Add(this.label450);
+            this.groupBox86.Location = new System.Drawing.Point(357, 233);
+            this.groupBox86.Name = "groupBox86";
+            this.groupBox86.Size = new System.Drawing.Size(150, 104);
+            this.groupBox86.TabIndex = 78;
+            this.groupBox86.TabStop = false;
+            this.groupBox86.Text = "Catch Trials";
+            // 
+            // textBoxCC_catchLow
+            // 
+            this.textBoxCC_catchLow.Location = new System.Drawing.Point(108, 47);
+            this.textBoxCC_catchLow.Name = "textBoxCC_catchLow";
+            this.textBoxCC_catchLow.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_catchLow.TabIndex = 81;
+            this.toolTip1.SetToolTip(this.textBoxCC_catchLow, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
+                    "lay time.");
+            // 
+            // textBoxCC_catchHigh
+            // 
+            this.textBoxCC_catchHigh.Location = new System.Drawing.Point(108, 72);
+            this.textBoxCC_catchHigh.Name = "textBoxCC_catchHigh";
+            this.textBoxCC_catchHigh.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_catchHigh.TabIndex = 83;
+            this.toolTip1.SetToolTip(this.textBoxCC_catchHigh, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
+                    "lay time.");
+            // 
+            // label452
+            // 
+            this.label452.AutoSize = true;
+            this.label452.Location = new System.Drawing.Point(13, 25);
+            this.label452.Name = "label452";
+            this.label452.Size = new System.Drawing.Size(89, 13);
+            this.label452.TabIndex = 78;
+            this.label452.Text = "Delay Catch Freq";
+            // 
+            // label449
+            // 
+            this.label449.AutoSize = true;
+            this.label449.Location = new System.Drawing.Point(13, 75);
+            this.label449.Name = "label449";
+            this.label449.Size = new System.Drawing.Size(90, 13);
+            this.label449.TabIndex = 82;
+            this.label449.Text = "Delay Catch High";
+            // 
+            // textBoxCC_catchFreq
+            // 
+            this.textBoxCC_catchFreq.Location = new System.Drawing.Point(108, 22);
+            this.textBoxCC_catchFreq.Name = "textBoxCC_catchFreq";
+            this.textBoxCC_catchFreq.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_catchFreq.TabIndex = 79;
+            this.toolTip1.SetToolTip(this.textBoxCC_catchFreq, "Lower bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay High for non-random d" +
+                    "elay time.");
+            // 
+            // label450
+            // 
+            this.label450.AutoSize = true;
+            this.label450.Location = new System.Drawing.Point(13, 50);
+            this.label450.Name = "label450";
+            this.label450.Size = new System.Drawing.Size(88, 13);
+            this.label450.TabIndex = 80;
+            this.label450.Text = "Delay Catch Low";
+            // 
             // groupBox85
             // 
             this.groupBox85.Controls.Add(this.label451);
@@ -19652,155 +19809,57 @@ namespace BehaviorGraphics
             this.textBox85.Size = new System.Drawing.Size(100, 20);
             this.textBox85.TabIndex = 9;
             // 
-            // textBoxCC_catchHigh
+            // groupBoxIsometric
             // 
-            this.textBoxCC_catchHigh.Location = new System.Drawing.Point(108, 72);
-            this.textBoxCC_catchHigh.Name = "textBoxCC_catchHigh";
-            this.textBoxCC_catchHigh.Size = new System.Drawing.Size(34, 20);
-            this.textBoxCC_catchHigh.TabIndex = 83;
-            this.toolTip1.SetToolTip(this.textBoxCC_catchHigh, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
-                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
-                    "lay time.");
+            this.groupBoxIsometric.Controls.Add(this.labelF2SG);
+            this.groupBoxIsometric.Controls.Add(this.textBoxF2SG);
+            this.groupBoxIsometric.Controls.Add(this.checkBoxUSDH);
+            this.groupBoxIsometric.Controls.Add(this.checkBoxIM);
+            this.groupBoxIsometric.Location = new System.Drawing.Point(465, 298);
+            this.groupBoxIsometric.Name = "groupBoxIsometric";
+            this.groupBoxIsometric.Size = new System.Drawing.Size(200, 100);
+            this.groupBoxIsometric.TabIndex = 27;
+            this.groupBoxIsometric.TabStop = false;
+            this.groupBoxIsometric.Text = "Isometric Robot";
             // 
-            // label449
+            // checkBoxIM
             // 
-            this.label449.AutoSize = true;
-            this.label449.Location = new System.Drawing.Point(13, 75);
-            this.label449.Name = "label449";
-            this.label449.Size = new System.Drawing.Size(90, 13);
-            this.label449.TabIndex = 82;
-            this.label449.Text = "Delay Catch High";
+            this.checkBoxIM.AutoSize = true;
+            this.checkBoxIM.Location = new System.Drawing.Point(11, 20);
+            this.checkBoxIM.Name = "checkBoxIM";
+            this.checkBoxIM.Size = new System.Drawing.Size(97, 17);
+            this.checkBoxIM.TabIndex = 0;
+            this.checkBoxIM.Text = "Isometric mode";
+            this.checkBoxIM.UseVisualStyleBackColor = true;
             // 
-            // textBoxCC_catchLow
+            // checkBoxUSDH
             // 
-            this.textBoxCC_catchLow.Location = new System.Drawing.Point(108, 47);
-            this.textBoxCC_catchLow.Name = "textBoxCC_catchLow";
-            this.textBoxCC_catchLow.Size = new System.Drawing.Size(34, 20);
-            this.textBoxCC_catchLow.TabIndex = 81;
-            this.toolTip1.SetToolTip(this.textBoxCC_catchLow, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
-                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
-                    "lay time.");
+            this.checkBoxUSDH.AutoSize = true;
+            this.checkBoxUSDH.Location = new System.Drawing.Point(11, 43);
+            this.checkBoxUSDH.Name = "checkBoxUSDH";
+            this.checkBoxUSDH.Size = new System.Drawing.Size(123, 17);
+            this.checkBoxUSDH.TabIndex = 1;
+            this.checkBoxUSDH.Text = "Upside-down handle";
+            this.checkBoxUSDH.UseVisualStyleBackColor = true;
             // 
-            // label450
+            // textBoxF2SG
             // 
-            this.label450.AutoSize = true;
-            this.label450.Location = new System.Drawing.Point(13, 50);
-            this.label450.Name = "label450";
-            this.label450.Size = new System.Drawing.Size(88, 13);
-            this.label450.TabIndex = 80;
-            this.label450.Text = "Delay Catch Low";
+            this.textBoxF2SG.Location = new System.Drawing.Point(124, 66);
+            this.textBoxF2SG.Name = "textBoxF2SG";
+            this.textBoxF2SG.Size = new System.Drawing.Size(67, 20);
+            this.textBoxF2SG.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.textBoxF2SG, "in cm/N");
+            this.textBoxF2SG.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
-            // textBoxCC_catchFreq
+            // labelF2SG
             // 
-            this.textBoxCC_catchFreq.Location = new System.Drawing.Point(108, 22);
-            this.textBoxCC_catchFreq.Name = "textBoxCC_catchFreq";
-            this.textBoxCC_catchFreq.Size = new System.Drawing.Size(34, 20);
-            this.textBoxCC_catchFreq.TabIndex = 79;
-            this.toolTip1.SetToolTip(this.textBoxCC_catchFreq, "Lower bound on random delay time.  Delay is the time between when the outer targe" +
-                    "t appears and the go cue is presented.\r\nSet equal to Delay High for non-random d" +
-                    "elay time.");
-            // 
-            // label452
-            // 
-            this.label452.AutoSize = true;
-            this.label452.Location = new System.Drawing.Point(13, 25);
-            this.label452.Name = "label452";
-            this.label452.Size = new System.Drawing.Size(89, 13);
-            this.label452.TabIndex = 78;
-            this.label452.Text = "Delay Catch Freq";
-            // 
-            // groupBox86
-            // 
-            this.groupBox86.Controls.Add(this.textBoxCC_catchLow);
-            this.groupBox86.Controls.Add(this.textBoxCC_catchHigh);
-            this.groupBox86.Controls.Add(this.label452);
-            this.groupBox86.Controls.Add(this.label449);
-            this.groupBox86.Controls.Add(this.textBoxCC_catchFreq);
-            this.groupBox86.Controls.Add(this.label450);
-            this.groupBox86.Location = new System.Drawing.Point(357, 233);
-            this.groupBox86.Name = "groupBox86";
-            this.groupBox86.Size = new System.Drawing.Size(150, 104);
-            this.groupBox86.TabIndex = 78;
-            this.groupBox86.TabStop = false;
-            this.groupBox86.Text = "Catch Trials";
-            // 
-            // groupBox87
-            // 
-            this.groupBox87.Controls.Add(this.textBoxCC_velGain);
-            this.groupBox87.Controls.Add(this.label453);
-            this.groupBox87.Controls.Add(this.textBoxCC_posGain);
-            this.groupBox87.Controls.Add(this.label461);
-            this.groupBox87.Location = new System.Drawing.Point(357, 343);
-            this.groupBox87.Name = "groupBox87";
-            this.groupBox87.Size = new System.Drawing.Size(150, 76);
-            this.groupBox87.TabIndex = 84;
-            this.groupBox87.TabStop = false;
-            this.groupBox87.Text = "PD bump control";
-            // 
-            // textBoxCC_velGain
-            // 
-            this.textBoxCC_velGain.Location = new System.Drawing.Point(84, 52);
-            this.textBoxCC_velGain.Name = "textBoxCC_velGain";
-            this.textBoxCC_velGain.Size = new System.Drawing.Size(34, 20);
-            this.textBoxCC_velGain.TabIndex = 81;
-            this.toolTip1.SetToolTip(this.textBoxCC_velGain, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
-                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
-                    "lay time.");
-            // 
-            // label453
-            // 
-            this.label453.AutoSize = true;
-            this.label453.Location = new System.Drawing.Point(31, 30);
-            this.label453.Name = "label453";
-            this.label453.Size = new System.Drawing.Size(50, 13);
-            this.label453.TabIndex = 78;
-            this.label453.Text = "Pos Gain";
-            // 
-            // textBoxCC_posGain
-            // 
-            this.textBoxCC_posGain.Location = new System.Drawing.Point(84, 27);
-            this.textBoxCC_posGain.Name = "textBoxCC_posGain";
-            this.textBoxCC_posGain.Size = new System.Drawing.Size(34, 20);
-            this.textBoxCC_posGain.TabIndex = 79;
-            this.toolTip1.SetToolTip(this.textBoxCC_posGain, "Lower bound on random delay time.  Delay is the time between when the outer targe" +
-                    "t appears and the go cue is presented.\r\nSet equal to Delay High for non-random d" +
-                    "elay time.");
-            // 
-            // label461
-            // 
-            this.label461.AutoSize = true;
-            this.label461.Location = new System.Drawing.Point(31, 55);
-            this.label461.Name = "label461";
-            this.label461.Size = new System.Drawing.Size(47, 13);
-            this.label461.TabIndex = 80;
-            this.label461.Text = "Vel Gain";
-            // 
-            // groupBox88
-            // 
-            this.groupBox88.Controls.Add(this.textBoxCC_stimProb);
-            this.groupBox88.Controls.Add(this.label467);
-            this.groupBox88.Location = new System.Drawing.Point(513, 12);
-            this.groupBox88.Name = "groupBox88";
-            this.groupBox88.Size = new System.Drawing.Size(150, 60);
-            this.groupBox88.TabIndex = 85;
-            this.groupBox88.TabStop = false;
-            this.groupBox88.Text = "Stim";
-            // 
-            // textBoxCC_stimProb
-            // 
-            this.textBoxCC_stimProb.Location = new System.Drawing.Point(85, 20);
-            this.textBoxCC_stimProb.Name = "textBoxCC_stimProb";
-            this.textBoxCC_stimProb.Size = new System.Drawing.Size(57, 20);
-            this.textBoxCC_stimProb.TabIndex = 1;
-            // 
-            // label467
-            // 
-            this.label467.AutoSize = true;
-            this.label467.Location = new System.Drawing.Point(13, 23);
-            this.label467.Name = "label467";
-            this.label467.Size = new System.Drawing.Size(52, 13);
-            this.label467.TabIndex = 0;
-            this.label467.Text = "Stim Prob";
+            this.labelF2SG.AutoSize = true;
+            this.labelF2SG.Location = new System.Drawing.Point(11, 69);
+            this.labelF2SG.Name = "labelF2SG";
+            this.labelF2SG.Size = new System.Drawing.Size(104, 13);
+            this.labelF2SG.TabIndex = 3;
+            this.labelF2SG.Text = "Force to screen gain";
+            this.toolTip1.SetToolTip(this.labelF2SG, "in cm/N");
             // 
             // UpdateForm
             // 
@@ -20112,6 +20171,12 @@ namespace BehaviorGraphics
             this.groupBoxRPTiming.ResumeLayout(false);
             this.groupBoxRPTiming.PerformLayout();
             this.tabPage6.ResumeLayout(false);
+            this.groupBox88.ResumeLayout(false);
+            this.groupBox88.PerformLayout();
+            this.groupBox87.ResumeLayout(false);
+            this.groupBox87.PerformLayout();
+            this.groupBox86.ResumeLayout(false);
+            this.groupBox86.PerformLayout();
             this.groupBox85.ResumeLayout(false);
             this.groupBox85.PerformLayout();
             this.groupBox84.ResumeLayout(false);
@@ -20137,12 +20202,8 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBox86.ResumeLayout(false);
-            this.groupBox86.PerformLayout();
-            this.groupBox87.ResumeLayout(false);
-            this.groupBox87.PerformLayout();
-            this.groupBox88.ResumeLayout(false);
-            this.groupBox88.PerformLayout();
+            this.groupBoxIsometric.ResumeLayout(false);
+            this.groupBoxIsometric.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -21922,5 +21983,10 @@ namespace BehaviorGraphics
         private System.Windows.Forms.GroupBox groupBox88;
         private System.Windows.Forms.TextBox textBoxCC_stimProb;
         private System.Windows.Forms.Label label467;
+        private System.Windows.Forms.GroupBox groupBoxIsometric;
+        private System.Windows.Forms.Label labelF2SG;
+        private System.Windows.Forms.TextBox textBoxF2SG;
+        private System.Windows.Forms.CheckBox checkBoxUSDH;
+        private System.Windows.Forms.CheckBox checkBoxIM;
     }
 }

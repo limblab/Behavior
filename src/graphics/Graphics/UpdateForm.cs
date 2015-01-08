@@ -169,6 +169,12 @@ namespace BehaviorGraphics
             AddParamListItem("Chaotic Load Gain Catch", "Gain", "Catch Force Generator/LorentzForceGain", this.textBoxChaoticGainCatch);
             AddParamListItem("Elastic Load Gain Catch", "Gain", "Catch Force Generator/ElasticLoadSubsystem/Gain", this.textBoxEGC);
             AddParamListItem("Elastic Load Angle Catch", "Value", "Catch Force Generator/PosForceAngle", this.textBoxEAC);
+
+            // Isometric stuff
+            AddParamListItem("Isometric Mode", "Value", "XY Position Subsystem/IsometricMode", this.checkBoxIM);
+            AddParamListItem("Upside Down Handle", "Value", "XY Position Subsystem/UpsideDownHandle", this.checkBoxUSDH);
+            AddParamListItem("Force To Screen Gain", "Value", "XY Position Subsystem/ForceToScreenGain", this.textBoxF2SG);
+            AddParamListItem("Cursor Rotation Iso", "Value", "XY Position Subsystem/Cursor Rotation1/AngleOffset", this.angleEntryBoxCursorRotation);
             #endregion
 
             #region Defend Center
@@ -1276,17 +1282,13 @@ namespace BehaviorGraphics
             AddParamListItem("CC cloud_freq_three", "P23", "Behavior CC", this.textBoxCC_cloud3Freq);
             AddParamListItem("CC cloud_freq_four", "P24", "Behavior CC", this.textBoxCC_cloud4Freq);
 
-            AddParamListItem("CC cloud_blank", "P25", "Behavior CC", this.textBoxCC_cloud1Blank);
             AddParamListItem("CC slice_size", "P26", "Behavior CC", this.textBoxCC_slicesize);
             AddParamListItem("CC slice_num", "P27", "Behavior CC", this.numericUpDownCC_numslices);
 
             AddParamListItem("CC catch_freq", "P28", "Behavior CC", this.textBoxCC_catchFreq);
             AddParamListItem("CC catch_L", "P29", "Behavior CC", this.textBoxCC_catchLow);
             AddParamListItem("CC catch_H", "P30", "Behavior CC", this.textBoxCC_catchHigh);
-            AddParamListItem("CC use_cohack", "P31", "Behavior CC", this.textBoxCC_COhack);
-            AddParamListItem("CC cohack_tgtnum", "P32", "Behavior CC", this.textBoxCC_numCOtargs);
 
-            AddParamListItem("CC Random_bump", "P33", "Behavior CC", this.textBoxCC_useRandomBump);
             AddParamListItem("CC Rand_Low", "P34", "Behavior CC", this.textBoxCC_randbumpLow);
             AddParamListItem("CC Rand_High", "P35", "Behavior CC", this.textBoxCC_randbumpHigh);
 
