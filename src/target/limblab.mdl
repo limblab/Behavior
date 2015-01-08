@@ -42,10 +42,10 @@ Library {
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
 	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"701"
+	LoadSaveID		"229"
 	Extents			[984.0, 586.0]
-	ZoomFactor		[1.25]
-	Offset			[-0.80000000000001137, -66.399999999999977]
+	ZoomFactor		[0.8]
+	Offset			[174.92920807238033, 40.394457521589295]
       }
     }
   }
@@ -55,9 +55,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jan 08 15:23:39 2015"
-  RTWModifiedTimeStamp	  342631418
-  ModelVersionFormat	  "1.%<AutoIncrement:151>"
+  LastModifiedDate	  "Thu Jan 08 16:28:49 2015"
+  RTWModifiedTimeStamp	  342635328
+  ModelVersionFormat	  "1.%<AutoIncrement:152>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1080,7 +1080,7 @@ Library {
   }
   System {
     Name		    "limblab"
-    Location		    [1700, 58, 2736, 812]
+    Location		    [87, 37, 1123, 791]
     Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1094,7 +1094,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "748"
+    SIDHighWatermark	    "750"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
@@ -2639,8 +2639,8 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[-8, -8, 1028, 746]
-	Open			off
+	Location		[87, 37, 1123, 791]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2651,7 +2651,7 @@ Library {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"100"
+	ZoomFactor		"80"
 	Block {
 	  BlockType		  Inport
 	  Name			  "DefaultForce"
@@ -2691,7 +2691,7 @@ Library {
 	  BlockType		  Inport
 	  Name			  "Inhibit Motors"
 	  SID			  "281"
-	  Position		  [1010, 328, 1040, 342]
+	  Position		  [915, 188, 945, 202]
 	  ZOrder		  10
 	  Port			  "5"
 	  IconDisplay		  "Port number"
@@ -2987,6 +2987,14 @@ Library {
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
+	  BlockType		  Constant
+	  Name			  "IsometricMode"
+	  SID			  "750"
+	  Position		  [855, 205, 885, 235]
+	  ZOrder		  23
+	  Value			  "0"
+	}
+	Block {
 	  BlockType		  Logic
 	  Name			  "Logical\nOperator1"
 	  SID			  "245"
@@ -3005,6 +3013,17 @@ Library {
 	  Ports			  [2, 1]
 	  Position		  [340, 342, 370, 373]
 	  ZOrder		  2
+	  Operator		  "OR"
+	  AllPortsSameDT	  off
+	  OutDataTypeStr	  "boolean"
+	}
+	Block {
+	  BlockType		  Logic
+	  Name			  "Logical Operator2"
+	  SID			  "749"
+	  Ports			  [2, 1]
+	  Position		  [975, 197, 1005, 228]
+	  ZOrder		  22
 	  Operator		  "OR"
 	  AllPortsSameDT	  off
 	  OutDataTypeStr	  "boolean"
@@ -3772,13 +3791,6 @@ Library {
 	  DstPort		  2
 	}
 	Line {
-	  SrcBlock		  "Inhibit Motors"
-	  SrcPort		  1
-	  Points		  [24, 0; 0, -5]
-	  DstBlock		  "Switch3"
-	  DstPort		  2
-	}
-	Line {
 	  SrcBlock		  "zero2"
 	  SrcPort		  1
 	  DstBlock		  "Switch3"
@@ -3903,6 +3915,26 @@ Library {
 	      DstPort		      1
 	    }
 	  }
+	}
+	Line {
+	  SrcBlock		  "Inhibit Motors"
+	  SrcPort		  1
+	  Points		  [10, 0]
+	  DstBlock		  "Logical Operator2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Logical Operator2"
+	  SrcPort		  1
+	  Points		  [8, 0; 0, 126; 47, 0; 0, -11]
+	  DstBlock		  "Switch3"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "IsometricMode"
+	  SrcPort		  1
+	  DstBlock		  "Logical Operator2"
+	  DstPort		  2
 	}
       }
     }
@@ -12077,7 +12109,7 @@ Library {
 	  System {
 	    Name		    "OffsetCalculation"
 	    Location		    [87, 37, 1123, 791]
-	    Open		    on
+	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"

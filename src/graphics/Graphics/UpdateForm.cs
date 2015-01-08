@@ -175,6 +175,8 @@ namespace BehaviorGraphics
             AddParamListItem("Upside Down Handle", "Value", "XY Position Subsystem/UpsideDownHandle", this.checkBoxUSDH);
             AddParamListItem("Force To Screen Gain", "Value", "XY Position Subsystem/ForceToScreenGain", this.textBoxF2SG);
             AddParamListItem("Cursor Rotation Iso", "Value", "XY Position Subsystem/Cursor Rotation1/AngleOffset", this.angleEntryBoxCursorRotation);
+            AddParamListItem("Motor Control Iso", "Value", "Motor Control/IsometricMode", this.checkBoxIM);
+
             #endregion
 
             #region Defend Center
