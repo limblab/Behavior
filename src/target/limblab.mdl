@@ -19,7 +19,7 @@ Library {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [1909.0, 108.0, 1036.0, 754.0]
+      Location		      [87.0, 37.0, 1036.0, 754.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -42,10 +42,10 @@ Library {
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
 	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"415"
+	LoadSaveID		"701"
 	Extents			[984.0, 586.0]
-	ZoomFactor		[1.0]
-	Offset			[256.0, 231.0]
+	ZoomFactor		[1.25]
+	Offset			[-0.80000000000001137, -66.399999999999977]
       }
     }
   }
@@ -53,11 +53,11 @@ Library {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "ricardo"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jan 07 15:19:46 2015"
-  RTWModifiedTimeStamp	  342544785
-  ModelVersionFormat	  "1.%<AutoIncrement:136>"
+  LastModifiedDate	  "Thu Jan 08 15:23:39 2015"
+  RTWModifiedTimeStamp	  342631418
+  ModelVersionFormat	  "1.%<AutoIncrement:151>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1094,7 +1094,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "735"
+    SIDHighWatermark	    "748"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
@@ -1468,7 +1468,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 169, 405, 231]
 	      ZOrder		      -3
-	      LibraryVersion	      "1.115"
+	      LibraryVersion	      "1.138"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".1"
@@ -1480,7 +1480,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 254, 405, 316]
 	      ZOrder		      -4
-	      LibraryVersion	      "1.115"
+	      LibraryVersion	      "1.138"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".2"
@@ -1492,7 +1492,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 339, 405, 401]
 	      ZOrder		      -5
-	      LibraryVersion	      "1.115"
+	      LibraryVersion	      "1.138"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".3"
@@ -1504,7 +1504,7 @@ Library {
 	      Ports		      [0, 1]
 	      Position		      [350, 424, 405, 486]
 	      ZOrder		      -6
-	      LibraryVersion	      "1.115"
+	      LibraryVersion	      "1.138"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".4"
@@ -6165,7 +6165,7 @@ Library {
 	  Ports			  [2, 1]
 	  Position		  [410, 280, 515, 335]
 	  ZOrder		  -34
-	  LibraryVersion	  "1.115"
+	  LibraryVersion	  "1.138"
 	  SourceBlock		  "limblab/Timer"
 	  SourceType		  "Unknown"
 	  Time			  "10"
@@ -9473,8 +9473,8 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"XY Position Subsystem"
-	Location		[1909, 108, 2945, 862]
-	Open			on
+	Location		[87, 37, 1123, 791]
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -10512,7 +10512,7 @@ Library {
 	      Ports		      [3, 1]
 	      Position		      [405, 315, 505, 525]
 	      ZOrder		      -12
-	      LibraryVersion	      "1.115"
+	      LibraryVersion	      "1.138"
 	      SourceBlock	      "limblab/SerialConverter"
 	      SourceType	      "Unknown"
 	    }
@@ -10533,7 +10533,7 @@ Library {
 	      Ports		      [1, 8]
 	      Position		      [655, 310, 710, 525]
 	      ZOrder		      -14
-	      LibraryVersion	      "1.115"
+	      LibraryVersion	      "1.138"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      "Unknown"
 	    }
@@ -10544,7 +10544,7 @@ Library {
 	      Ports		      [1, 8]
 	      Position		      [635, 635, 685, 830]
 	      ZOrder		      -15
-	      LibraryVersion	      "1.115"
+	      LibraryVersion	      "1.138"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      "Unknown"
 	    }
@@ -11040,6 +11040,28 @@ Library {
 	  Position		  [330, 996, 420, 1044]
 	  ZOrder		  -6
 	  Gain			  "-3.490658e-4"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Gain2"
+	  SID			  "742"
+	  Position		  [335, 50, 365, 80]
+	  ZOrder		  68
+	  Gain			  "-1"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Gain3"
+	  SID			  "743"
+	  Position		  [375, 225, 405, 255]
+	  ZOrder		  69
+	  Gain			  "-1"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -11893,7 +11915,7 @@ Library {
 	  SID			  "683"
 	  Position		  [90, 20, 145, 50]
 	  ZOrder		  43
-	  Value			  "-.0000129"
+	  Value			  "-.0129"
 	}
 	Block {
 	  BlockType		  Constant
@@ -11901,7 +11923,7 @@ Library {
 	  SID			  "684"
 	  Position		  [90, 65, 145, 95]
 	  ZOrder		  44
-	  Value			  "-.0000254"
+	  Value			  "-.0254"
 	}
 	Block {
 	  BlockType		  Constant
@@ -11909,7 +11931,7 @@ Library {
 	  SID			  "685"
 	  Position		  [90, 110, 145, 140]
 	  ZOrder		  45
-	  Value			  "-.0001018"
+	  Value			  "-.1018"
 	}
 	Block {
 	  BlockType		  Constant
@@ -11917,7 +11939,7 @@ Library {
 	  SID			  "686"
 	  Position		  [90, 155, 145, 185]
 	  ZOrder		  46
-	  Value			  "-.0062876"
+	  Value			  "-6.2876"
 	}
 	Block {
 	  BlockType		  Constant
@@ -11925,7 +11947,7 @@ Library {
 	  SID			  "687"
 	  Position		  [90, 200, 145, 230]
 	  ZOrder		  47
-	  Value			  "-.0001127"
+	  Value			  "-.1127"
 	}
 	Block {
 	  BlockType		  Constant
@@ -11933,7 +11955,7 @@ Library {
 	  SID			  "688"
 	  Position		  [90, 245, 145, 275]
 	  ZOrder		  48
-	  Value			  ".0062163"
+	  Value			  "6.2163"
 	}
 	Block {
 	  BlockType		  Constant
@@ -11941,7 +11963,7 @@ Library {
 	  SID			  "689"
 	  Position		  [260, 110, 315, 140]
 	  ZOrder		  49
-	  Value			  "-.0002059"
+	  Value			  "-.2059"
 	}
 	Block {
 	  BlockType		  Constant
@@ -11949,7 +11971,7 @@ Library {
 	  SID			  "690"
 	  Position		  [260, 155, 315, 185]
 	  ZOrder		  50
-	  Value			  ".0071801"
+	  Value			  "7.1801"
 	}
 	Block {
 	  BlockType		  Constant
@@ -11957,7 +11979,7 @@ Library {
 	  SID			  "691"
 	  Position		  [260, 200, 315, 230]
 	  ZOrder		  51
-	  Value			  "-.0000804"
+	  Value			  "-.0804"
 	}
 	Block {
 	  BlockType		  Constant
@@ -11965,7 +11987,7 @@ Library {
 	  SID			  "692"
 	  Position		  [260, 245, 315, 275]
 	  ZOrder		  52
-	  Value			  "-.003591"
+	  Value			  "-3.591"
 	}
 	Block {
 	  BlockType		  Constant
@@ -11973,7 +11995,7 @@ Library {
 	  SID			  "693"
 	  Position		  [260, 290, 315, 320]
 	  ZOrder		  53
-	  Value			  "0.0000641"
+	  Value			  "0.0641"
 	}
 	Block {
 	  BlockType		  Constant
@@ -11981,7 +12003,7 @@ Library {
 	  SID			  "694"
 	  Position		  [260, 335, 315, 365]
 	  ZOrder		  54
-	  Value			  "-.0036077"
+	  Value			  "-3.6077"
 	}
 	Block {
 	  BlockType		  Mux
@@ -12054,8 +12076,8 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "OffsetCalculation"
-	    Location		    [1909, 108, 2945, 862]
-	    Open		    off
+	    Location		    [87, 37, 1123, 791]
+	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -12106,7 +12128,7 @@ Library {
 	      SourceBlock	      "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
 	      SourceType	      "Compare To Constant"
 	      relop		      "<="
-	      const		      "60"
+	      const		      ".02"
 	      OutDataTypeStr	      "boolean"
 	      ZeroCross		      on
 	    }
@@ -12115,13 +12137,13 @@ Library {
 	      Name		      "Compare To Constant1"
 	      SID		      "719"
 	      Ports		      [1, 1]
-	      Position		      [585, 35, 615, 65]
+	      Position		      [585, 35, 625, 65]
 	      ZOrder		      78
 	      LibraryVersion	      "1.281"
 	      SourceBlock	      "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
 	      SourceType	      "Compare To Constant"
 	      relop		      ">="
-	      const		      "50"
+	      const		      "1000"
 	      OutDataTypeStr	      "boolean"
 	      ZeroCross		      on
 	    }
@@ -12133,8 +12155,11 @@ Library {
 	      Position		      [485, 22, 540, 73]
 	      ZOrder		      81
 	      IntegratorMethod	      "Accumulation: Forward Euler"
+	      gainval		      "1"
 	      ExternalReset	      "falling"
 	      SampleTime	      "-1"
+	      LimitOutput	      on
+	      UpperSaturationLimit    "1000"
 	      ICPrevOutput	      "DiscIntNeverNeededParam"
 	      ICPrevScaledInput	      "DiscIntNeverNeededParam"
 	    }
@@ -12325,7 +12350,7 @@ Library {
 	    Line {
 	      SrcBlock		      "Compare To Constant1"
 	      SrcPort		      1
-	      Points		      [30, 0; 0, 55; -370, 0; 0, 65]
+	      Points		      [20, 0; 0, 55; -370, 0; 0, 65]
 	      DstBlock		      "Switch"
 	      DstPort		      2
 	    }
@@ -12952,23 +12977,15 @@ Library {
 	Line {
 	  SrcBlock		  "Vector Concatenate"
 	  SrcPort		  1
-	  Points		  [12, 0; 0, -58; 183, 0]
-	  DstBlock		  "Dot Product X"
-	  DstPort		  2
+	  Points		  [12, 0; 0, -85]
+	  DstBlock		  "Gain2"
+	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Vector Concatenate1"
 	  SrcPort		  1
-	  Points		  [47, 0; 0, 290]
-	  DstBlock		  "Dot Product Y"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "OffsetCalculation"
-	  SrcPort		  1
-	  Points		  [9, 0; 0, -63; -84, 0]
-	  DstBlock		  "Add2"
-	  DstPort		  2
+	  DstBlock		  "Gain3"
+	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Dot Product1"
@@ -13002,6 +13019,27 @@ Library {
 	    DstBlock		    "Dot Product2"
 	    DstPort		    2
 	  }
+	}
+	Line {
+	  SrcBlock		  "Gain2"
+	  SrcPort		  1
+	  Points		  [50, 0]
+	  DstBlock		  "Dot Product X"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Gain3"
+	  SrcPort		  1
+	  Points		  [3, 0; 0, 290]
+	  DstBlock		  "Dot Product Y"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "OffsetCalculation"
+	  SrcPort		  1
+	  Points		  [9, 0; 0, -63; -84, 0]
+	  DstBlock		  "Add2"
+	  DstPort		  2
 	}
       }
     }
