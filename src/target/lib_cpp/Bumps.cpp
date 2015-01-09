@@ -290,18 +290,26 @@ Point PDBumpGenerator::getBumpForce(SimStruct *S, Point vel, Point pos) {
     if (timer->elapsedTime(S)<0.002){
         this->initial_position = pos;
     }
-    this->desired_position.x = this->initial_position.x + 
-            bump_vel * timer->elapsedTime(S) * cos(this->direction);
-    this->desired_position.y = this->initial_position.y + 
-            bump_vel * timer->elapsedTime(S) * sin(this->direction);
-        
+    if (timer->elapsedTime(S)>(this->duration/2) &&
+            timer->elapsedTime(S)<(this->duration/2+0.002)){
+        this->initial_position = pos;
+    }
+    
     Point p;
     if (timer->elapsedTime(S)<(this->duration/2)){
+        this->desired_position.x = this->initial_position.x + 
+            bump_vel * timer->elapsedTime(S) * cos(this->direction);
+        this->desired_position.y = this->initial_position.y + 
+            bump_vel * timer->elapsedTime(S) * sin(this->direction);
         p.x = (bump_vel*cos(this->direction)-vel.x)*vel_gain + 
                 (desired_position.x - pos.x)*pos_gain;
         p.y = (bump_vel*sin(this->direction)-vel.y)*vel_gain + 
                 (desired_position.y - pos.y)*pos_gain;
     } else {
+        this->desired_position.x = this->initial_position.x + 
+            bump_vel * timer->elapsedTime(S) * cos(this->direction + PI);
+        this->desired_position.y = this->initial_position.y + 
+            bump_vel * timer->elapsedTime(S) * sin(this->direction + PI);
         p.x = -(bump_vel*cos(this->direction)-vel.x)*vel_gain + 
                 (initial_position.x - pos.x)*pos_gain;
         p.y = -(bump_vel*sin(this->direction)-vel.y)*vel_gain + 
@@ -319,7 +327,7 @@ Point PDBumpGenerator::getBumpForce(SimStruct *S, Point vel, Point pos) {
  */
 class PosBumpGenerator : public BumpGenerator {
 public:
-	PDBumpGenerator();
+	PosBumpGenerator();
     virtual Point getBumpForce(SimStruct *S);
 	virtual Point getBumpForce(SimStruct *S, Point vel, Point pos);	
 	virtual bool isRunning(SimStruct *S);
@@ -377,7 +385,7 @@ Point PosBumpGenerator::getBumpForce(SimStruct *S, Point vel, Point pos) {
 
 	this->desired_posmag = this->distance/(2*PI)*(sin(2*PI*timer->elapsedTime(S)/this->duration + PI) + 
 												      2*PI*timer->elapsedTime(S)/this->duration);
-	this->desired_velmag = this->distance/this->duration*(cos(2*PI*elapsedTime(S)/this->duration + PI) + 1);
+	this->desired_velmag = this->distance/this->duration*(cos(2*PI*timer->elapsedTime(S)/this->duration + PI) + 1);
 
 	this->desired_position.x = this->initial_position.x + this->desired_posmag*cos(this->direction);
 	this->desired_position.y = this->initial_position.y + this->desired_posmag*sin(this->direction);
