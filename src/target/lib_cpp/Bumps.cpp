@@ -310,3 +310,87 @@ Point PDBumpGenerator::getBumpForce(SimStruct *S, Point vel, Point pos) {
     
 	return ( this->isRunning(S) ? p : Point(0,0) );
 }
+
+
+/* Position Controlled Bump */
+
+/**
+ * Generates a position controlled bump.
+ */
+class PosBumpGenerator : public BumpGenerator {
+public:
+	PDBumpGenerator();
+    virtual Point getBumpForce(SimStruct *S);
+	virtual Point getBumpForce(SimStruct *S, Point vel, Point pos);	
+	virtual bool isRunning(SimStruct *S);
+
+	double duration;
+	double distance;
+    Point initial_position;
+    Point desired_position;
+	Point desired_velocity;
+	double desired_posmag;
+	double desired_velmag;
+    double vel_gain;
+    double pos_gain;
+};
+
+/**
+ * Constructs a velocity bump generator with default velocity, 
+ * duration, gains, etc. of zero. 
+ */
+PosBumpGenerator::PosBumpGenerator() {
+	distance = 0.0;
+	duration = 0.0;
+    initial_position = Point(0,0);
+    desired_position = Point(0,0);
+	desired_velocity = Point(0,0);
+	desired_posmag = 0.0;
+	desired_velmag = 0.0;
+    vel_gain = 0.0;
+    pos_gain = 0.0;
+}
+
+/**
+ * Required isRunning method. 
+ * @return whether the bump is running (active).
+ */
+bool PosBumpGenerator::isRunning(SimStruct *S) {
+	return timer->isRunning() && timer->elapsedTime(S) < duration;
+}
+
+/**
+ * Required getBumpForce method. 
+ * @return the force of the bump for the current time step.
+ */
+
+Point PosBumpGenerator::getBumpForce(SimStruct *S) {
+    Point p;
+    p = Point(0,0);    
+	return (p);
+}
+
+Point PosBumpGenerator::getBumpForce(SimStruct *S, Point vel, Point pos) {
+    if (timer->elapsedTime(S)<0.002){
+        this->initial_position = pos;
+    }
+
+	this->desired_posmag = this->distance/(2*PI)*(sin(2*PI*timer->elapsedTime(S)/this->duration + PI) + 
+												      2*PI*timer->elapsedTime(S)/this->duration);
+	this->desired_velmag = this->distance/this->duration*(cos(2*PI*elapsedTime(S)/this->duration + PI) + 1);
+
+	this->desired_position.x = this->initial_position.x + this->desired_posmag*cos(this->direction);
+	this->desired_position.y = this->initial_position.y + this->desired_posmag*sin(this->direction);
+
+	this->desired_velocity.x = this->desired_velmag*cos(this->direction);
+	this->desired_velocity.y = this->desired_velmag*sin(this->direction);
+        
+    Point p;
+
+    p.x = (desired_velocity.x-vel.x)*vel_gain + 
+            (desired_position.x - pos.x)*pos_gain;
+    p.y = (desired_velocity.y-vel.y)*vel_gain + 
+            (desired_position.y - pos.y)*pos_gain;
+
+	return ( this->isRunning(S) ? p : Point(0,0) );
+}
