@@ -176,6 +176,7 @@ namespace BehaviorGraphics
             AddParamListItem("Force To Screen Gain", "Value", "XY Position Subsystem/ForceToScreenGain", this.textBoxF2SG);
             AddParamListItem("Cursor Rotation Iso", "Value", "XY Position Subsystem/Cursor Rotation1/AngleOffset", this.angleEntryBoxCursorRotation);
             AddParamListItem("Motor Control Iso", "Value", "Motor Control/IsometricMode", this.checkBoxIM);
+            AddParamListItem("Offset reset level", "Value", "XY Position Subsystem/OffsetCalculation/NoiseLevel/Constant", this.textBoxORL);
 
             #endregion
 
@@ -814,85 +815,85 @@ namespace BehaviorGraphics
 
             #region Stim Angle psychopysics
             //targets
-            AddParamListItem("Stim Angle ", "P3", "Behavior Stim Angle", textBox_SA_tgtSize);
-            AddParamListItem("Stim Angle ", "P4", "Behavior Stim Angle", textBox_SA_bigTarget);
-            AddParamListItem("Stim Angle ", "P5", "Behavior Stim Angle", textBox_SA_tgtRadius);
+            AddParamListItem("Stim Angle TS", "P3", "Behavior Stim Angle", textBox_SA_tgtSize);
+            AddParamListItem("Stim Angle BT", "P4", "Behavior Stim Angle", textBox_SA_bigTarget);
+            AddParamListItem("Stim Angle TR", "P5", "Behavior Stim Angle", textBox_SA_tgtRadius);
 
             //cursor
-            AddParamListItem("Stim Angle ", "P6", "Behavior Stim Angle", checkBox_SA_hideDuringBump);
-            AddParamListItem("Stim Angle ", "P7", "Behavior Stim Angle", checkBox_SA_recenterAfterBump);
-            AddParamListItem("Stim Angle ", "P8", "Behavior Stim Angle", checkBox_SA_abortDuringBump);
+            AddParamListItem("Stim Angle HDB", "P6", "Behavior Stim Angle", checkBox_SA_hideDuringBump);
+            AddParamListItem("Stim Angle RAB", "P7", "Behavior Stim Angle", checkBox_SA_recenterAfterBump);
+            AddParamListItem("Stim Angle ADB", "P8", "Behavior Stim Angle", checkBox_SA_abortDuringBump);
             
             //Timing
-            AddParamListItem("Stim Angle ", "P9", "Behavior Stim Angle", textBox_SA_CThold);
-            AddParamListItem("Stim Angle ", "P10", "Behavior Stim Angle", textBox_SA_bumpDelay);
-            AddParamListItem("Stim Angle ", "P11", "Behavior Stim Angle", textBox_SA_bumpHold);
-            AddParamListItem("Stim Angle ", "P12", "Behavior Stim Angle", textBox_SA_intertrial);
-            AddParamListItem("Stim Angle ", "P13", "Behavior Stim Angle", textBox_SA_penaltyTime);
+            AddParamListItem("Stim Angle CTH", "P9", "Behavior Stim Angle", textBox_SA_CThold);
+            AddParamListItem("Stim Angle BD", "P10", "Behavior Stim Angle", textBox_SA_bumpDelay);
+            AddParamListItem("Stim Angle BH", "P11", "Behavior Stim Angle", textBox_SA_bumpHold);
+            AddParamListItem("Stim Angle I", "P12", "Behavior Stim Angle", textBox_SA_intertrial);
+            AddParamListItem("Stim Angle PT", "P13", "Behavior Stim Angle", textBox_SA_penaltyTime);
 
             //Control Bump
-            AddParamListItem("Stim Angle ", "P14", "Behavior Stim Angle", textBox_SA_controlBumpPeakDuration);
-            AddParamListItem("Stim Angle ", "P15", "Behavior Stim Angle", textBox_SA_controlBumpRiseTime);
-            AddParamListItem("Stim Angle ", "P16", "Behavior Stim Angle", textBox_SA_controlBumpAmplitude);
+            AddParamListItem("Stim Angle CBPD", "P14", "Behavior Stim Angle", textBox_SA_controlBumpPeakDuration);
+            AddParamListItem("Stim Angle CBRT", "P15", "Behavior Stim Angle", textBox_SA_controlBumpRiseTime);
+            AddParamListItem("Stim Angle CBA", "P16", "Behavior Stim Angle", textBox_SA_controlBumpAmplitude);
 
             //Ref Bump
-            AddParamListItem("Stim Angle ", "P17", "Behavior Stim Angle", textBox_SA_refBumpPeakDuration);
-            AddParamListItem("Stim Angle ", "P18", "Behavior Stim Angle", textBox_SA_refBumpRiseTime);
-            AddParamListItem("Stim Angle ", "P19", "Behavior Stim Angle", textBox_SA_refBumpAmplitude);
+            AddParamListItem("Stim Angle RBPD", "P17", "Behavior Stim Angle", textBox_SA_refBumpPeakDuration);
+            AddParamListItem("Stim Angle RBRT", "P18", "Behavior Stim Angle", textBox_SA_refBumpRiseTime);
+            AddParamListItem("Stim Angle RBA", "P19", "Behavior Stim Angle", textBox_SA_refBumpAmplitude);
 
             //Electrodes
-            AddParamListItem("Stim Angle ", "P20", "Behavior Stim Angle", textBox_SA_stimFreq);
-            AddParamListItem("Stim Angle ", "P21", "Behavior Stim Angle", checkBox_SA_useElec1);
-            AddParamListItem("Stim Angle ", "P22", "Behavior Stim Angle", textBox_SA_elec1PD);
+            AddParamListItem("Stim Angle SF", "P20", "Behavior Stim Angle", textBox_SA_stimFreq);
+            AddParamListItem("Stim Angle UE1", "P21", "Behavior Stim Angle", checkBox_SA_useElec1);
+            AddParamListItem("Stim Angle E1PD", "P22", "Behavior Stim Angle", textBox_SA_elec1PD);
             
-            AddParamListItem("Stim Angle ", "P23", "Behavior Stim Angle", checkBox_SA_useElec2);
-            AddParamListItem("Stim Angle ", "P24", "Behavior Stim Angle", textBox_SA_elec2PD);
+            AddParamListItem("Stim Angle UE2", "P23", "Behavior Stim Angle", checkBox_SA_useElec2);
+            AddParamListItem("Stim Angle E2PD", "P24", "Behavior Stim Angle", textBox_SA_elec2PD);
 
-            AddParamListItem("Stim Angle ", "P25", "Behavior Stim Angle", checkBox_SA_useElec3);
-            AddParamListItem("Stim Angle ", "P26", "Behavior Stim Angle", textBox_SA_elec3PD);
+            AddParamListItem("Stim Angle UE3", "P25", "Behavior Stim Angle", checkBox_SA_useElec3);
+            AddParamListItem("Stim Angle E3PD", "P26", "Behavior Stim Angle", textBox_SA_elec3PD);
 
-            AddParamListItem("Stim Angle ", "P27", "Behavior Stim Angle", checkBoxSA_useElec4);
-            AddParamListItem("Stim Angle ", "P28", "Behavior Stim Angle", textBox_SA_elec4PD);
+            AddParamListItem("Stim Angle UE4", "P27", "Behavior Stim Angle", checkBoxSA_useElec4);
+            AddParamListItem("Stim Angle E4PD", "P28", "Behavior Stim Angle", textBox_SA_elec4PD);
 
-            AddParamListItem("Stim Angle ", "P29", "Behavior Stim Angle", checkBoxSA_useElec5);
-            AddParamListItem("Stim Angle ", "P30", "Behavior Stim Angle", textBox_SA_elec5PD);
+            AddParamListItem("Stim Angle UE5", "P29", "Behavior Stim Angle", checkBoxSA_useElec5);
+            AddParamListItem("Stim Angle E5PD", "P30", "Behavior Stim Angle", textBox_SA_elec5PD);
 
-            AddParamListItem("Stim Angle ", "P31", "Behavior Stim Angle", checkBoxSA_useElec6);
-            AddParamListItem("Stim Angle ", "P32", "Behavior Stim Angle", textBox_SA_elec6PD);
+            AddParamListItem("Stim Angle UE6", "P31", "Behavior Stim Angle", checkBoxSA_useElec6);
+            AddParamListItem("Stim Angle E6PD", "P32", "Behavior Stim Angle", textBox_SA_elec6PD);
 
-            AddParamListItem("Stim Angle ", "P33", "Behavior Stim Angle", checkBox_SA_useElec7);
-            AddParamListItem("Stim Angle ", "P34", "Behavior Stim Angle", textBox_SA_elec7PD);
+            AddParamListItem("Stim Angle UE7", "P33", "Behavior Stim Angle", checkBox_SA_useElec7);
+            AddParamListItem("Stim Angle E7PD", "P34", "Behavior Stim Angle", textBox_SA_elec7PD);
 
-            AddParamListItem("Stim Angle ", "P35", "Behavior Stim Angle", checkBox_SA_useElec8);
-            AddParamListItem("Stim Angle ", "P36", "Behavior Stim Angle", textBox_SA_elec8PD);
+            AddParamListItem("Stim Angle UE8", "P35", "Behavior Stim Angle", checkBox_SA_useElec8);
+            AddParamListItem("Stim Angle E8PD", "P36", "Behavior Stim Angle", textBox_SA_elec8PD);
 
             //Staircases
-            AddParamListItem("Stim Angle ", "P37", "Behavior Stim Angle", textBox_SA_stepSize);
-            AddParamListItem("Stim Angle ", "P38", "Behavior Stim Angle", textBox_SA_centerAngle);
-            AddParamListItem("Stim Angle ", "P39", "Behavior Stim Angle", checkBox_SA_useLimits);
-            AddParamListItem("Stim Angle ", "P40", "Behavior Stim Angle", checkBox_SA_runSC1);
-            AddParamListItem("Stim Angle ", "P41", "Behavior Stim Angle", textBox_SA_SC1start);
-            AddParamListItem("Stim Angle ", "P42", "Behavior Stim Angle", textBox_SA_SC1ratio);
-            AddParamListItem("Stim Angle ", "P43", "Behavior Stim Angle", textBox_SA_SC1lowlim);
-            AddParamListItem("Stim Angle ", "P44", "Behavior Stim Angle", textBox_SA_SC1highlim);
+            AddParamListItem("Stim Angle SS", "P37", "Behavior Stim Angle", textBox_SA_stepSize);
+            AddParamListItem("Stim Angle CA", "P38", "Behavior Stim Angle", textBox_SA_centerAngle);
+            AddParamListItem("Stim Angle UL", "P39", "Behavior Stim Angle", checkBox_SA_useLimits);
+            AddParamListItem("Stim Angle RSC1", "P40", "Behavior Stim Angle", checkBox_SA_runSC1);
+            AddParamListItem("Stim Angle SC1S", "P41", "Behavior Stim Angle", textBox_SA_SC1start);
+            AddParamListItem("Stim Angle SC1R", "P42", "Behavior Stim Angle", textBox_SA_SC1ratio);
+            AddParamListItem("Stim Angle SC1LL", "P43", "Behavior Stim Angle", textBox_SA_SC1lowlim);
+            AddParamListItem("Stim Angle SC1HL", "P44", "Behavior Stim Angle", textBox_SA_SC1highlim);
             
-            AddParamListItem("Stim Angle ", "P45", "Behavior Stim Angle", checkBox_SA_runSC2);
-            AddParamListItem("Stim Angle ", "P46", "Behavior Stim Angle", textBox_SA_SC2start);
-            AddParamListItem("Stim Angle ", "P47", "Behavior Stim Angle", textBox_SA_SC2ratio);
-            AddParamListItem("Stim Angle ", "P48", "Behavior Stim Angle", textBox_SA_SC2lowlim);
-            AddParamListItem("Stim Angle ", "P49", "Behavior Stim Angle", textBox_SA_SC2highlim);
+            AddParamListItem("Stim Angle RSC2", "P45", "Behavior Stim Angle", checkBox_SA_runSC2);
+            AddParamListItem("Stim Angle SC2S", "P46", "Behavior Stim Angle", textBox_SA_SC2start);
+            AddParamListItem("Stim Angle SC2R", "P47", "Behavior Stim Angle", textBox_SA_SC2ratio);
+            AddParamListItem("Stim Angle SC2LL", "P48", "Behavior Stim Angle", textBox_SA_SC2lowlim);
+            AddParamListItem("Stim Angle SC2HL", "P49", "Behavior Stim Angle", textBox_SA_SC2highlim);
 
-            AddParamListItem("Stim Angle ", "P50", "Behavior Stim Angle", checkBox_SA_runSC3);
-            AddParamListItem("Stim Angle ", "P51", "Behavior Stim Angle", textBox_SA_SC3start);
-            AddParamListItem("Stim Angle ", "P52", "Behavior Stim Angle", textBox_SA_SC3ratio);
-            AddParamListItem("Stim Angle ", "P53", "Behavior Stim Angle", textBox_SA_SC3lowlim);
-            AddParamListItem("Stim Angle ", "P54", "Behavior Stim Angle", textBox_SA_SC3highlim);
+            AddParamListItem("Stim Angle RSC3", "P50", "Behavior Stim Angle", checkBox_SA_runSC3);
+            AddParamListItem("Stim Angle SC3S", "P51", "Behavior Stim Angle", textBox_SA_SC3start);
+            AddParamListItem("Stim Angle SC3R", "P52", "Behavior Stim Angle", textBox_SA_SC3ratio);
+            AddParamListItem("Stim Angle SC3LL", "P53", "Behavior Stim Angle", textBox_SA_SC3lowlim);
+            AddParamListItem("Stim Angle SC3HL", "P54", "Behavior Stim Angle", textBox_SA_SC3highlim);
 
-            AddParamListItem("Stim Angle ", "P55", "Behavior Stim Angle", checkBox_SA_runSC4);
-            AddParamListItem("Stim Angle ", "P56", "Behavior Stim Angle", textBox_SA_SC4start);
-            AddParamListItem("Stim Angle ", "P57", "Behavior Stim Angle", textBox_SA_SC4ratio);
-            AddParamListItem("Stim Angle ", "P58", "Behavior Stim Angle", textBox_SA_SC4lowlim);
-            AddParamListItem("Stim Angle ", "P59", "Behavior Stim Angle", textBox_SA_SC4highlim);
+            AddParamListItem("Stim Angle RSC4", "P55", "Behavior Stim Angle", checkBox_SA_runSC4);
+            AddParamListItem("Stim Angle SC4S", "P56", "Behavior Stim Angle", textBox_SA_SC4start);
+            AddParamListItem("Stim Angle SC4R", "P57", "Behavior Stim Angle", textBox_SA_SC4ratio);
+            AddParamListItem("Stim Angle SC4LL", "P58", "Behavior Stim Angle", textBox_SA_SC4lowlim);
+            AddParamListItem("Stim Angle SC4HL", "P59", "Behavior Stim Angle", textBox_SA_SC4highlim);
 
             #endregion
 

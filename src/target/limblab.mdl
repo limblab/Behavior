@@ -19,7 +19,7 @@ Library {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [46.0, 865.0, 1116.0, 799.0]
+      Location		      [-8.0, -8.0, 1036.0, 754.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -43,7 +43,7 @@ Library {
 	IsActive		[1]
 	ViewObjType		"SimulinkSubsys"
 	LoadSaveID		"701"
-	Extents			[1072.0, 647.0]
+	Extents			[984.0, 586.0]
 	ZoomFactor		[1.25]
 	Offset			[0.0, 0.0]
       }
@@ -53,11 +53,11 @@ Library {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jan 12 14:02:56 2015"
-  RTWModifiedTimeStamp	  342972174
-  ModelVersionFormat	  "1.%<AutoIncrement:161>"
+  LastModifiedDate	  "Mon Jan 12 15:39:33 2015"
+  RTWModifiedTimeStamp	  342977972
+  ModelVersionFormat	  "1.%<AutoIncrement:169>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1080,7 +1080,7 @@ Library {
   }
   System {
     Name		    "limblab"
-    Location		    [46, 7, 1162, 1664]
+    Location		    [-8, -8, 1032, 746]
     Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -9503,7 +9503,7 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"XY Position Subsystem"
-	Location		[46, 7, 1162, 1664]
+	Location		[-8, -8, 1028, 746]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -12129,7 +12129,7 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "OffsetCalculation"
-	    Location		    [46, 865, 1162, 1664]
+	    Location		    [-8, -8, 1028, 746]
 	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -12169,21 +12169,6 @@ Library {
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
-	    }
-	    Block {
-	      BlockType		      Reference
-	      Name		      "Compare To Constant"
-	      SID		      "704"
-	      Ports		      [1, 1]
-	      Position		      [395, 20, 430, 50]
-	      ZOrder		      63
-	      LibraryVersion	      "1.281"
-	      SourceBlock	      "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
-	      SourceType	      "Compare To Constant"
-	      relop		      "<="
-	      const		      ".02"
-	      OutDataTypeStr	      "boolean"
-	      ZeroCross		      on
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -12259,6 +12244,21 @@ Library {
 	      ZOrder		      80
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "NoiseLevel"
+	      SID		      "704"
+	      Ports		      [1, 1]
+	      Position		      [395, 20, 430, 50]
+	      ZOrder		      63
+	      LibraryVersion	      "1.281"
+	      SourceBlock	      "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
+	      SourceType	      "Compare To Constant"
+	      relop		      "<="
+	      const		      ".03"
+	      OutDataTypeStr	      "uint8"
+	      ZeroCross		      on
 	    }
 	    Block {
 	      BlockType		      Sum
@@ -12341,11 +12341,11 @@ Library {
 	    Line {
 	      SrcBlock		      "Sum of Elements"
 	      SrcPort		      1
-	      DstBlock		      "Compare To Constant"
+	      DstBlock		      "NoiseLevel"
 	      DstPort		      1
 	    }
 	    Line {
-	      SrcBlock		      "Compare To Constant"
+	      SrcBlock		      "NoiseLevel"
 	      SrcPort		      1
 	      Points		      [12, 0]
 	      Branch {
