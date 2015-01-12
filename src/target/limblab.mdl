@@ -19,7 +19,7 @@ Library {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [87.0, 37.0, 1036.0, 754.0]
+      Location		      [46.0, 865.0, 1116.0, 799.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -42,10 +42,10 @@ Library {
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
 	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"229"
-	Extents			[984.0, 586.0]
-	ZoomFactor		[0.8]
-	Offset			[174.92920807238033, 40.394457521589295]
+	LoadSaveID		"701"
+	Extents			[1072.0, 647.0]
+	ZoomFactor		[1.25]
+	Offset			[0.0, 0.0]
       }
     }
   }
@@ -53,11 +53,11 @@ Library {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jan 08 16:28:49 2015"
-  RTWModifiedTimeStamp	  342635328
-  ModelVersionFormat	  "1.%<AutoIncrement:152>"
+  LastModifiedDate	  "Mon Jan 12 14:02:56 2015"
+  RTWModifiedTimeStamp	  342972174
+  ModelVersionFormat	  "1.%<AutoIncrement:161>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1080,7 +1080,7 @@ Library {
   }
   System {
     Name		    "limblab"
-    Location		    [87, 37, 1123, 791]
+    Location		    [46, 7, 1162, 1664]
     Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1094,7 +1094,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "750"
+    SIDHighWatermark	    "758"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
@@ -1360,7 +1360,7 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"Force Generator"
-	Location		[-8, -8, 1028, 746]
+	Location		[46, 7, 1162, 1664]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1377,7 +1377,7 @@ Library {
 	  BlockType		  Inport
 	  Name			  "Vel"
 	  SID			  "365"
-	  Position		  [595, 233, 625, 247]
+	  Position		  [510, 218, 540, 232]
 	  ZOrder		  -1
 	  IconDisplay		  "Port number"
 	}
@@ -1385,7 +1385,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "DynamicAngle"
 	  SID			  "366"
-	  Position		  [430, 265, 460, 295]
+	  Position		  [345, 250, 375, 280]
 	  ZOrder		  -2
 	  Value			  "0"
 	}
@@ -1393,7 +1393,7 @@ Library {
 	  BlockType		  Gain
 	  Name			  "Gain"
 	  SID			  "367"
-	  Position		  [425, 333, 480, 367]
+	  Position		  [340, 318, 395, 352]
 	  ZOrder		  -3
 	  Gain			  "0.0367"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -1404,7 +1404,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "Load"
 	  SID			  "368"
-	  Position		  [400, 70, 430, 100]
+	  Position		  [75, 80, 105, 110]
 	  ZOrder		  -4
 	  Value			  "0"
 	}
@@ -1413,7 +1413,7 @@ Library {
 	  Name			  "LorentzForce"
 	  SID			  "369"
 	  Ports			  [0, 2]
-	  Position		  [45, 398, 120, 527]
+	  Position		  [60, 363, 120, 412]
 	  ZOrder		  -5
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -1572,7 +1572,7 @@ Library {
 	  BlockType		  Gain
 	  Name			  "LorentzForceGain"
 	  SID			  "378"
-	  Position		  [290, 448, 345, 482]
+	  Position		  [225, 373, 280, 407]
 	  ZOrder		  -6
 	  Gain			  ".0005"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -1597,7 +1597,7 @@ Library {
 	  Name			  "Mux"
 	  SID			  "380"
 	  Ports			  [2, 1]
-	  Position		  [165, 136, 170, 174]
+	  Position		  [170, 136, 175, 174]
 	  ZOrder		  -8
 	  ShowName		  off
 	  Inputs		  "2"
@@ -1608,7 +1608,7 @@ Library {
 	  Name			  "Mux1"
 	  SID			  "381"
 	  Ports			  [2, 1]
-	  Position		  [170, 231, 175, 269]
+	  Position		  [170, 193, 175, 297]
 	  ZOrder		  -9
 	  ShowName		  off
 	  Inputs		  "2"
@@ -1619,7 +1619,7 @@ Library {
 	  Name			  "Mux2"
 	  SID			  "382"
 	  Ports			  [2, 1]
-	  Position		  [210, 399, 215, 526]
+	  Position		  [170, 361, 175, 414]
 	  ZOrder		  -10
 	  ShowName		  off
 	  Inputs		  "2"
@@ -1638,7 +1638,7 @@ Library {
 	  Name			  "ViscLoadSubsystem"
 	  SID			  "384"
 	  Ports			  [2, 1]
-	  Position		  [665, 229, 765, 271]
+	  Position		  [580, 214, 680, 256]
 	  ZOrder		  -12
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -1649,7 +1649,7 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "ViscLoadSubsystem"
-	    Location		    [16, 52, 1348, 1132]
+	    Location		    [46, 7, 1162, 1664]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1674,7 +1674,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "Angle"
 	      SID		      "386"
-	      Position		      [280, 443, 310, 457]
+	      Position		      [245, 443, 275, 457]
 	      ZOrder		      -2
 	      Port		      "2"
 	      IconDisplay	      "Port number"
@@ -1824,7 +1824,7 @@ Library {
 	    Line {
 	      SrcBlock		      "Angle"
 	      SrcPort		      1
-	      Points		      [30, 0]
+	      Points		      [65, 0]
 	      Branch {
 		Points			[0, -30]
 		DstBlock		"sin"
@@ -1925,7 +1925,7 @@ Library {
 	    Line {
 	      SrcBlock		      "sin"
 	      SrcPort		      1
-	      Points		      [100, 0; 0, 0]
+	      Points		      [100, 0]
 	      Branch {
 		Points			[0, -110]
 		DstBlock		"Product1"
@@ -1962,7 +1962,7 @@ Library {
 	  Name			  "dynamicAngle\nSwitch"
 	  SID			  "400"
 	  Ports			  [3, 1]
-	  Position		  [550, 265, 595, 365]
+	  Position		  [465, 250, 510, 350]
 	  ZOrder		  -13
 	  DataPortOrder		  "Zero-based contiguous"
 	  Inputs		  "2"
@@ -1974,7 +1974,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "staticX"
 	  SID			  "401"
-	  Position		  [80, 205, 110, 235]
+	  Position		  [75, 205, 105, 235]
 	  ZOrder		  -14
 	  Value			  "0"
 	}
@@ -1982,7 +1982,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "staticY"
 	  SID			  "402"
-	  Position		  [80, 265, 110, 295]
+	  Position		  [75, 255, 105, 285]
 	  ZOrder		  -15
 	  Value			  "0"
 	}
@@ -1990,7 +1990,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "visAngle"
 	  SID			  "403"
-	  Position		  [490, 300, 520, 330]
+	  Position		  [405, 285, 435, 315]
 	  ZOrder		  -16
 	  Value			  "0"
 	}
@@ -2005,7 +2005,7 @@ Library {
 	Line {
 	  SrcBlock		  "Off"
 	  SrcPort		  1
-	  Points		  [30, 0]
+	  Points		  [25, 0]
 	  Branch {
 	    Points		    [0, 10]
 	    DstBlock		    "Mux"
@@ -2032,41 +2032,39 @@ Library {
 	Line {
 	  SrcBlock		  "Load"
 	  SrcPort		  1
-	  Points		  [180, 0; 0, 50]
+	  Points		  [505, 0; 0, 40]
 	  DstBlock		  "Multiport\nSwitch"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Mux1"
 	  SrcPort		  1
-	  Points		  [95, 0; 0, -75]
+	  Points		  [54, 0; 0, -70]
 	  DstBlock		  "Multiport\nSwitch"
 	  DstPort		  3
 	}
 	Line {
 	  SrcBlock		  "staticX"
 	  SrcPort		  1
-	  Points		  [30, 0; 0, 20]
 	  DstBlock		  "Mux1"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "staticY"
 	  SrcPort		  1
-	  Points		  [30, 0; 0, -20]
 	  DstBlock		  "Mux1"
 	  DstPort		  2
 	}
 	Line {
 	  SrcBlock		  "LorentzForce"
 	  SrcPort		  1
-	  Points		  [55, 0]
+	  Points		  [16, 0]
 	  Branch {
 	    DstBlock		    "Mux2"
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, -80]
+	    Points		    [0, -40]
 	    DstBlock		    "Gain"
 	    DstPort		    1
 	  }
@@ -2086,7 +2084,7 @@ Library {
 	Line {
 	  SrcBlock		  "LorentzForceGain"
 	  SrcPort		  1
-	  Points		  [40, 0; 0, -270]
+	  Points		  [17, 0; 0, -195]
 	  DstBlock		  "Multiport\nSwitch"
 	  DstPort		  4
 	}
@@ -2099,7 +2097,7 @@ Library {
 	Line {
 	  SrcBlock		  "ViscLoadSubsystem"
 	  SrcPort		  1
-	  Points		  [5, 0; 0, -35]
+	  Points		  [90, 0; 0, -20]
 	  DstBlock		  "Multiport\nSwitch"
 	  DstPort		  5
 	}
@@ -2639,8 +2637,8 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"Motor Control"
-	Location		[87, 37, 1123, 791]
-	Open			on
+	Location		[46, 7, 1162, 1664]
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -9505,7 +9503,7 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"XY Position Subsystem"
-	Location		[87, 37, 1123, 791]
+	Location		[46, 7, 1162, 1664]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -9517,13 +9515,13 @@ Library {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"100"
+	ZoomFactor		"80"
 	Block {
 	  BlockType		  Sum
 	  Name			  "Add"
 	  SID			  "551"
 	  Ports			  [2, 1]
-	  Position		  [830, 402, 860, 433]
+	  Position		  [915, 392, 945, 423]
 	  ZOrder		  32
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -9534,7 +9532,7 @@ Library {
 	  Name			  "Add1"
 	  SID			  "552"
 	  Ports			  [2, 1]
-	  Position		  [830, 457, 860, 488]
+	  Position		  [915, 467, 945, 498]
 	  ZOrder		  31
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -9545,7 +9543,7 @@ Library {
 	  Name			  "Add2"
 	  SID			  "553"
 	  Ports			  [2, 1]
-	  Position		  [300, 412, 330, 443]
+	  Position		  [435, 657, 465, 688]
 	  ZOrder		  30
 	  Inputs		  "+-"
 	  InputSameDT		  off
@@ -9557,7 +9555,7 @@ Library {
 	  Name			  "Avg"
 	  SID			  "554"
 	  Ports			  [1, 1]
-	  Position		  [520, 424, 575, 466]
+	  Position		  [570, 344, 625, 386]
 	  ZOrder		  29
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -9689,7 +9687,7 @@ Library {
 	  Name			  "Avg1"
 	  SID			  "561"
 	  Ports			  [1, 1]
-	  Position		  [520, 499, 575, 541]
+	  Position		  [570, 419, 625, 461]
 	  ZOrder		  28
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -9817,11 +9815,26 @@ Library {
 	  }
 	}
 	Block {
+	  BlockType		  Reference
+	  Name			  "Compare To Constant"
+	  SID			  "752"
+	  Ports			  [1, 1]
+	  Position		  [400, 840, 430, 870]
+	  ZOrder		  71
+	  LibraryVersion	  "1.281"
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare\nTo Constant"
+	  SourceType		  "Compare To Constant"
+	  relop			  "~="
+	  const			  "6.0"
+	  OutDataTypeStr	  "boolean"
+	  ZeroCross		  on
+	}
+	Block {
 	  BlockType		  SubSystem
 	  Name			  "Cursor Rotation"
 	  SID			  "416"
 	  Ports			  [2, 2]
-	  Position		  [805, 830, 930, 930]
+	  Position		  [785, 1070, 910, 1170]
 	  ZOrder		  -1
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -10077,7 +10090,7 @@ Library {
 	  Name			  "Cursor Rotation1"
 	  SID			  "568"
 	  Ports			  [2, 2]
-	  Position		  [880, 381, 1005, 534]
+	  Position		  [965, 371, 1090, 524]
 	  ZOrder		  27
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -10333,7 +10346,7 @@ Library {
 	  Name			  "Demux"
 	  SID			  "675"
 	  Ports			  [1, 2]
-	  Position		  [770, 326, 775, 364]
+	  Position		  [750, 246, 755, 284]
 	  ZOrder		  35
 	  ShowName		  off
 	  Outputs		  "2"
@@ -10343,7 +10356,7 @@ Library {
 	  BlockType		  DotProduct
 	  Name			  "Dot Product"
 	  SID			  "678"
-	  Position		  [755, 407, 785, 438]
+	  Position		  [850, 392, 880, 423]
 	  ZOrder		  38
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	}
@@ -10351,7 +10364,7 @@ Library {
 	  BlockType		  DotProduct
 	  Name			  "Dot Product X"
 	  SID			  "582"
-	  Position		  [435, 419, 465, 466]
+	  Position		  [510, 339, 540, 386]
 	  ZOrder		  26
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	}
@@ -10359,7 +10372,7 @@ Library {
 	  BlockType		  DotProduct
 	  Name			  "Dot Product Y"
 	  SID			  "583"
-	  Position		  [470, 494, 500, 541]
+	  Position		  [510, 414, 540, 461]
 	  ZOrder		  25
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	}
@@ -10367,7 +10380,7 @@ Library {
 	  BlockType		  DotProduct
 	  Name			  "Dot Product1"
 	  SID			  "734"
-	  Position		  [755, 462, 785, 493]
+	  Position		  [770, 472, 800, 503]
 	  ZOrder		  65
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	}
@@ -10375,7 +10388,7 @@ Library {
 	  BlockType		  DotProduct
 	  Name			  "Dot Product2"
 	  SID			  "735"
-	  Position		  [710, 422, 740, 453]
+	  Position		  [770, 397, 800, 428]
 	  ZOrder		  66
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	}
@@ -10383,7 +10396,7 @@ Library {
 	  BlockType		  Fcn
 	  Name			  "Fcn"
 	  SID			  "682"
-	  Position		  [610, 355, 670, 385]
+	  Position		  [740, 305, 800, 335]
 	  ZOrder		  42
 	  Expr			  "-2*u+1"
 	}
@@ -10392,7 +10405,7 @@ Library {
 	  Name			  "For Iterator\nSubsystem"
 	  SID			  "430"
 	  Ports			  [4]
-	  Position		  [625, 663, 740, 737]
+	  Position		  [360, 903, 475, 977]
 	  ZOrder		  -2
 	  TreatAsAtomicUnit	  on
 	  MinAlgLoopOccurrences	  off
@@ -10404,7 +10417,7 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "For Iterator\nSubsystem"
-	    Location		    [-8, -8, 1028, 746]
+	    Location		    [46, 7, 1162, 1664]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -10524,7 +10537,7 @@ Library {
 	      Name		      "Port B"
 	      SID		      "441"
 	      Ports		      [8]
-	      Position		      [830, 315, 960, 520]
+	      Position		      [855, 315, 985, 520]
 	      ZOrder		      -11
 	      LibraryVersion	      "1.265"
 	      SourceBlock	      "xpcnilib/Digital\nOutput/E Series/PCI-6025E 8255 DO"
@@ -10544,7 +10557,7 @@ Library {
 	      Ports		      [3, 1]
 	      Position		      [405, 315, 505, 525]
 	      ZOrder		      -12
-	      LibraryVersion	      "1.138"
+	      LibraryVersion	      "1.157"
 	      SourceBlock	      "limblab/SerialConverter"
 	      SourceType	      "Unknown"
 	    }
@@ -10565,7 +10578,7 @@ Library {
 	      Ports		      [1, 8]
 	      Position		      [655, 310, 710, 525]
 	      ZOrder		      -14
-	      LibraryVersion	      "1.138"
+	      LibraryVersion	      "1.157"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      "Unknown"
 	    }
@@ -10574,9 +10587,9 @@ Library {
 	      Name		      "ToBits1"
 	      SID		      "445"
 	      Ports		      [1, 8]
-	      Position		      [635, 635, 685, 830]
+	      Position		      [655, 635, 705, 830]
 	      ZOrder		      -15
-	      LibraryVersion	      "1.138"
+	      LibraryVersion	      "1.157"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      "Unknown"
 	    }
@@ -11031,14 +11044,14 @@ Library {
 	  BlockType		  Constant
 	  Name			  "ForceToScreenGain"
 	  SID			  "733"
-	  Position		  [625, 595, 680, 625]
+	  Position		  [665, 560, 720, 590]
 	  ZOrder		  64
 	}
 	Block {
 	  BlockType		  From
 	  Name			  "From"
 	  SID			  "462"
-	  Position		  [465, 740, 525, 770]
+	  Position		  [190, 935, 250, 965]
 	  ZOrder		  -3
 	  CloseFcn		  "tagdialog Close"
 	  GotoTag		  "Reward"
@@ -11048,7 +11061,7 @@ Library {
 	  BlockType		  From
 	  Name			  "From1"
 	  SID			  "463"
-	  Position		  [465, 795, 525, 825]
+	  Position		  [270, 955, 330, 985]
 	  ZOrder		  -4
 	  CloseFcn		  "tagdialog Close"
 	  GotoTag		  "Word"
@@ -11058,7 +11071,7 @@ Library {
 	  BlockType		  Gain
 	  Name			  "Gain"
 	  SID			  "464"
-	  Position		  [345, 866, 435, 914]
+	  Position		  [290, 1106, 380, 1154]
 	  ZOrder		  -5
 	  Gain			  "3.490658e-4"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -11069,7 +11082,7 @@ Library {
 	  BlockType		  Gain
 	  Name			  "Gain1"
 	  SID			  "465"
-	  Position		  [330, 996, 420, 1044]
+	  Position		  [275, 1236, 365, 1284]
 	  ZOrder		  -6
 	  Gain			  "-3.490658e-4"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -11080,7 +11093,7 @@ Library {
 	  BlockType		  Gain
 	  Name			  "Gain2"
 	  SID			  "742"
-	  Position		  [335, 50, 365, 80]
+	  Position		  [320, 135, 350, 165]
 	  ZOrder		  68
 	  Gain			  "-1"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -11091,7 +11104,7 @@ Library {
 	  BlockType		  Gain
 	  Name			  "Gain3"
 	  SID			  "743"
-	  Position		  [375, 225, 405, 255]
+	  Position		  [320, 435, 350, 465]
 	  ZOrder		  69
 	  Gain			  "-1"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -11103,7 +11116,7 @@ Library {
 	  Name			  "Handle Rotation"
 	  SID			  "621"
 	  Ports			  [3, 2]
-	  Position		  [605, 418, 680, 572]
+	  Position		  [655, 363, 730, 517]
 	  ZOrder		  20
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -11357,7 +11370,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "IsometricMode"
 	  SID			  "677"
-	  Position		  [980, 660, 1035, 690]
+	  Position		  [965, 900, 1020, 930]
 	  ZOrder		  37
 	  Value			  "0"
 	}
@@ -11366,7 +11379,7 @@ Library {
 	  Name			  "Jacobian-Cartesian Transformation"
 	  SID			  "466"
 	  Ports			  [2, 5]
-	  Position		  [595, 823, 675, 1087]
+	  Position		  [595, 1063, 675, 1327]
 	  ZOrder		  -7
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -11943,9 +11956,17 @@ Library {
 	}
 	Block {
 	  BlockType		  Constant
+	  Name			  "LabNumber"
+	  SID			  "751"
+	  Position		  [285, 840, 340, 870]
+	  ZOrder		  70
+	  Value			  "3"
+	}
+	Block {
+	  BlockType		  Constant
 	  Name			  "LoadCellXCoef1"
 	  SID			  "683"
-	  Position		  [90, 20, 145, 50]
+	  Position		  [70, 20, 125, 50]
 	  ZOrder		  43
 	  Value			  "-.0129"
 	}
@@ -11953,7 +11974,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "LoadCellXCoef2"
 	  SID			  "684"
-	  Position		  [90, 65, 145, 95]
+	  Position		  [70, 65, 125, 95]
 	  ZOrder		  44
 	  Value			  "-.0254"
 	}
@@ -11961,7 +11982,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "LoadCellXCoef3"
 	  SID			  "685"
-	  Position		  [90, 110, 145, 140]
+	  Position		  [70, 110, 125, 140]
 	  ZOrder		  45
 	  Value			  "-.1018"
 	}
@@ -11969,7 +11990,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "LoadCellXCoef4"
 	  SID			  "686"
-	  Position		  [90, 155, 145, 185]
+	  Position		  [70, 155, 125, 185]
 	  ZOrder		  46
 	  Value			  "-6.2876"
 	}
@@ -11977,7 +11998,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "LoadCellXCoef5"
 	  SID			  "687"
-	  Position		  [90, 200, 145, 230]
+	  Position		  [70, 200, 125, 230]
 	  ZOrder		  47
 	  Value			  "-.1127"
 	}
@@ -11985,7 +12006,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "LoadCellXCoef6"
 	  SID			  "688"
-	  Position		  [90, 245, 145, 275]
+	  Position		  [70, 245, 125, 275]
 	  ZOrder		  48
 	  Value			  "6.2163"
 	}
@@ -11993,7 +12014,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "LoadCellYCoef1"
 	  SID			  "689"
-	  Position		  [260, 110, 315, 140]
+	  Position		  [70, 320, 125, 350]
 	  ZOrder		  49
 	  Value			  "-.2059"
 	}
@@ -12001,7 +12022,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "LoadCellYCoef2"
 	  SID			  "690"
-	  Position		  [260, 155, 315, 185]
+	  Position		  [70, 365, 125, 395]
 	  ZOrder		  50
 	  Value			  "7.1801"
 	}
@@ -12009,7 +12030,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "LoadCellYCoef3"
 	  SID			  "691"
-	  Position		  [260, 200, 315, 230]
+	  Position		  [70, 410, 125, 440]
 	  ZOrder		  51
 	  Value			  "-.0804"
 	}
@@ -12017,7 +12038,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "LoadCellYCoef4"
 	  SID			  "692"
-	  Position		  [260, 245, 315, 275]
+	  Position		  [70, 455, 125, 485]
 	  ZOrder		  52
 	  Value			  "-3.591"
 	}
@@ -12025,7 +12046,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "LoadCellYCoef5"
 	  SID			  "693"
-	  Position		  [260, 290, 315, 320]
+	  Position		  [70, 500, 125, 530]
 	  ZOrder		  53
 	  Value			  "0.0641"
 	}
@@ -12033,7 +12054,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "LoadCellYCoef6"
 	  SID			  "694"
-	  Position		  [260, 335, 315, 365]
+	  Position		  [70, 545, 125, 575]
 	  ZOrder		  54
 	  Value			  "-3.6077"
 	}
@@ -12042,7 +12063,7 @@ Library {
 	  Name			  "Mux"
 	  SID			  "499"
 	  Ports			  [2, 1]
-	  Position		  [750, 930, 755, 1030]
+	  Position		  [725, 1170, 730, 1270]
 	  ZOrder		  -8
 	  ShowName		  off
 	  Inputs		  "2"
@@ -12053,7 +12074,7 @@ Library {
 	  Name			  "Mux1"
 	  SID			  "500"
 	  Ports			  [2, 1]
-	  Position		  [1000, 830, 1005, 930]
+	  Position		  [965, 1070, 970, 1170]
 	  ZOrder		  -9
 	  ShowName		  off
 	  Inputs		  "2"
@@ -12064,7 +12085,7 @@ Library {
 	  Name			  "Mux2"
 	  SID			  "511"
 	  Ports			  [2, 1]
-	  Position		  [555, 1105, 560, 1205]
+	  Position		  [555, 1345, 560, 1445]
 	  ZOrder		  2
 	  ShowName		  off
 	  Inputs		  "2"
@@ -12075,7 +12096,7 @@ Library {
 	  Name			  "Mux3"
 	  SID			  "639"
 	  Ports			  [2, 1]
-	  Position		  [1050, 381, 1055, 534]
+	  Position		  [1120, 371, 1125, 524]
 	  ZOrder		  19
 	  ShowName		  off
 	  Inputs		  "2"
@@ -12086,7 +12107,7 @@ Library {
 	  Name			  "Mux4"
 	  SID			  "640"
 	  Ports			  [6, 1]
-	  Position		  [200, 305, 205, 530]
+	  Position		  [210, 615, 215, 840]
 	  ZOrder		  18
 	  ShowName		  off
 	  Inputs		  "6"
@@ -12097,7 +12118,7 @@ Library {
 	  Name			  "OffsetCalculation"
 	  SID			  "701"
 	  Ports			  [1, 1]
-	  Position		  [250, 532, 355, 628]
+	  Position		  [260, 682, 365, 778]
 	  ZOrder		  61
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -12108,8 +12129,8 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "OffsetCalculation"
-	    Location		    [87, 37, 1123, 791]
-	    Open		    off
+	    Location		    [46, 865, 1162, 1664]
+	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -12190,8 +12211,10 @@ Library {
 	      gainval		      "1"
 	      ExternalReset	      "falling"
 	      SampleTime	      "-1"
+	      OutDataTypeStr	      "int32"
 	      LimitOutput	      on
 	      UpperSaturationLimit    "1000"
+	      LowerSaturationLimit    "-1"
 	      ICPrevOutput	      "DiscIntNeverNeededParam"
 	      ICPrevScaledInput	      "DiscIntNeverNeededParam"
 	    }
@@ -12413,7 +12436,7 @@ Library {
 	  BlockType		  From
 	  Name			  "Offsets"
 	  SID			  "674"
-	  Position		  [710, 331, 750, 359]
+	  Position		  [690, 251, 730, 279]
 	  ZOrder		  34
 	  GotoTag		  "Offsets"
 	}
@@ -12422,7 +12445,7 @@ Library {
 	  Name			  "PCI-6025E AD"
 	  SID			  "644"
 	  Ports			  [0, 6]
-	  Position		  [20, 314, 120, 521]
+	  Position		  [45, 624, 145, 831]
 	  ZOrder		  14
 	  LibraryVersion	  "1.265"
 	  SourceBlock		  "xpcnilib/A//D/E Series/PCI-6025E AD"
@@ -12438,7 +12461,7 @@ Library {
 	  Name			  "PCI-QUAD04 "
 	  SID			  "501"
 	  Ports			  [0, 1]
-	  Position		  [150, 862, 260, 918]
+	  Position		  [40, 1102, 150, 1158]
 	  ZOrder		  -10
 	  LibraryVersion	  "1.99"
 	  SourceBlock		  "xpcmeasurementcomputinglib/Incremental\nEncoder/PCI-QUAD04 "
@@ -12459,7 +12482,7 @@ Library {
 	  Name			  "PCI-QUAD04 1"
 	  SID			  "502"
 	  Ports			  [0, 1]
-	  Position		  [150, 992, 260, 1048]
+	  Position		  [40, 1232, 150, 1288]
 	  ZOrder		  -11
 	  LibraryVersion	  "1.99"
 	  SourceBlock		  "xpcmeasurementcomputinglib/Incremental\nEncoder/PCI-QUAD04 "
@@ -12480,7 +12503,7 @@ Library {
 	  Name			  "Sum1"
 	  SID			  "503"
 	  Ports			  [2, 1]
-	  Position		  [485, 1010, 505, 1030]
+	  Position		  [430, 1250, 450, 1270]
 	  ZOrder		  -12
 	  ShowName		  off
 	  IconShape		  "round"
@@ -12491,7 +12514,7 @@ Library {
 	  Name			  "Sum3"
 	  SID			  "504"
 	  Ports			  [2, 1]
-	  Position		  [485, 880, 505, 900]
+	  Position		  [430, 1120, 450, 1140]
 	  ZOrder		  -13
 	  ShowName		  off
 	  IconShape		  "round"
@@ -12501,8 +12524,18 @@ Library {
 	  BlockType		  Switch
 	  Name			  "Switch"
 	  SID			  "676"
-	  Position		  [1120, 655, 1170, 695]
+	  Position		  [1120, 895, 1170, 935]
 	  ZOrder		  36
+	  Criteria		  "u2 ~= 0"
+	  InputSameDT		  off
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Switch
+	  Name			  "Switch1"
+	  SID			  "753"
+	  Position		  [570, 835, 620, 875]
+	  ZOrder		  72
 	  Criteria		  "u2 ~= 0"
 	  InputSameDT		  off
 	  SaturateOnIntegerOverflow off
@@ -12511,7 +12544,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "UpsideDownHandle"
 	  SID			  "679"
-	  Position		  [520, 355, 575, 385]
+	  Position		  [650, 305, 705, 335]
 	  ZOrder		  39
 	  Value			  "0"
 	}
@@ -12520,7 +12553,7 @@ Library {
 	  Name			  "Vector Concatenate"
 	  SID			  "695"
 	  Ports			  [6, 1]
-	  Position		  [210, 17, 220, 278]
+	  Position		  [190, 17, 200, 278]
 	  ZOrder		  55
 	  NumInputs		  "6"
 	  Mode			  "Multidimensional array"
@@ -12531,7 +12564,7 @@ Library {
 	  Name			  "Vector Concatenate1"
 	  SID			  "698"
 	  Ports			  [6, 1]
-	  Position		  [345, 107, 355, 368]
+	  Position		  [190, 317, 200, 578]
 	  ZOrder		  58
 	  NumInputs		  "6"
 	  Mode			  "Multidimensional array"
@@ -12541,7 +12574,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "elbowOffset"
 	  SID			  "505"
-	  Position		  [410, 1060, 480, 1090]
+	  Position		  [355, 1300, 425, 1330]
 	  ZOrder		  -14
 	  Value			  "0"
 	}
@@ -12549,7 +12582,7 @@ Library {
 	  BlockType		  Constant
 	  Name			  "shoulderOffset"
 	  SID			  "506"
-	  Position		  [415, 920, 480, 950]
+	  Position		  [360, 1160, 425, 1190]
 	  ZOrder		  -15
 	  Value			  "0"
 	}
@@ -12557,7 +12590,7 @@ Library {
 	  BlockType		  Outport
 	  Name			  "Pos"
 	  SID			  "507"
-	  Position		  [1240, 668, 1270, 682]
+	  Position		  [1200, 908, 1230, 922]
 	  ZOrder		  -16
 	  IconDisplay		  "Port number"
 	}
@@ -12565,7 +12598,7 @@ Library {
 	  BlockType		  Outport
 	  Name			  "RawPos"
 	  SID			  "508"
-	  Position		  [835, 973, 865, 987]
+	  Position		  [1200, 1213, 1230, 1227]
 	  ZOrder		  -17
 	  Port			  "2"
 	  IconDisplay		  "Port number"
@@ -12574,7 +12607,7 @@ Library {
 	  BlockType		  Outport
 	  Name			  "J"
 	  SID			  "509"
-	  Position		  [835, 1048, 865, 1062]
+	  Position		  [1200, 1288, 1230, 1302]
 	  ZOrder		  -18
 	  Port			  "3"
 	  IconDisplay		  "Port number"
@@ -12583,7 +12616,7 @@ Library {
 	  BlockType		  Outport
 	  Name			  "Th"
 	  SID			  "510"
-	  Position		  [595, 1148, 625, 1162]
+	  Position		  [1200, 1388, 1230, 1402]
 	  ZOrder		  1
 	  Port			  "4"
 	  IconDisplay		  "Port number"
@@ -12591,21 +12624,21 @@ Library {
 	Line {
 	  SrcBlock		  "PCI-QUAD04 1"
 	  SrcPort		  1
-	  Points		  [20, 0]
+	  Points		  [26, 0]
+	  Branch {
+	    DstBlock		    "Gain1"
+	    DstPort		    1
+	  }
 	  Branch {
 	    Points		    [0, -330]
 	    DstBlock		    "For Iterator\nSubsystem"
 	    DstPort		    2
 	  }
-	  Branch {
-	    DstBlock		    "Gain1"
-	    DstPort		    1
-	  }
 	}
 	Line {
 	  SrcBlock		  "PCI-QUAD04 "
 	  SrcPort		  1
-	  Points		  [40, 0]
+	  Points		  [13, 0]
 	  Branch {
 	    Labels		    [1, 0]
 	    Points		    [0, -220]
@@ -12626,7 +12659,12 @@ Library {
 	Line {
 	  SrcBlock		  "Sum3"
 	  SrcPort		  1
-	  Points		  [34, 0]
+	  Points		  [84, 0]
+	  Branch {
+	    Points		    [0, -260]
+	    DstBlock		    "Switch1"
+	    DstPort		    3
+	  }
 	  Branch {
 	    Points		    [0, 240]
 	    DstBlock		    "Mux2"
@@ -12660,23 +12698,20 @@ Library {
 	Line {
 	  SrcBlock		  "Sum1"
 	  SrcPort		  1
-	  Points		  [15, 0]
+	  Points		  [66, 0]
+	  Branch {
+	    Points		    [0, -420]
+	    DstBlock		    "Switch1"
+	    DstPort		    1
+	  }
 	  Branch {
 	    Points		    [0, 160]
 	    DstBlock		    "Mux2"
 	    DstPort		    2
 	  }
 	  Branch {
-	    Points		    [49, 0]
-	    Branch {
-	      Points		      [0, -413; 16, 0]
-	      DstBlock		      "Handle Rotation"
-	      DstPort		      3
-	    }
-	    Branch {
-	      DstBlock		      "Jacobian-Cartesian Transformation"
-	      DstPort		      2
-	    }
+	    DstBlock		    "Jacobian-Cartesian Transformation"
+	    DstPort		    2
 	  }
 	}
 	Line {
@@ -12718,7 +12753,6 @@ Library {
 	Line {
 	  SrcBlock		  "From"
 	  SrcPort		  1
-	  Points		  [2, 0; 0, -45]
 	  DstBlock		  "For Iterator\nSubsystem"
 	  DstPort		  3
 	}
@@ -12737,7 +12771,6 @@ Library {
 	Line {
 	  SrcBlock		  "From1"
 	  SrcPort		  1
-	  Points		  [17, 0; 0, -80]
 	  DstBlock		  "For Iterator\nSubsystem"
 	  DstPort		  4
 	}
@@ -12816,70 +12849,68 @@ Library {
 	Line {
 	  SrcBlock		  "Add1"
 	  SrcPort		  1
-	  Points		  [5, 0; 0, 20]
 	  DstBlock		  "Cursor Rotation1"
 	  DstPort		  2
 	}
 	Line {
 	  SrcBlock		  "Demux"
 	  SrcPort		  1
-	  Points		  [28, 0; 0, 75]
+	  Points		  [140, 0]
 	  DstBlock		  "Add"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Demux"
 	  SrcPort		  2
-	  Points		  [19, 0; 0, 110]
+	  Points		  [65, 0; 0, 200]
 	  DstBlock		  "Add1"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Mux4"
 	  SrcPort		  1
-	  Points		  [22, 0]
+	  Points		  [12, 0]
 	  Branch {
-	    Points		    [0, 160]
-	    DstBlock		    "OffsetCalculation"
+	    Points		    [0, -65]
+	    DstBlock		    "Add2"
 	    DstPort		    1
 	  }
 	  Branch {
-	    DstBlock		    "Add2"
+	    DstBlock		    "OffsetCalculation"
 	    DstPort		    1
 	  }
 	}
 	Line {
+	  Labels		  [2, 0]
 	  SrcBlock		  "Add2"
 	  SrcPort		  1
-	  Points		  [2, 0]
+	  Points		  [13, 0; 0, -250]
 	  Branch {
-	    DstBlock		    "Dot Product X"
+	    DstBlock		    "Dot Product Y"
 	    DstPort		    1
 	  }
 	  Branch {
-	    Labels		    [2, 0]
-	    Points		    [0, 75]
-	    DstBlock		    "Dot Product Y"
+	    Points		    [0, -75]
+	    DstBlock		    "Dot Product X"
 	    DstPort		    1
 	  }
 	}
 	Line {
 	  SrcBlock		  "Avg"
 	  SrcPort		  1
+	  Points		  [10, 0]
 	  DstBlock		  "Handle Rotation"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Avg1"
 	  SrcPort		  1
-	  Points		  [10, 0]
 	  DstBlock		  "Handle Rotation"
 	  DstPort		  2
 	}
 	Line {
 	  SrcBlock		  "Handle Rotation"
 	  SrcPort		  2
-	  Points		  [17, 0; 0, -65]
 	  DstBlock		  "Dot Product1"
 	  DstPort		  1
 	}
@@ -12892,7 +12923,7 @@ Library {
 	Line {
 	  SrcBlock		  "Mux3"
 	  SrcPort		  1
-	  Points		  [27, 0; 0, 200]
+	  Points		  [12, 0; 0, 384; -43, 0; 0, 66]
 	  DstBlock		  "Switch"
 	  DstPort		  1
 	}
@@ -12905,7 +12936,7 @@ Library {
 	Line {
 	  SrcBlock		  "Mux1"
 	  SrcPort		  1
-	  Points		  [52, 0; 0, -190]
+	  Points		  [87, 0; 0, -190]
 	  DstBlock		  "Switch"
 	  DstPort		  3
 	}
@@ -12918,6 +12949,7 @@ Library {
 	Line {
 	  SrcBlock		  "Dot Product"
 	  SrcPort		  1
+	  Points		  [11, 0; 0, 5]
 	  DstBlock		  "Add"
 	  DstPort		  2
 	}
@@ -12930,7 +12962,7 @@ Library {
 	Line {
 	  SrcBlock		  "Fcn"
 	  SrcPort		  1
-	  Points		  [13, 0; 0, 45]
+	  Points		  [8, 0; 0, 80]
 	  DstBlock		  "Dot Product"
 	  DstPort		  1
 	}
@@ -13009,7 +13041,6 @@ Library {
 	Line {
 	  SrcBlock		  "Vector Concatenate"
 	  SrcPort		  1
-	  Points		  [12, 0; 0, -85]
 	  DstBlock		  "Gain2"
 	  DstPort		  1
 	}
@@ -13028,26 +13059,25 @@ Library {
 	Line {
 	  SrcBlock		  "Dot Product2"
 	  SrcPort		  1
-	  Points		  [2, 0; 0, -10]
 	  DstBlock		  "Dot Product"
 	  DstPort		  2
 	}
 	Line {
 	  SrcBlock		  "Handle Rotation"
 	  SrcPort		  1
-	  Points		  [5, 0; 0, -30]
 	  DstBlock		  "Dot Product2"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "ForceToScreenGain"
 	  SrcPort		  1
-	  Points		  [10, 0; 0, -125]
+	  Points		  [20, 0; 0, -80]
 	  Branch {
 	    DstBlock		    "Dot Product1"
 	    DstPort		    2
 	  }
 	  Branch {
+	    Points		    [0, -75]
 	    DstBlock		    "Dot Product2"
 	    DstPort		    2
 	  }
@@ -13055,23 +13085,41 @@ Library {
 	Line {
 	  SrcBlock		  "Gain2"
 	  SrcPort		  1
-	  Points		  [50, 0]
+	  Points		  [110, 0; 0, 225]
 	  DstBlock		  "Dot Product X"
 	  DstPort		  2
 	}
 	Line {
 	  SrcBlock		  "Gain3"
 	  SrcPort		  1
-	  Points		  [3, 0; 0, 290]
 	  DstBlock		  "Dot Product Y"
 	  DstPort		  2
 	}
 	Line {
 	  SrcBlock		  "OffsetCalculation"
 	  SrcPort		  1
-	  Points		  [9, 0; 0, -63; -84, 0]
+	  Points		  [30, 0; 0, -50]
 	  DstBlock		  "Add2"
 	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Compare To Constant"
+	  SrcPort		  1
+	  DstBlock		  "Switch1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "LabNumber"
+	  SrcPort		  1
+	  DstBlock		  "Compare To Constant"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Switch1"
+	  SrcPort		  1
+	  Points		  [12, 0; 0, -365]
+	  DstBlock		  "Handle Rotation"
+	  DstPort		  3
 	}
       }
     }
