@@ -775,43 +775,127 @@ namespace BehaviorGraphics
 
             #region Bump direction psychophysics
             // Timing
-            AddParamListItem("2BC CT Hold", "P10", "Behavior 2BC", textBox2BCCTH);
-            AddParamListItem("2BC Bump Delay", "P11", "Behavior 2BC", textBox2BC_bump_delay);
-            AddParamListItem("2BC Bump Hold", "P12", "Behavior 2BC", textBox2BCBH);
-            AddParamListItem("2BC intertrial", "P13", "Behavior 2BC", textBox2BCInt);
-            AddParamListItem("2BC penalty", "P17", "Behavior 2BC", textBox2BCPenalty);
-            AddParamListItem("2BC Recenter cursor", "P18", "Behavior 2BC", checkBox2BCRecenter);
+            AddParamListItem("2BC CT Hold",                 "P10", "Behavior 2BC", textBox2BCCTH);
+            AddParamListItem("2BC Bump Delay",              "P11", "Behavior 2BC", textBox2BC_bump_delay);
+            AddParamListItem("2BC Bump Hold",               "P12", "Behavior 2BC", textBox2BCBH);
+            AddParamListItem("2BC intertrial",              "P13", "Behavior 2BC", textBox2BCInt);
+            AddParamListItem("2BC penalty",                 "P17", "Behavior 2BC", textBox2BCPenalty);
+            AddParamListItem("2BC Recenter cursor",         "P18", "Behavior 2BC", checkBox2BCRecenter);
 
             // Bump
-            AddParamListItem("2BC Bump Mag", "P7", "Behavior 2BC", textBox2BCBA);
-            AddParamListItem("2BC Bump Dur", "P8", "Behavior 2BC", textBox2BCPD);
-            AddParamListItem("2BC Bump RT", "P9", "Behavior 2BC", textBox2BCRT);
-            AddParamListItem("2BC Rand Bump Floor", "P23", "Behavior 2BC", textBox2BC_rand_bump_floor);
-            AddParamListItem("2BC Rand Bump Ceil", "P24", "Behavior 2BC", textBox2BC_rand_bump_ceil);
-            AddParamListItem("2BC Bump Angle Increment", "P26", "Behavior 2BC", textBox2BC_bump_incr);
-            AddParamListItem("2BC Catch Rate", "P28", "Behavior 2BC", textBox2BC_catch_rate);
-            AddParamListItem("2BC Abort During Bump", "P29", "Behavior 2BC", checkBox2BC_abort_during_bump);
+            AddParamListItem("2BC Bump Mag",                "P7", "Behavior 2BC", textBox2BCBA);
+            AddParamListItem("2BC Bump Dur",                "P8", "Behavior 2BC", textBox2BCPD);
+            AddParamListItem("2BC Bump RT",                 "P9", "Behavior 2BC", textBox2BCRT);
+            AddParamListItem("2BC Rand Bump Floor",         "P23", "Behavior 2BC", textBox2BC_rand_bump_floor);
+            AddParamListItem("2BC Rand Bump Ceil",          "P24", "Behavior 2BC", textBox2BC_rand_bump_ceil);
+            AddParamListItem("2BC Bump Angle Increment",    "P26", "Behavior 2BC", textBox2BC_bump_incr);
+            AddParamListItem("2BC Catch Rate",              "P28", "Behavior 2BC", textBox2BC_catch_rate);
+            AddParamListItem("2BC Abort During Bump",       "P29", "Behavior 2BC", checkBox2BC_abort_during_bump);
 
             // Stim
-            AddParamListItem("2BC Stim Prob", "P16", "Behavior 2BC", textBox2BCStimProb);
-            AddParamListItem("2BC Stim levels", "P27", "Behavior 2BC", textBox2BC_stim_levels);
+            AddParamListItem("2BC Stim Prob",               "P16", "Behavior 2BC", textBox2BCStimProb);
+            AddParamListItem("2BC Stim levels",             "P27", "Behavior 2BC", textBox2BC_stim_levels);
 
             // Targets
-            AddParamListItem("2BC Targ Rad", "P3", "Behavior 2BC", textBox2BCTR);
-            AddParamListItem("2BC Targ Dist", "P4", "Behavior 2BC", textBox2BCTD);
-            AddParamListItem("2BC Targ Grow", "P5", "Behavior 2BC", textBox2BCBTR);
-            AddParamListItem("2BC Targ Ang", "P6", "Behavior 2BC", angleEntryBox2BCAng);
-            AddParamListItem("2BC Targ Green", "P14", "Behavior 2BC", checkBox2BCGT);
-            AddParamListItem("2BC Hide Cursor", "P15", "Behavior 2BC", checkBox2BCHC);
-            AddParamListItem("2BC Use Random Targets","P20","Behavior 2BC", checkBox2BC_rand_tgts);
-            AddParamListItem("2BC Rand Targ Floor", "P21", "Behavior 2BC", textBox2BC_rand_tgt_floor);
-            AddParamListItem("2BC Rand Targ Ceil", "P22", "Behavior 2BC", textBox2BC_rand_tgt_ceil);
-            AddParamListItem("2BC show tgt during bump", "P25", "Behavior 2BC", checkBox2BC_showtgt_bump);
-            AddParamListItem("2BC training freq", "P19", "Behavior 2BC", textBox2BC_training_freq);
+            AddParamListItem("2BC Targ Rad",                "P3", "Behavior 2BC", textBox2BCTR);
+            AddParamListItem("2BC Targ Dist",               "P4", "Behavior 2BC", textBox2BCTD);
+            AddParamListItem("2BC Targ Grow",               "P5", "Behavior 2BC", textBox2BCBTR);
+            AddParamListItem("2BC Targ Ang",                "P6", "Behavior 2BC", angleEntryBox2BCAng);
+            AddParamListItem("2BC Targ Green",              "P14", "Behavior 2BC", checkBox2BCGT);
+            AddParamListItem("2BC Hide Cursor",             "P15", "Behavior 2BC", checkBox2BCHC);
+            AddParamListItem("2BC Use Random Targets",      "P20","Behavior 2BC", checkBox2BC_rand_tgts);
+            AddParamListItem("2BC Rand Targ Floor",         "P21", "Behavior 2BC", textBox2BC_rand_tgt_floor);
+            AddParamListItem("2BC Rand Targ Ceil",          "P22", "Behavior 2BC", textBox2BC_rand_tgt_ceil);
+            AddParamListItem("2BC show tgt during bump",    "P25", "Behavior 2BC", checkBox2BC_showtgt_bump);
+            AddParamListItem("2BC training freq",           "P19", "Behavior 2BC", textBox2BC_training_freq);
 
             
             #endregion
+
+            #region Stim Angle psychopysics
+            //targets
+            AddParamListItem("Stim Angle ", "P3", "Behavior Stim Angle", textBox_SA_tgtSize);
+            AddParamListItem("Stim Angle ", "P4", "Behavior Stim Angle", textBox_SA_bigTarget);
+            AddParamListItem("Stim Angle ", "P5", "Behavior Stim Angle", textBox_SA_tgtRadius);
+
+            //cursor
+            AddParamListItem("Stim Angle ", "P6", "Behavior Stim Angle", checkBox_SA_hideDuringBump);
+            AddParamListItem("Stim Angle ", "P7", "Behavior Stim Angle", checkBox_SA_recenterAfterBump);
+            AddParamListItem("Stim Angle ", "P8", "Behavior Stim Angle", checkBox_SA_abortDuringBump);
             
+            //Timing
+            AddParamListItem("Stim Angle ", "P9", "Behavior Stim Angle", textBox_SA_CThold);
+            AddParamListItem("Stim Angle ", "P10", "Behavior Stim Angle", textBox_SA_bumpDelay);
+            AddParamListItem("Stim Angle ", "P11", "Behavior Stim Angle", textBox_SA_bumpHold);
+            AddParamListItem("Stim Angle ", "P12", "Behavior Stim Angle", textBox_SA_intertrial);
+            AddParamListItem("Stim Angle ", "P13", "Behavior Stim Angle", textBox_SA_penaltyTime);
+
+            //Control Bump
+            AddParamListItem("Stim Angle ", "P14", "Behavior Stim Angle", textBox_SA_controlBumpPeakDuration);
+            AddParamListItem("Stim Angle ", "P15", "Behavior Stim Angle", textBox_SA_controlBumpRiseTime);
+            AddParamListItem("Stim Angle ", "P16", "Behavior Stim Angle", textBox_SA_controlBumpAmplitude);
+
+            //Ref Bump
+            AddParamListItem("Stim Angle ", "P17", "Behavior Stim Angle", textBox_SA_refBumpPeakDuration);
+            AddParamListItem("Stim Angle ", "P18", "Behavior Stim Angle", textBox_SA_refBumpRiseTime);
+            AddParamListItem("Stim Angle ", "P19", "Behavior Stim Angle", textBox_SA_refBumpAmplitude);
+
+            //Electrodes
+            AddParamListItem("Stim Angle ", "P20", "Behavior Stim Angle", textBox_SA_stimFreq);
+            AddParamListItem("Stim Angle ", "P21", "Behavior Stim Angle", checkBox_SA_useElec1);
+            AddParamListItem("Stim Angle ", "P22", "Behavior Stim Angle", textBox_SA_elec1PD);
+            
+            AddParamListItem("Stim Angle ", "P23", "Behavior Stim Angle", checkBox_SA_useElec2);
+            AddParamListItem("Stim Angle ", "P24", "Behavior Stim Angle", textBox_SA_elec2PD);
+
+            AddParamListItem("Stim Angle ", "P25", "Behavior Stim Angle", checkBox_SA_useElec3);
+            AddParamListItem("Stim Angle ", "P26", "Behavior Stim Angle", textBox_SA_elec3PD);
+
+            AddParamListItem("Stim Angle ", "P27", "Behavior Stim Angle", checkBoxSA_useElec4);
+            AddParamListItem("Stim Angle ", "P28", "Behavior Stim Angle", textBox_SA_elec4PD);
+
+            AddParamListItem("Stim Angle ", "P29", "Behavior Stim Angle", checkBoxSA_useElec5);
+            AddParamListItem("Stim Angle ", "P30", "Behavior Stim Angle", textBox_SA_elec5PD);
+
+            AddParamListItem("Stim Angle ", "P31", "Behavior Stim Angle", checkBoxSA_useElec6);
+            AddParamListItem("Stim Angle ", "P32", "Behavior Stim Angle", textBox_SA_elec6PD);
+
+            AddParamListItem("Stim Angle ", "P33", "Behavior Stim Angle", checkBox_SA_useElec7);
+            AddParamListItem("Stim Angle ", "P34", "Behavior Stim Angle", textBox_SA_elec7PD);
+
+            AddParamListItem("Stim Angle ", "P35", "Behavior Stim Angle", checkBox_SA_useElec8);
+            AddParamListItem("Stim Angle ", "P36", "Behavior Stim Angle", textBox_SA_elec8PD);
+
+            //Staircases
+            AddParamListItem("Stim Angle ", "P37", "Behavior Stim Angle", textBox_SA_stepSize);
+            AddParamListItem("Stim Angle ", "P38", "Behavior Stim Angle", textBox_SA_centerAngle);
+            AddParamListItem("Stim Angle ", "P39", "Behavior Stim Angle", checkBox_SA_useLimits);
+            AddParamListItem("Stim Angle ", "P40", "Behavior Stim Angle", checkBox_SA_runSC1);
+            AddParamListItem("Stim Angle ", "P41", "Behavior Stim Angle", textBox_SA_SC1start);
+            AddParamListItem("Stim Angle ", "P42", "Behavior Stim Angle", textBox_SA_SC1ratio);
+            AddParamListItem("Stim Angle ", "P43", "Behavior Stim Angle", textBox_SA_SC1lowlim);
+            AddParamListItem("Stim Angle ", "P44", "Behavior Stim Angle", textBox_SA_SC1highlim);
+            
+            AddParamListItem("Stim Angle ", "P45", "Behavior Stim Angle", checkBox_SA_runSC2);
+            AddParamListItem("Stim Angle ", "P46", "Behavior Stim Angle", textBox_SA_SC2start);
+            AddParamListItem("Stim Angle ", "P47", "Behavior Stim Angle", textBox_SA_SC2ratio);
+            AddParamListItem("Stim Angle ", "P48", "Behavior Stim Angle", textBox_SA_SC2lowlim);
+            AddParamListItem("Stim Angle ", "P49", "Behavior Stim Angle", textBox_SA_SC2highlim);
+
+            AddParamListItem("Stim Angle ", "P50", "Behavior Stim Angle", checkBox_SA_runSC3);
+            AddParamListItem("Stim Angle ", "P51", "Behavior Stim Angle", textBox_SA_SC3start);
+            AddParamListItem("Stim Angle ", "P52", "Behavior Stim Angle", textBox_SA_SC3ratio);
+            AddParamListItem("Stim Angle ", "P53", "Behavior Stim Angle", textBox_SA_SC3lowlim);
+            AddParamListItem("Stim Angle ", "P54", "Behavior Stim Angle", textBox_SA_SC3highlim);
+
+            AddParamListItem("Stim Angle ", "P55", "Behavior Stim Angle", checkBox_SA_runSC4);
+            AddParamListItem("Stim Angle ", "P56", "Behavior Stim Angle", textBox_SA_SC4start);
+            AddParamListItem("Stim Angle ", "P57", "Behavior Stim Angle", textBox_SA_SC4ratio);
+            AddParamListItem("Stim Angle ", "P58", "Behavior Stim Angle", textBox_SA_SC4lowlim);
+            AddParamListItem("Stim Angle ", "P59", "Behavior Stim Angle", textBox_SA_SC4highlim);
+
+            #endregion
+
             #region CO Bump
 
             AddParamListItem("COB target size", "P3", "Behavior CO Bump", textBox_ctr_out_bump_TargetRadius);
@@ -1804,7 +1888,6 @@ namespace BehaviorGraphics
             LabList ll = LabList.FromXML();
             LabSpecification ls = ll.GetLabSpecification(lab);
             ls.SendToTarget(target);
-
             // Update the status bar
             GetStatus();
         }
@@ -2853,6 +2936,7 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
+
 
 
     }

@@ -4,6 +4,11 @@
   <LabConfig lab="1">
     <LabParamList>
       <LabParam>
+        <Block>XY Position Subsystem/LabNumber</Block>
+        <Name>Lab_number</Name>
+        <Value>1</Value>
+      </LabParam>
+      <LabParam>
         <Block>Motor Control/MG1</Block>
         <Name>Gain</Name>
         <Value>-1</Value>
@@ -108,6 +113,11 @@
   <LabConfig lab="2">
     <LabParamList>
       <LabParam>
+        <Block>XY Position Subsystem/LabNumber</Block>
+        <Name>Lab_number</Name>
+        <Value>2</Value>
+      </LabParam>
+      <LabParam>
         <Block>Motor Control/MG1</Block>
         <Name>Gain</Name>
         <Value>-1</Value>
@@ -211,6 +221,11 @@
   </LabConfig>
   <LabConfig lab="3">
     <LabParamList>
+      <LabParam>
+        <Block>XY Position Subsystem/LabNumber</Block>
+        <Name>Lab_number</Name>
+        <Value>3</Value>
+      </LabParam>
       <LabParam>
         <Block>Motor Control/MG1</Block>
         <Name>Gain</Name>
@@ -317,6 +332,11 @@
   <!-- This is a dummy entry. There is no need for these parameters in Lab 4. -->
     <LabParamList>
       <LabParam>
+        <Block>XY Position Subsystem/LabNumber</Block>
+        <Name>Lab_number</Name>
+        <Value>4</Value>
+      </LabParam>
+      <LabParam>
         <Block>Motor Control/MG1</Block>
         <Name>Gain</Name>
         <Value>0</Value>
@@ -420,6 +440,11 @@
   </LabConfig>
   <LabConfig lab="6">
     <LabParamList>
+      <LabParam>
+        <Block>XY Position Subsystem/LabNumber</Block>
+        <Name>Lab_number</Name>
+        <Value>6</Value>
+      </LabParam>
       <LabParam>
         <Block>Motor Control/MG1</Block>
         <Name>Gain</Name>

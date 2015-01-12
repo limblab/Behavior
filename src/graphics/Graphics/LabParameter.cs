@@ -87,14 +87,12 @@ namespace BehaviorGraphics
             set
             {
                 if (value == null) return;
-                
                 LabParam[] lpa = (LabParam[])value;
                 if (parameters != null) {
                     parameters.Clear();
                 } else {
                     parameters = new List<LabParam>();
                 }
-
                 foreach (LabParam lp in lpa) {
                     parameters.Add(lp);
                 }

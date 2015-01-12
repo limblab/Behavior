@@ -29,12 +29,17 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
             this.tabPageGen = new System.Windows.Forms.TabPage();
+            this.groupBoxIsometric = new System.Windows.Forms.GroupBox();
+            this.labelF2SG = new System.Windows.Forms.Label();
+            this.textBoxF2SG = new System.Windows.Forms.TextBox();
+            this.checkBoxUSDH = new System.Windows.Forms.CheckBox();
+            this.checkBoxIM = new System.Windows.Forms.CheckBox();
             this.groupBox71 = new System.Windows.Forms.GroupBox();
             this.labelMinutes = new System.Windows.Forms.Label();
             this.labelRecordFor = new System.Windows.Forms.Label();
@@ -1578,6 +1583,121 @@ namespace BehaviorGraphics
             this.textBoxCC_MovementLength = new System.Windows.Forms.TextBox();
             this.label418 = new System.Windows.Forms.Label();
             this.label419 = new System.Windows.Forms.Label();
+            this.tabPageSA = new System.Windows.Forms.TabPage();
+            this.groupBox_SA_cursor = new System.Windows.Forms.GroupBox();
+            this.checkBox_SA_abortDuringBump = new System.Windows.Forms.CheckBox();
+            this.checkBox_SA_recenterAfterBump = new System.Windows.Forms.CheckBox();
+            this.checkBox_SA_hideDuringBump = new System.Windows.Forms.CheckBox();
+            this.groupBox_SA_RefBump = new System.Windows.Forms.GroupBox();
+            this.textBox_SA_refBumpAmplitude = new System.Windows.Forms.TextBox();
+            this.textBox_SA_refBumpRiseTime = new System.Windows.Forms.TextBox();
+            this.label_SA_RefBumpAmplitude = new System.Windows.Forms.Label();
+            this.label_SA_RefBumpRiseTime = new System.Windows.Forms.Label();
+            this.label_SA_RefBumpPeakDuration = new System.Windows.Forms.Label();
+            this.textBox_SA_refBumpPeakDuration = new System.Windows.Forms.TextBox();
+            this.groupBox_SA_targets = new System.Windows.Forms.GroupBox();
+            this.textBox_SA_tgtRadius = new System.Windows.Forms.TextBox();
+            this.textBox_SA_bigTarget = new System.Windows.Forms.TextBox();
+            this.label_SA_tgtradius = new System.Windows.Forms.Label();
+            this.label_SA_bigtgt = new System.Windows.Forms.Label();
+            this.label_SA_tgtsize = new System.Windows.Forms.Label();
+            this.textBox_SA_tgtSize = new System.Windows.Forms.TextBox();
+            this.groupBoxSA_staircases = new System.Windows.Forms.GroupBox();
+            this.textBox_SA_centerAngle = new System.Windows.Forms.TextBox();
+            this.label_SA_centerangle = new System.Windows.Forms.Label();
+            this.textBox_SA_stepSize = new System.Windows.Forms.TextBox();
+            this.label_SA_stepsize = new System.Windows.Forms.Label();
+            this.checkBox_SA_useLimits = new System.Windows.Forms.CheckBox();
+            this.textBox_SA_SC4lowlim = new System.Windows.Forms.TextBox();
+            this.label_SA_SC4lowlim = new System.Windows.Forms.Label();
+            this.textBox_SA_SC4ratio = new System.Windows.Forms.TextBox();
+            this.label_SA_SC4ratio = new System.Windows.Forms.Label();
+            this.textBox_SA_SC4highlim = new System.Windows.Forms.TextBox();
+            this.label_SA_SC4highlim = new System.Windows.Forms.Label();
+            this.checkBox_SA_runSC4 = new System.Windows.Forms.CheckBox();
+            this.textBox_SA_SC4start = new System.Windows.Forms.TextBox();
+            this.label_SA_SC4start = new System.Windows.Forms.Label();
+            this.textBox_SA_SC3lowlim = new System.Windows.Forms.TextBox();
+            this.label_SA_SC3lowlim = new System.Windows.Forms.Label();
+            this.textBox_SA_SC3ratio = new System.Windows.Forms.TextBox();
+            this.label_SA_SC3ratio = new System.Windows.Forms.Label();
+            this.textBox_SA_SC3highlim = new System.Windows.Forms.TextBox();
+            this.label_SA_SC3highlim = new System.Windows.Forms.Label();
+            this.checkBox_SA_runSC3 = new System.Windows.Forms.CheckBox();
+            this.textBox_SA_SC3start = new System.Windows.Forms.TextBox();
+            this.label_SA_SC3start = new System.Windows.Forms.Label();
+            this.textBox_SA_SC2lowlim = new System.Windows.Forms.TextBox();
+            this.label_SA_SC2lowlim = new System.Windows.Forms.Label();
+            this.textBox_SA_SC2ratio = new System.Windows.Forms.TextBox();
+            this.label_SA_SC2ratio = new System.Windows.Forms.Label();
+            this.textBox_SA_SC2highlim = new System.Windows.Forms.TextBox();
+            this.label_SA_SC2highlim = new System.Windows.Forms.Label();
+            this.checkBox_SA_runSC2 = new System.Windows.Forms.CheckBox();
+            this.textBox_SA_SC2start = new System.Windows.Forms.TextBox();
+            this.label_SA_SC2start = new System.Windows.Forms.Label();
+            this.textBox_SA_SC1lowlim = new System.Windows.Forms.TextBox();
+            this.label_SA_SC1lowlim = new System.Windows.Forms.Label();
+            this.textBox_SA_SC1ratio = new System.Windows.Forms.TextBox();
+            this.label_SA_SC1ratio = new System.Windows.Forms.Label();
+            this.textBox_SA_SC1highlim = new System.Windows.Forms.TextBox();
+            this.label_SA_SC1highlim = new System.Windows.Forms.Label();
+            this.checkBox_SA_runSC1 = new System.Windows.Forms.CheckBox();
+            this.CTHoldlabel = new System.Windows.Forms.Label();
+            this.textBox_SA_SC1start = new System.Windows.Forms.TextBox();
+            this.label_SA_SC1start = new System.Windows.Forms.Label();
+            this.groupBoxSA_electrodes = new System.Windows.Forms.GroupBox();
+            this.textBox_SA_stimFreq = new System.Windows.Forms.TextBox();
+            this.label_SA_stim_freq = new System.Windows.Forms.Label();
+            this.checkBox_SA_useElec8 = new System.Windows.Forms.CheckBox();
+            this.textBox_SA_elec8PD = new System.Windows.Forms.TextBox();
+            this.label_SA_elec8PD = new System.Windows.Forms.Label();
+            this.checkBox_SA_useElec7 = new System.Windows.Forms.CheckBox();
+            this.textBox_SA_elec7PD = new System.Windows.Forms.TextBox();
+            this.label_SA_elec7PD = new System.Windows.Forms.Label();
+            this.checkBoxSA_useElec6 = new System.Windows.Forms.CheckBox();
+            this.textBox_SA_elec6PD = new System.Windows.Forms.TextBox();
+            this.label_SA_elec6PD = new System.Windows.Forms.Label();
+            this.checkBoxSA_useElec5 = new System.Windows.Forms.CheckBox();
+            this.textBox_SA_elec5PD = new System.Windows.Forms.TextBox();
+            this.label_SA_elec5PD = new System.Windows.Forms.Label();
+            this.checkBox_SA_useElec3 = new System.Windows.Forms.CheckBox();
+            this.textBox_SA_elec3PD = new System.Windows.Forms.TextBox();
+            this.label_SA_elec3PD = new System.Windows.Forms.Label();
+            this.checkBox_SA_useElec2 = new System.Windows.Forms.CheckBox();
+            this.textBox_SA_elec2PD = new System.Windows.Forms.TextBox();
+            this.label_SA_elec2PD = new System.Windows.Forms.Label();
+            this.checkBoxSA_useElec4 = new System.Windows.Forms.CheckBox();
+            this.textBox_SA_elec4PD = new System.Windows.Forms.TextBox();
+            this.label_SA_elec4PD = new System.Windows.Forms.Label();
+            this.checkBox_SA_useElec1 = new System.Windows.Forms.CheckBox();
+            this.label_SA_unknown = new System.Windows.Forms.Label();
+            this.textBox_SA_elec1PD = new System.Windows.Forms.TextBox();
+            this.label_SA_elec1PD = new System.Windows.Forms.Label();
+            this.groupBox_SA_controlBump = new System.Windows.Forms.GroupBox();
+            this.textBox_SA_controlBumpAmplitude = new System.Windows.Forms.TextBox();
+            this.textBox_SA_controlBumpRiseTime = new System.Windows.Forms.TextBox();
+            this.label_SA_ControlBumpAmplitude = new System.Windows.Forms.Label();
+            this.label_SA_ControlBumpRiseTime = new System.Windows.Forms.Label();
+            this.label_SA_ControlBumpPeakDuration = new System.Windows.Forms.Label();
+            this.textBox_SA_controlBumpPeakDuration = new System.Windows.Forms.TextBox();
+            this.groupBox_SA_timing = new System.Windows.Forms.GroupBox();
+            this.SA_penalty_label = new System.Windows.Forms.Label();
+            this.textBox_SA_penaltyTime = new System.Windows.Forms.TextBox();
+            this.textBox_SA_intertrial = new System.Windows.Forms.TextBox();
+            this.label_SA_intertrial = new System.Windows.Forms.Label();
+            this.textBox_SA_bumpHold = new System.Windows.Forms.TextBox();
+            this.textBox_SA_bumpDelay = new System.Windows.Forms.TextBox();
+            this.label_SA_BumpHold = new System.Windows.Forms.Label();
+            this.label_SA_BumpDelay = new System.Windows.Forms.Label();
+            this.label_SA_CTHold = new System.Windows.Forms.Label();
+            this.textBox_SA_CThold = new System.Windows.Forms.TextBox();
+            this.label_cthold = new System.Windows.Forms.Label();
+            this.label409 = new System.Windows.Forms.Label();
+            this.label365 = new System.Windows.Forms.Label();
+            this.label388 = new System.Windows.Forms.Label();
+            this.label389 = new System.Windows.Forms.Label();
+            this.label390 = new System.Windows.Forms.Label();
+            this.label391 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelMdl = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -1652,6 +1772,24 @@ namespace BehaviorGraphics
             this.textBox80 = new System.Windows.Forms.TextBox();
             this.textBox82 = new System.Windows.Forms.TextBox();
             this.textBox84 = new System.Windows.Forms.TextBox();
+            this.checkBox_recenter_cursor = new System.Windows.Forms.CheckBox();
+            this.checkBox_SA_Target_during_bump = new System.Windows.Forms.CheckBox();
+            this.textBox_training_freq = new System.Windows.Forms.TextBox();
+            this.checkBox_random_targets = new System.Windows.Forms.CheckBox();
+            this.textBox_SA_stim_levels = new System.Windows.Forms.TextBox();
+            this.textBox_SA_angle_step = new System.Windows.Forms.TextBox();
+            this.checkBox12 = new System.Windows.Forms.CheckBox();
+            this.textBox_angle_step2 = new System.Windows.Forms.TextBox();
+            this.textBox_max_angle = new System.Windows.Forms.TextBox();
+            this.textBox_min_angle = new System.Windows.Forms.TextBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.textBox32 = new System.Windows.Forms.TextBox();
+            this.checkBox10 = new System.Windows.Forms.CheckBox();
+            this.textBox38 = new System.Windows.Forms.TextBox();
+            this.textBox40 = new System.Windows.Forms.TextBox();
+            this.textBox41 = new System.Windows.Forms.TextBox();
+            this.textBox43 = new System.Windows.Forms.TextBox();
+            this.textBox45 = new System.Windows.Forms.TextBox();
             this.label143 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
@@ -1706,8 +1844,6 @@ namespace BehaviorGraphics
             this.label331 = new System.Windows.Forms.Label();
             this.label351 = new System.Windows.Forms.Label();
             this.label356 = new System.Windows.Forms.Label();
-            this.textBox32 = new System.Windows.Forms.TextBox();
-            this.label365 = new System.Windows.Forms.Label();
             this.textBox33 = new System.Windows.Forms.TextBox();
             this.label366 = new System.Windows.Forms.Label();
             this.angleEntryBox1 = new AngleBox.AngleEntryBox();
@@ -1718,24 +1854,18 @@ namespace BehaviorGraphics
             this.label370 = new System.Windows.Forms.Label();
             this.textBox37 = new System.Windows.Forms.TextBox();
             this.label371 = new System.Windows.Forms.Label();
-            this.textBox38 = new System.Windows.Forms.TextBox();
             this.label372 = new System.Windows.Forms.Label();
             this.textBox39 = new System.Windows.Forms.TextBox();
             this.label373 = new System.Windows.Forms.Label();
-            this.textBox40 = new System.Windows.Forms.TextBox();
             this.label374 = new System.Windows.Forms.Label();
             this.label375 = new System.Windows.Forms.Label();
-            this.textBox41 = new System.Windows.Forms.TextBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.textBox42 = new System.Windows.Forms.TextBox();
             this.label376 = new System.Windows.Forms.Label();
             this.label377 = new System.Windows.Forms.Label();
-            this.textBox43 = new System.Windows.Forms.TextBox();
             this.label378 = new System.Windows.Forms.Label();
             this.label379 = new System.Windows.Forms.Label();
             this.textBox44 = new System.Windows.Forms.TextBox();
             this.label380 = new System.Windows.Forms.Label();
-            this.textBox45 = new System.Windows.Forms.TextBox();
             this.label381 = new System.Windows.Forms.Label();
             this.textBox46 = new System.Windows.Forms.TextBox();
             this.label384 = new System.Windows.Forms.Label();
@@ -1750,12 +1880,8 @@ namespace BehaviorGraphics
             this.textBox54 = new System.Windows.Forms.TextBox();
             this.textBox55 = new System.Windows.Forms.TextBox();
             this.label387 = new System.Windows.Forms.Label();
-            this.label388 = new System.Windows.Forms.Label();
-            this.label389 = new System.Windows.Forms.Label();
             this.textBox56 = new System.Windows.Forms.TextBox();
-            this.label390 = new System.Windows.Forms.Label();
             this.textBox57 = new System.Windows.Forms.TextBox();
-            this.label391 = new System.Windows.Forms.Label();
             this.label392 = new System.Windows.Forms.Label();
             this.angleEntryBox2 = new AngleBox.AngleEntryBox();
             this.textBox58 = new System.Windows.Forms.TextBox();
@@ -1770,7 +1896,6 @@ namespace BehaviorGraphics
             this.textBox63 = new System.Windows.Forms.TextBox();
             this.label398 = new System.Windows.Forms.Label();
             this.textBox64 = new System.Windows.Forms.TextBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.checkBox11 = new System.Windows.Forms.CheckBox();
             this.label399 = new System.Windows.Forms.Label();
             this.textBox65 = new System.Windows.Forms.TextBox();
@@ -1790,7 +1915,6 @@ namespace BehaviorGraphics
             this.label406 = new System.Windows.Forms.Label();
             this.label407 = new System.Windows.Forms.Label();
             this.label408 = new System.Windows.Forms.Label();
-            this.label409 = new System.Windows.Forms.Label();
             this.label411 = new System.Windows.Forms.Label();
             this.label413 = new System.Windows.Forms.Label();
             this.label420 = new System.Windows.Forms.Label();
@@ -1803,13 +1927,47 @@ namespace BehaviorGraphics
             this.label428 = new System.Windows.Forms.Label();
             this.label429 = new System.Windows.Forms.Label();
             this.textBox85 = new System.Windows.Forms.TextBox();
-            this.groupBoxIsometric = new System.Windows.Forms.GroupBox();
-            this.checkBoxIM = new System.Windows.Forms.CheckBox();
-            this.checkBoxUSDH = new System.Windows.Forms.CheckBox();
-            this.textBoxF2SG = new System.Windows.Forms.TextBox();
-            this.labelF2SG = new System.Windows.Forms.Label();
+            this.checkBox_hide_cursor = new System.Windows.Forms.CheckBox();
+            this.label_target_angle_floor = new System.Windows.Forms.Label();
+            this.label_target_angle_ceiling = new System.Windows.Forms.Label();
+            this.textBox33b = new System.Windows.Forms.TextBox();
+            this.textBox_SA_34 = new System.Windows.Forms.TextBox();
+            this.label_Big_target = new System.Windows.Forms.Label();
+            this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
+            this.label_target_distance = new System.Windows.Forms.Label();
+            this.textBox35b = new System.Windows.Forms.TextBox();
+            this.textBox36b = new System.Windows.Forms.TextBox();
+            this.label_angle = new System.Windows.Forms.Label();
+            this.label_target_radius = new System.Windows.Forms.Label();
+            this.textBox37b = new System.Windows.Forms.TextBox();
+            this.checkBox_use_green_target = new System.Windows.Forms.CheckBox();
+            this.label_SA_stim_levels = new System.Windows.Forms.Label();
+            this.label_SA_stim_prob = new System.Windows.Forms.Label();
+            this.textBox39b = new System.Windows.Forms.TextBox();
+            this.label_SA_catch_rate = new System.Windows.Forms.Label();
+            this.label_SA_bump_incriment = new System.Windows.Forms.Label();
+            this.label_rand_bump_ceiling = new System.Windows.Forms.Label();
+            this.textBox42b = new System.Windows.Forms.TextBox();
+            this.label_rand_bump_floor = new System.Windows.Forms.Label();
+            this.textBox44b = new System.Windows.Forms.TextBox();
+            this.label_amplitude = new System.Windows.Forms.Label();
+            this.label_SA_rise_time = new System.Windows.Forms.Label();
+            this.label_peak_duration = new System.Windows.Forms.Label();
+            this.textBox46b = new System.Windows.Forms.TextBox();
+            this.label_penalty = new System.Windows.Forms.Label();
+            this.textBox47b = new System.Windows.Forms.TextBox();
+            this.textBox48b = new System.Windows.Forms.TextBox();
+            this.label_intertrial = new System.Windows.Forms.Label();
+            this.textBox49b = new System.Windows.Forms.TextBox();
+            this.textBox50b = new System.Windows.Forms.TextBox();
+            this.label_bump_hold = new System.Windows.Forms.Label();
+            this.label_bump_delay = new System.Windows.Forms.Label();
+            this.label_CT_hold = new System.Windows.Forms.Label();
+            this.textBox52b = new System.Windows.Forms.TextBox();
+            this.label_CT_hold2 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
+            this.groupBoxIsometric.SuspendLayout();
             this.groupBox71.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.groupBox27.SuspendLayout();
@@ -1992,6 +2150,14 @@ namespace BehaviorGraphics
             this.groupBox82.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCC_numCOtargs)).BeginInit();
             this.groupBox81.SuspendLayout();
+            this.tabPageSA.SuspendLayout();
+            this.groupBox_SA_cursor.SuspendLayout();
+            this.groupBox_SA_RefBump.SuspendLayout();
+            this.groupBox_SA_targets.SuspendLayout();
+            this.groupBoxSA_staircases.SuspendLayout();
+            this.groupBoxSA_electrodes.SuspendLayout();
+            this.groupBox_SA_controlBump.SuspendLayout();
+            this.groupBox_SA_timing.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -2000,7 +2166,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBoxIsometric.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -2056,6 +2221,7 @@ namespace BehaviorGraphics
             this.tabs.Controls.Add(this.tabUnstableReach);
             this.tabs.Controls.Add(this.tabPageResist);
             this.tabs.Controls.Add(this.tabPage6);
+            this.tabs.Controls.Add(this.tabPageSA);
             this.tabs.Location = new System.Drawing.Point(0, 27);
             this.tabs.Multiline = true;
             this.tabs.Name = "tabs";
@@ -2091,6 +2257,58 @@ namespace BehaviorGraphics
             this.tabPageGen.Text = "General";
             this.tabPageGen.UseVisualStyleBackColor = true;
             this.tabPageGen.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tabPageGen_MouseDoubleClick);
+            // 
+            // groupBoxIsometric
+            // 
+            this.groupBoxIsometric.Controls.Add(this.labelF2SG);
+            this.groupBoxIsometric.Controls.Add(this.textBoxF2SG);
+            this.groupBoxIsometric.Controls.Add(this.checkBoxUSDH);
+            this.groupBoxIsometric.Controls.Add(this.checkBoxIM);
+            this.groupBoxIsometric.Location = new System.Drawing.Point(465, 298);
+            this.groupBoxIsometric.Name = "groupBoxIsometric";
+            this.groupBoxIsometric.Size = new System.Drawing.Size(200, 100);
+            this.groupBoxIsometric.TabIndex = 27;
+            this.groupBoxIsometric.TabStop = false;
+            this.groupBoxIsometric.Text = "Isometric Robot";
+            // 
+            // labelF2SG
+            // 
+            this.labelF2SG.AutoSize = true;
+            this.labelF2SG.Location = new System.Drawing.Point(11, 69);
+            this.labelF2SG.Name = "labelF2SG";
+            this.labelF2SG.Size = new System.Drawing.Size(104, 13);
+            this.labelF2SG.TabIndex = 3;
+            this.labelF2SG.Text = "Force to screen gain";
+            this.toolTip1.SetToolTip(this.labelF2SG, "in cm/N");
+            // 
+            // textBoxF2SG
+            // 
+            this.textBoxF2SG.Location = new System.Drawing.Point(124, 66);
+            this.textBoxF2SG.Name = "textBoxF2SG";
+            this.textBoxF2SG.Size = new System.Drawing.Size(67, 20);
+            this.textBoxF2SG.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.textBoxF2SG, "in cm/N");
+            this.textBoxF2SG.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // checkBoxUSDH
+            // 
+            this.checkBoxUSDH.AutoSize = true;
+            this.checkBoxUSDH.Location = new System.Drawing.Point(11, 43);
+            this.checkBoxUSDH.Name = "checkBoxUSDH";
+            this.checkBoxUSDH.Size = new System.Drawing.Size(123, 17);
+            this.checkBoxUSDH.TabIndex = 1;
+            this.checkBoxUSDH.Text = "Upside-down handle";
+            this.checkBoxUSDH.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxIM
+            // 
+            this.checkBoxIM.AutoSize = true;
+            this.checkBoxIM.Location = new System.Drawing.Point(11, 20);
+            this.checkBoxIM.Name = "checkBoxIM";
+            this.checkBoxIM.Size = new System.Drawing.Size(97, 17);
+            this.checkBoxIM.TabIndex = 0;
+            this.checkBoxIM.Text = "Isometric mode";
+            this.checkBoxIM.UseVisualStyleBackColor = true;
             // 
             // groupBox71
             // 
@@ -4860,8 +5078,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5693,8 +5911,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -17849,6 +18067,1115 @@ namespace BehaviorGraphics
             this.label419.TabIndex = 20;
             this.label419.Text = "Movement Length";
             // 
+            // tabPageSA
+            // 
+            this.tabPageSA.Controls.Add(this.groupBox_SA_cursor);
+            this.tabPageSA.Controls.Add(this.groupBox_SA_RefBump);
+            this.tabPageSA.Controls.Add(this.groupBox_SA_targets);
+            this.tabPageSA.Controls.Add(this.groupBoxSA_staircases);
+            this.tabPageSA.Controls.Add(this.groupBoxSA_electrodes);
+            this.tabPageSA.Controls.Add(this.groupBox_SA_controlBump);
+            this.tabPageSA.Controls.Add(this.groupBox_SA_timing);
+            this.tabPageSA.Location = new System.Drawing.Point(4, 58);
+            this.tabPageSA.Name = "tabPageSA";
+            this.tabPageSA.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSA.Size = new System.Drawing.Size(686, 437);
+            this.tabPageSA.TabIndex = 22;
+            this.tabPageSA.Text = "StimAngle";
+            this.tabPageSA.UseVisualStyleBackColor = true;
+            // 
+            // groupBox_SA_cursor
+            // 
+            this.groupBox_SA_cursor.Controls.Add(this.checkBox_SA_abortDuringBump);
+            this.groupBox_SA_cursor.Controls.Add(this.checkBox_SA_recenterAfterBump);
+            this.groupBox_SA_cursor.Controls.Add(this.checkBox_SA_hideDuringBump);
+            this.groupBox_SA_cursor.Location = new System.Drawing.Point(163, 116);
+            this.groupBox_SA_cursor.Name = "groupBox_SA_cursor";
+            this.groupBox_SA_cursor.Size = new System.Drawing.Size(153, 98);
+            this.groupBox_SA_cursor.TabIndex = 128;
+            this.groupBox_SA_cursor.TabStop = false;
+            this.groupBox_SA_cursor.Text = "Cursor";
+            // 
+            // checkBox_SA_abortDuringBump
+            // 
+            this.checkBox_SA_abortDuringBump.AutoSize = true;
+            this.checkBox_SA_abortDuringBump.Location = new System.Drawing.Point(9, 64);
+            this.checkBox_SA_abortDuringBump.Name = "checkBox_SA_abortDuringBump";
+            this.checkBox_SA_abortDuringBump.Size = new System.Drawing.Size(111, 17);
+            this.checkBox_SA_abortDuringBump.TabIndex = 142;
+            this.checkBox_SA_abortDuringBump.Text = "abort during bump";
+            this.toolTip1.SetToolTip(this.checkBox_SA_abortDuringBump, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_SA_abortDuringBump.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_SA_recenterAfterBump
+            // 
+            this.checkBox_SA_recenterAfterBump.AutoSize = true;
+            this.checkBox_SA_recenterAfterBump.Location = new System.Drawing.Point(9, 41);
+            this.checkBox_SA_recenterAfterBump.Name = "checkBox_SA_recenterAfterBump";
+            this.checkBox_SA_recenterAfterBump.Size = new System.Drawing.Size(118, 17);
+            this.checkBox_SA_recenterAfterBump.TabIndex = 141;
+            this.checkBox_SA_recenterAfterBump.Text = "recenter after bump";
+            this.toolTip1.SetToolTip(this.checkBox_SA_recenterAfterBump, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_SA_recenterAfterBump.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_SA_hideDuringBump
+            // 
+            this.checkBox_SA_hideDuringBump.AutoSize = true;
+            this.checkBox_SA_hideDuringBump.Location = new System.Drawing.Point(9, 18);
+            this.checkBox_SA_hideDuringBump.Name = "checkBox_SA_hideDuringBump";
+            this.checkBox_SA_hideDuringBump.Size = new System.Drawing.Size(107, 17);
+            this.checkBox_SA_hideDuringBump.TabIndex = 140;
+            this.checkBox_SA_hideDuringBump.Text = "hide during bump";
+            this.toolTip1.SetToolTip(this.checkBox_SA_hideDuringBump, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_SA_hideDuringBump.UseVisualStyleBackColor = true;
+            // 
+            // groupBox_SA_RefBump
+            // 
+            this.groupBox_SA_RefBump.Controls.Add(this.textBox_SA_refBumpAmplitude);
+            this.groupBox_SA_RefBump.Controls.Add(this.textBox_SA_refBumpRiseTime);
+            this.groupBox_SA_RefBump.Controls.Add(this.label_SA_RefBumpAmplitude);
+            this.groupBox_SA_RefBump.Controls.Add(this.label_SA_RefBumpRiseTime);
+            this.groupBox_SA_RefBump.Controls.Add(this.label_SA_RefBumpPeakDuration);
+            this.groupBox_SA_RefBump.Controls.Add(this.textBox_SA_refBumpPeakDuration);
+            this.groupBox_SA_RefBump.Location = new System.Drawing.Point(322, 116);
+            this.groupBox_SA_RefBump.Name = "groupBox_SA_RefBump";
+            this.groupBox_SA_RefBump.Size = new System.Drawing.Size(153, 98);
+            this.groupBox_SA_RefBump.TabIndex = 15;
+            this.groupBox_SA_RefBump.TabStop = false;
+            this.groupBox_SA_RefBump.Text = "Reference Bump";
+            // 
+            // textBox_SA_refBumpAmplitude
+            // 
+            this.textBox_SA_refBumpAmplitude.Location = new System.Drawing.Point(87, 73);
+            this.textBox_SA_refBumpAmplitude.Name = "textBox_SA_refBumpAmplitude";
+            this.textBox_SA_refBumpAmplitude.Size = new System.Drawing.Size(56, 20);
+            this.textBox_SA_refBumpAmplitude.TabIndex = 14;
+            // 
+            // textBox_SA_refBumpRiseTime
+            // 
+            this.textBox_SA_refBumpRiseTime.Location = new System.Drawing.Point(87, 45);
+            this.textBox_SA_refBumpRiseTime.Name = "textBox_SA_refBumpRiseTime";
+            this.textBox_SA_refBumpRiseTime.Size = new System.Drawing.Size(56, 20);
+            this.textBox_SA_refBumpRiseTime.TabIndex = 13;
+            // 
+            // label_SA_RefBumpAmplitude
+            // 
+            this.label_SA_RefBumpAmplitude.AutoSize = true;
+            this.label_SA_RefBumpAmplitude.Location = new System.Drawing.Point(6, 76);
+            this.label_SA_RefBumpAmplitude.Name = "label_SA_RefBumpAmplitude";
+            this.label_SA_RefBumpAmplitude.Size = new System.Drawing.Size(53, 13);
+            this.label_SA_RefBumpAmplitude.TabIndex = 12;
+            this.label_SA_RefBumpAmplitude.Text = "Amplitude";
+            // 
+            // label_SA_RefBumpRiseTime
+            // 
+            this.label_SA_RefBumpRiseTime.AutoSize = true;
+            this.label_SA_RefBumpRiseTime.Location = new System.Drawing.Point(6, 48);
+            this.label_SA_RefBumpRiseTime.Name = "label_SA_RefBumpRiseTime";
+            this.label_SA_RefBumpRiseTime.Size = new System.Drawing.Size(54, 13);
+            this.label_SA_RefBumpRiseTime.TabIndex = 11;
+            this.label_SA_RefBumpRiseTime.Text = "Rise Time";
+            // 
+            // label_SA_RefBumpPeakDuration
+            // 
+            this.label_SA_RefBumpPeakDuration.AutoSize = true;
+            this.label_SA_RefBumpPeakDuration.Location = new System.Drawing.Point(6, 22);
+            this.label_SA_RefBumpPeakDuration.Name = "label_SA_RefBumpPeakDuration";
+            this.label_SA_RefBumpPeakDuration.Size = new System.Drawing.Size(75, 13);
+            this.label_SA_RefBumpPeakDuration.TabIndex = 10;
+            this.label_SA_RefBumpPeakDuration.Text = "Peak Duration";
+            // 
+            // textBox_SA_refBumpPeakDuration
+            // 
+            this.textBox_SA_refBumpPeakDuration.Location = new System.Drawing.Point(87, 19);
+            this.textBox_SA_refBumpPeakDuration.Name = "textBox_SA_refBumpPeakDuration";
+            this.textBox_SA_refBumpPeakDuration.Size = new System.Drawing.Size(56, 20);
+            this.textBox_SA_refBumpPeakDuration.TabIndex = 9;
+            // 
+            // groupBox_SA_targets
+            // 
+            this.groupBox_SA_targets.Controls.Add(this.textBox_SA_tgtRadius);
+            this.groupBox_SA_targets.Controls.Add(this.textBox_SA_bigTarget);
+            this.groupBox_SA_targets.Controls.Add(this.label_SA_tgtradius);
+            this.groupBox_SA_targets.Controls.Add(this.label_SA_bigtgt);
+            this.groupBox_SA_targets.Controls.Add(this.label_SA_tgtsize);
+            this.groupBox_SA_targets.Controls.Add(this.textBox_SA_tgtSize);
+            this.groupBox_SA_targets.Location = new System.Drawing.Point(163, 6);
+            this.groupBox_SA_targets.Name = "groupBox_SA_targets";
+            this.groupBox_SA_targets.Size = new System.Drawing.Size(153, 98);
+            this.groupBox_SA_targets.TabIndex = 15;
+            this.groupBox_SA_targets.TabStop = false;
+            this.groupBox_SA_targets.Text = "Targets";
+            // 
+            // textBox_SA_tgtRadius
+            // 
+            this.textBox_SA_tgtRadius.Location = new System.Drawing.Point(87, 73);
+            this.textBox_SA_tgtRadius.Name = "textBox_SA_tgtRadius";
+            this.textBox_SA_tgtRadius.Size = new System.Drawing.Size(56, 20);
+            this.textBox_SA_tgtRadius.TabIndex = 14;
+            // 
+            // textBox_SA_bigTarget
+            // 
+            this.textBox_SA_bigTarget.Location = new System.Drawing.Point(87, 45);
+            this.textBox_SA_bigTarget.Name = "textBox_SA_bigTarget";
+            this.textBox_SA_bigTarget.Size = new System.Drawing.Size(56, 20);
+            this.textBox_SA_bigTarget.TabIndex = 13;
+            // 
+            // label_SA_tgtradius
+            // 
+            this.label_SA_tgtradius.AutoSize = true;
+            this.label_SA_tgtradius.Location = new System.Drawing.Point(6, 76);
+            this.label_SA_tgtradius.Name = "label_SA_tgtradius";
+            this.label_SA_tgtradius.Size = new System.Drawing.Size(40, 13);
+            this.label_SA_tgtradius.TabIndex = 12;
+            this.label_SA_tgtradius.Text = "Radius";
+            // 
+            // label_SA_bigtgt
+            // 
+            this.label_SA_bigtgt.AutoSize = true;
+            this.label_SA_bigtgt.Location = new System.Drawing.Point(6, 48);
+            this.label_SA_bigtgt.Name = "label_SA_bigtgt";
+            this.label_SA_bigtgt.Size = new System.Drawing.Size(51, 13);
+            this.label_SA_bigtgt.TabIndex = 11;
+            this.label_SA_bigtgt.Text = "big target";
+            // 
+            // label_SA_tgtsize
+            // 
+            this.label_SA_tgtsize.AutoSize = true;
+            this.label_SA_tgtsize.Location = new System.Drawing.Point(6, 22);
+            this.label_SA_tgtsize.Name = "label_SA_tgtsize";
+            this.label_SA_tgtsize.Size = new System.Drawing.Size(55, 13);
+            this.label_SA_tgtsize.TabIndex = 10;
+            this.label_SA_tgtsize.Text = "target size";
+            // 
+            // textBox_SA_tgtSize
+            // 
+            this.textBox_SA_tgtSize.Location = new System.Drawing.Point(87, 19);
+            this.textBox_SA_tgtSize.Name = "textBox_SA_tgtSize";
+            this.textBox_SA_tgtSize.Size = new System.Drawing.Size(56, 20);
+            this.textBox_SA_tgtSize.TabIndex = 9;
+            // 
+            // groupBoxSA_staircases
+            // 
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_centerAngle);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_centerangle);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_stepSize);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_stepsize);
+            this.groupBoxSA_staircases.Controls.Add(this.checkBox_SA_useLimits);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC4lowlim);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC4lowlim);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC4ratio);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC4ratio);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC4highlim);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC4highlim);
+            this.groupBoxSA_staircases.Controls.Add(this.checkBox_SA_runSC4);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC4start);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC4start);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC3lowlim);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC3lowlim);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC3ratio);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC3ratio);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC3highlim);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC3highlim);
+            this.groupBoxSA_staircases.Controls.Add(this.checkBox_SA_runSC3);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC3start);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC3start);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC2lowlim);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC2lowlim);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC2ratio);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC2ratio);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC2highlim);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC2highlim);
+            this.groupBoxSA_staircases.Controls.Add(this.checkBox_SA_runSC2);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC2start);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC2start);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC1lowlim);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC1lowlim);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC1ratio);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC1ratio);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC1highlim);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC1highlim);
+            this.groupBoxSA_staircases.Controls.Add(this.checkBox_SA_runSC1);
+            this.groupBoxSA_staircases.Controls.Add(this.CTHoldlabel);
+            this.groupBoxSA_staircases.Controls.Add(this.textBox_SA_SC1start);
+            this.groupBoxSA_staircases.Controls.Add(this.label_SA_SC1start);
+            this.groupBoxSA_staircases.Location = new System.Drawing.Point(0, 307);
+            this.groupBoxSA_staircases.Name = "groupBoxSA_staircases";
+            this.groupBoxSA_staircases.Size = new System.Drawing.Size(683, 130);
+            this.groupBoxSA_staircases.TabIndex = 127;
+            this.groupBoxSA_staircases.TabStop = false;
+            this.groupBoxSA_staircases.Text = "staircases";
+            // 
+            // textBox_SA_centerAngle
+            // 
+            this.textBox_SA_centerAngle.Location = new System.Drawing.Point(304, 15);
+            this.textBox_SA_centerAngle.Name = "textBox_SA_centerAngle";
+            this.textBox_SA_centerAngle.Size = new System.Drawing.Size(77, 20);
+            this.textBox_SA_centerAngle.TabIndex = 143;
+            // 
+            // label_SA_centerangle
+            // 
+            this.label_SA_centerangle.AutoSize = true;
+            this.label_SA_centerangle.Location = new System.Drawing.Point(239, 18);
+            this.label_SA_centerangle.Name = "label_SA_centerangle";
+            this.label_SA_centerangle.Size = new System.Drawing.Size(66, 13);
+            this.label_SA_centerangle.TabIndex = 142;
+            this.label_SA_centerangle.Text = "center angle";
+            // 
+            // textBox_SA_stepSize
+            // 
+            this.textBox_SA_stepSize.Location = new System.Drawing.Point(151, 14);
+            this.textBox_SA_stepSize.Name = "textBox_SA_stepSize";
+            this.textBox_SA_stepSize.Size = new System.Drawing.Size(77, 20);
+            this.textBox_SA_stepSize.TabIndex = 141;
+            // 
+            // label_SA_stepsize
+            // 
+            this.label_SA_stepsize.AutoSize = true;
+            this.label_SA_stepsize.Location = new System.Drawing.Point(93, 18);
+            this.label_SA_stepsize.Name = "label_SA_stepsize";
+            this.label_SA_stepsize.Size = new System.Drawing.Size(52, 13);
+            this.label_SA_stepsize.TabIndex = 140;
+            this.label_SA_stepsize.Text = "Step Size";
+            // 
+            // checkBox_SA_useLimits
+            // 
+            this.checkBox_SA_useLimits.AutoSize = true;
+            this.checkBox_SA_useLimits.Location = new System.Drawing.Point(505, 17);
+            this.checkBox_SA_useLimits.Name = "checkBox_SA_useLimits";
+            this.checkBox_SA_useLimits.Size = new System.Drawing.Size(68, 17);
+            this.checkBox_SA_useLimits.TabIndex = 139;
+            this.checkBox_SA_useLimits.Text = "use limits";
+            this.toolTip1.SetToolTip(this.checkBox_SA_useLimits, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_SA_useLimits.UseVisualStyleBackColor = true;
+            // 
+            // textBox_SA_SC4lowlim
+            // 
+            this.textBox_SA_SC4lowlim.Location = new System.Drawing.Point(445, 105);
+            this.textBox_SA_SC4lowlim.Name = "textBox_SA_SC4lowlim";
+            this.textBox_SA_SC4lowlim.Size = new System.Drawing.Size(67, 20);
+            this.textBox_SA_SC4lowlim.TabIndex = 138;
+            // 
+            // label_SA_SC4lowlim
+            // 
+            this.label_SA_SC4lowlim.AutoSize = true;
+            this.label_SA_SC4lowlim.Location = new System.Drawing.Point(390, 108);
+            this.label_SA_SC4lowlim.Name = "label_SA_SC4lowlim";
+            this.label_SA_SC4lowlim.Size = new System.Drawing.Size(58, 13);
+            this.label_SA_SC4lowlim.TabIndex = 137;
+            this.label_SA_SC4lowlim.Text = "SC4 lowlim";
+            // 
+            // textBox_SA_SC4ratio
+            // 
+            this.textBox_SA_SC4ratio.Location = new System.Drawing.Point(286, 105);
+            this.textBox_SA_SC4ratio.Name = "textBox_SA_SC4ratio";
+            this.textBox_SA_SC4ratio.Size = new System.Drawing.Size(74, 20);
+            this.textBox_SA_SC4ratio.TabIndex = 136;
+            // 
+            // label_SA_SC4ratio
+            // 
+            this.label_SA_SC4ratio.AutoSize = true;
+            this.label_SA_SC4ratio.Location = new System.Drawing.Point(239, 108);
+            this.label_SA_SC4ratio.Name = "label_SA_SC4ratio";
+            this.label_SA_SC4ratio.Size = new System.Drawing.Size(50, 13);
+            this.label_SA_SC4ratio.TabIndex = 135;
+            this.label_SA_SC4ratio.Text = "SC4 ratio";
+            // 
+            // textBox_SA_SC4highlim
+            // 
+            this.textBox_SA_SC4highlim.Location = new System.Drawing.Point(610, 105);
+            this.textBox_SA_SC4highlim.Name = "textBox_SA_SC4highlim";
+            this.textBox_SA_SC4highlim.Size = new System.Drawing.Size(67, 20);
+            this.textBox_SA_SC4highlim.TabIndex = 134;
+            // 
+            // label_SA_SC4highlim
+            // 
+            this.label_SA_SC4highlim.AutoSize = true;
+            this.label_SA_SC4highlim.Location = new System.Drawing.Point(543, 108);
+            this.label_SA_SC4highlim.Name = "label_SA_SC4highlim";
+            this.label_SA_SC4highlim.Size = new System.Drawing.Size(62, 13);
+            this.label_SA_SC4highlim.TabIndex = 133;
+            this.label_SA_SC4highlim.Text = "SC4 highlim";
+            // 
+            // checkBox_SA_runSC4
+            // 
+            this.checkBox_SA_runSC4.AutoSize = true;
+            this.checkBox_SA_runSC4.Location = new System.Drawing.Point(3, 107);
+            this.checkBox_SA_runSC4.Name = "checkBox_SA_runSC4";
+            this.checkBox_SA_runSC4.Size = new System.Drawing.Size(67, 17);
+            this.checkBox_SA_runSC4.TabIndex = 132;
+            this.checkBox_SA_runSC4.Text = "run_SC4";
+            this.toolTip1.SetToolTip(this.checkBox_SA_runSC4, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_SA_runSC4.UseVisualStyleBackColor = true;
+            // 
+            // textBox_SA_SC4start
+            // 
+            this.textBox_SA_SC4start.Location = new System.Drawing.Point(140, 105);
+            this.textBox_SA_SC4start.Name = "textBox_SA_SC4start";
+            this.textBox_SA_SC4start.Size = new System.Drawing.Size(77, 20);
+            this.textBox_SA_SC4start.TabIndex = 131;
+            // 
+            // label_SA_SC4start
+            // 
+            this.label_SA_SC4start.AutoSize = true;
+            this.label_SA_SC4start.Location = new System.Drawing.Point(93, 108);
+            this.label_SA_SC4start.Name = "label_SA_SC4start";
+            this.label_SA_SC4start.Size = new System.Drawing.Size(50, 13);
+            this.label_SA_SC4start.TabIndex = 130;
+            this.label_SA_SC4start.Text = "SC4 start";
+            // 
+            // textBox_SA_SC3lowlim
+            // 
+            this.textBox_SA_SC3lowlim.Location = new System.Drawing.Point(445, 86);
+            this.textBox_SA_SC3lowlim.Name = "textBox_SA_SC3lowlim";
+            this.textBox_SA_SC3lowlim.Size = new System.Drawing.Size(67, 20);
+            this.textBox_SA_SC3lowlim.TabIndex = 129;
+            // 
+            // label_SA_SC3lowlim
+            // 
+            this.label_SA_SC3lowlim.AutoSize = true;
+            this.label_SA_SC3lowlim.Location = new System.Drawing.Point(390, 89);
+            this.label_SA_SC3lowlim.Name = "label_SA_SC3lowlim";
+            this.label_SA_SC3lowlim.Size = new System.Drawing.Size(58, 13);
+            this.label_SA_SC3lowlim.TabIndex = 128;
+            this.label_SA_SC3lowlim.Text = "SC3 lowlim";
+            // 
+            // textBox_SA_SC3ratio
+            // 
+            this.textBox_SA_SC3ratio.Location = new System.Drawing.Point(286, 86);
+            this.textBox_SA_SC3ratio.Name = "textBox_SA_SC3ratio";
+            this.textBox_SA_SC3ratio.Size = new System.Drawing.Size(74, 20);
+            this.textBox_SA_SC3ratio.TabIndex = 127;
+            // 
+            // label_SA_SC3ratio
+            // 
+            this.label_SA_SC3ratio.AutoSize = true;
+            this.label_SA_SC3ratio.Location = new System.Drawing.Point(239, 89);
+            this.label_SA_SC3ratio.Name = "label_SA_SC3ratio";
+            this.label_SA_SC3ratio.Size = new System.Drawing.Size(50, 13);
+            this.label_SA_SC3ratio.TabIndex = 126;
+            this.label_SA_SC3ratio.Text = "SC3 ratio";
+            // 
+            // textBox_SA_SC3highlim
+            // 
+            this.textBox_SA_SC3highlim.Location = new System.Drawing.Point(610, 86);
+            this.textBox_SA_SC3highlim.Name = "textBox_SA_SC3highlim";
+            this.textBox_SA_SC3highlim.Size = new System.Drawing.Size(67, 20);
+            this.textBox_SA_SC3highlim.TabIndex = 125;
+            // 
+            // label_SA_SC3highlim
+            // 
+            this.label_SA_SC3highlim.AutoSize = true;
+            this.label_SA_SC3highlim.Location = new System.Drawing.Point(543, 89);
+            this.label_SA_SC3highlim.Name = "label_SA_SC3highlim";
+            this.label_SA_SC3highlim.Size = new System.Drawing.Size(62, 13);
+            this.label_SA_SC3highlim.TabIndex = 124;
+            this.label_SA_SC3highlim.Text = "SC3 highlim";
+            // 
+            // checkBox_SA_runSC3
+            // 
+            this.checkBox_SA_runSC3.AutoSize = true;
+            this.checkBox_SA_runSC3.Location = new System.Drawing.Point(3, 88);
+            this.checkBox_SA_runSC3.Name = "checkBox_SA_runSC3";
+            this.checkBox_SA_runSC3.Size = new System.Drawing.Size(67, 17);
+            this.checkBox_SA_runSC3.TabIndex = 123;
+            this.checkBox_SA_runSC3.Text = "run_SC3";
+            this.toolTip1.SetToolTip(this.checkBox_SA_runSC3, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_SA_runSC3.UseVisualStyleBackColor = true;
+            // 
+            // textBox_SA_SC3start
+            // 
+            this.textBox_SA_SC3start.Location = new System.Drawing.Point(140, 86);
+            this.textBox_SA_SC3start.Name = "textBox_SA_SC3start";
+            this.textBox_SA_SC3start.Size = new System.Drawing.Size(77, 20);
+            this.textBox_SA_SC3start.TabIndex = 122;
+            // 
+            // label_SA_SC3start
+            // 
+            this.label_SA_SC3start.AutoSize = true;
+            this.label_SA_SC3start.Location = new System.Drawing.Point(93, 89);
+            this.label_SA_SC3start.Name = "label_SA_SC3start";
+            this.label_SA_SC3start.Size = new System.Drawing.Size(50, 13);
+            this.label_SA_SC3start.TabIndex = 121;
+            this.label_SA_SC3start.Text = "SC3 start";
+            // 
+            // textBox_SA_SC2lowlim
+            // 
+            this.textBox_SA_SC2lowlim.Location = new System.Drawing.Point(445, 69);
+            this.textBox_SA_SC2lowlim.Name = "textBox_SA_SC2lowlim";
+            this.textBox_SA_SC2lowlim.Size = new System.Drawing.Size(67, 20);
+            this.textBox_SA_SC2lowlim.TabIndex = 120;
+            // 
+            // label_SA_SC2lowlim
+            // 
+            this.label_SA_SC2lowlim.AutoSize = true;
+            this.label_SA_SC2lowlim.Location = new System.Drawing.Point(390, 72);
+            this.label_SA_SC2lowlim.Name = "label_SA_SC2lowlim";
+            this.label_SA_SC2lowlim.Size = new System.Drawing.Size(58, 13);
+            this.label_SA_SC2lowlim.TabIndex = 119;
+            this.label_SA_SC2lowlim.Text = "SC2 lowlim";
+            // 
+            // textBox_SA_SC2ratio
+            // 
+            this.textBox_SA_SC2ratio.Location = new System.Drawing.Point(286, 69);
+            this.textBox_SA_SC2ratio.Name = "textBox_SA_SC2ratio";
+            this.textBox_SA_SC2ratio.Size = new System.Drawing.Size(74, 20);
+            this.textBox_SA_SC2ratio.TabIndex = 118;
+            // 
+            // label_SA_SC2ratio
+            // 
+            this.label_SA_SC2ratio.AutoSize = true;
+            this.label_SA_SC2ratio.Location = new System.Drawing.Point(239, 72);
+            this.label_SA_SC2ratio.Name = "label_SA_SC2ratio";
+            this.label_SA_SC2ratio.Size = new System.Drawing.Size(50, 13);
+            this.label_SA_SC2ratio.TabIndex = 117;
+            this.label_SA_SC2ratio.Text = "SC2 ratio";
+            // 
+            // textBox_SA_SC2highlim
+            // 
+            this.textBox_SA_SC2highlim.Location = new System.Drawing.Point(610, 69);
+            this.textBox_SA_SC2highlim.Name = "textBox_SA_SC2highlim";
+            this.textBox_SA_SC2highlim.Size = new System.Drawing.Size(67, 20);
+            this.textBox_SA_SC2highlim.TabIndex = 116;
+            // 
+            // label_SA_SC2highlim
+            // 
+            this.label_SA_SC2highlim.AutoSize = true;
+            this.label_SA_SC2highlim.Location = new System.Drawing.Point(543, 72);
+            this.label_SA_SC2highlim.Name = "label_SA_SC2highlim";
+            this.label_SA_SC2highlim.Size = new System.Drawing.Size(62, 13);
+            this.label_SA_SC2highlim.TabIndex = 115;
+            this.label_SA_SC2highlim.Text = "SC2 highlim";
+            // 
+            // checkBox_SA_runSC2
+            // 
+            this.checkBox_SA_runSC2.AutoSize = true;
+            this.checkBox_SA_runSC2.Location = new System.Drawing.Point(3, 71);
+            this.checkBox_SA_runSC2.Name = "checkBox_SA_runSC2";
+            this.checkBox_SA_runSC2.Size = new System.Drawing.Size(67, 17);
+            this.checkBox_SA_runSC2.TabIndex = 114;
+            this.checkBox_SA_runSC2.Text = "run_SC2";
+            this.toolTip1.SetToolTip(this.checkBox_SA_runSC2, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_SA_runSC2.UseVisualStyleBackColor = true;
+            // 
+            // textBox_SA_SC2start
+            // 
+            this.textBox_SA_SC2start.Location = new System.Drawing.Point(140, 69);
+            this.textBox_SA_SC2start.Name = "textBox_SA_SC2start";
+            this.textBox_SA_SC2start.Size = new System.Drawing.Size(77, 20);
+            this.textBox_SA_SC2start.TabIndex = 113;
+            // 
+            // label_SA_SC2start
+            // 
+            this.label_SA_SC2start.AutoSize = true;
+            this.label_SA_SC2start.Location = new System.Drawing.Point(93, 72);
+            this.label_SA_SC2start.Name = "label_SA_SC2start";
+            this.label_SA_SC2start.Size = new System.Drawing.Size(50, 13);
+            this.label_SA_SC2start.TabIndex = 112;
+            this.label_SA_SC2start.Text = "SC2 start";
+            // 
+            // textBox_SA_SC1lowlim
+            // 
+            this.textBox_SA_SC1lowlim.Location = new System.Drawing.Point(445, 50);
+            this.textBox_SA_SC1lowlim.Name = "textBox_SA_SC1lowlim";
+            this.textBox_SA_SC1lowlim.Size = new System.Drawing.Size(67, 20);
+            this.textBox_SA_SC1lowlim.TabIndex = 111;
+            // 
+            // label_SA_SC1lowlim
+            // 
+            this.label_SA_SC1lowlim.AutoSize = true;
+            this.label_SA_SC1lowlim.Location = new System.Drawing.Point(390, 53);
+            this.label_SA_SC1lowlim.Name = "label_SA_SC1lowlim";
+            this.label_SA_SC1lowlim.Size = new System.Drawing.Size(58, 13);
+            this.label_SA_SC1lowlim.TabIndex = 110;
+            this.label_SA_SC1lowlim.Text = "SC1 lowlim";
+            // 
+            // textBox_SA_SC1ratio
+            // 
+            this.textBox_SA_SC1ratio.Location = new System.Drawing.Point(286, 50);
+            this.textBox_SA_SC1ratio.Name = "textBox_SA_SC1ratio";
+            this.textBox_SA_SC1ratio.Size = new System.Drawing.Size(74, 20);
+            this.textBox_SA_SC1ratio.TabIndex = 109;
+            // 
+            // label_SA_SC1ratio
+            // 
+            this.label_SA_SC1ratio.AutoSize = true;
+            this.label_SA_SC1ratio.Location = new System.Drawing.Point(239, 53);
+            this.label_SA_SC1ratio.Name = "label_SA_SC1ratio";
+            this.label_SA_SC1ratio.Size = new System.Drawing.Size(50, 13);
+            this.label_SA_SC1ratio.TabIndex = 108;
+            this.label_SA_SC1ratio.Text = "SC1 ratio";
+            // 
+            // textBox_SA_SC1highlim
+            // 
+            this.textBox_SA_SC1highlim.Location = new System.Drawing.Point(610, 50);
+            this.textBox_SA_SC1highlim.Name = "textBox_SA_SC1highlim";
+            this.textBox_SA_SC1highlim.Size = new System.Drawing.Size(67, 20);
+            this.textBox_SA_SC1highlim.TabIndex = 107;
+            // 
+            // label_SA_SC1highlim
+            // 
+            this.label_SA_SC1highlim.AutoSize = true;
+            this.label_SA_SC1highlim.Location = new System.Drawing.Point(543, 53);
+            this.label_SA_SC1highlim.Name = "label_SA_SC1highlim";
+            this.label_SA_SC1highlim.Size = new System.Drawing.Size(62, 13);
+            this.label_SA_SC1highlim.TabIndex = 106;
+            this.label_SA_SC1highlim.Text = "SC1 highlim";
+            // 
+            // checkBox_SA_runSC1
+            // 
+            this.checkBox_SA_runSC1.AutoSize = true;
+            this.checkBox_SA_runSC1.Location = new System.Drawing.Point(3, 52);
+            this.checkBox_SA_runSC1.Name = "checkBox_SA_runSC1";
+            this.checkBox_SA_runSC1.Size = new System.Drawing.Size(67, 17);
+            this.checkBox_SA_runSC1.TabIndex = 105;
+            this.checkBox_SA_runSC1.Text = "run_SC1";
+            this.toolTip1.SetToolTip(this.checkBox_SA_runSC1, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_SA_runSC1.UseVisualStyleBackColor = true;
+            // 
+            // CTHoldlabel
+            // 
+            this.CTHoldlabel.AutoSize = true;
+            this.CTHoldlabel.Location = new System.Drawing.Point(460, -62);
+            this.CTHoldlabel.Name = "CTHoldlabel";
+            this.CTHoldlabel.Size = new System.Drawing.Size(46, 13);
+            this.CTHoldlabel.TabIndex = 2;
+            this.CTHoldlabel.Text = "CT Hold";
+            // 
+            // textBox_SA_SC1start
+            // 
+            this.textBox_SA_SC1start.Location = new System.Drawing.Point(140, 50);
+            this.textBox_SA_SC1start.Name = "textBox_SA_SC1start";
+            this.textBox_SA_SC1start.Size = new System.Drawing.Size(77, 20);
+            this.textBox_SA_SC1start.TabIndex = 1;
+            // 
+            // label_SA_SC1start
+            // 
+            this.label_SA_SC1start.AutoSize = true;
+            this.label_SA_SC1start.Location = new System.Drawing.Point(93, 53);
+            this.label_SA_SC1start.Name = "label_SA_SC1start";
+            this.label_SA_SC1start.Size = new System.Drawing.Size(50, 13);
+            this.label_SA_SC1start.TabIndex = 0;
+            this.label_SA_SC1start.Text = "SC1 start";
+            // 
+            // groupBoxSA_electrodes
+            // 
+            this.groupBoxSA_electrodes.Controls.Add(this.textBox_SA_stimFreq);
+            this.groupBoxSA_electrodes.Controls.Add(this.label_SA_stim_freq);
+            this.groupBoxSA_electrodes.Controls.Add(this.checkBox_SA_useElec8);
+            this.groupBoxSA_electrodes.Controls.Add(this.textBox_SA_elec8PD);
+            this.groupBoxSA_electrodes.Controls.Add(this.label_SA_elec8PD);
+            this.groupBoxSA_electrodes.Controls.Add(this.checkBox_SA_useElec7);
+            this.groupBoxSA_electrodes.Controls.Add(this.textBox_SA_elec7PD);
+            this.groupBoxSA_electrodes.Controls.Add(this.label_SA_elec7PD);
+            this.groupBoxSA_electrodes.Controls.Add(this.checkBoxSA_useElec6);
+            this.groupBoxSA_electrodes.Controls.Add(this.textBox_SA_elec6PD);
+            this.groupBoxSA_electrodes.Controls.Add(this.label_SA_elec6PD);
+            this.groupBoxSA_electrodes.Controls.Add(this.checkBoxSA_useElec5);
+            this.groupBoxSA_electrodes.Controls.Add(this.textBox_SA_elec5PD);
+            this.groupBoxSA_electrodes.Controls.Add(this.label_SA_elec5PD);
+            this.groupBoxSA_electrodes.Controls.Add(this.checkBox_SA_useElec3);
+            this.groupBoxSA_electrodes.Controls.Add(this.textBox_SA_elec3PD);
+            this.groupBoxSA_electrodes.Controls.Add(this.label_SA_elec3PD);
+            this.groupBoxSA_electrodes.Controls.Add(this.checkBox_SA_useElec2);
+            this.groupBoxSA_electrodes.Controls.Add(this.textBox_SA_elec2PD);
+            this.groupBoxSA_electrodes.Controls.Add(this.label_SA_elec2PD);
+            this.groupBoxSA_electrodes.Controls.Add(this.checkBoxSA_useElec4);
+            this.groupBoxSA_electrodes.Controls.Add(this.textBox_SA_elec4PD);
+            this.groupBoxSA_electrodes.Controls.Add(this.label_SA_elec4PD);
+            this.groupBoxSA_electrodes.Controls.Add(this.checkBox_SA_useElec1);
+            this.groupBoxSA_electrodes.Controls.Add(this.label_SA_unknown);
+            this.groupBoxSA_electrodes.Controls.Add(this.textBox_SA_elec1PD);
+            this.groupBoxSA_electrodes.Controls.Add(this.label_SA_elec1PD);
+            this.groupBoxSA_electrodes.Location = new System.Drawing.Point(481, 6);
+            this.groupBoxSA_electrodes.Name = "groupBoxSA_electrodes";
+            this.groupBoxSA_electrodes.Size = new System.Drawing.Size(205, 227);
+            this.groupBoxSA_electrodes.TabIndex = 12;
+            this.groupBoxSA_electrodes.TabStop = false;
+            this.groupBoxSA_electrodes.Text = "electrodes";
+            // 
+            // textBox_SA_stimFreq
+            // 
+            this.textBox_SA_stimFreq.Location = new System.Drawing.Point(129, 16);
+            this.textBox_SA_stimFreq.Name = "textBox_SA_stimFreq";
+            this.textBox_SA_stimFreq.Size = new System.Drawing.Size(51, 20);
+            this.textBox_SA_stimFreq.TabIndex = 128;
+            // 
+            // label_SA_stim_freq
+            // 
+            this.label_SA_stim_freq.AutoSize = true;
+            this.label_SA_stim_freq.Location = new System.Drawing.Point(21, 19);
+            this.label_SA_stim_freq.Name = "label_SA_stim_freq";
+            this.label_SA_stim_freq.Size = new System.Drawing.Size(106, 13);
+            this.label_SA_stim_freq.TabIndex = 127;
+            this.label_SA_stim_freq.Text = "stimulation probability";
+            // 
+            // checkBox_SA_useElec8
+            // 
+            this.checkBox_SA_useElec8.AutoSize = true;
+            this.checkBox_SA_useElec8.Location = new System.Drawing.Point(6, 202);
+            this.checkBox_SA_useElec8.Name = "checkBox_SA_useElec8";
+            this.checkBox_SA_useElec8.Size = new System.Drawing.Size(75, 17);
+            this.checkBox_SA_useElec8.TabIndex = 126;
+            this.checkBox_SA_useElec8.Text = "use_elec8";
+            this.toolTip1.SetToolTip(this.checkBox_SA_useElec8, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_SA_useElec8.UseVisualStyleBackColor = true;
+            // 
+            // textBox_SA_elec8PD
+            // 
+            this.textBox_SA_elec8PD.Location = new System.Drawing.Point(148, 202);
+            this.textBox_SA_elec8PD.Name = "textBox_SA_elec8PD";
+            this.textBox_SA_elec8PD.Size = new System.Drawing.Size(51, 20);
+            this.textBox_SA_elec8PD.TabIndex = 125;
+            // 
+            // label_SA_elec8PD
+            // 
+            this.label_SA_elec8PD.AutoSize = true;
+            this.label_SA_elec8PD.Location = new System.Drawing.Point(97, 205);
+            this.label_SA_elec8PD.Name = "label_SA_elec8PD";
+            this.label_SA_elec8PD.Size = new System.Drawing.Size(52, 13);
+            this.label_SA_elec8PD.TabIndex = 124;
+            this.label_SA_elec8PD.Text = "Elec8 PD";
+            // 
+            // checkBox_SA_useElec7
+            // 
+            this.checkBox_SA_useElec7.AutoSize = true;
+            this.checkBox_SA_useElec7.Location = new System.Drawing.Point(6, 179);
+            this.checkBox_SA_useElec7.Name = "checkBox_SA_useElec7";
+            this.checkBox_SA_useElec7.Size = new System.Drawing.Size(75, 17);
+            this.checkBox_SA_useElec7.TabIndex = 123;
+            this.checkBox_SA_useElec7.Text = "use_elec7";
+            this.toolTip1.SetToolTip(this.checkBox_SA_useElec7, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_SA_useElec7.UseVisualStyleBackColor = true;
+            // 
+            // textBox_SA_elec7PD
+            // 
+            this.textBox_SA_elec7PD.Location = new System.Drawing.Point(148, 179);
+            this.textBox_SA_elec7PD.Name = "textBox_SA_elec7PD";
+            this.textBox_SA_elec7PD.Size = new System.Drawing.Size(51, 20);
+            this.textBox_SA_elec7PD.TabIndex = 122;
+            // 
+            // label_SA_elec7PD
+            // 
+            this.label_SA_elec7PD.AutoSize = true;
+            this.label_SA_elec7PD.Location = new System.Drawing.Point(97, 182);
+            this.label_SA_elec7PD.Name = "label_SA_elec7PD";
+            this.label_SA_elec7PD.Size = new System.Drawing.Size(52, 13);
+            this.label_SA_elec7PD.TabIndex = 121;
+            this.label_SA_elec7PD.Text = "Elec7 PD";
+            // 
+            // checkBoxSA_useElec6
+            // 
+            this.checkBoxSA_useElec6.AutoSize = true;
+            this.checkBoxSA_useElec6.Location = new System.Drawing.Point(6, 156);
+            this.checkBoxSA_useElec6.Name = "checkBoxSA_useElec6";
+            this.checkBoxSA_useElec6.Size = new System.Drawing.Size(75, 17);
+            this.checkBoxSA_useElec6.TabIndex = 120;
+            this.checkBoxSA_useElec6.Text = "use_elec6";
+            this.toolTip1.SetToolTip(this.checkBoxSA_useElec6, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBoxSA_useElec6.UseVisualStyleBackColor = true;
+            // 
+            // textBox_SA_elec6PD
+            // 
+            this.textBox_SA_elec6PD.Location = new System.Drawing.Point(148, 156);
+            this.textBox_SA_elec6PD.Name = "textBox_SA_elec6PD";
+            this.textBox_SA_elec6PD.Size = new System.Drawing.Size(51, 20);
+            this.textBox_SA_elec6PD.TabIndex = 119;
+            // 
+            // label_SA_elec6PD
+            // 
+            this.label_SA_elec6PD.AutoSize = true;
+            this.label_SA_elec6PD.Location = new System.Drawing.Point(97, 159);
+            this.label_SA_elec6PD.Name = "label_SA_elec6PD";
+            this.label_SA_elec6PD.Size = new System.Drawing.Size(52, 13);
+            this.label_SA_elec6PD.TabIndex = 118;
+            this.label_SA_elec6PD.Text = "Elec6 PD";
+            // 
+            // checkBoxSA_useElec5
+            // 
+            this.checkBoxSA_useElec5.AutoSize = true;
+            this.checkBoxSA_useElec5.Location = new System.Drawing.Point(6, 133);
+            this.checkBoxSA_useElec5.Name = "checkBoxSA_useElec5";
+            this.checkBoxSA_useElec5.Size = new System.Drawing.Size(75, 17);
+            this.checkBoxSA_useElec5.TabIndex = 117;
+            this.checkBoxSA_useElec5.Text = "use_elec5";
+            this.toolTip1.SetToolTip(this.checkBoxSA_useElec5, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBoxSA_useElec5.UseVisualStyleBackColor = true;
+            // 
+            // textBox_SA_elec5PD
+            // 
+            this.textBox_SA_elec5PD.Location = new System.Drawing.Point(148, 133);
+            this.textBox_SA_elec5PD.Name = "textBox_SA_elec5PD";
+            this.textBox_SA_elec5PD.Size = new System.Drawing.Size(51, 20);
+            this.textBox_SA_elec5PD.TabIndex = 116;
+            // 
+            // label_SA_elec5PD
+            // 
+            this.label_SA_elec5PD.AutoSize = true;
+            this.label_SA_elec5PD.Location = new System.Drawing.Point(97, 136);
+            this.label_SA_elec5PD.Name = "label_SA_elec5PD";
+            this.label_SA_elec5PD.Size = new System.Drawing.Size(52, 13);
+            this.label_SA_elec5PD.TabIndex = 115;
+            this.label_SA_elec5PD.Text = "Elec5 PD";
+            // 
+            // checkBox_SA_useElec3
+            // 
+            this.checkBox_SA_useElec3.AutoSize = true;
+            this.checkBox_SA_useElec3.Location = new System.Drawing.Point(6, 87);
+            this.checkBox_SA_useElec3.Name = "checkBox_SA_useElec3";
+            this.checkBox_SA_useElec3.Size = new System.Drawing.Size(75, 17);
+            this.checkBox_SA_useElec3.TabIndex = 114;
+            this.checkBox_SA_useElec3.Text = "use_elec3";
+            this.toolTip1.SetToolTip(this.checkBox_SA_useElec3, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_SA_useElec3.UseVisualStyleBackColor = true;
+            // 
+            // textBox_SA_elec3PD
+            // 
+            this.textBox_SA_elec3PD.Location = new System.Drawing.Point(148, 87);
+            this.textBox_SA_elec3PD.Name = "textBox_SA_elec3PD";
+            this.textBox_SA_elec3PD.Size = new System.Drawing.Size(51, 20);
+            this.textBox_SA_elec3PD.TabIndex = 113;
+            // 
+            // label_SA_elec3PD
+            // 
+            this.label_SA_elec3PD.AutoSize = true;
+            this.label_SA_elec3PD.Location = new System.Drawing.Point(97, 90);
+            this.label_SA_elec3PD.Name = "label_SA_elec3PD";
+            this.label_SA_elec3PD.Size = new System.Drawing.Size(52, 13);
+            this.label_SA_elec3PD.TabIndex = 112;
+            this.label_SA_elec3PD.Text = "Elec3 PD";
+            // 
+            // checkBox_SA_useElec2
+            // 
+            this.checkBox_SA_useElec2.AutoSize = true;
+            this.checkBox_SA_useElec2.Location = new System.Drawing.Point(6, 64);
+            this.checkBox_SA_useElec2.Name = "checkBox_SA_useElec2";
+            this.checkBox_SA_useElec2.Size = new System.Drawing.Size(75, 17);
+            this.checkBox_SA_useElec2.TabIndex = 111;
+            this.checkBox_SA_useElec2.Text = "use_elec2";
+            this.toolTip1.SetToolTip(this.checkBox_SA_useElec2, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_SA_useElec2.UseVisualStyleBackColor = true;
+            // 
+            // textBox_SA_elec2PD
+            // 
+            this.textBox_SA_elec2PD.Location = new System.Drawing.Point(148, 64);
+            this.textBox_SA_elec2PD.Name = "textBox_SA_elec2PD";
+            this.textBox_SA_elec2PD.Size = new System.Drawing.Size(51, 20);
+            this.textBox_SA_elec2PD.TabIndex = 110;
+            // 
+            // label_SA_elec2PD
+            // 
+            this.label_SA_elec2PD.AutoSize = true;
+            this.label_SA_elec2PD.Location = new System.Drawing.Point(97, 67);
+            this.label_SA_elec2PD.Name = "label_SA_elec2PD";
+            this.label_SA_elec2PD.Size = new System.Drawing.Size(52, 13);
+            this.label_SA_elec2PD.TabIndex = 109;
+            this.label_SA_elec2PD.Text = "Elec2 PD";
+            // 
+            // checkBoxSA_useElec4
+            // 
+            this.checkBoxSA_useElec4.AutoSize = true;
+            this.checkBoxSA_useElec4.Location = new System.Drawing.Point(6, 110);
+            this.checkBoxSA_useElec4.Name = "checkBoxSA_useElec4";
+            this.checkBoxSA_useElec4.Size = new System.Drawing.Size(75, 17);
+            this.checkBoxSA_useElec4.TabIndex = 108;
+            this.checkBoxSA_useElec4.Text = "use_elec4";
+            this.toolTip1.SetToolTip(this.checkBoxSA_useElec4, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBoxSA_useElec4.UseVisualStyleBackColor = true;
+            // 
+            // textBox_SA_elec4PD
+            // 
+            this.textBox_SA_elec4PD.Location = new System.Drawing.Point(148, 110);
+            this.textBox_SA_elec4PD.Name = "textBox_SA_elec4PD";
+            this.textBox_SA_elec4PD.Size = new System.Drawing.Size(51, 20);
+            this.textBox_SA_elec4PD.TabIndex = 107;
+            this.textBox_SA_elec4PD.TextChanged += new System.EventHandler(this.textBox_SA_elec4PD_TextChanged);
+            // 
+            // label_SA_elec4PD
+            // 
+            this.label_SA_elec4PD.AutoSize = true;
+            this.label_SA_elec4PD.Location = new System.Drawing.Point(97, 113);
+            this.label_SA_elec4PD.Name = "label_SA_elec4PD";
+            this.label_SA_elec4PD.Size = new System.Drawing.Size(52, 13);
+            this.label_SA_elec4PD.TabIndex = 106;
+            this.label_SA_elec4PD.Text = "Elec4 PD";
+            // 
+            // checkBox_SA_useElec1
+            // 
+            this.checkBox_SA_useElec1.AutoSize = true;
+            this.checkBox_SA_useElec1.Location = new System.Drawing.Point(6, 42);
+            this.checkBox_SA_useElec1.Name = "checkBox_SA_useElec1";
+            this.checkBox_SA_useElec1.Size = new System.Drawing.Size(75, 17);
+            this.checkBox_SA_useElec1.TabIndex = 105;
+            this.checkBox_SA_useElec1.Text = "use_elec1";
+            this.toolTip1.SetToolTip(this.checkBox_SA_useElec1, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_SA_useElec1.UseVisualStyleBackColor = true;
+            // 
+            // label_SA_unknown
+            // 
+            this.label_SA_unknown.Location = new System.Drawing.Point(0, 0);
+            this.label_SA_unknown.Name = "label_SA_unknown";
+            this.label_SA_unknown.Size = new System.Drawing.Size(100, 23);
+            this.label_SA_unknown.TabIndex = 129;
+            // 
+            // textBox_SA_elec1PD
+            // 
+            this.textBox_SA_elec1PD.Location = new System.Drawing.Point(148, 42);
+            this.textBox_SA_elec1PD.Name = "textBox_SA_elec1PD";
+            this.textBox_SA_elec1PD.Size = new System.Drawing.Size(51, 20);
+            this.textBox_SA_elec1PD.TabIndex = 1;
+            // 
+            // label_SA_elec1PD
+            // 
+            this.label_SA_elec1PD.AutoSize = true;
+            this.label_SA_elec1PD.Location = new System.Drawing.Point(97, 45);
+            this.label_SA_elec1PD.Name = "label_SA_elec1PD";
+            this.label_SA_elec1PD.Size = new System.Drawing.Size(52, 13);
+            this.label_SA_elec1PD.TabIndex = 0;
+            this.label_SA_elec1PD.Text = "Elec1 PD";
+            // 
+            // groupBox_SA_controlBump
+            // 
+            this.groupBox_SA_controlBump.Controls.Add(this.textBox_SA_controlBumpAmplitude);
+            this.groupBox_SA_controlBump.Controls.Add(this.textBox_SA_controlBumpRiseTime);
+            this.groupBox_SA_controlBump.Controls.Add(this.label_SA_ControlBumpAmplitude);
+            this.groupBox_SA_controlBump.Controls.Add(this.label_SA_ControlBumpRiseTime);
+            this.groupBox_SA_controlBump.Controls.Add(this.label_SA_ControlBumpPeakDuration);
+            this.groupBox_SA_controlBump.Controls.Add(this.textBox_SA_controlBumpPeakDuration);
+            this.groupBox_SA_controlBump.Location = new System.Drawing.Point(322, 6);
+            this.groupBox_SA_controlBump.Name = "groupBox_SA_controlBump";
+            this.groupBox_SA_controlBump.Size = new System.Drawing.Size(153, 98);
+            this.groupBox_SA_controlBump.TabIndex = 12;
+            this.groupBox_SA_controlBump.TabStop = false;
+            this.groupBox_SA_controlBump.Text = "Control Bump";
+            // 
+            // textBox_SA_controlBumpAmplitude
+            // 
+            this.textBox_SA_controlBumpAmplitude.Location = new System.Drawing.Point(87, 73);
+            this.textBox_SA_controlBumpAmplitude.Name = "textBox_SA_controlBumpAmplitude";
+            this.textBox_SA_controlBumpAmplitude.Size = new System.Drawing.Size(56, 20);
+            this.textBox_SA_controlBumpAmplitude.TabIndex = 14;
+            // 
+            // textBox_SA_controlBumpRiseTime
+            // 
+            this.textBox_SA_controlBumpRiseTime.Location = new System.Drawing.Point(87, 45);
+            this.textBox_SA_controlBumpRiseTime.Name = "textBox_SA_controlBumpRiseTime";
+            this.textBox_SA_controlBumpRiseTime.Size = new System.Drawing.Size(56, 20);
+            this.textBox_SA_controlBumpRiseTime.TabIndex = 13;
+            // 
+            // label_SA_ControlBumpAmplitude
+            // 
+            this.label_SA_ControlBumpAmplitude.AutoSize = true;
+            this.label_SA_ControlBumpAmplitude.Location = new System.Drawing.Point(6, 76);
+            this.label_SA_ControlBumpAmplitude.Name = "label_SA_ControlBumpAmplitude";
+            this.label_SA_ControlBumpAmplitude.Size = new System.Drawing.Size(53, 13);
+            this.label_SA_ControlBumpAmplitude.TabIndex = 12;
+            this.label_SA_ControlBumpAmplitude.Text = "Amplitude";
+            // 
+            // label_SA_ControlBumpRiseTime
+            // 
+            this.label_SA_ControlBumpRiseTime.AutoSize = true;
+            this.label_SA_ControlBumpRiseTime.Location = new System.Drawing.Point(6, 48);
+            this.label_SA_ControlBumpRiseTime.Name = "label_SA_ControlBumpRiseTime";
+            this.label_SA_ControlBumpRiseTime.Size = new System.Drawing.Size(54, 13);
+            this.label_SA_ControlBumpRiseTime.TabIndex = 11;
+            this.label_SA_ControlBumpRiseTime.Text = "Rise Time";
+            // 
+            // label_SA_ControlBumpPeakDuration
+            // 
+            this.label_SA_ControlBumpPeakDuration.AutoSize = true;
+            this.label_SA_ControlBumpPeakDuration.Location = new System.Drawing.Point(6, 22);
+            this.label_SA_ControlBumpPeakDuration.Name = "label_SA_ControlBumpPeakDuration";
+            this.label_SA_ControlBumpPeakDuration.Size = new System.Drawing.Size(75, 13);
+            this.label_SA_ControlBumpPeakDuration.TabIndex = 10;
+            this.label_SA_ControlBumpPeakDuration.Text = "Peak Duration";
+            // 
+            // textBox_SA_controlBumpPeakDuration
+            // 
+            this.textBox_SA_controlBumpPeakDuration.Location = new System.Drawing.Point(87, 19);
+            this.textBox_SA_controlBumpPeakDuration.Name = "textBox_SA_controlBumpPeakDuration";
+            this.textBox_SA_controlBumpPeakDuration.Size = new System.Drawing.Size(56, 20);
+            this.textBox_SA_controlBumpPeakDuration.TabIndex = 9;
+            // 
+            // groupBox_SA_timing
+            // 
+            this.groupBox_SA_timing.Controls.Add(this.SA_penalty_label);
+            this.groupBox_SA_timing.Controls.Add(this.textBox_SA_penaltyTime);
+            this.groupBox_SA_timing.Controls.Add(this.textBox_SA_intertrial);
+            this.groupBox_SA_timing.Controls.Add(this.label_SA_intertrial);
+            this.groupBox_SA_timing.Controls.Add(this.textBox_SA_bumpHold);
+            this.groupBox_SA_timing.Controls.Add(this.textBox_SA_bumpDelay);
+            this.groupBox_SA_timing.Controls.Add(this.label_SA_BumpHold);
+            this.groupBox_SA_timing.Controls.Add(this.label_SA_BumpDelay);
+            this.groupBox_SA_timing.Controls.Add(this.label_SA_CTHold);
+            this.groupBox_SA_timing.Controls.Add(this.textBox_SA_CThold);
+            this.groupBox_SA_timing.Controls.Add(this.label_cthold);
+            this.groupBox_SA_timing.Location = new System.Drawing.Point(6, 6);
+            this.groupBox_SA_timing.Name = "groupBox_SA_timing";
+            this.groupBox_SA_timing.Size = new System.Drawing.Size(152, 151);
+            this.groupBox_SA_timing.TabIndex = 3;
+            this.groupBox_SA_timing.TabStop = false;
+            this.groupBox_SA_timing.Text = "Timing";
+            // 
+            // SA_penalty_label
+            // 
+            this.SA_penalty_label.AutoSize = true;
+            this.SA_penalty_label.Location = new System.Drawing.Point(6, 121);
+            this.SA_penalty_label.Name = "SA_penalty_label";
+            this.SA_penalty_label.Size = new System.Drawing.Size(42, 13);
+            this.SA_penalty_label.TabIndex = 10;
+            this.SA_penalty_label.Text = "Penalty";
+            // 
+            // textBox_SA_penaltyTime
+            // 
+            this.textBox_SA_penaltyTime.Location = new System.Drawing.Point(78, 117);
+            this.textBox_SA_penaltyTime.Name = "textBox_SA_penaltyTime";
+            this.textBox_SA_penaltyTime.Size = new System.Drawing.Size(61, 20);
+            this.textBox_SA_penaltyTime.TabIndex = 9;
+            // 
+            // textBox_SA_intertrial
+            // 
+            this.textBox_SA_intertrial.Location = new System.Drawing.Point(78, 91);
+            this.textBox_SA_intertrial.Name = "textBox_SA_intertrial";
+            this.textBox_SA_intertrial.Size = new System.Drawing.Size(61, 20);
+            this.textBox_SA_intertrial.TabIndex = 8;
+            // 
+            // label_SA_intertrial
+            // 
+            this.label_SA_intertrial.AutoSize = true;
+            this.label_SA_intertrial.Location = new System.Drawing.Point(6, 94);
+            this.label_SA_intertrial.Name = "label_SA_intertrial";
+            this.label_SA_intertrial.Size = new System.Drawing.Size(44, 13);
+            this.label_SA_intertrial.TabIndex = 7;
+            this.label_SA_intertrial.Text = "Intertrial";
+            // 
+            // textBox_SA_bumpHold
+            // 
+            this.textBox_SA_bumpHold.Location = new System.Drawing.Point(78, 65);
+            this.textBox_SA_bumpHold.Name = "textBox_SA_bumpHold";
+            this.textBox_SA_bumpHold.Size = new System.Drawing.Size(61, 20);
+            this.textBox_SA_bumpHold.TabIndex = 6;
+            // 
+            // textBox_SA_bumpDelay
+            // 
+            this.textBox_SA_bumpDelay.Location = new System.Drawing.Point(78, 39);
+            this.textBox_SA_bumpDelay.Name = "textBox_SA_bumpDelay";
+            this.textBox_SA_bumpDelay.Size = new System.Drawing.Size(61, 20);
+            this.textBox_SA_bumpDelay.TabIndex = 5;
+            // 
+            // label_SA_BumpHold
+            // 
+            this.label_SA_BumpHold.AutoSize = true;
+            this.label_SA_BumpHold.Location = new System.Drawing.Point(6, 68);
+            this.label_SA_BumpHold.Name = "label_SA_BumpHold";
+            this.label_SA_BumpHold.Size = new System.Drawing.Size(59, 13);
+            this.label_SA_BumpHold.TabIndex = 4;
+            this.label_SA_BumpHold.Text = "Bump Hold";
+            // 
+            // label_SA_BumpDelay
+            // 
+            this.label_SA_BumpDelay.AutoSize = true;
+            this.label_SA_BumpDelay.Location = new System.Drawing.Point(6, 42);
+            this.label_SA_BumpDelay.Name = "label_SA_BumpDelay";
+            this.label_SA_BumpDelay.Size = new System.Drawing.Size(64, 13);
+            this.label_SA_BumpDelay.TabIndex = 3;
+            this.label_SA_BumpDelay.Text = "Bump Delay";
+            // 
+            // label_SA_CTHold
+            // 
+            this.label_SA_CTHold.AutoSize = true;
+            this.label_SA_CTHold.Location = new System.Drawing.Point(460, -62);
+            this.label_SA_CTHold.Name = "label_SA_CTHold";
+            this.label_SA_CTHold.Size = new System.Drawing.Size(46, 13);
+            this.label_SA_CTHold.TabIndex = 2;
+            this.label_SA_CTHold.Text = "CT Hold";
+            // 
+            // textBox_SA_CThold
+            // 
+            this.textBox_SA_CThold.Location = new System.Drawing.Point(78, 13);
+            this.textBox_SA_CThold.Name = "textBox_SA_CThold";
+            this.textBox_SA_CThold.Size = new System.Drawing.Size(61, 20);
+            this.textBox_SA_CThold.TabIndex = 1;
+            // 
+            // label_cthold
+            // 
+            this.label_cthold.AutoSize = true;
+            this.label_cthold.Location = new System.Drawing.Point(6, 16);
+            this.label_cthold.Name = "label_cthold";
+            this.label_cthold.Size = new System.Drawing.Size(46, 13);
+            this.label_cthold.TabIndex = 0;
+            this.label_cthold.Text = "CT Hold";
+            // 
+            // label409
+            // 
+            this.label409.AutoSize = true;
+            this.label409.Location = new System.Drawing.Point(13, 43);
+            this.label409.Name = "label409";
+            this.label409.Size = new System.Drawing.Size(98, 13);
+            this.label409.TabIndex = 32;
+            this.label409.Text = "Outer Target Width";
+            // 
+            // label365
+            // 
+            this.label365.AutoSize = true;
+            this.label365.Location = new System.Drawing.Point(13, 262);
+            this.label365.Name = "label365";
+            this.label365.Size = new System.Drawing.Size(101, 13);
+            this.label365.TabIndex = 37;
+            this.label365.Text = "Target stiffness max";
+            // 
+            // label388
+            // 
+            this.label388.AutoSize = true;
+            this.label388.Location = new System.Drawing.Point(6, 283);
+            this.label388.Name = "label388";
+            this.label388.Size = new System.Drawing.Size(122, 13);
+            this.label388.TabIndex = 33;
+            this.label388.Text = "Max curve displacement";
+            // 
+            // label389
+            // 
+            this.label389.AutoSize = true;
+            this.label389.Location = new System.Drawing.Point(6, 257);
+            this.label389.Name = "label389";
+            this.label389.Size = new System.Drawing.Size(119, 13);
+            this.label389.TabIndex = 32;
+            this.label389.Text = "Min curve displacement";
+            // 
+            // label390
+            // 
+            this.label390.AutoSize = true;
+            this.label390.Location = new System.Drawing.Point(6, 231);
+            this.label390.Name = "label390";
+            this.label390.Size = new System.Drawing.Size(77, 13);
+            this.label390.TabIndex = 30;
+            this.label390.Text = "Trial block size";
+            // 
+            // label391
+            // 
+            this.label391.AutoSize = true;
+            this.label391.Location = new System.Drawing.Point(6, 206);
+            this.label391.Name = "label391";
+            this.label391.Size = new System.Drawing.Size(100, 13);
+            this.label391.TabIndex = 28;
+            this.label391.Text = "Num movement dirs";
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -17865,7 +19192,7 @@ namespace BehaviorGraphics
             // toolStripStatusLabelMdl
             // 
             this.toolStripStatusLabelMdl.Name = "toolStripStatusLabelMdl";
-            this.toolStripStatusLabelMdl.Size = new System.Drawing.Size(99, 17);
+            this.toolStripStatusLabelMdl.Size = new System.Drawing.Size(86, 17);
             this.toolStripStatusLabelMdl.Text = "No model loaded";
             // 
             // toolStripProgressBar1
@@ -17898,14 +19225,14 @@ namespace BehaviorGraphics
             this.toolStripSeparator2,
             this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -17913,7 +19240,7 @@ namespace BehaviorGraphics
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -17922,30 +19249,30 @@ namespace BehaviorGraphics
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
                         | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(183, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(183, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.quitToolStripMenuItem.Text = "&Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quit);
             // 
@@ -17955,13 +19282,13 @@ namespace BehaviorGraphics
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -17975,27 +19302,27 @@ namespace BehaviorGraphics
             this.setLabToolStripMenuItem,
             this.keepGraphicsRunningToolStripMenuItem});
             this.displayToolStripMenuItem.Name = "displayToolStripMenuItem";
-            this.displayToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.displayToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.displayToolStripMenuItem.Text = "&Display";
             // 
             // boxToolStripMenuItem
             // 
             this.boxToolStripMenuItem.Name = "boxToolStripMenuItem";
-            this.boxToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.boxToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.boxToolStripMenuItem.Text = "&Box";
             this.boxToolStripMenuItem.Click += new System.EventHandler(this.boxToolStripMenuItem_Click);
             // 
             // boxSettingsToolStripMenuItem
             // 
             this.boxSettingsToolStripMenuItem.Name = "boxSettingsToolStripMenuItem";
-            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.boxSettingsToolStripMenuItem.Text = "Box &Settings...";
             this.boxSettingsToolStripMenuItem.Click += new System.EventHandler(this.boxSettingsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(194, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(181, 6);
             // 
             // soundThemeToolStripMenuItem
             // 
@@ -18005,7 +19332,7 @@ namespace BehaviorGraphics
             this.theme3ToolStripMenuItem,
             this.theme4ToolStripMenuItem});
             this.soundThemeToolStripMenuItem.Name = "soundThemeToolStripMenuItem";
-            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.soundThemeToolStripMenuItem.Text = "Sound &Theme";
             // 
             // theme1ToolStripMenuItem
@@ -18013,42 +19340,42 @@ namespace BehaviorGraphics
             this.theme1ToolStripMenuItem.Checked = true;
             this.theme1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.theme1ToolStripMenuItem.Name = "theme1ToolStripMenuItem";
-            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.theme1ToolStripMenuItem.Text = "Theme 1";
             this.theme1ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme2ToolStripMenuItem
             // 
             this.theme2ToolStripMenuItem.Name = "theme2ToolStripMenuItem";
-            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.theme2ToolStripMenuItem.Text = "Theme 2";
             this.theme2ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme3ToolStripMenuItem
             // 
             this.theme3ToolStripMenuItem.Name = "theme3ToolStripMenuItem";
-            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.theme3ToolStripMenuItem.Text = "Theme 3";
             this.theme3ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme4ToolStripMenuItem
             // 
             this.theme4ToolStripMenuItem.Name = "theme4ToolStripMenuItem";
-            this.theme4ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.theme4ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.theme4ToolStripMenuItem.Text = "Theme 4";
             this.theme4ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // setLabToolStripMenuItem
             // 
             this.setLabToolStripMenuItem.Name = "setLabToolStripMenuItem";
-            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.setLabToolStripMenuItem.Text = "Set &Lab...";
             this.setLabToolStripMenuItem.Click += new System.EventHandler(this.setLabToolStripMenuItem_Click);
             // 
             // keepGraphicsRunningToolStripMenuItem
             // 
             this.keepGraphicsRunningToolStripMenuItem.Name = "keepGraphicsRunningToolStripMenuItem";
-            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.keepGraphicsRunningToolStripMenuItem.Text = "&Keep Graphics Running";
             this.keepGraphicsRunningToolStripMenuItem.Click += new System.EventHandler(this.keepGraphicsRunningToolStripMenuItem_Click);
             // 
@@ -18058,14 +19385,14 @@ namespace BehaviorGraphics
             this.loadModelToolStripMenuItem,
             this.resetCountersToolStripMenuItem});
             this.modelToolStripMenuItem.Name = "modelToolStripMenuItem";
-            this.modelToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.modelToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.modelToolStripMenuItem.Text = "&Model";
             // 
             // loadModelToolStripMenuItem
             // 
             this.loadModelToolStripMenuItem.Name = "loadModelToolStripMenuItem";
             this.loadModelToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.loadModelToolStripMenuItem.Text = "&Load Model";
             this.loadModelToolStripMenuItem.Click += new System.EventHandler(this.loadModelToolStripMenuItem_Click);
             // 
@@ -18073,7 +19400,7 @@ namespace BehaviorGraphics
             // 
             this.resetCountersToolStripMenuItem.Name = "resetCountersToolStripMenuItem";
             this.resetCountersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.resetCountersToolStripMenuItem.Text = "&Reset Counters";
             this.resetCountersToolStripMenuItem.Click += new System.EventHandler(this.resetCountersToolStripMenuItem_Click);
             // 
@@ -18503,6 +19830,168 @@ namespace BehaviorGraphics
             this.textBox84.Size = new System.Drawing.Size(88, 20);
             this.textBox84.TabIndex = 29;
             this.toolTip1.SetToolTip(this.textBox84, "Lowest angular deviation from the target angl that random bumps may take. (Deg)");
+            // 
+            // checkBox_recenter_cursor
+            // 
+            this.checkBox_recenter_cursor.AutoSize = true;
+            this.checkBox_recenter_cursor.Location = new System.Drawing.Point(93, 21);
+            this.checkBox_recenter_cursor.Name = "checkBox_recenter_cursor";
+            this.checkBox_recenter_cursor.Size = new System.Drawing.Size(103, 17);
+            this.checkBox_recenter_cursor.TabIndex = 12;
+            this.checkBox_recenter_cursor.Text = "Recenter Cursor";
+            this.toolTip1.SetToolTip(this.checkBox_recenter_cursor, "Checking this box will ensure that the cursor is always displayed in the\r\ncenter " +
+                    "of the blocking window at the begining of the movement phase.");
+            this.checkBox_recenter_cursor.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_SA_Target_during_bump
+            // 
+            this.checkBox_SA_Target_during_bump.AutoSize = true;
+            this.checkBox_SA_Target_during_bump.Location = new System.Drawing.Point(6, 237);
+            this.checkBox_SA_Target_during_bump.Name = "checkBox_SA_Target_during_bump";
+            this.checkBox_SA_Target_during_bump.Size = new System.Drawing.Size(144, 17);
+            this.checkBox_SA_Target_during_bump.TabIndex = 22;
+            this.checkBox_SA_Target_during_bump.Text = "Show target during bump";
+            this.toolTip1.SetToolTip(this.checkBox_SA_Target_during_bump, "When checked the targets will appear during the bump period rather than waiting f" +
+                    "or the go tone");
+            this.checkBox_SA_Target_during_bump.UseVisualStyleBackColor = true;
+            // 
+            // textBox_training_freq
+            // 
+            this.textBox_training_freq.Location = new System.Drawing.Point(120, 260);
+            this.textBox_training_freq.Name = "textBox_training_freq";
+            this.textBox_training_freq.Size = new System.Drawing.Size(100, 20);
+            this.textBox_training_freq.TabIndex = 14;
+            this.toolTip1.SetToolTip(this.textBox_training_freq, "sets the frequncy at which training trials are presented. training trials only di" +
+                    "splay the correct target");
+            // 
+            // checkBox_random_targets
+            // 
+            this.checkBox_random_targets.AutoSize = true;
+            this.checkBox_random_targets.Location = new System.Drawing.Point(9, 134);
+            this.checkBox_random_targets.Name = "checkBox_random_targets";
+            this.checkBox_random_targets.Size = new System.Drawing.Size(105, 17);
+            this.checkBox_random_targets.TabIndex = 23;
+            this.checkBox_random_targets.Text = "Random Targets";
+            this.toolTip1.SetToolTip(this.checkBox_random_targets, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_random_targets.UseVisualStyleBackColor = true;
+            // 
+            // textBox_SA_stim_levels
+            // 
+            this.textBox_SA_stim_levels.Location = new System.Drawing.Point(90, 39);
+            this.textBox_SA_stim_levels.Name = "textBox_SA_stim_levels";
+            this.textBox_SA_stim_levels.Size = new System.Drawing.Size(100, 20);
+            this.textBox_SA_stim_levels.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.textBox_SA_stim_levels, "integer indicating how many levels of stimulus to use. the mastercon code will ra" +
+                    "ndomly select an integer stim code between 0 and the stim level entered in this " +
+                    "box.");
+            // 
+            // textBox_SA_angle_step
+            // 
+            this.textBox_SA_angle_step.Location = new System.Drawing.Point(99, 187);
+            this.textBox_SA_angle_step.Name = "textBox_SA_angle_step";
+            this.textBox_SA_angle_step.Size = new System.Drawing.Size(88, 20);
+            this.textBox_SA_angle_step.TabIndex = 105;
+            this.toolTip1.SetToolTip(this.textBox_SA_angle_step, "sets the step size between adjacent bump angles. should be entered in degrees");
+            // 
+            // checkBox12
+            // 
+            this.checkBox12.AutoSize = true;
+            this.checkBox12.Location = new System.Drawing.Point(6, 232);
+            this.checkBox12.Name = "checkBox12";
+            this.checkBox12.Size = new System.Drawing.Size(111, 17);
+            this.checkBox12.TabIndex = 104;
+            this.checkBox12.Text = "abort during bump";
+            this.toolTip1.SetToolTip(this.checkBox12, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox12.UseVisualStyleBackColor = true;
+            // 
+            // textBox_angle_step2
+            // 
+            this.textBox_angle_step2.Location = new System.Drawing.Point(99, 155);
+            this.textBox_angle_step2.Name = "textBox_angle_step2";
+            this.textBox_angle_step2.Size = new System.Drawing.Size(88, 20);
+            this.textBox_angle_step2.TabIndex = 102;
+            this.toolTip1.SetToolTip(this.textBox_angle_step2, "sets the step size between adjacent bump angles. should be entered in degrees");
+            // 
+            // textBox_max_angle
+            // 
+            this.textBox_max_angle.Location = new System.Drawing.Point(99, 128);
+            this.textBox_max_angle.Name = "textBox_max_angle";
+            this.textBox_max_angle.Size = new System.Drawing.Size(88, 20);
+            this.textBox_max_angle.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.textBox_max_angle, "Greatest angular deviation from the target angle that random bumps may take. (Deg" +
+                    ")");
+            // 
+            // textBox_min_angle
+            // 
+            this.textBox_min_angle.Location = new System.Drawing.Point(99, 102);
+            this.textBox_min_angle.Name = "textBox_min_angle";
+            this.textBox_min_angle.Size = new System.Drawing.Size(88, 20);
+            this.textBox_min_angle.TabIndex = 29;
+            this.toolTip1.SetToolTip(this.textBox_min_angle, "Lowest angular deviation from the target angl that random bumps may take. (Deg)");
+            // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Location = new System.Drawing.Point(16, 43);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(85, 17);
+            this.checkBox8.TabIndex = 16;
+            this.checkBox8.Text = "Brain control";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            // 
+            // textBox32
+            // 
+            this.textBox32.Location = new System.Drawing.Point(126, 259);
+            this.textBox32.Name = "textBox32";
+            this.textBox32.Size = new System.Drawing.Size(55, 20);
+            this.textBox32.TabIndex = 38;
+            // 
+            // checkBox10
+            // 
+            this.checkBox10.AutoSize = true;
+            this.checkBox10.Location = new System.Drawing.Point(12, 26);
+            this.checkBox10.Name = "checkBox10";
+            this.checkBox10.Size = new System.Drawing.Size(85, 17);
+            this.checkBox10.TabIndex = 16;
+            this.checkBox10.Text = "Brain control";
+            this.checkBox10.UseVisualStyleBackColor = true;
+            // 
+            // textBox38
+            // 
+            this.textBox38.Location = new System.Drawing.Point(126, 207);
+            this.textBox38.Name = "textBox38";
+            this.textBox38.Size = new System.Drawing.Size(55, 20);
+            this.textBox38.TabIndex = 25;
+            // 
+            // textBox40
+            // 
+            this.textBox40.Location = new System.Drawing.Point(126, 153);
+            this.textBox40.Name = "textBox40";
+            this.textBox40.Size = new System.Drawing.Size(55, 20);
+            this.textBox40.TabIndex = 21;
+            // 
+            // textBox41
+            // 
+            this.textBox41.Location = new System.Drawing.Point(126, 97);
+            this.textBox41.Name = "textBox41";
+            this.textBox41.Size = new System.Drawing.Size(55, 20);
+            this.textBox41.TabIndex = 17;
+            // 
+            // textBox43
+            // 
+            this.textBox43.Location = new System.Drawing.Point(126, 72);
+            this.textBox43.Name = "textBox43";
+            this.textBox43.Size = new System.Drawing.Size(55, 20);
+            this.textBox43.TabIndex = 12;
+            // 
+            // textBox45
+            // 
+            this.textBox45.Location = new System.Drawing.Point(122, 120);
+            this.textBox45.Name = "textBox45";
+            this.textBox45.Size = new System.Drawing.Size(68, 20);
+            this.textBox45.TabIndex = 43;
             // 
             // label143
             // 
@@ -19018,22 +20507,6 @@ namespace BehaviorGraphics
             this.label356.TabIndex = 0;
             this.label356.Text = "Field ramp up";
             // 
-            // textBox32
-            // 
-            this.textBox32.Location = new System.Drawing.Point(126, 259);
-            this.textBox32.Name = "textBox32";
-            this.textBox32.Size = new System.Drawing.Size(55, 20);
-            this.textBox32.TabIndex = 38;
-            // 
-            // label365
-            // 
-            this.label365.AutoSize = true;
-            this.label365.Location = new System.Drawing.Point(13, 262);
-            this.label365.Name = "label365";
-            this.label365.Size = new System.Drawing.Size(101, 13);
-            this.label365.TabIndex = 37;
-            this.label365.Text = "Target stiffness max";
-            // 
             // textBox33
             // 
             this.textBox33.Location = new System.Drawing.Point(126, 233);
@@ -19116,13 +20589,6 @@ namespace BehaviorGraphics
             this.label371.TabIndex = 26;
             this.label371.Text = "Target force min";
             // 
-            // textBox38
-            // 
-            this.textBox38.Location = new System.Drawing.Point(126, 207);
-            this.textBox38.Name = "textBox38";
-            this.textBox38.Size = new System.Drawing.Size(55, 20);
-            this.textBox38.TabIndex = 25;
-            // 
             // label372
             // 
             this.label372.AutoSize = true;
@@ -19148,13 +20614,6 @@ namespace BehaviorGraphics
             this.label373.TabIndex = 22;
             this.label373.Text = "Number of targets";
             // 
-            // textBox40
-            // 
-            this.textBox40.Location = new System.Drawing.Point(126, 153);
-            this.textBox40.Name = "textBox40";
-            this.textBox40.Size = new System.Drawing.Size(55, 20);
-            this.textBox40.TabIndex = 21;
-            // 
             // label374
             // 
             this.label374.AutoSize = true;
@@ -19172,23 +20631,6 @@ namespace BehaviorGraphics
             this.label375.Size = new System.Drawing.Size(89, 13);
             this.label375.TabIndex = 18;
             this.label375.Text = "Outer target span";
-            // 
-            // textBox41
-            // 
-            this.textBox41.Location = new System.Drawing.Point(126, 97);
-            this.textBox41.Name = "textBox41";
-            this.textBox41.Size = new System.Drawing.Size(55, 20);
-            this.textBox41.TabIndex = 17;
-            // 
-            // checkBox8
-            // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(16, 43);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(85, 17);
-            this.checkBox8.TabIndex = 16;
-            this.checkBox8.Text = "Brain control";
-            this.checkBox8.UseVisualStyleBackColor = true;
             // 
             // textBox42
             // 
@@ -19214,13 +20656,6 @@ namespace BehaviorGraphics
             this.label377.Size = new System.Drawing.Size(94, 13);
             this.label377.TabIndex = 13;
             this.label377.Text = "Outer target radius";
-            // 
-            // textBox43
-            // 
-            this.textBox43.Location = new System.Drawing.Point(126, 72);
-            this.textBox43.Name = "textBox43";
-            this.textBox43.Size = new System.Drawing.Size(55, 20);
-            this.textBox43.TabIndex = 12;
             // 
             // label378
             // 
@@ -19255,13 +20690,6 @@ namespace BehaviorGraphics
             this.label380.Size = new System.Drawing.Size(67, 13);
             this.label380.TabIndex = 44;
             this.label380.Text = "Velocity gain";
-            // 
-            // textBox45
-            // 
-            this.textBox45.Location = new System.Drawing.Point(122, 120);
-            this.textBox45.Name = "textBox45";
-            this.textBox45.Size = new System.Drawing.Size(68, 20);
-            this.textBox45.TabIndex = 43;
             // 
             // label381
             // 
@@ -19371,24 +20799,6 @@ namespace BehaviorGraphics
             this.label387.TabIndex = 34;
             this.label387.Text = "Num curve displacements";
             // 
-            // label388
-            // 
-            this.label388.AutoSize = true;
-            this.label388.Location = new System.Drawing.Point(6, 283);
-            this.label388.Name = "label388";
-            this.label388.Size = new System.Drawing.Size(122, 13);
-            this.label388.TabIndex = 33;
-            this.label388.Text = "Max curve displacement";
-            // 
-            // label389
-            // 
-            this.label389.AutoSize = true;
-            this.label389.Location = new System.Drawing.Point(6, 257);
-            this.label389.Name = "label389";
-            this.label389.Size = new System.Drawing.Size(119, 13);
-            this.label389.TabIndex = 32;
-            this.label389.Text = "Min curve displacement";
-            // 
             // textBox56
             // 
             this.textBox56.Location = new System.Drawing.Point(137, 227);
@@ -19396,30 +20806,12 @@ namespace BehaviorGraphics
             this.textBox56.Size = new System.Drawing.Size(68, 20);
             this.textBox56.TabIndex = 31;
             // 
-            // label390
-            // 
-            this.label390.AutoSize = true;
-            this.label390.Location = new System.Drawing.Point(6, 231);
-            this.label390.Name = "label390";
-            this.label390.Size = new System.Drawing.Size(77, 13);
-            this.label390.TabIndex = 30;
-            this.label390.Text = "Trial block size";
-            // 
             // textBox57
             // 
             this.textBox57.Location = new System.Drawing.Point(137, 201);
             this.textBox57.Name = "textBox57";
             this.textBox57.Size = new System.Drawing.Size(68, 20);
             this.textBox57.TabIndex = 29;
-            // 
-            // label391
-            // 
-            this.label391.AutoSize = true;
-            this.label391.Location = new System.Drawing.Point(6, 206);
-            this.label391.Name = "label391";
-            this.label391.Size = new System.Drawing.Size(100, 13);
-            this.label391.TabIndex = 28;
-            this.label391.Text = "Num movement dirs";
             // 
             // label392
             // 
@@ -19531,16 +20923,6 @@ namespace BehaviorGraphics
             this.textBox64.Name = "textBox64";
             this.textBox64.Size = new System.Drawing.Size(55, 20);
             this.textBox64.TabIndex = 17;
-            // 
-            // checkBox10
-            // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(12, 26);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(85, 17);
-            this.checkBox10.TabIndex = 16;
-            this.checkBox10.Text = "Brain control";
-            this.checkBox10.UseVisualStyleBackColor = true;
             // 
             // checkBox11
             // 
@@ -19698,15 +21080,6 @@ namespace BehaviorGraphics
             this.label408.TabIndex = 34;
             this.label408.Text = "Outer Target Depth";
             // 
-            // label409
-            // 
-            this.label409.AutoSize = true;
-            this.label409.Location = new System.Drawing.Point(13, 43);
-            this.label409.Name = "label409";
-            this.label409.Size = new System.Drawing.Size(98, 13);
-            this.label409.TabIndex = 32;
-            this.label409.Text = "Outer Target Width";
-            // 
             // label411
             // 
             this.label411.AutoSize = true;
@@ -19809,57 +21182,318 @@ namespace BehaviorGraphics
             this.textBox85.Size = new System.Drawing.Size(100, 20);
             this.textBox85.TabIndex = 9;
             // 
-            // groupBoxIsometric
+            // checkBox_hide_cursor
             // 
-            this.groupBoxIsometric.Controls.Add(this.labelF2SG);
-            this.groupBoxIsometric.Controls.Add(this.textBoxF2SG);
-            this.groupBoxIsometric.Controls.Add(this.checkBoxUSDH);
-            this.groupBoxIsometric.Controls.Add(this.checkBoxIM);
-            this.groupBoxIsometric.Location = new System.Drawing.Point(465, 298);
-            this.groupBoxIsometric.Name = "groupBoxIsometric";
-            this.groupBoxIsometric.Size = new System.Drawing.Size(200, 100);
-            this.groupBoxIsometric.TabIndex = 27;
-            this.groupBoxIsometric.TabStop = false;
-            this.groupBoxIsometric.Text = "Isometric Robot";
+            this.checkBox_hide_cursor.AutoSize = true;
+            this.checkBox_hide_cursor.Location = new System.Drawing.Point(8, 20);
+            this.checkBox_hide_cursor.Name = "checkBox_hide_cursor";
+            this.checkBox_hide_cursor.Size = new System.Drawing.Size(81, 17);
+            this.checkBox_hide_cursor.TabIndex = 21;
+            this.checkBox_hide_cursor.Text = "Hide Cursor";
+            this.checkBox_hide_cursor.UseVisualStyleBackColor = true;
             // 
-            // checkBoxIM
+            // label_target_angle_floor
             // 
-            this.checkBoxIM.AutoSize = true;
-            this.checkBoxIM.Location = new System.Drawing.Point(11, 20);
-            this.checkBoxIM.Name = "checkBoxIM";
-            this.checkBoxIM.Size = new System.Drawing.Size(97, 17);
-            this.checkBoxIM.TabIndex = 0;
-            this.checkBoxIM.Text = "Isometric mode";
-            this.checkBoxIM.UseVisualStyleBackColor = true;
+            this.label_target_angle_floor.Location = new System.Drawing.Point(0, 0);
+            this.label_target_angle_floor.Name = "label_target_angle_floor";
+            this.label_target_angle_floor.Size = new System.Drawing.Size(100, 23);
+            this.label_target_angle_floor.TabIndex = 0;
             // 
-            // checkBoxUSDH
+            // label_target_angle_ceiling
             // 
-            this.checkBoxUSDH.AutoSize = true;
-            this.checkBoxUSDH.Location = new System.Drawing.Point(11, 43);
-            this.checkBoxUSDH.Name = "checkBoxUSDH";
-            this.checkBoxUSDH.Size = new System.Drawing.Size(123, 17);
-            this.checkBoxUSDH.TabIndex = 1;
-            this.checkBoxUSDH.Text = "Upside-down handle";
-            this.checkBoxUSDH.UseVisualStyleBackColor = true;
+            this.label_target_angle_ceiling.AutoSize = true;
+            this.label_target_angle_ceiling.Location = new System.Drawing.Point(6, 186);
+            this.label_target_angle_ceiling.Name = "label_target_angle_ceiling";
+            this.label_target_angle_ceiling.Size = new System.Drawing.Size(102, 13);
+            this.label_target_angle_ceiling.TabIndex = 27;
+            this.label_target_angle_ceiling.Text = "Target Angle Ceiling";
             // 
-            // textBoxF2SG
+            // textBox33b
             // 
-            this.textBoxF2SG.Location = new System.Drawing.Point(124, 66);
-            this.textBoxF2SG.Name = "textBoxF2SG";
-            this.textBoxF2SG.Size = new System.Drawing.Size(67, 20);
-            this.textBoxF2SG.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.textBoxF2SG, "in cm/N");
-            this.textBoxF2SG.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.textBox33b.Location = new System.Drawing.Point(120, 183);
+            this.textBox33b.Name = "textBox33b";
+            this.textBox33b.Size = new System.Drawing.Size(100, 20);
+            this.textBox33b.TabIndex = 25;
             // 
-            // labelF2SG
+            // textBox_SA_34
             // 
-            this.labelF2SG.AutoSize = true;
-            this.labelF2SG.Location = new System.Drawing.Point(11, 69);
-            this.labelF2SG.Name = "labelF2SG";
-            this.labelF2SG.Size = new System.Drawing.Size(104, 13);
-            this.labelF2SG.TabIndex = 3;
-            this.labelF2SG.Text = "Force to screen gain";
-            this.toolTip1.SetToolTip(this.labelF2SG, "in cm/N");
+            this.textBox_SA_34.Location = new System.Drawing.Point(120, 157);
+            this.textBox_SA_34.Name = "textBox_SA_34";
+            this.textBox_SA_34.Size = new System.Drawing.Size(100, 20);
+            this.textBox_SA_34.TabIndex = 24;
+            // 
+            // label_Big_target
+            // 
+            this.label_Big_target.AutoSize = true;
+            this.label_Big_target.Location = new System.Drawing.Point(6, 74);
+            this.label_Big_target.Name = "label_Big_target";
+            this.label_Big_target.Size = new System.Drawing.Size(56, 13);
+            this.label_Big_target.TabIndex = 20;
+            this.label_Big_target.Text = "Big Target";
+            // 
+            // angleEntryBox_SA
+            // 
+            this.angleEntryBox_SA.Location = new System.Drawing.Point(120, 103);
+            this.angleEntryBox_SA.Name = "angleEntryBox_SA";
+            this.angleEntryBox_SA.Size = new System.Drawing.Size(100, 21);
+            this.angleEntryBox_SA.TabIndex = 19;
+            this.angleEntryBox_SA.Value = 0;
+            // 
+            // label_target_distance
+            // 
+            this.label_target_distance.AutoSize = true;
+            this.label_target_distance.Location = new System.Drawing.Point(6, 48);
+            this.label_target_distance.Name = "label_target_distance";
+            this.label_target_distance.Size = new System.Drawing.Size(83, 13);
+            this.label_target_distance.TabIndex = 18;
+            this.label_target_distance.Text = "Target Distance";
+            // 
+            // textBox35b
+            // 
+            this.textBox35b.Location = new System.Drawing.Point(120, 71);
+            this.textBox35b.Name = "textBox35b";
+            this.textBox35b.Size = new System.Drawing.Size(100, 20);
+            this.textBox35b.TabIndex = 17;
+            // 
+            // textBox36b
+            // 
+            this.textBox36b.Location = new System.Drawing.Point(120, 45);
+            this.textBox36b.Name = "textBox36b";
+            this.textBox36b.Size = new System.Drawing.Size(100, 20);
+            this.textBox36b.TabIndex = 16;
+            // 
+            // label_angle
+            // 
+            this.label_angle.AutoSize = true;
+            this.label_angle.Location = new System.Drawing.Point(6, 104);
+            this.label_angle.Name = "label_angle";
+            this.label_angle.Size = new System.Drawing.Size(34, 13);
+            this.label_angle.TabIndex = 15;
+            this.label_angle.Text = "Angle";
+            // 
+            // label_target_radius
+            // 
+            this.label_target_radius.AutoSize = true;
+            this.label_target_radius.Location = new System.Drawing.Point(6, 22);
+            this.label_target_radius.Name = "label_target_radius";
+            this.label_target_radius.Size = new System.Drawing.Size(74, 13);
+            this.label_target_radius.TabIndex = 14;
+            this.label_target_radius.Text = "Target Radius";
+            // 
+            // textBox37b
+            // 
+            this.textBox37b.Location = new System.Drawing.Point(120, 19);
+            this.textBox37b.Name = "textBox37b";
+            this.textBox37b.Size = new System.Drawing.Size(100, 20);
+            this.textBox37b.TabIndex = 13;
+            // 
+            // checkBox_use_green_target
+            // 
+            this.checkBox_use_green_target.AutoSize = true;
+            this.checkBox_use_green_target.Location = new System.Drawing.Point(6, 215);
+            this.checkBox_use_green_target.Name = "checkBox_use_green_target";
+            this.checkBox_use_green_target.Size = new System.Drawing.Size(111, 17);
+            this.checkBox_use_green_target.TabIndex = 0;
+            this.checkBox_use_green_target.Text = "Use Green Target";
+            this.checkBox_use_green_target.UseVisualStyleBackColor = true;
+            // 
+            // label_SA_stim_levels
+            // 
+            this.label_SA_stim_levels.AutoSize = true;
+            this.label_SA_stim_levels.Location = new System.Drawing.Point(6, 42);
+            this.label_SA_stim_levels.Name = "label_SA_stim_levels";
+            this.label_SA_stim_levels.Size = new System.Drawing.Size(61, 13);
+            this.label_SA_stim_levels.TabIndex = 21;
+            this.label_SA_stim_levels.Text = "Stim Levels";
+            // 
+            // label_SA_stim_prob
+            // 
+            this.label_SA_stim_prob.AutoSize = true;
+            this.label_SA_stim_prob.Location = new System.Drawing.Point(6, 16);
+            this.label_SA_stim_prob.Name = "label_SA_stim_prob";
+            this.label_SA_stim_prob.Size = new System.Drawing.Size(52, 13);
+            this.label_SA_stim_prob.TabIndex = 19;
+            this.label_SA_stim_prob.Text = "Stim Prob";
+            // 
+            // textBox39b
+            // 
+            this.textBox39b.Location = new System.Drawing.Point(90, 13);
+            this.textBox39b.Name = "textBox39b";
+            this.textBox39b.Size = new System.Drawing.Size(100, 20);
+            this.textBox39b.TabIndex = 13;
+            // 
+            // label_SA_catch_rate
+            // 
+            this.label_SA_catch_rate.AutoSize = true;
+            this.label_SA_catch_rate.Location = new System.Drawing.Point(4, 190);
+            this.label_SA_catch_rate.Name = "label_SA_catch_rate";
+            this.label_SA_catch_rate.Size = new System.Drawing.Size(55, 13);
+            this.label_SA_catch_rate.TabIndex = 106;
+            this.label_SA_catch_rate.Text = "catch rate";
+            // 
+            // label_SA_bump_incriment
+            // 
+            this.label_SA_bump_incriment.AutoSize = true;
+            this.label_SA_bump_incriment.Location = new System.Drawing.Point(2, 158);
+            this.label_SA_bump_incriment.Name = "label_SA_bump_incriment";
+            this.label_SA_bump_incriment.Size = new System.Drawing.Size(83, 13);
+            this.label_SA_bump_incriment.TabIndex = 103;
+            this.label_SA_bump_incriment.Text = "Bump increment";
+            // 
+            // label_rand_bump_ceiling
+            // 
+            this.label_rand_bump_ceiling.AutoSize = true;
+            this.label_rand_bump_ceiling.Location = new System.Drawing.Point(2, 131);
+            this.label_rand_bump_ceiling.Name = "label_rand_bump_ceiling";
+            this.label_rand_bump_ceiling.Size = new System.Drawing.Size(97, 13);
+            this.label_rand_bump_ceiling.TabIndex = 32;
+            this.label_rand_bump_ceiling.Text = "Rand Bump Ceiling";
+            // 
+            // textBox42b
+            // 
+            this.textBox42b.Location = new System.Drawing.Point(87, 73);
+            this.textBox42b.Name = "textBox42b";
+            this.textBox42b.Size = new System.Drawing.Size(100, 20);
+            this.textBox42b.TabIndex = 14;
+            // 
+            // label_rand_bump_floor
+            // 
+            this.label_rand_bump_floor.AutoSize = true;
+            this.label_rand_bump_floor.Location = new System.Drawing.Point(2, 105);
+            this.label_rand_bump_floor.Name = "label_rand_bump_floor";
+            this.label_rand_bump_floor.Size = new System.Drawing.Size(89, 13);
+            this.label_rand_bump_floor.TabIndex = 31;
+            this.label_rand_bump_floor.Text = "Rand Bump Floor";
+            // 
+            // textBox44b
+            // 
+            this.textBox44b.Location = new System.Drawing.Point(87, 45);
+            this.textBox44b.Name = "textBox44b";
+            this.textBox44b.Size = new System.Drawing.Size(100, 20);
+            this.textBox44b.TabIndex = 13;
+            // 
+            // label_amplitude
+            // 
+            this.label_amplitude.AutoSize = true;
+            this.label_amplitude.Location = new System.Drawing.Point(6, 76);
+            this.label_amplitude.Name = "label_amplitude";
+            this.label_amplitude.Size = new System.Drawing.Size(53, 13);
+            this.label_amplitude.TabIndex = 12;
+            this.label_amplitude.Text = "Amplitude";
+            // 
+            // label_SA_rise_time
+            // 
+            this.label_SA_rise_time.AutoSize = true;
+            this.label_SA_rise_time.Location = new System.Drawing.Point(6, 48);
+            this.label_SA_rise_time.Name = "label_SA_rise_time";
+            this.label_SA_rise_time.Size = new System.Drawing.Size(54, 13);
+            this.label_SA_rise_time.TabIndex = 11;
+            this.label_SA_rise_time.Text = "Rise Time";
+            // 
+            // label_peak_duration
+            // 
+            this.label_peak_duration.AutoSize = true;
+            this.label_peak_duration.Location = new System.Drawing.Point(6, 22);
+            this.label_peak_duration.Name = "label_peak_duration";
+            this.label_peak_duration.Size = new System.Drawing.Size(75, 13);
+            this.label_peak_duration.TabIndex = 10;
+            this.label_peak_duration.Text = "Peak Duration";
+            // 
+            // textBox46b
+            // 
+            this.textBox46b.Location = new System.Drawing.Point(87, 19);
+            this.textBox46b.Name = "textBox46b";
+            this.textBox46b.Size = new System.Drawing.Size(100, 20);
+            this.textBox46b.TabIndex = 9;
+            // 
+            // label_penalty
+            // 
+            this.label_penalty.AutoSize = true;
+            this.label_penalty.Location = new System.Drawing.Point(6, 121);
+            this.label_penalty.Name = "label_penalty";
+            this.label_penalty.Size = new System.Drawing.Size(42, 13);
+            this.label_penalty.TabIndex = 10;
+            this.label_penalty.Text = "Penalty";
+            // 
+            // textBox47b
+            // 
+            this.textBox47b.Location = new System.Drawing.Point(90, 117);
+            this.textBox47b.Name = "textBox47b";
+            this.textBox47b.Size = new System.Drawing.Size(100, 20);
+            this.textBox47b.TabIndex = 9;
+            // 
+            // textBox48b
+            // 
+            this.textBox48b.Location = new System.Drawing.Point(90, 91);
+            this.textBox48b.Name = "textBox48b";
+            this.textBox48b.Size = new System.Drawing.Size(100, 20);
+            this.textBox48b.TabIndex = 8;
+            // 
+            // label_intertrial
+            // 
+            this.label_intertrial.AutoSize = true;
+            this.label_intertrial.Location = new System.Drawing.Point(6, 94);
+            this.label_intertrial.Name = "label_intertrial";
+            this.label_intertrial.Size = new System.Drawing.Size(44, 13);
+            this.label_intertrial.TabIndex = 7;
+            this.label_intertrial.Text = "Intertrial";
+            // 
+            // textBox49b
+            // 
+            this.textBox49b.Location = new System.Drawing.Point(90, 65);
+            this.textBox49b.Name = "textBox49b";
+            this.textBox49b.Size = new System.Drawing.Size(100, 20);
+            this.textBox49b.TabIndex = 6;
+            // 
+            // textBox50b
+            // 
+            this.textBox50b.Location = new System.Drawing.Point(90, 39);
+            this.textBox50b.Name = "textBox50b";
+            this.textBox50b.Size = new System.Drawing.Size(100, 20);
+            this.textBox50b.TabIndex = 5;
+            // 
+            // label_bump_hold
+            // 
+            this.label_bump_hold.AutoSize = true;
+            this.label_bump_hold.Location = new System.Drawing.Point(6, 68);
+            this.label_bump_hold.Name = "label_bump_hold";
+            this.label_bump_hold.Size = new System.Drawing.Size(59, 13);
+            this.label_bump_hold.TabIndex = 4;
+            this.label_bump_hold.Text = "Bump Hold";
+            // 
+            // label_bump_delay
+            // 
+            this.label_bump_delay.AutoSize = true;
+            this.label_bump_delay.Location = new System.Drawing.Point(6, 42);
+            this.label_bump_delay.Name = "label_bump_delay";
+            this.label_bump_delay.Size = new System.Drawing.Size(64, 13);
+            this.label_bump_delay.TabIndex = 3;
+            this.label_bump_delay.Text = "Bump Delay";
+            // 
+            // label_CT_hold
+            // 
+            this.label_CT_hold.AutoSize = true;
+            this.label_CT_hold.Location = new System.Drawing.Point(460, -62);
+            this.label_CT_hold.Name = "label_CT_hold";
+            this.label_CT_hold.Size = new System.Drawing.Size(46, 13);
+            this.label_CT_hold.TabIndex = 2;
+            this.label_CT_hold.Text = "CT Hold";
+            // 
+            // textBox52b
+            // 
+            this.textBox52b.Location = new System.Drawing.Point(90, 13);
+            this.textBox52b.Name = "textBox52b";
+            this.textBox52b.Size = new System.Drawing.Size(100, 20);
+            this.textBox52b.TabIndex = 1;
+            // 
+            // label_CT_hold2
+            // 
+            this.label_CT_hold2.AutoSize = true;
+            this.label_CT_hold2.Location = new System.Drawing.Point(6, 16);
+            this.label_CT_hold2.Name = "label_CT_hold2";
+            this.label_CT_hold2.Size = new System.Drawing.Size(46, 13);
+            this.label_CT_hold2.TabIndex = 0;
+            this.label_CT_hold2.Text = "CT Hold";
             // 
             // UpdateForm
             // 
@@ -19886,6 +21520,8 @@ namespace BehaviorGraphics
             this.tabs.ResumeLayout(false);
             this.tabPageGen.ResumeLayout(false);
             this.tabPageGen.PerformLayout();
+            this.groupBoxIsometric.ResumeLayout(false);
+            this.groupBoxIsometric.PerformLayout();
             this.groupBox71.ResumeLayout(false);
             this.groupBox71.PerformLayout();
             this.groupBox13.ResumeLayout(false);
@@ -20189,6 +21825,21 @@ namespace BehaviorGraphics
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCC_numCOtargs)).EndInit();
             this.groupBox81.ResumeLayout(false);
             this.groupBox81.PerformLayout();
+            this.tabPageSA.ResumeLayout(false);
+            this.groupBox_SA_cursor.ResumeLayout(false);
+            this.groupBox_SA_cursor.PerformLayout();
+            this.groupBox_SA_RefBump.ResumeLayout(false);
+            this.groupBox_SA_RefBump.PerformLayout();
+            this.groupBox_SA_targets.ResumeLayout(false);
+            this.groupBox_SA_targets.PerformLayout();
+            this.groupBoxSA_staircases.ResumeLayout(false);
+            this.groupBoxSA_staircases.PerformLayout();
+            this.groupBoxSA_electrodes.ResumeLayout(false);
+            this.groupBoxSA_electrodes.PerformLayout();
+            this.groupBox_SA_controlBump.ResumeLayout(false);
+            this.groupBox_SA_controlBump.PerformLayout();
+            this.groupBox_SA_timing.ResumeLayout(false);
+            this.groupBox_SA_timing.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -20202,8 +21853,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBoxIsometric.ResumeLayout(false);
-            this.groupBoxIsometric.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -21988,5 +23637,162 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxF2SG;
         private System.Windows.Forms.CheckBox checkBoxUSDH;
         private System.Windows.Forms.CheckBox checkBoxIM;
+        private System.Windows.Forms.TabPage tabPageSA;
+        private System.Windows.Forms.CheckBox checkBox_hide_cursor;
+        private System.Windows.Forms.CheckBox checkBox_recenter_cursor;
+        private System.Windows.Forms.Label label_target_angle_floor;
+        private System.Windows.Forms.CheckBox checkBox_SA_Target_during_bump;
+        private System.Windows.Forms.TextBox textBox_training_freq;
+        private System.Windows.Forms.Label label_target_angle_ceiling;
+        private System.Windows.Forms.TextBox textBox33b;
+        private System.Windows.Forms.TextBox textBox_SA_34;
+        private System.Windows.Forms.Label label_Big_target;
+        private System.Windows.Forms.CheckBox checkBox_random_targets;
+        private AngleBox.AngleEntryBox angleEntryBox_SA;
+        private System.Windows.Forms.Label label_target_distance;
+        private System.Windows.Forms.TextBox textBox35b;
+        private System.Windows.Forms.TextBox textBox36b;
+        private System.Windows.Forms.Label label_angle;
+        private System.Windows.Forms.Label label_target_radius;
+        private System.Windows.Forms.TextBox textBox37b;
+        private System.Windows.Forms.CheckBox checkBox_use_green_target;
+        private System.Windows.Forms.Label label_SA_stim_levels;
+        private System.Windows.Forms.TextBox textBox_SA_stim_levels;
+        private System.Windows.Forms.Label label_SA_stim_prob;
+        private System.Windows.Forms.TextBox textBox39b;
+        private System.Windows.Forms.Label label_SA_catch_rate;
+        private System.Windows.Forms.TextBox textBox_SA_angle_step;
+        private System.Windows.Forms.CheckBox checkBox12;
+        private System.Windows.Forms.Label label_SA_bump_incriment;
+        private System.Windows.Forms.TextBox textBox_angle_step2;
+        private System.Windows.Forms.Label label_rand_bump_ceiling;
+        private System.Windows.Forms.TextBox textBox42b;
+        private System.Windows.Forms.Label label_rand_bump_floor;
+        private System.Windows.Forms.TextBox textBox_max_angle;
+        private System.Windows.Forms.TextBox textBox44b;
+        private System.Windows.Forms.TextBox textBox_min_angle;
+        private System.Windows.Forms.Label label_amplitude;
+        private System.Windows.Forms.Label label_SA_rise_time;
+        private System.Windows.Forms.Label label_peak_duration;
+        private System.Windows.Forms.TextBox textBox46b;
+        private System.Windows.Forms.Label label_penalty;
+        private System.Windows.Forms.TextBox textBox47b;
+        private System.Windows.Forms.TextBox textBox48b;
+        private System.Windows.Forms.Label label_SA_intertrial;
+        private System.Windows.Forms.TextBox textBox49b;
+        private System.Windows.Forms.TextBox textBox50b;
+        private System.Windows.Forms.Label label_bump_hold;
+        private System.Windows.Forms.Label label_bump_delay;
+        private System.Windows.Forms.Label label_CT_hold;
+        private System.Windows.Forms.TextBox textBox52b;
+        private System.Windows.Forms.Label label_CT_hold2;
+        private System.Windows.Forms.GroupBox groupBox_SA_timing;
+        private System.Windows.Forms.Label SA_penalty_label;
+        private System.Windows.Forms.TextBox textBox_SA_penaltyTime;
+        private System.Windows.Forms.TextBox textBox_SA_intertrial;
+        private System.Windows.Forms.Label label_intertrial;
+        private System.Windows.Forms.TextBox textBox_SA_bumpHold;
+        private System.Windows.Forms.TextBox textBox_SA_bumpDelay;
+        private System.Windows.Forms.Label label_SA_BumpHold;
+        private System.Windows.Forms.Label label_SA_BumpDelay;
+        private System.Windows.Forms.Label label_SA_CTHold;
+        private System.Windows.Forms.TextBox textBox_SA_CThold;
+        private System.Windows.Forms.Label label_cthold;
+        private System.Windows.Forms.GroupBox groupBox_SA_controlBump;
+        private System.Windows.Forms.TextBox textBox_SA_controlBumpAmplitude;
+        private System.Windows.Forms.TextBox textBox_SA_controlBumpRiseTime;
+        private System.Windows.Forms.Label label_SA_ControlBumpAmplitude;
+        private System.Windows.Forms.Label label_SA_ControlBumpRiseTime;
+        private System.Windows.Forms.Label label_SA_ControlBumpPeakDuration;
+        private System.Windows.Forms.TextBox textBox_SA_controlBumpPeakDuration;
+        private System.Windows.Forms.GroupBox groupBoxSA_electrodes;
+        private System.Windows.Forms.CheckBox checkBox_SA_useElec1;
+        private System.Windows.Forms.Label label_SA_unknown;
+        private System.Windows.Forms.TextBox textBox_SA_elec1PD;
+        private System.Windows.Forms.Label label_SA_elec1PD;
+        private System.Windows.Forms.CheckBox checkBox_SA_useElec8;
+        private System.Windows.Forms.TextBox textBox_SA_elec8PD;
+        private System.Windows.Forms.Label label_SA_elec8PD;
+        private System.Windows.Forms.CheckBox checkBox_SA_useElec7;
+        private System.Windows.Forms.TextBox textBox_SA_elec7PD;
+        private System.Windows.Forms.Label label_SA_elec7PD;
+        private System.Windows.Forms.CheckBox checkBoxSA_useElec6;
+        private System.Windows.Forms.TextBox textBox_SA_elec6PD;
+        private System.Windows.Forms.Label label_SA_elec6PD;
+        private System.Windows.Forms.CheckBox checkBoxSA_useElec5;
+        private System.Windows.Forms.TextBox textBox_SA_elec5PD;
+        private System.Windows.Forms.Label label_SA_elec5PD;
+        private System.Windows.Forms.CheckBox checkBox_SA_useElec3;
+        private System.Windows.Forms.TextBox textBox_SA_elec3PD;
+        private System.Windows.Forms.Label label_SA_elec3PD;
+        private System.Windows.Forms.CheckBox checkBox_SA_useElec2;
+        private System.Windows.Forms.TextBox textBox_SA_elec2PD;
+        private System.Windows.Forms.Label label_SA_elec2PD;
+        private System.Windows.Forms.CheckBox checkBoxSA_useElec4;
+        private System.Windows.Forms.TextBox textBox_SA_elec4PD;
+        private System.Windows.Forms.Label label_SA_elec4PD;
+        private System.Windows.Forms.GroupBox groupBoxSA_staircases;
+        private System.Windows.Forms.CheckBox checkBox_SA_runSC1;
+        private System.Windows.Forms.Label CTHoldlabel;
+        private System.Windows.Forms.TextBox textBox_SA_SC1start;
+        private System.Windows.Forms.Label label_SA_SC1start;
+        private System.Windows.Forms.TextBox textBox_SA_SC1lowlim;
+        private System.Windows.Forms.Label label_SA_SC1lowlim;
+        private System.Windows.Forms.TextBox textBox_SA_SC1ratio;
+        private System.Windows.Forms.Label label_SA_SC1ratio;
+        private System.Windows.Forms.TextBox textBox_SA_SC1highlim;
+        private System.Windows.Forms.Label label_SA_SC1highlim;
+        private System.Windows.Forms.TextBox textBox_SA_SC4lowlim;
+        private System.Windows.Forms.Label label_SA_SC4lowlim;
+        private System.Windows.Forms.TextBox textBox_SA_SC4ratio;
+        private System.Windows.Forms.Label label_SA_SC4ratio;
+        private System.Windows.Forms.TextBox textBox_SA_SC4highlim;
+        private System.Windows.Forms.Label label_SA_SC4highlim;
+        private System.Windows.Forms.CheckBox checkBox_SA_runSC4;
+        private System.Windows.Forms.TextBox textBox_SA_SC4start;
+        private System.Windows.Forms.Label label_SA_SC4start;
+        private System.Windows.Forms.TextBox textBox_SA_SC3lowlim;
+        private System.Windows.Forms.Label label_SA_SC3lowlim;
+        private System.Windows.Forms.TextBox textBox_SA_SC3ratio;
+        private System.Windows.Forms.Label label_SA_SC3ratio;
+        private System.Windows.Forms.TextBox textBox_SA_SC3highlim;
+        private System.Windows.Forms.Label label_SA_SC3highlim;
+        private System.Windows.Forms.CheckBox checkBox_SA_runSC3;
+        private System.Windows.Forms.TextBox textBox_SA_SC3start;
+        private System.Windows.Forms.Label label_SA_SC3start;
+        private System.Windows.Forms.TextBox textBox_SA_SC2lowlim;
+        private System.Windows.Forms.Label label_SA_SC2lowlim;
+        private System.Windows.Forms.TextBox textBox_SA_SC2ratio;
+        private System.Windows.Forms.Label label_SA_SC2ratio;
+        private System.Windows.Forms.TextBox textBox_SA_SC2highlim;
+        private System.Windows.Forms.Label label_SA_SC2highlim;
+        private System.Windows.Forms.CheckBox checkBox_SA_runSC2;
+        private System.Windows.Forms.TextBox textBox_SA_SC2start;
+        private System.Windows.Forms.Label label_SA_SC2start;
+        private System.Windows.Forms.GroupBox groupBox_SA_targets;
+        private System.Windows.Forms.TextBox textBox_SA_tgtRadius;
+        private System.Windows.Forms.TextBox textBox_SA_bigTarget;
+        private System.Windows.Forms.Label label_SA_tgtradius;
+        private System.Windows.Forms.Label label_SA_bigtgt;
+        private System.Windows.Forms.Label label_SA_tgtsize;
+        private System.Windows.Forms.TextBox textBox_SA_tgtSize;
+        private System.Windows.Forms.TextBox textBox_SA_centerAngle;
+        private System.Windows.Forms.Label label_SA_centerangle;
+        private System.Windows.Forms.TextBox textBox_SA_stepSize;
+        private System.Windows.Forms.Label label_SA_stepsize;
+        private System.Windows.Forms.CheckBox checkBox_SA_useLimits;
+        private System.Windows.Forms.TextBox textBox_SA_stimFreq;
+        private System.Windows.Forms.Label label_SA_stim_freq;
+        private System.Windows.Forms.GroupBox groupBox_SA_RefBump;
+        private System.Windows.Forms.TextBox textBox_SA_refBumpAmplitude;
+        private System.Windows.Forms.TextBox textBox_SA_refBumpRiseTime;
+        private System.Windows.Forms.Label label_SA_RefBumpAmplitude;
+        private System.Windows.Forms.Label label_SA_RefBumpRiseTime;
+        private System.Windows.Forms.Label label_SA_RefBumpPeakDuration;
+        private System.Windows.Forms.TextBox textBox_SA_refBumpPeakDuration;
+        private System.Windows.Forms.GroupBox groupBox_SA_cursor;
+        private System.Windows.Forms.CheckBox checkBox_SA_abortDuringBump;
+        private System.Windows.Forms.CheckBox checkBox_SA_recenterAfterBump;
+        private System.Windows.Forms.CheckBox checkBox_SA_hideDuringBump;
     }
 }
