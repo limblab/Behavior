@@ -1344,54 +1344,62 @@ namespace BehaviorGraphics
 
             #region Cue Comb
             // Timing
-            AddParamListItem("CC CHL", "P2", "Behavior CC", this.textBoxCC_CHL);
-            AddParamListItem("CC CHH", "P3", "Behavior CC", this.textBoxCC_CHH);
-            AddParamListItem("CC CDL", "P4", "Behavior CC", this.textBoxCC_CDL);
-            AddParamListItem("CC CDH", "P5", "Behavior CC", this.textBoxCC_CDH);
-            AddParamListItem("CC intertrial", "P6", "Behavior CC", this.textBoxCC_intertrial);
-            AddParamListItem("CC MT", "P7", "Behavior CC", this.textBoxCC_movementTime);
-            AddParamListItem("CC FailLag", "P8", "Behavior CC", this.textBoxCC_failurelag);
-            AddParamListItem("CC MoveLength", "P9", "Behavior CC", this.textBoxCC_MovementLength);
-            AddParamListItem("CC CTsize", "P10", "Behavior CC", this.textBoxCC_CTrad);
-            AddParamListItem("CC OT_size", "P11", "Behavior CC", this.textBoxCC_OTwidth);
-            AddParamListItem("CC OT_depth", "P12", "Behavior CC", this.textBoxCC_OTdepth);
-            AddParamListItem("CC X_offset", "P13", "Behavior CC", this.textBoxCC_Xoffset);
-            AddParamListItem("CC Y_offset", "P14", "Behavior CC", this.textBoxCC_Yoffset);
-            AddParamListItem("CC prior_mean", "P15", "Behavior CC", this.textBoxCC_PriorMean);
-            AddParamListItem("CC prior_kap", "P16", "Behavior CC", this.textBoxCC_PriorKap);
+            AddParamListItem("CC CHL", "P2", "Behavior Cue Comb", this.textBoxCC_CHL);
+            AddParamListItem("CC CHH", "P3", "Behavior Cue Comb", this.textBoxCC_CHH);
+            AddParamListItem("CC CDL", "P4", "Behavior Cue Comb", this.textBoxCC_CDL);
+            AddParamListItem("CC CDH", "P5", "Behavior Cue Comb", this.textBoxCC_CDH);
+            AddParamListItem("CC intertrial", "P6", "Behavior Cue Comb", this.textBoxCC_intertrial);
+            AddParamListItem("CC MT", "P7", "Behavior Cue Comb", this.textBoxCC_movementTime);
+            AddParamListItem("CC FailLag", "P8", "Behavior Cue Comb", this.textBoxCC_failurelag);
+            AddParamListItem("CC MoveLength", "P9", "Behavior Cue Comb", this.textBoxCC_MovementLength);
+            AddParamListItem("CC CTsize", "P10", "Behavior Cue Comb", this.textBoxCC_CTrad);
+            AddParamListItem("CC OT_size", "P11", "Behavior Cue Comb", this.textBoxCC_OTwidth);
+            AddParamListItem("CC OT_depth", "P12", "Behavior Cue Comb", this.textBoxCC_OTdepth);
+            AddParamListItem("CC X_offset", "P13", "Behavior Cue Comb", this.textBoxCC_Xoffset);
+            AddParamListItem("CC Y_offset", "P14", "Behavior Cue Comb", this.textBoxCC_Yoffset);
+            AddParamListItem("CC prior_mean", "P15", "Behavior Cue Comb", this.textBoxCC_PriorMean);
+            AddParamListItem("CC prior_kap", "P16", "Behavior Cue Comb", this.textBoxCC_PriorKap);
 
-            AddParamListItem("CC cloud_kap_one", "P17", "Behavior CC", this.textBoxCC_cloud1Kap);
-            AddParamListItem("CC cloud_kap_two", "P18", "Behavior CC", this.textBoxCC_cloud2Kap);
-            AddParamListItem("CC cloud_kap_three", "P19", "Behavior CC", this.textBoxCC_cloud3Kap);
-            AddParamListItem("CC cloud_kap_four", "P20", "Behavior CC", this.textBoxCC_cloud4Kap);
-            AddParamListItem("CC cloud_freq_one", "P21", "Behavior CC", this.textBoxCC_cloud1Freq);
-            AddParamListItem("CC cloud_freq_two", "P22", "Behavior CC", this.textBoxCC_cloud2Freq);
-            AddParamListItem("CC cloud_freq_three", "P23", "Behavior CC", this.textBoxCC_cloud3Freq);
-            AddParamListItem("CC cloud_freq_four", "P24", "Behavior CC", this.textBoxCC_cloud4Freq);
+            AddParamListItem("CC cloud_kap_one", "P17", "Behavior Cue Comb", this.textBoxCC_cloud1Kap);
+            AddParamListItem("CC cloud_kap_two", "P18", "Behavior Cue Comb", this.textBoxCC_cloud2Kap);
+            AddParamListItem("CC cloud_kap_three", "P19", "Behavior Cue Comb", this.textBoxCC_cloud3Kap);
+            AddParamListItem("CC cloud_kap_four", "P20", "Behavior Cue Comb", this.textBoxCC_cloud4Kap);
+            AddParamListItem("CC cloud_freq_one", "P21", "Behavior Cue Comb", this.textBoxCC_cloud1Freq);
+            AddParamListItem("CC cloud_freq_two", "P22", "Behavior Cue Comb", this.textBoxCC_cloud2Freq);
+            AddParamListItem("CC cloud_freq_three", "P23", "Behavior Cue Comb", this.textBoxCC_cloud3Freq);
+            AddParamListItem("CC cloud_freq_four", "P24", "Behavior Cue Comb", this.textBoxCC_cloud4Freq);
 
-            AddParamListItem("CC slice_size", "P26", "Behavior CC", this.textBoxCC_slicesize);
-            AddParamListItem("CC slice_num", "P27", "Behavior CC", this.numericUpDownCC_numslices);
+            AddParamListItem("CC blank_one_mode", "P25", "Behavior Cue Comb", this.checkBoxCC_cloud1Blank);
+            AddParamListItem("CC slice_size", "P26", "Behavior Cue Comb", this.textBoxCC_slicesize);
+            AddParamListItem("CC slice_num", "P27", "Behavior Cue Comb", this.numericUpDownCC_numslices);
 
-            AddParamListItem("CC catch_freq", "P28", "Behavior CC", this.textBoxCC_catchFreq);
-            AddParamListItem("CC catch_L", "P29", "Behavior CC", this.textBoxCC_catchLow);
-            AddParamListItem("CC catch_H", "P30", "Behavior CC", this.textBoxCC_catchHigh);
+            AddParamListItem("CC catch_freq", "P28", "Behavior Cue Comb", this.textBoxCC_catchFreq);
+            AddParamListItem("CC catch_L", "P29", "Behavior Cue Comb", this.textBoxCC_catchLow);
+            AddParamListItem("CC catch_H", "P30", "Behavior Cue Comb", this.textBoxCC_catchHigh);
 
-            AddParamListItem("CC Rand_Low", "P34", "Behavior CC", this.textBoxCC_randbumpLow);
-            AddParamListItem("CC Rand_High", "P35", "Behavior CC", this.textBoxCC_randbumpHigh);
+            AddParamListItem("CC use_cohack", "P31", "Behavior Cue Comb", this.checkBoxCC_COhack);
+            AddParamListItem("CC cohack num", "P32", "Behavior Cue Comb", this.numericUpDownCC_numCOtargs);
 
-            AddParamListItem("CC bump_1_mag", "P36", "Behavior CC", this.textBoxCC_bump1Mag);
-            AddParamListItem("CC bump_2_mag", "P37", "Behavior CC", this.textBoxCC_bump2Mag);
-            AddParamListItem("CC bump_3_mag", "P38", "Behavior CC", this.textBoxCC_bump3Mag);
-            AddParamListItem("CC bump_1_freq", "P39", "Behavior CC", this.textBoxCC_bump1Freq);
-            AddParamListItem("CC bump_2_freq", "P40", "Behavior CC", this.textBoxCC_bump2Freq);
-            AddParamListItem("CC bump_3_freq", "P41", "Behavior CC", this.textBoxCC_bump3Freq);
+            AddParamListItem("CC Use Random", "P33", "Behavior Cue Comb", this.checkBoxCC_useRandomBump);
+            AddParamListItem("CC Rand_Low", "P34", "Behavior Cue Comb", this.textBoxCC_randbumpLow);
+            AddParamListItem("CC Rand_High", "P35", "Behavior Cue Comb", this.textBoxCC_randbumpHigh);
 
-            AddParamListItem("CC bump_duration", "P42", "Behavior CC", this.textBoxCC_bumpduration);
-            AddParamListItem("CC Gain_pos", "P43", "Behavior CC", this.textBoxCC_posGain);
-            AddParamListItem("CC Gain_vel", "P44", "Behavior CC", this.textBoxCC_velGain);
+            AddParamListItem("CC bump_1_mag", "P36", "Behavior Cue Comb", this.textBoxCC_bump1Mag);
+            AddParamListItem("CC bump_2_mag", "P37", "Behavior Cue Comb", this.textBoxCC_bump2Mag);
+            AddParamListItem("CC bump_3_mag", "P38", "Behavior Cue Comb", this.textBoxCC_bump3Mag);
+            AddParamListItem("CC bump_1_freq", "P39", "Behavior Cue Comb", this.textBoxCC_bump1Freq);
+            AddParamListItem("CC bump_2_freq", "P40", "Behavior Cue Comb", this.textBoxCC_bump2Freq);
+            AddParamListItem("CC bump_3_freq", "P41", "Behavior Cue Comb", this.textBoxCC_bump3Freq);
 
-            AddParamListItem("CC stim_prob", "P45", "Behavior CC", this.textBoxCC_stimProb);
+            AddParamListItem("CC bump_duration", "P42", "Behavior Cue Comb", this.textBoxCC_bumpduration);
+            AddParamListItem("CC Gain_pos", "P43", "Behavior Cue Comb", this.textBoxCC_posGain);
+            AddParamListItem("CC Gain_vel", "P44", "Behavior Cue Comb", this.textBoxCC_velGain);
 
+            AddParamListItem("CC stim_prob", "P45", "Behavior Cue Comb", this.textBoxCC_stimProb);
+            AddParamListItem("CC pos filt", "P46", "Behavior Cue Comb", this.textBoxCC_posfilt);
+            AddParamListItem("CC vel filt", "P47", "Behavior Cue Comb", this.textBoxCC_velfilt);
+            AddParamListItem("CC bump duration back", "P48", "Behavior Cue Comb", this.textBoxCC_bump_durationBack);
+            AddParamListItem("CC No Return", "P49", "Behavior Cue Comb", this.checkBoxCC_NoReturn);
             #endregion
         }
 

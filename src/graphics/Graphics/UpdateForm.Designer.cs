@@ -36,6 +36,8 @@ namespace BehaviorGraphics
             this.tabs = new System.Windows.Forms.TabControl();
             this.tabPageGen = new System.Windows.Forms.TabPage();
             this.groupBoxIsometric = new System.Windows.Forms.GroupBox();
+            this.labelORL = new System.Windows.Forms.Label();
+            this.textBoxORL = new System.Windows.Forms.TextBox();
             this.labelF2SG = new System.Windows.Forms.Label();
             this.textBoxF2SG = new System.Windows.Forms.TextBox();
             this.checkBoxUSDH = new System.Windows.Forms.CheckBox();
@@ -1965,8 +1967,13 @@ namespace BehaviorGraphics
             this.label_CT_hold = new System.Windows.Forms.Label();
             this.textBox52b = new System.Windows.Forms.TextBox();
             this.label_CT_hold2 = new System.Windows.Forms.Label();
-            this.textBoxORL = new System.Windows.Forms.TextBox();
-            this.labelORL = new System.Windows.Forms.Label();
+            this.textBoxCC_velfilt = new System.Windows.Forms.TextBox();
+            this.textBoxCC_posfilt = new System.Windows.Forms.TextBox();
+            this.label454 = new System.Windows.Forms.Label();
+            this.label462 = new System.Windows.Forms.Label();
+            this.label463 = new System.Windows.Forms.Label();
+            this.textBoxCC_bump_durationBack = new System.Windows.Forms.TextBox();
+            this.checkBoxCC_NoReturn = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2274,6 +2281,25 @@ namespace BehaviorGraphics
             this.groupBoxIsometric.TabIndex = 27;
             this.groupBoxIsometric.TabStop = false;
             this.groupBoxIsometric.Text = "Isometric Robot";
+            // 
+            // labelORL
+            // 
+            this.labelORL.AutoSize = true;
+            this.labelORL.Location = new System.Drawing.Point(11, 95);
+            this.labelORL.Name = "labelORL";
+            this.labelORL.Size = new System.Drawing.Size(86, 13);
+            this.labelORL.TabIndex = 5;
+            this.labelORL.Text = "Offset reset level";
+            this.toolTip1.SetToolTip(this.labelORL, "Reset offsets when load cell signals are below this level (0.03 works well)");
+            // 
+            // textBoxORL
+            // 
+            this.textBoxORL.Location = new System.Drawing.Point(124, 92);
+            this.textBoxORL.Name = "textBoxORL";
+            this.textBoxORL.Size = new System.Drawing.Size(67, 20);
+            this.textBoxORL.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.textBoxORL, "Reset offsets when load cell signals are below this level (0.03 works well)");
+            this.textBoxORL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // labelF2SG
             // 
@@ -17185,20 +17211,24 @@ namespace BehaviorGraphics
             // 
             // groupBox87
             // 
+            this.groupBox87.Controls.Add(this.label462);
+            this.groupBox87.Controls.Add(this.label454);
+            this.groupBox87.Controls.Add(this.textBoxCC_velfilt);
+            this.groupBox87.Controls.Add(this.textBoxCC_posfilt);
             this.groupBox87.Controls.Add(this.textBoxCC_velGain);
             this.groupBox87.Controls.Add(this.label453);
             this.groupBox87.Controls.Add(this.textBoxCC_posGain);
             this.groupBox87.Controls.Add(this.label461);
             this.groupBox87.Location = new System.Drawing.Point(357, 343);
             this.groupBox87.Name = "groupBox87";
-            this.groupBox87.Size = new System.Drawing.Size(150, 76);
+            this.groupBox87.Size = new System.Drawing.Size(150, 88);
             this.groupBox87.TabIndex = 84;
             this.groupBox87.TabStop = false;
             this.groupBox87.Text = "PD bump control";
             // 
             // textBoxCC_velGain
             // 
-            this.textBoxCC_velGain.Location = new System.Drawing.Point(84, 52);
+            this.textBoxCC_velGain.Location = new System.Drawing.Point(68, 60);
             this.textBoxCC_velGain.Name = "textBoxCC_velGain";
             this.textBoxCC_velGain.Size = new System.Drawing.Size(34, 20);
             this.textBoxCC_velGain.TabIndex = 81;
@@ -17209,15 +17239,15 @@ namespace BehaviorGraphics
             // label453
             // 
             this.label453.AutoSize = true;
-            this.label453.Location = new System.Drawing.Point(31, 30);
+            this.label453.Location = new System.Drawing.Point(15, 38);
             this.label453.Name = "label453";
-            this.label453.Size = new System.Drawing.Size(50, 13);
+            this.label453.Size = new System.Drawing.Size(44, 13);
             this.label453.TabIndex = 78;
-            this.label453.Text = "Pos Gain";
+            this.label453.Text = "Position";
             // 
             // textBoxCC_posGain
             // 
-            this.textBoxCC_posGain.Location = new System.Drawing.Point(84, 27);
+            this.textBoxCC_posGain.Location = new System.Drawing.Point(68, 35);
             this.textBoxCC_posGain.Name = "textBoxCC_posGain";
             this.textBoxCC_posGain.Size = new System.Drawing.Size(34, 20);
             this.textBoxCC_posGain.TabIndex = 79;
@@ -17228,11 +17258,11 @@ namespace BehaviorGraphics
             // label461
             // 
             this.label461.AutoSize = true;
-            this.label461.Location = new System.Drawing.Point(31, 55);
+            this.label461.Location = new System.Drawing.Point(15, 63);
             this.label461.Name = "label461";
-            this.label461.Size = new System.Drawing.Size(47, 13);
+            this.label461.Size = new System.Drawing.Size(44, 13);
             this.label461.TabIndex = 80;
-            this.label461.Text = "Vel Gain";
+            this.label461.Text = "Velocity";
             // 
             // groupBox86
             // 
@@ -17456,6 +17486,9 @@ namespace BehaviorGraphics
             // 
             // groupBox84
             // 
+            this.groupBox84.Controls.Add(this.checkBoxCC_NoReturn);
+            this.groupBox84.Controls.Add(this.label463);
+            this.groupBox84.Controls.Add(this.textBoxCC_bump_durationBack);
             this.groupBox84.Controls.Add(this.label448);
             this.groupBox84.Controls.Add(this.textBoxCC_bumpduration);
             this.groupBox84.Controls.Add(this.label447);
@@ -17485,7 +17518,7 @@ namespace BehaviorGraphics
             // label448
             // 
             this.label448.AutoSize = true;
-            this.label448.Location = new System.Drawing.Point(199, 83);
+            this.label448.Location = new System.Drawing.Point(179, 50);
             this.label448.Name = "label448";
             this.label448.Size = new System.Drawing.Size(91, 13);
             this.label448.TabIndex = 71;
@@ -17493,7 +17526,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_bumpduration
             // 
-            this.textBoxCC_bumpduration.Location = new System.Drawing.Point(292, 80);
+            this.textBoxCC_bumpduration.Location = new System.Drawing.Point(272, 47);
             this.textBoxCC_bumpduration.Name = "textBoxCC_bumpduration";
             this.textBoxCC_bumpduration.Size = new System.Drawing.Size(45, 20);
             this.textBoxCC_bumpduration.TabIndex = 72;
@@ -17501,7 +17534,7 @@ namespace BehaviorGraphics
             // label447
             // 
             this.label447.AutoSize = true;
-            this.label447.Location = new System.Drawing.Point(276, 54);
+            this.label447.Location = new System.Drawing.Point(310, 8);
             this.label447.Name = "label447";
             this.label447.Size = new System.Drawing.Size(29, 13);
             this.label447.TabIndex = 69;
@@ -17509,7 +17542,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_randbumpHigh
             // 
-            this.textBoxCC_randbumpHigh.Location = new System.Drawing.Point(310, 51);
+            this.textBoxCC_randbumpHigh.Location = new System.Drawing.Point(311, 22);
             this.textBoxCC_randbumpHigh.Name = "textBoxCC_randbumpHigh";
             this.textBoxCC_randbumpHigh.Size = new System.Drawing.Size(27, 20);
             this.textBoxCC_randbumpHigh.TabIndex = 70;
@@ -17517,7 +17550,7 @@ namespace BehaviorGraphics
             // label446
             // 
             this.label446.AutoSize = true;
-            this.label446.Location = new System.Drawing.Point(205, 54);
+            this.label446.Location = new System.Drawing.Point(272, 8);
             this.label446.Name = "label446";
             this.label446.Size = new System.Drawing.Size(27, 13);
             this.label446.TabIndex = 67;
@@ -17525,7 +17558,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_randbumpLow
             // 
-            this.textBoxCC_randbumpLow.Location = new System.Drawing.Point(239, 51);
+            this.textBoxCC_randbumpLow.Location = new System.Drawing.Point(272, 22);
             this.textBoxCC_randbumpLow.Name = "textBoxCC_randbumpLow";
             this.textBoxCC_randbumpLow.Size = new System.Drawing.Size(27, 20);
             this.textBoxCC_randbumpLow.TabIndex = 68;
@@ -17533,17 +17566,17 @@ namespace BehaviorGraphics
             // checkBoxCC_useRandomBump
             // 
             this.checkBoxCC_useRandomBump.AutoSize = true;
-            this.checkBoxCC_useRandomBump.Location = new System.Drawing.Point(210, 24);
+            this.checkBoxCC_useRandomBump.Location = new System.Drawing.Point(182, 24);
             this.checkBoxCC_useRandomBump.Name = "checkBoxCC_useRandomBump";
-            this.checkBoxCC_useRandomBump.Size = new System.Drawing.Size(112, 17);
+            this.checkBoxCC_useRandomBump.Size = new System.Drawing.Size(90, 17);
             this.checkBoxCC_useRandomBump.TabIndex = 66;
-            this.checkBoxCC_useRandomBump.Text = "Use Random Mag";
+            this.checkBoxCC_useRandomBump.Text = "Random Mag";
             this.checkBoxCC_useRandomBump.UseVisualStyleBackColor = true;
             // 
             // label430
             // 
             this.label430.AutoSize = true;
-            this.label430.Location = new System.Drawing.Point(138, 87);
+            this.label430.Location = new System.Drawing.Point(119, 87);
             this.label430.Name = "label430";
             this.label430.Size = new System.Drawing.Size(28, 13);
             this.label430.TabIndex = 64;
@@ -17551,7 +17584,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_bump3Freq
             // 
-            this.textBoxCC_bump3Freq.Location = new System.Drawing.Point(169, 83);
+            this.textBoxCC_bump3Freq.Location = new System.Drawing.Point(150, 83);
             this.textBoxCC_bump3Freq.Name = "textBoxCC_bump3Freq";
             this.textBoxCC_bump3Freq.Size = new System.Drawing.Size(20, 20);
             this.textBoxCC_bump3Freq.TabIndex = 65;
@@ -17559,7 +17592,7 @@ namespace BehaviorGraphics
             // label431
             // 
             this.label431.AutoSize = true;
-            this.label431.Location = new System.Drawing.Point(138, 58);
+            this.label431.Location = new System.Drawing.Point(119, 58);
             this.label431.Name = "label431";
             this.label431.Size = new System.Drawing.Size(28, 13);
             this.label431.TabIndex = 62;
@@ -17567,7 +17600,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_bump2Freq
             // 
-            this.textBoxCC_bump2Freq.Location = new System.Drawing.Point(169, 54);
+            this.textBoxCC_bump2Freq.Location = new System.Drawing.Point(150, 54);
             this.textBoxCC_bump2Freq.Name = "textBoxCC_bump2Freq";
             this.textBoxCC_bump2Freq.Size = new System.Drawing.Size(20, 20);
             this.textBoxCC_bump2Freq.TabIndex = 63;
@@ -17575,7 +17608,7 @@ namespace BehaviorGraphics
             // label442
             // 
             this.label442.AutoSize = true;
-            this.label442.Location = new System.Drawing.Point(138, 28);
+            this.label442.Location = new System.Drawing.Point(119, 28);
             this.label442.Name = "label442";
             this.label442.Size = new System.Drawing.Size(28, 13);
             this.label442.TabIndex = 60;
@@ -17583,7 +17616,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_bump1Freq
             // 
-            this.textBoxCC_bump1Freq.Location = new System.Drawing.Point(169, 24);
+            this.textBoxCC_bump1Freq.Location = new System.Drawing.Point(150, 24);
             this.textBoxCC_bump1Freq.Name = "textBoxCC_bump1Freq";
             this.textBoxCC_bump1Freq.Size = new System.Drawing.Size(20, 20);
             this.textBoxCC_bump1Freq.TabIndex = 61;
@@ -17591,7 +17624,7 @@ namespace BehaviorGraphics
             // label443
             // 
             this.label443.AutoSize = true;
-            this.label443.Location = new System.Drawing.Point(10, 87);
+            this.label443.Location = new System.Drawing.Point(1, 87);
             this.label443.Name = "label443";
             this.label443.Size = new System.Drawing.Size(77, 13);
             this.label443.TabIndex = 58;
@@ -17599,7 +17632,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_bump3Mag
             // 
-            this.textBoxCC_bump3Mag.Location = new System.Drawing.Point(97, 84);
+            this.textBoxCC_bump3Mag.Location = new System.Drawing.Point(78, 84);
             this.textBoxCC_bump3Mag.Name = "textBoxCC_bump3Mag";
             this.textBoxCC_bump3Mag.Size = new System.Drawing.Size(36, 20);
             this.textBoxCC_bump3Mag.TabIndex = 59;
@@ -17607,7 +17640,7 @@ namespace BehaviorGraphics
             // label444
             // 
             this.label444.AutoSize = true;
-            this.label444.Location = new System.Drawing.Point(10, 58);
+            this.label444.Location = new System.Drawing.Point(1, 58);
             this.label444.Name = "label444";
             this.label444.Size = new System.Drawing.Size(77, 13);
             this.label444.TabIndex = 56;
@@ -17615,7 +17648,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_bump2Mag
             // 
-            this.textBoxCC_bump2Mag.Location = new System.Drawing.Point(97, 55);
+            this.textBoxCC_bump2Mag.Location = new System.Drawing.Point(78, 55);
             this.textBoxCC_bump2Mag.Name = "textBoxCC_bump2Mag";
             this.textBoxCC_bump2Mag.Size = new System.Drawing.Size(36, 20);
             this.textBoxCC_bump2Mag.TabIndex = 57;
@@ -17623,7 +17656,7 @@ namespace BehaviorGraphics
             // label445
             // 
             this.label445.AutoSize = true;
-            this.label445.Location = new System.Drawing.Point(10, 28);
+            this.label445.Location = new System.Drawing.Point(1, 28);
             this.label445.Name = "label445";
             this.label445.Size = new System.Drawing.Size(74, 13);
             this.label445.TabIndex = 54;
@@ -17631,7 +17664,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_bump1Mag
             // 
-            this.textBoxCC_bump1Mag.Location = new System.Drawing.Point(97, 25);
+            this.textBoxCC_bump1Mag.Location = new System.Drawing.Point(78, 25);
             this.textBoxCC_bump1Mag.Name = "textBoxCC_bump1Mag";
             this.textBoxCC_bump1Mag.Size = new System.Drawing.Size(36, 20);
             this.textBoxCC_bump1Mag.TabIndex = 55;
@@ -21498,24 +21531,69 @@ namespace BehaviorGraphics
             this.label_CT_hold2.TabIndex = 0;
             this.label_CT_hold2.Text = "CT Hold";
             // 
-            // textBoxORL
+            // textBoxCC_velfilt
             // 
-            this.textBoxORL.Location = new System.Drawing.Point(124, 92);
-            this.textBoxORL.Name = "textBoxORL";
-            this.textBoxORL.Size = new System.Drawing.Size(67, 20);
-            this.textBoxORL.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.textBoxORL, "Reset offsets when load cell signals are below this level (0.03 works well)");
-            this.textBoxORL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.textBoxCC_velfilt.Location = new System.Drawing.Point(108, 60);
+            this.textBoxCC_velfilt.Name = "textBoxCC_velfilt";
+            this.textBoxCC_velfilt.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_velfilt.TabIndex = 83;
+            this.toolTip1.SetToolTip(this.textBoxCC_velfilt, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
+                    "lay time.");
             // 
-            // labelORL
+            // textBoxCC_posfilt
             // 
-            this.labelORL.AutoSize = true;
-            this.labelORL.Location = new System.Drawing.Point(11, 95);
-            this.labelORL.Name = "labelORL";
-            this.labelORL.Size = new System.Drawing.Size(86, 13);
-            this.labelORL.TabIndex = 5;
-            this.labelORL.Text = "Offset reset level";
-            this.toolTip1.SetToolTip(this.labelORL, "Reset offsets when load cell signals are below this level (0.03 works well)");
+            this.textBoxCC_posfilt.Location = new System.Drawing.Point(108, 35);
+            this.textBoxCC_posfilt.Name = "textBoxCC_posfilt";
+            this.textBoxCC_posfilt.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_posfilt.TabIndex = 82;
+            this.toolTip1.SetToolTip(this.textBoxCC_posfilt, "Lower bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay High for non-random d" +
+                    "elay time.");
+            // 
+            // label454
+            // 
+            this.label454.AutoSize = true;
+            this.label454.Location = new System.Drawing.Point(73, 19);
+            this.label454.Name = "label454";
+            this.label454.Size = new System.Drawing.Size(29, 13);
+            this.label454.TabIndex = 84;
+            this.label454.Text = "Gain";
+            // 
+            // label462
+            // 
+            this.label462.AutoSize = true;
+            this.label462.Location = new System.Drawing.Point(111, 19);
+            this.label462.Name = "label462";
+            this.label462.Size = new System.Drawing.Size(20, 13);
+            this.label462.TabIndex = 85;
+            this.label462.Text = "Filt";
+            // 
+            // label463
+            // 
+            this.label463.AutoSize = true;
+            this.label463.Location = new System.Drawing.Point(179, 74);
+            this.label463.Name = "label463";
+            this.label463.Size = new System.Drawing.Size(74, 13);
+            this.label463.TabIndex = 73;
+            this.label463.Text = "Duration back";
+            // 
+            // textBoxCC_bump_durationBack
+            // 
+            this.textBoxCC_bump_durationBack.Location = new System.Drawing.Point(272, 71);
+            this.textBoxCC_bump_durationBack.Name = "textBoxCC_bump_durationBack";
+            this.textBoxCC_bump_durationBack.Size = new System.Drawing.Size(45, 20);
+            this.textBoxCC_bump_durationBack.TabIndex = 74;
+            // 
+            // checkBoxCC_NoReturn
+            // 
+            this.checkBoxCC_NoReturn.AutoSize = true;
+            this.checkBoxCC_NoReturn.Location = new System.Drawing.Point(179, 90);
+            this.checkBoxCC_NoReturn.Name = "checkBoxCC_NoReturn";
+            this.checkBoxCC_NoReturn.Size = new System.Drawing.Size(75, 17);
+            this.checkBoxCC_NoReturn.TabIndex = 57;
+            this.checkBoxCC_NoReturn.Text = "No Return";
+            this.checkBoxCC_NoReturn.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -23818,5 +23896,12 @@ namespace BehaviorGraphics
         private System.Windows.Forms.CheckBox checkBox_SA_hideDuringBump;
         private System.Windows.Forms.Label labelORL;
         private System.Windows.Forms.TextBox textBoxORL;
+        private System.Windows.Forms.Label label462;
+        private System.Windows.Forms.Label label454;
+        private System.Windows.Forms.TextBox textBoxCC_velfilt;
+        private System.Windows.Forms.TextBox textBoxCC_posfilt;
+        private System.Windows.Forms.CheckBox checkBoxCC_NoReturn;
+        private System.Windows.Forms.Label label463;
+        private System.Windows.Forms.TextBox textBoxCC_bump_durationBack;
     }
 }

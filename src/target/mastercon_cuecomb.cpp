@@ -533,6 +533,7 @@ void cuecombBehavior::update(SimStruct *S) {
 					this->bump->distance = current_trial_bumpmag;
 					bump_offset.x = 0.0;
 					bump_offset.y = 0.0;
+					this->bump->duration = params->bump_duration_back;
 				}
 				this->bump->duration = params->bump_duration;
 				this->bump->start(S);
