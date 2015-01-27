@@ -105,6 +105,8 @@ struct LocalParams {
 	real_T vel_filt;
 
 	real_T NoReturn;
+
+	real_T feedback_win;
 };
 
 /**
@@ -185,7 +187,7 @@ cuecombBehavior::cuecombBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(49);
+	this->setNumParams(50);
 
 	this->bindParamId(&params->master_reset,		0);
 	
@@ -249,6 +251,8 @@ cuecombBehavior::cuecombBehavior(SimStruct *S) : RobotBehavior() {
 
 	this->bindParamId(&params->bump_duration_back,	47);
 	this->bindParamId(&params->NoReturn,			48);
+	
+	this->bindParamId(&params->feedback_win,		49);
 
 	this->setMasterResetParamId(0);
 
@@ -722,24 +726,22 @@ void cuecombBehavior::calculateOutputs(SimStruct *S) {
 
 	// Targets 3 through 12 Target Cloud (3-12)
 
-	if ( getState() == STATE_BUMP_OUT		  ||
-		 getState() == STATE_BUMP_IN ) {
-		if  (!cloud_blank){
-			for (i = 0; i<params->slice_number; i++) {
-				outputs->targets[3+i] = cloud[i];
-			}
-		} else {
-			for (i = 0; i<params->slice_number; i++) {
-				outputs->targets[3+i] = nullTarget;
-			}
+	if (!cloud_blank &&
+		(getState() == STATE_BUMP_OUT || 
+		getState() == STATE_BUMP_IN || 
+		((getState() == STATE_CT_DELAY || 
+		getState() == STATE_MOVEMENT) &&
+		cursor_extent < params->feedback_win))) {
+		for (i = 0; i<params->slice_number; i++) {
+			outputs->targets[3+i] = cloud[i];
 		}
-
 	} else {
 		for (i = 0; i<params->slice_number; i++) {
 			outputs->targets[3+i] = nullTarget;
 		}
 	}
-
+		
+	
 	/* Timer Dot */
 	if ( getState() == STATE_CT_ON	 ||
 		 getState() == STATE_CT_HOLD ||
