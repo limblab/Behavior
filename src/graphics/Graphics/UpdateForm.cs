@@ -1400,6 +1400,8 @@ namespace BehaviorGraphics
             AddParamListItem("CC vel filt", "P47", "Behavior Cue Comb", this.textBoxCC_velfilt);
             AddParamListItem("CC bump duration back", "P48", "Behavior Cue Comb", this.textBoxCC_bump_durationBack);
             AddParamListItem("CC No Return", "P49", "Behavior Cue Comb", this.checkBoxCC_NoReturn);
+
+            AddParamListItem("CC feedback window", "P50", "Behavior Cue Comb", this.textBoxCC_feedback_win);
             #endregion
         }
 

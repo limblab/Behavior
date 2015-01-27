@@ -1496,6 +1496,10 @@ namespace BehaviorGraphics
             this.textBoxCC_stimProb = new System.Windows.Forms.TextBox();
             this.label467 = new System.Windows.Forms.Label();
             this.groupBox87 = new System.Windows.Forms.GroupBox();
+            this.label462 = new System.Windows.Forms.Label();
+            this.label454 = new System.Windows.Forms.Label();
+            this.textBoxCC_velfilt = new System.Windows.Forms.TextBox();
+            this.textBoxCC_posfilt = new System.Windows.Forms.TextBox();
             this.textBoxCC_velGain = new System.Windows.Forms.TextBox();
             this.label453 = new System.Windows.Forms.Label();
             this.textBoxCC_posGain = new System.Windows.Forms.TextBox();
@@ -1523,6 +1527,9 @@ namespace BehaviorGraphics
             this.textBoxCC_CHL = new System.Windows.Forms.TextBox();
             this.label460 = new System.Windows.Forms.Label();
             this.groupBox84 = new System.Windows.Forms.GroupBox();
+            this.checkBoxCC_NoReturn = new System.Windows.Forms.CheckBox();
+            this.label463 = new System.Windows.Forms.Label();
+            this.textBoxCC_bump_durationBack = new System.Windows.Forms.TextBox();
             this.label448 = new System.Windows.Forms.Label();
             this.textBoxCC_bumpduration = new System.Windows.Forms.TextBox();
             this.label447 = new System.Windows.Forms.Label();
@@ -1967,13 +1974,8 @@ namespace BehaviorGraphics
             this.label_CT_hold = new System.Windows.Forms.Label();
             this.textBox52b = new System.Windows.Forms.TextBox();
             this.label_CT_hold2 = new System.Windows.Forms.Label();
-            this.textBoxCC_velfilt = new System.Windows.Forms.TextBox();
-            this.textBoxCC_posfilt = new System.Windows.Forms.TextBox();
-            this.label454 = new System.Windows.Forms.Label();
-            this.label462 = new System.Windows.Forms.Label();
-            this.label463 = new System.Windows.Forms.Label();
-            this.textBoxCC_bump_durationBack = new System.Windows.Forms.TextBox();
-            this.checkBoxCC_NoReturn = new System.Windows.Forms.CheckBox();
+            this.textBoxCC_feedback_win = new System.Windows.Forms.TextBox();
+            this.label464 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -17226,6 +17228,44 @@ namespace BehaviorGraphics
             this.groupBox87.TabStop = false;
             this.groupBox87.Text = "PD bump control";
             // 
+            // label462
+            // 
+            this.label462.AutoSize = true;
+            this.label462.Location = new System.Drawing.Point(111, 19);
+            this.label462.Name = "label462";
+            this.label462.Size = new System.Drawing.Size(20, 13);
+            this.label462.TabIndex = 85;
+            this.label462.Text = "Filt";
+            // 
+            // label454
+            // 
+            this.label454.AutoSize = true;
+            this.label454.Location = new System.Drawing.Point(73, 19);
+            this.label454.Name = "label454";
+            this.label454.Size = new System.Drawing.Size(29, 13);
+            this.label454.TabIndex = 84;
+            this.label454.Text = "Gain";
+            // 
+            // textBoxCC_velfilt
+            // 
+            this.textBoxCC_velfilt.Location = new System.Drawing.Point(108, 60);
+            this.textBoxCC_velfilt.Name = "textBoxCC_velfilt";
+            this.textBoxCC_velfilt.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_velfilt.TabIndex = 83;
+            this.toolTip1.SetToolTip(this.textBoxCC_velfilt, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
+                    "lay time.");
+            // 
+            // textBoxCC_posfilt
+            // 
+            this.textBoxCC_posfilt.Location = new System.Drawing.Point(108, 35);
+            this.textBoxCC_posfilt.Name = "textBoxCC_posfilt";
+            this.textBoxCC_posfilt.Size = new System.Drawing.Size(34, 20);
+            this.textBoxCC_posfilt.TabIndex = 82;
+            this.toolTip1.SetToolTip(this.textBoxCC_posfilt, "Lower bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay High for non-random d" +
+                    "elay time.");
+            // 
             // textBoxCC_velGain
             // 
             this.textBoxCC_velGain.Location = new System.Drawing.Point(68, 60);
@@ -17515,6 +17555,32 @@ namespace BehaviorGraphics
             this.groupBox84.TabStop = false;
             this.groupBox84.Text = "Bump (magnitudes in cm)";
             // 
+            // checkBoxCC_NoReturn
+            // 
+            this.checkBoxCC_NoReturn.AutoSize = true;
+            this.checkBoxCC_NoReturn.Location = new System.Drawing.Point(179, 90);
+            this.checkBoxCC_NoReturn.Name = "checkBoxCC_NoReturn";
+            this.checkBoxCC_NoReturn.Size = new System.Drawing.Size(75, 17);
+            this.checkBoxCC_NoReturn.TabIndex = 57;
+            this.checkBoxCC_NoReturn.Text = "No Return";
+            this.checkBoxCC_NoReturn.UseVisualStyleBackColor = true;
+            // 
+            // label463
+            // 
+            this.label463.AutoSize = true;
+            this.label463.Location = new System.Drawing.Point(179, 74);
+            this.label463.Name = "label463";
+            this.label463.Size = new System.Drawing.Size(74, 13);
+            this.label463.TabIndex = 73;
+            this.label463.Text = "Duration back";
+            // 
+            // textBoxCC_bump_durationBack
+            // 
+            this.textBoxCC_bump_durationBack.Location = new System.Drawing.Point(272, 71);
+            this.textBoxCC_bump_durationBack.Name = "textBoxCC_bump_durationBack";
+            this.textBoxCC_bump_durationBack.Size = new System.Drawing.Size(45, 20);
+            this.textBoxCC_bump_durationBack.TabIndex = 74;
+            // 
             // label448
             // 
             this.label448.AutoSize = true;
@@ -17671,6 +17737,8 @@ namespace BehaviorGraphics
             // 
             // groupBox83
             // 
+            this.groupBox83.Controls.Add(this.label464);
+            this.groupBox83.Controls.Add(this.textBoxCC_feedback_win);
             this.groupBox83.Controls.Add(this.checkBoxCC_cloud1Blank);
             this.groupBox83.Controls.Add(this.label432);
             this.groupBox83.Controls.Add(this.textBoxCC_cloud4Freq);
@@ -17824,7 +17892,7 @@ namespace BehaviorGraphics
             // label439
             // 
             this.label439.AutoSize = true;
-            this.label439.Location = new System.Drawing.Point(211, 97);
+            this.label439.Location = new System.Drawing.Point(211, 115);
             this.label439.Name = "label439";
             this.label439.Size = new System.Drawing.Size(57, 13);
             this.label439.TabIndex = 40;
@@ -17832,7 +17900,7 @@ namespace BehaviorGraphics
             // 
             // numericUpDownCC_numslices
             // 
-            this.numericUpDownCC_numslices.Location = new System.Drawing.Point(294, 94);
+            this.numericUpDownCC_numslices.Location = new System.Drawing.Point(294, 112);
             this.numericUpDownCC_numslices.Maximum = new decimal(new int[] {
             10,
             0,
@@ -17856,7 +17924,7 @@ namespace BehaviorGraphics
             // label440
             // 
             this.label440.AutoSize = true;
-            this.label440.Location = new System.Drawing.Point(211, 68);
+            this.label440.Location = new System.Drawing.Point(211, 86);
             this.label440.Name = "label440";
             this.label440.Size = new System.Drawing.Size(53, 13);
             this.label440.TabIndex = 38;
@@ -17864,7 +17932,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_slicesize
             // 
-            this.textBoxCC_slicesize.Location = new System.Drawing.Point(294, 65);
+            this.textBoxCC_slicesize.Location = new System.Drawing.Point(294, 83);
             this.textBoxCC_slicesize.Name = "textBoxCC_slicesize";
             this.textBoxCC_slicesize.Size = new System.Drawing.Size(41, 20);
             this.textBoxCC_slicesize.TabIndex = 39;
@@ -21531,69 +21599,21 @@ namespace BehaviorGraphics
             this.label_CT_hold2.TabIndex = 0;
             this.label_CT_hold2.Text = "CT Hold";
             // 
-            // textBoxCC_velfilt
+            // textBoxCC_feedback_win
             // 
-            this.textBoxCC_velfilt.Location = new System.Drawing.Point(108, 60);
-            this.textBoxCC_velfilt.Name = "textBoxCC_velfilt";
-            this.textBoxCC_velfilt.Size = new System.Drawing.Size(34, 20);
-            this.textBoxCC_velfilt.TabIndex = 83;
-            this.toolTip1.SetToolTip(this.textBoxCC_velfilt, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
-                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
-                    "lay time.");
+            this.textBoxCC_feedback_win.Location = new System.Drawing.Point(295, 50);
+            this.textBoxCC_feedback_win.Name = "textBoxCC_feedback_win";
+            this.textBoxCC_feedback_win.Size = new System.Drawing.Size(41, 20);
+            this.textBoxCC_feedback_win.TabIndex = 57;
             // 
-            // textBoxCC_posfilt
+            // label464
             // 
-            this.textBoxCC_posfilt.Location = new System.Drawing.Point(108, 35);
-            this.textBoxCC_posfilt.Name = "textBoxCC_posfilt";
-            this.textBoxCC_posfilt.Size = new System.Drawing.Size(34, 20);
-            this.textBoxCC_posfilt.TabIndex = 82;
-            this.toolTip1.SetToolTip(this.textBoxCC_posfilt, "Lower bound on random delay time.  Delay is the time between when the outer targe" +
-                    "t appears and the go cue is presented.\r\nSet equal to Delay High for non-random d" +
-                    "elay time.");
-            // 
-            // label454
-            // 
-            this.label454.AutoSize = true;
-            this.label454.Location = new System.Drawing.Point(73, 19);
-            this.label454.Name = "label454";
-            this.label454.Size = new System.Drawing.Size(29, 13);
-            this.label454.TabIndex = 84;
-            this.label454.Text = "Gain";
-            // 
-            // label462
-            // 
-            this.label462.AutoSize = true;
-            this.label462.Location = new System.Drawing.Point(111, 19);
-            this.label462.Name = "label462";
-            this.label462.Size = new System.Drawing.Size(20, 13);
-            this.label462.TabIndex = 85;
-            this.label462.Text = "Filt";
-            // 
-            // label463
-            // 
-            this.label463.AutoSize = true;
-            this.label463.Location = new System.Drawing.Point(179, 74);
-            this.label463.Name = "label463";
-            this.label463.Size = new System.Drawing.Size(74, 13);
-            this.label463.TabIndex = 73;
-            this.label463.Text = "Duration back";
-            // 
-            // textBoxCC_bump_durationBack
-            // 
-            this.textBoxCC_bump_durationBack.Location = new System.Drawing.Point(272, 71);
-            this.textBoxCC_bump_durationBack.Name = "textBoxCC_bump_durationBack";
-            this.textBoxCC_bump_durationBack.Size = new System.Drawing.Size(45, 20);
-            this.textBoxCC_bump_durationBack.TabIndex = 74;
-            // 
-            // checkBoxCC_NoReturn
-            // 
-            this.checkBoxCC_NoReturn.AutoSize = true;
-            this.checkBoxCC_NoReturn.Location = new System.Drawing.Point(179, 90);
-            this.checkBoxCC_NoReturn.Name = "checkBoxCC_NoReturn";
-            this.checkBoxCC_NoReturn.Size = new System.Drawing.Size(75, 17);
-            this.checkBoxCC_NoReturn.TabIndex = 57;
-            this.checkBoxCC_NoReturn.Text = "No Return";
-            this.checkBoxCC_NoReturn.UseVisualStyleBackColor = true;
+            this.label464.AutoSize = true;
+            this.label464.Location = new System.Drawing.Point(195, 54);
+            this.label464.Name = "label464";
+            this.label464.Size = new System.Drawing.Size(94, 13);
+            this.label464.TabIndex = 58;
+            this.label464.Text = "Feedback window";
             // 
             // UpdateForm
             // 
@@ -23903,5 +23923,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.CheckBox checkBoxCC_NoReturn;
         private System.Windows.Forms.Label label463;
         private System.Windows.Forms.TextBox textBoxCC_bump_durationBack;
+        private System.Windows.Forms.Label label464;
+        private System.Windows.Forms.TextBox textBoxCC_feedback_win;
     }
 }
