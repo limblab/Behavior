@@ -1550,6 +1550,8 @@ namespace BehaviorGraphics
             this.label445 = new System.Windows.Forms.Label();
             this.textBoxCC_bump1Mag = new System.Windows.Forms.TextBox();
             this.groupBox83 = new System.Windows.Forms.GroupBox();
+            this.label464 = new System.Windows.Forms.Label();
+            this.textBoxCC_feedback_win = new System.Windows.Forms.TextBox();
             this.checkBoxCC_cloud1Blank = new System.Windows.Forms.CheckBox();
             this.label432 = new System.Windows.Forms.Label();
             this.textBoxCC_cloud4Freq = new System.Windows.Forms.TextBox();
@@ -1974,8 +1976,7 @@ namespace BehaviorGraphics
             this.label_CT_hold = new System.Windows.Forms.Label();
             this.textBox52b = new System.Windows.Forms.TextBox();
             this.label_CT_hold2 = new System.Windows.Forms.Label();
-            this.textBoxCC_feedback_win = new System.Windows.Forms.TextBox();
-            this.label464 = new System.Windows.Forms.Label();
+            this.checkBoxRPCCT = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2183,7 +2184,7 @@ namespace BehaviorGraphics
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(534, 532);
+            this.cancelButton.Location = new System.Drawing.Point(534, 566);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 98;
@@ -2194,7 +2195,7 @@ namespace BehaviorGraphics
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(615, 532);
+            this.okButton.Location = new System.Drawing.Point(615, 566);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 99;
@@ -2237,7 +2238,7 @@ namespace BehaviorGraphics
             this.tabs.Multiline = true;
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
-            this.tabs.Size = new System.Drawing.Size(694, 499);
+            this.tabs.Size = new System.Drawing.Size(694, 533);
             this.tabs.TabIndex = 0;
             this.tabs.TabStop = false;
             // 
@@ -2263,7 +2264,7 @@ namespace BehaviorGraphics
             this.tabPageGen.Location = new System.Drawing.Point(4, 58);
             this.tabPageGen.Name = "tabPageGen";
             this.tabPageGen.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGen.Size = new System.Drawing.Size(686, 437);
+            this.tabPageGen.Size = new System.Drawing.Size(686, 471);
             this.tabPageGen.TabIndex = 0;
             this.tabPageGen.Text = "General";
             this.tabPageGen.UseVisualStyleBackColor = true;
@@ -3112,7 +3113,7 @@ namespace BehaviorGraphics
             this.tabPageCO.Location = new System.Drawing.Point(4, 58);
             this.tabPageCO.Name = "tabPageCO";
             this.tabPageCO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCO.Size = new System.Drawing.Size(686, 437);
+            this.tabPageCO.Size = new System.Drawing.Size(686, 468);
             this.tabPageCO.TabIndex = 1;
             this.tabPageCO.Text = "Center-Out";
             this.tabPageCO.UseVisualStyleBackColor = true;
@@ -3603,7 +3604,7 @@ namespace BehaviorGraphics
             this.tabPageRW.Location = new System.Drawing.Point(4, 58);
             this.tabPageRW.Name = "tabPageRW";
             this.tabPageRW.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRW.Size = new System.Drawing.Size(686, 437);
+            this.tabPageRW.Size = new System.Drawing.Size(686, 468);
             this.tabPageRW.TabIndex = 2;
             this.tabPageRW.Text = "Random Walk";
             this.tabPageRW.UseVisualStyleBackColor = true;
@@ -4055,7 +4056,7 @@ namespace BehaviorGraphics
             this.tabPageFC.Location = new System.Drawing.Point(4, 58);
             this.tabPageFC.Name = "tabPageFC";
             this.tabPageFC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFC.Size = new System.Drawing.Size(686, 437);
+            this.tabPageFC.Size = new System.Drawing.Size(686, 468);
             this.tabPageFC.TabIndex = 3;
             this.tabPageFC.Text = "Forced Choice";
             this.tabPageFC.UseVisualStyleBackColor = true;
@@ -4356,7 +4357,7 @@ namespace BehaviorGraphics
             this.tabPageBS.Location = new System.Drawing.Point(4, 58);
             this.tabPageBS.Name = "tabPageBS";
             this.tabPageBS.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBS.Size = new System.Drawing.Size(686, 437);
+            this.tabPageBS.Size = new System.Drawing.Size(686, 468);
             this.tabPageBS.TabIndex = 4;
             this.tabPageBS.Text = "Bump-stim";
             this.tabPageBS.UseVisualStyleBackColor = true;
@@ -4862,7 +4863,7 @@ namespace BehaviorGraphics
             this.tabPageMG.Location = new System.Drawing.Point(4, 58);
             this.tabPageMG.Name = "tabPageMG";
             this.tabPageMG.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMG.Size = new System.Drawing.Size(686, 437);
+            this.tabPageMG.Size = new System.Drawing.Size(686, 468);
             this.tabPageMG.TabIndex = 5;
             this.tabPageMG.Text = "Multi-Gadget";
             this.tabPageMG.UseVisualStyleBackColor = true;
@@ -5310,7 +5311,7 @@ namespace BehaviorGraphics
             this.tabPageWF.Location = new System.Drawing.Point(4, 58);
             this.tabPageWF.Name = "tabPageWF";
             this.tabPageWF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageWF.Size = new System.Drawing.Size(686, 437);
+            this.tabPageWF.Size = new System.Drawing.Size(686, 468);
             this.tabPageWF.TabIndex = 6;
             this.tabPageWF.Text = "Wrist Flexion";
             this.tabPageWF.UseVisualStyleBackColor = true;
@@ -6153,7 +6154,7 @@ namespace BehaviorGraphics
             this.tabPageBD.Location = new System.Drawing.Point(4, 58);
             this.tabPageBD.Name = "tabPageBD";
             this.tabPageBD.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBD.Size = new System.Drawing.Size(686, 437);
+            this.tabPageBD.Size = new System.Drawing.Size(686, 468);
             this.tabPageBD.TabIndex = 7;
             this.tabPageBD.Text = "Ball Drop";
             this.tabPageBD.UseVisualStyleBackColor = true;
@@ -6353,7 +6354,7 @@ namespace BehaviorGraphics
             this.tabPageBC.Location = new System.Drawing.Point(4, 58);
             this.tabPageBC.Name = "tabPageBC";
             this.tabPageBC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBC.Size = new System.Drawing.Size(686, 437);
+            this.tabPageBC.Size = new System.Drawing.Size(686, 468);
             this.tabPageBC.TabIndex = 8;
             this.tabPageBC.Text = "Bump-choice";
             this.tabPageBC.UseVisualStyleBackColor = true;
@@ -7101,7 +7102,7 @@ namespace BehaviorGraphics
             this.tabPage1.Location = new System.Drawing.Point(4, 58);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(686, 437);
+            this.tabPage1.Size = new System.Drawing.Size(686, 468);
             this.tabPage1.TabIndex = 9;
             this.tabPage1.Text = "Visual Search";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -7456,7 +7457,7 @@ namespace BehaviorGraphics
             this.tabPageBF.Location = new System.Drawing.Point(4, 58);
             this.tabPageBF.Name = "tabPageBF";
             this.tabPageBF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBF.Size = new System.Drawing.Size(686, 437);
+            this.tabPageBF.Size = new System.Drawing.Size(686, 468);
             this.tabPageBF.TabIndex = 10;
             this.tabPageBF.Text = "Bump-follow";
             this.tabPageBF.UseVisualStyleBackColor = true;
@@ -7873,7 +7874,7 @@ namespace BehaviorGraphics
             this.tabPage2.Location = new System.Drawing.Point(4, 58);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(686, 437);
+            this.tabPage2.Size = new System.Drawing.Size(686, 468);
             this.tabPage2.TabIndex = 11;
             this.tabPage2.Text = "2AFC";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -8587,7 +8588,7 @@ namespace BehaviorGraphics
             this.tabUncertainty1D.Location = new System.Drawing.Point(4, 58);
             this.tabUncertainty1D.Name = "tabUncertainty1D";
             this.tabUncertainty1D.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUncertainty1D.Size = new System.Drawing.Size(686, 437);
+            this.tabUncertainty1D.Size = new System.Drawing.Size(686, 468);
             this.tabUncertainty1D.TabIndex = 12;
             this.tabUncertainty1D.Text = "Uncertainty1D";
             this.tabUncertainty1D.UseVisualStyleBackColor = true;
@@ -9427,7 +9428,7 @@ namespace BehaviorGraphics
             this.tabAttention.Location = new System.Drawing.Point(4, 58);
             this.tabAttention.Name = "tabAttention";
             this.tabAttention.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAttention.Size = new System.Drawing.Size(686, 437);
+            this.tabAttention.Size = new System.Drawing.Size(686, 468);
             this.tabAttention.TabIndex = 13;
             this.tabAttention.Text = "Attention";
             this.tabAttention.UseVisualStyleBackColor = true;
@@ -10449,7 +10450,7 @@ namespace BehaviorGraphics
             this.tabPage3.Location = new System.Drawing.Point(4, 58);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(686, 437);
+            this.tabPage3.Size = new System.Drawing.Size(686, 468);
             this.tabPage3.TabIndex = 14;
             this.tabPage3.Text = "Bump Direction";
             this.toolTip1.SetToolTip(this.tabPage3, "Step this many times the step size on wrong answers");
@@ -10992,7 +10993,7 @@ namespace BehaviorGraphics
             this.UnstableField.Location = new System.Drawing.Point(4, 58);
             this.UnstableField.Name = "UnstableField";
             this.UnstableField.Padding = new System.Windows.Forms.Padding(3);
-            this.UnstableField.Size = new System.Drawing.Size(686, 437);
+            this.UnstableField.Size = new System.Drawing.Size(686, 468);
             this.UnstableField.TabIndex = 15;
             this.UnstableField.Text = "Unstable Field";
             this.UnstableField.UseVisualStyleBackColor = true;
@@ -11792,7 +11793,7 @@ namespace BehaviorGraphics
             this.tabUncertaintyTarget1D.Location = new System.Drawing.Point(4, 58);
             this.tabUncertaintyTarget1D.Name = "tabUncertaintyTarget1D";
             this.tabUncertaintyTarget1D.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUncertaintyTarget1D.Size = new System.Drawing.Size(686, 437);
+            this.tabUncertaintyTarget1D.Size = new System.Drawing.Size(686, 468);
             this.tabUncertaintyTarget1D.TabIndex = 16;
             this.tabUncertaintyTarget1D.Text = "UncertaintyTarget1D";
             this.tabUncertaintyTarget1D.UseVisualStyleBackColor = true;
@@ -12561,7 +12562,7 @@ namespace BehaviorGraphics
             this.UncertaintyTarget2D.Location = new System.Drawing.Point(4, 58);
             this.UncertaintyTarget2D.Name = "UncertaintyTarget2D";
             this.UncertaintyTarget2D.Padding = new System.Windows.Forms.Padding(3);
-            this.UncertaintyTarget2D.Size = new System.Drawing.Size(686, 437);
+            this.UncertaintyTarget2D.Size = new System.Drawing.Size(686, 468);
             this.UncertaintyTarget2D.TabIndex = 17;
             this.UncertaintyTarget2D.Text = "UncertaintyTarget2D";
             this.UncertaintyTarget2D.UseVisualStyleBackColor = true;
@@ -13695,7 +13696,7 @@ namespace BehaviorGraphics
             this.tabPage4.Location = new System.Drawing.Point(4, 58);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(686, 437);
+            this.tabPage4.Size = new System.Drawing.Size(686, 468);
             this.tabPage4.TabIndex = 18;
             this.tabPage4.Text = "Defend Center";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -14071,7 +14072,7 @@ namespace BehaviorGraphics
             this.tabPage5.Location = new System.Drawing.Point(4, 58);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(686, 437);
+            this.tabPage5.Size = new System.Drawing.Size(686, 468);
             this.tabPage5.TabIndex = 19;
             this.tabPage5.Text = "Ctr_out_bump";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -14569,7 +14570,7 @@ namespace BehaviorGraphics
             this.tabDynamicCO.Location = new System.Drawing.Point(4, 58);
             this.tabDynamicCO.Name = "tabDynamicCO";
             this.tabDynamicCO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDynamicCO.Size = new System.Drawing.Size(686, 437);
+            this.tabDynamicCO.Size = new System.Drawing.Size(686, 468);
             this.tabDynamicCO.TabIndex = 20;
             this.tabDynamicCO.Text = "Dynamic center out";
             this.tabDynamicCO.UseVisualStyleBackColor = true;
@@ -15109,7 +15110,7 @@ namespace BehaviorGraphics
             this.tabUnCisek.Location = new System.Drawing.Point(4, 58);
             this.tabUnCisek.Name = "tabUnCisek";
             this.tabUnCisek.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUnCisek.Size = new System.Drawing.Size(686, 437);
+            this.tabUnCisek.Size = new System.Drawing.Size(686, 468);
             this.tabUnCisek.TabIndex = 21;
             this.tabUnCisek.Text = "UnCisek";
             this.tabUnCisek.UseVisualStyleBackColor = true;
@@ -15673,7 +15674,7 @@ namespace BehaviorGraphics
             this.tabUnstableReach.Location = new System.Drawing.Point(4, 58);
             this.tabUnstableReach.Name = "tabUnstableReach";
             this.tabUnstableReach.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUnstableReach.Size = new System.Drawing.Size(686, 437);
+            this.tabUnstableReach.Size = new System.Drawing.Size(686, 468);
             this.tabUnstableReach.TabIndex = 22;
             this.tabUnstableReach.Text = "Unstable Reach";
             this.tabUnstableReach.UseVisualStyleBackColor = true;
@@ -16342,7 +16343,7 @@ namespace BehaviorGraphics
             this.tabPageResist.Location = new System.Drawing.Point(4, 58);
             this.tabPageResist.Name = "tabPageResist";
             this.tabPageResist.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageResist.Size = new System.Drawing.Size(686, 437);
+            this.tabPageResist.Size = new System.Drawing.Size(686, 471);
             this.tabPageResist.TabIndex = 23;
             this.tabPageResist.Text = "Resist Perturbations";
             this.tabPageResist.UseVisualStyleBackColor = true;
@@ -16456,7 +16457,7 @@ namespace BehaviorGraphics
             this.groupBoxRPBumps.Controls.Add(this.textBoxRPBD);
             this.groupBoxRPBumps.Controls.Add(this.textBoxRPBM);
             this.groupBoxRPBumps.Controls.Add(this.textBoxRPPBT);
-            this.groupBoxRPBumps.Location = new System.Drawing.Point(233, 157);
+            this.groupBoxRPBumps.Location = new System.Drawing.Point(233, 185);
             this.groupBoxRPBumps.Name = "groupBoxRPBumps";
             this.groupBoxRPBumps.Size = new System.Drawing.Size(201, 280);
             this.groupBoxRPBumps.TabIndex = 42;
@@ -16938,6 +16939,7 @@ namespace BehaviorGraphics
             // 
             // groupBoxRPCursor
             // 
+            this.groupBoxRPCursor.Controls.Add(this.checkBoxRPCCT);
             this.groupBoxRPCursor.Controls.Add(this.textBoxRPCR);
             this.groupBoxRPCursor.Controls.Add(this.labelRPCR);
             this.groupBoxRPCursor.Controls.Add(this.textBoxRPHTR);
@@ -16948,7 +16950,7 @@ namespace BehaviorGraphics
             this.groupBoxRPCursor.Controls.Add(this.labelRPTR);
             this.groupBoxRPCursor.Location = new System.Drawing.Point(233, 9);
             this.groupBoxRPCursor.Name = "groupBoxRPCursor";
-            this.groupBoxRPCursor.Size = new System.Drawing.Size(200, 144);
+            this.groupBoxRPCursor.Size = new System.Drawing.Size(200, 173);
             this.groupBoxRPCursor.TabIndex = 39;
             this.groupBoxRPCursor.TabStop = false;
             this.groupBoxRPCursor.Text = "Cursor and targets";
@@ -17179,7 +17181,7 @@ namespace BehaviorGraphics
             this.tabPage6.Location = new System.Drawing.Point(4, 58);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(686, 437);
+            this.tabPage6.Size = new System.Drawing.Size(686, 468);
             this.tabPage6.TabIndex = 24;
             this.tabPage6.Text = "Cue Comb";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -17767,6 +17769,22 @@ namespace BehaviorGraphics
             this.groupBox83.TabStop = false;
             this.groupBox83.Text = "Target Cloud (Likelihood)";
             // 
+            // label464
+            // 
+            this.label464.AutoSize = true;
+            this.label464.Location = new System.Drawing.Point(195, 54);
+            this.label464.Name = "label464";
+            this.label464.Size = new System.Drawing.Size(94, 13);
+            this.label464.TabIndex = 58;
+            this.label464.Text = "Feedback window";
+            // 
+            // textBoxCC_feedback_win
+            // 
+            this.textBoxCC_feedback_win.Location = new System.Drawing.Point(295, 50);
+            this.textBoxCC_feedback_win.Name = "textBoxCC_feedback_win";
+            this.textBoxCC_feedback_win.Size = new System.Drawing.Size(41, 20);
+            this.textBoxCC_feedback_win.TabIndex = 57;
+            // 
             // checkBoxCC_cloud1Blank
             // 
             this.checkBoxCC_cloud1Blank.AutoSize = true;
@@ -18184,7 +18202,7 @@ namespace BehaviorGraphics
             this.tabPageSA.Location = new System.Drawing.Point(4, 58);
             this.tabPageSA.Name = "tabPageSA";
             this.tabPageSA.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSA.Size = new System.Drawing.Size(686, 437);
+            this.tabPageSA.Size = new System.Drawing.Size(686, 468);
             this.tabPageSA.TabIndex = 22;
             this.tabPageSA.Text = "StimAngle";
             this.tabPageSA.UseVisualStyleBackColor = true;
@@ -19286,7 +19304,7 @@ namespace BehaviorGraphics
             this.toolStripStatusLabelMdl,
             this.toolStripProgressBar1});
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 558);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 592);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(692, 22);
             this.statusStrip1.SizingGrip = false;
@@ -19511,7 +19529,7 @@ namespace BehaviorGraphics
             // buttonRefresh
             // 
             this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRefresh.Location = new System.Drawing.Point(12, 532);
+            this.buttonRefresh.Location = new System.Drawing.Point(12, 566);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 23);
             this.buttonRefresh.TabIndex = 97;
@@ -21599,21 +21617,15 @@ namespace BehaviorGraphics
             this.label_CT_hold2.TabIndex = 0;
             this.label_CT_hold2.Text = "CT Hold";
             // 
-            // textBoxCC_feedback_win
+            // checkBoxRPCCT
             // 
-            this.textBoxCC_feedback_win.Location = new System.Drawing.Point(295, 50);
-            this.textBoxCC_feedback_win.Name = "textBoxCC_feedback_win";
-            this.textBoxCC_feedback_win.Size = new System.Drawing.Size(41, 20);
-            this.textBoxCC_feedback_win.TabIndex = 57;
-            // 
-            // label464
-            // 
-            this.label464.AutoSize = true;
-            this.label464.Location = new System.Drawing.Point(195, 54);
-            this.label464.Name = "label464";
-            this.label464.Size = new System.Drawing.Size(94, 13);
-            this.label464.TabIndex = 58;
-            this.label464.Text = "Feedback window";
+            this.checkBoxRPCCT.AutoSize = true;
+            this.checkBoxRPCCT.Location = new System.Drawing.Point(12, 144);
+            this.checkBoxRPCCT.Name = "checkBoxRPCCT";
+            this.checkBoxRPCCT.Size = new System.Drawing.Size(125, 17);
+            this.checkBoxRPCCT.TabIndex = 39;
+            this.checkBoxRPCCT.Text = "Co-contraction target";
+            this.checkBoxRPCCT.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -21622,7 +21634,7 @@ namespace BehaviorGraphics
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(692, 580);
+            this.ClientSize = new System.Drawing.Size(692, 614);
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -23925,5 +23937,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxCC_bump_durationBack;
         private System.Windows.Forms.Label label464;
         private System.Windows.Forms.TextBox textBoxCC_feedback_win;
+        private System.Windows.Forms.CheckBox checkBoxRPCCT;
     }
 }

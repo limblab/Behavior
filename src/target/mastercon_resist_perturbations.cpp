@@ -3,7 +3,7 @@
  * Master Control block for behavior: resist perturbations
  */
 
-#define DATABURST_VERSION ((byte)0x03) 
+#define DATABURST_VERSION ((byte)0x04) 
 /* 
  * Current Databurst version: 3 
  *
@@ -14,6 +14,36 @@
  *
  * Databurst version descriptions
  * ==============================
+ *** * Version 4 (0x04)
+ * ----------------
+ * byte         0: uchar    => number of bytes to be transmitted
+ * byte         1: uchar    => databurst version number (in this case zero)
+ * byte         2: uchar    => model version major
+ * byte         3: uchar    => model version minor
+ * bytes   4 to 5: short    => model version micro
+ * bytes   6 to 9: float    => x offset (cm)
+ * bytes 10 to 13: float    => y offset (cm)
+ * bytes 14 to 17: float    => trial force direction (rad)
+ * bytes 18 to 21: float    => trial force amplitude (N)
+ * bytes 22 to 25: float    => perturbation type (0 = sin, 1 = triangle)
+ * bytes 26 to 29: float    => perturbation hold target radius (cm)
+ * byte        30: int      => brain control (if 1: yes)
+ * byte        31: int      => force visual feedback (if 1: yes)
+ * byte        32: int      => bump trial
+ * bytes 33 to 36: float    => bump magnitude or velocity (N or cm/s)
+ * bytes 37 to 40: float    => bump direction (rad)
+ * bytes 41 to 44: float    => bump_duration (s)
+ * byte        45: int      => force bump (1 if force, 0 if velocity)
+ * bytes 46 to 49: float    => trial force frequency (Hz)     
+ * bytes 50 to 53: float    => stiffness (N/cm)    
+ * bytes 54 to 57: float    => damping (N/cm/s)    
+ * bytes 58 to 61: float    => center hold target radius (cm) 
+ * byte        62: int      => early bump
+ * bytes 63 to 66: float    => co-contraction level [0-1]
+ * bytes 67 to 70: float    => co-contraction window [0-1]
+ * bytes 71 to 74: float    => outer cursor radius (cm)
+ * byte        75: int      => co-contraction target (0 or 1)
+ *
  * *** * Version 3 (0x03)
  * ----------------
  * byte         0: uchar    => number of bytes to be transmitted
@@ -210,7 +240,8 @@ struct LocalParams{
     real_T cocontraction_high; 
     real_T num_cocontraction_levels;
     real_T cocontraction_window; 
-    real_T outer_cursor_radius;
+    real_T cursor_radius;
+    real_T cocontraction_target;
 };
 
 /**
@@ -236,9 +267,9 @@ private:
 	CircleTarget *forceFeedback[5];	   
     CircleTarget *lowerArm[4];
     CircleTarget *upperArm[4]; 
+    CircleTarget *innerRingTarget;
+    CircleTarget *outerRingTarget;
     CircleTarget *cursorTarget;
-    CircleTarget *cursorRingTarget;
-    CircleTarget *cursorInnerTarget;
     
 	LocalParams *params;	
 
@@ -286,9 +317,8 @@ private:
     real_T cursor_color;
     real_T inner_color;
     real_T ring_color;
-    int size_target;
-    real_T ring_radius;
-    real_T cursor_radius;
+    real_T outer_ring_radius;
+    real_T inner_ring_radius;
     
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);    
@@ -306,7 +336,7 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(45);
+	this->setNumParams(46);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
     
@@ -363,10 +393,11 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->cocontraction_high,                      41);
     this->bindParamId(&params->num_cocontraction_levels,                42);
     this->bindParamId(&params->cocontraction_window,                    43);
-    this->bindParamId(&params->outer_cursor_radius,                     44);
+    this->bindParamId(&params->cursor_radius,                           44);
+    this->bindParamId(&params->cocontraction_target,                    45);
   
     // default parameters:
-    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .2 2 2 1 0 2 0 5 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   0 0   1   50   0 1 3 1 0.8
+    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .2 2 2 1 0 2 0 5 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   0 0   1   50   0 1 3 1 0.8 1
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -380,12 +411,12 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
 	centerTarget->color = Target::Color(255,0,0);	
     holdTarget = new CircleTarget();
 	holdTarget->color = Target::Color(255,0,0);	    
-    cursorTarget = new CircleTarget();    
-    cursorTarget->radius = 0.5;
-    cursorRingTarget = new CircleTarget();
-    cursorRingTarget->radius = 0.8;
-    cursorInnerTarget = new CircleTarget();
-    cursorInnerTarget->radius = 0.3;
+    innerRingTarget = new CircleTarget();    
+    innerRingTarget->radius = 0.5;
+    outerRingTarget = new CircleTarget();
+    outerRingTarget->radius = 0.8;
+    cursorTarget = new CircleTarget();
+    cursorTarget->radius = 0.3;
  
     for (int i=0; i<4; i++) {
 		lowerArm[i] = new CircleTarget(0,0,.3,0);
@@ -395,7 +426,7 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
 	}
     for (int i=0; i<5; i++) {
         forceFeedback[i] = new CircleTarget(0,0,.3,0);
-        forceFeedback[i]->color = Target::Color(255,255,255);
+        forceFeedback[i]->color = Target::Color(0,200,0);
     }
     
     for (int i=0; i<16; i++){
@@ -443,9 +474,8 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     min_cocontraction = 0;
     max_cocontraction = 0;
         
-    size_target = 1;
-    ring_radius = 1;
-    cursor_radius = 1;
+    outer_ring_radius = 1;
+    inner_ring_radius = 1;
 }
 
 void ResistPerturbations::doPreTrial(SimStruct *S) {
@@ -501,6 +531,7 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
         }
         min_cocontraction = trial_cocontraction - 0.5*params->cocontraction_window;
         max_cocontraction = trial_cocontraction + 0.5*params->cocontraction_window;
+        
 
         if (block_counter >= number_of_blocks || old_toggle_reset_block != params->toggle_reset_block){
             old_toggle_reset_block = params->toggle_reset_block;
@@ -512,11 +543,16 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
             if (params->num_force_frequencies > 0){
                 for (int i=0; i<params->num_force_frequencies; i++){
                     frequency_order[i] = i;
-                    if (params->num_force_frequencies > 1){
-                        frequencies[i] = params->force_frequency_low + i*(params->force_frequency_high -
-                                params->force_frequency_low)/(params->num_force_frequencies-1);
-                    } else {
+                    if (params->num_force_frequencies <= 1){
                         frequencies[i] = params->force_frequency_low;
+                    } else if (params->num_force_frequencies == 2) {
+                        if (i==0)
+                            frequencies[i] = params->force_frequency_low;
+                        else
+                            frequencies[i] = params->force_frequency_high;                    
+                    } else {
+                        frequencies[i] = params->force_frequency_low + i*(params->force_frequency_high -
+                                params->force_frequency_low)/(params->num_force_frequencies-1);                        
                     }
                     tmp_sort[i] = random->getDouble(0,1);
                 }
@@ -602,27 +638,26 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     holdTarget->centerX = 0;
     holdTarget->centerY = 0;
     
-    // Cursors
-        
-    if (size_target){
-        
-        ring_radius = (max_cocontraction - (params->cocontraction_low - params->cocontraction_window/2)) /
+    // Cursors        
+    if (params->cocontraction_target && params->brain_control){        
+        outer_ring_radius = (max_cocontraction - (params->cocontraction_low - params->cocontraction_window/2)) /
             (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
-        ring_radius = ring_radius * params->outer_cursor_radius;          
-        cursorRingTarget->color = Target::Color(255,255,255);  
+        outer_ring_radius = outer_ring_radius * params->cursor_radius;          
+        outerRingTarget->color = Target::Color(255,255,255);  
         
-        cursor_radius = (min_cocontraction - (params->cocontraction_low - params->cocontraction_window/2)) /
+        inner_ring_radius = (min_cocontraction - (params->cocontraction_low - params->cocontraction_window/2)) /
             (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
-        cursor_radius = cursor_radius * params->outer_cursor_radius;         
-        cursorTarget->color = Target::Color(0,0,0);        
+        inner_ring_radius = inner_ring_radius * params->cursor_radius;         
+        innerRingTarget->color = Target::Color(0,0,0);        
         
-        cursorInnerTarget->color = Target::Color(128,128,128);
+        cursorTarget->color = Target::Color(128,128,128);
     } else {
-        cursorRingTarget->radius = params->outer_cursor_radius;
-        cursorTarget->radius = 0.7*params->outer_cursor_radius;
-        cursorInnerTarget->radius = 0.4*params->outer_cursor_radius;        
-        cursorRingTarget->color = Target::Color((int)(128),
-            (int)128,(int)(128));
+        outerRingTarget->radius = 0;
+        innerRingTarget->radius = 0;
+        cursorTarget->color = Target::Color(128,128,128);
+        if (!params->brain_control){
+            cursorTarget->radius = params->cursor_radius;
+        }
     }        
         
 	center_hold_time = this->random->getDouble(params->center_hold_low,params->center_hold_high);
@@ -659,7 +694,7 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     db->addByte((int)early_bump);                               // byte 62        -> Matlab idx 63
     db->addFloat((float)trial_cocontraction);                   // bytes 63 to 66 -> Matlab idx 64 to 67
     db->addFloat((float)params->cocontraction_window);          // bytes 67 to 70 -> Matlab idx 68 to 71
-    db->addFloat((float)params->outer_cursor_radius);           // bytes 71 to 74 -> Matlab idx 72 to 75
+    db->addFloat((float)params->cursor_radius);           // bytes 71 to 74 -> Matlab idx 72 to 75
 	db->start();
 }
 
@@ -709,10 +744,16 @@ void ResistPerturbations::update(SimStruct *S) {
                     inputs->catchForce.x) {
                 setState(STATE_INCOMPLETE);
             } else {
-                if (holdTarget->cursorInTarget(cursor_position) &&
-                        cocontraction_level >= min_cocontraction &&
-                        cocontraction_level <= max_cocontraction) {
-                    setState(STATE_CT_HOLD);
+                if (params->cocontraction_target && params->brain_control){
+                    if (holdTarget->cursorInTarget(cursor_position) &&
+                            cocontraction_level >= min_cocontraction &&
+                            cocontraction_level <= max_cocontraction) {
+                        setState(STATE_CT_HOLD);
+                    }                     
+                } else {
+                    if (holdTarget->cursorInTarget(cursor_position)) {
+                        setState(STATE_CT_HOLD);
+                    }
                 }
             }
             break;
@@ -722,8 +763,9 @@ void ResistPerturbations::update(SimStruct *S) {
                 setState(STATE_INCOMPLETE);
             } else {
                 if (!holdTarget->cursorInTarget(cursor_position) ||
-                        cocontraction_level < min_cocontraction ||
-                        cocontraction_level > max_cocontraction){
+                        (params->cocontraction_target && params->brain_control &&
+                        (cocontraction_level < min_cocontraction ||
+                        cocontraction_level > max_cocontraction))){
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);				
                 } else if (stateTimer->elapsedTime(S) > center_hold_time){
@@ -743,8 +785,9 @@ void ResistPerturbations::update(SimStruct *S) {
                 setState(STATE_INCOMPLETE);
             } else {
                 if (!centerTarget->cursorInTarget(cursor_position) ||
-                        cocontraction_level < min_cocontraction ||
-                        cocontraction_level > max_cocontraction){
+                        (params->cocontraction_target && params->brain_control &&
+                        (cocontraction_level < min_cocontraction ||
+                        cocontraction_level > max_cocontraction))){
                     perturbationTimer->stop(S);
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);		
@@ -868,49 +911,44 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
     
     cocontraction_level = inputs->extra3.x;
     
-    cursorRingTarget->centerX = cursor_position.x;
-    cursorRingTarget->centerY = cursor_position.y;    
-    
-    cursorInnerTarget->centerX = cursor_position.x;
-    cursorInnerTarget->centerY = cursor_position.y; 
+    outerRingTarget->centerX = cursor_position.x;
+    outerRingTarget->centerY = cursor_position.y;    
     
     cursorTarget->centerX = cursor_position.x;
-    cursorTarget->centerY = cursor_position.y;
+    cursorTarget->centerY = cursor_position.y; 
     
-    if (size_target){
-        real_T inner_radius;
-        inner_radius = (cocontraction_level - (params->cocontraction_low - params->cocontraction_window/2)) /
+    innerRingTarget->centerX = cursor_position.x;
+    innerRingTarget->centerY = cursor_position.y;
+    
+    if (params->cocontraction_target && params->brain_control){
+        real_T current_cursor_radius;
+        current_cursor_radius = (cocontraction_level - (params->cocontraction_low - params->cocontraction_window/2)) /
             (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
-        inner_radius = (inner_radius<0)?0:((inner_radius>1)?1:inner_radius);
-        inner_radius = inner_radius*params->outer_cursor_radius;
-        cursorInnerTarget->radius = inner_radius;        
+        current_cursor_radius = (current_cursor_radius<0)?0:((current_cursor_radius>1)?1:current_cursor_radius);
+        current_cursor_radius = current_cursor_radius*params->cursor_radius;
+        cursorTarget->radius = current_cursor_radius;
         if (getState() == STATE_CENTER_TARGET_ON || 
                 getState() == STATE_CT_HOLD || 
                 getState() == STATE_PERTURBATION) {
-            cursorTarget->radius = cursor_radius;
-            cursorRingTarget->radius = ring_radius;
+            innerRingTarget->radius = inner_ring_radius;
+            outerRingTarget->radius = outer_ring_radius;
         } else {
-            cursorTarget->radius = 0;
-            cursorRingTarget->radius = 0;
+            innerRingTarget->radius = 0;
+            outerRingTarget->radius = 0;
         }
+    } else if (params->brain_control) {
+        real_T current_cursor_radius;
+        current_cursor_radius = (cocontraction_level - (params->cocontraction_low - params->cocontraction_window/2)) /
+            (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
+        current_cursor_radius = (current_cursor_radius<0)?0:((current_cursor_radius>1)?1:current_cursor_radius);
+        current_cursor_radius = current_cursor_radius*params->cursor_radius;
+        cursorTarget->radius = current_cursor_radius;
+        innerRingTarget->radius = 0;
+        outerRingTarget->radius = 0;
     } else {
-        cursor_color =  (cocontraction_level - (params->cocontraction_low - params->cocontraction_window/2)) /
-            (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
-        cursor_color = (cursor_color<0)?0:((cursor_color>1)?1:cursor_color);
-        cursorTarget->color = Target::Color((int)(cursor_color*255),
-                (int)(cursor_color*255),(int)(cursor_color*255));
-
-        ring_color = (max_cocontraction - (params->cocontraction_low - params->cocontraction_window/2)) /
-            (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
-        ring_color = (ring_color<0)?0:((ring_color>1)?1:ring_color);    
-        cursorRingTarget->color = Target::Color((int)(ring_color*255),
-                (int)(ring_color*255),(int)(ring_color*255));
-
-        inner_color = (min_cocontraction - (params->cocontraction_low - params->cocontraction_window/2)) /
-            (params->cocontraction_high - params->cocontraction_low + params->cocontraction_window);
-        inner_color = (inner_color<0)?0:((inner_color>1)?1:inner_color);    
-        cursorInnerTarget->color = Target::Color((int)(inner_color*255),
-                (int)(inner_color*255),(int)(inner_color*255));
+        cursorTarget->radius = params->cursor_radius;
+        innerRingTarget->radius = 0;
+        outerRingTarget->radius = 0;
     }
     
     /* force (0) */ 
@@ -985,7 +1023,6 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
         }
     }
    
-    //if (getState()==STATE_CT_HOLD ||
     if(getState()==STATE_PERTURBATION ||
             getState()==STATE_BUMP){
         outputs->force = force;
@@ -1048,43 +1085,42 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
 		outputs->word = 0;
 	}
 
-	/* targets (3) */    
-    if (params->brain_control){
-        for(int i=0;i<4;i++){
-            outputs->targets[i] = upperArm[i];
-            outputs->targets[4+i] = lowerArm[i];
-        }
-    } else {
-        for(int i=0;i<4;i++){
-            outputs->targets[i] = nullTarget;
-            outputs->targets[4+i] = nullTarget;
-        }
-    }
+	/* targets (3) */        
 	switch (this->getState()){
 		case STATE_CENTER_TARGET_ON:
         case STATE_CT_HOLD: 
-            outputs->targets[8] = (Target *)holdTarget;
+            outputs->targets[0] = (Target *)holdTarget;
             break;
         case STATE_PERTURBATION:
         case STATE_BUMP:
-            outputs->targets[8] = (Target *)centerTarget;
+            outputs->targets[0] = (Target *)centerTarget;
 			break;     
 		default:
-            outputs->targets[8] = nullTarget;
+            outputs->targets[0] = nullTarget;
 	}
+    
+    if (params->brain_control){
+        for(int i=0;i<4;i++){
+            outputs->targets[1+i] = upperArm[i];
+            outputs->targets[5+i] = lowerArm[i];
+        }
+    } else {
+        for(int i=0;i<4;i++){
+            outputs->targets[1+i] = nullTarget;
+            outputs->targets[5+i] = nullTarget;
+        }
+    }    
+    
+    outputs->targets[9] = (Target *)outerRingTarget;
+    outputs->targets[10] = (Target *)innerRingTarget;
+
+    outputs->targets[11] = (Target *)cursorTarget;
+    
     if (params->force_visual_feedback && getState()==STATE_PERTURBATION) {
         for (int i=0; i<5; i++){
-            outputs->targets[9+i] = forceFeedback[i];
+            outputs->targets[12+i] = forceFeedback[i];
         }
     }
-    if (cursorRingTarget->radius > cursorTarget->radius){
-        outputs->targets[14] = (Target *)cursorRingTarget;
-        outputs->targets[15] = (Target *)cursorTarget;
-    } else {
-        outputs->targets[14] = (Target *)cursorTarget;
-        outputs->targets[15] = (Target *)cursorRingTarget;
-    }
-    outputs->targets[16] = (Target *)cursorInnerTarget;
     
 	/* reward (4) */
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD));

@@ -1339,6 +1339,7 @@ namespace BehaviorGraphics
             AddParamListItem("RP NCCL", "P43", "Behavior RP", this.textBoxRPNCCL);
             AddParamListItem("RP CCW", "P44", "Behavior RP", this.textBoxRPCCW);
             AddParamListItem("RP CR", "P45", "Behavior RP", this.textBoxRPCR);
+            AddParamListItem("RP CCT", "P46", "Behavior RP", this.checkBoxRPCCT);
 
             #endregion
 
