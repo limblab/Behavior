@@ -563,7 +563,7 @@ void cuecombBehavior::update(SimStruct *S) {
 		case STATE_MOVEMENT:
 			if (stateTimer->elapsedTime(S) > params->movement_time) {
 				setState(STATE_INCOMPLETE);
-			} else if (cursor_extent > params->movement_length-(params->target_size*0.50)) {
+			} else if (cursor_extent > params->movement_length-(params->OT_depth*0.50)) {
 				if (params->NoReturn){
 					cursor_end_point.x = inputs->cursor.x - bump_offset.x;
 					cursor_end_point.y = inputs->cursor.y - bump_offset.y;
