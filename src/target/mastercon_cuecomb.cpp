@@ -347,11 +347,11 @@ void cuecombBehavior::doPreTrial(SimStruct *S) {
 		act_bf_two   = fabs(params->bump_freq_two)/total_bump_freq;
 		act_bf_three = fabs(params->bump_freq_three)/total_bump_freq;
 		
-		if (cloud_rand <= act_bf_one){
+		if (bump_rand <= act_bf_one){
 			current_trial_bumpmag = params->bump_mag_one;
-		} else if (cloud_rand <= act_bf_one+act_bf_two){
+		} else if (bump_rand <= act_bf_one+act_bf_two){
 			current_trial_bumpmag = params->bump_mag_two;
-		} else if (cloud_rand <= act_bf_one+act_bf_two+act_bf_three){
+		} else if (bump_rand <= act_bf_one+act_bf_two+act_bf_three){
 			current_trial_bumpmag = params->bump_mag_three;
 		} else {
 			// by default, no bump
