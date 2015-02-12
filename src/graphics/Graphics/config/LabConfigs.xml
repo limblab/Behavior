@@ -274,7 +274,7 @@
       <LabParam>
         <Block>XY Position Subsystem/LoadCellXCoef2</Block>
         <Name>Value</Name>
-        <Value>-0.0254</Value>
+        <Value>0.0254</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellXCoef3</Block>
