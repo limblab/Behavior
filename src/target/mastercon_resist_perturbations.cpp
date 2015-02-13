@@ -694,7 +694,8 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     db->addByte((int)early_bump);                               // byte 62        -> Matlab idx 63
     db->addFloat((float)trial_cocontraction);                   // bytes 63 to 66 -> Matlab idx 64 to 67
     db->addFloat((float)params->cocontraction_window);          // bytes 67 to 70 -> Matlab idx 68 to 71
-    db->addFloat((float)params->cursor_radius);           // bytes 71 to 74 -> Matlab idx 72 to 75
+    db->addFloat((float)params->cursor_radius);                 // bytes 71 to 74 -> Matlab idx 72 to 75
+    db->addFloat((float)params->cocontraction_target);          // bytes 75 to 78 -> Matlab idx 73 to 76
 	db->start();
 }
 
