@@ -447,7 +447,8 @@ void DynamicCenterOut::update(SimStruct *S) {
             break;                   
         case STATE_CENTER_TARGET_ON:
             /* center target on */
-            if (inputs->catchForce.x && !params->brain_control) {
+            if (inputs->catchForce.y  && !params->brain_control ||
+                    inputs->catchForce.x){
                 setState(STATE_INCOMPLETE);
             } else {
                 if (centerTarget->cursorInTarget(cursor_position)) {
@@ -456,7 +457,8 @@ void DynamicCenterOut::update(SimStruct *S) {
             }
             break;
         case STATE_CT_HOLD:
-            if (inputs->catchForce.x  && !params->brain_control) {
+            if (inputs->catchForce.y  && !params->brain_control ||
+                    inputs->catchForce.x){
                 setState(STATE_INCOMPLETE);
             } else {
                 if (!centerTarget->cursorInTarget(cursor_position)){
@@ -468,7 +470,8 @@ void DynamicCenterOut::update(SimStruct *S) {
             }
             break;
         case STATE_OT_ON:
-            if (inputs->catchForce.x && !params->brain_control) {
+            if (inputs->catchForce.y  && !params->brain_control ||
+                    inputs->catchForce.x){
                 setState(STATE_INCOMPLETE);
             } else {
                 if (!centerTarget->cursorInTarget(cursor_position)){
@@ -481,7 +484,8 @@ void DynamicCenterOut::update(SimStruct *S) {
             }
             break;        
         case STATE_MOVEMENT:
-            if (inputs->catchForce.x && !params->brain_control) {
+            if (inputs->catchForce.y  && !params->brain_control ||
+                    inputs->catchForce.x){
                 setState(STATE_INCOMPLETE);
             } else {
                 if (params->movement_time > 0 && 
@@ -520,7 +524,7 @@ void DynamicCenterOut::update(SimStruct *S) {
             }
             break;
         case STATE_INCOMPLETE:            
-            if (inputs->catchForce.x){
+            if (inputs->catchForce.x && !params->brain_control){
                 // Stay in this state until handle is back in workspace.
             } else if (stateTimer->elapsedTime(S) > params->reward_wait) {                
                 setState(STATE_PRETRIAL);
