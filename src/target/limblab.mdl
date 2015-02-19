@@ -42,9 +42,9 @@ Library {
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
 	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"701"
+	LoadSaveID		"215"
 	Extents			[984.0, 586.0]
-	ZoomFactor		[1.25]
+	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
     }
@@ -55,9 +55,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jan 12 15:39:33 2015"
-  RTWModifiedTimeStamp	  342977972
-  ModelVersionFormat	  "1.%<AutoIncrement:169>"
+  LastModifiedDate	  "Thu Feb 19 13:41:27 2015"
+  RTWModifiedTimeStamp	  346253762
+  ModelVersionFormat	  "1.%<AutoIncrement:171>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1080,7 +1080,7 @@ Library {
   }
   System {
     Name		    "limblab"
-    Location		    [-8, -8, 1032, 746]
+    Location		    [-8, -8, 1028, 746]
     Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1094,7 +1094,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "758"
+    SIDHighWatermark	    "761"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
@@ -1111,8 +1111,8 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"BoundingBox"
-	Location		[50, 32, 1086, 812]
-	Open			off
+	Location		[-8, -8, 1028, 746]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1145,6 +1145,14 @@ Library {
 	  DisplayOption		  "bar"
 	}
 	Block {
+	  BlockType		  Constant
+	  Name			  "DisableBoundingBox"
+	  SID			  "760"
+	  Position		  [630, 280, 660, 310]
+	  ZOrder		  2
+	  Value			  "0"
+	}
+	Block {
 	  BlockType		  Logic
 	  Name			  "Logical\nOperator"
 	  SID			  "218"
@@ -1153,6 +1161,27 @@ Library {
 	  ZOrder		  -3
 	  Operator		  "OR"
 	  Inputs		  "4"
+	  AllPortsSameDT	  off
+	  OutDataTypeStr	  "boolean"
+	}
+	Block {
+	  BlockType		  Logic
+	  Name			  "Logical\nOperator1"
+	  SID			  "759"
+	  Ports			  [2, 1]
+	  Position		  [755, 322, 785, 353]
+	  ZOrder		  1
+	  AllPortsSameDT	  off
+	  OutDataTypeStr	  "boolean"
+	}
+	Block {
+	  BlockType		  Logic
+	  Name			  "Logical\nOperator2"
+	  SID			  "761"
+	  Ports			  [1, 1]
+	  Position		  [700, 279, 730, 311]
+	  ZOrder		  3
+	  Operator		  "NOT"
 	  AllPortsSameDT	  off
 	  OutDataTypeStr	  "boolean"
 	}
@@ -1236,7 +1265,7 @@ Library {
 	  BlockType		  Outport
 	  Name			  "Out"
 	  SID			  "227"
-	  Position		  [725, 338, 755, 352]
+	  Position		  [805, 368, 835, 382]
 	  ZOrder		  -12
 	  IconDisplay		  "Port number"
 	}
@@ -1293,12 +1322,6 @@ Library {
 	  DstPort		  4
 	}
 	Line {
-	  SrcBlock		  "Logical\nOperator"
-	  SrcPort		  1
-	  DstBlock		  "Out"
-	  DstPort		  1
-	}
-	Line {
 	  SrcBlock		  "RawPos"
 	  SrcPort		  1
 	  DstBlock		  "Demux"
@@ -1332,6 +1355,31 @@ Library {
 	    DstPort		    1
 	  }
 	}
+	Line {
+	  SrcBlock		  "Logical\nOperator1"
+	  SrcPort		  1
+	  DstBlock		  "Out"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Logical\nOperator"
+	  SrcPort		  1
+	  DstBlock		  "Logical\nOperator1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "DisableBoundingBox"
+	  SrcPort		  1
+	  DstBlock		  "Logical\nOperator2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Logical\nOperator2"
+	  SrcPort		  1
+	  Points		  [5, 0]
+	  DstBlock		  "Logical\nOperator1"
+	  DstPort		  1
+	}
 	Annotation {
 	  SID			  "310"
 	  Name			  "These values get overwritten by BehaviorGraphics.  Change them in LabParams.xml instead."
@@ -1340,7 +1388,7 @@ Library {
 	Annotation {
 	  SID			  "228"
 	  Name			  "1: if [X Y] is outside\nbounding box\n0: otherwise"
-	  Position		  [820, 347]
+	  Position		  [900, 377]
 	}
       }
     }
@@ -12130,7 +12178,7 @@ Library {
 	  System {
 	    Name		    "OffsetCalculation"
 	    Location		    [-8, -8, 1028, 746]
-	    Open		    on
+	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"

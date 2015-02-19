@@ -142,7 +142,8 @@ namespace BehaviorGraphics
             AddParamListItem("Reward Jackpot Chance", "Value", "RewardSbs/JackpotChance", this.textBoxJackpotChance);
             AddParamListItem("Recenter Handle", "Value", "Recentering Subsystem/RecenterFlag", this.checkBoxRecenter);
             AddParamListItem("Use Tachs", "Value", "Velocity Calculation/UseTachs", this.checkBoxUseTachs);
-            AddParamListItem("Use Neural Control", "Value", "Use Neural Control", this.checkBoxUseNeuralControl);           
+            AddParamListItem("Use Neural Control", "Value", "Use Neural Control", this.checkBoxUseNeuralControl);
+            AddParamListItem("Disable bounding box", "Value", "BoundingBox/DisableBoundingBox", this.checkBoxGDBB);
 
             // Load
             AddParamListItem("Visc Constant", "Gain", "Force Generator/ViscLoadSubsystem/Gain", this.textBoxVisc);
