@@ -29,12 +29,13 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
             this.tabPageGen = new System.Windows.Forms.TabPage();
+            this.checkBoxGDBB = new System.Windows.Forms.CheckBox();
             this.groupBoxIsometric = new System.Windows.Forms.GroupBox();
             this.labelORL = new System.Windows.Forms.Label();
             this.textBoxORL = new System.Windows.Forms.TextBox();
@@ -1977,7 +1978,7 @@ namespace BehaviorGraphics
             this.label_CT_hold = new System.Windows.Forms.Label();
             this.textBox52b = new System.Windows.Forms.TextBox();
             this.label_CT_hold2 = new System.Windows.Forms.Label();
-            this.checkBoxGDBB = new System.Windows.Forms.CheckBox();
+            this.checkBoxCC_training = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2271,6 +2272,18 @@ namespace BehaviorGraphics
             this.tabPageGen.Text = "General";
             this.tabPageGen.UseVisualStyleBackColor = true;
             this.tabPageGen.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tabPageGen_MouseDoubleClick);
+            // 
+            // checkBoxGDBB
+            // 
+            this.checkBoxGDBB.AutoSize = true;
+            this.checkBoxGDBB.Location = new System.Drawing.Point(8, 295);
+            this.checkBoxGDBB.Name = "checkBoxGDBB";
+            this.checkBoxGDBB.Size = new System.Drawing.Size(155, 17);
+            this.checkBoxGDBB.TabIndex = 28;
+            this.checkBoxGDBB.Text = "Disable robot bounding box";
+            this.toolTip1.SetToolTip(this.checkBoxGDBB, "Do not check this box unless you know what you are doing.  You can damage the rob" +
+                    "ot, the monkey or yourself if you do.");
+            this.checkBoxGDBB.UseVisualStyleBackColor = true;
             // 
             // groupBoxIsometric
             // 
@@ -5113,8 +5126,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5946,8 +5959,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -17540,6 +17553,7 @@ namespace BehaviorGraphics
             // 
             // groupBox84
             // 
+            this.groupBox84.Controls.Add(this.checkBoxCC_training);
             this.groupBox84.Controls.Add(this.checkBoxCC_NoReturn);
             this.groupBox84.Controls.Add(this.label463);
             this.groupBox84.Controls.Add(this.textBoxCC_bump_durationBack);
@@ -17564,7 +17578,7 @@ namespace BehaviorGraphics
             this.groupBox84.Controls.Add(this.textBoxCC_bump1Mag);
             this.groupBox84.Location = new System.Drawing.Point(6, 319);
             this.groupBox84.Name = "groupBox84";
-            this.groupBox84.Size = new System.Drawing.Size(345, 112);
+            this.groupBox84.Size = new System.Drawing.Size(345, 143);
             this.groupBox84.TabIndex = 76;
             this.groupBox84.TabStop = false;
             this.groupBox84.Text = "Bump (magnitudes in cm)";
@@ -17572,7 +17586,7 @@ namespace BehaviorGraphics
             // checkBoxCC_NoReturn
             // 
             this.checkBoxCC_NoReturn.AutoSize = true;
-            this.checkBoxCC_NoReturn.Location = new System.Drawing.Point(179, 90);
+            this.checkBoxCC_NoReturn.Location = new System.Drawing.Point(179, 114);
             this.checkBoxCC_NoReturn.Name = "checkBoxCC_NoReturn";
             this.checkBoxCC_NoReturn.Size = new System.Drawing.Size(75, 17);
             this.checkBoxCC_NoReturn.TabIndex = 57;
@@ -17582,7 +17596,7 @@ namespace BehaviorGraphics
             // label463
             // 
             this.label463.AutoSize = true;
-            this.label463.Location = new System.Drawing.Point(179, 74);
+            this.label463.Location = new System.Drawing.Point(179, 98);
             this.label463.Name = "label463";
             this.label463.Size = new System.Drawing.Size(74, 13);
             this.label463.TabIndex = 73;
@@ -17590,7 +17604,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_bump_durationBack
             // 
-            this.textBoxCC_bump_durationBack.Location = new System.Drawing.Point(272, 71);
+            this.textBoxCC_bump_durationBack.Location = new System.Drawing.Point(272, 95);
             this.textBoxCC_bump_durationBack.Name = "textBoxCC_bump_durationBack";
             this.textBoxCC_bump_durationBack.Size = new System.Drawing.Size(45, 20);
             this.textBoxCC_bump_durationBack.TabIndex = 74;
@@ -17598,7 +17612,7 @@ namespace BehaviorGraphics
             // label448
             // 
             this.label448.AutoSize = true;
-            this.label448.Location = new System.Drawing.Point(179, 50);
+            this.label448.Location = new System.Drawing.Point(179, 74);
             this.label448.Name = "label448";
             this.label448.Size = new System.Drawing.Size(91, 13);
             this.label448.TabIndex = 71;
@@ -17606,7 +17620,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_bumpduration
             // 
-            this.textBoxCC_bumpduration.Location = new System.Drawing.Point(272, 47);
+            this.textBoxCC_bumpduration.Location = new System.Drawing.Point(272, 71);
             this.textBoxCC_bumpduration.Name = "textBoxCC_bumpduration";
             this.textBoxCC_bumpduration.Size = new System.Drawing.Size(45, 20);
             this.textBoxCC_bumpduration.TabIndex = 72;
@@ -17614,7 +17628,7 @@ namespace BehaviorGraphics
             // label447
             // 
             this.label447.AutoSize = true;
-            this.label447.Location = new System.Drawing.Point(310, 8);
+            this.label447.Location = new System.Drawing.Point(310, 32);
             this.label447.Name = "label447";
             this.label447.Size = new System.Drawing.Size(29, 13);
             this.label447.TabIndex = 69;
@@ -17622,7 +17636,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_randbumpHigh
             // 
-            this.textBoxCC_randbumpHigh.Location = new System.Drawing.Point(311, 22);
+            this.textBoxCC_randbumpHigh.Location = new System.Drawing.Point(311, 46);
             this.textBoxCC_randbumpHigh.Name = "textBoxCC_randbumpHigh";
             this.textBoxCC_randbumpHigh.Size = new System.Drawing.Size(27, 20);
             this.textBoxCC_randbumpHigh.TabIndex = 70;
@@ -17630,7 +17644,7 @@ namespace BehaviorGraphics
             // label446
             // 
             this.label446.AutoSize = true;
-            this.label446.Location = new System.Drawing.Point(272, 8);
+            this.label446.Location = new System.Drawing.Point(272, 32);
             this.label446.Name = "label446";
             this.label446.Size = new System.Drawing.Size(27, 13);
             this.label446.TabIndex = 67;
@@ -17638,7 +17652,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_randbumpLow
             // 
-            this.textBoxCC_randbumpLow.Location = new System.Drawing.Point(272, 22);
+            this.textBoxCC_randbumpLow.Location = new System.Drawing.Point(272, 46);
             this.textBoxCC_randbumpLow.Name = "textBoxCC_randbumpLow";
             this.textBoxCC_randbumpLow.Size = new System.Drawing.Size(27, 20);
             this.textBoxCC_randbumpLow.TabIndex = 68;
@@ -17646,7 +17660,7 @@ namespace BehaviorGraphics
             // checkBoxCC_useRandomBump
             // 
             this.checkBoxCC_useRandomBump.AutoSize = true;
-            this.checkBoxCC_useRandomBump.Location = new System.Drawing.Point(182, 24);
+            this.checkBoxCC_useRandomBump.Location = new System.Drawing.Point(182, 48);
             this.checkBoxCC_useRandomBump.Name = "checkBoxCC_useRandomBump";
             this.checkBoxCC_useRandomBump.Size = new System.Drawing.Size(90, 17);
             this.checkBoxCC_useRandomBump.TabIndex = 66;
@@ -17656,7 +17670,7 @@ namespace BehaviorGraphics
             // label430
             // 
             this.label430.AutoSize = true;
-            this.label430.Location = new System.Drawing.Point(119, 87);
+            this.label430.Location = new System.Drawing.Point(119, 111);
             this.label430.Name = "label430";
             this.label430.Size = new System.Drawing.Size(28, 13);
             this.label430.TabIndex = 64;
@@ -17664,7 +17678,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_bump3Freq
             // 
-            this.textBoxCC_bump3Freq.Location = new System.Drawing.Point(150, 83);
+            this.textBoxCC_bump3Freq.Location = new System.Drawing.Point(150, 107);
             this.textBoxCC_bump3Freq.Name = "textBoxCC_bump3Freq";
             this.textBoxCC_bump3Freq.Size = new System.Drawing.Size(20, 20);
             this.textBoxCC_bump3Freq.TabIndex = 65;
@@ -17672,7 +17686,7 @@ namespace BehaviorGraphics
             // label431
             // 
             this.label431.AutoSize = true;
-            this.label431.Location = new System.Drawing.Point(119, 58);
+            this.label431.Location = new System.Drawing.Point(119, 82);
             this.label431.Name = "label431";
             this.label431.Size = new System.Drawing.Size(28, 13);
             this.label431.TabIndex = 62;
@@ -17680,7 +17694,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_bump2Freq
             // 
-            this.textBoxCC_bump2Freq.Location = new System.Drawing.Point(150, 54);
+            this.textBoxCC_bump2Freq.Location = new System.Drawing.Point(150, 78);
             this.textBoxCC_bump2Freq.Name = "textBoxCC_bump2Freq";
             this.textBoxCC_bump2Freq.Size = new System.Drawing.Size(20, 20);
             this.textBoxCC_bump2Freq.TabIndex = 63;
@@ -17688,7 +17702,7 @@ namespace BehaviorGraphics
             // label442
             // 
             this.label442.AutoSize = true;
-            this.label442.Location = new System.Drawing.Point(119, 28);
+            this.label442.Location = new System.Drawing.Point(119, 52);
             this.label442.Name = "label442";
             this.label442.Size = new System.Drawing.Size(28, 13);
             this.label442.TabIndex = 60;
@@ -17696,7 +17710,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_bump1Freq
             // 
-            this.textBoxCC_bump1Freq.Location = new System.Drawing.Point(150, 24);
+            this.textBoxCC_bump1Freq.Location = new System.Drawing.Point(150, 48);
             this.textBoxCC_bump1Freq.Name = "textBoxCC_bump1Freq";
             this.textBoxCC_bump1Freq.Size = new System.Drawing.Size(20, 20);
             this.textBoxCC_bump1Freq.TabIndex = 61;
@@ -17704,7 +17718,7 @@ namespace BehaviorGraphics
             // label443
             // 
             this.label443.AutoSize = true;
-            this.label443.Location = new System.Drawing.Point(1, 87);
+            this.label443.Location = new System.Drawing.Point(1, 111);
             this.label443.Name = "label443";
             this.label443.Size = new System.Drawing.Size(77, 13);
             this.label443.TabIndex = 58;
@@ -17712,7 +17726,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_bump3Mag
             // 
-            this.textBoxCC_bump3Mag.Location = new System.Drawing.Point(78, 84);
+            this.textBoxCC_bump3Mag.Location = new System.Drawing.Point(78, 108);
             this.textBoxCC_bump3Mag.Name = "textBoxCC_bump3Mag";
             this.textBoxCC_bump3Mag.Size = new System.Drawing.Size(36, 20);
             this.textBoxCC_bump3Mag.TabIndex = 59;
@@ -17720,7 +17734,7 @@ namespace BehaviorGraphics
             // label444
             // 
             this.label444.AutoSize = true;
-            this.label444.Location = new System.Drawing.Point(1, 58);
+            this.label444.Location = new System.Drawing.Point(1, 82);
             this.label444.Name = "label444";
             this.label444.Size = new System.Drawing.Size(77, 13);
             this.label444.TabIndex = 56;
@@ -17728,7 +17742,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_bump2Mag
             // 
-            this.textBoxCC_bump2Mag.Location = new System.Drawing.Point(78, 55);
+            this.textBoxCC_bump2Mag.Location = new System.Drawing.Point(78, 79);
             this.textBoxCC_bump2Mag.Name = "textBoxCC_bump2Mag";
             this.textBoxCC_bump2Mag.Size = new System.Drawing.Size(36, 20);
             this.textBoxCC_bump2Mag.TabIndex = 57;
@@ -17736,7 +17750,7 @@ namespace BehaviorGraphics
             // label445
             // 
             this.label445.AutoSize = true;
-            this.label445.Location = new System.Drawing.Point(1, 28);
+            this.label445.Location = new System.Drawing.Point(1, 52);
             this.label445.Name = "label445";
             this.label445.Size = new System.Drawing.Size(74, 13);
             this.label445.TabIndex = 54;
@@ -17744,7 +17758,7 @@ namespace BehaviorGraphics
             // 
             // textBoxCC_bump1Mag
             // 
-            this.textBoxCC_bump1Mag.Location = new System.Drawing.Point(78, 25);
+            this.textBoxCC_bump1Mag.Location = new System.Drawing.Point(78, 49);
             this.textBoxCC_bump1Mag.Name = "textBoxCC_bump1Mag";
             this.textBoxCC_bump1Mag.Size = new System.Drawing.Size(36, 20);
             this.textBoxCC_bump1Mag.TabIndex = 55;
@@ -21629,17 +21643,15 @@ namespace BehaviorGraphics
             this.label_CT_hold2.TabIndex = 0;
             this.label_CT_hold2.Text = "CT Hold";
             // 
-            // checkBoxGDBB
+            // checkBoxCC_training
             // 
-            this.checkBoxGDBB.AutoSize = true;
-            this.checkBoxGDBB.Location = new System.Drawing.Point(8, 295);
-            this.checkBoxGDBB.Name = "checkBoxGDBB";
-            this.checkBoxGDBB.Size = new System.Drawing.Size(155, 17);
-            this.checkBoxGDBB.TabIndex = 28;
-            this.checkBoxGDBB.Text = "Disable robot bounding box";
-            this.toolTip1.SetToolTip(this.checkBoxGDBB, "Do not check this box unless you know what you are doing.  You can damage the rob" +
-                    "ot, the monkey or yourself if you do.");
-            this.checkBoxGDBB.UseVisualStyleBackColor = true;
+            this.checkBoxCC_training.AutoSize = true;
+            this.checkBoxCC_training.Location = new System.Drawing.Point(6, 24);
+            this.checkBoxCC_training.Name = "checkBoxCC_training";
+            this.checkBoxCC_training.Size = new System.Drawing.Size(64, 17);
+            this.checkBoxCC_training.TabIndex = 82;
+            this.checkBoxCC_training.Text = "Training";
+            this.checkBoxCC_training.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -23953,5 +23965,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxCC_feedback_win;
         private System.Windows.Forms.CheckBox checkBoxRPCCT;
         private System.Windows.Forms.CheckBox checkBoxGDBB;
+        private System.Windows.Forms.CheckBox checkBoxCC_training;
     }
 }

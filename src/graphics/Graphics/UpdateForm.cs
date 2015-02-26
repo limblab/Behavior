@@ -1404,6 +1404,7 @@ namespace BehaviorGraphics
             AddParamListItem("CC No Return", "P49", "Behavior Cue Comb", this.checkBoxCC_NoReturn);
 
             AddParamListItem("CC feedback window", "P50", "Behavior Cue Comb", this.textBoxCC_feedback_win);
+            AddParamListItem("CC training", "P51", "Behavior Cue Comb", this.checkBoxCC_training);
             #endregion
         }
 
