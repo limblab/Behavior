@@ -107,6 +107,8 @@ struct LocalParams {
 	real_T NoReturn;
 
 	real_T feedback_win;
+
+	real_T training;
 };
 
 /**
@@ -187,7 +189,7 @@ cuecombBehavior::cuecombBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(50);
+	this->setNumParams(51);
 
 	this->bindParamId(&params->master_reset,		0);
 	
@@ -253,6 +255,7 @@ cuecombBehavior::cuecombBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->NoReturn,			48);
 	
 	this->bindParamId(&params->feedback_win,		49);
+	this->bindParamId(&params->training,			50);
 
 	this->setMasterResetParamId(0);
 
@@ -532,7 +535,12 @@ void cuecombBehavior::update(SimStruct *S) {
 				this->bump->direction = target_shift + PI;
 				if (params->NoReturn){
 					this->bump->distance = 0;
-					bump_offset = inputs->cursor;
+					if (params->training){
+						bump_offset.x = 0.0;
+						bump_offset.y = 0.0;
+					} else {
+						bump_offset = inputs->cursor;
+					}
 				} else { 
 					this->bump->distance = current_trial_bumpmag;
 					bump_offset.x = 0.0;
@@ -550,8 +558,8 @@ void cuecombBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_CT_DELAY:
-			if (!centerTarget->cursorInTarget(inputs->cursor.x-bump_offset.x,
-											  inputs->cursor.y-bump_offset.y)) {
+			if ((!centerTarget->cursorInTarget(inputs->cursor.x-bump_offset.x,
+											  inputs->cursor.y-bump_offset.y)) && !params->training) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} 
@@ -774,8 +782,12 @@ void cuecombBehavior::calculateOutputs(SimStruct *S) {
 	/* cursor position (7) */
 	if (getState() == STATE_BUMP_OUT ||
 		getState() == STATE_BUMP_IN){
-
-		outputs->position = Point(100000,100000);
+		if (params->training){
+			outputs->position.x = inputs->cursor.x;
+			outputs->position.y = inputs->cursor.y;
+		} else {
+			outputs->position = Point(100000,100000);
+		}
 	} else if ( getState() == STATE_OT_HOLD ||
 				getState() == STATE_REWARD ||
 			    getState() == STATE_FAIL) {
