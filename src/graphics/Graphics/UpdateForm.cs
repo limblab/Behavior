@@ -1175,6 +1175,9 @@ namespace BehaviorGraphics
 
             // More target stuff
             AddParamListItem("DCO SFT", "P30", "Behavior DCO", this.checkBoxDCOSFT);
+            AddParamListItem("DCO TS", "P31", "Behavior DCO", this.angleEntryBoxDCOTS);
+            AddParamListItem("DCO FTD", "P32", "Behavior DCO", this.angleEntryBoxDCOFTD);
+            AddParamListItem("DCO STL", "P33", "Behavior DCO", this.checkBoxDCOSTL);
 
             #endregion
 

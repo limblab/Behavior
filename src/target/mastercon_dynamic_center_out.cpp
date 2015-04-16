@@ -151,6 +151,9 @@ struct LocalParams{
     
     // More target stuff
     real_T show_force_target;
+    real_T target_separation;
+    real_T first_target_direction;
+    real_T square_target_locations;
 };
 
 /**
@@ -222,7 +225,7 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(30);
+	this->setNumParams(33);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
 	this->bindParamId(&params->center_hold_low,                         1);
@@ -263,9 +266,14 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->force_cursor_gain,                       28);
     
     this->bindParamId(&params->show_force_target,                       29);
+    
+    this->bindParamId(&params->target_separation,                       30);
+    this->bindParamId(&params->first_target_direction,                  31);
+    this->bindParamId(&params->square_target_locations,                  32);
+    
        
     // default parameters:
-    // 1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0  3 5 10  3 2 4 .1  .5 .1 1  0 0  0  1   0
+    // 1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0  3 5 10  3 2 4 .1  .5 .1 1  0 0  0  1   0   -1 0 0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -325,8 +333,7 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
 
 void DynamicCenterOut::doPreTrial(SimStruct *S) {	
 	centerTarget->radius = params->center_target_radius;
-
-    outerTarget->r = params->outer_target_radius;
+    
     outerTarget->span = params->outer_target_span;
 	outerTarget->height = params->outer_target_thickness;
     if (!params->repeat_target || last_trial_reward){
@@ -334,7 +341,11 @@ void DynamicCenterOut::doPreTrial(SimStruct *S) {
             target_direction = random->getDouble(0,2*PI);
         } else {
             i = random->getInteger(0,params->num_targets-1);
-            target_direction = fmod(i * 2 * PI/params->num_targets,2*PI);
+            if (params->target_separation == -1){
+                target_direction = fmod(i * 2 * PI/params->num_targets,2*PI) + params->first_target_direction;
+            } else {
+                target_direction = fmod(i * params->target_separation,2*PI) + params->first_target_direction;
+            }            
         }
     }
     last_trial_reward = 0;
@@ -357,6 +368,20 @@ void DynamicCenterOut::doPreTrial(SimStruct *S) {
     
     outerTarget->theta = target_direction;
     
+    if (params->square_target_locations){
+        real_T large_radius = sqrt((float)2)*params->outer_target_radius;
+        
+        real_T y_temp = (params->outer_target_radius < large_radius*abs(sin(target_direction))) ?
+            params->outer_target_radius :
+            large_radius*sin(target_direction);
+        real_T x_temp = (params->outer_target_radius < large_radius*abs(cos(target_direction))) ?
+            params->outer_target_radius :
+            large_radius*cos(target_direction);
+        outerTarget->r = sqrt(x_temp*x_temp + y_temp*y_temp);
+    } else {
+        outerTarget->r = params->outer_target_radius;
+    }
+    
     cursorTarget->centerX = cursor_position.x;
 	cursorTarget->centerY = cursor_position.y;
 	cursorTarget->radius = params->cursor_radius;
@@ -372,10 +397,10 @@ void DynamicCenterOut::doPreTrial(SimStruct *S) {
     target_force_max = target_force*(1+params->target_force_window);
     
     min_position_target = target_force_min/target_stiffness + 
-            params->outer_target_radius - 
+            outerTarget->r - 
             0.5*params->outer_target_thickness;
     max_position_target = target_force_max/target_stiffness + 
-            params->outer_target_radius - 
+            outerTarget->r - 
             0.5*params->outer_target_thickness;
     position_target = (min_position_target + max_position_target)/2;
     
@@ -394,7 +419,7 @@ void DynamicCenterOut::doPreTrial(SimStruct *S) {
 	db->addFloat((float)(inputs->offsets.x));					// bytes 6 to 9 -> Matlab idx 7 to 10
 	db->addFloat((float)(inputs->offsets.y));					// bytes 10 to 13 -> Matlab idx 11 to 14
 	db->addFloat((float)target_direction);						// bytes 14 to 17 -> Matlab idx 15 to 18
-    db->addFloat((float)params->outer_target_radius);           // bytes 18 to 21 -> Matlab idx 19 to 22
+    db->addFloat((float)outerTarget->r);                        // bytes 18 to 21 -> Matlab idx 19 to 22
 	db->addFloat((float)params->outer_target_span);             // bytes 22 to 25 -> Matlab idx 23 to 26
 	db->addFloat((float)params->outer_target_thickness);        // bytes 26 to 29 -> Matlab idx 27 to 30
 	db->addFloat((float)target_stiffness);                      // bytes 30 to 33 -> Matlab idx 31 to 34
@@ -604,7 +629,7 @@ void DynamicCenterOut::calculateOutputs(SimStruct *S) {
     
     distance_cursor_origin = sqrt(cursor_position.x*cursor_position.x + cursor_position.y*cursor_position.y);
     
-    distance_cursor_target = params->outer_target_radius - 
+    distance_cursor_target = outerTarget->r - 
             0.5*params->outer_target_thickness -
             distance_cursor_origin;
     
