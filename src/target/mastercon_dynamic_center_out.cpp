@@ -522,7 +522,10 @@ void DynamicCenterOut::update(SimStruct *S) {
             }
             break;        
         case STATE_OT_HOLD:
-            if (spring_force > target_force*(1-params->target_force_window) &&
+            if (inputs->catchForce.y  && !params->brain_control ||
+                    inputs->catchForce.x){
+                setState(STATE_INCOMPLETE);
+            } else if (spring_force > target_force*(1-params->target_force_window) &&
                     spring_force < target_force*(1+params->target_force_window)){
                 if (stateTimer->elapsedTime(S) > params->outer_hold){
                     playTone(TONE_REWARD);
