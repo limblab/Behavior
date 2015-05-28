@@ -1345,6 +1345,9 @@ namespace BehaviorGraphics
             AddParamListItem("RP CR", "P45", "Behavior RP", this.textBoxRPCR);
             AddParamListItem("RP CCT", "P46", "Behavior RP", this.checkBoxRPCCT);
 
+            // More target stuff
+            AddParamListItem("RP STIF", "P47", "Behavior RP", this.checkBoxRPSTIF);
+
             #endregion
 
             #region Cue Comb

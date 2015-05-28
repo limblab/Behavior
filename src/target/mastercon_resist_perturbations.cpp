@@ -242,6 +242,9 @@ struct LocalParams{
     real_T cocontraction_window; 
     real_T cursor_radius;
     real_T cocontraction_target;
+    
+    // Even more target stuff
+    real_T repeat_target;
 };
 
 /**
@@ -336,7 +339,7 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(46);
+	this->setNumParams(47);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
     
@@ -395,9 +398,11 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->cocontraction_window,                    43);
     this->bindParamId(&params->cursor_radius,                           44);
     this->bindParamId(&params->cocontraction_target,                    45);
+    
+    this->bindParamId(&params->repeat_target,                           46);
   
     // default parameters:
-    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .2 2 2 1 0 2 0 5 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   0 0   1   50   0 1 3 1 0.8 1
+    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .2 2 2 1 0 2 0 5 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   0 0   1   50   0 1 3 1 0.8 1   1
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -488,7 +493,7 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     
     number_of_blocks = params->num_force_frequencies;
       
-    if (last_trial_reward==1 || !was_rewarded || old_toggle_reset_block != params->toggle_reset_block){        
+    if (!params->repeat_target || last_trial_reward==1 || !was_rewarded || old_toggle_reset_block != params->toggle_reset_block){        
         trial_counter++;
         if (trial_counter >= params->force_block_size){
             trial_counter = 0;
@@ -767,7 +772,7 @@ void ResistPerturbations::update(SimStruct *S) {
                         (params->cocontraction_target && params->brain_control &&
                         (cocontraction_level < min_cocontraction ||
                         cocontraction_level > max_cocontraction))){
-                    playTone(TONE_ABORT);
+//                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);				
                 } else if (stateTimer->elapsedTime(S) > center_hold_time){
                     if (bump_trial && early_bump){
@@ -791,7 +796,7 @@ void ResistPerturbations::update(SimStruct *S) {
                         cocontraction_level > max_cocontraction))){
                     perturbationTimer->stop(S);
                     playTone(TONE_ABORT);
-                    setState(STATE_ABORT);		
+                    setState(STATE_FAIL);		
                 } else if (bump_trial && trigger_bump) {
                     trigger_bump = 0;
                     perturbationTimer->stop(S);

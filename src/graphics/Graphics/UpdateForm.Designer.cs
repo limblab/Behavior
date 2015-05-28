@@ -1223,6 +1223,10 @@ namespace BehaviorGraphics
             this.textBox_ctr_out_bump_CTHold = new System.Windows.Forms.TextBox();
             this.label_ctr_out_bump_CTHold = new System.Windows.Forms.Label();
             this.tabDynamicCO = new System.Windows.Forms.TabPage();
+            this.groupBoxDCOCursor = new System.Windows.Forms.GroupBox();
+            this.checkBoxDCOBC = new System.Windows.Forms.CheckBox();
+            this.textBoxDCOCR = new System.Windows.Forms.TextBox();
+            this.labelDCOCR = new System.Windows.Forms.Label();
             this.groupBox77 = new System.Windows.Forms.GroupBox();
             this.checkBoxDCOSFT = new System.Windows.Forms.CheckBox();
             this.textBoxDCOFCG = new System.Windows.Forms.TextBox();
@@ -1235,6 +1239,11 @@ namespace BehaviorGraphics
             this.textBoxDCOD = new System.Windows.Forms.TextBox();
             this.labelDCOD = new System.Windows.Forms.Label();
             this.groupBoxDCOT = new System.Windows.Forms.GroupBox();
+            this.checkBoxDCOSTL = new System.Windows.Forms.CheckBox();
+            this.angleEntryBoxDCOFTD = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxDCOTS = new AngleBox.AngleEntryBox();
+            this.labelDCOFTD = new System.Windows.Forms.Label();
+            this.labelDCOTS = new System.Windows.Forms.Label();
             this.textBoxDCOTSMax = new System.Windows.Forms.TextBox();
             this.labelDCOTSMax = new System.Windows.Forms.Label();
             this.textBoxDCOTSMin = new System.Windows.Forms.TextBox();
@@ -1976,15 +1985,7 @@ namespace BehaviorGraphics
             this.label_CT_hold = new System.Windows.Forms.Label();
             this.textBox52b = new System.Windows.Forms.TextBox();
             this.label_CT_hold2 = new System.Windows.Forms.Label();
-            this.labelDCOTS = new System.Windows.Forms.Label();
-            this.labelDCOFTD = new System.Windows.Forms.Label();
-            this.angleEntryBoxDCOTS = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxDCOFTD = new AngleBox.AngleEntryBox();
-            this.groupBoxDCOCursor = new System.Windows.Forms.GroupBox();
-            this.checkBoxDCOBC = new System.Windows.Forms.CheckBox();
-            this.textBoxDCOCR = new System.Windows.Forms.TextBox();
-            this.labelDCOCR = new System.Windows.Forms.Label();
-            this.checkBoxDCOSTL = new System.Windows.Forms.CheckBox();
+            this.checkBoxRPSTIF = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2138,6 +2139,7 @@ namespace BehaviorGraphics
             this.groupBox74.SuspendLayout();
             this.groupBox75.SuspendLayout();
             this.tabDynamicCO.SuspendLayout();
+            this.groupBoxDCOCursor.SuspendLayout();
             this.groupBox77.SuspendLayout();
             this.groupBoxDCOCont.SuspendLayout();
             this.groupBoxDCOT.SuspendLayout();
@@ -2186,7 +2188,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBoxDCOCursor.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -14598,6 +14599,44 @@ namespace BehaviorGraphics
             this.tabDynamicCO.Text = "Dynamic center out";
             this.tabDynamicCO.UseVisualStyleBackColor = true;
             // 
+            // groupBoxDCOCursor
+            // 
+            this.groupBoxDCOCursor.Controls.Add(this.checkBoxDCOBC);
+            this.groupBoxDCOCursor.Controls.Add(this.textBoxDCOCR);
+            this.groupBoxDCOCursor.Controls.Add(this.labelDCOCR);
+            this.groupBoxDCOCursor.Location = new System.Drawing.Point(17, 235);
+            this.groupBoxDCOCursor.Name = "groupBoxDCOCursor";
+            this.groupBoxDCOCursor.Size = new System.Drawing.Size(200, 100);
+            this.groupBoxDCOCursor.TabIndex = 7;
+            this.groupBoxDCOCursor.TabStop = false;
+            this.groupBoxDCOCursor.Text = "Cursor";
+            // 
+            // checkBoxDCOBC
+            // 
+            this.checkBoxDCOBC.AutoSize = true;
+            this.checkBoxDCOBC.Location = new System.Drawing.Point(9, 37);
+            this.checkBoxDCOBC.Name = "checkBoxDCOBC";
+            this.checkBoxDCOBC.Size = new System.Drawing.Size(85, 17);
+            this.checkBoxDCOBC.TabIndex = 19;
+            this.checkBoxDCOBC.Text = "Brain control";
+            this.checkBoxDCOBC.UseVisualStyleBackColor = true;
+            // 
+            // textBoxDCOCR
+            // 
+            this.textBoxDCOCR.Location = new System.Drawing.Point(119, 13);
+            this.textBoxDCOCR.Name = "textBoxDCOCR";
+            this.textBoxDCOCR.Size = new System.Drawing.Size(55, 20);
+            this.textBoxDCOCR.TabIndex = 18;
+            // 
+            // labelDCOCR
+            // 
+            this.labelDCOCR.AutoSize = true;
+            this.labelDCOCR.Location = new System.Drawing.Point(6, 16);
+            this.labelDCOCR.Name = "labelDCOCR";
+            this.labelDCOCR.Size = new System.Drawing.Size(68, 13);
+            this.labelDCOCR.TabIndex = 17;
+            this.labelDCOCR.Text = "Cursor radius";
+            // 
             // groupBox77
             // 
             this.groupBox77.Controls.Add(this.checkBoxDCOSFT);
@@ -14741,6 +14780,51 @@ namespace BehaviorGraphics
             this.groupBoxDCOT.TabIndex = 4;
             this.groupBoxDCOT.TabStop = false;
             this.groupBoxDCOT.Text = "Cursor and targets";
+            // 
+            // checkBoxDCOSTL
+            // 
+            this.checkBoxDCOSTL.AutoSize = true;
+            this.checkBoxDCOSTL.Location = new System.Drawing.Point(16, 417);
+            this.checkBoxDCOSTL.Name = "checkBoxDCOSTL";
+            this.checkBoxDCOSTL.Size = new System.Drawing.Size(135, 17);
+            this.checkBoxDCOSTL.TabIndex = 43;
+            this.checkBoxDCOSTL.Text = "Square target locations";
+            this.checkBoxDCOSTL.UseVisualStyleBackColor = true;
+            // 
+            // angleEntryBoxDCOFTD
+            // 
+            this.angleEntryBoxDCOFTD.Location = new System.Drawing.Point(125, 368);
+            this.angleEntryBoxDCOFTD.Name = "angleEntryBoxDCOFTD";
+            this.angleEntryBoxDCOFTD.Size = new System.Drawing.Size(69, 21);
+            this.angleEntryBoxDCOFTD.TabIndex = 42;
+            this.angleEntryBoxDCOFTD.Value = 0;
+            // 
+            // angleEntryBoxDCOTS
+            // 
+            this.angleEntryBoxDCOTS.Location = new System.Drawing.Point(125, 341);
+            this.angleEntryBoxDCOTS.Name = "angleEntryBoxDCOTS";
+            this.angleEntryBoxDCOTS.Size = new System.Drawing.Size(69, 21);
+            this.angleEntryBoxDCOTS.TabIndex = 41;
+            this.angleEntryBoxDCOTS.Value = 0;
+            // 
+            // labelDCOFTD
+            // 
+            this.labelDCOFTD.AutoSize = true;
+            this.labelDCOFTD.Location = new System.Drawing.Point(13, 368);
+            this.labelDCOFTD.Name = "labelDCOFTD";
+            this.labelDCOFTD.Size = new System.Drawing.Size(99, 13);
+            this.labelDCOFTD.TabIndex = 40;
+            this.labelDCOFTD.Text = "First target direction";
+            // 
+            // labelDCOTS
+            // 
+            this.labelDCOTS.AutoSize = true;
+            this.labelDCOTS.Location = new System.Drawing.Point(13, 347);
+            this.labelDCOTS.Name = "labelDCOTS";
+            this.labelDCOTS.Size = new System.Drawing.Size(90, 13);
+            this.labelDCOTS.TabIndex = 39;
+            this.labelDCOTS.Text = "Target separation";
+            this.toolTip1.SetToolTip(this.labelDCOTS, "If -1, equally separated targets");
             // 
             // textBoxDCOTSMax
             // 
@@ -16936,6 +17020,7 @@ namespace BehaviorGraphics
             // 
             // groupBoxRPCursor
             // 
+            this.groupBoxRPCursor.Controls.Add(this.checkBoxRPSTIF);
             this.groupBoxRPCursor.Controls.Add(this.checkBoxRPCCT);
             this.groupBoxRPCursor.Controls.Add(this.textBoxRPCR);
             this.groupBoxRPCursor.Controls.Add(this.labelRPCR);
@@ -16955,7 +17040,7 @@ namespace BehaviorGraphics
             // checkBoxRPCCT
             // 
             this.checkBoxRPCCT.AutoSize = true;
-            this.checkBoxRPCCT.Location = new System.Drawing.Point(12, 144);
+            this.checkBoxRPCCT.Location = new System.Drawing.Point(12, 129);
             this.checkBoxRPCCT.Name = "checkBoxRPCCT";
             this.checkBoxRPCCT.Size = new System.Drawing.Size(125, 17);
             this.checkBoxRPCCT.TabIndex = 39;
@@ -16964,7 +17049,7 @@ namespace BehaviorGraphics
             // 
             // textBoxRPCR
             // 
-            this.textBoxRPCR.Location = new System.Drawing.Point(123, 118);
+            this.textBoxRPCR.Location = new System.Drawing.Point(123, 105);
             this.textBoxRPCR.Name = "textBoxRPCR";
             this.textBoxRPCR.Size = new System.Drawing.Size(68, 20);
             this.textBoxRPCR.TabIndex = 38;
@@ -16973,7 +17058,7 @@ namespace BehaviorGraphics
             // labelRPCR
             // 
             this.labelRPCR.AutoSize = true;
-            this.labelRPCR.Location = new System.Drawing.Point(9, 123);
+            this.labelRPCR.Location = new System.Drawing.Point(9, 110);
             this.labelRPCR.Name = "labelRPCR";
             this.labelRPCR.Size = new System.Drawing.Size(68, 13);
             this.labelRPCR.TabIndex = 37;
@@ -16981,7 +17066,7 @@ namespace BehaviorGraphics
             // 
             // textBoxRPHTR
             // 
-            this.textBoxRPHTR.Location = new System.Drawing.Point(123, 73);
+            this.textBoxRPHTR.Location = new System.Drawing.Point(123, 60);
             this.textBoxRPHTR.Name = "textBoxRPHTR";
             this.textBoxRPHTR.Size = new System.Drawing.Size(68, 20);
             this.textBoxRPHTR.TabIndex = 36;
@@ -16990,7 +17075,7 @@ namespace BehaviorGraphics
             // labelRPHTR
             // 
             this.labelRPHTR.AutoSize = true;
-            this.labelRPHTR.Location = new System.Drawing.Point(9, 78);
+            this.labelRPHTR.Location = new System.Drawing.Point(9, 65);
             this.labelRPHTR.Name = "labelRPHTR";
             this.labelRPHTR.Size = new System.Drawing.Size(90, 13);
             this.labelRPHTR.TabIndex = 35;
@@ -16999,7 +17084,7 @@ namespace BehaviorGraphics
             // checkBoxRPBC
             // 
             this.checkBoxRPBC.AutoSize = true;
-            this.checkBoxRPBC.Location = new System.Drawing.Point(12, 26);
+            this.checkBoxRPBC.Location = new System.Drawing.Point(12, 20);
             this.checkBoxRPBC.Name = "checkBoxRPBC";
             this.checkBoxRPBC.Size = new System.Drawing.Size(85, 17);
             this.checkBoxRPBC.TabIndex = 16;
@@ -17009,7 +17094,7 @@ namespace BehaviorGraphics
             // checkBoxRPFVF
             // 
             this.checkBoxRPFVF.AutoSize = true;
-            this.checkBoxRPFVF.Location = new System.Drawing.Point(12, 101);
+            this.checkBoxRPFVF.Location = new System.Drawing.Point(12, 88);
             this.checkBoxRPFVF.Name = "checkBoxRPFVF";
             this.checkBoxRPFVF.Size = new System.Drawing.Size(131, 17);
             this.checkBoxRPFVF.TabIndex = 34;
@@ -17018,7 +17103,7 @@ namespace BehaviorGraphics
             // 
             // textBoxRPTR
             // 
-            this.textBoxRPTR.Location = new System.Drawing.Point(123, 47);
+            this.textBoxRPTR.Location = new System.Drawing.Point(123, 34);
             this.textBoxRPTR.Name = "textBoxRPTR";
             this.textBoxRPTR.Size = new System.Drawing.Size(68, 20);
             this.textBoxRPTR.TabIndex = 12;
@@ -17027,7 +17112,7 @@ namespace BehaviorGraphics
             // labelRPTR
             // 
             this.labelRPTR.AutoSize = true;
-            this.labelRPTR.Location = new System.Drawing.Point(9, 52);
+            this.labelRPTR.Location = new System.Drawing.Point(9, 39);
             this.labelRPTR.Name = "labelRPTR";
             this.labelRPTR.Size = new System.Drawing.Size(69, 13);
             this.labelRPTR.TabIndex = 10;
@@ -21635,88 +21720,15 @@ namespace BehaviorGraphics
             this.label_CT_hold2.TabIndex = 0;
             this.label_CT_hold2.Text = "CT Hold";
             // 
-            // labelDCOTS
+            // checkBoxRPSTIF
             // 
-            this.labelDCOTS.AutoSize = true;
-            this.labelDCOTS.Location = new System.Drawing.Point(13, 347);
-            this.labelDCOTS.Name = "labelDCOTS";
-            this.labelDCOTS.Size = new System.Drawing.Size(90, 13);
-            this.labelDCOTS.TabIndex = 39;
-            this.labelDCOTS.Text = "Target separation";
-            this.toolTip1.SetToolTip(this.labelDCOTS, "If -1, equally separated targets");
-            // 
-            // labelDCOFTD
-            // 
-            this.labelDCOFTD.AutoSize = true;
-            this.labelDCOFTD.Location = new System.Drawing.Point(13, 368);
-            this.labelDCOFTD.Name = "labelDCOFTD";
-            this.labelDCOFTD.Size = new System.Drawing.Size(99, 13);
-            this.labelDCOFTD.TabIndex = 40;
-            this.labelDCOFTD.Text = "First target direction";
-            // 
-            // angleEntryBoxDCOTS
-            // 
-            this.angleEntryBoxDCOTS.Location = new System.Drawing.Point(125, 341);
-            this.angleEntryBoxDCOTS.Name = "angleEntryBoxDCOTS";
-            this.angleEntryBoxDCOTS.Size = new System.Drawing.Size(69, 21);
-            this.angleEntryBoxDCOTS.TabIndex = 41;
-            this.angleEntryBoxDCOTS.Value = 0;
-            // 
-            // angleEntryBoxDCOFTD
-            // 
-            this.angleEntryBoxDCOFTD.Location = new System.Drawing.Point(125, 368);
-            this.angleEntryBoxDCOFTD.Name = "angleEntryBoxDCOFTD";
-            this.angleEntryBoxDCOFTD.Size = new System.Drawing.Size(69, 21);
-            this.angleEntryBoxDCOFTD.TabIndex = 42;
-            this.angleEntryBoxDCOFTD.Value = 0;
-            // 
-            // groupBoxDCOCursor
-            // 
-            this.groupBoxDCOCursor.Controls.Add(this.checkBoxDCOBC);
-            this.groupBoxDCOCursor.Controls.Add(this.textBoxDCOCR);
-            this.groupBoxDCOCursor.Controls.Add(this.labelDCOCR);
-            this.groupBoxDCOCursor.Location = new System.Drawing.Point(17, 235);
-            this.groupBoxDCOCursor.Name = "groupBoxDCOCursor";
-            this.groupBoxDCOCursor.Size = new System.Drawing.Size(200, 100);
-            this.groupBoxDCOCursor.TabIndex = 7;
-            this.groupBoxDCOCursor.TabStop = false;
-            this.groupBoxDCOCursor.Text = "Cursor";
-            // 
-            // checkBoxDCOBC
-            // 
-            this.checkBoxDCOBC.AutoSize = true;
-            this.checkBoxDCOBC.Location = new System.Drawing.Point(9, 37);
-            this.checkBoxDCOBC.Name = "checkBoxDCOBC";
-            this.checkBoxDCOBC.Size = new System.Drawing.Size(85, 17);
-            this.checkBoxDCOBC.TabIndex = 19;
-            this.checkBoxDCOBC.Text = "Brain control";
-            this.checkBoxDCOBC.UseVisualStyleBackColor = true;
-            // 
-            // textBoxDCOCR
-            // 
-            this.textBoxDCOCR.Location = new System.Drawing.Point(119, 13);
-            this.textBoxDCOCR.Name = "textBoxDCOCR";
-            this.textBoxDCOCR.Size = new System.Drawing.Size(55, 20);
-            this.textBoxDCOCR.TabIndex = 18;
-            // 
-            // labelDCOCR
-            // 
-            this.labelDCOCR.AutoSize = true;
-            this.labelDCOCR.Location = new System.Drawing.Point(6, 16);
-            this.labelDCOCR.Name = "labelDCOCR";
-            this.labelDCOCR.Size = new System.Drawing.Size(68, 13);
-            this.labelDCOCR.TabIndex = 17;
-            this.labelDCOCR.Text = "Cursor radius";
-            // 
-            // checkBoxDCOSTL
-            // 
-            this.checkBoxDCOSTL.AutoSize = true;
-            this.checkBoxDCOSTL.Location = new System.Drawing.Point(16, 417);
-            this.checkBoxDCOSTL.Name = "checkBoxDCOSTL";
-            this.checkBoxDCOSTL.Size = new System.Drawing.Size(135, 17);
-            this.checkBoxDCOSTL.TabIndex = 43;
-            this.checkBoxDCOSTL.Text = "Square target locations";
-            this.checkBoxDCOSTL.UseVisualStyleBackColor = true;
+            this.checkBoxRPSTIF.AutoSize = true;
+            this.checkBoxRPSTIF.Location = new System.Drawing.Point(12, 149);
+            this.checkBoxRPSTIF.Name = "checkBoxRPSTIF";
+            this.checkBoxRPSTIF.Size = new System.Drawing.Size(107, 17);
+            this.checkBoxRPSTIF.TabIndex = 40;
+            this.checkBoxRPSTIF.Text = "Same target if fail";
+            this.checkBoxRPSTIF.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -21991,6 +22003,8 @@ namespace BehaviorGraphics
             this.groupBox75.ResumeLayout(false);
             this.groupBox75.PerformLayout();
             this.tabDynamicCO.ResumeLayout(false);
+            this.groupBoxDCOCursor.ResumeLayout(false);
+            this.groupBoxDCOCursor.PerformLayout();
             this.groupBox77.ResumeLayout(false);
             this.groupBox77.PerformLayout();
             this.groupBoxDCOCont.ResumeLayout(false);
@@ -22076,8 +22090,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBoxDCOCursor.ResumeLayout(false);
-            this.groupBoxDCOCursor.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -24039,5 +24051,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxDCOCR;
         private System.Windows.Forms.Label labelDCOCR;
         private System.Windows.Forms.CheckBox checkBoxDCOSTL;
+        private System.Windows.Forms.CheckBox checkBoxRPSTIF;
     }
 }

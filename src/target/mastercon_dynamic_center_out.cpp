@@ -269,11 +269,11 @@ DynamicCenterOut::DynamicCenterOut(SimStruct *S) : RobotBehavior() {
     
     this->bindParamId(&params->target_separation,                       30);
     this->bindParamId(&params->first_target_direction,                  31);
-    this->bindParamId(&params->square_target_locations,                  32);
+    this->bindParamId(&params->square_target_locations,                 32);
     
        
     // default parameters:
-    // 1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0  3 5 10  3 2 4 .1  .5 .1 1  0 0  0  1   0   -1 0 0
+    // 1  .5 1 .5 1 2 2 10  .5 0  3 8 .5 2 0  3 5 10  3 2 4 .1  .5 .1 1  0 0  0  1   0   -1 0 0 
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
