@@ -193,8 +193,8 @@ struct LocalParams{
 	real_T force_visual_feedback;
         
     // Perturbations
-    real_T force_amplitude_low;
-    real_T force_amplitude_high;
+    real_T force_amplitude_at_low_fr;
+    real_T force_amplitude_at_high_fr;
     real_T num_force_amplitudes;
     real_T force_frequency_low;  
     real_T force_frequency_high;
@@ -303,6 +303,7 @@ private:
     
     int frequency_order[16];
     real_T frequencies[16];
+    real_T amplitudes[16];
     
     int trigger_bump;    
     real_T old_force_magnitude;
@@ -356,8 +357,8 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->target_radius,                           9);
     this->bindParamId(&params->force_visual_feedback,                   10);
     
-    this->bindParamId(&params->force_amplitude_low,                     11);
-    this->bindParamId(&params->force_amplitude_high,                    12);
+    this->bindParamId(&params->force_amplitude_at_low_fr,               11);
+    this->bindParamId(&params->force_amplitude_at_high_fr,                    12);
     this->bindParamId(&params->num_force_amplitudes,                    13);
     this->bindParamId(&params->force_frequency_low,                     14);
     this->bindParamId(&params->force_frequency_high,                    15);
@@ -437,6 +438,7 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     for (int i=0; i<16; i++){
         frequency_order[i] = -1;
         frequencies[i] = 0;
+        amplitudes[i] = 0;
     }
 
     center_hold_time = 0.0;
@@ -498,19 +500,7 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
         if (trial_counter >= params->force_block_size){
             trial_counter = 0;
             block_counter++;
-        }
-       
-        rand_i = random->getInteger(0,params->num_force_amplitudes-1);  
-        rand_d = random->getDouble(0,1);
-        if (params->num_force_amplitudes > 1){
-            trial_force_amplitude = params->force_amplitude_low + rand_i*(params->force_amplitude_high -
-                    params->force_amplitude_low)/(params->num_force_amplitudes-1);
-        } else if (params->num_force_amplitudes == 1){
-            trial_force_amplitude = params->force_amplitude_low;
-        } else {
-            trial_force_amplitude = params->force_amplitude_low + rand_d*(params->force_amplitude_high -
-                    params->force_amplitude_low);
-        }
+        }    
 
         rand_i = random->getInteger(0,params->num_force_directions-1);
         rand_d = random->getDouble(0,2*PI);
@@ -550,14 +540,20 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
                     frequency_order[i] = i;
                     if (params->num_force_frequencies <= 1){
                         frequencies[i] = params->force_frequency_low;
+                        amplitudes[i] = params->force_amplitude_at_low_fr;
                     } else if (params->num_force_frequencies == 2) {
-                        if (i==0)
+                        if (i==0) {
                             frequencies[i] = params->force_frequency_low;
-                        else
-                            frequencies[i] = params->force_frequency_high;                    
+                            amplitudes[i] = params->force_amplitude_at_low_fr;
+                        } else {
+                            frequencies[i] = params->force_frequency_high;   
+                            amplitudes[i] = params->force_amplitude_at_high_fr;
+                        }
                     } else {
                         frequencies[i] = params->force_frequency_low + i*(params->force_frequency_high -
-                                params->force_frequency_low)/(params->num_force_frequencies-1);                        
+                                params->force_frequency_low)/(params->num_force_frequencies-1); 
+                        amplitudes[i] = params->force_amplitude_at_low_fr + i*(params->force_amplitude_at_high_fr -
+                                params->force_amplitude_at_low_fr)/(params->num_force_frequencies-1); 
                     }
                     tmp_sort[i] = random->getDouble(0,1);
                 }
@@ -578,6 +574,19 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
             }
         }
         trial_force_frequency = frequencies[frequency_order[block_counter]];
+        trial_force_amplitude = amplitudes[frequency_order[block_counter]];
+        
+//         rand_i = random->getInteger(0,params->num_force_amplitudes-1);  
+//         rand_d = random->getDouble(0,1);
+//         if (params->num_force_amplitudes > 1){
+//             trial_force_amplitude = params->force_amplitude_at_low_fr + rand_i*(params->force_amplitude_at_high_fr -
+//                     params->force_amplitude_at_low_fr)/(params->num_force_amplitudes-1);
+//         } else if (params->num_force_amplitudes == 1){
+//             trial_force_amplitude = params->force_amplitude_at_low_fr;
+//         } else {
+//             trial_force_amplitude = params->force_amplitude_at_low_fr + rand_d*(params->force_amplitude_at_high_fr -
+//                     params->force_amplitude_at_low_fr);
+//         }
 
         // Bumps
         if (random->getDouble(0,1)*100 < params->percent_bump_trials){

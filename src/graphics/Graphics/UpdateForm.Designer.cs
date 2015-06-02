@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1475,6 +1475,7 @@ namespace BehaviorGraphics
             this.textBoxRPNFF = new System.Windows.Forms.TextBox();
             this.labelRPNFF = new System.Windows.Forms.Label();
             this.groupBoxRPCursor = new System.Windows.Forms.GroupBox();
+            this.checkBoxRPSTIF = new System.Windows.Forms.CheckBox();
             this.checkBoxRPCCT = new System.Windows.Forms.CheckBox();
             this.textBoxRPCR = new System.Windows.Forms.TextBox();
             this.labelRPCR = new System.Windows.Forms.Label();
@@ -1985,7 +1986,6 @@ namespace BehaviorGraphics
             this.label_CT_hold = new System.Windows.Forms.Label();
             this.textBox52b = new System.Windows.Forms.TextBox();
             this.label_CT_hold2 = new System.Windows.Forms.Label();
-            this.checkBoxRPSTIF = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -5134,8 +5134,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5967,8 +5967,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -16804,7 +16804,7 @@ namespace BehaviorGraphics
             // labelRPD
             // 
             this.labelRPD.AutoSize = true;
-            this.labelRPD.Location = new System.Drawing.Point(14, 361);
+            this.labelRPD.Location = new System.Drawing.Point(8, 361);
             this.labelRPD.Name = "labelRPD";
             this.labelRPD.Size = new System.Drawing.Size(49, 13);
             this.labelRPD.TabIndex = 56;
@@ -16821,7 +16821,7 @@ namespace BehaviorGraphics
             // labelRPS
             // 
             this.labelRPS.AutoSize = true;
-            this.labelRPS.Location = new System.Drawing.Point(14, 335);
+            this.labelRPS.Location = new System.Drawing.Point(8, 335);
             this.labelRPS.Name = "labelRPS";
             this.labelRPS.Size = new System.Drawing.Size(47, 13);
             this.labelRPS.TabIndex = 54;
@@ -16830,7 +16830,7 @@ namespace BehaviorGraphics
             // checkBoxRPTRB
             // 
             this.checkBoxRPTRB.AutoSize = true;
-            this.checkBoxRPTRB.Location = new System.Drawing.Point(14, 280);
+            this.checkBoxRPTRB.Location = new System.Drawing.Point(8, 280);
             this.checkBoxRPTRB.Name = "checkBoxRPTRB";
             this.checkBoxRPTRB.Size = new System.Drawing.Size(114, 17);
             this.checkBoxRPTRB.TabIndex = 53;
@@ -16840,7 +16840,7 @@ namespace BehaviorGraphics
             // checkBoxRPBFD
             // 
             this.checkBoxRPBFD.AutoSize = true;
-            this.checkBoxRPBFD.Location = new System.Drawing.Point(14, 257);
+            this.checkBoxRPBFD.Location = new System.Drawing.Point(8, 257);
             this.checkBoxRPBFD.Name = "checkBoxRPBFD";
             this.checkBoxRPBFD.Size = new System.Drawing.Size(128, 17);
             this.checkBoxRPBFD.TabIndex = 52;
@@ -16850,7 +16850,7 @@ namespace BehaviorGraphics
             // labelRPFBS
             // 
             this.labelRPFBS.AutoSize = true;
-            this.labelRPFBS.Location = new System.Drawing.Point(14, 179);
+            this.labelRPFBS.Location = new System.Drawing.Point(8, 179);
             this.labelRPFBS.Name = "labelRPFBS";
             this.labelRPFBS.Size = new System.Drawing.Size(84, 13);
             this.labelRPFBS.TabIndex = 51;
@@ -16867,7 +16867,7 @@ namespace BehaviorGraphics
             // labelRPFFH
             // 
             this.labelRPFFH.AutoSize = true;
-            this.labelRPFFH.Location = new System.Drawing.Point(14, 127);
+            this.labelRPFFH.Location = new System.Drawing.Point(8, 127);
             this.labelRPFFH.Name = "labelRPFFH";
             this.labelRPFFH.Size = new System.Drawing.Size(107, 13);
             this.labelRPFFH.TabIndex = 49;
@@ -16884,7 +16884,7 @@ namespace BehaviorGraphics
             // labelRPFFL
             // 
             this.labelRPFFL.AutoSize = true;
-            this.labelRPFFL.Location = new System.Drawing.Point(14, 100);
+            this.labelRPFFL.Location = new System.Drawing.Point(8, 100);
             this.labelRPFFL.Name = "labelRPFFL";
             this.labelRPFFL.Size = new System.Drawing.Size(103, 13);
             this.labelRPFFL.TabIndex = 47;
@@ -16901,7 +16901,7 @@ namespace BehaviorGraphics
             // labelRPNFA
             // 
             this.labelRPNFA.AutoSize = true;
-            this.labelRPNFA.Location = new System.Drawing.Point(14, 73);
+            this.labelRPNFA.Location = new System.Drawing.Point(8, 73);
             this.labelRPNFA.Name = "labelRPNFA";
             this.labelRPNFA.Size = new System.Drawing.Size(109, 13);
             this.labelRPNFA.TabIndex = 45;
@@ -16910,18 +16910,20 @@ namespace BehaviorGraphics
             // labelRPFAH
             // 
             this.labelRPFAH.AutoSize = true;
-            this.labelRPFAH.Location = new System.Drawing.Point(14, 46);
+            this.labelRPFAH.Location = new System.Drawing.Point(8, 46);
             this.labelRPFAH.Name = "labelRPFAH";
-            this.labelRPFAH.Size = new System.Drawing.Size(105, 13);
+            this.labelRPFAH.Size = new System.Drawing.Size(138, 13);
             this.labelRPFAH.TabIndex = 44;
-            this.labelRPFAH.Text = "Force amplitude high";
+            this.labelRPFAH.Text = "Force amplitude at high freq";
             // 
             // textBoxRPNFA
             // 
+            this.textBoxRPNFA.Enabled = false;
             this.textBoxRPNFA.Location = new System.Drawing.Point(145, 70);
             this.textBoxRPNFA.Name = "textBoxRPNFA";
             this.textBoxRPNFA.Size = new System.Drawing.Size(60, 20);
             this.textBoxRPNFA.TabIndex = 41;
+            this.toolTip1.SetToolTip(this.textBoxRPNFA, "Force amplitude is now a function of frequency");
             this.textBoxRPNFA.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBoxRPFAH
@@ -16943,11 +16945,11 @@ namespace BehaviorGraphics
             // labelRPFAL
             // 
             this.labelRPFAL.AutoSize = true;
-            this.labelRPFAL.Location = new System.Drawing.Point(14, 19);
+            this.labelRPFAL.Location = new System.Drawing.Point(8, 19);
             this.labelRPFAL.Name = "labelRPFAL";
-            this.labelRPFAL.Size = new System.Drawing.Size(101, 13);
+            this.labelRPFAL.Size = new System.Drawing.Size(134, 13);
             this.labelRPFAL.TabIndex = 38;
-            this.labelRPFAL.Text = "Force amplitude low";
+            this.labelRPFAL.Text = "Force amplitude at low freq";
             // 
             // textBoxRPPT
             // 
@@ -16960,7 +16962,7 @@ namespace BehaviorGraphics
             // labelRPPT
             // 
             this.labelRPPT.AutoSize = true;
-            this.labelRPPT.Location = new System.Drawing.Point(14, 309);
+            this.labelRPPT.Location = new System.Drawing.Point(8, 309);
             this.labelRPPT.Name = "labelRPPT";
             this.labelRPPT.Size = new System.Drawing.Size(87, 13);
             this.labelRPPT.TabIndex = 33;
@@ -16978,7 +16980,7 @@ namespace BehaviorGraphics
             // labelRPNFD
             // 
             this.labelRPNFD.AutoSize = true;
-            this.labelRPNFD.Location = new System.Drawing.Point(14, 237);
+            this.labelRPNFD.Location = new System.Drawing.Point(8, 237);
             this.labelRPNFD.Name = "labelRPNFD";
             this.labelRPNFD.Size = new System.Drawing.Size(104, 13);
             this.labelRPNFD.TabIndex = 28;
@@ -16987,7 +16989,7 @@ namespace BehaviorGraphics
             // labelRPFFD
             // 
             this.labelRPFFD.AutoSize = true;
-            this.labelRPFFD.Location = new System.Drawing.Point(14, 204);
+            this.labelRPFFD.Location = new System.Drawing.Point(8, 204);
             this.labelRPFFD.Name = "labelRPFFD";
             this.labelRPFFD.Size = new System.Drawing.Size(96, 13);
             this.labelRPFFD.TabIndex = 27;
@@ -17012,7 +17014,7 @@ namespace BehaviorGraphics
             // labelRPNFF
             // 
             this.labelRPNFF.AutoSize = true;
-            this.labelRPNFF.Location = new System.Drawing.Point(14, 153);
+            this.labelRPNFF.Location = new System.Drawing.Point(8, 153);
             this.labelRPNFF.Name = "labelRPNFF";
             this.labelRPNFF.Size = new System.Drawing.Size(114, 13);
             this.labelRPNFF.TabIndex = 24;
@@ -17036,6 +17038,16 @@ namespace BehaviorGraphics
             this.groupBoxRPCursor.TabIndex = 39;
             this.groupBoxRPCursor.TabStop = false;
             this.groupBoxRPCursor.Text = "Cursor and targets";
+            // 
+            // checkBoxRPSTIF
+            // 
+            this.checkBoxRPSTIF.AutoSize = true;
+            this.checkBoxRPSTIF.Location = new System.Drawing.Point(12, 149);
+            this.checkBoxRPSTIF.Name = "checkBoxRPSTIF";
+            this.checkBoxRPSTIF.Size = new System.Drawing.Size(107, 17);
+            this.checkBoxRPSTIF.TabIndex = 40;
+            this.checkBoxRPSTIF.Text = "Same target if fail";
+            this.checkBoxRPSTIF.UseVisualStyleBackColor = true;
             // 
             // checkBoxRPCCT
             // 
@@ -21719,16 +21731,6 @@ namespace BehaviorGraphics
             this.label_CT_hold2.Size = new System.Drawing.Size(46, 13);
             this.label_CT_hold2.TabIndex = 0;
             this.label_CT_hold2.Text = "CT Hold";
-            // 
-            // checkBoxRPSTIF
-            // 
-            this.checkBoxRPSTIF.AutoSize = true;
-            this.checkBoxRPSTIF.Location = new System.Drawing.Point(12, 149);
-            this.checkBoxRPSTIF.Name = "checkBoxRPSTIF";
-            this.checkBoxRPSTIF.Size = new System.Drawing.Size(107, 17);
-            this.checkBoxRPSTIF.TabIndex = 40;
-            this.checkBoxRPSTIF.Text = "Same target if fail";
-            this.checkBoxRPSTIF.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
