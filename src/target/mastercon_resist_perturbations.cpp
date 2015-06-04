@@ -5,7 +5,7 @@
 
 #define DATABURST_VERSION ((byte)0x04) 
 /* 
- * Current Databurst version: 3 
+ * Current Databurst version: 5 
  *
  * Note that all databursts are encoded half a byte at a time as a word who's 
  * high order bits are all 1 and who's low order bits represent the half byte to
@@ -25,7 +25,7 @@
  * bytes 10 to 13: float    => y offset (cm)
  * bytes 14 to 17: float    => trial force direction (rad)
  * bytes 18 to 21: float    => trial force amplitude (N)
- * bytes 22 to 25: float    => perturbation type (0 = sin, 1 = triangle)
+ * bytes 22 to 25: float    => perturbation type (0 = sin, 1 = square)
  * bytes 26 to 29: float    => perturbation hold target radius (cm)
  * byte        30: int      => brain control (if 1: yes)
  * byte        31: int      => force visual feedback (if 1: yes)
@@ -358,7 +358,7 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->force_visual_feedback,                   10);
     
     this->bindParamId(&params->force_amplitude_at_low_fr,               11);
-    this->bindParamId(&params->force_amplitude_at_high_fr,                    12);
+    this->bindParamId(&params->force_amplitude_at_high_fr,              12);
     this->bindParamId(&params->num_force_amplitudes,                    13);
     this->bindParamId(&params->force_frequency_low,                     14);
     this->bindParamId(&params->force_frequency_high,                    15);
@@ -975,15 +975,19 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
         real_T a = trial_force_amplitude;
         real_T p = 1/trial_force_frequency;
         
-        if (params->perturbation_type == 0) { // Sinusoidal perturbation
-            force_magnitude = a * sin(2*PI*trial_force_frequency*t);            
-        } else if (params->perturbation_type == 1) { // Triangular perturbation 
-            if (p>0){
-                force_magnitude = a*(2*abs(2*((t+p/4)/p-floor((t+p/4)/p + 1/2)))-1);
-            }            
-        } else {   // Non implemented perturbation
-            force = Point(0,0);
-        }
+        force_magnitude = a * sin(2*PI*trial_force_frequency*t);
+        if (params->perturbation_type == 1) // Square perturbation 
+            force_magnitude  = force_magnitude > 0 ? a : -a;
+        
+//         if (params->perturbation_type == 0) { // Sinusoidal perturbation
+//             force_magnitude = a * sin(2*PI*trial_force_frequency*t);            
+//         } else if (params->perturbation_type == 1) { // Square perturbation 
+//             if (p>0){
+//                 force_magnitude = a*(2*abs(2*((t+p/4)/p-floor((t+p/4)/p + 1/2)))-1);
+//             }            
+//         } else {   // Non implemented perturbation
+//             force = Point(0,0);
+//         }
         force.x = force_magnitude * cos(trial_force_direction);
         force.y = force_magnitude * sin(trial_force_direction);
         
