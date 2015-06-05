@@ -3,7 +3,7 @@
  * Master Control block for behavior: resist perturbations
  */
 
-#define DATABURST_VERSION ((byte)0x04) 
+#define DATABURST_VERSION ((byte)0x05) 
 /* 
  * Current Databurst version: 5 
  *
@@ -14,6 +14,37 @@
  *
  * Databurst version descriptions
  * ==============================
+ **** * Version 5 (0x05)
+ * ----------------
+ * byte         0: uchar    => number of bytes to be transmitted
+ * byte         1: uchar    => databurst version number (in this case zero)
+ * byte         2: uchar    => model version major
+ * byte         3: uchar    => model version minor
+ * bytes   4 to 5: short    => model version micro
+ * bytes   6 to 9: float    => x offset (cm)
+ * bytes 10 to 13: float    => y offset (cm)
+ * bytes 14 to 17: float    => trial force direction (rad)
+ * bytes 18 to 21: float    => trial force amplitude (N)
+ * bytes 22 to 25: float    => perturbation type (0 = sin, 1 = square)
+ * bytes 26 to 29: float    => perturbation hold target radius (cm)
+ * byte        30: int      => brain control (if 1: yes)
+ * byte        31: int      => force visual feedback (if 1: yes)
+ * byte        32: int      => bump trial
+ * bytes 33 to 36: float    => bump magnitude or velocity (N or cm/s)
+ * bytes 37 to 40: float    => bump direction (rad)
+ * bytes 41 to 44: float    => bump_duration (s)
+ * byte        45: int      => force bump (1 if force, 0 if velocity)
+ * bytes 46 to 49: float    => trial force frequency (Hz)     
+ * bytes 50 to 53: float    => stiffness (N/cm)    
+ * bytes 54 to 57: float    => damping (N/cm/s)    
+ * bytes 58 to 61: float    => center hold target radius (cm) 
+ * byte        62: int      => early bump
+ * bytes 63 to 66: float    => co-contraction level [0-1]
+ * bytes 67 to 70: float    => co-contraction window [0-1]
+ * bytes 71 to 74: float    => outer cursor radius (cm)
+ * byte        75: int      => co-contraction target (0 or 1)
+ * bytes 76 to 79: float    => perturbation ramp duration (s)
+ *
  *** * Version 4 (0x04)
  * ----------------
  * byte         0: uchar    => number of bytes to be transmitted
@@ -245,6 +276,9 @@ struct LocalParams{
     
     // Even more target stuff
     real_T repeat_target;
+    
+    // More perturbation stuff
+    real_T perturbation_ramp_duration;
 };
 
 /**
@@ -340,7 +374,7 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(47);
+	this->setNumParams(48);
 	// Identify each bound variable 
     this->bindParamId(&params->master_reset,                            0);
     
@@ -401,9 +435,11 @@ ResistPerturbations::ResistPerturbations(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->cocontraction_target,                    45);
     
     this->bindParamId(&params->repeat_target,                           46);
+    this->bindParamId(&params->perturbation_ramp_duration,              47);
+    
   
     // default parameters:
-    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .2 2 2 1 0 2 0 5 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   0 0   1   50   0 1 3 1 0.8 1   1
+    // 0   1 2 2 5 1 1 1   0   2 1   .5 1.5 3 .2 2 2 1 0 2 0 5 0   1 1   0 0   8 0 20 2 .2 5 1 0 1   0 0   1   50   0 1 3 1 0.8 1   1   0
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -988,6 +1024,9 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
 //         } else {   // Non implemented perturbation
 //             force = Point(0,0);
 //         }
+        if (t < params->perturbation_ramp_duration)
+            force_magnitude = force_magnitude * t/(params->perturbation_ramp_duration);
+            
         force.x = force_magnitude * cos(trial_force_direction);
         force.y = force_magnitude * sin(trial_force_direction);
         
