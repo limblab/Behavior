@@ -42,8 +42,8 @@
  * bytes 63 to 66: float    => co-contraction level [0-1]
  * bytes 67 to 70: float    => co-contraction window [0-1]
  * bytes 71 to 74: float    => outer cursor radius (cm)
- * byte        75: int      => co-contraction target (0 or 1)
- * bytes 76 to 79: float    => perturbation ramp duration (s)
+ * bytes 75 to 78: float    => co-contraction target (0 or 1)
+ * bytes 79 to 83: float    => perturbation ramp duration (s)
  *
  *** * Version 4 (0x04)
  * ----------------
@@ -73,7 +73,7 @@
  * bytes 63 to 66: float    => co-contraction level [0-1]
  * bytes 67 to 70: float    => co-contraction window [0-1]
  * bytes 71 to 74: float    => outer cursor radius (cm)
- * byte        75: int      => co-contraction target (0 or 1)
+ * bytes 75 to 78: float    => co-contraction target (0 or 1)
  *
  * *** * Version 3 (0x03)
  * ----------------
@@ -745,7 +745,8 @@ void ResistPerturbations::doPreTrial(SimStruct *S) {
     db->addFloat((float)trial_cocontraction);                   // bytes 63 to 66 -> Matlab idx 64 to 67
     db->addFloat((float)params->cocontraction_window);          // bytes 67 to 70 -> Matlab idx 68 to 71
     db->addFloat((float)params->cursor_radius);                 // bytes 71 to 74 -> Matlab idx 72 to 75
-    db->addFloat((float)params->cocontraction_target);          // bytes 75 to 78 -> Matlab idx 73 to 76
+    db->addFloat((float)params->cocontraction_target);          // bytes 75 to 78 -> Matlab idx 76 to 79
+    db->addFloat((float)params->perturbation_ramp_duration);    // bytes 79 to 82 -> Matlab idx 80 to 83
 	db->start();
 }
 

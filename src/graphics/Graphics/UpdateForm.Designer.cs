@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1986,6 +1986,8 @@ namespace BehaviorGraphics
             this.label_CT_hold = new System.Windows.Forms.Label();
             this.textBox52b = new System.Windows.Forms.TextBox();
             this.label_CT_hold2 = new System.Windows.Forms.Label();
+            this.textBoxRPPRD = new System.Windows.Forms.TextBox();
+            this.labelRPPRD = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -5134,8 +5136,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5967,8 +5969,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -16760,6 +16762,8 @@ namespace BehaviorGraphics
             // 
             // groupBoxRPPert
             // 
+            this.groupBoxRPPert.Controls.Add(this.textBoxRPPRD);
+            this.groupBoxRPPert.Controls.Add(this.labelRPPRD);
             this.groupBoxRPPert.Controls.Add(this.textBoxRPD);
             this.groupBoxRPPert.Controls.Add(this.labelRPD);
             this.groupBoxRPPert.Controls.Add(this.textBoxRPS);
@@ -16788,7 +16792,7 @@ namespace BehaviorGraphics
             this.groupBoxRPPert.Controls.Add(this.labelRPNFF);
             this.groupBoxRPPert.Location = new System.Drawing.Point(449, 9);
             this.groupBoxRPPert.Name = "groupBoxRPPert";
-            this.groupBoxRPPert.Size = new System.Drawing.Size(211, 395);
+            this.groupBoxRPPert.Size = new System.Drawing.Size(211, 422);
             this.groupBoxRPPert.TabIndex = 40;
             this.groupBoxRPPert.TabStop = false;
             this.groupBoxRPPert.Text = "Perturbations";
@@ -21732,6 +21736,23 @@ namespace BehaviorGraphics
             this.label_CT_hold2.TabIndex = 0;
             this.label_CT_hold2.Text = "CT Hold";
             // 
+            // textBoxRPPRD
+            // 
+            this.textBoxRPPRD.Location = new System.Drawing.Point(145, 384);
+            this.textBoxRPPRD.Name = "textBoxRPPRD";
+            this.textBoxRPPRD.Size = new System.Drawing.Size(60, 20);
+            this.textBoxRPPRD.TabIndex = 59;
+            this.textBoxRPPRD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelRPPRD
+            // 
+            this.labelRPPRD.AutoSize = true;
+            this.labelRPPRD.Location = new System.Drawing.Point(8, 387);
+            this.labelRPPRD.Name = "labelRPPRD";
+            this.labelRPPRD.Size = new System.Drawing.Size(131, 13);
+            this.labelRPPRD.TabIndex = 58;
+            this.labelRPPRD.Text = "Perturbation ramp duration";
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -24054,5 +24075,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelDCOCR;
         private System.Windows.Forms.CheckBox checkBoxDCOSTL;
         private System.Windows.Forms.CheckBox checkBoxRPSTIF;
+        private System.Windows.Forms.TextBox textBoxRPPRD;
+        private System.Windows.Forms.Label labelRPPRD;
     }
 }
