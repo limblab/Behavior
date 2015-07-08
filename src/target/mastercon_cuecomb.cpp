@@ -109,6 +109,10 @@ struct LocalParams {
 	real_T feedback_win;
 
 	real_T training;
+
+	real_T use_force_bump;
+	real_T force_rise_time;
+	real_T force_peak_time;
 };
 
 /**
@@ -132,6 +136,7 @@ private:
     Point cursorOffset;
 
 	PosBumpGenerator *bump;
+	CosineBumpGenerator *bumpF;
 
 	bool stim_trial;
 	
@@ -148,6 +153,7 @@ private:
 	bool   cloud_blank;       // toggles current trial, blank feedback
 	bool   cohack_mode;
 	bool   random_bump_mode;
+	bool   force_bump_mode;
 
 	Point bump_offset;
 
@@ -189,7 +195,7 @@ cuecombBehavior::cuecombBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(51);
+	this->setNumParams(54);
 
 	this->bindParamId(&params->master_reset,		0);
 	
@@ -257,6 +263,11 @@ cuecombBehavior::cuecombBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->feedback_win,		49);
 	this->bindParamId(&params->training,			50);
 
+	this->bindParamId(&params->use_force_bump,		51); 
+	this->bindParamId(&params->force_rise_time,		52); 
+	this->bindParamId(&params->force_peak_time,		53);
+
+
 	this->setMasterResetParamId(0);
 
 	// This function now fetches all of the parameters into the variables
@@ -272,7 +283,10 @@ cuecombBehavior::cuecombBehavior(SimStruct *S) : RobotBehavior() {
 		cloud[i] = new ArcTarget(0,0,0,0,5);
 	}
 	this->stim_trial = false;
+
 	this->bump = new PosBumpGenerator();
+	this->bumpF = new CosineBumpGenerator();
+
 
 	x_pos_old = 0;
     y_pos_old = 0;
@@ -300,6 +314,7 @@ cuecombBehavior::cuecombBehavior(SimStruct *S) : RobotBehavior() {
 	cohack_mode			 = false;
 	random_bump_mode	 = false;
 
+
 }
 void cuecombBehavior::updateCursorExtent(SimStruct *S){
 	cursor_extent = sqrt((inputs->cursor.x-bump_offset.x)*(inputs->cursor.x-bump_offset.x)
@@ -323,6 +338,7 @@ void cuecombBehavior::doPreTrial(SimStruct *S) {
 
 	cohack_mode = params->use_cohack_mode;
 	random_bump_mode = params->use_random_bump;
+	force_bump_mode = params->use_force_bump;
 
 	// Get Random target location (Prior Shift)
 	current_trial_shift = (params->prior_mean)*PI/180 + random->getVonMises(params->prior_kap);
@@ -382,6 +398,11 @@ void cuecombBehavior::doPreTrial(SimStruct *S) {
     this->bump->duration = params->bump_duration;
     this->bump->vel_gain = params->Gain_vel;
     this->bump->pos_gain = params->Gain_pos;
+
+	this->bumpF->direction		= target_shift;
+	this->bumpF->rise_time		= params->force_rise_time;
+	this->bumpF->hold_duration  = params->force_peak_time;
+	this->bumpF->peak_magnitude = current_trial_bumpmag;
 
 	// Set up Visual Target
 	cloud_rand = random->getDouble(); // Generate random number between 0 and 1
@@ -526,30 +547,43 @@ void cuecombBehavior::update(SimStruct *S) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if (stateTimer->elapsedTime(S) > center_hold_time) {
-				this->bump->start(S);
+				
+				if (!force_bump_mode){
+					this->bump->start(S);
+				} else { 
+					this->bumpF->start(S);
+				}
 				setState(STATE_BUMP_OUT);
 			}
 			break;
 		case STATE_BUMP_OUT:
-			if (!this->bump->isRunning(S)){
-				this->bump->direction = target_shift + PI;
-				if (params->NoReturn){
-					this->bump->distance = 0;
-					if (params->training){
+			if (force_bump_mode){
+				if (!this->bumpF->isRunning(S)) {
+					setState(STATE_CT_DELAY);
+				}
+			} else {
+			
+				if (!this->bump->isRunning(S)){
+					this->bump->direction = target_shift + PI;
+					if (params->NoReturn){
+						this->bump->distance = 0;
+						if (params->training){
+							bump_offset.x = 0.0;
+							bump_offset.y = 0.0;
+						} else {
+							bump_offset = inputs->cursor;
+						}
+					} else { 
+						this->bump->distance = current_trial_bumpmag;
 						bump_offset.x = 0.0;
 						bump_offset.y = 0.0;
-					} else {
-						bump_offset = inputs->cursor;
+						this->bump->duration = params->bump_duration_back;
 					}
-				} else { 
-					this->bump->distance = current_trial_bumpmag;
-					bump_offset.x = 0.0;
-					bump_offset.y = 0.0;
-					this->bump->duration = params->bump_duration_back;
+					this->bump->duration = params->bump_duration;
+					this->bump->start(S);
+					setState(STATE_BUMP_IN);
 				}
-				this->bump->duration = params->bump_duration;
-				this->bump->start(S);
-				setState(STATE_BUMP_IN);
+
 			}
 			break;
 		case STATE_BUMP_IN:
@@ -597,7 +631,11 @@ void cuecombBehavior::update(SimStruct *S) {
 			break;
 		
 		case STATE_ABORT:
+			if (force_bump_mode){
+				this->bumpF->stop();
+			} else{
 			this->bump->stop();
+			}
 			if (stateTimer->elapsedTime(S) > params->intertrial) {
 				setState(STATE_PRETRIAL);
 			}
@@ -608,7 +646,11 @@ void cuecombBehavior::update(SimStruct *S) {
 			}
 			break;
         case STATE_INCOMPLETE:
+			if (force_bump_mode){
+				this->bumpF->stop();
+			} else{
 			this->bump->stop();
+			}
 			if (stateTimer->elapsedTime(S) > params->intertrial) {
 				setState(STATE_PRETRIAL);
 			}
@@ -631,18 +673,30 @@ void cuecombBehavior::calculateOutputs(SimStruct *S) {
     real_T y_force_bump;           
 
     // Position bump
-    Point Posbump_force = this->bump->getBumpForce(S,Point(x_vel,y_vel),Point(x_pos,y_pos));
+	if (force_bump_mode){
+		Point Posbump_force = this->bumpF->getBumpForce(S,Point(x_vel,y_vel),Point(x_pos,y_pos));
+	} else {
+		Point Posbump_force = this->bump->getBumpForce(S,Point(x_vel,y_vel),Point(x_pos,y_pos));
+	}
     x_force_bump = Posbump_force.x;
     y_force_bump = Posbump_force.y;    
 
 	/* force (0) */
-	if (this->bump->isRunning(S)) {
-		outputs->force.x = x_force_bump;
-		outputs->force.y = y_force_bump;
-	} else {
-		outputs->force = inputs->force;
+	if (force_bump_mode){
+		if (this->bumpF->isRunning(S)) {
+			outputs->force.x = x_force_bump;
+			outputs->force.y = y_force_bump;
+		} else {
+			outputs->force = inputs->force;
+		}
+	}else{
+		if (this->bump->isRunning(S)) {
+			outputs->force.x = x_force_bump;
+			outputs->force.y = y_force_bump;
+		} else {
+			outputs->force = inputs->force;
+		}
 	}
-
 	/* status (1) */
  	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;

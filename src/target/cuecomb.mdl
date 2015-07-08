@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1286"
+    ComputedModelVersion    "1.1287"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -65,11 +65,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Feb 24 13:50:40 2015"
-  RTWModifiedTimeStamp	  346686636
-  ModelVersionFormat	  "1.%<AutoIncrement:1286>"
+  LastModifiedDate	  "Wed Jul 08 16:42:52 2015"
+  RTWModifiedTimeStamp	  358274563
+  ModelVersionFormat	  "1.%<AutoIncrement:1287>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1096,7 +1096,7 @@ Model {
       BackgroundColor	      "[0.380392, 0.741176, 0.988235]"
       FunctionName	      "mastercon_cuecomb"
       Parameters	      "0  0  0  0  0  0  0  0  0  10  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  "
-      "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 10 1"
+      "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 10 1 0 0 0"
       EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"
