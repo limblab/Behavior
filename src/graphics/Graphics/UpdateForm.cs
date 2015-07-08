@@ -1414,6 +1414,11 @@ namespace BehaviorGraphics
 
             AddParamListItem("CC feedback window", "P50", "Behavior Cue Comb", this.textBoxCC_feedback_win);
             AddParamListItem("CC training", "P51", "Behavior Cue Comb", this.checkBoxCC_training);
+
+            AddParamListItem("CC use_force_bump", "P52", "Behavior Cue Comb", this.checkBoxCC_forceBumpMode);
+            AddParamListItem("CC force rise time", "P53", "Behavior Cue Comb", this.textBoxCC_forceBumpRiseTime);
+            AddParamListItem("CC force peak time", "P54", "Behavior Cue Comb", this.textBoxCC_forceBumpPeakTime);
+
             #endregion
         }
 

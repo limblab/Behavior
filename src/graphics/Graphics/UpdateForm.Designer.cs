@@ -1448,6 +1448,8 @@ namespace BehaviorGraphics
             this.textBoxRPVF = new System.Windows.Forms.TextBox();
             this.labelRPVF = new System.Windows.Forms.Label();
             this.groupBoxRPPert = new System.Windows.Forms.GroupBox();
+            this.textBoxRPPRD = new System.Windows.Forms.TextBox();
+            this.labelRPPRD = new System.Windows.Forms.Label();
             this.textBoxRPD = new System.Windows.Forms.TextBox();
             this.labelRPD = new System.Windows.Forms.Label();
             this.textBoxRPS = new System.Windows.Forms.TextBox();
@@ -1986,8 +1988,12 @@ namespace BehaviorGraphics
             this.label_CT_hold = new System.Windows.Forms.Label();
             this.textBox52b = new System.Windows.Forms.TextBox();
             this.label_CT_hold2 = new System.Windows.Forms.Label();
-            this.textBoxRPPRD = new System.Windows.Forms.TextBox();
-            this.labelRPPRD = new System.Windows.Forms.Label();
+            this.groupBox89 = new System.Windows.Forms.GroupBox();
+            this.textBoxCC_forceBumpPeakTime = new System.Windows.Forms.TextBox();
+            this.label468 = new System.Windows.Forms.Label();
+            this.textBoxCC_forceBumpRiseTime = new System.Windows.Forms.TextBox();
+            this.label469 = new System.Windows.Forms.Label();
+            this.checkBoxCC_forceBumpMode = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2190,6 +2196,7 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
+            this.groupBox89.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -16797,6 +16804,23 @@ namespace BehaviorGraphics
             this.groupBoxRPPert.TabStop = false;
             this.groupBoxRPPert.Text = "Perturbations";
             // 
+            // textBoxRPPRD
+            // 
+            this.textBoxRPPRD.Location = new System.Drawing.Point(145, 384);
+            this.textBoxRPPRD.Name = "textBoxRPPRD";
+            this.textBoxRPPRD.Size = new System.Drawing.Size(60, 20);
+            this.textBoxRPPRD.TabIndex = 59;
+            this.textBoxRPPRD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // labelRPPRD
+            // 
+            this.labelRPPRD.AutoSize = true;
+            this.labelRPPRD.Location = new System.Drawing.Point(8, 387);
+            this.labelRPPRD.Name = "labelRPPRD";
+            this.labelRPPRD.Size = new System.Drawing.Size(131, 13);
+            this.labelRPPRD.TabIndex = 58;
+            this.labelRPPRD.Text = "Perturbation ramp duration";
+            // 
             // textBoxRPD
             // 
             this.textBoxRPD.Location = new System.Drawing.Point(145, 358);
@@ -17278,6 +17302,7 @@ namespace BehaviorGraphics
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.groupBox89);
             this.tabPage6.Controls.Add(this.groupBox88);
             this.tabPage6.Controls.Add(this.groupBox87);
             this.tabPage6.Controls.Add(this.groupBox86);
@@ -17636,6 +17661,7 @@ namespace BehaviorGraphics
             // 
             // groupBox84
             // 
+            this.groupBox84.Controls.Add(this.checkBoxCC_forceBumpMode);
             this.groupBox84.Controls.Add(this.checkBoxCC_training);
             this.groupBox84.Controls.Add(this.checkBoxCC_NoReturn);
             this.groupBox84.Controls.Add(this.label463);
@@ -17664,7 +17690,7 @@ namespace BehaviorGraphics
             this.groupBox84.Size = new System.Drawing.Size(345, 143);
             this.groupBox84.TabIndex = 76;
             this.groupBox84.TabStop = false;
-            this.groupBox84.Text = "Bump (magnitudes in cm)";
+            this.groupBox84.Text = "Bump (magnitudes in cm or N)";
             // 
             // checkBoxCC_training
             // 
@@ -21736,22 +21762,66 @@ namespace BehaviorGraphics
             this.label_CT_hold2.TabIndex = 0;
             this.label_CT_hold2.Text = "CT Hold";
             // 
-            // textBoxRPPRD
+            // groupBox89
             // 
-            this.textBoxRPPRD.Location = new System.Drawing.Point(145, 384);
-            this.textBoxRPPRD.Name = "textBoxRPPRD";
-            this.textBoxRPPRD.Size = new System.Drawing.Size(60, 20);
-            this.textBoxRPPRD.TabIndex = 59;
-            this.textBoxRPPRD.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.groupBox89.Controls.Add(this.textBoxCC_forceBumpPeakTime);
+            this.groupBox89.Controls.Add(this.label468);
+            this.groupBox89.Controls.Add(this.textBoxCC_forceBumpRiseTime);
+            this.groupBox89.Controls.Add(this.label469);
+            this.groupBox89.Location = new System.Drawing.Point(513, 346);
+            this.groupBox89.Name = "groupBox89";
+            this.groupBox89.Size = new System.Drawing.Size(163, 73);
+            this.groupBox89.TabIndex = 86;
+            this.groupBox89.TabStop = false;
+            this.groupBox89.Text = "Force bump control";
             // 
-            // labelRPPRD
+            // textBoxCC_forceBumpPeakTime
             // 
-            this.labelRPPRD.AutoSize = true;
-            this.labelRPPRD.Location = new System.Drawing.Point(8, 387);
-            this.labelRPPRD.Name = "labelRPPRD";
-            this.labelRPPRD.Size = new System.Drawing.Size(131, 13);
-            this.labelRPPRD.TabIndex = 58;
-            this.labelRPPRD.Text = "Perturbation ramp duration";
+            this.textBoxCC_forceBumpPeakTime.Location = new System.Drawing.Point(91, 48);
+            this.textBoxCC_forceBumpPeakTime.Name = "textBoxCC_forceBumpPeakTime";
+            this.textBoxCC_forceBumpPeakTime.Size = new System.Drawing.Size(58, 20);
+            this.textBoxCC_forceBumpPeakTime.TabIndex = 81;
+            this.toolTip1.SetToolTip(this.textBoxCC_forceBumpPeakTime, "Upper bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay Low for non-random de" +
+                    "lay time.");
+            // 
+            // label468
+            // 
+            this.label468.AutoSize = true;
+            this.label468.Location = new System.Drawing.Point(14, 26);
+            this.label468.Name = "label468";
+            this.label468.Size = new System.Drawing.Size(75, 13);
+            this.label468.TabIndex = 78;
+            this.label468.Text = "Rise/Fall Time";
+            // 
+            // textBoxCC_forceBumpRiseTime
+            // 
+            this.textBoxCC_forceBumpRiseTime.Location = new System.Drawing.Point(91, 23);
+            this.textBoxCC_forceBumpRiseTime.Name = "textBoxCC_forceBumpRiseTime";
+            this.textBoxCC_forceBumpRiseTime.Size = new System.Drawing.Size(58, 20);
+            this.textBoxCC_forceBumpRiseTime.TabIndex = 79;
+            this.toolTip1.SetToolTip(this.textBoxCC_forceBumpRiseTime, "Lower bound on random delay time.  Delay is the time between when the outer targe" +
+                    "t appears and the go cue is presented.\r\nSet equal to Delay High for non-random d" +
+                    "elay time.");
+            // 
+            // label469
+            // 
+            this.label469.AutoSize = true;
+            this.label469.Location = new System.Drawing.Point(14, 51);
+            this.label469.Name = "label469";
+            this.label469.Size = new System.Drawing.Size(58, 13);
+            this.label469.TabIndex = 80;
+            this.label469.Text = "Peak Time";
+            // 
+            // checkBoxCC_forceBumpMode
+            // 
+            this.checkBoxCC_forceBumpMode.AutoSize = true;
+            this.checkBoxCC_forceBumpMode.Location = new System.Drawing.Point(74, 24);
+            this.checkBoxCC_forceBumpMode.Name = "checkBoxCC_forceBumpMode";
+            this.checkBoxCC_forceBumpMode.Size = new System.Drawing.Size(105, 17);
+            this.checkBoxCC_forceBumpMode.TabIndex = 83;
+            this.checkBoxCC_forceBumpMode.Text = "Use Force Bump";
+            this.checkBoxCC_forceBumpMode.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -22113,6 +22183,8 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
+            this.groupBox89.ResumeLayout(false);
+            this.groupBox89.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -24077,5 +24149,11 @@ namespace BehaviorGraphics
         private System.Windows.Forms.CheckBox checkBoxRPSTIF;
         private System.Windows.Forms.TextBox textBoxRPPRD;
         private System.Windows.Forms.Label labelRPPRD;
+        private System.Windows.Forms.GroupBox groupBox89;
+        private System.Windows.Forms.TextBox textBoxCC_forceBumpPeakTime;
+        private System.Windows.Forms.Label label468;
+        private System.Windows.Forms.TextBox textBoxCC_forceBumpRiseTime;
+        private System.Windows.Forms.Label label469;
+        private System.Windows.Forms.CheckBox checkBoxCC_forceBumpMode;
     }
 }
