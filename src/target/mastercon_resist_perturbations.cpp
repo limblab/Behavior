@@ -1041,15 +1041,9 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
             params->damping*(cursor_velocity.x * cos(trial_force_direction+PI/2) + 
             cursor_velocity.y * sin(trial_force_direction+PI/2)) * sin(trial_force_direction+PI/2);    
     if (getState() == STATE_CT_HOLD) {
-        real_T force_scaling = (center_hold_time - stateTimer->elapsedTime(S))/center_hold_time;
-        force.x += force_scaling*(-params->stiffness*(cursor_position.x * cos(trial_force_direction) +
-                    cursor_position.y * sin(trial_force_direction)) * cos(trial_force_direction) -
-                    params->damping*(cursor_velocity.x * cos(trial_force_direction) + 
-                    cursor_velocity.y * sin(trial_force_direction)) * cos(trial_force_direction));        
-        force.y += force_scaling*(-params->stiffness*(cursor_position.x*cos(trial_force_direction) + 
-                cursor_position.y * sin(trial_force_direction)) * sin(trial_force_direction) -
-                params->damping*(cursor_velocity.x * cos(trial_force_direction) + 
-                cursor_velocity.y * sin(trial_force_direction)) * sin(trial_force_direction));    
+        real_T force_scaling = (stateTimer->elapsedTime(S))/center_hold_time;
+        force.x = force_scaling*force.x;        
+        force.y = force_scaling*force.y;    
     }
     
     if (getState() == STATE_PERTURBATION &&
@@ -1082,7 +1076,8 @@ void ResistPerturbations::calculateOutputs(SimStruct *S) {
         }
     }
    
-    if(getState()==STATE_PERTURBATION ||
+    if(getState() == STATE_CT_HOLD ||
+            getState()==STATE_PERTURBATION ||
             getState()==STATE_BUMP){
         outputs->force = force;
     } else {        
