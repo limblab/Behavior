@@ -1917,7 +1917,7 @@ namespace BehaviorGraphics
             LabSpecification ls = ll.GetLabSpecification(lab);
             ls.SendToTarget(target);
             // Update the status bar
-            GetStatus();
+            GetStatus();            
         }
 
         private void resetCountersToolStripMenuItem_Click(object sender, EventArgs e)

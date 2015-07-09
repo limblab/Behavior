@@ -266,6 +266,7 @@ namespace BehaviorGraphics
             int height, width;
             int dim;
 
+
             y = y + verticalDisplacement;
 
             if (fullScreen) {

@@ -671,16 +671,17 @@ void cuecombBehavior::calculateOutputs(SimStruct *S) {
 	int i;
 	real_T x_force_bump;
     real_T y_force_bump;           
-
+    Point Posbump_force;
     // Position bump
 	if (force_bump_mode){
-		Point Posbump_force = this->bumpF->getBumpForce(S,Point(x_vel,y_vel),Point(x_pos,y_pos));
+		Posbump_force = this->bumpF->getBumpForce(S,Point(x_vel,y_vel),Point(x_pos,y_pos));
 	} else {
-		Point Posbump_force = this->bump->getBumpForce(S,Point(x_vel,y_vel),Point(x_pos,y_pos));
+		Posbump_force = this->bump->getBumpForce(S,Point(x_vel,y_vel),Point(x_pos,y_pos));
 	}
     x_force_bump = Posbump_force.x;
     y_force_bump = Posbump_force.y;    
 
+    
 	/* force (0) */
 	if (force_bump_mode){
 		if (this->bumpF->isRunning(S)) {

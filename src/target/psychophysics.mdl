@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1273"
+    ComputedModelVersion    "1.1276"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -31,7 +31,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-892.0, 50.0, 890.0, 1235.0]
+      Location		      [39.0, 51.0, 890.0, 617.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -55,9 +55,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[846.0, 1075.0]
-	ZoomFactor		[0.8]
-	Offset			[317.5, -10.5]
+	Extents			[846.0, 457.0]
+	ZoomFactor		[0.5]
+	Offset			[95.333333333333371, 71.833333333333371]
       }
     }
   }
@@ -67,9 +67,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jan 12 13:39:45 2015"
-  RTWModifiedTimeStamp	  342970386
-  ModelVersionFormat	  "1.%<AutoIncrement:1273>"
+  LastModifiedDate	  "Tue Feb 03 17:32:55 2015"
+  RTWModifiedTimeStamp	  344861698
+  ModelVersionFormat	  "1.%<AutoIncrement:1276>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -956,7 +956,7 @@ Model {
   }
   System {
     Name		    "psychophysics"
-    Location		    [-892, 50, -2, 1285]
+    Location		    [39, 51, 929, 668]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -968,9 +968,9 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "80"
+    ZoomFactor		    "50"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "442"
+    SIDHighWatermark	    "443"
     Block {
       BlockType		      S-Function
       Name		      "Behavior 2BC"
@@ -999,7 +999,7 @@ Model {
       Ports		      [1, 1]
       Position		      [625, 678, 715, 742]
       ZOrder		      20
-      LibraryVersion	      "1.157"
+      LibraryVersion	      "1.169"
       SourceBlock	      "limblab/BoundingBox"
       SourceType	      "SubSystem"
     }
@@ -1153,7 +1153,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 169, 405, 231]
 	      ZOrder		      -3
-	      LibraryVersion	      "1.157"
+	      LibraryVersion	      "1.169"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".1"
@@ -1165,7 +1165,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 254, 405, 316]
 	      ZOrder		      -4
-	      LibraryVersion	      "1.157"
+	      LibraryVersion	      "1.169"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".2"
@@ -1177,7 +1177,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 339, 405, 401]
 	      ZOrder		      -5
-	      LibraryVersion	      "1.157"
+	      LibraryVersion	      "1.169"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".3"
@@ -1189,7 +1189,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 424, 405, 486]
 	      ZOrder		      -6
-	      LibraryVersion	      "1.157"
+	      LibraryVersion	      "1.169"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".4"
@@ -1794,7 +1794,7 @@ Model {
       Ports		      [1, 1]
       Position		      [635, 204, 695, 266]
       ZOrder		      26
-      LibraryVersion	      "1.157"
+      LibraryVersion	      "1.169"
       SourceBlock	      "limblab/Force Generator"
       SourceType	      "SubSystem"
     }
@@ -1843,7 +1843,7 @@ Model {
       Ports		      [5, 1]
       Position		      [1385, 523, 1575, 867]
       ZOrder		      22
-      LibraryVersion	      "1.157"
+      LibraryVersion	      "1.169"
       SourceBlock	      "limblab/Motor Control"
       SourceType	      "SubSystem"
     }
@@ -1865,7 +1865,7 @@ Model {
       Ports		      [0, 6]
       Position		      [245, 8, 360, 87]
       ZOrder		      -11
-      LibraryVersion	      "1.157"
+      LibraryVersion	      "1.169"
       SourceBlock	      "limblab/Neural Position Subsystem"
       SourceType	      "Neural Position Subsystem"
     }
@@ -1876,7 +1876,7 @@ Model {
       Ports		      [3, 2]
       Position		      [825, 588, 945, 732]
       ZOrder		      21
-      LibraryVersion	      "1.157"
+      LibraryVersion	      "1.169"
       SourceBlock	      "limblab/Recentering Subsystem"
       SourceType	      "SubSystem"
     }
@@ -1887,7 +1887,7 @@ Model {
       Ports		      [1, 1]
       Position		      [975, 257, 1025, 293]
       ZOrder		      25
-      LibraryVersion	      "1.157"
+      LibraryVersion	      "1.169"
       SourceBlock	      "limblab/RewardSbs"
       SourceType	      "SubSystem"
     }
@@ -1898,7 +1898,7 @@ Model {
       Ports		      [4]
       Position		      [1250, 277, 1340, 378]
       ZOrder		      -14
-      LibraryVersion	      "1.157"
+      LibraryVersion	      "1.169"
       SourceBlock	      "limblab/SendPacketToGraphics"
       SourceType	      "SubSystem"
     }
@@ -2223,7 +2223,7 @@ Model {
       Ports		      [2, 1]
       Position		      [485, 580, 595, 640]
       ZOrder		      19
-      LibraryVersion	      "1.157"
+      LibraryVersion	      "1.169"
       SourceBlock	      "limblab/Velocity Calculation"
       SourceType	      "SubSystem"
     }
@@ -2267,18 +2267,18 @@ Model {
       Ports		      [1]
       Position		      [975, 174, 1020, 216]
       ZOrder		      24
-      LibraryVersion	      "1.157"
+      LibraryVersion	      "1.169"
       SourceBlock	      "limblab/WordSbs"
       SourceType	      "SubSystem"
     }
     Block {
       BlockType		      Reference
-      Name		      "XY Position Subsystem1"
-      SID		      "434"
+      Name		      "XY Position Subsystem"
+      SID		      "443"
       Ports		      [0, 4]
-      Position		      [335, 637, 440, 833]
-      ZOrder		      18
-      LibraryVersion	      "1.158"
+      Position		      [305, 597, 430, 833]
+      ZOrder		      27
+      LibraryVersion	      "1.169"
       SourceBlock	      "limblab/XY Position Subsystem"
       SourceType	      "SubSystem"
     }
@@ -2344,11 +2344,16 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "XY Position Subsystem1"
+      SrcBlock		      "XY Position Subsystem"
       SrcPort		      1
-      Points		      [12, 0]
+      Points		      [22, 0]
       Branch {
-	Points			[0, -65]
+	Points			[0, 35]
+	DstBlock		"Recentering Subsystem"
+	DstPort			2
+      }
+      Branch {
+	Points			[0, -30]
 	Branch {
 	  Points		  [0, -105]
 	  Branch {
@@ -2365,10 +2370,6 @@ Model {
 	  DstBlock		  "Velocity Calculation1"
 	  DstPort		  1
 	}
-      }
-      Branch {
-	DstBlock		"Recentering Subsystem"
-	DstPort			2
       }
     }
     Line {
@@ -2417,12 +2418,12 @@ Model {
       DstPort		      3
     }
     Line {
-      Labels		      [0, 0]
-      SrcBlock		      "XY Position Subsystem1"
+      Labels		      [1, 1]
+      SrcBlock		      "XY Position Subsystem"
       SrcPort		      3
-      Points		      [25, 0]
+      Points		      [35, 0]
       Branch {
-	Points			[900, 0]
+	Points			[0, 15; 900, 0]
 	DstBlock		"Motor Control"
 	DstPort			4
       }
@@ -2432,8 +2433,9 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "XY Position Subsystem1"
+      SrcBlock		      "XY Position Subsystem"
       SrcPort		      2
+      Points		      [112, 0; 0, 25]
       DstBlock		      "BoundingBox"
       DstPort		      1
     }
@@ -2520,12 +2522,6 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "TargetCount"
-      SrcPort		      1
-      DstBlock		      "SendPacketToGraphics"
-      DstPort		      4
-    }
-    Line {
       SrcBlock		      "Catch Force Generator"
       SrcPort		      1
       Points		      [20, 0]
@@ -2544,6 +2540,12 @@ Model {
       SrcPort		      1
       DstBlock		      "Behavior 2BC"
       DstPort		      2
+    }
+    Line {
+      SrcBlock		      "TargetCount"
+      SrcPort		      1
+      DstBlock		      "SendPacketToGraphics"
+      DstPort		      4
     }
     Annotation {
       SID		      "433"

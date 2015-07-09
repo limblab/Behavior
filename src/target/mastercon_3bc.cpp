@@ -3,7 +3,6 @@
  * Master Control block for behavior: bump psychophysics 2-bump choice
  */
 
-
 #pragma warning(disable: 4800)
 
 #define S_FUNCTION_NAME mastercon_3bc
@@ -473,9 +472,12 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 		outputs->force = inputs->force;
 	}
 
+
 	/* status (1) */
- 	outputs->status[0] = getState();
-	outputs->status[1] = trialCounter->successes;
+// 	outputs->status[0] = getState();
+//	outputs->status[1] = trialCounter->successes;
+outputs->status[0] = inputs->force.x;
+outputs->status[1] = inputs->force.y;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = trialCounter->failures;
  	outputs->status[4] = trialCounter->incompletes;
