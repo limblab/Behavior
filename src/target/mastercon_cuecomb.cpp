@@ -113,6 +113,8 @@ struct LocalParams {
 	real_T use_force_bump;
 	real_T force_rise_time;
 	real_T force_peak_time;
+    
+    real_T bump_sampling_method;  // 0 for equally sampled bumps in cartesian space, 1 for equally sampled bumps in joint space.
 };
 
 /**
@@ -171,6 +173,8 @@ private:
 	double y_vel;
     double x_vel_old;
     double y_vel_old;
+    
+    double bump_directions_list_even_joint_space[210];  // Hard coded list of bumps equally sampled in joint space.
 
 	CircleTarget    *centerTarget;
 	ArcTarget		*outerTarget;
@@ -195,7 +199,7 @@ cuecombBehavior::cuecombBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(54);
+	this->setNumParams(55);
 
 	this->bindParamId(&params->master_reset,		0);
 	
@@ -266,6 +270,8 @@ cuecombBehavior::cuecombBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->use_force_bump,		51); 
 	this->bindParamId(&params->force_rise_time,		52); 
 	this->bindParamId(&params->force_peak_time,		53);
+    
+    this->bindParamId(&params->bump_sampling_method, 54);
 
 
 	this->setMasterResetParamId(0);
@@ -313,7 +319,30 @@ cuecombBehavior::cuecombBehavior(SimStruct *S) : RobotBehavior() {
 	cloud_blank          = false;
 	cohack_mode			 = false;
 	random_bump_mode	 = false;
-
+    
+    // % Code for getting string of values in Matlab. Copy it below.
+    //     temp = num2str(cart_angles_even(1),6)
+    //     for i = 2:210
+    //         temp = [temp ', ' num2str(cart_angles_even(i),6)];
+    //     end
+    
+    bump_directions_list_even_joint_space = {-1.17459, -1.16971, -1.16496, -1.16031, -1.15575, -1.15128, -1.14689, -1.14257,
+        -1.1383, -1.13408, -1.12991, -1.12577, -1.12166, -1.11756, -1.11348, -1.1094, -1.10532, -1.10122, -1.09711, -1.09298,
+        -1.08881, -1.0846, -1.08034, -1.07603, -1.07165, -1.06719, -1.06265, -1.05802, -1.05327, -1.04841, -1.04341, -1.03826,
+        -1.03295, -1.02745, -1.02176, -1.01584, -1.00967, -1.00323, -0.996479, -0.989389, -0.981919, -0.974022, -0.965648, -0.956736,
+        -0.947217, -0.937008, -0.926014, -0.914121, -0.901193, -0.887066, -0.871542, -0.854378, -0.835274, -0.813852, -0.789639,
+        -0.762024, -0.730218, -0.693178, -0.649512, -0.597331, -0.534033, -0.456, -0.358204, -0.233848, -0.0746482, 0.126202, 0.36486,
+        0.616319, 0.846037, 1.03586, 1.1862, 1.30442, 1.3982, 1.47364, 1.53528, 1.58642, 1.62943, 1.66608, 1.69766, 1.72518, 1.74937,
+        1.77083, 1.79, 1.80726, 1.8229, 1.83715, 1.85021, 1.86224, 1.87337, 1.88372, 1.89338, 1.90243, 1.91094, 1.91897, 1.92657,
+        1.93379, 1.94067, 1.94724, 1.95353, 1.95957, 1.96539, 1.971, 1.97643, 1.98169, 1.98681, 1.99179, 1.99664, 2.00139, 2.00605,
+        2.01061, 2.0151, 2.01953, 2.02389, 2.02821, 2.03249, 2.03674, 2.04096, 2.04517, 2.04936, 2.05356, 2.05776, 2.06197, 2.0662,
+        2.07046, 2.07476, 2.0791, 2.08349, 2.08795, 2.09247, 2.09708, 2.10178, 2.10658, 2.11149, 2.11653, 2.12172, 2.12706, 2.13257,
+        2.13828, 2.1442, 2.15036, 2.15678, 2.16349, 2.17052, 2.17792, 2.18571, 2.19396, 2.20271, 2.21203, 2.22199, 2.23268, 2.24419,
+        2.25666, 2.27022, 2.28504, 2.30133, 2.31934, 2.33938, 2.36184, 2.38719, 2.41604, 2.44917, 2.48755, 2.53247, 2.58555, 2.64888,
+        2.72507, 2.81723, 2.92867, 3.06221, -3.06436, -2.88723, -2.69679, -2.504, -2.32069, -2.15601, -2.01444, -1.8961, -1.79851, -1.71822,
+        -1.65188, -1.59662, -1.55013, -1.51061, -1.47666, -1.44722, -1.42145, -1.3987, -1.37845, -1.36031, -1.34394, -1.32908, -1.31552,
+        -1.30307, -1.29158, -1.28094, -1.27104, -1.26179, -1.25311, -1.24495, -1.23723, -1.22993, -1.22298, -1.21637, -1.21004, -1.20398,
+        -1.19816, -1.19254, -1.18712, -1.18186, -1.17676};
 
 }
 void cuecombBehavior::updateCursorExtent(SimStruct *S){
@@ -344,15 +373,22 @@ void cuecombBehavior::doPreTrial(SimStruct *S) {
 	current_trial_shift = (params->prior_mean)*PI/180 + random->getVonMises(params->prior_kap);
 
 	// If in center out hack mode, set the "shift" to one of a set number of potential locations
-	if (cohack_mode){
-		current_trial_shift = 2*PI*random->getInteger(1,params->cohack_tgtnum)/params->cohack_tgtnum;
+	if (cohack_mode){        
+        if (params->bump_sampling_method == 0){
+            current_trial_shift = 2*PI*random->getInteger(1,params->cohack_tgtnum)/params->cohack_tgtnum;
+        } else if (params->bump_sampling_method == 1){
+            i = random->getInteger(0,209);
+            current_trial_shift = bump_directions_list_even_joint_space[i];
+        } else {
+            // Non-implemented methods yet, will keep bumping at direction zero.
+            current_trial_shift = 0;
+        }		
 	}
 
 	// Get bump magnitude
 	if (random_bump_mode){
 		current_trial_bumpmag = random->getDouble(params->random_bump_low,params->random_bump_high);
-	}else{
-		
+	}else{		
 		bump_rand = random->getDouble();  	// generate a random number between 0 and 1
 		total_bump_freq  = fabs(params->bump_freq_one)+fabs(params->bump_freq_two)+
 			fabs(params->bump_freq_three);
@@ -376,14 +412,13 @@ void cuecombBehavior::doPreTrial(SimStruct *S) {
 			// by default, no bump
 			current_trial_bumpmag = 0.0;
 		}
-
 	}
 
 	center_offset.x = params->center_X_offset;
 	center_offset.y = params->center_Y_offset;
 
-	// Calculate the Target Shift
-	target_shift = current_trial_shift;
+	// Calculate the Target Shift    
+    target_shift = current_trial_shift;   
     
 	/* Select whether this will be a stimulation trial */
     this->stim_trial=(this->random->getDouble() < params->stim_prob);
