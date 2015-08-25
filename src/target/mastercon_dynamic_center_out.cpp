@@ -489,7 +489,7 @@ void DynamicCenterOut::update(SimStruct *S) {
                 if (!centerTarget->cursorInTarget(cursor_position)){
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);				
-                } else if (stateTimer->elapsedTime(S) > params->center_hold_low){
+                } else if (stateTimer->elapsedTime(S) > center_hold_time){
                     setState(STATE_OT_ON);
                 }
             }
@@ -502,7 +502,7 @@ void DynamicCenterOut::update(SimStruct *S) {
                 if (!centerTarget->cursorInTarget(cursor_position)){
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);				
-                } else if (stateTimer->elapsedTime(S) > center_hold_time){
+                } else if (stateTimer->elapsedTime(S) > .002){
                     playTone(TONE_GO);
                     setState(STATE_MOVEMENT);
                 }

@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1287"
+    ComputedModelVersion    "1.1288"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -56,8 +56,8 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[972.0, 562.0]
-	ZoomFactor		[0.6]
-	Offset			[-106.52997497477008, -8.3333333333333712]
+	ZoomFactor		[1.0]
+	Offset			[219.05335835856329, 31.881171302598371]
       }
     }
   }
@@ -65,11 +65,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jul 08 16:42:52 2015"
-  RTWModifiedTimeStamp	  358274563
-  ModelVersionFormat	  "1.%<AutoIncrement:1287>"
+  LastModifiedDate	  "Thu Aug 06 15:58:20 2015"
+  RTWModifiedTimeStamp	  360777496
+  ModelVersionFormat	  "1.%<AutoIncrement:1288>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1083,7 +1083,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "60"
+    ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "433"
     Block {
@@ -1096,7 +1096,7 @@ Model {
       BackgroundColor	      "[0.380392, 0.741176, 0.988235]"
       FunctionName	      "mastercon_cuecomb"
       Parameters	      "0  0  0  0  0  0  0  0  0  10  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  "
-      "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 10 1 0 0 0"
+      "0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 10 1 0 0 0 0"
       EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"
