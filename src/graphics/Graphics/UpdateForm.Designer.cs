@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1592,6 +1592,8 @@ namespace BehaviorGraphics
             this.label441 = new System.Windows.Forms.Label();
             this.textBoxCC_cloud1Kap = new System.Windows.Forms.TextBox();
             this.groupBox82 = new System.Windows.Forms.GroupBox();
+            this.labelCC_BSM = new System.Windows.Forms.Label();
+            this.textBoxCC_BSM = new System.Windows.Forms.TextBox();
             this.label423 = new System.Windows.Forms.Label();
             this.numericUpDownCC_numCOtargs = new System.Windows.Forms.NumericUpDown();
             this.label426 = new System.Windows.Forms.Label();
@@ -1994,8 +1996,6 @@ namespace BehaviorGraphics
             this.label_CT_hold = new System.Windows.Forms.Label();
             this.textBox52b = new System.Windows.Forms.TextBox();
             this.label_CT_hold2 = new System.Windows.Forms.Label();
-            this.textBoxCC_BSM = new System.Windows.Forms.TextBox();
-            this.labelCC_BSM = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -5145,8 +5145,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5978,8 +5978,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -16948,7 +16948,6 @@ namespace BehaviorGraphics
             // 
             // textBoxRPNFA
             // 
-            this.textBoxRPNFA.Enabled = false;
             this.textBoxRPNFA.Location = new System.Drawing.Point(145, 70);
             this.textBoxRPNFA.Name = "textBoxRPNFA";
             this.textBoxRPNFA.Size = new System.Drawing.Size(60, 20);
@@ -18196,6 +18195,25 @@ namespace BehaviorGraphics
             this.groupBox82.TabIndex = 74;
             this.groupBox82.TabStop = false;
             this.groupBox82.Text = "Target Location";
+            // 
+            // labelCC_BSM
+            // 
+            this.labelCC_BSM.AutoSize = true;
+            this.labelCC_BSM.Location = new System.Drawing.Point(0, 130);
+            this.labelCC_BSM.Name = "labelCC_BSM";
+            this.labelCC_BSM.Size = new System.Drawing.Size(100, 13);
+            this.labelCC_BSM.TabIndex = 83;
+            this.labelCC_BSM.Text = "Bump samp method";
+            // 
+            // textBoxCC_BSM
+            // 
+            this.textBoxCC_BSM.Location = new System.Drawing.Point(100, 127);
+            this.textBoxCC_BSM.Name = "textBoxCC_BSM";
+            this.textBoxCC_BSM.Size = new System.Drawing.Size(39, 20);
+            this.textBoxCC_BSM.TabIndex = 82;
+            this.toolTip1.SetToolTip(this.textBoxCC_BSM, "method used for bump direction distribution. 0 = uniform cartesian distribution, " +
+                    "1 = uniform joint space direction distribution.");
+            this.textBoxCC_BSM.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label423
             // 
@@ -21826,25 +21844,6 @@ namespace BehaviorGraphics
             this.label_CT_hold2.Size = new System.Drawing.Size(46, 13);
             this.label_CT_hold2.TabIndex = 0;
             this.label_CT_hold2.Text = "CT Hold";
-            // 
-            // textBoxCC_BSM
-            // 
-            this.textBoxCC_BSM.Location = new System.Drawing.Point(100, 127);
-            this.textBoxCC_BSM.Name = "textBoxCC_BSM";
-            this.textBoxCC_BSM.Size = new System.Drawing.Size(39, 20);
-            this.textBoxCC_BSM.TabIndex = 82;
-            this.toolTip1.SetToolTip(this.textBoxCC_BSM, "method used for bump direction distribution. 0 = uniform cartesian distribution, " +
-                    "1 = uniform joint space direction distribution.");
-            this.textBoxCC_BSM.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // labelCC_BSM
-            // 
-            this.labelCC_BSM.AutoSize = true;
-            this.labelCC_BSM.Location = new System.Drawing.Point(0, 130);
-            this.labelCC_BSM.Name = "labelCC_BSM";
-            this.labelCC_BSM.Size = new System.Drawing.Size(100, 13);
-            this.labelCC_BSM.TabIndex = 83;
-            this.labelCC_BSM.Text = "Bump samp method";
             // 
             // UpdateForm
             // 
