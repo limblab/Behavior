@@ -1128,6 +1128,12 @@ namespace BehaviorGraphics
             AddParamListItem("UT2D Cloud 4 Color", "P51", "Behavior UnTarget2d", this.numericUD_TargetColor_4);
             AddParamListItem("UT2D Prior Marker Color", "P52", "Behavior UnTarget2d", this.numericUD_PriorColor);
 
+            AddParamListItem("UT2D reveal cloud 1", "P53", "Behavior UnTarget2d", this.checkBoxUT2Dreveal1);
+            AddParamListItem("UT2D reveal cloud 2", "P54", "Behavior UnTarget2d", this.checkBoxUT2Dreveal2);
+            AddParamListItem("UT2D reveal cloud 3", "P55", "Behavior UnTarget2d", this.checkBoxUT2Dreveal3);
+            AddParamListItem("UT2D reveal cloud 4", "P56", "Behavior UnTarget2d", this.checkBoxUT2Dreveal4);
+
+            AddParamListItem("UT2D show co locs", "P57", "Behavior UnTarget2d", this.checkBoxUT2Dshow_co_targs);
             #endregion
 
             #region Dynamic Center Out
@@ -2966,10 +2972,6 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
-
-
-
-
 
     }
 

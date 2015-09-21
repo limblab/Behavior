@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1054,15 +1054,12 @@ namespace BehaviorGraphics
             this.textBoxUT2DCHL = new System.Windows.Forms.TextBox();
             this.label244 = new System.Windows.Forms.Label();
             this.groupBoxUT2DCloud = new System.Windows.Forms.GroupBox();
+            this.label359 = new System.Windows.Forms.Label();
             this.textBox31 = new System.Windows.Forms.TextBox();
             this.numericUD_TargetColor_1 = new System.Windows.Forms.NumericUpDown();
-            this.label362 = new System.Windows.Forms.Label();
             this.numericUD_TargetColor_4 = new System.Windows.Forms.NumericUpDown();
-            this.label361 = new System.Windows.Forms.Label();
             this.numericUD_TargetColor_3 = new System.Windows.Forms.NumericUpDown();
-            this.label360 = new System.Windows.Forms.Label();
             this.numericUD_TargetColor_2 = new System.Windows.Forms.NumericUpDown();
-            this.label359 = new System.Windows.Forms.Label();
             this.label357 = new System.Windows.Forms.Label();
             this.textBoxUT2Drewardperc = new System.Windows.Forms.TextBox();
             this.textBoxUT2DTimedDuration = new System.Windows.Forms.TextBox();
@@ -1996,6 +1993,12 @@ namespace BehaviorGraphics
             this.label_CT_hold = new System.Windows.Forms.Label();
             this.textBox52b = new System.Windows.Forms.TextBox();
             this.label_CT_hold2 = new System.Windows.Forms.Label();
+            this.checkBoxUT2Dreveal1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxUT2Dreveal2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxUT2Dreveal3 = new System.Windows.Forms.CheckBox();
+            this.checkBoxUT2Dreveal4 = new System.Windows.Forms.CheckBox();
+            this.label360 = new System.Windows.Forms.Label();
+            this.checkBoxUT2Dshow_co_targs = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -5145,8 +5148,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5978,8 +5981,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -12875,15 +12878,17 @@ namespace BehaviorGraphics
             // 
             // groupBoxUT2DCloud
             // 
+            this.groupBoxUT2DCloud.Controls.Add(this.label360);
+            this.groupBoxUT2DCloud.Controls.Add(this.checkBoxUT2Dreveal4);
+            this.groupBoxUT2DCloud.Controls.Add(this.checkBoxUT2Dreveal3);
+            this.groupBoxUT2DCloud.Controls.Add(this.checkBoxUT2Dreveal2);
+            this.groupBoxUT2DCloud.Controls.Add(this.checkBoxUT2Dreveal1);
+            this.groupBoxUT2DCloud.Controls.Add(this.label359);
             this.groupBoxUT2DCloud.Controls.Add(this.textBox31);
             this.groupBoxUT2DCloud.Controls.Add(this.numericUD_TargetColor_1);
-            this.groupBoxUT2DCloud.Controls.Add(this.label362);
             this.groupBoxUT2DCloud.Controls.Add(this.numericUD_TargetColor_4);
-            this.groupBoxUT2DCloud.Controls.Add(this.label361);
             this.groupBoxUT2DCloud.Controls.Add(this.numericUD_TargetColor_3);
-            this.groupBoxUT2DCloud.Controls.Add(this.label360);
             this.groupBoxUT2DCloud.Controls.Add(this.numericUD_TargetColor_2);
-            this.groupBoxUT2DCloud.Controls.Add(this.label359);
             this.groupBoxUT2DCloud.Controls.Add(this.label357);
             this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2Drewardperc);
             this.groupBoxUT2DCloud.Controls.Add(this.textBoxUT2DTimedDuration);
@@ -12926,12 +12931,21 @@ namespace BehaviorGraphics
             this.groupBoxUT2DCloud.TabStop = false;
             this.groupBoxUT2DCloud.Text = "Target Cloud (Likelihood)";
             // 
+            // label359
+            // 
+            this.label359.AutoSize = true;
+            this.label359.Location = new System.Drawing.Point(205, 11);
+            this.label359.Name = "label359";
+            this.label359.Size = new System.Drawing.Size(30, 13);
+            this.label359.TabIndex = 92;
+            this.label359.Text = "color";
+            // 
             // textBox31
             // 
             this.textBox31.BackColor = System.Drawing.SystemColors.Window;
             this.textBox31.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox31.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox31.Location = new System.Drawing.Point(289, 52);
+            this.textBox31.Location = new System.Drawing.Point(317, 58);
             this.textBox31.Multiline = true;
             this.textBox31.Name = "textBox31";
             this.textBox31.Size = new System.Drawing.Size(193, 63);
@@ -12940,7 +12954,7 @@ namespace BehaviorGraphics
             // 
             // numericUD_TargetColor_1
             // 
-            this.numericUD_TargetColor_1.Location = new System.Drawing.Point(231, 29);
+            this.numericUD_TargetColor_1.Location = new System.Drawing.Point(202, 27);
             this.numericUD_TargetColor_1.Maximum = new decimal(new int[] {
             6,
             0,
@@ -12960,18 +12974,9 @@ namespace BehaviorGraphics
             0,
             0});
             // 
-            // label362
-            // 
-            this.label362.AutoSize = true;
-            this.label362.Location = new System.Drawing.Point(194, 32);
-            this.label362.Name = "label362";
-            this.label362.Size = new System.Drawing.Size(31, 13);
-            this.label362.TabIndex = 89;
-            this.label362.Text = "Color";
-            // 
             // numericUD_TargetColor_4
             // 
-            this.numericUD_TargetColor_4.Location = new System.Drawing.Point(231, 115);
+            this.numericUD_TargetColor_4.Location = new System.Drawing.Point(202, 114);
             this.numericUD_TargetColor_4.Maximum = new decimal(new int[] {
             6,
             0,
@@ -12991,18 +12996,9 @@ namespace BehaviorGraphics
             0,
             0});
             // 
-            // label361
-            // 
-            this.label361.AutoSize = true;
-            this.label361.Location = new System.Drawing.Point(194, 118);
-            this.label361.Name = "label361";
-            this.label361.Size = new System.Drawing.Size(31, 13);
-            this.label361.TabIndex = 87;
-            this.label361.Text = "Color";
-            // 
             // numericUD_TargetColor_3
             // 
-            this.numericUD_TargetColor_3.Location = new System.Drawing.Point(231, 86);
+            this.numericUD_TargetColor_3.Location = new System.Drawing.Point(202, 86);
             this.numericUD_TargetColor_3.Maximum = new decimal(new int[] {
             6,
             0,
@@ -13022,18 +13018,9 @@ namespace BehaviorGraphics
             0,
             0});
             // 
-            // label360
-            // 
-            this.label360.AutoSize = true;
-            this.label360.Location = new System.Drawing.Point(194, 89);
-            this.label360.Name = "label360";
-            this.label360.Size = new System.Drawing.Size(31, 13);
-            this.label360.TabIndex = 85;
-            this.label360.Text = "Color";
-            // 
             // numericUD_TargetColor_2
             // 
-            this.numericUD_TargetColor_2.Location = new System.Drawing.Point(231, 58);
+            this.numericUD_TargetColor_2.Location = new System.Drawing.Point(202, 57);
             this.numericUD_TargetColor_2.Maximum = new decimal(new int[] {
             6,
             0,
@@ -13052,15 +13039,6 @@ namespace BehaviorGraphics
             0,
             0,
             0});
-            // 
-            // label359
-            // 
-            this.label359.AutoSize = true;
-            this.label359.Location = new System.Drawing.Point(194, 61);
-            this.label359.Name = "label359";
-            this.label359.Size = new System.Drawing.Size(31, 13);
-            this.label359.TabIndex = 84;
-            this.label359.Text = "Color";
             // 
             // label357
             // 
@@ -13370,6 +13348,7 @@ namespace BehaviorGraphics
             // 
             // groupBoxUT2DShift
             // 
+            this.groupBoxUT2DShift.Controls.Add(this.checkBoxUT2Dshow_co_targs);
             this.groupBoxUT2DShift.Controls.Add(this.numericUD_PriorColor);
             this.groupBoxUT2DShift.Controls.Add(this.label364);
             this.groupBoxUT2DShift.Controls.Add(this.numericUD_TargetCircleColor);
@@ -13478,9 +13457,9 @@ namespace BehaviorGraphics
             this.checkBoxUT2Dshowprior.AutoSize = true;
             this.checkBoxUT2Dshowprior.Location = new System.Drawing.Point(15, 74);
             this.checkBoxUT2Dshowprior.Name = "checkBoxUT2Dshowprior";
-            this.checkBoxUT2Dshowprior.Size = new System.Drawing.Size(116, 17);
+            this.checkBoxUT2Dshowprior.Size = new System.Drawing.Size(80, 17);
             this.checkBoxUT2Dshowprior.TabIndex = 79;
-            this.checkBoxUT2Dshowprior.Text = "Show Prior (Burrito)";
+            this.checkBoxUT2Dshowprior.Text = "Show Prior ";
             this.checkBoxUT2Dshowprior.UseVisualStyleBackColor = true;
             // 
             // labelUT2D_COHackTgtNum
@@ -13572,11 +13551,11 @@ namespace BehaviorGraphics
             // checkBoxUT2D_COHackMode
             // 
             this.checkBoxUT2D_COHackMode.AutoSize = true;
-            this.checkBoxUT2D_COHackMode.Location = new System.Drawing.Point(137, 74);
+            this.checkBoxUT2D_COHackMode.Location = new System.Drawing.Point(98, 74);
             this.checkBoxUT2D_COHackMode.Name = "checkBoxUT2D_COHackMode";
-            this.checkBoxUT2D_COHackMode.Size = new System.Drawing.Size(128, 17);
+            this.checkBoxUT2D_COHackMode.Size = new System.Drawing.Size(77, 17);
             this.checkBoxUT2D_COHackMode.TabIndex = 80;
-            this.checkBoxUT2D_COHackMode.Text = "Use Center-Out Hack";
+            this.checkBoxUT2D_COHackMode.Text = "Center-Out";
             this.checkBoxUT2D_COHackMode.UseVisualStyleBackColor = true;
             // 
             // labelUT2DShiftMean
@@ -21846,6 +21825,61 @@ namespace BehaviorGraphics
             this.label_CT_hold2.TabIndex = 0;
             this.label_CT_hold2.Text = "CT Hold";
             // 
+            // checkBoxUT2Dreveal1
+            // 
+            this.checkBoxUT2Dreveal1.AutoSize = true;
+            this.checkBoxUT2Dreveal1.Location = new System.Drawing.Point(254, 30);
+            this.checkBoxUT2Dreveal1.Name = "checkBoxUT2Dreveal1";
+            this.checkBoxUT2Dreveal1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxUT2Dreveal1.TabIndex = 93;
+            this.checkBoxUT2Dreveal1.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUT2Dreveal2
+            // 
+            this.checkBoxUT2Dreveal2.AutoSize = true;
+            this.checkBoxUT2Dreveal2.Location = new System.Drawing.Point(254, 59);
+            this.checkBoxUT2Dreveal2.Name = "checkBoxUT2Dreveal2";
+            this.checkBoxUT2Dreveal2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxUT2Dreveal2.TabIndex = 94;
+            this.checkBoxUT2Dreveal2.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUT2Dreveal3
+            // 
+            this.checkBoxUT2Dreveal3.AutoSize = true;
+            this.checkBoxUT2Dreveal3.Location = new System.Drawing.Point(254, 88);
+            this.checkBoxUT2Dreveal3.Name = "checkBoxUT2Dreveal3";
+            this.checkBoxUT2Dreveal3.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxUT2Dreveal3.TabIndex = 95;
+            this.checkBoxUT2Dreveal3.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUT2Dreveal4
+            // 
+            this.checkBoxUT2Dreveal4.AutoSize = true;
+            this.checkBoxUT2Dreveal4.Location = new System.Drawing.Point(254, 116);
+            this.checkBoxUT2Dreveal4.Name = "checkBoxUT2Dreveal4";
+            this.checkBoxUT2Dreveal4.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxUT2Dreveal4.TabIndex = 96;
+            this.checkBoxUT2Dreveal4.UseVisualStyleBackColor = true;
+            // 
+            // label360
+            // 
+            this.label360.AutoSize = true;
+            this.label360.Location = new System.Drawing.Point(244, 11);
+            this.label360.Name = "label360";
+            this.label360.Size = new System.Drawing.Size(36, 13);
+            this.label360.TabIndex = 97;
+            this.label360.Text = "reveal";
+            // 
+            // checkBoxUT2Dshow_co_targs
+            // 
+            this.checkBoxUT2Dshow_co_targs.AutoSize = true;
+            this.checkBoxUT2Dshow_co_targs.Location = new System.Drawing.Point(181, 74);
+            this.checkBoxUT2Dshow_co_targs.Name = "checkBoxUT2Dshow_co_targs";
+            this.checkBoxUT2Dshow_co_targs.Size = new System.Drawing.Size(96, 17);
+            this.checkBoxUT2Dshow_co_targs.TabIndex = 96;
+            this.checkBoxUT2Dshow_co_targs.Text = "Show targ locs";
+            this.checkBoxUT2Dshow_co_targs.UseVisualStyleBackColor = true;
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -23544,15 +23578,11 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelDCOTSMin;
         private System.Windows.Forms.TextBox textBoxUT2Drewardperc;
         private System.Windows.Forms.Label label357;
-        private System.Windows.Forms.Label label359;
         private System.Windows.Forms.NumericUpDown numericUD_TargetColor_4;
-        private System.Windows.Forms.Label label361;
         private System.Windows.Forms.NumericUpDown numericUD_TargetColor_3;
-        private System.Windows.Forms.Label label360;
         private System.Windows.Forms.NumericUpDown numericUD_TargetColor_2;
         private System.Windows.Forms.TextBox textBox31;
         private System.Windows.Forms.NumericUpDown numericUD_TargetColor_1;
-        private System.Windows.Forms.Label label362;
         private System.Windows.Forms.NumericUpDown numericUD_TargetCircleColor;
         private System.Windows.Forms.Label label363;
         private System.Windows.Forms.NumericUpDown numericUD_PriorColor;
@@ -24180,5 +24210,12 @@ namespace BehaviorGraphics
         private System.Windows.Forms.CheckBox checkBoxCC_forceBumpMode;
         private System.Windows.Forms.Label labelCC_BSM;
         private System.Windows.Forms.TextBox textBoxCC_BSM;
+        private System.Windows.Forms.Label label359;
+        private System.Windows.Forms.Label label360;
+        private System.Windows.Forms.CheckBox checkBoxUT2Dreveal4;
+        private System.Windows.Forms.CheckBox checkBoxUT2Dreveal3;
+        private System.Windows.Forms.CheckBox checkBoxUT2Dreveal2;
+        private System.Windows.Forms.CheckBox checkBoxUT2Dreveal1;
+        private System.Windows.Forms.CheckBox checkBoxUT2Dshow_co_targs;
     }
 }
