@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1267"
+    ComputedModelVersion    "1.1268"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -67,9 +67,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Apr 18 09:40:56 2014"
-  RTWModifiedTimeStamp	  319714855
-  ModelVersionFormat	  "1.%<AutoIncrement:1267>"
+  LastModifiedDate	  "Tue Sep 15 12:10:31 2015"
+  RTWModifiedTimeStamp	  364219826
+  ModelVersionFormat	  "1.%<AutoIncrement:1268>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1063,13 +1063,13 @@ Model {
       BlockType		      S-Function
       Name		      "Behavior UnTarget2d"
       SID		      "1"
-      Ports		      [4, 8]
+      Ports		      [7, 8]
       Position		      [660, 88, 885, 422]
       ZOrder		      -1
       BackgroundColor	      "[0.380392, 0.741176, 0.988235]"
       FunctionName	      "mastercon_untarget2d"
       Parameters	      "1 0.5 1 0.5 1 0.5 1 1 3 1 90 10 2 3 3 2 1 5 8 1 2 3 4 0.25 0.25 0.25 0.25 0 0.2 7 3 5 0.2 0 1 "
-      "5 0 0 0 0 0.2 0.3 0 8 0 0 1 2 3 4 5 6"
+      "5 0 0 0 0 0.2 0.3 0 8 0 0 1 2 3 4 5 6 0 0 0 0 0"
       EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"
@@ -1476,7 +1476,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 169, 405, 231]
 	      ZOrder		      -3
-	      LibraryVersion	      "1.89"
+	      LibraryVersion	      "1.171"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".1"
@@ -1488,7 +1488,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 254, 405, 316]
 	      ZOrder		      -4
-	      LibraryVersion	      "1.89"
+	      LibraryVersion	      "1.171"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".2"
@@ -1500,7 +1500,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 339, 405, 401]
 	      ZOrder		      -5
-	      LibraryVersion	      "1.89"
+	      LibraryVersion	      "1.171"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".3"
@@ -1512,7 +1512,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 424, 405, 486]
 	      ZOrder		      -6
-	      LibraryVersion	      "1.89"
+	      LibraryVersion	      "1.171"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".4"
@@ -2237,7 +2237,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 169, 405, 231]
 	      ZOrder		      -3
-	      LibraryVersion	      "1.89"
+	      LibraryVersion	      "1.171"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".1"
@@ -2249,7 +2249,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 254, 405, 316]
 	      ZOrder		      -4
-	      LibraryVersion	      "1.89"
+	      LibraryVersion	      "1.171"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".2"
@@ -2261,7 +2261,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 339, 405, 401]
 	      ZOrder		      -5
-	      LibraryVersion	      "1.89"
+	      LibraryVersion	      "1.171"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".3"
@@ -2273,7 +2273,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 424, 405, 486]
 	      ZOrder		      -6
-	      LibraryVersion	      "1.89"
+	      LibraryVersion	      "1.171"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".4"
@@ -3969,10 +3969,10 @@ Model {
       BlockType		      Reference
       Name		      "Neural Position Subsystem"
       SID		      "153"
-      Ports		      [0, 4]
-      Position		      [165, 31, 280, 109]
+      Ports		      [0, 6]
+      Position		      [165, 33, 280, 112]
       ZOrder		      -11
-      LibraryVersion	      "1.89"
+      LibraryVersion	      "1.171"
       SourceBlock	      "limblab/Neural Position Subsystem"
       SourceType	      "Neural Position Subsystem"
     }
@@ -5782,7 +5782,7 @@ Model {
 	  Ports			  [2, 1]
 	  Position		  [410, 220, 515, 275]
 	  ZOrder		  -34
-	  LibraryVersion	  "1.89"
+	  LibraryVersion	  "1.171"
 	  SourceBlock		  "limblab/Timer"
 	  SourceType		  ""
 	  Time			  "10"
@@ -6580,7 +6580,7 @@ Model {
       Ports		      [4]
       Position		      [1235, 277, 1325, 378]
       ZOrder		      -14
-      LibraryVersion	      "1.89"
+      LibraryVersion	      "1.171"
       SourceBlock	      "limblab/SendPacketToGraphics"
       SourceType	      "SubSystem"
     }
@@ -8163,7 +8163,7 @@ Model {
 	      Ports		      [3, 1]
 	      Position		      [405, 315, 505, 525]
 	      ZOrder		      -12
-	      LibraryVersion	      "1.89"
+	      LibraryVersion	      "1.171"
 	      SourceBlock	      "limblab/SerialConverter"
 	      SourceType	      ""
 	    }
@@ -8184,7 +8184,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [655, 310, 710, 525]
 	      ZOrder		      -14
-	      LibraryVersion	      "1.89"
+	      LibraryVersion	      "1.171"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      ""
 	    }
@@ -8195,7 +8195,7 @@ Model {
 	      Ports		      [1, 8]
 	      Position		      [635, 635, 685, 830]
 	      ZOrder		      -15
-	      LibraryVersion	      "1.89"
+	      LibraryVersion	      "1.171"
 	      SourceBlock	      "limblab/ToBits"
 	      SourceType	      ""
 	    }
@@ -9751,14 +9751,14 @@ Model {
     Line {
       SrcBlock		      "Neural Position Subsystem"
       SrcPort		      1
-      Points		      [90, 0; 0, 70]
+      Points		      [90, 0; 0, 75]
       DstBlock		      "Neural Override"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Neural Position Subsystem"
       SrcPort		      2
-      Points		      [0, 30]
+      Points		      [0, 40]
       DstBlock		      "Terminator1"
       DstPort		      1
     }
@@ -9784,18 +9784,21 @@ Model {
     Line {
       SrcBlock		      "Catch Force Generator"
       SrcPort		      1
+      Points		      [35, 0]
       DstBlock		      "Behavior UnTarget2d"
       DstPort		      4
     }
     Line {
       SrcBlock		      "Force Generator"
       SrcPort		      1
+      Points		      [35, 0]
       DstBlock		      "Behavior UnTarget2d"
       DstPort		      3
     }
     Line {
       SrcBlock		      "From"
       SrcPort		      1
+      Points		      [40, 0]
       DstBlock		      "Behavior UnTarget2d"
       DstPort		      2
     }

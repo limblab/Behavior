@@ -102,6 +102,14 @@ struct LocalParams {
 	real_T cloud_3_color;
 	real_T cloud_4_color;
 	real_T prior_burrito_color;
+
+	real_T cloud_1_reveal;
+	real_T cloud_2_reveal;
+	real_T cloud_3_reveal;
+	real_T cloud_4_reveal;
+
+	real_T use_show_co;
+
 };
 
 /**
@@ -129,6 +137,8 @@ private:
 	double cursor_extent;  // distance from center in direction of target
 	bool disp_prior;
 
+	double co_locs[10];
+
 	double  slice_points[10];
 	double current_target_stdev; // current trial feedback variance
 	bool   cloud_blank;       // toggles current trial, blank feedback
@@ -136,6 +146,12 @@ private:
 	bool   cohack_mode;
 	Timer  *feedback_timer; // feedback timer
 	bool   give_reward;
+	bool   reveal_target;
+	bool   co_show_mode;
+	bool   cloud_1_reveal;
+	bool   cloud_2_reveal;
+	bool   cloud_3_reveal;
+	bool   cloud_4_reveal;
 	
 	double center_hold_time, center_delay_time, outer_hold_time;
 
@@ -147,6 +163,8 @@ private:
 	ArcTarget		*targetBar;
 	ArcTarget		*cloud[10];
 	ArcTarget		*priorTarget;
+	ArcTarget		*correctTarget;
+	ArcTarget		*co_outlines[8];
 	SquareTarget    *timerTarget;
 	LocalParams     *params;
 
@@ -166,7 +184,7 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(52);
+	this->setNumParams(57);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			 0);
@@ -232,6 +250,15 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	this->bindParamId(&params->cloud_4_color,			50);	
 	this->bindParamId(&params->prior_burrito_color,		51);
 
+	this->bindParamId(&params->cloud_1_reveal,			52);
+	this->bindParamId(&params->cloud_2_reveal,			53);
+	this->bindParamId(&params->cloud_3_reveal,			54);
+	this->bindParamId(&params->cloud_4_reveal,			55);
+
+	this->bindParamId(&params->use_show_co,				56);
+
+
+
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -248,9 +275,13 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	outerTarget		 = new ArcTarget(0,0,0,0,5);
 	targetBar		 = new ArcTarget(0,0,0,0,8);
 	priorTarget		 = new ArcTarget(0,0,0,0,6);
+	correctTarget	 = new ArcTarget(0,0,0,0,6);
 	timerTarget      = new SquareTarget(0,0,0,0);
-	
 
+	for (i=0; i<params->cohack_tgtnum; i++){
+		co_outlines[i] = new ArcTarget(0,0,0,0,6);
+	}
+	
 	feedback_timer	 = new Timer();
 	for (i=0; i<10; i++) {
 		cloud[i] = new ArcTarget(0,0,0,0,5);
@@ -273,6 +304,12 @@ UncertaintyTarget2dBehavior::UncertaintyTarget2dBehavior(SimStruct *S) : RobotBe
 	delay_cloud_mode	 = false;
 	cohack_mode			 = false;
 	disp_prior			 = false;
+	cloud_1_reveal		 = false;
+	cloud_2_reveal		 = false;
+	cloud_3_reveal		 = false;
+	cloud_4_reveal		 = false;
+	co_show_mode		 = false;
+	reveal_target		 = false;
 	give_reward			 = true;
 }
 /*
@@ -332,6 +369,7 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 	double rewardp_rand; // random variable to determine if reward is given
 	delay_cloud_mode = params->use_delay_cloud;
 	cohack_mode      = params->use_cohack_mode;
+	double co_show_mode = params->use_show_co;
 	
 	// Calculate the Shift (Prior Shift)
 	current_trial_shift = (params->shift_mean)*PI/180 + random->getVonMises(params->shift_stdev);
@@ -339,6 +377,16 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 	// If in center out hack mode, set the "shift" to one of a set number of potential locations
 	if (cohack_mode){
 		current_trial_shift = params->cohack_rot*PI/180+2*PI*random->getInteger(1,params->cohack_tgtnum)/params->cohack_tgtnum;
+		
+		if (co_show_mode){
+			for (i=0; i<8; i++){
+				co_locs[i] = params->cohack_rot*PI/180+2*PI*i/params->cohack_tgtnum;
+			}
+		} else {
+			for (i=0; i<8; i++){
+				co_locs[i] = 0;
+			}
+		}
 	}
 	
 	center_offset.x = params->center_X_offset;
@@ -383,27 +431,48 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 		cloud_blank = params->cloud_one_blank_mode;
 		give_reward = rewardp_rand <= ((params->reward_perc)/100);
 		current_cloud_color =  getArcColorCode((int)params->cloud_1_color);
+		if (params->cloud_1_reveal) { 
+			reveal_target = true;
+		} else {
+			reveal_target = false;
+		}
 	} else if (cloud_rand <= actual_freq_one+actual_freq_two){
 		current_target_stdev = params->cloud_stdev_two;
 		cloud_blank = false;
 		give_reward = true;
 		current_cloud_color =  getArcColorCode((int)params->cloud_2_color);
+		if (params->cloud_2_reveal) { 
+			reveal_target = true;
+		} else {
+			reveal_target = false;
+		}
 	} else if (cloud_rand <= actual_freq_one+actual_freq_two+actual_freq_three){
 		current_target_stdev = params->cloud_stdev_three;
 		cloud_blank = false;
 		give_reward = true;
 		current_cloud_color =  getArcColorCode((int)params->cloud_3_color);
+		if (params->cloud_3_reveal) { 
+			reveal_target = true;
+		} else {
+			reveal_target = false;
+		}
 	} else if (cloud_rand <= actual_freq_one+actual_freq_two+actual_freq_three+actual_freq_four){
 		current_target_stdev = params->cloud_stdev_four;
 		cloud_blank = false;
 		give_reward = true;
 		current_cloud_color =  getArcColorCode((int)params->cloud_4_color);
+		if (params->cloud_4_reveal) { 
+			reveal_target = true;
+		} else {
+			reveal_target = false;
+		}
 	} else {
 		// by default, no feedback is shown
 		current_target_stdev = 0.0;
 		cloud_blank = true;
 		give_reward = true;
 		current_cloud_color = 5;
+		reveal_target = false;
 	}
 
 
@@ -416,35 +485,57 @@ void UncertaintyTarget2dBehavior::doPreTrial(SimStruct *S) {
 
 	// Set Up The Targets
 
-		outerTarget->r = params->movement_length  ;
-		outerTarget->theta = target_shift;
-		outerTarget->span   = (params->OT_size)*PI/180;
-		outerTarget->height = params->OT_depth;
+	outerTarget->r = params->movement_length  ;
+	outerTarget->theta = target_shift;
+	outerTarget->span   = (params->OT_size)*PI/180;
+	outerTarget->height = params->OT_depth;
 
-		targetBar->r  = params->movement_length;
-		targetBar->theta  = 0; 
-		targetBar->span    = 2*PI-0.00001;
-		targetBar->height = params->OT_depth+.1;
-	   targetBar->type = getArcColorCode((int)params->target_circle_color);
+	targetBar->r  = params->movement_length;
+	targetBar->theta  = 0; 
+	targetBar->span    = 2*PI-0.00001;
+	targetBar->height = params->OT_depth+.1;
+    targetBar->type = getArcColorCode((int)params->target_circle_color);
 
-		for (i=0; i<10; i++) {
-			cloud[i]->r      = params->movement_length;
-			cloud[i]->theta  = target_shift + slice_points[i];
-			cloud[i]->span   = (params->slice_size)*PI/180;
-			cloud[i]->height = params->OT_depth;
-  			cloud[i]->type = current_cloud_color;
+	for (i=0; i<10; i++) {
+		cloud[i]->r      = params->movement_length;
+		cloud[i]->theta  = target_shift + slice_points[i];
+		cloud[i]->span   = (params->slice_size)*PI/180;
+		cloud[i]->height = params->OT_depth;
+		cloud[i]->type = current_cloud_color;
+	}
+
+	for (i=0; i<8; i++) {
+		if (co_show_mode) {
+			co_outlines[i]->r = params->movement_length;
+		} else {
+			co_outlines[i]->r = 1000;
 		}
+		co_outlines[i]->theta = co_locs[i];
+		co_outlines[i]->span = (5)*PI/180;
+		co_outlines[i]->height = params->OT_depth;
+		co_outlines[i]->type = getArcColorCode((int)params->prior_burrito_color);
+	}
 
-		priorTarget->r = params->movement_length;
-		priorTarget->theta = (params->shift_mean)*PI/180;
-		priorTarget->span = (params->slice_size)*PI/180;
-		priorTarget->height = params->OT_depth;
- 		priorTarget->type   = getArcColorCode((int)params->prior_burrito_color);
+	priorTarget->r = params->movement_length;
+	priorTarget->theta = (params->shift_mean)*PI/180;
+	priorTarget->span = (params->slice_size)*PI/180;
+	priorTarget->height = params->OT_depth;
+	priorTarget->type   = getArcColorCode((int)params->prior_burrito_color);
 
-		timerTarget->centerX = 14.25;
-		timerTarget->centerY = 10.55 ;
-		timerTarget->width   = 0.8;
-		timerTarget->color   = Target::Color(255, 255, 255);
+	if (reveal_target) { 
+		correctTarget->r = params->movement_length;
+	} else {
+		correctTarget->r = 1000;
+	}
+	correctTarget->theta = target_shift;
+	correctTarget->span = (5)*PI/180;
+	correctTarget->height = params->OT_depth;
+	correctTarget->type   = getArcColorCode((int)params->prior_burrito_color);
+
+	timerTarget->centerX = 14.25;
+	timerTarget->centerY = 10.55 ;
+	timerTarget->width   = 1;
+	timerTarget->color   = Target::Color(255, 255, 255);
 
 	
 	// Initialize the cloud and cursor extent
@@ -794,12 +885,43 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* Timer Dot */
-		if (stateTimer->elapsedTime(S) < 0.25) {
-			outputs->targets[4+int(params->slice_number)] = (Target *)timerTarget;
-		}
-		else {
-			outputs->targets[4+int(params->slice_number)] = nullTarget;
-		}
+	if (stateTimer->elapsedTime(S) < 0.25) {
+		outputs->targets[4+int(params->slice_number)] = (Target *)timerTarget;
+	}
+	else {
+		outputs->targets[4+int(params->slice_number)] = nullTarget;
+	}
+
+	/* center-out locations */
+	
+	if (getState() == STATE_CENTER_DELAY || 
+		getState() == STATE_MOVEMENT ||
+		getState() == STATE_REWARD || 
+		getState() == STATE_FAIL   ||
+		getState() == STATE_OUTER_HOLD) {
+
+			for (i=0; i<params->cohack_tgtnum; i++){
+				outputs->targets[5+int(params->slice_number)+i] = co_outlines[i];
+			}
+	} else {
+			for (i=0; i<params->cohack_tgtnum; i++){
+				outputs->targets[5+int(params->slice_number)+i] = nullTarget;
+			}
+	}
+
+	/* correct target revealed */
+
+	if (getState() == STATE_CENTER_DELAY || 
+		getState() == STATE_MOVEMENT ||
+		getState() == STATE_REWARD || 
+		getState() == STATE_FAIL   ||
+		getState() == STATE_OUTER_HOLD) {
+
+			outputs->targets[7+int(params->slice_number)+int(params->cohack_tgtnum)] = (Target *)correctTarget;
+	} else {
+			outputs->targets[7+int(params->slice_number)+int(params->cohack_tgtnum)] = nullTarget;
+	}
+
 	/* reward (4) */
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD) && give_reward);
 
