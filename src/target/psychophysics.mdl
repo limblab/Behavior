@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1276"
+    ComputedModelVersion    "1.1277"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -31,7 +31,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [39.0, 51.0, 890.0, 617.0]
+      Location		      [-8.0, -8.0, 1456.0, 876.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -55,9 +55,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[846.0, 457.0]
-	ZoomFactor		[0.5]
-	Offset			[95.333333333333371, 71.833333333333371]
+	Extents			[1404.0, 700.0]
+	ZoomFactor		[0.8]
+	Offset			[92.499999999999886, 46.166666666666629]
       }
     }
   }
@@ -67,9 +67,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Feb 03 17:32:55 2015"
-  RTWModifiedTimeStamp	  344861698
-  ModelVersionFormat	  "1.%<AutoIncrement:1276>"
+  LastModifiedDate	  "Sat Mar 05 22:02:24 2016"
+  RTWModifiedTimeStamp	  379116136
+  ModelVersionFormat	  "1.%<AutoIncrement:1277>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -956,7 +956,7 @@ Model {
   }
   System {
     Name		    "psychophysics"
-    Location		    [39, 51, 929, 668]
+    Location		    [-8, -8, 1448, 868]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -968,9 +968,9 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "50"
+    ZoomFactor		    "80"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "443"
+    SIDHighWatermark	    "444"
     Block {
       BlockType		      S-Function
       Name		      "Behavior 2BC"
@@ -991,17 +991,6 @@ Model {
 	"abel('output',4,'targets')\nport_label('output',5,'reward')\nport_label('output',6,'tone')\nport_label('output',7,'ve"
 	"rsion')\nport_label('output',8,'pos')"
       }
-    }
-    Block {
-      BlockType		      Reference
-      Name		      "BoundingBox"
-      SID		      "436"
-      Ports		      [1, 1]
-      Position		      [625, 678, 715, 742]
-      ZOrder		      20
-      LibraryVersion	      "1.169"
-      SourceBlock	      "limblab/BoundingBox"
-      SourceType	      "SubSystem"
     }
     Block {
       BlockType		      SubSystem
@@ -1153,7 +1142,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 169, 405, 231]
 	      ZOrder		      -3
-	      LibraryVersion	      "1.169"
+	      LibraryVersion	      "1.194"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".1"
@@ -1165,7 +1154,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 254, 405, 316]
 	      ZOrder		      -4
-	      LibraryVersion	      "1.169"
+	      LibraryVersion	      "1.194"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".2"
@@ -1177,7 +1166,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 339, 405, 401]
 	      ZOrder		      -5
-	      LibraryVersion	      "1.169"
+	      LibraryVersion	      "1.194"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".3"
@@ -1189,7 +1178,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 424, 405, 486]
 	      ZOrder		      -6
-	      LibraryVersion	      "1.169"
+	      LibraryVersion	      "1.194"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      y0		      ".4"
@@ -1788,13 +1777,21 @@ Model {
       }
     }
     Block {
+      BlockType		      Constant
+      Name		      "Constant"
+      SID		      "444"
+      Position		      [1490, 170, 1520, 200]
+      ZOrder		      28
+      Value		      "0"
+    }
+    Block {
       BlockType		      Reference
       Name		      "Force Generator"
       SID		      "442"
       Ports		      [1, 1]
-      Position		      [635, 204, 695, 266]
+      Position		      [635, 194, 695, 256]
       ZOrder		      26
-      LibraryVersion	      "1.169"
+      LibraryVersion	      "1.194"
       SourceBlock	      "limblab/Force Generator"
       SourceType	      "SubSystem"
     }
@@ -1812,7 +1809,7 @@ Model {
       BlockType		      Goto
       Name		      "Goto"
       SID		      "99"
-      Position		      [1045, 268, 1090, 282]
+      Position		      [1100, 268, 1145, 282]
       ZOrder		      -6
       GotoTag		      "Reward"
       TagVisibility	      "global"
@@ -1841,9 +1838,9 @@ Model {
       Name		      "Motor Control"
       SID		      "438"
       Ports		      [5, 1]
-      Position		      [1385, 523, 1575, 867]
+      Position		      [1600, 83, 1790, 427]
       ZOrder		      22
-      LibraryVersion	      "1.169"
+      LibraryVersion	      "1.194"
       SourceBlock	      "limblab/Motor Control"
       SourceType	      "SubSystem"
     }
@@ -1865,29 +1862,18 @@ Model {
       Ports		      [0, 6]
       Position		      [245, 8, 360, 87]
       ZOrder		      -11
-      LibraryVersion	      "1.169"
+      LibraryVersion	      "1.194"
       SourceBlock	      "limblab/Neural Position Subsystem"
       SourceType	      "Neural Position Subsystem"
-    }
-    Block {
-      BlockType		      Reference
-      Name		      "Recentering Subsystem"
-      SID		      "437"
-      Ports		      [3, 2]
-      Position		      [825, 588, 945, 732]
-      ZOrder		      21
-      LibraryVersion	      "1.169"
-      SourceBlock	      "limblab/Recentering Subsystem"
-      SourceType	      "SubSystem"
     }
     Block {
       BlockType		      Reference
       Name		      "RewardSbs"
       SID		      "441"
       Ports		      [1, 1]
-      Position		      [975, 257, 1025, 293]
+      Position		      [1030, 257, 1080, 293]
       ZOrder		      25
-      LibraryVersion	      "1.169"
+      LibraryVersion	      "1.194"
       SourceBlock	      "limblab/RewardSbs"
       SourceType	      "SubSystem"
     }
@@ -1896,9 +1882,9 @@ Model {
       Name		      "SendPacketToGraphics"
       SID		      "286"
       Ports		      [4]
-      Position		      [1250, 277, 1340, 378]
+      Position		      [1370, 277, 1460, 378]
       ZOrder		      -14
-      LibraryVersion	      "1.169"
+      LibraryVersion	      "1.194"
       SourceBlock	      "limblab/SendPacketToGraphics"
       SourceType	      "SubSystem"
     }
@@ -1907,7 +1893,7 @@ Model {
       Name		      "Status"
       SID		      "287"
       Ports		      [1]
-      Position		      [1035, 134, 1105, 176]
+      Position		      [1380, 134, 1450, 176]
       ZOrder		      -15
       LibraryVersion	      "1.1718"
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
@@ -1940,7 +1926,7 @@ Model {
       Name		      "Target Peek"
       SID		      "288"
       Ports		      [1, 1]
-      Position		      [1070, 214, 1170, 256]
+      Position		      [1175, 214, 1275, 256]
       ZOrder		      -16
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
@@ -2188,7 +2174,7 @@ Model {
       BlockType		      Constant
       Name		      "TargetCount"
       SID		      "302"
-      Position		      [1090, 350, 1120, 380]
+      Position		      [1210, 350, 1240, 380]
       ZOrder		      -17
       Value		      "17"
     }
@@ -2196,7 +2182,7 @@ Model {
       BlockType		      Terminator
       Name		      "Terminator"
       SID		      "303"
-      Position		      [1190, 225, 1210, 245]
+      Position		      [1295, 225, 1315, 245]
       ZOrder		      -18
     }
     Block {
@@ -2212,7 +2198,7 @@ Model {
       BlockType		      Constant
       Name		      "Use Neural Control"
       SID		      "305"
-      Position		      [245, 105, 275, 135]
+      Position		      [165, 105, 195, 135]
       ZOrder		      -20
       Value		      "0"
     }
@@ -2221,9 +2207,9 @@ Model {
       Name		      "Velocity Calculation1"
       SID		      "435"
       Ports		      [2, 1]
-      Position		      [485, 580, 595, 640]
+      Position		      [485, 285, 595, 345]
       ZOrder		      19
-      LibraryVersion	      "1.169"
+      LibraryVersion	      "1.194"
       SourceBlock	      "limblab/Velocity Calculation"
       SourceType	      "SubSystem"
     }
@@ -2232,7 +2218,7 @@ Model {
       Name		      "Version Display"
       SID		      "333"
       Ports		      [1]
-      Position		      [975, 334, 1045, 376]
+      Position		      [1020, 334, 1090, 376]
       ZOrder		      -22
       LibraryVersion	      "1.1718"
       SourceBlock	      "xpclib/Misc./Scope (xPC) "
@@ -2265,9 +2251,9 @@ Model {
       Name		      "WordSbs"
       SID		      "440"
       Ports		      [1]
-      Position		      [975, 174, 1020, 216]
+      Position		      [1030, 174, 1075, 216]
       ZOrder		      24
-      LibraryVersion	      "1.169"
+      LibraryVersion	      "1.194"
       SourceBlock	      "limblab/WordSbs"
       SourceType	      "SubSystem"
     }
@@ -2276,9 +2262,9 @@ Model {
       Name		      "XY Position Subsystem"
       SID		      "443"
       Ports		      [0, 4]
-      Position		      [305, 597, 430, 833]
+      Position		      [285, 182, 410, 418]
       ZOrder		      27
-      LibraryVersion	      "1.169"
+      LibraryVersion	      "1.194"
       SourceBlock	      "limblab/XY Position Subsystem"
       SourceType	      "SubSystem"
     }
@@ -2320,56 +2306,43 @@ Model {
       SrcPort		      1
       Points		      [13, 0]
       Branch {
-	DstBlock		"Recentering Subsystem"
-	DstPort			1
-      }
-      Branch {
-	Points			[0, -100]
+	Points			[0, 5]
 	Branch {
-	  Points		  [0, -190]
-	  Branch {
-	    Points		    [0, -85]
-	    DstBlock		    "Force Generator"
-	    DstPort		    1
-	  }
-	  Branch {
-	    DstBlock		    "Catch Force Generator"
-	    DstPort		    1
-	  }
-	}
-	Branch {
+	  Points		  [0, 190]
 	  DstBlock		  "Matrix\nConcatenation1"
 	  DstPort		  2
 	}
+	Branch {
+	  DstBlock		  "Catch Force Generator"
+	  DstPort		  1
+	}
+      }
+      Branch {
+	Points			[0, -90]
+	DstBlock		"Force Generator"
+	DstPort			1
       }
     }
     Line {
       SrcBlock		      "XY Position Subsystem"
       SrcPort		      1
-      Points		      [22, 0]
+      Points		      [42, 0]
       Branch {
-	Points			[0, 35]
-	DstBlock		"Recentering Subsystem"
-	DstPort			2
-      }
-      Branch {
-	Points			[0, -30]
+	Points			[0, 90]
 	Branch {
-	  Points		  [0, -105]
-	  Branch {
-	    Points		    [0, -335]
-	    DstBlock		    "Neural Override"
-	    DstPort		    3
-	  }
-	  Branch {
-	    DstBlock		    "Matrix\nConcatenation1"
-	    DstPort		    1
-	  }
+	  Points		  [0, 190]
+	  DstBlock		  "Matrix\nConcatenation1"
+	  DstPort		  1
 	}
 	Branch {
 	  DstBlock		  "Velocity Calculation1"
 	  DstPort		  1
 	}
+      }
+      Branch {
+	Points			[0, -55]
+	DstBlock		"Neural Override"
+	DstPort			3
       }
     }
     Line {
@@ -2387,13 +2360,13 @@ Model {
     Line {
       SrcBlock		      "Behavior 2BC"
       SrcPort		      4
-      Points		      [71, 0]
+      Points		      [175, 0]
       Branch {
 	DstBlock		"Target Peek"
 	DstPort			1
       }
       Branch {
-	Points			[0, -35; 199, 0]
+	Points			[0, -35; 206, 0; 0, 90]
 	DstBlock		"SendPacketToGraphics"
 	DstPort			1
       }
@@ -2401,7 +2374,6 @@ Model {
     Line {
       SrcBlock		      "Behavior 2BC"
       SrcPort		      1
-      Points		      [395, 0; 0, 440]
       DstBlock		      "Motor Control"
       DstPort		      1
     }
@@ -2412,18 +2384,12 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "BoundingBox"
-      SrcPort		      1
-      DstBlock		      "Recentering Subsystem"
-      DstPort		      3
-    }
-    Line {
-      Labels		      [1, 1]
       SrcBlock		      "XY Position Subsystem"
       SrcPort		      3
-      Points		      [35, 0]
+      Points		      [55, 0]
       Branch {
-	Points			[0, 15; 900, 0]
+	Labels			[1, 1]
+	Points			[0, 124; 1065, 0; 0, -129]
 	DstBlock		"Motor Control"
 	DstPort			4
       }
@@ -2433,29 +2399,10 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "XY Position Subsystem"
-      SrcPort		      2
-      Points		      [112, 0; 0, 25]
-      DstBlock		      "BoundingBox"
-      DstPort		      1
-    }
-    Line {
       SrcBlock		      "Matrix\nConcatenation1"
       SrcPort		      1
       DstBlock		      "Xpos"
       DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Recentering Subsystem"
-      SrcPort		      2
-      DstBlock		      "Motor Control"
-      DstPort		      3
-    }
-    Line {
-      SrcBlock		      "Recentering Subsystem"
-      SrcPort		      1
-      DstBlock		      "Motor Control"
-      DstPort		      2
     }
     Line {
       SrcBlock		      "Behavior 2BC"
@@ -2466,7 +2413,7 @@ Model {
     Line {
       SrcBlock		      "Behavior 2BC"
       SrcPort		      8
-      Points		      [103, 0; 0, -55]
+      Points		      [181, 0; 0, -55]
       DstBlock		      "SendPacketToGraphics"
       DstPort		      3
     }
@@ -2485,15 +2432,15 @@ Model {
     Line {
       SrcBlock		      "Use Neural Control"
       SrcPort		      1
-      Points		      [30, 0]
-      Branch {
-	Points			[0, 739; 1060, 0]
-	DstBlock		"Motor Control"
-	DstPort			5
-      }
+      Points		      [62, 0]
       Branch {
 	DstBlock		"Neural Override"
 	DstPort			2
+      }
+      Branch {
+	Points			[0, 484; 1304, 0; 0, -209]
+	DstBlock		"Motor Control"
+	DstPort			5
       }
     }
     Line {
@@ -2531,7 +2478,7 @@ Model {
     Line {
       SrcBlock		      "Force Generator"
       SrcPort		      1
-      Points		      [9, 0; 0, -25]
+      Points		      [9, 0; 0, -15]
       DstBlock		      "Behavior 2BC"
       DstPort		      3
     }
@@ -2546,6 +2493,20 @@ Model {
       SrcPort		      1
       DstBlock		      "SendPacketToGraphics"
       DstPort		      4
+    }
+    Line {
+      SrcBlock		      "Constant"
+      SrcPort		      1
+      Points		      [35, 0]
+      Branch {
+	Points			[0, 70]
+	DstBlock		"Motor Control"
+	DstPort			3
+      }
+      Branch {
+	DstBlock		"Motor Control"
+	DstPort			2
+      }
     }
     Annotation {
       SID		      "433"
