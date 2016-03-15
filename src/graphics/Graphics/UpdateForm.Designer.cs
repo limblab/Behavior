@@ -779,12 +779,12 @@ namespace BehaviorGraphics
             this.textBoxATTS = new System.Windows.Forms.TextBox();
             this.label268 = new System.Windows.Forms.Label();
             this.groupBox57 = new System.Windows.Forms.GroupBox();
+            this.angleEntryBoxATMDEMaxS = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxATMDEMinS = new AngleBox.AngleEntryBox();
             this.angleEntryBoxATMDHMaxS = new AngleBox.AngleEntryBox();
             this.angleEntryBoxATMDHMinS = new AngleBox.AngleEntryBox();
             this.label297 = new System.Windows.Forms.Label();
             this.label300 = new System.Windows.Forms.Label();
-            this.angleEntryBoxATMDEMaxS = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxATMDEMinS = new AngleBox.AngleEntryBox();
             this.checkBoxATMDMT = new System.Windows.Forms.CheckBox();
             this.textBoxATMDDR = new System.Windows.Forms.TextBox();
             this.label296 = new System.Windows.Forms.Label();
@@ -926,16 +926,16 @@ namespace BehaviorGraphics
             this.textBoxUFVF = new System.Windows.Forms.TextBox();
             this.label247UF = new System.Windows.Forms.Label();
             this.angleEntryBoxUFBAS = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxUFFBFA = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxUFFFA = new AngleBox.AngleEntryBox();
             this.label246UF = new System.Windows.Forms.Label();
             this.numericUpDownUFNBFA = new System.Windows.Forms.NumericUpDown();
             this.label310UF = new System.Windows.Forms.Label();
             this.textBoxUFFDamp = new System.Windows.Forms.TextBox();
-            this.angleEntryBoxUFFFA = new AngleBox.AngleEntryBox();
             this.label345 = new System.Windows.Forms.Label();
             this.numericUpDownUFNO = new System.Windows.Forms.NumericUpDown();
             this.textBoxUFFBL = new System.Windows.Forms.TextBox();
             this.label344 = new System.Windows.Forms.Label();
-            this.angleEntryBoxUFFBFA = new AngleBox.AngleEntryBox();
             this.label330 = new System.Windows.Forms.Label();
             this.label329 = new System.Windows.Forms.Label();
             this.label328 = new System.Windows.Forms.Label();
@@ -1054,6 +1054,11 @@ namespace BehaviorGraphics
             this.textBoxUT2DCHL = new System.Windows.Forms.TextBox();
             this.label244 = new System.Windows.Forms.Label();
             this.groupBoxUT2DCloud = new System.Windows.Forms.GroupBox();
+            this.label360 = new System.Windows.Forms.Label();
+            this.checkBoxUT2Dreveal4 = new System.Windows.Forms.CheckBox();
+            this.checkBoxUT2Dreveal3 = new System.Windows.Forms.CheckBox();
+            this.checkBoxUT2Dreveal2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxUT2Dreveal1 = new System.Windows.Forms.CheckBox();
             this.label359 = new System.Windows.Forms.Label();
             this.textBox31 = new System.Windows.Forms.TextBox();
             this.numericUD_TargetColor_1 = new System.Windows.Forms.NumericUpDown();
@@ -1096,6 +1101,7 @@ namespace BehaviorGraphics
             this.textBoxUT2DFeedbackEnd = new System.Windows.Forms.TextBox();
             this.labelUT2DFeedbackStart = new System.Windows.Forms.Label();
             this.groupBoxUT2DShift = new System.Windows.Forms.GroupBox();
+            this.checkBoxUT2Dshow_co_targs = new System.Windows.Forms.CheckBox();
             this.numericUD_PriorColor = new System.Windows.Forms.NumericUpDown();
             this.label364 = new System.Windows.Forms.Label();
             this.numericUD_TargetCircleColor = new System.Windows.Forms.NumericUpDown();
@@ -1993,12 +1999,11 @@ namespace BehaviorGraphics
             this.label_CT_hold = new System.Windows.Forms.Label();
             this.textBox52b = new System.Windows.Forms.TextBox();
             this.label_CT_hold2 = new System.Windows.Forms.Label();
-            this.checkBoxUT2Dreveal1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxUT2Dreveal2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxUT2Dreveal3 = new System.Windows.Forms.CheckBox();
-            this.checkBoxUT2Dreveal4 = new System.Windows.Forms.CheckBox();
-            this.label360 = new System.Windows.Forms.Label();
-            this.checkBoxUT2Dshow_co_targs = new System.Windows.Forms.CheckBox();
+            this.checkBoxMovementBumps = new System.Windows.Forms.CheckBox();
+            this.textBoxBumpDelayLow = new System.Windows.Forms.TextBox();
+            this.textBoxBumpDelayHigh = new System.Windows.Forms.TextBox();
+            this.label361 = new System.Windows.Forms.Label();
+            this.label362 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -3164,7 +3169,7 @@ namespace BehaviorGraphics
             this.groupBox3.Controls.Add(this.radioButtonBump);
             this.groupBox3.Location = new System.Drawing.Point(219, 152);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(441, 175);
+            this.groupBox3.Size = new System.Drawing.Size(441, 206);
             this.groupBox3.TabIndex = 23;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Perturbations";
@@ -3216,6 +3221,7 @@ namespace BehaviorGraphics
             // 
             // bumpGroup
             // 
+            this.bumpGroup.Controls.Add(this.checkBoxMovementBumps);
             this.bumpGroup.Controls.Add(this.checkBoxDelayBumps);
             this.bumpGroup.Controls.Add(this.textBoxBumpMag);
             this.bumpGroup.Controls.Add(this.label11);
@@ -3225,7 +3231,7 @@ namespace BehaviorGraphics
             this.bumpGroup.Enabled = false;
             this.bumpGroup.Location = new System.Drawing.Point(215, 42);
             this.bumpGroup.Name = "bumpGroup";
-            this.bumpGroup.Size = new System.Drawing.Size(220, 127);
+            this.bumpGroup.Size = new System.Drawing.Size(220, 158);
             this.bumpGroup.TabIndex = 21;
             this.bumpGroup.TabStop = false;
             this.bumpGroup.Text = "Bumps";
@@ -3244,7 +3250,7 @@ namespace BehaviorGraphics
             // 
             // textBoxBumpMag
             // 
-            this.textBoxBumpMag.Location = new System.Drawing.Point(109, 98);
+            this.textBoxBumpMag.Location = new System.Drawing.Point(112, 132);
             this.textBoxBumpMag.Name = "textBoxBumpMag";
             this.textBoxBumpMag.Size = new System.Drawing.Size(100, 20);
             this.textBoxBumpMag.TabIndex = 7;
@@ -3254,7 +3260,7 @@ namespace BehaviorGraphics
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 101);
+            this.label11.Location = new System.Drawing.Point(9, 135);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(87, 13);
             this.label11.TabIndex = 6;
@@ -3262,7 +3268,7 @@ namespace BehaviorGraphics
             // 
             // textBoxBumpDuration
             // 
-            this.textBoxBumpDuration.Location = new System.Drawing.Point(109, 72);
+            this.textBoxBumpDuration.Location = new System.Drawing.Point(112, 106);
             this.textBoxBumpDuration.Name = "textBoxBumpDuration";
             this.textBoxBumpDuration.Size = new System.Drawing.Size(100, 20);
             this.textBoxBumpDuration.TabIndex = 5;
@@ -3272,7 +3278,7 @@ namespace BehaviorGraphics
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 75);
+            this.label10.Location = new System.Drawing.Point(9, 109);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(77, 13);
             this.label10.TabIndex = 4;
@@ -3454,6 +3460,10 @@ namespace BehaviorGraphics
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label362);
+            this.groupBox1.Controls.Add(this.label361);
+            this.groupBox1.Controls.Add(this.textBoxBumpDelayHigh);
+            this.groupBox1.Controls.Add(this.textBoxBumpDelayLow);
             this.groupBox1.Controls.Add(this.textBoxID);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.textBoxOHH);
@@ -3472,7 +3482,7 @@ namespace BehaviorGraphics
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(207, 250);
+            this.groupBox1.Size = new System.Drawing.Size(207, 299);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Timing";
@@ -10105,12 +10115,12 @@ namespace BehaviorGraphics
             // 
             // groupBox57
             // 
+            this.groupBox57.Controls.Add(this.angleEntryBoxATMDEMaxS);
+            this.groupBox57.Controls.Add(this.angleEntryBoxATMDEMinS);
             this.groupBox57.Controls.Add(this.angleEntryBoxATMDHMaxS);
             this.groupBox57.Controls.Add(this.angleEntryBoxATMDHMinS);
             this.groupBox57.Controls.Add(this.label297);
             this.groupBox57.Controls.Add(this.label300);
-            this.groupBox57.Controls.Add(this.angleEntryBoxATMDEMaxS);
-            this.groupBox57.Controls.Add(this.angleEntryBoxATMDEMinS);
             this.groupBox57.Controls.Add(this.checkBoxATMDMT);
             this.groupBox57.Controls.Add(this.textBoxATMDDR);
             this.groupBox57.Controls.Add(this.label296);
@@ -10134,6 +10144,22 @@ namespace BehaviorGraphics
             this.groupBox57.TabIndex = 24;
             this.groupBox57.TabStop = false;
             this.groupBox57.Text = "Moving dots";
+            // 
+            // angleEntryBoxATMDEMaxS
+            // 
+            this.angleEntryBoxATMDEMaxS.Location = new System.Drawing.Point(237, 65);
+            this.angleEntryBoxATMDEMaxS.Name = "angleEntryBoxATMDEMaxS";
+            this.angleEntryBoxATMDEMaxS.Size = new System.Drawing.Size(64, 21);
+            this.angleEntryBoxATMDEMaxS.TabIndex = 73;
+            this.angleEntryBoxATMDEMaxS.Value = 0;
+            // 
+            // angleEntryBoxATMDEMinS
+            // 
+            this.angleEntryBoxATMDEMinS.Location = new System.Drawing.Point(237, 39);
+            this.angleEntryBoxATMDEMinS.Name = "angleEntryBoxATMDEMinS";
+            this.angleEntryBoxATMDEMinS.Size = new System.Drawing.Size(64, 21);
+            this.angleEntryBoxATMDEMinS.TabIndex = 72;
+            this.angleEntryBoxATMDEMinS.Value = 0;
             // 
             // angleEntryBoxATMDHMaxS
             // 
@@ -10168,22 +10194,6 @@ namespace BehaviorGraphics
             this.label300.Size = new System.Drawing.Size(104, 13);
             this.label300.TabIndex = 75;
             this.label300.Text = "Hard max separation";
-            // 
-            // angleEntryBoxATMDEMaxS
-            // 
-            this.angleEntryBoxATMDEMaxS.Location = new System.Drawing.Point(237, 65);
-            this.angleEntryBoxATMDEMaxS.Name = "angleEntryBoxATMDEMaxS";
-            this.angleEntryBoxATMDEMaxS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATMDEMaxS.TabIndex = 73;
-            this.angleEntryBoxATMDEMaxS.Value = 0;
-            // 
-            // angleEntryBoxATMDEMinS
-            // 
-            this.angleEntryBoxATMDEMinS.Location = new System.Drawing.Point(237, 39);
-            this.angleEntryBoxATMDEMinS.Name = "angleEntryBoxATMDEMinS";
-            this.angleEntryBoxATMDEMinS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATMDEMinS.TabIndex = 72;
-            this.angleEntryBoxATMDEMinS.Value = 0;
             // 
             // checkBoxATMDMT
             // 
@@ -11514,16 +11524,16 @@ namespace BehaviorGraphics
             this.groupBox65.Controls.Add(this.textBoxUFVF);
             this.groupBox65.Controls.Add(this.label247UF);
             this.groupBox65.Controls.Add(this.angleEntryBoxUFBAS);
+            this.groupBox65.Controls.Add(this.angleEntryBoxUFFBFA);
+            this.groupBox65.Controls.Add(this.angleEntryBoxUFFFA);
             this.groupBox65.Controls.Add(this.label246UF);
             this.groupBox65.Controls.Add(this.numericUpDownUFNBFA);
             this.groupBox65.Controls.Add(this.label310UF);
             this.groupBox65.Controls.Add(this.textBoxUFFDamp);
-            this.groupBox65.Controls.Add(this.angleEntryBoxUFFFA);
             this.groupBox65.Controls.Add(this.label345);
             this.groupBox65.Controls.Add(this.numericUpDownUFNO);
             this.groupBox65.Controls.Add(this.textBoxUFFBL);
             this.groupBox65.Controls.Add(this.label344);
-            this.groupBox65.Controls.Add(this.angleEntryBoxUFFBFA);
             this.groupBox65.Controls.Add(this.label330);
             this.groupBox65.Controls.Add(this.label329);
             this.groupBox65.Controls.Add(this.label328);
@@ -11607,6 +11617,22 @@ namespace BehaviorGraphics
             this.angleEntryBoxUFBAS.TabIndex = 48;
             this.angleEntryBoxUFBAS.Value = 0;
             // 
+            // angleEntryBoxUFFBFA
+            // 
+            this.angleEntryBoxUFFBFA.Location = new System.Drawing.Point(119, 308);
+            this.angleEntryBoxUFFBFA.Name = "angleEntryBoxUFFBFA";
+            this.angleEntryBoxUFFBFA.Size = new System.Drawing.Size(76, 21);
+            this.angleEntryBoxUFFBFA.TabIndex = 1;
+            this.angleEntryBoxUFFBFA.Value = 0;
+            // 
+            // angleEntryBoxUFFFA
+            // 
+            this.angleEntryBoxUFFFA.Location = new System.Drawing.Point(119, 174);
+            this.angleEntryBoxUFFFA.Name = "angleEntryBoxUFFFA";
+            this.angleEntryBoxUFFFA.Size = new System.Drawing.Size(76, 21);
+            this.angleEntryBoxUFFFA.TabIndex = 45;
+            this.angleEntryBoxUFFFA.Value = 0;
+            // 
             // label246UF
             // 
             this.label246UF.AutoSize = true;
@@ -11652,14 +11678,6 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.textBoxUFFDamp, "in N/cm/s");
             this.textBoxUFFDamp.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
-            // angleEntryBoxUFFFA
-            // 
-            this.angleEntryBoxUFFFA.Location = new System.Drawing.Point(119, 174);
-            this.angleEntryBoxUFFFA.Name = "angleEntryBoxUFFFA";
-            this.angleEntryBoxUFFFA.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBoxUFFFA.TabIndex = 45;
-            this.angleEntryBoxUFFFA.Value = 0;
-            // 
             // label345
             // 
             this.label345.AutoSize = true;
@@ -11704,14 +11722,6 @@ namespace BehaviorGraphics
             this.label344.Size = new System.Drawing.Size(90, 13);
             this.label344.TabIndex = 14;
             this.label344.Text = "Field block length";
-            // 
-            // angleEntryBoxUFFBFA
-            // 
-            this.angleEntryBoxUFFBFA.Location = new System.Drawing.Point(119, 308);
-            this.angleEntryBoxUFFBFA.Name = "angleEntryBoxUFFBFA";
-            this.angleEntryBoxUFFBFA.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBoxUFFBFA.TabIndex = 1;
-            this.angleEntryBoxUFFBFA.Value = 0;
             // 
             // label330
             // 
@@ -12931,6 +12941,51 @@ namespace BehaviorGraphics
             this.groupBoxUT2DCloud.TabStop = false;
             this.groupBoxUT2DCloud.Text = "Target Cloud (Likelihood)";
             // 
+            // label360
+            // 
+            this.label360.AutoSize = true;
+            this.label360.Location = new System.Drawing.Point(244, 11);
+            this.label360.Name = "label360";
+            this.label360.Size = new System.Drawing.Size(36, 13);
+            this.label360.TabIndex = 97;
+            this.label360.Text = "reveal";
+            // 
+            // checkBoxUT2Dreveal4
+            // 
+            this.checkBoxUT2Dreveal4.AutoSize = true;
+            this.checkBoxUT2Dreveal4.Location = new System.Drawing.Point(254, 116);
+            this.checkBoxUT2Dreveal4.Name = "checkBoxUT2Dreveal4";
+            this.checkBoxUT2Dreveal4.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxUT2Dreveal4.TabIndex = 96;
+            this.checkBoxUT2Dreveal4.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUT2Dreveal3
+            // 
+            this.checkBoxUT2Dreveal3.AutoSize = true;
+            this.checkBoxUT2Dreveal3.Location = new System.Drawing.Point(254, 88);
+            this.checkBoxUT2Dreveal3.Name = "checkBoxUT2Dreveal3";
+            this.checkBoxUT2Dreveal3.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxUT2Dreveal3.TabIndex = 95;
+            this.checkBoxUT2Dreveal3.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUT2Dreveal2
+            // 
+            this.checkBoxUT2Dreveal2.AutoSize = true;
+            this.checkBoxUT2Dreveal2.Location = new System.Drawing.Point(254, 59);
+            this.checkBoxUT2Dreveal2.Name = "checkBoxUT2Dreveal2";
+            this.checkBoxUT2Dreveal2.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxUT2Dreveal2.TabIndex = 94;
+            this.checkBoxUT2Dreveal2.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUT2Dreveal1
+            // 
+            this.checkBoxUT2Dreveal1.AutoSize = true;
+            this.checkBoxUT2Dreveal1.Location = new System.Drawing.Point(254, 30);
+            this.checkBoxUT2Dreveal1.Name = "checkBoxUT2Dreveal1";
+            this.checkBoxUT2Dreveal1.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxUT2Dreveal1.TabIndex = 93;
+            this.checkBoxUT2Dreveal1.UseVisualStyleBackColor = true;
+            // 
             // label359
             // 
             this.label359.AutoSize = true;
@@ -13373,6 +13428,16 @@ namespace BehaviorGraphics
             this.groupBoxUT2DShift.TabIndex = 73;
             this.groupBoxUT2DShift.TabStop = false;
             this.groupBoxUT2DShift.Text = "Target Shift (Prior)";
+            // 
+            // checkBoxUT2Dshow_co_targs
+            // 
+            this.checkBoxUT2Dshow_co_targs.AutoSize = true;
+            this.checkBoxUT2Dshow_co_targs.Location = new System.Drawing.Point(181, 74);
+            this.checkBoxUT2Dshow_co_targs.Name = "checkBoxUT2Dshow_co_targs";
+            this.checkBoxUT2Dshow_co_targs.Size = new System.Drawing.Size(96, 17);
+            this.checkBoxUT2Dshow_co_targs.TabIndex = 96;
+            this.checkBoxUT2Dshow_co_targs.Text = "Show targ locs";
+            this.checkBoxUT2Dshow_co_targs.UseVisualStyleBackColor = true;
             // 
             // numericUD_PriorColor
             // 
@@ -21825,60 +21890,50 @@ namespace BehaviorGraphics
             this.label_CT_hold2.TabIndex = 0;
             this.label_CT_hold2.Text = "CT Hold";
             // 
-            // checkBoxUT2Dreveal1
+            // checkBoxMovementBumps
             // 
-            this.checkBoxUT2Dreveal1.AutoSize = true;
-            this.checkBoxUT2Dreveal1.Location = new System.Drawing.Point(254, 30);
-            this.checkBoxUT2Dreveal1.Name = "checkBoxUT2Dreveal1";
-            this.checkBoxUT2Dreveal1.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxUT2Dreveal1.TabIndex = 93;
-            this.checkBoxUT2Dreveal1.UseVisualStyleBackColor = true;
+            this.checkBoxMovementBumps.AutoSize = true;
+            this.checkBoxMovementBumps.Location = new System.Drawing.Point(9, 65);
+            this.checkBoxMovementBumps.Name = "checkBoxMovementBumps";
+            this.checkBoxMovementBumps.Size = new System.Drawing.Size(166, 17);
+            this.checkBoxMovementBumps.TabIndex = 8;
+            this.checkBoxMovementBumps.Text = "Use Movement Period Bumps";
+            this.toolTip1.SetToolTip(this.checkBoxMovementBumps, "When checked, bumps will occur mid reach.");
+            this.checkBoxMovementBumps.UseVisualStyleBackColor = true;
             // 
-            // checkBoxUT2Dreveal2
+            // textBoxBumpDelayLow
             // 
-            this.checkBoxUT2Dreveal2.AutoSize = true;
-            this.checkBoxUT2Dreveal2.Location = new System.Drawing.Point(254, 59);
-            this.checkBoxUT2Dreveal2.Name = "checkBoxUT2Dreveal2";
-            this.checkBoxUT2Dreveal2.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxUT2Dreveal2.TabIndex = 94;
-            this.checkBoxUT2Dreveal2.UseVisualStyleBackColor = true;
+            this.textBoxBumpDelayLow.Location = new System.Drawing.Point(99, 221);
+            this.textBoxBumpDelayLow.Name = "textBoxBumpDelayLow";
+            this.textBoxBumpDelayLow.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBumpDelayLow.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.textBoxBumpDelayLow, "Low bound of bump delay (seconds)");
             // 
-            // checkBoxUT2Dreveal3
+            // textBoxBumpDelayHigh
             // 
-            this.checkBoxUT2Dreveal3.AutoSize = true;
-            this.checkBoxUT2Dreveal3.Location = new System.Drawing.Point(254, 88);
-            this.checkBoxUT2Dreveal3.Name = "checkBoxUT2Dreveal3";
-            this.checkBoxUT2Dreveal3.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxUT2Dreveal3.TabIndex = 95;
-            this.checkBoxUT2Dreveal3.UseVisualStyleBackColor = true;
+            this.textBoxBumpDelayHigh.Location = new System.Drawing.Point(99, 247);
+            this.textBoxBumpDelayHigh.Name = "textBoxBumpDelayHigh";
+            this.textBoxBumpDelayHigh.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBumpDelayHigh.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.textBoxBumpDelayHigh, "High Bound bump delay");
             // 
-            // checkBoxUT2Dreveal4
+            // label361
             // 
-            this.checkBoxUT2Dreveal4.AutoSize = true;
-            this.checkBoxUT2Dreveal4.Location = new System.Drawing.Point(254, 116);
-            this.checkBoxUT2Dreveal4.Name = "checkBoxUT2Dreveal4";
-            this.checkBoxUT2Dreveal4.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxUT2Dreveal4.TabIndex = 96;
-            this.checkBoxUT2Dreveal4.UseVisualStyleBackColor = true;
+            this.label361.AutoSize = true;
+            this.label361.Location = new System.Drawing.Point(6, 224);
+            this.label361.Name = "label361";
+            this.label361.Size = new System.Drawing.Size(87, 13);
+            this.label361.TabIndex = 18;
+            this.label361.Text = "Bump Delay Low";
             // 
-            // label360
+            // label362
             // 
-            this.label360.AutoSize = true;
-            this.label360.Location = new System.Drawing.Point(244, 11);
-            this.label360.Name = "label360";
-            this.label360.Size = new System.Drawing.Size(36, 13);
-            this.label360.TabIndex = 97;
-            this.label360.Text = "reveal";
-            // 
-            // checkBoxUT2Dshow_co_targs
-            // 
-            this.checkBoxUT2Dshow_co_targs.AutoSize = true;
-            this.checkBoxUT2Dshow_co_targs.Location = new System.Drawing.Point(181, 74);
-            this.checkBoxUT2Dshow_co_targs.Name = "checkBoxUT2Dshow_co_targs";
-            this.checkBoxUT2Dshow_co_targs.Size = new System.Drawing.Size(96, 17);
-            this.checkBoxUT2Dshow_co_targs.TabIndex = 96;
-            this.checkBoxUT2Dshow_co_targs.Text = "Show targ locs";
-            this.checkBoxUT2Dshow_co_targs.UseVisualStyleBackColor = true;
+            this.label362.AutoSize = true;
+            this.label362.Location = new System.Drawing.Point(5, 250);
+            this.label362.Name = "label362";
+            this.label362.Size = new System.Drawing.Size(89, 13);
+            this.label362.TabIndex = 19;
+            this.label362.Text = "Bump Delay High";
             // 
             // UpdateForm
             // 
@@ -24217,5 +24272,10 @@ namespace BehaviorGraphics
         private System.Windows.Forms.CheckBox checkBoxUT2Dreveal2;
         private System.Windows.Forms.CheckBox checkBoxUT2Dreveal1;
         private System.Windows.Forms.CheckBox checkBoxUT2Dshow_co_targs;
+        private System.Windows.Forms.CheckBox checkBoxMovementBumps;
+        private System.Windows.Forms.Label label362;
+        private System.Windows.Forms.Label label361;
+        private System.Windows.Forms.TextBox textBoxBumpDelayHigh;
+        private System.Windows.Forms.TextBox textBoxBumpDelayLow;
     }
 }

@@ -223,6 +223,8 @@ namespace BehaviorGraphics
             AddParamListItem("Bump Amplitude", "P14", "Behavior CO", this.textBoxBumpMag);
             AddParamListItem("Catch Trials Pct", "P12", "Behavior CO", this.textBoxCatchPct);
             AddParamListItem("Delay Bumps", "P18", "Behavior CO", this.checkBoxDelayBumps);
+            AddParamListItem("Movement Bumps", "P19", "Behavior CO", this.checkBoxMovementBumps);
+            AddParamListItem("Center Hold Bumps", "P20", "Behavior CO", this.checkBoxCHB);
 
             // Center-Out targets
             AddParamListItem("CO Num Targets", "P1", "Behavior CO", this.numericUpDownNumTgts);
@@ -231,7 +233,8 @@ namespace BehaviorGraphics
             AddParamListItem("Idiot Mode", "P16", "Behavior CO", this.checkBoxIdiot);
             AddParamListItem("First Target Shift", "P19", "Behavior CO", this.angleEntryBox_CO_FTS);
             AddParamListItem("Default Target Range", "P20", "Behavior CO", this.angleEntryBox_CO_DTR);
-            
+            AddParamListItem("Bump Delay Low", "P23", "Behavior CO", this.textBoxBumpDelayLow);
+            AddParamListItem("Bump Delay High", "P24", "Behavior CO", this.textBoxBumpDelayHigh);
             
             #endregion
 
