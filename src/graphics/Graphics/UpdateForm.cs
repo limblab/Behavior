@@ -231,8 +231,8 @@ namespace BehaviorGraphics
             AddParamListItem("Target Radius", "P2", "Behavior CO", this.textBoxTgtRadius);
             AddParamListItem("Target Size", "P3", "Behavior CO", this.textBoxTgtSize);
             AddParamListItem("Idiot Mode", "P16", "Behavior CO", this.checkBoxIdiot);
-            AddParamListItem("First Target Shift", "P19", "Behavior CO", this.angleEntryBox_CO_FTS);
-            AddParamListItem("Default Target Range", "P20", "Behavior CO", this.angleEntryBox_CO_DTR);
+            AddParamListItem("First Target Shift", "P21", "Behavior CO", this.angleEntryBox_CO_FTS);
+            AddParamListItem("Default Target Range", "P22", "Behavior CO", this.angleEntryBox_CO_DTR);
             AddParamListItem("Bump Delay Low", "P23", "Behavior CO", this.textBoxBumpDelayLow);
             AddParamListItem("Bump Delay High", "P24", "Behavior CO", this.textBoxBumpDelayHigh);
             

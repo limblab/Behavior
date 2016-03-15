@@ -3247,6 +3247,7 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.checkBoxDelayBumps, "When checked, bumps will occure at the end of the delay period rather than mid re" +
                     "ach.");
             this.checkBoxDelayBumps.UseVisualStyleBackColor = true;
+            this.checkBoxDelayBumps.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // textBoxBumpMag
             // 
@@ -21900,6 +21901,7 @@ namespace BehaviorGraphics
             this.checkBoxMovementBumps.Text = "Use Movement Period Bumps";
             this.toolTip1.SetToolTip(this.checkBoxMovementBumps, "When checked, bumps will occur mid reach.");
             this.checkBoxMovementBumps.UseVisualStyleBackColor = true;
+            this.checkBoxMovementBumps.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
             // textBoxBumpDelayLow
             // 
@@ -21908,6 +21910,7 @@ namespace BehaviorGraphics
             this.textBoxBumpDelayLow.Size = new System.Drawing.Size(100, 20);
             this.textBoxBumpDelayLow.TabIndex = 16;
             this.toolTip1.SetToolTip(this.textBoxBumpDelayLow, "Low bound of bump delay (seconds)");
+            this.textBoxBumpDelayLow.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBoxBumpDelayHigh
             // 
@@ -21916,6 +21919,7 @@ namespace BehaviorGraphics
             this.textBoxBumpDelayHigh.Size = new System.Drawing.Size(100, 20);
             this.textBoxBumpDelayHigh.TabIndex = 17;
             this.toolTip1.SetToolTip(this.textBoxBumpDelayHigh, "High Bound bump delay");
+            this.textBoxBumpDelayHigh.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label361
             // 
