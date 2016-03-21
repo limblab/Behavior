@@ -77,3 +77,8 @@ Thumbs.db
 *.mat
 
 *.m~
+
+#xpc compile folders for our behaviors:
+src/target/*_slrt_rtw/*
+src/target/slprj/*
+src/target/slrtnetboot.bat
