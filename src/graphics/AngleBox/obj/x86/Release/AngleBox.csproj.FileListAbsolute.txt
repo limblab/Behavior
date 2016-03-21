@@ -1,7 +1,0 @@
-C:\Users\limblab\Desktop\limblab\Behavior\src\graphics\AngleBox\bin\Release\AngleBox.dll
-C:\Users\limblab\Desktop\limblab\Behavior\src\graphics\AngleBox\bin\Release\AngleBox.pdb
-C:\Users\limblab\Desktop\limblab\Behavior\src\graphics\AngleBox\obj\x86\Release\ResolveAssemblyReference.cache
-C:\Users\limblab\Desktop\limblab\Behavior\src\graphics\AngleBox\obj\x86\Release\AngleBox.AngleEntryBox.resources
-C:\Users\limblab\Desktop\limblab\Behavior\src\graphics\AngleBox\obj\x86\Release\AngleBox.csproj.GenerateResource.Cache
-C:\Users\limblab\Desktop\limblab\Behavior\src\graphics\AngleBox\obj\x86\Release\AngleBox.dll
-C:\Users\limblab\Desktop\limblab\Behavior\src\graphics\AngleBox\obj\x86\Release\AngleBox.pdb

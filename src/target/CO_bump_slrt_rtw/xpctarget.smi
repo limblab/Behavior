@@ -1,0 +1,17 @@
+#include "CO_bump.bio"
+#include "CO_bump.lbl"
+#include "CO_bump.sid"
+
+
+const xpc_SigMappingInfo xpcMMI[] =
+  {
+    {
+      {CO_bump_BIO},
+      {CO_bump_SID},
+      {CO_bump_LBL},
+      "",
+      "CO_bump",
+      0,
+      2284,
+    },
+  };

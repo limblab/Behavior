@@ -1,0 +1,14 @@
+#include "CO_bump.pt"
+
+
+const xpc_ParamMappingInfo  xpcparamsMMI[] =
+  {
+    {
+      {CO_bump_PT},
+      "CO_bump",
+      "",
+      "CO_bump",
+      0,
+      346,
+    },
+  };

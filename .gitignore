@@ -82,3 +82,15 @@ Thumbs.db
 src/target/*_slrt_rtw/*
 src/target/slprj/*
 src/target/slrtnetboot.bat
+src/target/serPos.mexw64 
+src/target/Byte2Bits.mexw64
+src/target/serPos.mexw64
+src/target/Byte2Bits.mexw64
+
+
+# graphics compilation objects:
+src/graphics/Graphics/obj/*
+src/graphics/AngleBox/obj/*
+src/graphics/Graphics/bin/*
+src/graphics/AngleBox/bin/*
+src/graphics/Graphics.suo
