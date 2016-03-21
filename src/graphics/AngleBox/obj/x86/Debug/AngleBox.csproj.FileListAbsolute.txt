@@ -1,0 +1,7 @@
+C:\Users\tucker\Desktop\GIT\Behavior\src\graphics\AngleBox\bin\Debug\AngleBox.dll
+C:\Users\tucker\Desktop\GIT\Behavior\src\graphics\AngleBox\bin\Debug\AngleBox.pdb
+C:\Users\tucker\Desktop\GIT\Behavior\src\graphics\AngleBox\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\tucker\Desktop\GIT\Behavior\src\graphics\AngleBox\obj\x86\Debug\AngleBox.AngleEntryBox.resources
+C:\Users\tucker\Desktop\GIT\Behavior\src\graphics\AngleBox\obj\x86\Debug\AngleBox.csproj.GenerateResource.Cache
+C:\Users\tucker\Desktop\GIT\Behavior\src\graphics\AngleBox\obj\x86\Debug\AngleBox.dll
+C:\Users\tucker\Desktop\GIT\Behavior\src\graphics\AngleBox\obj\x86\Debug\AngleBox.pdb
