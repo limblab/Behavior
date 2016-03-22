@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1180,6 +1180,9 @@ namespace BehaviorGraphics
             this.label317 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.groupBox76 = new System.Windows.Forms.GroupBox();
+            this.checkBox_ctr_out_bump_AbortDuringBump = new System.Windows.Forms.CheckBox();
+            this.label_ctr_out_bump_hideCursorMax = new System.Windows.Forms.Label();
+            this.textBox_ctr_out_bump_HideCursorRadiusMax = new System.Windows.Forms.TextBox();
             this.checkBox_ctr_out_bump_HiddenCursorTraining = new System.Windows.Forms.CheckBox();
             this.checkBox_ctr_out_bump_HideCursor = new System.Windows.Forms.CheckBox();
             this.hide_cursor_radius_label = new System.Windows.Forms.Label();
@@ -1204,6 +1207,7 @@ namespace BehaviorGraphics
             this.label_ctr_out_bump_StimProb = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_StimProb = new System.Windows.Forms.TextBox();
             this.groupBox74 = new System.Windows.Forms.GroupBox();
+            this.checkBox_ctr_out_bump_BiDirectionalBumps = new System.Windows.Forms.CheckBox();
             this.label_ctr_out_bump_MBumpRate = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_MBumpRate = new System.Windows.Forms.TextBox();
             this.label_ctr_out_bump_DPBumpRate = new System.Windows.Forms.Label();
@@ -1252,10 +1256,14 @@ namespace BehaviorGraphics
             this.label_ctr_out_bump_CHPeakDuration = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_CHPeakDuration = new System.Windows.Forms.TextBox();
             this.groupBox75 = new System.Windows.Forms.GroupBox();
+            this.textBox_ctr_out_bump_CTHoldHigh = new System.Windows.Forms.TextBox();
+            this.label_ctr_out_bump_CHHigh = new System.Windows.Forms.Label();
+            this.textBox_ctr_out_bump_DelayHoldHigh = new System.Windows.Forms.TextBox();
+            this.label_ctr_out_bump_DPHigh = new System.Windows.Forms.Label();
             this.label_ctr_out_bump_move = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_MoveTime = new System.Windows.Forms.TextBox();
-            this.textBox_ctr_out_bump_DelayHold = new System.Windows.Forms.TextBox();
-            this.label_ctr_out_bump_DelayPeriod = new System.Windows.Forms.Label();
+            this.textBox_ctr_out_bump_DelayHoldLow = new System.Windows.Forms.TextBox();
+            this.label_ctr_out_bump_DelayPeriodLow = new System.Windows.Forms.Label();
             this.label_ctr_out_bump_penalty = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_penalty = new System.Windows.Forms.TextBox();
             this.textBox_ctr_out_bump_intertrial = new System.Windows.Forms.TextBox();
@@ -1265,8 +1273,8 @@ namespace BehaviorGraphics
             this.label_ctr_out_bump_BumpHold = new System.Windows.Forms.Label();
             this.label_ctr_out_bump_BumpDelay = new System.Windows.Forms.Label();
             this.label367 = new System.Windows.Forms.Label();
-            this.textBox_ctr_out_bump_CTHold = new System.Windows.Forms.TextBox();
-            this.label_ctr_out_bump_CTHold = new System.Windows.Forms.Label();
+            this.textBox_ctr_out_bump_CTHoldLow = new System.Windows.Forms.TextBox();
+            this.label_ctr_out_bump_CHLow = new System.Windows.Forms.Label();
             this.tabDynamicCO = new System.Windows.Forms.TabPage();
             this.groupBoxDCOCursor = new System.Windows.Forms.GroupBox();
             this.checkBoxDCOBC = new System.Windows.Forms.CheckBox();
@@ -2041,10 +2049,6 @@ namespace BehaviorGraphics
             this.label_CT_hold = new System.Windows.Forms.Label();
             this.textBox52b = new System.Windows.Forms.TextBox();
             this.label_CT_hold2 = new System.Windows.Forms.Label();
-            this.checkBox_ctr_out_bump_BiDirectionalBumps = new System.Windows.Forms.CheckBox();
-            this.label_ctr_out_bump_hideCursorMax = new System.Windows.Forms.Label();
-            this.textBox_ctr_out_bump_HideCursorRadiusMax = new System.Windows.Forms.TextBox();
-            this.checkBox_ctr_out_bump_AbortDuringBump = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -5248,8 +5252,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -6081,8 +6085,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -14261,6 +14265,38 @@ namespace BehaviorGraphics
             this.groupBox76.TabStop = false;
             this.groupBox76.Text = "Cursor";
             // 
+            // checkBox_ctr_out_bump_AbortDuringBump
+            // 
+            this.checkBox_ctr_out_bump_AbortDuringBump.AutoSize = true;
+            this.checkBox_ctr_out_bump_AbortDuringBump.Location = new System.Drawing.Point(6, 105);
+            this.checkBox_ctr_out_bump_AbortDuringBump.Name = "checkBox_ctr_out_bump_AbortDuringBump";
+            this.checkBox_ctr_out_bump_AbortDuringBump.Size = new System.Drawing.Size(134, 17);
+            this.checkBox_ctr_out_bump_AbortDuringBump.TabIndex = 34;
+            this.checkBox_ctr_out_bump_AbortDuringBump.Text = "Hidden Cursor Training";
+            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_AbortDuringBump, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_ctr_out_bump_AbortDuringBump.UseVisualStyleBackColor = true;
+            // 
+            // label_ctr_out_bump_hideCursorMax
+            // 
+            this.label_ctr_out_bump_hideCursorMax.AutoSize = true;
+            this.label_ctr_out_bump_hideCursorMax.Location = new System.Drawing.Point(6, 68);
+            this.label_ctr_out_bump_hideCursorMax.Name = "label_ctr_out_bump_hideCursorMax";
+            this.label_ctr_out_bump_hideCursorMax.Size = new System.Drawing.Size(79, 13);
+            this.label_ctr_out_bump_hideCursorMax.TabIndex = 33;
+            this.label_ctr_out_bump_hideCursorMax.Text = "hideCursor max";
+            this.toolTip1.SetToolTip(this.label_ctr_out_bump_hideCursorMax, "radius from the center after which the cursor will reappear. given as a 0-1 value" +
+                    " that is a fraction of the target distance");
+            // 
+            // textBox_ctr_out_bump_HideCursorRadiusMax
+            // 
+            this.textBox_ctr_out_bump_HideCursorRadiusMax.Location = new System.Drawing.Point(108, 65);
+            this.textBox_ctr_out_bump_HideCursorRadiusMax.Name = "textBox_ctr_out_bump_HideCursorRadiusMax";
+            this.textBox_ctr_out_bump_HideCursorRadiusMax.Size = new System.Drawing.Size(82, 20);
+            this.textBox_ctr_out_bump_HideCursorRadiusMax.TabIndex = 32;
+            this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_HideCursorRadiusMax, "radius from the center after which the cursor is hidden. given as a 0-1 value tha" +
+                    "t is a fraction of the target distance");
+            // 
             // checkBox_ctr_out_bump_HiddenCursorTraining
             // 
             this.checkBox_ctr_out_bump_HiddenCursorTraining.AutoSize = true;
@@ -14546,6 +14582,18 @@ namespace BehaviorGraphics
             this.groupBox74.TabIndex = 24;
             this.groupBox74.TabStop = false;
             this.groupBox74.Text = "Bump";
+            // 
+            // checkBox_ctr_out_bump_BiDirectionalBumps
+            // 
+            this.checkBox_ctr_out_bump_BiDirectionalBumps.AutoSize = true;
+            this.checkBox_ctr_out_bump_BiDirectionalBumps.Location = new System.Drawing.Point(206, 22);
+            this.checkBox_ctr_out_bump_BiDirectionalBumps.Name = "checkBox_ctr_out_bump_BiDirectionalBumps";
+            this.checkBox_ctr_out_bump_BiDirectionalBumps.Size = new System.Drawing.Size(121, 17);
+            this.checkBox_ctr_out_bump_BiDirectionalBumps.TabIndex = 140;
+            this.checkBox_ctr_out_bump_BiDirectionalBumps.Text = "bi-Directional bumps";
+            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_BiDirectionalBumps, "when checked the behavior will present bumps both clockwise and anticlockwise of " +
+                    "the target angle");
+            this.checkBox_ctr_out_bump_BiDirectionalBumps.UseVisualStyleBackColor = true;
             // 
             // label_ctr_out_bump_MBumpRate
             // 
@@ -14960,10 +15008,14 @@ namespace BehaviorGraphics
             // 
             // groupBox75
             // 
+            this.groupBox75.Controls.Add(this.textBox_ctr_out_bump_CTHoldHigh);
+            this.groupBox75.Controls.Add(this.label_ctr_out_bump_CHHigh);
+            this.groupBox75.Controls.Add(this.textBox_ctr_out_bump_DelayHoldHigh);
+            this.groupBox75.Controls.Add(this.label_ctr_out_bump_DPHigh);
             this.groupBox75.Controls.Add(this.label_ctr_out_bump_move);
             this.groupBox75.Controls.Add(this.textBox_ctr_out_bump_MoveTime);
-            this.groupBox75.Controls.Add(this.textBox_ctr_out_bump_DelayHold);
-            this.groupBox75.Controls.Add(this.label_ctr_out_bump_DelayPeriod);
+            this.groupBox75.Controls.Add(this.textBox_ctr_out_bump_DelayHoldLow);
+            this.groupBox75.Controls.Add(this.label_ctr_out_bump_DelayPeriodLow);
             this.groupBox75.Controls.Add(this.label_ctr_out_bump_penalty);
             this.groupBox75.Controls.Add(this.textBox_ctr_out_bump_penalty);
             this.groupBox75.Controls.Add(this.textBox_ctr_out_bump_intertrial);
@@ -14973,19 +15025,53 @@ namespace BehaviorGraphics
             this.groupBox75.Controls.Add(this.label_ctr_out_bump_BumpHold);
             this.groupBox75.Controls.Add(this.label_ctr_out_bump_BumpDelay);
             this.groupBox75.Controls.Add(this.label367);
-            this.groupBox75.Controls.Add(this.textBox_ctr_out_bump_CTHold);
-            this.groupBox75.Controls.Add(this.label_ctr_out_bump_CTHold);
-            this.groupBox75.Location = new System.Drawing.Point(28, 6);
+            this.groupBox75.Controls.Add(this.textBox_ctr_out_bump_CTHoldLow);
+            this.groupBox75.Controls.Add(this.label_ctr_out_bump_CHLow);
+            this.groupBox75.Location = new System.Drawing.Point(23, 6);
             this.groupBox75.Name = "groupBox75";
-            this.groupBox75.Size = new System.Drawing.Size(196, 216);
+            this.groupBox75.Size = new System.Drawing.Size(201, 216);
             this.groupBox75.TabIndex = 23;
             this.groupBox75.TabStop = false;
             this.groupBox75.Text = "Timing";
             // 
+            // textBox_ctr_out_bump_CTHoldHigh
+            // 
+            this.textBox_ctr_out_bump_CTHoldHigh.Location = new System.Drawing.Point(96, 33);
+            this.textBox_ctr_out_bump_CTHoldHigh.Name = "textBox_ctr_out_bump_CTHoldHigh";
+            this.textBox_ctr_out_bump_CTHoldHigh.Size = new System.Drawing.Size(100, 20);
+            this.textBox_ctr_out_bump_CTHoldHigh.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_CTHoldHigh, "max time of the center hold in s before target presentation");
+            // 
+            // label_ctr_out_bump_CHHigh
+            // 
+            this.label_ctr_out_bump_CHHigh.AutoSize = true;
+            this.label_ctr_out_bump_CHHigh.Location = new System.Drawing.Point(6, 36);
+            this.label_ctr_out_bump_CHHigh.Name = "label_ctr_out_bump_CHHigh";
+            this.label_ctr_out_bump_CHHigh.Size = new System.Drawing.Size(69, 13);
+            this.label_ctr_out_bump_CHHigh.TabIndex = 17;
+            this.label_ctr_out_bump_CHHigh.Text = "CT Hold high";
+            // 
+            // textBox_ctr_out_bump_DelayHoldHigh
+            // 
+            this.textBox_ctr_out_bump_DelayHoldHigh.Location = new System.Drawing.Point(96, 77);
+            this.textBox_ctr_out_bump_DelayHoldHigh.Name = "textBox_ctr_out_bump_DelayHoldHigh";
+            this.textBox_ctr_out_bump_DelayHoldHigh.Size = new System.Drawing.Size(100, 20);
+            this.textBox_ctr_out_bump_DelayHoldHigh.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_DelayHoldHigh, "maximum time of the delay period hold in s after target presentation");
+            // 
+            // label_ctr_out_bump_DPHigh
+            // 
+            this.label_ctr_out_bump_DPHigh.AutoSize = true;
+            this.label_ctr_out_bump_DPHigh.Location = new System.Drawing.Point(6, 80);
+            this.label_ctr_out_bump_DPHigh.Name = "label_ctr_out_bump_DPHigh";
+            this.label_ctr_out_bump_DPHigh.Size = new System.Drawing.Size(89, 13);
+            this.label_ctr_out_bump_DPHigh.TabIndex = 15;
+            this.label_ctr_out_bump_DPHigh.Text = "Delay period high";
+            // 
             // label_ctr_out_bump_move
             // 
             this.label_ctr_out_bump_move.AutoSize = true;
-            this.label_ctr_out_bump_move.Location = new System.Drawing.Point(6, 66);
+            this.label_ctr_out_bump_move.Location = new System.Drawing.Point(6, 103);
             this.label_ctr_out_bump_move.Name = "label_ctr_out_bump_move";
             this.label_ctr_out_bump_move.Size = new System.Drawing.Size(57, 13);
             this.label_ctr_out_bump_move.TabIndex = 14;
@@ -14993,33 +15079,33 @@ namespace BehaviorGraphics
             // 
             // textBox_ctr_out_bump_MoveTime
             // 
-            this.textBox_ctr_out_bump_MoveTime.Location = new System.Drawing.Point(90, 62);
+            this.textBox_ctr_out_bump_MoveTime.Location = new System.Drawing.Point(96, 99);
             this.textBox_ctr_out_bump_MoveTime.Name = "textBox_ctr_out_bump_MoveTime";
             this.textBox_ctr_out_bump_MoveTime.Size = new System.Drawing.Size(100, 20);
             this.textBox_ctr_out_bump_MoveTime.TabIndex = 13;
             this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_MoveTime, "Time allowed in s after go-cue before the trial ends as incomplete");
             // 
-            // textBox_ctr_out_bump_DelayHold
+            // textBox_ctr_out_bump_DelayHoldLow
             // 
-            this.textBox_ctr_out_bump_DelayHold.Location = new System.Drawing.Point(90, 37);
-            this.textBox_ctr_out_bump_DelayHold.Name = "textBox_ctr_out_bump_DelayHold";
-            this.textBox_ctr_out_bump_DelayHold.Size = new System.Drawing.Size(100, 20);
-            this.textBox_ctr_out_bump_DelayHold.TabIndex = 12;
-            this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_DelayHold, "Time of the delay period hold in s after target presentation");
+            this.textBox_ctr_out_bump_DelayHoldLow.Location = new System.Drawing.Point(96, 55);
+            this.textBox_ctr_out_bump_DelayHoldLow.Name = "textBox_ctr_out_bump_DelayHoldLow";
+            this.textBox_ctr_out_bump_DelayHoldLow.Size = new System.Drawing.Size(100, 20);
+            this.textBox_ctr_out_bump_DelayHoldLow.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_DelayHoldLow, "minimum time of the delay period hold in s after target presentation");
             // 
-            // label_ctr_out_bump_DelayPeriod
+            // label_ctr_out_bump_DelayPeriodLow
             // 
-            this.label_ctr_out_bump_DelayPeriod.AutoSize = true;
-            this.label_ctr_out_bump_DelayPeriod.Location = new System.Drawing.Point(6, 40);
-            this.label_ctr_out_bump_DelayPeriod.Name = "label_ctr_out_bump_DelayPeriod";
-            this.label_ctr_out_bump_DelayPeriod.Size = new System.Drawing.Size(66, 13);
-            this.label_ctr_out_bump_DelayPeriod.TabIndex = 11;
-            this.label_ctr_out_bump_DelayPeriod.Text = "Delay period";
+            this.label_ctr_out_bump_DelayPeriodLow.AutoSize = true;
+            this.label_ctr_out_bump_DelayPeriodLow.Location = new System.Drawing.Point(6, 58);
+            this.label_ctr_out_bump_DelayPeriodLow.Name = "label_ctr_out_bump_DelayPeriodLow";
+            this.label_ctr_out_bump_DelayPeriodLow.Size = new System.Drawing.Size(85, 13);
+            this.label_ctr_out_bump_DelayPeriodLow.TabIndex = 11;
+            this.label_ctr_out_bump_DelayPeriodLow.Text = "Delay period low";
             // 
             // label_ctr_out_bump_penalty
             // 
             this.label_ctr_out_bump_penalty.AutoSize = true;
-            this.label_ctr_out_bump_penalty.Location = new System.Drawing.Point(6, 194);
+            this.label_ctr_out_bump_penalty.Location = new System.Drawing.Point(6, 195);
             this.label_ctr_out_bump_penalty.Name = "label_ctr_out_bump_penalty";
             this.label_ctr_out_bump_penalty.Size = new System.Drawing.Size(42, 13);
             this.label_ctr_out_bump_penalty.TabIndex = 10;
@@ -15027,7 +15113,7 @@ namespace BehaviorGraphics
             // 
             // textBox_ctr_out_bump_penalty
             // 
-            this.textBox_ctr_out_bump_penalty.Location = new System.Drawing.Point(90, 190);
+            this.textBox_ctr_out_bump_penalty.Location = new System.Drawing.Point(96, 191);
             this.textBox_ctr_out_bump_penalty.Name = "textBox_ctr_out_bump_penalty";
             this.textBox_ctr_out_bump_penalty.Size = new System.Drawing.Size(100, 20);
             this.textBox_ctr_out_bump_penalty.TabIndex = 9;
@@ -15035,7 +15121,7 @@ namespace BehaviorGraphics
             // 
             // textBox_ctr_out_bump_intertrial
             // 
-            this.textBox_ctr_out_bump_intertrial.Location = new System.Drawing.Point(90, 164);
+            this.textBox_ctr_out_bump_intertrial.Location = new System.Drawing.Point(96, 168);
             this.textBox_ctr_out_bump_intertrial.Name = "textBox_ctr_out_bump_intertrial";
             this.textBox_ctr_out_bump_intertrial.Size = new System.Drawing.Size(100, 20);
             this.textBox_ctr_out_bump_intertrial.TabIndex = 8;
@@ -15044,7 +15130,7 @@ namespace BehaviorGraphics
             // label_ctr_out_bump_intertrial
             // 
             this.label_ctr_out_bump_intertrial.AutoSize = true;
-            this.label_ctr_out_bump_intertrial.Location = new System.Drawing.Point(6, 167);
+            this.label_ctr_out_bump_intertrial.Location = new System.Drawing.Point(6, 171);
             this.label_ctr_out_bump_intertrial.Name = "label_ctr_out_bump_intertrial";
             this.label_ctr_out_bump_intertrial.Size = new System.Drawing.Size(44, 13);
             this.label_ctr_out_bump_intertrial.TabIndex = 7;
@@ -15052,7 +15138,7 @@ namespace BehaviorGraphics
             // 
             // textBox_ctr_out_bump_BumpHold
             // 
-            this.textBox_ctr_out_bump_BumpHold.Location = new System.Drawing.Point(90, 121);
+            this.textBox_ctr_out_bump_BumpHold.Location = new System.Drawing.Point(96, 145);
             this.textBox_ctr_out_bump_BumpHold.Name = "textBox_ctr_out_bump_BumpHold";
             this.textBox_ctr_out_bump_BumpHold.Size = new System.Drawing.Size(100, 20);
             this.textBox_ctr_out_bump_BumpHold.TabIndex = 6;
@@ -15060,7 +15146,7 @@ namespace BehaviorGraphics
             // 
             // textBox_ctr_out_bump_BumpDelay
             // 
-            this.textBox_ctr_out_bump_BumpDelay.Location = new System.Drawing.Point(90, 95);
+            this.textBox_ctr_out_bump_BumpDelay.Location = new System.Drawing.Point(96, 122);
             this.textBox_ctr_out_bump_BumpDelay.Name = "textBox_ctr_out_bump_BumpDelay";
             this.textBox_ctr_out_bump_BumpDelay.Size = new System.Drawing.Size(100, 20);
             this.textBox_ctr_out_bump_BumpDelay.TabIndex = 5;
@@ -15069,7 +15155,7 @@ namespace BehaviorGraphics
             // label_ctr_out_bump_BumpHold
             // 
             this.label_ctr_out_bump_BumpHold.AutoSize = true;
-            this.label_ctr_out_bump_BumpHold.Location = new System.Drawing.Point(6, 124);
+            this.label_ctr_out_bump_BumpHold.Location = new System.Drawing.Point(6, 148);
             this.label_ctr_out_bump_BumpHold.Name = "label_ctr_out_bump_BumpHold";
             this.label_ctr_out_bump_BumpHold.Size = new System.Drawing.Size(59, 13);
             this.label_ctr_out_bump_BumpHold.TabIndex = 4;
@@ -15078,7 +15164,7 @@ namespace BehaviorGraphics
             // label_ctr_out_bump_BumpDelay
             // 
             this.label_ctr_out_bump_BumpDelay.AutoSize = true;
-            this.label_ctr_out_bump_BumpDelay.Location = new System.Drawing.Point(6, 98);
+            this.label_ctr_out_bump_BumpDelay.Location = new System.Drawing.Point(6, 125);
             this.label_ctr_out_bump_BumpDelay.Name = "label_ctr_out_bump_BumpDelay";
             this.label_ctr_out_bump_BumpDelay.Size = new System.Drawing.Size(64, 13);
             this.label_ctr_out_bump_BumpDelay.TabIndex = 3;
@@ -15093,22 +15179,22 @@ namespace BehaviorGraphics
             this.label367.TabIndex = 2;
             this.label367.Text = "CT Hold";
             // 
-            // textBox_ctr_out_bump_CTHold
+            // textBox_ctr_out_bump_CTHoldLow
             // 
-            this.textBox_ctr_out_bump_CTHold.Location = new System.Drawing.Point(90, 13);
-            this.textBox_ctr_out_bump_CTHold.Name = "textBox_ctr_out_bump_CTHold";
-            this.textBox_ctr_out_bump_CTHold.Size = new System.Drawing.Size(100, 20);
-            this.textBox_ctr_out_bump_CTHold.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_CTHold, "Time of the center hold in s before target presentation");
+            this.textBox_ctr_out_bump_CTHoldLow.Location = new System.Drawing.Point(96, 11);
+            this.textBox_ctr_out_bump_CTHoldLow.Name = "textBox_ctr_out_bump_CTHoldLow";
+            this.textBox_ctr_out_bump_CTHoldLow.Size = new System.Drawing.Size(100, 20);
+            this.textBox_ctr_out_bump_CTHoldLow.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_CTHoldLow, "min time of the center hold in s before target presentation");
             // 
-            // label_ctr_out_bump_CTHold
+            // label_ctr_out_bump_CHLow
             // 
-            this.label_ctr_out_bump_CTHold.AutoSize = true;
-            this.label_ctr_out_bump_CTHold.Location = new System.Drawing.Point(6, 16);
-            this.label_ctr_out_bump_CTHold.Name = "label_ctr_out_bump_CTHold";
-            this.label_ctr_out_bump_CTHold.Size = new System.Drawing.Size(46, 13);
-            this.label_ctr_out_bump_CTHold.TabIndex = 0;
-            this.label_ctr_out_bump_CTHold.Text = "CT Hold";
+            this.label_ctr_out_bump_CHLow.AutoSize = true;
+            this.label_ctr_out_bump_CHLow.Location = new System.Drawing.Point(6, 14);
+            this.label_ctr_out_bump_CHLow.Name = "label_ctr_out_bump_CHLow";
+            this.label_ctr_out_bump_CHLow.Size = new System.Drawing.Size(65, 13);
+            this.label_ctr_out_bump_CHLow.TabIndex = 0;
+            this.label_ctr_out_bump_CHLow.Text = "CT Hold low";
             // 
             // tabDynamicCO
             // 
@@ -20058,7 +20144,7 @@ namespace BehaviorGraphics
             // toolStripStatusLabelMdl
             // 
             this.toolStripStatusLabelMdl.Name = "toolStripStatusLabelMdl";
-            this.toolStripStatusLabelMdl.Size = new System.Drawing.Size(86, 17);
+            this.toolStripStatusLabelMdl.Size = new System.Drawing.Size(99, 17);
             this.toolStripStatusLabelMdl.Text = "No model loaded";
             // 
             // toolStripProgressBar1
@@ -20091,14 +20177,14 @@ namespace BehaviorGraphics
             this.toolStripSeparator2,
             this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -20106,7 +20192,7 @@ namespace BehaviorGraphics
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -20115,30 +20201,30 @@ namespace BehaviorGraphics
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
                         | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(183, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(183, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.quitToolStripMenuItem.Text = "&Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quit);
             // 
@@ -20148,13 +20234,13 @@ namespace BehaviorGraphics
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -20168,27 +20254,27 @@ namespace BehaviorGraphics
             this.setLabToolStripMenuItem,
             this.keepGraphicsRunningToolStripMenuItem});
             this.displayToolStripMenuItem.Name = "displayToolStripMenuItem";
-            this.displayToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.displayToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.displayToolStripMenuItem.Text = "&Display";
             // 
             // boxToolStripMenuItem
             // 
             this.boxToolStripMenuItem.Name = "boxToolStripMenuItem";
-            this.boxToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.boxToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.boxToolStripMenuItem.Text = "&Box";
             this.boxToolStripMenuItem.Click += new System.EventHandler(this.boxToolStripMenuItem_Click);
             // 
             // boxSettingsToolStripMenuItem
             // 
             this.boxSettingsToolStripMenuItem.Name = "boxSettingsToolStripMenuItem";
-            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.boxSettingsToolStripMenuItem.Text = "Box &Settings...";
             this.boxSettingsToolStripMenuItem.Click += new System.EventHandler(this.boxSettingsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(181, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(194, 6);
             // 
             // soundThemeToolStripMenuItem
             // 
@@ -20198,7 +20284,7 @@ namespace BehaviorGraphics
             this.theme3ToolStripMenuItem,
             this.theme4ToolStripMenuItem});
             this.soundThemeToolStripMenuItem.Name = "soundThemeToolStripMenuItem";
-            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.soundThemeToolStripMenuItem.Text = "Sound &Theme";
             // 
             // theme1ToolStripMenuItem
@@ -20206,42 +20292,42 @@ namespace BehaviorGraphics
             this.theme1ToolStripMenuItem.Checked = true;
             this.theme1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.theme1ToolStripMenuItem.Name = "theme1ToolStripMenuItem";
-            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme1ToolStripMenuItem.Text = "Theme 1";
             this.theme1ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme2ToolStripMenuItem
             // 
             this.theme2ToolStripMenuItem.Name = "theme2ToolStripMenuItem";
-            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme2ToolStripMenuItem.Text = "Theme 2";
             this.theme2ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme3ToolStripMenuItem
             // 
             this.theme3ToolStripMenuItem.Name = "theme3ToolStripMenuItem";
-            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme3ToolStripMenuItem.Text = "Theme 3";
             this.theme3ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme4ToolStripMenuItem
             // 
             this.theme4ToolStripMenuItem.Name = "theme4ToolStripMenuItem";
-            this.theme4ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme4ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme4ToolStripMenuItem.Text = "Theme 4";
             this.theme4ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // setLabToolStripMenuItem
             // 
             this.setLabToolStripMenuItem.Name = "setLabToolStripMenuItem";
-            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.setLabToolStripMenuItem.Text = "Set &Lab...";
             this.setLabToolStripMenuItem.Click += new System.EventHandler(this.setLabToolStripMenuItem_Click);
             // 
             // keepGraphicsRunningToolStripMenuItem
             // 
             this.keepGraphicsRunningToolStripMenuItem.Name = "keepGraphicsRunningToolStripMenuItem";
-            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.keepGraphicsRunningToolStripMenuItem.Text = "&Keep Graphics Running";
             this.keepGraphicsRunningToolStripMenuItem.Click += new System.EventHandler(this.keepGraphicsRunningToolStripMenuItem_Click);
             // 
@@ -20251,14 +20337,14 @@ namespace BehaviorGraphics
             this.loadModelToolStripMenuItem,
             this.resetCountersToolStripMenuItem});
             this.modelToolStripMenuItem.Name = "modelToolStripMenuItem";
-            this.modelToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.modelToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.modelToolStripMenuItem.Text = "&Model";
             // 
             // loadModelToolStripMenuItem
             // 
             this.loadModelToolStripMenuItem.Name = "loadModelToolStripMenuItem";
             this.loadModelToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.loadModelToolStripMenuItem.Text = "&Load Model";
             this.loadModelToolStripMenuItem.Click += new System.EventHandler(this.loadModelToolStripMenuItem_Click);
             // 
@@ -20266,7 +20352,7 @@ namespace BehaviorGraphics
             // 
             this.resetCountersToolStripMenuItem.Name = "resetCountersToolStripMenuItem";
             this.resetCountersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.resetCountersToolStripMenuItem.Text = "&Reset Counters";
             this.resetCountersToolStripMenuItem.Click += new System.EventHandler(this.resetCountersToolStripMenuItem_Click);
             // 
@@ -22361,50 +22447,6 @@ namespace BehaviorGraphics
             this.label_CT_hold2.TabIndex = 0;
             this.label_CT_hold2.Text = "CT Hold";
             // 
-            // checkBox_ctr_out_bump_BiDirectionalBumps
-            // 
-            this.checkBox_ctr_out_bump_BiDirectionalBumps.AutoSize = true;
-            this.checkBox_ctr_out_bump_BiDirectionalBumps.Location = new System.Drawing.Point(206, 22);
-            this.checkBox_ctr_out_bump_BiDirectionalBumps.Name = "checkBox_ctr_out_bump_BiDirectionalBumps";
-            this.checkBox_ctr_out_bump_BiDirectionalBumps.Size = new System.Drawing.Size(121, 17);
-            this.checkBox_ctr_out_bump_BiDirectionalBumps.TabIndex = 140;
-            this.checkBox_ctr_out_bump_BiDirectionalBumps.Text = "bi-Directional bumps";
-            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_BiDirectionalBumps, "when checked the behavior will present bumps both clockwise and anticlockwise of " +
-                    "the target angle");
-            this.checkBox_ctr_out_bump_BiDirectionalBumps.UseVisualStyleBackColor = true;
-            // 
-            // label_ctr_out_bump_hideCursorMax
-            // 
-            this.label_ctr_out_bump_hideCursorMax.AutoSize = true;
-            this.label_ctr_out_bump_hideCursorMax.Location = new System.Drawing.Point(6, 68);
-            this.label_ctr_out_bump_hideCursorMax.Name = "label_ctr_out_bump_hideCursorMax";
-            this.label_ctr_out_bump_hideCursorMax.Size = new System.Drawing.Size(79, 13);
-            this.label_ctr_out_bump_hideCursorMax.TabIndex = 33;
-            this.label_ctr_out_bump_hideCursorMax.Text = "hideCursor max";
-            this.toolTip1.SetToolTip(this.label_ctr_out_bump_hideCursorMax, "radius from the center after which the cursor will reappear. given as a 0-1 value" +
-                    " that is a fraction of the target distance");
-            // 
-            // textBox_ctr_out_bump_HideCursorRadiusMax
-            // 
-            this.textBox_ctr_out_bump_HideCursorRadiusMax.Location = new System.Drawing.Point(108, 65);
-            this.textBox_ctr_out_bump_HideCursorRadiusMax.Name = "textBox_ctr_out_bump_HideCursorRadiusMax";
-            this.textBox_ctr_out_bump_HideCursorRadiusMax.Size = new System.Drawing.Size(82, 20);
-            this.textBox_ctr_out_bump_HideCursorRadiusMax.TabIndex = 32;
-            this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_HideCursorRadiusMax, "radius from the center after which the cursor is hidden. given as a 0-1 value tha" +
-                    "t is a fraction of the target distance");
-            // 
-            // checkBox_ctr_out_bump_AbortDuringBump
-            // 
-            this.checkBox_ctr_out_bump_AbortDuringBump.AutoSize = true;
-            this.checkBox_ctr_out_bump_AbortDuringBump.Location = new System.Drawing.Point(6, 105);
-            this.checkBox_ctr_out_bump_AbortDuringBump.Name = "checkBox_ctr_out_bump_AbortDuringBump";
-            this.checkBox_ctr_out_bump_AbortDuringBump.Size = new System.Drawing.Size(134, 17);
-            this.checkBox_ctr_out_bump_AbortDuringBump.TabIndex = 34;
-            this.checkBox_ctr_out_bump_AbortDuringBump.Text = "Hidden Cursor Training";
-            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_AbortDuringBump, "When checked the targets will appear at random angles between the specified floor" +
-                    " and ceiling values");
-            this.checkBox_ctr_out_bump_AbortDuringBump.UseVisualStyleBackColor = true;
-            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -22422,7 +22464,6 @@ namespace BehaviorGraphics
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "UpdateForm";
             this.Text = "Update Target";
-            this.Load += new System.EventHandler(this.UpdateForm_Load);
             this.Shown += new System.EventHandler(this.UpdateForm_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.UpdateForm_DragDrop);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UpdateForm_FormClosed);
@@ -24004,8 +24045,8 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label_ctr_out_bump_BumpHold;
         private System.Windows.Forms.Label label_ctr_out_bump_BumpDelay;
         private System.Windows.Forms.Label label367;
-        private System.Windows.Forms.TextBox textBox_ctr_out_bump_CTHold;
-        private System.Windows.Forms.Label label_ctr_out_bump_CTHold;
+        private System.Windows.Forms.TextBox textBox_ctr_out_bump_CTHoldLow;
+        private System.Windows.Forms.Label label_ctr_out_bump_CHLow;
         private System.Windows.Forms.Label label_ctr_out_bump_TargetAngleIncr;
         private System.Windows.Forms.TextBox textBox_ctr_out_bump_TargetIncr;
         private System.Windows.Forms.CheckBox checkBoxUFPC;
@@ -24783,11 +24824,15 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBox_ctr_out_bump_CHBumpRate;
         private System.Windows.Forms.Label label_ctr_out_bump_move;
         private System.Windows.Forms.TextBox textBox_ctr_out_bump_MoveTime;
-        private System.Windows.Forms.TextBox textBox_ctr_out_bump_DelayHold;
-        private System.Windows.Forms.Label label_ctr_out_bump_DelayPeriod;
+        private System.Windows.Forms.TextBox textBox_ctr_out_bump_DelayHoldLow;
+        private System.Windows.Forms.Label label_ctr_out_bump_DelayPeriodLow;
         private System.Windows.Forms.CheckBox checkBox_ctr_out_bump_BiDirectionalBumps;
         private System.Windows.Forms.Label label_ctr_out_bump_hideCursorMax;
         private System.Windows.Forms.TextBox textBox_ctr_out_bump_HideCursorRadiusMax;
         private System.Windows.Forms.CheckBox checkBox_ctr_out_bump_AbortDuringBump;
+        private System.Windows.Forms.TextBox textBox_ctr_out_bump_CTHoldHigh;
+        private System.Windows.Forms.Label label_ctr_out_bump_CHHigh;
+        private System.Windows.Forms.TextBox textBox_ctr_out_bump_DelayHoldHigh;
+        private System.Windows.Forms.Label label_ctr_out_bump_DPHigh;
     }
 }
