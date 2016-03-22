@@ -922,8 +922,8 @@ namespace BehaviorGraphics
 
             //cursor info
             AddParamListItem("COB hide cursor", "P17", "Behavior CO Bump", checkBox_ctr_out_bump_HideCursor);
-            AddParamListItem("COB hide cursor radius", "P18", "Behavior CO Bump", textBox_ctr_out_bump_HideCursorRadiusMin);
-            AddParamListItem("COB hide cursor radius", "P19", "Behavior CO Bump", textBox_ctr_out_bump_HideCursorRadiusMax);
+            AddParamListItem("COB hide cursor radius min", "P18", "Behavior CO Bump", textBox_ctr_out_bump_HideCursorRadiusMin);
+            AddParamListItem("COB hide cursor radius max", "P19", "Behavior CO Bump", textBox_ctr_out_bump_HideCursorRadiusMax);
             AddParamListItem("COB hidden cursor training", "P20", "Behavior CO Bump", checkBox_ctr_out_bump_HiddenCursorTraining);
             AddParamListItem("COB abort during bump", "P21", "Behavior CO Bump", checkBox_ctr_out_bump_AbortDuringBump);
 

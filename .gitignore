@@ -81,12 +81,16 @@ Thumbs.db
 #xpc compile folders for our behaviors:
 src/target/*_slrt_rtw/*
 src/target/slprj/*
+src/target/slprj/slrt/*
+src/target/slprj/slrt/_sharedutils/*
 src/target/slrtnetboot.bat
 src/target/serPos.mexw64 
 src/target/Byte2Bits.mexw64
 src/target/serPos.mexw64
 src/target/Byte2Bits.mexw64
-
+bin/*.dlm
+bin/*.exe
+bin/*.lnk
 
 # graphics compilation objects:
 src/graphics/Graphics/obj/*
