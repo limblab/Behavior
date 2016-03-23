@@ -346,7 +346,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	//set the target direction
 	if ((int)this->params->use_random_targets) {
 		num_tgt_dirs = (int)floor((this->params->target_ceiling - this->params->target_floor)/this->params->target_incr);
-		tgt_num=this->random->getInteger(0,num_tgt_dirs)
+		tgt_num=this->random->getInteger(0,num_tgt_dirs);
 		this->tgt_angle = (int)this->params->target_floor + (int)this->params->target_incr * tgt_num;
 	} else {
 		this->tgt_angle = (int)((180/PI)*(this->params->target_angle)) % 360;
