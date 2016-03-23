@@ -371,15 +371,16 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 		}
 	//pick what type of bump this is:
 		if(this->do_bump){
-			//get the sum of the values for flagged bump types:
+			//get the sum of the rate values for flagged bump types:
 			bump_rate_denom=0.0;
 			if(this->params->do_CH_bump){
-				bump_rate_denom+=this->params->CH_bump_rate;
+				bump_rate_denom= bump_rate_denom + this->params->CH_bump_rate;
 			} else if(this->params->do_DP_bump){
-				bump_rate_denom+=this->params->DP_bump_rate;
+				bump_rate_denom= bump_rate_denom + this->params->DP_bump_rate;
 			} else if(this->params->do_M_bump){
-				bump_rate_denom+=this->params->M_bump_rate;
+				bump_rate_denom= bump_rate_denom + this->params->M_bump_rate;
 			} 
+			//select what phase the bump will be in using the aggregate rates
 			temp=this->random->getDouble();
 			if(temp<=(this->params->CH_bump_rate)/bump_rate_denom){
 				this->CH_bump=true;
@@ -394,13 +395,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 				this->DP_bump=false;
 				this->M_bump=true;
 			}
-		} else {
-			this->CH_bump=false;
-			this->DP_bump=false;
-			this->M_bump=false;
-		}
-	//set up a bump direction relative to the target direction
-		if(this->do_bump){
+			//now set up a bump direction relative to the target direction based on the configuration for the selected phase
 			if(CH_bump){
 				num_bump_dirs = (int)((this->params->CH_bump_dir_ceil - this->params->CH_bump_dir_floor)/this->params->CH_bump_dir_incr);
 				bump_dir=(int)this->params->CH_bump_dir_floor+(int)this->params->CH_bump_dir_incr * this->random->getInteger(0,num_bump_dirs);
@@ -420,11 +415,15 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 				this->bump->rise_time = params->M_bump_ramp;
 				this->bump->peak_magnitude = params->M_bump_magnitude;
 			}
+		} else {
+			this->CH_bump=false;
+			this->DP_bump=false;
+			this->M_bump=false;
 		}
 		if( this->params->bi_directional_bumps){
 			num_bump_dirs*=2;
-			if(this->random->getDouble(0,1)){
-				bump_dir+=180;
+			if(this->random->getBool()){
+				bump_dir=(bump_dir+180)%360;
 			}
 		}
 		this->bump->direction = ((double)(this->tgt_angle + this->bump_dir)) * PI/180;
@@ -514,17 +513,18 @@ void COBumpBehavior::update(SimStruct *S) {
 			if (!centerTarget->cursorInTarget(inputs->cursor)) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			} else if (stateTimer->elapsedTime(S) > this->ctr_hold) {
-				if(this->CH_bump){
-					bump->start(S);
-					setState(STATE_BUMP);
-				}else{
-					setState(STATE_DELAY);
-				}
+			} else if(this->CH_bump && stateTimer->elapsedTime(S)>this->params->bump_delay_time){
+				bump->start(S);
+				setState(STATE_BUMP);
+			}else if (stateTimer->elapsedTime(S) > this->ctr_hold) {
+				setState(STATE_DELAY);
 			}
 			break;
 		case STATE_DELAY:
-			if(this->DP_bump && stateTimer->elapsedTime(S) > this->params->bump_delay_time){
+			if(!centerTarget->cursorInTarget(inputs->cursor)){
+				playTone(TONE_ABORT);
+				setState(STATE_ABORT);
+			}else if(this->DP_bump && stateTimer->elapsedTime(S) > this->params->bump_delay_time){
 				bump->start(S);
 				setState(STATE_BUMP);
 			}else if(stateTimer->elapsedTime(S) > this->delay_hold){
