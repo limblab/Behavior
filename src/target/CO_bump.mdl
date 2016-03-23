@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1278"
+    ComputedModelVersion    "1.1279"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Mar 23 14:19:32 2016"
-  RTWModifiedTimeStamp	  380643550
-  ModelVersionFormat	  "1.%<AutoIncrement:1278>"
+  LastModifiedDate	  "Wed Mar 23 17:00:51 2016"
+  RTWModifiedTimeStamp	  380652765
+  ModelVersionFormat	  "1.%<AutoIncrement:1279>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -614,7 +614,7 @@ Model {
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
-		Dimension		13
+		Dimension		14
 		Cell			"GeneratePreprocessorConditionals"
 		Cell			"IncludeMdlTerminateFcn"
 		Cell			"SupportNonInlinedSFcns"
@@ -628,6 +628,7 @@ Model {
 		Cell			"SupportComplex"
 		Cell			"SupportAbsoluteTime"
 		Cell			"SupportContinuousTime"
+		Cell			"CombineOutputUpdateFcns"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
@@ -1048,8 +1049,8 @@ Model {
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_CO_bump"
-      Parameters	      "0 0 0 0 1 1 1 1 1 1 1 3 10 0 0 5 10 0 0 0 0 0 0 1 1 0 0 .1 .1 0 0 5 10 0 0 .1 .1 0 0 5 10 0 0 "
-      ".1 .1 0 0 5 10 0 3"
+      Parameters	      "0 0 0 0 1 1 1 1 1 1 1 3 10 3.14 0 5 10 0 0 0 0 0 0 1 1 0 0 .1 .1 0 0 5 10 0 0 .1 .1 0 0 5 10 0"
+      " 0 .1 .1 0 0 5 10 0 3"
       Object {
 	$PropName		"MaskObject"
 	$ObjectID		19
