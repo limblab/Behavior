@@ -5,6 +5,7 @@
 
 #pragma warning(disable: 4800)
 
+
 #define S_FUNCTION_NAME mastercon_3bc
 #define S_FUNCTION_LEVEL 2
 
