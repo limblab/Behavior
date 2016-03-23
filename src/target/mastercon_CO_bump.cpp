@@ -339,15 +339,17 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 void COBumpBehavior::doPreTrial(SimStruct *S) {
 	int num_tgt_dirs;	//number of target directions there will be between target floor and target ceiling
 	int num_bump_dirs;
+	int tgt_num;
 	double temp;
 	double bump_rate_denom;
 
-	num_tgt_dirs = (int)((this->params->target_ceiling - this->params->target_floor)/this->params->target_incr);
 	//set the target direction
 	if ((int)this->params->use_random_targets) {
-		this->tgt_angle = (int)this->params->target_floor + (int)this->params->target_incr * this->random->getInteger(0,num_tgt_dirs);
+		num_tgt_dirs = (int)floor((this->params->target_ceiling - this->params->target_floor)/this->params->target_incr);
+		tgt_num=this->random->getInteger(0,num_tgt_dirs)
+		this->tgt_angle = (int)this->params->target_floor + (int)this->params->target_incr * tgt_num;
 	} else {
-		this->tgt_angle = (int)((180/PI)*(this->params->target_angle));
+		this->tgt_angle = (int)((180/PI)*(this->params->target_angle)) % 360;
 	}
 
 	// Set up target locations, etc.
@@ -381,12 +383,12 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 				bump_rate_denom= bump_rate_denom + this->params->M_bump_rate;
 			} 
 			//select what phase the bump will be in using the aggregate rates
-			temp=this->random->getDouble();
-			if(temp<=(this->params->CH_bump_rate)/bump_rate_denom){
+			temp=this->random->getDouble(0,bump_rate_denom);
+			if(temp <= this->params->CH_bump_rate){
 				this->CH_bump=true;
 				this->DP_bump=false;
 				this->M_bump=false;
-			} else if(temp<=(this->params->CH_bump_rate+params->DP_bump_rate)/bump_rate_denom){
+			} else if(temp <= this->params->CH_bump_rate+params->DP_bump_rate){
 				this->CH_bump=false;
 				this->DP_bump=true;
 				this->M_bump=false;
