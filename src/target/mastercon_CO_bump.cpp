@@ -350,7 +350,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 		tgt_num=this->random->getInteger(0,num_tgt_dirs);
 		this->tgt_angle = (int)this->params->target_floor + (int)this->params->target_incr * tgt_num;
 	} else {
-		this->tgt_angle = (int)((180/PI)*(this->params->target_angle)) % 360;
+		this->tgt_angle = (int)((180/PI)*(this->params->target_angle)) ;
 	}
 
 	// Set up target locations, etc.
@@ -359,6 +359,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	primaryTarget->radius = params->target_size;
 	primaryTarget->centerX = params->target_radius*cos((float)this->tgt_angle * PI/180);
 	primaryTarget->centerY = params->target_radius*sin((float)this->tgt_angle * PI/180);
+	
 	// Select whether this will be a stimulation trial 
 		this->stim_trial=(this->random->getDouble() < params->stim_prob);
 
@@ -385,15 +386,15 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 			} 
 			//select what phase the bump will be in using the aggregate rates
 			temp=this->random->getDouble(0,bump_rate_denom);
-			if(temp <= this->params->CH_bump_rate){
+			if(temp <= this->params->CH_bump_rate*(int)this->params->do_CH_bump){
 				this->CH_bump=true;
 				this->DP_bump=false;
 				this->M_bump=false;
-			} else if(temp <= this->params->CH_bump_rate+params->DP_bump_rate){
+			} else if(temp <= this->params->CH_bump_rate*(int)this->params->do_CH_bump+params->DP_bump_rate*(int)this->params->do_DP_bump){
 				this->CH_bump=false;
 				this->DP_bump=true;
 				this->M_bump=false;
-			} else {
+			} else { //no extra if-clause needed because we know this is a bump trial, and if we got here then move bumps must be enabled
 				this->CH_bump=false;
 				this->DP_bump=false;
 				this->M_bump=true;
