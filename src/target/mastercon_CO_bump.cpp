@@ -527,7 +527,7 @@ void COBumpBehavior::update(SimStruct *S) {
 			if(this->DP_bump && stateTimer->elapsedTime(S) > this->params->bump_delay_time){
 				bump->start(S);
 				setState(STATE_BUMP);
-			}else if(stateTimer->elapsedTime(S) > this->params->delay_hold){
+			}else if(stateTimer->elapsedTime(S) > this->delay_hold){
 				playTone(TONE_GO);
 				setState(STATE_MOVEMENT);
 			}
