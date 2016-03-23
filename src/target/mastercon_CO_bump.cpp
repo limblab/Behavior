@@ -160,8 +160,6 @@ private:
 	bool M_bump;
 
 	int bump_dir;
-    int bump_side;
-	float bumpmag_local;
     Point cursorOffset;
 
 	CosineBumpGenerator *bump;
@@ -169,11 +167,7 @@ private:
 	LocalParams *params;
 	real_T last_soft_reset;
 
-	bool training_trial;
 	int tgt_angle;
-	int bump_quadrent;
-	bool is_primary_target;
-	bool success_flag;
 	double reward_rate;
 	float ctr_hold;
 	float delay_hold;
@@ -322,7 +316,6 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	centerTarget = new CircleTarget();
 	primaryTarget = new CircleTarget(); 
  
-
 	centerTarget->color = Target::Color(128, 128, 128);
 	primaryTarget->color = Target::Color(160, 255, 0);
 
@@ -331,8 +324,16 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	this->stim_trial = false;
 	this->bump_dir = 0;
 	this->bump = new CosineBumpGenerator();
-	this->training_trial=0;
 	this->tgt_angle=0;
+
+	this->do_bump=false;
+	this->CH_bump=false;
+	this->DP_bump=false;
+	this->M_bump=false;
+
+	this->reward_rate=0.6;
+	this->ctr_hold=0.0;
+	this->delay_hold=0.0;
 }
 
 
@@ -360,14 +361,12 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	primaryTarget->centerY = params->target_radius*sin((float)this->tgt_angle * PI/180);
 	// Select whether this will be a stimulation trial 
 		this->stim_trial=(this->random->getDouble() < params->stim_prob);
-		if (this->stim_trial){
-			bumpmag_local=0;
-		}
 
 	//identify if this is a bump trial:
-		if(params->catch_rate>0 && (params->CH_bump_rate+params->DP_bump_rate+params->M_bump_rate)>0.001){
+		if(!this->stim_trial && params->catch_rate>0 && (params->CH_bump_rate+params->DP_bump_rate+params->M_bump_rate)>0.001){
 			this->do_bump=(this->random->getDouble()>params->catch_rate);
 		} else {
+			this->do_bump=false;
 			this->bump->peak_magnitude = 0;
 			this->bump->direction = -10000;
 		}
@@ -377,9 +376,11 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 			bump_rate_denom=0.0;
 			if(this->params->do_CH_bump){
 				bump_rate_denom= bump_rate_denom + this->params->CH_bump_rate;
-			} else if(this->params->do_DP_bump){
+			}
+			if(this->params->do_DP_bump){
 				bump_rate_denom= bump_rate_denom + this->params->DP_bump_rate;
-			} else if(this->params->do_M_bump){
+			}
+			if(this->params->do_M_bump){
 				bump_rate_denom= bump_rate_denom + this->params->M_bump_rate;
 			} 
 			//select what phase the bump will be in using the aggregate rates
@@ -437,10 +438,6 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	// Reset primary target color if needed
 		primaryTarget->color = Target::Color(255, 0, 160);
 	
-
-	/* reset the success flag*/
-		success_flag=false;
-
 	/* set the reward rate for this trial */
 		this->reward_rate=.6;
 
