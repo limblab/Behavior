@@ -102,6 +102,7 @@ struct LocalParams {
     real_T abort_during_bump;
 	real_T catch_rate;
 	real_T bi_directional_bumps;
+	real_T do_CH_bump;
 	real_T CH_bump_rate;
 	real_T CH_bump_peak_hold;
     real_T CH_bump_ramp;
@@ -109,6 +110,7 @@ struct LocalParams {
     real_T CH_bump_dir_floor;
     real_T CH_bump_dir_ceil;
     real_T CH_bump_dir_incr;
+	real_T do_DP_bump;
 	real_T DP_bump_rate;
 	real_T DP_bump_peak_hold;
     real_T DP_bump_ramp;
@@ -116,6 +118,7 @@ struct LocalParams {
     real_T DP_bump_dir_floor;
     real_T DP_bump_dir_ceil;
     real_T DP_bump_dir_incr;
+	real_T do_M_bump;
 	real_T M_bump_rate;
 	real_T M_bump_peak_hold;
     real_T M_bump_ramp;
