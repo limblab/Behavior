@@ -177,73 +177,11 @@ private:
 };
 
 COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
-
-
-	/* 
-	 * First, set up the parameters to be used 
-	 * variable spec from Graphics:
-	             //basic trial timing
-            AddParamListItem("COB ctr hold", "P3", "Behavior CO Bump", textBox_ctr_out_bump_CTHold);
-            AddParamListItem("COB delay hold", "P4", "Behavior CO Bump", textBox_ctr_out_bump_DelayHold);
-            AddParamListItem("COB move time", "P5", "Behavior CO Bump", textBox_ctr_out_bump_MoveTime);
-            AddParamListItem("COB bump delay", "P6", "Behavior CO Bump", textBox_ctr_out_bump_BumpDelay);
-            AddParamListItem("COB bump hold", "P7", "Behavior CO Bump", textBox_ctr_out_bump_BumpHold);
-            AddParamListItem("COB intertrial", "P8", "Behavior CO Bump", textBox_ctr_out_bump_intertrial);
-            AddParamListItem("COB penalty time", "P9", "Behavior CO Bump", textBox_ctr_out_bump_penalty);
-
-            //target info
-            AddParamListItem("COB target size", "P10", "Behavior CO Bump", textBox_ctr_out_bump_TargetRadius);
-            AddParamListItem("COB target radius", "11", "Behavior CO Bump", textBox_ctr_out_bump_TargetDistance);
-            AddParamListItem("COB target angle", "12", "Behavior CO Bump", angleEntryBox_ctr_out_bump);
-            AddParamListItem("COB target floor", "P13", "Behavior CO Bump", textBox_ctr_out_bump_TargetAngleFloor);
-            AddParamListItem("COB target ceiling", "P14", "Behavior CO Bump", textBox_ctr_out_bump_TargetAngleCeiling);
-            AddParamListItem("COB target incr", "P15", "Behavior CO Bump", textBox_ctr_out_bump_TargetIncr);
-            AddParamListItem("COB use rantom targets", "P16", "Behavior CO Bump", checkBox_ctr_out_bump_RandomTargets);
-
-            //cursor info
-            AddParamListItem("COB hide cursor", "P17", "Behavior CO Bump", checkBox_ctr_out_bump_HideCursor);
-            AddParamListItem("COB hide cursor radius", "P18", "Behavior CO Bump", textBox_ctr_out_bump_HideCursorRadiusMin);
-            AddParamListItem("COB hide cursor radius", "P19", "Behavior CO Bump", textBox_ctr_out_bump_HideCursorRadiusMax);
-            AddParamListItem("COB hidden cursor training", "P20", "Behavior CO Bump", checkBox_ctr_out_bump_HiddenCursorTraining);
-            AddParamListItem("COB abort during bump", "P21", "Behavior CO Bump", checkBox_ctr_out_bump_AbortDuringBump);
-
-            //bump info
-            AddParamListItem("COB catch rate", "P22", "Behavior CO Bump", textBox_ctr_out_bump_CatchRate);
-            AddParamListItem("COB bi directional bumps", "P23", "Behavior CO Bump", checkBox_ctr_out_bump_BiDirectionalBumps);
-
-            AddParamListItem("COB CHBump rate", "P24", "Behavior CO Bump", textBox_ctr_out_bump_CHBumpRate);
-            AddParamListItem("COB CHbump dur", "P25", "Behavior CO Bump", textBox_ctr_out_bump_CHPeakDuration);
-            AddParamListItem("COB CHbump ramp", "P26", "Behavior CO Bump", textBox_ctr_out_bump_CHRiseTime);
-            AddParamListItem("COB CHbump mag", "P27", "Behavior CO Bump", textBox_ctr_out_bump_CHAmplitude);
-            AddParamListItem("COB CHbumpdir floor", "P28", "Behavior CO Bump", textBox_ctr_out_bump_CHRandBumpFloor);
-            AddParamListItem("COB CHbumpdir ceiling", "P29", "Behavior CO Bump", textBox_ctr_out_bump_CHRandBumpCeiling);
-            AddParamListItem("COB CHbumpdir incr", "P30", "Behavior CO Bump", textBox_ctr_out_bump_CHBumpIncr);
-
-            AddParamListItem("COB DPBump rate", "P31", "Behavior CO Bump", textBox_ctr_out_bump_DPBumpRate);
-            AddParamListItem("COB DPbump dur", "P32", "Behavior CO Bump", textBox_ctr_out_bump_DPPeakDuration);
-            AddParamListItem("COB DPbump ramp", "P33", "Behavior CO Bump", textBox_ctr_out_bump_DPRiseTime);
-            AddParamListItem("COB DPbump mag", "P34", "Behavior CO Bump", textBox_ctr_out_bump_DPAmplitude);
-            AddParamListItem("COB DPbumpdir floor", "P35", "Behavior CO Bump", textBox_ctr_out_bump_DPRandBumpFloor);
-            AddParamListItem("COB DPbumpdir ceiling", "P36", "Behavior CO Bump", textBox_ctr_out_bump_DPRandBumpCeiling);
-            AddParamListItem("COB DPbumpdir incr", "P37", "Behavior CO Bump", textBox_ctr_out_bump_DPBumpIncr);
-
-            AddParamListItem("COB MBump rate", "P38", "Behavior CO Bump", textBox_ctr_out_bump_MBumpRate);
-            AddParamListItem("COB Mbump dur", "P39", "Behavior CO Bump", textBox_ctr_out_bump_MPeakDuration);
-            AddParamListItem("COB Mbump ramp", "P40", "Behavior CO Bump", textBox_ctr_out_bump_MRiseTime);
-            AddParamListItem("COB Mbump mag", "P41", "Behavior CO Bump", textBox_ctr_out_bump_MAmplitude);
-            AddParamListItem("COB Mbumpdir floor", "P42", "Behavior CO Bump", textBox_ctr_out_bump_MRandBumpFloor);
-            AddParamListItem("COB Mbumpdir ceiling", "P43", "Behavior CO Bump", textBox_ctr_out_bump_MRandBumpCeiling);
-            AddParamListItem("COB Mbumpdir incr", "P44", "Behavior CO Bump", textBox_ctr_out_bump_MBumpIncr);
-
-            //stim info
-            AddParamListItem("COB stim prob", "P45", "Behavior CO Bump", textBox_ctr_out_bump_StimProb);
-            AddParamListItem("COB stim levels", "P46", "Behavior CO Bump", textBox_ctr_out_bump_StimLevels);
-	 */
 	// Create your *params object
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(52);
+	this->setNumParams(54);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
 	this->bindParamId(&params->soft_reset,				1);
@@ -262,7 +200,7 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->target_angle,			13);
 	this->bindParamId(&params->target_floor,			14);
 	this->bindParamId(&params->target_ceiling,			15);
-	this->bindParamId(&params->target_incr,				16);
+	this->bindParamId(&params->num_tgts,				16);
 	this->bindParamId(&params->use_random_targets,		17);
     this->bindParamId(&params->target_angle_offset,		18);
     
@@ -340,16 +278,15 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 
 void COBumpBehavior::doPreTrial(SimStruct *S) {
 	int num_tgt_dirs;	//number of target directions there will be between target floor and target ceiling
-	int num_bump_dirs;
+	int tgt_sep;
 	int tgt_num;
 	double temp;
 	double bump_rate_denom;
 
 	//set the target direction
 	if ((int)this->params->use_random_targets) {
-		num_tgt_dirs = (int)floor((this->params->target_ceiling - this->params->target_floor)/this->params->target_incr);
-		tgt_num=this->random->getInteger(0,num_tgt_dirs);
-		this->tgt_angle = (int)this->params->target_floor + (int)this->params->target_incr * tgt_num;
+		tgt_sep = (int)floor((this->params->target_ceiling - this->params->target_floor)/this->params->num_tgt);
+		this->tgt_angle = (int)this->params->target_floor + (int)this->params->num_tgt*tgt_sep;
 	} else {
 		this->tgt_angle = (int)((180/PI)*(this->params->target_angle)) ;
 	}
@@ -365,7 +302,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 		this->stim_trial=(this->random->getDouble() < params->stim_prob);
 
 	//identify if this is a bump trial:
-		if(!this->stim_trial && params->catch_rate>0 && (params->CH_bump_rate+params->DP_bump_rate+params->M_bump_rate)>0.001){
+		if(!this->stim_trial && this->params->catch_rate<1 && (this->params->do_CH_bump || this->params->do_DP_bump || this->params->do_M_bump)){
 			this->do_bump=(this->random->getDouble()>params->catch_rate);
 		} else {
 			this->do_bump=false;
@@ -387,11 +324,11 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 			} 
 			//select what phase the bump will be in using the aggregate rates
 			temp=this->random->getDouble(0,bump_rate_denom);
-			if(temp <= this->params->CH_bump_rate*(int)this->params->do_CH_bump){
+			if(temp <= (this->params->CH_bump_rate*(int)this->params->do_CH_bump)){
 				this->CH_bump=true;
 				this->DP_bump=false;
 				this->M_bump=false;
-			} else if(temp <= this->params->CH_bump_rate*(int)this->params->do_CH_bump+params->DP_bump_rate*(int)this->params->do_DP_bump){
+			} else if(temp <= (this->params->CH_bump_rate*(int)this->params->do_CH_bump + this->params->DP_bump_rate*(int)this->params->do_DP_bump)){
 				this->CH_bump=false;
 				this->DP_bump=true;
 				this->M_bump=false;
@@ -401,45 +338,44 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 				this->M_bump=true;
 			}
 			//now set up a bump direction relative to the target direction based on the configuration for the selected phase
-			if(CH_bump){
+			if(this->CH_bump){
 				num_bump_dirs = (int)((this->params->CH_bump_dir_ceil - this->params->CH_bump_dir_floor)/this->params->CH_bump_dir_incr);
 				bump_dir=(int)this->params->CH_bump_dir_floor+(int)this->params->CH_bump_dir_incr * this->random->getInteger(0,num_bump_dirs);
-				this->bump->hold_duration = params->CH_bump_peak_hold;
-				this->bump->rise_time = params->CH_bump_ramp;
-				this->bump->peak_magnitude = params->CH_bump_magnitude;
-			} else if(DP_bump){
+				this->bump->hold_duration = this->params->CH_bump_peak_hold;
+				this->bump->rise_time = this->params->CH_bump_ramp;
+				this->bump->peak_magnitude = this->params->CH_bump_magnitude;
+			} else if(this->DP_bump){
 				num_bump_dirs = (int)((this->params->DP_bump_dir_ceil - this->params->DP_bump_dir_floor)/this->params->DP_bump_dir_incr);
 				bump_dir=(int)this->params->DP_bump_dir_floor+(int)this->params->DP_bump_dir_incr * this->random->getInteger(0,num_bump_dirs);
-				this->bump->hold_duration = params->DP_bump_peak_hold;
-				this->bump->rise_time = params->DP_bump_ramp;
-				this->bump->peak_magnitude = params->DP_bump_magnitude;
+				this->bump->hold_duration = this->params->DP_bump_peak_hold;
+				this->bump->rise_time = this->params->DP_bump_ramp;
+				this->bump->peak_magnitude = this->params->DP_bump_magnitude;
 			} else{
 				num_bump_dirs = (int)((this->params->M_bump_dir_ceil - this->params->M_bump_dir_floor)/this->params->M_bump_dir_incr);
 				bump_dir=(int)this->params->M_bump_dir_floor+(int)this->params->M_bump_dir_incr * this->random->getInteger(0,num_bump_dirs);
-				this->bump->hold_duration = params->M_bump_peak_hold;
-				this->bump->rise_time = params->M_bump_ramp;
-				this->bump->peak_magnitude = params->M_bump_magnitude;
+				this->bump->hold_duration = this->params->M_bump_peak_hold;
+				this->bump->rise_time = this->params->M_bump_ramp;
+				this->bump->peak_magnitude = this->params->M_bump_magnitude;
 			}
+			if( this->params->bi_directional_bumps){
+				num_bump_dirs*=2;
+				if(this->random->getBool()){
+					bump_dir=(bump_dir+180)%360;
+				}
+			}
+			this->bump->direction = ((double)(this->tgt_angle + this->bump_dir)) * PI/180;
 		} else {
 			this->CH_bump=false;
 			this->DP_bump=false;
 			this->M_bump=false;
 		}
-		if( this->params->bi_directional_bumps){
-			num_bump_dirs*=2;
-			if(this->random->getBool()){
-				bump_dir=(bump_dir+180)%360;
-			}
-		}
-		this->bump->direction = ((double)(this->tgt_angle + this->bump_dir)) * PI/180;
-    		
+		
 	//select the actual center hold time
 		this->ctr_hold=this->params->CH_low+(float)this->random->getDouble((double)this->params->CH_low,(double)this->params->CH_high);
 	//select the actual delay period hold
 		this->delay_hold=this->params->DP_low+(float)this->random->getDouble((double)this->params->DP_low,(double)this->params->DP_high);
 	// Reset primary target color if needed
 		primaryTarget->color = Target::Color(255, 0, 160);
-	
 	/* set the reward rate for this trial */
 		this->reward_rate=.6;
 
@@ -545,18 +481,7 @@ void COBumpBehavior::update(SimStruct *S) {
     			setState(STATE_INCOMPLETE);
        		}
 			
-			break;
-		case STATE_STIM:
-			if (stateTimer->elapsedTime(S) > this->params->bump_hold_time){
-				if (this->random->getDouble() < this->reward_rate){
-					playTone(TONE_REWARD);
-					setState(STATE_REWARD);
-				} else {
-					playTone(TONE_FAIL);
-					setState(STATE_PENALTY);
-				}
-            } 
-			break;            
+			break;         
 		case STATE_BUMP:
             if(stateTimer->elapsedTime(S) > this->params->bump_hold_time) {
 				if(this->CH_bump){
@@ -573,6 +498,17 @@ void COBumpBehavior::update(SimStruct *S) {
 				setState(STATE_INCOMPLETE);
 			}
 			break;
+		case STATE_STIM:
+			if (stateTimer->elapsedTime(S) > this->params->bump_hold_time){
+				if (this->random->getDouble() < this->reward_rate){
+					playTone(TONE_REWARD);
+					setState(STATE_REWARD);
+				} else {
+					playTone(TONE_FAIL);
+					setState(STATE_PENALTY);
+				}
+            } 
+			break;   
 		case STATE_PENALTY:
 			if (stateTimer->elapsedTime(S) > this->params->penalty_time) {
 				setState(STATE_FAIL);
@@ -712,8 +648,6 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
     x_comp=inputs->cursor.x - centerTarget->centerX;
     y_comp=inputs->cursor.y - centerTarget->centerY;
 	radius=sqrt(x_comp*x_comp + y_comp*y_comp	)	/	params->target_radius;
-//     outputs->status[0] = (int)(radius*100);
-//     outputs->status[1] = (int)(params->hide_radius * 100);
     
     if (params->hide_cursor > .1) {
         if (params->hidden_cursor_training > .1){
@@ -737,13 +671,6 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
         outputs->position = inputs->cursor;
     }
     
-//     if (params->hidden_cursor_training && (getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM) && (params->hide_cursor > .1) && !centerTarget->cursorInTarget(inputs->cursor) && radius<params->hide_radius){
-//         outputs->position = Point(1E6, 1E6);
-// 	} else if (getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM || getState() == STATE_PRETRIAL) && (params->hide_cursor > .1)){
-//         outputs->position = Point(1E6, 1E6);
-//     } else {
-//         outputs->position = inputs->cursor;
-//     } 
 }
 /*
  * Include at bottom of your behavior code
