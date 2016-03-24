@@ -177,8 +177,6 @@ private:
 };
 
 COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
-
-
 	/* 
 	 * First, set up the parameters to be used 
 	 * variable spec from Graphics:
@@ -243,7 +241,7 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(52);
+	this->setNumParams(51);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
 	this->bindParamId(&params->soft_reset,				1);
@@ -264,45 +262,44 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->target_ceiling,			15);
 	this->bindParamId(&params->target_incr,				16);
 	this->bindParamId(&params->use_random_targets,		17);
-    this->bindParamId(&params->target_angle_offset,		18);
     
-	this->bindParamId(&params->hide_cursor,				19);
-	this->bindParamId(&params->hide_radius_min,			20);
-	this->bindParamId(&params->hide_radius_max,			21);
-    this->bindParamId(&params->hidden_cursor_training,  22);
-    this->bindParamId(&params->abort_during_bump,	    23);
+	this->bindParamId(&params->hide_cursor,				18);
+	this->bindParamId(&params->hide_radius_min,			19);
+	this->bindParamId(&params->hide_radius_max,			20);
+    this->bindParamId(&params->hidden_cursor_training,  21);
+    this->bindParamId(&params->abort_during_bump,	    22);
 
-	this->bindParamId(&params->catch_rate,				24);
-	this->bindParamId(&params->bi_directional_bumps,	25);
-	this->bindParamId(&params->do_CH_bump,				26);
-	this->bindParamId(&params->CH_bump_rate,			27);
-	this->bindParamId(&params->CH_bump_peak_hold,		28);
-    this->bindParamId(&params->CH_bump_ramp,			29);
-	this->bindParamId(&params->CH_bump_magnitude,		30);
-    this->bindParamId(&params->CH_bump_dir_floor,		31);
-    this->bindParamId(&params->CH_bump_dir_ceil,		32);
-    this->bindParamId(&params->CH_bump_dir_incr,		33);
-	
-	this->bindParamId(&params->do_DP_bump,				34);
-	this->bindParamId(&params->DP_bump_rate,			35);
-	this->bindParamId(&params->DP_bump_peak_hold,		36);
-    this->bindParamId(&params->DP_bump_ramp,			37);
-	this->bindParamId(&params->DP_bump_magnitude,		38);
-    this->bindParamId(&params->DP_bump_dir_floor,		39);
-    this->bindParamId(&params->DP_bump_dir_ceil,		40);
-    this->bindParamId(&params->DP_bump_dir_incr,		41);
+	this->bindParamId(&params->catch_rate,				23);
+	this->bindParamId(&params->bi_directional_bumps,	24);
+	this->bindParamId(&params->do_CH_bump,				25);
+	this->bindParamId(&params->CH_bump_rate,			26);
+	this->bindParamId(&params->CH_bump_peak_hold,		27);
+    this->bindParamId(&params->CH_bump_ramp,			28);
+	this->bindParamId(&params->CH_bump_magnitude,		29);
+    this->bindParamId(&params->CH_bump_dir_floor,		30);
+    this->bindParamId(&params->CH_bump_dir_ceil,		31);
+    this->bindParamId(&params->CH_bump_dir_incr,		32);
 
-	this->bindParamId(&params->do_M_bump,				42);
-	this->bindParamId(&params->M_bump_rate,				43);
-	this->bindParamId(&params->M_bump_peak_hold,		44);
-    this->bindParamId(&params->M_bump_ramp,				45);
-	this->bindParamId(&params->M_bump_magnitude,		46);
-    this->bindParamId(&params->M_bump_dir_floor,		47);
-    this->bindParamId(&params->M_bump_dir_ceil,			48);
-    this->bindParamId(&params->M_bump_dir_incr,			49);
+	this->bindParamId(&params->do_DP_bump,				33);
+	this->bindParamId(&params->DP_bump_rate,			34);
+	this->bindParamId(&params->DP_bump_peak_hold,		35);
+    this->bindParamId(&params->DP_bump_ramp,			36);
+	this->bindParamId(&params->DP_bump_magnitude,		37);
+    this->bindParamId(&params->DP_bump_dir_floor,		38);
+    this->bindParamId(&params->DP_bump_dir_ceil,		39);
+    this->bindParamId(&params->DP_bump_dir_incr,		40);
 
-	this->bindParamId(&params->stim_prob,				50);
-	this->bindParamId(&params->stim_levels,				51);
+	this->bindParamId(&params->do_M_bump,				41);
+	this->bindParamId(&params->M_bump_rate,				42);
+	this->bindParamId(&params->M_bump_peak_hold,		43);
+    this->bindParamId(&params->M_bump_ramp,				44);
+	this->bindParamId(&params->M_bump_magnitude,		45);
+    this->bindParamId(&params->M_bump_dir_floor,		46);
+    this->bindParamId(&params->M_bump_dir_ceil,			47);
+    this->bindParamId(&params->M_bump_dir_incr,			48);
+
+	this->bindParamId(&params->stim_prob,				49);
+	this->bindParamId(&params->stim_levels,				50);
     	
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
