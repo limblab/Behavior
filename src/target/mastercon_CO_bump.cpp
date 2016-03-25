@@ -294,7 +294,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 		tgt_sep = floor((this->params->target_ceiling - this->params->target_floor)/(this->params->num_tgt -1));
 		this->tgt_angle = (int)(this->params->target_floor + this->random->getInteger(0,(this->params->num_tgt-1))*tgt_sep);
 	} else {
-		this->tgt_angle = (int)((180/PI)*(this->params->target_angle)) ;
+		this->tgt_angle = (int)((this->params->target_angle)) ;
 	}
 
 	// Set up target locations, etc.
