@@ -100,7 +100,6 @@ struct LocalParams {
 	real_T hide_cursor;
 	real_T hide_radius_min;
 	real_T hide_radius_max;
-	real_T hidden_cursor_training;
     real_T abort_during_bump;
 	real_T catch_rate;
 	real_T bi_directional_bumps;
@@ -411,7 +410,6 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	db->addByte((byte)this->params->hide_cursor);
 	db->addFloat((float)this->params->hide_radius_min);
 	db->addFloat((float)this->params->hide_radius_max);
-	db->addFloat((float)this->params->hidden_cursor_training);
 
 	db->addByte((byte)this->params->abort_during_bump);
 	db->addByte((byte)this->params->catch_rate);
@@ -646,11 +644,10 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-    x_comp=inputs->cursor.x - centerTarget->centerX;
-    y_comp=inputs->cursor.y - centerTarget->centerY;
-	radius=sqrt(x_comp*x_comp + y_comp*y_comp	)	/	params->target_radius;
-    
     if (params->hide_cursor > .1) {
+		x_comp=inputs->cursor.x - centerTarget->centerX;
+		y_comp=inputs->cursor.y - centerTarget->centerY;
+		radius=sqrt(x_comp*x_comp + y_comp*y_comp);
 		if(getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM || getState() == STATE_PRETRIAL || getState() == STATE_FAIL || getState() == STATE_ABORT || getState() == STATE_REWARD || getState() == STATE_INCOMPLETE){
 			if ( (radius < this->params->hide_radius_max) && (radius > this->params->hide_radius_min)){
 				outputs->position = Point(1E6, 1E6);
