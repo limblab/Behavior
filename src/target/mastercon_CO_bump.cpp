@@ -292,7 +292,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	//set the target direction
 	if ((int)this->params->use_random_targets) {
 		tgt_sep = floor((this->params->target_ceiling - this->params->target_floor)/this->params->num_tgt);
-		this->tgt_angle = (int)(this->params->target_floor + this->params->num_tgt*tgt_sep);
+		this->tgt_angle = (int)(this->params->target_floor + this->random->getInteger(0,(this->params->num_tgt-1))*tgt_sep);
 	} else {
 		this->tgt_angle = (int)((180/PI)*(this->params->target_angle)) ;
 	}
@@ -347,19 +347,19 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 			//now set up a bump direction relative to the target direction based on the configuration for the selected phase
 			if(this->CH_bump){
 				CH_sep=(this->params->CH_bump_dir_ceil - this->params->CH_bump_dir_floor)/this->params->CH_bump_num_dir;
-				bump_dir=(int)(this->params->CH_bump_dir_floor + CH_sep*this->random->getInteger(0,this->params->CH_bump_num_dir));
+				bump_dir=(int)(this->params->CH_bump_dir_floor + CH_sep*this->random->getInteger(0,(this->params->CH_bump_num_dir-1)));
 				this->bump->hold_duration = this->params->CH_bump_peak_hold;
 				this->bump->rise_time = this->params->CH_bump_ramp;
 				this->bump->peak_magnitude = this->params->CH_bump_magnitude;
 			} else if(this->DP_bump){
 				DP_sep=(this->params->DP_bump_dir_ceil - this->params->DP_bump_dir_floor)/this->params->DP_bump_num_dir;
-				bump_dir=(int)(this->params->DP_bump_dir_floor + DP_sep*this->random->getInteger(0,this->params->DP_bump_num_dir));
+				bump_dir=(int)(this->params->DP_bump_dir_floor + DP_sep*this->random->getInteger(0,(this->params->DP_bump_num_dir-1)));
 				this->bump->hold_duration = this->params->DP_bump_peak_hold;
 				this->bump->rise_time = this->params->DP_bump_ramp;
 				this->bump->peak_magnitude = this->params->DP_bump_magnitude;
 			} else{
 				M_sep=(this->params->M_bump_dir_ceil - this->params->M_bump_dir_floor)/this->params->M_bump_num_dir;
-				bump_dir=(int)(this->params->M_bump_dir_floor + M_sep*this->random->getInteger(0,this->params->M_bump_num_dir));
+				bump_dir=(int)(this->params->M_bump_dir_floor + M_sep*this->random->getInteger(0,(this->params->M_bump_num_dir-1)));
 				this->bump->hold_duration = this->params->M_bump_peak_hold;
 				this->bump->rise_time = this->params->M_bump_ramp;
 				this->bump->peak_magnitude = this->params->M_bump_magnitude;
