@@ -287,7 +287,8 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	double temp;
 	double bump_rate_denom;
 	int bump_dir;
-	
+	bool rate_flag_match;
+
 	//set the target direction
 	if ((int)this->params->use_random_targets) {
 		tgt_sep = floor((this->params->target_ceiling - this->params->target_floor)/this->params->num_tgt);
@@ -307,7 +308,8 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 		this->stim_trial=(this->random->getDouble() < params->stim_prob);
 
 	//identify if this is a bump trial:
-		if(!this->stim_trial && this->params->catch_rate<1 && ((this->params->do_CH_bump && this-params->CH_bump_rate>0) || (this->params->do_DP_bump && this-params->DP_bump_rate>0) || (this->params->do_M_bump && this-params->M_bump_rate>0))){
+		rate_flag_match=((this->params->do_CH_bump && this->params->CH_bump_rate>0) || (this->params->do_DP_bump && this->params->DP_bump_rate>0) || (this->params->do_M_bump && this->params->M_bump_rate>0));
+		if(!this->stim_trial && this->params->catch_rate<1 && rate_flag_match){
 			this->do_bump=(this->random->getDouble(0,1)>params->catch_rate);
 		} else {
 			this->do_bump=false;
