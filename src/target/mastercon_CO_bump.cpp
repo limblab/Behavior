@@ -651,23 +651,16 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 	radius=sqrt(x_comp*x_comp + y_comp*y_comp	)	/	params->target_radius;
     
     if (params->hide_cursor > .1) {
-        if (params->hidden_cursor_training > .1){
-            if(getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM ){
-                if ( radius<params->hide_radius_max && radius>params->hide_radius_min){
-                    outputs->position = Point(1E6, 1E6);
-                } else {
-                    outputs->position = inputs->cursor;
-                }
+		if(getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM || getState() == STATE_PRETRIAL || getState() == STATE_FAIL || getState() == STATE_ABORT || getState() == STATE_REWARD || getState() == STATE_INCOMPLETE){
+			if ( (radius < this->params->hide_radius_max) && (radius > this->params->hide_radius_min)){
+				outputs->position = Point(1E6, 1E6);
             } else {
-                outputs->position = inputs->cursor;
+				outputs->position = inputs->cursor;
             }
         } else {
-            if(getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM || getState() == STATE_PRETRIAL || getState() == STATE_FAIL || getState() == STATE_ABORT || getState() == STATE_REWARD || getState() == STATE_INCOMPLETE){
-                outputs->position = Point(1E6, 1E6);
-            } else {
-                outputs->position = inputs->cursor;
-            }
+			outputs->position = inputs->cursor;
         }
+
     } else {
         outputs->position = inputs->cursor;
     }
