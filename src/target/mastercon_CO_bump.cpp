@@ -206,7 +206,7 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->target_angle,			15);
 	this->bindParamId(&params->target_floor,			16);
 	this->bindParamId(&params->target_ceiling,			17);
-	this->bindParamId(&params->num_tgts,				18);
+	this->bindParamId(&params->num_tgt,					18);
 	this->bindParamId(&params->use_random_targets,		19);
     
 	this->bindParamId(&params->hide_cursor,				20);
@@ -347,26 +347,25 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 			}
 			//now set up a bump direction relative to the target direction based on the configuration for the selected phase
 			if(this->CH_bump){
-				CH_sep=((this->params->CH_bump_dir_ceil - this->params->CH_bump_dir_floor)/this->params->CH_bump_num_dir;
-				bump_dir=(int)this->params->CH_bump_dir_floor + CH_sep*this->random->getInteger(0,num_bump_dirs);
+				CH_sep=(this->params->CH_bump_dir_ceil - this->params->CH_bump_dir_floor)/this->params->CH_bump_num_dir;
+				bump_dir=(int)this->params->CH_bump_dir_floor + CH_sep*this->random->getInteger(0,this->params->CH_bump_num_dir);
 				this->bump->hold_duration = this->params->CH_bump_peak_hold;
 				this->bump->rise_time = this->params->CH_bump_ramp;
 				this->bump->peak_magnitude = this->params->CH_bump_magnitude;
 			} else if(this->DP_bump){
-				DP_sep=((this->params->DP_bump_dir_ceil - this->params->DP_bump_dir_floor)/this->params->DP_bump_num_dir;
-				bump_dir=(int)this->params->DP_bump_dir_floor + DP_sep*this->random->getInteger(0,num_bump_dirs);
+				DP_sep=(this->params->DP_bump_dir_ceil - this->params->DP_bump_dir_floor)/this->params->DP_bump_num_dir;
+				bump_dir=(int)this->params->DP_bump_dir_floor + DP_sep*this->random->getInteger(0,this->params->DP_bump_num_dir);
 				this->bump->hold_duration = this->params->DP_bump_peak_hold;
 				this->bump->rise_time = this->params->DP_bump_ramp;
 				this->bump->peak_magnitude = this->params->DP_bump_magnitude;
 			} else{
-				M_sep=((this->params->M_bump_dir_ceil - this->params->M_bump_dir_floor)/this->params->M_bump_num_dir;
-				bump_dir=(int)this->params->M_bump_dir_floor + M_sep*this->random->getInteger(0,num_bump_dirs);
+				M_sep=(this->params->M_bump_dir_ceil - this->params->M_bump_dir_floor)/this->params->M_bump_num_dir;
+				bump_dir=(int)this->params->M_bump_dir_floor + M_sep*this->random->getInteger(0,this->params->M_bump_num_dir);
 				this->bump->hold_duration = this->params->M_bump_peak_hold;
 				this->bump->rise_time = this->params->M_bump_ramp;
 				this->bump->peak_magnitude = this->params->M_bump_magnitude;
 			}
 			if( this->params->bi_directional_bumps){
-				num_bump_dirs*=2;
 				if(this->random->getBool()){
 					bump_dir=(bump_dir+180)%360;
 				}
@@ -409,10 +408,6 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)this->params->target_size);
 	db->addFloat((float)this->params->target_radius);
 	db->addFloat((float)this->tgt_angle);
-	db->addFloat((float)this->params->target_floor);
-	db->addFloat((float)this->params->target_ceiling);
-	db->addFloat((float)this->params->target_incr);
-	db->addByte((byte)this->params->use_random_targets);
 
 	db->addByte((byte)this->params->hide_cursor);
 	db->addFloat((float)this->params->hide_radius_min);
