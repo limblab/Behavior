@@ -366,7 +366,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 			}
 			if( this->params->bi_directional_bumps){
 				if(this->random->getBool()){
-					bump_dir=(bump_dir+180)%360;
+					bump_dir=(bump_dir-180)%360;
 				}
 			}
 			this->bump->direction = ((double)(this->tgt_angle + bump_dir)) * PI/180;
