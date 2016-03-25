@@ -265,7 +265,6 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	errorTarget = new SquareTarget(0, 0, 100, Target::Color(255, 255, 255));
 
 	this->stim_trial = false;
-	this->bump_dir = 0;
 	this->bump = new CosineBumpGenerator();
 	this->tgt_angle=0;
 
@@ -368,7 +367,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 					bump_dir=(bump_dir+180)%360;
 				}
 			}
-			this->bump->direction = ((double)(this->tgt_angle + this->bump_dir)) * PI/180;
+			this->bump->direction = ((double)(this->tgt_angle + bump_dir)) * PI/180;
 		} else {
 			this->CH_bump=false;
 			this->DP_bump=false;
@@ -420,7 +419,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)this->bump->hold_duration);
 	db->addFloat((float)this->bump->rise_time);
 	db->addFloat((float)this->bump->peak_magnitude);
-	db->addFloat((float)this->bump_dir);
+	db->addFloat((float)bump_dir);
 
 	db->addByte((byte)this->stim_trial);
 	db->addFloat((float)this->params->stim_prob);
@@ -551,7 +550,6 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 	outputs->status[1] = trialCounter->successes;
     //outputs->status[1] = this->tgt_angle; 
 	outputs->status[2] = trialCounter->aborts;
-//    outputs->status[2] = this->bump_dir;
  	outputs->status[3] = trialCounter->failures;
  	outputs->status[4] = trialCounter->incompletes;
   
