@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1279"
+    ComputedModelVersion    "1.1281"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -30,7 +30,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [6.0, 0.0, 1036.0, 780.0]
+      Location		      [524.0, 3.0, 475.0, 780.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -54,9 +54,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[992.0, 620.0]
-	ZoomFactor		[1.0]
-	Offset			[0.0, -1.0]
+	Extents			[431.0, 620.0]
+	ZoomFactor		[0.4]
+	Offset			[-70.500000000000043, -399.66666666666669]
       }
     }
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Mar 23 17:00:51 2016"
-  RTWModifiedTimeStamp	  380652765
-  ModelVersionFormat	  "1.%<AutoIncrement:1279>"
+  LastModifiedDate	  "Wed Mar 23 18:50:36 2016"
+  RTWModifiedTimeStamp	  380656892
+  ModelVersionFormat	  "1.%<AutoIncrement:1281>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1025,7 +1025,7 @@ Model {
   }
   System {
     Name		    "CO_bump"
-    Location		    [6, 0, 1042, 780]
+    Location		    [524, 3, 999, 783]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1037,7 +1037,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "100"
+    ZoomFactor		    "40"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "440"
     Block {
@@ -1049,8 +1049,8 @@ Model {
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_CO_bump"
-      Parameters	      "0 0 0 0 1 1 1 1 1 1 1 3 10 3.14 0 5 10 0 0 0 0 0 0 1 1 0 0 .1 .1 0 0 5 10 0 0 .1 .1 0 0 5 10 0"
-      " 0 .1 .1 0 0 5 10 0 3"
+      Parameters	      "0 0 0 1 0 1 1 0 1 .5 2 3 10 90 0 5 10 0 0 3 8 0 0 1 1 0 0 .1 .1 0 0 5 10 0 0 .1 .1 0 0 5 10 0 "
+      "0 .1 .1 0 0 5 10 0 3"
       Object {
 	$PropName		"MaskObject"
 	$ObjectID		19
