@@ -95,7 +95,7 @@ struct LocalParams {
 	real_T target_angle;
 	real_T target_floor;
 	real_T target_ceiling;
-	real_T num_tgts;
+	real_T num_tgt;
 	real_T use_random_targets;
 	real_T hide_cursor;
 	real_T hide_radius_min;
@@ -161,7 +161,6 @@ private:
 	bool DP_bump;
 	bool M_bump;
 
-	int bump_dir;
     Point cursorOffset;
 
 	CosineBumpGenerator *bump;
@@ -282,19 +281,18 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 
 
 void COBumpBehavior::doPreTrial(SimStruct *S) {
-	int num_tgt_dirs;	//number of target directions there will be between target floor and target ceiling
-	int tgt_sep;
-	int tgt_num;
-	int CH_sep;
-	int DP_sep;
-	int M_sep;
+	double tgt_sep;
+	double CH_sep;
+	double DP_sep;
+	double M_sep;
 	double temp;
 	double bump_rate_denom;
-
+	int bump_dir;
+	
 	//set the target direction
 	if ((int)this->params->use_random_targets) {
-		tgt_sep = (int)floor((this->params->target_ceiling - this->params->target_floor)/this->params->num_tgt);
-		this->tgt_angle = (int)this->params->target_floor + (int)this->params->num_tgt*tgt_sep;
+		tgt_sep = floor((this->params->target_ceiling - this->params->target_floor)/this->params->num_tgt);
+		this->tgt_angle = (int)(this->params->target_floor + this->params->num_tgt*tgt_sep);
 	} else {
 		this->tgt_angle = (int)((180/PI)*(this->params->target_angle)) ;
 	}
@@ -348,19 +346,19 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 			//now set up a bump direction relative to the target direction based on the configuration for the selected phase
 			if(this->CH_bump){
 				CH_sep=(this->params->CH_bump_dir_ceil - this->params->CH_bump_dir_floor)/this->params->CH_bump_num_dir;
-				bump_dir=(int)this->params->CH_bump_dir_floor + CH_sep*this->random->getInteger(0,this->params->CH_bump_num_dir);
+				bump_dir=(int)(this->params->CH_bump_dir_floor + CH_sep*this->random->getInteger(0,this->params->CH_bump_num_dir));
 				this->bump->hold_duration = this->params->CH_bump_peak_hold;
 				this->bump->rise_time = this->params->CH_bump_ramp;
 				this->bump->peak_magnitude = this->params->CH_bump_magnitude;
 			} else if(this->DP_bump){
 				DP_sep=(this->params->DP_bump_dir_ceil - this->params->DP_bump_dir_floor)/this->params->DP_bump_num_dir;
-				bump_dir=(int)this->params->DP_bump_dir_floor + DP_sep*this->random->getInteger(0,this->params->DP_bump_num_dir);
+				bump_dir=(int)(this->params->DP_bump_dir_floor + DP_sep*this->random->getInteger(0,this->params->DP_bump_num_dir));
 				this->bump->hold_duration = this->params->DP_bump_peak_hold;
 				this->bump->rise_time = this->params->DP_bump_ramp;
 				this->bump->peak_magnitude = this->params->DP_bump_magnitude;
 			} else{
 				M_sep=(this->params->M_bump_dir_ceil - this->params->M_bump_dir_floor)/this->params->M_bump_num_dir;
-				bump_dir=(int)this->params->M_bump_dir_floor + M_sep*this->random->getInteger(0,this->params->M_bump_num_dir);
+				bump_dir=(int)(this->params->M_bump_dir_floor + M_sep*this->random->getInteger(0,this->params->M_bump_num_dir));
 				this->bump->hold_duration = this->params->M_bump_peak_hold;
 				this->bump->rise_time = this->params->M_bump_ramp;
 				this->bump->peak_magnitude = this->params->M_bump_magnitude;
