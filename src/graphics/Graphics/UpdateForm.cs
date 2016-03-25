@@ -910,8 +910,7 @@ namespace BehaviorGraphics
             AddParamListItem("COB move time",               "P7", "Behavior CO Bump", textBox_ctr_out_bump_MoveTime);
             AddParamListItem("COB target hold low",         "P8", "Behavior CO Bump", textBox_ctr_out_bump_targetHoldLow);
             AddParamListItem("COB terget hold high",        "P9", "Behavior CO Bump", textBox_ctr_out_bump_targetHoldHigh);
-            
-            
+                        
             AddParamListItem("COB bump delay",              "P10", "Behavior CO Bump", textBox_ctr_out_bump_BumpDelay);
             AddParamListItem("COB bump hold",               "P11", "Behavior CO Bump", textBox_ctr_out_bump_BumpHold);
             AddParamListItem("COB intertrial",              "P12", "Behavior CO Bump", textBox_ctr_out_bump_intertrial);
@@ -925,46 +924,44 @@ namespace BehaviorGraphics
             AddParamListItem("COB target ceiling",          "P18", "Behavior CO Bump", textBox_ctr_out_bump_TargetAngleCeiling);
             AddParamListItem("COB number targets",          "P19", "Behavior CO Bump", numericUpDown_ctr_out_bump_NumberTargets);
             AddParamListItem("COB use random targets",      "P20", "Behavior CO Bump", checkBox_ctr_out_bump_RandomTargets);
-
             //cursor info
             AddParamListItem("COB hide cursor",             "P21", "Behavior CO Bump", checkBox_ctr_out_bump_HideCursor);
             AddParamListItem("COB hide cursor radius min",  "P22", "Behavior CO Bump", textBox_ctr_out_bump_HideCursorRadiusMin);
             AddParamListItem("COB hide cursor radius max",  "P23", "Behavior CO Bump", textBox_ctr_out_bump_HideCursorRadiusMax);
-            AddParamListItem("COB hidden cursor training",  "P24", "Behavior CO Bump", checkBox_ctr_out_bump_HiddenCursorTraining);
-            AddParamListItem("COB abort during bump",       "P25", "Behavior CO Bump", checkBox_ctr_out_bump_AbortDuringBump);
             //bump info
-            AddParamListItem("COB catch rate",              "P26", "Behavior CO Bump", textBox_ctr_out_bump_CatchRate);
-            AddParamListItem("COB bi directional bumps",    "P27", "Behavior CO Bump", checkBox_ctr_out_bump_BiDirectionalBumps);
+            AddParamListItem("COB catch rate",              "P24", "Behavior CO Bump", textBox_ctr_out_bump_CatchRate);
+            AddParamListItem("COB bi directional bumps",    "P25", "Behavior CO Bump", checkBox_ctr_out_bump_BiDirectionalBumps);
+            AddParamListItem("COB abort during bump",       "P26", "Behavior CO Bump", checkBox_ctr_out_bump_AbortDuringBump);
             //center hold bump params
-            AddParamListItem("COB CHBump flag",             "P28", "Behavior CO Bump", checkBox_ctr_out_bump_CHBump);
-            AddParamListItem("COB CHBump rate",             "P29", "Behavior CO Bump", textBox_ctr_out_bump_CHBumpRate);
-            AddParamListItem("COB CHbump dur",              "P30", "Behavior CO Bump", textBox_ctr_out_bump_CHPeakDuration);
-            AddParamListItem("COB CHbump ramp",             "P31", "Behavior CO Bump", textBox_ctr_out_bump_CHRiseTime);
-            AddParamListItem("COB CHbump mag",              "P32", "Behavior CO Bump", textBox_ctr_out_bump_CHAmplitude);
-            AddParamListItem("COB CHbumpdir floor",         "P33", "Behavior CO Bump", textBox_ctr_out_bump_CHRandBumpFloor);
-            AddParamListItem("COB CHbumpdir ceiling",       "P34", "Behavior CO Bump", textBox_ctr_out_bump_CHRandBumpCeiling);
-            AddParamListItem("COB CHbumpdir incr",          "P35", "Behavior CO Bump", textBox_ctr_out_bump_CHBumpIncr);
-            //delay bump params
-            AddParamListItem("COB DPBump flag",             "P36", "Behavior CO Bump", checkBox_ctr_out_bump_DPBump);
-            AddParamListItem("COB DPBump rate",             "P37", "Behavior CO Bump", textBox_ctr_out_bump_DPBumpRate);
-            AddParamListItem("COB DPbump dur",              "P38", "Behavior CO Bump", textBox_ctr_out_bump_DPPeakDuration);
-            AddParamListItem("COB DPbump ramp",             "P39", "Behavior CO Bump", textBox_ctr_out_bump_DPRiseTime);
-            AddParamListItem("COB DPbump mag",              "P40", "Behavior CO Bump", textBox_ctr_out_bump_DPAmplitude);
-            AddParamListItem("COB DPbumpdir floor",         "P41", "Behavior CO Bump", textBox_ctr_out_bump_DPRandBumpFloor);
-            AddParamListItem("COB DPbumpdir ceiling",       "P42", "Behavior CO Bump", textBox_ctr_out_bump_DPRandBumpCeiling);
-            AddParamListItem("COB DPbumpdir incr",          "P43", "Behavior CO Bump", textBox_ctr_out_bump_DPBumpIncr);
-            //move bump params
-            AddParamListItem("COB MBump flag",              "P44", "Behavior CO Bump", checkBox_ctr_out_bump_MBump);
-            AddParamListItem("COB MBump rate",              "P45", "Behavior CO Bump", textBox_ctr_out_bump_MBumpRate);
-            AddParamListItem("COB Mbump dur",               "P46", "Behavior CO Bump", textBox_ctr_out_bump_MPeakDuration);
-            AddParamListItem("COB Mbump ramp",              "P47", "Behavior CO Bump", textBox_ctr_out_bump_MRiseTime);
-            AddParamListItem("COB Mbump mag",               "P48", "Behavior CO Bump", textBox_ctr_out_bump_MAmplitude);
-            AddParamListItem("COB Mbumpdir floor",          "P49", "Behavior CO Bump", textBox_ctr_out_bump_MRandBumpFloor);
-            AddParamListItem("COB Mbumpdir ceiling",        "P50", "Behavior CO Bump", textBox_ctr_out_bump_MRandBumpCeiling);
-            AddParamListItem("COB Mbumpdir incr",           "P51", "Behavior CO Bump", textBox_ctr_out_bump_MBumpIncr);
+            AddParamListItem("COB CHBump flag",             "P27", "Behavior CO Bump", checkBox_ctr_out_bump_CHBump);
+            AddParamListItem("COB CHBump rate",             "P28", "Behavior CO Bump", textBox_ctr_out_bump_CHBumpRate);
+            AddParamListItem("COB CHbump dur",              "P29", "Behavior CO Bump", textBox_ctr_out_bump_CHPeakDuration);
+            AddParamListItem("COB CHbump ramp",             "P30", "Behavior CO Bump", textBox_ctr_out_bump_CHRiseTime);
+            AddParamListItem("COB CHbump mag",              "P31", "Behavior CO Bump", textBox_ctr_out_bump_CHAmplitude);
+            AddParamListItem("COB CHbumpdir floor",         "P32", "Behavior CO Bump", textBox_ctr_out_bump_CHRandBumpFloor);
+            AddParamListItem("COB CHbumpdir ceiling",       "P33", "Behavior CO Bump", textBox_ctr_out_bump_CHRandBumpCeiling);
+            AddParamListItem("COB CHbump num dir",          "P34", "Behavior CO Bump", numericUpDown_ctr_out_bump_NumberCHBumpDirections);
+                //delay bump params
+            AddParamListItem("COB DPBump flag",             "P35", "Behavior CO Bump", checkBox_ctr_out_bump_DPBump);
+            AddParamListItem("COB DPBump rate",             "P36", "Behavior CO Bump", textBox_ctr_out_bump_DPBumpRate);
+            AddParamListItem("COB DPbump dur",              "P37", "Behavior CO Bump", textBox_ctr_out_bump_DPPeakDuration);
+            AddParamListItem("COB DPbump ramp",             "P38", "Behavior CO Bump", textBox_ctr_out_bump_DPRiseTime);
+            AddParamListItem("COB DPbump mag",              "P39", "Behavior CO Bump", textBox_ctr_out_bump_DPAmplitude);
+            AddParamListItem("COB DPbumpdir floor",         "P40", "Behavior CO Bump", textBox_ctr_out_bump_DPRandBumpFloor);
+            AddParamListItem("COB DPbumpdir ceiling",       "P41", "Behavior CO Bump", textBox_ctr_out_bump_DPRandBumpCeiling);
+            AddParamListItem("COB DPbump num dir",          "P42", "Behavior CO Bump", numericUpDown_ctr_out_bump_NumberDPBumpDirections);
+                //move bump params
+            AddParamListItem("COB MBump flag",              "P43", "Behavior CO Bump", checkBox_ctr_out_bump_MBump);
+            AddParamListItem("COB MBump rate",              "P44", "Behavior CO Bump", textBox_ctr_out_bump_MBumpRate);
+            AddParamListItem("COB Mbump dur",               "P45", "Behavior CO Bump", textBox_ctr_out_bump_MPeakDuration);
+            AddParamListItem("COB Mbump ramp",              "P46", "Behavior CO Bump", textBox_ctr_out_bump_MRiseTime);
+            AddParamListItem("COB Mbump mag",               "P47", "Behavior CO Bump", textBox_ctr_out_bump_MAmplitude);
+            AddParamListItem("COB Mbumpdir floor",          "P48", "Behavior CO Bump", textBox_ctr_out_bump_MRandBumpFloor);
+            AddParamListItem("COB Mbumpdir ceiling",        "P49", "Behavior CO Bump", textBox_ctr_out_bump_MRandBumpCeiling);
+            AddParamListItem("COB Mbumpdir incr",           "P50", "Behavior CO Bump", numericUpDown_ctr_out_bump_NumberMBumpDirections);
             //stim info
-            AddParamListItem("COB stim prob",               "P52", "Behavior CO Bump", textBox_ctr_out_bump_StimProb);
-            AddParamListItem("COB stim levels",             "P53", "Behavior CO Bump", textBox_ctr_out_bump_StimLevels);
+            AddParamListItem("COB stim prob",               "P51", "Behavior CO Bump", textBox_ctr_out_bump_StimProb);
+            AddParamListItem("COB stim levels",             "P52", "Behavior CO Bump", textBox_ctr_out_bump_StimLevels);
 
             #endregion
 
