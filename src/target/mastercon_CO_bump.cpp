@@ -645,8 +645,10 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 
 	/* position (7) */
     if (params->hide_cursor > .1) {
-		x_comp=inputs->cursor.x - centerTarget->centerX;
-		y_comp=inputs->cursor.y - centerTarget->centerY;
+		//x_comp=inputs->cursor.x - centerTarget->centerX;
+		x_comp=inputs->cursor.x;
+		//y_comp=inputs->cursor.y - centerTarget->centerY;
+		y_comp=inputs->cursor.y;
 		radius=sqrt(x_comp*x_comp + y_comp*y_comp);
 		if(getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM || getState() == STATE_PRETRIAL || getState() == STATE_FAIL || getState() == STATE_ABORT || getState() == STATE_REWARD || getState() == STATE_INCOMPLETE){
 			if ( (radius < this->params->hide_radius_max) && (radius > this->params->hide_radius_min)){
