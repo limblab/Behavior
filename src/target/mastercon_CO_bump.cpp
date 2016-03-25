@@ -307,8 +307,8 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 		this->stim_trial=(this->random->getDouble() < params->stim_prob);
 
 	//identify if this is a bump trial:
-		if(!this->stim_trial && this->params->catch_rate<1 && (this->params->do_CH_bump || this->params->do_DP_bump || this->params->do_M_bump)){
-			this->do_bump=(this->random->getDouble()>params->catch_rate);
+		if(!this->stim_trial && this->params->catch_rate<1 && ((this->params->do_CH_bump && this-params->CH_bump_rate>0) || (this->params->do_DP_bump && this-params->DP_bump_rate>0) || (this->params->do_M_bump && this-params->M_bump_rate>0))){
+			this->do_bump=(this->random->getDouble(0,1)>params->catch_rate);
 		} else {
 			this->do_bump=false;
 			this->bump->peak_magnitude = 0;
