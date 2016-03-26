@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1163,7 +1163,6 @@ namespace BehaviorGraphics
             this.groupBox76 = new System.Windows.Forms.GroupBox();
             this.label_ctr_out_bump_hideCursorMax = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_HideCursorRadiusMax = new System.Windows.Forms.TextBox();
-            this.checkBox_ctr_out_bump_HiddenCursorTraining = new System.Windows.Forms.CheckBox();
             this.checkBox_ctr_out_bump_HideCursor = new System.Windows.Forms.CheckBox();
             this.hide_cursor_radius_label = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_HideCursorRadiusMin = new System.Windows.Forms.TextBox();
@@ -1193,8 +1192,6 @@ namespace BehaviorGraphics
             this.textBox_ctr_out_bump_DPBumpRate = new System.Windows.Forms.TextBox();
             this.label_CHBumpRate = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_CHBumpRate = new System.Windows.Forms.TextBox();
-            this.label_ctr_out_bump_MBumpIncr = new System.Windows.Forms.Label();
-            this.textBox_ctr_out_bump_MBumpIncr = new System.Windows.Forms.TextBox();
             this.label_ctr_out_bump_MBumpCeiling = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_MAmplitude = new System.Windows.Forms.TextBox();
             this.label_ctr_out_bump_MBumpFloor = new System.Windows.Forms.Label();
@@ -1205,8 +1202,6 @@ namespace BehaviorGraphics
             this.label_ctr_out_bump_MRiseTime = new System.Windows.Forms.Label();
             this.label_ctr_out_bump_MPeakDuration = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_MPeakDuration = new System.Windows.Forms.TextBox();
-            this.label_ctr_out_bump_DPBumpIncr = new System.Windows.Forms.Label();
-            this.textBox_ctr_out_bump_DPBumpIncr = new System.Windows.Forms.TextBox();
             this.label_ctr_out_bump_DPBumpCeiling = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_DPAmplitude = new System.Windows.Forms.TextBox();
             this.label_ctr_out_bump_DPBumpFloor = new System.Windows.Forms.Label();
@@ -1222,8 +1217,6 @@ namespace BehaviorGraphics
             this.checkBox_ctr_out_bump_CHBump = new System.Windows.Forms.CheckBox();
             this.label_ctr_out_bump_CatchRate = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_CatchRate = new System.Windows.Forms.TextBox();
-            this.label_ctr_out_bump_CHBumpIncr = new System.Windows.Forms.Label();
-            this.textBox_ctr_out_bump_CHBumpIncr = new System.Windows.Forms.TextBox();
             this.label_ctr_out_bump_CHBumpCeiling = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_CHAmplitude = new System.Windows.Forms.TextBox();
             this.label_ctr_out_bump_CHBumpFloor = new System.Windows.Forms.Label();
@@ -2053,6 +2046,12 @@ namespace BehaviorGraphics
             this.label_ctr_out_bump_targetHoldLow = new System.Windows.Forms.Label();
             this.numericUpDown_ctr_out_bump_NumberTargets = new System.Windows.Forms.NumericUpDown();
             this.label_ctr_out_bump_NumberTargets = new System.Windows.Forms.Label();
+            this.numericUpDown_ctr_out_bump_NumberCHBumpDirections = new System.Windows.Forms.NumericUpDown();
+            this.label_ctr_out_bump_NumberCHBumpDirections = new System.Windows.Forms.Label();
+            this.numericUpDown_ctr_out_bump_NumberDPBumpDirections = new System.Windows.Forms.NumericUpDown();
+            this.label_ctr_out_bump_NumberDPBumpDirections = new System.Windows.Forms.Label();
+            this.numericUpDown_ctr_out_bump_NumberMBumpDirections = new System.Windows.Forms.NumericUpDown();
+            this.label_ctr_out_bump_NumberMBumpDirections = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2257,6 +2256,9 @@ namespace BehaviorGraphics
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ctr_out_bump_NumberTargets)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ctr_out_bump_NumberCHBumpDirections)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ctr_out_bump_NumberDPBumpDirections)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ctr_out_bump_NumberMBumpDirections)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -5214,8 +5216,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -6047,8 +6049,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -14103,7 +14105,6 @@ namespace BehaviorGraphics
             // 
             this.groupBox76.Controls.Add(this.label_ctr_out_bump_hideCursorMax);
             this.groupBox76.Controls.Add(this.textBox_ctr_out_bump_HideCursorRadiusMax);
-            this.groupBox76.Controls.Add(this.checkBox_ctr_out_bump_HiddenCursorTraining);
             this.groupBox76.Controls.Add(this.checkBox_ctr_out_bump_HideCursor);
             this.groupBox76.Controls.Add(this.hide_cursor_radius_label);
             this.groupBox76.Controls.Add(this.textBox_ctr_out_bump_HideCursorRadiusMin);
@@ -14133,16 +14134,6 @@ namespace BehaviorGraphics
             this.textBox_ctr_out_bump_HideCursorRadiusMax.TabIndex = 32;
             this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_HideCursorRadiusMax, "radius from the center after which the cursor is hidden. given as a 0-1 value tha" +
                     "t is a fraction of the target distance");
-            // 
-            // checkBox_ctr_out_bump_HiddenCursorTraining
-            // 
-            this.checkBox_ctr_out_bump_HiddenCursorTraining.AutoSize = true;
-            this.checkBox_ctr_out_bump_HiddenCursorTraining.Location = new System.Drawing.Point(9, 30);
-            this.checkBox_ctr_out_bump_HiddenCursorTraining.Name = "checkBox_ctr_out_bump_HiddenCursorTraining";
-            this.checkBox_ctr_out_bump_HiddenCursorTraining.Size = new System.Drawing.Size(134, 17);
-            this.checkBox_ctr_out_bump_HiddenCursorTraining.TabIndex = 31;
-            this.checkBox_ctr_out_bump_HiddenCursorTraining.Text = "Hidden Cursor Training";
-            this.checkBox_ctr_out_bump_HiddenCursorTraining.UseVisualStyleBackColor = true;
             // 
             // checkBox_ctr_out_bump_HideCursor
             // 
@@ -14347,6 +14338,12 @@ namespace BehaviorGraphics
             // 
             // groupBox74
             // 
+            this.groupBox74.Controls.Add(this.numericUpDown_ctr_out_bump_NumberMBumpDirections);
+            this.groupBox74.Controls.Add(this.label_ctr_out_bump_NumberMBumpDirections);
+            this.groupBox74.Controls.Add(this.numericUpDown_ctr_out_bump_NumberDPBumpDirections);
+            this.groupBox74.Controls.Add(this.label_ctr_out_bump_NumberDPBumpDirections);
+            this.groupBox74.Controls.Add(this.numericUpDown_ctr_out_bump_NumberCHBumpDirections);
+            this.groupBox74.Controls.Add(this.label_ctr_out_bump_NumberCHBumpDirections);
             this.groupBox74.Controls.Add(this.checkBox_ctr_out_bump_AbortDuringBump);
             this.groupBox74.Controls.Add(this.checkBox_ctr_out_bump_BiDirectionalBumps);
             this.groupBox74.Controls.Add(this.label_ctr_out_bump_MBumpRate);
@@ -14355,8 +14352,6 @@ namespace BehaviorGraphics
             this.groupBox74.Controls.Add(this.textBox_ctr_out_bump_DPBumpRate);
             this.groupBox74.Controls.Add(this.label_CHBumpRate);
             this.groupBox74.Controls.Add(this.textBox_ctr_out_bump_CHBumpRate);
-            this.groupBox74.Controls.Add(this.label_ctr_out_bump_MBumpIncr);
-            this.groupBox74.Controls.Add(this.textBox_ctr_out_bump_MBumpIncr);
             this.groupBox74.Controls.Add(this.label_ctr_out_bump_MBumpCeiling);
             this.groupBox74.Controls.Add(this.textBox_ctr_out_bump_MAmplitude);
             this.groupBox74.Controls.Add(this.label_ctr_out_bump_MBumpFloor);
@@ -14367,8 +14362,6 @@ namespace BehaviorGraphics
             this.groupBox74.Controls.Add(this.label_ctr_out_bump_MRiseTime);
             this.groupBox74.Controls.Add(this.label_ctr_out_bump_MPeakDuration);
             this.groupBox74.Controls.Add(this.textBox_ctr_out_bump_MPeakDuration);
-            this.groupBox74.Controls.Add(this.label_ctr_out_bump_DPBumpIncr);
-            this.groupBox74.Controls.Add(this.textBox_ctr_out_bump_DPBumpIncr);
             this.groupBox74.Controls.Add(this.label_ctr_out_bump_DPBumpCeiling);
             this.groupBox74.Controls.Add(this.textBox_ctr_out_bump_DPAmplitude);
             this.groupBox74.Controls.Add(this.label_ctr_out_bump_DPBumpFloor);
@@ -14384,8 +14377,6 @@ namespace BehaviorGraphics
             this.groupBox74.Controls.Add(this.checkBox_ctr_out_bump_CHBump);
             this.groupBox74.Controls.Add(this.label_ctr_out_bump_CatchRate);
             this.groupBox74.Controls.Add(this.textBox_ctr_out_bump_CatchRate);
-            this.groupBox74.Controls.Add(this.label_ctr_out_bump_CHBumpIncr);
-            this.groupBox74.Controls.Add(this.textBox_ctr_out_bump_CHBumpIncr);
             this.groupBox74.Controls.Add(this.label_ctr_out_bump_CHBumpCeiling);
             this.groupBox74.Controls.Add(this.textBox_ctr_out_bump_CHAmplitude);
             this.groupBox74.Controls.Add(this.label_ctr_out_bump_CHBumpFloor);
@@ -14480,23 +14471,6 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_CHBumpRate, "Rate at which CH bumps occur will be CHBumpRate/(CHBumpRate+DPBumpRate+MBumpRate)" +
                     "");
             // 
-            // label_ctr_out_bump_MBumpIncr
-            // 
-            this.label_ctr_out_bump_MBumpIncr.AutoSize = true;
-            this.label_ctr_out_bump_MBumpIncr.Location = new System.Drawing.Point(322, 218);
-            this.label_ctr_out_bump_MBumpIncr.Name = "label_ctr_out_bump_MBumpIncr";
-            this.label_ctr_out_bump_MBumpIncr.Size = new System.Drawing.Size(83, 13);
-            this.label_ctr_out_bump_MBumpIncr.TabIndex = 133;
-            this.label_ctr_out_bump_MBumpIncr.Text = "Bump increment";
-            // 
-            // textBox_ctr_out_bump_MBumpIncr
-            // 
-            this.textBox_ctr_out_bump_MBumpIncr.Location = new System.Drawing.Point(421, 215);
-            this.textBox_ctr_out_bump_MBumpIncr.Name = "textBox_ctr_out_bump_MBumpIncr";
-            this.textBox_ctr_out_bump_MBumpIncr.Size = new System.Drawing.Size(40, 20);
-            this.textBox_ctr_out_bump_MBumpIncr.TabIndex = 132;
-            this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_MBumpIncr, "Step size between adjacent M bump angles. should be entered in degrees");
-            // 
             // label_ctr_out_bump_MBumpCeiling
             // 
             this.label_ctr_out_bump_MBumpCeiling.AutoSize = true;
@@ -14581,23 +14555,6 @@ namespace BehaviorGraphics
             this.textBox_ctr_out_bump_MPeakDuration.Size = new System.Drawing.Size(40, 20);
             this.textBox_ctr_out_bump_MPeakDuration.TabIndex = 122;
             this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_MPeakDuration, "Duration at peak amplitude  in s for M bumps");
-            // 
-            // label_ctr_out_bump_DPBumpIncr
-            // 
-            this.label_ctr_out_bump_DPBumpIncr.AutoSize = true;
-            this.label_ctr_out_bump_DPBumpIncr.Location = new System.Drawing.Point(157, 218);
-            this.label_ctr_out_bump_DPBumpIncr.Name = "label_ctr_out_bump_DPBumpIncr";
-            this.label_ctr_out_bump_DPBumpIncr.Size = new System.Drawing.Size(83, 13);
-            this.label_ctr_out_bump_DPBumpIncr.TabIndex = 121;
-            this.label_ctr_out_bump_DPBumpIncr.Text = "Bump increment";
-            // 
-            // textBox_ctr_out_bump_DPBumpIncr
-            // 
-            this.textBox_ctr_out_bump_DPBumpIncr.Location = new System.Drawing.Point(258, 215);
-            this.textBox_ctr_out_bump_DPBumpIncr.Name = "textBox_ctr_out_bump_DPBumpIncr";
-            this.textBox_ctr_out_bump_DPBumpIncr.Size = new System.Drawing.Size(42, 20);
-            this.textBox_ctr_out_bump_DPBumpIncr.TabIndex = 120;
-            this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_DPBumpIncr, "Step size between adjacent DP bump angles. should be entered in degrees");
             // 
             // label_ctr_out_bump_DPBumpCeiling
             // 
@@ -14735,23 +14692,6 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_CatchRate, "rate of trials with no bump. Setting this to 1 results in all catch trials, and a" +
                     "ll bump rate settings will be ignored. Use this rather than setting all rates to" +
                     " zero");
-            // 
-            // label_ctr_out_bump_CHBumpIncr
-            // 
-            this.label_ctr_out_bump_CHBumpIncr.AutoSize = true;
-            this.label_ctr_out_bump_CHBumpIncr.Location = new System.Drawing.Point(2, 218);
-            this.label_ctr_out_bump_CHBumpIncr.Name = "label_ctr_out_bump_CHBumpIncr";
-            this.label_ctr_out_bump_CHBumpIncr.Size = new System.Drawing.Size(83, 13);
-            this.label_ctr_out_bump_CHBumpIncr.TabIndex = 103;
-            this.label_ctr_out_bump_CHBumpIncr.Text = "Bump increment";
-            // 
-            // textBox_ctr_out_bump_CHBumpIncr
-            // 
-            this.textBox_ctr_out_bump_CHBumpIncr.Location = new System.Drawing.Point(99, 215);
-            this.textBox_ctr_out_bump_CHBumpIncr.Name = "textBox_ctr_out_bump_CHBumpIncr";
-            this.textBox_ctr_out_bump_CHBumpIncr.Size = new System.Drawing.Size(40, 20);
-            this.textBox_ctr_out_bump_CHBumpIncr.TabIndex = 102;
-            this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_CHBumpIncr, "Step size between adjacent CH bump angles. should be entered in degrees");
             // 
             // label_ctr_out_bump_CHBumpCeiling
             // 
@@ -22504,6 +22444,102 @@ namespace BehaviorGraphics
             this.label_ctr_out_bump_NumberTargets.TabIndex = 32;
             this.label_ctr_out_bump_NumberTargets.Text = "Num Targets";
             // 
+            // numericUpDown_ctr_out_bump_NumberCHBumpDirections
+            // 
+            this.numericUpDown_ctr_out_bump_NumberCHBumpDirections.Location = new System.Drawing.Point(100, 215);
+            this.numericUpDown_ctr_out_bump_NumberCHBumpDirections.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDown_ctr_out_bump_NumberCHBumpDirections.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown_ctr_out_bump_NumberCHBumpDirections.Name = "numericUpDown_ctr_out_bump_NumberCHBumpDirections";
+            this.numericUpDown_ctr_out_bump_NumberCHBumpDirections.Size = new System.Drawing.Size(39, 20);
+            this.numericUpDown_ctr_out_bump_NumberCHBumpDirections.TabIndex = 141;
+            this.toolTip1.SetToolTip(this.numericUpDown_ctr_out_bump_NumberCHBumpDirections, "Number of outer targets (max 16)");
+            this.numericUpDown_ctr_out_bump_NumberCHBumpDirections.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
+            // label_ctr_out_bump_NumberCHBumpDirections
+            // 
+            this.label_ctr_out_bump_NumberCHBumpDirections.AutoSize = true;
+            this.label_ctr_out_bump_NumberCHBumpDirections.Location = new System.Drawing.Point(2, 218);
+            this.label_ctr_out_bump_NumberCHBumpDirections.Name = "label_ctr_out_bump_NumberCHBumpDirections";
+            this.label_ctr_out_bump_NumberCHBumpDirections.Size = new System.Drawing.Size(77, 13);
+            this.label_ctr_out_bump_NumberCHBumpDirections.TabIndex = 142;
+            this.label_ctr_out_bump_NumberCHBumpDirections.Text = "Num bump dirs";
+            // 
+            // numericUpDown_ctr_out_bump_NumberDPBumpDirections
+            // 
+            this.numericUpDown_ctr_out_bump_NumberDPBumpDirections.Location = new System.Drawing.Point(260, 214);
+            this.numericUpDown_ctr_out_bump_NumberDPBumpDirections.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDown_ctr_out_bump_NumberDPBumpDirections.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown_ctr_out_bump_NumberDPBumpDirections.Name = "numericUpDown_ctr_out_bump_NumberDPBumpDirections";
+            this.numericUpDown_ctr_out_bump_NumberDPBumpDirections.Size = new System.Drawing.Size(39, 20);
+            this.numericUpDown_ctr_out_bump_NumberDPBumpDirections.TabIndex = 143;
+            this.toolTip1.SetToolTip(this.numericUpDown_ctr_out_bump_NumberDPBumpDirections, "Number of outer targets (max 16)");
+            this.numericUpDown_ctr_out_bump_NumberDPBumpDirections.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
+            // label_ctr_out_bump_NumberDPBumpDirections
+            // 
+            this.label_ctr_out_bump_NumberDPBumpDirections.AutoSize = true;
+            this.label_ctr_out_bump_NumberDPBumpDirections.Location = new System.Drawing.Point(157, 217);
+            this.label_ctr_out_bump_NumberDPBumpDirections.Name = "label_ctr_out_bump_NumberDPBumpDirections";
+            this.label_ctr_out_bump_NumberDPBumpDirections.Size = new System.Drawing.Size(77, 13);
+            this.label_ctr_out_bump_NumberDPBumpDirections.TabIndex = 144;
+            this.label_ctr_out_bump_NumberDPBumpDirections.Text = "Num bump dirs";
+            // 
+            // numericUpDown_ctr_out_bump_NumberMBumpDirections
+            // 
+            this.numericUpDown_ctr_out_bump_NumberMBumpDirections.Location = new System.Drawing.Point(422, 216);
+            this.numericUpDown_ctr_out_bump_NumberMBumpDirections.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDown_ctr_out_bump_NumberMBumpDirections.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown_ctr_out_bump_NumberMBumpDirections.Name = "numericUpDown_ctr_out_bump_NumberMBumpDirections";
+            this.numericUpDown_ctr_out_bump_NumberMBumpDirections.Size = new System.Drawing.Size(39, 20);
+            this.numericUpDown_ctr_out_bump_NumberMBumpDirections.TabIndex = 145;
+            this.toolTip1.SetToolTip(this.numericUpDown_ctr_out_bump_NumberMBumpDirections, "Number of outer targets (max 16)");
+            this.numericUpDown_ctr_out_bump_NumberMBumpDirections.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
+            // label_ctr_out_bump_NumberMBumpDirections
+            // 
+            this.label_ctr_out_bump_NumberMBumpDirections.AutoSize = true;
+            this.label_ctr_out_bump_NumberMBumpDirections.Location = new System.Drawing.Point(322, 219);
+            this.label_ctr_out_bump_NumberMBumpDirections.Name = "label_ctr_out_bump_NumberMBumpDirections";
+            this.label_ctr_out_bump_NumberMBumpDirections.Size = new System.Drawing.Size(77, 13);
+            this.label_ctr_out_bump_NumberMBumpDirections.TabIndex = 146;
+            this.label_ctr_out_bump_NumberMBumpDirections.Text = "Num bump dirs";
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -22867,6 +22903,9 @@ namespace BehaviorGraphics
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ctr_out_bump_NumberTargets)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ctr_out_bump_NumberCHBumpDirections)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ctr_out_bump_NumberDPBumpDirections)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ctr_out_bump_NumberMBumpDirections)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -24080,8 +24119,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.GroupBox groupBox74;
         private System.Windows.Forms.Label label_ctr_out_bump_CatchRate;
         private System.Windows.Forms.TextBox textBox_ctr_out_bump_CatchRate;
-        private System.Windows.Forms.Label label_ctr_out_bump_CHBumpIncr;
-        private System.Windows.Forms.TextBox textBox_ctr_out_bump_CHBumpIncr;
         private System.Windows.Forms.Label label_ctr_out_bump_CHBumpCeiling;
         private System.Windows.Forms.TextBox textBox_ctr_out_bump_CHAmplitude;
         private System.Windows.Forms.Label label_ctr_out_bump_CHBumpFloor;
@@ -24109,7 +24146,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.CheckBox checkBox_ctr_out_bump_HideCursor;
         private System.Windows.Forms.Label hide_cursor_radius_label;
         private System.Windows.Forms.TextBox textBox_ctr_out_bump_HideCursorRadiusMin;
-        private System.Windows.Forms.CheckBox checkBox_ctr_out_bump_HiddenCursorTraining;
         private System.Windows.Forms.TextBox textBoxATPGP;
         private System.Windows.Forms.Label labelATPGP;
         private System.Windows.Forms.TextBox textBoxATPGV;
@@ -24847,8 +24883,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.CheckBox checkBox_ctr_out_bump_MBump;
         private System.Windows.Forms.CheckBox checkBox_ctr_out_bump_DPBump;
         private System.Windows.Forms.CheckBox checkBox_ctr_out_bump_CHBump;
-        private System.Windows.Forms.Label label_ctr_out_bump_MBumpIncr;
-        private System.Windows.Forms.TextBox textBox_ctr_out_bump_MBumpIncr;
         private System.Windows.Forms.Label label_ctr_out_bump_MBumpCeiling;
         private System.Windows.Forms.TextBox textBox_ctr_out_bump_MAmplitude;
         private System.Windows.Forms.Label label_ctr_out_bump_MBumpFloor;
@@ -24859,8 +24893,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label_ctr_out_bump_MRiseTime;
         private System.Windows.Forms.Label label_ctr_out_bump_MPeakDuration;
         private System.Windows.Forms.TextBox textBox_ctr_out_bump_MPeakDuration;
-        private System.Windows.Forms.Label label_ctr_out_bump_DPBumpIncr;
-        private System.Windows.Forms.TextBox textBox_ctr_out_bump_DPBumpIncr;
         private System.Windows.Forms.Label label_ctr_out_bump_DPBumpCeiling;
         private System.Windows.Forms.TextBox textBox_ctr_out_bump_DPAmplitude;
         private System.Windows.Forms.Label label_ctr_out_bump_DPBumpFloor;
@@ -24896,5 +24928,11 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label_ctr_out_bump_targetHoldLow;
         private System.Windows.Forms.NumericUpDown numericUpDown_ctr_out_bump_NumberTargets;
         private System.Windows.Forms.Label label_ctr_out_bump_NumberTargets;
+        private System.Windows.Forms.NumericUpDown numericUpDown_ctr_out_bump_NumberCHBumpDirections;
+        private System.Windows.Forms.Label label_ctr_out_bump_NumberCHBumpDirections;
+        private System.Windows.Forms.NumericUpDown numericUpDown_ctr_out_bump_NumberMBumpDirections;
+        private System.Windows.Forms.Label label_ctr_out_bump_NumberMBumpDirections;
+        private System.Windows.Forms.NumericUpDown numericUpDown_ctr_out_bump_NumberDPBumpDirections;
+        private System.Windows.Forms.Label label_ctr_out_bump_NumberDPBumpDirections;
     }
 }
