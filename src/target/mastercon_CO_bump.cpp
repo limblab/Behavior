@@ -70,9 +70,47 @@
 %  * bytes 71-74: float		=> bump delay time
 %  * byte  75:	uchar		=> flag for whether or not the cursor is hidden during movement
 %  * bytes 76-79: float		=> radius from center within which the cursor will be hidden
+
+
+% * Version 2 (0x02)
+%  * ----------------
+%  * byte  0:		uchar		=> number of bytes to be transmitted
+%  * byte  1:		uchar		=> version number (in this case 0)
+%  * byte  2-4:		uchar		=> task code 'C' 'O' 'B'
+%  * bytes 5-6:		uchar       => version code
+%  * byte  7-8:		uchar		=> version code (micro)
+%  * bytes 9-12:	float		=> center hold time
+%  * bytes 13-16:	float		=> delay time
+%  * bytes 17-20:	float		=> move time
+%  * bytes 21-24:	float		=> bump delay time
+%  * bytes 25-28:	float		=> bump hold time
+%  * bytes 29-32:	float		=> intertrial time
+%  * bytes 33-36:	float		=> penalty time
+
+%  * bytes 37-40:	float		=> target size
+%  * bytes 41-44:	float		=> target radius
+%  * bytes 45-48:	float		=> target angle
+
+%  * byte 49:		uchar		=> hide cursor
+%  * bytes 50-53:	float		=> hide radius min
+%  * bytes 54-57:	float		=> hide radius max
+
+%  * byte 58:		uchar		=> abort during bumps
+%  * bytes 59-62:	float		=> catch trial rate
+%  * byte 63:		uchar		=> do center hold bump
+%  * byte 64:		uchar		=> do delay period bump
+%  * byte 65:		uchar		=> do move bump
+%  * bytes 66-69:	float		=> bump hold at peak
+%  * bytes 70-73:	float		=> bump rise time
+%  * bytes 74-77:	float		=> bump magnitude
+%  * bytes 78-81:	float		=> bump direction
+
+%  * byte 82:		uchar		=> stim trial
+%  * bytes 83-86:	float		=> stim trial rate
 %  */
 	
-#define DATABURST_VERSION ((byte)0x01) 
+
+#define DATABURST_VERSION ((byte)0x02) 
 #define DATABURST_TASK_CODE ((byte)0x01)
 
 // This must be custom defined for your behavior
