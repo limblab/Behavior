@@ -79,6 +79,7 @@
 %  * byte  2-4:		uchar		=> task code 'C' 'O' 'B'
 %  * bytes 5-6:		uchar       => version code
 %  * byte  7-8:		uchar		=> version code (micro)
+ 
 %  * bytes 9-12:	float		=> center hold time
 %  * bytes 13-16:	float		=> delay time
 %  * bytes 17-20:	float		=> move time
@@ -96,19 +97,54 @@
 %  * bytes 54-57:	float		=> hide radius max
 
 %  * byte 58:		uchar		=> abort during bumps
-%  * bytes 59-62:	float		=> catch trial rate
-%  * byte 63:		uchar		=> do center hold bump
-%  * byte 64:		uchar		=> do delay period bump
-%  * byte 65:		uchar		=> do move bump
-%  * bytes 66-69:	float		=> bump hold at peak
-%  * bytes 70-73:	float		=> bump rise time
-%  * bytes 74-77:	float		=> bump magnitude
-%  * bytes 78-81:	float		=> bump direction
+%  * bytes 59:      uchar		=> catch trial rate: THIS IS BUGGY-Casts the rate as a uchar, rather than a float
+%  * byte 60:		uchar		=> do center hold bump
+%  * byte 61:		uchar		=> do delay period bump
+%  * byte 62:		uchar		=> do move bump
+%  * bytes 63-66:	float		=> bump hold at peak
+%  * bytes 67-70:	float		=> bump rise time
+%  * bytes 71-74:	float		=> bump magnitude
+%  * bytes 75-78:	float		=> bump direction
 
-%  * byte 82:		uchar		=> stim trial
-%  * bytes 83-86:	float		=> stim trial rate
-%  */
+%  * byte 79:		uchar		=> stim trial
+%  * bytes 80-83:	float		=> stim trial rate
+%  
 	
+% * Version 3 (0x03)
+%  * ----------------
+%  * byte  0:		uchar		=> number of bytes to be transmitted
+%  * byte  1:		uchar		=> version number (in this case 0)
+%  * byte  2-4:		uchar		=> task code 'C' 'O' 'B'
+%  * bytes 5-6:		uchar       => version code
+%  * byte  7-8:		uchar		=> version code (micro)
+ 
+%  * bytes 9-12:	float		=> center hold time
+%  * bytes 13-16:	float		=> delay time
+%  * bytes 17-20:	float		=> move time
+%  * bytes 21-24:	float		=> bump delay time
+%  * bytes 25-28:	float		=> bump hold time
+%  * bytes 29-32:	float		=> intertrial time
+%  * bytes 33-36:	float		=> penalty time
+
+%  * bytes 37-40:	float		=> target size
+%  * bytes 41-44:	float		=> target radius
+%  * bytes 45-48:	float		=> target angle
+
+%  * byte 49:		uchar		=> hide cursor
+%  * bytes 50-53:	float		=> hide radius min
+%  * bytes 54-57:	float		=> hide radius max
+
+%  * byte 58:		uchar		=> abort during bumps
+%  * byte 59:		uchar		=> do center hold bump
+%  * byte 60:		uchar		=> do delay period bump
+%  * byte 61:		uchar		=> do move bump
+%  * bytes 62-65:	float		=> bump hold at peak
+%  * bytes 66-69:	float		=> bump rise time
+%  * bytes 70-73:	float		=> bump magnitude
+%  * bytes 74-77:	float		=> bump direction
+
+%  * byte 78:		uchar		=> stim trial
+%  */
 
 #define DATABURST_VERSION ((byte)0x02) 
 #define DATABURST_TASK_CODE ((byte)0x01)
@@ -450,7 +486,6 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)this->params->hide_radius_max);
 
 	db->addByte((byte)this->params->abort_during_bump);
-	db->addByte((byte)this->params->catch_rate);
 	db->addByte((byte)this->CH_bump);
 	db->addByte((byte)this->DP_bump);
 	db->addByte((byte)this->M_bump);
@@ -460,7 +495,6 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)bump_dir);
 
 	db->addByte((byte)this->stim_trial);
-	db->addFloat((float)this->params->stim_prob);
 	db->start();
 }
 
