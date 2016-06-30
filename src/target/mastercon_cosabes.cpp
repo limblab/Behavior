@@ -1,9 +1,9 @@
-/* $Id: CO_sabes.cpp 2016-06-15 briand $
+/* $Id: mastercon_cosabes.cpp 2016-06-15 briand $
  *
  * Master Control block for behavior: center out sabes task 
  */
 
-#define S_FUNCTION_NAME mastercon_CO_sabes
+#define S_FUNCTION_NAME mastercon_cosabes
 #define S_FUNCTION_LEVEL 2
 #define TASK_DB_DEFINED 1
 
@@ -64,8 +64,6 @@ struct LocalParams {
 	// frequency of cursor shift
 	real_T shift_freq;
 	real_T vis_freq;
-
-	real_T feedback_window_radius;
 	
 	real_T delay_catch_freq;
 	real_T delay_catch_l;
@@ -78,7 +76,8 @@ struct LocalParams {
 	real_T CT_color;
 	real_T OT_color;
 
-	real_T optimize_targlocs;
+	real_T Gain_vel;
+	real_T Gain_pos;
 
 };
 
@@ -100,21 +99,24 @@ public:
 
 private:
 	// Your behavior's instance variables
+	PosBumpGenerator *bump;
+
 	Point center_offset; // center target location
 	Point current_trial_shift;  // current trial displacement
 	double target_ang;
 	double shift_dir;
 	double cursor_extent;  // distance from center in direction of target
 
-	double shift_list[20];
-	double nonshift_list[20];
-	double visshift_list[20];
-	double skipped_list[20];
+	std::vector<int> shift_list;
+	std::vector<int> noshift_list;
+	std::vector<int> visshift_list;
+	std::vector<int> skipped_list;
 
-	int shift_i = 0;
-	int nonshift_i = 0;
-	int skipped_i = 0;
-	int visshift_i = 0;
+	int shift_i;
+	int noshift_i;
+	int skipped_i;
+	int visshift_i;
+	int trial_counter;
 
 	double shift_targ;
 
@@ -126,7 +128,7 @@ private:
 	double previous_time_point;
 
 	CircleTarget    *centerTarget;
-	CircleTarget	*outerTarget
+	CircleTarget	*outerTarget;
 	SquareTarget    *timerTarget;
 	LocalParams     *params;
 
@@ -136,9 +138,6 @@ private:
 	//void swap(int *a, int *b);
 	//void randomshuff (int arr[], int n);
 
-}
-
-void CO_sabesBehavior::randomshuff (int arr[], int n){
 };
 
 CO_sabesBehavior::CO_sabesBehavior(SimStruct *S) : RobotBehavior() {
@@ -151,7 +150,7 @@ CO_sabesBehavior::CO_sabesBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(30);
+	this->setNumParams(28);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			 0);
@@ -177,22 +176,18 @@ CO_sabesBehavior::CO_sabesBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->shift_axis,				16);
 	this->bindParamId(&params->shift_freq,				17);
 	this->bindParamId(&params->vis_freq,				18);
-
-	this->bindParamId(&params->feedback_window_radius,	19);
 	
-	this->bindParamId(&params->delay_catch_freq,		20);
-	this->bindParamId(&params->delay_catch_l,			21);
-	this->bindParamId(&params->delay_catch_h,			22);
+	this->bindParamId(&params->delay_catch_freq,		19);
+	this->bindParamId(&params->delay_catch_l,			20);
+	this->bindParamId(&params->delay_catch_h,			21);
 
-	this->bindParamId(&params->co_tgtnum,				23);
-	this->bindParamId(&params->co_rot,					24);
-	this->bindParamId(&params->CT_color,				25);
-	this->bindParamId(&params->OT_color,				26);
+	this->bindParamId(&params->co_tgtnum,				22);
+	this->bindParamId(&params->co_rot,					23);
+	this->bindParamId(&params->CT_color,				24);
+	this->bindParamId(&params->OT_color,				25);
 
-	this->bindParamId(&params->Gain_vel,				27);
-	this->bindParamId(&params->Gain_pos,				28);
-
-	this->bindParamId(&params->optimize_targlocs		29);
+	this->bindParamId(&params->Gain_vel,				26);
+	this->bindParamId(&params->Gain_pos,				27);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -208,7 +203,7 @@ CO_sabesBehavior::CO_sabesBehavior(SimStruct *S) : RobotBehavior() {
 	centerTarget	 = new CircleTarget(0,0,0,0);
 	outerTarget		 = new CircleTarget(0,0,0,0);
 	timerTarget      = new SquareTarget(0,0,0,0);
-	this->bump = new PosBumpGenerator();
+	this->bump		 = new PosBumpGenerator();
 
 	cursor_extent			= 0.0;
 	current_trial_shift.x   = 0.0;
@@ -225,9 +220,24 @@ CO_sabesBehavior::CO_sabesBehavior(SimStruct *S) : RobotBehavior() {
 	shift_dir				= 0.0;
 	shift_targ				= 0.0;
 	repeat_trial			= false;
-	optim_locs				= false;
 	
+	shift_i = 0.0;
+	noshift_i = 0.0;
+	skipped_i = 0.0;
+	visshift_i = 0.0;
+	trial_counter = 0.0;
 
+	shift_list.reserve(20);
+    noshift_list.reserve(20);
+	visshift_list.reserve(20);
+	skipped_list.reserve(20);
+
+	for (i=0; i<20; i++){
+		shift_list[i]=0;
+		noshift_list[i]=0;
+		visshift_list[i]=0;
+		skipped_list[i]=0;
+	}
 }
 
 void CO_sabesBehavior::updateCursorExtent(SimStruct *S){
@@ -252,14 +262,9 @@ void CO_sabesBehavior::updateCursorExtent(SimStruct *S){
 // Pre-trial initialization and calculations
 void CO_sabesBehavior::doPreTrial(SimStruct *S) {
 	int i;
-	int myrandom (int i) { return std::rand()%i;}
 	double target_index = 0.0;
+	double myrandom = random->getDouble();
 
-	if trial_counter < (2*params->co_tgtnum*params->workspace_exploration){
-		explore_mode = true;
-	} else {
-		explore_mode = false;
-	}
 	// If last trial was skipped, add to skipped trials list
 	if (repeat_trial){
 		skipped_list[skipped_i] = shift_list[shift_i - 1];
@@ -268,25 +273,25 @@ void CO_sabesBehavior::doPreTrial(SimStruct *S) {
 	}
 
 	// Set up list of target locations for non-shift trials
-	if (int (noshift_i % (params->co_tgtnum))==0){
+	if (int ((int)noshift_i % (int)(params->co_tgtnum))==0){
 		noshift_i = 0;
-		for (i=0; i<params->co_tgtnum); i++){
+		for (i=0; i<params->co_tgtnum; i++) {
 			noshift_list[i] = i+1;
 		}
-		std::random_shuffle( noshift_list.begin(), (noshift_list.begin()+params->co_tgtnum),myrandom);
+		std::random_shuffle( noshift_list.begin(), (noshift_list.begin()+params->co_tgtnum));
 	}
 
 	//Set up list of target locations for visual-shift trials
-	if (int (visshift_i % (2* params->co_tgtnum))==0){
+	if (int ((int)visshift_i % (int)(2* params->co_tgtnum))==0){
 		visshift_i = 0;
 		for (i=0; i<(2*params->co_tgtnum); i++){
 			visshift_list[i] = i+1;
 		}
-		std::random_shuffle( visshift_list.begin(), (visshift_list.begin() + 2*params->co_tgtnum),myrandom);
+		std::random_shuffle( visshift_list.begin(), (visshift_list.begin() + 2*params->co_tgtnum));
 	}
 
 	// Set up list of target locations for shift trials
-	if (int (shift_i % (2* params->co_tgtnum))==0){
+	if (int ((int)shift_i % (int)(2* params->co_tgtnum))==0){
 		shift_i = 0;
 
 		if (skipped_i > (2*params->co_tgtnum - 1)){ //If our skipped trials list is full, make it the next shifted trials list
@@ -296,7 +301,7 @@ void CO_sabesBehavior::doPreTrial(SimStruct *S) {
 			for (i=0; i<(2*params->co_tgtnum); i++){
 				shift_list[i] = i+1;//(i-params->co_tgtnum) % params->co_tgtnum;
 			}
-			std::random_shuffle( shift_list.begin(), (shift_list.begin() + 2*params->co_tgtnum),myrandom);
+			std::random_shuffle( shift_list.begin(), (shift_list.begin() + 2*params->co_tgtnum));
 		}
 	}
 
@@ -349,7 +354,7 @@ void CO_sabesBehavior::doPreTrial(SimStruct *S) {
 
 	outerTarget->centerX = center_offset.x + (params->movement_length)*cos(target_ang)
 							+ shift_targ*(params->shift_mag)*cos(params->shift_axis) ;
-	outerTarget->centerY = center_offset.y + (params->movement_length)*sin(target_ang);
+	outerTarget->centerY = center_offset.y + (params->movement_length)*sin(target_ang)
 							+ shift_targ*(params->shift_mag)*sin(params->shift_axis) ;
 	outerTarget->radius  = params->OT_size;
 	outerTarget->color   = params->OT_color;
@@ -385,9 +390,6 @@ void CO_sabesBehavior::doPreTrial(SimStruct *S) {
     this->bump->vel_gain = params->Gain_vel;
     this->bump->pos_gain = params->Gain_pos;
 
-
-	feedback_timer->stop();
-
 	// setup the databurst
 	db->reset();
 	db->addByte(DATABURST_VERSION);
@@ -405,7 +407,7 @@ void CO_sabesBehavior::doPreTrial(SimStruct *S) {
     db->start();
 }
 
-void UncertaintyTarget2dBehavior::update(SimStruct *S) {
+void CO_sabesBehavior::update(SimStruct *S) {
     /* declarations */
 	double current_speed = (sqrt(pow((inputs->cursor.x-previous_position.x),2)+pow((inputs->cursor.y-previous_position.y),2))/
 				(stateTimer->elapsedTime(S)-previous_time_point));
@@ -423,7 +425,7 @@ void UncertaintyTarget2dBehavior::update(SimStruct *S) {
 				setState(STATE_BUMP);
 			}
 		case STATE_BUMP: // Wait for bump to finish and go to STATE_CT_ON
-			if (!this->bump_isRunning(S)){
+			if (!this->bump->isRunning(S)){
 				setState(STATE_CT_ON);
 			}
 		case STATE_CT_ON:
@@ -492,7 +494,7 @@ void UncertaintyTarget2dBehavior::update(SimStruct *S) {
 	previous_time_point = stateTimer->elapsedTime(S);
 }
 
-void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
+void CO_sabesBehavior::calculateOutputs(SimStruct *S) {
     /* declarations */
 	int i;
 	updateCursorExtent(S);
@@ -609,10 +611,6 @@ void UncertaintyTarget2dBehavior::calculateOutputs(SimStruct *S) {
 		outputs->position.y = inputs->cursor.y - current_trial_shift.y;
 	}
 
-	// In all other cases, show the real cursor position
-	else {
-		outputs->position = inputs->cursor;
-	}
 }
 /*
  * Include at bottom of your behavior code
