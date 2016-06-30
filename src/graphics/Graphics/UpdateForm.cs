@@ -1470,6 +1470,44 @@ namespace BehaviorGraphics
             AddParamListItem("CC bump sampling method", "P55", "Behavior Cue Comb", this.textBoxCC_BSM);
 
             #endregion
+
+            #region Sabes
+
+            AddParamListItem("SAB CHL", "P2", "Behavior COsabes", this.textBoxSAB_CHlow);
+            AddParamListItem("SAB CHH", "P3", "Behavior COsabes", this.textBoxSAB_CHhigh);
+            AddParamListItem("SAB CDL", "P4", "Behavior COsabes", this.textBoxSAB_CDlow);
+            AddParamListItem("SAB CDH", "P5", "Behavior COsabes", this.textBoxSAB_CDhigh);
+            AddParamListItem("SAB OHL", "P6", "Behavior COsabes", this.textBoxSAB_OHlow);
+            AddParamListItem("SAB OHH", "P7", "Behavior COsabes", this.textBoxSAB_OHhigh);
+            AddParamListItem("SAB INT", "P8", "Behavior COsabes", this.textBoxSAB_intertrial);
+            AddParamListItem("SAB MT", "P9", "Behavior COsabes", this.textBoxSAB_MT);
+            AddParamListItem("SAB FL", "P10", "Behavior COsabes", this.textBoxSAB_FLtime);
+
+            AddParamListItem("SAB ML", "P11", "Behavior COsabes", this.textBoxSAB_movementlength);
+            AddParamListItem("SAB CTR", "P12", "Behavior COsabes", this.textBoxSAB_CTradius);
+            AddParamListItem("SAB OTR", "P13", "Behavior COsabes", this.textBoxSAB_OTradius);
+            
+            AddParamListItem("SAB COX", "P14", "Behavior COsabes", this.textBoxSAB_coffsetX);
+            AddParamListItem("SAB COY", "P15", "Behavior COsabes", this.textBoxSAB_coffsetY);
+
+            AddParamListItem("SAB SMAG", "P16", "Behavior COsabes", this.textBoxSAB_shiftmag);
+            AddParamListItem("SAB SAXIS", "P17", "Behavior COsabes", this.textBoxSAB_shiftaxis);
+            AddParamListItem("SAB SFREQ", "P18", "Behavior COsabes", this.textBoxSAB_shiftfreq);
+            AddParamListItem("SAB WSFREQ", "P19", "Behavior COsabes", this.textBoxSAB_wsshiftfreq);
+
+            AddParamListItem("SAB DCF", "P20", "Behavior COsabes", this.textBoxSAB_DCfreq);
+            AddParamListItem("SAB DCL", "P21", "Behavior COsabes", this.textBoxSAB_DClow);
+            AddParamListItem("SAB DCH", "P22", "Behavior COsabes", this.textBoxSAB_DChigh);
+
+            AddParamListItem("SAB NUM", "P23", "Behavior COsabes", this.numericUpDownSAB_numtargets);
+            AddParamListItem("SAB COR", "P24", "Behavior COsabes", this.textBoxSAB_COrotation);
+            AddParamListItem("SAB CTC", "P25", "Behavior COsabes", this.numericUpDownSAB_CTcolor);
+            AddParamListItem("SAB OTC", "P26", "Behavior COsabes", this.numericUpDownSAB_OTcolor);
+
+            AddParamListItem("SAB VG", "P27", "Behavior COsabes", this.textBoxSAB_velgain);
+            AddParamListItem("SAB PG", "P28", "Behavior COsabes", this.textBoxSAB_posgain);
+
+            #endregion
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
