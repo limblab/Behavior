@@ -10,11 +10,11 @@
 #include "words.h"
 #include "common_header.cpp"
 
-#include <iostream>     // std::cout
-#include <algorithm>    // std::random_shuffle
-#include <vector>       // std::vector
-#include <ctime>        // std::time
-#include <cstdlib>      // std::rand, std::srand
+//#include <iostream>     // std::cout
+//#include <algorithm>    // std::random_shuffle
+//#include <vector>       // std::vector
+//#include <ctime>        // std::time
+//#include <cstdlib>      // std::rand, std::srand
 
 #define PI (3.141592654)
 
@@ -23,11 +23,10 @@
  */
 #define STATE_PRETRIAL     0
 #define STATE_BUMP		   1
-#define STATE_CT_ON        2
-#define STATE_CENTER_HOLD  3
-#define STATE_CENTER_DELAY 4
-#define STATE_MOVEMENT     5
-#define STATE_OUTER_HOLD   6
+#define STATE_CENTER_HOLD  2
+#define STATE_CENTER_DELAY 3
+#define STATE_MOVEMENT     4
+#define STATE_OUTER_HOLD   5
 /* 
  * STATE_REWARD STATE_ABORT STATE_FAIL STATE_INCOMPLETE STATE_DATA_BLOCK 
  * are all defined in Behavior.h Do not use state numbers above 64 (0x40)
@@ -76,8 +75,11 @@ struct LocalParams {
 	real_T CT_color;
 	real_T OT_color;
 
-	real_T Gain_vel;
-	real_T Gain_pos;
+	real_T max_force;
+	real_T force_gain;
+	real_T pos_filt;
+	real_T vel_filt;
+	real_T cursor_return;
 
 };
 
@@ -106,17 +108,35 @@ private:
 	double target_ang;
 	double shift_dir;
 	double cursor_extent;  // distance from center in direction of target
+	Point cursor_shifted;
+	Point cursor_curshifted;
+	Point previous_trial_shift;
+	Point inst_shift;
 
-	std::vector<int> shift_list;
-	std::vector<int> noshift_list;
-	std::vector<int> visshift_list;
-	std::vector<int> skipped_list;
+	//std::vector<int> shift_list;
+	//std::vector<int> noshift_list;
+	//std::vector<int> visshift_list;
+	//std::vector<int> skipped_list;
+
+	double x_pos;
+	double y_pos;
+	double x_pos_old;
+    double y_pos_old;
+    
+	double x_vel;
+	double y_vel;
+    double x_vel_old;
+    double y_vel_old;
+
+	int shift_list[20];
+	int noshift_list[20];
+	int visshift_list[20];
+	int skipped_list[20];
 
 	int shift_i;
 	int noshift_i;
 	int skipped_i;
 	int visshift_i;
-	int trial_counter;
 
 	double shift_targ;
 
@@ -134,9 +154,20 @@ private:
 
 	// helper functions
 	void doPreTrial(SimStruct *S);
-	void updateCursorExtent(SimStruct *S); // updates cursor extent
-	//void swap(int *a, int *b);
-	//void randomshuff (int arr[], int n);
+	//void updateCursorExtent(SimStruct *S); // updates cursor extent
+	void gradualOffset(SimStruct *S);
+	int ColorHelper(int colorcode);
+	void swap(int *a, int *b);
+	void randomshuff (int arr[], int n);
+
+	double fvec_dir;
+	double fvec_mag;
+	double extent_at_switch;
+	double prev_cur_weighting;
+	double added_lag;
+
+	int typeflag;
+	bool abort_blank;
 
 };
 
@@ -150,7 +181,7 @@ CO_sabesBehavior::CO_sabesBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(28);
+	this->setNumParams(31);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			 0);
@@ -186,8 +217,12 @@ CO_sabesBehavior::CO_sabesBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->CT_color,				24);
 	this->bindParamId(&params->OT_color,				25);
 
-	this->bindParamId(&params->Gain_vel,				26);
-	this->bindParamId(&params->Gain_pos,				27);
+	this->bindParamId(&params->max_force,				26);
+	this->bindParamId(&params->force_gain,				27);
+	this->bindParamId(&params->vel_filt,				28);
+	this->bindParamId(&params->pos_filt,				29);
+
+	this->bindParamId(&params->cursor_return,			30);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -220,17 +255,37 @@ CO_sabesBehavior::CO_sabesBehavior(SimStruct *S) : RobotBehavior() {
 	shift_dir				= 0.0;
 	shift_targ				= 0.0;
 	repeat_trial			= false;
-	
-	shift_i = 0.0;
-	noshift_i = 0.0;
-	skipped_i = 0.0;
-	visshift_i = 0.0;
-	trial_counter = 0.0;
+	cursor_shifted.x		= 1.0;
+	cursor_shifted.y		= 1.0;
+	cursor_curshifted.x		= 1.0;
+	cursor_curshifted.y		= 1.0;
+	previous_trial_shift.x	= 0.0;
+	previous_trial_shift.y	= 0.0;
+	inst_shift.x			= 0.0;
+	inst_shift.y			= 0.0;
+	prev_cur_weighting		= 0.0;
+	added_lag				= 0.0;
+	abort_blank				= false;
 
-	shift_list.reserve(20);
-    noshift_list.reserve(20);
-	visshift_list.reserve(20);
-	skipped_list.reserve(20);
+	shift_i = 1000; // initialize high so we redraw targets on first trial
+	noshift_i = 1000;
+	visshift_i = 1000;
+	skipped_i = 0;
+
+	x_pos = 0.0;
+	y_pos = 0.0;
+	x_pos_old = 0.0;
+    y_pos_old = 0.0;
+    
+	x_vel = 0.0;
+	y_vel = 0.0;
+    x_vel_old = 0.0;
+    y_vel_old = 0.0;
+
+	fvec_dir = 0.0;
+	fvec_mag = 0.0;
+	extent_at_switch = 1.0;
+	typeflag = 0;
 
 	for (i=0; i<20; i++){
 		shift_list[i]=0;
@@ -240,107 +295,169 @@ CO_sabesBehavior::CO_sabesBehavior(SimStruct *S) : RobotBehavior() {
 	}
 }
 
-void CO_sabesBehavior::updateCursorExtent(SimStruct *S){
-	
-	cursor_extent = sqrt((inputs->cursor.x)*(inputs->cursor.x) + (inputs->cursor.y)*(inputs->cursor.y));
+//void CO_sabesBehavior::updateCursorExtent(SimStruct *S){
+//	
+//	//cursor_extent = sqrt(pow(inputs->cursor.x - current_trial_shift.x,2) + 
+//	//					   pow(inputs->cursor.y - current_trial_shift.y,2));
+//
+//	cursor_extent = sqrt(pow(cursor_shiftedV.x - centerTarget->centerX,2) + 
+//						 pow(cursor_shiftedV.y - centerTarget->centerY,2));
+//
+//}
+
+void CO_sabesBehavior::gradualOffset(SimStruct *S){
+	// Calculate distance from cursor to target
+	cursor_extent = sqrt(pow(cursor_shifted.x - centerTarget->centerX,2) + 
+						 pow(cursor_shifted.y - centerTarget->centerY,2)) - params->CT_size;
+
+	//if (cursor_extent < 0){ cursor_extent = 0.0; } // Create floor at 0
+	// Calculate weighting of current and previous shifts
+	prev_cur_weighting = cursor_extent/extent_at_switch;
+	if ((cursor_extent <= 0) || (extent_at_switch <= 0)) { 
+		prev_cur_weighting = 0.0;
+	} else if (prev_cur_weighting > 1) {
+		prev_cur_weighting = 1.0;
+	}
+
+	inst_shift.x = current_trial_shift.x*(1-prev_cur_weighting) + 
+			 	  previous_trial_shift.x*(  prev_cur_weighting);
+
+	inst_shift.y = current_trial_shift.y*(1-prev_cur_weighting) + 
+		 		  previous_trial_shift.y*(  prev_cur_weighting);
+
+	cursor_shifted.x = inputs->cursor.x - inst_shift.x;
+	cursor_shifted.y = inputs->cursor.y - inst_shift.y;
+
+	cursor_curshifted.x = inputs->cursor.x - current_trial_shift.x;
+	cursor_curshifted.y = inputs->cursor.y - current_trial_shift.y;
 
 }
 
-//void CO_sabesBehavior::swap (int *a, int *b){
-//	int temp = *a;
-//	*a = *b;
-//	*b = temp;
-//}
-//
-//void CO_sabesBehavior::randomshuff (int arr[], int n){
-//	for (int i = n-1; i > 0; i--){
-//		int j = random->getInteger(1,i);
-//		swap(&arr[i], &arr[j]);
-//	}
-//}
+int CO_sabesBehavior::ColorHelper(int colorcode){
+	int retcolr;
+	if ( colorcode == 1){
+		retcolr = Target::Color(255,0,0);
+	} else if (colorcode == 2){
+		retcolr = Target::Color(0,255,0);
+	} else if (colorcode == 3){
+		retcolr = Target::Color(0,0,255);
+	} else {
+		retcolr = Target::Color(255,0,0);
+	}
+	return retcolr;
+}
+
+void CO_sabesBehavior::swap (int *a, int *b){
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+void CO_sabesBehavior::randomshuff (int arr[], int n){
+	for (int i = n-1; i > 0; i--){
+		int j = random->getInteger(1,i);
+		swap(&arr[i], &arr[j]);
+	}
+}
 
 // Pre-trial initialization and calculations
 void CO_sabesBehavior::doPreTrial(SimStruct *S) {
 	int i;
 	double target_index = 0.0;
 	double myrandom = random->getDouble();
+	double randomTrialType = random->getDouble();
+	gradualOffset(S);
+
+	previous_trial_shift = current_trial_shift; // update "previous shift"
 
 	// If last trial was skipped, add to skipped trials list
 	if (repeat_trial){
 		skipped_list[skipped_i] = shift_list[shift_i - 1];
-		repeat_trial = false;
 		skipped_i++;
 	}
 
 	// Set up list of target locations for non-shift trials
-	if (int ((int)noshift_i % (int)(params->co_tgtnum))==0){
+	if (noshift_i > (params->co_tgtnum-1)){
 		noshift_i = 0;
 		for (i=0; i<params->co_tgtnum; i++) {
 			noshift_list[i] = i+1;
 		}
-		std::random_shuffle( noshift_list.begin(), (noshift_list.begin()+params->co_tgtnum));
+		//random->permute( (void **)noshift_list, params->co_tgtnum );
+		randomshuff( noshift_list, params->co_tgtnum);
+		//std::random_shuffle( noshift_list.begin(), (noshift_list.begin()+params->co_tgtnum));
 	}
 
 	//Set up list of target locations for visual-shift trials
-	if (int ((int)visshift_i % (int)(2* params->co_tgtnum))==0){
+	if (visshift_i > (2* params->co_tgtnum - 1)){
 		visshift_i = 0;
 		for (i=0; i<(2*params->co_tgtnum); i++){
 			visshift_list[i] = i+1;
 		}
-		std::random_shuffle( visshift_list.begin(), (visshift_list.begin() + 2*params->co_tgtnum));
+		//random->permute( (void **)visshift_list, 2*params->co_tgtnum );
+		randomshuff( visshift_list, 2*params->co_tgtnum);
+
+		//std::random_shuffle( visshift_list.begin(), (visshift_list.begin() + 2*params->co_tgtnum));
 	}
 
 	// Set up list of target locations for shift trials
-	if (int ((int)shift_i % (int)(2* params->co_tgtnum))==0){
+	if (shift_i > (2* params->co_tgtnum - 1)){
 		shift_i = 0;
 
 		if (skipped_i > (2*params->co_tgtnum - 1)){ //If our skipped trials list is full, make it the next shifted trials list
 			skipped_i = 0;
-			shift_list = skipped_list;
+			for (i=0; i<(2*params->co_tgtnum); i++){
+				shift_list[i] = skipped_list[i];
+			}
 		} else { // Otherwise create a new randomized list
 			for (i=0; i<(2*params->co_tgtnum); i++){
 				shift_list[i] = i+1;//(i-params->co_tgtnum) % params->co_tgtnum;
 			}
-			std::random_shuffle( shift_list.begin(), (shift_list.begin() + 2*params->co_tgtnum));
+			//random->permute( (void **)shift_list , 2*params->co_tgtnum );
+			//std::random_shuffle( shift_list.begin(), (shift_list.begin() + 2*params->co_tgtnum));
 		}
+		randomshuff( shift_list, 2*params->co_tgtnum);
 	}
 
 	target_index = shift_list[shift_i];
 
 	// Assign target location and shift direction
-	if (random->getDouble() <= params->shift_freq) {
+	if (randomTrialType <= params->shift_freq) {
 		if (target_index<(params->co_tgtnum + 1)){
-			target_ang = params->co_rot*PI/180 +2*PI*target_index/params->co_tgtnum;
+			target_ang = params->co_rot*PI/180 + 2*PI*target_index/params->co_tgtnum;
 			shift_dir  = 1.0;
 			shift_targ = 0.0;
 		} else {
-			target_ang = params->co_rot*PI/180 +2*PI*(target_index-params->co_tgtnum)/params->co_tgtnum;
+			target_ang = params->co_rot*PI/180 + 2*PI*(target_index-params->co_tgtnum)/params->co_tgtnum;
 			shift_dir  = -1.0;
 			shift_targ = 0.0;
 		}
+		typeflag = 1;
 		shift_i++; // increment shift trial counter
-	} else if (random->getDouble() <= (params->shift_freq + params->vis_freq)){
+	} else if (randomTrialType <= (params->shift_freq + params->vis_freq)){
 		if (visshift_list[visshift_i] < (params->co_tgtnum + 1)) {
 			target_ang = params->co_rot*PI/180 + 2*PI*(visshift_list[visshift_i])/params->co_tgtnum;
 			shift_dir = 0.0;
 			shift_targ = 1.0;
 		} else {
-			target_ang = params->co_rot*PI/180 +2*PI*(visshift_list[visshift_i]-params->co_tgtnum)
+			target_ang = params->co_rot*PI/180 + 2*PI*(visshift_list[visshift_i]-params->co_tgtnum)
 						 /params->co_tgtnum;
 			shift_dir = 0.0;
 			shift_targ = -1.0;
 		}
+		typeflag = 2;
 		visshift_i++;
 	} else {
-		target_ang = noshift_list[noshift_i];
+		target_ang = params->co_rot*PI/180 + 2*PI*noshift_list[noshift_i]/params->co_tgtnum;
 		shift_dir = 0.0;
 		shift_targ = 0.0;
+		typeflag = 3;
 		noshift_i++; // increment non-shift trial counter
 	}
 
 	// Apply cursor shift
 	current_trial_shift.x = shift_dir*(params->shift_mag)*cos(params->shift_axis);
 	current_trial_shift.y = shift_dir*(params->shift_mag)*sin(params->shift_axis);
+
 
 	center_offset.x = params->center_X_offset;
 	center_offset.y = params->center_Y_offset;
@@ -350,14 +467,14 @@ void CO_sabesBehavior::doPreTrial(SimStruct *S) {
 	centerTarget->centerX = 0.0+center_offset.x+shift_targ*(params->shift_mag)*cos(params->shift_axis) ;
 	centerTarget->centerY = 0.0+center_offset.y+shift_targ*(params->shift_mag)*sin(params->shift_axis) ;
 	centerTarget->radius  = params->CT_size;
-	centerTarget->color   = Target::Color(255, 0, 0);
+	centerTarget->color   = ColorHelper((int)params->CT_color);
 
 	outerTarget->centerX = center_offset.x + (params->movement_length)*cos(target_ang)
 							+ shift_targ*(params->shift_mag)*cos(params->shift_axis) ;
 	outerTarget->centerY = center_offset.y + (params->movement_length)*sin(target_ang)
 							+ shift_targ*(params->shift_mag)*sin(params->shift_axis) ;
 	outerTarget->radius  = params->OT_size;
-	outerTarget->color   = params->OT_color;
+	outerTarget->color   = ColorHelper((int)params->OT_color);
 
 	timerTarget->centerX = 14.25;
 	timerTarget->centerY = 10.55 ;
@@ -365,7 +482,7 @@ void CO_sabesBehavior::doPreTrial(SimStruct *S) {
 	timerTarget->color   = Target::Color(255, 255, 255);
 
 	// Initialize cursor extent
-	updateCursorExtent(S);
+	//updateCursorExtent(S);
 	
 	// Randomized Timers
 	center_hold_time  = random->getDouble(params->center_hold_l, params->center_hold_h);
@@ -383,12 +500,12 @@ void CO_sabesBehavior::doPreTrial(SimStruct *S) {
 	outer_hold_time = random->getDouble(params->outer_hold_l, params->outer_hold_h);
 
 	this->bump->distance = sqrt(pow(previous_position.x-current_trial_shift.x,2) + 
-								pow(previous_position.y-current_trial_shift.y,2));
+								pow(previous_position.y-current_trial_shift.y,2)); 
 	this->bump->direction = atan2(current_trial_shift.y-previous_position.y,current_trial_shift.x-previous_position.x);
     this->bump->duration = sqrt(pow(previous_position.x-current_trial_shift.x,2) + 
-								pow(previous_position.y-current_trial_shift.y,2))/13.3;
-    this->bump->vel_gain = params->Gain_vel;
-    this->bump->pos_gain = params->Gain_pos;
+								pow(previous_position.y-current_trial_shift.y,2))/3.5;
+    this->bump->vel_gain = params->max_force;
+    this->bump->pos_gain = params->force_gain;
 
 	// setup the databurst
 	db->reset();
@@ -409,33 +526,52 @@ void CO_sabesBehavior::doPreTrial(SimStruct *S) {
 
 void CO_sabesBehavior::update(SimStruct *S) {
     /* declarations */
+	//updateCursorExtent(S);
+	gradualOffset(S);
 	double current_speed = (sqrt(pow((inputs->cursor.x-previous_position.x),2)+pow((inputs->cursor.y-previous_position.y),2))/
 				(stateTimer->elapsedTime(S)-previous_time_point));
-	
+	//cursor_shifted.x = inputs->cursor.x - inst_shift.x;// - current_trial_shift.x;
+	//cursor_shifted.y = inputs->cursor.y - inst_shift.y;//current_trial_shift.y;
+					   
+	x_pos = inputs->cursor.x;//x_pos_old*(1-params->pos_filt) + inputs->cursor.x * params->pos_filt;
+    y_pos = inputs->cursor.y;//y_pos_old*(1-params->pos_filt) + inputs->cursor.y * params->pos_filt;
+    
+    x_vel = x_vel_old*(1-params->vel_filt) + ((x_pos-x_pos_old)/.001)*params->vel_filt;
+    y_vel = y_vel_old*(1-params->vel_filt) + ((y_pos-y_pos_old)/.001)*params->vel_filt; 
+
+	fvec_mag = sqrt(pow(cursor_shifted.x,2) + pow(cursor_shifted.y,2)); 
+	fvec_dir = atan2(-cursor_shifted.y,-cursor_shifted.x);
+
 	// State machine
 	switch (this->getState()) {
 		case STATE_PRETRIAL:
 			updateParameters(S);
 			doPreTrial(S);
+			extent_at_switch = cursor_extent;
 			setState(STATE_DATA_BLOCK);
 			break;
 		case STATE_DATA_BLOCK: // Start the to initial position
 			if (db->isDone()) {
-				this->bump->start(S);
-				setState(STATE_BUMP);
+				if (stateTimer->elapsedTime(S) > (added_lag + params->intertrial)) {
+					added_lag = 0.0;
+					setState(STATE_BUMP);
+				}
 			}
-		case STATE_BUMP: // Wait for bump to finish and go to STATE_CT_ON
-			if (!this->bump->isRunning(S)){
-				setState(STATE_CT_ON);
-			}
-		case STATE_CT_ON:
-			/* first target on */
-			if (centerTarget->cursorInTarget(inputs->cursor)) {
+			break;
+		case STATE_BUMP: // Wait until cursor is in center target and go to STATE_CENTER_HOLD
+			//if (!this->bump->isRunning(S)){
+			if (centerTarget->cursorInTarget(cursor_curshifted)){
 				setState(STATE_CENTER_HOLD);
-			} 
+			}
 			break;
 		case STATE_CENTER_HOLD:
-			if (!centerTarget->cursorInTarget(inputs->cursor)){
+			abort_blank = false;
+			repeat_trial = false;
+			if (!centerTarget->cursorInTarget(cursor_curshifted)){
+				if        (typeflag == 1) { shift_i--; 
+				} else if (typeflag == 2) { visshift_i--; 
+				} else if (typeflag == 3) { noshift_i--; }
+				abort_blank = true;
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}
@@ -444,7 +580,10 @@ void CO_sabesBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_CENTER_DELAY:
-			if (!centerTarget->cursorInTarget(inputs->cursor)) {
+			if (!centerTarget->cursorInTarget(cursor_curshifted)) {
+				if (double (abs(shift_dir)) > 0){ 
+					repeat_trial = true; 
+				}
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} 
@@ -455,10 +594,12 @@ void CO_sabesBehavior::update(SimStruct *S) {
 			break;
 		case STATE_MOVEMENT:
 			if (stateTimer->elapsedTime(S) > params->movement_time) {
-				if (double (abs(shift_dir)) > 0){ repeat_trial = true; }
+				if (double (abs(shift_dir)) > 0){ 
+					repeat_trial = true; 
+				}
 				setState(STATE_INCOMPLETE);
 			}
-			else if (outerTarget->cursorInTarget(inputs->cursor)) {
+			else if (outerTarget->cursorInTarget(cursor_curshifted)) {
 				setState(STATE_OUTER_HOLD);
 			}
 			break;
@@ -467,24 +608,21 @@ void CO_sabesBehavior::update(SimStruct *S) {
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
 			}
-			else if (!outerTarget->cursorInTarget(inputs->cursor)){
-				playTone(TONE_ABORT);
+			else if (!outerTarget->cursorInTarget(cursor_curshifted)){
+				playTone(TONE_FAIL);
 				if (double (abs(shift_dir)) > 0){ repeat_trial = true; }
-				setState(STATE_ABORT);
+				setState(STATE_FAIL);
 			}
 			break;
 		case STATE_FAIL:
-			if (stateTimer->elapsedTime(S) > (params->failure_lag + params->intertrial)) {
-				if (double (abs(shift_dir)) > 0){ repeat_trial = true; }
-				setState(STATE_PRETRIAL);
-			}
+			if (double (abs(shift_dir)) > 0){ repeat_trial = true; }
+			added_lag = params->failure_lag;
+			setState(STATE_PRETRIAL);
 			break;
 		case STATE_REWARD:
 		case STATE_ABORT:
         case STATE_INCOMPLETE:
-			if (stateTimer->elapsedTime(S) > params->intertrial) {
-				setState(STATE_PRETRIAL);
-			}
+			setState(STATE_PRETRIAL);
 			break;
 		default:
 			setState(STATE_PRETRIAL);
@@ -496,11 +634,39 @@ void CO_sabesBehavior::update(SimStruct *S) {
 
 void CO_sabesBehavior::calculateOutputs(SimStruct *S) {
     /* declarations */
-	int i;
-	updateCursorExtent(S);
+	//updateCursorExtent(S);
+    Point Posbump_force;
 
-	/* force (0) */
-	outputs->force = inputs->force;
+    // Position bump
+	//Posbump_force = this->bump->getBumpForce(S,Point(x_vel,y_vel),Point(x_pos,y_pos));
+
+	///* force (0) */
+	//if (this->bump->isRunning(S)) {
+	//	outputs->force.x = Posbump_force.x;
+	//	outputs->force.y = Posbump_force.y;
+	//} else {
+	//	outputs->force = inputs->force;
+	//}
+
+	if (getState() == STATE_BUMP){
+
+		Posbump_force.x = params->force_gain * fvec_mag * cos(fvec_dir);
+		Posbump_force.y = params->force_gain * fvec_mag * sin(fvec_dir);
+
+		if (sqrt(pow(Posbump_force.x,2)+pow(Posbump_force.y,2)) > params->max_force){
+			outputs->force.x = params->max_force * cos(fvec_dir);
+			outputs->force.y = params->max_force * sin(fvec_dir);
+		} else {
+			outputs->force.x = Posbump_force.x;
+			outputs->force.y = Posbump_force.y;
+		}
+
+	/*} else if (getState() == STATE_CENTER_HOLD){
+		outputs->force.x = -params->co_rot*x_vel;
+		outputs->force.y = -params->co_rot*y_vel;*/
+	} else {
+		outputs->force = inputs->force;
+	}
 
 	/* status (1) */
 	outputs->status[0] = getState();
@@ -519,9 +685,6 @@ void CO_sabesBehavior::calculateOutputs(SimStruct *S) {
 				break;
 			case STATE_BUMP:
 				outputs->word = WORD_BUMP(1);
-				break;
-			case STATE_CT_ON:
-				outputs->word = WORD_CT_ON;
 				break;
 			case STATE_CENTER_HOLD:
 				outputs->word = WORD_CENTER_TARGET_HOLD;
@@ -557,7 +720,6 @@ void CO_sabesBehavior::calculateOutputs(SimStruct *S) {
 	/* target_pos (3) */
 	// Target 0 is the center target
 	if (getState() == STATE_BUMP ||
-		getState() == STATE_CT_ON || 
 		getState() == STATE_CENTER_HOLD || 
 		getState() == STATE_CENTER_DELAY) {
 		outputs->targets[0] = (Target *)centerTarget;
@@ -600,17 +762,39 @@ void CO_sabesBehavior::calculateOutputs(SimStruct *S) {
 
 	/* position (7) */
 	// If we are in the return portion
-	if (getState() == STATE_BUMP){
 
-		// Hide cursor
-		outputs->position = Point(100000,100000);
+	if (abort_blank || repeat_trial) {
 
-		// otherwise, show the cursor
+		if (getState() == STATE_PRETRIAL ||
+			getState() == STATE_DATA_BLOCK){
+			
+			outputs->position = Point(100000,100000);
+
+		} else {
+			outputs->position = cursor_curshifted;
+		}
 	} else {
-		outputs->position.x = inputs->cursor.x - current_trial_shift.x;
-		outputs->position.y = inputs->cursor.y - current_trial_shift.y;
+
+		if (getState() == STATE_PRETRIAL ||
+			getState() == STATE_DATA_BLOCK ||
+			getState() == STATE_BUMP){
+		
+			if (params->cursor_return){
+				outputs->position = cursor_shifted;
+			} else {
+				outputs->position = Point(100000,100000);
+			}
+
+			// otherwise, show the cursor
+		} else {
+			outputs->position = cursor_curshifted;
+		}
 	}
 
+	x_pos_old = x_pos;
+    y_pos_old = y_pos;    
+    x_vel_old = x_vel;
+    y_vel_old = y_vel;
 }
 /*
  * Include at bottom of your behavior code

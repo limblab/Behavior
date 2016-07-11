@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1780,21 +1780,54 @@ namespace BehaviorGraphics
             this.textBox_SA_CThold = new System.Windows.Forms.TextBox();
             this.label_cthold = new System.Windows.Forms.Label();
             this.Sabes = new System.Windows.Forms.TabPage();
+            this.groupBox94 = new System.Windows.Forms.GroupBox();
+            this.label495 = new System.Windows.Forms.Label();
+            this.label496 = new System.Windows.Forms.Label();
+            this.textBoxSAB_posfilt = new System.Windows.Forms.TextBox();
+            this.textBoxSAB_velfilt = new System.Windows.Forms.TextBox();
+            this.label493 = new System.Windows.Forms.Label();
+            this.textBoxSAB_forcegain = new System.Windows.Forms.TextBox();
+            this.label494 = new System.Windows.Forms.Label();
+            this.textBoxSAB_maxforce = new System.Windows.Forms.TextBox();
+            this.groupBox93 = new System.Windows.Forms.GroupBox();
+            this.numericUpDownSAB_CTcolor = new System.Windows.Forms.NumericUpDown();
+            this.label489 = new System.Windows.Forms.Label();
+            this.numericUpDownSAB_OTcolor = new System.Windows.Forms.NumericUpDown();
+            this.label490 = new System.Windows.Forms.Label();
+            this.label491 = new System.Windows.Forms.Label();
+            this.textBoxSAB_COrotation = new System.Windows.Forms.TextBox();
+            this.label492 = new System.Windows.Forms.Label();
+            this.numericUpDownSAB_numtargets = new System.Windows.Forms.NumericUpDown();
+            this.groupBox92 = new System.Windows.Forms.GroupBox();
+            this.label465 = new System.Windows.Forms.Label();
+            this.textBoxSAB_shiftfreq = new System.Windows.Forms.TextBox();
+            this.textBoxSAB_shiftaxis = new System.Windows.Forms.TextBox();
+            this.label475 = new System.Windows.Forms.Label();
+            this.textBoxSAB_wsshiftfreq = new System.Windows.Forms.TextBox();
+            this.textBoxSAB_shiftmag = new System.Windows.Forms.TextBox();
+            this.label477 = new System.Windows.Forms.Label();
+            this.label486 = new System.Windows.Forms.Label();
             this.groupBox91 = new System.Windows.Forms.GroupBox();
             this.label476 = new System.Windows.Forms.Label();
+            this.textBoxSAB_DChigh = new System.Windows.Forms.TextBox();
             this.textBoxSAB_FLtime = new System.Windows.Forms.TextBox();
+            this.label474 = new System.Windows.Forms.Label();
             this.textBoxSAB_intertrial = new System.Windows.Forms.TextBox();
+            this.textBoxSAB_DClow = new System.Windows.Forms.TextBox();
             this.label478 = new System.Windows.Forms.Label();
+            this.label487 = new System.Windows.Forms.Label();
             this.textBoxSAB_OHhigh = new System.Windows.Forms.TextBox();
             this.label479 = new System.Windows.Forms.Label();
+            this.textBoxSAB_DCfreq = new System.Windows.Forms.TextBox();
             this.textBoxSAB_OHlow = new System.Windows.Forms.TextBox();
+            this.label488 = new System.Windows.Forms.Label();
             this.label480 = new System.Windows.Forms.Label();
-            this.textBoxSAB_MT = new System.Windows.Forms.TextBox();
-            this.label481 = new System.Windows.Forms.Label();
             this.textBoxSAB_CDhigh = new System.Windows.Forms.TextBox();
             this.label482 = new System.Windows.Forms.Label();
+            this.textBoxSAB_MT = new System.Windows.Forms.TextBox();
             this.textBoxSAB_CDlow = new System.Windows.Forms.TextBox();
             this.label483 = new System.Windows.Forms.Label();
+            this.label481 = new System.Windows.Forms.Label();
             this.textBoxSAB_CHhigh = new System.Windows.Forms.TextBox();
             this.label484 = new System.Windows.Forms.Label();
             this.textBoxSAB_CHlow = new System.Windows.Forms.TextBox();
@@ -2083,35 +2116,9 @@ namespace BehaviorGraphics
             this.angleEntryBox1 = new AngleBox.AngleEntryBox();
             this.angleEntryBox2 = new AngleBox.AngleEntryBox();
             this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
-            this.groupBox92 = new System.Windows.Forms.GroupBox();
-            this.label465 = new System.Windows.Forms.Label();
-            this.textBoxSAB_shiftfreq = new System.Windows.Forms.TextBox();
-            this.textBoxSAB_shiftaxis = new System.Windows.Forms.TextBox();
-            this.label475 = new System.Windows.Forms.Label();
-            this.textBoxSAB_wsshiftfreq = new System.Windows.Forms.TextBox();
-            this.textBoxSAB_shiftmag = new System.Windows.Forms.TextBox();
-            this.label477 = new System.Windows.Forms.Label();
-            this.label486 = new System.Windows.Forms.Label();
-            this.textBoxSAB_DChigh = new System.Windows.Forms.TextBox();
-            this.label474 = new System.Windows.Forms.Label();
-            this.textBoxSAB_DClow = new System.Windows.Forms.TextBox();
-            this.label487 = new System.Windows.Forms.Label();
-            this.textBoxSAB_DCfreq = new System.Windows.Forms.TextBox();
-            this.label488 = new System.Windows.Forms.Label();
-            this.groupBox93 = new System.Windows.Forms.GroupBox();
-            this.numericUpDownSAB_CTcolor = new System.Windows.Forms.NumericUpDown();
-            this.label489 = new System.Windows.Forms.Label();
-            this.numericUpDownSAB_OTcolor = new System.Windows.Forms.NumericUpDown();
-            this.label490 = new System.Windows.Forms.Label();
-            this.label491 = new System.Windows.Forms.Label();
-            this.textBoxSAB_COrotation = new System.Windows.Forms.TextBox();
-            this.label492 = new System.Windows.Forms.Label();
-            this.numericUpDownSAB_numtargets = new System.Windows.Forms.NumericUpDown();
-            this.groupBox94 = new System.Windows.Forms.GroupBox();
-            this.label494 = new System.Windows.Forms.Label();
-            this.textBoxSAB_velgain = new System.Windows.Forms.TextBox();
-            this.label493 = new System.Windows.Forms.Label();
-            this.textBoxSAB_posgain = new System.Windows.Forms.TextBox();
+            this.textBoxSAB_vgain = new System.Windows.Forms.TextBox();
+            this.label497 = new System.Windows.Forms.Label();
+            this.checkBoxSAB_showreturn = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2312,6 +2319,12 @@ namespace BehaviorGraphics
             this.groupBox_SA_controlBump.SuspendLayout();
             this.groupBox_SA_timing.SuspendLayout();
             this.Sabes.SuspendLayout();
+            this.groupBox94.SuspendLayout();
+            this.groupBox93.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSAB_CTcolor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSAB_OTcolor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSAB_numtargets)).BeginInit();
+            this.groupBox92.SuspendLayout();
             this.groupBox91.SuspendLayout();
             this.groupBox90.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -2322,12 +2335,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBox92.SuspendLayout();
-            this.groupBox93.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSAB_CTcolor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSAB_OTcolor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSAB_numtargets)).BeginInit();
-            this.groupBox94.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -5329,8 +5336,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -6162,8 +6169,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -20252,6 +20259,323 @@ namespace BehaviorGraphics
             this.Sabes.Text = "Sabes";
             this.Sabes.UseVisualStyleBackColor = true;
             // 
+            // groupBox94
+            // 
+            this.groupBox94.Controls.Add(this.checkBoxSAB_showreturn);
+            this.groupBox94.Controls.Add(this.label497);
+            this.groupBox94.Controls.Add(this.label495);
+            this.groupBox94.Controls.Add(this.textBoxSAB_vgain);
+            this.groupBox94.Controls.Add(this.label496);
+            this.groupBox94.Controls.Add(this.textBoxSAB_posfilt);
+            this.groupBox94.Controls.Add(this.textBoxSAB_velfilt);
+            this.groupBox94.Controls.Add(this.label493);
+            this.groupBox94.Controls.Add(this.textBoxSAB_forcegain);
+            this.groupBox94.Controls.Add(this.label494);
+            this.groupBox94.Controls.Add(this.textBoxSAB_maxforce);
+            this.groupBox94.Location = new System.Drawing.Point(214, 92);
+            this.groupBox94.Name = "groupBox94";
+            this.groupBox94.Size = new System.Drawing.Size(294, 102);
+            this.groupBox94.TabIndex = 96;
+            this.groupBox94.TabStop = false;
+            this.groupBox94.Text = "Servo Settings";
+            // 
+            // label495
+            // 
+            this.label495.AutoSize = true;
+            this.label495.Location = new System.Drawing.Point(159, 50);
+            this.label495.Name = "label495";
+            this.label495.Size = new System.Drawing.Size(69, 13);
+            this.label495.TabIndex = 89;
+            this.label495.Text = "Position Filter";
+            // 
+            // label496
+            // 
+            this.label496.AutoSize = true;
+            this.label496.Location = new System.Drawing.Point(159, 22);
+            this.label496.Name = "label496";
+            this.label496.Size = new System.Drawing.Size(69, 13);
+            this.label496.TabIndex = 88;
+            this.label496.Text = "Velocity Filter";
+            // 
+            // textBoxSAB_posfilt
+            // 
+            this.textBoxSAB_posfilt.Location = new System.Drawing.Point(243, 47);
+            this.textBoxSAB_posfilt.Name = "textBoxSAB_posfilt";
+            this.textBoxSAB_posfilt.Size = new System.Drawing.Size(39, 20);
+            this.textBoxSAB_posfilt.TabIndex = 87;
+            this.toolTip1.SetToolTip(this.textBoxSAB_posfilt, "Filter applied to position component of servo");
+            this.textBoxSAB_posfilt.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxSAB_velfilt
+            // 
+            this.textBoxSAB_velfilt.Location = new System.Drawing.Point(243, 19);
+            this.textBoxSAB_velfilt.Name = "textBoxSAB_velfilt";
+            this.textBoxSAB_velfilt.Size = new System.Drawing.Size(39, 20);
+            this.textBoxSAB_velfilt.TabIndex = 86;
+            this.toolTip1.SetToolTip(this.textBoxSAB_velfilt, "Filter applied to velocity component of servo");
+            this.textBoxSAB_velfilt.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label493
+            // 
+            this.label493.AutoSize = true;
+            this.label493.Location = new System.Drawing.Point(10, 25);
+            this.label493.Name = "label493";
+            this.label493.Size = new System.Drawing.Size(92, 13);
+            this.label493.TabIndex = 84;
+            this.label493.Text = "Return Force gain";
+            // 
+            // textBoxSAB_forcegain
+            // 
+            this.textBoxSAB_forcegain.Location = new System.Drawing.Point(105, 22);
+            this.textBoxSAB_forcegain.Name = "textBoxSAB_forcegain";
+            this.textBoxSAB_forcegain.Size = new System.Drawing.Size(39, 20);
+            this.textBoxSAB_forcegain.TabIndex = 85;
+            this.toolTip1.SetToolTip(this.textBoxSAB_forcegain, "force gain applied during return to center");
+            this.textBoxSAB_forcegain.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label494
+            // 
+            this.label494.AutoSize = true;
+            this.label494.Location = new System.Drawing.Point(10, 54);
+            this.label494.Name = "label494";
+            this.label494.Size = new System.Drawing.Size(89, 13);
+            this.label494.TabIndex = 82;
+            this.label494.Text = "Max Return force";
+            this.label494.Click += new System.EventHandler(this.label494_Click);
+            // 
+            // textBoxSAB_maxforce
+            // 
+            this.textBoxSAB_maxforce.Location = new System.Drawing.Point(105, 50);
+            this.textBoxSAB_maxforce.Name = "textBoxSAB_maxforce";
+            this.textBoxSAB_maxforce.Size = new System.Drawing.Size(39, 20);
+            this.textBoxSAB_maxforce.TabIndex = 83;
+            this.toolTip1.SetToolTip(this.textBoxSAB_maxforce, "maximum force allowed during return ");
+            this.textBoxSAB_maxforce.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // groupBox93
+            // 
+            this.groupBox93.Controls.Add(this.numericUpDownSAB_CTcolor);
+            this.groupBox93.Controls.Add(this.label489);
+            this.groupBox93.Controls.Add(this.numericUpDownSAB_OTcolor);
+            this.groupBox93.Controls.Add(this.label490);
+            this.groupBox93.Controls.Add(this.label491);
+            this.groupBox93.Controls.Add(this.textBoxSAB_COrotation);
+            this.groupBox93.Controls.Add(this.label492);
+            this.groupBox93.Controls.Add(this.numericUpDownSAB_numtargets);
+            this.groupBox93.Location = new System.Drawing.Point(214, 6);
+            this.groupBox93.Name = "groupBox93";
+            this.groupBox93.Size = new System.Drawing.Size(294, 80);
+            this.groupBox93.TabIndex = 77;
+            this.groupBox93.TabStop = false;
+            this.groupBox93.Text = "Target Locations";
+            // 
+            // numericUpDownSAB_CTcolor
+            // 
+            this.numericUpDownSAB_CTcolor.Location = new System.Drawing.Point(111, 18);
+            this.numericUpDownSAB_CTcolor.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericUpDownSAB_CTcolor.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownSAB_CTcolor.Name = "numericUpDownSAB_CTcolor";
+            this.numericUpDownSAB_CTcolor.Size = new System.Drawing.Size(33, 20);
+            this.numericUpDownSAB_CTcolor.TabIndex = 95;
+            this.numericUpDownSAB_CTcolor.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // label489
+            // 
+            this.label489.AutoSize = true;
+            this.label489.Location = new System.Drawing.Point(6, 21);
+            this.label489.Name = "label489";
+            this.label489.Size = new System.Drawing.Size(99, 13);
+            this.label489.TabIndex = 94;
+            this.label489.Text = "Center Target Color";
+            // 
+            // numericUpDownSAB_OTcolor
+            // 
+            this.numericUpDownSAB_OTcolor.Location = new System.Drawing.Point(111, 45);
+            this.numericUpDownSAB_OTcolor.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericUpDownSAB_OTcolor.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownSAB_OTcolor.Name = "numericUpDownSAB_OTcolor";
+            this.numericUpDownSAB_OTcolor.Size = new System.Drawing.Size(33, 20);
+            this.numericUpDownSAB_OTcolor.TabIndex = 93;
+            this.numericUpDownSAB_OTcolor.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // label490
+            // 
+            this.label490.AutoSize = true;
+            this.label490.Location = new System.Drawing.Point(167, 47);
+            this.label490.Name = "label490";
+            this.label490.Size = new System.Drawing.Size(65, 13);
+            this.label490.TabIndex = 82;
+            this.label490.Text = "CO Rotation";
+            // 
+            // label491
+            // 
+            this.label491.AutoSize = true;
+            this.label491.Location = new System.Drawing.Point(11, 47);
+            this.label491.Name = "label491";
+            this.label491.Size = new System.Drawing.Size(94, 13);
+            this.label491.TabIndex = 92;
+            this.label491.Text = "Outer Target Color";
+            // 
+            // textBoxSAB_COrotation
+            // 
+            this.textBoxSAB_COrotation.Location = new System.Drawing.Point(243, 44);
+            this.textBoxSAB_COrotation.Name = "textBoxSAB_COrotation";
+            this.textBoxSAB_COrotation.Size = new System.Drawing.Size(39, 20);
+            this.textBoxSAB_COrotation.TabIndex = 83;
+            this.toolTip1.SetToolTip(this.textBoxSAB_COrotation, "Angular rotation of outer targets (rad)");
+            this.textBoxSAB_COrotation.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label492
+            // 
+            this.label492.AutoSize = true;
+            this.label492.Location = new System.Drawing.Point(167, 21);
+            this.label492.Name = "label492";
+            this.label492.Size = new System.Drawing.Size(61, 13);
+            this.label492.TabIndex = 71;
+            this.label492.Text = "CO Targets";
+            // 
+            // numericUpDownSAB_numtargets
+            // 
+            this.numericUpDownSAB_numtargets.Increment = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownSAB_numtargets.Location = new System.Drawing.Point(243, 19);
+            this.numericUpDownSAB_numtargets.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDownSAB_numtargets.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownSAB_numtargets.Name = "numericUpDownSAB_numtargets";
+            this.numericUpDownSAB_numtargets.Size = new System.Drawing.Size(44, 20);
+            this.numericUpDownSAB_numtargets.TabIndex = 81;
+            this.toolTip1.SetToolTip(this.numericUpDownSAB_numtargets, "number of targets ");
+            this.numericUpDownSAB_numtargets.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
+            // groupBox92
+            // 
+            this.groupBox92.Controls.Add(this.label465);
+            this.groupBox92.Controls.Add(this.textBoxSAB_shiftfreq);
+            this.groupBox92.Controls.Add(this.textBoxSAB_shiftaxis);
+            this.groupBox92.Controls.Add(this.label475);
+            this.groupBox92.Controls.Add(this.textBoxSAB_wsshiftfreq);
+            this.groupBox92.Controls.Add(this.textBoxSAB_shiftmag);
+            this.groupBox92.Controls.Add(this.label477);
+            this.groupBox92.Controls.Add(this.label486);
+            this.groupBox92.Location = new System.Drawing.Point(8, 174);
+            this.groupBox92.Name = "groupBox92";
+            this.groupBox92.Size = new System.Drawing.Size(191, 126);
+            this.groupBox92.TabIndex = 74;
+            this.groupBox92.TabStop = false;
+            this.groupBox92.Text = "Sabes Shift Settings";
+            // 
+            // label465
+            // 
+            this.label465.AutoSize = true;
+            this.label465.Location = new System.Drawing.Point(13, 73);
+            this.label465.Name = "label465";
+            this.label465.Size = new System.Drawing.Size(81, 13);
+            this.label465.TabIndex = 32;
+            this.label465.Text = "Shift Frequency";
+            // 
+            // textBoxSAB_shiftfreq
+            // 
+            this.textBoxSAB_shiftfreq.Location = new System.Drawing.Point(135, 70);
+            this.textBoxSAB_shiftfreq.Name = "textBoxSAB_shiftfreq";
+            this.textBoxSAB_shiftfreq.Size = new System.Drawing.Size(43, 20);
+            this.textBoxSAB_shiftfreq.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.textBoxSAB_shiftfreq, "Frequency of shift trials (between 0 and 1)");
+            this.textBoxSAB_shiftfreq.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxSAB_shiftaxis
+            // 
+            this.textBoxSAB_shiftaxis.Location = new System.Drawing.Point(135, 42);
+            this.textBoxSAB_shiftaxis.Name = "textBoxSAB_shiftaxis";
+            this.textBoxSAB_shiftaxis.Size = new System.Drawing.Size(43, 20);
+            this.textBoxSAB_shiftaxis.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.textBoxSAB_shiftaxis, "Axis on which to apply the shift between cursor and hand");
+            this.textBoxSAB_shiftaxis.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label475
+            // 
+            this.label475.AutoSize = true;
+            this.label475.Location = new System.Drawing.Point(14, 45);
+            this.label475.Name = "label475";
+            this.label475.Size = new System.Drawing.Size(74, 13);
+            this.label475.TabIndex = 22;
+            this.label475.Text = "Shift Axis (rad)";
+            // 
+            // textBoxSAB_wsshiftfreq
+            // 
+            this.textBoxSAB_wsshiftfreq.Location = new System.Drawing.Point(135, 96);
+            this.textBoxSAB_wsshiftfreq.Name = "textBoxSAB_wsshiftfreq";
+            this.textBoxSAB_wsshiftfreq.Size = new System.Drawing.Size(43, 20);
+            this.textBoxSAB_wsshiftfreq.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.textBoxSAB_wsshiftfreq, "Frequency of whole workspace shifts");
+            this.textBoxSAB_wsshiftfreq.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxSAB_shiftmag
+            // 
+            this.textBoxSAB_shiftmag.Location = new System.Drawing.Point(135, 15);
+            this.textBoxSAB_shiftmag.Name = "textBoxSAB_shiftmag";
+            this.textBoxSAB_shiftmag.Size = new System.Drawing.Size(43, 20);
+            this.textBoxSAB_shiftmag.TabIndex = 21;
+            this.toolTip1.SetToolTip(this.textBoxSAB_shiftmag, "Magnitude of offset between hand and cursor applied during shift trials (cm)");
+            this.textBoxSAB_shiftmag.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label477
+            // 
+            this.label477.AutoSize = true;
+            this.label477.Location = new System.Drawing.Point(12, 99);
+            this.label477.Name = "label477";
+            this.label477.Size = new System.Drawing.Size(110, 13);
+            this.label477.TabIndex = 25;
+            this.label477.Text = "Workspace Shift Freq";
+            this.toolTip1.SetToolTip(this.label477, "Offset of the center target along the target axis");
+            // 
+            // label486
+            // 
+            this.label486.AutoSize = true;
+            this.label486.Location = new System.Drawing.Point(13, 19);
+            this.label486.Name = "label486";
+            this.label486.Size = new System.Drawing.Size(104, 13);
+            this.label486.TabIndex = 20;
+            this.label486.Text = "Shift Magnitude (cm)";
+            // 
             // groupBox91
             // 
             this.groupBox91.Controls.Add(this.label476);
@@ -20294,6 +20618,15 @@ namespace BehaviorGraphics
             this.label476.TabIndex = 16;
             this.label476.Text = "Failure Lag Time";
             // 
+            // textBoxSAB_DChigh
+            // 
+            this.textBoxSAB_DChigh.Location = new System.Drawing.Point(108, 190);
+            this.textBoxSAB_DChigh.Name = "textBoxSAB_DChigh";
+            this.textBoxSAB_DChigh.Size = new System.Drawing.Size(34, 20);
+            this.textBoxSAB_DChigh.TabIndex = 88;
+            this.toolTip1.SetToolTip(this.textBoxSAB_DChigh, "Upper bound of catch trial delay time");
+            this.textBoxSAB_DChigh.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
             // textBoxSAB_FLtime
             // 
             this.textBoxSAB_FLtime.Location = new System.Drawing.Point(108, 330);
@@ -20304,6 +20637,15 @@ namespace BehaviorGraphics
                     "ure.");
             this.textBoxSAB_FLtime.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
+            // label474
+            // 
+            this.label474.AutoSize = true;
+            this.label474.Location = new System.Drawing.Point(13, 193);
+            this.label474.Name = "label474";
+            this.label474.Size = new System.Drawing.Size(90, 13);
+            this.label474.TabIndex = 87;
+            this.label474.Text = "Delay Catch High";
+            // 
             // textBoxSAB_intertrial
             // 
             this.textBoxSAB_intertrial.Location = new System.Drawing.Point(108, 278);
@@ -20313,6 +20655,15 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.textBoxSAB_intertrial, "Time between completion of one trial and the initiation of the next.");
             this.textBoxSAB_intertrial.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
+            // textBoxSAB_DClow
+            // 
+            this.textBoxSAB_DClow.Location = new System.Drawing.Point(108, 165);
+            this.textBoxSAB_DClow.Name = "textBoxSAB_DClow";
+            this.textBoxSAB_DClow.Size = new System.Drawing.Size(34, 20);
+            this.textBoxSAB_DClow.TabIndex = 86;
+            this.toolTip1.SetToolTip(this.textBoxSAB_DClow, "Lower bound on catch trial delay time");
+            this.textBoxSAB_DClow.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
             // label478
             // 
             this.label478.AutoSize = true;
@@ -20321,6 +20672,15 @@ namespace BehaviorGraphics
             this.label478.Size = new System.Drawing.Size(82, 13);
             this.label478.TabIndex = 12;
             this.label478.Text = "Intertrial Interval";
+            // 
+            // label487
+            // 
+            this.label487.AutoSize = true;
+            this.label487.Location = new System.Drawing.Point(13, 168);
+            this.label487.Name = "label487";
+            this.label487.Size = new System.Drawing.Size(88, 13);
+            this.label487.TabIndex = 85;
+            this.label487.Text = "Delay Catch Low";
             // 
             // textBoxSAB_OHhigh
             // 
@@ -20342,6 +20702,15 @@ namespace BehaviorGraphics
             this.label479.TabIndex = 10;
             this.label479.Text = "Outer Hold High";
             // 
+            // textBoxSAB_DCfreq
+            // 
+            this.textBoxSAB_DCfreq.Location = new System.Drawing.Point(108, 140);
+            this.textBoxSAB_DCfreq.Name = "textBoxSAB_DCfreq";
+            this.textBoxSAB_DCfreq.Size = new System.Drawing.Size(34, 20);
+            this.textBoxSAB_DCfreq.TabIndex = 84;
+            this.toolTip1.SetToolTip(this.textBoxSAB_DCfreq, "Frequency of catch trials");
+            this.textBoxSAB_DCfreq.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
             // textBoxSAB_OHlow
             // 
             this.textBoxSAB_OHlow.Location = new System.Drawing.Point(108, 224);
@@ -20353,6 +20722,15 @@ namespace BehaviorGraphics
                     "Hold High for non-random hold time.");
             this.textBoxSAB_OHlow.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
+            // label488
+            // 
+            this.label488.AutoSize = true;
+            this.label488.Location = new System.Drawing.Point(13, 143);
+            this.label488.Name = "label488";
+            this.label488.Size = new System.Drawing.Size(89, 13);
+            this.label488.TabIndex = 83;
+            this.label488.Text = "Delay Catch Freq";
+            // 
             // label480
             // 
             this.label480.AutoSize = true;
@@ -20361,25 +20739,6 @@ namespace BehaviorGraphics
             this.label480.Size = new System.Drawing.Size(81, 13);
             this.label480.TabIndex = 8;
             this.label480.Text = "Outer Hold Low";
-            // 
-            // textBoxSAB_MT
-            // 
-            this.textBoxSAB_MT.Location = new System.Drawing.Point(108, 304);
-            this.textBoxSAB_MT.Name = "textBoxSAB_MT";
-            this.textBoxSAB_MT.Size = new System.Drawing.Size(34, 20);
-            this.textBoxSAB_MT.TabIndex = 15;
-            this.toolTip1.SetToolTip(this.textBoxSAB_MT, "Movement time.  Amount of time monkey has to reach the outer target after recievi" +
-                    "ng the go cue.");
-            this.textBoxSAB_MT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label481
-            // 
-            this.label481.AutoSize = true;
-            this.label481.Location = new System.Drawing.Point(13, 307);
-            this.label481.Name = "label481";
-            this.label481.Size = new System.Drawing.Size(83, 13);
-            this.label481.TabIndex = 14;
-            this.label481.Text = "Movement Time";
             // 
             // textBoxSAB_CDhigh
             // 
@@ -20401,6 +20760,16 @@ namespace BehaviorGraphics
             this.label482.TabIndex = 6;
             this.label482.Text = "Center Delay High";
             // 
+            // textBoxSAB_MT
+            // 
+            this.textBoxSAB_MT.Location = new System.Drawing.Point(108, 304);
+            this.textBoxSAB_MT.Name = "textBoxSAB_MT";
+            this.textBoxSAB_MT.Size = new System.Drawing.Size(34, 20);
+            this.textBoxSAB_MT.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.textBoxSAB_MT, "Movement time.  Amount of time monkey has to reach the outer target after recievi" +
+                    "ng the go cue.");
+            this.textBoxSAB_MT.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
             // textBoxSAB_CDlow
             // 
             this.textBoxSAB_CDlow.Location = new System.Drawing.Point(108, 74);
@@ -20420,6 +20789,15 @@ namespace BehaviorGraphics
             this.label483.Size = new System.Drawing.Size(91, 13);
             this.label483.TabIndex = 4;
             this.label483.Text = "Center Delay Low";
+            // 
+            // label481
+            // 
+            this.label481.AutoSize = true;
+            this.label481.Location = new System.Drawing.Point(13, 307);
+            this.label481.Name = "label481";
+            this.label481.Size = new System.Drawing.Size(83, 13);
+            this.label481.TabIndex = 14;
+            this.label481.Text = "Movement Time";
             // 
             // textBoxSAB_CHhigh
             // 
@@ -22939,332 +23317,33 @@ namespace BehaviorGraphics
             this.angleEntryBox_SA.TabIndex = 19;
             this.angleEntryBox_SA.Value = 0;
             // 
-            // groupBox92
+            // textBoxSAB_vgain
             // 
-            this.groupBox92.Controls.Add(this.label465);
-            this.groupBox92.Controls.Add(this.textBoxSAB_shiftfreq);
-            this.groupBox92.Controls.Add(this.textBoxSAB_shiftaxis);
-            this.groupBox92.Controls.Add(this.label475);
-            this.groupBox92.Controls.Add(this.textBoxSAB_wsshiftfreq);
-            this.groupBox92.Controls.Add(this.textBoxSAB_shiftmag);
-            this.groupBox92.Controls.Add(this.label477);
-            this.groupBox92.Controls.Add(this.label486);
-            this.groupBox92.Location = new System.Drawing.Point(8, 174);
-            this.groupBox92.Name = "groupBox92";
-            this.groupBox92.Size = new System.Drawing.Size(191, 126);
-            this.groupBox92.TabIndex = 74;
-            this.groupBox92.TabStop = false;
-            this.groupBox92.Text = "Sabes Shift Settings";
+            this.textBoxSAB_vgain.Location = new System.Drawing.Point(243, 73);
+            this.textBoxSAB_vgain.Name = "textBoxSAB_vgain";
+            this.textBoxSAB_vgain.Size = new System.Drawing.Size(39, 20);
+            this.textBoxSAB_vgain.TabIndex = 90;
+            this.toolTip1.SetToolTip(this.textBoxSAB_vgain, "viscosity of center target during return");
+            this.textBoxSAB_vgain.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
-            // label465
+            // label497
             // 
-            this.label465.AutoSize = true;
-            this.label465.Location = new System.Drawing.Point(13, 73);
-            this.label465.Name = "label465";
-            this.label465.Size = new System.Drawing.Size(81, 13);
-            this.label465.TabIndex = 32;
-            this.label465.Text = "Shift Frequency";
+            this.label497.AutoSize = true;
+            this.label497.Location = new System.Drawing.Point(163, 76);
+            this.label497.Name = "label497";
+            this.label497.Size = new System.Drawing.Size(67, 13);
+            this.label497.TabIndex = 90;
+            this.label497.Text = "Viscous gain";
             // 
-            // textBoxSAB_shiftfreq
+            // checkBoxSAB_showreturn
             // 
-            this.textBoxSAB_shiftfreq.Location = new System.Drawing.Point(135, 70);
-            this.textBoxSAB_shiftfreq.Name = "textBoxSAB_shiftfreq";
-            this.textBoxSAB_shiftfreq.Size = new System.Drawing.Size(43, 20);
-            this.textBoxSAB_shiftfreq.TabIndex = 31;
-            this.toolTip1.SetToolTip(this.textBoxSAB_shiftfreq, "Frequency of shift trials (between 0 and 1)");
-            this.textBoxSAB_shiftfreq.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // textBoxSAB_shiftaxis
-            // 
-            this.textBoxSAB_shiftaxis.Location = new System.Drawing.Point(135, 42);
-            this.textBoxSAB_shiftaxis.Name = "textBoxSAB_shiftaxis";
-            this.textBoxSAB_shiftaxis.Size = new System.Drawing.Size(43, 20);
-            this.textBoxSAB_shiftaxis.TabIndex = 23;
-            this.toolTip1.SetToolTip(this.textBoxSAB_shiftaxis, "Axis on which to apply the shift between cursor and hand");
-            this.textBoxSAB_shiftaxis.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label475
-            // 
-            this.label475.AutoSize = true;
-            this.label475.Location = new System.Drawing.Point(14, 45);
-            this.label475.Name = "label475";
-            this.label475.Size = new System.Drawing.Size(74, 13);
-            this.label475.TabIndex = 22;
-            this.label475.Text = "Shift Axis (rad)";
-            // 
-            // textBoxSAB_wsshiftfreq
-            // 
-            this.textBoxSAB_wsshiftfreq.Location = new System.Drawing.Point(135, 96);
-            this.textBoxSAB_wsshiftfreq.Name = "textBoxSAB_wsshiftfreq";
-            this.textBoxSAB_wsshiftfreq.Size = new System.Drawing.Size(43, 20);
-            this.textBoxSAB_wsshiftfreq.TabIndex = 26;
-            this.toolTip1.SetToolTip(this.textBoxSAB_wsshiftfreq, "Frequency of whole workspace shifts");
-            this.textBoxSAB_wsshiftfreq.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // textBoxSAB_shiftmag
-            // 
-            this.textBoxSAB_shiftmag.Location = new System.Drawing.Point(135, 15);
-            this.textBoxSAB_shiftmag.Name = "textBoxSAB_shiftmag";
-            this.textBoxSAB_shiftmag.Size = new System.Drawing.Size(43, 20);
-            this.textBoxSAB_shiftmag.TabIndex = 21;
-            this.toolTip1.SetToolTip(this.textBoxSAB_shiftmag, "Magnitude of offset between hand and cursor applied during shift trials (cm)");
-            this.textBoxSAB_shiftmag.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label477
-            // 
-            this.label477.AutoSize = true;
-            this.label477.Location = new System.Drawing.Point(12, 99);
-            this.label477.Name = "label477";
-            this.label477.Size = new System.Drawing.Size(110, 13);
-            this.label477.TabIndex = 25;
-            this.label477.Text = "Workspace Shift Freq";
-            this.toolTip1.SetToolTip(this.label477, "Offset of the center target along the target axis");
-            // 
-            // label486
-            // 
-            this.label486.AutoSize = true;
-            this.label486.Location = new System.Drawing.Point(13, 19);
-            this.label486.Name = "label486";
-            this.label486.Size = new System.Drawing.Size(104, 13);
-            this.label486.TabIndex = 20;
-            this.label486.Text = "Shift Magnitude (cm)";
-            // 
-            // textBoxSAB_DChigh
-            // 
-            this.textBoxSAB_DChigh.Location = new System.Drawing.Point(108, 190);
-            this.textBoxSAB_DChigh.Name = "textBoxSAB_DChigh";
-            this.textBoxSAB_DChigh.Size = new System.Drawing.Size(34, 20);
-            this.textBoxSAB_DChigh.TabIndex = 88;
-            this.toolTip1.SetToolTip(this.textBoxSAB_DChigh, "Upper bound of catch trial delay time");
-            this.textBoxSAB_DChigh.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label474
-            // 
-            this.label474.AutoSize = true;
-            this.label474.Location = new System.Drawing.Point(13, 193);
-            this.label474.Name = "label474";
-            this.label474.Size = new System.Drawing.Size(90, 13);
-            this.label474.TabIndex = 87;
-            this.label474.Text = "Delay Catch High";
-            // 
-            // textBoxSAB_DClow
-            // 
-            this.textBoxSAB_DClow.Location = new System.Drawing.Point(108, 165);
-            this.textBoxSAB_DClow.Name = "textBoxSAB_DClow";
-            this.textBoxSAB_DClow.Size = new System.Drawing.Size(34, 20);
-            this.textBoxSAB_DClow.TabIndex = 86;
-            this.toolTip1.SetToolTip(this.textBoxSAB_DClow, "Lower bound on catch trial delay time");
-            this.textBoxSAB_DClow.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label487
-            // 
-            this.label487.AutoSize = true;
-            this.label487.Location = new System.Drawing.Point(13, 168);
-            this.label487.Name = "label487";
-            this.label487.Size = new System.Drawing.Size(88, 13);
-            this.label487.TabIndex = 85;
-            this.label487.Text = "Delay Catch Low";
-            // 
-            // textBoxSAB_DCfreq
-            // 
-            this.textBoxSAB_DCfreq.Location = new System.Drawing.Point(108, 140);
-            this.textBoxSAB_DCfreq.Name = "textBoxSAB_DCfreq";
-            this.textBoxSAB_DCfreq.Size = new System.Drawing.Size(34, 20);
-            this.textBoxSAB_DCfreq.TabIndex = 84;
-            this.toolTip1.SetToolTip(this.textBoxSAB_DCfreq, "Frequency of catch trials");
-            this.textBoxSAB_DCfreq.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label488
-            // 
-            this.label488.AutoSize = true;
-            this.label488.Location = new System.Drawing.Point(13, 143);
-            this.label488.Name = "label488";
-            this.label488.Size = new System.Drawing.Size(89, 13);
-            this.label488.TabIndex = 83;
-            this.label488.Text = "Delay Catch Freq";
-            // 
-            // groupBox93
-            // 
-            this.groupBox93.Controls.Add(this.numericUpDownSAB_CTcolor);
-            this.groupBox93.Controls.Add(this.label489);
-            this.groupBox93.Controls.Add(this.numericUpDownSAB_OTcolor);
-            this.groupBox93.Controls.Add(this.label490);
-            this.groupBox93.Controls.Add(this.label491);
-            this.groupBox93.Controls.Add(this.textBoxSAB_COrotation);
-            this.groupBox93.Controls.Add(this.label492);
-            this.groupBox93.Controls.Add(this.numericUpDownSAB_numtargets);
-            this.groupBox93.Location = new System.Drawing.Point(214, 6);
-            this.groupBox93.Name = "groupBox93";
-            this.groupBox93.Size = new System.Drawing.Size(294, 80);
-            this.groupBox93.TabIndex = 77;
-            this.groupBox93.TabStop = false;
-            this.groupBox93.Text = "Target Locations";
-            // 
-            // numericUpDownSAB_CTcolor
-            // 
-            this.numericUpDownSAB_CTcolor.Location = new System.Drawing.Point(111, 18);
-            this.numericUpDownSAB_CTcolor.Maximum = new decimal(new int[] {
-            6,
-            0,
-            0,
-            0});
-            this.numericUpDownSAB_CTcolor.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownSAB_CTcolor.Name = "numericUpDownSAB_CTcolor";
-            this.numericUpDownSAB_CTcolor.Size = new System.Drawing.Size(33, 20);
-            this.numericUpDownSAB_CTcolor.TabIndex = 95;
-            this.numericUpDownSAB_CTcolor.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            // 
-            // label489
-            // 
-            this.label489.AutoSize = true;
-            this.label489.Location = new System.Drawing.Point(6, 21);
-            this.label489.Name = "label489";
-            this.label489.Size = new System.Drawing.Size(99, 13);
-            this.label489.TabIndex = 94;
-            this.label489.Text = "Center Target Color";
-            // 
-            // numericUpDownSAB_OTcolor
-            // 
-            this.numericUpDownSAB_OTcolor.Location = new System.Drawing.Point(111, 45);
-            this.numericUpDownSAB_OTcolor.Maximum = new decimal(new int[] {
-            6,
-            0,
-            0,
-            0});
-            this.numericUpDownSAB_OTcolor.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownSAB_OTcolor.Name = "numericUpDownSAB_OTcolor";
-            this.numericUpDownSAB_OTcolor.Size = new System.Drawing.Size(33, 20);
-            this.numericUpDownSAB_OTcolor.TabIndex = 93;
-            this.numericUpDownSAB_OTcolor.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            // 
-            // label490
-            // 
-            this.label490.AutoSize = true;
-            this.label490.Location = new System.Drawing.Point(167, 47);
-            this.label490.Name = "label490";
-            this.label490.Size = new System.Drawing.Size(65, 13);
-            this.label490.TabIndex = 82;
-            this.label490.Text = "CO Rotation";
-            // 
-            // label491
-            // 
-            this.label491.AutoSize = true;
-            this.label491.Location = new System.Drawing.Point(11, 47);
-            this.label491.Name = "label491";
-            this.label491.Size = new System.Drawing.Size(94, 13);
-            this.label491.TabIndex = 92;
-            this.label491.Text = "Outer Target Color";
-            // 
-            // textBoxSAB_COrotation
-            // 
-            this.textBoxSAB_COrotation.Location = new System.Drawing.Point(243, 44);
-            this.textBoxSAB_COrotation.Name = "textBoxSAB_COrotation";
-            this.textBoxSAB_COrotation.Size = new System.Drawing.Size(39, 20);
-            this.textBoxSAB_COrotation.TabIndex = 83;
-            this.toolTip1.SetToolTip(this.textBoxSAB_COrotation, "Angular rotation of outer targets (rad)");
-            this.textBoxSAB_COrotation.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label492
-            // 
-            this.label492.AutoSize = true;
-            this.label492.Location = new System.Drawing.Point(167, 21);
-            this.label492.Name = "label492";
-            this.label492.Size = new System.Drawing.Size(61, 13);
-            this.label492.TabIndex = 71;
-            this.label492.Text = "CO Targets";
-            // 
-            // numericUpDownSAB_numtargets
-            // 
-            this.numericUpDownSAB_numtargets.Increment = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUpDownSAB_numtargets.Location = new System.Drawing.Point(243, 19);
-            this.numericUpDownSAB_numtargets.Maximum = new decimal(new int[] {
-            16,
-            0,
-            0,
-            0});
-            this.numericUpDownSAB_numtargets.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUpDownSAB_numtargets.Name = "numericUpDownSAB_numtargets";
-            this.numericUpDownSAB_numtargets.Size = new System.Drawing.Size(44, 20);
-            this.numericUpDownSAB_numtargets.TabIndex = 81;
-            this.toolTip1.SetToolTip(this.numericUpDownSAB_numtargets, "number of targets ");
-            this.numericUpDownSAB_numtargets.Value = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            // 
-            // groupBox94
-            // 
-            this.groupBox94.Controls.Add(this.label493);
-            this.groupBox94.Controls.Add(this.textBoxSAB_posgain);
-            this.groupBox94.Controls.Add(this.label494);
-            this.groupBox94.Controls.Add(this.textBoxSAB_velgain);
-            this.groupBox94.Location = new System.Drawing.Point(214, 92);
-            this.groupBox94.Name = "groupBox94";
-            this.groupBox94.Size = new System.Drawing.Size(144, 80);
-            this.groupBox94.TabIndex = 96;
-            this.groupBox94.TabStop = false;
-            this.groupBox94.Text = "Servo Settings";
-            // 
-            // label494
-            // 
-            this.label494.AutoSize = true;
-            this.label494.Location = new System.Drawing.Point(10, 22);
-            this.label494.Name = "label494";
-            this.label494.Size = new System.Drawing.Size(69, 13);
-            this.label494.TabIndex = 82;
-            this.label494.Text = "Velocity Gain";
-            // 
-            // textBoxSAB_velgain
-            // 
-            this.textBoxSAB_velgain.Location = new System.Drawing.Point(86, 19);
-            this.textBoxSAB_velgain.Name = "textBoxSAB_velgain";
-            this.textBoxSAB_velgain.Size = new System.Drawing.Size(39, 20);
-            this.textBoxSAB_velgain.TabIndex = 83;
-            this.toolTip1.SetToolTip(this.textBoxSAB_velgain, "Gain for velocity component of servo");
-            this.textBoxSAB_velgain.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label493
-            // 
-            this.label493.AutoSize = true;
-            this.label493.Location = new System.Drawing.Point(10, 50);
-            this.label493.Name = "label493";
-            this.label493.Size = new System.Drawing.Size(69, 13);
-            this.label493.TabIndex = 84;
-            this.label493.Text = "Position Gain";
-            // 
-            // textBoxSAB_posgain
-            // 
-            this.textBoxSAB_posgain.Location = new System.Drawing.Point(86, 47);
-            this.textBoxSAB_posgain.Name = "textBoxSAB_posgain";
-            this.textBoxSAB_posgain.Size = new System.Drawing.Size(39, 20);
-            this.textBoxSAB_posgain.TabIndex = 85;
-            this.toolTip1.SetToolTip(this.textBoxSAB_posgain, "Position gain component of servo");
-            this.textBoxSAB_posgain.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.checkBoxSAB_showreturn.AutoSize = true;
+            this.checkBoxSAB_showreturn.Location = new System.Drawing.Point(16, 76);
+            this.checkBoxSAB_showreturn.Name = "checkBoxSAB_showreturn";
+            this.checkBoxSAB_showreturn.Size = new System.Drawing.Size(115, 17);
+            this.checkBoxSAB_showreturn.TabIndex = 97;
+            this.checkBoxSAB_showreturn.Text = "Show cursor return";
+            this.checkBoxSAB_showreturn.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -23620,6 +23699,15 @@ namespace BehaviorGraphics
             this.groupBox_SA_timing.ResumeLayout(false);
             this.groupBox_SA_timing.PerformLayout();
             this.Sabes.ResumeLayout(false);
+            this.groupBox94.ResumeLayout(false);
+            this.groupBox94.PerformLayout();
+            this.groupBox93.ResumeLayout(false);
+            this.groupBox93.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSAB_CTcolor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSAB_OTcolor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSAB_numtargets)).EndInit();
+            this.groupBox92.ResumeLayout(false);
+            this.groupBox92.PerformLayout();
             this.groupBox91.ResumeLayout(false);
             this.groupBox91.PerformLayout();
             this.groupBox90.ResumeLayout(false);
@@ -23637,15 +23725,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBox92.ResumeLayout(false);
-            this.groupBox92.PerformLayout();
-            this.groupBox93.ResumeLayout(false);
-            this.groupBox93.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSAB_CTcolor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSAB_OTcolor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSAB_numtargets)).EndInit();
-            this.groupBox94.ResumeLayout(false);
-            this.groupBox94.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -25731,8 +25810,15 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label488;
         private System.Windows.Forms.GroupBox groupBox94;
         private System.Windows.Forms.Label label493;
-        private System.Windows.Forms.TextBox textBoxSAB_posgain;
+        private System.Windows.Forms.TextBox textBoxSAB_forcegain;
         private System.Windows.Forms.Label label494;
-        private System.Windows.Forms.TextBox textBoxSAB_velgain;
+        private System.Windows.Forms.TextBox textBoxSAB_maxforce;
+        private System.Windows.Forms.Label label495;
+        private System.Windows.Forms.Label label496;
+        private System.Windows.Forms.TextBox textBoxSAB_posfilt;
+        private System.Windows.Forms.TextBox textBoxSAB_velfilt;
+        private System.Windows.Forms.Label label497;
+        private System.Windows.Forms.TextBox textBoxSAB_vgain;
+        private System.Windows.Forms.CheckBox checkBoxSAB_showreturn;
     }
 }

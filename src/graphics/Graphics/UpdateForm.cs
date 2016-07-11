@@ -1504,8 +1504,14 @@ namespace BehaviorGraphics
             AddParamListItem("SAB CTC", "P25", "Behavior COsabes", this.numericUpDownSAB_CTcolor);
             AddParamListItem("SAB OTC", "P26", "Behavior COsabes", this.numericUpDownSAB_OTcolor);
 
-            AddParamListItem("SAB VG", "P27", "Behavior COsabes", this.textBoxSAB_velgain);
-            AddParamListItem("SAB PG", "P28", "Behavior COsabes", this.textBoxSAB_posgain);
+            AddParamListItem("SAB VG", "P27", "Behavior COsabes", this.textBoxSAB_maxforce);
+            AddParamListItem("SAB PG", "P28", "Behavior COsabes", this.textBoxSAB_forcegain);
+            AddParamListItem("SAB VF", "P29", "Behavior COsabes", this.textBoxSAB_velfilt);
+            AddParamListItem("SAB PF", "P30", "Behavior COsabes", this.textBoxSAB_posfilt);
+            AddParamListItem("SAB ret", "P31", "Behavior COsabes", this.checkBoxSAB_showreturn);
+
+            AddParamListItem("SAB visc", "Gain", "viscous target/VGain", this.textBoxSAB_vgain);
+
 
             #endregion
         }
@@ -3051,6 +3057,11 @@ namespace BehaviorGraphics
                 labelWFIntMax.Show();
             }
             widget_ValueChanged(sender, e);
+        }
+
+        private void label494_Click(object sender, EventArgs e)
+        {
+
         }
 
 
