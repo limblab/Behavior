@@ -168,6 +168,8 @@ private:
 
 	int typeflag;
 	bool abort_blank;
+	Point fake_shift;
+	int rdir; 
 
 };
 
@@ -286,6 +288,9 @@ CO_sabesBehavior::CO_sabesBehavior(SimStruct *S) : RobotBehavior() {
 	fvec_mag = 0.0;
 	extent_at_switch = 1.0;
 	typeflag = 0;
+	fake_shift.x = 0.0;
+	fake_shift.y = 0.0;
+	rdir = 0;
 
 	for (i=0; i<20; i++){
 		shift_list[i]=0;
@@ -310,7 +315,6 @@ void CO_sabesBehavior::gradualOffset(SimStruct *S){
 	cursor_extent = sqrt(pow(cursor_shifted.x - centerTarget->centerX,2) + 
 						 pow(cursor_shifted.y - centerTarget->centerY,2)) - params->CT_size;
 
-	//if (cursor_extent < 0){ cursor_extent = 0.0; } // Create floor at 0
 	// Calculate weighting of current and previous shifts
 	prev_cur_weighting = cursor_extent/extent_at_switch;
 	if ((cursor_extent <= 0) || (extent_at_switch <= 0)) { 
@@ -319,17 +323,38 @@ void CO_sabesBehavior::gradualOffset(SimStruct *S){
 		prev_cur_weighting = 1.0;
 	}
 
-	inst_shift.x = current_trial_shift.x*(1-prev_cur_weighting) + 
-			 	  previous_trial_shift.x*(  prev_cur_weighting);
+	// If the current trial shift is the same as the previous trials shift,
+	// we'll add a cosine-shaped perturbation to the displayed cursor during the return
+	if ( (current_trial_shift.x == previous_trial_shift.x) && 
+	     (current_trial_shift.y == previous_trial_shift.y)) {
+			
+		fake_shift.x = rdir * params->shift_mag * cos(params->shift_axis) * 
+									(0.25 + 0.25*cos( 2*PI* prev_cur_weighting - PI));
 
-	inst_shift.y = current_trial_shift.y*(1-prev_cur_weighting) + 
-		 		  previous_trial_shift.y*(  prev_cur_weighting);
+		fake_shift.y = rdir * params->shift_mag * sin(params->shift_axis) *
+									(0.25 + 0.25*cos( 2*PI* prev_cur_weighting - PI));
 
+		inst_shift.x = current_trial_shift.x + fake_shift.x;
+		inst_shift.y = current_trial_shift.y + fake_shift.y;
+
+	} else {
+
+		inst_shift.x = current_trial_shift.x*(1-prev_cur_weighting) + 
+			 		  previous_trial_shift.x*(  prev_cur_weighting);
+
+		inst_shift.y = current_trial_shift.y*(1-prev_cur_weighting) + 
+		 			  previous_trial_shift.y*(  prev_cur_weighting);
+	}
+
+	// These are the displayed, gradually shifted cursors
 	cursor_shifted.x = inputs->cursor.x - inst_shift.x;
 	cursor_shifted.y = inputs->cursor.y - inst_shift.y;
 
-	cursor_curshifted.x = inputs->cursor.x - current_trial_shift.x;
+	// These are the instantaneousy shifted cursor versions
+	cursor_curshifted.x = inputs->cursor.x - current_trial_shift.x; 
 	cursor_curshifted.y = inputs->cursor.y - current_trial_shift.y;
+
+
 
 }
 
@@ -367,6 +392,7 @@ void CO_sabesBehavior::doPreTrial(SimStruct *S) {
 	double myrandom = random->getDouble();
 	double randomTrialType = random->getDouble();
 	gradualOffset(S);
+	if (random->getDouble() <= 0.5) { rdir = 1; } else { rdir = -1; }
 
 	previous_trial_shift = current_trial_shift; // update "previous shift"
 
