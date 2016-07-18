@@ -327,12 +327,18 @@ void CO_sabesBehavior::gradualOffset(SimStruct *S){
 	// we'll add a cosine-shaped perturbation to the displayed cursor during the return
 	if ( (current_trial_shift.x == previous_trial_shift.x) && 
 	     (current_trial_shift.y == previous_trial_shift.y)) {
-			
+	/*		
 		fake_shift.x = rdir * params->shift_mag * cos(params->shift_axis) * 
 									(0.25 + 0.25*cos( 2*PI* prev_cur_weighting - PI));
 
 		fake_shift.y = rdir * params->shift_mag * sin(params->shift_axis) *
-									(0.25 + 0.25*cos( 2*PI* prev_cur_weighting - PI));
+									(0.25 + 0.25*cos( 2*PI* prev_cur_weighting - PI));*/
+
+		fake_shift.x = rdir * params->shift_mag * cos(params->shift_axis) * 
+									(0.5 - abs(prev_cur_weighting - 0.5));
+
+		fake_shift.y = rdir * params->shift_mag * sin(params->shift_axis) *
+									(0.5 - abs(prev_cur_weighting - 0.5));
 
 		inst_shift.x = current_trial_shift.x + fake_shift.x;
 		inst_shift.y = current_trial_shift.y + fake_shift.y;
