@@ -33,7 +33,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [0.0, 0.0, 768.0, 825.0]
+      Location		      [-7.0, -7.0, 1550.0, 840.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -57,9 +57,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[901.0, 821.0]
-	ZoomFactor		[0.99999999999999956]
-	Offset			[338.09999999999985, 6.70000000000033]
+	Extents			[1879.0, 839.0]
+	ZoomFactor		[0.60000000000000009]
+	Offset			[-219.90180753032959, -208.23333333333295]
       }
     }
   }
@@ -69,8 +69,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Kinect"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Aug 02 11:48:53 2016"
-  RTWModifiedTimeStamp	  392039332
+  LastModifiedDate	  "Tue Aug 02 12:57:25 2016"
+  RTWModifiedTimeStamp	  392043427
   ModelVersionFormat	  "1.%<AutoIncrement:1328>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
@@ -999,7 +999,7 @@ Model {
   }
   System {
     Name		    "center_out_3D"
-    Location		    [0, 0, 768, 825]
+    Location		    [-7, -7, 1543, 833]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1011,7 +1011,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "100"
+    ZoomFactor		    "60"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "544"
     Block {
