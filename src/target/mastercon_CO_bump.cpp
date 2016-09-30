@@ -162,7 +162,7 @@ struct LocalParams {
 	real_T target_hold_high;
 	real_T bump_delay_time;
 	real_T bump_hold_time;
-    real_T intertrial_time;
+    	real_T intertrial_time;
 	real_T penalty_time;
 	real_T target_size;
 	real_T target_radius;
@@ -174,33 +174,33 @@ struct LocalParams {
 	real_T hide_cursor;
 	real_T hide_radius_min;
 	real_T hide_radius_max;
-    real_T abort_during_bump;
+    	real_T abort_during_bump;
 	real_T catch_rate;
 	real_T bi_directional_bumps;
 	real_T do_CH_bump;
 	real_T CH_bump_rate;
 	real_T CH_bump_peak_hold;
-    real_T CH_bump_ramp;
-    real_T CH_bump_magnitude;
-    real_T CH_bump_dir_floor;
-    real_T CH_bump_dir_ceil;
-    real_T CH_bump_num_dir;
+    	real_T CH_bump_ramp;
+    	real_T CH_bump_magnitude;
+    	real_T CH_bump_dir_floor;
+    	real_T CH_bump_dir_ceil;
+    	real_T CH_bump_num_dir;
 	real_T do_DP_bump;
 	real_T DP_bump_rate;
 	real_T DP_bump_peak_hold;
-    real_T DP_bump_ramp;
-    real_T DP_bump_magnitude;
-    real_T DP_bump_dir_floor;
-    real_T DP_bump_dir_ceil;
-    real_T DP_bump_num_dir;
+    	real_T DP_bump_ramp;
+    	real_T DP_bump_magnitude;
+    	real_T DP_bump_dir_floor;
+    	real_T DP_bump_dir_ceil;
+    	real_T DP_bump_num_dir;
 	real_T do_M_bump;
 	real_T M_bump_rate;
 	real_T M_bump_peak_hold;
-    real_T M_bump_ramp;
-    real_T M_bump_magnitude;
-    real_T M_bump_dir_floor;
-    real_T M_bump_dir_ceil;
-    real_T M_bump_num_dir;
+    	real_T M_bump_ramp;
+    	real_T M_bump_magnitude;
+    	real_T M_bump_dir_floor;
+    	real_T M_bump_dir_ceil;
+    	real_T M_bump_num_dir;
 	real_T stim_prob;
 	real_T stim_levels;
 };
@@ -234,7 +234,7 @@ private:
 	bool DP_bump;
 	bool M_bump;
 
-    Point cursorOffset;
+    	Point cursorOffset;
 
 	CosineBumpGenerator *bump;
 
@@ -259,65 +259,65 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 
 	this->setNumParams(52);
 	// Identify each bound variable 
-	this->bindParamId(&params->master_reset,			0);
-	this->bindParamId(&params->soft_reset,				1);
-	this->bindParamId(&params->CH_low,					2);
-	this->bindParamId(&params->CH_high,					3);
-	this->bindParamId(&params->DP_low,					4);
-	this->bindParamId(&params->DP_high,					5);
-	this->bindParamId(&params->move_time,				6);
-	this->bindParamId(&params->target_hold_low,			7);
+	this->bindParamId(&params->master_reset,		0);
+	this->bindParamId(&params->soft_reset,			1);
+	this->bindParamId(&params->CH_low,			2);
+	this->bindParamId(&params->CH_high,			3);
+	this->bindParamId(&params->DP_low,			4);
+	this->bindParamId(&params->DP_high,			5);
+	this->bindParamId(&params->move_time,			6);
+	this->bindParamId(&params->target_hold_low,		7);
 	this->bindParamId(&params->target_hold_high,		8);
-	this->bindParamId(&params->bump_delay_time,			9);
-	this->bindParamId(&params->bump_hold_time,			10);
-	this->bindParamId(&params->intertrial_time,			11);
-	this->bindParamId(&params->penalty_time,			12);
+	this->bindParamId(&params->bump_delay_time,		9);
+	this->bindParamId(&params->bump_hold_time,		10);
+	this->bindParamId(&params->intertrial_time,		11);
+	this->bindParamId(&params->penalty_time,		12);
 
-	this->bindParamId(&params->target_size,				13);
-	this->bindParamId(&params->target_radius,			14);
-	this->bindParamId(&params->target_angle,			15);
-	this->bindParamId(&params->target_floor,			16);
-	this->bindParamId(&params->target_ceiling,			17);
-	this->bindParamId(&params->num_tgt,					18);
+	this->bindParamId(&params->target_size,			13);
+	this->bindParamId(&params->target_radius,		14);
+	this->bindParamId(&params->target_angle,		15);
+	this->bindParamId(&params->target_floor,		16);
+	this->bindParamId(&params->target_ceiling,		17);
+	this->bindParamId(&params->num_tgt,			18);
 	this->bindParamId(&params->use_random_targets,		19);
     
-	this->bindParamId(&params->hide_cursor,				20);
-	this->bindParamId(&params->hide_radius_min,			21);
-	this->bindParamId(&params->hide_radius_max,			22);
+	this->bindParamId(&params->hide_cursor,			20);
+	this->bindParamId(&params->hide_radius_min,		21);
+	this->bindParamId(&params->hide_radius_max,		22);
 
-	this->bindParamId(&params->catch_rate,				23);
+	this->bindParamId(&params->catch_rate,			23);
 	this->bindParamId(&params->bi_directional_bumps,	24);
-    this->bindParamId(&params->abort_during_bump,	    25);
+    	this->bindParamId(&params->abort_during_bump,	    	25);
 
-	this->bindParamId(&params->do_CH_bump,				26);
-	this->bindParamId(&params->CH_bump_rate,			27);
+	this->bindParamId(&params->do_CH_bump,			26);
+	this->bindParamId(&params->CH_bump_rate,		27);
 	this->bindParamId(&params->CH_bump_peak_hold,		28);
-    this->bindParamId(&params->CH_bump_ramp,			29);
+    	this->bindParamId(&params->CH_bump_ramp,		29);
 	this->bindParamId(&params->CH_bump_magnitude,		30);
-    this->bindParamId(&params->CH_bump_dir_floor,		31);
-    this->bindParamId(&params->CH_bump_dir_ceil,		32);
-    this->bindParamId(&params->CH_bump_num_dir,			33);
+    	this->bindParamId(&params->CH_bump_dir_floor,		31);
+    	this->bindParamId(&params->CH_bump_dir_ceil,		32);
+    	this->bindParamId(&params->CH_bump_num_dir,		33);
 
-	this->bindParamId(&params->do_DP_bump,				34);
-	this->bindParamId(&params->DP_bump_rate,			35);
+	this->bindParamId(&params->do_DP_bump,			34);
+	this->bindParamId(&params->DP_bump_rate,		35);
 	this->bindParamId(&params->DP_bump_peak_hold,		36);
-    this->bindParamId(&params->DP_bump_ramp,			37);
+    	this->bindParamId(&params->DP_bump_ramp,		37);
 	this->bindParamId(&params->DP_bump_magnitude,		38);
-    this->bindParamId(&params->DP_bump_dir_floor,		39);
-    this->bindParamId(&params->DP_bump_dir_ceil,		40);
-    this->bindParamId(&params->DP_bump_num_dir,			41);
+    	this->bindParamId(&params->DP_bump_dir_floor,		39);
+    	this->bindParamId(&params->DP_bump_dir_ceil,		40);
+    	this->bindParamId(&params->DP_bump_num_dir,		41);
 
-	this->bindParamId(&params->do_M_bump,				42);
-	this->bindParamId(&params->M_bump_rate,				43);
+	this->bindParamId(&params->do_M_bump,			42);
+	this->bindParamId(&params->M_bump_rate,			43);
 	this->bindParamId(&params->M_bump_peak_hold,		44);
-    this->bindParamId(&params->M_bump_ramp,				45);
+    	this->bindParamId(&params->M_bump_ramp,			45);
 	this->bindParamId(&params->M_bump_magnitude,		46);
-    this->bindParamId(&params->M_bump_dir_floor,		47);
-    this->bindParamId(&params->M_bump_dir_ceil,			48);
-    this->bindParamId(&params->M_bump_num_dir,			49);
+    	this->bindParamId(&params->M_bump_dir_floor,		47);
+    	this->bindParamId(&params->M_bump_dir_ceil,		48);
+    	this->bindParamId(&params->M_bump_num_dir,		49);
 
-	this->bindParamId(&params->stim_prob,				50);
-	this->bindParamId(&params->stim_levels,				51);
+	this->bindParamId(&params->stim_prob,			50);
+	this->bindParamId(&params->stim_levels,			51);
     	
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -465,7 +465,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	db->addByte('O');
 	db->addByte('B');
 	db->addByte(BEHAVIOR_VERSION_MAJOR);
-    db->addByte(BEHAVIOR_VERSION_MINOR);
+    	db->addByte(BEHAVIOR_VERSION_MINOR);
 	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
 
@@ -544,25 +544,28 @@ void COBumpBehavior::update(SimStruct *S) {
 		case STATE_MOVEMENT:
 			if ( primaryTarget->cursorInTarget(inputs->cursor) ){
         		playTone(TONE_REWARD);
-            	setState(STATE_REWARD);
+            		setState(STATE_REWARD);
 			}else if (M_bump && stateTimer->elapsedTime(S) > this->params->bump_delay_time){ 
 				bump->start(S);
 				setState(STATE_BUMP);
 			}else if (stateTimer->elapsedTime(S) > this->params->move_time){
-                playTone(TONE_FAIL);
+                	playTone(TONE_FAIL);
     			setState(STATE_INCOMPLETE);
-       		}
+       			}
 			
 			break;         
 		case STATE_BUMP:
-            if(stateTimer->elapsedTime(S) > this->params->bump_hold_time) {
+			if((this->CH_bump || this->DP_bump) && !centerTarget->cursorInTarget(inputs->cursor)){
+				playTone(TONE_ABORT);
+				setState(STATE_ABORT);
+			}else if(stateTimer->elapsedTime(S) > this->params->bump_hold_time) {
 				if(this->CH_bump){
 					setState(STATE_DELAY);
 				} else if(this->DP_bump){
 					playTone(TONE_GO);
     				setState(STATE_MOVEMENT);
 				} 
-            }else if(this->M_bump && primaryTarget->cursorInTarget(inputs->cursor)){
+            		}else if(this->M_bump && primaryTarget->cursorInTarget(inputs->cursor)){
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
 			} else if(this->M_bump && this->params->move_time < (stateTimer->elapsedTime(S)+this->params->bump_delay_time)){
@@ -579,7 +582,7 @@ void COBumpBehavior::update(SimStruct *S) {
 					playTone(TONE_FAIL);
 					setState(STATE_PENALTY);
 				}
-            } 
+            		} 
 			break;   
 		case STATE_PENALTY:
 			if (stateTimer->elapsedTime(S) > this->params->penalty_time) {
@@ -587,9 +590,9 @@ void COBumpBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_ABORT:
-        case STATE_REWARD:
+        	case STATE_REWARD:
 		case STATE_FAIL:
-        case STATE_INCOMPLETE:
+        	case STATE_INCOMPLETE:
 			this->bump->stop();
 			if (stateTimer->elapsedTime(S) > params->intertrial_time) {
 				setState(STATE_PRETRIAL);
