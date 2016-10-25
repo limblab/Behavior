@@ -270,8 +270,6 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	rate_one = params->cue_rate_one;
 	rate_two = params->cue_rate_two;
 
-
-
 	double total_rate;
 	double adj_rate_one, adj_rate_two;
 	total_rate = fabs(rate_one)+fabs(rate_two);
@@ -352,6 +350,12 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	else
 		m_mode =params->match_mode;
 
+	int num_on_screen;
+	if (co_mode) {
+		num_on_screen = 1;
+	} else {
+		num_on_screen = 2;
+	}
 	// Timer Target used for Photodetector Correction
 	timerTarget->centerX = 14.25;
 	timerTarget->centerY = 10.55 ;
@@ -384,6 +388,7 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)outer_angles[curr_target_idx]);  // angle of true target (Cisek)
 	db->addFloat((float)rate_one);
 	db->addFloat((float)rate_two);
+	db->addFloat((float)num_on_screen);
     db->start();
 
 }
