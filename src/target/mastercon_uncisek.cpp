@@ -31,7 +31,7 @@
  */
 
 
-#define DATABURST_VERSION ((byte)0x00) 
+#define DATABURST_VERSION ((byte)0x01) 
 
 // This must be custom defined for your behavior
 struct LocalParams {
@@ -71,11 +71,21 @@ struct LocalParams {
 	real_T target_def_color_G;
 	real_T target_def_color_B;
 
-	real_T cue_reward_one;
-	real_T cue_reward_two;
+	real_T cue_rate_one;
+	real_T cue_rate_two;
 
 	real_T center_out_mode;
 	real_T match_mode;
+
+	real_T center_cue_offset;
+
+	real_T color_choice_mode;
+	real_T cue_only_choice_mode;
+	real_T true_only_choice_mode;
+
+	real_T skip_center_cue;
+	real_T skip_center_cue_rate;
+	real_T co_percentage;
 };
 
 /**
@@ -100,6 +110,7 @@ private:
 
 	bool   co_mode;
 	bool   m_mode;
+	double co_perc; 
 
 	double ct_hold_time, ct_outer_delay_time, ct_mem_delay_time, ct_cue_delay_time, ot_hold_time;
 	double reach_len;
@@ -112,11 +123,16 @@ private:
 	int curr_cue_two_idx;
 	int curr_target_idx;
 	int curr_cue_color;
-	double reward_one, reward_two;
+	double rate_one, rate_two;
 	bool   give_reward;
-
-
+	double centerCueOffset;
+	bool   colorChoiceMode;
+	bool   cueOnlyChoiceMode;
+	bool   trueOnlyChoiceMode;
+	bool   skipCenterCue;
+	double skipCueRate;
 	CircleTarget    *centerTarget;
+	CircleTarget    *cueTarget;
 	CircleTarget    *outerTarget[8];
 	double			outer_angles[8];
 	SquareTarget    *timerTarget;
@@ -137,7 +153,7 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(31);
+	this->setNumParams(38);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
@@ -175,11 +191,20 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 	this->bindParamId(&params->target_def_color_G,		25);
 	this->bindParamId(&params->target_def_color_B,		26);
 
-	this->bindParamId(&params->cue_reward_one,			27);
-	this->bindParamId(&params->cue_reward_two,			28);
+	this->bindParamId(&params->cue_rate_one,			27);
+	this->bindParamId(&params->cue_rate_two,			28);
 
 	this->bindParamId(&params->center_out_mode,			29);
 	this->bindParamId(&params->match_mode,				30);
+
+	this->bindParamId(&params->center_cue_offset,		31);
+	this->bindParamId(&params->color_choice_mode,		32);
+	this->bindParamId(&params->cue_only_choice_mode,	33);
+	this->bindParamId(&params->true_only_choice_mode,	34);
+	this->bindParamId(&params->skip_center_cue,			35);
+	this->bindParamId(&params->skip_center_cue_rate,	36);
+
+	this->bindParamId(&params->co_percentage,			37);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -193,6 +218,7 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 	 * Then do any behavior specific initialization 
 	 */
 	centerTarget	 = new CircleTarget(0,0,0,0);
+	cueTarget		 = new CircleTarget(0,0,0,0);
 	for (i=0; i<8; i++) {
 		outerTarget[i]=new CircleTarget(0,0,0,0);
 		outer_angles[i]=0.0;
@@ -217,16 +243,43 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 	curr_cue_two_idx=0;
 	curr_target_idx=0;
 	curr_cue_color = 0;
-	reward_one = 0.0;
-	reward_two = 0.0;
+	rate_one = 0.0;
+	rate_two = 0.0;
 	give_reward	= true;
 	co_mode	 = false;
 	m_mode   = false;
+	colorChoiceMode = false;
+	cueOnlyChoiceMode = false;
+	trueOnlyChoiceMode = false;
+	skipCenterCue=false;
+	skipCueRate=0;
+	centerCueOffset = 0;
+	co_perc = 0;
 }
 
 // Pre-trial initialization and calculations
 void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
-	int i;
+	int i; 
+	co_mode = params->center_out_mode;
+	skipCenterCue      = params->skip_center_cue;
+	skipCueRate = params->skip_center_cue_rate;
+	if ((skipCenterCue)&&(random->getDouble()>skipCueRate)){
+		skipCenterCue=false;
+	}
+
+	rate_one = params->cue_rate_one;
+	rate_two = params->cue_rate_two;
+
+
+
+	double total_rate;
+	double adj_rate_one, adj_rate_two;
+	total_rate = fabs(rate_one)+fabs(rate_two);
+	if (total_rate == 0){
+		total_rate = 1.0;
+	}
+	adj_rate_one = fabs(rate_one)/total_rate;
+	adj_rate_two = fabs(rate_two)/total_rate;
 
 
 	double t_ang;
@@ -236,7 +289,8 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	target_default_color = Target::Color(params->target_def_color_R, params->target_def_color_G, params->target_def_color_B);
 	c_color_one = Target::Color(params->cue_color_one_R, params->cue_color_one_G, params->cue_color_one_B);
 	c_color_two = Target::Color(params->cue_color_two_R, params->cue_color_two_G, params->cue_color_two_B);
-	
+
+
 	// Set Center Target
 	centerTarget->centerX = 0.0 ;
 	centerTarget->centerY = 0.0 ;
@@ -251,6 +305,13 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 		outerTarget[i]->radius  = params->outer_size;
 		outerTarget[i]->color   = target_default_color;
 	}
+
+	centerCueOffset = params->center_cue_offset;
+
+	colorChoiceMode    = params->color_choice_mode;
+	cueOnlyChoiceMode  = params->cue_only_choice_mode;
+	trueOnlyChoiceMode = params->true_only_choice_mode;
+
 
 	// Pick Targets for the Current Trial
 	ang_diff=params->target_angle_diff*PI/180;
@@ -269,7 +330,7 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	else
 		curr_cue_two_idx=c_2b;
 
-	if (random->getBool()){
+	if (random->getDouble()<=adj_rate_one){
 		curr_target_idx=curr_cue_one_idx;
 		curr_cue_color=c_color_one;
 	}
@@ -278,7 +339,14 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 		curr_cue_color=c_color_two;
 	}
 
-	co_mode=params->center_out_mode;
+	cueTarget->centerX =  centerCueOffset*cos(outer_angles[curr_target_idx]);
+	cueTarget->centerY =  centerCueOffset*sin(outer_angles[curr_target_idx]);
+	cueTarget->radius  = params->center_size;
+	cueTarget->color   = curr_cue_color;
+
+
+
+	co_mode= (params->center_out_mode) && (random->getDouble()<params->co_percentage);
 	if (co_mode)
 		m_mode=false;
 	else
@@ -314,7 +382,10 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)c_color_one);				     // color of cue 1
 	db->addFloat((float)c_color_two);					 // color of cue 2
 	db->addFloat((float)outer_angles[curr_target_idx]);  // angle of true target (Cisek)
+	db->addFloat((float)rate_one);
+	db->addFloat((float)rate_two);
     db->start();
+
 }
 
 void UncertaintyCisekBehavior::update(SimStruct *S) {
@@ -355,8 +426,10 @@ void UncertaintyCisekBehavior::update(SimStruct *S) {
 				setState(STATE_ABORT);
 			}
 			else if (stateTimer->elapsedTime(S) >= ct_outer_delay_time) {
-				outerTarget[curr_cue_one_idx]->color = target_default_color;
-				outerTarget[curr_cue_two_idx]->color = target_default_color;
+				if (!colorChoiceMode){
+					outerTarget[curr_cue_one_idx]->color = target_default_color;
+					outerTarget[curr_cue_two_idx]->color = target_default_color;
+				}
 				setState(STATE_CT_MEM_DELAY);
 			}
 			break;
@@ -366,8 +439,13 @@ void UncertaintyCisekBehavior::update(SimStruct *S) {
 				setState(STATE_ABORT);
 			}
 			else if (stateTimer->elapsedTime(S) >= ct_mem_delay_time) {
-				centerTarget->color = curr_cue_color;
-				setState(STATE_CT_CUE_DELAY);
+				if (skipCenterCue) {
+					playTone(TONE_GO);
+					setState(STATE_MOVEMENT);
+				}
+				else{
+					setState(STATE_CT_CUE_DELAY);
+				}
 			}
 			break;
 		case STATE_CT_CUE_DELAY:
@@ -507,8 +585,40 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 		for (i=0;i<8;i++){
 			outputs->targets[i+1] = nullTarget;
 		}
-		outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
-		outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];
+		if (!co_mode){
+			outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
+			outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];
+		}
+		else{
+			outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
+		}
+	}
+	else if (getState() == STATE_MOVEMENT || (getState() == STATE_OUTER_HOLD)){
+
+
+		if (trueOnlyChoiceMode){
+			for (i=0;i<8;i++){
+			outputs->targets[i+1] = nullTarget;
+			}
+			outputs->targets[curr_target_idx+1]  = outerTarget[curr_target_idx];
+		}
+		else if (cueOnlyChoiceMode){
+			for (i=0;i<8;i++){
+				outputs->targets[i+1] = nullTarget;
+			}
+			if (!co_mode){
+				outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
+				outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];
+			}
+			else{
+				outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
+			}
+		}
+		else {
+			for (i=0;i<8;i++){
+				outputs->targets[i+1] = outerTarget[i];
+			}
+		}
 	}
 	else if (getState() == STATE_REWARD || getState() == STATE_FAIL) {
 		for (i=0;i<8;i++){
@@ -516,25 +626,26 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 		}
 		outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
 	}
-	else if (getState() == STATE_MOVEMENT || (getState() == STATE_OUTER_HOLD)){
-//		for (i=0;i<8;i++){
-//			outputs->targets[i+1] = outerTarget[i];
-//		}
-		outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
-		outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];
-	}
 	else {
 		for (i=0;i<8;i++){
 			outputs->targets[i+1] = nullTarget;
 		}
 	}
 
-	/* Timer Dot */
-	if (stateTimer->elapsedTime(S) < 0.25) {
-		outputs->targets[9] = (Target *)timerTarget;
+	// Target 9 is the cue target
+	if (getState() == STATE_CT_CUE_DELAY) {
+		outputs->targets[9] = (Target *)cueTarget;
 	}
 	else {
 		outputs->targets[9] = nullTarget;
+	}	
+
+	/* Timer Dot */
+	if (stateTimer->elapsedTime(S) < 0.25) {
+		outputs->targets[10] = (Target *)timerTarget;
+	}
+	else {
+		outputs->targets[10] = nullTarget;
 	}
 
 	/* reward (4) */

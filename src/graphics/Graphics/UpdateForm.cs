@@ -1263,11 +1263,19 @@ namespace BehaviorGraphics
             AddParamListItem("UCK Default R", "P25", "Behavior UnCisek", this.textBoxUCK_DefColR);
             AddParamListItem("UCK Default G", "P26", "Behavior UnCisek", this.textBoxUCK_DefColG);
             AddParamListItem("UCK Default B", "P27", "Behavior UnCisek", this.textBoxUCK_DefColB);
-            AddParamListItem("UCK Cue One Reward", "P28", "Behavior UnCisek", this.textBoxUCK_Cue1Rew);
-            AddParamListItem("UCK Cue Two Reward", "P29", "Behavior UnCisek", this.textBoxUCK_Cue2Rew);
+            AddParamListItem("UCK Cue One Rate", "P28", "Behavior UnCisek", this.textBoxUCK_Cue1Rate);
+            AddParamListItem("UCK Cue Two Rate", "P29", "Behavior UnCisek", this.textBoxUCK_Cue2Rate);
             AddParamListItem("UCK CO Mode", "P30", "Behavior UnCisek", this.checkBoxUCK_COMode);
             AddParamListItem("UCK Match Mode", "P31", "Behavior UnCisek", this.checkBoxUCK_MMode);
 
+            AddParamListItem("UCK Cue Offset", "P32", "Behavior UnCisek", this.textBoxUCK_CueOffset);
+            AddParamListItem("UCK Center Color Mode", "P33", "Behavior UnCisek", this.checkBoxUCK_TargetColorMode);
+            AddParamListItem("UCK Target Cue Choice Mode", "P34", "Behavior UnCisek", this.checkBoxUCK_OnlyCue);
+            AddParamListItem("UCK Target True Choice Mode", "P35", "Behavior UnCisek", this.checkBoxUCK_OnlyTrue);
+            AddParamListItem("UCK Skip Center Cue", "P36", "Behavior UnCisek", this.checkBoxUCK_catchmode);
+            AddParamListItem("UCK Catch Pct", "P37", "Behavior UnCisek", this.textBoxUCK_catchpct);
+
+            AddParamListItem("UCK CO percentage", "P38", "Behavior UnCisek", this.textBoxUCK_copercentage);
             #endregion
 
             #region Unstable Reach
@@ -1513,6 +1521,22 @@ namespace BehaviorGraphics
             AddParamListItem("SAB visc", "Gain", "viscous target/VGain", this.textBoxSAB_vgain);
 
 
+            #endregion
+
+            #region CenterOut3D
+                AddParamListItem("a1", "P1", "Behavior CO 3D", this.numTargets3DTask);
+                AddParamListItem("a2", "P2", "Behavior CO 3D", this.centerHoldLow3DTask);
+                AddParamListItem("a3", "P3", "Behavior CO 3D", this.centerHoldHigh3DTask);
+                AddParamListItem("a4", "P4", "Behavior CO 3D", this.centerDelayLow3DTask);
+                AddParamListItem("a5", "P5", "Behavior CO 3D", this.centerDelayHigh3DTask);
+                AddParamListItem("a6", "P6", "Behavior CO 3D", this.movementTime3DTask);
+                AddParamListItem("a7", "P7", "Behavior CO 3D", this.outerHoldHigh3DTask);
+                AddParamListItem("a8", "P8", "Behavior CO 3D", this.outerHoldLow3DTask);
+                AddParamListItem("a9", "P9", "Behavior CO 3D", this.centerHoldHigh3DTask);
+                AddParamListItem("a10", "P10", "Behavior CO 3D", this.mode3DTask);
+                AddParamListItem("a11", "P11", "Behavior CO 3D", this.idiotMode3DTask);
+                AddParamListItem("a12", "P12", "Behavior CO 3D", this.reset3DTask);
+                AddParamListItem("a13", "P13", "Behavior CO 3D", this.intertrial3DTask);
             #endregion
         }
 
@@ -3057,11 +3081,6 @@ namespace BehaviorGraphics
                 labelWFIntMax.Show();
             }
             widget_ValueChanged(sender, e);
-        }
-
-        private void label494_Click(object sender, EventArgs e)
-        {
-
         }
 
 

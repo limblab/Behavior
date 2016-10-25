@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1371,9 +1371,9 @@ namespace BehaviorGraphics
             this.groupBoxUCKTargetProperties = new System.Windows.Forms.GroupBox();
             this.checkBoxUCK_MMode = new System.Windows.Forms.CheckBox();
             this.checkBoxUCK_COMode = new System.Windows.Forms.CheckBox();
-            this.textBoxUCK_Cue2Rew = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_Cue2Rate = new System.Windows.Forms.TextBox();
             this.labelUCK_Cue2Rew = new System.Windows.Forms.Label();
-            this.textBoxUCK_Cue1Rew = new System.Windows.Forms.TextBox();
+            this.textBoxUCK_Cue1Rate = new System.Windows.Forms.TextBox();
             this.labelUCK_Cue1Rew = new System.Windows.Forms.Label();
             this.labelUCK_ColorGuide = new System.Windows.Forms.Label();
             this.labelUCK_colB = new System.Windows.Forms.Label();
@@ -1781,7 +1781,10 @@ namespace BehaviorGraphics
             this.label_cthold = new System.Windows.Forms.Label();
             this.Sabes = new System.Windows.Forms.TabPage();
             this.groupBox94 = new System.Windows.Forms.GroupBox();
+            this.checkBoxSAB_showreturn = new System.Windows.Forms.CheckBox();
+            this.label497 = new System.Windows.Forms.Label();
             this.label495 = new System.Windows.Forms.Label();
+            this.textBoxSAB_vgain = new System.Windows.Forms.TextBox();
             this.label496 = new System.Windows.Forms.Label();
             this.textBoxSAB_posfilt = new System.Windows.Forms.TextBox();
             this.textBoxSAB_velfilt = new System.Windows.Forms.TextBox();
@@ -1843,6 +1846,33 @@ namespace BehaviorGraphics
             this.textBoxSAB_movementlength = new System.Windows.Forms.TextBox();
             this.label472 = new System.Windows.Forms.Label();
             this.label473 = new System.Windows.Forms.Label();
+            this.CenterOut3D = new System.Windows.Forms.TabPage();
+            this.groupBox95 = new System.Windows.Forms.GroupBox();
+            this.mode3DTask = new System.Windows.Forms.TextBox();
+            this.label510 = new System.Windows.Forms.Label();
+            this.idiotMode3DTask = new System.Windows.Forms.TextBox();
+            this.centerDelayLow3DTask = new System.Windows.Forms.TextBox();
+            this.label498 = new System.Windows.Forms.Label();
+            this.label499 = new System.Windows.Forms.Label();
+            this.outerHoldHigh3DTask = new System.Windows.Forms.TextBox();
+            this.label500 = new System.Windows.Forms.Label();
+            this.outerHoldLow3DTask = new System.Windows.Forms.TextBox();
+            this.label501 = new System.Windows.Forms.Label();
+            this.label502 = new System.Windows.Forms.Label();
+            this.centerHoldHigh3DTask = new System.Windows.Forms.TextBox();
+            this.centerHoldLow3DTask = new System.Windows.Forms.TextBox();
+            this.label503 = new System.Windows.Forms.Label();
+            this.label504 = new System.Windows.Forms.Label();
+            this.intertrial3DTask = new System.Windows.Forms.TextBox();
+            this.movementTime3DTask = new System.Windows.Forms.TextBox();
+            this.label505 = new System.Windows.Forms.Label();
+            this.reset3DTask = new System.Windows.Forms.TextBox();
+            this.centerDelayHigh3DTask = new System.Windows.Forms.TextBox();
+            this.label506 = new System.Windows.Forms.Label();
+            this.label507 = new System.Windows.Forms.Label();
+            this.label508 = new System.Windows.Forms.Label();
+            this.numTargets3DTask = new System.Windows.Forms.TextBox();
+            this.label509 = new System.Windows.Forms.Label();
             this.label409 = new System.Windows.Forms.Label();
             this.label365 = new System.Windows.Forms.Label();
             this.label388 = new System.Windows.Forms.Label();
@@ -2116,9 +2146,17 @@ namespace BehaviorGraphics
             this.angleEntryBox1 = new AngleBox.AngleEntryBox();
             this.angleEntryBox2 = new AngleBox.AngleEntryBox();
             this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
-            this.textBoxSAB_vgain = new System.Windows.Forms.TextBox();
-            this.label497 = new System.Windows.Forms.Label();
-            this.checkBoxSAB_showreturn = new System.Windows.Forms.CheckBox();
+            this.textBoxUCK_copercentage = new System.Windows.Forms.TextBox();
+            this.label511 = new System.Windows.Forms.Label();
+            this.groupBoxUCK_Modes = new System.Windows.Forms.GroupBox();
+            this.labelUCK_catchpct = new System.Windows.Forms.Label();
+            this.textBoxUCK_catchpct = new System.Windows.Forms.TextBox();
+            this.checkBoxUCK_catchmode = new System.Windows.Forms.CheckBox();
+            this.checkBoxUCK_OnlyTrue = new System.Windows.Forms.CheckBox();
+            this.checkBoxUCK_OnlyCue = new System.Windows.Forms.CheckBox();
+            this.checkBoxUCK_TargetColorMode = new System.Windows.Forms.CheckBox();
+            this.textBoxUCK_CueOffset = new System.Windows.Forms.TextBox();
+            this.labelUCK_Cueoffset = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2327,6 +2365,8 @@ namespace BehaviorGraphics
             this.groupBox92.SuspendLayout();
             this.groupBox91.SuspendLayout();
             this.groupBox90.SuspendLayout();
+            this.CenterOut3D.SuspendLayout();
+            this.groupBox95.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -2335,6 +2375,7 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
+            this.groupBoxUCK_Modes.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -2392,6 +2433,7 @@ namespace BehaviorGraphics
             this.tabs.Controls.Add(this.tabPage6);
             this.tabs.Controls.Add(this.tabPageSA);
             this.tabs.Controls.Add(this.Sabes);
+            this.tabs.Controls.Add(this.CenterOut3D);
             this.tabs.Location = new System.Drawing.Point(0, 27);
             this.tabs.Multiline = true;
             this.tabs.Name = "tabs";
@@ -2420,10 +2462,10 @@ namespace BehaviorGraphics
             this.tabPageGen.Controls.Add(this.label22);
             this.tabPageGen.Controls.Add(this.groupBox5);
             this.tabPageGen.Controls.Add(this.groupBox4);
-            this.tabPageGen.Location = new System.Drawing.Point(4, 58);
+            this.tabPageGen.Location = new System.Drawing.Point(4, 76);
             this.tabPageGen.Name = "tabPageGen";
             this.tabPageGen.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGen.Size = new System.Drawing.Size(686, 471);
+            this.tabPageGen.Size = new System.Drawing.Size(686, 453);
             this.tabPageGen.TabIndex = 0;
             this.tabPageGen.Text = "General";
             this.tabPageGen.UseVisualStyleBackColor = true;
@@ -3281,10 +3323,10 @@ namespace BehaviorGraphics
             this.tabPageCO.Controls.Add(this.groupBox3);
             this.tabPageCO.Controls.Add(this.groupBox2);
             this.tabPageCO.Controls.Add(this.groupBox1);
-            this.tabPageCO.Location = new System.Drawing.Point(4, 58);
+            this.tabPageCO.Location = new System.Drawing.Point(4, 76);
             this.tabPageCO.Name = "tabPageCO";
             this.tabPageCO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCO.Size = new System.Drawing.Size(686, 471);
+            this.tabPageCO.Size = new System.Drawing.Size(686, 453);
             this.tabPageCO.TabIndex = 1;
             this.tabPageCO.Text = "Center-Out";
             this.tabPageCO.UseVisualStyleBackColor = true;
@@ -3826,10 +3868,10 @@ namespace BehaviorGraphics
             this.tabPageRW.Controls.Add(this.groupBox30);
             this.tabPageRW.Controls.Add(this.groupBox8);
             this.tabPageRW.Controls.Add(this.groupBox7);
-            this.tabPageRW.Location = new System.Drawing.Point(4, 58);
+            this.tabPageRW.Location = new System.Drawing.Point(4, 76);
             this.tabPageRW.Name = "tabPageRW";
             this.tabPageRW.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRW.Size = new System.Drawing.Size(686, 471);
+            this.tabPageRW.Size = new System.Drawing.Size(686, 453);
             this.tabPageRW.TabIndex = 2;
             this.tabPageRW.Text = "Random Walk";
             this.tabPageRW.UseVisualStyleBackColor = true;
@@ -4278,10 +4320,10 @@ namespace BehaviorGraphics
             this.tabPageFC.Controls.Add(this.textBoxFCPctTestTrials);
             this.tabPageFC.Controls.Add(this.groupBox9);
             this.tabPageFC.Controls.Add(this.label43);
-            this.tabPageFC.Location = new System.Drawing.Point(4, 58);
+            this.tabPageFC.Location = new System.Drawing.Point(4, 76);
             this.tabPageFC.Name = "tabPageFC";
             this.tabPageFC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFC.Size = new System.Drawing.Size(686, 471);
+            this.tabPageFC.Size = new System.Drawing.Size(686, 453);
             this.tabPageFC.TabIndex = 3;
             this.tabPageFC.Text = "Forced Choice";
             this.tabPageFC.UseVisualStyleBackColor = true;
@@ -4579,10 +4621,10 @@ namespace BehaviorGraphics
             this.tabPageBS.Controls.Add(this.groupBox25);
             this.tabPageBS.Controls.Add(this.groupBox28);
             this.tabPageBS.Controls.Add(this.groupBox26);
-            this.tabPageBS.Location = new System.Drawing.Point(4, 58);
+            this.tabPageBS.Location = new System.Drawing.Point(4, 76);
             this.tabPageBS.Name = "tabPageBS";
             this.tabPageBS.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBS.Size = new System.Drawing.Size(686, 471);
+            this.tabPageBS.Size = new System.Drawing.Size(686, 453);
             this.tabPageBS.TabIndex = 4;
             this.tabPageBS.Text = "Bump-stim";
             this.tabPageBS.UseVisualStyleBackColor = true;
@@ -5085,10 +5127,10 @@ namespace BehaviorGraphics
             this.tabPageMG.Controls.Add(this.groupBox37);
             this.tabPageMG.Controls.Add(this.groupBoxMGTargets);
             this.tabPageMG.Controls.Add(this.groupBox31);
-            this.tabPageMG.Location = new System.Drawing.Point(4, 58);
+            this.tabPageMG.Location = new System.Drawing.Point(4, 76);
             this.tabPageMG.Name = "tabPageMG";
             this.tabPageMG.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMG.Size = new System.Drawing.Size(686, 471);
+            this.tabPageMG.Size = new System.Drawing.Size(686, 453);
             this.tabPageMG.TabIndex = 5;
             this.tabPageMG.Text = "Multi-Gadget";
             this.tabPageMG.UseVisualStyleBackColor = true;
@@ -5336,8 +5378,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -5533,10 +5575,10 @@ namespace BehaviorGraphics
             this.tabPageWF.Controls.Add(this.groupBox35);
             this.tabPageWF.Controls.Add(this.groupBox33);
             this.tabPageWF.Controls.Add(this.groupBox34);
-            this.tabPageWF.Location = new System.Drawing.Point(4, 58);
+            this.tabPageWF.Location = new System.Drawing.Point(4, 76);
             this.tabPageWF.Name = "tabPageWF";
             this.tabPageWF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageWF.Size = new System.Drawing.Size(686, 471);
+            this.tabPageWF.Size = new System.Drawing.Size(686, 453);
             this.tabPageWF.TabIndex = 6;
             this.tabPageWF.Text = "Wrist Flexion";
             this.tabPageWF.UseVisualStyleBackColor = true;
@@ -6169,8 +6211,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -6376,10 +6418,10 @@ namespace BehaviorGraphics
             // 
             this.tabPageBD.Controls.Add(this.groupBox38);
             this.tabPageBD.Controls.Add(this.groupBox39);
-            this.tabPageBD.Location = new System.Drawing.Point(4, 58);
+            this.tabPageBD.Location = new System.Drawing.Point(4, 76);
             this.tabPageBD.Name = "tabPageBD";
             this.tabPageBD.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBD.Size = new System.Drawing.Size(686, 471);
+            this.tabPageBD.Size = new System.Drawing.Size(686, 453);
             this.tabPageBD.TabIndex = 7;
             this.tabPageBD.Text = "Ball Drop";
             this.tabPageBD.UseVisualStyleBackColor = true;
@@ -6576,10 +6618,10 @@ namespace BehaviorGraphics
             this.tabPageBC.Controls.Add(this.groupBox19);
             this.tabPageBC.Controls.Add(this.groupBox17);
             this.tabPageBC.Controls.Add(this.groupBox18);
-            this.tabPageBC.Location = new System.Drawing.Point(4, 58);
+            this.tabPageBC.Location = new System.Drawing.Point(4, 76);
             this.tabPageBC.Name = "tabPageBC";
             this.tabPageBC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBC.Size = new System.Drawing.Size(686, 471);
+            this.tabPageBC.Size = new System.Drawing.Size(686, 453);
             this.tabPageBC.TabIndex = 8;
             this.tabPageBC.Text = "Bump-choice";
             this.tabPageBC.UseVisualStyleBackColor = true;
@@ -7324,10 +7366,10 @@ namespace BehaviorGraphics
             this.tabPage1.Controls.Add(this.label175);
             this.tabPage1.Controls.Add(this.groupBox22);
             this.tabPage1.Controls.Add(this.groupBox20);
-            this.tabPage1.Location = new System.Drawing.Point(4, 58);
+            this.tabPage1.Location = new System.Drawing.Point(4, 76);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(686, 471);
+            this.tabPage1.Size = new System.Drawing.Size(686, 453);
             this.tabPage1.TabIndex = 9;
             this.tabPage1.Text = "Visual Search";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -7679,10 +7721,10 @@ namespace BehaviorGraphics
             this.tabPageBF.Controls.Add(this.groupBox24);
             this.tabPageBF.Controls.Add(this.groupBox41);
             this.tabPageBF.Controls.Add(this.groupBox42);
-            this.tabPageBF.Location = new System.Drawing.Point(4, 58);
+            this.tabPageBF.Location = new System.Drawing.Point(4, 76);
             this.tabPageBF.Name = "tabPageBF";
             this.tabPageBF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBF.Size = new System.Drawing.Size(686, 471);
+            this.tabPageBF.Size = new System.Drawing.Size(686, 453);
             this.tabPageBF.TabIndex = 10;
             this.tabPageBF.Text = "Bump-follow";
             this.tabPageBF.UseVisualStyleBackColor = true;
@@ -8096,10 +8138,10 @@ namespace BehaviorGraphics
             this.tabPage2.Controls.Add(this.groupBox44);
             this.tabPage2.Controls.Add(this.groupBox45);
             this.tabPage2.Controls.Add(this.groupBox46);
-            this.tabPage2.Location = new System.Drawing.Point(4, 58);
+            this.tabPage2.Location = new System.Drawing.Point(4, 76);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(686, 471);
+            this.tabPage2.Size = new System.Drawing.Size(686, 453);
             this.tabPage2.TabIndex = 11;
             this.tabPage2.Text = "2AFC";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -8810,10 +8852,10 @@ namespace BehaviorGraphics
             this.tabUncertainty1D.Controls.Add(this.groupBoxUPertProp);
             this.tabUncertainty1D.Controls.Add(this.groupBoxUTargetSettings);
             this.tabUncertainty1D.Controls.Add(this.groupBoxUTimers);
-            this.tabUncertainty1D.Location = new System.Drawing.Point(4, 58);
+            this.tabUncertainty1D.Location = new System.Drawing.Point(4, 76);
             this.tabUncertainty1D.Name = "tabUncertainty1D";
             this.tabUncertainty1D.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUncertainty1D.Size = new System.Drawing.Size(686, 471);
+            this.tabUncertainty1D.Size = new System.Drawing.Size(686, 453);
             this.tabUncertainty1D.TabIndex = 12;
             this.tabUncertainty1D.Text = "Uncertainty1D";
             this.tabUncertainty1D.UseVisualStyleBackColor = true;
@@ -9650,10 +9692,10 @@ namespace BehaviorGraphics
             this.tabAttention.Controls.Add(this.groupBox56);
             this.tabAttention.Controls.Add(this.groupBox57);
             this.tabAttention.Controls.Add(this.groupBox58);
-            this.tabAttention.Location = new System.Drawing.Point(4, 58);
+            this.tabAttention.Location = new System.Drawing.Point(4, 76);
             this.tabAttention.Name = "tabAttention";
             this.tabAttention.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAttention.Size = new System.Drawing.Size(686, 471);
+            this.tabAttention.Size = new System.Drawing.Size(686, 453);
             this.tabAttention.TabIndex = 13;
             this.tabAttention.Text = "Attention";
             this.tabAttention.UseVisualStyleBackColor = true;
@@ -10672,10 +10714,10 @@ namespace BehaviorGraphics
             this.tabPage3.Controls.Add(this.groupBox63);
             this.tabPage3.Controls.Add(this.groupBox62);
             this.tabPage3.Controls.Add(this.groupBox61);
-            this.tabPage3.Location = new System.Drawing.Point(4, 58);
+            this.tabPage3.Location = new System.Drawing.Point(4, 76);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(686, 471);
+            this.tabPage3.Size = new System.Drawing.Size(686, 453);
             this.tabPage3.TabIndex = 14;
             this.tabPage3.Text = "Bump Direction";
             this.toolTip1.SetToolTip(this.tabPage3, "Step this many times the step size on wrong answers");
@@ -11215,10 +11257,10 @@ namespace BehaviorGraphics
             this.UnstableField.Controls.Add(this.groupBox67);
             this.UnstableField.Controls.Add(this.groupBox66);
             this.UnstableField.Controls.Add(this.groupBox65);
-            this.UnstableField.Location = new System.Drawing.Point(4, 58);
+            this.UnstableField.Location = new System.Drawing.Point(4, 76);
             this.UnstableField.Name = "UnstableField";
             this.UnstableField.Padding = new System.Windows.Forms.Padding(3);
-            this.UnstableField.Size = new System.Drawing.Size(686, 471);
+            this.UnstableField.Size = new System.Drawing.Size(686, 453);
             this.UnstableField.TabIndex = 15;
             this.UnstableField.Text = "Unstable Field";
             this.UnstableField.UseVisualStyleBackColor = true;
@@ -12015,10 +12057,10 @@ namespace BehaviorGraphics
             this.tabUncertaintyTarget1D.Controls.Add(this.groupBoxUT1DCloud);
             this.tabUncertaintyTarget1D.Controls.Add(this.groupBoxUT1DShift);
             this.tabUncertaintyTarget1D.Controls.Add(this.groupBoxUT1DTaskSettings);
-            this.tabUncertaintyTarget1D.Location = new System.Drawing.Point(4, 58);
+            this.tabUncertaintyTarget1D.Location = new System.Drawing.Point(4, 76);
             this.tabUncertaintyTarget1D.Name = "tabUncertaintyTarget1D";
             this.tabUncertaintyTarget1D.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUncertaintyTarget1D.Size = new System.Drawing.Size(686, 471);
+            this.tabUncertaintyTarget1D.Size = new System.Drawing.Size(686, 453);
             this.tabUncertaintyTarget1D.TabIndex = 16;
             this.tabUncertaintyTarget1D.Text = "UncertaintyTarget1D";
             this.tabUncertaintyTarget1D.UseVisualStyleBackColor = true;
@@ -12784,10 +12826,10 @@ namespace BehaviorGraphics
             this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DCloud);
             this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DShift);
             this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DTaskSettings);
-            this.UncertaintyTarget2D.Location = new System.Drawing.Point(4, 58);
+            this.UncertaintyTarget2D.Location = new System.Drawing.Point(4, 76);
             this.UncertaintyTarget2D.Name = "UncertaintyTarget2D";
             this.UncertaintyTarget2D.Padding = new System.Windows.Forms.Padding(3);
-            this.UncertaintyTarget2D.Size = new System.Drawing.Size(686, 471);
+            this.UncertaintyTarget2D.Size = new System.Drawing.Size(686, 453);
             this.UncertaintyTarget2D.TabIndex = 17;
             this.UncertaintyTarget2D.Text = "UncertaintyTarget2D";
             this.UncertaintyTarget2D.UseVisualStyleBackColor = true;
@@ -13949,10 +13991,10 @@ namespace BehaviorGraphics
             this.tabPage4.Controls.Add(this.groupBox53);
             this.tabPage4.Controls.Add(this.groupBox54);
             this.tabPage4.Controls.Add(this.groupBox55);
-            this.tabPage4.Location = new System.Drawing.Point(4, 58);
+            this.tabPage4.Location = new System.Drawing.Point(4, 76);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(686, 471);
+            this.tabPage4.Size = new System.Drawing.Size(686, 453);
             this.tabPage4.TabIndex = 18;
             this.tabPage4.Text = "Defend Center";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -14325,10 +14367,10 @@ namespace BehaviorGraphics
             this.tabPage5.Controls.Add(this.groupBox73);
             this.tabPage5.Controls.Add(this.groupBox74);
             this.tabPage5.Controls.Add(this.groupBox75);
-            this.tabPage5.Location = new System.Drawing.Point(4, 58);
+            this.tabPage5.Location = new System.Drawing.Point(4, 76);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(686, 471);
+            this.tabPage5.Size = new System.Drawing.Size(686, 453);
             this.tabPage5.TabIndex = 19;
             this.tabPage5.Text = "Ctr_out_bump";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -15373,10 +15415,10 @@ namespace BehaviorGraphics
             this.tabDynamicCO.Controls.Add(this.groupBoxDCOCont);
             this.tabDynamicCO.Controls.Add(this.groupBoxDCOT);
             this.tabDynamicCO.Controls.Add(this.groupBoxDCOTime);
-            this.tabDynamicCO.Location = new System.Drawing.Point(4, 58);
+            this.tabDynamicCO.Location = new System.Drawing.Point(4, 76);
             this.tabDynamicCO.Name = "tabDynamicCO";
             this.tabDynamicCO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDynamicCO.Size = new System.Drawing.Size(686, 471);
+            this.tabDynamicCO.Size = new System.Drawing.Size(686, 453);
             this.tabDynamicCO.TabIndex = 20;
             this.tabDynamicCO.Text = "Dynamic center out";
             this.tabDynamicCO.UseVisualStyleBackColor = true;
@@ -15968,12 +16010,13 @@ namespace BehaviorGraphics
             // 
             // tabUnCisek
             // 
+            this.tabUnCisek.Controls.Add(this.groupBoxUCK_Modes);
             this.tabUnCisek.Controls.Add(this.groupBoxUCKTimers);
             this.tabUnCisek.Controls.Add(this.groupBoxUCKTargetProperties);
-            this.tabUnCisek.Location = new System.Drawing.Point(4, 58);
+            this.tabUnCisek.Location = new System.Drawing.Point(4, 76);
             this.tabUnCisek.Name = "tabUnCisek";
             this.tabUnCisek.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUnCisek.Size = new System.Drawing.Size(686, 471);
+            this.tabUnCisek.Size = new System.Drawing.Size(686, 453);
             this.tabUnCisek.TabIndex = 21;
             this.tabUnCisek.Text = "UnCisek";
             this.tabUnCisek.UseVisualStyleBackColor = true;
@@ -16223,11 +16266,13 @@ namespace BehaviorGraphics
             // 
             // groupBoxUCKTargetProperties
             // 
+            this.groupBoxUCKTargetProperties.Controls.Add(this.label511);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_copercentage);
             this.groupBoxUCKTargetProperties.Controls.Add(this.checkBoxUCK_MMode);
             this.groupBoxUCKTargetProperties.Controls.Add(this.checkBoxUCK_COMode);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue2Rew);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue2Rate);
             this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_Cue2Rew);
-            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue1Rew);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_Cue1Rate);
             this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_Cue1Rew);
             this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_ColorGuide);
             this.groupBoxUCKTargetProperties.Controls.Add(this.labelUCK_colB);
@@ -16259,6 +16304,7 @@ namespace BehaviorGraphics
             this.groupBoxUCKTargetProperties.TabIndex = 0;
             this.groupBoxUCKTargetProperties.TabStop = false;
             this.groupBoxUCKTargetProperties.Text = "General Properties";
+            //this.groupBoxUCKTargetProperties.Enter += new System.EventHandler(this.groupBoxUCKTargetProperties_Enter);
             // 
             // checkBoxUCK_MMode
             // 
@@ -16280,12 +16326,12 @@ namespace BehaviorGraphics
             this.checkBoxUCK_COMode.Text = "Center Out Mode";
             this.checkBoxUCK_COMode.UseVisualStyleBackColor = true;
             // 
-            // textBoxUCK_Cue2Rew
+            // textBoxUCK_Cue2Rate
             // 
-            this.textBoxUCK_Cue2Rew.Location = new System.Drawing.Point(317, 182);
-            this.textBoxUCK_Cue2Rew.Name = "textBoxUCK_Cue2Rew";
-            this.textBoxUCK_Cue2Rew.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_Cue2Rew.TabIndex = 51;
+            this.textBoxUCK_Cue2Rate.Location = new System.Drawing.Point(317, 182);
+            this.textBoxUCK_Cue2Rate.Name = "textBoxUCK_Cue2Rate";
+            this.textBoxUCK_Cue2Rate.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_Cue2Rate.TabIndex = 51;
             // 
             // labelUCK_Cue2Rew
             // 
@@ -16296,12 +16342,12 @@ namespace BehaviorGraphics
             this.labelUCK_Cue2Rew.TabIndex = 50;
             this.labelUCK_Cue2Rew.Text = "Cue Two Reward %";
             // 
-            // textBoxUCK_Cue1Rew
+            // textBoxUCK_Cue1Rate
             // 
-            this.textBoxUCK_Cue1Rew.Location = new System.Drawing.Point(317, 157);
-            this.textBoxUCK_Cue1Rew.Name = "textBoxUCK_Cue1Rew";
-            this.textBoxUCK_Cue1Rew.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_Cue1Rew.TabIndex = 49;
+            this.textBoxUCK_Cue1Rate.Location = new System.Drawing.Point(317, 157);
+            this.textBoxUCK_Cue1Rate.Name = "textBoxUCK_Cue1Rate";
+            this.textBoxUCK_Cue1Rate.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_Cue1Rate.TabIndex = 49;
             // 
             // labelUCK_Cue1Rew
             // 
@@ -16534,10 +16580,10 @@ namespace BehaviorGraphics
             this.tabUnstableReach.Controls.Add(this.groupBox80);
             this.tabUnstableReach.Controls.Add(this.groupBox79);
             this.tabUnstableReach.Controls.Add(this.groupBox78);
-            this.tabUnstableReach.Location = new System.Drawing.Point(4, 58);
+            this.tabUnstableReach.Location = new System.Drawing.Point(4, 76);
             this.tabUnstableReach.Name = "tabUnstableReach";
             this.tabUnstableReach.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUnstableReach.Size = new System.Drawing.Size(686, 471);
+            this.tabUnstableReach.Size = new System.Drawing.Size(686, 453);
             this.tabUnstableReach.TabIndex = 22;
             this.tabUnstableReach.Text = "Unstable Reach";
             this.tabUnstableReach.UseVisualStyleBackColor = true;
@@ -17203,10 +17249,10 @@ namespace BehaviorGraphics
             this.tabPageResist.Controls.Add(this.groupBoxRPPert);
             this.tabPageResist.Controls.Add(this.groupBoxRPCursor);
             this.tabPageResist.Controls.Add(this.groupBoxRPTiming);
-            this.tabPageResist.Location = new System.Drawing.Point(4, 58);
+            this.tabPageResist.Location = new System.Drawing.Point(4, 76);
             this.tabPageResist.Name = "tabPageResist";
             this.tabPageResist.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageResist.Size = new System.Drawing.Size(686, 471);
+            this.tabPageResist.Size = new System.Drawing.Size(686, 453);
             this.tabPageResist.TabIndex = 23;
             this.tabPageResist.Text = "Resist Perturbations";
             this.tabPageResist.UseVisualStyleBackColor = true;
@@ -18083,10 +18129,10 @@ namespace BehaviorGraphics
             this.tabPage6.Controls.Add(this.groupBox83);
             this.tabPage6.Controls.Add(this.groupBox82);
             this.tabPage6.Controls.Add(this.groupBox81);
-            this.tabPage6.Location = new System.Drawing.Point(4, 58);
+            this.tabPage6.Location = new System.Drawing.Point(4, 76);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(686, 471);
+            this.tabPage6.Size = new System.Drawing.Size(686, 453);
             this.tabPage6.TabIndex = 24;
             this.tabPage6.Text = "Cue Comb";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -19199,10 +19245,10 @@ namespace BehaviorGraphics
             this.tabPageSA.Controls.Add(this.groupBoxSA_electrodes);
             this.tabPageSA.Controls.Add(this.groupBox_SA_controlBump);
             this.tabPageSA.Controls.Add(this.groupBox_SA_timing);
-            this.tabPageSA.Location = new System.Drawing.Point(4, 58);
+            this.tabPageSA.Location = new System.Drawing.Point(4, 76);
             this.tabPageSA.Name = "tabPageSA";
             this.tabPageSA.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSA.Size = new System.Drawing.Size(686, 471);
+            this.tabPageSA.Size = new System.Drawing.Size(686, 453);
             this.tabPageSA.TabIndex = 22;
             this.tabPageSA.Text = "StimAngle";
             this.tabPageSA.UseVisualStyleBackColor = true;
@@ -20251,10 +20297,10 @@ namespace BehaviorGraphics
             this.Sabes.Controls.Add(this.groupBox92);
             this.Sabes.Controls.Add(this.groupBox91);
             this.Sabes.Controls.Add(this.groupBox90);
-            this.Sabes.Location = new System.Drawing.Point(4, 58);
+            this.Sabes.Location = new System.Drawing.Point(4, 76);
             this.Sabes.Name = "Sabes";
             this.Sabes.Padding = new System.Windows.Forms.Padding(3);
-            this.Sabes.Size = new System.Drawing.Size(686, 471);
+            this.Sabes.Size = new System.Drawing.Size(686, 453);
             this.Sabes.TabIndex = 25;
             this.Sabes.Text = "Sabes";
             this.Sabes.UseVisualStyleBackColor = true;
@@ -20279,6 +20325,25 @@ namespace BehaviorGraphics
             this.groupBox94.TabStop = false;
             this.groupBox94.Text = "Servo Settings";
             // 
+            // checkBoxSAB_showreturn
+            // 
+            this.checkBoxSAB_showreturn.AutoSize = true;
+            this.checkBoxSAB_showreturn.Location = new System.Drawing.Point(16, 76);
+            this.checkBoxSAB_showreturn.Name = "checkBoxSAB_showreturn";
+            this.checkBoxSAB_showreturn.Size = new System.Drawing.Size(115, 17);
+            this.checkBoxSAB_showreturn.TabIndex = 97;
+            this.checkBoxSAB_showreturn.Text = "Show cursor return";
+            this.checkBoxSAB_showreturn.UseVisualStyleBackColor = true;
+            // 
+            // label497
+            // 
+            this.label497.AutoSize = true;
+            this.label497.Location = new System.Drawing.Point(163, 76);
+            this.label497.Name = "label497";
+            this.label497.Size = new System.Drawing.Size(67, 13);
+            this.label497.TabIndex = 90;
+            this.label497.Text = "Viscous gain";
+            // 
             // label495
             // 
             this.label495.AutoSize = true;
@@ -20287,6 +20352,15 @@ namespace BehaviorGraphics
             this.label495.Size = new System.Drawing.Size(69, 13);
             this.label495.TabIndex = 89;
             this.label495.Text = "Position Filter";
+            // 
+            // textBoxSAB_vgain
+            // 
+            this.textBoxSAB_vgain.Location = new System.Drawing.Point(243, 73);
+            this.textBoxSAB_vgain.Name = "textBoxSAB_vgain";
+            this.textBoxSAB_vgain.Size = new System.Drawing.Size(39, 20);
+            this.textBoxSAB_vgain.TabIndex = 90;
+            this.toolTip1.SetToolTip(this.textBoxSAB_vgain, "viscosity of center target during return");
+            this.textBoxSAB_vgain.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label496
             // 
@@ -20341,7 +20415,6 @@ namespace BehaviorGraphics
             this.label494.Size = new System.Drawing.Size(89, 13);
             this.label494.TabIndex = 82;
             this.label494.Text = "Max Return force";
-            this.label494.Click += new System.EventHandler(this.label494_Click);
             // 
             // textBoxSAB_maxforce
             // 
@@ -20943,6 +21016,273 @@ namespace BehaviorGraphics
             this.label473.Size = new System.Drawing.Size(93, 13);
             this.label473.TabIndex = 20;
             this.label473.Text = "Movement Length";
+            // 
+            // CenterOut3D
+            // 
+            this.CenterOut3D.Controls.Add(this.groupBox95);
+            this.CenterOut3D.Location = new System.Drawing.Point(4, 76);
+            this.CenterOut3D.Name = "CenterOut3D";
+            this.CenterOut3D.Padding = new System.Windows.Forms.Padding(3);
+            this.CenterOut3D.Size = new System.Drawing.Size(686, 453);
+            this.CenterOut3D.TabIndex = 26;
+            this.CenterOut3D.Text = "CenterOut3D";
+            this.CenterOut3D.UseVisualStyleBackColor = true;
+            // 
+            // groupBox95
+            // 
+            this.groupBox95.Controls.Add(this.mode3DTask);
+            this.groupBox95.Controls.Add(this.label510);
+            this.groupBox95.Controls.Add(this.idiotMode3DTask);
+            this.groupBox95.Controls.Add(this.centerDelayLow3DTask);
+            this.groupBox95.Controls.Add(this.label498);
+            this.groupBox95.Controls.Add(this.label499);
+            this.groupBox95.Controls.Add(this.outerHoldHigh3DTask);
+            this.groupBox95.Controls.Add(this.label500);
+            this.groupBox95.Controls.Add(this.outerHoldLow3DTask);
+            this.groupBox95.Controls.Add(this.label501);
+            this.groupBox95.Controls.Add(this.label502);
+            this.groupBox95.Controls.Add(this.centerHoldHigh3DTask);
+            this.groupBox95.Controls.Add(this.centerHoldLow3DTask);
+            this.groupBox95.Controls.Add(this.label503);
+            this.groupBox95.Controls.Add(this.label504);
+            this.groupBox95.Controls.Add(this.intertrial3DTask);
+            this.groupBox95.Controls.Add(this.movementTime3DTask);
+            this.groupBox95.Controls.Add(this.label505);
+            this.groupBox95.Controls.Add(this.reset3DTask);
+            this.groupBox95.Controls.Add(this.centerDelayHigh3DTask);
+            this.groupBox95.Controls.Add(this.label506);
+            this.groupBox95.Controls.Add(this.label507);
+            this.groupBox95.Controls.Add(this.label508);
+            this.groupBox95.Controls.Add(this.numTargets3DTask);
+            this.groupBox95.Controls.Add(this.label509);
+            this.groupBox95.Location = new System.Drawing.Point(28, 24);
+            this.groupBox95.Name = "groupBox95";
+            this.groupBox95.Size = new System.Drawing.Size(284, 150);
+            this.groupBox95.TabIndex = 24;
+            this.groupBox95.TabStop = false;
+            this.groupBox95.Text = "Timing";
+            // 
+            // mode3DTask
+            // 
+            this.mode3DTask.Location = new System.Drawing.Point(236, 56);
+            this.mode3DTask.Name = "mode3DTask";
+            this.mode3DTask.Size = new System.Drawing.Size(43, 20);
+            this.mode3DTask.TabIndex = 24;
+            this.toolTip1.SetToolTip(this.mode3DTask, "minimum time in s after bump before state change. Ignored for move bumps");
+            // 
+            // label510
+            // 
+            this.label510.AutoSize = true;
+            this.label510.Location = new System.Drawing.Point(146, 59);
+            this.label510.Name = "label510";
+            this.label510.Size = new System.Drawing.Size(34, 13);
+            this.label510.TabIndex = 23;
+            this.label510.Text = "Mode";
+            // 
+            // idiotMode3DTask
+            // 
+            this.idiotMode3DTask.Location = new System.Drawing.Point(236, 79);
+            this.idiotMode3DTask.Name = "idiotMode3DTask";
+            this.idiotMode3DTask.Size = new System.Drawing.Size(43, 20);
+            this.idiotMode3DTask.TabIndex = 22;
+            this.toolTip1.SetToolTip(this.idiotMode3DTask, "minimum time in s after bump before state change. Ignored for move bumps");
+            this.idiotMode3DTask.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // centerDelayLow3DTask
+            // 
+            this.centerDelayLow3DTask.Location = new System.Drawing.Point(91, 77);
+            this.centerDelayLow3DTask.Name = "centerDelayLow3DTask";
+            this.centerDelayLow3DTask.Size = new System.Drawing.Size(43, 20);
+            this.centerDelayLow3DTask.TabIndex = 21;
+            this.toolTip1.SetToolTip(this.centerDelayLow3DTask, "Latency of bump onset from state onset in s");
+            // 
+            // label498
+            // 
+            this.label498.AutoSize = true;
+            this.label498.Location = new System.Drawing.Point(146, 82);
+            this.label498.Name = "label498";
+            this.label498.Size = new System.Drawing.Size(57, 13);
+            this.label498.TabIndex = 20;
+            this.label498.Text = "Idiot Mode";
+            // 
+            // label499
+            // 
+            this.label499.AutoSize = true;
+            this.label499.Location = new System.Drawing.Point(6, 80);
+            this.label499.Name = "label499";
+            this.label499.Size = new System.Drawing.Size(87, 13);
+            this.label499.TabIndex = 19;
+            this.label499.Text = "Center Delay low";
+            // 
+            // outerHoldHigh3DTask
+            // 
+            this.outerHoldHigh3DTask.Location = new System.Drawing.Point(236, 12);
+            this.outerHoldHigh3DTask.Name = "outerHoldHigh3DTask";
+            this.outerHoldHigh3DTask.Size = new System.Drawing.Size(43, 20);
+            this.outerHoldHigh3DTask.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.outerHoldHigh3DTask, "max time of the center hold in s before target presentation");
+            this.outerHoldHigh3DTask.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label500
+            // 
+            this.label500.AutoSize = true;
+            this.label500.Location = new System.Drawing.Point(146, 15);
+            this.label500.Name = "label500";
+            this.label500.Size = new System.Drawing.Size(83, 13);
+            this.label500.TabIndex = 17;
+            this.label500.Text = "Outer Hold High";
+            // 
+            // outerHoldLow3DTask
+            // 
+            this.outerHoldLow3DTask.Location = new System.Drawing.Point(236, 34);
+            this.outerHoldLow3DTask.Name = "outerHoldLow3DTask";
+            this.outerHoldLow3DTask.Size = new System.Drawing.Size(43, 20);
+            this.outerHoldLow3DTask.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.outerHoldLow3DTask, "maximum time of the delay period hold in s after target presentation");
+            this.outerHoldLow3DTask.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label501
+            // 
+            this.label501.AutoSize = true;
+            this.label501.Location = new System.Drawing.Point(146, 37);
+            this.label501.Name = "label501";
+            this.label501.Size = new System.Drawing.Size(81, 13);
+            this.label501.TabIndex = 15;
+            this.label501.Text = "Outer Hold Low";
+            // 
+            // label502
+            // 
+            this.label502.AutoSize = true;
+            this.label502.Location = new System.Drawing.Point(6, 59);
+            this.label502.Name = "label502";
+            this.label502.Size = new System.Drawing.Size(88, 13);
+            this.label502.TabIndex = 14;
+            this.label502.Text = "Center Hold High";
+            // 
+            // centerHoldHigh3DTask
+            // 
+            this.centerHoldHigh3DTask.Location = new System.Drawing.Point(91, 55);
+            this.centerHoldHigh3DTask.Name = "centerHoldHigh3DTask";
+            this.centerHoldHigh3DTask.Size = new System.Drawing.Size(43, 20);
+            this.centerHoldHigh3DTask.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.centerHoldHigh3DTask, "Time allowed in s after go-cue before the trial ends as incomplete");
+            // 
+            // centerHoldLow3DTask
+            // 
+            this.centerHoldLow3DTask.Location = new System.Drawing.Point(91, 33);
+            this.centerHoldLow3DTask.Name = "centerHoldLow3DTask";
+            this.centerHoldLow3DTask.Size = new System.Drawing.Size(43, 20);
+            this.centerHoldLow3DTask.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.centerHoldLow3DTask, "minimum time of the delay period hold in s after target presentation");
+            this.centerHoldLow3DTask.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label503
+            // 
+            this.label503.AutoSize = true;
+            this.label503.Location = new System.Drawing.Point(6, 36);
+            this.label503.Name = "label503";
+            this.label503.Size = new System.Drawing.Size(82, 13);
+            this.label503.TabIndex = 11;
+            this.label503.Text = "Center Hold low";
+            // 
+            // label504
+            // 
+            this.label504.AutoSize = true;
+            this.label504.Location = new System.Drawing.Point(146, 128);
+            this.label504.Name = "label504";
+            this.label504.Size = new System.Drawing.Size(44, 13);
+            this.label504.TabIndex = 10;
+            this.label504.Text = "Intertrial";
+            // 
+            // intertrial3DTask
+            // 
+            this.intertrial3DTask.Location = new System.Drawing.Point(236, 124);
+            this.intertrial3DTask.Name = "intertrial3DTask";
+            this.intertrial3DTask.Size = new System.Drawing.Size(43, 20);
+            this.intertrial3DTask.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.intertrial3DTask, "Time in s spent in penalty timeout after failed trial");
+            this.intertrial3DTask.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // movementTime3DTask
+            // 
+            this.movementTime3DTask.Location = new System.Drawing.Point(91, 122);
+            this.movementTime3DTask.Name = "movementTime3DTask";
+            this.movementTime3DTask.Size = new System.Drawing.Size(43, 20);
+            this.movementTime3DTask.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.movementTime3DTask, "Time in s between trial end and start of new trial");
+            this.movementTime3DTask.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label505
+            // 
+            this.label505.AutoSize = true;
+            this.label505.Location = new System.Drawing.Point(6, 125);
+            this.label505.Name = "label505";
+            this.label505.Size = new System.Drawing.Size(83, 13);
+            this.label505.TabIndex = 7;
+            this.label505.Text = "Movement Time";
+            // 
+            // reset3DTask
+            // 
+            this.reset3DTask.Location = new System.Drawing.Point(236, 101);
+            this.reset3DTask.Name = "reset3DTask";
+            this.reset3DTask.Size = new System.Drawing.Size(43, 20);
+            this.reset3DTask.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.reset3DTask, "minimum time in s after bump before state change. Ignored for move bumps");
+            this.reset3DTask.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // centerDelayHigh3DTask
+            // 
+            this.centerDelayHigh3DTask.Location = new System.Drawing.Point(91, 99);
+            this.centerDelayHigh3DTask.Name = "centerDelayHigh3DTask";
+            this.centerDelayHigh3DTask.Size = new System.Drawing.Size(43, 20);
+            this.centerDelayHigh3DTask.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.centerDelayHigh3DTask, "Latency of bump onset from state onset in s");
+            this.centerDelayHigh3DTask.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label506
+            // 
+            this.label506.AutoSize = true;
+            this.label506.Location = new System.Drawing.Point(146, 104);
+            this.label506.Name = "label506";
+            this.label506.Size = new System.Drawing.Size(35, 13);
+            this.label506.TabIndex = 4;
+            this.label506.Text = "Reset";
+            // 
+            // label507
+            // 
+            this.label507.AutoSize = true;
+            this.label507.Location = new System.Drawing.Point(6, 102);
+            this.label507.Name = "label507";
+            this.label507.Size = new System.Drawing.Size(93, 13);
+            this.label507.TabIndex = 3;
+            this.label507.Text = "Center Delay High";
+            // 
+            // label508
+            // 
+            this.label508.AutoSize = true;
+            this.label508.Location = new System.Drawing.Point(460, -62);
+            this.label508.Name = "label508";
+            this.label508.Size = new System.Drawing.Size(46, 13);
+            this.label508.TabIndex = 2;
+            this.label508.Text = "CT Hold";
+            // 
+            // numTargets3DTask
+            // 
+            this.numTargets3DTask.Location = new System.Drawing.Point(91, 11);
+            this.numTargets3DTask.Name = "numTargets3DTask";
+            this.numTargets3DTask.Size = new System.Drawing.Size(43, 20);
+            this.numTargets3DTask.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.numTargets3DTask, "min time of the center hold in s before target presentation");
+            this.numTargets3DTask.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label509
+            // 
+            this.label509.AutoSize = true;
+            this.label509.Location = new System.Drawing.Point(6, 14);
+            this.label509.Name = "label509";
+            this.label509.Size = new System.Drawing.Size(68, 13);
+            this.label509.TabIndex = 0;
+            this.label509.Text = "Num Targets";
             // 
             // label409
             // 
@@ -23317,33 +23657,110 @@ namespace BehaviorGraphics
             this.angleEntryBox_SA.TabIndex = 19;
             this.angleEntryBox_SA.Value = 0;
             // 
-            // textBoxSAB_vgain
+            // textBoxUCK_copercentage
             // 
-            this.textBoxSAB_vgain.Location = new System.Drawing.Point(243, 73);
-            this.textBoxSAB_vgain.Name = "textBoxSAB_vgain";
-            this.textBoxSAB_vgain.Size = new System.Drawing.Size(39, 20);
-            this.textBoxSAB_vgain.TabIndex = 90;
-            this.toolTip1.SetToolTip(this.textBoxSAB_vgain, "viscosity of center target during return");
-            this.textBoxSAB_vgain.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.textBoxUCK_copercentage.Location = new System.Drawing.Point(134, 156);
+            this.textBoxUCK_copercentage.Name = "textBoxUCK_copercentage";
+            this.textBoxUCK_copercentage.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_copercentage.TabIndex = 54;
             // 
-            // label497
+            // label511
             // 
-            this.label497.AutoSize = true;
-            this.label497.Location = new System.Drawing.Point(163, 76);
-            this.label497.Name = "label497";
-            this.label497.Size = new System.Drawing.Size(67, 13);
-            this.label497.TabIndex = 90;
-            this.label497.Text = "Viscous gain";
+            this.label511.AutoSize = true;
+            this.label511.Location = new System.Drawing.Point(171, 160);
+            this.label511.Name = "label511";
+            this.label511.Size = new System.Drawing.Size(15, 13);
+            this.label511.TabIndex = 55;
+            this.label511.Text = "%";
             // 
-            // checkBoxSAB_showreturn
+            // groupBoxUCK_Modes
             // 
-            this.checkBoxSAB_showreturn.AutoSize = true;
-            this.checkBoxSAB_showreturn.Location = new System.Drawing.Point(16, 76);
-            this.checkBoxSAB_showreturn.Name = "checkBoxSAB_showreturn";
-            this.checkBoxSAB_showreturn.Size = new System.Drawing.Size(115, 17);
-            this.checkBoxSAB_showreturn.TabIndex = 97;
-            this.checkBoxSAB_showreturn.Text = "Show cursor return";
-            this.checkBoxSAB_showreturn.UseVisualStyleBackColor = true;
+            this.groupBoxUCK_Modes.Controls.Add(this.labelUCK_catchpct);
+            this.groupBoxUCK_Modes.Controls.Add(this.textBoxUCK_catchpct);
+            this.groupBoxUCK_Modes.Controls.Add(this.checkBoxUCK_catchmode);
+            this.groupBoxUCK_Modes.Controls.Add(this.checkBoxUCK_OnlyTrue);
+            this.groupBoxUCK_Modes.Controls.Add(this.checkBoxUCK_OnlyCue);
+            this.groupBoxUCK_Modes.Controls.Add(this.checkBoxUCK_TargetColorMode);
+            this.groupBoxUCK_Modes.Controls.Add(this.textBoxUCK_CueOffset);
+            this.groupBoxUCK_Modes.Controls.Add(this.labelUCK_Cueoffset);
+            this.groupBoxUCK_Modes.Location = new System.Drawing.Point(15, 231);
+            this.groupBoxUCK_Modes.Name = "groupBoxUCK_Modes";
+            this.groupBoxUCK_Modes.Size = new System.Drawing.Size(475, 179);
+            this.groupBoxUCK_Modes.TabIndex = 3;
+            this.groupBoxUCK_Modes.TabStop = false;
+            this.groupBoxUCK_Modes.Text = "Other Settings";
+            // 
+            // labelUCK_catchpct
+            // 
+            this.labelUCK_catchpct.AutoSize = true;
+            this.labelUCK_catchpct.Location = new System.Drawing.Point(403, 29);
+            this.labelUCK_catchpct.Name = "labelUCK_catchpct";
+            this.labelUCK_catchpct.Size = new System.Drawing.Size(46, 13);
+            this.labelUCK_catchpct.TabIndex = 54;
+            this.labelUCK_catchpct.Text = "Catch %";
+            // 
+            // textBoxUCK_catchpct
+            // 
+            this.textBoxUCK_catchpct.Location = new System.Drawing.Point(366, 25);
+            this.textBoxUCK_catchpct.Name = "textBoxUCK_catchpct";
+            this.textBoxUCK_catchpct.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_catchpct.TabIndex = 54;
+            // 
+            // checkBoxUCK_catchmode
+            // 
+            this.checkBoxUCK_catchmode.AutoSize = true;
+            this.checkBoxUCK_catchmode.Location = new System.Drawing.Point(231, 28);
+            this.checkBoxUCK_catchmode.Name = "checkBoxUCK_catchmode";
+            this.checkBoxUCK_catchmode.Size = new System.Drawing.Size(129, 17);
+            this.checkBoxUCK_catchmode.TabIndex = 53;
+            this.checkBoxUCK_catchmode.Text = "Skip Cue (Catch Trial)";
+            this.checkBoxUCK_catchmode.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUCK_OnlyTrue
+            // 
+            this.checkBoxUCK_OnlyTrue.AutoSize = true;
+            this.checkBoxUCK_OnlyTrue.Location = new System.Drawing.Point(19, 122);
+            this.checkBoxUCK_OnlyTrue.Name = "checkBoxUCK_OnlyTrue";
+            this.checkBoxUCK_OnlyTrue.Size = new System.Drawing.Size(206, 17);
+            this.checkBoxUCK_OnlyTrue.TabIndex = 58;
+            this.checkBoxUCK_OnlyTrue.Text = "Show Only True Target During Choice";
+            this.checkBoxUCK_OnlyTrue.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUCK_OnlyCue
+            // 
+            this.checkBoxUCK_OnlyCue.AutoSize = true;
+            this.checkBoxUCK_OnlyCue.Location = new System.Drawing.Point(19, 90);
+            this.checkBoxUCK_OnlyCue.Name = "checkBoxUCK_OnlyCue";
+            this.checkBoxUCK_OnlyCue.Size = new System.Drawing.Size(208, 17);
+            this.checkBoxUCK_OnlyCue.TabIndex = 57;
+            this.checkBoxUCK_OnlyCue.Text = "Show Only Cue Targets During Choice";
+            this.checkBoxUCK_OnlyCue.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUCK_TargetColorMode
+            // 
+            this.checkBoxUCK_TargetColorMode.AutoSize = true;
+            this.checkBoxUCK_TargetColorMode.Location = new System.Drawing.Point(19, 59);
+            this.checkBoxUCK_TargetColorMode.Name = "checkBoxUCK_TargetColorMode";
+            this.checkBoxUCK_TargetColorMode.Size = new System.Drawing.Size(155, 17);
+            this.checkBoxUCK_TargetColorMode.TabIndex = 56;
+            this.checkBoxUCK_TargetColorMode.Text = "Show Colors During Choice";
+            this.checkBoxUCK_TargetColorMode.UseVisualStyleBackColor = true;
+            // 
+            // textBoxUCK_CueOffset
+            // 
+            this.textBoxUCK_CueOffset.Location = new System.Drawing.Point(157, 26);
+            this.textBoxUCK_CueOffset.Name = "textBoxUCK_CueOffset";
+            this.textBoxUCK_CueOffset.Size = new System.Drawing.Size(41, 20);
+            this.textBoxUCK_CueOffset.TabIndex = 55;
+            // 
+            // labelUCK_Cueoffset
+            // 
+            this.labelUCK_Cueoffset.AutoSize = true;
+            this.labelUCK_Cueoffset.Location = new System.Drawing.Point(16, 29);
+            this.labelUCK_Cueoffset.Name = "labelUCK_Cueoffset";
+            this.labelUCK_Cueoffset.Size = new System.Drawing.Size(114, 13);
+            this.labelUCK_Cueoffset.TabIndex = 54;
+            this.labelUCK_Cueoffset.Text = "Center Cue Offset (cm)";
             // 
             // UpdateForm
             // 
@@ -23712,6 +24129,9 @@ namespace BehaviorGraphics
             this.groupBox91.PerformLayout();
             this.groupBox90.ResumeLayout(false);
             this.groupBox90.PerformLayout();
+            this.CenterOut3D.ResumeLayout(false);
+            this.groupBox95.ResumeLayout(false);
+            this.groupBox95.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -23725,6 +24145,8 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
+            this.groupBoxUCK_Modes.ResumeLayout(false);
+            this.groupBoxUCK_Modes.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -25119,9 +25541,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label labelUCK_ColorGuide;
         private System.Windows.Forms.CheckBox checkBoxUCK_MMode;
         private System.Windows.Forms.CheckBox checkBoxUCK_COMode;
-        private System.Windows.Forms.TextBox textBoxUCK_Cue2Rew;
+        private System.Windows.Forms.TextBox textBoxUCK_Cue2Rate;
         private System.Windows.Forms.Label labelUCK_Cue2Rew;
-        private System.Windows.Forms.TextBox textBoxUCK_Cue1Rew;
+        private System.Windows.Forms.TextBox textBoxUCK_Cue1Rate;
         private System.Windows.Forms.Label labelUCK_Cue1Rew;
         private System.Windows.Forms.GroupBox groupBox77;
         private System.Windows.Forms.TextBox textBoxDCOFCG;
@@ -25820,5 +26242,43 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label497;
         private System.Windows.Forms.TextBox textBoxSAB_vgain;
         private System.Windows.Forms.CheckBox checkBoxSAB_showreturn;
+        private System.Windows.Forms.TabPage CenterOut3D;
+        private System.Windows.Forms.GroupBox groupBox95;
+        private System.Windows.Forms.TextBox mode3DTask;
+        private System.Windows.Forms.Label label510;
+        private System.Windows.Forms.TextBox idiotMode3DTask;
+        private System.Windows.Forms.TextBox centerDelayLow3DTask;
+        private System.Windows.Forms.Label label498;
+        private System.Windows.Forms.Label label499;
+        private System.Windows.Forms.TextBox outerHoldHigh3DTask;
+        private System.Windows.Forms.Label label500;
+        private System.Windows.Forms.TextBox outerHoldLow3DTask;
+        private System.Windows.Forms.Label label501;
+        private System.Windows.Forms.Label label502;
+        private System.Windows.Forms.TextBox centerHoldHigh3DTask;
+        private System.Windows.Forms.TextBox centerHoldLow3DTask;
+        private System.Windows.Forms.Label label503;
+        private System.Windows.Forms.Label label504;
+        private System.Windows.Forms.TextBox intertrial3DTask;
+        private System.Windows.Forms.TextBox movementTime3DTask;
+        private System.Windows.Forms.Label label505;
+        private System.Windows.Forms.TextBox reset3DTask;
+        private System.Windows.Forms.TextBox centerDelayHigh3DTask;
+        private System.Windows.Forms.Label label506;
+        private System.Windows.Forms.Label label507;
+        private System.Windows.Forms.Label label508;
+        private System.Windows.Forms.TextBox numTargets3DTask;
+        private System.Windows.Forms.Label label509;
+        private System.Windows.Forms.Label label511;
+        private System.Windows.Forms.TextBox textBoxUCK_copercentage;
+        private System.Windows.Forms.GroupBox groupBoxUCK_Modes;
+        private System.Windows.Forms.Label labelUCK_catchpct;
+        private System.Windows.Forms.TextBox textBoxUCK_catchpct;
+        private System.Windows.Forms.CheckBox checkBoxUCK_catchmode;
+        private System.Windows.Forms.CheckBox checkBoxUCK_OnlyTrue;
+        private System.Windows.Forms.CheckBox checkBoxUCK_OnlyCue;
+        private System.Windows.Forms.CheckBox checkBoxUCK_TargetColorMode;
+        private System.Windows.Forms.TextBox textBoxUCK_CueOffset;
+        private System.Windows.Forms.Label labelUCK_Cueoffset;
     }
 }
