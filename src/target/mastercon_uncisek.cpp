@@ -638,12 +638,23 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	// Target 9 is the cue target
-	if (getState() == STATE_CT_CUE_DELAY) {
-		outputs->targets[9] = (Target *)cueTarget;
+	if (m_mode) {
+		if (getState() == STATE_CT_CUE_DELAY ||
+			getState() == STATE_CT_MEM_DELAY ||
+			getState() == STATE_MOVEMENT){
+				outputs->targets[9] = (Target *)cueTarget;
+		} else {
+			outputs->targets[9] = nullTarget;
+		}
+	} else {
+
+		if (getState() == STATE_CT_CUE_DELAY) {
+			outputs->targets[9] = (Target *)cueTarget;
+		}
+		else {
+			outputs->targets[9] = nullTarget;
+		}	
 	}
-	else {
-		outputs->targets[9] = nullTarget;
-	}	
 
 	/* Timer Dot */
 	if (stateTimer->elapsedTime(S) < 0.25) {
