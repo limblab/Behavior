@@ -283,10 +283,15 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	adj_rate_one = fabs(rate_one)/total_rate;
 	adj_rate_two = fabs(rate_two)/total_rate;
 
-
+	co_mode= (params->center_out_mode) && (random->getDouble()<params->co_percentage);
 	double t_ang;
 	//t_ang = 2*PI/8;
-	t_ang = 2*PI/params->num_targlocs;
+	if ((params->num_targlocs <= 2) && (co_mode)){
+		t_ang = 2*PI/4;
+	} else {
+		t_ang = 2*PI/params->num_targlocs;
+	}
+		
 
 	reach_len = params->movement_length;
 	//Set Colors
@@ -350,9 +355,6 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	cueTarget->radius  = params->center_size;
 	cueTarget->color   = curr_cue_color;
 
-
-
-	co_mode= (params->center_out_mode) && (random->getDouble()<params->co_percentage);
 	//if (co_mode)
 	//	m_mode=false;
 	//else
