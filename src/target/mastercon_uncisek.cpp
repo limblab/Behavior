@@ -136,8 +136,10 @@ private:
 	CircleTarget    *centerTarget;
 	CircleTarget    *cueTarget;
 	CircleTarget    *outerTarget[8];
+	CircleTarget    *colorCursor;
 	double			outer_angles[8];
 	SquareTarget    *timerTarget;
+	Point cursor_endpoint;
 
 	LocalParams *params;
 
@@ -227,6 +229,7 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 		outer_angles[i]=0.0;
 	}
 	timerTarget      = new SquareTarget(0,0,0,0);
+	colorCursor	     = new CircleTarget(0,0,0,0);
 	
 	feedback_timer	 = new Timer();
 	reach_len=0.0;
@@ -247,6 +250,8 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 	curr_target_idx=0;
 	curr_wrong_idx = 0;
 	curr_cue_color = 0;
+	cursor_endpoint.x = 0.0;
+	cursor_endpoint.y = 0.0;
 	rate_one = 0.0;
 	rate_two = 0.0;
 	give_reward	= true;
@@ -358,7 +363,7 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	//if (co_mode)
 	//	m_mode=false;
 	//else
-	//	m_mode =params->match_mode;
+	m_mode =params->match_mode;
 
 	int num_on_screen;
 	if (co_mode) {
@@ -483,6 +488,7 @@ void UncertaintyCisekBehavior::update(SimStruct *S) {
 				} else if (outerTarget[curr_wrong_idx]->cursorInTarget(inputs->cursor)){
 					outerTarget[curr_target_idx]->color = curr_cue_color;
 					playTone(TONE_ABORT);
+					cursor_endpoint = inputs->cursor;
 					setState(STATE_FAIL);
 				}
 
@@ -507,6 +513,7 @@ void UncertaintyCisekBehavior::update(SimStruct *S) {
 				if (give_reward) {
 					playTone(TONE_REWARD);
 				}
+				cursor_endpoint = inputs->cursor;
 				setState(STATE_REWARD);
 			}
 			else if (!outerTarget[curr_target_idx]->cursorInTarget(inputs->cursor)){
@@ -535,6 +542,10 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
     /* declarations */
 	int i;
 
+	colorCursor->centerX =  inputs->cursor.x;
+	colorCursor->centerY =  inputs->cursor.y;
+	colorCursor->radius  = 1;
+	colorCursor->color   = cueTarget->color;
 	/* force (0) */
 	outputs->force = inputs->force;
 
@@ -656,7 +667,9 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 		for (i=0;i<8;i++){
 			outputs->targets[i+1] = nullTarget;
 		}
-		outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
+		//outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
+		outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
+		outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];
 	}
 	else {
 		for (i=0;i<8;i++){
@@ -667,14 +680,24 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 	// Target 9 is the cue target
 	if (m_mode) {
 		if (getState() == STATE_CT_OUTER_DELAY ||
+			getState() == STATE_CT_MEM_DELAY ||
 			getState() == STATE_CT_CUE_DELAY ||
-			getState() == STATE_CT_MEM_DELAY){
-				outputs->targets[9] = (Target *)cueTarget;
+			getState() == STATE_MOVEMENT){
+				//outputs->targets[9] = (Target *)cueTarget;
+				outputs->targets[9] = (Target *)colorCursor;
+				outputs->position = Point(1000,1000);
+		} else if (getState() == STATE_REWARD || 
+				   getState() == STATE_FAIL) {	
+			colorCursor->centerX = cursor_endpoint.x;
+			colorCursor->centerY = cursor_endpoint.y;
+		    outputs->targets[9] = (Target *)colorCursor;
+			outputs->position = Point(1000,1000);
 		} else {
 			outputs->targets[9] = nullTarget;
+			outputs->position = inputs->cursor;
 		}
 	} else {
-
+		outputs->position = inputs->cursor;
 		if (getState() == STATE_CT_CUE_DELAY) {
 			outputs->targets[9] = (Target *)cueTarget;
 		}
@@ -703,10 +726,6 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[1] = BEHAVIOR_VERSION_MINOR;
 	outputs->version[2] = BEHAVIOR_VERSION_MICRO;
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
-
-	/* position (7) */
-	// If we are in the movement,
-	outputs->position = inputs->cursor;
 
 }
 /*
