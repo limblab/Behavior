@@ -1276,6 +1276,8 @@ namespace BehaviorGraphics
             AddParamListItem("UCK Catch Pct", "P37", "Behavior UnCisek", this.textBoxUCK_catchpct);
 
             AddParamListItem("UCK CO percentage", "P38", "Behavior UnCisek", this.textBoxUCK_copercentage);
+            AddParamListItem("UCK num targest", "P39", "Behavior UnCisek", this.numericUD_UCK_numtargs);
+
             #endregion
 
             #region Unstable Reach

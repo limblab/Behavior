@@ -1341,6 +1341,15 @@ namespace BehaviorGraphics
             this.labelDCORW = new System.Windows.Forms.Label();
             this.labelDCOCHL = new System.Windows.Forms.Label();
             this.tabUnCisek = new System.Windows.Forms.TabPage();
+            this.groupBoxUCK_Modes = new System.Windows.Forms.GroupBox();
+            this.labelUCK_catchpct = new System.Windows.Forms.Label();
+            this.textBoxUCK_catchpct = new System.Windows.Forms.TextBox();
+            this.checkBoxUCK_catchmode = new System.Windows.Forms.CheckBox();
+            this.checkBoxUCK_OnlyTrue = new System.Windows.Forms.CheckBox();
+            this.checkBoxUCK_OnlyCue = new System.Windows.Forms.CheckBox();
+            this.checkBoxUCK_TargetColorMode = new System.Windows.Forms.CheckBox();
+            this.textBoxUCK_CueOffset = new System.Windows.Forms.TextBox();
+            this.labelUCK_Cueoffset = new System.Windows.Forms.Label();
             this.groupBoxUCKTimers = new System.Windows.Forms.GroupBox();
             this.textBoxUCK_FPL = new System.Windows.Forms.TextBox();
             this.labelUCK_FPL = new System.Windows.Forms.Label();
@@ -1369,6 +1378,8 @@ namespace BehaviorGraphics
             this.labelUCK_CHHi = new System.Windows.Forms.Label();
             this.labelUCK_CHLo = new System.Windows.Forms.Label();
             this.groupBoxUCKTargetProperties = new System.Windows.Forms.GroupBox();
+            this.label511 = new System.Windows.Forms.Label();
+            this.textBoxUCK_copercentage = new System.Windows.Forms.TextBox();
             this.checkBoxUCK_MMode = new System.Windows.Forms.CheckBox();
             this.checkBoxUCK_COMode = new System.Windows.Forms.CheckBox();
             this.textBoxUCK_Cue2Rate = new System.Windows.Forms.TextBox();
@@ -2146,17 +2157,8 @@ namespace BehaviorGraphics
             this.angleEntryBox1 = new AngleBox.AngleEntryBox();
             this.angleEntryBox2 = new AngleBox.AngleEntryBox();
             this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
-            this.textBoxUCK_copercentage = new System.Windows.Forms.TextBox();
-            this.label511 = new System.Windows.Forms.Label();
-            this.groupBoxUCK_Modes = new System.Windows.Forms.GroupBox();
-            this.labelUCK_catchpct = new System.Windows.Forms.Label();
-            this.textBoxUCK_catchpct = new System.Windows.Forms.TextBox();
-            this.checkBoxUCK_catchmode = new System.Windows.Forms.CheckBox();
-            this.checkBoxUCK_OnlyTrue = new System.Windows.Forms.CheckBox();
-            this.checkBoxUCK_OnlyCue = new System.Windows.Forms.CheckBox();
-            this.checkBoxUCK_TargetColorMode = new System.Windows.Forms.CheckBox();
-            this.textBoxUCK_CueOffset = new System.Windows.Forms.TextBox();
-            this.labelUCK_Cueoffset = new System.Windows.Forms.Label();
+            this.numericUD_UCK_numtargs = new System.Windows.Forms.NumericUpDown();
+            this.label512 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2320,6 +2322,7 @@ namespace BehaviorGraphics
             this.groupBoxDCOT.SuspendLayout();
             this.groupBoxDCOTime.SuspendLayout();
             this.tabUnCisek.SuspendLayout();
+            this.groupBoxUCK_Modes.SuspendLayout();
             this.groupBoxUCKTimers.SuspendLayout();
             this.groupBoxUCKTargetProperties.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUD_UCK_TAD)).BeginInit();
@@ -2375,7 +2378,7 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBoxUCK_Modes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_UCK_numtargs)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -16021,6 +16024,95 @@ namespace BehaviorGraphics
             this.tabUnCisek.Text = "UnCisek";
             this.tabUnCisek.UseVisualStyleBackColor = true;
             // 
+            // groupBoxUCK_Modes
+            // 
+            this.groupBoxUCK_Modes.Controls.Add(this.labelUCK_catchpct);
+            this.groupBoxUCK_Modes.Controls.Add(this.textBoxUCK_catchpct);
+            this.groupBoxUCK_Modes.Controls.Add(this.checkBoxUCK_catchmode);
+            this.groupBoxUCK_Modes.Controls.Add(this.checkBoxUCK_OnlyTrue);
+            this.groupBoxUCK_Modes.Controls.Add(this.checkBoxUCK_OnlyCue);
+            this.groupBoxUCK_Modes.Controls.Add(this.checkBoxUCK_TargetColorMode);
+            this.groupBoxUCK_Modes.Controls.Add(this.textBoxUCK_CueOffset);
+            this.groupBoxUCK_Modes.Controls.Add(this.labelUCK_Cueoffset);
+            this.groupBoxUCK_Modes.Location = new System.Drawing.Point(15, 231);
+            this.groupBoxUCK_Modes.Name = "groupBoxUCK_Modes";
+            this.groupBoxUCK_Modes.Size = new System.Drawing.Size(475, 179);
+            this.groupBoxUCK_Modes.TabIndex = 3;
+            this.groupBoxUCK_Modes.TabStop = false;
+            this.groupBoxUCK_Modes.Text = "Other Settings";
+            // 
+            // labelUCK_catchpct
+            // 
+            this.labelUCK_catchpct.AutoSize = true;
+            this.labelUCK_catchpct.Location = new System.Drawing.Point(403, 29);
+            this.labelUCK_catchpct.Name = "labelUCK_catchpct";
+            this.labelUCK_catchpct.Size = new System.Drawing.Size(46, 13);
+            this.labelUCK_catchpct.TabIndex = 54;
+            this.labelUCK_catchpct.Text = "Catch %";
+            // 
+            // textBoxUCK_catchpct
+            // 
+            this.textBoxUCK_catchpct.Location = new System.Drawing.Point(366, 25);
+            this.textBoxUCK_catchpct.Name = "textBoxUCK_catchpct";
+            this.textBoxUCK_catchpct.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_catchpct.TabIndex = 54;
+            // 
+            // checkBoxUCK_catchmode
+            // 
+            this.checkBoxUCK_catchmode.AutoSize = true;
+            this.checkBoxUCK_catchmode.Location = new System.Drawing.Point(231, 28);
+            this.checkBoxUCK_catchmode.Name = "checkBoxUCK_catchmode";
+            this.checkBoxUCK_catchmode.Size = new System.Drawing.Size(129, 17);
+            this.checkBoxUCK_catchmode.TabIndex = 53;
+            this.checkBoxUCK_catchmode.Text = "Skip Cue (Catch Trial)";
+            this.checkBoxUCK_catchmode.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUCK_OnlyTrue
+            // 
+            this.checkBoxUCK_OnlyTrue.AutoSize = true;
+            this.checkBoxUCK_OnlyTrue.Location = new System.Drawing.Point(19, 122);
+            this.checkBoxUCK_OnlyTrue.Name = "checkBoxUCK_OnlyTrue";
+            this.checkBoxUCK_OnlyTrue.Size = new System.Drawing.Size(206, 17);
+            this.checkBoxUCK_OnlyTrue.TabIndex = 58;
+            this.checkBoxUCK_OnlyTrue.Text = "Show Only True Target During Choice";
+            this.checkBoxUCK_OnlyTrue.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUCK_OnlyCue
+            // 
+            this.checkBoxUCK_OnlyCue.AutoSize = true;
+            this.checkBoxUCK_OnlyCue.Location = new System.Drawing.Point(19, 90);
+            this.checkBoxUCK_OnlyCue.Name = "checkBoxUCK_OnlyCue";
+            this.checkBoxUCK_OnlyCue.Size = new System.Drawing.Size(208, 17);
+            this.checkBoxUCK_OnlyCue.TabIndex = 57;
+            this.checkBoxUCK_OnlyCue.Text = "Show Only Cue Targets During Choice";
+            this.checkBoxUCK_OnlyCue.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUCK_TargetColorMode
+            // 
+            this.checkBoxUCK_TargetColorMode.AutoSize = true;
+            this.checkBoxUCK_TargetColorMode.Location = new System.Drawing.Point(19, 59);
+            this.checkBoxUCK_TargetColorMode.Name = "checkBoxUCK_TargetColorMode";
+            this.checkBoxUCK_TargetColorMode.Size = new System.Drawing.Size(155, 17);
+            this.checkBoxUCK_TargetColorMode.TabIndex = 56;
+            this.checkBoxUCK_TargetColorMode.Text = "Show Colors During Choice";
+            this.checkBoxUCK_TargetColorMode.UseVisualStyleBackColor = true;
+            // 
+            // textBoxUCK_CueOffset
+            // 
+            this.textBoxUCK_CueOffset.Location = new System.Drawing.Point(157, 26);
+            this.textBoxUCK_CueOffset.Name = "textBoxUCK_CueOffset";
+            this.textBoxUCK_CueOffset.Size = new System.Drawing.Size(41, 20);
+            this.textBoxUCK_CueOffset.TabIndex = 55;
+            // 
+            // labelUCK_Cueoffset
+            // 
+            this.labelUCK_Cueoffset.AutoSize = true;
+            this.labelUCK_Cueoffset.Location = new System.Drawing.Point(16, 29);
+            this.labelUCK_Cueoffset.Name = "labelUCK_Cueoffset";
+            this.labelUCK_Cueoffset.Size = new System.Drawing.Size(114, 13);
+            this.labelUCK_Cueoffset.TabIndex = 54;
+            this.labelUCK_Cueoffset.Text = "Center Cue Offset (cm)";
+            // 
             // groupBoxUCKTimers
             // 
             this.groupBoxUCKTimers.Controls.Add(this.textBoxUCK_FPL);
@@ -16266,6 +16358,8 @@ namespace BehaviorGraphics
             // 
             // groupBoxUCKTargetProperties
             // 
+            this.groupBoxUCKTargetProperties.Controls.Add(this.label512);
+            this.groupBoxUCKTargetProperties.Controls.Add(this.numericUD_UCK_numtargs);
             this.groupBoxUCKTargetProperties.Controls.Add(this.label511);
             this.groupBoxUCKTargetProperties.Controls.Add(this.textBoxUCK_copercentage);
             this.groupBoxUCKTargetProperties.Controls.Add(this.checkBoxUCK_MMode);
@@ -16304,7 +16398,22 @@ namespace BehaviorGraphics
             this.groupBoxUCKTargetProperties.TabIndex = 0;
             this.groupBoxUCKTargetProperties.TabStop = false;
             this.groupBoxUCKTargetProperties.Text = "General Properties";
-            //this.groupBoxUCKTargetProperties.Enter += new System.EventHandler(this.groupBoxUCKTargetProperties_Enter);
+            // 
+            // label511
+            // 
+            this.label511.AutoSize = true;
+            this.label511.Location = new System.Drawing.Point(171, 160);
+            this.label511.Name = "label511";
+            this.label511.Size = new System.Drawing.Size(15, 13);
+            this.label511.TabIndex = 55;
+            this.label511.Text = "%";
+            // 
+            // textBoxUCK_copercentage
+            // 
+            this.textBoxUCK_copercentage.Location = new System.Drawing.Point(134, 156);
+            this.textBoxUCK_copercentage.Name = "textBoxUCK_copercentage";
+            this.textBoxUCK_copercentage.Size = new System.Drawing.Size(31, 20);
+            this.textBoxUCK_copercentage.TabIndex = 54;
             // 
             // checkBoxUCK_MMode
             // 
@@ -16495,7 +16604,7 @@ namespace BehaviorGraphics
             0,
             0,
             0});
-            this.numericUD_UCK_TAD.Location = new System.Drawing.Point(137, 105);
+            this.numericUD_UCK_TAD.Location = new System.Drawing.Point(134, 131);
             this.numericUD_UCK_TAD.Maximum = new decimal(new int[] {
             180,
             0,
@@ -16519,7 +16628,7 @@ namespace BehaviorGraphics
             // label_UCK_TAD
             // 
             this.label_UCK_TAD.AutoSize = true;
-            this.label_UCK_TAD.Location = new System.Drawing.Point(18, 108);
+            this.label_UCK_TAD.Location = new System.Drawing.Point(14, 133);
             this.label_UCK_TAD.Name = "label_UCK_TAD";
             this.label_UCK_TAD.Size = new System.Drawing.Size(114, 13);
             this.label_UCK_TAD.TabIndex = 30;
@@ -21354,7 +21463,7 @@ namespace BehaviorGraphics
             // toolStripStatusLabelMdl
             // 
             this.toolStripStatusLabelMdl.Name = "toolStripStatusLabelMdl";
-            this.toolStripStatusLabelMdl.Size = new System.Drawing.Size(99, 17);
+            this.toolStripStatusLabelMdl.Size = new System.Drawing.Size(86, 17);
             this.toolStripStatusLabelMdl.Text = "No model loaded";
             // 
             // toolStripProgressBar1
@@ -21387,14 +21496,14 @@ namespace BehaviorGraphics
             this.toolStripSeparator2,
             this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -21402,7 +21511,7 @@ namespace BehaviorGraphics
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -21411,30 +21520,30 @@ namespace BehaviorGraphics
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
                         | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(183, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(183, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.quitToolStripMenuItem.Text = "&Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quit);
             // 
@@ -21444,13 +21553,13 @@ namespace BehaviorGraphics
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -21464,27 +21573,27 @@ namespace BehaviorGraphics
             this.setLabToolStripMenuItem,
             this.keepGraphicsRunningToolStripMenuItem});
             this.displayToolStripMenuItem.Name = "displayToolStripMenuItem";
-            this.displayToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.displayToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.displayToolStripMenuItem.Text = "&Display";
             // 
             // boxToolStripMenuItem
             // 
             this.boxToolStripMenuItem.Name = "boxToolStripMenuItem";
-            this.boxToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.boxToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.boxToolStripMenuItem.Text = "&Box";
             this.boxToolStripMenuItem.Click += new System.EventHandler(this.boxToolStripMenuItem_Click);
             // 
             // boxSettingsToolStripMenuItem
             // 
             this.boxSettingsToolStripMenuItem.Name = "boxSettingsToolStripMenuItem";
-            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.boxSettingsToolStripMenuItem.Text = "Box &Settings...";
             this.boxSettingsToolStripMenuItem.Click += new System.EventHandler(this.boxSettingsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(194, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(181, 6);
             // 
             // soundThemeToolStripMenuItem
             // 
@@ -21494,7 +21603,7 @@ namespace BehaviorGraphics
             this.theme3ToolStripMenuItem,
             this.theme4ToolStripMenuItem});
             this.soundThemeToolStripMenuItem.Name = "soundThemeToolStripMenuItem";
-            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.soundThemeToolStripMenuItem.Text = "Sound &Theme";
             // 
             // theme1ToolStripMenuItem
@@ -21502,42 +21611,42 @@ namespace BehaviorGraphics
             this.theme1ToolStripMenuItem.Checked = true;
             this.theme1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.theme1ToolStripMenuItem.Name = "theme1ToolStripMenuItem";
-            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.theme1ToolStripMenuItem.Text = "Theme 1";
             this.theme1ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme2ToolStripMenuItem
             // 
             this.theme2ToolStripMenuItem.Name = "theme2ToolStripMenuItem";
-            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.theme2ToolStripMenuItem.Text = "Theme 2";
             this.theme2ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme3ToolStripMenuItem
             // 
             this.theme3ToolStripMenuItem.Name = "theme3ToolStripMenuItem";
-            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.theme3ToolStripMenuItem.Text = "Theme 3";
             this.theme3ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme4ToolStripMenuItem
             // 
             this.theme4ToolStripMenuItem.Name = "theme4ToolStripMenuItem";
-            this.theme4ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.theme4ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.theme4ToolStripMenuItem.Text = "Theme 4";
             this.theme4ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // setLabToolStripMenuItem
             // 
             this.setLabToolStripMenuItem.Name = "setLabToolStripMenuItem";
-            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.setLabToolStripMenuItem.Text = "Set &Lab...";
             this.setLabToolStripMenuItem.Click += new System.EventHandler(this.setLabToolStripMenuItem_Click);
             // 
             // keepGraphicsRunningToolStripMenuItem
             // 
             this.keepGraphicsRunningToolStripMenuItem.Name = "keepGraphicsRunningToolStripMenuItem";
-            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.keepGraphicsRunningToolStripMenuItem.Text = "&Keep Graphics Running";
             this.keepGraphicsRunningToolStripMenuItem.Click += new System.EventHandler(this.keepGraphicsRunningToolStripMenuItem_Click);
             // 
@@ -21547,14 +21656,14 @@ namespace BehaviorGraphics
             this.loadModelToolStripMenuItem,
             this.resetCountersToolStripMenuItem});
             this.modelToolStripMenuItem.Name = "modelToolStripMenuItem";
-            this.modelToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.modelToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.modelToolStripMenuItem.Text = "&Model";
             // 
             // loadModelToolStripMenuItem
             // 
             this.loadModelToolStripMenuItem.Name = "loadModelToolStripMenuItem";
             this.loadModelToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.loadModelToolStripMenuItem.Text = "&Load Model";
             this.loadModelToolStripMenuItem.Click += new System.EventHandler(this.loadModelToolStripMenuItem_Click);
             // 
@@ -21562,7 +21671,7 @@ namespace BehaviorGraphics
             // 
             this.resetCountersToolStripMenuItem.Name = "resetCountersToolStripMenuItem";
             this.resetCountersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.resetCountersToolStripMenuItem.Text = "&Reset Counters";
             this.resetCountersToolStripMenuItem.Click += new System.EventHandler(this.resetCountersToolStripMenuItem_Click);
             // 
@@ -23657,110 +23766,37 @@ namespace BehaviorGraphics
             this.angleEntryBox_SA.TabIndex = 19;
             this.angleEntryBox_SA.Value = 0;
             // 
-            // textBoxUCK_copercentage
+            // numericUD_UCK_numtargs
             // 
-            this.textBoxUCK_copercentage.Location = new System.Drawing.Point(134, 156);
-            this.textBoxUCK_copercentage.Name = "textBoxUCK_copercentage";
-            this.textBoxUCK_copercentage.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_copercentage.TabIndex = 54;
+            this.numericUD_UCK_numtargs.Location = new System.Drawing.Point(134, 105);
+            this.numericUD_UCK_numtargs.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.numericUD_UCK_numtargs.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUD_UCK_numtargs.Name = "numericUD_UCK_numtargs";
+            this.numericUD_UCK_numtargs.ReadOnly = true;
+            this.numericUD_UCK_numtargs.Size = new System.Drawing.Size(50, 20);
+            this.numericUD_UCK_numtargs.TabIndex = 56;
+            this.numericUD_UCK_numtargs.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
             // 
-            // label511
+            // label512
             // 
-            this.label511.AutoSize = true;
-            this.label511.Location = new System.Drawing.Point(171, 160);
-            this.label511.Name = "label511";
-            this.label511.Size = new System.Drawing.Size(15, 13);
-            this.label511.TabIndex = 55;
-            this.label511.Text = "%";
-            // 
-            // groupBoxUCK_Modes
-            // 
-            this.groupBoxUCK_Modes.Controls.Add(this.labelUCK_catchpct);
-            this.groupBoxUCK_Modes.Controls.Add(this.textBoxUCK_catchpct);
-            this.groupBoxUCK_Modes.Controls.Add(this.checkBoxUCK_catchmode);
-            this.groupBoxUCK_Modes.Controls.Add(this.checkBoxUCK_OnlyTrue);
-            this.groupBoxUCK_Modes.Controls.Add(this.checkBoxUCK_OnlyCue);
-            this.groupBoxUCK_Modes.Controls.Add(this.checkBoxUCK_TargetColorMode);
-            this.groupBoxUCK_Modes.Controls.Add(this.textBoxUCK_CueOffset);
-            this.groupBoxUCK_Modes.Controls.Add(this.labelUCK_Cueoffset);
-            this.groupBoxUCK_Modes.Location = new System.Drawing.Point(15, 231);
-            this.groupBoxUCK_Modes.Name = "groupBoxUCK_Modes";
-            this.groupBoxUCK_Modes.Size = new System.Drawing.Size(475, 179);
-            this.groupBoxUCK_Modes.TabIndex = 3;
-            this.groupBoxUCK_Modes.TabStop = false;
-            this.groupBoxUCK_Modes.Text = "Other Settings";
-            // 
-            // labelUCK_catchpct
-            // 
-            this.labelUCK_catchpct.AutoSize = true;
-            this.labelUCK_catchpct.Location = new System.Drawing.Point(403, 29);
-            this.labelUCK_catchpct.Name = "labelUCK_catchpct";
-            this.labelUCK_catchpct.Size = new System.Drawing.Size(46, 13);
-            this.labelUCK_catchpct.TabIndex = 54;
-            this.labelUCK_catchpct.Text = "Catch %";
-            // 
-            // textBoxUCK_catchpct
-            // 
-            this.textBoxUCK_catchpct.Location = new System.Drawing.Point(366, 25);
-            this.textBoxUCK_catchpct.Name = "textBoxUCK_catchpct";
-            this.textBoxUCK_catchpct.Size = new System.Drawing.Size(31, 20);
-            this.textBoxUCK_catchpct.TabIndex = 54;
-            // 
-            // checkBoxUCK_catchmode
-            // 
-            this.checkBoxUCK_catchmode.AutoSize = true;
-            this.checkBoxUCK_catchmode.Location = new System.Drawing.Point(231, 28);
-            this.checkBoxUCK_catchmode.Name = "checkBoxUCK_catchmode";
-            this.checkBoxUCK_catchmode.Size = new System.Drawing.Size(129, 17);
-            this.checkBoxUCK_catchmode.TabIndex = 53;
-            this.checkBoxUCK_catchmode.Text = "Skip Cue (Catch Trial)";
-            this.checkBoxUCK_catchmode.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxUCK_OnlyTrue
-            // 
-            this.checkBoxUCK_OnlyTrue.AutoSize = true;
-            this.checkBoxUCK_OnlyTrue.Location = new System.Drawing.Point(19, 122);
-            this.checkBoxUCK_OnlyTrue.Name = "checkBoxUCK_OnlyTrue";
-            this.checkBoxUCK_OnlyTrue.Size = new System.Drawing.Size(206, 17);
-            this.checkBoxUCK_OnlyTrue.TabIndex = 58;
-            this.checkBoxUCK_OnlyTrue.Text = "Show Only True Target During Choice";
-            this.checkBoxUCK_OnlyTrue.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxUCK_OnlyCue
-            // 
-            this.checkBoxUCK_OnlyCue.AutoSize = true;
-            this.checkBoxUCK_OnlyCue.Location = new System.Drawing.Point(19, 90);
-            this.checkBoxUCK_OnlyCue.Name = "checkBoxUCK_OnlyCue";
-            this.checkBoxUCK_OnlyCue.Size = new System.Drawing.Size(208, 17);
-            this.checkBoxUCK_OnlyCue.TabIndex = 57;
-            this.checkBoxUCK_OnlyCue.Text = "Show Only Cue Targets During Choice";
-            this.checkBoxUCK_OnlyCue.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxUCK_TargetColorMode
-            // 
-            this.checkBoxUCK_TargetColorMode.AutoSize = true;
-            this.checkBoxUCK_TargetColorMode.Location = new System.Drawing.Point(19, 59);
-            this.checkBoxUCK_TargetColorMode.Name = "checkBoxUCK_TargetColorMode";
-            this.checkBoxUCK_TargetColorMode.Size = new System.Drawing.Size(155, 17);
-            this.checkBoxUCK_TargetColorMode.TabIndex = 56;
-            this.checkBoxUCK_TargetColorMode.Text = "Show Colors During Choice";
-            this.checkBoxUCK_TargetColorMode.UseVisualStyleBackColor = true;
-            // 
-            // textBoxUCK_CueOffset
-            // 
-            this.textBoxUCK_CueOffset.Location = new System.Drawing.Point(157, 26);
-            this.textBoxUCK_CueOffset.Name = "textBoxUCK_CueOffset";
-            this.textBoxUCK_CueOffset.Size = new System.Drawing.Size(41, 20);
-            this.textBoxUCK_CueOffset.TabIndex = 55;
-            // 
-            // labelUCK_Cueoffset
-            // 
-            this.labelUCK_Cueoffset.AutoSize = true;
-            this.labelUCK_Cueoffset.Location = new System.Drawing.Point(16, 29);
-            this.labelUCK_Cueoffset.Name = "labelUCK_Cueoffset";
-            this.labelUCK_Cueoffset.Size = new System.Drawing.Size(114, 13);
-            this.labelUCK_Cueoffset.TabIndex = 54;
-            this.labelUCK_Cueoffset.Text = "Center Cue Offset (cm)";
+            this.label512.AutoSize = true;
+            this.label512.Location = new System.Drawing.Point(39, 107);
+            this.label512.Name = "label512";
+            this.label512.Size = new System.Drawing.Size(89, 13);
+            this.label512.TabIndex = 57;
+            this.label512.Text = "number of targets";
             // 
             // UpdateForm
             // 
@@ -24050,6 +24086,8 @@ namespace BehaviorGraphics
             this.groupBoxDCOTime.ResumeLayout(false);
             this.groupBoxDCOTime.PerformLayout();
             this.tabUnCisek.ResumeLayout(false);
+            this.groupBoxUCK_Modes.ResumeLayout(false);
+            this.groupBoxUCK_Modes.PerformLayout();
             this.groupBoxUCKTimers.ResumeLayout(false);
             this.groupBoxUCKTimers.PerformLayout();
             this.groupBoxUCKTargetProperties.ResumeLayout(false);
@@ -24145,8 +24183,7 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBoxUCK_Modes.ResumeLayout(false);
-            this.groupBoxUCK_Modes.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUD_UCK_numtargs)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -26280,5 +26317,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.CheckBox checkBoxUCK_TargetColorMode;
         private System.Windows.Forms.TextBox textBoxUCK_CueOffset;
         private System.Windows.Forms.Label labelUCK_Cueoffset;
+        private System.Windows.Forms.Label label512;
+        private System.Windows.Forms.NumericUpDown numericUD_UCK_numtargs;
     }
 }

@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1274"
+    ComputedModelVersion    "1.1275"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -30,7 +30,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [212.0, 0.0, 772.0, 780.0]
+      Location		      [33.0, 22.0, 957.0, 780.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -39,7 +39,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[8]
+	Filter			[9]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -54,9 +54,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[722.0, 606.0]
-	ZoomFactor		[0.6]
-	Offset			[572.34285714285477, -9.8500000000001933]
+	Extents			[913.0, 620.0]
+	ZoomFactor		[0.5]
+	Offset			[-241.99047619047872, -337.68333333333328]
       }
     }
   }
@@ -64,11 +64,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Oct 25 13:21:45 2016"
-  RTWModifiedTimeStamp	  399302213
-  ModelVersionFormat	  "1.%<AutoIncrement:1274>"
+  LastModifiedDate	  "Tue Nov 29 13:27:08 2016"
+  RTWModifiedTimeStamp	  402326821
+  ModelVersionFormat	  "1.%<AutoIncrement:1275>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1025,7 +1025,7 @@ Model {
   }
   System {
     Name		    "uncisek"
-    Location		    [212, 0, 984, 780]
+    Location		    [33, 22, 990, 802]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1037,7 +1037,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "60"
+    ZoomFactor		    "50"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "441"
     Block {
@@ -1049,7 +1049,7 @@ Model {
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_uncisek"
-      Parameters	      "1 0 1 0 1 0 1 0 1 0 1 2 3 0.5 10 2 2 90 255 0 0 0 0 255 0 255 0 1 1 0 0 1 1 1 1 1 1 1"
+      Parameters	      "1 0 1 0 1 0 1 0 1 0 1 2 3 0.5 10 2 2 90 255 0 0 0 0 255 0 255 0 1 1 0 0 1 1 1 1 1 1 1 8"
       Object {
 	$PropName		"MaskObject"
 	$ObjectID		19
