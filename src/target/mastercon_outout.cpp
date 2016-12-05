@@ -225,7 +225,7 @@ void OutOutBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_MOVEMENT:
-			if (stateTimer->elapsedTime(S) > params->movement_time) {
+			if (stateTimer->elapsedTime(S) > params->movement_max_time) {
 				setState(STATE_INCOMPLETE);
 			}
 			else if (endTarget->cursorInTarget(inputs->cursor)) {
