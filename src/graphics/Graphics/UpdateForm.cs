@@ -1540,6 +1540,25 @@ namespace BehaviorGraphics
                 AddParamListItem("a12", "P12", "Behavior CO 3D", this.reset3DTask);
                 AddParamListItem("a13", "P13", "Behavior CO 3D", this.intertrial3DTask);
             #endregion
+
+            #region OutOut
+                AddParamListItem("OO CTlow", "P2", "Behavior OutOut", this.textBoxOO_T1low);
+                AddParamListItem("OO CThigh", "P3", "Behavior OutOut", this.textBoxOO_T1high);
+                AddParamListItem("OO OTlow", "P4", "Behavior OutOut", this.textBoxOO_targ2low);
+                AddParamListItem("OO OThigh", "P5", "Behavior OutOut", this.textBoxOO_targ2high);
+                AddParamListItem("OO intertrial", "P6", "Behavior OutOut", this.textBoxOO_intertrial);
+                AddParamListItem("OO movetime", "P7", "Behavior OutOut", this.textBoxOO_movetime);
+                AddParamListItem("OO failtime", "P8", "Behavior OutOut", this.textBoxOO_failtime);
+
+                AddParamListItem("OO reach length", "P9", "Behavior OutOut", this.textBoxOO_movelength);
+                AddParamListItem("OO target size", "P10", "Behavior OutOut", this.textBoxOO_targetsize);
+                AddParamListItem("OO colorR", "P11", "Behavior OutOut", this.textBoxOO_colorR);
+                AddParamListItem("OO colorG", "P12", "Behavior OutOut", this.textBoxOO_targetcolorG);
+                AddParamListItem("OO colorB", "P13", "Behavior OutOut", this.textBoxOO_targetcolorB);
+                AddParamListItem("OO numtargs", "P14", "Behavior OutOut", this.numericUpDownOO_numtarget);
+                AddParamListItem("OO force mag", "P15", "Behavior OutOut", this.textBoxOO_forcemag);
+                
+            #endregion
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
