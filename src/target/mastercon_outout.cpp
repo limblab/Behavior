@@ -221,6 +221,7 @@ void OutOutBehavior::update(SimStruct *S) {
 				setState(STATE_ABORT);
 			}
 			else if (stateTimer->elapsedTime(S) >= ct_hold_time) {
+				playTone(TONE_GO);
 				setState(STATE_MOVEMENT);
 			}
 			break;
@@ -305,8 +306,8 @@ void OutOutBehavior::calculateOutputs(SimStruct *S) {
 	if (getState() == STATE_MOVEMENT ||
 		getState() == STATE_OUTER_HOLD){
 
-			outputs->force.x = forces.x;
-			outputs->force.y = forces.y;
+			outputs->force= forces;
+	
 	} else {
 
 		outputs->force = inputs->force;
@@ -346,7 +347,6 @@ void OutOutBehavior::calculateOutputs(SimStruct *S) {
 	/* position (7) */
 	// If we are in the movement,
 	outputs->position = inputs->cursor;
-
 }
 /*
  * Include at bottom of your behavior code
