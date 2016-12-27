@@ -87,6 +87,8 @@ struct LocalParams {
 	real_T skip_center_cue_rate;
 	real_T co_percentage;
 	real_T num_targlocs;
+
+	real_T static_colors;
 };
 
 /**
@@ -157,7 +159,7 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(39);
+	this->setNumParams(40);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
@@ -210,6 +212,9 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 
 	this->bindParamId(&params->co_percentage,			37);
 	this->bindParamId(&params->num_targlocs,			38);
+
+	this->bindParamId(&params->static_colors,			39);
+
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -264,6 +269,7 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 	skipCueRate=0;
 	centerCueOffset = 0;
 	co_perc = 0;
+
 }
 
 // Pre-trial initialization and calculations
@@ -296,7 +302,11 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	} else {
 		t_ang = 2*PI/params->num_targlocs;
 	}
-		
+	
+	int Rs[8] = {0, 0, 255, 132, 0, 255, 255, 255};
+	int Gs[8] = {0, 88, 0, 132, 255, 26, 255, 140};
+	int Bs[8] = {255, 0, 0, 255, 0, 185, 255, 0};
+
 
 	reach_len = params->movement_length;
 	//Set Colors
@@ -310,15 +320,6 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	centerTarget->centerY = 0.0 ;
 	centerTarget->radius  = params->center_size;
 	centerTarget->color   = target_default_color;
-
-	// Set Up The Targets
-	for (i=0;i<8;i++){
-		outer_angles[i]=t_ang*i;
-		outerTarget[i]->centerX = reach_len*cos(outer_angles[i]);
-		outerTarget[i]->centerY = reach_len*sin(outer_angles[i]);
-		outerTarget[i]->radius  = params->outer_size;
-		outerTarget[i]->color   = target_default_color;
-	}
 
 	centerCueOffset = params->center_cue_offset;
 
@@ -354,16 +355,40 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 		curr_wrong_idx = curr_cue_one_idx;
 		curr_cue_color=c_color_two;
 	}
+	if (params->static_colors){
+		curr_cue_color = Target::Color(Rs[curr_target_idx],Gs[curr_target_idx],Bs[curr_target_idx]);
+		c_color_one = Target::Color(Rs[curr_target_idx],Gs[curr_target_idx],Bs[curr_target_idx]);
+		c_color_two = Target::Color(Rs[curr_wrong_idx],Gs[curr_wrong_idx],Bs[curr_wrong_idx]);
+	}
 
 	cueTarget->centerX =  centerCueOffset*cos(outer_angles[curr_target_idx]);
 	cueTarget->centerY =  centerCueOffset*sin(outer_angles[curr_target_idx]);
 	cueTarget->radius  = params->center_size;
 	cueTarget->color   = curr_cue_color;
 
+	// Set Up The Targets
+	for (i=0;i<8;i++){
+		outer_angles[i]=t_ang*i;
+		outerTarget[i]->centerX = reach_len*cos(outer_angles[i]);
+		outerTarget[i]->centerY = reach_len*sin(outer_angles[i]);
+		outerTarget[i]->radius  = params->outer_size;
+		if (params->static_colors) {
+			outerTarget[i]->color = Target::Color(Rs[i],Gs[i],Bs[i]);
+		} else {
+			outerTarget[i]->color   = target_default_color;
+		}
+	}
+
+	if (!params->static_colors) {
+		outerTarget[curr_cue_one_idx]->color = c_color_one;
+		outerTarget[curr_cue_two_idx]->color = c_color_two;
+	}
+
+
 	//if (co_mode)
 	//	m_mode=false;
 	//else
-	m_mode =params->match_mode;
+	m_mode = params->match_mode;
 
 	int num_on_screen;
 	if (co_mode) {
@@ -435,8 +460,8 @@ void UncertaintyCisekBehavior::update(SimStruct *S) {
 				setState(STATE_ABORT);
 			}
 			else if (stateTimer->elapsedTime(S) >= ct_hold_time) {
-				outerTarget[curr_cue_one_idx]->color = c_color_one;
-				outerTarget[curr_cue_two_idx]->color = c_color_two;
+				//outerTarget[curr_cue_one_idx]->color = c_color_one;
+				//outerTarget[curr_cue_two_idx]->color = c_color_two;
 				setState(STATE_CT_OUTER_DELAY);
 			}
 			break;
