@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1887,6 +1887,21 @@ namespace BehaviorGraphics
             this.numTargets3DTask = new System.Windows.Forms.TextBox();
             this.label509 = new System.Windows.Forms.Label();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.groupBox97 = new System.Windows.Forms.GroupBox();
+            this.textBoxOO_failtime = new System.Windows.Forms.TextBox();
+            this.label514 = new System.Windows.Forms.Label();
+            this.textBoxOO_movetime = new System.Windows.Forms.TextBox();
+            this.label515 = new System.Windows.Forms.Label();
+            this.textBoxOO_intertrial = new System.Windows.Forms.TextBox();
+            this.label521 = new System.Windows.Forms.Label();
+            this.textBoxOO_targ2high = new System.Windows.Forms.TextBox();
+            this.textBoxOO_targ2low = new System.Windows.Forms.TextBox();
+            this.textBoxOO_T1high = new System.Windows.Forms.TextBox();
+            this.textBoxOO_T1low = new System.Windows.Forms.TextBox();
+            this.label531 = new System.Windows.Forms.Label();
+            this.label532 = new System.Windows.Forms.Label();
+            this.label533 = new System.Windows.Forms.Label();
+            this.label534 = new System.Windows.Forms.Label();
             this.groupBox96 = new System.Windows.Forms.GroupBox();
             this.label513 = new System.Windows.Forms.Label();
             this.numericUpDownOO_numtarget = new System.Windows.Forms.NumericUpDown();
@@ -2177,21 +2192,8 @@ namespace BehaviorGraphics
             this.angleEntryBox1 = new AngleBox.AngleEntryBox();
             this.angleEntryBox2 = new AngleBox.AngleEntryBox();
             this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
-            this.groupBox97 = new System.Windows.Forms.GroupBox();
-            this.textBoxOO_failtime = new System.Windows.Forms.TextBox();
-            this.label514 = new System.Windows.Forms.Label();
-            this.textBoxOO_movetime = new System.Windows.Forms.TextBox();
-            this.label515 = new System.Windows.Forms.Label();
-            this.textBoxOO_intertrial = new System.Windows.Forms.TextBox();
-            this.label521 = new System.Windows.Forms.Label();
-            this.textBoxOO_targ2high = new System.Windows.Forms.TextBox();
-            this.textBoxOO_targ2low = new System.Windows.Forms.TextBox();
-            this.textBoxOO_T1high = new System.Windows.Forms.TextBox();
-            this.textBoxOO_T1low = new System.Windows.Forms.TextBox();
-            this.label531 = new System.Windows.Forms.Label();
-            this.label532 = new System.Windows.Forms.Label();
-            this.label533 = new System.Windows.Forms.Label();
-            this.label534 = new System.Windows.Forms.Label();
+            this.checkBoxUCK_staticcolor = new System.Windows.Forms.CheckBox();
+            this.checkBoxUCK_colortraining = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2405,6 +2407,7 @@ namespace BehaviorGraphics
             this.CenterOut3D.SuspendLayout();
             this.groupBox95.SuspendLayout();
             this.tabPage7.SuspendLayout();
+            this.groupBox97.SuspendLayout();
             this.groupBox96.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOO_numtarget)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -2415,7 +2418,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBox97.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -5419,8 +5421,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -6252,8 +6254,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -16064,6 +16066,8 @@ namespace BehaviorGraphics
             // 
             // groupBoxUCK_Modes
             // 
+            this.groupBoxUCK_Modes.Controls.Add(this.checkBoxUCK_colortraining);
+            this.groupBoxUCK_Modes.Controls.Add(this.checkBoxUCK_staticcolor);
             this.groupBoxUCK_Modes.Controls.Add(this.labelUCK_catchpct);
             this.groupBoxUCK_Modes.Controls.Add(this.textBoxUCK_catchpct);
             this.groupBoxUCK_Modes.Controls.Add(this.checkBoxUCK_catchmode);
@@ -21475,6 +21479,149 @@ namespace BehaviorGraphics
             this.tabPage7.Text = "OutOut";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // groupBox97
+            // 
+            this.groupBox97.Controls.Add(this.textBoxOO_failtime);
+            this.groupBox97.Controls.Add(this.label514);
+            this.groupBox97.Controls.Add(this.textBoxOO_movetime);
+            this.groupBox97.Controls.Add(this.label515);
+            this.groupBox97.Controls.Add(this.textBoxOO_intertrial);
+            this.groupBox97.Controls.Add(this.label521);
+            this.groupBox97.Controls.Add(this.textBoxOO_targ2high);
+            this.groupBox97.Controls.Add(this.textBoxOO_targ2low);
+            this.groupBox97.Controls.Add(this.textBoxOO_T1high);
+            this.groupBox97.Controls.Add(this.textBoxOO_T1low);
+            this.groupBox97.Controls.Add(this.label531);
+            this.groupBox97.Controls.Add(this.label532);
+            this.groupBox97.Controls.Add(this.label533);
+            this.groupBox97.Controls.Add(this.label534);
+            this.groupBox97.Location = new System.Drawing.Point(460, 10);
+            this.groupBox97.Name = "groupBox97";
+            this.groupBox97.Size = new System.Drawing.Size(170, 206);
+            this.groupBox97.TabIndex = 2;
+            this.groupBox97.TabStop = false;
+            this.groupBox97.Text = "Timers";
+            // 
+            // textBoxOO_failtime
+            // 
+            this.textBoxOO_failtime.Location = new System.Drawing.Point(133, 174);
+            this.textBoxOO_failtime.Name = "textBoxOO_failtime";
+            this.textBoxOO_failtime.Size = new System.Drawing.Size(31, 20);
+            this.textBoxOO_failtime.TabIndex = 25;
+            this.textBoxOO_failtime.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label514
+            // 
+            this.label514.AutoSize = true;
+            this.label514.Location = new System.Drawing.Point(12, 177);
+            this.label514.Name = "label514";
+            this.label514.Size = new System.Drawing.Size(97, 13);
+            this.label514.TabIndex = 24;
+            this.label514.Text = "Failure Penalty Lag";
+            // 
+            // textBoxOO_movetime
+            // 
+            this.textBoxOO_movetime.Location = new System.Drawing.Point(133, 148);
+            this.textBoxOO_movetime.Name = "textBoxOO_movetime";
+            this.textBoxOO_movetime.Size = new System.Drawing.Size(31, 20);
+            this.textBoxOO_movetime.TabIndex = 23;
+            this.textBoxOO_movetime.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label515
+            // 
+            this.label515.AutoSize = true;
+            this.label515.Location = new System.Drawing.Point(12, 151);
+            this.label515.Name = "label515";
+            this.label515.Size = new System.Drawing.Size(106, 13);
+            this.label515.TabIndex = 22;
+            this.label515.Text = "Movement Max Time";
+            // 
+            // textBoxOO_intertrial
+            // 
+            this.textBoxOO_intertrial.Location = new System.Drawing.Point(133, 122);
+            this.textBoxOO_intertrial.Name = "textBoxOO_intertrial";
+            this.textBoxOO_intertrial.Size = new System.Drawing.Size(31, 20);
+            this.textBoxOO_intertrial.TabIndex = 21;
+            this.textBoxOO_intertrial.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label521
+            // 
+            this.label521.AutoSize = true;
+            this.label521.Location = new System.Drawing.Point(12, 125);
+            this.label521.Name = "label521";
+            this.label521.Size = new System.Drawing.Size(82, 13);
+            this.label521.TabIndex = 20;
+            this.label521.Text = "Intertrial Interval";
+            // 
+            // textBoxOO_targ2high
+            // 
+            this.textBoxOO_targ2high.Location = new System.Drawing.Point(133, 91);
+            this.textBoxOO_targ2high.Name = "textBoxOO_targ2high";
+            this.textBoxOO_targ2high.Size = new System.Drawing.Size(31, 20);
+            this.textBoxOO_targ2high.TabIndex = 13;
+            this.textBoxOO_targ2high.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxOO_targ2low
+            // 
+            this.textBoxOO_targ2low.Location = new System.Drawing.Point(133, 69);
+            this.textBoxOO_targ2low.Name = "textBoxOO_targ2low";
+            this.textBoxOO_targ2low.Size = new System.Drawing.Size(31, 20);
+            this.textBoxOO_targ2low.TabIndex = 12;
+            this.textBoxOO_targ2low.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxOO_T1high
+            // 
+            this.textBoxOO_T1high.Location = new System.Drawing.Point(133, 42);
+            this.textBoxOO_T1high.Name = "textBoxOO_T1high";
+            this.textBoxOO_T1high.Size = new System.Drawing.Size(31, 20);
+            this.textBoxOO_T1high.TabIndex = 11;
+            this.textBoxOO_T1high.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxOO_T1low
+            // 
+            this.textBoxOO_T1low.Location = new System.Drawing.Point(133, 20);
+            this.textBoxOO_T1low.Name = "textBoxOO_T1low";
+            this.textBoxOO_T1low.Size = new System.Drawing.Size(31, 20);
+            this.textBoxOO_T1low.TabIndex = 10;
+            this.textBoxOO_T1low.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label531
+            // 
+            this.label531.AutoSize = true;
+            this.label531.Location = new System.Drawing.Point(12, 94);
+            this.label531.Name = "label531";
+            this.label531.Size = new System.Drawing.Size(63, 13);
+            this.label531.TabIndex = 3;
+            this.label531.Text = "Targ 2 High";
+            // 
+            // label532
+            // 
+            this.label532.AutoSize = true;
+            this.label532.Location = new System.Drawing.Point(12, 72);
+            this.label532.Name = "label532";
+            this.label532.Size = new System.Drawing.Size(61, 13);
+            this.label532.TabIndex = 2;
+            this.label532.Text = "Targ 2 Low";
+            // 
+            // label533
+            // 
+            this.label533.AutoSize = true;
+            this.label533.Location = new System.Drawing.Point(12, 45);
+            this.label533.Name = "label533";
+            this.label533.Size = new System.Drawing.Size(63, 13);
+            this.label533.TabIndex = 1;
+            this.label533.Text = "Targ 1 High";
+            // 
+            // label534
+            // 
+            this.label534.AutoSize = true;
+            this.label534.Location = new System.Drawing.Point(12, 23);
+            this.label534.Name = "label534";
+            this.label534.Size = new System.Drawing.Size(61, 13);
+            this.label534.TabIndex = 0;
+            this.label534.Text = "Targ 1 Low";
+            this.label534.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
             // groupBox96
             // 
             this.groupBox96.Controls.Add(this.label513);
@@ -24029,148 +24176,25 @@ namespace BehaviorGraphics
             this.angleEntryBox_SA.TabIndex = 19;
             this.angleEntryBox_SA.Value = 0;
             // 
-            // groupBox97
+            // checkBoxUCK_staticcolor
             // 
-            this.groupBox97.Controls.Add(this.textBoxOO_failtime);
-            this.groupBox97.Controls.Add(this.label514);
-            this.groupBox97.Controls.Add(this.textBoxOO_movetime);
-            this.groupBox97.Controls.Add(this.label515);
-            this.groupBox97.Controls.Add(this.textBoxOO_intertrial);
-            this.groupBox97.Controls.Add(this.label521);
-            this.groupBox97.Controls.Add(this.textBoxOO_targ2high);
-            this.groupBox97.Controls.Add(this.textBoxOO_targ2low);
-            this.groupBox97.Controls.Add(this.textBoxOO_T1high);
-            this.groupBox97.Controls.Add(this.textBoxOO_T1low);
-            this.groupBox97.Controls.Add(this.label531);
-            this.groupBox97.Controls.Add(this.label532);
-            this.groupBox97.Controls.Add(this.label533);
-            this.groupBox97.Controls.Add(this.label534);
-            this.groupBox97.Location = new System.Drawing.Point(460, 10);
-            this.groupBox97.Name = "groupBox97";
-            this.groupBox97.Size = new System.Drawing.Size(170, 206);
-            this.groupBox97.TabIndex = 2;
-            this.groupBox97.TabStop = false;
-            this.groupBox97.Text = "Timers";
+            this.checkBoxUCK_staticcolor.AutoSize = true;
+            this.checkBoxUCK_staticcolor.Location = new System.Drawing.Point(297, 75);
+            this.checkBoxUCK_staticcolor.Name = "checkBoxUCK_staticcolor";
+            this.checkBoxUCK_staticcolor.Size = new System.Drawing.Size(122, 17);
+            this.checkBoxUCK_staticcolor.TabIndex = 59;
+            this.checkBoxUCK_staticcolor.Text = "static color locations";
+            this.checkBoxUCK_staticcolor.UseVisualStyleBackColor = true;
             // 
-            // textBoxOO_failtime
+            // checkBoxUCK_colortraining
             // 
-            this.textBoxOO_failtime.Location = new System.Drawing.Point(133, 174);
-            this.textBoxOO_failtime.Name = "textBoxOO_failtime";
-            this.textBoxOO_failtime.Size = new System.Drawing.Size(31, 20);
-            this.textBoxOO_failtime.TabIndex = 25;
-            this.textBoxOO_failtime.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label514
-            // 
-            this.label514.AutoSize = true;
-            this.label514.Location = new System.Drawing.Point(12, 177);
-            this.label514.Name = "label514";
-            this.label514.Size = new System.Drawing.Size(97, 13);
-            this.label514.TabIndex = 24;
-            this.label514.Text = "Failure Penalty Lag";
-            // 
-            // textBoxOO_movetime
-            // 
-            this.textBoxOO_movetime.Location = new System.Drawing.Point(133, 148);
-            this.textBoxOO_movetime.Name = "textBoxOO_movetime";
-            this.textBoxOO_movetime.Size = new System.Drawing.Size(31, 20);
-            this.textBoxOO_movetime.TabIndex = 23;
-            this.textBoxOO_movetime.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label515
-            // 
-            this.label515.AutoSize = true;
-            this.label515.Location = new System.Drawing.Point(12, 151);
-            this.label515.Name = "label515";
-            this.label515.Size = new System.Drawing.Size(106, 13);
-            this.label515.TabIndex = 22;
-            this.label515.Text = "Movement Max Time";
-            // 
-            // textBoxOO_intertrial
-            // 
-            this.textBoxOO_intertrial.Location = new System.Drawing.Point(133, 122);
-            this.textBoxOO_intertrial.Name = "textBoxOO_intertrial";
-            this.textBoxOO_intertrial.Size = new System.Drawing.Size(31, 20);
-            this.textBoxOO_intertrial.TabIndex = 21;
-            this.textBoxOO_intertrial.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label521
-            // 
-            this.label521.AutoSize = true;
-            this.label521.Location = new System.Drawing.Point(12, 125);
-            this.label521.Name = "label521";
-            this.label521.Size = new System.Drawing.Size(82, 13);
-            this.label521.TabIndex = 20;
-            this.label521.Text = "Intertrial Interval";
-            // 
-            // textBoxOO_targ2high
-            // 
-            this.textBoxOO_targ2high.Location = new System.Drawing.Point(133, 91);
-            this.textBoxOO_targ2high.Name = "textBoxOO_targ2high";
-            this.textBoxOO_targ2high.Size = new System.Drawing.Size(31, 20);
-            this.textBoxOO_targ2high.TabIndex = 13;
-            this.textBoxOO_targ2high.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // textBoxOO_targ2low
-            // 
-            this.textBoxOO_targ2low.Location = new System.Drawing.Point(133, 69);
-            this.textBoxOO_targ2low.Name = "textBoxOO_targ2low";
-            this.textBoxOO_targ2low.Size = new System.Drawing.Size(31, 20);
-            this.textBoxOO_targ2low.TabIndex = 12;
-            this.textBoxOO_targ2low.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // textBoxOO_T1high
-            // 
-            this.textBoxOO_T1high.Location = new System.Drawing.Point(133, 42);
-            this.textBoxOO_T1high.Name = "textBoxOO_T1high";
-            this.textBoxOO_T1high.Size = new System.Drawing.Size(31, 20);
-            this.textBoxOO_T1high.TabIndex = 11;
-            this.textBoxOO_T1high.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // textBoxOO_T1low
-            // 
-            this.textBoxOO_T1low.Location = new System.Drawing.Point(133, 20);
-            this.textBoxOO_T1low.Name = "textBoxOO_T1low";
-            this.textBoxOO_T1low.Size = new System.Drawing.Size(31, 20);
-            this.textBoxOO_T1low.TabIndex = 10;
-            this.textBoxOO_T1low.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label531
-            // 
-            this.label531.AutoSize = true;
-            this.label531.Location = new System.Drawing.Point(12, 94);
-            this.label531.Name = "label531";
-            this.label531.Size = new System.Drawing.Size(63, 13);
-            this.label531.TabIndex = 3;
-            this.label531.Text = "Targ 2 High";
-            // 
-            // label532
-            // 
-            this.label532.AutoSize = true;
-            this.label532.Location = new System.Drawing.Point(12, 72);
-            this.label532.Name = "label532";
-            this.label532.Size = new System.Drawing.Size(61, 13);
-            this.label532.TabIndex = 2;
-            this.label532.Text = "Targ 2 Low";
-            // 
-            // label533
-            // 
-            this.label533.AutoSize = true;
-            this.label533.Location = new System.Drawing.Point(12, 45);
-            this.label533.Name = "label533";
-            this.label533.Size = new System.Drawing.Size(63, 13);
-            this.label533.TabIndex = 1;
-            this.label533.Text = "Targ 1 High";
-            // 
-            // label534
-            // 
-            this.label534.AutoSize = true;
-            this.label534.Location = new System.Drawing.Point(12, 23);
-            this.label534.Name = "label534";
-            this.label534.Size = new System.Drawing.Size(61, 13);
-            this.label534.TabIndex = 0;
-            this.label534.Text = "Targ 1 Low";
-            this.label534.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.checkBoxUCK_colortraining.AutoSize = true;
+            this.checkBoxUCK_colortraining.Location = new System.Drawing.Point(297, 101);
+            this.checkBoxUCK_colortraining.Name = "checkBoxUCK_colortraining";
+            this.checkBoxUCK_colortraining.Size = new System.Drawing.Size(86, 17);
+            this.checkBoxUCK_colortraining.TabIndex = 60;
+            this.checkBoxUCK_colortraining.Text = "color training";
+            this.checkBoxUCK_colortraining.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -24546,6 +24570,8 @@ namespace BehaviorGraphics
             this.groupBox95.ResumeLayout(false);
             this.groupBox95.PerformLayout();
             this.tabPage7.ResumeLayout(false);
+            this.groupBox97.ResumeLayout(false);
+            this.groupBox97.PerformLayout();
             this.groupBox96.ResumeLayout(false);
             this.groupBox96.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOO_numtarget)).EndInit();
@@ -24562,8 +24588,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBox97.ResumeLayout(false);
-            this.groupBox97.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -26732,5 +26756,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label532;
         private System.Windows.Forms.Label label533;
         private System.Windows.Forms.Label label534;
+        private System.Windows.Forms.CheckBox checkBoxUCK_colortraining;
+        private System.Windows.Forms.CheckBox checkBoxUCK_staticcolor;
     }
 }

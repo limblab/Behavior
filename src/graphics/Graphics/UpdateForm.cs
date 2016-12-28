@@ -1278,6 +1278,9 @@ namespace BehaviorGraphics
             AddParamListItem("UCK CO percentage", "P38", "Behavior UnCisek", this.textBoxUCK_copercentage);
             AddParamListItem("UCK num targest", "P39", "Behavior UnCisek", this.numericUD_UCK_numtargs);
 
+            AddParamListItem("UCK static colors", "P40", "Behavior UnCisek", this.checkBoxUCK_staticcolor);
+            AddParamListItem("UCK color training", "P41", "Behavior UnCisek", this.checkBoxUCK_colortraining);
+
             #endregion
 
             #region Unstable Reach

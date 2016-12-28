@@ -89,6 +89,7 @@ struct LocalParams {
 	real_T num_targlocs;
 
 	real_T static_colors;
+	real_T color_training;
 };
 
 /**
@@ -159,7 +160,7 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(40);
+	this->setNumParams(41);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
@@ -214,6 +215,7 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 	this->bindParamId(&params->num_targlocs,			38);
 
 	this->bindParamId(&params->static_colors,			39);
+	this->bindParamId(&params->color_training,			40);
 
 
 	// declare which already defined parameter is our master reset 
@@ -510,7 +512,8 @@ void UncertaintyCisekBehavior::update(SimStruct *S) {
 			else { 
 				if (outerTarget[curr_target_idx]->cursorInTarget(inputs->cursor)){
 					setState(STATE_OUTER_HOLD);
-				} else if (outerTarget[curr_wrong_idx]->cursorInTarget(inputs->cursor)){
+				} else if ((outerTarget[curr_wrong_idx]->cursorInTarget(inputs->cursor)) && 
+						  (!params->color_training)){
 					outerTarget[curr_target_idx]->color = curr_cue_color;
 					playTone(TONE_ABORT);
 					cursor_endpoint = inputs->cursor;
@@ -647,11 +650,16 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 		for (i=0;i<8;i++){
 			outputs->targets[i+1] = nullTarget;
 		}
-		if (!co_mode){
+		if ((!co_mode) && (!params->color_training)){
 			outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
 			outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];
 		}
-		else{
+		else if (params->color_training) {
+			for (i=0;i<params->num_targlocs;i++){
+				outputs->targets[i*8/params->num_targlocs+1] = outerTarget[i*8/params->num_targlocs]; 
+			}
+
+		} else {
 			outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
 		}
 	} else if (getState() == STATE_CT_MEM_DELAY ||
@@ -659,9 +667,12 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 		if (m_mode){
 			outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
 			outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];
+		} else if (params->color_training) {
+			for (i=0;i<params->num_targlocs;i++){
+				outputs->targets[i*8/params->num_targlocs+1] = outerTarget[i*8/params->num_targlocs]; 
+			}
 		}
-	}
-	else if (getState() == STATE_MOVEMENT || (getState() == STATE_OUTER_HOLD)){
+	} else if (getState() == STATE_MOVEMENT || (getState() == STATE_OUTER_HOLD)){
 
 
 		if (trueOnlyChoiceMode){
@@ -682,7 +693,11 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 				outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
 			}
 		}
-		else {
+		else if (params->color_training) {
+			for (i=0;i<params->num_targlocs;i++){
+				outputs->targets[i*8/params->num_targlocs+1] = outerTarget[i*8/params->num_targlocs]; 
+			}
+		} else {
 			for (i=0;i<8;i++){
 				outputs->targets[i+1] = outerTarget[i];
 			}
