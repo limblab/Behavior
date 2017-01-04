@@ -84,13 +84,9 @@ src/target/slprj/*
 src/target/slprj/slrt/*
 src/target/slprj/slrt/_sharedutils/*
 src/target/slrtnetboot.bat
-src/target/serPos.mexw64 
-src/target/Byte2Bits.mexw64
-src/target/serPos.mexw64
-src/target/Byte2Bits.mexw64
-bin/*.dlm
-bin/*.exe
-bin/*.lnk
+src/target/*.mexw64
+*.dlm
+bin/
 
 # graphics compilation objects:
 src/graphics/Graphics/obj/*
@@ -98,3 +94,23 @@ src/graphics/AngleBox/obj/*
 src/graphics/Graphics/bin/*
 src/graphics/AngleBox/bin/*
 src/graphics/Graphics.suo
+
+# Other junk that shouldn't be in there
+src/target/CO_bump.xml
+src/target/CO_bumpbio.m
+src/target/CO_bumppt.m
+src/target/COsabes.xml
+src/target/COsabesbio.m
+src/target/COsabespt.m
+src/target/COsabesref.m
+src/target/OutOutReach.xml
+src/target/OutOutReachbio.m
+src/target/OutOutReachpt.m
+src/target/OutOutReachref.m
+src/target/random_walk.xml
+src/target/random_walkbio.m
+src/target/random_walkpt.m
+src/target/uncisek.xml
+src/target/uncisekbio.m
+src/target/uncisekpt.m
+src/target/uncisekref.m
