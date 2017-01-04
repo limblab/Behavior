@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1275"
+    ComputedModelVersion    "1.1276"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -55,8 +55,8 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[913.0, 620.0]
-	ZoomFactor		[0.5]
-	Offset			[-241.99047619047872, -337.68333333333328]
+	ZoomFactor		[0.59999999999999987]
+	Offset			[-9.8238095238122014, -147.68333333333328]
       }
     }
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Nov 29 13:27:08 2016"
-  RTWModifiedTimeStamp	  402326821
-  ModelVersionFormat	  "1.%<AutoIncrement:1275>"
+  LastModifiedDate	  "Wed Jan 04 15:07:10 2017"
+  RTWModifiedTimeStamp	  405443226
+  ModelVersionFormat	  "1.%<AutoIncrement:1276>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -614,7 +614,7 @@ Model {
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
-		Dimension		14
+		Dimension		13
 		Cell			"GeneratePreprocessorConditionals"
 		Cell			"IncludeMdlTerminateFcn"
 		Cell			"SupportNonInlinedSFcns"
@@ -628,7 +628,6 @@ Model {
 		Cell			"SupportComplex"
 		Cell			"SupportAbsoluteTime"
 		Cell			"SupportContinuousTime"
-		Cell			"CombineOutputUpdateFcns"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
@@ -1037,7 +1036,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "50"
+    ZoomFactor		    "60"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "441"
     Block {
@@ -1049,7 +1048,7 @@ Model {
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_uncisek"
-      Parameters	      "1 0 1 0 1 0 1 0 1 0 1 2 3 0.5 10 2 2 90 255 0 0 0 0 255 0 255 0 1 1 0 0 1 1 1 1 1 1 1 8"
+      Parameters	      "1 0 1 0 1 0 1 0 1 0 1 2 3 0.5 10 2 2 90 255 0 0 0 0 255 0 255 0 1 1 0 0 1 1 1 1 1 1 1 8 0 0"
       Object {
 	$PropName		"MaskObject"
 	$ObjectID		19

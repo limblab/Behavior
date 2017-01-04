@@ -136,6 +136,7 @@ private:
 	bool   trueOnlyChoiceMode;
 	bool   skipCenterCue;
 	double skipCueRate;
+	int num_targs;
 	CircleTarget    *centerTarget;
 	CircleTarget    *cueTarget;
 	CircleTarget    *outerTarget[8];
@@ -271,6 +272,7 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 	skipCueRate=0;
 	centerCueOffset = 0;
 	co_perc = 0;
+	num_targs = 8;
 
 }
 
@@ -278,6 +280,7 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	int i; 
 	co_mode = params->center_out_mode;
+	num_targs = params->num_targlocs;
 	skipCenterCue      = params->skip_center_cue;
 	skipCueRate = params->skip_center_cue_rate;
 	if ((skipCenterCue)&&(random->getDouble()>skipCueRate)){
@@ -299,10 +302,10 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	co_mode= (params->center_out_mode) && (random->getDouble()<params->co_percentage);
 	double t_ang;
 	//t_ang = 2*PI/8;
-	if ((params->num_targlocs <= 2) && (co_mode)){
+	if ((num_targs <= 2) && (co_mode)){
 		t_ang = 2*PI/4;
 	} else {
-		t_ang = 2*PI/params->num_targlocs;
+		t_ang = 2*PI/num_targs;
 	}
 	
 	int Rs[8] = {0, 0, 255, 132, 0, 255, 255, 255};
@@ -655,8 +658,8 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 			outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];
 		}
 		else if (params->color_training) {
-			for (i=0;i<params->num_targlocs;i++){
-				outputs->targets[i*8/params->num_targlocs+1] = outerTarget[i*8/params->num_targlocs]; 
+			for (i=0;i<num_targs;i++){
+				outputs->targets[i*8/num_targs+1] = outerTarget[i*8/num_targs]; 
 			}
 
 		} else {
@@ -668,8 +671,8 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 			outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
 			outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];
 		} else if (params->color_training) {
-			for (i=0;i<params->num_targlocs;i++){
-				outputs->targets[i*8/params->num_targlocs+1] = outerTarget[i*8/params->num_targlocs]; 
+			for (i=0;i<num_targs;i++){
+				outputs->targets[i*8/num_targs+1] = outerTarget[i*8/num_targs]; 
 			}
 		}
 	} else if (getState() == STATE_MOVEMENT || (getState() == STATE_OUTER_HOLD)){
@@ -694,8 +697,8 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 			}
 		}
 		else if (params->color_training) {
-			for (i=0;i<params->num_targlocs;i++){
-				outputs->targets[i*8/params->num_targlocs+1] = outerTarget[i*8/params->num_targlocs]; 
+			for (i=0;i<num_targs;i++){
+				outputs->targets[i*8/num_targs+1] = outerTarget[i*8/num_targs]; 
 			}
 		} else {
 			for (i=0;i<8;i++){
