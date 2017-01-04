@@ -3,7 +3,6 @@
  * Master Control block for behavior: bump psychophysics 2-bump choice
  */
  
-
 #pragma warning(disable: 4800)
 
 #define S_FUNCTION_NAME mastercon_CO_bump

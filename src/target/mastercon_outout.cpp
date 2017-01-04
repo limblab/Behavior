@@ -303,7 +303,8 @@ void OutOutBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* force (0) */
-	if (getState() == STATE_MOVEMENT ||
+	if (getState() == STATE_CT_HOLD ||
+		getState() == STATE_MOVEMENT ||
 		getState() == STATE_OUTER_HOLD){
 
 			outputs->force= forces;
