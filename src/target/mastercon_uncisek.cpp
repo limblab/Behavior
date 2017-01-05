@@ -135,6 +135,8 @@ private:
 	bool   cueOnlyChoiceMode;
 	bool   trueOnlyChoiceMode;
 	bool   skipCenterCue;
+	bool   staticColors;
+	bool   colorTraining;
 	double skipCueRate;
 	int num_targs;
 	CircleTarget    *centerTarget;
@@ -270,6 +272,8 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 	trueOnlyChoiceMode = false;
 	skipCenterCue=false;
 	skipCueRate=0;
+	staticColors = false;
+	colorTraining = false;
 	centerCueOffset = 0;
 	co_perc = 0;
 	num_targs = 8;
@@ -279,7 +283,9 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 // Pre-trial initialization and calculations
 void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	int i; 
-	co_mode = params->center_out_mode;
+	//co_mode = params->center_out_mode;
+	staticColors = params->static_colors;
+	colorTraining = params->color_training;
 	num_targs = params->num_targlocs;
 	skipCenterCue      = params->skip_center_cue;
 	skipCueRate = params->skip_center_cue_rate;
@@ -308,9 +314,9 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 		t_ang = 2*PI/num_targs;
 	}
 	
-	int Rs[8] = {0, 0, 255, 132, 0, 255, 255, 255};
-	int Gs[8] = {0, 88, 0, 132, 255, 26, 255, 140};
-	int Bs[8] = {255, 0, 0, 255, 0, 185, 255, 0};
+	int Rs[8] = {  0,  0, 255, 132,   0, 255, 255, 255};
+	int Gs[8] = {  0, 88,   0, 132, 255,  26, 255, 140};
+	int Bs[8] = {255,  0,   0, 255,   0, 185, 255,   0};
 
 
 	reach_len = params->movement_length;
@@ -360,7 +366,7 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 		curr_wrong_idx = curr_cue_one_idx;
 		curr_cue_color=c_color_two;
 	}
-	if (params->static_colors){
+	if (staticColors){
 		curr_cue_color = Target::Color(Rs[curr_target_idx],Gs[curr_target_idx],Bs[curr_target_idx]);
 		c_color_one = Target::Color(Rs[curr_target_idx],Gs[curr_target_idx],Bs[curr_target_idx]);
 		c_color_two = Target::Color(Rs[curr_wrong_idx],Gs[curr_wrong_idx],Bs[curr_wrong_idx]);
@@ -380,11 +386,11 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 		if (params->static_colors) {
 			outerTarget[i]->color = Target::Color(Rs[i],Gs[i],Bs[i]);
 		} else {
-			outerTarget[i]->color   = target_default_color;
+			outerTarget[i]->color = target_default_color;
 		}
 	}
 
-	if (!params->static_colors) {
+	if (!staticColors) {
 		outerTarget[curr_cue_one_idx]->color = c_color_one;
 		outerTarget[curr_cue_two_idx]->color = c_color_two;
 	}
@@ -492,8 +498,7 @@ void UncertaintyCisekBehavior::update(SimStruct *S) {
 				if (skipCenterCue) {
 					playTone(TONE_GO);
 					setState(STATE_MOVEMENT);
-				}
-				else{
+				} else{
 					setState(STATE_CT_CUE_DELAY);
 				}
 			}
@@ -513,31 +518,30 @@ void UncertaintyCisekBehavior::update(SimStruct *S) {
 				setState(STATE_INCOMPLETE);
 			}
 			else { 
-				if (outerTarget[curr_target_idx]->cursorInTarget(inputs->cursor)){
-					setState(STATE_OUTER_HOLD);
-				} else if ((outerTarget[curr_wrong_idx]->cursorInTarget(inputs->cursor)) && 
-						  (!params->color_training)){
-					outerTarget[curr_target_idx]->color = curr_cue_color;
-					playTone(TONE_ABORT);
-					cursor_endpoint = inputs->cursor;
-					setState(STATE_FAIL);
-				}
+				for(i=0;i<params->num_targlocs;i++)	{	
+					if  (outerTarget[i]->cursorInTarget(inputs->cursor)) { // Cursor is in target i
 
-				/*for(i=0;i<8;i++)	{			
-					if (outerTarget[i]->cursorInTarget(inputs->cursor)) {
-						if (i==curr_target_idx){
+						if ((curr_target_idx & params->num_targlocs) == i) { // Target i is the correct target
 							setState(STATE_OUTER_HOLD);
-						}
-						else {
-							outerTarget[curr_target_idx]->color = curr_cue_color;
+							break;
+						} else {										     // Target i is not the correct target
 							playTone(TONE_ABORT);
 							setState(STATE_FAIL);
-
+							break;
 						}
 					}
-				}*/
+				}
 			}
 			break;
+				//if (outerTarget[curr_target_idx]->cursorInTarget(inputs->cursor)){
+				//	setState(STATE_OUTER_HOLD);
+				//} else if ((outerTarget[curr_wrong_idx]->cursorInTarget(inputs->cursor)) && 
+				//		  (!params->color_training)){
+				//	outerTarget[curr_target_idx]->color = curr_cue_color;
+				//	playTone(TONE_ABORT);
+				//	cursor_endpoint = inputs->cursor;
+				//	setState(STATE_FAIL);
+				//}
 		case STATE_OUTER_HOLD:
 			if (stateTimer->elapsedTime(S) >= ot_hold_time) {
 				outerTarget[curr_target_idx]->color = curr_cue_color;
@@ -653,29 +657,45 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 		for (i=0;i<8;i++){
 			outputs->targets[i+1] = nullTarget;
 		}
-		if ((!co_mode) && (!params->color_training)){
+		if ((!co_mode) && (!colorTraining)){ // normal mode, no color training
 			outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
 			outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];
 		}
-		else if (params->color_training) {
+		else if ((!co_mode) && (colorTraining) { // normal mode, color training
 			for (i=0;i<num_targs;i++){
-				outputs->targets[i*8/num_targs+1] = outerTarget[i*8/num_targs]; 
+				outputs->targets[i+1] = outerTarget[i]; 
 			}
-
-		} else {
+		} else { // in CO mode
 			outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
 		}
-	} else if (getState() == STATE_CT_MEM_DELAY ||
-			   getState() == STATE_CT_CUE_DELAY){
-		if (m_mode){
-			outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
-			outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];
-		} else if (params->color_training) {
+	} else if (getState() == STATE_CT_MEM_DELAY){
+		if (colorTraining && !co_mode) {
 			for (i=0;i<num_targs;i++){
-				outputs->targets[i*8/num_targs+1] = outerTarget[i*8/num_targs]; 
+				outputs->targets[i+1] = outerTarget[i];
+			}
+		} else if (colorTraining && co_mode) {
+			outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
+		} else {
+			for (i=0;i<8;i++){
+				outputs->targets[i+1] = nullTarget;
 			}
 		}
-	} else if (getState() == STATE_MOVEMENT || (getState() == STATE_OUTER_HOLD)){
+	} else if (getState() == STATE_CUE_DELAY){
+		if (colorTraining) { 
+			if (co_mode) {
+				outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
+			} else {
+				for (i=0;i<num_targs;i++){
+					outputs->targets[i+1] = outerTarget[i];
+				}
+			}
+		} else {
+			for (i=0;i<num_targs;i++){
+					outputs->targets[i+1] = nullTarget;
+			}
+		}
+	} else if (getState() == STATE_MOVEMENT || 
+			   getState() == STATE_OUTER_HOLD){
 
 
 		if (trueOnlyChoiceMode){
@@ -696,12 +716,13 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 				outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
 			}
 		}
-		else if (params->color_training) {
+		else if (colorTraining) {
 			for (i=0;i<num_targs;i++){
-				outputs->targets[i*8/num_targs+1] = outerTarget[i*8/num_targs]; 
+				outputs->targets[i+1] = outerTarget[i]; 
 			}
 		} else {
 			for (i=0;i<8;i++){
+				outerTarget[i]->color = target_default_color;
 				outputs->targets[i+1] = outerTarget[i];
 			}
 		}
@@ -710,9 +731,9 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 		for (i=0;i<8;i++){
 			outputs->targets[i+1] = nullTarget;
 		}
-		//outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
-		outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
-		outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];
+		outpust->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
+		/*outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
+		outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];*/
 	}
 	else {
 		for (i=0;i<8;i++){
@@ -722,9 +743,7 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 
 	// Target 9 is the cue target
 	if (m_mode) {
-		if (getState() == STATE_CT_OUTER_DELAY ||
-			getState() == STATE_CT_MEM_DELAY ||
-			getState() == STATE_CT_CUE_DELAY ||
+		if (getState() == STATE_CT_CUE_DELAY ||
 			getState() == STATE_MOVEMENT){
 				//outputs->targets[9] = (Target *)cueTarget;
 				outputs->targets[9] = (Target *)colorCursor;
@@ -734,6 +753,22 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 			colorCursor->centerX = cursor_endpoint.x;
 			colorCursor->centerY = cursor_endpoint.y;
 		    outputs->targets[9] = (Target *)colorCursor;
+			outputs->position = Point(1000,1000);
+		} else {
+			outputs->targets[9] = nullTarget;
+			outputs->position = inputs->cursor;
+		}
+	} else if (colorTraining) {
+		if (getState() == STATE_CT_MEM_DELAY ||
+			getState() == STATE_CT_CUE_DELAY ||
+			getState() == STATE_MOVEMENT){
+				outputs->targets[9] = (Target *)colorCursor;
+				outputs->position = Point(1000,1000);
+		} else if (getState() == STATE_REWARD ||
+				   getState() == STATE_FAIL) {
+		    colorCursor->centerX = cursor_endpoint.x;
+			colorCursor->centerY = cursor_endpoint.y;
+			outputs->targets[9] = (Target *)colorCursor;
 			outputs->position = Point(1000,1000);
 		} else {
 			outputs->targets[9] = nullTarget;
