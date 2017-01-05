@@ -343,6 +343,7 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	ang_diff=params->target_angle_diff*PI/180;
 	curr_cue_one_idx=random->getInteger(0,7);
 	int t_dif;
+	int modtarg_curr, modtarg_wrong;
 	t_dif = (int) (ang_diff/t_ang);
 	int c_2a, c_2b;
 	c_2a = curr_cue_one_idx + t_dif;
@@ -367,9 +368,11 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 		curr_cue_color=c_color_two;
 	}
 	if (staticColors){
-		curr_cue_color = Target::Color(Rs[curr_target_idx],Gs[curr_target_idx],Bs[curr_target_idx]);
-		c_color_one = Target::Color(Rs[curr_target_idx],Gs[curr_target_idx],Bs[curr_target_idx]);
-		c_color_two = Target::Color(Rs[curr_wrong_idx],Gs[curr_wrong_idx],Bs[curr_wrong_idx]);
+		modtarg_curr = curr_target_idx % num_targs;
+		modtarg_wrong = curr_wrong_idx % num_targs;
+		curr_cue_color = Target::Color(Rs[modtarg_curr],Gs[modtarg_curr],Bs[modtarg_curr]);
+		c_color_one = Target::Color(Rs[modtarg_curr],Gs[modtarg_curr],Bs[modtarg_curr]);
+		c_color_two = Target::Color(Rs[modtarg_wrong],Gs[modtarg_wrong],Bs[modtarg_wrong]);
 	}
 
 	cueTarget->centerX =  centerCueOffset*cos(outer_angles[curr_target_idx]);
@@ -384,7 +387,7 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 		outerTarget[i]->centerY = reach_len*sin(outer_angles[i]);
 		outerTarget[i]->radius  = params->outer_size;
 		if (params->static_colors) {
-			outerTarget[i]->color = Target::Color(Rs[i],Gs[i],Bs[i]);
+			outerTarget[i]->color = Target::Color(Rs[i*8/num_targs],Gs[i*8/num_targs],Bs[i*8/num_targs]);
 		} else {
 			outerTarget[i]->color = target_default_color;
 		}
@@ -521,7 +524,7 @@ void UncertaintyCisekBehavior::update(SimStruct *S) {
 				for(i=0;i<params->num_targlocs;i++)	{	
 					if  (outerTarget[i]->cursorInTarget(inputs->cursor)) { // Cursor is in target i
 
-						if ((curr_target_idx & params->num_targlocs) == i) { // Target i is the correct target
+						if ((curr_target_idx % num_targs) == i) { // Target i is the correct target
 							setState(STATE_OUTER_HOLD);
 							break;
 						} else {										     // Target i is not the correct target
@@ -661,7 +664,7 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 			outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
 			outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];
 		}
-		else if ((!co_mode) && (colorTraining) { // normal mode, color training
+		else if (!co_mode && colorTraining) { // normal mode, color training
 			for (i=0;i<num_targs;i++){
 				outputs->targets[i+1] = outerTarget[i]; 
 			}
@@ -680,7 +683,7 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 				outputs->targets[i+1] = nullTarget;
 			}
 		}
-	} else if (getState() == STATE_CUE_DELAY){
+	} else if (getState() == STATE_CT_CUE_DELAY){
 		if (colorTraining) { 
 			if (co_mode) {
 				outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
@@ -731,7 +734,7 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 		for (i=0;i<8;i++){
 			outputs->targets[i+1] = nullTarget;
 		}
-		outpust->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
+		outputs->targets[curr_target_idx+1] = outerTarget[curr_target_idx];
 		/*outputs->targets[curr_cue_one_idx+1] = outerTarget[curr_cue_one_idx];
 		outputs->targets[curr_cue_two_idx+1] = outerTarget[curr_cue_two_idx];*/
 	}
