@@ -348,6 +348,9 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	int c_2a, c_2b;
 	c_2a = (curr_cue_one_idx + t_dif)%num_targs;
 	c_2b = (curr_cue_one_idx - t_dif)%num_targs;
+	if (c_2b < 0) {
+		c_2b = (c_2b + 8)%num_targs;
+	}
 	/*if (c_2a > 7)
 		c_2a = c_2a - 8;
 	if (c_2b < 0)
