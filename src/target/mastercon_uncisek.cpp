@@ -90,6 +90,7 @@ struct LocalParams {
 
 	real_T static_colors;
 	real_T color_training;
+	real_T nofail;
 };
 
 /**
@@ -139,6 +140,7 @@ private:
 	bool   staticColors;
 	bool   colorTraining;
 	double skipCueRate;
+	bool no_fail;
 	int num_targs;
 	CircleTarget    *centerTarget;
 	CircleTarget    *cueTarget;
@@ -164,7 +166,7 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(41);
+	this->setNumParams(42);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
@@ -220,6 +222,7 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 
 	this->bindParamId(&params->static_colors,			39);
 	this->bindParamId(&params->color_training,			40);
+	this->bindParamId(&params->nofail,					41);
 
 
 	// declare which already defined parameter is our master reset 
@@ -276,6 +279,7 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 	skipCueRate=0;
 	staticColors = false;
 	colorTraining = false;
+	no_fail = false;
 	centerCueOffset = 0;
 	co_perc = 0;
 	num_targs = 8;
@@ -287,6 +291,7 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	//co_mode = params->center_out_mode;
 	staticColors = params->static_colors;
 	colorTraining = params->color_training;
+	no_fail = params->nofail;
 	num_targs = params->num_targlocs;
 	skipCenterCue      = params->skip_center_cue;
 	skipCueRate = params->skip_center_cue_rate;
@@ -530,10 +535,12 @@ void UncertaintyCisekBehavior::update(SimStruct *S) {
 							setState(STATE_OUTER_HOLD);
 							break;
 						} else {								  // in i but i is not correct target
-							playTone(TONE_ABORT);
-							cursor_endpoint = inputs->cursor;
-							setState(STATE_FAIL);
-							break;
+							if (!no_fail){
+								playTone(TONE_ABORT);
+								cursor_endpoint = inputs->cursor;
+								setState(STATE_FAIL);
+								break;
+							}
 						}
 					}
 				}

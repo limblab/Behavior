@@ -1281,6 +1281,7 @@ namespace BehaviorGraphics
             AddParamListItem("UCK static colors", "P40", "Behavior UnCisek", this.checkBoxUCK_staticcolor);
             AddParamListItem("UCK color training", "P41", "Behavior UnCisek", this.checkBoxUCK_colortraining);
 
+            AddParamListItem("UCK no fail", "P42", "Behavior UnCisek", this.checkBoxUCK_nofail);
             #endregion
 
             #region Unstable Reach
