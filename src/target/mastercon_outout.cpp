@@ -17,9 +17,10 @@
  */
 #define STATE_PRETRIAL        0
 #define STATE_CT_ON			  1
-#define STATE_CT_HOLD		  2
-#define STATE_MOVEMENT		  3
-#define STATE_OUTER_HOLD      4
+#define STATE_BUMP_RISE		  2
+#define STATE_CT_HOLD		  3
+#define STATE_MOVEMENT		  4
+#define STATE_OUTER_HOLD      5
 
 
 /* 
@@ -28,7 +29,7 @@
  */
 
 
-#define DATABURST_VERSION ((byte)0x01) 
+#define DATABURST_VERSION ((byte)0x02) 
 
 // This must be custom defined for your behavior
 struct LocalParams {
@@ -78,7 +79,9 @@ private:
 	double ct_hold_time, ot_hold_time;
 	double reach_len;
 	int t_color;
-	Point forces;
+	//Point forces;
+	
+	TrapBumpGenerator *bump;
 
 	CircleTarget    *startTarget;
 	CircleTarget    *endTarget;
@@ -90,8 +93,6 @@ private:
 };
 
 OutOutBehavior::OutOutBehavior(SimStruct *S) : RobotBehavior() {
-    int i;
-
 	/* 
 	 * First, set up the parameters to be used 
 	 */
@@ -141,9 +142,11 @@ OutOutBehavior::OutOutBehavior(SimStruct *S) : RobotBehavior() {
 	ct_hold_time	     = 0.0;
 	ot_hold_time	     = 0.0;
 	t_color = 0;
-	forces.x = 0.0;
-	forces.y = 0.0;
+	/*forces.x = 0.0;
+	forces.y = 0.0;*/
 
+	// force ramp setup
+	this->bump = new TrapBumpGenerator();
 }
 
 // Pre-trial initialization and calculations
@@ -167,14 +170,18 @@ void OutOutBehavior::doPreTrial(SimStruct *S) {
 	endTarget->radius  = params->target_size;
 	endTarget->color   = t_color;
 
-	// Forces
-	double floc = 2*PI*random->getInteger(1,params->num_targets)/params->num_targets;
-	forces.x = params->force_mag*cos(floc);
-	forces.y = params->force_mag*sin(floc);
-
 	// Randomized Timers
 	ct_hold_time		= random->getDouble(params->ct_hold_lo, params->ct_hold_hi);
 	ot_hold_time		= random->getDouble(params->ot_hold_lo, params->ot_hold_hi);
+
+	// Forces
+	this->bump->rise_time = 0.5;
+	this->bump->hold_duration = ct_hold_time + ot_hold_time + params->movement_max_time; //make sure the bump stays on long enough
+	this->bump->peak_magnitude = params->force_mag;
+	double floc = 2*PI*random->getInteger(1,params->num_targets)/params->num_targets;
+	this->bump->direction = floc;
+	/*forces.x = params->force_mag*cos(floc);
+	forces.y = params->force_mag*sin(floc);*/
 
 	// setup the databurst
 	db->reset();
@@ -190,6 +197,7 @@ void OutOutBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)startTarget->centerY); // targ 1 Y
 	db->addFloat((float)endTarget->centerX);  // targ 2 X
 	db->addFloat((float)endTarget->centerY);  // targ 2 Y
+	db->addFloat((float)this->bump->direction); // force direction
     db->start();
 
 }
@@ -212,11 +220,25 @@ void OutOutBehavior::update(SimStruct *S) {
 		case STATE_CT_ON:
 			/* first target on */
 			if (startTarget->cursorInTarget(inputs->cursor)) {
-				setState(STATE_CT_HOLD);
+				startTarget->radius  = params->target_size+1;
+				this->bump->start(S);
+				setState(STATE_BUMP_RISE);
 			} 
+			break;
+		case STATE_BUMP_RISE:
+			/* bump rise time */
+			if (!startTarget->cursorInTarget(inputs->cursor)){
+				this->bump->stop();
+				playTone(TONE_ABORT);
+				setState(STATE_ABORT);
+			}
+			else if (stateTimer->elapsedTime(S) >= this->bump->rise_time) {
+				setState(STATE_CT_HOLD);
+			}
 			break;
 		case STATE_CT_HOLD:
 			if (!startTarget->cursorInTarget(inputs->cursor)){
+				this->bump->stop();
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}
@@ -227,6 +249,7 @@ void OutOutBehavior::update(SimStruct *S) {
 			break;
 		case STATE_MOVEMENT:
 			if (stateTimer->elapsedTime(S) > params->movement_max_time) {
+				this->bump->stop();
 				setState(STATE_INCOMPLETE);
 			}
 			else if (endTarget->cursorInTarget(inputs->cursor)) {
@@ -235,10 +258,12 @@ void OutOutBehavior::update(SimStruct *S) {
 			break;
 		case STATE_OUTER_HOLD:
 			if (stateTimer->elapsedTime(S) >= ot_hold_time) {
+				this->bump->stop();
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
 			}
 			else if (!endTarget->cursorInTarget(inputs->cursor)){
+				this->bump->stop();
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}
@@ -277,6 +302,9 @@ void OutOutBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_CT_ON:
 				outputs->word = WORD_CT_ON;
 				break;
+			case STATE_BUMP_RISE:
+				outputs->word = WORD_BUMP(0);
+				break;
 			case STATE_CT_HOLD:
 				outputs->word = WORD_CENTER_TARGET_HOLD;
 				break;
@@ -303,11 +331,12 @@ void OutOutBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* force (0) */
-	if (getState() == STATE_CT_HOLD ||
+	if (/*getState() == STATE_CT_HOLD ||
 		getState() == STATE_MOVEMENT ||
-		getState() == STATE_OUTER_HOLD){
+		getState() == STATE_OUTER_HOLD*/
+		this->bump->isRunning(S)){
 
-			outputs->force= forces;
+			outputs->force= this->bump->getBumpForce(S);
 	
 	} else {
 
@@ -318,6 +347,7 @@ void OutOutBehavior::calculateOutputs(SimStruct *S) {
 	/* target_pos (3) */
 	// target 1
 	if (getState() == STATE_CT_ON ||
+		getState() == STATE_BUMP_RISE ||
 		getState() == STATE_CT_HOLD){
 			outputs->targets[0] = (Target *)startTarget;
 	} else {
