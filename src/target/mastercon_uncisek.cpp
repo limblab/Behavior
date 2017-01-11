@@ -321,8 +321,8 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	}
 	
 	int Rs[8] = {  0,  0, 200, 255, 255,   0,   0, 255};
-	int Gs[8] = {  0, 64, 200,  25,   0, 180, 255, 140};
-	int Bs[8] = {255,  0, 200, 185,   0, 255,   0,   0};
+	int Gs[8] = {  0, 64, 200,  25, 231, 180, 255, 140};
+	int Bs[8] = {255,  0, 200, 185, 100, 255,   0,   0};
 
 
 	reach_len = params->movement_length;
