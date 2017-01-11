@@ -19,8 +19,9 @@
 #define STATE_CT_ON			  1
 #define STATE_BUMP_RISE		  2
 #define STATE_CT_HOLD		  3
-#define STATE_MOVEMENT		  4
-#define STATE_OUTER_HOLD      5
+#define STATE_CT_OUT_TIMER	  4
+#define STATE_MOVEMENT		  5
+#define STATE_OUTER_HOLD      6
 
 
 /* 
@@ -74,7 +75,8 @@ public:
 
 private:
 	// Your behavior's instance variables
-	Timer  *feedback_timer; // feedback timer
+	Timer  *abort_timer; // abort timer
+	Timer  *bump_timer; //bump timer
 
 	double ct_hold_time, ot_hold_time;
 	double reach_len;
@@ -147,6 +149,9 @@ OutOutBehavior::OutOutBehavior(SimStruct *S) : RobotBehavior() {
 
 	// force ramp setup
 	this->bump = new TrapBumpGenerator();
+
+	// set up abort timer
+	this->abort_timer = new Timer();
 }
 
 // Pre-trial initialization and calculations
@@ -182,6 +187,10 @@ void OutOutBehavior::doPreTrial(SimStruct *S) {
 	this->bump->direction = floc;
 	/*forces.x = params->force_mag*cos(floc);
 	forces.y = params->force_mag*sin(floc);*/
+
+	// Reset timers
+	this->abort_timer->reset(S);
+	this->bump_timer->reset(S);
 
 	// setup the databurst
 	db->reset();
@@ -220,7 +229,8 @@ void OutOutBehavior::update(SimStruct *S) {
 		case STATE_CT_ON:
 			/* first target on */
 			if (startTarget->cursorInTarget(inputs->cursor)) {
-				startTarget->radius  = params->target_size+1;
+				//startTarget->radius  = params->target_size+1;
+				this->bump_timer->start(S);
 				this->bump->start(S);
 				setState(STATE_BUMP_RISE);
 			} 
@@ -232,7 +242,7 @@ void OutOutBehavior::update(SimStruct *S) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}
-			else if (stateTimer->elapsedTime(S) >= this->bump->rise_time) {
+			else if (bump_timer->elapsedTime(S) >= this->bump->rise_time) {
 				setState(STATE_CT_HOLD);
 			}
 			break;
@@ -245,6 +255,12 @@ void OutOutBehavior::update(SimStruct *S) {
 			else if (stateTimer->elapsedTime(S) >= ct_hold_time) {
 				playTone(TONE_GO);
 				setState(STATE_MOVEMENT);
+			}
+			break;
+		case STATE_CT_OUT:
+			if //
+			else if (startTarget->cursorInTarget(inputs->cursor)) {
+				setState(STATE_CT_HOLD);
 			}
 			break;
 		case STATE_MOVEMENT:
