@@ -288,6 +288,8 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 // Pre-trial initialization and calculations
 void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	int i; 
+	int colidx;
+	int color_randomizer;
 	//co_mode = params->center_out_mode;
 	staticColors = params->static_colors;
 	colorTraining = params->color_training;
@@ -320,10 +322,9 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 		t_ang = 2*PI/num_targs;
 	}
 	
-	int Rs[8] = {  0,  0, 200, 255, 255,   0,   0, 255};
-	int Gs[8] = {  0, 64, 200,  25, 231, 180, 255, 140};
-	int Bs[8] = {255,  0, 200, 185, 100, 255,   0,   0};
-
+	int Rs[8] = {150,128, 200, 255, 255,   0,   0, 255};
+	int Gs[8] = { 60,128, 200,  25, 231, 180, 238, 140};
+	int Bs[8] = {255,  0, 200, 185, 100, 255, 144,   0};
 
 	reach_len = params->movement_length;
 	//Set Colors
@@ -378,20 +379,24 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 		curr_wrong_color = c_color_one;
 	}
 	// Set Up The Outer Targets
+	color_randomizer = random->getInteger(1,num_targs);
 	for (i=0;i<num_targs;i++){
 		outer_angles[i]=t_ang*i;
 		outerTarget[i]->centerX = reach_len*cos(outer_angles[i]);
 		outerTarget[i]->centerY = reach_len*sin(outer_angles[i]);
 		outerTarget[i]->radius  = params->outer_size;
-		if (staticColors) {
-			outerTarget[i]->color = Target::Color(Rs[(int) floor((double) ((i*8/num_targs)%8))],
-											      Gs[(int) floor((double) ((i*8/num_targs)%8))],
-												  Bs[(int) floor((double) ((i*8/num_targs)%8))]);
+		if (colorTraining) {
+			if (staticColors) {
+				colidx =(int) floor((double) ((i*8/num_targs)%8));
+			} else {
+				colidx =(int) floor((double) (((i+color_randomizer)*8/num_targs)%8));
+			}
+			outerTarget[i]->color = Target::Color(Rs[colidx],Gs[colidx],Bs[colidx]);
 		} else {
 			outerTarget[i]->color = target_default_color;
 		}
 	}
-	if (!staticColors) {
+	if (!colorTraining) {
 		outerTarget[curr_target_idx]->color = curr_cue_color;
 		outerTarget[curr_wrong_idx]->color = curr_wrong_color;
 	}
