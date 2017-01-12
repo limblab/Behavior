@@ -396,11 +396,11 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 			outerTarget[i]->color = target_default_color;
 		}
 	}
-	if (!colorTraining) {
+	if (!colorTraining && !staticColors) {
 		outerTarget[curr_target_idx]->color = curr_cue_color;
 		outerTarget[curr_wrong_idx]->color = curr_wrong_color;
 	}
-	if (staticColors){ // If in Static Color mode, rewrite colors (to db) and curr_cue_color
+	if (colorTraining || staticColors){ // If in Static Color mode, rewrite colors (to db) and curr_cue_color
 		curr_cue_color = outerTarget[curr_target_idx]->color;
 		c_color_one = curr_cue_color;
 		c_color_two = outerTarget[curr_wrong_idx]->color;
