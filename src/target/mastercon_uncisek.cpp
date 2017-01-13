@@ -611,7 +611,7 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 	/* status (1) */
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
-	outputs->status[2] = trialCounter->aborts;
+	//outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = trialCounter->failures;
 	outputs->status[4] = trialCounter->incompletes;
 
@@ -806,8 +806,8 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* reward (4) */
-	outputs->reward = (isNewState() && (getState() == STATE_REWARD) && give_reward) * attempt_num;
-
+	outputs->reward = attempt_num * ((isNewState() && (getState() == STATE_REWARD) && give_reward) ? 1 : 0);
+	outputs->status[2] = attempt_num;
 	/* tone (5) */
 	this->outputs->tone_counter = this->tone_counter;
 	this->outputs->last_tone_id = this->last_tone_id;
