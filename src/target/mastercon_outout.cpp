@@ -19,7 +19,7 @@
 #define STATE_CT_ON			  1
 #define STATE_BUMP_RISE		  2
 #define STATE_CT_HOLD		  3
-#define STATE_CT_OUT_TIMER	  4
+#define STATE_CT_OUT		  4
 #define STATE_MOVEMENT		  5
 #define STATE_OUTER_HOLD      6
 
