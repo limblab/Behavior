@@ -75,7 +75,7 @@ public:
 
 private:
 	// Your behavior's instance variables
-	Timer  *abort_timer; // abort timer
+	//Timer  *abort_timer; // abort timer
 	Timer  *bump_timer; //bump timer
 
 	double ct_hold_time, ot_hold_time;
@@ -151,7 +151,7 @@ OutOutBehavior::OutOutBehavior(SimStruct *S) : RobotBehavior() {
 	this->bump = new TrapBumpGenerator();
 
 	// set up abort timer
-	this->abort_timer = new Timer();
+	this->bump_timer = new Timer();
 }
 
 // Pre-trial initialization and calculations
@@ -181,7 +181,7 @@ void OutOutBehavior::doPreTrial(SimStruct *S) {
 
 	// Forces
 	this->bump->rise_time = 0.5;
-	this->bump->hold_duration = ct_hold_time + ot_hold_time + params->movement_max_time; //make sure the bump stays on long enough
+	this->bump->hold_duration = 10*params->movement_max_time; //make sure the bump stays on long enough
 	this->bump->peak_magnitude = params->force_mag;
 	double floc = 2*PI*random->getInteger(1,params->num_targets)/params->num_targets;
 	this->bump->direction = floc;
@@ -189,7 +189,7 @@ void OutOutBehavior::doPreTrial(SimStruct *S) {
 	forces.y = params->force_mag*sin(floc);*/
 
 	// Reset timers
-	this->abort_timer->reset(S);
+	//this->abort_timer->reset(S);
 	this->bump_timer->reset(S);
 
 	// setup the databurst
@@ -244,7 +244,6 @@ void OutOutBehavior::update(SimStruct *S) {
                 setState(STATE_CT_OUT);
 			}
 			else if (bump_timer->elapsedTime(S) >= this->bump->rise_time) {
-				this->bump_timer->stop(S);
 				setState(STATE_CT_HOLD);
 			}
 			break;
@@ -263,7 +262,6 @@ void OutOutBehavior::update(SimStruct *S) {
 		case STATE_CT_OUT:
 			if (startTarget->cursorInTarget(inputs->cursor)) {
                 if (this->bump_timer->elapsedTime(S) >= this->bump->rise_time) {
-					this->bump_timer->stop(S);
 				    setState(STATE_CT_HOLD);
                 }
                 else {
@@ -273,6 +271,7 @@ void OutOutBehavior::update(SimStruct *S) {
 			break;
 		case STATE_MOVEMENT:
 			if (stateTimer->elapsedTime(S) > params->movement_max_time) {
+				this->bump_timer->stop(S);
 				this->bump->stop();
 				setState(STATE_INCOMPLETE);
 			}
@@ -282,11 +281,13 @@ void OutOutBehavior::update(SimStruct *S) {
 			break;
 		case STATE_OUTER_HOLD:
 			if (stateTimer->elapsedTime(S) >= ot_hold_time) {
+				this->bump_timer->stop(S);
 				this->bump->stop();
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
 			}
 			else if (!endTarget->cursorInTarget(inputs->cursor)){
+				this->bump_timer->stop(S);
 				this->bump->stop();
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
@@ -378,7 +379,8 @@ void OutOutBehavior::calculateOutputs(SimStruct *S) {
 	// target 1
 	if (getState() == STATE_CT_ON ||
 		getState() == STATE_BUMP_RISE ||
-		getState() == STATE_CT_HOLD){
+		getState() == STATE_CT_HOLD ||
+		getState() == STATE_CT_OUT){
 			outputs->targets[0] = (Target *)startTarget;
 	} else {
 		outputs->targets[0] = nullTarget;
