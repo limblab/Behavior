@@ -244,7 +244,7 @@ void OutOutBehavior::update(SimStruct *S) {
                 setState(STATE_CT_OUT);
 			}
 			else if (bump_timer->elapsedTime(S) >= this->bump->rise_time) {
-				this->bump_timer->stop(S)
+				this->bump_timer->stop(S);
 				setState(STATE_CT_HOLD);
 			}
 			break;
@@ -263,7 +263,7 @@ void OutOutBehavior::update(SimStruct *S) {
 		case STATE_CT_OUT:
 			if (startTarget->cursorInTarget(inputs->cursor)) {
                 if (this->bump_timer->elapsedTime(S) >= this->bump->rise_time) {
-					this->bump_timer->stop(S)
+					this->bump_timer->stop(S);
 				    setState(STATE_CT_HOLD);
                 }
                 else {
