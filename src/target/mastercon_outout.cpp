@@ -238,9 +238,10 @@ void OutOutBehavior::update(SimStruct *S) {
 		case STATE_BUMP_RISE:
 			/* bump rise time */
 			if (!startTarget->cursorInTarget(inputs->cursor)){
-				this->bump->stop();
-				playTone(TONE_ABORT);
-				setState(STATE_ABORT);
+				//this->bump->stop();
+				//playTone(TONE_ABORT);
+				//setState(STATE_ABORT);
+                setState(STATE_CT_OUT);
 			}
 			else if (bump_timer->elapsedTime(S) >= this->bump->rise_time) {
 				setState(STATE_CT_HOLD);
@@ -248,9 +249,10 @@ void OutOutBehavior::update(SimStruct *S) {
 			break;
 		case STATE_CT_HOLD:
 			if (!startTarget->cursorInTarget(inputs->cursor)){
-				this->bump->stop();
-				playTone(TONE_ABORT);
-				setState(STATE_ABORT);
+				//this->bump->stop();
+				//playTone(TONE_ABORT);
+				//setState(STATE_ABORT);
+                setState(STATE_CT_OUT);
 			}
 			else if (stateTimer->elapsedTime(S) >= ct_hold_time) {
 				playTone(TONE_GO);
@@ -258,9 +260,13 @@ void OutOutBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_CT_OUT:
-			if //
-			else if (startTarget->cursorInTarget(inputs->cursor)) {
-				setState(STATE_CT_HOLD);
+			if (startTarget->cursorInTarget(inputs->cursor)) {
+                if (this->bump_timer->elapsedTime(S) >= this->bump->rise_time) {
+				    setState(STATE_CT_HOLD);
+                }
+                else {
+                    setState(STATE_BUMP_RISE);
+                }
 			}
 			break;
 		case STATE_MOVEMENT:
