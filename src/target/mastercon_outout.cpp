@@ -244,6 +244,7 @@ void OutOutBehavior::update(SimStruct *S) {
                 setState(STATE_CT_OUT);
 			}
 			else if (bump_timer->elapsedTime(S) >= this->bump->rise_time) {
+				this->bump_timer->stop(S)
 				setState(STATE_CT_HOLD);
 			}
 			break;
@@ -262,6 +263,7 @@ void OutOutBehavior::update(SimStruct *S) {
 		case STATE_CT_OUT:
 			if (startTarget->cursorInTarget(inputs->cursor)) {
                 if (this->bump_timer->elapsedTime(S) >= this->bump->rise_time) {
+					this->bump_timer->stop(S)
 				    setState(STATE_CT_HOLD);
                 }
                 else {
@@ -329,6 +331,12 @@ void OutOutBehavior::calculateOutputs(SimStruct *S) {
 				break;
 			case STATE_CT_HOLD:
 				outputs->word = WORD_CENTER_TARGET_HOLD;
+				break;
+			case STATE_CT_OUT:
+				if (this->bump_timer->elapsedTime(S) < this->bump->rise_time)
+					outputs->word = WORD_BUMP(0);
+				else
+					outputs->word = WORD_CENTER_TARGET_HOLD;
 				break;
 			case STATE_MOVEMENT:
 				outputs->word = WORD_GO_CUE;
