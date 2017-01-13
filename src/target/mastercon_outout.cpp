@@ -19,7 +19,7 @@
 #define STATE_CT_ON			  1
 #define STATE_BUMP_RISE		  2
 #define STATE_CT_HOLD		  3
-#define STATE_CT_OUT_TIMER	  4
+#define STATE_CT_OUT		  4
 #define STATE_MOVEMENT		  5
 #define STATE_OUTER_HOLD      6
 
@@ -75,7 +75,7 @@ public:
 
 private:
 	// Your behavior's instance variables
-	Timer  *abort_timer; // abort timer
+	//Timer  *abort_timer; // abort timer
 	Timer  *bump_timer; //bump timer
 
 	double ct_hold_time, ot_hold_time;
@@ -151,7 +151,7 @@ OutOutBehavior::OutOutBehavior(SimStruct *S) : RobotBehavior() {
 	this->bump = new TrapBumpGenerator();
 
 	// set up abort timer
-	this->abort_timer = new Timer();
+	this->bump_timer = new Timer();
 }
 
 // Pre-trial initialization and calculations
@@ -181,7 +181,7 @@ void OutOutBehavior::doPreTrial(SimStruct *S) {
 
 	// Forces
 	this->bump->rise_time = 0.5;
-	this->bump->hold_duration = ct_hold_time + ot_hold_time + params->movement_max_time; //make sure the bump stays on long enough
+	this->bump->hold_duration = 10*params->movement_max_time; //make sure the bump stays on long enough
 	this->bump->peak_magnitude = params->force_mag;
 	double floc = 2*PI*random->getInteger(1,params->num_targets)/params->num_targets;
 	this->bump->direction = floc;
@@ -189,7 +189,7 @@ void OutOutBehavior::doPreTrial(SimStruct *S) {
 	forces.y = params->force_mag*sin(floc);*/
 
 	// Reset timers
-	this->abort_timer->reset(S);
+	//this->abort_timer->reset(S);
 	this->bump_timer->reset(S);
 
 	// setup the databurst
@@ -238,9 +238,10 @@ void OutOutBehavior::update(SimStruct *S) {
 		case STATE_BUMP_RISE:
 			/* bump rise time */
 			if (!startTarget->cursorInTarget(inputs->cursor)){
-				this->bump->stop();
-				playTone(TONE_ABORT);
-				setState(STATE_ABORT);
+				//this->bump->stop();
+				//playTone(TONE_ABORT);
+				//setState(STATE_ABORT);
+                setState(STATE_CT_OUT);
 			}
 			else if (bump_timer->elapsedTime(S) >= this->bump->rise_time) {
 				setState(STATE_CT_HOLD);
@@ -248,9 +249,10 @@ void OutOutBehavior::update(SimStruct *S) {
 			break;
 		case STATE_CT_HOLD:
 			if (!startTarget->cursorInTarget(inputs->cursor)){
-				this->bump->stop();
-				playTone(TONE_ABORT);
-				setState(STATE_ABORT);
+				//this->bump->stop();
+				//playTone(TONE_ABORT);
+				//setState(STATE_ABORT);
+                setState(STATE_CT_OUT);
 			}
 			else if (stateTimer->elapsedTime(S) >= ct_hold_time) {
 				playTone(TONE_GO);
@@ -258,13 +260,18 @@ void OutOutBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_CT_OUT:
-			if //
-			else if (startTarget->cursorInTarget(inputs->cursor)) {
-				setState(STATE_CT_HOLD);
+			if (startTarget->cursorInTarget(inputs->cursor)) {
+                if (this->bump_timer->elapsedTime(S) >= this->bump->rise_time) {
+				    setState(STATE_CT_HOLD);
+                }
+                else {
+                    setState(STATE_BUMP_RISE);
+                }
 			}
 			break;
 		case STATE_MOVEMENT:
 			if (stateTimer->elapsedTime(S) > params->movement_max_time) {
+				this->bump_timer->stop(S);
 				this->bump->stop();
 				setState(STATE_INCOMPLETE);
 			}
@@ -274,11 +281,13 @@ void OutOutBehavior::update(SimStruct *S) {
 			break;
 		case STATE_OUTER_HOLD:
 			if (stateTimer->elapsedTime(S) >= ot_hold_time) {
+				this->bump_timer->stop(S);
 				this->bump->stop();
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
 			}
 			else if (!endTarget->cursorInTarget(inputs->cursor)){
+				this->bump_timer->stop(S);
 				this->bump->stop();
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
@@ -324,6 +333,12 @@ void OutOutBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_CT_HOLD:
 				outputs->word = WORD_CENTER_TARGET_HOLD;
 				break;
+			case STATE_CT_OUT:
+				if (this->bump_timer->elapsedTime(S) < this->bump->rise_time)
+					outputs->word = WORD_BUMP(0);
+				else
+					outputs->word = WORD_CENTER_TARGET_HOLD;
+				break;
 			case STATE_MOVEMENT:
 				outputs->word = WORD_GO_CUE;
 				break;
@@ -364,7 +379,8 @@ void OutOutBehavior::calculateOutputs(SimStruct *S) {
 	// target 1
 	if (getState() == STATE_CT_ON ||
 		getState() == STATE_BUMP_RISE ||
-		getState() == STATE_CT_HOLD){
+		getState() == STATE_CT_HOLD ||
+		getState() == STATE_CT_OUT){
 			outputs->targets[0] = (Target *)startTarget;
 	} else {
 		outputs->targets[0] = nullTarget;
