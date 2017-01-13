@@ -327,9 +327,9 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 		t_ang = 2*PI/num_targs;
 	}
 	
-	int Rs[8] = {150,255, 200, 255, 255,   0, 153, 255};
-	int Gs[8] = { 60,140, 200,  25, 231, 102, 153, 140};
-	int Bs[8] = {255,220, 200, 185, 100, 230, 255,   0};
+	int Rs[8] = {  0,   200,   255,   255,   255,   255,   150,    78};
+	int Gs[8] = {102,   200,   140,   140,   231,    25,    60,   217};
+	int Bs[8] = {230,   200,     0,   220,   100,   185,   255,   224};
 
 	reach_len = params->movement_length;
 	//Set Colors
