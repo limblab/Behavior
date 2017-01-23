@@ -554,7 +554,7 @@ void COBumpBehavior::update(SimStruct *S) {
 			
 			break;         
 		case STATE_BUMP:
-			if((this->CH_bump || this->DP_bump) && !centerTarget->cursorInTarget(inputs->cursor)){
+			if((this->CH_bump || this->DP_bump) && this->params->abort_during_bump && !centerTarget->cursorInTarget(inputs->cursor)){
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}else if(stateTimer->elapsedTime(S) > this->params->bump_hold_time) {
@@ -610,11 +610,17 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
     double y_comp;
 
 	/* force (0) */
-	if (bump->isRunning(S)) {
-		bf = bump->getBumpForce(S);
-		outputs->force.x = inputs->force.x + bf.x;
-		outputs->force.y = inputs->force.y + bf.y;
-	} else {
+	if (getState() == STATE_BUMP || getState() == STATE_CT_HOLD || getState() == STATE_DELAY) {
+        if (bump->isRunning(S)) {
+            outputs->force = bump->getBumpForce(S);
+//     		bf = bump->getBumpForce(S);
+//     		outputs->force.x = inputs->force.x + bf.x;
+//     		outputs->force.y = inputs->force.y + bf.y;
+        } else {
+            outputs->force.x = 0;
+            outputs->force.y = 0;
+        }
+    } else {
 		outputs->force = inputs->force;
 	}
 
