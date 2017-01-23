@@ -23,7 +23,7 @@
 #define STATE_CT_CUE_DELAY    5
 #define STATE_MOVEMENT		  6
 #define STATE_OUTER_HOLD      7
-
+#define STATE_WRONG		      8
 
 /* 
  * STATE_REWARD STATE_ABORT STATE_FAIL STATE_INCOMPLETE STATE_DATA_BLOCK 
@@ -142,6 +142,8 @@ private:
 	double skipCueRate;
 	bool no_fail;
 	int num_targs;
+	int attempt_num;
+	int intgtidx;
 	CircleTarget    *centerTarget;
 	CircleTarget    *cueTarget;
 	CircleTarget    *outerTarget[8];
@@ -283,6 +285,8 @@ UncertaintyCisekBehavior::UncertaintyCisekBehavior(SimStruct *S) : RobotBehavior
 	centerCueOffset = 0;
 	co_perc = 0;
 	num_targs = 8;
+	attempt_num = 0;
+	intgtidx=  0;
 }
 
 // Pre-trial initialization and calculations
@@ -290,6 +294,7 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 	int i; 
 	int colidx;
 	int color_randomizer;
+	attempt_num = 1;
 	//co_mode = params->center_out_mode;
 	staticColors = params->static_colors;
 	colorTraining = params->color_training;
@@ -322,9 +327,9 @@ void UncertaintyCisekBehavior::doPreTrial(SimStruct *S) {
 		t_ang = 2*PI/num_targs;
 	}
 	
-	int Rs[8] = {150,128, 200, 255, 255,   0,   0, 255};
-	int Gs[8] = { 60,128, 200,  25, 231, 180, 238, 140};
-	int Bs[8] = {255,  0, 200, 185, 100, 255, 144,   0};
+	int Rs[8] = {  0,   200,   255,   255,   255,   255,   150,    78};
+	int Gs[8] = {102,   200,   140,   140,   231,    25,    60,   217};
+	int Bs[8] = {230,   200,     0,   220,   100,   185,   255,   224};
 
 	reach_len = params->movement_length;
 	//Set Colors
@@ -535,31 +540,32 @@ void UncertaintyCisekBehavior::update(SimStruct *S) {
 			else { 
 				for(i=0;i<num_targs;i++)	{	
 					if  (outerTarget[i]->cursorInTarget(inputs->cursor)) { // Check if cursor is in target i
-
 						if ((curr_target_idx % num_targs) == i) { // if in i and i is correct target
 							setState(STATE_OUTER_HOLD);
-							break;
+							//break;
 						} else {								  // in i but i is not correct target
-							if (!no_fail){
+							if (no_fail){
+								intgtidx = i;
+								attempt_num++;
+								playTone(TONE_GO);
+								setState(STATE_WRONG);
+								//break;
+							} else {	
 								playTone(TONE_ABORT);
 								cursor_endpoint = inputs->cursor;
 								setState(STATE_FAIL);
-								break;
+								//break;
 							}
 						}
 					}
 				}
 			}
 			break;
-				//if (outerTarget[curr_target_idx]->cursorInTarget(inputs->cursor)){
-				//	setState(STATE_OUTER_HOLD);
-				//} else if ((outerTarget[curr_wrong_idx]->cursorInTarget(inputs->cursor)) && 
-				//		  (!params->color_training)){
-				//	outerTarget[curr_target_idx]->color = curr_cue_color;
-				//	playTone(TONE_ABORT);
-				//	cursor_endpoint = inputs->cursor;
-				//	setState(STATE_FAIL);
-				//}
+		case STATE_WRONG:
+			if (!outerTarget[intgtidx]->cursorInTarget(inputs->cursor)) {
+				setState(STATE_MOVEMENT);
+			}
+			break;
 		case STATE_OUTER_HOLD:
 			if (stateTimer->elapsedTime(S) >= ot_hold_time) {
 				outerTarget[curr_target_idx]->color = curr_cue_color;
@@ -605,7 +611,7 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 	/* status (1) */
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
-	outputs->status[2] = trialCounter->aborts;
+	//outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = trialCounter->failures;
 	outputs->status[4] = trialCounter->incompletes;
 
@@ -634,6 +640,9 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 				break;
 			case STATE_MOVEMENT:
 				outputs->word = WORD_GO_CUE;
+				break;
+			case STATE_WRONG:
+				outputs->word = WORD_MOVEMENT_ONSET;
 				break;
 			case STATE_OUTER_HOLD:
 				outputs->word = WORD_OUTER_TARGET_HOLD;
@@ -713,7 +722,8 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 			}
 		}
 	} else if (getState() == STATE_MOVEMENT || 
-			   getState() == STATE_OUTER_HOLD){
+			   getState() == STATE_OUTER_HOLD ||
+			   getState() == STATE_WRONG){
 
 		if (trueOnlyChoiceMode){
 			for (i=0;i<8;i++){
@@ -743,8 +753,7 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 				outputs->targets[i+1] = outerTarget[i];
 			}
 		}
-	}
-	else if (getState() == STATE_REWARD || getState() == STATE_FAIL) {
+	} else if (getState() == STATE_REWARD || getState() == STATE_FAIL) {
 		for (i=0;i<8;i++){
 			outputs->targets[i+1] = nullTarget;
 		}
@@ -763,7 +772,8 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 	if (m_mode || colorTraining) { // In match mode or color training, change cursor color
 		if (getState() == STATE_CT_CUE_DELAY ||
 			getState() == STATE_MOVEMENT ||
-			getState() == STATE_OUTER_HOLD){
+			getState() == STATE_OUTER_HOLD||
+			getState() == STATE_WRONG){
 				//outputs->targets[9] = (Target *)cueTarget;
 				outputs->targets[9] = (Target *)colorCursor;
 				outputs->position = Point(1000,1000);
@@ -796,8 +806,8 @@ void UncertaintyCisekBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* reward (4) */
-	outputs->reward = (isNewState() && (getState() == STATE_REWARD) && give_reward);
-
+	outputs->reward = attempt_num * ((isNewState() && (getState() == STATE_REWARD) && give_reward) ? 1 : 0);
+	outputs->status[2] = attempt_num;
 	/* tone (5) */
 	this->outputs->tone_counter = this->tone_counter;
 	this->outputs->last_tone_id = this->last_tone_id;
