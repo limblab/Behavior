@@ -963,6 +963,8 @@ namespace BehaviorGraphics
             AddParamListItem("COB stim prob",               "P51", "Behavior CO Bump", textBox_ctr_out_bump_StimProb);
             AddParamListItem("COB stim levels",             "P52", "Behavior CO Bump", textBox_ctr_out_bump_StimLevels);
 
+            //extra bump parameter
+            AddParamListItem("COB use random bump time",    "P53", "Behavior CO Bump", checkBox_ctr_out_bump_randomBumpTime);
             #endregion
 
             #region Unstable Field

@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1284"
+    ComputedModelVersion    "1.1285"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -30,7 +30,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-4.0, -4.0, 1032.0, 732.0]
+      Location		      [-4.0, 0.0, 1032.0, 732.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -54,9 +54,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[988.0, 572.0]
+	Extents			[982.0, 558.0]
 	ZoomFactor		[0.4]
-	Offset			[-70.500000000000057, -399.66666666666669]
+	Offset			[-70.5, -399.66666666666669]
       }
     }
   }
@@ -64,11 +64,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jan 04 17:32:57 2017"
-  RTWModifiedTimeStamp	  405451966
-  ModelVersionFormat	  "1.%<AutoIncrement:1284>"
+  LastModifiedDate	  "Thu Jan 26 10:07:53 2017"
+  RTWModifiedTimeStamp	  407326069
+  ModelVersionFormat	  "1.%<AutoIncrement:1285>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -614,7 +614,7 @@ Model {
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
-		Dimension		13
+		Dimension		14
 		Cell			"GeneratePreprocessorConditionals"
 		Cell			"IncludeMdlTerminateFcn"
 		Cell			"SupportNonInlinedSFcns"
@@ -628,6 +628,7 @@ Model {
 		Cell			"SupportComplex"
 		Cell			"SupportAbsoluteTime"
 		Cell			"SupportContinuousTime"
+		Cell			"CombineOutputUpdateFcns"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
@@ -1024,7 +1025,7 @@ Model {
   }
   System {
     Name		    "CO_bump"
-    Location		    [-4, -4, 1028, 728]
+    Location		    [-4, 0, 1028, 732]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1049,7 +1050,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_CO_bump"
       Parameters	      "0, 0, 0, .5, 0, 0.5, 1, 0.1, .2, 0 1 .1 1 3 8 0 0 359 8 1 0 2 5 1 1 1 0 0 .4 .3 1 0 5 1 0 0 .4"
-      " .3 1 0 5 1 0 0 .4 .3 1 0 5 1 0 3"
+      " .3 1 0 5 1 0 0 .4 .3 1 0 5 1 0 3 0"
       Object {
 	$PropName		"MaskObject"
 	$ObjectID		19
