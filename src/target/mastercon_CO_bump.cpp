@@ -369,7 +369,7 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->stim_levels,			51);
     
     this->bindParamId(&params->random_bump_timing,  52);
-    this->bindParamID(&params->target_relative_bump,    53);
+    this->bindParamId(&params->target_relative_bump,    53);
     	
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
