@@ -306,7 +306,7 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 
 	// Set up the number of parameters you'll be using
 
-	this->setNumParams(53);
+	this->setNumParams(54);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,		0);
 	this->bindParamId(&params->soft_reset,			1);
