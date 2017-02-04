@@ -103,7 +103,7 @@
 %  * bytes 63-66:	float		=> bump hold at peak
 %  * bytes 67-70:	float		=> bump rise time
 %  * bytes 71-74:	float		=> bump magnitude
-%  * bytes 75-78:	float		=> bump direction
+%  * bytes 75-78:	float		=> bump direction (relative to target direction)
 
 %  * byte 79:		uchar		=> stim trial
 %  * bytes 80-83:	float		=> stim trial rate
@@ -143,9 +143,50 @@
 %  * bytes 74-77:	float		=> bump direction
 
 %  * byte 78:		uchar		=> stim trial
+%
+
+% * Version 4 (0x04)
+%  * ----------------
+%  * byte  0:		uchar		=> number of bytes to be transmitted
+%  * byte  1:		uchar		=> version number (in this case 0)
+%  * byte  2-4:		uchar		=> task code 'C' 'O' 'B'
+%  * bytes 5-6:		uchar       => version code
+%  * byte  7-8:		uchar		=> version code (micro)
+ 
+%  * bytes 9-12:	float		=> center hold time
+%  * bytes 13-16:	float		=> delay time
+%  * bytes 17-20:	float		=> move time
+%  * bytes 21-24:	float		=> bump delay time
+%  * bytes 25-28:	float		=> bump hold time
+%  * bytes 29-32:	float		=> intertrial time
+%  * bytes 33-36:	float		=> penalty time
+
+%  * bytes 37-40:	float		=> target size
+%  * bytes 41-44:	float		=> target radius
+%  * bytes 45-48:	float		=> target angle
+
+%  * byte 49:		uchar		=> hide cursor
+%  * bytes 50-53:	float		=> hide radius min
+%  * bytes 54-57:	float		=> hide radius max
+
+%  * byte 58:		uchar		=> abort during bumps
+%  * bytes 59:      uchar		=> catch trial rate: THIS IS BUGGY-Casts the rate as a uchar, rather than a float
+%  * byte 60:		uchar		=> do center hold bump
+%  * byte 61:		uchar		=> do delay period bump
+%  * byte 62:		uchar		=> do move bump
+%  * bytes 63-66:	float		=> bump hold at peak
+%  * bytes 67-70:	float		=> bump rise time
+%  * bytes 71-74:	float		=> bump magnitude
+%  * bytes 75-78:	float		=> bump direction
+
+%  * byte 79:		uchar		=> stim trial
+%  * bytes 80-83:	float		=> stim trial rate
+%  
 %  */
 
-#define DATABURST_VERSION ((byte)0x02) 
+
+
+#define DATABURST_VERSION ((byte)0x04) 
 #define DATABURST_TASK_CODE ((byte)0x01)
 
 // This must be custom defined for your behavior
@@ -204,6 +245,7 @@ struct LocalParams {
 	real_T stim_levels;
     
     real_T random_bump_timing;
+    real_T target_relative_bump;
 };
 
 /**
@@ -247,6 +289,7 @@ private:
 	double reward_rate;
 	float ctr_hold;
 	float delay_hold;
+    float ot_hold;
     
     // center hold timer
     Timer *ch_timer;
@@ -326,6 +369,7 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->stim_levels,			51);
     
     this->bindParamId(&params->random_bump_timing,  52);
+    this->bindParamID(&params->target_relative_bump,    53);
     	
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -358,6 +402,7 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	this->reward_rate=0.6;
 	this->ctr_hold=0.0;
 	this->delay_hold=0.0;
+    this->ot_hold = 0.0;
     
     this->ch_timer = new Timer();
 }
@@ -392,6 +437,8 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	this->ctr_hold=(float)this->random->getDouble((double)this->params->CH_low,(double)this->params->CH_high);
 	//select the actual delay period hold
 	this->delay_hold=(float)this->random->getDouble((double)this->params->DP_low,(double)this->params->DP_high);
+    //select actual outer target hold
+    this->ot_hold=(float)this->random->getDouble((double)this->params->target_hold_low,(double)this->params->target_hold_high);
 	// Reset primary target color if needed
 	primaryTarget->color = Target::Color(255, 0, 160);
 	/* set the reward rate for this trial */
@@ -483,7 +530,11 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
                 bump_dir=(bump_dir-180)%360;
             }
         }
-        this->bump->direction = ((double)(this->tgt_angle + bump_dir)) * PI/180;
+        if( this->params->target_relative_bump ){
+            this->bump->direction = ((double)(this->tgt_angle + bump_dir)) * PI/180;
+        } else {
+            this->bump->direction = (double)(bump_dir) * PI/180;
+        }
     } else {
         this->CH_bump=false;
         this->DP_bump=false;
@@ -526,7 +577,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)this->bump->hold_duration);
 	db->addFloat((float)this->bump->rise_time);
 	db->addFloat((float)this->bump->peak_magnitude);
-	db->addFloat((float)bump_dir);
+	db->addFloat((float)this->bump->direction);
 
 	db->addByte((byte)this->stim_trial);
 	db->start();
