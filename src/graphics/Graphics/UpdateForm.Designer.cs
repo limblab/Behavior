@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1205,6 +1205,7 @@ namespace BehaviorGraphics
             this.label_ctr_out_bump_StimProb = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_StimProb = new System.Windows.Forms.TextBox();
             this.groupBox74 = new System.Windows.Forms.GroupBox();
+            this.checkBox_ctr_out_bump_randomBumpTime = new System.Windows.Forms.CheckBox();
             this.numericUpDown_ctr_out_bump_NumberMBumpDirections = new System.Windows.Forms.NumericUpDown();
             this.label_ctr_out_bump_NumberMBumpDirections = new System.Windows.Forms.Label();
             this.numericUpDown_ctr_out_bump_NumberDPBumpDirections = new System.Windows.Forms.NumericUpDown();
@@ -2195,7 +2196,7 @@ namespace BehaviorGraphics
             this.angleEntryBox1 = new AngleBox.AngleEntryBox();
             this.angleEntryBox2 = new AngleBox.AngleEntryBox();
             this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
-            this.checkBox_ctr_out_bump_randomBumpTime = new System.Windows.Forms.CheckBox();
+            this.checkBox_ctr_out_bump_targetRelativeBumps = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -5423,8 +5424,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -6256,8 +6257,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -14689,6 +14690,7 @@ namespace BehaviorGraphics
             // 
             // groupBox74
             // 
+            this.groupBox74.Controls.Add(this.checkBox_ctr_out_bump_targetRelativeBumps);
             this.groupBox74.Controls.Add(this.checkBox_ctr_out_bump_randomBumpTime);
             this.groupBox74.Controls.Add(this.numericUpDown_ctr_out_bump_NumberMBumpDirections);
             this.groupBox74.Controls.Add(this.label_ctr_out_bump_NumberMBumpDirections);
@@ -14741,10 +14743,22 @@ namespace BehaviorGraphics
             this.groupBox74.Controls.Add(this.textBox_ctr_out_bump_CHPeakDuration);
             this.groupBox74.Location = new System.Drawing.Point(10, 222);
             this.groupBox74.Name = "groupBox74";
-            this.groupBox74.Size = new System.Drawing.Size(587, 243);
+            this.groupBox74.Size = new System.Drawing.Size(671, 243);
             this.groupBox74.TabIndex = 24;
             this.groupBox74.TabStop = false;
             this.groupBox74.Text = "Bump";
+            // 
+            // checkBox_ctr_out_bump_randomBumpTime
+            // 
+            this.checkBox_ctr_out_bump_randomBumpTime.AutoSize = true;
+            this.checkBox_ctr_out_bump_randomBumpTime.Location = new System.Drawing.Point(372, 22);
+            this.checkBox_ctr_out_bump_randomBumpTime.Name = "checkBox_ctr_out_bump_randomBumpTime";
+            this.checkBox_ctr_out_bump_randomBumpTime.Size = new System.Drawing.Size(154, 17);
+            this.checkBox_ctr_out_bump_randomBumpTime.TabIndex = 147;
+            this.checkBox_ctr_out_bump_randomBumpTime.Text = "Random bump time in state";
+            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_randomBumpTime, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_ctr_out_bump_randomBumpTime.UseVisualStyleBackColor = true;
             // 
             // numericUpDown_ctr_out_bump_NumberMBumpDirections
             // 
@@ -14845,7 +14859,7 @@ namespace BehaviorGraphics
             // checkBox_ctr_out_bump_AbortDuringBump
             // 
             this.checkBox_ctr_out_bump_AbortDuringBump.AutoSize = true;
-            this.checkBox_ctr_out_bump_AbortDuringBump.Location = new System.Drawing.Point(291, 21);
+            this.checkBox_ctr_out_bump_AbortDuringBump.Location = new System.Drawing.Point(251, 22);
             this.checkBox_ctr_out_bump_AbortDuringBump.Name = "checkBox_ctr_out_bump_AbortDuringBump";
             this.checkBox_ctr_out_bump_AbortDuringBump.Size = new System.Drawing.Size(115, 17);
             this.checkBox_ctr_out_bump_AbortDuringBump.TabIndex = 34;
@@ -14857,7 +14871,7 @@ namespace BehaviorGraphics
             // checkBox_ctr_out_bump_BiDirectionalBumps
             // 
             this.checkBox_ctr_out_bump_BiDirectionalBumps.AutoSize = true;
-            this.checkBox_ctr_out_bump_BiDirectionalBumps.Location = new System.Drawing.Point(145, 22);
+            this.checkBox_ctr_out_bump_BiDirectionalBumps.Location = new System.Drawing.Point(124, 22);
             this.checkBox_ctr_out_bump_BiDirectionalBumps.Name = "checkBox_ctr_out_bump_BiDirectionalBumps";
             this.checkBox_ctr_out_bump_BiDirectionalBumps.Size = new System.Drawing.Size(121, 17);
             this.checkBox_ctr_out_bump_BiDirectionalBumps.TabIndex = 140;
@@ -24210,17 +24224,16 @@ namespace BehaviorGraphics
             this.angleEntryBox_SA.TabIndex = 19;
             this.angleEntryBox_SA.Value = 0;
             // 
-            // checkBox_ctr_out_bump_randomBumpTime
+            // checkBox_ctr_out_bump_targetRelativeBumps
             // 
-            this.checkBox_ctr_out_bump_randomBumpTime.AutoSize = true;
-            this.checkBox_ctr_out_bump_randomBumpTime.Location = new System.Drawing.Point(424, 21);
-            this.checkBox_ctr_out_bump_randomBumpTime.Name = "checkBox_ctr_out_bump_randomBumpTime";
-            this.checkBox_ctr_out_bump_randomBumpTime.Size = new System.Drawing.Size(154, 17);
-            this.checkBox_ctr_out_bump_randomBumpTime.TabIndex = 147;
-            this.checkBox_ctr_out_bump_randomBumpTime.Text = "Random bump time in state";
-            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_randomBumpTime, "When checked the targets will appear at random angles between the specified floor" +
-                    " and ceiling values");
-            this.checkBox_ctr_out_bump_randomBumpTime.UseVisualStyleBackColor = true;
+            this.checkBox_ctr_out_bump_targetRelativeBumps.AutoSize = true;
+            this.checkBox_ctr_out_bump_targetRelativeBumps.Location = new System.Drawing.Point(532, 21);
+            this.checkBox_ctr_out_bump_targetRelativeBumps.Name = "checkBox_ctr_out_bump_targetRelativeBumps";
+            this.checkBox_ctr_out_bump_targetRelativeBumps.Size = new System.Drawing.Size(128, 17);
+            this.checkBox_ctr_out_bump_targetRelativeBumps.TabIndex = 148;
+            this.checkBox_ctr_out_bump_targetRelativeBumps.Text = "Target-relative bumps";
+            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_targetRelativeBumps, "When checked, bumps directions will be relative to target direction");
+            this.checkBox_ctr_out_bump_targetRelativeBumps.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -26786,5 +26799,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.CheckBox checkBoxUCK_staticcolor;
         private System.Windows.Forms.CheckBox checkBoxUCK_nofail;
         private System.Windows.Forms.CheckBox checkBox_ctr_out_bump_randomBumpTime;
+        private System.Windows.Forms.CheckBox checkBox_ctr_out_bump_targetRelativeBumps;
     }
 }
