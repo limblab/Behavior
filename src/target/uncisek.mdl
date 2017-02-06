@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1297"
+    ComputedModelVersion    "1.1298"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -52,11 +52,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"267"
+	ViewObjType		"SimulinkTopLevel"
+	LoadSaveID		"0"
 	Extents			[913.0, 620.0]
-	ZoomFactor		[1.25]
-	Offset			[160.37143061785576, -145.35000133116824]
+	ZoomFactor		[0.59999999999999987]
+	Offset			[4.3713581599147275, -223.67391383716557]
       }
     }
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Jan 13 14:22:17 2017"
-  RTWModifiedTimeStamp	  406218135
-  ModelVersionFormat	  "1.%<AutoIncrement:1297>"
+  LastModifiedDate	  "Mon Feb 06 15:05:59 2017"
+  RTWModifiedTimeStamp	  408294356
+  ModelVersionFormat	  "1.%<AutoIncrement:1298>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -614,7 +614,7 @@ Model {
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
-		Dimension		14
+		Dimension		13
 		Cell			"GeneratePreprocessorConditionals"
 		Cell			"IncludeMdlTerminateFcn"
 		Cell			"SupportNonInlinedSFcns"
@@ -628,7 +628,6 @@ Model {
 		Cell			"SupportComplex"
 		Cell			"SupportAbsoluteTime"
 		Cell			"SupportContinuousTime"
-		Cell			"CombineOutputUpdateFcns"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
@@ -1041,7 +1040,7 @@ Model {
   System {
     Name		    "uncisek"
     Location		    [33, 22, 990, 802]
-    Open		    off
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1052,7 +1051,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "125"
+    ZoomFactor		    "60"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "477"
     Block {
@@ -1077,7 +1076,7 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "BoundingBox1"
+      Name		      "BoundingBox"
       SID		      "437"
       Ports		      [1, 1]
       Position		      [545, 678, 635, 742]
@@ -1925,7 +1924,7 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "Force Generator1"
+      Name		      "Force Generator"
       SID		      "435"
       Ports		      [1, 1]
       Position		      [545, 269, 605, 331]
@@ -1967,7 +1966,7 @@ Model {
     }
     Block {
       BlockType		      Concatenate
-      Name		      "Matrix\nConcatenation1"
+      Name		      "Matrix\nConcatenation"
       SID		      "101"
       Ports		      [2, 1]
       Position		      [595, 479, 650, 521]
@@ -1975,7 +1974,7 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "Motor Control1"
+      Name		      "Motor Control"
       SID		      "440"
       Ports		      [5, 1]
       Position		      [1105, 531, 1295, 839]
@@ -1998,7 +1997,7 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "Neural Position Subsystem1"
+      Name		      "Neural Position Subsystem"
       SID		      "434"
       Ports		      [0, 6]
       Position		      [160, 20, 275, 115]
@@ -2010,7 +2009,7 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "Recentering Subsystem1"
+      Name		      "Recentering Subsystem"
       SID		      "439"
       Ports		      [3, 2]
       Position		      [745, 593, 865, 747]
@@ -2031,7 +2030,7 @@ Model {
       System {
 	Name			"RewardSbs"
 	Location		[33, 22, 990, 802]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2042,7 +2041,7 @@ Model {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"125"
+	ZoomFactor		"50"
 	Block {
 	  BlockType		  Inport
 	  Name			  "Trig"
@@ -2511,7 +2510,7 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "SendPacketToGraphics1"
+      Name		      "SendPacketToGraphics"
       SID		      "441"
       Ports		      [4]
       Position		      [1235, 277, 1325, 378]
@@ -2881,7 +2880,7 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "Velocity Calculation1"
+      Name		      "Velocity Calculation"
       SID		      "438"
       Ports		      [2, 1]
       Position		      [395, 590, 505, 650]
@@ -2977,7 +2976,7 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "XY Position Subsystem1"
+      Name		      "XY Position Subsystem"
       SID		      "436"
       Ports		      [0, 4]
       Position		      [55, 632, 180, 868]
@@ -3024,12 +3023,12 @@ Model {
     }
     Line {
       ZOrder		      68
-      SrcBlock		      "Velocity Calculation1"
+      SrcBlock		      "Velocity Calculation"
       SrcPort		      1
       Points		      [10, 0]
       Branch {
 	ZOrder			69
-	DstBlock		"Recentering Subsystem1"
+	DstBlock		"Recentering Subsystem"
 	DstPort			1
       }
       Branch {
@@ -3041,7 +3040,7 @@ Model {
 	  Branch {
 	    ZOrder		    57
 	    Points		    [0, -85]
-	    DstBlock		    "Force Generator1"
+	    DstBlock		    "Force Generator"
 	    DstPort		    1
 	  }
 	  Branch {
@@ -3052,20 +3051,20 @@ Model {
 	}
 	Branch {
 	  ZOrder		  7
-	  DstBlock		  "Matrix\nConcatenation1"
+	  DstBlock		  "Matrix\nConcatenation"
 	  DstPort		  2
 	}
       }
     }
     Line {
       ZOrder		      59
-      SrcBlock		      "XY Position Subsystem1"
+      SrcBlock		      "XY Position Subsystem"
       SrcPort		      1
       Points		      [65, 0]
       Branch {
 	ZOrder			77
 	Points			[0, 11; 314, 0; 0, -1]
-	DstBlock		"Recentering Subsystem1"
+	DstBlock		"Recentering Subsystem"
 	DstPort			2
       }
       Branch {
@@ -3073,7 +3072,7 @@ Model {
 	Points			[0, -55]
 	Branch {
 	  ZOrder		  66
-	  DstBlock		  "Velocity Calculation1"
+	  DstBlock		  "Velocity Calculation"
 	  DstPort		  1
 	}
 	Branch {
@@ -3081,7 +3080,7 @@ Model {
 	  Points		  [0, -115]
 	  Branch {
 	    ZOrder		    13
-	    DstBlock		    "Matrix\nConcatenation1"
+	    DstBlock		    "Matrix\nConcatenation"
 	    DstPort		    1
 	  }
 	  Branch {
@@ -3125,7 +3124,7 @@ Model {
       Branch {
 	ZOrder			86
 	Points			[0, -26; 175, 0; 0, 81]
-	DstBlock		"SendPacketToGraphics1"
+	DstBlock		"SendPacketToGraphics"
 	DstPort			1
       }
       Branch {
@@ -3139,65 +3138,64 @@ Model {
       SrcBlock		      "Behavior UnCisek"
       SrcPort		      1
       Points		      [460, 0; 0, 380; -260, 0]
-      DstBlock		      "Motor Control1"
+      DstBlock		      "Motor Control"
       DstPort		      1
     }
     Line {
       ZOrder		      21
       SrcBlock		      "Behavior UnCisek"
       SrcPort		      5
-      Points		      [20, 0]
       DstBlock		      "RewardSbs"
       DstPort		      1
     }
     Line {
       ZOrder		      73
-      SrcBlock		      "BoundingBox1"
+      SrcBlock		      "BoundingBox"
       SrcPort		      1
       Points		      [50, 0; 0, 10]
-      DstBlock		      "Recentering Subsystem1"
+      DstBlock		      "Recentering Subsystem"
       DstPort		      3
     }
     Line {
       ZOrder		      62
       Labels		      [0, 1]
-      SrcBlock		      "XY Position Subsystem1"
+      SrcBlock		      "XY Position Subsystem"
       SrcPort		      3
       Points		      [110, 0; 0, -10]
       Branch {
 	ZOrder			81
 	Points			[690, 0; 0, -25]
-	DstBlock		"Motor Control1"
+	DstBlock		"Motor Control"
 	DstPort			4
       }
       Branch {
 	ZOrder			67
 	Points			[0, -135]
-	DstBlock		"Velocity Calculation1"
+	DstBlock		"Velocity Calculation"
 	DstPort			2
       }
     }
     Line {
       ZOrder		      65
-      SrcBlock		      "XY Position Subsystem1"
+      SrcBlock		      "XY Position Subsystem"
       SrcPort		      2
       Points		      [238, 0; 0, -10]
-      DstBlock		      "BoundingBox1"
+      DstBlock		      "BoundingBox"
       DstPort		      1
     }
     Line {
       ZOrder		      27
-      SrcBlock		      "Matrix\nConcatenation1"
+      SrcBlock		      "Matrix\nConcatenation"
       SrcPort		      1
       DstBlock		      "Xpos"
       DstPort		      1
     }
     Line {
       ZOrder		      80
-      SrcBlock		      "Recentering Subsystem1"
+      SrcBlock		      "Recentering Subsystem"
       SrcPort		      2
       Points		      [115, 0; 0, -25]
-      DstBlock		      "Motor Control1"
+      DstBlock		      "Motor Control"
       DstPort		      3
     }
     Line {
@@ -3205,14 +3203,14 @@ Model {
       SrcBlock		      "Behavior UnCisek"
       SrcPort		      8
       Points		      [220, 0; 0, -55]
-      DstBlock		      "SendPacketToGraphics1"
+      DstBlock		      "SendPacketToGraphics"
       DstPort		      3
     }
     Line {
       ZOrder		      83
       SrcBlock		      "Behavior UnCisek"
       SrcPort		      6
-      DstBlock		      "SendPacketToGraphics1"
+      DstBlock		      "SendPacketToGraphics"
       DstPort		      2
     }
     Line {
@@ -3230,7 +3228,7 @@ Model {
       Branch {
 	ZOrder			82
 	Points			[0, 35; -194, 0; 0, 723; 1039, 0; 0, -98]
-	DstBlock		"Motor Control1"
+	DstBlock		"Motor Control"
 	DstPort			5
       }
       Branch {
@@ -3241,7 +3239,7 @@ Model {
     }
     Line {
       ZOrder		      55
-      SrcBlock		      "Neural Position Subsystem1"
+      SrcBlock		      "Neural Position Subsystem"
       SrcPort		      1
       Points		      [95, 0; 0, 80]
       DstBlock		      "Neural Override"
@@ -3249,7 +3247,7 @@ Model {
     }
     Line {
       ZOrder		      56
-      SrcBlock		      "Neural Position Subsystem1"
+      SrcBlock		      "Neural Position Subsystem"
       SrcPort		      2
       Points		      [19, 0; 0, 45]
       DstBlock		      "Terminator1"
@@ -3274,7 +3272,7 @@ Model {
       ZOrder		      84
       SrcBlock		      "TargetCount"
       SrcPort		      1
-      DstBlock		      "SendPacketToGraphics1"
+      DstBlock		      "SendPacketToGraphics"
       DstPort		      4
     }
     Line {
@@ -3287,7 +3285,7 @@ Model {
     }
     Line {
       ZOrder		      58
-      SrcBlock		      "Force Generator1"
+      SrcBlock		      "Force Generator"
       SrcPort		      1
       Points		      [15, 0; 0, -90]
       DstBlock		      "Behavior UnCisek"
@@ -3303,10 +3301,10 @@ Model {
     }
     Line {
       ZOrder		      79
-      SrcBlock		      "Recentering Subsystem1"
+      SrcBlock		      "Recentering Subsystem"
       SrcPort		      1
       Points		      [115, 0; 0, -10]
-      DstBlock		      "Motor Control1"
+      DstBlock		      "Motor Control"
       DstPort		      2
     }
     Line {
