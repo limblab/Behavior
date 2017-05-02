@@ -182,7 +182,7 @@
 %  * byte 79:		uchar		=> stim trial
 %  
 %  
-% * Version 4 (0x05)
+% * Version 5 (0x05)
 %  * ----------------
 %  * byte  0:		uchar		=> number of bytes to be transmitted
 %  * byte  1:		uchar		=> version number (in this case 0)
@@ -207,19 +207,18 @@
 %  * bytes 54-57:	float		=> hide radius max
 
 %  * byte 58:		uchar		=> abort during bumps
-%  * bytes 59:      uchar		=> catch trial rate: THIS IS BUGGY-Casts the rate as a uchar, rather than a float
-%  * byte 60:		uchar		=> do center hold bump
-%  * byte 61:		uchar		=> do delay period bump
-%  * byte 62:		uchar		=> do move bump
-%  * bytes 63-66:	float		=> bump hold at peak
-%  * bytes 67-70:	float		=> bump rise time
-%  * bytes 71-74:	float		=> bump magnitude
-%  * bytes 75-78:	float		=> bump direction
+%  * byte 59:		uchar		=> do center hold bump
+%  * byte 60:		uchar		=> do delay period bump
+%  * byte 61:		uchar		=> do move bump
+%  * bytes 62-65:	float		=> bump hold at peak
+%  * bytes 66-69:	float		=> bump rise time
+%  * bytes 70-73:	float		=> bump magnitude
+%  * bytes 74-77:	float		=> bump direction
 
-%  * byte 79:		uchar		=> stim trial
-%  * byte 80:		uchar		=> stim during bump
-%  * byte 81:		uchar		=> stim instead of bump
-%  * bytes 82-85:	float		=> stim delay time
+%  * byte 78:		uchar		=> stim trial
+%  * byte 79:		uchar		=> stim during bump
+%  * byte 80:		uchar		=> stim instead of bump
+%  * bytes 81-84:	float		=> stim delay time
 %  
 %  */
 #define DATABURST_VERSION ((byte)0x05) 
@@ -624,7 +623,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	db->addByte((byte)this->stim_trial);
     db->addByte((byte)this->params->stimDuringBump);
     db->addByte((byte)this->params->stimInsteadOfBump);
-    db->addByte((byte)this->params->stimDelay);
+    db->addFloat((float)this->params->stimDelay);
 	db->start();
 }
 
