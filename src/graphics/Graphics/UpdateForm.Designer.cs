@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1200,11 +1200,14 @@ namespace BehaviorGraphics
             this.label_ctr_out_bump_TargetRadius = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_TargetRadius = new System.Windows.Forms.TextBox();
             this.groupBox73 = new System.Windows.Forms.GroupBox();
+            this.checkBox_ctr_out_bump_StimInsteadOfBump = new System.Windows.Forms.CheckBox();
+            this.checkBox_ctr_out_bump_StimDuringBump = new System.Windows.Forms.CheckBox();
             this.StimLevels = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_StimLevels = new System.Windows.Forms.TextBox();
             this.label_ctr_out_bump_StimProb = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_StimProb = new System.Windows.Forms.TextBox();
             this.groupBox74 = new System.Windows.Forms.GroupBox();
+            this.checkBox_ctr_out_bump_targetRelativeBumps = new System.Windows.Forms.CheckBox();
             this.checkBox_ctr_out_bump_randomBumpTime = new System.Windows.Forms.CheckBox();
             this.numericUpDown_ctr_out_bump_NumberMBumpDirections = new System.Windows.Forms.NumericUpDown();
             this.label_ctr_out_bump_NumberMBumpDirections = new System.Windows.Forms.Label();
@@ -1256,6 +1259,8 @@ namespace BehaviorGraphics
             this.label_ctr_out_bump_CHPeakDuration = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_CHPeakDuration = new System.Windows.Forms.TextBox();
             this.groupBox75 = new System.Windows.Forms.GroupBox();
+            this.label_ctr_out_bump_StimDelay = new System.Windows.Forms.Label();
+            this.textBox_ctr_out_bump_StimDelay = new System.Windows.Forms.TextBox();
             this.textBox_ctr_out_bump_targetHoldHigh = new System.Windows.Forms.TextBox();
             this.textBox_ctr_out_bump_targetHoldLow = new System.Windows.Forms.TextBox();
             this.label_ctr_out_bump_targetHoldHigh = new System.Windows.Forms.Label();
@@ -2196,7 +2201,6 @@ namespace BehaviorGraphics
             this.angleEntryBox1 = new AngleBox.AngleEntryBox();
             this.angleEntryBox2 = new AngleBox.AngleEntryBox();
             this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
-            this.checkBox_ctr_out_bump_targetRelativeBumps = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -5424,8 +5428,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -6257,8 +6261,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -14642,21 +14646,47 @@ namespace BehaviorGraphics
             // 
             // groupBox73
             // 
+            this.groupBox73.Controls.Add(this.checkBox_ctr_out_bump_StimInsteadOfBump);
+            this.groupBox73.Controls.Add(this.checkBox_ctr_out_bump_StimDuringBump);
             this.groupBox73.Controls.Add(this.StimLevels);
             this.groupBox73.Controls.Add(this.textBox_ctr_out_bump_StimLevels);
             this.groupBox73.Controls.Add(this.label_ctr_out_bump_StimProb);
             this.groupBox73.Controls.Add(this.textBox_ctr_out_bump_StimProb);
             this.groupBox73.Location = new System.Drawing.Point(530, 109);
             this.groupBox73.Name = "groupBox73";
-            this.groupBox73.Size = new System.Drawing.Size(116, 57);
+            this.groupBox73.Size = new System.Drawing.Size(151, 95);
             this.groupBox73.TabIndex = 25;
             this.groupBox73.TabStop = false;
             this.groupBox73.Text = "Stimulus";
             // 
+            // checkBox_ctr_out_bump_StimInsteadOfBump
+            // 
+            this.checkBox_ctr_out_bump_StimInsteadOfBump.AutoSize = true;
+            this.checkBox_ctr_out_bump_StimInsteadOfBump.Location = new System.Drawing.Point(9, 34);
+            this.checkBox_ctr_out_bump_StimInsteadOfBump.Name = "checkBox_ctr_out_bump_StimInsteadOfBump";
+            this.checkBox_ctr_out_bump_StimInsteadOfBump.Size = new System.Drawing.Size(119, 17);
+            this.checkBox_ctr_out_bump_StimInsteadOfBump.TabIndex = 32;
+            this.checkBox_ctr_out_bump_StimInsteadOfBump.Text = "StimInsteadOfBump";
+            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_StimInsteadOfBump, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_ctr_out_bump_StimInsteadOfBump.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_ctr_out_bump_StimDuringBump
+            // 
+            this.checkBox_ctr_out_bump_StimDuringBump.AutoSize = true;
+            this.checkBox_ctr_out_bump_StimDuringBump.Location = new System.Drawing.Point(9, 19);
+            this.checkBox_ctr_out_bump_StimDuringBump.Name = "checkBox_ctr_out_bump_StimDuringBump";
+            this.checkBox_ctr_out_bump_StimDuringBump.Size = new System.Drawing.Size(110, 17);
+            this.checkBox_ctr_out_bump_StimDuringBump.TabIndex = 31;
+            this.checkBox_ctr_out_bump_StimDuringBump.Text = "Stim During Bump";
+            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_StimDuringBump, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox_ctr_out_bump_StimDuringBump.UseVisualStyleBackColor = true;
+            // 
             // StimLevels
             // 
             this.StimLevels.AutoSize = true;
-            this.StimLevels.Location = new System.Drawing.Point(6, 34);
+            this.StimLevels.Location = new System.Drawing.Point(6, 76);
             this.StimLevels.Name = "StimLevels";
             this.StimLevels.Size = new System.Drawing.Size(61, 13);
             this.StimLevels.TabIndex = 21;
@@ -14664,7 +14694,7 @@ namespace BehaviorGraphics
             // 
             // textBox_ctr_out_bump_StimLevels
             // 
-            this.textBox_ctr_out_bump_StimLevels.Location = new System.Drawing.Point(68, 31);
+            this.textBox_ctr_out_bump_StimLevels.Location = new System.Drawing.Point(68, 73);
             this.textBox_ctr_out_bump_StimLevels.Name = "textBox_ctr_out_bump_StimLevels";
             this.textBox_ctr_out_bump_StimLevels.Size = new System.Drawing.Size(34, 20);
             this.textBox_ctr_out_bump_StimLevels.TabIndex = 20;
@@ -14675,7 +14705,7 @@ namespace BehaviorGraphics
             // label_ctr_out_bump_StimProb
             // 
             this.label_ctr_out_bump_StimProb.AutoSize = true;
-            this.label_ctr_out_bump_StimProb.Location = new System.Drawing.Point(6, 12);
+            this.label_ctr_out_bump_StimProb.Location = new System.Drawing.Point(6, 54);
             this.label_ctr_out_bump_StimProb.Name = "label_ctr_out_bump_StimProb";
             this.label_ctr_out_bump_StimProb.Size = new System.Drawing.Size(52, 13);
             this.label_ctr_out_bump_StimProb.TabIndex = 19;
@@ -14683,7 +14713,7 @@ namespace BehaviorGraphics
             // 
             // textBox_ctr_out_bump_StimProb
             // 
-            this.textBox_ctr_out_bump_StimProb.Location = new System.Drawing.Point(68, 9);
+            this.textBox_ctr_out_bump_StimProb.Location = new System.Drawing.Point(68, 51);
             this.textBox_ctr_out_bump_StimProb.Name = "textBox_ctr_out_bump_StimProb";
             this.textBox_ctr_out_bump_StimProb.Size = new System.Drawing.Size(34, 20);
             this.textBox_ctr_out_bump_StimProb.TabIndex = 13;
@@ -14747,6 +14777,17 @@ namespace BehaviorGraphics
             this.groupBox74.TabIndex = 24;
             this.groupBox74.TabStop = false;
             this.groupBox74.Text = "Bump";
+            // 
+            // checkBox_ctr_out_bump_targetRelativeBumps
+            // 
+            this.checkBox_ctr_out_bump_targetRelativeBumps.AutoSize = true;
+            this.checkBox_ctr_out_bump_targetRelativeBumps.Location = new System.Drawing.Point(532, 21);
+            this.checkBox_ctr_out_bump_targetRelativeBumps.Name = "checkBox_ctr_out_bump_targetRelativeBumps";
+            this.checkBox_ctr_out_bump_targetRelativeBumps.Size = new System.Drawing.Size(128, 17);
+            this.checkBox_ctr_out_bump_targetRelativeBumps.TabIndex = 148;
+            this.checkBox_ctr_out_bump_targetRelativeBumps.Text = "Target-relative bumps";
+            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_targetRelativeBumps, "When checked, bumps directions will be relative to target direction");
+            this.checkBox_ctr_out_bump_targetRelativeBumps.UseVisualStyleBackColor = true;
             // 
             // checkBox_ctr_out_bump_randomBumpTime
             // 
@@ -15242,6 +15283,8 @@ namespace BehaviorGraphics
             // 
             // groupBox75
             // 
+            this.groupBox75.Controls.Add(this.label_ctr_out_bump_StimDelay);
+            this.groupBox75.Controls.Add(this.textBox_ctr_out_bump_StimDelay);
             this.groupBox75.Controls.Add(this.textBox_ctr_out_bump_targetHoldHigh);
             this.groupBox75.Controls.Add(this.textBox_ctr_out_bump_targetHoldLow);
             this.groupBox75.Controls.Add(this.label_ctr_out_bump_targetHoldHigh);
@@ -15267,14 +15310,31 @@ namespace BehaviorGraphics
             this.groupBox75.Controls.Add(this.label_ctr_out_bump_CHLow);
             this.groupBox75.Location = new System.Drawing.Point(10, 8);
             this.groupBox75.Name = "groupBox75";
-            this.groupBox75.Size = new System.Drawing.Size(284, 150);
+            this.groupBox75.Size = new System.Drawing.Size(284, 168);
             this.groupBox75.TabIndex = 23;
             this.groupBox75.TabStop = false;
             this.groupBox75.Text = "Timing";
             // 
+            // label_ctr_out_bump_StimDelay
+            // 
+            this.label_ctr_out_bump_StimDelay.AutoSize = true;
+            this.label_ctr_out_bump_StimDelay.Location = new System.Drawing.Point(6, 78);
+            this.label_ctr_out_bump_StimDelay.Name = "label_ctr_out_bump_StimDelay";
+            this.label_ctr_out_bump_StimDelay.Size = new System.Drawing.Size(57, 13);
+            this.label_ctr_out_bump_StimDelay.TabIndex = 24;
+            this.label_ctr_out_bump_StimDelay.Text = "Stim Delay";
+            // 
+            // textBox_ctr_out_bump_StimDelay
+            // 
+            this.textBox_ctr_out_bump_StimDelay.Location = new System.Drawing.Point(91, 75);
+            this.textBox_ctr_out_bump_StimDelay.Name = "textBox_ctr_out_bump_StimDelay";
+            this.textBox_ctr_out_bump_StimDelay.Size = new System.Drawing.Size(43, 20);
+            this.textBox_ctr_out_bump_StimDelay.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.textBox_ctr_out_bump_StimDelay, "Time allowed in s after go-cue before the trial ends as incomplete");
+            // 
             // textBox_ctr_out_bump_targetHoldHigh
             // 
-            this.textBox_ctr_out_bump_targetHoldHigh.Location = new System.Drawing.Point(236, 79);
+            this.textBox_ctr_out_bump_targetHoldHigh.Location = new System.Drawing.Point(236, 98);
             this.textBox_ctr_out_bump_targetHoldHigh.Name = "textBox_ctr_out_bump_targetHoldHigh";
             this.textBox_ctr_out_bump_targetHoldHigh.Size = new System.Drawing.Size(43, 20);
             this.textBox_ctr_out_bump_targetHoldHigh.TabIndex = 22;
@@ -15282,7 +15342,7 @@ namespace BehaviorGraphics
             // 
             // textBox_ctr_out_bump_targetHoldLow
             // 
-            this.textBox_ctr_out_bump_targetHoldLow.Location = new System.Drawing.Point(91, 77);
+            this.textBox_ctr_out_bump_targetHoldLow.Location = new System.Drawing.Point(91, 96);
             this.textBox_ctr_out_bump_targetHoldLow.Name = "textBox_ctr_out_bump_targetHoldLow";
             this.textBox_ctr_out_bump_targetHoldLow.Size = new System.Drawing.Size(43, 20);
             this.textBox_ctr_out_bump_targetHoldLow.TabIndex = 21;
@@ -15291,7 +15351,7 @@ namespace BehaviorGraphics
             // label_ctr_out_bump_targetHoldHigh
             // 
             this.label_ctr_out_bump_targetHoldHigh.AutoSize = true;
-            this.label_ctr_out_bump_targetHoldHigh.Location = new System.Drawing.Point(146, 82);
+            this.label_ctr_out_bump_targetHoldHigh.Location = new System.Drawing.Point(146, 101);
             this.label_ctr_out_bump_targetHoldHigh.Name = "label_ctr_out_bump_targetHoldHigh";
             this.label_ctr_out_bump_targetHoldHigh.Size = new System.Drawing.Size(84, 13);
             this.label_ctr_out_bump_targetHoldHigh.TabIndex = 20;
@@ -15300,7 +15360,7 @@ namespace BehaviorGraphics
             // label_ctr_out_bump_targetHoldLow
             // 
             this.label_ctr_out_bump_targetHoldLow.AutoSize = true;
-            this.label_ctr_out_bump_targetHoldLow.Location = new System.Drawing.Point(6, 80);
+            this.label_ctr_out_bump_targetHoldLow.Location = new System.Drawing.Point(6, 99);
             this.label_ctr_out_bump_targetHoldLow.Name = "label_ctr_out_bump_targetHoldLow";
             this.label_ctr_out_bump_targetHoldLow.Size = new System.Drawing.Size(80, 13);
             this.label_ctr_out_bump_targetHoldLow.TabIndex = 19;
@@ -15377,7 +15437,7 @@ namespace BehaviorGraphics
             // label_ctr_out_bump_penalty
             // 
             this.label_ctr_out_bump_penalty.AutoSize = true;
-            this.label_ctr_out_bump_penalty.Location = new System.Drawing.Point(146, 128);
+            this.label_ctr_out_bump_penalty.Location = new System.Drawing.Point(146, 147);
             this.label_ctr_out_bump_penalty.Name = "label_ctr_out_bump_penalty";
             this.label_ctr_out_bump_penalty.Size = new System.Drawing.Size(42, 13);
             this.label_ctr_out_bump_penalty.TabIndex = 10;
@@ -15385,7 +15445,7 @@ namespace BehaviorGraphics
             // 
             // textBox_ctr_out_bump_penalty
             // 
-            this.textBox_ctr_out_bump_penalty.Location = new System.Drawing.Point(236, 124);
+            this.textBox_ctr_out_bump_penalty.Location = new System.Drawing.Point(236, 143);
             this.textBox_ctr_out_bump_penalty.Name = "textBox_ctr_out_bump_penalty";
             this.textBox_ctr_out_bump_penalty.Size = new System.Drawing.Size(43, 20);
             this.textBox_ctr_out_bump_penalty.TabIndex = 9;
@@ -15393,7 +15453,7 @@ namespace BehaviorGraphics
             // 
             // textBox_ctr_out_bump_intertrial
             // 
-            this.textBox_ctr_out_bump_intertrial.Location = new System.Drawing.Point(91, 122);
+            this.textBox_ctr_out_bump_intertrial.Location = new System.Drawing.Point(91, 141);
             this.textBox_ctr_out_bump_intertrial.Name = "textBox_ctr_out_bump_intertrial";
             this.textBox_ctr_out_bump_intertrial.Size = new System.Drawing.Size(43, 20);
             this.textBox_ctr_out_bump_intertrial.TabIndex = 8;
@@ -15402,7 +15462,7 @@ namespace BehaviorGraphics
             // label_ctr_out_bump_intertrial
             // 
             this.label_ctr_out_bump_intertrial.AutoSize = true;
-            this.label_ctr_out_bump_intertrial.Location = new System.Drawing.Point(6, 125);
+            this.label_ctr_out_bump_intertrial.Location = new System.Drawing.Point(6, 144);
             this.label_ctr_out_bump_intertrial.Name = "label_ctr_out_bump_intertrial";
             this.label_ctr_out_bump_intertrial.Size = new System.Drawing.Size(44, 13);
             this.label_ctr_out_bump_intertrial.TabIndex = 7;
@@ -15410,7 +15470,7 @@ namespace BehaviorGraphics
             // 
             // textBox_ctr_out_bump_BumpHold
             // 
-            this.textBox_ctr_out_bump_BumpHold.Location = new System.Drawing.Point(236, 101);
+            this.textBox_ctr_out_bump_BumpHold.Location = new System.Drawing.Point(236, 120);
             this.textBox_ctr_out_bump_BumpHold.Name = "textBox_ctr_out_bump_BumpHold";
             this.textBox_ctr_out_bump_BumpHold.Size = new System.Drawing.Size(43, 20);
             this.textBox_ctr_out_bump_BumpHold.TabIndex = 6;
@@ -15418,7 +15478,7 @@ namespace BehaviorGraphics
             // 
             // textBox_ctr_out_bump_BumpDelay
             // 
-            this.textBox_ctr_out_bump_BumpDelay.Location = new System.Drawing.Point(91, 99);
+            this.textBox_ctr_out_bump_BumpDelay.Location = new System.Drawing.Point(91, 118);
             this.textBox_ctr_out_bump_BumpDelay.Name = "textBox_ctr_out_bump_BumpDelay";
             this.textBox_ctr_out_bump_BumpDelay.Size = new System.Drawing.Size(43, 20);
             this.textBox_ctr_out_bump_BumpDelay.TabIndex = 5;
@@ -15427,7 +15487,7 @@ namespace BehaviorGraphics
             // label_ctr_out_bump_BumpHold
             // 
             this.label_ctr_out_bump_BumpHold.AutoSize = true;
-            this.label_ctr_out_bump_BumpHold.Location = new System.Drawing.Point(146, 104);
+            this.label_ctr_out_bump_BumpHold.Location = new System.Drawing.Point(146, 123);
             this.label_ctr_out_bump_BumpHold.Name = "label_ctr_out_bump_BumpHold";
             this.label_ctr_out_bump_BumpHold.Size = new System.Drawing.Size(59, 13);
             this.label_ctr_out_bump_BumpHold.TabIndex = 4;
@@ -15436,7 +15496,7 @@ namespace BehaviorGraphics
             // label_ctr_out_bump_BumpDelay
             // 
             this.label_ctr_out_bump_BumpDelay.AutoSize = true;
-            this.label_ctr_out_bump_BumpDelay.Location = new System.Drawing.Point(6, 102);
+            this.label_ctr_out_bump_BumpDelay.Location = new System.Drawing.Point(6, 121);
             this.label_ctr_out_bump_BumpDelay.Name = "label_ctr_out_bump_BumpDelay";
             this.label_ctr_out_bump_BumpDelay.Size = new System.Drawing.Size(64, 13);
             this.label_ctr_out_bump_BumpDelay.TabIndex = 3;
@@ -21921,7 +21981,7 @@ namespace BehaviorGraphics
             // toolStripStatusLabelMdl
             // 
             this.toolStripStatusLabelMdl.Name = "toolStripStatusLabelMdl";
-            this.toolStripStatusLabelMdl.Size = new System.Drawing.Size(99, 17);
+            this.toolStripStatusLabelMdl.Size = new System.Drawing.Size(86, 17);
             this.toolStripStatusLabelMdl.Text = "No model loaded";
             // 
             // toolStripProgressBar1
@@ -21954,14 +22014,14 @@ namespace BehaviorGraphics
             this.toolStripSeparator2,
             this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -21969,7 +22029,7 @@ namespace BehaviorGraphics
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -21978,30 +22038,30 @@ namespace BehaviorGraphics
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
                         | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(183, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(183, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.quitToolStripMenuItem.Text = "&Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quit);
             // 
@@ -22011,13 +22071,13 @@ namespace BehaviorGraphics
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -22031,27 +22091,27 @@ namespace BehaviorGraphics
             this.setLabToolStripMenuItem,
             this.keepGraphicsRunningToolStripMenuItem});
             this.displayToolStripMenuItem.Name = "displayToolStripMenuItem";
-            this.displayToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.displayToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.displayToolStripMenuItem.Text = "&Display";
             // 
             // boxToolStripMenuItem
             // 
             this.boxToolStripMenuItem.Name = "boxToolStripMenuItem";
-            this.boxToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.boxToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.boxToolStripMenuItem.Text = "&Box";
             this.boxToolStripMenuItem.Click += new System.EventHandler(this.boxToolStripMenuItem_Click);
             // 
             // boxSettingsToolStripMenuItem
             // 
             this.boxSettingsToolStripMenuItem.Name = "boxSettingsToolStripMenuItem";
-            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.boxSettingsToolStripMenuItem.Text = "Box &Settings...";
             this.boxSettingsToolStripMenuItem.Click += new System.EventHandler(this.boxSettingsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(194, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(181, 6);
             // 
             // soundThemeToolStripMenuItem
             // 
@@ -22061,7 +22121,7 @@ namespace BehaviorGraphics
             this.theme3ToolStripMenuItem,
             this.theme4ToolStripMenuItem});
             this.soundThemeToolStripMenuItem.Name = "soundThemeToolStripMenuItem";
-            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.soundThemeToolStripMenuItem.Text = "Sound &Theme";
             // 
             // theme1ToolStripMenuItem
@@ -22069,42 +22129,42 @@ namespace BehaviorGraphics
             this.theme1ToolStripMenuItem.Checked = true;
             this.theme1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.theme1ToolStripMenuItem.Name = "theme1ToolStripMenuItem";
-            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.theme1ToolStripMenuItem.Text = "Theme 1";
             this.theme1ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme2ToolStripMenuItem
             // 
             this.theme2ToolStripMenuItem.Name = "theme2ToolStripMenuItem";
-            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.theme2ToolStripMenuItem.Text = "Theme 2";
             this.theme2ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme3ToolStripMenuItem
             // 
             this.theme3ToolStripMenuItem.Name = "theme3ToolStripMenuItem";
-            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.theme3ToolStripMenuItem.Text = "Theme 3";
             this.theme3ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme4ToolStripMenuItem
             // 
             this.theme4ToolStripMenuItem.Name = "theme4ToolStripMenuItem";
-            this.theme4ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.theme4ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.theme4ToolStripMenuItem.Text = "Theme 4";
             this.theme4ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // setLabToolStripMenuItem
             // 
             this.setLabToolStripMenuItem.Name = "setLabToolStripMenuItem";
-            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.setLabToolStripMenuItem.Text = "Set &Lab...";
             this.setLabToolStripMenuItem.Click += new System.EventHandler(this.setLabToolStripMenuItem_Click);
             // 
             // keepGraphicsRunningToolStripMenuItem
             // 
             this.keepGraphicsRunningToolStripMenuItem.Name = "keepGraphicsRunningToolStripMenuItem";
-            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.keepGraphicsRunningToolStripMenuItem.Text = "&Keep Graphics Running";
             this.keepGraphicsRunningToolStripMenuItem.Click += new System.EventHandler(this.keepGraphicsRunningToolStripMenuItem_Click);
             // 
@@ -22114,14 +22174,14 @@ namespace BehaviorGraphics
             this.loadModelToolStripMenuItem,
             this.resetCountersToolStripMenuItem});
             this.modelToolStripMenuItem.Name = "modelToolStripMenuItem";
-            this.modelToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.modelToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.modelToolStripMenuItem.Text = "&Model";
             // 
             // loadModelToolStripMenuItem
             // 
             this.loadModelToolStripMenuItem.Name = "loadModelToolStripMenuItem";
             this.loadModelToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.loadModelToolStripMenuItem.Text = "&Load Model";
             this.loadModelToolStripMenuItem.Click += new System.EventHandler(this.loadModelToolStripMenuItem_Click);
             // 
@@ -22129,7 +22189,7 @@ namespace BehaviorGraphics
             // 
             this.resetCountersToolStripMenuItem.Name = "resetCountersToolStripMenuItem";
             this.resetCountersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.resetCountersToolStripMenuItem.Text = "&Reset Counters";
             this.resetCountersToolStripMenuItem.Click += new System.EventHandler(this.resetCountersToolStripMenuItem_Click);
             // 
@@ -24223,17 +24283,6 @@ namespace BehaviorGraphics
             this.angleEntryBox_SA.Size = new System.Drawing.Size(100, 21);
             this.angleEntryBox_SA.TabIndex = 19;
             this.angleEntryBox_SA.Value = 0;
-            // 
-            // checkBox_ctr_out_bump_targetRelativeBumps
-            // 
-            this.checkBox_ctr_out_bump_targetRelativeBumps.AutoSize = true;
-            this.checkBox_ctr_out_bump_targetRelativeBumps.Location = new System.Drawing.Point(532, 21);
-            this.checkBox_ctr_out_bump_targetRelativeBumps.Name = "checkBox_ctr_out_bump_targetRelativeBumps";
-            this.checkBox_ctr_out_bump_targetRelativeBumps.Size = new System.Drawing.Size(128, 17);
-            this.checkBox_ctr_out_bump_targetRelativeBumps.TabIndex = 148;
-            this.checkBox_ctr_out_bump_targetRelativeBumps.Text = "Target-relative bumps";
-            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_targetRelativeBumps, "When checked, bumps directions will be relative to target direction");
-            this.checkBox_ctr_out_bump_targetRelativeBumps.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -26800,5 +26849,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.CheckBox checkBoxUCK_nofail;
         private System.Windows.Forms.CheckBox checkBox_ctr_out_bump_randomBumpTime;
         private System.Windows.Forms.CheckBox checkBox_ctr_out_bump_targetRelativeBumps;
+        private System.Windows.Forms.CheckBox checkBox_ctr_out_bump_StimInsteadOfBump;
+        private System.Windows.Forms.CheckBox checkBox_ctr_out_bump_StimDuringBump;
+        private System.Windows.Forms.Label label_ctr_out_bump_StimDelay;
+        private System.Windows.Forms.TextBox textBox_ctr_out_bump_StimDelay;
     }
 }

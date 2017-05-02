@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1298"
+    ComputedModelVersion    "1.1299"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -56,7 +56,7 @@ Model {
 	LoadSaveID		"0"
 	Extents			[913.0, 620.0]
 	ZoomFactor		[0.59999999999999987]
-	Offset			[4.3713581599147275, -223.67391383716557]
+	Offset			[-155.47730923694365, 68.673110624318042]
       }
     }
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Feb 06 15:05:59 2017"
-  RTWModifiedTimeStamp	  408294356
-  ModelVersionFormat	  "1.%<AutoIncrement:1298>"
+  LastModifiedDate	  "Mon Feb 06 15:23:58 2017"
+  RTWModifiedTimeStamp	  408295127
+  ModelVersionFormat	  "1.%<AutoIncrement:1299>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -614,7 +614,7 @@ Model {
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
-		Dimension		13
+		Dimension		14
 		Cell			"GeneratePreprocessorConditionals"
 		Cell			"IncludeMdlTerminateFcn"
 		Cell			"SupportNonInlinedSFcns"
@@ -628,6 +628,7 @@ Model {
 		Cell			"SupportComplex"
 		Cell			"SupportAbsoluteTime"
 		Cell			"SupportContinuousTime"
+		Cell			"CombineOutputUpdateFcns"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
@@ -2982,6 +2983,16 @@ Model {
       Position		      [55, 632, 180, 868]
       ZOrder		      18
       LibraryVersion	      "1.203"
+      LinkData {
+	BlockName		"Jacobian-Cartesian Transformation/L1"
+	DialogParameters {
+	  Value			  "20"
+	}
+	BlockName		"Jacobian-Cartesian Transformation/L2"
+	DialogParameters {
+	  Value			  "20"
+	}
+      }
       SourceBlock	      "limblab/XY Position Subsystem"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off

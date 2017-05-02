@@ -180,13 +180,49 @@
 %  * bytes 75-78:	float		=> bump direction
 
 %  * byte 79:		uchar		=> stim trial
-%  * bytes 80-83:	float		=> stim trial rate
+%  
+%  
+% * Version 4 (0x05)
+%  * ----------------
+%  * byte  0:		uchar		=> number of bytes to be transmitted
+%  * byte  1:		uchar		=> version number (in this case 0)
+%  * byte  2-4:		uchar		=> task code 'C' 'O' 'B'
+%  * bytes 5-6:		uchar       => version code
+%  * byte  7-8:		uchar		=> version code (micro)
+ 
+%  * bytes 9-12:	float		=> center hold time
+%  * bytes 13-16:	float		=> delay time
+%  * bytes 17-20:	float		=> move time
+%  * bytes 21-24:	float		=> bump delay time
+%  * bytes 25-28:	float		=> bump hold time
+%  * bytes 29-32:	float		=> intertrial time
+%  * bytes 33-36:	float		=> penalty time
+
+%  * bytes 37-40:	float		=> target size
+%  * bytes 41-44:	float		=> target radius
+%  * bytes 45-48:	float		=> target angle
+
+%  * byte 49:		uchar		=> hide cursor
+%  * bytes 50-53:	float		=> hide radius min
+%  * bytes 54-57:	float		=> hide radius max
+
+%  * byte 58:		uchar		=> abort during bumps
+%  * bytes 59:      uchar		=> catch trial rate: THIS IS BUGGY-Casts the rate as a uchar, rather than a float
+%  * byte 60:		uchar		=> do center hold bump
+%  * byte 61:		uchar		=> do delay period bump
+%  * byte 62:		uchar		=> do move bump
+%  * bytes 63-66:	float		=> bump hold at peak
+%  * bytes 67-70:	float		=> bump rise time
+%  * bytes 71-74:	float		=> bump magnitude
+%  * bytes 75-78:	float		=> bump direction
+
+%  * byte 79:		uchar		=> stim trial
+%  * byte 80:		uchar		=> stim during bump
+%  * byte 81:		uchar		=> stim instead of bump
+%  * bytes 82-85:	float		=> stim delay time
 %  
 %  */
-
-
-
-#define DATABURST_VERSION ((byte)0x04) 
+#define DATABURST_VERSION ((byte)0x05) 
 #define DATABURST_TASK_CODE ((byte)0x01)
 
 // This must be custom defined for your behavior
@@ -246,6 +282,10 @@ struct LocalParams {
     
     real_T random_bump_timing;
     real_T target_relative_bump;
+    real_T stimDuringBump;
+    real_T stimInsteadOfBump;
+    real_T stimDelay;
+    
 };
 
 /**
@@ -306,70 +346,73 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 
 	// Set up the number of parameters you'll be using
 
-	this->setNumParams(54);
+	this->setNumParams(57);
 	// Identify each bound variable 
-	this->bindParamId(&params->master_reset,		0);
-	this->bindParamId(&params->soft_reset,			1);
-	this->bindParamId(&params->CH_low,			2);
-	this->bindParamId(&params->CH_high,			3);
-	this->bindParamId(&params->DP_low,			4);
-	this->bindParamId(&params->DP_high,			5);
-	this->bindParamId(&params->move_time,			6);
-	this->bindParamId(&params->target_hold_low,		7);
+	this->bindParamId(&params->master_reset,            0);
+	this->bindParamId(&params->soft_reset,              1);
+	this->bindParamId(&params->CH_low,                  2);
+	this->bindParamId(&params->CH_high,                 3);
+	this->bindParamId(&params->DP_low,                  4);
+	this->bindParamId(&params->DP_high,                 5);
+	this->bindParamId(&params->move_time,               6);
+	this->bindParamId(&params->target_hold_low,         7);
 	this->bindParamId(&params->target_hold_high,		8);
-	this->bindParamId(&params->bump_delay_time,		9);
-	this->bindParamId(&params->bump_hold_time,		10);
-	this->bindParamId(&params->intertrial_time,		11);
-	this->bindParamId(&params->penalty_time,		12);
+	this->bindParamId(&params->bump_delay_time,         9);
+	this->bindParamId(&params->bump_hold_time,          10);
+	this->bindParamId(&params->intertrial_time,         11);
+	this->bindParamId(&params->penalty_time,            12);
 
-	this->bindParamId(&params->target_size,			13);
-	this->bindParamId(&params->target_radius,		14);
-	this->bindParamId(&params->target_angle,		15);
-	this->bindParamId(&params->target_floor,		16);
-	this->bindParamId(&params->target_ceiling,		17);
-	this->bindParamId(&params->num_tgt,			18);
+	this->bindParamId(&params->target_size,             13);
+	this->bindParamId(&params->target_radius,           14);
+	this->bindParamId(&params->target_angle,            15);
+	this->bindParamId(&params->target_floor,            16);
+	this->bindParamId(&params->target_ceiling,          17);
+	this->bindParamId(&params->num_tgt,                 18);
 	this->bindParamId(&params->use_random_targets,		19);
     
-	this->bindParamId(&params->hide_cursor,			20);
-	this->bindParamId(&params->hide_radius_min,		21);
-	this->bindParamId(&params->hide_radius_max,		22);
+	this->bindParamId(&params->hide_cursor,             20);
+	this->bindParamId(&params->hide_radius_min,         21);
+	this->bindParamId(&params->hide_radius_max,         22);
 
-	this->bindParamId(&params->catch_rate,			23);
+	this->bindParamId(&params->catch_rate,              23);
 	this->bindParamId(&params->bi_directional_bumps,	24);
-   	this->bindParamId(&params->abort_during_bump,	    	25);
+   	this->bindParamId(&params->abort_during_bump,	    25);
 
-	this->bindParamId(&params->do_CH_bump,			26);
-	this->bindParamId(&params->CH_bump_rate,		27);
+	this->bindParamId(&params->do_CH_bump,              26);
+	this->bindParamId(&params->CH_bump_rate,            27);
 	this->bindParamId(&params->CH_bump_peak_hold,		28);
-   	this->bindParamId(&params->CH_bump_ramp,		29);
+   	this->bindParamId(&params->CH_bump_ramp,            29);
 	this->bindParamId(&params->CH_bump_magnitude,		30);
    	this->bindParamId(&params->CH_bump_dir_floor,		31);
    	this->bindParamId(&params->CH_bump_dir_ceil,		32);
-   	this->bindParamId(&params->CH_bump_num_dir,		33);
+   	this->bindParamId(&params->CH_bump_num_dir,         33);
 
-	this->bindParamId(&params->do_DP_bump,			34);
-	this->bindParamId(&params->DP_bump_rate,		35);
+	this->bindParamId(&params->do_DP_bump,              34);
+	this->bindParamId(&params->DP_bump_rate,            35);
 	this->bindParamId(&params->DP_bump_peak_hold,		36);
-   	this->bindParamId(&params->DP_bump_ramp,		37);
+   	this->bindParamId(&params->DP_bump_ramp,            37);
 	this->bindParamId(&params->DP_bump_magnitude,		38);
    	this->bindParamId(&params->DP_bump_dir_floor,		39);
    	this->bindParamId(&params->DP_bump_dir_ceil,		40);
-   	this->bindParamId(&params->DP_bump_num_dir,		41);
+   	this->bindParamId(&params->DP_bump_num_dir,         41);
 
-	this->bindParamId(&params->do_M_bump,			42);
-	this->bindParamId(&params->M_bump_rate,			43);
+	this->bindParamId(&params->do_M_bump,               42);
+	this->bindParamId(&params->M_bump_rate,             43);
 	this->bindParamId(&params->M_bump_peak_hold,		44);
-   	this->bindParamId(&params->M_bump_ramp,			45);
+   	this->bindParamId(&params->M_bump_ramp,             45);
 	this->bindParamId(&params->M_bump_magnitude,		46);
    	this->bindParamId(&params->M_bump_dir_floor,		47);
-   	this->bindParamId(&params->M_bump_dir_ceil,		48);
-   	this->bindParamId(&params->M_bump_num_dir,		49);
+   	this->bindParamId(&params->M_bump_dir_ceil,         48);
+   	this->bindParamId(&params->M_bump_num_dir,          49);
 
-	this->bindParamId(&params->stim_prob,			50);
-	this->bindParamId(&params->stim_levels,			51);
+	this->bindParamId(&params->stim_prob,               50);
+	this->bindParamId(&params->stim_levels,             51);
     
-    this->bindParamId(&params->random_bump_timing,  52);
+    this->bindParamId(&params->random_bump_timing,      52);
     this->bindParamId(&params->target_relative_bump,    53);
+    this->bindParamId(&params->stimDuringBump,          54);
+    this->bindParamId(&params->stimInsteadOfBump,       55);
+    this->bindParamId(&params->stimDelay,               57);
     	
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -542,7 +585,6 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
     }
 		
 	
-
 	/* setup the databurst */
 	db->reset();
 	db->addByte(DATABURST_VERSION);
@@ -580,6 +622,9 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)this->bump->direction);
 
 	db->addByte((byte)this->stim_trial);
+    db->addByte((byte)this->params->stimDuringBump);
+    db->addByte((byte)this->params->stimInsteadOfBump);
+    db->addByte((byte)this->params->stimDelay);
 	db->start();
 }
 
@@ -610,8 +655,14 @@ void COBumpBehavior::update(SimStruct *S) {
 				setState(STATE_ABORT);
 			} else if(this->CH_bump && this->ch_timer->elapsedTime(S)>this->bump_time){
                 this->ch_timer->pause(S);
-				bump->start(S);
-				setState(STATE_BUMP);
+                if(this->stim_trial && this->params->stimInsteadOfBump){
+                    if(stateTimer->elapsedTime(S) > this->params->stimDelay){
+                        setState(STATE_STIM);
+                    }
+                } else {
+                    bump->start(S);
+                    setState(STATE_BUMP);
+                }
 			} else if (this->ch_timer->elapsedTime(S) > this->ctr_hold) {
 				setState(STATE_DELAY);
 			}
@@ -620,9 +671,15 @@ void COBumpBehavior::update(SimStruct *S) {
 			if(!centerTarget->cursorInTarget(inputs->cursor)){
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			}else if(this->DP_bump && stateTimer->elapsedTime(S) > this->bump_time){
-				bump->start(S);
-				setState(STATE_BUMP);
+			} else if(this->DP_bump && stateTimer->elapsedTime(S) > this->bump_time){
+				if(this->stim_trial && this->params->stimInsteadOfBump){
+                    if(stateTimer->elapsedTime(S) > this->params->stimDelay){
+                        setState(STATE_STIM);
+                    }
+                } else {
+                    bump->start(S);
+                    setState(STATE_BUMP);
+                }
 			}else if(stateTimer->elapsedTime(S) > this->delay_hold){
 				playTone(TONE_GO);
 				setState(STATE_MOVEMENT);
@@ -633,15 +690,23 @@ void COBumpBehavior::update(SimStruct *S) {
         		playTone(TONE_REWARD);
             	setState(STATE_REWARD);
 			}else if (M_bump && stateTimer->elapsedTime(S) > this->bump_time){ 
-				bump->start(S);
-				setState(STATE_BUMP);
+				if(this->stim_trial && this->params->stimInsteadOfBump){
+                    if(stateTimer->elapsedTime(S) > this->params->stimDelay){
+                        setState(STATE_STIM);
+                    }
+                } else {
+                    bump->start(S);
+                    setState(STATE_BUMP);
+                }
 			}else if (stateTimer->elapsedTime(S) > this->params->move_time){
                 playTone(TONE_FAIL);
     			setState(STATE_INCOMPLETE);
        		}
 			break;         
 		case STATE_BUMP:
-			if(this->params->abort_during_bump && (this->CH_bump || this->DP_bump) && !centerTarget->cursorInTarget(inputs->cursor)){
+			if(this->params->stimDuringBump && stateTimer->elapsedTime(S) > this->params->stimDelay){
+                setState(STATE_STIM);
+            }else if(this->params->abort_during_bump && (this->CH_bump || this->DP_bump) && !centerTarget->cursorInTarget(inputs->cursor)){
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}else if(stateTimer->elapsedTime(S) > this->params->bump_hold_time) {
@@ -668,16 +733,32 @@ void COBumpBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_STIM:
-			if (stateTimer->elapsedTime(S) > this->params->bump_hold_time){
-				if (this->random->getDouble() < this->reward_rate){
-					playTone(TONE_REWARD);
-					setState(STATE_REWARD);
-				} else {
-					playTone(TONE_FAIL);
-					setState(STATE_PENALTY);
-				}
-            		} 
-			break;   
+			if(this->params->abort_during_bump && (this->CH_bump || this->DP_bump) && !centerTarget->cursorInTarget(inputs->cursor)){
+				playTone(TONE_ABORT);
+				setState(STATE_ABORT);
+			}else if(stateTimer->elapsedTime(S) > this->params->bump_hold_time - this->params->stimDelay) {
+				if(this->CH_bump){
+					//setState(STATE_DELAY);
+                    if(centerTarget->cursorInTarget(inputs->cursor)){
+                        // reset bump bool so that bump isn't triggered again on this trial
+                        this->CH_bump = false;
+                        // resume CH timer
+                        this->ch_timer->start(S);
+                        // Go back to CT_HOLD
+                        setState(STATE_CT_HOLD);
+                    }
+				} else if(this->DP_bump){
+					playTone(TONE_GO);
+    				setState(STATE_MOVEMENT);
+				} 
+            }else if(this->M_bump && primaryTarget->cursorInTarget(inputs->cursor)){
+				playTone(TONE_REWARD);
+				setState(STATE_REWARD);
+			} else if(this->M_bump && this->params->move_time < (stateTimer->elapsedTime(S)+this->params->bump_delay_time)){
+				playTone(TONE_FAIL);
+				setState(STATE_INCOMPLETE);
+			}
+			break;  
 		case STATE_PENALTY:
 			if (stateTimer->elapsedTime(S) > this->params->penalty_time) {
 				setState(STATE_FAIL);

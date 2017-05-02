@@ -916,6 +916,8 @@ namespace BehaviorGraphics
             AddParamListItem("COB intertrial",              "P12", "Behavior CO Bump", textBox_ctr_out_bump_intertrial);
             AddParamListItem("COB penalty time",            "P13", "Behavior CO Bump", textBox_ctr_out_bump_penalty);
 
+            AddParamListItem("COB stim delay time", "P57", "Behavior CO Bump", textBox_ctr_out_bump_StimDelay);
+            
             //target info
             AddParamListItem("COB target size",             "P14", "Behavior CO Bump", textBox_ctr_out_bump_TargetRadius);
             AddParamListItem("COB target radius",           "P15", "Behavior CO Bump", textBox_ctr_out_bump_TargetDistance);
@@ -962,6 +964,8 @@ namespace BehaviorGraphics
             //stim info
             AddParamListItem("COB stim prob",               "P51", "Behavior CO Bump", textBox_ctr_out_bump_StimProb);
             AddParamListItem("COB stim levels",             "P52", "Behavior CO Bump", textBox_ctr_out_bump_StimLevels);
+            AddParamListItem("COB stim during bump", "P55", "Behavior CO Bump", checkBox_ctr_out_bump_StimDuringBump);
+            AddParamListItem("COB stim instead of bump", "P56", "Behavior CO Bump", checkBox_ctr_out_bump_StimInsteadOfBump);
 
             //extra bump parameter
             AddParamListItem("COB use random bump time",    "P53", "Behavior CO Bump", checkBox_ctr_out_bump_randomBumpTime);
@@ -3110,7 +3114,6 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
-
 
     }
 
