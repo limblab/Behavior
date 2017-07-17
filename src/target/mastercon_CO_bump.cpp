@@ -107,7 +107,7 @@
 %  * byte 79:		uchar		=> stim trial
 %  * bytes 80-83:	float		=> stim trial rate
 %  
-	
+
 % * Version 3 (0x03)
 %  * ----------------
 %  * byte  0:		uchar		=> number of bytes to be transmitted
