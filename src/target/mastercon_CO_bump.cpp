@@ -11,7 +11,6 @@
 // Our task code will be in the databurst
 #define TASK_DB_DEFINED 1
 #include "words.h"
-
 #include "common_header.cpp"
 
 /*
@@ -426,7 +425,8 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	centerTarget = new CircleTarget();
 	primaryTarget = new CircleTarget(); 
  
-	centerTarget->color = Target::Color(128, 128, 128);
+// 	centerTarget->color = Target::Color(128, 128, 128);
+    centerTarget->color = Target::Color(160, 255, 0);
 	primaryTarget->color = Target::Color(160, 255, 0);
 
 	errorTarget = new SquareTarget(0, 0, 100, Target::Color(255, 255, 255));
@@ -493,12 +493,12 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
     this->ch_timer->reset(S);
 	
 	// Select whether this will be a stimulation trial 
-	this->stim_trial=(this->random->getDouble() < params->stim_prob);
+	this->stim_trial=(this->random->getDouble() < this->params->stim_prob);
 
 	//identify if this is a bump trial:
     rate_flag_match=((this->params->do_CH_bump && this->params->CH_bump_rate>0) || (this->params->do_DP_bump && this->params->DP_bump_rate>0) || (this->params->do_M_bump && this->params->M_bump_rate>0));
     if( this->params->catch_rate<1 && rate_flag_match){
-        this->do_bump=(this->random->getDouble(0,1)>params->catch_rate);
+        this->do_bump=(this->random->getDouble(0,1)> this->params->catch_rate);
     } else {
         this->do_bump=false;
         this->bump->peak_magnitude = 0;
@@ -663,10 +663,8 @@ void COBumpBehavior::update(SimStruct *S) {
 				setState(STATE_ABORT);
 			} else if(this->CH_bump && this->ch_timer->elapsedTime(S)>this->bump_time){
                 this->ch_timer->pause(S);
-                if(this->stim_trial && this->params->stimInsteadOfBump){
-                    if(stateTimer->elapsedTime(S) > this->params->stimDelay){
+                if(this->stim_trial) {
                         setState(STATE_STIM);
-                    }
                 } else {
                     bump->start(S);
                     setState(STATE_BUMP);
@@ -680,10 +678,8 @@ void COBumpBehavior::update(SimStruct *S) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if(this->DP_bump && stateTimer->elapsedTime(S) > this->bump_time){
-				if(this->stim_trial && this->params->stimInsteadOfBump){
-                    if(stateTimer->elapsedTime(S) > this->params->stimDelay){
+				if(this->stim_trial ){
                         setState(STATE_STIM);
-                    }
                 } else {
                     bump->start(S);
                     setState(STATE_BUMP);
@@ -698,10 +694,8 @@ void COBumpBehavior::update(SimStruct *S) {
         		playTone(TONE_REWARD);
             	setState(STATE_REWARD);
 			}else if (this->M_bump && stateTimer->elapsedTime(S) > this->bump_time){ 
-				if(this->stim_trial && this->params->stimInsteadOfBump){
-                    if(stateTimer->elapsedTime(S) > this->params->stimDelay){
-                        setState(STATE_STIM);
-                    }
+				if(this->stim_trial) {
+                    setState(STATE_STIM);
                 } else {
                     bump->start(S);
                     setState(STATE_BUMP);
@@ -712,9 +706,7 @@ void COBumpBehavior::update(SimStruct *S) {
        		}
 			break;         
 		case STATE_BUMP:
-			if(this->stim_trial && this->params->stimDuringBump && stateTimer->elapsedTime(S) > this->params->stimDelay){
-                setState(STATE_STIM);
-            }else if(this->params->abort_during_bump && (this->CH_bump || this->DP_bump) && !centerTarget->cursorInTarget(inputs->cursor)){
+			if(this->params->abort_during_bump && (this->CH_bump || this->DP_bump) && !centerTarget->cursorInTarget(inputs->cursor)){
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}else if(stateTimer->elapsedTime(S) > this->params->bump_hold_time) {
@@ -742,10 +734,16 @@ void COBumpBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_STIM:
+            if(this->params->stimDuringBump){
+                this->stim_trial = false;
+                bump->start(S);
+                setState(STATE_BUMP);
+                break;
+            }
 			if(this->params->abort_during_bump && (this->CH_bump || this->DP_bump) && !centerTarget->cursorInTarget(inputs->cursor)){
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			}else if(stateTimer->elapsedTime(S) > this->params->bump_hold_time - this->params->stimDelay) {
+			}else if(stateTimer->elapsedTime(S) > this->params->bump_hold_time ) {
 				if(this->CH_bump){
 					//setState(STATE_DELAY);
                     if(centerTarget->cursorInTarget(inputs->cursor)){
