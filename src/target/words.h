@@ -112,6 +112,20 @@
 #define __BUILD_UPDATED__ 1
 #define __BUILD_UPDATED__ 1
 #define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
 
 /* 
  * $Id$
@@ -138,7 +152,7 @@
 #define BEHAVIOR_VERSION_MAJOR 2
 #define BEHAVIOR_VERSION_MINOR 8
 #define BEHAVIOR_VERSION_MICRO 491
-#define BEHAVIOR_VERSION_BUILD 3199
+#define BEHAVIOR_VERSION_BUILD 3217
 
 
 #ifndef __BUILD_UPDATED__
@@ -239,6 +253,7 @@
 /* for bump choice behavior, before abort or fail decided */
 #define WORD_LEAVE_CT 0x40
 
+#define WORD_RECEPTOR_STIM(s) (0x80 | (s))
 /* The meaning of d in the WORD_BUMP macro depends on context.
  * In CO: d is the direction of the bump, where the direction is 
  *		  equivalent to a target number and the bump is in the 
