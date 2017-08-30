@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1243"
+    ComputedModelVersion    "1.1246"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -30,7 +30,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, 0.0, 1040.0, 754.0]
+      Location		      [-8.0, 0.0, 1036.0, 754.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -54,9 +54,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[990.0, 580.0]
-	ZoomFactor		[1.0]
-	Offset			[-28.74654278012234, -56.383674574786049]
+	Extents			[986.0, 580.0]
+	ZoomFactor		[0.5]
+	Offset			[-271.87987611345579, -211.22663561079145]
       }
     }
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Aug 28 18:32:54 2017"
-  RTWModifiedTimeStamp	  425845973
-  ModelVersionFormat	  "1.%<AutoIncrement:1243>"
+  LastModifiedDate	  "Tue Aug 29 18:48:00 2017"
+  RTWModifiedTimeStamp	  425933278
+  ModelVersionFormat	  "1.%<AutoIncrement:1246>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1123,7 +1123,7 @@ Model {
   }
   System {
     Name		    "receptor_stim"
-    Location		    [-8, 0, 1032, 754]
+    Location		    [-8, 0, 1028, 754]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1135,15 +1135,15 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "100"
+    ZoomFactor		    "50"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "433"
+    SIDHighWatermark	    "435"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
       SID		      "2"
       Ports		      [1, 1]
-      Position		      [550, 678, 640, 742]
+      Position		      [675, 678, 765, 742]
       ZOrder		      -2
       RequestExecContextInheritance off
       System {
@@ -1402,7 +1402,7 @@ Model {
       Name		      "Catch Force Generator"
       SID		      "16"
       Ports		      [1, 1]
-      Position		      [545, 354, 605, 416]
+      Position		      [670, 354, 730, 416]
       ZOrder		      -3
       RequestExecContextInheritance off
       System {
@@ -2227,7 +2227,7 @@ Model {
       Name		      "Force Generator"
       SID		      "57"
       Ports		      [1, 1]
-      Position		      [545, 269, 605, 331]
+      Position		      [670, 269, 730, 331]
       ZOrder		      -4
       RequestExecContextInheritance off
       System {
@@ -3050,7 +3050,7 @@ Model {
       BlockType		      From
       Name		      "From"
       SID		      "98"
-      Position		      [550, 201, 600, 229]
+      Position		      [675, 201, 725, 229]
       ZOrder		      -5
       CloseFcn		      "tagdialog Close"
       GotoTag		      "Offsets"
@@ -3059,17 +3059,28 @@ Model {
       BlockType		      Goto
       Name		      "Goto"
       SID		      "99"
-      Position		      [1000, 268, 1045, 282]
+      Position		      [1125, 268, 1170, 282]
       ZOrder		      -6
       GotoTag		      "Reward"
       TagVisibility	      "global"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Intel Chipset\nDisable SMI"
+      SID		      "435"
+      Ports		      []
+      Position		      [20, 575, 110, 626]
+      ZOrder		      3
+      LibraryVersion	      "1.2"
+      SourceBlock	      "IntelSMIlibR2007b/Intel Chipset\nDisable SMI"
+      SourceType	      "ICH5SMI"
     }
     Block {
       BlockType		      Concatenate
       Name		      "Matrix\nConcatenation1"
       SID		      "101"
       Ports		      [2, 1]
-      Position		      [595, 479, 650, 521]
+      Position		      [720, 479, 775, 521]
       ZOrder		      -8
     }
     Block {
@@ -3077,7 +3088,7 @@ Model {
       Name		      "Motor Control"
       SID		      "102"
       Ports		      [5]
-      Position		      [1095, 529, 1285, 871]
+      Position		      [1220, 529, 1410, 871]
       ZOrder		      -9
       RequestExecContextInheritance off
       System {
@@ -4134,7 +4145,7 @@ Model {
       BlockType		      Switch
       Name		      "Neural Override"
       SID		      "152"
-      Position		      [410, 91, 455, 199]
+      Position		      [535, 91, 580, 199]
       ZOrder		      -10
       Criteria		      "u2 ~= 0"
       InputSameDT	      off
@@ -4146,7 +4157,7 @@ Model {
       Name		      "Neural Position Subsystem"
       SID		      "153"
       Ports		      [0, 6]
-      Position		      [165, 33, 280, 112]
+      Position		      [290, 33, 405, 112]
       ZOrder		      -11
       LibraryVersion	      "1.206"
       SourceBlock	      "limblab/Neural Position Subsystem"
@@ -4158,7 +4169,7 @@ Model {
       Name		      "Recentering Subsystem"
       SID		      "154"
       Ports		      [3, 2]
-      Position		      [750, 596, 870, 734]
+      Position		      [875, 596, 995, 734]
       ZOrder		      -12
       RequestExecContextInheritance off
       System {
@@ -6513,7 +6524,7 @@ Model {
       Name		      "Receptor Stim"
       SID		      "1"
       Ports		      [7, 8]
-      Position		      [660, 88, 885, 422]
+      Position		      [785, 88, 1010, 422]
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_receptor_stim"
@@ -6533,7 +6544,7 @@ Model {
       Name		      "RewardSbs"
       SID		      "267"
       Ports		      [1, 1]
-      Position		      [925, 259, 980, 291]
+      Position		      [1050, 259, 1105, 291]
       ZOrder		      -13
       RequestExecContextInheritance off
       System {
@@ -6892,7 +6903,7 @@ Model {
       Name		      "SendPacketToGraphics"
       SID		      "286"
       Ports		      [4]
-      Position		      [1235, 277, 1325, 378]
+      Position		      [1360, 277, 1450, 378]
       ZOrder		      -14
       LibraryVersion	      "1.206"
       SourceBlock	      "limblab/SendPacketToGraphics"
@@ -6904,7 +6915,7 @@ Model {
       Name		      "Status"
       SID		      "287"
       Ports		      [1]
-      Position		      [1010, 134, 1080, 176]
+      Position		      [1135, 134, 1205, 176]
       ZOrder		      -15
       LibraryVersion	      "1.1842"
       SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
@@ -6939,7 +6950,7 @@ Model {
       Name		      "Target Peek"
       SID		      "288"
       Ports		      [1, 1]
-      Position		      [1025, 214, 1125, 256]
+      Position		      [1150, 214, 1250, 256]
       ZOrder		      -16
       RequestExecContextInheritance off
       System {
@@ -7197,7 +7208,7 @@ Model {
       BlockType		      Constant
       Name		      "TargetCount"
       SID		      "302"
-      Position		      [1150, 350, 1180, 380]
+      Position		      [1275, 350, 1305, 380]
       ZOrder		      -17
       Value		      "17"
     }
@@ -7205,14 +7216,14 @@ Model {
       BlockType		      Terminator
       Name		      "Terminator"
       SID		      "303"
-      Position		      [1165, 225, 1185, 245]
+      Position		      [1290, 225, 1310, 245]
       ZOrder		      -18
     }
     Block {
       BlockType		      Terminator
       Name		      "Terminator1"
       SID		      "304"
-      Position		      [340, 80, 360, 100]
+      Position		      [465, 80, 485, 100]
       ZOrder		      -19
       NamePlacement	      "alternate"
       ShowName		      off
@@ -7221,7 +7232,7 @@ Model {
       BlockType		      Constant
       Name		      "Use Neural Control"
       SID		      "305"
-      Position		      [170, 130, 200, 160]
+      Position		      [295, 130, 325, 160]
       ZOrder		      -20
       Value		      "0"
     }
@@ -7230,7 +7241,7 @@ Model {
       Name		      "Velocity Calculation"
       SID		      "306"
       Ports		      [2, 1]
-      Position		      [390, 590, 500, 650]
+      Position		      [515, 590, 625, 650]
       ZOrder		      -21
       RequestExecContextInheritance off
       System {
@@ -7973,7 +7984,7 @@ Model {
       Name		      "Version Display"
       SID		      "333"
       Ports		      [1]
-      Position		      [975, 334, 1045, 376]
+      Position		      [1100, 334, 1170, 376]
       ZOrder		      -22
       LibraryVersion	      "1.1842"
       SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
@@ -8008,7 +8019,7 @@ Model {
       Name		      "WordSbs"
       SID		      "334"
       Ports		      [1]
-      Position		      [935, 174, 980, 216]
+      Position		      [1060, 174, 1105, 216]
       ZOrder		      -23
       RequestExecContextInheritance off
       System {
@@ -8057,7 +8068,7 @@ Model {
       Name		      "XY Position Subsystem"
       SID		      "337"
       Ports		      [0, 3]
-      Position		      [70, 641, 200, 779]
+      Position		      [195, 641, 325, 779]
       ZOrder		      -24
       RequestExecContextInheritance off
       System {
@@ -9993,7 +10004,7 @@ Model {
       Name		      "Xpos"
       SID		      "432"
       Ports		      [1]
-      Position		      [680, 480, 750, 520]
+      Position		      [805, 480, 875, 520]
       ZOrder		      -25
       LibraryVersion	      "1.1842"
       SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
@@ -10303,7 +10314,7 @@ Model {
     }
     Annotation {
       SID		      "433"
-      Position		      [954, 296, 956, 311]
+      Position		      [1079, 296, 1081, 311]
       InternalMargins	      [0, 0, 0, 0]
       FixedHeight	      off
       FixedWidth	      off

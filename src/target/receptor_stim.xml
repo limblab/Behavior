@@ -10544,6 +10544,7 @@ Function3</sigName>
           </parameter>
           </block>
 
+
  
             <block>
             <blkName>Receptor Stim</blkName>
@@ -10663,6 +10664,7 @@ Function3</sigName>
 
 
 
+
     
     
 
@@ -10690,6 +10692,11 @@ Concatenation1</sigName>
     
     
 
+
+
+
+    
+    
 
 
 
@@ -10808,6 +10815,23 @@ Concatenation1</sigName>
               <xpcsigName>Neural Override</xpcsigName>
               <sigWidth>2</sigWidth>
               <sigDim>[2, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Neural Override1</sigName>
+              <xpcsigName>Neural Override1</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
             </signal>
 
 </Root>
