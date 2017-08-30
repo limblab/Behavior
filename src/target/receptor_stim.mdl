@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1246"
+    ComputedModelVersion    "1.1247"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Aug 29 18:48:00 2017"
-  RTWModifiedTimeStamp	  425933278
-  ModelVersionFormat	  "1.%<AutoIncrement:1246>"
+  LastModifiedDate	  "Wed Aug 30 17:50:41 2017"
+  RTWModifiedTimeStamp	  425933334
+  ModelVersionFormat	  "1.%<AutoIncrement:1247>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -377,7 +377,7 @@ Model {
 	  SimStateInterfaceChecksumMismatchMsg "warning"
 	  SimStateOlderReleaseMsg "error"
 	  InitInArrayFormatMsg	  "warning"
-	  StrictBusMsg		  "None"
+	  StrictBusMsg		  "ErrorLevel1"
 	  BusNameAdapt		  "WarnAndRepair"
 	  NonBusSignalsTreatedAsBus "none"
 	  BlockIODiagnostic	  "none"
@@ -614,7 +614,7 @@ Model {
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
-		Dimension		13
+		Dimension		14
 		Cell			"GeneratePreprocessorConditionals"
 		Cell			"IncludeMdlTerminateFcn"
 		Cell			"SupportNonInlinedSFcns"
@@ -628,6 +628,7 @@ Model {
 		Cell			"SupportComplex"
 		Cell			"SupportAbsoluteTime"
 		Cell			"SupportContinuousTime"
+		Cell			"CombineOutputUpdateFcns"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
@@ -1137,7 +1138,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "50"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "435"
+    SIDHighWatermark	    "436"
     Block {
       BlockType		      SubSystem
       Name		      "BoundingBox"
@@ -3054,6 +3055,7 @@ Model {
       ZOrder		      -5
       CloseFcn		      "tagdialog Close"
       GotoTag		      "Offsets"
+      TagVisibility	      "global"
     }
     Block {
       BlockType		      Goto
@@ -4147,6 +4149,17 @@ Model {
       SID		      "152"
       Position		      [535, 91, 580, 199]
       ZOrder		      -10
+      Criteria		      "u2 ~= 0"
+      InputSameDT	      off
+      SaturateOnIntegerOverflow	off
+      ZeroCross		      off
+    }
+    Block {
+      BlockType		      Switch
+      Name		      "Neural Override1"
+      SID		      "436"
+      Position		      [375, 791, 420, 899]
+      ZOrder		      4
       Criteria		      "u2 ~= 0"
       InputSameDT	      off
       SaturateOnIntegerOverflow	off
