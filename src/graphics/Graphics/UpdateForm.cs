@@ -1570,6 +1570,30 @@ namespace BehaviorGraphics
                 AddParamListItem("OO force mag", "P15", "Behavior OutOut", this.textBoxOO_forcemag);
                 
             #endregion
+
+            #region ReceptorStim
+                AddParamListItem("RSNumTargets", "P1", "Behavior Receptor Stim", this.numericUpDownRSNumTarg);
+                AddParamListItem("RSTargSize", "P2", "Behavior Receptor Stim", this.textBoxRSTS);
+                AddParamListItem("RSTargTol", "P3", "Behavior Receptor Stim", this.textBoxRSTT);
+                AddParamListItem("RS Left Targ Bound", "P4", "Behavior Receptor Stim", this.textBoxRSLeTB);
+                AddParamListItem("RS Right Targ Bound","P5", "Behavior Receptor Stim", this.textBoxRSRTB);
+                AddParamListItem("RS Upper Targ Bound", "P6", "Behavior Receptor Stim", this.textBoxRSUTB);
+                AddParamListItem("RS Lower Targ Bound", "P7", "Behavior Receptor Stim", this.textBoxRSLoTB);
+                AddParamListItem("RS Target Hold Low", "P8", "Behavior Receptor Stim", this.textBoxRSTHL);
+                AddParamListItem("RS Target Hold High", "P9", "Behavior Receptor Stim", this.textBoxRSTHH);
+                AddParamListItem("RS Target Delay Low", "P10", "Behavior Receptor Stim", this.textBoxRSTDL);
+                AddParamListItem("RS Target Delay High", "P11", "Behavior Receptor Stim", this.textBoxRSTDH);
+                AddParamListItem("RS Movement Time", "P12", "Behavior Receptor Stim", this.textBoxRSMT);
+                AddParamListItem("RS Initial Movement", "P13", "Behavior Receptor Stim", this.textBoxRSIMT);
+                AddParamListItem("RS Intertrial", "P14", "Behavior Receptor Stim", this.textBoxRSIT);
+                AddParamListItem("RS Min Dist", "P15", "Behavior Receptor Stim", this.textBoxRSMiD);
+                AddParamListItem("RS Max Dist", "P16", "Behavior Receptor Stim", this.textBoxRSMaD);
+                AddParamListItem("RS Disable Abort", "P17", "Behavior Receptor Stim", this.checkBoxRSDA);
+                AddParamListItem("RS Green", "P19", "Behavior Receptor Stim", this.checkBoxRSGT);
+                AddParamListItem("RS Cum Hold", "P20", "Behavior Receptor Stim", this.checkBoxRSCH);
+                AddParamListItem("RS GTO Stim", "P21", "Behavior Receptor Stim", this.checkBoxRSGTO);
+                AddParamListItem("RS Vib Stim", "P22", "Behavior Receptor Stim", this.checkBoxRSVib);
+            #endregion
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
