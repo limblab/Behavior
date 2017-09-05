@@ -325,9 +325,9 @@ private:
 
 	int tgt_angle;
 	double reward_rate;
-	float ctr_hold;
-	float delay_hold;
-    float ot_hold;
+	double ctr_hold;
+	double delay_hold;
+    double ot_hold;
     
     // center hold timer
     Timer *ch_timer;
@@ -479,18 +479,18 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	primaryTarget->centerY = params->target_radius*sin((float)this->tgt_angle * PI/180);
     
     //select the actual center hold time
-	this->ctr_hold=(float)this->random->getDouble((double)this->params->CH_low,(double)this->params->CH_high);
+	this->ctr_hold=this->random->getDouble(this->params->CH_low,this->params->CH_high);
 	//select the actual delay period hold
-	this->delay_hold=(float)this->random->getDouble((double)this->params->DP_low,(double)this->params->DP_high);
+	this->delay_hold=this->random->getDouble(this->params->DP_low,this->params->DP_high);
     //select actual outer target hold
-    this->ot_hold=(float)this->random->getDouble((double)this->params->target_hold_low,(double)this->params->target_hold_high);
+    this->ot_hold=this->random->getDouble(this->params->target_hold_low,this->params->target_hold_high);
 	// Reset primary target color if needed
 	primaryTarget->color = Target::Color(255, 0, 160);
 	/* set the reward rate for this trial */
 	this->reward_rate=.6;
         
-    // reset center hold timer
-    this->ch_timer->reset(S);
+    // stop and reset center hold timer
+	this->ch_timer->stop(S);
 	
 	// Select whether this will be a stimulation trial 
 	this->stim_trial=(this->random->getDouble() < this->params->stim_prob);
@@ -653,7 +653,8 @@ void COBumpBehavior::update(SimStruct *S) {
 		case STATE_CT_ON:
 			/* first target on */
 			if (centerTarget->cursorInTarget(inputs->cursor)) {
-                this->ch_timer->start(S);
+                this->ch_timer->stop(S);
+				this->ch_timer->start(S);
 				setState(STATE_CT_HOLD);
 			}
 			break;
