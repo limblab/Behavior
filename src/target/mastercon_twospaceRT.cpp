@@ -101,8 +101,7 @@ private:
 	double targ_hold_time;
 	int t_color;
 	
-    CircleTarget *ws1_targets[128];
-    CircleTarget *ws2_targets[128];
+    CircleTarget *targets[128];
 
 	LocalParams *params;
 
@@ -129,7 +128,7 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->targ_hold_hi,				2);
 
 	this->bindParamId(&params->intertrial_interval,		3);
-    this->bindParamID(&params->initial_movement_time,   4);
+    this->bindParamId(&params->initial_movement_time,   4);
 	this->bindParamId(&params->movement_max_time,		5);
 	this->bindParamId(&params->failure_penalty_lag,	    6);
 
@@ -162,8 +161,7 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 	 */
     target_index = (int)params->num_targets-1;
     for(i=0; i<128; i++) {
-        ws1_targets[i] = new CircleTarget(0,0,0,0)
-        ws2_targets[i] = new CircleTarget(0,0,0,0)
+        targets[i] = new CircleTarget(0,0,0,0)
     }
 
 	targ_hold_time	     = 0.0;
@@ -232,7 +230,6 @@ void TwoSpaceRTBehavior::doPreTrial(SimStruct *S) {
 }
 
 void TwoSpaceRTBehavior::update(SimStruct *S) {
-	int i;
     /* declarations */
 
 	// State machine
@@ -288,7 +285,7 @@ void TwoSpaceRTBehavior::update(SimStruct *S) {
 				setState(STATE_PRETRIAL);
 			}
 			break;
-        case FAIL:
+        case STATE_FAIL:
 			if (stateTimer->elapsedTime(S) > params->failure_penalty_lag) {
 				setState(STATE_PRETRIAL);
 			}
@@ -352,8 +349,8 @@ void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
 
 	/* target_pos (3) */
 	// target 1
-	if (getState() == STATE_INITIAL_MOVEMENT ||
-		getState() == STATE_TARGET_HOLD ||
+	if (getState() == STATE_INIT_MOVE ||
+		getState() == STATE_TARG_HOLD ||
 		getState() == STATE_MOVEMENT){
 			outputs->targets[0] = (Target *)currentTarget;
 	} else {
