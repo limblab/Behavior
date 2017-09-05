@@ -161,7 +161,7 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 	 */
     target_index = (int)params->num_targets-1;
     for(i=0; i<128; i++) {
-        targets[i] = new CircleTarget(0,0,0,0)
+        targets[i] = new CircleTarget(0,0,0,0);
     }
 
 	targ_hold_time	     = 0.0;
