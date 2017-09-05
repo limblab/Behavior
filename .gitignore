@@ -78,6 +78,9 @@ Thumbs.db
 
 *.m~
 
+# VIM things
+*.swp
+
 #xpc compile folders for our behaviors:
 src/target/*_slrt_rtw/*
 src/target/slprj/*
