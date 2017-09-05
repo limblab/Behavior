@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -5447,8 +5447,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -6280,8 +6280,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -22247,7 +22247,6 @@ namespace BehaviorGraphics
             this.textBoxTRT_ws2ymax.Name = "textBoxTRT_ws2ymax";
             this.textBoxTRT_ws2ymax.Size = new System.Drawing.Size(31, 20);
             this.textBoxTRT_ws2ymax.TabIndex = 53;
-            this.textBoxTRT_ws2ymax.UseSystemPasswordChar = true;
             // 
             // textBoxTRT_ws2ymin
             // 
@@ -22255,7 +22254,6 @@ namespace BehaviorGraphics
             this.textBoxTRT_ws2ymin.Name = "textBoxTRT_ws2ymin";
             this.textBoxTRT_ws2ymin.Size = new System.Drawing.Size(31, 20);
             this.textBoxTRT_ws2ymin.TabIndex = 52;
-            this.textBoxTRT_ws2ymin.UseSystemPasswordChar = true;
             // 
             // textBoxTRT_ws2xmax
             // 
@@ -22277,7 +22275,6 @@ namespace BehaviorGraphics
             this.textBoxTRT_ws1ymax.Name = "textBoxTRT_ws1ymax";
             this.textBoxTRT_ws1ymax.Size = new System.Drawing.Size(31, 20);
             this.textBoxTRT_ws1ymax.TabIndex = 49;
-            this.textBoxTRT_ws1ymax.UseSystemPasswordChar = true;
             // 
             // label552
             // 
@@ -22294,7 +22291,6 @@ namespace BehaviorGraphics
             this.textBoxTRT_ws1ymin.Name = "textBoxTRT_ws1ymin";
             this.textBoxTRT_ws1ymin.Size = new System.Drawing.Size(31, 20);
             this.textBoxTRT_ws1ymin.TabIndex = 47;
-            this.textBoxTRT_ws1ymin.UseSystemPasswordChar = true;
             // 
             // label559
             // 
