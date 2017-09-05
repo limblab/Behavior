@@ -1594,6 +1594,34 @@ namespace BehaviorGraphics
                 AddParamListItem("RS GTO Stim", "P21", "Behavior Receptor Stim", this.checkBoxRSGTO);
                 AddParamListItem("RS Vib Stim", "P22", "Behavior Receptor Stim", this.checkBoxRSVib);
             #endregion
+
+            #region TwoSpaceRT
+                AddParamListItem("TRT holdlow", "P2", "Behavior TwoSpaceRT", this.textBoxTRT_holdLow);
+                AddParamListItem("TRT holdhigh", "P3", "Behavior TwoSpaceRT", this.textBoxTRT_holdHigh);
+                
+                AddParamListItem("TRT intertrial", "P4", "Behavior TwoSpaceRT", this.textBoxTRT_intertrial);
+                AddParamListItem("TRT inittime", "P5", "Behavior TwoSpaceRT", this.textBoxTRT_initialMoveTime);
+                AddParamListItem("TRT movetime", "P6", "Behavior TwoSpaceRT", this.textBoxTRT_maxMoveTime);
+                AddParamListItem("TRT failtime", "P7", "Behavior TwoSpaceRT", this.textBoxTRT_failPenaltyLag);
+
+                AddParamListItem("TRT targetsize", "P8", "Behavior TwoSpaceRT", this.textBoxTRT_targetSize);
+                AddParamListItem("TRT numtargs", "P9", "Behavior TwoSpaceRT", this.numericUpDownTRT_numTargets);
+
+                AddParamListItem("TRT colorR", "P10", "Behavior TwoSpaceRT", this.textBoxTRT_colorR);
+                AddParamListItem("TRT colorG", "P11", "Behavior TwoSpaceRT", this.textBoxTRT_colorG);
+                AddParamListItem("TRT colorB", "P12", "Behavior TwoSpaceRT", this.textBoxTRT_colorB);
+
+                AddParamListItem("TRT ws1xmin", "P13", "Behavior TwoSpaceRT", this.textBoxTRT_ws1xmin);
+                AddParamListItem("TRT ws1xmax", "P14", "Behavior TwoSpaceRT", this.textBoxTRT_ws1xmax);
+                AddParamListItem("TRT ws1ymin", "P15", "Behavior TwoSpaceRT", this.textBoxTRT_ws1ymin);
+                AddParamListItem("TRT ws1ymax", "P16", "Behavior TwoSpaceRT", this.textBoxTRT_ws1ymax);
+
+                AddParamListItem("TRT ws2xmin", "P17", "Behavior TwoSpaceRT", this.textBoxTRT_ws2xmin);
+                AddParamListItem("TRT ws2xmax", "P18", "Behavior TwoSpaceRT", this.textBoxTRT_ws2xmax);
+                AddParamListItem("TRT ws2ymin", "P19", "Behavior TwoSpaceRT", this.textBoxTRT_ws2ymin);
+                AddParamListItem("TRT ws2ymax", "P20", "Behavior TwoSpaceRT", this.textBoxTRT_ws2ymax);
+
+            #endregion
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
