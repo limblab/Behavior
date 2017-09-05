@@ -16,10 +16,9 @@
  * State IDs
  */
 #define STATE_PRETRIAL 0
-#define STATE_INITIAL_MOVEMENT 1
-#define STATE_TARGET_HOLD 2
-#define STATE_TARGET_DELAY 3
-#define STATE_MOVEMENT 4
+#define STATE_INIT_MOVE 1
+#define STATE_TARG_HOLD 2
+#define STATE_MOVEMENT 3
 
 
 /* 
@@ -40,7 +39,8 @@
  * bytes  9 to  12: float => x offset
  * bytes 13 to 16: float => y offset
  * bytes 17 to 20: float => target_size
- * bytes 21 to 21+N*8: where N is the number of targets, contains 8 bytes per 
+ * bytes 21 to 24: float => workspace number
+ * bytes 25 to 25+N*8: where N is the number of targets, contains 8 bytes per 
  *      target representing two single-precision floating point numbers in 
  *      little-endian format represnting the x and y position of the center of 
  *      the target.
@@ -57,6 +57,7 @@ struct LocalParams {
 	real_T targ_hold_hi;
 
 	real_T intertrial_interval;
+    real_T initial_movement_time; // maximum allowed time to start trial
 	real_T movement_max_time;    // maximum allowed movement time
 	real_T failure_penalty_lag;  // penalty lag for failed movements
 
@@ -119,7 +120,7 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(19);
+	this->setNumParams(20);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
@@ -128,24 +129,25 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->targ_hold_hi,				2);
 
 	this->bindParamId(&params->intertrial_interval,		3);
-	this->bindParamId(&params->movement_max_time,		4);
-	this->bindParamId(&params->failure_penalty_lag,	    5);
+    this->bindParamID(&params->initial_movement_time,   4);
+	this->bindParamId(&params->movement_max_time,		5);
+	this->bindParamId(&params->failure_penalty_lag,	    6);
 
-	this->bindParamId(&params->target_size,				6);
-	this->bindParamId(&params->num_targets,				7);
+	this->bindParamId(&params->target_size,				7);
+	this->bindParamId(&params->num_targets,				8);
 
-	this->bindParamId(&params->targ_color_R,			8);
-	this->bindParamId(&params->targ_color_G,			9);
-	this->bindParamId(&params->targ_color_B,			10);
+	this->bindParamId(&params->targ_color_R,			9);
+	this->bindParamId(&params->targ_color_G,			10);
+	this->bindParamId(&params->targ_color_B,			11);
 
-	this->bindParamId(&params->ws1_xmin,			11);
-	this->bindParamId(&params->ws1_xmax,			12);
-	this->bindParamId(&params->ws1_ymin,			13);
-	this->bindParamId(&params->ws1_ymax,			14);
-	this->bindParamId(&params->ws2_xmin,			15);
-	this->bindParamId(&params->ws2_xmax,			16);
-	this->bindParamId(&params->ws2_ymin,			17);
-	this->bindParamId(&params->ws2_ymax,			18);
+	this->bindParamId(&params->ws1_xmin,			12);
+	this->bindParamId(&params->ws1_xmax,			13);
+	this->bindParamId(&params->ws1_ymin,			14);
+	this->bindParamId(&params->ws1_ymax,			15);
+	this->bindParamId(&params->ws2_xmin,			16);
+	this->bindParamId(&params->ws2_xmax,			17);
+	this->bindParamId(&params->ws2_ymin,			18);
+	this->bindParamId(&params->ws2_ymax,			19);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -219,6 +221,8 @@ void TwoSpaceRTBehavior::doPreTrial(SimStruct *S) {
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
 	db->addFloat((float)(inputs->offsets.x));
 	db->addFloat((float)(inputs->offsets.y));
+    db->addFloat((float)(params->target_size));
+    db->addFloat((float)(ws_num));
 	for (i = 0; i<params->num_targets; i++) {
 		db->addFloat((float)targets[i]->centerX);
 		db->addFloat((float)targets[i]->centerY);
@@ -240,61 +244,52 @@ void TwoSpaceRTBehavior::update(SimStruct *S) {
 			break;
 		case STATE_DATA_BLOCK:
 			if (db->isDone()) {
-				setState(STATE_TARG_ON);
+				setState(STATE_INIT_MOVE);
 			}
-		case STATE_TARG_ON:
+		case STATE_INIT_MOVE:
 			/* target on */
 			if (targets[target_index]->cursorInTarget(inputs->cursor)) {
-				setState(STATE_BUMP_RISE);
-			} 
+				setState(STATE_TARG_HOLD);
+			} else if (stateTimer->elapsedTime(S) > params->initial_movement_time) {
+                setState(STATE_INCOMPLETE);
+            }
 			break;
 		case STATE_TARG_HOLD:
 			if (!targets[target_index]->cursorInTarget(inputs->cursor)){
                 setState(STATE_ABORT);
 			}
-			else if (stateTimer->elapsedTime(S) >= ct_hold_time) {
-				playTone(TONE_GO);
-				setState(STATE_MOVEMENT);
-			}
-			break;
-		case STATE_CT_OUT:
-			if (startTarget->cursorInTarget(inputs->cursor)) {
-                if (this->bump_timer->elapsedTime(S) >= this->bump->rise_time) {
-				    setState(STATE_CT_HOLD);
-                }
-                else {
-                    setState(STATE_BUMP_RISE);
+			else if (stateTimer->elapsedTime(S) >= targ_hold_time) {
+                // check if there are more targets
+                if (target_index == params->num_targets-1) {
+                    // no more targets
+                    playTone(TONE_REWARD);
+                    setState(STATE_REWARD);
+                } else {
+                    // more targets
+                    target_index++;
+                    targ_hold_time = random->getDouble(params->targ_hold_lo, params->targ_hold_hi);
+                    playTone(TONE_GO);
+                    setState(STATE_MOVEMENT);
                 }
 			}
 			break;
 		case STATE_MOVEMENT:
 			if (stateTimer->elapsedTime(S) > params->movement_max_time) {
-				this->bump_timer->stop(S);
-				this->bump->stop();
-				setState(STATE_INCOMPLETE);
+				setState(STATE_FAIL);
 			}
-			else if (endTarget->cursorInTarget(inputs->cursor)) {
-				setState(STATE_OUTER_HOLD);
-			}
-			break;
-		case STATE_OUTER_HOLD:
-			if (stateTimer->elapsedTime(S) >= ot_hold_time) {
-				this->bump_timer->stop(S);
-				this->bump->stop();
-				playTone(TONE_REWARD);
-				setState(STATE_REWARD);
-			}
-			else if (!endTarget->cursorInTarget(inputs->cursor)){
-				this->bump_timer->stop(S);
-				this->bump->stop();
-				playTone(TONE_ABORT);
-				setState(STATE_ABORT);
+			else if (targets[target_index]->cursorInTarget(inputs->cursor)) {
+				setState(STATE_TARG_HOLD);
 			}
 			break;
 		case STATE_REWARD:
 		case STATE_ABORT:
         case STATE_INCOMPLETE:
 			if (stateTimer->elapsedTime(S) > params->intertrial_interval) {
+				setState(STATE_PRETRIAL);
+			}
+			break;
+        case FAIL:
+			if (stateTimer->elapsedTime(S) > params->failure_penalty_lag) {
 				setState(STATE_PRETRIAL);
 			}
 			break;
@@ -306,6 +301,10 @@ void TwoSpaceRTBehavior::update(SimStruct *S) {
 void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
     /* declarations */
 	int i;
+    CircleTarget *currentTarget = targets[target_index];
+
+	/* force (0) */
+    outputs->force = inputs->force;
 
 	/* status (1) */
 	outputs->status[0] = getState();
@@ -322,26 +321,14 @@ void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_PRETRIAL:
 				outputs->word = WORD_START_TRIAL;
 				break;
-			case STATE_CT_ON:
-				outputs->word = WORD_CT_ON;
+			case STATE_INIT_MOVE:
+				outputs->word = WORD_GO_CUE;
 				break;
-			case STATE_BUMP_RISE:
-				outputs->word = WORD_BUMP(0);
-				break;
-			case STATE_CT_HOLD:
-				outputs->word = WORD_CENTER_TARGET_HOLD;
-				break;
-			case STATE_CT_OUT:
-				if (this->bump_timer->elapsedTime(S) < this->bump->rise_time)
-					outputs->word = WORD_BUMP(0);
-				else
-					outputs->word = WORD_CENTER_TARGET_HOLD;
+			case STATE_TARG_HOLD:
+				outputs->word = WORD_TARGET_HOLD;
 				break;
 			case STATE_MOVEMENT:
 				outputs->word = WORD_GO_CUE;
-				break;
-			case STATE_OUTER_HOLD:
-				outputs->word = WORD_OUTER_TARGET_HOLD;
 				break;
 			case STATE_REWARD:
 				outputs->word = WORD_REWARD;
@@ -352,6 +339,8 @@ void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_INCOMPLETE:
 				outputs->word = WORD_INCOMPLETE;
 				break;
+            case STATE_FAIL:
+                outputs->word = WORD_FAIL;
 			default:
 				outputs->word = 0;
 		}
@@ -359,38 +348,23 @@ void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
 		outputs->word = 0;
 	}
 
-	/* force (0) */
-	if (/*getState() == STATE_CT_HOLD ||
-		getState() == STATE_MOVEMENT ||
-		getState() == STATE_OUTER_HOLD*/
-		this->bump->isRunning(S)){
-
-			outputs->force= this->bump->getBumpForce(S);
-	
-	} else {
-
-		outputs->force = inputs->force;
-	}
-
+    /*----------------START HERE------------------*/
 
 	/* target_pos (3) */
 	// target 1
-	if (getState() == STATE_CT_ON ||
-		getState() == STATE_BUMP_RISE ||
-		getState() == STATE_CT_HOLD ||
-		getState() == STATE_CT_OUT){
-			outputs->targets[0] = (Target *)startTarget;
+	if (getState() == STATE_INITIAL_MOVEMENT ||
+		getState() == STATE_TARGET_HOLD ||
+		getState() == STATE_MOVEMENT){
+			outputs->targets[0] = (Target *)currentTarget;
 	} else {
 		outputs->targets[0] = nullTarget;
 	}
-	// target 2
-	if (getState() == STATE_MOVEMENT ||
-		getState() == STATE_OUTER_HOLD){
-
-			outputs->targets[1] = (Target *)endTarget;
-	} else {
-		outputs->targets[1] = nullTarget;
-	}
+	// target 2 (if delay)
+	// if (getState() == STATE_TARGET_DELAY){
+	// 		outputs->targets[1] = (Target *)(this->targets[target_index+1]);
+	// } else {
+	// 	outputs->targets[1] = nullTarget;
+	// }
 
 	/* reward (4) */
 	outputs->reward = (isNewState() && getState() == STATE_REWARD);
