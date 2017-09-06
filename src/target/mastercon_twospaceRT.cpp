@@ -28,7 +28,22 @@
 
 /* Databurst documentation
  *
- *  Version 0 (0x00)
+ *  Version 0 (0x01)
+ * ----------------
+ * byte   0: uchar => number of bytes to be transmitted
+ * byte   1: uchar => databurst version number (in this case: 0)
+ * byte   2 to 4: uchar => task code ('TRT')
+ * byte   5: uchar => model version major
+ * byte   6: uchar => model version minor
+ * bytes  7 to  8: short => model version micro
+ * bytes  9 to  12: float => x offset
+ * bytes 13 to 16: float => y offset
+ * bytes 17 to 17+N*8: where N is the number of targets, contains 8 bytes per 
+ *      target representing two single-precision floating point numbers in 
+ *      little-endian format represnting the x and y position of the center of 
+ *      the target.
+ *
+ *  Version 1 (0x01)
  * ----------------
  * byte   0: uchar => number of bytes to be transmitted
  * byte   1: uchar => databurst version number (in this case: 0)
@@ -46,7 +61,7 @@
  *      the target.
  *
  */
-#define DATABURST_VERSION ((byte)0x00) 
+#define DATABURST_VERSION ((byte)0x01) 
 
 // This must be custom defined for your behavior
 struct LocalParams {
