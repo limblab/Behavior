@@ -414,7 +414,7 @@ void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
 			outputs->targets[0] = (Target *)currentTarget;
 	} else if (getState() == STATE_CT_ON ||
                getState() == STATE_CT_HOLD) {
-        outputs->target[0] = centerTarget;
+        outputs->targets[0] = centerTarget;
     } else {
 		outputs->targets[0] = nullTarget;
 	}
