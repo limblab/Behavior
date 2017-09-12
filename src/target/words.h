@@ -312,4 +312,7 @@
 #define WORD_CT_MEM_DELAY 0x81
 #define WORD_CT_TARGCUE_ON 0x82
 
+/* For twoSpaceRT task */
+#define WORD_INITIAL_GO_CUE 0x35
+
 #endif /* WORDS_CO_H */
