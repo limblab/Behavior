@@ -131,6 +131,8 @@
 #define __BUILD_UPDATED__ 1
 #define __BUILD_UPDATED__ 1
 #define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
+#define __BUILD_UPDATED__ 1
 
 /* 
  * $Id$
@@ -157,7 +159,7 @@
 #define BEHAVIOR_VERSION_MAJOR 2
 #define BEHAVIOR_VERSION_MINOR 8
 #define BEHAVIOR_VERSION_MICRO 491
-#define BEHAVIOR_VERSION_BUILD 3231
+#define BEHAVIOR_VERSION_BUILD 3236
 
 
 #ifndef __BUILD_UPDATED__
@@ -309,5 +311,8 @@
 /* For UnCisek */
 #define WORD_CT_MEM_DELAY 0x81
 #define WORD_CT_TARGCUE_ON 0x82
+
+/* For twoSpaceRT task */
+#define WORD_INITIAL_GO_CUE 0x35
 
 #endif /* WORDS_CO_H */

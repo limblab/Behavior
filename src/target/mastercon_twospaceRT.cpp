@@ -16,9 +16,10 @@
  * State IDs
  */
 #define STATE_PRETRIAL 0
-#define STATE_INIT_MOVE 1
-#define STATE_TARG_HOLD 2
+#define STATE_CT_ON 1
+#define STATE_CT_HOLD 2
 #define STATE_MOVEMENT 3
+#define STATE_TARG_HOLD 4
 
 
 /* 
@@ -45,14 +46,34 @@
  *      little-endian format represnting the x and y position of the center of 
  *      the target.
  *
+ *  Version 1 (0x01)
+ * ----------------
+ *  Version 1 includes a center target on and center target hold state, along with a special initial go cue
+ * byte   0: uchar => number of bytes to be transmitted
+ * byte   1: uchar => databurst version number (in this case: 0)
+ * byte   2 to 4: uchar => task code ('TRT')
+ * byte   5: uchar => model version major
+ * byte   6: uchar => model version minor
+ * bytes  7 to  8: short => model version micro
+ * bytes  9 to  12: float => x offset
+ * bytes 13 to 16: float => y offset
+ * bytes 17 to 20: float => target_size
+ * bytes 21 to 24: float => workspace number
+ * bytes 25 to 25+(N+1)*8: where N is the number of targets, contains 8 bytes per 
+ *      target representing two single-precision floating point numbers in 
+ *      little-endian format represnting the x and y position of the center of 
+ *      the target. This also includes the first, center target
+ *
  */
-#define DATABURST_VERSION ((byte)0x00) 
+#define DATABURST_VERSION ((byte)0x01) 
 
 // This must be custom defined for your behavior
 struct LocalParams {
 	real_T master_reset;
 
 	// Time Bounds for various timers
+    real_T ct_hold_lo;
+    real_T ct_hold_hi;
 	real_T targ_hold_lo;
 	real_T targ_hold_hi;
 
@@ -99,9 +120,11 @@ private:
 	// Your behavior's instance variables
     int target_index;
 	double targ_hold_time;
+    double ct_hold_time;
 	int t_color;
 	
     CircleTarget *targets[128];
+    CircleTarget *centerTarget;
 
 	LocalParams *params;
 
@@ -119,34 +142,36 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(20);
+	this->setNumParams(22);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
 	
-	this->bindParamId(&params->targ_hold_lo,				1);
-	this->bindParamId(&params->targ_hold_hi,				2);
+	this->bindParamId(&params->ct_hold_lo,				1);
+	this->bindParamId(&params->ct_hold_hi,				2);
+	this->bindParamId(&params->targ_hold_lo,				3);
+	this->bindParamId(&params->targ_hold_hi,				4);
 
-	this->bindParamId(&params->intertrial_interval,		3);
-    this->bindParamId(&params->initial_movement_time,   4);
-	this->bindParamId(&params->movement_max_time,		5);
-	this->bindParamId(&params->failure_penalty_lag,	    6);
+	this->bindParamId(&params->intertrial_interval,		5);
+    this->bindParamId(&params->initial_movement_time,   6);
+	this->bindParamId(&params->movement_max_time,		7);
+	this->bindParamId(&params->failure_penalty_lag,	    8);
 
-	this->bindParamId(&params->target_size,				7);
-	this->bindParamId(&params->num_targets,				8);
+	this->bindParamId(&params->target_size,				9);
+	this->bindParamId(&params->num_targets,				10);
 
-	this->bindParamId(&params->targ_color_R,			9);
-	this->bindParamId(&params->targ_color_G,			10);
-	this->bindParamId(&params->targ_color_B,			11);
+	this->bindParamId(&params->targ_color_R,			11);
+	this->bindParamId(&params->targ_color_G,			12);
+	this->bindParamId(&params->targ_color_B,			13);
 
-	this->bindParamId(&params->ws1_xmin,			12);
-	this->bindParamId(&params->ws1_xmax,			13);
-	this->bindParamId(&params->ws1_ymin,			14);
-	this->bindParamId(&params->ws1_ymax,			15);
-	this->bindParamId(&params->ws2_xmin,			16);
-	this->bindParamId(&params->ws2_xmax,			17);
-	this->bindParamId(&params->ws2_ymin,			18);
-	this->bindParamId(&params->ws2_ymax,			19);
+	this->bindParamId(&params->ws1_xmin,			14);
+	this->bindParamId(&params->ws1_xmax,			15);
+	this->bindParamId(&params->ws1_ymin,			16);
+	this->bindParamId(&params->ws1_ymax,			17);
+	this->bindParamId(&params->ws2_xmin,			18);
+	this->bindParamId(&params->ws2_xmax,			19);
+	this->bindParamId(&params->ws2_ymin,			20);
+	this->bindParamId(&params->ws2_ymax,			21);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -163,6 +188,7 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
     for(i=0; i<128; i++) {
         targets[i] = new CircleTarget(0,0,0,0);
     }
+    centerTarget = new CircleTarget(0,0,0,0);
 
 	targ_hold_time	     = 0.0;
 	t_color = 0;
@@ -194,15 +220,20 @@ void TwoSpaceRTBehavior::doPreTrial(SimStruct *S) {
             lower_target_boundary = params->ws2_ymin;
             upper_target_boundary = params->ws2_ymax;
         }
-            
+        
         targets[i]->centerX = random->getDouble(left_target_boundary,  right_target_boundary);
         targets[i]->centerY = random->getDouble(lower_target_boundary, upper_target_boundary);
         targets[i]->radius = params->target_size;
         targets[i]->color = t_color;
     }
+    centerTarget->centerX = (left_target_boundary + right_target_boundary)/2;
+    centerTarget->centerY = (lower_target_boundary + upper_target_boundary)/2;
+    centerTarget->radius = params->target_size;
+    centerTarget->color = t_color;
 
 	// Randomized Timers
 	targ_hold_time		= random->getDouble(params->targ_hold_lo, params->targ_hold_hi);
+	ct_hold_time		= random->getDouble(params->ct_hold_lo, params->ct_hold_hi);
 
     // Reset target index
     target_index = 0;
@@ -221,6 +252,8 @@ void TwoSpaceRTBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)(inputs->offsets.y));
     db->addFloat((float)(params->target_size));
     db->addFloat((float)(ws_num));
+    db->addFloat((float)centerTarget->centerX);
+    db->addFloat((float)centerTarget->centerY);
 	for (i = 0; i<params->num_targets; i++) {
 		db->addFloat((float)targets[i]->centerX);
 		db->addFloat((float)targets[i]->centerY);
@@ -241,15 +274,42 @@ void TwoSpaceRTBehavior::update(SimStruct *S) {
 			break;
 		case STATE_DATA_BLOCK:
 			if (db->isDone()) {
-				setState(STATE_INIT_MOVE);
+				setState(STATE_CT_ON);
 			}
-		case STATE_INIT_MOVE:
+		case STATE_CT_ON:
 			/* target on */
-			if (targets[target_index]->cursorInTarget(inputs->cursor)) {
-				setState(STATE_TARG_HOLD);
+			if (centerTarget->cursorInTarget(inputs->cursor)) {
+				setState(STATE_CT_HOLD);
 			} else if (stateTimer->elapsedTime(S) > params->initial_movement_time) {
                 setState(STATE_INCOMPLETE);
             }
+			break;
+        case STATE_CT_HOLD:
+            // center target hold
+			if (!centerTarget->cursorInTarget(inputs->cursor)){
+                setState(STATE_ABORT);
+			}
+			else if (stateTimer->elapsedTime(S) >= ct_hold_time) {
+                // check if there are more targets
+                if (target_index == params->num_targets-1) {
+                    // no more targets - this shouldn't happen on the center target, but just in case
+                    playTone(TONE_REWARD);
+                    setState(STATE_REWARD);
+                } else {
+                    // more targets
+                    targ_hold_time = random->getDouble(params->targ_hold_lo, params->targ_hold_hi);
+                    playTone(TONE_GO);
+                    setState(STATE_MOVEMENT);
+                }
+			}
+			break;
+		case STATE_MOVEMENT:
+			if (stateTimer->elapsedTime(S) > params->movement_max_time) {
+				setState(STATE_FAIL);
+			}
+			else if (targets[target_index]->cursorInTarget(inputs->cursor)) {
+				setState(STATE_TARG_HOLD);
+			}
 			break;
 		case STATE_TARG_HOLD:
 			if (!targets[target_index]->cursorInTarget(inputs->cursor)){
@@ -268,14 +328,6 @@ void TwoSpaceRTBehavior::update(SimStruct *S) {
                     playTone(TONE_GO);
                     setState(STATE_MOVEMENT);
                 }
-			}
-			break;
-		case STATE_MOVEMENT:
-			if (stateTimer->elapsedTime(S) > params->movement_max_time) {
-				setState(STATE_FAIL);
-			}
-			else if (targets[target_index]->cursorInTarget(inputs->cursor)) {
-				setState(STATE_TARG_HOLD);
 			}
 			break;
 		case STATE_REWARD:
@@ -318,14 +370,21 @@ void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_PRETRIAL:
 				outputs->word = WORD_START_TRIAL;
 				break;
-			case STATE_INIT_MOVE:
-				outputs->word = WORD_GO_CUE;
+			case STATE_CT_ON:
+				outputs->word = WORD_CT_ON;
 				break;
-			case STATE_TARG_HOLD:
-				outputs->word = WORD_TARGET_HOLD;
+			case STATE_CT_HOLD:
+				outputs->word = WORD_CENTER_TARGET_HOLD;
 				break;
 			case STATE_MOVEMENT:
-				outputs->word = WORD_GO_CUE;
+                if(target_index == 0) {
+                    outputs->word = WORD_INITIAL_GO_CUE;
+                } else {
+                    outputs->word = WORD_GO_CUE;
+                }
+				break;
+			case STATE_TARG_HOLD:
+				outputs->word = WORD_OUTER_TARGET_HOLD;
 				break;
 			case STATE_REWARD:
 				outputs->word = WORD_REWARD;

@@ -463,7 +463,7 @@
       <LabParam>
         <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L2</Block>
         <Name>Value</Name>
-        <Value>28.5</Value>
+        <Value>28.0</Value>
       </LabParam>
       <LabParam>
         <Block>BoundingBox/XLowLimit</Block>
@@ -488,32 +488,32 @@
       <LabParam>
         <Block>XY Position Subsystem/LoadCellXCoef1</Block>
         <Name>Value</Name>
-        <Value>-0.0129</Value>
+        <Value>0.0129</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellXCoef2</Block>
         <Name>Value</Name>
-        <Value>0.0254</Value>
+        <Value>-0.0254</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellXCoef3</Block>
         <Name>Value</Name>
-        <Value>-0.1018</Value>
+        <Value>0.1018</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellXCoef4</Block>
         <Name>Value</Name>
-        <Value>-6.2876</Value>
+        <Value>6.2876</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellXCoef5</Block>
         <Name>Value</Name>
-        <Value>-0.1127</Value>
+        <Value>0.1127</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellXCoef6</Block>
         <Name>Value</Name>
-        <Value>6.2163</Value>
+        <Value>-6.2163</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellYCoef1</Block>
