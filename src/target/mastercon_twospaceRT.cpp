@@ -408,11 +408,14 @@ void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
 
 	/* target_pos (3) */
 	// target 1
-	if (getState() == STATE_INIT_MOVE ||
+	if (getState() == STATE_MOVEMENT ||
 		getState() == STATE_TARG_HOLD ||
 		getState() == STATE_MOVEMENT){
 			outputs->targets[0] = (Target *)currentTarget;
-	} else {
+	} else if (getState() == STATE_CT_ON ||
+               getState() == STATE_CT_HOLD) {
+        outputs->target[0] = centerTarget;
+    } else {
 		outputs->targets[0] = nullTarget;
 	}
 	// target 2 (if delay)
@@ -436,7 +439,6 @@ void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-	// If we are in the movement,
 	outputs->position = inputs->cursor;
 }
 /*
