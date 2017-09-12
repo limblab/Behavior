@@ -377,11 +377,7 @@ void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_CENTER_TARGET_HOLD;
 				break;
 			case STATE_MOVEMENT:
-                if(target_index == 0) {
-                    outputs->word = WORD_INITIAL_GO_CUE;
-                } else {
-                    outputs->word = WORD_GO_CUE;
-                }
+                outputs->word = WORD_GO_CUE;
 				break;
 			case STATE_TARG_HOLD:
 				outputs->word = WORD_OUTER_TARGET_HOLD;
