@@ -1969,6 +1969,48 @@ namespace BehaviorGraphics
             this.label544 = new System.Windows.Forms.Label();
             this.textBoxRSTHL = new System.Windows.Forms.TextBox();
             this.label545 = new System.Windows.Forms.Label();
+            this.tabTwoSpaceRT = new System.Windows.Forms.TabPage();
+            this.groupBox103 = new System.Windows.Forms.GroupBox();
+            this.label563 = new System.Windows.Forms.Label();
+            this.label562 = new System.Windows.Forms.Label();
+            this.textBoxTRT_ws2ymax = new System.Windows.Forms.TextBox();
+            this.textBoxTRT_ws2ymin = new System.Windows.Forms.TextBox();
+            this.textBoxTRT_ws2xmax = new System.Windows.Forms.TextBox();
+            this.textBoxTRT_ws2xmin = new System.Windows.Forms.TextBox();
+            this.textBoxTRT_ws1ymax = new System.Windows.Forms.TextBox();
+            this.label552 = new System.Windows.Forms.Label();
+            this.textBoxTRT_ws1ymin = new System.Windows.Forms.TextBox();
+            this.label559 = new System.Windows.Forms.Label();
+            this.label561 = new System.Windows.Forms.Label();
+            this.textBoxTRT_ws1xmax = new System.Windows.Forms.TextBox();
+            this.textBoxTRT_ws1xmin = new System.Windows.Forms.TextBox();
+            this.label560 = new System.Windows.Forms.Label();
+            this.groupBox102 = new System.Windows.Forms.GroupBox();
+            this.label549 = new System.Windows.Forms.Label();
+            this.numericUpDownTRT_numTargets = new System.Windows.Forms.NumericUpDown();
+            this.label553 = new System.Windows.Forms.Label();
+            this.label554 = new System.Windows.Forms.Label();
+            this.label555 = new System.Windows.Forms.Label();
+            this.label556 = new System.Windows.Forms.Label();
+            this.textBoxTRT_colorB = new System.Windows.Forms.TextBox();
+            this.textBoxTRT_colorG = new System.Windows.Forms.TextBox();
+            this.textBoxTRT_colorR = new System.Windows.Forms.TextBox();
+            this.label557 = new System.Windows.Forms.Label();
+            this.textBoxTRT_targetSize = new System.Windows.Forms.TextBox();
+            this.label558 = new System.Windows.Forms.Label();
+            this.groupBox101 = new System.Windows.Forms.GroupBox();
+            this.textBoxTRT_failPenaltyLag = new System.Windows.Forms.TextBox();
+            this.label548 = new System.Windows.Forms.Label();
+            this.textBoxTRT_maxMoveTime = new System.Windows.Forms.TextBox();
+            this.label529 = new System.Windows.Forms.Label();
+            this.textBoxTRT_initialMoveTime = new System.Windows.Forms.TextBox();
+            this.label546 = new System.Windows.Forms.Label();
+            this.textBoxTRT_intertrial = new System.Windows.Forms.TextBox();
+            this.label547 = new System.Windows.Forms.Label();
+            this.textBoxTRT_holdHigh = new System.Windows.Forms.TextBox();
+            this.textBoxTRT_holdLow = new System.Windows.Forms.TextBox();
+            this.label550 = new System.Windows.Forms.Label();
+            this.label551 = new System.Windows.Forms.Label();
             this.label409 = new System.Windows.Forms.Label();
             this.label365 = new System.Windows.Forms.Label();
             this.label388 = new System.Windows.Forms.Label();
@@ -2242,48 +2284,10 @@ namespace BehaviorGraphics
             this.angleEntryBox1 = new AngleBox.AngleEntryBox();
             this.angleEntryBox2 = new AngleBox.AngleEntryBox();
             this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
-            this.tabTwoSpaceRT = new System.Windows.Forms.TabPage();
-            this.groupBox103 = new System.Windows.Forms.GroupBox();
-            this.label563 = new System.Windows.Forms.Label();
-            this.label562 = new System.Windows.Forms.Label();
-            this.textBoxTRT_ws2ymax = new System.Windows.Forms.TextBox();
-            this.textBoxTRT_ws2ymin = new System.Windows.Forms.TextBox();
-            this.textBoxTRT_ws2xmax = new System.Windows.Forms.TextBox();
-            this.textBoxTRT_ws2xmin = new System.Windows.Forms.TextBox();
-            this.textBoxTRT_ws1ymax = new System.Windows.Forms.TextBox();
-            this.label552 = new System.Windows.Forms.Label();
-            this.textBoxTRT_ws1ymin = new System.Windows.Forms.TextBox();
-            this.label559 = new System.Windows.Forms.Label();
-            this.label561 = new System.Windows.Forms.Label();
-            this.textBoxTRT_ws1xmax = new System.Windows.Forms.TextBox();
-            this.textBoxTRT_ws1xmin = new System.Windows.Forms.TextBox();
-            this.label560 = new System.Windows.Forms.Label();
-            this.groupBox102 = new System.Windows.Forms.GroupBox();
-            this.label549 = new System.Windows.Forms.Label();
-            this.numericUpDownTRT_numTargets = new System.Windows.Forms.NumericUpDown();
-            this.label553 = new System.Windows.Forms.Label();
-            this.label554 = new System.Windows.Forms.Label();
-            this.label555 = new System.Windows.Forms.Label();
-            this.label556 = new System.Windows.Forms.Label();
-            this.textBoxTRT_colorB = new System.Windows.Forms.TextBox();
-            this.textBoxTRT_colorG = new System.Windows.Forms.TextBox();
-            this.textBoxTRT_colorR = new System.Windows.Forms.TextBox();
-            this.label557 = new System.Windows.Forms.Label();
-            this.textBoxTRT_targetSize = new System.Windows.Forms.TextBox();
-            this.label558 = new System.Windows.Forms.Label();
-            this.groupBox101 = new System.Windows.Forms.GroupBox();
-            this.textBoxTRT_failPenaltyLag = new System.Windows.Forms.TextBox();
-            this.label548 = new System.Windows.Forms.Label();
-            this.textBoxTRT_maxMoveTime = new System.Windows.Forms.TextBox();
-            this.label529 = new System.Windows.Forms.Label();
-            this.textBoxTRT_initialMoveTime = new System.Windows.Forms.TextBox();
-            this.label546 = new System.Windows.Forms.Label();
-            this.textBoxTRT_intertrial = new System.Windows.Forms.TextBox();
-            this.label547 = new System.Windows.Forms.Label();
-            this.textBoxTRT_holdHigh = new System.Windows.Forms.TextBox();
-            this.textBoxTRT_holdLow = new System.Windows.Forms.TextBox();
-            this.label550 = new System.Windows.Forms.Label();
-            this.label551 = new System.Windows.Forms.Label();
+            this.textBoxTRT_ctHoldHigh = new System.Windows.Forms.TextBox();
+            this.textBoxTRT_ctHoldLow = new System.Windows.Forms.TextBox();
+            this.label564 = new System.Windows.Forms.Label();
+            this.label565 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2505,6 +2509,11 @@ namespace BehaviorGraphics
             this.groupBox99.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRSNumTarg)).BeginInit();
             this.groupBox100.SuspendLayout();
+            this.tabTwoSpaceRT.SuspendLayout();
+            this.groupBox103.SuspendLayout();
+            this.groupBox102.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTRT_numTargets)).BeginInit();
+            this.groupBox101.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -2513,11 +2522,6 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.tabTwoSpaceRT.SuspendLayout();
-            this.groupBox103.SuspendLayout();
-            this.groupBox102.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTRT_numTargets)).BeginInit();
-            this.groupBox101.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -22443,6 +22447,411 @@ namespace BehaviorGraphics
             this.label545.TabIndex = 0;
             this.label545.Text = "Target Hold Low";
             // 
+            // tabTwoSpaceRT
+            // 
+            this.tabTwoSpaceRT.Controls.Add(this.groupBox103);
+            this.tabTwoSpaceRT.Controls.Add(this.groupBox102);
+            this.tabTwoSpaceRT.Controls.Add(this.groupBox101);
+            this.tabTwoSpaceRT.Location = new System.Drawing.Point(4, 76);
+            this.tabTwoSpaceRT.Name = "tabTwoSpaceRT";
+            this.tabTwoSpaceRT.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTwoSpaceRT.Size = new System.Drawing.Size(686, 453);
+            this.tabTwoSpaceRT.TabIndex = 30;
+            this.tabTwoSpaceRT.Text = "TwoSpaceRT";
+            this.tabTwoSpaceRT.UseVisualStyleBackColor = true;
+            // 
+            // groupBox103
+            // 
+            this.groupBox103.Controls.Add(this.label563);
+            this.groupBox103.Controls.Add(this.label562);
+            this.groupBox103.Controls.Add(this.textBoxTRT_ws2ymax);
+            this.groupBox103.Controls.Add(this.textBoxTRT_ws2ymin);
+            this.groupBox103.Controls.Add(this.textBoxTRT_ws2xmax);
+            this.groupBox103.Controls.Add(this.textBoxTRT_ws2xmin);
+            this.groupBox103.Controls.Add(this.textBoxTRT_ws1ymax);
+            this.groupBox103.Controls.Add(this.label552);
+            this.groupBox103.Controls.Add(this.textBoxTRT_ws1ymin);
+            this.groupBox103.Controls.Add(this.label559);
+            this.groupBox103.Controls.Add(this.label561);
+            this.groupBox103.Controls.Add(this.textBoxTRT_ws1xmax);
+            this.groupBox103.Controls.Add(this.textBoxTRT_ws1xmin);
+            this.groupBox103.Controls.Add(this.label560);
+            this.groupBox103.Location = new System.Drawing.Point(8, 193);
+            this.groupBox103.Name = "groupBox103";
+            this.groupBox103.Size = new System.Drawing.Size(421, 181);
+            this.groupBox103.TabIndex = 58;
+            this.groupBox103.TabStop = false;
+            this.groupBox103.Text = "Workspaces";
+            // 
+            // label563
+            // 
+            this.label563.AutoSize = true;
+            this.label563.Location = new System.Drawing.Point(72, 27);
+            this.label563.Name = "label563";
+            this.label563.Size = new System.Drawing.Size(31, 13);
+            this.label563.TabIndex = 55;
+            this.label563.Text = "WS1";
+            // 
+            // label562
+            // 
+            this.label562.AutoSize = true;
+            this.label562.Location = new System.Drawing.Point(130, 27);
+            this.label562.Name = "label562";
+            this.label562.Size = new System.Drawing.Size(31, 13);
+            this.label562.TabIndex = 54;
+            this.label562.Text = "WS2";
+            // 
+            // textBoxTRT_ws2ymax
+            // 
+            this.textBoxTRT_ws2ymax.Location = new System.Drawing.Point(133, 133);
+            this.textBoxTRT_ws2ymax.Name = "textBoxTRT_ws2ymax";
+            this.textBoxTRT_ws2ymax.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_ws2ymax.TabIndex = 53;
+            // 
+            // textBoxTRT_ws2ymin
+            // 
+            this.textBoxTRT_ws2ymin.Location = new System.Drawing.Point(133, 108);
+            this.textBoxTRT_ws2ymin.Name = "textBoxTRT_ws2ymin";
+            this.textBoxTRT_ws2ymin.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_ws2ymin.TabIndex = 52;
+            // 
+            // textBoxTRT_ws2xmax
+            // 
+            this.textBoxTRT_ws2xmax.Location = new System.Drawing.Point(133, 82);
+            this.textBoxTRT_ws2xmax.Name = "textBoxTRT_ws2xmax";
+            this.textBoxTRT_ws2xmax.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_ws2xmax.TabIndex = 51;
+            // 
+            // textBoxTRT_ws2xmin
+            // 
+            this.textBoxTRT_ws2xmin.Location = new System.Drawing.Point(133, 56);
+            this.textBoxTRT_ws2xmin.Name = "textBoxTRT_ws2xmin";
+            this.textBoxTRT_ws2xmin.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_ws2xmin.TabIndex = 50;
+            // 
+            // textBoxTRT_ws1ymax
+            // 
+            this.textBoxTRT_ws1ymax.Location = new System.Drawing.Point(75, 133);
+            this.textBoxTRT_ws1ymax.Name = "textBoxTRT_ws1ymax";
+            this.textBoxTRT_ws1ymax.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_ws1ymax.TabIndex = 49;
+            // 
+            // label552
+            // 
+            this.label552.AutoSize = true;
+            this.label552.Location = new System.Drawing.Point(19, 136);
+            this.label552.Name = "label552";
+            this.label552.Size = new System.Drawing.Size(37, 13);
+            this.label552.TabIndex = 48;
+            this.label552.Text = "Y Max";
+            // 
+            // textBoxTRT_ws1ymin
+            // 
+            this.textBoxTRT_ws1ymin.Location = new System.Drawing.Point(75, 108);
+            this.textBoxTRT_ws1ymin.Name = "textBoxTRT_ws1ymin";
+            this.textBoxTRT_ws1ymin.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_ws1ymin.TabIndex = 47;
+            // 
+            // label559
+            // 
+            this.label559.AutoSize = true;
+            this.label559.Location = new System.Drawing.Point(19, 111);
+            this.label559.Name = "label559";
+            this.label559.Size = new System.Drawing.Size(34, 13);
+            this.label559.TabIndex = 46;
+            this.label559.Text = "Y Min";
+            // 
+            // label561
+            // 
+            this.label561.AutoSize = true;
+            this.label561.Location = new System.Drawing.Point(19, 59);
+            this.label561.Name = "label561";
+            this.label561.Size = new System.Drawing.Size(34, 13);
+            this.label561.TabIndex = 42;
+            this.label561.Text = "X Min";
+            // 
+            // textBoxTRT_ws1xmax
+            // 
+            this.textBoxTRT_ws1xmax.Location = new System.Drawing.Point(75, 82);
+            this.textBoxTRT_ws1xmax.Name = "textBoxTRT_ws1xmax";
+            this.textBoxTRT_ws1xmax.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_ws1xmax.TabIndex = 45;
+            // 
+            // textBoxTRT_ws1xmin
+            // 
+            this.textBoxTRT_ws1xmin.Location = new System.Drawing.Point(75, 56);
+            this.textBoxTRT_ws1xmin.Name = "textBoxTRT_ws1xmin";
+            this.textBoxTRT_ws1xmin.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_ws1xmin.TabIndex = 43;
+            // 
+            // label560
+            // 
+            this.label560.AutoSize = true;
+            this.label560.Location = new System.Drawing.Point(19, 85);
+            this.label560.Name = "label560";
+            this.label560.Size = new System.Drawing.Size(37, 13);
+            this.label560.TabIndex = 44;
+            this.label560.Text = "X Max";
+            // 
+            // groupBox102
+            // 
+            this.groupBox102.Controls.Add(this.label549);
+            this.groupBox102.Controls.Add(this.numericUpDownTRT_numTargets);
+            this.groupBox102.Controls.Add(this.label553);
+            this.groupBox102.Controls.Add(this.label554);
+            this.groupBox102.Controls.Add(this.label555);
+            this.groupBox102.Controls.Add(this.label556);
+            this.groupBox102.Controls.Add(this.textBoxTRT_colorB);
+            this.groupBox102.Controls.Add(this.textBoxTRT_colorG);
+            this.groupBox102.Controls.Add(this.textBoxTRT_colorR);
+            this.groupBox102.Controls.Add(this.label557);
+            this.groupBox102.Controls.Add(this.textBoxTRT_targetSize);
+            this.groupBox102.Controls.Add(this.label558);
+            this.groupBox102.Location = new System.Drawing.Point(346, 6);
+            this.groupBox102.Name = "groupBox102";
+            this.groupBox102.Size = new System.Drawing.Size(245, 181);
+            this.groupBox102.TabIndex = 4;
+            this.groupBox102.TabStop = false;
+            this.groupBox102.Text = "Targets";
+            // 
+            // label549
+            // 
+            this.label549.AutoSize = true;
+            this.label549.Location = new System.Drawing.Point(12, 54);
+            this.label549.Name = "label549";
+            this.label549.Size = new System.Drawing.Size(95, 13);
+            this.label549.TabIndex = 57;
+            this.label549.Text = "Number of Targets";
+            // 
+            // numericUpDownTRT_numTargets
+            // 
+            this.numericUpDownTRT_numTargets.Location = new System.Drawing.Point(114, 50);
+            this.numericUpDownTRT_numTargets.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.numericUpDownTRT_numTargets.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownTRT_numTargets.Name = "numericUpDownTRT_numTargets";
+            this.numericUpDownTRT_numTargets.Size = new System.Drawing.Size(50, 20);
+            this.numericUpDownTRT_numTargets.TabIndex = 56;
+            this.numericUpDownTRT_numTargets.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
+            // label553
+            // 
+            this.label553.AutoSize = true;
+            this.label553.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label553.Location = new System.Drawing.Point(68, 102);
+            this.label553.Name = "label553";
+            this.label553.Size = new System.Drawing.Size(136, 13);
+            this.label553.TabIndex = 47;
+            this.label553.Text = "Color Range (0 to 255)";
+            // 
+            // label554
+            // 
+            this.label554.AutoSize = true;
+            this.label554.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label554.Location = new System.Drawing.Point(169, 115);
+            this.label554.Name = "label554";
+            this.label554.Size = new System.Drawing.Size(15, 13);
+            this.label554.TabIndex = 46;
+            this.label554.Text = "B";
+            // 
+            // label555
+            // 
+            this.label555.AutoSize = true;
+            this.label555.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label555.Location = new System.Drawing.Point(131, 115);
+            this.label555.Name = "label555";
+            this.label555.Size = new System.Drawing.Size(16, 13);
+            this.label555.TabIndex = 45;
+            this.label555.Text = "G";
+            // 
+            // label556
+            // 
+            this.label556.AutoSize = true;
+            this.label556.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label556.Location = new System.Drawing.Point(94, 115);
+            this.label556.Name = "label556";
+            this.label556.Size = new System.Drawing.Size(16, 13);
+            this.label556.TabIndex = 44;
+            this.label556.Text = "R";
+            // 
+            // textBoxTRT_colorB
+            // 
+            this.textBoxTRT_colorB.Location = new System.Drawing.Point(161, 138);
+            this.textBoxTRT_colorB.Name = "textBoxTRT_colorB";
+            this.textBoxTRT_colorB.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_colorB.TabIndex = 35;
+            // 
+            // textBoxTRT_colorG
+            // 
+            this.textBoxTRT_colorG.Location = new System.Drawing.Point(124, 138);
+            this.textBoxTRT_colorG.Name = "textBoxTRT_colorG";
+            this.textBoxTRT_colorG.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_colorG.TabIndex = 34;
+            // 
+            // textBoxTRT_colorR
+            // 
+            this.textBoxTRT_colorR.Location = new System.Drawing.Point(87, 138);
+            this.textBoxTRT_colorR.Name = "textBoxTRT_colorR";
+            this.textBoxTRT_colorR.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_colorR.TabIndex = 33;
+            // 
+            // label557
+            // 
+            this.label557.AutoSize = true;
+            this.label557.Location = new System.Drawing.Point(9, 141);
+            this.label557.Name = "label557";
+            this.label557.Size = new System.Drawing.Size(65, 13);
+            this.label557.TabIndex = 32;
+            this.label557.Text = "Target Color";
+            // 
+            // textBoxTRT_targetSize
+            // 
+            this.textBoxTRT_targetSize.Location = new System.Drawing.Point(133, 20);
+            this.textBoxTRT_targetSize.Name = "textBoxTRT_targetSize";
+            this.textBoxTRT_targetSize.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_targetSize.TabIndex = 27;
+            // 
+            // label558
+            // 
+            this.label558.AutoSize = true;
+            this.label558.Location = new System.Drawing.Point(12, 23);
+            this.label558.Name = "label558";
+            this.label558.Size = new System.Drawing.Size(84, 13);
+            this.label558.TabIndex = 26;
+            this.label558.Text = "Target Size (cm)";
+            // 
+            // groupBox101
+            // 
+            this.groupBox101.Controls.Add(this.textBoxTRT_ctHoldHigh);
+            this.groupBox101.Controls.Add(this.textBoxTRT_ctHoldLow);
+            this.groupBox101.Controls.Add(this.label564);
+            this.groupBox101.Controls.Add(this.label565);
+            this.groupBox101.Controls.Add(this.textBoxTRT_failPenaltyLag);
+            this.groupBox101.Controls.Add(this.label548);
+            this.groupBox101.Controls.Add(this.textBoxTRT_maxMoveTime);
+            this.groupBox101.Controls.Add(this.label529);
+            this.groupBox101.Controls.Add(this.textBoxTRT_initialMoveTime);
+            this.groupBox101.Controls.Add(this.label546);
+            this.groupBox101.Controls.Add(this.textBoxTRT_intertrial);
+            this.groupBox101.Controls.Add(this.label547);
+            this.groupBox101.Controls.Add(this.textBoxTRT_holdHigh);
+            this.groupBox101.Controls.Add(this.textBoxTRT_holdLow);
+            this.groupBox101.Controls.Add(this.label550);
+            this.groupBox101.Controls.Add(this.label551);
+            this.groupBox101.Location = new System.Drawing.Point(8, 6);
+            this.groupBox101.Name = "groupBox101";
+            this.groupBox101.Size = new System.Drawing.Size(332, 181);
+            this.groupBox101.TabIndex = 3;
+            this.groupBox101.TabStop = false;
+            this.groupBox101.Text = "Timers";
+            // 
+            // textBoxTRT_failPenaltyLag
+            // 
+            this.textBoxTRT_failPenaltyLag.Location = new System.Drawing.Point(293, 97);
+            this.textBoxTRT_failPenaltyLag.Name = "textBoxTRT_failPenaltyLag";
+            this.textBoxTRT_failPenaltyLag.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_failPenaltyLag.TabIndex = 27;
+            // 
+            // label548
+            // 
+            this.label548.AutoSize = true;
+            this.label548.Location = new System.Drawing.Point(172, 100);
+            this.label548.Name = "label548";
+            this.label548.Size = new System.Drawing.Size(97, 13);
+            this.label548.TabIndex = 26;
+            this.label548.Text = "Failure Penalty Lag";
+            // 
+            // textBoxTRT_maxMoveTime
+            // 
+            this.textBoxTRT_maxMoveTime.Location = new System.Drawing.Point(293, 72);
+            this.textBoxTRT_maxMoveTime.Name = "textBoxTRT_maxMoveTime";
+            this.textBoxTRT_maxMoveTime.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_maxMoveTime.TabIndex = 25;
+            // 
+            // label529
+            // 
+            this.label529.AutoSize = true;
+            this.label529.Location = new System.Drawing.Point(172, 75);
+            this.label529.Name = "label529";
+            this.label529.Size = new System.Drawing.Size(106, 13);
+            this.label529.TabIndex = 24;
+            this.label529.Text = "Max Movement Time";
+            // 
+            // textBoxTRT_initialMoveTime
+            // 
+            this.textBoxTRT_initialMoveTime.Location = new System.Drawing.Point(293, 46);
+            this.textBoxTRT_initialMoveTime.Name = "textBoxTRT_initialMoveTime";
+            this.textBoxTRT_initialMoveTime.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_initialMoveTime.TabIndex = 23;
+            // 
+            // label546
+            // 
+            this.label546.AutoSize = true;
+            this.label546.Location = new System.Drawing.Point(172, 49);
+            this.label546.Name = "label546";
+            this.label546.Size = new System.Drawing.Size(110, 13);
+            this.label546.TabIndex = 22;
+            this.label546.Text = "Initial Movement Time";
+            // 
+            // textBoxTRT_intertrial
+            // 
+            this.textBoxTRT_intertrial.Location = new System.Drawing.Point(293, 20);
+            this.textBoxTRT_intertrial.Name = "textBoxTRT_intertrial";
+            this.textBoxTRT_intertrial.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_intertrial.TabIndex = 21;
+            // 
+            // label547
+            // 
+            this.label547.AutoSize = true;
+            this.label547.Location = new System.Drawing.Point(172, 23);
+            this.label547.Name = "label547";
+            this.label547.Size = new System.Drawing.Size(82, 13);
+            this.label547.TabIndex = 20;
+            this.label547.Text = "Intertrial Interval";
+            // 
+            // textBoxTRT_holdHigh
+            // 
+            this.textBoxTRT_holdHigh.Location = new System.Drawing.Point(133, 42);
+            this.textBoxTRT_holdHigh.Name = "textBoxTRT_holdHigh";
+            this.textBoxTRT_holdHigh.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_holdHigh.TabIndex = 11;
+            // 
+            // textBoxTRT_holdLow
+            // 
+            this.textBoxTRT_holdLow.Location = new System.Drawing.Point(133, 20);
+            this.textBoxTRT_holdLow.Name = "textBoxTRT_holdLow";
+            this.textBoxTRT_holdLow.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_holdLow.TabIndex = 10;
+            // 
+            // label550
+            // 
+            this.label550.AutoSize = true;
+            this.label550.Location = new System.Drawing.Point(12, 45);
+            this.label550.Name = "label550";
+            this.label550.Size = new System.Drawing.Size(79, 13);
+            this.label550.TabIndex = 1;
+            this.label550.Text = "Targ Hold High";
+            // 
+            // label551
+            // 
+            this.label551.AutoSize = true;
+            this.label551.Location = new System.Drawing.Point(12, 23);
+            this.label551.Name = "label551";
+            this.label551.Size = new System.Drawing.Size(77, 13);
+            this.label551.TabIndex = 0;
+            this.label551.Text = "Targ Hold Low";
+            // 
             // label409
             // 
             this.label409.AutoSize = true;
@@ -24816,406 +25225,37 @@ namespace BehaviorGraphics
             this.angleEntryBox_SA.TabIndex = 19;
             this.angleEntryBox_SA.Value = 0;
             // 
-            // tabTwoSpaceRT
-            // 
-            this.tabTwoSpaceRT.Controls.Add(this.groupBox103);
-            this.tabTwoSpaceRT.Controls.Add(this.groupBox102);
-            this.tabTwoSpaceRT.Controls.Add(this.groupBox101);
-            this.tabTwoSpaceRT.Location = new System.Drawing.Point(4, 76);
-            this.tabTwoSpaceRT.Name = "tabTwoSpaceRT";
-            this.tabTwoSpaceRT.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTwoSpaceRT.Size = new System.Drawing.Size(686, 453);
-            this.tabTwoSpaceRT.TabIndex = 30;
-            this.tabTwoSpaceRT.Text = "TwoSpaceRT";
-            this.tabTwoSpaceRT.UseVisualStyleBackColor = true;
-            // 
-            // groupBox103
-            // 
-            this.groupBox103.Controls.Add(this.label563);
-            this.groupBox103.Controls.Add(this.label562);
-            this.groupBox103.Controls.Add(this.textBoxTRT_ws2ymax);
-            this.groupBox103.Controls.Add(this.textBoxTRT_ws2ymin);
-            this.groupBox103.Controls.Add(this.textBoxTRT_ws2xmax);
-            this.groupBox103.Controls.Add(this.textBoxTRT_ws2xmin);
-            this.groupBox103.Controls.Add(this.textBoxTRT_ws1ymax);
-            this.groupBox103.Controls.Add(this.label552);
-            this.groupBox103.Controls.Add(this.textBoxTRT_ws1ymin);
-            this.groupBox103.Controls.Add(this.label559);
-            this.groupBox103.Controls.Add(this.label561);
-            this.groupBox103.Controls.Add(this.textBoxTRT_ws1xmax);
-            this.groupBox103.Controls.Add(this.textBoxTRT_ws1xmin);
-            this.groupBox103.Controls.Add(this.label560);
-            this.groupBox103.Location = new System.Drawing.Point(8, 193);
-            this.groupBox103.Name = "groupBox103";
-            this.groupBox103.Size = new System.Drawing.Size(421, 181);
-            this.groupBox103.TabIndex = 58;
-            this.groupBox103.TabStop = false;
-            this.groupBox103.Text = "Workspaces";
-            // 
-            // label563
-            // 
-            this.label563.AutoSize = true;
-            this.label563.Location = new System.Drawing.Point(72, 27);
-            this.label563.Name = "label563";
-            this.label563.Size = new System.Drawing.Size(31, 13);
-            this.label563.TabIndex = 55;
-            this.label563.Text = "WS1";
-            // 
-            // label562
-            // 
-            this.label562.AutoSize = true;
-            this.label562.Location = new System.Drawing.Point(130, 27);
-            this.label562.Name = "label562";
-            this.label562.Size = new System.Drawing.Size(31, 13);
-            this.label562.TabIndex = 54;
-            this.label562.Text = "WS2";
-            // 
-            // textBoxTRT_ws2ymax
-            // 
-            this.textBoxTRT_ws2ymax.Location = new System.Drawing.Point(133, 133);
-            this.textBoxTRT_ws2ymax.Name = "textBoxTRT_ws2ymax";
-            this.textBoxTRT_ws2ymax.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_ws2ymax.TabIndex = 53;
-            // 
-            // textBoxTRT_ws2ymin
-            // 
-            this.textBoxTRT_ws2ymin.Location = new System.Drawing.Point(133, 108);
-            this.textBoxTRT_ws2ymin.Name = "textBoxTRT_ws2ymin";
-            this.textBoxTRT_ws2ymin.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_ws2ymin.TabIndex = 52;
-            // 
-            // textBoxTRT_ws2xmax
-            // 
-            this.textBoxTRT_ws2xmax.Location = new System.Drawing.Point(133, 82);
-            this.textBoxTRT_ws2xmax.Name = "textBoxTRT_ws2xmax";
-            this.textBoxTRT_ws2xmax.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_ws2xmax.TabIndex = 51;
-            // 
-            // textBoxTRT_ws2xmin
-            // 
-            this.textBoxTRT_ws2xmin.Location = new System.Drawing.Point(133, 56);
-            this.textBoxTRT_ws2xmin.Name = "textBoxTRT_ws2xmin";
-            this.textBoxTRT_ws2xmin.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_ws2xmin.TabIndex = 50;
-            // 
-            // textBoxTRT_ws1ymax
-            // 
-            this.textBoxTRT_ws1ymax.Location = new System.Drawing.Point(75, 133);
-            this.textBoxTRT_ws1ymax.Name = "textBoxTRT_ws1ymax";
-            this.textBoxTRT_ws1ymax.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_ws1ymax.TabIndex = 49;
-            // 
-            // label552
-            // 
-            this.label552.AutoSize = true;
-            this.label552.Location = new System.Drawing.Point(19, 136);
-            this.label552.Name = "label552";
-            this.label552.Size = new System.Drawing.Size(37, 13);
-            this.label552.TabIndex = 48;
-            this.label552.Text = "Y Max";
-            // 
-            // textBoxTRT_ws1ymin
-            // 
-            this.textBoxTRT_ws1ymin.Location = new System.Drawing.Point(75, 108);
-            this.textBoxTRT_ws1ymin.Name = "textBoxTRT_ws1ymin";
-            this.textBoxTRT_ws1ymin.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_ws1ymin.TabIndex = 47;
-            // 
-            // label559
-            // 
-            this.label559.AutoSize = true;
-            this.label559.Location = new System.Drawing.Point(19, 111);
-            this.label559.Name = "label559";
-            this.label559.Size = new System.Drawing.Size(34, 13);
-            this.label559.TabIndex = 46;
-            this.label559.Text = "Y Min";
-            // 
-            // label561
-            // 
-            this.label561.AutoSize = true;
-            this.label561.Location = new System.Drawing.Point(19, 59);
-            this.label561.Name = "label561";
-            this.label561.Size = new System.Drawing.Size(34, 13);
-            this.label561.TabIndex = 42;
-            this.label561.Text = "X Min";
-            // 
-            // textBoxTRT_ws1xmax
-            // 
-            this.textBoxTRT_ws1xmax.Location = new System.Drawing.Point(75, 82);
-            this.textBoxTRT_ws1xmax.Name = "textBoxTRT_ws1xmax";
-            this.textBoxTRT_ws1xmax.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_ws1xmax.TabIndex = 45;
-            // 
-            // textBoxTRT_ws1xmin
-            // 
-            this.textBoxTRT_ws1xmin.Location = new System.Drawing.Point(75, 56);
-            this.textBoxTRT_ws1xmin.Name = "textBoxTRT_ws1xmin";
-            this.textBoxTRT_ws1xmin.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_ws1xmin.TabIndex = 43;
-            // 
-            // label560
-            // 
-            this.label560.AutoSize = true;
-            this.label560.Location = new System.Drawing.Point(19, 85);
-            this.label560.Name = "label560";
-            this.label560.Size = new System.Drawing.Size(37, 13);
-            this.label560.TabIndex = 44;
-            this.label560.Text = "X Max";
-            // 
-            // groupBox102
-            // 
-            this.groupBox102.Controls.Add(this.label549);
-            this.groupBox102.Controls.Add(this.numericUpDownTRT_numTargets);
-            this.groupBox102.Controls.Add(this.label553);
-            this.groupBox102.Controls.Add(this.label554);
-            this.groupBox102.Controls.Add(this.label555);
-            this.groupBox102.Controls.Add(this.label556);
-            this.groupBox102.Controls.Add(this.textBoxTRT_colorB);
-            this.groupBox102.Controls.Add(this.textBoxTRT_colorG);
-            this.groupBox102.Controls.Add(this.textBoxTRT_colorR);
-            this.groupBox102.Controls.Add(this.label557);
-            this.groupBox102.Controls.Add(this.textBoxTRT_targetSize);
-            this.groupBox102.Controls.Add(this.label558);
-            this.groupBox102.Location = new System.Drawing.Point(184, 6);
-            this.groupBox102.Name = "groupBox102";
-            this.groupBox102.Size = new System.Drawing.Size(245, 181);
-            this.groupBox102.TabIndex = 4;
-            this.groupBox102.TabStop = false;
-            this.groupBox102.Text = "Targets";
-            // 
-            // label549
-            // 
-            this.label549.AutoSize = true;
-            this.label549.Location = new System.Drawing.Point(12, 54);
-            this.label549.Name = "label549";
-            this.label549.Size = new System.Drawing.Size(95, 13);
-            this.label549.TabIndex = 57;
-            this.label549.Text = "Number of Targets";
-            // 
-            // numericUpDownTRT_numTargets
-            // 
-            this.numericUpDownTRT_numTargets.Location = new System.Drawing.Point(114, 50);
-            this.numericUpDownTRT_numTargets.Maximum = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            this.numericUpDownTRT_numTargets.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUpDownTRT_numTargets.Name = "numericUpDownTRT_numTargets";
-            this.numericUpDownTRT_numTargets.Size = new System.Drawing.Size(50, 20);
-            this.numericUpDownTRT_numTargets.TabIndex = 56;
-            this.numericUpDownTRT_numTargets.Value = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            // 
-            // label553
-            // 
-            this.label553.AutoSize = true;
-            this.label553.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label553.Location = new System.Drawing.Point(68, 102);
-            this.label553.Name = "label553";
-            this.label553.Size = new System.Drawing.Size(136, 13);
-            this.label553.TabIndex = 47;
-            this.label553.Text = "Color Range (0 to 255)";
-            // 
-            // label554
-            // 
-            this.label554.AutoSize = true;
-            this.label554.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label554.Location = new System.Drawing.Point(169, 115);
-            this.label554.Name = "label554";
-            this.label554.Size = new System.Drawing.Size(15, 13);
-            this.label554.TabIndex = 46;
-            this.label554.Text = "B";
-            // 
-            // label555
-            // 
-            this.label555.AutoSize = true;
-            this.label555.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label555.Location = new System.Drawing.Point(131, 115);
-            this.label555.Name = "label555";
-            this.label555.Size = new System.Drawing.Size(16, 13);
-            this.label555.TabIndex = 45;
-            this.label555.Text = "G";
-            // 
-            // label556
-            // 
-            this.label556.AutoSize = true;
-            this.label556.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label556.Location = new System.Drawing.Point(94, 115);
-            this.label556.Name = "label556";
-            this.label556.Size = new System.Drawing.Size(16, 13);
-            this.label556.TabIndex = 44;
-            this.label556.Text = "R";
-            // 
-            // textBoxTRT_colorB
-            // 
-            this.textBoxTRT_colorB.Location = new System.Drawing.Point(161, 138);
-            this.textBoxTRT_colorB.Name = "textBoxTRT_colorB";
-            this.textBoxTRT_colorB.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_colorB.TabIndex = 35;
-            // 
-            // textBoxTRT_colorG
-            // 
-            this.textBoxTRT_colorG.Location = new System.Drawing.Point(124, 138);
-            this.textBoxTRT_colorG.Name = "textBoxTRT_colorG";
-            this.textBoxTRT_colorG.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_colorG.TabIndex = 34;
-            // 
-            // textBoxTRT_colorR
-            // 
-            this.textBoxTRT_colorR.Location = new System.Drawing.Point(87, 138);
-            this.textBoxTRT_colorR.Name = "textBoxTRT_colorR";
-            this.textBoxTRT_colorR.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_colorR.TabIndex = 33;
-            // 
-            // label557
-            // 
-            this.label557.AutoSize = true;
-            this.label557.Location = new System.Drawing.Point(9, 141);
-            this.label557.Name = "label557";
-            this.label557.Size = new System.Drawing.Size(65, 13);
-            this.label557.TabIndex = 32;
-            this.label557.Text = "Target Color";
-            // 
-            // textBoxTRT_targetSize
-            // 
-            this.textBoxTRT_targetSize.Location = new System.Drawing.Point(133, 20);
-            this.textBoxTRT_targetSize.Name = "textBoxTRT_targetSize";
-            this.textBoxTRT_targetSize.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_targetSize.TabIndex = 27;
-            // 
-            // label558
-            // 
-            this.label558.AutoSize = true;
-            this.label558.Location = new System.Drawing.Point(12, 23);
-            this.label558.Name = "label558";
-            this.label558.Size = new System.Drawing.Size(84, 13);
-            this.label558.TabIndex = 26;
-            this.label558.Text = "Target Size (cm)";
-            // 
-            // groupBox101
-            // 
-            this.groupBox101.Controls.Add(this.textBoxTRT_failPenaltyLag);
-            this.groupBox101.Controls.Add(this.label548);
-            this.groupBox101.Controls.Add(this.textBoxTRT_maxMoveTime);
-            this.groupBox101.Controls.Add(this.label529);
-            this.groupBox101.Controls.Add(this.textBoxTRT_initialMoveTime);
-            this.groupBox101.Controls.Add(this.label546);
-            this.groupBox101.Controls.Add(this.textBoxTRT_intertrial);
-            this.groupBox101.Controls.Add(this.label547);
-            this.groupBox101.Controls.Add(this.textBoxTRT_holdHigh);
-            this.groupBox101.Controls.Add(this.textBoxTRT_holdLow);
-            this.groupBox101.Controls.Add(this.label550);
-            this.groupBox101.Controls.Add(this.label551);
-            this.groupBox101.Location = new System.Drawing.Point(8, 6);
-            this.groupBox101.Name = "groupBox101";
-            this.groupBox101.Size = new System.Drawing.Size(170, 181);
-            this.groupBox101.TabIndex = 3;
-            this.groupBox101.TabStop = false;
-            this.groupBox101.Text = "Timers";
-            // 
-            // textBoxTRT_failPenaltyLag
-            // 
-            this.textBoxTRT_failPenaltyLag.Location = new System.Drawing.Point(133, 153);
-            this.textBoxTRT_failPenaltyLag.Name = "textBoxTRT_failPenaltyLag";
-            this.textBoxTRT_failPenaltyLag.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_failPenaltyLag.TabIndex = 27;
-            // 
-            // label548
-            // 
-            this.label548.AutoSize = true;
-            this.label548.Location = new System.Drawing.Point(12, 156);
-            this.label548.Name = "label548";
-            this.label548.Size = new System.Drawing.Size(97, 13);
-            this.label548.TabIndex = 26;
-            this.label548.Text = "Failure Penalty Lag";
-            // 
-            // textBoxTRT_maxMoveTime
-            // 
-            this.textBoxTRT_maxMoveTime.Location = new System.Drawing.Point(133, 128);
-            this.textBoxTRT_maxMoveTime.Name = "textBoxTRT_maxMoveTime";
-            this.textBoxTRT_maxMoveTime.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_maxMoveTime.TabIndex = 25;
-            // 
-            // label529
-            // 
-            this.label529.AutoSize = true;
-            this.label529.Location = new System.Drawing.Point(12, 131);
-            this.label529.Name = "label529";
-            this.label529.Size = new System.Drawing.Size(106, 13);
-            this.label529.TabIndex = 24;
-            this.label529.Text = "Max Movement Time";
-            // 
-            // textBoxTRT_initialMoveTime
-            // 
-            this.textBoxTRT_initialMoveTime.Location = new System.Drawing.Point(133, 102);
-            this.textBoxTRT_initialMoveTime.Name = "textBoxTRT_initialMoveTime";
-            this.textBoxTRT_initialMoveTime.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_initialMoveTime.TabIndex = 23;
-            // 
-            // label546
-            // 
-            this.label546.AutoSize = true;
-            this.label546.Location = new System.Drawing.Point(12, 105);
-            this.label546.Name = "label546";
-            this.label546.Size = new System.Drawing.Size(110, 13);
-            this.label546.TabIndex = 22;
-            this.label546.Text = "Initial Movement Time";
-            // 
-            // textBoxTRT_intertrial
-            // 
-            this.textBoxTRT_intertrial.Location = new System.Drawing.Point(133, 76);
-            this.textBoxTRT_intertrial.Name = "textBoxTRT_intertrial";
-            this.textBoxTRT_intertrial.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_intertrial.TabIndex = 21;
-            // 
-            // label547
-            // 
-            this.label547.AutoSize = true;
-            this.label547.Location = new System.Drawing.Point(12, 79);
-            this.label547.Name = "label547";
-            this.label547.Size = new System.Drawing.Size(82, 13);
-            this.label547.TabIndex = 20;
-            this.label547.Text = "Intertrial Interval";
-            // 
-            // textBoxTRT_holdHigh
-            // 
-            this.textBoxTRT_holdHigh.Location = new System.Drawing.Point(133, 42);
-            this.textBoxTRT_holdHigh.Name = "textBoxTRT_holdHigh";
-            this.textBoxTRT_holdHigh.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_holdHigh.TabIndex = 11;
-            // 
-            // textBoxTRT_holdLow
-            // 
-            this.textBoxTRT_holdLow.Location = new System.Drawing.Point(133, 20);
-            this.textBoxTRT_holdLow.Name = "textBoxTRT_holdLow";
-            this.textBoxTRT_holdLow.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_holdLow.TabIndex = 10;
-            // 
-            // label550
-            // 
-            this.label550.AutoSize = true;
-            this.label550.Location = new System.Drawing.Point(12, 45);
-            this.label550.Name = "label550";
-            this.label550.Size = new System.Drawing.Size(79, 13);
-            this.label550.TabIndex = 1;
-            this.label550.Text = "Targ Hold High";
-            // 
-            // label551
-            // 
-            this.label551.AutoSize = true;
-            this.label551.Location = new System.Drawing.Point(12, 23);
-            this.label551.Name = "label551";
-            this.label551.Size = new System.Drawing.Size(77, 13);
-            this.label551.TabIndex = 0;
-            this.label551.Text = "Targ Hold Low";
+            // textBoxTRT_ctHoldHigh
+            // 
+            this.textBoxTRT_ctHoldHigh.Location = new System.Drawing.Point(133, 94);
+            this.textBoxTRT_ctHoldHigh.Name = "textBoxTRT_ctHoldHigh";
+            this.textBoxTRT_ctHoldHigh.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_ctHoldHigh.TabIndex = 31;
+            // 
+            // textBoxTRT_ctHoldLow
+            // 
+            this.textBoxTRT_ctHoldLow.Location = new System.Drawing.Point(133, 72);
+            this.textBoxTRT_ctHoldLow.Name = "textBoxTRT_ctHoldLow";
+            this.textBoxTRT_ctHoldLow.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_ctHoldLow.TabIndex = 30;
+            // 
+            // label564
+            // 
+            this.label564.AutoSize = true;
+            this.label564.Location = new System.Drawing.Point(12, 97);
+            this.label564.Name = "label564";
+            this.label564.Size = new System.Drawing.Size(113, 13);
+            this.label564.TabIndex = 29;
+            this.label564.Text = "Center Targ Hold High";
+            // 
+            // label565
+            // 
+            this.label565.AutoSize = true;
+            this.label565.Location = new System.Drawing.Point(12, 75);
+            this.label565.Name = "label565";
+            this.label565.Size = new System.Drawing.Size(111, 13);
+            this.label565.TabIndex = 28;
+            this.label565.Text = "Center Targ Hold Low";
             // 
             // UpdateForm
             // 
@@ -25605,6 +25645,14 @@ namespace BehaviorGraphics
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRSNumTarg)).EndInit();
             this.groupBox100.ResumeLayout(false);
             this.groupBox100.PerformLayout();
+            this.tabTwoSpaceRT.ResumeLayout(false);
+            this.groupBox103.ResumeLayout(false);
+            this.groupBox103.PerformLayout();
+            this.groupBox102.ResumeLayout(false);
+            this.groupBox102.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTRT_numTargets)).EndInit();
+            this.groupBox101.ResumeLayout(false);
+            this.groupBox101.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -25618,14 +25666,6 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.tabTwoSpaceRT.ResumeLayout(false);
-            this.groupBox103.ResumeLayout(false);
-            this.groupBox103.PerformLayout();
-            this.groupBox102.ResumeLayout(false);
-            this.groupBox102.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTRT_numTargets)).EndInit();
-            this.groupBox101.ResumeLayout(false);
-            this.groupBox101.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -27886,5 +27926,9 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxTRT_holdLow;
         private System.Windows.Forms.Label label550;
         private System.Windows.Forms.Label label551;
+        private System.Windows.Forms.TextBox textBoxTRT_ctHoldHigh;
+        private System.Windows.Forms.TextBox textBoxTRT_ctHoldLow;
+        private System.Windows.Forms.Label label564;
+        private System.Windows.Forms.Label label565;
     }
 }

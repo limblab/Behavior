@@ -1,12 +1,13 @@
 Model {
-  Name			  "twospaceRT2015a"
+  Name			  "twospaceRT"
   Version		  8.5
+  MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1283"
+    ComputedModelVersion    "1.1284"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -29,7 +30,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [640.0, 0.0, 1280.0, 1040.0]
+      Location		      [-26.0, 46.0, 1036.0, 780.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -53,7 +54,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1230.0, 866.0]
+	Extents			[986.0, 606.0]
 	ZoomFactor		[1.0]
 	Offset			[6.0, -165.92664684712872]
       }
@@ -63,11 +64,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "rhc307"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Sep 05 16:13:45 2017"
-  RTWModifiedTimeStamp	  426528825
-  ModelVersionFormat	  "1.%<AutoIncrement:1283>"
+  LastModifiedDate	  "Tue Sep 12 17:37:51 2017"
+  RTWModifiedTimeStamp	  427138666
+  ModelVersionFormat	  "1.%<AutoIncrement:1284>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -110,11 +111,11 @@ Model {
     $PropName		    "DataLoggingOverride"
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
-    model_		    "twospaceRT2015a"
+    model_		    "twospaceRT"
     Array {
       Type		      "Cell"
       Dimension		      1
-      Cell		      "twospaceRT2015a"
+      Cell		      "twospaceRT"
       PropName		      "logAsSpecifiedByModels_"
     }
     Array {
@@ -331,6 +332,7 @@ Model {
 	  IgnoredZcDiagnostic	  "warning"
 	  SolverPrmCheckMsg	  "none"
 	  InheritedTsInSrcMsg	  "warning"
+	  DiscreteInheritContinuousMsg "warning"
 	  MultiTaskDSMMsg	  "warning"
 	  MultiTaskCondExecSysMsg "none"
 	  MultiTaskRateTransMsg	  "error"
@@ -454,6 +456,7 @@ Model {
 	Simulink.SFSimCC {
 	  $ObjectID		  14
 	  Version		  "1.15.0"
+	  SFSimOverflowDetection  on
 	  SFSimEcho		  on
 	  SimCtrlC		  on
 	  SimIntegrity		  on
@@ -491,6 +494,7 @@ Model {
 	  MakeCommand		  "make_rtw"
 	  GenerateMakefile	  on
 	  PackageGeneratedCodeAndArtifacts off
+	  PackageName		  ""
 	  TemplateMakefile	  "slrt_default_tmf"
 	  PostCodeGenCommand	  ""
 	  Description		  "Simulink Real-Time"
@@ -504,6 +508,13 @@ Model {
 	  TLCAssert		  off
 	  RTWUseLocalCustomCode	  off
 	  RTWUseSimCustomCode	  off
+	  CustomSourceCode	  ""
+	  CustomHeaderCode	  ""
+	  CustomInclude		  ""
+	  CustomSource		  ""
+	  CustomLibrary		  ""
+	  CustomInitializer	  ""
+	  CustomTerminator	  ""
 	  Toolchain		  "Automatically locate an installed toolchain"
 	  BuildConfiguration	  "Faster Builds"
 	  IncludeHyperlinkInReport off
@@ -629,6 +640,7 @@ Model {
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
 	      TargetLibSuffix	      ""
+	      TargetPreCompLibLocation ""
 	      GenFloatMathFcnCalls    "NOT IN USE"
 	      TargetLangStandard      "C89/C90 (ANSI)"
 	      CodeReplacementLibrary  "XPC_BLAS"
@@ -671,9 +683,7 @@ Model {
 	      AutosarCompliant	      off
 	      GRTInterface	      on
 	      GenerateAllocFcn	      off
-	      UseToolchainInfoCompliant	off
 	      GenerateSharedConstants on
-	      GenerateASAP2	      off
 	      RL32ModeModifier	      "Real-Time"
 	      ExtMode		      on
 	      ExtModeMexFile	      "ext_xpc"
@@ -683,9 +693,6 @@ Model {
 	      RL32LogBufSizeModifier  "100000"
 	      xPCTaskExecutionProfile off
 	      xPCRL32EventNumber      "5000"
-	      RTWCAPISignals	      off
-	      RTWCAPIParams	      on
-	      RTWCAPIStates	      off
 	      RL32IRQSourceModifier   "Timer"
 	      xPCIRQSourceBoard	      "None/Other"
 	      xPCIOIRQSlot	      "-1"
@@ -710,7 +717,7 @@ Model {
       Name		      "Configuration"
       ExtraOptions	      "-aGenerateTraceInfo=0 -aIgnoreTestpoints=0 "
       CurrentDlgPage	      "Optimization"
-      ConfigPrmDlgPosition    [ 72, 69, 952, 699 ]  
+      ConfigPrmDlgPosition     [ 72, 69, 952, 699 ] 
     }
     PropName		    "ConfigurationSets"
   }
@@ -720,7 +727,7 @@ Model {
   }
   Object {
     $PropName		    "DataTransfer"
-    $ObjectID		    19
+    $ObjectID		    18
     $ClassName		    "Simulink.GlobalDataTransfer"
     DefaultTransitionBetweenSyncTasks "Ensure deterministic transfer (maximum delay)"
     DefaultTransitionBetweenAsyncTasks "Ensure data integrity only"
@@ -937,6 +944,8 @@ Model {
       FunctionName	      "system"
       SFunctionModules	      "''"
       PortCounts	      "[]"
+      SFunctionDeploymentMode off
+      EnableBusSupport	      off
     }
     Block {
       BlockType		      SubSystem
@@ -965,8 +974,8 @@ Model {
       Opaque		      off
       MaskHideContents	      off
       SFBlockType	      "NONE"
+      Variant		      off
       GeneratePreprocessorConditionals off
-      TreatAsGroupedWhenPropagatingVariantConditions on
       ContentPreviewEnabled   off
       IsWebBlock	      off
     }
@@ -1022,9 +1031,9 @@ Model {
     }
   }
   System {
-    Name		    "twospaceRT2015a"
-    Location		    [640, 0, 1920, 1040]
-    Open		    off
+    Name		    "twospaceRT"
+    Location		    [-26, 46, 1010, 826]
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1047,12 +1056,10 @@ Model {
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_twospaceRT"
-      Parameters	      "1 0 0 0 1 0 0 5 1 255 0 0 0 0 0 0 0 0 0 0"
-      SFunctionDeploymentMode off
-      EnableBusSupport	      off
+      Parameters	      "1 0 0 0 0 0 1 0 0 5 1 255 0 0 0 0 0 0 0 0 0 0"
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		20
+	$ObjectID		19
 	$ClassName		"Simulink.Mask"
 	Display			"disp('Master Control')\nport_label('input',1,'pos')\nport_label('input',2,'force')\nport_label('input',3,'"
 	"catch force')\nport_label('output',1,'force')\nport_label('output',2,'status')\nport_label('output',3,'word')\nport_l"
@@ -1080,7 +1087,6 @@ Model {
       Position		      [545, 354, 605, 416]
       ZOrder		      -3
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"Catch Force Generator"
 	Location		[16, 52, 1396, 1316]
@@ -1165,7 +1171,6 @@ Model {
 	  Position		  [45, 400, 120, 520]
 	  ZOrder		  -7
 	  RequestExecContextInheritance	off
-	  Variant		  off
 	  System {
 	    Name		    "LorentzForce"
 	    Location		    [16, 52, 1396, 1316]
@@ -1382,7 +1387,6 @@ Model {
 	  Position		  [665, 229, 765, 271]
 	  ZOrder		  -13
 	  RequestExecContextInheritance	off
-	  Variant		  off
 	  System {
 	    Name		    "ViscLoadSubsystem"
 	    Location		    [16, 52, 1404, 1316]
@@ -2005,7 +2009,6 @@ Model {
       Position		      [925, 259, 980, 291]
       ZOrder		      -13
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"RewardSbs"
 	Location		[16, 52, 1000, 682]
@@ -2080,7 +2083,7 @@ Model {
 	  Ports			  [1, 1, 0, 1]
 	  Position		  [365, 133, 440, 177]
 	  ZOrder		  -7
-	  LibraryVersion	  "1.772"
+	  LibraryVersion	  "1.752"
 	  SourceBlock		  "dspsigops/Sample\nand Hold"
 	  SourceType		  "Sample and Hold"
 	  ContentPreviewEnabled	  off
@@ -2096,7 +2099,6 @@ Model {
 	  Position		  [525, 70, 635, 130]
 	  ZOrder		  -8
 	  RequestExecContextInheritance	off
-	  Variant		  off
 	  System {
 	    Name		    "Schmidt"
 	    Location		    [16, 52, 731, 726]
@@ -2155,7 +2157,7 @@ Model {
 	      Ports		      [1, 1, 0, 1]
 	      Position		      [240, 108, 315, 152]
 	      ZOrder		      -5
-	      LibraryVersion	      "1.772"
+	      LibraryVersion	      "1.752"
 	      SourceBlock	      "dspsigops/Sample\nand Hold"
 	      SourceType	      "Sample and Hold"
 	      ContentPreviewEnabled   off
@@ -2377,7 +2379,7 @@ Model {
       Ports		      [1]
       Position		      [1010, 134, 1080, 176]
       ZOrder		      -15
-      LibraryVersion	      "1.1846"
+      LibraryVersion	      "1.1842"
       SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
       SourceType	      "xpcscopeblock"
       ContentPreviewEnabled   off
@@ -2413,7 +2415,6 @@ Model {
       Position		      [1025, 214, 1125, 256]
       ZOrder		      -16
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"Target Peek"
 	Location		[16, 52, 1404, 1316]
@@ -2716,7 +2717,7 @@ Model {
       Ports		      [1]
       Position		      [975, 334, 1045, 376]
       ZOrder		      -22
-      LibraryVersion	      "1.1846"
+      LibraryVersion	      "1.1842"
       SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
       SourceType	      "xpcscopeblock"
       ContentPreviewEnabled   off
@@ -2752,7 +2753,6 @@ Model {
       Position		      [935, 174, 980, 216]
       ZOrder		      -23
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"WordSbs"
 	Location		[16, 52, 1400, 1346]
@@ -2813,7 +2813,7 @@ Model {
       Ports		      [1]
       Position		      [680, 480, 750, 520]
       ZOrder		      -25
-      LibraryVersion	      "1.1846"
+      LibraryVersion	      "1.1842"
       SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
       SourceType	      "xpcscopeblock"
       ContentPreviewEnabled   off
@@ -3135,17 +3135,17 @@ Model {
 }
 #Finite State Machines
 #
-#   Stateflow 80000009
+#   Stateflow 80000005
 #
 #
 Stateflow {
   machine {
     id			    1
-    name		    "twospaceRT2015a"
+    name		    "twospaceRT"
     created		    "29-Sep-2006 15:42:48"
     isLibrary		    0
     firstTarget		    2
-    sfVersion		    80000006
+    sfVersion		    80000005
   }
   target {
     id			    2
