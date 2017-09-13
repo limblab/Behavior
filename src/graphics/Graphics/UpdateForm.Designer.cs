@@ -29,8 +29,8 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -1970,6 +1970,21 @@ namespace BehaviorGraphics
             this.textBoxRSTHL = new System.Windows.Forms.TextBox();
             this.label545 = new System.Windows.Forms.Label();
             this.tabTwoSpaceRT = new System.Windows.Forms.TabPage();
+            this.groupBox104 = new System.Windows.Forms.GroupBox();
+            this.textBoxTRT_bumpMagnitude = new System.Windows.Forms.TextBox();
+            this.textBoxTRT_bumpRamp = new System.Windows.Forms.TextBox();
+            this.label566 = new System.Windows.Forms.Label();
+            this.label567 = new System.Windows.Forms.Label();
+            this.textBoxTRT_bumpNumDir = new System.Windows.Forms.TextBox();
+            this.label569 = new System.Windows.Forms.Label();
+            this.textBoxTRT_bumpDirCeil = new System.Windows.Forms.TextBox();
+            this.label570 = new System.Windows.Forms.Label();
+            this.textBoxTRT_bumpDirFloor = new System.Windows.Forms.TextBox();
+            this.label571 = new System.Windows.Forms.Label();
+            this.textBoxTRT_bumpHoldTime = new System.Windows.Forms.TextBox();
+            this.textBoxTRT_bumpRate = new System.Windows.Forms.TextBox();
+            this.label572 = new System.Windows.Forms.Label();
+            this.label573 = new System.Windows.Forms.Label();
             this.groupBox103 = new System.Windows.Forms.GroupBox();
             this.label563 = new System.Windows.Forms.Label();
             this.label562 = new System.Windows.Forms.Label();
@@ -1999,6 +2014,10 @@ namespace BehaviorGraphics
             this.textBoxTRT_targetSize = new System.Windows.Forms.TextBox();
             this.label558 = new System.Windows.Forms.Label();
             this.groupBox101 = new System.Windows.Forms.GroupBox();
+            this.textBoxTRT_ctHoldHigh = new System.Windows.Forms.TextBox();
+            this.textBoxTRT_ctHoldLow = new System.Windows.Forms.TextBox();
+            this.label564 = new System.Windows.Forms.Label();
+            this.label565 = new System.Windows.Forms.Label();
             this.textBoxTRT_failPenaltyLag = new System.Windows.Forms.TextBox();
             this.label548 = new System.Windows.Forms.Label();
             this.textBoxTRT_maxMoveTime = new System.Windows.Forms.TextBox();
@@ -2284,10 +2303,6 @@ namespace BehaviorGraphics
             this.angleEntryBox1 = new AngleBox.AngleEntryBox();
             this.angleEntryBox2 = new AngleBox.AngleEntryBox();
             this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
-            this.textBoxTRT_ctHoldHigh = new System.Windows.Forms.TextBox();
-            this.textBoxTRT_ctHoldLow = new System.Windows.Forms.TextBox();
-            this.label564 = new System.Windows.Forms.Label();
-            this.label565 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2510,6 +2525,7 @@ namespace BehaviorGraphics
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRSNumTarg)).BeginInit();
             this.groupBox100.SuspendLayout();
             this.tabTwoSpaceRT.SuspendLayout();
+            this.groupBox104.SuspendLayout();
             this.groupBox103.SuspendLayout();
             this.groupBox102.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTRT_numTargets)).BeginInit();
@@ -5527,8 +5543,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -6360,8 +6376,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -22449,6 +22465,7 @@ namespace BehaviorGraphics
             // 
             // tabTwoSpaceRT
             // 
+            this.tabTwoSpaceRT.Controls.Add(this.groupBox104);
             this.tabTwoSpaceRT.Controls.Add(this.groupBox103);
             this.tabTwoSpaceRT.Controls.Add(this.groupBox102);
             this.tabTwoSpaceRT.Controls.Add(this.groupBox101);
@@ -22459,6 +22476,142 @@ namespace BehaviorGraphics
             this.tabTwoSpaceRT.TabIndex = 30;
             this.tabTwoSpaceRT.Text = "TwoSpaceRT";
             this.tabTwoSpaceRT.UseVisualStyleBackColor = true;
+            // 
+            // groupBox104
+            // 
+            this.groupBox104.Controls.Add(this.textBoxTRT_bumpMagnitude);
+            this.groupBox104.Controls.Add(this.textBoxTRT_bumpRamp);
+            this.groupBox104.Controls.Add(this.label566);
+            this.groupBox104.Controls.Add(this.label567);
+            this.groupBox104.Controls.Add(this.textBoxTRT_bumpNumDir);
+            this.groupBox104.Controls.Add(this.label569);
+            this.groupBox104.Controls.Add(this.textBoxTRT_bumpDirCeil);
+            this.groupBox104.Controls.Add(this.label570);
+            this.groupBox104.Controls.Add(this.textBoxTRT_bumpDirFloor);
+            this.groupBox104.Controls.Add(this.label571);
+            this.groupBox104.Controls.Add(this.textBoxTRT_bumpHoldTime);
+            this.groupBox104.Controls.Add(this.textBoxTRT_bumpRate);
+            this.groupBox104.Controls.Add(this.label572);
+            this.groupBox104.Controls.Add(this.label573);
+            this.groupBox104.Location = new System.Drawing.Point(218, 193);
+            this.groupBox104.Name = "groupBox104";
+            this.groupBox104.Size = new System.Drawing.Size(332, 181);
+            this.groupBox104.TabIndex = 59;
+            this.groupBox104.TabStop = false;
+            this.groupBox104.Text = "Bumps";
+            // 
+            // textBoxTRT_bumpMagnitude
+            // 
+            this.textBoxTRT_bumpMagnitude.Location = new System.Drawing.Point(133, 94);
+            this.textBoxTRT_bumpMagnitude.Name = "textBoxTRT_bumpMagnitude";
+            this.textBoxTRT_bumpMagnitude.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_bumpMagnitude.TabIndex = 31;
+            // 
+            // textBoxTRT_bumpRamp
+            // 
+            this.textBoxTRT_bumpRamp.Location = new System.Drawing.Point(133, 72);
+            this.textBoxTRT_bumpRamp.Name = "textBoxTRT_bumpRamp";
+            this.textBoxTRT_bumpRamp.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_bumpRamp.TabIndex = 30;
+            // 
+            // label566
+            // 
+            this.label566.AutoSize = true;
+            this.label566.Location = new System.Drawing.Point(12, 97);
+            this.label566.Name = "label566";
+            this.label566.Size = new System.Drawing.Size(85, 13);
+            this.label566.TabIndex = 29;
+            this.label566.Text = "Peak Magnitude";
+            // 
+            // label567
+            // 
+            this.label567.AutoSize = true;
+            this.label567.Location = new System.Drawing.Point(12, 75);
+            this.label567.Name = "label567";
+            this.label567.Size = new System.Drawing.Size(61, 13);
+            this.label567.TabIndex = 28;
+            this.label567.Text = "Ramp Time";
+            // 
+            // textBoxTRT_bumpNumDir
+            // 
+            this.textBoxTRT_bumpNumDir.Location = new System.Drawing.Point(293, 72);
+            this.textBoxTRT_bumpNumDir.Name = "textBoxTRT_bumpNumDir";
+            this.textBoxTRT_bumpNumDir.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_bumpNumDir.TabIndex = 25;
+            // 
+            // label569
+            // 
+            this.label569.AutoSize = true;
+            this.label569.Location = new System.Drawing.Point(172, 75);
+            this.label569.Name = "label569";
+            this.label569.Size = new System.Drawing.Size(106, 13);
+            this.label569.TabIndex = 24;
+            this.label569.Text = "Number of Directions";
+            // 
+            // textBoxTRT_bumpDirCeil
+            // 
+            this.textBoxTRT_bumpDirCeil.Location = new System.Drawing.Point(293, 46);
+            this.textBoxTRT_bumpDirCeil.Name = "textBoxTRT_bumpDirCeil";
+            this.textBoxTRT_bumpDirCeil.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_bumpDirCeil.TabIndex = 23;
+            // 
+            // label570
+            // 
+            this.label570.AutoSize = true;
+            this.label570.Location = new System.Drawing.Point(172, 49);
+            this.label570.Name = "label570";
+            this.label570.Size = new System.Drawing.Size(110, 13);
+            this.label570.TabIndex = 22;
+            this.label570.Text = "Direction Ceiling (deg)";
+            // 
+            // textBoxTRT_bumpDirFloor
+            // 
+            this.textBoxTRT_bumpDirFloor.Location = new System.Drawing.Point(293, 20);
+            this.textBoxTRT_bumpDirFloor.Name = "textBoxTRT_bumpDirFloor";
+            this.textBoxTRT_bumpDirFloor.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_bumpDirFloor.TabIndex = 21;
+            // 
+            // label571
+            // 
+            this.label571.AutoSize = true;
+            this.label571.Location = new System.Drawing.Point(172, 23);
+            this.label571.Name = "label571";
+            this.label571.Size = new System.Drawing.Size(102, 13);
+            this.label571.TabIndex = 20;
+            this.label571.Text = "Direction Floor (deg)";
+            // 
+            // textBoxTRT_bumpHoldTime
+            // 
+            this.textBoxTRT_bumpHoldTime.Location = new System.Drawing.Point(133, 42);
+            this.textBoxTRT_bumpHoldTime.Name = "textBoxTRT_bumpHoldTime";
+            this.textBoxTRT_bumpHoldTime.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_bumpHoldTime.TabIndex = 11;
+            // 
+            // textBoxTRT_bumpRate
+            // 
+            this.textBoxTRT_bumpRate.Location = new System.Drawing.Point(133, 20);
+            this.textBoxTRT_bumpRate.Name = "textBoxTRT_bumpRate";
+            this.textBoxTRT_bumpRate.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_bumpRate.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.textBoxTRT_bumpRate, "Rate of bumps, from 0 to 1");
+            // 
+            // label572
+            // 
+            this.label572.AutoSize = true;
+            this.label572.Location = new System.Drawing.Point(12, 45);
+            this.label572.Name = "label572";
+            this.label572.Size = new System.Drawing.Size(83, 13);
+            this.label572.TabIndex = 1;
+            this.label572.Text = "Peak Hold Time";
+            // 
+            // label573
+            // 
+            this.label573.AutoSize = true;
+            this.label573.Location = new System.Drawing.Point(12, 23);
+            this.label573.Name = "label573";
+            this.label573.Size = new System.Drawing.Size(60, 13);
+            this.label573.TabIndex = 0;
+            this.label573.Text = "Bump Rate";
             // 
             // groupBox103
             // 
@@ -22478,7 +22631,7 @@ namespace BehaviorGraphics
             this.groupBox103.Controls.Add(this.label560);
             this.groupBox103.Location = new System.Drawing.Point(8, 193);
             this.groupBox103.Name = "groupBox103";
-            this.groupBox103.Size = new System.Drawing.Size(421, 181);
+            this.groupBox103.Size = new System.Drawing.Size(201, 181);
             this.groupBox103.TabIndex = 58;
             this.groupBox103.TabStop = false;
             this.groupBox103.Text = "Workspaces";
@@ -22755,6 +22908,38 @@ namespace BehaviorGraphics
             this.groupBox101.TabIndex = 3;
             this.groupBox101.TabStop = false;
             this.groupBox101.Text = "Timers";
+            // 
+            // textBoxTRT_ctHoldHigh
+            // 
+            this.textBoxTRT_ctHoldHigh.Location = new System.Drawing.Point(133, 94);
+            this.textBoxTRT_ctHoldHigh.Name = "textBoxTRT_ctHoldHigh";
+            this.textBoxTRT_ctHoldHigh.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_ctHoldHigh.TabIndex = 31;
+            // 
+            // textBoxTRT_ctHoldLow
+            // 
+            this.textBoxTRT_ctHoldLow.Location = new System.Drawing.Point(133, 72);
+            this.textBoxTRT_ctHoldLow.Name = "textBoxTRT_ctHoldLow";
+            this.textBoxTRT_ctHoldLow.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_ctHoldLow.TabIndex = 30;
+            // 
+            // label564
+            // 
+            this.label564.AutoSize = true;
+            this.label564.Location = new System.Drawing.Point(12, 97);
+            this.label564.Name = "label564";
+            this.label564.Size = new System.Drawing.Size(113, 13);
+            this.label564.TabIndex = 29;
+            this.label564.Text = "Center Targ Hold High";
+            // 
+            // label565
+            // 
+            this.label565.AutoSize = true;
+            this.label565.Location = new System.Drawing.Point(12, 75);
+            this.label565.Name = "label565";
+            this.label565.Size = new System.Drawing.Size(111, 13);
+            this.label565.TabIndex = 28;
+            this.label565.Text = "Center Targ Hold Low";
             // 
             // textBoxTRT_failPenaltyLag
             // 
@@ -25225,38 +25410,6 @@ namespace BehaviorGraphics
             this.angleEntryBox_SA.TabIndex = 19;
             this.angleEntryBox_SA.Value = 0;
             // 
-            // textBoxTRT_ctHoldHigh
-            // 
-            this.textBoxTRT_ctHoldHigh.Location = new System.Drawing.Point(133, 94);
-            this.textBoxTRT_ctHoldHigh.Name = "textBoxTRT_ctHoldHigh";
-            this.textBoxTRT_ctHoldHigh.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_ctHoldHigh.TabIndex = 31;
-            // 
-            // textBoxTRT_ctHoldLow
-            // 
-            this.textBoxTRT_ctHoldLow.Location = new System.Drawing.Point(133, 72);
-            this.textBoxTRT_ctHoldLow.Name = "textBoxTRT_ctHoldLow";
-            this.textBoxTRT_ctHoldLow.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_ctHoldLow.TabIndex = 30;
-            // 
-            // label564
-            // 
-            this.label564.AutoSize = true;
-            this.label564.Location = new System.Drawing.Point(12, 97);
-            this.label564.Name = "label564";
-            this.label564.Size = new System.Drawing.Size(113, 13);
-            this.label564.TabIndex = 29;
-            this.label564.Text = "Center Targ Hold High";
-            // 
-            // label565
-            // 
-            this.label565.AutoSize = true;
-            this.label565.Location = new System.Drawing.Point(12, 75);
-            this.label565.Name = "label565";
-            this.label565.Size = new System.Drawing.Size(111, 13);
-            this.label565.TabIndex = 28;
-            this.label565.Text = "Center Targ Hold Low";
-            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -25646,6 +25799,8 @@ namespace BehaviorGraphics
             this.groupBox100.ResumeLayout(false);
             this.groupBox100.PerformLayout();
             this.tabTwoSpaceRT.ResumeLayout(false);
+            this.groupBox104.ResumeLayout(false);
+            this.groupBox104.PerformLayout();
             this.groupBox103.ResumeLayout(false);
             this.groupBox103.PerformLayout();
             this.groupBox102.ResumeLayout(false);
@@ -27930,5 +28085,20 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxTRT_ctHoldLow;
         private System.Windows.Forms.Label label564;
         private System.Windows.Forms.Label label565;
+        private System.Windows.Forms.GroupBox groupBox104;
+        private System.Windows.Forms.TextBox textBoxTRT_bumpMagnitude;
+        private System.Windows.Forms.TextBox textBoxTRT_bumpRamp;
+        private System.Windows.Forms.Label label566;
+        private System.Windows.Forms.Label label567;
+        private System.Windows.Forms.TextBox textBoxTRT_bumpNumDir;
+        private System.Windows.Forms.Label label569;
+        private System.Windows.Forms.TextBox textBoxTRT_bumpDirCeil;
+        private System.Windows.Forms.Label label570;
+        private System.Windows.Forms.TextBox textBoxTRT_bumpDirFloor;
+        private System.Windows.Forms.Label label571;
+        private System.Windows.Forms.TextBox textBoxTRT_bumpHoldTime;
+        private System.Windows.Forms.TextBox textBoxTRT_bumpRate;
+        private System.Windows.Forms.Label label572;
+        private System.Windows.Forms.Label label573;
     }
 }

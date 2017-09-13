@@ -1623,6 +1623,14 @@ namespace BehaviorGraphics
                 AddParamListItem("TRT ws2ymin", "P21", "Behavior TwoSpaceRT", this.textBoxTRT_ws2ymin);
                 AddParamListItem("TRT ws2ymax", "P22", "Behavior TwoSpaceRT", this.textBoxTRT_ws2ymax);
 
+                AddParamListItem("TRT bumprate", "P23", "Behavior TwoSpaceRT", this.textBoxTRT_bumpRate);
+                AddParamListItem("TRT bumpholdtime", "P24", "Behavior TwoSpaceRT", this.textBoxTRT_bumpHoldTime);
+                AddParamListItem("TRT bumpramp", "P25", "Behavior TwoSpaceRT", this.textBoxTRT_bumpRamp);
+                AddParamListItem("TRT bumpmagnitude", "P26", "Behavior TwoSpaceRT", this.textBoxTRT_bumpMagnitude);
+                AddParamListItem("TRT bumpdirfloor", "P27", "Behavior TwoSpaceRT", this.textBoxTRT_bumpDirFloor);
+                AddParamListItem("TRT bumpdirceil", "P28", "Behavior TwoSpaceRT", this.textBoxTRT_bumpDirCeil);
+                AddParamListItem("TRT bumpnumdir", "P29", "Behavior TwoSpaceRT", this.textBoxTRT_bumpNumDir);
+
             #endregion
         }
 

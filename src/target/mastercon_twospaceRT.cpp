@@ -108,7 +108,6 @@ struct LocalParams {
     // bump stuff
     real_T bump_rate;
     real_T bump_hold_time;
-    real_T bump_mag;
    	real_T bump_ramp;
 	real_T bump_magnitude;
    	real_T bump_dir_floor;
@@ -166,7 +165,7 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(22);
+	this->setNumParams(29);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
@@ -203,12 +202,11 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
     // bump info
     this->bindParamID(&params->bump_rate,           22);
     this->bindParamID(&params->bump_hold_time,      23);
-    this->bindParamID(&params->bump_mag,            24);
-   	this->bindParamId(&params->bump_ramp,           25);
-	this->bindParamId(&params->bump_magnitude,		26);
-   	this->bindParamId(&params->bump_dir_floor,		27);
-   	this->bindParamId(&params->bump_dir_ceil,		28);
-   	this->bindParamId(&params->bump_num_dir,        29);
+   	this->bindParamId(&params->bump_ramp,           24);
+	this->bindParamId(&params->bump_magnitude,		25);
+   	this->bindParamId(&params->bump_dir_floor,		26);
+   	this->bindParamId(&params->bump_dir_ceil,		27);
+   	this->bindParamId(&params->bump_num_dir,        28);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
