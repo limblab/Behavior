@@ -110,6 +110,7 @@ struct LocalParams {
     real_T bump_hold_time;
    	real_T bump_ramp;
 	real_T bump_magnitude;
+    real_T bump_peak_hold;
    	real_T bump_dir_floor;
    	real_T bump_dir_ceil;
    	real_T bump_num_dir;
@@ -165,7 +166,7 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(29);
+	this->setNumParams(30);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
@@ -200,13 +201,14 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->ws2_ymax,			21);
 
     // bump info
-    this->bindParamID(&params->bump_rate,           22);
-    this->bindParamID(&params->bump_hold_time,      23);
+    this->bindParamId(&params->bump_rate,           22);
+    this->bindParamId(&params->bump_hold_time,      23);
    	this->bindParamId(&params->bump_ramp,           24);
 	this->bindParamId(&params->bump_magnitude,		25);
-   	this->bindParamId(&params->bump_dir_floor,		26);
-   	this->bindParamId(&params->bump_dir_ceil,		27);
-   	this->bindParamId(&params->bump_num_dir,        28);
+	this->bindParamId(&params->bump_peak_hold,		26);
+   	this->bindParamId(&params->bump_dir_floor,		27);
+   	this->bindParamId(&params->bump_dir_ceil,		28);
+   	this->bindParamId(&params->bump_num_dir,        29);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -291,7 +293,7 @@ void TwoSpaceRTBehavior::doPreTrial(SimStruct *S) {
     this->bump->hold_duration = this->params->bump_peak_hold;
     this->bump->rise_time = this->params->bump_ramp;
     this->bump->peak_magnitude = this->params->bump_magnitude;
-    this->bump_time = random->getDouble((double)this->params->ct_hold_lo,(double)this->ctr_hold_time);
+    this->bump_time = random->getDouble((double)this->params->ct_hold_lo,(double)this->ct_hold_time);
 
     // Reset target index
     target_index = 0;
@@ -354,7 +356,7 @@ void TwoSpaceRTBehavior::update(SimStruct *S) {
 			if (!centerTarget->cursorInTarget(inputs->cursor)){
                 playTone(TONE_ABORT);
                 setState(STATE_ABORT);
-			} else if(this->CH_bump && this->ch_timer->elapsedTime(S)>this->bump_time){
+			} else if(this->do_bump && this->ch_timer->elapsedTime(S)>this->bump_time){
                 this->ch_timer->pause(S);
                 bump->start(S);
                 setState(STATE_BUMP);
@@ -376,7 +378,7 @@ void TwoSpaceRTBehavior::update(SimStruct *S) {
 			if(stateTimer->elapsedTime(S) > this->params->bump_hold_time) {
                 if(centerTarget->cursorInTarget(inputs->cursor)){
                     // reset bump bool so that bump isn't triggered again on this trial
-                    this->CH_bump = false;
+                    this->do_bump = false;
                     // resume CH timer
                     this->ch_timer->start(S);
                     // Go back to CT_HOLD

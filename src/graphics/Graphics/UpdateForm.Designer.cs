@@ -29,8 +29,20 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -70,7 +82,6 @@ namespace BehaviorGraphics
             this.label230 = new System.Windows.Forms.Label();
             this.textBoxEGC = new System.Windows.Forms.TextBox();
             this.label229 = new System.Windows.Forms.Label();
-            this.angleEntryBoxCurlAngleCatch = new AngleBox.AngleEntryBox();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
             this.textBoxTimeConstCatch = new System.Windows.Forms.TextBox();
             this.labelChaoticGainCatch = new System.Windows.Forms.Label();
@@ -92,7 +103,6 @@ namespace BehaviorGraphics
             this.label228 = new System.Windows.Forms.Label();
             this.textBoxEG = new System.Windows.Forms.TextBox();
             this.label227 = new System.Windows.Forms.Label();
-            this.angleEntryBoxCurlAngle = new AngleBox.AngleEntryBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.textBoxTimeConst = new System.Windows.Forms.TextBox();
             this.labelChaoticGain = new System.Windows.Forms.Label();
@@ -108,7 +118,6 @@ namespace BehaviorGraphics
             this.label19 = new System.Windows.Forms.Label();
             this.comboBoxLoad = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.angleEntryBoxCursorRotation = new AngleBox.AngleEntryBox();
             this.label17 = new System.Windows.Forms.Label();
             this.textBoxYOffset = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -135,8 +144,6 @@ namespace BehaviorGraphics
             this.radioButtonCatch = new System.Windows.Forms.RadioButton();
             this.radioButtonBump = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.angleEntryBox_CO_FTS = new AngleBox.AngleEntryBox();
-            this.angleEntryBox_CO_DTR = new AngleBox.AngleEntryBox();
             this.label_CO_FTS = new System.Windows.Forms.Label();
             this.labelCO_DTR = new System.Windows.Forms.Label();
             this.textBoxTgtSize = new System.Windows.Forms.TextBox();
@@ -739,17 +746,13 @@ namespace BehaviorGraphics
             this.labelATBumpVel = new System.Windows.Forms.Label();
             this.checkBoxATFB = new System.Windows.Forms.CheckBox();
             this.textBoxATBM = new System.Windows.Forms.TextBox();
-            this.angleEntryBoxATBHMaxS = new AngleBox.AngleEntryBox();
             this.label272 = new System.Windows.Forms.Label();
             this.label271 = new System.Windows.Forms.Label();
-            this.angleEntryBoxATBHMinS = new AngleBox.AngleEntryBox();
             this.label301 = new System.Windows.Forms.Label();
             this.textBoxATBD = new System.Windows.Forms.TextBox();
             this.label303 = new System.Windows.Forms.Label();
             this.label274 = new System.Windows.Forms.Label();
-            this.angleEntryBoxATBEMaxS = new AngleBox.AngleEntryBox();
             this.numericUpDownATBNS = new System.Windows.Forms.NumericUpDown();
-            this.angleEntryBoxATBEMinS = new AngleBox.AngleEntryBox();
             this.labelATBEMaxS = new System.Windows.Forms.Label();
             this.labelATBEMinS = new System.Windows.Forms.Label();
             this.groupBox60 = new System.Windows.Forms.GroupBox();
@@ -762,7 +765,6 @@ namespace BehaviorGraphics
             this.groupBox59 = new System.Windows.Forms.GroupBox();
             this.label269 = new System.Windows.Forms.Label();
             this.textBoxATPTS = new System.Windows.Forms.TextBox();
-            this.angleEntryBoxATFMD = new AngleBox.AngleEntryBox();
             this.checkBoxATBDiff = new System.Windows.Forms.CheckBox();
             this.label298 = new System.Windows.Forms.Label();
             this.label299 = new System.Windows.Forms.Label();
@@ -784,10 +786,6 @@ namespace BehaviorGraphics
             this.textBoxATTS = new System.Windows.Forms.TextBox();
             this.label268 = new System.Windows.Forms.Label();
             this.groupBox57 = new System.Windows.Forms.GroupBox();
-            this.angleEntryBoxATMDEMaxS = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxATMDEMinS = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxATMDHMaxS = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxATMDHMinS = new AngleBox.AngleEntryBox();
             this.label297 = new System.Windows.Forms.Label();
             this.label300 = new System.Windows.Forms.Label();
             this.checkBoxATMDMT = new System.Windows.Forms.CheckBox();
@@ -834,7 +832,6 @@ namespace BehaviorGraphics
             this.textBox2BC_rand_tgt_floor = new System.Windows.Forms.TextBox();
             this.label321 = new System.Windows.Forms.Label();
             this.checkBox2BC_rand_tgts = new System.Windows.Forms.CheckBox();
-            this.angleEntryBox2BCAng = new AngleBox.AngleEntryBox();
             this.label320 = new System.Windows.Forms.Label();
             this.textBox2BCBTR = new System.Windows.Forms.TextBox();
             this.textBox2BCTD = new System.Windows.Forms.TextBox();
@@ -891,7 +888,6 @@ namespace BehaviorGraphics
             this.textBoxUFBM = new System.Windows.Forms.TextBox();
             this.label235UF = new System.Windows.Forms.Label();
             this.checkBoxUFFB = new System.Windows.Forms.CheckBox();
-            this.angleEntryBoxUFFD = new AngleBox.AngleEntryBox();
             this.label342 = new System.Windows.Forms.Label();
             this.textBoxUFBV = new System.Windows.Forms.TextBox();
             this.label339 = new System.Windows.Forms.Label();
@@ -930,9 +926,6 @@ namespace BehaviorGraphics
             this.labelUFVelFilt = new System.Windows.Forms.Label();
             this.textBoxUFVF = new System.Windows.Forms.TextBox();
             this.label247UF = new System.Windows.Forms.Label();
-            this.angleEntryBoxUFBAS = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxUFFBFA = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxUFFFA = new AngleBox.AngleEntryBox();
             this.label246UF = new System.Windows.Forms.Label();
             this.numericUpDownUFNBFA = new System.Windows.Forms.NumericUpDown();
             this.label310UF = new System.Windows.Forms.Label();
@@ -1302,15 +1295,12 @@ namespace BehaviorGraphics
             this.labelDCOD = new System.Windows.Forms.Label();
             this.groupBoxDCOT = new System.Windows.Forms.GroupBox();
             this.checkBoxDCOSTL = new System.Windows.Forms.CheckBox();
-            this.angleEntryBoxDCOFTD = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxDCOTS = new AngleBox.AngleEntryBox();
             this.labelDCOFTD = new System.Windows.Forms.Label();
             this.labelDCOTS = new System.Windows.Forms.Label();
             this.textBoxDCOTSMax = new System.Windows.Forms.TextBox();
             this.labelDCOTSMax = new System.Windows.Forms.Label();
             this.textBoxDCOTSMin = new System.Windows.Forms.TextBox();
             this.labelDCOTSMin = new System.Windows.Forms.Label();
-            this.angleEntryBoxDCOOTS = new AngleBox.AngleEntryBox();
             this.checkBoxDCOSTIF = new System.Windows.Forms.CheckBox();
             this.textBoxDCOTFW = new System.Windows.Forms.TextBox();
             this.labelDCOTFW = new System.Windows.Forms.Label();
@@ -1453,7 +1443,6 @@ namespace BehaviorGraphics
             this.textBoxURNMD = new System.Windows.Forms.TextBox();
             this.labelURNMD = new System.Windows.Forms.Label();
             this.labelURFMD = new System.Windows.Forms.Label();
-            this.angleEntryBoxURFMD = new AngleBox.AngleEntryBox();
             this.textBoxURD = new System.Windows.Forms.TextBox();
             this.labelURD = new System.Windows.Forms.Label();
             this.textBoxURPS2 = new System.Windows.Forms.TextBox();
@@ -1504,7 +1493,6 @@ namespace BehaviorGraphics
             this.labelRPPEB = new System.Windows.Forms.Label();
             this.textBoxRPPEB = new System.Windows.Forms.TextBox();
             this.labelRPFBD = new System.Windows.Forms.Label();
-            this.angleEntryBoxRPFBD = new AngleBox.AngleEntryBox();
             this.textBoxRPNBD = new System.Windows.Forms.TextBox();
             this.labelRPNBD = new System.Windows.Forms.Label();
             this.checkBoxRPFB = new System.Windows.Forms.CheckBox();
@@ -1551,7 +1539,6 @@ namespace BehaviorGraphics
             this.textBoxRPNFD = new System.Windows.Forms.TextBox();
             this.labelRPNFD = new System.Windows.Forms.Label();
             this.labelRPFFD = new System.Windows.Forms.Label();
-            this.angleEntryBoxRPFFD = new AngleBox.AngleEntryBox();
             this.textBoxRPNFF = new System.Windows.Forms.TextBox();
             this.labelRPNFF = new System.Windows.Forms.Label();
             this.groupBoxRPCursor = new System.Windows.Forms.GroupBox();
@@ -1981,7 +1968,7 @@ namespace BehaviorGraphics
             this.label570 = new System.Windows.Forms.Label();
             this.textBoxTRT_bumpDirFloor = new System.Windows.Forms.TextBox();
             this.label571 = new System.Windows.Forms.Label();
-            this.textBoxTRT_bumpHoldTime = new System.Windows.Forms.TextBox();
+            this.textBoxTRT_bumpPeakHold = new System.Windows.Forms.TextBox();
             this.textBoxTRT_bumpRate = new System.Windows.Forms.TextBox();
             this.label572 = new System.Windows.Forms.Label();
             this.label573 = new System.Windows.Forms.Label();
@@ -2300,9 +2287,36 @@ namespace BehaviorGraphics
             this.label_CT_hold = new System.Windows.Forms.Label();
             this.textBox52b = new System.Windows.Forms.TextBox();
             this.label_CT_hold2 = new System.Windows.Forms.Label();
+            this.angleEntryBoxCurlAngleCatch = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxCurlAngle = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxCursorRotation = new AngleBox.AngleEntryBox();
+            this.angleEntryBox_CO_FTS = new AngleBox.AngleEntryBox();
+            this.angleEntryBox_CO_DTR = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxATBHMaxS = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxATBHMinS = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxATBEMaxS = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxATBEMinS = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxATFMD = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxATMDEMaxS = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxATMDEMinS = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxATMDHMaxS = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxATMDHMinS = new AngleBox.AngleEntryBox();
+            this.angleEntryBox2BCAng = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxUFFD = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxUFBAS = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxUFFBFA = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxUFFFA = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxDCOFTD = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxDCOTS = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxDCOOTS = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxURFMD = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxRPFBD = new AngleBox.AngleEntryBox();
+            this.angleEntryBoxRPFFD = new AngleBox.AngleEntryBox();
             this.angleEntryBox1 = new AngleBox.AngleEntryBox();
             this.angleEntryBox2 = new AngleBox.AngleEntryBox();
             this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
+            this.textBoxTRT_bumpHoldTime = new System.Windows.Forms.TextBox();
+            this.label568 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2999,15 +3013,6 @@ namespace BehaviorGraphics
             this.label229.TabIndex = 23;
             this.label229.Text = "Elastic Gain";
             // 
-            // angleEntryBoxCurlAngleCatch
-            // 
-            this.angleEntryBoxCurlAngleCatch.Location = new System.Drawing.Point(106, 73);
-            this.angleEntryBoxCurlAngleCatch.Name = "angleEntryBoxCurlAngleCatch";
-            this.angleEntryBoxCurlAngleCatch.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngleCatch.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngleCatch, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngleCatch.Value = 0;
-            // 
             // groupBox29
             // 
             this.groupBox29.Controls.Add(this.textBoxTimeConstCatch);
@@ -3226,15 +3231,6 @@ namespace BehaviorGraphics
             this.label227.TabIndex = 19;
             this.label227.Text = "Elastic Gain";
             // 
-            // angleEntryBoxCurlAngle
-            // 
-            this.angleEntryBoxCurlAngle.Location = new System.Drawing.Point(106, 73);
-            this.angleEntryBoxCurlAngle.Name = "angleEntryBoxCurlAngle";
-            this.angleEntryBoxCurlAngle.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngle.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngle, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngle.Value = 0;
-            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.textBoxTimeConst);
@@ -3392,15 +3388,6 @@ namespace BehaviorGraphics
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Position Offsets";
-            // 
-            // angleEntryBoxCursorRotation
-            // 
-            this.angleEntryBoxCursorRotation.Location = new System.Drawing.Point(116, 108);
-            this.angleEntryBoxCursorRotation.Name = "angleEntryBoxCursorRotation";
-            this.angleEntryBoxCursorRotation.Size = new System.Drawing.Size(99, 21);
-            this.angleEntryBoxCursorRotation.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCursorRotation, "Rotation of workspace relative to handle.");
-            this.angleEntryBoxCursorRotation.Value = 0;
             // 
             // label17
             // 
@@ -3689,22 +3676,6 @@ namespace BehaviorGraphics
             this.groupBox2.TabIndex = 21;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Targets";
-            // 
-            // angleEntryBox_CO_FTS
-            // 
-            this.angleEntryBox_CO_FTS.Location = new System.Drawing.Point(326, 78);
-            this.angleEntryBox_CO_FTS.Name = "angleEntryBox_CO_FTS";
-            this.angleEntryBox_CO_FTS.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBox_CO_FTS.TabIndex = 47;
-            this.angleEntryBox_CO_FTS.Value = 0;
-            // 
-            // angleEntryBox_CO_DTR
-            // 
-            this.angleEntryBox_CO_DTR.Location = new System.Drawing.Point(130, 78);
-            this.angleEntryBox_CO_DTR.Name = "angleEntryBox_CO_DTR";
-            this.angleEntryBox_CO_DTR.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBox_CO_DTR.TabIndex = 46;
-            this.angleEntryBox_CO_DTR.Value = 6.28;
             // 
             // label_CO_FTS
             // 
@@ -5526,6 +5497,14 @@ namespace BehaviorGraphics
             this.MGTargetGrid.AllowUserToDeleteRows = false;
             this.MGTargetGrid.AllowUserToResizeColumns = false;
             this.MGTargetGrid.AllowUserToResizeRows = false;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MGTargetGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.MGTargetGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MGTargetGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.mgNumber,
@@ -5534,8 +5513,24 @@ namespace BehaviorGraphics
             this.mgX_Pos,
             this.mgWidth,
             this.y_varMG});
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MGTargetGrid.DefaultCellStyle = dataGridViewCellStyle17;
             this.MGTargetGrid.Location = new System.Drawing.Point(25, 17);
             this.MGTargetGrid.Name = "MGTargetGrid";
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MGTargetGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.MGTargetGrid.RowHeadersVisible = false;
             this.MGTargetGrid.Size = new System.Drawing.Size(306, 162);
             this.MGTargetGrid.TabIndex = 1;
@@ -5543,8 +5538,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle16;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -6358,6 +6353,14 @@ namespace BehaviorGraphics
             this.WFTargetGrid.AllowUserToAddRows = false;
             this.WFTargetGrid.AllowUserToResizeColumns = false;
             this.WFTargetGrid.AllowUserToResizeRows = false;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.WFTargetGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.WFTargetGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.WFTargetGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.wfNumber,
@@ -6367,8 +6370,24 @@ namespace BehaviorGraphics
             this.wfWidth,
             this.x_varWF,
             this.y_varWF});
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.WFTargetGrid.DefaultCellStyle = dataGridViewCellStyle21;
             this.WFTargetGrid.Location = new System.Drawing.Point(6, 19);
             this.WFTargetGrid.Name = "WFTargetGrid";
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.WFTargetGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle22;
             this.WFTargetGrid.RowHeadersVisible = false;
             this.WFTargetGrid.Size = new System.Drawing.Size(306, 199);
             this.WFTargetGrid.TabIndex = 29;
@@ -6376,8 +6395,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle20;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -6964,14 +6983,38 @@ namespace BehaviorGraphics
             this.BCStimGrid.AllowUserToDeleteRows = false;
             this.BCStimGrid.AllowUserToResizeColumns = false;
             this.BCStimGrid.AllowUserToResizeRows = false;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.BCStimGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
             this.BCStimGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BCStimGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.StimCodeColumn,
             this.PDColumn});
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.BCStimGrid.DefaultCellStyle = dataGridViewCellStyle24;
             this.BCStimGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BCStimGrid.GridColor = System.Drawing.SystemColors.AppWorkspace;
             this.BCStimGrid.Location = new System.Drawing.Point(3, 16);
             this.BCStimGrid.Name = "BCStimGrid";
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.BCStimGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle25;
             this.BCStimGrid.RowHeadersVisible = false;
             this.BCStimGrid.Size = new System.Drawing.Size(186, 168);
             this.BCStimGrid.TabIndex = 0;
@@ -7910,13 +7953,37 @@ namespace BehaviorGraphics
             this.BFStimGrid.AllowUserToDeleteRows = false;
             this.BFStimGrid.AllowUserToResizeColumns = false;
             this.BFStimGrid.AllowUserToResizeRows = false;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.BFStimGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle26;
             this.BFStimGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BFStimGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2});
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.BFStimGrid.DefaultCellStyle = dataGridViewCellStyle27;
             this.BFStimGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BFStimGrid.Location = new System.Drawing.Point(3, 16);
             this.BFStimGrid.Name = "BFStimGrid";
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.BFStimGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle28;
             this.BFStimGrid.RowHeadersVisible = false;
             this.BFStimGrid.Size = new System.Drawing.Size(191, 233);
             this.BFStimGrid.TabIndex = 0;
@@ -10056,14 +10123,6 @@ namespace BehaviorGraphics
             this.textBoxATBM.TabIndex = 5;
             this.textBoxATBM.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
-            // angleEntryBoxATBHMaxS
-            // 
-            this.angleEntryBoxATBHMaxS.Location = new System.Drawing.Point(236, 114);
-            this.angleEntryBoxATBHMaxS.Name = "angleEntryBoxATBHMaxS";
-            this.angleEntryBoxATBHMaxS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATBHMaxS.TabIndex = 85;
-            this.angleEntryBoxATBHMaxS.Value = 0;
-            // 
             // label272
             // 
             this.label272.AutoSize = true;
@@ -10082,14 +10141,6 @@ namespace BehaviorGraphics
             this.label271.Size = new System.Drawing.Size(57, 13);
             this.label271.TabIndex = 38;
             this.label271.Text = "Magnitude";
-            // 
-            // angleEntryBoxATBHMinS
-            // 
-            this.angleEntryBoxATBHMinS.Location = new System.Drawing.Point(236, 88);
-            this.angleEntryBoxATBHMinS.Name = "angleEntryBoxATBHMinS";
-            this.angleEntryBoxATBHMinS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATBHMinS.TabIndex = 84;
-            this.angleEntryBoxATBHMinS.Value = 0;
             // 
             // label301
             // 
@@ -10127,14 +10178,6 @@ namespace BehaviorGraphics
             this.label274.TabIndex = 27;
             this.label274.Text = "Num directions";
             // 
-            // angleEntryBoxATBEMaxS
-            // 
-            this.angleEntryBoxATBEMaxS.Location = new System.Drawing.Point(236, 63);
-            this.angleEntryBoxATBEMaxS.Name = "angleEntryBoxATBEMaxS";
-            this.angleEntryBoxATBEMaxS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATBEMaxS.TabIndex = 81;
-            this.angleEntryBoxATBEMaxS.Value = 0;
-            // 
             // numericUpDownATBNS
             // 
             this.numericUpDownATBNS.Location = new System.Drawing.Point(266, 14);
@@ -10153,14 +10196,6 @@ namespace BehaviorGraphics
             0,
             0});
             this.numericUpDownATBNS.ValueChanged += new System.EventHandler(this.widget_ValueChanged);
-            // 
-            // angleEntryBoxATBEMinS
-            // 
-            this.angleEntryBoxATBEMinS.Location = new System.Drawing.Point(236, 37);
-            this.angleEntryBoxATBEMinS.Name = "angleEntryBoxATBEMinS";
-            this.angleEntryBoxATBEMinS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATBEMinS.TabIndex = 80;
-            this.angleEntryBoxATBEMinS.Value = 0;
             // 
             // labelATBEMaxS
             // 
@@ -10292,14 +10327,6 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.textBoxATPTS, "Change of percent training trials for each reward or fail (use number greater tha" +
                     "n or equal to zero).");
             this.textBoxATPTS.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // angleEntryBoxATFMD
-            // 
-            this.angleEntryBoxATFMD.Location = new System.Drawing.Point(109, 237);
-            this.angleEntryBoxATFMD.Name = "angleEntryBoxATFMD";
-            this.angleEntryBoxATFMD.Size = new System.Drawing.Size(72, 21);
-            this.angleEntryBoxATFMD.TabIndex = 78;
-            this.angleEntryBoxATFMD.Value = 0;
             // 
             // checkBoxATBDiff
             // 
@@ -10529,38 +10556,6 @@ namespace BehaviorGraphics
             this.groupBox57.TabIndex = 24;
             this.groupBox57.TabStop = false;
             this.groupBox57.Text = "Moving dots";
-            // 
-            // angleEntryBoxATMDEMaxS
-            // 
-            this.angleEntryBoxATMDEMaxS.Location = new System.Drawing.Point(237, 65);
-            this.angleEntryBoxATMDEMaxS.Name = "angleEntryBoxATMDEMaxS";
-            this.angleEntryBoxATMDEMaxS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATMDEMaxS.TabIndex = 73;
-            this.angleEntryBoxATMDEMaxS.Value = 0;
-            // 
-            // angleEntryBoxATMDEMinS
-            // 
-            this.angleEntryBoxATMDEMinS.Location = new System.Drawing.Point(237, 39);
-            this.angleEntryBoxATMDEMinS.Name = "angleEntryBoxATMDEMinS";
-            this.angleEntryBoxATMDEMinS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATMDEMinS.TabIndex = 72;
-            this.angleEntryBoxATMDEMinS.Value = 0;
-            // 
-            // angleEntryBoxATMDHMaxS
-            // 
-            this.angleEntryBoxATMDHMaxS.Location = new System.Drawing.Point(237, 116);
-            this.angleEntryBoxATMDHMaxS.Name = "angleEntryBoxATMDHMaxS";
-            this.angleEntryBoxATMDHMaxS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATMDHMaxS.TabIndex = 77;
-            this.angleEntryBoxATMDHMaxS.Value = 0;
-            // 
-            // angleEntryBoxATMDHMinS
-            // 
-            this.angleEntryBoxATMDHMinS.Location = new System.Drawing.Point(237, 90);
-            this.angleEntryBoxATMDHMinS.Name = "angleEntryBoxATMDHMinS";
-            this.angleEntryBoxATMDHMinS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATMDHMinS.TabIndex = 76;
-            this.angleEntryBoxATMDHMinS.Value = 0;
             // 
             // label297
             // 
@@ -11028,14 +11023,6 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.checkBox2BC_rand_tgts, "When checked the targets will appear at random angles between the specified floor" +
                     " and ceiling values");
             this.checkBox2BC_rand_tgts.UseVisualStyleBackColor = true;
-            // 
-            // angleEntryBox2BCAng
-            // 
-            this.angleEntryBox2BCAng.Location = new System.Drawing.Point(120, 103);
-            this.angleEntryBox2BCAng.Name = "angleEntryBox2BCAng";
-            this.angleEntryBox2BCAng.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBox2BCAng.TabIndex = 19;
-            this.angleEntryBox2BCAng.Value = 0;
             // 
             // label320
             // 
@@ -11588,14 +11575,6 @@ namespace BehaviorGraphics
             this.checkBoxUFFB.UseVisualStyleBackColor = true;
             this.checkBoxUFFB.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
             // 
-            // angleEntryBoxUFFD
-            // 
-            this.angleEntryBoxUFFD.Location = new System.Drawing.Point(101, 98);
-            this.angleEntryBoxUFFD.Name = "angleEntryBoxUFFD";
-            this.angleEntryBoxUFFD.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBoxUFFD.TabIndex = 47;
-            this.angleEntryBoxUFFD.Value = 0;
-            // 
             // label342
             // 
             this.label342.AutoSize = true;
@@ -11993,30 +11972,6 @@ namespace BehaviorGraphics
             this.label247UF.Size = new System.Drawing.Size(112, 13);
             this.label247UF.TabIndex = 51;
             this.label247UF.Text = "Num bias force angles";
-            // 
-            // angleEntryBoxUFBAS
-            // 
-            this.angleEntryBoxUFBAS.Location = new System.Drawing.Point(118, 361);
-            this.angleEntryBoxUFBAS.Name = "angleEntryBoxUFBAS";
-            this.angleEntryBoxUFBAS.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBoxUFBAS.TabIndex = 48;
-            this.angleEntryBoxUFBAS.Value = 0;
-            // 
-            // angleEntryBoxUFFBFA
-            // 
-            this.angleEntryBoxUFFBFA.Location = new System.Drawing.Point(119, 308);
-            this.angleEntryBoxUFFBFA.Name = "angleEntryBoxUFFBFA";
-            this.angleEntryBoxUFFBFA.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBoxUFFBFA.TabIndex = 1;
-            this.angleEntryBoxUFFBFA.Value = 0;
-            // 
-            // angleEntryBoxUFFFA
-            // 
-            this.angleEntryBoxUFFFA.Location = new System.Drawing.Point(119, 174);
-            this.angleEntryBoxUFFFA.Name = "angleEntryBoxUFFFA";
-            this.angleEntryBoxUFFFA.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBoxUFFFA.TabIndex = 45;
-            this.angleEntryBoxUFFFA.Value = 0;
             // 
             // label246UF
             // 
@@ -15850,22 +15805,6 @@ namespace BehaviorGraphics
             this.checkBoxDCOSTL.Text = "Square target locations";
             this.checkBoxDCOSTL.UseVisualStyleBackColor = true;
             // 
-            // angleEntryBoxDCOFTD
-            // 
-            this.angleEntryBoxDCOFTD.Location = new System.Drawing.Point(125, 368);
-            this.angleEntryBoxDCOFTD.Name = "angleEntryBoxDCOFTD";
-            this.angleEntryBoxDCOFTD.Size = new System.Drawing.Size(69, 21);
-            this.angleEntryBoxDCOFTD.TabIndex = 42;
-            this.angleEntryBoxDCOFTD.Value = 0;
-            // 
-            // angleEntryBoxDCOTS
-            // 
-            this.angleEntryBoxDCOTS.Location = new System.Drawing.Point(125, 341);
-            this.angleEntryBoxDCOTS.Name = "angleEntryBoxDCOTS";
-            this.angleEntryBoxDCOTS.Size = new System.Drawing.Size(69, 21);
-            this.angleEntryBoxDCOTS.TabIndex = 41;
-            this.angleEntryBoxDCOTS.Value = 0;
-            // 
             // labelDCOFTD
             // 
             this.labelDCOFTD.AutoSize = true;
@@ -15918,14 +15857,6 @@ namespace BehaviorGraphics
             this.labelDCOTSMin.Size = new System.Drawing.Size(98, 13);
             this.labelDCOTSMin.TabIndex = 35;
             this.labelDCOTSMin.Text = "Target stiffness min";
-            // 
-            // angleEntryBoxDCOOTS
-            // 
-            this.angleEntryBoxDCOOTS.Location = new System.Drawing.Point(126, 73);
-            this.angleEntryBoxDCOOTS.Name = "angleEntryBoxDCOOTS";
-            this.angleEntryBoxDCOOTS.Size = new System.Drawing.Size(68, 21);
-            this.angleEntryBoxDCOOTS.TabIndex = 6;
-            this.angleEntryBoxDCOOTS.Value = 0;
             // 
             // checkBoxDCOSTIF
             // 
@@ -17305,14 +17236,6 @@ namespace BehaviorGraphics
             this.labelURFMD.TabIndex = 27;
             this.labelURFMD.Text = "First movement dir";
             // 
-            // angleEntryBoxURFMD
-            // 
-            this.angleEntryBoxURFMD.Location = new System.Drawing.Point(127, 174);
-            this.angleEntryBoxURFMD.Name = "angleEntryBoxURFMD";
-            this.angleEntryBoxURFMD.Size = new System.Drawing.Size(78, 21);
-            this.angleEntryBoxURFMD.TabIndex = 26;
-            this.angleEntryBoxURFMD.Value = 0;
-            // 
             // textBoxURD
             // 
             this.textBoxURD.Location = new System.Drawing.Point(137, 148);
@@ -17805,14 +17728,6 @@ namespace BehaviorGraphics
             this.labelRPFBD.TabIndex = 55;
             this.labelRPFBD.Text = "First bump direction";
             // 
-            // angleEntryBoxRPFBD
-            // 
-            this.angleEntryBoxRPFBD.Location = new System.Drawing.Point(112, 46);
-            this.angleEntryBoxRPFBD.Name = "angleEntryBoxRPFBD";
-            this.angleEntryBoxRPFBD.Size = new System.Drawing.Size(78, 21);
-            this.angleEntryBoxRPFBD.TabIndex = 54;
-            this.angleEntryBoxRPFBD.Value = 0;
-            // 
             // textBoxRPNBD
             // 
             this.textBoxRPNBD.Location = new System.Drawing.Point(122, 20);
@@ -18246,14 +18161,6 @@ namespace BehaviorGraphics
             this.labelRPFFD.Size = new System.Drawing.Size(96, 13);
             this.labelRPFFD.TabIndex = 27;
             this.labelRPFFD.Text = "First force direction";
-            // 
-            // angleEntryBoxRPFFD
-            // 
-            this.angleEntryBoxRPFFD.Location = new System.Drawing.Point(127, 204);
-            this.angleEntryBoxRPFFD.Name = "angleEntryBoxRPFFD";
-            this.angleEntryBoxRPFFD.Size = new System.Drawing.Size(78, 21);
-            this.angleEntryBoxRPFFD.TabIndex = 26;
-            this.angleEntryBoxRPFFD.Value = 0;
             // 
             // textBoxRPNFF
             // 
@@ -22479,6 +22386,8 @@ namespace BehaviorGraphics
             // 
             // groupBox104
             // 
+            this.groupBox104.Controls.Add(this.textBoxTRT_bumpHoldTime);
+            this.groupBox104.Controls.Add(this.label568);
             this.groupBox104.Controls.Add(this.textBoxTRT_bumpMagnitude);
             this.groupBox104.Controls.Add(this.textBoxTRT_bumpRamp);
             this.groupBox104.Controls.Add(this.label566);
@@ -22489,7 +22398,7 @@ namespace BehaviorGraphics
             this.groupBox104.Controls.Add(this.label570);
             this.groupBox104.Controls.Add(this.textBoxTRT_bumpDirFloor);
             this.groupBox104.Controls.Add(this.label571);
-            this.groupBox104.Controls.Add(this.textBoxTRT_bumpHoldTime);
+            this.groupBox104.Controls.Add(this.textBoxTRT_bumpPeakHold);
             this.groupBox104.Controls.Add(this.textBoxTRT_bumpRate);
             this.groupBox104.Controls.Add(this.label572);
             this.groupBox104.Controls.Add(this.label573);
@@ -22534,7 +22443,7 @@ namespace BehaviorGraphics
             // 
             // textBoxTRT_bumpNumDir
             // 
-            this.textBoxTRT_bumpNumDir.Location = new System.Drawing.Point(293, 72);
+            this.textBoxTRT_bumpNumDir.Location = new System.Drawing.Point(291, 94);
             this.textBoxTRT_bumpNumDir.Name = "textBoxTRT_bumpNumDir";
             this.textBoxTRT_bumpNumDir.Size = new System.Drawing.Size(31, 20);
             this.textBoxTRT_bumpNumDir.TabIndex = 25;
@@ -22542,7 +22451,7 @@ namespace BehaviorGraphics
             // label569
             // 
             this.label569.AutoSize = true;
-            this.label569.Location = new System.Drawing.Point(172, 75);
+            this.label569.Location = new System.Drawing.Point(170, 97);
             this.label569.Name = "label569";
             this.label569.Size = new System.Drawing.Size(106, 13);
             this.label569.TabIndex = 24;
@@ -22550,7 +22459,7 @@ namespace BehaviorGraphics
             // 
             // textBoxTRT_bumpDirCeil
             // 
-            this.textBoxTRT_bumpDirCeil.Location = new System.Drawing.Point(293, 46);
+            this.textBoxTRT_bumpDirCeil.Location = new System.Drawing.Point(291, 68);
             this.textBoxTRT_bumpDirCeil.Name = "textBoxTRT_bumpDirCeil";
             this.textBoxTRT_bumpDirCeil.Size = new System.Drawing.Size(31, 20);
             this.textBoxTRT_bumpDirCeil.TabIndex = 23;
@@ -22558,7 +22467,7 @@ namespace BehaviorGraphics
             // label570
             // 
             this.label570.AutoSize = true;
-            this.label570.Location = new System.Drawing.Point(172, 49);
+            this.label570.Location = new System.Drawing.Point(170, 71);
             this.label570.Name = "label570";
             this.label570.Size = new System.Drawing.Size(110, 13);
             this.label570.TabIndex = 22;
@@ -22566,7 +22475,7 @@ namespace BehaviorGraphics
             // 
             // textBoxTRT_bumpDirFloor
             // 
-            this.textBoxTRT_bumpDirFloor.Location = new System.Drawing.Point(293, 20);
+            this.textBoxTRT_bumpDirFloor.Location = new System.Drawing.Point(291, 42);
             this.textBoxTRT_bumpDirFloor.Name = "textBoxTRT_bumpDirFloor";
             this.textBoxTRT_bumpDirFloor.Size = new System.Drawing.Size(31, 20);
             this.textBoxTRT_bumpDirFloor.TabIndex = 21;
@@ -22574,18 +22483,19 @@ namespace BehaviorGraphics
             // label571
             // 
             this.label571.AutoSize = true;
-            this.label571.Location = new System.Drawing.Point(172, 23);
+            this.label571.Location = new System.Drawing.Point(170, 45);
             this.label571.Name = "label571";
             this.label571.Size = new System.Drawing.Size(102, 13);
             this.label571.TabIndex = 20;
             this.label571.Text = "Direction Floor (deg)";
             // 
-            // textBoxTRT_bumpHoldTime
+            // textBoxTRT_bumpPeakHold
             // 
-            this.textBoxTRT_bumpHoldTime.Location = new System.Drawing.Point(133, 42);
-            this.textBoxTRT_bumpHoldTime.Name = "textBoxTRT_bumpHoldTime";
-            this.textBoxTRT_bumpHoldTime.Size = new System.Drawing.Size(31, 20);
-            this.textBoxTRT_bumpHoldTime.TabIndex = 11;
+            this.textBoxTRT_bumpPeakHold.Location = new System.Drawing.Point(133, 42);
+            this.textBoxTRT_bumpPeakHold.Name = "textBoxTRT_bumpPeakHold";
+            this.textBoxTRT_bumpPeakHold.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_bumpPeakHold.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.textBoxTRT_bumpPeakHold, "Length of peak bump");
             // 
             // textBoxTRT_bumpRate
             // 
@@ -25386,6 +25296,209 @@ namespace BehaviorGraphics
             this.label_CT_hold2.TabIndex = 0;
             this.label_CT_hold2.Text = "CT Hold";
             // 
+            // angleEntryBoxCurlAngleCatch
+            // 
+            this.angleEntryBoxCurlAngleCatch.Location = new System.Drawing.Point(106, 73);
+            this.angleEntryBoxCurlAngleCatch.Name = "angleEntryBoxCurlAngleCatch";
+            this.angleEntryBoxCurlAngleCatch.Size = new System.Drawing.Size(100, 21);
+            this.angleEntryBoxCurlAngleCatch.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngleCatch, "Angle relative to the direction of movement at which to apply coriolis forces.");
+            this.angleEntryBoxCurlAngleCatch.Value = 0;
+            // 
+            // angleEntryBoxCurlAngle
+            // 
+            this.angleEntryBoxCurlAngle.Location = new System.Drawing.Point(106, 73);
+            this.angleEntryBoxCurlAngle.Name = "angleEntryBoxCurlAngle";
+            this.angleEntryBoxCurlAngle.Size = new System.Drawing.Size(100, 21);
+            this.angleEntryBoxCurlAngle.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngle, "Angle relative to the direction of movement at which to apply coriolis forces.");
+            this.angleEntryBoxCurlAngle.Value = 0;
+            // 
+            // angleEntryBoxCursorRotation
+            // 
+            this.angleEntryBoxCursorRotation.Location = new System.Drawing.Point(116, 108);
+            this.angleEntryBoxCursorRotation.Name = "angleEntryBoxCursorRotation";
+            this.angleEntryBoxCursorRotation.Size = new System.Drawing.Size(99, 21);
+            this.angleEntryBoxCursorRotation.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.angleEntryBoxCursorRotation, "Rotation of workspace relative to handle.");
+            this.angleEntryBoxCursorRotation.Value = 0;
+            // 
+            // angleEntryBox_CO_FTS
+            // 
+            this.angleEntryBox_CO_FTS.Location = new System.Drawing.Point(326, 78);
+            this.angleEntryBox_CO_FTS.Name = "angleEntryBox_CO_FTS";
+            this.angleEntryBox_CO_FTS.Size = new System.Drawing.Size(76, 21);
+            this.angleEntryBox_CO_FTS.TabIndex = 47;
+            this.angleEntryBox_CO_FTS.Value = 0;
+            // 
+            // angleEntryBox_CO_DTR
+            // 
+            this.angleEntryBox_CO_DTR.Location = new System.Drawing.Point(130, 78);
+            this.angleEntryBox_CO_DTR.Name = "angleEntryBox_CO_DTR";
+            this.angleEntryBox_CO_DTR.Size = new System.Drawing.Size(76, 21);
+            this.angleEntryBox_CO_DTR.TabIndex = 46;
+            this.angleEntryBox_CO_DTR.Value = 6.28;
+            // 
+            // angleEntryBoxATBHMaxS
+            // 
+            this.angleEntryBoxATBHMaxS.Location = new System.Drawing.Point(236, 114);
+            this.angleEntryBoxATBHMaxS.Name = "angleEntryBoxATBHMaxS";
+            this.angleEntryBoxATBHMaxS.Size = new System.Drawing.Size(64, 21);
+            this.angleEntryBoxATBHMaxS.TabIndex = 85;
+            this.angleEntryBoxATBHMaxS.Value = 0;
+            // 
+            // angleEntryBoxATBHMinS
+            // 
+            this.angleEntryBoxATBHMinS.Location = new System.Drawing.Point(236, 88);
+            this.angleEntryBoxATBHMinS.Name = "angleEntryBoxATBHMinS";
+            this.angleEntryBoxATBHMinS.Size = new System.Drawing.Size(64, 21);
+            this.angleEntryBoxATBHMinS.TabIndex = 84;
+            this.angleEntryBoxATBHMinS.Value = 0;
+            // 
+            // angleEntryBoxATBEMaxS
+            // 
+            this.angleEntryBoxATBEMaxS.Location = new System.Drawing.Point(236, 63);
+            this.angleEntryBoxATBEMaxS.Name = "angleEntryBoxATBEMaxS";
+            this.angleEntryBoxATBEMaxS.Size = new System.Drawing.Size(64, 21);
+            this.angleEntryBoxATBEMaxS.TabIndex = 81;
+            this.angleEntryBoxATBEMaxS.Value = 0;
+            // 
+            // angleEntryBoxATBEMinS
+            // 
+            this.angleEntryBoxATBEMinS.Location = new System.Drawing.Point(236, 37);
+            this.angleEntryBoxATBEMinS.Name = "angleEntryBoxATBEMinS";
+            this.angleEntryBoxATBEMinS.Size = new System.Drawing.Size(64, 21);
+            this.angleEntryBoxATBEMinS.TabIndex = 80;
+            this.angleEntryBoxATBEMinS.Value = 0;
+            // 
+            // angleEntryBoxATFMD
+            // 
+            this.angleEntryBoxATFMD.Location = new System.Drawing.Point(109, 237);
+            this.angleEntryBoxATFMD.Name = "angleEntryBoxATFMD";
+            this.angleEntryBoxATFMD.Size = new System.Drawing.Size(72, 21);
+            this.angleEntryBoxATFMD.TabIndex = 78;
+            this.angleEntryBoxATFMD.Value = 0;
+            // 
+            // angleEntryBoxATMDEMaxS
+            // 
+            this.angleEntryBoxATMDEMaxS.Location = new System.Drawing.Point(237, 65);
+            this.angleEntryBoxATMDEMaxS.Name = "angleEntryBoxATMDEMaxS";
+            this.angleEntryBoxATMDEMaxS.Size = new System.Drawing.Size(64, 21);
+            this.angleEntryBoxATMDEMaxS.TabIndex = 73;
+            this.angleEntryBoxATMDEMaxS.Value = 0;
+            // 
+            // angleEntryBoxATMDEMinS
+            // 
+            this.angleEntryBoxATMDEMinS.Location = new System.Drawing.Point(237, 39);
+            this.angleEntryBoxATMDEMinS.Name = "angleEntryBoxATMDEMinS";
+            this.angleEntryBoxATMDEMinS.Size = new System.Drawing.Size(64, 21);
+            this.angleEntryBoxATMDEMinS.TabIndex = 72;
+            this.angleEntryBoxATMDEMinS.Value = 0;
+            // 
+            // angleEntryBoxATMDHMaxS
+            // 
+            this.angleEntryBoxATMDHMaxS.Location = new System.Drawing.Point(237, 116);
+            this.angleEntryBoxATMDHMaxS.Name = "angleEntryBoxATMDHMaxS";
+            this.angleEntryBoxATMDHMaxS.Size = new System.Drawing.Size(64, 21);
+            this.angleEntryBoxATMDHMaxS.TabIndex = 77;
+            this.angleEntryBoxATMDHMaxS.Value = 0;
+            // 
+            // angleEntryBoxATMDHMinS
+            // 
+            this.angleEntryBoxATMDHMinS.Location = new System.Drawing.Point(237, 90);
+            this.angleEntryBoxATMDHMinS.Name = "angleEntryBoxATMDHMinS";
+            this.angleEntryBoxATMDHMinS.Size = new System.Drawing.Size(64, 21);
+            this.angleEntryBoxATMDHMinS.TabIndex = 76;
+            this.angleEntryBoxATMDHMinS.Value = 0;
+            // 
+            // angleEntryBox2BCAng
+            // 
+            this.angleEntryBox2BCAng.Location = new System.Drawing.Point(120, 103);
+            this.angleEntryBox2BCAng.Name = "angleEntryBox2BCAng";
+            this.angleEntryBox2BCAng.Size = new System.Drawing.Size(100, 21);
+            this.angleEntryBox2BCAng.TabIndex = 19;
+            this.angleEntryBox2BCAng.Value = 0;
+            // 
+            // angleEntryBoxUFFD
+            // 
+            this.angleEntryBoxUFFD.Location = new System.Drawing.Point(101, 98);
+            this.angleEntryBoxUFFD.Name = "angleEntryBoxUFFD";
+            this.angleEntryBoxUFFD.Size = new System.Drawing.Size(76, 21);
+            this.angleEntryBoxUFFD.TabIndex = 47;
+            this.angleEntryBoxUFFD.Value = 0;
+            // 
+            // angleEntryBoxUFBAS
+            // 
+            this.angleEntryBoxUFBAS.Location = new System.Drawing.Point(118, 361);
+            this.angleEntryBoxUFBAS.Name = "angleEntryBoxUFBAS";
+            this.angleEntryBoxUFBAS.Size = new System.Drawing.Size(76, 21);
+            this.angleEntryBoxUFBAS.TabIndex = 48;
+            this.angleEntryBoxUFBAS.Value = 0;
+            // 
+            // angleEntryBoxUFFBFA
+            // 
+            this.angleEntryBoxUFFBFA.Location = new System.Drawing.Point(119, 308);
+            this.angleEntryBoxUFFBFA.Name = "angleEntryBoxUFFBFA";
+            this.angleEntryBoxUFFBFA.Size = new System.Drawing.Size(76, 21);
+            this.angleEntryBoxUFFBFA.TabIndex = 1;
+            this.angleEntryBoxUFFBFA.Value = 0;
+            // 
+            // angleEntryBoxUFFFA
+            // 
+            this.angleEntryBoxUFFFA.Location = new System.Drawing.Point(119, 174);
+            this.angleEntryBoxUFFFA.Name = "angleEntryBoxUFFFA";
+            this.angleEntryBoxUFFFA.Size = new System.Drawing.Size(76, 21);
+            this.angleEntryBoxUFFFA.TabIndex = 45;
+            this.angleEntryBoxUFFFA.Value = 0;
+            // 
+            // angleEntryBoxDCOFTD
+            // 
+            this.angleEntryBoxDCOFTD.Location = new System.Drawing.Point(125, 368);
+            this.angleEntryBoxDCOFTD.Name = "angleEntryBoxDCOFTD";
+            this.angleEntryBoxDCOFTD.Size = new System.Drawing.Size(69, 21);
+            this.angleEntryBoxDCOFTD.TabIndex = 42;
+            this.angleEntryBoxDCOFTD.Value = 0;
+            // 
+            // angleEntryBoxDCOTS
+            // 
+            this.angleEntryBoxDCOTS.Location = new System.Drawing.Point(125, 341);
+            this.angleEntryBoxDCOTS.Name = "angleEntryBoxDCOTS";
+            this.angleEntryBoxDCOTS.Size = new System.Drawing.Size(69, 21);
+            this.angleEntryBoxDCOTS.TabIndex = 41;
+            this.angleEntryBoxDCOTS.Value = 0;
+            // 
+            // angleEntryBoxDCOOTS
+            // 
+            this.angleEntryBoxDCOOTS.Location = new System.Drawing.Point(126, 73);
+            this.angleEntryBoxDCOOTS.Name = "angleEntryBoxDCOOTS";
+            this.angleEntryBoxDCOOTS.Size = new System.Drawing.Size(68, 21);
+            this.angleEntryBoxDCOOTS.TabIndex = 6;
+            this.angleEntryBoxDCOOTS.Value = 0;
+            // 
+            // angleEntryBoxURFMD
+            // 
+            this.angleEntryBoxURFMD.Location = new System.Drawing.Point(127, 174);
+            this.angleEntryBoxURFMD.Name = "angleEntryBoxURFMD";
+            this.angleEntryBoxURFMD.Size = new System.Drawing.Size(78, 21);
+            this.angleEntryBoxURFMD.TabIndex = 26;
+            this.angleEntryBoxURFMD.Value = 0;
+            // 
+            // angleEntryBoxRPFBD
+            // 
+            this.angleEntryBoxRPFBD.Location = new System.Drawing.Point(112, 46);
+            this.angleEntryBoxRPFBD.Name = "angleEntryBoxRPFBD";
+            this.angleEntryBoxRPFBD.Size = new System.Drawing.Size(78, 21);
+            this.angleEntryBoxRPFBD.TabIndex = 54;
+            this.angleEntryBoxRPFBD.Value = 0;
+            // 
+            // angleEntryBoxRPFFD
+            // 
+            this.angleEntryBoxRPFFD.Location = new System.Drawing.Point(127, 204);
+            this.angleEntryBoxRPFFD.Name = "angleEntryBoxRPFFD";
+            this.angleEntryBoxRPFFD.Size = new System.Drawing.Size(78, 21);
+            this.angleEntryBoxRPFFD.TabIndex = 26;
+            this.angleEntryBoxRPFFD.Value = 0;
+            // 
             // angleEntryBox1
             // 
             this.angleEntryBox1.Location = new System.Drawing.Point(126, 125);
@@ -25409,6 +25522,23 @@ namespace BehaviorGraphics
             this.angleEntryBox_SA.Size = new System.Drawing.Size(100, 21);
             this.angleEntryBox_SA.TabIndex = 19;
             this.angleEntryBox_SA.Value = 0;
+            // 
+            // textBoxTRT_bumpHoldTime
+            // 
+            this.textBoxTRT_bumpHoldTime.Location = new System.Drawing.Point(291, 20);
+            this.textBoxTRT_bumpHoldTime.Name = "textBoxTRT_bumpHoldTime";
+            this.textBoxTRT_bumpHoldTime.Size = new System.Drawing.Size(31, 20);
+            this.textBoxTRT_bumpHoldTime.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.textBoxTRT_bumpHoldTime, "Time spent in bump state, with or without bump");
+            // 
+            // label568
+            // 
+            this.label568.AutoSize = true;
+            this.label568.Location = new System.Drawing.Point(170, 23);
+            this.label568.Name = "label568";
+            this.label568.Size = new System.Drawing.Size(88, 13);
+            this.label568.TabIndex = 32;
+            this.label568.Text = "Bump State Time";
             // 
             // UpdateForm
             // 
@@ -28096,9 +28226,11 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label570;
         private System.Windows.Forms.TextBox textBoxTRT_bumpDirFloor;
         private System.Windows.Forms.Label label571;
-        private System.Windows.Forms.TextBox textBoxTRT_bumpHoldTime;
+        private System.Windows.Forms.TextBox textBoxTRT_bumpPeakHold;
         private System.Windows.Forms.TextBox textBoxTRT_bumpRate;
         private System.Windows.Forms.Label label572;
         private System.Windows.Forms.Label label573;
+        private System.Windows.Forms.TextBox textBoxTRT_bumpHoldTime;
+        private System.Windows.Forms.Label label568;
     }
 }
