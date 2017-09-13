@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1284"
+    ComputedModelVersion    "1.1285"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Sep 12 17:37:51 2017"
-  RTWModifiedTimeStamp	  427138666
-  ModelVersionFormat	  "1.%<AutoIncrement:1284>"
+  LastModifiedDate	  "Wed Sep 13 17:23:39 2017"
+  RTWModifiedTimeStamp	  427224214
+  ModelVersionFormat	  "1.%<AutoIncrement:1285>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1056,7 +1056,7 @@ Model {
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_twospaceRT"
-      Parameters	      "1 0 0 0 0 0 1 0 0 5 1 255 0 0 0 0 0 0 0 0 0 0"
+      Parameters	      "1 0 0 0 0 0 1 0 0 5 1 255 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
       Object {
 	$PropName		"MaskObject"
 	$ObjectID		19
