@@ -20,6 +20,7 @@
 #define STATE_CT_HOLD 2
 #define STATE_MOVEMENT 3
 #define STATE_TARG_HOLD 4
+#define STATE_BUMP 5
 
 
 /* 
@@ -48,7 +49,7 @@
  *
  *  Version 1 (0x01)
  * ----------------
- *  Version 1 includes a center target on and center target hold state, along with a special initial go cue
+ *  Version 1 includes a center target on and center target hold state, along with possible bumps
  * byte   0: uchar => number of bytes to be transmitted
  * byte   1: uchar => databurst version number (in this case: 0)
  * byte   2 to 4: uchar => task code ('TRT')
@@ -59,7 +60,12 @@
  * bytes 13 to 16: float => y offset
  * bytes 17 to 20: float => target_size
  * bytes 21 to 24: float => workspace number
- * bytes 25 to 25+(N+1)*8: where N is the number of targets, contains 8 bytes per 
+ * byte  25 : uchar => did bump?
+ * bytes 26 to 29: float => bump peak hold time
+ * bytes 30 to 33: float => bump rise time
+ * bytes 34 to 37: float => bump magnitude
+ * bytes 38 to 41: float => bump direction
+ * bytes 42 to 42+(N+1)*8: where N is the number of targets, contains 8 bytes per 
  *      target representing two single-precision floating point numbers in 
  *      little-endian format represnting the x and y position of the center of 
  *      the target. This also includes the first, center target
@@ -98,6 +104,16 @@ struct LocalParams {
     real_T ws2_xmax;
     real_T ws2_ymin;
     real_T ws2_ymax;
+
+    // bump stuff
+    real_T bump_rate;
+    real_T bump_hold_time;
+    real_T bump_mag;
+   	real_T bump_ramp;
+	real_T bump_magnitude;
+   	real_T bump_dir_floor;
+   	real_T bump_dir_ceil;
+   	real_T bump_num_dir;
 };
 
 /**
@@ -126,6 +142,14 @@ private:
     CircleTarget *targets[128];
     CircleTarget *centerTarget;
 
+    // bump things
+    bool do_bump;
+    double bump_time;
+    CosineBumpGenerator *bump;
+
+    // center hold timer
+    Timer *ch_timer;
+
 	LocalParams *params;
 
 	// helper functions
@@ -147,6 +171,7 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
 	
+    // Timing info
 	this->bindParamId(&params->ct_hold_lo,				1);
 	this->bindParamId(&params->ct_hold_hi,				2);
 	this->bindParamId(&params->targ_hold_lo,				3);
@@ -157,6 +182,7 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->movement_max_time,		7);
 	this->bindParamId(&params->failure_penalty_lag,	    8);
 
+    // target info
 	this->bindParamId(&params->target_size,				9);
 	this->bindParamId(&params->num_targets,				10);
 
@@ -164,6 +190,7 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->targ_color_G,			12);
 	this->bindParamId(&params->targ_color_B,			13);
 
+    // workspace things
 	this->bindParamId(&params->ws1_xmin,			14);
 	this->bindParamId(&params->ws1_xmax,			15);
 	this->bindParamId(&params->ws1_ymin,			16);
@@ -172,6 +199,16 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->ws2_xmax,			19);
 	this->bindParamId(&params->ws2_ymin,			20);
 	this->bindParamId(&params->ws2_ymax,			21);
+
+    // bump info
+    this->bindParamID(&params->bump_rate,           22);
+    this->bindParamID(&params->bump_hold_time,      23);
+    this->bindParamID(&params->bump_mag,            24);
+   	this->bindParamId(&params->bump_ramp,           25);
+	this->bindParamId(&params->bump_magnitude,		26);
+   	this->bindParamId(&params->bump_dir_floor,		27);
+   	this->bindParamId(&params->bump_dir_ceil,		28);
+   	this->bindParamId(&params->bump_num_dir,        29);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -192,11 +229,19 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 
 	targ_hold_time	     = 0.0;
 	t_color = 0;
+
+    // bump stuff
+	this->bump = new CosineBumpGenerator();
+    this->do_bump = false;
+    this->bump_time = 0;
+
+    this->ch_timer = new Timer();
 }
 
 // Pre-trial initialization and calculations
 void TwoSpaceRTBehavior::doPreTrial(SimStruct *S) {
 	int i; 
+    double bump_sep;
 
 	/* initialize targets */
 	//Set Colors
@@ -234,6 +279,21 @@ void TwoSpaceRTBehavior::doPreTrial(SimStruct *S) {
 	// Randomized Timers
 	targ_hold_time		= random->getDouble(params->targ_hold_lo, params->targ_hold_hi);
 	ct_hold_time		= random->getDouble(params->ct_hold_lo, params->ct_hold_hi);
+    this->ch_timer->stop(S);
+
+    // Bump stuff
+    if(random->getDouble(0,1) < params->bump_rate) {
+        this->do_bump = true;
+    } else {
+        this->do_bump = false;
+    }
+
+    bump_sep=(this->params->bump_dir_ceil - this->params->bump_dir_floor)/(this->params->bump_num_dir -1);
+    this->bump->direction=PI/180 * (this->params->bump_dir_floor + bump_sep*this->random->getInteger(0,(this->params->bump_num_dir -1)));
+    this->bump->hold_duration = this->params->bump_peak_hold;
+    this->bump->rise_time = this->params->bump_ramp;
+    this->bump->peak_magnitude = this->params->bump_magnitude;
+    this->bump_time = random->getDouble((double)this->params->ct_hold_lo,(double)this->ctr_hold_time);
 
     // Reset target index
     target_index = 0;
@@ -252,6 +312,11 @@ void TwoSpaceRTBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)(inputs->offsets.y));
     db->addFloat((float)(params->target_size));
     db->addFloat((float)(ws_num));
+    db->addByte((byte)this->do_bump);
+	db->addFloat((float)this->bump->hold_duration);
+	db->addFloat((float)this->bump->rise_time);
+	db->addFloat((float)this->bump->peak_magnitude);
+    db->addFloat((float)this->bump->direction);
     db->addFloat((float)centerTarget->centerX);
     db->addFloat((float)centerTarget->centerY);
 	for (i = 0; i<params->num_targets; i++) {
@@ -279,6 +344,8 @@ void TwoSpaceRTBehavior::update(SimStruct *S) {
 		case STATE_CT_ON:
 			/* target on */
 			if (centerTarget->cursorInTarget(inputs->cursor)) {
+                this->ch_timer->stop(S);
+                this->ch_timer->start(S);
 				setState(STATE_CT_HOLD);
 			} else if (stateTimer->elapsedTime(S) > params->initial_movement_time) {
                 setState(STATE_INCOMPLETE);
@@ -287,9 +354,13 @@ void TwoSpaceRTBehavior::update(SimStruct *S) {
         case STATE_CT_HOLD:
             // center target hold
 			if (!centerTarget->cursorInTarget(inputs->cursor)){
+                playTone(TONE_ABORT);
                 setState(STATE_ABORT);
-			}
-			else if (stateTimer->elapsedTime(S) >= ct_hold_time) {
+			} else if(this->CH_bump && this->ch_timer->elapsedTime(S)>this->bump_time){
+                this->ch_timer->pause(S);
+                bump->start(S);
+                setState(STATE_BUMP);
+            } else if (this->ch_timer->elapsedTime(S) >= ct_hold_time) {
                 // check if there are more targets
                 if (target_index == params->num_targets-1) {
                     // no more targets - this shouldn't happen on the center target, but just in case
@@ -303,6 +374,17 @@ void TwoSpaceRTBehavior::update(SimStruct *S) {
                 }
 			}
 			break;
+		case STATE_BUMP:
+			if(stateTimer->elapsedTime(S) > this->params->bump_hold_time) {
+                if(centerTarget->cursorInTarget(inputs->cursor)){
+                    // reset bump bool so that bump isn't triggered again on this trial
+                    this->CH_bump = false;
+                    // resume CH timer
+                    this->ch_timer->start(S);
+                    // Go back to CT_HOLD
+                    setState(STATE_CT_HOLD);
+                }
+            }
 		case STATE_MOVEMENT:
 			if (stateTimer->elapsedTime(S) > params->movement_max_time) {
 				setState(STATE_FAIL);
@@ -353,7 +435,16 @@ void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
     CircleTarget *currentTarget = targets[target_index];
 
 	/* force (0) */
-    outputs->force = inputs->force;
+	if (getState() == STATE_BUMP) {
+        if (bump->isRunning(S)) {
+            outputs->force = bump->getBumpForce(S);
+        } else {
+            outputs->force.x = 0;
+            outputs->force.y = 0;
+        }
+    } else {
+		outputs->force = inputs->force;
+	}
 
 	/* status (1) */
 	outputs->status[0] = getState();
@@ -376,6 +467,9 @@ void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_CT_HOLD:
 				outputs->word = WORD_CENTER_TARGET_HOLD;
 				break;
+            case STATE_BUMP:
+                outputs->word = WORD_BUMP(0);
+                break;
 			case STATE_MOVEMENT:
                 outputs->word = WORD_GO_CUE;
 				break;
@@ -409,7 +503,8 @@ void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
 		getState() == STATE_MOVEMENT){
 			outputs->targets[0] = (Target *)currentTarget;
 	} else if (getState() == STATE_CT_ON ||
-               getState() == STATE_CT_HOLD) {
+               getState() == STATE_CT_HOLD ||
+               getState() == STATE_BUMP) {
         outputs->targets[0] = centerTarget;
     } else {
 		outputs->targets[0] = nullTarget;
