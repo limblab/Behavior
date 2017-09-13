@@ -284,16 +284,20 @@ void TwoSpaceRTBehavior::doPreTrial(SimStruct *S) {
     // Bump stuff
     if(random->getDouble(0,1) < params->bump_rate) {
         this->do_bump = true;
+        bump_sep=(this->params->bump_dir_ceil - this->params->bump_dir_floor)/(this->params->bump_num_dir -1);
+        this->bump->direction=PI/180 * (this->params->bump_dir_floor + bump_sep*this->random->getInteger(0,(this->params->bump_num_dir -1)));
+        this->bump->hold_duration = this->params->bump_peak_hold;
+        this->bump->rise_time = this->params->bump_ramp;
+        this->bump->peak_magnitude = this->params->bump_magnitude;
+        this->bump_time = random->getDouble((double)this->params->ct_hold_lo,(double)this->ct_hold_time);
     } else {
         this->do_bump = false;
+        this->bump->direction=0;
+        this->bump->hold_duration = 0;
+        this->bump->rise_time = 0;
+        this->bump->peak_magnitude = 0;
+        this->bump_time = 0;
     }
-
-    bump_sep=(this->params->bump_dir_ceil - this->params->bump_dir_floor)/(this->params->bump_num_dir -1);
-    this->bump->direction=PI/180 * (this->params->bump_dir_floor + bump_sep*this->random->getInteger(0,(this->params->bump_num_dir -1)));
-    this->bump->hold_duration = this->params->bump_peak_hold;
-    this->bump->rise_time = this->params->bump_ramp;
-    this->bump->peak_magnitude = this->params->bump_magnitude;
-    this->bump_time = random->getDouble((double)this->params->ct_hold_lo,(double)this->ct_hold_time);
 
     // Reset target index
     target_index = 0;
@@ -503,8 +507,8 @@ void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
 		getState() == STATE_MOVEMENT){
 			outputs->targets[0] = (Target *)currentTarget;
 	} else if (getState() == STATE_CT_ON ||
-               getState() == STATE_CT_HOLD ||
-               getState() == STATE_BUMP) {
+               getState() == STATE_BUMP ||
+               getState() == STATE_CT_HOLD) {
         outputs->targets[0] = centerTarget;
     } else {
 		outputs->targets[0] = nullTarget;
