@@ -458,7 +458,7 @@
       <LabParam>
         <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L1</Block>
         <Name>Value</Name>
-        <Value>24</Value>
+        <Value>24.5</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L2</Block>
