@@ -70,8 +70,31 @@
  *      little-endian format represnting the x and y position of the center of 
  *      the target. This also includes the first, center target
  *
+ *  Version 2 (0x02)
+ * ----------------
+ *  Version 2 introduces idiot mode, where aborts lead to just resetting to center on state,
+ *             so there may be multiple center hold words
+ * byte   0: uchar => number of bytes to be transmitted
+ * byte   1: uchar => databurst version number (in this case: 0)
+ * byte   2 to 4: uchar => task code ('TRT')
+ * byte   5: uchar => model version major
+ * byte   6: uchar => model version minor
+ * bytes  7 to  8: short => model version micro
+ * bytes  9 to  12: float => x offset
+ * bytes 13 to 16: float => y offset
+ * bytes 17 to 20: float => target_size
+ * bytes 21 to 24: float => workspace number
+ * byte  25 : uchar => did bump?
+ * bytes 26 to 29: float => bump peak hold time
+ * bytes 30 to 33: float => bump rise time
+ * bytes 34 to 37: float => bump magnitude
+ * bytes 38 to 41: float => bump direction
+ * bytes 42 to 42+(N+1)*8: where N is the number of targets, contains 8 bytes per 
+ *      target representing two single-precision floating point numbers in 
+ *      little-endian format represnting the x and y position of the center of 
+ *      the target. This also includes the first, center target
  */
-#define DATABURST_VERSION ((byte)0x01) 
+#define DATABURST_VERSION ((byte)0x02) 
 
 // This must be custom defined for your behavior
 struct LocalParams {
@@ -359,7 +382,9 @@ void TwoSpaceRTBehavior::update(SimStruct *S) {
             // center target hold
 			if (!centerTarget->cursorInTarget(inputs->cursor)){
                 playTone(TONE_ABORT);
-                setState(STATE_ABORT);
+                // setState(STATE_ABORT);
+                // idiot mode, go back to start
+                setState(STATE_CT_ON);
 			} else if(this->do_bump && this->ch_timer->elapsedTime(S)>this->bump_time){
                 this->ch_timer->pause(S);
                 bump->start(S);
