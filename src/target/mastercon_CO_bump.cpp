@@ -219,8 +219,49 @@
 %  * byte 80:		uchar		=> stim instead of bump
 %  * bytes 81-84:	float		=> stim delay time
 %  
+% * Version 6 (0x06)
+%  * ----------------
+%   Adding idiot mode and outer target hold
+%  * byte  0:		uchar		=> number of bytes to be transmitted
+%  * byte  1:		uchar		=> version number (in this case 5)
+%  * byte  2-4:		uchar		=> task code 'C' 'O' 'B'
+%  * bytes 5-6:		uchar       => version code
+%  * byte  7-8:		uchar		=> version code (micro)
+
+%  * bytes 9-12:	float		=> center hold time
+%  * bytes 13-16:	float		=> delay time
+%  * bytes 17-20:	float		=> move time
+%  * bytes 21-24:	float		=> bump delay time
+%  * bytes 25-28:	float		=> bump hold time
+%  * bytes 29-32:	float		=> intertrial time
+%  * bytes 33-36:	float		=> penalty time
+
+%  * bytes 37-40:	float		=> target size
+%  * bytes 41-44:	float		=> target radius
+%  * bytes 45-48:	float		=> target angle
+
+%  * byte 49:		uchar		=> hide cursor
+%  * bytes 50-53:	float		=> hide radius min
+%  * bytes 54-57:	float		=> hide radius max
+
+%  * byte 58:		uchar		=> abort during bumps
+%  * byte 59:		uchar		=> do center hold bump
+%  * byte 60:		uchar		=> do delay period bump
+%  * byte 61:		uchar		=> do move bump
+%  * bytes 62-65:	float		=> bump hold at peak
+%  * bytes 66-69:	float		=> bump rise time
+%  * bytes 70-73:	float		=> bump magnitude
+%  * bytes 74-77:	float		=> bump direction
+
+%  * byte 78:		uchar		=> stim trial
+%  * byte 79:		uchar		=> stim during bump
+%  * byte 80:		uchar		=> stim instead of bump
+%  * bytes 81-84:	float		=> stim delay time
+
+%  * bytes 85-88:   float       => outer target hold time
+%  * byte 89:       uchar       => redo trial (bool, true if trial is redone because of idiot mode)
 %  */
-#define DATABURST_VERSION ((byte)0x05) 
+#define DATABURST_VERSION ((byte)0x06) 
 #define DATABURST_TASK_CODE ((byte)0x01)
 
 // This must be custom defined for your behavior
@@ -283,7 +324,7 @@ struct LocalParams {
     real_T stimDuringBump;
     real_T stimInsteadOfBump;
     real_T stimDelay;
-    
+    real_T idiot_mode;
 };
 
 /**
@@ -331,6 +372,9 @@ private:
     
     // center hold timer
     Timer *ch_timer;
+
+    // whether to redo the trial (idiot mode)
+    bool redo_trial;
     
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
@@ -344,7 +388,7 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 
 	// Set up the number of parameters you'll be using
 
-	this->setNumParams(57);
+	this->setNumParams(58);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,            0);
 	this->bindParamId(&params->soft_reset,              1);
@@ -411,6 +455,8 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->stimDuringBump,          54);
     this->bindParamId(&params->stimInsteadOfBump,       55);
     this->bindParamId(&params->stimDelay,               56);
+
+    this->bindParamId(&params->idiot_mode,               57);
     	
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -424,8 +470,8 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 
 	centerTarget = new CircleTarget();
 	primaryTarget = new CircleTarget(); 
- 
-// 	centerTarget->color = Target::Color(128, 128, 128);
+
+ 	//centerTarget->color = Target::Color(128, 128, 128);
     centerTarget->color = Target::Color(160, 255, 0);
 	primaryTarget->color = Target::Color(160, 255, 0);
 
@@ -447,6 +493,8 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
     this->ot_hold = 0.0;
     
     this->ch_timer = new Timer();
+
+    this->redo_trial = false;
 }
 
 
@@ -463,134 +511,137 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	int bump_dir;
 	bool rate_flag_match;
 
-	//set the target direction
-	if ((int)this->params->use_random_targets) {
-		tgt_sep = floor((this->params->target_ceiling - this->params->target_floor)/(this->params->num_tgt -1));
-		this->tgt_angle = (int)(this->params->target_floor + this->random->getInteger(0,(this->params->num_tgt -1))*tgt_sep);
-	} else {
-		this->tgt_angle = (int)((this->params->target_angle)) ;
-	}
+    if (!this->redo_trial) {
+	    //set the target direction
+	    if ((int)this->params->use_random_targets) {
+	    	tgt_sep = floor((this->params->target_ceiling - this->params->target_floor)/(this->params->num_tgt -1));
+	    	this->tgt_angle = (int)(this->params->target_floor + this->random->getInteger(0,(this->params->num_tgt -1))*tgt_sep);
+	    } else {
+	    	this->tgt_angle = (int)((this->params->target_angle)) ;
+	    }
 
-	// Set up target locations, etc.
-	centerTarget->radius = params->target_size;
+	    // Set up target locations, etc.
+	    centerTarget->radius = params->target_size;
 
-	primaryTarget->radius = params->target_size;
-	primaryTarget->centerX = params->target_radius*cos((float)this->tgt_angle * PI/180);
-	primaryTarget->centerY = params->target_radius*sin((float)this->tgt_angle * PI/180);
-    
-    //select the actual center hold time
-	this->ctr_hold=this->random->getDouble(this->params->CH_low,this->params->CH_high);
-	//select the actual delay period hold
-	this->delay_hold=this->random->getDouble(this->params->DP_low,this->params->DP_high);
-    //select actual outer target hold
-    this->ot_hold=this->random->getDouble(this->params->target_hold_low,this->params->target_hold_high);
-	// Reset primary target color if needed
-	primaryTarget->color = Target::Color(255, 0, 160);
-	/* set the reward rate for this trial */
-	this->reward_rate=.6;
+	    primaryTarget->radius = params->target_size;
+	    primaryTarget->centerX = params->target_radius*cos((float)this->tgt_angle * PI/180);
+	    primaryTarget->centerY = params->target_radius*sin((float)this->tgt_angle * PI/180);
         
-    // stop and reset center hold timer
-	this->ch_timer->stop(S);
-	
-	// Select whether this will be a stimulation trial 
-	this->stim_trial=(this->random->getDouble() < this->params->stim_prob);
+        //select the actual center hold time
+	    this->ctr_hold=this->random->getDouble(this->params->CH_low,this->params->CH_high);
+	    //select the actual delay period hold
+	    this->delay_hold=this->random->getDouble(this->params->DP_low,this->params->DP_high);
+        //select actual outer target hold
+        this->ot_hold=this->random->getDouble(this->params->target_hold_low,this->params->target_hold_high);
+	    // Reset primary target color if needed
+	    primaryTarget->color = Target::Color(255, 0, 160);
+	    /* set the reward rate for this trial */
+	    this->reward_rate=.6;
+            
+        // stop and reset center hold timer
+	    this->ch_timer->stop(S);
+	    
+	    // Select whether this will be a stimulation trial 
+	    this->stim_trial=(this->random->getDouble() < this->params->stim_prob);
 
-	//identify if this is a bump trial:
-    rate_flag_match=((this->params->do_CH_bump && this->params->CH_bump_rate>0) || (this->params->do_DP_bump && this->params->DP_bump_rate>0) || (this->params->do_M_bump && this->params->M_bump_rate>0));
-    if( this->params->catch_rate<1 && rate_flag_match){
-        this->do_bump=(this->random->getDouble(0,1)> this->params->catch_rate);
-    } else {
-        this->do_bump=false;
-        this->bump->peak_magnitude = 0;
-        this->bump->direction = -10000;
-    }
-	//pick what type of bump this is:
-    if(this->do_bump){
-        //get the sum of the rate values for flagged bump types:
-        bump_rate_denom=0.0;
-    	CH_bump_rate_lim=0.0;
-    	DP_bump_rate_lim=0.0;
-    	M_bump_rate_lim=0.0;
-        if(this->params->do_CH_bump){
-            bump_rate_denom= bump_rate_denom + this->params->CH_bump_rate;
-            CH_bump_rate_lim=bump_rate_denom;
-        }
-        if(this->params->do_DP_bump){
-            bump_rate_denom= bump_rate_denom + this->params->DP_bump_rate;
-            DP_bump_rate_lim=bump_rate_denom;
-        }
-        if(this->params->do_M_bump){
-            bump_rate_denom= bump_rate_denom + this->params->M_bump_rate;
-            M_bump_rate_lim=bump_rate_denom;
-        } 
-        //select what phase the bump will be in using the aggregate rates
-        temp=this->random->getDouble(0,bump_rate_denom);
-        if(this->params->do_CH_bump && temp < CH_bump_rate_lim ){
-            this->CH_bump=true;
-            this->DP_bump=false;
-            this->M_bump=false;
-        } else if(this->params->do_DP_bump && temp < DP_bump_rate_lim ){
-            this->CH_bump=false;
-            this->DP_bump=true;
-            this->M_bump=false;
-        } else if(this->params->do_M_bump){ //no extra if-clause needed because we know this is a bump trial, and if we got here then move bumps must be enabled
-            this->CH_bump=false;
-            this->DP_bump=false;
-            this->M_bump=true;
-        }
-        //now set up a bump direction relative to the target direction based on the configuration for the selected phase
-        if(this->CH_bump){
-            CH_sep=(this->params->CH_bump_dir_ceil - this->params->CH_bump_dir_floor)/(this->params->CH_bump_num_dir -1);
-            bump_dir=(int)(this->params->CH_bump_dir_floor + CH_sep*this->random->getInteger(0,(this->params->CH_bump_num_dir -1)));
-            this->bump->hold_duration = this->params->CH_bump_peak_hold;
-            this->bump->rise_time = this->params->CH_bump_ramp;
-            this->bump->peak_magnitude = this->params->CH_bump_magnitude;
-
-            if(this->params->random_bump_timing) {
-                this->bump_time = random->getDouble((double)this->params->CH_low,(double)this->ctr_hold);
-            } else {
-                this->bump_time = this->params->bump_delay_time;
-            }
-        } else if(this->DP_bump){
-            DP_sep=(this->params->DP_bump_dir_ceil - this->params->DP_bump_dir_floor)/(this->params->DP_bump_num_dir -1);
-            bump_dir=(int)(this->params->DP_bump_dir_floor + DP_sep*this->random->getInteger(0,(this->params->DP_bump_num_dir -1)));
-            this->bump->hold_duration = this->params->DP_bump_peak_hold;
-            this->bump->rise_time = this->params->DP_bump_ramp;
-            this->bump->peak_magnitude = this->params->DP_bump_magnitude;
-
-            if(this->params->random_bump_timing) {
-                this->bump_time = random->getDouble((double)this->params->DP_low,(double)this->delay_hold);
-            } else {
-                this->bump_time = this->params->bump_delay_time;
-            }
-        } else if(this->M_bump){
-            M_sep=(this->params->M_bump_dir_ceil - this->params->M_bump_dir_floor)/(this->params->M_bump_num_dir -1);
-            bump_dir=(int)(this->params->M_bump_dir_floor + M_sep*this->random->getInteger(0,(this->params->M_bump_num_dir -1)));
-            this->bump->hold_duration = this->params->M_bump_peak_hold;
-            this->bump->rise_time = this->params->M_bump_ramp;
-            this->bump->peak_magnitude = this->params->M_bump_magnitude;
-
-            if(this->params->random_bump_timing) {
-                this->bump_time = random->getDouble(0,(double)this->params->move_time);
-            } else {
-                this->bump_time = this->params->bump_delay_time;
-            }
-        }
-        if( this->params->bi_directional_bumps){
-            if(this->random->getBool()){
-                bump_dir=(bump_dir-180)%360;
-            }
-        }
-        if( this->params->target_relative_bump ){
-            this->bump->direction = ((double)(this->tgt_angle + bump_dir)) * PI/180;
+	    //identify if this is a bump trial:
+        rate_flag_match=((this->params->do_CH_bump && this->params->CH_bump_rate>0) || (this->params->do_DP_bump && this->params->DP_bump_rate>0) || (this->params->do_M_bump && this->params->M_bump_rate>0));
+        if( this->params->catch_rate<1 && rate_flag_match){
+            this->do_bump=(this->random->getDouble(0,1)> this->params->catch_rate);
         } else {
-            this->bump->direction = (double)(bump_dir) * PI/180;
+            this->do_bump=false;
+            this->bump->peak_magnitude = 0;
+            this->bump->direction = -10000;
         }
-    } else {
-        this->CH_bump=false;
-        this->DP_bump=false;
-        this->M_bump=false;
-    }
+	    //pick what type of bump this is:
+        if(this->do_bump){
+            //get the sum of the rate values for flagged bump types:
+            bump_rate_denom=0.0;
+        	CH_bump_rate_lim=0.0;
+        	DP_bump_rate_lim=0.0;
+        	M_bump_rate_lim=0.0;
+            if(this->params->do_CH_bump){
+                bump_rate_denom= bump_rate_denom + this->params->CH_bump_rate;
+                CH_bump_rate_lim=bump_rate_denom;
+            }
+            if(this->params->do_DP_bump){
+                bump_rate_denom= bump_rate_denom + this->params->DP_bump_rate;
+                DP_bump_rate_lim=bump_rate_denom;
+            }
+            if(this->params->do_M_bump){
+                bump_rate_denom= bump_rate_denom + this->params->M_bump_rate;
+                M_bump_rate_lim=bump_rate_denom;
+            } 
+            //select what phase the bump will be in using the aggregate rates
+            temp=this->random->getDouble(0,bump_rate_denom);
+            if(this->params->do_CH_bump && temp < CH_bump_rate_lim ){
+                this->CH_bump=true;
+                this->DP_bump=false;
+                this->M_bump=false;
+            } else if(this->params->do_DP_bump && temp < DP_bump_rate_lim ){
+                this->CH_bump=false;
+                this->DP_bump=true;
+                this->M_bump=false;
+            } else if(this->params->do_M_bump){ //no extra if-clause needed because we know this is a bump trial, and if we got here then move bumps must be enabled
+                this->CH_bump=false;
+                this->DP_bump=false;
+                this->M_bump=true;
+            }
+            //now set up a bump direction relative to the target direction based on the configuration for the selected phase
+            if(this->CH_bump){
+                CH_sep=(this->params->CH_bump_dir_ceil - this->params->CH_bump_dir_floor)/(this->params->CH_bump_num_dir -1);
+                bump_dir=(int)(this->params->CH_bump_dir_floor + CH_sep*this->random->getInteger(0,(this->params->CH_bump_num_dir -1)));
+                this->bump->hold_duration = this->params->CH_bump_peak_hold;
+                this->bump->rise_time = this->params->CH_bump_ramp;
+                this->bump->peak_magnitude = this->params->CH_bump_magnitude;
+
+                if(this->params->random_bump_timing) {
+                    this->bump_time = random->getDouble((double)this->params->CH_low,(double)this->ctr_hold);
+                } else {
+                    this->bump_time = this->params->bump_delay_time;
+                }
+            } else if(this->DP_bump){
+                DP_sep=(this->params->DP_bump_dir_ceil - this->params->DP_bump_dir_floor)/(this->params->DP_bump_num_dir -1);
+                bump_dir=(int)(this->params->DP_bump_dir_floor + DP_sep*this->random->getInteger(0,(this->params->DP_bump_num_dir -1)));
+                this->bump->hold_duration = this->params->DP_bump_peak_hold;
+                this->bump->rise_time = this->params->DP_bump_ramp;
+                this->bump->peak_magnitude = this->params->DP_bump_magnitude;
+
+                if(this->params->random_bump_timing) {
+                    this->bump_time = random->getDouble((double)this->params->DP_low,(double)this->delay_hold);
+                } else {
+                    this->bump_time = this->params->bump_delay_time;
+                }
+            } else if(this->M_bump){
+                M_sep=(this->params->M_bump_dir_ceil - this->params->M_bump_dir_floor)/(this->params->M_bump_num_dir -1);
+                bump_dir=(int)(this->params->M_bump_dir_floor + M_sep*this->random->getInteger(0,(this->params->M_bump_num_dir -1)));
+                this->bump->hold_duration = this->params->M_bump_peak_hold;
+                this->bump->rise_time = this->params->M_bump_ramp;
+                this->bump->peak_magnitude = this->params->M_bump_magnitude;
+
+                if(this->params->random_bump_timing) {
+                    this->bump_time = random->getDouble(0,(double)this->params->move_time);
+                } else {
+                    this->bump_time = this->params->bump_delay_time;
+                }
+            }
+            if( this->params->bi_directional_bumps){
+                if(this->random->getBool()){
+                    bump_dir=(bump_dir-180)%360;
+                }
+            }
+            if( this->params->target_relative_bump ){
+                this->bump->direction = ((double)(this->tgt_angle + bump_dir)) * PI/180;
+            } else {
+                this->bump->direction = (double)(bump_dir) * PI/180;
+            }
+        } else {
+            this->CH_bump=false;
+            this->DP_bump=false;
+            this->M_bump=false;
+        }
+
+    } //else everything else is the same
 		
 	
 	/* setup the databurst */
@@ -633,6 +684,9 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
     db->addByte((byte)this->params->stimDuringBump);
     db->addByte((byte)this->params->stimInsteadOfBump);
     db->addFloat((float)this->params->stimDelay);
+
+    db->addFloat((float)this->ot_hold);
+    db->addByte((byte)this->redo_trial);
 	db->start();
 }
 
@@ -660,6 +714,9 @@ void COBumpBehavior::update(SimStruct *S) {
 			break;
 		case STATE_CT_HOLD:
 			if (!centerTarget->cursorInTarget(inputs->cursor)) {
+                if(this->params->idiot_mode) {
+                    this->redo_trial = true;
+                }
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if(this->CH_bump && this->ch_timer->elapsedTime(S)>this->bump_time){
@@ -676,6 +733,9 @@ void COBumpBehavior::update(SimStruct *S) {
 			break;
 		case STATE_DELAY:
 			if(!centerTarget->cursorInTarget(inputs->cursor)){
+                if(this->params->idiot_mode) {
+                    this->redo_trial = true;
+                }
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if(this->DP_bump && stateTimer->elapsedTime(S) > this->bump_time){
@@ -692,8 +752,9 @@ void COBumpBehavior::update(SimStruct *S) {
 			break;
 		case STATE_MOVEMENT:
 			if ( primaryTarget->cursorInTarget(inputs->cursor) ){
-        		playTone(TONE_REWARD);
-            	setState(STATE_REWARD);
+        		//playTone(TONE_REWARD);
+            	//setState(STATE_REWARD);
+                setState(STATE_OT_HOLD);
 			}else if (this->M_bump && stateTimer->elapsedTime(S) > this->bump_time){ 
 				if(this->stim_trial) {
                     setState(STATE_STIM);
@@ -702,12 +763,30 @@ void COBumpBehavior::update(SimStruct *S) {
                     setState(STATE_BUMP);
                 }
 			}else if (stateTimer->elapsedTime(S) > this->params->move_time){
+                if(this->params->idiot_mode) {
+                    this->redo_trial = true;
+                }
                 playTone(TONE_FAIL);
     			setState(STATE_INCOMPLETE);
        		}
 			break;         
+        case STATE_OT_HOLD:
+            if ( stateTimer->elapsedTime(S) > this->ot_hold ) {
+                playTone(TONE_REWARD);
+                setState(STATE_REWARD);
+            } else if ( primaryTarget->cursorInTarget(inputs->cursor) ){
+                if(this->params->idiot_mode) {
+                    this->redo_trial = true;
+                }
+                playTone(TONE_ABORT);
+                setState(STATE_ABORT);
+            }
+            break;
 		case STATE_BUMP:
 			if(this->params->abort_during_bump && (this->CH_bump || this->DP_bump) && !centerTarget->cursorInTarget(inputs->cursor)){
+                if(this->params->idiot_mode) {
+                    this->redo_trial = true;
+                }
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}else if(stateTimer->elapsedTime(S) > this->params->bump_hold_time) {
@@ -730,6 +809,9 @@ void COBumpBehavior::update(SimStruct *S) {
                 }
             }
             if(this->M_bump && this->params->move_time < (stateTimer->elapsedTime(S)+this->params->bump_delay_time)){
+                if(this->params->idiot_mode) {
+                    this->redo_trial = true;
+                }
 				playTone(TONE_FAIL);
 				setState(STATE_INCOMPLETE);
 			}
@@ -742,6 +824,9 @@ void COBumpBehavior::update(SimStruct *S) {
                 break;
             }
 			if(this->params->abort_during_bump && (this->CH_bump || this->DP_bump) && !centerTarget->cursorInTarget(inputs->cursor)){
+                if(this->params->idiot_mode) {
+                    this->redo_trial = true;
+                }
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}else if(stateTimer->elapsedTime(S) > this->params->bump_hold_time ) {
@@ -764,6 +849,9 @@ void COBumpBehavior::update(SimStruct *S) {
                 }
             }
             if(this->M_bump && this->params->move_time < (stateTimer->elapsedTime(S)+this->params->bump_delay_time)){
+                if(this->params->idiot_mode) {
+                    this->redo_trial = true;
+                }
 				playTone(TONE_FAIL);
 				setState(STATE_INCOMPLETE);
 			}
@@ -774,9 +862,9 @@ void COBumpBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_ABORT:
-        	case STATE_REWARD:
+        case STATE_REWARD:
 		case STATE_FAIL:
-        	case STATE_INCOMPLETE:
+        case STATE_INCOMPLETE:
 			this->bump->stop();
 			if (stateTimer->elapsedTime(S) > params->intertrial_time) {
 				setState(STATE_PRETRIAL);
@@ -838,6 +926,9 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_MOVEMENT:
 				outputs->word = WORD_GO_CUE;
 				break;
+            case STATE_OT_HOLD:
+                outputs->word = WORD_OUTER_TARGET_HOLD;
+                break;
 			case STATE_REWARD:
 				outputs->word = WORD_REWARD;
 				break;
@@ -891,7 +982,7 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[0] = (Target *)(this->primaryTarget);
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
-	} else if ((getState() == STATE_MOVEMENT) ) {
+	} else if ((getState() == STATE_MOVEMENT) || getState() == STATE_OT_HOLD) {
 		outputs->targets[0] = (Target *)(this->primaryTarget);
 	    outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
