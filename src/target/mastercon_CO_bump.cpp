@@ -692,8 +692,9 @@ void COBumpBehavior::update(SimStruct *S) {
 			break;
 		case STATE_MOVEMENT:
 			if ( primaryTarget->cursorInTarget(inputs->cursor) ){
-        		playTone(TONE_REWARD);
-            	setState(STATE_REWARD);
+        		//playTone(TONE_REWARD);
+            	//setState(STATE_REWARD);
+                setState(STATE_OT_HOLD);
 			}else if (this->M_bump && stateTimer->elapsedTime(S) > this->bump_time){ 
 				if(this->stim_trial) {
                     setState(STATE_STIM);
@@ -706,6 +707,15 @@ void COBumpBehavior::update(SimStruct *S) {
     			setState(STATE_INCOMPLETE);
        		}
 			break;         
+        case STATE_OT_HOLD:
+            if ( stateTimer->elapsedTime(S) > this->ot_hold ) {
+                playTone(TONE_REWARD);
+                setState(STATE_REWARD);
+            } else if ( primaryTarget->cursorInTarget(inputs->cursor) ){
+                playTone(TONE_ABORT);
+                setState(STATE_ABORT);
+            }
+            break;
 		case STATE_BUMP:
 			if(this->params->abort_during_bump && (this->CH_bump || this->DP_bump) && !centerTarget->cursorInTarget(inputs->cursor)){
 				playTone(TONE_ABORT);
@@ -838,6 +848,9 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_MOVEMENT:
 				outputs->word = WORD_GO_CUE;
 				break;
+            case STATE_OT_HOLD:
+                outputs->word = WORD_OUTER_TARGET_HOLD;
+                break;
 			case STATE_REWARD:
 				outputs->word = WORD_REWARD;
 				break;
@@ -891,7 +904,7 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[0] = (Target *)(this->primaryTarget);
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
-	} else if ((getState() == STATE_MOVEMENT) ) {
+	} else if ((getState() == STATE_MOVEMENT) || getState() == STATE_OT_HOLD) {
 		outputs->targets[0] = (Target *)(this->primaryTarget);
 	    outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
