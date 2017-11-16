@@ -970,6 +970,9 @@ namespace BehaviorGraphics
             //extra bump parameter
             AddParamListItem("COB use random bump time",    "P53", "Behavior CO Bump", checkBox_ctr_out_bump_randomBumpTime);
             AddParamListItem("COB target relative bumps",    "P54", "Behavior CO Bump", checkBox_ctr_out_bump_targetRelativeBumps);
+
+            //idiot mode checkbox
+            AddParamListItem("COB idiot mode", "P58", "Behavior CO Bump", checkBox_ctr_out_bump_idiotMode);
             #endregion
 
             #region Unstable Field
