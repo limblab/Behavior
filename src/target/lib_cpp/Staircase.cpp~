@@ -1,3 +1,5 @@
+
+
 class Staircase {
 public:
 	Staircase();
@@ -34,7 +36,7 @@ public:
 	void setStaircaseDefault();
     void  Staircase::setStaircaseDefault(double currentValue, double startValue,int iter,double stepSize, double ratio,bool useForwardLimit,bool useBackwardLimit,double forwardLimit,double backwardLimit);
 	void setStaircaseParams();
-    void  Staircase::setStaircaseParams(double currentValue, double startValue,int iter,double stepSize, double ratio,bool useForwardLimit,bool useBackwardLimit,double forwardLimit,double backwardLimit,int successCounter);
+    void  Staircase::setStaircaseParams(double currentValue, double startValue,int iter,double stepSize, double ratio,bool useForwardLimit,bool useBackwardLimit,double forwardLimit,double backwardLimit,bool useSoftLimit);
 protected:
 	double current_value;
     double start_value;
@@ -57,6 +59,7 @@ protected:
 	bool default_use_backward_limit;
 	double default_forward_limit;
 	double default_backward_limit;
+    bool default_use_soft_limit;
 };
 
 Staircase::Staircase() { 
@@ -69,6 +72,7 @@ Staircase::Staircase() {
 	use_backward_limit=1;
 	forward_limit=90;// default value for angular psychometric tasks
 	backward_limit=0;// default value for angular psychometric tasks
+	use_soft_limit=0;
     success_counter=0;
 	//initialize default variables to same values
 	default_current_value=0;
@@ -80,6 +84,7 @@ Staircase::Staircase() {
 	default_use_backward_limit=1;
 	default_forward_limit=90;
 	default_backward_limit=0;
+	default_use_soft_limit=0;
 
 }
 
@@ -119,7 +124,7 @@ double  Staircase::getForwardLimit()                    {	return forward_limit; 
 double  Staircase::getBackwardLimit()                   {	return backward_limit;              }
 void    Staircase::getSuccessCounter()                  {	return success_counter;             }
 
-void  Staircase::setStaircaseDefault(double currentValue, double startValue,int iter,double stepSize, double ratio,bool useForwardLimit,bool useBackwardLimit,double forwardLimit,double backwardLimit){
+void  Staircase::setStaircaseDefault(double currentValue, double startValue,int iter,double stepSize, double ratio,bool useForwardLimit,bool useBackwardLimit,double forwardLimit,double backwardLimit,bool useSoftLimit){
 	default_current_value           =       currentValue;
     default_start_value             =       startValue;
     default_iteration               =       iter;
@@ -130,7 +135,7 @@ void  Staircase::setStaircaseDefault(double currentValue, double startValue,int 
 	default_forward_limit           =       forwardLimit;
 	default_backward_limit          =       backwardLimit;
 }
-void  Staircase::setStaircaseParams(double currentValue, double startValue,int iter,double stepSize, double ratio,bool useForwardLimit,bool useBackwardLimit,double forwardLimit,double backwardLimit,int successCounter){
+void  Staircase::setStaircaseParams(double currentValue, double startValue,int iter,double stepSize, double ratio,bool useForwardLimit,bool useBackwardLimit,double forwardLimit,double backwardLimit,bool useSoftLimit,int successCounter){
 	current_value                   =       currentValue;
     start_value                     =       startValue;
     iteration                       =       iter;
