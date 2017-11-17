@@ -643,6 +643,8 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
         }
 
     } //else everything else is the same
+
+	this->redo_trial = false;
 		
 	
 	/* setup the databurst */
