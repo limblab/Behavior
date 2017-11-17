@@ -58,27 +58,28 @@
  * bytes 14-17: float		=> target size
  * byte  18:	uchar		=> show target during bump
  *
- * bytes 19-22: float		=> bump direction
- * bytes 23-26: float       => bump magnitude
- * bytes 27-30: float		=> bump floor (minimum force(N) bump can take)
- * bytes 31-34:	float		=> bump ceiling (maximum force(N) bump can take)
- * bytes 35-38:	float		=> bump step
- * bytes 39-42: float		=> bump duration
- * bytes 43-46: float		=> bump ramp
+ * byte  19:                => bump trial flag
+ * bytes 20-23: float		=> bump direction
+ * bytes 24-27: float       => bump magnitude
+ * bytes 28-31: float		=> bump floor (minimum force(N) bump can take)
+ * bytes 32-35:	float		=> bump ceiling (maximum force(N) bump can take)
+ * bytes 36-39:	float		=> bump step
+ * bytes 40-43: float		=> bump duration
+ * bytes 44-47: float		=> bump ramp
  *
- * byte  47:	uchar		=> stim trial flag
- * bytes 48:    uchar       => stim code
+ * byte  48:	uchar		=> stim trial flag
+ * bytes 49:    uchar       => stim code
  *
- * byte  49:    uchar       => training trial flag
+ * byte  50:    uchar       => training trial flag
  *
- * byte  50:	uchar		=> recenter cursor flag
- * byte  51:    uchar       => hide cursor during bump
+ * byte  51:	uchar		=> recenter cursor flag
+ * byte  52:    uchar       => hide cursor during bump
  *
- * bytes 52-55: float		=> intertrial time
- * bytes 56-59: float		=> penalty time
- * bytes 60-63: float		=> bump hold time
- * bytes 64-67: float		=> center hold time
- * bytes 68-71: float		=> bump delay time
+ * bytes 53-56: float		=> intertrial time
+ * bytes 57-60: float		=> penalty time
+ * bytes 61-64: float		=> bump hold time
+ * bytes 65-68: float		=> center hold time
+ * bytes 69-72: float		=> bump delay time
  */
 	
 #define DATABURST_VERSION ((byte)0x01) 
@@ -152,6 +153,7 @@ private:
     float bump_mag;
     float bump_delay;
     int bump_steps;
+    int stim_code;
     
     Point cursorOffset;
 
@@ -227,25 +229,24 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bump = new CosineBumpGenerator();
     //initialize the staircases
     this->bump_stair->setStepSize(params->bump_step);
-    this->bump_steps=(int)round((params->bump_ceil-params->bump_floor)/params->bump_step);
+    this->bump_steps=(int)floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
     this->bump_stair->setCurrentValue(this->bump_steps/2);
-    this->bump_stair->setForwardLimit(this->bump_steps;
+    this->bump_stair->setForwardLimit(this->bump_steps);
     this->bump_stair->setBackwardLimit(0);
     this->stim_stair->setStepSize(1);
     this->stim_stair->setCurrentValue(params->stim_levels/2);
-    this->stim_stair->setForwardLimit(params->stim_levels):
+    this->stim_stair->setForwardLimit(params->stim_levels);
     this->stim_stair->setBackwardLimit(0);
 }
 
 
 void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
-    int num_bump_mags; // number of bump magnitudes there will be between bump_floor and bump_ceiling
     
 	//set the target direction deg
 	if ((int)this->params->use_random_targets) {
-		this->tgt_angle = this->random->getInteger(0,359);
+		this->tgt_dir = this->random->getInteger(0,359);
 	} else {
-		this->tgt_angle = this->params->target_angle);
+		this->tgt_dir = this->params->target_angle;
 	}
 
 	// Set up target locations, etc.
@@ -257,8 +258,8 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 	primaryTarget->centerY = params->target_radius*sin((float)this->tgt_dir * PI/180);
 	
 	secondaryTarget->radius = params->target_size;
-	secondaryTarget->centerX = params->target_radius*cos(PI + (float)this->tgt_angle * PI/180);
-	secondaryTarget->centerY = params->target_radius*sin(PI + (float)this->tgt_angle * PI/180);
+	secondaryTarget->centerX = params->target_radius*cos(PI + (float)this->tgt_dir * PI/180);
+	secondaryTarget->centerY = params->target_radius*sin(PI + (float)this->tgt_dir * PI/180);
 
     // Reset cursor offset
     cursorOffset.x = 0;
@@ -266,9 +267,9 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     
 	//set up the bump
     this->bump_delay=this->random->getDouble(params->bump_delay_low,params->bump_delay_high);
-    this->bump_tral=this->random->getDouble()>params->bump_prob;
+    this->bump_trial=this->random->getDouble()>params->bump_prob;
     if(this->bump_trial){
-        this->bump->peak_magnitude=this->bumpStair->getCurrentValue() *params->bump_step + params->bump_floor;
+        this->bump->peak_magnitude=this->bump_stair->getCurrentValue() *params->bump_step + params->bump_floor;
         this->bump->hold_duration = params->bump_duration;
         this->bump->rise_time = params->bump_ramp;
         this->bump->direction = (double)(params->bump_direction) * PI/180;
@@ -282,7 +283,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     
     /* Select whether this will be a stimulation trial */
     this->stim_trial=(this->random->getDouble() < params->stim_prob);
-
+    this->stim_code=this->random->getInteger(0,params->stim_levels-1);
 	/* setup the databurst */
 	db->reset();
 	db->addByte(DATABURST_VERSION);
@@ -294,12 +295,13 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
     
-	db->addFloat((float)this->tgt_angle);
+	db->addFloat((float)this->tgt_dir);
 	db->addByte((byte)this->params->use_random_targets);
 	db->addFloat((float)this->params->target_radius);
 	db->addFloat((float)this->params->target_size);
 	db->addByte((byte)this->params->show_target_during_bump);
     
+    db->addByte((byte)this->bump_trial);
 	db->addFloat((float)this->bump_dir);
 	db->addFloat((float)this->bump_mag);
 	db->addFloat((float)this->params->bump_floor);
@@ -324,12 +326,12 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->start();
 }
 
-void TwoBumpChoiceBehavior::update(SimStruct *S) {
+void ForcedChoiceBehavior::update(SimStruct *S) {
 	Target *correctTarget;
 	Target *incorrectTarget;
 	
 	if (training_trial) {
-		if (this->is_primary_target) {
+		if (this->bump_trial) {
 			// want to be in primary target
 			correctTarget = primaryTarget;
 			incorrectTarget = nullTarget;
@@ -375,7 +377,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if (stateTimer->elapsedTime(S) > params->ct_hold_time) {
-                centerTarget->radius = params->big_target;
+                //centerTarget->radius = params->big_target;
 				setState(STATE_CT_BLOCK);
 			}
 			break;
@@ -482,7 +484,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 	}
 }
 
-void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
+void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
     /* declarations */
     Point bf;
 
@@ -564,7 +566,7 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[0] = (Target *)centerTarget;
 		if (this->params->show_target_during_bump) {
 			if (this->training_trial) {
-				if(this->is_primary_target) {
+				if(this->bump_trial) {
 		            outputs->targets[1] = (Target *)(this->primaryTarget);
 			        outputs->targets[2] = nullTarget;
 				} else {
@@ -583,7 +585,7 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[0] = (Target *)(this->primaryTarget);
 		outputs->targets[1] = (Target *)(this->secondaryTarget);
 		if (this->training_trial) {
-			if(this->is_primary_target) {
+			if(this->bump_trial) {
 	            outputs->targets[0] = (Target *)(this->primaryTarget);
 		        outputs->targets[1] = nullTarget;
 				outputs->targets[2] = nullTarget;

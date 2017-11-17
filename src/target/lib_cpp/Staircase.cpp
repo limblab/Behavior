@@ -11,6 +11,7 @@ public:
 	bool    getUseBackwardLimit();
 	int  getForwardLimit();
 	int  getBackwardLimit();
+    int getSuccessCounter();
 
 	void restart(); //copies values in param variables into actual staircase variables
 	//step functions
@@ -30,7 +31,7 @@ public:
 	void setUseBackwardLimit(bool b);
 	void setForwardLimit(int limit);
 	void setBackwardLimit(int limit);
-	void setSuccessCounter(int ctr)
+	void setSuccessCounter(int ctr);
     
 	void setStaircaseDefault();
     void  Staircase::setStaircaseDefault(int currentValue, int startValue,int iter,int stepSize, int ratio,bool useForwardLimit,bool useBackwardLimit,int forwardLimit,int backwardLimit);
@@ -118,7 +119,7 @@ bool    Staircase::getUseForwardLimit()                 {	return use_forward_lim
 bool    Staircase::getUseBackwardLimit()                {	return use_backward_limit;          }
 int  Staircase::getForwardLimit()                       {	return forward_limit;               }
 int  Staircase::getBackwardLimit()                      {	return backward_limit;              }
-void    Staircase::getSuccessCounter()                  {	return success_counter;             }
+int    Staircase::getSuccessCounter()                  {	return success_counter;             }
 
 void  Staircase::setStaircaseDefault(int currentValue, int startValue,int iter,int stepSize, int ratio,bool useForwardLimit,bool useBackwardLimit,int forwardLimit,int backwardLimit){
 	default_current_value           =       currentValue;
@@ -148,7 +149,7 @@ void  Staircase::setStaircaseParams(int currentValue, int startValue,int iter,in
 void Staircase::stepForward() {
 	this->iteration++;
 	//If we are using limits, check whether the limit was hit
-	if (use_forward_limit && (current_value+stepSize>forward_limit)) {
+	if (use_forward_limit && (current_value+step_size>forward_limit)) {
 		//if the limit was hit, ignore the step
     }else{
         //step the value
@@ -160,9 +161,9 @@ void Staircase::stepBackward() {
 	this->iteration++;
 	this->current_value -= this->step_size;
 	//If we are using limits, check whether the limit was hit
-	if (this->use_backward_limit && (this->current_value-this->step_size<this- > backward_limit)) {
+	if (this->use_backward_limit && (this->current_value - this->step_size < this->backward_limit)) {
 		//if the limit was hit, ignore the step
-    }else
+    }else{
 		//step the value
         current_value -= step_size;
 	}
