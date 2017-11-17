@@ -105,8 +105,10 @@ struct LocalParams {
     real_T bump_ramp;
 	
     real_T ct_hold_time;
-	real_T bump_delay_time;
+	real_T bump_delay_low;
+	real_T bump_delay_high;
 	real_T bump_hold_time;
+    real_T reaction_time;
 	real_T intertrial_time;
 	real_T penalty_time;
     
@@ -118,6 +120,7 @@ struct LocalParams {
     
     real_T training_frequency;
 	real_T abort_during_bump;
+    real_T force_reaction;
 };
 
 #define MY_CLASS_NAME ForcedChoiceBehavior
@@ -147,6 +150,7 @@ private:
 	int bump_dir;
 	int tgt_dir;
     float bump_mag;
+    float bump_delay;
     int bump_steps;
     
     Point cursorOffset;
@@ -161,7 +165,7 @@ private:
 ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
     //create binding map for pulling variables from simulink into the params struct
-	this->setNumParams(25);
+	this->setNumParams(28);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
 	this->bindParamId(&params->soft_reset,				1);
@@ -181,19 +185,22 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->bump_ramp,				13);
     
 	this->bindParamId(&params->ct_hold_time,			14);
-	this->bindParamId(&params->bump_delay_time,			15);
-	this->bindParamId(&params->bump_hold_time,			16);
-	this->bindParamId(&params->intertrial_time,			17);
-	this->bindParamId(&params->penalty_time,			18);
+	this->bindParamId(&params->bump_delay_low,			15);
+    this->bindParamId(&params->bump_delay_high,			16);
+    this->bindParamId(&params->bump_hold_time,			17);
+    this->bindParamId(&params->reaction_time,			18);
+    this->bindParamId(&params->intertrial_time,			19);
+	this->bindParamId(&params->penalty_time,			20);
     
-	this->bindParamId(&params->hide_cursor,				19);
-	this->bindParamId(&params->recenter_cursor,			20);
+	this->bindParamId(&params->hide_cursor,				21);
+	this->bindParamId(&params->recenter_cursor,			22);
     
-	this->bindParamId(&params->stim_prob,				21);
-	this->bindParamId(&params->stim_levels,				22);
+	this->bindParamId(&params->stim_prob,				23);
+	this->bindParamId(&params->stim_levels,				24);
     
-	this->bindParamId(&params->training_frequency,		23);
-	this->bindParamId(&params->abort_during_bump,		24);
+	this->bindParamId(&params->training_frequency,		25);
+	this->bindParamId(&params->abort_during_bump,		26);
+	this->bindParamId(&params->force_reaction,  		27);
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -258,6 +265,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     cursorOffset.y = 0;
     
 	//set up the bump
+    this->bump_delay=this->random->getDouble(params->bump_delay_low,params->bump_delay_high);
     this->bump_tral=this->random->getDouble()>params->bump_prob;
     if(this->bump_trial){
         this->bump->peak_magnitude=this->bumpStair->getCurrentValue() *params->bump_step + params->bump_floor;
@@ -312,7 +320,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)this->params->penalty_time);
 	db->addFloat((float)this->params->bump_hold_time);
 	db->addFloat((float)this->params->ct_hold_time);
-	db->addFloat((float)this->params->bump_delay_time);
+	db->addFloat((float)this->bump_delay);
 	db->start();
 }
 
@@ -375,7 +383,7 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 			if (!centerTarget->cursorInTarget(inputs->cursor)) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			} else if (stateTimer->elapsedTime(S) > params->bump_delay_time) {
+			} else if (stateTimer->elapsedTime(S) > this->bump_delay) {
 				if (this->stim_trial) {
 					setState(STATE_STIM);
 				} else {
@@ -385,23 +393,48 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_BUMP:
-			if (!centerTarget->cursorInTarget(inputs->cursor) && params->abort_during_bump) {
-				playTone(TONE_ABORT);
-				setState(STATE_ABORT);
-			} else if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
-				playTone(TONE_GO);
-                if (params->recenter_cursor) {
-                    cursorOffset = inputs->cursor;
-                }   
-				setState(STATE_MOVEMENT);
-			}
+            if(params->force_reaction){
+                playTone(TONE_GO);
+                setState(STATE_MOVEMENT);
+            }else{
+                if (!centerTarget->cursorInTarget(inputs->cursor) && params->abort_during_bump) {
+                    playTone(TONE_ABORT);
+                    setState(STATE_ABORT);
+                } else if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
+                    playTone(TONE_GO);
+                    if (params->recenter_cursor) {
+                        cursorOffset = inputs->cursor;
+                    }   
+                    setState(STATE_MOVEMENT);
+                }
+            }
 			break;
 		case STATE_STIM:
-            if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
-    			setState(STATE_BUMP);
+            if(params->force_reaction){
+                playTone(TONE_GO);
+                setState(STATE_MOVEMENT);
+            }else{
+                if (!centerTarget->cursorInTarget(inputs->cursor) && params->abort_during_bump) {
+                    playTone(TONE_ABORT);
+                    setState(STATE_ABORT);
+                } else if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
+                    playTone(TONE_GO);
+                    if (params->recenter_cursor) {
+                        cursorOffset = inputs->cursor;
+                    }   
+                    setState(STATE_MOVEMENT);
+                }
             }
 			break;
 		case STATE_MOVEMENT:
+            if (params->force_reaction && params->reaction_time>stateTimer->elapsedTime(S)){
+                playTone(TONE_FAIL);
+				if (this->params->penalty_time > 0) {
+					setState(STATE_PENALTY);
+				} else {
+					setState(STATE_FAIL);
+				}
+            }
 			if (correctTarget->cursorInTarget(inputs->cursor - cursorOffset)) {
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
