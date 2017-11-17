@@ -276,27 +276,38 @@ namespace BehaviorGraphics
             /* 
              * Forced Choice Parameters
              */
-
-            // Stimulation Parameters
-            AddParamListItem("FC Num Steps", "P1", "Behavior FC", this.numericUpDownFCStimSteps);
-            AddParamListItem("Percent Test Trials", "P2", "Behavior FC", this.textBoxFCPctTestTrials);
-
-            // Forced Choice Timing
-            AddParamListItem("FC CHL", "P4", "Behavior FC", this.textBoxFCCHL);
-            AddParamListItem("FC CHH", "P5", "Behavior FC", this.textBoxFCCHH);
-            AddParamListItem("FC DL", "P6", "Behavior FC", this.textBoxSDL);
-            AddParamListItem("FC DH", "P7", "Behavior FC", this.textBoxSDH);
-            AddParamListItem("FC MT", "P8", "Behavior FC", this.textBoxFCM);
-            AddParamListItem("FC IT", "P9", "Behavior FC", this.textBoxFCI);
-
             // Forced Choice Targets
-            AddParamListItem("FC Target Size", "P10", "Behavior FC", this.textBoxFCTgtSize);
-            AddParamListItem("FC Target Distance", "P11", "Behavior FC", this.textBoxFCTgtDist);
-
+            AddParamListItem("FC Target Size", "P3", "Behavior FC", this.textBoxFCTargetSize);
+            AddParamListItem("FC Target Distance", "P4", "Behavior FC", this.textBoxFCTargetDistance);
+            AddParamListItem("FC Target Angle", "P5", "Behavior FC", this.textBoxFCTargetAngle);
+            AddParamListItem("FC Random Targets", "P6", "Behavior FC", this.checkBoxFCRandomTgt);
+            AddParamListItem("FC Show During Bump", "P7", "Behavior FC", this.checkBoxFCShowTgts);
+            //Bump parameters
+            AddParamListItem("FC Bump Probability", "P8", "Behavior FC", this.textBoxFCBumpProb);
+            AddParamListItem("FC Bump direction", "P9", "Behavior FC", this.textBoxFCBumpDirection);
+            AddParamListItem("FC Bump magnitude floor", "P10", "Behavior FC", this.textBoxFCBumpMagFloor);
+            AddParamListItem("FC Bump magnitude ceiling", "P11", "Behavior FC", this.textBoxFCBumpMagCeiling);
+            AddParamListItem("FC Bump magnitude step", "P12", "Behavior FC", this.textBoxFCBumpMagStep);
+            AddParamListItem("FC Bump duration", "P13", "Behavior FC", this.textBoxFCBumpDuration);
+            AddParamListItem("FC Bump rise", "P14", "Behavior FC", this.textBoxFCBumpRamp);
+            // Forced Choice Timing
+            AddParamListItem("FC CHL", "P15", "Behavior FC", this.textBoxFCCtrHold);
+            AddParamListItem("FC CHH", "P16", "Behavior FC", this.textBoxFCBumpDelayLow);
+            AddParamListItem("FC DL", "P17", "Behavior FC", this.textBoxFCBumpDelayHigh);
+            AddParamListItem("FC DH", "P18", "Behavior FC", this.textBoxFCBumpHold);
+            AddParamListItem("FC MT", "P19", "Behavior FC", this.textBoxFCReactionTime);
+            AddParamListItem("FC IT", "P20", "Behavior FC", this.textBoxFCIntertrial);
+            AddParamListItem("FC Penalty", "P21", "Behavior FC", this.textBoxFCIntertrial);
+            //Cursor parameters
+            AddParamListItem("FC Hide Cursor During Bump", "P22", "Behavior FC", this.checkBoxFCHideCursorDuringBumps);
+            AddParamListItem("FC Recenter Cursor After Bump", "P23", "Behavior FC", this.checkBoxFCRecenterAfterBumps);
+            // Stimulation Parameters
+            AddParamListItem("FC Stim Probability", "P24", "Behavior FC", this.textBoxFCStimProb);
+            AddParamListItem("FC Num Stim Levels", "P25", "Behavior FC", this.textBoxFCStimLevels);
             // Misc
-            AddParamListItem("FC Training Mode", "P3", "Behavior FC", this.checkBoxFCTrainingMode);
-            AddParamListItem("FC Reward All Test Trials", "P12", "Behavior FC", this.checkBoxFCRAT);
-            AddParamListItem("FC Reward Threshold", "P13", "Behavior FC", this.textBoxFCRewardThreshold);
+            AddParamListItem("FC Training frequency", "P26", "Behavior FC", this.textBoxFCTrainingTrialFreq);
+            AddParamListItem("FC Abort During Bump", "P27", "Behavior FC", this.checkBoxFCAbortDuringBumps);
+            AddParamListItem("FC Force Reaction", "P28", "Behavior FC", this.checkBoxFCForceReactionTime);
             #endregion
 
             #region Bump-stim
@@ -1934,13 +1945,6 @@ namespace BehaviorGraphics
             widget_ValueChanged(sender, null);
         }
 
-        private void checkBoxFCRAT_CheckedChanged(object sender, EventArgs e)
-        {
-            textBoxFCRewardThreshold.Enabled = !checkBoxFCRAT.Checked;
-
-            widget_ValueChanged(sender, e);
-        }
-
         private void checkBoxATS_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxATS.Checked)
@@ -3179,6 +3183,16 @@ namespace BehaviorGraphics
                 labelWFIntMax.Show();
             }
             widget_ValueChanged(sender, e);
+        }
+
+        private void groupBox11_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label576_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

@@ -142,23 +142,11 @@ Defines the workspace in which targets can be presented in cartesian coordinates
     <value>Distance (in cm) from the displayed target the cursor must be to be counted as in the target.
 Use negative values to make the target smaller than displayed, positive ones to make the target larger than displayed.</value>
   </data>
-  <data name="label42.ToolTip" xml:space="preserve">
-    <value>Number of gradations of test stimulation.
-
-When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
-This setting determines the number of intensity levels between on and off.</value>
-  </data>
-  <data name="numericUpDownFCStimSteps.ToolTip" xml:space="preserve">
-    <value>Number of gradations of test stimulation.
-
-When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
-This setting determines the number of intensity levels between on and off.</value>
-  </data>
-  <data name="textBoxFCCHH.ToolTip" xml:space="preserve">
+  <data name="textBoxFCBumpDelayLow.ToolTip" xml:space="preserve">
     <value>Upper bound on random center hold time.  Center hold time is the time between when the cursor enters the center target and the stimulus is delivered.
 Set equal to Center Hold Low for non-random hold time.</value>
   </data>
-  <data name="textBoxFCCHL.ToolTip" xml:space="preserve">
+  <data name="textBoxFCCtrHold.ToolTip" xml:space="preserve">
     <value>Lower bound on random center hold time.  Center hold time is the time between when the cursor enters the center target and the stimulus is delevered.
 Set equal to Center Hold High for non-random hold time.</value>
   </data>

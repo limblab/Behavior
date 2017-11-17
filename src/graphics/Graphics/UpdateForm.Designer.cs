@@ -220,34 +220,6 @@ namespace BehaviorGraphics
             this.label29 = new System.Windows.Forms.Label();
             this.textBoxTHL = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
-            this.tabPageFC = new System.Windows.Forms.TabPage();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.checkBoxFCRAT = new System.Windows.Forms.CheckBox();
-            this.textBoxFCRewardThreshold = new System.Windows.Forms.TextBox();
-            this.label40 = new System.Windows.Forms.Label();
-            this.checkBoxFCTrainingMode = new System.Windows.Forms.CheckBox();
-            this.label42 = new System.Windows.Forms.Label();
-            this.numericUpDownFCStimSteps = new System.Windows.Forms.NumericUpDown();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.textBoxFCTgtDist = new System.Windows.Forms.TextBox();
-            this.label33 = new System.Windows.Forms.Label();
-            this.textBoxFCTgtSize = new System.Windows.Forms.TextBox();
-            this.label34 = new System.Windows.Forms.Label();
-            this.textBoxFCPctTestTrials = new System.Windows.Forms.TextBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.textBoxFCI = new System.Windows.Forms.TextBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.textBoxFCM = new System.Windows.Forms.TextBox();
-            this.label35 = new System.Windows.Forms.Label();
-            this.textBoxSDH = new System.Windows.Forms.TextBox();
-            this.label36 = new System.Windows.Forms.Label();
-            this.textBoxSDL = new System.Windows.Forms.TextBox();
-            this.label37 = new System.Windows.Forms.Label();
-            this.textBoxFCCHH = new System.Windows.Forms.TextBox();
-            this.label38 = new System.Windows.Forms.Label();
-            this.textBoxFCCHL = new System.Windows.Forms.TextBox();
-            this.label39 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
             this.tabPageBS = new System.Windows.Forms.TabPage();
             this.groupBox25 = new System.Windows.Forms.GroupBox();
             this.label52 = new System.Windows.Forms.Label();
@@ -1198,6 +1170,7 @@ namespace BehaviorGraphics
             this.hide_cursor_radius_label = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_HideCursorRadiusMin = new System.Windows.Forms.TextBox();
             this.groupBox72 = new System.Windows.Forms.GroupBox();
+            this.checkBox_ctr_out_bump_idiotMode = new System.Windows.Forms.CheckBox();
             this.numericUpDown_ctr_out_bump_NumberTargets = new System.Windows.Forms.NumericUpDown();
             this.label_ctr_out_bump_NumberTargets = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_targetAngle = new System.Windows.Forms.TextBox();
@@ -2317,7 +2290,59 @@ namespace BehaviorGraphics
             this.angleEntryBox1 = new AngleBox.AngleEntryBox();
             this.angleEntryBox2 = new AngleBox.AngleEntryBox();
             this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
-            this.checkBox_ctr_out_bump_idiotMode = new System.Windows.Forms.CheckBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.textBoxFCCtrHold = new System.Windows.Forms.TextBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.textBoxFCBumpDelayLow = new System.Windows.Forms.TextBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.textBoxFCBumpDelayHigh = new System.Windows.Forms.TextBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.textBoxFCBumpHold = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
+            this.textBoxFCReactionTime = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.textBoxFCIntertrial = new System.Windows.Forms.TextBox();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.textBoxFCStimProb = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.textBoxFCStimLevels = new System.Windows.Forms.TextBox();
+            this.tabPageFC = new System.Windows.Forms.TabPage();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.textBoxFCBumpDirection = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.textBoxFCBumpProb = new System.Windows.Forms.TextBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.groupBox105 = new System.Windows.Forms.GroupBox();
+            this.textBoxFCTargetDistance = new System.Windows.Forms.TextBox();
+            this.label43 = new System.Windows.Forms.Label();
+            this.textBoxFCTargetSize = new System.Windows.Forms.TextBox();
+            this.label574 = new System.Windows.Forms.Label();
+            this.groupBox106 = new System.Windows.Forms.GroupBox();
+            this.groupBox107 = new System.Windows.Forms.GroupBox();
+            this.textBoxFCTrainingTrialFreq = new System.Windows.Forms.TextBox();
+            this.label578 = new System.Windows.Forms.Label();
+            this.textBoxFCTargetAngle = new System.Windows.Forms.TextBox();
+            this.label579 = new System.Windows.Forms.Label();
+            this.checkBoxFCRandomTgt = new System.Windows.Forms.CheckBox();
+            this.checkBoxFCShowTgts = new System.Windows.Forms.CheckBox();
+            this.textBoxFCBumpMagCeiling = new System.Windows.Forms.TextBox();
+            this.label582 = new System.Windows.Forms.Label();
+            this.textBoxFCBumpMagFloor = new System.Windows.Forms.TextBox();
+            this.label583 = new System.Windows.Forms.Label();
+            this.textBoxFCBumpDuration = new System.Windows.Forms.TextBox();
+            this.label584 = new System.Windows.Forms.Label();
+            this.textBoxFCBumpMagStep = new System.Windows.Forms.TextBox();
+            this.label585 = new System.Windows.Forms.Label();
+            this.textBoxFCBumpRamp = new System.Windows.Forms.TextBox();
+            this.label586 = new System.Windows.Forms.Label();
+            this.textBoxFCPenaltyTime = new System.Windows.Forms.TextBox();
+            this.label587 = new System.Windows.Forms.Label();
+            this.checkBoxFCRecenterAfterBumps = new System.Windows.Forms.CheckBox();
+            this.checkBoxFCHideCursorDuringBumps = new System.Windows.Forms.CheckBox();
+            this.checkBoxFCForceReactionTime = new System.Windows.Forms.CheckBox();
+            this.checkBoxFCAbortDuringBumps = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2340,11 +2365,6 @@ namespace BehaviorGraphics
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRWTgts)).BeginInit();
             this.groupBox7.SuspendLayout();
-            this.tabPageFC.SuspendLayout();
-            this.groupBox11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFCStimSteps)).BeginInit();
-            this.groupBox10.SuspendLayout();
-            this.groupBox9.SuspendLayout();
             this.tabPageBS.SuspendLayout();
             this.groupBox25.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBSStimSteps)).BeginInit();
@@ -2554,6 +2574,13 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            this.tabPageFC.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            this.groupBox105.SuspendLayout();
+            this.groupBox106.SuspendLayout();
+            this.groupBox107.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -3504,10 +3531,10 @@ namespace BehaviorGraphics
             this.tabPageCO.Controls.Add(this.groupBox3);
             this.tabPageCO.Controls.Add(this.groupBox2);
             this.tabPageCO.Controls.Add(this.groupBox1);
-            this.tabPageCO.Location = new System.Drawing.Point(4, 76);
+            this.tabPageCO.Location = new System.Drawing.Point(4, 22);
             this.tabPageCO.Name = "tabPageCO";
             this.tabPageCO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCO.Size = new System.Drawing.Size(686, 453);
+            this.tabPageCO.Size = new System.Drawing.Size(686, 507);
             this.tabPageCO.TabIndex = 1;
             this.tabPageCO.Text = "Center-Out";
             this.tabPageCO.UseVisualStyleBackColor = true;
@@ -4049,10 +4076,10 @@ namespace BehaviorGraphics
             this.tabPageRW.Controls.Add(this.groupBox30);
             this.tabPageRW.Controls.Add(this.groupBox8);
             this.tabPageRW.Controls.Add(this.groupBox7);
-            this.tabPageRW.Location = new System.Drawing.Point(4, 76);
+            this.tabPageRW.Location = new System.Drawing.Point(4, 22);
             this.tabPageRW.Name = "tabPageRW";
             this.tabPageRW.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRW.Size = new System.Drawing.Size(686, 453);
+            this.tabPageRW.Size = new System.Drawing.Size(686, 507);
             this.tabPageRW.TabIndex = 2;
             this.tabPageRW.Text = "Random Walk";
             this.tabPageRW.UseVisualStyleBackColor = true;
@@ -4491,321 +4518,15 @@ namespace BehaviorGraphics
             this.label30.TabIndex = 0;
             this.label30.Text = "Target Hold Low";
             // 
-            // tabPageFC
-            // 
-            this.tabPageFC.Controls.Add(this.groupBox11);
-            this.tabPageFC.Controls.Add(this.checkBoxFCTrainingMode);
-            this.tabPageFC.Controls.Add(this.label42);
-            this.tabPageFC.Controls.Add(this.numericUpDownFCStimSteps);
-            this.tabPageFC.Controls.Add(this.groupBox10);
-            this.tabPageFC.Controls.Add(this.textBoxFCPctTestTrials);
-            this.tabPageFC.Controls.Add(this.groupBox9);
-            this.tabPageFC.Controls.Add(this.label43);
-            this.tabPageFC.Location = new System.Drawing.Point(4, 76);
-            this.tabPageFC.Name = "tabPageFC";
-            this.tabPageFC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFC.Size = new System.Drawing.Size(686, 453);
-            this.tabPageFC.TabIndex = 3;
-            this.tabPageFC.Text = "Forced Choice";
-            this.tabPageFC.UseVisualStyleBackColor = true;
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.checkBoxFCRAT);
-            this.groupBox11.Controls.Add(this.textBoxFCRewardThreshold);
-            this.groupBox11.Controls.Add(this.label40);
-            this.groupBox11.Location = new System.Drawing.Point(221, 94);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(218, 81);
-            this.groupBox11.TabIndex = 27;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Test trial reward behavior";
-            // 
-            // checkBoxFCRAT
-            // 
-            this.checkBoxFCRAT.AutoSize = true;
-            this.checkBoxFCRAT.Location = new System.Drawing.Point(12, 22);
-            this.checkBoxFCRAT.Name = "checkBoxFCRAT";
-            this.checkBoxFCRAT.Size = new System.Drawing.Size(120, 17);
-            this.checkBoxFCRAT.TabIndex = 1;
-            this.checkBoxFCRAT.Text = "Reward all test trials";
-            this.toolTip1.SetToolTip(this.checkBoxFCRAT, "When checked the monkey will be rewarded on test trials for movements to either t" +
-                    "arget.");
-            this.checkBoxFCRAT.UseVisualStyleBackColor = true;
-            this.checkBoxFCRAT.CheckedChanged += new System.EventHandler(this.checkBoxFCRAT_CheckedChanged);
-            // 
-            // textBoxFCRewardThreshold
-            // 
-            this.textBoxFCRewardThreshold.Location = new System.Drawing.Point(109, 45);
-            this.textBoxFCRewardThreshold.Name = "textBoxFCRewardThreshold";
-            this.textBoxFCRewardThreshold.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFCRewardThreshold.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.textBoxFCRewardThreshold, "The stimulus level on which the monkey should move to the stim target.");
-            this.textBoxFCRewardThreshold.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(9, 52);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(94, 13);
-            this.label40.TabIndex = 18;
-            this.label40.Text = "Reward Threshold";
-            // 
-            // checkBoxFCTrainingMode
-            // 
-            this.checkBoxFCTrainingMode.AutoSize = true;
-            this.checkBoxFCTrainingMode.Location = new System.Drawing.Point(232, 71);
-            this.checkBoxFCTrainingMode.Name = "checkBoxFCTrainingMode";
-            this.checkBoxFCTrainingMode.Size = new System.Drawing.Size(94, 17);
-            this.checkBoxFCTrainingMode.TabIndex = 25;
-            this.checkBoxFCTrainingMode.Text = "Training Mode";
-            this.toolTip1.SetToolTip(this.checkBoxFCTrainingMode, "Sets training mode:\r\n\r\nWhen on, only the correct target is illuminated.\r\nWhen off" +
-                    ", both outer targets are illuminated.");
-            this.checkBoxFCTrainingMode.UseVisualStyleBackColor = true;
-            this.checkBoxFCTrainingMode.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(229, 19);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(113, 13);
-            this.label42.TabIndex = 4;
-            this.label42.Text = "Num Stimulation Steps";
-            this.toolTip1.SetToolTip(this.label42, resources.GetString("label42.ToolTip"));
-            // 
-            // numericUpDownFCStimSteps
-            // 
-            this.numericUpDownFCStimSteps.Location = new System.Drawing.Point(359, 17);
-            this.numericUpDownFCStimSteps.Maximum = new decimal(new int[] {
-            14,
-            0,
-            0,
-            0});
-            this.numericUpDownFCStimSteps.Name = "numericUpDownFCStimSteps";
-            this.numericUpDownFCStimSteps.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDownFCStimSteps.TabIndex = 21;
-            this.toolTip1.SetToolTip(this.numericUpDownFCStimSteps, resources.GetString("numericUpDownFCStimSteps.ToolTip"));
-            this.numericUpDownFCStimSteps.Value = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            this.numericUpDownFCStimSteps.ValueChanged += new System.EventHandler(this.widget_ValueChanged);
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.textBoxFCTgtDist);
-            this.groupBox10.Controls.Add(this.label33);
-            this.groupBox10.Controls.Add(this.textBoxFCTgtSize);
-            this.groupBox10.Controls.Add(this.label34);
-            this.groupBox10.Location = new System.Drawing.Point(8, 181);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(207, 81);
-            this.groupBox10.TabIndex = 13;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Targets";
-            // 
-            // textBoxFCTgtDist
-            // 
-            this.textBoxFCTgtDist.Location = new System.Drawing.Point(101, 45);
-            this.textBoxFCTgtDist.Name = "textBoxFCTgtDist";
-            this.textBoxFCTgtDist.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFCTgtDist.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.textBoxFCTgtDist, "Distance between center target and outer targets.");
-            this.textBoxFCTgtDist.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(9, 52);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(83, 13);
-            this.label33.TabIndex = 18;
-            this.label33.Text = "Target Distance";
-            // 
-            // textBoxFCTgtSize
-            // 
-            this.textBoxFCTgtSize.Location = new System.Drawing.Point(101, 19);
-            this.textBoxFCTgtSize.Name = "textBoxFCTgtSize";
-            this.textBoxFCTgtSize.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFCTgtSize.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.textBoxFCTgtSize, "Size of targets (cm).");
-            this.textBoxFCTgtSize.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(9, 26);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(61, 13);
-            this.label34.TabIndex = 16;
-            this.label34.Text = "Target Size";
-            // 
-            // textBoxFCPctTestTrials
-            // 
-            this.textBoxFCPctTestTrials.Location = new System.Drawing.Point(359, 43);
-            this.textBoxFCPctTestTrials.Name = "textBoxFCPctTestTrials";
-            this.textBoxFCPctTestTrials.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFCPctTestTrials.TabIndex = 23;
-            this.toolTip1.SetToolTip(this.textBoxFCPctTestTrials, "Percent of trials on which to give an intermediate \"test\" stimulus.\r\n\r\nValue shou" +
-                    "ld be in range 0.0 to 1.0");
-            this.textBoxFCPctTestTrials.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.textBoxFCI);
-            this.groupBox9.Controls.Add(this.label32);
-            this.groupBox9.Controls.Add(this.textBoxFCM);
-            this.groupBox9.Controls.Add(this.label35);
-            this.groupBox9.Controls.Add(this.textBoxSDH);
-            this.groupBox9.Controls.Add(this.label36);
-            this.groupBox9.Controls.Add(this.textBoxSDL);
-            this.groupBox9.Controls.Add(this.label37);
-            this.groupBox9.Controls.Add(this.textBoxFCCHH);
-            this.groupBox9.Controls.Add(this.label38);
-            this.groupBox9.Controls.Add(this.textBoxFCCHL);
-            this.groupBox9.Controls.Add(this.label39);
-            this.groupBox9.Location = new System.Drawing.Point(8, 6);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(207, 173);
-            this.groupBox9.TabIndex = 11;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Timing";
-            // 
-            // textBoxFCI
-            // 
-            this.textBoxFCI.Location = new System.Drawing.Point(99, 143);
-            this.textBoxFCI.Name = "textBoxFCI";
-            this.textBoxFCI.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFCI.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.textBoxFCI, "Time between completion of one trial and the initiation of the next.");
-            this.textBoxFCI.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(7, 150);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(44, 13);
-            this.label32.TabIndex = 14;
-            this.label32.Text = "Intertrial";
-            // 
-            // textBoxFCM
-            // 
-            this.textBoxFCM.Location = new System.Drawing.Point(99, 117);
-            this.textBoxFCM.Name = "textBoxFCM";
-            this.textBoxFCM.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFCM.TabIndex = 9;
-            this.toolTip1.SetToolTip(this.textBoxFCM, "Movement time.  Amount of time monkey has to reach the outer target after recievi" +
-                    "ng the go cue.");
-            this.textBoxFCM.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(7, 124);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(57, 13);
-            this.label35.TabIndex = 8;
-            this.label35.Text = "Movement";
-            // 
-            // textBoxSDH
-            // 
-            this.textBoxSDH.Location = new System.Drawing.Point(99, 91);
-            this.textBoxSDH.Name = "textBoxSDH";
-            this.textBoxSDH.Size = new System.Drawing.Size(100, 20);
-            this.textBoxSDH.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.textBoxSDH, "Upper  bound on random delay time.  Delay is the time between when the stimulus i" +
-                    "s delvered and the outer target(s) appear(s).\r\nSet equal to Delay Low for non-ra" +
-                    "ndom delay time.");
-            this.textBoxSDH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(7, 98);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(59, 13);
-            this.label36.TabIndex = 6;
-            this.label36.Text = "Delay High";
-            // 
-            // textBoxSDL
-            // 
-            this.textBoxSDL.Location = new System.Drawing.Point(99, 65);
-            this.textBoxSDL.Name = "textBoxSDL";
-            this.textBoxSDL.Size = new System.Drawing.Size(100, 20);
-            this.textBoxSDL.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.textBoxSDL, "Lower bound on random delay time.  Delay is the time between when the stimulus is" +
-                    " delvered and the outer target(s) appear(s).\r\nSet equal to Delay High for non-ra" +
-                    "ndom delay time.");
-            this.textBoxSDL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(7, 72);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(57, 13);
-            this.label37.TabIndex = 4;
-            this.label37.Text = "Delay Low";
-            // 
-            // textBoxFCCHH
-            // 
-            this.textBoxFCCHH.Location = new System.Drawing.Point(99, 39);
-            this.textBoxFCCHH.Name = "textBoxFCCHH";
-            this.textBoxFCCHH.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFCCHH.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.textBoxFCCHH, resources.GetString("textBoxFCCHH.ToolTip"));
-            this.textBoxFCCHH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(7, 46);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(88, 13);
-            this.label38.TabIndex = 2;
-            this.label38.Text = "Center Hold High";
-            // 
-            // textBoxFCCHL
-            // 
-            this.textBoxFCCHL.Location = new System.Drawing.Point(99, 13);
-            this.textBoxFCCHL.Name = "textBoxFCCHL";
-            this.textBoxFCCHL.Size = new System.Drawing.Size(100, 20);
-            this.textBoxFCCHL.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.textBoxFCCHL, resources.GetString("textBoxFCCHL.ToolTip"));
-            this.textBoxFCCHL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(7, 20);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(86, 13);
-            this.label39.TabIndex = 0;
-            this.label39.Text = "Center Hold Low";
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(229, 46);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(75, 13);
-            this.label43.TabIndex = 16;
-            this.label43.Text = "Pct Test Trials";
-            this.toolTip1.SetToolTip(this.label43, "Percent of trials on which to give an intermediate \"test\" stimulus.");
-            // 
             // tabPageBS
             // 
             this.tabPageBS.Controls.Add(this.groupBox25);
             this.tabPageBS.Controls.Add(this.groupBox28);
             this.tabPageBS.Controls.Add(this.groupBox26);
-            this.tabPageBS.Location = new System.Drawing.Point(4, 76);
+            this.tabPageBS.Location = new System.Drawing.Point(4, 22);
             this.tabPageBS.Name = "tabPageBS";
             this.tabPageBS.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBS.Size = new System.Drawing.Size(686, 453);
+            this.tabPageBS.Size = new System.Drawing.Size(686, 507);
             this.tabPageBS.TabIndex = 4;
             this.tabPageBS.Text = "Bump-stim";
             this.tabPageBS.UseVisualStyleBackColor = true;
@@ -5308,10 +5029,10 @@ namespace BehaviorGraphics
             this.tabPageMG.Controls.Add(this.groupBox37);
             this.tabPageMG.Controls.Add(this.groupBoxMGTargets);
             this.tabPageMG.Controls.Add(this.groupBox31);
-            this.tabPageMG.Location = new System.Drawing.Point(4, 76);
+            this.tabPageMG.Location = new System.Drawing.Point(4, 22);
             this.tabPageMG.Name = "tabPageMG";
             this.tabPageMG.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMG.Size = new System.Drawing.Size(686, 453);
+            this.tabPageMG.Size = new System.Drawing.Size(686, 507);
             this.tabPageMG.TabIndex = 5;
             this.tabPageMG.Text = "Multi-Gadget";
             this.tabPageMG.UseVisualStyleBackColor = true;
@@ -5780,10 +5501,10 @@ namespace BehaviorGraphics
             this.tabPageWF.Controls.Add(this.groupBox35);
             this.tabPageWF.Controls.Add(this.groupBox33);
             this.tabPageWF.Controls.Add(this.groupBox34);
-            this.tabPageWF.Location = new System.Drawing.Point(4, 76);
+            this.tabPageWF.Location = new System.Drawing.Point(4, 22);
             this.tabPageWF.Name = "tabPageWF";
             this.tabPageWF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageWF.Size = new System.Drawing.Size(686, 453);
+            this.tabPageWF.Size = new System.Drawing.Size(686, 507);
             this.tabPageWF.TabIndex = 6;
             this.tabPageWF.Text = "Wrist Flexion";
             this.tabPageWF.UseVisualStyleBackColor = true;
@@ -6647,10 +6368,10 @@ namespace BehaviorGraphics
             // 
             this.tabPageBD.Controls.Add(this.groupBox38);
             this.tabPageBD.Controls.Add(this.groupBox39);
-            this.tabPageBD.Location = new System.Drawing.Point(4, 76);
+            this.tabPageBD.Location = new System.Drawing.Point(4, 22);
             this.tabPageBD.Name = "tabPageBD";
             this.tabPageBD.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBD.Size = new System.Drawing.Size(686, 453);
+            this.tabPageBD.Size = new System.Drawing.Size(686, 507);
             this.tabPageBD.TabIndex = 7;
             this.tabPageBD.Text = "Ball Drop";
             this.tabPageBD.UseVisualStyleBackColor = true;
@@ -6847,10 +6568,10 @@ namespace BehaviorGraphics
             this.tabPageBC.Controls.Add(this.groupBox19);
             this.tabPageBC.Controls.Add(this.groupBox17);
             this.tabPageBC.Controls.Add(this.groupBox18);
-            this.tabPageBC.Location = new System.Drawing.Point(4, 76);
+            this.tabPageBC.Location = new System.Drawing.Point(4, 22);
             this.tabPageBC.Name = "tabPageBC";
             this.tabPageBC.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBC.Size = new System.Drawing.Size(686, 453);
+            this.tabPageBC.Size = new System.Drawing.Size(686, 507);
             this.tabPageBC.TabIndex = 8;
             this.tabPageBC.Text = "Bump-choice";
             this.tabPageBC.UseVisualStyleBackColor = true;
@@ -7619,10 +7340,10 @@ namespace BehaviorGraphics
             this.tabPage1.Controls.Add(this.label175);
             this.tabPage1.Controls.Add(this.groupBox22);
             this.tabPage1.Controls.Add(this.groupBox20);
-            this.tabPage1.Location = new System.Drawing.Point(4, 76);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(686, 453);
+            this.tabPage1.Size = new System.Drawing.Size(686, 507);
             this.tabPage1.TabIndex = 9;
             this.tabPage1.Text = "Visual Search";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -7974,10 +7695,10 @@ namespace BehaviorGraphics
             this.tabPageBF.Controls.Add(this.groupBox24);
             this.tabPageBF.Controls.Add(this.groupBox41);
             this.tabPageBF.Controls.Add(this.groupBox42);
-            this.tabPageBF.Location = new System.Drawing.Point(4, 76);
+            this.tabPageBF.Location = new System.Drawing.Point(4, 40);
             this.tabPageBF.Name = "tabPageBF";
             this.tabPageBF.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBF.Size = new System.Drawing.Size(686, 453);
+            this.tabPageBF.Size = new System.Drawing.Size(686, 489);
             this.tabPageBF.TabIndex = 10;
             this.tabPageBF.Text = "Bump-follow";
             this.tabPageBF.UseVisualStyleBackColor = true;
@@ -8415,10 +8136,10 @@ namespace BehaviorGraphics
             this.tabPage2.Controls.Add(this.groupBox44);
             this.tabPage2.Controls.Add(this.groupBox45);
             this.tabPage2.Controls.Add(this.groupBox46);
-            this.tabPage2.Location = new System.Drawing.Point(4, 76);
+            this.tabPage2.Location = new System.Drawing.Point(4, 40);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(686, 453);
+            this.tabPage2.Size = new System.Drawing.Size(686, 489);
             this.tabPage2.TabIndex = 11;
             this.tabPage2.Text = "2AFC";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -9129,10 +8850,10 @@ namespace BehaviorGraphics
             this.tabUncertainty1D.Controls.Add(this.groupBoxUPertProp);
             this.tabUncertainty1D.Controls.Add(this.groupBoxUTargetSettings);
             this.tabUncertainty1D.Controls.Add(this.groupBoxUTimers);
-            this.tabUncertainty1D.Location = new System.Drawing.Point(4, 76);
+            this.tabUncertainty1D.Location = new System.Drawing.Point(4, 40);
             this.tabUncertainty1D.Name = "tabUncertainty1D";
             this.tabUncertainty1D.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUncertainty1D.Size = new System.Drawing.Size(686, 453);
+            this.tabUncertainty1D.Size = new System.Drawing.Size(686, 489);
             this.tabUncertainty1D.TabIndex = 12;
             this.tabUncertainty1D.Text = "Uncertainty1D";
             this.tabUncertainty1D.UseVisualStyleBackColor = true;
@@ -9969,10 +9690,10 @@ namespace BehaviorGraphics
             this.tabAttention.Controls.Add(this.groupBox56);
             this.tabAttention.Controls.Add(this.groupBox57);
             this.tabAttention.Controls.Add(this.groupBox58);
-            this.tabAttention.Location = new System.Drawing.Point(4, 76);
+            this.tabAttention.Location = new System.Drawing.Point(4, 40);
             this.tabAttention.Name = "tabAttention";
             this.tabAttention.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAttention.Size = new System.Drawing.Size(686, 453);
+            this.tabAttention.Size = new System.Drawing.Size(686, 489);
             this.tabAttention.TabIndex = 13;
             this.tabAttention.Text = "Attention";
             this.tabAttention.UseVisualStyleBackColor = true;
@@ -10991,10 +10712,10 @@ namespace BehaviorGraphics
             this.tabPage3.Controls.Add(this.groupBox63);
             this.tabPage3.Controls.Add(this.groupBox62);
             this.tabPage3.Controls.Add(this.groupBox61);
-            this.tabPage3.Location = new System.Drawing.Point(4, 76);
+            this.tabPage3.Location = new System.Drawing.Point(4, 40);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(686, 453);
+            this.tabPage3.Size = new System.Drawing.Size(686, 489);
             this.tabPage3.TabIndex = 14;
             this.tabPage3.Text = "Bump Direction";
             this.toolTip1.SetToolTip(this.tabPage3, "Step this many times the step size on wrong answers");
@@ -11534,10 +11255,10 @@ namespace BehaviorGraphics
             this.UnstableField.Controls.Add(this.groupBox67);
             this.UnstableField.Controls.Add(this.groupBox66);
             this.UnstableField.Controls.Add(this.groupBox65);
-            this.UnstableField.Location = new System.Drawing.Point(4, 76);
+            this.UnstableField.Location = new System.Drawing.Point(4, 40);
             this.UnstableField.Name = "UnstableField";
             this.UnstableField.Padding = new System.Windows.Forms.Padding(3);
-            this.UnstableField.Size = new System.Drawing.Size(686, 453);
+            this.UnstableField.Size = new System.Drawing.Size(686, 489);
             this.UnstableField.TabIndex = 15;
             this.UnstableField.Text = "Unstable Field";
             this.UnstableField.UseVisualStyleBackColor = true;
@@ -12334,10 +12055,10 @@ namespace BehaviorGraphics
             this.tabUncertaintyTarget1D.Controls.Add(this.groupBoxUT1DCloud);
             this.tabUncertaintyTarget1D.Controls.Add(this.groupBoxUT1DShift);
             this.tabUncertaintyTarget1D.Controls.Add(this.groupBoxUT1DTaskSettings);
-            this.tabUncertaintyTarget1D.Location = new System.Drawing.Point(4, 76);
+            this.tabUncertaintyTarget1D.Location = new System.Drawing.Point(4, 40);
             this.tabUncertaintyTarget1D.Name = "tabUncertaintyTarget1D";
             this.tabUncertaintyTarget1D.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUncertaintyTarget1D.Size = new System.Drawing.Size(686, 453);
+            this.tabUncertaintyTarget1D.Size = new System.Drawing.Size(686, 489);
             this.tabUncertaintyTarget1D.TabIndex = 16;
             this.tabUncertaintyTarget1D.Text = "UncertaintyTarget1D";
             this.tabUncertaintyTarget1D.UseVisualStyleBackColor = true;
@@ -13103,10 +12824,10 @@ namespace BehaviorGraphics
             this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DCloud);
             this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DShift);
             this.UncertaintyTarget2D.Controls.Add(this.groupBoxUT2DTaskSettings);
-            this.UncertaintyTarget2D.Location = new System.Drawing.Point(4, 76);
+            this.UncertaintyTarget2D.Location = new System.Drawing.Point(4, 40);
             this.UncertaintyTarget2D.Name = "UncertaintyTarget2D";
             this.UncertaintyTarget2D.Padding = new System.Windows.Forms.Padding(3);
-            this.UncertaintyTarget2D.Size = new System.Drawing.Size(686, 453);
+            this.UncertaintyTarget2D.Size = new System.Drawing.Size(686, 489);
             this.UncertaintyTarget2D.TabIndex = 17;
             this.UncertaintyTarget2D.Text = "UncertaintyTarget2D";
             this.UncertaintyTarget2D.UseVisualStyleBackColor = true;
@@ -14268,10 +13989,10 @@ namespace BehaviorGraphics
             this.tabPage4.Controls.Add(this.groupBox53);
             this.tabPage4.Controls.Add(this.groupBox54);
             this.tabPage4.Controls.Add(this.groupBox55);
-            this.tabPage4.Location = new System.Drawing.Point(4, 76);
+            this.tabPage4.Location = new System.Drawing.Point(4, 58);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(686, 453);
+            this.tabPage4.Size = new System.Drawing.Size(686, 471);
             this.tabPage4.TabIndex = 18;
             this.tabPage4.Text = "Defend Center";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -14644,10 +14365,10 @@ namespace BehaviorGraphics
             this.tabPage5.Controls.Add(this.groupBox73);
             this.tabPage5.Controls.Add(this.groupBox74);
             this.tabPage5.Controls.Add(this.groupBox75);
-            this.tabPage5.Location = new System.Drawing.Point(4, 76);
+            this.tabPage5.Location = new System.Drawing.Point(4, 58);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(686, 453);
+            this.tabPage5.Size = new System.Drawing.Size(686, 471);
             this.tabPage5.TabIndex = 19;
             this.tabPage5.Text = "Ctr_out_bump";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -14740,6 +14461,18 @@ namespace BehaviorGraphics
             this.groupBox72.TabIndex = 26;
             this.groupBox72.TabStop = false;
             this.groupBox72.Text = "Targets";
+            // 
+            // checkBox_ctr_out_bump_idiotMode
+            // 
+            this.checkBox_ctr_out_bump_idiotMode.AutoSize = true;
+            this.checkBox_ctr_out_bump_idiotMode.Location = new System.Drawing.Point(9, 173);
+            this.checkBox_ctr_out_bump_idiotMode.Name = "checkBox_ctr_out_bump_idiotMode";
+            this.checkBox_ctr_out_bump_idiotMode.Size = new System.Drawing.Size(76, 17);
+            this.checkBox_ctr_out_bump_idiotMode.TabIndex = 33;
+            this.checkBox_ctr_out_bump_idiotMode.Text = "Idiot Mode";
+            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_idiotMode, "When checked, any abort, incomplete, or fail will cause the trial to be replayed." +
+                    "");
+            this.checkBox_ctr_out_bump_idiotMode.UseVisualStyleBackColor = true;
             // 
             // numericUpDown_ctr_out_bump_NumberTargets
             // 
@@ -15763,10 +15496,10 @@ namespace BehaviorGraphics
             this.tabDynamicCO.Controls.Add(this.groupBoxDCOCont);
             this.tabDynamicCO.Controls.Add(this.groupBoxDCOT);
             this.tabDynamicCO.Controls.Add(this.groupBoxDCOTime);
-            this.tabDynamicCO.Location = new System.Drawing.Point(4, 76);
+            this.tabDynamicCO.Location = new System.Drawing.Point(4, 58);
             this.tabDynamicCO.Name = "tabDynamicCO";
             this.tabDynamicCO.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDynamicCO.Size = new System.Drawing.Size(686, 453);
+            this.tabDynamicCO.Size = new System.Drawing.Size(686, 471);
             this.tabDynamicCO.TabIndex = 20;
             this.tabDynamicCO.Text = "Dynamic center out";
             this.tabDynamicCO.UseVisualStyleBackColor = true;
@@ -16361,10 +16094,10 @@ namespace BehaviorGraphics
             this.tabUnCisek.Controls.Add(this.groupBoxUCK_Modes);
             this.tabUnCisek.Controls.Add(this.groupBoxUCKTimers);
             this.tabUnCisek.Controls.Add(this.groupBoxUCKTargetProperties);
-            this.tabUnCisek.Location = new System.Drawing.Point(4, 76);
+            this.tabUnCisek.Location = new System.Drawing.Point(4, 58);
             this.tabUnCisek.Name = "tabUnCisek";
             this.tabUnCisek.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUnCisek.Size = new System.Drawing.Size(686, 453);
+            this.tabUnCisek.Size = new System.Drawing.Size(686, 471);
             this.tabUnCisek.TabIndex = 21;
             this.tabUnCisek.Text = "UnCisek";
             this.tabUnCisek.UseVisualStyleBackColor = true;
@@ -17099,10 +16832,10 @@ namespace BehaviorGraphics
             this.tabUnstableReach.Controls.Add(this.groupBox80);
             this.tabUnstableReach.Controls.Add(this.groupBox79);
             this.tabUnstableReach.Controls.Add(this.groupBox78);
-            this.tabUnstableReach.Location = new System.Drawing.Point(4, 76);
+            this.tabUnstableReach.Location = new System.Drawing.Point(4, 58);
             this.tabUnstableReach.Name = "tabUnstableReach";
             this.tabUnstableReach.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUnstableReach.Size = new System.Drawing.Size(686, 453);
+            this.tabUnstableReach.Size = new System.Drawing.Size(686, 471);
             this.tabUnstableReach.TabIndex = 22;
             this.tabUnstableReach.Text = "Unstable Reach";
             this.tabUnstableReach.UseVisualStyleBackColor = true;
@@ -17768,10 +17501,10 @@ namespace BehaviorGraphics
             this.tabPageResist.Controls.Add(this.groupBoxRPPert);
             this.tabPageResist.Controls.Add(this.groupBoxRPCursor);
             this.tabPageResist.Controls.Add(this.groupBoxRPTiming);
-            this.tabPageResist.Location = new System.Drawing.Point(4, 76);
+            this.tabPageResist.Location = new System.Drawing.Point(4, 58);
             this.tabPageResist.Name = "tabPageResist";
             this.tabPageResist.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageResist.Size = new System.Drawing.Size(686, 453);
+            this.tabPageResist.Size = new System.Drawing.Size(686, 471);
             this.tabPageResist.TabIndex = 23;
             this.tabPageResist.Text = "Resist Perturbations";
             this.tabPageResist.UseVisualStyleBackColor = true;
@@ -18648,10 +18381,10 @@ namespace BehaviorGraphics
             this.tabPage6.Controls.Add(this.groupBox83);
             this.tabPage6.Controls.Add(this.groupBox82);
             this.tabPage6.Controls.Add(this.groupBox81);
-            this.tabPage6.Location = new System.Drawing.Point(4, 76);
+            this.tabPage6.Location = new System.Drawing.Point(4, 58);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(686, 453);
+            this.tabPage6.Size = new System.Drawing.Size(686, 471);
             this.tabPage6.TabIndex = 24;
             this.tabPage6.Text = "Cue Comb";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -19764,10 +19497,10 @@ namespace BehaviorGraphics
             this.tabPageSA.Controls.Add(this.groupBoxSA_electrodes);
             this.tabPageSA.Controls.Add(this.groupBox_SA_controlBump);
             this.tabPageSA.Controls.Add(this.groupBox_SA_timing);
-            this.tabPageSA.Location = new System.Drawing.Point(4, 76);
+            this.tabPageSA.Location = new System.Drawing.Point(4, 58);
             this.tabPageSA.Name = "tabPageSA";
             this.tabPageSA.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSA.Size = new System.Drawing.Size(686, 453);
+            this.tabPageSA.Size = new System.Drawing.Size(686, 471);
             this.tabPageSA.TabIndex = 22;
             this.tabPageSA.Text = "StimAngle";
             this.tabPageSA.UseVisualStyleBackColor = true;
@@ -20816,10 +20549,10 @@ namespace BehaviorGraphics
             this.Sabes.Controls.Add(this.groupBox92);
             this.Sabes.Controls.Add(this.groupBox91);
             this.Sabes.Controls.Add(this.groupBox90);
-            this.Sabes.Location = new System.Drawing.Point(4, 76);
+            this.Sabes.Location = new System.Drawing.Point(4, 58);
             this.Sabes.Name = "Sabes";
             this.Sabes.Padding = new System.Windows.Forms.Padding(3);
-            this.Sabes.Size = new System.Drawing.Size(686, 453);
+            this.Sabes.Size = new System.Drawing.Size(686, 471);
             this.Sabes.TabIndex = 25;
             this.Sabes.Text = "Sabes";
             this.Sabes.UseVisualStyleBackColor = true;
@@ -25559,17 +25292,535 @@ namespace BehaviorGraphics
             this.angleEntryBox_SA.TabIndex = 19;
             this.angleEntryBox_SA.Value = 0;
             // 
-            // checkBox_ctr_out_bump_idiotMode
+            // groupBox9
             // 
-            this.checkBox_ctr_out_bump_idiotMode.AutoSize = true;
-            this.checkBox_ctr_out_bump_idiotMode.Location = new System.Drawing.Point(9, 173);
-            this.checkBox_ctr_out_bump_idiotMode.Name = "checkBox_ctr_out_bump_idiotMode";
-            this.checkBox_ctr_out_bump_idiotMode.Size = new System.Drawing.Size(76, 17);
-            this.checkBox_ctr_out_bump_idiotMode.TabIndex = 33;
-            this.checkBox_ctr_out_bump_idiotMode.Text = "Idiot Mode";
-            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_idiotMode, "When checked, any abort, incomplete, or fail will cause the trial to be replayed." +
-                    "");
-            this.checkBox_ctr_out_bump_idiotMode.UseVisualStyleBackColor = true;
+            this.groupBox9.Controls.Add(this.textBoxFCPenaltyTime);
+            this.groupBox9.Controls.Add(this.label587);
+            this.groupBox9.Controls.Add(this.textBoxFCIntertrial);
+            this.groupBox9.Controls.Add(this.label32);
+            this.groupBox9.Controls.Add(this.textBoxFCReactionTime);
+            this.groupBox9.Controls.Add(this.label35);
+            this.groupBox9.Controls.Add(this.textBoxFCBumpHold);
+            this.groupBox9.Controls.Add(this.label36);
+            this.groupBox9.Controls.Add(this.textBoxFCBumpDelayHigh);
+            this.groupBox9.Controls.Add(this.label37);
+            this.groupBox9.Controls.Add(this.textBoxFCBumpDelayLow);
+            this.groupBox9.Controls.Add(this.label38);
+            this.groupBox9.Controls.Add(this.textBoxFCCtrHold);
+            this.groupBox9.Controls.Add(this.label39);
+            this.groupBox9.Location = new System.Drawing.Point(8, 6);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(207, 194);
+            this.groupBox9.TabIndex = 11;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Timing";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(7, 20);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(63, 13);
+            this.label39.TabIndex = 0;
+            this.label39.Text = "Center Hold";
+            // 
+            // textBoxFCCtrHold
+            // 
+            this.textBoxFCCtrHold.Location = new System.Drawing.Point(99, 13);
+            this.textBoxFCCtrHold.Name = "textBoxFCCtrHold";
+            this.textBoxFCCtrHold.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCCtrHold.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.textBoxFCCtrHold, resources.GetString("textBoxFCCtrHold.ToolTip"));
+            this.textBoxFCCtrHold.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(7, 46);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(80, 13);
+            this.label38.TabIndex = 2;
+            this.label38.Text = "bump delay low";
+            // 
+            // textBoxFCBumpDelayLow
+            // 
+            this.textBoxFCBumpDelayLow.Location = new System.Drawing.Point(99, 39);
+            this.textBoxFCBumpDelayLow.Name = "textBoxFCBumpDelayLow";
+            this.textBoxFCBumpDelayLow.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCBumpDelayLow.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.textBoxFCBumpDelayLow, resources.GetString("textBoxFCBumpDelayLow.ToolTip"));
+            this.textBoxFCBumpDelayLow.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(7, 72);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(84, 13);
+            this.label37.TabIndex = 4;
+            this.label37.Text = "bump delay high";
+            // 
+            // textBoxFCBumpDelayHigh
+            // 
+            this.textBoxFCBumpDelayHigh.Location = new System.Drawing.Point(99, 65);
+            this.textBoxFCBumpDelayHigh.Name = "textBoxFCBumpDelayHigh";
+            this.textBoxFCBumpDelayHigh.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCBumpDelayHigh.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.textBoxFCBumpDelayHigh, "Lower bound on random delay time.  Delay is the time between when the stimulus is" +
+                    " delvered and the outer target(s) appear(s).\r\nSet equal to Delay High for non-ra" +
+                    "ndom delay time.");
+            this.textBoxFCBumpDelayHigh.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(7, 98);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(56, 13);
+            this.label36.TabIndex = 6;
+            this.label36.Text = "bump hold";
+            // 
+            // textBoxFCBumpHold
+            // 
+            this.textBoxFCBumpHold.Location = new System.Drawing.Point(99, 91);
+            this.textBoxFCBumpHold.Name = "textBoxFCBumpHold";
+            this.textBoxFCBumpHold.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCBumpHold.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.textBoxFCBumpHold, "Upper  bound on random delay time.  Delay is the time between when the stimulus i" +
+                    "s delvered and the outer target(s) appear(s).\r\nSet equal to Delay Low for non-ra" +
+                    "ndom delay time.");
+            this.textBoxFCBumpHold.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(7, 124);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(67, 13);
+            this.label35.TabIndex = 8;
+            this.label35.Text = "reaction time";
+            // 
+            // textBoxFCReactionTime
+            // 
+            this.textBoxFCReactionTime.Location = new System.Drawing.Point(99, 117);
+            this.textBoxFCReactionTime.Name = "textBoxFCReactionTime";
+            this.textBoxFCReactionTime.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCReactionTime.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.textBoxFCReactionTime, "Movement time.  Amount of time monkey has to reach the outer target after recievi" +
+                    "ng the go cue.");
+            this.textBoxFCReactionTime.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(7, 150);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(44, 13);
+            this.label32.TabIndex = 14;
+            this.label32.Text = "Intertrial";
+            // 
+            // textBoxFCIntertrial
+            // 
+            this.textBoxFCIntertrial.Location = new System.Drawing.Point(99, 143);
+            this.textBoxFCIntertrial.Name = "textBoxFCIntertrial";
+            this.textBoxFCIntertrial.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCIntertrial.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.textBoxFCIntertrial, "Time between completion of one trial and the initiation of the next.");
+            this.textBoxFCIntertrial.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.textBoxFCStimLevels);
+            this.groupBox10.Controls.Add(this.label33);
+            this.groupBox10.Controls.Add(this.textBoxFCStimProb);
+            this.groupBox10.Controls.Add(this.label34);
+            this.groupBox10.Location = new System.Drawing.Point(434, 6);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(207, 81);
+            this.groupBox10.TabIndex = 13;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Stimulation";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(9, 26);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(78, 13);
+            this.label34.TabIndex = 16;
+            this.label34.Text = "Stim Probability";
+            // 
+            // textBoxFCStimProb
+            // 
+            this.textBoxFCStimProb.Location = new System.Drawing.Point(101, 19);
+            this.textBoxFCStimProb.Name = "textBoxFCStimProb";
+            this.textBoxFCStimProb.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCStimProb.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.textBoxFCStimProb, "Size of targets (cm).");
+            this.textBoxFCStimProb.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(9, 52);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(55, 13);
+            this.label33.TabIndex = 18;
+            this.label33.Text = "stim levels";
+            // 
+            // textBoxFCStimLevels
+            // 
+            this.textBoxFCStimLevels.Location = new System.Drawing.Point(101, 45);
+            this.textBoxFCStimLevels.Name = "textBoxFCStimLevels";
+            this.textBoxFCStimLevels.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCStimLevels.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.textBoxFCStimLevels, "Distance between center target and outer targets.");
+            this.textBoxFCStimLevels.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // tabPageFC
+            // 
+            this.tabPageFC.Controls.Add(this.groupBox107);
+            this.tabPageFC.Controls.Add(this.groupBox106);
+            this.tabPageFC.Controls.Add(this.groupBox105);
+            this.tabPageFC.Controls.Add(this.groupBox11);
+            this.tabPageFC.Controls.Add(this.groupBox10);
+            this.tabPageFC.Controls.Add(this.groupBox9);
+            this.tabPageFC.Location = new System.Drawing.Point(4, 76);
+            this.tabPageFC.Name = "tabPageFC";
+            this.tabPageFC.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageFC.Size = new System.Drawing.Size(686, 453);
+            this.tabPageFC.TabIndex = 3;
+            this.tabPageFC.Text = "Forced Choice";
+            this.tabPageFC.UseVisualStyleBackColor = true;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.textBoxFCBumpRamp);
+            this.groupBox11.Controls.Add(this.label586);
+            this.groupBox11.Controls.Add(this.textBoxFCBumpDuration);
+            this.groupBox11.Controls.Add(this.label584);
+            this.groupBox11.Controls.Add(this.textBoxFCBumpMagStep);
+            this.groupBox11.Controls.Add(this.label585);
+            this.groupBox11.Controls.Add(this.textBoxFCBumpMagCeiling);
+            this.groupBox11.Controls.Add(this.label582);
+            this.groupBox11.Controls.Add(this.textBoxFCBumpMagFloor);
+            this.groupBox11.Controls.Add(this.label583);
+            this.groupBox11.Controls.Add(this.textBoxFCBumpDirection);
+            this.groupBox11.Controls.Add(this.label40);
+            this.groupBox11.Controls.Add(this.textBoxFCBumpProb);
+            this.groupBox11.Controls.Add(this.label42);
+            this.groupBox11.Location = new System.Drawing.Point(221, 6);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(207, 217);
+            this.groupBox11.TabIndex = 19;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Bumps";
+            this.groupBox11.Enter += new System.EventHandler(this.groupBox11_Enter);
+            // 
+            // textBoxFCBumpDirection
+            // 
+            this.textBoxFCBumpDirection.Location = new System.Drawing.Point(101, 45);
+            this.textBoxFCBumpDirection.Name = "textBoxFCBumpDirection";
+            this.textBoxFCBumpDirection.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCBumpDirection.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.textBoxFCBumpDirection, "Distance between center target and outer targets.");
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(9, 52);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(76, 13);
+            this.label40.TabIndex = 18;
+            this.label40.Text = "bump direction";
+            // 
+            // textBoxFCBumpProb
+            // 
+            this.textBoxFCBumpProb.Location = new System.Drawing.Point(101, 19);
+            this.textBoxFCBumpProb.Name = "textBoxFCBumpProb";
+            this.textBoxFCBumpProb.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCBumpProb.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.textBoxFCBumpProb, "Size of targets (cm).");
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(9, 26);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(83, 13);
+            this.label42.TabIndex = 16;
+            this.label42.Text = "bump probability";
+            // 
+            // groupBox105
+            // 
+            this.groupBox105.Controls.Add(this.checkBoxFCShowTgts);
+            this.groupBox105.Controls.Add(this.checkBoxFCRandomTgt);
+            this.groupBox105.Controls.Add(this.label579);
+            this.groupBox105.Controls.Add(this.textBoxFCTargetAngle);
+            this.groupBox105.Controls.Add(this.textBoxFCTargetDistance);
+            this.groupBox105.Controls.Add(this.label43);
+            this.groupBox105.Controls.Add(this.textBoxFCTargetSize);
+            this.groupBox105.Controls.Add(this.label574);
+            this.groupBox105.Location = new System.Drawing.Point(221, 229);
+            this.groupBox105.Name = "groupBox105";
+            this.groupBox105.Size = new System.Drawing.Size(207, 148);
+            this.groupBox105.TabIndex = 20;
+            this.groupBox105.TabStop = false;
+            this.groupBox105.Text = "Targets";
+            // 
+            // textBoxFCTargetDistance
+            // 
+            this.textBoxFCTargetDistance.Location = new System.Drawing.Point(101, 45);
+            this.textBoxFCTargetDistance.Name = "textBoxFCTargetDistance";
+            this.textBoxFCTargetDistance.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCTargetDistance.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.textBoxFCTargetDistance, "Distance between center target and outer targets.");
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(9, 52);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(83, 13);
+            this.label43.TabIndex = 18;
+            this.label43.Text = "Target Distance";
+            // 
+            // textBoxFCTargetSize
+            // 
+            this.textBoxFCTargetSize.Location = new System.Drawing.Point(101, 19);
+            this.textBoxFCTargetSize.Name = "textBoxFCTargetSize";
+            this.textBoxFCTargetSize.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCTargetSize.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.textBoxFCTargetSize, "Size of targets (cm).");
+            // 
+            // label574
+            // 
+            this.label574.AutoSize = true;
+            this.label574.Location = new System.Drawing.Point(9, 26);
+            this.label574.Name = "label574";
+            this.label574.Size = new System.Drawing.Size(61, 13);
+            this.label574.TabIndex = 16;
+            this.label574.Text = "Target Size";
+            // 
+            // groupBox106
+            // 
+            this.groupBox106.Controls.Add(this.checkBoxFCRecenterAfterBumps);
+            this.groupBox106.Controls.Add(this.checkBoxFCHideCursorDuringBumps);
+            this.groupBox106.Location = new System.Drawing.Point(8, 304);
+            this.groupBox106.Name = "groupBox106";
+            this.groupBox106.Size = new System.Drawing.Size(207, 78);
+            this.groupBox106.TabIndex = 21;
+            this.groupBox106.TabStop = false;
+            this.groupBox106.Text = "cursor";
+            // 
+            // groupBox107
+            // 
+            this.groupBox107.Controls.Add(this.checkBoxFCForceReactionTime);
+            this.groupBox107.Controls.Add(this.checkBoxFCAbortDuringBumps);
+            this.groupBox107.Controls.Add(this.textBoxFCTrainingTrialFreq);
+            this.groupBox107.Controls.Add(this.label578);
+            this.groupBox107.Location = new System.Drawing.Point(8, 206);
+            this.groupBox107.Name = "groupBox107";
+            this.groupBox107.Size = new System.Drawing.Size(207, 96);
+            this.groupBox107.TabIndex = 21;
+            this.groupBox107.TabStop = false;
+            this.groupBox107.Text = "basic configuration";
+            // 
+            // textBoxFCTrainingTrialFreq
+            // 
+            this.textBoxFCTrainingTrialFreq.Location = new System.Drawing.Point(129, 19);
+            this.textBoxFCTrainingTrialFreq.Name = "textBoxFCTrainingTrialFreq";
+            this.textBoxFCTrainingTrialFreq.Size = new System.Drawing.Size(72, 20);
+            this.textBoxFCTrainingTrialFreq.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.textBoxFCTrainingTrialFreq, "Size of targets (cm).");
+            // 
+            // label578
+            // 
+            this.label578.AutoSize = true;
+            this.label578.Location = new System.Drawing.Point(9, 26);
+            this.label578.Name = "label578";
+            this.label578.Size = new System.Drawing.Size(114, 13);
+            this.label578.TabIndex = 16;
+            this.label578.Text = "Training trial frequency";
+            // 
+            // textBoxFCTargetAngle
+            // 
+            this.textBoxFCTargetAngle.Location = new System.Drawing.Point(101, 71);
+            this.textBoxFCTargetAngle.Name = "textBoxFCTargetAngle";
+            this.textBoxFCTargetAngle.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCTargetAngle.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.textBoxFCTargetAngle, "Distance between center target and outer targets.");
+            // 
+            // label579
+            // 
+            this.label579.AutoSize = true;
+            this.label579.Location = new System.Drawing.Point(9, 78);
+            this.label579.Name = "label579";
+            this.label579.Size = new System.Drawing.Size(92, 13);
+            this.label579.TabIndex = 20;
+            this.label579.Text = "Target Angle(deg)";
+            // 
+            // checkBoxFCRandomTgt
+            // 
+            this.checkBoxFCRandomTgt.AutoSize = true;
+            this.checkBoxFCRandomTgt.Location = new System.Drawing.Point(15, 97);
+            this.checkBoxFCRandomTgt.Name = "checkBoxFCRandomTgt";
+            this.checkBoxFCRandomTgt.Size = new System.Drawing.Size(159, 17);
+            this.checkBoxFCRandomTgt.TabIndex = 21;
+            this.checkBoxFCRandomTgt.Text = "use random target directions";
+            this.checkBoxFCRandomTgt.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFCShowTgts
+            // 
+            this.checkBoxFCShowTgts.AutoSize = true;
+            this.checkBoxFCShowTgts.Location = new System.Drawing.Point(15, 120);
+            this.checkBoxFCShowTgts.Name = "checkBoxFCShowTgts";
+            this.checkBoxFCShowTgts.Size = new System.Drawing.Size(147, 17);
+            this.checkBoxFCShowTgts.TabIndex = 23;
+            this.checkBoxFCShowTgts.Text = "show targets during bump";
+            this.checkBoxFCShowTgts.UseVisualStyleBackColor = true;
+            // 
+            // textBoxFCBumpMagCeiling
+            // 
+            this.textBoxFCBumpMagCeiling.Location = new System.Drawing.Point(99, 103);
+            this.textBoxFCBumpMagCeiling.Name = "textBoxFCBumpMagCeiling";
+            this.textBoxFCBumpMagCeiling.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCBumpMagCeiling.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.textBoxFCBumpMagCeiling, "Distance between center target and outer targets.");
+            // 
+            // label582
+            // 
+            this.label582.AutoSize = true;
+            this.label582.Location = new System.Drawing.Point(7, 110);
+            this.label582.Name = "label582";
+            this.label582.Size = new System.Drawing.Size(89, 13);
+            this.label582.TabIndex = 22;
+            this.label582.Text = "bump mag ceiling";
+            // 
+            // textBoxFCBumpMagFloor
+            // 
+            this.textBoxFCBumpMagFloor.Location = new System.Drawing.Point(99, 77);
+            this.textBoxFCBumpMagFloor.Name = "textBoxFCBumpMagFloor";
+            this.textBoxFCBumpMagFloor.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCBumpMagFloor.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.textBoxFCBumpMagFloor, "Size of targets (cm).");
+            // 
+            // label583
+            // 
+            this.label583.AutoSize = true;
+            this.label583.Location = new System.Drawing.Point(7, 84);
+            this.label583.Name = "label583";
+            this.label583.Size = new System.Drawing.Size(79, 13);
+            this.label583.TabIndex = 21;
+            this.label583.Text = "bump mag floor";
+            // 
+            // textBoxFCBumpDuration
+            // 
+            this.textBoxFCBumpDuration.Location = new System.Drawing.Point(101, 158);
+            this.textBoxFCBumpDuration.Name = "textBoxFCBumpDuration";
+            this.textBoxFCBumpDuration.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCBumpDuration.TabIndex = 24;
+            this.toolTip1.SetToolTip(this.textBoxFCBumpDuration, "Distance between center target and outer targets.");
+            // 
+            // label584
+            // 
+            this.label584.AutoSize = true;
+            this.label584.Location = new System.Drawing.Point(9, 165);
+            this.label584.Name = "label584";
+            this.label584.Size = new System.Drawing.Size(74, 13);
+            this.label584.TabIndex = 26;
+            this.label584.Text = "bump duration";
+            // 
+            // textBoxFCBumpMagStep
+            // 
+            this.textBoxFCBumpMagStep.Location = new System.Drawing.Point(101, 132);
+            this.textBoxFCBumpMagStep.Name = "textBoxFCBumpMagStep";
+            this.textBoxFCBumpMagStep.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCBumpMagStep.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.textBoxFCBumpMagStep, "Size of targets (cm).");
+            // 
+            // label585
+            // 
+            this.label585.AutoSize = true;
+            this.label585.Location = new System.Drawing.Point(9, 139);
+            this.label585.Name = "label585";
+            this.label585.Size = new System.Drawing.Size(79, 13);
+            this.label585.TabIndex = 25;
+            this.label585.Text = "bump mag step";
+            // 
+            // textBoxFCBumpRamp
+            // 
+            this.textBoxFCBumpRamp.Location = new System.Drawing.Point(101, 182);
+            this.textBoxFCBumpRamp.Name = "textBoxFCBumpRamp";
+            this.textBoxFCBumpRamp.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCBumpRamp.TabIndex = 27;
+            this.toolTip1.SetToolTip(this.textBoxFCBumpRamp, "Distance between center target and outer targets.");
+            // 
+            // label586
+            // 
+            this.label586.AutoSize = true;
+            this.label586.Location = new System.Drawing.Point(9, 189);
+            this.label586.Name = "label586";
+            this.label586.Size = new System.Drawing.Size(59, 13);
+            this.label586.TabIndex = 28;
+            this.label586.Text = "bump ramp";
+            // 
+            // textBoxFCPenaltyTime
+            // 
+            this.textBoxFCPenaltyTime.Location = new System.Drawing.Point(99, 168);
+            this.textBoxFCPenaltyTime.Name = "textBoxFCPenaltyTime";
+            this.textBoxFCPenaltyTime.Size = new System.Drawing.Size(100, 20);
+            this.textBoxFCPenaltyTime.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.textBoxFCPenaltyTime, "Time between completion of one trial and the initiation of the next.");
+            // 
+            // label587
+            // 
+            this.label587.AutoSize = true;
+            this.label587.Location = new System.Drawing.Point(7, 175);
+            this.label587.Name = "label587";
+            this.label587.Size = new System.Drawing.Size(41, 13);
+            this.label587.TabIndex = 16;
+            this.label587.Text = "penalty";
+            // 
+            // checkBoxFCRecenterAfterBumps
+            // 
+            this.checkBoxFCRecenterAfterBumps.AutoSize = true;
+            this.checkBoxFCRecenterAfterBumps.Location = new System.Drawing.Point(6, 49);
+            this.checkBoxFCRecenterAfterBumps.Name = "checkBoxFCRecenterAfterBumps";
+            this.checkBoxFCRecenterAfterBumps.Size = new System.Drawing.Size(155, 17);
+            this.checkBoxFCRecenterAfterBumps.TabIndex = 25;
+            this.checkBoxFCRecenterAfterBumps.Text = "recenter cursor after bumps";
+            this.checkBoxFCRecenterAfterBumps.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFCHideCursorDuringBumps
+            // 
+            this.checkBoxFCHideCursorDuringBumps.AutoSize = true;
+            this.checkBoxFCHideCursorDuringBumps.Location = new System.Drawing.Point(6, 26);
+            this.checkBoxFCHideCursorDuringBumps.Name = "checkBoxFCHideCursorDuringBumps";
+            this.checkBoxFCHideCursorDuringBumps.Size = new System.Drawing.Size(144, 17);
+            this.checkBoxFCHideCursorDuringBumps.TabIndex = 24;
+            this.checkBoxFCHideCursorDuringBumps.Text = "hide cursor during bumps";
+            this.checkBoxFCHideCursorDuringBumps.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFCForceReactionTime
+            // 
+            this.checkBoxFCForceReactionTime.AutoSize = true;
+            this.checkBoxFCForceReactionTime.Location = new System.Drawing.Point(24, 72);
+            this.checkBoxFCForceReactionTime.Name = "checkBoxFCForceReactionTime";
+            this.checkBoxFCForceReactionTime.Size = new System.Drawing.Size(113, 17);
+            this.checkBoxFCForceReactionTime.TabIndex = 25;
+            this.checkBoxFCForceReactionTime.Text = "force reaction time";
+            this.checkBoxFCForceReactionTime.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFCAbortDuringBumps
+            // 
+            this.checkBoxFCAbortDuringBumps.AutoSize = true;
+            this.checkBoxFCAbortDuringBumps.Location = new System.Drawing.Point(24, 49);
+            this.checkBoxFCAbortDuringBumps.Name = "checkBoxFCAbortDuringBumps";
+            this.checkBoxFCAbortDuringBumps.Size = new System.Drawing.Size(116, 17);
+            this.checkBoxFCAbortDuringBumps.TabIndex = 24;
+            this.checkBoxFCAbortDuringBumps.Text = "abort during bumps";
+            this.checkBoxFCAbortDuringBumps.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -25633,15 +25884,6 @@ namespace BehaviorGraphics
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRWTgts)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
-            this.tabPageFC.ResumeLayout(false);
-            this.tabPageFC.PerformLayout();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFCStimSteps)).EndInit();
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
             this.tabPageBS.ResumeLayout(false);
             this.groupBox25.ResumeLayout(false);
             this.groupBox25.PerformLayout();
@@ -25983,6 +26225,19 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            this.tabPageFC.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            this.groupBox105.ResumeLayout(false);
+            this.groupBox105.PerformLayout();
+            this.groupBox106.ResumeLayout(false);
+            this.groupBox106.PerformLayout();
+            this.groupBox107.ResumeLayout(false);
+            this.groupBox107.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -26099,35 +26354,7 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBoxRWTgtSize;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.TabPage tabPageFC;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.TextBox textBoxFCI;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.TextBox textBoxFCM;
-        private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.TextBox textBoxSDH;
-        private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.TextBox textBoxSDL;
-        private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.TextBox textBoxFCCHH;
-        private System.Windows.Forms.Label label38;
-        private System.Windows.Forms.TextBox textBoxFCCHL;
-        private System.Windows.Forms.Label label39;
-        private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.TextBox textBoxFCTgtDist;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.TextBox textBoxFCTgtSize;
-        private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.NumericUpDown numericUpDownFCStimSteps;
-        private System.Windows.Forms.TextBox textBoxFCPctTestTrials;
-        private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.CheckBox checkBoxFCTrainingMode;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.GroupBox groupBox11;
-        private System.Windows.Forms.TextBox textBoxFCRewardThreshold;
-        private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.CheckBox checkBoxFCRAT;
         private System.Windows.Forms.TabPage tabPageBS;
         private System.Windows.Forms.Label label92;
         private System.Windows.Forms.NumericUpDown numericUpDownBSBumpSteps;
@@ -28265,5 +28492,58 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label568;
         private System.Windows.Forms.NumericUpDown numericUpDownTRT_bumpNumDir;
         private System.Windows.Forms.CheckBox checkBox_ctr_out_bump_idiotMode;
+        private System.Windows.Forms.TabPage tabPageFC;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.TextBox textBoxFCBumpDirection;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.TextBox textBoxFCBumpProb;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.TextBox textBoxFCStimLevels;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.TextBox textBoxFCStimProb;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.TextBox textBoxFCIntertrial;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox textBoxFCReactionTime;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.TextBox textBoxFCBumpHold;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.TextBox textBoxFCBumpDelayHigh;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.TextBox textBoxFCBumpDelayLow;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.TextBox textBoxFCCtrHold;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.GroupBox groupBox105;
+        private System.Windows.Forms.TextBox textBoxFCTargetDistance;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.TextBox textBoxFCTargetSize;
+        private System.Windows.Forms.Label label574;
+        private System.Windows.Forms.GroupBox groupBox106;
+        private System.Windows.Forms.GroupBox groupBox107;
+        private System.Windows.Forms.TextBox textBoxFCTrainingTrialFreq;
+        private System.Windows.Forms.Label label578;
+        private System.Windows.Forms.CheckBox checkBoxFCShowTgts;
+        private System.Windows.Forms.CheckBox checkBoxFCRandomTgt;
+        private System.Windows.Forms.Label label579;
+        private System.Windows.Forms.TextBox textBoxFCTargetAngle;
+        private System.Windows.Forms.TextBox textBoxFCBumpRamp;
+        private System.Windows.Forms.Label label586;
+        private System.Windows.Forms.TextBox textBoxFCBumpDuration;
+        private System.Windows.Forms.Label label584;
+        private System.Windows.Forms.TextBox textBoxFCBumpMagStep;
+        private System.Windows.Forms.Label label585;
+        private System.Windows.Forms.TextBox textBoxFCBumpMagCeiling;
+        private System.Windows.Forms.Label label582;
+        private System.Windows.Forms.TextBox textBoxFCBumpMagFloor;
+        private System.Windows.Forms.Label label583;
+        private System.Windows.Forms.TextBox textBoxFCPenaltyTime;
+        private System.Windows.Forms.Label label587;
+        private System.Windows.Forms.CheckBox checkBoxFCForceReactionTime;
+        private System.Windows.Forms.CheckBox checkBoxFCAbortDuringBumps;
+        private System.Windows.Forms.CheckBox checkBoxFCRecenterAfterBumps;
+        private System.Windows.Forms.CheckBox checkBoxFCHideCursorDuringBumps;
     }
 }
