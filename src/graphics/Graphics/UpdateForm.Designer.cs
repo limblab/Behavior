@@ -1198,6 +1198,7 @@ namespace BehaviorGraphics
             this.hide_cursor_radius_label = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_HideCursorRadiusMin = new System.Windows.Forms.TextBox();
             this.groupBox72 = new System.Windows.Forms.GroupBox();
+            this.checkBox_ctr_out_bump_idiotMode = new System.Windows.Forms.CheckBox();
             this.numericUpDown_ctr_out_bump_NumberTargets = new System.Windows.Forms.NumericUpDown();
             this.label_ctr_out_bump_NumberTargets = new System.Windows.Forms.Label();
             this.textBox_ctr_out_bump_targetAngle = new System.Windows.Forms.TextBox();
@@ -2317,7 +2318,6 @@ namespace BehaviorGraphics
             this.angleEntryBox1 = new AngleBox.AngleEntryBox();
             this.angleEntryBox2 = new AngleBox.AngleEntryBox();
             this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
-            this.checkBox_ctr_out_bump_idiotMode = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -14741,11 +14741,23 @@ namespace BehaviorGraphics
             this.groupBox72.TabStop = false;
             this.groupBox72.Text = "Targets";
             // 
+            // checkBox_ctr_out_bump_idiotMode
+            // 
+            this.checkBox_ctr_out_bump_idiotMode.AutoSize = true;
+            this.checkBox_ctr_out_bump_idiotMode.Location = new System.Drawing.Point(9, 173);
+            this.checkBox_ctr_out_bump_idiotMode.Name = "checkBox_ctr_out_bump_idiotMode";
+            this.checkBox_ctr_out_bump_idiotMode.Size = new System.Drawing.Size(76, 17);
+            this.checkBox_ctr_out_bump_idiotMode.TabIndex = 33;
+            this.checkBox_ctr_out_bump_idiotMode.Text = "Idiot Mode";
+            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_idiotMode, "When checked, any abort, incomplete, or fail will cause the trial to be replayed." +
+                    "");
+            this.checkBox_ctr_out_bump_idiotMode.UseVisualStyleBackColor = true;
+            // 
             // numericUpDown_ctr_out_bump_NumberTargets
             // 
             this.numericUpDown_ctr_out_bump_NumberTargets.Location = new System.Drawing.Point(90, 126);
             this.numericUpDown_ctr_out_bump_NumberTargets.Maximum = new decimal(new int[] {
-            16,
+            1000,
             0,
             0,
             0});
@@ -15033,7 +15045,7 @@ namespace BehaviorGraphics
             // 
             this.numericUpDown_ctr_out_bump_NumberMBumpDirections.Location = new System.Drawing.Point(422, 216);
             this.numericUpDown_ctr_out_bump_NumberMBumpDirections.Maximum = new decimal(new int[] {
-            16,
+            1000,
             0,
             0,
             0});
@@ -15065,7 +15077,7 @@ namespace BehaviorGraphics
             // 
             this.numericUpDown_ctr_out_bump_NumberDPBumpDirections.Location = new System.Drawing.Point(260, 214);
             this.numericUpDown_ctr_out_bump_NumberDPBumpDirections.Maximum = new decimal(new int[] {
-            16,
+            1000,
             0,
             0,
             0});
@@ -15097,7 +15109,7 @@ namespace BehaviorGraphics
             // 
             this.numericUpDown_ctr_out_bump_NumberCHBumpDirections.Location = new System.Drawing.Point(100, 215);
             this.numericUpDown_ctr_out_bump_NumberCHBumpDirections.Maximum = new decimal(new int[] {
-            16,
+            1000,
             0,
             0,
             0});
@@ -25558,18 +25570,6 @@ namespace BehaviorGraphics
             this.angleEntryBox_SA.Size = new System.Drawing.Size(100, 21);
             this.angleEntryBox_SA.TabIndex = 19;
             this.angleEntryBox_SA.Value = 0;
-            // 
-            // checkBox_ctr_out_bump_idiotMode
-            // 
-            this.checkBox_ctr_out_bump_idiotMode.AutoSize = true;
-            this.checkBox_ctr_out_bump_idiotMode.Location = new System.Drawing.Point(9, 173);
-            this.checkBox_ctr_out_bump_idiotMode.Name = "checkBox_ctr_out_bump_idiotMode";
-            this.checkBox_ctr_out_bump_idiotMode.Size = new System.Drawing.Size(76, 17);
-            this.checkBox_ctr_out_bump_idiotMode.TabIndex = 33;
-            this.checkBox_ctr_out_bump_idiotMode.Text = "Idiot Mode";
-            this.toolTip1.SetToolTip(this.checkBox_ctr_out_bump_idiotMode, "When checked, any abort, incomplete, or fail will cause the trial to be replayed." +
-                    "");
-            this.checkBox_ctr_out_bump_idiotMode.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 

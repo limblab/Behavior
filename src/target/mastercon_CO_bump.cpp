@@ -24,6 +24,7 @@
 #define STATE_BUMP 5
 #define STATE_MOVEMENT 6
 #define STATE_PENALTY 7
+#define STATE_OT_HOLD 8
 
 /* 
  * STATE_REWARD STATE_ABORT STATE_FAIL STATE_INCOMPLETE STATE_DATA_BLOCK 
@@ -642,6 +643,8 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
         }
 
     } //else everything else is the same
+
+	this->redo_trial = false;
 		
 	
 	/* setup the databurst */
@@ -774,7 +777,7 @@ void COBumpBehavior::update(SimStruct *S) {
             if ( stateTimer->elapsedTime(S) > this->ot_hold ) {
                 playTone(TONE_REWARD);
                 setState(STATE_REWARD);
-            } else if ( primaryTarget->cursorInTarget(inputs->cursor) ){
+            } else if ( !primaryTarget->cursorInTarget(inputs->cursor) ){
                 if(this->params->idiot_mode) {
                     this->redo_trial = true;
                 }
