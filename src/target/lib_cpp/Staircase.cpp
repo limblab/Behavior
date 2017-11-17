@@ -30,6 +30,7 @@ public:
 	void setUseBackwardLimit(bool b);
 	void setForwardLimit(int limit);
 	void setBackwardLimit(int limit);
+	void setSuccessCounter(int ctr)
     
 	void setStaircaseDefault();
     void  Staircase::setStaircaseDefault(int currentValue, int startValue,int iter,int stepSize, int ratio,bool useForwardLimit,bool useBackwardLimit,int forwardLimit,int backwardLimit);
