@@ -775,7 +775,7 @@ void COBumpBehavior::update(SimStruct *S) {
             if ( stateTimer->elapsedTime(S) > this->ot_hold ) {
                 playTone(TONE_REWARD);
                 setState(STATE_REWARD);
-            } else if ( primaryTarget->cursorInTarget(inputs->cursor) ){
+            } else if ( !primaryTarget->cursorInTarget(inputs->cursor) ){
                 if(this->params->idiot_mode) {
                     this->redo_trial = true;
                 }
