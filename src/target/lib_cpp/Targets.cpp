@@ -77,8 +77,6 @@ public:
 	 */
 	virtual bool cursorInTarget(Point p) = 0;
     
-    virtual bool voltageInTarget(float targetStaircase) = 0;
-
 	/* See definition below */
 	static int Color(int red, int green, int blue);
 };
@@ -758,86 +756,3 @@ void MovingDotsTargetB::copyToOutputs(real_T *u, int offset) {
 	u[3+offset] = (real_T)(dot_radius);
 	u[4+offset] = (real_T)(newsome_dots);
 }
-
-/***************************************************
- * VoltageTarget
- ***************************************************/
-
-/**
- * Voltage target. 3D reach task.
- * Represents a range in voltage staircase for given proximity sensor.
- */
-// class VoltageTarget : public Target {
-// public:
-//     VoltageTarget();
-//     VoltageTarget(int trow, int tcol);
-//     void copyToOutputs(real_T *u, int offset);
-//     bool voltageInTarget(float targetStaircase);
-//     
-//     int trow;
-//     int tcol;
-// //     float targetVoltageLow;
-// //     float targetVoltageHigh;
-// }
-// 
-// /**
-//  * Default constructor sets all values to zero.
-//  */
-// VoltageTarget::VoltageTarget() {
-//     this->trow = 0;
-//     this->tcol = 0;
-// }
-// 
-// VoltageTarget::VoltageTarget(int trow, int tcol) {
-//     this->trow = trow;
-//     this->tcol = tcol;
-// }
-// /**
-//  * Determines if the specified input voltage is within the voltage range.
-//  * This function will return whether the input voltage is
-//  * within the target voltage range.
-//  * @param targetStaircase is the input voltage.
-//  * @param targetVoltageLow is the lower voltage bound for target.
-//  * @param targetVoltageHigh is the upper voltage bound for target.
-//  * @return true if the specified input voltage is within the voltage bounds of
-//  * of the target, false otherwise.
-//  */
-// bool VoltageTarget::voltageInTarget(float targetStaircase) {
-//     
-//     double targetVoltageLow;
-//     double targetVoltageHigh;
-//     
-//     if (this->trow == 1 && this->tcol == 1){
-//         targetVoltageLow = 0.4;
-//         targetVoltageHigh = 0.8;
-//     } else if (this->trow == 1 && this->tcol == 2){
-//         targetVoltageLow = 1;
-//         targetVoltageHigh = 1.5;
-//     } else if (this->trow == 1 && this->tcol == 3){
-//         targetVoltageLow = 1.7;
-//         targetVoltageHigh = 2.1;
-//     } else if (this->trow == 2 && this->tcol == 1){
-//         targetVoltageLow = 2.3;
-//         targetVoltageHigh = 2.7;
-//     } else if (this->trow == 2 && this->tcol == 3){
-//         targetVoltageLow = 3;
-//         targetVoltageHigh = 3.4;
-//     } else if (this->trow == 3 && this->tcol == 1){
-//         targetVoltageLow = 3.6;
-//         targetVoltageHigh = 4;
-//     } else if (this->trow == 3 && this->tcol == 2){
-//         targetVoltageLow = 4.2;
-//         targetVoltageHigh = 4.6;
-//     } else if (this->trow == 3 && this->tcol == 3){
-//         targetVoltageLow = 4.8;
-//         targetVoltageHigh = 5.2;
-//     } else {
-//         targetVoltageLow = -11;
-//         targetVoltageHigh = -10;
-//     };
-//     
-//     return ((targetStaircase > targetVoltageLow) && (targetStaircase < targetVoltageHigh));
-// };
-
-
-

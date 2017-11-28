@@ -9,6 +9,101 @@
 #endif
 
 /*
+ * LED target class definition
+ * This class has helper functions that define which LED target to light up and which target is being reached for
+ */
+class LEDTarget {
+    public:
+        int target_row;
+        int target_col;
+        
+        // figure out which target is being reached for
+        // targetStaircase -> voltage staircase given by arduino to determine target being reached to
+        // output -> true means hand is at target
+        bool handInTarget(float targetStaircase);
+
+        // set outputs for LEDs
+        // u -> pointer to output array to copy into
+        void setTargetOutputs(real_T *u);
+}
+
+bool LEDTarget::handInTarget(float targetStaircase) {
+    double targetVoltageLow;
+    double targetVoltageHigh;
+
+    if (this->target_row == 1 && this->target_col == 1){
+        targetVoltageLow = 0.4;
+        targetVoltageHigh = 0.8;
+    } else if (this->target_row == 1 && this->target_col == 2){
+        targetVoltageLow = 1;
+        targetVoltageHigh = 1.5;
+    } else if (this->target_row == 1 && this->target_col == 3){
+        targetVoltageLow = 1.7;
+        targetVoltageHigh = 2.1;
+    } else if (this->target_row == 2 && this->target_col == 1){
+        targetVoltageLow = 2.3;
+        targetVoltageHigh = 2.7;
+    } else if (this->target_row == 2 && this->target_col == 3){
+        targetVoltageLow = 3;
+        targetVoltageHigh = 3.4;
+    } else if (this->target_row == 3 && this->target_col == 1){
+        targetVoltageLow = 3.6;
+        targetVoltageHigh = 4;
+    } else if (this->target_row == 3 && this->target_col == 2){
+        targetVoltageLow = 4.2;
+        targetVoltageHigh = 4.6;
+    } else if (this->target_row == 3 && this->target_col == 3){
+        targetVoltageLow = 4.8;
+        targetVoltageHigh = 5.2;
+    } else {
+        targetVoltageLow = -11;
+        targetVoltageHigh = -10;
+    };
+
+    return ((targetStaircase > targetVoltageLow) && (targetStaircase < targetVoltageHigh));
+}
+void LEDTarget::setTargetOutputs(real_T *u) {
+    int output_vals[3];
+    if (target_row == 1 && target_col == 1){
+        output_vals[0] = 0;
+        output_vals[1] = 0;
+        output_vals[2] = 0;
+    } else if (target_row == 1 && target_col == 2){
+        output_vals[0] = 0;
+        output_vals[1] = 0;
+        output_vals[2] = 1;
+    } else if (target_row == 1 && target_col == 3){
+        output_vals[0] = 0;
+        output_vals[1] = 1;
+        output_vals[2] = 0;
+    } else if (target_row == 2 && target_col == 1){
+        output_vals[0] = 0;
+        output_vals[1] = 1;
+        output_vals[2] = 1;
+    } else if (target_row == 2 && target_col == 3){
+        output_vals[0] = 1;
+        output_vals[1] = 0;
+        output_vals[2] = 0;
+    } else if (target_row == 3 && target_col == 1){
+        output_vals[0] = 1;
+        output_vals[1] = 0;
+        output_vals[2] = 1;
+    } else if (target_row == 3 && target_col == 2){
+        output_vals[0] = 1;
+        output_vals[1] = 1;
+        output_vals[2] = 0;
+    } else if (target_row == 3 && target_col == 3){
+        output_vals[0] = 1;
+        output_vals[1] = 1;
+        output_vals[2] = 1;
+    } //else if wrong row and col, do nothing
+
+	for (i = 0; i<3; i++) {
+		u[i] = output_vals[i];
+	}
+}
+
+/*
  * Inputs/Outputs
  *********************************************/
 
@@ -37,7 +132,7 @@ public:
 	int tone_counter;    /**< Tone counter (see Behavior::playTone).  */
 	int last_tone_id;    /**< Id of last requested tone (see: Behavior::playTone). */
 	int version[4];      /**< Four numbers indicating the version of the currently running behavior. */
-	int leds[3]; /**< Output signal to determine LED to display*/
+	LEDTarget *target;    /**< Target object to determine LED to display*/
 	int IMUreset;      /**< Reset signal for IMUS */
 };
 
@@ -123,9 +218,7 @@ void Behavior3DReach::writeOutputs(SimStruct *S) {
 
 	// leds
 	uPtrs = ssGetOutputPortRealSignal(S, 5);
-	for (i = 0; i<3; i++) {
-		uPtrs[i] = outputs->leds[i];
-	}
+    outputs->target->setTargetOutputs(uPtrs);
 
 	// IMU reset
 	uPtrs = ssGetOutputPortRealSignal(S, 6);

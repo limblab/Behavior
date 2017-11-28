@@ -58,8 +58,8 @@
  * bytes 17 to 20: float => other target hold time 
  * bytes 21 to 21+(N)*8: where N is the number of targets, contains 8 bytes per 
  *      target representing two single-precision floating point numbers in 
- *      little-endian format represnting the x and y position of the center of 
- *      the target. This also includes the first target. Encoding scheme is:
+ *      little-endian format represnting the row and column of the 
+ *      target. This also includes the first target. Encoding scheme is:
  *      (looking at it like the monkey)
  *      o       o       o
  *     1,1     1,2     1,3
@@ -76,8 +76,8 @@ struct LocalParams {
 	real_T master_reset;
 
     // location of first target
-    int ft_location_row;
-    int ft_location_col;
+    real_T ft_location_row;
+    real_T ft_location_col;
 
 	// Time Bounds for various timers
     real_T ft_hold_lo;
@@ -113,7 +113,7 @@ private:
 	double targ_hold_time;
     double ft_hold_time;
     
-    VoltageTarget *targets[128];
+    LEDTarget *targets[128];
    
 	LocalParams *params;
 
@@ -163,7 +163,7 @@ RandomTarget3D::RandomTarget3D(SimStruct *S) : Behavior3DReach() {
 	 */
     target_index = (int)params->num_targets-1;
     for(i=0; i<128; i++) {
-        targets[i] = new VoltageTarget(0,0);
+        targets[i] = new LEDTarget();
     }
     
 	targ_hold_time	     = 0.0;
@@ -175,15 +175,17 @@ void RandomTarget3D::doPreTrial(SimStruct *S) {
 	int i; 
 	/* initialize targets */
 
-    /* uniform random positions */
-    targets[0]->trow = params->ft_location_row;
-    targets[0]->tcol = params->ft_location_col;
+    /* set first target */
+    targets[0]->target_row = params->ft_location_row;
+    targets[0]->target_col = params->ft_location_col;
     
+    /* set rest of targets */
     for (i = 1; i<params->num_targets; i++) {
-        targets[i]->trow = random->getInteger(1,3); //or getDouble?
-        targets[i]->tcol = random->getInteger(1,3);
-        if (targets[i]->trow == 2 && targets[i]->tcol == 2){
-            targets[i]->trow = targets[i]->trow+1;
+        targets[i]->target_row = random->getInteger(1,3);
+        targets[i]->target_col = random->getInteger(1,3);
+        while (targets[i]->trow == 2 && targets[i]->tcol == 2){
+            targets[i]->target_row = random->getInteger(1,3);
+            targets[i]->target_col = random->getInteger(1,3);
         }
     }
 
@@ -209,8 +211,8 @@ void RandomTarget3D::doPreTrial(SimStruct *S) {
     db->addFloat((float)(ft_hold_time));
     db->addFloat((float)(targ_hold_time));
 	for (i = 0; i<params->num_targets; i++) {
-		db->addFloat((float)targets[i]->trow);
-		db->addFloat((float)targets[i]->tcol);
+		db->addFloat((float)targets[i]->target_row);
+		db->addFloat((float)targets[i]->target_col);
 	}
     db->start();
     
@@ -228,12 +230,11 @@ void RandomTarget3D::update(SimStruct *S) {
            break;
        case STATE_DATA_BLOCK:
            if (db->isDone()) {
-               
                setState(STATE_FIRST_TARG_ON);
            }
 		case STATE_FIRST_TARG_ON:
 			/* target on */
-			if (targets[target_index]->voltageInTarget(inputs->targetStaircase)) {
+			if (targets[target_index]->handInTarget(inputs->targetStaircase)) {
                 target_index++;
 				setState(STATE_FIRST_TARG_HOLD);
 			} else if (stateTimer->elapsedTime(S) > params->initial_movement_time) {
@@ -241,12 +242,10 @@ void RandomTarget3D::update(SimStruct *S) {
             }
 			break;
         case STATE_FIRST_TARG_HOLD:
-            // center target hold
-			if (!targets[target_index]->voltageInTarget(inputs->targetStaircase)){
+            // first target hold
+			if (!targets[target_index]->handInTarget(inputs->targetStaircase)){
                 playTone(TONE_ABORT);
-                // setState(STATE_ABORT);
-                // idiot mode, go back to start
-                setState(STATE_FIRST_TARG_ON);
+                setState(STATE_ABORT);
             } else if (stateTimer->elapsedTime(S) >= ft_hold_time) {
                 // check if there are more targets
                 if (target_index == params->num_targets-1) {
@@ -256,7 +255,6 @@ void RandomTarget3D::update(SimStruct *S) {
                 } else {
                     // more targets
                     target_index++;
-                    targ_hold_time = random->getDouble(params->targ_hold_lo, params->targ_hold_hi);
                     playTone(TONE_GO);
                     setState(STATE_MOVEMENT);
                 }
@@ -264,14 +262,16 @@ void RandomTarget3D::update(SimStruct *S) {
 			break;
 		case STATE_MOVEMENT:
 			if (stateTimer->elapsedTime(S) > params->movement_max_time) {
+                playTone(TONE_FAIL);
 				setState(STATE_FAIL);
 			}
-            else if (targets[target_index]->voltageInTarget(inputs->targetStaircase)) {
+            else if (targets[target_index]->handInTarget(inputs->targetStaircase)) {
 				setState(STATE_TARG_HOLD);
 			}
 			break;
 		case STATE_TARG_HOLD:
-			if (!targets[target_index]->voltageInTarget(inputs->targetStaircase)){
+			if (!targets[target_index]->handInTarget(inputs->targetStaircase)){
+                playTone(TONE_ABORT);
                 setState(STATE_ABORT);
 			}
 			else if (stateTimer->elapsedTime(S) >= targ_hold_time) {
@@ -283,7 +283,6 @@ void RandomTarget3D::update(SimStruct *S) {
                 } else {
                     // more targets
                     target_index++;
-                    targ_hold_time = random->getDouble(params->targ_hold_lo, params->targ_hold_hi);
                     playTone(TONE_GO);
                     setState(STATE_MOVEMENT);
                 }
@@ -292,15 +291,7 @@ void RandomTarget3D::update(SimStruct *S) {
 		case STATE_REWARD:
 		case STATE_ABORT:
         case STATE_INCOMPLETE:
-// 			if (stateTimer->elapsedTime(S) > params->intertrial_interval) {
-// 				setState(STATE_PRETRIAL);
-// 			}
-// 			break;
         case STATE_FAIL:
-// 			if (stateTimer->elapsedTime(S) > params->failure_penalty_lag) {
-// 				setState(STATE_PRETRIAL);
-// 			}
-// 			break;
 		default:
 			setState(STATE_PRETRIAL);
 	}
@@ -309,7 +300,7 @@ void RandomTarget3D::update(SimStruct *S) {
 void RandomTarget3D::calculateOutputs(SimStruct *S) {
     /* declarations */
 	int i;
-    VoltageTarget *currentTarget = targets[target_index];
+    LEDTarget *currentTarget = targets[target_index];
 
 
 	/* status (0) */
@@ -372,41 +363,8 @@ void RandomTarget3D::calculateOutputs(SimStruct *S) {
 	outputs->version[2] = BEHAVIOR_VERSION_MICRO;
     outputs->version[3] = BEHAVIOR_VERSION_BUILD;
     
-    /* leds (5) */
-    if (targets[target_index]->trow == 1 && targets[target_index]->tcol == 1){
-        outputs->leds[0] = 0;
-        outputs->leds[1] = 0;
-        outputs->leds[2] = 0;
-    } else if (targets[target_index]->trow == 1 && targets[target_index]->tcol == 2){
-        outputs->leds[0] = 0;
-        outputs->leds[1] = 0;
-        outputs->leds[2] = 1;
-    } else if (targets[target_index]->trow == 1 && targets[target_index]->tcol == 3){
-        outputs->leds[0] = 0;
-        outputs->leds[1] = 1;
-        outputs->leds[2] = 0;
-    } else if (targets[target_index]->trow == 2 && targets[target_index]->tcol == 1){
-        outputs->leds[0] = 0;
-        outputs->leds[1] = 1;
-        outputs->leds[2] = 1;
-    } else if (targets[target_index]->trow == 2 && targets[target_index]->tcol == 3){
-        outputs->leds[0] = 1;
-        outputs->leds[1] = 0;
-        outputs->leds[2] = 0;
-    } else if (targets[target_index]->trow == 3 && targets[target_index]->tcol == 1){
-        outputs->leds[0] = 1;
-        outputs->leds[1] = 0;
-        outputs->leds[2] = 1;
-    } else if (targets[target_index]->trow == 3 && targets[target_index]->tcol == 2){
-        outputs->leds[0] = 1;
-        outputs->leds[1] = 1;
-        outputs->leds[2] = 0;
-    } else if (targets[target_index]->trow == 3 && targets[target_index]->tcol == 3){
-        outputs->leds[0] = 1;
-        outputs->leds[1] = 1;
-        outputs->leds[2] = 1;
-    };
-    
+    /* target (5) */
+    outputs->target = currentTarget;
     
     /* IMU reset (6) */
     if (getState() == STATE_FIRST_TARG_HOLD){
@@ -414,8 +372,6 @@ void RandomTarget3D::calculateOutputs(SimStruct *S) {
     } else {
         outputs->IMUreset = 0;
     };
-          
-
 }
 /*
  * Include at bottom of your behavior code
