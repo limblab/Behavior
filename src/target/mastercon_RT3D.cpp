@@ -59,7 +59,7 @@
  * bytes 21 to 21+(N)*8: where N is the number of targets, contains 8 bytes per 
  *      target representing two single-precision floating point numbers in 
  *      little-endian format represnting the x and y position of the center of 
- *      the target.This also includes the first target. Encoding scheme is:
+ *      the target. This also includes the first target. Encoding scheme is:
  *      (looking at it like the monkey)
  *      o       o       o
  *     1,1     1,2     1,3
@@ -76,8 +76,8 @@ struct LocalParams {
 	real_T master_reset;
 
     // location of first target
-    real_T ft_location_row;
-    real_T ft_location_col;
+    int ft_location_row;
+    int ft_location_col;
 
 	// Time Bounds for various timers
     real_T ft_hold_lo;
@@ -99,7 +99,7 @@ struct LocalParams {
  *
  * You must also update the definition below with the name of your class
  */
-#define MY_CLASS_NAME Behavior3DReach
+#define MY_CLASS_NAME RandomTarget3D
 class RandomTarget3D : public Behavior3DReach {
 public:
 	// You must implement these three public methods
@@ -112,14 +112,16 @@ private:
     int target_index;
 	double targ_hold_time;
     double ft_hold_time;
-	
+    
+    VoltageTarget *targets[128];
+   
 	LocalParams *params;
 
 	// helper functions
 	void doPreTrial(SimStruct *S);
 };
 
-TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
+RandomTarget3D::RandomTarget3D(SimStruct *S) : Behavior3DReach() {
     int i;
 
 	/* 
@@ -129,7 +131,7 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(30);
+	this->setNumParams(10);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
@@ -137,41 +139,16 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
     // Timing info
 	this->bindParamId(&params->ft_hold_lo,				1);
 	this->bindParamId(&params->ft_hold_hi,				2);
-	this->bindParamId(&params->targ_hold_lo,				3);
-	this->bindParamId(&params->targ_hold_hi,				4);
+	this->bindParamId(&params->targ_hold_lo,			3);
+	this->bindParamId(&params->targ_hold_hi,			4);
 
-	this->bindParamId(&params->intertrial_interval,		5);
-    this->bindParamId(&params->initial_movement_time,   6);
-	this->bindParamId(&params->movement_max_time,		7);
-	this->bindParamId(&params->failure_penalty_lag,	    8);
+    this->bindParamId(&params->initial_movement_time,   5);
+	this->bindParamId(&params->movement_max_time,		6);
 
     // target info
-	this->bindParamId(&params->target_size,				9);
-	this->bindParamId(&params->num_targets,				10);
-
-	this->bindParamId(&params->targ_color_R,			11);
-	this->bindParamId(&params->targ_color_G,			12);
-	this->bindParamId(&params->targ_color_B,			13);
-
-    // workspace things
-	this->bindParamId(&params->ws1_xmin,			14);
-	this->bindParamId(&params->ws1_xmax,			15);
-	this->bindParamId(&params->ws1_ymin,			16);
-	this->bindParamId(&params->ws1_ymax,			17);
-	this->bindParamId(&params->ws2_xmin,			18);
-	this->bindParamId(&params->ws2_xmax,			19);
-	this->bindParamId(&params->ws2_ymin,			20);
-	this->bindParamId(&params->ws2_ymax,			21);
-
-    // bump info
-    this->bindParamId(&params->bump_rate,           22);
-    this->bindParamId(&params->bump_hold_time,      23);
-   	this->bindParamId(&params->bump_ramp,           24);
-	this->bindParamId(&params->bump_magnitude,		25);
-	this->bindParamId(&params->bump_peak_hold,		26);
-   	this->bindParamId(&params->bump_dir_floor,		27);
-   	this->bindParamId(&params->bump_dir_ceil,		28);
-   	this->bindParamId(&params->bump_num_dir,        29);
+	this->bindParamId(&params->num_targets,				7);
+    this->bindParamId(&params->ft_location_row,         8);
+	this->bindParamId(&params->ft_location_col,			9);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -186,81 +163,34 @@ TwoSpaceRTBehavior::TwoSpaceRTBehavior(SimStruct *S) : RobotBehavior() {
 	 */
     target_index = (int)params->num_targets-1;
     for(i=0; i<128; i++) {
-        targets[i] = new CircleTarget(0,0,0,0);
+        targets[i] = new VoltageTarget(0,0);
     }
-    centerTarget = new CircleTarget(0,0,0,0);
-
+    
 	targ_hold_time	     = 0.0;
-	t_color = 0;
 
-    // bump stuff
-	this->bump = new CosineBumpGenerator();
-    this->do_bump = false;
-    this->bump_time = 0;
-
-    this->ch_timer = new Timer();
 }
 
 // Pre-trial initialization and calculations
-void TwoSpaceRTBehavior::doPreTrial(SimStruct *S) {
+void RandomTarget3D::doPreTrial(SimStruct *S) {
 	int i; 
-    double bump_sep;
-
 	/* initialize targets */
-	//Set Colors
-	t_color = Target::Color(params->targ_color_R, params->targ_color_G, params->targ_color_B);
-
-    //Pick workspace
-    int ws_num = random->getInteger(1,2);
-    int left_target_boundary, right_target_boundary, lower_target_boundary, upper_target_boundary;
 
     /* uniform random positions */
-    for (i = 0; i<params->num_targets; i++) {
-        if (ws_num == 1) {
-            left_target_boundary =  params->ws1_xmin;
-            right_target_boundary = params->ws1_xmax;
-            lower_target_boundary = params->ws1_ymin;
-            upper_target_boundary = params->ws1_ymax;
+    targets[0]->trow = params->ft_location_row;
+    targets[0]->tcol = params->ft_location_col;
+    
+    for (i = 1; i<params->num_targets; i++) {
+        targets[i]->trow = random->getInteger(1,3); //or getDouble?
+        targets[i]->tcol = random->getInteger(1,3);
+        if (targets[i]->trow == 2 && targets[i]->tcol == 2){
+            targets[i]->trow = targets[i]->trow+1;
         }
-        else if (ws_num == 2) {
-            left_target_boundary =  params->ws2_xmin;
-            right_target_boundary = params->ws2_xmax;
-            lower_target_boundary = params->ws2_ymin;
-            upper_target_boundary = params->ws2_ymax;
-        }
-        
-        targets[i]->centerX = random->getDouble(left_target_boundary,  right_target_boundary);
-        targets[i]->centerY = random->getDouble(lower_target_boundary, upper_target_boundary);
-        targets[i]->radius = params->target_size;
-        targets[i]->color = t_color;
     }
-    centerTarget->centerX = (left_target_boundary + right_target_boundary)/2;
-    centerTarget->centerY = (lower_target_boundary + upper_target_boundary)/2;
-    centerTarget->radius = params->target_size;
-    centerTarget->color = t_color;
 
-	// Randomized Timers
+    // Randomized Timers
 	targ_hold_time		= random->getDouble(params->targ_hold_lo, params->targ_hold_hi);
 	ft_hold_time		= random->getDouble(params->ft_hold_lo, params->ft_hold_hi);
-    this->ch_timer->stop(S);
 
-    // Bump stuff
-    if(random->getDouble(0,1) < params->bump_rate) {
-        this->do_bump = true;
-        bump_sep=(this->params->bump_dir_ceil - this->params->bump_dir_floor)/(this->params->bump_num_dir -1);
-        this->bump->direction=PI/180 * (this->params->bump_dir_floor + bump_sep*this->random->getInteger(0,(this->params->bump_num_dir -1)));
-        this->bump->hold_duration = this->params->bump_peak_hold;
-        this->bump->rise_time = this->params->bump_ramp;
-        this->bump->peak_magnitude = this->params->bump_magnitude;
-        this->bump_time = random->getDouble((double)this->params->ft_hold_lo,(double)this->ft_hold_time);
-    } else {
-        this->do_bump = false;
-        this->bump->direction=0;
-        this->bump->hold_duration = 0;
-        this->bump->rise_time = 0;
-        this->bump->peak_magnitude = 0;
-        this->bump_time = 0;
-    }
 
     // Reset target index
     target_index = 0;
@@ -268,68 +198,56 @@ void TwoSpaceRTBehavior::doPreTrial(SimStruct *S) {
 	// setup the databurst
 	db->reset();
 	db->addByte(DATABURST_VERSION);
-	db->addByte('T');
+	db->addByte('3');
+	db->addByte('D');
 	db->addByte('R');
-	db->addByte('T');
 	db->addByte(BEHAVIOR_VERSION_MAJOR);
     db->addByte(BEHAVIOR_VERSION_MINOR);
 	db->addByte((BEHAVIOR_VERSION_MICRO & 0xFF00) >> 8);
 	db->addByte(BEHAVIOR_VERSION_MICRO & 0x00FF);
-	db->addFloat((float)(inputs->offsets.x));
-	db->addFloat((float)(inputs->offsets.y));
-    db->addFloat((float)(params->target_size));
-    db->addFloat((float)(ws_num));
-    db->addByte((byte)this->do_bump);
-	db->addFloat((float)this->bump->hold_duration);
-	db->addFloat((float)this->bump->rise_time);
-	db->addFloat((float)this->bump->peak_magnitude);
-    db->addFloat((float)this->bump->direction);
-    db->addFloat((float)centerTarget->centerX);
-    db->addFloat((float)centerTarget->centerY);
+	db->addFloat((float)(params->num_targets));
+    db->addFloat((float)(ft_hold_time));
+    db->addFloat((float)(targ_hold_time));
 	for (i = 0; i<params->num_targets; i++) {
-		db->addFloat((float)targets[i]->centerX);
-		db->addFloat((float)targets[i]->centerY);
+		db->addFloat((float)targets[i]->trow);
+		db->addFloat((float)targets[i]->tcol);
 	}
     db->start();
-
+    
 }
 
-void TwoSpaceRTBehavior::update(SimStruct *S) {
+void RandomTarget3D::update(SimStruct *S) {
     /* declarations */
-
-	// State machine
-	switch (this->getState()) {
-		case STATE_PRETRIAL:
-			updateParameters(S);
-			doPreTrial(S);
-			setState(STATE_DATA_BLOCK);
-			break;
-		case STATE_DATA_BLOCK:
-			if (db->isDone()) {
-				setState(STATE_CT_ON);
-			}
-		case STATE_CT_ON:
+   
+   // State machine
+   switch (this->getState()) {
+       case STATE_PRETRIAL:
+           updateParameters(S);
+           doPreTrial(S);
+           setState(STATE_DATA_BLOCK);
+           break;
+       case STATE_DATA_BLOCK:
+           if (db->isDone()) {
+               
+               setState(STATE_FIRST_TARG_ON);
+           }
+		case STATE_FIRST_TARG_ON:
 			/* target on */
-			if (centerTarget->cursorInTarget(inputs->cursor)) {
-                this->ch_timer->stop(S);
-                this->ch_timer->start(S);
-				setState(STATE_CT_HOLD);
+			if (targets[target_index]->voltageInTarget(inputs->targetStaircase)) {
+                target_index++;
+				setState(STATE_FIRST_TARG_HOLD);
 			} else if (stateTimer->elapsedTime(S) > params->initial_movement_time) {
                 setState(STATE_INCOMPLETE);
             }
 			break;
-        case STATE_CT_HOLD:
+        case STATE_FIRST_TARG_HOLD:
             // center target hold
-			if (!centerTarget->cursorInTarget(inputs->cursor)){
+			if (!targets[target_index]->voltageInTarget(inputs->targetStaircase)){
                 playTone(TONE_ABORT);
                 // setState(STATE_ABORT);
                 // idiot mode, go back to start
-                setState(STATE_CT_ON);
-			} else if(this->do_bump && this->ch_timer->elapsedTime(S)>this->bump_time){
-                this->ch_timer->pause(S);
-                bump->start(S);
-                setState(STATE_BUMP);
-            } else if (this->ch_timer->elapsedTime(S) >= ft_hold_time) {
+                setState(STATE_FIRST_TARG_ON);
+            } else if (stateTimer->elapsedTime(S) >= ft_hold_time) {
                 // check if there are more targets
                 if (target_index == params->num_targets-1) {
                     // no more targets - this shouldn't happen on the center target, but just in case
@@ -337,33 +255,23 @@ void TwoSpaceRTBehavior::update(SimStruct *S) {
                     setState(STATE_REWARD);
                 } else {
                     // more targets
+                    target_index++;
                     targ_hold_time = random->getDouble(params->targ_hold_lo, params->targ_hold_hi);
                     playTone(TONE_GO);
                     setState(STATE_MOVEMENT);
                 }
 			}
 			break;
-		case STATE_BUMP:
-			if(stateTimer->elapsedTime(S) > this->params->bump_hold_time) {
-                if(centerTarget->cursorInTarget(inputs->cursor)){
-                    // reset bump bool so that bump isn't triggered again on this trial
-                    this->do_bump = false;
-                    // resume CH timer
-                    this->ch_timer->start(S);
-                    // Go back to CT_HOLD
-                    setState(STATE_CT_HOLD);
-                }
-            }
 		case STATE_MOVEMENT:
 			if (stateTimer->elapsedTime(S) > params->movement_max_time) {
 				setState(STATE_FAIL);
 			}
-			else if (targets[target_index]->cursorInTarget(inputs->cursor)) {
+            else if (targets[target_index]->voltageInTarget(inputs->targetStaircase)) {
 				setState(STATE_TARG_HOLD);
 			}
 			break;
 		case STATE_TARG_HOLD:
-			if (!targets[target_index]->cursorInTarget(inputs->cursor)){
+			if (!targets[target_index]->voltageInTarget(inputs->targetStaircase)){
                 setState(STATE_ABORT);
 			}
 			else if (stateTimer->elapsedTime(S) >= targ_hold_time) {
@@ -384,45 +292,34 @@ void TwoSpaceRTBehavior::update(SimStruct *S) {
 		case STATE_REWARD:
 		case STATE_ABORT:
         case STATE_INCOMPLETE:
-			if (stateTimer->elapsedTime(S) > params->intertrial_interval) {
-				setState(STATE_PRETRIAL);
-			}
-			break;
+// 			if (stateTimer->elapsedTime(S) > params->intertrial_interval) {
+// 				setState(STATE_PRETRIAL);
+// 			}
+// 			break;
         case STATE_FAIL:
-			if (stateTimer->elapsedTime(S) > params->failure_penalty_lag) {
-				setState(STATE_PRETRIAL);
-			}
-			break;
+// 			if (stateTimer->elapsedTime(S) > params->failure_penalty_lag) {
+// 				setState(STATE_PRETRIAL);
+// 			}
+// 			break;
 		default:
 			setState(STATE_PRETRIAL);
 	}
 }
 
-void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
+void RandomTarget3D::calculateOutputs(SimStruct *S) {
     /* declarations */
 	int i;
-    CircleTarget *currentTarget = targets[target_index];
+    VoltageTarget *currentTarget = targets[target_index];
 
-	/* force (0) */
-	if (getState() == STATE_BUMP) {
-        if (bump->isRunning(S)) {
-            outputs->force = bump->getBumpForce(S);
-        } else {
-            outputs->force.x = 0;
-            outputs->force.y = 0;
-        }
-    } else {
-		outputs->force = inputs->force;
-	}
 
-	/* status (1) */
+	/* status (0) */
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = trialCounter->failures;
 	outputs->status[4] = trialCounter->incompletes;
 
-	/* word(2) */
+	/* word (1) */
 	if (db->isRunning()) {
 		outputs->word = db->getByte();
 	} else if (isNewState()) {
@@ -430,15 +327,12 @@ void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_PRETRIAL:
 				outputs->word = WORD_START_TRIAL;
 				break;
-			case STATE_CT_ON:
+			case STATE_FIRST_TARG_ON:
 				outputs->word = WORD_CT_ON;
 				break;
-			case STATE_CT_HOLD:
+			case STATE_FIRST_TARG_HOLD:
 				outputs->word = WORD_CENTER_TARGET_HOLD;
 				break;
-            case STATE_BUMP:
-                outputs->word = WORD_BUMP(0);
-                break;
 			case STATE_MOVEMENT:
                 outputs->word = WORD_GO_CUE;
 				break;
@@ -465,46 +359,65 @@ void TwoSpaceRTBehavior::calculateOutputs(SimStruct *S) {
 
     /*----------------START HERE------------------*/
 
-	/* target_pos (3) */
-	// target 1
-	if (getState() == STATE_MOVEMENT ||
-		getState() == STATE_TARG_HOLD ||
-		getState() == STATE_MOVEMENT){
-			outputs->targets[0] = (Target *)currentTarget;
-	} else if (getState() == STATE_CT_ON ||
-               getState() == STATE_BUMP ||
-               getState() == STATE_CT_HOLD) {
-        outputs->targets[0] = centerTarget;
-    } else {
-		outputs->targets[0] = nullTarget;
-	}
-	// target 2 (if delay)
-	// if (getState() == STATE_TARGET_DELAY){
-	// 		outputs->targets[1] = (Target *)(this->targets[target_index+1]);
-	// } else {
-	// 	outputs->targets[1] = nullTarget;
-	// }
-
-	/* reward (4) */
+	/* reward (2) */
 	outputs->reward = (isNewState() && getState() == STATE_REWARD);
 
-	/* tone (5) */
+	/* tone (3) */
 	this->outputs->tone_counter = this->tone_counter;
 	this->outputs->last_tone_id = this->last_tone_id;
 
-	/* version (6) */
+	/* version (4) */
 	outputs->version[0] = BEHAVIOR_VERSION_MAJOR;
 	outputs->version[1] = BEHAVIOR_VERSION_MINOR;
 	outputs->version[2] = BEHAVIOR_VERSION_MICRO;
-	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
+    outputs->version[3] = BEHAVIOR_VERSION_BUILD;
+    
+    /* leds (5) */
+    if (targets[target_index]->trow == 1 && targets[target_index]->tcol == 1){
+        outputs->leds[0] = 0;
+        outputs->leds[1] = 0;
+        outputs->leds[2] = 0;
+    } else if (targets[target_index]->trow == 1 && targets[target_index]->tcol == 2){
+        outputs->leds[0] = 0;
+        outputs->leds[1] = 0;
+        outputs->leds[2] = 1;
+    } else if (targets[target_index]->trow == 1 && targets[target_index]->tcol == 3){
+        outputs->leds[0] = 0;
+        outputs->leds[1] = 1;
+        outputs->leds[2] = 0;
+    } else if (targets[target_index]->trow == 2 && targets[target_index]->tcol == 1){
+        outputs->leds[0] = 0;
+        outputs->leds[1] = 1;
+        outputs->leds[2] = 1;
+    } else if (targets[target_index]->trow == 2 && targets[target_index]->tcol == 3){
+        outputs->leds[0] = 1;
+        outputs->leds[1] = 0;
+        outputs->leds[2] = 0;
+    } else if (targets[target_index]->trow == 3 && targets[target_index]->tcol == 1){
+        outputs->leds[0] = 1;
+        outputs->leds[1] = 0;
+        outputs->leds[2] = 1;
+    } else if (targets[target_index]->trow == 3 && targets[target_index]->tcol == 2){
+        outputs->leds[0] = 1;
+        outputs->leds[1] = 1;
+        outputs->leds[2] = 0;
+    } else if (targets[target_index]->trow == 3 && targets[target_index]->tcol == 3){
+        outputs->leds[0] = 1;
+        outputs->leds[1] = 1;
+        outputs->leds[2] = 1;
+    };
+    
+    
+    /* IMU reset (6) */
+    if (getState() == STATE_FIRST_TARG_HOLD){
+        outputs->IMUreset = 1;
+    } else {
+        outputs->IMUreset = 0;
+    };
+          
 
-	/* position (7) */
-	outputs->position = inputs->cursor;
 }
 /*
  * Include at bottom of your behavior code
  */
 #include "common_footer_3d_reach.cpp"
-
-
-

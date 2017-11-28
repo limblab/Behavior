@@ -67,13 +67,13 @@ public:
  * Default constructor. Initializes inputs, outputs and calls Robot().
  */
 Behavior3DReach::Behavior3DReach() : Behavior() { 
-    this->inputs = new  Reach3DInputs();
+    this->inputs = new Reach3DInputs();
 	this->outputs = new Reach3DOutputs();
 
 	for (int i = 0; i < 3; i++) {
 		this->outputs->leds[i] = 0;
 	}
-    IMUreset = 0;
+    this->outputs->IMUreset = 0;
 }
 
 /**
@@ -84,7 +84,7 @@ Behavior3DReach::Behavior3DReach() : Behavior() {
 void Behavior3DReach::readInputs(SimStruct *S) {
 	InputRealPtrsType uPtrs;
 
-	/* cursor */
+	/* input voltage */
 	uPtrs = ssGetInputPortRealSignalPtrs(S, 0);
 	inputs->targetStaircase = *uPtrs[0];
 }
@@ -121,12 +121,13 @@ void Behavior3DReach::writeOutputs(SimStruct *S) {
 		uPtrs[i] = outputs->version[i];
 	}
 
-	// position
+	// leds
 	uPtrs = ssGetOutputPortRealSignal(S, 5);
-    uPtrs[0] = outputs->leds[0];
-    uPtrs[1] = outputs->leds[1];
-    uPtrs[2] = outputs->leds[2];
+	for (i = 0; i<3; i++) {
+		uPtrs[i] = outputs->leds[i];
+	}
 
+	// IMU reset
 	uPtrs = ssGetOutputPortRealSignal(S, 6);
     uPtrs[0] = outputs->IMUreset;
 

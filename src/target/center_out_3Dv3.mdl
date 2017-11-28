@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1390"
+    ComputedModelVersion    "1.1391"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "System Administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Nov 21 09:01:36 2017"
-  RTWModifiedTimeStamp	  433155688
-  ModelVersionFormat	  "1.%<AutoIncrement:1390>"
+  LastModifiedDate	  "Mon Nov 27 15:45:58 2017"
+  RTWModifiedTimeStamp	  433698351
+  ModelVersionFormat	  "1.%<AutoIncrement:1391>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -989,7 +989,7 @@ Model {
       Position		      [475, 140, 715, 490]
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
-      FunctionName	      "mastercon_co_3Dv3"
+      FunctionName	      "mastercon_RT3D"
       Parameters	      "8 10 2.5 1 1 .5 1.5 .75 .25 1 1 10"
       Object {
 	$PropName		"MaskObject"
@@ -1978,7 +1978,7 @@ Model {
 	  Ports			  [1, 8]
 	  Position		  [850, 765, 900, 960]
 	  ZOrder		  5
-	  LibraryVersion	  "1.197"
+	  LibraryVersion	  "1.206"
 	  SourceBlock		  "limblab/ToBits"
 	  SourceType		  ""
 	}
@@ -1989,7 +1989,7 @@ Model {
 	  Ports			  [2]
 	  Position		  [795, 1007, 1040, 1083]
 	  ZOrder		  2
-	  LibraryVersion	  "1.197"
+	  LibraryVersion	  "1.206"
 	  LinkData {
 	    BlockName		    "PCI-6025E "
 	    DialogParameters {
