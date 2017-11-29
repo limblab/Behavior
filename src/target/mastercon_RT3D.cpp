@@ -235,7 +235,6 @@ void RandomTarget3D::update(SimStruct *S) {
 		case STATE_FIRST_TARG_ON:
 			/* target on */
 			if (targets[target_index]->handInTarget(inputs->targetStaircase)) {
-                target_index++;
 				setState(STATE_FIRST_TARG_HOLD);
 			} else if (stateTimer->elapsedTime(S) > params->initial_movement_time) {
                 setState(STATE_INCOMPLETE);
@@ -248,7 +247,7 @@ void RandomTarget3D::update(SimStruct *S) {
                 setState(STATE_ABORT);
             } else if (stateTimer->elapsedTime(S) >= ft_hold_time) {
                 // check if there are more targets
-                if (target_index == params->num_targets) {
+                if (target_index == params->num_targets-1) {
                     // no more targets - this shouldn't happen on the center target, but just in case
                     playTone(TONE_REWARD);
                     setState(STATE_REWARD);
@@ -276,7 +275,7 @@ void RandomTarget3D::update(SimStruct *S) {
 			}
 			else if (stateTimer->elapsedTime(S) >= targ_hold_time) {
                 // check if there are more targets
-                if (target_index == params->num_targets) {
+                if (target_index == params->num_targets-1) {
                     // no more targets
                     playTone(TONE_REWARD);
                     setState(STATE_REWARD);
