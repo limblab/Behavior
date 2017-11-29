@@ -36,13 +36,13 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetInputPortDirectFeedThrough(S, 0, 1);
     
     /* 
-     * Block has 7 output ports (force, status, word, targets, reward, tone, version, pos) of widths:
+     * Block has 7 output ports (status, word,  reward, tone, version, leds, imu reset) of widths:
      *  status: 5 ( block counter, successes, aborts, failures, incompletes )
      *  word:  1 (8 bits)
      *  reward: 1
      *  tone: 2     ( 1: counter incemented for each new tone, 2: tone ID )
      *  version: 1 ( the cvs revision of the current .c file )
-     *  leds: 3 (x and y position of the cursor)
+     *  leds: 3 (values to set led target)
      *  imu reset: 1 (reset signal for IMUs)
      */
     if (!ssSetNumOutputPorts(S, 7)) return;

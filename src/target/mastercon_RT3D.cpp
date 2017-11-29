@@ -248,7 +248,7 @@ void RandomTarget3D::update(SimStruct *S) {
                 setState(STATE_ABORT);
             } else if (stateTimer->elapsedTime(S) >= ft_hold_time) {
                 // check if there are more targets
-                if (target_index == params->num_targets-1) {
+                if (target_index == params->num_targets) {
                     // no more targets - this shouldn't happen on the center target, but just in case
                     playTone(TONE_REWARD);
                     setState(STATE_REWARD);
