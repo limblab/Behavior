@@ -1,6 +1,6 @@
 /* $Id: mastercon_outout.cpp 2016-12-05 Raeed $
  *
- * Master Control block for behavior: Out-out
+ * Master Control block for behavior: RandomTarget3D
  */
 
 #define S_FUNCTION_NAME mastercon_RT3D
