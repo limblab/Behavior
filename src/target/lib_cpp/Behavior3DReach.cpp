@@ -17,6 +17,9 @@ class LEDTarget {
         int target_row;
         int target_col;
         
+        // Constructor
+        LEDTarget();
+
         // figure out which target is being reached for
         // targetStaircase -> voltage staircase given by arduino to determine target being reached to
         // output -> true means hand is at target
@@ -25,6 +28,11 @@ class LEDTarget {
         // set outputs for LEDs
         // u -> pointer to output array to copy into
         void setTargetOutputs(real_T *u);
+};
+
+LEDTarget::LEDTarget() {
+    target_row = 1;
+    target_col = 1;
 }
 
 bool LEDTarget::handInTarget(float targetStaircase) {
@@ -98,7 +106,7 @@ void LEDTarget::setTargetOutputs(real_T *u) {
         output_vals[2] = 1;
     } //else if wrong row and col, do nothing
 
-	for (i = 0; i<3; i++) {
+	for (int i = 0; i<3; i++) {
 		u[i] = output_vals[i];
 	}
 }
@@ -137,7 +145,7 @@ public:
 };
 
 /**
- * A behavior deisnged to run on the robot.  Contains the inputs and outputs for the robot model.
+ * A behavior deisnged to run on LED array.  Contains the inputs and outputs for the 3D reach model.
  */
 class Behavior3DReach : public Behavior {
 protected:
@@ -159,15 +167,13 @@ public:
 };
 
 /**
- * Default constructor. Initializes inputs, outputs and calls Robot().
+ * Default constructor. Initializes inputs, outputs
  */
 Behavior3DReach::Behavior3DReach() : Behavior() { 
     this->inputs = new Reach3DInputs();
 	this->outputs = new Reach3DOutputs();
 
-	for (int i = 0; i < 3; i++) {
-		this->outputs->leds[i] = 0;
-	}
+    this->outputs->target = new LEDTarget();
     this->outputs->IMUreset = 0;
 }
 

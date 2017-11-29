@@ -183,7 +183,7 @@ void RandomTarget3D::doPreTrial(SimStruct *S) {
     for (i = 1; i<params->num_targets; i++) {
         targets[i]->target_row = random->getInteger(1,3);
         targets[i]->target_col = random->getInteger(1,3);
-        while (targets[i]->trow == 2 && targets[i]->tcol == 2){
+        while (targets[i]->target_row == 2 && targets[i]->target_col == 2){
             targets[i]->target_row = random->getInteger(1,3);
             targets[i]->target_col = random->getInteger(1,3);
         }
