@@ -1647,6 +1647,21 @@ namespace BehaviorGraphics
                 AddParamListItem("TRT bumpnumdir", "P30", "Behavior TwoSpaceRT", this.numericUpDownTRT_bumpNumDir);
 
             #endregion
+
+            #region RandomTarget3D
+                AddParamListItem("RT3D ftholdlow", "P2", "Behavior RandomTarget3D", this.textBox3DRT_ftHoldLo);
+                AddParamListItem("RT3D ftholdhigh", "P3", "Behavior RandomTarget3D", this.textBox3DRT_ftHoldHi);
+                AddParamListItem("RT3D targHoldlow", "P4", "Behavior RandomTarget3D", this.textBox3DRT_targHoldLo);
+                AddParamListItem("RT3D targHoldhigh", "P5", "Behavior RandomTarget3D", this.textBox3DRT_targholdHi);
+
+                AddParamListItem("RT3D initMoveTime", "P6", "Behavior RandomTarget3D", this.textBox3DRT_initMoveTime);
+                AddParamListItem("RT3D maxMoveTime", "P7", "Behavior RandomTarget3D", this.textBox3DRT_maxMoveTime);
+
+                AddParamListItem("RT3D numTargets", "P8", "Behavior RandomTarget3D", this.numericUpDown3DRT_numTargets);
+                AddParamListItem("RT3D ftRow", "P9", "Behavior RandomTarget3D", this.textBox3DRT_ftRow);
+                AddParamListItem("RT3D ftCol", "P10", "Behavior RandomTarget3D", this.textBox3DRT_ftCol);
+            #endregion
+
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
