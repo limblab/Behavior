@@ -1652,7 +1652,7 @@ namespace BehaviorGraphics
                 AddParamListItem("RT3D ftholdlow", "P2", "Behavior RandomTarget3D", this.textBox3DRT_ftHoldLo);
                 AddParamListItem("RT3D ftholdhigh", "P3", "Behavior RandomTarget3D", this.textBox3DRT_ftHoldHi);
                 AddParamListItem("RT3D targHoldlow", "P4", "Behavior RandomTarget3D", this.textBox3DRT_targHoldLo);
-                AddParamListItem("RT3D targHoldhigh", "P5", "Behavior RandomTarget3D", this.textBox3DRT_targholdHi);
+                AddParamListItem("RT3D targHoldhigh", "P5", "Behavior RandomTarget3D", this.textBox3DRT_targHoldHi);
 
                 AddParamListItem("RT3D initMoveTime", "P6", "Behavior RandomTarget3D", this.textBox3DRT_initMoveTime);
                 AddParamListItem("RT3D maxMoveTime", "P7", "Behavior RandomTarget3D", this.textBox3DRT_maxMoveTime);
