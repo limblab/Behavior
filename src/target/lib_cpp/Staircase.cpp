@@ -78,8 +78,8 @@ Staircase::Staircase() {
 	default_iteration=0;
 	default_step_size=1;
 	default_step_ratio=3;
-	default_use_forward_limit=1;
-	default_use_backward_limit=1;
+	default_use_forward_limit=true;
+	default_use_backward_limit=true;
 	default_forward_limit=90;
 	default_backward_limit=0;
 
