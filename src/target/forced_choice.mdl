@@ -2,12 +2,12 @@ Model {
   Name			  "forced_choice"
   Version		  8.5
   MdlSubVersion		  0
-  SavedCharacterEncoding  "windows-1252"
+  SavedCharacterEncoding  "UTF-8"
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1215"
+    ComputedModelVersion    "1.1216"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -30,7 +30,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, 0.0, 1036.0, 754.0]
+      Location		      [828.0, 336.0, 2335.0, 1632.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -52,11 +52,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkTopLevel"
-	LoadSaveID		"0"
-	Extents			[986.0, 580.0]
-	ZoomFactor		[0.3]
-	Offset			[-1327.9926301555133, 847.01318458417791]
+	ViewObjType		"SimulinkSubsys"
+	LoadSaveID		"740"
+	Extents			[2299.0, 1496.0]
+	ZoomFactor		[1.0]
+	Offset			[0.0, 0.0]
       }
     }
   }
@@ -64,11 +64,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "tucker"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Nov 17 17:56:02 2017"
-  RTWModifiedTimeStamp	  432842158
-  ModelVersionFormat	  "1.%<AutoIncrement:1215>"
+  LastModifiedDate	  "Thu Jan 04 16:43:51 2018"
+  RTWModifiedTimeStamp	  436984983
+  ModelVersionFormat	  "1.%<AutoIncrement:1216>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -608,7 +608,7 @@ Model {
 	      ReqsInCode	      off
 	      UseSimReservedNames     off
 	    }
-	    SimulinkRealTime.SimulinkRealTimeCC {
+	    Simulink.TargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
 	      $ObjectID		      17
 	      Version		      "1.15.0"
@@ -676,30 +676,126 @@ Model {
 	      GRTInterface	      on
 	      GenerateAllocFcn	      off
 	      GenerateSharedConstants on
-	      RL32ModeModifier	      "Real-Time"
-	      ExtMode		      on
-	      ExtModeMexFile	      "ext_xpc"
-	      ExtModeIntrfLevel	      "Level2 - Open"
-	      ExtModeArmWhenConnect   off
-	      RL32LogTETModifier      on
-	      RL32LogBufSizeModifier  "100000"
-	      xPCTaskExecutionProfile off
-	      xPCRL32EventNumber      "5000"
-	      RL32IRQSourceModifier   "Timer"
-	      xPCIRQSourceBoard	      "None/Other"
-	      xPCIOIRQSlot	      "-1"
-	      xpcDblBuff	      off
-	      xpcObjCom		      off
-	      xPCGenerateASAP2	      off
-	      xPCGenerateXML	      off
-	      RL32ObjectName	      "tg"
-	      xPCisDownloadable	      off
-	      xPCisDefaultEnv	      on
-	      xPCisModelTimeout	      on
-	      xPCModelTimeoutSecs     "5"
-	      xPCLoadParamSetFile     off
-	      xPCConcurrentTasks      off
-	      xPCEnableSFAnimation    off
+	      CustomProperty {
+		DataType		"string"
+		Name			"RL32ModeModifier"
+		Value			"Real-Time"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"ExtMode"
+		Value			"on"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"ExtModeMexFile"
+		Value			"ext_xpc"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"ExtModeIntrfLevel"
+		Value			"Level2 - Open"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"ExtModeArmWhenConnect"
+		Value			"off"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"RL32LogTETModifier"
+		Value			"on"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"RL32LogBufSizeModifier"
+		Value			"100000"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCTaskExecutionProfile"
+		Value			"off"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCRL32EventNumber"
+		Value			"5000"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"RL32IRQSourceModifier"
+		Value			"Timer"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCIRQSourceBoard"
+		Value			"None/Other"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCIOIRQSlot"
+		Value			"-1"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xpcDblBuff"
+		Value			"off"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xpcObjCom"
+		Value			"off"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCGenerateASAP2"
+		Value			"off"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCGenerateXML"
+		Value			"off"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"RL32ObjectName"
+		Value			"tg"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCisDownloadable"
+		Value			"off"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCisDefaultEnv"
+		Value			"on"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCisModelTimeout"
+		Value			"on"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCModelTimeoutSecs"
+		Value			"5"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCLoadParamSetFile"
+		Value			"off"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCConcurrentTasks"
+		Value			"off"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"xPCEnableSFAnimation"
+		Value			"off"
+	      }
 	    }
 	    PropName		    "Components"
 	  }
@@ -1024,8 +1120,8 @@ Model {
   }
   System {
     Name		    "forced_choice"
-    Location		    [-8, 0, 1028, 754]
-    Open		    on
+    Location		    [6, 60, 2341, 1692]
+    Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1036,9 +1132,9 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "30"
+    ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "786"
+    SIDHighWatermark	    "787"
     Block {
       BlockType		      S-Function
       Name		      "Behavior FC"
@@ -2003,8 +2099,8 @@ Model {
       RequestExecContextInheritance off
       System {
 	Name			"RewardSbs1"
-	Location		[16, 52, 944, 498]
-	Open			off
+	Location		[828, 336, 3163, 1968]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2042,6 +2138,18 @@ Model {
 	  Value			  "0"
 	}
 	Block {
+	  BlockType		  Product
+	  Name			  "Product"
+	  SID			  "787"
+	  Ports			  [2, 1]
+	  Position		  [205, 72, 235, 103]
+	  ZOrder		  1
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  RndMeth		  "Floor"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
 	  BlockType		  RelationalOperator
 	  Name			  "Relational\nOperator"
 	  SID			  "744"
@@ -2064,7 +2172,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "RewardTime"
 	  SID			  "746"
-	  Position		  [160, 80, 190, 110]
+	  Position		  [145, 80, 175, 110]
 	  ZOrder		  -6
 	  Value			  "0.30"
 	}
@@ -2269,17 +2377,27 @@ Model {
 	  ZOrder		  1
 	  SrcBlock		  "Trig"
 	  SrcPort		  1
-	  Points		  [335, 0]
+	  Points		  [119, 0]
 	  Branch {
-	    ZOrder		    2
-	    Points		    [75, 0; 0, 40]
-	    DstBlock		    "Schmidt"
-	    DstPort		    1
+	    ZOrder		    16
+	    Points		    [216, 0]
+	    Branch {
+	      ZOrder		      2
+	      Points		      [75, 0; 0, 40]
+	      DstBlock		      "Schmidt"
+	      DstPort		      1
+	    }
+	    Branch {
+	      ZOrder		      3
+	      DstBlock		      "Sample\nand Hold"
+	      DstPort		      trigger
+	    }
 	  }
 	  Branch {
-	    ZOrder		    3
-	    DstBlock		    "Sample\nand Hold"
-	    DstPort		    trigger
+	    ZOrder		    15
+	    Points		    [0, 35]
+	    DstBlock		    "Product"
+	    DstPort		    1
 	  }
 	}
 	Line {
@@ -2303,14 +2421,6 @@ Model {
 	  Points		  [30, 0; 0, -40]
 	  DstBlock		  "Schmidt"
 	  DstPort		  2
-	}
-	Line {
-	  ZOrder		  7
-	  SrcBlock		  "RewardTime"
-	  SrcPort		  1
-	  Points		  [35, 0; 0, 35]
-	  DstBlock		  "Switch"
-	  DstPort		  1
 	}
 	Line {
 	  ZOrder		  8
@@ -2349,6 +2459,21 @@ Model {
 	  Points		  [25, 0; 0, -30]
 	  DstBlock		  "Relational\nOperator"
 	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  13
+	  SrcBlock		  "RewardTime"
+	  SrcPort		  1
+	  DstBlock		  "Product"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  17
+	  SrcBlock		  "Product"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, 40]
+	  DstBlock		  "Switch"
+	  DstPort		  1
 	}
       }
     }
@@ -2404,7 +2529,7 @@ Model {
       Name		      "Target Peek"
       SID		      "761"
       Ports		      [1, 1]
-      Position		      [1180, 2059, 1280, 2101]
+      Position		      [1270, 2059, 1370, 2101]
       ZOrder		      95
       RequestExecContextInheritance off
       System {
@@ -2670,7 +2795,7 @@ Model {
       BlockType		      Terminator
       Name		      "Terminator"
       SID		      "776"
-      Position		      [1320, 2070, 1340, 2090]
+      Position		      [1450, 2070, 1470, 2090]
       ZOrder		      93
     }
     Block {
@@ -2921,7 +3046,7 @@ Model {
       ZOrder		      349
       SrcBlock		      "Behavior FC"
       SrcPort		      4
-      Points		      [95, 0]
+      Points		      [171, 0]
       Branch {
 	ZOrder			322
 	DstBlock		"Target Peek"
@@ -2929,7 +3054,7 @@ Model {
       }
       Branch {
 	ZOrder			321
-	Points			[0, -35; 210, 0; 0, 90]
+	Points			[0, 55]
 	DstBlock		"SendPacketToGraphics"
 	DstPort			1
       }
@@ -3112,7 +3237,7 @@ Model {
     }
     Annotation {
       SID		      "786"
-      Position		      [1109, 2141, 1111, 2156]
+      Position		      [1109, 2141, 1111, 2155]
       InternalMargins	      [0, 0, 0, 0]
       FixedHeight	      off
       FixedWidth	      off
