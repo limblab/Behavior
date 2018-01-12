@@ -11,11 +11,11 @@
 /*
  * LED target class definition
  * This class has helper functions that define which LED target to light up and which target is being reached for
+ * target_num - 0 is center target, and other targets are labeled 1-7, counter-clockwise from the bottom right
  */
 class LEDTarget {
     public:
-        int target_row;
-        int target_col;
+        int target_num;
         
         // Constructor
         LEDTarget();
@@ -31,36 +31,35 @@ class LEDTarget {
 };
 
 LEDTarget::LEDTarget() {
-    target_row = 1;
-    target_col = 1;
+    target_num = 0;
 }
 
 bool LEDTarget::handInTarget(float targetStaircase) {
     double targetVoltageLow;
     double targetVoltageHigh;
 
-    if (this->target_row == 1 && this->target_col == 1){
+    if (this->target_num == 0){
         targetVoltageLow = 0.4;
         targetVoltageHigh = 0.8;
-    } else if (this->target_row == 1 && this->target_col == 2){
+    } else if (this->target_num == 1){
         targetVoltageLow = 1;
         targetVoltageHigh = 1.5;
-    } else if (this->target_row == 1 && this->target_col == 3){
+    } else if (this->target_num == 2){
         targetVoltageLow = 1.7;
         targetVoltageHigh = 2.1;
-    } else if (this->target_row == 2 && this->target_col == 1){
+    } else if (this->target_num == 3){
         targetVoltageLow = 2.3;
         targetVoltageHigh = 2.7;
-    } else if (this->target_row == 2 && this->target_col == 3){
+    } else if (this->target_num == 4){
         targetVoltageLow = 3;
         targetVoltageHigh = 3.4;
-    } else if (this->target_row == 3 && this->target_col == 1){
+    } else if (this->target_num == 5){
         targetVoltageLow = 3.6;
         targetVoltageHigh = 4;
-    } else if (this->target_row == 3 && this->target_col == 2){
+    } else if (this->target_num == 6){
         targetVoltageLow = 4.2;
         targetVoltageHigh = 4.6;
-    } else if (this->target_row == 3 && this->target_col == 3){
+    } else if (this->target_num == 7){
         targetVoltageLow = 4.8;
         targetVoltageHigh = 5.2;
     } else {
@@ -72,39 +71,10 @@ bool LEDTarget::handInTarget(float targetStaircase) {
 }
 void LEDTarget::setTargetOutputs(real_T *u) {
     int output_vals[3];
-    if (target_row == 1 && target_col == 1){
-        output_vals[0] = 0;
-        output_vals[1] = 0;
-        output_vals[2] = 0;
-    } else if (target_row == 1 && target_col == 2){
-        output_vals[0] = 0;
-        output_vals[1] = 0;
-        output_vals[2] = 1;
-    } else if (target_row == 1 && target_col == 3){
-        output_vals[0] = 0;
-        output_vals[1] = 1;
-        output_vals[2] = 0;
-    } else if (target_row == 2 && target_col == 1){
-        output_vals[0] = 0;
-        output_vals[1] = 1;
-        output_vals[2] = 1;
-    } else if (target_row == 2 && target_col == 3){
-        output_vals[0] = 1;
-        output_vals[1] = 0;
-        output_vals[2] = 0;
-    } else if (target_row == 3 && target_col == 1){
-        output_vals[0] = 1;
-        output_vals[1] = 0;
-        output_vals[2] = 1;
-    } else if (target_row == 3 && target_col == 2){
-        output_vals[0] = 1;
-        output_vals[1] = 1;
-        output_vals[2] = 0;
-    } else if (target_row == 3 && target_col == 3){
-        output_vals[0] = 1;
-        output_vals[1] = 1;
-        output_vals[2] = 1;
-    } //else if wrong row and col, do nothing
+
+    output_vals[2] = target_num%2;
+    output_vals[1] = (target_num/2)%2;
+    output_vals[0] = (target_num/4)%2;
 
 	for (int i = 0; i<3; i++) {
 		u[i] = output_vals[i];

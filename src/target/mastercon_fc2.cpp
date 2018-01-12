@@ -228,14 +228,16 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
     //initialize the bump generator
 	this->bump = new CosineBumpGenerator();
     //initialize the staircases
-    this->bump_stair->setStepSize(params->bump_step);
+    this->bump_stair=new Staircase();
+    this->stim_stair=new Staircase();
+    this->bump_stair->setStepSize(1);
     this->bump_steps=(int)floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
-    this->bump_stair->setCurrentValue(this->bump_steps/2);
-    this->bump_stair->setForwardLimit(this->bump_steps);
+    this->bump_stair->setCurrentValue((int)this->bump_steps/2);
+    this->bump_stair->setForwardLimit((int)this->bump_steps);
     this->bump_stair->setBackwardLimit(0);
     this->stim_stair->setStepSize(1);
-    this->stim_stair->setCurrentValue(params->stim_levels/2);
-    this->stim_stair->setForwardLimit(params->stim_levels);
+    this->stim_stair->setCurrentValue((int)params->stim_levels/2);
+    this->stim_stair->setForwardLimit((int)params->stim_levels);
     this->stim_stair->setBackwardLimit(0);
 }
 
@@ -269,7 +271,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     this->bump_delay=this->random->getDouble(params->bump_delay_low,params->bump_delay_high);
     this->bump_trial=this->random->getDouble()>params->bump_prob;
     if(this->bump_trial){
-        this->bump->peak_magnitude=this->bump_stair->getCurrentValue() *params->bump_step + params->bump_floor;
+        this->bump->peak_magnitude= this->bump_stair->getCurrentValue()*params->bump_step + params->bump_floor;
         this->bump->hold_duration = params->bump_duration;
         this->bump->rise_time = params->bump_ramp;
         this->bump->direction = (double)(params->bump_direction) * PI/180;
@@ -336,7 +338,6 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 			correctTarget = primaryTarget;
 			incorrectTarget = nullTarget;
 		} else {
-			// staircase_id == 1
 			// want to be in secondary target
 			correctTarget = secondaryTarget;
 			incorrectTarget = nullTarget;
@@ -347,7 +348,6 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 			correctTarget = primaryTarget;
 			incorrectTarget = secondaryTarget;
 		} else {
-			// staircase_id == 1
 			// want to be in secondary target
 			correctTarget = secondaryTarget;
 			incorrectTarget = primaryTarget;
@@ -455,6 +455,11 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_ABORT:
+            this->bump->stop();
+			if (stateTimer->elapsedTime(S) > params->intertrial_time) {
+				setState(STATE_PRETRIAL);
+			}
+			break;
         case STATE_REWARD:
             //iterate staircase
             if(this->bump_trial){
@@ -464,6 +469,11 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
                         this->bump_stair->addSuccess();
                     }
             }
+            this->bump->stop();
+			if (stateTimer->elapsedTime(S) > params->intertrial_time) {
+				setState(STATE_PRETRIAL);
+			}
+			break;
 		case STATE_FAIL:
             //iterate staircase
             if(this->bump_trial){
@@ -473,6 +483,11 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
                         this->bump_stair->addFailure();
                     }
             }
+            this->bump->stop();
+			if (stateTimer->elapsedTime(S) > params->intertrial_time) {
+				setState(STATE_PRETRIAL);
+			}
+			break;
         case STATE_INCOMPLETE:
 			this->bump->stop();
 			if (stateTimer->elapsedTime(S) > params->intertrial_time) {
@@ -525,9 +540,11 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 				break;
 			case STATE_STIM:
 				outputs->word = WORD_STIM(this->stim_stair->getCurrentValue());
-				break;
+				//outputs->word = WORD_STIM(0);
+                break;
 			case STATE_BUMP:
 				outputs->word = WORD_BUMP(this->bump_stair->getCurrentValue());
+                //outputs->word = WORD_BUMP(0);
 				break;
 			case STATE_MOVEMENT:
 				outputs->word = WORD_GO_CUE;

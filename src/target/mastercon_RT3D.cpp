@@ -56,17 +56,9 @@
  * bytes  9 to 12: float => number of targets (includes first target)
  * bytes 13 to 16: float => start target hold time
  * bytes 17 to 20: float => other target hold time 
- * bytes 21 to 21+(N)*8: where N is the number of targets, contains 8 bytes per 
- *      target representing two single-precision floating point numbers in 
- *      little-endian format represnting the row and column of the 
- *      target. This also includes the first target. Encoding scheme is:
- *      (looking at it like the monkey)
- *      o       o       o
- *     1,1     1,2     1,3
- *      o               o
- *     2,1             2,3
- *      o       o       o
- *     3,1     3,2     3,3
+ * bytes 21 to 21+(N)*8: where N is the number of targets, contains 4 bytes per 
+ *          target, numbered 0-7. Target 0 is center target, and outer targets
+ *          are numbered 1-7, counter-clockwise, starting from bottom right
  */
 typedef unsigned char byte;
 #define DATABURST_VERSION ((byte)0x02) 
@@ -176,16 +168,15 @@ void RandomTarget3D::doPreTrial(SimStruct *S) {
 	/* initialize targets */
 
     /* set first target */
-    targets[0]->target_row = params->ft_location_row;
-    targets[0]->target_col = params->ft_location_col;
+    //targets[0]->target_row = params->ft_location_row;
+    //targets[0]->target_col = params->ft_location_col;
+    targets[0]->target_num = 0;
     
     /* set rest of targets */
     for (i = 1; i<params->num_targets; i++) {
-        targets[i]->target_row = random->getInteger(1,3);
-        targets[i]->target_col = random->getInteger(1,3);
-        while (targets[i]->target_row == 2 && targets[i]->target_col == 2){
-            targets[i]->target_row = random->getInteger(1,3);
-            targets[i]->target_col = random->getInteger(1,3);
+        targets[i]->target_num = random->getInteger(1,7);
+        while (targets[i]->target_num == targets[i-1]->target_num){
+            targets[i]->target_num = random->getInteger(1,7);
         }
     }
 
@@ -211,8 +202,7 @@ void RandomTarget3D::doPreTrial(SimStruct *S) {
     db->addFloat((float)(ft_hold_time));
     db->addFloat((float)(targ_hold_time));
 	for (i = 0; i<params->num_targets; i++) {
-		db->addFloat((float)targets[i]->target_row);
-		db->addFloat((float)targets[i]->target_col);
+		db->addFloat((float)targets[i]->target_num);
 	}
     db->start();
     

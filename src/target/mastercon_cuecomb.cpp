@@ -115,6 +115,8 @@ struct LocalParams {
 	real_T force_peak_time;
     
     real_T bump_sampling_method;  // 0 for equally sampled bumps in cartesian space, 1 for equally sampled bumps in joint space.
+
+    real_T small_target_size;
 };
 
 /**
@@ -175,6 +177,7 @@ private:
     double y_vel_old;
     
 	CircleTarget    *centerTarget;
+    CircleTarget    *smallCenterTarget;
 	ArcTarget		*outerTarget;
 	ArcTarget		*targetBar;
 	ArcTarget		*cloud[10];
@@ -197,7 +200,7 @@ cuecombBehavior::cuecombBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(55);
+	this->setNumParams(56);
 
 	this->bindParamId(&params->master_reset,		0);
 	
@@ -270,8 +273,8 @@ cuecombBehavior::cuecombBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->force_peak_time,		53);
     
     this->bindParamId(&params->bump_sampling_method, 54);
-
-
+    this->bindParamId(&params->small_target_size,   55);
+    
 	this->setMasterResetParamId(0);
 
 	// This function now fetches all of the parameters into the variables
@@ -279,6 +282,7 @@ cuecombBehavior::cuecombBehavior(SimStruct *S) : RobotBehavior() {
 	this->updateParameters(S);
 
 	centerTarget	= new CircleTarget(0,0,0,0);
+    smallCenterTarget = new CircleTarget(0,0,0,0);
 	outerTarget		= new ArcTarget(0,0,0,0,5);
 	targetBar		= new ArcTarget(0,0,0,0,8);
 	timerTarget		= new SquareTarget(0,0,0,0);
@@ -558,6 +562,11 @@ void cuecombBehavior::doPreTrial(SimStruct *S) {
 	centerTarget->radius   = params->target_size;
 	centerTarget->color   = Target::Color(255, 0, 0);
 
+    smallCenterTarget->centerX = 0.0;
+    smallCenterTarget->centerY = 0.0;
+    smallCenterTarget->radius = params->small_target_size;
+    smallCenterTarget->color = Target::Color(255 , 0, 0);
+
 	outerTarget->r = params->movement_length;
 	outerTarget->theta = target_shift;
 	outerTarget->span   = (params->OT_size)*PI/180;
@@ -646,7 +655,7 @@ void cuecombBehavior::update(SimStruct *S) {
 			break;
 		case STATE_CT_ON:
 			/* first target on */
-			if (centerTarget->cursorInTarget(inputs->cursor)) {
+			if (smallCenterTarget->cursorInTarget(inputs->cursor)) {
 				setState(STATE_CT_HOLD);
 			}
 			break;
@@ -866,7 +875,9 @@ void cuecombBehavior::calculateOutputs(SimStruct *S) {
 
 	/* target_pos (3) */
 	// Center Target (0)
-	if (getState() == STATE_CT_ON ||
+	if(getState() == STATE_CT_ON){
+        outputs->targets[0] = (Target *)smallCenterTarget;
+    }else if (getState() == STATE_CT_ON ||
 		getState() == STATE_CT_HOLD ||
 		getState() == STATE_BUMP_OUT ||
 		getState() == STATE_BUMP_IN ||
@@ -914,7 +925,8 @@ void cuecombBehavior::calculateOutputs(SimStruct *S) {
 			outputs->targets[3+i] = nullTarget;
 		}
 	}
-		
+	
+    
 	
 	/* Timer Dot */
 	if ( getState() == STATE_CT_ON	 ||
