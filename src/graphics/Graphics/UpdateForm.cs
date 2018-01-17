@@ -1503,7 +1503,6 @@ namespace BehaviorGraphics
             AddParamListItem("CC force peak time", "P54", "Behavior Cue Comb", this.textBoxCC_forceBumpPeakTime);
 
             AddParamListItem("CC bump sampling method", "P55", "Behavior Cue Comb", this.textBoxCC_BSM);
-
             #endregion
 
             #region Sabes

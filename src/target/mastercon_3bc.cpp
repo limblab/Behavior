@@ -5,7 +5,6 @@
 
 #pragma warning(disable: 4800)
 
-
 #define S_FUNCTION_NAME mastercon_3bc
 #define S_FUNCTION_LEVEL 2
 
@@ -135,6 +134,7 @@ private:
 	CircleTarget *centerTarget;
 	CircleTarget *primaryTarget;
 	CircleTarget *secondaryTarget;
+    
 	SquareTarget *errorTarget;
     
 	bool stim_trial;
@@ -158,8 +158,6 @@ private:
 };
 
 TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
-
-
 	/* 
 	 * First, set up the parameters to be used 
 	 */
@@ -198,6 +196,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->stim_levels,				26);
 	this->bindParamId(&params->catch_rate,				27);
 	this->bindParamId(&params->abort_during_bump,		28);
+    
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -211,20 +210,19 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	centerTarget = new CircleTarget();
 	primaryTarget = new CircleTarget(); 
 	secondaryTarget = new CircleTarget(); 
-
+    
 	centerTarget->color = Target::Color(128, 128, 128);
 	primaryTarget->color = Target::Color(160, 255, 0);
 	secondaryTarget->color = Target::Color(255, 0, 160);
-
+    
 	errorTarget = new SquareTarget(0, 0, 100, Target::Color(255, 255, 255));
-
-
 
 	this->stim_trial = false;
 	this->bump_dir = 0;
 	this->bump = new CosineBumpGenerator();
 	this->training_trial=0;
 	this->tgt_angle=0;
+    
 }
 
 
@@ -239,7 +237,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	}
 
 	// Set up target locations, etc.
-	centerTarget->radius = params->target_size;
+	centerTarget->radius = params->target_size+1.0;
 
 	primaryTarget->radius = params->target_size;
 	primaryTarget->centerX = params->target_radius*cos((float)this->tgt_angle * PI/180);
@@ -248,7 +246,7 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	secondaryTarget->radius = params->target_size;
 	secondaryTarget->centerX = params->target_radius*cos(PI + (float)this->tgt_angle * PI/180);
 	secondaryTarget->centerY = params->target_radius*sin(PI + (float)this->tgt_angle * PI/180);
-
+    
     // Reset cursor offset
     cursorOffset.x = 0;
     cursorOffset.y = 0;
@@ -295,11 +293,12 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	this->bump->direction = ((double)(this->tgt_angle + this->bump_dir)) * PI/180;
 
 	// Reset primary target color if needed
-	if ((int)params->green_prim_targ) {
-		primaryTarget->color = Target::Color(160, 255, 0);
-	} else {
-		primaryTarget->color = Target::Color(255, 0, 160);
-	}
+    if(params->green_prim_targ){
+        // do nothing because default is green
+    }
+    else{
+        primaryTarget->color = Target::Color(255, 0, 160);
+    }
 	/* Select whether this will be a training trial 
 	*  If the training frequency is zero we should not see any training trials*/
 	training_trial=(this->random->getDouble() < params->training_frequency);
@@ -477,8 +476,8 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 	/* status (1) */
 // 	outputs->status[0] = getState();
 //	outputs->status[1] = trialCounter->successes;
-outputs->status[0] = inputs->force.x;
-outputs->status[1] = inputs->force.y;
+    outputs->status[0] = inputs->force.x;
+    outputs->status[1] = inputs->force.y;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = trialCounter->failures;
  	outputs->status[4] = trialCounter->incompletes;
@@ -543,11 +542,11 @@ outputs->status[1] = inputs->force.y;
 		if (this->params->show_target_during_bump) {
 			if (this->training_trial) {
 				if(this->is_primary_target) {
-		            outputs->targets[1] = (Target *)(this->primaryTarget);
+                    outputs->targets[1] = (Target *)(this->primaryTarget);
 			        outputs->targets[2] = nullTarget;
 				} else {
-		            outputs->targets[1] = (Target *)(this->secondaryTarget);
-			        outputs->targets[2] = nullTarget;
+                    outputs->targets[1] = (Target *)(this->secondaryTarget);
+			        outputs->targets[2] = nullTarget; 
 				}
 			} else {
 				outputs->targets[1] = (Target *)(this->primaryTarget);
@@ -558,20 +557,21 @@ outputs->status[1] = inputs->force.y;
             outputs->targets[2] = nullTarget;
 		}
 	} else if (getState() == STATE_MOVEMENT) {
-		outputs->targets[0] = (Target *)(this->primaryTarget);
+        outputs->targets[0] = (Target *)(this->primaryTarget);
 		outputs->targets[1] = (Target *)(this->secondaryTarget);
+        
 		if (this->training_trial) {
 			if(this->is_primary_target) {
-	            outputs->targets[0] = (Target *)(this->primaryTarget);
+                outputs->targets[0] = (Target *)(this->primaryTarget);
 		        outputs->targets[1] = nullTarget;
-				outputs->targets[2] = nullTarget;
+				outputs->targets[2] = nullTarget; 
 			} else {
-	            outputs->targets[0] = (Target *)(this->secondaryTarget);
+                outputs->targets[0] = (Target *)(this->secondaryTarget);
 				outputs->targets[1] = nullTarget;
 		        outputs->targets[2] = nullTarget;
 			}
 		} else {
-			outputs->targets[0] = (Target *)(this->primaryTarget);
+            outputs->targets[0] = (Target *)(this->primaryTarget);
 	        outputs->targets[1] = (Target *)(this->secondaryTarget);
 			outputs->targets[2] = nullTarget;
 		}
@@ -579,10 +579,12 @@ outputs->status[1] = inputs->force.y;
 		outputs->targets[0] = (Target *)(this->errorTarget);
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
+        outputs->targets[3] = nullTarget;
 	} else {
 		outputs->targets[0] = nullTarget;
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
+        outputs->targets[3] = nullTarget;
 	}
 
 	/* reward (4) */
