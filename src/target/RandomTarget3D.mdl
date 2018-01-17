@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1401"
+    ComputedModelVersion    "1.1404"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -64,11 +64,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "System Administrator"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Nov 30 16:07:02 2017"
-  RTWModifiedTimeStamp	  433958816
-  ModelVersionFormat	  "1.%<AutoIncrement:1401>"
+  LastModifiedDate	  "Fri Dec 08 09:30:25 2017"
+  RTWModifiedTimeStamp	  434626206
+  ModelVersionFormat	  "1.%<AutoIncrement:1404>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1077,8 +1077,8 @@ Model {
       LibraryVersion	      "1.285"
       SourceBlock	      "xpcnilib/Digital\nOutput/E Series/PCI-6025E 8255 DO"
       SourceType	      "donipci6025e8255"
-      channel		      "8"
-      port		      "C"
+      channel		      "1"
+      port		      "B"
       reset		      "[1]"
       initValue		      "[0]"
       chip		      "1"
@@ -2045,41 +2045,6 @@ Model {
 	}
 	Block {
 	  BlockType		  Reference
-	  Name			  "Words1"
-	  SID			  "593"
-	  Ports			  [1]
-	  Position		  [665, 704, 735, 746]
-	  ZOrder		  30
-	  LibraryVersion	  "1.1842"
-	  SourceBlock		  "slrtlib/Displays and\nLogging/Scope "
-	  SourceType		  "xpcscopeblock"
-	  ContentPreviewEnabled	  off
-	  scopeno		  "7"
-	  scopetype		  "Target"
-	  autostart		  on
-	  viewmode		  "Numerical"
-	  formatstr		  "'%f'"
-	  grid			  on
-	  ylimits		  "[-10,10]"
-	  nosamples		  "10"
-	  noprepostsamples	  "0"
-	  interleave		  "10"
-	  triggermode		  "FreeRun"
-	  triggersignal		  "1"
-	  trigsignalfromport	  off
-	  triggerlevel		  "0.0"
-	  triggerslope		  "Either"
-	  triggerscope		  "1"
-	  triggersample		  "0"
-	  filename		  "data.dat"
-	  mode			  "Lazy"
-	  writesize		  "512"
-	  autorestart		  off
-	  dynamicfilemode	  off
-	  maxwritefilesize	  "512*1024^2"
-	}
-	Block {
-	  BlockType		  Reference
 	  Name			  "xPC Target\n Time "
 	  SID			  "515"
 	  Ports			  [0, 1]
@@ -2116,19 +2081,9 @@ Model {
 	  ZOrder		  16
 	  SrcBlock		  "Word"
 	  SrcPort		  1
-	  Points		  [39, 0]
-	  Branch {
-	    ZOrder		    73
-	    Points		    [0, -45]
-	    DstBlock		    "Words1"
-	    DstPort		    1
-	  }
-	  Branch {
-	    ZOrder		    72
-	    Points		    [31, 0; 0, 70]
-	    DstBlock		    "Switch"
-	    DstPort		    1
-	  }
+	  Points		  [70, 0; 0, 70]
+	  DstBlock		  "Switch"
+	  DstPort		  1
 	}
 	Line {
 	  ZOrder		  7
@@ -2323,6 +2278,10 @@ Model {
       DstPort		      1
     }
     Line {
+      FontName		      "Helvetica"
+      FontSize		      9
+      FontWeight	      "normal"
+      FontAngle		      "normal"
       ZOrder		      122
       SrcBlock		      "Behavior RandomTarget3D"
       SrcPort		      5

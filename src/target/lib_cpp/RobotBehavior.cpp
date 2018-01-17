@@ -161,7 +161,7 @@ void RobotBehavior::writeOutputs(SimStruct *S) {
 
 	// reward
 	uPtrs = ssGetOutputPortRealSignal(S, 4);
-	uPtrs[0] = (real_T)(outputs->reward ? 1.0 : 0.0);
+	uPtrs[0] = (real_T)(outputs->reward );
 
 	// tone
 	uPtrs = ssGetOutputPortRealSignal(S, 5);

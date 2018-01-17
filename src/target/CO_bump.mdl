@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1290"
+    ComputedModelVersion    "1.1293"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -55,8 +55,8 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[988.0, 572.0]
-	ZoomFactor		[0.6]
-	Offset			[-52.666666666666686, -72.916666666666742]
+	ZoomFactor		[1.5]
+	Offset			[926.35933432493255, 144.75176285084723]
       }
     }
   }
@@ -64,11 +64,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jul 17 18:36:49 2017"
-  RTWModifiedTimeStamp	  422217405
-  ModelVersionFormat	  "1.%<AutoIncrement:1290>"
+  LastModifiedDate	  "Tue Jan 09 17:56:20 2018"
+  RTWModifiedTimeStamp	  437393802
+  ModelVersionFormat	  "1.%<AutoIncrement:1293>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -941,6 +941,26 @@ Model {
       EnableBusSupport	      off
     }
     Block {
+      BlockType		      Scope
+      ModelBased	      off
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      Grid		      "on"
+      ShowLegends	      off
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      DataFormat	      "Array"
+      LimitDataPoints	      on
+      MaxDataPoints	      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "-1"
+      ScrollMode	      off
+    }
+    Block {
       BlockType		      SubSystem
       ShowPortLabels	      "FromPortIcon"
       Permissions	      "ReadWrite"
@@ -1037,20 +1057,20 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "60"
+    ZoomFactor		    "150"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "441"
+    SIDHighWatermark	    "443"
     Block {
       BlockType		      S-Function
       Name		      "Behavior CO Bump"
       SID		      "1"
       Ports		      [7, 8]
-      Position		      [830, 88, 1055, 422]
+      Position		      [830, 298, 1055, 632]
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_CO_bump"
       Parameters	      "0, 0, 0, .5, 0, 0.5, 1, 0.1, .2, 0 1 .1 1 3 8 0 0 359 8 1 0 2 5 1 1 1 0 0 .4 .3 1 0 5 1 0 0 .4"
-      " .3 1 0 5 1 0 0 .4 .3 1 0 5 1 0 3 0 0 0 0 0"
+      " .3 1 0 5 1 0 0 .4 .3 1 0 5 1 0 3 0 0 0 0 0 0"
       Object {
 	$PropName		"MaskObject"
 	$ObjectID		19
@@ -1063,10 +1083,44 @@ Model {
     }
     Block {
       BlockType		      Reference
+      Name		      "Bits"
+      SID		      "443"
+      Ports		      [1]
+      Position		      [1390, 147, 1515, 213]
+      ZOrder		      26
+      LibraryVersion	      "1.1842"
+      SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
+      SourceType	      "xpcscopeblock"
+      ContentPreviewEnabled   off
+      scopeno		      "8"
+      scopetype		      "Target"
+      autostart		      on
+      viewmode		      "Graphical redraw"
+      grid		      off
+      ylimits		      "[-10,10]"
+      nosamples		      "10"
+      noprepostsamples	      "0"
+      interleave	      "10"
+      triggermode	      "FreeRun"
+      triggersignal	      "1"
+      trigsignalfromport      off
+      triggerlevel	      "0.0"
+      triggerslope	      "Either"
+      triggerscope	      "1"
+      triggersample	      "0"
+      filename		      "data.dat"
+      mode		      "Lazy"
+      writesize		      "512"
+      autorestart	      off
+      dynamicfilemode	      off
+      maxwritefilesize	      "512*1024^2"
+    }
+    Block {
+      BlockType		      Reference
       Name		      "BoundingBox"
       SID		      "438"
       Ports		      [1, 1]
-      Position		      [990, 593, 1080, 657]
+      Position		      [990, 803, 1080, 867]
       ZOrder		      21
       LibraryVersion	      "1.206"
       SourceBlock	      "limblab/BoundingBox"
@@ -1078,7 +1132,7 @@ Model {
       Name		      "Catch Force Generator"
       SID		      "16"
       Ports		      [1, 1]
-      Position		      [705, 224, 765, 286]
+      Position		      [705, 434, 765, 496]
       ZOrder		      -3
       RequestExecContextInheritance off
       System {
@@ -1903,7 +1957,7 @@ Model {
       Name		      "Force Generator"
       SID		      "440"
       Ports		      [1, 1]
-      Position		      [600, 179, 660, 241]
+      Position		      [600, 389, 660, 451]
       ZOrder		      23
       LibraryVersion	      "1.206"
       SourceBlock	      "limblab/Force Generator"
@@ -1914,7 +1968,7 @@ Model {
       BlockType		      From
       Name		      "From"
       SID		      "98"
-      Position		      [680, 151, 730, 179]
+      Position		      [680, 361, 730, 389]
       ZOrder		      -5
       CloseFcn		      "tagdialog Close"
       GotoTag		      "Offsets"
@@ -1924,7 +1978,7 @@ Model {
       BlockType		      Goto
       Name		      "Goto"
       SID		      "99"
-      Position		      [1155, 268, 1200, 282]
+      Position		      [1155, 478, 1200, 492]
       ZOrder		      -6
       GotoTag		      "Reward"
       TagVisibility	      "global"
@@ -1934,7 +1988,7 @@ Model {
       Name		      "Intel Chipset\nDisable SMI"
       SID		      "100"
       Ports		      []
-      Position		      [60, 25, 150, 76]
+      Position		      [60, 235, 150, 286]
       ZOrder		      -7
       LibraryVersion	      "1.2"
       SourceBlock	      "IntelSMIlibR2007b/Intel Chipset\nDisable SMI"
@@ -1945,7 +1999,7 @@ Model {
       Name		      "Matrix\nConcatenation1"
       SID		      "101"
       Ports		      [2, 1]
-      Position		      [1315, 434, 1370, 476]
+      Position		      [1315, 644, 1370, 686]
       ZOrder		      -8
     }
     Block {
@@ -1953,7 +2007,7 @@ Model {
       Name		      "Motor Control1"
       SID		      "436"
       Ports		      [5, 1]
-      Position		      [1650, 81, 1840, 389]
+      Position		      [1650, 291, 1840, 599]
       ZOrder		      19
       LibraryVersion	      "1.206"
       SourceBlock	      "limblab/Motor Control"
@@ -1964,7 +2018,7 @@ Model {
       BlockType		      Switch
       Name		      "Neural Override"
       SID		      "152"
-      Position		      [515, 66, 560, 174]
+      Position		      [515, 276, 560, 384]
       ZOrder		      -10
       Criteria		      "u2 ~= 0"
       InputSameDT	      off
@@ -1976,7 +2030,7 @@ Model {
       Name		      "Neural Position Subsystem"
       SID		      "153"
       Ports		      [0, 6]
-      Position		      [215, 13, 330, 92]
+      Position		      [215, 223, 330, 302]
       ZOrder		      -11
       LibraryVersion	      "1.206"
       SourceBlock	      "limblab/Neural Position Subsystem"
@@ -1988,7 +2042,7 @@ Model {
       Name		      "Recentering Subsystem1"
       SID		      "437"
       Ports		      [3, 2]
-      Position		      [1110, 498, 1230, 652]
+      Position		      [1110, 708, 1230, 862]
       ZOrder		      20
       LibraryVersion	      "1.206"
       SourceBlock	      "limblab/Recentering Subsystem"
@@ -2000,7 +2054,7 @@ Model {
       Name		      "RewardSbs"
       SID		      "267"
       Ports		      [1, 1]
-      Position		      [1080, 259, 1135, 291]
+      Position		      [1080, 469, 1135, 501]
       ZOrder		      -13
       RequestExecContextInheritance off
       System {
@@ -2355,11 +2409,37 @@ Model {
       }
     }
     Block {
+      BlockType		      Scope
+      Name		      "Scope"
+      SID		      "442"
+      Ports		      [1]
+      Position		      [1700, 19, 1730, 51]
+      ZOrder		      25
+      Floating		      off
+      Location		      [188, 365, 512, 604]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      List {
+	ListType		ScopeGraphics
+	FigureColor		"[0.5 0.5 0.5]"
+	AxesColor		"[0 0 0]"
+	AxesTickColor		"[1 1 1]"
+	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	LineStyles		"-|-|-|-|-|-"
+	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
+	MarkerStyles		"none|none|none|none|none|none"
+      }
+    }
+    Block {
       BlockType		      Reference
       Name		      "SendPacketToGraphics"
       SID		      "286"
       Ports		      [4]
-      Position		      [1390, 277, 1480, 378]
+      Position		      [1390, 487, 1480, 588]
       ZOrder		      -14
       LibraryVersion	      "1.206"
       SourceBlock	      "limblab/SendPacketToGraphics"
@@ -2371,7 +2451,7 @@ Model {
       Name		      "Status"
       SID		      "287"
       Ports		      [1]
-      Position		      [1165, 134, 1235, 176]
+      Position		      [1165, 344, 1235, 386]
       ZOrder		      -15
       LibraryVersion	      "1.1842"
       SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
@@ -2406,7 +2486,7 @@ Model {
       Name		      "Target Peek"
       SID		      "288"
       Ports		      [1, 1]
-      Position		      [1180, 214, 1280, 256]
+      Position		      [1180, 424, 1280, 466]
       ZOrder		      -16
       RequestExecContextInheritance off
       System {
@@ -2664,7 +2744,7 @@ Model {
       BlockType		      Constant
       Name		      "TargetCount"
       SID		      "302"
-      Position		      [1305, 350, 1335, 380]
+      Position		      [1305, 560, 1335, 590]
       ZOrder		      -17
       Value		      "17"
     }
@@ -2672,14 +2752,14 @@ Model {
       BlockType		      Terminator
       Name		      "Terminator"
       SID		      "303"
-      Position		      [1320, 225, 1340, 245]
+      Position		      [1320, 435, 1340, 455]
       ZOrder		      -18
     }
     Block {
       BlockType		      Terminator
       Name		      "Terminator1"
       SID		      "304"
-      Position		      [440, 80, 460, 100]
+      Position		      [440, 290, 460, 310]
       ZOrder		      -19
       NamePlacement	      "alternate"
       ShowName		      off
@@ -2688,7 +2768,7 @@ Model {
       BlockType		      Constant
       Name		      "Use Neural Control"
       SID		      "305"
-      Position		      [20, 105, 50, 135]
+      Position		      [20, 315, 50, 345]
       ZOrder		      -20
       Value		      "0"
     }
@@ -2697,7 +2777,7 @@ Model {
       Name		      "Velocity Calculation"
       SID		      "439"
       Ports		      [2, 1]
-      Position		      [440, 495, 550, 555]
+      Position		      [440, 705, 550, 765]
       ZOrder		      22
       LibraryVersion	      "1.206"
       SourceBlock	      "limblab/Velocity Calculation"
@@ -2709,7 +2789,7 @@ Model {
       Name		      "Version Display"
       SID		      "333"
       Ports		      [1]
-      Position		      [1130, 334, 1200, 376]
+      Position		      [1130, 544, 1200, 586]
       ZOrder		      -22
       LibraryVersion	      "1.1842"
       SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
@@ -2744,12 +2824,12 @@ Model {
       Name		      "WordSbs"
       SID		      "334"
       Ports		      [1]
-      Position		      [1090, 174, 1135, 216]
+      Position		      [1090, 384, 1135, 426]
       ZOrder		      -23
       RequestExecContextInheritance off
       System {
 	Name			"WordSbs"
-	Location		[16, 52, 1344, 1162]
+	Location		[-4, 0, 1028, 732]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2793,7 +2873,7 @@ Model {
       Name		      "XY Position Subsystem"
       SID		      "441"
       Ports		      [0, 4]
-      Position		      [155, 547, 280, 783]
+      Position		      [155, 757, 280, 993]
       ZOrder		      24
       LibraryVersion	      "1.206"
       SourceBlock	      "limblab/XY Position Subsystem"
@@ -2805,7 +2885,7 @@ Model {
       Name		      "Xpos"
       SID		      "432"
       Ports		      [1]
-      Position		      [1400, 435, 1470, 475]
+      Position		      [1400, 645, 1470, 685]
       ZOrder		      -25
       LibraryVersion	      "1.1842"
       SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
@@ -2916,8 +2996,18 @@ Model {
       ZOrder		      16
       SrcBlock		      "Behavior CO Bump"
       SrcPort		      3
-      DstBlock		      "WordSbs"
-      DstPort		      1
+      Points		      [10, 0]
+      Branch {
+	ZOrder			213
+	Points			[0, -225]
+	DstBlock		"Bits"
+	DstPort			1
+      }
+      Branch {
+	ZOrder			212
+	DstBlock		"WordSbs"
+	DstPort			1
+      }
     }
     Line {
       ZOrder		      17
@@ -3113,7 +3203,7 @@ Model {
     }
     Annotation {
       SID		      "433"
-      Position		      [1109, 296, 1111, 311]
+      Position		      [1109, 506, 1111, 521]
       InternalMargins	      [0, 0, 0, 0]
       FixedHeight	      off
       FixedWidth	      off

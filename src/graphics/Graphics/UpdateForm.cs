@@ -1503,6 +1503,7 @@ namespace BehaviorGraphics
             AddParamListItem("CC force peak time", "P54", "Behavior Cue Comb", this.textBoxCC_forceBumpPeakTime);
 
             AddParamListItem("CC bump sampling method", "P55", "Behavior Cue Comb", this.textBoxCC_BSM);
+            AddParamListItem("CC small target radius", "P56", "Behavior Cue Comb", this.textBoxCC_STrad);
             #endregion
 
             #region Sabes
@@ -1660,6 +1661,65 @@ namespace BehaviorGraphics
                 AddParamListItem("RT3D ftRow", "P9", "Behavior RandomTarget3D", this.textBox3DRT_ftRow);
                 AddParamListItem("RT3D ftCol", "P10", "Behavior RandomTarget3D", this.textBox3DRT_ftCol);
             #endregion
+
+            #region Ring Reporting
+                AddParamListItem("RRB centerHoldLow", "P3", "Behavior Ring Reporting", this.textBoxRRB_centerHoldLow);
+                AddParamListItem("RRB centerHoldHigh", "P4", "Behavior Ring Reporting", this.textBoxRRB_centerHoldHigh);
+                AddParamListItem("RRB delayPeriodLow", "P5", "Behavior Ring Reporting", this.textBoxRRB_delayPeriodLow);
+                AddParamListItem("RRB delayPeriodHigh", "P6", "Behavior Ring Reporting", this.textBoxRRB_delayPeriodHigh);
+                AddParamListItem("RRB moveTime", "P7", "Behavior Ring Reporting", this.textBoxRRB_moveTime);
+                AddParamListItem("RRB_targetHoldLow", "P8", "Behavior Ring Reporting", this.textBoxRRB_targetHoldLow);
+                AddParamListItem("RRB_targetHoldHigh", "P9", "Behavior Ring Reporting", this.textBoxRRB_targetHoldHigh);
+                AddParamListItem("RRB_bumpDelay", "P10", "Behavior Ring Reporting", this.textBoxRRB_bumpDelay);
+                
+                AddParamListItem("RRB_bumpHoldTime", "P11", "Behavior Ring Reporting", this.textBoxRRB_bumpHold);
+                AddParamListItem("RRB_intertrial", "P12", "Behavior Ring Reporting", this.textBoxRRB_intertrial);
+                AddParamListItem("RRB_penalty", "P13", "Behavior Ring Reporting", this.textBoxRRB_penaltyTime);
+                
+                AddParamListItem("RRB_targetSize", "P14", "Behavior Ring Reporting", this.textBoxRRB_targetSize);
+                AddParamListItem("RRB_bigTargetSize", "P15", "Behavior Ring Reporting", this.textBoxRRB_bigTargetSize);
+
+                AddParamListItem("RRB_OTSize", "P16", "Behavior Ring Reporting", this.textBoxRRB_outerTargetWidth);
+                AddParamListItem("RRB_OTDepth", "P17", "Behavior Ring Reporting", this.textBoxRRB_outerTargetDepth);
+                AddParamListItem("RRB_centerXOffset", "P18", "Behavior Ring Reporting", this.textBoxRRB_centerXOffset);
+                AddParamListItem("RRB_centerYOffset", "P19", "Behavior Ring Reporting", this.textBoxRRB_centerYOffset);
+
+                AddParamListItem("RRB_numTargets", "P20", "Behavior Ring Reporting", this.textBoxRRB_numTargets);
+                AddParamListItem("RRB_useRandomTargets", "P21", "Behavior Ring Reporting", this.checkBoxRRB_useRandomTargets);
+                AddParamListItem("RRB_targetKappa", "P22", "Behavior Ring Reporting", this.textBoxRRB_targetKappa);
+
+                AddParamListItem("RRB_hideCursorDuringBump", "P23", "Behavior Ring Reporting", this.checkBoxRRB_hideCursorDuringBump);
+                AddParamListItem("RRB_hideCursorDuringMovement", "P24", "Behavior Ring Reporting", this.checkBoxRRB_hideCursorDuringMovement);
+                AddParamListItem("RRB_recenterCursor", "P25", "Behavior Ring Reporting", this.checkBoxRRB_recenterCursorAfterBump);
+                AddParamListItem("RRB_abortDuringBump", "P26", "Behavior Ring Reporting", this.checkBoxRRB_abortDuringBump);
+
+                AddParamListItem("RRB_bumpMagOne", "P27", "Behavior Ring Reporting", this.textBoxRRB_bumpMagOne);
+                AddParamListItem("RRB_bumpMagTwo", "P28", "Behavior Ring Reporting", this.textBoxRRB_bumpMagTwo);
+                AddParamListItem("RRB_bumpMagThree", "P29", "Behavior Ring Reporting", this.textBoxRRB_bumpMagThree);
+
+                AddParamListItem("RRB_bumpFreqOne", "P30", "Behavior Ring Reporting", this.textBoxRRB_bumpFreqOne);
+                AddParamListItem("RRB_bumpFreqTwo", "P31", "Behavior Ring Reporting", this.textBoxRRB_bumpFreqTwo);
+                AddParamListItem("RRB_bumpFreqThree", "P32", "Behavior Ring Reporting", this.textBoxRRB_bumpFreqThree);
+
+                AddParamListItem("RRB_forceRiseTime", "P33", "Behavior Ring Reporting", this.textBoxRRB_riseTime);
+                AddParamListItem("RRB_forcePeakTime", "P34", "Behavior Ring Reporting", this.textBoxRRB_peakDuration);
+
+                AddParamListItem("RRB_stimProb", "P35", "Behavior Ring Reporting", this.textBoxRRB_stimProb);
+                AddParamListItem("RRB_stimLevels", "P36", "Behavior Ring Reporting", this.textBoxRRB_stimLevels);
+                AddParamListItem("RRB_stimDuringBump", "P37", "Behavior Ring Reporting", this.checkBoxRRB_stimDuringBump);
+                AddParamListItem("RRB_stimInsteadOfBump", "P38", "Behavior Ring Reporting", this.checkBoxRRB_stimInsteadOfBump);
+
+                AddParamListItem("RRB_catchRate", "P39", "Behavior Ring Reporting", this.textBoxRRB_catchRate);
+                AddParamListItem("RRB_showOuterRing", "P40", "Behavior Ring Reporting", this.checkBoxRRB_showOuterRing);
+                AddParamListItem("RRB_showTargetRate", "P41", "Behavior Ring Reporting", this.textBoxRRB_showOuterTargetProb);
+                AddParamListItem("RRB_useSquareTargets", "P42", "Behavior Ring Reporting", this.checkBoxRRB_useSquareTargets);
+
+                AddParamListItem("RRB_movementLength", "P43", "Behavior Ring Reporting", this.textBoxRRB_movementLength);
+
+                AddParamListItem("RRB_targetAngleOffset", "P44", "Behavior Ring Reporting", this.textBoxRRB_targetAngleOffset);
+                AddParamListItem("RRB_outerTargetSize", "P45", "Behavior Ring Reporting", this.textBoxRRB_outerTargetSize);
+            #endregion
+
 
         }
 
@@ -2202,6 +2262,8 @@ namespace BehaviorGraphics
                     paramID = target.GetParamIdx("Behavior UR", "P1");
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior RP", "P1");
+                if (paramID < 0)
+                    paramID = target.GetParamIdx("Behavior Ring Reporting", "P1");
 
                 /* send the flag */
                 if (paramID >= 0) {
@@ -3199,15 +3261,6 @@ namespace BehaviorGraphics
             widget_ValueChanged(sender, e);
         }
 
-        private void groupBox11_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label576_Click(object sender, EventArgs e)
-        {
-
-        }
 
     }
 
