@@ -291,6 +291,9 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     /* Select whether this will be a stimulation trial */
     this->stim_trial=(this->random->getDouble() < params->stim_prob);
     this->stim_code=this->random->getInteger(0,params->stim_levels-1);
+    if(this->stim_trial) {
+         this->stim_code=this->stim_stair->getCurrentValue();   
+    }
     
 	/* setup the databurst */
 	db->reset();
@@ -397,19 +400,19 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 					setState(STATE_BUMP);
 				} 
 			} else if (stateTimer->elapsedTime(S) > this->bump_delay+params->bump_hold_time){
-                setState(STATE_MOVEMENT)
+                setState(STATE_REWARD)
             }
 			break;
 		case STATE_BUMP:
             if(params->force_reaction){
-                playTone(TONE_GO);
+                //playTone(TONE_GO);
                 setState(STATE_MOVEMENT);
             }else{
                 if (!centerTarget->cursorInTarget(inputs->cursor) && params->abort_during_bump) {
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);
                 } else if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
-                    playTone(TONE_GO);
+                    //playTone(TONE_GO);
                     if (params->recenter_cursor) {
                         cursorOffset = inputs->cursor;
                     }   
@@ -419,14 +422,14 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 			break;
 		case STATE_STIM:
             if(params->force_reaction){
-                playTone(TONE_GO);
+                //playTone(TONE_GO);
                 setState(STATE_MOVEMENT);
             }else{
                 if (!centerTarget->cursorInTarget(inputs->cursor) && params->abort_during_bump) {
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);
                 } else if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
-                    playTone(TONE_GO);
+                    //playTone(TONE_GO);
                     if (params->recenter_cursor) {
                         cursorOffset = inputs->cursor;
                     }   
