@@ -52,11 +52,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"437"
+	ViewObjType		"SimulinkTopLevel"
+	LoadSaveID		"0"
 	Extents			[988.0, 572.0]
-	ZoomFactor		[1.0]
-	Offset			[7.9500000000000455, 2.5000000000000142]
+	ZoomFactor		[0.8]
+	Offset			[0.0, -4.5]
       }
     }
   }
@@ -66,7 +66,7 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jan 17 13:16:45 2018"
+  LastModifiedDate	  "Thu Jan 18 12:46:08 2018"
   RTWModifiedTimeStamp	  438095803
   ModelVersionFormat	  "1.%<AutoIncrement:1298>"
   ConfigurationManager	  "none"
@@ -1024,7 +1024,7 @@ Model {
   System {
     Name		    "ring_reporting"
     Location		    [-4, 0, 1028, 732]
-    Open		    off
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"

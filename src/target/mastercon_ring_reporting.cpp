@@ -63,27 +63,30 @@
 
 %  * bytes 37-40:	float		=> target size
 %  * bytes 41-44:   float       => big target size
-%  * bytes 45-48:	float		=> target radius
+%  * bytes 45-48:   float       => outer target hold time
 %  * bytes 49-52:	float		=> target angle
-%  * bytes 53-56:   float       => target width
+%  * bytes 53-56:   float       => movement length (target radius)
+%  * bytes 57-60:   float       => target width (OT_size)
  
-%  * byte 57:		uchar		=> hide cursor
-%  * byte 58:       uchar       => hide cursor during movement
-%  * byte 59:		uchar		=> abort during bumps
+%  * byte 61:		uchar		=> hide cursor during bump
+%  * byte 62:       uchar       => hide cursor during movement
+%  * byte 63:		uchar		=> abort during bumps
 
-%  * bytes 60-63:	float		=> bump hold at peak
-%  * bytes 64-67:	float		=> bump rise time
-%  * bytes 68-71:	float		=> bump magnitude
-%  * bytes 72-75:	float		=> bump direction
-
-%  * byte 76:		uchar		=> stim trial
-%  * byte 77:		uchar		=> stim during bump
-%  * byte 78:		uchar		=> stim instead of bump
-%  * bytes 79-82:	float		=> stim delay time
-%  * byte 83:       ucar        => catch trial
+%  * bytes 64-67:	float		=> bump hold at peak
+%  * bytes 68-71:	float		=> bump rise time
+%  * bytes 72-75:	float		=> bump magnitude
+%  * bytes 76-79:	float		=> bump direction
+%  * byte 80:       uchar       => do bump 
  
-%  * bytes 84-86:   float       => outer target hold time
+%  * byte 81:		uchar		=> stim trial
+%  * byte 82:		uchar		=> stim during bump
+%  * byte 83:		uchar		=> stim instead of bump
+%  * bytes 84-87:   float       => stim delay
+%  * byte 88:       uchar        => catch trial
 
+%  * byte 89:       uchar       => show ring
+%  * byte 90:       uchar       => show outer target
+%  * byte 91:       uchar       => use square targets
 %  */
 #define DATABURST_VERSION ((byte)0x01) 
 #define DATABURST_TASK_CODE ((byte)0x01)
@@ -145,10 +148,12 @@ struct LocalParams {
     
     real_T show_ring;
     real_T show_target_rate;
-    real_T use_circle_targets;
+    real_T use_square_targets;
     
     real_T target_angle_offset;
     real_T outer_target_size;
+
+    real_T stim_delay;
 };
 
 /**
@@ -218,7 +223,7 @@ RingReportingBehavior::RingReportingBehavior(SimStruct *S) : RobotBehavior() {
 
 	// Set up the number of parameters you'll be using
 
-	this->setNumParams(45);
+	this->setNumParams(46);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,            0);
 	this->bindParamId(&params->soft_reset,              1);
@@ -271,12 +276,14 @@ RingReportingBehavior::RingReportingBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->catch_rate,              38);
     this->bindParamId(&params->show_ring,               39);
     this->bindParamId(&params->show_target_rate,        40);
-    this->bindParamId(&params->use_circle_targets,      41);
+    this->bindParamId(&params->use_square_targets,      41);
     
     this->bindParamId(&params->move_length,             42);
     this->bindParamId(&params->target_angle_offset,     43);
     
     this->bindParamId(&params->outer_target_size,       44);
+    this->bindParamId(&params->stim_delay,              45);
+    
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -471,8 +478,10 @@ void RingReportingBehavior::doPreTrial(SimStruct *S) {
 
 	db->addFloat((float)this->params->target_size);
     db->addFloat((float)this->params->big_target_size);
+    db->addFloat((float)this->ot_hold);
 	db->addFloat((float)this->tgt_angle);
-    db->addFloat((float)this->params->OT_depth);
+    db->addFloat((float)this->params->move_length);
+    db->addFloat((float)this->params->OT_size); // target width
     
 	db->addByte((byte)this->params->hide_cursor_during_bump);
     db->addByte((byte)this->params->hide_cursor_during_movement);
@@ -482,15 +491,19 @@ void RingReportingBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)this->bump->rise_time);
 	db->addFloat((float)this->bump->peak_magnitude);
 	db->addFloat((float)this->bump->direction);
-
+    db->addByte((byte)this->do_bump);
+    
 	db->addByte((byte)this->stim_trial);
     db->addByte((byte)this->params->stimDuringBump);
     db->addByte((byte)this->params->stimInsteadOfBump);
+    db->addFloat((float)this->stim_delay);
     
     db->addByte((byte)this->catch_trial);
     
-    db->addFloat((float)this->ot_hold);
-
+    db->addByte((byte)this->params->show_ring);
+    db->addByte((byte)this->show_target);
+    db->addByte((byte)this->params->use_square_targets);
+    
     db->start();
 }
 
@@ -542,7 +555,7 @@ void RingReportingBehavior::update(SimStruct *S) {
             if(stateTimer->elapsedTime(S) > params->move_time){
                 setState(STATE_INCOMPLETE);
             } 
-            else if(!this->params->use_circle_targets && !this->params->show_ring && outerTarget->cursorInTarget(inputs->cursor - cursor_offset)) { // arc targets but no ring, for training
+            else if(!this->params->use_square_targets && !this->params->show_ring && outerTarget->cursorInTarget(inputs->cursor - cursor_offset)) { // arc targets but no ring, for training
                 cursor_end_point = inputs->cursor - cursor_offset;
                 setState(STATE_OT_HOLD);
             }
@@ -550,16 +563,16 @@ void RingReportingBehavior::update(SimStruct *S) {
                 cursor_end_point = inputs->cursor - cursor_offset;
                 setState(STATE_OT_HOLD);
             }
-            else if(this->params->use_circle_targets && primaryTarget->cursorInTarget(inputs->cursor - cursor_offset)){ // circle targets
+            else if(this->params->use_square_targets && primaryTarget->cursorInTarget(inputs->cursor - cursor_offset)){ // circle targets
                 cursor_end_point = inputs->cursor - cursor_offset;
                 setState(STATE_OT_HOLD);
 			}
 			break;         
         case STATE_OT_HOLD:
-            if(this->params->use_circle_targets && primaryTarget->cursorInTarget(cursor_end_point)){ // use circle targets case
+            if(this->params->use_square_targets && primaryTarget->cursorInTarget(cursor_end_point)){ // use circle targets case
                 playTone(TONE_REWARD);
                 setState(STATE_REWARD);
-            } else if (!this->params->use_circle_targets && outerTarget->cursorInTarget(cursor_end_point) ){
+            } else if (!this->params->use_square_targets && outerTarget->cursorInTarget(cursor_end_point) ){
                 playTone(TONE_REWARD);
                 setState(STATE_REWARD);
 			} else {
@@ -695,7 +708,7 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
                 } else {
                     outputs->targets[1] = nullTarget;
                 }
-                if(this->params->use_circle_targets) { // if training and using circle targets, display outer target
+                if(this->params->use_square_targets) { // if training and using circle targets, display outer target
                     outputs->targets[2] = (Target *)primaryTarget;
                 } else if(this->show_target) { // else display outer ring target if training trial
                     outputs->targets[2] = (Target *)outerTarget;
@@ -710,7 +723,7 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
                 } else {
                     outputs->targets[1] = nullTarget;
                 }
-                if(this->params->use_circle_targets) { // if training and using circle targets, display outer target
+                if(this->params->use_square_targets) { // if training and using circle targets, display outer target
                     outputs->targets[2] = (Target *)primaryTarget;
                 } else if(this->show_target) { // else display outer ring target if training trial
                     outputs->targets[2] = (Target *)outerTarget;
@@ -726,7 +739,7 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
         } else {
             outputs->targets[1] = nullTarget;
         }
-		if(this->params->use_circle_targets) { // if training and using circle targets, display outer target
+		if(this->params->use_square_targets) { // if training and using circle targets, display outer target
             outputs->targets[2] = (Target *)primaryTarget;
         } else { // else display outer ring target 
             outputs->targets[2] = (Target *)outerTarget;

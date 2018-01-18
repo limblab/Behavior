@@ -34,8 +34,7 @@ T = {...
 % {'COsabes.dlm','mastercon_cosabes.mexw64','serPos.mexw64','Byte2Bits.mexw64'}...
 % {'CO_bump.dlm','mastercon_CO_bump.mexw64','serPos.mexw64','Byte2Bits.mexw64'}...
 % {'center_out_3D.dlm', 'mastercon_co_3D.mexw64', 'Byte2Bits.mexw64'}
-  {'RandomTarget3D.dlm', 'mastercon_RT3D.mexw64', 'Byte2Bits.mexw64'}
-
+%  {'RandomTarget3D.dlm', 'mastercon_RT3D.mexw64', 'Byte2Bits.mexw64'}
 };
 
 % update the version numbers in words.h
