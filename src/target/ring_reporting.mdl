@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1296"
+    ComputedModelVersion    "1.1298"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -52,11 +52,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkTopLevel"
-	LoadSaveID		"0"
+	ViewObjType		"SimulinkSubsys"
+	LoadSaveID		"437"
 	Extents			[988.0, 572.0]
-	ZoomFactor		[0.6]
-	Offset			[146.14351780642482, -50.644577431670143]
+	ZoomFactor		[1.0]
+	Offset			[7.9500000000000455, 2.5000000000000142]
       }
     }
   }
@@ -64,11 +64,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jan 17 11:28:30 2018"
-  RTWModifiedTimeStamp	  438089307
-  ModelVersionFormat	  "1.%<AutoIncrement:1296>"
+  LastModifiedDate	  "Wed Jan 17 13:16:45 2018"
+  RTWModifiedTimeStamp	  438095803
+  ModelVersionFormat	  "1.%<AutoIncrement:1298>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -707,7 +707,6 @@ Model {
 	PropName		"Components"
       }
       Name		      "Configuration"
-      ExtraOptions	      ""
       CurrentDlgPage	      "Optimization"
       ConfigPrmDlgPosition     [ 72, 69, 952, 699 ] 
     }
@@ -1025,7 +1024,7 @@ Model {
   System {
     Name		    "ring_reporting"
     Location		    [-4, 0, 1028, 732]
-    Open		    on
+    Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1036,7 +1035,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "60"
+    ZoomFactor		    "80"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "441"
     Block {
@@ -1990,6 +1989,12 @@ Model {
       Position		      [1110, 498, 1230, 652]
       ZOrder		      20
       LibraryVersion	      "1.206"
+      LinkData {
+	BlockName		"RecenterFlag"
+	DialogParameters {
+	  Value			  "1"
+	}
+      }
       SourceBlock	      "limblab/Recentering Subsystem"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
