@@ -63,6 +63,7 @@
 
 %  * bytes 37-40:	float		=> target size
 %  * bytes 41-44:   float       => big target size
+%  * bytes 45-48:   float       => outer target hold time
 %  * bytes 49-52:	float		=> target angle
 %  * bytes 53-56:   float       => movement length (target radius)
 %  * bytes 57-60:   float       => target width (OT_size)
@@ -72,22 +73,20 @@
 %  * byte 63:		uchar		=> abort during bumps
 
 %  * bytes 64-67:	float		=> bump hold at peak
-%  * bytes 70-73:	float		=> bump rise time
-%  * bytes 74-77:	float		=> bump magnitude
-%  * bytes 78-81:	float		=> bump direction
-%  * byte 82:       uchar       => do bump 
+%  * bytes 68-71:	float		=> bump rise time
+%  * bytes 72-75:	float		=> bump magnitude
+%  * bytes 76-79:	float		=> bump direction
+%  * byte 80:       uchar       => do bump 
  
-%  * byte 83:		uchar		=> stim trial
-%  * byte 84:		uchar		=> stim during bump
-%  * byte 85:		uchar		=> stim instead of bump
-%  * bytes 86-89:   float       => stim delay
-%  * byte 90:       uchar        => catch trial
- 
-%  * bytes 91-93:   float       => outer target hold time
+%  * byte 81:		uchar		=> stim trial
+%  * byte 82:		uchar		=> stim during bump
+%  * byte 83:		uchar		=> stim instead of bump
+%  * bytes 84-87:   float       => stim delay
+%  * byte 88:       uchar        => catch trial
 
-%  * byte 94:       uchar       => show ring
-%  * byte 95:       uchar       => show outer target
-%  * byte 96:       uchar       => use square targets
+%  * byte 89:       uchar       => show ring
+%  * byte 90:       uchar       => show outer target
+%  * byte 91:       uchar       => use square targets
 %  */
 #define DATABURST_VERSION ((byte)0x01) 
 #define DATABURST_TASK_CODE ((byte)0x01)
