@@ -480,7 +480,7 @@ void RingReportingBehavior::doPreTrial(SimStruct *S) {
     db->addFloat((float)this->params->big_target_size);
 	db->addFloat((float)this->tgt_angle);
     db->addFloat((float)this->params->move_length);
-    db->addFloat(float)this->params->OT_size); // target width
+    db->addFloat((float)this->params->OT_size); // target width
     
 	db->addByte((byte)this->params->hide_cursor_during_bump);
     db->addByte((byte)this->params->hide_cursor_during_movement);
@@ -490,7 +490,7 @@ void RingReportingBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)this->bump->rise_time);
 	db->addFloat((float)this->bump->peak_magnitude);
 	db->addFloat((float)this->bump->direction);
-    db->addByte(byte)this->do_bump);
+    db->addByte((byte)this->do_bump);
     
 	db->addByte((byte)this->stim_trial);
     db->addByte((byte)this->params->stimDuringBump);
@@ -499,7 +499,7 @@ void RingReportingBehavior::doPreTrial(SimStruct *S) {
     db->addByte((byte)this->catch_trial);
     
     db->addFloat((float)this->ot_hold);
-    db->addFloat((float)this->stim_delay);
+    db->addFloat((float)this->params->stim_delay);
     
     db->addByte((byte)this->params->show_ring);
     db->addByte((byte)this->show_target);
