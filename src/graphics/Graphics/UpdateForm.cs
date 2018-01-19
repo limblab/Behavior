@@ -291,12 +291,12 @@ namespace BehaviorGraphics
             AddParamListItem("FC Bump duration", "P13", "Behavior FC", this.textBoxFCBumpDuration);
             AddParamListItem("FC Bump rise", "P14", "Behavior FC", this.textBoxFCBumpRamp);
             // Forced Choice Timing
-            AddParamListItem("FC CHL", "P15", "Behavior FC", this.textBoxFCCtrHold);
-            AddParamListItem("FC CHH", "P16", "Behavior FC", this.textBoxFCBumpDelayLow);
-            AddParamListItem("FC DL", "P17", "Behavior FC", this.textBoxFCBumpDelayHigh);
-            AddParamListItem("FC DH", "P18", "Behavior FC", this.textBoxFCBumpHold);
-            AddParamListItem("FC MT", "P19", "Behavior FC", this.textBoxFCReactionTime);
-            AddParamListItem("FC IT", "P20", "Behavior FC", this.textBoxFCIntertrial);
+            AddParamListItem("FC Center hold time", "P15", "Behavior FC", this.textBoxFCCtrHold);
+            AddParamListItem("FC bump delay low", "P16", "Behavior FC", this.textBoxFCBumpDelayLow);
+            AddParamListItem("FC bump delay high", "P17", "Behavior FC", this.textBoxFCBumpDelayHigh);
+            AddParamListItem("FC bump hold", "P18", "Behavior FC", this.textBoxFCBumpHold);
+            AddParamListItem("FC reaction time", "P19", "Behavior FC", this.textBoxFCReactionTime);
+            AddParamListItem("FC intertrial", "P20", "Behavior FC", this.textBoxFCIntertrial);
             AddParamListItem("FC Penalty", "P21", "Behavior FC", this.textBoxFCIntertrial);
             //Cursor parameters
             AddParamListItem("FC Hide Cursor During Bump", "P22", "Behavior FC", this.checkBoxFCHideCursorDuringBumps);
@@ -3198,16 +3198,6 @@ namespace BehaviorGraphics
                 labelWFIntMax.Show();
             }
             widget_ValueChanged(sender, e);
-        }
-
-        private void groupBox11_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label576_Click(object sender, EventArgs e)
-        {
-
         }
 
     }

@@ -397,7 +397,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 					setState(STATE_BUMP);
 				} 
 			} else if (stateTimer->elapsedTime(S) > this->bump_delay+params->bump_hold_time){
-                setState(STATE_MOVEMENT)
+                setState(STATE_MOVEMENT);
             }
 			break;
 		case STATE_BUMP:
@@ -436,8 +436,8 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 			break;
 		case STATE_MOVEMENT:
             if (    (params->force_reaction && params->reaction_time>stateTimer->elapsedTime(S))    ||
-                    (params->move_time>stateTimer->elapsedTime(S)) > params->reaction_time    ||
-                    (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset))                
+                    (params->reaction_time>stateTimer->elapsedTime(S)) > params->reaction_time    ||
+                    (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset)) )                
             {
                 playTone(TONE_FAIL);
 				setState(STATE_FAIL);

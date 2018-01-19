@@ -8513,6 +8513,7 @@ Operator</sigName>
 
 
 
+
  
             <block>
             <blkName>Uniform Random
@@ -8570,6 +8571,23 @@ Number</blkName>
               <signal>
               <sigName>Data Type Conversion</sigName>
               <xpcsigName>RewardSbs1/Data Type Conversion</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Product</sigName>
+              <xpcsigName>RewardSbs1/Product</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
