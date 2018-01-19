@@ -1619,6 +1619,8 @@ namespace BehaviorGraphics
             this.labelRPRW = new System.Windows.Forms.Label();
             this.labelRPCHL = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.label598 = new System.Windows.Forms.Label();
+            this.textBoxCC_STrad = new System.Windows.Forms.TextBox();
             this.groupBox89 = new System.Windows.Forms.GroupBox();
             this.textBoxCC_forceBumpPeakTime = new System.Windows.Forms.TextBox();
             this.label468 = new System.Windows.Forms.Label();
@@ -2091,6 +2093,88 @@ namespace BehaviorGraphics
             this.textBox3DRT_targHoldLo = new System.Windows.Forms.TextBox();
             this.label589 = new System.Windows.Forms.Label();
             this.label590 = new System.Windows.Forms.Label();
+            this.tabRingReporting = new System.Windows.Forms.TabPage();
+            this.groupBox113 = new System.Windows.Forms.GroupBox();
+            this.checkBoxRRB_stimInsteadOfBump = new System.Windows.Forms.CheckBox();
+            this.checkBoxRRB_stimDuringBump = new System.Windows.Forms.CheckBox();
+            this.textBoxRRB_stimLevels = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_stimProb = new System.Windows.Forms.TextBox();
+            this.label639 = new System.Windows.Forms.Label();
+            this.label640 = new System.Windows.Forms.Label();
+            this.groupBox112 = new System.Windows.Forms.GroupBox();
+            this.textBoxRRB_outerTargetSize = new System.Windows.Forms.TextBox();
+            this.label593 = new System.Windows.Forms.Label();
+            this.textBoxRRB_showOuterTargetProb = new System.Windows.Forms.TextBox();
+            this.checkBoxRRB_useSquareTargets = new System.Windows.Forms.CheckBox();
+            this.checkBoxRRB_showOuterRing = new System.Windows.Forms.CheckBox();
+            this.checkBoxRRB_recenterCursorAfterBump = new System.Windows.Forms.CheckBox();
+            this.checkBoxRRB_hideCursorDuringBump = new System.Windows.Forms.CheckBox();
+            this.checkBoxRRB_hideCursorDuringMovement = new System.Windows.Forms.CheckBox();
+            this.label592 = new System.Windows.Forms.Label();
+            this.groupBox111 = new System.Windows.Forms.GroupBox();
+            this.textBoxRRB_catchRate = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_bumpFreqThree = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_bumpFreqTwo = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_bumpFreqOne = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_peakDuration = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_riseTime = new System.Windows.Forms.TextBox();
+            this.checkBoxRRB_abortDuringBump = new System.Windows.Forms.CheckBox();
+            this.textBoxRRB_bumpMagThree = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_bumpMagTwo = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_bumpMagOne = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_bumpHold = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_bumpDelay = new System.Windows.Forms.TextBox();
+            this.label594 = new System.Windows.Forms.Label();
+            this.label629 = new System.Windows.Forms.Label();
+            this.label628 = new System.Windows.Forms.Label();
+            this.label627 = new System.Windows.Forms.Label();
+            this.label626 = new System.Windows.Forms.Label();
+            this.label625 = new System.Windows.Forms.Label();
+            this.label624 = new System.Windows.Forms.Label();
+            this.label623 = new System.Windows.Forms.Label();
+            this.label622 = new System.Windows.Forms.Label();
+            this.label610 = new System.Windows.Forms.Label();
+            this.label611 = new System.Windows.Forms.Label();
+            this.groupBox110 = new System.Windows.Forms.GroupBox();
+            this.textBoxRRB_targetAngleOffset = new System.Windows.Forms.TextBox();
+            this.label588 = new System.Windows.Forms.Label();
+            this.checkBoxRRB_useRandomTargets = new System.Windows.Forms.CheckBox();
+            this.textBoxRRB_numTargets = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_targetKappa = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_outerTargetDepth = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_outerTargetWidth = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_bigTargetSize = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_targetSize = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_centerYOffset = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_centerXOffset = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_intertrial = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_penaltyTime = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_movementLength = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_targetHoldHigh = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_targetHoldLow = new System.Windows.Forms.TextBox();
+            this.label595 = new System.Windows.Forms.Label();
+            this.label617 = new System.Windows.Forms.Label();
+            this.label615 = new System.Windows.Forms.Label();
+            this.label614 = new System.Windows.Forms.Label();
+            this.label613 = new System.Windows.Forms.Label();
+            this.label612 = new System.Windows.Forms.Label();
+            this.label605 = new System.Windows.Forms.Label();
+            this.label604 = new System.Windows.Forms.Label();
+            this.label606 = new System.Windows.Forms.Label();
+            this.label607 = new System.Windows.Forms.Label();
+            this.label603 = new System.Windows.Forms.Label();
+            this.textBoxRRB_moveTime = new System.Windows.Forms.TextBox();
+            this.label602 = new System.Windows.Forms.Label();
+            this.textBoxRRB_delayPeriodHigh = new System.Windows.Forms.TextBox();
+            this.textBoxRRB_delayPeriodLow = new System.Windows.Forms.TextBox();
+            this.label608 = new System.Windows.Forms.Label();
+            this.label601 = new System.Windows.Forms.Label();
+            this.label609 = new System.Windows.Forms.Label();
+            this.label600 = new System.Windows.Forms.Label();
+            this.textBoxRRB_centerHoldHigh = new System.Windows.Forms.TextBox();
+            this.label599 = new System.Windows.Forms.Label();
+            this.label596 = new System.Windows.Forms.Label();
+            this.textBoxRRB_centerHoldLow = new System.Windows.Forms.TextBox();
             this.label409 = new System.Windows.Forms.Label();
             this.label365 = new System.Windows.Forms.Label();
             this.label388 = new System.Windows.Forms.Label();
@@ -2364,6 +2448,8 @@ namespace BehaviorGraphics
             this.angleEntryBox1 = new AngleBox.AngleEntryBox();
             this.angleEntryBox2 = new AngleBox.AngleEntryBox();
             this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
+            this.label616 = new System.Windows.Forms.Label();
+            this.textBoxRRB_stimDelay = new System.Windows.Forms.TextBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2598,6 +2684,11 @@ namespace BehaviorGraphics
             this.groupBox109.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3DRT_numTargets)).BeginInit();
             this.groupBox108.SuspendLayout();
+            this.tabRingReporting.SuspendLayout();
+            this.groupBox113.SuspendLayout();
+            this.groupBox112.SuspendLayout();
+            this.groupBox111.SuspendLayout();
+            this.groupBox110.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -2668,6 +2759,7 @@ namespace BehaviorGraphics
             this.tabs.Controls.Add(this.tabPage8);
             this.tabs.Controls.Add(this.tabTwoSpaceRT);
             this.tabs.Controls.Add(this.RandomTarget3D);
+            this.tabs.Controls.Add(this.tabRingReporting);
             this.tabs.Location = new System.Drawing.Point(0, 27);
             this.tabs.Multiline = true;
             this.tabs.Name = "tabs";
@@ -18927,6 +19019,8 @@ namespace BehaviorGraphics
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.label598);
+            this.tabPage6.Controls.Add(this.textBoxCC_STrad);
             this.tabPage6.Controls.Add(this.groupBox89);
             this.tabPage6.Controls.Add(this.groupBox88);
             this.tabPage6.Controls.Add(this.groupBox87);
@@ -18943,6 +19037,23 @@ namespace BehaviorGraphics
             this.tabPage6.TabIndex = 24;
             this.tabPage6.Text = "Cue Comb";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // label598
+            // 
+            this.label598.AutoSize = true;
+            this.label598.Location = new System.Drawing.Point(516, 86);
+            this.label598.Name = "label598";
+            this.label598.Size = new System.Drawing.Size(102, 13);
+            this.label598.TabIndex = 88;
+            this.label598.Text = "Small Target Radius";
+            // 
+            // textBoxCC_STrad
+            // 
+            this.textBoxCC_STrad.Location = new System.Drawing.Point(619, 83);
+            this.textBoxCC_STrad.Name = "textBoxCC_STrad";
+            this.textBoxCC_STrad.Size = new System.Drawing.Size(57, 20);
+            this.textBoxCC_STrad.TabIndex = 87;
+            this.toolTip1.SetToolTip(this.textBoxCC_STrad, "Radius of center target");
             // 
             // groupBox89
             // 
@@ -23681,6 +23792,842 @@ namespace BehaviorGraphics
             this.label590.TabIndex = 0;
             this.label590.Text = "Targ Hold Low";
             // 
+            // tabRingReporting
+            // 
+            this.tabRingReporting.Controls.Add(this.groupBox113);
+            this.tabRingReporting.Controls.Add(this.groupBox112);
+            this.tabRingReporting.Controls.Add(this.groupBox111);
+            this.tabRingReporting.Controls.Add(this.groupBox110);
+            this.tabRingReporting.Location = new System.Drawing.Point(4, 76);
+            this.tabRingReporting.Name = "tabRingReporting";
+            this.tabRingReporting.Padding = new System.Windows.Forms.Padding(3);
+            this.tabRingReporting.Size = new System.Drawing.Size(686, 453);
+            this.tabRingReporting.TabIndex = 32;
+            this.tabRingReporting.Text = "Ring Reporting";
+            this.tabRingReporting.UseVisualStyleBackColor = true;
+            // 
+            // groupBox113
+            // 
+            this.groupBox113.Controls.Add(this.textBoxRRB_stimDelay);
+            this.groupBox113.Controls.Add(this.label616);
+            this.groupBox113.Controls.Add(this.checkBoxRRB_stimInsteadOfBump);
+            this.groupBox113.Controls.Add(this.checkBoxRRB_stimDuringBump);
+            this.groupBox113.Controls.Add(this.textBoxRRB_stimLevels);
+            this.groupBox113.Controls.Add(this.textBoxRRB_stimProb);
+            this.groupBox113.Controls.Add(this.label639);
+            this.groupBox113.Controls.Add(this.label640);
+            this.groupBox113.Location = new System.Drawing.Point(347, 230);
+            this.groupBox113.Name = "groupBox113";
+            this.groupBox113.Size = new System.Drawing.Size(197, 215);
+            this.groupBox113.TabIndex = 77;
+            this.groupBox113.TabStop = false;
+            this.groupBox113.Text = "Stim settings";
+            // 
+            // checkBoxRRB_stimInsteadOfBump
+            // 
+            this.checkBoxRRB_stimInsteadOfBump.AutoSize = true;
+            this.checkBoxRRB_stimInsteadOfBump.Location = new System.Drawing.Point(38, 110);
+            this.checkBoxRRB_stimInsteadOfBump.Name = "checkBoxRRB_stimInsteadOfBump";
+            this.checkBoxRRB_stimInsteadOfBump.Size = new System.Drawing.Size(124, 17);
+            this.checkBoxRRB_stimInsteadOfBump.TabIndex = 92;
+            this.checkBoxRRB_stimInsteadOfBump.Text = "Stim instead of bump";
+            this.checkBoxRRB_stimInsteadOfBump.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRRB_stimDuringBump
+            // 
+            this.checkBoxRRB_stimDuringBump.AutoSize = true;
+            this.checkBoxRRB_stimDuringBump.Location = new System.Drawing.Point(38, 83);
+            this.checkBoxRRB_stimDuringBump.Name = "checkBoxRRB_stimDuringBump";
+            this.checkBoxRRB_stimDuringBump.Size = new System.Drawing.Size(107, 17);
+            this.checkBoxRRB_stimDuringBump.TabIndex = 91;
+            this.checkBoxRRB_stimDuringBump.Text = "Stim during bump";
+            this.checkBoxRRB_stimDuringBump.UseVisualStyleBackColor = true;
+            // 
+            // textBoxRRB_stimLevels
+            // 
+            this.textBoxRRB_stimLevels.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_stimLevels.Location = new System.Drawing.Point(68, 47);
+            this.textBoxRRB_stimLevels.Name = "textBoxRRB_stimLevels";
+            this.textBoxRRB_stimLevels.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_stimLevels.TabIndex = 87;
+            this.toolTip1.SetToolTip(this.textBoxRRB_stimLevels, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_stimProb
+            // 
+            this.textBoxRRB_stimProb.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_stimProb.Location = new System.Drawing.Point(68, 19);
+            this.textBoxRRB_stimProb.Name = "textBoxRRB_stimProb";
+            this.textBoxRRB_stimProb.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_stimProb.TabIndex = 86;
+            this.toolTip1.SetToolTip(this.textBoxRRB_stimProb, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // label639
+            // 
+            this.label639.AutoSize = true;
+            this.label639.Location = new System.Drawing.Point(4, 50);
+            this.label639.Name = "label639";
+            this.label639.Size = new System.Drawing.Size(57, 13);
+            this.label639.TabIndex = 21;
+            this.label639.Text = "Stim levels";
+            // 
+            // label640
+            // 
+            this.label640.AutoSize = true;
+            this.label640.Location = new System.Drawing.Point(4, 22);
+            this.label640.Name = "label640";
+            this.label640.Size = new System.Drawing.Size(51, 13);
+            this.label640.TabIndex = 20;
+            this.label640.Text = "Stim prob";
+            this.label640.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // groupBox112
+            // 
+            this.groupBox112.Controls.Add(this.textBoxRRB_outerTargetSize);
+            this.groupBox112.Controls.Add(this.label593);
+            this.groupBox112.Controls.Add(this.textBoxRRB_showOuterTargetProb);
+            this.groupBox112.Controls.Add(this.checkBoxRRB_useSquareTargets);
+            this.groupBox112.Controls.Add(this.checkBoxRRB_showOuterRing);
+            this.groupBox112.Controls.Add(this.checkBoxRRB_recenterCursorAfterBump);
+            this.groupBox112.Controls.Add(this.checkBoxRRB_hideCursorDuringBump);
+            this.groupBox112.Controls.Add(this.checkBoxRRB_hideCursorDuringMovement);
+            this.groupBox112.Controls.Add(this.label592);
+            this.groupBox112.Location = new System.Drawing.Point(471, 9);
+            this.groupBox112.Name = "groupBox112";
+            this.groupBox112.Size = new System.Drawing.Size(205, 215);
+            this.groupBox112.TabIndex = 76;
+            this.groupBox112.TabStop = false;
+            this.groupBox112.Text = "Training settings";
+            // 
+            // textBoxRRB_outerTargetSize
+            // 
+            this.textBoxRRB_outerTargetSize.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_outerTargetSize.Location = new System.Drawing.Point(127, 158);
+            this.textBoxRRB_outerTargetSize.Name = "textBoxRRB_outerTargetSize";
+            this.textBoxRRB_outerTargetSize.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_outerTargetSize.TabIndex = 84;
+            this.toolTip1.SetToolTip(this.textBoxRRB_outerTargetSize, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // label593
+            // 
+            this.label593.AutoSize = true;
+            this.label593.Location = new System.Drawing.Point(6, 161);
+            this.label593.Name = "label593";
+            this.label593.Size = new System.Drawing.Size(84, 13);
+            this.label593.TabIndex = 78;
+            this.label593.Text = "Outer target size";
+            this.label593.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // textBoxRRB_showOuterTargetProb
+            // 
+            this.textBoxRRB_showOuterTargetProb.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_showOuterTargetProb.Location = new System.Drawing.Point(127, 188);
+            this.textBoxRRB_showOuterTargetProb.Name = "textBoxRRB_showOuterTargetProb";
+            this.textBoxRRB_showOuterTargetProb.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_showOuterTargetProb.TabIndex = 79;
+            this.toolTip1.SetToolTip(this.textBoxRRB_showOuterTargetProb, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // checkBoxRRB_useSquareTargets
+            // 
+            this.checkBoxRRB_useSquareTargets.AutoSize = true;
+            this.checkBoxRRB_useSquareTargets.Location = new System.Drawing.Point(24, 128);
+            this.checkBoxRRB_useSquareTargets.Name = "checkBoxRRB_useSquareTargets";
+            this.checkBoxRRB_useSquareTargets.Size = new System.Drawing.Size(115, 17);
+            this.checkBoxRRB_useSquareTargets.TabIndex = 83;
+            this.checkBoxRRB_useSquareTargets.Text = "Use square targets";
+            this.checkBoxRRB_useSquareTargets.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRRB_showOuterRing
+            // 
+            this.checkBoxRRB_showOuterRing.AutoSize = true;
+            this.checkBoxRRB_showOuterRing.Location = new System.Drawing.Point(24, 98);
+            this.checkBoxRRB_showOuterRing.Name = "checkBoxRRB_showOuterRing";
+            this.checkBoxRRB_showOuterRing.Size = new System.Drawing.Size(100, 17);
+            this.checkBoxRRB_showOuterRing.TabIndex = 82;
+            this.checkBoxRRB_showOuterRing.Text = "Show outer ring";
+            this.checkBoxRRB_showOuterRing.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRRB_recenterCursorAfterBump
+            // 
+            this.checkBoxRRB_recenterCursorAfterBump.AutoSize = true;
+            this.checkBoxRRB_recenterCursorAfterBump.Location = new System.Drawing.Point(24, 70);
+            this.checkBoxRRB_recenterCursorAfterBump.Name = "checkBoxRRB_recenterCursorAfterBump";
+            this.checkBoxRRB_recenterCursorAfterBump.Size = new System.Drawing.Size(155, 17);
+            this.checkBoxRRB_recenterCursorAfterBump.TabIndex = 81;
+            this.checkBoxRRB_recenterCursorAfterBump.Text = "Recenter cursor after bump";
+            this.checkBoxRRB_recenterCursorAfterBump.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRRB_hideCursorDuringBump
+            // 
+            this.checkBoxRRB_hideCursorDuringBump.AutoSize = true;
+            this.checkBoxRRB_hideCursorDuringBump.Location = new System.Drawing.Point(24, 44);
+            this.checkBoxRRB_hideCursorDuringBump.Name = "checkBoxRRB_hideCursorDuringBump";
+            this.checkBoxRRB_hideCursorDuringBump.Size = new System.Drawing.Size(141, 17);
+            this.checkBoxRRB_hideCursorDuringBump.TabIndex = 80;
+            this.checkBoxRRB_hideCursorDuringBump.Text = "Hide cursor during bump";
+            this.checkBoxRRB_hideCursorDuringBump.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRRB_hideCursorDuringMovement
+            // 
+            this.checkBoxRRB_hideCursorDuringMovement.AutoSize = true;
+            this.checkBoxRRB_hideCursorDuringMovement.Location = new System.Drawing.Point(24, 19);
+            this.checkBoxRRB_hideCursorDuringMovement.Name = "checkBoxRRB_hideCursorDuringMovement";
+            this.checkBoxRRB_hideCursorDuringMovement.Size = new System.Drawing.Size(164, 17);
+            this.checkBoxRRB_hideCursorDuringMovement.TabIndex = 79;
+            this.checkBoxRRB_hideCursorDuringMovement.Text = "Hide cursor during movement";
+            this.checkBoxRRB_hideCursorDuringMovement.UseVisualStyleBackColor = true;
+            // 
+            // label592
+            // 
+            this.label592.AutoSize = true;
+            this.label592.Location = new System.Drawing.Point(6, 191);
+            this.label592.Name = "label592";
+            this.label592.Size = new System.Drawing.Size(115, 13);
+            this.label592.TabIndex = 34;
+            this.label592.Text = "Show outer target prob";
+            this.label592.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // groupBox111
+            // 
+            this.groupBox111.Controls.Add(this.textBoxRRB_catchRate);
+            this.groupBox111.Controls.Add(this.textBoxRRB_bumpFreqThree);
+            this.groupBox111.Controls.Add(this.textBoxRRB_bumpFreqTwo);
+            this.groupBox111.Controls.Add(this.textBoxRRB_bumpFreqOne);
+            this.groupBox111.Controls.Add(this.textBoxRRB_peakDuration);
+            this.groupBox111.Controls.Add(this.textBoxRRB_riseTime);
+            this.groupBox111.Controls.Add(this.checkBoxRRB_abortDuringBump);
+            this.groupBox111.Controls.Add(this.textBoxRRB_bumpMagThree);
+            this.groupBox111.Controls.Add(this.textBoxRRB_bumpMagTwo);
+            this.groupBox111.Controls.Add(this.textBoxRRB_bumpMagOne);
+            this.groupBox111.Controls.Add(this.textBoxRRB_bumpHold);
+            this.groupBox111.Controls.Add(this.textBoxRRB_bumpDelay);
+            this.groupBox111.Controls.Add(this.label594);
+            this.groupBox111.Controls.Add(this.label629);
+            this.groupBox111.Controls.Add(this.label628);
+            this.groupBox111.Controls.Add(this.label627);
+            this.groupBox111.Controls.Add(this.label626);
+            this.groupBox111.Controls.Add(this.label625);
+            this.groupBox111.Controls.Add(this.label624);
+            this.groupBox111.Controls.Add(this.label623);
+            this.groupBox111.Controls.Add(this.label622);
+            this.groupBox111.Controls.Add(this.label610);
+            this.groupBox111.Controls.Add(this.label611);
+            this.groupBox111.Location = new System.Drawing.Point(15, 230);
+            this.groupBox111.Name = "groupBox111";
+            this.groupBox111.Size = new System.Drawing.Size(326, 215);
+            this.groupBox111.TabIndex = 75;
+            this.groupBox111.TabStop = false;
+            this.groupBox111.Text = "Bump settings";
+            // 
+            // textBoxRRB_catchRate
+            // 
+            this.textBoxRRB_catchRate.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_catchRate.Location = new System.Drawing.Point(267, 171);
+            this.textBoxRRB_catchRate.Name = "textBoxRRB_catchRate";
+            this.textBoxRRB_catchRate.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_catchRate.TabIndex = 90;
+            this.toolTip1.SetToolTip(this.textBoxRRB_catchRate, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_bumpFreqThree
+            // 
+            this.textBoxRRB_bumpFreqThree.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_bumpFreqThree.Location = new System.Drawing.Point(263, 137);
+            this.textBoxRRB_bumpFreqThree.Name = "textBoxRRB_bumpFreqThree";
+            this.textBoxRRB_bumpFreqThree.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_bumpFreqThree.TabIndex = 89;
+            this.toolTip1.SetToolTip(this.textBoxRRB_bumpFreqThree, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_bumpFreqTwo
+            // 
+            this.textBoxRRB_bumpFreqTwo.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_bumpFreqTwo.Location = new System.Drawing.Point(263, 111);
+            this.textBoxRRB_bumpFreqTwo.Name = "textBoxRRB_bumpFreqTwo";
+            this.textBoxRRB_bumpFreqTwo.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_bumpFreqTwo.TabIndex = 88;
+            this.toolTip1.SetToolTip(this.textBoxRRB_bumpFreqTwo, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_bumpFreqOne
+            // 
+            this.textBoxRRB_bumpFreqOne.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_bumpFreqOne.Location = new System.Drawing.Point(263, 83);
+            this.textBoxRRB_bumpFreqOne.Name = "textBoxRRB_bumpFreqOne";
+            this.textBoxRRB_bumpFreqOne.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_bumpFreqOne.TabIndex = 87;
+            this.toolTip1.SetToolTip(this.textBoxRRB_bumpFreqOne, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_peakDuration
+            // 
+            this.textBoxRRB_peakDuration.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_peakDuration.Location = new System.Drawing.Point(263, 47);
+            this.textBoxRRB_peakDuration.Name = "textBoxRRB_peakDuration";
+            this.textBoxRRB_peakDuration.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_peakDuration.TabIndex = 86;
+            this.toolTip1.SetToolTip(this.textBoxRRB_peakDuration, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_riseTime
+            // 
+            this.textBoxRRB_riseTime.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_riseTime.Location = new System.Drawing.Point(263, 16);
+            this.textBoxRRB_riseTime.Name = "textBoxRRB_riseTime";
+            this.textBoxRRB_riseTime.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_riseTime.TabIndex = 85;
+            this.toolTip1.SetToolTip(this.textBoxRRB_riseTime, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // checkBoxRRB_abortDuringBump
+            // 
+            this.checkBoxRRB_abortDuringBump.AutoSize = true;
+            this.checkBoxRRB_abortDuringBump.Location = new System.Drawing.Point(23, 174);
+            this.checkBoxRRB_abortDuringBump.Name = "checkBoxRRB_abortDuringBump";
+            this.checkBoxRRB_abortDuringBump.Size = new System.Drawing.Size(112, 17);
+            this.checkBoxRRB_abortDuringBump.TabIndex = 84;
+            this.checkBoxRRB_abortDuringBump.Text = "Abort during bump";
+            this.checkBoxRRB_abortDuringBump.UseVisualStyleBackColor = true;
+            // 
+            // textBoxRRB_bumpMagThree
+            // 
+            this.textBoxRRB_bumpMagThree.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_bumpMagThree.Location = new System.Drawing.Point(101, 136);
+            this.textBoxRRB_bumpMagThree.Name = "textBoxRRB_bumpMagThree";
+            this.textBoxRRB_bumpMagThree.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_bumpMagThree.TabIndex = 83;
+            this.toolTip1.SetToolTip(this.textBoxRRB_bumpMagThree, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_bumpMagTwo
+            // 
+            this.textBoxRRB_bumpMagTwo.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_bumpMagTwo.Location = new System.Drawing.Point(101, 112);
+            this.textBoxRRB_bumpMagTwo.Name = "textBoxRRB_bumpMagTwo";
+            this.textBoxRRB_bumpMagTwo.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_bumpMagTwo.TabIndex = 82;
+            this.toolTip1.SetToolTip(this.textBoxRRB_bumpMagTwo, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_bumpMagOne
+            // 
+            this.textBoxRRB_bumpMagOne.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_bumpMagOne.Location = new System.Drawing.Point(101, 85);
+            this.textBoxRRB_bumpMagOne.Name = "textBoxRRB_bumpMagOne";
+            this.textBoxRRB_bumpMagOne.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_bumpMagOne.TabIndex = 81;
+            this.toolTip1.SetToolTip(this.textBoxRRB_bumpMagOne, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_bumpHold
+            // 
+            this.textBoxRRB_bumpHold.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_bumpHold.Location = new System.Drawing.Point(101, 47);
+            this.textBoxRRB_bumpHold.Name = "textBoxRRB_bumpHold";
+            this.textBoxRRB_bumpHold.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_bumpHold.TabIndex = 80;
+            this.toolTip1.SetToolTip(this.textBoxRRB_bumpHold, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_bumpDelay
+            // 
+            this.textBoxRRB_bumpDelay.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_bumpDelay.Location = new System.Drawing.Point(101, 19);
+            this.textBoxRRB_bumpDelay.Name = "textBoxRRB_bumpDelay";
+            this.textBoxRRB_bumpDelay.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_bumpDelay.TabIndex = 79;
+            this.toolTip1.SetToolTip(this.textBoxRRB_bumpDelay, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // label594
+            // 
+            this.label594.AutoSize = true;
+            this.label594.Location = new System.Drawing.Point(153, 174);
+            this.label594.Name = "label594";
+            this.label594.Size = new System.Drawing.Size(114, 26);
+            this.label594.TabIndex = 36;
+            this.label594.Text = "Catch rate\r\n (no bump and no stim)";
+            this.label594.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label629
+            // 
+            this.label629.AutoSize = true;
+            this.label629.Location = new System.Drawing.Point(166, 50);
+            this.label629.Name = "label629";
+            this.label629.Size = new System.Drawing.Size(73, 13);
+            this.label629.TabIndex = 38;
+            this.label629.Text = "Peak duration";
+            // 
+            // label628
+            // 
+            this.label628.AutoSize = true;
+            this.label628.Location = new System.Drawing.Point(168, 19);
+            this.label628.Name = "label628";
+            this.label628.Size = new System.Drawing.Size(50, 13);
+            this.label628.TabIndex = 37;
+            this.label628.Text = "Rise time";
+            // 
+            // label627
+            // 
+            this.label627.AutoSize = true;
+            this.label627.Location = new System.Drawing.Point(168, 140);
+            this.label627.Name = "label627";
+            this.label627.Size = new System.Drawing.Size(82, 13);
+            this.label627.TabIndex = 36;
+            this.label627.Text = "Bump freq three";
+            // 
+            // label626
+            // 
+            this.label626.AutoSize = true;
+            this.label626.Location = new System.Drawing.Point(168, 114);
+            this.label626.Name = "label626";
+            this.label626.Size = new System.Drawing.Size(75, 13);
+            this.label626.TabIndex = 35;
+            this.label626.Text = "Bump freq two";
+            // 
+            // label625
+            // 
+            this.label625.AutoSize = true;
+            this.label625.Location = new System.Drawing.Point(168, 88);
+            this.label625.Name = "label625";
+            this.label625.Size = new System.Drawing.Size(76, 13);
+            this.label625.TabIndex = 34;
+            this.label625.Text = "Bump freq one";
+            // 
+            // label624
+            // 
+            this.label624.AutoSize = true;
+            this.label624.Location = new System.Drawing.Point(8, 140);
+            this.label624.Name = "label624";
+            this.label624.Size = new System.Drawing.Size(84, 13);
+            this.label624.TabIndex = 33;
+            this.label624.Text = "Bump mag three";
+            // 
+            // label623
+            // 
+            this.label623.AutoSize = true;
+            this.label623.Location = new System.Drawing.Point(6, 114);
+            this.label623.Name = "label623";
+            this.label623.Size = new System.Drawing.Size(77, 13);
+            this.label623.TabIndex = 32;
+            this.label623.Text = "Bump mag two";
+            // 
+            // label622
+            // 
+            this.label622.AutoSize = true;
+            this.label622.Location = new System.Drawing.Point(6, 88);
+            this.label622.Name = "label622";
+            this.label622.Size = new System.Drawing.Size(78, 13);
+            this.label622.TabIndex = 31;
+            this.label622.Text = "Bump mag one";
+            // 
+            // label610
+            // 
+            this.label610.AutoSize = true;
+            this.label610.Location = new System.Drawing.Point(4, 50);
+            this.label610.Name = "label610";
+            this.label610.Size = new System.Drawing.Size(57, 13);
+            this.label610.TabIndex = 21;
+            this.label610.Text = "Bump hold";
+            // 
+            // label611
+            // 
+            this.label611.AutoSize = true;
+            this.label611.Location = new System.Drawing.Point(4, 22);
+            this.label611.Name = "label611";
+            this.label611.Size = new System.Drawing.Size(62, 13);
+            this.label611.TabIndex = 20;
+            this.label611.Text = "Bump delay";
+            this.label611.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // groupBox110
+            // 
+            this.groupBox110.Controls.Add(this.textBoxRRB_targetAngleOffset);
+            this.groupBox110.Controls.Add(this.label588);
+            this.groupBox110.Controls.Add(this.checkBoxRRB_useRandomTargets);
+            this.groupBox110.Controls.Add(this.textBoxRRB_numTargets);
+            this.groupBox110.Controls.Add(this.textBoxRRB_targetKappa);
+            this.groupBox110.Controls.Add(this.textBoxRRB_outerTargetDepth);
+            this.groupBox110.Controls.Add(this.textBoxRRB_outerTargetWidth);
+            this.groupBox110.Controls.Add(this.textBoxRRB_bigTargetSize);
+            this.groupBox110.Controls.Add(this.textBoxRRB_targetSize);
+            this.groupBox110.Controls.Add(this.textBoxRRB_centerYOffset);
+            this.groupBox110.Controls.Add(this.textBoxRRB_centerXOffset);
+            this.groupBox110.Controls.Add(this.textBoxRRB_intertrial);
+            this.groupBox110.Controls.Add(this.textBoxRRB_penaltyTime);
+            this.groupBox110.Controls.Add(this.textBoxRRB_movementLength);
+            this.groupBox110.Controls.Add(this.textBoxRRB_targetHoldHigh);
+            this.groupBox110.Controls.Add(this.textBoxRRB_targetHoldLow);
+            this.groupBox110.Controls.Add(this.label595);
+            this.groupBox110.Controls.Add(this.label617);
+            this.groupBox110.Controls.Add(this.label615);
+            this.groupBox110.Controls.Add(this.label614);
+            this.groupBox110.Controls.Add(this.label613);
+            this.groupBox110.Controls.Add(this.label612);
+            this.groupBox110.Controls.Add(this.label605);
+            this.groupBox110.Controls.Add(this.label604);
+            this.groupBox110.Controls.Add(this.label606);
+            this.groupBox110.Controls.Add(this.label607);
+            this.groupBox110.Controls.Add(this.label603);
+            this.groupBox110.Controls.Add(this.textBoxRRB_moveTime);
+            this.groupBox110.Controls.Add(this.label602);
+            this.groupBox110.Controls.Add(this.textBoxRRB_delayPeriodHigh);
+            this.groupBox110.Controls.Add(this.textBoxRRB_delayPeriodLow);
+            this.groupBox110.Controls.Add(this.label608);
+            this.groupBox110.Controls.Add(this.label601);
+            this.groupBox110.Controls.Add(this.label609);
+            this.groupBox110.Controls.Add(this.label600);
+            this.groupBox110.Controls.Add(this.textBoxRRB_centerHoldHigh);
+            this.groupBox110.Controls.Add(this.label599);
+            this.groupBox110.Controls.Add(this.label596);
+            this.groupBox110.Controls.Add(this.textBoxRRB_centerHoldLow);
+            this.groupBox110.Location = new System.Drawing.Point(8, 9);
+            this.groupBox110.Name = "groupBox110";
+            this.groupBox110.Size = new System.Drawing.Size(450, 215);
+            this.groupBox110.TabIndex = 74;
+            this.groupBox110.TabStop = false;
+            this.groupBox110.Text = "General Task Settings";
+            // 
+            // textBoxRRB_targetAngleOffset
+            // 
+            this.textBoxRRB_targetAngleOffset.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_targetAngleOffset.Location = new System.Drawing.Point(401, 184);
+            this.textBoxRRB_targetAngleOffset.Name = "textBoxRRB_targetAngleOffset";
+            this.textBoxRRB_targetAngleOffset.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_targetAngleOffset.TabIndex = 80;
+            this.toolTip1.SetToolTip(this.textBoxRRB_targetAngleOffset, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // label588
+            // 
+            this.label588.AutoSize = true;
+            this.label588.Location = new System.Drawing.Point(304, 187);
+            this.label588.Name = "label588";
+            this.label588.Size = new System.Drawing.Size(96, 13);
+            this.label588.TabIndex = 79;
+            this.label588.Text = "Target angle offset";
+            // 
+            // checkBoxRRB_useRandomTargets
+            // 
+            this.checkBoxRRB_useRandomTargets.AutoSize = true;
+            this.checkBoxRRB_useRandomTargets.Location = new System.Drawing.Point(318, 135);
+            this.checkBoxRRB_useRandomTargets.Name = "checkBoxRRB_useRandomTargets";
+            this.checkBoxRRB_useRandomTargets.Size = new System.Drawing.Size(118, 17);
+            this.checkBoxRRB_useRandomTargets.TabIndex = 78;
+            this.checkBoxRRB_useRandomTargets.Text = "Use random targets";
+            this.checkBoxRRB_useRandomTargets.UseVisualStyleBackColor = true;
+            // 
+            // textBoxRRB_numTargets
+            // 
+            this.textBoxRRB_numTargets.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_numTargets.Location = new System.Drawing.Point(256, 184);
+            this.textBoxRRB_numTargets.Name = "textBoxRRB_numTargets";
+            this.textBoxRRB_numTargets.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_numTargets.TabIndex = 50;
+            this.toolTip1.SetToolTip(this.textBoxRRB_numTargets, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_targetKappa
+            // 
+            this.textBoxRRB_targetKappa.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_targetKappa.Location = new System.Drawing.Point(401, 161);
+            this.textBoxRRB_targetKappa.Name = "textBoxRRB_targetKappa";
+            this.textBoxRRB_targetKappa.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_targetKappa.TabIndex = 49;
+            this.toolTip1.SetToolTip(this.textBoxRRB_targetKappa, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_outerTargetDepth
+            // 
+            this.textBoxRRB_outerTargetDepth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_outerTargetDepth.Location = new System.Drawing.Point(401, 102);
+            this.textBoxRRB_outerTargetDepth.Name = "textBoxRRB_outerTargetDepth";
+            this.textBoxRRB_outerTargetDepth.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_outerTargetDepth.TabIndex = 48;
+            this.toolTip1.SetToolTip(this.textBoxRRB_outerTargetDepth, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_outerTargetWidth
+            // 
+            this.textBoxRRB_outerTargetWidth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_outerTargetWidth.Location = new System.Drawing.Point(401, 72);
+            this.textBoxRRB_outerTargetWidth.Name = "textBoxRRB_outerTargetWidth";
+            this.textBoxRRB_outerTargetWidth.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_outerTargetWidth.TabIndex = 47;
+            this.toolTip1.SetToolTip(this.textBoxRRB_outerTargetWidth, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_bigTargetSize
+            // 
+            this.textBoxRRB_bigTargetSize.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_bigTargetSize.Location = new System.Drawing.Point(401, 42);
+            this.textBoxRRB_bigTargetSize.Name = "textBoxRRB_bigTargetSize";
+            this.textBoxRRB_bigTargetSize.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_bigTargetSize.TabIndex = 46;
+            this.toolTip1.SetToolTip(this.textBoxRRB_bigTargetSize, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_targetSize
+            // 
+            this.textBoxRRB_targetSize.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_targetSize.Location = new System.Drawing.Point(401, 16);
+            this.textBoxRRB_targetSize.Name = "textBoxRRB_targetSize";
+            this.textBoxRRB_targetSize.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_targetSize.TabIndex = 45;
+            this.toolTip1.SetToolTip(this.textBoxRRB_targetSize, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_centerYOffset
+            // 
+            this.textBoxRRB_centerYOffset.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_centerYOffset.Location = new System.Drawing.Point(256, 132);
+            this.textBoxRRB_centerYOffset.Name = "textBoxRRB_centerYOffset";
+            this.textBoxRRB_centerYOffset.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_centerYOffset.TabIndex = 44;
+            this.toolTip1.SetToolTip(this.textBoxRRB_centerYOffset, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_centerXOffset
+            // 
+            this.textBoxRRB_centerXOffset.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_centerXOffset.Location = new System.Drawing.Point(256, 105);
+            this.textBoxRRB_centerXOffset.Name = "textBoxRRB_centerXOffset";
+            this.textBoxRRB_centerXOffset.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_centerXOffset.TabIndex = 43;
+            this.toolTip1.SetToolTip(this.textBoxRRB_centerXOffset, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_intertrial
+            // 
+            this.textBoxRRB_intertrial.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_intertrial.Location = new System.Drawing.Point(245, 16);
+            this.textBoxRRB_intertrial.Name = "textBoxRRB_intertrial";
+            this.textBoxRRB_intertrial.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_intertrial.TabIndex = 42;
+            this.toolTip1.SetToolTip(this.textBoxRRB_intertrial, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_penaltyTime
+            // 
+            this.textBoxRRB_penaltyTime.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_penaltyTime.Location = new System.Drawing.Point(245, 44);
+            this.textBoxRRB_penaltyTime.Name = "textBoxRRB_penaltyTime";
+            this.textBoxRRB_penaltyTime.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_penaltyTime.TabIndex = 41;
+            this.toolTip1.SetToolTip(this.textBoxRRB_penaltyTime, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_movementLength
+            // 
+            this.textBoxRRB_movementLength.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_movementLength.Location = new System.Drawing.Point(245, 76);
+            this.textBoxRRB_movementLength.Name = "textBoxRRB_movementLength";
+            this.textBoxRRB_movementLength.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_movementLength.TabIndex = 40;
+            this.toolTip1.SetToolTip(this.textBoxRRB_movementLength, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_targetHoldHigh
+            // 
+            this.textBoxRRB_targetHoldHigh.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_targetHoldHigh.Location = new System.Drawing.Point(119, 180);
+            this.textBoxRRB_targetHoldHigh.Name = "textBoxRRB_targetHoldHigh";
+            this.textBoxRRB_targetHoldHigh.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_targetHoldHigh.TabIndex = 39;
+            this.toolTip1.SetToolTip(this.textBoxRRB_targetHoldHigh, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_targetHoldLow
+            // 
+            this.textBoxRRB_targetHoldLow.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_targetHoldLow.Location = new System.Drawing.Point(119, 154);
+            this.textBoxRRB_targetHoldLow.Name = "textBoxRRB_targetHoldLow";
+            this.textBoxRRB_targetHoldLow.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_targetHoldLow.TabIndex = 38;
+            this.toolTip1.SetToolTip(this.textBoxRRB_targetHoldLow, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // label595
+            // 
+            this.label595.AutoSize = true;
+            this.label595.Location = new System.Drawing.Point(173, 74);
+            this.label595.Name = "label595";
+            this.label595.Size = new System.Drawing.Size(57, 26);
+            this.label595.TabIndex = 37;
+            this.label595.Text = "Movement\r\nlength";
+            // 
+            // label617
+            // 
+            this.label617.AutoSize = true;
+            this.label617.Location = new System.Drawing.Point(307, 164);
+            this.label617.Name = "label617";
+            this.label617.Size = new System.Drawing.Size(71, 13);
+            this.label617.TabIndex = 36;
+            this.label617.Text = "Target kappa";
+            // 
+            // label615
+            // 
+            this.label615.AutoSize = true;
+            this.label615.Location = new System.Drawing.Point(182, 187);
+            this.label615.Name = "label615";
+            this.label615.Size = new System.Drawing.Size(64, 13);
+            this.label615.TabIndex = 34;
+            this.label615.Text = "Num targets";
+            // 
+            // label614
+            // 
+            this.label614.AutoSize = true;
+            this.label614.Location = new System.Drawing.Point(173, 135);
+            this.label614.Name = "label614";
+            this.label614.Size = new System.Drawing.Size(77, 13);
+            this.label614.TabIndex = 33;
+            this.label614.Text = "Center Y offset";
+            // 
+            // label613
+            // 
+            this.label613.AutoSize = true;
+            this.label613.Location = new System.Drawing.Point(173, 109);
+            this.label613.Name = "label613";
+            this.label613.Size = new System.Drawing.Size(77, 13);
+            this.label613.TabIndex = 32;
+            this.label613.Text = "Center X offset";
+            // 
+            // label612
+            // 
+            this.label612.AutoSize = true;
+            this.label612.Location = new System.Drawing.Point(307, 105);
+            this.label612.Name = "label612";
+            this.label612.Size = new System.Drawing.Size(52, 13);
+            this.label612.TabIndex = 31;
+            this.label612.Text = "OT depth";
+            // 
+            // label605
+            // 
+            this.label605.AutoSize = true;
+            this.label605.Location = new System.Drawing.Point(307, 76);
+            this.label605.Name = "label605";
+            this.label605.Size = new System.Drawing.Size(50, 13);
+            this.label605.TabIndex = 30;
+            this.label605.Text = "OT width";
+            // 
+            // label604
+            // 
+            this.label604.AutoSize = true;
+            this.label604.Location = new System.Drawing.Point(8, 184);
+            this.label604.Name = "label604";
+            this.label604.Size = new System.Drawing.Size(84, 13);
+            this.label604.TabIndex = 30;
+            this.label604.Text = "Target hold high";
+            // 
+            // label606
+            // 
+            this.label606.AutoSize = true;
+            this.label606.Location = new System.Drawing.Point(307, 19);
+            this.label606.Name = "label606";
+            this.label606.Size = new System.Drawing.Size(59, 13);
+            this.label606.TabIndex = 29;
+            this.label606.Text = "Target size";
+            // 
+            // label607
+            // 
+            this.label607.AutoSize = true;
+            this.label607.Location = new System.Drawing.Point(307, 47);
+            this.label607.Name = "label607";
+            this.label607.Size = new System.Drawing.Size(73, 13);
+            this.label607.TabIndex = 27;
+            this.label607.Text = "Big target size";
+            // 
+            // label603
+            // 
+            this.label603.AutoSize = true;
+            this.label603.Location = new System.Drawing.Point(6, 158);
+            this.label603.Name = "label603";
+            this.label603.Size = new System.Drawing.Size(80, 13);
+            this.label603.TabIndex = 29;
+            this.label603.Text = "Target hold low";
+            // 
+            // textBoxRRB_moveTime
+            // 
+            this.textBoxRRB_moveTime.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_moveTime.Location = new System.Drawing.Point(119, 128);
+            this.textBoxRRB_moveTime.Name = "textBoxRRB_moveTime";
+            this.textBoxRRB_moveTime.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_moveTime.TabIndex = 28;
+            this.toolTip1.SetToolTip(this.textBoxRRB_moveTime, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // label602
+            // 
+            this.label602.AutoSize = true;
+            this.label602.Location = new System.Drawing.Point(6, 132);
+            this.label602.Name = "label602";
+            this.label602.Size = new System.Drawing.Size(79, 13);
+            this.label602.TabIndex = 27;
+            this.label602.Text = "Movement time";
+            // 
+            // textBoxRRB_delayPeriodHigh
+            // 
+            this.textBoxRRB_delayPeriodHigh.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_delayPeriodHigh.Location = new System.Drawing.Point(119, 102);
+            this.textBoxRRB_delayPeriodHigh.Name = "textBoxRRB_delayPeriodHigh";
+            this.textBoxRRB_delayPeriodHigh.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_delayPeriodHigh.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.textBoxRRB_delayPeriodHigh, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // textBoxRRB_delayPeriodLow
+            // 
+            this.textBoxRRB_delayPeriodLow.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_delayPeriodLow.Location = new System.Drawing.Point(119, 76);
+            this.textBoxRRB_delayPeriodLow.Name = "textBoxRRB_delayPeriodLow";
+            this.textBoxRRB_delayPeriodLow.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_delayPeriodLow.TabIndex = 25;
+            this.toolTip1.SetToolTip(this.textBoxRRB_delayPeriodLow, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // label608
+            // 
+            this.label608.AutoSize = true;
+            this.label608.Location = new System.Drawing.Point(173, 48);
+            this.label608.Name = "label608";
+            this.label608.Size = new System.Drawing.Size(42, 13);
+            this.label608.TabIndex = 24;
+            this.label608.Text = "Penalty";
+            // 
+            // label601
+            // 
+            this.label601.AutoSize = true;
+            this.label601.Location = new System.Drawing.Point(4, 105);
+            this.label601.Name = "label601";
+            this.label601.Size = new System.Drawing.Size(89, 13);
+            this.label601.TabIndex = 24;
+            this.label601.Text = "Delay period high";
+            // 
+            // label609
+            // 
+            this.label609.AutoSize = true;
+            this.label609.Location = new System.Drawing.Point(173, 21);
+            this.label609.Name = "label609";
+            this.label609.Size = new System.Drawing.Size(44, 13);
+            this.label609.TabIndex = 23;
+            this.label609.Text = "Intertrial";
+            // 
+            // label600
+            // 
+            this.label600.AutoSize = true;
+            this.label600.Location = new System.Drawing.Point(4, 79);
+            this.label600.Name = "label600";
+            this.label600.Size = new System.Drawing.Size(85, 13);
+            this.label600.TabIndex = 23;
+            this.label600.Text = "Delay period low";
+            // 
+            // textBoxRRB_centerHoldHigh
+            // 
+            this.textBoxRRB_centerHoldHigh.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_centerHoldHigh.Location = new System.Drawing.Point(119, 45);
+            this.textBoxRRB_centerHoldHigh.Name = "textBoxRRB_centerHoldHigh";
+            this.textBoxRRB_centerHoldHigh.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_centerHoldHigh.TabIndex = 22;
+            this.toolTip1.SetToolTip(this.textBoxRRB_centerHoldHigh, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // label599
+            // 
+            this.label599.AutoSize = true;
+            this.label599.Location = new System.Drawing.Point(4, 50);
+            this.label599.Name = "label599";
+            this.label599.Size = new System.Drawing.Size(84, 13);
+            this.label599.TabIndex = 21;
+            this.label599.Text = "Center hold high";
+            // 
+            // label596
+            // 
+            this.label596.AutoSize = true;
+            this.label596.Location = new System.Drawing.Point(4, 22);
+            this.label596.Name = "label596";
+            this.label596.Size = new System.Drawing.Size(80, 13);
+            this.label596.TabIndex = 20;
+            this.label596.Text = "Center hold low";
+            // 
+            // textBoxRRB_centerHoldLow
+            // 
+            this.textBoxRRB_centerHoldLow.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_centerHoldLow.Location = new System.Drawing.Point(119, 19);
+            this.textBoxRRB_centerHoldLow.Name = "textBoxRRB_centerHoldLow";
+            this.textBoxRRB_centerHoldLow.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_centerHoldLow.TabIndex = 21;
+            this.toolTip1.SetToolTip(this.textBoxRRB_centerHoldLow, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
             // label409
             // 
             this.label409.AutoSize = true;
@@ -26054,6 +27001,25 @@ namespace BehaviorGraphics
             this.angleEntryBox_SA.TabIndex = 19;
             this.angleEntryBox_SA.Value = 0;
             // 
+            // label616
+            // 
+            this.label616.AutoSize = true;
+            this.label616.Location = new System.Drawing.Point(6, 139);
+            this.label616.Name = "label616";
+            this.label616.Size = new System.Drawing.Size(55, 13);
+            this.label616.TabIndex = 93;
+            this.label616.Text = "Stim delay";
+            this.label616.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // textBoxRRB_stimDelay
+            // 
+            this.textBoxRRB_stimDelay.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_stimDelay.Location = new System.Drawing.Point(68, 135);
+            this.textBoxRRB_stimDelay.Name = "textBoxRRB_stimDelay";
+            this.textBoxRRB_stimDelay.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_stimDelay.TabIndex = 94;
+            this.toolTip1.SetToolTip(this.textBoxRRB_stimDelay, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
             // UpdateForm
             // 
             this.AcceptButton = this.okButton;
@@ -26379,6 +27345,7 @@ namespace BehaviorGraphics
             this.groupBoxRPTiming.ResumeLayout(false);
             this.groupBoxRPTiming.PerformLayout();
             this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.groupBox89.ResumeLayout(false);
             this.groupBox89.PerformLayout();
             this.groupBox88.ResumeLayout(false);
@@ -26463,6 +27430,15 @@ namespace BehaviorGraphics
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3DRT_numTargets)).EndInit();
             this.groupBox108.ResumeLayout(false);
             this.groupBox108.PerformLayout();
+            this.tabRingReporting.ResumeLayout(false);
+            this.groupBox113.ResumeLayout(false);
+            this.groupBox113.PerformLayout();
+            this.groupBox112.ResumeLayout(false);
+            this.groupBox112.PerformLayout();
+            this.groupBox111.ResumeLayout(false);
+            this.groupBox111.PerformLayout();
+            this.groupBox110.ResumeLayout(false);
+            this.groupBox110.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -28804,5 +29780,91 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TextBox textBox3DRT_targHoldLo;
         private System.Windows.Forms.Label label589;
         private System.Windows.Forms.Label label590;
+        private System.Windows.Forms.Label label598;
+        private System.Windows.Forms.TextBox textBoxCC_STrad;
+        private System.Windows.Forms.TabPage tabRingReporting;
+        private System.Windows.Forms.GroupBox groupBox110;
+        private System.Windows.Forms.Label label603;
+        private System.Windows.Forms.TextBox textBoxRRB_moveTime;
+        private System.Windows.Forms.Label label602;
+        private System.Windows.Forms.TextBox textBoxRRB_delayPeriodHigh;
+        private System.Windows.Forms.TextBox textBoxRRB_delayPeriodLow;
+        private System.Windows.Forms.Label label601;
+        private System.Windows.Forms.Label label600;
+        private System.Windows.Forms.TextBox textBoxRRB_centerHoldHigh;
+        private System.Windows.Forms.Label label599;
+        private System.Windows.Forms.Label label596;
+        private System.Windows.Forms.TextBox textBoxRRB_centerHoldLow;
+        private System.Windows.Forms.GroupBox groupBox111;
+        private System.Windows.Forms.Label label605;
+        private System.Windows.Forms.Label label606;
+        private System.Windows.Forms.Label label607;
+        private System.Windows.Forms.Label label608;
+        private System.Windows.Forms.Label label609;
+        private System.Windows.Forms.Label label610;
+        private System.Windows.Forms.Label label611;
+        private System.Windows.Forms.Label label604;
+        private System.Windows.Forms.Label label613;
+        private System.Windows.Forms.Label label612;
+        private System.Windows.Forms.GroupBox groupBox112;
+        private System.Windows.Forms.Label label617;
+        private System.Windows.Forms.Label label615;
+        private System.Windows.Forms.Label label614;
+        private System.Windows.Forms.Label label623;
+        private System.Windows.Forms.Label label622;
+        private System.Windows.Forms.Label label624;
+        private System.Windows.Forms.GroupBox groupBox113;
+        private System.Windows.Forms.Label label639;
+        private System.Windows.Forms.Label label640;
+        private System.Windows.Forms.Label label629;
+        private System.Windows.Forms.Label label628;
+        private System.Windows.Forms.Label label627;
+        private System.Windows.Forms.Label label626;
+        private System.Windows.Forms.Label label625;
+        private System.Windows.Forms.Label label592;
+        private System.Windows.Forms.Label label594;
+        private System.Windows.Forms.Label label595;
+        private System.Windows.Forms.TextBox textBoxRRB_numTargets;
+        private System.Windows.Forms.TextBox textBoxRRB_targetKappa;
+        private System.Windows.Forms.TextBox textBoxRRB_outerTargetDepth;
+        private System.Windows.Forms.TextBox textBoxRRB_outerTargetWidth;
+        private System.Windows.Forms.TextBox textBoxRRB_bigTargetSize;
+        private System.Windows.Forms.TextBox textBoxRRB_targetSize;
+        private System.Windows.Forms.TextBox textBoxRRB_centerYOffset;
+        private System.Windows.Forms.TextBox textBoxRRB_centerXOffset;
+        private System.Windows.Forms.TextBox textBoxRRB_intertrial;
+        private System.Windows.Forms.TextBox textBoxRRB_penaltyTime;
+        private System.Windows.Forms.TextBox textBoxRRB_movementLength;
+        private System.Windows.Forms.TextBox textBoxRRB_targetHoldHigh;
+        private System.Windows.Forms.TextBox textBoxRRB_targetHoldLow;
+        private System.Windows.Forms.TextBox textBoxRRB_showOuterTargetProb;
+        private System.Windows.Forms.CheckBox checkBoxRRB_useSquareTargets;
+        private System.Windows.Forms.CheckBox checkBoxRRB_showOuterRing;
+        private System.Windows.Forms.CheckBox checkBoxRRB_recenterCursorAfterBump;
+        private System.Windows.Forms.CheckBox checkBoxRRB_hideCursorDuringBump;
+        private System.Windows.Forms.CheckBox checkBoxRRB_hideCursorDuringMovement;
+        private System.Windows.Forms.CheckBox checkBoxRRB_useRandomTargets;
+        private System.Windows.Forms.TextBox textBoxRRB_bumpDelay;
+        private System.Windows.Forms.TextBox textBoxRRB_catchRate;
+        private System.Windows.Forms.TextBox textBoxRRB_bumpFreqThree;
+        private System.Windows.Forms.TextBox textBoxRRB_bumpFreqTwo;
+        private System.Windows.Forms.TextBox textBoxRRB_bumpFreqOne;
+        private System.Windows.Forms.TextBox textBoxRRB_peakDuration;
+        private System.Windows.Forms.TextBox textBoxRRB_riseTime;
+        private System.Windows.Forms.CheckBox checkBoxRRB_abortDuringBump;
+        private System.Windows.Forms.TextBox textBoxRRB_bumpMagThree;
+        private System.Windows.Forms.TextBox textBoxRRB_bumpMagTwo;
+        private System.Windows.Forms.TextBox textBoxRRB_bumpMagOne;
+        private System.Windows.Forms.TextBox textBoxRRB_bumpHold;
+        private System.Windows.Forms.CheckBox checkBoxRRB_stimInsteadOfBump;
+        private System.Windows.Forms.CheckBox checkBoxRRB_stimDuringBump;
+        private System.Windows.Forms.TextBox textBoxRRB_stimLevels;
+        private System.Windows.Forms.TextBox textBoxRRB_stimProb;
+        private System.Windows.Forms.TextBox textBoxRRB_targetAngleOffset;
+        private System.Windows.Forms.Label label588;
+        private System.Windows.Forms.TextBox textBoxRRB_outerTargetSize;
+        private System.Windows.Forms.Label label593;
+        private System.Windows.Forms.TextBox textBoxRRB_stimDelay;
+        private System.Windows.Forms.Label label616;
     }
 }

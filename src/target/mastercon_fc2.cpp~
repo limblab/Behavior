@@ -53,7 +53,7 @@
  * byte  5-6:	uchar		=> version code (micro)
  *
  * bytes 7-8:  float		=> target angle
- * byte  9:	uchar		=> random target flag
+ * byte  9:	uchar           => random target flag
  * bytes 10-13: float		=> target radius
  * bytes 14-17: float		=> target size
  * byte  18:	uchar		=> show target during bump
@@ -187,6 +187,7 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->bump_ramp,				13);
     
 	this->bindParamId(&params->ct_hold_time,			14);
+    
 	this->bindParamId(&params->bump_delay_low,			15);
     this->bindParamId(&params->bump_delay_high,			16);
     this->bindParamId(&params->bump_hold_time,			17);
@@ -290,6 +291,9 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     /* Select whether this will be a stimulation trial */
     this->stim_trial=(this->random->getDouble() < params->stim_prob);
     this->stim_code=this->random->getInteger(0,params->stim_levels-1);
+    if(this->stim_trial) {
+         this->stim_code=this->stim_stair->getCurrentValue();   
+    }
     
 	/* setup the databurst */
 	db->reset();
@@ -396,12 +400,12 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 					setState(STATE_BUMP);
 				} 
 			} else if (stateTimer->elapsedTime(S) > this->bump_delay+params->bump_hold_time){
-                setState(STATE_MOVEMENT)
+                setState(STATE_REWARD)
             }
 			break;
 		case STATE_BUMP:
             if(params->force_reaction){
-                playTone(TONE_GO);
+                //playTone(TONE_GO);
                 setState(STATE_MOVEMENT);
             }else{
                 if (!centerTarget->cursorInTarget(inputs->cursor) && params->abort_during_bump) {
@@ -418,7 +422,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 			break;
 		case STATE_STIM:
             if(params->force_reaction){
-                playTone(TONE_GO);
+                //playTone(TONE_GO);
                 setState(STATE_MOVEMENT);
             }else{
                 if (!centerTarget->cursorInTarget(inputs->cursor) && params->abort_during_bump) {
@@ -434,26 +438,16 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
             }
 			break;
 		case STATE_MOVEMENT:
-            if (params->force_reaction && params->reaction_time>stateTimer->elapsedTime(S)){
+            if (    (params->force_reaction && params->reaction_time>stateTimer->elapsedTime(S))    ||
+                    (params->move_time>stateTimer->elapsedTime(S)) > params->reaction_time    ||
+                    (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset))                
+            {
                 playTone(TONE_FAIL);
 				setState(STATE_FAIL);
-            }
-			if (correctTarget->cursorInTarget(inputs->cursor - cursorOffset)) {
+            } else if (correctTarget->cursorInTarget(inputs->cursor - cursorOffset)) {
 				playTone(TONE_REWARD);
 				setState(STATE_REWARD);
-			} else if (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset)) {
-				playTone(TONE_FAIL);
-				if (this->params->penalty_time > 0) {
-					setState(STATE_PENALTY);
-				} else {
-					setState(STATE_FAIL);
-				}
-			}
-			break;
-		case STATE_PENALTY:
-			if (stateTimer->elapsedTime(S) > params->penalty_time) {
-				setState(STATE_FAIL);
-			}
+			} 
 			break;
 		case STATE_ABORT:
             this->bump->stop();
@@ -462,6 +456,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 			}
 			break;
         case STATE_REWARD:
+            this->bump->stop();
             //iterate staircase
             if(this->bump_trial){
                     if(this->stim_trial){
@@ -470,12 +465,12 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
                         this->bump_stair->addSuccess();
                     }
             }
-            this->bump->stop();
 			if (stateTimer->elapsedTime(S) > params->intertrial_time) {
 				setState(STATE_PRETRIAL);
 			}
 			break;
 		case STATE_FAIL:
+            this->bump->stop();
             //iterate staircase
             if(this->bump_trial){
                     if(this->stim_trial){
@@ -484,8 +479,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
                         this->bump_stair->addFailure();
                     }
             }
-            this->bump->stop();
-			if (stateTimer->elapsedTime(S) > params->intertrial_time) {
+			if (stateTimer->elapsedTime(S) > params->intertrial_time+ params->penalty_time) {
 				setState(STATE_PRETRIAL);
 			}
 			break;
@@ -528,7 +522,7 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 //	outputs->status[3] = trialCounter->failures;
 //  outputs->status[4] = params->abort_during_bump;
   
-	/* word(2) */
+	/* word (2) */
 	if (db->isRunning()) {
 		outputs->word = db->getByte();
 	} else if (isNewState()) {
