@@ -1,12 +1,13 @@
 Model {
-  Name			  "ring_reporting_2015a"
+  Name			  "ring_reporting"
   Version		  8.5
+  MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1298"
+    ComputedModelVersion    "1.1299"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -53,7 +54,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1231.0, 702.0]
+	Extents			[988.0, 572.0]
 	ZoomFactor		[0.59999999999999976]
 	Offset			[146.14351780642505, -50.644577431670086]
       }
@@ -63,11 +64,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Joseph"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jan 18 11:23:31 2018"
-  RTWModifiedTimeStamp	  438175411
-  ModelVersionFormat	  "1.%<AutoIncrement:1298>"
+  LastModifiedDate	  "Wed Jan 24 16:32:33 2018"
+  RTWModifiedTimeStamp	  438712350
+  ModelVersionFormat	  "1.%<AutoIncrement:1299>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -108,13 +109,13 @@ Model {
   TryForcingSFcnDF	  off
   Object {
     $PropName		    "DataLoggingOverride"
-    $ObjectID		    7
+    $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
-    model_		    "ring_reporting_2015a"
+    model_		    "ring_reporting"
     Array {
       Type		      "Cell"
       Dimension		      1
-      Cell		      "ring_reporting_2015a"
+      Cell		      "ring_reporting"
       PropName		      "logAsSpecifiedByModels_"
     }
     Array {
@@ -172,13 +173,13 @@ Model {
     Type		    "Handle"
     Dimension		    1
     Simulink.ConfigSet {
-      $ObjectID		      8
+      $ObjectID		      7
       Version		      "1.15.0"
       Array {
 	Type			"Handle"
 	Dimension		8
 	Simulink.SolverCC {
-	  $ObjectID		  9
+	  $ObjectID		  8
 	  Version		  "1.15.0"
 	  StartTime		  "0.0"
 	  StopTime		  "Inf"
@@ -213,7 +214,7 @@ Model {
 	  InsertRTBMode		  "Whenever possible"
 	}
 	Simulink.DataIOCC {
-	  $ObjectID		  10
+	  $ObjectID		  9
 	  Version		  "1.15.0"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
@@ -246,7 +247,7 @@ Model {
 	  Refine		  "1"
 	}
 	Simulink.OptimizationCC {
-	  $ObjectID		  11
+	  $ObjectID		  10
 	  Version		  "1.15.0"
 	  Array {
 	    Type		    "Cell"
@@ -303,7 +304,7 @@ Model {
 	  AccelVerboseBuild	  off
 	}
 	Simulink.DebuggingCC {
-	  $ObjectID		  12
+	  $ObjectID		  11
 	  Version		  "1.15.0"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
@@ -331,6 +332,7 @@ Model {
 	  IgnoredZcDiagnostic	  "warning"
 	  SolverPrmCheckMsg	  "none"
 	  InheritedTsInSrcMsg	  "warning"
+	  DiscreteInheritContinuousMsg "warning"
 	  MultiTaskDSMMsg	  "warning"
 	  MultiTaskCondExecSysMsg "none"
 	  MultiTaskRateTransMsg	  "error"
@@ -391,7 +393,7 @@ Model {
 	  IntegerSaturationMsg	  "warning"
 	}
 	Simulink.HardwareCC {
-	  $ObjectID		  13
+	  $ObjectID		  12
 	  Version		  "1.15.0"
 	  ProdBitPerChar	  8
 	  ProdBitPerShort	  16
@@ -431,7 +433,7 @@ Model {
 	  ProdEqTarget		  on
 	}
 	Simulink.ModelReferenceCC {
-	  $ObjectID		  14
+	  $ObjectID		  13
 	  Version		  "1.15.0"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
 	  CheckModelReferenceTargetMessage "error"
@@ -446,8 +448,9 @@ Model {
 	  SupportModelReferenceSimTargetCustomCode off
 	}
 	Simulink.SFSimCC {
-	  $ObjectID		  15
+	  $ObjectID		  14
 	  Version		  "1.15.0"
+	  SFSimOverflowDetection  on
 	  SFSimEcho		  on
 	  SimCtrlC		  on
 	  SimIntegrity		  on
@@ -458,7 +461,7 @@ Model {
 	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
-	  $ObjectID		  16
+	  $ObjectID		  15
 	  Version		  "1.15.0"
 	  Array {
 	    Type		    "Cell"
@@ -484,6 +487,7 @@ Model {
 	  MakeCommand		  "make_rtw"
 	  GenerateMakefile	  on
 	  PackageGeneratedCodeAndArtifacts off
+	  PackageName		  ""
 	  TemplateMakefile	  "slrt_default_tmf"
 	  PostCodeGenCommand	  ""
 	  Description		  "Simulink Real-Time"
@@ -497,6 +501,13 @@ Model {
 	  TLCAssert		  off
 	  RTWUseLocalCustomCode	  off
 	  RTWUseSimCustomCode	  off
+	  CustomSourceCode	  ""
+	  CustomHeaderCode	  ""
+	  CustomInclude		  ""
+	  CustomSource		  ""
+	  CustomLibrary		  ""
+	  CustomInitializer	  ""
+	  CustomTerminator	  ""
 	  Toolchain		  "Automatically locate an installed toolchain"
 	  BuildConfiguration	  "Faster Builds"
 	  IncludeHyperlinkInReport off
@@ -527,7 +538,7 @@ Model {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
-	      $ObjectID		      17
+	      $ObjectID		      16
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
@@ -601,7 +612,7 @@ Model {
 	    }
 	    Simulink.TargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
-	      $ObjectID		      18
+	      $ObjectID		      17
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
@@ -669,7 +680,6 @@ Model {
 	      AutosarCompliant	      off
 	      GRTInterface	      on
 	      GenerateAllocFcn	      off
-	      UseToolchainInfoCompliant	off
 	      GenerateSharedConstants on
 	      CustomProperty {
 		DataType		"string"
@@ -799,17 +809,17 @@ Model {
       }
       Name		      "Configuration"
       CurrentDlgPage	      "Optimization"
-      ConfigPrmDlgPosition    [ 72, 69, 952, 699 ]  
+      ConfigPrmDlgPosition     [ 72, 69, 952, 699 ] 
     }
     PropName		    "ConfigurationSets"
   }
   Simulink.ConfigSet {
     $PropName		    "ActiveConfigurationSet"
-    $ObjectID		    8
+    $ObjectID		    7
   }
   Object {
     $PropName		    "DataTransfer"
-    $ObjectID		    20
+    $ObjectID		    18
     $ClassName		    "Simulink.GlobalDataTransfer"
     DefaultTransitionBetweenSyncTasks "Ensure deterministic transfer (maximum delay)"
     DefaultTransitionBetweenAsyncTasks "Ensure data integrity only"
@@ -1026,6 +1036,8 @@ Model {
       FunctionName	      "system"
       SFunctionModules	      "''"
       PortCounts	      "[]"
+      SFunctionDeploymentMode off
+      EnableBusSupport	      off
     }
     Block {
       BlockType		      SubSystem
@@ -1035,6 +1047,7 @@ Model {
       TreatAsAtomicUnit	      off
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
+      CheckFcnCallInpInsideContextMsg off
       SystemSampleTime	      "-1"
       RTWSystemCode	      "Auto"
       RTWFcnNameOpts	      "Auto"
@@ -1053,9 +1066,8 @@ Model {
       Opaque		      off
       MaskHideContents	      off
       SFBlockType	      "NONE"
+      Variant		      off
       GeneratePreprocessorConditionals off
-      PropagateVariantConditions off
-      TreatAsGroupedWhenPropagatingVariantConditions on
       ContentPreviewEnabled   off
       IsWebBlock	      off
     }
@@ -1111,9 +1123,9 @@ Model {
     }
   }
   System {
-    Name		    "ring_reporting_2015a"
+    Name		    "ring_reporting"
     Location		    [94, 22, 1126, 754]
-    Open		    off
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1137,12 +1149,10 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_ring_reporting"
       Parameters	      "0 0 0 1 0 1 5 0 1 1 1 1 1 1 1 2 1 0 0 1 1 0.0000001 0 0 0 1 1 0 0 1 0 0 0.1 0.2 0 0 0 0 0 0 0 "
-      "0 6 0 1 0"
-      SFunctionDeploymentMode off
-      EnableBusSupport	      off
+      "0 6 0 1 0 0"
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		21
+	$ObjectID		19
 	$ClassName		"Simulink.Mask"
 	Display			"disp('Master Control')\nport_label('input',1,'pos')\nport_label('input',2,'force')\nport_label('input',3,'"
 	"catch force')\nport_label('output',1,'force')\nport_label('output',2,'status')\nport_label('output',3,'word')\nport_l"
@@ -1170,7 +1180,6 @@ Model {
       Position		      [705, 224, 765, 286]
       ZOrder		      -3
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"Catch Force Generator"
 	Location		[16, 52, 1340, 1132]
@@ -1255,7 +1264,6 @@ Model {
 	  Position		  [45, 400, 120, 520]
 	  ZOrder		  -7
 	  RequestExecContextInheritance	off
-	  Variant		  off
 	  System {
 	    Name		    "LorentzForce"
 	    Location		    [16, 52, 1340, 1132]
@@ -1472,7 +1480,6 @@ Model {
 	  Position		  [665, 229, 765, 271]
 	  ZOrder		  -13
 	  RequestExecContextInheritance	off
-	  Variant		  off
 	  System {
 	    Name		    "ViscLoadSubsystem"
 	    Location		    [16, 52, 1348, 1132]
@@ -2095,7 +2102,6 @@ Model {
       Position		      [1080, 259, 1135, 291]
       ZOrder		      -13
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"RewardSbs"
 	Location		[16, 52, 944, 498]
@@ -2170,7 +2176,7 @@ Model {
 	  Ports			  [1, 1, 0, 1]
 	  Position		  [365, 133, 440, 177]
 	  ZOrder		  -7
-	  LibraryVersion	  "1.774"
+	  LibraryVersion	  "1.752"
 	  SourceBlock		  "dspsigops/Sample\nand Hold"
 	  SourceType		  "Sample and Hold"
 	  ContentPreviewEnabled	  off
@@ -2186,7 +2192,6 @@ Model {
 	  Position		  [525, 70, 635, 130]
 	  ZOrder		  -8
 	  RequestExecContextInheritance	off
-	  Variant		  off
 	  System {
 	    Name		    "Schmidt"
 	    Location		    [16, 52, 675, 542]
@@ -2245,7 +2250,7 @@ Model {
 	      Ports		      [1, 1, 0, 1]
 	      Position		      [240, 108, 315, 152]
 	      ZOrder		      -5
-	      LibraryVersion	      "1.774"
+	      LibraryVersion	      "1.752"
 	      SourceBlock	      "dspsigops/Sample\nand Hold"
 	      SourceType	      "Sample and Hold"
 	      ContentPreviewEnabled   off
@@ -2503,7 +2508,6 @@ Model {
       Position		      [1180, 214, 1280, 256]
       ZOrder		      -16
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"Target Peek"
 	Location		[16, 52, 1348, 1132]
@@ -2842,7 +2846,6 @@ Model {
       Position		      [1090, 174, 1135, 216]
       ZOrder		      -23
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"WordSbs"
 	Location		[16, 52, 1344, 1162]
@@ -3211,31 +3214,31 @@ Model {
 }
 #Finite State Machines
 #
-#   Stateflow 80000010
+#   Stateflow 80000005
 #
 #
 Stateflow {
   machine {
     id			    1
-    name		    "ring_reporting_2015a"
+    name		    "ring_reporting"
     created		    "29-Sep-2006 15:42:48"
     isLibrary		    0
-    sfVersion		    80000006
     firstTarget		    2
+    sfVersion		    80000005
   }
   target {
     id			    2
-    machine		    1
     name		    "sfun"
     codeFlags		    ""
+    machine		    1
     linkNode		    [1 0 3]
   }
   target {
     id			    3
-    machine		    1
     name		    "rtw"
     codeFlags		    " comments=1 statebitsets=1 databitsets=1 emitlogicalops=1 elseifdetection=1 constantfolding=1 redu"
     "ndantloadelimination=0 preservenames=0 preservenameswithparent=0 exportcharts=0"
+    machine		    1
     linkNode		    [1 2 0]
   }
 }

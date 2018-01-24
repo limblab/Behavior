@@ -2095,6 +2095,8 @@ namespace BehaviorGraphics
             this.label590 = new System.Windows.Forms.Label();
             this.tabRingReporting = new System.Windows.Forms.TabPage();
             this.groupBox113 = new System.Windows.Forms.GroupBox();
+            this.textBoxRRB_stimDelay = new System.Windows.Forms.TextBox();
+            this.label616 = new System.Windows.Forms.Label();
             this.checkBoxRRB_stimInsteadOfBump = new System.Windows.Forms.CheckBox();
             this.checkBoxRRB_stimDuringBump = new System.Windows.Forms.CheckBox();
             this.textBoxRRB_stimLevels = new System.Windows.Forms.TextBox();
@@ -2448,8 +2450,7 @@ namespace BehaviorGraphics
             this.angleEntryBox1 = new AngleBox.AngleEntryBox();
             this.angleEntryBox2 = new AngleBox.AngleEntryBox();
             this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
-            this.label616 = new System.Windows.Forms.Label();
-            this.textBoxRRB_stimDelay = new System.Windows.Forms.TextBox();
+            this.checkBoxRRB_repeatFailures = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -23823,6 +23824,25 @@ namespace BehaviorGraphics
             this.groupBox113.TabStop = false;
             this.groupBox113.Text = "Stim settings";
             // 
+            // textBoxRRB_stimDelay
+            // 
+            this.textBoxRRB_stimDelay.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.textBoxRRB_stimDelay.Location = new System.Drawing.Point(68, 135);
+            this.textBoxRRB_stimDelay.Name = "textBoxRRB_stimDelay";
+            this.textBoxRRB_stimDelay.Size = new System.Drawing.Size(43, 20);
+            this.textBoxRRB_stimDelay.TabIndex = 94;
+            this.toolTip1.SetToolTip(this.textBoxRRB_stimDelay, "Radius of the circle on which the outer targets are presented (cm).  ");
+            // 
+            // label616
+            // 
+            this.label616.AutoSize = true;
+            this.label616.Location = new System.Drawing.Point(6, 139);
+            this.label616.Name = "label616";
+            this.label616.Size = new System.Drawing.Size(55, 13);
+            this.label616.TabIndex = 93;
+            this.label616.Text = "Stim delay";
+            this.label616.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // checkBoxRRB_stimInsteadOfBump
             // 
             this.checkBoxRRB_stimInsteadOfBump.AutoSize = true;
@@ -23882,6 +23902,7 @@ namespace BehaviorGraphics
             // 
             // groupBox112
             // 
+            this.groupBox112.Controls.Add(this.checkBoxRRB_repeatFailures);
             this.groupBox112.Controls.Add(this.textBoxRRB_outerTargetSize);
             this.groupBox112.Controls.Add(this.label593);
             this.groupBox112.Controls.Add(this.textBoxRRB_showOuterTargetProb);
@@ -23929,7 +23950,7 @@ namespace BehaviorGraphics
             // checkBoxRRB_useSquareTargets
             // 
             this.checkBoxRRB_useSquareTargets.AutoSize = true;
-            this.checkBoxRRB_useSquareTargets.Location = new System.Drawing.Point(24, 128);
+            this.checkBoxRRB_useSquareTargets.Location = new System.Drawing.Point(24, 116);
             this.checkBoxRRB_useSquareTargets.Name = "checkBoxRRB_useSquareTargets";
             this.checkBoxRRB_useSquareTargets.Size = new System.Drawing.Size(115, 17);
             this.checkBoxRRB_useSquareTargets.TabIndex = 83;
@@ -23939,7 +23960,7 @@ namespace BehaviorGraphics
             // checkBoxRRB_showOuterRing
             // 
             this.checkBoxRRB_showOuterRing.AutoSize = true;
-            this.checkBoxRRB_showOuterRing.Location = new System.Drawing.Point(24, 98);
+            this.checkBoxRRB_showOuterRing.Location = new System.Drawing.Point(24, 93);
             this.checkBoxRRB_showOuterRing.Name = "checkBoxRRB_showOuterRing";
             this.checkBoxRRB_showOuterRing.Size = new System.Drawing.Size(100, 17);
             this.checkBoxRRB_showOuterRing.TabIndex = 82;
@@ -27001,24 +27022,15 @@ namespace BehaviorGraphics
             this.angleEntryBox_SA.TabIndex = 19;
             this.angleEntryBox_SA.Value = 0;
             // 
-            // label616
+            // checkBoxRRB_repeatFailures
             // 
-            this.label616.AutoSize = true;
-            this.label616.Location = new System.Drawing.Point(6, 139);
-            this.label616.Name = "label616";
-            this.label616.Size = new System.Drawing.Size(55, 13);
-            this.label616.TabIndex = 93;
-            this.label616.Text = "Stim delay";
-            this.label616.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // textBoxRRB_stimDelay
-            // 
-            this.textBoxRRB_stimDelay.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.textBoxRRB_stimDelay.Location = new System.Drawing.Point(68, 135);
-            this.textBoxRRB_stimDelay.Name = "textBoxRRB_stimDelay";
-            this.textBoxRRB_stimDelay.Size = new System.Drawing.Size(43, 20);
-            this.textBoxRRB_stimDelay.TabIndex = 94;
-            this.toolTip1.SetToolTip(this.textBoxRRB_stimDelay, "Radius of the circle on which the outer targets are presented (cm).  ");
+            this.checkBoxRRB_repeatFailures.AutoSize = true;
+            this.checkBoxRRB_repeatFailures.Location = new System.Drawing.Point(24, 135);
+            this.checkBoxRRB_repeatFailures.Name = "checkBoxRRB_repeatFailures";
+            this.checkBoxRRB_repeatFailures.Size = new System.Drawing.Size(97, 17);
+            this.checkBoxRRB_repeatFailures.TabIndex = 85;
+            this.checkBoxRRB_repeatFailures.Text = "Repeat failures";
+            this.checkBoxRRB_repeatFailures.UseVisualStyleBackColor = true;
             // 
             // UpdateForm
             // 
@@ -29866,5 +29878,6 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label593;
         private System.Windows.Forms.TextBox textBoxRRB_stimDelay;
         private System.Windows.Forms.Label label616;
+        private System.Windows.Forms.CheckBox checkBoxRRB_repeatFailures;
     }
 }
