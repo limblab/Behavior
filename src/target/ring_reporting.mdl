@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1299"
+    ComputedModelVersion    "1.1300"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -30,7 +30,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [94.0, 22.0, 1032.0, 732.0]
+      Location		      [-4.0, -4.0, 1032.0, 748.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -54,7 +54,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[988.0, 572.0]
+	Extents			[988.0, 588.0]
 	ZoomFactor		[0.59999999999999976]
 	Offset			[146.14351780642505, -50.644577431670086]
       }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jan 24 16:47:47 2018"
-  RTWModifiedTimeStamp	  438712350
-  ModelVersionFormat	  "1.%<AutoIncrement:1299>"
+  LastModifiedDate	  "Thu Jan 25 09:13:57 2018"
+  RTWModifiedTimeStamp	  438772395
+  ModelVersionFormat	  "1.%<AutoIncrement:1300>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1124,7 +1124,7 @@ Model {
   }
   System {
     Name		    "ring_reporting"
-    Location		    [94, 22, 1126, 754]
+    Location		    [-4, -4, 1028, 744]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1138,7 +1138,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "60"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "441"
+    SIDHighWatermark	    "445"
     Block {
       BlockType		      S-Function
       Name		      "Behavior Ring Reporting"
@@ -2104,7 +2104,7 @@ Model {
       RequestExecContextInheritance off
       System {
 	Name			"RewardSbs"
-	Location		[16, 52, 944, 498]
+	Location		[-4, -4, 1028, 744]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2121,7 +2121,7 @@ Model {
 	  BlockType		  Inport
 	  Name			  "Trig"
 	  SID			  "268"
-	  Position		  [30, 38, 60, 52]
+	  Position		  [65, 38, 95, 52]
 	  ZOrder		  -1
 	  IconDisplay		  "Port number"
 	}
@@ -2129,7 +2129,7 @@ Model {
 	  BlockType		  DataTypeConversion
 	  Name			  "Data Type Conversion"
 	  SID			  "269"
-	  Position		  [685, 83, 760, 117]
+	  Position		  [740, 93, 815, 127]
 	  ZOrder		  -2
 	  RndMeth		  "Floor"
 	  SaturateOnIntegerOverflow off
@@ -2143,6 +2143,18 @@ Model {
 	  Value			  "0"
 	}
 	Block {
+	  BlockType		  Product
+	  Name			  "Product"
+	  SID			  "442"
+	  Ports			  [2, 1]
+	  Position		  [355, 162, 385, 193]
+	  ZOrder		  1
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  RndMeth		  "Floor"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
 	  BlockType		  RelationalOperator
 	  Name			  "Relational\nOperator"
 	  SID			  "271"
@@ -2152,6 +2164,25 @@ Model {
 	  Operator		  ">"
 	  InputSameDT		  off
 	  OutDataTypeStr	  "boolean"
+	}
+	Block {
+	  BlockType		  RelationalOperator
+	  Name			  "Relational\nOperator1"
+	  SID			  "444"
+	  Ports			  [2, 1]
+	  Position		  [460, 52, 490, 83]
+	  ZOrder		  3
+	  Operator		  ">"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "boolean"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Reward check"
+	  SID			  "445"
+	  Position		  [390, 80, 420, 110]
+	  ZOrder		  4
+	  Value			  "0.0"
 	}
 	Block {
 	  BlockType		  Constant
@@ -2174,7 +2205,7 @@ Model {
 	  Name			  "Sample\nand Hold"
 	  SID			  "274"
 	  Ports			  [1, 1, 0, 1]
-	  Position		  [365, 133, 440, 177]
+	  Position		  [450, 158, 525, 202]
 	  ZOrder		  -7
 	  LibraryVersion	  "1.752"
 	  SourceBlock		  "dspsigops/Sample\nand Hold"
@@ -2189,12 +2220,12 @@ Model {
 	  Name			  "Schmidt"
 	  SID			  "275"
 	  Ports			  [2, 1]
-	  Position		  [525, 70, 635, 130]
+	  Position		  [595, 80, 705, 140]
 	  ZOrder		  -8
 	  RequestExecContextInheritance	off
 	  System {
 	    Name		    "Schmidt"
-	    Location		    [16, 52, 675, 542]
+	    Location		    [-4, -4, 1028, 744]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -2341,7 +2372,7 @@ Model {
 	  BlockType		  Switch
 	  Name			  "Switch"
 	  SID			  "283"
-	  Position		  [275, 120, 310, 190]
+	  Position		  [255, 135, 290, 205]
 	  ZOrder		  -9
 	  Criteria		  "u2 > Threshold"
 	  InputSameDT		  off
@@ -2362,7 +2393,7 @@ Model {
 	  BlockType		  Outport
 	  Name			  "Out"
 	  SID			  "285"
-	  Position		  [815, 93, 845, 107]
+	  Position		  [860, 103, 890, 117]
 	  ZOrder		  -11
 	  IconDisplay		  "Port number"
 	}
@@ -2370,17 +2401,17 @@ Model {
 	  ZOrder		  1
 	  SrcBlock		  "Trig"
 	  SrcPort		  1
-	  Points		  [335, 0]
+	  Points		  [246, 0; 0, 15]
 	  Branch {
-	    ZOrder		    2
-	    Points		    [75, 0; 0, 40]
-	    DstBlock		    "Schmidt"
+	    ZOrder		    21
+	    DstBlock		    "Relational\nOperator1"
 	    DstPort		    1
 	  }
 	  Branch {
-	    ZOrder		    3
-	    DstBlock		    "Sample\nand Hold"
-	    DstPort		    trigger
+	    ZOrder		    20
+	    Points		    [0, 110]
+	    DstBlock		    "Product"
+	    DstPort		    1
 	  }
 	}
 	Line {
@@ -2401,7 +2432,7 @@ Model {
 	  ZOrder		  6
 	  SrcBlock		  "Sample\nand Hold"
 	  SrcPort		  1
-	  Points		  [30, 0; 0, -40]
+	  Points		  [9, 0; 0, -55]
 	  DstBlock		  "Schmidt"
 	  DstPort		  2
 	}
@@ -2409,7 +2440,7 @@ Model {
 	  ZOrder		  7
 	  SrcBlock		  "RewardTime"
 	  SrcPort		  1
-	  Points		  [35, 0; 0, 35]
+	  Points		  [35, 0; 0, 50]
 	  DstBlock		  "Switch"
 	  DstPort		  1
 	}
@@ -2417,16 +2448,9 @@ Model {
 	  ZOrder		  8
 	  SrcBlock		  "RewardJackpot"
 	  SrcPort		  1
-	  Points		  [35, 0; 0, -40]
+	  Points		  [35, 0; 0, -25]
 	  DstBlock		  "Switch"
 	  DstPort		  3
-	}
-	Line {
-	  ZOrder		  9
-	  SrcBlock		  "Switch"
-	  SrcPort		  1
-	  DstBlock		  "Sample\nand Hold"
-	  DstPort		  1
 	}
 	Line {
 	  ZOrder		  10
@@ -2440,6 +2464,7 @@ Model {
 	  ZOrder		  11
 	  SrcBlock		  "Relational\nOperator"
 	  SrcPort		  1
+	  Points		  [28, 0; 0, 15]
 	  DstBlock		  "Switch"
 	  DstPort		  2
 	}
@@ -2449,6 +2474,47 @@ Model {
 	  SrcPort		  1
 	  Points		  [25, 0; 0, -30]
 	  DstBlock		  "Relational\nOperator"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  16
+	  SrcBlock		  "Switch"
+	  SrcPort		  1
+	  Points		  [28, 0; 0, 15]
+	  DstBlock		  "Product"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  17
+	  SrcBlock		  "Product"
+	  SrcPort		  1
+	  DstBlock		  "Sample\nand Hold"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  23
+	  SrcBlock		  "Relational\nOperator1"
+	  SrcPort		  1
+	  Points		  [19, 0]
+	  Branch {
+	    ZOrder		    26
+	    Points		    [0, 64; -29, 0]
+	    DstBlock		    "Sample\nand Hold"
+	    DstPort		    trigger
+	  }
+	  Branch {
+	    ZOrder		    25
+	    Points		    [31, 0; 0, 25]
+	    DstBlock		    "Schmidt"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  ZOrder		  24
+	  SrcBlock		  "Reward check"
+	  SrcPort		  1
+	  Points		  [13, 0; 0, -20]
+	  DstBlock		  "Relational\nOperator1"
 	  DstPort		  2
 	}
       }

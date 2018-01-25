@@ -638,7 +638,8 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
 	double radius;
     double x_comp;
     double y_comp;
-
+    double cursor_end_angle;
+    
     updateCursorExtent(S);
     /* update prev_fail flag */
     if(getState() == STATE_REWARD) {
@@ -768,8 +769,16 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* reward (4) */
-	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
-
+	// outputs->reward = (isNewState() && (getState() == STATE_REWARD));
+    if(isNewState() && getState() == STATE_REWARD) {
+        // outputs->reward should be between 0 and 1, 1 at center of tgt,
+        // decaying to 0 near edge of tgt and 0 if not a reward
+        cursor_end_angle = 180/PI*atan2(this->cursor_end_point.y,this->cursor_end_point.x);
+        // linear decay
+        outputs->reward = 1-abs(this->outerTarget->theta - cursor_end_angle)/(this->outerTarget->span/2.0);    
+    } else {
+        outputs->reward = 0;
+    }
 	/* tone (5) */
 	this->outputs->tone_counter = this->tone_counter;
 	this->outputs->last_tone_id = this->last_tone_id;
