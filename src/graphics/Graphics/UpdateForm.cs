@@ -1720,7 +1720,8 @@ namespace BehaviorGraphics
                 AddParamListItem("RRB_outerTargetSize", "P45", "Behavior Ring Reporting", this.textBoxRRB_outerTargetSize);
                 AddParamListItem("RRB_stimDelay", "P46", "Behavior Ring Reporting", this.textBoxRRB_stimDelay);
                 AddParamListItem("RRB_repeatFails", "P47", "Behavior Ring Reporting", this.checkBoxRRB_repeatFailures);
-            
+                AddParamListItem("RRB_endAtOuterRing", "P48", "Behavior Ring Reporting", this.checkBoxRRB_endAtOuterRing);
+
             #endregion
 
 
