@@ -568,7 +568,7 @@ void RingReportingBehavior::update(SimStruct *S) {
                 cursor_end_point = inputs->cursor - cursor_offset;
                 setState(STATE_OT_HOLD);
             }
-            else if(this->params->show_ring && cursor_extent > params->move_length - params->OT_depth*0.5){ // end when hitting ring if shown
+            else if(this->params->show_ring && this->params->end_at_ring && cursor_extent > params->move_length - params->OT_depth*0.5){ // end when hitting ring if shown and requested
                 cursor_end_point = inputs->cursor - cursor_offset;
                 setState(STATE_OT_HOLD);
             }
