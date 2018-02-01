@@ -8500,6 +8500,18 @@ Operator</sigName>
 
  
             <block>
+            <blkName>Reward divisor</blkName>
+            <xpcblkName>RewardSbs/Reward divisor</xpcblkName>
+            <SLblockPath>ring_reporting/RewardSbs/Reward divisor</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
             <blkName>RewardJackpot</blkName>
             <xpcblkName>RewardSbs/RewardJackpot</xpcblkName>
             <SLblockPath>ring_reporting/RewardSbs/RewardJackpot</SLblockPath>
@@ -8521,6 +8533,7 @@ Operator</sigName>
           <dim>[1, 1]</dim>  
           </parameter>
           </block>
+
 
 
 
@@ -8582,6 +8595,12 @@ Number</blkName>
     
 
 
+
+
+    
+    
+
+
   
               
 
@@ -8607,6 +8626,23 @@ Number</blkName>
               <signal>
               <sigName>Product</sigName>
               <xpcsigName>RewardSbs/Product</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Product1</sigName>
+              <xpcsigName>RewardSbs/Product1</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>

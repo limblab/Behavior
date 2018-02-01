@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1300"
+    ComputedModelVersion    "1.1301"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -30,7 +30,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-4.0, -4.0, 1032.0, 748.0]
+      Location		      [-4.0, 0.0, 1032.0, 748.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -52,11 +52,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkTopLevel"
-	LoadSaveID		"0"
+	ViewObjType		"SimulinkSubsys"
+	LoadSaveID		"267"
 	Extents			[988.0, 588.0]
-	ZoomFactor		[0.59999999999999976]
-	Offset			[146.14351780642505, -50.644577431670086]
+	ZoomFactor		[1.0]
+	Offset			[0.0, 0.0]
       }
     }
   }
@@ -64,11 +64,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jan 25 09:13:57 2018"
-  RTWModifiedTimeStamp	  438772395
-  ModelVersionFormat	  "1.%<AutoIncrement:1300>"
+  LastModifiedDate	  "Thu Jan 25 14:20:22 2018"
+  RTWModifiedTimeStamp	  438790815
+  ModelVersionFormat	  "1.%<AutoIncrement:1301>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1124,8 +1124,8 @@ Model {
   }
   System {
     Name		    "ring_reporting"
-    Location		    [-4, -4, 1028, 744]
-    Open		    on
+    Location		    [-4, 0, 1028, 748]
+    Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1138,7 +1138,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "60"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "445"
+    SIDHighWatermark	    "448"
     Block {
       BlockType		      S-Function
       Name		      "Behavior Ring Reporting"
@@ -2104,8 +2104,8 @@ Model {
       RequestExecContextInheritance off
       System {
 	Name			"RewardSbs"
-	Location		[-4, -4, 1028, 744]
-	Open			off
+	Location		[-4, 0, 1028, 748]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2147,8 +2147,20 @@ Model {
 	  Name			  "Product"
 	  SID			  "442"
 	  Ports			  [2, 1]
-	  Position		  [355, 162, 385, 193]
+	  Position		  [390, 162, 420, 193]
 	  ZOrder		  1
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  RndMeth		  "Floor"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "Product1"
+	  SID			  "447"
+	  Ports			  [2, 1]
+	  Position		  [330, 82, 360, 113]
+	  ZOrder		  6
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  RndMeth		  "Floor"
@@ -2180,9 +2192,17 @@ Model {
 	  BlockType		  Constant
 	  Name			  "Reward check"
 	  SID			  "445"
-	  Position		  [390, 80, 420, 110]
+	  Position		  [400, 80, 430, 110]
 	  ZOrder		  4
 	  Value			  "0.0"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Reward divisor"
+	  SID			  "448"
+	  Position		  [260, 75, 290, 105]
+	  ZOrder		  7
+	  Value			  "0.001"
 	}
 	Block {
 	  BlockType		  Constant
@@ -2401,16 +2421,17 @@ Model {
 	  ZOrder		  1
 	  SrcBlock		  "Trig"
 	  SrcPort		  1
-	  Points		  [246, 0; 0, 15]
+	  Points		  [219, 0]
 	  Branch {
-	    ZOrder		    21
-	    DstBlock		    "Relational\nOperator1"
+	    ZOrder		    40
+	    Points		    [0, 45]
+	    DstBlock		    "Product1"
 	    DstPort		    1
 	  }
 	  Branch {
-	    ZOrder		    20
-	    Points		    [0, 110]
-	    DstBlock		    "Product"
+	    ZOrder		    39
+	    Points		    [27, 0; 0, 15]
+	    DstBlock		    "Relational\nOperator1"
 	    DstPort		    1
 	  }
 	}
@@ -2513,9 +2534,25 @@ Model {
 	  ZOrder		  24
 	  SrcBlock		  "Reward check"
 	  SrcPort		  1
-	  Points		  [13, 0; 0, -20]
+	  Points		  [3, 0; 0, -20]
 	  DstBlock		  "Relational\nOperator1"
 	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  38
+	  SrcBlock		  "Reward divisor"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, 15]
+	  DstBlock		  "Product1"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  41
+	  SrcBlock		  "Product1"
+	  SrcPort		  1
+	  Points		  [4, 0; 0, 70]
+	  DstBlock		  "Product"
+	  DstPort		  1
 	}
       }
     }

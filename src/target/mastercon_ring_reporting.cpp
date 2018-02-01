@@ -639,6 +639,10 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
     double x_comp;
     double y_comp;
     double cursor_end_angle;
+    double angle_difference;
+    double angle_difference_1;
+    double angle_difference_2;
+    double angle_difference_3;
     
     updateCursorExtent(S);
     /* update prev_fail flag */
@@ -770,12 +774,35 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
 
 	/* reward (4) */
 	// outputs->reward = (isNewState() && (getState() == STATE_REWARD));
-    if(isNewState() && getState() == STATE_REWARD) {
+    // outputs->reward = outputs->reward*this->random->getInteger(1,10);
+    if(isNewState() && (getState() == STATE_REWARD)) {
         // outputs->reward should be between 0 and 1, 1 at center of tgt,
         // decaying to 0 near edge of tgt and 0 if not a reward
-        cursor_end_angle = 180/PI*atan2(this->cursor_end_point.y,this->cursor_end_point.x);
+        cursor_end_angle = atan2(this->cursor_end_point.y,this->cursor_end_point.x);
         // linear decay
-        outputs->reward = 1-abs(this->outerTarget->theta - cursor_end_angle)/(this->outerTarget->span/2.0);    
+        angle_difference_1 = abs(this->outerTarget->theta - cursor_end_angle);
+        angle_difference_2 = abs(this->outerTarget->theta+2*PI - cursor_end_angle);
+        angle_difference_3 = abs(this->outerTarget->theta-2*PI - cursor_end_angle);
+        // min(min()) until I figure out bugs
+        if(angle_difference_1 < angle_difference_2) {
+            if(angle_difference_1 < angle_difference_3) {
+                angle_difference = angle_difference_1;
+            } else {
+                angle_difference = angle_difference_3;
+            }
+        } else {
+            if(angle_difference_2 < angle_difference_3) {
+                angle_difference = angle_difference_2;
+            } else {
+                angle_difference = angle_difference_3;
+            }
+        }
+        
+        outputs->reward = 1000*(this->outerTarget->span/2.0-angle_difference);
+        //outputs->reward = 1;
+        if(outputs->reward < 0.5*1000) {
+            outputs->reward = 0.5*1000;
+        }
     } else {
         outputs->reward = 0;
     }
