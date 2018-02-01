@@ -224,7 +224,7 @@ RingReportingBehavior::RingReportingBehavior(SimStruct *S) : RobotBehavior() {
 
 	// Set up the number of parameters you'll be using
 
-	this->setNumParams(47);
+	this->setNumParams(48);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,            0);
 	this->bindParamId(&params->soft_reset,              1);
