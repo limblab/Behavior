@@ -8329,20 +8329,32 @@ Operator6</sigName>
 
     </SubSystem>
     <SubSystem>
-    <Name>RewardSbs1</Name>
-    <xPCName>forced_choice/RewardSbs1</xPCName>
+    <Name>Reward Display</Name>
+    <xPCName>forced_choice/Reward Display</xPCName>
+    
+    
+
+
+    
+    
+
+
+    </SubSystem>
+    <SubSystem>
+    <Name>RewardSbs</Name>
+    <xPCName>forced_choice/RewardSbs</xPCName>
         <SubSystem>
     <Name>Sample
 and Hold</Name>
-    <xPCName>forced_choice/RewardSbs1/Sample and Hold</xPCName>
+    <xPCName>forced_choice/RewardSbs/Sample and Hold</xPCName>
     
     
 
  
             <block>
             <blkName> </blkName>
-            <xpcblkName>RewardSbs1/Sample and Hold/ </xpcblkName>
-            <SLblockPath>forced_choice/RewardSbs1/Sample and Hold/ </SLblockPath>
+            <xpcblkName>RewardSbs/Sample and Hold/ </xpcblkName>
+            <SLblockPath>forced_choice/RewardSbs/Sample and Hold/ </SLblockPath>
             <isSrc>[0 1 0]</isSrc>
           <parameter>
           <paramName>InitialOutput</paramName>
@@ -8362,7 +8374,7 @@ and Hold</Name>
        
               <signal>
               <sigName>In</sigName>
-              <xpcsigName>RewardSbs1/Sample and Hold/In</xpcsigName>
+              <xpcsigName>RewardSbs/Sample and Hold/In</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -8370,19 +8382,19 @@ and Hold</Name>
     </SubSystem>
     <SubSystem>
     <Name>Schmidt</Name>
-    <xPCName>forced_choice/RewardSbs1/Schmidt</xPCName>
+    <xPCName>forced_choice/RewardSbs/Schmidt</xPCName>
         <SubSystem>
     <Name>Sample
 and Hold</Name>
-    <xPCName>forced_choice/RewardSbs1/Schmidt/Sample and Hold</xPCName>
+    <xPCName>forced_choice/RewardSbs/Schmidt/Sample and Hold</xPCName>
     
     
 
  
             <block>
             <blkName> </blkName>
-            <xpcblkName>RewardSbs1/Schmidt/Sample and Hold/ </xpcblkName>
-            <SLblockPath>forced_choice/RewardSbs1/Schmidt/Sample and Hold/ </SLblockPath>
+            <xpcblkName>RewardSbs/Schmidt/Sample and Hold/ </xpcblkName>
+            <SLblockPath>forced_choice/RewardSbs/Schmidt/Sample and Hold/ </SLblockPath>
             <isSrc>[0 1 0]</isSrc>
           <parameter>
           <paramName>InitialOutput</paramName>
@@ -8402,7 +8414,7 @@ and Hold</Name>
        
               <signal>
               <sigName>In</sigName>
-              <xpcsigName>RewardSbs1/Schmidt/Sample and Hold/In</xpcsigName>
+              <xpcsigName>RewardSbs/Schmidt/Sample and Hold/In</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -8429,7 +8441,7 @@ and Hold</Name>
        
               <signal>
               <sigName>Clock</sigName>
-              <xpcsigName>RewardSbs1/Schmidt/Clock</xpcsigName>
+              <xpcsigName>RewardSbs/Schmidt/Clock</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -8447,7 +8459,7 @@ and Hold</Name>
               <signal>
               <sigName>Relational
 Operator</sigName>
-              <xpcsigName>RewardSbs1/Schmidt/Relational Operator</xpcsigName>
+              <xpcsigName>RewardSbs/Schmidt/Relational Operator</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -8464,7 +8476,7 @@ Operator</sigName>
        
               <signal>
               <sigName>Sum</sigName>
-              <xpcsigName>RewardSbs1/Schmidt/Sum</xpcsigName>
+              <xpcsigName>RewardSbs/Schmidt/Sum</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -8477,8 +8489,8 @@ Operator</sigName>
  
             <block>
             <blkName>JackpotChance</blkName>
-            <xpcblkName>RewardSbs1/JackpotChance</xpcblkName>
-            <SLblockPath>forced_choice/RewardSbs1/JackpotChance</SLblockPath>
+            <xpcblkName>RewardSbs/JackpotChance</xpcblkName>
+            <SLblockPath>forced_choice/RewardSbs/JackpotChance</SLblockPath>
             <isSrc>[1 0 1]</isSrc>
           <parameter>
           <paramName>Value</paramName>
@@ -8489,8 +8501,8 @@ Operator</sigName>
  
             <block>
             <blkName>RewardJackpot</blkName>
-            <xpcblkName>RewardSbs1/RewardJackpot</xpcblkName>
-            <SLblockPath>forced_choice/RewardSbs1/RewardJackpot</SLblockPath>
+            <xpcblkName>RewardSbs/RewardJackpot</xpcblkName>
+            <SLblockPath>forced_choice/RewardSbs/RewardJackpot</SLblockPath>
             <isSrc>[1 0 1]</isSrc>
           <parameter>
           <paramName>Value</paramName>
@@ -8501,8 +8513,8 @@ Operator</sigName>
  
             <block>
             <blkName>RewardTime</blkName>
-            <xpcblkName>RewardSbs1/RewardTime</xpcblkName>
-            <SLblockPath>forced_choice/RewardSbs1/RewardTime</SLblockPath>
+            <xpcblkName>RewardSbs/RewardTime</xpcblkName>
+            <SLblockPath>forced_choice/RewardSbs/RewardTime</SLblockPath>
             <isSrc>[1 0 1]</isSrc>
           <parameter>
           <paramName>Value</paramName>
@@ -8513,13 +8525,12 @@ Operator</sigName>
 
 
 
-
  
             <block>
             <blkName>Uniform Random
 Number</blkName>
-            <xpcblkName>RewardSbs1/Uniform Random Number</xpcblkName>
-            <SLblockPath>forced_choice/RewardSbs1/Uniform Random Number</SLblockPath>
+            <xpcblkName>RewardSbs/Uniform Random Number</xpcblkName>
+            <SLblockPath>forced_choice/RewardSbs/Uniform Random Number</SLblockPath>
             <isSrc>[1 0 1]</isSrc>
           <parameter>
           <paramName>Minimum</paramName>
@@ -8570,24 +8581,7 @@ Number</blkName>
        
               <signal>
               <sigName>Data Type Conversion</sigName>
-              <xpcsigName>RewardSbs1/Data Type Conversion</xpcsigName>
-              <sigWidth>1</sigWidth>
-              <sigDim>[1, 1]</sigDim>
-            </signal>
-
-
-    
-    
-
-
-  
-              
-
-              
-       
-              <signal>
-              <sigName>Product</sigName>
-              <xpcsigName>RewardSbs1/Product</xpcsigName>
+              <xpcsigName>RewardSbs/Data Type Conversion</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -8605,7 +8599,7 @@ Number</blkName>
               <signal>
               <sigName>Relational
 Operator</sigName>
-              <xpcsigName>RewardSbs1/Relational Operator</xpcsigName>
+              <xpcsigName>RewardSbs/Relational Operator</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -8622,7 +8616,7 @@ Operator</sigName>
        
               <signal>
               <sigName>Switch</sigName>
-              <xpcsigName>RewardSbs1/Switch</xpcsigName>
+              <xpcsigName>RewardSbs/Switch</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -8640,7 +8634,7 @@ Operator</sigName>
               <signal>
               <sigName>Uniform Random
 Number</sigName>
-              <xpcsigName>RewardSbs1/Uniform Random Number</xpcsigName>
+              <xpcsigName>RewardSbs/Uniform Random Number</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -9295,8 +9289,20 @@ Number</sigName>
 
     </SubSystem>
     <SubSystem>
-    <Name>WordSbs1</Name>
-    <xPCName>forced_choice/WordSbs1</xPCName>
+    <Name>Word Display</Name>
+    <xPCName>forced_choice/Word Display</xPCName>
+    
+    
+
+
+    
+    
+
+
+    </SubSystem>
+    <SubSystem>
+    <Name>WordSbs</Name>
+    <xPCName>forced_choice/WordSbs</xPCName>
     
     
     </SubSystem>
@@ -12940,6 +12946,8 @@ Function3</sigName>
     </SubSystem>
 
       
+
+
 
 
 

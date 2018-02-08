@@ -297,7 +297,7 @@ namespace BehaviorGraphics
             AddParamListItem("FC bump hold", "P18", "Behavior FC", this.textBoxFCBumpHold);
             AddParamListItem("FC reaction time", "P19", "Behavior FC", this.textBoxFCReactionTime);
             AddParamListItem("FC intertrial", "P20", "Behavior FC", this.textBoxFCIntertrial);
-            AddParamListItem("FC Penalty", "P21", "Behavior FC", this.textBoxFCIntertrial);
+            AddParamListItem("FC Penalty", "P21", "Behavior FC", this.textBoxFCPenaltyTime);
             //Cursor parameters
             AddParamListItem("FC Hide Cursor During Bump", "P22", "Behavior FC", this.checkBoxFCHideCursorDuringBumps);
             AddParamListItem("FC Recenter Cursor After Bump", "P23", "Behavior FC", this.checkBoxFCRecenterAfterBumps);

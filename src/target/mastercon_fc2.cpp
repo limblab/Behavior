@@ -4,6 +4,7 @@
  * Master Control block for behavior: bump psychophysics 2-bump choice
  */
 
+
 #pragma warning(disable: 4800)
 
 
@@ -187,8 +188,7 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->bump_ramp,				13);
     
 	this->bindParamId(&params->ct_hold_time,			14);
-    
-	this->bindParamId(&params->bump_delay_low,			15);
+    this->bindParamId(&params->bump_delay_low,			15);
     this->bindParamId(&params->bump_delay_high,			16);
     this->bindParamId(&params->bump_hold_time,			17);
     this->bindParamId(&params->reaction_time,			18);
@@ -274,7 +274,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     
 	//set up the bump
     this->bump_delay=this->random->getDouble(params->bump_delay_low,params->bump_delay_high);
-    this->bump_trial=this->random->getDouble()>params->bump_prob;
+    this->bump_trial=this->random->getDouble()<params->bump_prob;
     if(this->bump_trial){
         this->bump->peak_magnitude= this->bump_stair->getCurrentValue()*params->bump_step + params->bump_floor;
         this->bump->hold_duration = params->bump_duration;
@@ -290,9 +290,9 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     
     /* Select whether this will be a stimulation trial */
     this->stim_trial=(this->random->getDouble() < params->stim_prob);
-    this->stim_code=this->random->getInteger(0,params->stim_levels-1);
     if(this->stim_trial) {
-         this->stim_code=this->stim_stair->getCurrentValue();   
+        this->stim_code=this->random->getInteger(0,params->stim_levels-1);
+        this->stim_code=this->stim_stair->getCurrentValue();   
     }
     
 	/* setup the databurst */
@@ -383,24 +383,17 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 			if (!centerTarget->cursorInTarget(inputs->cursor)) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			} else if (stateTimer->elapsedTime(S) > params->ct_hold_time) {
-                //centerTarget->radius = params->big_target;
-				setState(STATE_CT_BLOCK);
-			}
-			break;
-		case STATE_CT_BLOCK:
-			if (!centerTarget->cursorInTarget(inputs->cursor)) {
-				playTone(TONE_ABORT);
-				setState(STATE_ABORT);
-			} else if (stateTimer->elapsedTime(S) > this->bump_delay) {
-				if (this->stim_trial) {
-					setState(STATE_STIM);
-				} else if(this->bump_trial) {
-    				bump->start(S);
-					setState(STATE_BUMP);
-				} 
-			} else if (stateTimer->elapsedTime(S) > this->bump_delay+params->bump_hold_time){
-                setState(STATE_REWARD)
+// 			} else if (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay)) {
+// 				if (this->stim_trial) {
+// 					setState(STATE_STIM);
+// 				} else if(this->bump_trial) {
+//     				bump->start(S);
+// 					setState(STATE_BUMP);
+// 				} 
+// 			} else if (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay + params->bump_hold_time)){
+            } else if (stateTimer->elapsedTime(S) > (params->ct_hold_time)){
+                playTone(TONE_REWARD);
+                setState(STATE_REWARD);
             }
 			break;
 		case STATE_BUMP:
@@ -535,11 +528,11 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 				break;
 			case STATE_STIM:
 				outputs->word = WORD_STIM(this->stim_stair->getCurrentValue());
-				//outputs->word = WORD_STIM(0);
+// 				outputs->word = WORD_STIM(0);
                 break;
 			case STATE_BUMP:
 				outputs->word = WORD_BUMP(this->bump_stair->getCurrentValue());
-                //outputs->word = WORD_BUMP(0);
+//                 outputs->word = WORD_BUMP(0);
 				break;
 			case STATE_MOVEMENT:
 				outputs->word = WORD_GO_CUE;
@@ -566,53 +559,47 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	/* target_pos (3) */
 	// Center Target
 	if (getState() == STATE_CT_ON || 
-	    getState() == STATE_CT_HOLD ) 
-	{
+	    getState() == STATE_CT_HOLD )  {
 		outputs->targets[0] = (Target *)centerTarget;
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
-	} else if
-        (getState() == STATE_CT_BLOCK ||
-         getState() == STATE_BUMP) 
-	{
+	} else if ( getState() == STATE_CT_BLOCK ||
+                getState() == STATE_BUMP) {
 		outputs->targets[0] = (Target *)centerTarget;
 		if (this->params->show_target_during_bump) {
 			if (this->training_trial) {
 				if(this->bump_trial) {
-		            outputs->targets[1] = (Target *)(this->primaryTarget);
+		            outputs->targets[1] = this->primaryTarget;
 			        outputs->targets[2] = nullTarget;
 				} else {
-		            outputs->targets[1] = (Target *)(this->secondaryTarget);
+		            outputs->targets[1] = nullTarget;
 			        outputs->targets[2] = nullTarget;
 				}
 			} else {
-				outputs->targets[1] = (Target *)(this->primaryTarget);
-		        outputs->targets[2] = (Target *)(this->secondaryTarget);
+				outputs->targets[1] = this->primaryTarget;
+		        outputs->targets[2] = nullTarget;
 			}
 		} else {
             outputs->targets[1] = nullTarget;
             outputs->targets[2] = nullTarget;
 		}
 	} else if (getState() == STATE_MOVEMENT) {
-		outputs->targets[0] = (Target *)(this->primaryTarget);
-		outputs->targets[1] = (Target *)(this->secondaryTarget);
+// 		outputs->targets[0] = (Target *)centerTarget;
+        outputs->targets[0] = nullTarget;
 		if (this->training_trial) {
 			if(this->bump_trial) {
-	            outputs->targets[0] = (Target *)(this->primaryTarget);
-		        outputs->targets[1] = nullTarget;
+		        outputs->targets[1] = this->primaryTarget;
 				outputs->targets[2] = nullTarget;
 			} else {
-	            outputs->targets[0] = (Target *)(this->secondaryTarget);
 				outputs->targets[1] = nullTarget;
 		        outputs->targets[2] = nullTarget;
 			}
 		} else {
-			outputs->targets[0] = (Target *)(this->primaryTarget);
-	        outputs->targets[1] = (Target *)(this->secondaryTarget);
+	        outputs->targets[1] = this->primaryTarget;
 			outputs->targets[2] = nullTarget;
 		}
 	} else if (getState() == STATE_PENALTY) {
-		outputs->targets[0] = (Target *)(this->errorTarget);
+		outputs->targets[0] = this->errorTarget;
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
 	} else {
