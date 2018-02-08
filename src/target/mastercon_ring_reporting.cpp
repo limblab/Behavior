@@ -154,6 +154,7 @@ struct LocalParams {
     real_T outer_target_size;
 
     real_T stim_delay;
+    real_T repeat_failures;
 };
 
 /**
@@ -206,7 +207,7 @@ private:
     double ot_hold;
     
     bool show_target;
-    
+    bool prev_fail;
     // center hold timer
     Timer *ch_timer;
     
@@ -223,7 +224,7 @@ RingReportingBehavior::RingReportingBehavior(SimStruct *S) : RobotBehavior() {
 
 	// Set up the number of parameters you'll be using
 
-	this->setNumParams(46);
+	this->setNumParams(48);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,            0);
 	this->bindParamId(&params->soft_reset,              1);
@@ -284,6 +285,8 @@ RingReportingBehavior::RingReportingBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->outer_target_size,       44);
     this->bindParamId(&params->stim_delay,              45);
     
+    this->bindParamId(&params->repeat_failures,         46);
+    
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -317,6 +320,8 @@ RingReportingBehavior::RingReportingBehavior(SimStruct *S) : RobotBehavior() {
     this->ch_timer = new Timer();
     
     this->show_target = false;
+    
+    this->prev_fail = 0;
 }
 
 void RingReportingBehavior::updateCursorExtent(SimStruct *S){
@@ -348,43 +353,6 @@ void RingReportingBehavior::doPreTrial(SimStruct *S) {
     cursor_end_point.x = 0;
     cursor_end_point.y = 0;
     
-    //set the target direction
-    if(params->use_random_targets) {
-        this->current_trial_shift = random->getVonMises(params->prior_kap);
-    } else {
-        this->current_trial_shift = 2*PI*(random->getInteger(1,params->num_targets)/params->num_targets);
-        this->current_trial_shift += params->target_angle_offset*PI/180;
-    }   
-    this->tgt_angle = this->current_trial_shift;
-    
-    // Set up target locations, etc.
-    centerTarget->centerX = 0.0;
-    centerTarget->centerY = 0.0;
-    centerTarget->radius = params->target_size;
-    centerTarget->color = Target::Color(255, 0, 0);
-    
-    bigCenterTarget->centerX = 0.0;
-    bigCenterTarget->centerY = 0.0;
-    bigCenterTarget->radius = params->big_target_size;
-    bigCenterTarget->color = Target::Color(255, 0, 0);
-    
-    outerTarget->r = params->move_length;
-    outerTarget->theta = this->current_trial_shift;
-    outerTarget->span = (params->OT_size)*PI/180;
-    outerTarget->height = params->OT_depth;
-    
-    targetBar->r = params->move_length;
-    targetBar->theta = 0;
-    targetBar->span = 2*PI-0.00001;
-    targetBar->height = params->OT_depth+0.1;
-    
-    // training target
-    primaryTarget->centerX = (params->move_length-0.1)*cos((float)this->current_trial_shift);
-    primaryTarget->centerY = (params->move_length-0.1)*sin((float)this->current_trial_shift);
-    primaryTarget->width = params->outer_target_size;
-    primaryTarget->color = Target::Color(255, 0, 0);
-    
-    
     //select the actual center hold time
     this->ctr_hold=this->random->getDouble(this->params->CH_low,this->params->CH_high);
     //select the actual delay period hold
@@ -392,67 +360,108 @@ void RingReportingBehavior::doPreTrial(SimStruct *S) {
     //select actual outer target hold
     this->ot_hold=this->random->getDouble(this->params->target_hold_low,this->params->target_hold_high);
 
-    // Select whether this will be a stimulation trial, catch trial, or normal trial
-    temp =  this->random->getDouble();
-    if(temp < this->params->catch_rate){ // catch trial
-        this->stim_trial = false;
-        this->do_bump = false;
-        this->catch_trial = true;
-        
-        this->bump->peak_magnitude = 0;
-        this->bump->direction = -10000;
-    } else if(temp < this->params->catch_rate + this->params->stim_prob){ // stim trial
-        this->stim_trial = true;
-        if(params->stimDuringBump){ // check if still doing a bump
-            this->do_bump = true;
-        } else {
-            this->do_bump = false;
-        }
-        this->catch_trial = false;
-    } else{ // normal bump trial
-        this->stim_trial = false;
-        this->do_bump = true;
-        this->catch_trial = false;
-    }
-    
-    // select if this is a training target and we show the answer target from the start
-    this->show_target = (this->random->getDouble() < this->params->show_target_rate);
-    
     // stop and reset center hold timer
     this->ch_timer->stop(S);
     
     /* set the reward rate for this trial */
     this->reward_rate=.6;
-   
-    //pick which bump this is:
-    if(this->do_bump){
-        bump_rand = random->getDouble();
-        
-        total_bump_freq = fabs(params->bump_freq_one) + fabs(params->bump_freq_two) +
-                fabs(params->bump_freq_three);
-        if(total_bump_freq==0){
-            total_bump_freq = 1;
-        }
-        
-        act_bf_one = fabs(params->bump_freq_one)/total_bump_freq;
-        act_bf_two = fabs(params->bump_freq_two)/total_bump_freq;
-        act_bf_three = fabs(params->bump_freq_three)/total_bump_freq;
-        
-        if(bump_rand <= act_bf_one){
-            current_trial_bumpmag = params->bump_mag_one;
-        } else if(bump_rand <= act_bf_one + act_bf_two) {
-            current_trial_bumpmag = params->bump_mag_two;
-        } else if(bump_rand <= act_bf_one + act_bf_two + act_bf_three) {
-            current_trial_bumpmag = params->bump_mag_three;
-        } else { // no bump
-            current_trial_bumpmag = 0;
-        }
-    }
     
-    this->bump->direction		= this->current_trial_shift;
-	this->bump->rise_time		= params->force_rise_time;
-	this->bump->hold_duration   = params->force_peak_time;
-	this->bump->peak_magnitude  = current_trial_bumpmag;
+    // if we are repeating failures, update parameters only if 
+    // previous trial was not a fail -- fail = fail, abort, incomplete
+    if(!this->params->repeat_failures || (this->params->repeat_failures && !this->prev_fail)) {
+        //set the target direction
+        if(params->use_random_targets) {
+            this->current_trial_shift = random->getVonMises(params->prior_kap);
+        } else {
+            this->current_trial_shift = 2*PI*(random->getInteger(1,params->num_targets)/params->num_targets);
+            this->current_trial_shift += params->target_angle_offset*PI/180;
+        }   
+        this->tgt_angle = this->current_trial_shift;
+
+        // Set up target locations, etc.
+        centerTarget->centerX = 0.0;
+        centerTarget->centerY = 0.0;
+        centerTarget->radius = params->target_size;
+        centerTarget->color = Target::Color(255, 0, 0);
+
+        bigCenterTarget->centerX = 0.0;
+        bigCenterTarget->centerY = 0.0;
+        bigCenterTarget->radius = params->big_target_size;
+        bigCenterTarget->color = Target::Color(255, 0, 0);
+
+        outerTarget->r = params->move_length;
+        outerTarget->theta = this->current_trial_shift;
+        outerTarget->span = (params->OT_size)*PI/180;
+        outerTarget->height = params->OT_depth;
+
+        targetBar->r = params->move_length;
+        targetBar->theta = 0;
+        targetBar->span = 2*PI-0.00001;
+        targetBar->height = params->OT_depth+0.1;
+
+        // training target
+        primaryTarget->centerX = (params->move_length-0.1)*cos((float)this->current_trial_shift);
+        primaryTarget->centerY = (params->move_length-0.1)*sin((float)this->current_trial_shift);
+        primaryTarget->width = params->outer_target_size;
+        primaryTarget->color = Target::Color(255, 0, 0);
+
+        // Select whether this will be a stimulation trial, catch trial, or normal trial
+        temp =  this->random->getDouble();
+        if(temp < this->params->catch_rate){ // catch trial
+            this->stim_trial = false;
+            this->do_bump = false;
+            this->catch_trial = true;
+
+            this->bump->peak_magnitude = 0;
+            this->bump->direction = -10000;
+        } else if(temp < this->params->catch_rate + this->params->stim_prob){ // stim trial
+            this->stim_trial = true;
+            if(params->stimDuringBump){ // check if still doing a bump
+                this->do_bump = true;
+            } else {
+                this->do_bump = false;
+            }
+            this->catch_trial = false;
+        } else{ // normal bump trial
+            this->stim_trial = false;
+            this->do_bump = true;
+            this->catch_trial = false;
+        }
+
+        // select if this is a training target and we show the answer target from the start
+        this->show_target = (this->random->getDouble() < this->params->show_target_rate);
+
+        //pick which bump this is:
+        if(this->do_bump){
+            bump_rand = random->getDouble();
+
+            total_bump_freq = fabs(params->bump_freq_one) + fabs(params->bump_freq_two) +
+                    fabs(params->bump_freq_three);
+            if(total_bump_freq==0){
+                total_bump_freq = 1;
+            }
+
+            act_bf_one = fabs(params->bump_freq_one)/total_bump_freq;
+            act_bf_two = fabs(params->bump_freq_two)/total_bump_freq;
+            act_bf_three = fabs(params->bump_freq_three)/total_bump_freq;
+
+            if(bump_rand <= act_bf_one){
+                current_trial_bumpmag = params->bump_mag_one;
+            } else if(bump_rand <= act_bf_one + act_bf_two) {
+                current_trial_bumpmag = params->bump_mag_two;
+            } else if(bump_rand <= act_bf_one + act_bf_two + act_bf_three) {
+                current_trial_bumpmag = params->bump_mag_three;
+            } else { // no bump
+                current_trial_bumpmag = 0;
+            }
+        }
+
+        this->bump->direction		= this->current_trial_shift;
+        this->bump->rise_time		= params->force_rise_time;
+        this->bump->hold_duration   = params->force_peak_time;
+        this->bump->peak_magnitude  = current_trial_bumpmag;
+    
+    }
     
     /* initialize cursor extent */
     updateCursorExtent(S);
@@ -496,7 +505,7 @@ void RingReportingBehavior::doPreTrial(SimStruct *S) {
 	db->addByte((byte)this->stim_trial);
     db->addByte((byte)this->params->stimDuringBump);
     db->addByte((byte)this->params->stimInsteadOfBump);
-    db->addFloat((float)this->stim_delay);
+    db->addFloat((float)this->params->stim_delay);
     
     db->addByte((byte)this->catch_trial);
     
@@ -559,7 +568,7 @@ void RingReportingBehavior::update(SimStruct *S) {
                 cursor_end_point = inputs->cursor - cursor_offset;
                 setState(STATE_OT_HOLD);
             }
-            else if(this->params->show_ring && cursor_extent > params->move_length - params->OT_depth*0.5){ // end when hitting ring if shown
+            else if(this->params->show_ring && this->params->end_at_ring && cursor_extent > params->move_length - params->OT_depth*0.5){ // end when hitting ring if shown and requested
                 cursor_end_point = inputs->cursor - cursor_offset;
                 setState(STATE_OT_HOLD);
             }
@@ -629,8 +638,17 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
 	double radius;
     double x_comp;
     double y_comp;
-
+    double cursor_end_angle;
+    
     updateCursorExtent(S);
+    /* update prev_fail flag */
+    if(getState() == STATE_REWARD) {
+        prev_fail = 0;
+    } else if(getState() == STATE_FAIL || 
+            getState() == STATE_ABORT || 
+            getState() == STATE_INCOMPLETE) {
+        prev_fail = 1;
+    }
     
 	/* force (0) */
     if (bump->isRunning(S)) {
@@ -751,8 +769,16 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* reward (4) */
-	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
-
+	// outputs->reward = (isNewState() && (getState() == STATE_REWARD));
+    if(isNewState() && getState() == STATE_REWARD) {
+        // outputs->reward should be between 0 and 1, 1 at center of tgt,
+        // decaying to 0 near edge of tgt and 0 if not a reward
+        cursor_end_angle = 180/PI*atan2(this->cursor_end_point.y,this->cursor_end_point.x);
+        // linear decay
+        outputs->reward = 1-abs(this->outerTarget->theta - cursor_end_angle)/(this->outerTarget->span/2.0);    
+    } else {
+        outputs->reward = 0;
+    }
 	/* tone (5) */
 	this->outputs->tone_counter = this->tone_counter;
 	this->outputs->last_tone_id = this->last_tone_id;
