@@ -112,6 +112,15 @@ namespace BehaviorGraphics
             }
             BCStimGrid.Rows[0].DefaultCellStyle.BackColor = Color.Aqua;
 
+            // Setup Anisotropic bump table
+            ForceDirections.Rows.Add(MvNumBumpDirs_ANISO.Value);
+            dirs = Generate.LinearSpaced(MvNumBumpDirs_ANISO.Value, 0, 360);
+            for (int i = 0; i < MvNumBumpDirs_ANISO.Value; i++)
+            {
+                ForceDirections.Rows[i].Cells[0].Value = i;
+                ForceDirections.Rows[i].Cells[1].Value = dirs[i];
+                ForceDirections.Rows[i].Cells[2].Value = 1;
+            }
             // Setup BFStimTable
             BFStimGrid.Rows.Add(16);
             for (int i = 0; i < 16; i++) {
@@ -909,6 +918,80 @@ namespace BehaviorGraphics
             AddParamListItem("Stim Angle SC4R", "P57", "Behavior Stim Angle", textBox_SA_SC4ratio);
             AddParamListItem("Stim Angle SC4LL", "P58", "Behavior Stim Angle", textBox_SA_SC4lowlim);
             AddParamListItem("Stim Angle SC4HL", "P59", "Behavior Stim Angle", textBox_SA_SC4highlim);
+
+            #endregion
+            #region AnIsoCOBump
+
+            AddParamListItem("COB ctr hold low", "P3", "Behavior AnIsoCOBump", CTHL_ANISO);
+            AddParamListItem("COB ctr hold high", "P4", "Behavior AnIsoCOBump", CTHH_ANISO);
+            AddParamListItem("COB delay hold low", "P5", "Behavior AnIsoCOBump", CDL_ANISO);
+            AddParamListItem("COB delay hold high", "P6", "Behavior AnIsoCOBump", CDH_ANISO);
+            AddParamListItem("COB move time", "P7", "Behavior AnIsoCOBump", MoveT_ANISO);
+            AddParamListItem("COB target hold low", "P8", "Behavior AnIsoCOBump", THL_ANISO);
+            AddParamListItem("COB terget hold high", "P9", "Behavior AnIsoCOBump", THH_ANISO);
+
+            AddParamListItem("COB bump delay", "P10", "Behavior AnIsoCOBump", BD_ANISO);
+            AddParamListItem("COB bump hold", "P11", "Behavior AnIsoCOBump", BH_ANISO);
+            AddParamListItem("COB intertrial", "P12", "Behavior AnIsoCOBump", Intertrial_ANISO);
+            AddParamListItem("COB penalty time", "P13", "Behavior AnIsoCOBump", PEN_ANISO);
+
+            AddParamListItem("COB stim delay time", "P57", "Behavior AnIsoCOBump", StimD_ANISO);
+
+            //target info
+            AddParamListItem("COB target size", "P14", "Behavior AnIsoCOBump", TargetRadius_ANISO);
+            AddParamListItem("COB target radius", "P15", "Behavior AnIsoCOBump", targDist_ANISO);
+            AddParamListItem("COB target angle", "P16", "Behavior AnIsoCOBump",Angle_ANISO);
+            AddParamListItem("COB target floor", "P17", "Behavior AnIsoCOBump", Target_Angle_Floor_ANISO);
+            AddParamListItem("COB target ceiling", "P18", "Behavior AnIsoCOBump", Target_Angle_Ceiling_ANISO);
+            AddParamListItem("COB number targets", "P19", "Behavior AnIsoCOBump", numericNumTargets_ANISO);
+            AddParamListItem("COB use random targets", "P20", "Behavior AnIsoCOBump", Random_Targets_ANISO);
+            //cursor info
+            AddParamListItem("COB hide cursor", "P21", "Behavior AnIsoCOBump", Hide_Cursor_ANISO);
+            AddParamListItem("COB hide cursor radius min", "P22", "Behavior AnIsoCOBump", Hide_Cursor_Min_ANISO);
+            AddParamListItem("COB hide cursor radius max", "P23", "Behavior AnIsoCOBump", Hide_Cursor_Max_ANISO);
+            //bump info
+            AddParamListItem("COB catch rate", "P24", "Behavior AnIsoCOBump", CatchRate_ANISO);
+            AddParamListItem("COB bi directional bumps", "P25", "Behavior AnIsoCOBump", BidirectionalBumps_ANISO);
+            AddParamListItem("COB abort during bump", "P26", "Behavior AnIsoCOBump", AbortDuringBump_ANISO);
+            //center hold bump params
+            AddParamListItem("COB CHBump flag", "P27", "Behavior AnIsoCOBump", CTRHoldCheckbox_ANISO);
+            AddParamListItem("COB CHBump rate", "P28", "Behavior AnIsoCOBump", CHBumpRate_ANISO);
+            AddParamListItem("COB CHbump dur", "P29", "Behavior AnIsoCOBump", CHPeak_Duration_ANISO);
+            AddParamListItem("COB CHbump ramp", "P30", "Behavior AnIsoCOBump", CHRise_Time_ANISO);
+            AddParamListItem("COB CHbump mag", "P31", "Behavior AnIsoCOBump", CHAmplitude_ANISO);
+            AddParamListItem("COB CHbumpdir floor", "P32", "Behavior AnIsoCOBump", CHRandBumpFloor_ANISO);
+            AddParamListItem("COB CHbumpdir ceiling", "P33", "Behavior AnIsoCOBump", CHRandBumpCeil_ANISO);
+            AddParamListItem("COB CHbump num dir", "P34", "Behavior AnIsoCOBump", CHNumBumpDirs_ANISO);
+            //delay bump params
+            AddParamListItem("COB DPBump flag", "P35", "Behavior AnIsoCOBump", DelayBump_Check_ANISO);
+            AddParamListItem("COB DPBump rate", "P36", "Behavior AnIsoCOBump", DPBumpRate_ANISO);
+            AddParamListItem("COB DPbump dur", "P37", "Behavior AnIsoCOBump", DPPeakDuration_ANISO);
+            AddParamListItem("COB DPbump ramp", "P38", "Behavior AnIsoCOBump", DPRiseTime_ANISO);
+            AddParamListItem("COB DPbump mag", "P39", "Behavior AnIsoCOBump", DPAmplitude_ANISO);
+            AddParamListItem("COB DPbumpdir floor", "P40", "Behavior AnIsoCOBump", DPRandBumpFloor_ANISO);
+            AddParamListItem("COB DPbumpdir ceiling", "P41", "Behavior AnIsoCOBump", DPRandBumpFloor_ANISO);
+            AddParamListItem("COB DPbump num dir", "P42", "Behavior AnIsoCOBump", DPNumBumpDirs_ANISO);
+            //move bump params
+            AddParamListItem("COB MBump flag", "P43", "Behavior AnIsoCOBump", Move_Bump_Check_ANISO);
+            AddParamListItem("COB MBump rate", "P44", "Behavior AnIsoCOBump", MBumpRate_ANISO);
+            AddParamListItem("COB Mbump dur", "P45", "Behavior AnIsoCOBump", MvPeakDuration_ANISO);
+            AddParamListItem("COB Mbump ramp", "P46", "Behavior AnIsoCOBump", MvRiseTime_ANISO);
+            AddParamListItem("COB Mbump mag", "P47", "Behavior AnIsoCOBump", MvAmplitude_ANISO);
+            AddParamListItem("COB Mbumpdir floor", "P48", "Behavior AnIsoCOBump", MvRandBumpFloor_ANISO);
+            AddParamListItem("COB Mbumpdir ceiling", "P49", "Behavior AnIsoCOBump", MvRandBumpCeil_ANISO);
+            AddParamListItem("COB Mbumpdir incr", "P50", "Behavior AnIsoCOBump", MvNumBumpDirs_ANISO);
+            //stim info
+            AddParamListItem("COB stim prob", "P51", "Behavior AnIsoCOBump", StimProb_ANISO);
+            AddParamListItem("COB stim levels", "P52", "Behavior AnIsoCOBump", StimLevel_ANISO);
+            AddParamListItem("COB stim during bump", "P55", "Behavior AnIsoCOBump", StimDuringBump_ANISO);
+            AddParamListItem("COB stim instead of bump", "P56", "Behavior AnIsoCOBump", StimInsteadBump_ANISO);
+
+            //extra bump parameter
+            AddParamListItem("COB use random bump time", "P53", "Behavior AnIsoCOBump", RandomBumpTime_ANISO);
+            AddParamListItem("COB target relative bumps", "P54", "Behavior AnIsoCOBump", Target_Relative_Bumps_ANISO);
+
+            //idiot mode checkbox
+            AddParamListItem("COB idiot mode", "P58", "Behavior AnIsoCOBump", Idiot_Mode_ANISO);
 
             #endregion
 
@@ -2614,6 +2697,24 @@ namespace BehaviorGraphics
                     }
                 }
             }
+            paramID = target.GetParamIdx("BumpForceTable", "Table");
+            if (paramID != -1)
+            {
+                int[] dims = (int[])target.GetParamDims(paramID);
+                int numRows = (int)dims[0];
+                int numCols = (int)dims[1];
+
+                param = (double[])target.GetParam(paramID);
+                for (int row = 0; row < numRows - 1; row++)
+                {
+                    for (int col = 0; col < numCols; col++)
+                    {
+                        double d = param[col * numRows + row];
+                        ForceDirections.Rows[col].Cells[row + 1].Value = d.ToString;
+                    }
+                        
+                }
+            }
             
             //MG-Gains
             paramID = target.GetParamIdx("CursorPos/GadgetGain", "Table");
@@ -2820,7 +2921,17 @@ namespace BehaviorGraphics
                 bfs.PDVar = Double.Parse(cells[1].Value.ToString());
                 bp.BFStims[i] = bfs;
             }
+            // Anisotropic Bumps
+            for (int i = 0; i < ForceDirections.Rows.Count; i++) 
+            {
+                DataGridViewCellCollection cells = ForceDirections.Rows[i].Cells;
+                AnIsoTask anIso = new AnIsoForces();
+                anIso.num = Int16.Parse(cells[0].Value.ToString());
+                anIso.dir = Int16.Parse(cells[1].Value.ToString());
+                anIso.mag = Double.Parse(cells[2].Value.ToString());
+                bp.anIso[i] = anIso;
 
+            }
             // GlyphSet
             bp.GlyphSet = this.comboBoxGlyphSelect.SelectedIndex;
 
@@ -2937,7 +3048,14 @@ namespace BehaviorGraphics
                 }
                 cells[5].Value = mgt.yVar_enable;
             }
-
+            for (int i = 0; i < ForceDirections.RowCount; i++)
+            {
+                DataGridViewCellCollection cells = ForceDirections.Rows[i].Cells;
+                AnIsoForces aif = bp.AnIsotropicForces[i];
+                cells[1] = aif.getSetNum.ToString();
+                cells[2] = aif.getSetDir.ToString();
+                cells[3] = aif.getSetForce.ToString();
+            }
             //MultiGadget Gain
             this.MGGain0.Text = bp.MGGains[0].ToString();
             this.MGGain1.Text = bp.MGGains[1].ToString();
@@ -3137,7 +3255,21 @@ namespace BehaviorGraphics
 
             done += 1;
             this.toolStripProgressBar1.Value = (int)(100f * done / total);
-
+            /*
+             * Anisotropic bumps and forces
+             */
+            paramID = target.GetParamIdx("BumpForceTable", "Table");
+            if (paramID >= 0)
+            {
+                Array forceDirs = Array.CreateInstance(typeof(double), 48);
+                for (int i = 0; i < bp.AnIsotropicForces.Count; i++)
+                {
+                    forceDirs.SetValue(bp.AnIsotropicForces[i].getSetNum, 3 * i);
+                    forceDirs.SetValue(bp.AnIsotropicForces[i].getSetDir, 3 * i + 1);
+                    forceDirs.SetValue(bp.AnIsotropicForces[i].getSetForce, 3 * i + 2);
+                }
+                target.SetParam(paramID, ref forceDirs);
+            }
             /*
              * MG Gains
              */
@@ -3263,6 +3395,246 @@ namespace BehaviorGraphics
                 labelWFIntMax.Show();
             }
             widget_ValueChanged(sender, e);
+        }
+
+        private void groupBox118_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox116_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox115_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox118_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox117_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox117_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox114_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox113_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox122_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox121_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox120_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox89_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox86_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox88_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox87_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox14_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox13_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox25_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox127_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox126_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox16_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox15_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox91_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox106_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox20_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox19_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox18_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox116_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox23_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox22_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox21_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox95_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox111_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox107_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox108_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox105_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox103_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox101_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox104_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox102_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown6_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox98_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox96_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox99_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox97_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void groupBox119_Enter(object sender, EventArgs e)
+        {
+
         }
 
 

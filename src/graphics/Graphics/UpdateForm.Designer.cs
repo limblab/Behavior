@@ -43,6 +43,10 @@ namespace BehaviorGraphics
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -82,7 +86,6 @@ namespace BehaviorGraphics
             this.label230 = new System.Windows.Forms.Label();
             this.textBoxEGC = new System.Windows.Forms.TextBox();
             this.label229 = new System.Windows.Forms.Label();
-            this.angleEntryBoxCurlAngleCatch = new AngleBox.AngleEntryBox();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
             this.textBoxTimeConstCatch = new System.Windows.Forms.TextBox();
             this.labelChaoticGainCatch = new System.Windows.Forms.Label();
@@ -104,7 +107,6 @@ namespace BehaviorGraphics
             this.label228 = new System.Windows.Forms.Label();
             this.textBoxEG = new System.Windows.Forms.TextBox();
             this.label227 = new System.Windows.Forms.Label();
-            this.angleEntryBoxCurlAngle = new AngleBox.AngleEntryBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.textBoxTimeConst = new System.Windows.Forms.TextBox();
             this.labelChaoticGain = new System.Windows.Forms.Label();
@@ -120,7 +122,6 @@ namespace BehaviorGraphics
             this.label19 = new System.Windows.Forms.Label();
             this.comboBoxLoad = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.angleEntryBoxCursorRotation = new AngleBox.AngleEntryBox();
             this.label17 = new System.Windows.Forms.Label();
             this.textBoxYOffset = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -147,8 +148,6 @@ namespace BehaviorGraphics
             this.radioButtonCatch = new System.Windows.Forms.RadioButton();
             this.radioButtonBump = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.angleEntryBox_CO_FTS = new AngleBox.AngleEntryBox();
-            this.angleEntryBox_CO_DTR = new AngleBox.AngleEntryBox();
             this.label_CO_FTS = new System.Windows.Forms.Label();
             this.labelCO_DTR = new System.Windows.Forms.Label();
             this.textBoxTgtSize = new System.Windows.Forms.TextBox();
@@ -776,17 +775,13 @@ namespace BehaviorGraphics
             this.labelATBumpVel = new System.Windows.Forms.Label();
             this.checkBoxATFB = new System.Windows.Forms.CheckBox();
             this.textBoxATBM = new System.Windows.Forms.TextBox();
-            this.angleEntryBoxATBHMaxS = new AngleBox.AngleEntryBox();
             this.label272 = new System.Windows.Forms.Label();
             this.label271 = new System.Windows.Forms.Label();
-            this.angleEntryBoxATBHMinS = new AngleBox.AngleEntryBox();
             this.label301 = new System.Windows.Forms.Label();
             this.textBoxATBD = new System.Windows.Forms.TextBox();
             this.label303 = new System.Windows.Forms.Label();
             this.label274 = new System.Windows.Forms.Label();
-            this.angleEntryBoxATBEMaxS = new AngleBox.AngleEntryBox();
             this.numericUpDownATBNS = new System.Windows.Forms.NumericUpDown();
-            this.angleEntryBoxATBEMinS = new AngleBox.AngleEntryBox();
             this.labelATBEMaxS = new System.Windows.Forms.Label();
             this.labelATBEMinS = new System.Windows.Forms.Label();
             this.groupBox60 = new System.Windows.Forms.GroupBox();
@@ -799,7 +794,6 @@ namespace BehaviorGraphics
             this.groupBox59 = new System.Windows.Forms.GroupBox();
             this.label269 = new System.Windows.Forms.Label();
             this.textBoxATPTS = new System.Windows.Forms.TextBox();
-            this.angleEntryBoxATFMD = new AngleBox.AngleEntryBox();
             this.checkBoxATBDiff = new System.Windows.Forms.CheckBox();
             this.label298 = new System.Windows.Forms.Label();
             this.label299 = new System.Windows.Forms.Label();
@@ -821,10 +815,6 @@ namespace BehaviorGraphics
             this.textBoxATTS = new System.Windows.Forms.TextBox();
             this.label268 = new System.Windows.Forms.Label();
             this.groupBox57 = new System.Windows.Forms.GroupBox();
-            this.angleEntryBoxATMDEMaxS = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxATMDEMinS = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxATMDHMaxS = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxATMDHMinS = new AngleBox.AngleEntryBox();
             this.label297 = new System.Windows.Forms.Label();
             this.label300 = new System.Windows.Forms.Label();
             this.checkBoxATMDMT = new System.Windows.Forms.CheckBox();
@@ -871,7 +861,6 @@ namespace BehaviorGraphics
             this.textBox2BC_rand_tgt_floor = new System.Windows.Forms.TextBox();
             this.label321 = new System.Windows.Forms.Label();
             this.checkBox2BC_rand_tgts = new System.Windows.Forms.CheckBox();
-            this.angleEntryBox2BCAng = new AngleBox.AngleEntryBox();
             this.label320 = new System.Windows.Forms.Label();
             this.textBox2BCBTR = new System.Windows.Forms.TextBox();
             this.textBox2BCTD = new System.Windows.Forms.TextBox();
@@ -928,7 +917,6 @@ namespace BehaviorGraphics
             this.textBoxUFBM = new System.Windows.Forms.TextBox();
             this.label235UF = new System.Windows.Forms.Label();
             this.checkBoxUFFB = new System.Windows.Forms.CheckBox();
-            this.angleEntryBoxUFFD = new AngleBox.AngleEntryBox();
             this.label342 = new System.Windows.Forms.Label();
             this.textBoxUFBV = new System.Windows.Forms.TextBox();
             this.label339 = new System.Windows.Forms.Label();
@@ -967,9 +955,6 @@ namespace BehaviorGraphics
             this.labelUFVelFilt = new System.Windows.Forms.Label();
             this.textBoxUFVF = new System.Windows.Forms.TextBox();
             this.label247UF = new System.Windows.Forms.Label();
-            this.angleEntryBoxUFBAS = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxUFFBFA = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxUFFFA = new AngleBox.AngleEntryBox();
             this.label246UF = new System.Windows.Forms.Label();
             this.numericUpDownUFNBFA = new System.Windows.Forms.NumericUpDown();
             this.label310UF = new System.Windows.Forms.Label();
@@ -1340,15 +1325,12 @@ namespace BehaviorGraphics
             this.labelDCOD = new System.Windows.Forms.Label();
             this.groupBoxDCOT = new System.Windows.Forms.GroupBox();
             this.checkBoxDCOSTL = new System.Windows.Forms.CheckBox();
-            this.angleEntryBoxDCOFTD = new AngleBox.AngleEntryBox();
-            this.angleEntryBoxDCOTS = new AngleBox.AngleEntryBox();
             this.labelDCOFTD = new System.Windows.Forms.Label();
             this.labelDCOTS = new System.Windows.Forms.Label();
             this.textBoxDCOTSMax = new System.Windows.Forms.TextBox();
             this.labelDCOTSMax = new System.Windows.Forms.Label();
             this.textBoxDCOTSMin = new System.Windows.Forms.TextBox();
             this.labelDCOTSMin = new System.Windows.Forms.Label();
-            this.angleEntryBoxDCOOTS = new AngleBox.AngleEntryBox();
             this.checkBoxDCOSTIF = new System.Windows.Forms.CheckBox();
             this.textBoxDCOTFW = new System.Windows.Forms.TextBox();
             this.labelDCOTFW = new System.Windows.Forms.Label();
@@ -1491,7 +1473,6 @@ namespace BehaviorGraphics
             this.textBoxURNMD = new System.Windows.Forms.TextBox();
             this.labelURNMD = new System.Windows.Forms.Label();
             this.labelURFMD = new System.Windows.Forms.Label();
-            this.angleEntryBoxURFMD = new AngleBox.AngleEntryBox();
             this.textBoxURD = new System.Windows.Forms.TextBox();
             this.labelURD = new System.Windows.Forms.Label();
             this.textBoxURPS2 = new System.Windows.Forms.TextBox();
@@ -1542,7 +1523,6 @@ namespace BehaviorGraphics
             this.labelRPPEB = new System.Windows.Forms.Label();
             this.textBoxRPPEB = new System.Windows.Forms.TextBox();
             this.labelRPFBD = new System.Windows.Forms.Label();
-            this.angleEntryBoxRPFBD = new AngleBox.AngleEntryBox();
             this.textBoxRPNBD = new System.Windows.Forms.TextBox();
             this.labelRPNBD = new System.Windows.Forms.Label();
             this.checkBoxRPFB = new System.Windows.Forms.CheckBox();
@@ -1589,7 +1569,6 @@ namespace BehaviorGraphics
             this.textBoxRPNFD = new System.Windows.Forms.TextBox();
             this.labelRPNFD = new System.Windows.Forms.Label();
             this.labelRPFFD = new System.Windows.Forms.Label();
-            this.angleEntryBoxRPFFD = new AngleBox.AngleEntryBox();
             this.textBoxRPNFF = new System.Windows.Forms.TextBox();
             this.labelRPNFF = new System.Windows.Forms.Label();
             this.groupBoxRPCursor = new System.Windows.Forms.GroupBox();
@@ -2104,6 +2083,7 @@ namespace BehaviorGraphics
             this.label639 = new System.Windows.Forms.Label();
             this.label640 = new System.Windows.Forms.Label();
             this.groupBox112 = new System.Windows.Forms.GroupBox();
+            this.checkBoxRRB_endAtOuterRing = new System.Windows.Forms.CheckBox();
             this.checkBoxRRB_repeatFailures = new System.Windows.Forms.CheckBox();
             this.textBoxRRB_outerTargetSize = new System.Windows.Forms.TextBox();
             this.label593 = new System.Windows.Forms.Label();
@@ -2448,10 +2428,123 @@ namespace BehaviorGraphics
             this.label_CT_hold = new System.Windows.Forms.Label();
             this.textBox52b = new System.Windows.Forms.TextBox();
             this.label_CT_hold2 = new System.Windows.Forms.Label();
-            this.angleEntryBox1 = new AngleBox.AngleEntryBox();
-            this.angleEntryBox2 = new AngleBox.AngleEntryBox();
-            this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
-            this.checkBoxRRB_endAtOuterRing = new System.Windows.Forms.CheckBox();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.groupBox114 = new System.Windows.Forms.GroupBox();
+            this.Idiot_Mode_ANISO = new System.Windows.Forms.CheckBox();
+            this.numericNumTargets_ANISO = new System.Windows.Forms.NumericUpDown();
+            this.label618 = new System.Windows.Forms.Label();
+            this.Angle_ANISO = new System.Windows.Forms.TextBox();
+            this.label619 = new System.Windows.Forms.Label();
+            this.label620 = new System.Windows.Forms.Label();
+            this.Target_Angle_Ceiling_ANISO = new System.Windows.Forms.TextBox();
+            this.Target_Angle_Floor_ANISO = new System.Windows.Forms.TextBox();
+            this.Random_Targets_ANISO = new System.Windows.Forms.CheckBox();
+            this.label621 = new System.Windows.Forms.Label();
+            this.targDist_ANISO = new System.Windows.Forms.TextBox();
+            this.label630 = new System.Windows.Forms.Label();
+            this.label631 = new System.Windows.Forms.Label();
+            this.TargetRadius_ANISO = new System.Windows.Forms.TextBox();
+            this.groupBox115 = new System.Windows.Forms.GroupBox();
+            this.StimInsteadBump_ANISO = new System.Windows.Forms.CheckBox();
+            this.StimDuringBump_ANISO = new System.Windows.Forms.CheckBox();
+            this.label632 = new System.Windows.Forms.Label();
+            this.StimLevel_ANISO = new System.Windows.Forms.TextBox();
+            this.label633 = new System.Windows.Forms.Label();
+            this.StimProb_ANISO = new System.Windows.Forms.TextBox();
+            this.groupBox116 = new System.Windows.Forms.GroupBox();
+            this.Target_Relative_Bumps_ANISO = new System.Windows.Forms.CheckBox();
+            this.RandomBumpTime_ANISO = new System.Windows.Forms.CheckBox();
+            this.MvNumBumpDirs_ANISO = new System.Windows.Forms.NumericUpDown();
+            this.label634 = new System.Windows.Forms.Label();
+            this.DPNumBumpDirs_ANISO = new System.Windows.Forms.NumericUpDown();
+            this.label635 = new System.Windows.Forms.Label();
+            this.CHNumBumpDirs_ANISO = new System.Windows.Forms.NumericUpDown();
+            this.label636 = new System.Windows.Forms.Label();
+            this.AbortDuringBump_ANISO = new System.Windows.Forms.CheckBox();
+            this.BidirectionalBumps_ANISO = new System.Windows.Forms.CheckBox();
+            this.label637 = new System.Windows.Forms.Label();
+            this.MBumpRate_ANISO = new System.Windows.Forms.TextBox();
+            this.label638 = new System.Windows.Forms.Label();
+            this.DPBumpRate_ANISO = new System.Windows.Forms.TextBox();
+            this.label641 = new System.Windows.Forms.Label();
+            this.CHBumpRate_ANISO = new System.Windows.Forms.TextBox();
+            this.label642 = new System.Windows.Forms.Label();
+            this.MvAmplitude_ANISO = new System.Windows.Forms.TextBox();
+            this.label643 = new System.Windows.Forms.Label();
+            this.MvRandBumpCeil_ANISO = new System.Windows.Forms.TextBox();
+            this.MvRiseTime_ANISO = new System.Windows.Forms.TextBox();
+            this.MvRandBumpFloor_ANISO = new System.Windows.Forms.TextBox();
+            this.label644 = new System.Windows.Forms.Label();
+            this.label645 = new System.Windows.Forms.Label();
+            this.label646 = new System.Windows.Forms.Label();
+            this.MvPeakDuration_ANISO = new System.Windows.Forms.TextBox();
+            this.label647 = new System.Windows.Forms.Label();
+            this.DPAmplitude_ANISO = new System.Windows.Forms.TextBox();
+            this.label648 = new System.Windows.Forms.Label();
+            this.DPRandBumpCeil_ANISO = new System.Windows.Forms.TextBox();
+            this.DPRiseTime_ANISO = new System.Windows.Forms.TextBox();
+            this.DPRandBumpFloor_ANISO = new System.Windows.Forms.TextBox();
+            this.label649 = new System.Windows.Forms.Label();
+            this.label650 = new System.Windows.Forms.Label();
+            this.label651 = new System.Windows.Forms.Label();
+            this.DPPeakDuration_ANISO = new System.Windows.Forms.TextBox();
+            this.Move_Bump_Check_ANISO = new System.Windows.Forms.CheckBox();
+            this.DelayBump_Check_ANISO = new System.Windows.Forms.CheckBox();
+            this.CTRHoldCheckbox_ANISO = new System.Windows.Forms.CheckBox();
+            this.label652 = new System.Windows.Forms.Label();
+            this.CatchRate_ANISO = new System.Windows.Forms.TextBox();
+            this.label653 = new System.Windows.Forms.Label();
+            this.CHAmplitude_ANISO = new System.Windows.Forms.TextBox();
+            this.label654 = new System.Windows.Forms.Label();
+            this.CHRandBumpCeil_ANISO = new System.Windows.Forms.TextBox();
+            this.CHRise_Time_ANISO = new System.Windows.Forms.TextBox();
+            this.CHRandBumpFloor_ANISO = new System.Windows.Forms.TextBox();
+            this.label655 = new System.Windows.Forms.Label();
+            this.label656 = new System.Windows.Forms.Label();
+            this.label657 = new System.Windows.Forms.Label();
+            this.CHPeak_Duration_ANISO = new System.Windows.Forms.TextBox();
+            this.groupBox117 = new System.Windows.Forms.GroupBox();
+            this.label658 = new System.Windows.Forms.Label();
+            this.StimD_ANISO = new System.Windows.Forms.TextBox();
+            this.THH_ANISO = new System.Windows.Forms.TextBox();
+            this.THL_ANISO = new System.Windows.Forms.TextBox();
+            this.label659 = new System.Windows.Forms.Label();
+            this.label660 = new System.Windows.Forms.Label();
+            this.CTHH_ANISO = new System.Windows.Forms.TextBox();
+            this.label661 = new System.Windows.Forms.Label();
+            this.CDH_ANISO = new System.Windows.Forms.TextBox();
+            this.label662 = new System.Windows.Forms.Label();
+            this.label663 = new System.Windows.Forms.Label();
+            this.MoveT_ANISO = new System.Windows.Forms.TextBox();
+            this.CDL_ANISO = new System.Windows.Forms.TextBox();
+            this.label664 = new System.Windows.Forms.Label();
+            this.label665 = new System.Windows.Forms.Label();
+            this.PEN_ANISO = new System.Windows.Forms.TextBox();
+            this.Intertrial_ANISO = new System.Windows.Forms.TextBox();
+            this.label666 = new System.Windows.Forms.Label();
+            this.BH_ANISO = new System.Windows.Forms.TextBox();
+            this.BD_ANISO = new System.Windows.Forms.TextBox();
+            this.label667 = new System.Windows.Forms.Label();
+            this.label668 = new System.Windows.Forms.Label();
+            this.label669 = new System.Windows.Forms.Label();
+            this.CTHL_ANISO = new System.Windows.Forms.TextBox();
+            this.label670 = new System.Windows.Forms.Label();
+            this.label671 = new System.Windows.Forms.Label();
+            this.textBox124 = new System.Windows.Forms.TextBox();
+            this.checkBox24 = new System.Windows.Forms.CheckBox();
+            this.label672 = new System.Windows.Forms.Label();
+            this.textBox125 = new System.Windows.Forms.TextBox();
+            this.groupBox118 = new System.Windows.Forms.GroupBox();
+            this.label673 = new System.Windows.Forms.Label();
+            this.Hide_Cursor_Max_ANISO = new System.Windows.Forms.TextBox();
+            this.Hide_Cursor_ANISO = new System.Windows.Forms.CheckBox();
+            this.label674 = new System.Windows.Forms.Label();
+            this.Hide_Cursor_Min_ANISO = new System.Windows.Forms.TextBox();
+            this.groupBox119 = new System.Windows.Forms.GroupBox();
+            this.ForceDirections = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Dirs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2699,6 +2792,18 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
+            this.tabPage9.SuspendLayout();
+            this.groupBox114.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericNumTargets_ANISO)).BeginInit();
+            this.groupBox115.SuspendLayout();
+            this.groupBox116.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MvNumBumpDirs_ANISO)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DPNumBumpDirs_ANISO)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CHNumBumpDirs_ANISO)).BeginInit();
+            this.groupBox117.SuspendLayout();
+            this.groupBox118.SuspendLayout();
+            this.groupBox119.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ForceDirections)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -2762,6 +2867,7 @@ namespace BehaviorGraphics
             this.tabs.Controls.Add(this.tabTwoSpaceRT);
             this.tabs.Controls.Add(this.RandomTarget3D);
             this.tabs.Controls.Add(this.tabRingReporting);
+            this.tabs.Controls.Add(this.tabPage9);
             this.tabs.Location = new System.Drawing.Point(0, 27);
             this.tabs.Multiline = true;
             this.tabs.Name = "tabs";
@@ -3108,7 +3214,6 @@ namespace BehaviorGraphics
             this.groupBox27.Controls.Add(this.label230);
             this.groupBox27.Controls.Add(this.textBoxEGC);
             this.groupBox27.Controls.Add(this.label229);
-            this.groupBox27.Controls.Add(this.angleEntryBoxCurlAngleCatch);
             this.groupBox27.Controls.Add(this.groupBox29);
             this.groupBox27.Controls.Add(this.textBoxLoadYCatch);
             this.groupBox27.Controls.Add(this.labelStaticYCatch);
@@ -3161,15 +3266,6 @@ namespace BehaviorGraphics
             this.label229.Size = new System.Drawing.Size(63, 13);
             this.label229.TabIndex = 23;
             this.label229.Text = "Elastic Gain";
-            // 
-            // angleEntryBoxCurlAngleCatch
-            // 
-            this.angleEntryBoxCurlAngleCatch.Location = new System.Drawing.Point(106, 73);
-            this.angleEntryBoxCurlAngleCatch.Name = "angleEntryBoxCurlAngleCatch";
-            this.angleEntryBoxCurlAngleCatch.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngleCatch.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngleCatch, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngleCatch.Value = 0;
             // 
             // groupBox29
             // 
@@ -3335,7 +3431,6 @@ namespace BehaviorGraphics
             this.groupBox5.Controls.Add(this.label228);
             this.groupBox5.Controls.Add(this.textBoxEG);
             this.groupBox5.Controls.Add(this.label227);
-            this.groupBox5.Controls.Add(this.angleEntryBoxCurlAngle);
             this.groupBox5.Controls.Add(this.groupBox6);
             this.groupBox5.Controls.Add(this.textBoxLoadY);
             this.groupBox5.Controls.Add(this.labelStaticY);
@@ -3388,15 +3483,6 @@ namespace BehaviorGraphics
             this.label227.Size = new System.Drawing.Size(63, 13);
             this.label227.TabIndex = 19;
             this.label227.Text = "Elastic Gain";
-            // 
-            // angleEntryBoxCurlAngle
-            // 
-            this.angleEntryBoxCurlAngle.Location = new System.Drawing.Point(106, 73);
-            this.angleEntryBoxCurlAngle.Name = "angleEntryBoxCurlAngle";
-            this.angleEntryBoxCurlAngle.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBoxCurlAngle.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCurlAngle, "Angle relative to the direction of movement at which to apply coriolis forces.");
-            this.angleEntryBoxCurlAngle.Value = 0;
             // 
             // groupBox6
             // 
@@ -3539,7 +3625,6 @@ namespace BehaviorGraphics
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.angleEntryBoxCursorRotation);
             this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Controls.Add(this.textBoxYOffset);
             this.groupBox4.Controls.Add(this.label16);
@@ -3555,15 +3640,6 @@ namespace BehaviorGraphics
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Position Offsets";
-            // 
-            // angleEntryBoxCursorRotation
-            // 
-            this.angleEntryBoxCursorRotation.Location = new System.Drawing.Point(116, 108);
-            this.angleEntryBoxCursorRotation.Name = "angleEntryBoxCursorRotation";
-            this.angleEntryBoxCursorRotation.Size = new System.Drawing.Size(99, 21);
-            this.angleEntryBoxCursorRotation.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.angleEntryBoxCursorRotation, "Rotation of workspace relative to handle.");
-            this.angleEntryBoxCursorRotation.Value = 0;
             // 
             // label17
             // 
@@ -3835,8 +3911,6 @@ namespace BehaviorGraphics
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.angleEntryBox_CO_FTS);
-            this.groupBox2.Controls.Add(this.angleEntryBox_CO_DTR);
             this.groupBox2.Controls.Add(this.label_CO_FTS);
             this.groupBox2.Controls.Add(this.labelCO_DTR);
             this.groupBox2.Controls.Add(this.textBoxTgtSize);
@@ -3852,22 +3926,6 @@ namespace BehaviorGraphics
             this.groupBox2.TabIndex = 21;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Targets";
-            // 
-            // angleEntryBox_CO_FTS
-            // 
-            this.angleEntryBox_CO_FTS.Location = new System.Drawing.Point(326, 78);
-            this.angleEntryBox_CO_FTS.Name = "angleEntryBox_CO_FTS";
-            this.angleEntryBox_CO_FTS.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBox_CO_FTS.TabIndex = 47;
-            this.angleEntryBox_CO_FTS.Value = 0;
-            // 
-            // angleEntryBox_CO_DTR
-            // 
-            this.angleEntryBox_CO_DTR.Location = new System.Drawing.Point(130, 78);
-            this.angleEntryBox_CO_DTR.Name = "angleEntryBox_CO_DTR";
-            this.angleEntryBox_CO_DTR.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBox_CO_DTR.TabIndex = 46;
-            this.angleEntryBox_CO_DTR.Value = 6.28;
             // 
             // label_CO_FTS
             // 
@@ -10417,17 +10475,13 @@ namespace BehaviorGraphics
             this.groupBox50.Controls.Add(this.labelATBumpVel);
             this.groupBox50.Controls.Add(this.checkBoxATFB);
             this.groupBox50.Controls.Add(this.textBoxATBM);
-            this.groupBox50.Controls.Add(this.angleEntryBoxATBHMaxS);
             this.groupBox50.Controls.Add(this.label272);
             this.groupBox50.Controls.Add(this.label271);
-            this.groupBox50.Controls.Add(this.angleEntryBoxATBHMinS);
             this.groupBox50.Controls.Add(this.label301);
             this.groupBox50.Controls.Add(this.textBoxATBD);
             this.groupBox50.Controls.Add(this.label303);
             this.groupBox50.Controls.Add(this.label274);
-            this.groupBox50.Controls.Add(this.angleEntryBoxATBEMaxS);
             this.groupBox50.Controls.Add(this.numericUpDownATBNS);
-            this.groupBox50.Controls.Add(this.angleEntryBoxATBEMinS);
             this.groupBox50.Controls.Add(this.labelATBEMaxS);
             this.groupBox50.Controls.Add(this.labelATBEMinS);
             this.groupBox50.Location = new System.Drawing.Point(375, 194);
@@ -10538,14 +10592,6 @@ namespace BehaviorGraphics
             this.textBoxATBM.TabIndex = 5;
             this.textBoxATBM.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
-            // angleEntryBoxATBHMaxS
-            // 
-            this.angleEntryBoxATBHMaxS.Location = new System.Drawing.Point(236, 114);
-            this.angleEntryBoxATBHMaxS.Name = "angleEntryBoxATBHMaxS";
-            this.angleEntryBoxATBHMaxS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATBHMaxS.TabIndex = 85;
-            this.angleEntryBoxATBHMaxS.Value = 0;
-            // 
             // label272
             // 
             this.label272.AutoSize = true;
@@ -10564,14 +10610,6 @@ namespace BehaviorGraphics
             this.label271.Size = new System.Drawing.Size(57, 13);
             this.label271.TabIndex = 38;
             this.label271.Text = "Magnitude";
-            // 
-            // angleEntryBoxATBHMinS
-            // 
-            this.angleEntryBoxATBHMinS.Location = new System.Drawing.Point(236, 88);
-            this.angleEntryBoxATBHMinS.Name = "angleEntryBoxATBHMinS";
-            this.angleEntryBoxATBHMinS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATBHMinS.TabIndex = 84;
-            this.angleEntryBoxATBHMinS.Value = 0;
             // 
             // label301
             // 
@@ -10609,14 +10647,6 @@ namespace BehaviorGraphics
             this.label274.TabIndex = 27;
             this.label274.Text = "Num directions";
             // 
-            // angleEntryBoxATBEMaxS
-            // 
-            this.angleEntryBoxATBEMaxS.Location = new System.Drawing.Point(236, 63);
-            this.angleEntryBoxATBEMaxS.Name = "angleEntryBoxATBEMaxS";
-            this.angleEntryBoxATBEMaxS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATBEMaxS.TabIndex = 81;
-            this.angleEntryBoxATBEMaxS.Value = 0;
-            // 
             // numericUpDownATBNS
             // 
             this.numericUpDownATBNS.Location = new System.Drawing.Point(266, 14);
@@ -10635,14 +10665,6 @@ namespace BehaviorGraphics
             0,
             0});
             this.numericUpDownATBNS.ValueChanged += new System.EventHandler(this.widget_ValueChanged);
-            // 
-            // angleEntryBoxATBEMinS
-            // 
-            this.angleEntryBoxATBEMinS.Location = new System.Drawing.Point(236, 37);
-            this.angleEntryBoxATBEMinS.Name = "angleEntryBoxATBEMinS";
-            this.angleEntryBoxATBEMinS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATBEMinS.TabIndex = 80;
-            this.angleEntryBoxATBEMinS.Value = 0;
             // 
             // labelATBEMaxS
             // 
@@ -10733,7 +10755,6 @@ namespace BehaviorGraphics
             // 
             this.groupBox59.Controls.Add(this.label269);
             this.groupBox59.Controls.Add(this.textBoxATPTS);
-            this.groupBox59.Controls.Add(this.angleEntryBoxATFMD);
             this.groupBox59.Controls.Add(this.checkBoxATBDiff);
             this.groupBox59.Controls.Add(this.label298);
             this.groupBox59.Controls.Add(this.label299);
@@ -10774,14 +10795,6 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.textBoxATPTS, "Change of percent training trials for each reward or fail (use number greater tha" +
                     "n or equal to zero).");
             this.textBoxATPTS.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // angleEntryBoxATFMD
-            // 
-            this.angleEntryBoxATFMD.Location = new System.Drawing.Point(109, 237);
-            this.angleEntryBoxATFMD.Name = "angleEntryBoxATFMD";
-            this.angleEntryBoxATFMD.Size = new System.Drawing.Size(72, 21);
-            this.angleEntryBoxATFMD.TabIndex = 78;
-            this.angleEntryBoxATFMD.Value = 0;
             // 
             // checkBoxATBDiff
             // 
@@ -10982,10 +10995,6 @@ namespace BehaviorGraphics
             // 
             // groupBox57
             // 
-            this.groupBox57.Controls.Add(this.angleEntryBoxATMDEMaxS);
-            this.groupBox57.Controls.Add(this.angleEntryBoxATMDEMinS);
-            this.groupBox57.Controls.Add(this.angleEntryBoxATMDHMaxS);
-            this.groupBox57.Controls.Add(this.angleEntryBoxATMDHMinS);
             this.groupBox57.Controls.Add(this.label297);
             this.groupBox57.Controls.Add(this.label300);
             this.groupBox57.Controls.Add(this.checkBoxATMDMT);
@@ -11011,38 +11020,6 @@ namespace BehaviorGraphics
             this.groupBox57.TabIndex = 24;
             this.groupBox57.TabStop = false;
             this.groupBox57.Text = "Moving dots";
-            // 
-            // angleEntryBoxATMDEMaxS
-            // 
-            this.angleEntryBoxATMDEMaxS.Location = new System.Drawing.Point(237, 65);
-            this.angleEntryBoxATMDEMaxS.Name = "angleEntryBoxATMDEMaxS";
-            this.angleEntryBoxATMDEMaxS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATMDEMaxS.TabIndex = 73;
-            this.angleEntryBoxATMDEMaxS.Value = 0;
-            // 
-            // angleEntryBoxATMDEMinS
-            // 
-            this.angleEntryBoxATMDEMinS.Location = new System.Drawing.Point(237, 39);
-            this.angleEntryBoxATMDEMinS.Name = "angleEntryBoxATMDEMinS";
-            this.angleEntryBoxATMDEMinS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATMDEMinS.TabIndex = 72;
-            this.angleEntryBoxATMDEMinS.Value = 0;
-            // 
-            // angleEntryBoxATMDHMaxS
-            // 
-            this.angleEntryBoxATMDHMaxS.Location = new System.Drawing.Point(237, 116);
-            this.angleEntryBoxATMDHMaxS.Name = "angleEntryBoxATMDHMaxS";
-            this.angleEntryBoxATMDHMaxS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATMDHMaxS.TabIndex = 77;
-            this.angleEntryBoxATMDHMaxS.Value = 0;
-            // 
-            // angleEntryBoxATMDHMinS
-            // 
-            this.angleEntryBoxATMDHMinS.Location = new System.Drawing.Point(237, 90);
-            this.angleEntryBoxATMDHMinS.Name = "angleEntryBoxATMDHMinS";
-            this.angleEntryBoxATMDHMinS.Size = new System.Drawing.Size(64, 21);
-            this.angleEntryBoxATMDHMinS.TabIndex = 76;
-            this.angleEntryBoxATMDHMinS.Value = 0;
             // 
             // label297
             // 
@@ -11422,7 +11399,6 @@ namespace BehaviorGraphics
             this.groupBox64.Controls.Add(this.textBox2BC_rand_tgt_floor);
             this.groupBox64.Controls.Add(this.label321);
             this.groupBox64.Controls.Add(this.checkBox2BC_rand_tgts);
-            this.groupBox64.Controls.Add(this.angleEntryBox2BCAng);
             this.groupBox64.Controls.Add(this.label320);
             this.groupBox64.Controls.Add(this.textBox2BCBTR);
             this.groupBox64.Controls.Add(this.textBox2BCTD);
@@ -11510,14 +11486,6 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.checkBox2BC_rand_tgts, "When checked the targets will appear at random angles between the specified floor" +
                     " and ceiling values");
             this.checkBox2BC_rand_tgts.UseVisualStyleBackColor = true;
-            // 
-            // angleEntryBox2BCAng
-            // 
-            this.angleEntryBox2BCAng.Location = new System.Drawing.Point(120, 103);
-            this.angleEntryBox2BCAng.Name = "angleEntryBox2BCAng";
-            this.angleEntryBox2BCAng.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBox2BCAng.TabIndex = 19;
-            this.angleEntryBox2BCAng.Value = 0;
             // 
             // label320
             // 
@@ -12007,7 +11975,6 @@ namespace BehaviorGraphics
             this.groupBox68.Controls.Add(this.textBoxUFBM);
             this.groupBox68.Controls.Add(this.label235UF);
             this.groupBox68.Controls.Add(this.checkBoxUFFB);
-            this.groupBox68.Controls.Add(this.angleEntryBoxUFFD);
             this.groupBox68.Controls.Add(this.label342);
             this.groupBox68.Controls.Add(this.textBoxUFBV);
             this.groupBox68.Controls.Add(this.label339);
@@ -12069,14 +12036,6 @@ namespace BehaviorGraphics
             this.toolTip1.SetToolTip(this.checkBoxUFFB, "If checked: open loop force bump, otherwise velocity PD bump.");
             this.checkBoxUFFB.UseVisualStyleBackColor = true;
             this.checkBoxUFFB.CheckedChanged += new System.EventHandler(this.widget_ValueChanged);
-            // 
-            // angleEntryBoxUFFD
-            // 
-            this.angleEntryBoxUFFD.Location = new System.Drawing.Point(101, 98);
-            this.angleEntryBoxUFFD.Name = "angleEntryBoxUFFD";
-            this.angleEntryBoxUFFD.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBoxUFFD.TabIndex = 47;
-            this.angleEntryBoxUFFD.Value = 0;
             // 
             // label342
             // 
@@ -12390,9 +12349,6 @@ namespace BehaviorGraphics
             this.groupBox65.Controls.Add(this.labelUFVelFilt);
             this.groupBox65.Controls.Add(this.textBoxUFVF);
             this.groupBox65.Controls.Add(this.label247UF);
-            this.groupBox65.Controls.Add(this.angleEntryBoxUFBAS);
-            this.groupBox65.Controls.Add(this.angleEntryBoxUFFBFA);
-            this.groupBox65.Controls.Add(this.angleEntryBoxUFFFA);
             this.groupBox65.Controls.Add(this.label246UF);
             this.groupBox65.Controls.Add(this.numericUpDownUFNBFA);
             this.groupBox65.Controls.Add(this.label310UF);
@@ -12475,30 +12431,6 @@ namespace BehaviorGraphics
             this.label247UF.Size = new System.Drawing.Size(112, 13);
             this.label247UF.TabIndex = 51;
             this.label247UF.Text = "Num bias force angles";
-            // 
-            // angleEntryBoxUFBAS
-            // 
-            this.angleEntryBoxUFBAS.Location = new System.Drawing.Point(118, 361);
-            this.angleEntryBoxUFBAS.Name = "angleEntryBoxUFBAS";
-            this.angleEntryBoxUFBAS.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBoxUFBAS.TabIndex = 48;
-            this.angleEntryBoxUFBAS.Value = 0;
-            // 
-            // angleEntryBoxUFFBFA
-            // 
-            this.angleEntryBoxUFFBFA.Location = new System.Drawing.Point(119, 308);
-            this.angleEntryBoxUFFBFA.Name = "angleEntryBoxUFFBFA";
-            this.angleEntryBoxUFFBFA.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBoxUFFBFA.TabIndex = 1;
-            this.angleEntryBoxUFFBFA.Value = 0;
-            // 
-            // angleEntryBoxUFFFA
-            // 
-            this.angleEntryBoxUFFFA.Location = new System.Drawing.Point(119, 174);
-            this.angleEntryBoxUFFFA.Name = "angleEntryBoxUFFFA";
-            this.angleEntryBoxUFFFA.Size = new System.Drawing.Size(76, 21);
-            this.angleEntryBoxUFFFA.TabIndex = 45;
-            this.angleEntryBoxUFFFA.Value = 0;
             // 
             // label246UF
             // 
@@ -16299,15 +16231,12 @@ namespace BehaviorGraphics
             // groupBoxDCOT
             // 
             this.groupBoxDCOT.Controls.Add(this.checkBoxDCOSTL);
-            this.groupBoxDCOT.Controls.Add(this.angleEntryBoxDCOFTD);
-            this.groupBoxDCOT.Controls.Add(this.angleEntryBoxDCOTS);
             this.groupBoxDCOT.Controls.Add(this.labelDCOFTD);
             this.groupBoxDCOT.Controls.Add(this.labelDCOTS);
             this.groupBoxDCOT.Controls.Add(this.textBoxDCOTSMax);
             this.groupBoxDCOT.Controls.Add(this.labelDCOTSMax);
             this.groupBoxDCOT.Controls.Add(this.textBoxDCOTSMin);
             this.groupBoxDCOT.Controls.Add(this.labelDCOTSMin);
-            this.groupBoxDCOT.Controls.Add(this.angleEntryBoxDCOOTS);
             this.groupBoxDCOT.Controls.Add(this.checkBoxDCOSTIF);
             this.groupBoxDCOT.Controls.Add(this.textBoxDCOTFW);
             this.groupBoxDCOT.Controls.Add(this.labelDCOTFW);
@@ -16344,22 +16273,6 @@ namespace BehaviorGraphics
             this.checkBoxDCOSTL.TabIndex = 43;
             this.checkBoxDCOSTL.Text = "Square target locations";
             this.checkBoxDCOSTL.UseVisualStyleBackColor = true;
-            // 
-            // angleEntryBoxDCOFTD
-            // 
-            this.angleEntryBoxDCOFTD.Location = new System.Drawing.Point(125, 368);
-            this.angleEntryBoxDCOFTD.Name = "angleEntryBoxDCOFTD";
-            this.angleEntryBoxDCOFTD.Size = new System.Drawing.Size(69, 21);
-            this.angleEntryBoxDCOFTD.TabIndex = 42;
-            this.angleEntryBoxDCOFTD.Value = 0;
-            // 
-            // angleEntryBoxDCOTS
-            // 
-            this.angleEntryBoxDCOTS.Location = new System.Drawing.Point(125, 341);
-            this.angleEntryBoxDCOTS.Name = "angleEntryBoxDCOTS";
-            this.angleEntryBoxDCOTS.Size = new System.Drawing.Size(69, 21);
-            this.angleEntryBoxDCOTS.TabIndex = 41;
-            this.angleEntryBoxDCOTS.Value = 0;
             // 
             // labelDCOFTD
             // 
@@ -16413,14 +16326,6 @@ namespace BehaviorGraphics
             this.labelDCOTSMin.Size = new System.Drawing.Size(98, 13);
             this.labelDCOTSMin.TabIndex = 35;
             this.labelDCOTSMin.Text = "Target stiffness min";
-            // 
-            // angleEntryBoxDCOOTS
-            // 
-            this.angleEntryBoxDCOOTS.Location = new System.Drawing.Point(126, 73);
-            this.angleEntryBoxDCOOTS.Name = "angleEntryBoxDCOOTS";
-            this.angleEntryBoxDCOOTS.Size = new System.Drawing.Size(68, 21);
-            this.angleEntryBoxDCOOTS.TabIndex = 6;
-            this.angleEntryBoxDCOOTS.Value = 0;
             // 
             // checkBoxDCOSTIF
             // 
@@ -17686,7 +17591,6 @@ namespace BehaviorGraphics
             this.groupBox80.Controls.Add(this.textBoxURNMD);
             this.groupBox80.Controls.Add(this.labelURNMD);
             this.groupBox80.Controls.Add(this.labelURFMD);
-            this.groupBox80.Controls.Add(this.angleEntryBoxURFMD);
             this.groupBox80.Controls.Add(this.textBoxURD);
             this.groupBox80.Controls.Add(this.labelURD);
             this.groupBox80.Controls.Add(this.textBoxURPS2);
@@ -17799,14 +17703,6 @@ namespace BehaviorGraphics
             this.labelURFMD.Size = new System.Drawing.Size(92, 13);
             this.labelURFMD.TabIndex = 27;
             this.labelURFMD.Text = "First movement dir";
-            // 
-            // angleEntryBoxURFMD
-            // 
-            this.angleEntryBoxURFMD.Location = new System.Drawing.Point(127, 174);
-            this.angleEntryBoxURFMD.Name = "angleEntryBoxURFMD";
-            this.angleEntryBoxURFMD.Size = new System.Drawing.Size(78, 21);
-            this.angleEntryBoxURFMD.TabIndex = 26;
-            this.angleEntryBoxURFMD.Value = 0;
             // 
             // textBoxURD
             // 
@@ -18251,7 +18147,6 @@ namespace BehaviorGraphics
             this.groupBoxRPBumps.Controls.Add(this.labelRPPEB);
             this.groupBoxRPBumps.Controls.Add(this.textBoxRPPEB);
             this.groupBoxRPBumps.Controls.Add(this.labelRPFBD);
-            this.groupBoxRPBumps.Controls.Add(this.angleEntryBoxRPFBD);
             this.groupBoxRPBumps.Controls.Add(this.textBoxRPNBD);
             this.groupBoxRPBumps.Controls.Add(this.labelRPNBD);
             this.groupBoxRPBumps.Controls.Add(this.checkBoxRPFB);
@@ -18299,14 +18194,6 @@ namespace BehaviorGraphics
             this.labelRPFBD.Size = new System.Drawing.Size(98, 13);
             this.labelRPFBD.TabIndex = 55;
             this.labelRPFBD.Text = "First bump direction";
-            // 
-            // angleEntryBoxRPFBD
-            // 
-            this.angleEntryBoxRPFBD.Location = new System.Drawing.Point(112, 46);
-            this.angleEntryBoxRPFBD.Name = "angleEntryBoxRPFBD";
-            this.angleEntryBoxRPFBD.Size = new System.Drawing.Size(78, 21);
-            this.angleEntryBoxRPFBD.TabIndex = 54;
-            this.angleEntryBoxRPFBD.Value = 0;
             // 
             // textBoxRPNBD
             // 
@@ -18514,7 +18401,6 @@ namespace BehaviorGraphics
             this.groupBoxRPPert.Controls.Add(this.textBoxRPNFD);
             this.groupBoxRPPert.Controls.Add(this.labelRPNFD);
             this.groupBoxRPPert.Controls.Add(this.labelRPFFD);
-            this.groupBoxRPPert.Controls.Add(this.angleEntryBoxRPFFD);
             this.groupBoxRPPert.Controls.Add(this.textBoxRPNFF);
             this.groupBoxRPPert.Controls.Add(this.labelRPNFF);
             this.groupBoxRPPert.Location = new System.Drawing.Point(449, 9);
@@ -18741,14 +18627,6 @@ namespace BehaviorGraphics
             this.labelRPFFD.Size = new System.Drawing.Size(96, 13);
             this.labelRPFFD.TabIndex = 27;
             this.labelRPFFD.Text = "First force direction";
-            // 
-            // angleEntryBoxRPFFD
-            // 
-            this.angleEntryBoxRPFFD.Location = new System.Drawing.Point(127, 204);
-            this.angleEntryBoxRPFFD.Name = "angleEntryBoxRPFFD";
-            this.angleEntryBoxRPFFD.Size = new System.Drawing.Size(78, 21);
-            this.angleEntryBoxRPFFD.TabIndex = 26;
-            this.angleEntryBoxRPFFD.Value = 0;
             // 
             // textBoxRPNFF
             // 
@@ -23921,6 +23799,16 @@ namespace BehaviorGraphics
             this.groupBox112.TabStop = false;
             this.groupBox112.Text = "Training settings";
             // 
+            // checkBoxRRB_endAtOuterRing
+            // 
+            this.checkBoxRRB_endAtOuterRing.AutoSize = true;
+            this.checkBoxRRB_endAtOuterRing.Location = new System.Drawing.Point(24, 116);
+            this.checkBoxRRB_endAtOuterRing.Name = "checkBoxRRB_endAtOuterRing";
+            this.checkBoxRRB_endAtOuterRing.Size = new System.Drawing.Size(104, 17);
+            this.checkBoxRRB_endAtOuterRing.TabIndex = 86;
+            this.checkBoxRRB_endAtOuterRing.Text = "End at outer ring";
+            this.checkBoxRRB_endAtOuterRing.UseVisualStyleBackColor = true;
+            // 
             // checkBoxRRB_repeatFailures
             // 
             this.checkBoxRRB_repeatFailures.AutoSize = true;
@@ -24731,7 +24619,7 @@ namespace BehaviorGraphics
             // toolStripStatusLabelMdl
             // 
             this.toolStripStatusLabelMdl.Name = "toolStripStatusLabelMdl";
-            this.toolStripStatusLabelMdl.Size = new System.Drawing.Size(86, 17);
+            this.toolStripStatusLabelMdl.Size = new System.Drawing.Size(99, 17);
             this.toolStripStatusLabelMdl.Text = "No model loaded";
             // 
             // toolStripProgressBar1
@@ -24764,14 +24652,14 @@ namespace BehaviorGraphics
             this.toolStripSeparator2,
             this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -24779,7 +24667,7 @@ namespace BehaviorGraphics
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -24788,30 +24676,30 @@ namespace BehaviorGraphics
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
                         | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(183, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(183, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.quitToolStripMenuItem.Text = "&Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quit);
             // 
@@ -24821,13 +24709,13 @@ namespace BehaviorGraphics
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -24841,27 +24729,27 @@ namespace BehaviorGraphics
             this.setLabToolStripMenuItem,
             this.keepGraphicsRunningToolStripMenuItem});
             this.displayToolStripMenuItem.Name = "displayToolStripMenuItem";
-            this.displayToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.displayToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.displayToolStripMenuItem.Text = "&Display";
             // 
             // boxToolStripMenuItem
             // 
             this.boxToolStripMenuItem.Name = "boxToolStripMenuItem";
-            this.boxToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.boxToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.boxToolStripMenuItem.Text = "&Box";
             this.boxToolStripMenuItem.Click += new System.EventHandler(this.boxToolStripMenuItem_Click);
             // 
             // boxSettingsToolStripMenuItem
             // 
             this.boxSettingsToolStripMenuItem.Name = "boxSettingsToolStripMenuItem";
-            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.boxSettingsToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.boxSettingsToolStripMenuItem.Text = "Box &Settings...";
             this.boxSettingsToolStripMenuItem.Click += new System.EventHandler(this.boxSettingsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(181, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(194, 6);
             // 
             // soundThemeToolStripMenuItem
             // 
@@ -24871,7 +24759,7 @@ namespace BehaviorGraphics
             this.theme3ToolStripMenuItem,
             this.theme4ToolStripMenuItem});
             this.soundThemeToolStripMenuItem.Name = "soundThemeToolStripMenuItem";
-            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.soundThemeToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.soundThemeToolStripMenuItem.Text = "Sound &Theme";
             // 
             // theme1ToolStripMenuItem
@@ -24879,42 +24767,42 @@ namespace BehaviorGraphics
             this.theme1ToolStripMenuItem.Checked = true;
             this.theme1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.theme1ToolStripMenuItem.Name = "theme1ToolStripMenuItem";
-            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme1ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme1ToolStripMenuItem.Text = "Theme 1";
             this.theme1ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme2ToolStripMenuItem
             // 
             this.theme2ToolStripMenuItem.Name = "theme2ToolStripMenuItem";
-            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme2ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme2ToolStripMenuItem.Text = "Theme 2";
             this.theme2ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme3ToolStripMenuItem
             // 
             this.theme3ToolStripMenuItem.Name = "theme3ToolStripMenuItem";
-            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme3ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme3ToolStripMenuItem.Text = "Theme 3";
             this.theme3ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // theme4ToolStripMenuItem
             // 
             this.theme4ToolStripMenuItem.Name = "theme4ToolStripMenuItem";
-            this.theme4ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.theme4ToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.theme4ToolStripMenuItem.Text = "Theme 4";
             this.theme4ToolStripMenuItem.Click += new System.EventHandler(this.soundThemeToolStripMenuItem_Click);
             // 
             // setLabToolStripMenuItem
             // 
             this.setLabToolStripMenuItem.Name = "setLabToolStripMenuItem";
-            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.setLabToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.setLabToolStripMenuItem.Text = "Set &Lab...";
             this.setLabToolStripMenuItem.Click += new System.EventHandler(this.setLabToolStripMenuItem_Click);
             // 
             // keepGraphicsRunningToolStripMenuItem
             // 
             this.keepGraphicsRunningToolStripMenuItem.Name = "keepGraphicsRunningToolStripMenuItem";
-            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.keepGraphicsRunningToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.keepGraphicsRunningToolStripMenuItem.Text = "&Keep Graphics Running";
             this.keepGraphicsRunningToolStripMenuItem.Click += new System.EventHandler(this.keepGraphicsRunningToolStripMenuItem_Click);
             // 
@@ -24924,14 +24812,14 @@ namespace BehaviorGraphics
             this.loadModelToolStripMenuItem,
             this.resetCountersToolStripMenuItem});
             this.modelToolStripMenuItem.Name = "modelToolStripMenuItem";
-            this.modelToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.modelToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.modelToolStripMenuItem.Text = "&Model";
             // 
             // loadModelToolStripMenuItem
             // 
             this.loadModelToolStripMenuItem.Name = "loadModelToolStripMenuItem";
             this.loadModelToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.loadModelToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.loadModelToolStripMenuItem.Text = "&Load Model";
             this.loadModelToolStripMenuItem.Click += new System.EventHandler(this.loadModelToolStripMenuItem_Click);
             // 
@@ -24939,7 +24827,7 @@ namespace BehaviorGraphics
             // 
             this.resetCountersToolStripMenuItem.Name = "resetCountersToolStripMenuItem";
             this.resetCountersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.resetCountersToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.resetCountersToolStripMenuItem.Text = "&Reset Counters";
             this.resetCountersToolStripMenuItem.Click += new System.EventHandler(this.resetCountersToolStripMenuItem_Click);
             // 
@@ -27010,39 +26898,1310 @@ namespace BehaviorGraphics
             this.label_CT_hold2.TabIndex = 0;
             this.label_CT_hold2.Text = "CT Hold";
             // 
-            // angleEntryBox1
+            // tabPage9
             // 
-            this.angleEntryBox1.Location = new System.Drawing.Point(126, 125);
-            this.angleEntryBox1.Name = "angleEntryBox1";
-            this.angleEntryBox1.Size = new System.Drawing.Size(68, 21);
-            this.angleEntryBox1.TabIndex = 6;
-            this.angleEntryBox1.Value = 0;
+            this.tabPage9.Controls.Add(this.groupBox118);
+            this.tabPage9.Controls.Add(this.groupBox114);
+            this.tabPage9.Controls.Add(this.groupBox115);
+            this.tabPage9.Controls.Add(this.groupBox116);
+            this.tabPage9.Controls.Add(this.groupBox117);
+            this.tabPage9.Location = new System.Drawing.Point(4, 76);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage9.Size = new System.Drawing.Size(686, 453);
+            this.tabPage9.TabIndex = 33;
+            this.tabPage9.Text = "AnIsoCOBump";
+            this.tabPage9.UseVisualStyleBackColor = true;
+            this.tabPage9.Click += new System.EventHandler(this.tabPage9_Click);
             // 
-            // angleEntryBox2
+            // groupBox114
             // 
-            this.angleEntryBox2.Location = new System.Drawing.Point(127, 174);
-            this.angleEntryBox2.Name = "angleEntryBox2";
-            this.angleEntryBox2.Size = new System.Drawing.Size(78, 21);
-            this.angleEntryBox2.TabIndex = 26;
-            this.angleEntryBox2.Value = 0;
+            this.groupBox114.Controls.Add(this.Idiot_Mode_ANISO);
+            this.groupBox114.Controls.Add(this.numericNumTargets_ANISO);
+            this.groupBox114.Controls.Add(this.label618);
+            this.groupBox114.Controls.Add(this.Angle_ANISO);
+            this.groupBox114.Controls.Add(this.label619);
+            this.groupBox114.Controls.Add(this.label620);
+            this.groupBox114.Controls.Add(this.Target_Angle_Ceiling_ANISO);
+            this.groupBox114.Controls.Add(this.Target_Angle_Floor_ANISO);
+            this.groupBox114.Controls.Add(this.Random_Targets_ANISO);
+            this.groupBox114.Controls.Add(this.label621);
+            this.groupBox114.Controls.Add(this.targDist_ANISO);
+            this.groupBox114.Controls.Add(this.label630);
+            this.groupBox114.Controls.Add(this.label631);
+            this.groupBox114.Controls.Add(this.TargetRadius_ANISO);
+            this.groupBox114.Location = new System.Drawing.Point(322, 10);
+            this.groupBox114.Name = "groupBox114";
+            this.groupBox114.Size = new System.Drawing.Size(169, 196);
+            this.groupBox114.TabIndex = 30;
+            this.groupBox114.TabStop = false;
+            this.groupBox114.Text = "Targets";
             // 
-            // angleEntryBox_SA
+            // Idiot_Mode_ANISO
             // 
-            this.angleEntryBox_SA.Location = new System.Drawing.Point(120, 103);
-            this.angleEntryBox_SA.Name = "angleEntryBox_SA";
-            this.angleEntryBox_SA.Size = new System.Drawing.Size(100, 21);
-            this.angleEntryBox_SA.TabIndex = 19;
-            this.angleEntryBox_SA.Value = 0;
+            this.Idiot_Mode_ANISO.AutoSize = true;
+            this.Idiot_Mode_ANISO.Location = new System.Drawing.Point(9, 173);
+            this.Idiot_Mode_ANISO.Name = "Idiot_Mode_ANISO";
+            this.Idiot_Mode_ANISO.Size = new System.Drawing.Size(76, 17);
+            this.Idiot_Mode_ANISO.TabIndex = 33;
+            this.Idiot_Mode_ANISO.Text = "Idiot Mode";
+            this.toolTip1.SetToolTip(this.Idiot_Mode_ANISO, "When checked, any abort, incomplete, or fail will cause the trial to be replayed." +
+                    "");
+            this.Idiot_Mode_ANISO.UseVisualStyleBackColor = true;
+            this.Idiot_Mode_ANISO.CheckedChanged += new System.EventHandler(this.checkBox13_CheckedChanged);
             // 
-            // checkBoxRRB_endAtOuterRing
+            // numericNumTargets_ANISO
             // 
-            this.checkBoxRRB_endAtOuterRing.AutoSize = true;
-            this.checkBoxRRB_endAtOuterRing.Location = new System.Drawing.Point(24, 116);
-            this.checkBoxRRB_endAtOuterRing.Name = "checkBoxRRB_endAtOuterRing";
-            this.checkBoxRRB_endAtOuterRing.Size = new System.Drawing.Size(104, 17);
-            this.checkBoxRRB_endAtOuterRing.TabIndex = 86;
-            this.checkBoxRRB_endAtOuterRing.Text = "End at outer ring";
-            this.checkBoxRRB_endAtOuterRing.UseVisualStyleBackColor = true;
+            this.numericNumTargets_ANISO.Location = new System.Drawing.Point(90, 126);
+            this.numericNumTargets_ANISO.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericNumTargets_ANISO.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericNumTargets_ANISO.Name = "numericNumTargets_ANISO";
+            this.numericNumTargets_ANISO.Size = new System.Drawing.Size(68, 20);
+            this.numericNumTargets_ANISO.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.numericNumTargets_ANISO, "Number of outer targets (max 16)");
+            this.numericNumTargets_ANISO.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
+            // label618
+            // 
+            this.label618.AutoSize = true;
+            this.label618.Location = new System.Drawing.Point(9, 129);
+            this.label618.Name = "label618";
+            this.label618.Size = new System.Drawing.Size(68, 13);
+            this.label618.TabIndex = 32;
+            this.label618.Text = "Num Targets";
+            // 
+            // Angle_ANISO
+            // 
+            this.Angle_ANISO.Location = new System.Drawing.Point(120, 57);
+            this.Angle_ANISO.Name = "Angle_ANISO";
+            this.Angle_ANISO.Size = new System.Drawing.Size(38, 20);
+            this.Angle_ANISO.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.Angle_ANISO, "distance in cm of outer targets from center of workspace");
+            this.Angle_ANISO.TextChanged += new System.EventHandler(this.textBox86_TextChanged);
+            // 
+            // label619
+            // 
+            this.label619.AutoSize = true;
+            this.label619.Location = new System.Drawing.Point(6, 107);
+            this.label619.Name = "label619";
+            this.label619.Size = new System.Drawing.Size(102, 13);
+            this.label619.TabIndex = 27;
+            this.label619.Text = "Target Angle Ceiling";
+            // 
+            // label620
+            // 
+            this.label620.AutoSize = true;
+            this.label620.Location = new System.Drawing.Point(6, 85);
+            this.label620.Name = "label620";
+            this.label620.Size = new System.Drawing.Size(94, 13);
+            this.label620.TabIndex = 26;
+            this.label620.Text = "Target Angle Floor";
+            // 
+            // Target_Angle_Ceiling_ANISO
+            // 
+            this.Target_Angle_Ceiling_ANISO.Location = new System.Drawing.Point(120, 104);
+            this.Target_Angle_Ceiling_ANISO.Name = "Target_Angle_Ceiling_ANISO";
+            this.Target_Angle_Ceiling_ANISO.Size = new System.Drawing.Size(38, 20);
+            this.Target_Angle_Ceiling_ANISO.TabIndex = 25;
+            this.toolTip1.SetToolTip(this.Target_Angle_Ceiling_ANISO, "Maximum value of target angle in deg. Targets angles will range from this value u" +
+                    "p to the angle ceiling in steps of the target angle incriment");
+            this.Target_Angle_Ceiling_ANISO.TextChanged += new System.EventHandler(this.textBox87_TextChanged);
+            // 
+            // Target_Angle_Floor_ANISO
+            // 
+            this.Target_Angle_Floor_ANISO.Location = new System.Drawing.Point(120, 82);
+            this.Target_Angle_Floor_ANISO.Name = "Target_Angle_Floor_ANISO";
+            this.Target_Angle_Floor_ANISO.Size = new System.Drawing.Size(38, 20);
+            this.Target_Angle_Floor_ANISO.TabIndex = 24;
+            this.toolTip1.SetToolTip(this.Target_Angle_Floor_ANISO, "Minimum value of target angle in deg. Targets angles will range from this value u" +
+                    "p to the angle ceiling in steps of the target angle incriment");
+            this.Target_Angle_Floor_ANISO.TextChanged += new System.EventHandler(this.textBox88_TextChanged);
+            // 
+            // Random_Targets_ANISO
+            // 
+            this.Random_Targets_ANISO.AutoSize = true;
+            this.Random_Targets_ANISO.Location = new System.Drawing.Point(6, 151);
+            this.Random_Targets_ANISO.Name = "Random_Targets_ANISO";
+            this.Random_Targets_ANISO.Size = new System.Drawing.Size(105, 17);
+            this.Random_Targets_ANISO.TabIndex = 23;
+            this.Random_Targets_ANISO.Text = "Random Targets";
+            this.toolTip1.SetToolTip(this.Random_Targets_ANISO, "When checked the targets will appear at random (1 deg resolution) angles between " +
+                    "the specified floor and ceiling values");
+            this.Random_Targets_ANISO.UseVisualStyleBackColor = true;
+            this.Random_Targets_ANISO.CheckedChanged += new System.EventHandler(this.checkBox14_CheckedChanged);
+            // 
+            // label621
+            // 
+            this.label621.AutoSize = true;
+            this.label621.Location = new System.Drawing.Point(6, 39);
+            this.label621.Name = "label621";
+            this.label621.Size = new System.Drawing.Size(83, 13);
+            this.label621.TabIndex = 18;
+            this.label621.Text = "Target Distance";
+            // 
+            // targDist_ANISO
+            // 
+            this.targDist_ANISO.Location = new System.Drawing.Point(120, 36);
+            this.targDist_ANISO.Name = "targDist_ANISO";
+            this.targDist_ANISO.Size = new System.Drawing.Size(38, 20);
+            this.targDist_ANISO.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.targDist_ANISO, "distance in cm of outer targets from center of workspace");
+            this.targDist_ANISO.TextChanged += new System.EventHandler(this.textBox89_TextChanged);
+            // 
+            // label630
+            // 
+            this.label630.AutoSize = true;
+            this.label630.Location = new System.Drawing.Point(8, 63);
+            this.label630.Name = "label630";
+            this.label630.Size = new System.Drawing.Size(34, 13);
+            this.label630.TabIndex = 15;
+            this.label630.Text = "Angle";
+            // 
+            // label631
+            // 
+            this.label631.AutoSize = true;
+            this.label631.Location = new System.Drawing.Point(6, 17);
+            this.label631.Name = "label631";
+            this.label631.Size = new System.Drawing.Size(74, 13);
+            this.label631.TabIndex = 14;
+            this.label631.Text = "Target Radius";
+            // 
+            // TargetRadius_ANISO
+            // 
+            this.TargetRadius_ANISO.Location = new System.Drawing.Point(120, 14);
+            this.TargetRadius_ANISO.Name = "TargetRadius_ANISO";
+            this.TargetRadius_ANISO.Size = new System.Drawing.Size(38, 20);
+            this.TargetRadius_ANISO.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.TargetRadius_ANISO, "radius of the targets used on the outer circle in cm");
+            // 
+            // groupBox115
+            // 
+            this.groupBox115.Controls.Add(this.StimInsteadBump_ANISO);
+            this.groupBox115.Controls.Add(this.StimDuringBump_ANISO);
+            this.groupBox115.Controls.Add(this.label632);
+            this.groupBox115.Controls.Add(this.StimLevel_ANISO);
+            this.groupBox115.Controls.Add(this.label633);
+            this.groupBox115.Controls.Add(this.StimProb_ANISO);
+            this.groupBox115.Location = new System.Drawing.Point(517, 111);
+            this.groupBox115.Name = "groupBox115";
+            this.groupBox115.Size = new System.Drawing.Size(151, 95);
+            this.groupBox115.TabIndex = 29;
+            this.groupBox115.TabStop = false;
+            this.groupBox115.Text = "Stimulus";
+            // 
+            // StimInsteadBump_ANISO
+            // 
+            this.StimInsteadBump_ANISO.AutoSize = true;
+            this.StimInsteadBump_ANISO.Location = new System.Drawing.Point(9, 34);
+            this.StimInsteadBump_ANISO.Name = "StimInsteadBump_ANISO";
+            this.StimInsteadBump_ANISO.Size = new System.Drawing.Size(119, 17);
+            this.StimInsteadBump_ANISO.TabIndex = 32;
+            this.StimInsteadBump_ANISO.Text = "StimInsteadOfBump";
+            this.toolTip1.SetToolTip(this.StimInsteadBump_ANISO, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.StimInsteadBump_ANISO.UseVisualStyleBackColor = true;
+            this.StimInsteadBump_ANISO.CheckedChanged += new System.EventHandler(this.checkBox15_CheckedChanged);
+            // 
+            // StimDuringBump_ANISO
+            // 
+            this.StimDuringBump_ANISO.AutoSize = true;
+            this.StimDuringBump_ANISO.Location = new System.Drawing.Point(9, 19);
+            this.StimDuringBump_ANISO.Name = "StimDuringBump_ANISO";
+            this.StimDuringBump_ANISO.Size = new System.Drawing.Size(110, 17);
+            this.StimDuringBump_ANISO.TabIndex = 31;
+            this.StimDuringBump_ANISO.Text = "Stim During Bump";
+            this.toolTip1.SetToolTip(this.StimDuringBump_ANISO, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.StimDuringBump_ANISO.UseVisualStyleBackColor = true;
+            this.StimDuringBump_ANISO.CheckedChanged += new System.EventHandler(this.checkBox16_CheckedChanged);
+            // 
+            // label632
+            // 
+            this.label632.AutoSize = true;
+            this.label632.Location = new System.Drawing.Point(6, 76);
+            this.label632.Name = "label632";
+            this.label632.Size = new System.Drawing.Size(61, 13);
+            this.label632.TabIndex = 21;
+            this.label632.Text = "Stim Levels";
+            // 
+            // StimLevel_ANISO
+            // 
+            this.StimLevel_ANISO.Location = new System.Drawing.Point(68, 73);
+            this.StimLevel_ANISO.Name = "StimLevel_ANISO";
+            this.StimLevel_ANISO.Size = new System.Drawing.Size(34, 20);
+            this.StimLevel_ANISO.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.StimLevel_ANISO, "integer indicating how many levels of stimulus to use. the mastercon code will ra" +
+                    "ndomly select an integer stim code between 0 and the stim level entered in this " +
+                    "box.");
+            this.StimLevel_ANISO.TextChanged += new System.EventHandler(this.textBox91_TextChanged);
+            // 
+            // label633
+            // 
+            this.label633.AutoSize = true;
+            this.label633.Location = new System.Drawing.Point(6, 54);
+            this.label633.Name = "label633";
+            this.label633.Size = new System.Drawing.Size(52, 13);
+            this.label633.TabIndex = 19;
+            this.label633.Text = "Stim Prob";
+            // 
+            // StimProb_ANISO
+            // 
+            this.StimProb_ANISO.Location = new System.Drawing.Point(68, 51);
+            this.StimProb_ANISO.Name = "StimProb_ANISO";
+            this.StimProb_ANISO.Size = new System.Drawing.Size(34, 20);
+            this.StimProb_ANISO.TabIndex = 13;
+            // 
+            // groupBox116
+            // 
+            this.groupBox116.Controls.Add(this.groupBox119);
+            this.groupBox116.Controls.Add(this.Target_Relative_Bumps_ANISO);
+            this.groupBox116.Controls.Add(this.RandomBumpTime_ANISO);
+            this.groupBox116.Controls.Add(this.MvNumBumpDirs_ANISO);
+            this.groupBox116.Controls.Add(this.label634);
+            this.groupBox116.Controls.Add(this.DPNumBumpDirs_ANISO);
+            this.groupBox116.Controls.Add(this.label635);
+            this.groupBox116.Controls.Add(this.CHNumBumpDirs_ANISO);
+            this.groupBox116.Controls.Add(this.label636);
+            this.groupBox116.Controls.Add(this.AbortDuringBump_ANISO);
+            this.groupBox116.Controls.Add(this.BidirectionalBumps_ANISO);
+            this.groupBox116.Controls.Add(this.label637);
+            this.groupBox116.Controls.Add(this.MBumpRate_ANISO);
+            this.groupBox116.Controls.Add(this.label638);
+            this.groupBox116.Controls.Add(this.DPBumpRate_ANISO);
+            this.groupBox116.Controls.Add(this.label641);
+            this.groupBox116.Controls.Add(this.CHBumpRate_ANISO);
+            this.groupBox116.Controls.Add(this.label642);
+            this.groupBox116.Controls.Add(this.MvAmplitude_ANISO);
+            this.groupBox116.Controls.Add(this.label643);
+            this.groupBox116.Controls.Add(this.MvRandBumpCeil_ANISO);
+            this.groupBox116.Controls.Add(this.MvRiseTime_ANISO);
+            this.groupBox116.Controls.Add(this.MvRandBumpFloor_ANISO);
+            this.groupBox116.Controls.Add(this.label644);
+            this.groupBox116.Controls.Add(this.label645);
+            this.groupBox116.Controls.Add(this.label646);
+            this.groupBox116.Controls.Add(this.MvPeakDuration_ANISO);
+            this.groupBox116.Controls.Add(this.label647);
+            this.groupBox116.Controls.Add(this.DPAmplitude_ANISO);
+            this.groupBox116.Controls.Add(this.label648);
+            this.groupBox116.Controls.Add(this.DPRandBumpCeil_ANISO);
+            this.groupBox116.Controls.Add(this.DPRiseTime_ANISO);
+            this.groupBox116.Controls.Add(this.DPRandBumpFloor_ANISO);
+            this.groupBox116.Controls.Add(this.label649);
+            this.groupBox116.Controls.Add(this.label650);
+            this.groupBox116.Controls.Add(this.label651);
+            this.groupBox116.Controls.Add(this.DPPeakDuration_ANISO);
+            this.groupBox116.Controls.Add(this.Move_Bump_Check_ANISO);
+            this.groupBox116.Controls.Add(this.DelayBump_Check_ANISO);
+            this.groupBox116.Controls.Add(this.CTRHoldCheckbox_ANISO);
+            this.groupBox116.Controls.Add(this.label652);
+            this.groupBox116.Controls.Add(this.CatchRate_ANISO);
+            this.groupBox116.Controls.Add(this.label653);
+            this.groupBox116.Controls.Add(this.CHAmplitude_ANISO);
+            this.groupBox116.Controls.Add(this.label654);
+            this.groupBox116.Controls.Add(this.CHRandBumpCeil_ANISO);
+            this.groupBox116.Controls.Add(this.CHRise_Time_ANISO);
+            this.groupBox116.Controls.Add(this.CHRandBumpFloor_ANISO);
+            this.groupBox116.Controls.Add(this.label655);
+            this.groupBox116.Controls.Add(this.label656);
+            this.groupBox116.Controls.Add(this.label657);
+            this.groupBox116.Controls.Add(this.CHPeak_Duration_ANISO);
+            this.groupBox116.Location = new System.Drawing.Point(8, 212);
+            this.groupBox116.Name = "groupBox116";
+            this.groupBox116.Size = new System.Drawing.Size(671, 243);
+            this.groupBox116.TabIndex = 28;
+            this.groupBox116.TabStop = false;
+            this.groupBox116.Text = "Bump";
+            this.groupBox116.Enter += new System.EventHandler(this.groupBox116_Enter);
+            // 
+            // Target_Relative_Bumps_ANISO
+            // 
+            this.Target_Relative_Bumps_ANISO.AutoSize = true;
+            this.Target_Relative_Bumps_ANISO.Location = new System.Drawing.Point(532, 21);
+            this.Target_Relative_Bumps_ANISO.Name = "Target_Relative_Bumps_ANISO";
+            this.Target_Relative_Bumps_ANISO.Size = new System.Drawing.Size(128, 17);
+            this.Target_Relative_Bumps_ANISO.TabIndex = 148;
+            this.Target_Relative_Bumps_ANISO.Text = "Target-relative bumps";
+            this.toolTip1.SetToolTip(this.Target_Relative_Bumps_ANISO, "When checked, bumps directions will be relative to target direction");
+            this.Target_Relative_Bumps_ANISO.UseVisualStyleBackColor = true;
+            // 
+            // RandomBumpTime_ANISO
+            // 
+            this.RandomBumpTime_ANISO.AutoSize = true;
+            this.RandomBumpTime_ANISO.Location = new System.Drawing.Point(372, 22);
+            this.RandomBumpTime_ANISO.Name = "RandomBumpTime_ANISO";
+            this.RandomBumpTime_ANISO.Size = new System.Drawing.Size(154, 17);
+            this.RandomBumpTime_ANISO.TabIndex = 147;
+            this.RandomBumpTime_ANISO.Text = "Random bump time in state";
+            this.toolTip1.SetToolTip(this.RandomBumpTime_ANISO, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.RandomBumpTime_ANISO.UseVisualStyleBackColor = true;
+            this.RandomBumpTime_ANISO.CheckedChanged += new System.EventHandler(this.checkBox18_CheckedChanged);
+            // 
+            // MvNumBumpDirs_ANISO
+            // 
+            this.MvNumBumpDirs_ANISO.Location = new System.Drawing.Point(400, 216);
+            this.MvNumBumpDirs_ANISO.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.MvNumBumpDirs_ANISO.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.MvNumBumpDirs_ANISO.Name = "MvNumBumpDirs_ANISO";
+            this.MvNumBumpDirs_ANISO.Size = new System.Drawing.Size(39, 20);
+            this.MvNumBumpDirs_ANISO.TabIndex = 145;
+            this.toolTip1.SetToolTip(this.MvNumBumpDirs_ANISO, "Number of outer targets (max 16)");
+            this.MvNumBumpDirs_ANISO.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
+            // label634
+            // 
+            this.label634.AutoSize = true;
+            this.label634.Location = new System.Drawing.Point(300, 219);
+            this.label634.Name = "label634";
+            this.label634.Size = new System.Drawing.Size(77, 13);
+            this.label634.TabIndex = 146;
+            this.label634.Text = "Num bump dirs";
+            // 
+            // DPNumBumpDirs_ANISO
+            // 
+            this.DPNumBumpDirs_ANISO.Location = new System.Drawing.Point(248, 214);
+            this.DPNumBumpDirs_ANISO.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.DPNumBumpDirs_ANISO.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.DPNumBumpDirs_ANISO.Name = "DPNumBumpDirs_ANISO";
+            this.DPNumBumpDirs_ANISO.Size = new System.Drawing.Size(39, 20);
+            this.DPNumBumpDirs_ANISO.TabIndex = 143;
+            this.toolTip1.SetToolTip(this.DPNumBumpDirs_ANISO, "Number of outer targets (max 16)");
+            this.DPNumBumpDirs_ANISO.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.DPNumBumpDirs_ANISO.ValueChanged += new System.EventHandler(this.numericUpDown6_ValueChanged);
+            // 
+            // label635
+            // 
+            this.label635.AutoSize = true;
+            this.label635.Location = new System.Drawing.Point(145, 217);
+            this.label635.Name = "label635";
+            this.label635.Size = new System.Drawing.Size(77, 13);
+            this.label635.TabIndex = 144;
+            this.label635.Text = "Num bump dirs";
+            // 
+            // CHNumBumpDirs_ANISO
+            // 
+            this.CHNumBumpDirs_ANISO.Location = new System.Drawing.Point(100, 215);
+            this.CHNumBumpDirs_ANISO.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.CHNumBumpDirs_ANISO.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.CHNumBumpDirs_ANISO.Name = "CHNumBumpDirs_ANISO";
+            this.CHNumBumpDirs_ANISO.Size = new System.Drawing.Size(39, 20);
+            this.CHNumBumpDirs_ANISO.TabIndex = 141;
+            this.toolTip1.SetToolTip(this.CHNumBumpDirs_ANISO, "Number of outer targets (max 16)");
+            this.CHNumBumpDirs_ANISO.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
+            // label636
+            // 
+            this.label636.AutoSize = true;
+            this.label636.Location = new System.Drawing.Point(2, 218);
+            this.label636.Name = "label636";
+            this.label636.Size = new System.Drawing.Size(77, 13);
+            this.label636.TabIndex = 142;
+            this.label636.Text = "Num bump dirs";
+            // 
+            // AbortDuringBump_ANISO
+            // 
+            this.AbortDuringBump_ANISO.AutoSize = true;
+            this.AbortDuringBump_ANISO.Location = new System.Drawing.Point(251, 22);
+            this.AbortDuringBump_ANISO.Name = "AbortDuringBump_ANISO";
+            this.AbortDuringBump_ANISO.Size = new System.Drawing.Size(115, 17);
+            this.AbortDuringBump_ANISO.TabIndex = 34;
+            this.AbortDuringBump_ANISO.Text = "Abort During Bump";
+            this.toolTip1.SetToolTip(this.AbortDuringBump_ANISO, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.AbortDuringBump_ANISO.UseVisualStyleBackColor = true;
+            this.AbortDuringBump_ANISO.CheckedChanged += new System.EventHandler(this.checkBox19_CheckedChanged);
+            // 
+            // BidirectionalBumps_ANISO
+            // 
+            this.BidirectionalBumps_ANISO.AutoSize = true;
+            this.BidirectionalBumps_ANISO.Location = new System.Drawing.Point(124, 22);
+            this.BidirectionalBumps_ANISO.Name = "BidirectionalBumps_ANISO";
+            this.BidirectionalBumps_ANISO.Size = new System.Drawing.Size(121, 17);
+            this.BidirectionalBumps_ANISO.TabIndex = 140;
+            this.BidirectionalBumps_ANISO.Text = "bi-Directional bumps";
+            this.toolTip1.SetToolTip(this.BidirectionalBumps_ANISO, "when checked the behavior will present bumps both clockwise and anticlockwise of " +
+                    "the target angle");
+            this.BidirectionalBumps_ANISO.UseVisualStyleBackColor = true;
+            this.BidirectionalBumps_ANISO.CheckedChanged += new System.EventHandler(this.checkBox20_CheckedChanged);
+            // 
+            // label637
+            // 
+            this.label637.AutoSize = true;
+            this.label637.Location = new System.Drawing.Point(300, 72);
+            this.label637.Name = "label637";
+            this.label637.Size = new System.Drawing.Size(66, 13);
+            this.label637.TabIndex = 139;
+            this.label637.Text = "MBumpRate";
+            // 
+            // MBumpRate_ANISO
+            // 
+            this.MBumpRate_ANISO.Location = new System.Drawing.Point(399, 69);
+            this.MBumpRate_ANISO.Name = "MBumpRate_ANISO";
+            this.MBumpRate_ANISO.Size = new System.Drawing.Size(40, 20);
+            this.MBumpRate_ANISO.TabIndex = 138;
+            this.toolTip1.SetToolTip(this.MBumpRate_ANISO, "Rate at which M bumps occur will be MBumpRate/(CHBumpRate+DPBumpRate+MBumpRate)");
+            // 
+            // label638
+            // 
+            this.label638.AutoSize = true;
+            this.label638.Location = new System.Drawing.Point(145, 72);
+            this.label638.Name = "label638";
+            this.label638.Size = new System.Drawing.Size(72, 13);
+            this.label638.TabIndex = 137;
+            this.label638.Text = "DPBumpRate";
+            // 
+            // DPBumpRate_ANISO
+            // 
+            this.DPBumpRate_ANISO.Location = new System.Drawing.Point(246, 69);
+            this.DPBumpRate_ANISO.Name = "DPBumpRate_ANISO";
+            this.DPBumpRate_ANISO.Size = new System.Drawing.Size(42, 20);
+            this.DPBumpRate_ANISO.TabIndex = 136;
+            this.toolTip1.SetToolTip(this.DPBumpRate_ANISO, "Rate at which DP bumps occur will be DPBumpRate/(CHBumpRate+DPBumpRate+MBumpRate)" +
+                    "");
+            // 
+            // label641
+            // 
+            this.label641.AutoSize = true;
+            this.label641.Location = new System.Drawing.Point(2, 72);
+            this.label641.Name = "label641";
+            this.label641.Size = new System.Drawing.Size(72, 13);
+            this.label641.TabIndex = 135;
+            this.label641.Text = "CHBumpRate";
+            // 
+            // CHBumpRate_ANISO
+            // 
+            this.CHBumpRate_ANISO.Location = new System.Drawing.Point(99, 69);
+            this.CHBumpRate_ANISO.Name = "CHBumpRate_ANISO";
+            this.CHBumpRate_ANISO.Size = new System.Drawing.Size(40, 20);
+            this.CHBumpRate_ANISO.TabIndex = 134;
+            this.toolTip1.SetToolTip(this.CHBumpRate_ANISO, "Rate at which CH bumps occur will be CHBumpRate/(CHBumpRate+DPBumpRate+MBumpRate)" +
+                    "");
+            this.CHBumpRate_ANISO.TextChanged += new System.EventHandler(this.textBox95_TextChanged);
+            // 
+            // label642
+            // 
+            this.label642.AutoSize = true;
+            this.label642.Location = new System.Drawing.Point(300, 194);
+            this.label642.Name = "label642";
+            this.label642.Size = new System.Drawing.Size(97, 13);
+            this.label642.TabIndex = 131;
+            this.label642.Text = "Rand Bump Ceiling";
+            // 
+            // MvAmplitude_ANISO
+            // 
+            this.MvAmplitude_ANISO.Location = new System.Drawing.Point(399, 142);
+            this.MvAmplitude_ANISO.Name = "MvAmplitude_ANISO";
+            this.MvAmplitude_ANISO.Size = new System.Drawing.Size(40, 20);
+            this.MvAmplitude_ANISO.TabIndex = 127;
+            this.toolTip1.SetToolTip(this.MvAmplitude_ANISO, "amplitude in N for M bumps");
+            this.MvAmplitude_ANISO.TextChanged += new System.EventHandler(this.textBox96_TextChanged);
+            // 
+            // label643
+            // 
+            this.label643.AutoSize = true;
+            this.label643.Location = new System.Drawing.Point(300, 169);
+            this.label643.Name = "label643";
+            this.label643.Size = new System.Drawing.Size(89, 13);
+            this.label643.TabIndex = 130;
+            this.label643.Text = "Rand Bump Floor";
+            // 
+            // MvRandBumpCeil_ANISO
+            // 
+            this.MvRandBumpCeil_ANISO.Location = new System.Drawing.Point(399, 191);
+            this.MvRandBumpCeil_ANISO.Name = "MvRandBumpCeil_ANISO";
+            this.MvRandBumpCeil_ANISO.Size = new System.Drawing.Size(40, 20);
+            this.MvRandBumpCeil_ANISO.TabIndex = 129;
+            this.toolTip1.SetToolTip(this.MvRandBumpCeil_ANISO, "Greatest angular deviation from the target angle that M bumps may take. (Deg)");
+            this.MvRandBumpCeil_ANISO.TextChanged += new System.EventHandler(this.textBox97_TextChanged);
+            // 
+            // MvRiseTime_ANISO
+            // 
+            this.MvRiseTime_ANISO.Location = new System.Drawing.Point(399, 118);
+            this.MvRiseTime_ANISO.Name = "MvRiseTime_ANISO";
+            this.MvRiseTime_ANISO.Size = new System.Drawing.Size(40, 20);
+            this.MvRiseTime_ANISO.TabIndex = 126;
+            this.toolTip1.SetToolTip(this.MvRiseTime_ANISO, "rise/fall duration in s for M bumps. ");
+            this.MvRiseTime_ANISO.TextChanged += new System.EventHandler(this.textBox98_TextChanged);
+            // 
+            // MvRandBumpFloor_ANISO
+            // 
+            this.MvRandBumpFloor_ANISO.Location = new System.Drawing.Point(399, 166);
+            this.MvRandBumpFloor_ANISO.Name = "MvRandBumpFloor_ANISO";
+            this.MvRandBumpFloor_ANISO.Size = new System.Drawing.Size(40, 20);
+            this.MvRandBumpFloor_ANISO.TabIndex = 128;
+            this.toolTip1.SetToolTip(this.MvRandBumpFloor_ANISO, "Lowest angular deviation from the target angle that M bumps may take. (Deg)");
+            this.MvRandBumpFloor_ANISO.TextChanged += new System.EventHandler(this.textBox99_TextChanged);
+            // 
+            // label644
+            // 
+            this.label644.AutoSize = true;
+            this.label644.Location = new System.Drawing.Point(300, 145);
+            this.label644.Name = "label644";
+            this.label644.Size = new System.Drawing.Size(53, 13);
+            this.label644.TabIndex = 125;
+            this.label644.Text = "Amplitude";
+            // 
+            // label645
+            // 
+            this.label645.AutoSize = true;
+            this.label645.Location = new System.Drawing.Point(300, 121);
+            this.label645.Name = "label645";
+            this.label645.Size = new System.Drawing.Size(54, 13);
+            this.label645.TabIndex = 124;
+            this.label645.Text = "Rise Time";
+            // 
+            // label646
+            // 
+            this.label646.AutoSize = true;
+            this.label646.Location = new System.Drawing.Point(300, 97);
+            this.label646.Name = "label646";
+            this.label646.Size = new System.Drawing.Size(75, 13);
+            this.label646.TabIndex = 123;
+            this.label646.Text = "Peak Duration";
+            // 
+            // MvPeakDuration_ANISO
+            // 
+            this.MvPeakDuration_ANISO.Location = new System.Drawing.Point(399, 94);
+            this.MvPeakDuration_ANISO.Name = "MvPeakDuration_ANISO";
+            this.MvPeakDuration_ANISO.Size = new System.Drawing.Size(40, 20);
+            this.MvPeakDuration_ANISO.TabIndex = 122;
+            this.toolTip1.SetToolTip(this.MvPeakDuration_ANISO, "Duration at peak amplitude  in s for M bumps");
+            // 
+            // label647
+            // 
+            this.label647.AutoSize = true;
+            this.label647.Location = new System.Drawing.Point(145, 194);
+            this.label647.Name = "label647";
+            this.label647.Size = new System.Drawing.Size(97, 13);
+            this.label647.TabIndex = 119;
+            this.label647.Text = "Rand Bump Ceiling";
+            // 
+            // DPAmplitude_ANISO
+            // 
+            this.DPAmplitude_ANISO.Location = new System.Drawing.Point(246, 142);
+            this.DPAmplitude_ANISO.Name = "DPAmplitude_ANISO";
+            this.DPAmplitude_ANISO.Size = new System.Drawing.Size(42, 20);
+            this.DPAmplitude_ANISO.TabIndex = 115;
+            this.toolTip1.SetToolTip(this.DPAmplitude_ANISO, "amplitude in N for DP bumps");
+            this.DPAmplitude_ANISO.TextChanged += new System.EventHandler(this.textBox101_TextChanged);
+            // 
+            // label648
+            // 
+            this.label648.AutoSize = true;
+            this.label648.Location = new System.Drawing.Point(145, 169);
+            this.label648.Name = "label648";
+            this.label648.Size = new System.Drawing.Size(89, 13);
+            this.label648.TabIndex = 118;
+            this.label648.Text = "Rand Bump Floor";
+            // 
+            // DPRandBumpCeil_ANISO
+            // 
+            this.DPRandBumpCeil_ANISO.Location = new System.Drawing.Point(246, 191);
+            this.DPRandBumpCeil_ANISO.Name = "DPRandBumpCeil_ANISO";
+            this.DPRandBumpCeil_ANISO.Size = new System.Drawing.Size(42, 20);
+            this.DPRandBumpCeil_ANISO.TabIndex = 117;
+            this.toolTip1.SetToolTip(this.DPRandBumpCeil_ANISO, "Greatest angular deviation from the target angle that DP bumps may take. (Deg)");
+            this.DPRandBumpCeil_ANISO.TextChanged += new System.EventHandler(this.textBox102_TextChanged);
+            // 
+            // DPRiseTime_ANISO
+            // 
+            this.DPRiseTime_ANISO.Location = new System.Drawing.Point(246, 118);
+            this.DPRiseTime_ANISO.Name = "DPRiseTime_ANISO";
+            this.DPRiseTime_ANISO.Size = new System.Drawing.Size(42, 20);
+            this.DPRiseTime_ANISO.TabIndex = 114;
+            this.toolTip1.SetToolTip(this.DPRiseTime_ANISO, "rise/fall duration in s for DP bumps. ");
+            this.DPRiseTime_ANISO.TextChanged += new System.EventHandler(this.textBox103_TextChanged);
+            // 
+            // DPRandBumpFloor_ANISO
+            // 
+            this.DPRandBumpFloor_ANISO.Location = new System.Drawing.Point(246, 166);
+            this.DPRandBumpFloor_ANISO.Name = "DPRandBumpFloor_ANISO";
+            this.DPRandBumpFloor_ANISO.Size = new System.Drawing.Size(42, 20);
+            this.DPRandBumpFloor_ANISO.TabIndex = 116;
+            this.toolTip1.SetToolTip(this.DPRandBumpFloor_ANISO, "Lowest angular deviation from the target angle that DP bumps may take. (Deg)");
+            this.DPRandBumpFloor_ANISO.TextChanged += new System.EventHandler(this.textBox104_TextChanged);
+            // 
+            // label649
+            // 
+            this.label649.AutoSize = true;
+            this.label649.Location = new System.Drawing.Point(145, 145);
+            this.label649.Name = "label649";
+            this.label649.Size = new System.Drawing.Size(53, 13);
+            this.label649.TabIndex = 113;
+            this.label649.Text = "Amplitude";
+            // 
+            // label650
+            // 
+            this.label650.AutoSize = true;
+            this.label650.Location = new System.Drawing.Point(145, 121);
+            this.label650.Name = "label650";
+            this.label650.Size = new System.Drawing.Size(54, 13);
+            this.label650.TabIndex = 112;
+            this.label650.Text = "Rise Time";
+            // 
+            // label651
+            // 
+            this.label651.AutoSize = true;
+            this.label651.Location = new System.Drawing.Point(145, 97);
+            this.label651.Name = "label651";
+            this.label651.Size = new System.Drawing.Size(75, 13);
+            this.label651.TabIndex = 111;
+            this.label651.Text = "Peak Duration";
+            // 
+            // DPPeakDuration_ANISO
+            // 
+            this.DPPeakDuration_ANISO.Location = new System.Drawing.Point(246, 94);
+            this.DPPeakDuration_ANISO.Name = "DPPeakDuration_ANISO";
+            this.DPPeakDuration_ANISO.Size = new System.Drawing.Size(42, 20);
+            this.DPPeakDuration_ANISO.TabIndex = 110;
+            this.toolTip1.SetToolTip(this.DPPeakDuration_ANISO, "Duration at peak amplitude  in s for DP bumps");
+            this.DPPeakDuration_ANISO.TextChanged += new System.EventHandler(this.textBox105_TextChanged);
+            // 
+            // Move_Bump_Check_ANISO
+            // 
+            this.Move_Bump_Check_ANISO.AutoSize = true;
+            this.Move_Bump_Check_ANISO.Location = new System.Drawing.Point(303, 50);
+            this.Move_Bump_Check_ANISO.Name = "Move_Bump_Check_ANISO";
+            this.Move_Bump_Check_ANISO.Size = new System.Drawing.Size(81, 17);
+            this.Move_Bump_Check_ANISO.TabIndex = 109;
+            this.Move_Bump_Check_ANISO.Text = "move bump";
+            this.toolTip1.SetToolTip(this.Move_Bump_Check_ANISO, "when checked the behavior will present bumps during the move period");
+            this.Move_Bump_Check_ANISO.UseVisualStyleBackColor = true;
+            this.Move_Bump_Check_ANISO.CheckedChanged += new System.EventHandler(this.checkBox21_CheckedChanged);
+            // 
+            // DelayBump_Check_ANISO
+            // 
+            this.DelayBump_Check_ANISO.AutoSize = true;
+            this.DelayBump_Check_ANISO.Location = new System.Drawing.Point(148, 50);
+            this.DelayBump_Check_ANISO.Name = "DelayBump_Check_ANISO";
+            this.DelayBump_Check_ANISO.Size = new System.Drawing.Size(82, 17);
+            this.DelayBump_Check_ANISO.TabIndex = 108;
+            this.DelayBump_Check_ANISO.Text = "Delay bump";
+            this.toolTip1.SetToolTip(this.DelayBump_Check_ANISO, "When checked the behavior will present bumps during the instructed delay period");
+            this.DelayBump_Check_ANISO.UseVisualStyleBackColor = true;
+            this.DelayBump_Check_ANISO.CheckedChanged += new System.EventHandler(this.checkBox22_CheckedChanged);
+            // 
+            // CTRHoldCheckbox_ANISO
+            // 
+            this.CTRHoldCheckbox_ANISO.AutoSize = true;
+            this.CTRHoldCheckbox_ANISO.Location = new System.Drawing.Point(5, 50);
+            this.CTRHoldCheckbox_ANISO.Name = "CTRHoldCheckbox_ANISO";
+            this.CTRHoldCheckbox_ANISO.Size = new System.Drawing.Size(93, 17);
+            this.CTRHoldCheckbox_ANISO.TabIndex = 107;
+            this.CTRHoldCheckbox_ANISO.Text = "Ctr Hold bump";
+            this.toolTip1.SetToolTip(this.CTRHoldCheckbox_ANISO, "When checked the behavior will present bumps durign the center hold period");
+            this.CTRHoldCheckbox_ANISO.UseVisualStyleBackColor = true;
+            this.CTRHoldCheckbox_ANISO.CheckedChanged += new System.EventHandler(this.checkBox23_CheckedChanged);
+            // 
+            // label652
+            // 
+            this.label652.AutoSize = true;
+            this.label652.Location = new System.Drawing.Point(12, 22);
+            this.label652.Name = "label652";
+            this.label652.Size = new System.Drawing.Size(55, 13);
+            this.label652.TabIndex = 106;
+            this.label652.Text = "catch rate";
+            // 
+            // CatchRate_ANISO
+            // 
+            this.CatchRate_ANISO.Location = new System.Drawing.Point(73, 19);
+            this.CatchRate_ANISO.Name = "CatchRate_ANISO";
+            this.CatchRate_ANISO.Size = new System.Drawing.Size(39, 20);
+            this.CatchRate_ANISO.TabIndex = 105;
+            this.toolTip1.SetToolTip(this.CatchRate_ANISO, "rate of trials with no bump. Setting this to 1 results in all catch trials, and a" +
+                    "ll bump rate settings will be ignored. Use this rather than setting all rates to" +
+                    " zero");
+            this.CatchRate_ANISO.TextChanged += new System.EventHandler(this.textBox106_TextChanged);
+            // 
+            // label653
+            // 
+            this.label653.AutoSize = true;
+            this.label653.Location = new System.Drawing.Point(2, 194);
+            this.label653.Name = "label653";
+            this.label653.Size = new System.Drawing.Size(97, 13);
+            this.label653.TabIndex = 32;
+            this.label653.Text = "Rand Bump Ceiling";
+            // 
+            // CHAmplitude_ANISO
+            // 
+            this.CHAmplitude_ANISO.Location = new System.Drawing.Point(99, 142);
+            this.CHAmplitude_ANISO.Name = "CHAmplitude_ANISO";
+            this.CHAmplitude_ANISO.Size = new System.Drawing.Size(40, 20);
+            this.CHAmplitude_ANISO.TabIndex = 14;
+            this.toolTip1.SetToolTip(this.CHAmplitude_ANISO, "amplitude in N for CH bumps");
+            this.CHAmplitude_ANISO.TextChanged += new System.EventHandler(this.textBox107_TextChanged);
+            // 
+            // label654
+            // 
+            this.label654.AutoSize = true;
+            this.label654.Location = new System.Drawing.Point(2, 169);
+            this.label654.Name = "label654";
+            this.label654.Size = new System.Drawing.Size(89, 13);
+            this.label654.TabIndex = 31;
+            this.label654.Text = "Rand Bump Floor";
+            // 
+            // CHRandBumpCeil_ANISO
+            // 
+            this.CHRandBumpCeil_ANISO.Location = new System.Drawing.Point(99, 191);
+            this.CHRandBumpCeil_ANISO.Name = "CHRandBumpCeil_ANISO";
+            this.CHRandBumpCeil_ANISO.Size = new System.Drawing.Size(40, 20);
+            this.CHRandBumpCeil_ANISO.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.CHRandBumpCeil_ANISO, "Greatest angular deviation from the target angle that CH bumps may take. (Deg)");
+            this.CHRandBumpCeil_ANISO.TextChanged += new System.EventHandler(this.textBox108_TextChanged);
+            // 
+            // CHRise_Time_ANISO
+            // 
+            this.CHRise_Time_ANISO.Location = new System.Drawing.Point(99, 118);
+            this.CHRise_Time_ANISO.Name = "CHRise_Time_ANISO";
+            this.CHRise_Time_ANISO.Size = new System.Drawing.Size(40, 20);
+            this.CHRise_Time_ANISO.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.CHRise_Time_ANISO, "rise/fall duration in s for CH bumps. ");
+            // 
+            // CHRandBumpFloor_ANISO
+            // 
+            this.CHRandBumpFloor_ANISO.Location = new System.Drawing.Point(99, 166);
+            this.CHRandBumpFloor_ANISO.Name = "CHRandBumpFloor_ANISO";
+            this.CHRandBumpFloor_ANISO.Size = new System.Drawing.Size(40, 20);
+            this.CHRandBumpFloor_ANISO.TabIndex = 29;
+            this.toolTip1.SetToolTip(this.CHRandBumpFloor_ANISO, "Lowest angular deviation from the target angle that CH bumps may take. (Deg)");
+            // 
+            // label655
+            // 
+            this.label655.AutoSize = true;
+            this.label655.Location = new System.Drawing.Point(2, 145);
+            this.label655.Name = "label655";
+            this.label655.Size = new System.Drawing.Size(53, 13);
+            this.label655.TabIndex = 12;
+            this.label655.Text = "Amplitude";
+            // 
+            // label656
+            // 
+            this.label656.AutoSize = true;
+            this.label656.Location = new System.Drawing.Point(2, 121);
+            this.label656.Name = "label656";
+            this.label656.Size = new System.Drawing.Size(54, 13);
+            this.label656.TabIndex = 11;
+            this.label656.Text = "Rise Time";
+            // 
+            // label657
+            // 
+            this.label657.AutoSize = true;
+            this.label657.Location = new System.Drawing.Point(2, 97);
+            this.label657.Name = "label657";
+            this.label657.Size = new System.Drawing.Size(75, 13);
+            this.label657.TabIndex = 10;
+            this.label657.Text = "Peak Duration";
+            // 
+            // CHPeak_Duration_ANISO
+            // 
+            this.CHPeak_Duration_ANISO.Location = new System.Drawing.Point(99, 94);
+            this.CHPeak_Duration_ANISO.Name = "CHPeak_Duration_ANISO";
+            this.CHPeak_Duration_ANISO.Size = new System.Drawing.Size(40, 20);
+            this.CHPeak_Duration_ANISO.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.CHPeak_Duration_ANISO, "Duration at peak amplitude in s for CH bumps");
+            this.CHPeak_Duration_ANISO.TextChanged += new System.EventHandler(this.textBox111_TextChanged);
+            // 
+            // groupBox117
+            // 
+            this.groupBox117.Controls.Add(this.label658);
+            this.groupBox117.Controls.Add(this.StimD_ANISO);
+            this.groupBox117.Controls.Add(this.THH_ANISO);
+            this.groupBox117.Controls.Add(this.THL_ANISO);
+            this.groupBox117.Controls.Add(this.label659);
+            this.groupBox117.Controls.Add(this.label660);
+            this.groupBox117.Controls.Add(this.CTHH_ANISO);
+            this.groupBox117.Controls.Add(this.label661);
+            this.groupBox117.Controls.Add(this.CDH_ANISO);
+            this.groupBox117.Controls.Add(this.label662);
+            this.groupBox117.Controls.Add(this.label663);
+            this.groupBox117.Controls.Add(this.MoveT_ANISO);
+            this.groupBox117.Controls.Add(this.CDL_ANISO);
+            this.groupBox117.Controls.Add(this.label664);
+            this.groupBox117.Controls.Add(this.label665);
+            this.groupBox117.Controls.Add(this.PEN_ANISO);
+            this.groupBox117.Controls.Add(this.Intertrial_ANISO);
+            this.groupBox117.Controls.Add(this.label666);
+            this.groupBox117.Controls.Add(this.BH_ANISO);
+            this.groupBox117.Controls.Add(this.BD_ANISO);
+            this.groupBox117.Controls.Add(this.label667);
+            this.groupBox117.Controls.Add(this.label668);
+            this.groupBox117.Controls.Add(this.label669);
+            this.groupBox117.Controls.Add(this.CTHL_ANISO);
+            this.groupBox117.Controls.Add(this.label670);
+            this.groupBox117.Location = new System.Drawing.Point(18, 15);
+            this.groupBox117.Name = "groupBox117";
+            this.groupBox117.Size = new System.Drawing.Size(284, 168);
+            this.groupBox117.TabIndex = 27;
+            this.groupBox117.TabStop = false;
+            this.groupBox117.Text = "Timing";
+            this.groupBox117.Enter += new System.EventHandler(this.groupBox117_Enter);
+            // 
+            // label658
+            // 
+            this.label658.AutoSize = true;
+            this.label658.Location = new System.Drawing.Point(6, 78);
+            this.label658.Name = "label658";
+            this.label658.Size = new System.Drawing.Size(57, 13);
+            this.label658.TabIndex = 24;
+            this.label658.Text = "Stim Delay";
+            // 
+            // StimD_ANISO
+            // 
+            this.StimD_ANISO.Location = new System.Drawing.Point(91, 75);
+            this.StimD_ANISO.Name = "StimD_ANISO";
+            this.StimD_ANISO.Size = new System.Drawing.Size(43, 20);
+            this.StimD_ANISO.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.StimD_ANISO, "Time allowed in s after go-cue before the trial ends as incomplete");
+            // 
+            // THH_ANISO
+            // 
+            this.THH_ANISO.Location = new System.Drawing.Point(236, 98);
+            this.THH_ANISO.Name = "THH_ANISO";
+            this.THH_ANISO.Size = new System.Drawing.Size(43, 20);
+            this.THH_ANISO.TabIndex = 22;
+            this.toolTip1.SetToolTip(this.THH_ANISO, "minimum time in s after bump before state change. Ignored for move bumps");
+            this.THH_ANISO.TextChanged += new System.EventHandler(this.textBox113_TextChanged);
+            // 
+            // THL_ANISO
+            // 
+            this.THL_ANISO.Location = new System.Drawing.Point(91, 96);
+            this.THL_ANISO.Name = "THL_ANISO";
+            this.THL_ANISO.Size = new System.Drawing.Size(43, 20);
+            this.THL_ANISO.TabIndex = 21;
+            this.toolTip1.SetToolTip(this.THL_ANISO, "Latency of bump onset from state onset in s");
+            this.THL_ANISO.TextChanged += new System.EventHandler(this.textBox114_TextChanged);
+            // 
+            // label659
+            // 
+            this.label659.AutoSize = true;
+            this.label659.Location = new System.Drawing.Point(146, 101);
+            this.label659.Name = "label659";
+            this.label659.Size = new System.Drawing.Size(84, 13);
+            this.label659.TabIndex = 20;
+            this.label659.Text = "Target hold high";
+            // 
+            // label660
+            // 
+            this.label660.AutoSize = true;
+            this.label660.Location = new System.Drawing.Point(6, 99);
+            this.label660.Name = "label660";
+            this.label660.Size = new System.Drawing.Size(80, 13);
+            this.label660.TabIndex = 19;
+            this.label660.Text = "Target hold low";
+            // 
+            // CTHH_ANISO
+            // 
+            this.CTHH_ANISO.Location = new System.Drawing.Point(236, 12);
+            this.CTHH_ANISO.Name = "CTHH_ANISO";
+            this.CTHH_ANISO.Size = new System.Drawing.Size(43, 20);
+            this.CTHH_ANISO.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.CTHH_ANISO, "max time of the center hold in s before target presentation");
+            this.CTHH_ANISO.TextChanged += new System.EventHandler(this.textBox115_TextChanged);
+            // 
+            // label661
+            // 
+            this.label661.AutoSize = true;
+            this.label661.Location = new System.Drawing.Point(146, 15);
+            this.label661.Name = "label661";
+            this.label661.Size = new System.Drawing.Size(69, 13);
+            this.label661.TabIndex = 17;
+            this.label661.Text = "CT Hold high";
+            // 
+            // CDH_ANISO
+            // 
+            this.CDH_ANISO.Location = new System.Drawing.Point(236, 34);
+            this.CDH_ANISO.Name = "CDH_ANISO";
+            this.CDH_ANISO.Size = new System.Drawing.Size(43, 20);
+            this.CDH_ANISO.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.CDH_ANISO, "maximum time of the delay period hold in s after target presentation");
+            this.CDH_ANISO.TextChanged += new System.EventHandler(this.textBox116_TextChanged);
+            // 
+            // label662
+            // 
+            this.label662.AutoSize = true;
+            this.label662.Location = new System.Drawing.Point(146, 37);
+            this.label662.Name = "label662";
+            this.label662.Size = new System.Drawing.Size(89, 13);
+            this.label662.TabIndex = 15;
+            this.label662.Text = "Delay period high";
+            // 
+            // label663
+            // 
+            this.label663.AutoSize = true;
+            this.label663.Location = new System.Drawing.Point(6, 59);
+            this.label663.Name = "label663";
+            this.label663.Size = new System.Drawing.Size(57, 13);
+            this.label663.TabIndex = 14;
+            this.label663.Text = "MoveTime";
+            // 
+            // MoveT_ANISO
+            // 
+            this.MoveT_ANISO.Location = new System.Drawing.Point(91, 55);
+            this.MoveT_ANISO.Name = "MoveT_ANISO";
+            this.MoveT_ANISO.Size = new System.Drawing.Size(43, 20);
+            this.MoveT_ANISO.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.MoveT_ANISO, "Time allowed in s after go-cue before the trial ends as incomplete");
+            this.MoveT_ANISO.TextChanged += new System.EventHandler(this.textBox117_TextChanged);
+            // 
+            // CDL_ANISO
+            // 
+            this.CDL_ANISO.Location = new System.Drawing.Point(91, 33);
+            this.CDL_ANISO.Name = "CDL_ANISO";
+            this.CDL_ANISO.Size = new System.Drawing.Size(43, 20);
+            this.CDL_ANISO.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.CDL_ANISO, "minimum time of the delay period hold in s after target presentation");
+            this.CDL_ANISO.TextChanged += new System.EventHandler(this.textBox118_TextChanged);
+            // 
+            // label664
+            // 
+            this.label664.AutoSize = true;
+            this.label664.Location = new System.Drawing.Point(6, 36);
+            this.label664.Name = "label664";
+            this.label664.Size = new System.Drawing.Size(85, 13);
+            this.label664.TabIndex = 11;
+            this.label664.Text = "Delay period low";
+            // 
+            // label665
+            // 
+            this.label665.AutoSize = true;
+            this.label665.Location = new System.Drawing.Point(146, 147);
+            this.label665.Name = "label665";
+            this.label665.Size = new System.Drawing.Size(42, 13);
+            this.label665.TabIndex = 10;
+            this.label665.Text = "Penalty";
+            // 
+            // PEN_ANISO
+            // 
+            this.PEN_ANISO.Location = new System.Drawing.Point(236, 143);
+            this.PEN_ANISO.Name = "PEN_ANISO";
+            this.PEN_ANISO.Size = new System.Drawing.Size(43, 20);
+            this.PEN_ANISO.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.PEN_ANISO, "Time in s spent in penalty timeout after failed trial");
+            // 
+            // Intertrial_ANISO
+            // 
+            this.Intertrial_ANISO.Location = new System.Drawing.Point(91, 141);
+            this.Intertrial_ANISO.Name = "Intertrial_ANISO";
+            this.Intertrial_ANISO.Size = new System.Drawing.Size(43, 20);
+            this.Intertrial_ANISO.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.Intertrial_ANISO, "Time in s between trial end and start of new trial");
+            this.Intertrial_ANISO.TextChanged += new System.EventHandler(this.textBox120_TextChanged);
+            // 
+            // label666
+            // 
+            this.label666.AutoSize = true;
+            this.label666.Location = new System.Drawing.Point(6, 144);
+            this.label666.Name = "label666";
+            this.label666.Size = new System.Drawing.Size(44, 13);
+            this.label666.TabIndex = 7;
+            this.label666.Text = "Intertrial";
+            // 
+            // BH_ANISO
+            // 
+            this.BH_ANISO.Location = new System.Drawing.Point(236, 120);
+            this.BH_ANISO.Name = "BH_ANISO";
+            this.BH_ANISO.Size = new System.Drawing.Size(43, 20);
+            this.BH_ANISO.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.BH_ANISO, "minimum time in s after bump before state change. Ignored for move bumps");
+            this.BH_ANISO.TextChanged += new System.EventHandler(this.textBox121_TextChanged);
+            // 
+            // BD_ANISO
+            // 
+            this.BD_ANISO.Location = new System.Drawing.Point(91, 118);
+            this.BD_ANISO.Name = "BD_ANISO";
+            this.BD_ANISO.Size = new System.Drawing.Size(43, 20);
+            this.BD_ANISO.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.BD_ANISO, "Latency of bump onset from state onset in s");
+            this.BD_ANISO.TextChanged += new System.EventHandler(this.textBox122_TextChanged);
+            // 
+            // label667
+            // 
+            this.label667.AutoSize = true;
+            this.label667.Location = new System.Drawing.Point(146, 123);
+            this.label667.Name = "label667";
+            this.label667.Size = new System.Drawing.Size(59, 13);
+            this.label667.TabIndex = 4;
+            this.label667.Text = "Bump Hold";
+            // 
+            // label668
+            // 
+            this.label668.AutoSize = true;
+            this.label668.Location = new System.Drawing.Point(6, 121);
+            this.label668.Name = "label668";
+            this.label668.Size = new System.Drawing.Size(64, 13);
+            this.label668.TabIndex = 3;
+            this.label668.Text = "Bump Delay";
+            // 
+            // label669
+            // 
+            this.label669.AutoSize = true;
+            this.label669.Location = new System.Drawing.Point(460, -62);
+            this.label669.Name = "label669";
+            this.label669.Size = new System.Drawing.Size(46, 13);
+            this.label669.TabIndex = 2;
+            this.label669.Text = "CT Hold";
+            // 
+            // CTHL_ANISO
+            // 
+            this.CTHL_ANISO.Location = new System.Drawing.Point(91, 11);
+            this.CTHL_ANISO.Name = "CTHL_ANISO";
+            this.CTHL_ANISO.Size = new System.Drawing.Size(43, 20);
+            this.CTHL_ANISO.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.CTHL_ANISO, "min time of the center hold in s before target presentation");
+            // 
+            // label670
+            // 
+            this.label670.AutoSize = true;
+            this.label670.Location = new System.Drawing.Point(6, 14);
+            this.label670.Name = "label670";
+            this.label670.Size = new System.Drawing.Size(65, 13);
+            this.label670.TabIndex = 0;
+            this.label670.Text = "CT Hold low";
+            // 
+            // label671
+            // 
+            this.label671.AutoSize = true;
+            this.label671.Location = new System.Drawing.Point(6, 72);
+            this.label671.Name = "label671";
+            this.label671.Size = new System.Drawing.Size(79, 13);
+            this.label671.TabIndex = 33;
+            this.label671.Text = "hideCursor max";
+            this.toolTip1.SetToolTip(this.label671, "radius from the center after which the cursor will reappear. given as a 0-1 value" +
+                    " that is a fraction of the target distance");
+            // 
+            // textBox124
+            // 
+            this.textBox124.Location = new System.Drawing.Point(88, 69);
+            this.textBox124.Name = "textBox124";
+            this.textBox124.Size = new System.Drawing.Size(52, 20);
+            this.textBox124.TabIndex = 32;
+            this.toolTip1.SetToolTip(this.textBox124, "radius from the center after which the cursor is hidden. given as a 0-1 value tha" +
+                    "t is a fraction of the target distance");
+            // 
+            // checkBox24
+            // 
+            this.checkBox24.AutoSize = true;
+            this.checkBox24.Location = new System.Drawing.Point(9, 16);
+            this.checkBox24.Name = "checkBox24";
+            this.checkBox24.Size = new System.Drawing.Size(81, 17);
+            this.checkBox24.TabIndex = 30;
+            this.checkBox24.Text = "Hide Cursor";
+            this.toolTip1.SetToolTip(this.checkBox24, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.checkBox24.UseVisualStyleBackColor = true;
+            // 
+            // label672
+            // 
+            this.label672.AutoSize = true;
+            this.label672.Location = new System.Drawing.Point(6, 50);
+            this.label672.Name = "label672";
+            this.label672.Size = new System.Drawing.Size(76, 13);
+            this.label672.TabIndex = 21;
+            this.label672.Text = "hideCursor min";
+            this.toolTip1.SetToolTip(this.label672, "radius from the center after which the cursor is hidden. given as a 0-1 value tha" +
+                    "t is a fraction of the target distance");
+            // 
+            // textBox125
+            // 
+            this.textBox125.Location = new System.Drawing.Point(88, 47);
+            this.textBox125.Name = "textBox125";
+            this.textBox125.Size = new System.Drawing.Size(52, 20);
+            this.textBox125.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.textBox125, "radius from the center after which the cursor is hidden. given as a 0-1 value tha" +
+                    "t is a fraction of the target distance");
+            // 
+            // groupBox118
+            // 
+            this.groupBox118.Controls.Add(this.label673);
+            this.groupBox118.Controls.Add(this.Hide_Cursor_Max_ANISO);
+            this.groupBox118.Controls.Add(this.Hide_Cursor_ANISO);
+            this.groupBox118.Controls.Add(this.label674);
+            this.groupBox118.Controls.Add(this.Hide_Cursor_Min_ANISO);
+            this.groupBox118.Location = new System.Drawing.Point(522, 3);
+            this.groupBox118.Name = "groupBox118";
+            this.groupBox118.Size = new System.Drawing.Size(151, 98);
+            this.groupBox118.TabIndex = 31;
+            this.groupBox118.TabStop = false;
+            this.groupBox118.Text = "Cursor";
+            this.groupBox118.Enter += new System.EventHandler(this.groupBox118_Enter);
+            // 
+            // label673
+            // 
+            this.label673.AutoSize = true;
+            this.label673.Location = new System.Drawing.Point(6, 72);
+            this.label673.Name = "label673";
+            this.label673.Size = new System.Drawing.Size(79, 13);
+            this.label673.TabIndex = 33;
+            this.label673.Text = "hideCursor max";
+            this.toolTip1.SetToolTip(this.label673, "radius from the center after which the cursor will reappear. given as a 0-1 value" +
+                    " that is a fraction of the target distance");
+            // 
+            // Hide_Cursor_Max_ANISO
+            // 
+            this.Hide_Cursor_Max_ANISO.Location = new System.Drawing.Point(88, 69);
+            this.Hide_Cursor_Max_ANISO.Name = "Hide_Cursor_Max_ANISO";
+            this.Hide_Cursor_Max_ANISO.Size = new System.Drawing.Size(52, 20);
+            this.Hide_Cursor_Max_ANISO.TabIndex = 32;
+            this.toolTip1.SetToolTip(this.Hide_Cursor_Max_ANISO, "radius from the center after which the cursor is hidden. given as a 0-1 value tha" +
+                    "t is a fraction of the target distance");
+            this.Hide_Cursor_Max_ANISO.TextChanged += new System.EventHandler(this.textBox126_TextChanged);
+            // 
+            // Hide_Cursor_ANISO
+            // 
+            this.Hide_Cursor_ANISO.AutoSize = true;
+            this.Hide_Cursor_ANISO.Location = new System.Drawing.Point(9, 16);
+            this.Hide_Cursor_ANISO.Name = "Hide_Cursor_ANISO";
+            this.Hide_Cursor_ANISO.Size = new System.Drawing.Size(81, 17);
+            this.Hide_Cursor_ANISO.TabIndex = 30;
+            this.Hide_Cursor_ANISO.Text = "Hide Cursor";
+            this.toolTip1.SetToolTip(this.Hide_Cursor_ANISO, "When checked the targets will appear at random angles between the specified floor" +
+                    " and ceiling values");
+            this.Hide_Cursor_ANISO.UseVisualStyleBackColor = true;
+            this.Hide_Cursor_ANISO.CheckedChanged += new System.EventHandler(this.checkBox25_CheckedChanged);
+            // 
+            // label674
+            // 
+            this.label674.AutoSize = true;
+            this.label674.Location = new System.Drawing.Point(6, 50);
+            this.label674.Name = "label674";
+            this.label674.Size = new System.Drawing.Size(76, 13);
+            this.label674.TabIndex = 21;
+            this.label674.Text = "hideCursor min";
+            this.toolTip1.SetToolTip(this.label674, "radius from the center after which the cursor is hidden. given as a 0-1 value tha" +
+                    "t is a fraction of the target distance");
+            // 
+            // Hide_Cursor_Min_ANISO
+            // 
+            this.Hide_Cursor_Min_ANISO.Location = new System.Drawing.Point(88, 47);
+            this.Hide_Cursor_Min_ANISO.Name = "Hide_Cursor_Min_ANISO";
+            this.Hide_Cursor_Min_ANISO.Size = new System.Drawing.Size(52, 20);
+            this.Hide_Cursor_Min_ANISO.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.Hide_Cursor_Min_ANISO, "radius from the center after which the cursor is hidden. given as a 0-1 value tha" +
+                    "t is a fraction of the target distance");
+            this.Hide_Cursor_Min_ANISO.TextChanged += new System.EventHandler(this.textBox127_TextChanged);
+            // 
+            // groupBox119
+            // 
+            this.groupBox119.Controls.Add(this.ForceDirections);
+            this.groupBox119.Location = new System.Drawing.Point(445, 39);
+            this.groupBox119.Name = "groupBox119";
+            this.groupBox119.Size = new System.Drawing.Size(223, 206);
+            this.groupBox119.TabIndex = 149;
+            this.groupBox119.TabStop = false;
+            this.groupBox119.Text = "Bump Directions";
+            this.groupBox119.Enter += new System.EventHandler(this.groupBox119_Enter);
+            // 
+            // ForceDirections
+            // 
+            this.ForceDirections.AllowDrop = true;
+            this.ForceDirections.AllowUserToAddRows = false;
+            this.ForceDirections.AllowUserToResizeColumns = false;
+            this.ForceDirections.AllowUserToResizeRows = false;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ForceDirections.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            this.ForceDirections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ForceDirections.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn3,
+            this.Dirs,
+            this.dataGridViewTextBoxColumn5});
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ForceDirections.DefaultCellStyle = dataGridViewCellStyle17;
+            this.ForceDirections.Location = new System.Drawing.Point(0, 7);
+            this.ForceDirections.Name = "ForceDirections";
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ForceDirections.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
+            this.ForceDirections.RowHeadersVisible = false;
+            this.ForceDirections.Size = new System.Drawing.Size(217, 197);
+            this.ForceDirections.TabIndex = 30;
+            this.ForceDirections.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle16;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Num";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 35;
+            // 
+            // Dirs
+            // 
+            this.Dirs.HeaderText = "Dirs";
+            this.Dirs.Name = "Dirs";
+            this.Dirs.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "Force";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn5.Width = 45;
             // 
             // UpdateForm
             // 
@@ -27476,6 +28635,23 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
+            this.tabPage9.ResumeLayout(false);
+            this.groupBox114.ResumeLayout(false);
+            this.groupBox114.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericNumTargets_ANISO)).EndInit();
+            this.groupBox115.ResumeLayout(false);
+            this.groupBox115.PerformLayout();
+            this.groupBox116.ResumeLayout(false);
+            this.groupBox116.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MvNumBumpDirs_ANISO)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DPNumBumpDirs_ANISO)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CHNumBumpDirs_ANISO)).EndInit();
+            this.groupBox117.ResumeLayout(false);
+            this.groupBox117.PerformLayout();
+            this.groupBox118.ResumeLayout(false);
+            this.groupBox118.PerformLayout();
+            this.groupBox119.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ForceDirections)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -29892,5 +31068,122 @@ namespace BehaviorGraphics
         private System.Windows.Forms.Label label616;
         private System.Windows.Forms.CheckBox checkBoxRRB_repeatFailures;
         private System.Windows.Forms.CheckBox checkBoxRRB_endAtOuterRing;
+        private System.Windows.Forms.TabPage tabPage9;
+        private System.Windows.Forms.GroupBox groupBox118;
+        private System.Windows.Forms.Label label673;
+        private System.Windows.Forms.TextBox Hide_Cursor_Max_ANISO;
+        private System.Windows.Forms.CheckBox Hide_Cursor_ANISO;
+        private System.Windows.Forms.Label label674;
+        private System.Windows.Forms.TextBox Hide_Cursor_Min_ANISO;
+        private System.Windows.Forms.GroupBox groupBox114;
+        private System.Windows.Forms.CheckBox Idiot_Mode_ANISO;
+        private System.Windows.Forms.NumericUpDown numericNumTargets_ANISO;
+        private System.Windows.Forms.Label label618;
+        private System.Windows.Forms.TextBox Angle_ANISO;
+        private System.Windows.Forms.Label label619;
+        private System.Windows.Forms.Label label620;
+        private System.Windows.Forms.TextBox Target_Angle_Ceiling_ANISO;
+        private System.Windows.Forms.TextBox Target_Angle_Floor_ANISO;
+        private System.Windows.Forms.CheckBox Random_Targets_ANISO;
+        private System.Windows.Forms.Label label621;
+        private System.Windows.Forms.TextBox targDist_ANISO;
+        private System.Windows.Forms.Label label630;
+        private System.Windows.Forms.Label label631;
+        private System.Windows.Forms.TextBox TargetRadius_ANISO;
+        private System.Windows.Forms.GroupBox groupBox115;
+        private System.Windows.Forms.CheckBox StimInsteadBump_ANISO;
+        private System.Windows.Forms.CheckBox StimDuringBump_ANISO;
+        private System.Windows.Forms.Label label632;
+        private System.Windows.Forms.TextBox StimLevel_ANISO;
+        private System.Windows.Forms.Label label633;
+        private System.Windows.Forms.TextBox StimProb_ANISO;
+        private System.Windows.Forms.GroupBox groupBox116;
+        private System.Windows.Forms.CheckBox Target_Relative_Bumps_ANISO;
+        private System.Windows.Forms.CheckBox RandomBumpTime_ANISO;
+        private System.Windows.Forms.NumericUpDown MvNumBumpDirs_ANISO;
+        private System.Windows.Forms.Label label634;
+        private System.Windows.Forms.NumericUpDown DPNumBumpDirs_ANISO;
+        private System.Windows.Forms.Label label635;
+        private System.Windows.Forms.NumericUpDown CHNumBumpDirs_ANISO;
+        private System.Windows.Forms.Label label636;
+        private System.Windows.Forms.CheckBox AbortDuringBump_ANISO;
+        private System.Windows.Forms.CheckBox BidirectionalBumps_ANISO;
+        private System.Windows.Forms.Label label637;
+        private System.Windows.Forms.TextBox MBumpRate_ANISO;
+        private System.Windows.Forms.Label label638;
+        private System.Windows.Forms.TextBox DPBumpRate_ANISO;
+        private System.Windows.Forms.Label label641;
+        private System.Windows.Forms.TextBox CHBumpRate_ANISO;
+        private System.Windows.Forms.Label label642;
+        private System.Windows.Forms.TextBox MvAmplitude_ANISO;
+        private System.Windows.Forms.Label label643;
+        private System.Windows.Forms.TextBox MvRandBumpCeil_ANISO;
+        private System.Windows.Forms.TextBox MvRiseTime_ANISO;
+        private System.Windows.Forms.TextBox MvRandBumpFloor_ANISO;
+        private System.Windows.Forms.Label label644;
+        private System.Windows.Forms.Label label645;
+        private System.Windows.Forms.Label label646;
+        private System.Windows.Forms.TextBox MvPeakDuration_ANISO;
+        private System.Windows.Forms.Label label647;
+        private System.Windows.Forms.TextBox DPAmplitude_ANISO;
+        private System.Windows.Forms.Label label648;
+        private System.Windows.Forms.TextBox DPRandBumpCeil_ANISO;
+        private System.Windows.Forms.TextBox DPRiseTime_ANISO;
+        private System.Windows.Forms.TextBox DPRandBumpFloor_ANISO;
+        private System.Windows.Forms.Label label649;
+        private System.Windows.Forms.Label label650;
+        private System.Windows.Forms.Label label651;
+        private System.Windows.Forms.TextBox DPPeakDuration_ANISO;
+        private System.Windows.Forms.CheckBox Move_Bump_Check_ANISO;
+        private System.Windows.Forms.CheckBox DelayBump_Check_ANISO;
+        private System.Windows.Forms.CheckBox CTRHoldCheckbox_ANISO;
+        private System.Windows.Forms.Label label652;
+        private System.Windows.Forms.TextBox CatchRate_ANISO;
+        private System.Windows.Forms.Label label653;
+        private System.Windows.Forms.TextBox CHAmplitude_ANISO;
+        private System.Windows.Forms.Label label654;
+        private System.Windows.Forms.TextBox CHRandBumpCeil_ANISO;
+        private System.Windows.Forms.TextBox CHRise_Time_ANISO;
+        private System.Windows.Forms.TextBox CHRandBumpFloor_ANISO;
+        private System.Windows.Forms.Label label655;
+        private System.Windows.Forms.Label label656;
+        private System.Windows.Forms.Label label657;
+        private System.Windows.Forms.TextBox CHPeak_Duration_ANISO;
+        private System.Windows.Forms.GroupBox groupBox117;
+        private System.Windows.Forms.Label label658;
+        private System.Windows.Forms.TextBox StimD_ANISO;
+        private System.Windows.Forms.TextBox THH_ANISO;
+        private System.Windows.Forms.TextBox THL_ANISO;
+        private System.Windows.Forms.Label label659;
+        private System.Windows.Forms.Label label660;
+        private System.Windows.Forms.TextBox CTHH_ANISO;
+        private System.Windows.Forms.Label label661;
+        private System.Windows.Forms.TextBox CDH_ANISO;
+        private System.Windows.Forms.Label label662;
+        private System.Windows.Forms.Label label663;
+        private System.Windows.Forms.TextBox MoveT_ANISO;
+        private System.Windows.Forms.TextBox CDL_ANISO;
+        private System.Windows.Forms.Label label664;
+        private System.Windows.Forms.Label label665;
+        private System.Windows.Forms.TextBox PEN_ANISO;
+        private System.Windows.Forms.TextBox Intertrial_ANISO;
+        private System.Windows.Forms.Label label666;
+        private System.Windows.Forms.TextBox BH_ANISO;
+        private System.Windows.Forms.TextBox BD_ANISO;
+        private System.Windows.Forms.Label label667;
+        private System.Windows.Forms.Label label668;
+        private System.Windows.Forms.Label label669;
+        private System.Windows.Forms.TextBox CTHL_ANISO;
+        private System.Windows.Forms.Label label670;
+        private System.Windows.Forms.Label label671;
+        private System.Windows.Forms.TextBox textBox124;
+        private System.Windows.Forms.CheckBox checkBox24;
+        private System.Windows.Forms.Label label672;
+        private System.Windows.Forms.TextBox textBox125;
+        private System.Windows.Forms.GroupBox groupBox119;
+        private System.Windows.Forms.DataGridView ForceDirections;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Dirs;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
     }
 }
