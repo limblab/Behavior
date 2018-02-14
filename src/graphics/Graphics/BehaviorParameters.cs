@@ -39,6 +39,8 @@ namespace BehaviorGraphics
         // center-out specific elements
         private CenterOutMode com;
 
+        private List<AnIsoForces> aniso;
+
         #region publicAttributes
         
         public BehaviorParameters()
@@ -58,6 +60,13 @@ namespace BehaviorGraphics
             bfStim = new List<BumpChoiceStim>();
             for (int i = 0; i < 16; i++)
                 bfStim.Add(new BumpChoiceStim());
+
+            aniso = new List<AnIsoForces>();
+            for (int i = 0; i < 16; i++)
+            {
+                aniso.Add(new AnIsoForces());
+            }
+
         }
 
         [XmlIgnore]
@@ -144,6 +153,8 @@ namespace BehaviorGraphics
             get { return lt2; }
         }
 
+
+
         [XmlAttribute]
         public string Version
         {
@@ -186,6 +197,12 @@ namespace BehaviorGraphics
             set { mgTargets = value; }
         }
 
+        [XmlIgnore]
+        public List<AnIsoForces> AnIsotropicForces
+        {
+            get { return aniso; }
+            set { aniso = value; }
+        }
         [XmlArray("FlextensionTargetList")]
         public MultiGadgetTarget[] WFTArray
         {
