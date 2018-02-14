@@ -271,7 +271,7 @@ pt(30).subsource = 'SS_DOUBLE';
 pt(30).ndims     = '2';
 pt(30).size      = '[]';
 
-pt(31).blockname = 'BoundingBox1/DisableBoundingBox';
+pt(31).blockname = 'BoundingBox/DisableBoundingBox';
 pt(31).paramname = 'Value';
 pt(31).class     = 'scalar';
 pt(31).nrows     = 1;
@@ -280,7 +280,7 @@ pt(31).subsource = 'SS_DOUBLE';
 pt(31).ndims     = '2';
 pt(31).size      = '[]';
 
-pt(32).blockname = 'BoundingBox1/XHighLimit';
+pt(32).blockname = 'BoundingBox/XHighLimit';
 pt(32).paramname = 'Value';
 pt(32).class     = 'scalar';
 pt(32).nrows     = 1;
@@ -289,7 +289,7 @@ pt(32).subsource = 'SS_DOUBLE';
 pt(32).ndims     = '2';
 pt(32).size      = '[]';
 
-pt(33).blockname = 'BoundingBox1/XLowLimit';
+pt(33).blockname = 'BoundingBox/XLowLimit';
 pt(33).paramname = 'Value';
 pt(33).class     = 'scalar';
 pt(33).nrows     = 1;
@@ -298,7 +298,7 @@ pt(33).subsource = 'SS_DOUBLE';
 pt(33).ndims     = '2';
 pt(33).size      = '[]';
 
-pt(34).blockname = 'BoundingBox1/YHighLimit';
+pt(34).blockname = 'BoundingBox/YHighLimit';
 pt(34).paramname = 'Value';
 pt(34).class     = 'scalar';
 pt(34).nrows     = 1;
@@ -307,7 +307,7 @@ pt(34).subsource = 'SS_DOUBLE';
 pt(34).ndims     = '2';
 pt(34).size      = '[]';
 
-pt(35).blockname = 'BoundingBox1/YLowLimit';
+pt(35).blockname = 'BoundingBox/YLowLimit';
 pt(35).paramname = 'Value';
 pt(35).class     = 'scalar';
 pt(35).nrows     = 1;

@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1223"
+    ComputedModelVersion    "1.1227"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -30,7 +30,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-45.0, 196.0, 1036.0, 558.0]
+      Location		      [-6.0, 5.0, 1036.0, 671.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -54,9 +54,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[992.0, 398.0]
+	Extents			[992.0, 511.0]
 	ZoomFactor		[1.0]
-	Offset			[-23.956130711395531, 1844.010188933873]
+	Offset			[759.62720262193716, 2179.3435222672056]
       }
     }
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Feb 07 17:29:42 2018"
-  RTWModifiedTimeStamp	  439925300
-  ModelVersionFormat	  "1.%<AutoIncrement:1223>"
+  LastModifiedDate	  "Tue Feb 13 16:54:32 2018"
+  RTWModifiedTimeStamp	  440441670
+  ModelVersionFormat	  "1.%<AutoIncrement:1227>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -617,7 +617,7 @@ Model {
 		Dimension		14
 		Cell			"GeneratePreprocessorConditionals"
 		Cell			"IncludeMdlTerminateFcn"
-		Cell			"CombineOutputUpdateFcns"
+		Cell			"SupportNonInlinedSFcns"
 		Cell			"SuppressErrorStatus"
 		Cell			"ERTCustomFileBanners"
 		Cell			"GenerateSampleERTMain"
@@ -628,7 +628,7 @@ Model {
 		Cell			"SupportComplex"
 		Cell			"SupportAbsoluteTime"
 		Cell			"SupportContinuousTime"
-		Cell			"SupportNonInlinedSFcns"
+		Cell			"CombineOutputUpdateFcns"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
@@ -993,7 +993,7 @@ Model {
   }
   System {
     Name		    "forced_choice"
-    Location		    [-45, 196, 991, 754]
+    Location		    [-6, 5, 1030, 676]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1007,7 +1007,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "801"
+    SIDHighWatermark	    "804"
     Block {
       BlockType		      S-Function
       Name		      "Behavior FC"
@@ -1030,7 +1030,7 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "BoundingBox1"
+      Name		      "BoundingBox"
       SID		      "689"
       Ports		      [1, 1]
       Position		      [990, 2438, 1080, 2502]
@@ -1964,41 +1964,6 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "Reward Display"
-      SID		      "791"
-      Ports		      [1]
-      Position		      [1220, 2099, 1290, 2141]
-      ZOrder		      115
-      LibraryVersion	      "1.1842"
-      SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
-      SourceType	      "xpcscopeblock"
-      ContentPreviewEnabled   off
-      scopeno		      "8"
-      scopetype		      "Target"
-      autostart		      on
-      viewmode		      "Numerical"
-      formatstr		      "'%6.0f word'"
-      grid		      on
-      ylimits		      "[-10,10]"
-      nosamples		      "10"
-      noprepostsamples	      "0"
-      interleave	      "10"
-      triggermode	      "FreeRun"
-      triggersignal	      "1"
-      trigsignalfromport      off
-      triggerlevel	      "0.0"
-      triggerslope	      "Either"
-      triggerscope	      "1"
-      triggersample	      "0"
-      filename		      "data.dat"
-      mode		      "Lazy"
-      writesize		      "512"
-      autorestart	      off
-      dynamicfilemode	      off
-      maxwritefilesize	      "512*1024^2"
-    }
-    Block {
-      BlockType		      Reference
       Name		      "RewardSbs"
       SID		      "800"
       Ports		      [1, 1]
@@ -2610,22 +2575,12 @@ Model {
       ZOrder		      352
       SrcBlock		      "Behavior FC"
       SrcPort		      5
-      Points		      [5, 0]
-      Branch {
-	ZOrder			405
-	DstBlock		"RewardSbs"
-	DstPort			1
-      }
-      Branch {
-	ZOrder			403
-	Points			[0, -29; 140, 0]
-	DstBlock		"Reward Display"
-	DstPort			1
-      }
+      DstBlock		      "RewardSbs"
+      DstPort		      1
     }
     Line {
       ZOrder		      326
-      SrcBlock		      "BoundingBox1"
+      SrcBlock		      "BoundingBox"
       SrcPort		      1
       DstBlock		      "Recentering Subsystem1"
       DstPort		      3
@@ -2644,7 +2599,7 @@ Model {
       Branch {
 	ZOrder			327
 	Labels			[-1, 0]
-	Points			[1132, 0; 0, -400]
+	Points			[0, 54; 1132, 0; 0, -454]
 	DstBlock		"Motor Control1"
 	DstPort			4
       }
@@ -2654,7 +2609,7 @@ Model {
       SrcBlock		      "XY Position Subsystem1"
       SrcPort		      2
       Points		      [414, 0; 0, -10]
-      DstBlock		      "BoundingBox1"
+      DstBlock		      "BoundingBox"
       DstPort		      1
     }
     Line {

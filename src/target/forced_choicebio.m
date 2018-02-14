@@ -101,7 +101,7 @@ bio(10).ndims=2;
 bio(10).size=[];
 
 
-bio(11).blkName='BoundingBox1/Logical Operator';
+bio(11).blkName='BoundingBox/Logical Operator';
 bio(11).sigName='';
 bio(11).portIdx=0;
 bio(11).dim=[1,1];
@@ -111,7 +111,7 @@ bio(11).ndims=2;
 bio(11).size=[];
 
 
-bio(12).blkName='BoundingBox1/Logical Operator1';
+bio(12).blkName='BoundingBox/Logical Operator1';
 bio(12).sigName='';
 bio(12).portIdx=0;
 bio(12).dim=[1,1];
@@ -121,7 +121,7 @@ bio(12).ndims=2;
 bio(12).size=[];
 
 
-bio(13).blkName='BoundingBox1/Logical Operator2';
+bio(13).blkName='BoundingBox/Logical Operator2';
 bio(13).sigName='';
 bio(13).portIdx=0;
 bio(13).dim=[1,1];
@@ -131,7 +131,7 @@ bio(13).ndims=2;
 bio(13).size=[];
 
 
-bio(14).blkName='BoundingBox1/Relational Operator';
+bio(14).blkName='BoundingBox/Relational Operator';
 bio(14).sigName='';
 bio(14).portIdx=0;
 bio(14).dim=[1,1];
@@ -141,7 +141,7 @@ bio(14).ndims=2;
 bio(14).size=[];
 
 
-bio(15).blkName='BoundingBox1/Relational Operator1';
+bio(15).blkName='BoundingBox/Relational Operator1';
 bio(15).sigName='';
 bio(15).portIdx=0;
 bio(15).dim=[1,1];
@@ -151,7 +151,7 @@ bio(15).ndims=2;
 bio(15).size=[];
 
 
-bio(16).blkName='BoundingBox1/Relational Operator2';
+bio(16).blkName='BoundingBox/Relational Operator2';
 bio(16).sigName='';
 bio(16).portIdx=0;
 bio(16).dim=[1,1];
@@ -161,7 +161,7 @@ bio(16).ndims=2;
 bio(16).size=[];
 
 
-bio(17).blkName='BoundingBox1/Relational Operator3';
+bio(17).blkName='BoundingBox/Relational Operator3';
 bio(17).sigName='';
 bio(17).portIdx=0;
 bio(17).dim=[1,1];

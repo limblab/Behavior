@@ -283,7 +283,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     } else {
 		this->bump->peak_magnitude=0;
 	}
-
+    
 	/* Select whether this will be a training trial 
 	*  If the training frequency is zero we should not see any training trials*/
 	this->training_trial=(this->random->getDouble() < params->training_frequency);
@@ -383,15 +383,15 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 			if (!centerTarget->cursorInTarget(inputs->cursor)) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-// 			} else if (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay)) {
-// 				if (this->stim_trial) {
-// 					setState(STATE_STIM);
-// 				} else if(this->bump_trial) {
-//     				bump->start(S);
-// 					setState(STATE_BUMP);
-// 				} 
-// 			} else if (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay + params->bump_hold_time)){
-            } else if (stateTimer->elapsedTime(S) > (params->ct_hold_time)){
+			} else if (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay) &&
+                     (this->stim_trial)||(this->bump_trial)) {
+				if (this->stim_trial) {
+					setState(STATE_STIM);
+				} else if(this->bump_trial) {
+    				bump->start(S);
+					setState(STATE_BUMP);
+				} 
+			} else if (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay + params->bump_hold_time)){
                 playTone(TONE_REWARD);
                 setState(STATE_REWARD);
             }
@@ -405,7 +405,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);
                 } else if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
-                    //playTone(TONE_GO);
+                    playTone(TONE_GO);
                     if (params->recenter_cursor) {
                         cursorOffset = inputs->cursor;
                     }   
@@ -422,7 +422,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);
                 } else if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
-                    //playTone(TONE_GO);
+                    playTone(TONE_GO);
                     if (params->recenter_cursor) {
                         cursorOffset = inputs->cursor;
                     }   
@@ -499,22 +499,18 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	} else {
 		outputs->force = inputs->force;
 	}
-
+//     outputs->status[0] =params->ct_hold_time;
+    outputs->force.x = (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay)) ; 
+    outputs->force.y = (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay + params->bump_hold_time));
 
 	/* status (1) */
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
-// outputs->status[0] = inputs->force.x;
-// outputs->status[1] = inputs->force.y;
 	outputs->status[2] = trialCounter->aborts;
-	outputs->status[3] = trialCounter->failures;
- 	outputs->status[4] = trialCounter->incompletes;
-// 	outputs->status[0] = (int)this->bump_dir;
-//	outputs->status[1] = (int)this->tgt_angle;
-//	outputs->status[2] = trialCounter->aborts;
-//	outputs->status[3] = trialCounter->failures;
-//  outputs->status[4] = params->abort_during_bump;
-  
+// 	outputs->status[3] = trialCounter->failures;
+//     outputs->status[4] = params->abort_during_bump;
+outputs->status[3] = this->stim_trial;
+outputs->status[4] = this->bump_trial;
 	/* word (2) */
 	if (db->isRunning()) {
 		outputs->word = db->getByte();
@@ -559,45 +555,16 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	/* target_pos (3) */
 	// Center Target
 	if (getState() == STATE_CT_ON || 
-	    getState() == STATE_CT_HOLD )  {
+	    getState() == STATE_DATA_BLOCK )  {
 		outputs->targets[0] = (Target *)centerTarget;
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
-	} else if ( getState() == STATE_CT_BLOCK ||
-                getState() == STATE_BUMP) {
+	} else if ( getState() == STATE_CT_HOLD ||
+                getState() == STATE_BUMP ||
+                getState() == STATE_MOVEMENT) {
 		outputs->targets[0] = (Target *)centerTarget;
-		if (this->params->show_target_during_bump) {
-			if (this->training_trial) {
-				if(this->bump_trial) {
-		            outputs->targets[1] = this->primaryTarget;
-			        outputs->targets[2] = nullTarget;
-				} else {
-		            outputs->targets[1] = nullTarget;
-			        outputs->targets[2] = nullTarget;
-				}
-			} else {
-				outputs->targets[1] = this->primaryTarget;
-		        outputs->targets[2] = nullTarget;
-			}
-		} else {
-            outputs->targets[1] = nullTarget;
-            outputs->targets[2] = nullTarget;
-		}
-	} else if (getState() == STATE_MOVEMENT) {
-// 		outputs->targets[0] = (Target *)centerTarget;
-        outputs->targets[0] = nullTarget;
-		if (this->training_trial) {
-			if(this->bump_trial) {
-		        outputs->targets[1] = this->primaryTarget;
-				outputs->targets[2] = nullTarget;
-			} else {
-				outputs->targets[1] = nullTarget;
-		        outputs->targets[2] = nullTarget;
-			}
-		} else {
-	        outputs->targets[1] = this->primaryTarget;
-			outputs->targets[2] = nullTarget;
-		}
+        outputs->targets[1] = this->primaryTarget;
+        outputs->targets[2] = nullTarget;
 	} else if (getState() == STATE_PENALTY) {
 		outputs->targets[0] = this->errorTarget;
 		outputs->targets[1] = nullTarget;

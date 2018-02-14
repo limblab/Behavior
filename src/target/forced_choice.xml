@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?><Root>
 
           <SubSystem>
-    <Name>BoundingBox1</Name>
-    <xPCName>forced_choice/BoundingBox1</xPCName>
+    <Name>BoundingBox</Name>
+    <xPCName>forced_choice/BoundingBox</xPCName>
     
     
  
             <block>
             <blkName>DisableBoundingBox</blkName>
-            <xpcblkName>BoundingBox1/DisableBoundingBox</xpcblkName>
-            <SLblockPath>forced_choice/BoundingBox1/DisableBoundingBox</SLblockPath>
+            <xpcblkName>BoundingBox/DisableBoundingBox</xpcblkName>
+            <SLblockPath>forced_choice/BoundingBox/DisableBoundingBox</SLblockPath>
             <isSrc>[1 0 1]</isSrc>
           <parameter>
           <paramName>Value</paramName>
@@ -20,8 +20,8 @@
  
             <block>
             <blkName>XHighLimit</blkName>
-            <xpcblkName>BoundingBox1/XHighLimit</xpcblkName>
-            <SLblockPath>forced_choice/BoundingBox1/XHighLimit</SLblockPath>
+            <xpcblkName>BoundingBox/XHighLimit</xpcblkName>
+            <SLblockPath>forced_choice/BoundingBox/XHighLimit</SLblockPath>
             <isSrc>[1 0 1]</isSrc>
           <parameter>
           <paramName>Value</paramName>
@@ -32,8 +32,8 @@
  
             <block>
             <blkName>XLowLimit</blkName>
-            <xpcblkName>BoundingBox1/XLowLimit</xpcblkName>
-            <SLblockPath>forced_choice/BoundingBox1/XLowLimit</SLblockPath>
+            <xpcblkName>BoundingBox/XLowLimit</xpcblkName>
+            <SLblockPath>forced_choice/BoundingBox/XLowLimit</SLblockPath>
             <isSrc>[1 0 1]</isSrc>
           <parameter>
           <paramName>Value</paramName>
@@ -44,8 +44,8 @@
  
             <block>
             <blkName>YHighLimit</blkName>
-            <xpcblkName>BoundingBox1/YHighLimit</xpcblkName>
-            <SLblockPath>forced_choice/BoundingBox1/YHighLimit</SLblockPath>
+            <xpcblkName>BoundingBox/YHighLimit</xpcblkName>
+            <SLblockPath>forced_choice/BoundingBox/YHighLimit</SLblockPath>
             <isSrc>[1 0 1]</isSrc>
           <parameter>
           <paramName>Value</paramName>
@@ -56,8 +56,8 @@
  
             <block>
             <blkName>YLowLimit</blkName>
-            <xpcblkName>BoundingBox1/YLowLimit</xpcblkName>
-            <SLblockPath>forced_choice/BoundingBox1/YLowLimit</SLblockPath>
+            <xpcblkName>BoundingBox/YLowLimit</xpcblkName>
+            <SLblockPath>forced_choice/BoundingBox/YLowLimit</SLblockPath>
             <isSrc>[1 0 1]</isSrc>
           <parameter>
           <paramName>Value</paramName>
@@ -115,7 +115,7 @@
               <signal>
               <sigName>Logical
 Operator</sigName>
-              <xpcsigName>BoundingBox1/Logical Operator</xpcsigName>
+              <xpcsigName>BoundingBox/Logical Operator</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -133,7 +133,7 @@ Operator</sigName>
               <signal>
               <sigName>Logical
 Operator1</sigName>
-              <xpcsigName>BoundingBox1/Logical Operator1</xpcsigName>
+              <xpcsigName>BoundingBox/Logical Operator1</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -151,7 +151,7 @@ Operator1</sigName>
               <signal>
               <sigName>Logical
 Operator2</sigName>
-              <xpcsigName>BoundingBox1/Logical Operator2</xpcsigName>
+              <xpcsigName>BoundingBox/Logical Operator2</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -169,7 +169,7 @@ Operator2</sigName>
               <signal>
               <sigName>Relational
 Operator</sigName>
-              <xpcsigName>BoundingBox1/Relational Operator</xpcsigName>
+              <xpcsigName>BoundingBox/Relational Operator</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -187,7 +187,7 @@ Operator</sigName>
               <signal>
               <sigName>Relational
 Operator1</sigName>
-              <xpcsigName>BoundingBox1/Relational Operator1</xpcsigName>
+              <xpcsigName>BoundingBox/Relational Operator1</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -205,7 +205,7 @@ Operator1</sigName>
               <signal>
               <sigName>Relational
 Operator2</sigName>
-              <xpcsigName>BoundingBox1/Relational Operator2</xpcsigName>
+              <xpcsigName>BoundingBox/Relational Operator2</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -223,7 +223,7 @@ Operator2</sigName>
               <signal>
               <sigName>Relational
 Operator3</sigName>
-              <xpcsigName>BoundingBox1/Relational Operator3</xpcsigName>
+              <xpcsigName>BoundingBox/Relational Operator3</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -8329,18 +8329,6 @@ Operator6</sigName>
 
     </SubSystem>
     <SubSystem>
-    <Name>Reward Display</Name>
-    <xPCName>forced_choice/Reward Display</xPCName>
-    
-    
-
-
-    
-    
-
-
-    </SubSystem>
-    <SubSystem>
     <Name>RewardSbs</Name>
     <xPCName>forced_choice/RewardSbs</xPCName>
         <SubSystem>
@@ -12946,7 +12934,6 @@ Function3</sigName>
     </SubSystem>
 
       
-
 
 
 
