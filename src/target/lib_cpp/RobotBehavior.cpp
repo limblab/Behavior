@@ -23,7 +23,7 @@ public:
 	Point offsets;     /**< The offsets (position of workspace zero relative to motor axes). */	
     Point force;       /**< The input force from the selected force generator. */
     Point catchForce;  /**< The input force from the selected catch-force generator. */
-    Point extra1;      /**< Arbitrary input 1 */
+    real_T bumpForces [];      /**< Arbitrary input 1 */
     Point extra2;      /**< Arbitrary input 2 */       
     Point extra3;      /**< Arbitrary input 3 */        
 };
@@ -118,8 +118,7 @@ void RobotBehavior::readInputs(SimStruct *S) {
     
     /* extra input 1 */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 4);
-    inputs->extra1.x = *uPtrs[0];
-    inputs->extra1.y = *uPtrs[1];
+    inputs->bumpForces = *uPtrs[0];
     
     /* extra input 2 */
     uPtrs = ssGetInputPortRealSignalPtrs(S, 5);

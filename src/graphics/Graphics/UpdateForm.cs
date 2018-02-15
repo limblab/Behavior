@@ -113,8 +113,14 @@ namespace BehaviorGraphics
             BCStimGrid.Rows[0].DefaultCellStyle.BackColor = Color.Aqua;
 
             // Setup Anisotropic bump table
-            ForceDirections.Rows.Add(MvNumBumpDirs_ANISO.Value);
-            dirs = Generate.LinearSpaced(MvNumBumpDirs_ANISO.Value, 0, 360);
+            ForceDirections.Rows.Clear();
+            ForceDirections.Rows.Add((int)MvNumBumpDirs_ANISO.Value);
+            int[] dirs = new int[(int)MvNumBumpDirs_ANISO.Value];
+
+            for (int i = 0; i < MvNumBumpDirs_ANISO.Value; i++)
+            {
+                dirs[i] = (int)(i * Math.Floor(360 / MvNumBumpDirs_ANISO.Value));
+            }
             for (int i = 0; i < MvNumBumpDirs_ANISO.Value; i++)
             {
                 ForceDirections.Rows[i].Cells[0].Value = i;
@@ -922,76 +928,76 @@ namespace BehaviorGraphics
             #endregion
             #region AnIsoCOBump
 
-            AddParamListItem("COB ctr hold low", "P3", "Behavior AnIsoCOBump", CTHL_ANISO);
-            AddParamListItem("COB ctr hold high", "P4", "Behavior AnIsoCOBump", CTHH_ANISO);
-            AddParamListItem("COB delay hold low", "P5", "Behavior AnIsoCOBump", CDL_ANISO);
-            AddParamListItem("COB delay hold high", "P6", "Behavior AnIsoCOBump", CDH_ANISO);
-            AddParamListItem("COB move time", "P7", "Behavior AnIsoCOBump", MoveT_ANISO);
-            AddParamListItem("COB target hold low", "P8", "Behavior AnIsoCOBump", THL_ANISO);
-            AddParamListItem("COB terget hold high", "P9", "Behavior AnIsoCOBump", THH_ANISO);
+            AddParamListItem("COB ctr hold low ANISO", "P3", "Behavior AnIsoCOBump", CTHL_ANISO);
+            AddParamListItem("COB ctr hold high ANISO", "P4", "Behavior AnIsoCOBump", CTHH_ANISO);
+            AddParamListItem("COB delay hold low ANISO", "P5", "Behavior AnIsoCOBump", CDL_ANISO);
+            AddParamListItem("COB delay hold high ANISO", "P6", "Behavior AnIsoCOBump", CDH_ANISO);
+            AddParamListItem("COB move time ANISO", "P7", "Behavior AnIsoCOBump", MoveT_ANISO);
+            AddParamListItem("COB target hold low ANISO", "P8", "Behavior AnIsoCOBump", THL_ANISO);
+            AddParamListItem("COB terget hold high ANISO", "P9", "Behavior AnIsoCOBump", THH_ANISO);
 
-            AddParamListItem("COB bump delay", "P10", "Behavior AnIsoCOBump", BD_ANISO);
-            AddParamListItem("COB bump hold", "P11", "Behavior AnIsoCOBump", BH_ANISO);
-            AddParamListItem("COB intertrial", "P12", "Behavior AnIsoCOBump", Intertrial_ANISO);
-            AddParamListItem("COB penalty time", "P13", "Behavior AnIsoCOBump", PEN_ANISO);
+            AddParamListItem("COB bump delay ANISO", "P10", "Behavior AnIsoCOBump", BD_ANISO);
+            AddParamListItem("COB bump hold ANISO", "P11", "Behavior AnIsoCOBump", BH_ANISO);
+            AddParamListItem("COB intertrial ANISO", "P12", "Behavior AnIsoCOBump", Intertrial_ANISO);
+            AddParamListItem("COB penalty time ANISO", "P13", "Behavior AnIsoCOBump", PEN_ANISO);
 
-            AddParamListItem("COB stim delay time", "P57", "Behavior AnIsoCOBump", StimD_ANISO);
+            AddParamListItem("COB stim delay time ANISO", "P57", "Behavior AnIsoCOBump", StimD_ANISO);
 
             //target info
-            AddParamListItem("COB target size", "P14", "Behavior AnIsoCOBump", TargetRadius_ANISO);
-            AddParamListItem("COB target radius", "P15", "Behavior AnIsoCOBump", targDist_ANISO);
-            AddParamListItem("COB target angle", "P16", "Behavior AnIsoCOBump",Angle_ANISO);
-            AddParamListItem("COB target floor", "P17", "Behavior AnIsoCOBump", Target_Angle_Floor_ANISO);
-            AddParamListItem("COB target ceiling", "P18", "Behavior AnIsoCOBump", Target_Angle_Ceiling_ANISO);
-            AddParamListItem("COB number targets", "P19", "Behavior AnIsoCOBump", numericNumTargets_ANISO);
-            AddParamListItem("COB use random targets", "P20", "Behavior AnIsoCOBump", Random_Targets_ANISO);
+            AddParamListItem("COB target size ANISO", "P14", "Behavior AnIsoCOBump", TargetRadius_ANISO);
+            AddParamListItem("COB target radius ANISO", "P15", "Behavior AnIsoCOBump", targDist_ANISO);
+            AddParamListItem("COB target angle ANISO", "P16", "Behavior AnIsoCOBump", Angle_ANISO);
+            AddParamListItem("COB target floor ANISO", "P17", "Behavior AnIsoCOBump", Target_Angle_Floor_ANISO);
+            AddParamListItem("COB target ceiling ANISO", "P18", "Behavior AnIsoCOBump", Target_Angle_Ceiling_ANISO);
+            AddParamListItem("COB number targets ANISO", "P19", "Behavior AnIsoCOBump", numericNumTargets_ANISO);
+            AddParamListItem("COB use random targets ANISO", "P20", "Behavior AnIsoCOBump", Random_Targets_ANISO);
             //cursor info
-            AddParamListItem("COB hide cursor", "P21", "Behavior AnIsoCOBump", Hide_Cursor_ANISO);
-            AddParamListItem("COB hide cursor radius min", "P22", "Behavior AnIsoCOBump", Hide_Cursor_Min_ANISO);
-            AddParamListItem("COB hide cursor radius max", "P23", "Behavior AnIsoCOBump", Hide_Cursor_Max_ANISO);
+            AddParamListItem("COB hide cursor ANISO", "P21", "Behavior AnIsoCOBump", Hide_Cursor_ANISO);
+            AddParamListItem("COB hide cursor radius min ANISO", "P22", "Behavior AnIsoCOBump", Hide_Cursor_Min_ANISO);
+            AddParamListItem("COB hide cursor radius max ANISO", "P23", "Behavior AnIsoCOBump", Hide_Cursor_Max_ANISO);
             //bump info
-            AddParamListItem("COB catch rate", "P24", "Behavior AnIsoCOBump", CatchRate_ANISO);
-            AddParamListItem("COB bi directional bumps", "P25", "Behavior AnIsoCOBump", BidirectionalBumps_ANISO);
-            AddParamListItem("COB abort during bump", "P26", "Behavior AnIsoCOBump", AbortDuringBump_ANISO);
+            AddParamListItem("COB catch rate ANISO", "P24", "Behavior AnIsoCOBump", CatchRate_ANISO);
+            AddParamListItem("COB bi directional bumps ANISO", "P25", "Behavior AnIsoCOBump", BidirectionalBumps_ANISO);
+            AddParamListItem("COB abort during bump ANISO", "P26", "Behavior AnIsoCOBump", AbortDuringBump_ANISO);
             //center hold bump params
-            AddParamListItem("COB CHBump flag", "P27", "Behavior AnIsoCOBump", CTRHoldCheckbox_ANISO);
-            AddParamListItem("COB CHBump rate", "P28", "Behavior AnIsoCOBump", CHBumpRate_ANISO);
-            AddParamListItem("COB CHbump dur", "P29", "Behavior AnIsoCOBump", CHPeak_Duration_ANISO);
-            AddParamListItem("COB CHbump ramp", "P30", "Behavior AnIsoCOBump", CHRise_Time_ANISO);
-            AddParamListItem("COB CHbump mag", "P31", "Behavior AnIsoCOBump", CHAmplitude_ANISO);
-            AddParamListItem("COB CHbumpdir floor", "P32", "Behavior AnIsoCOBump", CHRandBumpFloor_ANISO);
-            AddParamListItem("COB CHbumpdir ceiling", "P33", "Behavior AnIsoCOBump", CHRandBumpCeil_ANISO);
-            AddParamListItem("COB CHbump num dir", "P34", "Behavior AnIsoCOBump", CHNumBumpDirs_ANISO);
+            AddParamListItem("COB CHBump flag ANISO", "P27", "Behavior AnIsoCOBump", CTRHoldCheckbox_ANISO);
+            AddParamListItem("COB CHBump rate ANISO", "P28", "Behavior AnIsoCOBump", CHBumpRate_ANISO);
+            AddParamListItem("COB CHbump dur ANISO", "P29", "Behavior AnIsoCOBump", CHPeak_Duration_ANISO);
+            AddParamListItem("COB CHbump ramp ANISO", "P30", "Behavior AnIsoCOBump", CHRise_Time_ANISO);
+            AddParamListItem("COB CHbump mag ANISO", "P31", "Behavior AnIsoCOBump", CHAmplitude_ANISO);
+            AddParamListItem("COB CHbumpdir floor ANISO", "P32", "Behavior AnIsoCOBump", CHRandBumpFloor_ANISO);
+            AddParamListItem("COB CHbumpdir ceiling ANISO", "P33", "Behavior AnIsoCOBump", CHRandBumpCeil_ANISO);
+            AddParamListItem("COB CHbump num dir ANISO", "P34", "Behavior AnIsoCOBump", CHNumBumpDirs_ANISO);
             //delay bump params
-            AddParamListItem("COB DPBump flag", "P35", "Behavior AnIsoCOBump", DelayBump_Check_ANISO);
-            AddParamListItem("COB DPBump rate", "P36", "Behavior AnIsoCOBump", DPBumpRate_ANISO);
-            AddParamListItem("COB DPbump dur", "P37", "Behavior AnIsoCOBump", DPPeakDuration_ANISO);
-            AddParamListItem("COB DPbump ramp", "P38", "Behavior AnIsoCOBump", DPRiseTime_ANISO);
-            AddParamListItem("COB DPbump mag", "P39", "Behavior AnIsoCOBump", DPAmplitude_ANISO);
-            AddParamListItem("COB DPbumpdir floor", "P40", "Behavior AnIsoCOBump", DPRandBumpFloor_ANISO);
-            AddParamListItem("COB DPbumpdir ceiling", "P41", "Behavior AnIsoCOBump", DPRandBumpFloor_ANISO);
-            AddParamListItem("COB DPbump num dir", "P42", "Behavior AnIsoCOBump", DPNumBumpDirs_ANISO);
+            AddParamListItem("COB DPBump flag ANISO", "P35", "Behavior AnIsoCOBump", DelayBump_Check_ANISO);
+            AddParamListItem("COB DPBump rate ANISO", "P36", "Behavior AnIsoCOBump", DPBumpRate_ANISO);
+            AddParamListItem("COB DPbump dur ANISO", "P37", "Behavior AnIsoCOBump", DPPeakDuration_ANISO);
+            AddParamListItem("COB DPbump ramp ANISO", "P38", "Behavior AnIsoCOBump", DPRiseTime_ANISO);
+            AddParamListItem("COB DPbump mag ANISO", "P39", "Behavior AnIsoCOBump", DPAmplitude_ANISO);
+            AddParamListItem("COB DPbumpdir floor ANISO", "P40", "Behavior AnIsoCOBump", DPRandBumpFloor_ANISO);
+            AddParamListItem("COB DPbumpdir ceiling ANISO", "P41", "Behavior AnIsoCOBump", DPRandBumpFloor_ANISO);
+            AddParamListItem("COB DPbump num dir ANISO", "P42", "Behavior AnIsoCOBump", DPNumBumpDirs_ANISO);
             //move bump params
-            AddParamListItem("COB MBump flag", "P43", "Behavior AnIsoCOBump", Move_Bump_Check_ANISO);
-            AddParamListItem("COB MBump rate", "P44", "Behavior AnIsoCOBump", MBumpRate_ANISO);
-            AddParamListItem("COB Mbump dur", "P45", "Behavior AnIsoCOBump", MvPeakDuration_ANISO);
-            AddParamListItem("COB Mbump ramp", "P46", "Behavior AnIsoCOBump", MvRiseTime_ANISO);
-            AddParamListItem("COB Mbump mag", "P47", "Behavior AnIsoCOBump", MvAmplitude_ANISO);
-            AddParamListItem("COB Mbumpdir floor", "P48", "Behavior AnIsoCOBump", MvRandBumpFloor_ANISO);
-            AddParamListItem("COB Mbumpdir ceiling", "P49", "Behavior AnIsoCOBump", MvRandBumpCeil_ANISO);
-            AddParamListItem("COB Mbumpdir incr", "P50", "Behavior AnIsoCOBump", MvNumBumpDirs_ANISO);
+            AddParamListItem("COB MBump flag ANISO", "P43", "Behavior AnIsoCOBump", Move_Bump_Check_ANISO);
+            AddParamListItem("COB MBump rate ANISO", "P44", "Behavior AnIsoCOBump", MBumpRate_ANISO);
+            AddParamListItem("COB Mbump dur ANISO", "P45", "Behavior AnIsoCOBump", MvPeakDuration_ANISO);
+            AddParamListItem("COB Mbump ramp ANISO", "P46", "Behavior AnIsoCOBump", MvRiseTime_ANISO);
+            AddParamListItem("COB Mbump mag ANISO", "P47", "Behavior AnIsoCOBump", MvAmplitude_ANISO);
+            AddParamListItem("COB Mbumpdir floor ANISO", "P48", "Behavior AnIsoCOBump", MvRandBumpFloor_ANISO);
+            AddParamListItem("COB Mbumpdir ceiling ANISO", "P49", "Behavior AnIsoCOBump", MvRandBumpCeil_ANISO);
+            AddParamListItem("COB Mbumpdir incr ANISO", "P50", "Behavior AnIsoCOBump", MvNumBumpDirs_ANISO);
             //stim info
-            AddParamListItem("COB stim prob", "P51", "Behavior AnIsoCOBump", StimProb_ANISO);
-            AddParamListItem("COB stim levels", "P52", "Behavior AnIsoCOBump", StimLevel_ANISO);
-            AddParamListItem("COB stim during bump", "P55", "Behavior AnIsoCOBump", StimDuringBump_ANISO);
-            AddParamListItem("COB stim instead of bump", "P56", "Behavior AnIsoCOBump", StimInsteadBump_ANISO);
+            AddParamListItem("COB stim prob ANISO", "P51", "Behavior AnIsoCOBump", StimProb_ANISO);
+            AddParamListItem("COB stim levels ANISO", "P52", "Behavior AnIsoCOBump", StimLevel_ANISO);
+            AddParamListItem("COB stim during bump ANISO", "P55", "Behavior AnIsoCOBump", StimDuringBump_ANISO);
+            AddParamListItem("COB stim instead of bump ANISO", "P56", "Behavior AnIsoCOBump", StimInsteadBump_ANISO);
 
             //extra bump parameter
-            AddParamListItem("COB use random bump time", "P53", "Behavior AnIsoCOBump", RandomBumpTime_ANISO);
-            AddParamListItem("COB target relative bumps", "P54", "Behavior AnIsoCOBump", Target_Relative_Bumps_ANISO);
+            AddParamListItem("COB use random bump time ANISO", "P53", "Behavior AnIsoCOBump", RandomBumpTime_ANISO);
+            AddParamListItem("COB target relative bumps ANISO", "P54", "Behavior AnIsoCOBump", Target_Relative_Bumps_ANISO);
 
             //idiot mode checkbox
-            AddParamListItem("COB idiot mode", "P58", "Behavior AnIsoCOBump", Idiot_Mode_ANISO);
+            AddParamListItem("COB idiot mode ANISO", "P58", "Behavior AnIsoCOBump", Idiot_Mode_ANISO);
 
             #endregion
 
@@ -1299,7 +1305,6 @@ namespace BehaviorGraphics
             // Targets
             AddParamListItem("DCO CTR", "P11", "Behavior DCO", this.textBoxDCOCTR);
             AddParamListItem("DCO OTR", "P12", "Behavior DCO", this.textBoxDCOOTR);
-            AddParamListItem("DCO OTS", "P13", "Behavior DCO", this.angleEntryBoxDCOOTS);
             AddParamListItem("DCO OTT", "P14", "Behavior DCO", this.textBoxDCOOTT);
             AddParamListItem("DCO NT", "P15", "Behavior DCO", this.textBoxDCONT);
             AddParamListItem("DCO NTS", "P16", "Behavior DCO", this.textBoxDCONTS);
@@ -2697,6 +2702,20 @@ namespace BehaviorGraphics
                     }
                 }
             }
+            ForceDirections.Rows.Clear();
+            ForceDirections.Rows.Add((int)MvNumBumpDirs_ANISO.Value);
+            int[] dirs = new int[(int)MvNumBumpDirs_ANISO.Value];
+
+            for (int i = 0; i < MvNumBumpDirs_ANISO.Value; i++)
+            {
+                dirs[i] = (int)(i * Math.Floor(360 / MvNumBumpDirs_ANISO.Value));
+            }
+            for (int i = 0; i < MvNumBumpDirs_ANISO.Value; i++)
+            {
+                ForceDirections.Rows[i].Cells[0].Value = i;
+                ForceDirections.Rows[i].Cells[1].Value = dirs[i];
+                ForceDirections.Rows[i].Cells[2].Value = 1;
+            }
             paramID = target.GetParamIdx("BumpForceTable", "Table");
             if (paramID != -1)
             {
@@ -2710,7 +2729,7 @@ namespace BehaviorGraphics
                     for (int col = 0; col < numCols; col++)
                     {
                         double d = param[col * numRows + row];
-                        ForceDirections.Rows[col].Cells[row + 1].Value = d.ToString;
+                        ForceDirections.Rows[col].Cells[row + 1].Value = d.ToString();
                     }
                         
                 }
@@ -2925,11 +2944,11 @@ namespace BehaviorGraphics
             for (int i = 0; i < ForceDirections.Rows.Count; i++) 
             {
                 DataGridViewCellCollection cells = ForceDirections.Rows[i].Cells;
-                AnIsoTask anIso = new AnIsoForces();
-                anIso.num = Int16.Parse(cells[0].Value.ToString());
+                AnIsoForces anIso = new AnIsoForces();
+                anIso.number = Int16.Parse(cells[0].Value.ToString());
                 anIso.dir = Int16.Parse(cells[1].Value.ToString());
-                anIso.mag = Double.Parse(cells[2].Value.ToString());
-                bp.anIso[i] = anIso;
+                anIso.force = Double.Parse(cells[2].Value.ToString());
+                bp.aniso[i] = anIso;
 
             }
             // GlyphSet
@@ -3052,9 +3071,9 @@ namespace BehaviorGraphics
             {
                 DataGridViewCellCollection cells = ForceDirections.Rows[i].Cells;
                 AnIsoForces aif = bp.AnIsotropicForces[i];
-                cells[1] = aif.getSetNum.ToString();
-                cells[2] = aif.getSetDir.ToString();
-                cells[3] = aif.getSetForce.ToString();
+                cells[1].Value = aif.getSetNum.ToString();
+                cells[2].Value = aif.getSetDir.ToString();
+                cells[3].Value = aif.getSetForce.ToString();
             }
             //MultiGadget Gain
             this.MGGain0.Text = bp.MGGains[0].ToString();
@@ -3633,6 +3652,16 @@ namespace BehaviorGraphics
         }
 
         private void groupBox119_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UnstableField_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBoxDCOT_Enter(object sender, EventArgs e)
         {
 
         }

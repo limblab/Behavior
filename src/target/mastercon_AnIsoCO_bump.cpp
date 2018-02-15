@@ -588,7 +588,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
                 this->DP_bump=false;
                 this->M_bump=true;
             }
-            double[] anIso = inputs->bumpForces;
+           real_T anIso [] = inputs->bumpForces;
             
             //now set up a bump direction relative to the target direction based on the configuration for the selected phase
             if(this->CH_bump){

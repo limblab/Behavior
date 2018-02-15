@@ -11,7 +11,7 @@ namespace BehaviorGraphics
     /// </summary>
     public class AnIsoForces
     {
-        private double number, dir, force;
+        public double number, dir, force;
 
         /// <summary>
         /// MultiGadgetTarget constructor.  Sets all values to a default of zero.

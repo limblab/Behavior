@@ -39,7 +39,7 @@ namespace BehaviorGraphics
         // center-out specific elements
         private CenterOutMode com;
 
-        private List<AnIsoForces> aniso;
+        public List<AnIsoForces> aniso;
 
         #region publicAttributes
         
@@ -152,7 +152,7 @@ namespace BehaviorGraphics
             set { lt2 = value; }
             get { return lt2; }
         }
-
+ 
 
 
         [XmlAttribute]
