@@ -1,0 +1,14 @@
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\AngleBox\bin\Debug\AngleBox.dll
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\AngleBox\bin\Debug\AngleBox.pdb
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\AngleBox\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\AngleBox\obj\x86\Debug\AngleBox.AngleEntryBox.resources
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\AngleBox\obj\x86\Debug\AngleBox.csproj.GenerateResource.Cache
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\AngleBox\obj\x86\Debug\AngleBox.dll
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\AngleBox\obj\x86\Debug\AngleBox.pdb
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\AngleBox\bin\Debug\AngleBox.dll
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\AngleBox\bin\Debug\AngleBox.pdb
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\AngleBox\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\AngleBox\obj\x86\Debug\AngleBox.AngleEntryBox.resources
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\AngleBox\obj\x86\Debug\AngleBox.csproj.GenerateResource.Cache
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\AngleBox\obj\x86\Debug\AngleBox.dll
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\AngleBox\obj\x86\Debug\AngleBox.pdb

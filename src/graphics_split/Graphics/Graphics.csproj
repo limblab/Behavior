@@ -1,0 +1,343 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EE5B33E7-DCA0-4801-B48F-128EA4D2B6A8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BehaviorGraphics</RootNamespace>
+    <AssemblyName>BehaviorGraphics</AssemblyName>
+    <ApplicationIcon>Monkey.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.DirectX, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.DirectX.Direct3D, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.DirectX.Direct3DX, Version=1.0.2911.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.DirectX.DirectSound, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AnIsoForces.cs" />
+    <Compile Include="BehaviorParameters.cs" />
+    <Compile Include="Box.cs" />
+    <Compile Include="BoxConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BoxConfig.Designer.cs">
+      <DependentUpon>BoxConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BumpChoiceStim.cs" />
+    <Compile Include="CursorDef.cs" />
+    <Compile Include="DictionarySerializer.cs" />
+    <Compile Include="GlyphDef.cs" />
+    <Compile Include="GraphicsAboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GraphicsAboutBox.Designer.cs">
+      <DependentUpon>GraphicsAboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LabParameter.cs" />
+    <Compile Include="MultiGadgetTarget.cs" />
+    <Compile Include="Graphics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Graphics.Designer.cs">
+      <DependentUpon>Graphics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Graphics.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Graphics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EmbeddedResource Include="textures\bananas.tga" />
+    <EmbeddedResource Include="textures\Nautilus.tga" />
+    <EmbeddedResource Include="textures\yellow128.tga" />
+    <EmbeddedResource Include="textures\yellow16.tga" />
+    <EmbeddedResource Include="textures\yellow32.tga" />
+    <EmbeddedResource Include="textures\yellow64.tga" />
+    <EmbeddedResource Include="textures\face.tga" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="RegistryHelper.cs" />
+    <Compile Include="SoundPlayer.cs" />
+    <Compile Include="TargetSprite.cs" />
+    <Compile Include="UpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateForm.Designer.cs">
+      <DependentUpon>UpdateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WhichLabForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WhichLabForm.Designer.cs">
+      <DependentUpon>WhichLabForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="tones\abort1.wav" />
+    <EmbeddedResource Include="tones\go1.wav" />
+    <EmbeddedResource Include="tones\reward1.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GraphicsAboutBox.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GraphicsAboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Monkey.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="XPCAPICOMLib">
+      <Guid>{191651DC-F223-4CD8-86A0-F7BB5B5FE35D}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <Private>True</Private>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BoxConfig.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>BoxConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="config\CursorDefs.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="tones\go2.wav" />
+    <EmbeddedResource Include="tones\reward2.wav" />
+    <EmbeddedResource Include="tones\abort2.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="tones\abort3.wav" />
+    <EmbeddedResource Include="tones\go3.wav" />
+    <EmbeddedResource Include="tones\reward3.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="config\LabConfigs.xml" />
+    <EmbeddedResource Include="UpdateForm.resx">
+      <DependentUpon>UpdateForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WhichLabForm.resx">
+      <DependentUpon>WhichLabForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\DXCheck.vshost.exe.manifest" />
+    <None Include="bin\Release\BehaviorGraphics.vshost.exe.manifest" />
+    <None Include="config\Parameters.xsl" />
+    <EmbeddedResource Include="glyphs\colors1.tga" />
+    <EmbeddedResource Include="glyphs\colors2.tga" />
+    <EmbeddedResource Include="glyphs\colors3.tga" />
+    <EmbeddedResource Include="glyphs\colors4.tga" />
+    <EmbeddedResource Include="glyphs\planets1.tga" />
+    <EmbeddedResource Include="glyphs\planets10.tga" />
+    <EmbeddedResource Include="glyphs\planets2.tga" />
+    <EmbeddedResource Include="glyphs\planets3.tga" />
+    <EmbeddedResource Include="glyphs\planets4.tga" />
+    <EmbeddedResource Include="glyphs\planets5.tga" />
+    <EmbeddedResource Include="glyphs\planets6.tga" />
+    <EmbeddedResource Include="glyphs\planets7.tga" />
+    <EmbeddedResource Include="glyphs\planets8.tga" />
+    <EmbeddedResource Include="glyphs\planets9.tga" />
+    <EmbeddedResource Include="glyphs\error.tga" />
+    <EmbeddedResource Include="glyphs\waveleta1.tga" />
+    <EmbeddedResource Include="glyphs\waveleta2.tga" />
+    <EmbeddedResource Include="glyphs\waveletb1.tga" />
+    <EmbeddedResource Include="glyphs\waveletb2.tga" />
+    <EmbeddedResource Include="glyphs\waveletc1.tga" />
+    <EmbeddedResource Include="glyphs\waveletc2.tga" />
+    <EmbeddedResource Include="glyphs\waveletd1.tga" />
+    <EmbeddedResource Include="glyphs\waveletd2.tga" />
+    <EmbeddedResource Include="glyphs\wavelete1.tga" />
+    <EmbeddedResource Include="glyphs\wavelete2.tga" />
+    <EmbeddedResource Include="glyphs\waveletf1.tga" />
+    <EmbeddedResource Include="glyphs\waveletf2.tga" />
+    <EmbeddedResource Include="glyphs\waveletg1.tga" />
+    <EmbeddedResource Include="glyphs\waveletg2.tga" />
+    <EmbeddedResource Include="glyphs\waveleth1.tga" />
+    <EmbeddedResource Include="glyphs\waveleth2.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFa1.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFa2.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFb1.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFb2.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFc1.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFc2.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFd1.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFd2.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFe1.tga" />
+    <EmbeddedResource Include="glyphs\saturationHFe2.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFa1.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFa2.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFb1.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFb2.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFc1.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFc2.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFd1.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFd2.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFe1.tga" />
+    <EmbeddedResource Include="glyphs\saturationLFe2.tga" />
+    <EmbeddedResource Include="glyphs\blackHFa1.tga" />
+    <EmbeddedResource Include="glyphs\blackHFa2.tga" />
+    <EmbeddedResource Include="glyphs\blackHFb1.tga" />
+    <EmbeddedResource Include="glyphs\blackHFb2.tga" />
+    <EmbeddedResource Include="glyphs\blackHFc1.tga" />
+    <EmbeddedResource Include="glyphs\blackHFc2.tga" />
+    <EmbeddedResource Include="glyphs\yellowcircle1.tga" />
+    <None Include="obj\Release\DXCheck.csproj.ResolveComReference.cache" />
+    <EmbeddedResource Include="textures\HomerSimpsonsBrain.tga" />
+    <EmbeddedResource Include="textures\blueFace.tga" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\DXCheck.exe" />
+    <Content Include="bin\Debug\DXCheck.pdb" />
+    <Content Include="bin\Debug\DXCheck.vshost.exe" />
+    <Content Include="bin\Release\AngleBox.dll" />
+    <Content Include="bin\Release\AngleBox.pdb" />
+    <Content Include="bin\Release\BehaviorGraphics.exe" />
+    <Content Include="bin\Release\BehaviorGraphics.pdb" />
+    <Content Include="bin\Release\BehaviorGraphics.vshost.exe" />
+    <Content Include="bin\Release\DXCheck.exe" />
+    <Content Include="bin\Release\DXCheck.pdb" />
+    <EmbeddedResource Include="config\GlyphDefs.xml" />
+    <Content Include="bin\Release\Interop.XPCAPICOMLib.dll" />
+    <Content Include="obj\Release\DXCheck.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\Interop.XPCAPICOMLib.dll" />
+    <Content Include="obj\Release\TempPE\Properties.Resources.Designer.cs.dll" />
+    <Content Include="xpcapi.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="xpcapiCOM.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="tones\somethingwrong.wav" />
+    <EmbeddedResource Include="tones\mask.wav" />
+    <EmbeddedResource Include="tones\go4.wav" />
+    <EmbeddedResource Include="tones\abort4.wav" />
+    <EmbeddedResource Include="tones\reward4.wav" />
+    <EmbeddedResource Include="tones\fail1.wav" />
+    <EmbeddedResource Include="tones\fail2.wav" />
+    <EmbeddedResource Include="tones\fail3.wav" />
+    <EmbeddedResource Include="tones\fail4.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AngleBox\AngleBox.csproj">
+      <Project>{0C4A0A29-B897-4532-817E-29C6925E846E}</Project>
+      <Name>AngleBox</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
