@@ -3,7 +3,7 @@
  * Master Control block for behavior: CenterOutCenter3D
  */
 
-#define S_FUNCTION_NAME mastercon_RT3D
+#define S_FUNCTION_NAME mastercon_COC3D
 #define S_FUNCTION_LEVEL 2
 #define TASK_DB_DEFINED 1
 
@@ -96,10 +96,12 @@ public:
 private:
 	// Your behavior's instance variables
     int target_index;
+	double st_hold_time;
 	double targ_hold_time;
     double ft_hold_time;
 
     Timer *IMUreset_timer;
+	byte IMUreset;
     
     LEDTarget *center_target;
     LEDTarget *outer_target;
@@ -134,7 +136,7 @@ CenterOutCenter3D::CenterOutCenter3D(SimStruct *S) : Behavior3DReach() {
     this->bindParamId(&params->initial_movement_time,   7);
 	this->bindParamId(&params->movement_max_time,		8);
 
-	this->bindParamId(&params->IMUreset_inteval,		9);
+	this->bindParamId(&params->IMUreset_interval,		9);
 
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -173,9 +175,9 @@ void CenterOutCenter3D::doPreTrial(SimStruct *S) {
 
     // make sure IMUreset timer is running
     IMUreset = 0;
-    if (!this->IMUreset_timer->isRunning){
-        this->IMUreset_timer->start();
-    } else if (this->IMUreset_timer->elapsedTime(S) >= IMUreset_interval) {
+    if (!this->IMUreset_timer->isRunning()){
+        this->IMUreset_timer->start(S);
+    } else if (params->IMUreset_interval >= 30 && this->IMUreset_timer->elapsedTime(S) >= params->IMUreset_interval) {
         IMUreset = 1;
         this->IMUreset_timer->reset(S);
     }
@@ -194,7 +196,7 @@ void CenterOutCenter3D::doPreTrial(SimStruct *S) {
     db->addFloat((float)(st_hold_time));
     db->addFloat((float)(targ_hold_time));
     db->addFloat((float)(ft_hold_time));
-    db->addByte(IMUreset)
+    db->addByte(IMUreset);
     db->start();
     
 }
@@ -211,7 +213,7 @@ void CenterOutCenter3D::update(SimStruct *S) {
            break;
        case STATE_DATA_BLOCK:
            if (db->isDone()) {
-               setState(STATE_FIRST_TARG_ON);
+               setState(STATE_START_TARG_ON);
            }
        case STATE_START_TARG_ON:
            /* target on */
@@ -290,9 +292,6 @@ void CenterOutCenter3D::update(SimStruct *S) {
 }
 
 void CenterOutCenter3D::calculateOutputs(SimStruct *S) {
-    /* declarations */
-    LEDTarget *currentTarget = targets[target_index];
-
 
 	/* status (0) */
 	outputs->status[0] = getState();
@@ -312,7 +311,7 @@ void CenterOutCenter3D::calculateOutputs(SimStruct *S) {
 			case STATE_START_TARG_ON:
 				outputs->word = WORD_CT_ON;
 				break;
-			case STATE_FIRST_TARG_HOLD:
+			case STATE_START_TARG_HOLD:
 				outputs->word = WORD_CENTER_TARGET_HOLD;
 				break;
 			case STATE_OUTER_TARG_ON:
@@ -375,7 +374,7 @@ void CenterOutCenter3D::calculateOutputs(SimStruct *S) {
     }
     
     /* IMU reset (6) */
-    if (getState() == STATE_FIRST_TARG_HOLD){
+    if (getState() == STATE_START_TARG_HOLD){
         outputs->IMUreset = 1;
     } else {
         outputs->IMUreset = 0;
