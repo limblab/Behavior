@@ -1724,7 +1724,19 @@ namespace BehaviorGraphics
 
             #endregion
 
+            #region CenterOutCenter3D
+                AddParamListItem("COC3D sttHoldLo", "P2", "Behavior CenterOutCenter3D", this.textBoxCOC3D_stHoldLo);
+                AddParamListItem("COC3D stHoldHi", "P3", "Behavior CenterOutCenter3D", this.textBoxCOC3D_stHoldHi);
+                AddParamListItem("COC3D otHoldLo", "P4", "Behavior CenterOutCenter3D", this.textBoxCOC3D_otHoldLo);
+                AddParamListItem("COC3D otHoldHi", "P5", "Behavior CenterOutCenter3D", this.textBoxCOC3D_otHoldHi);
+                AddParamListItem("COC3D ftHoldLo", "P6", "Behavior CenterOutCenter3D", this.textBoxCOC3D_ftHoldLo);
+                AddParamListItem("COC3D ftHoldHi", "P7", "Behavior CenterOutCenter3D", this.textBoxCOC3D_ftHoldHi);
 
+                AddParamListItem("COC3D initMoveTime", "P8", "Behavior CenterOutCenter3D", this.textBoxCOC3D_initMoveTime);
+                AddParamListItem("COC3D maxMoveTime", "P9", "Behavior CenterOutCenter3D", this.textBoxCOC3D_maxMoveTime);
+
+                AddParamListItem("COC3D imuResetInterval", "P10", "Behavior RandomTarget3D", this.textBoxCOC3D_imuResetInterval);
+            #endregion
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
