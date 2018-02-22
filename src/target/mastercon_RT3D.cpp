@@ -1,4 +1,4 @@
-/* $Id: mastercon_outout.cpp 2016-12-05 Raeed $
+/* $Id: mastercon_RT3D.cpp 2016-12-05 Raeed $
  *
  * Master Control block for behavior: RandomTarget3D
  */
@@ -48,7 +48,7 @@
  * Version 2 (0x02)
  * ----------------
  * byte   0: uchar => number of bytes to be transmitted
- * byte   1: uchar => databurst version number (in this case: 0)
+ * byte   1: uchar => databurst version number (in this case: 2)
  * byte   2 to 4: uchar => task code ('3DR')
  * byte   5: uchar => model version major
  * byte   6: uchar => model version minor
@@ -222,67 +222,67 @@ void RandomTarget3D::update(SimStruct *S) {
            if (db->isDone()) {
                setState(STATE_FIRST_TARG_ON);
            }
-		case STATE_FIRST_TARG_ON:
-			/* target on */
-			if (targets[target_index]->handInTarget(inputs->targetStaircase)) {
-				setState(STATE_FIRST_TARG_HOLD);
-			} else if (stateTimer->elapsedTime(S) > params->initial_movement_time) {
-                setState(STATE_INCOMPLETE);
-            }
-			break;
-        case STATE_FIRST_TARG_HOLD:
-            // first target hold
-			if (!targets[target_index]->handInTarget(inputs->targetStaircase)){
-                playTone(TONE_ABORT);
-                setState(STATE_ABORT);
-            } else if (stateTimer->elapsedTime(S) >= ft_hold_time) {
-                // check if there are more targets
-                if (target_index == params->num_targets-1) {
-                    // no more targets - this shouldn't happen on the center target, but just in case
-                    playTone(TONE_REWARD);
-                    setState(STATE_REWARD);
-                } else {
-                    // more targets
-                    target_index++;
-                    playTone(TONE_GO);
-                    setState(STATE_MOVEMENT);
-                }
-			}
-			break;
-		case STATE_MOVEMENT:
-			if (stateTimer->elapsedTime(S) > params->movement_max_time) {
-                playTone(TONE_FAIL);
-				setState(STATE_FAIL);
-			}
-            else if (targets[target_index]->handInTarget(inputs->targetStaircase)) {
-				setState(STATE_TARG_HOLD);
-			}
-			break;
-		case STATE_TARG_HOLD:
-			if (!targets[target_index]->handInTarget(inputs->targetStaircase)){
-                playTone(TONE_ABORT);
-                setState(STATE_ABORT);
-			}
-			else if (stateTimer->elapsedTime(S) >= targ_hold_time) {
-                // check if there are more targets
-                if (target_index == params->num_targets-1) {
-                    // no more targets
-                    playTone(TONE_REWARD);
-                    setState(STATE_REWARD);
-                } else {
-                    // more targets
-                    target_index++;
-                    playTone(TONE_GO);
-                    setState(STATE_MOVEMENT);
-                }
-			}
-			break;
-		case STATE_REWARD:
-		case STATE_ABORT:
-        case STATE_INCOMPLETE:
-        case STATE_FAIL:
-		default:
-			setState(STATE_PRETRIAL);
+       case STATE_FIRST_TARG_ON:
+           /* target on */
+           if (targets[target_index]->handInTarget(inputs->targetStaircase)) {
+               setState(STATE_FIRST_TARG_HOLD);
+           } else if (stateTimer->elapsedTime(S) > params->initial_movement_time) {
+               setState(STATE_INCOMPLETE);
+           }
+           break;
+       case STATE_FIRST_TARG_HOLD:
+           // first target hold
+           if (!targets[target_index]->handInTarget(inputs->targetStaircase)){
+               playTone(TONE_ABORT);
+               setState(STATE_ABORT);
+           } else if (stateTimer->elapsedTime(S) >= ft_hold_time) {
+               // check if there are more targets
+               if (target_index == params->num_targets-1) {
+                   // no more targets - this shouldn't happen on the center target, but just in case
+                   playTone(TONE_REWARD);
+                   setState(STATE_REWARD);
+               } else {
+                   // more targets
+                   target_index++;
+                   playTone(TONE_GO);
+                   setState(STATE_MOVEMENT);
+               }
+           }
+           break;
+       case STATE_MOVEMENT:
+           if (stateTimer->elapsedTime(S) > params->movement_max_time) {
+               playTone(TONE_FAIL);
+               setState(STATE_FAIL);
+           }
+           else if (targets[target_index]->handInTarget(inputs->targetStaircase)) {
+               setState(STATE_TARG_HOLD);
+           }
+           break;
+       case STATE_TARG_HOLD:
+           if (!targets[target_index]->handInTarget(inputs->targetStaircase)){
+               playTone(TONE_ABORT);
+               setState(STATE_ABORT);
+           }
+           else if (stateTimer->elapsedTime(S) >= targ_hold_time) {
+               // check if there are more targets
+               if (target_index == params->num_targets-1) {
+                   // no more targets
+                   playTone(TONE_REWARD);
+                   setState(STATE_REWARD);
+               } else {
+                   // more targets
+                   target_index++;
+                   playTone(TONE_GO);
+                   setState(STATE_MOVEMENT);
+               }
+           }
+           break;
+       case STATE_REWARD:
+       case STATE_ABORT:
+       case STATE_INCOMPLETE:
+       case STATE_FAIL:
+       default:
+           setState(STATE_PRETRIAL);
 	}
 }
 

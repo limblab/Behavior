@@ -1,0 +1,37 @@
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\Graphics\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\Graphics\obj\x86\Debug\Graphics.csproj.ResolveComReference.cache
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\Graphics\obj\x86\Debug\BehaviorGraphics.Graphics.resources
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\Graphics\obj\x86\Debug\BehaviorGraphics.Properties.Resources.resources
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\Graphics\obj\x86\Debug\BehaviorGraphics.GraphicsAboutBox.resources
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\Graphics\obj\x86\Debug\BehaviorGraphics.BoxConfig.resources
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\Graphics\obj\x86\Debug\BehaviorGraphics.UpdateForm.resources
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\Graphics\obj\x86\Debug\BehaviorGraphics.WhichLabForm.resources
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics\Graphics\obj\x86\Debug\Graphics.csproj.GenerateResource.Cache
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\Graphics\obj\x86\Debug\Graphics.csproj.ResolveComReference.cache
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\Graphics\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\Graphics\obj\x86\Debug\BehaviorGraphics.Graphics.resources
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\Graphics\obj\x86\Debug\BehaviorGraphics.Properties.Resources.resources
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\Graphics\obj\x86\Debug\BehaviorGraphics.GraphicsAboutBox.resources
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\Graphics\obj\x86\Debug\BehaviorGraphics.BoxConfig.resources
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\Graphics\obj\x86\Debug\BehaviorGraphics.UpdateForm.resources
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\Graphics\obj\x86\Debug\BehaviorGraphics.WhichLabForm.resources
+C:\Users\csv057\Documents\GitHub\Behavior\src\graphics_split\Graphics\obj\x86\Debug\Graphics.csproj.GenerateResource.Cache
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\obj\x86\Debug\Interop.XPCAPICOMLib.dll
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\obj\x86\Debug\Graphics.csproj.ResolveComReference.cache
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\obj\x86\Debug\BehaviorGraphics.Graphics.resources
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\obj\x86\Debug\BehaviorGraphics.Properties.Resources.resources
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\obj\x86\Debug\BehaviorGraphics.GraphicsAboutBox.resources
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\obj\x86\Debug\BehaviorGraphics.BoxConfig.resources
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\obj\x86\Debug\BehaviorGraphics.UpdateForm.resources
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\obj\x86\Debug\BehaviorGraphics.WhichLabForm.resources
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\obj\x86\Debug\Graphics.csproj.GenerateResource.Cache
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\bin\Debug\xpcapi.dll
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\bin\Debug\xpcapiCOM.dll
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\bin\Debug\AngleBox.dll
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\bin\Debug\AngleBox.pdb
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\obj\x86\Debug\BehaviorGraphics.exe
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\obj\x86\Debug\BehaviorGraphics.pdb
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\bin\Debug\BehaviorGraphics.exe
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\bin\Debug\BehaviorGraphics.pdb
+C:\Users\system administrator\Desktop\Behavior\src\graphics_split\Graphics\bin\Debug\Interop.XPCAPICOMLib.dll
