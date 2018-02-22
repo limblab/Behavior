@@ -8756,6 +8756,18 @@ Number</sigName>
 
     </SubSystem>
     <SubSystem>
+    <Name>Status1</Name>
+    <xPCName>forced_choice/Status1</xPCName>
+    
+    
+
+
+    
+    
+
+
+    </SubSystem>
+    <SubSystem>
     <Name>Target Peek</Name>
     <xPCName>forced_choice/Target Peek</xPCName>
     
@@ -9262,30 +9274,6 @@ Number</sigName>
               <sigWidth>2</sigWidth>
               <sigDim>[2, 1]</sigDim>
             </signal>
-
-    </SubSystem>
-    <SubSystem>
-    <Name>Version Display</Name>
-    <xPCName>forced_choice/Version Display</xPCName>
-    
-    
-
-
-    
-    
-
-
-    </SubSystem>
-    <SubSystem>
-    <Name>Word Display</Name>
-    <xPCName>forced_choice/Word Display</xPCName>
-    
-    
-
-
-    
-    
-
 
     </SubSystem>
     <SubSystem>
@@ -12920,22 +12908,8 @@ Function3</sigName>
             </signal>
 
     </SubSystem>
-    <SubSystem>
-    <Name>Xpos</Name>
-    <xPCName>forced_choice/Xpos</xPCName>
-    
-    
-
-
-    
-    
-
-
-    </SubSystem>
 
       
-
-
 
 
 
@@ -13138,8 +13112,8 @@ Function3</sigName>
               <sigName>Matrix
 Concatenation1</sigName>
               <xpcsigName>Matrix Concatenation1</xpcsigName>
-              <sigWidth>4</sigWidth>
-              <sigDim>[4, 1]</sigDim>
+              <sigWidth>6</sigWidth>
+              <sigDim>[6, 1]</sigDim>
             </signal>
 
 

@@ -14,9 +14,7 @@
 // Our task code will be in the databurst
 #define TASK_DB_DEFINED 1
 #include "words.h"
-
 #include "common_header.cpp"
-
 /*
  * State IDs
  */
@@ -236,19 +234,13 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
     this->bump_stair=new Staircase();
     this->stim_stair=new Staircase();
     this->bump_stair->setStepSize(1);
-    this->bump_steps=(int)floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
-    this->bump_stair->setCurrentValue((int)this->bump_steps/2);
-    this->bump_stair->setForwardLimit((int)this->bump_steps);
-    this->bump_stair->setBackwardLimit(0);
     this->stim_stair->setStepSize(1);
-    this->stim_stair->setCurrentValue((int)params->stim_levels/2);
-    this->stim_stair->setForwardLimit((int)params->stim_levels);
-    this->stim_stair->setBackwardLimit(0);
 }
 
 
 void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
-    
+    int startVal;
+    int steps;
 	//set the target direction deg
 	if ((int)this->params->use_random_targets) {
 		this->tgt_dir = this->random->getInteger(0,359);
@@ -271,7 +263,23 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     // Reset cursor offset
     cursorOffset.x = 0;
     cursorOffset.y = 0;
+    // modify staircases if necessary:
+    steps=(int)((params->bump_ceiling-params->bump_floor)/params->bump_step);
+    startVal=(int)(steps/2);
+    if(this->bump_stair->getStartValue() != startVal){
+        //reset the staircase
+        this->bump_stair->setCurrentValue(startVal);
+        this->bump_stair->setForwardLimit((int)this->steps);
+        this->bump_stair->setBackwardLimit(0);
+    }
     
+    startVal=(int)(params->stim_levels/2);
+    if(this->stim_stair->getStartValue() != startVal){
+        //reset the stim staircase
+        this->stim_stair->setCurrentValue(startVal);
+        this->stim_stair->setForwardLimit((int)params->stim_levels);
+        this->stim_stair->setBackwardLimit(0);
+    }
 	//set up the bump
     this->bump_delay=this->random->getDouble(params->bump_delay_low,params->bump_delay_high);
     this->bump_trial=this->random->getDouble()<params->bump_prob;
@@ -413,6 +421,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
                 }
             }
 			break;
+            
 		case STATE_STIM:
             if(params->force_reaction){
                 //playTone(TONE_GO);
@@ -499,18 +508,18 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	} else {
 		outputs->force = inputs->force;
 	}
-//     outputs->status[0] =params->ct_hold_time;
-    outputs->force.x = (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay)) ; 
-    outputs->force.y = (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay + params->bump_hold_time));
-
+outputs->force.x = floor((params->bump_ceiling-params->bump_floor));
+		outputs->force.y = floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
+//     
+//     this->bump_steps=(int)((params->bump_ceiling-params->bump_floor)/params->bump_step);
+//     this->bump_stair->setCurrentValue((int)(this->bump_steps/2));
 	/* status (1) */
-	outputs->status[0] = getState();
-	outputs->status[1] = trialCounter->successes;
-	outputs->status[2] = trialCounter->aborts;
-// 	outputs->status[3] = trialCounter->failures;
-//     outputs->status[4] = params->abort_during_bump;
-outputs->status[3] = this->stim_trial;
-outputs->status[4] = this->bump_trial;
+	outputs->status[0] = this->bump_steps;
+	outputs->status[1] = (int)((params->bump_ceiling-params->bump_floor)/params->bump_step);
+	outputs->status[2] = this->bump_stair->getCurrentValue();
+ 	outputs->status[3] = (int)(this->bump_steps/2);
+    outputs->status[4] = this->bump_stair->getCurrentValue();
+
 	/* word (2) */
 	if (db->isRunning()) {
 		outputs->word = db->getByte();

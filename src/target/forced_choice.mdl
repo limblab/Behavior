@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1227"
+    ComputedModelVersion    "1.1230"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -55,8 +55,8 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[992.0, 511.0]
-	ZoomFactor		[1.0]
-	Offset			[759.62720262193716, 2179.3435222672056]
+	ZoomFactor		[0.8]
+	Offset			[224.6438692886029, 1830.476855600542]
       }
     }
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Feb 13 16:54:32 2018"
-  RTWModifiedTimeStamp	  440441670
-  ModelVersionFormat	  "1.%<AutoIncrement:1227>"
+  LastModifiedDate	  "Wed Feb 14 17:11:02 2018"
+  RTWModifiedTimeStamp	  440529044
+  ModelVersionFormat	  "1.%<AutoIncrement:1230>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1005,9 +1005,9 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "100"
+    ZoomFactor		    "80"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "804"
+    SIDHighWatermark	    "809"
     Block {
       BlockType		      S-Function
       Name		      "Behavior FC"
@@ -1911,9 +1911,10 @@ Model {
       BlockType		      Concatenate
       Name		      "Matrix\nConcatenation1"
       SID		      "735"
-      Ports		      [2, 1]
-      Position		      [1315, 2279, 1370, 2321]
+      Ports		      [3, 1]
+      Position		      [1315, 2289, 1370, 2331]
       ZOrder		      101
+      NumInputs		      "3"
     }
     Block {
       BlockType		      Reference
@@ -1979,7 +1980,7 @@ Model {
       Name		      "SendPacketToGraphics"
       SID		      "759"
       Ports		      [4]
-      Position		      [1390, 2122, 1480, 2223]
+      Position		      [1315, 2122, 1405, 2223]
       ZOrder		      97
       LibraryVersion	      "1.206"
       SourceBlock	      "limblab/SendPacketToGraphics"
@@ -1991,13 +1992,13 @@ Model {
       Name		      "Status"
       SID		      "760"
       Ports		      [1]
-      Position		      [1355, 1979, 1425, 2021]
+      Position		      [1280, 1979, 1350, 2021]
       ZOrder		      96
       LibraryVersion	      "1.1842"
       SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
       SourceType	      "xpcscopeblock"
       ContentPreviewEnabled   off
-      scopeno		      "6"
+      scopeno		      "1"
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
@@ -2022,16 +2023,51 @@ Model {
       maxwritefilesize	      "512*1024^2"
     }
     Block {
+      BlockType		      Reference
+      Name		      "Status1"
+      SID		      "809"
+      Ports		      [1]
+      Position		      [1385, 2289, 1455, 2331]
+      ZOrder		      124
+      LibraryVersion	      "1.1842"
+      SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
+      SourceType	      "xpcscopeblock"
+      ContentPreviewEnabled   off
+      scopeno		      "3"
+      scopetype		      "Target"
+      autostart		      on
+      viewmode		      "Numerical"
+      formatstr		      "'%6.0f x,%6.0f y,%6.0f vx,%6.0f vy,%6.0f fx,%6.0f fy'"
+      grid		      on
+      ylimits		      "[-10,10]"
+      nosamples		      "10"
+      noprepostsamples	      "0"
+      interleave	      "10"
+      triggermode	      "FreeRun"
+      triggersignal	      "1"
+      trigsignalfromport      off
+      triggerlevel	      "0.0"
+      triggerslope	      "Either"
+      triggerscope	      "1"
+      triggersample	      "0"
+      filename		      "data.dat"
+      mode		      "Lazy"
+      writesize		      "512"
+      autorestart	      off
+      dynamicfilemode	      off
+      maxwritefilesize	      "512*1024^2"
+    }
+    Block {
       BlockType		      SubSystem
       Name		      "Target Peek"
       SID		      "761"
       Ports		      [1, 1]
-      Position		      [1325, 2059, 1425, 2101]
+      Position		      [1250, 2059, 1350, 2101]
       ZOrder		      95
       RequestExecContextInheritance off
       System {
 	Name			"Target Peek"
-	Location		[-4, -4, 1028, 728]
+	Location		[-6, 5, 1030, 676]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2284,7 +2320,7 @@ Model {
       BlockType		      Constant
       Name		      "TargetCount"
       SID		      "775"
-      Position		      [1305, 2195, 1335, 2225]
+      Position		      [1230, 2195, 1260, 2225]
       ZOrder		      94
       Value		      "17"
     }
@@ -2292,7 +2328,7 @@ Model {
       BlockType		      Terminator
       Name		      "Terminator"
       SID		      "776"
-      Position		      [1450, 2070, 1470, 2090]
+      Position		      [1375, 2070, 1395, 2090]
       ZOrder		      93
     }
     Block {
@@ -2326,76 +2362,6 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "Version Display"
-      SID		      "780"
-      Ports		      [1]
-      Position		      [1130, 2179, 1200, 2221]
-      ZOrder		      90
-      LibraryVersion	      "1.1842"
-      SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
-      SourceType	      "xpcscopeblock"
-      ContentPreviewEnabled   off
-      scopeno		      "3"
-      scopetype		      "Target"
-      autostart		      on
-      viewmode		      "Numerical"
-      formatstr		      "'%6.0f major,%6.0f minor,%6.0f revision,%6.0f build'"
-      grid		      on
-      ylimits		      "[-10,10]"
-      nosamples		      "10"
-      noprepostsamples	      "0"
-      interleave	      "10"
-      triggermode	      "FreeRun"
-      triggersignal	      "1"
-      trigsignalfromport      off
-      triggerlevel	      "0.0"
-      triggerslope	      "Either"
-      triggerscope	      "1"
-      triggersample	      "0"
-      filename		      "data.dat"
-      mode		      "Lazy"
-      writesize		      "512"
-      autorestart	      off
-      dynamicfilemode	      off
-      maxwritefilesize	      "512*1024^2"
-    }
-    Block {
-      BlockType		      Reference
-      Name		      "Word Display"
-      SID		      "788"
-      Ports		      [1]
-      Position		      [1180, 2019, 1250, 2061]
-      ZOrder		      114
-      LibraryVersion	      "1.1842"
-      SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
-      SourceType	      "xpcscopeblock"
-      ContentPreviewEnabled   off
-      scopeno		      "1"
-      scopetype		      "Target"
-      autostart		      on
-      viewmode		      "Numerical"
-      formatstr		      "'%6.0f word'"
-      grid		      on
-      ylimits		      "[-10,10]"
-      nosamples		      "10"
-      noprepostsamples	      "0"
-      interleave	      "10"
-      triggermode	      "FreeRun"
-      triggersignal	      "1"
-      trigsignalfromport      off
-      triggerlevel	      "0.0"
-      triggerslope	      "Either"
-      triggerscope	      "1"
-      triggersample	      "0"
-      filename		      "data.dat"
-      mode		      "Lazy"
-      writesize		      "512"
-      autorestart	      off
-      dynamicfilemode	      off
-      maxwritefilesize	      "512*1024^2"
-    }
-    Block {
-      BlockType		      Reference
       Name		      "WordSbs"
       SID		      "801"
       Ports		      [1]
@@ -2417,41 +2383,6 @@ Model {
       SourceBlock	      "limblab/XY Position Subsystem"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
-    }
-    Block {
-      BlockType		      Reference
-      Name		      "Xpos"
-      SID		      "785"
-      Ports		      [1]
-      Position		      [1400, 2280, 1470, 2320]
-      ZOrder		      88
-      LibraryVersion	      "1.1842"
-      SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
-      SourceType	      "xpcscopeblock"
-      ContentPreviewEnabled   off
-      scopeno		      "7"
-      scopetype		      "Target"
-      autostart		      on
-      viewmode		      "Numerical"
-      formatstr		      "'%15.2f X,%15.2f Y,%15.2f dX,%15.2f dY,%15.2f Fx,%15.2f Fy'"
-      grid		      on
-      ylimits		      "[-10,10]"
-      nosamples		      "10"
-      noprepostsamples	      "0"
-      interleave	      "10"
-      triggermode	      "FreeRun"
-      triggersignal	      "1"
-      trigsignalfromport      off
-      triggerlevel	      "0.0"
-      triggerslope	      "Either"
-      triggerscope	      "1"
-      triggersample	      "0"
-      filename		      "data.dat"
-      mode		      "Lazy"
-      writesize		      "512"
-      autorestart	      off
-      dynamicfilemode	      off
-      maxwritefilesize	      "512*1024^2"
     }
     Line {
       ZOrder		      311
@@ -2483,6 +2414,7 @@ Model {
 	}
 	Branch {
 	  ZOrder		  305
+	  Points		  [716, 0]
 	  DstBlock		  "Matrix\nConcatenation1"
 	  DstPort		  2
 	}
@@ -2498,10 +2430,10 @@ Model {
 	Points			[0, -65]
 	Branch {
 	  ZOrder		  316
-	  Points		  [0, -65]
+	  Points		  [0, -60]
 	  Branch {
-	    ZOrder		    315
-	    Points		    [0, -290]
+	    ZOrder		    449
+	    Points		    [0, -295]
 	    DstBlock		    "Neural Override1"
 	    DstPort		    3
 	  }
@@ -2534,24 +2466,14 @@ Model {
       ZOrder		      350
       SrcBlock		      "Behavior FC"
       SrcPort		      3
-      Points		      [10, 0]
-      Branch {
-	ZOrder			407
-	Points			[2, 0; 0, -31; 73, 0; 0, 31]
-	DstBlock		"Word Display"
-	DstPort			1
-      }
-      Branch {
-	ZOrder			406
-	DstBlock		"WordSbs"
-	DstPort			1
-      }
+      DstBlock		      "WordSbs"
+      DstPort		      1
     }
     Line {
       ZOrder		      349
       SrcBlock		      "Behavior FC"
       SrcPort		      4
-      Points		      [247, 0]
+      Points		      [172, 0]
       Branch {
 	ZOrder			322
 	DstBlock		"Target Peek"
@@ -2563,13 +2485,6 @@ Model {
 	DstBlock		"SendPacketToGraphics"
 	DstPort			1
       }
-    }
-    Line {
-      ZOrder		      353
-      SrcBlock		      "Behavior FC"
-      SrcPort		      1
-      DstBlock		      "Motor Control1"
-      DstPort		      1
     }
     Line {
       ZOrder		      352
@@ -2613,13 +2528,6 @@ Model {
       DstPort		      1
     }
     Line {
-      ZOrder		      331
-      SrcBlock		      "Matrix\nConcatenation1"
-      SrcPort		      1
-      DstBlock		      "Xpos"
-      DstPort		      1
-    }
-    Line {
       ZOrder		      332
       SrcBlock		      "Recentering Subsystem1"
       SrcPort		      2
@@ -2636,17 +2544,10 @@ Model {
       DstPort		      2
     }
     Line {
-      ZOrder		      356
-      SrcBlock		      "Behavior FC"
-      SrcPort		      7
-      DstBlock		      "Version Display"
-      DstPort		      1
-    }
-    Line {
       ZOrder		      351
       SrcBlock		      "Behavior FC"
       SrcPort		      8
-      Points		      [188, 0; 0, -55]
+      Points		      [78, 0; 0, -55]
       DstBlock		      "SendPacketToGraphics"
       DstPort		      3
     }
@@ -2741,6 +2642,30 @@ Model {
       Points		      [80, 0]
       DstBlock		      "Behavior FC"
       DstPort		      2
+    }
+    Line {
+      ZOrder		      448
+      SrcBlock		      "Matrix\nConcatenation1"
+      SrcPort		      1
+      DstBlock		      "Status1"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      353
+      SrcBlock		      "Behavior FC"
+      SrcPort		      1
+      Points		      [424, 0]
+      Branch {
+	ZOrder			453
+	Points			[0, 411; -187, 0; 0, -46]
+	DstBlock		"Matrix\nConcatenation1"
+	DstPort			3
+      }
+      Branch {
+	ZOrder			452
+	DstBlock		"Motor Control1"
+	DstPort			1
+      }
     }
     Annotation {
       SID		      "786"
