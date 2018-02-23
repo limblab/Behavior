@@ -215,6 +215,7 @@ void CenterOutCenter3D::update(SimStruct *S) {
            if (db->isDone()) {
                setState(STATE_START_TARG_ON);
            }
+           break;
        case STATE_START_TARG_ON:
            /* target on */
            if (center_target->handInTarget(inputs->targetStaircase)) {
@@ -238,6 +239,7 @@ void CenterOutCenter3D::update(SimStruct *S) {
            if (!center_target->handInTarget(inputs->targetStaircase)){
                setState(STATE_MOVEMENT_OUT);
            }
+           break;
        case STATE_MOVEMENT_OUT:
            if (stateTimer->elapsedTime(S) > params->movement_max_time) {
                playTone(TONE_FAIL);
@@ -262,6 +264,7 @@ void CenterOutCenter3D::update(SimStruct *S) {
            if (!outer_target->handInTarget(inputs->targetStaircase)){
                setState(STATE_MOVEMENT_IN);
            }
+           break;
        case STATE_MOVEMENT_IN:
            if (stateTimer->elapsedTime(S) > params->movement_max_time) {
                playTone(TONE_FAIL);
