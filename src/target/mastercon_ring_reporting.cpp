@@ -155,6 +155,7 @@ struct LocalParams {
 
     real_T stim_delay;
     real_T repeat_failures;
+    real_T end_at_ring;
 };
 
 /**
@@ -286,7 +287,7 @@ RingReportingBehavior::RingReportingBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->stim_delay,              45);
     
     this->bindParamId(&params->repeat_failures,         46);
-    
+    this->bindParamId(&params->end_at_ring,             47);
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -330,15 +331,8 @@ void RingReportingBehavior::updateCursorExtent(SimStruct *S){
 }
 
 void RingReportingBehavior::doPreTrial(SimStruct *S) {
-	double tgt_sep;
-	double CH_sep;
-	double DP_sep;
-	double M_sep;
 	double temp;
-	double bump_rate_denom;
     double current_trial_bumpmag;
-	int bump_dir;
-	bool rate_flag_match;
     
     double act_bf_one;
     double act_bf_two;
@@ -578,7 +572,10 @@ void RingReportingBehavior::update(SimStruct *S) {
 			}
 			break;         
         case STATE_OT_HOLD:
-            if(this->params->use_square_targets && primaryTarget->cursorInTarget(cursor_end_point)){ // use circle targets case
+            if(this->params->use_square_targets && primaryTarget->cursorInTarget(cursor_end_point)){ // use square targets case
+                playTone(TONE_REWARD);
+                setState(STATE_REWARD);
+            } else if(!this->params->use_square_targets && this->stim_trial && this->params->stimInsteadOfBump) {
                 playTone(TONE_REWARD);
                 setState(STATE_REWARD);
             } else if (!this->params->use_square_targets && outerTarget->cursorInTarget(cursor_end_point) ){
@@ -763,7 +760,10 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
         }
 		if(this->params->use_square_targets) { // if training and using circle targets, display outer target
             outputs->targets[2] = (Target *)primaryTarget;
-        } else { // else display outer ring target 
+        } else if(this->stim_trial){ // no target
+            outputs->targets[2] = nullTarget;
+        }
+        else { // else display outer ring target 
             outputs->targets[2] = (Target *)outerTarget;
         } 
 	} else {
