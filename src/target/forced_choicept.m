@@ -271,7 +271,7 @@ pt(30).subsource = 'SS_DOUBLE';
 pt(30).ndims     = '2';
 pt(30).size      = '[]';
 
-pt(31).blockname = 'BoundingBox1/DisableBoundingBox';
+pt(31).blockname = 'BoundingBox/DisableBoundingBox';
 pt(31).paramname = 'Value';
 pt(31).class     = 'scalar';
 pt(31).nrows     = 1;
@@ -280,7 +280,7 @@ pt(31).subsource = 'SS_DOUBLE';
 pt(31).ndims     = '2';
 pt(31).size      = '[]';
 
-pt(32).blockname = 'BoundingBox1/XHighLimit';
+pt(32).blockname = 'BoundingBox/XHighLimit';
 pt(32).paramname = 'Value';
 pt(32).class     = 'scalar';
 pt(32).nrows     = 1;
@@ -289,7 +289,7 @@ pt(32).subsource = 'SS_DOUBLE';
 pt(32).ndims     = '2';
 pt(32).size      = '[]';
 
-pt(33).blockname = 'BoundingBox1/XLowLimit';
+pt(33).blockname = 'BoundingBox/XLowLimit';
 pt(33).paramname = 'Value';
 pt(33).class     = 'scalar';
 pt(33).nrows     = 1;
@@ -298,7 +298,7 @@ pt(33).subsource = 'SS_DOUBLE';
 pt(33).ndims     = '2';
 pt(33).size      = '[]';
 
-pt(34).blockname = 'BoundingBox1/YHighLimit';
+pt(34).blockname = 'BoundingBox/YHighLimit';
 pt(34).paramname = 'Value';
 pt(34).class     = 'scalar';
 pt(34).nrows     = 1;
@@ -307,7 +307,7 @@ pt(34).subsource = 'SS_DOUBLE';
 pt(34).ndims     = '2';
 pt(34).size      = '[]';
 
-pt(35).blockname = 'BoundingBox1/YLowLimit';
+pt(35).blockname = 'BoundingBox/YLowLimit';
 pt(35).paramname = 'Value';
 pt(35).class     = 'scalar';
 pt(35).nrows     = 1;
@@ -838,7 +838,7 @@ pt(93).subsource = 'SS_DOUBLE';
 pt(93).ndims     = '2';
 pt(93).size      = '[]';
 
-pt(94).blockname = 'RewardSbs1/JackpotChance';
+pt(94).blockname = 'RewardSbs/JackpotChance';
 pt(94).paramname = 'Value';
 pt(94).class     = 'scalar';
 pt(94).nrows     = 1;
@@ -847,7 +847,7 @@ pt(94).subsource = 'SS_DOUBLE';
 pt(94).ndims     = '2';
 pt(94).size      = '[]';
 
-pt(95).blockname = 'RewardSbs1/RewardJackpot';
+pt(95).blockname = 'RewardSbs/RewardJackpot';
 pt(95).paramname = 'Value';
 pt(95).class     = 'scalar';
 pt(95).nrows     = 1;
@@ -856,7 +856,7 @@ pt(95).subsource = 'SS_DOUBLE';
 pt(95).ndims     = '2';
 pt(95).size      = '[]';
 
-pt(96).blockname = 'RewardSbs1/RewardTime';
+pt(96).blockname = 'RewardSbs/RewardTime';
 pt(96).paramname = 'Value';
 pt(96).class     = 'scalar';
 pt(96).nrows     = 1;
@@ -865,7 +865,7 @@ pt(96).subsource = 'SS_DOUBLE';
 pt(96).ndims     = '2';
 pt(96).size      = '[]';
 
-pt(97).blockname = 'RewardSbs1/Uniform Random Number';
+pt(97).blockname = 'RewardSbs/Uniform Random Number';
 pt(97).paramname = 'Minimum';
 pt(97).class     = 'scalar';
 pt(97).nrows     = 1;
@@ -874,7 +874,7 @@ pt(97).subsource = 'SS_DOUBLE';
 pt(97).ndims     = '2';
 pt(97).size      = '[]';
 
-pt(98).blockname = 'RewardSbs1/Uniform Random Number';
+pt(98).blockname = 'RewardSbs/Uniform Random Number';
 pt(98).paramname = 'Maximum';
 pt(98).class     = 'scalar';
 pt(98).nrows     = 1;
@@ -883,7 +883,7 @@ pt(98).subsource = 'SS_DOUBLE';
 pt(98).ndims     = '2';
 pt(98).size      = '[]';
 
-pt(99).blockname = 'RewardSbs1/Uniform Random Number';
+pt(99).blockname = 'RewardSbs/Uniform Random Number';
 pt(99).paramname = 'Seed';
 pt(99).class     = 'scalar';
 pt(99).nrows     = 1;
@@ -1792,7 +1792,7 @@ pt(199).subsource = 'SS_BOOLEAN';
 pt(199).ndims     = '2';
 pt(199).size      = '[]';
 
-pt(200).blockname = 'RewardSbs1/Sample and Hold/ ';
+pt(200).blockname = 'RewardSbs/Sample and Hold/ ';
 pt(200).paramname = 'InitialOutput';
 pt(200).class     = 'scalar';
 pt(200).nrows     = 1;
@@ -2854,7 +2854,7 @@ pt(317).subsource = 'SS_DOUBLE';
 pt(317).ndims     = '2';
 pt(317).size      = '[]';
 
-pt(318).blockname = 'RewardSbs1/Schmidt/Sample and Hold/ ';
+pt(318).blockname = 'RewardSbs/Schmidt/Sample and Hold/ ';
 pt(318).paramname = 'InitialOutput';
 pt(318).class     = 'scalar';
 pt(318).nrows     = 1;

@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<GlyphDefs>
+  <GlyphDef>
+    <Name>Colors</Name>
+    <NumGlyphs>4</NumGlyphs>
+    <FilePrefix>colors</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>Yellow Circle</Name>
+    <NumGlyphs>1</NumGlyphs>
+    <FilePrefix>yellowcircle</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>Planet Symbols</Name>
+    <NumGlyphs>10</NumGlyphs>
+    <FilePrefix>planets</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>Training Wavelets 1</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>waveleta</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>Training Wavelets 2</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>waveletb</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>Training Wavelets 3</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>waveletc</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>wavelet freq=3</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>waveletd</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>wavelet freq=5</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>wavelete</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>wavelet freq=10</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>waveletf</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>wavelet freq=15</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>waveletg</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>wavelet freq=20</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>waveleth</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>sat. training HF 1</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>saturationHFa</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>sat. training HF 2</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>saturationHFb</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>sat. training HF 3</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>saturationHFc</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>sat. training HF 4</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>saturationHFd</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>sat. training HF 5</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>saturationHFe</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>sat. training LF 1</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>saturationLFa</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>sat. training LF 2</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>saturationLFb</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>sat. training LF 3</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>saturationLFc</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>sat. training LF 4</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>saturationLFd</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name>sat. training LF 5</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>saturationLFe</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name> grey HF</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>blackHFa</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name> dark grey HF</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>blackHFb</FilePrefix>
+  </GlyphDef>
+  <GlyphDef>
+    <Name> darkest grey HF</Name>
+    <NumGlyphs>2</NumGlyphs>
+    <FilePrefix>blackHFc</FilePrefix>
+  </GlyphDef>
+</GlyphDefs>

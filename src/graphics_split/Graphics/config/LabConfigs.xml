@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="Parameters.xsl"?>
+<LabList>
+  <LabConfig lab="1">
+    <LabParamList>
+      <LabParam>
+        <Block>XY Position Subsystem/LabNumber</Block>
+        <Name>Value</Name>
+        <Value>1</Value>
+      </LabParam>
+      <LabParam>
+        <Block>Motor Control/MG1</Block>
+        <Name>Gain</Name>
+        <Value>-1</Value>
+      </LabParam>
+      <LabParam>
+        <Block>Motor Control/MG2</Block>
+        <Name>Gain</Name>
+        <Value>1</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L1</Block>
+        <Name>Value</Name>
+        <Value>27</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L2</Block>
+        <Name>Value</Name>
+        <Value>24</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/XLowLimit</Block>
+        <Name>Value</Name>
+        <Value>-30</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/YLowLimit</Block>
+        <Name>Value</Name>
+        <Value>-22</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/XHighLimit</Block>
+        <Name>Value</Name>
+        <Value>25</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/YHighLimit</Block>
+        <Name>Value</Name>
+        <Value>-46</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef1</Block>
+        <Name>Value</Name>
+        <Value>-0.0129</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef2</Block>
+        <Name>Value</Name>
+        <Value>-0.0254</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef3</Block>
+        <Name>Value</Name>
+        <Value>-0.1018</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef4</Block>
+        <Name>Value</Name>
+        <Value>-6.2876</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef5</Block>
+        <Name>Value</Name>
+        <Value>-0.1127</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef6</Block>
+        <Name>Value</Name>
+        <Value>6.2163</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef1</Block>
+        <Name>Value</Name>
+        <Value>-0.2059</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef2</Block>
+        <Name>Value</Name>
+        <Value>7.1801</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef3</Block>
+        <Name>Value</Name>
+        <Value>-0.0804</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef4</Block>
+        <Name>Value</Name>
+        <Value>-3.591</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef5</Block>
+        <Name>Value</Name>
+        <Value>0.0641</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef6</Block>
+        <Name>Value</Name>
+        <Value>-3.6077</Value>
+      </LabParam>
+    </LabParamList>
+  </LabConfig>
+  <LabConfig lab="2">
+    <LabParamList>
+      <LabParam>
+        <Block>XY Position Subsystem/LabNumber</Block>
+        <Name>Value</Name>
+        <Value>2</Value>
+      </LabParam>
+      <LabParam>
+        <Block>Motor Control/MG1</Block>
+        <Name>Gain</Name>
+        <Value>-1</Value>
+      </LabParam>
+      <LabParam>
+        <Block>Motor Control/MG2</Block>
+        <Name>Gain</Name>
+        <Value>1</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L1</Block>
+        <Name>Value</Name>
+        <Value>24</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L2</Block>
+        <Name>Value</Name>
+        <Value>23.5</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/XLowLimit</Block>
+        <Name>Value</Name>
+        <Value>-30</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/YLowLimit</Block>
+        <Name>Value</Name>
+        <Value>-20</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/XHighLimit</Block>
+        <Name>Value</Name>
+        <Value>25</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/YHighLimit</Block>
+        <Name>Value</Name>
+        <Value>-46</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef1</Block>
+        <Name>Value</Name>
+        <Value>-0.0129</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef2</Block>
+        <Name>Value</Name>
+        <Value>-0.0254</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef3</Block>
+        <Name>Value</Name>
+        <Value>-0.1018</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef4</Block>
+        <Name>Value</Name>
+        <Value>-6.2876</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef5</Block>
+        <Name>Value</Name>
+        <Value>-0.1127</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef6</Block>
+        <Name>Value</Name>
+        <Value>6.2163</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef1</Block>
+        <Name>Value</Name>
+        <Value>-0.2059</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef2</Block>
+        <Name>Value</Name>
+        <Value>7.1801</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef3</Block>
+        <Name>Value</Name>
+        <Value>-0.0804</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef4</Block>
+        <Name>Value</Name>
+        <Value>-3.591</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef5</Block>
+        <Name>Value</Name>
+        <Value>0.0641</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef6</Block>
+        <Name>Value</Name>
+        <Value>-3.6077</Value>
+      </LabParam>
+    </LabParamList>
+  </LabConfig>
+  <LabConfig lab="3">
+    <LabParamList>
+      <LabParam>
+        <Block>XY Position Subsystem/LabNumber</Block>
+        <Name>Value</Name>
+        <Value>3</Value>
+      </LabParam>
+      <LabParam>
+        <Block>Motor Control/MG1</Block>
+        <Name>Gain</Name>
+        <Value>0.075</Value>
+      </LabParam>
+      <LabParam>
+        <Block>Motor Control/MG2</Block>
+        <Name>Gain</Name>
+        <Value>-0.0686</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L1</Block>
+        <Name>Value</Name>
+        <Value>24.765</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L2</Block>
+        <Name>Value</Name>
+        <Value>23.8125</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/XLowLimit</Block>
+        <Name>Value</Name>
+        <Value>-30</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/YLowLimit</Block>
+        <Name>Value</Name>
+        <Value>-22</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/XHighLimit</Block>
+        <Name>Value</Name>
+        <Value>25</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/YHighLimit</Block>
+        <Name>Value</Name>
+        <Value>-42</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef1</Block>
+        <Name>Value</Name>
+        <Value>-0.0129</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef2</Block>
+        <Name>Value</Name>
+        <Value>0.0254</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef3</Block>
+        <Name>Value</Name>
+        <Value>-0.1018</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef4</Block>
+        <Name>Value</Name>
+        <Value>-6.2876</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef5</Block>
+        <Name>Value</Name>
+        <Value>-0.1127</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef6</Block>
+        <Name>Value</Name>
+        <Value>6.2163</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef1</Block>
+        <Name>Value</Name>
+        <Value>-0.2059</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef2</Block>
+        <Name>Value</Name>
+        <Value>7.1801</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef3</Block>
+        <Name>Value</Name>
+        <Value>-0.0804</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef4</Block>
+        <Name>Value</Name>
+        <Value>-3.591</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef5</Block>
+        <Name>Value</Name>
+        <Value>0.0641</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef6</Block>
+        <Name>Value</Name>
+        <Value>-3.6077</Value>
+      </LabParam>
+    </LabParamList>
+  </LabConfig>
+  <LabConfig lab="4">
+  <!-- This is a dummy entry. There is no need for these parameters in Lab 4. -->
+    <LabParamList>
+      <LabParam>
+        <Block>XY Position Subsystem/LabNumber</Block>
+        <Name>Value</Name>
+        <Value>4</Value>
+      </LabParam>
+      <LabParam>
+        <Block>Motor Control/MG1</Block>
+        <Name>Gain</Name>
+        <Value>0</Value>
+      </LabParam>
+      <LabParam>
+        <Block>Motor Control/MG2</Block>
+        <Name>Gain</Name>
+        <Value>0</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L1</Block>
+        <Name>Value</Name>
+        <Value>0</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L2</Block>
+        <Name>Value</Name>
+        <Value>0</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/XLowLimit</Block>
+        <Name>Value</Name>
+        <Value>0</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/YLowLimit</Block>
+        <Name>Value</Name>
+        <Value>0</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/XHighLimit</Block>
+        <Name>Value</Name>
+        <Value>0</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/YHighLimit</Block>
+        <Name>Value</Name>
+        <Value>0</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef1</Block>
+        <Name>Value</Name>
+        <Value>-0.0129</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef2</Block>
+        <Name>Value</Name>
+        <Value>-0.0254</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef3</Block>
+        <Name>Value</Name>
+        <Value>-0.1018</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef4</Block>
+        <Name>Value</Name>
+        <Value>-6.2876</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef5</Block>
+        <Name>Value</Name>
+        <Value>-0.1127</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef6</Block>
+        <Name>Value</Name>
+        <Value>6.2163</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef1</Block>
+        <Name>Value</Name>
+        <Value>-0.2059</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef2</Block>
+        <Name>Value</Name>
+        <Value>7.1801</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef3</Block>
+        <Name>Value</Name>
+        <Value>-0.0804</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef4</Block>
+        <Name>Value</Name>
+        <Value>-3.591</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef5</Block>
+        <Name>Value</Name>
+        <Value>0.0641</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef6</Block>
+        <Name>Value</Name>
+        <Value>-3.6077</Value>
+      </LabParam>
+    </LabParamList>
+  </LabConfig>
+  <LabConfig lab="6">
+    <LabParamList>
+      <LabParam>
+        <Block>XY Position Subsystem/LabNumber</Block>
+        <Name>Value</Name>
+        <Value>6</Value>
+      </LabParam>
+      <LabParam>
+        <Block>Motor Control/MG1</Block>
+        <Name>Gain</Name>
+        <Value>0.063</Value>
+      </LabParam>
+      <LabParam>
+        <Block>Motor Control/MG2</Block>
+        <Name>Gain</Name>
+        <Value>-0.070</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L1</Block>
+        <Name>Value</Name>
+        <Value>24.5</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/Jacobian-Cartesian Transformation/L2</Block>
+        <Name>Value</Name>
+        <Value>28.0</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/XLowLimit</Block>
+        <Name>Value</Name>
+        <Value>-30</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/YLowLimit</Block>
+        <Name>Value</Name>
+        <Value>-22</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/XHighLimit</Block>
+        <Name>Value</Name>
+        <Value>25</Value>
+      </LabParam>
+      <LabParam>
+        <Block>BoundingBox/YHighLimit</Block>
+        <Name>Value</Name>
+        <Value>-42</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef1</Block>
+        <Name>Value</Name>
+        <Value>0.0129</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef2</Block>
+        <Name>Value</Name>
+        <Value>-0.0254</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef3</Block>
+        <Name>Value</Name>
+        <Value>0.1018</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef4</Block>
+        <Name>Value</Name>
+        <Value>6.2876</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef5</Block>
+        <Name>Value</Name>
+        <Value>0.1127</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellXCoef6</Block>
+        <Name>Value</Name>
+        <Value>-6.2163</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef1</Block>
+        <Name>Value</Name>
+        <Value>-0.2059</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef2</Block>
+        <Name>Value</Name>
+        <Value>7.1801</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef3</Block>
+        <Name>Value</Name>
+        <Value>-0.0804</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef4</Block>
+        <Name>Value</Name>
+        <Value>-3.591</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef5</Block>
+        <Name>Value</Name>
+        <Value>0.0641</Value>
+      </LabParam>
+      <LabParam>
+        <Block>XY Position Subsystem/LoadCellYCoef6</Block>
+        <Name>Value</Name>
+        <Value>-3.6077</Value>
+      </LabParam>
+    </LabParamList>
+  </LabConfig>
+</LabList>
