@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1293"
+    ComputedModelVersion    "1.1294"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -55,8 +55,8 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[988.0, 572.0]
-	ZoomFactor		[1.5]
-	Offset			[926.35933432493255, 144.75176285084723]
+	ZoomFactor		[1.0]
+	Offset			[719.69266765826592, 67.751762850847228]
       }
     }
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Jan 09 17:56:20 2018"
-  RTWModifiedTimeStamp	  437393802
-  ModelVersionFormat	  "1.%<AutoIncrement:1293>"
+  LastModifiedDate	  "Fri Feb 23 14:54:52 2018"
+  RTWModifiedTimeStamp	  441298489
+  ModelVersionFormat	  "1.%<AutoIncrement:1294>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -614,7 +614,7 @@ Model {
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
-		Dimension		14
+		Dimension		13
 		Cell			"GeneratePreprocessorConditionals"
 		Cell			"IncludeMdlTerminateFcn"
 		Cell			"SupportNonInlinedSFcns"
@@ -628,7 +628,6 @@ Model {
 		Cell			"SupportComplex"
 		Cell			"SupportAbsoluteTime"
 		Cell			"SupportContinuousTime"
-		Cell			"CombineOutputUpdateFcns"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
@@ -1057,7 +1056,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "150"
+    ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "443"
     Block {
@@ -1096,6 +1095,7 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Graphical redraw"
+      formatstr		      "'%15.6f'"
       grid		      off
       ylimits		      "[-10,10]"
       nosamples		      "10"
@@ -2996,18 +2996,8 @@ Model {
       ZOrder		      16
       SrcBlock		      "Behavior CO Bump"
       SrcPort		      3
-      Points		      [10, 0]
-      Branch {
-	ZOrder			213
-	Points			[0, -225]
-	DstBlock		"Bits"
-	DstPort			1
-      }
-      Branch {
-	ZOrder			212
-	DstBlock		"WordSbs"
-	DstPort			1
-      }
+      DstBlock		      "WordSbs"
+      DstPort		      1
     }
     Line {
       ZOrder		      17
@@ -3030,8 +3020,18 @@ Model {
       ZOrder		      49
       SrcBlock		      "Behavior CO Bump"
       SrcPort		      1
-      DstBlock		      "Motor Control1"
-      DstPort		      1
+      Points		      [21, 0]
+      Branch {
+	ZOrder			244
+	Points			[0, -145]
+	DstBlock		"Bits"
+	DstPort			1
+      }
+      Branch {
+	ZOrder			243
+	DstBlock		"Motor Control1"
+	DstPort			1
+      }
     }
     Line {
       ZOrder		      21

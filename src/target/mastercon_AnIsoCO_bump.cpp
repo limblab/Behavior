@@ -326,6 +326,7 @@ struct LocalParams {
     real_T stimInsteadOfBump;
     real_T stimDelay;
     real_T idiot_mode;
+    
 };
 
 /**
@@ -336,11 +337,11 @@ struct LocalParams {
  *
  * You must also update the definition below with the name of your class
  */
-#define MY_CLASS_NAME COBumpBehavior
-class COBumpBehavior : public RobotBehavior {
+#define MY_CLASS_NAME COBumpANISOBehavior
+class COBumpANISOBehavior : public RobotBehavior {
 public:
 	// You must implement these three public methods
-	COBumpBehavior(SimStruct *S);
+	COBumpANISOBehavior(SimStruct *S);
 	void update(SimStruct *S);
 	void calculateOutputs(SimStruct *S);	
 
@@ -357,9 +358,8 @@ private:
 	bool DP_bump;
 	bool M_bump;
     double bump_time;
-
     	Point cursorOffset;
-
+    double anIso [48];
 	CosineBumpGenerator *bump;
 
 	LocalParams *params;
@@ -370,7 +370,6 @@ private:
 	double ctr_hold;
 	double delay_hold;
     double ot_hold;
-    
     // center hold timer
     Timer *ch_timer;
 
@@ -382,7 +381,7 @@ private:
 
 };
 
-COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
+COBumpANISOBehavior::COBumpANISOBehavior(SimStruct *S) : RobotBehavior() {
 
 	// Create your *params object
 	params = new LocalParams();
@@ -458,11 +457,11 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->stimDelay,               56);
 
     this->bindParamId(&params->idiot_mode,               57);
-    	
+
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
-	
+
 	// This function now fetches all of the parameters into the variables
 	// as defined above.
 	//this->updateParameters(S);
@@ -499,7 +498,7 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 }
 
 
-void COBumpBehavior::doPreTrial(SimStruct *S) {
+void COBumpANISOBehavior::doPreTrial(SimStruct *S) {
 	double tgt_sep;
 	double CH_sep;
 	double DP_sep;
@@ -511,7 +510,11 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
     double M_bump_rate_lim;
 	int bump_dir;
 	bool rate_flag_match;
-
+    InputRealPtrsType ptr1= ssGetInputPortRealSignalPtrs(S, 4);
+    for(int i =0; i<48; i++)
+    {
+        this->anIso[i] = *ptr1[i];
+    }
     if (!this->redo_trial) {
 	    //set the target direction
 	    if ((int)this->params->use_random_targets) {
@@ -588,15 +591,15 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
                 this->DP_bump=false;
                 this->M_bump=true;
             }
-           real_T anIso [] = inputs->bumpForces;
             
             //now set up a bump direction relative to the target direction based on the configuration for the selected phase
             if(this->CH_bump){
                 CH_sep=(this->params->CH_bump_dir_ceil - this->params->CH_bump_dir_floor)/(this->params->CH_bump_num_dir -1);
-                bump_dir=(int)(this->params->CH_bump_dir_floor + CH_sep*this->random->getInteger(0,(this->params->CH_bump_num_dir -1)));
+                int bump_dir_int =this->random->getInteger(0,(this->params->CH_bump_num_dir -1));
+                bump_dir=(int)(this->params->CH_bump_dir_floor + CH_sep*bump_dir_int);
                 this->bump->hold_duration = this->params->CH_bump_peak_hold;
                 this->bump->rise_time = this->params->CH_bump_ramp;
-                this->bump->peak_magnitude = anIso[bump_dir];
+                this->bump->peak_magnitude = anIso[3*bump_dir_int+2];
                 if(this->params->random_bump_timing) {
                     this->bump_time = random->getDouble((double)this->params->CH_low,(double)this->ctr_hold);
                 } else {
@@ -604,10 +607,11 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
                 }
             } else if(this->DP_bump){
                 DP_sep=(this->params->DP_bump_dir_ceil - this->params->DP_bump_dir_floor)/(this->params->DP_bump_num_dir -1);
-                bump_dir=(int)(this->params->DP_bump_dir_floor + DP_sep*this->random->getInteger(0,(this->params->DP_bump_num_dir -1)));
+                int bump_dir_int =this->random->getInteger(0,(this->params->DP_bump_num_dir -1));
+                bump_dir=(int)(this->params->DP_bump_dir_floor + DP_sep*bump_dir_int);
                 this->bump->hold_duration = this->params->DP_bump_peak_hold;
                 this->bump->rise_time = this->params->DP_bump_ramp;
-                this->bump->peak_magnitude = anIso[bump_dir];
+                this->bump->peak_magnitude = anIso[3*bump_dir_int+2];
 
                 if(this->params->random_bump_timing) {
                     this->bump_time = random->getDouble((double)this->params->DP_low,(double)this->delay_hold);
@@ -616,10 +620,10 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
                 }
             } else if(this->M_bump){
                 M_sep=(this->params->M_bump_dir_ceil - this->params->M_bump_dir_floor)/(this->params->M_bump_num_dir -1);
-                bump_dir=(int)(this->params->M_bump_dir_floor + M_sep*this->random->getInteger(0,(this->params->M_bump_num_dir -1)));
-                this->bump->hold_duration = this->params->M_bump_peak_hold;
+                int bump_dir_int =this->random->getInteger(0,(this->params->M_bump_num_dir -1));
+                bump_dir=(int)(this->params->M_bump_dir_floor + M_sep*bump_dir_int);                this->bump->hold_duration = this->params->M_bump_peak_hold;
                 this->bump->rise_time = this->params->M_bump_ramp;
-                this->bump->peak_magnitude = anIso[bump_dir];
+                this->bump->peak_magnitude = anIso[3*bump_dir_int+2];
                 if(this->params->random_bump_timing) {
                     this->bump_time = random->getDouble(0,(double)this->params->move_time);
                 } else {
@@ -693,7 +697,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	db->start();
 }
 
-void COBumpBehavior::update(SimStruct *S) {
+void COBumpANISOBehavior::update(SimStruct *S) {
 
 	// State machine
 	switch (this->getState()) {
@@ -878,7 +882,7 @@ void COBumpBehavior::update(SimStruct *S) {
 	}
 }
 
-void COBumpBehavior::calculateOutputs(SimStruct *S) {
+void COBumpANISOBehavior::calculateOutputs(SimStruct *S) {
     /* declarations */
     Point bf;
 	double radius;

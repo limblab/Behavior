@@ -42,7 +42,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetInputPortWidth(S, 1, 2); /* x & y position offsets */
     ssSetInputPortWidth(S, 2, 2); /* main force */
     ssSetInputPortWidth(S, 3, 2); /* catch trial force */
-    ssSetInputPortWidth(S, 4, 2); /* extra 1 */
+    ssSetInputPortWidth(S, 4, 48); /* extra 1 */
     ssSetInputPortWidth(S, 5, 2); /* extra 2 */
     ssSetInputPortWidth(S, 6, 2); /* extra 3 */
     ssSetInputPortDirectFeedThrough(S, 0, 1);

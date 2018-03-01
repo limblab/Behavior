@@ -1,17 +1,15 @@
 Model {
   Name			  "AnIso_CO_bump"
-  Version		  8.7
-  MdlSubVersion		  1
+  Version		  8.5
+  MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1297"
+    ComputedModelVersion    "1.1305"
     NumModelReferences	    0
     NumTestPointedSignals   0
-    NumProvidedFunctions    0
-    NumRequiredFunctions    0
   }
   ScopeRefreshTime	  0.035000
   OverrideScopeRefreshTime off
@@ -23,7 +21,6 @@ Model {
   FPTRunName		  "Run 1"
   MaxMDLFileLineLength	  120
   CloseFcn		  "rtwprivate ssgencode ModelCloseRequest rwalk_multi_local_v1"
-  LastSavedArchitecture	  "win64"
   Object {
     $PropName		    "BdWindowsInfo"
     $ObjectID		    1
@@ -33,7 +30,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [0.0, 0.0, 1032.0, 732.0]
+      Location		      [512.0, 0.0, 512.0, 740.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -55,11 +52,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"436"
-	Extents			[982.0, 558.0]
+	ViewObjType		"SimulinkTopLevel"
+	LoadSaveID		"0"
+	Extents			[468.0, 580.0]
 	ZoomFactor		[1.0]
-	Offset			[635.05641925335772, 130.9435807466422]
+	Offset			[807.19266773120353, 119.9767054390295]
       }
     }
   }
@@ -67,11 +64,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "limblab"
+  LastModifiedBy	  "system administrator"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Feb 21 18:38:43 2018"
-  RTWModifiedTimeStamp	  441139099
-  ModelVersionFormat	  "1.%<AutoIncrement:1297>"
+  LastModifiedDate	  "Fri Feb 23 15:30:26 2018"
+  RTWModifiedTimeStamp	  441300624
+  ModelVersionFormat	  "1.%<AutoIncrement:1305>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -79,10 +76,6 @@ Model {
   WideLines		  off
   ShowLineDimensions	  off
   ShowPortDataTypes	  off
-  ShowEditTimeErrors	  on
-  ShowEditTimeWarnings	  off
-  ShowEditTimeAdvisorChecks off
-  ShowPortUnits		  off
   ShowDesignRanges	  off
   ShowLoopsOnError	  on
   IgnoreBidirectionalLines off
@@ -91,10 +84,8 @@ Model {
   ShowSignalResolutionIcons on
   ShowViewerIcons	  on
   SortedOrder		  off
-  VariantCondition	  off
   ExecutionContextIcon	  off
   ShowLinearizationAnnotations on
-  ShowVisualizeInsertedRTB on
   ShowMarkup		  on
   BlockNameDataTip	  off
   BlockParametersDataTip  off
@@ -102,7 +93,6 @@ Model {
   ToolBar		  on
   StatusBar		  on
   BrowserShowLibraryLinks off
-  FunctionConnectors	  off
   BrowserLookUnderMasks	  off
   SimulationMode	  "normal"
   PauseTimes		  "5"
@@ -135,6 +125,27 @@ Model {
       PropName		      "logAsSpecifiedByModelsSSIDs_"
     }
   }
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  CovForceBlockReductionOff on
+  CovEnableCumulative	  on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  CovReportOnPause	  on
+  CovModelRefEnable	  "Off"
+  CovExternalEMLEnable	  off
+  CovSFcnEnable		  on
+  CovBoundaryAbsTol	  0.000010
+  CovBoundaryRelTol	  0.010000
+  CovUseTimeInterval	  off
+  CovStartTime		  0
+  CovStopTime		  0
   ExtModeBatchMode	  off
   ExtModeEnableFloating	  on
   ExtModeTrigType	  "manual"
@@ -163,13 +174,13 @@ Model {
     Dimension		    1
     Simulink.ConfigSet {
       $ObjectID		      7
-      Version		      "1.16.2"
+      Version		      "1.15.0"
       Array {
 	Type			"Handle"
 	Dimension		9
 	Simulink.SolverCC {
 	  $ObjectID		  8
-	  Version		  "1.16.2"
+	  Version		  "1.15.0"
 	  StartTime		  "0.0"
 	  StopTime		  "Inf"
 	  AbsTol		  "auto"
@@ -196,8 +207,6 @@ Model {
 	  ZeroCrossControl	  "UseLocalSettings"
 	  ZeroCrossAlgorithm	  "Nonadaptive"
 	  AlgebraicLoopSolver	  "TrustRegion"
-	  SolverInfoToggleStatus  off
-	  IsAutoAppliedInSIP	  off
 	  SolverResetMethod	  "Fast"
 	  PositivePriorityOrder	  off
 	  AutoInsertRateTranBlk	  off
@@ -206,7 +215,7 @@ Model {
 	}
 	Simulink.DataIOCC {
 	  $ObjectID		  9
-	  Version		  "1.16.2"
+	  Version		  "1.15.0"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
 	  FinalStateName	  "xFinal"
@@ -225,8 +234,6 @@ Model {
 	  DSMLogging		  on
 	  InspectSignalLogs	  off
 	  VisualizeSimOutput	  on
-	  StreamToWorkspace	  off
-	  StreamVariableName	  "streamout"
 	  SaveTime		  on
 	  ReturnWorkspaceOutputs  off
 	  StateSaveName		  "xout"
@@ -238,13 +245,10 @@ Model {
 	  OutputTimes		  "[]"
 	  ReturnWorkspaceOutputsName "out"
 	  Refine		  "1"
-	  LoggingToFile		  off
-	  LoggingFileName	  "out.mat"
-	  LoggingIntervals	  "[-inf, inf]"
 	}
 	Simulink.OptimizationCC {
 	  $ObjectID		  10
-	  Version		  "1.16.2"
+	  Version		  "1.15.0"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    8
@@ -261,7 +265,7 @@ Model {
 	  BlockReduction	  off
 	  BooleanDataType	  off
 	  ConditionallyExecuteInputs on
-	  DefaultParameterBehavior "Tunable"
+	  InlineParams		  off
 	  UseDivisionForNetSlopeComputation "off"
 	  UseFloatMulNetSlope	  off
 	  DefaultUnderspecifiedDataType	"double"
@@ -301,7 +305,7 @@ Model {
 	}
 	Simulink.DebuggingCC {
 	  $ObjectID		  11
-	  Version		  "1.16.2"
+	  Version		  "1.15.0"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
 	  ArrayBoundsChecking	  "none"
@@ -328,6 +332,7 @@ Model {
 	  IgnoredZcDiagnostic	  "warning"
 	  SolverPrmCheckMsg	  "none"
 	  InheritedTsInSrcMsg	  "warning"
+	  DiscreteInheritContinuousMsg "warning"
 	  MultiTaskDSMMsg	  "warning"
 	  MultiTaskCondExecSysMsg "none"
 	  MultiTaskRateTransMsg	  "error"
@@ -360,7 +365,6 @@ Model {
 	  BusObjectLabelMismatch  "warning"
 	  RootOutportRequireBusObject "warning"
 	  AssertControl		  "UseLocalSettings"
-	  AllowSymbolicDim	  on
 	  ModelReferenceIOMsg	  "none"
 	  ModelReferenceMultiInstanceNormalModeStructChecksumCheck "error"
 	  ModelReferenceVersionMismatchMessage "none"
@@ -376,9 +380,6 @@ Model {
 	  StrictBusMsg		  "ErrorLevel1"
 	  BusNameAdapt		  "WarnAndRepair"
 	  NonBusSignalsTreatedAsBus "none"
-	  SymbolicDimMinMaxWarning "warning"
-	  LossOfSymbolicDimsSimulationWarning "warning"
-	  LossOfSymbolicDimsCodeGenerationWarning "error"
 	  BlockIODiagnostic	  "none"
 	  SFUnusedDataAndEventsDiag "warning"
 	  SFUnexpectedBacktrackingDiag "warning"
@@ -390,13 +391,10 @@ Model {
 	  SFTransitionActionBeforeConditionDiag	"warning"
 	  SFOutputUsedAsStateInMooreChartDiag "error"
 	  IntegerSaturationMsg	  "warning"
-	  AllowedUnitSystems	  "all"
-	  UnitsInconsistencyMsg	  "warning"
-	  AllowAutomaticUnitConversions	on
 	}
 	Simulink.HardwareCC {
 	  $ObjectID		  12
-	  Version		  "1.16.2"
+	  Version		  "1.15.0"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    1
@@ -439,14 +437,11 @@ Model {
 	  TargetHWDeviceType	  "32-bit xPC Target (Intel Pentium)"
 	  TargetUnknown		  off
 	  ProdEqTarget		  on
-	  UseEmbeddedCoderFeatures on
-	  UseSimulinkCoderFeatures on
 	}
 	Simulink.ModelReferenceCC {
 	  $ObjectID		  13
-	  Version		  "1.16.2"
+	  Version		  "1.15.0"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
-	  EnableRefExpFcnMdlSchedulingChecks on
 	  CheckModelReferenceTargetMessage "error"
 	  EnableParallelModelReferenceBuilds off
 	  ParallelModelReferenceErrorOnInvalidPool on
@@ -460,7 +455,8 @@ Model {
 	}
 	Simulink.SFSimCC {
 	  $ObjectID		  14
-	  Version		  "1.16.2"
+	  Version		  "1.15.0"
+	  SFSimOverflowDetection  on
 	  SFSimEcho		  on
 	  SimCtrlC		  on
 	  SimIntegrity		  on
@@ -472,7 +468,7 @@ Model {
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
 	  $ObjectID		  15
-	  Version		  "1.16.2"
+	  Version		  "1.15.0"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    14
@@ -493,12 +489,12 @@ Model {
 	    PropName		    "DisabledProps"
 	  }
 	  SystemTargetFile	  "slrt.tlc"
-	  HardwareBoard		  "None"
 	  TLCOptions		  ""
 	  GenCodeOnly		  off
 	  MakeCommand		  "make_rtw"
 	  GenerateMakefile	  on
 	  PackageGeneratedCodeAndArtifacts off
+	  PackageName		  ""
 	  TemplateMakefile	  "slrt_default_tmf"
 	  PostCodeGenCommand	  ""
 	  Description		  "Simulink Real-Time"
@@ -512,6 +508,13 @@ Model {
 	  TLCAssert		  off
 	  RTWUseLocalCustomCode	  off
 	  RTWUseSimCustomCode	  off
+	  CustomSourceCode	  ""
+	  CustomHeaderCode	  ""
+	  CustomInclude		  ""
+	  CustomSource		  ""
+	  CustomLibrary		  ""
+	  CustomInitializer	  ""
+	  CustomTerminator	  ""
 	  Toolchain		  "Automatically locate an installed toolchain"
 	  BuildConfiguration	  "Faster Builds"
 	  IncludeHyperlinkInReport off
@@ -543,7 +546,7 @@ Model {
 	    Dimension		    2
 	    Simulink.CodeAppCC {
 	      $ObjectID		      16
-	      Version		      "1.16.2"
+	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
 		Dimension		24
@@ -615,7 +618,7 @@ Model {
 	    SimulinkRealTime.SimulinkRealTimeCC {
 	      $BackupClass	      "Simulink.TargetCC"
 	      $ObjectID		      17
-	      Version		      "1.16.2"
+	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
 		Dimension		14
@@ -637,6 +640,7 @@ Model {
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
 	      TargetLibSuffix	      ""
+	      TargetPreCompLibLocation ""
 	      GenFloatMathFcnCalls    "NOT IN USE"
 	      TargetLangStandard      "C89/C90 (ANSI)"
 	      CodeReplacementLibrary  "XPC_BLAS"
@@ -679,9 +683,7 @@ Model {
 	      AutosarCompliant	      off
 	      GRTInterface	      on
 	      GenerateAllocFcn	      off
-	      UseToolchainInfoCompliant	off
 	      GenerateSharedConstants on
-	      GenerateASAP2	      off
 	      RL32ModeModifier	      "Real-Time"
 	      ExtMode		      on
 	      ExtModeMexFile	      "ext_xpc"
@@ -691,9 +693,6 @@ Model {
 	      RL32LogBufSizeModifier  "100000"
 	      xPCTaskExecutionProfile off
 	      xPCRL32EventNumber      "5000"
-	      RTWCAPISignals	      off
-	      RTWCAPIParams	      on
-	      RTWCAPIStates	      off
 	      RL32IRQSourceModifier   "Timer"
 	      xPCIRQSourceBoard	      "None/Other"
 	      xPCIOIRQSlot	      "-1"
@@ -715,7 +714,7 @@ Model {
 	}
 	SlCovCC.ConfigComp {
 	  $ObjectID		  18
-	  Version		  "1.16.2"
+	  Version		  "1.15.0"
 	  Description		  "Simulink Coverage Configuration Component"
 	  Name			  "Simulink Coverage"
 	  CovEnable		  off
@@ -804,7 +803,7 @@ Model {
   MaskDefaults {
     SelfModifiable	    "off"
     IconFrame		    "on"
-    IconOpaque		    "opaque"
+    IconOpaque		    "on"
     RunInitForIconRedraw    "off"
     IconRotate		    "none"
     PortRotate		    "default"
@@ -898,7 +897,6 @@ Model {
       OutDataTypeStr	      "Inherit: auto"
       LockScale		      off
       BusOutputAsStruct	      off
-      Unit		      "inherit"
       PortDimensions	      "-1"
       VarSizeSig	      "Inherit"
       SampleTime	      "-1"
@@ -955,7 +953,6 @@ Model {
       OutDataTypeStr	      "Inherit: auto"
       LockScale		      off
       BusOutputAsStruct	      off
-      Unit		      "inherit"
       PortDimensions	      "-1"
       VarSizeSig	      "Inherit"
       SampleTime	      "-1"
@@ -993,6 +990,8 @@ Model {
       FunctionName	      "system"
       SFunctionModules	      "''"
       PortCounts	      "[]"
+      SFunctionDeploymentMode off
+      EnableBusSupport	      off
     }
     Block {
       BlockType		      SubSystem
@@ -1021,8 +1020,8 @@ Model {
       Opaque		      off
       MaskHideContents	      off
       SFBlockType	      "NONE"
+      Variant		      off
       GeneratePreprocessorConditionals off
-      TreatAsGroupedWhenPropagatingVariantConditions on
       ContentPreviewEnabled   off
       IsWebBlock	      off
     }
@@ -1079,8 +1078,8 @@ Model {
   }
   System {
     Name		    "AnIso_CO_bump"
-    Location		    [0, 0, 1032, 732]
-    Open		    off
+    Location		    [512, 0, 1024, 740]
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1091,22 +1090,20 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "80"
+    ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "444"
     Block {
       BlockType		      S-Function
-      Name		      "Behavior AnIso CO Bump"
+      Name		      "Behavior AnIsoCOBump"
       SID		      "1"
       Ports		      [7, 8]
       Position		      [830, 298, 1055, 632]
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_AnIsoCO_bump"
-      Parameters	      "0, 0, 0, .5, 0, 0.5, 1, 0.1, .2, 0 1 .1 1 3 8 0 0 359 8 1 0 2 5 1 1 1 0 0 .4 .3 1 0 5 1 0 0 .4"
+      Parameters	      "0, 0, 0, .5, 0, 0.5, 1, 0.1, .2, 0 1 .1 1 3 8 0 0 359 8 1 0 2 5 1 1 1 1 1 .4 .1 2 0 0 4 0 0 .4"
       " .3 1 0 5 1 0 0 .4 .3 1 0 5 1 0 3 0 0 0 0 0 0"
-      SFunctionDeploymentMode off
-      EnableBusSupport	      off
       Object {
 	$PropName		"MaskObject"
 	$ObjectID		20
@@ -1124,7 +1121,7 @@ Model {
       Ports		      [1]
       Position		      [1390, 147, 1515, 213]
       ZOrder		      26
-      LibraryVersion	      "1.1846"
+      LibraryVersion	      "1.1842"
       SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
       SourceType	      "xpcscopeblock"
       ContentPreviewEnabled   off
@@ -1174,7 +1171,6 @@ Model {
       NumberOfTableDimensions "1"
       InputsSelectThisObjectFromTable "Column"
       Table		      "[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ] "
-      DiagnosticForOutOfRangeInput "Error"
       Port {
 	PortNumber		1
 	Name			"BumpForces"
@@ -1190,7 +1186,6 @@ Model {
       Position		      [705, 434, 765, 496]
       ZOrder		      -3
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"Catch Force Generator"
 	Location		[16, 52, 1340, 1132]
@@ -1275,7 +1270,6 @@ Model {
 	  Position		  [45, 400, 120, 520]
 	  ZOrder		  -7
 	  RequestExecContextInheritance	off
-	  Variant		  off
 	  System {
 	    Name		    "LorentzForce"
 	    Location		    [16, 52, 1340, 1132]
@@ -1492,7 +1486,6 @@ Model {
 	  Position		  [665, 229, 765, 271]
 	  ZOrder		  -13
 	  RequestExecContextInheritance	off
-	  Variant		  off
 	  System {
 	    Name		    "ViscLoadSubsystem"
 	    Location		    [16, 52, 1348, 1132]
@@ -2115,7 +2108,6 @@ Model {
       Position		      [1080, 469, 1135, 501]
       ZOrder		      -13
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"RewardSbs"
 	Location		[16, 52, 944, 498]
@@ -2190,7 +2182,7 @@ Model {
 	  Ports			  [1, 1, 0, 1]
 	  Position		  [365, 133, 440, 177]
 	  ZOrder		  -7
-	  LibraryVersion	  "1.772"
+	  LibraryVersion	  "1.752"
 	  SourceBlock		  "dspsigops/Sample\nand Hold"
 	  SourceType		  "Sample and Hold"
 	  ContentPreviewEnabled	  off
@@ -2206,7 +2198,6 @@ Model {
 	  Position		  [525, 70, 635, 130]
 	  ZOrder		  -8
 	  RequestExecContextInheritance	off
-	  Variant		  off
 	  System {
 	    Name		    "Schmidt"
 	    Location		    [16, 52, 675, 542]
@@ -2265,7 +2256,7 @@ Model {
 	      Ports		      [1, 1, 0, 1]
 	      Position		      [240, 108, 315, 152]
 	      ZOrder		      -5
-	      LibraryVersion	      "1.772"
+	      LibraryVersion	      "1.752"
 	      SourceBlock	      "dspsigops/Sample\nand Hold"
 	      SourceType	      "Sample and Hold"
 	      ContentPreviewEnabled   off
@@ -2487,7 +2478,7 @@ Model {
       Ports		      [1]
       Position		      [1165, 344, 1235, 386]
       ZOrder		      -15
-      LibraryVersion	      "1.1846"
+      LibraryVersion	      "1.1842"
       SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
       SourceType	      "xpcscopeblock"
       ContentPreviewEnabled   off
@@ -2523,7 +2514,6 @@ Model {
       Position		      [1180, 424, 1280, 466]
       ZOrder		      -16
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"Target Peek"
 	Location		[16, 52, 1348, 1132]
@@ -2826,7 +2816,7 @@ Model {
       Ports		      [1]
       Position		      [1130, 544, 1200, 586]
       ZOrder		      -22
-      LibraryVersion	      "1.1846"
+      LibraryVersion	      "1.1842"
       SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
       SourceType	      "xpcscopeblock"
       ContentPreviewEnabled   off
@@ -2862,7 +2852,6 @@ Model {
       Position		      [1090, 384, 1135, 426]
       ZOrder		      -23
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"WordSbs"
 	Location		[-4, 0, 1028, 732]
@@ -2923,7 +2912,7 @@ Model {
       Ports		      [1]
       Position		      [1400, 645, 1470, 685]
       ZOrder		      -25
-      LibraryVersion	      "1.1846"
+      LibraryVersion	      "1.1842"
       SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
       SourceType	      "xpcscopeblock"
       ContentPreviewEnabled   off
@@ -3023,31 +3012,22 @@ Model {
     }
     Line {
       ZOrder		      15
-      SrcBlock		      "Behavior AnIso CO Bump"
+      SrcBlock		      "Behavior AnIsoCOBump"
       SrcPort		      2
       DstBlock		      "Status"
       DstPort		      1
     }
     Line {
       ZOrder		      16
-      SrcBlock		      "Behavior AnIso CO Bump"
+      SrcBlock		      "Behavior AnIsoCOBump"
       SrcPort		      3
-      Points		      [10, 0]
-      Branch {
-	ZOrder			213
-	Points			[0, -225]
-	DstBlock		"Bits"
-	DstPort			1
-      }
-      Branch {
-	ZOrder			212
-	DstBlock		"WordSbs"
-	DstPort			1
-      }
+      Points		      [3, 0; 0, -6; 7, 0; 0, 6]
+      DstBlock		      "WordSbs"
+      DstPort		      1
     }
     Line {
       ZOrder		      17
-      SrcBlock		      "Behavior AnIso CO Bump"
+      SrcBlock		      "Behavior AnIsoCOBump"
       SrcPort		      4
       Points		      [95, 0]
       Branch {
@@ -3064,14 +3044,25 @@ Model {
     }
     Line {
       ZOrder		      49
-      SrcBlock		      "Behavior AnIso CO Bump"
+      SrcBlock		      "Behavior AnIsoCOBump"
       SrcPort		      1
-      DstBlock		      "Motor Control1"
-      DstPort		      1
+      Points		      [17, 0; 0, -52; 21, 0]
+      Branch {
+	ZOrder			280
+	Points			[0, -93]
+	DstBlock		"Bits"
+	DstPort			1
+      }
+      Branch {
+	ZOrder			279
+	Points			[1, 0; 0, 52]
+	DstBlock		"Motor Control1"
+	DstPort			1
+      }
     }
     Line {
       ZOrder		      21
-      SrcBlock		      "Behavior AnIso CO Bump"
+      SrcBlock		      "Behavior AnIsoCOBump"
       SrcPort		      5
       DstBlock		      "RewardSbs"
       DstPort		      1
@@ -3135,14 +3126,14 @@ Model {
     }
     Line {
       ZOrder		      30
-      SrcBlock		      "Behavior AnIso CO Bump"
+      SrcBlock		      "Behavior AnIsoCOBump"
       SrcPort		      7
       DstBlock		      "Version Display"
       DstPort		      1
     }
     Line {
       ZOrder		      31
-      SrcBlock		      "Behavior AnIso CO Bump"
+      SrcBlock		      "Behavior AnIsoCOBump"
       SrcPort		      8
       Points		      [145, 0; 0, -55]
       DstBlock		      "SendPacketToGraphics"
@@ -3150,7 +3141,7 @@ Model {
     }
     Line {
       ZOrder		      32
-      SrcBlock		      "Behavior AnIso CO Bump"
+      SrcBlock		      "Behavior AnIsoCOBump"
       SrcPort		      6
       DstBlock		      "SendPacketToGraphics"
       DstPort		      2
@@ -3199,7 +3190,7 @@ Model {
       ZOrder		      39
       SrcBlock		      "Neural Override"
       SrcPort		      1
-      DstBlock		      "Behavior AnIso CO Bump"
+      DstBlock		      "Behavior AnIsoCOBump"
       DstPort		      1
     }
     Line {
@@ -3220,21 +3211,21 @@ Model {
       ZOrder		      42
       SrcBlock		      "Catch Force Generator"
       SrcPort		      1
-      DstBlock		      "Behavior AnIso CO Bump"
+      DstBlock		      "Behavior AnIsoCOBump"
       DstPort		      4
     }
     Line {
       ZOrder		      66
       SrcBlock		      "Force Generator"
       SrcPort		      1
-      DstBlock		      "Behavior AnIso CO Bump"
+      DstBlock		      "Behavior AnIsoCOBump"
       DstPort		      3
     }
     Line {
       ZOrder		      44
       SrcBlock		      "From"
       SrcPort		      1
-      DstBlock		      "Behavior AnIso CO Bump"
+      DstBlock		      "Behavior AnIsoCOBump"
       DstPort		      2
     }
     Line {
@@ -3244,7 +3235,7 @@ Model {
       SrcBlock		      "BumpForceTable"
       SrcPort		      1
       Points		      [76, 0; 0, -75]
-      DstBlock		      "Behavior AnIso CO Bump"
+      DstBlock		      "Behavior AnIsoCOBump"
       DstPort		      5
     }
     Annotation {
@@ -3259,7 +3250,7 @@ Model {
 }
 #Finite State Machines
 #
-#   Stateflow 80000009
+#   Stateflow 80000005
 #
 #
 Stateflow {
@@ -3269,7 +3260,7 @@ Stateflow {
     created		    "29-Sep-2006 15:42:48"
     isLibrary		    0
     firstTarget		    2
-    sfVersion		    80000009
+    sfVersion		    80000005
   }
   target {
     id			    2
