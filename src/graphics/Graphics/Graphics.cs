@@ -616,5 +616,10 @@ namespace BehaviorGraphics
                 }
             }
         }
+
+        private void Graphics_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

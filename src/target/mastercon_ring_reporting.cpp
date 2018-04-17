@@ -155,6 +155,7 @@ struct LocalParams {
 
     real_T stim_delay;
     real_T repeat_failures;
+    real_T end_at_ring;
 };
 
 /**
@@ -286,7 +287,7 @@ RingReportingBehavior::RingReportingBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->stim_delay,              45);
     
     this->bindParamId(&params->repeat_failures,         46);
-    
+    this->bindParamId(&params->end_at_ring,             47);
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -330,15 +331,8 @@ void RingReportingBehavior::updateCursorExtent(SimStruct *S){
 }
 
 void RingReportingBehavior::doPreTrial(SimStruct *S) {
-	double tgt_sep;
-	double CH_sep;
-	double DP_sep;
-	double M_sep;
 	double temp;
-	double bump_rate_denom;
     double current_trial_bumpmag;
-	int bump_dir;
-	bool rate_flag_match;
     
     double act_bf_one;
     double act_bf_two;
@@ -578,7 +572,10 @@ void RingReportingBehavior::update(SimStruct *S) {
 			}
 			break;         
         case STATE_OT_HOLD:
-            if(this->params->use_square_targets && primaryTarget->cursorInTarget(cursor_end_point)){ // use circle targets case
+            if(this->params->use_square_targets && primaryTarget->cursorInTarget(cursor_end_point)){ // use square targets case
+                playTone(TONE_REWARD);
+                setState(STATE_REWARD);
+            } else if(!this->params->use_square_targets && this->stim_trial && this->params->stimInsteadOfBump) {
                 playTone(TONE_REWARD);
                 setState(STATE_REWARD);
             } else if (!this->params->use_square_targets && outerTarget->cursorInTarget(cursor_end_point) ){
@@ -639,6 +636,10 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
     double x_comp;
     double y_comp;
     double cursor_end_angle;
+    double angle_difference;
+    double angle_difference_1;
+    double angle_difference_2;
+    double angle_difference_3;
     
     updateCursorExtent(S);
     /* update prev_fail flag */
@@ -759,7 +760,10 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
         }
 		if(this->params->use_square_targets) { // if training and using circle targets, display outer target
             outputs->targets[2] = (Target *)primaryTarget;
-        } else { // else display outer ring target 
+        } else if(this->stim_trial){ // no target
+            outputs->targets[2] = nullTarget;
+        }
+        else { // else display outer ring target 
             outputs->targets[2] = (Target *)outerTarget;
         } 
 	} else {
@@ -770,12 +774,35 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
 
 	/* reward (4) */
 	// outputs->reward = (isNewState() && (getState() == STATE_REWARD));
-    if(isNewState() && getState() == STATE_REWARD) {
+    // outputs->reward = outputs->reward*this->random->getInteger(1,10);
+    if(isNewState() && (getState() == STATE_REWARD)) {
         // outputs->reward should be between 0 and 1, 1 at center of tgt,
         // decaying to 0 near edge of tgt and 0 if not a reward
-        cursor_end_angle = 180/PI*atan2(this->cursor_end_point.y,this->cursor_end_point.x);
+        cursor_end_angle = atan2(this->cursor_end_point.y,this->cursor_end_point.x);
         // linear decay
-        outputs->reward = 1-abs(this->outerTarget->theta - cursor_end_angle)/(this->outerTarget->span/2.0);    
+        angle_difference_1 = abs(this->outerTarget->theta - cursor_end_angle);
+        angle_difference_2 = abs(this->outerTarget->theta+2*PI - cursor_end_angle);
+        angle_difference_3 = abs(this->outerTarget->theta-2*PI - cursor_end_angle);
+        // min(min()) until I figure out bugs
+        if(angle_difference_1 < angle_difference_2) {
+            if(angle_difference_1 < angle_difference_3) {
+                angle_difference = angle_difference_1;
+            } else {
+                angle_difference = angle_difference_3;
+            }
+        } else {
+            if(angle_difference_2 < angle_difference_3) {
+                angle_difference = angle_difference_2;
+            } else {
+                angle_difference = angle_difference_3;
+            }
+        }
+        
+        outputs->reward = 1000*(this->outerTarget->span/2.0-angle_difference);
+        //outputs->reward = 1;
+        if(outputs->reward < 0.5*1000) {
+            outputs->reward = 0.5*1000;
+        }
     } else {
         outputs->reward = 0;
     }
