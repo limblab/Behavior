@@ -1,0 +1,1471 @@
+<?xml version="1.0" encoding="UTF-8"?><Root>
+
+          <SubSystem>
+    <Name>RewardSbs</Name>
+    <xPCName>CenterOutCenter3D/RewardSbs</xPCName>
+        <SubSystem>
+    <Name>Sample
+and Hold</Name>
+    <xPCName>CenterOutCenter3D/RewardSbs/Sample and Hold</xPCName>
+    
+    
+
+ 
+            <block>
+            <blkName> </blkName>
+            <xpcblkName>RewardSbs/Sample and Hold/ </xpcblkName>
+            <SLblockPath>CenterOutCenter3D/RewardSbs/Sample and Hold/ </SLblockPath>
+            <isSrc>[0 1 0]</isSrc>
+          <parameter>
+          <paramName>InitialOutput</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>In</sigName>
+              <xpcsigName>RewardSbs/Sample and Hold/In</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+    </SubSystem>
+    <SubSystem>
+    <Name>Schmidt</Name>
+    <xPCName>CenterOutCenter3D/RewardSbs/Schmidt</xPCName>
+        <SubSystem>
+    <Name>Sample
+and Hold</Name>
+    <xPCName>CenterOutCenter3D/RewardSbs/Schmidt/Sample and Hold</xPCName>
+    
+    
+
+ 
+            <block>
+            <blkName> </blkName>
+            <xpcblkName>RewardSbs/Schmidt/Sample and Hold/ </xpcblkName>
+            <SLblockPath>CenterOutCenter3D/RewardSbs/Schmidt/Sample and Hold/ </SLblockPath>
+            <isSrc>[0 1 0]</isSrc>
+          <parameter>
+          <paramName>InitialOutput</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>In</sigName>
+              <xpcsigName>RewardSbs/Schmidt/Sample and Hold/In</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+    </SubSystem>
+
+    
+
+
+
+
+
+    
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Clock</sigName>
+              <xpcsigName>RewardSbs/Schmidt/Clock</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Relational
+Operator</sigName>
+              <xpcsigName>RewardSbs/Schmidt/Relational Operator</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Sum</sigName>
+              <xpcsigName>RewardSbs/Schmidt/Sum</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+    </SubSystem>
+
+    
+
+
+ 
+            <block>
+            <blkName>JackpotChance</blkName>
+            <xpcblkName>RewardSbs/JackpotChance</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/RewardSbs/JackpotChance</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>RewardJackpot</blkName>
+            <xpcblkName>RewardSbs/RewardJackpot</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/RewardSbs/RewardJackpot</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>RewardTime</blkName>
+            <xpcblkName>RewardSbs/RewardTime</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/RewardSbs/RewardTime</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+
+
+
+ 
+            <block>
+            <blkName>Uniform Random
+Number</blkName>
+            <xpcblkName>RewardSbs/Uniform Random Number</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/RewardSbs/Uniform Random Number</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Minimum</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>Maximum</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>Seed</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+
+    
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Data Type Conversion</sigName>
+              <xpcsigName>RewardSbs/Data Type Conversion</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Relational
+Operator</sigName>
+              <xpcsigName>RewardSbs/Relational Operator</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Switch</sigName>
+              <xpcsigName>RewardSbs/Switch</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Uniform Random
+Number</sigName>
+              <xpcsigName>RewardSbs/Uniform Random Number</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+    </SubSystem>
+    <SubSystem>
+    <Name>Status</Name>
+    <xPCName>CenterOutCenter3D/Status</xPCName>
+    
+    
+
+
+    
+    
+
+
+    </SubSystem>
+    <SubSystem>
+    <Name>Status1</Name>
+    <xPCName>CenterOutCenter3D/Status1</xPCName>
+    
+    
+
+
+    
+    
+
+
+    </SubSystem>
+    <SubSystem>
+    <Name>Status2</Name>
+    <xPCName>CenterOutCenter3D/Status2</xPCName>
+    
+    
+
+
+    
+    
+
+
+    </SubSystem>
+    <SubSystem>
+    <Name>Status3</Name>
+    <xPCName>CenterOutCenter3D/Status3</xPCName>
+    
+    
+
+
+    
+    
+
+
+    </SubSystem>
+    <SubSystem>
+    <Name>UDPXmit</Name>
+    <xPCName>CenterOutCenter3D/UDPXmit</xPCName>
+    
+    
+ 
+            <block>
+            <blkName>Constant</blkName>
+            <xpcblkName>UDPXmit/Constant</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/UDPXmit/Constant</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          <dim>[1, 2]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>Constant1</blkName>
+            <xpcblkName>UDPXmit/Constant1</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/UDPXmit/Constant1</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          <dim>[1, 10]</dim>  
+          </parameter>
+          </block>
+
+
+
+ 
+            <block>
+            <blkName>Send</blkName>
+            <xpcblkName>UDPXmit/Send</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/UDPXmit/Send</SLblockPath>
+            <isSrc>[0 1 0]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          <dim>[1, 11]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P2</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P3</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P4</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P5</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Rate Transition</sigName>
+              <xpcsigName>UDPXmit/Rate Transition</xpcsigName>
+              <sigWidth>112</sigWidth>
+              <sigDim>[112, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Pack</sigName>
+              <xpcsigName>UDPXmit/Pack</xpcsigName>
+              <sigWidth>112</sigWidth>
+              <sigDim>[112, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+    </SubSystem>
+    <SubSystem>
+    <Name>Version Display</Name>
+    <xPCName>CenterOutCenter3D/Version Display</xPCName>
+    
+    
+
+
+    
+    
+
+
+    </SubSystem>
+    <SubSystem>
+    <Name>Words to Cerebus and </Name>
+    <xPCName>CenterOutCenter3D/Words to Cerebus and </xPCName>
+        <SubSystem>
+    <Name>Whiltor
+Subsystem</Name>
+    <xPCName>CenterOutCenter3D/Words to Cerebus and /Whiltor Subsystem</xPCName>
+        <SubSystem>
+    <Name>Compare
+To Constant</Name>
+    <xPCName>CenterOutCenter3D/Words to Cerebus and /Whiltor Subsystem/Compare To Constant</xPCName>
+    
+    
+ 
+            <block>
+            <blkName>Constant</blkName>
+            <xpcblkName>Words to Cerebus and /Whiltor Subsystem/Compare To Constant/Constant</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Words to Cerebus and /Whiltor Subsystem/Compare To Constant/Constant</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>const</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Compare</sigName>
+              <xpcsigName>Words to Cerebus and /Whiltor Subsystem/Compare To Constant/Compare</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+    </SubSystem>
+    <SubSystem>
+    <Name>Compare
+To Constant1</Name>
+    <xPCName>CenterOutCenter3D/Words to Cerebus and /Whiltor Subsystem/Compare To Constant1</xPCName>
+    
+    
+ 
+            <block>
+            <blkName>Constant</blkName>
+            <xpcblkName>Words to Cerebus and /Whiltor Subsystem/Compare To Constant1/Constant</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Words to Cerebus and /Whiltor Subsystem/Compare To Constant1/Constant</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>const</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Compare</sigName>
+              <xpcsigName>Words to Cerebus and /Whiltor Subsystem/Compare To Constant1/Compare</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+    </SubSystem>
+
+    
+ 
+            <block>
+            <blkName>Compare
+To Constant</blkName>
+            <xpcblkName>Words to Cerebus and /Whiltor Subsystem/Compare To Constant</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Words to Cerebus and /Whiltor Subsystem/Compare To Constant</SLblockPath>
+            <isSrc>[0 1 1]</isSrc>
+          <parameter>
+          <paramName>const</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>Compare
+To Constant1</blkName>
+            <xpcblkName>Words to Cerebus and /Whiltor Subsystem/Compare To Constant1</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Words to Cerebus and /Whiltor Subsystem/Compare To Constant1</SLblockPath>
+            <isSrc>[0 1 1]</isSrc>
+          <parameter>
+          <paramName>const</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>Constant</blkName>
+            <xpcblkName>Words to Cerebus and /Whiltor Subsystem/Constant</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Words to Cerebus and /Whiltor Subsystem/Constant</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>Constant1</blkName>
+            <xpcblkName>Words to Cerebus and /Whiltor Subsystem/Constant1</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Words to Cerebus and /Whiltor Subsystem/Constant1</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>ScaleTouSec</blkName>
+            <xpcblkName>Words to Cerebus and /Whiltor Subsystem/ScaleTouSec</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Words to Cerebus and /Whiltor Subsystem/ScaleTouSec</SLblockPath>
+            <isSrc>[0 1 1]</isSrc>
+          <parameter>
+          <paramName>Gain</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>PCI-6025E </blkName>
+            <xpcblkName>Words to Cerebus and /Whiltor Subsystem/PCI-6025E </xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Words to Cerebus and /Whiltor Subsystem/PCI-6025E </SLblockPath>
+            <isSrc>[0 2 0]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          <dim>[1, 2]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P2</paramName>
+          <dim>[1, 2]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P3</paramName>
+          <dim>[1, 2]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P4</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P5</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P6</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P7</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>xPC Target
+ Time </blkName>
+            <xpcblkName>Words to Cerebus and /Whiltor Subsystem/xPC Target  Time </xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Words to Cerebus and /Whiltor Subsystem/xPC Target  Time </SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P2</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>ScaleTouSec</sigName>
+              <xpcsigName>Words to Cerebus and /Whiltor Subsystem/ScaleTouSec</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>xPC Target
+ Time </sigName>
+              <xpcsigName>Words to Cerebus and /Whiltor Subsystem/xPC Target  Time </xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Subtract</sigName>
+              <xpcsigName>Words to Cerebus and /Whiltor Subsystem/Subtract</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Switch</sigName>
+              <xpcsigName>Words to Cerebus and /Whiltor Subsystem/Switch</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+    </SubSystem>
+
+    
+
+ 
+            <block>
+            <blkName>Constant2</blkName>
+            <xpcblkName>Words to Cerebus and /Constant2</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Words to Cerebus and /Constant2</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>For Iterator</blkName>
+            <xpcblkName>Words to Cerebus and /For Iterator</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Words to Cerebus and /For Iterator</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>IterationLimit</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>Port A</blkName>
+            <xpcblkName>Words to Cerebus and /Port A</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Words to Cerebus and /Port A</SLblockPath>
+            <isSrc>[0 8 0]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          <dim>[1, 8]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P2</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P3</paramName>
+          <dim>[1, 8]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P4</paramName>
+          <dim>[1, 8]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P5</paramName>
+          <dim>[1, 3]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P6</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P7</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P8</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P9</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P10</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+
+ 
+            <block>
+            <blkName>xPC Target
+ Time </blkName>
+            <xpcblkName>Words to Cerebus and /xPC Target  Time </xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Words to Cerebus and /xPC Target  Time </SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P2</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>Switch</blkName>
+            <xpcblkName>Words to Cerebus and /Switch</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Words to Cerebus and /Switch</SLblockPath>
+            <isSrc>[0 3 1]</isSrc>
+          <parameter>
+          <paramName>Threshold</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+
+    
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>For Iterator</sigName>
+              <xpcsigName>Words to Cerebus and /For Iterator</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>ToBits1/p1</sigName>
+              <xpcsigName>Words to Cerebus and /ToBits1/p1</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>ToBits1/p2</sigName>
+              <xpcsigName>Words to Cerebus and /ToBits1/p2</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>ToBits1/p3</sigName>
+              <xpcsigName>Words to Cerebus and /ToBits1/p3</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>ToBits1/p4</sigName>
+              <xpcsigName>Words to Cerebus and /ToBits1/p4</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>ToBits1/p5</sigName>
+              <xpcsigName>Words to Cerebus and /ToBits1/p5</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>ToBits1/p6</sigName>
+              <xpcsigName>Words to Cerebus and /ToBits1/p6</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>ToBits1/p7</sigName>
+              <xpcsigName>Words to Cerebus and /ToBits1/p7</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>ToBits1/p8</sigName>
+              <xpcsigName>Words to Cerebus and /ToBits1/p8</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>xPC Target
+ Time </sigName>
+              <xpcsigName>Words to Cerebus and /xPC Target  Time </xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Switch</sigName>
+              <xpcsigName>Words to Cerebus and /Switch</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+    </SubSystem>
+
+      
+
+
+
+
+
+
+
+
+ 
+            <block>
+            <blkName>Rate Transition</blkName>
+            <xpcblkName>Rate Transition</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Rate Transition</SLblockPath>
+            <isSrc>[0 1 1]</isSrc>
+          <parameter>
+          <paramName>X0</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>Behavior RandomTarget3D</blkName>
+            <xpcblkName>Behavior RandomTarget3D</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Behavior RandomTarget3D</SLblockPath>
+            <isSrc>[0 1 7]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P2</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P3</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P4</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P5</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P6</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P7</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P8</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P9</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P10</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>PCI-6025E 1</blkName>
+            <xpcblkName>PCI-6025E 1</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/PCI-6025E 1</SLblockPath>
+            <isSrc>[0 3 0]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          <dim>[1, 3]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P2</paramName>
+          <dim>[1, 3]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P3</paramName>
+          <dim>[1, 3]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P4</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P5</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P6</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P7</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>PCI-6025E AD</blkName>
+            <xpcblkName>PCI-6025E AD</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/PCI-6025E AD</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P2</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P3</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P4</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P5</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P6</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>PCI-6025E DO</blkName>
+            <xpcblkName>PCI-6025E DO</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/PCI-6025E DO</SLblockPath>
+            <isSrc>[0 1 0]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P2</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P3</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P4</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P5</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P6</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P7</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>Port B</blkName>
+            <xpcblkName>Port B</xpcblkName>
+            <SLblockPath>CenterOutCenter3D/Port B</SLblockPath>
+            <isSrc>[0 1 0]</isSrc>
+          <parameter>
+          <paramName>P1</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P2</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P3</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P4</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P5</paramName>
+          <dim>[1, 3]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P6</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P7</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P8</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P9</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P10</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+
+    
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Rate Transition</sigName>
+              <xpcsigName>Rate Transition</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Behavior RandomTarget3D/p1</sigName>
+              <xpcsigName>Behavior RandomTarget3D/p1</xpcsigName>
+              <sigWidth>5</sigWidth>
+              <sigDim>[5, 1]</sigDim>
+            </signal>
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Behavior RandomTarget3D/p2</sigName>
+              <xpcsigName>Behavior RandomTarget3D/p2</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Behavior RandomTarget3D/p3</sigName>
+              <xpcsigName>Behavior RandomTarget3D/p3</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Behavior RandomTarget3D/p4</sigName>
+              <xpcsigName>Behavior RandomTarget3D/p4</xpcsigName>
+              <sigWidth>2</sigWidth>
+              <sigDim>[2, 1]</sigDim>
+            </signal>
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Behavior RandomTarget3D/p5</sigName>
+              <xpcsigName>Behavior RandomTarget3D/p5</xpcsigName>
+              <sigWidth>4</sigWidth>
+              <sigDim>[4, 1]</sigDim>
+            </signal>
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Behavior RandomTarget3D/p6</sigName>
+              <xpcsigName>Behavior RandomTarget3D/p6</xpcsigName>
+              <sigWidth>3</sigWidth>
+              <sigDim>[3, 1]</sigDim>
+            </signal>
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Behavior RandomTarget3D/p7</sigName>
+              <xpcsigName>Behavior RandomTarget3D/p7</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>PCI-6025E AD</sigName>
+              <xpcsigName>PCI-6025E AD</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+
+    
+    
+
+
+</Root>
