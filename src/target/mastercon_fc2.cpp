@@ -241,6 +241,8 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
 void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     int startVal;
     int steps;
+    double randNumTrialType;
+    
 	//set the target direction deg
 	if ((int)this->params->use_random_targets) {
 		this->tgt_dir = this->random->getInteger(0,359);
@@ -268,21 +270,25 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     startVal=(int)(steps/2);
     if(this->bump_stair->getStartValue() != startVal){
         //reset the staircase
+        this->bump_stair->setStartValue(startVal);
         this->bump_stair->setCurrentValue(startVal);
-        this->bump_stair->setForwardLimit((int)this->steps);
+        this->bump_stair->setForwardLimit(steps);
         this->bump_stair->setBackwardLimit(0);
     }
     
     startVal=(int)(params->stim_levels/2);
     if(this->stim_stair->getStartValue() != startVal){
         //reset the stim staircase
+        this->stim_stair->setStartValue(startVal);
         this->stim_stair->setCurrentValue(startVal);
         this->stim_stair->setForwardLimit((int)params->stim_levels);
         this->stim_stair->setBackwardLimit(0);
     }
 	//set up the bump
+    randNumTrialType = this->random->getDouble(0,1);
+    
     this->bump_delay=this->random->getDouble(params->bump_delay_low,params->bump_delay_high);
-    this->bump_trial=this->random->getDouble()<params->bump_prob;
+    this->bump_trial= randNumTrialType<params->bump_prob;
     if(this->bump_trial){
         this->bump->peak_magnitude= this->bump_stair->getCurrentValue()*params->bump_step + params->bump_floor;
         this->bump->hold_duration = params->bump_duration;
@@ -297,7 +303,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 	this->training_trial=(this->random->getDouble() < params->training_frequency);
     
     /* Select whether this will be a stimulation trial */
-    this->stim_trial=(this->random->getDouble() < params->stim_prob);
+    this->stim_trial=(randNumTrialType > params->bump_prob & randNumTrialType < params->stim_prob+params->bump_prob);
     if(this->stim_trial) {
         this->stim_code=this->random->getInteger(0,params->stim_levels-1);
         this->stim_code=this->stim_stair->getCurrentValue();   
@@ -369,6 +375,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
         }
     }
 
+   
 	// State machine
 	switch (this->getState()) {
 		case STATE_PRETRIAL:
@@ -385,6 +392,8 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 			/* first target on */
 			if (centerTarget->cursorInTarget(inputs->cursor)) {
 				setState(STATE_CT_HOLD);
+                stateTimer->stop(S);
+                stateTimer->start(S);
 			}
 			break;
 		case STATE_CT_HOLD:
@@ -392,7 +401,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay) &&
-                     (this->stim_trial)||(this->bump_trial)) {
+                     ((this->stim_trial)||(this->bump_trial))) {
 				if (this->stim_trial) {
 					setState(STATE_STIM);
 				} else if(this->bump_trial) {
@@ -406,7 +415,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 			break;
 		case STATE_BUMP:
             if(params->force_reaction){
-                //playTone(TONE_GO);
+                playTone(TONE_GO);
                 setState(STATE_MOVEMENT);
             }else{
                 if (!centerTarget->cursorInTarget(inputs->cursor) && params->abort_during_bump) {
@@ -424,7 +433,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
             
 		case STATE_STIM:
             if(params->force_reaction){
-                //playTone(TONE_GO);
+                playTone(TONE_GO);
                 setState(STATE_MOVEMENT);
             }else{
                 if (!centerTarget->cursorInTarget(inputs->cursor) && params->abort_during_bump) {
@@ -440,14 +449,27 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
             }
 			break;
 		case STATE_MOVEMENT:
-            if (    (params->force_reaction && params->reaction_time>stateTimer->elapsedTime(S))    ||
-                    (params->reaction_time>stateTimer->elapsedTime(S)) > params->reaction_time    ||
+            if (  (params->force_reaction && params->reaction_time + params->ct_hold_time 
+                        + this->bump_delay + params->bump_hold_time < stateTimer->elapsedTime(S))    ||
+                 //   (params->reaction_time>stateTimer->elapsedTime(S)) > params->reaction_time    ||
                     (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset)) )                
             {
+                //iterate staircase
+                if(this->bump_trial){
+                    this->bump_stair->addFailure();
+                } else if(this->stim_trial){
+                    this->stim_stair->addFailure();
+                }
                 playTone(TONE_FAIL);
 				setState(STATE_FAIL);
             } else if (correctTarget->cursorInTarget(inputs->cursor - cursorOffset)) {
-				playTone(TONE_REWARD);
+				//iterate staircase
+                if(this->bump_trial){
+                    this->bump_stair->addSuccess();
+                } else if(this->stim_trial && isNewState()){
+                this->stim_stair->addSuccess();
+                }
+                playTone(TONE_REWARD);
 				setState(STATE_REWARD);
 			} 
 			break;
@@ -459,28 +481,14 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 			break;
         case STATE_REWARD:
             this->bump->stop();
-            //iterate staircase
-            if(this->bump_trial){
-                    if(this->stim_trial){
-                        this->stim_stair->addSuccess();
-                    }else {
-                        this->bump_stair->addSuccess();
-                    }
-            }
+             
 			if (stateTimer->elapsedTime(S) > params->intertrial_time) {
 				setState(STATE_PRETRIAL);
 			}
 			break;
 		case STATE_FAIL:
             this->bump->stop();
-            //iterate staircase
-            if(this->bump_trial){
-                    if(this->stim_trial){
-                        this->stim_stair->addFailure();
-                    }else {
-                        this->bump_stair->addFailure();
-                    }
-            }
+            
 			if (stateTimer->elapsedTime(S) > params->intertrial_time+ params->penalty_time) {
 				setState(STATE_PRETRIAL);
 			}
@@ -506,19 +514,22 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 		outputs->force.x = inputs->force.x + bf.x;
 		outputs->force.y = inputs->force.y + bf.y;
 	} else {
-		outputs->force = inputs->force;
-	}
-outputs->force.x = floor((params->bump_ceiling-params->bump_floor));
+		//outputs->force = inputs->force;
+        outputs->force.x = floor((params->bump_ceiling-params->bump_floor));
 		outputs->force.y = floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
+	}
+//outputs->force.x = floor((params->bump_ceiling-params->bump_floor));
+		//outputs->force.y = floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
 //     
 //     this->bump_steps=(int)((params->bump_ceiling-params->bump_floor)/params->bump_step);
 //     this->bump_stair->setCurrentValue((int)(this->bump_steps/2));
 	/* status (1) */
-	outputs->status[0] = this->bump_steps;
-	outputs->status[1] = (int)((params->bump_ceiling-params->bump_floor)/params->bump_step);
-	outputs->status[2] = this->bump_stair->getCurrentValue();
- 	outputs->status[3] = (int)(this->bump_steps/2);
-    outputs->status[4] = this->bump_stair->getCurrentValue();
+	outputs->status[0] = getState();
+	outputs->status[1] = trialCounter->successes;
+    //outputs->status[1] = this->bump_stair->getCurrentValue();
+	outputs->status[2] = trialCounter->aborts;
+ 	outputs->status[3] = trialCounter->failures;
+ 	outputs->status[4] = trialCounter->incompletes;
 
 	/* word (2) */
 	if (db->isRunning()) {
@@ -598,13 +609,10 @@ outputs->force.x = floor((params->bump_ceiling-params->bump_floor));
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-    if ((getState() == STATE_CT_BLOCK || getState() == STATE_BUMP) && (params->hide_cursor > .1))
-    {
+    if (getState() == STATE_BUMP && params->hide_cursor > .1) {
         outputs->position = Point(1E6, 1E6);
-    } else { //if ( (params->recenter_cursor) && (getState() == STATE_MOVEMENT) ) {
+    } else { 
         outputs->position = inputs->cursor - cursorOffset;
-//    } else {
-//    	outputs->position = inputs->cursor;
     } 
 }
 

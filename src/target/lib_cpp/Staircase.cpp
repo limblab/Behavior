@@ -169,7 +169,7 @@ void Staircase::stepBackward() {
 
 void Staircase::addSuccess(){
    this->success_counter++;
-   if(this->success_counter==this->step_ratio){
+   if(this->success_counter>=this->step_ratio){
        this->success_counter=0;
        this->stepForward();
    }
