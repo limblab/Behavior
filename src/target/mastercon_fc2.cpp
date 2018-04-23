@@ -274,6 +274,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
         this->bump_stair->setCurrentValue(startVal);
         this->bump_stair->setForwardLimit(steps);
         this->bump_stair->setBackwardLimit(0);
+        this->bump_stair->setStaircaseDirection(-1);
     }
     
     startVal=(int)(params->stim_levels/2);
@@ -283,6 +284,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
         this->stim_stair->setCurrentValue(startVal);
         this->stim_stair->setForwardLimit((int)params->stim_levels);
         this->stim_stair->setBackwardLimit(0);
+        this->bump_stair->setStaircaseDirection(-1);
     }
 	//set up the bump
     randNumTrialType = this->random->getDouble(0,1);
@@ -514,9 +516,9 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 		outputs->force.x = inputs->force.x + bf.x;
 		outputs->force.y = inputs->force.y + bf.y;
 	} else {
-		//outputs->force = inputs->force;
-        outputs->force.x = floor((params->bump_ceiling-params->bump_floor));
-		outputs->force.y = floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
+		outputs->force = inputs->force;
+        //outputs->force.x = floor((params->bump_ceiling-params->bump_floor));
+		//outputs->force.y = floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
 	}
 //outputs->force.x = floor((params->bump_ceiling-params->bump_floor));
 		//outputs->force.y = floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
