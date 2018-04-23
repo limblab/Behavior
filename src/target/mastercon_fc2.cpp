@@ -151,7 +151,6 @@ private:
 
 	int bump_dir;
 	int tgt_dir;
-    float bump_mag;
     float bump_delay;
     int bump_steps;
     int stim_code;
@@ -330,7 +329,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     
     db->addByte((byte)this->bump_trial);
 	db->addFloat((float)this->bump_dir);
-	db->addFloat((float)this->bump_mag);
+	db->addFloat((float)this->bump->peak_magnitude);
 	db->addFloat((float)this->params->bump_floor);
 	db->addFloat((float)this->params->bump_ceiling);
 	db->addFloat((float)this->params->bump_step);
