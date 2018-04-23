@@ -51,34 +51,36 @@
  * bytes 4-5:	uchar       => version code
  * byte  5-6:	uchar		=> version code (micro)
  *
- * bytes 7-8:  float		=> target angle
- * byte  9:	uchar           => random target flag
- * bytes 10-13: float		=> target radius
- * bytes 14-17: float		=> target size
- * byte  18:	uchar		=> show target during bump
+ * bytes 7-10:  float		=> target angle
+ * byte  11:	uchar           => random target flag
+ * bytes 12-15: float		=> target radius
+ * bytes 16-19: float		=> target size
+ * byte  20:	uchar		=> show target during bump
  *
- * byte  19:                => bump trial flag
- * bytes 20-23: float		=> bump direction
- * bytes 24-27: float       => bump magnitude
- * bytes 28-31: float		=> bump floor (minimum force(N) bump can take)
- * bytes 32-35:	float		=> bump ceiling (maximum force(N) bump can take)
- * bytes 36-39:	float		=> bump step
- * bytes 40-43: float		=> bump duration
- * bytes 44-47: float		=> bump ramp
+ * byte  21:                => bump trial flag
+ * bytes 22-25: float		=> bump direction
+ * bytes 26-29: float       => bump magnitude
+ * bytes 30-33: float		=> bump floor (minimum force(N) bump can take)
+ * bytes 34-37:	float		=> bump ceiling (maximum force(N) bump can take)
+ * bytes 38-41:	float		=> bump step
+ * bytes 42-45: float		=> bump duration
+ * bytes 46-49: float		=> bump ramp
  *
- * byte  48:	uchar		=> stim trial flag
- * bytes 49:    uchar       => stim code
+ * byte  50:	uchar		=> stim trial flag
+ * bytes 51:    uchar       => stim code
  *
- * byte  50:    uchar       => training trial flag
+ * byte  52:    uchar       => training trial flag
  *
- * byte  51:	uchar		=> recenter cursor flag
- * byte  52:    uchar       => hide cursor during bump
+ * byte  53:	uchar		=> recenter cursor flag
+ * byte  54:    uchar       => hide cursor during bump
  *
- * bytes 53-56: float		=> intertrial time
- * bytes 57-60: float		=> penalty time
- * bytes 61-64: float		=> bump hold time
- * bytes 65-68: float		=> center hold time
- * bytes 69-72: float		=> bump delay time
+ * bytes 55-58: float		=> intertrial time
+ * bytes 59-62: float		=> penalty time
+ * bytes 63-66: float		=> bump hold time
+ * bytes 67-70: float		=> center hold time
+ * bytes 71-74: float		=> bump delay time
+ * byte 75:	uchar		=> abort during bump
+ * byte 76:	uchar		=> force reaction
  */
 	
 #define DATABURST_VERSION ((byte)0x01) 
@@ -350,6 +352,8 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)this->params->bump_hold_time);
 	db->addFloat((float)this->params->ct_hold_time);
 	db->addFloat((float)this->bump_delay);
+	db->addByte((byte)this->params->abort_during_bump);
+	db->addByte((byte)this->params->forceReaction);
 	db->start();
 }
 
@@ -520,15 +524,10 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
         //outputs->force.x = floor((params->bump_ceiling-params->bump_floor));
 		//outputs->force.y = floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
 	}
-//outputs->force.x = floor((params->bump_ceiling-params->bump_floor));
-		//outputs->force.y = floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
-//     
-//     this->bump_steps=(int)((params->bump_ceiling-params->bump_floor)/params->bump_step);
-//     this->bump_stair->setCurrentValue((int)(this->bump_steps/2));
+
 	/* status (1) */
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
-    //outputs->status[1] = this->bump_stair->getCurrentValue();
 	outputs->status[2] = trialCounter->aborts;
  	outputs->status[3] = trialCounter->failures;
  	outputs->status[4] = trialCounter->incompletes;
@@ -611,7 +610,8 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-    if (getState() == STATE_BUMP && params->hide_cursor > .1) {
+	// remove cursor during the bump and hold period to avoid reacting to a visual cue if force reaction
+    if ((getState() == STATE_BUMP || (params->forceReaction && getState() == STATE_CT_HOLD)) && params->hide_cursor > .1) { 
         outputs->position = Point(1E6, 1E6);
     } else { 
         outputs->position = inputs->cursor - cursorOffset;
