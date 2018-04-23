@@ -518,19 +518,14 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 		outputs->force.x = inputs->force.x + bf.x;
 		outputs->force.y = inputs->force.y + bf.y;
 	} else {
-		//outputs->force = inputs->force;
-        outputs->force.x = floor((params->bump_ceiling-params->bump_floor));
-		outputs->force.y = floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
+		outputs->force = inputs->force; // no pre loading
+        //outputs->force.x = floor((params->bump_ceiling-params->bump_floor)); // pre load the motors 
+		//outputs->force.y = floor((params->bump_ceiling-params->bump_floor));
 	}
-//outputs->force.x = floor((params->bump_ceiling-params->bump_floor));
-		//outputs->force.y = floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
-//     
-//     this->bump_steps=(int)((params->bump_ceiling-params->bump_floor)/params->bump_step);
-//     this->bump_stair->setCurrentValue((int)(this->bump_steps/2));
+
 	/* status (1) */
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
-    //outputs->status[1] = this->bump_stair->getCurrentValue();
 	outputs->status[2] = trialCounter->aborts;
  	outputs->status[3] = trialCounter->failures;
  	outputs->status[4] = trialCounter->incompletes;
@@ -613,7 +608,7 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-	// remove cursor during the bump and hold period to avoid reacting to a visual cue
+	// remove cursor during the bump and hold period to avoid reacting to a visual cue if force reaction
     if ((getState() == STATE_BUMP || (params->forceReaction && getState() == STATE_CT_HOLD)) && params->hide_cursor > .1) { 
         outputs->position = Point(1E6, 1E6);
     } else { 
