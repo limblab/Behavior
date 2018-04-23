@@ -613,7 +613,8 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-    if (getState() == STATE_BUMP && params->hide_cursor > .1) {
+	// remove cursor during the bump and hold period to avoid reacting to a visual cue
+    if ((getState() == STATE_BUMP || (params->forceReaction && getState() == STATE_CT_HOLD)) && params->hide_cursor > .1) { 
         outputs->position = Point(1E6, 1E6);
     } else { 
         outputs->position = inputs->cursor - cursorOffset;
