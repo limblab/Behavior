@@ -4,6 +4,7 @@
  * Master Control block for behavior: bump psychophysics 2-bump choice
  */
 
+
 #pragma warning(disable: 4800)
 
 
@@ -13,9 +14,7 @@
 // Our task code will be in the databurst
 #define TASK_DB_DEFINED 1
 #include "words.h"
-
 #include "common_header.cpp"
-
 /*
  * State IDs
  */
@@ -189,8 +188,7 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->bump_ramp,				13);
     
 	this->bindParamId(&params->ct_hold_time,			14);
-    
-	this->bindParamId(&params->bump_delay_low,			15);
+    this->bindParamId(&params->bump_delay_low,			15);
     this->bindParamId(&params->bump_delay_high,			16);
     this->bindParamId(&params->bump_hold_time,			17);
     this->bindParamId(&params->reaction_time,			18);
@@ -238,18 +236,14 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
     this->bump_stair=new Staircase();
     this->stim_stair=new Staircase();
     this->bump_stair->setStepSize(1);
-    this->bump_steps=(int)floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
-    this->bump_stair->setCurrentValue((int)this->bump_steps/2);
-    this->bump_stair->setForwardLimit((int)this->bump_steps);
-    this->bump_stair->setBackwardLimit(0);
     this->stim_stair->setStepSize(1);
-    this->stim_stair->setCurrentValue((int)params->stim_levels/2);
-    this->stim_stair->setForwardLimit((int)params->stim_levels);
-    this->stim_stair->setBackwardLimit(0);
 }
 
 
 void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
+    int startVal;
+    int steps;
+    double randNumTrialType;
     
 	//set the target direction deg
 	if ((int)this->params->use_random_targets) {
@@ -273,10 +267,30 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     // Reset cursor offset
     cursorOffset.x = 0;
     cursorOffset.y = 0;
+    // modify staircases if necessary:
+    steps=(int)((params->bump_ceiling-params->bump_floor)/params->bump_step);
+    startVal=(int)(steps/2);
+    if(this->bump_stair->getStartValue() != startVal){
+        //reset the staircase
+        this->bump_stair->setStartValue(startVal);
+        this->bump_stair->setCurrentValue(startVal);
+        this->bump_stair->setForwardLimit(steps);
+        this->bump_stair->setBackwardLimit(0);
+    }
     
+    startVal=(int)(params->stim_levels/2);
+    if(this->stim_stair->getStartValue() != startVal){
+        //reset the stim staircase
+        this->stim_stair->setStartValue(startVal);
+        this->stim_stair->setCurrentValue(startVal);
+        this->stim_stair->setForwardLimit((int)params->stim_levels);
+        this->stim_stair->setBackwardLimit(0);
+    }
 	//set up the bump
+    randNumTrialType = this->random->getDouble(0,1);
+    
     this->bump_delay=this->random->getDouble(params->bump_delay_low,params->bump_delay_high);
-    this->bump_trial=this->random->getDouble()>params->bump_prob;
+    this->bump_trial= randNumTrialType<params->bump_prob;
     if(this->bump_trial){
         this->bump->peak_magnitude= this->bump_stair->getCurrentValue()*params->bump_step + params->bump_floor;
         this->bump->hold_duration = params->bump_duration;
@@ -285,16 +299,16 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     } else {
 		this->bump->peak_magnitude=0;
 	}
-
+    
 	/* Select whether this will be a training trial 
 	*  If the training frequency is zero we should not see any training trials*/
 	this->training_trial=(this->random->getDouble() < params->training_frequency);
     
     /* Select whether this will be a stimulation trial */
-    this->stim_trial=(this->random->getDouble() < params->stim_prob);
-    this->stim_code=this->random->getInteger(0,params->stim_levels-1);
+    this->stim_trial=(randNumTrialType > params->bump_prob & randNumTrialType < params->stim_prob+params->bump_prob);
     if(this->stim_trial) {
-         this->stim_code=this->stim_stair->getCurrentValue();   
+        this->stim_code=this->random->getInteger(0,params->stim_levels-1);
+        this->stim_code=this->stim_stair->getCurrentValue();   
     }
     
 	/* setup the databurst */
@@ -365,6 +379,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
         }
     }
 
+   
 	// State machine
 	switch (this->getState()) {
 		case STATE_PRETRIAL:
@@ -381,42 +396,37 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 			/* first target on */
 			if (centerTarget->cursorInTarget(inputs->cursor)) {
 				setState(STATE_CT_HOLD);
+                stateTimer->stop(S);
+                stateTimer->start(S);
 			}
 			break;
 		case STATE_CT_HOLD:
 			if (!centerTarget->cursorInTarget(inputs->cursor)) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			} else if (stateTimer->elapsedTime(S) > params->ct_hold_time) {
-                //centerTarget->radius = params->big_target;
-				setState(STATE_CT_BLOCK);
-			}
-			break;
-		case STATE_CT_BLOCK:
-			if (!centerTarget->cursorInTarget(inputs->cursor)) {
-				playTone(TONE_ABORT);
-				setState(STATE_ABORT);
-			} else if (stateTimer->elapsedTime(S) > this->bump_delay) {
+			} else if (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay) &&
+                     ((this->stim_trial)||(this->bump_trial))) {
 				if (this->stim_trial) {
 					setState(STATE_STIM);
 				} else if(this->bump_trial) {
     				bump->start(S);
 					setState(STATE_BUMP);
 				} 
-			} else if (stateTimer->elapsedTime(S) > this->bump_delay+params->bump_hold_time){
-                setState(STATE_REWARD)
+			} else if (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay + params->bump_hold_time)){
+                playTone(TONE_REWARD);
+                setState(STATE_REWARD);
             }
 			break;
 		case STATE_BUMP:
             if(params->force_reaction){
-                //playTone(TONE_GO);
+                playTone(TONE_GO);
                 setState(STATE_MOVEMENT);
             }else{
                 if (!centerTarget->cursorInTarget(inputs->cursor) && params->abort_during_bump) {
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);
                 } else if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
-                    //playTone(TONE_GO);
+                    playTone(TONE_GO);
                     if (params->recenter_cursor) {
                         cursorOffset = inputs->cursor;
                     }   
@@ -424,16 +434,17 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
                 }
             }
 			break;
+            
 		case STATE_STIM:
             if(params->force_reaction){
-                //playTone(TONE_GO);
+                playTone(TONE_GO);
                 setState(STATE_MOVEMENT);
             }else{
                 if (!centerTarget->cursorInTarget(inputs->cursor) && params->abort_during_bump) {
                     playTone(TONE_ABORT);
                     setState(STATE_ABORT);
                 } else if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
-                    //playTone(TONE_GO);
+                    playTone(TONE_GO);
                     if (params->recenter_cursor) {
                         cursorOffset = inputs->cursor;
                     }   
@@ -442,14 +453,27 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
             }
 			break;
 		case STATE_MOVEMENT:
-            if (    (params->force_reaction && params->reaction_time>stateTimer->elapsedTime(S))    ||
-                    (params->move_time>stateTimer->elapsedTime(S)) > params->reaction_time    ||
-                    (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset))                
+            if (  (params->force_reaction && params->reaction_time + params->ct_hold_time 
+                        + this->bump_delay + params->bump_hold_time < stateTimer->elapsedTime(S))    ||
+                 //   (params->reaction_time>stateTimer->elapsedTime(S)) > params->reaction_time    ||
+                    (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset)) )                
             {
+                //iterate staircase
+                if(this->bump_trial){
+                    this->bump_stair->addFailure();
+                } else if(this->stim_trial){
+                    this->stim_stair->addFailure();
+                }
                 playTone(TONE_FAIL);
 				setState(STATE_FAIL);
             } else if (correctTarget->cursorInTarget(inputs->cursor - cursorOffset)) {
-				playTone(TONE_REWARD);
+				//iterate staircase
+                if(this->bump_trial){
+                    this->bump_stair->addSuccess();
+                } else if(this->stim_trial && isNewState()){
+                this->stim_stair->addSuccess();
+                }
+                playTone(TONE_REWARD);
 				setState(STATE_REWARD);
 			} 
 			break;
@@ -461,28 +485,14 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 			break;
         case STATE_REWARD:
             this->bump->stop();
-            //iterate staircase
-            if(this->bump_trial){
-                    if(this->stim_trial){
-                        this->stim_stair->addSuccess();
-                    }else {
-                        this->bump_stair->addSuccess();
-                    }
-            }
+             
 			if (stateTimer->elapsedTime(S) > params->intertrial_time) {
 				setState(STATE_PRETRIAL);
 			}
 			break;
 		case STATE_FAIL:
             this->bump->stop();
-            //iterate staircase
-            if(this->bump_trial){
-                    if(this->stim_trial){
-                        this->stim_stair->addFailure();
-                    }else {
-                        this->bump_stair->addFailure();
-                    }
-            }
+            
 			if (stateTimer->elapsedTime(S) > params->intertrial_time+ params->penalty_time) {
 				setState(STATE_PRETRIAL);
 			}
@@ -508,24 +518,23 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 		outputs->force.x = inputs->force.x + bf.x;
 		outputs->force.y = inputs->force.y + bf.y;
 	} else {
-		outputs->force = inputs->force;
+		//outputs->force = inputs->force;
+        outputs->force.x = floor((params->bump_ceiling-params->bump_floor));
+		outputs->force.y = floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
 	}
-
-
+//outputs->force.x = floor((params->bump_ceiling-params->bump_floor));
+		//outputs->force.y = floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
+//     
+//     this->bump_steps=(int)((params->bump_ceiling-params->bump_floor)/params->bump_step);
+//     this->bump_stair->setCurrentValue((int)(this->bump_steps/2));
 	/* status (1) */
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
-// outputs->status[0] = inputs->force.x;
-// outputs->status[1] = inputs->force.y;
+    //outputs->status[1] = this->bump_stair->getCurrentValue();
 	outputs->status[2] = trialCounter->aborts;
-	outputs->status[3] = trialCounter->failures;
+ 	outputs->status[3] = trialCounter->failures;
  	outputs->status[4] = trialCounter->incompletes;
-// 	outputs->status[0] = (int)this->bump_dir;
-//	outputs->status[1] = (int)this->tgt_angle;
-//	outputs->status[2] = trialCounter->aborts;
-//	outputs->status[3] = trialCounter->failures;
-//  outputs->status[4] = params->abort_during_bump;
-  
+
 	/* word (2) */
 	if (db->isRunning()) {
 		outputs->word = db->getByte();
@@ -539,11 +548,11 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 				break;
 			case STATE_STIM:
 				outputs->word = WORD_STIM(this->stim_stair->getCurrentValue());
-				//outputs->word = WORD_STIM(0);
+// 				outputs->word = WORD_STIM(0);
                 break;
 			case STATE_BUMP:
 				outputs->word = WORD_BUMP(this->bump_stair->getCurrentValue());
-                //outputs->word = WORD_BUMP(0);
+//                 outputs->word = WORD_BUMP(0);
 				break;
 			case STATE_MOVEMENT:
 				outputs->word = WORD_GO_CUE;
@@ -570,53 +579,18 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	/* target_pos (3) */
 	// Center Target
 	if (getState() == STATE_CT_ON || 
-	    getState() == STATE_CT_HOLD ) 
-	{
+	    getState() == STATE_DATA_BLOCK )  {
 		outputs->targets[0] = (Target *)centerTarget;
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
-	} else if
-        (getState() == STATE_CT_BLOCK ||
-         getState() == STATE_BUMP) 
-	{
+	} else if ( getState() == STATE_CT_HOLD ||
+                getState() == STATE_BUMP ||
+                getState() == STATE_MOVEMENT) {
 		outputs->targets[0] = (Target *)centerTarget;
-		if (this->params->show_target_during_bump) {
-			if (this->training_trial) {
-				if(this->bump_trial) {
-		            outputs->targets[1] = (Target *)(this->primaryTarget);
-			        outputs->targets[2] = nullTarget;
-				} else {
-		            outputs->targets[1] = (Target *)(this->secondaryTarget);
-			        outputs->targets[2] = nullTarget;
-				}
-			} else {
-				outputs->targets[1] = (Target *)(this->primaryTarget);
-		        outputs->targets[2] = (Target *)(this->secondaryTarget);
-			}
-		} else {
-            outputs->targets[1] = nullTarget;
-            outputs->targets[2] = nullTarget;
-		}
-	} else if (getState() == STATE_MOVEMENT) {
-		outputs->targets[0] = (Target *)(this->primaryTarget);
-		outputs->targets[1] = (Target *)(this->secondaryTarget);
-		if (this->training_trial) {
-			if(this->bump_trial) {
-	            outputs->targets[0] = (Target *)(this->primaryTarget);
-		        outputs->targets[1] = nullTarget;
-				outputs->targets[2] = nullTarget;
-			} else {
-	            outputs->targets[0] = (Target *)(this->secondaryTarget);
-				outputs->targets[1] = nullTarget;
-		        outputs->targets[2] = nullTarget;
-			}
-		} else {
-			outputs->targets[0] = (Target *)(this->primaryTarget);
-	        outputs->targets[1] = (Target *)(this->secondaryTarget);
-			outputs->targets[2] = nullTarget;
-		}
+        outputs->targets[1] = this->primaryTarget;
+        outputs->targets[2] = nullTarget;
 	} else if (getState() == STATE_PENALTY) {
-		outputs->targets[0] = (Target *)(this->errorTarget);
+		outputs->targets[0] = this->errorTarget;
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
 	} else {
@@ -639,13 +613,10 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-    if ((getState() == STATE_CT_BLOCK || getState() == STATE_BUMP) && (params->hide_cursor > .1))
-    {
+    if (getState() == STATE_BUMP && params->hide_cursor > .1) {
         outputs->position = Point(1E6, 1E6);
-    } else { //if ( (params->recenter_cursor) && (getState() == STATE_MOVEMENT) ) {
+    } else { 
         outputs->position = inputs->cursor - cursorOffset;
-//    } else {
-//    	outputs->position = inputs->cursor;
     } 
 }
 

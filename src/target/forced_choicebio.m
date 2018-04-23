@@ -3,8 +3,8 @@ bio = [];
 bio(1).blkName='Matrix Concatenation1';
 bio(1).sigName='';
 bio(1).portIdx=0;
-bio(1).dim=[4,1];
-bio(1).sigWidth=4;
+bio(1).dim=[6,1];
+bio(1).sigWidth=6;
 bio(1).sigAddress='&forced_choice_B.MatrixConcatenation1[0]';
 bio(1).ndims=2;
 bio(1).size=[];
@@ -101,7 +101,7 @@ bio(10).ndims=2;
 bio(10).size=[];
 
 
-bio(11).blkName='BoundingBox1/Logical Operator';
+bio(11).blkName='BoundingBox/Logical Operator';
 bio(11).sigName='';
 bio(11).portIdx=0;
 bio(11).dim=[1,1];
@@ -111,7 +111,7 @@ bio(11).ndims=2;
 bio(11).size=[];
 
 
-bio(12).blkName='BoundingBox1/Logical Operator1';
+bio(12).blkName='BoundingBox/Logical Operator1';
 bio(12).sigName='';
 bio(12).portIdx=0;
 bio(12).dim=[1,1];
@@ -121,7 +121,7 @@ bio(12).ndims=2;
 bio(12).size=[];
 
 
-bio(13).blkName='BoundingBox1/Logical Operator2';
+bio(13).blkName='BoundingBox/Logical Operator2';
 bio(13).sigName='';
 bio(13).portIdx=0;
 bio(13).dim=[1,1];
@@ -131,7 +131,7 @@ bio(13).ndims=2;
 bio(13).size=[];
 
 
-bio(14).blkName='BoundingBox1/Relational Operator';
+bio(14).blkName='BoundingBox/Relational Operator';
 bio(14).sigName='';
 bio(14).portIdx=0;
 bio(14).dim=[1,1];
@@ -141,7 +141,7 @@ bio(14).ndims=2;
 bio(14).size=[];
 
 
-bio(15).blkName='BoundingBox1/Relational Operator1';
+bio(15).blkName='BoundingBox/Relational Operator1';
 bio(15).sigName='';
 bio(15).portIdx=0;
 bio(15).dim=[1,1];
@@ -151,7 +151,7 @@ bio(15).ndims=2;
 bio(15).size=[];
 
 
-bio(16).blkName='BoundingBox1/Relational Operator2';
+bio(16).blkName='BoundingBox/Relational Operator2';
 bio(16).sigName='';
 bio(16).portIdx=0;
 bio(16).dim=[1,1];
@@ -161,7 +161,7 @@ bio(16).ndims=2;
 bio(16).size=[];
 
 
-bio(17).blkName='BoundingBox1/Relational Operator3';
+bio(17).blkName='BoundingBox/Relational Operator3';
 bio(17).sigName='';
 bio(17).portIdx=0;
 bio(17).dim=[1,1];
@@ -621,7 +621,7 @@ bio(62).ndims=2;
 bio(62).size=[];
 
 
-bio(63).blkName='RewardSbs1/Data Type Conversion';
+bio(63).blkName='RewardSbs/Data Type Conversion';
 bio(63).sigName='';
 bio(63).portIdx=0;
 bio(63).dim=[1,1];
@@ -631,27 +631,27 @@ bio(63).ndims=2;
 bio(63).size=[];
 
 
-bio(64).blkName='RewardSbs1/Relational Operator';
+bio(64).blkName='RewardSbs/Relational Operator';
 bio(64).sigName='';
 bio(64).portIdx=0;
 bio(64).dim=[1,1];
 bio(64).sigWidth=1;
-bio(64).sigAddress='&forced_choice_B.RelationalOperator_j';
+bio(64).sigAddress='&forced_choice_B.RelationalOperator_m';
 bio(64).ndims=2;
 bio(64).size=[];
 
 
-bio(65).blkName='RewardSbs1/Switch';
+bio(65).blkName='RewardSbs/Switch';
 bio(65).sigName='';
 bio(65).portIdx=0;
 bio(65).dim=[1,1];
 bio(65).sigWidth=1;
-bio(65).sigAddress='&forced_choice_B.Switch_p';
+bio(65).sigAddress='&forced_choice_B.Switch_kp';
 bio(65).ndims=2;
 bio(65).size=[];
 
 
-bio(66).blkName='RewardSbs1/Uniform Random Number';
+bio(66).blkName='RewardSbs/Uniform Random Number';
 bio(66).sigName='';
 bio(66).portIdx=0;
 bio(66).dim=[1,1];
@@ -2121,37 +2121,37 @@ bio(212).ndims=2;
 bio(212).size=[];
 
 
-bio(213).blkName='RewardSbs1/Sample and Hold/In';
+bio(213).blkName='RewardSbs/Sample and Hold/In';
 bio(213).sigName='';
 bio(213).portIdx=0;
 bio(213).dim=[1,1];
 bio(213).sigWidth=1;
-bio(213).sigAddress='&forced_choice_B.SampleandHold_n.In';
+bio(213).sigAddress='&forced_choice_B.SampleandHold_c.In';
 bio(213).ndims=2;
 bio(213).size=[];
 
 
-bio(214).blkName='RewardSbs1/Schmidt/Clock';
+bio(214).blkName='RewardSbs/Schmidt/Clock';
 bio(214).sigName='';
 bio(214).portIdx=0;
 bio(214).dim=[1,1];
 bio(214).sigWidth=1;
-bio(214).sigAddress='&forced_choice_B.Clock_d';
+bio(214).sigAddress='&forced_choice_B.Clock_p';
 bio(214).ndims=2;
 bio(214).size=[];
 
 
-bio(215).blkName='RewardSbs1/Schmidt/Relational Operator';
+bio(215).blkName='RewardSbs/Schmidt/Relational Operator';
 bio(215).sigName='';
 bio(215).portIdx=0;
 bio(215).dim=[1,1];
 bio(215).sigWidth=1;
-bio(215).sigAddress='&forced_choice_B.RelationalOperator_g';
+bio(215).sigAddress='&forced_choice_B.RelationalOperator_p';
 bio(215).ndims=2;
 bio(215).size=[];
 
 
-bio(216).blkName='RewardSbs1/Schmidt/Sum';
+bio(216).blkName='RewardSbs/Schmidt/Sum';
 bio(216).sigName='';
 bio(216).portIdx=0;
 bio(216).dim=[1,1];
@@ -4631,7 +4631,7 @@ bio(463).ndims=2;
 bio(463).size=[];
 
 
-bio(464).blkName='RewardSbs1/Schmidt/Sample and Hold/In';
+bio(464).blkName='RewardSbs/Schmidt/Sample and Hold/In';
 bio(464).sigName='';
 bio(464).portIdx=0;
 bio(464).dim=[1,1];

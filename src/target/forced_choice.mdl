@@ -2,12 +2,12 @@ Model {
   Name			  "forced_choice"
   Version		  8.5
   MdlSubVersion		  0
-  SavedCharacterEncoding  "UTF-8"
+  SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1216"
+    ComputedModelVersion    "1.1230"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -30,7 +30,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [828.0, 336.0, 2335.0, 1632.0]
+      Location		      [-6.0, 5.0, 1036.0, 671.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -52,11 +52,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"740"
-	Extents			[2299.0, 1496.0]
-	ZoomFactor		[1.0]
-	Offset			[0.0, 0.0]
+	ViewObjType		"SimulinkTopLevel"
+	LoadSaveID		"0"
+	Extents			[992.0, 511.0]
+	ZoomFactor		[0.8]
+	Offset			[224.6438692886029, 1830.476855600542]
       }
     }
   }
@@ -64,11 +64,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "tucker"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jan 04 16:43:51 2018"
-  RTWModifiedTimeStamp	  436984983
-  ModelVersionFormat	  "1.%<AutoIncrement:1216>"
+  LastModifiedDate	  "Wed Feb 14 17:11:02 2018"
+  RTWModifiedTimeStamp	  440529044
+  ModelVersionFormat	  "1.%<AutoIncrement:1230>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -377,7 +377,7 @@ Model {
 	  SimStateInterfaceChecksumMismatchMsg "warning"
 	  SimStateOlderReleaseMsg "error"
 	  InitInArrayFormatMsg	  "warning"
-	  StrictBusMsg		  "None"
+	  StrictBusMsg		  "ErrorLevel1"
 	  BusNameAdapt		  "WarnAndRepair"
 	  NonBusSignalsTreatedAsBus "none"
 	  BlockIODiagnostic	  "none"
@@ -608,13 +608,13 @@ Model {
 	      ReqsInCode	      off
 	      UseSimReservedNames     off
 	    }
-	    Simulink.TargetCC {
+	    SimulinkRealTime.SimulinkRealTimeCC {
 	      $BackupClass	      "Simulink.TargetCC"
 	      $ObjectID		      17
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
-		Dimension		13
+		Dimension		14
 		Cell			"GeneratePreprocessorConditionals"
 		Cell			"IncludeMdlTerminateFcn"
 		Cell			"SupportNonInlinedSFcns"
@@ -628,6 +628,7 @@ Model {
 		Cell			"SupportComplex"
 		Cell			"SupportAbsoluteTime"
 		Cell			"SupportContinuousTime"
+		Cell			"CombineOutputUpdateFcns"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
@@ -676,126 +677,30 @@ Model {
 	      GRTInterface	      on
 	      GenerateAllocFcn	      off
 	      GenerateSharedConstants on
-	      CustomProperty {
-		DataType		"string"
-		Name			"RL32ModeModifier"
-		Value			"Real-Time"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"ExtMode"
-		Value			"on"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"ExtModeMexFile"
-		Value			"ext_xpc"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"ExtModeIntrfLevel"
-		Value			"Level2 - Open"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"ExtModeArmWhenConnect"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"RL32LogTETModifier"
-		Value			"on"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"RL32LogBufSizeModifier"
-		Value			"100000"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCTaskExecutionProfile"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCRL32EventNumber"
-		Value			"5000"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"RL32IRQSourceModifier"
-		Value			"Timer"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCIRQSourceBoard"
-		Value			"None/Other"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCIOIRQSlot"
-		Value			"-1"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xpcDblBuff"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xpcObjCom"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCGenerateASAP2"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCGenerateXML"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"RL32ObjectName"
-		Value			"tg"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCisDownloadable"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCisDefaultEnv"
-		Value			"on"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCisModelTimeout"
-		Value			"on"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCModelTimeoutSecs"
-		Value			"5"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCLoadParamSetFile"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCConcurrentTasks"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCEnableSFAnimation"
-		Value			"off"
-	      }
+	      RL32ModeModifier	      "Real-Time"
+	      ExtMode		      on
+	      ExtModeMexFile	      "ext_xpc"
+	      ExtModeIntrfLevel	      "Level2 - Open"
+	      ExtModeArmWhenConnect   off
+	      RL32LogTETModifier      on
+	      RL32LogBufSizeModifier  "100000"
+	      xPCTaskExecutionProfile off
+	      xPCRL32EventNumber      "5000"
+	      RL32IRQSourceModifier   "Timer"
+	      xPCIRQSourceBoard	      "None/Other"
+	      xPCIOIRQSlot	      "-1"
+	      xpcDblBuff	      off
+	      xpcObjCom		      off
+	      xPCGenerateASAP2	      off
+	      xPCGenerateXML	      off
+	      RL32ObjectName	      "tg"
+	      xPCisDownloadable	      on
+	      xPCisDefaultEnv	      on
+	      xPCisModelTimeout	      on
+	      xPCModelTimeoutSecs     "5"
+	      xPCLoadParamSetFile     off
+	      xPCConcurrentTasks      off
+	      xPCEnableSFAnimation    off
 	    }
 	    PropName		    "Components"
 	  }
@@ -876,11 +781,6 @@ Model {
   }
   BlockParameterDefaults {
     Block {
-      BlockType		      Clock
-      DisplayTime	      off
-      Decimation	      "10"
-    }
-    Block {
       BlockType		      Concatenate
       NumInputs		      "2"
       Mode		      "Vector"
@@ -898,17 +798,6 @@ Model {
       SampleTime	      "inf"
       FramePeriod	      "inf"
       PreserveConstantTs      off
-    }
-    Block {
-      BlockType		      DataTypeConversion
-      OutMin		      "[]"
-      OutMax		      "[]"
-      OutDataTypeStr	      "Inherit: Inherit via back propagation"
-      LockScale		      off
-      ConvertRealWorld	      "Real World Value (RWV)"
-      RndMeth		      "Zero"
-      SaturateOnIntegerOverflow	on
-      SampleTime	      "-1"
     }
     Block {
       BlockType		      Demux
@@ -1020,14 +909,6 @@ Model {
       SampleTime	      "-1"
     }
     Block {
-      BlockType		      RelationalOperator
-      Operator		      ">="
-      InputSameDT	      on
-      OutDataTypeStr	      "Inherit: Logical (see Configuration Parameters: Optimization)"
-      ZeroCross		      on
-      SampleTime	      "-1"
-    }
-    Block {
       BlockType		      S-Function
       FunctionName	      "system"
       SFunctionModules	      "''"
@@ -1109,19 +990,11 @@ Model {
       OutputSignalType	      "auto"
       SampleTime	      "-1"
     }
-    Block {
-      BlockType		      UniformRandomNumber
-      Minimum		      "-1"
-      Maximum		      "1"
-      Seed		      "0"
-      SampleTime	      "-1"
-      VectorParams1D	      on
-    }
   }
   System {
     Name		    "forced_choice"
-    Location		    [6, 60, 2341, 1692]
-    Open		    off
+    Location		    [-6, 5, 1030, 676]
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1132,14 +1005,14 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "100"
+    ZoomFactor		    "80"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "787"
+    SIDHighWatermark	    "809"
     Block {
       BlockType		      S-Function
       Name		      "Behavior FC"
       SID		      "1"
-      Ports		      [4, 8]
+      Ports		      [7, 8]
       Position		      [830, 1933, 1055, 2267]
       ZOrder		      113
       BackgroundColor	      "lightBlue"
@@ -1157,7 +1030,7 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "BoundingBox1"
+      Name		      "BoundingBox"
       SID		      "689"
       Ports		      [1, 1]
       Position		      [990, 2438, 1080, 2502]
@@ -1177,7 +1050,7 @@ Model {
       RequestExecContextInheritance off
       System {
 	Name			"Catch Force Generator"
-	Location		[16, 52, 1340, 1132]
+	Location		[-4, -4, 1028, 728]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1846,7 +1719,7 @@ Model {
 	  ZOrder		  1
 	  SrcBlock		  "Off"
 	  SrcPort		  1
-	  Points		  [30, 0; 0, 0]
+	  Points		  [30, 0]
 	  Branch {
 	    ZOrder		    2
 	    Points		    [0, 10]
@@ -2038,9 +1911,10 @@ Model {
       BlockType		      Concatenate
       Name		      "Matrix\nConcatenation1"
       SID		      "735"
-      Ports		      [2, 1]
-      Position		      [1315, 2279, 1370, 2321]
+      Ports		      [3, 1]
+      Position		      [1315, 2289, 1370, 2331]
       ZOrder		      101
+      NumInputs		      "3"
     }
     Block {
       BlockType		      Reference
@@ -2090,399 +1964,23 @@ Model {
       ContentPreviewEnabled   off
     }
     Block {
-      BlockType		      SubSystem
-      Name		      "RewardSbs1"
-      SID		      "740"
+      BlockType		      Reference
+      Name		      "RewardSbs"
+      SID		      "800"
       Ports		      [1, 1]
-      Position		      [1080, 2104, 1135, 2136]
-      ZOrder		      98
-      RequestExecContextInheritance off
-      System {
-	Name			"RewardSbs1"
-	Location		[828, 336, 3163, 1968]
-	Open			on
-	ModelBrowserVisibility	off
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Inport
-	  Name			  "Trig"
-	  SID			  "741"
-	  Position		  [30, 38, 60, 52]
-	  ZOrder		  -1
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  DataTypeConversion
-	  Name			  "Data Type Conversion"
-	  SID			  "742"
-	  Position		  [685, 83, 760, 117]
-	  ZOrder		  -2
-	  RndMeth		  "Floor"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "JackpotChance"
-	  SID			  "743"
-	  Position		  [65, 175, 95, 205]
-	  ZOrder		  -3
-	  Value			  "0"
-	}
-	Block {
-	  BlockType		  Product
-	  Name			  "Product"
-	  SID			  "787"
-	  Ports			  [2, 1]
-	  Position		  [205, 72, 235, 103]
-	  ZOrder		  1
-	  InputSameDT		  off
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  RndMeth		  "Floor"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  RelationalOperator
-	  Name			  "Relational\nOperator"
-	  SID			  "744"
-	  Ports			  [2, 1]
-	  Position		  [160, 137, 190, 168]
-	  ZOrder		  -4
-	  Operator		  ">"
-	  InputSameDT		  off
-	  OutDataTypeStr	  "boolean"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "RewardJackpot"
-	  SID			  "745"
-	  Position		  [160, 205, 190, 235]
-	  ZOrder		  -5
-	  Value			  "0.60"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "RewardTime"
-	  SID			  "746"
-	  Position		  [145, 80, 175, 110]
-	  ZOrder		  -6
-	  Value			  "0.30"
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Sample\nand Hold"
-	  SID			  "747"
-	  Ports			  [1, 1, 0, 1]
-	  Position		  [365, 133, 440, 177]
-	  ZOrder		  -7
-	  LibraryVersion	  "1.752"
-	  SourceBlock		  "dspsigops/Sample\nand Hold"
-	  SourceType		  "Sample and Hold"
-	  ContentPreviewEnabled	  off
-	  trig			  "Rising edge"
-	  initCond		  "0"
-	  latchinput		  off
-	}
-	Block {
-	  BlockType		  SubSystem
-	  Name			  "Schmidt"
-	  SID			  "748"
-	  Ports			  [2, 1]
-	  Position		  [525, 70, 635, 130]
-	  ZOrder		  -8
-	  RequestExecContextInheritance	off
-	  System {
-	    Name		    "Schmidt"
-	    Location		    [16, 52, 675, 542]
-	    Open		    off
-	    ModelBrowserVisibility  off
-	    ModelBrowserWidth	    200
-	    ScreenColor		    "white"
-	    PaperOrientation	    "landscape"
-	    PaperPositionMode	    "auto"
-	    PaperType		    "usletter"
-	    PaperUnits		    "inches"
-	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
-	    TiledPageScale	    1
-	    ShowPageBoundaries	    off
-	    ZoomFactor		    "100"
-	    Block {
-	      BlockType		      Inport
-	      Name		      "Trigger"
-	      SID		      "749"
-	      Position		      [85, 58, 115, 72]
-	      ZOrder		      -1
-	      IconDisplay	      "Port number"
-	    }
-	    Block {
-	      BlockType		      Inport
-	      Name		      "Duration"
-	      SID		      "750"
-	      Position		      [85, 233, 115, 247]
-	      ZOrder		      -2
-	      Port		      "2"
-	      IconDisplay	      "Port number"
-	    }
-	    Block {
-	      BlockType		      Clock
-	      Name		      "Clock"
-	      SID		      "751"
-	      Position		      [140, 110, 180, 150]
-	      ZOrder		      -3
-	      Decimation	      "1"
-	    }
-	    Block {
-	      BlockType		      RelationalOperator
-	      Name		      "Relational\nOperator"
-	      SID		      "752"
-	      Ports		      [2, 1]
-	      Position		      [420, 167, 450, 198]
-	      ZOrder		      -4
-	      Operator		      "<"
-	      InputSameDT	      off
-	      OutDataTypeStr	      "boolean"
-	    }
-	    Block {
-	      BlockType		      Reference
-	      Name		      "Sample\nand Hold"
-	      SID		      "753"
-	      Ports		      [1, 1, 0, 1]
-	      Position		      [240, 108, 315, 152]
-	      ZOrder		      -5
-	      LibraryVersion	      "1.752"
-	      SourceBlock	      "dspsigops/Sample\nand Hold"
-	      SourceType	      "Sample and Hold"
-	      ContentPreviewEnabled   off
-	      trig		      "Rising edge"
-	      initCond		      "-1000"
-	      latchinput	      off
-	    }
-	    Block {
-	      BlockType		      Sum
-	      Name		      "Sum"
-	      SID		      "754"
-	      Ports		      [2, 1]
-	      Position		      [330, 165, 350, 185]
-	      ZOrder		      -6
-	      ShowName		      off
-	      IconShape		      "round"
-	      Inputs		      "-+"
-	      InputSameDT	      off
-	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
-	      SaturateOnIntegerOverflow	off
-	    }
-	    Block {
-	      BlockType		      Outport
-	      Name		      "Output"
-	      SID		      "755"
-	      Position		      [495, 178, 525, 192]
-	      ZOrder		      -7
-	      IconDisplay	      "Port number"
-	    }
-	    Line {
-	      ZOrder		      1
-	      SrcBlock		      "Clock"
-	      SrcPort		      1
-	      Points		      [15, 0]
-	      Branch {
-		ZOrder			2
-		Points			[0, 85; 140, 0]
-		DstBlock		"Sum"
-		DstPort			2
-	      }
-	      Branch {
-		ZOrder			3
-		DstBlock		"Sample\nand Hold"
-		DstPort			1
-	      }
-	    }
-	    Line {
-	      ZOrder		      4
-	      SrcBlock		      "Sample\nand Hold"
-	      SrcPort		      1
-	      Points		      [20, 0]
-	      DstBlock		      "Sum"
-	      DstPort		      1
-	    }
-	    Line {
-	      ZOrder		      5
-	      SrcBlock		      "Sum"
-	      SrcPort		      1
-	      DstBlock		      "Relational\nOperator"
-	      DstPort		      1
-	    }
-	    Line {
-	      ZOrder		      6
-	      SrcBlock		      "Duration"
-	      SrcPort		      1
-	      Points		      [265, 0; 0, -50]
-	      DstBlock		      "Relational\nOperator"
-	      DstPort		      2
-	    }
-	    Line {
-	      ZOrder		      7
-	      SrcBlock		      "Relational\nOperator"
-	      SrcPort		      1
-	      DstBlock		      "Output"
-	      DstPort		      1
-	    }
-	    Line {
-	      ZOrder		      8
-	      SrcBlock		      "Trigger"
-	      SrcPort		      1
-	      Points		      [155, 0]
-	      DstBlock		      "Sample\nand Hold"
-	      DstPort		      trigger
-	    }
-	  }
-	}
-	Block {
-	  BlockType		  Switch
-	  Name			  "Switch"
-	  SID			  "756"
-	  Position		  [275, 120, 310, 190]
-	  ZOrder		  -9
-	  Criteria		  "u2 > Threshold"
-	  InputSameDT		  off
-	  SaturateOnIntegerOverflow off
-	  ZeroCross		  off
-	}
-	Block {
-	  BlockType		  UniformRandomNumber
-	  Name			  "Uniform Random\nNumber"
-	  SID			  "757"
-	  Position		  [65, 99, 95, 131]
-	  ZOrder		  -10
-	  Minimum		  "0"
-	  Maximum		  "100"
-	  SampleTime		  "0.001"
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "Out"
-	  SID			  "758"
-	  Position		  [815, 93, 845, 107]
-	  ZOrder		  -11
-	  IconDisplay		  "Port number"
-	}
-	Line {
-	  ZOrder		  1
-	  SrcBlock		  "Trig"
-	  SrcPort		  1
-	  Points		  [119, 0]
-	  Branch {
-	    ZOrder		    16
-	    Points		    [216, 0]
-	    Branch {
-	      ZOrder		      2
-	      Points		      [75, 0; 0, 40]
-	      DstBlock		      "Schmidt"
-	      DstPort		      1
-	    }
-	    Branch {
-	      ZOrder		      3
-	      DstBlock		      "Sample\nand Hold"
-	      DstPort		      trigger
-	    }
-	  }
-	  Branch {
-	    ZOrder		    15
-	    Points		    [0, 35]
-	    DstBlock		    "Product"
-	    DstPort		    1
-	  }
-	}
-	Line {
-	  ZOrder		  4
-	  SrcBlock		  "Data Type Conversion"
-	  SrcPort		  1
-	  DstBlock		  "Out"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  5
-	  SrcBlock		  "Schmidt"
-	  SrcPort		  1
-	  DstBlock		  "Data Type Conversion"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  6
-	  SrcBlock		  "Sample\nand Hold"
-	  SrcPort		  1
-	  Points		  [30, 0; 0, -40]
-	  DstBlock		  "Schmidt"
-	  DstPort		  2
-	}
-	Line {
-	  ZOrder		  8
-	  SrcBlock		  "RewardJackpot"
-	  SrcPort		  1
-	  Points		  [35, 0; 0, -40]
-	  DstBlock		  "Switch"
-	  DstPort		  3
-	}
-	Line {
-	  ZOrder		  9
-	  SrcBlock		  "Switch"
-	  SrcPort		  1
-	  DstBlock		  "Sample\nand Hold"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  10
-	  SrcBlock		  "Uniform Random\nNumber"
-	  SrcPort		  1
-	  Points		  [25, 0; 0, 30]
-	  DstBlock		  "Relational\nOperator"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  11
-	  SrcBlock		  "Relational\nOperator"
-	  SrcPort		  1
-	  DstBlock		  "Switch"
-	  DstPort		  2
-	}
-	Line {
-	  ZOrder		  12
-	  SrcBlock		  "JackpotChance"
-	  SrcPort		  1
-	  Points		  [25, 0; 0, -30]
-	  DstBlock		  "Relational\nOperator"
-	  DstPort		  2
-	}
-	Line {
-	  ZOrder		  13
-	  SrcBlock		  "RewardTime"
-	  SrcPort		  1
-	  DstBlock		  "Product"
-	  DstPort		  2
-	}
-	Line {
-	  ZOrder		  17
-	  SrcBlock		  "Product"
-	  SrcPort		  1
-	  Points		  [15, 0; 0, 40]
-	  DstBlock		  "Switch"
-	  DstPort		  1
-	}
-      }
+      Position		      [1080, 2102, 1130, 2138]
+      ZOrder		      116
+      LibraryVersion	      "1.206"
+      SourceBlock	      "limblab/RewardSbs"
+      SourceType	      "SubSystem"
+      ContentPreviewEnabled   off
     }
     Block {
       BlockType		      Reference
       Name		      "SendPacketToGraphics"
       SID		      "759"
       Ports		      [4]
-      Position		      [1390, 2122, 1480, 2223]
+      Position		      [1315, 2122, 1405, 2223]
       ZOrder		      97
       LibraryVersion	      "1.206"
       SourceBlock	      "limblab/SendPacketToGraphics"
@@ -2494,13 +1992,13 @@ Model {
       Name		      "Status"
       SID		      "760"
       Ports		      [1]
-      Position		      [1165, 1979, 1235, 2021]
+      Position		      [1280, 1979, 1350, 2021]
       ZOrder		      96
       LibraryVersion	      "1.1842"
       SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
       SourceType	      "xpcscopeblock"
       ContentPreviewEnabled   off
-      scopeno		      "6"
+      scopeno		      "1"
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Numerical"
@@ -2525,16 +2023,51 @@ Model {
       maxwritefilesize	      "512*1024^2"
     }
     Block {
+      BlockType		      Reference
+      Name		      "Status1"
+      SID		      "809"
+      Ports		      [1]
+      Position		      [1385, 2289, 1455, 2331]
+      ZOrder		      124
+      LibraryVersion	      "1.1842"
+      SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
+      SourceType	      "xpcscopeblock"
+      ContentPreviewEnabled   off
+      scopeno		      "3"
+      scopetype		      "Target"
+      autostart		      on
+      viewmode		      "Numerical"
+      formatstr		      "'%6.0f x,%6.0f y,%6.0f vx,%6.0f vy,%6.0f fx,%6.0f fy'"
+      grid		      on
+      ylimits		      "[-10,10]"
+      nosamples		      "10"
+      noprepostsamples	      "0"
+      interleave	      "10"
+      triggermode	      "FreeRun"
+      triggersignal	      "1"
+      trigsignalfromport      off
+      triggerlevel	      "0.0"
+      triggerslope	      "Either"
+      triggerscope	      "1"
+      triggersample	      "0"
+      filename		      "data.dat"
+      mode		      "Lazy"
+      writesize		      "512"
+      autorestart	      off
+      dynamicfilemode	      off
+      maxwritefilesize	      "512*1024^2"
+    }
+    Block {
       BlockType		      SubSystem
       Name		      "Target Peek"
       SID		      "761"
       Ports		      [1, 1]
-      Position		      [1270, 2059, 1370, 2101]
+      Position		      [1250, 2059, 1350, 2101]
       ZOrder		      95
       RequestExecContextInheritance off
       System {
 	Name			"Target Peek"
-	Location		[16, 52, 1348, 1132]
+	Location		[-6, 5, 1030, 676]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2546,7 +2079,7 @@ Model {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"100"
+	ZoomFactor		"80"
 	Block {
 	  BlockType		  Inport
 	  Name			  "In"
@@ -2787,7 +2320,7 @@ Model {
       BlockType		      Constant
       Name		      "TargetCount"
       SID		      "775"
-      Position		      [1305, 2195, 1335, 2225]
+      Position		      [1230, 2195, 1260, 2225]
       ZOrder		      94
       Value		      "17"
     }
@@ -2795,7 +2328,7 @@ Model {
       BlockType		      Terminator
       Name		      "Terminator"
       SID		      "776"
-      Position		      [1450, 2070, 1470, 2090]
+      Position		      [1375, 2070, 1395, 2090]
       ZOrder		      93
     }
     Block {
@@ -2829,87 +2362,15 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "Version Display"
-      SID		      "780"
+      Name		      "WordSbs"
+      SID		      "801"
       Ports		      [1]
-      Position		      [1130, 2179, 1200, 2221]
-      ZOrder		      90
-      LibraryVersion	      "1.1842"
-      SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
-      SourceType	      "xpcscopeblock"
+      Position		      [1085, 2019, 1130, 2061]
+      ZOrder		      117
+      LibraryVersion	      "1.206"
+      SourceBlock	      "limblab/WordSbs"
+      SourceType	      "SubSystem"
       ContentPreviewEnabled   off
-      scopeno		      "3"
-      scopetype		      "Target"
-      autostart		      on
-      viewmode		      "Numerical"
-      formatstr		      "'%6.0f major,%6.0f minor,%6.0f revision,%6.0f build'"
-      grid		      on
-      ylimits		      "[-10,10]"
-      nosamples		      "10"
-      noprepostsamples	      "0"
-      interleave	      "10"
-      triggermode	      "FreeRun"
-      triggersignal	      "1"
-      trigsignalfromport      off
-      triggerlevel	      "0.0"
-      triggerslope	      "Either"
-      triggerscope	      "1"
-      triggersample	      "0"
-      filename		      "data.dat"
-      mode		      "Lazy"
-      writesize		      "512"
-      autorestart	      off
-      dynamicfilemode	      off
-      maxwritefilesize	      "512*1024^2"
-    }
-    Block {
-      BlockType		      SubSystem
-      Name		      "WordSbs1"
-      SID		      "781"
-      Ports		      [1]
-      Position		      [1090, 2019, 1135, 2061]
-      ZOrder		      89
-      RequestExecContextInheritance off
-      System {
-	Name			"WordSbs1"
-	Location		[16, 52, 1344, 1162]
-	Open			off
-	ModelBrowserVisibility	off
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Inport
-	  Name			  "Word"
-	  SID			  "782"
-	  Position		  [290, 173, 320, 187]
-	  ZOrder		  -1
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Goto
-	  Name			  "Goto"
-	  SID			  "783"
-	  Position		  [410, 164, 465, 196]
-	  ZOrder		  -2
-	  GotoTag		  "Word"
-	  TagVisibility		  "global"
-	}
-	Line {
-	  ZOrder		  1
-	  SrcBlock		  "Word"
-	  SrcPort		  1
-	  DstBlock		  "Goto"
-	  DstPort		  1
-	}
-      }
     }
     Block {
       BlockType		      Reference
@@ -2922,41 +2383,6 @@ Model {
       SourceBlock	      "limblab/XY Position Subsystem"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
-    }
-    Block {
-      BlockType		      Reference
-      Name		      "Xpos"
-      SID		      "785"
-      Ports		      [1]
-      Position		      [1400, 2280, 1470, 2320]
-      ZOrder		      88
-      LibraryVersion	      "1.1842"
-      SourceBlock	      "slrtlib/Displays and\nLogging/Scope "
-      SourceType	      "xpcscopeblock"
-      ContentPreviewEnabled   off
-      scopeno		      "7"
-      scopetype		      "Target"
-      autostart		      on
-      viewmode		      "Numerical"
-      formatstr		      "'%15.2f X,%15.2f Y,%15.2f dX,%15.2f dY,%15.2f Fx,%15.2f Fy'"
-      grid		      on
-      ylimits		      "[-10,10]"
-      nosamples		      "10"
-      noprepostsamples	      "0"
-      interleave	      "10"
-      triggermode	      "FreeRun"
-      triggersignal	      "1"
-      trigsignalfromport      off
-      triggerlevel	      "0.0"
-      triggerslope	      "Either"
-      triggerscope	      "1"
-      triggersample	      "0"
-      filename		      "data.dat"
-      mode		      "Lazy"
-      writesize		      "512"
-      autorestart	      off
-      dynamicfilemode	      off
-      maxwritefilesize	      "512*1024^2"
     }
     Line {
       ZOrder		      311
@@ -2988,6 +2414,7 @@ Model {
 	}
 	Branch {
 	  ZOrder		  305
+	  Points		  [716, 0]
 	  DstBlock		  "Matrix\nConcatenation1"
 	  DstPort		  2
 	}
@@ -3003,10 +2430,10 @@ Model {
 	Points			[0, -65]
 	Branch {
 	  ZOrder		  316
-	  Points		  [0, -65]
+	  Points		  [0, -60]
 	  Branch {
-	    ZOrder		    315
-	    Points		    [0, -290]
+	    ZOrder		    449
+	    Points		    [0, -295]
 	    DstBlock		    "Neural Override1"
 	    DstPort		    3
 	  }
@@ -3039,14 +2466,14 @@ Model {
       ZOrder		      350
       SrcBlock		      "Behavior FC"
       SrcPort		      3
-      DstBlock		      "WordSbs1"
+      DstBlock		      "WordSbs"
       DstPort		      1
     }
     Line {
       ZOrder		      349
       SrcBlock		      "Behavior FC"
       SrcPort		      4
-      Points		      [171, 0]
+      Points		      [172, 0]
       Branch {
 	ZOrder			322
 	DstBlock		"Target Peek"
@@ -3060,22 +2487,15 @@ Model {
       }
     }
     Line {
-      ZOrder		      353
-      SrcBlock		      "Behavior FC"
-      SrcPort		      1
-      DstBlock		      "Motor Control1"
-      DstPort		      1
-    }
-    Line {
       ZOrder		      352
       SrcBlock		      "Behavior FC"
       SrcPort		      5
-      DstBlock		      "RewardSbs1"
+      DstBlock		      "RewardSbs"
       DstPort		      1
     }
     Line {
       ZOrder		      326
-      SrcBlock		      "BoundingBox1"
+      SrcBlock		      "BoundingBox"
       SrcPort		      1
       DstBlock		      "Recentering Subsystem1"
       DstPort		      3
@@ -3094,7 +2514,7 @@ Model {
       Branch {
 	ZOrder			327
 	Labels			[-1, 0]
-	Points			[1132, 0; 0, -400]
+	Points			[0, 54; 1132, 0; 0, -454]
 	DstBlock		"Motor Control1"
 	DstPort			4
       }
@@ -3104,14 +2524,7 @@ Model {
       SrcBlock		      "XY Position Subsystem1"
       SrcPort		      2
       Points		      [414, 0; 0, -10]
-      DstBlock		      "BoundingBox1"
-      DstPort		      1
-    }
-    Line {
-      ZOrder		      331
-      SrcBlock		      "Matrix\nConcatenation1"
-      SrcPort		      1
-      DstBlock		      "Xpos"
+      DstBlock		      "BoundingBox"
       DstPort		      1
     }
     Line {
@@ -3131,17 +2544,10 @@ Model {
       DstPort		      2
     }
     Line {
-      ZOrder		      356
-      SrcBlock		      "Behavior FC"
-      SrcPort		      7
-      DstBlock		      "Version Display"
-      DstPort		      1
-    }
-    Line {
       ZOrder		      351
       SrcBlock		      "Behavior FC"
       SrcPort		      8
-      Points		      [188, 0; 0, -55]
+      Points		      [78, 0; 0, -55]
       DstBlock		      "SendPacketToGraphics"
       DstPort		      3
     }
@@ -3153,8 +2559,8 @@ Model {
       DstPort		      2
     }
     Line {
-      ZOrder		      337
-      SrcBlock		      "RewardSbs1"
+      ZOrder		      404
+      SrcBlock		      "RewardSbs"
       SrcPort		      1
       DstBlock		      "Goto"
       DstPort		      1
@@ -3196,7 +2602,6 @@ Model {
       ZOrder		      357
       SrcBlock		      "Neural Override1"
       SrcPort		      1
-      Points		      [130, 0; 0, 10]
       DstBlock		      "Behavior FC"
       DstPort		      1
     }
@@ -3218,6 +2623,7 @@ Model {
       ZOrder		      358
       SrcBlock		      "Catch Force Generator"
       SrcPort		      1
+      Points		      [45, 0]
       DstBlock		      "Behavior FC"
       DstPort		      4
     }
@@ -3225,6 +2631,7 @@ Model {
       ZOrder		      360
       SrcBlock		      "Force Generator"
       SrcPort		      1
+      Points		      [150, 0]
       DstBlock		      "Behavior FC"
       DstPort		      3
     }
@@ -3232,12 +2639,37 @@ Model {
       ZOrder		      361
       SrcBlock		      "From"
       SrcPort		      1
+      Points		      [80, 0]
       DstBlock		      "Behavior FC"
       DstPort		      2
     }
+    Line {
+      ZOrder		      448
+      SrcBlock		      "Matrix\nConcatenation1"
+      SrcPort		      1
+      DstBlock		      "Status1"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      353
+      SrcBlock		      "Behavior FC"
+      SrcPort		      1
+      Points		      [424, 0]
+      Branch {
+	ZOrder			453
+	Points			[0, 411; -187, 0; 0, -46]
+	DstBlock		"Matrix\nConcatenation1"
+	DstPort			3
+      }
+      Branch {
+	ZOrder			452
+	DstBlock		"Motor Control1"
+	DstPort			1
+      }
+    }
     Annotation {
       SID		      "786"
-      Position		      [1109, 2141, 1111, 2155]
+      Position		      [1109, 2141, 1111, 2156]
       InternalMargins	      [0, 0, 0, 0]
       FixedHeight	      off
       FixedWidth	      off

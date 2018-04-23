@@ -368,6 +368,7 @@ void TwoSpaceRTBehavior::update(SimStruct *S) {
 			if (db->isDone()) {
 				setState(STATE_CT_ON);
 			}
+            break;
 		case STATE_CT_ON:
 			/* target on */
 			if (centerTarget->cursorInTarget(inputs->cursor)) {
@@ -414,6 +415,7 @@ void TwoSpaceRTBehavior::update(SimStruct *S) {
                     setState(STATE_CT_HOLD);
                 }
             }
+            break;
 		case STATE_MOVEMENT:
 			if (stateTimer->elapsedTime(S) > params->movement_max_time) {
 				setState(STATE_FAIL);

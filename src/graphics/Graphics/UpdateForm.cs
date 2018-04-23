@@ -291,13 +291,22 @@ namespace BehaviorGraphics
             AddParamListItem("FC Bump duration", "P13", "Behavior FC", this.textBoxFCBumpDuration);
             AddParamListItem("FC Bump rise", "P14", "Behavior FC", this.textBoxFCBumpRamp);
             // Forced Choice Timing
+<<<<<<< HEAD
             AddParamListItem("FC CHL", "P15", "Behavior FC", this.textBoxFCCtrHold);
             AddParamListItem("FC CHH", "P16", "Behavior FC", this.textBoxFCBumpDelayLow);
             AddParamListItem("FC DL", "P17", "Behavior FC", this.textBoxFCBumpDelayHigh);
             AddParamListItem("FC DH", "P18", "Behavior FC", this.textBoxFCBumpHold);
             AddParamListItem("FC MT", "P19", "Behavior FC", this.textBoxFCReactionTime);
             AddParamListItem("FC IT", "P20", "Behavior FC", this.textBoxFCIntertrial);
-            AddParamListItem("FC Penalty", "P21", "Behavior FC", this.textBoxFCIntertrial);
+=======
+            AddParamListItem("FC Center hold time", "P15", "Behavior FC", this.textBoxFCCtrHold);
+            AddParamListItem("FC bump delay low", "P16", "Behavior FC", this.textBoxFCBumpDelayLow);
+            AddParamListItem("FC bump delay high", "P17", "Behavior FC", this.textBoxFCBumpDelayHigh);
+            AddParamListItem("FC bump hold", "P18", "Behavior FC", this.textBoxFCBumpHold);
+            AddParamListItem("FC reaction time", "P19", "Behavior FC", this.textBoxFCReactionTime);
+            AddParamListItem("FC intertrial", "P20", "Behavior FC", this.textBoxFCIntertrial);
+>>>>>>> 4af42b1b3fdcdb4c34a9b03955b3c8a5f1ea061e
+            AddParamListItem("FC Penalty", "P21", "Behavior FC", this.textBoxFCPenaltyTime);
             //Cursor parameters
             AddParamListItem("FC Hide Cursor During Bump", "P22", "Behavior FC", this.checkBoxFCHideCursorDuringBumps);
             AddParamListItem("FC Recenter Cursor After Bump", "P23", "Behavior FC", this.checkBoxFCRecenterAfterBumps);
@@ -1719,9 +1728,24 @@ namespace BehaviorGraphics
                 AddParamListItem("RRB_targetAngleOffset", "P44", "Behavior Ring Reporting", this.textBoxRRB_targetAngleOffset);
                 AddParamListItem("RRB_outerTargetSize", "P45", "Behavior Ring Reporting", this.textBoxRRB_outerTargetSize);
                 AddParamListItem("RRB_stimDelay", "P46", "Behavior Ring Reporting", this.textBoxRRB_stimDelay);
+                AddParamListItem("RRB_repeatFails", "P47", "Behavior Ring Reporting", this.checkBoxRRB_repeatFailures);
+                AddParamListItem("RRB_endAtOuterRing", "P48", "Behavior Ring Reporting", this.checkBoxRRB_endAtOuterRing);
+
             #endregion
 
+            #region CenterOutCenter3D
+                AddParamListItem("COC3D sttHoldLo", "P2", "Behavior CenterOutCenter3D", this.textBoxCOC3D_stHoldLo);
+                AddParamListItem("COC3D stHoldHi", "P3", "Behavior CenterOutCenter3D", this.textBoxCOC3D_stHoldHi);
+                AddParamListItem("COC3D otHoldLo", "P4", "Behavior CenterOutCenter3D", this.textBoxCOC3D_otHoldLo);
+                AddParamListItem("COC3D otHoldHi", "P5", "Behavior CenterOutCenter3D", this.textBoxCOC3D_otHoldHi);
+                AddParamListItem("COC3D ftHoldLo", "P6", "Behavior CenterOutCenter3D", this.textBoxCOC3D_ftHoldLo);
+                AddParamListItem("COC3D ftHoldHi", "P7", "Behavior CenterOutCenter3D", this.textBoxCOC3D_ftHoldHi);
 
+                AddParamListItem("COC3D initMoveTime", "P8", "Behavior CenterOutCenter3D", this.textBoxCOC3D_initMoveTime);
+                AddParamListItem("COC3D maxMoveTime", "P9", "Behavior CenterOutCenter3D", this.textBoxCOC3D_maxMoveTime);
+
+                AddParamListItem("COC3D imuResetInterval", "P10", "Behavior RandomTarget3D", this.textBoxCOC3D_imuResetInterval);
+            #endregion
         }
 
         private void AddParamListItem(string short_name, string name, string block, Control control)
