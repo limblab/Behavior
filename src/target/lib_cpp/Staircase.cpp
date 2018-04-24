@@ -12,7 +12,8 @@ public:
 	int     getForwardLimit();
 	int     getBackwardLimit();
     int     getSuccessCounter();
-
+    int     getStaircaseDirection(); // gets the direction the staircase moves for successful trials
+    
 	void    restart(); //copies values in param variables into actual staircase variables
 	//step functions
 	void    stepForward(); // incriments the current value and the iteration
@@ -31,11 +32,12 @@ public:
 	void setForwardLimit(int limit);
 	void setBackwardLimit(int limit);
 	void setSuccessCounter(int ctr);
+    void setStaircaseDirection(int dir); // sets the direction the staircase moves in for successful trials
     
 	void    setStaircaseDefault();
-    void    Staircase::setStaircaseDefault(int currentValue, int startValue,int iter,int stepSize, int ratio,bool useForwardLimit,bool useBackwardLimit,int forwardLimit,int backwardLimit);
+    void    Staircase::setStaircaseDefault(int currentValue, int startValue,int iter,int stepSize, int ratio,bool useForwardLimit,bool useBackwardLimit,int forwardLimit,int backwardLimit,int dir);
 	void    setStaircaseParams();
-    void    Staircase::setStaircaseParams(int currentValue, int startValue,int iter,int stepSize, int ratio,bool useForwardLimit,bool useBackwardLimit,int forwardLimit,int backwardLimit,int successCounter);
+    void    Staircase::setStaircaseParams(int currentValue, int startValue,int iter,int stepSize, int ratio,bool useForwardLimit,bool useBackwardLimit,int forwardLimit,int backwardLimit,int successCounter,int dir);
 protected:
 	int     current_value;
     int     start_value;
@@ -47,6 +49,8 @@ protected:
 	int     forward_limit;
 	int     backward_limit;
     int     success_counter;
+    int     direction;
+    
 	// These defaults describe the requested behavior but will not
 	// take effect until Staircase::restart() is called.
 	int     default_current_value;
@@ -58,6 +62,8 @@ protected:
 	bool    default_use_backward_limit;
 	int     default_forward_limit;
 	int     default_backward_limit;
+    int     default_direction;
+    
 };
 
 Staircase::Staircase() { 
@@ -71,6 +77,7 @@ Staircase::Staircase() {
 	forward_limit=16;// default value for angular psychometric tasks
 	backward_limit=0;// default value for angular psychometric tasks
     success_counter=0;
+    direction = 1; // default direction (1) means larger stimuli with successes
 	//initialize default variables to same values
 	default_current_value=0;
     default_start_value=0;
@@ -81,6 +88,7 @@ Staircase::Staircase() {
 	default_use_backward_limit=true;
 	default_forward_limit=16;
 	default_backward_limit=0;
+    default_direction = 1;
 
 }
 
@@ -96,6 +104,7 @@ void Staircase::restart() {
 	forward_limit       =   default_forward_limit;
 	backward_limit      =   default_backward_limit;
     success_counter     =   0;
+    direction           =   default_direction;
 }
 // Set staircase parameters
 void    Staircase::setCurrentValue(int value)           {	current_value       = value;        }
@@ -108,6 +117,7 @@ void    Staircase::setUseBackwardLimit(bool b)			{	use_backward_limit  = b;     
 void    Staircase::setForwardLimit(int limit)           {	forward_limit       = limit;        }
 void    Staircase::setBackwardLimit(int limit)          {	backward_limit      = limit;        }
 void    Staircase::setSuccessCounter(int counter)		{	success_counter     = counter;      }
+void    Staircase::setStaircaseDirection(int dir)       {   direction           =   dir;        }
 // Get parameters
 int     Staircase::getCurrentValue()                    {	return current_value;               }
 int     Staircase::getStartValue()                      {   return start_value;                 }
@@ -119,8 +129,9 @@ bool    Staircase::getUseBackwardLimit()                {	return use_backward_li
 int     Staircase::getForwardLimit()                    {	return forward_limit;               }
 int     Staircase::getBackwardLimit()                   {	return backward_limit;              }
 int     Staircase::getSuccessCounter()                  {	return success_counter;             }
+int     Staircase::getStaircaseDirection()              {   return direction;                   }
 
-void  Staircase::setStaircaseDefault(int currentValue, int startValue,int iter,int stepSize, int ratio,bool useForwardLimit,bool useBackwardLimit,int forwardLimit,int backwardLimit){
+void  Staircase::setStaircaseDefault(int currentValue, int startValue,int iter,int stepSize, int ratio,bool useForwardLimit,bool useBackwardLimit,int forwardLimit,int backwardLimit,int dir){
 	default_current_value           =       currentValue;
     default_start_value             =       startValue;
     default_iteration               =       iter;
@@ -130,8 +141,9 @@ void  Staircase::setStaircaseDefault(int currentValue, int startValue,int iter,i
 	default_use_backward_limit      =       useBackwardLimit;
 	default_forward_limit           =       forwardLimit;
 	default_backward_limit          =       backwardLimit;
+    default_direction               =       dir;
 }
-void  Staircase::setStaircaseParams(int currentValue, int startValue,int iter,int stepSize, int ratio,bool useForwardLimit,bool useBackwardLimit,int forwardLimit,int backwardLimit,int successCounter){
+void  Staircase::setStaircaseParams(int currentValue, int startValue,int iter,int stepSize, int ratio,bool useForwardLimit,bool useBackwardLimit,int forwardLimit,int backwardLimit,int successCounter,int dir){
 	current_value                   =       currentValue;
     start_value                     =       startValue;
     iteration                       =       iter;
@@ -142,6 +154,7 @@ void  Staircase::setStaircaseParams(int currentValue, int startValue,int iter,in
 	forward_limit                   =       forwardLimit;
 	backward_limit                  =       backwardLimit;
     success_counter                 =       successCounter;
+    direction                       =       dir;
 }
 
 
@@ -170,10 +183,18 @@ void Staircase::stepBackward() {
 void Staircase::addSuccess(){
    this->success_counter++;
    if(this->success_counter>=this->step_ratio){
-       this->success_counter=0;
-       this->stepForward();
+        this->success_counter=0;
+        if(this->direction <=0){
+            this->stepBackward();
+        }else {
+            this->stepForward();
+        }
    }
 }
 void Staircase::addFailure(){
-    this->stepBackward();
+    if(this->direction <=0){
+        this->stepForward();
+    }else {
+        this->stepBackward();
+    }
 }
