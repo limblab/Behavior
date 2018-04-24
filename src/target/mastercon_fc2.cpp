@@ -537,7 +537,7 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_PRETRIAL:
 				outputs->word = WORD_START_TRIAL;
 				break;
-			case STATE_CT_BLOCK:
+			case STATE_CT_HOLD:
 				outputs->word = WORD_OT_ON(0);
 				break;
 			case STATE_STIM:
