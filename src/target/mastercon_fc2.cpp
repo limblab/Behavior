@@ -239,6 +239,9 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
     this->bump_stair->setStepSize(1);
     this->stim_stair->setStepSize(1);
     
+	
+	// below are variables that are hard coded as they may not need to change often
+	this->max_staircase_iterations = 20;
     this->audio_trial = 0;
 }
 
@@ -273,25 +276,27 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     // modify staircases if necessary:
     steps=(int)((params->bump_ceiling-params->bump_floor)/params->bump_step);
     startVal=(int)(steps/2);
-    if(this->bump_stair->getStartValue() != startVal){
+    if(this->bump_stair->getStartValue() != startVal || this->bump_stair->getIteration() > this->max_staircase_iterations){
         //reset the staircase
         this->bump_stair->setStartValue(startVal);
         this->bump_stair->setCurrentValue(startVal);
         this->bump_stair->setForwardLimit(steps);
         this->bump_stair->setBackwardLimit(0);
         this->bump_stair->setStaircaseDirection(-1);
+		this->bump_stair->setIteration(0);
     }
     
     this->audio_trial = this->random->getDouble(0,1) < 0.0;
     
     startVal=(int)(params->stim_levels/2);
-    if(this->stim_stair->getStartValue() != startVal){
+    if(this->stim_stair->getStartValue() != startVal || this->stim_stair->getIteration() > this->max_staircase_iterations){
         //reset the stim staircase
         this->stim_stair->setStartValue(startVal);
         this->stim_stair->setCurrentValue(startVal);
         this->stim_stair->setForwardLimit((int)params->stim_levels);
         this->stim_stair->setBackwardLimit(0);
-        this->bump_stair->setStaircaseDirection(-1);
+        this->stim_stair->setStaircaseDirection(-1);
+		this->stim_stair->setIteration(0);
     }
 	//set up the bump
     randNumTrialType = this->random->getDouble(0,1);
