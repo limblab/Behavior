@@ -283,7 +283,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
         this->bump_stair->setStaircaseDirection(-1);
     }
     
-    this->audio_trial = this->random->getDouble(0,1) < 0.5;
+    this->audio_trial = this->random->getDouble(0,1) < 0.0;
     
     startVal=(int)(params->stim_levels/2);
     if(this->stim_stair->getStartValue() != startVal){
@@ -338,7 +338,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     
     db->addByte((byte)this->bump_trial);
 	db->addFloat((float)this->bump_dir);
-	db->addFloat((float)this->bump_mag);
+	db->addFloat((float)this->bump->peak_magnitude);
 	db->addFloat((float)this->params->bump_floor);
 	db->addFloat((float)this->params->bump_ceiling);
 	db->addFloat((float)this->params->bump_step);
@@ -419,6 +419,9 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 					setState(STATE_STIM);
 				} else if(this->bump_trial) {
     				bump->start(S);
+                    if(this->audio_trial){
+                        playTone(TONE_GO);
+                    }
 					setState(STATE_BUMP);
 				} 
 			} else if (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay + params->bump_hold_time)){
@@ -427,10 +430,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
             }
 			break;
 		case STATE_BUMP:
-            if(params->force_reaction){
-                if(this->audio_trial) {
-                    playTone(TONE_GO);
-                }
+            if(params->force_reaction && stateTimer->elapsedTime(S) > params->bump_hold_time){
                 setState(STATE_MOVEMENT);
             }else{
                 if (!centerTarget->cursorInTarget(inputs->cursor) && params->abort_during_bump) {
