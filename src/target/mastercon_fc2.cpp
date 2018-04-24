@@ -336,7 +336,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->addByte((byte)this->params->show_target_during_bump);
     
     db->addByte((byte)this->bump_trial);
-	db->addFloat((float)this->bump_dir);
+	db->addFloat((float)this->bump->direction);
 	db->addFloat((float)this->bump->peak_magnitude);
 	db->addFloat((float)this->params->bump_floor);
 	db->addFloat((float)this->params->bump_ceiling);
