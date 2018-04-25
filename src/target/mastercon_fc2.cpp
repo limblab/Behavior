@@ -241,8 +241,7 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
     
 	
 	// below are variables that are hard coded as they may not need to change often
-	this->max_staircase_iterations = 20;
-    this->audio_trial = 0;
+    this->audio_trial = 0; // frequency at which an audio cue is provided, used for training purposes
 }
 
 
@@ -275,7 +274,10 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     cursorOffset.y = 0;
     // modify staircases if necessary:
     steps=(int)((params->bump_ceiling-params->bump_floor)/params->bump_step);
-    startVal=(int)(steps/2);
+    startVal=(int)(steps);
+	
+	this->max_staircase_iterations = steps*5;
+	
     if(this->bump_stair->getStartValue() != startVal || this->bump_stair->getIteration() > this->max_staircase_iterations){
         //reset the staircase
         this->bump_stair->setStartValue(startVal);
@@ -288,7 +290,10 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     
     this->audio_trial = this->random->getDouble(0,1) < 0.0;
     
-    startVal=(int)(params->stim_levels/2);
+    startVal=(int)(params->stim_levels);
+	
+	this->max_staircase_iterations = (int)params->stim_levels*5;
+	
     if(this->stim_stair->getStartValue() != startVal || this->stim_stair->getIteration() > this->max_staircase_iterations){
         //reset the stim staircase
         this->stim_stair->setStartValue(startVal);
@@ -372,6 +377,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 	Target *correctTarget;
 	Target *incorrectTarget;
 	
+	//playTone(TONE_WHITE_NOISE);
 	
     if (this->bump_trial || this->stim_trial) {
         // want to be in primary target
