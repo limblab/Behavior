@@ -503,8 +503,8 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 				//iterate staircase
                 if(this->bump_trial){
                     this->bump_stair->addSuccess();
-                } else if(this->stim_trial && isNewState()){
-                this->stim_stair->addSuccess();
+                } else if(this->stim_trial){
+					this->stim_stair->addSuccess();
                 }
                 playTone(TONE_REWARD);
 				setState(STATE_REWARD);
