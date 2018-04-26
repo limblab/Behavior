@@ -141,7 +141,7 @@ private:
     Staircase *stim_stair;
 
 	int num_bump_stairs;
-	int num_stim_stairs
+	int num_stim_stairs;
 	
     CircleTarget *centerTarget;     //target for monkey to hold on while waiting for stimulus
 	CircleTarget *primaryTarget;    //correct when stimulus is present
@@ -534,6 +534,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
                 } else if(this->stim_trial){
 					this->stim_stair->addSuccess();
                 }
+				
                 playTone(TONE_REWARD);
 				setState(STATE_REWARD);
 			} else {
@@ -659,7 +660,10 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 
 	/* reward (4) */
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
-
+	// code to reward based on fast reaction times (?)
+	
+	
+	
 	/* tone (5) */
 	this->outputs->tone_counter = this->tone_counter;
 	this->outputs->last_tone_id = this->last_tone_id;
