@@ -140,6 +140,9 @@ private:
     Staircase *bump_stair;
     Staircase *stim_stair;
 
+	int num_bump_stairs;
+	int num_stim_stairs
+	
     CircleTarget *centerTarget;     //target for monkey to hold on while waiting for stimulus
 	CircleTarget *primaryTarget;    //correct when stimulus is present
 	CircleTarget *secondaryTarget;  //correct when no stimulus present
@@ -157,7 +160,8 @@ private:
     
     int audio_trial;
     int max_staircase_iterations;
-    
+    int staircase_ratio;
+	
     Point cursorOffset;
 
 	real_T last_soft_reset;
@@ -234,12 +238,36 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
     this->bump_steps=16;
     this->stim_code=0;
     this-> last_soft_reset=0;
+	
+	// initialize the number of staircases to be run simultaneously
+	this->num_bump_stairs = 2;
+	this->num_stim_stairs = 2;
+		
+		
+	// initialize the staircase ratio
+	this->staircase_ratio = 2;
+	
     //initialize the staircases
+	/*for(bump_stair_idx=0; bump_stair_idx < this->num_bump_stairs; bump_stair_idx++) {
+		this->bump_stair[bump_stair_idx] = new Staircase();
+		this->bump_stair[bump_stair_idx]->setStepSize(1);
+		this->bump_stair[bump_stair_idx]->setRatio(this->staircase_ratio);
+	}
+	
+	for(stim_stair_idx=0; stim_stair_idx < this->num_stim_stairs; stim_stair_idx++) {
+		this->stim_stair[stim_stair_idx] = new Staircase();
+		this->stim_stair[bump_stair_idx]->setStepSize(1);
+		this->stim_stair[bump_stair_idx]->setRatio(this->staircase_ratio);
+	}*/
+	\
     this->bump_stair=new Staircase();
     this->stim_stair=new Staircase();
+	
     this->bump_stair->setStepSize(1);
     this->stim_stair->setStepSize(1);
-    
+	
+    this->bump_stair->setRatio(this->staircase_ratio);
+	this->stim_stair->setRatio(this->staircase_ratio);
 	
 	// below are variables that are hard coded as they may not need to change often
     this->audio_trial = 0; // frequency at which an audio cue is provided, used for training purposes
@@ -277,7 +305,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     steps=(int)((params->bump_ceiling-params->bump_floor)/params->bump_step);
     startVal=(int)(steps);
 	
-	this->max_staircase_iterations = steps*4;
+	this->max_staircase_iterations = steps*3;
 	
     if(this->bump_stair->getStartValue() != startVal || this->bump_stair->getIteration() > this->max_staircase_iterations){
         //reset the staircase
@@ -293,7 +321,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     
     startVal=(int)(params->stim_levels);
 	
-	this->max_staircase_iterations = (int)params->stim_levels*4;
+	this->max_staircase_iterations = (int)params->stim_levels*3;
 	
     if(this->stim_stair->getStartValue() != startVal || this->stim_stair->getIteration() > this->max_staircase_iterations){
         //reset the stim staircase
