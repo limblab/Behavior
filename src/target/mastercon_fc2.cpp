@@ -474,7 +474,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
             }
 			break;
 		case STATE_BUMP:
-            if(params->force_reaction && stateTimer->elapsedTime(S) > params->bump_hold_time){
+            if(params->force_reaction){
                 playTone(TONE_MASK);
                 if(stateTimer->elapsedTime(S) > params->bump_hold_time) {
                     setState(STATE_MOVEMENT);
