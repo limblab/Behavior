@@ -166,6 +166,12 @@ private:
 
 	real_T last_soft_reset;
 
+	// parameters to store past bump and stim parameters
+	real_T bump_ceiling_old;
+	real_T bump_floor_old;
+	real_T bump_step_old;
+	real_T stim_levels_old;
+	
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
 
@@ -269,6 +275,12 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
     this->bump_stair->setRatio(this->staircase_ratio);
 	this->stim_stair->setRatio(this->staircase_ratio);
 	
+	// initialize variables that keep track of if bump/stim parameters changed here
+	this->bump_step_old = -1; // negative one so that stairs get initialized
+	this->bump_ceiling_old = -1;
+	this->bump_floor_old = -1;
+	this->stim_levels_old = -1;
+	
 	// below are variables that are hard coded as they may not need to change often
     this->audio_trial = 0; // frequency at which an audio cue is provided, used for training purposes
 }
@@ -301,13 +313,17 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     // Reset cursor offset
     cursorOffset.x = 0;
     cursorOffset.y = 0;
+	
     // modify staircases if necessary:
     steps=(int)((params->bump_ceiling-params->bump_floor)/params->bump_step);
     startVal=(int)(steps);
 	
-	this->max_staircase_iterations = steps*3;
+	this->max_staircase_iterations = steps*2;
 	
-    if(this->bump_stair->getStartValue() != startVal || this->bump_stair->getIteration() > this->max_staircase_iterations){
+    if(this->bump_ceiling_old != params->bump_ceiling || // check if parameters have changed
+		this->bump_floor_old != params->bump_floor || 
+		this->bump_step_old != params->bump_step ||
+		this->bump_stair->getIteration() > this->max_staircase_iterations){ // check if we have done a bunch of iterations
         //reset the staircase
         this->bump_stair->setStartValue(startVal);
         this->bump_stair->setCurrentValue(startVal);
@@ -323,7 +339,8 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 	
 	this->max_staircase_iterations = (int)params->stim_levels*3;
 	
-    if(this->stim_stair->getStartValue() != startVal || this->stim_stair->getIteration() > this->max_staircase_iterations){
+    if(this->stim_levels != params->stim_levels	|| // check if number of stim levels changed
+		this->stim_stair->getIteration() > this->max_staircase_iterations){ // check if we have done a bunch of iterations.
         //reset the stim staircase
         this->stim_stair->setStartValue(startVal);
         this->stim_stair->setCurrentValue(startVal);
