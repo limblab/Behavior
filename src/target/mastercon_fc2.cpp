@@ -604,6 +604,10 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 		//outputs->force.y = floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
 	}
 
+	// add in preloading to prevent slop issue
+	output->force.x = outputs->force.x + cos(params->bump_direction)*floor((params->bump_floor));
+	output->force.y = outputs->force.y + sin(params->bump_direction)*floor((params->bump_floor));
+	
 	/* status (1) */
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
