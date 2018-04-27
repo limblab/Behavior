@@ -248,8 +248,7 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	// initialize the number of staircases to be run simultaneously
 	this->num_bump_stairs = 2;
 	this->num_stim_stairs = 2;
-		
-		
+			
 	// initialize the staircase ratio
 	this->staircase_ratio = 2;
 	
@@ -318,7 +317,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     steps=(int)((params->bump_ceiling-params->bump_floor)/params->bump_step);
     startVal=(int)(steps);
 	
-	this->max_staircase_iterations = steps*2;
+	this->max_staircase_iterations = (int)(floor(((double)steps)*1.5));
 	
     if(this->bump_ceiling_old != params->bump_ceiling || // check if parameters have changed
 		this->bump_floor_old != params->bump_floor || 
@@ -331,6 +330,11 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
         this->bump_stair->setBackwardLimit(0);
         this->bump_stair->setStaircaseDirection(-1);
 		this->bump_stair->setIteration(0);
+        
+        // update old params
+        this->bump_ceiling_old = params->bump_ceiling;
+        this->bump_floor_old = params->bump_floor;
+        this->bump_step_old = params->bump_step;
     }
     
     this->audio_trial = this->random->getDouble(0,1) < 0.0;
@@ -339,7 +343,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 	
 	this->max_staircase_iterations = (int)params->stim_levels*3;
 	
-    if(this->stim_levels != params->stim_levels	|| // check if number of stim levels changed
+    if(this->stim_levels_old != params->stim_levels	|| // check if number of stim levels changed
 		this->stim_stair->getIteration() > this->max_staircase_iterations){ // check if we have done a bunch of iterations.
         //reset the stim staircase
         this->stim_stair->setStartValue(startVal);
@@ -348,6 +352,8 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
         this->stim_stair->setBackwardLimit(0);
         this->stim_stair->setStaircaseDirection(-1);
 		this->stim_stair->setIteration(0);
+        
+        this->stim_levels_old = params->stim_levels;
     }
 	//set up the bump
     randNumTrialType = this->random->getDouble(0,1);
@@ -605,8 +611,8 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	// add in preloading to prevent slop issue
-	output->force.x = outputs->force.x + cos(params->bump_direction)*floor((params->bump_floor));
-	output->force.y = outputs->force.y + sin(params->bump_direction)*floor((params->bump_floor));
+	outputs->force.x = outputs->force.x + cos(params->bump_direction*PI/180)*(params->bump_floor);
+	outputs->force.y = outputs->force.y + sin(params->bump_direction*PI/180)*(params->bump_floor);
 	
 	/* status (1) */
 	outputs->status[0] = getState();
