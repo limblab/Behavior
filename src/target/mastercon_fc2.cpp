@@ -611,8 +611,8 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	// add in preloading to prevent slop issue
-	outputs->force.x = outputs->force.x + cos(params->bump_direction*PI/180)*(params->bump_floor);
-	outputs->force.y = outputs->force.y + sin(params->bump_direction*PI/180)*(params->bump_floor);
+	//outputs->force.x = outputs->force.x + cos(params->bump_direction*PI/180)*(params->bump_floor);
+	//outputs->force.y = outputs->force.y + sin(params->bump_direction*PI/180)*(params->bump_floor);
 	
 	/* status (1) */
 	outputs->status[0] = getState();
