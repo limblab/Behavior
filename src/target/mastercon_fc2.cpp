@@ -141,7 +141,7 @@ private:
     Staircase *stim_stair;
 
 	int num_bump_stairs;
-	int num_stim_stairs
+	int num_stim_stairs;
 	
     CircleTarget *centerTarget;     //target for monkey to hold on while waiting for stimulus
 	CircleTarget *primaryTarget;    //correct when stimulus is present
