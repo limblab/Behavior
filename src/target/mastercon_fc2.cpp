@@ -301,7 +301,8 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
     //initialize the staircases
 	for(int bump_stair_idx=0; bump_stair_idx < this->num_bump_stairs; bump_stair_idx++) {
 		this->bump_stair[bump_stair_idx] = new Staircase();
-		this->bump_stair[bump_stair_idx]->setStepSize(1);
+		this->bump_stair[bump_stair_idx]->setForwardStepSize(3); // forward indicates larger, backwards indicates smaller
+		this->bump_stair[bump_stair_idx]->setBackwardStepSize(1);
 		this->bump_stair[bump_stair_idx]->setRatio(this->staircase_ratio);
 	}
 	
@@ -310,7 +311,8 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
     this->stim_stair=new Staircase();
 	
    // this->bump_stair->setStepSize(1);
-    this->stim_stair->setStepSize(1);
+    this->stim_stair->setForwardStepSize(3);
+	this->stim_stair->setBackwardStepSize(1);
 	
    // this->bump_stair->setRatio(this->staircase_ratio);
 	this->stim_stair->setRatio(this->staircase_ratio);
@@ -370,7 +372,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
             this->bump_stair[bump_stair_idx]->setCurrentValue(startVal);
             this->bump_stair[bump_stair_idx]->setForwardLimit(steps);
             this->bump_stair[bump_stair_idx]->setBackwardLimit(0);
-            this->bump_stair[bump_stair_idx]->setStaircaseDirection(-1);
+            this->bump_stair[bump_stair_idx]->setStaircaseDirection(-1); // on a success, negative indicates move backwards
             this->bump_stair[bump_stair_idx]->setIteration(0);
         }
         // update old params
@@ -384,7 +386,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
         this->bump_stair[this->staircase_idx]->setCurrentValue(startVal);
         this->bump_stair[this->staircase_idx]->setForwardLimit(steps);
         this->bump_stair[this->staircase_idx]->setBackwardLimit(0);
-        this->bump_stair[this->staircase_idx]->setStaircaseDirection(-1);
+        this->bump_stair[this->staircase_idx]->setStaircaseDirection(-1); // on a success, negative indicates move backwards
         this->bump_stair[this->staircase_idx]->setIteration(0);
         
     }
@@ -745,10 +747,9 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* reward (4) */
+	
+	// currently overwriting above code with a binary reward. 
 	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
-	// code to reward based on fast reaction times (?)
-	
-	
 	
 	/* tone (5) */
 	this->outputs->tone_counter = this->tone_counter;
