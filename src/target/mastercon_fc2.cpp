@@ -595,8 +595,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
             }
 			break;
 		case STATE_MOVEMENT:
-            if ((params->force_reaction && params->reaction_time + params->ct_hold_time 
-                        + this->bump_delay + params->bump_hold_time < stateTimer->elapsedTime(S))    ||
+            if ((params->force_reaction && params->reaction_time < stateTimer->elapsedTime(S))    ||
                  //   (params->reaction_time>stateTimer->elapsedTime(S)) > params->reaction_time    ||
                     (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset)) )                
             {
