@@ -5,7 +5,8 @@ public:
 	int     getCurrentValue(); //returns the current value of the staircase
     int     getStartValue();
 	int     getIteration(); //returns the current iteration of the staircase
-	int     getStepSize();
+	int     getBackwardStepSize();
+	int		getForwardStepSize();
 	int     getStepRatio();
 	bool    getUseForwardLimit();
 	bool    getUseBackwardLimit();
@@ -25,7 +26,8 @@ public:
     void setCurrentValue(int currentValue);
 	void setStartValue(int startValue);
     void setIteration(int iter);
-    void setStepSize(int step);
+    void setBackwardStepSize(int step);
+	void setForwardStepSize(int step);
     void setRatio(int ratio);
 	void setUseForwardLimit(bool b);
 	void setUseBackwardLimit(bool b);
@@ -42,7 +44,8 @@ protected:
 	int     current_value;
     int     start_value;
 	int     iteration;
-	int     step_size;
+	int     step_size_backward;
+	int		step_size_forward;
 	int     step_ratio;
 	bool    use_forward_limit;
 	bool    use_backward_limit;
@@ -70,7 +73,8 @@ Staircase::Staircase() {
 	current_value=0;
     start_value=0;
 	iteration=0;
-	step_size=1;
+	step_size_forward=1;
+	step_size_backward = 1;
 	step_ratio=3;//settles at success rate of ~75% in a psychometric task
 	use_forward_limit=1;
 	use_backward_limit=1;
@@ -97,7 +101,8 @@ void Staircase::restart() {
 	current_value       =   default_current_value;
     start_value         =   default_start_value;
 	iteration           =   default_iteration;
-	step_size           =   default_step_size;
+	step_size_forward   =   default_step_size;
+	step_size_backward  =   default_step_size;
 	step_ratio          =   default_step_ratio;
 	use_forward_limit   =   default_use_forward_limit;
 	use_backward_limit  =   default_use_backward_limit;
@@ -110,7 +115,8 @@ void Staircase::restart() {
 void    Staircase::setCurrentValue(int value)           {	current_value       = value;        }
 void    Staircase::setStartValue(int startValue)        {	start_value         = startValue;   }
 void    Staircase::setIteration(int iter)               {   iteration           = iter;         }
-void    Staircase::setStepSize(int step)                {	step_size           = step;         }
+void    Staircase::setForwardStepSize(int step)         {	step_size_forward   = step;         }
+void    Staircase::setBackwardStepSize(int step)        {	step_size_backward  = step;         }
 void    Staircase::setRatio(int ratio)                  {	step_ratio          = ratio;        }
 void    Staircase::setUseForwardLimit(bool b)			{	use_forward_limit   = b;            }
 void    Staircase::setUseBackwardLimit(bool b)			{	use_backward_limit  = b;            }
@@ -122,7 +128,8 @@ void    Staircase::setStaircaseDirection(int dir)       {   direction           
 int     Staircase::getCurrentValue()                    {	return current_value;               }
 int     Staircase::getStartValue()                      {   return start_value;                 }
 int     Staircase::getIteration()                       {	return iteration;                   }
-int     Staircase::getStepSize()                        {	return step_size;                   }
+int     Staircase::getForwardStepSize()                 {	return step_size_forward;           }
+int     Staircase::getBackwardStepSize()                {	return step_size_backward;          }
 int     Staircase::getStepRatio()                       {	return step_ratio;                  }
 bool    Staircase::getUseForwardLimit()                 {	return use_forward_limit;           }
 bool    Staircase::getUseBackwardLimit()                {	return use_backward_limit;          }
@@ -161,22 +168,24 @@ void  Staircase::setStaircaseParams(int currentValue, int startValue,int iter,in
 void Staircase::stepForward() {
 	this->iteration++;
 	//If we are using limits, check whether the limit was hit
-	if (this->use_forward_limit && (this->current_value + this->step_size > this->forward_limit)) {
-		//if the limit was hit, ignore the step
+	if (this->use_forward_limit && (this->current_value + this->step_size_forward > this->forward_limit)) {
+		//if the limit was hit, set current value to forward_limit
+		this->current_value = this->forward_limit;
     }else{
         //step the value
-        this->current_value += step_size;
+        this->current_value += step_size_forward;
 	}
 }
 
 void Staircase::stepBackward() {
 	this->iteration++;
 	//If we are using limits, check whether the limit was hit
-	if (this->use_backward_limit && (this->current_value - this->step_size < this->backward_limit)) {
-		//if the limit was hit, ignore the step
+	if (this->use_backward_limit && (this->current_value - this->step_size_backward < this->backward_limit)) {
+		//if the limit was hit, set current value to backward_limit
+		this->current_value = this->backward_limit;
     }else{
 		//step the value
-        this->current_value -= step_size;
+        this->current_value -= step_size_backward;
 	}
 }
 
