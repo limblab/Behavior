@@ -432,7 +432,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     
     /* Select whether this will be a stimulation trial */
     //this->stim_trial=(randNumTrialType > params->bump_prob && randNumTrialType < params->stim_prob+params->bump_prob);
-	this->stim_trial= this->bump_trial && this->random->getDouble(0,1) < params->stim_prob);
+	this->stim_trial = (this->bump_trial && this->random->getDouble(0,1) < params->stim_prob);
 	
     if(this->stim_trial) {
         this->stim_code=this->stim_stair->getCurrentValue();   
@@ -737,6 +737,7 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[2] = nullTarget;
 	} else if ( getState() == STATE_CT_HOLD ||
                 getState() == STATE_BUMP ||
+                getState() == STATE_STIM ||
                 getState() == STATE_MOVEMENT) {
 		outputs->targets[0] = (Target *)centerTarget;
         outputs->targets[1] = this->primaryTarget;

@@ -73,7 +73,7 @@ Staircase::Staircase() {
 	current_value=0;
     start_value=0;
 	iteration=0;
-	step_size_forward=1;
+	step_size_forward = 1;
 	step_size_backward = 1;
 	step_ratio=3;//settles at success rate of ~75% in a psychometric task
 	use_forward_limit=1;
@@ -154,7 +154,8 @@ void  Staircase::setStaircaseParams(int currentValue, int startValue,int iter,in
 	current_value                   =       currentValue;
     start_value                     =       startValue;
     iteration                       =       iter;
-    step_size                       =       stepSize;
+    step_size_forward               =       stepSize;
+    step_size_backward              =       stepSize;
 	step_ratio                      =       ratio;
 	use_forward_limit               =       useForwardLimit;
 	use_backward_limit              =       useBackwardLimit;
