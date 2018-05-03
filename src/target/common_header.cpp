@@ -38,6 +38,7 @@ typedef unsigned char byte;
 #include "lib_cpp\Staircase.cpp"
 #include "lib_cpp\Behavior.cpp"
 #include "lib_cpp\RobotBehavior.cpp"
+#include "lib_cpp\Behavior3DReach.cpp"
 
 #undef __COMMON_HEADER_CPP
 

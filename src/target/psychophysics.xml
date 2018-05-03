@@ -7933,12 +7933,98 @@ To Constant1</blkName>
     <SubSystem>
     <Name>Handle Rotation</Name>
     <xPCName>psychophysics/XY Position Subsystem/Handle Rotation</xPCName>
+        <SubSystem>
+    <Name>Compare To Constant</Name>
+    <xPCName>psychophysics/XY Position Subsystem/Handle Rotation/Compare To Constant</xPCName>
+    
+    
+ 
+            <block>
+            <blkName>Constant</blkName>
+            <xpcblkName>XY Position Subsystem/Handle Rotation/Compare To Constant/Constant</xpcblkName>
+            <SLblockPath>psychophysics/XY Position Subsystem/Handle Rotation/Compare To Constant/Constant</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>const</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+
+
     
     
 
 
 
 
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Compare</sigName>
+              <xpcsigName>XY Position Subsystem/Handle Rotation/Compare To Constant/Compare</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+    </SubSystem>
+
+    
+ 
+            <block>
+            <blkName>Compare To Constant</blkName>
+            <xpcblkName>XY Position Subsystem/Handle Rotation/Compare To Constant</xpcblkName>
+            <SLblockPath>psychophysics/XY Position Subsystem/Handle Rotation/Compare To Constant</SLblockPath>
+            <isSrc>[0 1 1]</isSrc>
+          <parameter>
+          <paramName>const</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>Constant</blkName>
+            <xpcblkName>XY Position Subsystem/Handle Rotation/Constant</xpcblkName>
+            <SLblockPath>psychophysics/XY Position Subsystem/Handle Rotation/Constant</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+
+ 
+            <block>
+            <blkName>Gain3</blkName>
+            <xpcblkName>XY Position Subsystem/Handle Rotation/Gain3</xpcblkName>
+            <SLblockPath>psychophysics/XY Position Subsystem/Handle Rotation/Gain3</SLblockPath>
+            <isSrc>[0 1 1]</isSrc>
+          <parameter>
+          <paramName>Gain</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+
+
+
+
+
+
+
+
+
+    
+    
 
 
 
@@ -7955,6 +8041,23 @@ To Constant1</blkName>
               <signal>
               <sigName>sqrt(u[1]*u[1] + u[2]*u[2])</sigName>
               <xpcsigName>XY Position Subsystem/Handle Rotation/sqrt(u[1]*u[1] + u[2]*u[2])</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Gain3</sigName>
+              <xpcsigName>XY Position Subsystem/Handle Rotation/Gain3</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -8006,6 +8109,40 @@ To Constant1</blkName>
               <signal>
               <sigName>Sum</sigName>
               <xpcsigName>XY Position Subsystem/Handle Rotation/Sum</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Sum1</sigName>
+              <xpcsigName>XY Position Subsystem/Handle Rotation/Sum1</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Switch1</sigName>
+              <xpcsigName>XY Position Subsystem/Handle Rotation/Switch1</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -8955,6 +9092,18 @@ Function3</sigName>
 
  
             <block>
+            <blkName>LabNumber</blkName>
+            <xpcblkName>XY Position Subsystem/LabNumber</xpcblkName>
+            <SLblockPath>psychophysics/XY Position Subsystem/LabNumber</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
             <blkName>LoadCellXCoef1</blkName>
             <xpcblkName>XY Position Subsystem/LoadCellXCoef1</xpcblkName>
             <SLblockPath>psychophysics/XY Position Subsystem/LoadCellXCoef1</SLblockPath>
@@ -9390,6 +9539,12 @@ Function3</sigName>
               <sigWidth>6</sigWidth>
               <sigDim>[1, 6]</sigDim>
             </signal>
+
+
+    
+    
+
+
 
 
     

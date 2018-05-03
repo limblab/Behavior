@@ -276,27 +276,39 @@ namespace BehaviorGraphics
             /* 
              * Forced Choice Parameters
              */
-
-            // Stimulation Parameters
-            AddParamListItem("FC Num Steps", "P1", "Behavior FC", this.numericUpDownFCStimSteps);
-            AddParamListItem("Percent Test Trials", "P2", "Behavior FC", this.textBoxFCPctTestTrials);
-
-            // Forced Choice Timing
-            AddParamListItem("FC CHL", "P4", "Behavior FC", this.textBoxFCCHL);
-            AddParamListItem("FC CHH", "P5", "Behavior FC", this.textBoxFCCHH);
-            AddParamListItem("FC DL", "P6", "Behavior FC", this.textBoxSDL);
-            AddParamListItem("FC DH", "P7", "Behavior FC", this.textBoxSDH);
-            AddParamListItem("FC MT", "P8", "Behavior FC", this.textBoxFCM);
-            AddParamListItem("FC IT", "P9", "Behavior FC", this.textBoxFCI);
-
             // Forced Choice Targets
-            AddParamListItem("FC Target Size", "P10", "Behavior FC", this.textBoxFCTgtSize);
-            AddParamListItem("FC Target Distance", "P11", "Behavior FC", this.textBoxFCTgtDist);
+            AddParamListItem("FC Target Size", "P3", "Behavior FC", this.textBoxFCTargetSize);
+            AddParamListItem("FC Target Distance", "P4", "Behavior FC", this.textBoxFCTargetDistance);
+            AddParamListItem("FC Target Angle", "P5", "Behavior FC", this.textBoxFCTargetAngle);
+            AddParamListItem("FC Random Targets", "P6", "Behavior FC", this.checkBoxFCRandomTgt);
+            AddParamListItem("FC Show During Bump", "P7", "Behavior FC", this.checkBoxFCShowTgts);
+            //Bump parameters
+            AddParamListItem("FC Bump Probability", "P8", "Behavior FC", this.textBoxFCBumpProb);
+            AddParamListItem("FC Bump direction", "P9", "Behavior FC", this.textBoxFCBumpDirection);
+            AddParamListItem("FC Bump magnitude floor", "P10", "Behavior FC", this.textBoxFCBumpMagFloor);
+            AddParamListItem("FC Bump magnitude ceiling", "P11", "Behavior FC", this.textBoxFCBumpMagCeiling);
+            AddParamListItem("FC Bump magnitude step", "P12", "Behavior FC", this.textBoxFCBumpMagStep);
+            AddParamListItem("FC Bump duration", "P13", "Behavior FC", this.textBoxFCBumpDuration);
+            AddParamListItem("FC Bump rise", "P14", "Behavior FC", this.textBoxFCBumpRamp);
+            // Forced Choice Timing
 
+            AddParamListItem("FC Center hold time", "P15", "Behavior FC", this.textBoxFCCtrHold);
+            AddParamListItem("FC bump delay low", "P16", "Behavior FC", this.textBoxFCBumpDelayLow);
+            AddParamListItem("FC bump delay high", "P17", "Behavior FC", this.textBoxFCBumpDelayHigh);
+            AddParamListItem("FC bump hold", "P18", "Behavior FC", this.textBoxFCBumpHold);
+            AddParamListItem("FC reaction time", "P19", "Behavior FC", this.textBoxFCReactionTime);
+            AddParamListItem("FC intertrial", "P20", "Behavior FC", this.textBoxFCIntertrial);
+            AddParamListItem("FC Penalty", "P21", "Behavior FC", this.textBoxFCPenaltyTime);
+            //Cursor parameters
+            AddParamListItem("FC Hide Cursor During Bump", "P22", "Behavior FC", this.checkBoxFCHideCursorDuringBumps);
+            AddParamListItem("FC Recenter Cursor After Bump", "P23", "Behavior FC", this.checkBoxFCRecenterAfterBumps);
+            // Stimulation Parameters
+            AddParamListItem("FC Stim Probability", "P24", "Behavior FC", this.textBoxFCStimProb);
+            AddParamListItem("FC Num Stim Levels", "P25", "Behavior FC", this.textBoxFCStimLevels);
             // Misc
-            AddParamListItem("FC Training Mode", "P3", "Behavior FC", this.checkBoxFCTrainingMode);
-            AddParamListItem("FC Reward All Test Trials", "P12", "Behavior FC", this.checkBoxFCRAT);
-            AddParamListItem("FC Reward Threshold", "P13", "Behavior FC", this.textBoxFCRewardThreshold);
+            AddParamListItem("FC Training frequency", "P26", "Behavior FC", this.textBoxFCTrainingTrialFreq);
+            AddParamListItem("FC Abort During Bump", "P27", "Behavior FC", this.checkBoxFCAbortDuringBumps);
+            AddParamListItem("FC Force Reaction", "P28", "Behavior FC", this.checkBoxFCForceReactionTime);
             #endregion
 
             #region Bump-stim
@@ -970,6 +982,9 @@ namespace BehaviorGraphics
             //extra bump parameter
             AddParamListItem("COB use random bump time",    "P53", "Behavior CO Bump", checkBox_ctr_out_bump_randomBumpTime);
             AddParamListItem("COB target relative bumps",    "P54", "Behavior CO Bump", checkBox_ctr_out_bump_targetRelativeBumps);
+
+            //idiot mode checkbox
+            AddParamListItem("COB idiot mode", "P58", "Behavior CO Bump", checkBox_ctr_out_bump_idiotMode);
             #endregion
 
             #region Unstable Field
@@ -1489,7 +1504,7 @@ namespace BehaviorGraphics
             AddParamListItem("CC force peak time", "P54", "Behavior Cue Comb", this.textBoxCC_forceBumpPeakTime);
 
             AddParamListItem("CC bump sampling method", "P55", "Behavior Cue Comb", this.textBoxCC_BSM);
-
+            AddParamListItem("CC small target radius", "P56", "Behavior Cue Comb", this.textBoxCC_STrad);
             #endregion
 
             #region Sabes
@@ -1632,6 +1647,96 @@ namespace BehaviorGraphics
                 AddParamListItem("TRT bumpdirceil", "P29", "Behavior TwoSpaceRT", this.textBoxTRT_bumpDirCeil);
                 AddParamListItem("TRT bumpnumdir", "P30", "Behavior TwoSpaceRT", this.numericUpDownTRT_bumpNumDir);
 
+            #endregion
+
+            #region RandomTarget3D
+                AddParamListItem("RT3D ftholdlow", "P2", "Behavior RandomTarget3D", this.textBox3DRT_ftHoldLo);
+                AddParamListItem("RT3D ftholdhigh", "P3", "Behavior RandomTarget3D", this.textBox3DRT_ftHoldHi);
+                AddParamListItem("RT3D targHoldlow", "P4", "Behavior RandomTarget3D", this.textBox3DRT_targHoldLo);
+                AddParamListItem("RT3D targHoldhigh", "P5", "Behavior RandomTarget3D", this.textBox3DRT_targHoldHi);
+
+                AddParamListItem("RT3D initMoveTime", "P6", "Behavior RandomTarget3D", this.textBox3DRT_initMoveTime);
+                AddParamListItem("RT3D maxMoveTime", "P7", "Behavior RandomTarget3D", this.textBox3DRT_maxMoveTime);
+
+                AddParamListItem("RT3D numTargets", "P8", "Behavior RandomTarget3D", this.numericUpDown3DRT_numTargets);
+                AddParamListItem("RT3D ftRow", "P9", "Behavior RandomTarget3D", this.textBox3DRT_ftRow);
+                AddParamListItem("RT3D ftCol", "P10", "Behavior RandomTarget3D", this.textBox3DRT_ftCol);
+            #endregion
+
+            #region Ring Reporting
+                AddParamListItem("RRB centerHoldLow", "P3", "Behavior Ring Reporting", this.textBoxRRB_centerHoldLow);
+                AddParamListItem("RRB centerHoldHigh", "P4", "Behavior Ring Reporting", this.textBoxRRB_centerHoldHigh);
+                AddParamListItem("RRB delayPeriodLow", "P5", "Behavior Ring Reporting", this.textBoxRRB_delayPeriodLow);
+                AddParamListItem("RRB delayPeriodHigh", "P6", "Behavior Ring Reporting", this.textBoxRRB_delayPeriodHigh);
+                AddParamListItem("RRB moveTime", "P7", "Behavior Ring Reporting", this.textBoxRRB_moveTime);
+                AddParamListItem("RRB_targetHoldLow", "P8", "Behavior Ring Reporting", this.textBoxRRB_targetHoldLow);
+                AddParamListItem("RRB_targetHoldHigh", "P9", "Behavior Ring Reporting", this.textBoxRRB_targetHoldHigh);
+                AddParamListItem("RRB_bumpDelay", "P10", "Behavior Ring Reporting", this.textBoxRRB_bumpDelay);
+                
+                AddParamListItem("RRB_bumpHoldTime", "P11", "Behavior Ring Reporting", this.textBoxRRB_bumpHold);
+                AddParamListItem("RRB_intertrial", "P12", "Behavior Ring Reporting", this.textBoxRRB_intertrial);
+                AddParamListItem("RRB_penalty", "P13", "Behavior Ring Reporting", this.textBoxRRB_penaltyTime);
+                
+                AddParamListItem("RRB_targetSize", "P14", "Behavior Ring Reporting", this.textBoxRRB_targetSize);
+                AddParamListItem("RRB_bigTargetSize", "P15", "Behavior Ring Reporting", this.textBoxRRB_bigTargetSize);
+
+                AddParamListItem("RRB_OTSize", "P16", "Behavior Ring Reporting", this.textBoxRRB_outerTargetWidth);
+                AddParamListItem("RRB_OTDepth", "P17", "Behavior Ring Reporting", this.textBoxRRB_outerTargetDepth);
+                AddParamListItem("RRB_centerXOffset", "P18", "Behavior Ring Reporting", this.textBoxRRB_centerXOffset);
+                AddParamListItem("RRB_centerYOffset", "P19", "Behavior Ring Reporting", this.textBoxRRB_centerYOffset);
+
+                AddParamListItem("RRB_numTargets", "P20", "Behavior Ring Reporting", this.textBoxRRB_numTargets);
+                AddParamListItem("RRB_useRandomTargets", "P21", "Behavior Ring Reporting", this.checkBoxRRB_useRandomTargets);
+                AddParamListItem("RRB_targetKappa", "P22", "Behavior Ring Reporting", this.textBoxRRB_targetKappa);
+
+                AddParamListItem("RRB_hideCursorDuringBump", "P23", "Behavior Ring Reporting", this.checkBoxRRB_hideCursorDuringBump);
+                AddParamListItem("RRB_hideCursorDuringMovement", "P24", "Behavior Ring Reporting", this.checkBoxRRB_hideCursorDuringMovement);
+                AddParamListItem("RRB_recenterCursor", "P25", "Behavior Ring Reporting", this.checkBoxRRB_recenterCursorAfterBump);
+                AddParamListItem("RRB_abortDuringBump", "P26", "Behavior Ring Reporting", this.checkBoxRRB_abortDuringBump);
+
+                AddParamListItem("RRB_bumpMagOne", "P27", "Behavior Ring Reporting", this.textBoxRRB_bumpMagOne);
+                AddParamListItem("RRB_bumpMagTwo", "P28", "Behavior Ring Reporting", this.textBoxRRB_bumpMagTwo);
+                AddParamListItem("RRB_bumpMagThree", "P29", "Behavior Ring Reporting", this.textBoxRRB_bumpMagThree);
+
+                AddParamListItem("RRB_bumpFreqOne", "P30", "Behavior Ring Reporting", this.textBoxRRB_bumpFreqOne);
+                AddParamListItem("RRB_bumpFreqTwo", "P31", "Behavior Ring Reporting", this.textBoxRRB_bumpFreqTwo);
+                AddParamListItem("RRB_bumpFreqThree", "P32", "Behavior Ring Reporting", this.textBoxRRB_bumpFreqThree);
+
+                AddParamListItem("RRB_forceRiseTime", "P33", "Behavior Ring Reporting", this.textBoxRRB_riseTime);
+                AddParamListItem("RRB_forcePeakTime", "P34", "Behavior Ring Reporting", this.textBoxRRB_peakDuration);
+
+                AddParamListItem("RRB_stimProb", "P35", "Behavior Ring Reporting", this.textBoxRRB_stimProb);
+                AddParamListItem("RRB_stimLevels", "P36", "Behavior Ring Reporting", this.textBoxRRB_stimLevels);
+                AddParamListItem("RRB_stimDuringBump", "P37", "Behavior Ring Reporting", this.checkBoxRRB_stimDuringBump);
+                AddParamListItem("RRB_stimInsteadOfBump", "P38", "Behavior Ring Reporting", this.checkBoxRRB_stimInsteadOfBump);
+
+                AddParamListItem("RRB_catchRate", "P39", "Behavior Ring Reporting", this.textBoxRRB_catchRate);
+                AddParamListItem("RRB_showOuterRing", "P40", "Behavior Ring Reporting", this.checkBoxRRB_showOuterRing);
+                AddParamListItem("RRB_showTargetRate", "P41", "Behavior Ring Reporting", this.textBoxRRB_showOuterTargetProb);
+                AddParamListItem("RRB_useSquareTargets", "P42", "Behavior Ring Reporting", this.checkBoxRRB_useSquareTargets);
+
+                AddParamListItem("RRB_movementLength", "P43", "Behavior Ring Reporting", this.textBoxRRB_movementLength);
+
+                AddParamListItem("RRB_targetAngleOffset", "P44", "Behavior Ring Reporting", this.textBoxRRB_targetAngleOffset);
+                AddParamListItem("RRB_outerTargetSize", "P45", "Behavior Ring Reporting", this.textBoxRRB_outerTargetSize);
+                AddParamListItem("RRB_stimDelay", "P46", "Behavior Ring Reporting", this.textBoxRRB_stimDelay);
+                AddParamListItem("RRB_repeatFails", "P47", "Behavior Ring Reporting", this.checkBoxRRB_repeatFailures);
+                AddParamListItem("RRB_endAtOuterRing", "P48", "Behavior Ring Reporting", this.checkBoxRRB_endAtOuterRing);
+
+            #endregion
+
+            #region CenterOutCenter3D
+                AddParamListItem("COC3D sttHoldLo", "P2", "Behavior CenterOutCenter3D", this.textBoxCOC3D_stHoldLo);
+                AddParamListItem("COC3D stHoldHi", "P3", "Behavior CenterOutCenter3D", this.textBoxCOC3D_stHoldHi);
+                AddParamListItem("COC3D otHoldLo", "P4", "Behavior CenterOutCenter3D", this.textBoxCOC3D_otHoldLo);
+                AddParamListItem("COC3D otHoldHi", "P5", "Behavior CenterOutCenter3D", this.textBoxCOC3D_otHoldHi);
+                AddParamListItem("COC3D ftHoldLo", "P6", "Behavior CenterOutCenter3D", this.textBoxCOC3D_ftHoldLo);
+                AddParamListItem("COC3D ftHoldHi", "P7", "Behavior CenterOutCenter3D", this.textBoxCOC3D_ftHoldHi);
+
+                AddParamListItem("COC3D initMoveTime", "P8", "Behavior CenterOutCenter3D", this.textBoxCOC3D_initMoveTime);
+                AddParamListItem("COC3D maxMoveTime", "P9", "Behavior CenterOutCenter3D", this.textBoxCOC3D_maxMoveTime);
+
+                AddParamListItem("COC3D imuResetInterval", "P10", "Behavior RandomTarget3D", this.textBoxCOC3D_imuResetInterval);
             #endregion
         }
 
@@ -1931,13 +2036,6 @@ namespace BehaviorGraphics
             widget_ValueChanged(sender, null);
         }
 
-        private void checkBoxFCRAT_CheckedChanged(object sender, EventArgs e)
-        {
-            textBoxFCRewardThreshold.Enabled = !checkBoxFCRAT.Checked;
-
-            widget_ValueChanged(sender, e);
-        }
-
         private void checkBoxATS_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxATS.Checked)
@@ -2181,6 +2279,8 @@ namespace BehaviorGraphics
                     paramID = target.GetParamIdx("Behavior UR", "P1");
                 if (paramID < 0)
                     paramID = target.GetParamIdx("Behavior RP", "P1");
+                if (paramID < 0)
+                    paramID = target.GetParamIdx("Behavior Ring Reporting", "P1");
 
                 /* send the flag */
                 if (paramID >= 0) {
@@ -3177,6 +3277,7 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
+
 
     }
 

@@ -76,7 +76,7 @@ public:
 	 * of the target, false otherwise.
 	 */
 	virtual bool cursorInTarget(Point p) = 0;
-
+    
 	/* See definition below */
 	static int Color(int red, int green, int blue);
 };
@@ -756,9 +756,3 @@ void MovingDotsTargetB::copyToOutputs(real_T *u, int offset) {
 	u[3+offset] = (real_T)(dot_radius);
 	u[4+offset] = (real_T)(newsome_dots);
 }
-
-
-
-
-
-

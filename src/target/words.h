@@ -19,121 +19,6 @@
 #define __BUILD_UPDATED__ 1
 #define __BUILD_UPDATED__ 1
 #define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
 
 /* 
  * $Id$
@@ -160,7 +45,7 @@
 #define BEHAVIOR_VERSION_MAJOR 2
 #define BEHAVIOR_VERSION_MINOR 8
 #define BEHAVIOR_VERSION_MICRO 491
-#define BEHAVIOR_VERSION_BUILD 3242
+#define BEHAVIOR_VERSION_BUILD 3561
 
 
 #ifndef __BUILD_UPDATED__
@@ -172,6 +57,7 @@
 # define TONE_GO 1
 # define TONE_REWARD 2
 # define TONE_ABORT 3
+# define TONE_MASK 5
 # define TONE_FAIL 6
 # define PI (3.141592654)
 #endif
@@ -249,6 +135,7 @@
 
 /* go cue */
 #define WORD_GO_CUE 0x31
+#define WORD_GO_CUE_BACK 0x32
 
 /* catch trial go cue (random walk, center-out, and wrist flexion modes) */
 #define WORD_CATCH  0x32
@@ -260,6 +147,7 @@
 
 /* for bump choice behavior, before abort or fail decided */
 #define WORD_LEAVE_CT 0x40
+#define WORD_LEAVE_OT 0x41
 
 #define WORD_RECEPTOR_STIM(s) (0x80 | (s))
 /* The meaning of d in the WORD_BUMP macro depends on context.
@@ -296,6 +184,7 @@
 #define WORD_CENTER_TARGET_HOLD 0xA0
 #define WORD_TARGET_HOLD 0xA0
 #define WORD_OUTER_TARGET_HOLD 0xA1
+#define WORD_FINAL_TARGET_HOLD 0xA2
 
 /* Adaptation Flag */
 #define WORD_ADAPT 0xB0

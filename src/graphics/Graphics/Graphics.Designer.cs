@@ -55,6 +55,7 @@ namespace BehaviorGraphics
             this.MaximizeBox = false;
             this.Name = "Graphics";
             this.Text = "Graphics";
+            this.Load += new System.EventHandler(this.Graphics_Load);
             this.Click += new System.EventHandler(this.Graphics_Click);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Graphics_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
