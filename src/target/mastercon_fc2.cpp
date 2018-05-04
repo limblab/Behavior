@@ -543,10 +543,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
                      ((this->stim_trial)||(this->bump_trial))) {
                 playTone(TONE_MASK);
 				if (this->stim_trial) {
-					if (this->bump_trial) { // currently pairing bump and stim, will remove once Han is trained
-						bump->start(S);
-					}
-					setState(STATE_STIM);
+					setState(STATE_STIM); // currently able to pair bump and stim
 				} else if(this->bump_trial) {
     				bump->start(S);
                     if(this->audio_trial){
@@ -584,7 +581,11 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 		case STATE_STIM:
             if(params->force_reaction){
                 playTone(TONE_MASK);
-				if(stateTimer->elapsedTime(S) > params->bump_hold_time) {
+				if(this->bump_trial) { 
+					bump->start(S);
+					setState(STATE_BUMP);
+				}
+				else if(stateTimer->elapsedTime(S) > params->bump_hold_time) {
 					setState(STATE_MOVEMENT);
 				}
             }else{
