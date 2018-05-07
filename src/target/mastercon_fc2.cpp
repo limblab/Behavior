@@ -548,10 +548,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
                      ((this->stim_trial)||(this->bump_trial))) {
                 playTone(TONE_MASK);
 				if (this->stim_trial) {
-					if (this->bump_trial) { // currently pairing bump and stim, will remove once Han is trained
-						bump->start(S);
-					}
-					setState(STATE_STIM);
+					setState(STATE_STIM); // currently able to pair bump and stim
 				} else if(this->bump_trial) {
     				bump->start(S);
                     if(this->audio_trial){
@@ -589,7 +586,11 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 		case STATE_STIM:
             if(params->force_reaction){
                 playTone(TONE_MASK);
-				if(stateTimer->elapsedTime(S) > params->bump_hold_time) {
+				if(this->bump_trial) { 
+					bump->start(S);
+					setState(STATE_BUMP);
+				}
+				else if(stateTimer->elapsedTime(S) > params->bump_hold_time) {
 					setState(STATE_MOVEMENT);
 				}
             }else{
@@ -766,7 +767,7 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	// currently overwriting above code with a binary reward. 
 	outputs->reward = ((isNewState() && (getState() == STATE_REWARD)));
 	// movement_time is seconds in the STATE_MOVEMENT
-    if(isNewState() && (getState() == STATE_REWARD)){
+    /*if(isNewState() && (getState() == STATE_REWARD)){
         outputs->reward = 1000*((double)params->reaction_time-(double)this->movement_time)/((double)params->reaction_time);
         if(outputs->reward < 0) {
             outputs->reward = 0;
@@ -775,7 +776,7 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
         }
     } else {
         outputs->reward = 0;
-    }
+    }*/
     
     //outputs->status[3] = outputs->reward;
     
