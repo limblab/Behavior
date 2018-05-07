@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1230"
+    ComputedModelVersion    "1.1248"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -30,7 +30,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-6.0, 5.0, 1036.0, 671.0]
+      Location		      [-8.0, 73.0, 1036.0, 671.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -52,11 +52,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkTopLevel"
-	LoadSaveID		"0"
+	ViewObjType		"SimulinkSubsys"
+	LoadSaveID		"810"
 	Extents			[992.0, 511.0]
-	ZoomFactor		[0.8]
-	Offset			[224.6438692886029, 1830.476855600542]
+	ZoomFactor		[1.0]
+	Offset			[-25.571428571428669, -21.31904793239778]
       }
     }
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Feb 14 17:11:02 2018"
-  RTWModifiedTimeStamp	  440529044
-  ModelVersionFormat	  "1.%<AutoIncrement:1230>"
+  LastModifiedDate	  "Mon May 07 11:09:08 2018"
+  RTWModifiedTimeStamp	  447592146
+  ModelVersionFormat	  "1.%<AutoIncrement:1248>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -614,7 +614,7 @@ Model {
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
-		Dimension		14
+		Dimension		13
 		Cell			"GeneratePreprocessorConditionals"
 		Cell			"IncludeMdlTerminateFcn"
 		Cell			"SupportNonInlinedSFcns"
@@ -628,7 +628,6 @@ Model {
 		Cell			"SupportComplex"
 		Cell			"SupportAbsoluteTime"
 		Cell			"SupportContinuousTime"
-		Cell			"CombineOutputUpdateFcns"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
@@ -781,6 +780,11 @@ Model {
   }
   BlockParameterDefaults {
     Block {
+      BlockType		      Clock
+      DisplayTime	      off
+      Decimation	      "10"
+    }
+    Block {
       BlockType		      Concatenate
       NumInputs		      "2"
       Mode		      "Vector"
@@ -798,6 +802,17 @@ Model {
       SampleTime	      "inf"
       FramePeriod	      "inf"
       PreserveConstantTs      off
+    }
+    Block {
+      BlockType		      DataTypeConversion
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Inherit via back propagation"
+      LockScale		      off
+      ConvertRealWorld	      "Real World Value (RWV)"
+      RndMeth		      "Zero"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
     }
     Block {
       BlockType		      Demux
@@ -909,6 +924,14 @@ Model {
       SampleTime	      "-1"
     }
     Block {
+      BlockType		      RelationalOperator
+      Operator		      ">="
+      InputSameDT	      on
+      OutDataTypeStr	      "Inherit: Logical (see Configuration Parameters: Optimization)"
+      ZeroCross		      on
+      SampleTime	      "-1"
+    }
+    Block {
       BlockType		      S-Function
       FunctionName	      "system"
       SFunctionModules	      "''"
@@ -990,11 +1013,19 @@ Model {
       OutputSignalType	      "auto"
       SampleTime	      "-1"
     }
+    Block {
+      BlockType		      UniformRandomNumber
+      Minimum		      "-1"
+      Maximum		      "1"
+      Seed		      "0"
+      SampleTime	      "-1"
+      VectorParams1D	      on
+    }
   }
   System {
     Name		    "forced_choice"
-    Location		    [-6, 5, 1030, 676]
-    Open		    on
+    Location		    [-6, 70, 1030, 741]
+    Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1005,9 +1036,9 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "80"
+    ZoomFactor		    "125"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "809"
+    SIDHighWatermark	    "849"
     Block {
       BlockType		      S-Function
       Name		      "Behavior FC"
@@ -1964,16 +1995,464 @@ Model {
       ContentPreviewEnabled   off
     }
     Block {
-      BlockType		      Reference
-      Name		      "RewardSbs"
-      SID		      "800"
+      BlockType		      SubSystem
+      Name		      "RewardSbs1"
+      SID		      "810"
       Ports		      [1, 1]
-      Position		      [1080, 2102, 1130, 2138]
-      ZOrder		      116
-      LibraryVersion	      "1.206"
-      SourceBlock	      "limblab/RewardSbs"
-      SourceType	      "SubSystem"
-      ContentPreviewEnabled   off
+      Position		      [1085, 2102, 1135, 2138]
+      ZOrder		      125
+      RequestExecContextInheritance off
+      System {
+	Name			"RewardSbs1"
+	Location		[-8, 73, 1028, 744]
+	Open			on
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "Trig"
+	  SID			  "811"
+	  Position		  [100, 18, 130, 32]
+	  ZOrder		  -1
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant"
+	  SID			  "848"
+	  Position		  [280, 75, 310, 105]
+	  ZOrder		  4
+	  Value			  "0.001"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant1"
+	  SID			  "849"
+	  Position		  [445, 90, 475, 120]
+	  ZOrder		  5
+	  Value			  "0.0"
+	}
+	Block {
+	  BlockType		  DataTypeConversion
+	  Name			  "Data Type Conversion"
+	  SID			  "812"
+	  Position		  [840, 103, 915, 137]
+	  ZOrder		  -2
+	  RndMeth		  "Floor"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "JackpotChance"
+	  SID			  "813"
+	  Position		  [65, 195, 95, 225]
+	  ZOrder		  -3
+	  Value			  "0"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "Product"
+	  SID			  "846"
+	  Ports			  [2, 1]
+	  Position		  [360, 67, 390, 98]
+	  ZOrder		  2
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  RndMeth		  "Floor"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "Product1"
+	  SID			  "847"
+	  Ports			  [2, 1]
+	  Position		  [435, 147, 465, 178]
+	  ZOrder		  3
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  RndMeth		  "Floor"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  RelationalOperator
+	  Name			  "Relational\nOperator"
+	  SID			  "814"
+	  Ports			  [2, 1]
+	  Position		  [160, 157, 190, 188]
+	  ZOrder		  -4
+	  Operator		  ">"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "boolean"
+	}
+	Block {
+	  BlockType		  RelationalOperator
+	  Name			  "Relational\nOperator1"
+	  SID			  "845"
+	  Ports			  [2, 1]
+	  Position		  [520, 52, 550, 83]
+	  ZOrder		  1
+	  Operator		  ">"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "boolean"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "RewardJackpot"
+	  SID			  "815"
+	  Position		  [160, 225, 190, 255]
+	  ZOrder		  -6
+	  Value			  "0.60"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "RewardTime"
+	  SID			  "816"
+	  Position		  [185, 90, 215, 120]
+	  ZOrder		  -5
+	  Value			  "0.30"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Sample\nand Hold"
+	  SID			  "817"
+	  Ports			  [1, 1, 0, 1]
+	  Position		  [520, 153, 595, 197]
+	  ZOrder		  -7
+	  LibraryVersion	  "1.752"
+	  SourceBlock		  "dspsigops/Sample\nand Hold"
+	  SourceType		  "Sample and Hold"
+	  ContentPreviewEnabled	  off
+	  trig			  "Rising edge"
+	  initCond		  "0"
+	  latchinput		  off
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Schmidt"
+	  SID			  "818"
+	  Ports			  [2, 1]
+	  Position		  [680, 90, 790, 150]
+	  ZOrder		  -8
+	  RequestExecContextInheritance	off
+	  System {
+	    Name		    "Schmidt"
+	    Location		    [50, 72, 1086, 743]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Trigger"
+	      SID		      "819"
+	      Position		      [85, 58, 115, 72]
+	      ZOrder		      -1
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Duration"
+	      SID		      "820"
+	      Position		      [85, 233, 115, 247]
+	      ZOrder		      -2
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Clock
+	      Name		      "Clock"
+	      SID		      "821"
+	      Position		      [140, 110, 180, 150]
+	      ZOrder		      -3
+	      Decimation	      "1"
+	    }
+	    Block {
+	      BlockType		      RelationalOperator
+	      Name		      "Relational\nOperator"
+	      SID		      "822"
+	      Ports		      [2, 1]
+	      Position		      [420, 167, 450, 198]
+	      ZOrder		      -4
+	      Operator		      "<"
+	      InputSameDT	      off
+	      OutDataTypeStr	      "boolean"
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Sample\nand Hold"
+	      SID		      "823"
+	      Ports		      [1, 1, 0, 1]
+	      Position		      [240, 108, 315, 152]
+	      ZOrder		      -5
+	      LibraryVersion	      "1.752"
+	      SourceBlock	      "dspsigops/Sample\nand Hold"
+	      SourceType	      "Sample and Hold"
+	      ContentPreviewEnabled   off
+	      trig		      "Rising edge"
+	      initCond		      "-1000"
+	      latchinput	      off
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      SID		      "824"
+	      Ports		      [2, 1]
+	      Position		      [330, 165, 350, 185]
+	      ZOrder		      -6
+	      ShowName		      off
+	      IconShape		      "round"
+	      Inputs		      "-+"
+	      InputSameDT	      off
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Output"
+	      SID		      "825"
+	      Position		      [495, 178, 525, 192]
+	      ZOrder		      -7
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      ZOrder		      1
+	      SrcBlock		      "Trigger"
+	      SrcPort		      1
+	      Points		      [155, 0]
+	      DstBlock		      "Sample\nand Hold"
+	      DstPort		      trigger
+	    }
+	    Line {
+	      ZOrder		      2
+	      SrcBlock		      "Relational\nOperator"
+	      SrcPort		      1
+	      DstBlock		      "Output"
+	      DstPort		      1
+	    }
+	    Line {
+	      ZOrder		      3
+	      SrcBlock		      "Duration"
+	      SrcPort		      1
+	      Points		      [265, 0; 0, -50]
+	      DstBlock		      "Relational\nOperator"
+	      DstPort		      2
+	    }
+	    Line {
+	      ZOrder		      4
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      DstBlock		      "Relational\nOperator"
+	      DstPort		      1
+	    }
+	    Line {
+	      ZOrder		      5
+	      SrcBlock		      "Sample\nand Hold"
+	      SrcPort		      1
+	      Points		      [20, 0]
+	      DstBlock		      "Sum"
+	      DstPort		      1
+	    }
+	    Line {
+	      ZOrder		      6
+	      SrcBlock		      "Clock"
+	      SrcPort		      1
+	      Points		      [15, 0]
+	      Branch {
+		ZOrder			7
+		DstBlock		"Sample\nand Hold"
+		DstPort			1
+	      }
+	      Branch {
+		ZOrder			8
+		Points			[0, 85; 140, 0]
+		DstBlock		"Sum"
+		DstPort			2
+	      }
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Switch
+	  Name			  "Switch"
+	  SID			  "826"
+	  Position		  [275, 140, 310, 210]
+	  ZOrder		  -9
+	  Criteria		  "u2 > Threshold"
+	  InputSameDT		  off
+	  SaturateOnIntegerOverflow off
+	  ZeroCross		  off
+	}
+	Block {
+	  BlockType		  UniformRandomNumber
+	  Name			  "Uniform Random\nNumber"
+	  SID			  "827"
+	  Position		  [65, 119, 95, 151]
+	  ZOrder		  -10
+	  Minimum		  "0"
+	  Maximum		  "100"
+	  SampleTime		  "0.001"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out"
+	  SID			  "828"
+	  Position		  [945, 113, 975, 127]
+	  ZOrder		  -11
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  ZOrder		  1
+	  SrcBlock		  "RewardTime"
+	  SrcPort		  1
+	  Points		  [20, 0; 0, 45]
+	  DstBlock		  "Switch"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  2
+	  SrcBlock		  "JackpotChance"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, -30]
+	  DstBlock		  "Relational\nOperator"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  3
+	  SrcBlock		  "Relational\nOperator"
+	  SrcPort		  1
+	  DstBlock		  "Switch"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  4
+	  SrcBlock		  "Uniform Random\nNumber"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, 30]
+	  DstBlock		  "Relational\nOperator"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  6
+	  SrcBlock		  "RewardJackpot"
+	  SrcPort		  1
+	  Points		  [39, 0; 0, -40]
+	  DstBlock		  "Switch"
+	  DstPort		  3
+	}
+	Line {
+	  ZOrder		  7
+	  SrcBlock		  "Sample\nand Hold"
+	  SrcPort		  1
+	  Points		  [30, 0; 0, -40]
+	  DstBlock		  "Schmidt"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  8
+	  SrcBlock		  "Schmidt"
+	  SrcPort		  1
+	  DstBlock		  "Data Type Conversion"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  9
+	  SrcBlock		  "Data Type Conversion"
+	  SrcPort		  1
+	  DstBlock		  "Out"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  85
+	  SrcBlock		  "Constant"
+	  SrcPort		  1
+	  DstBlock		  "Product"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  86
+	  SrcBlock		  "Trig"
+	  SrcPort		  1
+	  Points		  [200, 0; 0, 50]
+	  DstBlock		  "Product"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  88
+	  SrcBlock		  "Product"
+	  SrcPort		  1
+	  Points		  [8, 0]
+	  Branch {
+	    ZOrder		    96
+	    Points		    [0, -25]
+	    DstBlock		    "Relational\nOperator1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    ZOrder		    95
+	    Points		    [1, 0; 0, 70]
+	    DstBlock		    "Product1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  ZOrder		  89
+	  SrcBlock		  "Switch"
+	  SrcPort		  1
+	  Points		  [58, 0; 0, -5]
+	  DstBlock		  "Product1"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  90
+	  SrcBlock		  "Product1"
+	  SrcPort		  1
+	  Points		  [23, 0; 0, 10]
+	  DstBlock		  "Sample\nand Hold"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  91
+	  SrcBlock		  "Relational\nOperator1"
+	  SrcPort		  1
+	  Points		  [13, 0; 0, 35]
+	  Branch {
+	    ZOrder		    93
+	    DstBlock		    "Schmidt"
+	    DstPort		    1
+	  }
+	  Branch {
+	    ZOrder		    92
+	    Points		    [0, 14; -13, 0]
+	    DstBlock		    "Sample\nand Hold"
+	    DstPort		    trigger
+	  }
+	}
+	Line {
+	  ZOrder		  94
+	  SrcBlock		  "Constant1"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, -30]
+	  DstBlock		  "Relational\nOperator1"
+	  DstPort		  2
+	}
+      }
     }
     Block {
       BlockType		      Reference
@@ -2414,7 +2893,6 @@ Model {
 	}
 	Branch {
 	  ZOrder		  305
-	  Points		  [716, 0]
 	  DstBlock		  "Matrix\nConcatenation1"
 	  DstPort		  2
 	}
@@ -2487,10 +2965,10 @@ Model {
       }
     }
     Line {
-      ZOrder		      352
+      ZOrder		      484
       SrcBlock		      "Behavior FC"
       SrcPort		      5
-      DstBlock		      "RewardSbs"
+      DstBlock		      "RewardSbs1"
       DstPort		      1
     }
     Line {
@@ -2559,8 +3037,8 @@ Model {
       DstPort		      2
     }
     Line {
-      ZOrder		      404
-      SrcBlock		      "RewardSbs"
+      ZOrder		      485
+      SrcBlock		      "RewardSbs1"
       SrcPort		      1
       DstBlock		      "Goto"
       DstPort		      1

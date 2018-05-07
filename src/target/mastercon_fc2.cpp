@@ -165,6 +165,7 @@ struct LocalParams {
     real_T training_frequency;
 	real_T abort_during_bump;
     real_T force_reaction;
+    
 };
 
 #define MY_CLASS_NAME ForcedChoiceBehavior
@@ -215,6 +216,8 @@ private:
 	real_T bump_step_old;
 	real_T stim_levels_old;
 	
+    real_T movement_time;
+    
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
 
@@ -264,6 +267,9 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->setMasterResetParamId(0);
 	
 	last_soft_reset = -1; // force a soft reset of first trial
+   
+    movement_time = 0;
+    
     //define targets
 	centerTarget = new CircleTarget();
 	primaryTarget = new CircleTarget(); 
@@ -420,8 +426,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
         this->bump->peak_magnitude= this->bump_stair[staircase_idx]->getCurrentValue()*params->bump_step + params->bump_floor;
         this->bump->hold_duration = params->bump_duration;
         this->bump->rise_time = params->bump_ramp;
-        this->bump->direction = (double)(params->bump_direction) * PI/180;
-		
+        this->bump->direction = (double)(params->bump_direction) * PI/180;		
     } else {
 		this->bump->peak_magnitude=0;
 	}
@@ -603,8 +608,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 		case STATE_MOVEMENT:
             if ((params->force_reaction && params->reaction_time < stateTimer->elapsedTime(S))    ||
                  //   (params->reaction_time>stateTimer->elapsedTime(S)) > params->reaction_time    ||
-                    (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset)) )                
-            {
+                    (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset)) ) {
                 //iterate staircase
                 if(this->bump_trial){
                     this->bump_stair[staircase_idx]->addFailure();
@@ -616,6 +620,8 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 				setState(STATE_FAIL);
             } else if (correctTarget->cursorInTarget(inputs->cursor - cursorOffset)) {
 				//iterate staircase
+                this->movement_time = stateTimer->elapsedTime(S);
+                
                 if(this->bump_trial){
                     this->bump_stair[staircase_idx]->addSuccess();
                 } 
@@ -675,6 +681,7 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 		//outputs->force.y = floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
 	}
 
+   
 	// add in preloading to prevent slop issue
 	//outputs->force.x = outputs->force.x + cos(params->bump_direction*PI/180)*(params->bump_floor);
 	//outputs->force.y = outputs->force.y + sin(params->bump_direction*PI/180)*(params->bump_floor);
@@ -682,7 +689,9 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	/* status (1) */
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
+    //outputs->status[1] = this->movement_time*1000;
 	outputs->status[2] = trialCounter->aborts;
+    //outputs->status[2] = this->params->reaction_time*1000;
  	outputs->status[3] = trialCounter->failures;
  	outputs->status[4] = trialCounter->incompletes;
     
@@ -755,8 +764,21 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	/* reward (4) */
 	
 	// currently overwriting above code with a binary reward. 
-	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
-	
+	outputs->reward = ((isNewState() && (getState() == STATE_REWARD)));
+	// movement_time is seconds in the STATE_MOVEMENT
+    if(isNewState() && (getState() == STATE_REWARD)){
+        outputs->reward = 1000*((double)params->reaction_time-(double)this->movement_time)/((double)params->reaction_time);
+        if(outputs->reward < 0) {
+            outputs->reward = 0;
+        } else if(outputs->reward > 1000) {
+            outputs->reward = 1000;
+        }
+    } else {
+        outputs->reward = 0;
+    }
+    
+    //outputs->status[3] = outputs->reward;
+    
 	/* tone (5) */
 	this->outputs->tone_counter = this->tone_counter;
 	this->outputs->last_tone_id = this->last_tone_id;
