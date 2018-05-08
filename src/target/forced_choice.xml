@@ -8476,6 +8476,18 @@ Operator</sigName>
 
  
             <block>
+            <blkName>Constant</blkName>
+            <xpcblkName>RewardSbs1/Constant</xpcblkName>
+            <SLblockPath>forced_choice/RewardSbs1/Constant</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
             <blkName>JackpotChance</blkName>
             <xpcblkName>RewardSbs1/JackpotChance</xpcblkName>
             <SLblockPath>forced_choice/RewardSbs1/JackpotChance</SLblockPath>
@@ -8509,6 +8521,20 @@ Operator</sigName>
           <dim>[1, 1]</dim>  
           </parameter>
           </block>
+
+
+ 
+            <block>
+            <blkName>Gain</blkName>
+            <xpcblkName>RewardSbs1/Gain</xpcblkName>
+            <SLblockPath>forced_choice/RewardSbs1/Gain</SLblockPath>
+            <isSrc>[0 1 1]</isSrc>
+          <parameter>
+          <paramName>Gain</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
 
 
 
@@ -8562,6 +8588,12 @@ Number</blkName>
     
 
 
+
+
+    
+    
+
+
   
               
 
@@ -8585,9 +8617,61 @@ Number</blkName>
               
        
               <signal>
+              <sigName>Gain</sigName>
+              <xpcsigName>RewardSbs1/Gain</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Product</sigName>
+              <xpcsigName>RewardSbs1/Product</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
               <sigName>Relational
 Operator</sigName>
               <xpcsigName>RewardSbs1/Relational Operator</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Relational
+Operator1</sigName>
+              <xpcsigName>RewardSbs1/Relational Operator1</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>

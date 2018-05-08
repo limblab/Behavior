@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1250"
+    ComputedModelVersion    "1.1251"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -55,8 +55,8 @@ Model {
 	ViewObjType		"SimulinkSubsys"
 	LoadSaveID		"810"
 	Extents			[992.0, 511.0]
-	ZoomFactor		[0.8]
-	Offset			[-120.67142857142863, -85.31904793239778]
+	ZoomFactor		[1.0]
+	Offset			[-36.421428571428635, -62.917368177748969]
       }
     }
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon May 07 11:18:47 2018"
-  RTWModifiedTimeStamp	  447592724
-  ModelVersionFormat	  "1.%<AutoIncrement:1250>"
+  LastModifiedDate	  "Tue May 08 10:40:19 2018"
+  RTWModifiedTimeStamp	  447676814
+  ModelVersionFormat	  "1.%<AutoIncrement:1251>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1038,7 +1038,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "60"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "849"
+    SIDHighWatermark	    "853"
     Block {
       BlockType		      S-Function
       Name		      "Behavior FC"
@@ -2016,7 +2016,7 @@ Model {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"80"
+	ZoomFactor		"100"
 	Block {
 	  BlockType		  Inport
 	  Name			  "Trig"
@@ -2024,6 +2024,14 @@ Model {
 	  Position		  [100, 18, 130, 32]
 	  ZOrder		  -1
 	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant"
+	  SID			  "850"
+	  Position		  [445, 95, 475, 125]
+	  ZOrder		  1
+	  Value			  "0.0"
 	}
 	Block {
 	  BlockType		  DataTypeConversion
@@ -2035,6 +2043,17 @@ Model {
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
+	  BlockType		  Gain
+	  Name			  "Gain"
+	  SID			  "851"
+	  Position		  [350, 70, 400, 110]
+	  ZOrder		  2
+	  Gain			  "0.001"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
 	  BlockType		  Constant
 	  Name			  "JackpotChance"
 	  SID			  "813"
@@ -2043,12 +2062,35 @@ Model {
 	  Value			  "0"
 	}
 	Block {
+	  BlockType		  Product
+	  Name			  "Product"
+	  SID			  "852"
+	  Ports			  [2, 1]
+	  Position		  [430, 157, 460, 188]
+	  ZOrder		  3
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  RndMeth		  "Floor"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
 	  BlockType		  RelationalOperator
 	  Name			  "Relational\nOperator"
 	  SID			  "814"
 	  Ports			  [2, 1]
 	  Position		  [160, 157, 190, 188]
 	  ZOrder		  -4
+	  Operator		  ">"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "boolean"
+	}
+	Block {
+	  BlockType		  RelationalOperator
+	  Name			  "Relational\nOperator1"
+	  SID			  "853"
+	  Ports			  [2, 1]
+	  Position		  [510, 57, 540, 88]
+	  ZOrder		  4
 	  Operator		  ">"
 	  InputSameDT		  off
 	  OutDataTypeStr	  "boolean"
@@ -2328,27 +2370,69 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  ZOrder		  104
-	  SrcBlock		  "Switch"
+	  ZOrder		  110
+	  SrcBlock		  "Product"
 	  SrcPort		  1
 	  DstBlock		  "Sample\nand Hold"
 	  DstPort		  1
 	}
 	Line {
-	  ZOrder		  105
-	  SrcBlock		  "Trig"
+	  ZOrder		  111
+	  SrcBlock		  "Switch"
 	  SrcPort		  1
-	  Points		  [420, 0; 0, 80]
+	  Points		  [55, 0; 0, 5]
+	  DstBlock		  "Product"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  112
+	  SrcBlock		  "Gain"
+	  SrcPort		  1
+	  Points		  [8, 0]
 	  Branch {
-	    ZOrder		    108
-	    DstBlock		    "Schmidt"
+	    ZOrder		    120
+	    Points		    [0, -25]
+	    DstBlock		    "Relational\nOperator1"
 	    DstPort		    1
 	  }
 	  Branch {
-	    ZOrder		    92
+	    ZOrder		    119
+	    Points		    [1, 0; 0, 75]
+	    DstBlock		    "Product"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  ZOrder		  113
+	  SrcBlock		  "Constant"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, -30]
+	  DstBlock		  "Relational\nOperator1"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  114
+	  SrcBlock		  "Relational\nOperator1"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, 30]
+	  Branch {
+	    ZOrder		    117
 	    DstBlock		    "Sample\nand Hold"
 	    DstPort		    trigger
 	  }
+	  Branch {
+	    ZOrder		    116
+	    DstBlock		    "Schmidt"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  ZOrder		  118
+	  SrcBlock		  "Trig"
+	  SrcPort		  1
+	  Points		  [105, 0; 0, 65]
+	  DstBlock		  "Gain"
+	  DstPort		  1
 	}
       }
     }

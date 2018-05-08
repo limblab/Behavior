@@ -572,7 +572,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
             if(params->force_reaction){
                 playTone(TONE_MASK);
                 if(stateTimer->elapsedTime(S) > params->bump_hold_time) {
-					this->movement_time = stateTime->elapsedTime(S);
+					this->movement_time = stateTimer->elapsedTime(S);
                     setState(STATE_MOVEMENT);
                 }
             }else{
@@ -767,18 +767,22 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	/* reward (4) */
 	
 	// currently overwriting above code with a binary reward. 
-	outputs->reward = ((isNewState() && (getState() == STATE_REWARD)));
+	// outputs->reward = ((isNewState() && (getState() == STATE_REWARD)));
 	// movement_time is seconds in the STATE_MOVEMENT
-    /*if(isNewState() && (getState() == STATE_REWARD)){
-        outputs->reward = 1000*(params->reaction_time+params->bump_hold_time-(double)this->movement_time)/(params->reaction_time+params->bump_hold_time);
-        if(outputs->reward < 0) {
-            outputs->reward = 0;
-        } else if(outputs->reward > 1000) {
-            outputs->reward = 1000;
+    if(isNewState() && (getState() == STATE_REWARD)){
+        if(this->bump_trial || this->stim_trial) {
+            outputs->reward = 1000*(params->reaction_time+params->bump_hold_time-(double)this->movement_time)/(params->reaction_time);
+            if(outputs->reward < 0.25) {
+                outputs->reward = 0.25;
+            } else if(outputs->reward > 1000) {
+                outputs->reward = 1000;
+            }
+        } else {
+            outputs->reward = 750; // no cue, stay in place case. he gets 0.75*water
         }
     } else {
         outputs->reward = 0;
-    }*/
+    }
     
     //outputs->status[3] = outputs->reward;
     
@@ -794,7 +798,7 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 
 	/* position (7) */
 	// remove cursor during the bump/stim and hold period to avoid reacting to a visual cue if force reaction
-    if ((getState == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM || (params->force_reaction && getState() == STATE_CT_HOLD)) && params->hide_cursor > .1) { 
+    if ((getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM || (params->force_reaction && getState() == STATE_CT_HOLD)) && params->hide_cursor > .1) { 
         outputs->position = Point(1E6, 1E6);
     } else { 
         outputs->position = inputs->cursor - cursorOffset;
