@@ -715,8 +715,8 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_OT_ON(0);
 				break;
 			case STATE_STIM:
-				outputs->word = WORD_STIM(this->stim_stair->getCurrentValue());
-// 				outputs->word = WORD_STIM(0);
+//				outputs->word = WORD_STIM(this->stim_stair->getCurrentValue());
+ 				outputs->word = WORD_STIM(0);
                 break;
 			case STATE_BUMP:
 //				outputs->word = WORD_BUMP(this->bump_stair[this->staircase_idx]->getCurrentValue());
