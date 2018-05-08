@@ -446,8 +446,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 	this->training_trial=(this->random->getDouble() < params->training_frequency);
     
     /* Select whether this will be a stimulation trial */
-    //this->stim_trial=(randNumTrialType > params->bump_prob && randNumTrialType < params->stim_prob+params->bump_prob);
-	this->stim_trial = (~this->bump_trial && randNumTrialType < params->stim_prob + params->bump_prob);
+	this->stim_trial = (randNumTrialType > params->bump_prob && randNumTrialType < params->stim_prob+params->bump_prob);
 	
     if(this->stim_trial) {
         this->stim_code=this->stim_stair->getCurrentValue();   
