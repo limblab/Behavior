@@ -362,8 +362,10 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     // Reset cursor offset
     cursorOffset.x = 0;
     cursorOffset.y = 0;
+	// reset movement time
+	this->movement_time = 0;
 	
-    // modify staircases if necessary:
+    // modify BUMP staircases if necessary:
     steps=(int)((params->bump_ceiling-params->bump_floor)/params->bump_step);
     startVal=(int)(steps);
 	
@@ -397,8 +399,11 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
         
     }
     
+	// see if pairing with an audio cue
     this->audio_trial = this->random->getDouble(0,1) < 0.0;
     
+	
+	// modify STIM staircases if necessary
     startVal=(int)(params->stim_levels);
 	
 	this->max_staircase_iterations = (int)params->stim_levels*3;
@@ -567,6 +572,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
             if(params->force_reaction){
                 playTone(TONE_MASK);
                 if(stateTimer->elapsedTime(S) > params->bump_hold_time) {
+					this->movement_time = stateTime->elapsedTime(S);
                     setState(STATE_MOVEMENT);
                 }
             }else{
@@ -608,7 +614,6 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 			break;
 		case STATE_MOVEMENT:
             if ((params->force_reaction && params->reaction_time < stateTimer->elapsedTime(S))    ||
-                 //   (params->reaction_time>stateTimer->elapsedTime(S)) > params->reaction_time    ||
                     (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset)) ) {
                 //iterate staircase
                 if(this->bump_trial){
@@ -621,7 +626,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 				setState(STATE_FAIL);
             } else if (correctTarget->cursorInTarget(inputs->cursor - cursorOffset)) {
 				//iterate staircase
-                this->movement_time = stateTimer->elapsedTime(S);
+                this->movement_time = stateTimer->elapsedTime(S) + this->movement_time;
                 
                 if(this->bump_trial){
                     this->bump_stair[staircase_idx]->addSuccess();
@@ -682,7 +687,6 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 		//outputs->force.y = floor((params->bump_ceiling-params->bump_floor)/params->bump_step);
 	}
 
-   
 	// add in preloading to prevent slop issue
 	//outputs->force.x = outputs->force.x + cos(params->bump_direction*PI/180)*(params->bump_floor);
 	//outputs->force.y = outputs->force.y + sin(params->bump_direction*PI/180)*(params->bump_floor);
@@ -690,9 +694,7 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	/* status (1) */
 	outputs->status[0] = getState();
 	outputs->status[1] = trialCounter->successes;
-    //outputs->status[1] = this->movement_time*1000;
 	outputs->status[2] = trialCounter->aborts;
-    //outputs->status[2] = this->params->reaction_time*1000;
  	outputs->status[3] = trialCounter->failures;
  	outputs->status[4] = trialCounter->incompletes;
     
@@ -768,7 +770,7 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	outputs->reward = ((isNewState() && (getState() == STATE_REWARD)));
 	// movement_time is seconds in the STATE_MOVEMENT
     /*if(isNewState() && (getState() == STATE_REWARD)){
-        outputs->reward = 1000*((double)params->reaction_time-(double)this->movement_time)/((double)params->reaction_time);
+        outputs->reward = 1000*(params->reaction_time+params->bump_hold_time-(double)this->movement_time)/(params->reaction_time+params->bump_hold_time);
         if(outputs->reward < 0) {
             outputs->reward = 0;
         } else if(outputs->reward > 1000) {
@@ -792,7 +794,7 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 
 	/* position (7) */
 	// remove cursor during the bump/stim and hold period to avoid reacting to a visual cue if force reaction
-    if ((getState() == STATE_BUMP || getState() == STATE_STIM || (params->force_reaction && getState() == STATE_CT_HOLD)) && params->hide_cursor > .1) { 
+    if ((getState == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM || (params->force_reaction && getState() == STATE_CT_HOLD)) && params->hide_cursor > .1) { 
         outputs->position = Point(1E6, 1E6);
     } else { 
         outputs->position = inputs->cursor - cursorOffset;
