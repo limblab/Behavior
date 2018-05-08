@@ -188,7 +188,8 @@ private:
     int staircase_idx;
 
     CircleTarget *centerTarget;     //target for monkey to hold on while waiting for stimulus
-	CircleTarget *primaryTarget;    //correct when stimulus is present
+	CircleTarget *smallCenterTarget; // target before trial start that is smaller than center target
+    CircleTarget *primaryTarget;    //correct when stimulus is present
 	CircleTarget *secondaryTarget;  //correct when no stimulus present
 	SquareTarget *errorTarget;      //used as gray mask to indicate error during intertrial
     
@@ -272,12 +273,14 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
     
     //define targets
 	centerTarget = new CircleTarget();
+    smallCenterTarget = new CircleTarget();
 	primaryTarget = new CircleTarget(); 
 	secondaryTarget = new CircleTarget(); 
 
     
    
 	centerTarget->color = Target::Color(128, 128, 128);
+    smallCenterTarget->color = Target::Color(128,128,128);
 	primaryTarget->color = Target::Color(160, 255, 0);
 	secondaryTarget->color = Target::Color(255, 0, 160);
 
@@ -349,6 +352,8 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 
 	// Set up target locations, etc.
 	centerTarget->radius = params->target_size;
+    smallCenterTarget->radius = 0.5*params->target_size;
+    
     // the targed object defines target->radius as the radius of the target on the screen
     // the target radius input from simulink is the radius of a circle around the center on which the targets are placed
 	primaryTarget->radius = params->target_size;
@@ -744,7 +749,7 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 	// Center Target
 	if (getState() == STATE_CT_ON || 
 	    getState() == STATE_DATA_BLOCK )  {
-		outputs->targets[0] = (Target *)centerTarget;
+		outputs->targets[0] = (Target *)smallCenterTarget;
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
 	} else if ( getState() == STATE_CT_HOLD ||
