@@ -543,7 +543,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 		case STATE_CT_ON:
 			/* first target on */
             playTone(TONE_MASK);
-			if (centerTarget->cursorInTarget(inputs->cursor)) {
+			if (smallCenterTarget->cursorInTarget(inputs->cursor)) {
 				setState(STATE_CT_HOLD);
                 stateTimer->stop(S);
                 stateTimer->start(S);
@@ -715,8 +715,8 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_OT_ON(0);
 				break;
 			case STATE_STIM:
-//				outputs->word = WORD_STIM(this->stim_stair->getCurrentValue());
- 				outputs->word = WORD_STIM(0);
+				outputs->word = WORD_STIM(this->stim_stair->getCurrentValue());
+//				outputs->word = WORD_STIM(0);
                 break;
 			case STATE_BUMP:
 //				outputs->word = WORD_BUMP(this->bump_stair[this->staircase_idx]->getCurrentValue());
