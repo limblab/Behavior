@@ -82,7 +82,7 @@
  * byte 75:	uchar		=> abort during bump
  * byte 76:	uchar		=> force reactionm
 	
-* Version 2 (0x02) -- supports multiple staircases, more information is output
+* Version 2 (0x02) -- supports multiple bump staircases, more information is output
  *  so that the staircases can be tracked (which staircase was selected and where that
  *  staircase currently is)
  * ----------------
@@ -125,9 +125,54 @@
  * bytes 77-80: float   => bump staircase idx
  * bytes 81-84: float   => current bump staircase value
  */
-#define DATABURST_VERSION ((byte)0x02) 
+ 
+ /* Version 2 (0x02) -- supports multiple stim staircases and bump staircases, more information is output
+ *  so that the staircases can be tracked (which staircase was selected and where that
+ *  staircase currently is)
+ * ----------------
+ * byte  0:		uchar		=> number of bytes to be transmitted
+ * byte  1:		uchar		=> version number (in this case one)
+ * byte  2-3:	uchar		=> task code ('FC')
+ * bytes 4-5:	uchar       => version code
+ * byte  5-6:	uchar		=> version code (micro)
+ *
+ * bytes 7-10:  float		=> target angle
+ * byte  11:	uchar           => random target flag
+ * bytes 12-15: float		=> target radius
+ * bytes 16-19: float		=> target size
+ * byte  20:	uchar		=> show target during bump
+ *
+ * byte  21:                => bump trial flag
+ * bytes 22-25: float		=> bump direction
+ * bytes 26-29: float       => bump magnitude
+ * bytes 30-33: float		=> bump floor (minimum force(N) bump can take)
+ * bytes 34-37:	float		=> bump ceiling (maximum force(N) bump can take)
+ * bytes 38-41:	float		=> bump step
+ * bytes 42-45: float		=> bump duration
+ * bytes 46-49: float		=> bump ramp
+ *
+ * byte  50:	uchar		=> stim trial flag
+ * bytes 51:    uchar       => stim code
+ *
+ * byte  52:    uchar       => training trial flag
+ *
+ * byte  53:	uchar		=> recenter cursor flag
+ * byte  54:    uchar       => hide cursor during bump
+ *
+ * bytes 55-58: float		=> intertrial time
+ * bytes 59-62: float		=> penalty time
+ * bytes 63-66: float		=> bump hold time
+ * bytes 67-70: float		=> center hold time
+ * bytes 71-74: float		=> bump delay time
+ * byte 75:	uchar		=> abort during bump
+ * byte 76:	uchar		=> force reaction
+ * bytes 77-80: float   => bump staircase idx
+ * bytes 81-84: float   => current bump staircase value
+ * bytes 85-88: float	=> current stim staircase idx
+ */
+ 
+#define DATABURST_VERSION ((byte)0x03) 
 #define DATABURST_TASK_CODE ((byte)0x01)
-
 
 // This must be custom defined for your behavior
 struct LocalParams {
@@ -181,12 +226,13 @@ private:
     LocalParams *params;
 	CosineBumpGenerator *bump;
     Staircase * bump_stair[2];
-    Staircase * stim_stair;
+    Staircase * stim_stair[2];
 
 	int num_bump_stairs;
 	int num_stim_stairs;
-    int staircase_idx;
-
+    int bump_staircase_idx;
+	int stim_staircase_idx;
+	
     CircleTarget *centerTarget;     //target for monkey to hold on while waiting for stimulus
 	CircleTarget *smallCenterTarget; // target before trial start that is smaller than center target
     CircleTarget *primaryTarget;    //correct when stimulus is present
@@ -301,13 +347,13 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	
 	// initialize the number of staircases to be run simultaneously
 	this->num_bump_stairs = 2; // need to match with initialization
-	this->num_stim_stairs = 2;
-    this->staircase_idx = 0;
-        
+	this->num_stim_stairs = 2; // need to match with initialization
+    this->bump_staircase_idx = 0;
+	this->stim_staircase_idx = 0;
 	// initialize the staircase ratio
 	this->staircase_ratio = 2;
 	
-    //initialize the staircases
+    //initialize the bump staircases
 	for(int bump_stair_idx=0; bump_stair_idx < this->num_bump_stairs; bump_stair_idx++) {
 		this->bump_stair[bump_stair_idx] = new Staircase();
 		this->bump_stair[bump_stair_idx]->setForwardStepSize(3); // forward indicates larger, backwards indicates smaller
@@ -315,16 +361,22 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
 		this->bump_stair[bump_stair_idx]->setRatio(this->staircase_ratio);
 	}
 	
+	// initialize the stim staircases
+	for(int stim_stair_idx=0; stim_stair_idx < this->num_stim_stairs; stim_stair_idx++) {
+		this->stim_stair[stim_stair_idx] = new Staircase();
+		this->stim_stair[stim_stair_idx]->setForwardStepSize(2); // forward indicates larger, backwards indicates smaller amplitude/code
+		this->stim_stair[stim_stair_idx]->setBackwardStepSize(1);
+		this->stim_stair[stim_stair_idx]->setRatio(this->staircase_ratio);
+	}
+    //this->bump_stair=new Staircase();
+    //this->stim_stair=new Staircase();
 	
-   // this->bump_stair=new Staircase();
-    this->stim_stair=new Staircase();
+    //this->bump_stair->setStepSize(1);
+    //this->stim_stair->setForwardStepSize(3);
+	//this->stim_stair->setBackwardStepSize(1);
 	
-   // this->bump_stair->setStepSize(1);
-    this->stim_stair->setForwardStepSize(3);
-	this->stim_stair->setBackwardStepSize(1);
-	
-   // this->bump_stair->setRatio(this->staircase_ratio);
-	this->stim_stair->setRatio(this->staircase_ratio);
+    //this->bump_stair->setRatio(this->staircase_ratio);
+	//this->stim_stair->setRatio(this->staircase_ratio);
 	
 	// initialize variables that keep track of if bump/stim parameters changed here
 	this->bump_step_old = -1; // negative one so that stairs get initialized
@@ -393,14 +445,14 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
         this->bump_floor_old = params->bump_floor;
         this->bump_step_old = params->bump_step;
         
-    } else if (this->bump_stair[this->staircase_idx]->getIteration() > this->max_staircase_iterations) { // if we did a bunch of iterations
+    } else if(this->bump_stair[this->bump_staircase_idx]->getIteration() > this->max_staircase_iterations) { // if we did a bunch of iterations
         // reset this current staircase
-        this->bump_stair[this->staircase_idx]->setStartValue(startVal);
-        this->bump_stair[this->staircase_idx]->setCurrentValue(startVal);
-        this->bump_stair[this->staircase_idx]->setForwardLimit(steps);
-        this->bump_stair[this->staircase_idx]->setBackwardLimit(0);
-        this->bump_stair[this->staircase_idx]->setStaircaseDirection(-1); // on a success, negative indicates move backwards
-        this->bump_stair[this->staircase_idx]->setIteration(0);
+        this->bump_stair[this->bump_staircase_idx]->setStartValue(startVal);
+        this->bump_stair[this->bump_staircase_idx]->setCurrentValue(startVal);
+        this->bump_stair[this->bump_staircase_idx]->setForwardLimit(steps);
+        this->bump_stair[this->bump_staircase_idx]->setBackwardLimit(0);
+        this->bump_stair[this->bump_staircase_idx]->setStaircaseDirection(-1); // on a success, negative indicates move backwards
+        this->bump_stair[this->bump_staircase_idx]->setIteration(0);
         
     }
     
@@ -413,27 +465,35 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 	
 	this->max_staircase_iterations = (int)params->stim_levels*3;
 	
-    if(this->stim_levels_old != params->stim_levels	|| // check if number of stim levels changed
-		this->stim_stair->getIteration() > this->max_staircase_iterations){ // check if we have done a bunch of iterations.
-        //reset the stim staircase
-        this->stim_stair->setStartValue(startVal);
-        this->stim_stair->setCurrentValue(startVal);
-        this->stim_stair->setForwardLimit((int)params->stim_levels);
-        this->stim_stair->setBackwardLimit(0);
-        this->stim_stair->setStaircaseDirection(-1);
-		this->stim_stair->setIteration(0);
-        
+    if(this->stim_levels_old != params->stim_levels){ // check if parameters have changed
+        //reset all stim staircases
+		for(int stim_stair_idx = 0; stim_stair_idx < num_stim_stairs; stim_stair_idx++) {
+			this->stim_stair[stim_stair_idx]->setStartValue(startVal);
+			this->stim_stair[stim_stair_idx]->setCurrentValue(startVal);
+			this->stim_stair[stim_stair_idx]->setForwardLimit((int)params->stim_levels);
+			this->stim_stair[stim_stair_idx]->setBackwardLimit(0);
+			this->stim_stair[stim_stair_idx]->setStaircaseDirection(-1);
+			this->stim_stair[stim_stair_idx]->setIteration(0);
+        }
         this->stim_levels_old = params->stim_levels;
-    }
+    } else if(this->stim_stair[stim_staircase_idx]->getIteration > this->max_staircase_iterations) {// check if this stim staircase has reached the max iterations
+		this->stim_stair[stim_stair_idx]->setStartValue(startVal);
+			this->stim_stair[stim_staircase_idx]->setCurrentValue(startVal);
+			this->stim_stair[stim_staircase_idx]->setForwardLimit((int)params->stim_levels);
+			this->stim_stair[stim_staircase_idx]->setBackwardLimit(0);
+			this->stim_stair[stim_staircase_idx]->setStaircaseDirection(-1);
+			this->stim_stair[stim_staircase_idx]->setIteration(0);
+	}
+	
 	//set up the bump
     randNumTrialType = this->random->getDouble(0,1);
     
     this->bump_delay=this->random->getDouble(params->bump_delay_low,params->bump_delay_high);
     this->bump_trial= randNumTrialType<params->bump_prob;
     if(this->bump_trial){
-        this->staircase_idx = this->random->getInteger(0,this->num_bump_stairs-1);
+        this->bump_staircase_idx = this->random->getInteger(0,this->num_bump_stairs-1);
         
-        this->bump->peak_magnitude= this->bump_stair[staircase_idx]->getCurrentValue()*params->bump_step + params->bump_floor;
+        this->bump->peak_magnitude= this->bump_stair[bump_staircase_idx]->getCurrentValue()*params->bump_step + params->bump_floor;
         this->bump->hold_duration = params->bump_duration;
         this->bump->rise_time = params->bump_ramp;
         this->bump->direction = (double)(params->bump_direction) * PI/180;		
@@ -449,7 +509,9 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 	this->stim_trial = (randNumTrialType > params->bump_prob && randNumTrialType < params->stim_prob+params->bump_prob);
 	
     if(this->stim_trial) {
-        this->stim_code=this->stim_stair->getCurrentValue();   
+		// determine which stim staircase to use
+		this->stim_staircase_idx = random->getInteger(0,this->num_stim_stairs-1);
+        this->stim_code=this->stim_stair[stim_staircase_idx]->getCurrentValue();   
     }
     
 	/* setup the databurst */
@@ -480,7 +542,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     
 	db->addByte((byte)this->stim_trial);
 	db->addByte((byte)this->stim_code);
-    
+	
 	db->addByte((byte)this->training_trial);
     
 	db->addByte((byte)this->params->recenter_cursor);
@@ -495,9 +557,11 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 	db->addByte((byte)this->params->abort_during_bump);
 	db->addByte((byte)this->params->force_reaction);
     
-    db->addFloat((float)this->staircase_idx);
-    db->addFloat((float)this->bump_stair[staircase_idx]->getCurrentValue());
+    db->addFloat((float)this->bump_staircase_idx);
+    db->addFloat((float)this->bump_stair[bump_staircase_idx]->getCurrentValue());
     
+	db->addFloat((float)this->stim_staircase_idx);
+	
 	db->start();
 }
 
@@ -621,10 +685,10 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
                     (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset)) ) {
                 //iterate staircase
                 if(this->bump_trial){
-                    this->bump_stair[staircase_idx]->addFailure();
+                    this->bump_stair[bump_staircase_idx]->addFailure();
                 } 
 				if(this->stim_trial){
-                    this->stim_stair->addFailure();
+                    this->stim_stair[stim_staircase_idx]->addFailure();
                 }
                 playTone(TONE_FAIL);
 				setState(STATE_FAIL);
@@ -633,10 +697,10 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
                 this->movement_time = stateTimer->elapsedTime(S) + this->movement_time;
                 
                 if(this->bump_trial){
-                    this->bump_stair[staircase_idx]->addSuccess();
+                    this->bump_stair[bump_staircase_idx]->addSuccess();
                 } 
 				if(this->stim_trial){
-					this->stim_stair->addSuccess();
+					this->stim_stair[stim_staircase_idx]->addSuccess();
                 }
 				
                 playTone(TONE_REWARD);
@@ -715,11 +779,11 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_OT_ON(0);
 				break;
 			case STATE_STIM:
-				outputs->word = WORD_STIM(this->stim_stair->getCurrentValue());
+				outputs->word = WORD_STIM(this->stim_stair[stim_staircase_idx]->getCurrentValue());
 //				outputs->word = WORD_STIM(0);
                 break;
 			case STATE_BUMP:
-//				outputs->word = WORD_BUMP(this->bump_stair[this->staircase_idx]->getCurrentValue());
+//				outputs->word = WORD_BUMP(this->bump_stair[this->bump_staircase_idx]->getCurrentValue());
                  outputs->word = WORD_BUMP(0);
 				break;
 			case STATE_MOVEMENT:
