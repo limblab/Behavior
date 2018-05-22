@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1251"
+    ComputedModelVersion    "1.1252"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -52,11 +52,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"810"
+	ViewObjType		"SimulinkTopLevel"
+	LoadSaveID		"0"
 	Extents			[992.0, 511.0]
-	ZoomFactor		[1.0]
-	Offset			[-36.421428571428635, -62.917368177748969]
+	ZoomFactor		[0.59999999999999987]
+	Offset			[0.0, 1315.6666666666661]
       }
     }
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue May 08 10:40:19 2018"
-  RTWModifiedTimeStamp	  447676814
-  ModelVersionFormat	  "1.%<AutoIncrement:1251>"
+  LastModifiedDate	  "Tue May 22 16:36:22 2018"
+  RTWModifiedTimeStamp	  448907779
+  ModelVersionFormat	  "1.%<AutoIncrement:1252>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1025,7 +1025,7 @@ Model {
   System {
     Name		    "forced_choice"
     Location		    [-8, 73, 1028, 744]
-    Open		    off
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1048,7 +1048,7 @@ Model {
       ZOrder		      113
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_fc2"
-      Parameters	      "0 0 3 8 0 0 0 1 0 0 2 .15 .2 .1 .3 .2 .7 .5 1 .2 1 1 1 0 16 .3 1 1"
+      Parameters	      "0 0 3 8 0 0 0 1 0 0 2 .15 .2 .1 .3 .2 .7 .5 1 .2 1 1 1 0 16 .3 1 1 1 0"
       Object {
 	$PropName		"MaskObject"
 	$ObjectID		19
@@ -2005,7 +2005,7 @@ Model {
       System {
 	Name			"RewardSbs1"
 	Location		[-8, 73, 1028, 744]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"

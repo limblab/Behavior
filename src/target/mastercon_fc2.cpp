@@ -211,6 +211,8 @@ struct LocalParams {
 	real_T abort_during_bump;
     real_T force_reaction;
     
+    real_T use_staircase;
+    real_T stim_code_low;
 };
 
 #define MY_CLASS_NAME ForcedChoiceBehavior
@@ -273,7 +275,7 @@ private:
 ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
     //create binding map for pulling variables from simulink into the params struct
-	this->setNumParams(28);
+	this->setNumParams(30);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
 	this->bindParamId(&params->soft_reset,				1);
@@ -309,6 +311,8 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->training_frequency,		25);
 	this->bindParamId(&params->abort_during_bump,		26);
 	this->bindParamId(&params->force_reaction,  		27);
+    this->bindParamId(&params->use_staircase,           28);
+    this->bindParamId(&params->stim_code_low,           29);
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -392,7 +396,8 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
 void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     int startVal;
     int steps;
-    
+    int rand_num_bump;
+    int rand_num_stim;
     double randNumTrialType;
     
 	//set the target direction deg
@@ -490,28 +495,42 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     
     this->bump_delay=this->random->getDouble(params->bump_delay_low,params->bump_delay_high);
     this->bump_trial= randNumTrialType<params->bump_prob;
-    if(this->bump_trial){
+    if(this->bump_trial && this->params->use_staircase){
         this->bump_staircase_idx = this->random->getInteger(0,this->num_bump_stairs-1);
         
         this->bump->peak_magnitude= this->bump_stair[bump_staircase_idx]->getCurrentValue()*params->bump_step + params->bump_floor;
         this->bump->hold_duration = params->bump_duration;
         this->bump->rise_time = params->bump_ramp;
         this->bump->direction = (double)(params->bump_direction) * PI/180;		
-    } else {
+    } else if(this->bump_trial && !this->params->use_staircase){
+        rand_num_bump = this->random->getInteger(0,(int)((params->bump_ceiling-params->bump_floor)/params->bump_step));
+        
+        this->bump->peak_magnitude = rand_num_bump*params->bump_step + params->bump_floor;
+        this->bump->hold_duration = params->bump_duration;
+        this->bump->rise_time = params->bump_ramp;
+        this->bump->direction = (double)(params->bump_direction) * PI/180;	
+    }
+    else {
 		this->bump->peak_magnitude=0;
 	}
     
 	/* Select whether this will be a training trial 
 	*  If the training frequency is zero we should not see any training trials*/
-	this->training_trial=(this->random->getDouble() < params->training_frequency);
+	
+    this->training_trial=(this->random->getDouble() < params->training_frequency);
     
     /* Select whether this will be a stimulation trial */
 	this->stim_trial = (randNumTrialType > params->bump_prob && randNumTrialType < params->stim_prob+params->bump_prob);
 	
     if(this->stim_trial) {
 		// determine which stim staircase to use
-		this->stim_staircase_idx = random->getInteger(0,this->num_stim_stairs-1);
-        this->stim_code=this->stim_stair[stim_staircase_idx]->getCurrentValue();   
+        if(this->params->use_staircase) {
+            this->stim_staircase_idx = this->random->getInteger(0,this->num_stim_stairs-1);
+            this->stim_code=this->stim_stair[stim_staircase_idx]->getCurrentValue();  \
+        } else {
+            this->stim_code = this->random->getInteger(this->params->stim_code_low,this->params->stim_levels);
+        }
+       
     }
     
 	/* setup the databurst */
@@ -684,10 +703,10 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
             if ((params->force_reaction && params->reaction_time < stateTimer->elapsedTime(S))    ||
                     (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset)) ) {
                 //iterate staircase
-                if(this->bump_trial){
+                if(this->bump_trial && this->params->use_staircase){
                     this->bump_stair[bump_staircase_idx]->addFailure();
                 } 
-				if(this->stim_trial){
+				if(this->stim_trial && this->params->use_staircase){
                     this->stim_stair[stim_staircase_idx]->addFailure();
                 }
                 playTone(TONE_FAIL);
@@ -696,10 +715,10 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 				//iterate staircase
                 this->movement_time = stateTimer->elapsedTime(S) + this->movement_time;
                 
-                if(this->bump_trial){
+                if(this->bump_trial && this->params->use_staircase){
                     this->bump_stair[bump_staircase_idx]->addSuccess();
                 } 
-				if(this->stim_trial){
+				if(this->stim_trial && this->params->use_staircase){
 					this->stim_stair[stim_staircase_idx]->addSuccess();
                 }
 				
@@ -779,7 +798,7 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_OT_ON(0);
 				break;
 			case STATE_STIM:
-				outputs->word = WORD_STIM(this->stim_stair[stim_staircase_idx]->getCurrentValue());
+				outputs->word = WORD_STIM(this->stim_code);
 //				outputs->word = WORD_STIM(0);
                 break;
 			case STATE_BUMP:

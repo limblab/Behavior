@@ -309,6 +309,9 @@ namespace BehaviorGraphics
             AddParamListItem("FC Training frequency", "P26", "Behavior FC", this.textBoxFCTrainingTrialFreq);
             AddParamListItem("FC Abort During Bump", "P27", "Behavior FC", this.checkBoxFCAbortDuringBumps);
             AddParamListItem("FC Force Reaction", "P28", "Behavior FC", this.checkBoxFCForceReactionTime);
+            AddParamListItem("FC Use Staircase", "P29", "Behavior FC", this.checkBoxFCUseStaircase);
+            AddParamListItem("FC Stim Code Low", "P30", "Behavior FC", this.textBoxFCStimCodeLow);
+            
             #endregion
 
             #region Bump-stim
@@ -3276,6 +3279,16 @@ namespace BehaviorGraphics
                 labelWFIntMax.Show();
             }
             widget_ValueChanged(sender, e);
+        }
+
+        private void groupBox114_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPageFC_Click(object sender, EventArgs e)
+        {
+
         }
 
 
