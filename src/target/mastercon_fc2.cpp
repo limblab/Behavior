@@ -126,7 +126,7 @@
  * bytes 81-84: float   => current bump staircase value
  */
  
- /* Version 2 (0x02) -- supports multiple stim staircases and bump staircases, more information is output
+ /* Version 3 (0x03) -- supports multiple stim staircases and bump staircases, more information is output
  *  so that the staircases can be tracked (which staircase was selected and where that
  *  staircase currently is)
  * ----------------
@@ -171,7 +171,54 @@
  * bytes 85-88: float	=> current stim staircase idx
  */
  
-#define DATABURST_VERSION ((byte)0x03) 
+ /* Version 4 (0x04) -- supports multiple stim staircases and bump staircases, more information is output
+ *  so that the staircases can be tracked (which staircase was selected and where that
+ *  staircase currently is)
+ * ----------------
+ * byte  0:		uchar		=> number of bytes to be transmitted
+ * byte  1:		uchar		=> version number (in this case one)
+ * byte  2-3:	uchar		=> task code ('FC')
+ * bytes 4-5:	uchar       => version code
+ * byte  5-6:	uchar		=> version code (micro)
+ *
+ * bytes 7-10:  float		=> target angle
+ * byte  11:	uchar           => random target flag
+ * bytes 12-15: float		=> target radius
+ * bytes 16-19: float		=> target size
+ * byte  20:	uchar		=> show target during bump
+ *
+ * byte  21:                => bump trial flag
+ * bytes 22-25: float		=> bump direction
+ * bytes 26-29: float       => bump magnitude
+ * bytes 30-33: float		=> bump floor (minimum force(N) bump can take)
+ * bytes 34-37:	float		=> bump ceiling (maximum force(N) bump can take)
+ * bytes 38-41:	float		=> bump step
+ * bytes 42-45: float		=> bump duration
+ * bytes 46-49: float		=> bump ramp
+ *
+ * byte  50:	uchar		=> stim trial flag
+ * bytes 51:    uchar       => stim code
+ *
+ * byte  52:    uchar       => training trial flag
+ *
+ * byte  53:	uchar		=> recenter cursor flag
+ * byte  54:    uchar       => hide cursor during bump
+ *
+ * bytes 55-58: float		=> intertrial time
+ * bytes 59-62: float		=> penalty time
+ * bytes 63-66: float		=> bump hold time
+ * bytes 67-70: float		=> center hold time
+ * bytes 71-74: float		=> bump delay time
+ * byte 75:	uchar		=> abort during bump
+ * byte 76:	uchar		=> force reaction
+ * bytes 77-80: float   => bump staircase idx
+ * bytes 81-84: float   => current bump staircase value
+ * bytes 85-88: float	=> current stim staircase idx
+  *byte 89: uchar       => visual trial
+  *byte 90: uchar       => lock cursor during cue
+ */
+
+#define DATABURST_VERSION ((byte)0x04) 
 #define DATABURST_TASK_CODE ((byte)0x01)
 
 // This must be custom defined for your behavior
@@ -213,6 +260,12 @@ struct LocalParams {
     
     real_T use_staircase;
     real_T stim_code_low;
+    
+    real_T play_audio;
+    real_T visual_prob;
+    real_T lock_cursor_during_cue;
+    
+    real_T audio_cue_prob;
 };
 
 #define MY_CLASS_NAME ForcedChoiceBehavior
@@ -222,13 +275,13 @@ public:
 	ForcedChoiceBehavior(SimStruct *S);
 	void update(SimStruct *S);
 	void calculateOutputs(SimStruct *S);	
-
+    
 private:
 	// Your behavior's instance variables
     LocalParams *params;
 	CosineBumpGenerator *bump;
     Staircase * bump_stair[2];
-    Staircase * stim_stair[2];
+    Staircase * stim_stair[1];
 
 	int num_bump_stairs;
 	int num_stim_stairs;
@@ -240,10 +293,14 @@ private:
     CircleTarget *primaryTarget;    //correct when stimulus is present
 	CircleTarget *secondaryTarget;  //correct when no stimulus present
 	SquareTarget *errorTarget;      //used as gray mask to indicate error during intertrial
+    CircleTarget *centerGoTarget; // target to be used as a go cue
+    CircleTarget *primaryGoTarget;
     
 	bool bump_trial;
     bool stim_trial;
+    bool visual_trial;
 	bool training_trial;
+    bool audio_trial;
 
 	int bump_dir;
 	int tgt_dir;
@@ -251,12 +308,11 @@ private:
     int bump_steps;
     int stim_code;
     
-    int audio_trial;
     int max_staircase_iterations;
     int staircase_ratio;
 	
     Point cursorOffset;
-
+    Point cursor_position_go_cue;
 	real_T last_soft_reset;
 
 	// parameters to store past bump and stim parameters
@@ -275,7 +331,7 @@ private:
 ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
     //create binding map for pulling variables from simulink into the params struct
-	this->setNumParams(30);
+	this->setNumParams(34);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
 	this->bindParamId(&params->soft_reset,				1);
@@ -313,6 +369,11 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->force_reaction,  		27);
     this->bindParamId(&params->use_staircase,           28);
     this->bindParamId(&params->stim_code_low,           29);
+    this->bindParamId(&params->play_audio,              30);
+    this->bindParamId(&params->visual_prob,             31);
+    this->bindParamId(&params->lock_cursor_during_cue,  32);
+    this->bindParamId(&params->audio_cue_prob,          33);
+    
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -326,19 +387,24 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
     smallCenterTarget = new CircleTarget();
 	primaryTarget = new CircleTarget(); 
 	secondaryTarget = new CircleTarget(); 
-
-    
+    centerGoTarget = new CircleTarget();
+    primaryGoTarget = new CircleTarget();
    
-	centerTarget->color = Target::Color(128, 128, 128);
-    smallCenterTarget->color = Target::Color(128,128,128);
-	primaryTarget->color = Target::Color(160, 255, 0);
+	centerTarget->color = Target::Color(160,255,0);
+    centerGoTarget->color = Target::Color(255,0,0);
+    smallCenterTarget->color = Target::Color(160,255,0);
+	primaryTarget->color = Target::Color(255,0,160);
 	secondaryTarget->color = Target::Color(255, 0, 160);
-
+    primaryGoTarget->color = Target::Color(255,0,0);
+            
 	errorTarget = new SquareTarget(0, 0, 100, Target::Color(255, 255, 255));
     // establish flags (default false)
 	this->bump_trial = false;
 	this->stim_trial = false;
+    this->visual_trial = false;
 	this->training_trial = false;
+    this->audio_trial = false; // this can be paired with a different cue
+    
     // establish bump/target directions
 	this->bump_dir = 0;
 	this->tgt_dir = 0;
@@ -351,7 +417,7 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	
 	// initialize the number of staircases to be run simultaneously
 	this->num_bump_stairs = 2; // need to match with initialization
-	this->num_stim_stairs = 2; // need to match with initialization
+	this->num_stim_stairs = 1; // need to match with initialization
     this->bump_staircase_idx = 0;
 	this->stim_staircase_idx = 0;
 	// initialize the staircase ratio
@@ -387,9 +453,8 @@ ForcedChoiceBehavior::ForcedChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bump_ceiling_old = -1;
 	this->bump_floor_old = -1;
 	this->stim_levels_old = -1;
-	
-	// below are variables that are hard coded as they may not need to change often
-    this->audio_trial = 0; // frequency at which an audio cue is provided, used for training purposes
+    
+    
 }
 
 
@@ -409,7 +474,8 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 
 	// Set up target locations, etc.
 	centerTarget->radius = params->target_size;
-    smallCenterTarget->radius = 0.5*params->target_size;
+    smallCenterTarget->radius = params->target_size;
+    centerGoTarget->radius = params->target_size;
     
     // the targed object defines target->radius as the radius of the target on the screen
     // the target radius input from simulink is the radius of a circle around the center on which the targets are placed
@@ -417,6 +483,10 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 	primaryTarget->centerX = params->target_radius*cos((float)this->tgt_dir * PI/180);
 	primaryTarget->centerY = params->target_radius*sin((float)this->tgt_dir * PI/180);
 	
+    primaryGoTarget->radius = params->target_size;
+	primaryGoTarget->centerX = params->target_radius*cos((float)this->tgt_dir * PI/180);
+	primaryGoTarget->centerY = params->target_radius*sin((float)this->tgt_dir * PI/180);
+    
 	secondaryTarget->radius = params->target_size;
 	secondaryTarget->centerX = params->target_radius*cos(PI + (float)this->tgt_dir * PI/180);
 	secondaryTarget->centerY = params->target_radius*sin(PI + (float)this->tgt_dir * PI/180);
@@ -424,6 +494,9 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     // Reset cursor offset
     cursorOffset.x = 0;
     cursorOffset.y = 0;
+    cursor_position_go_cue.x = 0;
+    cursor_position_go_cue.y = 0;
+    
 	// reset movement time
 	this->movement_time = 0;
 	
@@ -462,9 +535,8 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     }
     
 	// see if pairing with an audio cue
-    this->audio_trial = this->random->getDouble(0,1) < 0.0;
-    
-	
+    this->audio_trial = this->random->getDouble(0,1) < params->audio_cue_prob;
+
 	// modify STIM staircases if necessary
     startVal=(int)(params->stim_levels);
 	
@@ -494,6 +566,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     randNumTrialType = this->random->getDouble(0,1);
     
     this->bump_delay=this->random->getDouble(params->bump_delay_low,params->bump_delay_high);
+    
     this->bump_trial= randNumTrialType<params->bump_prob;
     if(this->bump_trial && this->params->use_staircase){
         this->bump_staircase_idx = this->random->getInteger(0,this->num_bump_stairs-1);
@@ -532,8 +605,15 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
         }
        
     }
+    // select whether this will be a visual tria
+    this->visual_trial = (randNumTrialType > params->bump_prob+params->stim_prob && randNumTrialType < params->stim_prob+params->bump_prob+params->visual_prob);
+	
     
-	/* setup the databurst */
+    // 
+    if(~(this->visual_trial || this->bump_trial || this->stim_trial || this->audio_trial)) {
+        this->bump_delay = params->bump_delay_high;
+    }
+    /* setup the databurst */
 	db->reset();
 	db->addByte(DATABURST_VERSION);
     db->addByte(DATABURST_TASK_CODE);
@@ -580,7 +660,9 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
     db->addFloat((float)this->bump_stair[bump_staircase_idx]->getCurrentValue());
     
 	db->addFloat((float)this->stim_staircase_idx);
-	
+	db->addByte((byte)this->visual_trial);
+    db->addByte((byte)this->params->lock_cursor_during_cue);
+    
 	db->start();
 }
 
@@ -589,7 +671,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 	Target *incorrectTarget;
 	
 
-    if (this->bump_trial || this->stim_trial) {
+    if (this->bump_trial || this->stim_trial || this->visual_trial || this->audio_trial) {
         // want to be in primary target
         correctTarget = primaryTarget;
         if (this->training_trial) {
@@ -612,20 +694,26 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 	// State machine
 	switch (this->getState()) {
 		case STATE_PRETRIAL:
-            playTone(TONE_MASK);
+            if(params->play_audio){
+                playTone(TONE_MASK);
+            }
 			updateParameters(S);
 			doPreTrial(S);
 			setState(STATE_DATA_BLOCK);
 			break;
 		case STATE_DATA_BLOCK:
-            playTone(TONE_MASK);
+            if(params->play_audio){
+                playTone(TONE_MASK);
+            }
 			if (db->isDone()) {
 				setState(STATE_CT_ON);
 			}
 			break;
 		case STATE_CT_ON:
 			/* first target on */
-            playTone(TONE_MASK);
+            if(params->play_audio){
+                playTone(TONE_MASK);
+            }
 			if (smallCenterTarget->cursorInTarget(inputs->cursor)) {
 				setState(STATE_CT_HOLD);
                 stateTimer->stop(S);
@@ -637,28 +725,43 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay) &&
-                     ((this->stim_trial)||(this->bump_trial))) {
-                playTone(TONE_MASK);
-				if (this->stim_trial) {
-					setState(STATE_STIM); // currently able to pair bump and stim
-				} else if(this->bump_trial) {
-    				bump->start(S);
+                     ((this->stim_trial)||(this->bump_trial)||(this->visual_trial)||(this->audio_trial))) {
+                if(params->play_audio){
+                    playTone(TONE_MASK);
+                }
+				if(this->stim_trial) {
+					setState(STATE_STIM);
                     if(this->audio_trial){
                         playTone(TONE_GO);
                     }
+				} else if(this->bump_trial) {
+    				if(this->audio_trial){
+                        playTone(TONE_GO);
+                    }
+                    bump->start(S);
 					setState(STATE_BUMP);
-				} 
+				} else if(this->visual_trial) {
+                    setState(STATE_MOVEMENT);
+                } else if(this->audio_trial) {
+                    playTone(TONE_GO);
+                    setState(STATE_MOVEMENT);
+                }
 			} else if (stateTimer->elapsedTime(S) > (params->ct_hold_time + this->bump_delay + params->bump_hold_time)){
                 playTone(TONE_REWARD);
                 setState(STATE_REWARD);
-            } else {
+            } else if(params->play_audio){
                 playTone(TONE_MASK);
             }
 			break;
 		case STATE_BUMP:
             if(params->force_reaction){
-                playTone(TONE_MASK);
+                if(params->play_audio){
+                    playTone(TONE_MASK);
+                }
                 if(stateTimer->elapsedTime(S) > params->bump_hold_time) {
+                    if(params->recenter_cursor || params->lock_cursor_during_cue) {
+                        cursorOffset = inputs->cursor;
+                    } 
 					this->movement_time = stateTimer->elapsedTime(S);
                     setState(STATE_MOVEMENT);
                 }
@@ -668,22 +771,26 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
                     setState(STATE_ABORT);
                 } else if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
                     playTone(TONE_GO);
-                    if (params->recenter_cursor) {
+                    if(params->recenter_cursor || params->lock_cursor_during_cue) {
                         cursorOffset = inputs->cursor;
                     }   
                     setState(STATE_MOVEMENT);
                 }
             }
 			break;
-            
 		case STATE_STIM:
             if(params->force_reaction){
-                playTone(TONE_MASK);
+                if(params->play_audio){
+                    playTone(TONE_MASK);
+                }
 				if(this->bump_trial) { 
 					bump->start(S);
 					setState(STATE_BUMP);
 				}
 				else if(stateTimer->elapsedTime(S) > params->bump_hold_time) {
+                    if(params->recenter_cursor || params->lock_cursor_during_cue) {
+                        cursorOffset = inputs->cursor;
+                    } 
 					setState(STATE_MOVEMENT);
 				}
             }else{
@@ -692,7 +799,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
                     setState(STATE_ABORT);
                 } else if (stateTimer->elapsedTime(S) > params->bump_hold_time) {
                     playTone(TONE_GO);
-                    if (params->recenter_cursor) {
+                    if (params->recenter_cursor || params->lock_cursor_during_cue) {
                         cursorOffset = inputs->cursor;
                     }   
                     setState(STATE_MOVEMENT);
@@ -700,7 +807,8 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
             }
 			break;
 		case STATE_MOVEMENT:
-            if ((params->force_reaction && params->reaction_time < stateTimer->elapsedTime(S))    ||
+            if (((this->bump_trial || this->stim_trial) && params->force_reaction && params->reaction_time < stateTimer->elapsedTime(S))    ||
+                    ((this->audio_trial || this->visual_trial) && params->force_reaction && params->reaction_time+params->bump_hold_time < stateTimer->elapsedTime(S))    ||
                     (incorrectTarget->cursorInTarget(inputs->cursor - cursorOffset)) ) {
                 //iterate staircase
                 if(this->bump_trial && this->params->use_staircase){
@@ -724,7 +832,7 @@ void ForcedChoiceBehavior::update(SimStruct *S) {
 				
                 playTone(TONE_REWARD);
 				setState(STATE_REWARD);
-			} else {
+			} else if(params->play_audio){
                 playTone(TONE_MASK);
             }
 			break;
@@ -834,14 +942,18 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[0] = (Target *)smallCenterTarget;
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
-	} else if ( getState() == STATE_CT_HOLD ||
+	} else if(getState() == STATE_MOVEMENT && this->visual_trial) {
+        outputs->targets[0] = (Target *)centerGoTarget;
+        outputs->targets[1] = this->primaryGoTarget;
+        outputs->targets[2] = nullTarget;
+    } else if ( getState() == STATE_CT_HOLD ||
                 getState() == STATE_BUMP ||
-                getState() == STATE_STIM ||
+                getState() == STATE_STIM || 
                 getState() == STATE_MOVEMENT) {
 		outputs->targets[0] = (Target *)centerTarget;
         outputs->targets[1] = this->primaryTarget;
         outputs->targets[2] = nullTarget;
-	} else if (getState() == STATE_PENALTY) {
+    } else if (getState() == STATE_PENALTY) {
 		outputs->targets[0] = this->errorTarget;
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
@@ -885,9 +997,13 @@ void ForcedChoiceBehavior::calculateOutputs(SimStruct *S) {
 
 	/* position (7) */
 	// remove cursor during the bump/stim and hold period to avoid reacting to a visual cue if force reaction
-    if ((getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM || (params->force_reaction && getState() == STATE_CT_HOLD)) && params->hide_cursor > .1) { 
-        outputs->position = Point(1E6, 1E6);
-    } else { 
+    if (params->hide_cursor > 0.1 && (getState() == STATE_BUMP || getState() == STATE_STIM || (params->force_reaction && getState() == STATE_CT_HOLD))) { 
+            outputs->position = Point(1E6, 1E6);
+
+    } else if(params->lock_cursor_during_cue > 0.1 && (getState() == STATE_BUMP || getState() == STATE_STIM || (params->force_reaction && getState() == STATE_CT_HOLD))) {
+            outputs->position = Point(0,0);
+    }
+    else { 
         outputs->position = inputs->cursor - cursorOffset;
     } 
 }
