@@ -177,45 +177,48 @@
  * ----------------
  * byte  0:		uchar		=> number of bytes to be transmitted
  * byte  1:		uchar		=> version number (in this case one)
- * byte  2-3:	uchar		=> task code ('FC')
- * bytes 4-5:	uchar       => version code
- * byte  5-6:	uchar		=> version code (micro)
+ * byte  2:		uchar		=> task number
+ * byte  3-4:	uchar		=> task code ('FC')
+ * bytes 5-6:	uchar       => version code
+ * byte  7-8:	uchar		=> version code (micro)
  *
- * bytes 7-10:  float		=> target angle
- * byte  11:	uchar           => random target flag
- * bytes 12-15: float		=> target radius
- * bytes 16-19: float		=> target size
- * byte  20:	uchar		=> show target during bump
+ * bytes 9-12:  float		=> target angle
+ * byte  13:	uchar           => random target flag
+ * bytes 14-17: float		=> target radius
+ * bytes 18-21: float		=> target size
+ * byte  22:	uchar		=> show target during bump
  *
- * byte  21:                => bump trial flag
- * bytes 22-25: float		=> bump direction
- * bytes 26-29: float       => bump magnitude
- * bytes 30-33: float		=> bump floor (minimum force(N) bump can take)
- * bytes 34-37:	float		=> bump ceiling (maximum force(N) bump can take)
- * bytes 38-41:	float		=> bump step
- * bytes 42-45: float		=> bump duration
- * bytes 46-49: float		=> bump ramp
+ * byte  23:                => bump trial flag
+ * bytes 24-27: float		=> bump direction
+ * bytes 28-31: float       => bump magnitude
+ * bytes 32-35: float		=> bump floor (minimum force(N) bump can take)
+ * bytes 36-39:	float		=> bump ceiling (maximum force(N) bump can take)
+ * bytes 40-43:	float		=> bump step
+ * bytes 44-47: float		=> bump duration
+ * bytes 48-51: float		=> bump ramp
  *
- * byte  50:	uchar		=> stim trial flag
- * bytes 51:    uchar       => stim code
+ * byte  52:	uchar		=> stim trial flag
+ * bytes 53:    uchar       => stim code
  *
- * byte  52:    uchar       => training trial flag
+ * byte  54:    uchar       => training trial flag
  *
- * byte  53:	uchar		=> recenter cursor flag
- * byte  54:    uchar       => hide cursor during bump
+ * byte  55:	uchar		=> recenter cursor flag
+ * byte  56:    uchar       => hide cursor during bump
  *
- * bytes 55-58: float		=> intertrial time
- * bytes 59-62: float		=> penalty time
- * bytes 63-66: float		=> bump hold time
- * bytes 67-70: float		=> center hold time
- * bytes 71-74: float		=> bump delay time
- * byte 75:	uchar		=> abort during bump
- * byte 76:	uchar		=> force reaction
- * bytes 77-80: float   => bump staircase idx
- * bytes 81-84: float   => current bump staircase value
- * bytes 85-88: float	=> current stim staircase idx
-  *byte 89: uchar       => visual trial
-  *byte 90: uchar       => lock cursor during cue
+ * bytes 57-60: float		=> intertrial time
+ * bytes 61-64: float		=> penalty time
+ * bytes 65-68: float		=> bump hold time
+ * bytes 69-72: float		=> center hold time
+ * bytes 73-76: float		=> bump delay time
+ * byte 77:	uchar		=> abort during bump
+ * byte 78:	uchar		=> force reaction
+ 
+ * bytes 79-82: float   => bump staircase idx
+ * bytes 83-86: float   => current bump staircase value
+ 
+ * bytes 87-90: float	=> current stim staircase idx
+ * byte 91: uchar       => visual trial
+ * byte 92: uchar       => lock cursor during cue
  */
 
 #define DATABURST_VERSION ((byte)0x04) 
@@ -610,7 +613,7 @@ void ForcedChoiceBehavior::doPreTrial(SimStruct *S) {
 	
     
     // 
-    if(~(this->visual_trial || this->bump_trial || this->stim_trial || this->audio_trial)) {
+    if(!(this->visual_trial || this->bump_trial || this->stim_trial || this->audio_trial)) {
         this->bump_delay = params->bump_delay_high;
     }
     /* setup the databurst */
