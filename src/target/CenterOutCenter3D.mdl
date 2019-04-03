@@ -1,5 +1,5 @@
 Model {
-  Name			  "RandomTarget3D"
+  Name			  "CenterOutCenter3D"
   Version		  8.5
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1404"
+    ComputedModelVersion    "1.1405"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -52,11 +52,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkTopLevel"
-	LoadSaveID		"0"
+	ViewObjType		"SimulinkSubsys"
+	LoadSaveID		"509"
 	Extents			[992.0, 594.0]
 	ZoomFactor		[0.8]
-	Offset			[0.0, 0.0]
+	Offset			[0.0, 352.5]
       }
     }
   }
@@ -64,11 +64,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Dec 08 09:30:25 2017"
-  RTWModifiedTimeStamp	  434626206
-  ModelVersionFormat	  "1.%<AutoIncrement:1404>"
+  LastModifiedDate	  "Thu Feb 22 11:53:52 2018"
+  RTWModifiedTimeStamp	  441201229
+  ModelVersionFormat	  "1.%<AutoIncrement:1405>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -111,11 +111,11 @@ Model {
     $PropName		    "DataLoggingOverride"
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
-    model_		    "RandomTarget3D"
+    model_		    "CenterOutCenter3D"
     Array {
       Type		      "Cell"
       Dimension		      1
-      Cell		      "RandomTarget3D"
+      Cell		      "CenterOutCenter3D"
       PropName		      "logAsSpecifiedByModels_"
     }
     Array {
@@ -621,7 +621,7 @@ Model {
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
-		Dimension		14
+		Dimension		15
 		Cell			"IncludeMdlTerminateFcn"
 		Cell			"GRTInterface"
 		Cell			"SuppressErrorStatus"
@@ -636,6 +636,7 @@ Model {
 		Cell			"SupportContinuousTime"
 		Cell			"SupportNonInlinedSFcns"
 		Cell			"GeneratePreprocessorConditionals"
+		Cell			"CombineOutputUpdateFcns"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
@@ -851,14 +852,6 @@ Model {
       Interpolate	      on
     }
     Block {
-      BlockType		      Mux
-      Inputs		      "4"
-      DisplayOption	      "none"
-      UseBusObject	      off
-      BusObject		      "BusObject"
-      NonVirtualBus	      off
-    }
-    Block {
       BlockType		      Outport
       Port		      "1"
       OutMin		      "[]"
@@ -973,9 +966,9 @@ Model {
     }
   }
   System {
-    Name		    "RandomTarget3D"
+    Name		    "CenterOutCenter3D"
     Location		    [-8, 0, 1028, 754]
-    Open		    on
+    Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -986,7 +979,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "80"
+    ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "593"
     Block {
@@ -997,7 +990,7 @@ Model {
       Position		      [475, 140, 715, 490]
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
-      FunctionName	      "mastercon_RT3D"
+      FunctionName	      "mastercon_COC3D"
       Parameters	      "0 0.1 0.1 0.5 0.5 10 2 2 1 1"
       Object {
 	$PropName		"MaskObject"
@@ -1893,7 +1886,7 @@ Model {
       System {
 	Name			"Words to Cerebus and "
 	Location		[-8, 0, 1028, 754]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1939,17 +1932,6 @@ Model {
 	  ZOrder		  1
 	  IndexMode		  "Zero-based"
 	  IterationVariableDataType "double"
-	}
-	Block {
-	  BlockType		  Mux
-	  Name			  "Mux"
-	  SID			  "592"
-	  Ports			  [8, 1]
-	  Position		  [1040, 565, 1050, 700]
-	  ZOrder		  29
-	  ShowName		  off
-	  Inputs		  "8"
-	  DisplayOption		  "bar"
 	}
 	Block {
 	  BlockType		  Reference
@@ -2010,41 +1992,6 @@ Model {
 	}
 	Block {
 	  BlockType		  Reference
-	  Name			  "Words"
-	  SID			  "591"
-	  Ports			  [1]
-	  Position		  [1095, 614, 1165, 656]
-	  ZOrder		  28
-	  LibraryVersion	  "1.1842"
-	  SourceBlock		  "slrtlib/Displays and\nLogging/Scope "
-	  SourceType		  "xpcscopeblock"
-	  ContentPreviewEnabled	  off
-	  scopeno		  "6"
-	  scopetype		  "Target"
-	  autostart		  on
-	  viewmode		  "Numerical"
-	  formatstr		  "'%1.0f, %1.0f, %1.0f, %1.0f, %1.0f, %1.0f, %1.0f, %1.0f'"
-	  grid			  on
-	  ylimits		  "[-10,10]"
-	  nosamples		  "10"
-	  noprepostsamples	  "0"
-	  interleave		  "10"
-	  triggermode		  "FreeRun"
-	  triggersignal		  "1"
-	  trigsignalfromport	  off
-	  triggerlevel		  "0.0"
-	  triggerslope		  "Either"
-	  triggerscope		  "1"
-	  triggersample		  "0"
-	  filename		  "data.dat"
-	  mode			  "Lazy"
-	  writesize		  "512"
-	  autorestart		  off
-	  dynamicfilemode	  off
-	  maxwritefilesize	  "512*1024^2"
-	}
-	Block {
-	  BlockType		  Reference
 	  Name			  "xPC Target\n Time "
 	  SID			  "515"
 	  Ports			  [0, 1]
@@ -2097,120 +2044,50 @@ Model {
 	  ZOrder		  8
 	  SrcBlock		  "ToBits1"
 	  SrcPort		  8
-	  Points		  [40, 0]
-	  Branch {
-	    ZOrder		    47
-	    Points		    [0, -370]
-	    DstBlock		    "Mux"
-	    DstPort		    1
-	  }
-	  Branch {
-	    ZOrder		    46
-	    DstBlock		    "Port A"
-	    DstPort		    8
-	  }
+	  DstBlock		  "Port A"
+	  DstPort		  8
 	}
 	Line {
 	  ZOrder		  9
 	  SrcBlock		  "ToBits1"
 	  SrcPort		  7
-	  Points		  [49, 0]
-	  Branch {
-	    ZOrder		    42
-	    Points		    [0, -330]
-	    DstBlock		    "Mux"
-	    DstPort		    2
-	  }
-	  Branch {
-	    ZOrder		    41
-	    DstBlock		    "Port A"
-	    DstPort		    7
-	  }
+	  DstBlock		  "Port A"
+	  DstPort		  7
 	}
 	Line {
 	  ZOrder		  11
 	  SrcBlock		  "ToBits1"
 	  SrcPort		  5
-	  Points		  [65, 0]
-	  Branch {
-	    ZOrder		    38
-	    Points		    [0, -250]
-	    DstBlock		    "Mux"
-	    DstPort		    4
-	  }
-	  Branch {
-	    ZOrder		    37
-	    DstBlock		    "Port A"
-	    DstPort		    5
-	  }
+	  DstBlock		  "Port A"
+	  DstPort		  5
 	}
 	Line {
 	  ZOrder		  12
 	  SrcBlock		  "ToBits1"
 	  SrcPort		  4
-	  Points		  [74, 0]
-	  Branch {
-	    ZOrder		    36
-	    Points		    [0, -210]
-	    DstBlock		    "Mux"
-	    DstPort		    5
-	  }
-	  Branch {
-	    ZOrder		    35
-	    DstBlock		    "Port A"
-	    DstPort		    4
-	  }
+	  DstBlock		  "Port A"
+	  DstPort		  4
 	}
 	Line {
 	  ZOrder		  13
 	  SrcBlock		  "ToBits1"
 	  SrcPort		  3
-	  Points		  [82, 0]
-	  Branch {
-	    ZOrder		    33
-	    Points		    [0, -170]
-	    DstBlock		    "Mux"
-	    DstPort		    6
-	  }
-	  Branch {
-	    ZOrder		    32
-	    DstBlock		    "Port A"
-	    DstPort		    3
-	  }
+	  DstBlock		  "Port A"
+	  DstPort		  3
 	}
 	Line {
 	  ZOrder		  14
 	  SrcBlock		  "ToBits1"
 	  SrcPort		  2
-	  Points		  [91, 0]
-	  Branch {
-	    ZOrder		    31
-	    Points		    [0, -130]
-	    DstBlock		    "Mux"
-	    DstPort		    7
-	  }
-	  Branch {
-	    ZOrder		    30
-	    DstBlock		    "Port A"
-	    DstPort		    2
-	  }
+	  DstBlock		  "Port A"
+	  DstPort		  2
 	}
 	Line {
 	  ZOrder		  15
 	  SrcBlock		  "ToBits1"
 	  SrcPort		  1
-	  Points		  [104, 0]
-	  Branch {
-	    ZOrder		    29
-	    Points		    [0, -90]
-	    DstBlock		    "Mux"
-	    DstPort		    8
-	  }
-	  Branch {
-	    ZOrder		    28
-	    DstBlock		    "Port A"
-	    DstPort		    1
-	  }
+	  DstBlock		  "Port A"
+	  DstPort		  1
 	}
 	Line {
 	  ZOrder		  17
@@ -2221,28 +2098,11 @@ Model {
 	  DstPort		  2
 	}
 	Line {
-	  ZOrder		  27
-	  SrcBlock		  "Mux"
-	  SrcPort		  1
-	  DstBlock		  "Words"
-	  DstPort		  1
-	}
-	Line {
 	  ZOrder		  10
 	  SrcBlock		  "ToBits1"
 	  SrcPort		  6
-	  Points		  [56, 0]
-	  Branch {
-	    ZOrder		    45
-	    Points		    [0, -290]
-	    DstBlock		    "Mux"
-	    DstPort		    3
-	  }
-	  Branch {
-	    ZOrder		    44
-	    DstBlock		    "Port A"
-	    DstPort		    6
-	  }
+	  DstBlock		  "Port A"
+	  DstPort		  6
 	}
 	Annotation {
 	  SID			  "521"
@@ -2278,10 +2138,6 @@ Model {
       DstPort		      1
     }
     Line {
-      FontName		      "Helvetica"
-      FontSize		      9
-      FontWeight	      "normal"
-      FontAngle		      "normal"
       ZOrder		      122
       SrcBlock		      "Behavior RandomTarget3D"
       SrcPort		      5
@@ -2401,7 +2257,7 @@ Model {
 Stateflow {
   machine {
     id			    1
-    name		    "RandomTarget3D"
+    name		    "CenterOutCenter3D"
     created		    "29-Sep-2006 15:42:48"
     isLibrary		    0
     firstTarget		    2

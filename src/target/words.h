@@ -27,11 +27,6 @@
 #define __BUILD_UPDATED__ 1
 #define __BUILD_UPDATED__ 1
 #define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-#define __BUILD_UPDATED__ 1
-
 
 /* 
  * $Id$
@@ -58,7 +53,8 @@
 #define BEHAVIOR_VERSION_MAJOR 2
 #define BEHAVIOR_VERSION_MINOR 8
 #define BEHAVIOR_VERSION_MICRO 491
-#define BEHAVIOR_VERSION_BUILD 3490
+#define BEHAVIOR_VERSION_BUILD 3616
+
 
 
 #ifndef __BUILD_UPDATED__
@@ -70,6 +66,7 @@
 # define TONE_GO 1
 # define TONE_REWARD 2
 # define TONE_ABORT 3
+# define TONE_MASK 5
 # define TONE_FAIL 6
 # define PI (3.141592654)
 #endif
