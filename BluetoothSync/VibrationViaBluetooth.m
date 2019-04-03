@@ -95,32 +95,33 @@ while(ishandle(h))
         %stim command:
 
         fwrite(b, '1')
+        cbmex('comment', 0, 0, 'vib1');
         pause(.5)
         fwrite(b, '0')
+        cbmex('comment', 0, 0, 'vib0');
+        
 
 
         if ~isempty(pollInterval)
             pause(pollInterval)
         end
 end
-    %% stop recording:
-    cbmex('fileconfig',fName,'',0)
+%% stop recording:
+cbmex('fileconfig',fName,'',0)
 %     impedanceData=stimObj.testElectrodes();
 %     save([folder,'impedance', tStr,num2str(j),'.mat'],'impedanceData','-v7.3')
-    pause(2)
-    
-    if(endNumber >= 10)
-        save(strcat(folder,fstr(1:end-2),'waveformsSent_',num2str(endNumber)),'waveforms');    
-    else
-        save(strcat(folder,fstr(1:end-1),'waveformsSent_',num2str(endNumber)),'waveforms');    
-    end
+pause(2)
+
+if(endNumber >= 10)
+    save(strcat(folder,fstr(1:end-2),'waveformsSent_',num2str(endNumber)),'waveforms');    
+else
+    save(strcat(folder,fstr(1:end-1),'waveformsSent_',num2str(endNumber)),'waveforms');    
 end
+
 
 % clear stim object and leave the function
 cbmex('close')
-stimObj.disconnect();
-stimObj.delete()
-clear stimObj
+
 
 pause(2);
 
