@@ -3,6 +3,8 @@
  * Master Control block for behavior: Center out with bumps
  */
  
+
+
 #pragma warning(disable: 4800)
 
 #define S_FUNCTION_NAME mastercon_ring_reporting
@@ -156,6 +158,8 @@ struct LocalParams {
     real_T stim_delay;
     real_T repeat_failures;
     real_T end_at_ring;
+    
+    real_T force_fall_time;
 };
 
 /**
@@ -193,8 +197,9 @@ private:
     Point cursor_offset;
     Point cursor_end_point;
     
-	CosineBumpGenerator *bump;
-
+ 	CosineBumpGenerator *bump;
+ //   UnevenTrapBumpGenerator *bump;
+    
 	LocalParams *params;
 	real_T last_soft_reset;
     
@@ -225,7 +230,7 @@ RingReportingBehavior::RingReportingBehavior(SimStruct *S) : RobotBehavior() {
 
 	// Set up the number of parameters you'll be using
 
-	this->setNumParams(48);
+	this->setNumParams(49);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,            0);
 	this->bindParamId(&params->soft_reset,              1);
@@ -283,11 +288,13 @@ RingReportingBehavior::RingReportingBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->move_length,             42);
     this->bindParamId(&params->target_angle_offset,     43);
     
+    
     this->bindParamId(&params->outer_target_size,       44);
     this->bindParamId(&params->stim_delay,              45);
     
     this->bindParamId(&params->repeat_failures,         46);
     this->bindParamId(&params->end_at_ring,             47);
+    this->bindParamId(&params->force_fall_time,         48);
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -304,7 +311,8 @@ RingReportingBehavior::RingReportingBehavior(SimStruct *S) : RobotBehavior() {
     targetBar = new ArcTarget(0,0,0,0,8);
 	primaryTarget = new SquareTarget(); 
 	
-	this->bump = new CosineBumpGenerator();
+// 	this->bump = new UnevenTrapBumpGenerator();
+    this->bump = new CosineBumpGenerator();
 	this->tgt_angle=0;
 
     this->stim_trial = false;
@@ -341,6 +349,8 @@ void RingReportingBehavior::doPreTrial(SimStruct *S) {
     double bump_rand;
     double total_bump_freq;
     
+    double fixed_tgt_angle;
+    double fixed_force;
     // reset cursor offset
     cursor_offset.x = 0;
     cursor_offset.y = 0;
@@ -366,6 +376,7 @@ void RingReportingBehavior::doPreTrial(SimStruct *S) {
         //set the target direction
         if(params->use_random_targets) {
             this->current_trial_shift = random->getVonMises(params->prior_kap);
+            this->current_trial_shift += params->target_angle_offset*PI/180;
         } else {
             this->current_trial_shift = 2*PI*(random->getInteger(1,params->num_targets)/params->num_targets);
             this->current_trial_shift += params->target_angle_offset*PI/180;
@@ -450,10 +461,30 @@ void RingReportingBehavior::doPreTrial(SimStruct *S) {
             }
         }
 
-        this->bump->direction		= this->current_trial_shift;
+        
+        
+//         this->bump->direction		= this->current_trial_shift;
+        fixed_tgt_angle = this->current_trial_shift;
+        if(fixed_tgt_angle > PI) {
+            fixed_tgt_angle -= 2*PI;
+        } else if(fixed_tgt_angle < -PI) {
+            fixed_tgt_angle += 2*PI;
+        }
+        
+        this->bump->direction       = -0.0007118*pow(fixed_tgt_angle,6.0) + 
+                                    0.01146*pow(fixed_tgt_angle,5.0) + 
+                                    0.01387*pow(fixed_tgt_angle,4.0) + 
+                                    -0.1467*pow(fixed_tgt_angle,3.0) + 
+                                    -0.04061*pow(fixed_tgt_angle,2.0) + 
+                                    1.352*fixed_tgt_angle + 
+                                    -0.01977;
+    
+        
         this->bump->rise_time		= params->force_rise_time;
+//         this->bump->fall_time       = params->force_fall_time;
         this->bump->hold_duration   = params->force_peak_time;
-        this->bump->peak_magnitude  = current_trial_bumpmag;
+        fixed_force = -0.8485*cos(-2.184*current_trial_bumpmag -3.134) + 6.452;
+        this->bump->peak_magnitude  = current_trial_bumpmag*(1+(7.31-fixed_force)/5.6);
     
     }
     
@@ -550,6 +581,9 @@ void RingReportingBehavior::update(SimStruct *S) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if(stateTimer->elapsedTime(S) > this->delay_hold){
+                if(this->params->recenter_cursor){
+                    cursor_offset = inputs->cursor;
+                }
 				playTone(TONE_GO);
 				setState(STATE_MOVEMENT);
 			}
@@ -558,7 +592,7 @@ void RingReportingBehavior::update(SimStruct *S) {
             if(stateTimer->elapsedTime(S) > params->move_time){
                 setState(STATE_INCOMPLETE);
             } 
-            else if(!this->params->use_square_targets && !this->params->show_ring && outerTarget->cursorInTarget(inputs->cursor - cursor_offset)) { // arc targets but no ring, for training
+            else if(!this->params->use_square_targets && outerTarget->cursorInTarget(inputs->cursor - cursor_offset)) { // arc targets but no ring, for training
                 cursor_end_point = inputs->cursor - cursor_offset;
                 setState(STATE_OT_HOLD);
             }
@@ -575,7 +609,7 @@ void RingReportingBehavior::update(SimStruct *S) {
             if(this->params->use_square_targets && primaryTarget->cursorInTarget(cursor_end_point)){ // use square targets case
                 playTone(TONE_REWARD);
                 setState(STATE_REWARD);
-            } else if(!this->params->use_square_targets && this->stim_trial && this->params->stimInsteadOfBump) {
+            } else if(!this->params->use_square_targets && this->stim_trial && this->params->stimInsteadOfBump) { // reward on every stim trial
                 playTone(TONE_REWARD);
                 setState(STATE_REWARD);
             } else if (!this->params->use_square_targets && outerTarget->cursorInTarget(cursor_end_point) ){
@@ -591,9 +625,7 @@ void RingReportingBehavior::update(SimStruct *S) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if (!this->bump->isRunning(S)) {
-                if(this->params->recenter_cursor){
-                    cursor_offset = inputs->cursor;
-                }
+
                 setState(STATE_DELAY);
             }
 			break;
@@ -773,9 +805,9 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* reward (4) */
-	// outputs->reward = (isNewState() && (getState() == STATE_REWARD));
+	 outputs->reward = 1000*(isNewState() && (getState() == STATE_REWARD));
     // outputs->reward = outputs->reward*this->random->getInteger(1,10);
-    if(isNewState() && (getState() == STATE_REWARD)) {
+    /*if(isNewState() && (getState() == STATE_REWARD)) {
         // outputs->reward should be between 0 and 1, 1 at center of tgt,
         // decaying to 0 near edge of tgt and 0 if not a reward
         cursor_end_angle = atan2(this->cursor_end_point.y,this->cursor_end_point.x);
@@ -798,14 +830,16 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
             }
         }
         
-        outputs->reward = 1000*(this->outerTarget->span/2.0-angle_difference);
-        //outputs->reward = 1;
+        outputs->reward = 1000*(this->outerTarget->span/2.0-angle_difference)/(this->outerTarget->span/2.0);
+        //outputs->reward = 1000; // no performance based reward
         if(outputs->reward < 0.5*1000) {
             outputs->reward = 0.5*1000;
+        } else if(outputs->reward > 1000) {
+            outputs->reward = 1000;
         }
     } else {
         outputs->reward = 0;
-    }
+    }*/
 	/* tone (5) */
 	this->outputs->tone_counter = this->tone_counter;
 	this->outputs->last_tone_id = this->last_tone_id;
@@ -817,7 +851,7 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-    if (params->hide_cursor_during_bump > .1 && (getState() == STATE_BUMP || getState() == STATE_STIM)) {
+    if (params->hide_cursor_during_bump > .1 && (getState() == STATE_BUMP || getState() == STATE_STIM || getState() == STATE_DELAY)) {
         outputs->position = Point(1E6, 1E6);
     } else if(params->hide_cursor_during_movement > 0.1 && (getState() == STATE_DELAY || getState() == STATE_MOVEMENT)) {
         outputs->position = Point(1E6, 1E6);
