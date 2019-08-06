@@ -917,6 +917,9 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 			case STATE_PRETRIAL:
 				outputs->word = WORD_START_TRIAL;
 				break;
+			case STATE_CT_HOLD
+				outputs->word = WORD_CENTER_TARGET_HOLD;
+				break;
 			case STATE_DELAY:
 				outputs->word = WORD_OT_ON(0);
 				break;
