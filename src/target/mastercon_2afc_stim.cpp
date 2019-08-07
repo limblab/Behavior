@@ -693,12 +693,15 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 	/* target_pos (3) */
 	// Center Target
 	if (getState() == STATE_CT_ON || getState() == STATE_CT_HOLD 
-		|| getState() == STATE_DELAY || getState == STATE_BUMP
-		|| getState() == STATE_STIM) {
+		|| getState() == STATE_DELAY ) {
 		outputs->targets[0] = (Target *)centerTarget;
 		outputs->targets[1] = (Target *)primaryTarget;
 		outputs->targets[2] = (Target *)secondaryTarget;
-	} else if ((getState() == STATE_MOVEMENT) || getState() == STATE_OT_HOLD) {
+	} else if(|| getState == STATE_BUMP || getState() == STATE_STIM) {
+		outputs->targets[0] = (Target *)periodTarget;
+		outputs->targets[1] = (Target *)primaryTarget;
+		outputs->targets[2] = (Target *)secondaryTarget;
+	}else if ((getState() == STATE_MOVEMENT) || getState() == STATE_OT_HOLD) {
 		outputs->targets[0] = (Target *)(this->primaryTarget);
 	    outputs->targets[1] = (Target *)(this->secondaryTarget);
 		outputs->targets[2] = nullTarget;
