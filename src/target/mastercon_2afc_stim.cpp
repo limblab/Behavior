@@ -156,7 +156,11 @@ private:
 	int cue_2_stim_level;
 	
 	bool is_same_cue;
-	
+	bool use_cue_1;
+	bool cue_1_first;
+	bool did_first_cue;
+	bool did_second_cue;
+
 	Point cursorOffset;
 
 	CosineBumpGenerator *cue_1_bump;
@@ -176,6 +180,7 @@ private:
     // whether to redo the trial (idiot mode)
     bool redo_trial;
     
+	int stim_level;
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
 
@@ -268,6 +273,11 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	this->cue_1_stim_level=0;
 	this->cue_2_stim_level=0;
 	
+	this->did_first_cue = false;
+	this->did_second_cue = false;
+	this->use_cue_1 = false;
+	this->cue_1_first = false;
+	
 	this->is_same_cue=false;
 	
 	this->ctr_hold=0.0;
@@ -275,6 +285,8 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
     this->ot_hold = 0.0;
     
     this->ch_timer = new Timer();
+
+	this->stim_level = 0;
 
     this->redo_trial = false;
 }
@@ -284,6 +296,9 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	
 	int bump_dir;
 	bool rate_flag_match;
+
+	this->did_first_cue = false;
+	this->did_second_cue = false;
 
     if (!this->redo_trial) {
 	    //set the target direction
@@ -317,6 +332,13 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 		
 		// determine if the same cue is used, or if two different cues are used
 		this->is_same_cue = (this->random->getDouble() < this->params->same_cue_prob);
+		
+		// determine which cue is first
+		this->cue_1_first = (this->random->getDouble() < 0.5);
+		
+		// determine which cue to use if the same cue is used.
+		this->use_cue_1 = (this->random->getDouble() < 0.5);
+		
 		
 		// setup cue 1
 			// determine if stim or bump
@@ -378,9 +400,9 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	/* setup the databurst */
 	
 	
-	/// NEED TO DO STILL
+	// NEED TO DO STILL
 	db->reset();
-	db->addByte(DATABURST_VERSION);
+	/*db->addByte(DATABURST_VERSION);
 	db->addByte('A');
 	db->addByte('F');
 	db->addByte('C');
@@ -420,7 +442,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
     db->addFloat((float)this->params->stimDelay);
 
     db->addFloat((float)this->ot_hold);
-    db->addByte((byte)this->redo_trial);
+    db->addByte((byte)this->redo_trial);*/
 	db->start();
 }
 
@@ -453,17 +475,64 @@ void COBumpBehavior::update(SimStruct *S) {
                 }
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			} else if(this->CH_bump && this->ch_timer->elapsedTime(S)>this->bump_time){
-                this->ch_timer->pause(S);
-                if(this->stim_trial) {
-                        setState(STATE_STIM);
-                } else {
-                    bump->start(S);
-                    setState(STATE_BUMP);
-                }
-			} else if (this->ch_timer->elapsedTime(S) > this->ctr_hold) {
-				setState(STATE_DELAY);
+			} else if (this->ch_timer->elapsedTime(S) > this->ctr_hold || (this->did_first_cue && this->ch_timer->elapsedTime > this->interperiod_duration)) { // leave the state
+				if(!this->did_first_cue) {
+					setState(STATE_CUE);
+				} else if(!this->did_second_cue){
+					setState(STATE_CUE);
+				} else {
+					setState(STATE_DELAY);
+				}
 			}
+			break;
+		case STATE_CUE:
+			if(!this->did_first_cue) { // send first cue
+				if(this->cue_1_first) { // send cue 1
+					if(this->cue_1_is_stim) { // state stim
+						this->stim_level = cue_1_stim_level;
+						setState(STATE_STIM);
+						
+					} else { // state bump
+						cue_1_bump->start(S);
+						setState(STATE_BUMP);
+					}
+				
+				} else { // send cue 2
+					if(this->cue_2_is_stim){
+						this->stim_level = cue_2_stim_level;
+						setState(STATE_STIM);
+					} else {
+						cue_2_bump->start(S);
+						setState(STATE_BUMP);
+					}
+					
+				}
+				
+				this->did_first_cue = true;
+			} else if(!this->did_second_cue) { //send second cue
+				if(!this->cue_1_first) { // send cue 1
+					if(this->cue_1_is_stim) { // state stim
+						this->stim_level = cue_1_stim_level;
+						setState(STATE_STIM);
+						
+					} else { // state bump
+						cue_1_bump->start(S);
+						setState(STATE_BUMP);
+					}
+				
+				} else { // send cue 2
+					if(this->cue_2_is_stim){
+						this->stim_level = cue_2_stim_level;
+						setState(STATE_STIM);
+					} else {
+						cue_2_bump->start(S);
+						setState(STATE_BUMP);
+					}
+					
+				}
+				this->did_second_cue = true;
+			}
+		
 			break;
 		case STATE_DELAY:
 			if(!centerTarget->cursorInTarget(inputs->cursor)){
@@ -472,30 +541,17 @@ void COBumpBehavior::update(SimStruct *S) {
                 }
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			} else if(this->DP_bump && stateTimer->elapsedTime(S) > this->bump_time){
-				if(this->stim_trial ){
-                        setState(STATE_STIM);
-                } else {
-                    bump->start(S);
-                    setState(STATE_BUMP);
-                }
-			}else if(stateTimer->elapsedTime(S) > this->delay_hold){
+			} else if(stateTimer->elapsedTime(S) > this->delay_hold){
 				playTone(TONE_GO);
 				setState(STATE_MOVEMENT);
 			}
 			break;
 		case STATE_MOVEMENT:
-			if ( primaryTarget->cursorInTarget(inputs->cursor) ){
-        		//playTone(TONE_REWARD);
-            	//setState(STATE_REWARD);
+			if (primaryTarget->cursorInTarget(inputs->cursor) ){
                 setState(STATE_OT_HOLD);
-			}else if (this->M_bump && stateTimer->elapsedTime(S) > this->bump_time){ 
-				if(this->stim_trial) {
-                    setState(STATE_STIM);
-                } else {
-                    bump->start(S);
-                    setState(STATE_BUMP);
-                }
+			}else if(incorrectTarget->cursorInTarget(inputs->cursor){
+				playTone(TONE_FAIL);
+				setState(STATE_PENALTY);
 			}else if (stateTimer->elapsedTime(S) > this->params->move_time){
                 if(this->params->idiot_mode) {
                     this->redo_trial = true;
@@ -505,7 +561,7 @@ void COBumpBehavior::update(SimStruct *S) {
        		}
 			break;         
         case STATE_OT_HOLD:
-            if ( stateTimer->elapsedTime(S) > this->ot_hold ) {
+            if (stateTimer->elapsedTime(S) > this->ot_hold ) {
                 playTone(TONE_REWARD);
                 setState(STATE_REWARD);
             } else if ( !primaryTarget->cursorInTarget(inputs->cursor) ){
@@ -517,78 +573,29 @@ void COBumpBehavior::update(SimStruct *S) {
             }
             break;
 		case STATE_BUMP:
-			if(this->params->abort_during_bump && (this->CH_bump || this->DP_bump) && !centerTarget->cursorInTarget(inputs->cursor)){
+			if(this->params->abort_during_bump && !centerTarget->cursorInTarget(inputs->cursor)){
                 if(this->params->idiot_mode) {
                     this->redo_trial = true;
                 }
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			}else if(stateTimer->elapsedTime(S) > this->params->bump_hold_time) {
-				if(this->CH_bump){
-					//setState(STATE_DELAY);
-                    if(centerTarget->cursorInTarget(inputs->cursor)){
-                        // reset bump bool so that bump isn't triggered again on this trial
-                        this->CH_bump = false;
-                        // resume CH timer
-                        this->ch_timer->start(S);
-                        // Go back to CT_HOLD
-                        setState(STATE_CT_HOLD);
-                    }
-				} else if(this->DP_bump){
-					playTone(TONE_GO);
-    				setState(STATE_MOVEMENT);
-				} else if(this->M_bump && primaryTarget->cursorInTarget(inputs->cursor)){
-                    playTone(TONE_REWARD);
-                    setState(STATE_REWARD);
-                }
+			} else if(stateTimer->elapsedTime(S) > this->params->bump_hold_time) {
+				this->ch_timer->stop(S);
+				this->ch_timer->start(S);
+				setState(STATE_CT_HOLD);
             }
-            if(this->M_bump && this->params->move_time < (stateTimer->elapsedTime(S)+this->params->bump_delay_time)){
-                if(this->params->idiot_mode) {
-                    this->redo_trial = true;
-                }
-				playTone(TONE_FAIL);
-				setState(STATE_INCOMPLETE);
-			}
 			break;
 		case STATE_STIM:
-            if(this->params->stimDuringBump){
-                this->stim_trial = false;
-                bump->start(S);
-                setState(STATE_BUMP);
-                break;
-            }
-			if(this->params->abort_during_bump && (this->CH_bump || this->DP_bump) && !centerTarget->cursorInTarget(inputs->cursor)){
+			if(this->params->abort_during_bump && !centerTarget->cursorInTarget(inputs->cursor)){
                 if(this->params->idiot_mode) {
                     this->redo_trial = true;
                 }
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			}else if(stateTimer->elapsedTime(S) > this->params->bump_hold_time ) {
-				if(this->CH_bump){
-					//setState(STATE_DELAY);
-                    if(centerTarget->cursorInTarget(inputs->cursor)){
-                        // reset bump bool so that bump isn't triggered again on this trial
-                        this->CH_bump = false;
-                        // resume CH timer
-                        this->ch_timer->start(S);
-                        // Go back to CT_HOLD
-                        setState(STATE_CT_HOLD);
-                    }
-				} else if(this->DP_bump){
-					playTone(TONE_GO);
-    				setState(STATE_MOVEMENT);
-				} else if(this->M_bump && primaryTarget->cursorInTarget(inputs->cursor)){
-                    playTone(TONE_REWARD);
-                    setState(STATE_REWARD);
-                }
-            }
-            if(this->M_bump && this->params->move_time < (stateTimer->elapsedTime(S)+this->params->bump_delay_time)){
-                if(this->params->idiot_mode) {
-                    this->redo_trial = true;
-                }
-				playTone(TONE_FAIL);
-				setState(STATE_INCOMPLETE);
-			}
+				this->ch_timer->stop(S);
+				this->ch_timer->start(S);
+				setState(STATE_CT_HOLD);
 			break;  
 		case STATE_PENALTY:
 			if (stateTimer->elapsedTime(S) > this->params->penalty_time) {
@@ -599,7 +606,8 @@ void COBumpBehavior::update(SimStruct *S) {
         case STATE_REWARD:
 		case STATE_FAIL:
         case STATE_INCOMPLETE:
-			this->bump->stop();
+			this->cue_1_bump->stop();
+			this->cue_2_bump->stop();
 			if (stateTimer->elapsedTime(S) > params->intertrial_time) {
 				setState(STATE_PRETRIAL);
 			}
@@ -652,7 +660,7 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_OT_ON(0);
 				break;
 			case STATE_STIM:
-				outputs->word = WORD_STIM(this->random->getInteger(0,(int)this->params->stim_levels));
+				outputs->word = WORD_STIM(this->stim_level);
 				break;
 			case STATE_BUMP:
 				outputs->word = WORD_BUMP(0);
@@ -684,48 +692,20 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 
 	/* target_pos (3) */
 	// Center Target
-	if (getState() == STATE_CT_ON || getState() == STATE_CT_HOLD) {
+	if (getState() == STATE_CT_ON || getState() == STATE_CT_HOLD 
+		|| getState() == STATE_DELAY || getState == STATE_BUMP
+		|| getState() == STATE_STIM) {
 		outputs->targets[0] = (Target *)centerTarget;
-		outputs->targets[1] = nullTarget;
-		outputs->targets[2] = nullTarget;
-	} else if(getState() == STATE_DELAY) {
-		outputs->targets[0] = (Target *)centerTarget;
-		outputs->targets[1] = (Target *)(this->primaryTarget);
-		outputs->targets[2] = nullTarget;
-	} else if ( (getState() == STATE_BUMP) && this->CH_bump) {
-		outputs->targets[0] = (Target *)centerTarget;
-		outputs->targets[1] = nullTarget;
-		outputs->targets[2] = nullTarget;
-	} else if ( (getState() == STATE_BUMP) && this->DP_bump) {
-		outputs->targets[0] = (Target *)centerTarget;
-		outputs->targets[1] = (Target *)(this->primaryTarget);
-		outputs->targets[2] = nullTarget;
-	} else if ( (getState() == STATE_BUMP) && this->M_bump) {
-		outputs->targets[0] = (Target *)(this->primaryTarget);
-		outputs->targets[1] = nullTarget;
-		outputs->targets[2] = nullTarget;
-	} else if ( (getState() == STATE_STIM) && this->CH_bump) {
-		outputs->targets[0] = (Target *)centerTarget;
-		outputs->targets[1] = nullTarget;
-		outputs->targets[2] = nullTarget;
-	} else if ( (getState() == STATE_STIM) && this->DP_bump) {
-		outputs->targets[0] = (Target *)centerTarget;
-		outputs->targets[1] = (Target *)(this->primaryTarget);
-		outputs->targets[2] = nullTarget;
-	} else if ( (getState() == STATE_STIM) && this->M_bump) {
-		outputs->targets[0] = (Target *)(this->primaryTarget);
-		outputs->targets[1] = nullTarget;
-		outputs->targets[2] = nullTarget;
+		outputs->targets[1] = (Target *)primaryTarget;
+		outputs->targets[2] = (Target *)secondaryTarget;
 	} else if ((getState() == STATE_MOVEMENT) || getState() == STATE_OT_HOLD) {
 		outputs->targets[0] = (Target *)(this->primaryTarget);
-	    outputs->targets[1] = nullTarget;
+	    outputs->targets[1] = (Target *)(this->secondaryTarget);
 		outputs->targets[2] = nullTarget;
-
 	} else if (getState() == STATE_PENALTY) {
 		outputs->targets[0] = (Target *)(this->errorTarget);
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
-        
 	} else {
 		outputs->targets[0] = nullTarget;
 		outputs->targets[1] = nullTarget;
@@ -746,25 +726,9 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-    if (params->hide_cursor > .1) {
-		//x_comp=inputs->cursor.x - centerTarget->centerX;
-		x_comp=inputs->cursor.x;
-		//y_comp=inputs->cursor.y - centerTarget->centerY;
-		y_comp=inputs->cursor.y;
-		radius=sqrt(x_comp*x_comp + y_comp*y_comp);
-		if(getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM || getState() == STATE_PRETRIAL || getState() == STATE_FAIL || getState() == STATE_ABORT || getState() == STATE_REWARD || getState() == STATE_INCOMPLETE){
-			if ( (radius < this->params->hide_radius_max) && (radius > this->params->hide_radius_min)){
-				outputs->position = Point(1E6, 1E6);
-            } else {
-				outputs->position = inputs->cursor;
-            }
-        } else {
-			outputs->position = inputs->cursor;
-        }
 
-    } else {
-        outputs->position = inputs->cursor;
-    }
+	outputs->position = inputs->cursor;
+    
     
 }
 /*
