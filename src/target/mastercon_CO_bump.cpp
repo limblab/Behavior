@@ -281,7 +281,8 @@ struct LocalParams {
     	real_T intertrial_time;
 	real_T penalty_time;
 	real_T target_size;
-	real_T target_radius;
+	real_T target_radius_min;
+    real_T target_radius_max;
 	real_T target_angle;
 	real_T target_floor;
 	real_T target_ceiling;
@@ -389,7 +390,7 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 
 	// Set up the number of parameters you'll be using
 
-	this->setNumParams(58);
+	this->setNumParams(59);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,            0);
 	this->bindParamId(&params->soft_reset,              1);
@@ -406,7 +407,7 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->penalty_time,            12);
 
 	this->bindParamId(&params->target_size,             13);
-	this->bindParamId(&params->target_radius,           14);
+	this->bindParamId(&params->target_radius_min,       14);
 	this->bindParamId(&params->target_angle,            15);
 	this->bindParamId(&params->target_floor,            16);
 	this->bindParamId(&params->target_ceiling,          17);
@@ -457,7 +458,9 @@ COBumpBehavior::COBumpBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->stimInsteadOfBump,       55);
     this->bindParamId(&params->stimDelay,               56);
 
-    this->bindParamId(&params->idiot_mode,               57);
+    this->bindParamId(&params->idiot_mode,              57);
+    
+    this->bindParamId(&params->target_radius_max,       58);
     	
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -511,6 +514,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
     double M_bump_rate_lim;
 	int bump_dir;
 	bool rate_flag_match;
+    double target_radius = 1;
 
     if (!this->redo_trial) {
 	    //set the target direction
@@ -523,10 +527,11 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 
 	    // Set up target locations, etc.
 	    centerTarget->radius = params->target_size;
-
+        target_radius=this->random->getDouble(this->params->target_radius_min,this->params->target_radius_max);
+        
 	    primaryTarget->radius = params->target_size;
-	    primaryTarget->centerX = params->target_radius*cos((float)this->tgt_angle * PI/180);
-	    primaryTarget->centerY = params->target_radius*sin((float)this->tgt_angle * PI/180);
+	    primaryTarget->centerX = target_radius*cos((float)this->tgt_angle * PI/180);
+	    primaryTarget->centerY = target_radius*sin((float)this->tgt_angle * PI/180);
         
         //select the actual center hold time
 	    this->ctr_hold=this->random->getDouble(this->params->CH_low,this->params->CH_high);
@@ -667,7 +672,7 @@ void COBumpBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)this->params->penalty_time);
 
 	db->addFloat((float)this->params->target_size);
-	db->addFloat((float)this->params->target_radius);
+	db->addFloat((float)target_radius);
 	db->addFloat((float)this->tgt_angle);
 
 	db->addByte((byte)this->params->hide_cursor);
@@ -989,8 +994,8 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
 	} else if ((getState() == STATE_MOVEMENT) || getState() == STATE_OT_HOLD) {
-		outputs->targets[0] = (Target *)(this->primaryTarget);
-	    outputs->targets[1] = nullTarget;
+		outputs->targets[0] = (Target *)centerTarget;
+	    outputs->targets[1] = (Target *)(this->primaryTarget);
 		outputs->targets[2] = nullTarget;
 
 	} else if (getState() == STATE_PENALTY) {
@@ -1019,19 +1024,28 @@ void COBumpBehavior::calculateOutputs(SimStruct *S) {
 
 	/* position (7) */
     if (params->hide_cursor > .1) {
-		//x_comp=inputs->cursor.x - centerTarget->centerX;
-		x_comp=inputs->cursor.x;
-		//y_comp=inputs->cursor.y - centerTarget->centerY;
-		y_comp=inputs->cursor.y;
-		radius=sqrt(x_comp*x_comp + y_comp*y_comp);
-		if(getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM || getState() == STATE_PRETRIAL || getState() == STATE_FAIL || getState() == STATE_ABORT || getState() == STATE_REWARD || getState() == STATE_INCOMPLETE){
-			if ( (radius < this->params->hide_radius_max) && (radius > this->params->hide_radius_min)){
-				outputs->position = Point(1E6, 1E6);
-            } else {
-				outputs->position = inputs->cursor;
-            }
+        if((getState() == STATE_BUMP && 
+                stateTimer->elapsedTime(S) < this->bump->hold_duration+2*this->bump->rise_time+0.5) || 
+                (getState() == STATE_CT_HOLD && this->CH_bump == true)){
+            outputs->position = Point(1E6, 1E6);
+            
         } else {
-			outputs->position = inputs->cursor;
+
+        
+            //x_comp=inputs->cursor.x - centerTarget->centerX;
+            x_comp=inputs->cursor.x;
+            //y_comp=inputs->cursor.y - centerTarget->centerY;
+            y_comp=inputs->cursor.y;
+            radius=sqrt(x_comp*x_comp + y_comp*y_comp);
+            if(getState() == STATE_MOVEMENT || getState() == STATE_BUMP || getState() == STATE_STIM || getState() == STATE_PRETRIAL || getState() == STATE_FAIL || getState() == STATE_ABORT || getState() == STATE_REWARD || getState() == STATE_INCOMPLETE){
+                if ( (radius < this->params->hide_radius_max) && (radius > this->params->hide_radius_min)){
+                    outputs->position = Point(1E6, 1E6);
+                } else {
+                    outputs->position = inputs->cursor;
+                }
+            } else {
+                outputs->position = inputs->cursor;
+            }
         }
 
     } else {

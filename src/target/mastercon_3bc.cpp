@@ -5,8 +5,10 @@
 
 #pragma warning(disable: 4800)
 
+
 #define S_FUNCTION_NAME mastercon_3bc
 #define S_FUNCTION_LEVEL 2
+
 
 // Our task code will be in the databurst
 #define TASK_DB_DEFINED 1
@@ -87,7 +89,7 @@ struct LocalParams {
 	real_T target_size;
 	real_T target_radius;
 	real_T big_target;
-	real_T target_angle;
+	real_T target_angle_min;
 	real_T bump_magnitude;
 	real_T bump_duration;
     real_T bump_ramp;
@@ -111,6 +113,18 @@ struct LocalParams {
 	real_T stim_levels;
 	real_T catch_rate;
 	real_T abort_during_bump;
+    real_T num_targets;
+    real_T angle_tolerance;
+    real_T use_bump_mapping;
+    real_T p1;
+    real_T p2;
+    real_T p3;
+    real_T p4;
+    real_T p5;
+    real_T p6;
+    real_T show_ring_prob;
+    real_T target_angle_max;
+    real_T num_target_angles;
 };
 
 /**
@@ -165,14 +179,14 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(29);
+	this->setNumParams(41);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
 	this->bindParamId(&params->soft_reset,				1);
 	this->bindParamId(&params->target_size,				2);
 	this->bindParamId(&params->target_radius,			3);
 	this->bindParamId(&params->big_target,				4);
-	this->bindParamId(&params->target_angle,			5);
+	this->bindParamId(&params->target_angle_min,			5);
 	this->bindParamId(&params->bump_magnitude,			6);
 	this->bindParamId(&params->bump_duration,			7);
     this->bindParamId(&params->bump_ramp,				8);
@@ -196,6 +210,18 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->stim_levels,				26);
 	this->bindParamId(&params->catch_rate,				27);
 	this->bindParamId(&params->abort_during_bump,		28);
+    this->bindParamId(&params->num_targets,             29);
+    this->bindParamId(&params->angle_tolerance,         30);
+    this->bindParamId(&params->use_bump_mapping,        31);
+    this->bindParamId(&params->p1,                      32);
+    this->bindParamId(&params->p2,                      33);
+    this->bindParamId(&params->p3,                      34);
+    this->bindParamId(&params->p4,                      35);
+    this->bindParamId(&params->p5,                      36);
+    this->bindParamId(&params->p6,                      37);
+    this->bindParamId(&params->show_ring_prob,          38);
+    this->bindParamId(&params->target_angle_max,        39);
+    this->bindParamId(&params->num_target_angles,       40);
     
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
@@ -232,9 +258,12 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 	//set the target direction
 	if ((int)this->params->use_random_targets) {
 		this->tgt_angle = this->random->getInteger((int)this->params->target_floor,(int)this->params->target_ceiling);
-	} else {
-		this->tgt_angle = (int)((180/PI)*(this->params->target_angle));
-	}
+	} else if(this->params->num_target_angles > 1) {
+        int tgt_angle_idx = (this->random->getInteger(0,(int)this->params->num_target_angles));
+		this->tgt_angle = (int)((180/PI)*(tgt_angle_idx*(this->params->target_angle_max - this->params->target_angle_min)/(this->params->num_target_angles-1) + this->params->target_angle_min));
+    } else {
+        this->tgt_angle = (int)((180/PI)*this->params->target_angle_min);
+    }
 
 	// Set up target locations, etc.
 	centerTarget->radius = params->target_size+1.0;
@@ -474,10 +503,10 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 
 
 	/* status (1) */
-// 	outputs->status[0] = getState();
-//	outputs->status[1] = trialCounter->successes;
-    outputs->status[0] = inputs->force.x;
-    outputs->status[1] = inputs->force.y;
+    outputs->status[0] = getState();
+    outputs->status[1] = trialCounter->successes;
+    //outputs->status[0] = inputs->force.x;
+    //outputs->status[1] = inputs->force.y;
 	outputs->status[2] = trialCounter->aborts;
 	outputs->status[3] = trialCounter->failures;
  	outputs->status[4] = trialCounter->incompletes;

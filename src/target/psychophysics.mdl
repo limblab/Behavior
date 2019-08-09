@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1279"
+    ComputedModelVersion    "1.1285"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Mar 08 16:06:05 2016"
-  RTWModifiedTimeStamp	  379353627
-  ModelVersionFormat	  "1.%<AutoIncrement:1279>"
+  LastModifiedDate	  "Wed Jun 26 16:58:17 2019"
+  RTWModifiedTimeStamp	  483469095
+  ModelVersionFormat	  "1.%<AutoIncrement:1285>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -614,7 +614,7 @@ Model {
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
-		Dimension		14
+		Dimension		13
 		Cell			"GeneratePreprocessorConditionals"
 		Cell			"IncludeMdlTerminateFcn"
 		Cell			"SupportNonInlinedSFcns"
@@ -628,7 +628,6 @@ Model {
 		Cell			"SupportComplex"
 		Cell			"SupportAbsoluteTime"
 		Cell			"SupportContinuousTime"
-		Cell			"CombineOutputUpdateFcns"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
@@ -1016,8 +1015,8 @@ Model {
       Position		      [735, 88, 960, 422]
       ZOrder		      -1
       BackgroundColor	      "lightBlue"
-      FunctionName	      "mastercon_3bc"
-      Parameters	      "0 0 2 10 4 0 .1 0 .25 .5 .5 1 .5 1 5 0 1 1 0 0 0 0 0 0 0 0 0 0 0"
+      FunctionName	      "mastercon_3bc_manyTargets"
+      Parameters	      "0 0 2 10 4 0 .1 0 .25 .5 .5 1 .5 1 5 0 1 1 0 0 0 0 0 0 0 0 0 0 0 2 45 0 0 0 0 0 0 0 0 0 0"
       Object {
 	$PropName		"MaskObject"
 	$ObjectID		19
@@ -1166,7 +1165,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 169, 405, 231]
 	      ZOrder		      -3
-	      LibraryVersion	      "1.195"
+	      LibraryVersion	      "1.206"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      ContentPreviewEnabled   off
@@ -1179,7 +1178,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 254, 405, 316]
 	      ZOrder		      -4
-	      LibraryVersion	      "1.195"
+	      LibraryVersion	      "1.206"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      ContentPreviewEnabled   off
@@ -1192,7 +1191,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 339, 405, 401]
 	      ZOrder		      -5
-	      LibraryVersion	      "1.195"
+	      LibraryVersion	      "1.206"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      ContentPreviewEnabled   off
@@ -1205,7 +1204,7 @@ Model {
 	      Ports		      [0, 1]
 	      Position		      [350, 424, 405, 486]
 	      ZOrder		      -6
-	      LibraryVersion	      "1.195"
+	      LibraryVersion	      "1.206"
 	      SourceBlock	      "limblab/Lorentz"
 	      SourceType	      "Lorentz attractor"
 	      ContentPreviewEnabled   off
@@ -1875,7 +1874,7 @@ Model {
       Ports		      [1, 1]
       Position		      [635, 194, 695, 256]
       ZOrder		      26
-      LibraryVersion	      "1.195"
+      LibraryVersion	      "1.206"
       SourceBlock	      "limblab/Force Generator"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
@@ -1925,7 +1924,7 @@ Model {
       Ports		      [5, 1]
       Position		      [1600, 83, 1790, 427]
       ZOrder		      22
-      LibraryVersion	      "1.195"
+      LibraryVersion	      "1.206"
       SourceBlock	      "limblab/Motor Control"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
@@ -1948,7 +1947,7 @@ Model {
       Ports		      [0, 6]
       Position		      [245, 8, 360, 87]
       ZOrder		      -11
-      LibraryVersion	      "1.195"
+      LibraryVersion	      "1.206"
       SourceBlock	      "limblab/Neural Position Subsystem"
       SourceType	      "Neural Position Subsystem"
       ContentPreviewEnabled   off
@@ -1960,7 +1959,7 @@ Model {
       Ports		      [1, 1]
       Position		      [1030, 257, 1080, 293]
       ZOrder		      25
-      LibraryVersion	      "1.195"
+      LibraryVersion	      "1.206"
       SourceBlock	      "limblab/RewardSbs"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
@@ -1972,7 +1971,7 @@ Model {
       Ports		      [4]
       Position		      [1370, 277, 1460, 378]
       ZOrder		      -14
-      LibraryVersion	      "1.195"
+      LibraryVersion	      "1.206"
       SourceBlock	      "limblab/SendPacketToGraphics"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
@@ -2310,7 +2309,7 @@ Model {
       Ports		      [2, 1]
       Position		      [485, 285, 595, 345]
       ZOrder		      19
-      LibraryVersion	      "1.195"
+      LibraryVersion	      "1.206"
       SourceBlock	      "limblab/Velocity Calculation"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
@@ -2357,7 +2356,7 @@ Model {
       Ports		      [1]
       Position		      [1030, 174, 1075, 216]
       ZOrder		      24
-      LibraryVersion	      "1.195"
+      LibraryVersion	      "1.206"
       SourceBlock	      "limblab/WordSbs"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
@@ -2369,7 +2368,7 @@ Model {
       Ports		      [0, 4]
       Position		      [285, 182, 410, 418]
       ZOrder		      27
-      LibraryVersion	      "1.195"
+      LibraryVersion	      "1.206"
       SourceBlock	      "limblab/XY Position Subsystem"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off

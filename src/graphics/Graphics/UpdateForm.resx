@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label638.ToolTip" xml:space="preserve">
-    <value>Number of gradations of test stimulation.
-
-When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
-This setting determines the number of intensity levels between on and off.</value>
-  </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>236, 17</value>
   </metadata>
@@ -150,6 +144,12 @@ Defines the workspace in which targets can be presented in cartesian coordinates
   <data name="textBoxRWTgtTol.ToolTip" xml:space="preserve">
     <value>Distance (in cm) from the displayed target the cursor must be to be counted as in the target.
 Use negative values to make the target smaller than displayed, positive ones to make the target larger than displayed.</value>
+  </data>
+  <data name="label638.ToolTip" xml:space="preserve">
+    <value>Number of gradations of test stimulation.
+
+When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
+This setting determines the number of intensity levels between on and off.</value>
   </data>
   <data name="textBoxFCBumpDelayLow.ToolTip" xml:space="preserve">
     <value>Upper bound on random center hold time.  Center hold time is the time between when the cursor enters the center target and the stimulus is delivered.
@@ -226,6 +226,30 @@ Set equal to Center Hold High for non-random hold time.</value>
 When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
 This setting determines the number of intensity levels between on and off.</value>
   </data>
+  <data name="label221.ToolTip" xml:space="preserve">
+    <value>Number of gradations of test stimulation.
+
+When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
+This setting determines the number of intensity levels between on and off.</value>
+  </data>
+  <data name="label222.ToolTip" xml:space="preserve">
+    <value>Number of gradations of test stimulation.
+
+When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
+This setting determines the number of intensity levels between on and off.</value>
+  </data>
+  <data name="label208.ToolTip" xml:space="preserve">
+    <value>Number of gradations of test stimulation.
+
+When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
+This setting determines the number of intensity levels between on and off.</value>
+  </data>
+  <data name="label220.ToolTip" xml:space="preserve">
+    <value>Number of gradations of test stimulation.
+
+When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
+This setting determines the number of intensity levels between on and off.</value>
+  </data>
   <data name="label204.ToolTip" xml:space="preserve">
     <value>Number of gradations of test stimulation.
 
@@ -233,6 +257,18 @@ When pctTestTrials is non-zero, some trials will have test stimulations between 
 This setting determines the number of intensity levels between on and off.</value>
   </data>
   <data name="label209.ToolTip" xml:space="preserve">
+    <value>Number of gradations of test stimulation.
+
+When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
+This setting determines the number of intensity levels between on and off.</value>
+  </data>
+  <data name="label225.ToolTip" xml:space="preserve">
+    <value>Number of gradations of test stimulation.
+
+When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
+This setting determines the number of intensity levels between on and off.</value>
+  </data>
+  <data name="label224.ToolTip" xml:space="preserve">
     <value>Number of gradations of test stimulation.
 
 When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
@@ -265,42 +301,6 @@ When pctTestTrials is non-zero, some trials will have test stimulations between 
 This setting determines the number of intensity levels between on and off.</value>
   </data>
   <data name="label59.ToolTip" xml:space="preserve">
-    <value>Number of gradations of test stimulation.
-
-When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
-This setting determines the number of intensity levels between on and off.</value>
-  </data>
-  <data name="label208.ToolTip" xml:space="preserve">
-    <value>Number of gradations of test stimulation.
-
-When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
-This setting determines the number of intensity levels between on and off.</value>
-  </data>
-  <data name="label220.ToolTip" xml:space="preserve">
-    <value>Number of gradations of test stimulation.
-
-When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
-This setting determines the number of intensity levels between on and off.</value>
-  </data>
-  <data name="label221.ToolTip" xml:space="preserve">
-    <value>Number of gradations of test stimulation.
-
-When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
-This setting determines the number of intensity levels between on and off.</value>
-  </data>
-  <data name="label222.ToolTip" xml:space="preserve">
-    <value>Number of gradations of test stimulation.
-
-When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
-This setting determines the number of intensity levels between on and off.</value>
-  </data>
-  <data name="label224.ToolTip" xml:space="preserve">
-    <value>Number of gradations of test stimulation.
-
-When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.
-This setting determines the number of intensity levels between on and off.</value>
-  </data>
-  <data name="label225.ToolTip" xml:space="preserve">
     <value>Number of gradations of test stimulation.
 
 When pctTestTrials is non-zero, some trials will have test stimulations between the "on" and "off" stimulations.

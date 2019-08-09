@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1293"
+    ComputedModelVersion    "1.1294"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -55,8 +55,8 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[988.0, 572.0]
-	ZoomFactor		[1.5]
-	Offset			[926.35933432493255, 144.75176285084723]
+	ZoomFactor		[0.8]
+	Offset			[465.80933432493237, 196.03509618418036]
       }
     }
   }
@@ -64,11 +64,11 @@ Model {
   Creator		  "limblab"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "system administrator"
+  LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Jan 09 17:56:20 2018"
-  RTWModifiedTimeStamp	  437393802
-  ModelVersionFormat	  "1.%<AutoIncrement:1293>"
+  LastModifiedDate	  "Wed Jun 26 16:28:32 2019"
+  RTWModifiedTimeStamp	  483467305
+  ModelVersionFormat	  "1.%<AutoIncrement:1294>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -614,7 +614,7 @@ Model {
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
-		Dimension		14
+		Dimension		13
 		Cell			"GeneratePreprocessorConditionals"
 		Cell			"IncludeMdlTerminateFcn"
 		Cell			"SupportNonInlinedSFcns"
@@ -628,7 +628,6 @@ Model {
 		Cell			"SupportComplex"
 		Cell			"SupportAbsoluteTime"
 		Cell			"SupportContinuousTime"
-		Cell			"CombineOutputUpdateFcns"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
@@ -1057,7 +1056,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "150"
+    ZoomFactor		    "80"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "443"
     Block {
@@ -1070,7 +1069,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_CO_bump"
       Parameters	      "0, 0, 0, .5, 0, 0.5, 1, 0.1, .2, 0 1 .1 1 3 8 0 0 359 8 1 0 2 5 1 1 1 0 0 .4 .3 1 0 5 1 0 0 .4"
-      " .3 1 0 5 1 0 0 .4 .3 1 0 5 1 0 3 0 0 0 0 0 0"
+      " .3 1 0 5 1 0 0 .4 .3 1 0 5 1 0 3 0 0 0 0 0 0 7"
       Object {
 	$PropName		"MaskObject"
 	$ObjectID		19
@@ -1096,6 +1095,7 @@ Model {
       scopetype		      "Target"
       autostart		      on
       viewmode		      "Graphical redraw"
+      formatstr		      "'%15.6f'"
       grid		      off
       ylimits		      "[-10,10]"
       nosamples		      "10"

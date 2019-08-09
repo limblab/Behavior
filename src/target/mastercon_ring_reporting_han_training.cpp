@@ -160,15 +160,6 @@ struct LocalParams {
     real_T end_at_ring;
     
     real_T force_fall_time;
-    
-    real_T use_bump_mapping;
-    real_T p1;
-    real_T p2;
-    real_T p3;
-    real_T p4;
-    real_T p5;
-    real_T p6;
-    real_T use_pink_ring;
 };
 
 /**
@@ -242,7 +233,7 @@ RingReportingBehavior::RingReportingBehavior(SimStruct *S) : RobotBehavior() {
 
 	// Set up the number of parameters you'll be using
 
-	this->setNumParams(57);
+	this->setNumParams(49);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,            0);
 	this->bindParamId(&params->soft_reset,              1);
@@ -307,15 +298,6 @@ RingReportingBehavior::RingReportingBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->repeat_failures,         46);
     this->bindParamId(&params->end_at_ring,             47);
     this->bindParamId(&params->force_fall_time,         48);
-    
-    this->bindParamId(&params->use_bump_mapping,        49);
-    this->bindParamId(&params->p1,                      50);
-    this->bindParamId(&params->p2,                      51);
-    this->bindParamId(&params->p3,                      52);
-    this->bindParamId(&params->p4,                      53);
-    this->bindParamId(&params->p5,                      54);
-    this->bindParamId(&params->p6,                      55);
-    this->bindParamId(&params->use_pink_ring,             56);
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -328,10 +310,9 @@ RingReportingBehavior::RingReportingBehavior(SimStruct *S) : RobotBehavior() {
 
 	centerTarget = new CircleTarget();
     bigCenterTarget = new CircleTarget();
-	
     outerTarget = new ArcTarget(0,0,0,0,5);
-    targetBar = new ArcTarget(0,0,0,0,8);
     outerSecondaryTarget = new ArcTarget(0,0,0,0,5);
+    targetBar = new ArcTarget(0,0,0,0,8);
     
 	primaryTarget = new SquareTarget(); 
 	secondaryTarget = new SquareTarget();
@@ -420,7 +401,6 @@ void RingReportingBehavior::doPreTrial(SimStruct *S) {
         bigCenterTarget->radius = params->big_target_size;
         bigCenterTarget->color = Target::Color(255, 0, 0);
 
-        
         outerTarget->r = params->move_length;
         outerTarget->theta = this->current_trial_shift;
         outerTarget->span = (params->OT_size)*PI/180;
@@ -436,17 +416,6 @@ void RingReportingBehavior::doPreTrial(SimStruct *S) {
         targetBar->span = 2*PI-0.00001;
         targetBar->height = params->OT_depth+0.1;
 
-        if(this->params->use_pink_ring == 1){
-            targetBar->type = 14;
-            outerTarget->type = 13;
-            outerSecondaryTarget->type = 13;
-        } else {
-            targetBar->type = 8;
-            outerTarget->type = 5;
-            outerSecondaryTarget->type = 5;
-        }
-        
-        
         // training target
         primaryTarget->centerX = (params->move_length-0.1)*cos((float)this->current_trial_shift);
         primaryTarget->centerY = (params->move_length-0.1)*sin((float)this->current_trial_shift);
@@ -457,7 +426,7 @@ void RingReportingBehavior::doPreTrial(SimStruct *S) {
         secondaryTarget->centerX = (params->move_length-0.1)*cos((float)(this->current_trial_shift+PI));
         secondaryTarget->centerY = (params->move_length-0.1)*sin((float)(this->current_trial_shift+PI));
         secondaryTarget->width = params->outer_target_size;
-        secondaryTarget->color = Target::Color(255, 0, 0);
+        secondaryTarget->color = Target::Color(0, 255, 0);
         
         // Select whether this will be a stimulation trial, catch trial, or normal trial
         temp =  this->random->getDouble();
@@ -514,29 +483,33 @@ void RingReportingBehavior::doPreTrial(SimStruct *S) {
 
         
         
+        this->bump->direction		= this->current_trial_shift;
         this->bump->rise_time		= params->force_rise_time;
         // this->bump->fall_time       = params->force_fall_time;
         this->bump->hold_duration   = params->force_peak_time;
         this->bump->peak_magnitude  = current_trial_bumpmag;
 
-        if(this->params->use_bump_mapping){
-            fixed_tgt_angle = this->current_trial_shift;
-            if(fixed_tgt_angle > PI) {
-                fixed_tgt_angle -= 2*PI;
-            } else if(fixed_tgt_angle < -PI) {
-                fixed_tgt_angle += 2*PI;
-            }
-            this->bump->direction = this->params->p1*pow(fixed_tgt_angle,5.0) + 
-                                    this->params->p2*pow(fixed_tgt_angle,4.0) + 
-                                    this->params->p3*pow(fixed_tgt_angle,3.0) + 
-                                    this->params->p4*pow(fixed_tgt_angle,2.0) + 
-                                    this->params->p5*fixed_tgt_angle + 
-                                    this->params->p6;
-        } else {
-            this->bump->direction		= this->current_trial_shift;
-        }
-        
-        
+//         fixed_tgt_angle = this->current_trial_shift;
+//         if(fixed_tgt_angle > PI) {
+//             fixed_tgt_angle -= 2*PI;
+//         } else if(fixed_tgt_angle < -PI) {
+//             fixed_tgt_angle += 2*PI;
+//         }
+//         
+//         this->bump->direction       = 0.01572*pow(fixed_tgt_angle,5.0) + 
+//                                     0.01342*pow(fixed_tgt_angle,4.0) + 
+//                                     -0.1964*pow(fixed_tgt_angle,3.0) + 
+//                                     -0.06549*pow(fixed_tgt_angle,2.0) + 
+//                                     1.433*fixed_tgt_angle + 
+//                                     0.0007127;
+//     
+//         
+//         this->bump->rise_time		= params->force_rise_time;
+// //         this->bump->fall_time       = params->force_fall_time;
+//         this->bump->hold_duration   = params->force_peak_time;
+//         fixed_force = -0.8485*cos(-2.184*current_trial_bumpmag -3.134) + 6.452;
+//         this->bump->peak_magnitude  = current_trial_bumpmag*(1.5*(1+(7.31-fixed_force)/5.6)-0.5);
+    
     }
     
     /* initialize cursor extent */

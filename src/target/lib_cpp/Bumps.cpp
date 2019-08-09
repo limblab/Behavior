@@ -162,6 +162,77 @@ Point TrapBumpGenerator::getBumpForce(SimStruct *S, Point vel, Point pos) {
     return(this->getBumpForce(S));
 }
 
+/**
+ * Generates a trapezoidal wave bump with different rise and fall times.
+ */
+class UnevenTrapBumpGenerator : public BumpGenerator {
+public:
+	UnevenTrapBumpGenerator();
+
+	virtual Point getBumpForce(SimStruct *S);	
+    virtual Point getBumpForce(SimStruct *S,Point vel, Point pos);
+	virtual bool isRunning(SimStruct *S);
+	
+	double rise_time;
+    double fall_time;
+	double hold_duration;
+	double peak_magnitude;
+};
+
+/**
+ * Constructs an uneven trapezoid wave bump generator with default duration and 
+ * magnitude of zero.
+ */
+UnevenTrapBumpGenerator::UnevenTrapBumpGenerator() {
+	rise_time = 0;
+    fall_time = 0;
+	hold_duration = 0;
+	peak_magnitude = 0;
+}
+
+/**
+ * Required isRunning method. 
+ * @return whether the bump is running (active).
+ */
+bool UnevenTrapBumpGenerator::isRunning(SimStruct *S) {
+	return timer->isRunning() && timer->elapsedTime(S) < rise_time+hold_duration+fall_time;
+}
+
+/**
+ * Required getBumpForce method. 
+ * @return the magnitude of the bump for the current time step.
+ */
+Point UnevenTrapBumpGenerator::getBumpForce(SimStruct *S) {
+    Point p;
+    double m;
+	double et;   // Elapsed time
+	double efet; // Elapsed falling-edge time.
+
+	if (!this->isRunning(S)) { // get stupid case out of the way
+		m = 0.0;
+	} else {
+        et = (double)timer->elapsedTime(S);
+        if (et < rise_time) {
+            m = et * peak_magnitude / rise_time;
+        } else if (et < rise_time + hold_duration) {
+            m = peak_magnitude;
+        } else if (et < fall_time+rise_time + hold_duration) {
+            efet = et - rise_time - hold_duration;
+            m = (fall_time - efet) * peak_magnitude / fall_time;
+        } else {
+            m = 0.0;
+        }
+    }
+    
+    p.x = m * cos(this->direction);
+    p.y = m * sin(this->direction);
+    return p;
+}
+
+Point UnevenTrapBumpGenerator::getBumpForce(SimStruct *S, Point vel, Point pos) {
+    return(this->getBumpForce(S));
+}
+
 /**********************************************
  * Sine wave generator
  **********************************************/ 

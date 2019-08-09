@@ -488,62 +488,62 @@
       <LabParam>
         <Block>XY Position Subsystem/LoadCellXCoef1</Block>
         <Name>Value</Name>
-        <Value>0.0129</Value>
+        <Value>-.0129</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellXCoef2</Block>
         <Name>Value</Name>
-        <Value>-0.0254</Value>
+        <Value>.0254</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellXCoef3</Block>
         <Name>Value</Name>
-        <Value>0.1018</Value>
+        <Value>-.1018</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellXCoef4</Block>
         <Name>Value</Name>
-        <Value>6.2876</Value>
+        <Value>-6.2876</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellXCoef5</Block>
         <Name>Value</Name>
-        <Value>0.1127</Value>
+        <Value>-.1127</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellXCoef6</Block>
         <Name>Value</Name>
-        <Value>-6.2163</Value>
+        <Value>6.2163</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellYCoef1</Block>
         <Name>Value</Name>
-        <Value>-0.2059</Value>
+        <Value>.2059</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellYCoef2</Block>
         <Name>Value</Name>
-        <Value>7.1801</Value>
+        <Value>-7.1801</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellYCoef3</Block>
         <Name>Value</Name>
-        <Value>-0.0804</Value>
+        <Value>.0804</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellYCoef4</Block>
         <Name>Value</Name>
-        <Value>-3.591</Value>
+        <Value>3.5910</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellYCoef5</Block>
         <Name>Value</Name>
-        <Value>0.0641</Value>
+        <Value>-.0641</Value>
       </LabParam>
       <LabParam>
         <Block>XY Position Subsystem/LoadCellYCoef6</Block>
         <Name>Value</Name>
-        <Value>-3.6077</Value>
+        <Value>3.6077</Value>
       </LabParam>
     </LabParamList>
   </LabConfig>

@@ -476,11 +476,14 @@ void TwoAFCBehavior::doPreTrial(SimStruct *S) {
     
     db->addByte((byte)this->is_same_cue);
     db->addByte((byte)this->use_cue_1);
+    db->addByte((byte)this->cue_1_first);
     
     db->addFloat((float)this->ot_hold);
     db->addFloat((float)this->period_duration);
     db->addFloat((float)this->interperiod_duration);
     db->addByte((byte)this->redo_trial);
+    db->addByte((byte)this->params->same_target_right);
+    
     
 	db->start();
 }

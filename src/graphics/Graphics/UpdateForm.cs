@@ -297,7 +297,9 @@ namespace BehaviorGraphics
             AddParamListItem("FC bump delay high", "P17", "Behavior FC", this.textBoxFCBumpDelayHigh);
             AddParamListItem("FC bump hold", "P18", "Behavior FC", this.textBoxFCBumpHold);
             AddParamListItem("FC reaction time", "P19", "Behavior FC", this.textBoxFCReactionTime);
+
             AddParamListItem("FC intertrial", "P20", "Behavior FC", this.textBoxFCIntertrial);
+
             AddParamListItem("FC Penalty", "P21", "Behavior FC", this.textBoxFCPenaltyTime);
             //Cursor parameters
             AddParamListItem("FC Hide Cursor During Bump", "P22", "Behavior FC", this.checkBoxFCHideCursorDuringBumps);
@@ -831,6 +833,19 @@ namespace BehaviorGraphics
             AddParamListItem("2BC show tgt during bump",    "P25", "Behavior 2BC", checkBox2BC_showtgt_bump);
             AddParamListItem("2BC training freq",           "P19", "Behavior 2BC", textBox2BC_training_freq);
 
+            AddParamListItem("2BC number targets", "P30", "Behavior 2BC", textBox2BC_numTargets);
+            AddParamListItem("2BC angle tolerance", "P31", "Behavior 2BC", textBox2BC_angle_tolerance);
+
+            AddParamListItem("2BC use bump mapping", "P32", "Behavior 2BC", checkBox2BC_use_bump_mapping);
+            AddParamListItem("2BC p1", "P33", "Behavior 2BC", textBox2BC_p1);
+            AddParamListItem("2BC p2", "P34", "Behavior 2BC", textBox2BC_p2);
+            AddParamListItem("2BC p3", "P35", "Behavior 2BC", textBox2BC_p3);
+            AddParamListItem("2BC p4", "P36", "Behavior 2BC", textBox2BC_p4);
+            AddParamListItem("2BC p5", "P37", "Behavior 2BC", textBox2BC_p5);
+            AddParamListItem("2BC p6", "P38", "Behavior 2BC", textBox2BC_p6);
+            AddParamListItem("2BC show ring prob", "P39", "Behavior 2BC", textBox2BC_show_ring_prob);
+            AddParamListItem("2BC axis angle max", "P40", "Behavior 2BC", angleEntryBox2BCAngMax);
+            AddParamListItem("2BC num axes", "P41", "Behavior 2BC", textBox2BC_num_axes);
             
             #endregion
 
@@ -937,7 +952,7 @@ namespace BehaviorGraphics
             
             //target info
             AddParamListItem("COB target size",             "P14", "Behavior CO Bump", textBox_ctr_out_bump_TargetRadius);
-            AddParamListItem("COB target radius",           "P15", "Behavior CO Bump", textBox_ctr_out_bump_TargetDistance);
+            AddParamListItem("COB target distance min",           "P15", "Behavior CO Bump", textBox_ctr_out_bump_TargetDistanceMin);
             AddParamListItem("COB target angle",            "P16", "Behavior CO Bump", textBox_ctr_out_bump_targetAngle);
             AddParamListItem("COB target floor",            "P17", "Behavior CO Bump", textBox_ctr_out_bump_TargetAngleFloor);
             AddParamListItem("COB target ceiling",          "P18", "Behavior CO Bump", textBox_ctr_out_bump_TargetAngleCeiling);
@@ -990,6 +1005,9 @@ namespace BehaviorGraphics
 
             //idiot mode checkbox
             AddParamListItem("COB idiot mode", "P58", "Behavior CO Bump", checkBox_ctr_out_bump_idiotMode);
+
+
+            AddParamListItem("COB target radius max", "P59", "Behavior CO Bump", textBox_ctr_out_bump_TargetDistanceMax);
             #endregion
 
             #region Unstable Field
@@ -1727,6 +1745,17 @@ namespace BehaviorGraphics
                 AddParamListItem("RRB_stimDelay", "P46", "Behavior Ring Reporting", this.textBoxRRB_stimDelay);
                 AddParamListItem("RRB_repeatFails", "P47", "Behavior Ring Reporting", this.checkBoxRRB_repeatFailures);
                 AddParamListItem("RRB_endAtOuterRing", "P48", "Behavior Ring Reporting", this.checkBoxRRB_endAtOuterRing);
+
+                AddParamListItem("RRB_fallTime", "P49", "Behavior Ring Reporting", this.textBoxRRB_fallTime);
+                AddParamListItem("RRB_useBumpMapping", "P50", "Behavior Ring Reporting", this.checkBoxRRB_useBumpMapping);
+                AddParamListItem("RRB_p1", "P51", "Behavior Ring Reporting", this.textBoxRRB_p1);
+                AddParamListItem("RRB_p2", "P52", "Behavior Ring Reporting", this.textBoxRRB_p2);
+                AddParamListItem("RRB_p3", "P53", "Behavior Ring Reporting", this.textBoxRRB_p3);
+                AddParamListItem("RRB_p4", "P54", "Behavior Ring Reporting", this.textBoxRRB_p4);
+                AddParamListItem("RRB_p5", "P55", "Behavior Ring Reporting", this.textBoxRRB_p5);
+                AddParamListItem("RRB_p6", "P56", "Behavior Ring Reporting", this.textBoxRRB_p6);
+            
+                AddParamListItem("RRB_usePinkRing","P57","Behavior Ring Reporting", this.checkBoxRRB_usePinkRing);
 
             #endregion
 
@@ -3282,9 +3311,6 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
-
-
-
 
     }
 

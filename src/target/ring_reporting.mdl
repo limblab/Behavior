@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1302"
+    ComputedModelVersion    "1.1309"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -55,8 +55,8 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[988.0, 588.0]
-	ZoomFactor		[0.6]
-	Offset			[0.0, -10.333333333333314]
+	ZoomFactor		[1.25]
+	Offset			[358.68000000000023, 0.0]
       }
     }
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Feb 27 08:26:56 2018"
-  RTWModifiedTimeStamp	  441620812
-  ModelVersionFormat	  "1.%<AutoIncrement:1302>"
+  LastModifiedDate	  "Tue May 21 12:29:33 2019"
+  RTWModifiedTimeStamp	  480342572
+  ModelVersionFormat	  "1.%<AutoIncrement:1309>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -542,7 +542,7 @@ Model {
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
-		Dimension		26
+		Dimension		24
 		Cell			"IgnoreCustomStorageClasses"
 		Cell			"ParameterTuningSideEffectCode"
 		Cell			"IgnoreTestpoints"
@@ -567,8 +567,6 @@ Model {
 		Cell			"CustomSymbolStrMacro"
 		Cell			"CustomSymbolStrUtil"
 		Cell			"ReqsInCode"
-		Cell			"CustomSymbolStrModelFcn"
-		Cell			"CustomUserTokenString"
 		PropName		"DisabledProps"
 	      }
 	      ForceParamTrailComments off
@@ -610,13 +608,13 @@ Model {
 	      ReqsInCode	      off
 	      UseSimReservedNames     off
 	    }
-	    Simulink.TargetCC {
+	    SimulinkRealTime.SimulinkRealTimeCC {
 	      $BackupClass	      "Simulink.TargetCC"
 	      $ObjectID		      17
 	      Version		      "1.15.0"
 	      Array {
 		Type			"Cell"
-		Dimension		16
+		Dimension		13
 		Cell			"GeneratePreprocessorConditionals"
 		Cell			"IncludeMdlTerminateFcn"
 		Cell			"SupportNonInlinedSFcns"
@@ -630,9 +628,6 @@ Model {
 		Cell			"SupportComplex"
 		Cell			"SupportAbsoluteTime"
 		Cell			"SupportContinuousTime"
-		Cell			"RemoveResetFunc"
-		Cell			"ExistingSharedCode"
-		Cell			"RemoveDisableFunc"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_tmw.mat"
@@ -681,126 +676,30 @@ Model {
 	      GRTInterface	      on
 	      GenerateAllocFcn	      off
 	      GenerateSharedConstants on
-	      CustomProperty {
-		DataType		"string"
-		Name			"RL32ModeModifier"
-		Value			"Real-Time"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"ExtMode"
-		Value			"on"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"ExtModeMexFile"
-		Value			"ext_xpc"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"ExtModeIntrfLevel"
-		Value			"Level2 - Open"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"ExtModeArmWhenConnect"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"RL32LogTETModifier"
-		Value			"on"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"RL32LogBufSizeModifier"
-		Value			"100000"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCTaskExecutionProfile"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCRL32EventNumber"
-		Value			"5000"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"RL32IRQSourceModifier"
-		Value			"Timer"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCIRQSourceBoard"
-		Value			"None/Other"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCIOIRQSlot"
-		Value			"-1"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xpcDblBuff"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xpcObjCom"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCGenerateASAP2"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCGenerateXML"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"RL32ObjectName"
-		Value			"tg"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCisDownloadable"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCisDefaultEnv"
-		Value			"on"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCisModelTimeout"
-		Value			"on"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCModelTimeoutSecs"
-		Value			"5"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCLoadParamSetFile"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCConcurrentTasks"
-		Value			"off"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"xPCEnableSFAnimation"
-		Value			"off"
-	      }
+	      RL32ModeModifier	      "Real-Time"
+	      ExtMode		      on
+	      ExtModeMexFile	      "ext_xpc"
+	      ExtModeIntrfLevel	      "Level2 - Open"
+	      ExtModeArmWhenConnect   off
+	      RL32LogTETModifier      on
+	      RL32LogBufSizeModifier  "100000"
+	      xPCTaskExecutionProfile off
+	      xPCRL32EventNumber      "5000"
+	      RL32IRQSourceModifier   "Timer"
+	      xPCIRQSourceBoard	      "None/Other"
+	      xPCIOIRQSlot	      "-1"
+	      xpcDblBuff	      off
+	      xpcObjCom		      off
+	      xPCGenerateASAP2	      off
+	      xPCGenerateXML	      off
+	      RL32ObjectName	      "tg"
+	      xPCisDownloadable	      on
+	      xPCisDefaultEnv	      on
+	      xPCisModelTimeout	      on
+	      xPCModelTimeoutSecs     "5"
+	      xPCLoadParamSetFile     off
+	      xPCConcurrentTasks      off
+	      xPCEnableSFAnimation    off
 	    }
 	    PropName		    "Components"
 	  }
@@ -1136,7 +1035,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "60"
+    ZoomFactor		    "125"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "448"
     Block {
@@ -1149,7 +1048,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_ring_reporting"
       Parameters	      "0 0 0 1 0 1 5 0 1 1 1 1 1 1 1 2 1 0 0 1 1 0.0000001 0 0 0 1 1 0 0 1 0 0 0.1 0.2 0 0 0 0 0 0 0 "
-      "0 6 0 1 0 0 0"
+      "0 6 0 1 0 0 0 0 0 0 0 0 0 0 0 0"
       Object {
 	$PropName		"MaskObject"
 	$ObjectID		19
@@ -2245,7 +2144,7 @@ Model {
 	  RequestExecContextInheritance	off
 	  System {
 	    Name		    "Schmidt"
-	    Location		    [-4, -4, 1028, 744]
+	    Location		    [-4, 0, 1028, 748]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
