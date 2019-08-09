@@ -433,7 +433,7 @@ void TwoAFCBehavior::doPreTrial(SimStruct *S) {
 	
 	// NEED TO DO STILL
 	db->reset();
-	/*db->addByte(DATABURST_VERSION);
+	db->addByte(DATABURST_VERSION);
 	db->addByte('A');
 	db->addByte('F');
 	db->addByte('C');
@@ -451,29 +451,37 @@ void TwoAFCBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)this->params->penalty_time);
 
 	db->addFloat((float)this->params->target_size);
+    db->addFloat((float)this->params->big_target_size);
 	db->addFloat((float)this->params->target_radius);
 	db->addFloat((float)this->tgt_angle);
 
 	db->addByte((byte)this->params->hide_cursor);
-	db->addFloat((float)this->params->hide_radius_min);
-	db->addFloat((float)this->params->hide_radius_max);
-
 	db->addByte((byte)this->params->abort_during_bump);
-	db->addByte((byte)this->CH_bump);
-	db->addByte((byte)this->DP_bump);
-	db->addByte((byte)this->M_bump);
-	db->addFloat((float)this->bump->hold_duration);
-	db->addFloat((float)this->bump->rise_time);
-	db->addFloat((float)this->bump->peak_magnitude);
-	db->addFloat((float)this->bump->direction);
+    
+	db->addFloat((float)this->cue_1_bump->hold_duration);
+	db->addFloat((float)this->cue_1_bump->rise_time);
+	db->addFloat((float)this->cue_1_bump->peak_magnitude);
+	db->addFloat((float)this->cue_1_bump->direction);
 
-	db->addByte((byte)this->stim_trial);
-    db->addByte((byte)this->params->stimDuringBump);
-    db->addByte((byte)this->params->stimInsteadOfBump);
-    db->addFloat((float)this->params->stimDelay);
-
+    db->addFloat((float)this->cue_2_bump->hold_duration);
+	db->addFloat((float)this->cue_2_bump->rise_time);
+	db->addFloat((float)this->cue_2_bump->peak_magnitude);
+	db->addFloat((float)this->cue_2_bump->direction);
+    
+	db->addByte((byte)this->cue_1_is_stim);
+    db->addByte((byte)this->cue_2_is_stim);
+    
+    db->addFloat((float)this->cue_1_stim_level);
+    db->addFloat((float)this->cue_2_stim_level);
+    
+    db->addByte((byte)this->is_same_cue);
+    db->addByte((byte)this->use_cue_1);
+    
     db->addFloat((float)this->ot_hold);
-    db->addByte((byte)this->redo_trial);*/
+    db->addFloat((float)this->period_duration);
+    db->addFloat((float)this->interperiod_duration);
+    db->addByte((byte)this->redo_trial);
+    
 	db->start();
 }
 

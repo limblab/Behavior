@@ -671,48 +671,50 @@ namespace BehaviorGraphics
              * Two-alternative forced choice Parameters 
              */
             // Two-alternative forced choice targets
-            AddParamListItem("2AFC Target Radius", "P3", "Behavior 2AFC", this.textBox2AFCTgtRadius);
-            AddParamListItem("2AFC Target Size", "P4", "Behavior 2AFC", this.textBox2AFCTgtSize);
-            AddParamListItem("2AFC Window Diameter", "P5", "Behavior 2AFC", this.textBox2AFCWindowRadius);
+            AddParamListItem("2AFC Center Hold Low", "P3", "Behavior 2AFC", this.textBox2AFC_centerHoldLow);
+            AddParamListItem("2AFC Center Hold High", "P4", "Behavior 2AFC", this.textBox2AFC_centerHoldHigh);
+            AddParamListItem("2AFC Delay Period Low", "P5", "Behavior 2AFC", this.textBox2AFC_delayPeriodLow);
+            AddParamListItem("2AFC Delay Period High", "P6", "Behavior 2AFC", this.textBox2AFC_delayPeriodHigh);
+            AddParamListItem("2AFC Movement Time", "P7", "Behavior 2AFC", this.textBox2AFC_moveTime);
+            AddParamListItem("2AFC Target Hold Low", "P8", "Behavior 2AFC", this.textBox2AFC_targetHoldLow);
+            AddParamListItem("2AFC Target Hold High", "P9", "Behavior 2AFC", this.textBox2AFC_targetHoldHigh);
+            AddParamListItem("2AFC Bump Delay Time", "P10", "Behavior 2AFC", this.textBox2AFC_bumpDelayTime);
+            AddParamListItem("2AFC Bump Hold Time", "P11", "Behavior 2AFC", this.textBox2AFC_bumpHoldTime);
+            AddParamListItem("2AFC Intertrial Time", "P12", "Behavior 2AFC", this.textBox2AFC_intertrialTime);
+            AddParamListItem("2AFC Penalty Time", "P13", "Behavior 2AFC", this.textBox2AFC_penaltyTime);
             
-            // Two-alternative forced choice timing
-            AddParamListItem("2AFC OHL", "P6", "Behavior 2AFC", this.textBox2AFCOHL);
-            AddParamListItem("2AFC OHH", "P7", "Behavior 2AFC", this.textBox2AFCOHH);
-            AddParamListItem("2AFC M", "P8", "Behavior 2AFC", this.textBox2AFCM);
-            AddParamListItem("2AFC IL", "P9", "Behavior 2AFC", this.textBox2AFCIL);
-            AddParamListItem("2AFC IS", "P10", "Behavior 2AFC", this.textBox2AFCIS);
-            AddParamListItem("2AFC II", "P11", "Behavior 2AFC", this.textBox2AFCII);
-            AddParamListItem("2AFC IR", "P12", "Behavior 2AFC", this.textBox2AFCIR);
-            AddParamListItem("2AFC IF", "P13", "Behavior 2AFC", this.textBox2AFCIF);
-            AddParamListItem("2AFC IA", "P14", "Behavior 2AFC", this.textBox2AFCIA);
-            AddParamListItem("2AFC SDL", "P15", "Behavior 2AFC", this.textBox2AFCSDL);
-            AddParamListItem("2AFC SDH", "P16", "Behavior 2AFC", this.textBox2AFCSDH);
-
-            // Training trials
-            AddParamListItem("2AFC Pct Training Trials", "P17", "Behavior 2AFC", this.textBox2AFCPercentTraining);
-            AddParamListItem("2AFC CT Color Change", "P18", "Behavior 2AFC", this.checkBox2AFCCTColorChange);
+            AddParamListItem("2AFC Target Size", "P14", "Behavior 2AFC", this.textBox2AFC_targetSize);
+            AddParamListItem("2AFC Target Radius", "P15", "Behavior 2AFC", this.textBox2AFC_targetRadius);
+            AddParamListItem("2AFC Target Angle", "P16", "Behavior 2AFC", this.textBox2AFC_targetAngle);
+            AddParamListItem("2AFC Hide Cursor", "P17", "Behavior 2AFC", this.checkBox2AFC_hideCursor);
+            AddParamListItem("2AFC Abort During Bump", "P18", "Behavior 2AFC", this.checkBox2AFC_abortDuringBump);
             
-            // Left target parameters
-            AddParamListItem("2AFC T1 Tone", "P19", "Behavior 2AFC", this.checkBox2AFCLTTC);
-            AddParamListItem("2AFC T1 ICMS", "P20", "Behavior 2AFC", this.checkBox2AFCLTI);
-            AddParamListItem("2AFC T1 Bump", "P21", "Behavior 2AFC", this.checkBox2AFCLTB);
-            AddParamListItem("2AFC T1 ICMS codes", "P22", "Behavior 2AFC", this.numericUpDown2AFCLTNSC);
-            AddParamListItem("2AFC T1 Bump steps", "P23", "Behavior 2AFC", this.numericUpDown2AFCLTNBS);
-            AddParamListItem("2AFC T1 Bump mag min", "P24", "Behavior 2AFC", this.textBox2AFCLTBMMin);
-            AddParamListItem("2AFC T1 Bump mag max", "P25", "Behavior 2AFC", this.textBox2AFCLTBMMax);
-            AddParamListItem("2AFC T1 Bump direction", "P26", "Behavior 2AFC", this.textBox2AFCLTBDir);
-            AddParamListItem("2AFC T1 Bump duration", "P27", "Behavior 2AFC", this.textBox2AFCLTBDur);
+            AddParamListItem("2AFC Cue 1 Bump Dir", "P19", "Behavior 2AFC", this.textBox2AFC_cue1BumpDir);
+            AddParamListItem("2AFC Cue 2 Bump Dir", "P20", "Behavior 2AFC", this.textBox2AFC_cue2BumpDir);
 
-            // Right target parameters
-            AddParamListItem("2AFC T2 Tone", "P28", "Behavior 2AFC", this.checkBox2AFCRTTC);
-            AddParamListItem("2AFC T2 ICMS", "P29", "Behavior 2AFC", this.checkBox2AFCRTI);
-            AddParamListItem("2AFC T2 Bump", "P30", "Behavior 2AFC", this.checkBox2AFCRTB);
-            AddParamListItem("2AFC T2 ICMS codes", "P31", "Behavior 2AFC", this.numericUpDown2AFCRTNSC);
-            AddParamListItem("2AFC T2 Bump steps", "P32", "Behavior 2AFC", this.numericUpDown2AFCRTNBS);
-            AddParamListItem("2AFC T2 Bump mag min", "P33", "Behavior 2AFC", this.textBox2AFCRTBMMin);
-            AddParamListItem("2AFC T2 Bump mag max", "P34", "Behavior 2AFC", this.textBox2AFCRTBMMax);
-            AddParamListItem("2AFC T2 Bump direction", "P35", "Behavior 2AFC", this.textBox2AFCRTBDir);
-            AddParamListItem("2AFC T2 Bump duration", "P36", "Behavior 2AFC", this.textBox2AFCRTBDur);
+            AddParamListItem("2AFC Bump Peak Time", "P21", "Behavior 2AFC", this.textBox2AFC_bumpPeakTime);
+            AddParamListItem("2AFC Bump Ramp Time", "P22", "Behavior 2AFC", this.textBox2AFC_bumpRampTime);
+            AddParamListItem("2AFC Bump Magnitude", "P23", "Behavior 2AFC", this.textBox2AFC_bumpMagnitude);
+
+            AddParamListItem("2AFC Cue 1 Stim Prob", "P24", "Behavior 2AFC", this.textBox2AFC_cue1StimProb);
+            AddParamListItem("2AFC Cue 1 Stim Level Low", "P25", "Behavior 2AFC", this.textBox2AFC_cue1StimCodeLow);
+            AddParamListItem("2AFC Cue 1 Stim Level High", "P26", "Behavior 2AFC", this.textBox2AFC_cue1StimLevelHigh);
+
+            AddParamListItem("2AFC Cue 2 Stim Prob", "P27", "Behavior 2AFC", this.textBox2AFC_cue2StimProb);
+            AddParamListItem("2AFC Cue 2 Stim Level Low", "P28", "Behavior 2AFC", this.textBox2AFC_cue2StimLevelLow);
+            AddParamListItem("2AFC Cue 2 Stim Level High", "P29", "Behavior 2AFC", this.textBox2AFC_cue2StimLevelHigh);
+
+            AddParamListItem("2AFC Same Cue Prob", "P30", "Behavior 2AFC", this.textBox2AFC_sameCueProb);
+
+            AddParamListItem("2AFC Period Duration", "P31", "Behavior 2AFC", this.textBox2AFC_periodDuration);
+            AddParamListItem("2AFC Interperiod Duration", "P32", "Behavior 2AFC", this.textBox2AFC_interperiodDuration);
+
+            AddParamListItem("2AFC Same Target Right", "P33", "Behavior 2AFC", this.checkBox2AFC_sameTargetRight);
+            AddParamListItem("2AFC Idiot Mode", "P34", "Behavior 2AFC", this.checkBox2AFC_idiotMode);
+            AddParamListItem("2AFC Big Target Size", "P35", "Behavior 2AFC", this.textBox2AFC_bigTargetSize);
+
+            AddParamListItem("2AFC Training Trial Frequency", "P36", "Behavior 2AFC", this.textBox2AFC_trainingTrialFrequency);
+
             #endregion
 
             #region Attention
@@ -3281,15 +3283,7 @@ namespace BehaviorGraphics
             widget_ValueChanged(sender, e);
         }
 
-        private void groupBox114_Enter(object sender, EventArgs e)
-        {
 
-        }
-
-        private void tabPageFC_Click(object sender, EventArgs e)
-        {
-
-        }
 
 
     }

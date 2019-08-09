@@ -29,20 +29,20 @@ namespace BehaviorGraphics
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -221,6 +221,10 @@ namespace BehaviorGraphics
             this.textBoxTHL = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.tabPageFC = new System.Windows.Forms.TabPage();
+            this.groupBox114 = new System.Windows.Forms.GroupBox();
+            this.label618 = new System.Windows.Forms.Label();
+            this.textBoxFCStimCodeLow = new System.Windows.Forms.TextBox();
+            this.checkBoxFCUseStaircase = new System.Windows.Forms.CheckBox();
             this.groupBox107 = new System.Windows.Forms.GroupBox();
             this.checkBoxFCForceReactionTime = new System.Windows.Forms.CheckBox();
             this.checkBoxFCAbortDuringBumps = new System.Windows.Forms.CheckBox();
@@ -609,71 +613,46 @@ namespace BehaviorGraphics
             this.textBoxBFOHL = new System.Windows.Forms.TextBox();
             this.label189 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox116 = new System.Windows.Forms.GroupBox();
             this.groupBox48 = new System.Windows.Forms.GroupBox();
-            this.textBox2AFCRTBDur = new System.Windows.Forms.TextBox();
-            this.label221 = new System.Windows.Forms.Label();
-            this.label222 = new System.Windows.Forms.Label();
-            this.numericUpDown2AFCRTNSC = new System.Windows.Forms.NumericUpDown();
-            this.checkBox2AFCRTB = new System.Windows.Forms.CheckBox();
-            this.checkBox2AFCRTI = new System.Windows.Forms.CheckBox();
-            this.checkBox2AFCRTTC = new System.Windows.Forms.CheckBox();
-            this.label223 = new System.Windows.Forms.Label();
-            this.numericUpDown2AFCRTNBS = new System.Windows.Forms.NumericUpDown();
-            this.textBox2AFCRTBMMax = new System.Windows.Forms.TextBox();
-            this.label224 = new System.Windows.Forms.Label();
-            this.textBox2AFCRTBDir = new System.Windows.Forms.TextBox();
-            this.label225 = new System.Windows.Forms.Label();
-            this.label226 = new System.Windows.Forms.Label();
-            this.textBox2AFCRTBMMin = new System.Windows.Forms.TextBox();
             this.groupBox47 = new System.Windows.Forms.GroupBox();
-            this.textBox2AFCLTBDur = new System.Windows.Forms.TextBox();
-            this.label220 = new System.Windows.Forms.Label();
+            this.textBox2AFC_cue1StimProb = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_cue1StimCodeLow = new System.Windows.Forms.TextBox();
             this.label204 = new System.Windows.Forms.Label();
-            this.numericUpDown2AFCLTNSC = new System.Windows.Forms.NumericUpDown();
-            this.checkBox2AFCLTB = new System.Windows.Forms.CheckBox();
-            this.checkBox2AFCLTI = new System.Windows.Forms.CheckBox();
-            this.checkBox2AFCLTTC = new System.Windows.Forms.CheckBox();
             this.label209 = new System.Windows.Forms.Label();
-            this.numericUpDown2AFCLTNBS = new System.Windows.Forms.NumericUpDown();
-            this.textBox2AFCLTBMMax = new System.Windows.Forms.TextBox();
-            this.label208 = new System.Windows.Forms.Label();
-            this.textBox2AFCLTBDir = new System.Windows.Forms.TextBox();
             this.label206 = new System.Windows.Forms.Label();
-            this.label207 = new System.Windows.Forms.Label();
-            this.textBox2AFCLTBMMin = new System.Windows.Forms.TextBox();
             this.groupBox44 = new System.Windows.Forms.GroupBox();
-            this.textBox2AFCWindowRadius = new System.Windows.Forms.TextBox();
+            this.checkBox2AFC_abortDuringBump = new System.Windows.Forms.CheckBox();
+            this.checkBox2AFC_hideCursor = new System.Windows.Forms.CheckBox();
+            this.textBox2AFC_targetRadius = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_targetSize = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_targetAngle = new System.Windows.Forms.TextBox();
             this.label201 = new System.Windows.Forms.Label();
-            this.textBox2AFCTgtRadius = new System.Windows.Forms.TextBox();
             this.label202 = new System.Windows.Forms.Label();
-            this.textBox2AFCTgtSize = new System.Windows.Forms.TextBox();
             this.label203 = new System.Windows.Forms.Label();
             this.groupBox45 = new System.Windows.Forms.GroupBox();
-            this.checkBox2AFCCTColorChange = new System.Windows.Forms.CheckBox();
-            this.label205 = new System.Windows.Forms.Label();
-            this.textBox2AFCPercentTraining = new System.Windows.Forms.TextBox();
             this.groupBox46 = new System.Windows.Forms.GroupBox();
-            this.textBox2AFCIS = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_delayPeriodHigh = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_delayPeriodLow = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_penaltyTime = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_intertrialTime = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_bumpHoldTime = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_bumpDelayTime = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_targetHoldHigh = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_targetHoldLow = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_moveTime = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_centerHoldHigh = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_centerHoldLow = new System.Windows.Forms.TextBox();
             this.label219 = new System.Windows.Forms.Label();
-            this.textBox2AFCIL = new System.Windows.Forms.TextBox();
             this.label218 = new System.Windows.Forms.Label();
-            this.textBox2AFCII = new System.Windows.Forms.TextBox();
             this.label200 = new System.Windows.Forms.Label();
-            this.textBox2AFCSDH = new System.Windows.Forms.TextBox();
             this.label210 = new System.Windows.Forms.Label();
-            this.textBox2AFCSDL = new System.Windows.Forms.TextBox();
             this.label211 = new System.Windows.Forms.Label();
-            this.textBox2AFCIA = new System.Windows.Forms.TextBox();
             this.label212 = new System.Windows.Forms.Label();
-            this.textBox2AFCIF = new System.Windows.Forms.TextBox();
             this.label213 = new System.Windows.Forms.Label();
-            this.textBox2AFCIR = new System.Windows.Forms.TextBox();
             this.label214 = new System.Windows.Forms.Label();
-            this.textBox2AFCM = new System.Windows.Forms.TextBox();
             this.label215 = new System.Windows.Forms.Label();
-            this.textBox2AFCOHH = new System.Windows.Forms.TextBox();
             this.label216 = new System.Windows.Forms.Label();
-            this.textBox2AFCOHL = new System.Windows.Forms.TextBox();
             this.label217 = new System.Windows.Forms.Label();
             this.tabUncertainty1D = new System.Windows.Forms.TabPage();
             this.groupBoxUMiscSettings = new System.Windows.Forms.GroupBox();
@@ -2472,10 +2451,36 @@ namespace BehaviorGraphics
             this.angleEntryBox1 = new AngleBox.AngleEntryBox();
             this.angleEntryBox2 = new AngleBox.AngleEntryBox();
             this.angleEntryBox_SA = new AngleBox.AngleEntryBox();
-            this.groupBox114 = new System.Windows.Forms.GroupBox();
-            this.checkBoxFCUseStaircase = new System.Windows.Forms.CheckBox();
-            this.textBoxFCStimCodeLow = new System.Windows.Forms.TextBox();
-            this.label618 = new System.Windows.Forms.Label();
+            this.textBox2AFC_cue1StimLevelHigh = new System.Windows.Forms.TextBox();
+            this.label619 = new System.Windows.Forms.Label();
+            this.label207 = new System.Windows.Forms.Label();
+            this.label208 = new System.Windows.Forms.Label();
+            this.label220 = new System.Windows.Forms.Label();
+            this.label620 = new System.Windows.Forms.Label();
+            this.textBox2AFC_cue1BumpDir = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_cue2BumpDir = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_cue2StimLevelHigh = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_cue2StimProb = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_cue2StimLevelLow = new System.Windows.Forms.TextBox();
+            this.label221 = new System.Windows.Forms.Label();
+            this.label222 = new System.Windows.Forms.Label();
+            this.label223 = new System.Windows.Forms.Label();
+            this.textBox2AFC_bumpMagnitude = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_bumpPeakTime = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_bumpRampTime = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_interperiodDuration = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_sameCueProb = new System.Windows.Forms.TextBox();
+            this.textBox2AFC_periodDuration = new System.Windows.Forms.TextBox();
+            this.label224 = new System.Windows.Forms.Label();
+            this.label225 = new System.Windows.Forms.Label();
+            this.label226 = new System.Windows.Forms.Label();
+            this.checkBox2AFC_sameTargetRight = new System.Windows.Forms.CheckBox();
+            this.checkBox2AFC_idiotMode = new System.Windows.Forms.CheckBox();
+            this.label205 = new System.Windows.Forms.Label();
+            this.textBox2AFC_bigTargetSize = new System.Windows.Forms.TextBox();
+            this.groupBox117 = new System.Windows.Forms.GroupBox();
+            this.label638 = new System.Windows.Forms.Label();
+            this.textBox2AFC_trainingTrialFrequency = new System.Windows.Forms.TextBox();
             this.tabs.SuspendLayout();
             this.tabPageGen.SuspendLayout();
             this.groupBoxIsometric.SuspendLayout();
@@ -2499,6 +2504,7 @@ namespace BehaviorGraphics
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRWTgts)).BeginInit();
             this.groupBox7.SuspendLayout();
             this.tabPageFC.SuspendLayout();
+            this.groupBox114.SuspendLayout();
             this.groupBox107.SuspendLayout();
             this.groupBox106.SuspendLayout();
             this.groupBox105.SuspendLayout();
@@ -2552,12 +2558,9 @@ namespace BehaviorGraphics
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBFBumpSteps)).BeginInit();
             this.groupBox42.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox116.SuspendLayout();
             this.groupBox48.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2AFCRTNSC)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2AFCRTNBS)).BeginInit();
             this.groupBox47.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2AFCLTNSC)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2AFCLTNBS)).BeginInit();
             this.groupBox44.SuspendLayout();
             this.groupBox45.SuspendLayout();
             this.groupBox46.SuspendLayout();
@@ -2725,7 +2728,7 @@ namespace BehaviorGraphics
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBox114.SuspendLayout();
+            this.groupBox117.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -4682,7 +4685,45 @@ namespace BehaviorGraphics
             this.tabPageFC.TabIndex = 3;
             this.tabPageFC.Text = "Forced Choice";
             this.tabPageFC.UseVisualStyleBackColor = true;
-            this.tabPageFC.Click += new System.EventHandler(this.tabPageFC_Click);
+            // 
+            // groupBox114
+            // 
+            this.groupBox114.Controls.Add(this.label618);
+            this.groupBox114.Controls.Add(this.textBoxFCStimCodeLow);
+            this.groupBox114.Controls.Add(this.checkBoxFCUseStaircase);
+            this.groupBox114.Location = new System.Drawing.Point(434, 97);
+            this.groupBox114.Name = "groupBox114";
+            this.groupBox114.Size = new System.Drawing.Size(231, 72);
+            this.groupBox114.TabIndex = 19;
+            this.groupBox114.TabStop = false;
+            this.groupBox114.Text = "Staircase";
+            // 
+            // label618
+            // 
+            this.label618.AutoSize = true;
+            this.label618.Location = new System.Drawing.Point(9, 44);
+            this.label618.Name = "label618";
+            this.label618.Size = new System.Drawing.Size(121, 13);
+            this.label618.TabIndex = 19;
+            this.label618.Text = "stim code low (inclusive)";
+            // 
+            // textBoxFCStimCodeLow
+            // 
+            this.textBoxFCStimCodeLow.Location = new System.Drawing.Point(136, 41);
+            this.textBoxFCStimCodeLow.Name = "textBoxFCStimCodeLow";
+            this.textBoxFCStimCodeLow.Size = new System.Drawing.Size(61, 20);
+            this.textBoxFCStimCodeLow.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.textBoxFCStimCodeLow, "Distance between center target and outer targets.");
+            // 
+            // checkBoxFCUseStaircase
+            // 
+            this.checkBoxFCUseStaircase.AutoSize = true;
+            this.checkBoxFCUseStaircase.Location = new System.Drawing.Point(37, 22);
+            this.checkBoxFCUseStaircase.Name = "checkBoxFCUseStaircase";
+            this.checkBoxFCUseStaircase.Size = new System.Drawing.Size(88, 17);
+            this.checkBoxFCUseStaircase.TabIndex = 26;
+            this.checkBoxFCUseStaircase.Text = "use staircase";
+            this.checkBoxFCUseStaircase.UseVisualStyleBackColor = true;
             // 
             // groupBox107
             // 
@@ -5942,14 +5983,14 @@ namespace BehaviorGraphics
             this.MGTargetGrid.AllowUserToDeleteRows = false;
             this.MGTargetGrid.AllowUserToResizeColumns = false;
             this.MGTargetGrid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MGTargetGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MGTargetGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.MGTargetGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MGTargetGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.mgNumber,
@@ -5958,24 +5999,24 @@ namespace BehaviorGraphics
             this.mgX_Pos,
             this.mgWidth,
             this.y_varMG});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.MGTargetGrid.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MGTargetGrid.DefaultCellStyle = dataGridViewCellStyle17;
             this.MGTargetGrid.Location = new System.Drawing.Point(25, 17);
             this.MGTargetGrid.Name = "MGTargetGrid";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MGTargetGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MGTargetGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.MGTargetGrid.RowHeadersVisible = false;
             this.MGTargetGrid.Size = new System.Drawing.Size(306, 162);
             this.MGTargetGrid.TabIndex = 1;
@@ -5983,8 +6024,8 @@ namespace BehaviorGraphics
             // 
             // mgNumber
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.mgNumber.DefaultCellStyle = dataGridViewCellStyle16;
             this.mgNumber.HeaderText = "Num";
             this.mgNumber.Name = "mgNumber";
             this.mgNumber.ReadOnly = true;
@@ -6798,14 +6839,14 @@ namespace BehaviorGraphics
             this.WFTargetGrid.AllowUserToAddRows = false;
             this.WFTargetGrid.AllowUserToResizeColumns = false;
             this.WFTargetGrid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.WFTargetGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.WFTargetGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.WFTargetGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.WFTargetGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.wfNumber,
@@ -6815,24 +6856,24 @@ namespace BehaviorGraphics
             this.wfWidth,
             this.x_varWF,
             this.y_varWF});
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.WFTargetGrid.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.WFTargetGrid.DefaultCellStyle = dataGridViewCellStyle21;
             this.WFTargetGrid.Location = new System.Drawing.Point(6, 19);
             this.WFTargetGrid.Name = "WFTargetGrid";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.WFTargetGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.WFTargetGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle22;
             this.WFTargetGrid.RowHeadersVisible = false;
             this.WFTargetGrid.Size = new System.Drawing.Size(306, 199);
             this.WFTargetGrid.TabIndex = 29;
@@ -6840,8 +6881,8 @@ namespace BehaviorGraphics
             // 
             // wfNumber
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.wfNumber.DefaultCellStyle = dataGridViewCellStyle20;
             this.wfNumber.HeaderText = "Num";
             this.wfNumber.Name = "wfNumber";
             this.wfNumber.ReadOnly = true;
@@ -7428,38 +7469,38 @@ namespace BehaviorGraphics
             this.BCStimGrid.AllowUserToDeleteRows = false;
             this.BCStimGrid.AllowUserToResizeColumns = false;
             this.BCStimGrid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.BCStimGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.BCStimGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
             this.BCStimGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BCStimGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.StimCodeColumn,
             this.PDColumn});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.BCStimGrid.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.BCStimGrid.DefaultCellStyle = dataGridViewCellStyle24;
             this.BCStimGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BCStimGrid.GridColor = System.Drawing.SystemColors.AppWorkspace;
             this.BCStimGrid.Location = new System.Drawing.Point(3, 16);
             this.BCStimGrid.Name = "BCStimGrid";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.BCStimGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.BCStimGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle25;
             this.BCStimGrid.RowHeadersVisible = false;
             this.BCStimGrid.Size = new System.Drawing.Size(186, 168);
             this.BCStimGrid.TabIndex = 0;
@@ -8398,37 +8439,37 @@ namespace BehaviorGraphics
             this.BFStimGrid.AllowUserToDeleteRows = false;
             this.BFStimGrid.AllowUserToResizeColumns = false;
             this.BFStimGrid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.BFStimGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.BFStimGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle26;
             this.BFStimGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BFStimGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2});
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.BFStimGrid.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.BFStimGrid.DefaultCellStyle = dataGridViewCellStyle27;
             this.BFStimGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BFStimGrid.Location = new System.Drawing.Point(3, 16);
             this.BFStimGrid.Name = "BFStimGrid";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.BFStimGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.BFStimGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle28;
             this.BFStimGrid.RowHeadersVisible = false;
             this.BFStimGrid.Size = new System.Drawing.Size(191, 233);
             this.BFStimGrid.TabIndex = 0;
@@ -8810,6 +8851,8 @@ namespace BehaviorGraphics
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox117);
+            this.tabPage2.Controls.Add(this.groupBox116);
             this.tabPage2.Controls.Add(this.groupBox48);
             this.tabPage2.Controls.Add(this.groupBox47);
             this.tabPage2.Controls.Add(this.groupBox44);
@@ -8823,434 +8866,185 @@ namespace BehaviorGraphics
             this.tabPage2.Text = "2AFC";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // groupBox116
+            // 
+            this.groupBox116.Controls.Add(this.textBox2AFC_bumpMagnitude);
+            this.groupBox116.Controls.Add(this.label221);
+            this.groupBox116.Controls.Add(this.textBox2AFC_bumpPeakTime);
+            this.groupBox116.Controls.Add(this.textBox2AFC_bumpRampTime);
+            this.groupBox116.Controls.Add(this.label222);
+            this.groupBox116.Controls.Add(this.label223);
+            this.groupBox116.Location = new System.Drawing.Point(230, 144);
+            this.groupBox116.Name = "groupBox116";
+            this.groupBox116.Size = new System.Drawing.Size(208, 106);
+            this.groupBox116.TabIndex = 33;
+            this.groupBox116.TabStop = false;
+            this.groupBox116.Text = "Bump";
+            // 
             // groupBox48
             // 
-            this.groupBox48.Controls.Add(this.textBox2AFCRTBDur);
-            this.groupBox48.Controls.Add(this.label221);
-            this.groupBox48.Controls.Add(this.label222);
-            this.groupBox48.Controls.Add(this.numericUpDown2AFCRTNSC);
-            this.groupBox48.Controls.Add(this.checkBox2AFCRTB);
-            this.groupBox48.Controls.Add(this.checkBox2AFCRTI);
-            this.groupBox48.Controls.Add(this.checkBox2AFCRTTC);
-            this.groupBox48.Controls.Add(this.label223);
-            this.groupBox48.Controls.Add(this.numericUpDown2AFCRTNBS);
-            this.groupBox48.Controls.Add(this.textBox2AFCRTBMMax);
-            this.groupBox48.Controls.Add(this.label224);
-            this.groupBox48.Controls.Add(this.textBox2AFCRTBDir);
-            this.groupBox48.Controls.Add(this.label225);
-            this.groupBox48.Controls.Add(this.label226);
-            this.groupBox48.Controls.Add(this.textBox2AFCRTBMMin);
+            this.groupBox48.Controls.Add(this.textBox2AFC_cue2BumpDir);
+            this.groupBox48.Controls.Add(this.label207);
+            this.groupBox48.Controls.Add(this.textBox2AFC_cue2StimLevelHigh);
+            this.groupBox48.Controls.Add(this.label208);
+            this.groupBox48.Controls.Add(this.textBox2AFC_cue2StimProb);
+            this.groupBox48.Controls.Add(this.textBox2AFC_cue2StimLevelLow);
+            this.groupBox48.Controls.Add(this.label220);
+            this.groupBox48.Controls.Add(this.label620);
             this.groupBox48.Location = new System.Drawing.Point(448, 5);
             this.groupBox48.Name = "groupBox48";
-            this.groupBox48.Size = new System.Drawing.Size(208, 224);
+            this.groupBox48.Size = new System.Drawing.Size(208, 129);
             this.groupBox48.TabIndex = 49;
             this.groupBox48.TabStop = false;
-            this.groupBox48.Text = "Right Target";
-            // 
-            // textBox2AFCRTBDur
-            // 
-            this.textBox2AFCRTBDur.Location = new System.Drawing.Point(121, 198);
-            this.textBox2AFCRTBDur.Name = "textBox2AFCRTBDur";
-            this.textBox2AFCRTBDur.Size = new System.Drawing.Size(68, 20);
-            this.textBox2AFCRTBDur.TabIndex = 47;
-            this.toolTip1.SetToolTip(this.textBox2AFCRTBDur, "Duration of bump (ms)");
-            this.textBox2AFCRTBDur.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label221
-            // 
-            this.label221.AutoSize = true;
-            this.label221.Location = new System.Drawing.Point(4, 202);
-            this.label221.Name = "label221";
-            this.label221.Size = new System.Drawing.Size(75, 13);
-            this.label221.TabIndex = 48;
-            this.label221.Text = "Bump duration";
-            this.toolTip1.SetToolTip(this.label221, "Percent of trials on which to give an intermediate \"test\" stimulus.");
-            // 
-            // label222
-            // 
-            this.label222.AutoSize = true;
-            this.label222.Location = new System.Drawing.Point(4, 81);
-            this.label222.Name = "label222";
-            this.label222.Size = new System.Drawing.Size(82, 13);
-            this.label222.TabIndex = 46;
-            this.label222.Text = "Num stim codes";
-            this.toolTip1.SetToolTip(this.label222, resources.GetString("label222.ToolTip"));
-            // 
-            // numericUpDown2AFCRTNSC
-            // 
-            this.numericUpDown2AFCRTNSC.Location = new System.Drawing.Point(121, 74);
-            this.numericUpDown2AFCRTNSC.Maximum = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            this.numericUpDown2AFCRTNSC.Name = "numericUpDown2AFCRTNSC";
-            this.numericUpDown2AFCRTNSC.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDown2AFCRTNSC.TabIndex = 45;
-            this.toolTip1.SetToolTip(this.numericUpDown2AFCRTNSC, "Number of stim codes to use");
-            this.numericUpDown2AFCRTNSC.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            // 
-            // checkBox2AFCRTB
-            // 
-            this.checkBox2AFCRTB.AutoSize = true;
-            this.checkBox2AFCRTB.Location = new System.Drawing.Point(6, 55);
-            this.checkBox2AFCRTB.Name = "checkBox2AFCRTB";
-            this.checkBox2AFCRTB.Size = new System.Drawing.Size(53, 17);
-            this.checkBox2AFCRTB.TabIndex = 44;
-            this.checkBox2AFCRTB.Text = "Bump";
-            this.toolTip1.SetToolTip(this.checkBox2AFCRTB, "If checked, a bump will be given");
-            this.checkBox2AFCRTB.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2AFCRTI
-            // 
-            this.checkBox2AFCRTI.AutoSize = true;
-            this.checkBox2AFCRTI.Location = new System.Drawing.Point(6, 38);
-            this.checkBox2AFCRTI.Name = "checkBox2AFCRTI";
-            this.checkBox2AFCRTI.Size = new System.Drawing.Size(52, 17);
-            this.checkBox2AFCRTI.TabIndex = 43;
-            this.checkBox2AFCRTI.Text = "ICMS";
-            this.toolTip1.SetToolTip(this.checkBox2AFCRTI, "If checked, ICMS will be given");
-            this.checkBox2AFCRTI.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2AFCRTTC
-            // 
-            this.checkBox2AFCRTTC.AutoSize = true;
-            this.checkBox2AFCRTTC.Location = new System.Drawing.Point(6, 19);
-            this.checkBox2AFCRTTC.Name = "checkBox2AFCRTTC";
-            this.checkBox2AFCRTTC.Size = new System.Drawing.Size(72, 17);
-            this.checkBox2AFCRTTC.TabIndex = 42;
-            this.checkBox2AFCRTTC.Text = "Tone cue";
-            this.toolTip1.SetToolTip(this.checkBox2AFCRTTC, "If checked, tone cue will be given");
-            this.checkBox2AFCRTTC.UseVisualStyleBackColor = true;
-            // 
-            // label223
-            // 
-            this.label223.AutoSize = true;
-            this.label223.Location = new System.Drawing.Point(4, 107);
-            this.label223.Name = "label223";
-            this.label223.Size = new System.Drawing.Size(89, 13);
-            this.label223.TabIndex = 27;
-            this.label223.Text = "Num Bump Steps";
-            this.toolTip1.SetToolTip(this.label223, resources.GetString("label223.ToolTip"));
-            // 
-            // numericUpDown2AFCRTNBS
-            // 
-            this.numericUpDown2AFCRTNBS.Location = new System.Drawing.Point(121, 100);
-            this.numericUpDown2AFCRTNBS.Maximum = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            this.numericUpDown2AFCRTNBS.Name = "numericUpDown2AFCRTNBS";
-            this.numericUpDown2AFCRTNBS.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDown2AFCRTNBS.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.numericUpDown2AFCRTNBS, "Number of gradations of bump magnitude.");
-            this.numericUpDown2AFCRTNBS.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            // 
-            // textBox2AFCRTBMMax
-            // 
-            this.textBox2AFCRTBMMax.Location = new System.Drawing.Point(121, 149);
-            this.textBox2AFCRTBMMax.Name = "textBox2AFCRTBMMax";
-            this.textBox2AFCRTBMMax.Size = new System.Drawing.Size(68, 20);
-            this.textBox2AFCRTBMMax.TabIndex = 7;
-            this.textBox2AFCRTBMMax.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label224
-            // 
-            this.label224.AutoSize = true;
-            this.label224.Location = new System.Drawing.Point(4, 156);
-            this.label224.Name = "label224";
-            this.label224.Size = new System.Drawing.Size(108, 13);
-            this.label224.TabIndex = 30;
-            this.label224.Text = "Bump magnitude max";
-            this.toolTip1.SetToolTip(this.label224, "Percent of trials on which to give an intermediate \"test\" stimulus.");
-            // 
-            // textBox2AFCRTBDir
-            // 
-            this.textBox2AFCRTBDir.Location = new System.Drawing.Point(121, 175);
-            this.textBox2AFCRTBDir.Name = "textBox2AFCRTBDir";
-            this.textBox2AFCRTBDir.Size = new System.Drawing.Size(68, 20);
-            this.textBox2AFCRTBDir.TabIndex = 9;
-            this.toolTip1.SetToolTip(this.textBox2AFCRTBDir, "Direction of bump (rad). If -1, random direction.");
-            this.textBox2AFCRTBDir.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label225
-            // 
-            this.label225.AutoSize = true;
-            this.label225.Location = new System.Drawing.Point(4, 133);
-            this.label225.Name = "label225";
-            this.label225.Size = new System.Drawing.Size(105, 13);
-            this.label225.TabIndex = 38;
-            this.label225.Text = "Bump magnitude min";
-            this.toolTip1.SetToolTip(this.label225, "Percent of trials on which to give an intermediate \"test\" stimulus.");
-            // 
-            // label226
-            // 
-            this.label226.AutoSize = true;
-            this.label226.Location = new System.Drawing.Point(4, 179);
-            this.label226.Name = "label226";
-            this.label226.Size = new System.Drawing.Size(77, 13);
-            this.label226.TabIndex = 32;
-            this.label226.Text = "Bump direction";
-            this.toolTip1.SetToolTip(this.label226, "Percent of trials on which to give an intermediate \"test\" stimulus.");
-            // 
-            // textBox2AFCRTBMMin
-            // 
-            this.textBox2AFCRTBMMin.Location = new System.Drawing.Point(121, 126);
-            this.textBox2AFCRTBMMin.Name = "textBox2AFCRTBMMin";
-            this.textBox2AFCRTBMMin.Size = new System.Drawing.Size(68, 20);
-            this.textBox2AFCRTBMMin.TabIndex = 5;
-            this.textBox2AFCRTBMMin.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.groupBox48.Text = "Cue 2";
             // 
             // groupBox47
             // 
-            this.groupBox47.Controls.Add(this.textBox2AFCLTBDur);
-            this.groupBox47.Controls.Add(this.label220);
+            this.groupBox47.Controls.Add(this.textBox2AFC_cue1BumpDir);
+            this.groupBox47.Controls.Add(this.label619);
+            this.groupBox47.Controls.Add(this.textBox2AFC_cue1StimLevelHigh);
+            this.groupBox47.Controls.Add(this.textBox2AFC_cue1StimProb);
+            this.groupBox47.Controls.Add(this.textBox2AFC_cue1StimCodeLow);
             this.groupBox47.Controls.Add(this.label204);
-            this.groupBox47.Controls.Add(this.numericUpDown2AFCLTNSC);
-            this.groupBox47.Controls.Add(this.checkBox2AFCLTB);
-            this.groupBox47.Controls.Add(this.checkBox2AFCLTI);
-            this.groupBox47.Controls.Add(this.checkBox2AFCLTTC);
             this.groupBox47.Controls.Add(this.label209);
-            this.groupBox47.Controls.Add(this.numericUpDown2AFCLTNBS);
-            this.groupBox47.Controls.Add(this.textBox2AFCLTBMMax);
-            this.groupBox47.Controls.Add(this.label208);
-            this.groupBox47.Controls.Add(this.textBox2AFCLTBDir);
             this.groupBox47.Controls.Add(this.label206);
-            this.groupBox47.Controls.Add(this.label207);
-            this.groupBox47.Controls.Add(this.textBox2AFCLTBMMin);
             this.groupBox47.Location = new System.Drawing.Point(230, 5);
             this.groupBox47.Name = "groupBox47";
-            this.groupBox47.Size = new System.Drawing.Size(208, 224);
+            this.groupBox47.Size = new System.Drawing.Size(208, 129);
             this.groupBox47.TabIndex = 25;
             this.groupBox47.TabStop = false;
-            this.groupBox47.Text = "Left Target";
+            this.groupBox47.Text = "Cue 1";
             // 
-            // textBox2AFCLTBDur
+            // textBox2AFC_cue1StimProb
             // 
-            this.textBox2AFCLTBDur.Location = new System.Drawing.Point(121, 198);
-            this.textBox2AFCLTBDur.Name = "textBox2AFCLTBDur";
-            this.textBox2AFCLTBDur.Size = new System.Drawing.Size(68, 20);
-            this.textBox2AFCLTBDur.TabIndex = 47;
-            this.toolTip1.SetToolTip(this.textBox2AFCLTBDur, "Duration of bump (ms)");
-            this.textBox2AFCLTBDur.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.textBox2AFC_cue1StimProb.Location = new System.Drawing.Point(114, 23);
+            this.textBox2AFC_cue1StimProb.Name = "textBox2AFC_cue1StimProb";
+            this.textBox2AFC_cue1StimProb.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_cue1StimProb.TabIndex = 49;
+            this.toolTip1.SetToolTip(this.textBox2AFC_cue1StimProb, "Distance from the origin of workspace in which the cursor is not displayed.");
             // 
-            // label220
+            // textBox2AFC_cue1StimCodeLow
             // 
-            this.label220.AutoSize = true;
-            this.label220.Location = new System.Drawing.Point(4, 202);
-            this.label220.Name = "label220";
-            this.label220.Size = new System.Drawing.Size(75, 13);
-            this.label220.TabIndex = 48;
-            this.label220.Text = "Bump duration";
-            this.toolTip1.SetToolTip(this.label220, "Percent of trials on which to give an intermediate \"test\" stimulus.");
+            this.textBox2AFC_cue1StimCodeLow.Location = new System.Drawing.Point(114, 46);
+            this.textBox2AFC_cue1StimCodeLow.Name = "textBox2AFC_cue1StimCodeLow";
+            this.textBox2AFC_cue1StimCodeLow.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_cue1StimCodeLow.TabIndex = 39;
+            this.toolTip1.SetToolTip(this.textBox2AFC_cue1StimCodeLow, "Distance from the origin of workspace in which the cursor is not displayed.");
             // 
             // label204
             // 
             this.label204.AutoSize = true;
-            this.label204.Location = new System.Drawing.Point(4, 81);
+            this.label204.Location = new System.Drawing.Point(6, 26);
             this.label204.Name = "label204";
-            this.label204.Size = new System.Drawing.Size(82, 13);
+            this.label204.Size = new System.Drawing.Size(52, 13);
             this.label204.TabIndex = 46;
-            this.label204.Text = "Num stim codes";
+            this.label204.Text = "Stim Prob";
             this.toolTip1.SetToolTip(this.label204, resources.GetString("label204.ToolTip"));
-            // 
-            // numericUpDown2AFCLTNSC
-            // 
-            this.numericUpDown2AFCLTNSC.Location = new System.Drawing.Point(121, 74);
-            this.numericUpDown2AFCLTNSC.Maximum = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            this.numericUpDown2AFCLTNSC.Name = "numericUpDown2AFCLTNSC";
-            this.numericUpDown2AFCLTNSC.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDown2AFCLTNSC.TabIndex = 45;
-            this.toolTip1.SetToolTip(this.numericUpDown2AFCLTNSC, "Number of stim codes to use");
-            // 
-            // checkBox2AFCLTB
-            // 
-            this.checkBox2AFCLTB.AutoSize = true;
-            this.checkBox2AFCLTB.Location = new System.Drawing.Point(6, 55);
-            this.checkBox2AFCLTB.Name = "checkBox2AFCLTB";
-            this.checkBox2AFCLTB.Size = new System.Drawing.Size(53, 17);
-            this.checkBox2AFCLTB.TabIndex = 44;
-            this.checkBox2AFCLTB.Text = "Bump";
-            this.toolTip1.SetToolTip(this.checkBox2AFCLTB, "If checked, a bump will be given");
-            this.checkBox2AFCLTB.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2AFCLTI
-            // 
-            this.checkBox2AFCLTI.AutoSize = true;
-            this.checkBox2AFCLTI.Location = new System.Drawing.Point(6, 38);
-            this.checkBox2AFCLTI.Name = "checkBox2AFCLTI";
-            this.checkBox2AFCLTI.Size = new System.Drawing.Size(52, 17);
-            this.checkBox2AFCLTI.TabIndex = 43;
-            this.checkBox2AFCLTI.Text = "ICMS";
-            this.toolTip1.SetToolTip(this.checkBox2AFCLTI, "If checked, ICMS will be given");
-            this.checkBox2AFCLTI.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2AFCLTTC
-            // 
-            this.checkBox2AFCLTTC.AutoSize = true;
-            this.checkBox2AFCLTTC.Location = new System.Drawing.Point(6, 19);
-            this.checkBox2AFCLTTC.Name = "checkBox2AFCLTTC";
-            this.checkBox2AFCLTTC.Size = new System.Drawing.Size(72, 17);
-            this.checkBox2AFCLTTC.TabIndex = 42;
-            this.checkBox2AFCLTTC.Text = "Tone cue";
-            this.toolTip1.SetToolTip(this.checkBox2AFCLTTC, "If checked, tone cue will be given");
-            this.checkBox2AFCLTTC.UseVisualStyleBackColor = true;
             // 
             // label209
             // 
             this.label209.AutoSize = true;
-            this.label209.Location = new System.Drawing.Point(4, 107);
+            this.label209.Location = new System.Drawing.Point(6, 49);
             this.label209.Name = "label209";
-            this.label209.Size = new System.Drawing.Size(89, 13);
+            this.label209.Size = new System.Drawing.Size(102, 13);
             this.label209.TabIndex = 27;
-            this.label209.Text = "Num Bump Steps";
+            this.label209.Text = "Stim Level Low (inc)";
             this.toolTip1.SetToolTip(this.label209, resources.GetString("label209.ToolTip"));
-            // 
-            // numericUpDown2AFCLTNBS
-            // 
-            this.numericUpDown2AFCLTNBS.Location = new System.Drawing.Point(121, 100);
-            this.numericUpDown2AFCLTNBS.Maximum = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            this.numericUpDown2AFCLTNBS.Name = "numericUpDown2AFCLTNBS";
-            this.numericUpDown2AFCLTNBS.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDown2AFCLTNBS.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.numericUpDown2AFCLTNBS, "Number of gradations of bump magnitude.");
-            this.numericUpDown2AFCLTNBS.Value = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            // 
-            // textBox2AFCLTBMMax
-            // 
-            this.textBox2AFCLTBMMax.Location = new System.Drawing.Point(121, 149);
-            this.textBox2AFCLTBMMax.Name = "textBox2AFCLTBMMax";
-            this.textBox2AFCLTBMMax.Size = new System.Drawing.Size(68, 20);
-            this.textBox2AFCLTBMMax.TabIndex = 7;
-            this.textBox2AFCLTBMMax.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label208
-            // 
-            this.label208.AutoSize = true;
-            this.label208.Location = new System.Drawing.Point(4, 156);
-            this.label208.Name = "label208";
-            this.label208.Size = new System.Drawing.Size(108, 13);
-            this.label208.TabIndex = 30;
-            this.label208.Text = "Bump magnitude max";
-            this.toolTip1.SetToolTip(this.label208, "Percent of trials on which to give an intermediate \"test\" stimulus.");
-            // 
-            // textBox2AFCLTBDir
-            // 
-            this.textBox2AFCLTBDir.Location = new System.Drawing.Point(121, 175);
-            this.textBox2AFCLTBDir.Name = "textBox2AFCLTBDir";
-            this.textBox2AFCLTBDir.Size = new System.Drawing.Size(68, 20);
-            this.textBox2AFCLTBDir.TabIndex = 9;
-            this.toolTip1.SetToolTip(this.textBox2AFCLTBDir, "Direction of bump (rad). If -1, random direction.");
-            this.textBox2AFCLTBDir.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label206
             // 
             this.label206.AutoSize = true;
-            this.label206.Location = new System.Drawing.Point(4, 133);
+            this.label206.Location = new System.Drawing.Point(6, 73);
             this.label206.Name = "label206";
-            this.label206.Size = new System.Drawing.Size(105, 13);
+            this.label206.Size = new System.Drawing.Size(104, 13);
             this.label206.TabIndex = 38;
-            this.label206.Text = "Bump magnitude min";
+            this.label206.Text = "Stim Level High (inc)";
             this.toolTip1.SetToolTip(this.label206, "Percent of trials on which to give an intermediate \"test\" stimulus.");
-            // 
-            // label207
-            // 
-            this.label207.AutoSize = true;
-            this.label207.Location = new System.Drawing.Point(4, 179);
-            this.label207.Name = "label207";
-            this.label207.Size = new System.Drawing.Size(77, 13);
-            this.label207.TabIndex = 32;
-            this.label207.Text = "Bump direction";
-            this.toolTip1.SetToolTip(this.label207, "Percent of trials on which to give an intermediate \"test\" stimulus.");
-            // 
-            // textBox2AFCLTBMMin
-            // 
-            this.textBox2AFCLTBMMin.Location = new System.Drawing.Point(121, 126);
-            this.textBox2AFCLTBMMin.Name = "textBox2AFCLTBMMin";
-            this.textBox2AFCLTBMMin.Size = new System.Drawing.Size(68, 20);
-            this.textBox2AFCLTBMMin.TabIndex = 5;
-            this.textBox2AFCLTBMMin.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // groupBox44
             // 
-            this.groupBox44.Controls.Add(this.textBox2AFCWindowRadius);
+            this.groupBox44.Controls.Add(this.textBox2AFC_bigTargetSize);
+            this.groupBox44.Controls.Add(this.label205);
+            this.groupBox44.Controls.Add(this.checkBox2AFC_abortDuringBump);
+            this.groupBox44.Controls.Add(this.checkBox2AFC_hideCursor);
+            this.groupBox44.Controls.Add(this.textBox2AFC_targetRadius);
+            this.groupBox44.Controls.Add(this.textBox2AFC_targetSize);
+            this.groupBox44.Controls.Add(this.textBox2AFC_targetAngle);
             this.groupBox44.Controls.Add(this.label201);
-            this.groupBox44.Controls.Add(this.textBox2AFCTgtRadius);
             this.groupBox44.Controls.Add(this.label202);
-            this.groupBox44.Controls.Add(this.textBox2AFCTgtSize);
             this.groupBox44.Controls.Add(this.label203);
-            this.groupBox44.Location = new System.Drawing.Point(231, 230);
+            this.groupBox44.Location = new System.Drawing.Point(8, 307);
             this.groupBox44.Name = "groupBox44";
-            this.groupBox44.Size = new System.Drawing.Size(207, 96);
+            this.groupBox44.Size = new System.Drawing.Size(207, 143);
             this.groupBox44.TabIndex = 23;
             this.groupBox44.TabStop = false;
             this.groupBox44.Text = "Targets";
             // 
-            // textBox2AFCWindowRadius
+            // checkBox2AFC_abortDuringBump
             // 
-            this.textBox2AFCWindowRadius.Location = new System.Drawing.Point(127, 64);
-            this.textBox2AFCWindowRadius.Name = "textBox2AFCWindowRadius";
-            this.textBox2AFCWindowRadius.Size = new System.Drawing.Size(56, 20);
-            this.textBox2AFCWindowRadius.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.textBox2AFCWindowRadius, "Distance from the origin of workspace in which the cursor is not displayed.");
-            this.textBox2AFCWindowRadius.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.checkBox2AFC_abortDuringBump.AutoSize = true;
+            this.checkBox2AFC_abortDuringBump.Location = new System.Drawing.Point(89, 117);
+            this.checkBox2AFC_abortDuringBump.Name = "checkBox2AFC_abortDuringBump";
+            this.checkBox2AFC_abortDuringBump.Size = new System.Drawing.Size(112, 17);
+            this.checkBox2AFC_abortDuringBump.TabIndex = 50;
+            this.checkBox2AFC_abortDuringBump.Text = "Abort during bump";
+            this.checkBox2AFC_abortDuringBump.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.checkBox2AFC_abortDuringBump, "If checked, a bump will be given");
+            this.checkBox2AFC_abortDuringBump.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2AFC_hideCursor
+            // 
+            this.checkBox2AFC_hideCursor.AutoSize = true;
+            this.checkBox2AFC_hideCursor.Location = new System.Drawing.Point(6, 117);
+            this.checkBox2AFC_hideCursor.Name = "checkBox2AFC_hideCursor";
+            this.checkBox2AFC_hideCursor.Size = new System.Drawing.Size(80, 17);
+            this.checkBox2AFC_hideCursor.TabIndex = 49;
+            this.checkBox2AFC_hideCursor.Text = "Hide cursor";
+            this.toolTip1.SetToolTip(this.checkBox2AFC_hideCursor, "If checked, a bump will be given");
+            this.checkBox2AFC_hideCursor.UseVisualStyleBackColor = true;
+            // 
+            // textBox2AFC_targetRadius
+            // 
+            this.textBox2AFC_targetRadius.Location = new System.Drawing.Point(101, 64);
+            this.textBox2AFC_targetRadius.Name = "textBox2AFC_targetRadius";
+            this.textBox2AFC_targetRadius.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_targetRadius.TabIndex = 40;
+            this.toolTip1.SetToolTip(this.textBox2AFC_targetRadius, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_targetSize
+            // 
+            this.textBox2AFC_targetSize.Location = new System.Drawing.Point(101, 14);
+            this.textBox2AFC_targetSize.Name = "textBox2AFC_targetSize";
+            this.textBox2AFC_targetSize.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_targetSize.TabIndex = 39;
+            this.toolTip1.SetToolTip(this.textBox2AFC_targetSize, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_targetAngle
+            // 
+            this.textBox2AFC_targetAngle.Location = new System.Drawing.Point(101, 88);
+            this.textBox2AFC_targetAngle.Name = "textBox2AFC_targetAngle";
+            this.textBox2AFC_targetAngle.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_targetAngle.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.textBox2AFC_targetAngle, "Distance from the origin of workspace in which the cursor is not displayed.");
+            this.textBox2AFC_targetAngle.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label201
             // 
             this.label201.AutoSize = true;
-            this.label201.Location = new System.Drawing.Point(3, 67);
+            this.label201.Location = new System.Drawing.Point(3, 91);
             this.label201.Name = "label201";
-            this.label201.Size = new System.Drawing.Size(118, 13);
+            this.label201.Size = new System.Drawing.Size(68, 13);
             this.label201.TabIndex = 22;
-            this.label201.Text = "Blocking window radius";
-            // 
-            // textBox2AFCTgtRadius
-            // 
-            this.textBox2AFCTgtRadius.Location = new System.Drawing.Point(83, 38);
-            this.textBox2AFCTgtRadius.Name = "textBox2AFCTgtRadius";
-            this.textBox2AFCTgtRadius.Size = new System.Drawing.Size(100, 20);
-            this.textBox2AFCTgtRadius.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.textBox2AFCTgtRadius, "Radius of circle on which to draw targets (cm)");
-            this.textBox2AFCTgtRadius.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.label201.Text = "Target Angle";
             // 
             // label202
             // 
             this.label202.AutoSize = true;
-            this.label202.Location = new System.Drawing.Point(3, 45);
+            this.label202.Location = new System.Drawing.Point(3, 67);
             this.label202.Name = "label202";
-            this.label202.Size = new System.Drawing.Size(74, 13);
+            this.label202.Size = new System.Drawing.Size(83, 13);
             this.label202.TabIndex = 18;
-            this.label202.Text = "Target Radius";
-            // 
-            // textBox2AFCTgtSize
-            // 
-            this.textBox2AFCTgtSize.Location = new System.Drawing.Point(83, 12);
-            this.textBox2AFCTgtSize.Name = "textBox2AFCTgtSize";
-            this.textBox2AFCTgtSize.Size = new System.Drawing.Size(100, 20);
-            this.textBox2AFCTgtSize.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.textBox2AFCTgtSize, "Size of targets (cm)");
-            this.textBox2AFCTgtSize.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.label202.Text = "Target Distance";
             // 
             // label203
             // 
@@ -9263,68 +9057,44 @@ namespace BehaviorGraphics
             // 
             // groupBox45
             // 
-            this.groupBox45.Controls.Add(this.checkBox2AFCCTColorChange);
-            this.groupBox45.Controls.Add(this.label205);
-            this.groupBox45.Controls.Add(this.textBox2AFCPercentTraining);
-            this.groupBox45.Location = new System.Drawing.Point(448, 230);
+            this.groupBox45.Controls.Add(this.checkBox2AFC_idiotMode);
+            this.groupBox45.Controls.Add(this.checkBox2AFC_sameTargetRight);
+            this.groupBox45.Controls.Add(this.label225);
+            this.groupBox45.Controls.Add(this.label226);
+            this.groupBox45.Controls.Add(this.textBox2AFC_interperiodDuration);
+            this.groupBox45.Controls.Add(this.label224);
+            this.groupBox45.Controls.Add(this.textBox2AFC_sameCueProb);
+            this.groupBox45.Controls.Add(this.textBox2AFC_periodDuration);
+            this.groupBox45.Location = new System.Drawing.Point(230, 256);
             this.groupBox45.Name = "groupBox45";
-            this.groupBox45.Size = new System.Drawing.Size(208, 77);
+            this.groupBox45.Size = new System.Drawing.Size(208, 184);
             this.groupBox45.TabIndex = 24;
             this.groupBox45.TabStop = false;
-            this.groupBox45.Text = "General";
-            // 
-            // checkBox2AFCCTColorChange
-            // 
-            this.checkBox2AFCCTColorChange.AutoSize = true;
-            this.checkBox2AFCCTColorChange.Location = new System.Drawing.Point(9, 45);
-            this.checkBox2AFCCTColorChange.Name = "checkBox2AFCCTColorChange";
-            this.checkBox2AFCCTColorChange.Size = new System.Drawing.Size(152, 17);
-            this.checkBox2AFCCTColorChange.TabIndex = 41;
-            this.checkBox2AFCCTColorChange.Text = "Center target color change";
-            this.toolTip1.SetToolTip(this.checkBox2AFCCTColorChange, "If checked, center target will change color during stimulus intervals");
-            this.checkBox2AFCCTColorChange.UseVisualStyleBackColor = true;
-            // 
-            // label205
-            // 
-            this.label205.AutoSize = true;
-            this.label205.Location = new System.Drawing.Point(6, 21);
-            this.label205.Name = "label205";
-            this.label205.Size = new System.Drawing.Size(93, 13);
-            this.label205.TabIndex = 32;
-            this.label205.Text = "Ratio training trials";
-            this.toolTip1.SetToolTip(this.label205, "Ratio of trials on  which a single outer target is presented.");
-            // 
-            // textBox2AFCPercentTraining
-            // 
-            this.textBox2AFCPercentTraining.Location = new System.Drawing.Point(123, 17);
-            this.textBox2AFCPercentTraining.Name = "textBox2AFCPercentTraining";
-            this.textBox2AFCPercentTraining.Size = new System.Drawing.Size(68, 20);
-            this.textBox2AFCPercentTraining.TabIndex = 1;
-            this.textBox2AFCPercentTraining.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.groupBox45.Text = "General Cue";
             // 
             // groupBox46
             // 
-            this.groupBox46.Controls.Add(this.textBox2AFCIS);
+            this.groupBox46.Controls.Add(this.textBox2AFC_delayPeriodHigh);
+            this.groupBox46.Controls.Add(this.textBox2AFC_delayPeriodLow);
+            this.groupBox46.Controls.Add(this.textBox2AFC_penaltyTime);
+            this.groupBox46.Controls.Add(this.textBox2AFC_intertrialTime);
+            this.groupBox46.Controls.Add(this.textBox2AFC_bumpHoldTime);
+            this.groupBox46.Controls.Add(this.textBox2AFC_bumpDelayTime);
+            this.groupBox46.Controls.Add(this.textBox2AFC_targetHoldHigh);
+            this.groupBox46.Controls.Add(this.textBox2AFC_targetHoldLow);
+            this.groupBox46.Controls.Add(this.textBox2AFC_moveTime);
+            this.groupBox46.Controls.Add(this.textBox2AFC_centerHoldHigh);
+            this.groupBox46.Controls.Add(this.textBox2AFC_centerHoldLow);
             this.groupBox46.Controls.Add(this.label219);
-            this.groupBox46.Controls.Add(this.textBox2AFCIL);
             this.groupBox46.Controls.Add(this.label218);
-            this.groupBox46.Controls.Add(this.textBox2AFCII);
             this.groupBox46.Controls.Add(this.label200);
-            this.groupBox46.Controls.Add(this.textBox2AFCSDH);
             this.groupBox46.Controls.Add(this.label210);
-            this.groupBox46.Controls.Add(this.textBox2AFCSDL);
             this.groupBox46.Controls.Add(this.label211);
-            this.groupBox46.Controls.Add(this.textBox2AFCIA);
             this.groupBox46.Controls.Add(this.label212);
-            this.groupBox46.Controls.Add(this.textBox2AFCIF);
             this.groupBox46.Controls.Add(this.label213);
-            this.groupBox46.Controls.Add(this.textBox2AFCIR);
             this.groupBox46.Controls.Add(this.label214);
-            this.groupBox46.Controls.Add(this.textBox2AFCM);
             this.groupBox46.Controls.Add(this.label215);
-            this.groupBox46.Controls.Add(this.textBox2AFCOHH);
             this.groupBox46.Controls.Add(this.label216);
-            this.groupBox46.Controls.Add(this.textBox2AFCOHL);
             this.groupBox46.Controls.Add(this.label217);
             this.groupBox46.Location = new System.Drawing.Point(8, 2);
             this.groupBox46.Name = "groupBox46";
@@ -9333,194 +9103,192 @@ namespace BehaviorGraphics
             this.groupBox46.TabStop = false;
             this.groupBox46.Text = "Timing";
             // 
-            // textBox2AFCIS
+            // textBox2AFC_delayPeriodHigh
             // 
-            this.textBox2AFCIS.Location = new System.Drawing.Point(101, 216);
-            this.textBox2AFCIS.Name = "textBox2AFCIS";
-            this.textBox2AFCIS.Size = new System.Drawing.Size(100, 20);
-            this.textBox2AFCIS.TabIndex = 27;
-            this.textBox2AFCIS.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.textBox2AFC_delayPeriodHigh.Location = new System.Drawing.Point(101, 92);
+            this.textBox2AFC_delayPeriodHigh.Name = "textBox2AFC_delayPeriodHigh";
+            this.textBox2AFC_delayPeriodHigh.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_delayPeriodHigh.TabIndex = 38;
+            this.toolTip1.SetToolTip(this.textBox2AFC_delayPeriodHigh, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_delayPeriodLow
+            // 
+            this.textBox2AFC_delayPeriodLow.Location = new System.Drawing.Point(101, 66);
+            this.textBox2AFC_delayPeriodLow.Name = "textBox2AFC_delayPeriodLow";
+            this.textBox2AFC_delayPeriodLow.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_delayPeriodLow.TabIndex = 37;
+            this.toolTip1.SetToolTip(this.textBox2AFC_delayPeriodLow, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_penaltyTime
+            // 
+            this.textBox2AFC_penaltyTime.Location = new System.Drawing.Point(101, 268);
+            this.textBox2AFC_penaltyTime.Name = "textBox2AFC_penaltyTime";
+            this.textBox2AFC_penaltyTime.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_penaltyTime.TabIndex = 36;
+            this.toolTip1.SetToolTip(this.textBox2AFC_penaltyTime, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_intertrialTime
+            // 
+            this.textBox2AFC_intertrialTime.Location = new System.Drawing.Point(101, 242);
+            this.textBox2AFC_intertrialTime.Name = "textBox2AFC_intertrialTime";
+            this.textBox2AFC_intertrialTime.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_intertrialTime.TabIndex = 35;
+            this.toolTip1.SetToolTip(this.textBox2AFC_intertrialTime, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_bumpHoldTime
+            // 
+            this.textBox2AFC_bumpHoldTime.Location = new System.Drawing.Point(101, 217);
+            this.textBox2AFC_bumpHoldTime.Name = "textBox2AFC_bumpHoldTime";
+            this.textBox2AFC_bumpHoldTime.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_bumpHoldTime.TabIndex = 34;
+            this.toolTip1.SetToolTip(this.textBox2AFC_bumpHoldTime, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_bumpDelayTime
+            // 
+            this.textBox2AFC_bumpDelayTime.Location = new System.Drawing.Point(101, 191);
+            this.textBox2AFC_bumpDelayTime.Name = "textBox2AFC_bumpDelayTime";
+            this.textBox2AFC_bumpDelayTime.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_bumpDelayTime.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.textBox2AFC_bumpDelayTime, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_targetHoldHigh
+            // 
+            this.textBox2AFC_targetHoldHigh.Location = new System.Drawing.Point(101, 165);
+            this.textBox2AFC_targetHoldHigh.Name = "textBox2AFC_targetHoldHigh";
+            this.textBox2AFC_targetHoldHigh.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_targetHoldHigh.TabIndex = 32;
+            this.toolTip1.SetToolTip(this.textBox2AFC_targetHoldHigh, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_targetHoldLow
+            // 
+            this.textBox2AFC_targetHoldLow.Location = new System.Drawing.Point(101, 139);
+            this.textBox2AFC_targetHoldLow.Name = "textBox2AFC_targetHoldLow";
+            this.textBox2AFC_targetHoldLow.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_targetHoldLow.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.textBox2AFC_targetHoldLow, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_moveTime
+            // 
+            this.textBox2AFC_moveTime.Location = new System.Drawing.Point(101, 116);
+            this.textBox2AFC_moveTime.Name = "textBox2AFC_moveTime";
+            this.textBox2AFC_moveTime.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_moveTime.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.textBox2AFC_moveTime, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_centerHoldHigh
+            // 
+            this.textBox2AFC_centerHoldHigh.Location = new System.Drawing.Point(101, 40);
+            this.textBox2AFC_centerHoldHigh.Name = "textBox2AFC_centerHoldHigh";
+            this.textBox2AFC_centerHoldHigh.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_centerHoldHigh.TabIndex = 29;
+            this.toolTip1.SetToolTip(this.textBox2AFC_centerHoldHigh, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_centerHoldLow
+            // 
+            this.textBox2AFC_centerHoldLow.Location = new System.Drawing.Point(101, 14);
+            this.textBox2AFC_centerHoldLow.Name = "textBox2AFC_centerHoldLow";
+            this.textBox2AFC_centerHoldLow.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_centerHoldLow.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.textBox2AFC_centerHoldLow, "Distance from the origin of workspace in which the cursor is not displayed.");
             // 
             // label219
             // 
             this.label219.AutoSize = true;
             this.label219.Location = new System.Drawing.Point(9, 220);
             this.label219.Name = "label219";
-            this.label219.Size = new System.Drawing.Size(94, 13);
+            this.label219.Size = new System.Drawing.Size(85, 13);
             this.label219.TabIndex = 28;
-            this.label219.Text = "Interval separation";
-            // 
-            // textBox2AFCIL
-            // 
-            this.textBox2AFCIL.Location = new System.Drawing.Point(101, 190);
-            this.textBox2AFCIL.Name = "textBox2AFCIL";
-            this.textBox2AFCIL.Size = new System.Drawing.Size(100, 20);
-            this.textBox2AFCIL.TabIndex = 25;
-            this.textBox2AFCIL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.label219.Text = "Bump Hold Time";
             // 
             // label218
             // 
             this.label218.AutoSize = true;
             this.label218.Location = new System.Drawing.Point(9, 194);
             this.label218.Name = "label218";
-            this.label218.Size = new System.Drawing.Size(74, 13);
+            this.label218.Size = new System.Drawing.Size(90, 13);
             this.label218.TabIndex = 26;
-            this.label218.Text = "Interval length";
-            // 
-            // textBox2AFCII
-            // 
-            this.textBox2AFCII.Location = new System.Drawing.Point(101, 164);
-            this.textBox2AFCII.Name = "textBox2AFCII";
-            this.textBox2AFCII.Size = new System.Drawing.Size(100, 20);
-            this.textBox2AFCII.TabIndex = 23;
-            this.textBox2AFCII.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.label218.Text = "Bump Delay Time";
             // 
             // label200
             // 
             this.label200.AutoSize = true;
             this.label200.Location = new System.Drawing.Point(9, 168);
             this.label200.Name = "label200";
-            this.label200.Size = new System.Drawing.Size(81, 13);
+            this.label200.Size = new System.Drawing.Size(88, 13);
             this.label200.TabIndex = 24;
-            this.label200.Text = "Incomplete wait";
-            // 
-            // textBox2AFCSDH
-            // 
-            this.textBox2AFCSDH.Location = new System.Drawing.Point(101, 268);
-            this.textBox2AFCSDH.Name = "textBox2AFCSDH";
-            this.textBox2AFCSDH.Size = new System.Drawing.Size(100, 20);
-            this.textBox2AFCSDH.TabIndex = 21;
-            this.toolTip1.SetToolTip(this.textBox2AFCSDH, "Delay between start of interval and bump/stim");
-            this.textBox2AFCSDH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.label200.Text = "Target Hold High";
             // 
             // label210
             // 
             this.label210.AutoSize = true;
             this.label210.Location = new System.Drawing.Point(9, 271);
             this.label210.Name = "label210";
-            this.label210.Size = new System.Drawing.Size(78, 13);
+            this.label210.Size = new System.Drawing.Size(68, 13);
             this.label210.TabIndex = 22;
-            this.label210.Text = "Stim delay high";
-            // 
-            // textBox2AFCSDL
-            // 
-            this.textBox2AFCSDL.Location = new System.Drawing.Point(101, 242);
-            this.textBox2AFCSDL.Name = "textBox2AFCSDL";
-            this.textBox2AFCSDL.Size = new System.Drawing.Size(100, 20);
-            this.textBox2AFCSDL.TabIndex = 19;
-            this.toolTip1.SetToolTip(this.textBox2AFCSDL, "Delay between start of interval and bump/stim");
-            this.textBox2AFCSDL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.label210.Text = "Penalty Time";
             // 
             // label211
             // 
             this.label211.AutoSize = true;
             this.label211.Location = new System.Drawing.Point(9, 245);
             this.label211.Name = "label211";
-            this.label211.Size = new System.Drawing.Size(74, 13);
+            this.label211.Size = new System.Drawing.Size(70, 13);
             this.label211.TabIndex = 20;
-            this.label211.Text = "Stim delay low";
-            // 
-            // textBox2AFCIA
-            // 
-            this.textBox2AFCIA.Location = new System.Drawing.Point(101, 138);
-            this.textBox2AFCIA.Name = "textBox2AFCIA";
-            this.textBox2AFCIA.Size = new System.Drawing.Size(100, 20);
-            this.textBox2AFCIA.TabIndex = 17;
-            this.textBox2AFCIA.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.label211.Text = "Intertrial Time";
             // 
             // label212
             // 
             this.label212.AutoSize = true;
             this.label212.Location = new System.Drawing.Point(9, 142);
             this.label212.Name = "label212";
-            this.label212.Size = new System.Drawing.Size(54, 13);
+            this.label212.Size = new System.Drawing.Size(86, 13);
             this.label212.TabIndex = 18;
-            this.label212.Text = "Abort wait";
-            // 
-            // textBox2AFCIF
-            // 
-            this.textBox2AFCIF.Location = new System.Drawing.Point(101, 112);
-            this.textBox2AFCIF.Name = "textBox2AFCIF";
-            this.textBox2AFCIF.Size = new System.Drawing.Size(100, 20);
-            this.textBox2AFCIF.TabIndex = 9;
-            this.textBox2AFCIF.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.label212.Text = "Target Hold Low";
             // 
             // label213
             // 
             this.label213.AutoSize = true;
             this.label213.Location = new System.Drawing.Point(9, 119);
             this.label213.Name = "label213";
-            this.label213.Size = new System.Drawing.Size(45, 13);
+            this.label213.Size = new System.Drawing.Size(60, 13);
             this.label213.TabIndex = 16;
-            this.label213.Text = "Fail wait";
-            // 
-            // textBox2AFCIR
-            // 
-            this.textBox2AFCIR.Location = new System.Drawing.Point(101, 88);
-            this.textBox2AFCIR.Name = "textBox2AFCIR";
-            this.textBox2AFCIR.Size = new System.Drawing.Size(100, 20);
-            this.textBox2AFCIR.TabIndex = 7;
-            this.textBox2AFCIR.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.label213.Text = "Move Time";
             // 
             // label214
             // 
             this.label214.AutoSize = true;
             this.label214.Location = new System.Drawing.Point(9, 95);
             this.label214.Name = "label214";
-            this.label214.Size = new System.Drawing.Size(66, 13);
+            this.label214.Size = new System.Drawing.Size(92, 13);
             this.label214.TabIndex = 14;
-            this.label214.Text = "Reward wait";
-            // 
-            // textBox2AFCM
-            // 
-            this.textBox2AFCM.Location = new System.Drawing.Point(101, 62);
-            this.textBox2AFCM.Name = "textBox2AFCM";
-            this.textBox2AFCM.Size = new System.Drawing.Size(100, 20);
-            this.textBox2AFCM.TabIndex = 5;
-            this.textBox2AFCM.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.label214.Text = "Delay Period High";
             // 
             // label215
             // 
             this.label215.AutoSize = true;
             this.label215.Location = new System.Drawing.Point(9, 69);
             this.label215.Name = "label215";
-            this.label215.Size = new System.Drawing.Size(57, 13);
+            this.label215.Size = new System.Drawing.Size(90, 13);
             this.label215.TabIndex = 8;
-            this.label215.Text = "Movement";
-            // 
-            // textBox2AFCOHH
-            // 
-            this.textBox2AFCOHH.Location = new System.Drawing.Point(101, 36);
-            this.textBox2AFCOHH.Name = "textBox2AFCOHH";
-            this.textBox2AFCOHH.Size = new System.Drawing.Size(100, 20);
-            this.textBox2AFCOHH.TabIndex = 3;
-            this.textBox2AFCOHH.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.label215.Text = "Delay Period Low";
             // 
             // label216
             // 
             this.label216.AutoSize = true;
             this.label216.Location = new System.Drawing.Point(9, 43);
             this.label216.Name = "label216";
-            this.label216.Size = new System.Drawing.Size(84, 13);
+            this.label216.Size = new System.Drawing.Size(88, 13);
             this.label216.TabIndex = 2;
-            this.label216.Text = "Origin Hold High";
-            // 
-            // textBox2AFCOHL
-            // 
-            this.textBox2AFCOHL.Location = new System.Drawing.Point(101, 10);
-            this.textBox2AFCOHL.Name = "textBox2AFCOHL";
-            this.textBox2AFCOHL.Size = new System.Drawing.Size(100, 20);
-            this.textBox2AFCOHL.TabIndex = 1;
-            this.textBox2AFCOHL.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.label216.Text = "Center Hold High";
             // 
             // label217
             // 
             this.label217.AutoSize = true;
             this.label217.Location = new System.Drawing.Point(9, 17);
             this.label217.Name = "label217";
-            this.label217.Size = new System.Drawing.Size(82, 13);
+            this.label217.Size = new System.Drawing.Size(86, 13);
             this.label217.TabIndex = 0;
-            this.label217.Text = "Origin Hold Low";
+            this.label217.Text = "Center Hold Low";
             // 
             // tabUncertainty1D
             // 
@@ -27256,45 +27024,281 @@ namespace BehaviorGraphics
             this.angleEntryBox_SA.TabIndex = 19;
             this.angleEntryBox_SA.Value = 0;
             // 
-            // groupBox114
+            // textBox2AFC_cue1StimLevelHigh
             // 
-            this.groupBox114.Controls.Add(this.label618);
-            this.groupBox114.Controls.Add(this.textBoxFCStimCodeLow);
-            this.groupBox114.Controls.Add(this.checkBoxFCUseStaircase);
-            this.groupBox114.Location = new System.Drawing.Point(434, 97);
-            this.groupBox114.Name = "groupBox114";
-            this.groupBox114.Size = new System.Drawing.Size(231, 72);
-            this.groupBox114.TabIndex = 19;
-            this.groupBox114.TabStop = false;
-            this.groupBox114.Text = "Staircase";
-            this.groupBox114.Enter += new System.EventHandler(this.groupBox114_Enter);
+            this.textBox2AFC_cue1StimLevelHigh.Location = new System.Drawing.Point(114, 70);
+            this.textBox2AFC_cue1StimLevelHigh.Name = "textBox2AFC_cue1StimLevelHigh";
+            this.textBox2AFC_cue1StimLevelHigh.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_cue1StimLevelHigh.TabIndex = 50;
+            this.toolTip1.SetToolTip(this.textBox2AFC_cue1StimLevelHigh, "Distance from the origin of workspace in which the cursor is not displayed.");
             // 
-            // checkBoxFCUseStaircase
+            // label619
             // 
-            this.checkBoxFCUseStaircase.AutoSize = true;
-            this.checkBoxFCUseStaircase.Location = new System.Drawing.Point(37, 22);
-            this.checkBoxFCUseStaircase.Name = "checkBoxFCUseStaircase";
-            this.checkBoxFCUseStaircase.Size = new System.Drawing.Size(88, 17);
-            this.checkBoxFCUseStaircase.TabIndex = 26;
-            this.checkBoxFCUseStaircase.Text = "use staircase";
-            this.checkBoxFCUseStaircase.UseVisualStyleBackColor = true;
+            this.label619.AutoSize = true;
+            this.label619.Location = new System.Drawing.Point(8, 96);
+            this.label619.Name = "label619";
+            this.label619.Size = new System.Drawing.Size(75, 13);
+            this.label619.TabIndex = 51;
+            this.label619.Text = "Bump dir (deg)";
+            this.toolTip1.SetToolTip(this.label619, "Percent of trials on which to give an intermediate \"test\" stimulus.");
             // 
-            // textBoxFCStimCodeLow
+            // label207
             // 
-            this.textBoxFCStimCodeLow.Location = new System.Drawing.Point(136, 41);
-            this.textBoxFCStimCodeLow.Name = "textBoxFCStimCodeLow";
-            this.textBoxFCStimCodeLow.Size = new System.Drawing.Size(61, 20);
-            this.textBoxFCStimCodeLow.TabIndex = 19;
-            this.toolTip1.SetToolTip(this.textBoxFCStimCodeLow, "Distance between center target and outer targets.");
+            this.label207.AutoSize = true;
+            this.label207.Location = new System.Drawing.Point(8, 96);
+            this.label207.Name = "label207";
+            this.label207.Size = new System.Drawing.Size(75, 13);
+            this.label207.TabIndex = 55;
+            this.label207.Text = "Bump dir (deg)";
+            this.toolTip1.SetToolTip(this.label207, "Percent of trials on which to give an intermediate \"test\" stimulus.");
             // 
-            // label618
+            // label208
             // 
-            this.label618.AutoSize = true;
-            this.label618.Location = new System.Drawing.Point(9, 44);
-            this.label618.Name = "label618";
-            this.label618.Size = new System.Drawing.Size(121, 13);
-            this.label618.TabIndex = 19;
-            this.label618.Text = "stim code low (inclusive)";
+            this.label208.AutoSize = true;
+            this.label208.Location = new System.Drawing.Point(6, 26);
+            this.label208.Name = "label208";
+            this.label208.Size = new System.Drawing.Size(52, 13);
+            this.label208.TabIndex = 54;
+            this.label208.Text = "Stim Prob";
+            this.toolTip1.SetToolTip(this.label208, resources.GetString("label208.ToolTip"));
+            // 
+            // label220
+            // 
+            this.label220.AutoSize = true;
+            this.label220.Location = new System.Drawing.Point(6, 49);
+            this.label220.Name = "label220";
+            this.label220.Size = new System.Drawing.Size(102, 13);
+            this.label220.TabIndex = 52;
+            this.label220.Text = "Stim Level Low (inc)";
+            this.toolTip1.SetToolTip(this.label220, resources.GetString("label220.ToolTip"));
+            // 
+            // label620
+            // 
+            this.label620.AutoSize = true;
+            this.label620.Location = new System.Drawing.Point(6, 73);
+            this.label620.Name = "label620";
+            this.label620.Size = new System.Drawing.Size(104, 13);
+            this.label620.TabIndex = 53;
+            this.label620.Text = "Stim Level High (inc)";
+            this.toolTip1.SetToolTip(this.label620, "Percent of trials on which to give an intermediate \"test\" stimulus.");
+            // 
+            // textBox2AFC_cue1BumpDir
+            // 
+            this.textBox2AFC_cue1BumpDir.Location = new System.Drawing.Point(114, 93);
+            this.textBox2AFC_cue1BumpDir.Name = "textBox2AFC_cue1BumpDir";
+            this.textBox2AFC_cue1BumpDir.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_cue1BumpDir.TabIndex = 52;
+            this.toolTip1.SetToolTip(this.textBox2AFC_cue1BumpDir, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_cue2BumpDir
+            // 
+            this.textBox2AFC_cue2BumpDir.Location = new System.Drawing.Point(108, 93);
+            this.textBox2AFC_cue2BumpDir.Name = "textBox2AFC_cue2BumpDir";
+            this.textBox2AFC_cue2BumpDir.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_cue2BumpDir.TabIndex = 56;
+            this.toolTip1.SetToolTip(this.textBox2AFC_cue2BumpDir, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_cue2StimLevelHigh
+            // 
+            this.textBox2AFC_cue2StimLevelHigh.Location = new System.Drawing.Point(108, 70);
+            this.textBox2AFC_cue2StimLevelHigh.Name = "textBox2AFC_cue2StimLevelHigh";
+            this.textBox2AFC_cue2StimLevelHigh.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_cue2StimLevelHigh.TabIndex = 55;
+            this.toolTip1.SetToolTip(this.textBox2AFC_cue2StimLevelHigh, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_cue2StimProb
+            // 
+            this.textBox2AFC_cue2StimProb.Location = new System.Drawing.Point(108, 23);
+            this.textBox2AFC_cue2StimProb.Name = "textBox2AFC_cue2StimProb";
+            this.textBox2AFC_cue2StimProb.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_cue2StimProb.TabIndex = 54;
+            this.toolTip1.SetToolTip(this.textBox2AFC_cue2StimProb, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_cue2StimLevelLow
+            // 
+            this.textBox2AFC_cue2StimLevelLow.Location = new System.Drawing.Point(108, 46);
+            this.textBox2AFC_cue2StimLevelLow.Name = "textBox2AFC_cue2StimLevelLow";
+            this.textBox2AFC_cue2StimLevelLow.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_cue2StimLevelLow.TabIndex = 53;
+            this.toolTip1.SetToolTip(this.textBox2AFC_cue2StimLevelLow, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // label221
+            // 
+            this.label221.AutoSize = true;
+            this.label221.Location = new System.Drawing.Point(8, 26);
+            this.label221.Name = "label221";
+            this.label221.Size = new System.Drawing.Size(88, 13);
+            this.label221.TabIndex = 55;
+            this.label221.Text = "Bump Peak Time";
+            this.toolTip1.SetToolTip(this.label221, resources.GetString("label221.ToolTip"));
+            // 
+            // label222
+            // 
+            this.label222.AutoSize = true;
+            this.label222.Location = new System.Drawing.Point(8, 49);
+            this.label222.Name = "label222";
+            this.label222.Size = new System.Drawing.Size(91, 13);
+            this.label222.TabIndex = 53;
+            this.label222.Text = "Bump Ramp Time";
+            this.toolTip1.SetToolTip(this.label222, resources.GetString("label222.ToolTip"));
+            // 
+            // label223
+            // 
+            this.label223.AutoSize = true;
+            this.label223.Location = new System.Drawing.Point(8, 73);
+            this.label223.Name = "label223";
+            this.label223.Size = new System.Drawing.Size(87, 13);
+            this.label223.TabIndex = 54;
+            this.label223.Text = "Bump Magnitude";
+            this.toolTip1.SetToolTip(this.label223, "Percent of trials on which to give an intermediate \"test\" stimulus.");
+            // 
+            // textBox2AFC_bumpMagnitude
+            // 
+            this.textBox2AFC_bumpMagnitude.Location = new System.Drawing.Point(112, 70);
+            this.textBox2AFC_bumpMagnitude.Name = "textBox2AFC_bumpMagnitude";
+            this.textBox2AFC_bumpMagnitude.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_bumpMagnitude.TabIndex = 55;
+            this.toolTip1.SetToolTip(this.textBox2AFC_bumpMagnitude, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_bumpPeakTime
+            // 
+            this.textBox2AFC_bumpPeakTime.Location = new System.Drawing.Point(112, 23);
+            this.textBox2AFC_bumpPeakTime.Name = "textBox2AFC_bumpPeakTime";
+            this.textBox2AFC_bumpPeakTime.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_bumpPeakTime.TabIndex = 54;
+            this.toolTip1.SetToolTip(this.textBox2AFC_bumpPeakTime, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_bumpRampTime
+            // 
+            this.textBox2AFC_bumpRampTime.Location = new System.Drawing.Point(112, 46);
+            this.textBox2AFC_bumpRampTime.Name = "textBox2AFC_bumpRampTime";
+            this.textBox2AFC_bumpRampTime.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_bumpRampTime.TabIndex = 53;
+            this.toolTip1.SetToolTip(this.textBox2AFC_bumpRampTime, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_interperiodDuration
+            // 
+            this.textBox2AFC_interperiodDuration.Location = new System.Drawing.Point(116, 70);
+            this.textBox2AFC_interperiodDuration.Name = "textBox2AFC_interperiodDuration";
+            this.textBox2AFC_interperiodDuration.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_interperiodDuration.TabIndex = 58;
+            this.toolTip1.SetToolTip(this.textBox2AFC_interperiodDuration, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_sameCueProb
+            // 
+            this.textBox2AFC_sameCueProb.Location = new System.Drawing.Point(116, 23);
+            this.textBox2AFC_sameCueProb.Name = "textBox2AFC_sameCueProb";
+            this.textBox2AFC_sameCueProb.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_sameCueProb.TabIndex = 57;
+            this.toolTip1.SetToolTip(this.textBox2AFC_sameCueProb, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // textBox2AFC_periodDuration
+            // 
+            this.textBox2AFC_periodDuration.Location = new System.Drawing.Point(116, 46);
+            this.textBox2AFC_periodDuration.Name = "textBox2AFC_periodDuration";
+            this.textBox2AFC_periodDuration.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_periodDuration.TabIndex = 55;
+            this.toolTip1.SetToolTip(this.textBox2AFC_periodDuration, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // label224
+            // 
+            this.label224.AutoSize = true;
+            this.label224.Location = new System.Drawing.Point(8, 26);
+            this.label224.Name = "label224";
+            this.label224.Size = new System.Drawing.Size(81, 13);
+            this.label224.TabIndex = 56;
+            this.label224.Text = "Same Cue Prob";
+            this.toolTip1.SetToolTip(this.label224, resources.GetString("label224.ToolTip"));
+            // 
+            // label225
+            // 
+            this.label225.AutoSize = true;
+            this.label225.Location = new System.Drawing.Point(8, 49);
+            this.label225.Name = "label225";
+            this.label225.Size = new System.Drawing.Size(80, 13);
+            this.label225.TabIndex = 53;
+            this.label225.Text = "Period Duration";
+            this.toolTip1.SetToolTip(this.label225, resources.GetString("label225.ToolTip"));
+            // 
+            // label226
+            // 
+            this.label226.AutoSize = true;
+            this.label226.Location = new System.Drawing.Point(8, 73);
+            this.label226.Name = "label226";
+            this.label226.Size = new System.Drawing.Size(100, 13);
+            this.label226.TabIndex = 54;
+            this.label226.Text = "Interperiod Duration";
+            this.toolTip1.SetToolTip(this.label226, "Percent of trials on which to give an intermediate \"test\" stimulus.");
+            // 
+            // checkBox2AFC_sameTargetRight
+            // 
+            this.checkBox2AFC_sameTargetRight.AutoSize = true;
+            this.checkBox2AFC_sameTargetRight.Location = new System.Drawing.Point(11, 98);
+            this.checkBox2AFC_sameTargetRight.Name = "checkBox2AFC_sameTargetRight";
+            this.checkBox2AFC_sameTargetRight.Size = new System.Drawing.Size(115, 17);
+            this.checkBox2AFC_sameTargetRight.TabIndex = 51;
+            this.checkBox2AFC_sameTargetRight.Text = "Same Target Right";
+            this.checkBox2AFC_sameTargetRight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.checkBox2AFC_sameTargetRight, "If checked, a bump will be given");
+            this.checkBox2AFC_sameTargetRight.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2AFC_idiotMode
+            // 
+            this.checkBox2AFC_idiotMode.AutoSize = true;
+            this.checkBox2AFC_idiotMode.Location = new System.Drawing.Point(11, 125);
+            this.checkBox2AFC_idiotMode.Name = "checkBox2AFC_idiotMode";
+            this.checkBox2AFC_idiotMode.Size = new System.Drawing.Size(76, 17);
+            this.checkBox2AFC_idiotMode.TabIndex = 51;
+            this.checkBox2AFC_idiotMode.Text = "Idiot Mode";
+            this.checkBox2AFC_idiotMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.checkBox2AFC_idiotMode, "If checked, a bump will be given");
+            this.checkBox2AFC_idiotMode.UseVisualStyleBackColor = true;
+            // 
+            // label205
+            // 
+            this.label205.AutoSize = true;
+            this.label205.Location = new System.Drawing.Point(3, 44);
+            this.label205.Name = "label205";
+            this.label205.Size = new System.Drawing.Size(79, 13);
+            this.label205.TabIndex = 51;
+            this.label205.Text = "Big Target Size";
+            // 
+            // textBox2AFC_bigTargetSize
+            // 
+            this.textBox2AFC_bigTargetSize.Location = new System.Drawing.Point(101, 40);
+            this.textBox2AFC_bigTargetSize.Name = "textBox2AFC_bigTargetSize";
+            this.textBox2AFC_bigTargetSize.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_bigTargetSize.TabIndex = 52;
+            this.toolTip1.SetToolTip(this.textBox2AFC_bigTargetSize, "Distance from the origin of workspace in which the cursor is not displayed.");
+            // 
+            // groupBox117
+            // 
+            this.groupBox117.Controls.Add(this.label638);
+            this.groupBox117.Controls.Add(this.textBox2AFC_trainingTrialFrequency);
+            this.groupBox117.Location = new System.Drawing.Point(448, 144);
+            this.groupBox117.Name = "groupBox117";
+            this.groupBox117.Size = new System.Drawing.Size(208, 52);
+            this.groupBox117.TabIndex = 56;
+            this.groupBox117.TabStop = false;
+            this.groupBox117.Text = "Training";
+            // 
+            // label638
+            // 
+            this.label638.AutoSize = true;
+            this.label638.Location = new System.Drawing.Point(8, 26);
+            this.label638.Name = "label638";
+            this.label638.Size = new System.Drawing.Size(78, 13);
+            this.label638.TabIndex = 55;
+            this.label638.Text = "Train Trial Freq";
+            this.toolTip1.SetToolTip(this.label638, resources.GetString("label638.ToolTip"));
+            // 
+            // textBox2AFC_trainingTrialFrequency
+            // 
+            this.textBox2AFC_trainingTrialFrequency.Location = new System.Drawing.Point(108, 23);
+            this.textBox2AFC_trainingTrialFrequency.Name = "textBox2AFC_trainingTrialFrequency";
+            this.textBox2AFC_trainingTrialFrequency.Size = new System.Drawing.Size(56, 20);
+            this.textBox2AFC_trainingTrialFrequency.TabIndex = 54;
+            this.toolTip1.SetToolTip(this.textBox2AFC_trainingTrialFrequency, "Distance from the origin of workspace in which the cursor is not displayed.");
             // 
             // UpdateForm
             // 
@@ -27359,6 +27363,8 @@ namespace BehaviorGraphics
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.tabPageFC.ResumeLayout(false);
+            this.groupBox114.ResumeLayout(false);
+            this.groupBox114.PerformLayout();
             this.groupBox107.ResumeLayout(false);
             this.groupBox107.PerformLayout();
             this.groupBox106.ResumeLayout(false);
@@ -27443,14 +27449,12 @@ namespace BehaviorGraphics
             this.groupBox42.ResumeLayout(false);
             this.groupBox42.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.groupBox116.ResumeLayout(false);
+            this.groupBox116.PerformLayout();
             this.groupBox48.ResumeLayout(false);
             this.groupBox48.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2AFCRTNSC)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2AFCRTNBS)).EndInit();
             this.groupBox47.ResumeLayout(false);
             this.groupBox47.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2AFCLTNSC)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2AFCLTNBS)).EndInit();
             this.groupBox44.ResumeLayout(false);
             this.groupBox44.PerformLayout();
             this.groupBox45.ResumeLayout(false);
@@ -27731,8 +27735,8 @@ namespace BehaviorGraphics
             this.groupBox15.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBox114.ResumeLayout(false);
-            this.groupBox114.PerformLayout();
+            this.groupBox117.ResumeLayout(false);
+            this.groupBox117.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -28276,70 +28280,26 @@ namespace BehaviorGraphics
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox47;
         private System.Windows.Forms.GroupBox groupBox44;
-        private System.Windows.Forms.TextBox textBox2AFCWindowRadius;
-        private System.Windows.Forms.Label label201;
-        private System.Windows.Forms.TextBox textBox2AFCTgtRadius;
+        private System.Windows.Forms.TextBox textBox2AFC_targetAngle;
         private System.Windows.Forms.Label label202;
-        private System.Windows.Forms.TextBox textBox2AFCTgtSize;
         private System.Windows.Forms.Label label203;
         private System.Windows.Forms.GroupBox groupBox45;
-        private System.Windows.Forms.CheckBox checkBox2AFCCTColorChange;
-        private System.Windows.Forms.Label label205;
         private System.Windows.Forms.Label label206;
-        private System.Windows.Forms.TextBox textBox2AFCPercentTraining;
-        private System.Windows.Forms.TextBox textBox2AFCLTBMMin;
-        private System.Windows.Forms.Label label207;
-        private System.Windows.Forms.TextBox textBox2AFCLTBDir;
-        private System.Windows.Forms.Label label208;
-        private System.Windows.Forms.TextBox textBox2AFCLTBMMax;
         private System.Windows.Forms.Label label209;
-        private System.Windows.Forms.NumericUpDown numericUpDown2AFCLTNBS;
         private System.Windows.Forms.GroupBox groupBox46;
-        private System.Windows.Forms.TextBox textBox2AFCSDH;
         private System.Windows.Forms.Label label210;
-        private System.Windows.Forms.TextBox textBox2AFCSDL;
         private System.Windows.Forms.Label label211;
-        private System.Windows.Forms.TextBox textBox2AFCIA;
         private System.Windows.Forms.Label label212;
-        private System.Windows.Forms.TextBox textBox2AFCIF;
         private System.Windows.Forms.Label label213;
-        private System.Windows.Forms.TextBox textBox2AFCIR;
         private System.Windows.Forms.Label label214;
-        private System.Windows.Forms.TextBox textBox2AFCM;
         private System.Windows.Forms.Label label215;
-        private System.Windows.Forms.TextBox textBox2AFCOHH;
         private System.Windows.Forms.Label label216;
-        private System.Windows.Forms.TextBox textBox2AFCOHL;
         private System.Windows.Forms.Label label217;
-        private System.Windows.Forms.TextBox textBox2AFCIS;
         private System.Windows.Forms.Label label219;
-        private System.Windows.Forms.TextBox textBox2AFCIL;
         private System.Windows.Forms.Label label218;
-        private System.Windows.Forms.TextBox textBox2AFCII;
         private System.Windows.Forms.Label label200;
         private System.Windows.Forms.GroupBox groupBox48;
-        private System.Windows.Forms.TextBox textBox2AFCRTBDur;
-        private System.Windows.Forms.Label label221;
-        private System.Windows.Forms.Label label222;
-        private System.Windows.Forms.NumericUpDown numericUpDown2AFCRTNSC;
-        private System.Windows.Forms.CheckBox checkBox2AFCRTB;
-        private System.Windows.Forms.CheckBox checkBox2AFCRTI;
-        private System.Windows.Forms.CheckBox checkBox2AFCRTTC;
-        private System.Windows.Forms.Label label223;
-        private System.Windows.Forms.NumericUpDown numericUpDown2AFCRTNBS;
-        private System.Windows.Forms.TextBox textBox2AFCRTBMMax;
-        private System.Windows.Forms.Label label224;
-        private System.Windows.Forms.TextBox textBox2AFCRTBDir;
-        private System.Windows.Forms.Label label225;
-        private System.Windows.Forms.Label label226;
-        private System.Windows.Forms.TextBox textBox2AFCRTBMMin;
-        private System.Windows.Forms.TextBox textBox2AFCLTBDur;
-        private System.Windows.Forms.Label label220;
         private System.Windows.Forms.Label label204;
-        private System.Windows.Forms.NumericUpDown numericUpDown2AFCLTNSC;
-        private System.Windows.Forms.CheckBox checkBox2AFCLTB;
-        private System.Windows.Forms.CheckBox checkBox2AFCLTI;
-        private System.Windows.Forms.CheckBox checkBox2AFCLTTC;
         private System.Windows.Forms.TextBox textBoxEG;
         private System.Windows.Forms.Label label227;
         private System.Windows.Forms.Label label228;
@@ -30173,5 +30133,54 @@ namespace BehaviorGraphics
         private System.Windows.Forms.CheckBox checkBoxFCUseStaircase;
         private System.Windows.Forms.Label label618;
         private System.Windows.Forms.TextBox textBoxFCStimCodeLow;
+        private System.Windows.Forms.TextBox textBox2AFC_centerHoldLow;
+        private System.Windows.Forms.TextBox textBox2AFC_centerHoldHigh;
+        private System.Windows.Forms.TextBox textBox2AFC_targetHoldHigh;
+        private System.Windows.Forms.TextBox textBox2AFC_targetHoldLow;
+        private System.Windows.Forms.TextBox textBox2AFC_moveTime;
+        private System.Windows.Forms.TextBox textBox2AFC_delayPeriodLow;
+        private System.Windows.Forms.TextBox textBox2AFC_penaltyTime;
+        private System.Windows.Forms.TextBox textBox2AFC_intertrialTime;
+        private System.Windows.Forms.TextBox textBox2AFC_bumpHoldTime;
+        private System.Windows.Forms.TextBox textBox2AFC_bumpDelayTime;
+        private System.Windows.Forms.TextBox textBox2AFC_delayPeriodHigh;
+        private System.Windows.Forms.TextBox textBox2AFC_targetRadius;
+        private System.Windows.Forms.TextBox textBox2AFC_targetSize;
+        private System.Windows.Forms.Label label201;
+        private System.Windows.Forms.CheckBox checkBox2AFC_abortDuringBump;
+        private System.Windows.Forms.CheckBox checkBox2AFC_hideCursor;
+        private System.Windows.Forms.GroupBox groupBox116;
+        private System.Windows.Forms.TextBox textBox2AFC_cue1StimProb;
+        private System.Windows.Forms.TextBox textBox2AFC_cue1StimCodeLow;
+        private System.Windows.Forms.TextBox textBox2AFC_bumpMagnitude;
+        private System.Windows.Forms.Label label221;
+        private System.Windows.Forms.TextBox textBox2AFC_bumpPeakTime;
+        private System.Windows.Forms.TextBox textBox2AFC_bumpRampTime;
+        private System.Windows.Forms.Label label222;
+        private System.Windows.Forms.Label label223;
+        private System.Windows.Forms.TextBox textBox2AFC_cue2BumpDir;
+        private System.Windows.Forms.Label label207;
+        private System.Windows.Forms.TextBox textBox2AFC_cue2StimLevelHigh;
+        private System.Windows.Forms.Label label208;
+        private System.Windows.Forms.TextBox textBox2AFC_cue2StimProb;
+        private System.Windows.Forms.TextBox textBox2AFC_cue2StimLevelLow;
+        private System.Windows.Forms.Label label220;
+        private System.Windows.Forms.Label label620;
+        private System.Windows.Forms.TextBox textBox2AFC_cue1BumpDir;
+        private System.Windows.Forms.Label label619;
+        private System.Windows.Forms.TextBox textBox2AFC_cue1StimLevelHigh;
+        private System.Windows.Forms.CheckBox checkBox2AFC_sameTargetRight;
+        private System.Windows.Forms.Label label225;
+        private System.Windows.Forms.Label label226;
+        private System.Windows.Forms.TextBox textBox2AFC_interperiodDuration;
+        private System.Windows.Forms.Label label224;
+        private System.Windows.Forms.TextBox textBox2AFC_sameCueProb;
+        private System.Windows.Forms.TextBox textBox2AFC_periodDuration;
+        private System.Windows.Forms.CheckBox checkBox2AFC_idiotMode;
+        private System.Windows.Forms.TextBox textBox2AFC_bigTargetSize;
+        private System.Windows.Forms.Label label205;
+        private System.Windows.Forms.GroupBox groupBox117;
+        private System.Windows.Forms.Label label638;
+        private System.Windows.Forms.TextBox textBox2AFC_trainingTrialFrequency;
     }
 }
