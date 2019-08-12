@@ -41,7 +41,7 @@
  *
  * Databurst version descriptions
  * ==============================
-
+ *
 % * Version 1 (0x01)
 %  * ----------------
 %  * byte  0:		uchar		=> number of bytes to be transmitted
@@ -49,27 +49,40 @@
 %  * byte  2-4:	uchar		=> task code 'A' 'F' 'C'
 %  * bytes 5-6:	uchar       => version code
 %  * byte  7-8:	uchar		=> version code (micro)
-%  * bytes 9-12:  float		=> target angle
-%  * byte	 13:	uchar		=> random target flag
-%  * bytes 14-17:	float		=> target floor (minimum angle(deg) target can take in random target assignment)
-%  * bytes 18-21:	float		=> target ceiling (maximum angle(deg) target can take in random target assignment)
-%  * bytes 22-25:	float		=> target incriment(deg)
-%  * bytes 26-29: float		=> bump magnitude
-%  * bytes 30-33: float		=> bump direction
-%  * bytes 34-37: float		=> bump duration
-%  * bytes 38-41: float		=> bump ramp
-%  * byte  42:	uchar		=> stim trial flag
-%  * bytes 43-46: float		=> stimulation probability 
-%  * bytes 47-50: float		=> target radius
-%  * bytes 51-54: float		=> target size
-%  * bytes 55-58: float		=> intertrial time
-%  * bytes 59-62: float		=> penalty time
-%  * bytes 63-66: float		=> bump hold time
-%  * bytes 67-70: float		=> center hold time
-%  * bytes 71-74: float		=> bump delay time
-%  * byte  75:	uchar		=> flag for whether or not the cursor is hidden during movement
-%  * bytes 76-79: float		=> radius from center within which the cursor will be hidden
-
+%  * byte 9-12: float       => center hold time
+%  * byte 13-16: float      => delay hold time
+%  * byte 17-20: float      => movement time
+%  * byte 21-24: float      => bump delay time
+%  * byte 25-28: float      => bump hold time
+%  * byte 29-32: float      => intertrial time
+%  * byte 33-36: float      => penalty time
+%  * byte 37-40: float      => target size
+%  * byte 41-44: float      => big target size
+%  * byte 45-48: float      => target distance
+%  * byte 49-52: float      => target angle
+%  * byte 53: uchar         => hide cursor
+%  * byte 54: uchar         => abort during bump
+%  * byte 55-58: float      => cue 1 bump hold duration
+%  * byte 59-62: float      => cue 1 bump rise time
+%  * byte 63-66: float      => cue 1 bump peak magnitude
+%  * byte 67-70: float      => cue 1 bump direction
+%  * byte 71-74: float      => cue 2 bump hold duration
+%  * byte 75-78: float      => cue 2 bump rise time
+%  * byte 79-82: float      => cue 2 bump peak magnitude
+%  * byte 83-86: float      => cue 2 bump direction
+%  * byte 87: uchar         => cue 1 is stim
+%  * byte 88: uchar         => cue 2 is stim
+%  * byte 89-92: float      => cue 1 stim code
+%  * byte 93-96: float      => cue 2 stim code
+%  * byte 97: uchar         => is same cue
+%  * byte 98: uchar         => use cue 1
+%  * byte 99: uchar         => cue 1 first
+%  * byte 100-103: float    => outer target hold
+%  * byte 104-107: float    => period duration
+%  * byte 108-111: float    => interperiod duration
+%  * byte 112: uchar        => redo trial
+%  * byte 113: uchar        => same target right 
+%  * byte 114: uchar        => training trial  
 %  */
 #define DATABURST_VERSION ((byte)0x01) 
 #define DATABURST_TASK_CODE ((byte)0x01)
@@ -429,9 +442,6 @@ void TwoAFCBehavior::doPreTrial(SimStruct *S) {
 		
 	
 	/* setup the databurst */
-	
-	
-	// NEED TO DO STILL
 	db->reset();
 	db->addByte(DATABURST_VERSION);
 	db->addByte('A');
@@ -479,11 +489,11 @@ void TwoAFCBehavior::doPreTrial(SimStruct *S) {
     db->addByte((byte)this->cue_1_first);
     
     db->addFloat((float)this->ot_hold);
-    db->addFloat((float)this->period_duration);
-    db->addFloat((float)this->interperiod_duration);
+    db->addFloat((float)this->params->period_duration);
+    db->addFloat((float)this->params->interperiod_duration);
     db->addByte((byte)this->redo_trial);
     db->addByte((byte)this->params->same_target_right);
-    
+    db->addByte((byte)this->training_trial);
     
 	db->start();
 }
