@@ -11,15 +11,73 @@ other systems -- using the GPIO libraries will be kind of funny.
 """
 
 # import all needed modules
-from gpiozero import LED, Button
-import time, sys, os, pygame, random
+import time, sys, os, pygame, random, spidev
 
-# initialize all of the buttons - using GPIO notation for clarity sake
+
+''' 
+defining all of the subfunctions 
+
+there are going to be functions for each of the states, and a function to 
+figure out wait times etc when we start a new trial.
+'''
+# setup the different times
+def setupTrial(touchTimeM,dispenseTimeM,interTrialM,numButtons):
+    ''' 
+    touchTime -- amount of time to touch the button
+    dispenseTime -- amount of time to dispense the reward
+    interTrial -- time to wait between trials
+    buttonNumber -- which button do we want to use for the next trial?
+    '''
+    
+    touchTime = random.uniform(touchTimeM[0],touchTimeM[1])
+    dispenseTime = random.uniform(dispenseTimeM[0],dispenseTimeM[1])
+    interTrial = random.uniform(interTrialM[0],interTrialM[1])
+    buttonNumber = random.choices(range(0,4),k=numButtons)
+    
+    return [touchTime, dispenseTime, interTrial, buttonNumber]
+
+
+
+# checking to see whether the button has been pressed long enough
+def ready(currButton, touchTime):
+    
+    pressedButton = 1
+    # check to see whether the buttons have been pressed for the length of time they need
+    for b in currButton:
+        if b.held_time: # first make sure it's not None (it will throw an error with a >)
+            if b.held_time > touchTime: # if it has been held long enough
+                pressedButton = pressedButton & 1
+            else:
+                pressedButton = pressedButton & 0
+            
+    return pressedButton
+
+
+
+
+
+
+
+
+
+# initialize all of the inputs and outputs - using GPIO notation for clarity sake
 buttonOne = Button("GPIO4") # pin 7
 buttonTwo = Button("GPIO17") # pin 11
 buttonThree = Button("GPIO27") # pin 13
 buttonFour = Button("GPIO22") # pin 15
 buttonTuple = (buttonOne, buttonTwo, buttonThree, buttonFour)
+buttonReward = Button("GPIO23") # pin 16
+
+ledOne = LED("GPIO6") # pin 31
+ledTwo = LED("GPIO13") # pin 33
+ledThree = LED("GPIO19") # pin 35
+ledFour = LED("GPIO26") # pin 37
+ledTuple = (ledOne,ledTwo,ledThree,ledFour)
+ledReward = LED("GPIO24") # pin 18
+
+rewardControl = OutputDevice("GPIO18") # pin 12
+
+
 
 # initalize the mixer to create the sounds
 # why is the sampling frequency so obnoxious? dunno...
@@ -53,11 +111,44 @@ STATE_READY_DISPENSE = 2
 STATE_DISPENSE = 3
 STATE_BETWEEN_TRIAL = 4
 
-state = STATE_READY
+state = STATE_READY # initial state
 random.seed
-button = random.randrange()
+numButtons = 1 # the number of buttons that we want simultaneously pressed. gonna be max 2
+touchTimeM = [0.25, 0.5] # range of time they have to hold the buttons
+dispenseTimeM = [0.1, 0.2] # length of dispense time -- going to be short since they'll be in the cage all day
+interTrialM = [1.0, 15.0] # time (in seconds) between trials
+
+[touchTime, dispenseTime, interTrial, buttonNumber] = setupTrial(touchTimeM, dispenseTimeM, interTrialM, numButtons)
+ledTuple(buttonNumber).on()
+
+
+# start the infinite loop
+while True:
+    pygame.event.get() # clears the pygame queue to prevent queue buildup
+    
+    if state == STATE_READY:
+        if ready(buttonTuple(buttonNumber), touchTime): 
+            goSound.play() # beep
+            state = STATE_READY_DISPENSE # shift the state
+            ledTuple(buttonNumber).off() # turn off the buttons
+            ledReward.on() # turn on the LEDs
+            
+    if state == STATE_READY_DISPENSE:
+        if buttonReward.is_pressed():
+            rewardSound.play() # beep!
+            rewardControl.on() # turn on the solenoid
+            time.sleep(dispenseTime) # dispense for x seconds
+            rewardControl.off() # turn off solenoid
+            state = STATE_BETWEEN_TRIAL
+
+    if state == STATE_BETWEEN_TRIAL:
+        time.sleep(interTrial)
+        [touchTime, dispenseTime, interTrial, buttonNumber] = setupTrial(touchTimeM, dispenseTimeM, interTrialM, numButtons)
+
+            
+        
 
 
 
 
-# initialize the screen
+
