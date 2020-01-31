@@ -14,6 +14,15 @@ other systems -- using the GPIO libraries will be kind of funny.
 import time, sys, os, pygame, random, spidev
 
 
+
+# initialize all of the spi stuff
+LSR = spidev.SpiDev()
+LSR.open(0,0)
+LSR.max_speed_hz = 25000000
+
+
+
+
 ''' 
 defining all of the subfunctions 
 
@@ -44,7 +53,7 @@ def ready(currButton, touchTime):
     pressedButton = 1
     # check to see whether the buttons have been pressed for the length of time they need
     for b in currButton:
-        if b.held_time: # first make sure it's not None (it will throw an error with a >)
+        if button_touched(b) # first make sure it's not None (it will throw an error with a >)
             if b.held_time > touchTime: # if it has been held long enough
                 pressedButton = pressedButton & 1
             else:
@@ -53,8 +62,9 @@ def ready(currButton, touchTime):
     return pressedButton
 
 
-
-
+# ask the device if the button is being touched
+def button_touched(button_num):
+    
 
 
 
