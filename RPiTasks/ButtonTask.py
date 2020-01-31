@@ -18,7 +18,7 @@ import time, sys, os, pygame, random, spidev
 # initialize all of the spi stuff
 LSR = spidev.SpiDev()
 LSR.open(0,0)
-LSR.max_speed_hz = 25000000
+LSR.max_speed_hz = 15600000
 
 
 
@@ -53,7 +53,7 @@ def ready(currButton, touchTime):
     pressedButton = 1
     # check to see whether the buttons have been pressed for the length of time they need
     for b in currButton:
-        if button_touched(b) # first make sure it's not None (it will throw an error with a >)
+        if button_touched(b): # first make sure it's not None (it will throw an error with a >)
             if b.held_time > touchTime: # if it has been held long enough
                 pressedButton = pressedButton & 1
             else:
@@ -65,27 +65,11 @@ def ready(currButton, touchTime):
 # ask the device if the button is being touched
 def button_touched(button_num):
     
-
-
-
-
-
-# initialize all of the inputs and outputs - using GPIO notation for clarity sake
-buttonOne = Button("GPIO4") # pin 7
-buttonTwo = Button("GPIO17") # pin 11
-buttonThree = Button("GPIO27") # pin 13
-buttonFour = Button("GPIO22") # pin 15
-buttonTuple = (buttonOne, buttonTwo, buttonThree, buttonFour)
-buttonReward = Button("GPIO23") # pin 16
-
-ledOne = LED("GPIO6") # pin 31
-ledTwo = LED("GPIO13") # pin 33
-ledThree = LED("GPIO19") # pin 35
-ledFour = LED("GPIO26") # pin 37
-ledTuple = (ledOne,ledTwo,ledThree,ledFour)
-ledReward = LED("GPIO24") # pin 18
-
-rewardControl = OutputDevice("GPIO18") # pin 12
+    
+    
+    
+    return 1
+    
 
 
 
@@ -137,7 +121,7 @@ while True:
     pygame.event.get() # clears the pygame queue to prevent queue buildup
     
     if state == STATE_READY:
-        if ready(buttonTuple(buttonNumber), touchTime): 
+        if ready(button, touchTime): 
             goSound.play() # beep
             state = STATE_READY_DISPENSE # shift the state
             ledTuple(buttonNumber).off() # turn off the buttons
