@@ -1,0 +1,11 @@
+[ ] Interpolate .wav files at 4x sampling freq
+[ ] Add tones to LSR tester
+
+[ ] Code to turn on LED
+[ ] Button checker
+	[ ] Return frame with current button pressed
+	[ ] Test all buttons
+[ ] State machine
+	[ ] Define states, test current state
+	[ ] Length of button being pressed - find best way
+
