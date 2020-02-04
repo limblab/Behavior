@@ -1,4 +1,4 @@
-[ ] Interpolate .wav files at 4x sampling freq
+[X] Interpolate .wav files at 4x sampling freq
 [ ] Add tones to LSR tester
 
 [ ] Code to turn on LED
