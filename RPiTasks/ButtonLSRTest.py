@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 # -*- coding: utf-8 -*-
 """
 Created on Fri Jan 31 11:13:18 2020
@@ -12,11 +12,15 @@ These are all using the PCA9745 SPI linear shift register.
 Refer
 """
 
-import spidev, time
+import spidev, time, pygame, os
 
 spi = spidev.SpiDev()
 spi.open(0,0)
 spi.max_speed_hz = 15600000 # LSR can handle up to 25MHz
+
+pyMixer = pygame.mixer
+pyMixer.init(frequency=163840,buffer=32000)
+goSound = pyMixer.Sound(os.path.join("tones","go3_interp.wav"))
 
 
 while 1:
@@ -24,7 +28,10 @@ while 1:
     for ii in range(0,2):
         MSB = ii+2 # register value 
         for jj in range(0,4):
-            LSB = 2**2(*jj) # == 0b00000001, 0b00000100, etc..
-            spi.xfer((MSB<<8)+LSB) # [MSB,LSB]
+            LSB = 2**(2*jj) # == 0b00000001, 0b00000100, etc..
+            print(hex((MSB<<8)+LSB))
+            spi.xfer([MSB,LSB]) # [MSB,LSB]
+            #spi.xfer([0x02,0x01])
             time.sleep(2)
+            goSound.play()
         
