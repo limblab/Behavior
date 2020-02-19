@@ -12,7 +12,7 @@ These are all using the PCA9745 SPI linear shift register.
 Refer
 """
 
-import spidev, time, pygame, os
+import spidev, time, pygame
 
 spi = spidev.SpiDev()
 spi.open(0,0)
@@ -23,15 +23,24 @@ pyMixer.init(frequency=163840,buffer=32000)
 goSound = pyMixer.Sound(os.path.join("tones","go3_interp.wav"))
 
 
+"""
+notes for the spi comm:
+ We're sending everything in two byte chunks because the pi isn't allowing me to change
+ the number of bits sent per packet, even while running the script as SU. huh.
+ 
+ 
+
+
+"""
+
 while 1:
-    # have to figure out a cleaner way to do this
     for ii in range(0,2):
-        MSB = ii+2 # register value 
+        
+        MSB = ii<<1 # register value -- first 7 bits are the register value, then a read/write bit
         for jj in range(0,4):
-            LSB = 2**(2*jj) # == 0b00000001, 0b00000100, etc..
-            print(hex((MSB<<8)+LSB))
-            spi.xfer([MSB,LSB]) # [MSB,LSB]
-            #spi.xfer([0x02,0x01])
-            time.sleep(2)
             goSound.play()
+            LSB = 1<<(2*jj) # == 0b00000001, 0b00000100, etc..
+            print(hex((MSB<<8)+LSB))
+            spi.xfer2([MSB,LSB]) # [MSB,LSB]
+            time.sleep(2)
         
