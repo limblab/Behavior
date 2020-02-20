@@ -12,12 +12,17 @@ These are all using the PCA9745 SPI linear shift register.
 Refer
 """
 
-import spidev, time, pygame
+import spidev, time, pygame, gpiozero
 
+#initialize the ~reset pin for the LSR
+resetLSR = gpiozero.DigitalOutputDevice("GPIO2",active_high=False,initial_value=False) # this sets GPIO2 to high
+
+#initialize the spidev device for the button
 spi = spidev.SpiDev()
 spi.open(0,0)
 spi.max_speed_hz = 15600000 # LSR can handle up to 25MHz
 
+#initialize the pymixer to play tones
 pyMixer = pygame.mixer
 pyMixer.init(frequency=163840,buffer=32000)
 goSound = pyMixer.Sound(os.path.join("tones","go3_interp.wav"))
