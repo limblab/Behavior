@@ -6,16 +6,24 @@ Key grasp, precision grasp, power grasp.
 """
 
 # import all needed modules
-import time, sys, os, pygame, random, spidev
+import time, sys, os, pygame, random, spidev, gpiozero
 
 
+# Set the reset pins for the LSR 
+rst = gpiozero.DigitalOutputDevice("GPIO22",active_high=False,initial_value=False)
 
 # initialize all of the spi stuff
 LSR = spidev.SpiDev()
-LSR.open(0,0)
+LSR.open(0,1)
 LSR.max_speed_hz = 15600000
 
-
+# Prep everything for the ADC -- MCP3004
+devices = {
+        'one_one': gpiozero.MCP3004(channel=0, differential=False, max_voltage=5, device=0),
+        'one_two': gpiozero.MCP3004(channel=0, differential=False, max_voltage=5, device=0),
+        'two_one': 2,
+        'two_two': 3
+}
 
 
 
