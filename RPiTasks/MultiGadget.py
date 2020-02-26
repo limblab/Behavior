@@ -11,7 +11,7 @@ from math import sin, pi
 
 
 # Set the reset pins for the LSR 
-rst = gpiozero.DigitalOutputDevice("GPIO22",active_high=False,initial_value=False)
+reset = gpiozero.DigitalOutputDevice("GPIO22",active_high=False,initial_value=False)
 
 # initialize all of the spi stuff for the LSR
 LSR = spidev.SpiDev()
@@ -45,13 +45,6 @@ states:
     STATE_READY_DISPENSE: success, collect your reward!
     STATE_BETWEEN_TRIAL: waiting between trials
 
-status variables:
-    state: the current state
-    boxLocation: where the cursor needs to be moved to
-    locationHoldTime: how long the cursor needs to be held in the box
-    dispenseTimeM: dispense time min and max
-    interTrialM: inter trial min and max
-    graspType: which grasp device is being used. will activate different subfunction for each different device
 '''
 
 STATE_CURSOR = 0
@@ -69,10 +62,10 @@ state = STATE_CURSOR
     dispenseTime: range of dispense hold times (in seconds). Set with two values
     interTrial: range of length between trials (in seconds). Set with two values
 
-    current_targets: location of all of the targets. Likely a tuple, or array of some variety
-    current_targetHoldTime: length of time to hold the target (in seconds)
-    current_dispenseTime: range of dispense hold times (in seconds)
-    current_interTrial: range of length between trials (in seconds)
+    cTargets: location of all of the targets. Likely a tuple, or array of some variety
+    cTargetHoldTime: length of time to hold the target (in seconds)
+    cDispenseTime: range of dispense hold times (in seconds)
+    cInterTrial: range of length between trials (in seconds)
 
     gain: multiplier for the cursor -- tuple for the two cursors
     offset: offset for the cursor -- tuple for the two cursors
@@ -82,25 +75,27 @@ state = STATE_CURSOR
 
 ''' just commenting this out so we can run through things without getting constant errors
     targets = {}
-    targetHoldTime: range of target hold times (in seconds)
-    dispenseTime: range of dispense hold times (in seconds)
-    interTrial: range of length between trials (in seconds)
+    targetHoldTime = [ ]
+    dispenseTime = [ ]
+    interTrial = [ ]
 
-    cTargets: current location of all of the targets. Likely a tuple, or array of some variety
-    cTargetHoldTime: current length of time to hold the target (in seconds)
-    cDispenseTime: current dispense hold (in seconds)
-    cInterTrial: current length between trials (in seconds)
+    cTargets = []
+    cTargetHoldTime = []
+    cDispenseTime = []
+    cInterTrial = []
 
-    gain: multiplier for the cursor -- tuple for the two cursors
-    offset: offset for the cursor -- tuple for the two cursors
+    gain = ()
+    offset = ()
 
-    cursorLocn: gain*force + offset  -- should we consider adding some filtering? maybe...
-    force: what it sounds like -- will be a tuple for forces from each fsr
-boxLocation = 
-locationHoldTime = 
-dispenseTimeM = [0.1, 0.2] # length of dispense time -- going to be short since they'll be in the cage all day
-interTrialM = [1.0, 15.0] # time (in seconds) between trials
-graspType = 
+    cursorLocn = []
+    force = []
+
+
+boxLocation = []
+locationHoldTime = []
+dispenseTimeM = []
+interTrialM = []
+graspType = []
 '''
 
 
