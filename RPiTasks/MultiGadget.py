@@ -148,7 +148,7 @@ def get_cursor_locn(devices,gain=[1,1],offset=[0,0]):
 
 
 
-mainTarget = target(random.choice(tuple(exampleset)))
+mainTarget = target(random.choice(tuple(targets)))
 
 # let's get ready to loop
 
@@ -190,4 +190,5 @@ while True:
             
     if state == STATE_BETWEEN_TRIAL:
         time.sleep(interTrial)
-        
+        #change the target parameters
+        state = STATE_NOT_OVER
