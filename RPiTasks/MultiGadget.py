@@ -6,7 +6,7 @@ Key grasp, precision grasp, power grasp.
 """
 
 # import all needed modules
-import time, sys, os, pygame, random, spidev, gpiozero
+import time, sys, os, pygame, random, spidev, gpiozero, pandas
 from math import sin, pi
 
 
@@ -99,16 +99,26 @@ graspType = []
 '''
 
 
-
+# take in the device information along with gains, and return the cursor locations
 def get_cursor_locn(devices,gain=[1,1],offset=[0,0]):
     
-    cursor = {"x":x, "y",y}
+    x = 0
+    y = 0
+    
+    cursor = {"x":x, "y":y}
     cursorLocn = {
             "cursorOne": cursor,
             "cursorTwo": cursor}
     
-    forces = []
-    forces.append(devices
+    forceXfsrOne = devices["buttonOne"]["FSROne"].value()
+    
+    
+    cursorLocn["cursorOne"]["x"] = gain*(devices["buttonOne"]["FSROne"].value())
+    cursorLocn["cursorOne"]
+
+
+
+
 
 
 # let's get ready to loop
