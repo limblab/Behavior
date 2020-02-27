@@ -41,17 +41,19 @@ devices = {
 State variables
 
 states:
-    STATE_CURSOR: Cursor is being controlled by manipulanda
+    STATE_NOT_OVER: Cursor is not currently over the target
+    STATE_OVER: Cursor is over the target
     STATE_READY_DISPENSE: success, collect your reward!
     STATE_BETWEEN_TRIAL: waiting between trials
 
 '''
 
-STATE_CURSOR = 0
-STATE_READY_DISPENSE = 1
-STATE_BETWEEN_TRIAL = 2
+STATE_NOT_OVER = 0
+STATE_OVER = 1
+STATE_READY_DISPENSE = 2
+STATE_BETWEEN_TRIAL = 3
 
-state = STATE_CURSOR 
+state = STATE_NOT_OVER 
 
 
 ''' 
@@ -97,7 +99,34 @@ dispenseTimeM = []
 interTrialM = []
 graspType = []
 '''
+#initialize some screen stuff
+size = [400,300] #change this to whatever the right size is when you figure it out
+screen = pygame.display.set_mode(size)
+BLACK = (0,0,0)
+WHITE = (255, 255, 255)
 
+#define target 
+class target():
+    def __init__(self,x,y,width,height):
+        self.color = BLACK
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))
+        
+    def isOver(self, pos):
+        if pos[0] > self.x and pos[0]<self.x+self.width:
+            if pos[1]>self.y and pos[1]<self.y+self.height:
+                return True
+            
+        return False
+
+def redrawWindow():
+    screen.fill(WHITE)
+    mainTarget.draw(screen)
 
 # take in the device information along with gains, and return the cursor locations
 def get_cursor_locn(devices,gain=[1,1],offset=[0,0]):
@@ -119,26 +148,39 @@ def get_cursor_locn(devices,gain=[1,1],offset=[0,0]):
 
 
 
-
+mainTarget = target(random.choice(tuple(exampleset)))
 
 # let's get ready to loop
 
 while True:
     pygame.event.get() # clears the pygame queue to prevent queue buildup
-    
-    
-    if state == STATE_CURSOR: 
+    clock.tick(60)
+    redrawWindow()
+    pygame.display.flip
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
+            
+    if state == STATE_NOT_OVER:
         ''' we don't need different settings for different devices -- 
             They are all just FSRs connected to amplifiers. just make sure
             the offset and gain are appropriate on the board. '''
         # get the current forces for each device
+        start_time = time.time()
+        if mainTarget.isOver(cursorLocn):
+            state = STATE_OVER
+            
+    if state == STATE_OVER:
+        if mainTarget.isOver(cursorLocn):
+            current_time = time.time()
+            timer = current_time-start_time
+            if timer > targetHoldTime:
+                state = STATE_READY_DISPENSE
+        else:
+                state = STATE_NOT_OVER
+
         
-
-
-
-
-        
-    if state = STATE_READY_DISPENSE:
+    if state == STATE_READY_DISPENSE:
          if buttonReward.is_pressed():
             rewardSound.play() # beep!
             rewardControl.on() # turn on the solenoid
@@ -146,6 +188,6 @@ while True:
             rewardControl.off() # turn off solenoid
             state = STATE_BETWEEN_TRIAL
             
-    if state = STATE_BETWEEN_TRIAL:
+    if state == STATE_BETWEEN_TRIAL:
         time.sleep(interTrial)
         
