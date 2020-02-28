@@ -19,6 +19,9 @@ LSR.open(0,1)
 LSR.max_speed_hz = 15600000
 
 # Prep everything for the ADC -- MCP3004
+devices = pandas.DataFrame(index=['deviceOne','deviceTwo'],cols=['FSROne','FSRTwo'])
+
+'''
 buttonOne = {
         "FSROne": gpiozero.MCP3004(channel=0, device=0),
         "FSRTwo": gpiozero.MCP3004(channel=1, device=0)
@@ -27,12 +30,7 @@ buttonTwo = {
         "FSROne": gpiozero.MCP3004(channel=3, device=0),
         "FSRTwo": gpiozero.MCP3004(channel=4, device=0)
 }
-
-
-devices = {
-        "buttonOne": buttonOne,
-        "buttonTwo": buttonTwo
-}
+'''
 
 
 
@@ -100,15 +98,18 @@ interTrialM = []
 graspType = []
 '''
 #initialize some screen stuff
-size = [400,300] #change this to whatever the right size is when you figure it out
+size = [400,800] #change this to whatever the right size is when you figure it out
 screen = pygame.display.set_mode(size)
 BLACK = (0,0,0)
 WHITE = (255, 255, 255)
+YELLOW = (255, 255, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
 
 #define target 
 class target():
     def __init__(self,x,y,width,height):
-        self.color = BLACK
+        self.color = RED
         self.x = x
         self.y = y
         self.width = width
@@ -124,26 +125,26 @@ class target():
             
         return False
 
+
+
+# defining modules
+
 def redrawWindow():
-    screen.fill(WHITE)
+    screen.fill(BLACK)
     mainTarget.draw(screen)
 
-# take in the device information along with gains, and return the cursor locations
 def get_cursor_locn(devices,gain=[1,1],offset=[0,0]):
+    # take in the device information along with gains, and return the cursor locations
+    cursorLocnIndex = ['cursorOne','cursorTwo'];
+    cursorLocn = pandas.DataFrame(columns=cursorLocnIndex,index=['X','Y'])
     
-    x = 0
-    y = 0
-    
-    cursor = {"x":x, "y":y}
-    cursorLocn = {
-            "cursorOne": cursor,
-            "cursorTwo": cursor}
     
     forceXfsrOne = devices["buttonOne"]["FSROne"].value()
     
-    
-    cursorLocn["cursorOne"]["x"] = gain*(devices["buttonOne"]["FSROne"].value())
-    cursorLocn["cursorOne"]
+    cursorLocn.cursorOne.X = gain[0]*(force[0]*cos(3*pi/4)+force[1]*cos(pi/4))+offset[0]
+    cursorLocn.cursorOne.Y = gain[0]*(force[0]*sin(3*pi/4)+force[1]*sin(pi/4))+offset[0]
+    cursorLocn.cursorTwo.X = gain[1]*(force[2]*cos(3*pi/4)+force[3]*cos(pi/4))+offset[1]
+    cursorLocn.cursorTwo.Y = gain[1]*(force[2]*sin(3*pi/4)+force[3]*sin(pi/4))+offset[1]
 
 
 
@@ -151,15 +152,18 @@ def get_cursor_locn(devices,gain=[1,1],offset=[0,0]):
 mainTarget = target(random.choice(tuple(targets)))
 
 # let's get ready to loop
+cont = True
 
-while True:
+
+while cont:
     pygame.event.get() # clears the pygame queue to prevent queue buildup
     clock.tick(60)
     redrawWindow()
     pygame.display.flip
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            done = True
+            done = False
             
     if state == STATE_NOT_OVER:
         ''' we don't need different settings for different devices -- 
