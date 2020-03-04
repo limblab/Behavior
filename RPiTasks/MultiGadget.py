@@ -119,8 +119,10 @@ class target():
         pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))
         
     def isOver(self, pos):
+        self.color = RED
         if pos[0] > self.x and pos[0]<self.x+self.width:
             if pos[1]>self.y and pos[1]<self.y+self.height:
+                self.color = GREEN
                 return True
             
         return False
@@ -135,9 +137,11 @@ def redrawWindow():
 
 def get_cursor_locn(devices,gain=[1,1],offset=[0,0]):
     # take in the device information along with gains, and return the cursor locations
-    cursorLocnIndex = ['cursorOne','cursorTwo'];
-    cursorLocn = pandas.DataFrame(columns=cursorLocnIndex,index=['X','Y'])
+    cursorLocnCol = ['cursorOne','cursorTwo'];
+    cursorLocn = pandas.DataFrame(columns=cursorLocnCol,index=['X','Y'])
     
+    force = []
+    force.append()
     
     forceXfsrOne = devices["buttonOne"]["FSROne"].value()
     
