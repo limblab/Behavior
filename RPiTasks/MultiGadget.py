@@ -7,7 +7,8 @@ Key grasp, precision grasp, power grasp.
 
 # import all needed modules
 import time, sys, os, pygame, random, spidev, gpiozero, pandas
-from math import sin, pi
+from math import sin, pi, cos
+from pynput.mouse import Controller
 
 
 # Set the reset pins for the LSR 
@@ -19,7 +20,7 @@ LSR.open(0,1)
 LSR.max_speed_hz = 15600000
 
 # Prep everything for the ADC -- MCP3004
-devices = pandas.DataFrame(index=['deviceOne','deviceTwo'],cols=['FSROne','FSRTwo'])
+#devices = pandas.DataFrame(index=['deviceOne','deviceTwo'],cols=['FSROne','FSRTwo'])
 
 '''
 buttonOne = {
@@ -32,6 +33,8 @@ buttonTwo = {
 }
 '''
 
+FSROne = gpiozero.MCP3004(channel = 0, device = 0)
+FSRTwo = gpiozero.MCP3004(channel = 1, device = 0)
 
 
 
@@ -79,26 +82,18 @@ state = STATE_NOT_OVER
     dispenseTime = [ ]
     interTrial = [ ]
 
-    cTargets = []
-    cTargetHoldTime = []
-    cDispenseTime = []
-    cInterTrial = []
-
     gain = ()
     offset = ()
 
-    cursorLocn = []
-    force = []
 
 
-boxLocation = []
 locationHoldTime = []
 dispenseTimeM = []
 interTrialM = []
 graspType = []
 '''
 #initialize some screen stuff
-size = [400,800] #change this to whatever the right size is when you figure it out
+size = [800,480] #change this to whatever the right size is when you figure it out
 screen = pygame.display.set_mode(size)
 BLACK = (0,0,0)
 WHITE = (255, 255, 255)
@@ -109,6 +104,9 @@ targets = {(10,10, 100, 100)}
 targetHoldTime = 1
 dispenseTime = 0.1
 interTrial = 1
+gain = [50,50]
+offset = [400, 360]
+
 
 #define target 
 class target():
@@ -160,6 +158,8 @@ mainTarget = target(random.choice(tuple(targets)))
 
 # let's get ready to loop
 cont = True
+clock = pygame.time.Clock()
+mouse = Controller()
 
 
 while cont:
@@ -167,10 +167,15 @@ while cont:
     clock.tick(60)
     redrawWindow()
     pygame.display.flip
-
+    mouse.position = (offset[0] + gain[0]*(FSROne.value*cos(3*pi/4)+FSRTwo*cos(pi/4)), offset[1] + gain[1]*(FSRTwo.value*sin(3*pi/4)+FSRTwo*sin(pi/4)))
+    
+    
     for event in pygame.event.get():
+        cursorLocn = pygame.mouse.get_pos()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            cont = False
         if event.type == pygame.QUIT:
-            done = False
+            cont = False
             
     if state == STATE_NOT_OVER:
         ''' we don't need different settings for different devices -- 
