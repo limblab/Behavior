@@ -27,8 +27,8 @@ buttonOne = {
         "FSRTwo": gpiozero.MCP3004(channel=1, device=0)
 }
 buttonTwo = {
-        "FSROne": gpiozero.MCP3004(channel=3, device=0),
-        "FSRTwo": gpiozero.MCP3004(channel=4, device=0)
+        "FSROne": gpiozero.MCP3004(channel=2, device=0),
+        "FSRTwo": gpiozero.MCP3004(channel=3, device=0)
 }
 '''
 
@@ -143,7 +143,6 @@ def get_cursor_locn(devices,gain=[1,1],offset=[0,0]):
     force = []
     force.append()
     
-    forceXfsrOne = devices["buttonOne"]["FSROne"].value()
     
     cursorLocn.cursorOne.X = gain[0]*(force[0]*cos(3*pi/4)+force[1]*cos(pi/4))+offset[0]
     cursorLocn.cursorOne.Y = gain[0]*(force[0]*sin(3*pi/4)+force[1]*sin(pi/4))+offset[0]
