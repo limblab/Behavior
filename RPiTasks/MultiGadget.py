@@ -105,6 +105,10 @@ WHITE = (255, 255, 255)
 YELLOW = (255, 255, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
+targets = {(10,10, 100, 100)}
+targetHoldTime = 1
+dispenseTime = 0.1
+interTrial = 1
 
 #define target 
 class target():
