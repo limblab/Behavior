@@ -100,12 +100,12 @@ WHITE = (255, 255, 255)
 YELLOW = (255, 255, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
-targets = {(10,10, 100, 100)}
+targets = {(600,100, 100, 100)}
 targetHoldTime = 1
 dispenseTime = 0.1
 interTrial = 1
 gain = [50,50]
-offset = [400, 360]
+offset = [700, 360]
 
 
 #define target 
@@ -151,9 +151,16 @@ def get_cursor_locn(devices,gain=[1,1],offset=[0,0]):
     cursorLocn.cursorTwo.X = gain[1]*(force[2]*cos(3*pi/4)+force[3]*cos(pi/4))+offset[1]
     cursorLocn.cursorTwo.Y = gain[1]*(force[2]*sin(3*pi/4)+force[3]*sin(pi/4))+offset[1]
 
+cursorImage = pygame.image.load('hiclipart.png')
 
-
-
+def fakeCursorButton(button):
+    if button.isPressed: #this is placeholder syntax, will be changed to whatever syntax the actual button uses to indicate pressed/not pressed
+        pygame.draw.rect(screen, GREEN, (100, 100, 100, 100))
+        screen.blit(cursorImage, (125, 125))
+    if not button.isPressed:
+        pygame.draw.rect(screen, RED, (100, 100, 100, 1000))
+        screen.blit(cursorImage, (125, 225))
+        
 mainTarget = target(random.choice(tuple(targets)))
 
 # let's get ready to loop
@@ -166,6 +173,7 @@ while cont:
     pygame.event.get() # clears the pygame queue to prevent queue buildup
     clock.tick(60)
     redrawWindow()
+ #   fakeCursorButton(button)
     pygame.display.flip
     mouse.position = (offset[0] + gain[0]*(FSROne.value*cos(3*pi/4)+FSRTwo*cos(pi/4)), offset[1] + gain[1]*(FSRTwo.value*sin(3*pi/4)+FSRTwo*sin(pi/4)))
     
