@@ -23,18 +23,14 @@ LSR.max_speed_hz = 15600000
 #devices = pandas.DataFrame(index=['deviceOne','deviceTwo'],cols=['FSROne','FSRTwo'])
 
 '''
-buttonOne = {
-        "FSROne": gpiozero.MCP3004(channel=0, device=0),
-        "FSRTwo": gpiozero.MCP3004(channel=1, device=0)
-}
-buttonTwo = {
-        "FSROne": gpiozero.MCP3004(channel=2, device=0),
-        "FSRTwo": gpiozero.MCP3004(channel=3, device=0)
-}
-'''
 
-FSROne = gpiozero.MCP3004(channel = 0, device = 0)
-FSRTwo = gpiozero.MCP3004(channel = 1, device = 0)
+'''
+devices = pandas.DataFrame(columns=['DeviceOne','DeviceTwo'],index=['FSROne','FSRTwo'])
+devices.DeviceOne.FSROne = gpiozero.MCP3004(channel=0,device=0)
+devices.DeviceOne.FSRTwo = gpiozero.MCP3004(channel=1,device=0)
+devices.DeviceTwo.FSROne = gpiozero.MCP3004(channel=2,device=0)
+devices.DeviceTwo.FSRTwo = gpiozero.MCP3004(channel=3,device=0)
+
 
 
 
