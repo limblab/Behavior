@@ -19,11 +19,8 @@ LSR = spidev.SpiDev()
 LSR.open(0,1)
 LSR.max_speed_hz = 15600000
 
-# Prep everything for the ADC -- MCP3004
-#devices = pandas.DataFrame(index=['deviceOne','deviceTwo'],cols=['FSROne','FSRTwo'])
-
-'''
-
+''' Prep everything for the ADC -- MCP3004
+Just using the MCP3004 predefined device from gpiozero. Thanks gpiozero!
 '''
 devices = pandas.DataFrame(columns=['DeviceOne','DeviceTwo'],index=['FSROne','FSRTwo'])
 devices.DeviceOne.FSROne = gpiozero.MCP3004(channel=0,device=0)
@@ -56,15 +53,15 @@ state = STATE_NOT_OVER
 ''' 
 --- important variables ---
 (could consider loading some of these from and external settings file)
-    targets: location of all of the targets. Dictionary with location of centers and sizes of boxes 
+    targets: location of all of the targets. Dataframe with location of centers and sizes of boxes 
     targetHoldTime: range of target hold times (in seconds). Set with two values
     dispenseTime: range of dispense hold times (in seconds). Set with two values
     interTrial: range of length between trials (in seconds). Set with two values
 
-    cTargets: location of all of the targets. Likely a tuple, or array of some variety
-    cTargetHoldTime: length of time to hold the target (in seconds)
-    cDispenseTime: range of dispense hold times (in seconds)
-    cInterTrial: range of length between trials (in seconds)
+    target: location of current target; it's a class with associated color etc defined below
+    cTargetHoldTime: current length of time to hold the target (in seconds)
+    cDispenseTime: current range of dispense hold times (in seconds)
+    cInterTrial: current range of length between trials (in seconds)
 
     gain: multiplier for the cursor -- tuple for the two cursors
     offset: offset for the cursor -- tuple for the two cursors
@@ -72,22 +69,18 @@ state = STATE_NOT_OVER
     cursorLocn: gain*force + offset  -- should we consider adding some filtering? maybe...
 '''
 
-''' just commenting this out so we can run through things without getting constant errors
-    targets = {}
-    targetHoldTime = [ ]
-    dispenseTime = [ ]
-    interTrial = [ ]
 
-    gain = ()
-    offset = ()
+targets = pandas.DataFrame(columns=['one','two','three'],index=['x','y'])
+targetHoldTime = [0.25 0.75]
+dispenseTime = [0.05 0.15]
+interTrial = [1.5 5]
+
+gain = (10)
+offset = (-5)
+
+graspType = [] # this will need to be filled out by the user -- figure out some good way to have a settings file
 
 
-
-locationHoldTime = []
-dispenseTimeM = []
-interTrialM = []
-graspType = []
-'''
 #initialize some screen stuff
 size = [800,480] #change this to whatever the right size is when you figure it out
 screen = pygame.display.set_mode(size)
@@ -96,12 +89,9 @@ WHITE = (255, 255, 255)
 YELLOW = (255, 255, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
-targets = {(600,100, 100, 100)}
-targetHoldTime = 1
-dispenseTime = 0.1
-interTrial = 1
-gain = [50,50]
-offset = [700, 360]
+cursorImage = pygame.image.load('hiclipart.png')
+
+
 
 
 #define target 
@@ -147,7 +137,8 @@ def get_cursor_locn(devices,gain=[1,1],offset=[0,0]):
     cursorLocn.cursorTwo.X = gain[1]*(force[2]*cos(3*pi/4)+force[3]*cos(pi/4))+offset[1]
     cursorLocn.cursorTwo.Y = gain[1]*(force[2]*sin(3*pi/4)+force[3]*sin(pi/4))+offset[1]
 
-cursorImage = pygame.image.load('hiclipart.png')
+
+
 
 def fakeCursorButton(button):
     if button.isPressed: #this is placeholder syntax, will be changed to whatever syntax the actual button uses to indicate pressed/not pressed
@@ -157,7 +148,9 @@ def fakeCursorButton(button):
         pygame.draw.rect(screen, RED, (100, 100, 100, 1000))
         screen.blit(cursorImage, (125, 225))
         
-mainTarget = target(random.choice(tuple(targets)))
+
+cTarget = target(random.choice(tuple(targets)))
+
 
 # let's get ready to loop
 cont = True
@@ -171,7 +164,6 @@ while cont:
     redrawWindow()
  #   fakeCursorButton(button)
     pygame.display.flip
-    mouse.position = (offset[0] + gain[0]*(FSROne.value*cos(3*pi/4)+FSRTwo*cos(pi/4)), offset[1] + gain[1]*(FSRTwo.value*sin(3*pi/4)+FSRTwo*sin(pi/4)))
     
     
     for event in pygame.event.get():
