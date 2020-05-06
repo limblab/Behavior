@@ -3,6 +3,25 @@
 MultiGadget()
 
 Key grasp, precision grasp, power grasp. 
+
+
+Notes on working with the cursors and printing to the screen:
+    pygame works on a coordinate system that starts in the top left corner and
+    goes down (Y) and to the right (X). By comparison, we will want to store
+    the cursor location using the *real* coordinates (in inches) from the center
+    of the screen. This means we will need to do a conversion between internal
+    coordinates and screen coordinates.
+    
+    We will also want to split the screen into two if we want to run two 
+    devices at once. Either that or control the cursor with the two devices 
+    together.... hmmm....
+    
+
+Notes on storage of task performance:
+    For the time being we'll plan to store everything on the SD card, with 
+    the plan of using the cbsdk or someother method to store to the cerebus 
+    through comments in the future.
+
 """
 
 # import all needed modules
@@ -11,13 +30,13 @@ from math import sin, pi, cos
 from pynput.mouse import Controller
 
 
-# Set the reset pins for the LSR 
-reset = gpiozero.DigitalOutputDevice("GPIO22",active_high=False,initial_value=False)
+# set up gpiozero pins for the task and reward buttons -- gave up on the linear shift register
+taskButtons = [gpiozero.Button(2), gpiozero.Button(14)]  # Button0: GPIO2; Button1: GPIO14
+taskLEDs = [gpiozero.LED(3), gpiozero(15)] # Button0LED: GPIO3; Button1LED: GPIO15
+rewardButtons = [gpiozero.Button(18), gpiozero.Button(23)] # Reward0Button: GPIO18; Reward1Button: GPIO23
+rewardLEDs = [gpiozero.LED(17), gpiozero.LED(22)] # Reward0LED: GPIO17; Reward1LED: GPIO22
 
-# initialize all of the spi stuff for the LSR
-LSR = spidev.SpiDev()
-LSR.open(0,1)
-LSR.max_speed_hz = 15600000
+
 
 ''' Prep everything for the ADC -- MCP3004
 Just using the MCP3004 predefined device from gpiozero. Thanks gpiozero!
@@ -29,6 +48,7 @@ devices.DeviceTwo.FSROne = gpiozero.MCP3004(channel=2,device=0)
 devices.DeviceTwo.FSRTwo = gpiozero.MCP3004(channel=3,device=0)
 
 
+cursors = pandas.DataFrame(columns=['CursorOne','CursorTwo'],index=['X','Y'])
 
 
 '''
@@ -70,7 +90,7 @@ state = STATE_NOT_OVER
 '''
 
 
-targets = pandas.DataFrame(columns=['one','two','three'],index=['x','y'])
+targets = pandas.DataFrame(columns=['one','two','three'],index=['x','y','width','height'])
 targetHoldTime = [0.25 0.75]
 dispenseTime = [0.05 0.15]
 interTrial = [1.5 5]
@@ -82,7 +102,7 @@ graspType = [] # this will need to be filled out by the user -- figure out some 
 
 
 #initialize some screen stuff
-size = [800,480] #change this to whatever the right size is when you figure it out
+size = [800,480] # size of the 7" pi screen
 screen = pygame.display.set_mode(size)
 BLACK = (0,0,0)
 WHITE = (255, 255, 255)
@@ -104,40 +124,35 @@ class target():
         self.height = height
         
     def draw(self, screen):
-        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))
+        # pygame draws rectangular sprites from the top left corner, but we 
+        # want to keep track of things by the center hence the offsets
+        pygame.draw.rect(screen, self.color, (self.x + self.width/2, self.y + self.height/2, self.width, self.height))
         
     def isOver(self, pos):
         self.color = RED
-        if pos[0] > self.x and pos[0]<self.x+self.width:
-            if pos[1]>self.y and pos[1]<self.y+self.height:
+        if (pos[0] > (self.x - self.width/2)) and ( pos[0] < (self.x+self.width/2)) :
+            if (pos[1] > (self.y-self.height/2)) and (pos[1] < (self.y+self.height/2)):
                 self.color = GREEN
-                return True
-            
+                return True                            
         return False
 
 
 
 # defining modules
 
-def redrawWindow():
+def redrawWindow(): # redraws the window as black
     screen.fill(BLACK)
     mainTarget.draw(screen)
 
-def get_cursor_locn(devices,gain=[1,1],offset=[0,0]):
+def get_cursor_locn(devices,cursors,gain=[1,1],offset=[0,0]):
     # take in the device information along with gains, and return the cursor locations
-    cursorLocnCol = ['cursorOne','cursorTwo'];
-    cursorLocn = pandas.DataFrame(columns=cursorLocnCol,index=['X','Y'])
+    cursors.CursorOne.X = (devices.DeviceOne.FSROne.value * .5 - devices.DeviceOne.FSRTwo.value * .5) * gain[0]
+    cursors.CursorOne.Y = (devices.DeviceOne.FSROne.value * .5 + devices.DeviceOne.FSRTwo.value * .5) * gain[0] + offset[0]
+    cursors.CursorTwo.X = (devices.DeviceTwo.FSROne.value * .5 - devices.DeviceTwo.FSRTwo.value * .5) * gain[0]
+    cursors.CursorOne.Y = (devices.DeviceTwo.FSROne.value * .5 + devices.DeviceTwo.FSRTwo.value * .5) * gain[0] + offset[0]
     
-    force = []
-    force.append()
+def cursor_to_screen(X,Y): # converts the cursor XY coordinates to screen XY coordinates. 
     
-    
-    cursorLocn.cursorOne.X = gain[0]*(force[0]*cos(3*pi/4)+force[1]*cos(pi/4))+offset[0]
-    cursorLocn.cursorOne.Y = gain[0]*(force[0]*sin(3*pi/4)+force[1]*sin(pi/4))+offset[0]
-    cursorLocn.cursorTwo.X = gain[1]*(force[2]*cos(3*pi/4)+force[3]*cos(pi/4))+offset[1]
-    cursorLocn.cursorTwo.Y = gain[1]*(force[2]*sin(3*pi/4)+force[3]*sin(pi/4))+offset[1]
-
-
 
 
 def fakeCursorButton(button):
