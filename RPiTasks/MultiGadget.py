@@ -91,9 +91,9 @@ state = STATE_NOT_OVER
 
 
 targets = pandas.DataFrame(columns=['one','two','three'],index=['x','y','width','height'])
-targetHoldTime = [0.25 0.75]
-dispenseTime = [0.05 0.15]
-interTrial = [1.5 5]
+targetHoldTime = [.01 * ii for ii in range(25,75)]
+dispenseTime = [.01 * ii for ii in range(5,15)]
+interTrial = [.1 * ii for ii in range(15, 50)]
 
 gain = (10)
 offset = (-5)
@@ -109,7 +109,8 @@ WHITE = (255, 255, 255)
 YELLOW = (255, 255, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
-cursorImage = pygame.image.load('hiclipart.png')
+cursImage = [pygame.image.load('./textures/face.tga'), pygame.image.load('./textures/face.tga')]
+cursRect = [jj.get_rect() for jj in cursImage]
 
 
 
@@ -128,12 +129,15 @@ class target():
         # want to keep track of things by the center hence the offsets
         pygame.draw.rect(screen, self.color, (self.x + self.width/2, self.y + self.height/2, self.width, self.height))
         
-    def isOver(self, pos):
+    def isOver(self, cursRect):
         self.color = RED
-        if (pos[0] > (self.x - self.width/2)) and ( pos[0] < (self.x+self.width/2)) :
-            if (pos[1] > (self.y-self.height/2)) and (pos[1] < (self.y+self.height/2)):
-                self.color = GREEN
-                return True                            
+        if self.contains(cursRect):
+            self.color = GREEN
+            return True
+        # if (pos[0] > (self.x - self.width/2)) and ( pos[0] < (self.x+self.width/2)) :
+        #     if (pos[1] > (self.y-self.height/2)) and (pos[1] < (self.y+self.height/2)):
+        #         self.color = GREEN
+        #         return True                            
         return False
 
 
@@ -144,27 +148,30 @@ def redrawWindow(): # redraws the window as black
     screen.fill(BLACK)
     mainTarget.draw(screen)
 
-def get_cursor_locn(devices,cursors,gain=[1,1],offset=[0,0]):
+
+
+def get_cursor_locn(devices,cursors,gain=[1,1],offset=[-1,-1]):
     # take in the device information along with gains, and return the cursor locations
-    cursors.CursorOne.X = (devices.DeviceOne.FSROne.value * .5 - devices.DeviceOne.FSRTwo.value * .5) * gain[0]
+    cursors.CursorOne.X = (devices.DeviceOne.FSROne.value * .5 - devices.DeviceOne.FSRTwo.value * .5) * gain[0] - 1.5
     cursors.CursorOne.Y = (devices.DeviceOne.FSROne.value * .5 + devices.DeviceOne.FSRTwo.value * .5) * gain[0] + offset[0]
-    cursors.CursorTwo.X = (devices.DeviceTwo.FSROne.value * .5 - devices.DeviceTwo.FSRTwo.value * .5) * gain[0]
+    cursors.CursorTwo.X = (devices.DeviceTwo.FSROne.value * .5 - devices.DeviceTwo.FSRTwo.value * .5) * gain[0] + 1.5
     cursors.CursorOne.Y = (devices.DeviceTwo.FSROne.value * .5 + devices.DeviceTwo.FSRTwo.value * .5) * gain[0] + offset[0]
     
+    return cursors
+
+
+
 def cursor_to_screen(X,Y): # converts the cursor XY coordinates to screen XY coordinates. 
-    
+    # screen is approx 6W x 3.25H, 480H x 800W pixels
+    Y = (-480/3.25)*Y + 240 # flip the direction of incrementing for Y
+    X = (800/6)*X + 400
+    return [X, Y] # return the converted versions
 
 
-def fakeCursorButton(button):
-    if button.isPressed: #this is placeholder syntax, will be changed to whatever syntax the actual button uses to indicate pressed/not pressed
-        pygame.draw.rect(screen, GREEN, (100, 100, 100, 100))
-        screen.blit(cursorImage, (125, 125))
-    if not button.isPressed:
-        pygame.draw.rect(screen, RED, (100, 100, 100, 1000))
-        screen.blit(cursorImage, (125, 225))
-        
 
-cTarget = target(random.choice(tuple(targets)))
+
+
+
 
 
 # let's get ready to loop
@@ -175,7 +182,20 @@ mouse = Controller()
 
 while cont:
     pygame.event.get() # clears the pygame queue to prevent queue buildup
-    clock.tick(60)
+ 
+    
+     # get the current cursor location 
+     cursors = get_cursor_locn(devices,cursors)
+     [cursRect[0].centerx, cursRect[0].centery] = cursor_to_screen(cursors.CursorOne.X, cursors.CursorOne.Y)
+     [cursRect[1].centerx, cursRect[1].centery] = cursor_to_screen(cursors.CursorOne.X, cursors.CursorOne.Y)
+     for ii in cursRect:
+         ii.
+     
+     
+     
+     
+     
+ #   clock.tick(60)
     redrawWindow()
  #   fakeCursorButton(button)
     pygame.display.flip
