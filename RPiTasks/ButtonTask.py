@@ -11,15 +11,18 @@ other systems -- using the GPIO libraries will be kind of funny.
 """
 
 # import all needed modules
-import time, sys, os, pygame, random, spidev
+import time, sys, os, pygame, random
+import numpy as np
+from pandas import DataFrame as df
+import gpiozero as gp
 
 
 
 # initialize all of the spi stuff
-LSR = spidev.SpiDev()
-LSR.open(0,0)
-LSR.max_speed_hz = 15600000
-
+buttonsDict = {
+        'signal': [gp.Button(2,pull_up=False,hold_time=.5),gp.Button(14,pull_up=False,hold_time=.5),
+        'LED': [gp.LED(3),gp,LED(10)]}
+buttons = df(buttonsDict)
 
 
 
