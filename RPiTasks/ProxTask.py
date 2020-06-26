@@ -45,7 +45,7 @@ rButton = df(rButtonDict)
 pygame.mixer.init(frequency=163840,buffer=32000)
 #pygame.mixer.init(frequency=16840,buffer=32000)
 goSound = pygame.mixer.Sound(os.path.join("tones","go3_interp.wav"))
-rewardSound = pygame.mixer.Sound(os.path.join("tones","reward3.wav"))
+rewardSound = pygame.mixer.Sound(os.path.join("tones","reward3_interp.wav"))
 
 '''
 
@@ -71,7 +71,7 @@ while True:
     # screen.fill(BLUE) 
     # pygame.display.update() 
    
-   
+    goSound.play()
     prox['signal'][0].wait_for_active()
     print('Monkey in the corner!')
     # screen.fill(YELLOW)

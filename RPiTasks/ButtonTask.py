@@ -94,9 +94,9 @@ def setupTrial(touchTimeM,dispenseTimeM,interTrialM,numButtons):
 # ---------------------------------------------------------------------------------------------#
 # initalize the mixer to create the sounds
 # why is the sampling frequency so obnoxious? dunno...
-pygame.mixer.init(frequency=8192,buffer=4096)
-goSound = pygame.mixer.Sound(os.path.join("tones","go3.wav"))
-rewardSound = pygame.mixer.Sound(os.path.join("tones","reward3.wav"))
+pygame.mixer.init(frequency=163840,buffer=3200)
+goSound = pygame.mixer.Sound(os.path.join("tones","go3_interp.wav"))
+rewardSound = pygame.mixer.Sound(os.path.join("tones","reward3_interp.wav"))
 
 
 

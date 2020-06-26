@@ -25,14 +25,15 @@ Notes on storage of task performance:
 """
 
 # import all needed modules
-import time, sys, os, pygame, random, spidev, gpiozero, pandas
+import time, sys, os, pygame, random, spidev, gpiozero, pandas, csv
+from datetime import datetime as dt
 from math import sin, pi, cos
-from pynput.mouse import Controller
+# from pynput.mouse import Controller
 
 
 # set up gpiozero pins for the task and reward buttons -- gave up on the linear shift register
 taskButtons = [gpiozero.Button(2), gpiozero.Button(14)]  # Button0: GPIO2; Button1: GPIO14
-taskLEDs = [gpiozero.LED(3), gpiozero(15)] # Button0LED: GPIO3; Button1LED: GPIO15
+taskLEDs = [gpiozero.LED(3), gpiozero.LED(15)] # Button0LED: GPIO3; Button1LED: GPIO15
 rewardButtons = [gpiozero.Button(18), gpiozero.Button(23)] # Reward0Button: GPIO18; Reward1Button: GPIO23
 rewardLEDs = [gpiozero.LED(17), gpiozero.LED(22)] # Reward0LED: GPIO17; Reward1LED: GPIO22
 
@@ -41,33 +42,59 @@ rewardLEDs = [gpiozero.LED(17), gpiozero.LED(22)] # Reward0LED: GPIO17; Reward1L
 ''' Prep everything for the ADC -- MCP3004
 Just using the MCP3004 predefined device from gpiozero. Thanks gpiozero!
 '''
-devices = pandas.DataFrame(columns=['DeviceOne','DeviceTwo'],index=['FSROne','FSRTwo'])
-devices.DeviceOne.FSROne = gpiozero.MCP3004(channel=0,device=0)
-devices.DeviceOne.FSRTwo = gpiozero.MCP3004(channel=1,device=0)
-devices.DeviceTwo.FSROne = gpiozero.MCP3004(channel=2,device=0)
-devices.DeviceTwo.FSRTwo = gpiozero.MCP3004(channel=3,device=0)
+devices = pandas.DataFrame(columns=['DeviceZero','DeviceOne'],index=['FSROne','FSRTwo','LED'])
+devices.DeviceZero.FSROne = gpiozero.MCP3004(channel=0,device=0)
+devices.DeviceZero.FSRTwo = gpiozero.MCP3004(channel=1,device=0)
+devices.DeviceZero.LED = gpiozero.LED(16)
+devices.DeviceOne.FSROne = gpiozero.MCP3004(channel=2,device=0)
+devices.DeviceOne.FSRTwo = gpiozero.MCP3004(channel=3,device=0)
+devices.DeviceOne.LED = gpiozero.LED(12)
 
 
-cursors = pandas.DataFrame(columns=['CursorOne','CursorTwo'],index=['X','Y'])
+#cursors = pandas.DataFrame(columns=['CursorOne','CursorTwo'],index=['X','Y'])
 
 
 '''
 State variables
 
 states:
-    STATE_NOT_OVER: Cursor is not currently over the target
-    STATE_OVER: Cursor is over the target
-    STATE_READY_DISPENSE: success, collect your reward!
-    STATE_BETWEEN_TRIAL: waiting between trials
+    STATE_START_TRIAL
+    STATE_MOVEMENT
+    STATE_REWARD
+    STATE_BETWEEN_TRIALS
 
 '''
 
-STATE_NOT_OVER = 0
-STATE_OVER = 1
-STATE_READY_DISPENSE = 2
-STATE_BETWEEN_TRIAL = 3
+STATE_START_TRIAL = 0
+STATE_MOVEMENT = 1
+STATE_REWARD = 2
+STATE_BETWEEN_TRIALS = 3
 
-state = STATE_NOT_OVER 
+state = STATE_BETWEEN_TRIALS
+
+''' 
+Word codes
+
+These are the same words that we have defined in all of the xpc stuff. This way
+we can just use all of the previous code on the analysis side.
+'''
+WORD_START_TRIAL = 0x16 # generic trial start: 0x10; MG: 0x06
+WORD_END_TRIAL = 0x20 
+WORD_REWARD = 0x00 | WORD_END_TRIAL
+WORD_ABORT = 0x01 | WORD_END_TRIAL
+WORD_FAIL = 0x02 | WORD_END_TRIAL
+WORD_INCOMPLETE = 0x03 | WORD_END_TRIAL
+
+WORD_GO_CUE = 0x31
+WORD_CATCH = 0x32
+
+
+
+''' 
+storage of the words and cursor locations
+'''
+wordFile = 'home/pi/Documents/taskOutput/' + dt.now().strftime('%Y%m%d_%H:%M:%S') + '_cage_word_file.csv'
+wordWriter = csv.writer(open(wordFile))
 
 
 ''' 
@@ -150,12 +177,15 @@ def redrawWindow(): # redraws the window as black
 
 
 
-def get_cursor_locn(devices,cursors,gain=[1,1],offset=[-1,-1]):
-    # take in the device information along with gains, and return the cursor locations
-    cursors.CursorOne.X = (devices.DeviceOne.FSROne.value * .5 - devices.DeviceOne.FSRTwo.value * .5) * gain[0] - 1.5
-    cursors.CursorOne.Y = (devices.DeviceOne.FSROne.value * .5 + devices.DeviceOne.FSRTwo.value * .5) * gain[0] + offset[0]
-    cursors.CursorTwo.X = (devices.DeviceTwo.FSROne.value * .5 - devices.DeviceTwo.FSRTwo.value * .5) * gain[0] + 1.5
-    cursors.CursorOne.Y = (devices.DeviceTwo.FSROne.value * .5 + devices.DeviceTwo.FSRTwo.value * .5) * gain[0] + offset[0]
+def get_cursor_locn(devices,gain=[1,1],offset=[-1,-1]):
+    cursors = pandas.DataFrame(columns=['CursorOne','CursorTwo'],index=['X','Y'])
+    
+    
+    # take in the device information along with gains, and return the cursor locations (in inch coordinates)
+    cursors.CursorOne.X = (devices.DeviceZero.FSROne.value * .5 - devices.DeviceZero.FSRTwo.value * .5) * gain[0] - 1.5
+    cursors.CursorOne.Y = (devices.DeviceZero.FSROne.value * .5 + devices.DeviceZero.FSRTwo.value * .5) * gain[0] + offset[0]
+    cursors.CursorTwo.X = (devices.DeviceOne.FSROne.value * .5 - devices.DeviceOne.FSRTwo.value * .5) * gain[0] + 1.5
+    cursors.CursorTwo.Y = (devices.DeviceOne.FSROne.value * .5 + devices.DeviceOne.FSRTwo.value * .5) * gain[0] + offset[0]
     
     return cursors
 
@@ -177,19 +207,32 @@ def cursor_to_screen(X,Y): # converts the cursor XY coordinates to screen XY coo
 # let's get ready to loop
 cont = True
 clock = pygame.time.Clock()
-mouse = Controller()
+# mouse = Controller()
 
 
+tInit = time.perf_counter_ns()
+tCurrState = time.perf_couter_ns()
 while cont:
     pygame.event.get() # clears the pygame queue to prevent queue buildup
  
     
-     # get the current cursor location 
-     cursors = get_cursor_locn(devices,cursors)
-     [cursRect[0].centerx, cursRect[0].centery] = cursor_to_screen(cursors.CursorOne.X, cursors.CursorOne.Y)
-     [cursRect[1].centerx, cursRect[1].centery] = cursor_to_screen(cursors.CursorOne.X, cursors.CursorOne.Y)
-     for ii in cursRect:
-         ii.
+    if state = STATE_START_TRIAL: # if we're starting a new trial, mark it and let us know
+        iTarget = random.randint(0,len(targets.columns)-1)
+        tgt = target(targets.iloc[0,iTarget],targets.iloc[1,iTarget],targets.iloc[2,iTarget],targets.iloc[3,iTarget])
+        iDevice = random.randint(0,len(devices.columns)-1)
+        cDevice = 
+        wordWriter.writerow([time.perf_counter_ns-tInit,WORD_START_TRIAL]
+        state = STATE_MOVEMENT
+        tCurrState = time.perf_couter_ns()
+        
+    elif state = STATE_MOVEMENT
+            
+        # get the current cursor location 
+        cursors = get_cursor_locn(devices,cursors)
+        cursRect[0].center = cursor_to_screen(cursors.CursorOne.X, cursors.CursorOne.Y)
+        cursRect[1].center = cursor_to_screen(cursors.CursorTwo.X, cursors.CursorTwo.Y)
+        for ii in cursRect:
+            ii.
      
      
      
@@ -201,12 +244,12 @@ while cont:
     pygame.display.flip
     
     
-    for event in pygame.event.get():
-        cursorLocn = pygame.mouse.get_pos()
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            cont = False
-        if event.type == pygame.QUIT:
-            cont = False
+    # for event in pygame.event.get():
+    #     cursorLocn = pygame.mouse.get_pos()
+    #     if event.type == pygame.MOUSEBUTTONDOWN:
+    #         cont = False
+    #     if event.type == pygame.QUIT:
+    #         cont = False
             
     if state == STATE_NOT_OVER:
         ''' we don't need different settings for different devices -- 
