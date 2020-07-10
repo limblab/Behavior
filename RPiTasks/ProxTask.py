@@ -80,8 +80,9 @@ while True:
 
     rButton['LED'][0].on()
     rButton['signal'][0].wait_for_press()
-    rButton['sol'][0].on()
     sleep(.1)
+    rButton['sol'][0].on()
+    sleep(.25)
     rButton['sol'][0].off()
 
     rButton['LED'][0].off()
