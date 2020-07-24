@@ -81,20 +81,21 @@ class target():
     def draw(self, screen):
         # pygame draws rectangular sprites from the top left corner, but we 
         # want to keep track of things by the center hence the offsets
-        X = (800/6)*cursX + 400 # screen is 6 in wide, 800 pixels -- switch from inches to pixels
-        Y = (-480/3.25)*cursY + 240 # screen is 3.25 in tall, 480 pixels -- inches to pixels and flip direction
-        pygame.draw.rect(screen, self.color, (self.x + self.width/2, self.y + self.height/2, self.width, self.height))
+        width = self.width*(800/6) # width to pixels
+        height = self.height(480/3.25) # height to pixels
+        X = (800/6)*self.x + 400 - width/2 # screen is 6 in wide, 800 pixels -- switch from inches to pixels
+        Y = (-480/3.25)*self.Y + 240 - height/2 # screen is 3.25 in tall, 480 pixels -- inches to pixels and flip direction
+        pygame.draw.rect(screen, self.color, (X, Y, width, height))
         
     def isOver(self, cursRect):
         self.color = RED
-        if self.contains(cursRect):
+        if self.contains(cursRect): # thanks pygame for handling this
             self.color = GREEN
             return True
-        # if (pos[0] > (self.x - self.width/2)) and ( pos[0] < (self.x+self.width/2)) :
-        #     if (pos[1] > (self.y-self.height/2)) and (pos[1] < (self.y+self.height/2)):
-        #         self.color = GREEN
-        #         return True                            
+                         
         return False
+
+# ----------------------------------------------------------------------------
 
 ### Define devices -- this is only for ADC devices that use FSRs for now
 class device():
@@ -108,30 +109,88 @@ class device():
         self.cursImage = pygame.image.load(imagePath) # the image for our cursor
         self.cursRect = self.cursImage.get_rect() # the pygame rect object for our cursor
         self.cursRect.center = [0,offset]
+        self.activated = False # turn off the device whenever we're not using it
 
     # update the cursor location and display
     def update_cursor(self,screen):
-        cursX = (self.FSR[1].value - self.FSR[0].value) * self.gain
-        cursY = (self.FSR[0].value + self.FSR[1].value) * self.gain + offset
-        X = (800/6)*cursX + 400 # screen is 6 in wide, 800 pixels -- switch from inches to pixels
-        Y = (-480/3.25)*cursY + 240 # screen is 3.25 in tall, 480 pixels -- inches to pixels and flip direction
-        self.cursRect.center = [X,Y]
-        screen.fill(BLACK)
-        screen.blit(self.cursImage,self.cursRect)
-        pygame.display.flip()
+        if self.activated:
+            cursX = (self.FSR[1].value - self.FSR[0].value) * self.gain
+            cursY = (self.FSR[0].value + self.FSR[1].value) * self.gain + offset
+            X = (800/6)*cursX + 400 # screen is 6 in wide, 800 pixels -- switch from inches to pixels
+            Y = (-480/3.25)*cursY + 240 # screen is 3.25 in tall, 480 pixels -- inches to pixels and flip direction
+            self.cursRect.center = [X,Y]
+            screen.blit(self.cursImage,self.cursRect)
+        else:
+            self.cursRect.center = [-100,-100]
+            
         
     def activate_device(self):
+        self.activated = True
         for led in self.LED:
             led.on() # turn the LED on
         
     def deactivate_device(self):
+        self.activated = False
         for led in self.LED:
             led.off()
 
+# ----------------------------------------------------------------------------
+### proximity sensor class -- makes it easier to turn on and off
+class proxSensor():
+    def __init__(self,signal=gpiozero.LineSensor(14,pull_up=False),irLED=gpiozero.LED(15)):
+        self.signal = signal
+        self.irLED = irLED
+        self.enabled = False
+        
+    def enable_device(self):
+        if not self.enabled:
+            self.irLED.on()
+            self.active = True
+        
+    def disable_device(self):
+        if self.enabled:
+            self.irLED.off()
+            self.enabled = False
+    
+    def monkey_in_corner(self):
+        return self.signal.value
+
+# ----------------------------------------------------------------------------
+### reward button -- activate the LEDs, turn on solenoid etc all in one spot
+class rewardButton():
+    def __init__(self, signal=gpiozero.button(18,pull_up=False,hold_time=.1), LED=gpiozero.LED(17), sol=gpiozero.DigitalOutputDevice(20)):
+        self.signal = signal
+        self.LED = LED
+        self.sol = sol
+        self.LED.off()
+        self.sol.off()
+        
+    def reward(self,dispenseTime,rewardSound):
+        self.LED.on() # tell the monkey they can press the button
+        self.signal.wait_for_press() # wait until they press the button
+        rewardSound.play() # play the reward tone
+        self.sol.on()
+        sleep(dispenseTime)
+        self.sol.off()
+        self.LED.off()
+
+# ----------------------------------------------------------------------------
+### random delay generators -- so that it's a little cleaner in the main loop
+class delayGenerator():
+    def __init__(self,min,max):
+        self.min = min
+        self.max = max
+        self.current = (random.random() * (max-min)) + min
+        
+    def reroll(self):
+        self.current = (random.random() * (self.max-self.min)) + self.min
 
 
-### defining modules
-# redraw the window
+
+''' ##########################################################################
+### Defining submodules
+###########################################################################'''
+### redraw the window
 def blank_screen(screen): # redraws the window as black
     screen.fill(BLACK)
     pygame.display.flip()
@@ -145,46 +204,23 @@ def restart_task(devDict,tgtDict):
 
     return dev,tgt
 
-### random delay generators -- so that it's a little cleaner in the main loop
-class delayGenerator():
-    def __init__(self,min,max):
-        self.min = min
-        self.max = max
-        self.current = (random.random() * (max-min)) + min
-        
-    def reroll(self):
-        self.current = (random.random() * (self.max-self.min)) + self.min
 
-
-"""##############################################################################
-### Device and button list initialization
-##############################################################################"""
-# set up gpiozero pins for the task and reward buttons -- gave up on the linear shift register
-# button 0: button is gpio2, LED is gpio3. button 0 doesn't allow a PD resistor! whoops!
-# button1: button is gpio14, LED is gpio15
-# rewardButton 0: button is gpio18, LED is gpio17
-# rewardButton 1: button is gpio23, LED is gpio22
-taskButtons = {'ProximitySensor': 
-               {'Button': gpiozero.Button(14),
-                'LED': gpiozero.LED(15)}}
-
-rewardButtons = {'Water':
-                 {'Button': gpiozero.Button(18),
-                  'LED': gpiozero.LED(17)}}
     
 
-### Initialize the devices, put them in a dictionary together
-# Just using the MCP3004 predefined device from gpiozero. Thanks gpiozero!
+'''###########################################################################
+### initializing the devices and targets
+###########################################################################'''
+### Devices 
 # devices.DeviceZero.FSROne = gpiozero.MCP3004(channel=0,device=0)
 # devices.DeviceZero.FSRTwo = gpiozero.MCP3004(channel=1,device=0)
 # devices.DeviceZero.LED = gpiozero.LED(16)
 # devices.DeviceOne.FSROne = gpiozero.MCP3004(channel=2,device=0)
 # devices.DeviceOne.FSRTwo = gpiozero.MCP3004(channel=3,device=0)
 # devices.DeviceOne.LED = gpiozero.LED(12)
-
 devDict = {'Powergrasp': device('Powergrasp',gpiozero.mcp3004(channel=0,device=0),
                                 gpiozero.mcp3004(channel=0,device=1),
                                 10,-2,gpiozero.LED(16),'./textures/face.tga')}
+
 
 
 ### initialize the targets with desired locations (in inches)
@@ -198,7 +234,9 @@ targetHoldTime = delayGenerator(.25, .75) # how long do they have to be in the t
 dispenseTime = delayGenerator(.5, 1) # time to receive the reward
 interTrialTime = delayGenerator(1.5, 5) # time between trials
 
-
+# initialize the reward and prox sensors
+rButton = rewardButton()
+prox = proxSensor()
 
 
 '''###########################################################################
@@ -219,49 +257,69 @@ rewardSound = pygame.mixer.Sound(os.path.join("tones","reward3_interp.wav"))
 
 
 
-''' 
-storage of the words and cursor locations
+ 
+### storage of the words and cursor locations
 '''
 wordFile = 'home/pi/Documents/taskOutput/' + dt.now().strftime('%Y%m%d_%H:%M:%S') + '_cage_word_file.csv'
-wordWriter = csv.writer(open(wordFile))
-
+wordPID = open(wordFile,'w')
+wordWriter = csv.writer(wordPID)
+''' # we'll get this going later
 
 
 # let's get ready to loop
 
-
-
 while cont:
     for ev in pygame.event.get():
         if event.type == pygame.quit:
+            pygame.display.close()
             sys.exit()
     
  
     
-    if state = STATE_START_TRIAL: # if we're starting a new trial, mark it and let us know
+    if state = STATE_START_TRIAL: # starting a new trial. For the time being we'll set this up to work with the prox sensor
+        if prox.monkey_in_corner(): # is the monkey in the corner?
+            goSound.play() # tell it to go back to the MG board
+            prox.disable_device() # turn off the prox sensor
+            dev.activate_device() # activate the device
+            dev.update_cursor(screen) # put the cursor on the screen
+            targetHoldCurr = dt.now() # keeping track of the amount of time the monkey has been in the target
+            tgt.draw()
+            state = STATE_MOVEMENT
         
         
         
-    elif state = STATE_MOVEMENT
+    elif state = STATE_MOVEMENT:
+        screen.fill(BLACK)
+        tgt.draw()
+        dev.update_cursor(screen)
+        pygame.display.flip()
+        if target.isOver(dev.cursRect): # if he's inside of the target
+            elapsed = (dt.now()-targetholdCurr)
+            elapsed = elapsed.seconds + (elapsed.microseconds/100000)
+            if elapsed > targetHoldTime.current: # and has been there for long enough
+                goSound.play() # play the sound to go to the reward
+                state = STATE_REWARD # update to the next state
+                blank_screen(screen) # clear out the screen -- do we want to flash green or something?
+                dev.deactivate_device() # turn off the device
+        else:
+            targetHoldCurr = dt.now() # keep updating the current target hold counter
+        
             
-        # get the current cursor location 
-        cursors = get_cursor_locn(devices,cursors)
-        cursRect[0].center = cursor_to_screen(cursors.CursorOne.X, cursors.CursorOne.Y)
-        cursRect[1].center = cursor_to_screen(cursors.CursorTwo.X, cursors.CursorTwo.Y)
-        for ii in cursRect:
-            ii.
      
     elif state = STATE_REWARD:
-        
-        rewardSound.play()
+        screen.fill(GREEN)
+        pygame.display.flip()
+        rButton.reward(dispenseTime.current, rewardSound) # get the reward button going
+        state = STATE_BETWEEN_TRIALS
         
         
     elif state = STATE_BETWEEN_TRIALS:
-        blank_screen(screen)
-        sleep(interTrialTime.current)
-        interTrialTime.reroll()
+        blank_screen(screen) # clear the screen
+        sleep(interTrialTime.current) # wait for the intertrial time
+        interTrialTime.reroll() # trial timing
         targetHoldTime.reroll()
         dispenseTime.reroll()
-        dev,tgt = restart_task(devDict,tgtDict)
+        dev,tgt = restart_task(devDict,tgtDict) # new devices and targets
         goSound.play()
+        state = STATE_START_TRIAL
 
