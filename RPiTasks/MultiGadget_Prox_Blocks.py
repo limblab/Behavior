@@ -1,21 +1,13 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
 """
-MultiGadget()
+MultiGadget_Prox_Blocks()
 
 Key grasp, precision grasp, power grasp. 
 
 
-Notes on working with the cursors and printing to the screen:
-    pygame works on a coordinate system that starts in the top left corner and
-    goes down (Y) and to the right (X). By comparison, we will want to store
-    the cursor location using the *real* coordinates (in inches) from the center
-    of the screen. This means we will need to do a conversion between internal
-    coordinates and screen coordinates.
-    
-    We will also want to split the screen into two if we want to run two 
-    devices at once. Either that or control the cursor with the two devices 
-    together.... hmmm....
+Just a copy of the Multigadget task that was made to run the proximity sensors 
+and grasp sensors in blocks rather than every time
     
 
 Notes on storage of task performance:
@@ -29,6 +21,7 @@ Notes on storage of task performance:
 import sys, os, pygame, random, gpiozero, csv
 from datetime import datetime as dt
 from time import sleep
+from math import floor
 
 
 """ ##########################################################################
@@ -55,14 +48,18 @@ WORD_CATCH = 0x32
 
 
 # state machine
-STATE_START_TRIAL = 0
-STATE_MOVEMENT = 1
+STATE_PROX = 0
+STATE_GRASP = 1
 STATE_REWARD = 2
 STATE_BETWEEN_TRIALS = 3
 
 state = STATE_BETWEEN_TRIALS
 
-
+# number of trials of each variety per block. Easiest version for now.
+NUM_BLOCKS = 2
+TRIAL_PER_BLOCK = 3
+blockNum = 0 # out of NUM_BLOCKS
+trialNum = 0 # out of TRIAL_PER_BLOCK
 
 
 """ ##########################################################################
@@ -283,21 +280,18 @@ while True:
                 pygame.display.toggle_fullscreen()
  
     
-    if state == STATE_START_TRIAL: # starting a new trial. For the time being we'll set this up to work with the prox sensor
+    if state == STATE_PROX: # starting a new trial. For the time being we'll set this up to work with the prox sensor
         screen.fill(YELLOW)
         pygame.display.flip()
         if prox.monkey_in_corner() == True: # is the monkey in the corner?
-            goSound.play() # tell it to go back to the MG board
             prox.disable_device() # turn off the prox sensor
-            dev.activate_device() # activate the device
-            dev.update_cursor(screen) # put the cursor on the screen
-            targetHoldCurr = dt.now() # keeping track of the amount of time the monkey has been in the target
             tgt.draw(screen)
-            state = STATE_MOVEMENT
+            trialNum += 1
+            state = STATE_REWARD
         
         
         
-    elif state == STATE_MOVEMENT:
+    elif state == STATE_GRASP:
         screen.fill(BLACK)
         tgt.draw(screen)
         dev.update_cursor(screen)
@@ -310,6 +304,7 @@ while True:
                 state = STATE_REWARD # update to the next state
                 blank_screen(screen) # clear out the screen -- do we want to flash green or something?
                 dev.deactivate_device() # turn off the device
+                trialNum += 1
         else:
             targetHoldCurr = dt.now() # keep updating the current target hold counter
         
@@ -319,6 +314,8 @@ while True:
         screen.fill(GREEN)
         pygame.display.flip()
         rButton.reward(dispenseTime.current, rewardSound) # get the reward button going
+        blockNum = (floor(trialNum/TRIAL_PER_BLOCK)+blockNum) % NUM_BLOCKS
+        trialNum %= TRIAL_PER_BLOCK
         state = STATE_BETWEEN_TRIALS
         
         
@@ -326,10 +323,15 @@ while True:
         blank_screen(screen) # clear the screen
         sleep(interTrialTime.current) # wait for the intertrial time
         interTrialTime.reroll() # trial timing
-        targetHoldTime.reroll()
-        dispenseTime.reroll()
-        dev,tgt = restart_task(devDict,tgtDict) # new devices and targets
-        goSound.play()
-        prox.enable_device()
-        state = STATE_START_TRIAL
-
+        dispenseTime.reroll() # next dispense time
+        goSound.play() # tell the monkey to do his business
+        
+        if blockNum == 0: # if it's a prox trial
+            state = STATE_PROX
+            prox.enable_device()
+            
+        elif blockNum == 1: # if it's a grasp trial
+            state = STATE_GRASP
+            dev,tgt = restart_task(devDict,tgtDict) # new devices and targets
+            targetHoldTime.reroll()                        
+            dev.activate_device()
