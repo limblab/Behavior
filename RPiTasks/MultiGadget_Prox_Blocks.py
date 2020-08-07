@@ -248,6 +248,8 @@ pygame.init()
 screen = pygame.display.set_mode(size=SIZE,flags=(pygame.FULLSCREEN|pygame.NOFRAME))
 blank_screen(screen)
 pygame.event.clear()
+dev,tgt = restart_task(devDict,tgtDict) # new devices and targets
+targetHoldCurr = dt.now()
 
 ### initialize the sound stuff
 pygame.mixer.init(frequency=163840,buffer=32000) # mister owl, why are these sampling frequencies so weird?
@@ -297,7 +299,7 @@ while True:
         dev.update_cursor(screen)
         pygame.display.flip()
         if tgt.isOver(dev.cursRect): # if he's inside of the target
-            elapsed = (dt.now()-targetholdCurr)
+            elapsed = (dt.now()-targetHoldCurr)
             elapsed = elapsed.seconds + (elapsed.microseconds/100000)
             if elapsed > targetHoldTime.current: # and has been there for long enough
                 goSound.play() # play the sound to go to the reward
@@ -335,3 +337,4 @@ while True:
             dev,tgt = restart_task(devDict,tgtDict) # new devices and targets
             targetHoldTime.reroll()                        
             dev.activate_device()
+            targetHoldCurr = dt.now() # keep updating the current target hold counter
