@@ -1,0 +1,14 @@
+
+
+# forcing HDMI mode for the cage screen
+hdmi_force_hotplug=1
+hdmi_grou = 2  
+hdmi_mode =87
+hdmi_cvt=800 480 60 6 0 0 0
+hdmi_drive=1
+
+max_usb_current=1 #shouldn't be driving from the pi, but Justin Case...
+
+
+# turn off EDID audio - screen doesn't support it
+hdmi_ignore_edid_audio=1

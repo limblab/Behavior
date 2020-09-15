@@ -1,0 +1,19 @@
+
+-- Button Task --
+[X] Interpolate .wav files at 4x sampling freq
+[X] Add tones to LSR tester
+[X] Code to turn on LED
+[ ] Button checker
+	[ ] Return frame with current button pressed
+	[ ] Test all buttons
+[ ] State machine
+	[ ] Define states, test current state
+	[ ] Length of button being pressed - find best way
+
+
+-- Multigadget task --
+[ ] Get forces from MCP3004
+[ ] calculate current cursor locations
+[ ]  
+
+

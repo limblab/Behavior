@@ -80,6 +80,8 @@ Thumbs.db
 
 # VIM things
 *.swp
+*.un # thing this might be windows specific? not sure
+*~
 
 #xpc compile folders for our behaviors:
 src/target/*_slrt_rtw/*

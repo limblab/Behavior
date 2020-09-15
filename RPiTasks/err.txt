@@ -1,0 +1,54 @@
+/usr/lib/python3/dist-packages/gpiozero/pins/pi.py:163: SPISoftwareFallback: failed to initialize hardware SPI, falling back to software (error was: pin 11 is already in use by SPI(port=0, device=0))
+  'software (error was: %s)' % str(e)))
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/gpiozero/devices.py", line 98, in __call__
+    self = cls._instances[key]
+KeyError: (7,)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/gpiozero/devices.py", line 98, in __call__
+    self = cls._instances[key]
+KeyError: (11, 10, 9)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./MultiGadget.py", line 222, in <module>
+    gpiozero.MCP3004(channel=0,device=1),
+  File "/usr/lib/python3/dist-packages/gpiozero/devices.py", line 124, in __call__
+    self = super(GPIOMeta, cls).__call__(*args, **kwargs)
+  File "/usr/lib/python3/dist-packages/gpiozero/spi_devices.py", line 448, in __init__
+    super(MCP3004, self).__init__(channel, differential, max_voltage, **spi_args)
+  File "/usr/lib/python3/dist-packages/gpiozero/spi_devices.py", line 317, in __init__
+    **spi_args)
+  File "/usr/lib/python3/dist-packages/gpiozero/spi_devices.py", line 212, in __init__
+    super(MCP3xxx, self).__init__(bits, max_voltage, **spi_args)
+  File "/usr/lib/python3/dist-packages/gpiozero/spi_devices.py", line 159, in __init__
+    super(AnalogInputDevice, self).__init__(shared=True, **spi_args)
+  File "/usr/lib/python3/dist-packages/gpiozero/spi_devices.py", line 65, in __init__
+    self._spi = self.pin_factory.spi(**spi_args)
+  File "/usr/lib/python3/dist-packages/gpiozero/pins/pi.py", line 165, in spi
+    return self.spi_classes[('software', shared)](self, **spi_args)
+  File "/usr/lib/python3/dist-packages/gpiozero/devices.py", line 101, in __call__
+    self = super(GPIOMeta, cls).__call__(*args, **kwargs)
+  File "/usr/lib/python3/dist-packages/gpiozero/pins/local.py", line 225, in __init__
+    self._bus = SPISoftwareBus(clock_pin, mosi_pin, miso_pin)
+  File "/usr/lib/python3/dist-packages/gpiozero/devices.py", line 101, in __call__
+    self = super(GPIOMeta, cls).__call__(*args, **kwargs)
+  File "/usr/lib/python3/dist-packages/gpiozero/pins/spi.py", line 56, in __init__
+    self.clock = OutputDevice(clock_pin, active_high=True)
+  File "/usr/lib/python3/dist-packages/gpiozero/devices.py", line 124, in __call__
+    self = super(GPIOMeta, cls).__call__(*args, **kwargs)
+  File "/usr/lib/python3/dist-packages/gpiozero/output_devices.py", line 93, in __init__
+    super(OutputDevice, self).__init__(pin, pin_factory=pin_factory)
+  File "/usr/lib/python3/dist-packages/gpiozero/mixins.py", line 106, in __init__
+    super(SourceMixin, self).__init__(*args, **kwargs)
+  File "/usr/lib/python3/dist-packages/gpiozero/devices.py", line 520, in __init__
+    self.pin_factory.reserve_pins(self, pin)
+  File "/usr/lib/python3/dist-packages/gpiozero/pins/pi.py", line 100, in reserve_pins
+    requester, *(self.pi_info.to_gpio(pin) for pin in pins))
+  File "/usr/lib/python3/dist-packages/gpiozero/pins/__init__.py", line 98, in reserve_pins
+    (pin, reserver))
+gpiozero.exc.GPIOPinInUse: pin 11 is already in use by SPI(port=0, device=0)
