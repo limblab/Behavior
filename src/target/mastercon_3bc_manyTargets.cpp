@@ -123,6 +123,28 @@ struct LocalParams {
     real_T show_ring_prob;
     real_T target_angle_max;
     real_T num_target_angles;
+    
+    real_T stim_during_bump;
+    real_T stim_instead_of_bump;
+    
+    real_T code0_angle;
+    real_T code1_angle;
+    real_T code2_angle;
+    real_T code3_angle;
+    real_T code4_angle;
+    real_T code5_angle;
+    real_T code6_angle;
+    real_T code7_angle;
+    real_T code8_angle;
+    real_T code9_angle;
+    real_T code10_angle;
+    real_T code11_angle;
+    real_T code12_angle;
+    real_T code13_angle;
+    real_T code14_angle;
+    real_T code15_angle;
+    
+    real_T bump_rate;
 };
 
 /**
@@ -152,6 +174,7 @@ private:
     
     double outerTargetAngles[20];
     bool isPrimaryTarget[20];
+    double stimRewardedAngles[20]; // contains which angle is rewarded for each stim code
     
     real_T num_targets_use;
     
@@ -170,9 +193,14 @@ private:
 	real_T last_soft_reset;
 
 	bool training_trial;
+    bool bump_trial;
 	int tgt_angle;
 	int bump_quadrent;
 	bool is_primary_target;
+    int stim_code;
+    double reward_mult;
+    
+    bool catch_trial;
 	// any helper functions you need
 	void doPreTrial(SimStruct *S);
 
@@ -186,7 +214,7 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(41);
+	this->setNumParams(60);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
 	this->bindParamId(&params->soft_reset,				1);
@@ -229,6 +257,26 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->show_ring_prob,          38);
     this->bindParamId(&params->target_angle_max,        39);
     this->bindParamId(&params->num_target_angles,       40);
+    this->bindParamId(&params->stim_instead_of_bump,    41);
+    this->bindParamId(&params->stim_during_bump,        42);
+    this->bindParamId(&params->code0_angle,   43);
+    this->bindParamId(&params->code1_angle,   44);
+    this->bindParamId(&params->code2_angle,   45);
+    this->bindParamId(&params->code3_angle,   46);
+    this->bindParamId(&params->code4_angle,   47);
+    this->bindParamId(&params->code5_angle,   48);
+    this->bindParamId(&params->code6_angle,   49);
+    this->bindParamId(&params->code7_angle,   50);
+    this->bindParamId(&params->code8_angle,   51);
+    this->bindParamId(&params->code9_angle,   52);
+    this->bindParamId(&params->code10_angle,   53);
+    this->bindParamId(&params->code11_angle,   54);
+    this->bindParamId(&params->code12_angle,   55);
+    this->bindParamId(&params->code13_angle,   56);
+    this->bindParamId(&params->code14_angle,   57);
+    this->bindParamId(&params->code15_angle,   58);
+    this->bindParamId(&params->bump_rate,       59);
+    
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -261,11 +309,14 @@ TwoBumpChoiceBehavior::TwoBumpChoiceBehavior(SimStruct *S) : RobotBehavior() {
     for(int outer_target_idx=0; outer_target_idx < 20; outer_target_idx++) {
         this->outerTargets[outer_target_idx] = new CircleTarget();
         this->outerTargets[outer_target_idx]->color = Target::Color(255,0,160);
+        this->stimRewardedAngles[outer_target_idx] = 0; // set all as 0 to start...
     }
     
 	errorTarget = new SquareTarget(0, 0, 100, Target::Color(255, 255, 255));
 
 	this->stim_trial = false;
+    this->catch_trial = false;
+    this->bump_trial = false;
 	this->bump_dir = 0;
 	this->bump = new CosineBumpGenerator();
 	this->training_trial=0;
@@ -282,6 +333,10 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
     this->show_ring = this->random->getInteger(0,1) < this->params->show_ring_prob;
     num_targets_use = params->num_targets;
 
+    this->reward_mult = 1;
+    /* Select whether this will be a training trial 
+	*  If the training frequency is zero we should not see any training trials*/
+	training_trial=(this->random->getDouble() < params->training_frequency);
     if(num_targets_use > 19){ // max num targets
         num_targets_use = 19;
     } else if(num_targets_use < 1) {
@@ -300,6 +355,37 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
         this->tgt_angle = (int)((180/PI)*this->params->target_angle_min);
     }
 
+     /* Select whether this will be a stimulation trial */
+    this->stim_trial=(this->random->getDouble() < params->stim_prob);
+    this->stim_code = this->random->getInteger(0,(int)this->params->stim_levels);
+    int num_stim_levels = this->params->stim_levels + 1;
+    
+    // setup rewarded angles manually (oops)
+    stimRewardedAngles[0] = this->params->code0_angle;
+    stimRewardedAngles[1] = this->params->code1_angle;
+    stimRewardedAngles[2] = this->params->code2_angle;
+    stimRewardedAngles[3] = this->params->code3_angle;
+    stimRewardedAngles[4] = this->params->code4_angle;
+    stimRewardedAngles[5] = this->params->code5_angle;
+    stimRewardedAngles[6] = this->params->code6_angle;
+    stimRewardedAngles[7] = this->params->code7_angle;
+    stimRewardedAngles[8] = this->params->code8_angle;
+    stimRewardedAngles[9] = this->params->code9_angle;
+    stimRewardedAngles[10] = this->params->code10_angle;
+    stimRewardedAngles[11] = this->params->code11_angle;
+    stimRewardedAngles[12] = this->params->code12_angle;
+    stimRewardedAngles[13] = this->params->code13_angle;
+    stimRewardedAngles[14] = this->params->code14_angle;
+    stimRewardedAngles[15] = this->params->code15_angle;
+    
+    // set tgt angle to be rewarded target dir
+    if(this->stim_trial){
+        this->tgt_angle = (int)((180/PI)*stimRewardedAngles[this->stim_code]);
+    }
+    // if use random targets, use that instead
+    if((int)this->params->use_random_targets) {
+        this->tgt_angle = this->random->getInteger((int)this->params->target_floor,(int)this->params->target_ceiling);
+    }
 	// Set up target locations, etc.
 	centerTarget->radius = params->target_size;
     
@@ -307,6 +393,8 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
     ring->theta = 0;
     ring->span = 2*PI-0.00001;
     ring->height = 2;
+    
+    
     
     // for all targets, set centerX and centerY to a large value
     // Then set used targets to proper values
@@ -351,42 +439,41 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
 			bump_dir=360 - (int)this->params->bump_floor - (int)this->params->bump_incr * (this->random->getInteger(0,num_bump_dirs));
 			break;
 	}
-
+    
 	// Set up the bump itself
-	if(params->catch_rate>0){
-		if(this->random->getDouble()>params->catch_rate){
-			bumpmag_local=(float)params->bump_magnitude;
-		} else {
-			bumpmag_local=0;
-		}
-	} else {
+    this->bump_trial = this->random->getDouble() < params->bump_rate;
+    this->catch_trial = this->random->getDouble() < params->catch_rate;
+    // it is a catch trial if it is not a stim and bump trial. This bad programming 
+    // is a consequence of having the task try to do too much
+    if(!this->stim_trial && !this->bump_trial){
+        this->catch_trial = true;
+    }
+    
+	if(this->catch_trial){
+        bumpmag_local=0;
+        this->bump_trial=0;
+        this->stim_trial=0;
+	} else if(this->stim_trial && this->params->stim_instead_of_bump == 1){
+        // is a stim trial and we are stimulating instead of the bump
+        bumpmag_local=0;
+        // tgt angle was set to be the rewarded target direction, so set bump dir to 0
+        // and set bump mag to 0
+        this->bump_dir = 0;
+    } else if(this->stim_trial && this->params->stim_during_bump == 1){
+        this->bump_dir = 0; // sets bump angle to be the same as the rewarded tgt angle
+        if(this->bump_trial){
+            bumpmag_local=(float)params->bump_magnitude;
+        } else {
+            bumpmag_local = 0;
+        }
+    } else if(this->bump_trial){ // not a catch trial, and we are bumping
 		bumpmag_local=(float)params->bump_magnitude;
 	}
+    
 	this->bump->hold_duration = params->bump_duration;
     this->bump->peak_magnitude = bumpmag_local;
 	this->bump->rise_time = params->bump_ramp;
-	this->bump->direction = ((double)(this->tgt_angle + this->bump_dir)) * PI/180;
-
-    
-    /*int bump_dir_idx = this->random->getInteger(0,num_targets_use);
-    this->bump_dir = outerTargetAngles[bump_dir_idx]*180/PI;    
-    
-	// Set up the bump itself
-	if(params->catch_rate>0){
-		if(this->random->getDouble()>params->catch_rate){
-			bumpmag_local=(float)params->bump_magnitude;
-		} else {
-			bumpmag_local=0;
-		}
-	} else {
-		bumpmag_local=(float)params->bump_magnitude;
-	}
-	this->bump->hold_duration = params->bump_duration;
-    this->bump->peak_magnitude = bumpmag_local;
-	this->bump->rise_time = params->bump_ramp;
-    this->bump->bump_direction = this->bump_dir;
-    */
-    // adjust bump direction if necessary
+    this->bump->direction = ((double)(this->tgt_angle + this->bump_dir)) * PI/180;
     
     
     // given bump_dir, figure out which targets are within 45 degrees and set those as primary
@@ -394,33 +481,16 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
     float correct_target_dir = 0;
     for(int outer_target_idx=0; outer_target_idx < num_targets_use; outer_target_idx++) {
         cos_diff = cos(this->outerTargetAngles[outer_target_idx] - ((double)(this->bump->direction)));
-        if(cos_diff >= cos(params->angle_tolerance*PI/180)) { // cos difference increases for closer angles
+        if(!this->catch_trial && cos_diff >= cos(params->angle_tolerance*PI/180)) { // cos difference increases for closer angles
             this->isPrimaryTarget[outer_target_idx] = true;
             correct_target_dir = this->outerTargetAngles[outer_target_idx];
+        } else if(training_trial) { // only show primary target
+            this->outerTargets[outer_target_idx]->radius = 0;
+            this->outerTargets[outer_target_idx]->centerX = 100;
+            this->outerTargets[outer_target_idx]->centerY = 100;
         }
     }  
-//     float correct_target_dir = (float)bump_dir;   
-
-    /*
-    if(this->params->use_bump_mapping) {
-        this->bump_dir = this->bump_dir*PI/180; // make radians
-        // for some reason, I made this as 0 to 2*pi.... so adjust if not in that range
-        if(this->bump_dir < 0){
-            this->bump_dir = this->bump_dir + 2*PI;
-        } else if(this->bump_dir > 2*PI) {
-            this->bump_dir = this->bump_dir - 2*PI;
-        }
-        
-        this->bump_dir    = params->p1*pow(this->bump_dir,5.0) + 
-                            params->p2*pow(this->bump_dir,4.0) + 
-                            params->p3*pow(this->bump_dir,3.0) + 
-                            params->p4*pow(this->bump_dir,2.0) + 
-                            params->p5*this->bump_dir + 
-                            params->p6;
-        
-        this->bump->direction = (double)this->bump_dir; // supposed to be in radians
-        this->bump_dir = this->bump_dir*180/PI; // back to degrees for databurst
-    } */
+     
     
 	// Reset primary target color if needed
     if(params->green_prim_targ){
@@ -429,12 +499,9 @@ void TwoBumpChoiceBehavior::doPreTrial(SimStruct *S) {
     else{
         primaryTarget->color = Target::Color(255, 0, 160);
     }
-	/* Select whether this will be a training trial 
-	*  If the training frequency is zero we should not see any training trials*/
-	training_trial=(this->random->getDouble() < params->training_frequency);
+	
     
-    /* Select whether this will be a stimulation trial */
-    this->stim_trial=(this->random->getDouble() < params->stim_prob);
+    
 
 	/* setup the databurst */
 	db->reset();
@@ -511,10 +578,11 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
 			} else if (stateTimer->elapsedTime(S) > params->bump_delay_time) {
-				bump->start(S);
+				
 				if (this->stim_trial) {
 					setState(STATE_STIM);
 				} else {
+                    bump->start(S);
 					setState(STATE_BUMP);
 				}
 			}
@@ -532,7 +600,10 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
 			}
 			break;
 		case STATE_STIM:
-			setState(STATE_BUMP);
+            if(stateTimer->elapsedTime(S) > 0.25){ // takes ~50ms for stim code to start
+                bump->start(S);
+                setState(STATE_BUMP);
+            }
 			break;
 		case STATE_MOVEMENT:
             for(int outer_target_idx=0; outer_target_idx < num_targets_use; outer_target_idx++) {
@@ -541,17 +612,28 @@ void TwoBumpChoiceBehavior::update(SimStruct *S) {
                         playTone(TONE_REWARD);
                         setState(STATE_REWARD);
                     } else {
-                        playTone(TONE_FAIL);
-                        if (this->params->penalty_time > 0) {
-                            setState(STATE_PENALTY);
+                        if(this->stim_trial && !this->bump_trial){
+                            this->reward_mult = 0;
+                            setState(STATE_REWARD);
                         } else {
-                            setState(STATE_FAIL);
+                            playTone(TONE_FAIL);
+                            if (this->params->penalty_time > 0) {
+                                setState(STATE_PENALTY);
+                            } else {
+                                setState(STATE_FAIL);
+                            }
                         }
                     }
                 }
             }  
-            if(stateTimer->elapsedTime(S) > 3.5) {
-                setState(STATE_ABORT);
+            if(stateTimer->elapsedTime(S) > 1.75) {
+                if(this->catch_trial){
+                    playTone(TONE_REWARD);
+                    setState(STATE_REWARD);
+                }else{
+                    setState(STATE_ABORT);
+                }
+                
             }
 			break;
 		case STATE_PENALTY:
@@ -613,7 +695,7 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 				outputs->word = WORD_OT_ON(0);
 				break;
 			case STATE_STIM:
-				outputs->word = WORD_STIM(this->random->getInteger(0,(int)this->params->stim_levels));
+				outputs->word = WORD_STIM(this->stim_code);
 				break;
 			case STATE_BUMP:
 				outputs->word = WORD_BUMP(0);
@@ -655,7 +737,7 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 
 	} else if
         (getState() == STATE_CT_BLOCK ||
-         getState() == STATE_BUMP) 
+         getState() == STATE_BUMP || getState()==STATE_STIM) 
 	{
 		outputs->targets[0] = (Target *)centerTarget;
 		if (this->params->show_target_during_bump) {
@@ -681,7 +763,7 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 	}
 
 	/* reward (4) */
-	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
+	outputs->reward = this->reward_mult*(1000*(isNewState() && (getState() == STATE_REWARD)));
 
 	/* tone (5) */
 	this->outputs->tone_counter = this->tone_counter;
@@ -694,7 +776,7 @@ void TwoBumpChoiceBehavior::calculateOutputs(SimStruct *S) {
 	outputs->version[3] = BEHAVIOR_VERSION_BUILD;
 
 	/* position (7) */
-    if ((getState() == STATE_CT_BLOCK || getState() == STATE_BUMP) && (params->hide_cursor > .1))
+    if ((getState() == STATE_CT_BLOCK || getState() == STATE_BUMP || getState()==STATE_STIM) && (params->hide_cursor > .1))
     {
         outputs->position = Point(1E6, 1E6);
     } else { //if ( (params->recenter_cursor) && (getState() == STATE_MOVEMENT) ) {

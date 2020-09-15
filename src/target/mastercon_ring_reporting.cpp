@@ -704,7 +704,7 @@ void RingReportingBehavior::update(SimStruct *S) {
 			if(this->params->abort_during_bump && !bigCenterTarget->cursorInTarget(inputs->cursor)){
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			} else if (!this->bump->isRunning(S)) {
+			} else if (stateTimer->elapsedTime(S) > this->params->bump_hold_time && !this->bump->isRunning(S)) {
 
                 setState(STATE_DELAY);
             }
@@ -764,7 +764,7 @@ void RingReportingBehavior::calculateOutputs(SimStruct *S) {
     }
     
 	/* force (0) */
-    if (bump->isRunning(S)) {
+    if (getState() == STATE_BUMP || bump->isRunning(S)) {
         outputs->force = bump->getBumpForce(S);
 //     		bf = bump->getBumpForce(S);
 //     		outputs->force.x = inputs->force.x + bf.x;

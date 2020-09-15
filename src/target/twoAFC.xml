@@ -8500,6 +8500,30 @@ Operator</sigName>
 
  
             <block>
+            <blkName>Reward check</blkName>
+            <xpcblkName>RewardSbs/Reward check</xpcblkName>
+            <SLblockPath>twoAFC/RewardSbs/Reward check</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
+            <blkName>Reward divisor</blkName>
+            <xpcblkName>RewardSbs/Reward divisor</xpcblkName>
+            <SLblockPath>twoAFC/RewardSbs/Reward divisor</SLblockPath>
+            <isSrc>[1 0 1]</isSrc>
+          <parameter>
+          <paramName>Value</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+          </block>
+
+ 
+            <block>
             <blkName>RewardJackpot</blkName>
             <xpcblkName>RewardSbs/RewardJackpot</xpcblkName>
             <SLblockPath>twoAFC/RewardSbs/RewardJackpot</SLblockPath>
@@ -8521,6 +8545,9 @@ Operator</sigName>
           <dim>[1, 1]</dim>  
           </parameter>
           </block>
+
+
+
 
 
 
@@ -8574,6 +8601,18 @@ Number</blkName>
     
 
 
+
+
+    
+    
+
+
+
+
+    
+    
+
+
   
               
 
@@ -8597,9 +8636,61 @@ Number</blkName>
               
        
               <signal>
+              <sigName>Product1</sigName>
+              <xpcsigName>RewardSbs/Product1</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Product2</sigName>
+              <xpcsigName>RewardSbs/Product2</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
               <sigName>Relational
 Operator</sigName>
               <xpcsigName>RewardSbs/Relational Operator</xpcsigName>
+              <sigWidth>1</sigWidth>
+              <sigDim>[1, 1]</sigDim>
+            </signal>
+
+
+    
+    
+
+
+  
+              
+
+              
+       
+              <signal>
+              <sigName>Relational
+Operator1</sigName>
+              <xpcsigName>RewardSbs/Relational Operator1</xpcsigName>
               <sigWidth>1</sigWidth>
               <sigDim>[1, 1]</sigDim>
             </signal>
@@ -13159,6 +13250,26 @@ Function3</sigName>
  
           <parameter>
           <paramName>P36</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P37</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P38</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P39</paramName>
+          <dim>[1, 1]</dim>  
+          </parameter>
+ 
+          <parameter>
+          <paramName>P40</paramName>
           <dim>[1, 1]</dim>  
           </parameter>
           </block>

@@ -282,38 +282,70 @@ namespace BehaviorGraphics
             AddParamListItem("FC Target Angle", "P5", "Behavior FC", this.textBoxFCTargetAngle);
             AddParamListItem("FC Random Targets", "P6", "Behavior FC", this.checkBoxFCRandomTgt);
             AddParamListItem("FC Show During Bump", "P7", "Behavior FC", this.checkBoxFCShowTgts);
-            //Bump parameters
-            AddParamListItem("FC Bump Probability", "P8", "Behavior FC", this.textBoxFCBumpProb);
-            AddParamListItem("FC Bump direction", "P9", "Behavior FC", this.textBoxFCBumpDirection);
-            AddParamListItem("FC Bump magnitude floor", "P10", "Behavior FC", this.textBoxFCBumpMagFloor);
-            AddParamListItem("FC Bump magnitude ceiling", "P11", "Behavior FC", this.textBoxFCBumpMagCeiling);
-            AddParamListItem("FC Bump magnitude step", "P12", "Behavior FC", this.textBoxFCBumpMagStep);
-            AddParamListItem("FC Bump duration", "P13", "Behavior FC", this.textBoxFCBumpDuration);
-            AddParamListItem("FC Bump rise", "P14", "Behavior FC", this.textBoxFCBumpRamp);
+            
             // Forced Choice Timing
 
-            AddParamListItem("FC Center hold time", "P15", "Behavior FC", this.textBoxFCCtrHold);
-            AddParamListItem("FC bump delay low", "P16", "Behavior FC", this.textBoxFCBumpDelayLow);
-            AddParamListItem("FC bump delay high", "P17", "Behavior FC", this.textBoxFCBumpDelayHigh);
-            AddParamListItem("FC bump hold", "P18", "Behavior FC", this.textBoxFCBumpHold);
-            AddParamListItem("FC reaction time", "P19", "Behavior FC", this.textBoxFCReactionTime);
+            AddParamListItem("FC Center hold time", "P8", "Behavior FC", this.textBoxFCCtrHold);
+            AddParamListItem("FC cue delay low", "P9", "Behavior FC", this.textBoxFCCueDelayLow);
+            AddParamListItem("FC cue delay high", "P10", "Behavior FC", this.textBoxFCCueDelayHigh);
+            AddParamListItem("FC cue hold", "P11", "Behavior FC", this.textBoxFCCueHold);
+            AddParamListItem("FC reaction time", "P12", "Behavior FC", this.textBoxFCReactionTime);
 
-            AddParamListItem("FC intertrial", "P20", "Behavior FC", this.textBoxFCIntertrial);
+            AddParamListItem("FC intertrial", "P13", "Behavior FC", this.textBoxFCIntertrial);
 
-            AddParamListItem("FC Penalty", "P21", "Behavior FC", this.textBoxFCPenaltyTime);
+            AddParamListItem("FC Penalty", "P14", "Behavior FC", this.textBoxFCPenaltyTime);
             //Cursor parameters
-            AddParamListItem("FC Hide Cursor During Bump", "P22", "Behavior FC", this.checkBoxFCHideCursorDuringBumps);
-            AddParamListItem("FC Recenter Cursor After Bump", "P23", "Behavior FC", this.checkBoxFCRecenterAfterBumps);
-            // Stimulation Parameters
-            AddParamListItem("FC Stim Probability", "P24", "Behavior FC", this.textBoxFCStimProb);
-            AddParamListItem("FC Num Stim Levels", "P25", "Behavior FC", this.textBoxFCStimLevels);
-            // Misc
-            AddParamListItem("FC Training frequency", "P26", "Behavior FC", this.textBoxFCTrainingTrialFreq);
-            AddParamListItem("FC Abort During Bump", "P27", "Behavior FC", this.checkBoxFCAbortDuringBumps);
-            AddParamListItem("FC Force Reaction", "P28", "Behavior FC", this.checkBoxFCForceReactionTime);
-            AddParamListItem("FC Use Staircase", "P29", "Behavior FC", this.checkBoxFCUseStaircase);
-            AddParamListItem("FC Stim Code Low", "P30", "Behavior FC", this.textBoxFCStimCodeLow);
+            AddParamListItem("FC Hide Cursor During Cue", "P15", "Behavior FC", this.checkBoxFCHideCursorDuringCue);
+            AddParamListItem("FC Recenter Cursor After Cue", "P16", "Behavior FC", this.checkBoxFCRecenterAfterCue);
+            AddParamListItem("FC Lock Cursor During Cue", "P17", "Behavior FC", this.checkBoxFCLockCursorDuringCue);
+
+            // Training and Misc
+            AddParamListItem("FC Training frequency", "P18", "Behavior FC", this.textBoxFCTrainingTrialFreq);
+            AddParamListItem("FC Abort During Cue", "P19", "Behavior FC", this.checkBoxFCAbortDuringCue);
+            AddParamListItem("FC Force Reaction", "P20", "Behavior FC", this.checkBoxFCForceReactionTime);
+
+            // Cue Parameters
+            AddParamListItem("FC Stim Probability", "P21", "Behavior FC", this.textBoxFCStimProb);
+            AddParamListItem("FC Audio Prob", "P22", "Behavior FC", this.textBoxFCAudioProb);
+            AddParamListItem("FC Pair Stim and Audio", "P23", "Behavior FC", this.checkBoxFCPairStimAndAudio);
+
+            // Stim Levels
+            AddParamListItem("FC Num Stim Levels", "P24", "Behavior FC", this.textBoxFCStimLevels);
+            AddParamListItem("FC Stim Code 0 Duration", "P25", "Behavior FC", this.textBoxFCStimCode0Dur);
+            AddParamListItem("FC Stim Code 1 Duration", "P26", "Behavior FC", this.textBoxFCStimCode1Dur);
+            AddParamListItem("FC Stim Code 2 Duration", "P27", "Behavior FC", this.textBoxFCStimCode2Dur);
+            AddParamListItem("FC Stim Code 3 Duration", "P28", "Behavior FC", this.textBoxFCStimCode3Dur);
+            AddParamListItem("FC Stim Code 4 Duration", "P29", "Behavior FC", this.textBoxFCStimCode4Dur);
+            AddParamListItem("FC Stim Code 5 Duration", "P30", "Behavior FC", this.textBoxFCStimCode5Dur);
+            AddParamListItem("FC Stim Code 6 Duration", "P31", "Behavior FC", this.textBoxFCStimCode6Dur);
+            AddParamListItem("FC Stim Code 7 Duration", "P32", "Behavior FC", this.textBoxFCStimCode7Dur);
+            AddParamListItem("FC Stim Code 8 Duration", "P33", "Behavior FC", this.textBoxFCStimCode8Dur);
+            AddParamListItem("FC Stim Code 9 Duration", "P34", "Behavior FC", this.textBoxFCStimCode9Dur);
+            AddParamListItem("FC Stim Code 10 Duration", "P35", "Behavior FC", this.textBoxFCStimCode10Dur);
+            AddParamListItem("FC Stim Code 11 Duration", "P36", "Behavior FC", this.textBoxFCStimCode11Dur);
+            AddParamListItem("FC Stim Code 12 Duration", "P37", "Behavior FC", this.textBoxFCStimCode12Dur);
+            AddParamListItem("FC Stim Code 13 Duration", "P38", "Behavior FC", this.textBoxFCStimCode13Dur);
+            AddParamListItem("FC Stim Code 14 Duration", "P39", "Behavior FC", this.textBoxFCStimCode14Dur);
+            AddParamListItem("FC Stim Code 15 Duration", "P40", "Behavior FC", this.textBoxFCStimCode15Dur);
             
+            // Audio levels
+            AddParamListItem("FC Audio Levels", "P41", "Behavior FC", this.textBoxFCAudioLevels);
+            AddParamListItem("FC Audio Code 0 Duration", "P42", "Behavior FC", this.textBoxFCAudioCue0Dur);
+            AddParamListItem("FC Audio Code 1 Duration", "P43", "Behavior FC", this.textBoxFCAudioCue1Dur);
+            AddParamListItem("FC Audio Code 2 Duration", "P44", "Behavior FC", this.textBoxFCAudioCue2Dur);
+            AddParamListItem("FC Audio Code 3 Duration", "P45", "Behavior FC", this.textBoxFCAudioCue3Dur);
+            AddParamListItem("FC Audio Code 4 Duration", "P46", "Behavior FC", this.textBoxFCAudioCue4Dur);
+            AddParamListItem("FC Audio Code 5 Duration", "P47", "Behavior FC", this.textBoxFCAudioCue5Dur);
+            AddParamListItem("FC Audio Code 6 Duration", "P48", "Behavior FC", this.textBoxFCAudioCue6Dur);
+            AddParamListItem("FC Audio Code 7 Duration", "P49", "Behavior FC", this.textBoxFCAudioCue7Dur);
+            AddParamListItem("FC Audio Code 8 Duration", "P50", "Behavior FC", this.textBoxFCAudioCue8Dur);
+            AddParamListItem("FC Audio Code 9 Duration", "P51", "Behavior FC", this.textBoxFCAudioCue9Dur);
+            AddParamListItem("FC Audio Code 10 Duration", "P52", "Behavior FC", this.textBoxFCAudioCue10Dur);
+            AddParamListItem("FC Audio Code 11 Duration", "P53", "Behavior FC", this.textBoxFCAudioCue11Dur);
+            AddParamListItem("FC Audio Code 12 Duration", "P54", "Behavior FC", this.textBoxFCAudioCue12Dur);
+            AddParamListItem("FC Audio Code 13 Duration", "P55", "Behavior FC", this.textBoxFCAudioCue13Dur);
+            AddParamListItem("FC Audio Code 14 Duration", "P56", "Behavior FC", this.textBoxFCAudioCue14Dur);
+            AddParamListItem("FC Audio Code 15 Duration", "P57", "Behavior FC", this.textBoxFCAudioCue15Dur);
             #endregion
 
             #region Bump-stim
@@ -716,6 +748,11 @@ namespace BehaviorGraphics
             AddParamListItem("2AFC Big Target Size", "P35", "Behavior 2AFC", this.textBox2AFC_bigTargetSize);
 
             AddParamListItem("2AFC Training Trial Frequency", "P36", "Behavior 2AFC", this.textBox2AFC_trainingTrialFrequency);
+            AddParamListItem("2AFC Reward Multiplier", "P37", "Behavior 2AFC", this.textBox2AFC_rewardMultiplier);
+
+            AddParamListItem("2AFC Num Bump Axes", "P38", "Behavior 2AFC", this.textBox2AFC_numBumpAxes);
+            AddParamListItem("2AFC Bump Axis Min", "P39", "Behavior 2AFC", this.textBox2AFC_bumpAxisMin);
+            AddParamListItem("2AFC Bump Axis Max", "P40", "Behavior 2AFC", this.textBox2AFC_bumpAxisMax);
 
             #endregion
 
@@ -846,7 +883,28 @@ namespace BehaviorGraphics
             AddParamListItem("2BC show ring prob", "P39", "Behavior 2BC", textBox2BC_show_ring_prob);
             AddParamListItem("2BC axis angle max", "P40", "Behavior 2BC", angleEntryBox2BCAngMax);
             AddParamListItem("2BC num axes", "P41", "Behavior 2BC", textBox2BC_num_axes);
-            
+
+            AddParamListItem("2BC stim instead of bump", "P42", "Behavior 2BC", checkBox2BC_stim_instead_of_bump);
+            AddParamListItem("2BC stim during bump", "P43", "Behavior 2BC", checkBox2BC_stim_during_bump);
+
+            AddParamListItem("2BC code 0 angle", "P44", "Behavior 2BC", angleEntryBox2BC_code0);
+            AddParamListItem("2BC code 1 angle", "P45", "Behavior 2BC", angleEntryBox2BC_code1);
+            AddParamListItem("2BC code 2 angle", "P46", "Behavior 2BC", angleEntryBox2BC_code2);
+            AddParamListItem("2BC code 3 angle", "P47", "Behavior 2BC", angleEntryBox2BC_code3);
+            AddParamListItem("2BC code 4 angle", "P48", "Behavior 2BC", angleEntryBox2BC_code4);
+            AddParamListItem("2BC code 5 angle", "P49", "Behavior 2BC", angleEntryBox2BC_code5);
+            AddParamListItem("2BC code 6 angle", "P50", "Behavior 2BC", angleEntryBox2BC_code6);
+            AddParamListItem("2BC code 7 angle", "P51", "Behavior 2BC", angleEntryBox2BC_code7);
+            AddParamListItem("2BC code 8 angle", "P52", "Behavior 2BC", angleEntryBox2BC_code8);
+            AddParamListItem("2BC code 9 angle", "P53", "Behavior 2BC", angleEntryBox2BC_code9);
+            AddParamListItem("2BC code 10 angle", "P54", "Behavior 2BC", angleEntryBox2BC_code10);
+            AddParamListItem("2BC code 11 angle", "P55", "Behavior 2BC", angleEntryBox2BC_code11);
+            AddParamListItem("2BC code 12 angle", "P56", "Behavior 2BC", angleEntryBox2BC_code12);
+            AddParamListItem("2BC code 13 angle", "P57", "Behavior 2BC", angleEntryBox2BC_code13);
+            AddParamListItem("2BC code 14 angle", "P58", "Behavior 2BC", angleEntryBox2BC_code14);
+            AddParamListItem("2BC code 15 angle", "P59", "Behavior 2BC", angleEntryBox2BC_code15);
+            AddParamListItem("2BC bump rate", "P60", "Behavior 2BC", textBox2BC_bump_rate);
+
             #endregion
 
             #region Stim Angle psychopysics
@@ -1008,6 +1066,19 @@ namespace BehaviorGraphics
 
 
             AddParamListItem("COB target radius max", "P59", "Behavior CO Bump", textBox_ctr_out_bump_TargetDistanceMax);
+            
+            // random bump time in state
+            AddParamListItem("COB random bump distance", "P60", "Behavior CO Bump", checkBox_ctr_out_bump_randomBumpDistInState);
+            AddParamListItem("COB distance 1 min", "P61", "Behavior CO Bump", textBox_ctr_out_bump_Dist1Min);
+            AddParamListItem("COB distance 1 max", "P62", "Behavior CO Bump", textBox_ctr_out_bump_Dist1Max);
+            AddParamListItem("COB distance 2 min", "P63", "Behavior CO Bump", textBox_ctr_out_bump_Dist2min);
+            AddParamListItem("COB distance 2 max", "P64", "Behavior CO Bump", textBox_ctr_out_bump_dist2Max);
+            AddParamListItem("COB prob dist 1", "P65", "Behavior CO Bump", textBox_ctr_out_bump_ProbDist1);
+
+            AddParamListItem("COB stim reward rate", "P66", "Behavior CO Bump", textBox_ctr_out_bump_stimRewardRate);
+            AddParamListItem("COB play abort tone", "P67", "Behavior CO Bump", checkBox_ctr_out_bump_play_abort_tone);
+            AddParamListItem("COB play reward tone", "P68", "Behavior CO Bump", checkBox_ctr_out_bump_play_reward_tone);
+
             #endregion
 
             #region Unstable Field
@@ -3311,6 +3382,8 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
+ 
+
 
     }
 

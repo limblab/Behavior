@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1294"
+    ComputedModelVersion    "1.1297"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -66,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "limblab"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jun 26 16:28:32 2019"
-  RTWModifiedTimeStamp	  483467305
-  ModelVersionFormat	  "1.%<AutoIncrement:1294>"
+  LastModifiedDate	  "Thu Aug 27 08:34:19 2020"
+  RTWModifiedTimeStamp	  520418056
+  ModelVersionFormat	  "1.%<AutoIncrement:1297>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1069,7 +1069,7 @@ Model {
       BackgroundColor	      "lightBlue"
       FunctionName	      "mastercon_CO_bump"
       Parameters	      "0, 0, 0, .5, 0, 0.5, 1, 0.1, .2, 0 1 .1 1 3 8 0 0 359 8 1 0 2 5 1 1 1 0 0 .4 .3 1 0 5 1 0 0 .4"
-      " .3 1 0 5 1 0 0 .4 .3 1 0 5 1 0 3 0 0 0 0 0 0 7"
+      " .3 1 0 5 1 0 0 .4 .3 1 0 5 1 0 3 0 0 0 0 0 0 7 0 0 0 0 0 0 1 1 1"
       Object {
 	$PropName		"MaskObject"
 	$ObjectID		19

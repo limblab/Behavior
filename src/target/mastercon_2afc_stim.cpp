@@ -135,6 +135,12 @@ struct LocalParams {
     real_T idiot_mode;
     real_T big_target_size;
     real_T training_trial_prob;
+    real_T reward_multiplier;
+    
+    real_T num_bump_axes;
+    real_T bump_axis_min;
+    real_T bump_axis_max;
+    
 };
 
 /**
@@ -155,17 +161,19 @@ public:
 
 private:
 	// Your behavior's instance variables
-	CircleTarget *centerTarget;
-    CircleTarget *bigCenterTarget;
+	SquareTarget *centerTarget;
+    SquareTarget *bigCenterTarget;
     
-	CircleTarget *primaryTarget;
-	CircleTarget *secondaryTarget;
-	CircleTarget *periodTarget;
+	SquareTarget *primaryTarget;
+	SquareTarget *secondaryTarget;
+	SquareTarget *periodTarget;
 	
 	SquareTarget *errorTarget;
     
 	Target *correctTarget;
 	Target *incorrectTarget;
+    
+    SquareTarget *backgroundTarget;
 	
 	bool cue_1_is_stim;
 	bool cue_2_is_stim;
@@ -177,7 +185,7 @@ private:
 	bool cue_1_first;
 	bool did_first_cue;
 	bool did_second_cue;
-
+    
 	Point cursorOffset;
 
 	CosineBumpGenerator *cue_1_bump;
@@ -200,6 +208,10 @@ private:
     
 	int stim_level;
 	// any helper functions you need
+    
+    double reward_rate;
+    double target_axis; // radians
+    
 	void doPreTrial(SimStruct *S);
 
 };
@@ -211,7 +223,7 @@ TwoAFCBehavior::TwoAFCBehavior(SimStruct *S) : RobotBehavior() {
 
 	// Set up the number of parameters you'll be using
 
-	this->setNumParams(36);
+	this->setNumParams(40);
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,            0);
 	this->bindParamId(&params->soft_reset,        		1);
@@ -258,6 +270,12 @@ TwoAFCBehavior::TwoAFCBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->idiot_mode,              33);
     this->bindParamId(&params->big_target_size,         34);
     this->bindParamId(&params->training_trial_prob,     35);
+    this->bindParamId(&params->reward_multiplier,       36);
+    
+    this->bindParamId(&params->num_bump_axes,           37);
+    this->bindParamId(&params->bump_axis_min,           38);
+    this->bindParamId(&params->bump_axis_max,           39);
+    
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -268,22 +286,26 @@ TwoAFCBehavior::TwoAFCBehavior(SimStruct *S) : RobotBehavior() {
 	
 	last_soft_reset = -1; // force a soft reset of first trial
 
-	centerTarget = new CircleTarget();
-    bigCenterTarget = new CircleTarget();
+	centerTarget = new SquareTarget();
+    bigCenterTarget = new SquareTarget();
     
-	periodTarget = new CircleTarget();
+	periodTarget = new SquareTarget();
 	
-	primaryTarget = new CircleTarget(); 
-	secondaryTarget = new CircleTarget();
+	primaryTarget = new SquareTarget(); 
+	secondaryTarget = new SquareTarget();
+    
+    backgroundTarget = new SquareTarget();
 	
  	//centerTarget->color = Target::Color(128, 128, 128);
-    centerTarget->color = Target::Color(255, 0, 0);
+    centerTarget->color = Target::Color(0, 255, 0);
     bigCenterTarget->color = centerTarget->color;
     
 	periodTarget->color = Target::Color(128,128,128);
     
-	primaryTarget->color = Target::Color(160, 255, 0);
-	secondaryTarget->color = Target::Color(160, 255, 0);
+	primaryTarget->color = Target::Color(0, 200, 200);
+	secondaryTarget->color = Target::Color(0, 200, 200);
+    
+    backgroundTarget->color = Target::Color(255,255,255);
 	
 	errorTarget = new SquareTarget(0, 0, 100, Target::Color(255, 255, 255));
 
@@ -303,7 +325,7 @@ TwoAFCBehavior::TwoAFCBehavior(SimStruct *S) : RobotBehavior() {
 	this->cue_1_first = false;
 	
 	this->is_same_cue=false;
-	
+	    
 	this->ctr_hold=0.0;
 	this->delay_hold=0.0;
     this->ot_hold = 0.0;
@@ -313,6 +335,10 @@ TwoAFCBehavior::TwoAFCBehavior(SimStruct *S) : RobotBehavior() {
 	this->stim_level = 0;
 
     this->redo_trial = false;
+    
+    this->reward_rate = 1;
+    
+    this->target_axis = 0; // radians
 }
 
 
@@ -320,25 +346,43 @@ void TwoAFCBehavior::doPreTrial(SimStruct *S) {
 	
 	this->did_first_cue = false;
 	this->did_second_cue = false;
-
+    this->reward_rate = 1;
+    
     if (!this->redo_trial) {
 	    //set the target direction
 		this->tgt_angle = (int)((this->params->target_angle)) ;
-
+        
+        // set the target axis if applicable (in radians)
+        if(this->params->num_bump_axes > 0){
+            this->target_axis = (this->params->bump_axis_min + this->random->getInteger(0,this->params->num_bump_axes - 1)*(this->params->bump_axis_max - this->params->bump_axis_min)/(this->params->num_bump_axes - 1)) *PI/180; // make sure it is in radians
+        } else {
+            this->target_axis = 0;
+        }
+        
+        
 	    // Set up target locations, etc.
-	    centerTarget->radius = params->target_size;
-        bigCenterTarget->radius = params->big_target_size;
-		periodTarget->radius = params->big_target_size;
+// 	    centerTarget->radius = params->target_size;
+        centerTarget->width = params->target_size;
+//      bigCenterTarget->radius = params->big_target_size;
+        bigCenterTarget->width = params->big_target_size;
+// 		periodTarget->radius = params->big_target_size;
+        periodTarget->width = params->big_target_size;
 		
-	    primaryTarget->radius = params->target_size;
+// 	    primaryTarget->radius = params->target_size;
+        primaryTarget->width = params->target_size;
 	    primaryTarget->centerX = params->target_radius*cos((float)this->tgt_angle * PI/180);
 	    primaryTarget->centerY = params->target_radius*sin((float)this->tgt_angle * PI/180);
         
 		
-		secondaryTarget->radius = params->target_size;
+// 		secondaryTarget->radius = params->target_size;
+        secondaryTarget->width = params->target_size;
 	    secondaryTarget->centerX = params->target_radius*cos((float)this->tgt_angle * PI/180 + PI);
 	    secondaryTarget->centerY = params->target_radius*sin((float)this->tgt_angle * PI/180 + PI);
 		
+        backgroundTarget->width = 100;
+	    backgroundTarget->centerX = 0;
+	    backgroundTarget->centerY = 0;
+        
         //select the actual center hold time
 	    this->ctr_hold=this->random->getDouble(this->params->CH_low,this->params->CH_high);
 	    //select the actual delay period hold
@@ -373,7 +417,7 @@ void TwoAFCBehavior::doPreTrial(SimStruct *S) {
                 this->cue_1_bump->rise_time = this->params->bump_ramp;
                 this->cue_1_bump->peak_magnitude = this->params->bump_magnitude;
 
-                this->cue_1_bump->direction = (double)(this->params->cue_1_bump_dir) * PI/180;
+                this->cue_1_bump->direction = (double)(this->params->cue_1_bump_dir) * PI/180 + this->target_axis;
 			}
 		// setup cue 2
 			this->cue_2_is_stim = (this->random->getDouble() < this->params->cue_2_stim_prob);
@@ -385,7 +429,7 @@ void TwoAFCBehavior::doPreTrial(SimStruct *S) {
                 this->cue_2_bump->rise_time = this->params->bump_ramp;
                 this->cue_2_bump->peak_magnitude = this->params->bump_magnitude;
 
-                this->cue_2_bump->direction = (double)(this->params->cue_2_bump_dir) * PI/180;
+                this->cue_2_bump->direction = (double)(this->params->cue_2_bump_dir) * PI/180 + this->target_axis;
 			}
 		
 		
@@ -430,11 +474,10 @@ void TwoAFCBehavior::doPreTrial(SimStruct *S) {
 				this->incorrectTarget = secondaryTarget;
 			}
 		}
-		
-        if(this->training_trial){
+	
+        if(this->training_trial) {
             this->incorrectTarget = (Target *)nullTarget;
         }
-		
 
     } //else everything else is the same
 
@@ -527,10 +570,9 @@ void TwoAFCBehavior::update(SimStruct *S) {
                 }
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			} else if(this->ch_timer->elapsedTime(S) > this->ctr_hold || (this->did_first_cue && this->ch_timer->elapsedTime(S) > this->params->interperiod_duration)) { // leave the state
-				if(!this->did_first_cue) {
-					setState(STATE_CUE);
-				} else if(!this->did_second_cue){
+			} else if((!this->did_first_cue && this->ch_timer->elapsedTime(S) > this->ctr_hold) 
+                    || (this->did_first_cue && this->ch_timer->elapsedTime(S) > this->params->interperiod_duration)) { // leave the state
+				if(!this->did_first_cue || !this->did_second_cue) {
 					setState(STATE_CUE);
 				} else {
 					setState(STATE_DELAY);
@@ -615,8 +657,16 @@ void TwoAFCBehavior::update(SimStruct *S) {
                     playTone(TONE_REWARD);
                     setState(STATE_REWARD);
                 } else if(incorrectTarget->cursorInTarget(inputs->cursor)) {
+//                     if(this->training_trial) {
+//                         incorrectTarget = (Target *)nullTarget;
+//                         this->reward_rate = this->params->reward_multiplier;
+//                         playTone(TONE_FAIL);
+//                         setState(STATE_MOVEMENT);
+//                     } else {
                     playTone(TONE_FAIL);
                     setState(STATE_PENALTY);
+//                     }
+
                 }
 
             } else if (!(correctTarget->cursorInTarget(inputs->cursor) || incorrectTarget->cursorInTarget(inputs->cursor))){
@@ -634,7 +684,7 @@ void TwoAFCBehavior::update(SimStruct *S) {
                 }
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			} else if(stateTimer->elapsedTime(S) > this->params->bump_hold_time) {
+			} else if(stateTimer->elapsedTime(S) > this->params->period_duration) {
 				this->ch_timer->stop(S);
 				this->ch_timer->start(S);
 				setState(STATE_CT_HOLD);
@@ -647,7 +697,7 @@ void TwoAFCBehavior::update(SimStruct *S) {
                 }
 				playTone(TONE_ABORT);
 				setState(STATE_ABORT);
-			}else if(stateTimer->elapsedTime(S) > this->params->bump_hold_time ) {
+			}else if(stateTimer->elapsedTime(S) > this->params->period_duration ) {
 				this->ch_timer->stop(S);
 				this->ch_timer->start(S);
 				setState(STATE_CT_HOLD);
@@ -751,34 +801,35 @@ void TwoAFCBehavior::calculateOutputs(SimStruct *S) {
 
 	/* target_pos (3) */
 	// Center Target
+    outputs->targets[0] = (Target *)backgroundTarget;
 	if (getState() == STATE_CT_ON){
-        outputs->targets[0] = (Target *)centerTarget;
-		outputs->targets[1] = (Target *)nullTarget;
+        outputs->targets[1] = (Target *)centerTarget;
 		outputs->targets[2] = (Target *)nullTarget;
+		outputs->targets[3] = (Target *)nullTarget;
     } else if(getState() == STATE_CT_HOLD || getState() == STATE_DELAY ) {
-		outputs->targets[0] = (Target *)bigCenterTarget;
-		outputs->targets[1] = (Target *)correctTarget;
-		outputs->targets[2] = (Target *)incorrectTarget;
+		outputs->targets[1] = (Target *)bigCenterTarget;
+		outputs->targets[2] = (Target *)nullTarget;
+		outputs->targets[3] = (Target *)nullTarget;
 	} else if(getState() == STATE_BUMP || getState() == STATE_STIM) {
-		outputs->targets[0] = (Target *)periodTarget;
-		outputs->targets[1] = (Target *)correctTarget;
-		outputs->targets[2] = (Target *)incorrectTarget;
+		outputs->targets[1] = (Target *)periodTarget;
+		outputs->targets[2] = (Target *)nullTarget;
+		outputs->targets[3] = (Target *)nullTarget;
 	}else if ((getState() == STATE_MOVEMENT) || getState() == STATE_OT_HOLD) {
-		outputs->targets[0] = (Target *)(this->correctTarget);
-	    outputs->targets[1] = (Target *)(this->incorrectTarget);
-		outputs->targets[2] = nullTarget;
+		outputs->targets[1] = (Target *)(this->correctTarget);
+	    outputs->targets[2] = (Target *)(this->incorrectTarget);
+		outputs->targets[3] = nullTarget;
 	} else if (getState() == STATE_PENALTY) {
-		outputs->targets[0] = (Target *)(this->errorTarget);
-		outputs->targets[1] = nullTarget;
+		outputs->targets[1] = (Target *)(this->errorTarget);
 		outputs->targets[2] = nullTarget;
+		outputs->targets[3] = nullTarget;
 	} else {
-		outputs->targets[0] = nullTarget;
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
+		outputs->targets[3] = nullTarget;
 	}
 
 	/* reward (4) */
-	outputs->reward = (isNewState() && (getState() == STATE_REWARD));
+	outputs->reward = 1000*int((isNewState() && (getState() == STATE_REWARD)));//*this->reward_rate;
 
 	/* tone (5) */
 	this->outputs->tone_counter = this->tone_counter;
