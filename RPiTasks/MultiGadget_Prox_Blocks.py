@@ -117,7 +117,7 @@ class device():
             cursY = (self.FSR[0].value + self.FSR[1].value) * self.gain + self.offset
             X = (800/6)*cursX + 400 # screen is 6 in wide, 800 pixels -- switch from inches to pixels
             Y = (-480/3.25)*cursY + 240 # screen is 3.25 in tall, 480 pixels -- inches to pixels and flip direction
-            self.cursRect.center = [X,Y]
+            self.cursRect.center = [(.1*X)+(.9*self.cursRect.center[0]),(.1*Y)+(.9*self.cursRect.center[1])]
             screen.blit(self.cursImage,self.cursRect)
             print(X,' ',Y)
         else:
@@ -247,6 +247,7 @@ prox.enable_device()
 pygame.init()
 screen = pygame.display.set_mode(size=SIZE,flags=(pygame.FULLSCREEN|pygame.NOFRAME))
 blank_screen(screen)
+pygame.mouse.set_visible(False)
 pygame.event.clear()
 dev,tgt = restart_task(devDict,tgtDict) # new devices and targets
 targetHoldCurr = dt.now()
@@ -274,6 +275,7 @@ while True:
     for ev in pygame.event.get():
         if ev.type == pygame.KEYDOWN:
             if ev.key == pygame.K_q:
+                pygame.mouse.set_visible(True)
                 pygame.display.quit()
                 print('Closing task')
                 sleep(1)
