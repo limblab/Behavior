@@ -1,0 +1,4 @@
+Devices:
+  - Powergrasp
+    - Gain: [10, 10]
+    - Offset: [0]

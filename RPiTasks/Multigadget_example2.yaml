@@ -1,0 +1,21 @@
+Devices:
+  Key:
+    Gain:
+    - 1
+    - 1
+    LED:
+    - 15
+    Offset:
+    - 10
+    signal: serial1
+  Powergrasp:
+    Gain:
+    - 10
+    - 10
+    LED:
+    - 13
+    Offset:
+    - 10
+    signal: serial0
+
+

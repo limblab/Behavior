@@ -241,6 +241,7 @@ interTrialTime = delayGenerator(1.5, 5) # time between trials
 rButton = rewardButton()
 prox = proxSensor()
 prox.enable_device()
+dev,tgt = restart_task(devDict,tgtDict) # new devices and targets
 
 '''###########################################################################
 ### Initialize pygame -- display, sounds etc
@@ -303,7 +304,7 @@ while True:
         dev.update_cursor(screen)
         pygame.display.flip()
         if tgt.isOver(dev.cursRect): # if he's inside of the target
-            elapsed = (dt.now()-targetholdCurr)
+            elapsed = (dt.now()-targetHoldCurr)
             elapsed = elapsed.seconds + (elapsed.microseconds/100000)
             if elapsed > targetHoldTime.current: # and has been there for long enough
                 goSound.play() # play the sound to go to the reward
