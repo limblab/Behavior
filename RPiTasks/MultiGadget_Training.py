@@ -123,39 +123,39 @@ class device():
             self.cursRect.center = [(.1*X)+(.9*self.cursRect.center[0]),(.1*Y)+(.9*self.cursRect.center[1])]
             screen.blit(self.cursImage,self.cursRect)
             print(X,' ',Y)
-        else:
-            self.cursRect.center = [-100,-100]
             
         
     def activate_device(self):
         self.activated = True
+        self.cursRect.center = [100,100]
         for led in self.LED:
             led.on() # turn the LED on
         
     def deactivate_device(self):
         self.activated = False
+        self.cursRect.center = [100,100]
         for led in self.LED:
             led.off()
 
 # ----------------------------------------------------------------------------
-### proximity sensor class -- makes it easier to turn on and off
-class proxSensor():
-    def __init__(self,signal=gpiozero.LineSensor(14,pull_up=False),irLED=gpiozero.LED(15)):
+### training button -- automatically skips to the next stage
+class trainButton():
+    def __init__(self,signal=gpiozero.Button(14,pull_up=False),LED=gpiozero.LED(15)):
         self.signal = signal
-        self.irLED = irLED
+        self.LED = LED
         self.enabled = False
         
     def enable_device(self):
         if not self.enabled:
-            self.irLED.on()
-            self.active = True
+            self.LED.on()
+            self.enabled = True
         
     def disable_device(self):
         if self.enabled:
-            self.irLED.off()
+            self.LED.off()
             self.enabled = False
     
-    def monkey_in_corner(self):
+    def train(self):
         return self.signal.value
 
 # ----------------------------------------------------------------------------
@@ -222,25 +222,24 @@ def restart_task(devDict,tgtDict):
 # devices.DeviceOne.LED = gpiozero.LED(12)
 devDict = {'Powergrasp': device('Powergrasp',gpiozero.MCP3004(channel=0,device=0),
                                 gpiozero.MCP3004(channel=1,device=0),
-                                1.2,-0.25,gpiozero.LED(16),'./textures/face.tga')}
+                                1,-0.25,gpiozero.LED(16),'./textures/face.tga')}
 
 
 
 ### initialize the targets with desired locations (in inches)
-tgtDict = {1: target(0,    1.25,   4,   0.5),
+tgtDict = {1: target(0, 1.25,   4,   0.5),
            2: target(0, 1,   4,   0.5),
-           3: target(0,  0.75,   4,   0.5)}
+           3: target(0, 0.75,   4,   0.5)}
 
 
 ### initialize all of the wait times
 targetHoldTime = delayGenerator(.25, .75) # how long do they have to be in the target?
-dispenseTime = delayGenerator(.5, .75) # time to receive the reward
-interTrialTime = delayGenerator(1.5, 5) # time between trials
+dispenseTime = delayGenerator(.25, 0.7) # time to receive the reward
+interTrialTime = delayGenerator(2, 5) # time between trials
 
-# initialize the reward and prox sensors
+# initialize the reward and sensors
 rButton = rewardButton()
-prox = proxSensor()
-prox.enable_device()
+tButton = trainButton()
 
 '''###########################################################################
 ### Initialize pygame -- display, sounds etc
@@ -286,33 +285,26 @@ while True:
                 pygame.display.toggle_fullscreen()
  
     
-    if state == STATE_START_TRIAL: # starting a new trial. For the time being we'll set this up to work with the prox sensor
-        screen.fill(YELLOW)
-        pygame.display.flip()
-        if prox.monkey_in_corner() == True: # is the monkey in the corner?
-            goSound.play() # tell it to go back to the MG board
-            prox.disable_device() # turn off the prox sensor
-            dev.activate_device() # activate the device
-            dev.update_cursor(screen) # put the cursor on the screen
-            targetHoldCurr = dt.now() # keeping track of the amount of time the monkey has been in the target
-            tgt.draw(screen)
-            state = STATE_MOVEMENT
-        
-        
-        
-    elif state == STATE_MOVEMENT:
-        screen.fill(BLACK)
-        tgt.draw(screen)
-        dev.update_cursor(screen)
-        pygame.display.flip()
+    if state == STATE_MOVEMENT:
+        screen.fill(BLACK) # clear the screen
+        tgt.draw(screen) # draw the target
+        dev.update_cursor(screen) # draw cursor
+        pygame.display.flip() # turn the display on
+
+        if tButton.train(): # switch to reward
+           state = STATE_REWARD 
+           tButton.disable_device()
+           dev.deactivate_device() # turn off the device
+
         if tgt.isOver(dev.cursRect): # if he's inside of the target
-            elapsed = (dt.now()-targetHoldCurr)
+            elapsed = (dt.now()-targetHoldCurr) # how long has he been pressing it?
             elapsed = elapsed.seconds + (elapsed.microseconds/100000)
             if elapsed > targetHoldTime.current: # and has been there for long enough
                 goSound.play() # play the sound to go to the reward
                 state = STATE_REWARD # update to the next state
                 blank_screen(screen) # clear out the screen -- do we want to flash green or something?
                 dev.deactivate_device() # turn off the device
+                tButton.disable_device()
         else:
             targetHoldCurr = dt.now() # keep updating the current target hold counter
         
@@ -333,6 +325,7 @@ while True:
         dispenseTime.reroll()
         dev,tgt = restart_task(devDict,tgtDict) # new devices and targets
         goSound.play()
-        prox.enable_device()
-        state = STATE_START_TRIAL
+        tButton.enable_device()
+        dev.activate_device()
+        state = STATE_MOVEMENT
 
