@@ -219,7 +219,7 @@ def restart_task(devDict,tgtDict):
 # devices.DeviceOne.LED = gpiozero.LED(12)
 devDict = {'Powergrasp': device('Powergrasp',gpiozero.MCP3004(channel=0,device=0),
                                 gpiozero.MCP3004(channel=1,device=0),
-                                1.5,-0.25,gpiozero.LED(16),'./textures/face.tga')}
+                                1.2,-0.25,gpiozero.LED(16),'./textures/face.tga')}
 
 
 
