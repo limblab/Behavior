@@ -233,9 +233,9 @@ tgtDict = {1: target(0, 1.25,   4,   0.5),
 
 
 ### initialize all of the wait times
-targetHoldTime = delayGenerator(.25, .75) # how long do they have to be in the target?
-dispenseTime = delayGenerator(.25, 0.7) # time to receive the reward
-interTrialTime = delayGenerator(2, 5) # time between trials
+targetHoldTime = delayGenerator(.55, .75) # how long do they have to be in the target?
+dispenseTime = delayGenerator(.25, 0.5) # time to receive the reward
+interTrialTime = delayGenerator(2.5, 5) # time between trials
 
 # initialize the reward and sensors
 rButton = rewardButton()
@@ -247,7 +247,7 @@ tButton = trainButton()
 
 ### initialize some screen stuff
 pygame.init()
-screen = pygame.display.set_mode(size=SIZE,flags=(pygame.FULLSCREEN|pygame.NOFRAME))
+screen = pygame.display.set_mode(SIZE,(pygame.FULLSCREEN|pygame.NOFRAME))
 blank_screen(screen)
 pygame.mouse.set_visible(False)
 pygame.event.clear()

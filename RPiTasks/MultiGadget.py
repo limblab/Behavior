@@ -222,7 +222,7 @@ def restart_task(devDict,tgtDict):
 # devices.DeviceOne.LED = gpiozero.LED(12)
 devDict = {'Powergrasp': device('Powergrasp',gpiozero.MCP3004(channel=0,device=0),
                                 gpiozero.MCP3004(channel=1,device=0),
-                                1.2,-0.25,gpiozero.LED(16),'./textures/face.tga')}
+                                1,-0.25,gpiozero.LED(16),'./textures/face.tga')}
 
 
 
@@ -233,9 +233,9 @@ tgtDict = {1: target(0,    1.25,   4,   0.5),
 
 
 ### initialize all of the wait times
-targetHoldTime = delayGenerator(.25, .75) # how long do they have to be in the target?
-dispenseTime = delayGenerator(.5, .75) # time to receive the reward
-interTrialTime = delayGenerator(1.5, 5) # time between trials
+targetHoldTime = delayGenerator(.55, .75) # how long do they have to be in the target?
+dispenseTime = delayGenerator(.25, .5) # time to receive the reward
+interTrialTime = delayGenerator(2.5, 5) # time between trials
 
 # initialize the reward and prox sensors
 rButton = rewardButton()
@@ -248,7 +248,7 @@ prox.enable_device()
 
 ### initialize some screen stuff
 pygame.init()
-screen = pygame.display.set_mode(size=SIZE,flags=(pygame.FULLSCREEN|pygame.NOFRAME))
+screen = pygame.display.set_mode(SIZE,(pygame.FULLSCREEN|pygame.NOFRAME))
 blank_screen(screen)
 pygame.mouse.set_visible(False)
 pygame.event.clear()
