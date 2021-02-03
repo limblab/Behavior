@@ -26,9 +26,10 @@ Notes on storage of task performance:
 """
 
 # import all needed modules
-import sys, os, pygame, random, gpiozero, csv
+import sys, os, pygame, random, gpiozero, csv, socket
+from struct import pack
 from datetime import datetime as dt
-from time import sleep
+from time import sleep, time
 
 
 """ ##########################################################################
@@ -208,6 +209,21 @@ def restart_task(devDict,tgtDict):
     return dev,tgt
 
 
+def packUDPComment(comment):
+    
+    tt          = time.time() # current posix timestamp
+    chid        = 0x8000    # always set to this, there's no real channel in this case
+    pktType     = 0xB1      # cbPKTTYPE_COMMENTSET = 0xB1
+    
+    charset     = 0         # ANSI
+    flags       = 0x01      # cbCOMMENT_FLAG_TIMESTAMP -- is this what we want?
+    rsrvd       = 0         # reserved = 0
+    
+    
+    pack('L I B B B B H L 4s', int(tt), chid, pktType, 128,charset,flags,0,int(tt),b'0x32')
+    
+    
+    
     
 
 '''###########################################################################
@@ -259,7 +275,10 @@ pygame.mixer.init(frequency=163840,buffer=32000) # mister owl, why are these sam
 goSound = pygame.mixer.Sound(os.path.join("tones","go3_interp.wav"))
 rewardSound = pygame.mixer.Sound(os.path.join("tones","reward3_interp.wav"))
 
-
+### Open the UDP socket, create the main portions of the packet
+UDPClientSocket     = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM) ## create the socket
+serverAddressPort   = ("192.168.137.1", 51001)
+bufferSize          = 1024
 
 
  

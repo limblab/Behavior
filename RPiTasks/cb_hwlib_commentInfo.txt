@@ -1,0 +1,24 @@
+
+
+
+#define cbCOMMENT_FLAG_RGBA            0x00  // data is color in rgba format
+#define cbCOMMENT_FLAG_TIMESTAMP       0x01  // data is the timestamp of when the comment was started
+// Comment annotation packet.
+#define cbMAX_COMMENT  128     // cbMAX_COMMENT must be a multiple of four
+#define cbPKTTYPE_COMMENTREP   0x31  /* NSP->PC response */
+#define cbPKTTYPE_COMMENTSET   0xB1  /* PC->NSP request */
+#define cbPKTDLEN_COMMENT  ((sizeof(cbPKT_COMMENT)/4) - cbPKT_HEADER_32SIZE)
+#define cbPKTDLEN_COMMENTSHORT (cbPKTDLEN_COMMENT - ((sizeof(uint8_t)*cbMAX_COMMENT)/4))
+typedef struct {
+    uint32_t  time;       // System clock timestamp
+    uint16_t  chid;       // 0x8000
+    uint8_t   type;       // cbPKTTYPE_COMMENT*
+    uint8_t   dlen;       // cbPKTDLEN_COMMENT
+    struct {
+        uint8_t   charset;        // Character set (0 - ANSI, 1 - UTF16, 255 - NeuroMotive ANSI)
+        uint8_t   flags;          // Can be any of cbCOMMENT_FLAG_*
+        uint8_t   reserved[2];    // Reserved (must be 0)
+    } info;
+    uint32_t  data;       // depends on flags (see flags above)
+    char   comment[cbMAX_COMMENT]; // Comment
+} cbPKT_COMMENT;
