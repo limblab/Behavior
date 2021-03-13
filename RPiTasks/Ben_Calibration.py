@@ -154,12 +154,6 @@ def restart_task(devDict,tgtDict):
 
     return dev,tgt
 
-font = pygame.font.SysFont(None, 25)
-
-def message_to_screen(msg, color):
-    screen_text = font.render(msg, True, color)
-    gameDisplay.blit(screen_text, [800*2/3, 480*2/3])
-
     
 
 '''###########################################################################
@@ -204,6 +198,11 @@ blank_screen(screen)
 pygame.mouse.set_visible(False)
 pygame.event.clear()
 
+
+font = pygame.font.SysFont(None, 25)
+def message_to_screen(msg, color):
+    screen_text = font.render(msg, True, color)
+    gameDisplay.blit(screen_text, [800*2/3, 480*2/3])
 
 ### initialize the sound stuff
 pygame.mixer.init(frequency=163840,buffer=32000) # mister owl, why are these sampling frequencies so weird?
