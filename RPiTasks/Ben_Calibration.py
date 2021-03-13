@@ -183,9 +183,6 @@ targetHoldTime = delayGenerator(.55, .75) # how long do they have to be in the t
 dispenseTime = delayGenerator(.25, 0.5) # time to receive the reward
 interTrialTime = delayGenerator(2.5, 5) # time between trials
 
-# initialize the reward and sensors
-rButton = rewardButton()
-tButton = trainButton()
 
 '''###########################################################################
 ### Initialize pygame -- display, sounds etc
@@ -252,6 +249,5 @@ while True:
         dispenseTime.reroll()
         dev,tgt = restart_task(devDict,tgtDict) # new devices and targets
         goSound.play()
-        tButton.enable_device()
         dev.activate_device()
         state = STATE_MOVEMENT
