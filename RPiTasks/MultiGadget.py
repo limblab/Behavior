@@ -219,11 +219,13 @@ def packUDPComment(comment):
     flags       = 0x01      # cbCOMMENT_FLAG_TIMESTAMP -- is this what we want?
     rsrvd       = 0         # reserved = 0
     
+    fullComment = comment.ljust(128,'\0').encode('ansi') # fill up everything not used with zeros
+    dLen = 34 # 128/4 (cbMAX_COMMENT in uint32_t) + charset,flags,rsrvd and data
     
-    pack('L I B B B B H L 4s', int(tt), chid, pktType, 128,charset,flags,0,int(tt),b'0x32')
     
+    return pack('L H B B B B H L 128s', int(tt), chid, pktType, dLen,charset,flags,rsrvd,int(tt),comment.encode('ANSI'))
     
-    
+
     
 
 '''###########################################################################
@@ -277,7 +279,7 @@ rewardSound = pygame.mixer.Sound(os.path.join("tones","reward3_interp.wav"))
 
 ### Open the UDP socket, create the main portions of the packet
 UDPClientSocket     = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM) ## create the socket
-serverAddressPort   = ("192.168.137.1", 51001)
+serverAddressPort   = ("192.168.137.128", 51001)
 bufferSize          = 1024
 
 
@@ -316,6 +318,7 @@ while True:
             targetHoldCurr = dt.now() # keeping track of the amount of time the monkey has been in the target
             tgt.draw(screen)
             state = STATE_MOVEMENT
+            
         
         
         
