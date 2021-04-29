@@ -61,7 +61,6 @@ STATE_MOVEMENT = 1
 STATE_REWARD = 2
 STATE_BETWEEN_TRIALS = 3
 
-state = STATE_BETWEEN_TRIALS
 
 
 
@@ -114,7 +113,7 @@ class device():
         self.activated = False # turn off the device whenever we're not using it
 
     # update the cursor location and display
-    def update_cursor(self,screen):
+    def update_cursor(self,screen,cerebusSocket):
         
         if self.activated:
             cursX = (self.FSR[1].value - self.FSR[0].value) * self.gain
@@ -123,7 +122,8 @@ class device():
             Y = (-480/3.25)*cursY + 240 # screen is 3.25 in tall, 480 pixels -- inches to pixels and flip direction
             self.cursRect.center = [(.1*X)+(.9*self.cursRect.center[0]),(.1*Y)+(.9*self.cursRect.center[1])]
             screen.blit(self.cursImage,self.cursRect)
-            print(X,' ',Y)
+            cerebusSocket.send('CURSOR: X:' + str(cursX) + ' Y:' + str(cursY) + 
+                               ' FSR0:' + str(self.FSR[0].value) + ' FSR1:' + str(self.FSR[1].value))
         else:
             self.cursRect.center = [-100,-100]
             
@@ -191,6 +191,35 @@ class delayGenerator():
 
 
 
+# ----------------------------------------------------------------------------
+### communication with the cerebus
+class cerebusUDPSocket():
+    def __init__(self):
+        self.UDPClientSocket     = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM) ## create the socket
+        self.serverAddressPort   = ("192.168.137.128", 51001) # address for the cerebus
+    
+    
+    def send(self,comment):
+        tt          = time.time() # current posix timestamp
+        chid        = 0x8000    # always set to this, there's no real channel in this case
+        pktType     = 0xB1      # cbPKTTYPE_COMMENTSET = 0xB1
+        
+        charset     = 0         # ANSI
+        flags       = 0x01      # cbCOMMENT_FLAG_TIMESTAMP -- is this what we want?
+        rsrvd       = 0         # reserved = 0
+        
+        fullComment = comment.ljust(128,'\0').encode('ansi') # fill up everything not used with zeros
+        dLen = 34 # 128/4 (cbMAX_COMMENT in uint32_t) + charset,flags,rsrvd and data(tt)
+        
+        packComment = pack('L H B B B B H L 128s', int(tt), chid, pktType, dLen,charset,flags,rsrvd,int(tt),fullComment)
+        
+        self.UDPClientSocket.sendto(packComment,self.serverAddressPort)
+        
+
+
+
+
+
 ''' ##########################################################################
 ### Defining submodules
 ###########################################################################'''
@@ -208,25 +237,8 @@ def restart_task(devDict,tgtDict):
 
     return dev,tgt
 
-
-def packUDPComment(comment):
-    
-    tt          = time.time() # current posix timestamp
-    chid        = 0x8000    # always set to this, there's no real channel in this case
-    pktType     = 0xB1      # cbPKTTYPE_COMMENTSET = 0xB1
-    
-    charset     = 0         # ANSI
-    flags       = 0x01      # cbCOMMENT_FLAG_TIMESTAMP -- is this what we want?
-    rsrvd       = 0         # reserved = 0
-    
-    fullComment = comment.ljust(128,'\0').encode('ansi') # fill up everything not used with zeros
-    dLen = 34 # 128/4 (cbMAX_COMMENT in uint32_t) + charset,flags,rsrvd and data
-    
-    
-    return pack('L H B B B B H L 128s', int(tt), chid, pktType, dLen,charset,flags,rsrvd,int(tt),comment.encode('ANSI'))
     
 
-    
 
 '''###########################################################################
 ### initializing the devices and targets
@@ -277,11 +289,10 @@ pygame.mixer.init(frequency=163840,buffer=32000) # mister owl, why are these sam
 goSound = pygame.mixer.Sound(os.path.join("tones","go3_interp.wav"))
 rewardSound = pygame.mixer.Sound(os.path.join("tones","reward3_interp.wav"))
 
-### Open the UDP socket, create the main portions of the packet
-UDPClientSocket     = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM) ## create the socket
-serverAddressPort   = ("192.168.137.128", 51001)
-bufferSize          = 1024
-
+## initialize state, cerebus socket, plus dev and tgt just to avoid errors in spyder
+state = STATE_BETWEEN_TRIALS # start with the in-between state just to get everything running happily
+cerSocket = cerebusUDPSocket # instantiation
+dev,tgt = restart_task(devDict,tgtDict) # new devices and targets
 
  
 ### storage of the words and cursor locations
@@ -311,6 +322,7 @@ while True:
         screen.fill(YELLOW)
         pygame.display.flip()
         if prox.monkey_in_corner() == True: # is the monkey in the corner?
+            cerSocket.send('STATE: prox_tripped') # monkey got to the proximity sensor
             goSound.play() # tell it to go back to the MG board
             prox.disable_device() # turn off the prox sensor
             dev.activate_device() # activate the device
@@ -318,14 +330,14 @@ while True:
             targetHoldCurr = dt.now() # keeping track of the amount of time the monkey has been in the target
             tgt.draw(screen)
             state = STATE_MOVEMENT
-            
+            cerSocket.send('STATE: MG_active') # starting the "movement" (aka touch the MG) -- name from the lab
         
         
         
     elif state == STATE_MOVEMENT:
         screen.fill(BLACK)
         tgt.draw(screen)
-        dev.update_cursor(screen)
+        dev.update_cursor(screen,cerSocket)
         pygame.display.flip()
         if tgt.isOver(dev.cursRect): # if he's inside of the target
             elapsed = (dt.now()-targetHoldCurr)
@@ -333,6 +345,7 @@ while True:
             if elapsed > targetHoldTime.current: # and has been there for long enough
                 goSound.play() # play the sound to go to the reward
                 state = STATE_REWARD # update to the next state
+                cerSocket.send('STATE: reward')
                 blank_screen(screen) # clear out the screen -- do we want to flash green or something?
                 dev.deactivate_device() # turn off the device
         else:
@@ -345,6 +358,7 @@ while True:
         pygame.display.flip()
         rButton.reward(dispenseTime.current, rewardSound) # get the reward button going
         state = STATE_BETWEEN_TRIALS
+        cerSocket.send('STATE: between_trials')
         
         
     elif state == STATE_BETWEEN_TRIALS:
@@ -357,4 +371,10 @@ while True:
         goSound.play()
         prox.enable_device()
         state = STATE_START_TRIAL
+        cerSocket.send('STATE: prox_on')
+        # target corners, per the "lab standard"
+        ULx, ULy = dev.x - dev.width/2, dev.y + dev.height/2
+        LRx, LRy = dev.x + dev.width/2, dev.y - dev.height/2
+        cerSocket.send('TARGET: ULx:' + str(ULx) + ' ULy:' + str(ULy) + 
+                       ' LRx:' + str(LRx) + ' LRy:' + str(LRy))
 
