@@ -98,10 +98,7 @@ struct LocalParams {
     real_T hide_cursor_during_cue;
     real_T recenter_cursor_after_cue;
     real_T lock_cursor_during_cue;
-    
-    real_T training_prob;
-    real_T abort_during_cue;
-    real_T force_reaction_time;
+  
     
 	real_T stim_prob;
     real_T audio_prob;
@@ -142,7 +139,17 @@ struct LocalParams {
     real_T audio_code13_duration;
     real_T audio_code14_duration;
     real_T audio_code15_duration;
+  
+    real_T bump_prob;
+    real_T bump_mag;
+    real_T bump_rise_time;
+    real_T bump_fall_time;
+    real_T bump_off_min;
+    real_T bump_off_max;
+    real_T bump_peak_time;
+    real_T bump_dir;
     
+    real_T training_prob;
 };
 
 /**
@@ -171,6 +178,8 @@ private:
 	bool stim_trial;
     bool audio_trial;
     bool catch_trial;
+    bool bump_trial; 
+    bool training_trial;
     
     int stim_level;
     int audio_level;
@@ -194,6 +203,9 @@ private:
     // center hold timer
     Timer *ch_timer;
 
+    // bump
+    UnevenTrapBumpGenerator *bump;
+    
     // whether to redo the trial (idiot mode)
     bool is_hiding_cursor;
     bool redo_trial;
@@ -208,8 +220,8 @@ RTOffsetBehavior::RTOffsetBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-
-	this->setNumParams(57);
+	this->setNumParams(63);
+    
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,            0);
 	this->bindParamId(&params->soft_reset,              1);
@@ -233,9 +245,9 @@ RTOffsetBehavior::RTOffsetBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->recenter_cursor_after_cue,15);
     this->bindParamId(&params->lock_cursor_during_cue,16);
     
-    this->bindParamId(&params->training_prob,           17);
-    this->bindParamId(&params->abort_during_cue,        18);
-    this->bindParamId(&params->force_reaction_time,     19);
+    this->bindParamId(&params->bump_off_min,17);
+    this->bindParamId(&params->bump_off_max,18);
+    this->bindParamId(&params->bump_prob,19);
     
 	this->bindParamId(&params->stim_prob,               20);
     this->bindParamId(&params->audio_prob,              21);
@@ -277,6 +289,14 @@ RTOffsetBehavior::RTOffsetBehavior(SimStruct *S) : RobotBehavior() {
     this->bindParamId(&params->audio_code14_duration,   55);
     this->bindParamId(&params->audio_code15_duration,   56);
     
+    this->bindParamId(&params->bump_mag,                57);
+    this->bindParamId(&params->bump_rise_time,          58);
+    this->bindParamId(&params->bump_fall_time,          59);
+    this->bindParamId(&params->bump_peak_time,          60);
+    
+    this->bindParamId(&params->bump_dir,                61);
+    this->bindParamId(&params->training_prob,           62);
+    
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -284,7 +304,8 @@ RTOffsetBehavior::RTOffsetBehavior(SimStruct *S) : RobotBehavior() {
 	// This function now fetches all of the parameters into the variables
 	// as defined above.
 	//this->updateParameters(S);
-	
+    this->bump = new UnevenTrapBumpGenerator();
+    
 	last_soft_reset = -1; // force a soft reset of first trial
 
 	centerTarget = new CircleTarget();
@@ -317,7 +338,7 @@ RTOffsetBehavior::RTOffsetBehavior(SimStruct *S) : RobotBehavior() {
 
 
 void RTOffsetBehavior::doPreTrial(SimStruct *S) {
-   
+    this->bump->stop();
     this->is_hiding_cursor = 0;
     if (!this->redo_trial) {
 	    //set the target direction
@@ -327,6 +348,12 @@ void RTOffsetBehavior::doPreTrial(SimStruct *S) {
 	    	this->tgt_angle = (int)((this->params->target_angle)) ;
 	    }
 
+        this->bump->hold_duration = this->params->bump_peak_time;
+        this->bump->rise_time = this->params->bump_rise_time;
+        this->bump->peak_magnitude = this->params->bump_mag;
+        this->bump->fall_time = this->params->bump_fall_time;
+        this->bump->direction = ((double)this->params->bump_dir) * PI/180;
+        
 	    // Set up target locations, etc.
 	    centerTarget->radius = params->target_size;
         if(centerTarget->radius < 0.1) {
@@ -339,7 +366,7 @@ void RTOffsetBehavior::doPreTrial(SimStruct *S) {
         //select the actual center hold time
 	    this->ctr_hold=this->params->CH_time;
 	    
-        // select the actual cue time
+        // select the actual cue on time
         this->cue_time = this->random->getDouble(this->params->cue_delay_low, this->params->cue_delay_high);
         
         // stop and reset center hold timer
@@ -347,20 +374,25 @@ void RTOffsetBehavior::doPreTrial(SimStruct *S) {
 	    
 	    // Select which type of trial this is 
         // select stim and audio level as well
+        double rand_val = this->random->getDouble();
         if(this->params->pair_stim_audio){
-            this->stim_trial=(this->random->getDouble() < this->params->stim_prob);
-            this->audio_trial=(this->random->getDouble() < this->params->audio_prob);
+            this->stim_trial=(rand_val < this->params->stim_prob);
+            this->audio_trial=(rand_val < this->params->audio_prob);
             this->stim_level = this->random->getInteger(0,(int)this->params->stim_levels);
             this->audio_level = this->stim_level; // audio and stim should end at same time if they are paired.....
+            this->bump_trial = (rand_val >= this->params->stim_prob && rand_val < this->params->stim_prob+this->params->bump_prob);
         } else {
-            double rand_val = this->random->getDouble();
             this->stim_trial=(rand_val < this->params->stim_prob);
             this->audio_trial=(rand_val > this->params->stim_prob && rand_val < this->params->audio_prob+this->params->stim_prob);
+            this->bump_trial=(rand_val > this->params->stim_prob+this->params->audio_prob && rand_val < this->params->audio_prob+this->params->stim_prob+this->params->bump_prob);
             this->stim_level = this->random->getInteger(0,(int)this->params->stim_levels);
             this->audio_level = this->random->getInteger(0,(int)this->params->audio_levels);
         }
+        
+        this->training_trial = this->random->getDouble() < this->params->training_prob;
+        
         this->catch_trial = false;
-        if(!this->stim_trial && !this->audio_trial){
+        if(!this->stim_trial && !this->audio_trial && !this->bump_trial){
             this->catch_trial = true;
         }
         
@@ -406,8 +438,10 @@ void RTOffsetBehavior::doPreTrial(SimStruct *S) {
             this->cue_duration = stim_dur_list[this->stim_level];
         } else if(this->audio_trial){
             this->cue_duration = audio_dur_list[this->audio_level];
+        } else if(this->bump_trial) {
+            this->cue_duration = this->random->getDouble(this->params->bump_off_min, this->params->bump_off_max);
         }
-        this->cue_duration = this->cue_duration + 0.04; // ~40 ms delay between cue start here and actual start
+        this->cue_duration = this->cue_duration;
         
     } //else everything else is the same
 
@@ -437,6 +471,12 @@ void RTOffsetBehavior::doPreTrial(SimStruct *S) {
     db->addByte((byte)this->audio_trial);
     db->addByte((byte)this->catch_trial);
     db->addByte((byte)this->redo_trial);
+    
+    db->addByte((byte)this->bump_trial);
+    db->addFloat((float)this->params->bump_mag);
+    db->addFloat((float)this->params->bump_rise_time);
+    db->addFloat((float)this->params->bump_fall_time);
+    db->addFloat((float)this->params->bump_peak_time);
 	db->start();
 }
 
@@ -481,7 +521,10 @@ void RTOffsetBehavior::update(SimStruct *S) {
                     setState(STATE_STIM);
                 } else if(this->audio_trial) {
                     setState(STATE_AUDIO);
-                } else {
+                } else if(this->bump_trial){
+                    this->bump->start(S);
+                    setState(STATE_BUMP);
+                }else {
                     setState(STATE_CUE_ON);
                 }
 			}
@@ -491,7 +534,8 @@ void RTOffsetBehavior::update(SimStruct *S) {
                 playTone(TONE_ABORT);
 				setState(STATE_ABORT);
             }
-            if(stateTimer->elapsedTime(S) > this->cue_duration) {
+            if(stateTimer->elapsedTime(S) > this->cue_duration + 0.04) { // ~40ms delay between word and cue start
+                this->bump->stop();
                 setState(STATE_MOVEMENT);
             }
             break;
@@ -503,7 +547,10 @@ void RTOffsetBehavior::update(SimStruct *S) {
                 playTone(TONE_FAIL);
     			setState(STATE_FAIL);
        		}
-			break;         
+			break;      
+        case STATE_BUMP:
+            setState(STATE_CUE_ON);
+            break;
 		case STATE_STIM:
             setState(STATE_CUE_ON);
 			break; 
@@ -521,6 +568,7 @@ void RTOffsetBehavior::update(SimStruct *S) {
 		case STATE_FAIL:
         case STATE_INCOMPLETE:
             this->is_hiding_cursor=0;
+            this->bump->stop();
 			if (stateTimer->elapsedTime(S) > params->intertrial_time) {
 				setState(STATE_PRETRIAL);
 			}
@@ -538,7 +586,12 @@ void RTOffsetBehavior::calculateOutputs(SimStruct *S) {
     double y_comp;
 
 	/* force (0) */
-    outputs->force = inputs->force;
+    if (bump->isRunning(S)) {
+            outputs->force = bump->getBumpForce(S);
+    } else {
+        outputs->force.x = 0;
+        outputs->force.y = 0;
+    }
 
 	/* status (1) */
  	outputs->status[0] = getState();
@@ -601,8 +654,16 @@ void RTOffsetBehavior::calculateOutputs(SimStruct *S) {
 		outputs->targets[1] = nullTarget;
 		outputs->targets[2] = nullTarget;
 	} else if(getState() == STATE_DELAY || getState() == STATE_STIM || getState() == STATE_AUDIO
-            || getState() == STATE_CUE_ON || getState() == STATE_MOVEMENT) {
+            || getState() == STATE_CUE_ON) {
 		outputs->targets[0] = (Target *)centerTarget;
+        if(this->training_trial){
+            outputs->targets[1] = nullTarget;
+        } else {
+            outputs->targets[1] = (Target *)(this->primaryTarget);
+        }
+		outputs->targets[2] = nullTarget;
+    } else if(getState() == STATE_MOVEMENT) {
+        outputs->targets[0] = (Target *)centerTarget;
 		outputs->targets[1] = (Target *)(this->primaryTarget);
 		outputs->targets[2] = nullTarget;
 	} else if (getState() == STATE_PENALTY) {

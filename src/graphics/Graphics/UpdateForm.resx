@@ -120,17 +120,6 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>236, 17</value>
   </metadata>
-  <data name="textBoxFCCueDelayLow.ToolTip" xml:space="preserve">
-    <value>Upper bound on random center hold time.  Center hold time is the time between when the cursor enters the center target and the stimulus is delivered.
-Set equal to Center Hold Low for non-random hold time.</value>
-  </data>
-  <data name="textBoxFCCtrHold.ToolTip" xml:space="preserve">
-    <value>Lower bound on random center hold time.  Center hold time is the time between when the cursor enters the center target and the stimulus is delevered.
-Set equal to Center Hold High for non-random hold time.</value>
-  </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>236, 17</value>
-  </metadata>
   <data name="textBoxCHH.ToolTip" xml:space="preserve">
     <value>Upper bound on random center hold time.  Center hold time is the time between when the cursor enters the center target and the outer target appears.
 Set equal to Center Hold Low for non-random hold time.</value>
@@ -152,6 +141,14 @@ Defines the workspace in which targets can be presented in cartesian coordinates
   <data name="textBoxRWTgtTol.ToolTip" xml:space="preserve">
     <value>Distance (in cm) from the displayed target the cursor must be to be counted as in the target.
 Use negative values to make the target smaller than displayed, positive ones to make the target larger than displayed.</value>
+  </data>
+  <data name="textBoxFCCueDelayLow.ToolTip" xml:space="preserve">
+    <value>Upper bound on random center hold time.  Center hold time is the time between when the cursor enters the center target and the stimulus is delivered.
+Set equal to Center Hold Low for non-random hold time.</value>
+  </data>
+  <data name="textBoxFCCtrHold.ToolTip" xml:space="preserve">
+    <value>Lower bound on random center hold time.  Center hold time is the time between when the cursor enters the center target and the stimulus is delevered.
+Set equal to Center Hold High for non-random hold time.</value>
   </data>
   <data name="label49.ToolTip" xml:space="preserve">
     <value>Number of gradations of test stimulation.

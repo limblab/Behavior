@@ -299,12 +299,12 @@ namespace BehaviorGraphics
             AddParamListItem("FC Recenter Cursor After Cue", "P16", "Behavior FC", this.checkBoxFCRecenterAfterCue);
             AddParamListItem("FC Lock Cursor During Cue", "P17", "Behavior FC", this.checkBoxFCLockCursorDuringCue);
 
-            // Training and Misc
-            AddParamListItem("FC Training frequency", "P18", "Behavior FC", this.textBoxFCTrainingTrialFreq);
-            AddParamListItem("FC Abort During Cue", "P19", "Behavior FC", this.checkBoxFCAbortDuringCue);
-            AddParamListItem("FC Force Reaction", "P20", "Behavior FC", this.checkBoxFCForceReactionTime);
-
+            // Bump part 1
+            AddParamListItem("FC Bump Off Min", "P18", "Behavior FC", this.textBoxFCBumpOffMin);
+            AddParamListItem("FC Bump Off Max", "P19", "Behavior FC", this.textBoxFCBumpOffMax);
+            
             // Cue Parameters
+            AddParamListItem("FC Bump Prob", "P20", "Behavior FC", this.textBoxFCBumpProb);
             AddParamListItem("FC Stim Probability", "P21", "Behavior FC", this.textBoxFCStimProb);
             AddParamListItem("FC Audio Prob", "P22", "Behavior FC", this.textBoxFCAudioProb);
             AddParamListItem("FC Pair Stim and Audio", "P23", "Behavior FC", this.checkBoxFCPairStimAndAudio);
@@ -346,6 +346,16 @@ namespace BehaviorGraphics
             AddParamListItem("FC Audio Code 13 Duration", "P55", "Behavior FC", this.textBoxFCAudioCue13Dur);
             AddParamListItem("FC Audio Code 14 Duration", "P56", "Behavior FC", this.textBoxFCAudioCue14Dur);
             AddParamListItem("FC Audio Code 15 Duration", "P57", "Behavior FC", this.textBoxFCAudioCue15Dur);
+            
+            // bump part 2
+            AddParamListItem("FC Bump Mag Time", "P58", "Behavior FC", this.textBoxFCBumpMag);
+            AddParamListItem("FC Bump Rise Time", "P59", "Behavior FC", this.textBoxFCBumpRise);
+            AddParamListItem("FC Bump Fall Time", "P60", "Behavior FC", this.textBoxFCBumpFall);
+            AddParamListItem("FC Bump Peak Time", "P61", "Behavior FC", this.textBoxFCBumpPeakTime);
+            AddParamListItem("FC Bump Dir", "P62", "Behavior FC", this.textBoxFCBumpDir);
+
+            AddParamListItem("FC Training Prob", "P63", "Behavior FC", this.textBoxFCTrainingProb);
+            
             #endregion
 
             #region Bump-stim
@@ -1677,7 +1687,7 @@ namespace BehaviorGraphics
                 AddParamListItem("OO colorB", "P13", "Behavior OutOut", this.textBoxOO_targetcolorB);
                 AddParamListItem("OO numtargs", "P14", "Behavior OutOut", this.numericUpDownOO_numtarget);
                 AddParamListItem("OO force mag", "P15", "Behavior OutOut", this.textBoxOO_forcemag);
-                
+                AddParamListItem("OO catch rate", "P16", "Behavior OutOut", this.textBoxOO_catchRate);
             #endregion
 
             #region ReceptorStim
@@ -3382,6 +3392,7 @@ namespace BehaviorGraphics
             }
             widget_ValueChanged(sender, e);
         }
+
  
 
 

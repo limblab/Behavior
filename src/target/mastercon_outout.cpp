@@ -30,7 +30,7 @@
  */
 
 
-#define DATABURST_VERSION ((byte)0x02) 
+#define DATABURST_VERSION ((byte)0x03) 
 
 // This must be custom defined for your behavior
 struct LocalParams {
@@ -55,6 +55,7 @@ struct LocalParams {
 	real_T targ_color_B;
 
 	real_T force_mag; 
+    real_T catch_prob;
 };
 
 /**
@@ -102,7 +103,7 @@ OutOutBehavior::OutOutBehavior(SimStruct *S) : RobotBehavior() {
 	params = new LocalParams();
 
 	// Set up the number of parameters you'll be using
-	this->setNumParams(15);
+	this->setNumParams(16);
 
 	// Identify each bound variable 
 	this->bindParamId(&params->master_reset,			0);
@@ -125,7 +126,8 @@ OutOutBehavior::OutOutBehavior(SimStruct *S) : RobotBehavior() {
 	this->bindParamId(&params->num_targets,				13);
 
 	this->bindParamId(&params->force_mag,				14);
-
+    this->bindParamId(&params->catch_prob,              15);
+    
 	// declare which already defined parameter is our master reset 
 	// (if you're using one) otherwise omit the following line
 	this->setMasterResetParamId(0);
@@ -182,7 +184,13 @@ void OutOutBehavior::doPreTrial(SimStruct *S) {
 	// Forces
 	this->bump->rise_time = 0.5;
 	this->bump->hold_duration = 10*params->movement_max_time; //make sure the bump stays on long enough
-	this->bump->peak_magnitude = params->force_mag;
+	if(random->getDouble(0,1) < params->catch_prob){
+        this->bump->peak_magnitude = 0;
+    } 
+    else {
+        this->bump->peak_magnitude = params->force_mag;
+    }
+    
 	double floc = 2*PI*random->getInteger(1,params->num_targets)/params->num_targets;
 	this->bump->direction = floc;
 	/*forces.x = params->force_mag*cos(floc);
@@ -207,6 +215,7 @@ void OutOutBehavior::doPreTrial(SimStruct *S) {
 	db->addFloat((float)endTarget->centerX);  // targ 2 X
 	db->addFloat((float)endTarget->centerY);  // targ 2 Y
 	db->addFloat((float)this->bump->direction); // force direction
+    db->addFloat((float)this->bump->peak_magnitude); // magnitude of bump
     db->start();
 
 }
