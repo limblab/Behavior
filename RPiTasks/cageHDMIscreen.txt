@@ -2,7 +2,7 @@
 
 # forcing HDMI mode for the cage screen
 hdmi_force_hotplug=1
-hdmi_grou = 2  
+hdmi_group = 2  
 hdmi_mode =87
 hdmi_cvt=800 480 60 6 0 0 0
 hdmi_drive=1

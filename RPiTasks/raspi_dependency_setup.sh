@@ -8,4 +8,4 @@ sudo pip3 install numpy pandas gpiozero pygame pynput spidev
 sudo apt-get install cowsay
 
 
-cat /boot/config.txt ./cageHDMIscreen.txt | sudo tee -a > /dev/null
+sudo cat ./cageHDMIscreen.txt >> /boot/config.txt

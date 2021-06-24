@@ -1,27 +1,18 @@
-#! /usr/bin/python3
 # -*- coding: utf-8 -*-
 """
-MultiGadget_Prox_Blocks()
+Created on Thu Mar 11 14:27:25 2021
 
-Key grasp, precision grasp, power grasp. 
+@author: benja
+"""
 
-
-Just a copy of the Multigadget task that was made to run the proximity sensors 
-and grasp sensors in blocks rather than every time
-    
-
-Notes on storage of task performance:
-    For the time being we'll plan to store everything on the SD card, with 
-    the plan of using the cbsdk or someother method to store to the cerebus 
-    through comments in the future.
-
+"""
+FSR calibration code for Ben. 
 """
 
 # import all needed modules
 import sys, os, pygame, random, gpiozero, csv
 from datetime import datetime as dt
 from time import sleep
-from math import floor
 
 
 """ ##########################################################################
@@ -48,18 +39,14 @@ WORD_CATCH = 0x32
 
 
 # state machine
-STATE_PROX = 0
-STATE_GRASP = 1
+STATE_START_TRIAL = 0
+STATE_MOVEMENT = 1
 STATE_REWARD = 2
 STATE_BETWEEN_TRIALS = 3
 
 state = STATE_BETWEEN_TRIALS
 
-# number of trials of each variety per block. Easiest version for now.
-NUM_BLOCKS = 2
-TRIAL_PER_BLOCK = 3
-blockNum = 0 # out of NUM_BLOCKS
-trialNum = 0 # out of TRIAL_PER_BLOCK
+
 
 
 """ ##########################################################################
@@ -120,59 +107,22 @@ class device():
             self.cursRect.center = [(.1*X)+(.9*self.cursRect.center[0]),(.1*Y)+(.9*self.cursRect.center[1])]
             screen.blit(self.cursImage,self.cursRect)
             print(X,' ',Y)
-        else:
-            self.cursRect.center = [-100,-100]
             
         
     def activate_device(self):
         self.activated = True
+        self.cursRect.center = [100,100]
         for led in self.LED:
             led.on() # turn the LED on
         
     def deactivate_device(self):
         self.activated = False
+        self.cursRect.center = [100,100]
         for led in self.LED:
             led.off()
 
-# ----------------------------------------------------------------------------
-### proximity sensor class -- makes it easier to turn on and off
-class proxSensor():
-    def __init__(self,signal=gpiozero.LineSensor(14,pull_up=False),irLED=gpiozero.LED(15)):
-        self.signal = signal
-        self.irLED = irLED
-        self.enabled = False
-        
-    def enable_device(self):
-        if not self.enabled:
-            self.irLED.on()
-            self.active = True
-        
-    def disable_device(self):
-        if self.enabled:
-            self.irLED.off()
-            self.enabled = False
-    
-    def monkey_in_corner(self):
-        return self.signal.value
 
-# ----------------------------------------------------------------------------
-### reward button -- activate the LEDs, turn on solenoid etc all in one spot
-class rewardButton():
-    def __init__(self, signal=gpiozero.Button(18,pull_up=False,hold_time=.1), LED=gpiozero.LED(17), sol=gpiozero.DigitalOutputDevice(20)):
-        self.signal = signal
-        self.LED = LED
-        self.sol = sol
-        self.LED.off()
-        self.sol.off()
-        
-    def reward(self,dispenseTime,rewardSound):
-        self.LED.on() # tell the monkey they can press the button
-        self.signal.wait_for_press() # wait until they press the button
-        rewardSound.play() # play the reward tone
-        self.sol.on()
-        sleep(dispenseTime)
-        self.sol.off()
-        self.LED.off()
+
 
 # ----------------------------------------------------------------------------
 ### random delay generators -- so that it's a little cleaner in the main loop
@@ -204,7 +154,6 @@ def restart_task(devDict,tgtDict):
 
     return dev,tgt
 
-
     
 
 '''###########################################################################
@@ -219,25 +168,21 @@ def restart_task(devDict,tgtDict):
 # devices.DeviceOne.LED = gpiozero.LED(12)
 devDict = {'Powergrasp': device('Powergrasp',gpiozero.MCP3004(channel=0,device=0),
                                 gpiozero.MCP3004(channel=1,device=0),
-                                1.2,-0.25,gpiozero.LED(16),'./textures/face.tga')}
+                                1.1,-0.25,gpiozero.LED(16),'./textures/face.tga')}
 
 
 
 ### initialize the targets with desired locations (in inches)
-tgtDict = {1: target(0,    1,   4,   0.5),
-           2: target(0, 0.75,   4,   0.5),
-           3: target(0,  0.5,   4,   0.5)}
+tgtDict = {1: target(0, 1,   4,   0.5),
+           2: target(0, 0.85,   4,   0.5),
+           3: target(0, 0.75,   4,   0.5)}
 
 
 ### initialize all of the wait times
-targetHoldTime = delayGenerator(.25, .75) # how long do they have to be in the target?
-dispenseTime = delayGenerator(.5, 1) # time to receive the reward
-interTrialTime = delayGenerator(1.5, 5) # time between trials
+targetHoldTime = delayGenerator(.55, .75) # how long do they have to be in the target?
+dispenseTime = delayGenerator(.25, 0.5) # time to receive the reward
+interTrialTime = delayGenerator(2.5, 5) # time between trials
 
-# initialize the reward and prox sensors
-rButton = rewardButton()
-prox = proxSensor()
-prox.enable_device()
 
 '''###########################################################################
 ### Initialize pygame -- display, sounds etc
@@ -245,12 +190,16 @@ prox.enable_device()
 
 ### initialize some screen stuff
 pygame.init()
-screen = pygame.display.set_mode(size=SIZE,flags=(pygame.FULLSCREEN|pygame.NOFRAME))
+screen = pygame.display.set_mode(SIZE,(pygame.FULLSCREEN|pygame.NOFRAME))
 blank_screen(screen)
 pygame.mouse.set_visible(False)
 pygame.event.clear()
-dev,tgt = restart_task(devDict,tgtDict) # new devices and targets
-targetHoldCurr = dt.now()
+
+
+font = pygame.font.SysFont(None, 25)
+def message_to_screen(msg, color):
+    screen_text = font.render(msg, True, color)
+    gameDisplay.blit(screen_text, [800*2/3, 480*2/3])
 
 ### initialize the sound stuff
 pygame.mixer.init(frequency=163840,buffer=32000) # mister owl, why are these sampling frequencies so weird?
@@ -284,59 +233,21 @@ while True:
                 pygame.display.toggle_fullscreen()
  
     
-    if state == STATE_PROX: # starting a new trial. For the time being we'll set this up to work with the prox sensor
-        screen.fill(YELLOW)
-        pygame.display.flip()
-        if prox.monkey_in_corner() == True: # is the monkey in the corner?
-            prox.disable_device() # turn off the prox sensor
-            tgt.draw(screen)
-            trialNum += 1
-            state = STATE_REWARD
-        
-        
-        
-    elif state == STATE_GRASP:
-        screen.fill(BLACK)
-        tgt.draw(screen)
-        dev.update_cursor(screen)
-        pygame.display.flip()
-        if tgt.isOver(dev.cursRect): # if he's inside of the target
-            elapsed = (dt.now()-targetHoldCurr)
-            elapsed = elapsed.seconds + (elapsed.microseconds/100000)
-            if elapsed > targetHoldTime.current: # and has been there for long enough
-                goSound.play() # play the sound to go to the reward
-                state = STATE_REWARD # update to the next state
-                blank_screen(screen) # clear out the screen -- do we want to flash green or something?
-                dev.deactivate_device() # turn off the device
-                trialNum += 1
-        else:
-            targetHoldCurr = dt.now() # keep updating the current target hold counter
-        
-            
-     
-    elif state == STATE_REWARD:
-        screen.fill(GREEN)
-        pygame.display.flip()
-        rButton.reward(dispenseTime.current, rewardSound) # get the reward button going
-        blockNum = (floor(trialNum/TRIAL_PER_BLOCK)+blockNum) % NUM_BLOCKS
-        trialNum %= TRIAL_PER_BLOCK
-        state = STATE_BETWEEN_TRIALS
+    if state == STATE_MOVEMENT:
+        screen.fill(BLACK) # clear the screen
+        dev.update_cursor(screen) # draw cursor
+        pygame.display.flip() # turn the display on
+        message_to_screen('Value of FSR0 is '+str(dev.FSR[0].value)+', value of FSR1 is '+str(dev.FSR[1].value), WHITE) #tell me what the FSR values are
+
         
         
     elif state == STATE_BETWEEN_TRIALS:
         blank_screen(screen) # clear the screen
         sleep(interTrialTime.current) # wait for the intertrial time
         interTrialTime.reroll() # trial timing
-        dispenseTime.reroll() # next dispense time
-        goSound.play() # tell the monkey to do his business
-        
-        if blockNum == 0: # if it's a prox trial
-            state = STATE_PROX
-            prox.enable_device()
-            
-        elif blockNum == 1: # if it's a grasp trial
-            state = STATE_GRASP
-            dev,tgt = restart_task(devDict,tgtDict) # new devices and targets
-            targetHoldTime.reroll()                        
-            dev.activate_device()
-            targetHoldCurr = dt.now() # keep updating the current target hold counter
+        targetHoldTime.reroll()
+        dispenseTime.reroll()
+        dev,tgt = restart_task(devDict,tgtDict) # new devices and targets
+        goSound.play()
+        dev.activate_device()
+        state = STATE_MOVEMENT
