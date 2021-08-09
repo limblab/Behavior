@@ -223,7 +223,7 @@ def packUDPComment(comment):
     dLen = 34 # 128/4 (cbMAX_COMMENT in uint32_t) + charset,flags,rsrvd and data
     
     
-    return pack('L H B B B B H L 128s', int(tt), chid, pktType, dLen,charset,flags,rsrvd,int(tt),comment.encode('ANSI'))
+    return pack('L H B B B B H L 128s', int(tt), chid, pktType, dLen,charset,flags,rsrvd,int(tt),fullComment)
     
 
     
@@ -318,6 +318,8 @@ while True:
             targetHoldCurr = dt.now() # keeping track of the amount of time the monkey has been in the target
             tgt.draw(screen)
             state = STATE_MOVEMENT
+            comment = packUDPComment('state: STATE_MOVEMENT') # setup the UDP to sent to the cerebus
+            UDPClientSocket.sendto(comment,serverAddressPort) # send it
             
         
         
@@ -333,6 +335,8 @@ while True:
             if elapsed > targetHoldTime.current: # and has been there for long enough
                 goSound.play() # play the sound to go to the reward
                 state = STATE_REWARD # update to the next state
+                comment = packUDPComment('state: STATE_REWARD') # setup the UDP to sent to the cerebus
+                UDPClientSocket.sendto(comment,serverAddressPort) # send it
                 blank_screen(screen) # clear out the screen -- do we want to flash green or something?
                 dev.deactivate_device() # turn off the device
         else:
@@ -345,6 +349,8 @@ while True:
         pygame.display.flip()
         rButton.reward(dispenseTime.current, rewardSound) # get the reward button going
         state = STATE_BETWEEN_TRIALS
+        comment = packUDPComment('state: STATE_REWARD') # setup the UDP to sent to the cerebus
+        UDPClientSocket.sendto(comment,serverAddressPort) # send it
         
         
     elif state == STATE_BETWEEN_TRIALS:
@@ -357,4 +363,5 @@ while True:
         goSound.play()
         prox.enable_device()
         state = STATE_START_TRIAL
-
+        comment = packUDPComment('state: STATE_START_TRIAL') # setup the UDP to sent to the cerebus
+        UDPClientSocket.sendto(comment,serverAddressPort) # send it
