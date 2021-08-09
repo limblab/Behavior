@@ -219,7 +219,6 @@ class cerebusUDPSocket():
 
 
 
-
 ''' ##########################################################################
 ### Defining submodules
 ###########################################################################'''
@@ -237,7 +236,6 @@ def restart_task(devDict,tgtDict):
 
     return dev,tgt
 
-    
 
 
 '''###########################################################################
@@ -359,8 +357,8 @@ while True:
         rButton.reward(dispenseTime.current, rewardSound) # get the reward button going
         state = STATE_BETWEEN_TRIALS
         cerSocket.send('STATE: between_trials')
-        
-        
+       
+
     elif state == STATE_BETWEEN_TRIALS:
         blank_screen(screen) # clear the screen
         sleep(interTrialTime.current) # wait for the intertrial time
