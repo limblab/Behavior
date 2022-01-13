@@ -114,18 +114,14 @@ class device():
 
     # update the cursor location and display
     def update_cursor(self,screen,cerebusSocket):
-        
-        if self.activated:
-            cursX = (self.FSR[1].value - self.FSR[0].value) * self.gain
-            cursY = (self.FSR[0].value + self.FSR[1].value) * self.gain + self.offset
-            X = (800/6)*cursX + 400 # screen is 6 in wide, 800 pixels -- switch from inches to pixels
-            Y = (-480/3.25)*cursY + 240 # screen is 3.25 in tall, 480 pixels -- inches to pixels and flip direction
-            self.cursRect.center = [(.1*X)+(.9*self.cursRect.center[0]),(.1*Y)+(.9*self.cursRect.center[1])]
-            screen.blit(self.cursImage,self.cursRect)
-            cerebusSocket.send('CURSOR: X:' + str(cursX) + ' Y:' + str(cursY) + 
+        cursX = (self.FSR[1].value - self.FSR[0].value) * self.gain
+        cursY = (self.FSR[0].value + self.FSR[1].value) * self.gain + self.offset
+        X = (800/6)*cursX + 400 # screen is 6 in wide, 800 pixels -- switch from inches to pixels
+        Y = (-480/3.25)*cursY + 240 # screen is 3.25 in tall, 480 pixels -- inches to pixels and flip direction
+        self.cursRect.center = [(.1*X)+(.9*self.cursRect.center[0]),(.1*Y)+(.9*self.cursRect.center[1])]
+        screen.blit(self.cursImage,self.cursRect)
+        cerebusSocket.send('CURSOR: X:' + str(cursX) + ' Y:' + str(cursY) + 
                                ' FSR0:' + str(self.FSR[0].value) + ' FSR1:' + str(self.FSR[1].value))
-        else:
-            self.cursRect.center = [-100,-100]
             
         
     def activate_device(self):
@@ -137,6 +133,14 @@ class device():
         self.activated = False
         for led in self.LED:
             led.off()
+
+    def device_released(self):
+        # to make sure the device is released before we give a reward
+        activityY = (self.FSR[0].value + self.FSR[1].value) * self.gain + self.offset
+        if activityY:
+            return False
+        else:
+            return True
 
 # ----------------------------------------------------------------------------
 ### proximity sensor class -- makes it easier to turn on and off
@@ -201,8 +205,8 @@ class cerebusUDPSocket():
     
     def send(self,comment):
         tt          = time.time() # current posix timestamp
-        chid        = 0x8000    # always set to this, there's no real channel in this case
-        pktType     = 0xB1      # cbPKTTYPE_COMMENTSET = 0xB1
+        chid        = 0x8000    # always set to this, lets the cb know what's going on
+        pktType     = 0xB1      # cbPKTTYPE_COMMENTSET = 0xB1 -- it's a comment
         
         charset     = 0         # ANSI
         flags       = 0x01      # cbCOMMENT_FLAG_TIMESTAMP -- is this what we want?
@@ -354,9 +358,10 @@ while True:
     elif state == STATE_REWARD:
         screen.fill(GREEN)
         pygame.display.flip()
-        rButton.reward(dispenseTime.current, rewardSound) # get the reward button going
-        state = STATE_BETWEEN_TRIALS
-        cerSocket.send('STATE: between_trials')
+        if dev.device_released():
+            rButton.reward(dispenseTime.current, rewardSound) # get the reward button going
+            state = STATE_BETWEEN_TRIALS
+            cerSocket.send('STATE: between_trials')
        
 
     elif state == STATE_BETWEEN_TRIALS:
